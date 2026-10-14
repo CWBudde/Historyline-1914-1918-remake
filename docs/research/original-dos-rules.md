@@ -1,0 +1,254 @@
+# Original DOS rules recovered from disassembly
+
+The supplied DOS `HL.EXE` contains readable 16-bit x86 code and separate compressed
+unit and terrain tables. Its rules differ substantially from the Python reference:
+orders use movement and action cycles, experience stops at six, combat uses integer
+group calculations, and production and repair consume energy. Exact DOS fidelity
+therefore requires changes beyond the current Go `Standard` movement fixes.
+
+This is a first static analysis of the supplied executable, dated 2026-10-15.
+Instruction addresses below establish specific operations; the combat transcription
+and complete order sequence still need execution against original-game fixtures.
+The disassembly is available locally; it is not a recovery of the original C source.
+
+## Reproduce the disassembly
+
+```sh
+python3 -m unittest discover -s tools/original-rules -v
+python3 tools/original-rules/disassemble.py
+```
+
+See [the analysis tool](../../tools/original-rules/README.md). The default generated
+directory is `build/original-rules/dos-full/`, which Git ignores. It contains the
+complete linear listing, segment listings, named instruction windows, source hashes,
+relocations, strings, call indexes and decoded tables. Nothing in the original
+installation is modified. Use a fresh `--out` directory for another run.
+
+The executable identity is:
+
+| Property | Value |
+|---|---|
+| File | `original/extracted/dos-full/HL.EXE` |
+| SHA-256 | `fe4fa44699ef36df0f1152786557e790651f44b836f9f6bffd3ca5dcc38a9b92` |
+| File bytes | 278,768 |
+| MZ header bytes | 24,576 (`0x6000`) |
+| Load image bytes | 254,192 |
+| Relocations | 5,824 |
+| Initial CS:IP | `0000:0000`, relative to the load image |
+| Initial SS:SP | `3e07:0080`, relative to the load image |
+| Compiler evidence | Embedded Borland C++ copyright string and runtime helpers |
+
+`HL14-18.EXE` is a separate 11,872-byte executable; gameplay analysis targets
+`HL.EXE`. `HL14-18.LST` is an installation file manifest, not assembly source.
+
+Addresses use **unrelocated segment:offset**. Their original file offset is
+`0x6000 + 16 * segment + offset`; a listing in `segments/` uses the offset column
+relative to its named segment. For example, `2466:000e` is file offset `0x2a66e`.
+Data addresses use the same convention but identify data, not instructions.
+
+The full listing is a linear sweep: jump tables and embedded data also decode into
+apparent instructions. The 123 relocation-derived segment views overlap at paragraph
+boundaries. They are not 123 identified functions. Named windows start at traced
+instruction boundaries and avoid truncating functions at overlapping segment starts.
+
+## Rule evidence and implications
+
+| Rule | Evidence | Implication for the remake |
+|---|---|---|
+| Separate movement and action order cycles | [Manual orders](../manual/instructions/orders.typ), especially Moving the Units and Change of Mode; `02dc:0004` processes stored unit orders | An alternating immediate move/attack turn is insufficient for fidelity. Full resolution order remains to be traced. |
+| Experience caps at **6** | `02dc:0a61–0abb` adds combat gains and clamps both participants to six | The reference's rank cap of ten does not match this build. |
+| Group size is unit-specific | `15a4:0071–0078` copies type byte 3 into live unit byte 2; unit information reads the same type byte | Most groups have six members; some bombers and bunkers have three. |
+| Combat selects power by target domain | `2466:01c2–0217`, `032d–035e` selects air, water or ground power using live target flags | There are three power values, not one interchangeable attack rating. |
+| Return fire is conditional | `2466:0045–00a4` sets suppression; `0a22–0a68` skips attacker losses when suppressed | Nonadjacent attacks do not receive ordinary return fire. Target compatibility and special/artillery flags matter too. |
+| Range reduces attacking power | `2466:0220–02de` | Use the integer calculation below, not the Python distance modifier. |
+| Pincer support depends on relative direction | `02dc:262a–2759`; table at `32f7:0011` | Position contributes 25/50/100/50/25 around the defender. |
+| Blocking differs from the manual | `02dc:275e–27ec` | This DOS build accumulates 80 per qualifying blocking neighbour, capped at 150. Preserve the discrepancy described below. |
+| Repairs cost **15**, or **50** for construction units | `0660:3115–315b` selects price, `315f–3172` checks energy, `31fb–3209` subtracts it | Cost is independent of damage. |
+| Repair restores group strength and preserves experience | `0660:3225–325e` restores type byte 3 to live byte 2; it does not reset live byte 1 | A veteran unit retains its experience. Construction repair also restores its secondary state to two. |
+| Production price, transport capacity and weight come from unit data | Unit information `272c:0913–0950`, `0a0f` onward; table bytes 63–65 | Use original type-specific values when implementing production/loading. |
+| Inventories have **seven slots per side/view** in the traced structures | `10d2:17ce–183b` counts seven entries; `0e47:0252–02fc` loads seven entries | The Python 2 × 9 inventory grid is not evidence of original capacity. Slot count and weight capacity are separate limits. |
+| Score options multiply the base score | `02dc:29c9–2b1c` | Hidden inventories add 100; limits 4/8/16 multiply by 4/3/2. The score caps at 32,500. |
+
+The manual additionally specifies infantry/cavalry capture, capture of a building's
+contents, two half-depot construction operations, restricted factory availability,
+and victory by occupying the HQ. These are documented rules, but their complete
+binary paths are not yet traced here. See [world](../manual/instructions/world.typ)
+and [orders](../manual/instructions/orders.typ). They should remain distinct from
+binary-confirmed constants.
+
+## Unit and terrain records
+
+DOS TPWM files begin with `TPWM`, followed by a **little-endian** output length.
+Flags run from the most significant bit down. A clear bit emits a literal; a set
+bit copies `(first_byte & 15) + 3` bytes from distance
+`((first_byte & 0xf0) << 4) | second_byte`, permitting overlapping copies. The final
+copy stops at the declared output size. All five decoded files consume their packed
+streams exactly in this installation.
+
+| Input | Stored bytes | Decoded bytes | Structure |
+|---|---:|---:|---|
+| `UNIT.DAT` | 1,455 | 3,519 | 51 × 69-byte records |
+| `WW1GNDS.DAT` | 269 | 1,050 | 175 × 6-byte summer terrain records |
+| `WW1GNDW.DAT` | 270 | 1,050 | 175 × 6-byte winter terrain records |
+| `NEWUNIT.DAT` | 5,357 | 9,807 | Decoded; schema unresolved |
+| `MNUDATA.DAT` | 1,383 | 4,878 | Decoded; schema unresolved |
+
+The 51 type records include repeated naval types with different flags; this does
+not mean 51 distinct named units. Runtime constructor `15a4:0009` indexes types by
+69 bytes and live unit records by 26 bytes. The tables load at `32f7:09c5` and
+`32f7:05ab`; live units begin at `32f7:18a4`.
+
+| Unit type byte offset | Interpretation |
+|---:|---|
+| 0 | Raw movement budget, copied into live unit byte 0 |
+| 1 | Speed shown in unit information |
+| 2 | Armour |
+| 3 | Maximum group strength |
+| 4 | Secondary initial strength/state; exact interpretation depends on flags |
+| 5 | Movement mask |
+| 6–7 | Target/action flags; retained as raw bits by the exporter |
+| 8 | Encoded air range; the information display subtracts one |
+| 9 | Encoded surface range; the information display subtracts one |
+| 10, 11, 12 | Air, ground, water firepower |
+| 13–18 | Three flag words; only selected uses traced |
+| 27–43 | Short category label |
+| 44–60 | Long unit label |
+| 61–62 | Per-side mutable identifiers, used/incremented by the constructor |
+| 63 | Production cost field |
+| 64 | Capacity field |
+| 65 | Weight field |
+
+All other bytes remain preserved in `units.csv` as raw hex. Unknown fields should
+not be renamed to ammo, fuel, sight or experience without tracing their consumers.
+In particular, the raw movement budget and displayed speed are different values.
+
+Some useful decoded examples are:
+
+| Type index and name | Budget / displayed speed | Armour | Max group | Ground power | Surface range shown | Cost / capacity / weight |
+|---|---|---:|---:|---:|---:|---|
+| 0 Armoured Car | 16 / 6 | 30 | 6 | 35 | 1 | 55 / 0 / 3 |
+| 10 Light Artillery | 8 / 2 | 25 | 6 | 45 | 3 | 55 / 0 / 3 |
+| 12 Heavy Artillery | 4 / 1 | 25 | 6 | 70 | 6 | 85 / 0 / 5 |
+| 18 Infantry | 12 / 4 | 20 | 6 | 30 | 1 | 35 / 0 / 1 |
+| 22 Supply Car | 18 / 7 | 20 | 6 | 0 | 0 | 45 / 9 / 4 |
+
+For terrain, bytes 0–1 are flags, byte 2 is a movement mask, byte 3 is a movement
+cost, byte 4 remains unnamed, and byte 5 selects a combat modifier pair. The mask
+intersection is visible at `10d2:13c0–13fc`. The extracted raw costs are not yet a
+complete pathfinding specification: road transitions, occupancy, exit budgets and
+zones of control still need tracing. Terrain indices must also be mapped to named
+tiles before using these tables as game data.
+
+## Combat arithmetic
+
+The complete casualty routine is `2466:000e–0abb`, saved as `windows/combat.asm`.
+It uses 32-bit integer helper routines: `0000:03a1` multiplies, `0000:03dc` divides
+with signed truncation toward zero, and `0000:048a` shifts left. Preserving the order
+of integer operations matters. The following is a static transcription, pending
+comparison with actual execution; it is not yet an engine-ready combat oracle.
+
+### Range and support
+
+Let `P` be the selected attacking power, `R` its encoded range byte, and `d` the
+hex distance returned by `0e47:2414`. When `R > 1`, the routine computes:
+
+```text
+P = P - trunc(3 * P * (d - 1) / (4 * R))
+```
+
+The pincer routine examines eligible friendly neighbours around the defender.
+Eligibility includes target compatibility, ownership and exclusion of units with
+the long-range flag (`02dc:293d–2997`). Its five relative direction weights are
+`25, 50, 100, 50, 25`, with zero in the attacker's own direction. The sum is stored
+in an **8-bit** value. There is a comparison with 300, but that cap cannot be reached
+by the zero-extended byte. Do not silently replace the code with a 300% cap.
+
+For blocking, the two flanking positions around the attacker each add **80**, and
+the stored total is capped at **150**. The English manual says each blocker adds
+one quarter to defence. The consumer at `2466:03b3–03fc` applies the binary value
+as a percentage to defender armour, so this discrepancy is material. It needs a
+controlled DOS battle, not an assumption that the manual's 25% wins.
+
+Both support adjustments use 16.16 intermediate arithmetic:
+
+```text
+adjust(value, bonus) = high16((value << 16) + trunc((value << 16) / 100) * bonus)
+```
+
+The attacking power and defender armour receive the respective adjustments at
+`2466:0367–03fc`. The pincer is calculated before entering the core routine; the
+caller and eligibility paths must be considered when testing ranged encounters.
+
+### Terrain and experience
+
+The signed terrain pairs at `3ac5:0008` are indexed by terrain byte 5:
+
+| Class | Attack term | Defence term |
+|---:|---:|---:|
+| 0 | 2 | 3 |
+| 1 | -1 | 2 |
+| 2 | -2 | 2 |
+| 3 | -1 | -1 |
+| 4 | 0 | -1 |
+| 5 | 0 | -1 |
+| 6 | 2 | 4 |
+| 7 | 0 | 0 |
+| 8 | 0 | 0 |
+
+These class numbers are not named terrain types. Each attack terrain term multiplies
+`trunc(power / 2)`; each defence term multiplies `trunc(armour / 2)`.
+
+With group count `n` and experience `e`, the routine forms `E = e + 1` and
+`F = trunc((E << 8) / 6) + 1`. It adds a base `value * n`, an experience term
+`trunc(value * n * F / divisor)`, and the terrain term. The divisor is **256** for
+both attack totals and attacker defence, but **512** for defender defence
+(`2466:06c9`). That asymmetry is present in the instructions.
+
+### Casualties and return fire
+
+Attack totals minus opposing defence totals produce two signed margins. Each is
+divided by an armour/experience denominator. The attacker's experience-derived
+denominator parameter keeps `E` from 1 through 7; the defender's corresponding
+parameter substitutes 2 for `E <= 1` and 6 for `E >= 7`. The denominator is
+`trunc(opposing_armour * (8 - parameter) / 2)` (`2466:077f–086a`). These edge
+conditions are asymmetric too.
+
+Further branches can force one casualty when the quotient is nonpositive but
+attack strength exceeds a secondary threshold. Values strictly between 6 and 12
+become 6; losses are then limited to twice the firing group's size, clamped to
+zero and capped by the opposing group size (`2466:086d–0a13`). A simple
+`max(0, power - armour)` expression misses these branches.
+
+The routine calculates both sides using the pre-battle strengths. Return-fire
+suppression prevents the attacker writeback when the target has a special flag,
+the units are nonadjacent, target masks do not match, or the adjacent defender has
+the long-range flag. Alternate-strength units update live byte 3; ordinary units
+update byte 2. Reaching zero secondary strength also zeroes primary strength.
+
+At `2466:03ff–0440`, a callback seeds the RNG. Initialization at `0660:0ce7–0cf0`
+binds that callback to `0000:07ab`, which only stores the seed. There is **no random
+draw in this casualty routine**. The exact routine therefore does not support
+copying the Python random damage term. Randomness elsewhere, including animations
+or order scheduling, has not been excluded.
+
+## Next verification needed for exact fidelity
+
+1. Execute `2466:000e` with synthetic battle contexts in a 16-bit emulator, preserving
+   MZ relocations, far pointers and Borland integer semantics. Compare both strength
+   writebacks against a transcription across terrain classes, ranks and ranges.
+2. Capture controlled DOS battles for the manual discrepancies: blocking values,
+   experience awards on a kill, ranged pincer eligibility and asymmetric attacker/
+   defender experience terms. The rank cap is traced; exact gain semantics need
+   fixtures rather than the manual's wording alone.
+3. Trace movement costs and destination restrictions in `0b06` and `10d2`, including
+   enemy adjacency, roads/rails/water, hidden occupants, transport weights and exits.
+4. Finish the order scheduler and capture/production/construction paths. Establish
+   cycle ordering, simultaneous-order conflicts, energy credit timing, repair timing,
+   ownership transfer, map availability and victory checks.
+5. Add an explicitly named original-DOS rules mode and regression fixtures only after
+   those checks. Keep existing Python parity fixtures identified as Python behavior.
+
+No gameplay behavior was changed by this investigation. The current Go `Classic`
+mode is Python parity, and `Standard` adds selected fixes; neither name establishes
+1992 DOS rule fidelity. The appropriate next implementation target is a verified
+rules specification and combat oracle, followed by the cycle scheduler.

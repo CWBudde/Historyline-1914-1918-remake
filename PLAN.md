@@ -11,6 +11,12 @@ modern illustrated treatment with familiar layouts, constrained by fidelity: whe
 each tile should look approximately 90% the same as the 1992 original. Preserve composition,
 silhouette, palette, landmarks and connections; add detail within those constraints.
 
+**Rules target:** recover and verify the original game's rules, using the supplied DOS
+`HL.EXE` as the current executable baseline. Keep the existing Python parity and improved
+turn-based rules available during migration. Neither current `Classic` nor `Standard` means
+original-game fidelity. DOS/Amiga rule differences and intentional departures remain explicit
+decisions; the Amiga visual reference does not establish identical gameplay across platforms.
+
 **Architecture:** continue the Go port while running the graphics/UI track in Section 4 in
 parallel. Stable asset IDs connect game data to independent art packs. Shared geometry,
 connection templates and an in-engine preview establish seamless joins before bulk production.
@@ -23,6 +29,8 @@ implementation plans to be written for each milestone before execution.
 > **For implementers:** retain completed items and the Python reference. Execute a selected
 > milestone using the executing-plans workflow; unchecked tasks and proposed tools below are
 > future work, not existing capabilities. A playable parity build is not the final visual remake.
+> Original-rule milestones also require execution evidence: static disassembly and passing
+> extraction tests establish a research baseline, not a verified gameplay implementation.
 
 ---
 
@@ -117,10 +125,10 @@ internal/hexgrid/           offset<->cube coords, neighbours, distance, ring/ran
 internal/data/              terrain, infrastructure, unit and weapon definitions (embedded YAML/JSON)
 internal/level/             load/save of the existing levels/*.json format (+ versioned successor)
 internal/game/              pure rules engine — no rendering, no ebiten import
-    state.go                Map, Hex, Unit, Container, Player, Turn
-    commands.go             Move, Attack, Load, Unload, Produce, Resupply, EndTurn
+    state.go                Map, Hex, Unit, Container, Player; profile/cycle/order state in R3
+    commands.go             compatibility commands; queued orders and cycle confirmation in R3
     movement.go             Dijkstra with terrain cost, ZOC, movement types
-    combat.go               battle resolution with injectable RNG
+    combat.go               Python-compatible resolution; verified DOS integer resolver in R1
     vision.go               per-player fog of war
 internal/ai/                computer player working through the command API
 internal/ui/                ebiten Game: renderer, camera, input, menus, panels, animations
@@ -130,6 +138,8 @@ assets/generated/           runtime manifests and 2x/4x PNG packs (Section 4.6)
 art/                        editable masters, geometry, generation recipes; not embedded
 cmd/hlasset/                offline asset validation/build/review tool (graphics milestone G1)
 cmd/hlartpreview/           Ebitengine art and seam workbench (graphics milestone G1)
+tools/original-rules/       existing local DOS disassembly and table extraction recipe
+docs/research/              original-DOS findings; verified rule specification/fixture contracts next
 ```
 
 **Principles:**
@@ -137,9 +147,18 @@ cmd/hlartpreview/           Ebitengine art and seam workbench (graphics mileston
 - **Rules and rendering are separate.** `internal/game` is deterministic and fully unit-tested.
   The UI only sends commands and plays back the events the engine returns (moved, attacked,
   died, captured, …). The AI, save games, replays and tests all build on this split.
-- **Data-driven.** Unit, weapon and terrain stats move out of code into data files. Tests check
-  that the ported values match `hlrData.py` exactly.
-- **Two-phase porting.** First reach parity (the Python rules, bugs fixed), then extend.
+- **Data-driven, with source identity.** Preserve Python tables and parity tests against
+  `hlrData.py`. Keep DOS type/terrain IDs and data separate until mappings and field semantics
+  are verified; shared visual IDs must not merge distinct gameplay records or naval states.
+- **Compatibility and original fidelity are separate milestones.** Preserve `Classic` Python
+  behavior and the existing `Standard` fixes. Introduce a versioned original-DOS profile
+  through R1–R3 below; do not approximate it by enabling every existing rules flag.
+  Store profile/data versions in saves, replays and fixtures. Default-profile migration and
+  any deliberate corrections to original quirks must be explicit.
+- **Evidence before original-rule claims.** Track binary-confirmed operations, manual rules,
+  execution-verified behavior and hypotheses separately in the rule specification. Resolve
+  disagreements with controlled original execution. Do not copy the Python random damage,
+  ammo/fuel mechanics, action limits or container layout into the DOS profile by assumption.
 - **Art fidelity and independence.** Recreate assets from verified references; preserve stable
   terrain/unit IDs and level topology. New detail must survive the downsample comparison.
   Keep reference art and replacement packs separate until coverage is complete.
@@ -233,7 +252,9 @@ cmd/hlartpreview/           Ebitengine art and seam workbench (graphics mileston
 - [ ] Minimap with view rectangle and click-to-jump
 - [ ] Terrain panel (movement/battle/sight bars), and unit panel (flag, rank, picture, stats,
       skills, four weapon rows)
-- [ ] Action menu (move / attack / contents / exit), weapon menu, content menu (2 × 9 grid)
+- [ ] Action menu (move / attack / contents / exit), weapon menu, content menu (Python 2 × 9
+      grid for parity). Keep layout and available actions driven by the selected rules profile;
+      R3/R4 add cycle orders and verified inventory limits.
 - [ ] Overlays for reachable and attackable hexes. Movement animation along the path with
       rotation.
 - [ ] Battle screen (result bars, sizes, ranks, weapons), hit markers, explosion animation,
@@ -243,8 +264,17 @@ cmd/hlartpreview/           Ebitengine art and seam workbench (graphics mileston
 - [ ] Dev flags: `-reveal`, `-hexnumbers`
 - [ ] **Milestone:** all three levels play the same as in Python (apart from the fixed bugs).
       Reference artwork is acceptable at this milestone; visual completion requires G5.
+      Label this Python/Standard parity. It does not satisfy the original-DOS rules gate.
 
-### Phase 3 — Complete the rules
+### Phase 3 — Verify and implement the original rules
+
+The [DOS investigation](docs/research/original-dos-rules.md) and
+[reproduction tool](tools/original-rules/README.md) replace the earlier assumption that the
+Python formula and a move-or-attack turn are sufficient. Implement the milestones in order
+R0 → R1 → R2 → R3 → R4 → R5; independent research can overlap, and Phase 2/G0/G1 may continue.
+The completed compatibility work below remains useful and stays completed.
+
+#### Existing Standard compatibility fixes
 
 - [x] Movement points: the terrain `movementModifier` is the cost and roads are cheap. Use
       Dijkstra and show the remaining points.
@@ -253,9 +283,9 @@ cmd/hlartpreview/           Ebitengine art and seam workbench (graphics mileston
       grass 2, forest 3), and `Movable` returns `Route{Path, Cost, Left}` from a Dijkstra
       search. A unit with its full budget may always make one step. Own units are passed,
       enemies and unseen hexes block, buildings and carriers are only a final stop (enemy and
-      neutral buildings need the capture skill). The point scale is a choice; the original
-      manual gives no numbers.
-- [ ] Zone of control: hexes next to an enemy cost extra or stop movement (upstream TODO)
+      neutral buildings need the capture skill). The 2 × speed scale and guaranteed first
+      step are Standard design choices. The DOS tables distinguish raw movement budget from
+      displayed speed; R2 must establish their original relationship to terrain costs.
 - [x] Pathfinding respects impassable terrain and movement types (rail, water)
       (2026-10-15) — same search: it expands only into hexes the unit's movement type may
       enter (normal units: `movement` set; trains: rail; boats: water), so paths no longer cut
@@ -266,62 +296,187 @@ cmd/hlartpreview/           Ebitengine art and seam workbench (graphics mileston
       (2026-10-15) — decided: a road bridge is a road. `data.FixedModifiers` reads `rBridge*`
       like `road*` (`Rules.RoadBridges`); `data.Modifiers` stays at Python parity. In the
       shipped levels the bridges are followed by a road or path, so only new maps change.
-- [ ] Barbed wire has terrain modifiers and an infrastructure rule (`barbed*`, movement 10) but
-      no map tile or infrastructure icon, so no level can place it yet.
 - [x] Port-time quirks kept at parity in `game` (found 2026-10-14): no-counter damage, carrier
       exits with the carrier's stats, units standing on full depots. Decide each rule.
       (2026-10-15) — carrier exits use the unit's own stats (`Rules.OwnStatsOnExit`), a full
       depot is not a legal target (`Rules.FullDepotBlocks`), and a defender without a counter
       weapon no longer hurts the attacker (`Rules.NoCounterNoDamage`).
-- [x] One action per unit per turn (move or attack, not both), as in the original.
+- [x] One action per unit per turn (move or attack, not both) for Standard compatibility.
       (2026-10-15) — `Rules.OneActionPerTurn`: a unit that has moved cannot attack, one that
-      has attacked can neither move nor attack again. The original's global movement/action
-      cycles are simultaneous for both players; the turn-based port maps them to this rule.
+      has attacked can neither move nor attack again. This is not equivalent to the original's
+      movement/action order cycles. R3 implements those cycles independently.
 - [x] Ammo is used per shot and empty weapons are disabled. Target-type flags (`air`, `ground`,
       `water`) are enforced.
       (2026-10-15) — `Rules.AmmoPerShot` spends a round per shot (counter fire too) and an
       empty weapon neither fires nor gives range in `Targets`. `Rules.TargetFlags`: a weapon
       hits a boat with `Water` or `Ground`, other units with `Ground`. No weapon sets `air` or
       `water` and no unit flies, so `air` has no target yet.
-- [ ] Fuel use for motorised units. Units with no fuel cannot move.
-- [ ] Resupply and repair: units in or next to an owned depot/HQ, or next to a supply car,
-      regain ammo, fuel and size. A supply truck that enters a depot unloads its contents into it
-      (upstream TODO).
-- [ ] Factory production: owned factories build units each turn, depending on type and owner.
-      Recognise all `factory*` orientations.
-- [ ] `sightModifier` reduces vision through forest, hills and mountains
-- [ ] Experience affects combat (it already does) and possibly sight and speed. Use the skills
-      bitmap (`gfx/skills.png`) for real abilities beyond "capture".
-- [ ] Win and lose conditions: capture the HQ, destroy all enemy units, optional turn limit set
-      per level
-- [ ] Two-player hot-seat, with a fog-of-war "hand over" screen between turns
-- [ ] Save and load a game, including in the middle of a turn
+      These remain Standard mechanics. DOS domain-specific firepower/target masks require
+      their own verified mapping; per-shot ammo consumption is not established by the research.
+
+#### R0 — Establish the rules evidence and specification
+
+- [x] Disassemble the supplied DOS executable and extract the initial rule tables.
+      (2026-10-15) — `tools/original-rules/disassemble.py` identifies the exact `HL.EXE` hash,
+      exports the load image, 123 overlapping segment views, ten traced instruction windows,
+      relocation/far-call indexes, 51 × 69-byte unit records and 175 × 6-byte terrain records
+      per season. Nine synthetic parser tests and repeated extraction checks pass. Original
+      bytes/listings and complete exported tables stay in ignored `original/` and `build/`.
+      This completes static extraction, not the combat oracle or full rules recovery.
+- [ ] Write a rules specification alongside `docs/research/original-dos-rules.md`, with each
+      rule's source/build/address or manual section, confidence, observed input/output cases
+      and unresolved conflicts. Define rule/profile versions and the battle fixture schema.
+      Keep unknown bytes raw; distinguish 51 records from 51 distinct named units.
+- [ ] Record the established baseline: experience cap six, type-specific group strength,
+      air/ground/water power, 15/50 repair prices, separate movement budgets/displayed speed,
+      and the traced seven-entry inventory structures. Verify full capacity semantics before
+      replacing Python's 2 × 9 grid or building weight limits.
+- [ ] Maintain a discrepancy list: DOS blocking adds 80 per eligible neighbour capped at 150
+      versus the manual's quarter-strength description; pincer weights 25/50/100/50/25 and
+      byte arithmetic; asymmetric experience terms; exact kill awards; ranged support rules.
+      Do not silently simplify these or call them corrected until execution establishes them.
+- [ ] **Gate:** every planned original mechanic has an evidence status and validation route;
+      the next battle fixtures can be reproduced against the identified executable.
+
+#### R1 — Verify the DOS combat oracle
+
+- [ ] Execute casualty routine `2466:000e` in a 16-bit emulator/harness with MZ relocations,
+      segmented battle pointers and Borland signed integer semantics. Compare both strength
+      writebacks with an independently transcribed resolver. Keep private executable inputs
+      outside CI; ordinary CI uses synthetic inputs and recorded numerical expectations.
+- [ ] Cover group sizes, experience 0–6, air/ground/water targets, encoded range boundaries,
+      all nine terrain modifier classes, pincer directions, blocking eligibility, conditional
+      return fire, alternate strength, minimum losses, casualty caps and destruction. Preserve
+      operation order, signed truncation, fixed-point adjustments and byte-width behavior.
+- [ ] Reproduce controlled DOS battles for manual conflicts and caller-dependent behavior,
+      including blocking, ranged pincer eligibility and kill experience. Trace the callers
+      as well as the casualty routine before claiming complete combat fidelity.
+- [ ] Implement a pure Go DOS resolver only after the comparison fixtures agree. The traced
+      casualty routine seeds the RNG but makes no random draw; do not add Python's damage
+      roll. Verify any randomness in scheduling or presentation separately. Preserve Python
+      roll injection and its existing 600-case parity oracle in the compatibility profile.
+- [ ] **Gate:** both sides' losses and experience transitions match the original fixtures;
+      repeated identical battle states give identical casualty results, and every known
+      arithmetic/manual discrepancy has an observed result or remains explicitly gated off.
+
+#### R2 — Verify original data, movement and containers
+
+- [ ] Map all extracted unit/terrain IDs to semantic gameplay IDs and stable visual IDs.
+      Resolve duplicate naval records, domain/ability flags, alternate strength, production
+      costs, weights and capacities. Validate summer/winter terrain classes and masks without
+      replacing the Python tables or assuming raw budget equals 2 × displayed speed.
+- [ ] Trace movement routines in `0b06` and `10d2`; capture fixtures for road/rail/water
+      transitions, impassable terrain, occupied/hidden destinations, friendly passage, enemy
+      adjacency/zone of control, first steps and remaining budgets. Establish whether enemy
+      adjacency stops, increases cost or forbids movement before choosing an algorithm.
+- [ ] Verify loading/unloading, seven-entry slot structures, weight limits, full buildings,
+      nested cargo and reduced exit movement. Trace the supply-truck/depot transfer behavior
+      from the upstream TODO; do not assume automatic unloading is an original rule.
+- [ ] Trace visibility and terrain sight effects independently of Python's `sightModifier`;
+      preserve per-player visibility and hidden-order isolation in the resulting rules.
+- [ ] Identify any actual ammo, fuel and resupply fields/consumers. Their existence in the
+      Python UI does not establish DOS consumption or adjacent-depot/supply-car replenishment.
+      If unsupported, keep them in compatibility/extension rules rather than the DOS profile.
+- [ ] Implement the verified data adapters and pure movement, loading/unloading and visibility
+      functions for R3, with original input/output fixtures. Reuse search/geometry code where
+      its behavior agrees, while preserving the separate Python/Standard rules and tables.
+- [ ] **Gate:** original movement endpoints/costs, domain restrictions, container limits and
+      exits match recorded fixtures; unsupported mechanics are not enabled as original rules.
+
+#### R3 — Implement the command cycle scheduler
+
+- [ ] Trace and specify the original movement/action cycle order, both players' confirmations,
+      cancellation rules, unit eligibility, move limits and resolution timing. Cover competing
+      destinations, swaps, blocked routes and targets destroyed before their order executes.
+      The manual establishes deferred orders; exact conflict/initiative behavior needs traces.
+- [ ] Add explicit profile, cycle, player readiness, pending-order and resolution state.
+      Separate order validation/queuing from execution; resolve using the verified R1/R2 rules
+      and emit ordered events for the UI, AI and replays. No game state advances with animation.
+- [ ] Add a versioned original-DOS profile with the verified data and scheduler. Keep Classic
+      and Standard behavior intact; profile selection must not mix Python ammo/action flags
+      into DOS mechanics. Expose movement/action phase and pending/confirmed orders in the UI.
+- [ ] Support two-player hot-seat with handover/vision isolation during planning. Save and
+      resume either player's unconfirmed/confirmed orders and partially resolved cycles;
+      record any scheduler RNG state only where original execution establishes randomness.
+- [ ] **Gate:** headless and animated runs, save/resume and event replay produce identical
+      final state for the same orders; cycle-boundary and conflict fixtures match the original.
+
+#### R4 — Implement energy, buildings and specialist orders
+
+- [ ] Verify energy accounts, per-building credits, credit timing and limits. Implement repairs
+      as action-cycle orders at 15 energy, or 50 for construction units, restoring group size
+      and retaining experience. Verify repair completion timing, eligibility and construction
+      charges; do not apply adjacent resupply rules without evidence.
+- [ ] Verify factory build lists, availability by mission/date/side, price deductions, slot and
+      weight checks and when new units become usable. Recognise all building orientations.
+      Use verified type costs; avoid an arbitrary automatic unit-per-turn production rule.
+- [ ] Trace infantry/cavalry capture, ownership of stored units, contested entry and HQ victory.
+      Verify two half-depot construction operations, replenishing builder charges and sapper
+      trench operations. Add other skills only after their flag/command paths are established.
+- [ ] Add barbed wire's terrain/infrastructure definitions and art/editor coverage; establish
+      its original placement, movement and combat behavior rather than inheriting movement 10
+      as the final original rule. Coordinate enabled infrastructure with G3.
+- [ ] Verify annihilation victory, ties, capture timing, score and move-limit semantics.
+      Preserve traced score options (+100 for hidden inventories, ×4/×3/×2 for 4/8/16 move
+      limits, cap 32,500); verify the destruction bonus and scoring timing. Do not equate a
+      per-cycle move limit with a mission round deadline; extra turn limits are extensions
+      unless a mission/source establishes them.
+- [ ] **Gate:** repair/production/capture/construction fixtures reproduce costs, timing,
+      ownership and victory/score results, including insufficient energy and full inventories.
+
+#### R5 — Integrate and accept original rules
+
+- [ ] Add one small original-rules scenario covering both planning cycles, combat, transport,
+      capture, repair and production. Connect corresponding panels and input feedback in G2/G4.
+- [ ] Extend coverage to both factions, summer/winter and the verified domain/ability variants;
+      exercise profile selection, save compatibility, hot-seat secrecy and deterministic replay.
+- [ ] **Gate:** the original-DOS profile passes R1–R4 fixtures and the integrated scenario.
+      Classic/Standard regression tests remain green. Document remaining platform differences
+      and deliberate deviations; no blanket original-fidelity claim while material rules are
+      unresolved. Visual and full-campaign acceptance remain G5 and Phase 5 respectively.
+
+**Immediate next rules slice:** finish R0's specification and battle fixture contract, then
+build the R1 execution harness around `2466:000e`. Resolve blocking and arithmetic boundaries
+before implementing a replacement formula or changing the existing game defaults.
 
 ### Phase 4 — Computer opponent
 
+- [ ] Target the verified R3 order API and R4 energy/building rules for original-mode AI.
+      A compatibility AI may be prototyped earlier, but immediate move+attack planning must
+      not become the original scheduler contract.
 - [ ] The AI works only through `game` commands and its own side's vision (no cheating, with an
       optional difficulty setting that allows it)
-- [ ] Base heuristic: for each unit, generate candidate move+attack pairs. Score each by
-      expected damage dealt minus expected damage taken, using the combat formula's expected
-      value. Add terms for capture value, distance to the enemy HQ, terrain defence, and keeping
-      artillery behind the front line.
+- [ ] Base heuristic: generate legal orders for the current movement or action cycle and
+      evaluate the resulting positions with the verified resolver, including conditional
+      return fire, support and concealed opposing orders. Use deterministic casualty results
+      for known DOS battle states; uncertainty comes from hidden state/orders. Keep expected
+      random damage evaluation confined to compatibility rules that actually use it. Add terms
+      for capture value, HQ distance, terrain defence and protecting artillery.
 - [ ] Strategic layer: assign each unit a role (attack, defend HQ/depots, capture neutral
-      depots, escort), and manage resupply and production
+      depots, escort), and budget energy for verified repair, construction and production
 - [ ] Optional animated playback of AI moves, with a skip option (like Battle Isle 3)
-- [ ] Headless AI-vs-AI runner for balance testing and regression tests
+- [ ] Headless AI-vs-AI runner for balance testing and regression tests, recording rules/data
+      versions, submitted orders and any scheduler seed so failures can be replayed
 
 ### Phase 5 — Original content
 
-- [ ] TPWM unpacker in Go, from the pseudocode in `FINdecoder/twpm.py`, tested on
-      `FINdecoder/00.FIN`
-- [ ] Decode the `.FIN` map layout (tile byte + unit byte per hex, according to the notes in
-      `decode.py`). Write a mapping table from original tile and unit IDs to the remake's names.
-- [ ] `cmd/finextract`: convert original maps into `levels/*.json`
+- [ ] Extend verified R2 gameplay ID mappings to the complete campaign; core rule tables and
+      minimal fixtures are Phase 3 dependencies and must not wait for full campaign import.
+- [ ] TPWM unpacker in Go, checked against the existing Python DOS research decoder and
+      synthetic fixtures, then local `FINdecoder/00.FIN`. DOS lengths are little endian;
+      the existing Amiga native-reference decoder uses big endian. Keep the variants explicit.
+- [ ] Decode and validate the full `.FIN` layout, including headers, dimensions, tile/unit
+      placement, buildings, inventories, energy, availability and mission metadata. The
+      tile-byte + unit-byte note in `decode.py` is a hypothesis, not a complete format contract.
+      Record original tile/unit IDs and resolved semantic IDs without collapsing variants.
+- [ ] `cmd/finextract`: convert validated original maps to versioned level data, with rules/data
+      profile, mission side, season, briefing and verified limits; retain existing JSON loading
 - [ ] Import or rebuild the remaining campaign maps for **both** sides (only `*_cp` levels exist
       so far)
-- [ ] Unit types the original has but the remake lacks. Compare against the original; likely
-      candidates are aircraft (the weapons already carry an `air` flag), more train and boat
-      variants, and engineer abilities (bridges, trenches).
+- [ ] Complete the original unit roster from the 51 extracted records and their verified R2
+      mappings: aircraft, additional armour, trains, naval states and specialist abilities.
+      These are not necessarily 51 distinct types/art families. Add domain-specific firepower,
+      availability and state transitions; generic bridge-building remains unverified.
 - [ ] Mission briefings, campaign progression, and level codes/passwords as in the original
 
 ### Phase 6 — Polish and distribution
@@ -336,9 +491,13 @@ cmd/hlartpreview/           Ebitengine art and seam workbench (graphics mileston
 - [ ] WASM build published (e.g. GitHub Pages)
 - [ ] Release binaries via GoReleaser
 - [ ] Remove the Python sources (or move them to `legacy/`) once they are no longer needed as a
-      reference
+      reference; retain compatibility fixtures and their source/version history
 
 ### Beyond the original (from upstream's wish list)
+
+Keep these optional and separate from the original-DOS profile unless original execution
+establishes the behavior. Ammo/fuel consumption and adjacent resupply likewise remain research
+questions rather than unconditional original mechanics.
 
 - [ ] Artillery can destroy infrastructure
 - [ ] Dedicated ammo and fuel supply units
@@ -371,8 +530,10 @@ provide evidence, but do not establish the author's full intent:
 **Reference hierarchy:** use verified native-resolution tiles/screens from the 1992 game as
 the fidelity target. Default to its Amiga presentation, consistent with the README; document
 platform/palette differences rather than mixing Amiga and DOS references silently. Use the
-Python remake for behaviour, asset IDs and provisional comparisons wherever original art is
-unavailable. Mark those cases explicitly; they cannot yet pass original-fidelity acceptance.
+Python remake for compatibility behaviour, asset IDs and provisional comparisons wherever
+original art is unavailable. Phase 3's DOS evidence governs original-rule research; Amiga
+presentation does not establish rule parity. Mark provisional art comparisons explicitly;
+they cannot yet pass original-fidelity acceptance.
 Capture/extract suitable references separately from the Phase 5 map importer so art work can
 start early. Record native dimensions and any scaling already applied to upstream assets.
 
@@ -522,9 +683,9 @@ complete only when it has references, an editable source, export metadata and ac
 | Ground and terrain | All loaded terrain IDs; summer/winter; unseen/remembered presentation; shoreline combinations; multi-tile HQ/depot/factory/mountain pieces; missing art for enabled terrain such as barbed wire |
 | Infrastructure | Every loaded overlay and supported port combination; paths/roads/rail/streams/trenches, bridges and crossings; mixed layers and terminal cases |
 | Units/buildings | 27 existing gameplay unit definitions mapped to shared visual families where appropriate; all six facings, faction/neutral masks or variants, selected/moved/disabled states; 18 current portrait families; owned/neutral building indicators |
-| Weapons and information | 15 weapon definitions, empty/disabled rows, ammo/fuel/size/range symbols, flags, ranks, skills, progress bars; remove text/stats baked into new artwork |
+| Weapons and information | Python's 15 weapon definitions and ammo/fuel rows for compatibility; DOS domain power/range and verified fields for original mode; flags, experience 0–6 in DOS mode, skills, progress bars; remove text/stats baked into new artwork |
 | Map interaction | Cursors, selection, movement path, reachable/attackable/invalid hexes, ownership, minimap, camera rectangle, fog, editor selections and palettes |
-| Menus and panels | Terrain and unit panels, four weapon rows, action/weapon menus, container grid and capacity labels, combat/results, round/capture banners; normal/hover/focus/pressed/disabled states |
+| Menus and panels | Terrain/unit information, compatibility weapon menus, profile-specific inventory slots/weight limits, DOS movement/action cycle and pending/confirmed orders, energy/repair/production, combat/results and score; normal/hover/focus/pressed/disabled states |
 | Effects | Movement/facing changes, hits, death/explosions, capture and turn transitions; stable anchors/frame bounds, durations and reduced-animation settings |
 | Full game screens | Title, side/mission selection, briefings/campaign, options, pause, save/load, hot-seat handover, victory/defeat, credits/help and map editor; new Phase 3–5 features add their UI to this inventory |
 
@@ -586,7 +747,10 @@ density selection must not alter hitboxes, minimap positions or the camera's wor
 Art discovery and production can proceed before the rules engine is complete. G1 consumes
 Phase 1 hex geometry (or establishes that shared geometry first); G2 connects the preview to
 the Phase 2 renderer. G3 can run alongside gameplay work, G4 follows the relevant game commands,
-and G5 follows complete UI coverage. Do not wait until Phase 6 to discover seam or scaling issues.
+and G5 follows complete UI coverage. Original-mode G2/G4 flows depend on R3/R4; use explicitly
+labelled compatibility fixtures before those gates. R2 supplies original gameplay IDs/variants
+to G3 before full campaign import in Phase 5. Do not wait until Phase 6 to discover seam or
+scaling issues.
 
 #### G0 — Establish references and an approved visual pilot
 
@@ -688,7 +852,8 @@ continue while the overall gate is open; bulk family production follows pilot ap
       factions, a building, connected road/river/bridge, fog and movement/attack markers.
 - [ ] Connect the new pack to the Phase 2 renderer, minimap, terrain/unit panels and action,
       weapon, contents and combat UI. If gameplay commands are not ready, preview those states
-      with deterministic fixture data, then require actual play before closing G2.
+      with deterministic fixture data, then require actual play before closing G2. Identify the
+      rules profile used; original-mode acceptance additionally exercises R5's cycle scenario.
 - [ ] Establish responsive/high-DPI rendering and live fonts now. Test identical-world-point
       picking after resize, UI scaling, zoom and density changes; check diagonal boundaries
       and clipped viewport edges. Measure memory and frame time with both pilot densities.
@@ -702,7 +867,8 @@ continue while the overall gate is open; bulk family production follows pilot ap
       Include summer/winter and all required combinations in each family's completion check.
       Native content follow-up: `docs/art/native-coverage.md` records aircraft, additional
       armour, specialist ground units, naval variants, structures and 46 campaign illustrations
-      absent from the current visual inventory. Phase 5 owns their gameplay/content IDs.
+      absent from the current visual inventory. R2 owns their verified gameplay IDs/variants;
+      Phase 5 completes campaign coverage.
 - [ ] Reuse templates and accepted reference sheets; use generation for constrained studies
       or details and paint cleanup. For six-direction units, compare hand-authored sprites
       with a Blender pilot before committing to either method for the whole set.
@@ -719,7 +885,9 @@ continue while the overall gate is open; bulk family production follows pilot ap
       navigation, tooltips/help and clear feedback for invalid actions.
 - [ ] Implement title, selection, briefing/campaign, settings, pause, save/load, handover,
       victory/defeat, credits and editor screens against their owning gameplay/content phases.
-      Preserve familiar information placement while making available space responsive.
+      Include R3 planning/confirmation and R4 energy/repair/production controls with accurate
+      phase eligibility and feedback. Preserve familiar information placement while making
+      available space responsive.
 - [ ] Check empty/full containers, long names/briefings, zero ammo/fuel, max ranks, hidden
       enemies, both factions and cancelled actions. Render text from state rather than art.
 - [ ] **Gate:** every planned screen/state has accepted art and an exercised input flow;
@@ -766,14 +934,17 @@ acceptance; neither original-only magnification nor mixed study scenes count as 
 
 ## 5. Open questions
 
-1. **Rule fidelity.** Should the remake match the 1992 original's rules exactly (combat formula,
-   one action per turn, production) or keep PoulKalff's simplified formula? Getting the original
-   rules needs a manual, a disassembly or careful play-testing.
+1. **Original platform and discrepancies.** The supplied DOS build is the current rules
+   baseline; the manual and first disassembly now exist. Which DOS/Amiga differences, if any,
+   affect the intended remake, and which observed original quirks should a separate improved
+   profile change? Resolve the blocking/manual disagreement and combat asymmetries through R1
+   execution before making that choice. Keep Python/Standard compatibility clearly named.
 2. **Upstream relationship.** Keep merging upstream Python changes, or treat the fork as
    independent once Phase 2 is reached?
-3. **Level format.** Keep the current JSON format permanently, or move to a versioned format
-   (with per-level metadata: turn limit, briefing, side, season) and keep a reader for the old
-   one?
+3. **Level format migration.** The existing JSON reader remains supported. Choose the versioned
+   successor's exact schema after R2–R4 establish original state: rules/data profile, briefing,
+   side, season, energy, availability and verified move limits. Separate optional mission round
+   deadlines from original per-cycle move limits.
 4. **Original reference coverage.** Which original Amiga assets/screens can be verified at
    native resolution? G0 records gaps; comparisons against upstream artwork remain provisional.
 5. **4× distribution.** Does the pilot justify a complete optional 4× pack after profiling?
