@@ -52,3 +52,9 @@ arithmetic as written, not how the game fills its inputs.
 (`02dc:0908–0abb`): `award` is the transcription, `run_window` executes that code window with
 its near-call helpers hooked. The window can be run on its own because it only reads the
 battle context and two saved strengths from the caller's frame.
+
+`dos_support.py` runs the pincer and blocking caller `02dc:262a` on a synthetic map, executing
+the real neighbour routine `0b06:0157` and side test `0ca6:020a`; `dos_support_model.py` is the
+independent transcription and `test_support.py` compares them on random maps. The ranged case
+with an off-map neighbour reads an uninitialised stack byte, so the model raises `Undefined`
+there and the comparison skips it.
