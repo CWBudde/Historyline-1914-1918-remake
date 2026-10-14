@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "id": "river-amiga-study-03",
+  "date": "2026-10-15",
+  "tool": "built-in image_gen.imagegen",
+  "model": null,
+  "reference": "build/gfx-references/g0-corpus/PARTS/SCOAS071.png",
+  "reference_platform": "Amiga German installation, supplied locally",
+  "native_source": "data/LIB/PARTS.LIB:SCOAS071",
+  "native_source_sha256": "6808b6078a36d2cbdf9ec2e39146ede4afafda75b4b360c6fa112006176bc6be",
+  "native_dimensions": [
+    24,
+    24
+  ],
+  "palette": "data/00.PAL",
+  "coverage": "data/HEXMSK00.DAT",
+  "source": "art/source/pilot/river-amiga-study-03.png",
+  "source_dimensions": [
+    1254,
+    1254
+  ],
+  "source_sha256": "77ade9bb25cf9495f5fab5b24233c26a3ec0a8a17464081e8c8959c63cccedd9",
+  "reference_sha256": "d965bdb222db76ed783670063416c00b750a6a72baada7af2efdacc0b9489637",
+  "generation_inputs": [
+    {
+      "path": "build/gfx-research/connected-pilot/SCOAS071-nearest32x.png",
+      "role": "original-edit-target-and-geometry-colour-reference",
+      "sha256": "13428a5ae71f6bf7ec348e53c4feb42fbcfe945bcb338c136a135e864a67e9f4",
+      "preparation": "Exact 32x nearest-neighbour enlargement of native 24x24 PNG, without recolouring or aspect correction."
+    }
+  ],
+  "prompt": "Use case: style-transfer.\nAsset type: faithful conservation redraw of original24x24 Amiga river terrain for 48x48/96x96 exports.\nInput image is the ORIGINAL enlarged exactly32x and is the ONLY geometry/colour authority. Preserve the exact canvas registration and stepped internal pixel boundaries; trace all original water colour patches, asymmetric brown banks and bright olive grass patch shapes at exactly their existing positions. No smoothing, widening, recentering or rotation. Add only quiet fine illustrated surface detail INSIDE original colour patches; keep each patch mean near its original RGB.\nWater base #448899, shadow #335566 and turquoise #55bbbb must retain original spatial distribution. No extra waves, white foam or repeated bright ripple stripes. Suggest barely visible short surface brushwork. Grass stays #778800/#557700/#88aa00/#445500/#334400, soil #664422; no dark lighting, changed saturation, stippling, bushes, rocks, reeds or clumps. Detail very subtle so it reads as simple calm colour masses at native size.\nNative water contacts at(5,4),(4,5),(4,6),(3,7) and(21,15),(20,16),(19,17),(19,18),(18,19) remain exactly. Water horizontal extents x3..10 at native y8, x6..16 at y12, x8..20 at y14. No water at(2,8), none spreading into(17,20). Coordinates refer to original24x24 canvas. Preserve all bank widths and asymmetries; do not turn this into a centred constant-width channel. Keep the original pixel geometry, enriched only within it.\nProduce FULLY OPAQUE SQUARE paint including old transparent corners by extending adjacent materials into the exterior. Exact original software mask will discard that exterior. No visible hex outline, border, inset, matte, text, checkerboard or shadow. Goal: downsample to24x24 should look almost identical to the original.",
+  "transparent_background": false,
+  "status": "study-unapproved",
+  "intended_exports": {
+    "native-2x": [
+      48,
+      48
+    ],
+    "native-4x": [
+      96,
+      96
+    ]
+  },
+  "cleanup": "Generated source retained unchanged as fully opaque square paint, including deliberate material extensions outside native coverage. tools/art-review area-reduces to 96x96, applies repeated original mask, box-reduces to 48x48 and 24x24 with coverage caps. No alpha forcing, matte replacement, display-aspect or world-spacing correction. Exterior paint is discarded by the original mask; raw extra coverage is expected.",
+  "review": "Original-led study; all native coarse material classes retained, exact output alpha. See docs/art/connected-terrain-pilot.md for native palette/texture diagnostics and tentative isolated-tile scores. Normal-play geometry, adjacent joins and user visual acceptance remain open.",
+  "determinism": "AI reruns are not assumed deterministic; exports reproduce locally from retained source using tools/art-review."
+}

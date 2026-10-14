@@ -636,6 +636,13 @@ and G5 follows complete UI coverage. Do not wait until Phase 6 to discover seam 
       class changes across 384 native cells), but darker values and busy texture remain.
       Independent/controller scores 90/88 are provisional, not approval. See the same review
       record for exact measurements and limitations; opacity alone does not establish joins.
+      (2026-10-15) — original-led road 05, river 03 and bridge 03 are now the connected-terrain
+      study baselines, with retained prompts/sources and reproducible 48/96 pixel exports.
+      All three preserve coarse native material layout and exact alpha; road 05 restores the
+      dim mark/quiet finish, river/bridge 03 restore channel/structure shapes. Tentative
+      independent/controller isolated-tile scores 94/93, 93/92 and 92/91 do not close the gate.
+      Grass contrast, bridge earth values and busy water texture remain; individual nearest
+      palette changes are 1/0/28 of 384 cells. See `docs/art/connected-terrain-pilot.md`.
       No study is approved. Native grass/water, units, portrait/panel, colour/texture/edge cleanup,
       normal-play/seam review and the 90/100 gate remain open.
 - [ ] **Gate:** reviewed pilot retains approximately 90% native-size appearance; original
@@ -730,15 +737,17 @@ private originals/manual extracts in ignored `original/`, and reference gallerie
 outputs and research in ignored `build/`. Authored masters, recipes and pilot exports stay in
 tracked `art/`; commit verified graphics batches directly to `main`, per the user's preference.
 
-**Immediate next slice:** use original-led road 04 as a geometry baseline and resolve its
-darker values, busy grass/gravel and dim central mark; restore river/bridge material shapes
-directly from their verified originals. Opaque square generation plus original-mask exports
-solves opacity for the new studies; chained edits regressed geometry and remain rejected.
-Verify native widths/contact cells/mark positions before evaluating extra detail. Then
-use the selected native references to complete native grass/water, infantry/artillery, portrait
-and manual page 45 unit-panel studies. Finish exact native-to-runtime port/direction/anchor
-mappings and verify original display geometry alongside it. Compare 2×/4× detail and native
-appearance, then obtain the five-category 90/100 visual approval. A 32/12/16 mask-tiling
+**Immediate next slice:** establish original display placement and adjacent-tile evidence for
+seam review, using the decoded resources and supplied originals; do not promote the mask-tiling
+hypothesis to a runtime contract without evidence. Road 05, river 03 and bridge 03 are the
+current unapproved connected-terrain baselines: material shapes/marks are restored, but measured
+grass contrast, bridge earth values and repeated water texture still need bounded cleanup.
+Keep original-led opaque square generation plus original-mask exports; avoid chained edits
+and verify native widths/contact cells/mark positions before evaluating extra detail. Complete
+native grass/water, infantry/artillery, portrait and manual page 45 unit-panel studies using
+the selected references. Finish exact native-to-runtime port/direction/anchor mappings.
+Compare 2×/4× detail and native appearance, then obtain the five-category 90/100 visual approval.
+A 32/12/16 mask-tiling
 hypothesis is recorded but does not establish original placement. G1 shared edge/corner
 templates and connected-feature preview follow this evidence; do not mass-generate art
 before approval.

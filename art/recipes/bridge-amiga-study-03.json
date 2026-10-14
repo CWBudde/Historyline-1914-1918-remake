@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "id": "bridge-amiga-study-03",
+  "date": "2026-10-15",
+  "tool": "built-in image_gen.imagegen",
+  "model": null,
+  "reference": "build/gfx-references/g0-corpus/PARTS/SSTRE091.png",
+  "reference_platform": "Amiga German installation, supplied locally",
+  "native_source": "data/LIB/PARTS.LIB:SSTRE091",
+  "native_source_sha256": "6808b6078a36d2cbdf9ec2e39146ede4afafda75b4b360c6fa112006176bc6be",
+  "native_dimensions": [
+    24,
+    24
+  ],
+  "palette": "data/00.PAL",
+  "coverage": "data/HEXMSK00.DAT",
+  "source": "art/source/pilot/bridge-amiga-study-03.png",
+  "source_dimensions": [
+    1254,
+    1254
+  ],
+  "source_sha256": "d79da89ba2a124e1958a398cc6da6ffab75ead723336b1a93b0f531a9fb29abe",
+  "reference_sha256": "1cc68b17a11ee02e5bdcfdc3e95aa3a92716ade6336cf07d5f1fdfc1afb48258",
+  "generation_inputs": [
+    {
+      "path": "build/gfx-research/connected-pilot/SSTRE091-nearest32x.png",
+      "role": "original-edit-target-and-geometry-colour-reference",
+      "sha256": "f0d966eabd2eb8c878b11ef843a3314e2aa30ce82c4c23a1c5b8547b51d6004b",
+      "preparation": "Exact 32x nearest-neighbour enlargement of native 24x24 PNG, without recolouring or aspect correction."
+    }
+  ],
+  "prompt": "Use case: style-transfer.\nAsset type: conservation redraw of original24x24 Amiga road bridge ground tile, for48x48/96x96 exports.\nInput image is the ORIGINAL exactly enlarged32x. Use it ALONE as geometry, colour and placement authority. Trace every original stepped internal boundary and small colour cell at exactly its existing relative position. No smoothing, rotation, centring, widening or invented construction. This is a whole terrain tile, not a freestanding bridge. Grey diagonal pavement runs upper-left to lower-right. Preserve separate white parallel structural edges, dark backing lines, tan/brown abutments, asymmetric grass patches and the visible water chiefly upper/right. Do not infer a new water route below or outside the original visible shapes.\nOriginal colours must keep their own spatial distribution and mean RGB: road #666666, small marks #aaaaaa, structural whites #ffffff with original darker grey steps, dark details #000000/#222222 where present; water #335566/#448899/#55bbbb; abutments #664422/#886644/#bb8866/#ddbb88; grass #334400/#445500/#557700/#778800/#88aa00. No dark grading or desaturation. White structural pixels remain white, tiny road marks grey, earth tan rather than olive. Keep all original details distinct.\nNative road contacts(5,4),(4,5),(4,6),(3,7),(20,16),(19,17),(19,18),(18,19). Three small diagonal mark groups(5,6)/(6,7)/(7,8), (10,10)/(11,11)/(12,12), (15,14)/(16,15)/(17,16). Upper/right white structural run around(16,11)..(21,15), lower/left around(11,15)..(17,20); preserve EXACT white cells at(17,12),(18,13),(16,19). Preserve tan abutment shapes atx12..14/y3..7 andx10..15/y19..23 including native(10,19). All coordinates in original24x24 canvas; source pixels govern exact outline.\nAdd only very restrained fine painted material detail INSIDE each original colour patch: quiet grass, smooth matte pavement and structure, subtle soil and calm water. No stippling, dots, gravel, clumps, repeated ripples, foam, rocks, reeds, shadows, new supports or objects. Native reduction should be nearly identical, geometry first.\nOutput FULLY OPAQUE SQUARE paint: continue adjacent material beyond old transparent corners, exterior later discarded by exact original software mask. No visible hex outline, border, inset, matte, text or checkerboard. Whole canvas registration fixed.",
+  "transparent_background": false,
+  "status": "study-unapproved",
+  "intended_exports": {
+    "native-2x": [
+      48,
+      48
+    ],
+    "native-4x": [
+      96,
+      96
+    ]
+  },
+  "cleanup": "Generated source retained unchanged as fully opaque square paint, including deliberate material extensions outside native coverage. tools/art-review area-reduces to 96x96, applies repeated original mask, box-reduces to 48x48 and 24x24 with coverage caps. No alpha forcing, matte replacement, display-aspect or world-spacing correction. Exterior paint is discarded by the original mask; raw extra coverage is expected.",
+  "review": "Original-led study; all native coarse material classes retained, exact output alpha. See docs/art/connected-terrain-pilot.md for native palette/texture diagnostics and tentative isolated-tile scores. Normal-play geometry, adjacent joins and user visual acceptance remain open.",
+  "determinism": "AI reruns are not assumed deterministic; exports reproduce locally from retained source using tools/art-review."
+}

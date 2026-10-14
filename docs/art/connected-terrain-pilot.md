@@ -1,9 +1,10 @@
 # Connected terrain pilot — 2026-10-14, cleanup 2026-10-15
 
 Three original Amiga summer terrain resources now have illustrated redraw studies with
-intrinsic 2× and 4× exports. The latest four experiments use opaque square paint followed by
-the original mask. This fixes output opacity, but three regress in material geometry and are
-explicitly rejected. Road 04 is an original-led alternative. **All remain unapproved**:
+intrinsic 2× and 4× exports. Opaque square paint followed by the original mask fixes output
+opacity. Three chained experiments regress in material geometry and are explicitly rejected.
+The latest original-led road 05, river 03 and bridge 03 preserve coarse native material layout
+and improve colour/markings. **All remain unapproved**:
 this completes a study batch within G0, not the G0 gate, a runtime pack or seamless joins.
 The user’s target remains roughly 90% familiar appearance after reduction to native size.
 
@@ -24,6 +25,9 @@ Original pixels stay under ignored `build/`; authored studies, recipes and expor
 | Road opaque original-led redraw | `PARTS:SSTRE114` as sole edit target | `art/source/pilot/road-amiga-study-04.png` | `road-study-04.png` |
 | River opaque chained edit, rejected | `PARTS:SCOAS071`, river 01 as edit target | `art/source/pilot/river-amiga-study-02.png` | `river-study-02.png` |
 | Bridge opaque chained edit, rejected | `PARTS:SSTRE091`, bridge 01 as edit target | `art/source/pilot/bridge-amiga-study-02.png` | `bridge-study-02.png` |
+| Road quieter original-led redraw | `PARTS:SSTRE114` as sole edit target | `art/source/pilot/road-amiga-study-05.png` | `road-study-05.png` |
+| River original-led redraw | `PARTS:SCOAS071` as sole edit target | `art/source/pilot/river-amiga-study-03.png` | `river-study-03.png` |
+| Bridge original-led redraw | `PARTS:SSTRE091` as sole edit target | `art/source/pilot/bridge-amiga-study-03.png` | `bridge-study-03.png` |
 
 Each native reference is 24 × 24 with 384 opaque covered pixels, decoded from the supplied
 Amiga German `PARTS.LIB`, `00.PAL` and `HEXMSK00`. Source/reference/input SHA-256 hashes and
@@ -34,6 +38,8 @@ The second road pass used the first generated source and original as separate in
 Road 03, river 02 and bridge 02 edit the preceding study with the original as a second input.
 Road 04 uses only the enlarged original. Each cleanup prompt explicitly requests a fully opaque
 square, extending adjoining materials into the exterior that is later discarded by masking.
+Road 05, river 03 and bridge 03 also use only their enlarged original, not preceding studies.
+Their prompts prioritize quiet surface detail, original patch values and exact small features.
 
 Retained generated sources receive no pixel edits. `tools/art-review` performs alpha-weighted
 area reduction to 96 × 96, then box reductions to 48 × 48 and 24 × 24, clipping each result
@@ -189,6 +195,72 @@ The next bounded cleanup should restrain texture and restore original material v
 with immediate rejection if native widths, contact cells or tiny markings change. Avoid
 unconstrained chained generation or expanding the terrain set before this is reliable.
 
+## Original-led value and geometry studies — 2026-10-15
+
+Road 05, river 03 and bridge 03 were generated with the built-in image tool using their
+verified originals as sole edit targets. Prior studies are comparison baselines only. Sources
+are unchanged 1254 × 1254 opaque square paintings. The existing exporter reproduces exact
+native/2×/4× alpha: 384/1,536/6,144 opaque covered pixels and zero mask mismatches. No manual
+pixel painting, palette correction or alpha repair was applied. Exact prompts and hashes are
+saved with each recipe; exported pixels reproduce without a generation service.
+
+| Study | Shared RGB diagnostic /255 | Coarse material changes /384 | Nearest original palette changes /384 |
+|---|---:|---:|---:|
+| Road 05 | 0.01772 | 0 | 1 |
+| River 03 | 0.01404 | 0 | 0 |
+| Bridge 03 | 0.01946 | 0 | 28 |
+
+The material diagnostic uses the same nearest-palette algorithm described above. The final
+column compares the nearest individual original colour, before grouping into materials.
+It catches within-material drift that the zero coarse counts hide. These are diagnostics,
+not percentages of visual resemblance or proof of exact internal boundaries. Road 05's one
+nearest-palette change is grass at `(5,4)`. Bridge 03's 28 changes are 25 grass shades and
+three gray cells: `(16,12),(17,13)` map 187→170 and `(10,14)` maps 170→187.
+River 03 preserves every nearest-palette label
+but still has RGB differences. Road 05 improves the diagnostic from road 04's 0.02928;
+river/bridge 03 improve on both their first studies and rejected second studies.
+
+Controller and independent GFX review agent inspected sources, native comparisons and both
+density exports on 2026-10-15. Scores apply to **isolated intrinsic tiles only**. The connections
+category checks visible widths/contact cells; original placement, adjacent joins and normal
+play remain unverified. These scores do not approve the studies or close G0.
+
+| Study / reviewer | Footprint /20 | Composition /20 | Palette /20 | Connections /20 | Recognition /20 | Total |
+|---|---:|---:|---:|---:|---:|---:|
+| Road 05 / independent | 20 | 19 | 18 | 19 | 18 | 94/100 |
+| Road 05 / controller | 20 | 19 | 17 | 19 | 18 | 93/100 |
+| River 03 / independent | 20 | 19 | 18 | 19 | 17 | 93/100 |
+| River 03 / controller | 20 | 19 | 17 | 19 | 17 | 92/100 |
+| Bridge 03 / independent | 20 | 19 | 17 | 19 | 17 | 92/100 |
+| Bridge 03 / controller | 20 | 19 | 16 | 19 | 17 | 91/100 |
+
+- **Road 05:** retains seven-cell road/mark spans on rows 11–15, five-cell bottom exit,
+  all recorded upper contacts and tiny mark positions. The dim `(13,13)` mark improves
+  from `(124,123,123)` to `(136,135,135)`, versus original `(136,136,136)`. Pale marks
+  average `(169.63,169.50,169.38)` versus 170. Finish is quieter than road 04. Original
+  grass `(85,119,0)` now averages `(81.40,111.60,3.05)`; the brightest `(136,170,0)`
+  averages `(144.79,180.86,3.36)`. Some greens remain too contrasty; pavement averages
+  approximately 98 versus 102.
+- **River 03:** restores exact native water spans x3–10/y8, x6–16/y12 and x8–20/y14 and
+  all recorded contacts. No added water at `(2,8)` or `(17,20)`. It retains 123 water cells
+  rather than rejected river 02's 141. Water `(68,136,153)` averages `(59.81,136.63,154.78)`;
+  highlights `(85,187,187)` average `(76,190.18,191.45)`. Short cyan brush strokes repeat
+  visibly at 96 × 96; quiet these without shifting the channel.
+- **Bridge 03:** restores original coarse structure, abutments and three marking groups.
+  White cells `(17,12),(18,13),(16,19)` are `(253,253,253)`, `(252,252,252)` and
+  `(253,253,253)` versus 255. Centre mark `(15,14)` is `(171,170,170)` versus 170.
+  Tan `(10,19)` is `(193,136,88)` versus `(187,136,102)`; abutments are too warm/yellow.
+  Grass `(85,119,0)` averages `(74.73,103.93,1.53)` and remains too dark. Grass/water
+  brushwork is still busy at 96 × 96; structural contrast is substantially restored.
+
+**Production decision:** road 05, river 03 and bridge 03 are the current connected-terrain
+study baselines. Retain opaque original-led generation plus deterministic masking; retire
+road 04 as the active finish baseline, but keep all prior sources and rejected experiments.
+Do not repeat a broad chained cleanup: measured patch-value and local texture defects remain,
+and regeneration is not an exact geometry editing tool. No exceptions or changed exits are
+accepted. Original placement evidence and adjacent-family review are the next prerequisite
+for seam tooling; isolated scores alone cannot authorize batch production.
+
 ## Reproduce the local review
 
 Run from the repository root. The gallery and review output directories must be fresh because
@@ -215,6 +287,9 @@ road 03 SSTRE114
 road 04 SSTRE114
 river 02 SCOAS071
 bridge 02 SSTRE091
+road 05 SSTRE114
+river 03 SCOAS071
+bridge 03 SSTRE091
 STUDIES
 ```
 
@@ -224,8 +299,9 @@ generation call is needed. Native references do not produce seven-hex patches. R
 generator inputs, if needed, with a 32× nearest-neighbour enlargement to 768 × 768; this is
 input preparation only, not a final redraw. AI reruns are not assumed deterministic.
 
-Next: resolve palette/marking and material-geometry defects with explicit before/after native review;
-complete native grass/water, infantry/artillery, portrait and unit-panel studies; verify display
+Next: establish original display placement and adjacent-tile evidence for seam review, retain
+the measured value/texture cleanup list, and complete native grass/water, infantry/artillery,
+portrait and unit-panel studies; verify display
 geometry and ID/anchor mappings. G1’s shared edge/corner templates and compositor can then
 test material boundaries, infrastructure exits and three-tile vertices. Avoid independent
 bulk generation until that evidence and the visual pilot gate are satisfied.

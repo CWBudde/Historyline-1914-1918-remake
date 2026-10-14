@@ -112,6 +112,15 @@ finish remain. Independent/controller scores are 90/88; no approval is implied. 
 verified original as the geometry authority and reject shifted native shapes before judging
 illustrative detail. See the review record for measurements, limitations and reproduction.
 
-Next resolve native colour, texture and marking defects using that evidence, then complete native grass/water,
-infantry, artillery, portrait and unit-panel studies. Confirm normal-play geometry and joins
-before treating any study as approved or closing G0.
+The latest original-led batch adds road 05, river 03 and bridge 03 without chaining prior
+generated inputs. All have zero coarse material-class changes at native size and exact final
+alpha. Tentative independent/controller scores are 94/93, 93/92 and 92/91, limited to isolated
+tiles. Road 05 restores the dim central mark and quieter texture; river/bridge 03 restore
+original shapes and structural contrast. Some greens, bridge earth values and repeated water
+strokes still drift. Individual nearest-palette changes are 1/0/28 of 384 cells: coarse material
+identity can hide palette/value defects. These measurements are not resemblance percentages.
+
+Use those studies as the current connected-terrain baselines, while keeping them unapproved.
+Obtain original display/adjacency evidence for seam review, retain the measured value/texture
+cleanup list, and complete native grass/water, infantry, artillery, portrait and unit-panel
+studies. Confirm normal-play geometry and joins before approving any study or closing G0.

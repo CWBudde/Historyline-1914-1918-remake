@@ -31,7 +31,7 @@
 <h1>Connected terrain pilot</h1>
 <p>Original Amiga terrain beside newly illustrated studies. All artwork is <strong>unapproved</strong>.
   <a href="connected-terrain-pilot.md">Review notes and reproduction commands</a> record remaining changes.</p>
-<p class="note">The latest opaque-source experiments fix output alpha but remain unapproved for visual fidelity.
+<p class="note">The latest original-led studies restore native material layout and improve colour/markings, but remain unapproved.
   Rejected experiments are retained to show why geometry must be checked separately from opacity.
   Native comparisons use saved alpha-weighted area reductions to 24 × 24.
   Density previews use browser scaling; image links open the actual 48 × 48 and 96 × 96 files.
@@ -47,6 +47,9 @@
 <script>
   'use strict';
   const studies = [
+    { id: 'road-05', previous: 'road-04', name: 'Road bend — quieter original-led revision 05', native: 'SSTRE114', export: 'road-study-05', source: 'road-amiga-study-05', note: 'Exact output alpha and native coarse material layout; dim central mark restored and texture quieter. Some grass values still drift. Independent/controller isolated-tile scores 94/93, not approval.' },
+    { id: 'river-03', previous: 'river-02', name: 'River — original-led revision 03', native: 'SCOAS071', export: 'river-study-03', source: 'river-amiga-study-03', note: 'Original channel widths and banks restored; exact output alpha and no nearest-original-palette changes at native size. Values and repeated short water strokes still need review. Independent/controller isolated-tile scores 93/92, not approval.' },
+    { id: 'bridge-03', previous: 'bridge-02', name: 'Road bridge — original-led revision 03', native: 'SSTRE091', export: 'bridge-study-03', source: 'bridge-amiga-study-03', note: 'Original coarse material layout, white edges and small markings restored with exact output alpha. Dark greens, warm abutments and busy surface texture remain. Independent/controller isolated-tile scores 92/91, not approval.' },
     { id: 'road-04', previous: 'road-02', name: 'Road bend — original-led revision 04', native: 'SSTRE114', export: 'road-study-04', source: 'road-amiga-study-04', note: 'Opaque source edited directly from the original, rather than revision 03. Exact output alpha; native geometry and finish still need visual approval.' },
     { id: 'road-03', previous: 'road-02', name: 'Road bend — rejected revision 03', native: 'SSTRE114', export: 'road-study-03', source: 'road-amiga-study-03', note: 'Opacity fixed; rejected for shifted paving, wider bottom exit and changed upper contact. Retained experiment, not a replacement for revision 02.' },
     { id: 'river-02', previous: 'river-01', name: 'River — rejected revision 02', native: 'SCOAS071', export: 'river-study-02', source: 'river-amiga-study-02', note: 'Opacity fixed; rejected for shifted channel/banks and changed boundary contacts. The original geometry must be restored.' },
