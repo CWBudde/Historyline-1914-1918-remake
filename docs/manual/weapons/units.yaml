@@ -1,0 +1,1906 @@
+# Weapons Manual ("Description of Units") — transcribed from the 1992 Blue Byte booklet.
+# Images refer to files extracted by `just manual-images` (build/manual/img/, not committed).
+# impassable: deep-water, shallow-water, plain, forest, mountains, trenches, tracks
+# source-page: page number in the original weapons booklet.
+
+- name: Infantry
+  section: ground
+  faction: both
+  photos:
+  - file: img-062-030.jpg
+    caption: German soldier
+  - file: img-062-031.jpg
+    caption: British soldier
+  - file: img-062-032.jpg
+    caption: French soldier
+  text: >-
+    At the outbreak of the First World War, the soldiers set off for the Front amid popular jubilation.
+    Soon, however, the euphoria was to subside. In this war, the soldier was confronted by many new dangers;
+    nowhere on the Front was safe, and it usually took two weeks for the soldiers to be relieved. Huge
+    numbers of machine guns, attacks from the air, heavy-calibre artillery and poison gas were among the
+    dangers with which the soldier was permanently threatened. A further element was the disastrous trench
+    warfare at the Western Front, which had never been experienced before. For almost four years the Front
+    moved backwards and forwards only marginally. In general, particularly towards the end of the War,
+    the Allied troops had better provisions than their opponents.
+  tactical:
+    air: -/-
+    water: 01/30
+    ground: 01/30
+    defence: '20'
+    speed: '4'
+    weight: '1'
+    group: '6'
+    cost: '35'
+  impassable:
+  - deep-water
+  - shallow-water
+  sprites:
+  - img-062-033.png
+  - img-062-034.png
+  source-page: 5
+- name: Elite Infantry
+  section: ground
+  faction: both
+  photos:
+  - file: img-063-036.jpg
+    caption: Machine gun detachment with water-cooled MG.
+  text: >-
+    The elite infantry was composed of troops who were old enough to have “gained experience”. The recruits
+    were cannon-fodder, and were given only meagre chances of survival. The elite infantry was always
+    deployed when it was necessary to carry out tactically important actions. They were almost always
+    better equipped and specially trained.
+  tactical:
+    air: 01/15
+    water: 01/43
+    ground: 01/43
+    defence: '25'
+    speed: '4'
+    weight: '1'
+    group: '6'
+    cost: '50'
+  impassable:
+  - deep-water
+  - shallow-water
+  sprites:
+  - img-063-037.png
+  - img-063-038.png
+  source-page: 6
+- name: Cavalry
+  section: ground
+  faction: both
+  photos:
+  - file: img-064-042.jpg
+    caption: German Cavalry.
+  text: >-
+    Initially, mounted troops were successfully deployed in reconnaissance work; as the Western Front
+    became rigidly fixed, however, the cavalry grew worthless. Despite this, almost all the armies continued
+    to maintain cavalry troops up to the outbreak of the Second World War. Their chief advantages were
+    speed, and the fact that horses do not require any spare parts, fuel or oil.
+  tactical:
+    air: -/-
+    water: -/-
+    ground: 01/33
+    defence: '20'
+    speed: '6'
+    weight: '2'
+    group: '6'
+    cost: '50'
+  impassable:
+  - deep-water
+  - shallow-water
+  - mountains
+  - trenches
+  sprites:
+  - img-064-040.png
+  - img-064-041.png
+  source-page: 7
+- name: Anti-Tank Weapons
+  subtitle: PAK
+  section: ground
+  faction: both
+  photos:
+  - file: img-065-045.jpg
+    caption: Anti-Tank Gun, probably 3.7 cm calibre, with periscopic sight.
+  text: >-
+    Until the last months of the War, tanks were used only by the Allies. To combat the tanks, the Central
+    European Powers set up short-range batteries with low wheels. Special anti-tank shells were developed
+    which were capable of penetrating the armour plating of most tanks. Among other means of combatting
+    tanks was the 13 mm anti-tank gun.
+  tactical:
+    air: -/-
+    water: 02/50
+    ground: 02/50
+    defence: '25'
+    speed: '2'
+    weight: '2'
+    group: '6'
+    cost: '53'
+  impassable:
+  - deep-water
+  - shallow-water
+  - mountains
+  sprites:
+  - img-065-044.png
+  - img-065-046.png
+  source-page: 8
+- name: Sappers
+  section: ground
+  faction: both
+  photos:
+  - file: img-066-048.jpg
+    caption: Sappers laying track.
+  text: >-
+    Sappers dug trenches and battery emplacements, built bridges, and laid roads and rail lines. Sappers
+    not only had to carry out heavy physical work, but were also often under enemy fire. In HL 1914-1918
+    these units, which are lightly armed and can only defend themselves, are only used to dig and fill
+    in trenches; they cannot build or destroy roads, bridges, track or buildings.
+  tactical:
+    air: -/-
+    water: 01/25
+    ground: 01/25
+    defence: '20'
+    speed: '4'
+    weight: '1'
+    group: '6'
+    cost: '45'
+  impassable:
+  - deep-water
+  - shallow-water
+  sprites:
+  - img-066-049.png
+  - img-066-050.png
+  source-page: 9
+- name: Supply Depot
+  subtitle: Construction Unit
+  section: ground
+  faction: both
+  photos:
+  - file: img-067-052.jpg
+    caption: Depot under construction.
+  text: >-
+    In order to make supply routes shorter, large depots containing ammunition, food, fuel, heating material,
+    building materials and other supplies were erected at a safe distance from the Front. Minor repairs
+    to equipment were also carried out here. The depots were erected by motorised construction units,
+    which in HL 1914-1918 are not armed.
+  tactical:
+    air: -/-
+    water: -/-
+    ground: -/-
+    defence: '20'
+    speed: '6'
+    weight: '4'
+    group: '6'
+    cost: '105'
+  impassable:
+  - deep-water
+  - shallow-water
+  - mountains
+  - trenches
+  sprites:
+  - img-067-053.png
+  - img-067-054.png
+  source-page: 10
+- name: Transport of Supplies
+  section: ground
+  faction: both
+  photos:
+  - file: img-068-056.jpg
+    caption: ''
+  text: >-
+    Trucks were increasingly used in addition to horse-drawn carts for transporting munitions, infantry
+    troops and supplies. These trucks were not able to travel across rough terrain (the illustration shows
+    their small rubber tyres), but could only travel over solid ground. These units were not armed.
+  tactical:
+    air: -/-
+    water: -/-
+    ground: -/-
+    defence: '20'
+    speed: '7'
+    weight: 9/4
+    group: '6'
+    cost: '45'
+  impassable:
+  - deep-water
+  - shallow-water
+  - forest
+  - mountains
+  - trenches
+  sprites:
+  - img-068-057.png
+  - img-068-058.png
+  source-page: 11
+- name: Supply Train
+  section: ground
+  faction: both
+  photos:
+  - file: img-069-060.jpg
+    caption: Freight Train with passenger and goods wagons.
+  text: >-
+    Supplies had to be transported over large distances, and motorised transport was not yet highly developed,
+    so ordinary freight trains were employed for the purpose. The trains also took tanks and heavy artillery
+    to their positions. These transport trains were usually not armed. In addition to the normal routes
+    there was also a field route used to transport weaponry and munitions between the depots and the Front.
+  tactical:
+    air: -/-
+    water: -/-
+    ground: -/-
+    defence: '25'
+    speed: '7'
+    weight: 35/15
+    group: '1'
+    cost: '90'
+  impassable:
+  - deep-water
+  - shallow-water
+  - plain
+  - forest
+  - mountains
+  - trenches
+  sprites:
+  - img-069-061.png
+  - img-069-062.png
+  source-page: 12
+- name: Static Anti-aircraft Emplacement
+  section: ground
+  faction: both
+  photos:
+  - file: img-070-064.jpg
+    caption: Standard machine gun on improvised tripod.
+  text: >-
+    The armies were comparatively slow to recognise the importance of airplanes; in the opinion of the
+    Generals they should only be used for reconnaissance work. It is thus no wonder that, at the outbreak
+    of war, there were practically no weapons for use against planes. As the danger from the air began
+    to increase, standard machine guns were mounted on simple wooden supports. Later, special machine
+    guns were used which fired small shells. Nevertheless, it was not easy to shoot down a moving plane,
+    and large quantities of ammunition were required.
+  tactical:
+    air: 02/30
+    water: '25'
+    ground: '25'
+    defence: '25'
+    speed: '2'
+    weight: '2'
+    group: '6'
+    cost: '50'
+  impassable:
+  - deep-water
+  - shallow-water
+  - forest
+  - mountains
+  - trenches
+  sprites:
+  - img-070-065.png
+  - img-070-066.png
+  source-page: 13
+- name: Mobile Anti-aircraft Emplacement
+  section: ground
+  faction: both
+  photos:
+  - file: img-071-068.jpg
+    caption: Anti-aircraft gun mounted on truck.
+  text: >-
+    The great disadvantage of the early anti-aircraft guns was that they were static and difficult to
+    move. A great number of static guns were needed if a large area was to be defended satisfactorily.
+    To make the guns mobile, they were placed on trucks. Since it is not easy to hit a moving airplane
+    from the ground, shells loaded with explosive were used in place of ordinary ammunition; when they
+    reached a certain height, these shells exploded into thousands of small fragments.
+  tactical:
+    air: 04/35
+    water: '40'
+    ground: '40'
+    defence: '25'
+    speed: '7'
+    weight: '4'
+    group: '6'
+    cost: '62'
+  impassable:
+  - deep-water
+  - shallow-water
+  - mountains
+  - trenches
+  sprites:
+  - img-071-069.png
+  - img-071-070.png
+  source-page: 14
+- name: Light Field Artillery
+  section: ground
+  faction: both
+  photos:
+  - file: img-072-074.jpg
+    caption: Russian 76.2 mm calibre Light Field Artillery with crew.
+  text: >-
+    Artillery was among the most important weaponry in the First World War. At first there were no planes
+    to intervene in the war on the ground, and even later in the War their bomb load was extremely small.
+    There was a huge variety of calibres and barrel length, not all of which can be described here. HL
+    1914-1918 contains guns of three different calibres. The light field guns in HL 1914-1918 have barrels
+    up to 75 mm calibre. This type of gun was comparatively easy to move and were deployed with some success
+    against attacking troops. Their range and effectiveness however were small. The crew had to take the
+    guns dangerously close to the front line to be sure they did not fire into their own ranks. Because
+    of their weight and size, however, their firing position could be changed very rapidly.
+  tactical:
+    air: -/-
+    water: 03/45
+    ground: 03/45
+    defence: '25'
+    speed: '2'
+    weight: '3'
+    group: '6'
+    cost: '55'
+  impassable:
+  - deep-water
+  - shallow-water
+  - mountains
+  sprites:
+  - img-072-072.png
+  - img-072-073.png
+  source-page: 15
+- name: Medium Field Artillery
+  section: ground
+  faction: both
+  photos:
+  - file: img-073-076.jpg
+    caption: Medium Gun in firing position.
+  text: >-
+    In HL 1914-1918, medium artillery includes guns from 75 mm to 150 mm calibre. Together with the light
+    artillery, these guns were an important tactical element in battle; before an attack started, fire
+    was directed at the enemy lines and then broken off to allow the infantry to advance. When defending,
+    the guns set up a barrage of fire to stop the attacking troops and to deplete their numbers. By the
+    end of the War, many of the German guns were worn out and had become inaccurate as a result of the
+    terrible shortage of raw materials, and many shells landed among the German soldiers.
+  tactical:
+    air: -/-
+    water: 05/55
+    ground: 05/55
+    defence: '27'
+    speed: '1'
+    weight: '4'
+    group: '6'
+    cost: '70'
+  impassable:
+  - deep-water
+  - shallow-water
+  - mountains
+  - trenches
+  sprites:
+  - img-073-077.png
+  - img-073-078.png
+  source-page: 16
+- name: Heavy Field Artillery
+  section: ground
+  faction: both
+  photos:
+  - file: img-074-082.jpg
+    caption: Heavy Field Gun (probably 150 mm).
+  text: >-
+    These guns could not be moved without a strong cart or truck. In addition, the ground on which the
+    gun was positioned had to be sufficiently firm so that the gun did not sink into the earth. A 21 cm
+    gun had a range of up to 100 km, so that they were able to fire behind the enemy, for example on supply
+    routes and command posts. As the shells weighed several hundred kilograms, the guns’ rate of fire
+    was not high. All these facts made the heavy artillery primarily a strategic weapon.
+  tactical:
+    air: -/-
+    water: 06/70
+    ground: 06/70
+    defence: '25'
+    speed: '1'
+    weight: '5'
+    group: '6'
+    cost: '85'
+  impassable:
+  - deep-water
+  - shallow-water
+  - forest
+  - mountains
+  - trenches
+  sprites:
+  - img-074-080.png
+  - img-074-081.png
+  source-page: 17
+- name: Train-mounted artillery
+  section: ground
+  faction: both
+  photos:
+  - file: img-075-084.jpg
+    caption: 38 cm long-barrelled gun being fired.
+  text: >-
+    Train-mounted artillery were huge cannons mounted on railway wagons, and had a range of 100 km or
+    more. As well as the 38cm long-barrelled gun (illustrated), there were also 42 cm mortars, used primarily
+    to attack fortified emplacements and obstacles. The shells used with “Big Bertha” weighed up to 1160
+    kilograms and produced as much energy as a 200 ton goods train travelling at 90 km/hour. The great
+    disadvantages of these guns were their slow rate of fire, the extremely high cost per shot fired,
+    and the short life expectancy of the barrels. The train-mounted guns were, even more so than the heavy
+    artillery, strategic weapons.
+  tactical:
+    air: -/-
+    water: 07/90
+    ground: 07/90
+    defence: '40'
+    speed: '5'
+    weight: '35'
+    group: '1'
+    cost: '125'
+  impassable:
+  - deep-water
+  - shallow-water
+  - plain
+  - forest
+  - mountains
+  - trenches
+  sprites:
+  - img-075-085.png
+  - img-075-086.png
+  source-page: 18
+- name: Armoured Train
+  section: ground
+  faction: both
+  photos:
+  - file: img-076-088.jpg
+    caption: Gun wagon of an armoured train, probably on the Eastern Front.
+  text: >-
+    The armoured trains were protected by extremely thick armour plating and carried a number of guns
+    and machine guns. No expense was spared in the trains’ armaments or armour plating. They were unbreachable
+    fortresses which could only be stopped by being derailed. Naturally, they were not designed to attack
+    but to support other units, for reconnaissance, patrolling or taking part in battles near towns, all
+    of which tasks they performed well. They were also sent out ahead of ordinary goods trains to clear
+    the way for them. In the First World War, armoured trains were chiefly used on the Eastern Front.
+  tactical:
+    air: 02/20
+    water: 02/60
+    ground: 02/60
+    defence: '60'
+    speed: '6'
+    weight: '40'
+    group: '1'
+    cost: '100'
+  impassable:
+  - deep-water
+  - shallow-water
+  - plain
+  - forest
+  - mountains
+  - trenches
+  sprites:
+  - img-076-089.png
+  - img-076-090.png
+  source-page: 19
+- name: Bunker
+  section: ground
+  faction: both
+  photos:
+  - file: img-077-092.jpg
+    caption: Armed bunker with raised observation sight, gun barrels retracted.
+  text: >-
+    Before the War, the Belgians and French built defensive emplacements like that illustrated along their
+    eastern borders. It was impossible to gain superiority on a broad front, as Count Alfred von Schlieffen,
+    who gave his name to the famous Schlieffen Plan, realised very early in the War. Instead, a number
+    of strategically placed emplacements, for example at Namur and Antwerp, were selected and “opened
+    up” by means of the largest-calibre guns available. The bunkers and forts were built of metre-thick
+    reinforced concrete often reaching several metres underground. In addition to light or medium artillery,
+    they also had machine guns for use in close combat and could be completely self-sufficient for short
+    periods of time.
+  tactical:
+    air: -/-
+    water: 03/60
+    ground: 03/60
+    defence: '85'
+    speed: '-'
+    weight: '-'
+    group: '3'
+    cost: '-'
+  impassable:
+  - deep-water
+  - shallow-water
+  - plain
+  - forest
+  - mountains
+  - trenches
+  - tracks
+  sprites:
+  - img-077-093.png
+  - img-077-094.png
+  source-page: 20
+- name: Static Balloon
+  section: ground
+  faction: both
+  photos:
+  - file: img-078-096.jpg
+    caption: >-
+      Balloon, held down by ground troops, before rising. The observer sat in a gondola under the balloon
+      and had a parachute so that he could jump out in case enemy airplanes appeared.
+  text: >-
+    Balloons were used chiefly to observe the enemy and gave instructions to the artillery concerning
+    range and direction of fire. They were usually defended by anti-aircraft guns and fighter planes.
+    In HL 1914-1918 the balloons are used only as obstacles to force enemy pilots to fly over certain
+    points. Balloons were both round and cigar-shaped.
+  tactical:
+    air: -/-
+    water: -/-
+    ground: -/-
+    defence: '15'
+    speed: '1'
+    weight: '1'
+    group: '3'
+    cost: '30'
+  impassable:
+  - deep-water
+  - shallow-water
+  - forest
+  - mountains
+  - trenches
+  sprites:
+  - img-078-097.png
+  - img-078-098.png
+  source-page: 21
+- name: German Armoured Car
+  subtitle: (Panzerspähwagen)
+  section: tanks
+  faction: central
+  photos:
+  - file: img-079-100.jpg
+    caption: ''
+  text: >-
+    Little is known about the German armoured car shown in the illustration. It is known that it was used
+    for reconnaissance work and was similar in performance to the French Charron. They had ancillary tracks
+    which were attached to the wheels to enable the vehicle to travel over rough terrain.
+  spec:
+    items:
+    - key: Type
+      value: German Armoured Reconnaissance Car.
+    - key: Manufacturer
+      value: not known.
+    - key: Engine
+      value: internal combustion engine.
+    - key: Dimensions
+      value: not known.
+    - key: Performance
+      value: maximum speed (on roads) 8.5 km/hour, maximum range (on road) 60 km.
+    - key: Armaments
+      value: 3-4-man crew, two 7.62 mm machine guns, all-round armour plating, thickness not known.
+    - key: First made
+      value: before the War.
+  tactical:
+    air: -/-
+    water: 01/35
+    ground: 01/35
+    defence: '30'
+    speed: '6'
+    weight: '3'
+    group: '6'
+    cost: '55'
+  impassable:
+  - deep-water
+  - shallow-water
+  - mountains
+  - trenches
+  sprites:
+  - img-079-101.png
+  - img-079-102.png
+  source-page: 22
+- name: A7V Tank
+  subtitle: (Sturmpanzerwagen)
+  section: tanks
+  faction: central
+  photos:
+  - file: img-080-104.jpg
+    caption: ''
+  text: >-
+    The A7V was the first and only tank used by the German Army in the First World War. With armour plating
+    up to 30 mm thick it was the best-protected armoured car of its time, and its six machine guns and
+    its Belgian 5.7cm gun made it extremely powerful in battle. Despite several successful operations,
+    only 20 had been built by the end of the War, as the powers that be underestimated for a long time
+    the significance of tanks.
+  spec:
+    items:
+    - key: Type
+      value: A7V Tank.
+    - key: Manufacturer
+      value: Daimler.
+    - key: Engine
+      value: two 100 hp Daimler petrol engines.
+    - key: Dimensions
+      value: length 7.35 m, width 3.10 m, height 3.40 m, battle weight 32 t.
+    - key: Performance
+      value: maximum speed on road 12 km/hour, maximum range on road 35 km.
+    - key: Armaments
+      value: >-
+        18-man crew, one 57 mm cannon, six 7.62 mm machine guns, maximum thickness of armour plating 30
+        mm.
+    - key: First made
+      value: '1918.'
+  tactical:
+    air: -/-
+    water: 01/60
+    ground: 01/60
+    defence: '55'
+    speed: '4'
+    weight: '5'
+    group: '6'
+    cost: '90'
+  impassable:
+  - deep-water
+  - shallow-water
+  - forest
+  - mountains
+  sprites:
+  - img-080-105.png
+  - img-080-106.png
+  source-page: 23
+- name: Charron Armoured Car
+  section: tanks
+  faction: allies
+  photos:
+  - file: img-081-108.jpg
+    caption: ''
+  text: >-
+    The fully armoured Charron was developed in France in 1914. It was equipped with a machine gun, but
+    despite the semi-circular steel supports which were attached to the sides and could be placed under
+    the wheels if necessary, it was incapable of surmounting any significant obstacles. It was however
+    faster than the later tracked vehicles. As a reconnaissance vehicle it performed well for the Allies.
+  spec:
+    items:
+    - key: Type
+      value: Charron Armoured Car
+    - key: Manufacturer
+      value: not known.
+    - key: Engine
+      value: internal combustion engine.
+    - key: Dimensions
+      value: not known.
+    - key: Performance
+      value: maximum speed on road probably 30–40 km/hour.
+    - key: First made
+      value: '1914.'
+  tactical:
+    air: -/-
+    water: 01/35
+    ground: 01/35
+    defence: '30'
+    speed: '6'
+    weight: '3'
+    group: '6'
+    cost: '56'
+  impassable:
+  - deep-water
+  - shallow-water
+  - mountains
+  - trenches
+  sprites:
+  - img-081-109.png
+  - img-081-110.png
+  source-page: 24
+- name: St.-Chamond Tank
+  subtitle: Model 16
+  section: tanks
+  faction: allies
+  photos:
+  - file: img-082-112.jpg
+    caption: ''
+  text: >-
+    When the British first brought their tanks across the Channel, it transpired that the French had also
+    secretly been working on developing a tank. The St.-Chamond was designed as a mobile fortress, as
+    is clear from the technical data. Nevertheless, manufacture of the St.-Chamond was discontinued after
+    400 had been made, in favour of the lighter and smaller Renault FT 17.
+  spec:
+    items:
+    - key: Type
+      value: St.-Chamond Tank.
+    - key: Manufacturer
+      value: Compagnie des Forges et Acieries de la Marine et d’Homecourt-St. Chamond.
+    - key: Engine
+      value: Panhard 4-cylinder petrol engine.
+    - key: Dimensions
+      value: length 8.83 m, width 2.67 m, height 2.36 m, battle weight 28 t.
+    - key: Performance
+      value: maximum speed on road 8.5 km/hour, maximum range on road 60 km.
+    - key: Armaments
+      value: >-
+        9-man crew, one 75 mm gun, four 8 mm machine guns, maximum thickness of armour plating 17 mm.
+    - key: First made
+      value: '1916.'
+  tactical:
+    air: -/-
+    water: 01/55
+    ground: 01/60
+    defence: '40'
+    speed: '4'
+    weight: '5'
+    group: '6'
+    cost: '90'
+  impassable:
+  - deep-water
+  - shallow-water
+  - forest
+  - mountains
+  sprites:
+  - img-082-113.png
+  - img-082-114.png
+  source-page: 25
+- name: Renault FT 17
+  subtitle: Light Tank
+  section: tanks
+  faction: allies
+  photos:
+  - file: img-083-116.jpg
+    caption: ''
+  text: >-
+    In contrast to the large tanks, the FT 17 did not need to travel across trenches but instead was short
+    enough to be able to drive through them. Its advanced, compact construction is noteworthy and was
+    later copied by many tank manufacturers. After the War, Renault exported its tanks to the USA and
+    USSR, who used them to equip their first tank regiments.
+  spec:
+    items:
+    - key: Type
+      value: Renault FT 17 Light Tank.
+    - key: Manufacturer
+      value: Renault.
+    - key: Engine
+      value: Renault 4-cylinder petrol engine.
+    - key: Dimensions
+      value: length 5.00 m, width 1.74 m, height 2.14 m, fighting weight 6.5 t.
+    - key: Performance
+      value: maximum speed on road 7.6 km/hour, maximum range on road 60 km.
+    - key: Armaments
+      value: >-
+        2-man crew, one 37 mm gun or one 8 mm machine gun, maximum thickness of armour plating 16 mm.
+    - key: First made
+      value: '1917.'
+  tactical:
+    air: -/-
+    water: 01/40
+    ground: 01/40
+    defence: '35'
+    speed: '5'
+    weight: '3'
+    group: '6'
+    cost: '51'
+  impassable:
+  - deep-water
+  - shallow-water
+  - mountains
+  - trenches
+  sprites:
+  - img-083-117.png
+  - img-083-118.png
+  source-page: 26
+- name: Battle Tank Mark 1
+  section: tanks
+  faction: allies
+  photos:
+  - file: img-084-120.jpg
+    caption: ''
+  text: >-
+    The British Mark 1 was the first battle tank in the world, and was deployed at the Battle of the Somme
+    on 15 September 1916, where it struck terror into the German Infantry. For most models the British
+    and French made a “male” version - equipped with guns and machine guns - and a “female” version, which
+    was armed only with machine guns. The tactical value of these early models was, however, extremely
+    small, as they often became stuck in the mud or broke down.
+  spec:
+    items:
+    - key: Type
+      value: 'Tank MK 1, “male” version: illustration shows “female” version.'
+    - key: Manufacturer
+      value: Foster & Metropolitan Carriage and Wagon Company.
+    - key: Engine
+      value: Daimler 6-cylinder petrol engine (built under licence).
+    - key: Dimensions
+      value: length 8.05 m, width 4.19 m, height 2.49 m, battle weight 28 t.
+    - key: Performance
+      value: maximum speed on road 5 km/hour, maximum range on road 40 km.
+    - key: Armaments
+      value: >-
+        8-man crew, two 57 mm guns, four 7.93 mm machine guns, maximum thickness of armour plating 10
+        mm.
+    - key: First made
+      value: '1916.'
+  tactical:
+    air: -/-
+    water: 01/50
+    ground: 01/50
+    defence: '40'
+    speed: '4'
+    weight: '4'
+    group: '6'
+    cost: '85'
+  impassable:
+  - deep-water
+  - shallow-water
+  - forest
+  - mountains
+  sprites:
+  - img-084-121.png
+  - img-084-122.png
+  source-page: 27
+- name: Battle Tank Mark IV
+  section: tanks
+  faction: allies
+  photos:
+  - file: img-085-124.jpg
+    caption: ''
+  text: >-
+    The MK IV was a development of the British MK series. In addition to a few slight technical modifications
+    it had better armour and was more manoeuvrable than its predecessors; its range on the road was raised
+    to 55 km. Practically no modifications were made to the armaments. The German Forces used some captured
+    MK IVs in their own regiments.
+  spec:
+    items:
+    - key: Type
+      value: Tank Mark IV
+    - key: Manufacturer
+      value: Foster & Metropolitan Carriage and Wagon Company.
+    - key: Engine
+      value: Daimler 6-cylinder petrol engine (built under licence).
+    - key: Dimensions
+      value: length 8.18 m, width 4.12 m, height 2.49 m, battle weight 28.5 t.
+    - key: Performance
+      value: maximum speed on road 6 km/hour, maximum range on road 55 km.
+    - key: Armaments
+      value: >-
+        7-man crew, two 57 mm guns, four 7.92 mm machine guns, maximum thickness of armour plating 12
+        mm.
+    - key: First made
+      value: '1917.'
+  tactical:
+    air: -/-
+    water: 01/55
+    ground: 01/55
+    defence: '45'
+    speed: '4'
+    weight: '5'
+    group: '6'
+    cost: '95'
+  impassable:
+  - deep-water
+  - shallow-water
+  - forest
+  - mountains
+  sprites:
+  - img-085-125.png
+  - img-085-126.png
+  source-page: 28
+- name: Fokker E.I
+  subtitle: Single Seater Fighting Scout
+  section: air
+  faction: central
+  photos:
+  - file: img-087-129.jpg
+    caption: ''
+  text: >-
+    The fact that it was the first plane to be able to fire through the propeller without damaging it
+    made the E.I a feared opponent. Indeed, it was with the E.I that the era of aerial battles began;
+    previously, the pilots had merely shot at each other with pistols or had simply waved to each other.
+    With the E.I, Boelke and Immelmann developed the ground rules for modern aerial warfare and thus became
+    heroes.
+  spec:
+    items:
+    - key: Powerplant
+      value: 80 hp Oberursel U.O. 7 cylinder rotary engine.
+    - key: Dimensions
+      value: span 8.53 m, length 6.75 m, height 3.12 m.
+    - key: Weight
+      value: empty approx. 500 kg, take-off 562 kg.
+    - key: Performance
+      value: maximum speed 132 km/h, service ceiling 3100 m.
+    - key: Armaments
+      value: one fixed 7.92 mm Spandau machine gun synchronised to fire through the propeller.
+    - key: History
+      value: first flew end of May 1915.
+  tactical:
+    air: 01/20
+    water: 01/13
+    ground: 01/11
+    defence: '15'
+    speed: '7'
+    weight: '-'
+    group: '6'
+    cost: '80'
+  impassable:
+  - mountains
+  sprites:
+  - img-087-130.png
+  - img-087-131.png
+  source-page: 30
+- name: Fokker E.III
+  subtitle: Single Seater Fighting Scout
+  section: air
+  faction: central
+  photos:
+  - file: img-088-133.jpg
+    caption: ''
+  text: >-
+    The E.I was constantly modified to maintain its superiority. The planes were equipped with two machine
+    guns (for a time Immelmann flew a version with three) and a more powerful engine. The 300 E.IIIs which
+    were built shot down approximately 1000 Allied planes, giving rise to the expression “Fokker plague”.
+    After 1916, however, the monoplane was left behind by its Allied opponents, which were continually
+    being improved.
+  spec:
+    items:
+    - key: Powerplant
+      value: 100 hp Oberursel UI 7-cylinder rotary engine.
+    - key: Dimensions
+      value: span 9.52 m, length 7.3 m, height 2.79 m.
+    - key: Weight
+      value: empty approx. 500 kg, take-off 635 kg.
+    - key: Performance
+      value: maximum speed 134 km/h, service ceiling 3500 m.
+    - key: Armaments
+      value: two fixed 7.92 mm Spandau machine guns synchronised to fire through the propeller.
+    - key: History
+      value: first flew September 1915.
+  tactical:
+    air: 01/25
+    water: 01/17
+    ground: 01/15
+    defence: '15'
+    speed: '7'
+    weight: '-'
+    group: '6'
+    cost: '85'
+  impassable:
+  - mountains
+  sprites:
+  - img-088-134.png
+  - img-088-135.png
+  source-page: 31
+- name: Albatross D.III
+  subtitle: Single Seater Fighter Scout
+  section: air
+  faction: central
+  photos:
+  - file: img-089-137.jpg
+    caption: ''
+  text: >-
+    The D.III had a hand in “Bloody April” 1917, in which the Allied Air Forces suffered high losses.
+    After the Allies had down-graded the “single-decker”, the D.III was introduced at the right moment
+    to give the Germans air superiority again in the first half of 1917. Noteworthy features of the plane
+    were the aerodynamic shape of the fuselage, and the fact that it was equipped with two machine guns
+    at a time when its British and French counterparts had only one. Richthofen, Göring and Boelke flew
+    the D.III and achieved many air victories with it.
+  spec:
+    items:
+    - key: Powerplant
+      value: water-cooled Mercedes 6-cylinder DIIIa, 162/177 hp.
+    - key: Dimensions
+      value: span 9.05 m, length 7.33 m, height 2.98 m.
+    - key: Weight
+      value: empty 661 kg, take-off 886 kg.
+    - key: Performance
+      value: maximum speed 175 km/h, service ceiling 5500 m, max. flying time 2 hours.
+    - key: Armaments
+      value: two synchronised 7.92 mm Spandau machine guns.
+    - key: History
+      value: first flew approx. October 1916.
+  tactical:
+    air: 01/35
+    water: 01/18
+    ground: 01/16
+    defence: '20'
+    speed: '9'
+    weight: '-'
+    group: '6'
+    cost: '90'
+  impassable: []
+  sprites:
+  - img-089-138.png
+  - img-089-139.png
+  source-page: 32
+- name: Fokker Dr.I
+  subtitle: Single Seater Fighter Scout
+  section: air
+  faction: central
+  photos:
+  - file: img-090-141.jpg
+    caption: ''
+  text: >-
+    The red triplane of Manfred Freiherr von Richthofen is probably the most famous plane of the War.
+    It was in this model that he achieved a record number of aerial victories. The plane’s performance
+    was not exceptional, but it was extremely manoeuvrable and its light construction gave it a rapid
+    rate of climb. The fame of the Dr.I is chiefly attributable to the excellent pilots who flew it. Its
+    British counterpart, the Sopwith Triplane, was also very manoeuvrable.
+  spec:
+    items:
+    - key: Powerplant
+      value: >-
+        usually 110 hp Le Rhone 9-cylinder rotary engine or 110 hp or 200 hp engines of various types.
+    - key: Dimensions
+      value: span 7.71 m, length 5.77 m, height 2.95 m.
+    - key: Weight
+      value: empty 410 kg, take-off 585 kg.
+    - key: Performance
+      value: >-
+        maximum speed 165 km/h, climb rate 220 m/min, service ceiling 6100 m, max. flying time 1.5 hours.
+    - key: Armaments
+      value: two synchronised 7.92 mm Spandau machine guns.
+    - key: History
+      value: first flew approx. June 1917.
+  tactical:
+    air: 01/40
+    water: 01/22
+    ground: 01/19
+    defence: '20'
+    speed: '8'
+    weight: '-'
+    group: '6'
+    cost: '92'
+  impassable: []
+  sprites:
+  - img-090-142.png
+  - img-090-143.png
+  source-page: 33
+- name: Fokker D.VII
+  subtitle: Single Seater Fighter Scout
+  section: air
+  faction: central
+  photos:
+  - file: img-091-145.jpg
+    caption: ''
+  text: >-
+    The D.VII was a machine with extraordinary characteristics. It was fast, manoeuvrable and robust,
+    and was regarded as the best plane of the First World War. It was introduced too late, however, to
+    break the air superiority of the Allies. After the War the victorious Allies demanded that all remaining
+    D.VIIs should be surrendered or destroyed - a telling testimony to the effectiveness of the plane.
+  spec:
+    items:
+    - key: Powerplant
+      value: (D.VII) water-cooled Mercedes six-cylinder D III, 160 hp, (D.VIIF) 185 hp BMW IIIa.
+    - key: Dimensions
+      value: span 8.9 m, length 6.95 m, height 2.75 m.
+    - key: Weight
+      value: empty 670 kg, take-off 900 kg.
+    - key: Performance
+      value: maximum speed 189 km/h, service ceiling 6000 m, max. flying time 1.5 hours.
+    - key: Armaments
+      value: two synchronised 7.92 mm Spandau machine guns.
+    - key: History
+      value: first flew January 1918.
+  tactical:
+    air: 01/45
+    water: 01/25
+    ground: 01/20
+    defence: '25'
+    speed: '10'
+    weight: '-'
+    group: '6'
+    cost: '95'
+  impassable: []
+  sprites:
+  - img-091-146.png
+  - img-091-147.png
+  source-page: 34
+- name: Junkers J 4-10
+  subtitle: Two Seater Low Level Fighter
+  section: air
+  faction: central
+  photos:
+  - file: img-092-149.jpg
+    caption: ''
+  text: >-
+    The J 4-10 was the first all-metal plane of the War, employing the typical corrugated iron construction
+    last used in the JU-52. Its all-metal construction and its 470 kg of 5 mm-thick armour plating for
+    the crew, engine and tank meant that it could intervene in battles on the ground and withstand infantry
+    attacks. From this point of view the J 4-10 was the precursor of modern-day low level fighters.
+  spec:
+    items:
+    - key: Powerplant
+      value: water-cooled 200 hp Benz Bz IV six-cylinder engine.
+    - key: Dimensions
+      value: span 16 m, length 9.1 m, height 3.4 m.
+    - key: Weight
+      value: take-off 2178 kg.
+    - key: Performance
+      value: maximum speed 155 km/h, service ceiling 4000m, range 310 km.
+    - key: Armaments
+      value: >-
+        one 7.92 mm manual machine gun in the rear cockpit and either two downward-firing MGs to the left
+        of the observer or two Spandau machine guns firing forward through the propeller; small load of
+        fragmentation bombs or smoke bombs and grenades.
+    - key: History
+      value: first flew probably May 1917.
+  tactical:
+    air: 01/25
+    water: 01/65
+    ground: 01/55
+    defence: '30'
+    speed: '8'
+    weight: '-'
+    group: '6'
+    cost: '90'
+  impassable:
+  - mountains
+  sprites:
+  - img-092-150.png
+  - img-092-151.png
+  source-page: 35
+- name: Gotha G Vb
+  subtitle: Heavy Bomber
+  section: air
+  faction: central
+  photos:
+  - file: img-093-153.jpg
+    caption: ''
+  text: >-
+    The Gotha G Vb - the G stood for “Grossflugzeug” - was the last version of a series of bombers bearing
+    the name of the Gothaer Waggonfabrik. It had two 260 hp Mercedes engines and a top speed of 140 km/hour.
+    It was used as a tactical bomber over the battle area and, among other missions, to bomb South-East
+    England.
+  spec:
+    items:
+    - key: Powerplant
+      value: two water-cooled Mercedes six-cylinder D IVa, 260 hp.
+    - key: Dimensions
+      value: span 23.7m, length 12.35m, height 3.95m.
+    - key: Weight
+      value: empty 2400 kg, take-off 3966 kg.
+    - key: Performance
+      value: maximum speed 140 km/h, service ceiling 6500 m, range 840 km.
+    - key: Armaments
+      value: >-
+        two manual 7.92 mm machine guns in front and rear cockpits, racks under lower wings for 500 kg
+        bombs.
+    - key: History
+      value: first flew Spring 1917.
+  tactical:
+    air: 01/20
+    water: 01/65
+    ground: 01/55
+    defence: '25'
+    speed: '7'
+    weight: '-'
+    group: '3'
+    cost: '100'
+  impassable:
+  - mountains
+  sprites:
+  - img-093-154.png
+  - img-093-155.png
+  source-page: 36
+- name: Zeppelin (Staaken) R VI
+  subtitle: Heavy Bomber
+  section: air
+  faction: central
+  photos:
+  - file: img-094-157.jpg
+    caption: ''
+  text: >-
+    The R-Series planes from the Zeppelin-Werke were the largest planes in the First World War. Although
+    only capable of a maximum speed of 130 km/h, these giant planes were able to remain airborne for up
+    to 10 hours. They carried a load of up to 2000 kg, which was enormous at the time - a contemporary
+    fighter plane weighed between 600 and 1000 kg. With its range and bomb load the R VI put every other
+    bomber in the shade. Only 18 R VIs were built, and they were used on the Eastern Front and to attack
+    Great Britain.
+  spec:
+    items:
+    - key: Powerplant
+      value: four water-cooled 260 hp Mercedes D IVa six-cylinder in-line engines.
+    - key: Dimensions
+      value: span 42.2 m, length 22.1 m, height 6.3 m.
+    - key: Weight
+      value: empty 6900–7350 kg, max. weight 11460 kg.
+    - key: Performance
+      value: >-
+        maximum speed 130 km/h at sea level, rate of climb 100 m/min, service ceiling approx. 3800 m,
+        range approx. 800 km, max. flying time, depending on bomb load, 7–10 hours.
+    - key: Armaments
+      value: >-
+        two 7.92 mm manual machine guns in front cockpit, two manual guns in rear cockpit and one situated
+        beneath the plane at the rear, fuselage bomb bay for up to 18 100 kg bombs, maximum load 2000
+        kg.
+    - key: History
+      value: first flew June 1917.
+  tactical:
+    air: 01/25
+    water: 01/75
+    ground: 01/65
+    defence: '30'
+    speed: '7'
+    weight: '-'
+    group: '3'
+    cost: '115'
+  impassable:
+  - mountains
+  sprites:
+  - img-094-158.png
+  - img-094-159.png
+  source-page: 37
+- name: D.H.2 Single Seater Scout
+  section: air
+  faction: allies
+  photos:
+  - file: img-095-161.jpg
+    caption: ''
+  text: >-
+    The D.H.1 was built by Geoffrey de Havilland in 1915 for Airco (Aircraft Manufacturing Co.) The D.H.2
+    first flew in Spring 1915. At first the pilot had to fire a hand gun while steering the plane with
+    the other hand; later a fixed machine gun was mounted in the front cockpit. The D.H.2 was equal in
+    performance to the Fokker E.III and helped to bring the “Fokker Plague” to an end. Approximately 450
+    were built, 300 of which were deployed in France.
+  spec:
+    items:
+    - key: Powerplant
+      value: 100 hp Gnome Monosoupape 9-cylinder radial engine.
+    - key: Dimensions
+      value: span 8.61 m, length 7.68m, height 2.9 m.
+    - key: Weight
+      value: empty 520 kg, take-off 654 kg.
+    - key: Performance
+      value: maximum speed 150 km/h, service ceiling 4420 m, range 354 km.
+    - key: Armaments
+      value: >-
+        one 7.62 mm Lewis machine gun, operated by the pilot, to the left or right of the windscreen.
+    - key: History
+      value: first flew Spring 1915.
+  tactical:
+    air: 01/17
+    water: 01/13
+    ground: 01/11
+    defence: '15'
+    speed: '7'
+    weight: '-'
+    group: '6'
+    cost: '85'
+  impassable:
+  - mountains
+  sprites:
+  - img-095-162.png
+  - img-095-163.png
+  source-page: 38
+- name: Morane-Saulnier N
+  subtitle: Single Seater Fighter
+  section: air
+  faction: allies
+  photos:
+  - file: img-096-165.jpg
+    caption: ''
+  text: >-
+    This single-decker, with its considerable speed of 165 km/hour, was used by the French, British and
+    Russians. In April 1915 the French flying ace Garros was shot down in one of these planes and the
+    Germans saw the bullet deflectors on the propeller blades, which allowed the pilot to fire through
+    the propeller. Fokker, who had encountered the same problem, solved it by developing the synchronised
+    machine gun. Until the E.I came into service, the Germans had nothing to compare with this plane.
+  spec:
+    items:
+    - key: Powerplant
+      value: one 80 hp Gnome or 110 hp Le Rhone 9C or 9Ja nine-cylinder rotary engine.
+    - key: Dimensions
+      value: span 8.3 m, length 6.7 m, height 2.5 m.
+    - key: Weight
+      value: empty 370 kg, take-off 510 kg.
+    - key: Performance
+      value: maximum speed 165 km/h, rate of climb 250 m/min, service ceiling 4000 m, range 225 km.
+    - key: Armaments
+      value: >-
+        initially non-synchronised machine gun with bullet deflector, later replaced by synchronised 7.7
+        mm Lewis or 7.7 mm Vickers gun.
+    - key: History
+      value: first flew April 1914.
+  tactical:
+    air: 01/15
+    water: 01/11
+    ground: 01/10
+    defence: '15'
+    speed: '7'
+    weight: '-'
+    group: '6'
+    cost: '80'
+  impassable:
+  - mountains
+  sprites:
+  - img-096-166.png
+  - img-096-167.png
+  source-page: 39
+- name: Nieuport XVII
+  subtitle: Single Seater Fighter
+  section: air
+  faction: allies
+  photos:
+  - file: img-097-169.jpg
+    caption: ''
+  text: >-
+    Air aces such as Nungesser, Guynemer, Ball and Bishop flew the Nieuport XVII for a long time. It was
+    manoeuvrable, had a good climb rate and all in all was vastly superior to the E.I. The most serious
+    drawback of the XI and XVI, the weak lower wing, had been rectified, creating an excellent plane.
+    At first, an non-synchronised machine gun was mounted on the upper wing; later, as synchronised guns
+    became available, this was replaced.
+  spec:
+    items:
+    - key: Powerplant
+      value: 110 hp Le Rhone 9J or 120 hp 9Jb nine-cylinder rotary engine.
+    - key: Dimensions
+      value: span 8.22 m, length 5.74 m, height 2.33 m.
+    - key: Weight
+      value: empty 320 kg, take-off 535 kg.
+    - key: Performance
+      value: maximum speed 176 km/h, service ceiling 5300 m, range 300 km.
+    - key: Armaments
+      value: >-
+        the first series had one 7.7 mm Lewis machine gun on the upper wing, later one synchronised 7.7
+        mm Vickers machine gun mounted on the nose.
+    - key: History
+      value: first flew probably January 1916.
+  tactical:
+    air: 01/20
+    water: 01/14
+    ground: 01/12
+    defence: '15'
+    speed: '8'
+    weight: '-'
+    group: '6'
+    cost: '85'
+  impassable: []
+  sprites:
+  - img-097-170.png
+  - img-097-171.png
+  source-page: 40
+- name: Spad VII
+  subtitle: Single Seater Fighter
+  section: air
+  faction: allies
+  photos:
+  - file: img-098-173.jpg
+    caption: ''
+  text: >-
+    The Spad VII exceeded the expectations of the military leaders to such an extent that, after an initial
+    order of 268, approximately 6000 planes were eventually built. Particularly noteworthy was the liquid-cooled
+    Hispano-Suiza V-8 engine, which made the plane balanced in flight and gave it a remarkable top speed.
+    The one serious defect was its outdated armament of only one machine gun.
+  spec:
+    items:
+    - key: Powerplant
+      value: one water-cooled 150 hp (later up to 200 hp) Hispano-Suiza 8Aa V-8 engine.
+    - key: Dimensions
+      value: span 7.81 m, length 6.18 m, height 2.13 m.
+    - key: Weight
+      value: empty 510 kg, maximum weight 740 kg.
+    - key: Performance
+      value: >-
+        maximum speed 192 km/h, rate of climb 275 m/min, service ceiling 5300 m, range approx. 360 km.
+    - key: Armaments
+      value: one 7.65 mm Vickers gun to the right of the pilot.
+    - key: History
+      value: first flew April 1916.
+  tactical:
+    air: 01/25
+    water: 01/15
+    ground: 01/12
+    defence: '20'
+    speed: '9'
+    weight: '-'
+    group: '6'
+    cost: '90'
+  impassable: []
+  sprites:
+  - img-098-174.png
+  - img-098-175.png
+  source-page: 41
+- name: S.E. 5a
+  subtitle: Single Seater Fighter Scout
+  section: air
+  faction: allies
+  photos:
+  - file: img-099-177.jpg
+    caption: ''
+  text: >-
+    Initially fitted with unreliable engines, the S.E.5a became one of the most successful scouts of the
+    War. The plane was easier to fly than the Camel, could climb faster and could withstand more direct
+    hits. The armaments consisted of two machine guns, a Lewis on the upper wing and a synchronised Vickers
+    on the engine, both aimed at a point 45 m in front of the plane. Among the air aces who flew this
+    model were Ball, Bishop, Mannock and McCudden.
+  spec:
+    items:
+    - key: Powerplant
+      value: one water-cooled 200–240 hp Hispano-Suiza V-8 engine.
+    - key: Dimensions
+      value: span 8.11 m, length 6.38 m, height 2.89 m.
+    - key: Weight
+      value: empty 639 kg, max. weight 902 kg.
+    - key: Performance
+      value: maximum speed 193 km/h, rate of climb 235 m/min, service ceiling 5940 m, range 480 km.
+    - key: Armaments
+      value: >-
+        one Vickers 7.7 mm gun with Constantinesco synchronised gear on the fuselage and one 7.7 mm Lewis
+        Gun on the upper wing; bomb racks under fuselage for four 11 kg bombs.
+    - key: History
+      value: first flew November 1916.
+  tactical:
+    air: 01/35
+    water: 01/20
+    ground: 01/14
+    defence: '20'
+    speed: '9'
+    weight: '-'
+    group: '6'
+    cost: '91'
+  impassable: []
+  sprites:
+  - img-099-178.png
+  - img-099-179.png
+  source-page: 42
+- name: Spad XIII
+  subtitle: Single Seater Fighter Scout
+  section: air
+  faction: allies
+  photos:
+  - file: img-100-181.jpg
+    caption: ''
+  text: >-
+    The Spad XIII was a development of the Spad VII with a more powerful engine, and a second machine
+    gun. No fewer than 18 French squadrons and many of the 16 squadrons in the American Expeditionary
+    Corps were equipped with the “XIII”. It was very fast, reliable and so rugged that it could get pilots
+    home safely even after being hit. About 8500 were built, many of which were exported after the War.
+  spec:
+    items:
+    - key: Powerplant
+      value: one water-cooled Hispano-Suiza 8Be 220 hp V-8 engine.
+    - key: Dimensions
+      value: span 8.2 m, length 6.3 m, height 2.42 m.
+    - key: Weight
+      value: empty 570 kg, max. weight 820–845 kg.
+    - key: Performance
+      value: maximum speed 220 km/h, rate of climb 460 m/min, service ceiling 6650 m, range 330–350 km.
+    - key: Armaments
+      value: two 7.65 mm Vickers in front of pilot.
+    - key: History
+      value: first flew April 1917.
+  tactical:
+    air: 01/40
+    water: 01/24
+    ground: 01/19
+    defence: '25'
+    speed: '10'
+    weight: '-'
+    group: '6'
+    cost: '92'
+  impassable: []
+  sprites:
+  - img-100-182.png
+  - img-100-183.png
+  source-page: 43
+- name: Sopwith Camel
+  subtitle: Single Seater Fighter Scout
+  section: air
+  faction: allies
+  photos:
+  - file: img-101-185.jpg
+    caption: ''
+  text: >-
+    This, the most famous fighter of the First World War, destroyed more enemy planes than any other model.
+    It was while flying a Camel that the Canadian pilot Roy Brown shot down the “Red Baron” Manfred von
+    Richthofen on 21 April 1918. As a result of the power which the rotary engine produced, the Camel
+    could perform incredibly sharp turns and was generally extremely nimble. It did, however, need an
+    experienced pilot, and a considerable number of inexperienced pilots crashed in Camels.
+  spec:
+    items:
+    - key: Powerplant
+      value: usually one 130 hp Clerget 9B nine-cylinder rotary engine.
+    - key: Dimensions
+      value: span 8.53m, length 5.72m, height 2.59m.
+    - key: Weight
+      value: empty 422 kg, max. weight 659 kg.
+    - key: Performance
+      value: >-
+        maximum speed 182 km/h, climb rate approx. 305 m/min, service ceiling 5790 m, range 400 km.
+    - key: Armaments
+      value: >-
+        two synchronised 7.7 mm Vickers on nose in front of pilot, optional external racks for four 11
+        kg bombs under lower wing.
+    - key: History
+      value: first flew December 1916.
+  tactical:
+    air: 01/40
+    water: 01/25
+    ground: 01/20
+    defence: '20'
+    speed: '9'
+    weight: '-'
+    group: '6'
+    cost: '95'
+  impassable: []
+  sprites:
+  - img-101-186.png
+  - img-101-187.png
+  source-page: 44
+- name: Voisin III (LA)
+  subtitle: Two Seater Bomber
+  section: air
+  faction: allies
+  photos:
+  - file: img-102-189.jpg
+    caption: ''
+  text: >-
+    This plane scored the first hit of the War on 5 October 1914. Despite its fragile appearance it was
+    in fact sturdy. The armaments often included a machine gun on the fuselage, operated by a standing
+    observer. Later models had 37 mm and 47 mm guns for ground attack. When the “single deckers” came
+    on the scene, the Voisin Bombers’ chances of survival plummeted.
+  spec:
+    items:
+    - key: Powerplant
+      value: one water-cooled 120 hp Salmson 9M nine-cylinder engine.
+    - key: Dimensions
+      value: span 15.9 m, length 9.53 m, height 3.66 m.
+    - key: Weight
+      value: empty approx. 750 kg, max. weight approx. 1140 kg.
+    - key: Performance
+      value: maximum speed 120–132 km/h, service ceiling 2980–3600 m, range 330–500 km.
+    - key: Armaments
+      value: one Hotchkiss 7.7 mm machine gun in front cockpit, bomb load 60 kg.
+    - key: History
+      value: first flew February 1914.
+  tactical:
+    air: 01/15
+    water: 01/55
+    ground: 01/45
+    defence: '15'
+    speed: '7'
+    weight: '-'
+    group: '3'
+    cost: '85'
+  impassable:
+  - mountains
+  sprites:
+  - img-102-190.png
+  - img-102-191.png
+  source-page: 45
+- name: Handley Page 0/400
+  subtitle: Heavy Bomber
+  section: air
+  faction: allies
+  photos:
+  - file: img-103-193.jpg
+    caption: ''
+  text: >-
+    Frederick Handley Page opened his first airplane factory in Barking in 1909. His prototype won the
+    tender for the 0/100 and created one of the best bombers of the War. In 1916 the 0/100 was converted
+    to become the 0/400. The plane’s defensive armaments were good - up to 5 machine guns - and could
+    carry eight 113 kg bombs. To reduce losses by enemy fighters, bombing missions were later carried
+    out at night.
+  spec:
+    items:
+    - key: Powerplant
+      value: two water-cooled 360 hp Rolls-Royce Eagle VIII V-12 engines.
+    - key: Dimensions
+      value: span 30.48 m, length 19.16 m, height 6.7 m.
+    - key: Weight
+      value: empty 3857 kg, take-off 6060 kg.
+    - key: Performance
+      value: maximum speed 156 km/h, service ceiling 2590 m, range 1046 km.
+    - key: Armaments
+      value: >-
+        7.7 twin Lewis machine guns in nose and at mid-upper position, single Lewis firing through trapdoor,
+        eight 113 kg or sixteen 55 kg bombs internal bomb load.
+    - key: History
+      value: first flew late 1916.
+  tactical:
+    air: 01/25
+    water: 01/75
+    ground: 01/65
+    defence: '30'
+    speed: '7'
+    weight: '-'
+    group: '3'
+    cost: '115'
+  impassable:
+  - mountains
+  sprites:
+  - img-103-194.png
+  - img-103-195.png
+  source-page: 46
+- name: D.H.4
+  subtitle: Two Seater Bomber
+  section: air
+  faction: allies
+  photos:
+  - file: img-104-197.jpg
+    caption: ''
+  text: >-
+    The D.H.4 was the first British plane to be designed as a daylight bomber on the instructions of the
+    Air Ministry. Pilot and observer were seated some distance apart so as to give the observer, who operated
+    the twin machine gun in the tail, a better field of view. As a result, however, communication between
+    them was impaired at the time they did not have radio communication. The plane was also built from
+    late 1917 in the USA. Its most outstanding characteristic was its ability to out-manoeuvre enemy fighters.
+  spec:
+    items:
+    - key: Powerplant
+      value: one water-cooled 375 hp Rolls Royce Eagle VIII 12-cylinder V-engine.
+    - key: Dimensions
+      value: span 12.95 m, length 9.35 m, height 3.35 m.
+    - key: Weight
+      value: empty 1043 kg, take-off 1575 kg.
+    - key: Performance
+      value: >-
+        maximum speed 219 km/h, rate of climb 306 m/min, service ceiling: approx. 6096 m, range 676 km.
+    - key: Armaments
+      value: >-
+        one fixed Vickers 7.62 mm on the nose and a 7.62 mm twin Vickers in rear cockpit, up to 209 kg
+        bombs under fuselage and wing.
+    - key: History
+      value: first flew December 1916.
+  tactical:
+    air: 01/22
+    water: 01/65
+    ground: 01/55
+    defence: '25'
+    speed: '8'
+    weight: '-'
+    group: '6'
+    cost: '90'
+  impassable:
+  - mountains
+  sprites:
+  - img-104-198.png
+  - img-104-199.png
+  source-page: 47
+- name: Patrol Boat
+  section: navy
+  faction: both
+  photos:
+  - file: img-105-201.jpg
+    caption: ''
+  text: >-
+    The boat shown above is the type of patrol boat used in HL 1914-1918. These were small, partly armoured
+    fast boats with light armament and machine guns. Patrol boats were used on rivers and on the coast
+    for reconnaissance and guard duties. Their poor armament and armour plating were compensated for by
+    their manoeuvrability.
+  spec:
+    model: German Patrol Boat.
+    items:
+    - key: Engine
+      value: not known.
+    - key: Dimensions
+      value: not known.
+    - key: Performance
+      value: not known.
+    - key: Armaments
+      value: light ship’s artillery and machine guns.
+    - key: Crew
+      value: 6 to 12 men.
+  tactical:
+    air: 01/20
+    water: 02/45
+    ground: 02/40
+    defence: '40'
+    speed: '7'
+    weight: '-'
+    group: '6'
+    cost: '-'
+  impassable:
+  - deep-water
+  - plain
+  - forest
+  - mountains
+  - trenches
+  - tracks
+  sprites:
+  - img-105-202.png
+  - img-105-203.png
+  source-page: 48
+- name: Torpedo Boat
+  section: navy
+  faction: both
+  photos:
+  - file: img-106-205.jpg
+    caption: ''
+  text: >-
+    Torpedo boats were fast fighting ships equipped with torpedoes and light guns. Because of the limited
+    range of the torpedoes, the boats had to approach the enemy and withdraw extremely quickly. Torpedo
+    boats were a dangerous weapon and the Navies possessed large numbers of them, since they were cheap
+    to produce. As the armaments and armour plating improved, the torpedo boats developed into torpedo
+    boat destroyers.
+  spec:
+    model: German Torpedo Boat “G137”
+    items:
+    - key: Engine
+      value: Parson Turbines, total power 7950 kW (10800 hp).
+    - key: Dimensions
+      value: length 71.5 m, width 7.65 m, draught 3.22 m.
+    - key: Performance
+      value: maximum speed 33.9 knots.
+    - key: Armaments
+      value: 3 torpedo tubes, one 8.8 cm gun and three 5.2 cm rapid fire guns.
+    - key: Crew
+      value: 3 officers and 78 men.
+  tactical:
+    air: 01/25
+    water: 02/65
+    ground: 02/40
+    defence: '60'
+    speed: '6'
+    weight: '-'
+    group: '6'
+    cost: '-'
+  impassable:
+  - plain
+  - forest
+  - mountains
+  - trenches
+  - tracks
+  sprites:
+  - img-106-206.png
+  - img-106-207.png
+  source-page: 49
+- name: Torpedo Boat Destroyer
+  section: navy
+  faction: both
+  photos:
+  - file: img-107-209.jpg
+    caption: ''
+  text: >-
+    The torpedo boat destroyers were larger, faster and more heavily armed than the torpedo boats. They
+    were all-purpose fighting ships, well suited to defending big ships from torpedo attack, engaging
+    enemy transport ships and submarines and carrying out reconnaissance work. The torpedo boat destroyer
+    developed into the destroyer, which soon replaced its predecessor.
+  spec:
+    model: German Torpedo Boat Destroyer “B 111”
+    items:
+    - key: Engine
+      value: Two sets of marine turbines, total power 29995 kW (40700 hp).
+    - key: Dimensions
+      value: length 98.0 m, width 9.35 m, draught 3.83 m, displacement 1843 t.
+    - key: Performance
+      value: maximum speed 37.4 knots, range at 20 knots 2620 naut. miles
+    - key: Armaments
+      value: four 10.5 cm and six 50 cm torpedo tubes with 8 torpedoes.
+    - key: Crew
+      value: 4 officers and 110 men.
+  tactical:
+    air: 02/25
+    water: 03/70
+    ground: 03/50
+    defence: '70'
+    speed: '6'
+    weight: '-'
+    group: '1'
+    cost: '-'
+  impassable:
+  - shallow-water
+  - plain
+  - forest
+  - mountains
+  - trenches
+  - tracks
+  sprites:
+  - img-107-210.png
+  - img-107-211.png
+  source-page: 50
+- name: Battleship
+  subtitle: (Ship of the Line)
+  section: navy
+  faction: both
+  photos:
+  - file: img-108-213.jpg
+    caption: ''
+  text: >-
+    Battleships or ‘Ships of the Line’ were the largest fighting ships and had very good armour plating
+    and the heaviest artillery available. Their guns had a very long range and were extremely destructive.
+    Because of their great weight, these ships were slower than destroyers or torpedo boats. On 31 May
+    1916 large numbers of battle ships were involved in the biggest naval battle of the time; at the Skagerrak
+    the Imperial Fleet was forced to defend itself against the numerically superior Grand Fleet.
+  spec:
+    model: French Service Ship “BRENNUS”
+    items:
+    - key: Engine
+      value: Steam engines, total power 10300 kW (14000 hp).
+    - key: Dimensions
+      value: length 114.5 m, width 20.4 m, draught 8.0 m, displacement 11,370 t.
+    - key: Performance
+      value: maximum speed 17 knots, range at 10 knots 4000 naut. miles.
+    - key: Armaments
+      value: >-
+        three 34 cm guns, ten 16.4 cm, four 6.5 cm and 14 4.7 cm rapid fire guns, 17 machine guns, 4 torpedo
+        tubes.
+    - key: Crew
+      value: not known.
+  tactical:
+    air: 02/35
+    water: 07/95
+    ground: 07/70
+    defence: '80'
+    speed: '5'
+    weight: '-'
+    group: '1'
+    cost: '-'
+  impassable:
+  - shallow-water
+  - plain
+  - forest
+  - mountains
+  - trenches
+  - tracks
+  sprites:
+  - img-108-214.png
+  - img-108-215.png
+  source-page: 51
+- name: Transport Ship
+  section: navy
+  faction: both
+  photos:
+  - file: img-109-217.jpg
+    caption: ''
+  text: >-
+    The destiny of the British Empire had always been intimately bound up with seafaring. Many important
+    raw materials came from overseas, without which the British would not have been able to conduct the
+    War. Great Britain possessed a large number of transport and troop ships, which were augmented from
+    1917 by American vessels. German cargo ships were confined during the War to the Baltic. The governments
+    confiscated or chartered many ships for an indefinite period, in order to transport the enormous amounts
+    of raw materials and supplies.
+  spec:
+    model: British passenger steamer “CITY OF NEW YORK”, 1917-1919 American troopship “PLATTSBURG”
+    items:
+    - key: Engine
+      value: Two triple expansion engines, total power 13616 kW (18500 hp).
+    - key: Dimensions
+      value: length 170.6 m, width 19.3 m, displacement 10499 register tons.
+    - key: Performance
+      value: maximum speed 20 knots.
+    - key: Armaments
+      value: none.
+    - key: Crew
+      value: crew and 1740 passengers.
+  tactical:
+    air: -/-
+    water: -/-
+    ground: -/-
+    defence: '65'
+    speed: '5'
+    weight: '-'
+    group: '1'
+    cost: '-'
+  impassable:
+  - plain
+  - forest
+  - mountains
+  - trenches
+  - tracks
+  sprites:
+  - img-109-218.png
+  - img-109-219.png
+  source-page: 52
+- name: Submarine
+  section: navy
+  faction: both
+  photos:
+  - file: img-110-221.jpg
+    caption: ''
+  text: >-
+    As long as no immediate danger threatened, the U-boats travelled on the surface using their diesel
+    engines and recharged their batteries in readiness for diving. Their chief weapons were torpedoes.
+    For attacking unarmed targets, for example freighters, most types of U-boat had deck armaments. In
+    the early years of the War, U-boats were a promising and dangerous weapon, which could only be attacked
+    by ramming. As the War progressed, defences against the U-boats were improved and their task became
+    more difficult.
+  spec:
+    model: German U-Boat “UB 49”
+    items:
+    - key: Engine
+      value: two 6-cylinder MAN 4-stroke diesel engines, total power 810 kW (1100 hp).
+    - key: Dimensions
+      value: >-
+        length 55.30 m, width above diving tanks 5.80 m, draught 3.68 m, displacement on surface / underwater
+        516 t / 651 t.
+    - key: Performance
+      value: >-
+        maximum speed on surface / under water 13.6 knots / 6 knots, range on surface at 6 knots 9040
+        naut. miles, diving depth 50 m.
+    - key: Armaments
+      value: 4 bow tubes and 1 stern tube; 10 torpedoes and one 8.8 cm submarine gun.
+    - key: Crew
+      value: 3 officers and 31 men.
+  tactical:
+    air: -/-
+    water: 02/80
+    ground: -/-
+    defence: '75'
+    speed: '5'
+    weight: '-'
+    group: '1'
+    cost: '-'
+  impassable:
+  - shallow-water
+  - plain
+  - forest
+  - mountains
+  - trenches
+  - tracks
+  sprites:
+  - img-110-222.png
+  - img-110-223.png
+  source-page: 53
+

@@ -84,3 +84,10 @@ inventing map spacing. Metrics are diagnostics; approximately 90% original resem
 seamless joins still require visual review. Review tools reject existing output names, so use
 a new directory for each run. Original exports require the user's local Amiga installation;
 `gfx-check` uses synthetic fixtures and does not need it.
+
+## Manual
+
+[`docs/manual/`](docs/manual/README.md) contains a Typst reconstruction of the original
+English manual and weapons booklet, without the old DOS/Amiga installation chapters.
+`just manual` builds `build/manual/Historyline_1914-1918_Manual.pdf`. The pictures come
+from the local original PDF; without it, the manual shows placeholders.
