@@ -20,6 +20,10 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y libgl1-mesa-dev xorg-dev libasound2-dev
       - run: go vet ./...
       - run: go test ./...
+      - name: Check graphics inventory
+        run: |
+          python3 -m unittest discover -s tools/art-inventory -v
+          python3 tools/art-inventory/inventory.py --check
 
   lint:
     runs-on: ubuntu-latest

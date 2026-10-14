@@ -562,10 +562,23 @@ and G5 follows complete UI coverage. Do not wait until Phase 6 to discover seam 
 - [ ] Assemble verified original native-size tile/screen references, record platform, palette,
       dimensions and source; distinguish upstream/Battle Isle 3 material. Identify original
       campaign art missing from this repository and add it to later content coverage.
+      (2026-10-14) — partial: supplied Amiga/DOS/manual archives are extracted under ignored
+      `original/`. Native Amiga summer/winter terrain, units and portraits decode with the
+      supplied 32-colour palettes; the terrain mask is 24 × 24, not the repository's flattened
+      96 × 80 footprint. An empty original 320 × 200 UI frame is decoded locally. See
+      `docs/art/original-references.md`; runtime aspect/spacing, complete screen captures and
+      original-to-runtime mappings remain open. `tools/native-reference` provides offline
+      library exports and source hashes without committing original pixels.
 - [ ] Write `docs/art/style-guide.md` with the user's brief and downsample rubric. Produce a
       small pilot: grass/forest/water, one road bend/river/bridge, infantry/artillery, a portrait
       and the unit panel. Manually assemble a seven-hex contact sheet before the workbench
       exists. Compare 2× and 4× detail at native size and normal play zoom.
+      (2026-10-14) — partial: the style guide, three repository-based terrain studies and one
+      native Amiga forest study are saved with prompts/hashes and 2×/4× pilot exports.
+      `tools/art-review` produces alpha-aware reductions, comparison/difference sheets and
+      seven-hex patches for repository geometry. The patches reveal dark joins; shared edge
+      cleanup remains required. Native 24 × 24 comparisons infer no world geometry. Roads,
+      river/bridge, units, portrait/panel, normal-play review and the 90/100 gate remain open.
 - [ ] **Gate:** reviewed pilot retains approximately 90% native-size appearance; original
       silhouettes/connections are preserved; choose master density and tools before batch art.
 
@@ -650,8 +663,10 @@ and G5 follows complete UI coverage. Do not wait until Phase 6 to discover seam 
       interaction, documented provenance and a reproducible local export build. Visual release
       does not depend on removing the Python sources or discarding the reference artwork.
 
-**Immediate next slice:** G0 reference inventory and a seven-hex fidelity pilot, followed by G1
-templates/preview. Establish downsample fidelity and connected joins before mass-generating art.
+**Immediate next slice:** finish G0 native-to-runtime mappings and verify original display
+geometry, then clean up the full pilot against native references. Use the existing offline
+comparison sheets to inspect footprint/alpha drift and joins. G1 shared edge/corner templates
+and connected-feature preview follow this evidence; do not mass-generate art before approval.
 
 ---
 

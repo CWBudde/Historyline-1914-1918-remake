@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": "grass-study-01",
+  "date": "2026-10-14",
+  "tool": "built-in image_gen.imagegen",
+  "model": null,
+  "reference": "gfx/hexTypes/hex_grass.png",
+  "reference_platform": "upstream-remake; not verified original Amiga pixels",
+  "source": "art/source/pilot/grass-study-01.png",
+  "prompt": "Use case: style-transfer. Asset type: terrain tile redraw study for Historyline1914-1918. Input image: edit target, repository grass tile96x80, a provisional reference until originalAmigaart is checked. Recreate precisely at4xdetail for384x320 export in restrained modern illustrated style. Preserve input composition, flattened horizontal hex exact ratio1.2, silhouette, muted original palette, brightness and upper-left soft lighting. Subject: muted mottled olive grass with no trees, rocks, paths, flowers or objects; preserve the low contrast cloudy patches and large-scale green distribution. Add fine short grass strokes inside those same patches without new landmarks. At96x80 downsampled should look about90%likeinput. Crisp details only withinexisting shapes; no newlargefeatures. Hex fillswholecanvas vertices25%0,75%0,100%50%,75%100%,25%100%,0%50%. Truly transparentoutsidehex. No textframegridoutlinebevelborderoroutside shadow. Groundsurface remainsflat and cornersfullycovered; do notadddarkrim. Exactlyone isolatedtile, no contactsheet. Unapprovedvisualstudy.",
+  "transparent_background": true,
+  "status": "study-unapproved",
+  "intended_exports": {
+    "2x": [
+      192,
+      160
+    ],
+    "4x": [
+      384,
+      320
+    ]
+  },
+  "cleanup": "Unedited generated output. Offline review constrains alpha support to repository reference; it cannot establish original fidelity or shared material/feature continuity.",
+  "review": "Native-original comparison and human90/100review pending. Do not ship as replacement pack.",
+  "determinism": "Generated source is retained. Local exports are reproducible; AI reruns are not assumed deterministic.",
+  "source_sha256": "87f9365d0b757134da71436a4783a38cd37a0e85c714c137a2b3122462d1d586",
+  "reference_sha256": "67257c01c1e3e30ddc438e85e5e376cd1aa72f888cfb2851b288061e1eb7a0de"
+}

@@ -50,3 +50,25 @@ come from another game are `gfx/bi3_unit_interface.png` and `gfx/bi3_battle_scre
 are Battle Isle 3 screenshots. They are used as references and not loaded by the game. The
 rights to the art in `gfx/` are unclear until this is resolved, so do not redistribute it as
 part of a release.
+
+The graphics track uses the [style guide](docs/art/style-guide.md),
+[UI coverage list](docs/art/ui-inventory.md) and
+[local original-reference notes](docs/art/original-references.md). Newly generated studies,
+exact prompts and unapproved 2×/4× exports live under `art/`; they are not a complete asset pack.
+The supplied installations and decoded original pixels remain ignored in `original/` or `build/`.
+
+```sh
+just gfx-check                 # inventory tests, drift check and offline Go tools
+just gfx-review -reference gfx/hexTypes/hex_forest.png \
+  -candidate art/source/pilot/forest-study-01.png -out build/art-review/forest-repo
+just gfx-references \
+  -data 'original/extracted/amiga/HistorylineDe/fsuae/Hard Drives/data' \
+  -out build/native-reference
+```
+
+Review outputs show the reference, reduced candidate and difference. Repository-sized terrain
+also gets seven-hex patches. Native Amiga references use their intrinsic dimensions without
+inventing map spacing. Metrics are diagnostics; approximately 90% original resemblance and
+seamless joins still require visual review. Review tools reject existing output names, so use
+a new directory for each run. Original exports require the user's local Amiga installation;
+`gfx-check` uses synthetic fixtures and does not need it.
