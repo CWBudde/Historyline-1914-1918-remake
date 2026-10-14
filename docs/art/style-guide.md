@@ -96,6 +96,14 @@ outside coverage are reported before clipping. Neither a low RGB difference nor 
 is visual approval. The tool intentionally omits native map patches until world spacing is
 verified, keeping original intrinsic density separate from the repository display contract.
 
-The next pilot revision must use verified original pixels and cover the road bend, river,
-bridge, infantry, artillery, portrait and unit panel before G0 can close. The current work
-establishes the inventory, local references and repeatable comparison process first.
+The native connected terrain batch adds road bend `SSTRE114` (two passes), river `SCOAS071`
+and bridge `SSTRE091`, with retained sources, exact recipes and intrinsic 48/96 pixel exports.
+The [review record](connected-terrain-pilot.md) documents measured boundary contacts and
+tentative assistant scores of 88/84/86 for road 02/river 01/bridge 01. All remain unapproved:
+water/grass values and markings drift, and every covered native pixel retains some transparency.
+The [local comparison page](connected-terrain-review.html) provides an aligned overlay,
+backgrounds and 2×/4× previews without embedding private originals in tracked files.
+
+Next resolve native opacity, colour and marking defects, then complete native grass/water,
+infantry, artillery, portrait and unit-panel studies. Confirm normal-play geometry and joins
+before treating any study as approved or closing G0.

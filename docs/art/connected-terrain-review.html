@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Connected terrain pilot — local review</title>
+<style>
+  :root { color-scheme: dark; --tile: 192px; --opacity: .5; }
+  * { box-sizing: border-box; }
+  body { margin: 0 auto; padding: 24px; max-width: 1500px; font: 16px/1.5 system-ui, sans-serif; background: #171b20; color: #e5eaf0; }
+  h1 { font-size: 28px; margin: 0; }
+  p { max-width: 90ch; }
+  a { color: #a9d5ff; }
+  .controls { display: flex; gap: 20px; flex-wrap: wrap; padding: 16px; border: 1px solid #515b69; border-radius: 8px; }
+  label { display: flex; align-items: center; gap: 8px; }
+  select, input { font: inherit; }
+  section { margin-top: 28px; border-top: 1px solid #515b69; padding-top: 16px; }
+  h2 { margin: 0; font-size: 22px; }
+  .views { display: flex; gap: 16px; flex-wrap: wrap; }
+  figure { margin: 0; width: var(--tile); min-width: 120px; }
+  figcaption { min-height: 4.5em; margin-bottom: 8px; }
+  .tile { width: var(--tile); height: var(--tile); position: relative; background-color: #27303b; background-image: conic-gradient(#323d4a 25%, transparent 0 50%, #323d4a 0 75%, transparent 0); background-size: 16px 16px; }
+  body[data-background="dark"] .tile { background: #080c10; }
+  body[data-background="light"] .tile { background: #f2f2f2; }
+  .tile img { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
+  .overlay img { position: absolute; inset: 0; }
+  .overlay img:last-child { opacity: var(--opacity); }
+  .missing { color: #ffd8a4; }
+  .note { color: #bac5d1; }
+  noscript { display: block; margin: 20px 0; }
+</style>
+<h1>Connected terrain pilot</h1>
+<p>Original Amiga terrain beside newly illustrated studies. All artwork is <strong>unapproved</strong>.
+  <a href="connected-terrain-pilot.md">Review notes and reproduction commands</a> record remaining changes.</p>
+<p class="note">Native comparisons use saved alpha-weighted area reductions to 24 × 24.
+  Density previews use browser scaling; image links open the actual 48 × 48 and 96 × 96 files.
+  This page does not infer original display geometry or test adjacent tiles.</p>
+<div class="controls">
+  <label>Comparison magnification <select id="zoom"><option value="1">1×</option><option value="4">4×</option><option value="8" selected>8×</option></select></label>
+  <label>Background <select id="background"><option value="checker">Checker</option><option value="dark">Dark</option><option value="light">Light</option></select></label>
+  <label>Candidate overlay <input id="opacity" type="range" min="0" max="100" value="50"><output id="opacity-label">50%</output></label>
+</div>
+<p id="missing" class="missing" hidden>Some local images are missing. Reproduce the private original references and comparison outputs using the linked notes; keep them in ignored build/.</p>
+<noscript>Enable JavaScript to display the comparison rows. The PNG exports can also be opened directly under art/exports/pilot/.</noscript>
+<main id="studies"></main>
+<script>
+  'use strict';
+  const studies = [
+    { id: 'road-02', name: 'Road bend — revision 02', native: 'SSTRE114', export: 'road-study-02', source: 'road-amiga-study-02', note: 'Preliminary assistant review: 88/100. Stronger than revision 01; grass blocks, markings and opacity need cleanup.' },
+    { id: 'river-01', name: 'River — revision 01', native: 'SCOAS071', export: 'river-study-01', source: 'river-amiga-study-01', note: 'Preliminary assistant review: 84/100. Channel and banks remain recognisable; water colour, highlight strength and edge opacity need cleanup.' },
+    { id: 'bridge-01', name: 'Road bridge — revision 01', native: 'SSTRE091', export: 'bridge-study-01', source: 'bridge-amiga-study-01', note: 'Preliminary assistant review: 86/100. Preserve white bridge edges and abutments; restore water values, crispness and opacity.' },
+    { id: 'road-01', name: 'Road bend — first study', native: 'SSTRE114', export: 'road-study-01', source: 'road-amiga-study-01', note: 'Retained as the input to revision 02. More pavement noise and greater native colour drift; no visual acceptance score.' }
+  ];
+  const root = '../../';
+  const node = (tag, text) => { const el = document.createElement(tag); if (text) el.textContent = text; return el; };
+  const image = (path, description) => { const el = node('img'); el.src = root + path; el.alt = description; el.addEventListener('error', () => { document.getElementById('missing').hidden = false; }); return el; };
+  function panel(title, path, alt) {
+    const figure = node('figure');
+    figure.append(node('figcaption', title));
+    const link = node('a'); link.href = root + path; link.setAttribute('aria-label', 'Open ' + title);
+    const tile = node('div'); tile.className = 'tile'; tile.append(image(path, alt));
+    link.append(tile); figure.append(link); return figure;
+  }
+  for (const s of studies) {
+    const section = node('section'); section.id = s.id;
+    section.append(node('h2', s.name + ' · ' + s.native), node('p', s.note));
+    const views = node('div'); views.className = 'views';
+    const reference = 'build/gfx-references/g0-corpus/PARTS/' + s.native + '.png';
+    const reduced = 'build/art-review/connected-pilot/' + s.id + '/downsample.png';
+    views.append(panel('Original · 24 × 24', reference, 'Original ' + s.native));
+    views.append(panel('Candidate reduced · 24 × 24', reduced, s.name + ' reduced to native size'));
+    const overlay = node('figure'); overlay.append(node('figcaption', 'Aligned native overlay'));
+    const tile = node('div'); tile.className = 'tile overlay';
+    tile.append(image(reference, 'Original under overlay'), image(reduced, 'Candidate overlay'));
+    overlay.append(tile); views.append(overlay);
+    views.append(panel('2× export · 48 × 48', 'art/exports/pilot/amiga-native-2x/' + s.export + '.png', s.name + ' 2x export'));
+    views.append(panel('4× export · 96 × 96', 'art/exports/pilot/amiga-native-4x/' + s.export + '.png', s.name + ' 4x export'));
+    section.append(views);
+    const links = node('p');
+    for (const [label, path] of [ ['Raw generated source', 'art/source/pilot/' + s.source + '.png'], ['Comparison / difference', 'build/art-review/connected-pilot/' + s.id + '/comparison.png'], ['Diagnostics', 'build/art-review/connected-pilot/' + s.id + '/diagnostics.json'], ['Exact prompt / recipe', 'art/recipes/' + s.source + '.json'] ]) {
+      if (links.childNodes.length) links.append(document.createTextNode(' · '));
+      const link = node('a', label); link.href = root + path; links.append(link);
+    }
+    section.append(links); document.getElementById('studies').append(section);
+  }
+  document.getElementById('zoom').addEventListener('change', e => document.documentElement.style.setProperty('--tile', (24 * Number(e.target.value)) + 'px'));
+  document.getElementById('background').addEventListener('change', e => document.body.dataset.background = e.target.value);
+  document.getElementById('opacity').addEventListener('input', e => { document.documentElement.style.setProperty('--opacity', Number(e.target.value) / 100); document.getElementById('opacity-label').textContent = e.target.value + '%'; });
+</script>
+</html>

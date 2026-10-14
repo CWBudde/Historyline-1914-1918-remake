@@ -78,6 +78,11 @@ background controls and metadata links help inspect the original pixels. The
 [manual screen catalogue](docs/art/manual-screen-references.csv) identify the next art targets.
 Omit `-screen`/`-briefings` for a library-only export. All original exports stay ignored.
 
+The [connected terrain pilot](docs/art/connected-terrain-pilot.md) adds native road, river and
+bridge redraws with 48 × 48 / 96 × 96 exports, exact prompts and preliminary review findings.
+Its [local comparison page](docs/art/connected-terrain-review.html) shows both densities and
+an adjustable original/candidate overlay after reproducing the ignored comparison outputs.
+
 Review outputs show the reference, reduced candidate and difference. Repository-sized terrain
 also gets seven-hex patches. Native Amiga references use their intrinsic dimensions without
 inventing map spacing. Metrics are diagnostics; approximately 90% original resemblance and

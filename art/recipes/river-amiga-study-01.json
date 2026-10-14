@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "id": "river-amiga-study-01",
+  "date": "2026-10-14",
+  "tool": "built-in image_gen.imagegen",
+  "model": null,
+  "reference": "build/gfx-references/g0-corpus/PARTS/SCOAS071.png",
+  "reference_platform": "Amiga German installation, supplied locally",
+  "native_source": "data/LIB/PARTS.LIB:SCOAS071",
+  "native_source_sha256": "6808b6078a36d2cbdf9ec2e39146ede4afafda75b4b360c6fa112006176bc6be",
+  "native_dimensions": [
+    24,
+    24
+  ],
+  "palette": "data/00.PAL",
+  "coverage": "data/HEXMSK00.DAT",
+  "source": "art/source/pilot/river-amiga-study-01.png",
+  "source_dimensions": [
+    1254,
+    1254
+  ],
+  "source_sha256": "7e83946163b9a43d435eacf9a89466279e7ab60e5cb9b660342722f91805a142",
+  "reference_sha256": "d965bdb222db76ed783670063416c00b750a6a72baada7af2efdacc0b9489637",
+  "generation_inputs": [
+    {
+      "path": "build/gfx-research/connected-pilot/SCOAS071-nearest32x.png",
+      "role": "edit-target",
+      "sha256": "13428a5ae71f6bf7ec348e53c4feb42fbcfe945bcb338c136a135e864a67e9f4",
+      "preparation": "Exact 32x nearest-neighbour enlargement of native 24x24 PNG, without recolouring or aspect correction."
+    }
+  ],
+  "prompt": "Use case: style-transfer.\nAsset type: faithful original Amiga Historyline 1914–1918 river terrain redraw.\nInput image: edit target, the exact 32x nearest-neighbour enlargement of native 24x24 PARTS:SCOAS071. Repaint this specific tile in restrained modern illustrated detail while keeping roughly 90% appearance at 24x24.\nLock composition: broad diagonal turquoise/teal channel from upper-left sloping edge to lower-right sloping edge, with exactly the same bends, width, banks and edge exits as shown. Preserve the top/right olive grassy bank and bottom/left lime grassy bank, dark brown narrow earth bank strips, blue-grey darker water patches and sparse cyan highlighted water patches. Preserve all low-frequency masses and material boundaries from the reference.\nColour control is critical: match the original comparatively muted olive greens and blue-teal water. Very fine blade and ripple detail may vary at most slightly around the original colours; it must average back to them. No bright yellow-green grass, new dark grass clumps, foam, white highlights, rocks, reeds, trees, bridges or extra banks. Keep original weak lighting; no cast shadow or new depth/perspective.\nMake a freshly illustrated raster with fine subtle brushwork inside existing flat areas, not nearest-neighbour enlargement. Keep the macro shoreline arrangement and a sparse smooth finish rather than dense all-over noisy texture.\nSquare full-bleed canvas, tile fills the exact source footprint, outside the stepped six-sided boundary genuinely transparent. Preserve short top and bottom edges across middle third, side vertices at midheight. No outline, bevel, padding, grid or dark border. One isolated tile, no labels or text. Unapproved pilot study; original ports and material widths are invariants.",
+  "transparent_background": true,
+  "status": "study-unapproved",
+  "intended_exports": {
+    "native-2x": [
+      48,
+      48
+    ],
+    "native-4x": [
+      96,
+      96
+    ]
+  },
+  "cleanup": "Generated source retained without pixel edits. tools/art-review makes alpha-weighted area reductions and clips to exact original coverage. It caps alpha, preserves candidate holes and does not repair semi-transparent interiors. Intrinsic native density only; no display-aspect or world-spacing correction.",
+  "review": "See docs/art/connected-terrain-pilot.md. Assistant review is preliminary; source geometry, opacity, palette/markings and eventual joins need cleanup. No 90/100 approval or runtime port mapping.",
+  "determinism": "AI reruns are not assumed deterministic; exports reproduce locally from retained source using tools/art-review."
+}

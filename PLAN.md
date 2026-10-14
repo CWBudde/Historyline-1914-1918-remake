@@ -592,6 +592,8 @@ and G5 follows complete UI coverage. Do not wait until Phase 6 to discover seam 
       `docs/art/manual-screen-references.csv`; missing original art families are recorded for
       G3 in `docs/art/native-coverage.md`. Runtime spacing/aspect, exact port/direction/anchor
       mappings and verified colour screen captures remain open. Original pixels stay ignored.
+      The connected terrain review records exact source boundary contacts for `SSTRE114`,
+      `SCOAS071` and `SSTRE091`; these are observed pixels, not approved runtime ports.
 - [ ] Write `docs/art/style-guide.md` with the user's brief and downsample rubric. Produce a
       small pilot: grass/forest/water, one road bend/river/bridge, infantry/artillery, a portrait
       and the unit panel. Manually assemble a seven-hex contact sheet before the workbench
@@ -600,8 +602,13 @@ and G5 follows complete UI coverage. Do not wait until Phase 6 to discover seam 
       native Amiga forest study are saved with prompts/hashes and 2×/4× pilot exports.
       `tools/art-review` produces alpha-aware reductions, comparison/difference sheets and
       seven-hex patches for repository geometry. The patches reveal dark joins; shared edge
-      cleanup remains required. Native 24 × 24 comparisons infer no world geometry. Roads,
-      river/bridge, units, portrait/panel, normal-play review and the 90/100 gate remain open.
+      cleanup remains required. Native 24 × 24 comparisons infer no world geometry.
+      Native road bend (two passes), river and bridge studies now have recipes, retained
+      sources, reproducible 48/96 pixel exports and an offline overlay/density review page.
+      `docs/art/connected-terrain-pilot.md` records tentative assistant scores 88/84/86 for
+      road 02/river 01/bridge 01, palette/marking drift and semi-transparent covered pixels.
+      No study is approved. Native grass/water, units, portrait/panel, opacity/edge cleanup,
+      normal-play/seam review and the 90/100 gate remain open.
 - [ ] **Gate:** reviewed pilot retains approximately 90% native-size appearance; original
       silhouettes/connections are preserved; choose master density and tools before batch art.
 
@@ -694,12 +701,14 @@ private originals/manual extracts in ignored `original/`, and reference gallerie
 outputs and research in ignored `build/`. Authored masters, recipes and pilot exports stay in
 tracked `art/`; commit verified graphics batches directly to `main`, per the user's preference.
 
-**Immediate next slice:** use the 28 selected native references and manual page 45 panel to
-complete the G0 pilot; finish exact native-to-runtime port/direction/anchor mappings and verify
-original display geometry alongside it. Compare 2×/4× detail and native-size appearance using
-the offline review tool, then record the five-category 90/100 visual review. G1 shared
-edge/corner templates and connected-feature preview follow this evidence; do not mass-generate
-art before approval.
+**Immediate next slice:** resolve the connected studies' opacity, colour and marking defects;
+use the selected native references to complete native grass/water, infantry/artillery, portrait
+and manual page 45 unit-panel studies. Finish exact native-to-runtime port/direction/anchor
+mappings and verify original display geometry alongside it. Compare 2×/4× detail and native
+appearance, then obtain the five-category 90/100 visual approval. A 32/12/16 mask-tiling
+hypothesis is recorded but does not establish original placement. G1 shared edge/corner
+templates and connected-feature preview follow this evidence; do not mass-generate art
+before approval.
 
 ---
 

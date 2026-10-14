@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "id": "road-amiga-study-02",
+  "date": "2026-10-14",
+  "tool": "built-in image_gen.imagegen",
+  "model": null,
+  "reference": "build/gfx-references/g0-corpus/PARTS/SSTRE114.png",
+  "reference_platform": "Amiga German installation, supplied locally",
+  "native_source": "data/LIB/PARTS.LIB:SSTRE114",
+  "native_source_sha256": "6808b6078a36d2cbdf9ec2e39146ede4afafda75b4b360c6fa112006176bc6be",
+  "native_dimensions": [
+    24,
+    24
+  ],
+  "palette": "data/00.PAL",
+  "coverage": "data/HEXMSK00.DAT",
+  "source": "art/source/pilot/road-amiga-study-02.png",
+  "source_dimensions": [
+    1254,
+    1254
+  ],
+  "source_sha256": "3df0b1049d674d7d5dcaf371d464311887d0aae6304bf6f52ef747b8933006d0",
+  "reference_sha256": "2de3f834e9c73dc631eb5407af45c2eeaf5f683e40a8576e0b56f6230cbfab34",
+  "generation_inputs": [
+    {
+      "path": "art/source/pilot/road-amiga-study-01.png",
+      "role": "edit-target",
+      "sha256": "79da812f1dc723caf3152afb1cba8075e9f85ffc55f694a4281a7fba5af0ece7"
+    },
+    {
+      "path": "build/gfx-research/connected-pilot/SSTRE114-nearest32x.png",
+      "role": "geometry-and-colour-reference",
+      "sha256": "348da5b5134f24e40832cd5b95d4c129e7a10b7da51da070f8d8fc8990cf1963",
+      "preparation": "Exact 32x nearest-neighbour enlargement of native 24x24 PNG, without recolouring or aspect correction."
+    }
+  ],
+  "prompt": "Use case: precise-object-edit.\nAsset type: original-faithful illustrated road-bend tile cleanup.\nInput 1 is the edit target, the generated road tile. Input 2 is the verified ORIGINAL 24x24 sprite enlarged exactly by nearest neighbour; use it as strict geometry and colour reference.\nChange only the target's grass treatment and road markings. Reduce the busy, bright yellow-green mottling: render short fine grass strokes with much weaker contrast and match input 2's muted olive/lime colour masses precisely. Keep the grey road and brown shoulders in their same positions. Match the ORIGINAL tiny road markings from image 2 exactly, including their dim grey-white shade and original size. Target exact native positions (0-based 24x24): pale marks at (19,6),(18,7),(17,8),(14,12),(13,14),(12,18),(12,19),(12,20), with dimmer central pixel (13,13). Do not join middle marks into a new large dash. Do not move road width, bends, ends, grass regions or shoulders. Original colour masses and widths must survive reduction to 24x24.\nPreserve transparency and the original stepped outer hex coverage; fully opaque paint inside. Keep canvas square and full bleed. Add no new landmarks, markings, rocks, vegetation clumps, shadows, outline or frames. Use delicate illustrative brushwork rather than noisy pixel speckle. Do not change road or shoulder composition; the correction is restrained grass value/texture and accurate small markings.",
+  "transparent_background": true,
+  "status": "study-unapproved",
+  "intended_exports": {
+    "native-2x": [
+      48,
+      48
+    ],
+    "native-4x": [
+      96,
+      96
+    ]
+  },
+  "cleanup": "Generated source retained without pixel edits. tools/art-review makes alpha-weighted area reductions and clips to exact original coverage. It caps alpha, preserves candidate holes and does not repair semi-transparent interiors. Intrinsic native density only; no display-aspect or world-spacing correction.",
+  "review": "See docs/art/connected-terrain-pilot.md. Assistant review is preliminary; source geometry, opacity, palette/markings and eventual joins need cleanup. No 90/100 approval or runtime port mapping.",
+  "determinism": "AI reruns are not assumed deterministic; exports reproduce locally from retained source using tools/art-review."
+}
