@@ -135,3 +135,6 @@ dmypy.json
 *.exe
 *.wasm
 /wasm_exec.js
+
+# Local original-game reference installation (never distribute).
+/original/
