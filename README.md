@@ -11,6 +11,10 @@ You need Go (see `go.mod` for the version) and [just](https://github.com/casey/j
 Ebitengine also needs the OpenGL and X11 headers, e.g. on Debian/Ubuntu:
 `sudo apt-get install libgl1-mesa-dev xorg-dev libasound2-dev`.
 
+`just lint` and `just ci` also need [golangci-lint](https://golangci-lint.run) v2. Install the
+version CI uses with:
+`go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.13.1`.
+
 ```sh
 just run     # start the game (for now this is an empty window)
 just test    # go test ./...
