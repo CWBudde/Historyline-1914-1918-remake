@@ -108,6 +108,24 @@ func TestParseForms(t *testing.T) {
 
 const header = "{\"mapName\": \"m\", \"mapNo\": 1, \"player\": \"p\", \"tiles\": {"
 
+func TestParseStringMapNo(t *testing.T) {
+	// generateMap in mapEditor.py writes the map number as a string.
+	l, err := Parse([]byte(`{"mapName": "m", "mapNo": "7", "player": "p", "tiles": {"line1": [["grass","",""]]}}`))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if l.MapNo != 7 {
+		t.Fatalf("MapNo = %d, want 7", l.MapNo)
+	}
+	out, err := l.Marshal()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(string(out), "\t\"mapNo\" :\t7,\n") {
+		t.Fatalf("saved mapNo not written as a number like saveData:\n%s", out)
+	}
+}
+
 func TestParseRejects(t *testing.T) {
 	cases := map[string]string{
 		"missing line":       header + `"line1": [["grass","",""],["grass","",""]], "line3": [["grass","",""],["grass","",""]]}}`,
@@ -121,6 +139,7 @@ func TestParseRejects(t *testing.T) {
 		"content extra":      header + `"line1": [["hqN","","",[0,[],1]]]}}`,
 		"bad line key":       header + `"row1": [["grass","",""]]}}`,
 		"no tiles":           header + `}}`,
+		"mapNo not a number": `{"mapName": "m", "mapNo": "x", "player": "p", "tiles": {"line1": [["grass","",""]]}}`,
 		"unknown key":        `{"mapName": "m", "mapNo": 1, "player": "p", "extra": 1, "tiles": {"line1": [["grass","",""]]}}`,
 		"trailing data":      header + `"line1": [["grass","",""]]}} {}`,
 	}

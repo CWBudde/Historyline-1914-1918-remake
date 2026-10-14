@@ -56,9 +56,34 @@ func (l *Level) Grid() hexgrid.Grid {
 
 type file struct {
 	MapName *string                        `json:"mapName"`
-	MapNo   *int                           `json:"mapNo"`
+	MapNo   *mapNo                         `json:"mapNo"`
 	Player  *string                        `json:"player"`
 	Tiles   map[string][][]json.RawMessage `json:"tiles"`
+}
+
+// mapNo accepts 7 and "7": mapEditor.py generateMap stores the raw input()
+// string, and saveData later writes it unquoted.
+type mapNo int
+
+func (n *mapNo) UnmarshalJSON(raw []byte) error {
+	if len(raw) > 0 && raw[0] == '"' {
+		var s string
+		if err := json.Unmarshal(raw, &s); err != nil {
+			return err
+		}
+		v, err := strconv.Atoi(s)
+		if err != nil {
+			return fmt.Errorf("mapNo %q is not a number", s)
+		}
+		*n = mapNo(v)
+		return nil
+	}
+	var v int
+	if err := json.Unmarshal(raw, &v); err != nil {
+		return err
+	}
+	*n = mapNo(v)
+	return nil
 }
 
 // Load reads and parses a level file.
@@ -93,7 +118,7 @@ func Parse(raw []byte) (*Level, error) {
 		return nil, errors.New("no tiles")
 	}
 
-	l := &Level{MapName: *f.MapName, MapNo: *f.MapNo, Player: *f.Player, Lines: make([][]Hex, len(f.Tiles))}
+	l := &Level{MapName: *f.MapName, MapNo: int(*f.MapNo), Player: *f.Player, Lines: make([][]Hex, len(f.Tiles))}
 	for i := range l.Lines {
 		key := "line" + strconv.Itoa(i+1)
 		line, ok := f.Tiles[key]
