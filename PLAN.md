@@ -90,6 +90,9 @@ and `FINdecoder/`.
 | Combat | The `air`/`ground`/`water` target flags are never checked. |
 | Combat | Attacking does not mark the unit as having acted, so a unit can attack again and again. |
 | Combat | `markAttackableSquares` compares the target faction to `playerTurn`, not to the attacker's faction. |
+| Combat | Without a counter weapon the defender still deals damage: `handleBattle` runs the formula with a base of 0. |
+| Movement | A unit leaving a carrier moves with the carrier's speed, movement type and weight (`markMovableSquares` uses `hexSquare.unit`). |
+| Movement | A unit entering a full depot stands on the depot hex instead (`executeMove` falls through to `toHex.unit`). |
 | Fog of war | Terrain `sightModifier` is never used. Fog is computed only for `info.player`, which makes hot-seat or AI-side vision impossible. |
 | Logistics | Fuel is shown but never consumed. There is no resupply, repair or reinforcement. |
 | Factory | Factories are only containers. There is no production. Only `factoryE` is recognised as a factory; the N/S/W variants are not. |
@@ -201,9 +204,20 @@ cmd/hlartpreview/           Ebitengine art and seam workbench (graphics mileston
       every shipped level with HQ 50 / depot and factory 40 capacities and the owners and contents
       from the file. A `factory*` piece other than `factoryE` with content becomes a container too,
       so level2's `factoryN_w` keeps its 2 units, which Python dropped.
-- [ ] `game` commands at Python parity: move with a path, attack with counter-attack, enter
+- [x] `game` commands at Python parity: move with a path, attack with counter-attack, enter
       container, leave container, capture, end turn, HQ-capture victory
-- [ ] `game` vision: fog of war for each player (never seen / seen / visible)
+      (2026-10-14) — `internal/game` has `Movable`/`Move` (ports of `getMovableSquares`,
+      `markMovableSquares`, `findPath` and `executeMove`, including the building list quirk and
+      the full-depot fallback onto the hex), `Targets`/`Attack` (`markAttackableSquares` and
+      `handleBattle`, with injected rolls), capture with HQ victory (`Winner`), and `EndTurn`.
+      Rules run for the side to move instead of the fixed human player. Paths for every unit
+      that can move (on the map or in buildings), on every level and for both sides, and 600
+      battle cases match `testdata/python.json`, which `testdata/gen_python.py` builds by
+      running the Python functions against stubs.
+- [x] `game` vision: fog of war for each player (never seen / seen / visible)
+      (2026-10-14) — `UpdateVision`/`Fog` port `calculateFOW` for each side and match Python's
+      grid on every level and side. Deviation: hexes shown by an owned building are also marked
+      seen, so they stay Seen instead of reverting to never seen when the building is lost.
 
 ### Phase 2 — Playable parity (Ebitengine UI)
 
@@ -240,6 +254,8 @@ cmd/hlartpreview/           Ebitengine art and seam workbench (graphics mileston
       porting `data`, 2026-10-14).
 - [ ] Barbed wire has terrain modifiers and an infrastructure rule (`barbed*`, movement 10) but
       no map tile or infrastructure icon, so no level can place it yet.
+- [ ] Port-time quirks kept at parity in `game` (found 2026-10-14): no-counter damage, carrier
+      exits with the carrier's stats, units standing on full depots. Decide each rule.
 - [ ] One action per unit per turn (move then attack, or attack only). This needs to be checked
       against the original's rules before implementing.
 - [ ] Ammo is used per shot and empty weapons are disabled. Target-type flags (`air`, `ground`,
