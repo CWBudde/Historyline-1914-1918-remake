@@ -331,3 +331,11 @@ redraws. Next compare the current 48/96-pixel studies in these named neighborhoo
 both column parities and three-tile vertices, before assigning runtime ports or
 building shared edge/corner templates. No connected replacement scene is approved
 by this evidence batch.
+
+## Native grass/water delivery — 2026-10-15
+
+Two further original-led subjects now have newly illustrated 1254-pixel sources,
+exact recipes, and 48/96-pixel exports. See [native material pilot](native-material-pilot.md)
+for artwork links, native comparison, visual review and remaining value/seam defects.
+The current neighborhood fixture contains five redraw resources and eight scenes.
+These are retained studies; the full pilot acceptance gate remains open.

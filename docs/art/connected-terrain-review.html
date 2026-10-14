@@ -2,7 +2,7 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Connected terrain pilot — local review</title>
+<title>High-resolution Amiga terrain pilot — local review</title>
 <style>
   :root { color-scheme: dark; --tile: 192px; --opacity: .5; }
   * { box-sizing: border-box; }
@@ -28,7 +28,7 @@
   .note { color: #bac5d1; }
   noscript { display: block; margin: 20px 0; }
 </style>
-<h1>Connected terrain pilot</h1>
+<h1>High-resolution Amiga terrain pilot</h1>
 <p>Original Amiga terrain beside newly illustrated studies. All artwork is <strong>unapproved</strong>.
   <a href="connected-terrain-pilot.md">Review notes and reproduction commands</a> record remaining changes.</p>
 <p class="note">The latest original-led studies restore native material layout and improve colour/markings, but remain unapproved.
@@ -36,7 +36,8 @@
   Native comparisons use saved alpha-weighted area reductions to 24 × 24.
   Density previews use browser scaling; image links open the actual 48 × 48 and 96 × 96 files.
   This page does not infer original display geometry or test adjacent tiles.</p>
-<p><a href="../../build/art-review/amiga-neighborhoods/index.html">See the redraws beside their original map neighbors</a> · <a href="neighborhood-review.md">Scene labels, reproduction and remaining seam work</a>.</p>
+<p><a href="../../build/art-review/amiga-neighborhoods-materials/index.html">See the redraws beside their original map neighbors</a> · <a href="neighborhood-review.md">Scene labels, reproduction and remaining seam work</a>.</p>
+<p><a href="native-material-pilot.md">New grass/water artwork and review</a> · <a href="../../art/exports/pilot/amiga-native-4x/grass-study-01.png">Grass 4× PNG</a> · <a href="../../art/exports/pilot/amiga-native-4x/water-study-01.png">Water 4× PNG</a></p>
 <div class="controls">
   <label>Comparison magnification <select id="zoom"><option value="1">1×</option><option value="4">4×</option><option value="8" selected>8×</option></select></label>
   <label>Background <select id="background"><option value="checker">Checker</option><option value="dark">Dark</option><option value="light">Light</option></select></label>
@@ -48,6 +49,8 @@
 <script>
   'use strict';
   const studies = [
+    { id: 'grass-01', name: 'Grass — new illustrated revision 01', native: 'SPLAI152', export: 'grass-study-01', source: 'grass-amiga-study-01', note: 'Newly drawn fine grass texture, retained original colour patch layout, exact mask at both densities. Unapproved study; some green values and block boundaries need refinement.' },
+    { id: 'water-01', name: 'Water — new illustrated revision 01', native: 'SCOAS060', export: 'water-study-01', source: 'water-amiga-study-01', note: 'Newly painted ripples at 2×/4×, original wave pattern and crest positions retained, exact mask. Unapproved study; small pale crests and cyan values drift.' },
     { id: 'road-05', previous: 'road-04', name: 'Road bend — quieter original-led revision 05', native: 'SSTRE114', export: 'road-study-05', source: 'road-amiga-study-05', note: 'Exact output alpha and native coarse material layout; dim central mark restored and texture quieter. Some grass values still drift. Independent/controller isolated-tile scores 94/93, not approval.' },
     { id: 'river-03', previous: 'river-02', name: 'River — original-led revision 03', native: 'SCOAS071', export: 'river-study-03', source: 'river-amiga-study-03', note: 'Original channel widths and banks restored; exact output alpha and no nearest-original-palette changes at native size. Values and repeated short water strokes still need review. Independent/controller isolated-tile scores 93/92, not approval.' },
     { id: 'bridge-03', previous: 'bridge-02', name: 'Road bridge — original-led revision 03', native: 'SSTRE091', export: 'bridge-study-03', source: 'bridge-amiga-study-03', note: 'Original coarse material layout, white edges and small markings restored with exact output alpha. Dark greens, warm abutments and busy surface texture remain. Independent/controller isolated-tile scores 92/91, not approval.' },

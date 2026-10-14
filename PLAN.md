@@ -806,7 +806,12 @@ below record work already delivered, plus G0.7's new neighborhood comparisons.
       infantry and artillery, one portrait and the unit panel based on manual page 45. Each
       subject needs retained sources/recipes, native/2×/4× comparisons and a recorded review.
       Use separate delivery checkboxes below so completed subjects remain visible:
-      - [ ] Native grass and water.
+      - [x] Native grass and water.
+            (2026-10-15) — two newly illustrated original-led sources, exact recipes, 48/96-pixel
+            exports and native reductions; recorded controller/independent review. Eight real
+            neighborhoods now include five redraw resources. Exact coverage, but grass/water
+            values and texture joins still need refinement; user approval remains open. See
+            `docs/art/native-material-pilot.md`.
       - [ ] Infantry and artillery map sprites.
       - [ ] Unit portrait.
       - [ ] Reconstructed unit panel with live text and separate frame/icons/portrait.
@@ -919,16 +924,15 @@ private originals/manual extracts in ignored `original/`, and reference gallerie
 outputs and research in ignored `build/`. Authored masters, recipes and pilot exports stay in
 tracked `art/`; commit verified graphics batches directly to `main`, per the user's preference.
 
-**Immediate next graphics slice:** deliver the missing native grass/water pair (G0.9's first
-checkbox) using `PARTS:SPLAI152` and `PARTS:SCOAS060` as the authority. Keep sources/recipes and
-48/96-pixel exports, compare reductions at native size, and add them to the neighborhood review
-where those exact resource names occur. This yields two additional authored pilot subjects;
-visual approval remains separate. Then use the six connected scenes to repair G0.8's specific
-road grass-value steps, bridge earth values and repeated water texture. Continue with the unit
-sprite pair, portrait and panel as separate deliverables. Use original-led generation and exact
-native masks; avoid chained edits and preserve material contacts/marks. G1's runtime geometry,
-shared edge/corner templates and compositor follow the reference/migration decisions and pilot
-acceptance; neither original-only magnification nor mixed study scenes count as a released pack.
+**Immediate next graphics slice:** refine the actual high-resolution terrain (G0.8), using
+`docs/art/native-material-pilot.md` and the eight current neighborhoods. Restore the new grass
+study's darker values, match grass across road boundaries, restore bridge earth and quiet the
+water highlights/texture. Keep source/recipe revisions and 48/96-pixel exports; inspect native
+reductions and both-parity joins. Native grass/water delivery is complete, while visual approval
+remains open. Then deliver infantry/artillery map sprites, portrait and panel as separate art
+batches. Use original-led generation and exact native masks; preserve material contacts/marks.
+G1's runtime geometry, shared edge/corner templates and compositor follow the reference/migration
+decisions and pilot acceptance. Mixed study scenes remain private comparisons, not a released pack.
 
 ---
 

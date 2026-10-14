@@ -6,7 +6,7 @@ an odd column, with its original six neighbors. The patches include three-tile
 vertices. Original FIN placement is `x=16*column`, `y=24*row+12*(column mod 2)`;
 see [the placement evidence](original-placement.md).
 
-Open [the neighborhood comparison](../../build/art-review/amiga-neighborhoods/index.html)
+Open [the current neighborhood comparison](../../build/art-review/amiga-neighborhoods-materials/index.html)
 after reproducing its inputs. The original column contains original pixels,
 nearest enlarged at higher densities. The mixed column substitutes the illustrated
 studies wherever their resource names occur; surrounding tiles remain original.
@@ -37,7 +37,7 @@ for map in 00 01 06 10; do
     -libraries PARTS -map "$map" -out "build/gfx-references/placement-map$map"
 done
 just gfx-review -neighborhood art/fixtures/amiga-neighborhoods.json \
-  -out build/art-review/amiga-neighborhoods
+  -out build/art-review/amiga-neighborhoods-materials
 ```
 
 Skip map directories you already exported, or export under fresh names and update
@@ -60,8 +60,8 @@ This deliverable closes the six-scene comparison task when exports reproduce,
 all six neighbors are correct, and coverage matches at all three densities.
 It does not close the pilot acceptance gate. Use the scenes to choose a specific
 edge/value repair, and inspect its native reduction before accepting the change.
-The remaining full pilot still needs native grass/water, infantry/artillery,
-a portrait and the unit panel, plus the five-category visual review.
+The remaining full pilot needs infantry/artillery, a portrait and the unit panel,
+plus visual acceptance. Native grass/water delivery is recorded below.
 
 ## Review findings — 2026-10-15
 
@@ -90,3 +90,12 @@ The existing warmer bridge earth remains a separate material-value cleanup.
 All scenes currently substitute one tile, so this review compares redraw-to-original
 contacts. It cannot establish redraw-to-redraw texture continuity across a complete
 family. Keep that family review and the full pilot approval open.
+
+## Added high-resolution grass/water — 2026-10-15
+
+The current fixture also replaces `SPLAI152` and `SCOAS060` with newly drawn
+48/96-pixel studies. It adds grass at map 00 `(1,14)` and water at map 06
+`(21,8)`, for eight scenes / 50 output files. The six-scene measurements above
+record the previous three-study baseline. Current road-odd and bridge scenes
+now contain redraw-to-redraw contacts, whose value differences still need cleanup.
+See [the new artwork, diagnostics and review](native-material-pilot.md).

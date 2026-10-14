@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "id": "grass-amiga-study-01",
+  "date": "2026-10-15",
+  "tool": "built-in image_gen.imagegen",
+  "model": null,
+  "reference": "build/gfx-references/g0-corpus/PARTS/SPLAI152.png",
+  "reference_platform": "Amiga German installation, supplied locally",
+  "native_source": "data/LIB/PARTS.LIB:SPLAI152",
+  "native_source_sha256": "6808b6078a36d2cbdf9ec2e39146ede4afafda75b4b360c6fa112006176bc6be",
+  "native_dimensions": [
+    24,
+    24
+  ],
+  "palette": "data/00.PAL",
+  "coverage": "data/HEXMSK00.DAT",
+  "source": "art/source/pilot/grass-amiga-study-01.png",
+  "source_dimensions": [
+    1254,
+    1254
+  ],
+  "source_sha256": "f3eaa09b0727e47e290279eb42bc1da5db9a887a61a5e03d80c60c0b38f6f195",
+  "reference_sha256": "2159adcd19255d2d33c12c0a2d77c5a5783be124d76639690773d6de55a01a7e",
+  "generation_inputs": [
+    {
+      "path": "build/gfx-research/native-material-pair/SPLAI152-nearest32x.png",
+      "role": "original-edit-target-and-geometry-colour-reference",
+      "sha256": "59d401891c7581bda73d87fe27d3bff3184f47d958c0ab53b1651af5a84980a7",
+      "preparation": "Exact 32x nearest-neighbour enlargement of native 24x24 PNG, without recolouring or aspect correction."
+    }
+  ],
+  "prompt": "Use case: style-transfer.\nAsset type: faithful high-resolution game terrain redraw, for 48x48 and 96x96 exports from an original 24x24 Amiga tile.\nInput image is the ORIGINAL SPLAI152, exactly enlarged 32x, sole geometry and colour authority. Redraw this exact grass tile with delicate illustrated grass texture inside the existing colour regions. Preserve registration, shapes, locations and average colours of all original patches: main olive #778800, darker #557700, small bright #88aa00 patch. Do not move, merge, widen, smooth or recenter these original patch boundaries. Preserve the large quiet fields; keep every original cell's average RGB very close to its original so downsampling to24x24 looks almost identical. Add a little finely drawn grass-fibre detail at subcell scale, with very low contrast, short irregular strokes, no visible grid or repeated clumps. Texture must remain subtle at96x96, with genuine added fine detail rather than just enlarged blocks. Do not introduce large blades, tufts, flowers, earth, shadows, highlights or new colour patches. No lighting gradient or palette grading. Preserve original saturated olive/yellow green colours; dark grass must not become forest green.\nPaint a FULLY OPAQUE SQUARE, continuing adjacent grass into the originally transparent corners. The original stepped hex footprint will be applied by the exporter; corners outside it will be discarded. Do not draw a hex border, bevel, outline, inset, checkerboard, black matte, text or watermark. Keep the original material map exactly registered across the entire square. New high-resolution surface detail, faithful native-size recognition.",
+  "transparent_background": false,
+  "status": "study-unapproved",
+  "intended_exports": {
+    "native-2x": [
+      48,
+      48
+    ],
+    "native-4x": [
+      96,
+      96
+    ]
+  },
+  "cleanup": "Generated source retained unchanged as fully opaque square paint, including deliberate material extensions outside native coverage. tools/art-review area-reduces to 96x96, applies repeated original mask, box-reduces to 48x48 and 24x24 with coverage caps. No alpha forcing, matte replacement, display-aspect or world-spacing correction. Exterior paint is discarded by the original mask; raw extra coverage is expected.",
+  "review": "Unapproved original-led native material study. See docs/art/native-material-pilot.md for native colour diagnostics, added detail, visual review and remaining seam/value work.",
+  "determinism": "AI reruns are not assumed deterministic; exports reproduce locally from retained source using tools/art-review.",
+  "exports": {
+    "native-2x": {
+      "path": "art/exports/pilot/amiga-native-2x/grass-study-01.png",
+      "sha256": "47ba118207f8d8dfe9d1145e6ca7a2e5d039dd0c0e7e413c3c144f4c9c3d1cef"
+    },
+    "native-4x": {
+      "path": "art/exports/pilot/amiga-native-4x/grass-study-01.png",
+      "sha256": "56365590d0d20d021d7c50d1d24e9fc2964753fd3412211c744c1de4ecf0ab7a"
+    }
+  }
+}
