@@ -160,7 +160,8 @@ cmd/hlartpreview/           Ebitengine art and seam workbench (graphics mileston
       `justfile` with those recipes plus `ci`; lint = `go vet` + golangci-lint v2 (`.golangci.yml`)
 - [x] GitHub Actions: `go test ./...`, `golangci-lint`, a build matrix (linux/windows/macos) and a
       WASM build (2026-10-14) — `.github/workflows/ci.yml` with test, lint, build ×3 OS and wasm
-      jobs; first run green (run 38631552367)
+      jobs; first run green (run 38631552367). Split (2026-10-14) into `test.yaml`, which calls the
+      reusable `test-unit`, `test-lint`, `test-gfx`, `test-can-build` (×3 OS) and `test-wasm` workflows
 - [ ] Clarify asset provenance and reference fidelity (G0). Inventory `gfx/`, distinguish 1992
       references, upstream creations and other-game references, and record the findings in
       `docs/art/asset-inventory.csv` and the README before any public release.

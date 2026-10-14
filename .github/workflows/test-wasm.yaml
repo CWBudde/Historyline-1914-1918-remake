@@ -1,0 +1,25 @@
+name: test-wasm
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  test-wasm:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Go
+        uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+
+      - name: Build WASM binary
+        run: go build -o historyline.wasm ./cmd/historyline
+        env:
+          GOOS: js
+          GOARCH: wasm
