@@ -178,9 +178,15 @@ cmd/hlartpreview/           Ebitengine art and seam workbench (graphics mileston
       and `Distance`. Neighbours match `testdata/adjacent.json` (generated from the Python
       function by `testdata/gen_adjacent.py`) for all 1,788 hexes of the four `levels/*.json`
       in order. Cube distance equals the BFS step count for every hex pair of each level.
-- [ ] `data`: port `bgTilesModifiers`, the infrastructure rules (road/path/bridge/rail/stream/
+- [x] `data`: port `bgTilesModifiers`, the infrastructure rules (road/path/bridge/rail/stream/
       trench/barbed wire modifiers and `movementAllowed`), the 27 units and the 15 weapons.
       Add a parity test.
+      (2026-10-14) — `internal/data` embeds `terrain.json` (62 ids), `units.json` (27) and
+      `weapons.json` (15). `Load` checks that every unit weapon exists, and `Modifiers` ports
+      the prefix-based infrastructure loop of `HexSquare.__init__`. Tables and 206 terrain/
+      infrastructure cases (every infra id, every combination in `levels/*.json`, synthetic
+      barbed wire/lake ids, multi-infra orderings) match `testdata/python.json`, which
+      `testdata/gen_python.py` builds by running the Python source.
 - [ ] `level`: load `levels/*.json` unchanged. This covers tile, infra (a string or a list), unit,
       and `[owner, [units…]]` for HQ/depot/factory. Round-trip test: load → save → identical JSON.
 - [ ] `game` state: hexes, units (size, experience, ammo per weapon, fuel, moved/attacked flags),
@@ -219,6 +225,11 @@ cmd/hlartpreview/           Ebitengine art and seam workbench (graphics mileston
       Dijkstra and show the remaining points.
 - [ ] Zone of control: hexes next to an enemy cost extra or stop movement (upstream TODO)
 - [ ] Pathfinding respects impassable terrain and movement types (rail, water)
+- [ ] Road bridges (`rBridge*`) match none of the infrastructure prefixes, so they leave the
+      terrain modifiers unchanged; `bridge*` sets movement 1. Decide their rule (found while
+      porting `data`, 2026-10-14).
+- [ ] Barbed wire has terrain modifiers and an infrastructure rule (`barbed*`, movement 10) but
+      no map tile or infrastructure icon, so no level can place it yet.
 - [ ] One action per unit per turn (move then attack, or attack only). This needs to be checked
       against the original's rules before implementing.
 - [ ] Ammo is used per shot and empty weapons are disabled. Target-type flags (`air`, `ground`,
