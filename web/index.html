@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Historyline 1914-1918</title>
+  <style>
+    html, body { margin: 0; height: 100%; background: #000; color: #ccc; font-family: sans-serif; }
+    #status { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
+  </style>
+</head>
+<body>
+  <div id="status">Loading…</div>
+  <script src="wasm_exec.js"></script>
+  <script>
+    const go = new Go();
+    const status = document.getElementById("status");
+    WebAssembly.instantiateStreaming(fetch("historyline.wasm"), go.importObject)
+      .then((result) => {
+        status.remove();
+        go.run(result.instance);
+      })
+      .catch((err) => {
+        status.textContent = "Failed to load the game: " + err;
+      });
+  </script>
+</body>
+</html>

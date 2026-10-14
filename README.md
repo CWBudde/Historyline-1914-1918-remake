@@ -21,6 +21,7 @@ just test    # go test ./...
 just lint    # go vet + golangci-lint
 just build   # build ./historyline
 just wasm    # build historyline.wasm and copy wasm_exec.js
+just web 8080  # build the web demo into build/web and serve it on :8080
 just ci      # everything CI runs
 ```
 
