@@ -123,9 +123,9 @@ internal/assets/            go:embed of gfx/, faction recolouring and rotation c
       `cmd/historyline` that opens an empty 1800 × 1000 window, binaries/wasm ignored
 - [x] Add a `Makefile`/`justfile` with `run`, `test`, `lint`, `build`, `wasm` targets (2026-10-14) —
       `justfile` with those recipes plus `ci`; lint = `go vet` + golangci-lint v2 (`.golangci.yml`)
-- [ ] GitHub Actions: `go test ./...`, `golangci-lint`, a build matrix (linux/windows/macos) and a
-      WASM build (2026-10-14) — partial: `.github/workflows/ci.yml` added and passes actionlint;
-      tick once the first run on GitHub is green
+- [x] GitHub Actions: `go test ./...`, `golangci-lint`, a build matrix (linux/windows/macos) and a
+      WASM build (2026-10-14) — `.github/workflows/ci.yml` with test, lint, build ×3 OS and wasm
+      jobs; first run green (run 38631552367)
 - [ ] Clarify asset provenance. `gfx/` holds tiles and sprites modelled on (or taken from) the 1992
       Blue Byte original. Find out which, and record it in the README before any public release.
 - [x] README section: how to run the Go version vs. the Python reference (2026-10-14) — README
