@@ -79,6 +79,7 @@ func run(args []string, log io.Writer) error {
 	fs.SetOutput(log)
 	referencePath := fs.String("reference", "", "reference PNG; seven-hex layout available only for 96x80")
 	referencePlatform := fs.String("reference-platform", "repo-provisional", "reference provenance label (e.g. repo-provisional or amiga-native); supplied by caller")
+	neighborhoodPath := fs.String("neighborhood", "", "JSON recipe for original Amiga seven-cell neighborhood review")
 	candidatePath := fs.String("candidate", "", "candidate PNG, at least 4x reference dimensions and aspect within 1%")
 	out := fs.String("out", "", "output directory (existing artifact names are rejected)")
 	if err := fs.Parse(args); err != nil {
@@ -86,6 +87,18 @@ func run(args []string, log io.Writer) error {
 			return nil
 		}
 		return err
+	}
+	if *neighborhoodPath != "" {
+		conflict := false
+		fs.Visit(func(f *flag.Flag) {
+			if f.Name == "reference" || f.Name == "candidate" || f.Name == "reference-platform" {
+				conflict = true
+			}
+		})
+		if conflict || *out == "" || fs.NArg() != 0 {
+			return errors.New("-neighborhood requires -out and excludes reference/candidate flags and positional arguments")
+		}
+		return runNeighborhood(*neighborhoodPath, *out, log)
 	}
 	if *referencePath == "" || *candidatePath == "" || *out == "" || *referencePlatform == "" || fs.NArg() != 0 {
 		return errors.New("required: -reference PNG -candidate PNG -out directory; no positional arguments")

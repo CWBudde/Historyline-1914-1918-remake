@@ -590,72 +590,77 @@ and G5 follows complete UI coverage. Do not wait until Phase 6 to discover seam 
 
 #### G0 — Establish references and an approved visual pilot
 
-- [x] Inventory every loaded asset and each existing/proposed UI screen. Flag unused files,
-      aliases (`cmp*`/`camp*`, `rBridge*`/`roadBridge*`), missing summer factory entries,
-      placeholder graphics and unknown provenance; resolve mappings without breaking levels.
-      (2026-10-14) — verified inventory: 310 records cover 273 asset/dependency paths,
-      all 246 image/font loader calls, 28 UI requirements, 23 spelling aliases and nine terrain
-      gaps. AST scanning fixes weapon mappings, includes editor/contained-unit usage and
-      preserves level IDs. Unused/experimental/test art and unknown provenance are flagged;
-      native mappings and visual acceptance remain in the following G0 items. Reproduce with
+Track evidence, study delivery and visual acceptance separately. A checked study/tooling item
+means its named artifact is reproducible; it does not approve artwork. The completed items
+below record work already delivered, plus G0.7's new neighborhood comparisons.
+
+- [x] **G0.1 — Legacy asset and UI inventory.** Inventory every loaded asset and planned screen,
+      flag unused/experimental files, aliases, placeholders, gaps and unknown provenance;
+      preserve level IDs. Verified: 310 records, 273 asset/dependency paths, all 246 image/font
+      loader calls, 28 UI requirements, 23 aliases and nine terrain gaps. Reproduce with
       `python3 tools/art-inventory/inventory.py --check`; see `docs/art/inventory-notes.md`.
-- [ ] Assemble verified original native-size tile/screen references, record platform, palette,
-      dimensions and source; distinguish upstream/Battle Isle 3 material. Identify original
-      campaign art missing from this repository and add it to later content coverage.
-      (2026-10-14) — partial: supplied Amiga/DOS/manual archives are extracted under ignored
-      `original/`. Native Amiga summer/winter terrain, units and portraits decode with the
-      supplied 32-colour palettes; the terrain mask is 24 × 24, not the repository's flattened
-      96 × 80 footprint. `tools/native-reference` reproducibly exports 705 library resources,
-      the empty 320 × 200 UI frame and 46 historical campaign illustrations with own-CMAP
-      screen palettes, source hashes, intrinsic dimensions and recorded aspect metadata.
-      The offline gallery provides search, library filters, integer magnification, backgrounds
-      and PNG/metadata links. 28 pilot selections and 13 grayscale/lossy manual screen references
-      have source/PNG hashes in `docs/art/native-pilot-references.csv` and
-      `docs/art/manual-screen-references.csv`; missing original art families are recorded for
-      G3 in `docs/art/native-coverage.md`. Physical display aspect, exact port/direction/anchor
-      mappings and verified colour screen captures remain open. Original pixels stay ignored.
-      The connected terrain review records exact source boundary contacts for `SSTRE114`,
-      `SCOAS071` and `SSTRE091`; these are observed pixels, not approved runtime ports.
-      (2026-10-15) — original Amiga placement is statically traced in two draw paths and
-      the full-view loop: 16 px per column, 24 per row, odd columns down 12. FIN dimensions,
-      row order and terrain indices resolve through PARTS/PARTW.DAT; all 72 supplied maps
-      pass structural audit. Opt-in `tools/native-reference -map` reconstructs ground-only
-      original neighborhoods with per-cell provenance and explicit library/palette selection.
-      Maps 00/06 contain the current road/river/bridge references; manual texture/frame
-      measurements independently support the lattice. See `docs/art/original-placement.md`.
-      Populated colour captures, physical aspect, scrolling, units/state, runtime ports and
-      overlay migration remain open; no shared runtime geometry or art approval is implied.
-- [ ] Write `docs/art/style-guide.md` with the user's brief and downsample rubric. Produce a
-      small pilot: grass/forest/water, one road bend/river/bridge, infantry/artillery, a portrait
-      and the unit panel. Manually assemble a seven-hex contact sheet before the workbench
-      exists. Compare 2× and 4× detail at native size and normal play zoom.
-      (2026-10-14) — partial: the style guide, three repository-based terrain studies and one
-      native Amiga forest study are saved with prompts/hashes and 2×/4× pilot exports.
-      `tools/art-review` produces alpha-aware reductions, comparison/difference sheets and
-      seven-hex patches for repository geometry. The patches reveal dark joins; shared edge
-      cleanup remains required. Native 24 × 24 comparisons infer no world geometry.
-      Native road bend (two passes), river and bridge studies now have recipes, retained
-      sources, reproducible 48/96 pixel exports and an offline overlay/density review page.
-      `docs/art/connected-terrain-pilot.md` records tentative assistant scores 88/84/86 for
-      road 02/river 01/bridge 01, palette/marking drift and semi-transparent covered pixels.
-      (2026-10-15) — opaque-square cleanup sources plus unchanged mask-based exports now
-      reproduce exact native/2×/4× alpha. Road 03, river 02 and bridge 02 are rejected for
-      shifted material geometry; retained recipes and before/after comparisons document why.
-      Original-led road 04 restores broad material layout and pale marks (zero coarse material
-      class changes across 384 native cells), but darker values and busy texture remain.
-      Independent/controller scores 90/88 are provisional, not approval. See the same review
-      record for exact measurements and limitations; opacity alone does not establish joins.
-      (2026-10-15) — original-led road 05, river 03 and bridge 03 are now the connected-terrain
-      study baselines, with retained prompts/sources and reproducible 48/96 pixel exports.
-      All three preserve coarse native material layout and exact alpha; road 05 restores the
-      dim mark/quiet finish, river/bridge 03 restore channel/structure shapes. Tentative
-      independent/controller isolated-tile scores 94/93, 93/92 and 92/91 do not close the gate.
-      Grass contrast, bridge earth values and busy water texture remain; individual nearest
-      palette changes are 1/0/28 of 384 cells. See `docs/art/connected-terrain-pilot.md`.
-      No study is approved. Native grass/water, units, portrait/panel, colour/texture/edge cleanup,
-      normal-play/seam review and the 90/100 gate remain open.
-- [ ] **Gate:** reviewed pilot retains approximately 90% native-size appearance; original
-      silhouettes/connections are preserved; choose master density and tools before batch art.
+- [x] **G0.2 — Private original reference corpus and gallery.** Extract the supplied archives;
+      reproducibly decode 705 Amiga library resources, the empty 320 × 200 UI frame and 46
+      campaign illustrations. Record platform, palette, intrinsic size, aspect metadata,
+      coverage and source/PNG hashes; provide offline search, filtering and integer inspection.
+      Originals remain ignored. See `tools/native-reference/README.md` and
+      `docs/art/original-references.md`. Upscaled originals are not recreated high-resolution art.
+- [x] **G0.3 — Selected pilot references and coverage gaps.** Catalogue 28 native pilot
+      references and 13 manual screenshot references with hashes and limitations; distinguish
+      grayscale/lossy layout evidence and upstream/Battle Isle 3 material. Record missing
+      original content families for G3. See `docs/art/native-pilot-references.csv`,
+      `docs/art/manual-screen-references.csv` and `docs/art/native-coverage.md`.
+- [x] **G0.4 — Original ground placement and named neighbors.** Statically trace original
+      Amiga placement (`x=16*column`, `y=24*row+12*(column mod 2)`), FIN row order and
+      PARTS/PARTW.DAT index order; audit all 72 supplied maps and reconstruct private ground
+      scenes with per-cell provenance. Independent manual measurements support the lattice.
+      See `docs/art/original-placement.md`. This closes ground-reference placement only.
+- [x] **G0.5 — Art brief, rubric and offline export/comparison workflow.** Write
+      `docs/art/style-guide.md` with the faithful illustrated brief and five-category 90/100
+      visual rubric. `tools/art-review` reproducibly makes alpha-aware native reductions,
+      2×/4× exports, differences and diagnostics; repository-geometry seven-hex sheets remain
+      labeled separately. Retain editable/source inputs and prompts under `art/`.
+- [x] **G0.6 — Retained initial studies and connected-terrain baselines.** Deliver repository
+      grass/forest/water, native forest and native road/river/bridge studies with recipes,
+      source hashes and deterministic exports. Road 05, river 03 and bridge 03 preserve coarse
+      native material layout and exact output alpha at 24/48/96 pixels. Retain rejected
+      revisions and measured defects in `docs/art/connected-terrain-pilot.md`. Their provisional
+      isolated-tile scores are evidence for study selection, not visual acceptance.
+- [x] **G0.7 — Actual-neighbor comparison scenes.** Render the current road, river and bridge
+      redraws in six real seven-cell neighborhoods from maps 00/01/06/10, covering both column
+      parities and three-tile vertices at native/2×/4× density. Record all cells/input hashes,
+      substitutions, coverage and six center-edge measurements. Repeated exports must match;
+      originals and mixed redraw scenes must be clearly labeled. Verified zero missing/extra
+      coverage at every density. See `art/fixtures/amiga-neighborhoods.json` and
+      `docs/art/neighborhood-review.md`. Surrounding tiles remain original; this is not a pack.
+- [ ] **G0.8 — Connected-terrain edge/value cleanup.** Repair road grass values, bridge earth
+      values and excessive water/grass texture using G0.7's specific contacts. Re-export all
+      three densities and re-review both parities; preserve native material widths, contact
+      cells, landmarks and marks. Record remaining seam defects explicitly; opacity/coverage
+      and isolated visual scores alone cannot pass this item.
+- [ ] **G0.9 — Complete the remaining native pilot subjects.** Deliver native grass and water,
+      infantry and artillery, one portrait and the unit panel based on manual page 45. Each
+      subject needs retained sources/recipes, native/2×/4× comparisons and a recorded review.
+      Use separate delivery checkboxes below so completed subjects remain visible:
+      - [ ] Native grass and water.
+      - [ ] Infantry and artillery map sprites.
+      - [ ] Unit portrait.
+      - [ ] Reconstructed unit panel with live text and separate frame/icons/portrait.
+- [ ] **G0.10 — Resolve remaining reference/migration decisions.** Verify populated colour
+      captures, physical display aspect and scrolling; finish native-to-runtime port,
+      direction, faction and anchor mappings, and the full-tile-to-layered-overlay migration.
+      Keep unresolved provenance explicit. Static ground placement does not settle these.
+- [ ] **Gate — Approve the complete pilot and choose production density/tools.** Compare all
+      pilot subjects at native size and normal play zoom, including connected neighborhoods.
+      Require the five-category visual review at approximately 90/100, unchanged silhouettes,
+      routes/connections and reviewed joins; record the user's visual acceptance and exceptions.
+      Choose master density/tools before batch art. No current study is approved; G0 remains open.
+
+**Delivery cadence:** choose one bounded graphics deliverable per continuation: a subject pair,
+a targeted cleanup, a panel, or a usable comparison. Finish its exports and review record, run
+the affected checks plus final CI, then commit directly to local `main`. Reuse verified reference
+and placement evidence; reopen research only for a concrete blocker. Study production can
+continue while the overall gate is open; bulk family production follows pilot approval.
 
 #### G1 — Build the geometry, export and seam workbench
 
@@ -746,23 +751,16 @@ private originals/manual extracts in ignored `original/`, and reference gallerie
 outputs and research in ignored `build/`. Authored masters, recipes and pilot exports stay in
 tracked `art/`; commit verified graphics batches directly to `main`, per the user's preference.
 
-**Immediate next graphics slice:** compare the existing road 05, river 03 and bridge 03 studies within
-the statically evidenced original Amiga neighborhoods from maps 00/06. Build deterministic
-reference/redraw scenes at native/2×/4× density for both column parities and three-tile vertices;
-measure material contact cells and texture boundaries before defining shared edge profiles.
-The reference exporter uses original 16/24/12 column indexing. The earlier 32/12/16 model
-describes the same infinite lattice with different cell labels; it is not FIN indexing or a
-runtime migration contract. Road 05, river 03 and bridge 03 remain the
-current unapproved connected-terrain baselines: material shapes/marks are restored, but measured
-grass contrast, bridge earth values and repeated water texture still need bounded cleanup.
-Keep original-led opaque square generation plus original-mask exports; avoid chained edits
-and verify native widths/contact cells/mark positions before evaluating extra detail. Complete
-native grass/water, infantry/artillery, portrait and manual page 45 unit-panel studies using
-the selected references. Finish exact native-to-runtime port/direction/anchor mappings.
-Compare 2×/4× detail and native appearance, then obtain the five-category 90/100 visual approval.
-Populated colour captures, physical display aspect, scrolling and layered overlay migration
-still need verification. G1 shared edge/corner templates and connected-feature preview follow
-this evidence and the approved pilot; do not mass-generate art before approval.
+**Immediate next graphics slice:** deliver the missing native grass/water pair (G0.9's first
+checkbox) using `PARTS:SPLAI152` and `PARTS:SCOAS060` as the authority. Keep sources/recipes and
+48/96-pixel exports, compare reductions at native size, and add them to the neighborhood review
+where those exact resource names occur. This yields two additional authored pilot subjects;
+visual approval remains separate. Then use the six connected scenes to repair G0.8's specific
+road grass-value steps, bridge earth values and repeated water texture. Continue with the unit
+sprite pair, portrait and panel as separate deliverables. Use original-led generation and exact
+native masks; avoid chained edits and preserve material contacts/marks. G1's runtime geometry,
+shared edge/corner templates and compositor follow the reference/migration decisions and pilot
+acceptance; neither original-only magnification nor mixed study scenes count as a released pack.
 
 ---
 

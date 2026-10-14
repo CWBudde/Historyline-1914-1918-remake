@@ -13,6 +13,15 @@ references and reductions below. It shows original/reduced images, an adjustable
 overlay, both densities and links to raw sources, difference sheets, diagnostics and prompts.
 Original pixels stay under ignored `build/`; authored studies, recipes and exports are tracked.
 
+## Actual-neighbor review — 2026-10-15
+
+[Six original-neighbor scenes](neighborhood-review.md) now place road 05, river 03 and
+bridge 03 at actual map locations on both column parities. The offline gallery compares
+original and mixed redraw patches at native/2×/4× density, with input hashes and six
+edge-contact measurements per scene. All 18 scene/density combinations preserve exact
+coverage. Road grass-value steps and bridge water/earth texture remain cleanup targets;
+surrounding tiles are original. This closes comparison delivery, not seam or pilot approval.
+
 ## Inputs and output contract
 
 | Study | Verified original | Source | 2× / 4× export name |
