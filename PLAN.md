@@ -161,6 +161,11 @@ cmd/hlartpreview/           Ebitengine art and seam workbench (graphics mileston
 - [ ] Clarify asset provenance and reference fidelity (G0). Inventory `gfx/`, distinguish 1992
       references, upstream creations and other-game references, and record the findings in
       `docs/art/asset-inventory.csv` and the README before any public release.
+      (2026-10-14) — partial: the CSV records the first-add commit for every file, and the
+      README has an Assets section. Only the two `bi3_*` screenshots are identified as
+      other-game references. The other 270 files stay `unknown` (all were committed by the
+      upstream author, which does not show whether they are 1992 or newly drawn), so their
+      origin needs input from the upstream author or a comparison with the original.
 - [x] README section: how to run the Go version vs. the Python reference (2026-10-14) — README
       lists the `just` recipes and the `python3 main.py <level>` options
 
@@ -523,6 +528,11 @@ and G5 follows complete UI coverage. Do not wait until Phase 6 to discover seam 
 - [ ] Inventory every loaded asset and each existing/proposed UI screen. Flag unused files,
       aliases (`cmp*`/`camp*`, `rBridge*`/`roadBridge*`), missing summer factory entries,
       placeholder graphics and unknown provenance; resolve mappings without breaking levels.
+      (2026-10-14) — partial: `docs/art/asset-inventory.csv` has 301 rows, covering all 271
+      `gfx/` files, the 215 loaded paths, 21 existing or planned screens, 23 aliases (mapped,
+      not renamed), 19 unused and 13 experimental files, and 9 missing tiles (summer factory,
+      rough/stoney/shelled, trenches, barbed wire). It also marks unknown provenance. Still
+      open: placeholder graphics need a visual review, because file data cannot tell them apart.
 - [ ] Assemble verified original native-size tile/screen references, record platform, palette,
       dimensions and source; distinguish upstream/Battle Isle 3 material. Identify original
       campaign art missing from this repository and add it to later content coverage.
