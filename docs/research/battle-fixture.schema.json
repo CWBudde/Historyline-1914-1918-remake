@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "battle-fixture.schema.json",
+  "title": "Original-DOS battle fixture",
+  "description": "One casualty-routine case (2466:000e). Numbers only: no original bytes or listings. Unit type fields stay raw; indexes refer to the 51 UNIT.DAT type records.",
+  "type": "object",
+  "required": ["schema", "profile", "id", "source", "attacker", "defender", "context", "expected"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {"const": 1},
+    "profile": {"description": "Rules profile and data version the case was recorded for.", "type": "string", "pattern": "^dos-[0-9]+\\.[0-9]+$"},
+    "id": {"type": "string", "minLength": 1},
+    "source": {
+      "description": "How the expectation was obtained.",
+      "type": "object",
+      "required": ["kind", "build"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {"enum": ["emulated-routine", "controlled-game", "transcription", "manual"]},
+        "build": {"description": "SHA-256 prefix of the HL.EXE the case was recorded against.", "type": "string", "pattern": "^[0-9a-f]{8,64}$"},
+        "note": {"type": "string"}
+      }
+    },
+    "attacker": {"$ref": "#/$defs/side"},
+    "defender": {"$ref": "#/$defs/side"},
+    "context": {
+      "type": "object",
+      "required": ["distance", "attackerTerrainClass", "defenderTerrainClass"],
+      "additionalProperties": false,
+      "properties": {
+        "distance": {"description": "Hex distance returned by 0e47:2414.", "type": "integer", "minimum": 0},
+        "attackerTerrainClass": {"description": "Terrain record byte 5.", "type": "integer", "minimum": 0, "maximum": 8},
+        "defenderTerrainClass": {"type": "integer", "minimum": 0, "maximum": 8},
+        "pincer": {"description": "Stored 8-bit pincer percentage (02dc:262a).", "type": "integer", "minimum": 0, "maximum": 255},
+        "blocking": {"description": "Stored blocking percentage, capped at 150 (02dc:275e).", "type": "integer", "minimum": 0, "maximum": 150}
+      }
+    },
+    "expected": {
+      "type": "object",
+      "required": ["attackerSizeAfter", "defenderSizeAfter"],
+      "additionalProperties": false,
+      "properties": {
+        "attackerSizeAfter": {"type": "integer", "minimum": 0},
+        "defenderSizeAfter": {"type": "integer", "minimum": 0},
+        "attackerExperienceAfter": {"type": "integer", "minimum": 0, "maximum": 6},
+        "defenderExperienceAfter": {"type": "integer", "minimum": 0, "maximum": 6},
+        "returnFireSuppressed": {"type": "boolean"}
+      }
+    }
+  },
+  "$defs": {
+    "side": {
+      "type": "object",
+      "required": ["type", "size", "experience"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {"description": "UNIT.DAT record index.", "type": "integer", "minimum": 0, "maximum": 50},
+        "size": {"description": "Live group strength (live byte 2).", "type": "integer", "minimum": 0},
+        "alternateSize": {"description": "Live byte 3 for alternate-strength units.", "type": "integer", "minimum": 0},
+        "experience": {"type": "integer", "minimum": 0, "maximum": 6},
+        "raw": {"description": "Raw type-record overrides by byte offset, as hex; unknown fields stay raw.", "type": "object", "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{2}$"}}
+      }
+    }
+  }
+}
