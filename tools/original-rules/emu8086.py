@@ -334,8 +334,13 @@ class Machine:
                 self.ip = (self.ip + (d - 256 if d > 127 else d)) & 0xFFFF
         elif op == 0xE8:
             d = self.fw()
-            self.push(self.ip)
-            self.ip = (self.ip + d) & 0xFFFF
+            target = (self.ip + d) & 0xFFFF
+            h = self.hooks.get(self.lin(self.s['cs'], target))
+            if h:
+                h(self)   # a hooked near routine returns at once
+            else:
+                self.push(self.ip)
+                self.ip = target
         elif op == 0xE9:
             d = self.fw()
             self.ip = (self.ip + d) & 0xFFFF

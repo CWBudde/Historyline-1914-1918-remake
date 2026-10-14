@@ -47,3 +47,8 @@ python3 -I tools/original-rules/compare_combat.py --cases 300
 The interpreter tests and the transcription tests need no original files; the comparison test
 is skipped when `build/original-rules/dos-full` is absent. Agreement shows the routine's
 arithmetic as written, not how the game fills its inputs.
+
+`dos_experience.py` does the same for the experience awards after a battle
+(`02dc:0908–0abb`): `award` is the transcription, `run_window` executes that code window with
+its near-call helpers hooked. The window can be run on its own because it only reads the
+battle context and two saved strengths from the caller's frame.
