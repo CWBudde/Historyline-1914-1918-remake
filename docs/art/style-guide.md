@@ -5,6 +5,24 @@ appearance when reduced to its native pixel size. Keep familiar composition and 
 placement. Extra detail belongs inside existing shapes; it must not change silhouettes,
 object counts, connected-feature widths or tile footprints.
 
+## Continuous artwork and fixed reduction — clarified 2026-10-15
+
+High-resolution artwork must have continuous organic surfaces and contours. The user
+rejected grass/water revision 01 because their original pixel cells remained visible.
+Do not preserve source-pixel squares, staircase material boundaries or texture inside
+rectangular cells. Preserve overall composition, material colors and recognizable forms;
+reconstruct their continuous shapes. A smooth image that no longer resembles the original
+also fails. Inspect both the full master and its native reduction before approval.
+
+Use the recorded `-resampling bilinear` method for new native material comparisons.
+The target remains approximately 90% visual resemblance after that fixed reduction,
+not 90% equal pixels or `1 - RGB error`. Report the actual filter, sampling chain,
+color/alpha policy and residual differences. Older area-filtered studies are historical
+comparisons and do not meet this new sampling contract. Runtime-density exports may be
+small; show high-resolution masters without nearest-neighbor browser enlargement.
+Exact stepped reference masks remain diagnostic coverage; continuous production contours
+and shared family boundaries still need the G1 geometry work and visual approval.
+
 ## Reference order
 
 1. The supplied original **Amiga** graphics and palette, decoded and verified locally.

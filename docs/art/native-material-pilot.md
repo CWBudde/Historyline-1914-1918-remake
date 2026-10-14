@@ -1,8 +1,87 @@
-# Native grass and water redraws
+# Continuous grass and water studies
+
+The user clarified the target on 2026-10-15: **continuous high-resolution artwork
+that looks approximately 90% like the original after a fixed bilinear reduction**.
+Painting texture inside enlarged source-pixel squares fails this requirement.
+Revision 01 is rejected. Revision 02 below removes that grid, but its native
+fidelity still needs work; neither assistant review nor low RGB error approves it.
+
+| Current candidate | Full continuous master | 2× comparison export | 4× comparison export | Exact prompt and recipe |
+| --- | --- | --- | --- | --- |
+| Grass 02 | [1254 × 1254](../../art/source/pilot/grass-amiga-study-02.png) | [48 × 48](../../art/exports/pilot/amiga-native-2x/grass-study-02.png) | [96 × 96](../../art/exports/pilot/amiga-native-4x/grass-study-02.png) | [Grass recipe](../../art/recipes/grass-amiga-study-02.json) |
+| Water 02 | [1254 × 1254](../../art/source/pilot/water-amiga-study-02.png) | [48 × 48](../../art/exports/pilot/amiga-native-2x/water-study-02.png) | [96 × 96](../../art/exports/pilot/amiga-native-4x/water-study-02.png) | [Water recipe](../../art/recipes/water-amiga-study-02.json) |
+
+[Open the comparison](connected-terrain-review.html). Full masters now appear first,
+with smooth browser scaling. Only original/native diagnostic images use nearest
+magnification. The small exports retain the original diagnostic stepped footprint;
+that mask is not approval of a stepped production silhouette. No image blur or
+pixel/colour correction was applied to the generated masters.
+
+## Fixed bilinear review contract
+
+`tools/art-review -resampling bilinear` uses a deterministic antialiased tent:
+pixel-center coordinates, support widened for downsampling, support clipped at
+image boundaries and normalized, alpha-weighted byte RGB, no linear-light
+conversion, half-up rounding after each full 2D reduction. Diagnostics and recipes
+record the complete method. This pins our implementation rather than assuming
+all applications implement a filter named bilinear identically.
+
+The opaque source is reduced to an unmasked 96 × 96 comparison master. That
+master is bilinear-reduced **directly** to 48 × 48 and independently to 24 × 24;
+24 × 24 is not taken through the 48 × 48 export. Each receives the original
+footprint after filtering, so the stepped mask does not bleed into the artwork.
+This measures the full painted tile's native reconstruction. Filtering an already
+cut-out PNG against transparent surroundings is a different edge experiment.
+Default area/box output PNGs retain their old bytes; historical area comparisons
+must not be ranked directly against these bilinear comparisons as if only art changed.
+
+```sh
+just gfx-review -reference build/gfx-references/g0-corpus/PARTS/SPLAI152.png \
+  -reference-platform amiga-native -candidate art/source/pilot/grass-amiga-study-02.png \
+  -resampling bilinear -out build/art-review/connected-pilot/grass-02
+just gfx-review -reference build/gfx-references/g0-corpus/PARTS/SCOAS060.png \
+  -reference-platform amiga-native -candidate art/source/pilot/water-amiga-study-02.png \
+  -resampling bilinear -out build/art-review/connected-pilot/water-02
+```
+
+Use fresh output directories. New sources and exports reproduce without a generation
+service. The existing neighborhood fixture still uses rejected revision 01 and its
+historical box-density contract; it is explicitly labeled as a previous baseline.
+Do not silently substitute bilinear exports into its exact-box validation contract.
+Integrating the continuous materials with shared edge templates remains open.
+
+## Continuous revision review
+
+Controller and independent graphics reviewer inspected both full masters and fixed
+bilinear native/4× comparisons. Both eliminate the original rectangular color-cell
+structure, with continuous grass blades and curved water contours. Both sources are
+1254 × 1254 opaque paintings; diagnostic masks match original coverage at all densities.
+
+- **Grass:** original olive family and dark mottling remain. The original discrete
+  dark clusters become softer organic tufts, with changed positions/contrast. The
+  fine blades read at master size and largely average away at native size.
+- **Water:** the diagonal wave rhythm and teal/cyan family remain. Original compact
+  pale accents become softer curved bands; stronger deep troughs and foam alter relief.
+- **Acceptance:** the pixel-grid defect is fixed. Approximately 90% native visual
+  resemblance is **not established**. Both requirements stay in the open plan item.
+  Next refine coarse contrast/crest placement with continuous contours, and review
+  the master and its bilinear native reduction together before family production.
+
+Native mean absolute RGB difference /255 is **0.04519 grass** and **0.08199 water**.
+These values are diagnostics, not 95%/92% resemblance claims. A targeted revision 03
+stayed continuous but darkened both subjects and worsened those values to 0.05048 /
+0.10995; visual review also preferred revision 02. That unsuccessful experiment,
+inputs/prompt notes and comparisons remain in ignored `build/gfx-research/continuous-material-pair/`
+and `build/art-review/connected-pilot/*-03/`.
+
+---
+
+# Historical revision-01 delivery
 
 Two newly illustrated Amiga terrain studies, delivered 2026-10-15. These contain
 new grass blades and water ripples, rather than enlarged original pixels.
-Both remain **unapproved studies**; delivery does not close the pilot approval gate.
+Both revision-01 studies were **rejected by the user** for retaining visible square pixel cells.
+The historical delivery below does not satisfy the clarified continuous-surface requirement.
 
 | Subject | Verified original | Retained generated source | 2× export | 4× export |
 | --- | --- | --- | --- | --- |
@@ -91,5 +170,5 @@ Connections scores below concern isolated boundaries only, not accepted seams.
   water is 33.92 versus original 27.48 (previously 35.03). These are advisory
   edge differences on the 0–255 scale, not thresholds or seamlessness scores.
 
-Native grass/water delivery is complete. User acceptance, seam/value cleanup,
+Native grass/water acceptance is reopened following user rejection. Seam/value cleanup,
 shared family edges and the remaining unit/portrait/panel pilot are still open.

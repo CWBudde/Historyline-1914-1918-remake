@@ -339,3 +339,11 @@ exact recipes, and 48/96-pixel exports. See [native material pilot](native-mater
 for artwork links, native comparison, visual review and remaining value/seam defects.
 The current neighborhood fixture contains five redraw resources and eight scenes.
 These are retained studies; the full pilot acceptance gate remains open.
+
+## User rejection and continuous-surface correction — 2026-10-15
+
+Grass/water revision 01 is rejected for retaining visible source-pixel squares.
+[Revision 02](native-material-pilot.md) reconstructs continuous surfaces and uses a
+fixed bilinear native comparison. Its square-grid defect is resolved, while the
+approximately 90% native resemblance target and family seam work remain open.
+The earlier neighborhood baseline still uses revision 01; it is historical evidence.

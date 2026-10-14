@@ -21,23 +21,32 @@
   .tile { width: var(--tile); height: var(--tile); position: relative; background-color: #27303b; background-image: conic-gradient(#323d4a 25%, transparent 0 50%, #323d4a 0 75%, transparent 0); background-size: 16px 16px; }
   body[data-background="dark"] .tile { background: #080c10; }
   body[data-background="light"] .tile { background: #f2f2f2; }
-  .tile img { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
+  .tile img { display: block; width: 100%; height: 100%; image-rendering: auto; }
+  .tile img.native { image-rendering: pixelated; }
+  .masters { display: flex; flex-wrap: wrap; gap: 24px; margin: 24px 0; }
+  .masters figure { width: min(100%, 440px); }
+  .masters img { width: 100%; height: auto; display: block; image-rendering: auto; }
+  .masters figcaption { min-height: 0; }
   .overlay img { position: absolute; inset: 0; }
   .overlay img:last-child { opacity: var(--opacity); }
   .missing { color: #ffd8a4; }
   .note { color: #bac5d1; }
   noscript { display: block; margin: 20px 0; }
 </style>
-<h1>High-resolution Amiga terrain pilot</h1>
+<h1>Continuous high-resolution terrain studies</h1>
 <p>Original Amiga terrain beside newly illustrated studies. All artwork is <strong>unapproved</strong>.
   <a href="connected-terrain-pilot.md">Review notes and reproduction commands</a> record remaining changes.</p>
-<p class="note">The latest original-led studies restore native material layout and improve colour/markings, but remain unapproved.
-  Rejected experiments are retained to show why geometry must be checked separately from opacity.
-  Native comparisons use saved alpha-weighted area reductions to 24 × 24.
-  Density previews use browser scaling; image links open the actual 48 × 48 and 96 × 96 files.
-  This page does not infer original display geometry or test adjacent tiles.</p>
-<p><a href="../../build/art-review/amiga-neighborhoods-materials/index.html">See the redraws beside their original map neighbors</a> · <a href="neighborhood-review.md">Scene labels, reproduction and remaining seam work</a>.</p>
-<p><a href="native-material-pilot.md">New grass/water artwork and review</a> · <a href="../../art/exports/pilot/amiga-native-4x/grass-study-01.png">Grass 4× PNG</a> · <a href="../../art/exports/pilot/amiga-native-4x/water-study-01.png">Water 4× PNG</a></p>
+<p class="note">Revision 02 reconstructs continuous natural surfaces. Revision 01 below was rejected
+  for preserving square source pixels. The new comparisons use a fixed bilinear reduction;
+  approximately 90% original appearance at native size and smooth high-resolution artwork are
+  both required. Current studies remain unapproved. The full masters below are displayed with
+  smooth browser scaling; native comparison pixels stay sharp for inspection.</p>
+<div class="masters">
+  <figure><figcaption>Grass · continuous master · 1254 × 1254<br><a href="../../art/source/pilot/grass-amiga-study-02.png">Open full-resolution PNG</a></figcaption><a href="../../art/source/pilot/grass-amiga-study-02.png"><img src="../../art/source/pilot/grass-amiga-study-02.png" alt="Continuous grass illustration with organic shading and fine blades"></a></figure>
+  <figure><figcaption>Water · continuous master · 1254 × 1254<br><a href="../../art/source/pilot/water-amiga-study-02.png">Open full-resolution PNG</a></figcaption><a href="../../art/source/pilot/water-amiga-study-02.png"><img src="../../art/source/pilot/water-amiga-study-02.png" alt="Continuous water illustration with flowing wave contours"></a></figure>
+</div>
+<p><a href="native-material-pilot.md">Recipes, fixed resampling and remaining fidelity work</a> ·
+  <a href="../../build/art-review/amiga-neighborhoods-materials/index.html">Previous neighborhood baseline</a> (contains rejected revision 01; revision 02 is not yet integrated).</p>
 <div class="controls">
   <label>Comparison magnification <select id="zoom"><option value="1">1×</option><option value="4">4×</option><option value="8" selected>8×</option></select></label>
   <label>Background <select id="background"><option value="checker">Checker</option><option value="dark">Dark</option><option value="light">Light</option></select></label>
@@ -49,8 +58,10 @@
 <script>
   'use strict';
   const studies = [
-    { id: 'grass-01', name: 'Grass — new illustrated revision 01', native: 'SPLAI152', export: 'grass-study-01', source: 'grass-amiga-study-01', note: 'Newly drawn fine grass texture, retained original colour patch layout, exact mask at both densities. Unapproved study; some green values and block boundaries need refinement.' },
-    { id: 'water-01', name: 'Water — new illustrated revision 01', native: 'SCOAS060', export: 'water-study-01', source: 'water-amiga-study-01', note: 'Newly painted ripples at 2×/4×, original wave pattern and crest positions retained, exact mask. Unapproved study; small pale crests and cyan values drift.' },
+    { id: 'grass-02', name: 'Grass — continuous revision 02 · bilinear', native: 'SPLAI152', export: 'grass-study-02', source: 'grass-amiga-study-02', note: 'Continuous new artwork. Fixed bilinear native reduction; fidelity and adjacent-family acceptance remain open.' },
+    { id: 'water-02', name: 'Water — continuous revision 02 · bilinear', native: 'SCOAS060', export: 'water-study-02', source: 'water-amiga-study-02', note: 'Continuous new artwork. Fixed bilinear native reduction; fidelity and adjacent-family acceptance remain open.' },
+    { id: 'grass-01', name: 'Grass — rejected block-preserving revision 01', native: 'SPLAI152', export: 'grass-study-01', source: 'grass-amiga-study-01', note: 'Newly drawn fine grass texture, retained original colour patch layout, exact mask at both densities. Unapproved study; some green values and block boundaries need refinement.' },
+    { id: 'water-01', name: 'Water — rejected block-preserving revision 01', native: 'SCOAS060', export: 'water-study-01', source: 'water-amiga-study-01', note: 'Newly painted ripples at 2×/4×, original wave pattern and crest positions retained, exact mask. Unapproved study; small pale crests and cyan values drift.' },
     { id: 'road-05', previous: 'road-04', name: 'Road bend — quieter original-led revision 05', native: 'SSTRE114', export: 'road-study-05', source: 'road-amiga-study-05', note: 'Exact output alpha and native coarse material layout; dim central mark restored and texture quieter. Some grass values still drift. Independent/controller isolated-tile scores 94/93, not approval.' },
     { id: 'river-03', previous: 'river-02', name: 'River — original-led revision 03', native: 'SCOAS071', export: 'river-study-03', source: 'river-amiga-study-03', note: 'Original channel widths and banks restored; exact output alpha and no nearest-original-palette changes at native size. Values and repeated short water strokes still need review. Independent/controller isolated-tile scores 93/92, not approval.' },
     { id: 'bridge-03', previous: 'bridge-02', name: 'Road bridge — original-led revision 03', native: 'SSTRE091', export: 'bridge-study-03', source: 'bridge-amiga-study-03', note: 'Original coarse material layout, white edges and small markings restored with exact output alpha. Dark greens, warm abutments and busy surface texture remain. Independent/controller isolated-tile scores 92/91, not approval.' },
@@ -65,7 +76,7 @@
   ];
   const root = '../../';
   const node = (tag, text) => { const el = document.createElement(tag); if (text) el.textContent = text; return el; };
-  const image = (path, description) => { const el = node('img'); el.src = root + path; el.alt = description; el.addEventListener('error', () => { document.getElementById('missing').hidden = false; }); return el; };
+  const image = (path, description) => { const el = node('img'); el.src = root + path; el.alt = description; if (path.includes('g0-corpus/') || path.endsWith('/downsample.png')) el.className = 'native'; el.addEventListener('error', () => { document.getElementById('missing').hidden = false; }); return el; };
   function panel(title, path, alt) {
     const figure = node('figure');
     figure.append(node('figcaption', title));

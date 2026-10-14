@@ -5,6 +5,7 @@ import (
 	"image"
 	"image/color"
 	"image/draw"
+	"math"
 )
 
 type coverage struct {
@@ -161,4 +162,72 @@ func abs(v int) int {
 		return -v
 	}
 	return v
+}
+
+// resizeBilinear reduces with a separable tent widened by the source/destination
+// ratio for antialiasing. Pixel centers map as (d+0.5)*source/destination-0.5.
+// Support outside the image is discarded and the remaining weights normalized.
+// Integer-coordinate weights avoid coordinate drift; float64 sums are evaluated
+// in row-major order. RGB bytes (no linear-light conversion) are weighted by
+// alpha, then unpremultiplied; channels round half up once, after the full 2D
+// filter. Fully transparent output is zero RGB. There is no intermediate
+// quantization or dependence on a platform graphics API.
+func resizeBilinear(src *image.NRGBA, width, height int) (*image.NRGBA, error) {
+	sw, sh := src.Bounds().Dx(), src.Bounds().Dy()
+	if width <= 0 || height <= 0 || width > sw || height > sh {
+		return nil, errors.New("bilinear resize requires positive dimensions without upscaling")
+	}
+	dst := image.NewNRGBA(image.Rect(0, 0, width, height))
+	for y := 0; y < height; y++ {
+		y0, y1, cy := bilinearSpan(y, sh, height)
+		for x := 0; x < width; x++ {
+			x0, x1, cx := bilinearSpan(x, sw, width)
+			var sumW, sumA, sumR, sumG, sumB float64
+			for sy := y0; sy < y1; sy++ {
+				dy := (2*int64(sy)+1)*int64(height) - cy
+				if dy < 0 {
+					dy = -dy
+				}
+				wy := 2*int64(sh) - dy
+				if wy <= 0 {
+					continue
+				}
+				for sx := x0; sx < x1; sx++ {
+					dx := (2*int64(sx)+1)*int64(width) - cx
+					if dx < 0 {
+						dx = -dx
+					}
+					wx := 2*int64(sw) - dx
+					if wx <= 0 {
+						continue
+					}
+					weight := float64(wx) * float64(wy)
+					p := src.NRGBAAt(sx+src.Bounds().Min.X, sy+src.Bounds().Min.Y)
+					weightA := weight * float64(p.A)
+					sumW += weight
+					sumA += weightA
+					sumR += weightA * float64(p.R)
+					sumG += weightA * float64(p.G)
+					sumB += weightA * float64(p.B)
+				}
+			}
+			if sumA > 0 {
+				a := uint8(math.Floor(sumA/sumW + 0.5))
+				if a > 0 {
+					dst.SetNRGBA(x, y, color.NRGBA{R: uint8(math.Floor(sumR/sumA + 0.5)), G: uint8(math.Floor(sumG/sumA + 0.5)), B: uint8(math.Floor(sumB/sumA + 0.5)), A: a})
+				}
+			}
+		}
+	}
+	return dst, nil
+}
+
+// Centers and tent radii use units of 1/(2*destination). The initial index may
+// include a zero-weight sample; resizeBilinear skips it. Clip, do not wrap edges.
+func bilinearSpan(d, source, destination int) (first, end int, center int64) {
+	s, t := int64(source), int64(destination)
+	center = (2*int64(d) + 1) * s
+	first = max(0, int((center-2*s-t)/(2*t)))
+	end = min(source, int((center+2*s+t-1)/(2*t)))
+	return
 }

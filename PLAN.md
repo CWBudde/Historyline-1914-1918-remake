@@ -672,6 +672,12 @@ new authored detail; independent AI-generated tiles are quick studies but allow 
 boundary drift; the recommended shared-template workflow combines controlled geometry with
 illustration and selective AI assistance. Use a common master/reference sheet for each family.
 
+**Continuous-surface requirement (2026-10-15):** reconstruct organic shapes from the original
+samples; never paint detail inside traced source-pixel squares. Inspect full-resolution masters
+and fixed bilinear native reductions together. Preserve approximately 90% native visual appearance,
+with continuous high-resolution contours. Exact reference masks are diagnostic coverage, not a
+requirement to expose pixel staircases in production art. See `docs/art/style-guide.md`.
+
 **Generation recipe:** attach the verified reference and geometry guide; request the original
 viewing angle, silhouette, object positions, palette/value and light direction, with new detail
 inside those shapes. Ask for no text, frame or decorative border. Generate interiors or objects
@@ -814,12 +820,15 @@ below record work already delivered, plus G0.7's new neighborhood comparisons.
       infantry and artillery, one portrait and the unit panel based on manual page 45. Each
       subject needs retained sources/recipes, native/2×/4× comparisons and a recorded review.
       Use separate delivery checkboxes below so completed subjects remain visible:
-      - [x] Native grass and water.
-            (2026-10-15) — two newly illustrated original-led sources, exact recipes, 48/96-pixel
-            exports and native reductions; recorded controller/independent review. Eight real
-            neighborhoods now include five redraw resources. Exact coverage, but grass/water
-            values and texture joins still need refinement; user approval remains open. See
-            `docs/art/native-material-pilot.md`.
+      - [ ] Native grass and water with continuous high-resolution surfaces.
+            (2026-10-15) — revision 01 is rejected by the user: textured original pixel cells
+            are still visibly blocky. Reconstruct organic contours across those cells and
+            compare with a fixed documented bilinear reduction. Target approximately 90%
+            original visual appearance after reduction, plus smooth detailed masters; neither
+            requirement replaces the other. Retain rejected sources as history. See
+            `docs/art/native-material-pilot.md`. Revision 02 now has continuous 1254-pixel
+            masters, fixed bilinear comparisons and 48/96-pixel exports; the square-grid defect
+            is resolved, but approximately 90% native visual resemblance is not yet established.
       - [ ] Infantry and artillery map sprites.
       - [ ] Unit portrait.
       - [ ] Reconstructed unit panel with live text and separate frame/icons/portrait.
@@ -932,15 +941,13 @@ private originals/manual extracts in ignored `original/`, and reference gallerie
 outputs and research in ignored `build/`. Authored masters, recipes and pilot exports stay in
 tracked `art/`; commit verified graphics batches directly to `main`, per the user's preference.
 
-**Immediate next graphics slice:** refine the actual high-resolution terrain (G0.8), using
-`docs/art/native-material-pilot.md` and the eight current neighborhoods. Restore the new grass
-study's darker values, match grass across road boundaries, restore bridge earth and quiet the
-water highlights/texture. Keep source/recipe revisions and 48/96-pixel exports; inspect native
-reductions and both-parity joins. Native grass/water delivery is complete, while visual approval
-remains open. Then deliver infantry/artillery map sprites, portrait and panel as separate art
-batches. Use original-led generation and exact native masks; preserve material contacts/marks.
-G1's runtime geometry, shared edge/corner templates and compositor follow the reference/migration
-decisions and pilot acceptance. Mixed study scenes remain private comparisons, not a released pack.
+**Immediate next graphics slice:** finish the continuous grass/water pair under G0.9's reopened
+criterion. Review full-resolution masters and fixed bilinear native reductions together; do
+not accept pixel-grid tracing or a smooth texture that loses the original pattern. Use the
+recorded filter consistently and keep approximately 90% native visual resemblance as the
+acceptance target. Then integrate accepted material masters into G0.8's road/bridge/river
+cleanup and shared-edge review. Infantry/artillery, portrait and panel follow as separate
+art batches. The full visual pilot and production pack remain unapproved.
 
 ---
 

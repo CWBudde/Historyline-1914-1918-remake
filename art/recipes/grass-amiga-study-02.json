@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "id": "grass-amiga-study-02",
+  "date": "2026-10-15",
+  "tool": "built-in image_gen.imagegen",
+  "model": null,
+  "reference": "build/gfx-references/g0-corpus/PARTS/SPLAI152.png",
+  "reference_platform": "Amiga German installation, supplied locally",
+  "native_source": "data/LIB/PARTS.LIB:SPLAI152",
+  "native_source_sha256": "6808b6078a36d2cbdf9ec2e39146ede4afafda75b4b360c6fa112006176bc6be",
+  "native_dimensions": [
+    24,
+    24
+  ],
+  "palette": "data/00.PAL",
+  "coverage": "data/HEXMSK00.DAT",
+  "source": "art/source/pilot/grass-amiga-study-02.png",
+  "source_dimensions": [
+    1254,
+    1254
+  ],
+  "source_sha256": "467e4255cf3be532d09fae113ebc55d251c7d8ecc4c57f8899c93f8f022f8bca",
+  "reference_sha256": "2159adcd19255d2d33c12c0a2d77c5a5783be124d76639690773d6de55a01a7e",
+  "generation_inputs": [
+    {
+      "path": "build/gfx-research/native-material-pair/SPLAI152-nearest32x.png",
+      "role": "original-edit-target-and-geometry-colour-reference",
+      "sha256": "59d401891c7581bda73d87fe27d3bff3184f47d958c0ab53b1651af5a84980a7",
+      "preparation": "Exact 32x nearest-neighbour enlargement of native 24x24 PNG, without recolouring or aspect correction."
+    }
+  ],
+  "prompt": "Use case: style-transfer.\nAsset type: NEW continuous high-resolution illustrated ground texture for a strategy game remake, full opaque square.\nReference image: original Amiga grass terrain. It is a coarse observation of a natural surface, NOT a grid to trace. Reconstruct the continuous natural grass field that could have produced this coarse image. Overall yellow-olive main colour #778800, darker grassy mottling #557700, restrained small lighter #88aa00 areas, distributed roughly as in the reference. Keep broad spatial balance and approximate brightness of the reference when reduced to24x24 by bilinear filtering. But completely remove the original pixel topology from the high-resolution painting: replace square patches and zigzag staircases with curved, irregular organic shading and natural clumps that flow across old cell boundaries. No square cell is a physical object.\nDraw a coherent smooth carpet of fine short grass viewed directly overhead, subtle depth, small flowing blades, gentle natural variations at several scales, diffuse flat light. Continuous organic contours and rich sharp fine detail at high resolution. The surface must read as ONE real illustrated field, never a mosaic of little grass-textured squares. Synthesize fresh continuous shapes rather than smoothing or upscaling the pixel art. Avoid any visible square, block, grid, checkerboard, voxel, rectangular colour region, pixel edge, patchwork or repeated stamped tufts. No dirt, flowers, rocks, long shadows, new landmarks, border, text or hex shape. Fill the entire opaque square with grass including corners. Flat overhead game-material painting, not a scene with horizon. Goal: continuous high-resolution natural artwork first, original palette and coarse native-size resemblance second; neither pixel art nor blurry filtered pixel art.",
+  "transparent_background": false,
+  "status": "study-unapproved-continuous",
+  "intended_exports": {
+    "native-2x": [
+      48,
+      48
+    ],
+    "native-4x": [
+      96,
+      96
+    ]
+  },
+  "cleanup": "Retained source unchanged. Fixed alpha-aware bilinear reduction to unmasked 96x96, then independently to48x48 and24x24 from unmasked96. Original mask applied independently after filtering. No painting, colour correction or alpha repair after generation. Original stepped mask is diagnostic coverage, not an approved continuous production contour.",
+  "review": "Continuous organic surfaces replace rejected square-cell tracing. Fixed bilinear native comparison retains material identity but changes patch contrast/placement; approximately90% visual resemblance is not established. User acceptance and shared-edge work remain open. See docs/art/native-material-pilot.md.",
+  "determinism": "AI reruns are not assumed deterministic; exports reproduce locally from retained source using tools/art-review.",
+  "exports": {
+    "native-2x": {
+      "path": "art/exports/pilot/amiga-native-2x/grass-study-02.png",
+      "sha256": "207272705e93859a290e89dd3c8ccd5c2f16a8dcecaff11c49857a8601c1b7bf"
+    },
+    "native-4x": {
+      "path": "art/exports/pilot/amiga-native-4x/grass-study-02.png",
+      "sha256": "19b50af68b2a4c8dd7ccdeeb659e13a18de2b0f0b82ff89c4e146462b87e225d"
+    }
+  },
+  "resampling": {
+    "method": "bilinear",
+    "algorithm": "Separable antialiased tent, radius source/destination per axis; pixel centers (d+0.5)*source/destination-0.5. Clip support to image and renormalize. Integer-coordinate weights, row-major float64 sums; alpha-weighted byte RGB (no linear-light conversion), unpremultiply and round half up once per reduction; zero RGB at zero output alpha.",
+    "chain": [
+      "source -> raw4x: bilinear",
+      "raw4x -> raw2x: bilinear",
+      "raw4x -> rawNative: bilinear",
+      "raw4x/raw2x/rawNative -> outputs: apply reference footprint independently"
+    ]
+  }
+}

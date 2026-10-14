@@ -11,6 +11,9 @@
 // reference, using the known repository layout. No world spacing is inferred
 // for other reference dimensions. Set -reference-platform amiga-native for
 // a native Amiga reference; the default provenance is repo-provisional.
+// -resampling area (default) preserves the original area/box chain; bilinear
+// uses an alpha-aware antialiased tent and independently masks each raw level.
+// Neighborhood recipes retain their box contract and reject -resampling.
 // Inputs are never modified;
 // existing output files are rejected. This is a contact-sheet utility, not
 // a fidelity acceptance test or a claim that tile edges are seamless.
@@ -43,28 +46,31 @@ type dimensions struct {
 }
 
 type diagnostics struct {
-	ReferencePlatform string     `json:"reference_platform"`
-	ReferencePath     string     `json:"reference_path"`
-	CandidatePath     string     `json:"candidate_path"`
-	ReferenceSize     dimensions `json:"reference_dimensions"`
-	CandidateSize     dimensions `json:"candidate_dimensions"`
-	Working4xSize     dimensions `json:"working_4x_dimensions"`
-	Working2xSize     dimensions `json:"working_2x_dimensions"`
-	SourceScaleX      float64    `json:"source_scale_x"`
-	SourceScaleY      float64    `json:"source_scale_y"`
-	AspectDeviation   float64    `json:"relative_aspect_deviation"`
-	AspectTolerance   float64    `json:"aspect_tolerance"`
-	RawCoverage       coverage   `json:"unmasked_native_coverage"`
-	FinalCoverage     coverage   `json:"masked_native_coverage"`
-	PatchCoverage     *coverage  `json:"seven_hex_coverage,omitempty"`
-	ComparisonOrder   []string   `json:"comparison_panel_order"`
-	DisplayScale      int        `json:"nearest_display_scale"`
-	RGBMetric         string     `json:"rgb_metric"`
-	AlphaMetric       string     `json:"alpha_metric"`
-	DifferencePanel   string     `json:"difference_panel"`
-	FootprintPolicy   string     `json:"footprint_policy"`
-	PatchPlacement    string     `json:"patch_placement,omitempty"`
-	Advisory          string     `json:"advisory"`
+	Resampling          string     `json:"resampling"`
+	ResamplingAlgorithm string     `json:"resampling_algorithm"`
+	ResamplingChain     []string   `json:"resampling_chain"`
+	ReferencePlatform   string     `json:"reference_platform"`
+	ReferencePath       string     `json:"reference_path"`
+	CandidatePath       string     `json:"candidate_path"`
+	ReferenceSize       dimensions `json:"reference_dimensions"`
+	CandidateSize       dimensions `json:"candidate_dimensions"`
+	Working4xSize       dimensions `json:"working_4x_dimensions"`
+	Working2xSize       dimensions `json:"working_2x_dimensions"`
+	SourceScaleX        float64    `json:"source_scale_x"`
+	SourceScaleY        float64    `json:"source_scale_y"`
+	AspectDeviation     float64    `json:"relative_aspect_deviation"`
+	AspectTolerance     float64    `json:"aspect_tolerance"`
+	RawCoverage         coverage   `json:"unmasked_native_coverage"`
+	FinalCoverage       coverage   `json:"masked_native_coverage"`
+	PatchCoverage       *coverage  `json:"seven_hex_coverage,omitempty"`
+	ComparisonOrder     []string   `json:"comparison_panel_order"`
+	DisplayScale        int        `json:"nearest_display_scale"`
+	RGBMetric           string     `json:"rgb_metric"`
+	AlphaMetric         string     `json:"alpha_metric"`
+	DifferencePanel     string     `json:"difference_panel"`
+	FootprintPolicy     string     `json:"footprint_policy"`
+	PatchPlacement      string     `json:"patch_placement,omitempty"`
+	Advisory            string     `json:"advisory"`
 }
 
 func main() {
@@ -81,6 +87,7 @@ func run(args []string, log io.Writer) error {
 	referencePlatform := fs.String("reference-platform", "repo-provisional", "reference provenance label (e.g. repo-provisional or amiga-native); supplied by caller")
 	neighborhoodPath := fs.String("neighborhood", "", "JSON recipe for original Amiga seven-cell neighborhood review")
 	candidatePath := fs.String("candidate", "", "candidate PNG, at least 4x reference dimensions and aspect within 1%")
+	resampling := fs.String("resampling", "area", "single-sprite reduction: area or bilinear (antialiased tent); excluded by -neighborhood")
 	out := fs.String("out", "", "output directory (existing artifact names are rejected)")
 	if err := fs.Parse(args); err != nil {
 		if errors.Is(err, flag.ErrHelp) {
@@ -91,14 +98,17 @@ func run(args []string, log io.Writer) error {
 	if *neighborhoodPath != "" {
 		conflict := false
 		fs.Visit(func(f *flag.Flag) {
-			if f.Name == "reference" || f.Name == "candidate" || f.Name == "reference-platform" {
+			if f.Name == "reference" || f.Name == "candidate" || f.Name == "reference-platform" || f.Name == "resampling" {
 				conflict = true
 			}
 		})
 		if conflict || *out == "" || fs.NArg() != 0 {
-			return errors.New("-neighborhood requires -out and excludes reference/candidate flags and positional arguments")
+			return errors.New("-neighborhood requires -out and excludes reference/candidate/resampling flags and positional arguments")
 		}
 		return runNeighborhood(*neighborhoodPath, *out, log)
+	}
+	if *resampling != "area" && *resampling != "bilinear" {
+		return errors.New("-resampling must be area or bilinear")
 	}
 	if *referencePath == "" || *candidatePath == "" || *out == "" || *referencePlatform == "" || fs.NArg() != 0 {
 		return errors.New("required: -reference PNG -candidate PNG -out directory; no positional arguments")
@@ -126,30 +136,53 @@ func run(args []string, log io.Writer) error {
 	if sw < 4*rw || sh < 4*rh {
 		return fmt.Errorf("candidate must be at least %dx%d (4x reference); upscaling is not supported", 4*rw, 4*rh)
 	}
-	raw4x, err := resizeArea(src, 4*rw, 4*rh)
+	resize := resizeArea
+	if *resampling == "bilinear" {
+		resize = resizeBilinear
+	}
+	raw4x, err := resize(src, 4*rw, 4*rh)
 	if err != nil {
 		return err
 	}
-	raw2x, err := boxDownsample(raw4x, 2)
-	if err != nil {
-		return err
-	}
-	rawNative, err := boxDownsample(raw2x, 2)
-	if err != nil {
-		return err
-	}
+	var raw2x, rawNative, working2x, native *image.NRGBA
 	working4x := applyFootprint(raw4x, ref)
-	working2x, err := boxDownsample(working4x, 2)
-	if err != nil {
-		return err
+	algorithm := "Integer rational-coordinate area overlaps; alpha-weighted byte RGB, straight RGB output, round half up after each reduction."
+	chain := []string{"source -> raw4x: area", "raw4x -> raw2x -> rawNative: box factor 2 at each step", "raw4x -> working4x: apply reference footprint", "working4x -> working2x -> native: box factor 2 then apply reference footprint at each step"}
+	if *resampling == "bilinear" {
+		raw2x, err = resizeBilinear(raw4x, 2*rw, 2*rh)
+		if err != nil {
+			return err
+		}
+		rawNative, err = resizeBilinear(raw4x, rw, rh)
+		if err != nil {
+			return err
+		}
+		working2x = applyFootprint(raw2x, ref)
+		native = applyFootprint(rawNative, ref)
+		algorithm = "Separable antialiased tent, radius source/destination per axis; pixel centers (d+0.5)*source/destination-0.5. Clip support to image and renormalize. Integer-coordinate weights, row-major float64 sums; alpha-weighted byte RGB (no linear-light conversion), unpremultiply and round half up once per reduction; zero RGB at zero output alpha."
+		chain = []string{"source -> raw4x: bilinear", "raw4x -> raw2x: bilinear", "raw4x -> rawNative: bilinear", "raw4x/raw2x/rawNative -> outputs: apply reference footprint independently"}
+	} else {
+		raw2x, err = boxDownsample(raw4x, 2)
+		if err != nil {
+			return err
+		}
+		rawNative, err = boxDownsample(raw2x, 2)
+		if err != nil {
+			return err
+		}
+		working2x, err = boxDownsample(working4x, 2)
+		if err != nil {
+			return err
+		}
+		working2x = applyFootprint(working2x, ref)
+		native, err = boxDownsample(working2x, 2)
+		if err != nil {
+			return err
+		}
+		native = applyFootprint(native, ref)
 	}
-	working2x = applyFootprint(working2x, ref)
-	native, err := boxDownsample(working2x, 2)
-	if err != nil {
-		return err
-	}
-	native = applyFootprint(native, ref)
 	report := diagnostics{
+		Resampling: *resampling, ResamplingAlgorithm: algorithm, ResamplingChain: chain,
 		ReferencePlatform: *referencePlatform, ReferencePath: *referencePath, CandidatePath: *candidatePath,
 		ReferenceSize: dimensions{rw, rh}, CandidateSize: dimensions{sw, sh},
 		Working4xSize: dimensions{4 * rw, 4 * rh}, Working2xSize: dimensions{2 * rw, 2 * rh},

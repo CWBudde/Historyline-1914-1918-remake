@@ -31,7 +31,7 @@
   ],
   "prompt": "Use case: style-transfer.\nAsset type: faithful high-resolution game terrain redraw, for 48x48 and 96x96 exports from an original 24x24 Amiga tile.\nInput image is the ORIGINAL SPLAI152, exactly enlarged 32x, sole geometry and colour authority. Redraw this exact grass tile with delicate illustrated grass texture inside the existing colour regions. Preserve registration, shapes, locations and average colours of all original patches: main olive #778800, darker #557700, small bright #88aa00 patch. Do not move, merge, widen, smooth or recenter these original patch boundaries. Preserve the large quiet fields; keep every original cell's average RGB very close to its original so downsampling to24x24 looks almost identical. Add a little finely drawn grass-fibre detail at subcell scale, with very low contrast, short irregular strokes, no visible grid or repeated clumps. Texture must remain subtle at96x96, with genuine added fine detail rather than just enlarged blocks. Do not introduce large blades, tufts, flowers, earth, shadows, highlights or new colour patches. No lighting gradient or palette grading. Preserve original saturated olive/yellow green colours; dark grass must not become forest green.\nPaint a FULLY OPAQUE SQUARE, continuing adjacent grass into the originally transparent corners. The original stepped hex footprint will be applied by the exporter; corners outside it will be discarded. Do not draw a hex border, bevel, outline, inset, checkerboard, black matte, text or watermark. Keep the original material map exactly registered across the entire square. New high-resolution surface detail, faithful native-size recognition.",
   "transparent_background": false,
-  "status": "study-unapproved",
+  "status": "rejected-by-user",
   "intended_exports": {
     "native-2x": [
       48,
@@ -43,7 +43,7 @@
     ]
   },
   "cleanup": "Generated source retained unchanged as fully opaque square paint, including deliberate material extensions outside native coverage. tools/art-review area-reduces to 96x96, applies repeated original mask, box-reduces to 48x48 and 24x24 with coverage caps. No alpha forcing, matte replacement, display-aspect or world-spacing correction. Exterior paint is discarded by the original mask; raw extra coverage is expected.",
-  "review": "Unapproved original-led native material study. See docs/art/native-material-pilot.md for native colour diagnostics, added detail, visual review and remaining seam/value work.",
+  "review": "Rejected by user on 2026-10-15: high-resolution artwork still visibly preserves original square pixel cells. Retained as history; exact alpha and previous assistant scores do not approve the artwork.",
   "determinism": "AI reruns are not assumed deterministic; exports reproduce locally from retained source using tools/art-review.",
   "exports": {
     "native-2x": {
