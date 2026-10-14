@@ -187,8 +187,13 @@ cmd/hlartpreview/           Ebitengine art and seam workbench (graphics mileston
       infrastructure cases (every infra id, every combination in `levels/*.json`, synthetic
       barbed wire/lake ids, multi-infra orderings) match `testdata/python.json`, which
       `testdata/gen_python.py` builds by running the Python source.
-- [ ] `level`: load `levels/*.json` unchanged. This covers tile, infra (a string or a list), unit,
+- [x] `level`: load `levels/*.json` unchanged. This covers tile, infra (a string or a list), unit,
       and `[owner, [units…]]` for HQ/depot/factory. Round-trip test: load → save → identical JSON.
+      (2026-10-14) — `internal/level` has `Parse/Load`, which check line keys, hex arity and types,
+      and the odd/even line lengths, and `Marshal/Save`, which port `mapEditor.py` `saveData`. The
+      infra string/list form and the `[owner]`/`[owner, [units]]` forms are kept. All four
+      `levels/*.json` come back byte-identical after load → save, and every terrain and unit id in
+      them exists in `internal/data`.
 - [ ] `game` state: hexes, units (size, experience, ammo per weapon, fuel, moved/attacked flags),
       containers (2 × 9 slots, weight capacity), owners
 - [ ] `game` commands at Python parity: move with a path, attack with counter-attack, enter
