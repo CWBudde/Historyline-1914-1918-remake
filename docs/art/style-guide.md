@@ -96,7 +96,7 @@ outside coverage are reported before clipping. Neither a low RGB difference nor 
 is visual approval. The tool intentionally omits native map patches until world spacing is
 verified, keeping original intrinsic density separate from the repository display contract.
 
-The native connected terrain batch adds road bend `SSTRE114` (two passes), river `SCOAS071`
+The first native connected terrain batch adds road bend `SSTRE114` (two passes), river `SCOAS071`
 and bridge `SSTRE091`, with retained sources, exact recipes and intrinsic 48/96 pixel exports.
 The [review record](connected-terrain-pilot.md) documents measured boundary contacts and
 tentative assistant scores of 88/84/86 for road 02/river 01/bridge 01. All remain unapproved:
@@ -104,6 +104,14 @@ water/grass values and markings drift, and every covered native pixel retains so
 The [local comparison page](connected-terrain-review.html) provides an aligned overlay,
 backgrounds and 2×/4× previews without embedding private originals in tracked files.
 
-Next resolve native opacity, colour and marking defects, then complete native grass/water,
+The 2026-10-15 cleanup tests opaque square painting followed by original-mask clipping.
+All four new sources and native/2×/4× exports have exact expected opacity. Road 03, river 02
+and bridge 02 are rejected because chained edits shift material shapes. Original-led road 04
+restores the broad material layout and pale marks, but darker values and busy grass/gravel
+finish remain. Independent/controller scores are 90/88; no approval is implied. Prefer the
+verified original as the geometry authority and reject shifted native shapes before judging
+illustrative detail. See the review record for measurements, limitations and reproduction.
+
+Next resolve native colour, texture and marking defects using that evidence, then complete native grass/water,
 infantry, artillery, portrait and unit-panel studies. Confirm normal-play geometry and joins
 before treating any study as approved or closing G0.

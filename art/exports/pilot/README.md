@@ -32,10 +32,14 @@ Known issues: generated canopy/ground details drift, and repository seven-hex pa
 dark joins. Native aspect, connected features and visual approval remain open. The next
 production step is shared edge/corner masters and faithful cleanup, before mass generation.
 
-The connected terrain studies include road revisions 01/02, river 01 and bridge 01.
-Road 02 is the stronger study; revision 01 remains as its recorded edit input. See
+The connected terrain studies include road revisions 01–04, river 01/02 and bridge 01/02.
+Road 04 is the next geometry baseline; its finish remains unapproved. Road 03, river 02 and
+bridge 02 are rejected experiments with shifted material shapes. Earlier sources remain
+for lineage and before/after comparison. See
 [the review notes](../../../docs/art/connected-terrain-pilot.md) for tentative scores,
 opacity/palette defects and exact reproduction commands, or open
 [the local comparison page](../../../docs/art/connected-terrain-review.html) with private
-references and reductions present in `build/`. Clipping yields the original binary coverage
-but preserves semi-transparent interior pixels; these exports still need explicit cleanup.
+references and reductions present in `build/`. Earlier sources retain translucent interiors.
+The four latest sources instead paint fully opaque squares; deterministic masking produces
+exact original alpha at native/2×/4× sizes. This fixes opacity without forcing alpha or
+certifying material geometry. Palette, texture, normal-play fidelity and joins remain open.

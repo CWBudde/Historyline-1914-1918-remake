@@ -607,7 +607,14 @@ and G5 follows complete UI coverage. Do not wait until Phase 6 to discover seam 
       sources, reproducible 48/96 pixel exports and an offline overlay/density review page.
       `docs/art/connected-terrain-pilot.md` records tentative assistant scores 88/84/86 for
       road 02/river 01/bridge 01, palette/marking drift and semi-transparent covered pixels.
-      No study is approved. Native grass/water, units, portrait/panel, opacity/edge cleanup,
+      (2026-10-15) — opaque-square cleanup sources plus unchanged mask-based exports now
+      reproduce exact native/2×/4× alpha. Road 03, river 02 and bridge 02 are rejected for
+      shifted material geometry; retained recipes and before/after comparisons document why.
+      Original-led road 04 restores broad material layout and pale marks (zero coarse material
+      class changes across 384 native cells), but darker values and busy texture remain.
+      Independent/controller scores 90/88 are provisional, not approval. See the same review
+      record for exact measurements and limitations; opacity alone does not establish joins.
+      No study is approved. Native grass/water, units, portrait/panel, colour/texture/edge cleanup,
       normal-play/seam review and the 90/100 gate remain open.
 - [ ] **Gate:** reviewed pilot retains approximately 90% native-size appearance; original
       silhouettes/connections are preserved; choose master density and tools before batch art.
@@ -701,7 +708,11 @@ private originals/manual extracts in ignored `original/`, and reference gallerie
 outputs and research in ignored `build/`. Authored masters, recipes and pilot exports stay in
 tracked `art/`; commit verified graphics batches directly to `main`, per the user's preference.
 
-**Immediate next slice:** resolve the connected studies' opacity, colour and marking defects;
+**Immediate next slice:** use original-led road 04 as a geometry baseline and resolve its
+darker values, busy grass/gravel and dim central mark; restore river/bridge material shapes
+directly from their verified originals. Opaque square generation plus original-mask exports
+solves opacity for the new studies; chained edits regressed geometry and remain rejected.
+Verify native widths/contact cells/mark positions before evaluating extra detail. Then
 use the selected native references to complete native grass/water, infantry/artillery, portrait
 and manual page 45 unit-panel studies. Finish exact native-to-runtime port/direction/anchor
 mappings and verify original display geometry alongside it. Compare 2×/4× detail and native

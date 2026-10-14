@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "id": "river-amiga-study-02",
+  "date": "2026-10-15",
+  "tool": "built-in image_gen.imagegen",
+  "model": null,
+  "reference": "build/gfx-references/g0-corpus/PARTS/SCOAS071.png",
+  "reference_platform": "Amiga German installation, supplied locally",
+  "native_source": "data/LIB/PARTS.LIB:SCOAS071",
+  "native_source_sha256": "6808b6078a36d2cbdf9ec2e39146ede4afafda75b4b360c6fa112006176bc6be",
+  "native_dimensions": [
+    24,
+    24
+  ],
+  "palette": "data/00.PAL",
+  "coverage": "data/HEXMSK00.DAT",
+  "source": "art/source/pilot/river-amiga-study-02.png",
+  "source_dimensions": [
+    1254,
+    1254
+  ],
+  "source_sha256": "ea4802f51cbbd6ad5a2b1170d63eade6693b168e6bdf8f632857d1f5d96dce4f",
+  "reference_sha256": "d965bdb222db76ed783670063416c00b750a6a72baada7af2efdacc0b9489637",
+  "generation_inputs": [
+    {
+      "path": "art/source/pilot/river-amiga-study-01.png",
+      "role": "edit-target",
+      "sha256": "7e83946163b9a43d435eacf9a89466279e7ab60e5cb9b660342722f91805a142"
+    },
+    {
+      "path": "build/gfx-research/connected-pilot/SCOAS071-nearest32x.png",
+      "role": "geometry-and-colour-reference",
+      "sha256": "13428a5ae71f6bf7ec348e53c4feb42fbcfe945bcb338c136a135e864a67e9f4",
+      "preparation": "Exact 32x nearest-neighbour enlargement of native 24x24 PNG, without recolouring or aspect correction."
+    }
+  ],
+  "prompt": "Use case: precise-object-edit.\nAsset type: faithful illustrated Amiga river tile, revision 02.\nImage 1 edit target is prior river study. Image 2 is the authoritative original 24x24 sprite enlarged 32x. Preserve square registration and all interior channel, bank and grass positions of image 2; do not move widths, routes or margins.\nCorrect strong blue/cyan colour and overdone waves in image 1. Water mean base #448899, shadow #335566, restrained small highlights #55bbbb. Match their spatial colour masses to image 2. Reduce repeated bright waves to very subtle short surface brushwork within each original colour region, preserving quiet dark pools. Grass #778800/#557700/#88aa00/#445500, brown banks #664422. Preserve every original brown bank group and asymmetric grass boundary. No extra rocks, reeds, foam, ripples crossing the banks, shadows, vegetation or objects.\nChange output to a completely OPAQUE SQUARE full-bleed ground painting, no transparency anywhere. Extend ground naturally into the old transparent exterior and continue the existing water where it exits; do not add a hex outline, frame, margins or background. Software applies the exact original hex mask later. No black/white/checkerboard matte. Keep the interior source geometry fixed; do not rotate, recenter or zoom.\nOriginal water touches upper-left boundary at native (5,4),(4,5),(4,6),(3,7) and lower-right at (21,15),(20,16),(19,17),(19,18),(18,19). Native scanlines water x3..10 at y8, x6..16 at y12, x8..20 at y14. Preserve source small shapes. Modern illustrated texture must be restrained enough that reduction to 24x24 looks almost identical to the original.",
+  "transparent_background": false,
+  "status": "study-rejected-material-geometry",
+  "intended_exports": {
+    "native-2x": [
+      48,
+      48
+    ],
+    "native-4x": [
+      96,
+      96
+    ]
+  },
+  "cleanup": "Generated source retained unchanged as fully opaque square paint, including deliberate material extensions outside native coverage. tools/art-review area-reduces to 96x96, applies repeated original mask, box-reduces to 48x48 and 24x24 with coverage caps. No alpha forcing, matte replacement, display-aspect or world-spacing correction. Exterior paint is discarded by the original mask; raw extra coverage is expected.",
+  "review": "Rejected for shifted material geometry despite exact output opacity. See docs/art/connected-terrain-pilot.md for measured before/after defects and preliminary independent scores. Retained experiment only, not a replacement or approved runtime asset.",
+  "determinism": "AI reruns are not assumed deterministic; exports reproduce locally from retained source using tools/art-review."
+}

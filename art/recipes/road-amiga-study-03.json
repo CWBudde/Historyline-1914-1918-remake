@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "id": "road-amiga-study-03",
+  "date": "2026-10-15",
+  "tool": "built-in image_gen.imagegen",
+  "model": null,
+  "reference": "build/gfx-references/g0-corpus/PARTS/SSTRE114.png",
+  "reference_platform": "Amiga German installation, supplied locally",
+  "native_source": "data/LIB/PARTS.LIB:SSTRE114",
+  "native_source_sha256": "6808b6078a36d2cbdf9ec2e39146ede4afafda75b4b360c6fa112006176bc6be",
+  "native_dimensions": [
+    24,
+    24
+  ],
+  "palette": "data/00.PAL",
+  "coverage": "data/HEXMSK00.DAT",
+  "source": "art/source/pilot/road-amiga-study-03.png",
+  "source_dimensions": [
+    1254,
+    1254
+  ],
+  "source_sha256": "d0efebdeaf772a7b15d01b297b9dc0655a074f7f1da0367160da69c77a9159c7",
+  "reference_sha256": "2de3f834e9c73dc631eb5407af45c2eeaf5f683e40a8576e0b56f6230cbfab34",
+  "generation_inputs": [
+    {
+      "path": "art/source/pilot/road-amiga-study-02.png",
+      "role": "edit-target",
+      "sha256": "3df0b1049d674d7d5dcaf371d464311887d0aae6304bf6f52ef747b8933006d0"
+    },
+    {
+      "path": "build/gfx-research/connected-pilot/SSTRE114-nearest32x.png",
+      "role": "geometry-and-colour-reference",
+      "sha256": "348da5b5134f24e40832cd5b95d4c129e7a10b7da51da070f8d8fc8990cf1963",
+      "preparation": "Exact 32x nearest-neighbour enlargement of native 24x24 PNG, without recolouring or aspect correction."
+    }
+  ],
+  "prompt": "Use case: precise-object-edit.\nAsset type: original-faithful illustrated road bend, revision 03.\nImage 1 is the edit target (revision 02). Image 2 is the original 24x24 Amiga sprite enlarged exactly 32x, the authoritative geometry/colour reference.\nKeep the current canvas registration, bend, asphalt widths, brown shoulders and every native colour region of image 2. Correct only excessive texture contrast, overly white markings, and translucent paint.\nOutput a completely OPAQUE SQUARE painting, with no transparency anywhere. Extend grass naturally into the formerly transparent exterior; extend existing road where it meets the square bottom. Do not draw a visible hex outline or frame. The original mask will be applied by software later; the painting must fill the same square without margins, rotation, zoom or recentering. Maintain the hex interior positions precisely.\nAsphalt should average #666666, original pale road markings #aaaaaa not white, one dim #888888 central mark. Marks occupy these exact 0-based cells in the 24x24 grid: (19,6),(18,7),(17,8),(14,12),(13,14),(12,18),(12,19),(12,20); dim (13,13). Preserve their small isolated sizes and original gaps, not new long dashes.\nGrass masses average original #778800/#557700/#88aa00/#445500, brown #664422. Much more restrained fine illustrated brush texture than image 1; no diagonal mowing stripes, new stones, objects or shadows. Match the original asymmetric blocks and shoulders. After downsampling to 24x24 it should appear almost identical to image 2, while offering delicate material detail at 96x96.\nNo text, labels, border, checkerboard, black background, white background, perspective or floating tile. Fill the entire square with continuous ground paint.",
+  "transparent_background": false,
+  "status": "study-rejected-material-geometry",
+  "intended_exports": {
+    "native-2x": [
+      48,
+      48
+    ],
+    "native-4x": [
+      96,
+      96
+    ]
+  },
+  "cleanup": "Generated source retained unchanged as fully opaque square paint, including deliberate material extensions outside native coverage. tools/art-review area-reduces to 96x96, applies repeated original mask, box-reduces to 48x48 and 24x24 with coverage caps. No alpha forcing, matte replacement, display-aspect or world-spacing correction. Exterior paint is discarded by the original mask; raw extra coverage is expected.",
+  "review": "Rejected for shifted material geometry despite exact output opacity. See docs/art/connected-terrain-pilot.md for measured before/after defects and preliminary independent scores. Retained experiment only, not a replacement or approved runtime asset.",
+  "determinism": "AI reruns are not assumed deterministic; exports reproduce locally from retained source using tools/art-review."
+}

@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "id": "road-amiga-study-04",
+  "date": "2026-10-15",
+  "tool": "built-in image_gen.imagegen",
+  "model": null,
+  "reference": "build/gfx-references/g0-corpus/PARTS/SSTRE114.png",
+  "reference_platform": "Amiga German installation, supplied locally",
+  "native_source": "data/LIB/PARTS.LIB:SSTRE114",
+  "native_source_sha256": "6808b6078a36d2cbdf9ec2e39146ede4afafda75b4b360c6fa112006176bc6be",
+  "native_dimensions": [
+    24,
+    24
+  ],
+  "palette": "data/00.PAL",
+  "coverage": "data/HEXMSK00.DAT",
+  "source": "art/source/pilot/road-amiga-study-04.png",
+  "source_dimensions": [
+    1254,
+    1254
+  ],
+  "source_sha256": "bad5ca51b996fce1dc2c9325cad1e477e00dcdafe8371d105f1f57591e6300ed",
+  "reference_sha256": "2de3f834e9c73dc631eb5407af45c2eeaf5f683e40a8576e0b56f6230cbfab34",
+  "generation_inputs": [
+    {
+      "path": "build/gfx-research/connected-pilot/SSTRE114-nearest32x.png",
+      "role": "original-edit-target-and-geometry-colour-reference",
+      "sha256": "348da5b5134f24e40832cd5b95d4c129e7a10b7da51da070f8d8fc8990cf1963",
+      "preparation": "Exact 32x nearest-neighbour enlargement of native 24x24 PNG, without recolouring or aspect correction."
+    }
+  ],
+  "prompt": "Use case: style-transfer.\nEdit target: supplied original Amiga road tile, 24x24 enlarged exactly32x. This ORIGINAL is the sole composition and palette authority.\nCreate a faithful high-resolution painted game sprite of THIS EXACT image. Retain every pixel-sized grass colour mass, brown shoulder, grey road boundary and grey marking at its exact relative position. The existing stepped internal shapes must remain: do not smooth, reshape, recenter, zoom, rotate or change feature sizes. Trace the original geometry first. Add only very fine illustrated grass/pavement/soil detail INSIDE each original colour patch, with near-zero change to each patch's average colour.\nGoal: after reduction to24x24 the result should be nearly identical. Original road #666666, pale marks #aaaaaa (not white), dim mark #888888, grass #778800/#557700/#88aa00/#445500, soil #664422. Do not brighten or desaturate these. No mowing stripes or broad brush strokes. Delicate material grain only.\nKeep entire original canvas registration. The original transparent corners should be filled with opaque continuations of their adjacent grass/road, so output is a FULLY OPAQUE SQUARE. This outside fill will be discarded using the exact original mask. Do not draw a visible hex boundary, outline, inset or border. No background matte. Road must retain its original bend and upper-right exit, reaching the bottom at x10..14 in the original24x24 coordinates.\nKeep all nine small original road marking cells exactly as they are: #aaaaaa at native(19,6),(18,7),(17,8),(14,12),(13,14),(12,18),(12,19),(12,20), #888888 at(13,13). No additional or relocated dashes, objects, stones, shadows or texture clumps.\nThis is a precise conservation redraw with subtle illustrative detail, not a new tile concept.",
+  "transparent_background": false,
+  "status": "study-unapproved",
+  "intended_exports": {
+    "native-2x": [
+      48,
+      48
+    ],
+    "native-4x": [
+      96,
+      96
+    ]
+  },
+  "cleanup": "Generated source retained unchanged as fully opaque square paint, including deliberate material extensions outside native coverage. tools/art-review area-reduces to 96x96, applies repeated original mask, box-reduces to 48x48 and 24x24 with coverage caps. No alpha forcing, matte replacement, display-aspect or world-spacing correction. Exterior paint is discarded by the original mask; raw extra coverage is expected.",
+  "review": "See docs/art/connected-terrain-pilot.md. Study remains unapproved; exact output opacity is checked separately from visual resemblance, material contacts, normal-play geometry and seam acceptance.",
+  "determinism": "AI reruns are not assumed deterministic; exports reproduce locally from retained source using tools/art-review."
+}
