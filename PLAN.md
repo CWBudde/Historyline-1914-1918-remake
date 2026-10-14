@@ -171,9 +171,13 @@ cmd/hlartpreview/           Ebitengine art and seam workbench (graphics mileston
 
 ### Phase 1 — Core model (no graphics)
 
-- [ ] `hexgrid`: port the offset layout exactly. Table-driven tests against Python
+- [x] `hexgrid`: port the offset layout exactly. Table-driven tests against Python
       `adjacentHexes` for every hex of every shipped level, including edge cases (odd lines are
       one hex shorter). Add cube-coordinate distance to replace the BFS `calculateDistance`.
+      (2026-10-14) — `internal/hexgrid` has `Coord`, `Grid.Contains/Neighbors/Size`, `Cube`
+      and `Distance`. Neighbours match `testdata/adjacent.json` (generated from the Python
+      function by `testdata/gen_adjacent.py`) for all 1,788 hexes of the four `levels/*.json`
+      in order. Cube distance equals the BFS step count for every hex pair of each level.
 - [x] `data`: port `bgTilesModifiers`, the infrastructure rules (road/path/bridge/rail/stream/
       trench/barbed wire modifiers and `movementAllowed`), the 27 units and the 15 weapons.
       Add a parity test.
