@@ -41,6 +41,8 @@ func (s *State) mover(h *Hex, u *Unit) (*Unit, error) {
 		return nil, fmt.Errorf("%s belongs to %v", u.Type, u.Owner)
 	case u.Moved:
 		return nil, fmt.Errorf("%s has already moved", u.Type)
+	case u.Attacked && s.Rules.OneActionPerTurn:
+		return nil, fmt.Errorf("%s has already attacked", u.Type)
 	case h.Unit == u:
 		if u.Def.Speed == 0 {
 			return nil, fmt.Errorf("%s cannot move", u.Type)
@@ -229,9 +231,56 @@ func (s *State) Targets(from hexgrid.Coord) []hexgrid.Coord {
 	if h == nil || h.Unit == nil {
 		return nil
 	}
-	lo, hi := 0, -1
+	hi := -1
 	for _, w := range h.Unit.Weapons {
-		if w == nil {
+		if w != nil {
+			hi = max(hi, w.RangeMax)
+		}
+	}
+	a := h.Unit
+	var out []hexgrid.Coord
+	s.within(from, hi, func(c hexgrid.Coord) {
+		if s.Fog(s.Turn, c) != Visible {
+			return
+		}
+		if u := s.At(c).Unit; u != nil && u.Owner != s.Turn && s.inRange(a, u, hexgrid.Distance(from, c)) {
+			out = append(out, c)
+		}
+	})
+	return out
+}
+
+// usable reports whether a's weapon slot may fire at target under the rules:
+// it has ammo and, with TargetFlags, can hit the kind of unit.
+func (s *State) usable(a *Unit, slot int, target *Unit) bool {
+	w := a.Weapons[slot]
+	switch {
+	case w == nil:
+		return false
+	case s.Rules.AmmoPerShot && a.Ammo[slot] != nil && *a.Ammo[slot] == 0:
+		return false
+	case s.Rules.TargetFlags && !canHit(w, target):
+		return false
+	}
+	return true
+}
+
+// canHit reports whether w can damage target: boats are hit by water or
+// ground weapons, every other unit by ground weapons.
+func canHit(w *data.Weapon, target *Unit) bool {
+	if target.Def.MovementType == data.MoveWater {
+		return w.Water || w.Ground
+	}
+	return w.Ground
+}
+
+// inRange reports whether some usable weapon of a reaches target at steps. As
+// markAttackableSquares does, the weapons are taken together: from the smallest
+// minimum range to the largest maximum range.
+func (s *State) inRange(a, target *Unit, steps int) bool {
+	lo, hi := 0, -1
+	for i, w := range a.Weapons {
+		if !s.usable(a, i, target) {
 			continue
 		}
 		if hi < 0 || w.RangeMin < lo {
@@ -239,16 +288,7 @@ func (s *State) Targets(from hexgrid.Coord) []hexgrid.Coord {
 		}
 		hi = max(hi, w.RangeMax)
 	}
-	var out []hexgrid.Coord
-	s.within(from, hi, func(c hexgrid.Coord) {
-		if hexgrid.Distance(from, c) < max(lo, 1) || s.Fog(s.Turn, c) != Visible {
-			return
-		}
-		if u := s.At(c).Unit; u != nil && u.Owner != s.Turn {
-			out = append(out, c)
-		}
-	})
-	return out
+	return hi >= 0 && steps >= max(lo, 1) && steps <= hi
 }
 
 // Battle is the outcome of an attack.
@@ -272,11 +312,17 @@ func (s *State) Attack(from, to hexgrid.Coord, slot int, roll func() int) (Battl
 		return Battle{}, errors.New("no own unit to attack with")
 	}
 	a := fh.Unit
+	if s.Rules.OneActionPerTurn && (a.Moved || a.Attacked) {
+		return Battle{}, fmt.Errorf("%s has already acted this turn", a.Type)
+	}
 	if slot < 0 || slot >= len(a.Weapons) || a.Weapons[slot] == nil {
 		return Battle{}, fmt.Errorf("%s has no weapon in slot %d", a.Type, slot)
 	}
 	if !slices.Contains(s.Targets(from), to) {
 		return Battle{}, fmt.Errorf("%v is not a target of %s", to, a.Type)
+	}
+	if !s.usable(a, slot, th.Unit) {
+		return Battle{}, fmt.Errorf("%s cannot fire at %v", a.Weapons[slot].Name, to)
 	}
 	steps := hexgrid.Distance(from, to)
 	if steps > a.Weapons[slot].RangeMax {
@@ -287,7 +333,15 @@ func (s *State) Attack(from, to hexgrid.Coord, slot int, roll func() int) (Battl
 	}
 	d := th.Unit
 	b := Battle{}
-	b.Counter, b.Damage, b.CounterDamage = resolve(a, d, slot, steps, *fh.Mods.Battle, *th.Mods.Battle, roll)
+	defer func() {
+		if s.Rules.AmmoPerShot {
+			spend(a, slot)
+			if b.Counter >= 0 {
+				spend(d, b.Counter)
+			}
+		}
+	}()
+	b.Counter, b.Damage, b.CounterDamage = resolve(s.Rules, a, d, slot, steps, *fh.Mods.Battle, *th.Mods.Battle, roll)
 
 	d.Size -= b.Damage
 	if b.Damage > 0 {
@@ -318,6 +372,13 @@ func (s *State) Attack(from, to hexgrid.Coord, slot int, roll func() int) (Battl
 	return b, nil
 }
 
+// spend uses up one round of a's weapon slot, if its ammo is limited.
+func spend(a *Unit, slot int) {
+	if n := a.Ammo[slot]; n != nil && *n > 0 {
+		*n--
+	}
+}
+
 func promote(u *Unit) {
 	if u.Experience < 10 {
 		u.Experience++
@@ -327,11 +388,11 @@ func promote(u *Unit) {
 // resolve computes a battle as handleBattle does, from the step distance and
 // the battle modifiers of both hexes. It returns the defender's counter slot
 // (-1 for none) and the size each side loses.
-func resolve(a, d *Unit, slot, steps, aBattle, dBattle int, roll func() int) (counter, damage, counterDamage int) {
+func resolve(r Rules, a, d *Unit, slot, steps, aBattle, dBattle int, roll func() int) (counter, damage, counterDamage int) {
 	distance := steps - 1 // calculateDistance counts the start hex
 	counter = -1
 	for i, w := range d.Weapons {
-		if w == nil || w.RangeMax < distance || d.Ammo[i] != nil && *d.Ammo[i] == 0 {
+		if w == nil || w.RangeMax < distance || r.TargetFlags && !canHit(w, a) || d.Ammo[i] != nil && *d.Ammo[i] == 0 {
 			continue
 		}
 		if counter < 0 || w.Power > d.Weapons[counter].Power {
@@ -353,7 +414,7 @@ func resolve(a, d *Unit, slot, steps, aBattle, dBattle int, roll func() int) (co
 	// against nothing: the base attack is 0, not "power - armour".
 	if counter >= 0 {
 		counterDamage = strike(d.Weapons[counter].Power, d, a, dBattle, aBattle)
-	} else {
+	} else if !r.NoCounterNoDamage {
 		counterDamage = strike(a.Def.Armour, d, a, dBattle, aBattle)
 	}
 	return counter, damage, counterDamage

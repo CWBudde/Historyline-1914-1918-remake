@@ -74,7 +74,7 @@ func TestBattleMatchesPython(t *testing.T) {
 		}
 		rolls := c.Rolls[:]
 		roll := func() int { r := rolls[0]; rolls = rolls[1:]; return r }
-		counter, f, e := resolve(a, d, c.Slot, c.Steps, c.AttackerBattle, c.DefenderBattle, roll)
+		counter, f, e := resolve(Classic, a, d, c.Slot, c.Steps, c.AttackerBattle, c.DefenderBattle, roll)
 		if counter != c.Counter || f != c.AttackerKills || e != c.DefenderKills {
 			t.Errorf("case %d %+v: got counter %d kills %d/%d", i, c, counter, f, e)
 		}
@@ -298,7 +298,7 @@ func TestAttack(t *testing.T) {
 	}
 
 	// A kill removes the defender and gives two ranks, capped at 10.
-	d.Size, a.Experience = 1, 9
+	d.Size, a.Experience, a.Attacked = 1, 9, false
 	rolls = []int{0, 0}
 	b, err = s.Attack(at(4, 2), at(6, 2), 2, roll)
 	if err != nil {
@@ -384,7 +384,7 @@ func TestCounterWeaponTie(t *testing.T) {
 	a, _ := NewUnit(set, "CP_infantry")
 	d, _ := NewUnit(set, "EC_infantry")
 	d.Weapons[1] = d.Weapons[2] // two leeEnfields: Python's stable sort keeps the first
-	if counter, _, _ := resolve(a, d, 0, 1, 4, 4, func() int { return 0 }); counter != 1 {
+	if counter, _, _ := resolve(Classic, a, d, 0, 1, 4, 4, func() int { return 0 }); counter != 1 {
 		t.Errorf("counter = %d, want slot 1", counter)
 	}
 }

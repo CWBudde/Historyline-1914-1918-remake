@@ -268,15 +268,21 @@ cmd/hlartpreview/           Ebitengine art and seam workbench (graphics mileston
       shipped levels the bridges are followed by a road or path, so only new maps change.
 - [ ] Barbed wire has terrain modifiers and an infrastructure rule (`barbed*`, movement 10) but
       no map tile or infrastructure icon, so no level can place it yet.
-- [ ] Port-time quirks kept at parity in `game` (found 2026-10-14): no-counter damage, carrier
+- [x] Port-time quirks kept at parity in `game` (found 2026-10-14): no-counter damage, carrier
       exits with the carrier's stats, units standing on full depots. Decide each rule.
-      (2026-10-15) — partial: carrier exits use the unit's own stats (`Rules.OwnStatsOnExit`)
-      and a full depot is not a legal target (`Rules.FullDepotBlocks`). No-counter damage is
-      still open (combat batch).
-- [ ] One action per unit per turn (move then attack, or attack only). This needs to be checked
-      against the original's rules before implementing.
-- [ ] Ammo is used per shot and empty weapons are disabled. Target-type flags (`air`, `ground`,
+      (2026-10-15) — carrier exits use the unit's own stats (`Rules.OwnStatsOnExit`), a full
+      depot is not a legal target (`Rules.FullDepotBlocks`), and a defender without a counter
+      weapon no longer hurts the attacker (`Rules.NoCounterNoDamage`).
+- [x] One action per unit per turn (move or attack, not both), as in the original.
+      (2026-10-15) — `Rules.OneActionPerTurn`: a unit that has moved cannot attack, one that
+      has attacked can neither move nor attack again. The original's global movement/action
+      cycles are simultaneous for both players; the turn-based port maps them to this rule.
+- [x] Ammo is used per shot and empty weapons are disabled. Target-type flags (`air`, `ground`,
       `water`) are enforced.
+      (2026-10-15) — `Rules.AmmoPerShot` spends a round per shot (counter fire too) and an
+      empty weapon neither fires nor gives range in `Targets`. `Rules.TargetFlags`: a weapon
+      hits a boat with `Water` or `Ground`, other units with `Ground`. No weapon sets `air` or
+      `water` and no unit flies, so `air` has no target yet.
 - [ ] Fuel use for motorised units. Units with no fuel cannot move.
 - [ ] Resupply and repair: units in or next to an owned depot/HQ, or next to a supply car,
       regain ammo, fuel and size. A supply truck that enters a depot unloads its contents into it

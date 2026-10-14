@@ -19,13 +19,29 @@ type Rules struct {
 	// FullDepotBlocks makes a building that cannot hold the unit an illegal
 	// target, instead of leaving the unit standing on the building hex.
 	FullDepotBlocks bool
+	// OneActionPerTurn lets a unit either move or attack in a turn, as in the
+	// original: a unit that has moved cannot attack and one that has attacked
+	// cannot move or attack again.
+	OneActionPerTurn bool
+	// AmmoPerShot spends one round of the weapon per shot (the counter fire
+	// too) and disables a weapon without ammo for attacks and targeting.
+	AmmoPerShot bool
+	// TargetFlags enforces the weapons' ground and water flags: a weapon hits
+	// a boat when it has Water or Ground, any other unit when it has Ground.
+	// (No unit flies yet, so the Air flag has no target.)
+	TargetFlags bool
+	// NoCounterNoDamage spares the attacker when the defender has no weapon to
+	// fire back with; Python then still runs the formula with the attacker's
+	// armour as the defender's power.
+	NoCounterNoDamage bool
 }
 
 // Classic is the rule set of the Python version.
 var Classic = Rules{}
 
 // Standard is the rule set of new games: every Phase 3 fix that exists.
-var Standard = Rules{MovementPoints: true, RoadBridges: true, OwnStatsOnExit: true, FullDepotBlocks: true}
+var Standard = Rules{MovementPoints: true, RoadBridges: true, OwnStatsOnExit: true, FullDepotBlocks: true,
+	OneActionPerTurn: true, AmmoPerShot: true, TargetFlags: true, NoCounterNoDamage: true}
 
 // Movement point constants of Rules.MovementPoints.
 const pointsPerSpeed = 2
