@@ -206,7 +206,7 @@ for _ in range(600):
           'attackToSquare': Obj(position=None, battleModifier=tb, unit=dfn),
           'weapon': w, 'random': Obj(randint=lambda lo, hi: queue.pop(0)), 'sorted': sorted}
     exec(battle_code, ns)
-    counter = next((i for i, x in enumerate(dfn.weapons) if x is ns['enemyWeapon']), -1)
+    counter = -1 if ns['enemyWeapon'] is None else next(i for i, x in enumerate(dfn.weapons) if x is ns['enemyWeapon'])
     cases.append({'attacker': att.key, 'defender': dfn.key, 'slot': slot, 'steps': steps,
                   'attackerExp': att.experience, 'defenderExp': dfn.experience,
                   'attackerSize': att.currentSize, 'defenderSize': dfn.currentSize,

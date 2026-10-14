@@ -60,7 +60,8 @@ type Unit struct {
 	MaxSize    int
 	Experience int // rank 0..10
 	Fuel       int
-	Ammo       [4]*int // per weapon slot; nil for an empty slot or unlimited ammo
+	Weapons    [4]*data.Weapon // per weapon slot; nil for an empty slot
+	Ammo       [4]*int         // per weapon slot; nil for an empty slot or unlimited ammo
 	Moved      bool
 	Attacked   bool
 	Content    *Container // nil unless the unit type can carry units
@@ -78,7 +79,9 @@ func NewUnit(set *data.Set, id string) (*Unit, error) {
 		if w == "" {
 			continue
 		}
-		if a := set.Weapons[w].Ammo; a != nil {
+		wd := set.Weapons[w]
+		u.Weapons[i] = &wd
+		if a := wd.Ammo; a != nil {
 			v := *a
 			u.Ammo[i] = &v
 		}
@@ -176,13 +179,14 @@ type Hex struct {
 
 // State is a game in progress.
 type State struct {
-	Name  string
-	No    int
-	Grid  hexgrid.Grid
-	Hexes [][]Hex // Hexes[line][col]
-	Human Player  // the side named by the level, which moves first
-	Turn  Player  // side to move
-	Round int
+	Name   string
+	No     int
+	Grid   hexgrid.Grid
+	Hexes  [][]Hex // Hexes[line][col]
+	Human  Player  // the side named by the level, which moves first
+	Turn   Player  // side to move
+	Round  int
+	Winner Player // side that captured an HQ; None while the game runs
 
 	vision [3]vision // fog of war, indexed by Player
 }
