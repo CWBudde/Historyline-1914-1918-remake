@@ -1,0 +1,193 @@
+package data
+
+import (
+	"encoding/json"
+	"os"
+	"path/filepath"
+	"reflect"
+	"testing"
+)
+
+// python is testdata/python.json, written by testdata/gen_python.py from
+// hlrData.py: the data tables and the results of the infrastructure loop in
+// HexSquare.__init__.
+type python struct {
+	Terrain map[string][3]*int `json:"terrain"`
+	Units   map[string]struct {
+		Name         string    `json:"name"`
+		Country      string    `json:"country"`
+		Armour       int       `json:"armour"`
+		Speed        int       `json:"speed"`
+		Weight       int       `json:"weight"`
+		StorageMax   int       `json:"storageMax"`
+		Sight        int       `json:"sight"`
+		Fuel         int       `json:"fuel"`
+		Exp          int       `json:"exp"`
+		Skills       []int     `json:"skills"`
+		MovementType int       `json:"movementType"`
+		Weapons      []*string `json:"weapons"`
+	} `json:"units"`
+	Weapons map[string]struct {
+		Name     string `json:"name"`
+		RangeMin int    `json:"rangeMin"`
+		RangeMax int    `json:"rangeMax"`
+		Power    int    `json:"power"`
+		Air      bool   `json:"air"`
+		Ground   bool   `json:"ground"`
+		Water    bool   `json:"water"`
+		Ammo     *int   `json:"ammo"`
+	} `json:"weapons"`
+	Infra []struct {
+		Terrain         string   `json:"terrain"`
+		Infra           []string `json:"infra"`
+		Movement        *int     `json:"movement"`
+		Battle          *int     `json:"battle"`
+		Sight           *int     `json:"sight"`
+		MovementAllowed []int    `json:"movementAllowed"`
+	} `json:"infra"`
+}
+
+func loadPython(t *testing.T) python {
+	t.Helper()
+	raw, err := os.ReadFile(filepath.Join("testdata", "python.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var p python
+	if err := json.Unmarshal(raw, &p); err != nil {
+		t.Fatal(err)
+	}
+	return p
+}
+
+func loadSet(t *testing.T) *Set {
+	t.Helper()
+	s, err := Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+	return s
+}
+
+func eqInt(a, b *int) bool {
+	if a == nil || b == nil {
+		return a == b
+	}
+	return *a == *b
+}
+
+func show(p *int) any {
+	if p == nil {
+		return nil
+	}
+	return *p
+}
+
+func TestTerrainUnitsWeaponsMatchPython(t *testing.T) {
+	p, s := loadPython(t), loadSet(t)
+
+	if len(s.Terrain) != len(p.Terrain) {
+		t.Errorf("terrain: %d ids, Python has %d", len(s.Terrain), len(p.Terrain))
+	}
+	for id, want := range p.Terrain {
+		got, ok := s.Terrain[id]
+		if !ok {
+			t.Errorf("terrain %q missing", id)
+			continue
+		}
+		if !eqInt(got.Movement, want[0]) || !eqInt(got.Battle, want[1]) || !eqInt(got.Sight, want[2]) {
+			t.Errorf("terrain %q = [%v %v %v], Python [%v %v %v]", id,
+				show(got.Movement), show(got.Battle), show(got.Sight), show(want[0]), show(want[1]), show(want[2]))
+		}
+	}
+
+	if len(s.Units) != 27 || len(p.Units) != 27 {
+		t.Errorf("units: Go has %d, Python has %d, want 27", len(s.Units), len(p.Units))
+	}
+	for id, want := range p.Units {
+		got, ok := s.Units[id]
+		if !ok {
+			t.Errorf("unit %q missing", id)
+			continue
+		}
+		var weapons [4]string
+		for i, w := range want.Weapons {
+			if w != nil {
+				weapons[i] = *w
+			}
+		}
+		exp := Unit{
+			Name: want.Name, Country: want.Country, Armour: want.Armour, Speed: want.Speed,
+			Weight: want.Weight, StorageMax: want.StorageMax, Sight: want.Sight, Fuel: want.Fuel,
+			Exp: want.Exp, Skills: want.Skills, MovementType: want.MovementType, Weapons: weapons,
+		}
+		if len(want.Weapons) != 4 {
+			t.Errorf("unit %q: Python has %d weapon slots, want 4", id, len(want.Weapons))
+		}
+		if !reflect.DeepEqual(got, exp) {
+			t.Errorf("unit %q = %+v, Python %+v", id, got, exp)
+		}
+	}
+
+	if len(s.Weapons) != 15 || len(p.Weapons) != 15 {
+		t.Errorf("weapons: Go has %d, Python has %d, want 15", len(s.Weapons), len(p.Weapons))
+	}
+	for id, want := range p.Weapons {
+		got, ok := s.Weapons[id]
+		if !ok {
+			t.Errorf("weapon %q missing", id)
+			continue
+		}
+		if got.Name != want.Name || got.RangeMin != want.RangeMin || got.RangeMax != want.RangeMax ||
+			got.Power != want.Power || got.Air != want.Air || got.Ground != want.Ground ||
+			got.Water != want.Water || !eqInt(got.Ammo, want.Ammo) {
+			t.Errorf("weapon %q = %+v (ammo %v), Python %+v (ammo %v)", id, got, show(got.Ammo), want, show(want.Ammo))
+		}
+	}
+}
+
+func TestInfraRulesMatchPython(t *testing.T) {
+	p, s := loadPython(t), loadSet(t)
+	if len(p.Infra) == 0 {
+		t.Fatal("no infrastructure cases in golden data")
+	}
+	for _, c := range p.Infra {
+		terrain, ok := s.Terrain[c.Terrain]
+		if !ok {
+			t.Errorf("terrain %q missing", c.Terrain)
+			continue
+		}
+		got := Modifiers(terrain, c.Infra)
+		if !eqInt(got.Movement, c.Movement) || !eqInt(got.Battle, c.Battle) || !eqInt(got.Sight, c.Sight) ||
+			!reflect.DeepEqual(got.MovementAllowed, c.MovementAllowed) {
+			t.Errorf("Modifiers(%s, %v) = [%v %v %v] %v, Python [%v %v %v] %v", c.Terrain, c.Infra,
+				show(got.Movement), show(got.Battle), show(got.Sight), got.MovementAllowed,
+				show(c.Movement), show(c.Battle), show(c.Sight), c.MovementAllowed)
+		}
+	}
+}
+
+func TestUnitWeaponsExist(t *testing.T) {
+	s := loadSet(t)
+	for id, u := range s.Units {
+		for i, w := range u.Weapons {
+			if w == "" {
+				continue
+			}
+			if _, ok := s.Weapons[w]; !ok {
+				t.Errorf("unit %q slot %d: unknown weapon %q", id, i, w)
+			}
+		}
+	}
+}
+
+func TestModifiersDoesNotAliasTerrain(t *testing.T) {
+	s := loadSet(t)
+	grass := s.Terrain["grass"]
+	before := *grass.Movement
+	h := Modifiers(grass, []string{"road13"})
+	*h.Movement = 99
+	if *s.Terrain["grass"].Movement != before {
+		t.Fatal("Modifiers result shares memory with the terrain table")
+	}
+}

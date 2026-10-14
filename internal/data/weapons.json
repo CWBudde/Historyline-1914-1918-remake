@@ -1,0 +1,17 @@
+{
+  "bayonet": {"name": "Bayonet", "rangeMin": 1, "rangeMax": 1, "power": 10, "air": false, "ground": true, "water": false, "ammo": null},
+  "sabre": {"name": "Cavalry Sabre", "rangeMin": 1, "rangeMax": 1, "power": 15, "air": false, "ground": true, "water": false, "ammo": null},
+  "trenchKnife": {"name": "TrenchKnife", "rangeMin": 1, "rangeMax": 1, "power": 10, "air": false, "ground": true, "water": false, "ammo": null},
+  "revolveur": {"name": "revolveurM1892", "rangeMin": 1, "rangeMax": 1, "power": 15, "air": false, "ground": true, "water": false, "ammo": 5},
+  "lugerp08": {"name": "Luger P08", "rangeMin": 1, "rangeMax": 1, "power": 15, "air": false, "ground": true, "water": false, "ammo": 5},
+  "gewehr98": {"name": "Gewehr 98", "rangeMin": 1, "rangeMax": 1, "power": 30, "air": false, "ground": true, "water": false, "ammo": 3},
+  "leeEnfield": {"name": "Lee-Enfield", "rangeMin": 1, "rangeMax": 1, "power": 30, "air": false, "ground": true, "water": false, "ammo": 3},
+  "maxim": {"name": "Maxim Machinegun", "rangeMin": 1, "rangeMax": 1, "power": 430, "air": false, "ground": true, "water": false, "ammo": 5},
+  "wickers": {"name": "Wickers Machinegun", "rangeMin": 1, "rangeMax": 1, "power": 43, "air": false, "ground": true, "water": false, "ammo": 5},
+  "feldkanone16": {"name": "7.7 cm Feldkanone 16", "note": "Central Powers Light Artillery", "rangeMin": 1, "rangeMax": 3, "power": 45, "air": false, "ground": true, "water": false, "ammo": 5},
+  "m1902": {"name": "3-inch M1902", "note": "Entente Light Artillery", "rangeMin": 1, "rangeMax": 3, "power": 45, "air": false, "ground": true, "water": false, "ammo": 5},
+  "lefh": {"name": "10.5 cm leichte Feldhaubitze 16", "note": "Central Powers Medium Artillery", "rangeMin": 2, "rangeMax": 5, "power": 55, "air": false, "ground": true, "water": false, "ammo": 5},
+  "canon75": {"name": "Wickers Machinegun", "note": "Entente Medium Artillery", "rangeMin": 2, "rangeMax": 5, "power": 55, "air": false, "ground": true, "water": false, "ammo": 5},
+  "morser": {"name": "Morser 16", "note": "Central Powers heavy artillery", "rangeMin": 2, "rangeMax": 6, "power": 70, "air": false, "ground": true, "water": false, "ammo": 5},
+  "canon155": {"name": "Canon de 155 L", "note": "Entente heavy artillery", "rangeMin": 2, "rangeMax": 6, "power": 70, "air": false, "ground": true, "water": false, "ammo": 5}
+}

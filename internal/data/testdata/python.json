@@ -1,0 +1,3564 @@
+{
+ "terrain": {
+  "forest": [
+   3,
+   43,
+   8
+  ],
+  "forest_w": [
+   3,
+   43,
+   8
+  ],
+  "grass": [
+   2,
+   4,
+   0
+  ],
+  "grass_w": [
+   2,
+   4,
+   0
+  ],
+  "rough_w": [
+   3,
+   4,
+   0
+  ],
+  "shelled_w": [
+   3,
+   4,
+   0
+  ],
+  "stoney_w": [
+   3,
+   4,
+   0
+  ],
+  "hills": [
+   3,
+   52,
+   8
+  ],
+  "house": [
+   null,
+   null,
+   2
+  ],
+  "house_w": [
+   null,
+   null,
+   2
+  ],
+  "mud": [
+   3,
+   38,
+   0
+  ],
+  "stone": [
+   3,
+   27,
+   0
+  ],
+  "mountain": [
+   5,
+   63,
+   10
+  ],
+  "mountain_w": [
+   5,
+   63,
+   10
+  ],
+  "water": [
+   0,
+   0,
+   0
+  ],
+  "waterStones": [
+   null,
+   null,
+   0
+  ],
+  "trenches": [
+   null,
+   null,
+   0
+  ],
+  "barbedWire": [
+   4,
+   0,
+   1
+  ],
+  "hqN": [
+   null,
+   null,
+   7
+  ],
+  "hqS": [
+   null,
+   null,
+   7
+  ],
+  "hqC": [
+   null,
+   null,
+   7
+  ],
+  "hqNE": [
+   null,
+   null,
+   7
+  ],
+  "hqNW": [
+   null,
+   null,
+   7
+  ],
+  "hqSE": [
+   null,
+   null,
+   7
+  ],
+  "hqSW": [
+   null,
+   null,
+   7
+  ],
+  "hqN_w": [
+   null,
+   null,
+   7
+  ],
+  "hqS_w": [
+   null,
+   null,
+   7
+  ],
+  "hqC_w": [
+   null,
+   null,
+   7
+  ],
+  "hqNE_w": [
+   null,
+   null,
+   7
+  ],
+  "hqNW_w": [
+   null,
+   null,
+   7
+  ],
+  "hqSE_w": [
+   null,
+   null,
+   7
+  ],
+  "hqSW_w": [
+   null,
+   null,
+   7
+  ],
+  "cmpN": [
+   null,
+   null,
+   7
+  ],
+  "cmpS": [
+   null,
+   null,
+   7
+  ],
+  "cmpE": [
+   null,
+   null,
+   7
+  ],
+  "cmpW": [
+   null,
+   null,
+   7
+  ],
+  "cmpN_w": [
+   null,
+   null,
+   7
+  ],
+  "cmpS_w": [
+   null,
+   null,
+   7
+  ],
+  "cmpE_w": [
+   null,
+   null,
+   7
+  ],
+  "cmpW_w": [
+   null,
+   null,
+   7
+  ],
+  "factoryN_w": [
+   null,
+   null,
+   7
+  ],
+  "factoryS_w": [
+   null,
+   null,
+   7
+  ],
+  "factoryE_w": [
+   null,
+   null,
+   7
+  ],
+  "factoryW_w": [
+   null,
+   null,
+   7
+  ],
+  "mountN": [
+   null,
+   null,
+   10
+  ],
+  "mountS": [
+   null,
+   null,
+   10
+  ],
+  "mountE": [
+   null,
+   null,
+   10
+  ],
+  "mountW": [
+   null,
+   null,
+   10
+  ],
+  "mountN_w": [
+   null,
+   null,
+   10
+  ],
+  "mountS_w": [
+   null,
+   null,
+   10
+  ],
+  "mountE_w": [
+   null,
+   null,
+   10
+  ],
+  "mountW_w": [
+   null,
+   null,
+   10
+  ],
+  "lakeside12": [
+   null,
+   null,
+   0
+  ],
+  "lakeside16": [
+   null,
+   null,
+   0
+  ],
+  "lakeside23": [
+   null,
+   null,
+   0
+  ],
+  "lakeside34": [
+   null,
+   null,
+   0
+  ],
+  "lakeside56": [
+   null,
+   null,
+   0
+  ],
+  "lakeside123": [
+   null,
+   null,
+   0
+  ],
+  "lakeside126": [
+   null,
+   null,
+   0
+  ],
+  "lakeside156": [
+   null,
+   null,
+   0
+  ],
+  "lakeside3456": [
+   null,
+   null,
+   0
+  ],
+  "unseen": [
+   null,
+   null,
+   0
+  ]
+ },
+ "units": {
+  "CP_infantry": {
+   "name": "Infantry",
+   "country": "Germany",
+   "armour": 20,
+   "speed": 3,
+   "weight": 1,
+   "storageMax": 0,
+   "sight": 3,
+   "fuel": 30,
+   "exp": 0,
+   "skills": [
+    1
+   ],
+   "movementType": 0,
+   "weapons": [
+    "bayonet",
+    "lugerp08",
+    "gewehr98",
+    null
+   ]
+  },
+  "EC_infantry": {
+   "name": "Infantry",
+   "country": "France",
+   "armour": 20,
+   "speed": 3,
+   "weight": 1,
+   "storageMax": 0,
+   "sight": 3,
+   "fuel": 30,
+   "exp": 0,
+   "skills": [
+    1
+   ],
+   "movementType": 0,
+   "weapons": [
+    "bayonet",
+    "revolveur",
+    "leeEnfield",
+    null
+   ]
+  },
+  "CP_eliteInf": {
+   "name": "Elite Infantry",
+   "country": "Germany",
+   "armour": 25,
+   "speed": 3,
+   "weight": 2,
+   "storageMax": 0,
+   "sight": 3,
+   "fuel": 30,
+   "exp": 0,
+   "skills": [
+    1
+   ],
+   "movementType": 0,
+   "weapons": [
+    "trenchKnife",
+    "maxim",
+    null,
+    null
+   ]
+  },
+  "EC_eliteInf": {
+   "name": "Elite Infantry",
+   "country": "France",
+   "armour": 25,
+   "speed": 3,
+   "weight": 2,
+   "storageMax": 0,
+   "sight": 3,
+   "fuel": 30,
+   "exp": 0,
+   "skills": [
+    1
+   ],
+   "movementType": 0,
+   "weapons": [
+    "trenchKnife",
+    "wickers",
+    null,
+    null
+   ]
+  },
+  "CP_cavalry": {
+   "name": "Cavalry",
+   "country": "Germany",
+   "armour": 20,
+   "speed": 6,
+   "weight": 2,
+   "storageMax": 0,
+   "sight": 3,
+   "fuel": 50,
+   "exp": 0,
+   "skills": [
+    1
+   ],
+   "movementType": 0,
+   "weapons": [
+    "sabre",
+    "gewehr98",
+    null,
+    null
+   ]
+  },
+  "EC_cavalry": {
+   "name": "Cavalry",
+   "country": "France",
+   "armour": 20,
+   "speed": 6,
+   "weight": 2,
+   "storageMax": 0,
+   "sight": 3,
+   "fuel": 50,
+   "exp": 0,
+   "skills": [
+    1
+   ],
+   "movementType": 0,
+   "weapons": [
+    "sabre",
+    "leeEnfield",
+    null,
+    null
+   ]
+  },
+  "CP_lArtillery": {
+   "name": "Light Artillery",
+   "country": "Germany",
+   "armour": 25,
+   "speed": 2,
+   "weight": 3,
+   "storageMax": 0,
+   "sight": 2,
+   "fuel": 25,
+   "exp": 0,
+   "skills": [],
+   "movementType": 0,
+   "weapons": [
+    "feldkanone16",
+    null,
+    null,
+    null
+   ]
+  },
+  "EC_lArtillery": {
+   "name": "Light Artillery",
+   "country": "France",
+   "armour": 25,
+   "speed": 2,
+   "weight": 3,
+   "storageMax": 0,
+   "sight": 2,
+   "fuel": 20,
+   "exp": 0,
+   "skills": [],
+   "movementType": 0,
+   "weapons": [
+    "m1902",
+    null,
+    null,
+    null
+   ]
+  },
+  "CP_mArtillery": {
+   "name": "Medium Artillery",
+   "country": "Germany",
+   "armour": 27,
+   "speed": 1,
+   "weight": 4,
+   "storageMax": 0,
+   "sight": 2,
+   "fuel": 20,
+   "exp": 0,
+   "skills": [
+    5
+   ],
+   "movementType": 0,
+   "weapons": [
+    "lefh",
+    null,
+    null,
+    null
+   ]
+  },
+  "EC_mArtillery": {
+   "name": "Medium Artillery",
+   "country": "France",
+   "armour": 27,
+   "speed": 1,
+   "weight": 4,
+   "storageMax": 0,
+   "sight": 2,
+   "fuel": 20,
+   "exp": 0,
+   "skills": [
+    5
+   ],
+   "movementType": 0,
+   "weapons": [
+    "canon75",
+    null,
+    null,
+    null
+   ]
+  },
+  "CP_hArtillery": {
+   "name": "Heavy Artillery",
+   "country": "Germany",
+   "armour": 25,
+   "speed": 1,
+   "weight": 5,
+   "storageMax": 0,
+   "sight": 2,
+   "fuel": 20,
+   "exp": 0,
+   "skills": [
+    5
+   ],
+   "movementType": 0,
+   "weapons": [
+    "morser",
+    null,
+    null,
+    null
+   ]
+  },
+  "EC_hArtillery": {
+   "name": "Heavy Artillery",
+   "country": "France",
+   "armour": 25,
+   "speed": 1,
+   "weight": 5,
+   "storageMax": 0,
+   "sight": 2,
+   "fuel": 20,
+   "exp": 0,
+   "skills": [
+    5
+   ],
+   "movementType": 0,
+   "weapons": [
+    "canon155",
+    null,
+    null,
+    null
+   ]
+  },
+  "CP_supplyCar": {
+   "name": "Supplycar",
+   "country": "Germany",
+   "armour": 20,
+   "speed": 7,
+   "weight": 4,
+   "storageMax": 5,
+   "sight": 1,
+   "fuel": 50,
+   "exp": 0,
+   "skills": [],
+   "movementType": 0,
+   "weapons": [
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  "EC_supplyCar": {
+   "name": "Supplycar",
+   "country": "France",
+   "armour": 20,
+   "speed": 7,
+   "weight": 4,
+   "storageMax": 5,
+   "sight": 1,
+   "fuel": 50,
+   "exp": 0,
+   "skills": [],
+   "movementType": 0,
+   "weapons": [
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  "CP_bunker": {
+   "name": "Bunker",
+   "country": "Germany",
+   "armour": 85,
+   "speed": 0,
+   "weight": 0,
+   "storageMax": 2,
+   "sight": 1,
+   "fuel": 50,
+   "exp": 0,
+   "skills": [
+    7
+   ],
+   "movementType": 0,
+   "weapons": [
+    "feldkanone16",
+    null,
+    null,
+    null
+   ]
+  },
+  "EC_bunker": {
+   "name": "Bunker",
+   "country": "France",
+   "armour": 85,
+   "speed": 0,
+   "weight": 0,
+   "storageMax": 2,
+   "sight": 1,
+   "fuel": 50,
+   "exp": 0,
+   "skills": [
+    7
+   ],
+   "movementType": 0,
+   "weapons": [
+    "m1902",
+    null,
+    null,
+    null
+   ]
+  },
+  "EC_charron": {
+   "name": "Charron",
+   "country": "France",
+   "armour": 25,
+   "speed": 5,
+   "weight": 2,
+   "storageMax": 0,
+   "sight": 7,
+   "fuel": 50,
+   "exp": 0,
+   "skills": [],
+   "movementType": 0,
+   "weapons": [
+    "wickers",
+    null,
+    null,
+    null
+   ]
+  },
+  "CP_armCar": {
+   "name": "Armored Car",
+   "country": "Germany",
+   "armour": 25,
+   "speed": 5,
+   "weight": 2,
+   "storageMax": 0,
+   "sight": 7,
+   "fuel": 50,
+   "exp": 0,
+   "skills": [],
+   "movementType": 0,
+   "weapons": [
+    "maxim",
+    null,
+    null,
+    null
+   ]
+  },
+  "EC_patrolBoat": {
+   "name": "Speedboat",
+   "country": "France",
+   "armour": 15,
+   "speed": 8,
+   "weight": 2,
+   "storageMax": 0,
+   "sight": 7,
+   "fuel": 50,
+   "exp": 0,
+   "skills": [],
+   "movementType": 2,
+   "weapons": [
+    "wickers",
+    null,
+    null,
+    null
+   ]
+  },
+  "CP_patrolBoat": {
+   "name": "Speedboat",
+   "country": "Germany",
+   "armour": 15,
+   "speed": 8,
+   "weight": 2,
+   "storageMax": 0,
+   "sight": 7,
+   "fuel": 50,
+   "exp": 0,
+   "skills": [],
+   "movementType": 2,
+   "weapons": [
+    "wickers",
+    null,
+    null,
+    null
+   ]
+  },
+  "CP_transTrain": {
+   "name": "Transport Train",
+   "country": "Germany",
+   "armour": 45,
+   "speed": 7,
+   "weight": 7,
+   "storageMax": 8,
+   "sight": 1,
+   "fuel": 50,
+   "exp": 0,
+   "skills": [],
+   "movementType": 1,
+   "weapons": [
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  "EC_armTrain": {
+   "name": "Armored Train",
+   "country": "France",
+   "armour": 75,
+   "speed": 7,
+   "weight": 7,
+   "storageMax": 2,
+   "sight": 3,
+   "fuel": 50,
+   "exp": 0,
+   "skills": [],
+   "movementType": 1,
+   "weapons": [
+    "m1902",
+    null,
+    null,
+    null
+   ]
+  },
+  "CP_armTrain": {
+   "name": "Armored Train",
+   "country": "Germany",
+   "armour": 75,
+   "speed": 7,
+   "weight": 7,
+   "storageMax": 2,
+   "sight": 3,
+   "fuel": 50,
+   "exp": 0,
+   "skills": [],
+   "movementType": 1,
+   "weapons": [
+    "lefh",
+    null,
+    null,
+    null
+   ]
+  },
+  "CP_trainArt": {
+   "name": "Train Artillery",
+   "country": "Germany",
+   "armour": 75,
+   "speed": 7,
+   "weight": 7,
+   "storageMax": 2,
+   "sight": 3,
+   "fuel": 50,
+   "exp": 0,
+   "skills": [],
+   "movementType": 1,
+   "weapons": [
+    "lefh",
+    null,
+    null,
+    null
+   ]
+  },
+  "EC_trainArt": {
+   "name": "Train Artillery",
+   "country": "France",
+   "armour": 75,
+   "speed": 7,
+   "weight": 7,
+   "storageMax": 2,
+   "sight": 3,
+   "fuel": 50,
+   "exp": 0,
+   "skills": [],
+   "movementType": 1,
+   "weapons": [
+    "lefh",
+    null,
+    null,
+    null
+   ]
+  },
+  "CP_sappers": {
+   "name": "Sappers",
+   "country": "Germany",
+   "armour": 75,
+   "speed": 7,
+   "weight": 7,
+   "storageMax": 2,
+   "sight": 3,
+   "fuel": 50,
+   "exp": 0,
+   "skills": [],
+   "movementType": 0,
+   "weapons": [
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  "EC_sappers": {
+   "name": "Sappers",
+   "country": "France",
+   "armour": 75,
+   "speed": 7,
+   "weight": 7,
+   "storageMax": 2,
+   "sight": 3,
+   "fuel": 50,
+   "exp": 0,
+   "skills": [],
+   "movementType": 0,
+   "weapons": [
+    null,
+    null,
+    null,
+    null
+   ]
+  }
+ },
+ "weapons": {
+  "bayonet": {
+   "name": "Bayonet",
+   "rangeMin": 1,
+   "rangeMax": 1,
+   "power": 10,
+   "air": false,
+   "ground": true,
+   "water": false,
+   "ammo": null
+  },
+  "sabre": {
+   "name": "Cavalry Sabre",
+   "rangeMin": 1,
+   "rangeMax": 1,
+   "power": 15,
+   "air": false,
+   "ground": true,
+   "water": false,
+   "ammo": null
+  },
+  "trenchKnife": {
+   "name": "TrenchKnife",
+   "rangeMin": 1,
+   "rangeMax": 1,
+   "power": 10,
+   "air": false,
+   "ground": true,
+   "water": false,
+   "ammo": null
+  },
+  "revolveur": {
+   "name": "revolveurM1892",
+   "rangeMin": 1,
+   "rangeMax": 1,
+   "power": 15,
+   "air": false,
+   "ground": true,
+   "water": false,
+   "ammo": 5
+  },
+  "lugerp08": {
+   "name": "Luger P08",
+   "rangeMin": 1,
+   "rangeMax": 1,
+   "power": 15,
+   "air": false,
+   "ground": true,
+   "water": false,
+   "ammo": 5
+  },
+  "gewehr98": {
+   "name": "Gewehr 98",
+   "rangeMin": 1,
+   "rangeMax": 1,
+   "power": 30,
+   "air": false,
+   "ground": true,
+   "water": false,
+   "ammo": 3
+  },
+  "leeEnfield": {
+   "name": "Lee-Enfield",
+   "rangeMin": 1,
+   "rangeMax": 1,
+   "power": 30,
+   "air": false,
+   "ground": true,
+   "water": false,
+   "ammo": 3
+  },
+  "maxim": {
+   "name": "Maxim Machinegun",
+   "rangeMin": 1,
+   "rangeMax": 1,
+   "power": 430,
+   "air": false,
+   "ground": true,
+   "water": false,
+   "ammo": 5
+  },
+  "wickers": {
+   "name": "Wickers Machinegun",
+   "rangeMin": 1,
+   "rangeMax": 1,
+   "power": 43,
+   "air": false,
+   "ground": true,
+   "water": false,
+   "ammo": 5
+  },
+  "feldkanone16": {
+   "name": "7.7 cm Feldkanone 16",
+   "note": "Central Powers Light Artillery",
+   "rangeMin": 1,
+   "rangeMax": 3,
+   "power": 45,
+   "air": false,
+   "ground": true,
+   "water": false,
+   "ammo": 5
+  },
+  "m1902": {
+   "name": "3-inch M1902",
+   "note": "Entente Light Artillery",
+   "rangeMin": 1,
+   "rangeMax": 3,
+   "power": 45,
+   "air": false,
+   "ground": true,
+   "water": false,
+   "ammo": 5
+  },
+  "lefh": {
+   "name": "10.5 cm leichte Feldhaubitze 16",
+   "note": "Central Powers Medium Artillery",
+   "rangeMin": 2,
+   "rangeMax": 5,
+   "power": 55,
+   "air": false,
+   "ground": true,
+   "water": false,
+   "ammo": 5
+  },
+  "canon75": {
+   "name": "Wickers Machinegun",
+   "note": "Entente Medium Artillery",
+   "rangeMin": 2,
+   "rangeMax": 5,
+   "power": 55,
+   "air": false,
+   "ground": true,
+   "water": false,
+   "ammo": 5
+  },
+  "morser": {
+   "name": "Morser 16",
+   "note": "Central Powers heavy artillery",
+   "rangeMin": 2,
+   "rangeMax": 6,
+   "power": 70,
+   "air": false,
+   "ground": true,
+   "water": false,
+   "ammo": 5
+  },
+  "canon155": {
+   "name": "Canon de 155 L",
+   "note": "Entente heavy artillery",
+   "rangeMin": 2,
+   "rangeMax": 6,
+   "power": 70,
+   "air": false,
+   "ground": true,
+   "water": false,
+   "ammo": 5
+  }
+ },
+ "infra": [
+  {
+   "terrain": "grass",
+   "infra": [
+    "stream13"
+   ],
+   "movement": null,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "stream135"
+   ],
+   "movement": null,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "stream14"
+   ],
+   "movement": null,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "stream15"
+   ],
+   "movement": null,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "stream24"
+   ],
+   "movement": null,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "stream246"
+   ],
+   "movement": null,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "stream25"
+   ],
+   "movement": null,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "stream26"
+   ],
+   "movement": null,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "stream35"
+   ],
+   "movement": null,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "stream36"
+   ],
+   "movement": null,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "stream46"
+   ],
+   "movement": null,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "cross1"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "cross2"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "cross3"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "cross4"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "trench0"
+   ],
+   "movement": 10,
+   "battle": 10,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "trench1"
+   ],
+   "movement": 10,
+   "battle": 10,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "trench4"
+   ],
+   "movement": 10,
+   "battle": 10,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "trench5"
+   ],
+   "movement": 10,
+   "battle": 10,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "trench5a"
+   ],
+   "movement": 10,
+   "battle": 10,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "trench12"
+   ],
+   "movement": 10,
+   "battle": 10,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "trench14"
+   ],
+   "movement": 10,
+   "battle": 10,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "trench24"
+   ],
+   "movement": 10,
+   "battle": 10,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "trench25"
+   ],
+   "movement": 10,
+   "battle": 10,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "trench124"
+   ],
+   "movement": 10,
+   "battle": 10,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "trench125"
+   ],
+   "movement": 10,
+   "battle": 10,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "trench15"
+   ],
+   "movement": 10,
+   "battle": 10,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "rail26"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "rail13"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "rail35"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "rail46"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "rail15"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "rail24"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "rail36"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "rail14"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "rail25"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "rail346"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "rail236"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "rail356"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "road13"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "road14"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "road15"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "road25"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "road35"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "road36"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "road46"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "road26"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "road125"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "path125"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "road124"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "road145"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "road236"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "road346"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "road356"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "path356"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "path135"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "path136"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "road135"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "road24"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "path15"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "path24"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "path26"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "path35"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "path13"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "path14"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "path25"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "path36"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "path46"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "path346"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "bridge25"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "bridge36"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "rBridge14"
+   ],
+   "movement": 2,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "rBridge25"
+   ],
+   "movement": 2,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "rBridge36"
+   ],
+   "movement": 2,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "barbedWire"
+   ],
+   "movement": 10,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "lake12"
+   ],
+   "movement": null,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "forest",
+   "infra": [
+    "barbedWire"
+   ],
+   "movement": 10,
+   "battle": 43,
+   "sight": 8,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "road13",
+    "rail24"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "rail24",
+    "road13"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "stream13",
+    "rail24"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    2,
+    1
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "road25",
+    "stream13"
+   ],
+   "movement": null,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "forest",
+   "infra": [
+    "trench12",
+    "path13"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 8,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "house",
+   "infra": [
+    "bridge25",
+    "trench5"
+   ],
+   "movement": 10,
+   "battle": 10,
+   "sight": 2,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "stream25",
+    "rBridge36",
+    "road36"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "road25"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "forest",
+   "infra": [
+    "path46"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 8,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "stream14",
+    "bridge25"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass",
+   "infra": [
+    "stream25",
+    "bridge36"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "rail26"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "stream25"
+   ],
+   "movement": null,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "path24"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "road24"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "rail25"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "path13"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "path25"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "road13"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "road25"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "rail35"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "stream25",
+    "rBridge36",
+    "path36"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "cross3"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "stream35"
+   ],
+   "movement": null,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "path14"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "path35"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "road135"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "path356"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "path15"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "trench0"
+   ],
+   "movement": 10,
+   "battle": 10,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "rail36"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "stream46"
+   ],
+   "movement": null,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "path346"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "road346"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "stream14"
+   ],
+   "movement": null,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "cross2"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "path36"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "stream14",
+    "rBridge36",
+    "road36"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "stream24"
+   ],
+   "movement": null,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "stream14",
+    "rBridge36",
+    "rail36"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    2,
+    1
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "road36"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "stream14",
+    "bridge25"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "stream15"
+   ],
+   "movement": null,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "path46"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "trench4"
+   ],
+   "movement": 10,
+   "battle": 10,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "trench14"
+   ],
+   "movement": 10,
+   "battle": 10,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "trench24"
+   ],
+   "movement": 10,
+   "battle": 10,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "trench12"
+   ],
+   "movement": 10,
+   "battle": 10,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "trench124"
+   ],
+   "movement": 10,
+   "battle": 10,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "cross1"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "trench25"
+   ],
+   "movement": 10,
+   "battle": 10,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "road26"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "rail346"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "trench15"
+   ],
+   "movement": 10,
+   "battle": 10,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "rail14"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "road35"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "stream13"
+   ],
+   "movement": null,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "rail24"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "cross4"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "stream246"
+   ],
+   "movement": null,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "rail15"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "road125"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "road46"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "stream135"
+   ],
+   "movement": null,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "trench5"
+   ],
+   "movement": 10,
+   "battle": 10,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "trench1"
+   ],
+   "movement": 10,
+   "battle": 10,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "trench5a"
+   ],
+   "movement": 10,
+   "battle": 10,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "stream36"
+   ],
+   "movement": null,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "rail13"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "stream26"
+   ],
+   "movement": null,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "road145"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "road124"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "rail356"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "rail46"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "road14"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "stream14"
+   ],
+   "movement": null,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "path36"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "rail36"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "path25"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "path24"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "rail346"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "path15"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "stream13"
+   ],
+   "movement": null,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "rail14"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "path35"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "path36",
+    "cross4"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "stream46"
+   ],
+   "movement": null,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "stream14",
+    "rBridge36",
+    "path36"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "path346"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "path14",
+    "path14",
+    "path14"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "path26"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "path14"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "stream15"
+   ],
+   "movement": null,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "rail24"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "rail14",
+    "cross4"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1,
+    1
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "road124"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "rail13"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "rail15"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "road14"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "road25"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "road24"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "road15"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "road35"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "road36"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "road46"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "rail26"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "rail25"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "road135"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "road13"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "stream24"
+   ],
+   "movement": null,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "stream25"
+   ],
+   "movement": null,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "stream35"
+   ],
+   "movement": null,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "path136"
+   ],
+   "movement": 1,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "road36",
+    "road236"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "stream36",
+    "rBridge25",
+    "road25"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "road25",
+    "road25",
+    "road25"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "road356"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "road346"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "road145"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "stream26"
+   ],
+   "movement": null,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "stream25",
+    "rBridge36",
+    "road36"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "road26"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "road36",
+    "road346"
+   ],
+   "movement": 0,
+   "battle": 0,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "cross3"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "trench4"
+   ],
+   "movement": 10,
+   "battle": 10,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "rail236"
+   ],
+   "movement": 0,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    0,
+    1
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "stream36"
+   ],
+   "movement": null,
+   "battle": 4,
+   "sight": 0,
+   "movementAllowed": [
+    2
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "trench0"
+   ],
+   "movement": 10,
+   "battle": 10,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  },
+  {
+   "terrain": "grass_w",
+   "infra": [
+    "trench12"
+   ],
+   "movement": 10,
+   "battle": 10,
+   "sight": 0,
+   "movementAllowed": [
+    0
+   ]
+  }
+ ]
+}
