@@ -194,8 +194,13 @@ cmd/hlartpreview/           Ebitengine art and seam workbench (graphics mileston
       infra string/list form and the `[owner]`/`[owner, [units]]` forms are kept. All four
       `levels/*.json` come back byte-identical after load → save, and every terrain and unit id in
       them exists in `internal/data`.
-- [ ] `game` state: hexes, units (size, experience, ammo per weapon, fuel, moved/attacked flags),
+- [x] `game` state: hexes, units (size, experience, ammo per weapon, fuel, moved/attacked flags),
       containers (2 × 9 slots, weight capacity), owners
+      (2026-10-14) — `internal/game` has `Player`, `Unit` (per-unit ammo copies), `Container`
+      (Python fill order, `Used`/`Fits`), `Hex` (with `data.Modifiers`) and `State`. `New` builds
+      every shipped level with HQ 50 / depot and factory 40 capacities and the owners and contents
+      from the file. A `factory*` piece other than `factoryE` with content becomes a container too,
+      so level2's `factoryN_w` keeps its 2 units, which Python dropped.
 - [ ] `game` commands at Python parity: move with a path, attack with counter-attack, enter
       container, leave container, capture, end turn, HQ-capture victory
 - [ ] `game` vision: fog of war for each player (never seen / seen / visible)
