@@ -7,8 +7,8 @@ import (
 )
 
 type galleryItem struct {
-	ID, Library, Name, Coverage, Palette, PalettePath, Platform, Path, Aspect string
-	Width, Height                                                             int
+	ID, Library, Name, Coverage, Palette, PalettePath, Platform, Path, Aspect, MetadataPath string
+	Width, Height                                                                           int
 }
 
 func renderGallery(items []galleryItem, hasScreen bool) ([]byte, error) {
@@ -51,7 +51,7 @@ const galleryHTML = `<!doctype html>
 <body>
 <header>
 <h1>Native Amiga references</h1>
-<p>Intrinsic-size original pixels for local inspection. Integer magnification adds no authored detail. BMHD aspect fields are recorded without applying a display correction. Resource names are identifiers; semantic mappings, original display geometry and visual approval remain open.</p>
+<p>Intrinsic-size original pixels for local inspection. Integer magnification adds no authored detail. BMHD aspect fields are recorded without applying a display correction. Optional map images are static ground reconstructions, not game captures. Physical display aspect, remaining semantic mappings and visual approval remain open.</p>
 <nav class="files" aria-label="Export files"><a href="metadata.csv">Library metadata CSV</a>{{if .HasScreen}}<a href="screen-metadata.csv">Screen metadata CSV</a>{{end}}<a href="source-sha256.txt">Source SHA-256 manifest</a><a href="HEXMSK00.png">Native hex coverage mask</a></nav>
 </header>
 <div class="controls">
@@ -67,7 +67,7 @@ const galleryHTML = `<!doctype html>
 <h2>{{.Library}} / {{.Name}}</h2>
 <div class="preview"><img src="{{.Path}}" alt="{{.Library}} / {{.Name}}" width="{{.Width}}" height="{{.Height}}" data-width="{{.Width}}" data-height="{{.Height}}" loading="lazy"></div>
 <dl><dt>Intrinsic size</dt><dd>{{.Width}} × {{.Height}}</dd><dt>Coverage</dt><dd>{{.Coverage}}</dd><dt>Palette</dt><dd>{{.Palette}}</dd><dt>Platform</dt><dd>{{.Platform}}</dd>{{if .Aspect}}<dt>BMHD aspect</dt><dd>{{.Aspect}} (metadata only)</dd>{{end}}</dl>
-<div class="files"><a href="{{.Path}}">PNG file</a><a href="#{{.ID}}">Permalink</a>{{if .PalettePath}}<a href="{{.PalettePath}}">Palette swatches</a>{{end}}</div>
+<div class="files"><a href="{{.Path}}">PNG file</a><a href="#{{.ID}}">Permalink</a>{{if .PalettePath}}<a href="{{.PalettePath}}">Palette swatches</a>{{end}}{{if .MetadataPath}}<a href="{{.MetadataPath}}">Ground cell coordinates / raw state</a>{{end}}</div>
 </article>{{end}}
 </main>
 <script>

@@ -57,7 +57,12 @@ using separate frame, portrait, icons and live text. The manual is layout eviden
 not a palette reference. Record the five-category visual review before approving any
 family or extending a treatment across it.
 
-Original map spacing and display aspect, direction/anchor mapping and the approximately
-90/100 visual gate remain open. G1's shared edge/corner templates still follow that
+Original Amiga placement is now statically evidenced at 16 pixels per column,
+24 per row and 12 downward on odd columns. The opt-in reference exporter reconstructs
+original ground neighborhoods through FIN and PARTS/PARTW index tables; see
+[original-placement.md](original-placement.md) for source offsets, named neighbors,
+private reproduction and limitations. Populated colour captures, physical display
+aspect, direction/anchor mapping and the approximately 90/100 visual gate remain open.
+G1's shared edge/corner templates still follow that
 pilot evidence. No new original-content family or reference image is installed into
 the playable game by this batch.

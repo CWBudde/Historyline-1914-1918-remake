@@ -71,6 +71,35 @@ The gallery does not assign semantic mappings, infer world spacing, apply
 aspect correction, or close G0's 90/100 native-resemblance gate. The 2×/4×
 inspection options do not constitute newly authored higher-resolution art.
 
+## Optional original ground-map reconstruction
+
+Add `-map 00` through `-map 71` to export one supplied Amiga FIN ground map.
+Select its ground library explicitly with `-map-library PARTS` (default) or
+`-map-library PARTW`; it must also appear in `-libraries`:
+
+```sh
+go run ./tools/native-reference \
+  -data '/path/to/Amiga/Hard Drives/data' -libraries PARTS \
+  -map 00 -out build/native-map00
+```
+
+The exporter resolves FIN indices through `LIB/PARTS.DAT` or `LIB/PARTW.DAT`,
+never archive FAT order. It places masked 24×24 ground at
+`x=16*column`, `y=24*row+12*(column mod 2)`, using the original Amiga placement
+traced in [original-placement.md](../../docs/art/original-placement.md).
+`maps/00-PARTS.png` and `maps/00-PARTS-cells.csv` provide a ground-only scene and
+each cell's FIN offset, original index/name, raw second byte and native position.
+The gallery links both; the source manifest includes the FIN and index table.
+All selected inputs are validated before output creation, with a four-megapixel
+map limit and the existing combined 16-megapixel limit.
+
+This is a **static reconstruction**, not a game capture. The selected palette
+(`-palette 00` by default) and summer/winter library are explicit inspection
+choices, not inferred campaign state. Units, UI, clipping, animations and state
+overlays are omitted; original ground border markers remain. No physical pixel
+aspect correction is applied. This utility does not establish the remake's
+runtime geometry, road-port numbering or unit anchors.
+
 **Keep source archives, unpacked data, and exported art private and ignored.**
 This tool contains only code and synthetic tests. It is an analysis utility,
 not a redistribution license, asset import pipeline, or fidelity score.

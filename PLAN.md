@@ -612,10 +612,19 @@ and G5 follows complete UI coverage. Do not wait until Phase 6 to discover seam 
       and PNG/metadata links. 28 pilot selections and 13 grayscale/lossy manual screen references
       have source/PNG hashes in `docs/art/native-pilot-references.csv` and
       `docs/art/manual-screen-references.csv`; missing original art families are recorded for
-      G3 in `docs/art/native-coverage.md`. Runtime spacing/aspect, exact port/direction/anchor
+      G3 in `docs/art/native-coverage.md`. Physical display aspect, exact port/direction/anchor
       mappings and verified colour screen captures remain open. Original pixels stay ignored.
       The connected terrain review records exact source boundary contacts for `SSTRE114`,
       `SCOAS071` and `SSTRE091`; these are observed pixels, not approved runtime ports.
+      (2026-10-15) — original Amiga placement is statically traced in two draw paths and
+      the full-view loop: 16 px per column, 24 per row, odd columns down 12. FIN dimensions,
+      row order and terrain indices resolve through PARTS/PARTW.DAT; all 72 supplied maps
+      pass structural audit. Opt-in `tools/native-reference -map` reconstructs ground-only
+      original neighborhoods with per-cell provenance and explicit library/palette selection.
+      Maps 00/06 contain the current road/river/bridge references; manual texture/frame
+      measurements independently support the lattice. See `docs/art/original-placement.md`.
+      Populated colour captures, physical aspect, scrolling, units/state, runtime ports and
+      overlay migration remain open; no shared runtime geometry or art approval is implied.
 - [ ] Write `docs/art/style-guide.md` with the user's brief and downsample rubric. Produce a
       small pilot: grass/forest/water, one road bend/river/bridge, infantry/artillery, a portrait
       and the unit panel. Manually assemble a seven-hex contact sheet before the workbench
@@ -737,9 +746,13 @@ private originals/manual extracts in ignored `original/`, and reference gallerie
 outputs and research in ignored `build/`. Authored masters, recipes and pilot exports stay in
 tracked `art/`; commit verified graphics batches directly to `main`, per the user's preference.
 
-**Immediate next slice:** establish original display placement and adjacent-tile evidence for
-seam review, using the decoded resources and supplied originals; do not promote the mask-tiling
-hypothesis to a runtime contract without evidence. Road 05, river 03 and bridge 03 are the
+**Immediate next graphics slice:** compare the existing road 05, river 03 and bridge 03 studies within
+the statically evidenced original Amiga neighborhoods from maps 00/06. Build deterministic
+reference/redraw scenes at native/2×/4× density for both column parities and three-tile vertices;
+measure material contact cells and texture boundaries before defining shared edge profiles.
+The reference exporter uses original 16/24/12 column indexing. The earlier 32/12/16 model
+describes the same infinite lattice with different cell labels; it is not FIN indexing or a
+runtime migration contract. Road 05, river 03 and bridge 03 remain the
 current unapproved connected-terrain baselines: material shapes/marks are restored, but measured
 grass contrast, bridge earth values and repeated water texture still need bounded cleanup.
 Keep original-led opaque square generation plus original-mask exports; avoid chained edits
@@ -747,10 +760,9 @@ and verify native widths/contact cells/mark positions before evaluating extra de
 native grass/water, infantry/artillery, portrait and manual page 45 unit-panel studies using
 the selected references. Finish exact native-to-runtime port/direction/anchor mappings.
 Compare 2×/4× detail and native appearance, then obtain the five-category 90/100 visual approval.
-A 32/12/16 mask-tiling
-hypothesis is recorded but does not establish original placement. G1 shared edge/corner
-templates and connected-feature preview follow this evidence; do not mass-generate art
-before approval.
+Populated colour captures, physical display aspect, scrolling and layered overlay migration
+still need verification. G1 shared edge/corner templates and connected-feature preview follow
+this evidence and the approved pilot; do not mass-generate art before approval.
 
 ---
 

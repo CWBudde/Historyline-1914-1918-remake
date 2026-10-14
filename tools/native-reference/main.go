@@ -43,6 +43,8 @@ func run(args []string, log io.Writer) error {
 	libraryNames := fs.String("libraries", "PARTS,PARTW,UNIT,BIGUNIT", "comma-separated native graphics libraries")
 	screenName := fs.String("screen", "", "opt-in standalone FORM/ILBM filename inside the data folder, e.g. GAME.IFF")
 	briefings := fs.Bool("briefings", false, "opt-in fixed Amiga campaign image corpus TXT/H00.LBM through TXT/H45.LBM")
+	mapName := fs.String("map", "", "opt-in ground reconstruction from MAP/00.FIN through MAP/71.FIN")
+	mapLibrary := fs.String("map-library", "PARTS", "explicit ground library for -map: PARTS or PARTW; no season inference")
 	if err := fs.Parse(args); err != nil {
 		if errors.Is(err, flag.ErrHelp) {
 			return nil
@@ -57,6 +59,9 @@ func run(args []string, log io.Writer) error {
 	}
 	if *screenName != "" && !safeScreenName(*screenName) {
 		return errors.New("screen must be a safe filename inside the data folder")
+	}
+	if (*mapName != "" && (len(*mapName) != 2 || *mapName < "00" || *mapName > "71" || (*mapName)[0] < '0' || (*mapName)[0] > '9' || (*mapName)[1] < '0' || (*mapName)[1] > '9')) || (*mapLibrary != "PARTS" && *mapLibrary != "PARTW") {
+		return errors.New("map must be 00 through 71; map-library must be PARTS or PARTW")
 	}
 	root, err := repositoryRoot()
 	if err != nil {
@@ -192,6 +197,28 @@ func run(args []string, log io.Writer) error {
 			}
 		}
 	}
+	var ground *groundMap
+	if *mapName != "" {
+		if !seen[*mapLibrary] {
+			return errors.New("map-library must also be selected in -libraries")
+		}
+		packed, err := read("MAP/" + *mapName + ".FIN")
+		if err != nil {
+			return err
+		}
+		index, err := read("LIB/" + *mapLibrary + ".DAT")
+		if err != nil {
+			return err
+		}
+		ground, err = reconstructGround(packed, index, artifacts, *mapLibrary)
+		if err != nil {
+			return fmt.Errorf("MAP/%s.FIN: %w", *mapName, err)
+		}
+		totalPixels += ground.Image.Bounds().Dx() * ground.Image.Bounds().Dy()
+		if totalPixels > 16<<20 {
+			return errors.New("selected graphics exceed 16 megapixel export limit")
+		}
+	}
 	var items []galleryItem
 	for _, a := range artifacts {
 		items = append(items, galleryItem{ID: a.Library + "-" + a.Name, Library: a.Library, Name: a.Name, Coverage: a.Coverage, Palette: *paletteName + ".PAL", PalettePath: "palette-" + *paletteName + ".png", Platform: "amiga-native", Path: a.Library + "/" + a.Name + ".png", Width: a.Graphic.Width, Height: a.Graphic.Height})
@@ -199,6 +226,10 @@ func run(args []string, log io.Writer) error {
 	for _, a := range screens {
 		s := a.Screen
 		items = append(items, galleryItem{ID: a.Library + "-" + strings.TrimSuffix(a.Filename, ".png"), Library: a.Library, Name: a.Source, Coverage: s.Coverage, Palette: "CMAP", Platform: "amiga-native", Path: "screens/" + a.Filename, Width: s.Width, Height: s.Height, Aspect: fmt.Sprintf("%d:%d", s.AspectX, s.AspectY)})
+	}
+	if ground != nil {
+		stem := "maps/" + *mapName + "-" + *mapLibrary
+		items = append(items, galleryItem{ID: "maps-" + *mapName, Library: "maps", Name: *mapName + " ground reconstruction", Coverage: "masked ground only; units/state omitted; not a capture", Palette: *paletteName + ".PAL (explicit)", PalettePath: "palette-" + *paletteName + ".png", Platform: "amiga-static-reconstruction", Path: stem + ".png", MetadataPath: stem + "-cells.csv", Width: ground.Image.Bounds().Dx(), Height: ground.Image.Bounds().Dy()})
 	}
 	gallery, err := renderGallery(items, len(screens) > 0)
 	if err != nil {
@@ -233,6 +264,11 @@ func run(args []string, log io.Writer) error {
 	}
 	if len(screens) > 0 {
 		if err := exportScreens(output, screens); err != nil {
+			return err
+		}
+	}
+	if ground != nil {
+		if err := exportGround(output, *mapName+"-"+*mapLibrary, ground); err != nil {
 			return err
 		}
 	}
@@ -288,6 +324,11 @@ func run(args []string, log io.Writer) error {
 	}
 	if err := writeNew(filepath.Join(output, "index.html"), gallery); err != nil {
 		return err
+	}
+	if ground != nil {
+		if _, err := fmt.Fprintf(log, "reconstructed MAP/%s.FIN ground using %s and %s.PAL; units/state omitted\n", *mapName, *mapLibrary, *paletteName); err != nil {
+			return err
+		}
 	}
 	if len(screens) > 0 {
 		_, err = fmt.Fprintf(log, "exported %d native resource PNGs, %d FORM/ILBM screen PNGs and palette/mask references to %s\n", len(artifacts), len(screens), output)

@@ -299,9 +299,26 @@ generation call is needed. Native references do not produce seven-hex patches. R
 generator inputs, if needed, with a 32× nearest-neighbour enlargement to 768 × 768; this is
 input preparation only, not a final redraw. AI reruns are not assumed deterministic.
 
-Next: establish original display placement and adjacent-tile evidence for seam review, retain
-the measured value/texture cleanup list, and complete native grass/water, infantry/artillery,
-portrait and unit-panel studies; verify display
-geometry and ID/anchor mappings. G1’s shared edge/corner templates and compositor can then
+Next: use the static original placement and named neighborhoods below for seam comparisons,
+retain the measured value/texture cleanup list, and complete native grass/water,
+infantry/artillery, portrait and unit-panel studies; verify physical display aspect and
+runtime ID/anchor mappings. G1’s shared edge/corner templates and compositor can then
 test material boundaries, infrastructure exits and three-tile vertices. Avoid independent
 bulk generation until that evidence and the visual pilot gate are satisfied.
+
+## Original adjacent-map evidence — 2026-10-15
+
+[original-placement.md](original-placement.md) now traces the Amiga program's
+16-pixel column / 24-pixel row / 12-pixel odd-column offset and resolves FIN ground
+indices through their ordered resource tables. The reference exporter reconstructs
+maps 00 and 06, including actual neighborhoods for all three study originals.
+This replaces the placement-only hypothesis with static program/data evidence.
+The old 32/12/16 row-stagger model gives the same infinite lattice with different
+cell labels; use original column indexing for FIN scenes.
+
+These ground-only reconstructions omit units/state and apply an explicit library
+and palette. They establish neither physical display aspect nor approval of the
+redraws. Next compare the current 48/96-pixel studies in these named neighborhoods,
+both column parities and three-tile vertices, before assigning runtime ports or
+building shared edge/corner templates. No connected replacement scene is approved
+by this evidence batch.

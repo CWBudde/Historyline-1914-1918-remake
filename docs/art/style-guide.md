@@ -36,6 +36,13 @@ native Amiga geometry. Source library dimensions, opaque footprint and screen sp
 be recorded separately. Never derive a sprite's display shape from its rectangular header
 dimensions alone.
 
+Original Amiga placement now has static program/data evidence:
+`x=16*column`, `y=24*row+12*(column mod 2)` for 24 × 24 ground. The optional native
+reference exporter reconstructs original FIN neighborhoods with these coordinates;
+see [original-placement.md](original-placement.md). This is an intrinsic ground
+reference, with explicit palette/library choices. Physical pixel aspect, populated
+colour captures, unit anchors and migration into the layered runtime remain open.
+
 The initial seven-hex review follows the Python blit order and offsets. It is a diagnostic
 sheet, not a seamlessness certificate. Compare each shared edge and three-tile vertex. Native
 ground continuity, transitions and road/rail/river ports need different rules. Shared material
