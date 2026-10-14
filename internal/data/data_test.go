@@ -191,3 +191,25 @@ func TestModifiersDoesNotAliasTerrain(t *testing.T) {
 		t.Fatal("Modifiers result shares memory with the terrain table")
 	}
 }
+
+func TestFixedModifiersRoadBridge(t *testing.T) {
+	set, err := Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+	g := set.Terrain["grass"]
+	infra := []string{"stream25", "rBridge36"}
+	if m := Modifiers(g, infra); m.Movement != nil {
+		t.Fatalf("Modifiers changed: rBridge made the stream passable (%d)", *m.Movement)
+	}
+	m := FixedModifiers(g, infra)
+	if m.Movement == nil || *m.Movement != 0 || m.Battle == nil || *m.Battle != 0 {
+		t.Errorf("FixedModifiers(stream, rBridge) = %+v, want a road hex", m)
+	}
+	// Everything else is unchanged.
+	for _, infra := range [][]string{{"road25"}, {"stream25"}, {"stream25", "rBridge36", "path36"}, {"rail25", "trench1"}} {
+		if a, b := Modifiers(g, infra), FixedModifiers(g, infra); !reflect.DeepEqual(a, b) {
+			t.Errorf("%v: Modifiers %+v, FixedModifiers %+v", infra, a, b)
+		}
+	}
+}

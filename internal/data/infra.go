@@ -13,6 +13,16 @@ type Hex struct {
 // overrides an earlier one. Ids no rule matches (such as rBridge*) change
 // nothing.
 func Modifiers(t Terrain, infra []string) Hex {
+	return modifiers(t, infra, false)
+}
+
+// FixedModifiers is Modifiers with road bridges (rBridge*) treated like roads,
+// so a bridge keeps its hex passable wherever it comes in the infrastructure list.
+func FixedModifiers(t Terrain, infra []string) Hex {
+	return modifiers(t, infra, true)
+}
+
+func modifiers(t Terrain, infra []string, roadBridges bool) Hex {
 	h := Hex{
 		Movement:        clone(t.Movement),
 		Battle:          clone(t.Battle),
@@ -21,7 +31,7 @@ func Modifiers(t Terrain, infra []string) Hex {
 	}
 	for _, i := range infra {
 		switch {
-		case strings.HasPrefix(i, "road"):
+		case strings.HasPrefix(i, "road"), roadBridges && strings.HasPrefix(i, "rBridge"):
 			h.Movement, h.Battle = ptr(0), ptr(0)
 		case strings.HasPrefix(i, "path"), strings.HasPrefix(i, "bridge"):
 			h.Movement, h.Battle = ptr(1), ptr(0)
