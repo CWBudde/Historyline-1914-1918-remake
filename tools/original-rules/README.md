@@ -32,3 +32,18 @@ calls and is not a complete control-flow graph. No listing is decompiled source.
 Keep originals, generated listings, strings and full data tables local under ignored
 directories. Only the analysis recipe, synthetic tests and authored findings belong
 in Git. The synthetic tests can run without the original installation.
+
+## Combat harness
+
+`emu8086.py` is a small 8086 interpreter (integer subset, hooks for far addresses; unknown
+opcodes raise). `dos_combat.py` loads the exported load image with its relocations, builds a
+synthetic battle context and runs `2466:000e`; `dos_combat_model.py` is an independent
+transcription of the same routine, and `compare_combat.py` runs both on random cases:
+
+```sh
+python3 -I tools/original-rules/compare_combat.py --cases 300
+```
+
+The interpreter tests and the transcription tests need no original files; the comparison test
+is skipped when `build/original-rules/dos-full` is absent. Agreement shows the routine's
+arithmetic as written, not how the game fills its inputs.
