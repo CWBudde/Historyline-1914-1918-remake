@@ -540,14 +540,15 @@ and G5 follows complete UI coverage. Do not wait until Phase 6 to discover seam 
 
 #### G0 — Establish references and an approved visual pilot
 
-- [ ] Inventory every loaded asset and each existing/proposed UI screen. Flag unused files,
+- [x] Inventory every loaded asset and each existing/proposed UI screen. Flag unused files,
       aliases (`cmp*`/`camp*`, `rBridge*`/`roadBridge*`), missing summer factory entries,
       placeholder graphics and unknown provenance; resolve mappings without breaking levels.
-      (2026-10-14) — partial: `docs/art/asset-inventory.csv` has 301 rows, covering all 271
-      `gfx/` files, the 215 loaded paths, 21 existing or planned screens, 23 aliases (mapped,
-      not renamed), 19 unused and 13 experimental files, and 9 missing tiles (summer factory,
-      rough/stoney/shelled, trenches, barbed wire). It also marks unknown provenance. Still
-      open: placeholder graphics need a visual review, because file data cannot tell them apart.
+      (2026-10-14) — verified inventory: 310 records cover 273 asset/dependency paths,
+      all 246 image/font loader calls, 28 UI requirements, 23 spelling aliases and nine terrain
+      gaps. AST scanning fixes weapon mappings, includes editor/contained-unit usage and
+      preserves level IDs. Unused/experimental/test art and unknown provenance are flagged;
+      native mappings and visual acceptance remain in the following G0 items. Reproduce with
+      `python3 tools/art-inventory/inventory.py --check`; see `docs/art/inventory-notes.md`.
 - [ ] Assemble verified original native-size tile/screen references, record platform, palette,
       dimensions and source; distinguish upstream/Battle Isle 3 material. Identify original
       campaign art missing from this repository and add it to later content coverage.
