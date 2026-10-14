@@ -187,8 +187,13 @@ cmd/hlartpreview/           Ebitengine art and seam workbench (graphics mileston
       infrastructure cases (every infra id, every combination in `levels/*.json`, synthetic
       barbed wire/lake ids, multi-infra orderings) match `testdata/python.json`, which
       `testdata/gen_python.py` builds by running the Python source.
-- [ ] `level`: load `levels/*.json` unchanged. This covers tile, infra (a string or a list), unit,
+- [x] `level`: load `levels/*.json` unchanged. This covers tile, infra (a string or a list), unit,
       and `[owner, [units…]]` for HQ/depot/factory. Round-trip test: load → save → identical JSON.
+      (2026-10-14) — `internal/level` has `Parse/Load`, which check line keys, hex arity and types,
+      and the odd/even line lengths, and `Marshal/Save`, which port `mapEditor.py` `saveData`. The
+      infra string/list form and the `[owner]`/`[owner, [units]]` forms are kept. All four
+      `levels/*.json` come back byte-identical after load → save, and every terrain and unit id in
+      them exists in `internal/data`.
 - [ ] `game` state: hexes, units (size, experience, ammo per weapon, fuel, moved/attacked flags),
       containers (2 × 9 slots, weight capacity), owners
 - [ ] `game` commands at Python parity: move with a path, attack with counter-attack, enter
@@ -540,14 +545,15 @@ and G5 follows complete UI coverage. Do not wait until Phase 6 to discover seam 
 
 #### G0 — Establish references and an approved visual pilot
 
-- [ ] Inventory every loaded asset and each existing/proposed UI screen. Flag unused files,
+- [x] Inventory every loaded asset and each existing/proposed UI screen. Flag unused files,
       aliases (`cmp*`/`camp*`, `rBridge*`/`roadBridge*`), missing summer factory entries,
       placeholder graphics and unknown provenance; resolve mappings without breaking levels.
-      (2026-10-14) — partial: `docs/art/asset-inventory.csv` has 301 rows, covering all 271
-      `gfx/` files, the 215 loaded paths, 21 existing or planned screens, 23 aliases (mapped,
-      not renamed), 19 unused and 13 experimental files, and 9 missing tiles (summer factory,
-      rough/stoney/shelled, trenches, barbed wire). It also marks unknown provenance. Still
-      open: placeholder graphics need a visual review, because file data cannot tell them apart.
+      (2026-10-14) — verified inventory: 310 records cover 273 asset/dependency paths,
+      all 246 image/font loader calls, 28 UI requirements, 23 spelling aliases and nine terrain
+      gaps. AST scanning fixes weapon mappings, includes editor/contained-unit usage and
+      preserves level IDs. Unused/experimental/test art and unknown provenance are flagged;
+      native mappings and visual acceptance remain in the following G0 items. Reproduce with
+      `python3 tools/art-inventory/inventory.py --check`; see `docs/art/inventory-notes.md`.
 - [ ] Assemble verified original native-size tile/screen references, record platform, palette,
       dimensions and source; distinguish upstream/Battle Isle 3 material. Identify original
       campaign art missing from this repository and add it to later content coverage.
