@@ -246,17 +246,33 @@ cmd/hlartpreview/           Ebitengine art and seam workbench (graphics mileston
 
 ### Phase 3 — Complete the rules
 
-- [ ] Movement points: the terrain `movementModifier` is the cost and roads are cheap. Use
+- [x] Movement points: the terrain `movementModifier` is the cost and roads are cheap. Use
       Dijkstra and show the remaining points.
+      (2026-10-15) — `Rules.MovementPoints` (`internal/game/movement.go`): a unit has 2 ×
+      speed points, entering a hex costs its terrain `movement` (minimum 1, so a road costs 1,
+      grass 2, forest 3), and `Movable` returns `Route{Path, Cost, Left}` from a Dijkstra
+      search. A unit with its full budget may always make one step. Own units are passed,
+      enemies and unseen hexes block, buildings and carriers are only a final stop (enemy and
+      neutral buildings need the capture skill). The point scale is a choice; the original
+      manual gives no numbers.
 - [ ] Zone of control: hexes next to an enemy cost extra or stop movement (upstream TODO)
-- [ ] Pathfinding respects impassable terrain and movement types (rail, water)
-- [ ] Road bridges (`rBridge*`) match none of the infrastructure prefixes, so they leave the
+- [x] Pathfinding respects impassable terrain and movement types (rail, water)
+      (2026-10-15) — same search: it expands only into hexes the unit's movement type may
+      enter (normal units: `movement` set; trains: rail; boats: water), so paths no longer cut
+      through hexes outside the reach set.
+- [x] Road bridges (`rBridge*`) match none of the infrastructure prefixes, so they leave the
       terrain modifiers unchanged; `bridge*` sets movement 1. Decide their rule (found while
       porting `data`, 2026-10-14).
+      (2026-10-15) — decided: a road bridge is a road. `data.FixedModifiers` reads `rBridge*`
+      like `road*` (`Rules.RoadBridges`); `data.Modifiers` stays at Python parity. In the
+      shipped levels the bridges are followed by a road or path, so only new maps change.
 - [ ] Barbed wire has terrain modifiers and an infrastructure rule (`barbed*`, movement 10) but
       no map tile or infrastructure icon, so no level can place it yet.
 - [ ] Port-time quirks kept at parity in `game` (found 2026-10-14): no-counter damage, carrier
       exits with the carrier's stats, units standing on full depots. Decide each rule.
+      (2026-10-15) — partial: carrier exits use the unit's own stats (`Rules.OwnStatsOnExit`)
+      and a full depot is not a legal target (`Rules.FullDepotBlocks`). No-counter damage is
+      still open (combat batch).
 - [ ] One action per unit per turn (move then attack, or attack only). This needs to be checked
       against the original's rules before implementing.
 - [ ] Ammo is used per shot and empty weapons are disabled. Target-type flags (`air`, `ground`,

@@ -16,7 +16,7 @@ func TestMovableMatchesPython(t *testing.T) {
 	set := loadSet(t)
 	runs := 0
 	for _, run := range loadPython(t).Levels {
-		s, err := New(loadLevel(t, run.Level), set)
+		s, err := NewWithRules(loadLevel(t, run.Level), set, Classic)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -37,7 +37,8 @@ func TestMovableMatchesPython(t *testing.T) {
 				t.Fatalf("%s: no %s %s at %v", run.Level, m.In, m.Unit, from)
 			}
 			got := map[string][][2]int{}
-			for to, path := range s.Movable(from, u) {
+			for to, route := range s.Movable(from, u) {
+				path := route.Path
 				p := make([][2]int, len(path))
 				for i, c := range path {
 					p[i] = [2]int{c.Line, c.Col}
@@ -84,6 +85,12 @@ func TestBattleMatchesPython(t *testing.T) {
 // the given hexes placed on it.
 func board(t *testing.T, place map[hexgrid.Coord]level.Hex) *State {
 	t.Helper()
+	return boardWith(t, Standard, place)
+}
+
+// boardWith is board with the given rules.
+func boardWith(t *testing.T, r Rules, place map[hexgrid.Coord]level.Hex) *State {
+	t.Helper()
 	lv := &level.Level{MapName: "test", MapNo: 1, Player: "Central Powers"}
 	for l := range 12 {
 		line := make([]level.Hex, 6-l%2)
@@ -95,7 +102,7 @@ func board(t *testing.T, place map[hexgrid.Coord]level.Hex) *State {
 		}
 		lv.Lines = append(lv.Lines, line)
 	}
-	s, err := New(lv, loadSet(t))
+	s, err := NewWithRules(lv, loadSet(t), r)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -207,7 +214,7 @@ func TestDepotCaptureWithoutVictory(t *testing.T) {
 
 func TestFullDepotLeavesUnitOnHex(t *testing.T) {
 	sappers := []string{"CP_sappers", "CP_sappers", "CP_sappers", "CP_sappers", "CP_sappers", "CP_sappers"}
-	s := board(t, map[hexgrid.Coord]level.Hex{at(4, 2): unit("CP_infantry"), at(6, 2): building("cmpN", CentralPowers, sappers...)})
+	s := boardWith(t, Classic, map[hexgrid.Coord]level.Hex{at(4, 2): unit("CP_infantry"), at(6, 2): building("cmpN", CentralPowers, sappers...)})
 	u := s.At(at(4, 2)).Unit
 	if _, err := s.Move(at(4, 2), u, at(6, 2)); err != nil {
 		t.Fatal(err)
@@ -218,7 +225,7 @@ func TestFullDepotLeavesUnitOnHex(t *testing.T) {
 }
 
 func TestCarrier(t *testing.T) {
-	s := board(t, map[hexgrid.Coord]level.Hex{at(4, 2): unit("CP_infantry"), at(6, 2): unit("CP_supplyCar"), at(5, 2): unit("CP_armCar")})
+	s := boardWith(t, Classic, map[hexgrid.Coord]level.Hex{at(4, 2): unit("CP_infantry"), at(6, 2): unit("CP_supplyCar"), at(5, 2): unit("CP_armCar")})
 	inf, car := s.At(at(4, 2)).Unit, s.At(at(6, 2)).Unit
 	if _, err := s.Move(at(4, 2), inf, at(6, 2)); err != nil {
 		t.Fatal(err)

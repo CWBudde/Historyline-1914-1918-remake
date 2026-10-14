@@ -50,6 +50,9 @@ func (s *State) mover(h *Hex, u *Unit) (*Unit, error) {
 		if h.Unit.Owner != s.Turn {
 			return nil, errors.New("the carrier belongs to the opponent")
 		}
+		if s.Rules.OwnStatsOnExit {
+			return u, nil
+		}
 		return h.Unit, nil
 	case h.Unit == nil && h.Container != nil && slices.Contains(h.Container.Units(), u):
 		if h.Owner == s.Turn.Opponent() {
@@ -60,22 +63,26 @@ func (s *State) mover(h *Hex, u *Unit) (*Unit, error) {
 	return nil, fmt.Errorf("%s is not on this hex", u.Type)
 }
 
-// Movable returns the hexes u may move to from `from`, each with the path the
-// unit takes (from first). u is the map unit of the hex or a unit inside its
-// building or carrier. It is empty when u may not move.
-func (s *State) Movable(from hexgrid.Coord, u *Unit) map[hexgrid.Coord][]hexgrid.Coord {
+// Movable returns the hexes u may move to from `from`, each with its route
+// (from first). u is the map unit of the hex or a unit inside its building or
+// carrier. It is empty when u may not move.
+func (s *State) Movable(from hexgrid.Coord, u *Unit) map[hexgrid.Coord]Route {
 	m, err := s.mover(s.At(from), u)
 	if err != nil || s.Winner != None {
 		return nil
 	}
+	if s.Rules.MovementPoints {
+		return s.movablePoints(from, m)
+	}
 	reach := s.movableSquares(from, m)
-	out := map[hexgrid.Coord][]hexgrid.Coord{}
+	out := map[hexgrid.Coord]Route{}
 	for c := range reach {
 		if s.Fog(s.Turn, c) == Unseen {
 			continue
 		}
 		if path := s.findPath(from, c, reach); path != nil && len(path)-1 <= m.Def.Speed {
-			out[c] = path
+			steps := len(path) - 1
+			out[c] = Route{Path: path, Cost: steps, Left: m.Def.Speed - steps}
 		}
 	}
 	return out
@@ -177,7 +184,7 @@ func (s *State) Move(from hexgrid.Coord, u *Unit, to hexgrid.Coord) ([]hexgrid.C
 	if _, err := s.mover(s.At(from), u); err != nil {
 		return nil, err
 	}
-	path, ok := s.Movable(from, u)[to]
+	route, ok := s.Movable(from, u)[to]
 	if !ok {
 		return nil, fmt.Errorf("%s cannot reach %v", u.Type, to)
 	}
@@ -211,7 +218,7 @@ func (s *State) Move(from hexgrid.Coord, u *Unit, to hexgrid.Coord) ([]hexgrid.C
 	}
 	u.Moved = true
 	s.updateVision()
-	return path, nil
+	return route.Path, nil
 }
 
 // Targets returns the hexes the map unit at `from` may attack, sorted, as

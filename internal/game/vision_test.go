@@ -10,7 +10,7 @@ func TestVisionMatchesPython(t *testing.T) {
 	set := loadSet(t)
 	want := map[int]Fog{0: Visible, 1: Unseen, 2: Seen}
 	for _, run := range loadPython(t).Levels {
-		s, err := New(loadLevel(t, run.Level), set)
+		s, err := NewWithRules(loadLevel(t, run.Level), set, Classic)
 		if err != nil {
 			t.Fatal(err)
 		}

@@ -187,6 +187,7 @@ type State struct {
 	Turn   Player  // side to move
 	Round  int
 	Winner Player // side that captured an HQ; None while the game runs
+	Rules  Rules  // which Phase 3 fixes apply; fixed at creation, as it shapes the hexes
 
 	vision [3]vision // fog of war, indexed by Player
 }
@@ -246,18 +247,23 @@ func buildingCapacity(terrain string, hasContent bool) int {
 	return 0
 }
 
-// New builds the starting state of a level.
+// New builds the starting state of a level with the Standard rules.
 func New(lv *level.Level, set *data.Set) (*State, error) {
+	return NewWithRules(lv, set, Standard)
+}
+
+// NewWithRules builds the starting state of a level with the given rules.
+func NewWithRules(lv *level.Level, set *data.Set, r Rules) (*State, error) {
 	human, err := PlayerByName(lv.Player)
 	if err != nil {
 		return nil, err
 	}
 	s := &State{Name: lv.MapName, No: lv.MapNo, Grid: lv.Grid(), Human: human, Turn: human, Round: 1,
-		Hexes: make([][]Hex, len(lv.Lines))}
+		Rules: r, Hexes: make([][]Hex, len(lv.Lines))}
 	for i, line := range lv.Lines {
 		s.Hexes[i] = make([]Hex, len(line))
 		for col, lh := range line {
-			h, err := newHex(set, lh)
+			h, err := newHex(set, lh, s.Rules)
 			if err != nil {
 				return nil, fmt.Errorf("line%d[%d]: %w", i+1, col, err)
 			}
@@ -268,12 +274,16 @@ func New(lv *level.Level, set *data.Set) (*State, error) {
 	return s, nil
 }
 
-func newHex(set *data.Set, lh level.Hex) (Hex, error) {
+func newHex(set *data.Set, lh level.Hex, r Rules) (Hex, error) {
 	t, ok := set.Terrain[lh.Terrain]
 	if !ok {
 		return Hex{}, fmt.Errorf("unknown terrain %q", lh.Terrain)
 	}
-	h := Hex{Terrain: lh.Terrain, Infra: lh.Infra.IDs, Mods: data.Modifiers(t, lh.Infra.IDs)}
+	mods := data.Modifiers
+	if r.RoadBridges {
+		mods = data.FixedModifiers
+	}
+	h := Hex{Terrain: lh.Terrain, Infra: lh.Infra.IDs, Mods: mods(t, lh.Infra.IDs)}
 	if lh.Unit != "" {
 		u, err := NewUnit(set, lh.Unit)
 		if err != nil {
