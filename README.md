@@ -35,3 +35,18 @@ python3 main.py level1_cp --reveal   # show the whole map (dev)
 python3 main.py level1_cp --mapedit  # map editor (dev)
 python3 main.py --help               # all options
 ```
+
+## Assets
+
+[`docs/art/asset-inventory.csv`](docs/art/asset-inventory.csv) lists every file in `gfx/`, every
+runtime ID the Python code loads, the screens it draws, and the art that is missing (for example
+summer factory tiles and barbed wire). The `status` column marks files as loaded, alias, unused,
+experimental, editable source or reference only.
+
+**Provenance is mostly unknown.** Git history shows that PoulKalff, the upstream author,
+committed every image file. It does not show where the art came from: drawn for this remake,
+traced from the 1992 game, or taken from elsewhere. The only files known to
+come from another game are `gfx/bi3_unit_interface.png` and `gfx/bi3_battle_screen.png`, which
+are Battle Isle 3 screenshots. They are used as references and not loaded by the game. The
+rights to the art in `gfx/` are unclear until this is resolved, so do not redistribute it as
+part of a release.
