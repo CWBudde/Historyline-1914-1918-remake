@@ -70,6 +70,21 @@ navigation destination. The gameplay owner chooses behavior and flow before G4 a
 | `screen:engineer-construction` | Optional “Beyond the original” engineer work | Bridge/trench build choices, legal/illegal placement, connection preview, resources/confirmation if rules define them. Optional; not required for Python parity. |
 | `screen:infrastructure-damage` | Optional “Beyond the original” artillery damage | Intact/damaged/destroyed overlays, blocked connections, targetability and repair feedback if gameplay enables these. Optional; not required for Python parity. |
 
+## Original layout evidence
+
+The local manual now provides 13 selected screenshots, recorded with page/object IDs,
+dimensions and hashes in [manual-screen-references.csv](manual-screen-references.csv).
+Pages 18–21 show the main menu, side selection, setup, controls and extras. Pages 23/41
+show summer/winter split maps; pages 28/30 show movement/attack markers. Page 32 shows
+the repair/container view, page 45 the unit-information panel, and page 46 statistics.
+They are grayscale JPEGs with unverified platform/cropping, so they establish layout
+and state evidence without supplying a colour or exact-pixel fidelity target.
+
+The private native gallery also contains the empty `GAME.IFF` frame and, when requested,
+46 historical campaign illustrations. These supply original composition references;
+they do not implement or approve the proposed screen flows. See
+[original-references.md](original-references.md) for reproduction and open gaps.
+
 ## Shared state and acceptance gaps
 
 Every interactive control needs normal, hover, keyboard focus, pressed and disabled

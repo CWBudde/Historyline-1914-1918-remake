@@ -19,11 +19,57 @@ terrain-only export. Optional native graphic libraries: `EXP,UMAPDASA,UMAPDAS2,
 UMAPDAWA,UMAPDAW2`. `-palette` selects `00` (default), `01`, or `02`. Each native
 resource produces an intrinsic-size PNG under its library name. The exporter
 also writes `HEXMSK00.png`, palette swatches in increasing index order,
-`metadata.csv`, and `source-sha256.txt`. The CSV contains archive offsets,
+`metadata.csv`, `source-sha256.txt`, and an offline `index.html` gallery.
+The CSV contains archive offsets,
 stored/unpacked lengths, dimensions, plane mask, data offset, alpha provenance,
 and source/PNG SHA-256 hashes. Archive offsets refer to the unpacked library;
 source hashes refer to the original packed bytes. Resource names are identifiers,
 not semantic classifications: names beginning `SFORE` can contain cabins.
+
+## Optional original screens and campaign images
+
+Screen decoding is opt-in; default library exports keep their paths and CSV
+schema. Add `-screen GAME.IFF` to decode that filename from the data folder.
+Add `-briefings` to export exactly the 46 campaign image files
+`TXT/H00.LBM` through `TXT/H45.LBM`; the tool does not scan for other files.
+Either option can be used independently, or together:
+
+```sh
+go run ./tools/native-reference \
+  -data '/path/to/Amiga/Hard Drives/data' \
+  -screen GAME.IFF -briefings \
+  -out build/native-reference-screens
+```
+
+The additional PNGs are `screens/GAME.IFF.png` and
+`screens/TXT-H00.LBM.png` through `screens/TXT-H45.LBM.png`. These are
+intrinsic-size references, not populated game captures or runtime assets.
+Each screen uses its own file CMAP, independent of `-palette`.
+`screen-metadata.csv` records original relative source names, platform,
+format, dimensions, word-padded row bytes, planes, compression, coverage,
+transparent-color index, CMAP count, BMHD aspect/page fields, CAMG,
+stored BODY/decoded planar lengths, and source/PNG SHA-256 hashes.
+Source hashes refer to original file bytes, including an outer TPWM wrapper
+when present. `source-sha256.txt` also includes every selected screen source.
+All selected inputs, including the final briefing image and output filename
+collisions, are validated before any output directory is created.
+
+## Offline gallery
+
+Open the exported `index.html` directly in a browser. No server, network,
+libraries, or fetched metadata are needed. Search by resource name/library,
+filter a library (including `screens` and `briefings` when exported), and
+choose integer inspection magnification of 1×, 2× (default), 4×, or 8×.
+Checkerboard, dark and light backgrounds help inspect coverage. Magnification
+uses nearest pixel rendering and adds no authored detail. Original intrinsic
+dimensions, coverage source, palette and platform stay visible beside file
+and metadata links. Resource permalinks have stable fragments such as
+`#PARTS-SFORE150`, `#screens-GAME.IFF`, and `#briefings-TXT-H15.LBM`.
+Reference values are escaped through Go's HTML templates.
+
+The gallery does not assign semantic mappings, infer world spacing, apply
+aspect correction, or close G0's 90/100 native-resemblance gate. The 2×/4×
+inspection options do not constitute newly authored higher-resolution art.
 
 **Keep source archives, unpacked data, and exported art private and ignored.**
 This tool contains only code and synthetic tests. It is an analysis utility,
@@ -80,12 +126,33 @@ Terrain alpha comes exclusively from `HEXMSK00`; unit/portrait alpha comes
 from its embedded plane. Black pixels inside coverage stay opaque. No pixel
 aspect correction, resizing, map layout, or 24×20 flattening is inferred.
 
-`STATS`, `CURSOR`, and standard FORM ILBM files such as `GAME.IFF` are outside
-this exporter's supported record format. Separate forensic decoding established
-that GAME.IFF is an empty split-view frame with 320×200 intrinsic dimensions,
-five planes, ByteRun1 compression, and a BMHD aspect field of 10:11. Its CMAP
-high nibbles match all 32 words of `02.PAL`; this does not establish runtime
-terrain display geometry.
+`STATS` and `CURSOR` remain outside the supported custom record format.
+
+## Standard FORM/ILBM decoding
+
+Optional screens use the separate standard IFF decoder, after bounded Amiga
+TPWM decompression if present. FORM and chunk lengths/padding must match;
+duplicate required/property chunks and properties after BODY are rejected.
+Indexed images with 1–8 planes, uncompressed or ByteRun1 rows, and a CMAP
+of up to 256 RGB triples are supported. Each scan line stores plane 0 (the
+low index bit) through the highest plane, followed by an optional mask plane.
+Rows are MSB-first and word-padded. ByteRun1 packets must fit a single plane
+row; literals, repeats and signed -128 no-ops are handled without crossing
+rows. A mask bit of zero is transparent; BMHD transparent-color masking
+compares the source index. Otherwise index zero and black remain opaque.
+HAM/EHB modes, deep RGB, lasso masking, DEST plane merging, unsupported
+compression, missing/out-of-range palette values and trailing BODY data
+are rejected. Color cycling and other ancillary chunks are not animated.
+
+GAME.IFF is an empty split-view frame with 320×200 intrinsic dimensions,
+five planes, ByteRun1 compression and BMHD aspect 10:11. The 46 supplied
+campaign images are also 320×200, five planes and ByteRun1, with aspect 1:1.
+Aspect metadata is recorded without resizing or establishing terrain spacing.
+Screen CMAP channels are preserved byte-for-byte, including low nibbles;
+they are not expanded from hardware 0RGB words like external library palettes.
+The earlier forensic GAME PNG expanded its CMAP high nibbles by 17; its
+colours therefore differ from the CMAP-preserving export (up to 15 per channel),
+while geometry and coverage match. The CMAP high nibbles still match `02.PAL`.
 
 Format cross-checks: [Ancient's TPWM implementation](https://github.com/temisu/ancient/blob/master/src/TPWMDecompressor.cpp),
 [Electronic Arts/Commodore ILBM specification](https://wiki.amigaos.net/wiki/ILBM_IFF_Interleaved_Bitmap).
@@ -106,6 +173,11 @@ They cover literal and overlapping TPWM copies, malformed bounds, endian
 rejection, native palette conversion, sparse/five-plane images, word padding,
 embedded/external masks, black-shadow preservation, archive offsets and names,
 resource-count limits, output confinement, source hashes, and PNG/CSV export.
+Screen tests additionally cover plane interleaving, ByteRun1 row boundaries,
+mask/transparent-color semantics, CMAP preservation, aspect metadata,
+outer TPWM, malformed chunks, unsupported modes, fixed campaign selection,
+late-input/collision rejection before writes, aggregate pixel limits,
+combined metadata/hashes, default compatibility, and gallery escaping.
 Input/unpacked files are capped at 32 MiB, individual images at four megapixels,
 libraries at 10,000 resources, and a complete export at 16 megapixels. These
 limits comfortably exceed the verified native reference libraries.

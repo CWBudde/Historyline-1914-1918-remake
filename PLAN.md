@@ -342,7 +342,8 @@ provide evidence, but do not establish the author's full intent:
   `4X_HEX_SKABELON_WORKBENCH.xcf` are not evidence of a finished 4× pack.
 - `generatedMap.png` shows the existing tile composition and joins. It is a reference render,
   not an authoritative image of the 1992 game. The Go executable currently draws an empty
-  1800 × 1000 window; none of the new art tooling is implemented yet.
+  1800 × 1000 window. Offline inventory, native-reference/gallery and fidelity-comparison
+  tools exist under `tools/`; G1's shared compositor and in-engine workbench remain planned.
 
 **Reference hierarchy:** use verified native-resolution tiles/screens from the 1992 game as
 the fidelity target. Default to its Amiga presentation, consistent with the README; document
@@ -581,10 +582,15 @@ and G5 follows complete UI coverage. Do not wait until Phase 6 to discover seam 
       (2026-10-14) — partial: supplied Amiga/DOS/manual archives are extracted under ignored
       `original/`. Native Amiga summer/winter terrain, units and portraits decode with the
       supplied 32-colour palettes; the terrain mask is 24 × 24, not the repository's flattened
-      96 × 80 footprint. An empty original 320 × 200 UI frame is decoded locally. See
-      `docs/art/original-references.md`; runtime aspect/spacing, complete screen captures and
-      original-to-runtime mappings remain open. `tools/native-reference` provides offline
-      library exports and source hashes without committing original pixels.
+      96 × 80 footprint. `tools/native-reference` reproducibly exports 705 library resources,
+      the empty 320 × 200 UI frame and 46 historical campaign illustrations with own-CMAP
+      screen palettes, source hashes, intrinsic dimensions and recorded aspect metadata.
+      The offline gallery provides search, library filters, integer magnification, backgrounds
+      and PNG/metadata links. 28 pilot selections and 13 grayscale/lossy manual screen references
+      have source/PNG hashes in `docs/art/native-pilot-references.csv` and
+      `docs/art/manual-screen-references.csv`; missing original art families are recorded for
+      G3 in `docs/art/native-coverage.md`. Runtime spacing/aspect, exact port/direction/anchor
+      mappings and verified colour screen captures remain open. Original pixels stay ignored.
 - [ ] Write `docs/art/style-guide.md` with the user's brief and downsample rubric. Produce a
       small pilot: grass/forest/water, one road bend/river/bridge, infantry/artillery, a portrait
       and the unit panel. Manually assemble a seven-hex contact sheet before the workbench
@@ -636,6 +642,9 @@ and G5 follows complete UI coverage. Do not wait until Phase 6 to discover seam 
 - [ ] Work in reviewed family batches: ground/terrain → shore/mountain/building pieces →
       infrastructure → unit directions/factions → portraits/weapons → effects/markers.
       Include summer/winter and all required combinations in each family's completion check.
+      Native content follow-up: `docs/art/native-coverage.md` records aircraft, additional
+      armour, specialist ground units, naval variants, structures and 46 campaign illustrations
+      absent from the current visual inventory. Phase 5 owns their gameplay/content IDs.
 - [ ] Reuse templates and accepted reference sheets; use generation for constrained studies
       or details and paint cleanup. For six-direction units, compare hand-authored sprites
       with a Blender pilot before committing to either method for the whole set.
@@ -679,10 +688,17 @@ and G5 follows complete UI coverage. Do not wait until Phase 6 to discover seam 
       interaction, documented provenance and a reproducible local export build. Visual release
       does not depend on removing the Python sources or discarding the reference artwork.
 
-**Immediate next slice:** finish G0 native-to-runtime mappings and verify original display
-geometry, then clean up the full pilot against native references. Use the existing offline
-comparison sheets to inspect footprint/alpha drift and joins. G1 shared edge/corner templates
-and connected-feature preview follow this evidence; do not mass-generate art before approval.
+**Local work layout:** keep graphics checkouts in ignored `.worktrees/` inside this repository,
+private originals/manual extracts in ignored `original/`, and reference galleries, comparison
+outputs and research in ignored `build/`. Authored masters, recipes and pilot exports stay in
+tracked `art/`; commit verified graphics batches directly to `main`, per the user's preference.
+
+**Immediate next slice:** use the 28 selected native references and manual page 45 panel to
+complete the G0 pilot; finish exact native-to-runtime port/direction/anchor mappings and verify
+original display geometry alongside it. Compare 2×/4× detail and native-size appearance using
+the offline review tool, then record the five-category 90/100 visual review. G1 shared
+edge/corner templates and connected-feature preview follow this evidence; do not mass-generate
+art before approval.
 
 ---
 

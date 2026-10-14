@@ -69,11 +69,52 @@ Private reference PNGs were decoded under `original/reference/amiga/`:
 - `GAME-IFF-native320x200.png` is the empty original split-view UI frame. It is not a
   populated gameplay screenshot or complete UI reference corpus.
 
-The forensic `GAME.IFF` decode found standard FORM/ILBM, 320 × 200, five planes,
-ByteRun1 compression and BMHD pixel aspect 10:11. Its CMAP high nibbles match `02.PAL`.
-The BODY consumed 14,204 bytes and produced 40,000 planar bytes. Interpretation of these
-fields follows the [original ILBM specification](https://wiki.amigaos.net/wiki/ILBM_IFF_Interleaved_Bitmap).
-The reusable native exporter initially covers the custom libraries, not this screen format.
+`GAME.IFF` has an outer Amiga TPWM stream containing standard FORM/ILBM: 320 × 200,
+five planes, ByteRun1 compression and BMHD pixel aspect 10:11. The BODY consumes
+14,204 bytes and produces 40,000 planar bytes. Interpretation of these fields follows
+the [original ILBM specification](https://wiki.amigaos.net/wiki/ILBM_IFF_Interleaved_Bitmap).
+The exporter now decodes this screen reproducibly with its own CMAP, without applying
+an aspect correction. CMAP bytes are preserved; the earlier forensic PNG expanded
+their high nibbles by 17. These agree in geometry/alpha but differ by up to 15 per
+channel. The CMAP high nibbles match `02.PAL`; these are distinct colour policies.
+
+`TXT/H00.LBM` through `H45.LBM` supply 46 historical campaign illustrations. They are
+320 × 200 standard FORM/ILBM screens with five planes, ByteRun1 compression, aspect
+metadata 1:1 and their own CMAP palettes. Selected samples show a newspaper, a crowd
+and soldiers in a trench. They are distinct from `BIGUNIT` unit portraits; matching
+each image to a campaign/intermission remains open.
+
+## Selected pilot and manual screen references
+
+[native-pilot-references.csv](native-pilot-references.csv) records 28 native selections
+with dimensions, coverage, palette and source/PNG hashes. See
+[native-coverage.md](native-coverage.md) for the selected terrain, connection, unit and
+portrait families and the original content missing from the remake. These are targets
+for art production, not confirmed original map indices, compass directions or runtime
+port mappings. Existing asset provenance remains unknown.
+
+The supplied manual contains populated screenshots. Thirteen useful images are
+catalogued in [manual-screen-references.csv](manual-screen-references.csv): main menu,
+side selection, game setup, controls, extras, summer/winter split maps, movement range
+and route, attack targets, repair/container, unit information and general statistics.
+PDF page numbers refer to the file's pages, not printed pagination. The catalogue
+records PDF object IDs, intrinsic dimensions, source/PNG hashes and platform uncertainty.
+Page 45 supplies the unit-panel layout; page 32 shows the container/repair view.
+
+All 238 embedded manual images were extracted locally, with page/sequence filenames:
+
+```sh
+mkdir -p original/reference/manual
+pdfimages -png -p original/extracted/manual/Historyline_1914-1918.pdf \
+  original/reference/manual/manual
+pdfimages -list original/extracted/manual/Historyline_1914-1918.pdf
+```
+
+`pdfimages` is supplied by Poppler; this optional manual inspection step is separate
+from the Go exporter and CI. These 13 screenshots are grayscale JPEGs, including cropped
+312 × 200 and 156 × 200 views, so use them for layout/state evidence only. Do not recover
+palette or exact display pitch from them. The indexed 24 × 24 images later in the manual
+are unit icons, not terrain references. No manual pixels are tracked in Git.
 
 ## Reproduce and compare
 
@@ -83,15 +124,22 @@ or embedded in the executable:
 ```sh
 go run ./tools/native-reference \
   -data 'original/extracted/amiga/HistorylineDe/fsuae/Hard Drives/data' \
+  -screen GAME.IFF -briefings \
   -out build/native-reference
 ```
 
-The export tool's README describes its output names and verification. Source hashes and
-resource metadata accompany the exported pixels. For the existing native forest study:
+Open `build/native-reference/index.html` directly in a browser. Its 752 original images
+(705 library resources, one frame and 46 campaign illustrations) can be searched and
+filtered by library, magnified at integer scales and inspected on different backgrounds.
+PNG and metadata links work offline. A permalink such as `#PARTS-SFORE150` selects a card.
+Omit `-screen` and `-briefings` for the previous 705-resource library-only export.
+
+The export tool's README describes output names and verification. Source hashes,
+`metadata.csv` and `screen-metadata.csv` accompany the pixels. For the native forest study:
 
 ```sh
 go run ./tools/art-review \
-  -reference original/reference/amiga/PARTS-SFORE150-native24-mask.png \
+  -reference build/native-reference/PARTS/SFORE150.png \
   -reference-platform amiga-native \
   -candidate art/source/pilot/forest-amiga-study-01.png \
   -out build/art-review/forest-amiga
@@ -111,7 +159,8 @@ Native IDs must be mapped to runtime families, including original families absen
 current remake: additional buildings/terrain variants, vehicles/aircraft/ships and historical
 portraits/briefings. Inventory counts are not a semantic mapping or visual approval.
 
-`STATS.LIB` has a different structure and `CURSOR.LIB` needs more investigation. Title,
-options, unit information, production, briefings, battle presentation and result screens need
-populated original captures. G0's reference and visual gates stay open until these gaps and
-the complete pilot are reviewed.
+`STATS.LIB` has a different structure and `CURSOR.LIB` needs more investigation. The manual
+provides layout evidence for menus and several populated panels; verified colour captures,
+title art, production, briefing text/layout, battle presentation and result screens are still
+needed. G0's reference and visual gates stay open until the remaining mappings, display
+geometry and full pilot are reviewed.

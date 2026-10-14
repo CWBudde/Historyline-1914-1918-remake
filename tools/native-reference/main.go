@@ -41,6 +41,8 @@ func run(args []string, log io.Writer) error {
 	out := fs.String("out", "build/native-reference", "fresh output subdirectory inside this repository's ignored build/ or original/")
 	paletteName := fs.String("palette", "00", "native palette: 00, 01, or 02")
 	libraryNames := fs.String("libraries", "PARTS,PARTW,UNIT,BIGUNIT", "comma-separated native graphics libraries")
+	screenName := fs.String("screen", "", "opt-in standalone FORM/ILBM filename inside the data folder, e.g. GAME.IFF")
+	briefings := fs.Bool("briefings", false, "opt-in fixed Amiga campaign image corpus TXT/H00.LBM through TXT/H45.LBM")
 	if err := fs.Parse(args); err != nil {
 		if errors.Is(err, flag.ErrHelp) {
 			return nil
@@ -52,6 +54,9 @@ func run(args []string, log io.Writer) error {
 	}
 	if *paletteName != "00" && *paletteName != "01" && *paletteName != "02" {
 		return errors.New("palette must be 00, 01, or 02")
+	}
+	if *screenName != "" && !safeScreenName(*screenName) {
+		return errors.New("screen must be a safe filename inside the data folder")
 	}
 	root, err := repositoryRoot()
 	if err != nil {
@@ -149,6 +154,56 @@ func run(args []string, log io.Writer) error {
 			artifacts = append(artifacts, artifact{Library: library, Name: resource.Name, Coverage: actualCoverage, Offset: resource.Offset, PackedBytes: len(resource.Data), Graphic: g, SourceHash: sourceHashes[name]})
 		}
 	}
+	var screens []screenArtifact
+	screenFiles := make(map[string]bool)
+	loadScreen := func(name, library string) error {
+		filename := strings.ReplaceAll(name, "/", "-") + ".png"
+		// All permitted screen names are ASCII. Fold every output name so
+		// exports remain safe on case-insensitive filesystems too.
+		filenameKey := strings.ToLower(filename)
+		if screenFiles[filenameKey] {
+			return fmt.Errorf("screen output filename collision: %s", filename)
+		}
+		screenFiles[filenameKey] = true
+		packed, err := read(name)
+		if err != nil {
+			return err
+		}
+		s, err := decodeScreen(packed)
+		if err != nil {
+			return fmt.Errorf("%s: %w", name, err)
+		}
+		totalPixels += s.Width * s.Height
+		if totalPixels > 16<<20 {
+			return errors.New("selected graphics exceed 16 megapixel export limit")
+		}
+		screens = append(screens, screenArtifact{Source: name, Filename: filename, Library: library, Screen: s, SourceHash: sourceHashes[name]})
+		return nil
+	}
+	if *screenName != "" {
+		if err := loadScreen(*screenName, "screens"); err != nil {
+			return err
+		}
+	}
+	if *briefings {
+		for i := 0; i < 46; i++ {
+			if err := loadScreen(fmt.Sprintf("TXT/H%02d.LBM", i), "briefings"); err != nil {
+				return err
+			}
+		}
+	}
+	var items []galleryItem
+	for _, a := range artifacts {
+		items = append(items, galleryItem{ID: a.Library + "-" + a.Name, Library: a.Library, Name: a.Name, Coverage: a.Coverage, Palette: *paletteName + ".PAL", PalettePath: "palette-" + *paletteName + ".png", Platform: "amiga-native", Path: a.Library + "/" + a.Name + ".png", Width: a.Graphic.Width, Height: a.Graphic.Height})
+	}
+	for _, a := range screens {
+		s := a.Screen
+		items = append(items, galleryItem{ID: a.Library + "-" + strings.TrimSuffix(a.Filename, ".png"), Library: a.Library, Name: a.Source, Coverage: s.Coverage, Palette: "CMAP", Platform: "amiga-native", Path: "screens/" + a.Filename, Width: s.Width, Height: s.Height, Aspect: fmt.Sprintf("%d:%d", s.AspectX, s.AspectY)})
+	}
+	gallery, err := renderGallery(items, len(screens) > 0)
+	if err != nil {
+		return err
+	}
 	// All inputs are validated before creating any outputs.
 	if err := os.MkdirAll(filepath.Dir(output), 0755); err != nil {
 		return err
@@ -175,6 +230,11 @@ func run(args []string, log io.Writer) error {
 		}
 		g := a.Graphic
 		rows = append(rows, []string{a.Library, a.Name, strconv.Itoa(a.Offset), strconv.Itoa(a.PackedBytes), strconv.Itoa(g.RawBytes), strconv.Itoa(g.Width), strconv.Itoa(g.Height), strconv.Itoa(g.RowBytes), fmt.Sprintf("0x%04x", g.PlaneMask), strconv.Itoa(g.DataOffset), a.Coverage, a.SourceHash, fmt.Sprintf("%x", sha256.Sum256(encoded))})
+	}
+	if len(screens) > 0 {
+		if err := exportScreens(output, screens); err != nil {
+			return err
+		}
 	}
 	maskImage := image.NewNRGBA(image.Rect(0, 0, 24, 24))
 	for y := 0; y < 24; y++ {
@@ -226,7 +286,14 @@ func run(args []string, log io.Writer) error {
 	if err := writeNew(filepath.Join(output, "source-sha256.txt"), []byte(manifest.String())); err != nil {
 		return err
 	}
-	_, err = fmt.Fprintf(log, "exported %d native resource PNGs and palette/mask references to %s\n", len(artifacts), output)
+	if err := writeNew(filepath.Join(output, "index.html"), gallery); err != nil {
+		return err
+	}
+	if len(screens) > 0 {
+		_, err = fmt.Fprintf(log, "exported %d native resource PNGs, %d FORM/ILBM screen PNGs and palette/mask references to %s\n", len(artifacts), len(screens), output)
+	} else {
+		_, err = fmt.Fprintf(log, "exported %d native resource PNGs and palette/mask references to %s\n", len(artifacts), output)
+	}
 	return err
 }
 

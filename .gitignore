@@ -138,3 +138,6 @@ dmypy.json
 
 # Local original-game reference installation (never distribute).
 /original/
+
+# Isolated local checkouts for concurrent graphics/game work.
+/.worktrees/

@@ -56,6 +56,9 @@ The graphics track uses the [style guide](docs/art/style-guide.md),
 [local original-reference notes](docs/art/original-references.md). Newly generated studies,
 exact prompts and unapproved 2×/4× exports live under `art/`; they are not a complete asset pack.
 The supplied installations and decoded original pixels remain ignored in `original/` or `build/`.
+Graphics work stays inside this repository: ignored `.worktrees/` contains isolated checkouts,
+and ignored `build/` contains reference galleries, comparison outputs and research. Authored
+sources and recipes stay in tracked `art/`; verified graphics batches are committed to `main`.
 
 ```sh
 just gfx-check                 # inventory tests, drift check and offline Go tools
@@ -63,8 +66,16 @@ just gfx-review -reference gfx/hexTypes/hex_forest.png \
   -candidate art/source/pilot/forest-study-01.png -out build/art-review/forest-repo
 just gfx-references \
   -data 'original/extracted/amiga/HistorylineDe/fsuae/Hard Drives/data' \
+  -screen GAME.IFF -briefings \
   -out build/native-reference
 ```
+
+Open `build/native-reference/index.html` for the offline gallery of 705 library resources,
+the original UI frame and 46 campaign illustrations. Search/filter, integer inspection scales,
+background controls and metadata links help inspect the original pixels. The
+[pilot reference list](docs/art/native-coverage.md) and
+[manual screen catalogue](docs/art/manual-screen-references.csv) identify the next art targets.
+Omit `-screen`/`-briefings` for a library-only export. All original exports stay ignored.
 
 Review outputs show the reference, reduced candidate and difference. Repository-sized terrain
 also gets seven-hex patches. Native Amiga references use their intrinsic dimensions without
