@@ -29,8 +29,11 @@ records are not 51 distinct named units: repeated naval records differ in flags.
 | **executed** | reproduced by running the routine (R1 harness) or the game, with recorded inputs |
 | **hypothesis** | inferred, untraced, or contradicted by another source |
 
-Nothing below is **executed** yet. A rule moves up only with a fixture or trace id recorded in
-its row. Conflicts between sources are listed in the discrepancy section, never merged silently.
+Rows marked **executed (emulated)** ran in the 8086 interpreter (`tools/original-rules/dos_combat.py`)
+and agree with the independent transcription `dos_combat_model.py` (`compare_combat.py`, 300 random
+cases, 0 mismatches, 2026-10-15; a deliberately wrong divisor fails it). That establishes the
+routine's arithmetic as written, not the running game's callers or inputs. A rule moves up only
+with a fixture or trace id recorded in its row. Conflicts between sources are listed in the discrepancy section, never merged silently.
 
 ## Baseline rules
 
@@ -39,9 +42,9 @@ its row. Conflicts between sources are listed in the discrepancy section, never 
 | Experience capped at 6 | static | `02dc:0a61–0abb` | high | R1 experience cases 0–6 |
 | Group size = type byte 3 (6, some 3) | static | `15a4:0071–0078` | high | R2 type table check |
 | Power by target domain (air/ground/water = bytes 10/11/12) | static | `2466:01c2–0217`, `032d–035e` | high | R1 domain cases |
-| Range penalty `P − trunc(3P(d−1)/(4R))` when R>1 | static | `2466:0220–02de` | medium | R1 distance 1…R |
+| Range penalty `P − trunc(3P(d−1)/(4R))` when R>1 | executed (emulated) | `2466:0220–02de` | medium | R1 distance 1…R |
 | Return fire suppressed: special flag, non-adjacent, mask mismatch, long-range defender | static | `2466:0045–00a4`, `0a22–0a68` | medium | R1 suppression cases |
-| Casualty routine draws no random number | static | `2466:03ff–0440`, `0660:0ce7–0cf0`, `0000:07ab` | high | R1: identical inputs, identical output |
+| Casualty routine draws no random number | executed (emulated: seed callback is a no-op, results deterministic) | `2466:03ff–0440`, `0660:0ce7–0cf0`, `0000:07ab` | high | R1: identical inputs, identical output |
 | Movement budget (byte 0) differs from displayed speed (byte 1) | static | `15a4:0009`, unit info | high | R2 budget fixtures |
 | Terrain: bytes 0–1 flags, 2 mask, 3 cost, 5 combat class | static | `10d2:13c0–13fc` | medium | R2 movement traces |
 | Repair costs 15 energy, 50 for construction units; cost independent of damage | static | `0660:3115–3209` | high | R4 repair fixture |
@@ -54,20 +57,21 @@ its row. Conflicts between sources are listed in the discrepancy section, never 
 
 | Topic | Binary | Other source | Validation route | State |
 |---|---|---|---|---|
-| Blocking | +80 per blocking neighbour, cap 150, applied to armour as a percentage (`02dc:275e–27ec`, `2466:03b3–03fc`) | Manual: each blocker adds one quarter | Controlled DOS battle with 0/1/2 blockers; emulated routine with `context.blocking` 0, 80, 150 | open |
-| Pincer sum | weights 25/50/100/50/25, zero for the attacker's direction, stored in 8 bits; the 300 cap is unreachable (`02dc:262a–2759`, table `32f7:0011`) | Manual describes support without numbers | Emulate the routine over `context.pincer` 0…255; controlled battles with 1–5 supporters | open |
-| Experience terms | divisor 256 for attack and attacker defence, 512 for defender defence (`2466:06c9`); denominator parameter clamps differ (attacker 1…7, defender 2/6 substitution) | Manual treats ranks symmetrically | Emulated cases over experience 0–6 for both sides, swapped roles | open |
+| Blocking | consumer executed (emulated); +80 per blocking neighbour, cap 150, applied to armour as a percentage (`02dc:275e–27ec`, `2466:03b3–03fc`) | Manual: each blocker adds one quarter | Controlled DOS battle with 0/1/2 blockers | open |
+| Pincer sum | the routine's consumer is executed (emulated) for any percentage 0–255; weights 25/50/100/50/25, zero for the attacker's direction, stored in 8 bits; the 300 cap is unreachable (`02dc:262a–2759`, table `32f7:0011`) | Manual describes support without numbers | Controlled battles to find how the percentage is formed; controlled battles with 1–5 supporters | open |
+| Experience terms | divisor 256 for attack and attacker defence, 512 for defender defence (`2466:06c9`); denominator parameter clamps differ (attacker 1…7, defender 2/6 substitution) | Manual treats ranks symmetrically | Already visible in the emulated routine (asymmetric terms); confirm with a swapped-role controlled battle | open |
 | Kill experience | gains and clamp at `02dc:0a61–0abb`; exact awards unextracted | Manual wording | Controlled kill and non-kill battles | open |
 | Ranged support | eligibility excludes long-range units (`02dc:293d–2997`); caller paths unseen | Manual | Controlled ranged battle with supporters | open |
 | Raw budget vs 2 × speed | budget byte 0 vs speed byte 1 (e.g. 16 vs 6, 8 vs 2, 4 vs 1) | Standard uses 2 × speed | R2 movement trace | open |
+| Fixed-point rounding | `adjust` truncates: 20 armour with 150% blocking gives 49 in the high word, not 50 (13107 × 150 stays just below 30.0) | none | recorded as a test (`test_combat_model.py`) | observed |
 | Python vs DOS damage | DOS has no random draw; Python adds one | `Classic` parity | none: both stay, separate profiles | accepted |
 
 ## Mechanic coverage for R1–R4
 
 | Mechanic | Phase | Status | Next evidence |
 |---|---|---|---|
-| Casualty resolution | R1 | static | emulator harness, then fixtures |
-| Terrain classes (9) | R1 | static | emulated class grid |
+| Casualty resolution | R1 | executed (emulated) | controlled DOS battles for callers and inputs; recorded fixtures |
+| Terrain classes (9) | R1 | executed (emulated, random classes) | name the classes; map terrain bytes |
 | Movement cost, road/rail/water | R2 | static (table only) | trace `0b06`, `10d2` |
 | Zone of control / adjacency | R2 | hypothesis | trace; do not choose stop vs cost before this |
 | Loading, exits, weights, nested cargo | R2 | static (counts only) | trace `10d2:17ce` |

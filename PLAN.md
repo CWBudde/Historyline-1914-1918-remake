@@ -323,27 +323,35 @@ The completed compatibility work below remains useful and stays completed.
       per season. Nine synthetic parser tests and repeated extraction checks pass. Original
       bytes/listings and complete exported tables stay in ignored `original/` and `build/`.
       This completes static extraction, not the combat oracle or full rules recovery.
-- [ ] Write a rules specification alongside `docs/research/original-dos-rules.md`, with each
+- [x] Write a rules specification alongside `docs/research/original-dos-rules.md`, with each
       rule's source/build/address or manual section, confidence, observed input/output cases
       and unresolved conflicts. Define rule/profile versions and the battle fixture schema.
       Keep unknown bytes raw; distinguish 51 records from 51 distinct named units.
-- [ ] Record the established baseline: experience cap six, type-specific group strength,
+      (2026-10-15) — `docs/research/original-dos-rule-spec.md`: versions (`dos-0.1`), evidence statuses,
+      baseline and discrepancy tables, `battle-fixture.schema.json` (checked by `test_fixture_schema.py`).
+- [x] Record the established baseline: experience cap six, type-specific group strength,
       air/ground/water power, 15/50 repair prices, separate movement budgets/displayed speed,
       and the traced seven-entry inventory structures. Verify full capacity semantics before
       replacing Python's 2 × 9 grid or building weight limits.
-- [ ] Maintain a discrepancy list: DOS blocking adds 80 per eligible neighbour capped at 150
+      (2026-10-15) — baseline table in the specification, one row per rule with address, status and route.
+- [x] Maintain a discrepancy list: DOS blocking adds 80 per eligible neighbour capped at 150
       versus the manual's quarter-strength description; pincer weights 25/50/100/50/25 and
       byte arithmetic; asymmetric experience terms; exact kill awards; ranged support rules.
       Do not silently simplify these or call them corrected until execution establishes them.
-- [ ] **Gate:** every planned original mechanic has an evidence status and validation route;
+      (2026-10-15) — seven rows with validation routes; adds the fixed-point truncation (`adjust(20, 150)` = 49).
+- [x] **Gate:** every planned original mechanic has an evidence status and validation route;
       the next battle fixtures can be reproduced against the identified executable.
+      (2026-10-15) — coverage table for R1–R4; `dos_combat.py` refuses an export from another build.
 
 #### R1 — Verify the DOS combat oracle
 
-- [ ] Execute casualty routine `2466:000e` in a 16-bit emulator/harness with MZ relocations,
+- [x] Execute casualty routine `2466:000e` in a 16-bit emulator/harness with MZ relocations,
       segmented battle pointers and Borland signed integer semantics. Compare both strength
       writebacks with an independently transcribed resolver. Keep private executable inputs
       outside CI; ordinary CI uses synthetic inputs and recorded numerical expectations.
+      (2026-10-15) — `emu8086.py` + `dos_combat.py` run the routine from the relocated image; 300 random cases
+      agree with the independent `dos_combat_model.py` (a wrong divisor is caught). Tests without the
+      original run with `unittest discover`; the comparison skips without the local export. Callers and real inputs remain open.
 - [ ] Cover group sizes, experience 0–6, air/ground/water targets, encoded range boundaries,
       all nine terrain modifier classes, pincer directions, blocking eligibility, conditional
       return fire, alternate strength, minimum losses, casualty caps and destruction. Preserve
