@@ -183,6 +183,8 @@ type State struct {
 	Human Player  // the side named by the level, which moves first
 	Turn  Player  // side to move
 	Round int
+
+	vision [3]vision // fog of war, indexed by Player
 }
 
 // At returns the hex at c, or nil when c is off the map.
@@ -258,6 +260,7 @@ func New(lv *level.Level, set *data.Set) (*State, error) {
 			s.Hexes[i][col] = h
 		}
 	}
+	s.updateVision()
 	return s, nil
 }
 
