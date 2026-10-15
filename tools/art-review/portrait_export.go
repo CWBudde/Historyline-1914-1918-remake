@@ -14,6 +14,7 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 type portraitReport struct {
@@ -49,6 +50,10 @@ type portraitBundle struct {
 
 func buildPortraitBundle(in portraitInputs) (portraitBundle, error) {
 	family := in.Manifest.Family
+	definition, err := lookupUnitFamily(family)
+	if err != nil {
+		return portraitBundle{}, err
+	}
 	profile, label := "portrait-infantry-v1", "infantry"
 	classes := []string{"CP_infantry", "EC_infantry"}
 	acceptance := "Provisional offline candidate. No runtime installation, original-game similarity target, native 96x77 resource alias binding, full UI acceptance, or whole graphics acceptance."
@@ -61,6 +66,16 @@ func buildPortraitBundle(in portraitInputs) (portraitBundle, error) {
 		profile, label = "portrait-elite-infantry-v1", "elite-infantry"
 		classes = []string{"CP_eliteInf", "EC_eliteInf"}
 		acceptance = "Provisional offline candidate. User requests approximately 90% visual resemblance after Lanczos reduction to the 210x188 repository reference size; this is a visual review target, not a measured similarity score. No runtime installation, native 96x77 resource alias binding, full UI acceptance, or whole graphics acceptance."
+	}
+	if family != "infantry" && family != "lightArtillery" && family != "eliteInfantry" {
+		profile = strings.SplitN(definition.profile, ":", 2)[0]
+		profile = strings.Replace(profile, "unit-", "portrait-", 1)
+		label, classes = definition.subject, definition.classIDs
+		acceptance = "Provisional offline candidate. Approximately 90% resemblance after Lanczos reduction to the repository reference size is a visual target, not a measured score. Native mapping, runtime integration and visual acceptance remain open."
+	}
+	binding := "bound only to"
+	if family == "infantry" || family == "lightArtillery" || family == "eliteInfantry" {
+		binding = "shared only by"
 	}
 	b := portraitBundle{report: portraitReport{
 		SchemaVersion:     1,
@@ -79,7 +94,7 @@ func buildPortraitBundle(in portraitInputs) (portraitBundle, error) {
 		CropPolicy:        "Largest exact 105*k by 94*k rectangle, k=min(source_width/105,source_height/94) using integer division; k>=8. Center with floor offsets, discarding odd extra pixels on right/bottom. Copy crop without resampling to a zero-based NRGBA image before filtering; no stretch or upscaling.",
 		Resampling:        "Unchanged resizeLanczos: antialiased premultiplied byte-RGB Lanczos3 with signed lobes, retained support normalized at edges, output-only half-up byte rounding and alpha/color clamping. Fixed chain cropped source -> 4x 840x752 -> 2x 420x376 -> 1x 210x188; no quantized upsampling.",
 		Opacity:           "Every decoded source pixel must have alpha 255, including discarded overscan; all exports remain opaque. No alpha editing, background flattening, or magenta key treatment.",
-		Semantics:         fmt.Sprintf("One owner-neutral illustrated %s portrait shared only by %s and %s. No faction recolouring, moved/spent grayscale, flags, text, frame, icons, or UI baked into this illustration. Source is the opaque art target, not a faction mask.", label, classes[0], classes[1]),
+		Semantics:         fmt.Sprintf("One owner-neutral illustrated %s portrait %s %s. No faction recolouring, moved/spent grayscale, flags, text, frame, icons, or UI baked into this illustration. Source is the opaque art target, not a faction mask.", label, binding, strings.Join(classes, " and ")),
 		Acceptance:        acceptance,
 		CandidatePNGCount: 3,
 		PhysicalPNGCount:  4,

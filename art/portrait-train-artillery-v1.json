@@ -1,0 +1,8 @@
+{
+  "family": "trainArtillery",
+  "schema_version": 1,
+  "source": {
+    "source": "source/portraits/reference-v1/train-artillery-01.png",
+    "source_sha256": "f04633fd52b2eae9a860f02148684b72a78ec50274ab71680c4e75c8c8b77435"
+  }
+}

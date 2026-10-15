@@ -1,0 +1,8 @@
+{
+  "family": "cavalry",
+  "schema_version": 1,
+  "source": {
+    "source": "source/portraits/reference-v1/cavalry-01.png",
+    "source_sha256": "d3cab5fb792540627f5bb6ea971c2740ea391f8198db3202c6a75df923d45716"
+  }
+}

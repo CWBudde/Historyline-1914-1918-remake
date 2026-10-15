@@ -30,6 +30,18 @@ func TestUnitActualPNGBundle(t *testing.T) {
 		{"infantry", []string{"CP_infantry", "EC_infantry"}, "Infantry"},
 		{"lightArtillery", []string{"CP_lArtillery", "EC_lArtillery"}, "Light artillery"},
 		{"eliteInfantry", []string{"CP_eliteInf", "EC_eliteInf"}, "Elite infantry"},
+		{"cavalry", []string{"CP_cavalry", "EC_cavalry"}, "Cavalry"},
+		{"mediumArtillery", []string{"CP_mArtillery", "EC_mArtillery"}, "Medium artillery"},
+		{"heavyArtillery", []string{"CP_hArtillery", "EC_hArtillery"}, "Heavy artillery"},
+		{"supplyCar", []string{"CP_supplyCar", "EC_supplyCar"}, "Supply car"},
+		{"bunker", []string{"CP_bunker", "EC_bunker"}, "Bunker"},
+		{"armoredCar", []string{"CP_armCar"}, "Armoured car"},
+		{"charron", []string{"EC_charron"}, "Charron"},
+		{"patrolBoat", []string{"CP_patrolBoat", "EC_patrolBoat"}, "Patrol boat"},
+		{"transportTrain", []string{"CP_transTrain"}, "Transport train"},
+		{"armoredTrain", []string{"CP_armTrain", "EC_armTrain"}, "Armoured train"},
+		{"trainArtillery", []string{"CP_trainArt", "EC_trainArt"}, "Artillery train"},
+		{"sappers", []string{"CP_sappers", "EC_sappers"}, "Sappers"},
 	} {
 		t.Run(tc.family, func(t *testing.T) {
 			unitTestActualFamilyPNGBundle(t, tc.family, tc.classes, tc.title)
@@ -58,7 +70,14 @@ func unitTestActualFamilyPNGBundle(t *testing.T, family string, classes []string
 	if family == "eliteInfantry" {
 		profilePrefix = "unit-elite-infantry-v1:"
 	}
-	if r.Family != family || !reflect.DeepEqual(r.ClassIDs, classes) || !strings.HasPrefix(r.Profile, profilePrefix) || !strings.Contains(r.Profile, classes[0]+" and "+classes[1]) || !strings.Contains(r.PaletteSelector, "independent of class ID/country") {
+	if family != "infantry" && family != "lightArtillery" && family != "eliteInfantry" {
+		definition, err := lookupUnitFamily(family)
+		if err != nil {
+			t.Fatal(err)
+		}
+		profilePrefix = strings.SplitN(definition.profile, ":", 2)[0] + ":"
+	}
+	if r.Family != family || !reflect.DeepEqual(r.ClassIDs, classes) || !strings.HasPrefix(r.Profile, profilePrefix) || !strings.Contains(r.Profile, strings.Join(classes, " and ")) || !strings.Contains(r.PaletteSelector, "independent of class ID/country") {
 		t.Fatal("family report metadata", r.Family, r.ClassIDs, r.Profile, r.PaletteSelector)
 	}
 	ownerPalettes := map[string][]int{"cp": {104, 142, 83}, "ec": {190, 143, 92}, "neutral": {146, 146, 146}}
@@ -305,14 +324,14 @@ func unitTestActualFamilyPNGBundle(t *testing.T, family string, classes []string
 			// in the ordinary-Over reconstruction below.
 			spriteName := fmt.Sprintf("sprites/%s/%s/%s-%s-%dx.png", family, palettes[i], faceLabels[i], s.State, d)
 			canonicalSprite, exists := canonicalOutputs[spriteName]
-			if !exists || c.SpriteInput != canonicalSprite || c.SpriteInput.Path != spriteName || c.GroundInput != canonicalGrounds[ground+fmt.Sprintf("%dx", d)] || c.Family != family || c.RuntimeID != classes[classIndices[i]] || c.Palette != palettes[i] || c.FacingLabel != faceLabels[i] {
+			if !exists || c.SpriteInput != canonicalSprite || c.SpriteInput.Path != spriteName || c.GroundInput != canonicalGrounds[ground+fmt.Sprintf("%dx", d)] || c.Family != family || c.RuntimeID != classes[min(classIndices[i], len(classes)-1)] || c.Palette != palettes[i] || c.FacingLabel != faceLabels[i] {
 				t.Fatalf("scene family selection or nested pins %s %s: %+v", s.ID, c.Label, c)
 			}
 			im := unitTestLoad(t, filepath.Join(out, c.GroundInput.RetainedSource))
 			at := image.Pt((ox-cx+71)*d, (oy-cy+89)*d)
 			draw.Draw(want, im.Bounds().Add(at), im, image.Point{}, draw.Over)
 		}
-		if s.Cells[1].RuntimeID != classes[0] || s.Cells[1].Palette != "ec" || s.Cells[5].RuntimeID != classes[1] || s.Cells[5].Palette != "cp" || s.Cells[0].Palette != "neutral" {
+		if s.Cells[1].RuntimeID != classes[0] || s.Cells[1].Palette != "ec" || s.Cells[5].RuntimeID != classes[len(classes)-1] || s.Cells[5].Palette != "cp" || s.Cells[0].Palette != "neutral" {
 			t.Fatal("captured owner independent of class")
 		}
 		cells := append([]unitSceneCell(nil), s.Cells...)

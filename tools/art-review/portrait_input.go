@@ -36,8 +36,11 @@ func decodePortraitManifest(b []byte, m *portraitManifest) error {
 	if _, err = unitObject(root["source"], "source", "source_sha256"); err != nil {
 		return err
 	}
-	if m.SchemaVersion != 1 || (m.Family != "infantry" && m.Family != "lightArtillery" && m.Family != "eliteInfantry") {
-		return errors.New("portrait requires schema_version 1 and canonical family infantry, lightArtillery or eliteInfantry")
+	if m.SchemaVersion != 1 {
+		return errors.New("portrait requires schema_version 1")
+	}
+	if _, err := lookupUnitFamily(m.Family); err != nil {
+		return err
 	}
 	return nil
 }

@@ -20,6 +20,13 @@ elite-infantry machine-gun team. Its separate six-view atlas and portrait are
 recorded in [the elite-infantry contract](elite-infantry-contract.md).
 Previously delivered families retain their recorded briefs.
 
+The remaining twelve runtime unit families follow the same painted/reference-guided
+brief. Their portraits preserve repository composition without the old UI frame;
+their separate six-view tactical atlases preserve family identity and use the
+existing recolour/Lanczos pipeline. See the [family review index](remaining-unit-families-review.html)
+and [delivery contract](remaining-unit-families-contract.md). The approximately
+90% target remains a visual review gate, with no measured similarity claim.
+
 The current [new-source manifest](../../art/terrain-distinct-v1.json) contains
 27 semantic/material candidates. The connected and mixed builders deliver all 74
 enabled infrastructure variants and a grass base. Browse the [source gallery](distinct-terrain-review.html).

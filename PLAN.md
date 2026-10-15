@@ -15,7 +15,7 @@ while inventing the artwork, palette and surface composition. Use independent ar
 periodically. Finish graphics coverage, then continue Phase 2 (playable Ebitengine UI).
 
 **Latest asset-specific instruction (2026-10-15):** for the continuing Phase 2.2 work,
-including the light-artillery portrait and elite-infantry family, use the established painted style and target approximately
+including all continuing unit portraits and sprites, use the established painted style and target approximately
 90% visual resemblance to its reference after Lanczos reduction to the original size.
 This overrides the distinct-composition brief for those assets; visual approval is
 separate from reproducible exports and is not a computed similarity percentage.
@@ -318,8 +318,9 @@ The enabled roster uses **15 shared visual families across 27 unit IDs**. Tactic
 deliveries need six authored facings, CP/EC/neutral ownership palettes, normal/spent
 states and 2×/4× exports. Portraits are separate artwork. Evidence:
 `docs/art/runtime-unit-coverage.csv`, batches 19–21 and their sprite/portrait contracts.
-Six unit IDs have sprite candidates and six have portrait candidates; **21 sprite
-bindings and 21 portrait bindings remain missing**.
+All 27 unit IDs now have sprite and portrait candidates across the 15 shared
+families. **No enabled runtime unit binding still needs an image association**;
+visual approval, native-resource correspondence and runtime acceptance remain open.
 
 - [x] Infantry tactical sprites — `CP_infantry`, `EC_infantry` (`f2127e6`).
 - [x] Light-artillery tactical sprites — `CP_lArtillery`, `EC_lArtillery` (`e894cb0`).
@@ -337,18 +338,29 @@ bindings and 21 portrait bindings remain missing**.
       registration, palette/state and portrait tests, vet and lint pass; complete
       134-file sprite and seven-file portrait builds repeat byte-for-byte.
       Visual approval, native correspondence and runtime acceptance remain open.
-- [ ] Cavalry — tactical sprites and portraits for both sides.
-- [ ] Medium artillery — tactical sprites and portraits for both sides.
-- [ ] Heavy artillery — tactical sprites and portraits for both sides.
-- [ ] Supply car — tactical sprites and portraits for both sides.
-- [ ] Bunker — tactical sprites and portraits for both sides.
-- [ ] Armoured car — tactical sprites and portrait for `CP_armCar`.
-- [ ] Charron — tactical sprites and portrait for `EC_charron`.
-- [ ] Patrol boat — tactical sprites and portraits for both sides, including editor-only use.
-- [ ] Transport train — tactical sprites and portrait for `CP_transTrain`.
-- [ ] Armoured train — tactical sprites and portraits for both sides.
-- [ ] Artillery train — tactical sprites and portraits for both sides, including editor-only use.
-- [ ] Sappers — tactical sprites and portraits for both sides.
+- [x] Cavalry — six-view tactical candidates and shared portrait for both sides.
+- [x] Medium artillery — six-view tactical candidates and shared portrait for both sides.
+- [x] Heavy artillery — six-view tactical candidates and shared portrait for both sides.
+- [x] Supply car — six-view tactical candidates and shared portrait for both sides.
+- [x] Bunker — six-view tactical candidates and shared portrait for both sides.
+- [x] Armoured car — six-view tactical candidates and portrait for `CP_armCar`.
+- [x] Charron — six-view tactical candidates and portrait for `EC_charron`.
+- [x] Patrol boat — six-view tactical candidates and shared portrait for both sides, including editor-only use.
+- [x] Transport train — six-view tactical candidates and portrait for `CP_transTrain`.
+- [x] Armoured train — six-view tactical candidates and shared portrait for both sides.
+- [x] Artillery train — six-view tactical candidates and shared portrait for both sides, including editor-only use.
+- [x] Sappers — six-view tactical candidates and shared portrait for both sides.
+
+The twelve-family continuation retains 24 generated masters and exact prompts,
+24 manifests/export recipes and 1,524 candidate PNGs. Every family has six
+facings, CP/EC/neutral palettes, normal/spent states, 2×/4× tactical exports and
+1×/2×/4× Lanczos3 portraits. All 134-file tactical and seven-file portrait bundles
+repeat byte-for-byte. Fifteen-family saved-PNG tests, single-class bindings,
+focused regression tests, vet and lint pass. See
+`docs/art/remaining-unit-families-review.html` and its contract. Reference links
+follow the in-progress `legacy/python/gfx/` rearrangement. These checkboxes close
+offline candidate delivery; approximately 90% resemblance, anatomy/mechanics,
+native facing/contact mapping, Blender comparison and runtime approval stay open.
 
 ##### Interface, markers and effects still needed
 
@@ -1548,8 +1560,10 @@ pilot has live text, new vector frame/icons and the existing new portrait/tactic
 see tools/unit-panel/README.md and docs/art/unit-panel-contract.md. Do not mark delivery
 or runtime acceptance complete while final assets, gallery and commit remain pending.
 Then finish G0.9/G0.10's native correspondence and assembled-map/context checks, compare the
-six-direction authoring method with the planned Blender pilot, and extend the missing unit
-and portrait families. The infantry portrait has reviewed logical/2×/4× candidates; see
+six-direction authoring method with the planned Blender pilot, and review the complete unit
+and portrait candidates in `docs/art/remaining-unit-families-review.html`.
+All 15 enabled unit families now have offline candidates; runtime integration remains open.
+The infantry portrait has reviewed logical/2×/4× candidates; see
 docs/art/distinct-portraits-batch-21.md. Infantry and light artillery now
 have six authored views and reproducible ownership/state candidates at both densities; see
 `docs/art/distinct-units-batch-19.md` and `docs/art/distinct-units-batch-20.md`. The shared
@@ -1558,7 +1572,7 @@ and movement still need in-engine review.
 Verify facing, faction and anchor contracts before extending directional art across units;
 compare authored sprites with a Blender pilot as G3 requires. Keep original pixels and close
 reconstructions out of generation/export inputs except for the explicitly requested
-reference-guided light-artillery portrait and elite-infantry family; see their contracts
+reference-guided continuing unit portraits and sprite families; see their contracts
 and the latest brief above.
 Continue the separate native-resource mapping
 and G1 assembled-map/context workbench; built enabled-terrain associations do not close those gates.
@@ -1599,8 +1613,8 @@ The runtime ledger has
 134 associated IDs (zero source candidates, 134 built candidates), no enabled ID without an image association
 and zero accepted replacements.
 The separate `docs/art/runtime-unit-coverage.csv` tracks all 27 actual unit IDs and their
-15 shared icon families: six infantry/elite-infantry/light-artillery IDs have built candidates, 21 still need map sprites,
-six infantry/elite-infantry/light-artillery portrait associations have built candidates, 21 portraits still need images,
+15 shared icon families: all 27 IDs have built sprite candidates and portrait associations,
+zero enabled runtime unit bindings still need images,
 and no unit replacement is runtime-accepted. It includes all
 24 IDs used across the three current campaign levels and their stored units. These runtime
 bindings do not replace the native 306-map-sprite and 49-illustration mapping obligation.

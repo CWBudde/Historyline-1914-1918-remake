@@ -315,14 +315,14 @@ func (b *unitBundle) buildScenes(in unitInputs) error {
 							runtimeID = b.report.ClassIDs[0]
 							if (i-1)%2 == 1 {
 								palette = "ec"
-								runtimeID = b.report.ClassIDs[1]
+								runtimeID = b.report.ClassIDs[len(b.report.ClassIDs)-1]
 							}
 						}
 						if label == "NE" {
 							runtimeID, palette = b.report.ClassIDs[0], "ec"
 						}
 						if label == "NW" {
-							runtimeID, palette = b.report.ClassIDs[1], "cp"
+							runtimeID, palette = b.report.ClassIDs[len(b.report.ClassIDs)-1], "cp"
 						}
 						face := facings[i]
 						src := unitSpriteName(b.report.Family, palette, unitFaces[face], state, d)

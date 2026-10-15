@@ -27,7 +27,7 @@
 // -ground builds five context-aware ground materials and fixed seasonal patches.
 // -forest builds bounded whole-crown seasonal forest contexts and fixed patches.
 // -hills builds bounded summer height-derived relief contexts and fixed patches.
-// -unit builds the bounded six-facing infantry/lightArtillery/eliteInfantry pilots and actual PNG terrain fixtures.
+// -unit builds the canonical runtime unit families and actual PNG terrain fixtures.
 package main
 
 import (
@@ -105,8 +105,8 @@ func run(args []string, log io.Writer) error {
 	forestPath := fs.String("forest", "", "bounded whole-crown seasonal forest manifest; requires fresh -out")
 	hillsPath := fs.String("hills", "", "bounded summer height-derived hills manifest; requires fresh -out")
 	shorePath := fs.String("shore", "", "bounded new-material summer shoreline manifest; requires fresh -out")
-	unitPath := fs.String("unit", "", "bounded six-facing infantry, lightArtillery or eliteInfantry pilot manifest; requires fresh -out")
-	portraitPath := fs.String("portrait", "", "bounded opaque infantry/lightArtillery/eliteInfantry portrait manifest; requires fresh -out")
+	unitPath := fs.String("unit", "", "six-facing canonical runtime unit family manifest; requires fresh -out")
+	portraitPath := fs.String("portrait", "", "opaque canonical runtime unit family portrait manifest; requires fresh -out")
 	packPath := fs.String("pack", "", "candidate-only JSON pack manifest; fixed Lanczos3 rectangle exports, requires fresh -out")
 	candidatePath := fs.String("candidate", "", "candidate PNG, at least 4x reference dimensions and aspect within 1%")
 	resampling := fs.String("resampling", "area", "single-sprite reduction: area, bilinear (antialiased tent), or lanczos (antialiased Lanczos3); excluded by -neighborhood")

@@ -107,7 +107,7 @@ func TestUnitFamilySelection(t *testing.T) {
 			b := bytes.Replace(valid, []byte(`"family":"infantry"`), []byte(fmt.Sprintf(`"family":%q`, family)), 1)
 			unitTestWrite(t, path, b)
 			in, err := loadUnitInputs(path)
-			wantValid := family == "infantry" || family == "lightArtillery" || family == "eliteInfantry"
+			wantValid := family == "infantry" || family == "lightArtillery" || family == "eliteInfantry" || family == "mediumArtillery" || family == "heavyArtillery"
 			if (err == nil) != wantValid {
 				t.Fatalf("family %q: err=%v, want valid=%v", family, err, wantValid)
 			}

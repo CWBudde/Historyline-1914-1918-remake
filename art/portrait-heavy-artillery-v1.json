@@ -1,0 +1,8 @@
+{
+  "family": "heavyArtillery",
+  "schema_version": 1,
+  "source": {
+    "source": "source/portraits/reference-v1/heavy-artillery-01.png",
+    "source_sha256": "65b0c38d4276107159bafee6fb1da7b4db49363d688878d538daf795cf274078"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "family": "charron",
+  "schema_version": 1,
+  "source": {
+    "source": "source/portraits/reference-v1/charron-01.png",
+    "source_sha256": "07069f2d56a6031f07be9807bf72f198dddbadca52bf2997d37ed16480d62dd5"
+  }
+}

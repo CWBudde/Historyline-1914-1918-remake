@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-// The bounded pilot supports the explicit runtime families below. Owner palette
+// The exporter supports the explicit runtime families below. Owner palette
 // selection and all image geometry/filtering remain shared between them.
 type unitFamily struct {
 	name            string
@@ -41,7 +41,103 @@ func lookupUnitFamily(name string) (unitFamily, error) {
 			acceptance:      strings.ReplaceAll(unitAcceptance, "PROVISIONAL infantry", "PROVISIONAL elite infantry machine-gun team"),
 			title:           "Elite infantry", subject: "elite infantry machine-gun team",
 		}, nil
+	case "cavalry":
+		return unitFamily{
+			name: name, classIDs: []string{"CP_cavalry", "EC_cavalry"},
+			paletteSelector: "Owner palette is independent of class ID/country, including captured cavalry; no other family aliases.",
+			profile:         "unit-cavalry-v1: six authored square panels row-major N,NW,SW,S,SE,NE; class family lookup CP_cavalry and EC_cavalry independently selects owner cp/ec/neutral. " + unitAlgorithmProfile,
+			acceptance:      strings.NewReplacer("PROVISIONAL infantry", "PROVISIONAL cavalry", "physical boot pivot", "physical subject pivot").Replace(unitAcceptance),
+			title:           "Cavalry", subject: "cavalry",
+		}, nil
+	case "mediumArtillery":
+		return unitFamily{
+			name: name, classIDs: []string{"CP_mArtillery", "EC_mArtillery"},
+			paletteSelector: "Owner palette is independent of class ID/country, including captured medium artillery; no other family aliases.",
+			profile:         "unit-medium-artillery-v1: six authored square panels row-major N,NW,SW,S,SE,NE; class family lookup CP_mArtillery and EC_mArtillery independently selects owner cp/ec/neutral. " + unitAlgorithmProfile,
+			acceptance:      strings.NewReplacer("PROVISIONAL infantry", "PROVISIONAL medium artillery", "physical boot pivot", "physical subject pivot").Replace(unitAcceptance),
+			title:           "Medium artillery", subject: "medium artillery",
+		}, nil
+	case "heavyArtillery":
+		return unitFamily{
+			name: name, classIDs: []string{"CP_hArtillery", "EC_hArtillery"},
+			paletteSelector: "Owner palette is independent of class ID/country, including captured heavy artillery; no other family aliases.",
+			profile:         "unit-heavy-artillery-v1: six authored square panels row-major N,NW,SW,S,SE,NE; class family lookup CP_hArtillery and EC_hArtillery independently selects owner cp/ec/neutral. " + unitAlgorithmProfile,
+			acceptance:      strings.NewReplacer("PROVISIONAL infantry", "PROVISIONAL heavy artillery", "physical boot pivot", "physical subject pivot").Replace(unitAcceptance),
+			title:           "Heavy artillery", subject: "heavy artillery",
+		}, nil
+	case "supplyCar":
+		return unitFamily{
+			name: name, classIDs: []string{"CP_supplyCar", "EC_supplyCar"},
+			paletteSelector: "Owner palette is independent of class ID/country, including captured supply car; no other family aliases.",
+			profile:         "unit-supply-car-v1: six authored square panels row-major N,NW,SW,S,SE,NE; class family lookup CP_supplyCar and EC_supplyCar independently selects owner cp/ec/neutral. " + unitAlgorithmProfile,
+			acceptance:      strings.NewReplacer("PROVISIONAL infantry", "PROVISIONAL supply car", "physical boot pivot", "physical subject pivot").Replace(unitAcceptance),
+			title:           "Supply car", subject: "supply car",
+		}, nil
+	case "bunker":
+		return unitFamily{
+			name: name, classIDs: []string{"CP_bunker", "EC_bunker"},
+			paletteSelector: "Owner palette is independent of class ID/country, including captured bunker; no other family aliases.",
+			profile:         "unit-bunker-v1: six authored square panels row-major N,NW,SW,S,SE,NE; class family lookup CP_bunker and EC_bunker independently selects owner cp/ec/neutral. " + unitAlgorithmProfile,
+			acceptance:      strings.NewReplacer("PROVISIONAL infantry", "PROVISIONAL bunker", "physical boot pivot", "physical subject pivot").Replace(unitAcceptance),
+			title:           "Bunker", subject: "bunker",
+		}, nil
+	case "armoredCar":
+		return unitFamily{
+			name: name, classIDs: []string{"CP_armCar"},
+			paletteSelector: "Owner palette is independent of class ID/country, including captured armoured car; no other family aliases.",
+			profile:         "unit-armored-car-v1: six authored square panels row-major N,NW,SW,S,SE,NE; class family lookup CP_armCar independently selects owner cp/ec/neutral. " + unitAlgorithmProfile,
+			acceptance:      strings.NewReplacer("PROVISIONAL infantry", "PROVISIONAL armoured car", "physical boot pivot", "physical subject pivot").Replace(unitAcceptance),
+			title:           "Armoured car", subject: "armoured car",
+		}, nil
+	case "charron":
+		return unitFamily{
+			name: name, classIDs: []string{"EC_charron"},
+			paletteSelector: "Owner palette is independent of class ID/country, including captured charron; no other family aliases.",
+			profile:         "unit-charron-v1: six authored square panels row-major N,NW,SW,S,SE,NE; class family lookup EC_charron independently selects owner cp/ec/neutral. " + unitAlgorithmProfile,
+			acceptance:      strings.NewReplacer("PROVISIONAL infantry", "PROVISIONAL charron", "physical boot pivot", "physical subject pivot").Replace(unitAcceptance),
+			title:           "Charron", subject: "charron",
+		}, nil
+	case "patrolBoat":
+		return unitFamily{
+			name: name, classIDs: []string{"CP_patrolBoat", "EC_patrolBoat"},
+			paletteSelector: "Owner palette is independent of class ID/country, including captured patrol boat; no other family aliases.",
+			profile:         "unit-patrol-boat-v1: six authored square panels row-major N,NW,SW,S,SE,NE; class family lookup CP_patrolBoat and EC_patrolBoat independently selects owner cp/ec/neutral. " + unitAlgorithmProfile,
+			acceptance:      strings.NewReplacer("PROVISIONAL infantry", "PROVISIONAL patrol boat", "physical boot pivot", "physical subject pivot").Replace(unitAcceptance),
+			title:           "Patrol boat", subject: "patrol boat",
+		}, nil
+	case "transportTrain":
+		return unitFamily{
+			name: name, classIDs: []string{"CP_transTrain"},
+			paletteSelector: "Owner palette is independent of class ID/country, including captured transport train; no other family aliases.",
+			profile:         "unit-transport-train-v1: six authored square panels row-major N,NW,SW,S,SE,NE; class family lookup CP_transTrain independently selects owner cp/ec/neutral. " + unitAlgorithmProfile,
+			acceptance:      strings.NewReplacer("PROVISIONAL infantry", "PROVISIONAL transport train", "physical boot pivot", "physical subject pivot").Replace(unitAcceptance),
+			title:           "Transport train", subject: "transport train",
+		}, nil
+	case "armoredTrain":
+		return unitFamily{
+			name: name, classIDs: []string{"CP_armTrain", "EC_armTrain"},
+			paletteSelector: "Owner palette is independent of class ID/country, including captured armoured train; no other family aliases.",
+			profile:         "unit-armored-train-v1: six authored square panels row-major N,NW,SW,S,SE,NE; class family lookup CP_armTrain and EC_armTrain independently selects owner cp/ec/neutral. " + unitAlgorithmProfile,
+			acceptance:      strings.NewReplacer("PROVISIONAL infantry", "PROVISIONAL armoured train", "physical boot pivot", "physical subject pivot").Replace(unitAcceptance),
+			title:           "Armoured train", subject: "armoured train",
+		}, nil
+	case "trainArtillery":
+		return unitFamily{
+			name: name, classIDs: []string{"CP_trainArt", "EC_trainArt"},
+			paletteSelector: "Owner palette is independent of class ID/country, including captured artillery train; no other family aliases.",
+			profile:         "unit-train-artillery-v1: six authored square panels row-major N,NW,SW,S,SE,NE; class family lookup CP_trainArt and EC_trainArt independently selects owner cp/ec/neutral. " + unitAlgorithmProfile,
+			acceptance:      strings.NewReplacer("PROVISIONAL infantry", "PROVISIONAL artillery train", "physical boot pivot", "physical subject pivot").Replace(unitAcceptance),
+			title:           "Artillery train", subject: "artillery train",
+		}, nil
+	case "sappers":
+		return unitFamily{
+			name: name, classIDs: []string{"CP_sappers", "EC_sappers"},
+			paletteSelector: "Owner palette is independent of class ID/country, including captured sappers; no other family aliases.",
+			profile:         "unit-sappers-v1: six authored square panels row-major N,NW,SW,S,SE,NE; class family lookup CP_sappers and EC_sappers independently selects owner cp/ec/neutral. " + unitAlgorithmProfile,
+			acceptance:      strings.NewReplacer("PROVISIONAL infantry", "PROVISIONAL sappers", "physical boot pivot", "physical subject pivot").Replace(unitAcceptance),
+			title:           "Sappers", subject: "sappers",
+		}, nil
 	default:
-		return unitFamily{}, fmt.Errorf("unit family %q must be infantry, lightArtillery or eliteInfantry", name)
+		return unitFamily{}, fmt.Errorf("unit family %q must name a canonical runtime graphics family", name)
 	}
 }

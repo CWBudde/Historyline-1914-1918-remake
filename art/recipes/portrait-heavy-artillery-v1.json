@@ -1,0 +1,107 @@
+{
+  "bundle_report": {
+    "acceptance": "Provisional offline candidate. Approximately 90% resemblance after Lanczos reduction to the repository reference size is a visual target, not a measured score. Native mapping, runtime integration and visual acceptance remain open.",
+    "candidate_png_count": 3,
+    "classes": [
+      "CP_hArtillery",
+      "EC_hArtillery"
+    ],
+    "crop_policy": "Largest exact 105*k by 94*k rectangle, k=min(source_width/105,source_height/94) using integer division; k\u003e=8. Center with floor offsets, discarding odd extra pixels on right/bottom. Copy crop without resampling to a zero-based NRGBA image before filtering; no stretch or upscaling.",
+    "crop_rectangle": {
+      "height": 1128,
+      "width": 1260,
+      "x": 33,
+      "y": 29
+    },
+    "family": "heavyArtillery",
+    "logical_dimensions": {
+      "height": 188,
+      "width": 210
+    },
+    "manifest_sha256": "76d765a5603daa2aedc6294a0768b3badcb44e76c21c3bf0812dddef2bf66c06",
+    "manifest_snapshot": "manifest.json",
+    "opacity": "Every decoded source pixel must have alpha 255, including discarded overscan; all exports remain opaque. No alpha editing, background flattening, or magenta key treatment.",
+    "outputs": [
+      {
+        "dimensions": {
+          "height": 752,
+          "width": 840
+        },
+        "path": "heavyArtillery-4x.png",
+        "sha256": "0a1a5c6e594ff74badd2f5de6b41457568b5e574dcca1a5c0b9a8f0eb8c5064e"
+      },
+      {
+        "dimensions": {
+          "height": 376,
+          "width": 420
+        },
+        "path": "heavyArtillery-2x.png",
+        "sha256": "027216042aa1370486eb563ec8f2e76965bb258973ac7773cc16fb7cd5fb89a2"
+      },
+      {
+        "dimensions": {
+          "height": 188,
+          "width": 210
+        },
+        "path": "heavyArtillery-1x.png",
+        "sha256": "f25de6769cad17ba00b696754ef9b2c55fd5ac98360792c02e85bbb762a0c141"
+      }
+    ],
+    "physical_png_count": 4,
+    "profile": "portrait-heavy-artillery-v1",
+    "resampling": "Unchanged resizeLanczos: antialiased premultiplied byte-RGB Lanczos3 with signed lobes, retained support normalized at edges, output-only half-up byte rounding and alpha/color clamping. Fixed chain cropped source -\u003e 4x 840x752 -\u003e 2x 420x376 -\u003e 1x 210x188; no quantized upsampling.",
+    "schema_version": 1,
+    "semantics": "One owner-neutral illustrated heavy artillery portrait bound only to CP_hArtillery and EC_hArtillery. No faction recolouring, moved/spent grayscale, flags, text, frame, icons, or UI baked into this illustration. Source is the opaque art target, not a faction mask.",
+    "source": {
+      "dimensions": {
+        "height": 1187,
+        "width": 1326
+      },
+      "retained_source": "heavyArtillery-source.png",
+      "source": "source/portraits/reference-v1/heavy-artillery-01.png",
+      "source_sha256": "65b0c38d4276107159bafee6fb1da7b4db49363d688878d538daf795cf274078"
+    },
+    "total_file_count": 7
+  },
+  "date": "2026-10-15",
+  "exports": [
+    {
+      "build_output": "heavyArtillery-4x.png",
+      "dimensions": {
+        "height": 752,
+        "width": 840
+      },
+      "path": "art/exports/portrait-heavy-artillery-v1/heavyArtillery-4x.png",
+      "sha256": "0a1a5c6e594ff74badd2f5de6b41457568b5e574dcca1a5c0b9a8f0eb8c5064e"
+    },
+    {
+      "build_output": "heavyArtillery-2x.png",
+      "dimensions": {
+        "height": 376,
+        "width": 420
+      },
+      "path": "art/exports/portrait-heavy-artillery-v1/heavyArtillery-2x.png",
+      "sha256": "027216042aa1370486eb563ec8f2e76965bb258973ac7773cc16fb7cd5fb89a2"
+    },
+    {
+      "build_output": "heavyArtillery-1x.png",
+      "dimensions": {
+        "height": 188,
+        "width": 210
+      },
+      "path": "art/exports/portrait-heavy-artillery-v1/heavyArtillery-1x.png",
+      "sha256": "f25de6769cad17ba00b696754ef9b2c55fd5ac98360792c02e85bbb762a0c141"
+    }
+  ],
+  "generation_recipes": [
+    "art/recipes/portraits/reference-v1/heavy-artillery-01.json"
+  ],
+  "id": "portrait-heavy-artillery-v1",
+  "manifest": "art/portrait-heavy-artillery-v1.json",
+  "manifest_sha256": "76d765a5603daa2aedc6294a0768b3badcb44e76c21c3bf0812dddef2bf66c06",
+  "repeat_file_count": 7,
+  "runtime_acceptance": "PENDING. Offline candidate only; reference resemblance, directions and physical pivot need visual review; native mapping and runtime integration remain open.",
+  "schema_version": 1,
+  "status": "candidate-built",
+  "tool": "Go tools/art-review -portrait"
+}
