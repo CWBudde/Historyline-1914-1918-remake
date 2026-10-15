@@ -1,0 +1,19 @@
+{
+  "grounds": {
+    "shared": {
+      "source": "source/terrain/distinct-v1/water-open.png",
+      "source_sha256": "0b080163804881ac49bc4b3162da547abf443c9082d6e67065c119174d79b51d"
+    }
+  },
+  "scenes": [
+    {
+      "artwork": {
+        "source": "source/compound/distinct-v1/water-stones.png",
+        "source_sha256": "877ff2eceb8644bfe89eecc64994cebfe9335641c640459afa63f3faca39490b"
+      },
+      "id": "water-stones",
+      "inset": 0.85
+    }
+  ],
+  "schema_version": 1
+}

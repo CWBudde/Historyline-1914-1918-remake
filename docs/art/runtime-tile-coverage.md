@@ -11,16 +11,17 @@ confirm every ledger ID/path and the campaign-use flags.
 
 ## Status
 
-Two backgrounds have a `candidate-source` association: `waterStones`, `hills`.
-These point to generated art and 2×/4× rectangle exports, **not approved runtime
-bindings**. Family geometry, shared phase and scale/quality review remain open.
+One background has a `candidate-source` association: `hills`.
+It points to generated art and 2×/4× rectangle exports, **not an approved runtime
+binding**. A private projection lost readable relief and exposed mirrored patterns;
+coherent hill geometry/shading and quality review remain open.
 
 Summer/winter ground, eight depot pieces, fourteen HQ pieces, four factory pieces,
 nine shores, open water, ten mountain tiles, opaque fog, five further ground materials,
-both seasonal hamlets and forests
+both seasonal hamlets and forests, shared water stones
 and all 74 enabled infrastructure IDs are `candidate-built`,
 with `patch-reviewed` seams and explicit component, shared-scene or shore-corner
-geometry. These 132 rows point to their respective build manifests and
+geometry. These 133 rows point to their respective build manifests and
 192×160 / 384×320 polygon exports. Actual saved-PNG patches pass both parities and
 densities; independent [road/stream review](connected-family-batch-01.md) and
 [path review](distinct-terrain-batch-04.md), [rail review](distinct-terrain-batch-05.md)
@@ -60,8 +61,12 @@ and protected real forest boundaries. Twenty profiles cover fixed isolated,
 homogeneous, frontier and clearing fixtures. Canonical defaults require six
 base neighbors; runtime context selection/arbitrary-map export are unimplemented.
 Periodic neighborhoods, open woodland density and other-ground transitions remain open.
+The [water-stones review](distinct-terrain-batch-17.md) adds a transparent whole
+outcrop scene over byte-identical shared water, with both-parity water surrounds,
+compatible shore replacements and repeated-stone contexts. The repeated three-group
+arrangement still needs dense-map shape/placement variation.
 Full maps, transitions, seasonal integration, fractional zoom and runtime/release
-acceptance remain open. No enabled ID remains `needs-image`; two are still source-only.
+acceptance remain open. No enabled ID remains `needs-image`; hills is still source-only.
 Total: **134 associated IDs, zero accepted runtime replacements**.
 
 The `build_manifest` column names the producing manifest; `ports` records the
@@ -88,7 +93,9 @@ master and fixed four-cell origins, with E retained as the entry cell.
 Shore `ports=land-vertices:…` records zero-based polygon vertices, not route directions.
 See [the topology contract](shoreline-topology.md) for mixed-edge semantics,
 `lakeside23`'s effective 234 exception, and the unused/boundary inferences.
-Open water is now polygon-built; `waterStones` still needs shared-water integration.
+Open water and `waterStones` are polygon-built over the same shared water phase.
+The latter uses a separate shared-ground compound slot; it never replaces a
+summer grass binding or requires an invented winter ID.
 
 The table preserves all required loadable IDs, including editor-only entries.
 The three supplied missions place 58 background and 70 infrastructure IDs.

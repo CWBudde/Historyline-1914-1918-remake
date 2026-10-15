@@ -88,7 +88,7 @@ func decodeCompoundManifest(b []byte, m *compoundManifest) error {
 		return keys(obj, "source", "source_sha256")
 	}
 	for season, b := range grounds {
-		if season != "summer" && season != "winter" {
+		if season != "summer" && season != "winter" && season != "shared" {
 			return fmt.Errorf("unknown ground season %q", season)
 		}
 		if err := checkRef(b); err != nil {
@@ -216,8 +216,8 @@ func loadCompoundInputs(path string) (compoundInputs, error) {
 		return in, err
 	}
 	m := in.Manifest
-	if m.SchemaVersion != 1 || len(m.Scenes) < 1 || len(m.Scenes) > 11 {
-		return in, errors.New("compound requires schema_version 1 and one to eleven scenes")
+	if m.SchemaVersion != 1 || len(m.Scenes) < 1 || len(m.Scenes) > 12 {
+		return in, errors.New("compound requires schema_version 1 and one to twelve scenes")
 	}
 	used := map[string]bool{}
 	seen := map[string]bool{}
@@ -243,7 +243,7 @@ func loadCompoundInputs(path string) (compoundInputs, error) {
 	if len(used) != len(m.Grounds) {
 		return in, errors.New("grounds must match exactly the used seasons")
 	}
-	for _, season := range []string{"summer", "winter"} {
+	for _, season := range []string{"summer", "winter", "shared"} {
 		if !used[season] {
 			continue
 		}

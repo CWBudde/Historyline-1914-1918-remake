@@ -44,6 +44,11 @@ func compoundLayoutFor(id string) (compoundLayout, error) {
 	case "hamlet-summer", "hamlet-winter":
 		l.Layout = "hamlet"
 		l.Width, l.Height, l.EntryCell = 96, 80, ""
+	case "water-stones":
+		l.Layout, l.Season = "water-stones", "shared"
+		l.Width, l.Height, l.EntryCell = 96, 80, ""
+		l.Tiles = []compoundTile{{Cell: "C", RuntimeID: "waterStones", Origin: connectionPoint{0, 0}}}
+		return l, nil
 	default:
 		return l, fmt.Errorf("unsupported compound scene %q", id)
 	}

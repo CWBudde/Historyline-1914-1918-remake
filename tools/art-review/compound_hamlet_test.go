@@ -156,7 +156,7 @@ func TestCompoundHamletElevenSceneBound(t *testing.T) {
 		t.Fatal("all eleven fixed scenes were not loaded")
 	}
 	for _, tc := range []struct{ name, id, errorPart string }{
-		{"twelfth", "hamlet-summer", "one to eleven"},
+		{"thirteenth", "hamlet-summer", "one to twelve"},
 		{"duplicate", "hamlet-summer", "duplicate compound scene"},
 		{"unknown-season", "hamlet-autumn", "unsupported compound scene"},
 		{"unknown-alias", "house-summer", "unsupported compound scene"},
@@ -165,8 +165,10 @@ func TestCompoundHamletElevenSceneBound(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			bad := m
 			bad.Scenes = append([]compoundSceneInput(nil), m.Scenes...)
-			if tc.name == "twelfth" {
-				bad.Scenes = append(bad.Scenes, compoundSceneInput{tc.id, m.Scenes[0].Artwork, .9})
+			if tc.name == "thirteenth" {
+				for range 2 {
+					bad.Scenes = append(bad.Scenes, compoundSceneInput{tc.id, m.Scenes[0].Artwork, .9})
+				}
 			} else {
 				bad.Scenes[1].ID = tc.id
 			}

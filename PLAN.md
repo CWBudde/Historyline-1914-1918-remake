@@ -1068,6 +1068,20 @@ below record work already delivered, plus G0.7's new neighborhood comparisons.
             arbitrary-map/context runtime selection is unimplemented. Repeated neighborhoods,
             open woodland density and generous clearings remain broader quality limits.
             Ledger: 2 source + 132 built = 134 associated IDs, zero accepted replacements.
+      - [x] Build shared-season water stones over the existing new water phase. (2026-10-15) —
+            batch 17 retains one new transparent outcrop master, two runtime PNGs, six basic
+            reviews and eight homogeneous/compatible-shore contexts at 2×/4×. Uniform inset
+            0.85 preserves all opaque rock tops; shared-water base outputs are byte-identical
+            to existing shore water. Independent art review passes both parities/densities,
+            with repeated three-group placement recorded as a dense-map variation limitation.
+            Controller checks 113,600 opaque owned pixels, 40,000 clear exterior pixels,
+            10,924 quiet-water pixels, 3,520 sampled affine/guard points and all 30,720 2×
+            artwork pixels (zero observed oracle error). Four parity assemblies and 48 contacts
+            pass; eight further context images reconstruct from seven saved PNG inputs each.
+            All 19 repeat files and 1,153 earlier artifacts match. Independent code/provenance,
+            134 bindings, browser16/16 and final `just ci` pass. See
+            `docs/art/distinct-terrain-batch-17.md` and `docs/art/water-stones-geometry.md`.
+            Ledger: 1 source + 133 built = 134 associated IDs, zero accepted replacements.
       - [ ] Complete missing subjects, seasonal images, connected variants and runtime/native
             mappings; validate assembled seams. Twenty-seven sources do not close a family.
 - [ ] **Gate — Approve the complete pilot and choose production density/tools.** Compare all
@@ -1158,6 +1172,12 @@ in a distinct continuous style; final quality/seam and runtime acceptance remain
             forest/clearing orientations, both densities/parities and shared cross-edge crowns.
             Independent code/art/whole-image pixel oracles, 79-file repeat, 1,074 old-artifact
             regression and final CI pass. Runtime selection and other-ground joins remain open.
+      - [x] Extend bounded compound export with the exact `water-stones` layout and typed
+            shared-water ground, preserving seasonal output bytes and literal `waterStones`
+            runtime spelling. Validate all twelve exact scenes and exact used ground slots;
+            retain truthful per-scene water profiles and single-cell absolute line parity.
+            Actual PNG phase/ownership/quiet-water/assembly tests, independent reviews,
+            19-file repeat, 1,153 prior-artifact regression and final CI pass.
 - [ ] Implement proposed commands `go run ./cmd/hlasset validate`, `build`, and `review`, all
       consuming `art/manifest.json`. Validation/build return nonzero on invalid inputs; review
       writes native/2×/4× sheets and actionable ID/direction diagnostics to `build/art-review/`.
@@ -1246,9 +1266,15 @@ private originals/manual extracts in ignored `original/`, and reference gallerie
 outputs and research in ignored `build/`. Authored masters, recipes and pilot exports stay in
 tracked `art/`; commit verified graphics batches directly to `main`, per the user's preference.
 
-**Immediate next graphics slice:** build hills and water stones from the new authored sources,
-with readable overhead relief, shared neighboring ground/water and reviewed 2×/4× polygon
-placement. These are the two remaining source-only background bindings. Both forests now have
+**Immediate next graphics slice:** build `hills`, the last source-only enabled background,
+with coherent height/relief shading that preserves broad readable ridges at 2× and joins
+adjacent hills and ordinary grass without mirrored patterns or generic flat hex frames.
+Root and independent art review rejected the private opaque hills projection: source relief
+collapsed into repeated grass mottle. Do not promote that diagnostic; author and review a
+coherent relief field instead. Water stones now have 2×/4× polygon candidates, exact shared
+water and reviewed shore/homogeneous contexts; see `docs/art/distinct-terrain-batch-17.md`.
+Their repeated three-group arrangement still needs dense-map shape/placement variation.
+Both forests have
 whole-crown context exports, protected real forest edges and reviewed seasonal/hamlet scale;
 see `docs/art/distinct-terrain-batch-16.md`. Repeated neighborhoods, open woodland density,
 other-ground transitions and arbitrary-map/runtime context selection remain open.
@@ -1269,13 +1295,13 @@ All 26 enabled depot/HQ/factory pieces are delivered as provisional candidates f
 whole scenes using `docs/art/compound-building-geometry.md`. HQ's manor occupies
 lower N and its entrance reaches C; retain gameplay cell N and review selection affordance
 when integrating runtime graphics.
-The remaining source-only terrain still needs geometry/material acceptance.
+The remaining hills source still needs geometry/material acceptance.
 The terrain source pack contains 27 candidates with 54 material exports, plus all 74 enabled
-infrastructure variants and a grass base at both densities. Nine additional compound masters
-build the depot, HQ, factory, mountain and hamlet scenes. Both ground seasons, nine shores and open water
+infrastructure variants and a grass base at both densities. Ten additional compound masters
+build the depot, HQ, factory, mountain, hamlet and water-stone scenes. Both ground seasons, nine shores and open water
 are polygon-built. Two further seasonal crown atlases build the forest contexts.
 The runtime ledger has
-134 associated IDs (2 source candidates, 132 built candidates), no enabled ID without an image association
+134 associated IDs (1 source candidate, 133 built candidates), no enabled ID without an image association
 and zero accepted replacements.
 Pixel-aligned 2×/4× patches pass; full maps, other zooms and runtime integration remain open. Use the
 134-row runtime ledger as the enabled-ID checklist without dropping the separate 350 native

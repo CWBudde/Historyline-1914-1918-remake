@@ -16,9 +16,27 @@ import (
 	"os"
 	"path/filepath"
 	"sort"
+	"strings"
 )
 
 const compoundProfile = "compound-v1: pre-allocation resource budget <=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; <=32,000,000 retained weight bytes plus <=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; reject any sampled alpha >=250 at signed distance <=8 world pixels before guard; alpha zero through 4 world pixels then smoothstep 4..8. Guard full unmasked 4x artwork, then existing resizeLanczos to whole-scene 2x. Ground independently exported by exportConnectionTiles with fixed geometry and grass only, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim."
+
+func compoundProfileForSeason(season string) string {
+	if season == "shared" {
+		return strings.Replace(compoundProfile, "fixed geometry and grass only", "fixed geometry and pinned shared water using the unchanged opaque base sampler", 1)
+	}
+	return compoundProfile
+}
+
+func compoundGroundID(season string) string {
+	if season == "shared" {
+		return "water"
+	}
+	if season == "winter" {
+		return "grass_w"
+	}
+	return "grass"
+}
 
 type compoundPatchCell struct {
 	Origin    connectionPoint `json:"origin"`
@@ -116,15 +134,12 @@ func compoundPatchFor(l compoundLayout, parity int) compoundPatch {
 	if parity == 1 {
 		offset = connectionPoint{0, 40}
 	}
-	if l.Layout == "mountain-single" || l.Layout == "hamlet" {
+	if l.Layout == "mountain-single" || l.Layout == "hamlet" || l.Layout == "water-stones" {
 		// C starts at x=0; the other layouts' N cell starts at x=71.
 		offset[0] += 71
 	}
 	cells := map[connectionPoint]compoundPatchCell{}
-	groundID := "grass"
-	if l.Season == "winter" {
-		groundID = "grass_w"
-	}
+	groundID := compoundGroundID(l.Season)
 	for _, tile := range l.Tiles {
 		origin := tile.Origin.add(offset)
 		cells[origin] = compoundPatchCell{origin, tile.RuntimeID, l.Season, true}
@@ -172,23 +187,28 @@ func compoundRenderPatch(p compoundPatch, ground *image.NRGBA, tiles map[string]
 
 func buildCompoundBundle(in compoundInputs) (compoundBundle, error) {
 	b := compoundBundle{pixels: map[string]*image.NRGBA{}, report: compoundReport{SchemaVersion: 1, ManifestSHA256: in.Hash, ManifestSnapshot: "manifest.json", Geometry: sharedConnectionGeometry(), Grounds: map[string]connectionMaterialReport{}, Profile: compoundProfile, Acceptance: "Provisional candidate; no whole-map, runtime or user approval claim."}}
+	if _, ok := in.Grounds["shared"]; ok {
+		b.report.Profile = compoundProfileForSeason("shared")
+		if len(in.Grounds) > 1 {
+			b.report.Profile = "Per-scene profiles. Seasonal grass scenes: " + compoundProfile + " Shared water scenes: " + b.report.Profile
+		}
+	}
 	b.artifacts = append(b.artifacts, connectionArtifact{"manifest.json", in.Bytes})
 	groundExports := map[string]map[int]*image.NRGBA{}
-	for _, season := range []string{"summer", "winter"} {
+	for _, season := range []string{"summer", "winter", "shared"} {
 		src, ok := in.Grounds[season]
 		if !ok {
 			continue
 		}
 		b.report.Grounds[season] = b.retain("sources/ground-"+season+".png", src)
+		// The existing opaque-base primitive calls its material slot grass;
+		// runtime IDs, source provenance, and reports retain the actual ground.
 		tiles, err := exportConnectionTiles(connectionInputs{manifest: connectionManifest{Geometry: sharedConnectionGeometry()}, materials: map[string]*image.NRGBA{"grass": src.Image}}, nil, nil)
 		if err != nil {
 			return b, err
 		}
 		groundExports[season] = map[int]*image.NRGBA{}
-		groundID := "grass"
-		if season == "winter" {
-			groundID = "grass_w"
-		}
+		groundID := compoundGroundID(season)
 		for _, density := range []int{2, 4} {
 			name := fmt.Sprintf("ground/%s-%dx.png", groundID, density)
 			if _, err = b.addPNG(name, tiles[density]); err != nil {
@@ -214,7 +234,7 @@ func buildCompoundBundle(in compoundInputs) (compoundBundle, error) {
 		if err != nil {
 			return b, err
 		}
-		sr := compoundSceneReport{ID: s.ID, compoundLayout: layout, InputArtwork: b.retain("sources/"+s.ID+".png", in.Artwork[s.ID]), Inset: s.Inset, Transform: tr, Profile: compoundProfile, Guard: guard}
+		sr := compoundSceneReport{ID: s.ID, compoundLayout: layout, InputArtwork: b.retain("sources/"+s.ID+".png", in.Artwork[s.ID]), Inset: s.Inset, Transform: tr, Profile: compoundProfileForSeason(layout.Season), Guard: guard}
 		for _, density := range []int{2, 4} {
 			art := art4
 			if density == 2 {
