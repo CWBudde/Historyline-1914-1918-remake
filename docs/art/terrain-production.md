@@ -7,21 +7,23 @@ connection topology; invent surface artwork, palette and detail.
 
 Current pack: [terrain-distinct-v1.json](../../art/terrain-distinct-v1.json).
 [Gallery](distinct-terrain-review.html) · [Batch 01 review](distinct-terrain-batch-01.md) ·
-[Batch 02 review](distinct-terrain-batch-02.md) · [Runtime coverage](runtime-tile-coverage.md).
+[Batch 02 review](distinct-terrain-batch-02.md) · [Batch 03 review](distinct-terrain-batch-03.md) ·
+[Runtime coverage](runtime-tile-coverage.md).
 
 ## Delivery and coverage
 
-Twelve semantic candidates are delivered: meadow, dry meadow, sparse/dense forest,
+Eighteen semantic candidates are delivered: meadow, dry meadow, sparse/dense forest,
 unmarked road bend, diagonal river, open water, bare earth, snow, rocky ground,
-hills and mountain. Selected sources are 1374×1145 with 24 reproducible Lanczos3
+hills, mountain, wet mud, water stones, winter forest/rough/stone/shelled ground.
+Selected sources are 1374×1145 with 36 reproducible Lanczos3
 exports at 192×160 / 384×320. Independent review prompted dense forest 02,
 hills 02 and mountain 02. Mountain remains provisional pending camera/material
 assessment in an assembled terrain/unit preview.
 
 [runtime-tile-coverage.csv](runtime-tile-coverage.csv) explicitly lists all 134 enabled
-remake tile IDs (60 backgrounds, 74 infrastructure). Seven backgrounds have candidate
-source associations, 127 IDs still need images, and zero replacements are accepted.
-Bare earth is not wet mud; opaque road/river studies are not infrastructure overlays.
+remake tile IDs (60 backgrounds, 74 infrastructure). Thirteen backgrounds have candidate
+source associations, 121 IDs still need images, and zero replacements are accepted.
+Wet mud has its own reviewed source; opaque road/river studies are not infrastructure overlays.
 Keep those distinctions visible rather than equating source counts with coverage.
 
 These are rectangular overscan images. Shared texture phase, tree scale, runtime
@@ -55,9 +57,10 @@ representative image or a generated master merely resembling its name.
 
 ## Work order
 
-1. Continue missing wet mud, water stones, winter forest/rough/stone/shelled ground,
-   houses and shore images. Basic water/earth/stone/snow/hill/mountain delivery exists;
-   retain camera, unit readability and material-quality caveats during integration.
+1. Build the shared road/stream port compositor using [verified runtime geometry](runtime-connection-geometry.md)
+   and new materials; generate straight/bend/junction previews before completing directional families.
+   Continue houses, shores and remaining seasonal/building/mountain pieces. Retain camera,
+   unit readability and material-quality caveats during integration.
 2. Establish shared forest scale and a small assembled connected preview using road
    and river straights/bends, declared ports and protected material/bank profiles.
    Correct adjoining edges and three-tile vertices before accepting a family.

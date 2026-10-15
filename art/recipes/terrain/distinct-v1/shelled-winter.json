@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "id": "shelled-winter",
+  "date": "2026-10-15",
+  "tool": "built-in image_gen.imagegen",
+  "art_direction": "distinct-continuous-illustrated-v1",
+  "status": "candidate",
+  "source": "art/source/terrain/distinct-v1/shelled-winter-02.png",
+  "source_dimensions": [
+    1374,
+    1145
+  ],
+  "source_sha256": "22d08f6f163e525de7ade2d93253193d3c4b13a81ec61182c3ecf241e7126060",
+  "generation_inputs": [
+    {
+      "path": "build/gfx-research/distinct-v1/shelled-winter-01.png",
+      "sha256": "49aa79f0e9175d55ff5401ef965901ba882ce9a95012ca4344b28fbbf4d5ebbd",
+      "role": "edit-target-newly-generated-first-attempt"
+    }
+  ],
+  "original_image_inputs": [],
+  "prompt": "Edit this NEWLY AUTHORED snowy shelled terrain to REMOVE the conspicuous four similar crater bowls in two rows. Keep landscape6:5 fullopaque canvas, strictlytopdown, natural delicate snow/earth materialstyle and muted diffuse lighting. Recompose impact damage asymmetrically: ONE large ragged irregular partly collapsed crater offcenter upperleft, one much SMALLER crater toward lowerright, and two partly overlapping broken shallow impact scars that merge into exposed churned earth near bottomleft edge. Wideunequal size ratio about3:1 and damaged snowcovered rims. At least one crater incomplete with rim mostly broken; no four clean full rings, no neat2x2 placement or equal spacing, no perfectround stamps, no deep darkhole. Small scatteredirregular scars can blendintoground but not dotpattern. Snowcoversroughlyhalf field; basinsoftmuddygrey-brown with modestdepthshading, ruinedearthenrims soft andirregularnotstone-linedwalls. Clearly damagedground at192x160 while subordinate togameunits. No explosion, smoke, debrisobjects, tracks, soldiers, UI/text/border/hexoutline, no obliqueperspective, no pixelart.",
+  "transparent_background": false,
+  "export_manifest": "art/terrain-distinct-v1.json",
+  "export_tool": "go run ./tools/art-review -pack art/terrain-distinct-v1.json -out <fresh-directory>",
+  "exports": {
+    "two_x": {
+      "path": "art/exports/terrain/distinct-v1/shelled-winter-2x.png",
+      "dimensions": [
+        192,
+        160
+      ],
+      "sha256": "05da79a2d6439dce9c8b8cb23bf373bd8eb1553344b04f397f85fb9a785fd585"
+    },
+    "four_x": {
+      "path": "art/exports/terrain/distinct-v1/shelled-winter-4x.png",
+      "dimensions": [
+        384,
+        320
+      ],
+      "sha256": "9fc9655abbfce62a9367bb880ffdcc2c909c2f5e3de56436eb6f05a6e4876b9f"
+    }
+  },
+  "cleanup": "Preserve generated source; fixed centered exact6:5 crop then Lanczos3 384x320->192x160. No original mask/pixels. Rectangular overscan; geometry, phase and seams pending.",
+  "review": "Independent source/reduction review: docs/art/distinct-terrain-batch-03.md. Candidate source only; runtime acceptance separate.",
+  "initial_attempt": {
+    "path": "build/gfx-research/distinct-v1/shelled-winter-01.png",
+    "sha256": "49aa79f0e9175d55ff5401ef965901ba882ce9a95012ca4344b28fbbf4d5ebbd",
+    "prompt": "Create ONE NEW high-resolution WINTER terrain illustration for a European1914 strategy game. Image1 NEW snow and image2 NEW rocky ground are MATERIAL/STYLE references only, no legacy assets. Landscape6:5 full opaque rectangle, strictly vertical overhead orthographic view, quiet diffuse upperleft illumination, muted greige/bluegrey wintertones and continuous finely painted natural detail. Legible as distinct terrain at192x160, subtle crisp organic detail fullsource, no squarepixels, hexshape, outline, border, vignette, UI or text. Fulloverscan entireimage. Subject SHELLED WINTER GROUND: snow-covered churned earth with several irregular artillery impact craters. Four main broad shallow unequal craters and scattered tiny lesser scars, seen directly vertically fromabove; dark damp taupe-brown exposed soil basins with ragged broken earth rims, some collapsed/snowfilled edges. Snow about50percent, muddy churned earth45percent, tiny rockfragments5percent. Craters recognizable after192x160 reduction without nearblack pits or perfectly circular repeated stamps. Vary shape, spacing, diameter and snowcover; no centralbullseye pattern. A damaged empty landscape after battle, no active explosions, smoke, shells, weapons, people, blood, debrisstructures, roadtracks or puddlefilledlake. Keep pale snowmaterial compatiblewithreference, controlled brown-grey earth contrast supports units. Fullopaqueimage newlypainted.",
+    "disposition": "Four similar round craters form obvious two-by-two arrangement.",
+    "generation_inputs": [
+      {
+        "path": "art/source/terrain/distinct-v1/snow-ground.png",
+        "sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3",
+        "role": "newly-authored-material-style-only"
+      },
+      {
+        "path": "art/source/terrain/distinct-v1/ground-rocky.png",
+        "sha256": "f59005d7033d85c7f22e2195a169114ea930a4646384847d2194408d102974bd",
+        "role": "newly-authored-material-style-only"
+      }
+    ]
+  },
+  "revision_reason": "Focused image-generator edit following independent full-source/reduction review."
+}

@@ -887,10 +887,14 @@ below record work already delivered, plus G0.7's new neighborhood comparisons.
             artifacts match. See `docs/art/distinct-terrain-batch-02.md`.
       - [x] Enumerate the enabled runtime tile contract separately from native resources.
             `docs/art/runtime-tile-coverage.csv` contains all 60 background and 74 infrastructure
-            IDs, checked against loaders and campaign usage. Seven candidate-source
-            associations, 127 needing images, zero accepted replacements; seams remain open.
+            IDs, checked against loaders and campaign usage. Thirteen candidate-source
+            associations, 121 needing images, zero accepted replacements; seams remain open.
+      - [x] Deliver wet mud, water stones and winter forest/rough/stone/shelled sources.
+            (2026-10-15) — batch 03 has six reviewed candidates, including revised mud/craters;
+            pack now has 18 sources / 36 exports. Repeated 56-file builds match; source delivery
+            is distinct from runtime acceptance. See `docs/art/distinct-terrain-batch-03.md`.
       - [ ] Complete missing subjects, seasonal images, connected variants and runtime/native
-            mappings; validate assembled seams. Twelve semantic sources do not close a family.
+            mappings; validate assembled seams. Eighteen semantic sources do not close a family.
 - [ ] **Gate — Approve the complete pilot and choose production density/tools.** Compare all
       pilot subjects at native size and normal play zoom, including connected neighborhoods.
       Require distinct authored artwork, readable silhouettes, correct declared routes/connections
@@ -998,9 +1002,11 @@ private originals/manual extracts in ignored `original/`, and reference gallerie
 outputs and research in ignored `build/`. Authored masters, recipes and pilot exports stay in
 tracked `art/`; commit verified graphics batches directly to `main`, per the user's preference.
 
-**Immediate next graphics slice:** continue the distinct pack from its twelve delivered sources:
-wet mud, exposed water stones, winter forest/rough/stone/shelled ground and houses; then
-shared connected road/river/shore variants and bridges/rail/walls/building pieces. Use the
+**Immediate next graphics slice:** build the shared road/stream port/path compositor from
+`docs/art/runtime-connection-geometry.md` and the new materials. Export straight/bend/junction
+patches with both parities and vertices, then complete connected road/river/shore variants.
+Continue houses, bridges/rail/walls, building/mountain pieces and remaining seasonal images.
+The source pack currently contains 18 candidates with 36 exports. Use the
 134-row runtime ledger as the enabled-ID checklist without dropping the separate 350 native
 resource mapping/coverage obligation. Establish shared forest scale and protected
 port/bank templates in an assembled preview before accepting a connected family. The old

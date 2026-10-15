@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "id": "mud-wet",
+  "date": "2026-10-15",
+  "tool": "built-in image_gen.imagegen",
+  "art_direction": "distinct-continuous-illustrated-v1",
+  "status": "candidate",
+  "source": "art/source/terrain/distinct-v1/mud-wet-02.png",
+  "source_dimensions": [
+    1374,
+    1145
+  ],
+  "source_sha256": "93c62ec9452975a7ec4a725cf6b50ed0186d524cbb8d70943f799e68c348df8f",
+  "generation_inputs": [
+    {
+      "path": "build/gfx-research/distinct-v1/mud-wet-01.png",
+      "sha256": "4f13d3b8992ef1cc580320c7bb4aa6dfeeb483ef6bb587dc5903601216f0effc",
+      "role": "edit-target-newly-generated-first-attempt"
+    }
+  ],
+  "original_image_inputs": [],
+  "prompt": "Edit this NEWLY AUTHORED dark damp mud terrain image only to improve WET MUD recognition in a tiny192x160 game export. Preserve landscape6:5 canvas, full opaque overscan, strict overhead camera, earth hue/texture and diffuse upperleft light, no text/border. Enlarge a FEW existing shallow puddles into irregular connected wet patches that totalabout12percent surface. Some patches20to30percent of canvaswidth, skinny irregular contours with muddy small land tongues. Puddles have subdued cool bluegrey overcast-sky reflections distinctly lighter/cooler than soil by a moderate value step, softly wet boundaries. No brilliant white highlights, black pools, large lake or river, no circular dot pattern, tracks, stones, craters, plants or new props. Include several low smooth moistsoil areas between veryfineclods, reducebusygrain aroundpuddles. Keepoverall dark wetground identity andcalmvalues but wetpatches must remain visible after reduction. Originalnewillustration notlegacy.",
+  "transparent_background": false,
+  "export_manifest": "art/terrain-distinct-v1.json",
+  "export_tool": "go run ./tools/art-review -pack art/terrain-distinct-v1.json -out <fresh-directory>",
+  "exports": {
+    "two_x": {
+      "path": "art/exports/terrain/distinct-v1/mud-wet-2x.png",
+      "dimensions": [
+        192,
+        160
+      ],
+      "sha256": "0cc86a91940444833fe021edc96518fee65b383164dcc74ec359a0b0f2244b9c"
+    },
+    "four_x": {
+      "path": "art/exports/terrain/distinct-v1/mud-wet-4x.png",
+      "dimensions": [
+        384,
+        320
+      ],
+      "sha256": "fe104dcf51685f4ba9dd23d67d2face25656d62fda7883a58a47a027a5db311f"
+    }
+  },
+  "cleanup": "Preserve generated source; fixed centered exact6:5 crop then Lanczos3 384x320->192x160. No original mask/pixels. Rectangular overscan; geometry, phase and seams pending.",
+  "review": "Independent source/reduction review: docs/art/distinct-terrain-batch-03.md. Candidate source only; runtime acceptance separate.",
+  "initial_attempt": {
+    "path": "build/gfx-research/distinct-v1/mud-wet-01.png",
+    "sha256": "4f13d3b8992ef1cc580320c7bb4aa6dfeeb483ef6bb587dc5903601216f0effc",
+    "prompt": "ONE newly authored high-resolution terrain tile illustration for an early twentieth century European strategy game. Landscape6:5 full opaque canvas; strict vertically overhead orthographic view, no horizon or isometric sides. Continuous fine natural illustration, muted colors, flat diffuse overcast light softly from upperleft, quiet broad values for units at192x160, crisp delicate detail large. No pixel art or square cells, hex outline, border, vignette, labels, UI, grid, vehicles, structures, figures or legacy game art imitation. New source-only references establish materials, not traced layout. Image1 is ONLY newly authored earth MATERIAL/STYLE reference. Paint DARK DAMP MUD as the entire terrain surface, noticeably darker/cooler than dry reference. Fine cohesive dark warm-grey brown saturated soil, soft irregular uneven patches, occasional tiny shallow cloudy puddles under8percent coverage with subdued sky reflection and softly crumbling wet edges. Tiny clods, sparse barely visible grass tips under3percent, no huge cracks or glitter. Mostly smooth compressed wet ground, never cobblestone, rubble, dry sandy earth, swamp reeds or road. No wheel ruts, footprints, large isolated pond, tracks, rocks, craters or central focal island. Material fills everycanvasedge with evenquietvalues, no transparency.",
+    "disposition": "Wet patches disappear after reduction.",
+    "generation_inputs": [
+      {
+        "path": "art/source/terrain/distinct-v1/earth-bare.png",
+        "sha256": "e7d3188bc9c734a1f45ad80ccce934c46d93cb4cf9843c079bbc6260ec848404",
+        "role": "newly-authored-material-style-only"
+      }
+    ]
+  },
+  "revision_reason": "Focused image-generator edit following independent full-source/reduction review."
+}

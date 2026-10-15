@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "water-stones",
+  "date": "2026-10-15",
+  "tool": "built-in image_gen.imagegen",
+  "art_direction": "distinct-continuous-illustrated-v1",
+  "status": "candidate",
+  "source": "art/source/terrain/distinct-v1/water-stones.png",
+  "source_dimensions": [
+    1374,
+    1145
+  ],
+  "source_sha256": "7df38f28242125fde5962715d09d678d107fae49f57237363a81dc6bc2141c76",
+  "generation_inputs": [
+    {
+      "path": "art/source/terrain/distinct-v1/water-open.png",
+      "sha256": "0b080163804881ac49bc4b3162da547abf443c9082d6e67065c119174d79b51d",
+      "role": "newly-authored-material-style-only"
+    },
+    {
+      "path": "art/source/terrain/distinct-v1/ground-rocky.png",
+      "sha256": "f59005d7033d85c7f22e2195a169114ea930a4646384847d2194408d102974bd",
+      "role": "newly-authored-material-style-only"
+    }
+  ],
+  "original_image_inputs": [],
+  "prompt": "ONE newly authored high-resolution terrain tile illustration for an early twentieth century European strategy game. Landscape6:5 full opaque canvas; strict vertically overhead orthographic view, no horizon or isometric sides. Continuous fine natural illustration, muted colors, flat diffuse overcast light softly from upperleft, quiet broad values for units at192x160, crisp delicate detail large. No pixel art or square cells, hex outline, border, vignette, labels, UI, grid, vehicles, structures, figures or legacy game art imitation. New source-only references establish materials, not traced layout. Image1 is NEW open water material reference; image2 is NEW limestone rock material reference. Paint quiet slate/teal lake WATER covering roughly80percent of image, with several low exposed limestone outcrops in loose asymmetrical clusters and partly submerged rock shelves20percent total. True vertical overhead, rocktops as irregular shallow grey/greige slabs, not upright boulder fronts or mountains. Surround rocks with tiny soft teal shallows, subtle short fine ripples around them, no long white foam halos. Keep enough darkblue water at all edges, no landmass, bank, grass, sandbeach, trees, boats, islandswithvegetation or dramatic waves. Rocks recognizable at192x160 but not gigantic central iconic rock; compose dispersed low shapes with even visual weight. Continuouspainted newillustration.",
+  "transparent_background": false,
+  "export_manifest": "art/terrain-distinct-v1.json",
+  "export_tool": "go run ./tools/art-review -pack art/terrain-distinct-v1.json -out <fresh-directory>",
+  "exports": {
+    "two_x": {
+      "path": "art/exports/terrain/distinct-v1/water-stones-2x.png",
+      "dimensions": [
+        192,
+        160
+      ],
+      "sha256": "23a9c389208504c12c734bd08279364ddb6d9b19070ac201bbca84935a1f90f7"
+    },
+    "four_x": {
+      "path": "art/exports/terrain/distinct-v1/water-stones-4x.png",
+      "dimensions": [
+        384,
+        320
+      ],
+      "sha256": "77c3fbecb86aad01071b80718dbfedce349e12f7b5be669782585997e3e49307"
+    }
+  },
+  "cleanup": "Preserve generated source; fixed centered exact6:5 crop then Lanczos3 384x320->192x160. No original mask/pixels. Rectangular overscan; geometry, phase and seams pending.",
+  "review": "Independent source/reduction review: docs/art/distinct-terrain-batch-03.md. Candidate source only; runtime acceptance separate."
+}

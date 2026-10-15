@@ -11,16 +11,17 @@ confirm every ledger ID/path and the campaign-use flags.
 
 ## Status
 
-Seven backgrounds have a `candidate-source` association:
-`grass`, `grass_w`, `forest`, `water`, `stone`, `hills`, `mountain`.
+Thirteen backgrounds have a `candidate-source` association:
+`grass`, `grass_w`, `forest`, `forest_w`, `water`, `waterStones`, `mud`, `stone`,
+`hills`, `mountain`, `rough_w`, `stoney_w`, `shelled_w`.
 These point to generated art and 2×/4× rectangle exports, **not approved runtime
 bindings**. Original masks, hex clipping, shared phase and scale/quality review
 remain open; forest and mountain in particular retain recorded quality caveats.
-The other 127 rows say `needs-image`. Every seam review is pending.
+The other 121 rows say `needs-image`. Every seam review is pending.
 No completed replacements are claimed.
 
-Twelve semantic source images do not mean twelve replaced runtime IDs: dry meadow
-and dense/sparse forests are variations; bare earth needs separate wet-mud work;
+Eighteen semantic source images do not mean eighteen replaced runtime IDs: dry meadow
+and dense/sparse forests are variations; bare earth is a material variant;
 the current opaque road/river paintings are family studies rather than runtime
 infrastructure overlays. Their ports and ground separation need shared geometry.
 
@@ -43,8 +44,9 @@ remain separate stable IDs; they are included in 134.
 - Summer factories, barbed wire, terrain `trenches`, and summer rough/shelled/stoney
   are recorded future-content gaps in [inventory notes](inventory-notes.md).
   They are not extra enabled loader IDs and must not be silently substituted.
-- Filename digits are insufficient port evidence. `ports=unverified` keeps every
-  connected overlay and shore open until tested through actual geometry.
+- Filename digits alone are insufficient port evidence. [Geometry research](runtime-connection-geometry.md)
+  confirms the six directions and records exceptions. `ports=unverified` keeps every
+  connected replacement and shore open until its actual new artwork is tested.
 
 Keep the CSV up to date when assigning generated art. Require explicit quality,
 geometry and seam evidence before moving any row to accepted.
