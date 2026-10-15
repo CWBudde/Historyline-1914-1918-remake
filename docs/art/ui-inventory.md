@@ -13,6 +13,14 @@ an empty window; it supplies no additional asset loaders or finished screen art.
 
 ## Existing screens and panels
 
+The Phase 2.2 interface continuation now retains offline candidates for ownership,
+information symbols, map markers, five-state controls, terrain/weapon/content/battle
+frames, capture/round banners, all fifteen compatibility weapons and hit/death effects.
+See [the reference review](interface-review.html), [contract](interface-contract.md)
+and [117-ID coverage ledger](runtime-interface-coverage.csv). These are text-free
+1×/2×/4× exports with live-label fixtures; none of the screen/input flows below
+becomes runtime-accepted through this delivery. Full-screen artwork remains open.
+
 | Stable ID | Drawing evidence | Asset families / composition | Existing states and graphics still needed |
 | --- | --- | --- | --- |
 | `screen:map` | `gui.py` `GUI.drawMap`, `generateMap`, `executeMove`; `hlrData.py` `HexSquare`, `Unit.changeColour` | `bgTiles`, `infraIcons`, unit icons, `cursor.png`, `cursor_from.png`, `cursor_attacking.png`, `hex_semiTransparent.png`; generated greyscale/recolour/rotation | Summer/winter; unseen/remembered/visible fog; moved/faction/neutral unit colours; six facings; reachable/attackable/out-of-range hexes; movement and ownership. Later: explicit invalid destinations, remaining movement points, rail/water restriction and zone-of-control feedback; damage/construction overlays if enabled. |

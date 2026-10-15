@@ -27,6 +27,14 @@ existing recolour/Lanczos pipeline. See the [family review index](remaining-unit
 and [delivery contract](remaining-unit-families-contract.md). The approximately
 90% target remains a visual review gate, with no measured similarity claim.
 
+The interface continuation uses the unit-panel pilot's slate/brass vector vocabulary
+for frames, controls, information symbols and map markers, plus continuous painted
+weapon/explosion art. Weapon orientation and broad silhouette follow the repository
+references; live labels and values are separate. Retained 4×/2× assets have Lanczos3
+logical-size comparisons. See [interface review](interface-review.html) and
+[contract](interface-contract.md). Approximately 90% resemblance and runtime
+acceptance remain visual gates; no computed similarity percentage is claimed.
+
 The current [new-source manifest](../../art/terrain-distinct-v1.json) contains
 27 semantic/material candidates. The connected and mixed builders deliver all 74
 enabled infrastructure variants and a grass base. Browse the [source gallery](distinct-terrain-review.html).

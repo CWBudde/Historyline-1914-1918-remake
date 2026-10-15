@@ -1,0 +1,5928 @@
+{
+  "schema_version": 1,
+  "profile": "interface-v1",
+  "acceptance": "offline candidates; reference likeness, native mapping, responsive flows and runtime acceptance pending",
+  "filter": "native 4x vector raster or source crop -\u003e 4x -\u003e 2x -\u003e 1x; signed premultiplied byte-RGB Lanczos3, no upscaling",
+  "manifest_sha256": "c8fbe60b29ea39e33c231458d3033ec131f43150708070e01a1b936b4ad5cf1c",
+  "files": [
+    {
+      "id": "action/attack-disabled",
+      "family": "controls",
+      "path": "action/attack-disabled-1x.png",
+      "sha256": "48b45cb4398928f5050400f37dcb33d4434c4bd69948e3dc8e15f644c76d5b91",
+      "width": 62,
+      "height": 52,
+      "density": 1,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/attack-disabled",
+      "family": "controls",
+      "path": "action/attack-disabled-2x.png",
+      "sha256": "49aa72690f72edb787c22faf8b2ab60c6216f7751cb2674087c6751fbedd8e66",
+      "width": 124,
+      "height": 104,
+      "density": 2,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/attack-disabled",
+      "family": "controls",
+      "path": "action/attack-disabled-4x.png",
+      "sha256": "d60ef29a8a33bd50175ae1c171246d312b7ac221823ac5dbc5b0d51758812a87",
+      "width": 248,
+      "height": 208,
+      "density": 4,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/attack-disabled",
+      "family": "controls",
+      "path": "action/attack-disabled.svg",
+      "sha256": "4ede0fa3ab81c8f1de344430e6727241f4aabf6655d992b45f166a5dcc961ae5",
+      "width": 62,
+      "height": 52,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/attack-focus",
+      "family": "controls",
+      "path": "action/attack-focus-1x.png",
+      "sha256": "75f00d135ab06c9d23acf2b97ed79f5c04974ef27e8d528309e96871c5d94c16",
+      "width": 62,
+      "height": 52,
+      "density": 1,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/attack-focus",
+      "family": "controls",
+      "path": "action/attack-focus-2x.png",
+      "sha256": "bffdaa106b9d3439cee54392eef24875c40d0ce543fa8d4af7350a0c40a71f62",
+      "width": 124,
+      "height": 104,
+      "density": 2,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/attack-focus",
+      "family": "controls",
+      "path": "action/attack-focus-4x.png",
+      "sha256": "96db4dc5778298afac5e0414d03af653df5a20004738e0b188b190c143a9736b",
+      "width": 248,
+      "height": 208,
+      "density": 4,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/attack-focus",
+      "family": "controls",
+      "path": "action/attack-focus.svg",
+      "sha256": "c72af4b18d53f7d31ca082cd5f3365a700d870e310359fb5d202a6572fc295ad",
+      "width": 62,
+      "height": 52,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/attack-hover",
+      "family": "controls",
+      "path": "action/attack-hover-1x.png",
+      "sha256": "c676bd5abf1efee7646263da578c58f4ab722764e06f299830499f1b96f2d317",
+      "width": 62,
+      "height": 52,
+      "density": 1,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/attack-hover",
+      "family": "controls",
+      "path": "action/attack-hover-2x.png",
+      "sha256": "3d32a814c3eedd9131311d5815c695a04989bd66aca839485438a38358c04da2",
+      "width": 124,
+      "height": 104,
+      "density": 2,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/attack-hover",
+      "family": "controls",
+      "path": "action/attack-hover-4x.png",
+      "sha256": "ea6f52c51c2cc1712adb7b6406bec34034c8a0aac908f29a6d103658d8af7b6b",
+      "width": 248,
+      "height": 208,
+      "density": 4,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/attack-hover",
+      "family": "controls",
+      "path": "action/attack-hover.svg",
+      "sha256": "319fe4baef0b8b677aa4e31ca7c025b15ecf7458bbcfd1eecfe6796862341a8f",
+      "width": 62,
+      "height": 52,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/attack-normal",
+      "family": "controls",
+      "path": "action/attack-normal-1x.png",
+      "sha256": "c4058a2d1e2a883d444f57026b4192068298aef7513273d1b378764db10d90b6",
+      "width": 62,
+      "height": 52,
+      "density": 1,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/attack-normal",
+      "family": "controls",
+      "path": "action/attack-normal-2x.png",
+      "sha256": "27a431af31fbe6f0728b10f2000b7eb466c6e27debcf02e3707857f2ebc633f8",
+      "width": 124,
+      "height": 104,
+      "density": 2,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/attack-normal",
+      "family": "controls",
+      "path": "action/attack-normal-4x.png",
+      "sha256": "fbc4eb552089abd724070769c9b89f5879b50b1b918859260c38b0f59828a404",
+      "width": 248,
+      "height": 208,
+      "density": 4,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/attack-normal",
+      "family": "controls",
+      "path": "action/attack-normal.svg",
+      "sha256": "f54a0209aa3418d3153c61ac20b3ffdada28c4ebc029fe07b482a03a801075e6",
+      "width": 62,
+      "height": 52,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/attack-pressed",
+      "family": "controls",
+      "path": "action/attack-pressed-1x.png",
+      "sha256": "055bad68c92e055b4edcddc2b40a5c4a0f7d08dcf719c73d5b6471d44fb071eb",
+      "width": 62,
+      "height": 52,
+      "density": 1,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/attack-pressed",
+      "family": "controls",
+      "path": "action/attack-pressed-2x.png",
+      "sha256": "9a9470f5afafb68278dab91c144b5183f309c353dfb48733dc34001dd73bdd12",
+      "width": 124,
+      "height": 104,
+      "density": 2,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/attack-pressed",
+      "family": "controls",
+      "path": "action/attack-pressed-4x.png",
+      "sha256": "01946b4316c7d5904b81d7d035587d2009138f219ccf68f938c70afda22553a1",
+      "width": 248,
+      "height": 208,
+      "density": 4,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/attack-pressed",
+      "family": "controls",
+      "path": "action/attack-pressed.svg",
+      "sha256": "d67effb17e121bfa478a674f8576122e7f8e6762f23102d171c6806b6ec78d06",
+      "width": 62,
+      "height": 52,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/contain-disabled",
+      "family": "controls",
+      "path": "action/contain-disabled-1x.png",
+      "sha256": "af54e1aedcc73af9f442f851438c06d8403962779577b09865a24a77cbd10bf2",
+      "width": 62,
+      "height": 52,
+      "density": 1,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/contain-disabled",
+      "family": "controls",
+      "path": "action/contain-disabled-2x.png",
+      "sha256": "d4a071ef0ce40db416b965a187b2bc0a504c549ecfad1017e83d21f9a043230e",
+      "width": 124,
+      "height": 104,
+      "density": 2,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/contain-disabled",
+      "family": "controls",
+      "path": "action/contain-disabled-4x.png",
+      "sha256": "190cfb0575227a317553a00062b995f6dda0e340bc374e9a33e4a11cfa9a49ab",
+      "width": 248,
+      "height": 208,
+      "density": 4,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/contain-disabled",
+      "family": "controls",
+      "path": "action/contain-disabled.svg",
+      "sha256": "87f5e139094054f01a9e500bfc06e970ee00c47328de811e77f7a47f2994c70e",
+      "width": 62,
+      "height": 52,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/contain-focus",
+      "family": "controls",
+      "path": "action/contain-focus-1x.png",
+      "sha256": "21afb3e101c7cb32edf47ab42243bbc05e8dffcf6e2bbb449c7a3659e67d1798",
+      "width": 62,
+      "height": 52,
+      "density": 1,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/contain-focus",
+      "family": "controls",
+      "path": "action/contain-focus-2x.png",
+      "sha256": "c7e2d1ab443997b0d9d8974c1e2c58fbac77415455634bf863fcb27f8b4c75be",
+      "width": 124,
+      "height": 104,
+      "density": 2,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/contain-focus",
+      "family": "controls",
+      "path": "action/contain-focus-4x.png",
+      "sha256": "3c6e3672579b93e1d8e88e77bb2d7ef4e353005829c02317850b4c06900bd123",
+      "width": 248,
+      "height": 208,
+      "density": 4,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/contain-focus",
+      "family": "controls",
+      "path": "action/contain-focus.svg",
+      "sha256": "db98a696fa1232f820bd192f5bf6056fd166105d8915f9b31fc3160cc0c3eefe",
+      "width": 62,
+      "height": 52,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/contain-hover",
+      "family": "controls",
+      "path": "action/contain-hover-1x.png",
+      "sha256": "46383550c6927a7c8285645b23943d7661c266ef36ff0f8c90d0d7efdad22738",
+      "width": 62,
+      "height": 52,
+      "density": 1,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/contain-hover",
+      "family": "controls",
+      "path": "action/contain-hover-2x.png",
+      "sha256": "848767fbbd30ccaa26071649382994a9962c83a2b7d29ab0b866b347f217f89b",
+      "width": 124,
+      "height": 104,
+      "density": 2,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/contain-hover",
+      "family": "controls",
+      "path": "action/contain-hover-4x.png",
+      "sha256": "effbd4f94f6c5edebf315b86acee42d99e936166ca59fc21528ee240684664ab",
+      "width": 248,
+      "height": 208,
+      "density": 4,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/contain-hover",
+      "family": "controls",
+      "path": "action/contain-hover.svg",
+      "sha256": "8089d95657992667dace3b3e7620d63afd800a09975ec41d94dcad21b3636ec3",
+      "width": 62,
+      "height": 52,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/contain-normal",
+      "family": "controls",
+      "path": "action/contain-normal-1x.png",
+      "sha256": "beb5d371881962d975cbe1da3a62519c8ee3b5f7c2f877cb4aaca43ab2b5c05b",
+      "width": 62,
+      "height": 52,
+      "density": 1,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/contain-normal",
+      "family": "controls",
+      "path": "action/contain-normal-2x.png",
+      "sha256": "9df96877109735759a8e38aadcc7c0b0b4d1dc8e3d1815ff236899839ad2596e",
+      "width": 124,
+      "height": 104,
+      "density": 2,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/contain-normal",
+      "family": "controls",
+      "path": "action/contain-normal-4x.png",
+      "sha256": "345faa85f9e60ddc8ba0f1882250a97ac27fdc943b6f9dfb56f7da79489b5a4d",
+      "width": 248,
+      "height": 208,
+      "density": 4,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/contain-normal",
+      "family": "controls",
+      "path": "action/contain-normal.svg",
+      "sha256": "6648ddcb0b537efdc6fb7ccfb00a2f8d328188690fabd4833a1ddde37ef9b25c",
+      "width": 62,
+      "height": 52,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/contain-pressed",
+      "family": "controls",
+      "path": "action/contain-pressed-1x.png",
+      "sha256": "55642eabb76ad4d6b0788f974b3dc9bc98781cdfab259b35ed9baff58036c38c",
+      "width": 62,
+      "height": 52,
+      "density": 1,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/contain-pressed",
+      "family": "controls",
+      "path": "action/contain-pressed-2x.png",
+      "sha256": "35b90ea6ec50b573e5f0ab5dd0625964d9181a964dd7b2fb016a0ddeb4a1da74",
+      "width": 124,
+      "height": 104,
+      "density": 2,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/contain-pressed",
+      "family": "controls",
+      "path": "action/contain-pressed-4x.png",
+      "sha256": "1cb9ea55c2b545b0ebbed17f561a0d8a2f3023ea86e7e87f0113dd6ae629bf01",
+      "width": 248,
+      "height": 208,
+      "density": 4,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/contain-pressed",
+      "family": "controls",
+      "path": "action/contain-pressed.svg",
+      "sha256": "a5ee1f46e4e515834f575b80b83e22b3bde511888486dba187e681b5bee68603",
+      "width": 62,
+      "height": 52,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/exit-disabled",
+      "family": "controls",
+      "path": "action/exit-disabled-1x.png",
+      "sha256": "13e004f7901ef5d76e0cfbc02bd681d50f0bc6d7eb6a3e547c0a3b67091d5c48",
+      "width": 62,
+      "height": 52,
+      "density": 1,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/exit-disabled",
+      "family": "controls",
+      "path": "action/exit-disabled-2x.png",
+      "sha256": "d69b4954c08603998b56dd220dfa7135b2b2dbce46438b82ad2ea056e19644fe",
+      "width": 124,
+      "height": 104,
+      "density": 2,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/exit-disabled",
+      "family": "controls",
+      "path": "action/exit-disabled-4x.png",
+      "sha256": "f561165aea69aff8db6e302fa1ed29992642aa3570e7ee698c3842cf7a4d53b0",
+      "width": 248,
+      "height": 208,
+      "density": 4,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/exit-disabled",
+      "family": "controls",
+      "path": "action/exit-disabled.svg",
+      "sha256": "c9fdbe5922ecd701ae34467ab04164045a687f1f1debdda1c49a2291bad34ab3",
+      "width": 62,
+      "height": 52,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/exit-focus",
+      "family": "controls",
+      "path": "action/exit-focus-1x.png",
+      "sha256": "2024f66c7577eea524d602c2a7f0a23594dbb871d8e86611a2662a7919f5c245",
+      "width": 62,
+      "height": 52,
+      "density": 1,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/exit-focus",
+      "family": "controls",
+      "path": "action/exit-focus-2x.png",
+      "sha256": "2f2b2f0195ae3578e5bbf7f1181987a00cd9d8b0c26c141f67056f1621eb8b38",
+      "width": 124,
+      "height": 104,
+      "density": 2,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/exit-focus",
+      "family": "controls",
+      "path": "action/exit-focus-4x.png",
+      "sha256": "46286331ed803e3ff1f9b4fbe43a0957d844b99df0842f23f5eedbf805877a9a",
+      "width": 248,
+      "height": 208,
+      "density": 4,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/exit-focus",
+      "family": "controls",
+      "path": "action/exit-focus.svg",
+      "sha256": "637fa0fe91d8dd13e69667d042daee462db975a048c54aa9e8a69a86c5d177ff",
+      "width": 62,
+      "height": 52,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/exit-hover",
+      "family": "controls",
+      "path": "action/exit-hover-1x.png",
+      "sha256": "83e11936e671d246a72cbd9cc881212315cb9845eef77f06a988712089e8f25b",
+      "width": 62,
+      "height": 52,
+      "density": 1,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/exit-hover",
+      "family": "controls",
+      "path": "action/exit-hover-2x.png",
+      "sha256": "aaab3b95b7549fb8f8dd514ca0d23da6b07fd899242b6990e088d4ec2f8bfbeb",
+      "width": 124,
+      "height": 104,
+      "density": 2,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/exit-hover",
+      "family": "controls",
+      "path": "action/exit-hover-4x.png",
+      "sha256": "39adbbee20c9a0ecc336075d60fb3b0332084b4d17d31509a639343ee073c11d",
+      "width": 248,
+      "height": 208,
+      "density": 4,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/exit-hover",
+      "family": "controls",
+      "path": "action/exit-hover.svg",
+      "sha256": "b8b75589ffb8ab971457a6b95c0816b2bca89adcb8b5c8834480396d47f2203c",
+      "width": 62,
+      "height": 52,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/exit-normal",
+      "family": "controls",
+      "path": "action/exit-normal-1x.png",
+      "sha256": "9fa2da8010e328a6f45476188cd75856124b1f4dc85968ac63bea63ffbb1f677",
+      "width": 62,
+      "height": 52,
+      "density": 1,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/exit-normal",
+      "family": "controls",
+      "path": "action/exit-normal-2x.png",
+      "sha256": "4bf2870e758bc80d21757a5eda97fe9151b47b3b3250329aa9f6e0de5eb5cb99",
+      "width": 124,
+      "height": 104,
+      "density": 2,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/exit-normal",
+      "family": "controls",
+      "path": "action/exit-normal-4x.png",
+      "sha256": "494db162a5193c91824d7553141f42f51e5a52dea79af501798d8a2805c590a6",
+      "width": 248,
+      "height": 208,
+      "density": 4,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/exit-normal",
+      "family": "controls",
+      "path": "action/exit-normal.svg",
+      "sha256": "a4400b4f1075d93d758802a6a6b7aa42a865922c53e03da9f22b9cf2f7d77218",
+      "width": 62,
+      "height": 52,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/exit-pressed",
+      "family": "controls",
+      "path": "action/exit-pressed-1x.png",
+      "sha256": "bb5b7b012282d5409611aee0dbab396923a2c7b56e1fa6d8d5b83889f23afda9",
+      "width": 62,
+      "height": 52,
+      "density": 1,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/exit-pressed",
+      "family": "controls",
+      "path": "action/exit-pressed-2x.png",
+      "sha256": "4339ad07a435fce1a5d67a3f3ceca3aa86405a2ff5b49d322096569b5771362c",
+      "width": 124,
+      "height": 104,
+      "density": 2,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/exit-pressed",
+      "family": "controls",
+      "path": "action/exit-pressed-4x.png",
+      "sha256": "975d27d4b4bcd8408d5f1ae4ad129209d855cf45db55196571232ca243291ba0",
+      "width": 248,
+      "height": 208,
+      "density": 4,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/exit-pressed",
+      "family": "controls",
+      "path": "action/exit-pressed.svg",
+      "sha256": "c563a9f338339c32ab0dbea69136845c42e28a503b63b00d1af3861156e7152b",
+      "width": 62,
+      "height": 52,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/move-disabled",
+      "family": "controls",
+      "path": "action/move-disabled-1x.png",
+      "sha256": "83d2225c30c888dbf8cd115ebe391a4d00228837af5145abf9a3bf68de1beecb",
+      "width": 62,
+      "height": 52,
+      "density": 1,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/move-disabled",
+      "family": "controls",
+      "path": "action/move-disabled-2x.png",
+      "sha256": "58a14dd94930e57d48f941ea116d3be39098d0795a2e6608180832b6e2aae486",
+      "width": 124,
+      "height": 104,
+      "density": 2,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/move-disabled",
+      "family": "controls",
+      "path": "action/move-disabled-4x.png",
+      "sha256": "cf0744d5192ab060cdeddaed26aeba806def02df0f582dffe77bdaa6b118b7b0",
+      "width": 248,
+      "height": 208,
+      "density": 4,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/move-disabled",
+      "family": "controls",
+      "path": "action/move-disabled.svg",
+      "sha256": "9ae5b67d69fcd9710fc23b868c3b59db462ac1359336016457252e4dd7baf12f",
+      "width": 62,
+      "height": 52,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/move-focus",
+      "family": "controls",
+      "path": "action/move-focus-1x.png",
+      "sha256": "8940330d1c5faadc6f6d6d46eb4b46d481466c512c965cfb4fc304f511cb6ce1",
+      "width": 62,
+      "height": 52,
+      "density": 1,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/move-focus",
+      "family": "controls",
+      "path": "action/move-focus-2x.png",
+      "sha256": "80a37afe5058035e3211c2665ebb04cbd22669f42130278d7173b8096aa3bfc0",
+      "width": 124,
+      "height": 104,
+      "density": 2,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/move-focus",
+      "family": "controls",
+      "path": "action/move-focus-4x.png",
+      "sha256": "809ce39e5c147f5fe3facabbb54cfa7459fa77fd5bdb8936382b05b9ae20ea36",
+      "width": 248,
+      "height": 208,
+      "density": 4,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/move-focus",
+      "family": "controls",
+      "path": "action/move-focus.svg",
+      "sha256": "493b79225aa2a6c0b14383a81a384bf9d84c06b7122a26f83ff8353038332d6b",
+      "width": 62,
+      "height": 52,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/move-hover",
+      "family": "controls",
+      "path": "action/move-hover-1x.png",
+      "sha256": "bbdc667a24b6ff6fb8e05d641cf61986ec66d73ea0b9e3abe8620c647fa00c83",
+      "width": 62,
+      "height": 52,
+      "density": 1,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/move-hover",
+      "family": "controls",
+      "path": "action/move-hover-2x.png",
+      "sha256": "155023389b803a4ad6bdaa57b63e78ea9935f85fd7da9750add1de698aeded78",
+      "width": 124,
+      "height": 104,
+      "density": 2,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/move-hover",
+      "family": "controls",
+      "path": "action/move-hover-4x.png",
+      "sha256": "c509528e9800aea98196caf62df5ba92d1c603161de593347ca9514452b33220",
+      "width": 248,
+      "height": 208,
+      "density": 4,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/move-hover",
+      "family": "controls",
+      "path": "action/move-hover.svg",
+      "sha256": "acb63500df6ca12c68b0b1e0ff45a99b91a9078706fb030337cabfff5dd1e5e7",
+      "width": 62,
+      "height": 52,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/move-normal",
+      "family": "controls",
+      "path": "action/move-normal-1x.png",
+      "sha256": "cd2840f42faaf13732433098fb4e3e6d70a16c876a2aafde2dc1c1c9ff40e9db",
+      "width": 62,
+      "height": 52,
+      "density": 1,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/move-normal",
+      "family": "controls",
+      "path": "action/move-normal-2x.png",
+      "sha256": "0d4d5c328e343015b186d94fbf875ac4b5b30ded0278f15e4977dcb6fd21f43a",
+      "width": 124,
+      "height": 104,
+      "density": 2,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/move-normal",
+      "family": "controls",
+      "path": "action/move-normal-4x.png",
+      "sha256": "0f080f024935a87a7e7f7f150f6123d139e0bc8008c677e65e3d4705b53d6d47",
+      "width": 248,
+      "height": 208,
+      "density": 4,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/move-normal",
+      "family": "controls",
+      "path": "action/move-normal.svg",
+      "sha256": "6f3b9dbd9ceb8b66b5ca18e1d590c4f34b8c78691f7a19a1a4aa841284bd3b6c",
+      "width": 62,
+      "height": 52,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/move-pressed",
+      "family": "controls",
+      "path": "action/move-pressed-1x.png",
+      "sha256": "7f587ff96a9f66b6c8ced3c7accccd782ba6c69e0285176c1dffd8826b7cc904",
+      "width": 62,
+      "height": 52,
+      "density": 1,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/move-pressed",
+      "family": "controls",
+      "path": "action/move-pressed-2x.png",
+      "sha256": "36bbc06e0dae5d7c762c684af0dac022fbdf6d06c9c93c16d9c71572c689c1d8",
+      "width": 124,
+      "height": 104,
+      "density": 2,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/move-pressed",
+      "family": "controls",
+      "path": "action/move-pressed-4x.png",
+      "sha256": "378aca5cf52d03e4d44afac195a7f619e1b872680d2b1e8003d7267a4eafa875",
+      "width": 248,
+      "height": 208,
+      "density": 4,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "action/move-pressed",
+      "family": "controls",
+      "path": "action/move-pressed.svg",
+      "sha256": "c181a7f0763fcf84e1fa6d0a5540215c2fa25c7545532243436b82991b1b81a8",
+      "width": 62,
+      "height": 52,
+      "logical_anchor": [
+        31,
+        26
+      ]
+    },
+    {
+      "id": "animations",
+      "family": "metadata",
+      "path": "animations.json",
+      "sha256": "45361dda95ad33b7193dd3b8c6d6b29ad3ed1a1c1eb36e4f28feb13344fbc3b8",
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "banner/capture",
+      "family": "panels",
+      "path": "banner/capture-1x.png",
+      "sha256": "8d123a9aeb9881a2050ac29b30c38ef2a14fdf3a964e50fbc80fa11b2461fd2a",
+      "width": 480,
+      "height": 112,
+      "density": 1,
+      "logical_anchor": [
+        240,
+        56
+      ]
+    },
+    {
+      "id": "banner/capture",
+      "family": "panels",
+      "path": "banner/capture-2x.png",
+      "sha256": "90f76b99b1e22632f3980c102183f159d76bfeb2b900e302cc8034fed584b23e",
+      "width": 960,
+      "height": 224,
+      "density": 2,
+      "logical_anchor": [
+        240,
+        56
+      ]
+    },
+    {
+      "id": "banner/capture",
+      "family": "panels",
+      "path": "banner/capture-4x.png",
+      "sha256": "0d71b349fed7d91756434c3e0b2396813be000bf4ecebfdda723ce73cfa8302d",
+      "width": 1920,
+      "height": 448,
+      "density": 4,
+      "logical_anchor": [
+        240,
+        56
+      ]
+    },
+    {
+      "id": "banner/capture",
+      "family": "panels",
+      "path": "banner/capture.svg",
+      "sha256": "476efde0811f83e37d4d9fe6c415ff3793553e071b2c614801c237a7ee1507aa",
+      "width": 480,
+      "height": 112,
+      "logical_anchor": [
+        240,
+        56
+      ]
+    },
+    {
+      "id": "banner/round",
+      "family": "panels",
+      "path": "banner/round-1x.png",
+      "sha256": "a67a97f131a72033f80438d0a8f6d23621e9d946b2c14874e27452f0e53dbf34",
+      "width": 480,
+      "height": 112,
+      "density": 1,
+      "logical_anchor": [
+        240,
+        56
+      ]
+    },
+    {
+      "id": "banner/round",
+      "family": "panels",
+      "path": "banner/round-2x.png",
+      "sha256": "e7c0c341ddcdcef4687f3c951d64d6747cfe987e8b6b25a79ed8626629c8d2dd",
+      "width": 960,
+      "height": 224,
+      "density": 2,
+      "logical_anchor": [
+        240,
+        56
+      ]
+    },
+    {
+      "id": "banner/round",
+      "family": "panels",
+      "path": "banner/round-4x.png",
+      "sha256": "14fdc069f9db9f73fcb9cca6847d97c464dacd658884f2997289e41da43dda0b",
+      "width": 1920,
+      "height": 448,
+      "density": 4,
+      "logical_anchor": [
+        240,
+        56
+      ]
+    },
+    {
+      "id": "banner/round",
+      "family": "panels",
+      "path": "banner/round.svg",
+      "sha256": "ec12ff41bcc298ee81b463652b087b773a8d170152f8ea7b70a7f43c29b50da5",
+      "width": 480,
+      "height": 112,
+      "logical_anchor": [
+        240,
+        56
+      ]
+    },
+    {
+      "id": "bar/negative",
+      "family": "information",
+      "path": "bar/negative-1x.png",
+      "sha256": "ea0bfadb0880bfe68aa3be4e3b695016ac6b3807091c4d553f0ed57b4c8c0aa5",
+      "width": 15,
+      "height": 26,
+      "density": 1,
+      "logical_anchor": [
+        7.5,
+        13
+      ]
+    },
+    {
+      "id": "bar/negative",
+      "family": "information",
+      "path": "bar/negative-2x.png",
+      "sha256": "e84578047989d15e1d7d78722fc3f8ac2dabedf31edd135b065c64fa654b3dcd",
+      "width": 30,
+      "height": 52,
+      "density": 2,
+      "logical_anchor": [
+        7.5,
+        13
+      ]
+    },
+    {
+      "id": "bar/negative",
+      "family": "information",
+      "path": "bar/negative-4x.png",
+      "sha256": "3e83fe536c0e13431ed908e1abe80c6400b75d073b3d416ab847a5d57a713e17",
+      "width": 60,
+      "height": 104,
+      "density": 4,
+      "logical_anchor": [
+        7.5,
+        13
+      ]
+    },
+    {
+      "id": "bar/negative",
+      "family": "information",
+      "path": "bar/negative.svg",
+      "sha256": "fe18e8d832730b186963107817824fb3050f179222af2348f7298feccc70d033",
+      "width": 15,
+      "height": 26,
+      "logical_anchor": [
+        7.5,
+        13
+      ]
+    },
+    {
+      "id": "bar/neutral",
+      "family": "information",
+      "path": "bar/neutral-1x.png",
+      "sha256": "f82902eea13076d010ad1050aeac53b6366f562577a74274af35375c3bf64af3",
+      "width": 15,
+      "height": 26,
+      "density": 1,
+      "logical_anchor": [
+        7.5,
+        13
+      ]
+    },
+    {
+      "id": "bar/neutral",
+      "family": "information",
+      "path": "bar/neutral-2x.png",
+      "sha256": "f68bca425992eff78bef03617953a64683e27af03e260e92eea0d3ec68b43fd0",
+      "width": 30,
+      "height": 52,
+      "density": 2,
+      "logical_anchor": [
+        7.5,
+        13
+      ]
+    },
+    {
+      "id": "bar/neutral",
+      "family": "information",
+      "path": "bar/neutral-4x.png",
+      "sha256": "f863d9a4d78f8c7049c344ce076fc49735d0d9ed037598adcaf29226d291b9b5",
+      "width": 60,
+      "height": 104,
+      "density": 4,
+      "logical_anchor": [
+        7.5,
+        13
+      ]
+    },
+    {
+      "id": "bar/neutral",
+      "family": "information",
+      "path": "bar/neutral.svg",
+      "sha256": "1467bdaccc0a641d8d94ed847fe67113440446f932c63070844481d727ac7b78",
+      "width": 15,
+      "height": 26,
+      "logical_anchor": [
+        7.5,
+        13
+      ]
+    },
+    {
+      "id": "bar/positive",
+      "family": "information",
+      "path": "bar/positive-1x.png",
+      "sha256": "8e9561bc0495329058806c2cde176344b1ddd96d03096ee0ca4f92bb9ac5480a",
+      "width": 15,
+      "height": 26,
+      "density": 1,
+      "logical_anchor": [
+        7.5,
+        13
+      ]
+    },
+    {
+      "id": "bar/positive",
+      "family": "information",
+      "path": "bar/positive-2x.png",
+      "sha256": "af856feba49e65be2a0e0aecf7ad83755d47967bce3ce72956a869107f0cd9fd",
+      "width": 30,
+      "height": 52,
+      "density": 2,
+      "logical_anchor": [
+        7.5,
+        13
+      ]
+    },
+    {
+      "id": "bar/positive",
+      "family": "information",
+      "path": "bar/positive-4x.png",
+      "sha256": "4611cddb1d23f3b80d76f6d0d0de3b716728e6f4b481aba199b8f57e78a9669a",
+      "width": 60,
+      "height": 104,
+      "density": 4,
+      "logical_anchor": [
+        7.5,
+        13
+      ]
+    },
+    {
+      "id": "bar/positive",
+      "family": "information",
+      "path": "bar/positive.svg",
+      "sha256": "4983253820dea3d1af7ce1982f040ef47ceb211ae2bf4986adc05cc9223243d6",
+      "width": 15,
+      "height": 26,
+      "logical_anchor": [
+        7.5,
+        13
+      ]
+    },
+    {
+      "id": "bar/track",
+      "family": "information",
+      "path": "bar/track-1x.png",
+      "sha256": "2d06072b7516f8a1564cce430ed85ae6e96d67d991ba995bf69e70ce81163c6b",
+      "width": 300,
+      "height": 20,
+      "density": 1,
+      "logical_anchor": [
+        150,
+        10
+      ]
+    },
+    {
+      "id": "bar/track",
+      "family": "information",
+      "path": "bar/track-2x.png",
+      "sha256": "68775e897316078d23379edd4f498c48e04d9859abeeac18ec7a9ccb6aa45e63",
+      "width": 600,
+      "height": 40,
+      "density": 2,
+      "logical_anchor": [
+        150,
+        10
+      ]
+    },
+    {
+      "id": "bar/track",
+      "family": "information",
+      "path": "bar/track-4x.png",
+      "sha256": "b789e82e1011a74dbc2d19060cf60b2821fceb11a716e59bfab1ca980951dae4",
+      "width": 1200,
+      "height": 80,
+      "density": 4,
+      "logical_anchor": [
+        150,
+        10
+      ]
+    },
+    {
+      "id": "bar/track",
+      "family": "information",
+      "path": "bar/track.svg",
+      "sha256": "b2d9b4a67ae004d45521fa603b7490110342b310b97a02ac26aac4819b2cc853",
+      "width": 300,
+      "height": 20,
+      "logical_anchor": [
+        150,
+        10
+      ]
+    },
+    {
+      "id": "bar/unavailable",
+      "family": "information",
+      "path": "bar/unavailable-1x.png",
+      "sha256": "bef27ec64dc1faa032232e6a1d70e266bbb00a0f64c32394d10207a6a7e9df55",
+      "width": 24,
+      "height": 24,
+      "density": 1,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "bar/unavailable",
+      "family": "information",
+      "path": "bar/unavailable-2x.png",
+      "sha256": "72917fee5170edd9be9b6b3c5f0630e188b64598d78bba0014a5b5224c82a225",
+      "width": 48,
+      "height": 48,
+      "density": 2,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "bar/unavailable",
+      "family": "information",
+      "path": "bar/unavailable-4x.png",
+      "sha256": "76c43ef5e15b84ac6e88b1dc4d2b9efdec74b35a4bfdedf28fe94485f40e6b16",
+      "width": 96,
+      "height": 96,
+      "density": 4,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "bar/unavailable",
+      "family": "information",
+      "path": "bar/unavailable.svg",
+      "sha256": "629407b13adf3cbedd0d486de8d09a4dddf7bbae5037028b005bc5d026476299",
+      "width": 24,
+      "height": 24,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "bindings",
+      "family": "metadata",
+      "path": "bindings.json",
+      "sha256": "f27f8fefd447c79eba48ae6bc61f8f85932b29ad08cd78710cd4334dd9188b3b",
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "button/disabled",
+      "family": "controls",
+      "path": "button/disabled-1x.png",
+      "sha256": "65d95e1cbd25774f5a0f79aadfdcf9afe920ba02f382adf28e0e0f0376338e91",
+      "width": 160,
+      "height": 40,
+      "density": 1,
+      "logical_anchor": [
+        80,
+        20
+      ]
+    },
+    {
+      "id": "button/disabled",
+      "family": "controls",
+      "path": "button/disabled-2x.png",
+      "sha256": "99571533a5af6040d3ceaff79f102a1daec3f521585308b3badf3300aaf5cf6a",
+      "width": 320,
+      "height": 80,
+      "density": 2,
+      "logical_anchor": [
+        80,
+        20
+      ]
+    },
+    {
+      "id": "button/disabled",
+      "family": "controls",
+      "path": "button/disabled-4x.png",
+      "sha256": "de7a1acc69583706bfde54a28058f4e26cc72d8fd48877bf67641d9c76f2d194",
+      "width": 640,
+      "height": 160,
+      "density": 4,
+      "logical_anchor": [
+        80,
+        20
+      ]
+    },
+    {
+      "id": "button/disabled",
+      "family": "controls",
+      "path": "button/disabled.svg",
+      "sha256": "5791c1a492e40d329038181b320469b818035bac3475f2d5af2d99a26e086c83",
+      "width": 160,
+      "height": 40,
+      "logical_anchor": [
+        80,
+        20
+      ]
+    },
+    {
+      "id": "button/focus",
+      "family": "controls",
+      "path": "button/focus-1x.png",
+      "sha256": "9fe69c8562cbce1477d5731efd416cdc54e609522b7889ccd4d529fde909a020",
+      "width": 160,
+      "height": 40,
+      "density": 1,
+      "logical_anchor": [
+        80,
+        20
+      ]
+    },
+    {
+      "id": "button/focus",
+      "family": "controls",
+      "path": "button/focus-2x.png",
+      "sha256": "1f0ed39940e6fb14de2e0afaf9d28b742c68321102939e2c285d078fad4c5d5c",
+      "width": 320,
+      "height": 80,
+      "density": 2,
+      "logical_anchor": [
+        80,
+        20
+      ]
+    },
+    {
+      "id": "button/focus",
+      "family": "controls",
+      "path": "button/focus-4x.png",
+      "sha256": "7b8ea238c310bd3aaf5f2dd467778c29d0e09f2c370cff20d5779f8f75eed3d9",
+      "width": 640,
+      "height": 160,
+      "density": 4,
+      "logical_anchor": [
+        80,
+        20
+      ]
+    },
+    {
+      "id": "button/focus",
+      "family": "controls",
+      "path": "button/focus.svg",
+      "sha256": "4cbd0c77980ea1a2ac6d785986dbf12b88f034ebd77a017cd3419660693f702f",
+      "width": 160,
+      "height": 40,
+      "logical_anchor": [
+        80,
+        20
+      ]
+    },
+    {
+      "id": "button/hover",
+      "family": "controls",
+      "path": "button/hover-1x.png",
+      "sha256": "6db16d0ef8ec32de1b7c0943b5d0d50ba5f49937cf886ed41321a56c3b211019",
+      "width": 160,
+      "height": 40,
+      "density": 1,
+      "logical_anchor": [
+        80,
+        20
+      ]
+    },
+    {
+      "id": "button/hover",
+      "family": "controls",
+      "path": "button/hover-2x.png",
+      "sha256": "4e717d0b44d964e08e0eb5a3d8b337f6fe3e41f7133f3e3910006fc57ea21e17",
+      "width": 320,
+      "height": 80,
+      "density": 2,
+      "logical_anchor": [
+        80,
+        20
+      ]
+    },
+    {
+      "id": "button/hover",
+      "family": "controls",
+      "path": "button/hover-4x.png",
+      "sha256": "d640a5059705e40ca0bbd42d84ad80928c3d7b93881879e4b5e16b6bbe624ee9",
+      "width": 640,
+      "height": 160,
+      "density": 4,
+      "logical_anchor": [
+        80,
+        20
+      ]
+    },
+    {
+      "id": "button/hover",
+      "family": "controls",
+      "path": "button/hover.svg",
+      "sha256": "f4602fadcd980503cb1ef31b7735de17426e41c29819bc70b5c01c4b809b5a42",
+      "width": 160,
+      "height": 40,
+      "logical_anchor": [
+        80,
+        20
+      ]
+    },
+    {
+      "id": "button/normal",
+      "family": "controls",
+      "path": "button/normal-1x.png",
+      "sha256": "be96eb3bb7b1658529fe6fd96b318cb47daed8dcc0858b2d323f69b05493add9",
+      "width": 160,
+      "height": 40,
+      "density": 1,
+      "logical_anchor": [
+        80,
+        20
+      ]
+    },
+    {
+      "id": "button/normal",
+      "family": "controls",
+      "path": "button/normal-2x.png",
+      "sha256": "5cc4954354807e06e318e4c899ce0fd73a003eeb662bb81c9e806f5ecfc6494b",
+      "width": 320,
+      "height": 80,
+      "density": 2,
+      "logical_anchor": [
+        80,
+        20
+      ]
+    },
+    {
+      "id": "button/normal",
+      "family": "controls",
+      "path": "button/normal-4x.png",
+      "sha256": "b0f416e6211ff09d33b240169807287bfe30f711a8d922addead4b6efb427789",
+      "width": 640,
+      "height": 160,
+      "density": 4,
+      "logical_anchor": [
+        80,
+        20
+      ]
+    },
+    {
+      "id": "button/normal",
+      "family": "controls",
+      "path": "button/normal.svg",
+      "sha256": "c1712ee9794f8d62af5ab7a82a8b81a1046d5d897aa9a11256efdd7825bde179",
+      "width": 160,
+      "height": 40,
+      "logical_anchor": [
+        80,
+        20
+      ]
+    },
+    {
+      "id": "button/pressed",
+      "family": "controls",
+      "path": "button/pressed-1x.png",
+      "sha256": "2a86d62ea5d79e02dc89cc80265e88fbace57e7706f8cdc2bcddc9260c6d1607",
+      "width": 160,
+      "height": 40,
+      "density": 1,
+      "logical_anchor": [
+        80,
+        20
+      ]
+    },
+    {
+      "id": "button/pressed",
+      "family": "controls",
+      "path": "button/pressed-2x.png",
+      "sha256": "6aad8b2263734def7c696c036fed427968ad734beb36334262b9e2bb26aa282d",
+      "width": 320,
+      "height": 80,
+      "density": 2,
+      "logical_anchor": [
+        80,
+        20
+      ]
+    },
+    {
+      "id": "button/pressed",
+      "family": "controls",
+      "path": "button/pressed-4x.png",
+      "sha256": "fa0d675e81867b8749572e1dbdb6c6555a2c0ddfa4c275719efbc9352279ef65",
+      "width": 640,
+      "height": 160,
+      "density": 4,
+      "logical_anchor": [
+        80,
+        20
+      ]
+    },
+    {
+      "id": "button/pressed",
+      "family": "controls",
+      "path": "button/pressed.svg",
+      "sha256": "2813b7e6caa950d79159ea25dc2beacc165e26604f04100234726db72acf0997",
+      "width": 160,
+      "height": 40,
+      "logical_anchor": [
+        80,
+        20
+      ]
+    },
+    {
+      "id": "country/france",
+      "family": "information",
+      "path": "country/france-1x.png",
+      "sha256": "98d53d61a0a3cff538d9919181af97fcc6dceabd4fecbb232c9bd4d644cb8faa",
+      "width": 88,
+      "height": 88,
+      "density": 1,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "country/france",
+      "family": "information",
+      "path": "country/france-2x.png",
+      "sha256": "c4b0fcd5b0af076a2f3a652bfb5418e7599aef6c53f72852fd409a90f786ac5f",
+      "width": 176,
+      "height": 176,
+      "density": 2,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "country/france",
+      "family": "information",
+      "path": "country/france-4x.png",
+      "sha256": "0fb1076191a681dad90df2dc6642593ce00dd5676dc0065d2d58b4d11ac82130",
+      "width": 352,
+      "height": 352,
+      "density": 4,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "country/france",
+      "family": "information",
+      "path": "country/france.svg",
+      "sha256": "7abbbe79256b914164d9beabc8adc7ba74025b14e132e9cc6a68c79df0de89ff",
+      "width": 88,
+      "height": 88,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "country/germany",
+      "family": "information",
+      "path": "country/germany-1x.png",
+      "sha256": "358529f1243f33b982b5c1db81aa3f0b510deafaf76bf56ec8eb1eb6396e94ff",
+      "width": 88,
+      "height": 88,
+      "density": 1,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "country/germany",
+      "family": "information",
+      "path": "country/germany-2x.png",
+      "sha256": "c1fb155d1075888b1bca61e3db2f383ae159ce05a05be423787523ce1fe33e60",
+      "width": 176,
+      "height": 176,
+      "density": 2,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "country/germany",
+      "family": "information",
+      "path": "country/germany-4x.png",
+      "sha256": "26c88951c96ac4f8b4899bf0c4d5632e115fcd880564cd3e6d8b04048334c34d",
+      "width": 352,
+      "height": 352,
+      "density": 4,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "country/germany",
+      "family": "information",
+      "path": "country/germany.svg",
+      "sha256": "de53766feb9decd753e53dcca71dfb6c461cbf8e33401d1a56cf0067feb1f8ba",
+      "width": 88,
+      "height": 88,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "effect/explosion-00",
+      "family": "effects",
+      "path": "effect/explosion-00-1x.png",
+      "sha256": "71395f7661ccf92ede27d64a5309433c69f6b7acd7c1645a654fa30b70128633",
+      "width": 96,
+      "height": 96,
+      "density": 1,
+      "logical_anchor": [
+        48,
+        48
+      ]
+    },
+    {
+      "id": "effect/explosion-00",
+      "family": "effects",
+      "path": "effect/explosion-00-2x.png",
+      "sha256": "ce000f01d9f4f4763d1ba8cdea32fcc94d5b3a934f4e1376c4b0ea1f9184c12c",
+      "width": 192,
+      "height": 192,
+      "density": 2,
+      "logical_anchor": [
+        48,
+        48
+      ]
+    },
+    {
+      "id": "effect/explosion-00",
+      "family": "effects",
+      "path": "effect/explosion-00-4x.png",
+      "sha256": "900a4493a75f55ae40759106264ceeebf01d432f0a844f69c2a0502bdde4e666",
+      "width": 384,
+      "height": 384,
+      "density": 4,
+      "logical_anchor": [
+        48,
+        48
+      ]
+    },
+    {
+      "id": "effect/explosion-01",
+      "family": "effects",
+      "path": "effect/explosion-01-1x.png",
+      "sha256": "869bc8be3824191267e9afcd85b0b6a28477d84a8da114744824ceb6628ddbf1",
+      "width": 96,
+      "height": 96,
+      "density": 1,
+      "logical_anchor": [
+        48,
+        48
+      ]
+    },
+    {
+      "id": "effect/explosion-01",
+      "family": "effects",
+      "path": "effect/explosion-01-2x.png",
+      "sha256": "6a7dbd2721b0c3923c238adcb436787fa7653ca45e6d15441780adcc87549873",
+      "width": 192,
+      "height": 192,
+      "density": 2,
+      "logical_anchor": [
+        48,
+        48
+      ]
+    },
+    {
+      "id": "effect/explosion-01",
+      "family": "effects",
+      "path": "effect/explosion-01-4x.png",
+      "sha256": "77193f1a081b7bea4a7b145c2ddfa1976fb298446b1c470091b52a54e24b845b",
+      "width": 384,
+      "height": 384,
+      "density": 4,
+      "logical_anchor": [
+        48,
+        48
+      ]
+    },
+    {
+      "id": "effect/explosion-02",
+      "family": "effects",
+      "path": "effect/explosion-02-1x.png",
+      "sha256": "9d170cb774ab04434e2e0952750171cfc7467c1befa3ed1c34d5ecc76dc84120",
+      "width": 96,
+      "height": 96,
+      "density": 1,
+      "logical_anchor": [
+        48,
+        48
+      ]
+    },
+    {
+      "id": "effect/explosion-02",
+      "family": "effects",
+      "path": "effect/explosion-02-2x.png",
+      "sha256": "29b8f707cda0c6b89be747af9dd73eaf039df30779ff7682a587c2e39c9d7faa",
+      "width": 192,
+      "height": 192,
+      "density": 2,
+      "logical_anchor": [
+        48,
+        48
+      ]
+    },
+    {
+      "id": "effect/explosion-02",
+      "family": "effects",
+      "path": "effect/explosion-02-4x.png",
+      "sha256": "5245c9d62822c3088836e7581f637a97ca14301164707c87f71d32b23b759000",
+      "width": 384,
+      "height": 384,
+      "density": 4,
+      "logical_anchor": [
+        48,
+        48
+      ]
+    },
+    {
+      "id": "effect/explosion-03",
+      "family": "effects",
+      "path": "effect/explosion-03-1x.png",
+      "sha256": "570c3dec5de19b3f9386b01e7c1cf07e2193b3cc5b635a7dc7222d365f603ef7",
+      "width": 96,
+      "height": 96,
+      "density": 1,
+      "logical_anchor": [
+        48,
+        48
+      ]
+    },
+    {
+      "id": "effect/explosion-03",
+      "family": "effects",
+      "path": "effect/explosion-03-2x.png",
+      "sha256": "2c3469af2f4b42e9ef5ff13da42041f8e0df09e64395f2162d1be4a2202a8ab6",
+      "width": 192,
+      "height": 192,
+      "density": 2,
+      "logical_anchor": [
+        48,
+        48
+      ]
+    },
+    {
+      "id": "effect/explosion-03",
+      "family": "effects",
+      "path": "effect/explosion-03-4x.png",
+      "sha256": "568d59c7caf3d9c350c4d13fb6d74413f9ec4d6300b813046ea7188d9a09d199",
+      "width": 384,
+      "height": 384,
+      "density": 4,
+      "logical_anchor": [
+        48,
+        48
+      ]
+    },
+    {
+      "id": "effect/explosion-04",
+      "family": "effects",
+      "path": "effect/explosion-04-1x.png",
+      "sha256": "26b2e593161dc0bf774be7f09ec0c672320a37c7e9d0786ea28f4f6d2d60ed3f",
+      "width": 96,
+      "height": 96,
+      "density": 1,
+      "logical_anchor": [
+        48,
+        48
+      ]
+    },
+    {
+      "id": "effect/explosion-04",
+      "family": "effects",
+      "path": "effect/explosion-04-2x.png",
+      "sha256": "4ea144eda8f340533fbcfc1bd062cb333667806c0a76a8d3803ed349df5acd4b",
+      "width": 192,
+      "height": 192,
+      "density": 2,
+      "logical_anchor": [
+        48,
+        48
+      ]
+    },
+    {
+      "id": "effect/explosion-04",
+      "family": "effects",
+      "path": "effect/explosion-04-4x.png",
+      "sha256": "f7a25c9a2264c76c1c0033b69b872b96a62270e0c7cb5f4319413208bb19fbfd",
+      "width": 384,
+      "height": 384,
+      "density": 4,
+      "logical_anchor": [
+        48,
+        48
+      ]
+    },
+    {
+      "id": "effect/explosion-05",
+      "family": "effects",
+      "path": "effect/explosion-05-1x.png",
+      "sha256": "f0115a4aadd85639e00730325f3e8e94ff5db96ede20a492ebda55e1f9464629",
+      "width": 96,
+      "height": 96,
+      "density": 1,
+      "logical_anchor": [
+        48,
+        48
+      ]
+    },
+    {
+      "id": "effect/explosion-05",
+      "family": "effects",
+      "path": "effect/explosion-05-2x.png",
+      "sha256": "b6a8e3d1a684aa41b7729f0d76c22f156fa403a46358cecc2c57cf39f2342b31",
+      "width": 192,
+      "height": 192,
+      "density": 2,
+      "logical_anchor": [
+        48,
+        48
+      ]
+    },
+    {
+      "id": "effect/explosion-05",
+      "family": "effects",
+      "path": "effect/explosion-05-4x.png",
+      "sha256": "ee0909e06b3f176cc06f4522e1b802fbcb3fc9bdc28a91787efdfbf39cba5081",
+      "width": 384,
+      "height": 384,
+      "density": 4,
+      "logical_anchor": [
+        48,
+        48
+      ]
+    },
+    {
+      "id": "effect/explosion-06",
+      "family": "effects",
+      "path": "effect/explosion-06-1x.png",
+      "sha256": "3d355f6c624fe0c5548c59804c7df054e708df322c18ccc2a0eba682d1175f11",
+      "width": 96,
+      "height": 96,
+      "density": 1,
+      "logical_anchor": [
+        48,
+        48
+      ]
+    },
+    {
+      "id": "effect/explosion-06",
+      "family": "effects",
+      "path": "effect/explosion-06-2x.png",
+      "sha256": "63f16b8fd69ce3c1840ffdfa965cad89bce9e75dc71277d79b944b6ffd34b518",
+      "width": 192,
+      "height": 192,
+      "density": 2,
+      "logical_anchor": [
+        48,
+        48
+      ]
+    },
+    {
+      "id": "effect/explosion-06",
+      "family": "effects",
+      "path": "effect/explosion-06-4x.png",
+      "sha256": "bec8287d97696e4b41848d7ef1765b017e78dbecba68fc7cc9db79ad7e5ac191",
+      "width": 384,
+      "height": 384,
+      "density": 4,
+      "logical_anchor": [
+        48,
+        48
+      ]
+    },
+    {
+      "id": "effect/explosion-07",
+      "family": "effects",
+      "path": "effect/explosion-07-1x.png",
+      "sha256": "cc0c481185ab7ee12f4f97a5a06dc8e96486eae14e10973c6826081ab983253f",
+      "width": 96,
+      "height": 96,
+      "density": 1,
+      "logical_anchor": [
+        48,
+        48
+      ]
+    },
+    {
+      "id": "effect/explosion-07",
+      "family": "effects",
+      "path": "effect/explosion-07-2x.png",
+      "sha256": "17e122a8b3dee57e9658f9aa0b103ec7fb61618feb1e133bb16939c2621f6423",
+      "width": 192,
+      "height": 192,
+      "density": 2,
+      "logical_anchor": [
+        48,
+        48
+      ]
+    },
+    {
+      "id": "effect/explosion-07",
+      "family": "effects",
+      "path": "effect/explosion-07-4x.png",
+      "sha256": "69da86a5f0b7e28a6c4a83a2ec34ad9e36744e14590685d587bd1ee89d1c7953",
+      "width": 384,
+      "height": 384,
+      "density": 4,
+      "logical_anchor": [
+        48,
+        48
+      ]
+    },
+    {
+      "id": "effect/explosion-08",
+      "family": "effects",
+      "path": "effect/explosion-08-1x.png",
+      "sha256": "ed2db27cf46292fae890e783fd28d3309c8a48155dd53302ff98ace9b83a95db",
+      "width": 96,
+      "height": 96,
+      "density": 1,
+      "logical_anchor": [
+        48,
+        48
+      ]
+    },
+    {
+      "id": "effect/explosion-08",
+      "family": "effects",
+      "path": "effect/explosion-08-2x.png",
+      "sha256": "9b48c6f3eeda8e31e1d86a043647f54368489a08b93c49dbd90cd6c25ecc5912",
+      "width": 192,
+      "height": 192,
+      "density": 2,
+      "logical_anchor": [
+        48,
+        48
+      ]
+    },
+    {
+      "id": "effect/explosion-08",
+      "family": "effects",
+      "path": "effect/explosion-08-4x.png",
+      "sha256": "ac30247eee74f9e5b0523a8f29f75f7bf0c2d0bc6d82b2f5474f7b6e96d5739f",
+      "width": 384,
+      "height": 384,
+      "density": 4,
+      "logical_anchor": [
+        48,
+        48
+      ]
+    },
+    {
+      "id": "effect/hit",
+      "family": "effects",
+      "path": "effect/hit-1x.png",
+      "sha256": "eafe091cebe0e9d3dfca77b96839ecfadca2636e8ccaa929c79acef13fc11f14",
+      "width": 72,
+      "height": 72,
+      "density": 1,
+      "logical_anchor": [
+        36,
+        36
+      ]
+    },
+    {
+      "id": "effect/hit",
+      "family": "effects",
+      "path": "effect/hit-2x.png",
+      "sha256": "36166456d250a5e1d6789b040a268078cd621c195e5d90d4b7bbf88326bf5267",
+      "width": 144,
+      "height": 144,
+      "density": 2,
+      "logical_anchor": [
+        36,
+        36
+      ]
+    },
+    {
+      "id": "effect/hit",
+      "family": "effects",
+      "path": "effect/hit-4x.png",
+      "sha256": "ab15c8183a6bbcf380854fc971336eab47bb4740a9c7c7810a26a457bf40eeaf",
+      "width": 288,
+      "height": 288,
+      "density": 4,
+      "logical_anchor": [
+        36,
+        36
+      ]
+    },
+    {
+      "id": "effect/hit-reduced",
+      "family": "effects",
+      "path": "effect/hit-reduced-1x.png",
+      "sha256": "fa6a013f84056f258d9225b9cd08032a9cadb1d8231dadb93c1b8898daca6c0f",
+      "width": 72,
+      "height": 72,
+      "density": 1,
+      "logical_anchor": [
+        36,
+        36
+      ]
+    },
+    {
+      "id": "effect/hit-reduced",
+      "family": "effects",
+      "path": "effect/hit-reduced-2x.png",
+      "sha256": "3d31f2befde682adad1710cbd74932d86615c04718f5648304b648e693865834",
+      "width": 144,
+      "height": 144,
+      "density": 2,
+      "logical_anchor": [
+        36,
+        36
+      ]
+    },
+    {
+      "id": "effect/hit-reduced",
+      "family": "effects",
+      "path": "effect/hit-reduced-4x.png",
+      "sha256": "b433ac1fa932ef7db12c16eebaf3fb4818220e6178c73dfac3994ca1104b0e4a",
+      "width": 288,
+      "height": 288,
+      "density": 4,
+      "logical_anchor": [
+        36,
+        36
+      ]
+    },
+    {
+      "id": "effect/hit-reduced",
+      "family": "effects",
+      "path": "effect/hit-reduced.svg",
+      "sha256": "fe32b4669df7ddaa55703f6bed9e043fd49d3a7d1df24694ad7b12512aa6a3d5",
+      "width": 72,
+      "height": 72,
+      "logical_anchor": [
+        36,
+        36
+      ]
+    },
+    {
+      "id": "effect/hit",
+      "family": "effects",
+      "path": "effect/hit.svg",
+      "sha256": "ef32aedec6a8a392b8f450f480f84f67fd7fa44d0f65f0257f91430b74f87a23",
+      "width": 72,
+      "height": 72,
+      "logical_anchor": [
+        36,
+        36
+      ]
+    },
+    {
+      "id": "gallery",
+      "family": "review",
+      "path": "index.html",
+      "sha256": "89ac4f18f6b86319b9e7e6f29ba0dccfa05d11972d2bfee896840b43651ed980",
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "effect/explosion-atlas",
+      "family": "source",
+      "path": "inputs/effect/explosion-atlas.png",
+      "sha256": "70fabb31646620fdf18316f1388ee376d0eb48a50111c7b68ba1d753b0fb7015",
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "font/bold",
+      "family": "source",
+      "path": "inputs/font/bold.ttf",
+      "sha256": "c18494baa7ea35b8dbfac3861787d360b9c0ab91232562371a09e6fbf09aaa40",
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "font/license",
+      "family": "source",
+      "path": "inputs/font/license.txt",
+      "sha256": "dc588a7ba9130043b67c2380cc03cc6644ed3557f6d5e8589b96acba1c64e343",
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "font/regular",
+      "family": "source",
+      "path": "inputs/font/regular.ttf",
+      "sha256": "197d9f3703b4c00af609178876a8d73e396f64fe438b2c871778566632374be3",
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "weapon/bayonet",
+      "family": "source",
+      "path": "inputs/weapon/bayonet.png",
+      "sha256": "9db3379e7c5793c5092c19288a80c2f03a76359c81872f3ed3496c33bb13e448",
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "weapon/canon155",
+      "family": "source",
+      "path": "inputs/weapon/canon155.png",
+      "sha256": "417e3f7e4f0029e1ec3b94b791f328976c3f8df0f92ff8c25e01a71f1e9134b2",
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "weapon/canon75",
+      "family": "source",
+      "path": "inputs/weapon/canon75.png",
+      "sha256": "f64100077a39eab2d918046b8230d2648dff1ad192a82fa16e72a9867b24f7b1",
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "weapon/feldkanone16",
+      "family": "source",
+      "path": "inputs/weapon/feldkanone16.png",
+      "sha256": "a444f65356e4400147462c783a20c046af1bc24321db346bfc8fa187a877aa3b",
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "weapon/gewehr98",
+      "family": "source",
+      "path": "inputs/weapon/gewehr98.png",
+      "sha256": "e1aa5883e791dea17637dd4e436d6f45876c2625b563b214424864e6ef5f0c56",
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "weapon/leeEnfield",
+      "family": "source",
+      "path": "inputs/weapon/leeEnfield.png",
+      "sha256": "3659060d2bdc936a6759d9dc6034fc8dd4ceeb1e6cbd99c415984a17e2d81f8b",
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "weapon/lefh",
+      "family": "source",
+      "path": "inputs/weapon/lefh.png",
+      "sha256": "9c3717b17213b188f8ba2042a80a9fc398dc1b656b0436f9f2ad0a7442878807",
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "weapon/lugerp08",
+      "family": "source",
+      "path": "inputs/weapon/lugerp08.png",
+      "sha256": "2e3dc965d0839c146bc86d41b12cee76568e127b0ba1527afda909aaa35772ca",
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "weapon/m1902",
+      "family": "source",
+      "path": "inputs/weapon/m1902.png",
+      "sha256": "088c0d176a49b74857c075525f396aa460253f8ba4112cea4c113e35df389b8d",
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "weapon/maxim",
+      "family": "source",
+      "path": "inputs/weapon/maxim.png",
+      "sha256": "4124883b36ae9cce88a6a704405a60a189547f4123ce0cf186775c59e41910eb",
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "weapon/morser",
+      "family": "source",
+      "path": "inputs/weapon/morser.png",
+      "sha256": "5eaf1f8fd75a866f1e526c4b52e7a311ad97f53038affbed54b8fe15f725da36",
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "weapon/revolveur",
+      "family": "source",
+      "path": "inputs/weapon/revolveur.png",
+      "sha256": "872721436aefadcb2dac28e306b2378c69d9de79175f530d976e829ea061a953",
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "weapon/sabre",
+      "family": "source",
+      "path": "inputs/weapon/sabre.png",
+      "sha256": "47ce2193e007b0b77839f0afd4b7984913cf4c6d664d07dfa972028eea24a447",
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "weapon/trenchKnife",
+      "family": "source",
+      "path": "inputs/weapon/trenchKnife.png",
+      "sha256": "efc2b2f423d8a3d315c97e5023e7f93cff7519e4cc339012452a51b86a46293f",
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "weapon/wickers",
+      "family": "source",
+      "path": "inputs/weapon/wickers.png",
+      "sha256": "205234ce1540e2ba93913fc22e93c68bedcdd14c25f09901a05013a89fdb8265",
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "manifest",
+      "family": "metadata",
+      "path": "manifest.json",
+      "sha256": "c8fbe60b29ea39e33c231458d3033ec131f43150708070e01a1b936b4ad5cf1c",
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "map/attack",
+      "family": "map",
+      "path": "map/attack-1x.png",
+      "sha256": "e3949885ee4416266fdc64ed580c8594d579dd57baca0c4922632f958bca63cd",
+      "width": 120,
+      "height": 100,
+      "density": 1,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/attack",
+      "family": "map",
+      "path": "map/attack-2x.png",
+      "sha256": "15075437386d46e5971f98532752ef019512f767f7ec2fa9d6c35d537ed3c00a",
+      "width": 240,
+      "height": 200,
+      "density": 2,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/attack",
+      "family": "map",
+      "path": "map/attack-4x.png",
+      "sha256": "86ef7ae16f67f6de33a49e85ca6b185463790f4ba0089fe01b6b30f62aed9163",
+      "width": 480,
+      "height": 400,
+      "density": 4,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/attack",
+      "family": "map",
+      "path": "map/attack.svg",
+      "sha256": "96ff849e1465ee75da56e7df67c92d8dde3ecaba782fb97e1de08cffc27d7d10",
+      "width": 120,
+      "height": 100,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/attackable",
+      "family": "map",
+      "path": "map/attackable-1x.png",
+      "sha256": "03d66deacdc5b2d922bc87bdddc6bb54e2a766d8230e283c1892e59f9a6d87a3",
+      "width": 120,
+      "height": 100,
+      "density": 1,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/attackable",
+      "family": "map",
+      "path": "map/attackable-2x.png",
+      "sha256": "9ad0adcfe3be72147b601e4a057e681998198d9f6cc51e6fbe6596939b663009",
+      "width": 240,
+      "height": 200,
+      "density": 2,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/attackable",
+      "family": "map",
+      "path": "map/attackable-4x.png",
+      "sha256": "ff1347f895431097be0b484c266d3bb15b1af921458548591919de94eea6d64d",
+      "width": 480,
+      "height": 400,
+      "density": 4,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/attackable",
+      "family": "map",
+      "path": "map/attackable.svg",
+      "sha256": "c3d62add6338f588f6d58cf905668957eacec89e23f95da5889de4792bb22f36",
+      "width": 120,
+      "height": 100,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/camera",
+      "family": "map",
+      "path": "map/camera-1x.png",
+      "sha256": "1f49a755f09915a3531d916b44fc18c19815dcde76f30e13fa52a5289f05d3f3",
+      "width": 120,
+      "height": 100,
+      "density": 1,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/camera",
+      "family": "map",
+      "path": "map/camera-2x.png",
+      "sha256": "5555681499e23635779adef06ef36dc9417de456cc76729649b10bba995fba80",
+      "width": 240,
+      "height": 200,
+      "density": 2,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/camera",
+      "family": "map",
+      "path": "map/camera-4x.png",
+      "sha256": "ea86ce4209c8b2dbc6f2e55f792365c97ccea413ba970c5171e8be92114ea6fd",
+      "width": 480,
+      "height": 400,
+      "density": 4,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/camera",
+      "family": "map",
+      "path": "map/camera.svg",
+      "sha256": "463a45b5ca67d7074351a1fdecaef7b84618dc4a367f8ffe3b5d2b37cb7c3d8b",
+      "width": 120,
+      "height": 100,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/cursor",
+      "family": "map",
+      "path": "map/cursor-1x.png",
+      "sha256": "76e44052cd97da20f33dc632184df8756bff74d4897922dcf5db7ca4c90b1989",
+      "width": 120,
+      "height": 100,
+      "density": 1,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/cursor",
+      "family": "map",
+      "path": "map/cursor-2x.png",
+      "sha256": "e292060c1371dedda9935979139c01806c925c626a2b803a44f5edcc9c9b4db4",
+      "width": 240,
+      "height": 200,
+      "density": 2,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/cursor",
+      "family": "map",
+      "path": "map/cursor-4x.png",
+      "sha256": "a1bc254e1c4975d1489e6a873b612bfc749a9f03aa9f4bf841f19d33b990e056",
+      "width": 480,
+      "height": 400,
+      "density": 4,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/cursor",
+      "family": "map",
+      "path": "map/cursor.svg",
+      "sha256": "5439f6d7e1fbcb23e2036d8351b78e58ed6d979e5a6300781a886352b0648dcd",
+      "width": 120,
+      "height": 100,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/editor",
+      "family": "map",
+      "path": "map/editor-1x.png",
+      "sha256": "81e4abaaaab6dc69825c0eff4db79f3b1ddae0b85a558c56d9dbbbaa50615962",
+      "width": 120,
+      "height": 100,
+      "density": 1,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/editor",
+      "family": "map",
+      "path": "map/editor-2x.png",
+      "sha256": "09625e02996a04eed69edd4e20531f6dcec201b0f9a50dd9c4809f0e78fdbd4e",
+      "width": 240,
+      "height": 200,
+      "density": 2,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/editor",
+      "family": "map",
+      "path": "map/editor-4x.png",
+      "sha256": "03fa1575a09f5610cfe88fc0028a5e1d7f07131c87b7f953c7e008abcd97fcf0",
+      "width": 480,
+      "height": 400,
+      "density": 4,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/editor",
+      "family": "map",
+      "path": "map/editor.svg",
+      "sha256": "07911587b489a9c685b568e884bae514bf9d3c1ec895f62b77341c4c48917baa",
+      "width": 120,
+      "height": 100,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/from",
+      "family": "map",
+      "path": "map/from-1x.png",
+      "sha256": "66a23bc6bfedb4f5db2e149f86522c53dba86016319bbb79ab0d3f135688ce5e",
+      "width": 120,
+      "height": 100,
+      "density": 1,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/from",
+      "family": "map",
+      "path": "map/from-2x.png",
+      "sha256": "0eb05c25f1cb86c10244926416d4b796a3b9131df3adb656eac2df51865944df",
+      "width": 240,
+      "height": 200,
+      "density": 2,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/from",
+      "family": "map",
+      "path": "map/from-4x.png",
+      "sha256": "242f0fbbc2973aa0e8482364d8ec5d09bc5eb1385cc4cb780d1c0524b015ae96",
+      "width": 480,
+      "height": 400,
+      "density": 4,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/from",
+      "family": "map",
+      "path": "map/from.svg",
+      "sha256": "b9238d4ba7eaec08476a7c42d86c55c78be27bfc67c9d3403b51d4c3bd0c9d23",
+      "width": 120,
+      "height": 100,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/invalid",
+      "family": "map",
+      "path": "map/invalid-1x.png",
+      "sha256": "93ebc5dc2425c8e4f435476e8a71e96d459b1ca8d5d113b3f27fd52591cadfcc",
+      "width": 120,
+      "height": 100,
+      "density": 1,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/invalid",
+      "family": "map",
+      "path": "map/invalid-2x.png",
+      "sha256": "34746a3de716e3813f33654d42b3911e686cd3324461d78b03941cf4bda72d61",
+      "width": 240,
+      "height": 200,
+      "density": 2,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/invalid",
+      "family": "map",
+      "path": "map/invalid-4x.png",
+      "sha256": "40086b1faf77b09a8702d1484f39f75f8d247c2fac3aa149a2578bad803b5085",
+      "width": 480,
+      "height": 400,
+      "density": 4,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/invalid",
+      "family": "map",
+      "path": "map/invalid.svg",
+      "sha256": "3ba2f8c7ff716157664edd1f7d9c16ecc7f58dbbfdd49927911a34678015b639",
+      "width": 120,
+      "height": 100,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/path",
+      "family": "map",
+      "path": "map/path-1x.png",
+      "sha256": "66a23bc6bfedb4f5db2e149f86522c53dba86016319bbb79ab0d3f135688ce5e",
+      "width": 120,
+      "height": 100,
+      "density": 1,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/path",
+      "family": "map",
+      "path": "map/path-2x.png",
+      "sha256": "0eb05c25f1cb86c10244926416d4b796a3b9131df3adb656eac2df51865944df",
+      "width": 240,
+      "height": 200,
+      "density": 2,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/path",
+      "family": "map",
+      "path": "map/path-4x.png",
+      "sha256": "242f0fbbc2973aa0e8482364d8ec5d09bc5eb1385cc4cb780d1c0524b015ae96",
+      "width": 480,
+      "height": 400,
+      "density": 4,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/path",
+      "family": "map",
+      "path": "map/path.svg",
+      "sha256": "b9238d4ba7eaec08476a7c42d86c55c78be27bfc67c9d3403b51d4c3bd0c9d23",
+      "width": 120,
+      "height": 100,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/reachable",
+      "family": "map",
+      "path": "map/reachable-1x.png",
+      "sha256": "7a83384fa9be71e399e0319cb4af2f249ff54b5a56ec166f53b8813db41cf024",
+      "width": 120,
+      "height": 100,
+      "density": 1,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/reachable",
+      "family": "map",
+      "path": "map/reachable-2x.png",
+      "sha256": "0d2951f558a16c1ad02b4181f30c29b1bed83fd2d3f8dccd2fc8a96cfe3a68b4",
+      "width": 240,
+      "height": 200,
+      "density": 2,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/reachable",
+      "family": "map",
+      "path": "map/reachable-4x.png",
+      "sha256": "8b3db4754b4aa4b3ec7b857179a15bc104c61dc3896e42efa3224c90be356aeb",
+      "width": 480,
+      "height": 400,
+      "density": 4,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/reachable",
+      "family": "map",
+      "path": "map/reachable.svg",
+      "sha256": "dfb83b84c5747612ba22b7bef82ad08b6bea05887fe4623f1c3307968cbdc994",
+      "width": 120,
+      "height": 100,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/selected",
+      "family": "map",
+      "path": "map/selected-1x.png",
+      "sha256": "41f3c7c0c64c99b4fb8be4eec4cf1e2ea0b45249cfd8b86a5ae72834cdaa1485",
+      "width": 120,
+      "height": 100,
+      "density": 1,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/selected",
+      "family": "map",
+      "path": "map/selected-2x.png",
+      "sha256": "e3c2fac4c4ff88691631fc0ba8a35f30dca9c418275fa87d5a8900b4b0abdef2",
+      "width": 240,
+      "height": 200,
+      "density": 2,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/selected",
+      "family": "map",
+      "path": "map/selected-4x.png",
+      "sha256": "c76707f5f75e2007d45670e35b715357e4f93bfd4a3cc91fadb3e77ee66b8647",
+      "width": 480,
+      "height": 400,
+      "density": 4,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "map/selected",
+      "family": "map",
+      "path": "map/selected.svg",
+      "sha256": "2ebdbc6230af292e6915e208ac36db5543c872ba8be1ec9aeb98388339e09246",
+      "width": 120,
+      "height": 100,
+      "logical_anchor": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "ownership/cp",
+      "family": "ownership",
+      "path": "ownership/cp-1x.png",
+      "sha256": "79fe8a58d8707f9491f0b30eae800a1b169a64baea10909583fd0075c4d405e3",
+      "width": 35,
+      "height": 6,
+      "density": 1,
+      "logical_anchor": [
+        17.5,
+        3
+      ]
+    },
+    {
+      "id": "ownership/cp",
+      "family": "ownership",
+      "path": "ownership/cp-2x.png",
+      "sha256": "680421ff11a5ff4f81f08c835193ab3b230b4edaaa50cc192a2a9cdd929b9cdd",
+      "width": 70,
+      "height": 12,
+      "density": 2,
+      "logical_anchor": [
+        17.5,
+        3
+      ]
+    },
+    {
+      "id": "ownership/cp",
+      "family": "ownership",
+      "path": "ownership/cp-4x.png",
+      "sha256": "c4f09507b3c4415d595f48d5a4bb1e0240be00c1a335a4510daa13372baddb49",
+      "width": 140,
+      "height": 24,
+      "density": 4,
+      "logical_anchor": [
+        17.5,
+        3
+      ]
+    },
+    {
+      "id": "ownership/cp-factory",
+      "family": "ownership",
+      "path": "ownership/cp-factory-1x.png",
+      "sha256": "7fff331d9e42976c9f3a2f531a08ca86cf1c086443468c2487b2bb5f925fb615",
+      "width": 24,
+      "height": 34,
+      "density": 1,
+      "logical_anchor": [
+        12,
+        17
+      ]
+    },
+    {
+      "id": "ownership/cp-factory",
+      "family": "ownership",
+      "path": "ownership/cp-factory-2x.png",
+      "sha256": "8d0be0855799e9000f77b8b52a1ff4c66a9bd6a244a4262ebb89336d814f4538",
+      "width": 48,
+      "height": 68,
+      "density": 2,
+      "logical_anchor": [
+        12,
+        17
+      ]
+    },
+    {
+      "id": "ownership/cp-factory",
+      "family": "ownership",
+      "path": "ownership/cp-factory-4x.png",
+      "sha256": "500284b0a0e39b18033c3bcc9a37533929a945ce1976e7b725fd62be3ab2f911",
+      "width": 96,
+      "height": 136,
+      "density": 4,
+      "logical_anchor": [
+        12,
+        17
+      ]
+    },
+    {
+      "id": "ownership/cp-factory",
+      "family": "ownership",
+      "path": "ownership/cp-factory.svg",
+      "sha256": "b6478b774cad29c2d9ad62ffe8516a8a6b77f044b09e0aa73ce03a90de325c36",
+      "width": 24,
+      "height": 34,
+      "logical_anchor": [
+        12,
+        17
+      ]
+    },
+    {
+      "id": "ownership/cp",
+      "family": "ownership",
+      "path": "ownership/cp.svg",
+      "sha256": "dcdcc225380ffbfa25e1579f280de3f48f9fe049bf8c353fde9abe412c7dbada",
+      "width": 35,
+      "height": 6,
+      "logical_anchor": [
+        17.5,
+        3
+      ]
+    },
+    {
+      "id": "ownership/depotOwnership",
+      "family": "ownership",
+      "path": "ownership/depotOwnership-1x.png",
+      "sha256": "d930d211ab0ebb64fb9849fcae4565ad204b287ad43ca2dd0d9ff08ba233fb1a",
+      "width": 35,
+      "height": 18,
+      "density": 1,
+      "logical_anchor": [
+        17.5,
+        9
+      ]
+    },
+    {
+      "id": "ownership/depotOwnership",
+      "family": "ownership",
+      "path": "ownership/depotOwnership-2x.png",
+      "sha256": "8c2853e146e733dead2203905f55ac673291c694f2ad62ba95b59904332fb2d6",
+      "width": 70,
+      "height": 36,
+      "density": 2,
+      "logical_anchor": [
+        17.5,
+        9
+      ]
+    },
+    {
+      "id": "ownership/depotOwnership",
+      "family": "ownership",
+      "path": "ownership/depotOwnership-4x.png",
+      "sha256": "9d6413bf9cda72b2296ed4c2ea63ff75a8e509f4a04605a94bce130e35e73993",
+      "width": 140,
+      "height": 72,
+      "density": 4,
+      "logical_anchor": [
+        17.5,
+        9
+      ]
+    },
+    {
+      "id": "ownership/depotOwnership",
+      "family": "ownership",
+      "path": "ownership/depotOwnership.svg",
+      "sha256": "b9c9ee103e5047e951f563b95ca1d9e5192b9ac2226fb2964cadca6fb60de9d8",
+      "width": 35,
+      "height": 18,
+      "logical_anchor": [
+        17.5,
+        9
+      ]
+    },
+    {
+      "id": "ownership/ec",
+      "family": "ownership",
+      "path": "ownership/ec-1x.png",
+      "sha256": "bf0819e321db16415cb47cf02b1090e32374952429aad5f2c2326b50c7efe825",
+      "width": 35,
+      "height": 6,
+      "density": 1,
+      "logical_anchor": [
+        17.5,
+        3
+      ]
+    },
+    {
+      "id": "ownership/ec",
+      "family": "ownership",
+      "path": "ownership/ec-2x.png",
+      "sha256": "4ba7efd429cf5df87838e4a242bd9e8320b6f26f7031c47d36775a63e18bb3c5",
+      "width": 70,
+      "height": 12,
+      "density": 2,
+      "logical_anchor": [
+        17.5,
+        3
+      ]
+    },
+    {
+      "id": "ownership/ec",
+      "family": "ownership",
+      "path": "ownership/ec-4x.png",
+      "sha256": "a2bb3f74a457a8a8d6165e5ab57aa0b3afccf2fc79ada55bce30d1a61a36e7f6",
+      "width": 140,
+      "height": 24,
+      "density": 4,
+      "logical_anchor": [
+        17.5,
+        3
+      ]
+    },
+    {
+      "id": "ownership/ec-factory",
+      "family": "ownership",
+      "path": "ownership/ec-factory-1x.png",
+      "sha256": "89364d36c348d62de418d5d516cc3cad0a52e4b6e4acefc853a681af3335728a",
+      "width": 24,
+      "height": 34,
+      "density": 1,
+      "logical_anchor": [
+        12,
+        17
+      ]
+    },
+    {
+      "id": "ownership/ec-factory",
+      "family": "ownership",
+      "path": "ownership/ec-factory-2x.png",
+      "sha256": "660d2ff1cc4e78980d99c7abbd773bf9ee4ad38cbfe5d10a7544ade60acb259f",
+      "width": 48,
+      "height": 68,
+      "density": 2,
+      "logical_anchor": [
+        12,
+        17
+      ]
+    },
+    {
+      "id": "ownership/ec-factory",
+      "family": "ownership",
+      "path": "ownership/ec-factory-4x.png",
+      "sha256": "ea8befa5b664aa136539b1c7e5a4a3e8dc909e723bcf01cf0d3ff0b0d5693e9f",
+      "width": 96,
+      "height": 136,
+      "density": 4,
+      "logical_anchor": [
+        12,
+        17
+      ]
+    },
+    {
+      "id": "ownership/ec-factory",
+      "family": "ownership",
+      "path": "ownership/ec-factory.svg",
+      "sha256": "3221ef526dc3c3da07731e005130261ff6d858ba95cf72aed1ebb086ff03265a",
+      "width": 24,
+      "height": 34,
+      "logical_anchor": [
+        12,
+        17
+      ]
+    },
+    {
+      "id": "ownership/ec",
+      "family": "ownership",
+      "path": "ownership/ec.svg",
+      "sha256": "c399b6eb9fcbf6daeefc508691009abf48a8ea43b9f9c5b6159a016af7dd04b4",
+      "width": 35,
+      "height": 6,
+      "logical_anchor": [
+        17.5,
+        3
+      ]
+    },
+    {
+      "id": "ownership/neutral",
+      "family": "ownership",
+      "path": "ownership/neutral-1x.png",
+      "sha256": "b6795dc3327994ac67d1af7c0cb3b7ac1610fe21fb9cb764ac5f2022acdb7125",
+      "width": 35,
+      "height": 6,
+      "density": 1,
+      "logical_anchor": [
+        17.5,
+        3
+      ]
+    },
+    {
+      "id": "ownership/neutral",
+      "family": "ownership",
+      "path": "ownership/neutral-2x.png",
+      "sha256": "3e1e8d60871fecd3d69f4995bc49c3155cd17692ed1e20fc3b5e14d2030c09d8",
+      "width": 70,
+      "height": 12,
+      "density": 2,
+      "logical_anchor": [
+        17.5,
+        3
+      ]
+    },
+    {
+      "id": "ownership/neutral",
+      "family": "ownership",
+      "path": "ownership/neutral-4x.png",
+      "sha256": "abdce0aa12575ef54ff58e9ddb403bf1a95a8640bf4bc079360d9caebdcbc50d",
+      "width": 140,
+      "height": 24,
+      "density": 4,
+      "logical_anchor": [
+        17.5,
+        3
+      ]
+    },
+    {
+      "id": "ownership/neutral-factory",
+      "family": "ownership",
+      "path": "ownership/neutral-factory-1x.png",
+      "sha256": "c8f7a3f913dcd31a1c98acfcc088d1d45565e8cc54d870cb7304aa716a8d8206",
+      "width": 24,
+      "height": 34,
+      "density": 1,
+      "logical_anchor": [
+        12,
+        17
+      ]
+    },
+    {
+      "id": "ownership/neutral-factory",
+      "family": "ownership",
+      "path": "ownership/neutral-factory-2x.png",
+      "sha256": "3e73736d52f170ffa5f201777077e30d97ab62b8130725a4ab130b831e298102",
+      "width": 48,
+      "height": 68,
+      "density": 2,
+      "logical_anchor": [
+        12,
+        17
+      ]
+    },
+    {
+      "id": "ownership/neutral-factory",
+      "family": "ownership",
+      "path": "ownership/neutral-factory-4x.png",
+      "sha256": "c44788edabf603a161a5413cf04c5effe7e302292aa16bd90ab61f63d4c14495",
+      "width": 96,
+      "height": 136,
+      "density": 4,
+      "logical_anchor": [
+        12,
+        17
+      ]
+    },
+    {
+      "id": "ownership/neutral-factory",
+      "family": "ownership",
+      "path": "ownership/neutral-factory.svg",
+      "sha256": "f83695e95b5ae462f3ad5bf782b967e3aaf022d6b7d2f9f4f1c2bfdd3b9016d3",
+      "width": 24,
+      "height": 34,
+      "logical_anchor": [
+        12,
+        17
+      ]
+    },
+    {
+      "id": "ownership/neutral",
+      "family": "ownership",
+      "path": "ownership/neutral.svg",
+      "sha256": "cf95194e6259d7bb3155791426623b19064b4291d5a536c4914b97a4fd989e7c",
+      "width": 35,
+      "height": 6,
+      "logical_anchor": [
+        17.5,
+        3
+      ]
+    },
+    {
+      "id": "panel/battle",
+      "family": "panels",
+      "path": "panel/battle-1x.png",
+      "sha256": "71c9920871bd34b96caacfc5b700c6ee5ad26b6f8118f24bc42ff0027596d94f",
+      "width": 840,
+      "height": 156,
+      "density": 1,
+      "logical_anchor": [
+        420,
+        78
+      ]
+    },
+    {
+      "id": "panel/battle",
+      "family": "panels",
+      "path": "panel/battle-2x.png",
+      "sha256": "c09ecc74754e60ce5e36b9e6c5524d75741d68dbf1b6ad3f16ead79b77fa88a7",
+      "width": 1680,
+      "height": 312,
+      "density": 2,
+      "logical_anchor": [
+        420,
+        78
+      ]
+    },
+    {
+      "id": "panel/battle",
+      "family": "panels",
+      "path": "panel/battle-4x.png",
+      "sha256": "aca8ae665c068a4622f4b349c47cf27a2408efaaa335e190a4f2adfda6c67895",
+      "width": 3360,
+      "height": 624,
+      "density": 4,
+      "logical_anchor": [
+        420,
+        78
+      ]
+    },
+    {
+      "id": "panel/battle",
+      "family": "panels",
+      "path": "panel/battle.svg",
+      "sha256": "012e7189c1ffc90d210e6e6530535d61b8224a0e1b9e1a7e1a77265a489452b8",
+      "width": 840,
+      "height": 156,
+      "logical_anchor": [
+        420,
+        78
+      ]
+    },
+    {
+      "id": "panel/content",
+      "family": "panels",
+      "path": "panel/content-1x.png",
+      "sha256": "576dff8f37784add71874ca60b0c9e9231a43ccd7b9441a5da23c3fbdda9709a",
+      "width": 527,
+      "height": 670,
+      "density": 1,
+      "logical_anchor": [
+        263.5,
+        335
+      ]
+    },
+    {
+      "id": "panel/content",
+      "family": "panels",
+      "path": "panel/content-2x.png",
+      "sha256": "a1fce41180de25ed95a45a91fa2db93967aff162101bb43ff547f0bc63847aeb",
+      "width": 1054,
+      "height": 1340,
+      "density": 2,
+      "logical_anchor": [
+        263.5,
+        335
+      ]
+    },
+    {
+      "id": "panel/content",
+      "family": "panels",
+      "path": "panel/content-4x.png",
+      "sha256": "8859def2901405b9eea2d37b63a21b736efa07709d429e3d6bc477b8774a0c9f",
+      "width": 2108,
+      "height": 2680,
+      "density": 4,
+      "logical_anchor": [
+        263.5,
+        335
+      ]
+    },
+    {
+      "id": "panel/content",
+      "family": "panels",
+      "path": "panel/content.svg",
+      "sha256": "67b0a685c89ffeb272aff1c64cd7d0b28de8be7ead249833d122defb1a9da435",
+      "width": 527,
+      "height": 670,
+      "logical_anchor": [
+        263.5,
+        335
+      ]
+    },
+    {
+      "id": "panel/terrain",
+      "family": "panels",
+      "path": "panel/terrain-1x.png",
+      "sha256": "e02e1c7ac582abea8d3c369905522a6c7acebb60760c38a43dbdde58b9650f88",
+      "width": 654,
+      "height": 110,
+      "density": 1,
+      "logical_anchor": [
+        327,
+        55
+      ]
+    },
+    {
+      "id": "panel/terrain",
+      "family": "panels",
+      "path": "panel/terrain-2x.png",
+      "sha256": "f0b2c57f102fcd0936db22fb449c77c3143716060b661215f671f45b8a1f8cfb",
+      "width": 1308,
+      "height": 220,
+      "density": 2,
+      "logical_anchor": [
+        327,
+        55
+      ]
+    },
+    {
+      "id": "panel/terrain",
+      "family": "panels",
+      "path": "panel/terrain-4x.png",
+      "sha256": "97cae383ad9ffc7a2546421f7ccd32fed90afb5d66aa2de686224112b0561544",
+      "width": 2616,
+      "height": 440,
+      "density": 4,
+      "logical_anchor": [
+        327,
+        55
+      ]
+    },
+    {
+      "id": "panel/terrain",
+      "family": "panels",
+      "path": "panel/terrain.svg",
+      "sha256": "b3a883ce21c6e8ffb43857645507d2dde61f281793f91f79d4bf74b7de662f67",
+      "width": 654,
+      "height": 110,
+      "logical_anchor": [
+        327,
+        55
+      ]
+    },
+    {
+      "id": "panel/weapon",
+      "family": "panels",
+      "path": "panel/weapon-1x.png",
+      "sha256": "b330f310fa9558d38c399c9e1e13433d4f6e7a4b627970147d563214938a1c2f",
+      "width": 670,
+      "height": 286,
+      "density": 1,
+      "logical_anchor": [
+        335,
+        143
+      ]
+    },
+    {
+      "id": "panel/weapon",
+      "family": "panels",
+      "path": "panel/weapon-2x.png",
+      "sha256": "0294228f09ae86055fdc00d53b09538b5865b140239bf06759568c7036b6c045",
+      "width": 1340,
+      "height": 572,
+      "density": 2,
+      "logical_anchor": [
+        335,
+        143
+      ]
+    },
+    {
+      "id": "panel/weapon",
+      "family": "panels",
+      "path": "panel/weapon-4x.png",
+      "sha256": "023f09bf09f006a4a97c81cd854e66b2b72338fd6ba4d82cf7972826a26de1a9",
+      "width": 2680,
+      "height": 1144,
+      "density": 4,
+      "logical_anchor": [
+        335,
+        143
+      ]
+    },
+    {
+      "id": "panel/weapon",
+      "family": "panels",
+      "path": "panel/weapon.svg",
+      "sha256": "369751878833ebadd41494e2cfa09092a4fc9523b605f5a636af77247decbe86",
+      "width": 670,
+      "height": 286,
+      "logical_anchor": [
+        335,
+        143
+      ]
+    },
+    {
+      "id": "rank/00",
+      "family": "information",
+      "path": "rank/00-1x.png",
+      "sha256": "3af261ebddf9f9296072decbad128521b6e432aa33a20310c8d39e6b1923d12c",
+      "width": 88,
+      "height": 88,
+      "density": 1,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/00",
+      "family": "information",
+      "path": "rank/00-2x.png",
+      "sha256": "f8ac64ff497ee17f801b4ca1e80fb16b19b590dc3afcf3e16aae248cc252058d",
+      "width": 176,
+      "height": 176,
+      "density": 2,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/00",
+      "family": "information",
+      "path": "rank/00-4x.png",
+      "sha256": "561b48186f23e2645cc0bcf1d68c71ce1e3b8e90000cf1041cd512c42ddb31c8",
+      "width": 352,
+      "height": 352,
+      "density": 4,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/00",
+      "family": "information",
+      "path": "rank/00.svg",
+      "sha256": "94c00a8f2432d369f8b18e356d98aa8d4248c0a685c0f96009af3e360ce09f20",
+      "width": 88,
+      "height": 88,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/01",
+      "family": "information",
+      "path": "rank/01-1x.png",
+      "sha256": "ea3b914b4f07a53762197002b21618ee92dc6a5248b49e44c6362a7b30a38f4f",
+      "width": 88,
+      "height": 88,
+      "density": 1,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/01",
+      "family": "information",
+      "path": "rank/01-2x.png",
+      "sha256": "b3eb8a7ab895ba0f2605385c5c83e99dcdc0d85f35f2e8cce0435d9e998c1da9",
+      "width": 176,
+      "height": 176,
+      "density": 2,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/01",
+      "family": "information",
+      "path": "rank/01-4x.png",
+      "sha256": "67fbaa895ee428c3afd671a2e07bca0578f5c41a5c3ae629c076d0c4c67598b1",
+      "width": 352,
+      "height": 352,
+      "density": 4,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/01",
+      "family": "information",
+      "path": "rank/01.svg",
+      "sha256": "6d3c53b7d31278d843eb48a3315df1e125f78dee1c515f9b27e5e791fdb6655a",
+      "width": 88,
+      "height": 88,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/02",
+      "family": "information",
+      "path": "rank/02-1x.png",
+      "sha256": "0e07ca5b92ba8c2c72a3c6017b6a74cf445e90093eb7eff2801a554101e8acb3",
+      "width": 88,
+      "height": 88,
+      "density": 1,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/02",
+      "family": "information",
+      "path": "rank/02-2x.png",
+      "sha256": "77feace4fa52ab122ce9c3508040dbd98a80a64673b19dc14a47988a2d22953a",
+      "width": 176,
+      "height": 176,
+      "density": 2,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/02",
+      "family": "information",
+      "path": "rank/02-4x.png",
+      "sha256": "18161c4f369024ccdbe58d0cf56acc4b08335a7786142b09dd1e63437beb5358",
+      "width": 352,
+      "height": 352,
+      "density": 4,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/02",
+      "family": "information",
+      "path": "rank/02.svg",
+      "sha256": "33d1fd44a991cb8adb97e5ac2b2e072373cebcbcc6e98f900f704a7d1be4c12f",
+      "width": 88,
+      "height": 88,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/03",
+      "family": "information",
+      "path": "rank/03-1x.png",
+      "sha256": "7368ee28fe14dbdb13e6491c1a4c7001c3ffd3018d963d7b88e00ed73a79779d",
+      "width": 88,
+      "height": 88,
+      "density": 1,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/03",
+      "family": "information",
+      "path": "rank/03-2x.png",
+      "sha256": "8590cd9c5a2a33ebf5ca2ff5753e430b9fa50e3ca24e0262df67a5e6bdf9aa2f",
+      "width": 176,
+      "height": 176,
+      "density": 2,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/03",
+      "family": "information",
+      "path": "rank/03-4x.png",
+      "sha256": "e44f1c090575d33ca6ea59db3515168fb4e84d785862fc68b85ffb9e6b6914ec",
+      "width": 352,
+      "height": 352,
+      "density": 4,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/03",
+      "family": "information",
+      "path": "rank/03.svg",
+      "sha256": "a5f08bdbb4f8ca7de3e96a7f8c7e30120cab439e0dbb25b0db2e159c928ae219",
+      "width": 88,
+      "height": 88,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/04",
+      "family": "information",
+      "path": "rank/04-1x.png",
+      "sha256": "66a2447a3ec818a1824ab653dab69fb02c2ddd2b119d41eda9dd2016cb4f46e9",
+      "width": 88,
+      "height": 88,
+      "density": 1,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/04",
+      "family": "information",
+      "path": "rank/04-2x.png",
+      "sha256": "2827daf7e926ab26fda3a12957b3bc5a8cc88391675be4fbda1155356f13a290",
+      "width": 176,
+      "height": 176,
+      "density": 2,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/04",
+      "family": "information",
+      "path": "rank/04-4x.png",
+      "sha256": "90e50236dd35420c850be35d655683197a82d68529e544c503147d37f3d958b9",
+      "width": 352,
+      "height": 352,
+      "density": 4,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/04",
+      "family": "information",
+      "path": "rank/04.svg",
+      "sha256": "cbcc191ed1fd76d231b3613b7acfe7fbcd23d6db7cbafbc907f545b10bcc3796",
+      "width": 88,
+      "height": 88,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/05",
+      "family": "information",
+      "path": "rank/05-1x.png",
+      "sha256": "2f2aae8a2497aa6ff773447308201ccb8bda98db278766cffd5e880cd6a3f627",
+      "width": 88,
+      "height": 88,
+      "density": 1,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/05",
+      "family": "information",
+      "path": "rank/05-2x.png",
+      "sha256": "49a102b559ab5ac905a9211f51068804571517039468ec14d230da0dc6184d54",
+      "width": 176,
+      "height": 176,
+      "density": 2,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/05",
+      "family": "information",
+      "path": "rank/05-4x.png",
+      "sha256": "b79a18b8d6ab2a5d42f302c63c6cf446efb1db091e8dfba82745ee3030c302d3",
+      "width": 352,
+      "height": 352,
+      "density": 4,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/05",
+      "family": "information",
+      "path": "rank/05.svg",
+      "sha256": "b380445dbd138c10932d5e37080f918e0d41f8abd7bbb04f8ade044c057ae898",
+      "width": 88,
+      "height": 88,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/06",
+      "family": "information",
+      "path": "rank/06-1x.png",
+      "sha256": "1d1acb4bb89043519c646cfbeb0aa8ec0f99aae74b7129e645caff6d08a931ff",
+      "width": 88,
+      "height": 88,
+      "density": 1,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/06",
+      "family": "information",
+      "path": "rank/06-2x.png",
+      "sha256": "d9b27c40154a773a81e31f794e5582aa4d8b55f32724dc2c6279bb22e58b8a8e",
+      "width": 176,
+      "height": 176,
+      "density": 2,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/06",
+      "family": "information",
+      "path": "rank/06-4x.png",
+      "sha256": "98770eae16e4158cc331ef69c5f704fb852f09974687f7ca009654cea55357e4",
+      "width": 352,
+      "height": 352,
+      "density": 4,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/06",
+      "family": "information",
+      "path": "rank/06.svg",
+      "sha256": "f92472b540a840b2bccb415e8087eaa7b82a13f6d5523b46dd8465fb230db018",
+      "width": 88,
+      "height": 88,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/07",
+      "family": "information",
+      "path": "rank/07-1x.png",
+      "sha256": "af4dcd00a6d44b95b65a8768bfccb48826743b14f1b51ad29b981b7d18e3fc94",
+      "width": 88,
+      "height": 88,
+      "density": 1,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/07",
+      "family": "information",
+      "path": "rank/07-2x.png",
+      "sha256": "dc4a09e107cbbafef9d64f0f8d001ca534e031860fdccfc86672e1628b926ff4",
+      "width": 176,
+      "height": 176,
+      "density": 2,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/07",
+      "family": "information",
+      "path": "rank/07-4x.png",
+      "sha256": "a0afa08f3e7a725b2dfb414f92d6a5d99426d87f36dbe8a6ffdc11ff1070e86d",
+      "width": 352,
+      "height": 352,
+      "density": 4,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/07",
+      "family": "information",
+      "path": "rank/07.svg",
+      "sha256": "5e9bcfb187da20d1c141caf02df38e291bb411e7398259d719120dcabbec3c4a",
+      "width": 88,
+      "height": 88,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/08",
+      "family": "information",
+      "path": "rank/08-1x.png",
+      "sha256": "b0ccc0f37088e35a909e5a1a1ea1dcb297cdfb897a984c2d22dcd99e08cc904e",
+      "width": 88,
+      "height": 88,
+      "density": 1,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/08",
+      "family": "information",
+      "path": "rank/08-2x.png",
+      "sha256": "59b133c234a541f8daddb3a7276d525a21910a9d0a3b9095cc01b68266b7d685",
+      "width": 176,
+      "height": 176,
+      "density": 2,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/08",
+      "family": "information",
+      "path": "rank/08-4x.png",
+      "sha256": "2a2fb5aa73c8508aa3b4dfc9650e58297b33037e6c8a4a596c24d5abe419d886",
+      "width": 352,
+      "height": 352,
+      "density": 4,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/08",
+      "family": "information",
+      "path": "rank/08.svg",
+      "sha256": "a1d90c61cc3c8780f9c0df11d4a8e719955b2591585408e318865391ce57ba97",
+      "width": 88,
+      "height": 88,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/09",
+      "family": "information",
+      "path": "rank/09-1x.png",
+      "sha256": "095614dcc4594b186c3dfeb0e24886a2ea91b23e353efbd38e0c570722f87d1c",
+      "width": 88,
+      "height": 88,
+      "density": 1,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/09",
+      "family": "information",
+      "path": "rank/09-2x.png",
+      "sha256": "ddbfa89b79d2018001166bfb4c3e6daddc0db780d21d26cfa7726358a446ba84",
+      "width": 176,
+      "height": 176,
+      "density": 2,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/09",
+      "family": "information",
+      "path": "rank/09-4x.png",
+      "sha256": "8e2f0fae07a3a48118d99c0b425697782377df82bcca3dea80c5bed742f51f8f",
+      "width": 352,
+      "height": 352,
+      "density": 4,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/09",
+      "family": "information",
+      "path": "rank/09.svg",
+      "sha256": "ed25a071f9f0c51e44663b815ca79adfb55cac0a5e800f06d31216885c1ceafb",
+      "width": 88,
+      "height": 88,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/10",
+      "family": "information",
+      "path": "rank/10-1x.png",
+      "sha256": "afd182d6a6da2ecb6f9eaf881604995d238568db5fdb3a03899a65ab2f303572",
+      "width": 88,
+      "height": 88,
+      "density": 1,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/10",
+      "family": "information",
+      "path": "rank/10-2x.png",
+      "sha256": "5845947d31ffd952362d293d298487034c0697509ccb9c0726b180b9145d3150",
+      "width": 176,
+      "height": 176,
+      "density": 2,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/10",
+      "family": "information",
+      "path": "rank/10-4x.png",
+      "sha256": "e6d4fb261eb2ce47b309b1b8badb4a055b4b6b09682095b90212ad0acd7d9fde",
+      "width": 352,
+      "height": 352,
+      "density": 4,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "rank/10",
+      "family": "information",
+      "path": "rank/10.svg",
+      "sha256": "2ea448037b0980b409e8f53b424ce1a878c2088c51de23d4cada9fe27eecb1c5",
+      "width": 88,
+      "height": 88,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "slot/disabled",
+      "family": "controls",
+      "path": "slot/disabled-1x.png",
+      "sha256": "01151c0999994e53b0112cde1a477855a01cc60e543d604f239c70fda8a8dbb2",
+      "width": 52,
+      "height": 52,
+      "density": 1,
+      "logical_anchor": [
+        26,
+        26
+      ]
+    },
+    {
+      "id": "slot/disabled",
+      "family": "controls",
+      "path": "slot/disabled-2x.png",
+      "sha256": "342fb54971e8ca00b9aae2033b21bbadf7228e172555e22ef4c47fca2f6533e7",
+      "width": 104,
+      "height": 104,
+      "density": 2,
+      "logical_anchor": [
+        26,
+        26
+      ]
+    },
+    {
+      "id": "slot/disabled",
+      "family": "controls",
+      "path": "slot/disabled-4x.png",
+      "sha256": "b2b86067114c58f8814cfccc42eb5f2495f346b8d1660fe2200cb0433b94593b",
+      "width": 208,
+      "height": 208,
+      "density": 4,
+      "logical_anchor": [
+        26,
+        26
+      ]
+    },
+    {
+      "id": "slot/disabled",
+      "family": "controls",
+      "path": "slot/disabled.svg",
+      "sha256": "aa8b21a52b74b679c39ac25eb7208116f5536aea5c96ac9e4823db6d6d465d07",
+      "width": 52,
+      "height": 52,
+      "logical_anchor": [
+        26,
+        26
+      ]
+    },
+    {
+      "id": "slot/focus",
+      "family": "controls",
+      "path": "slot/focus-1x.png",
+      "sha256": "48fcf36a967e9eca58788463247d646b06e8c57acf6feb0760fb32f1eda0a409",
+      "width": 52,
+      "height": 52,
+      "density": 1,
+      "logical_anchor": [
+        26,
+        26
+      ]
+    },
+    {
+      "id": "slot/focus",
+      "family": "controls",
+      "path": "slot/focus-2x.png",
+      "sha256": "b925d1d5358af897adec9528c0b62ba88f46c05a475ea268ebf2ea54ad41bdfe",
+      "width": 104,
+      "height": 104,
+      "density": 2,
+      "logical_anchor": [
+        26,
+        26
+      ]
+    },
+    {
+      "id": "slot/focus",
+      "family": "controls",
+      "path": "slot/focus-4x.png",
+      "sha256": "5e0c496d176946dd8cb49ad1e7d781474f4acc455a4bb264a491316929c13d28",
+      "width": 208,
+      "height": 208,
+      "density": 4,
+      "logical_anchor": [
+        26,
+        26
+      ]
+    },
+    {
+      "id": "slot/focus",
+      "family": "controls",
+      "path": "slot/focus.svg",
+      "sha256": "5d49a8acfdbb180a6be0c10f3485700b672e78394e1b98bde2fb01dacedbb77f",
+      "width": 52,
+      "height": 52,
+      "logical_anchor": [
+        26,
+        26
+      ]
+    },
+    {
+      "id": "slot/hover",
+      "family": "controls",
+      "path": "slot/hover-1x.png",
+      "sha256": "1acfee22c12027237fd7370e7842b7939463aa24fe566fb14eb690fe9c39b36f",
+      "width": 52,
+      "height": 52,
+      "density": 1,
+      "logical_anchor": [
+        26,
+        26
+      ]
+    },
+    {
+      "id": "slot/hover",
+      "family": "controls",
+      "path": "slot/hover-2x.png",
+      "sha256": "5abcc3b390dc524983cd8a2fc178ddc34a9a1b86d4ac7e60cb6f2860a13b4122",
+      "width": 104,
+      "height": 104,
+      "density": 2,
+      "logical_anchor": [
+        26,
+        26
+      ]
+    },
+    {
+      "id": "slot/hover",
+      "family": "controls",
+      "path": "slot/hover-4x.png",
+      "sha256": "2ab8e59b743a4460c700a9e8c33ac2d911e77de0542e8bb68bc581f8ac06129f",
+      "width": 208,
+      "height": 208,
+      "density": 4,
+      "logical_anchor": [
+        26,
+        26
+      ]
+    },
+    {
+      "id": "slot/hover",
+      "family": "controls",
+      "path": "slot/hover.svg",
+      "sha256": "a3e673acf2e77cb186dca909bb18e2bc9c3f8385ed3b17705f178e5dba7939f5",
+      "width": 52,
+      "height": 52,
+      "logical_anchor": [
+        26,
+        26
+      ]
+    },
+    {
+      "id": "slot/normal",
+      "family": "controls",
+      "path": "slot/normal-1x.png",
+      "sha256": "1acfee22c12027237fd7370e7842b7939463aa24fe566fb14eb690fe9c39b36f",
+      "width": 52,
+      "height": 52,
+      "density": 1,
+      "logical_anchor": [
+        26,
+        26
+      ]
+    },
+    {
+      "id": "slot/normal",
+      "family": "controls",
+      "path": "slot/normal-2x.png",
+      "sha256": "5abcc3b390dc524983cd8a2fc178ddc34a9a1b86d4ac7e60cb6f2860a13b4122",
+      "width": 104,
+      "height": 104,
+      "density": 2,
+      "logical_anchor": [
+        26,
+        26
+      ]
+    },
+    {
+      "id": "slot/normal",
+      "family": "controls",
+      "path": "slot/normal-4x.png",
+      "sha256": "2ab8e59b743a4460c700a9e8c33ac2d911e77de0542e8bb68bc581f8ac06129f",
+      "width": 208,
+      "height": 208,
+      "density": 4,
+      "logical_anchor": [
+        26,
+        26
+      ]
+    },
+    {
+      "id": "slot/normal",
+      "family": "controls",
+      "path": "slot/normal.svg",
+      "sha256": "a3e673acf2e77cb186dca909bb18e2bc9c3f8385ed3b17705f178e5dba7939f5",
+      "width": 52,
+      "height": 52,
+      "logical_anchor": [
+        26,
+        26
+      ]
+    },
+    {
+      "id": "slot/pressed",
+      "family": "controls",
+      "path": "slot/pressed-1x.png",
+      "sha256": "f3e83393d5a5fa79ab319a8d832403411fe5b874c57dfe76696de3917ed6b630",
+      "width": 52,
+      "height": 52,
+      "density": 1,
+      "logical_anchor": [
+        26,
+        26
+      ]
+    },
+    {
+      "id": "slot/pressed",
+      "family": "controls",
+      "path": "slot/pressed-2x.png",
+      "sha256": "ab9ebf36d91e26c7796c0322b1a9fd11a341eee9e48501119a1cbd3896ca5d2c",
+      "width": 104,
+      "height": 104,
+      "density": 2,
+      "logical_anchor": [
+        26,
+        26
+      ]
+    },
+    {
+      "id": "slot/pressed",
+      "family": "controls",
+      "path": "slot/pressed-4x.png",
+      "sha256": "24e57ca7bdec25ad1d3e07669bca3fa2d2cc96ccf37acf3b030a949b5f20fa45",
+      "width": 208,
+      "height": 208,
+      "density": 4,
+      "logical_anchor": [
+        26,
+        26
+      ]
+    },
+    {
+      "id": "slot/pressed",
+      "family": "controls",
+      "path": "slot/pressed.svg",
+      "sha256": "ce6e8025fefcf757a103c5eefa6877020a74cd1b3c8ca36a19feced96e4c7300",
+      "width": 52,
+      "height": 52,
+      "logical_anchor": [
+        26,
+        26
+      ]
+    },
+    {
+      "id": "symbol/air",
+      "family": "information",
+      "path": "symbol/air-1x.png",
+      "sha256": "4d831c00cd1c15b4ff4e9f1a4643af2367a6e21817c1664e597ff6c5b3e161ac",
+      "width": 24,
+      "height": 24,
+      "density": 1,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/air",
+      "family": "information",
+      "path": "symbol/air-2x.png",
+      "sha256": "cba28132e12e0b1d06bd315eeb63f32697e7ca171aabae689c2a60a7b1984fa5",
+      "width": 48,
+      "height": 48,
+      "density": 2,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/air",
+      "family": "information",
+      "path": "symbol/air-4x.png",
+      "sha256": "1fc393e892115e1809419980cbf5da1d6b3d35f8f002365b76553b93352b8512",
+      "width": 96,
+      "height": 96,
+      "density": 4,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/air",
+      "family": "information",
+      "path": "symbol/air.svg",
+      "sha256": "66aa954a5fe3cadfbd60f210d7fbf1853da6c10486042dfdeeace1dc10d7d85c",
+      "width": 24,
+      "height": 24,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/ammo",
+      "family": "information",
+      "path": "symbol/ammo-1x.png",
+      "sha256": "77bdb7cf8f19fa20cdc81caf34abe91fe48772675a554b00c62f820a575f8b5e",
+      "width": 24,
+      "height": 24,
+      "density": 1,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/ammo",
+      "family": "information",
+      "path": "symbol/ammo-2x.png",
+      "sha256": "b8920a935a241736365304e1d157150813ae9320c181ebe0607b46f6bec01554",
+      "width": 48,
+      "height": 48,
+      "density": 2,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/ammo",
+      "family": "information",
+      "path": "symbol/ammo-4x.png",
+      "sha256": "b77dc142678accc4ff596d9b24a257b021db604b1fdc32befd3c4e6ac6b938d8",
+      "width": 96,
+      "height": 96,
+      "density": 4,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/ammo",
+      "family": "information",
+      "path": "symbol/ammo.svg",
+      "sha256": "e6c48c6df29e5d16cc1edee24d4c4bab06d1484b90efa898d73023d43ab95c61",
+      "width": 24,
+      "height": 24,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/armour",
+      "family": "information",
+      "path": "symbol/armour-1x.png",
+      "sha256": "1540d220bb0fbeb40b02ccfa8e86cf701175b19dccad37d11b647bcc88fef79f",
+      "width": 24,
+      "height": 24,
+      "density": 1,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/armour",
+      "family": "information",
+      "path": "symbol/armour-2x.png",
+      "sha256": "cce57cb8355ea810eaf72fd0c434ac7996a133e53dfa408541bc9c117aa89969",
+      "width": 48,
+      "height": 48,
+      "density": 2,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/armour",
+      "family": "information",
+      "path": "symbol/armour-4x.png",
+      "sha256": "094dc161abfec1f0284407e580c616add532db96f971d1a3a637c5d5ba36d443",
+      "width": 96,
+      "height": 96,
+      "density": 4,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/armour",
+      "family": "information",
+      "path": "symbol/armour.svg",
+      "sha256": "9747e74a57ac4f13ca429cf37a61225e444ad1886ff14f20a4fe126750f796ad",
+      "width": 24,
+      "height": 24,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/capture",
+      "family": "information",
+      "path": "symbol/capture-1x.png",
+      "sha256": "a9045006eae556766cfac9a609ee58ec111a1db6621091e6729d4a18a145d5fb",
+      "width": 24,
+      "height": 24,
+      "density": 1,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/capture",
+      "family": "information",
+      "path": "symbol/capture-2x.png",
+      "sha256": "7da48f2e03028a5652de7d6ae63c12763c481686f21e488a845a6464332756d8",
+      "width": 48,
+      "height": 48,
+      "density": 2,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/capture",
+      "family": "information",
+      "path": "symbol/capture-4x.png",
+      "sha256": "5e70a9d2e03b877ac010593abe67b90099e7212ef7982761c8ce954fd28489a1",
+      "width": 96,
+      "height": 96,
+      "density": 4,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/capture",
+      "family": "information",
+      "path": "symbol/capture.svg",
+      "sha256": "ff647622f41b8d16f094a9e63280e8d7ca5ee21084ed9f3a20e8d525df0309d5",
+      "width": 24,
+      "height": 24,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/empty",
+      "family": "information",
+      "path": "symbol/empty-1x.png",
+      "sha256": "76357112c1886823682f8bb0423be301dec5fc0ea2ee4d52245c704003a69bc3",
+      "width": 24,
+      "height": 24,
+      "density": 1,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/empty",
+      "family": "information",
+      "path": "symbol/empty-2x.png",
+      "sha256": "a72c657d4de0f7d70dedad396299340fc1e293ad819c7233ba0a629179c9b650",
+      "width": 48,
+      "height": 48,
+      "density": 2,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/empty",
+      "family": "information",
+      "path": "symbol/empty-4x.png",
+      "sha256": "311ea83215d8158352ea6f10407c40ca3eb243cff606e0cfff5d3cd68b70c100",
+      "width": 96,
+      "height": 96,
+      "density": 4,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/empty",
+      "family": "information",
+      "path": "symbol/empty.svg",
+      "sha256": "b9eeafbef56ab4c27d82e1520cb52a7ef8e09259134de922c7b10a594865e9b1",
+      "width": 24,
+      "height": 24,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/fuel",
+      "family": "information",
+      "path": "symbol/fuel-1x.png",
+      "sha256": "368737643bd7b424ad54dd01cbee0aaddd4742dc841458a566e5c1f01e5337f9",
+      "width": 24,
+      "height": 24,
+      "density": 1,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/fuel",
+      "family": "information",
+      "path": "symbol/fuel-2x.png",
+      "sha256": "a970e8312b749dd9e26639fb969d80f5085b512a3c107497b7b6fbe93e34e07a",
+      "width": 48,
+      "height": 48,
+      "density": 2,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/fuel",
+      "family": "information",
+      "path": "symbol/fuel-4x.png",
+      "sha256": "640b0f07dd86e225f7611722ad473028921e1ca32cf9f1a19795b404b9c0ca98",
+      "width": 96,
+      "height": 96,
+      "density": 4,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/fuel",
+      "family": "information",
+      "path": "symbol/fuel.svg",
+      "sha256": "e53674ad6505869b166715152bbb721fca402536e91c31886a4bdb8c0d440b50",
+      "width": 24,
+      "height": 24,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/ground",
+      "family": "information",
+      "path": "symbol/ground-1x.png",
+      "sha256": "6843f3705beafeefbb7e6013cf2e1912ae602f6978ee5bb7d8c1a85b41a82dc7",
+      "width": 24,
+      "height": 24,
+      "density": 1,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/ground",
+      "family": "information",
+      "path": "symbol/ground-2x.png",
+      "sha256": "1ed00229a1768606be38cea5784e12eb59c2cc4d82975412c3b951299fe4b8f8",
+      "width": 48,
+      "height": 48,
+      "density": 2,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/ground",
+      "family": "information",
+      "path": "symbol/ground-4x.png",
+      "sha256": "b5ef94623bfabdc69d168b4b350c4156e0e7970d511f9ea0daf671f18eaac0f1",
+      "width": 96,
+      "height": 96,
+      "density": 4,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/ground",
+      "family": "information",
+      "path": "symbol/ground.svg",
+      "sha256": "20b18496bfd6e697cab6cc89cc7c9bd733cfdcc28d271e58cd3ccfe980d6197c",
+      "width": 24,
+      "height": 24,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/infinity",
+      "family": "information",
+      "path": "symbol/infinity-1x.png",
+      "sha256": "3977b9b70f8a559ee433a890c796ea0891bf3926a685c5a1e16d0dd53d3035d8",
+      "width": 24,
+      "height": 24,
+      "density": 1,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/infinity",
+      "family": "information",
+      "path": "symbol/infinity-2x.png",
+      "sha256": "3ab3c8a1af7edc124630e3da92878a9f339b6ea0a593a87185ae476934d68771",
+      "width": 48,
+      "height": 48,
+      "density": 2,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/infinity",
+      "family": "information",
+      "path": "symbol/infinity-4x.png",
+      "sha256": "7a37c731bf36f11f3aebb10f754b57864ecc5035aaca52ccdb54dbc7b47d78a3",
+      "width": 96,
+      "height": 96,
+      "density": 4,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/infinity",
+      "family": "information",
+      "path": "symbol/infinity.svg",
+      "sha256": "92b5840f760b81a7836d25496705b791b72d5ff07a6b5dd470089c7d66c2b535",
+      "width": 24,
+      "height": 24,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/repair",
+      "family": "information",
+      "path": "symbol/repair-1x.png",
+      "sha256": "1cdb223383a6c4ad7133806951c3541272275a584a6e62b6f933dc23fa942766",
+      "width": 24,
+      "height": 24,
+      "density": 1,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/repair",
+      "family": "information",
+      "path": "symbol/repair-2x.png",
+      "sha256": "82025cdb7087b2d9031137514c7cb9b82799940ce8f61fdaa64424370a27c909",
+      "width": 48,
+      "height": 48,
+      "density": 2,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/repair",
+      "family": "information",
+      "path": "symbol/repair-4x.png",
+      "sha256": "8e5db28202783ef7b6e52c0714656c06c88f2b3d1c64cd9b383e55412b33ba5f",
+      "width": 96,
+      "height": 96,
+      "density": 4,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/repair",
+      "family": "information",
+      "path": "symbol/repair.svg",
+      "sha256": "a6a4ace817bc10f76e3268cc7836c2cbba4e687360f563b7099b37a41b05b50c",
+      "width": 24,
+      "height": 24,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/sight",
+      "family": "information",
+      "path": "symbol/sight-1x.png",
+      "sha256": "60bf559762883b7b5b9a5fc4ec91bf92b2a69adbd9b376f9edb0ce367645b712",
+      "width": 24,
+      "height": 24,
+      "density": 1,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/sight",
+      "family": "information",
+      "path": "symbol/sight-2x.png",
+      "sha256": "4863af0a6a13915dfc0746572f00774eb35ead650f0563c1b5ac9f6bd2b767dd",
+      "width": 48,
+      "height": 48,
+      "density": 2,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/sight",
+      "family": "information",
+      "path": "symbol/sight-4x.png",
+      "sha256": "ee03095e963c15a1177d12b6f47cb09229cb24902eb965359d27913c58b82369",
+      "width": 96,
+      "height": 96,
+      "density": 4,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/sight",
+      "family": "information",
+      "path": "symbol/sight.svg",
+      "sha256": "f23bfbc491bff5715107f3dd2756ed3441c42064a41125523b6fd0ba961df983",
+      "width": 24,
+      "height": 24,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/size",
+      "family": "information",
+      "path": "symbol/size-1x.png",
+      "sha256": "ec337f74ffae74806372e79bc534624e00a44b63994c74d1e285357e88ad5d0d",
+      "width": 24,
+      "height": 24,
+      "density": 1,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/size",
+      "family": "information",
+      "path": "symbol/size-2x.png",
+      "sha256": "351128025fc70d96538659ca6cccb485766dc5d6aa47db53f8195a7f3937c42a",
+      "width": 48,
+      "height": 48,
+      "density": 2,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/size",
+      "family": "information",
+      "path": "symbol/size-4x.png",
+      "sha256": "3f336065c74279f0d54e1e6ca33d1f16a18f04cc5401f56919e8a97ff4a95ca7",
+      "width": 96,
+      "height": 96,
+      "density": 4,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/size",
+      "family": "information",
+      "path": "symbol/size.svg",
+      "sha256": "d7dd7baf8e2ff6837a4921dac955a426fd53a838f89809770f640415588d0968",
+      "width": 24,
+      "height": 24,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/skill-unknown",
+      "family": "information",
+      "path": "symbol/skill-unknown-1x.png",
+      "sha256": "2f87473a3bcc270e16484f44aefd6435ee98c413cf9094e79ad3408a87b4ded0",
+      "width": 24,
+      "height": 24,
+      "density": 1,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/skill-unknown",
+      "family": "information",
+      "path": "symbol/skill-unknown-2x.png",
+      "sha256": "da2e5b16ed2f1401e83c14ad91085d22c0686352f8e68087ec8b5cbe9220e6e4",
+      "width": 48,
+      "height": 48,
+      "density": 2,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/skill-unknown",
+      "family": "information",
+      "path": "symbol/skill-unknown-4x.png",
+      "sha256": "11655bc3acc4a8b43b2e2d7b09f09a33ab7bc3219ecfbffe5513acbac4c28ca8",
+      "width": 96,
+      "height": 96,
+      "density": 4,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/skill-unknown",
+      "family": "information",
+      "path": "symbol/skill-unknown.svg",
+      "sha256": "28937bdde94742ae6ca94882c0d9083cfc7384aa406a1539deacfdc5c2283cb8",
+      "width": 24,
+      "height": 24,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/turn",
+      "family": "information",
+      "path": "symbol/turn-1x.png",
+      "sha256": "fa89390a8eff9f4cffb8ef6d494af457376e744ae9bbb2a3be4b262358cb444a",
+      "width": 24,
+      "height": 24,
+      "density": 1,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/turn",
+      "family": "information",
+      "path": "symbol/turn-2x.png",
+      "sha256": "f31a24d8c051122330d6bd20300b52a16ab676c213c350d9ab59cbb3a90fbf0d",
+      "width": 48,
+      "height": 48,
+      "density": 2,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/turn",
+      "family": "information",
+      "path": "symbol/turn-4x.png",
+      "sha256": "f566f81d6d4fe61625171bed554fd764c58a4c59d1f87b4fa413b9f4f86b0b37",
+      "width": 96,
+      "height": 96,
+      "density": 4,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/turn",
+      "family": "information",
+      "path": "symbol/turn.svg",
+      "sha256": "5d80657e73ea95667942ec6d268a9b6a33f845c1e97d4ffa49927152b19d68a9",
+      "width": 24,
+      "height": 24,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/water",
+      "family": "information",
+      "path": "symbol/water-1x.png",
+      "sha256": "c09ae8f9c6de7cd48562d92cf03642a4f01c0c8a4a9702484f5ed85408c5de3c",
+      "width": 24,
+      "height": 24,
+      "density": 1,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/water",
+      "family": "information",
+      "path": "symbol/water-2x.png",
+      "sha256": "5e3da7d513a32d781fa4661a8aaa97db2cbc81d7459e648c50a9949a1f650897",
+      "width": 48,
+      "height": 48,
+      "density": 2,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/water",
+      "family": "information",
+      "path": "symbol/water-4x.png",
+      "sha256": "b8436a6bd2a60059c873e98517e8471e785dc46bd42bdd45522034ac32eb9724",
+      "width": 96,
+      "height": 96,
+      "density": 4,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/water",
+      "family": "information",
+      "path": "symbol/water.svg",
+      "sha256": "0e6d4582a056365c5295c78f3b28ffa957b571e87684f6a42c1e22b6bf81fd32",
+      "width": 24,
+      "height": 24,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/weight",
+      "family": "information",
+      "path": "symbol/weight-1x.png",
+      "sha256": "2b905ce864229633f1a07edbc1b42e67647710ff60fef5c64ee59565741452d7",
+      "width": 24,
+      "height": 24,
+      "density": 1,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/weight",
+      "family": "information",
+      "path": "symbol/weight-2x.png",
+      "sha256": "da0456b0e2c2f14906a90eb346c205555245d5335ce7c4e6bd956deb56917c96",
+      "width": 48,
+      "height": 48,
+      "density": 2,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/weight",
+      "family": "information",
+      "path": "symbol/weight-4x.png",
+      "sha256": "b3fdd61f37113aa3afb4cd765f09736dc88eea2ce6bbaf5385c7aac98efcd18e",
+      "width": 96,
+      "height": 96,
+      "density": 4,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "symbol/weight",
+      "family": "information",
+      "path": "symbol/weight.svg",
+      "sha256": "277e37ca5420bea810cfd4e11fff91fdf3d9fa77ce511afc9afd040eda53eaef",
+      "width": 24,
+      "height": 24,
+      "logical_anchor": [
+        12,
+        12
+      ]
+    },
+    {
+      "id": "vectors",
+      "family": "source",
+      "path": "vectors.json",
+      "sha256": "a0a5a55040abe90a2ec8eddb1955166d513988e2b4edfa08ae60239b540b635a",
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "weapon-row/disabled",
+      "family": "controls",
+      "path": "weapon-row/disabled-1x.png",
+      "sha256": "babb730ebf2ae3bae2dd97f94962751704a80f9c88d3214aa9af69ea5aa8db92",
+      "width": 654,
+      "height": 50,
+      "density": 1,
+      "logical_anchor": [
+        327,
+        25
+      ]
+    },
+    {
+      "id": "weapon-row/disabled",
+      "family": "controls",
+      "path": "weapon-row/disabled-2x.png",
+      "sha256": "357ec82bad2ce4f956a9dfe9e52abd9f29cb66a57344c537b6eebcda20519f88",
+      "width": 1308,
+      "height": 100,
+      "density": 2,
+      "logical_anchor": [
+        327,
+        25
+      ]
+    },
+    {
+      "id": "weapon-row/disabled",
+      "family": "controls",
+      "path": "weapon-row/disabled-4x.png",
+      "sha256": "0ebec2302e7094b1517ba2c4d73b84e4dce4b0bffe5c330efffc24ff78492382",
+      "width": 2616,
+      "height": 200,
+      "density": 4,
+      "logical_anchor": [
+        327,
+        25
+      ]
+    },
+    {
+      "id": "weapon-row/disabled",
+      "family": "controls",
+      "path": "weapon-row/disabled.svg",
+      "sha256": "3cf793ef5733512404ae127ea7710afbdec85465378987f8eacdb7aa931a383e",
+      "width": 654,
+      "height": 50,
+      "logical_anchor": [
+        327,
+        25
+      ]
+    },
+    {
+      "id": "weapon-row/focus",
+      "family": "controls",
+      "path": "weapon-row/focus-1x.png",
+      "sha256": "4d910ec27e30d2d08d296d7351119526d6d3451e1226a6ae2833aa33154e67a8",
+      "width": 654,
+      "height": 50,
+      "density": 1,
+      "logical_anchor": [
+        327,
+        25
+      ]
+    },
+    {
+      "id": "weapon-row/focus",
+      "family": "controls",
+      "path": "weapon-row/focus-2x.png",
+      "sha256": "7e6be4164b5b887ec81757645173744bd2117fb9d007dc844617497741e35fe4",
+      "width": 1308,
+      "height": 100,
+      "density": 2,
+      "logical_anchor": [
+        327,
+        25
+      ]
+    },
+    {
+      "id": "weapon-row/focus",
+      "family": "controls",
+      "path": "weapon-row/focus-4x.png",
+      "sha256": "e70200b078eccefb24426cdc0c6f3540a37e0cc965d86b4e12b21116ea4824af",
+      "width": 2616,
+      "height": 200,
+      "density": 4,
+      "logical_anchor": [
+        327,
+        25
+      ]
+    },
+    {
+      "id": "weapon-row/focus",
+      "family": "controls",
+      "path": "weapon-row/focus.svg",
+      "sha256": "ac4890543dcb69c766f532a2df023998cbb4a3be6788a3b60ee741ed589f2f8d",
+      "width": 654,
+      "height": 50,
+      "logical_anchor": [
+        327,
+        25
+      ]
+    },
+    {
+      "id": "weapon-row/hover",
+      "family": "controls",
+      "path": "weapon-row/hover-1x.png",
+      "sha256": "35995f891a23f825ad259eef9e9c737fa1b904528cd08b283903c0f035dcf1e8",
+      "width": 654,
+      "height": 50,
+      "density": 1,
+      "logical_anchor": [
+        327,
+        25
+      ]
+    },
+    {
+      "id": "weapon-row/hover",
+      "family": "controls",
+      "path": "weapon-row/hover-2x.png",
+      "sha256": "1b55000e80d9b0e181ef3aacd5752efa9d6282215088d870546d92b9396b23b5",
+      "width": 1308,
+      "height": 100,
+      "density": 2,
+      "logical_anchor": [
+        327,
+        25
+      ]
+    },
+    {
+      "id": "weapon-row/hover",
+      "family": "controls",
+      "path": "weapon-row/hover-4x.png",
+      "sha256": "124c697e8d981e94b36fd7cf13a103d33005f059cc73b1f9a7c42d38348fbfac",
+      "width": 2616,
+      "height": 200,
+      "density": 4,
+      "logical_anchor": [
+        327,
+        25
+      ]
+    },
+    {
+      "id": "weapon-row/hover",
+      "family": "controls",
+      "path": "weapon-row/hover.svg",
+      "sha256": "162ec1ff2f23e66bc9de3283866078cc56eeff9c77c46f3ec6fc28084dcdfc5a",
+      "width": 654,
+      "height": 50,
+      "logical_anchor": [
+        327,
+        25
+      ]
+    },
+    {
+      "id": "weapon-row/normal",
+      "family": "controls",
+      "path": "weapon-row/normal-1x.png",
+      "sha256": "3bb893a252f1cef2d8fc828ae02d7f721bb99c2af321bd34e51518834a9d57bf",
+      "width": 654,
+      "height": 50,
+      "density": 1,
+      "logical_anchor": [
+        327,
+        25
+      ]
+    },
+    {
+      "id": "weapon-row/normal",
+      "family": "controls",
+      "path": "weapon-row/normal-2x.png",
+      "sha256": "216d12cb9d96a3b8a2646c0343964cd20bde743b200071e90c214e28972948d3",
+      "width": 1308,
+      "height": 100,
+      "density": 2,
+      "logical_anchor": [
+        327,
+        25
+      ]
+    },
+    {
+      "id": "weapon-row/normal",
+      "family": "controls",
+      "path": "weapon-row/normal-4x.png",
+      "sha256": "88e03d70e429f6f3e23c0944cc18a7453fb43ca5a9d072226e6a4cdbf04ad0af",
+      "width": 2616,
+      "height": 200,
+      "density": 4,
+      "logical_anchor": [
+        327,
+        25
+      ]
+    },
+    {
+      "id": "weapon-row/normal",
+      "family": "controls",
+      "path": "weapon-row/normal.svg",
+      "sha256": "c3a273ee829951534df3e8db7fc2398cf78646f45eba13a53b8d61b9a83a8408",
+      "width": 654,
+      "height": 50,
+      "logical_anchor": [
+        327,
+        25
+      ]
+    },
+    {
+      "id": "weapon-row/pressed",
+      "family": "controls",
+      "path": "weapon-row/pressed-1x.png",
+      "sha256": "91d4f63f5b4f663638bdc541f913d7ea4cb2e31a26e948c40d940a24d76d9908",
+      "width": 654,
+      "height": 50,
+      "density": 1,
+      "logical_anchor": [
+        327,
+        25
+      ]
+    },
+    {
+      "id": "weapon-row/pressed",
+      "family": "controls",
+      "path": "weapon-row/pressed-2x.png",
+      "sha256": "ab1af05cca8894eb58f709f6cfa2e8fe1ace45c7eba258664dc2a2425f9ea578",
+      "width": 1308,
+      "height": 100,
+      "density": 2,
+      "logical_anchor": [
+        327,
+        25
+      ]
+    },
+    {
+      "id": "weapon-row/pressed",
+      "family": "controls",
+      "path": "weapon-row/pressed-4x.png",
+      "sha256": "41853dc3cd479f0471329a10c28e7e6cee75762e275b228e58a3f57972cc486b",
+      "width": 2616,
+      "height": 200,
+      "density": 4,
+      "logical_anchor": [
+        327,
+        25
+      ]
+    },
+    {
+      "id": "weapon-row/pressed",
+      "family": "controls",
+      "path": "weapon-row/pressed.svg",
+      "sha256": "2c2428f12051555e5fe89a861edaf94b1a68a059fa3394c36bbb261779f2c94e",
+      "width": 654,
+      "height": 50,
+      "logical_anchor": [
+        327,
+        25
+      ]
+    },
+    {
+      "id": "weapon/bayonet",
+      "family": "weapons",
+      "path": "weapon/bayonet-1x.png",
+      "sha256": "742d15ee68b23def4bb43ae66a769d0bf46615a2baef9279b36f4fa8c977fc37",
+      "width": 252,
+      "height": 50,
+      "density": 1,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/bayonet",
+      "family": "weapons",
+      "path": "weapon/bayonet-2x.png",
+      "sha256": "324ec1522f359daed1b302ce0908f6efb9bada8cf71fb701a4bb5a02fc8d0ef3",
+      "width": 504,
+      "height": 100,
+      "density": 2,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/bayonet",
+      "family": "weapons",
+      "path": "weapon/bayonet-4x.png",
+      "sha256": "6b8d118aea7fd47a88ade54861b0e35bbd5231f03a0838618bd826f01408422c",
+      "width": 1008,
+      "height": 200,
+      "density": 4,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/canon155",
+      "family": "weapons",
+      "path": "weapon/canon155-1x.png",
+      "sha256": "f03c8f49ccf5484d9847e44ffe1117adf98fa2dba79c213d527233fde8473b29",
+      "width": 252,
+      "height": 50,
+      "density": 1,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/canon155",
+      "family": "weapons",
+      "path": "weapon/canon155-2x.png",
+      "sha256": "9cbfcb68d933989ed3f84ab86f17c648fc812aa0f49b56367de52fec23f1928b",
+      "width": 504,
+      "height": 100,
+      "density": 2,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/canon155",
+      "family": "weapons",
+      "path": "weapon/canon155-4x.png",
+      "sha256": "52456e2f39819ac40e99c4047796f33c613ff86fd1e5e40418d9af798a87b280",
+      "width": 1008,
+      "height": 200,
+      "density": 4,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/canon75",
+      "family": "weapons",
+      "path": "weapon/canon75-1x.png",
+      "sha256": "3d4ea43a12246015183d69cf125db1fa1528c31bc277dfc880763c4cb9a71684",
+      "width": 252,
+      "height": 50,
+      "density": 1,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/canon75",
+      "family": "weapons",
+      "path": "weapon/canon75-2x.png",
+      "sha256": "0dbcf2c1d59a438a3c2f98d5edf7ea268f3cadee73c99da1307190e1a7541114",
+      "width": 504,
+      "height": 100,
+      "density": 2,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/canon75",
+      "family": "weapons",
+      "path": "weapon/canon75-4x.png",
+      "sha256": "d7bc0289f5399d4bcc51fbfc73fb1cbc9233bfa3aaa23ba9e81369c469b5998b",
+      "width": 1008,
+      "height": 200,
+      "density": 4,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/feldkanone16",
+      "family": "weapons",
+      "path": "weapon/feldkanone16-1x.png",
+      "sha256": "16565815f431a9d7e6e00b0744f0f08922d4456ee1817f6f5204c2e35fa518ac",
+      "width": 252,
+      "height": 50,
+      "density": 1,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/feldkanone16",
+      "family": "weapons",
+      "path": "weapon/feldkanone16-2x.png",
+      "sha256": "e9f003591e4833ad9ca57218057b1376aa1ac0dc6d00da3850d216aab35e1506",
+      "width": 504,
+      "height": 100,
+      "density": 2,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/feldkanone16",
+      "family": "weapons",
+      "path": "weapon/feldkanone16-4x.png",
+      "sha256": "14d84dfa17d44d13ccd45f4682fbf82ee2ce97040856655ea769251123c45dc7",
+      "width": 1008,
+      "height": 200,
+      "density": 4,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/gewehr98",
+      "family": "weapons",
+      "path": "weapon/gewehr98-1x.png",
+      "sha256": "31d457dabf18bcd716c42c7e8450d46a4f779d2ea9ca1398d82be99febb1f479",
+      "width": 252,
+      "height": 50,
+      "density": 1,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/gewehr98",
+      "family": "weapons",
+      "path": "weapon/gewehr98-2x.png",
+      "sha256": "85b9bf1a045ac7a22b230db913ae22f6706d6012ff7c6ed6feadbcc05c60cbbf",
+      "width": 504,
+      "height": 100,
+      "density": 2,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/gewehr98",
+      "family": "weapons",
+      "path": "weapon/gewehr98-4x.png",
+      "sha256": "c25f940c02aa0a17f982afc0d916ed80197f74feb85a2c7e4b5e98d37ff8231b",
+      "width": 1008,
+      "height": 200,
+      "density": 4,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/leeEnfield",
+      "family": "weapons",
+      "path": "weapon/leeEnfield-1x.png",
+      "sha256": "5b4ac62b9ee45787d2d8eca69d6f638fc11ed6d60c8851690a6d314ce9475d28",
+      "width": 252,
+      "height": 50,
+      "density": 1,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/leeEnfield",
+      "family": "weapons",
+      "path": "weapon/leeEnfield-2x.png",
+      "sha256": "58e073693c7791de9d6785fa5d7138aadee22be530f97a0fcebf6d9c6933ab89",
+      "width": 504,
+      "height": 100,
+      "density": 2,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/leeEnfield",
+      "family": "weapons",
+      "path": "weapon/leeEnfield-4x.png",
+      "sha256": "643fee3fc68a60b1e1b704b23f15fb9a3ee5b29a95c1c160214fbbad807a2907",
+      "width": 1008,
+      "height": 200,
+      "density": 4,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/lefh",
+      "family": "weapons",
+      "path": "weapon/lefh-1x.png",
+      "sha256": "8871f67eebb3bfce0551ffbbc3282deb8ff4679ba2d0be3f4dfa892055e4ce83",
+      "width": 252,
+      "height": 50,
+      "density": 1,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/lefh",
+      "family": "weapons",
+      "path": "weapon/lefh-2x.png",
+      "sha256": "163a74f28e07aadb82e66d003ad5dbc0b0465b30e55ae062abaace62633dbef0",
+      "width": 504,
+      "height": 100,
+      "density": 2,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/lefh",
+      "family": "weapons",
+      "path": "weapon/lefh-4x.png",
+      "sha256": "93417893c933a51f5d9de0222211e6ae84e319d829a8079bed93b3c6ffdfac59",
+      "width": 1008,
+      "height": 200,
+      "density": 4,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/lugerp08",
+      "family": "weapons",
+      "path": "weapon/lugerp08-1x.png",
+      "sha256": "acd15dec2775d878acecc0288a6938f60b86e16821e415020c5a779965de860e",
+      "width": 252,
+      "height": 50,
+      "density": 1,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/lugerp08",
+      "family": "weapons",
+      "path": "weapon/lugerp08-2x.png",
+      "sha256": "886b02ccf4d2d0b21fde13b216af926f7bb135374c6e3a7737524c5fd357c07a",
+      "width": 504,
+      "height": 100,
+      "density": 2,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/lugerp08",
+      "family": "weapons",
+      "path": "weapon/lugerp08-4x.png",
+      "sha256": "89606c10608963b5c639fa515badbd42f726d9db61d97217c8fc0ab22ccfe84d",
+      "width": 1008,
+      "height": 200,
+      "density": 4,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/m1902",
+      "family": "weapons",
+      "path": "weapon/m1902-1x.png",
+      "sha256": "3a256d34262661b66e9dac74a9c6821d8cd70bb5797fb534547fe82e07a52881",
+      "width": 252,
+      "height": 50,
+      "density": 1,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/m1902",
+      "family": "weapons",
+      "path": "weapon/m1902-2x.png",
+      "sha256": "be10afab31dcb1f2b7b1d3bb3cf177156c0503bbefa28606083e48e4ab2ba0a3",
+      "width": 504,
+      "height": 100,
+      "density": 2,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/m1902",
+      "family": "weapons",
+      "path": "weapon/m1902-4x.png",
+      "sha256": "206b4cd3a0f39c88c5bbb54a9cd67f700a43bc15739454d0d54cef3205eaf245",
+      "width": 1008,
+      "height": 200,
+      "density": 4,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/maxim",
+      "family": "weapons",
+      "path": "weapon/maxim-1x.png",
+      "sha256": "4ffe8112414a887fdaaa1110a7b385f7901c1401b5e465a58c666b29605367f3",
+      "width": 252,
+      "height": 50,
+      "density": 1,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/maxim",
+      "family": "weapons",
+      "path": "weapon/maxim-2x.png",
+      "sha256": "90beae50b8bf3f0a99882253b4788f4bea0325775e06e468b9a7ecffdbc012f9",
+      "width": 504,
+      "height": 100,
+      "density": 2,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/maxim",
+      "family": "weapons",
+      "path": "weapon/maxim-4x.png",
+      "sha256": "303b1a41a96d1728026b5b2072545ad9667342a8ab50d813013fd92f43c7ae5c",
+      "width": 1008,
+      "height": 200,
+      "density": 4,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/morser",
+      "family": "weapons",
+      "path": "weapon/morser-1x.png",
+      "sha256": "5bdcf6f958a2b3ea2e04b2aa0d770e9aacaff6072187eaec9a8b707363d7e78c",
+      "width": 252,
+      "height": 50,
+      "density": 1,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/morser",
+      "family": "weapons",
+      "path": "weapon/morser-2x.png",
+      "sha256": "11e4761e454e5739291468831e368626ceb5e1a97015425533edc879cdcc0391",
+      "width": 504,
+      "height": 100,
+      "density": 2,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/morser",
+      "family": "weapons",
+      "path": "weapon/morser-4x.png",
+      "sha256": "6246ec25d6cab7ebb808dce3ef2b30f6256cb1659b1b937ca8c9df6dcea8a0ca",
+      "width": 1008,
+      "height": 200,
+      "density": 4,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/revolveur",
+      "family": "weapons",
+      "path": "weapon/revolveur-1x.png",
+      "sha256": "8aff0b41c1552fe3a9718ef69e45f6b6189a6f8506b610d5855817219f9085e4",
+      "width": 252,
+      "height": 50,
+      "density": 1,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/revolveur",
+      "family": "weapons",
+      "path": "weapon/revolveur-2x.png",
+      "sha256": "2300016e69542a777e5ba1b47d8310527fb4b471154becb6f18cd50192fa7d17",
+      "width": 504,
+      "height": 100,
+      "density": 2,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/revolveur",
+      "family": "weapons",
+      "path": "weapon/revolveur-4x.png",
+      "sha256": "0dc3fa94ccbad04b86310b350384d5a2216db48106b147de06d6110a51d5bd27",
+      "width": 1008,
+      "height": 200,
+      "density": 4,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/sabre",
+      "family": "weapons",
+      "path": "weapon/sabre-1x.png",
+      "sha256": "40084232a44035c760df95f05ca1f475528109d7f986b991463c486f734eb5cb",
+      "width": 252,
+      "height": 50,
+      "density": 1,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/sabre",
+      "family": "weapons",
+      "path": "weapon/sabre-2x.png",
+      "sha256": "c22394521e5fef7ca6235a423ee53e16c17c44d5ed5f81c15f57f41881adf0d6",
+      "width": 504,
+      "height": 100,
+      "density": 2,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/sabre",
+      "family": "weapons",
+      "path": "weapon/sabre-4x.png",
+      "sha256": "3c82bcd26a7a1cab84831111c249b05c610ae8eac1b26ade02f2bb9f1e0eca8b",
+      "width": 1008,
+      "height": 200,
+      "density": 4,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/trenchKnife",
+      "family": "weapons",
+      "path": "weapon/trenchKnife-1x.png",
+      "sha256": "9cc703c947f447ad1f4c244fb7cb22c4c1de3847aa7e7f47a91b497ebc218fbc",
+      "width": 252,
+      "height": 50,
+      "density": 1,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/trenchKnife",
+      "family": "weapons",
+      "path": "weapon/trenchKnife-2x.png",
+      "sha256": "112caa1c08726d6c91e39b4240fb93f119042bff20d4a1ddd1594d64ba2a7ce2",
+      "width": 504,
+      "height": 100,
+      "density": 2,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/trenchKnife",
+      "family": "weapons",
+      "path": "weapon/trenchKnife-4x.png",
+      "sha256": "efbdbbdcb1a4a64f3b588e643b2cddf07c132da040366ab65fd1e63617152e86",
+      "width": 1008,
+      "height": 200,
+      "density": 4,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/wickers",
+      "family": "weapons",
+      "path": "weapon/wickers-1x.png",
+      "sha256": "26a1e140bd1f8d26de8ce6764f6f49ddfb58211b33039296b80e5e5695742959",
+      "width": 252,
+      "height": 50,
+      "density": 1,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/wickers",
+      "family": "weapons",
+      "path": "weapon/wickers-2x.png",
+      "sha256": "44bc3d302798cef516085a41f69d5a2716a0d8e59e86641f61e2c90d3ca42b7e",
+      "width": 504,
+      "height": 100,
+      "density": 2,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    },
+    {
+      "id": "weapon/wickers",
+      "family": "weapons",
+      "path": "weapon/wickers-4x.png",
+      "sha256": "9420fd5fe62cd4ae8f9604949dd0d1b4dfca51bdd430263db67378119e71d9d6",
+      "width": 1008,
+      "height": 200,
+      "density": 4,
+      "logical_anchor": [
+        126,
+        25
+      ]
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "container_layout": {
+    "columns": 2,
+    "origin": [
+      20,
+      140
+    ],
+    "pitch": [
+      58,
+      56
+    ],
+    "portrait_region": [
+      290,
+      56,
+      210,
+      188
+    ],
+    "rows": 9,
+    "slot_size": [
+      52,
+      52
+    ]
+  },
+  "country": {
+    "France": "country/france",
+    "Germany": "country/germany"
+  },
+  "experience": {
+    "0": "rank/00",
+    "1": "rank/01",
+    "10": "rank/10",
+    "2": "rank/02",
+    "3": "rank/03",
+    "4": "rank/04",
+    "5": "rank/05",
+    "6": "rank/06",
+    "7": "rank/07",
+    "8": "rank/08",
+    "9": "rank/09"
+  },
+  "map_registration": {
+    "marker_anchor": [
+      60,
+      50
+    ],
+    "marker_size": [
+      120,
+      100
+    ],
+    "offset_from_tile": [
+      -12,
+      -10
+    ],
+    "status": "offline geometry; native and in-engine picking/zoom acceptance pending",
+    "tile_center": [
+      48,
+      40
+    ],
+    "tile_size": [
+      96,
+      80
+    ]
+  },
+  "motion": {
+    "facings": [
+      "n",
+      "nw",
+      "sw",
+      "s",
+      "se",
+      "ne"
+    ],
+    "policy": "Retain the supplied logical anchor through path translation; reduced motion snaps to the final cell. Runtime movement/facing implementation and validation remain open.",
+    "source": "Use the existing 15 family manifests and independent owner/state exports. Do not rotate finished sprites."
+  },
+  "owner": {
+    "0": "ownership/neutral",
+    "1": "ownership/cp",
+    "2": "ownership/ec"
+  },
+  "ownership_atlas": {
+    "cell": [
+      35,
+      6
+    ],
+    "id": "ownership/depotOwnership",
+    "placement": "Building-specific positions pending review; do not apply old sprite offsets to newly authored buildings.",
+    "rows": [
+      "neutral",
+      "cp",
+      "ec"
+    ]
+  },
+  "schema_version": 1,
+  "skills": {
+    "1": "symbol/capture",
+    "fallback": "symbol/skill-unknown",
+    "legend": "Only Capture has a code-backed legend. Render all other IDs as live numeric values; no invented behavior."
+  },
+  "status": "offline-candidate",
+  "text": "All labels, rank numbers, values, skill IDs, capacity, loss counts, owner/player/round, tooltips and errors remain live.",
+  "weapon_layout": {
+    "ammunition": "nil=unlimited; finite zero=0; missing weapon=empty. Read current runtime ammunition, not definition defaults.",
+    "art_size": [
+      252,
+      50
+    ],
+    "empty": "symbol/empty",
+    "row_size": [
+      654,
+      50
+    ],
+    "slots": 4,
+    "target_flags": "Raw Air/Ground/Water only; Standard Ground weapons may attack vessels."
+  }
+}

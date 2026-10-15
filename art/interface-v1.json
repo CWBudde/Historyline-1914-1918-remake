@@ -1,0 +1,217 @@
+{
+  "schema_version": 1,
+  "profile": "interface-v1",
+  "weapons": [
+    {
+      "id": "weapon/bayonet",
+      "source": "source/interface/v1/weapons/bayonet.png",
+      "sha256": "9db3379e7c5793c5092c19288a80c2f03a76359c81872f3ed3496c33bb13e448",
+      "crop": [
+        76,
+        568,
+        1150,
+        177
+      ]
+    },
+    {
+      "id": "weapon/sabre",
+      "source": "source/interface/v1/weapons/sabre.png",
+      "sha256": "47ce2193e007b0b77839f0afd4b7984913cf4c6d664d07dfa972028eea24a447",
+      "crop": [
+        24,
+        555,
+        1205,
+        177
+      ]
+    },
+    {
+      "id": "weapon/trenchKnife",
+      "source": "source/interface/v1/weapons/trenchKnife.png",
+      "sha256": "efc2b2f423d8a3d315c97e5023e7f93cff7519e4cc339012452a51b86a46293f",
+      "crop": [
+        187,
+        263,
+        1633,
+        342
+      ]
+    },
+    {
+      "id": "weapon/revolveur",
+      "source": "source/interface/v1/weapons/revolveur.png",
+      "sha256": "872721436aefadcb2dac28e306b2378c69d9de79175f530d976e829ea061a953",
+      "crop": [
+        481,
+        165,
+        1103,
+        510
+      ]
+    },
+    {
+      "id": "weapon/lugerp08",
+      "source": "source/interface/v1/weapons/lugerp08.png",
+      "sha256": "2e3dc965d0839c146bc86d41b12cee76568e127b0ba1527afda909aaa35772ca",
+      "crop": [
+        158,
+        441,
+        1008,
+        437
+      ]
+    },
+    {
+      "id": "weapon/gewehr98",
+      "source": "source/interface/v1/weapons/gewehr98.png",
+      "sha256": "e1aa5883e791dea17637dd4e436d6f45876c2625b563b214424864e6ef5f0c56",
+      "crop": [
+        32,
+        549,
+        1189,
+        233
+      ]
+    },
+    {
+      "id": "weapon/leeEnfield",
+      "source": "source/interface/v1/weapons/leeEnfield.png",
+      "sha256": "3659060d2bdc936a6759d9dc6034fc8dd4ceeb1e6cbd99c415984a17e2d81f8b",
+      "crop": [
+        24,
+        542,
+        1216,
+        222
+      ]
+    },
+    {
+      "id": "weapon/maxim",
+      "source": "source/interface/v1/weapons/maxim.png",
+      "sha256": "4124883b36ae9cce88a6a704405a60a189547f4123ce0cf186775c59e41910eb",
+      "crop": [
+        56,
+        563,
+        1179,
+        265
+      ]
+    },
+    {
+      "id": "weapon/wickers",
+      "source": "source/interface/v1/weapons/wickers.png",
+      "sha256": "205234ce1540e2ba93913fc22e93c68bedcdd14c25f09901a05013a89fdb8265",
+      "crop": [
+        72,
+        453,
+        1278,
+        336
+      ]
+    },
+    {
+      "id": "weapon/feldkanone16",
+      "source": "source/interface/v1/weapons/feldkanone16.png",
+      "sha256": "a444f65356e4400147462c783a20c046af1bc24321db346bfc8fa187a877aa3b",
+      "crop": [
+        11,
+        463,
+        1241,
+        333
+      ]
+    },
+    {
+      "id": "weapon/m1902",
+      "source": "source/interface/v1/weapons/m1902.png",
+      "sha256": "088c0d176a49b74857c075525f396aa460253f8ba4112cea4c113e35df389b8d",
+      "crop": [
+        35,
+        473,
+        1187,
+        335
+      ]
+    },
+    {
+      "id": "weapon/lefh",
+      "source": "source/interface/v1/weapons/lefh.png",
+      "sha256": "9c3717b17213b188f8ba2042a80a9fc398dc1b656b0436f9f2ad0a7442878807",
+      "crop": [
+        324,
+        218,
+        1421,
+        372
+      ]
+    },
+    {
+      "id": "weapon/canon75",
+      "source": "source/interface/v1/weapons/canon75.png",
+      "sha256": "f64100077a39eab2d918046b8230d2648dff1ad192a82fa16e72a9867b24f7b1",
+      "crop": [
+        49,
+        469,
+        1166,
+        299
+      ]
+    },
+    {
+      "id": "weapon/morser",
+      "source": "source/interface/v1/weapons/morser.png",
+      "sha256": "5eaf1f8fd75a866f1e526c4b52e7a311ad97f53038affbed54b8fe15f725da36",
+      "crop": [
+        189,
+        242,
+        1469,
+        392
+      ]
+    },
+    {
+      "id": "weapon/canon155",
+      "source": "source/interface/v1/weapons/canon155.png",
+      "sha256": "417e3f7e4f0029e1ec3b94b791f328976c3f8df0f92ff8c25e01a71f1e9134b2",
+      "crop": [
+        59,
+        493,
+        1150,
+        320
+      ]
+    }
+  ],
+  "explosion": {
+    "id": "effect/explosion-atlas",
+    "source": "source/interface/v1/explosion.png",
+    "sha256": "70fabb31646620fdf18316f1388ee376d0eb48a50111c7b68ba1d753b0fb7015",
+    "crop": [
+      0,
+      0,
+      418,
+      0
+    ]
+  },
+  "fonts": [
+    {
+      "id": "font/regular",
+      "source": "source/fonts/go-fonts/Go-Regular.ttf",
+      "sha256": "197d9f3703b4c00af609178876a8d73e396f64fe438b2c871778566632374be3",
+      "crop": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "font/bold",
+      "source": "source/fonts/go-fonts/Go-Bold.ttf",
+      "sha256": "c18494baa7ea35b8dbfac3861787d360b9c0ab91232562371a09e6fbf09aaa40",
+      "crop": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "font/license",
+      "source": "source/fonts/go-fonts/LICENSE.txt",
+      "sha256": "dc588a7ba9130043b67c2380cc03cc6644ed3557f6d5e8589b96acba1c64e343",
+      "crop": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}

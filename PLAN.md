@@ -365,26 +365,50 @@ follow the `legacy/python/gfx/` layout committed in `cc8f6f0`. These checkboxes 
 offline candidate delivery; approximately 90% resemblance, anatomy/mechanics,
 native facing/contact mapping, Blender comparison and runtime approval stay open.
 
-##### Interface, markers and effects still needed
+##### Interface, markers and effects
 
 The infantry panel's frame/icon/font pilot is recorded in 2.5; it does not complete
 these wider families. Use `docs/art/ui-inventory.md` and Section 4.5 for state coverage.
+The interface continuation now supplies **117 offline asset IDs**, with 351
+1×/2×/4× PNG exports and 93 editable SVGs. See `docs/art/interface-review.html`,
+`interface-contract.md` and `runtime-interface-coverage.csv`. Checked entries below
+close candidate artwork delivery, not runtime input flows or final visual approval.
 
-- [ ] Building ownership indicators — new owned/neutral stripes or symbols, including
-      the separate `depotOwnership.png` replacement outside the 134 tile bindings.
-- [ ] Weapon artwork — all 15 compatibility weapon definitions and four-row presentation;
-      the panel pilot's generic firearm/bayonet symbols do not replace model-specific art.
-- [ ] Information symbols — complete flags, rank/experience, skills and resource/bar assets
-      beyond the infantry pilot, with text and game values kept live.
-- [ ] Map interaction graphics — cursors, selection, movement paths, reachable/attackable/
-      invalid destinations, minimap/camera indicators and editor selection states.
-- [ ] Remaining panel/menu artwork — terrain, weapon, content and battle panels, action
-      icons and capture/round banners, with normal/hover/focus/pressed/disabled treatments.
+- [x] Building ownership indicators — neutral/CP/EC strips, angled factory variants and
+      a three-row `ownership/depotOwnership` replacement outside the 134 tile bindings.
+      Placement on the newly painted buildings remains a separate review.
+- [x] Weapon artwork — separate painted candidates for all 15 compatibility weapon IDs,
+      with a four-row fixture distinguishing finite/unlimited/zero ammo and empty slots.
+      Retain untouched masters, exact prompts, pins and proportional Lanczos exports;
+      labels and model discrepancies in the compatibility data remain explicit.
+- [x] Information symbols — country flags, all 11 experience indices, Capture/unknown
+      skill symbols, resource/stat/target-class icons and bar assets beyond the pilot.
+      Values remain live; unknown skill IDs receive no invented gameplay meaning.
+- [x] Map interaction graphics — cursors, selection/origin/path, reachable/attackable/
+      invalid destinations, camera rectangle and editor selection, with logical anchors.
+- [x] Remaining panel/menu artwork — text-free terrain, weapon, 2×9-slot content and
+      battle frames, action icons and capture/round banners. Actions, slots, weapon rows
+      and buttons each have normal/hover/focus/pressed/disabled artwork.
 - [ ] Effects and animation assets — hits, death/explosions, movement/facing and capture/
       turn transitions, with stable anchors, durations and reduced-animation variants.
+      - [x] Retain nine painted explosion frames, vector hit/reduced indicators and
+            capture/round banners, with pinned exports and finite, skippable normal/
+            reduced timing metadata. No baked loss counts, player identity or round text.
+      - [x] Record anchor-preserving motion and six-view reuse against the already
+            delivered unit families; reduced movement snaps to its destination.
+      - [ ] Exercise browser and in-engine playback, movement/facing transitions,
+            event ordering, skip/reduced behavior and visual contrast on assembled maps.
 - [ ] Full-screen artwork — title, side/mission selection, briefings/campaign, options,
       pause, save/load, handover, victory/defeat, credits/help and editor views. G4/Phase 6
       retain delivery of the screens beyond playable parity.
+
+Interface verification: all 469 build files repeat byte-for-byte; retained PNG
+dimensions/hashes, 15 weapon bindings, marker containment, finite animation tracks,
+source safety, Lanczos behavior and gallery links pass focused tests. Vet and lint
+pass. Both review pages have 571 valid local image/asset links. Saved logical images
+and generated masters were inspected; the browser service had no available browser,
+so interactive playback and responsive/input acceptance remain open. Approximately
+90% resemblance remains a visual review target, not a measured score.
 
 ##### Remaining coverage and acceptance gates
 
@@ -1519,8 +1543,12 @@ in a distinct continuous style; final quality/seam and runtime acceptance remain
             and focused regression tests, vet and lint pass; see
             `docs/art/remaining-unit-families-contract.md`.
       - [ ] Complete visual/reference approval, native correspondence, physical contact
-            and in-engine acceptance for the delivered unit candidates; finish weapon,
-            effect/marker and additional native-content coverage.
+            and in-engine acceptance for delivered unit/weapon/effect/marker candidates;
+            finish additional native-content coverage.
+      - [x] Deliver interface-continuation candidates for all 15 compatibility weapons,
+            ownership, information symbols, map markers, controls/panels and hit/death/
+            capture/round effects: 117 IDs, 351 PNGs, 93 SVGs and a reproducible 469-file
+            bundle. See `docs/art/interface-contract.md`; runtime approval remains open.
 - [ ] Reuse templates and accepted reference sheets; use generation for constrained studies
       or details and paint cleanup. For six-direction units, compare hand-authored sprites
       with a Blender pilot before committing to either method for the whole set.
@@ -1535,6 +1563,9 @@ in a distinct continuous style; final quality/seam and runtime acceptance remain
 - [ ] Build the panel/frame/icon/font system and finish the coverage table in Section 4.5.
       Provide hover/focus/pressed/disabled states, menu placement near screen edges, keyboard
       navigation, tooltips/help and clear feedback for invalid actions.
+      - [x] Retain the interface batch's text-free panel/control candidates in five
+            interaction states, pinned local fonts, live-label fixtures and coverage
+            ledger. Runtime navigation, responsive layouts and screen acceptance stay open.
 - [ ] Implement title, selection, briefing/campaign, settings, pause, save/load, handover,
       victory/defeat, credits and editor screens against their owning gameplay/content phases.
       Include R3 planning/confirmation and R4 energy/repair/production controls with accurate

@@ -1,0 +1,106 @@
+[
+  {
+    "id": "death",
+    "frames": [
+      "effect/explosion-00",
+      "effect/explosion-01",
+      "effect/explosion-02",
+      "effect/explosion-03",
+      "effect/explosion-04",
+      "effect/explosion-05",
+      "effect/explosion-06",
+      "effect/explosion-07",
+      "effect/explosion-08"
+    ],
+    "frame_ms": [
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100
+    ],
+    "reduced_frames": [
+      "effect/explosion-08"
+    ],
+    "reduced_ms": [
+      200
+    ],
+    "anchor": [
+      48,
+      48
+    ],
+    "loop": false,
+    "skippable": true,
+    "notes": "900ms one-shot; compose at unit logical anchor. Reduced variant is one static smoke frame, no flash. Remove effect at expiry or skip; gameplay death must already be resolved."
+  },
+  {
+    "id": "hit",
+    "frames": [
+      "effect/hit"
+    ],
+    "frame_ms": [
+      1000
+    ],
+    "reduced_frames": [
+      "effect/hit-reduced"
+    ],
+    "reduced_ms": [
+      250
+    ],
+    "anchor": [
+      36,
+      36
+    ],
+    "loop": false,
+    "skippable": true,
+    "notes": "Live loss count is separate text; never index damage into a ten-cell strip. No blood/flicker."
+  },
+  {
+    "id": "capture",
+    "frames": [
+      "banner/capture"
+    ],
+    "frame_ms": [
+      900
+    ],
+    "reduced_frames": [
+      "banner/capture"
+    ],
+    "reduced_ms": [
+      250
+    ],
+    "anchor": [
+      240,
+      56
+    ],
+    "loop": false,
+    "skippable": true,
+    "notes": "Static text-free banner; owner and building name come from visible event state."
+  },
+  {
+    "id": "round",
+    "frames": [
+      "banner/round"
+    ],
+    "frame_ms": [
+      900
+    ],
+    "reduced_frames": [
+      "banner/round"
+    ],
+    "reduced_ms": [
+      250
+    ],
+    "anchor": [
+      240,
+      56
+    ],
+    "loop": false,
+    "skippable": true,
+    "notes": "Static text-free banner; round/player are live. Privacy handover remains a separate screen."
+  }
+]
