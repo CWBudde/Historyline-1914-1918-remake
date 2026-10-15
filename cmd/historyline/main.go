@@ -23,6 +23,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/minimap"
+	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
 
 const (
@@ -239,6 +240,20 @@ func (g *game) Layout(outsideW, outsideH int) (int, int) {
 	return outsideW, outsideH
 }
 
+// loadLevel reads name from dir, falling back to the embedded shipped levels when
+// the file is missing (always the case in the browser).
+func loadLevel(dir, name string) (*level.Level, error) {
+	lvl, err := level.Load(filepath.Join(dir, name+".json"))
+	if err == nil {
+		return lvl, nil
+	}
+	raw, embErr := levels.FS.ReadFile(name + ".json")
+	if embErr != nil {
+		return nil, err
+	}
+	return level.Parse(raw)
+}
+
 func main() {
 	name := flag.String("level", "level1_cp", "shipped level to load from levels/ (name without .json)")
 	dir := flag.String("levels", "levels", "directory with the level files")
@@ -246,7 +261,7 @@ func main() {
 	reveal := flag.Bool("reveal", false, "dev: show the whole map, ignoring fog of war")
 	flag.Parse()
 
-	lvl, err := level.Load(filepath.Join(*dir, *name+".json"))
+	lvl, err := loadLevel(*dir, *name)
 	if err != nil {
 		log.Fatal(err)
 	}

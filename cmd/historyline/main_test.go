@@ -7,6 +7,18 @@ import (
 	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 )
 
+// The browser build has no levels directory; the embedded copies must load.
+func TestLoadLevelEmbeddedFallback(t *testing.T) {
+	for _, name := range []string{"level1_cp", "level2_cp", "level3_cp"} {
+		if _, err := loadLevel(t.TempDir(), name); err != nil {
+			t.Errorf("%s: %v", name, err)
+		}
+	}
+	if _, err := loadLevel(t.TempDir(), "nope"); err == nil {
+		t.Error("unknown level loaded")
+	}
+}
+
 // Fog must not leak terrain colour or units of hexes the player cannot see.
 func TestFogPolicy(t *testing.T) {
 	c := color.RGBA{R: 200, G: 100, B: 50, A: 255}
