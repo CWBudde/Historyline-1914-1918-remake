@@ -7,6 +7,14 @@ brief supersedes the earlier approximately 90% original-likeness requirement: do
 ship original graphics or close reconstructions. Retain gameplay semantics, stable
 IDs, map placement and connection topology. Keep familiar information layouts.
 
+Asset-specific update, 2026-10-15: the latest user instruction for the next Phase 2.2
+item, the light-artillery portrait, restores approximately 90% visual resemblance
+after Lanczos reduction to reference size while retaining the painted style. This
+portrait uses the repository reference for composition and sepia values, with its
+UI border excluded. This exception does not change other delivered families.
+See [the portrait contract](light-artillery-portrait-contract.md); the resemblance
+target remains visual and is not a measured percentage or final acceptance.
+
 The current [new-source manifest](../../art/terrain-distinct-v1.json) contains
 27 semantic/material candidates. The connected and mixed builders deliver all 74
 enabled infrastructure variants and a grass base. Browse the [source gallery](distinct-terrain-review.html).

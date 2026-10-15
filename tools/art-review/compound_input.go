@@ -115,7 +115,7 @@ func compoundForbidden(path string) bool {
 	return false
 }
 func compoundSafeRelative(path string) error {
-	if path == "" || filepath.IsAbs(path) || strings.Contains(path, "\\") || filepath.Clean(path) != path || compoundForbidden(path) {
+	if path == "" || filepath.IsAbs(path) || filepath.VolumeName(path) != "" || strings.Contains(path, "\\") || filepath.ToSlash(filepath.Clean(path)) != path || compoundForbidden(path) {
 		return errors.New("compound sources require safe canonical relative paths excluding original/pilot")
 	}
 	for _, s := range strings.Split(path, "/") {

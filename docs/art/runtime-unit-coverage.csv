@@ -6,7 +6,7 @@ CP_cavalry,cavalry,gfx/units/icons/cavalry.png,gfx/units/pictures/cavalry.png,tr
 CP_eliteInf,eliteInfantry,gfx/units/icons/eliteInfantry.png,gfx/units/pictures/eliteInfantry.png,true,needs-image,,,,,,needs-image,,pending
 CP_hArtillery,heavyArtillery,gfx/units/icons/heavyArtillery.png,gfx/units/pictures/heavyArtillery.png,true,needs-image,,,,,,needs-image,,pending
 CP_infantry,infantry,gfx/units/icons/infantry.png,gfx/units/pictures/infantry.png,true,built-candidate,art/unit-infantry-v1.json,art/recipes/unit-infantry-v1.json,N;NW;SW;S;SE;NE,cp;ec;neutral,normal;spent,built-candidate,art/recipes/portrait-infantry-v1.json,pending
-CP_lArtillery,lightArtillery,gfx/units/icons/lightArtillery.png,gfx/units/pictures/lightArtillery.png,true,built-candidate,art/unit-light-artillery-v1.json,art/recipes/unit-light-artillery-v1.json,N;NW;SW;S;SE;NE,cp;ec;neutral,normal;spent,needs-image,,pending
+CP_lArtillery,lightArtillery,gfx/units/icons/lightArtillery.png,gfx/units/pictures/lightArtillery.png,true,built-candidate,art/unit-light-artillery-v1.json,art/recipes/unit-light-artillery-v1.json,N;NW;SW;S;SE;NE,cp;ec;neutral,normal;spent,built-candidate,art/recipes/portrait-light-artillery-v1.json,pending
 CP_mArtillery,mediumArtillery,gfx/units/icons/mediumArtillery.png,gfx/units/pictures/mediumArtillery.png,true,needs-image,,,,,,needs-image,,pending
 CP_patrolBoat,patrolBoat,gfx/units/icons/patrolBoat.png,gfx/units/pictures/patrolBoat.png,false,needs-image,,,,,,needs-image,,pending
 CP_sappers,sappers,gfx/units/icons/sappers.png,gfx/units/pictures/sappers.png,true,needs-image,,,,,,needs-image,,pending
@@ -20,7 +20,7 @@ EC_charron,charron,gfx/units/icons/charron.png,gfx/units/pictures/charron.png,tr
 EC_eliteInf,eliteInfantry,gfx/units/icons/eliteInfantry.png,gfx/units/pictures/eliteInfantry.png,true,needs-image,,,,,,needs-image,,pending
 EC_hArtillery,heavyArtillery,gfx/units/icons/heavyArtillery.png,gfx/units/pictures/heavyArtillery.png,true,needs-image,,,,,,needs-image,,pending
 EC_infantry,infantry,gfx/units/icons/infantry.png,gfx/units/pictures/infantry.png,true,built-candidate,art/unit-infantry-v1.json,art/recipes/unit-infantry-v1.json,N;NW;SW;S;SE;NE,cp;ec;neutral,normal;spent,built-candidate,art/recipes/portrait-infantry-v1.json,pending
-EC_lArtillery,lightArtillery,gfx/units/icons/lightArtillery.png,gfx/units/pictures/lightArtillery.png,true,built-candidate,art/unit-light-artillery-v1.json,art/recipes/unit-light-artillery-v1.json,N;NW;SW;S;SE;NE,cp;ec;neutral,normal;spent,needs-image,,pending
+EC_lArtillery,lightArtillery,gfx/units/icons/lightArtillery.png,gfx/units/pictures/lightArtillery.png,true,built-candidate,art/unit-light-artillery-v1.json,art/recipes/unit-light-artillery-v1.json,N;NW;SW;S;SE;NE,cp;ec;neutral,normal;spent,built-candidate,art/recipes/portrait-light-artillery-v1.json,pending
 EC_mArtillery,mediumArtillery,gfx/units/icons/mediumArtillery.png,gfx/units/pictures/mediumArtillery.png,true,needs-image,,,,,,needs-image,,pending
 EC_patrolBoat,patrolBoat,gfx/units/icons/patrolBoat.png,gfx/units/pictures/patrolBoat.png,true,needs-image,,,,,,needs-image,,pending
 EC_sappers,sappers,gfx/units/icons/sappers.png,gfx/units/pictures/sappers.png,false,needs-image,,,,,,needs-image,,pending

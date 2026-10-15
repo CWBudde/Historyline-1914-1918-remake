@@ -48,16 +48,25 @@ type portraitBundle struct {
 }
 
 func buildPortraitBundle(in portraitInputs) (portraitBundle, error) {
+	family := in.Manifest.Family
+	profile, label := "portrait-infantry-v1", "infantry"
+	classes := []string{"CP_infantry", "EC_infantry"}
+	acceptance := "Provisional offline candidate. No runtime installation, original-game similarity target, native 96x77 resource alias binding, full UI acceptance, or whole graphics acceptance."
+	if family == "lightArtillery" {
+		profile, label = "portrait-light-artillery-v1", "light-artillery"
+		classes = []string{"CP_lArtillery", "EC_lArtillery"}
+		acceptance = "Provisional offline candidate. User requests approximately 90% visual resemblance after Lanczos reduction to the 210x188 repository reference size; this is a visual review target, not a measured similarity score. No runtime installation, native 96x77 resource alias binding, full UI acceptance, or whole graphics acceptance."
+	}
 	b := portraitBundle{report: portraitReport{
 		SchemaVersion:     1,
-		Profile:           "portrait-infantry-v1",
-		Family:            "infantry",
-		Classes:           []string{"CP_infantry", "EC_infantry"},
+		Profile:           profile,
+		Family:            family,
+		Classes:           classes,
 		LogicalDimensions: dimensions{Width: 210, Height: 188},
 		Source: connectionMaterialReport{
 			connectionMaterial: in.Source.Ref,
 			Dimensions:         dimensions{Width: in.Source.Image.Bounds().Dx(), Height: in.Source.Image.Bounds().Dy()},
-			RetainedSource:     "infantry-source.png",
+			RetainedSource:     family + "-source.png",
 		},
 		ManifestSHA256:    in.Hash,
 		ManifestSnapshot:  "manifest.json",
@@ -65,13 +74,13 @@ func buildPortraitBundle(in portraitInputs) (portraitBundle, error) {
 		CropPolicy:        "Largest exact 105*k by 94*k rectangle, k=min(source_width/105,source_height/94) using integer division; k>=8. Center with floor offsets, discarding odd extra pixels on right/bottom. Copy crop without resampling to a zero-based NRGBA image before filtering; no stretch or upscaling.",
 		Resampling:        "Unchanged resizeLanczos: antialiased premultiplied byte-RGB Lanczos3 with signed lobes, retained support normalized at edges, output-only half-up byte rounding and alpha/color clamping. Fixed chain cropped source -> 4x 840x752 -> 2x 420x376 -> 1x 210x188; no quantized upsampling.",
 		Opacity:           "Every decoded source pixel must have alpha 255, including discarded overscan; all exports remain opaque. No alpha editing, background flattening, or magenta key treatment.",
-		Semantics:         "One owner-neutral illustrated infantry portrait shared only by CP_infantry and EC_infantry. No faction recolouring, moved/spent grayscale, flags, text, frame, icons, or UI baked into this illustration. Source is the opaque art target, not a faction mask.",
-		Acceptance:        "Provisional offline candidate. No runtime installation, original-game similarity target, native 96x77 resource alias binding, full UI acceptance, or whole graphics acceptance.",
+		Semantics:         fmt.Sprintf("One owner-neutral illustrated %s portrait shared only by %s and %s. No faction recolouring, moved/spent grayscale, flags, text, frame, icons, or UI baked into this illustration. Source is the opaque art target, not a faction mask.", label, classes[0], classes[1]),
+		Acceptance:        acceptance,
 		CandidatePNGCount: 3,
 		PhysicalPNGCount:  4,
 		TotalFileCount:    7,
 	}}
-	b.artifacts = append(b.artifacts, portraitArtifact{"infantry-source.png", in.Source.Bytes}, portraitArtifact{"manifest.json", in.Bytes})
+	b.artifacts = append(b.artifacts, portraitArtifact{family + "-source.png", in.Source.Bytes}, portraitArtifact{"manifest.json", in.Bytes})
 	c := in.Crop
 	current := image.NewNRGBA(image.Rect(0, 0, c.Width, c.Height))
 	draw.Draw(current, current.Bounds(), in.Source.Image, image.Pt(c.X, c.Y), draw.Src)
@@ -85,7 +94,7 @@ func buildPortraitBundle(in portraitInputs) (portraitBundle, error) {
 		if err = png.Encode(&encoded, current); err != nil {
 			return b, err
 		}
-		name := fmt.Sprintf("infantry-%dx.png", density)
+		name := fmt.Sprintf("%s-%dx.png", family, density)
 		data := encoded.Bytes()
 		sum := sha256.Sum256(data)
 		b.artifacts = append(b.artifacts, portraitArtifact{name, data})
@@ -156,4 +165,4 @@ func runPortrait(path, out string, log io.Writer) (resultErr error) {
 	return err
 }
 
-const portraitGallery = `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Infantry portrait candidate</title><style>body{background:#252a25;color:#eee;font:16px system-ui;margin:2rem}a{color:#c7e6ad}img{image-rendering:auto;max-width:100%;height:auto}figure{margin:1rem 0}article{border-top:1px solid #888;padding:1rem 0}</style><h1>Infantry portrait candidate</h1><p>{{.Acceptance}}</p><p>One opaque owner-neutral infantry illustration shared by CP_infantry and EC_infantry.</p><p><a href="report.json">Export geometry and PNG pins</a> · <a href="manifest.json">Immutable input manifest</a> · <a href="{{.Source.RetainedSource}}">Opaque source art</a></p>{{range .Outputs}}<article><h2>{{.Dimensions.Width}} × {{.Dimensions.Height}}</h2><figure><a href="{{.Path}}"><img src="{{.Path}}" width="{{.Dimensions.Width}}" height="{{.Dimensions.Height}}" alt="Opaque painted infantry portrait"></a></figure></article>{{end}}<h2>Source art target</h2><a href="{{.Source.RetainedSource}}"><img src="{{.Source.RetainedSource}}" width="{{.Source.Dimensions.Width}}" height="{{.Source.Dimensions.Height}}" alt="Opaque authored infantry artwork"></a><details><summary>Fixed crop and resampling contract</summary><p>{{.CropPolicy}}</p><p>{{.Resampling}}</p><p>{{.Opacity}}</p><p>{{.Semantics}}</p></details></html>`
+const portraitGallery = `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{{.Family}} portrait candidate</title><style>body{background:#252a25;color:#eee;font:16px system-ui;margin:2rem}a{color:#c7e6ad}img{image-rendering:auto;max-width:100%;height:auto}figure{margin:1rem 0}article{border-top:1px solid #888;padding:1rem 0}</style><h1>{{.Family}} portrait candidate</h1><p>{{.Acceptance}}</p><p>{{.Semantics}}</p><p><a href="report.json">Export geometry and PNG pins</a> · <a href="manifest.json">Immutable input manifest</a> · <a href="{{.Source.RetainedSource}}">Opaque source art</a></p>{{range .Outputs}}<article><h2>{{.Dimensions.Width}} × {{.Dimensions.Height}}</h2><figure><a href="{{.Path}}"><img src="{{.Path}}" width="{{.Dimensions.Width}}" height="{{.Dimensions.Height}}" alt="Opaque painted {{$.Family}} portrait"></a></figure></article>{{end}}<h2>Source art target</h2><a href="{{.Source.RetainedSource}}"><img src="{{.Source.RetainedSource}}" width="{{.Source.Dimensions.Width}}" height="{{.Source.Dimensions.Height}}" alt="Opaque authored {{.Family}} artwork"></a><details><summary>Fixed crop and resampling contract</summary><p>{{.CropPolicy}}</p><p>{{.Resampling}}</p><p>{{.Opacity}}</p><p>{{.Semantics}}</p></details></html>`
