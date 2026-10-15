@@ -42,11 +42,15 @@
   both required. Per-tile fidelity and seams still need review. The full masters below are displayed with
   smooth browser scaling; native comparison pixels stay sharp for inspection.</p>
 <div class="masters">
+  <figure><figcaption>Road bend · continuous candidate 06 · 1254 × 1254<br><a href="../../art/source/pilot/road-amiga-study-06.png">Open full-resolution PNG</a></figcaption><a href="../../art/source/pilot/road-amiga-study-06.png"><img src="../../art/source/pilot/road-amiga-study-06.png" alt="New continuous road bend illustration with curved edges and natural grass"></a></figure>
+  <figure><figcaption>River · continuous candidate 04 · 1254 × 1254<br><a href="../../art/source/pilot/river-amiga-study-04.png">Open full-resolution PNG</a></figcaption><a href="../../art/source/pilot/river-amiga-study-04.png"><img src="../../art/source/pilot/river-amiga-study-04.png" alt="New continuous river illustration with organic banks and ripples"></a></figure>
   <figure><figcaption>Grass · continuous master · 1254 × 1254<br><a href="../../art/source/pilot/grass-amiga-study-02.png">Open full-resolution PNG</a></figcaption><a href="../../art/source/pilot/grass-amiga-study-02.png"><img src="../../art/source/pilot/grass-amiga-study-02.png" alt="Continuous grass illustration with organic shading and fine blades"></a></figure>
   <figure><figcaption>Water · continuous master · 1254 × 1254<br><a href="../../art/source/pilot/water-amiga-study-02.png">Open full-resolution PNG</a></figcaption><a href="../../art/source/pilot/water-amiga-study-02.png"><img src="../../art/source/pilot/water-amiga-study-02.png" alt="Continuous water illustration with flowing wave contours"></a></figure>
 </div>
 <p><a href="terrain-production.md">Approved style and all 350 terrain resources</a> · <a href="native-material-pilot.md">Recipes, fixed resampling and remaining fidelity work</a> ·
-  <a href="../../build/art-review/amiga-neighborhoods-materials/index.html">Previous neighborhood baseline</a> (contains rejected revision 01; revision 02 is not yet integrated).</p>
+  <a href="../../build/art-review/amiga-neighborhoods-continuous/index.html">Current continuous neighborhood comparisons</a> ·
+  <a href="continuous-connected-pilot.md">Road/river review and remaining geometry defects</a> ·
+  <a href="../../build/art-review/amiga-neighborhoods-materials/index.html">Historical neighborhood baseline</a> (contains rejected revision 01).</p>
 <div class="controls">
   <label>Comparison magnification <select id="zoom"><option value="1">1×</option><option value="4">4×</option><option value="8" selected>8×</option></select></label>
   <label>Background <select id="background"><option value="checker">Checker</option><option value="dark">Dark</option><option value="light">Light</option></select></label>
@@ -58,6 +62,8 @@
 <script>
   'use strict';
   const studies = [
+    { id: 'road-06-lanczos', previous: 'road-05', name: 'Road bend — continuous candidate 06 · Lanczos3', native: 'SSTRE114', export: 'road-study-06-lanczos', source: 'road-amiga-study-06', note: 'Continuous illustrated candidate using the approved grass treatment. Both map parities reviewed. Middle width/registration, faint markings and grass/pavement joins still need correction; fidelity is not accepted. Previous study uses its historical area filter.' },
+    { id: 'river-04-lanczos', previous: 'river-03', name: 'River — continuous candidate 04 · Lanczos3', native: 'SCOAS071', export: 'river-study-04-lanczos', source: 'river-amiga-study-04', note: 'Continuous illustrated candidate using the approved grass/water treatments. Both map parities reviewed. Middle channel is displaced about 2–3 native pixels, and water/bank values and end joins need correction. Previous study uses its historical area filter.' },
     { id: 'grass-02-lanczos', previous: 'grass-02', previousFilter: true, name: 'Grass — continuous revision 02 · Lanczos3', native: 'SPLAI152', export: 'grass-study-02-lanczos', source: 'grass-amiga-study-02', note: 'Style approved for all terrain. Lanczos3 native reduction beside the historical bilinear result from the same source; fidelity and family seams remain under review.' },
     { id: 'water-02-lanczos', previous: 'water-02', previousFilter: true, name: 'Water — continuous revision 02 · Lanczos3', native: 'SCOAS060', export: 'water-study-02-lanczos', source: 'water-amiga-study-02', note: 'Style approved for all terrain. Lanczos3 native reduction beside the historical bilinear result from the same source; fidelity and family seams remain under review.' },
     { id: 'grass-01', name: 'Grass — rejected block-preserving revision 01', native: 'SPLAI152', export: 'grass-study-01', source: 'grass-amiga-study-01', note: 'Newly drawn fine grass texture, retained original colour patch layout, exact mask at both densities. Unapproved study; some green values and block boundaries need refinement.' },

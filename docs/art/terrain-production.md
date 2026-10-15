@@ -49,6 +49,13 @@ The ledger separates `status`, `fidelity_review` and `seam_review`:
 Advance the ledger with evidence, not by counting an enlarged original as a
 finished tile. A runtime pack is complete only after mapping and integration too.
 
+Current delivery: two style-approved material resources (grass/water), two
+continuous candidates (road `SSTRE114` and river `SCOAS071`), and 346 pending
+resources. Candidates have native/2×/4× exports and actual-neighbor reviews;
+their fidelity/seam columns say `needs-correction`. See the
+[connected-terrain review](continuous-connected-pilot.md). Shared road/bank paths
+and protected material boundaries precede further connected-family rollout.
+
 ## Family rollout
 
 1. Build shared grass, water, earth, snow and stone material treatments from the

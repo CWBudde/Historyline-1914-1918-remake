@@ -13,7 +13,8 @@
 // a native Amiga reference; the default provenance is repo-provisional.
 // -resampling area (default) preserves the original area/box chain; bilinear
 // and lanczos use alpha-aware antialiased filters and mask each raw level.
-// Neighborhood recipes retain their box contract and reject -resampling.
+// Neighborhood recipes default to their box contract; source-backed entries
+// can select Lanczos in the recipe. They still reject the -resampling flag.
 // Inputs are never modified;
 // existing output files are rejected. This is a contact-sheet utility, not
 // a fidelity acceptance test or a claim that tile edges are seamless.

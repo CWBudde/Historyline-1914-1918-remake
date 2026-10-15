@@ -89,7 +89,8 @@ The verified Amiga mask is 24 × 24 with 384 covered pixels; its 2×/4× intrins
 48 × 48 / 96 × 96. The original frame's pixel-aspect metadata does not yet establish map
 display spacing. No master density or optional release pack is approved by this pilot yet.
 
-Downsample with an alpha-weighted area/box filter. Compare the same backdrop and colour space.
+Use fixed Lanczos3 for current terrain; retain area/box and bilinear for historical baselines.
+Compare the same backdrop and colour space.
 Inspect original, candidate, overlay and difference at native size and normal play zoom.
 Nearest enlargement is useful for reading the comparison, but is not the reduction filter.
 

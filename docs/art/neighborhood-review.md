@@ -1,5 +1,12 @@
 # Original-neighbor redraw review
 
+The current continuous comparison is recorded in
+[continuous road/river candidates](continuous-connected-pilot.md): six scenes
+using road 06, river 04 and grass/water 02 with source-backed Lanczos3 reductions.
+Open [that gallery](../../build/art-review/amiga-neighborhoods-continuous/index.html).
+The eight-scene fixture below is retained as a historical box-filter baseline
+and includes rejected grass/water revision 01.
+
 This review places the current illustrated road 05, river 03 and bridge 03 studies
 inside six real Amiga ground neighborhoods. Each subject appears on an even and
 an odd column, with its original six neighbors. The patches include three-tile

@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-15",
+  "tool": "built-in image_gen.imagegen",
+  "model": null,
+  "reference_platform": "Amiga German installation, supplied locally",
+  "native_source_sha256": "6808b6078a36d2cbdf9ec2e39146ede4afafda75b4b360c6fa112006176bc6be",
+  "native_dimensions": [
+    24,
+    24
+  ],
+  "palette": "data/00.PAL",
+  "coverage": "data/HEXMSK00.DAT",
+  "transparent_background": false,
+  "intended_exports": {
+    "native-2x": [
+      48,
+      48
+    ],
+    "native-4x": [
+      96,
+      96
+    ]
+  },
+  "determinism": "AI reruns are not assumed deterministic; exports reproduce locally from retained source using tools/art-review.",
+  "cleanup": "Source retained unchanged. Lanczos3 reduction source\u2192unmasked96; independent unmasked96\u219248 and96\u219224. Apply original diagnostic footprint independently after filtering. No source painting, recoloring or alpha repair. Preserve original stepped mask only as reference coverage; continuous production contours remain separate geometry work.",
+  "id": "river-amiga-study-04",
+  "reference": "build/gfx-references/g0-corpus/PARTS/SCOAS071.png",
+  "native_source": "data/LIB/PARTS.LIB:SCOAS071",
+  "reference_sha256": "d965bdb222db76ed783670063416c00b750a6a72baada7af2efdacc0b9489637",
+  "source": "art/source/pilot/river-amiga-study-04.png",
+  "source_dimensions": [
+    1254,
+    1254
+  ],
+  "source_sha256": "7fe1f61a0104bfab7fd45d4e6115da2931dfccdc3cfc70b9c8743af6dd2f20c2",
+  "generation_inputs": [
+    {
+      "path": "build/gfx-research/continuous-terrain-rollout/SCOAS071-nearest32x.png",
+      "role": "original-geometry-and-colour-reference",
+      "preparation": "Exact32x nearest-neighbour enlargement of native24x24 without recolouring or aspect correction.",
+      "sha256": "13428a5ae71f6bf7ec348e53c4feb42fbcfe945bcb338c136a135e864a67e9f4"
+    },
+    {
+      "path": "art/source/pilot/grass-amiga-study-02.png",
+      "role": "approved-continuous-grass-style-reference",
+      "sha256": "467e4255cf3be532d09fae113ebc55d251c7d8ecc4c57f8899c93f8f022f8bca"
+    },
+    {
+      "path": "art/source/pilot/water-amiga-study-02.png",
+      "role": "approved-continuous-water-style-reference",
+      "sha256": "164555d25dac74946696aa2fc78768314a152b8553b38979faa6a315a332814c"
+    }
+  ],
+  "prompt": "Use case: style-transfer.\nAsset type: faithful continuous high-resolution terrain illustration for a Historyline strategy-game remake, one full opaque square, overhead orthographic view.\nImage 1 is the ORIGINAL Amiga diagonal river tile enlarged exactly from 24x24; it alone controls channel geometry, bank position and broad color distribution. Image 2 is the APPROVED continuous grass treatment. Image 3 is the APPROVED continuous water treatment: use its fluid connected contours and fine ripple detail, but the original river has quiet low-contrast water, so greatly restrain wave amplitude and white foam.\nReconstruct the natural continuous river and grass underlying image 1. There must be no square color cells, pixel staircases, zigzag grid banks or grass-textured rectangles. Use gently irregular smooth diagonal banks with tiny organic detail while keeping the original width, route, landmark-free composition and registration.\nThe water crosses from the upper-left side to the lower-right side of the original hex footprint: original boundary contacts (5,4),(4,5),(4,6),(3,7), then (20,16),(19,17),(19,18),(18,19). Preserve these crossings and the channel's broad diagonal span. Upper/right bank has the original thin brown earth and dark olive strip, lower/left bank has a lighter yellow-olive grass fringe. Keep the upper and lower grass areas' sizes; no new meander, islands, rocks, beach, objects, tributary or bridge.\nNative-size palette/value targets: main grass #778800, dark grass #557700 and #445500, smaller light #88aa00 regions, very narrow earth #664422. River body primarily muted teal #448899, restrained darker blue #335566, very small subdued cyan #55bbbb accents at the original broad positions. No broad white foam or deeper dark blue grading. Keep original brightness and material proportions after fixed Lanczos3 reduction to 24x24. Within these masses paint sharp fine connected ripples and natural short curved grass blades, small irregular organic shading and soft bank transition, flat diffuse light, no big cast shadows.\nPaint a full opaque square, including corners by extending adjoining grass or channel past the original transparent footprint; no black corners, no transparency, hex outline, inset or frame. The diagnostic original mask is applied separately afterward.\nAt full resolution this must be coherent detailed continuous natural artwork, never traced original square cells or blurry filtered pixel art. At 24x24 aim for about 90% original visual resemblance with Lanczos3. Preserve channel widths and contact positions first, add restrained fine surface detail second.",
+  "status": "candidate-fidelity-and-seams-pending",
+  "resampling": {
+    "method": "lanczos",
+    "algorithm": "Separable antialiased Lanczos3, kernel sinc(t)*sinc(t/3), radius 3 widened by source/destination per axis; pixel centers (d+0.5)*source/destination-0.5. Clip support to image and renormalize. Integer-coordinate distances, Go math.Sin kernel, row-major float64 sums without intermediate quantization; premultiplied byte RGB (no linear-light conversion). For positive raw alpha, clamp premultiplied channels to [0,255*raw alpha] before unpremultiplying; independently clamp alpha to [0,255], preserving constant straight color through alpha overshoot. Round half up once per reduction; zero RGB at zero output alpha.",
+    "chain": [
+      "source -> raw4x: lanczos",
+      "raw4x -> raw2x: lanczos",
+      "raw4x -> rawNative: lanczos",
+      "raw4x/raw2x/rawNative -> outputs: apply reference footprint independently"
+    ]
+  },
+  "exports": {
+    "native-2x": {
+      "path": "art/exports/pilot/amiga-native-2x/river-study-04-lanczos.png",
+      "sha256": "88440d627de39c4d71abf8a1f930ddd59c425f29e1b5bd34d6471d193a848b81"
+    },
+    "native-4x": {
+      "path": "art/exports/pilot/amiga-native-4x/river-study-04-lanczos.png",
+      "sha256": "7cb80cf5dd8d712d3b5728bee29105e730655c2a06a9ff472349594d7f736049"
+    }
+  },
+  "review": "Continuous finish delivered. Original routes recognizable, but native widths/registration, markings and value/texture joins remain open. Not approved at approximately90% resemblance. See docs/art/continuous-connected-pilot.md and source-backed actual-neighbor fixture art/fixtures/amiga-neighborhoods-continuous.json."
+}

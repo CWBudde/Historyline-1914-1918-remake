@@ -816,6 +816,21 @@ below record work already delivered, plus G0.7's new neighborhood comparisons.
       three densities and re-review both parities; preserve native material widths, contact
       cells, landmarks and marks. Record remaining seam defects explicitly; opacity/coverage
       and isolated visual scores alone cannot pass this item.
+      - [x] Deliver continuous road/river candidate masters with reproducible Lanczos3
+            native/2×/4× comparisons. (2026-10-15) — road 06 and river 04 extend the approved
+            grass/water treatment; exact prompts and sources retained. Native registration,
+            markings and color defects remain; neither candidate is accepted at the target.
+      - [x] Review those candidates and grass/water 02 in source-backed Lanczos neighborhoods.
+            Both road/river parities and two material centers produce six scenes / 38 files;
+            controller verified all pixels, input hashes, coverage and repeated bytes.
+            See `docs/art/continuous-connected-pilot.md` and the separate continuous fixture.
+      - [ ] Repair road/channel registration using shared continuous paths and protected
+            material bands; preserve changing widths and marks. Road middle/bottom is about
+            one native pixel off; river middle is displaced about 2–3 pixels. Shared texture
+            phase and edge/corner handling must replace independent freehand generation as
+            the next repair method. Recheck actual contacts and three-tile vertices.
+      - [ ] Finish bridge earth/water cleanup in the continuous style, then re-review all
+            three connected subjects at both parities and record remaining seam exceptions.
 - [ ] **G0.9 — Complete the remaining native pilot subjects.** Deliver native grass and water,
       infantry and artillery, one portrait and the unit panel based on manual page 45. Each
       subject needs retained sources/recipes, native/2×/4× comparisons and a recorded review.
@@ -947,14 +962,18 @@ private originals/manual extracts in ignored `original/`, and reference gallerie
 outputs and research in ignored `build/`. Authored masters, recipes and pilot exports stay in
 tracked `art/`; commit verified graphics batches directly to `main`, per the user's preference.
 
-**Immediate next graphics slice:** use the approved continuous style across the terrain rollout
-in `docs/art/terrain-production.md`. Use Lanczos3, retain original masters and previous filter
-baselines, and review native reductions against the original. Work through shared material and
-edge templates, then forest/ground, coasts/rivers/roads, mountains/building pieces, bridges/rail/
-walls and winter variants. Track all 350 native resources in `docs/art/terrain-production.csv`.
-Complete one small family batch and its actual-neighbor review per continuation; preserve
-landmarks and connections. Units, portrait and panel remain separate pilot work; they do not
-block terrain authoring. Fidelity, seamlessness and runtime pack acceptance remain open.
+**Immediate next graphics slice:** build shared continuous road/bank paths and protected material
+bands to repair road 06 / river 04 registration, changing widths, markings and joins. Fold the
+needed narrow geometry/export prerequisite from G1 into G0.8; use the retained continuous
+masters as material references and sample common textures in world coordinates. Targeted
+freehand generation attempts did not reliably fix these defects. Keep Lanczos3 and recheck
+the same native reductions and six actual-neighbor scenes, including vertices. Then continue
+forest/ground, coasts/rivers/roads, mountains/building pieces, bridges/rail/walls and winter
+through `docs/art/terrain-production.md`. The 350-resource ledger currently records two
+style-approved materials, two candidates needing correction and 346 pending resources.
+Complete one bounded art/tool deliverable with its actual-neighbor review per continuation.
+Units, portrait and panel do not block terrain. Fidelity, seamlessness and runtime acceptance
+remain open.
 
 ---
 

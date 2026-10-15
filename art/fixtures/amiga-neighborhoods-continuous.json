@@ -1,0 +1,89 @@
+{
+  "tiles_directory": "../../build/gfx-references/g0-corpus/PARTS",
+  "maps": [
+    {
+      "id": "00",
+      "cells_csv": "../../build/gfx-references/placement-map00/maps/00-PARTS-cells.csv"
+    },
+    {
+      "id": "01",
+      "cells_csv": "../../build/gfx-references/placement-map01/maps/01-PARTS-cells.csv"
+    },
+    {
+      "id": "06",
+      "cells_csv": "../../build/gfx-references/placement-map06/maps/06-PARTS-cells.csv"
+    },
+    {
+      "id": "10",
+      "cells_csv": "../../build/gfx-references/placement-map10/maps/10-PARTS-cells.csv"
+    }
+  ],
+  "replacements": [
+    {
+      "resource": "SSTRE114",
+      "image_2x": "../exports/pilot/amiga-native-2x/road-study-06-lanczos.png",
+      "image_4x": "../exports/pilot/amiga-native-4x/road-study-06-lanczos.png",
+      "source": "../source/pilot/road-amiga-study-06.png",
+      "resampling": "lanczos"
+    },
+    {
+      "resource": "SCOAS071",
+      "image_2x": "../exports/pilot/amiga-native-2x/river-study-04-lanczos.png",
+      "image_4x": "../exports/pilot/amiga-native-4x/river-study-04-lanczos.png",
+      "source": "../source/pilot/river-amiga-study-04.png",
+      "resampling": "lanczos"
+    },
+    {
+      "resource": "SPLAI152",
+      "image_2x": "../exports/pilot/amiga-native-2x/grass-study-02-lanczos.png",
+      "image_4x": "../exports/pilot/amiga-native-4x/grass-study-02-lanczos.png",
+      "source": "../source/pilot/grass-amiga-study-02.png",
+      "resampling": "lanczos"
+    },
+    {
+      "resource": "SCOAS060",
+      "image_2x": "../exports/pilot/amiga-native-2x/water-study-02-lanczos.png",
+      "image_4x": "../exports/pilot/amiga-native-4x/water-study-02-lanczos.png",
+      "source": "../source/pilot/water-amiga-study-02.png",
+      "resampling": "lanczos"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "road-odd",
+      "map": "00",
+      "column": 1,
+      "row": 15
+    },
+    {
+      "id": "road-even",
+      "map": "06",
+      "column": 2,
+      "row": 6
+    },
+    {
+      "id": "river-even",
+      "map": "00",
+      "column": 2,
+      "row": 2
+    },
+    {
+      "id": "river-odd",
+      "map": "01",
+      "column": 5,
+      "row": 5
+    },
+    {
+      "id": "grass-odd",
+      "map": "00",
+      "column": 1,
+      "row": 14
+    },
+    {
+      "id": "water-odd",
+      "map": "06",
+      "column": 21,
+      "row": 8
+    }
+  ]
+}

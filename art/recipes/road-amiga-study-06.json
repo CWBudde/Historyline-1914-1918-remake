@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-15",
+  "tool": "built-in image_gen.imagegen",
+  "model": null,
+  "reference_platform": "Amiga German installation, supplied locally",
+  "native_source_sha256": "6808b6078a36d2cbdf9ec2e39146ede4afafda75b4b360c6fa112006176bc6be",
+  "native_dimensions": [
+    24,
+    24
+  ],
+  "palette": "data/00.PAL",
+  "coverage": "data/HEXMSK00.DAT",
+  "transparent_background": false,
+  "intended_exports": {
+    "native-2x": [
+      48,
+      48
+    ],
+    "native-4x": [
+      96,
+      96
+    ]
+  },
+  "determinism": "AI reruns are not assumed deterministic; exports reproduce locally from retained source using tools/art-review.",
+  "cleanup": "Source retained unchanged. Lanczos3 reduction source\u2192unmasked96; independent unmasked96\u219248 and96\u219224. Apply original diagnostic footprint independently after filtering. No source painting, recoloring or alpha repair. Preserve original stepped mask only as reference coverage; continuous production contours remain separate geometry work.",
+  "id": "road-amiga-study-06",
+  "reference": "build/gfx-references/g0-corpus/PARTS/SSTRE114.png",
+  "native_source": "data/LIB/PARTS.LIB:SSTRE114",
+  "reference_sha256": "2de3f834e9c73dc631eb5407af45c2eeaf5f683e40a8576e0b56f6230cbfab34",
+  "source": "art/source/pilot/road-amiga-study-06.png",
+  "source_dimensions": [
+    1254,
+    1254
+  ],
+  "source_sha256": "ce0b98bcb80d722908c332527087990fb55e1acb5336730b6c3121203e414eb3",
+  "generation_inputs": [
+    {
+      "path": "build/gfx-research/continuous-terrain-rollout/SSTRE114-nearest32x.png",
+      "role": "original-geometry-and-colour-reference",
+      "preparation": "Exact32x nearest-neighbour enlargement of native24x24 without recolouring or aspect correction.",
+      "sha256": "348da5b5134f24e40832cd5b95d4c129e7a10b7da51da070f8d8fc8990cf1963"
+    },
+    {
+      "path": "art/source/pilot/grass-amiga-study-02.png",
+      "role": "approved-continuous-grass-style-reference",
+      "sha256": "467e4255cf3be532d09fae113ebc55d251c7d8ecc4c57f8899c93f8f022f8bca"
+    }
+  ],
+  "prompt": "Use case: style-transfer.\nAsset type: faithful continuous high-resolution terrain illustration for a Historyline strategy-game remake, one full opaque square, overhead orthographic view.\nImage 1 is the ORIGINAL Amiga road bend, exactly enlarged from 24x24. It is the sole authority for road route, width, markings, shoulder positions and broad grass color balance. Image 2 is the APPROVED continuous grass material: use its natural flowing fine blades and organic mottling, not its particular arrangement of light patches.\nReconstruct the natural continuous surface underlying image 1. Replace pixel staircases and rectangular source-color cells with continuous curved organic contours; no visible pixel-cell grid or textured square patches. Keep the original broad arrangement: yellow-olive grass on the left and upper side, a matte medium-gray road curving from the upper-right boundary down to the bottom near center, a very narrow dark olive/brown shoulder on its left, olive grass on the right. No road branch, no extra road exit, no rotation, recentering or enlarged bend.\nGeometry in coordinates of original 24x24: road reaches upper-right footprint at (18,4),(19,5),(19,6),(20,7),(21,8), spans approximately seven pixels across rows 11..15, and exits bottom across x10..14 at y23. Smooth these coarse stair steps into a continuous bend while preserving width and registration. Preserve the eight tiny worn pale-gray road marks centered near (19,6),(18,7),(17,8),(14,12),(13,14),(12,18),(12,19),(12,20), and the subdued dim-gray mark at (13,13). They are short worn gray dashes, not a new continuous white line.\nPalette/value targets when reduced with fixed Lanczos3 to 24x24: main grass #778800, dark grass #557700 and #445500, restrained light #88aa00, road #666666, thin earth #664422, tiny marks #aaaaaa with central dim mark #888888. Maintain original average brightness and broad color masses. Fine natural details should not introduce dark global grading or bright highlights. Fine curved blades, subtle natural pavement grain, gently uneven soil; diffuse flat light, almost no relief shadow.\nPaint the entire square including corners with logical grass/road extensions beyond the old transparent footprint; no black/transparent corners, no hex border or outline. Those exterior extensions will be software-masked for diagnostic comparison. No text, stones, trees, flowers, buildings, curbs, big lane stripes, additional landmarks or vignette.\nAt full resolution this must look like crisp continuous illustrated terrain, never an enlarged pixel painting or blurry smoothing. At native 24x24 after Lanczos3, aim for about 90% original visual resemblance. Preserve composition first, enrich natural surfaces within it.",
+  "status": "candidate-fidelity-and-seams-pending",
+  "resampling": {
+    "method": "lanczos",
+    "algorithm": "Separable antialiased Lanczos3, kernel sinc(t)*sinc(t/3), radius 3 widened by source/destination per axis; pixel centers (d+0.5)*source/destination-0.5. Clip support to image and renormalize. Integer-coordinate distances, Go math.Sin kernel, row-major float64 sums without intermediate quantization; premultiplied byte RGB (no linear-light conversion). For positive raw alpha, clamp premultiplied channels to [0,255*raw alpha] before unpremultiplying; independently clamp alpha to [0,255], preserving constant straight color through alpha overshoot. Round half up once per reduction; zero RGB at zero output alpha.",
+    "chain": [
+      "source -> raw4x: lanczos",
+      "raw4x -> raw2x: lanczos",
+      "raw4x -> rawNative: lanczos",
+      "raw4x/raw2x/rawNative -> outputs: apply reference footprint independently"
+    ]
+  },
+  "exports": {
+    "native-2x": {
+      "path": "art/exports/pilot/amiga-native-2x/road-study-06-lanczos.png",
+      "sha256": "88eb33dc61add94be41637b2aac186b3ac426f693a9406a41cb0243d4389cd44"
+    },
+    "native-4x": {
+      "path": "art/exports/pilot/amiga-native-4x/road-study-06-lanczos.png",
+      "sha256": "48f7d2ba2b6fa724fd49a90a99b763d6ab0d90f8520108fb465a34eca54a0ca6"
+    }
+  },
+  "review": "Continuous finish delivered. Original routes recognizable, but native widths/registration, markings and value/texture joins remain open. Not approved at approximately90% resemblance. See docs/art/continuous-connected-pilot.md and source-backed actual-neighbor fixture art/fixtures/amiga-neighborhoods-continuous.json."
+}

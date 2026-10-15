@@ -1,5 +1,10 @@
 # Connected terrain pilot — 2026-10-14, cleanup 2026-10-15
 
+Current continuous candidates are [road 06 and river 04](continuous-connected-pilot.md),
+with source-backed Lanczos neighborhood comparisons. The earlier studies below
+retain their historical filters and pixel-cell-preserving treatment. Bridge 03
+has not yet been redrawn in the approved continuous style.
+
 Three original Amiga summer terrain resources now have illustrated redraw studies with
 intrinsic 2× and 4× exports. Opaque square paint followed by the original mask fixes output
 opacity. Three chained experiments regress in material geometry and are explicitly rejected.

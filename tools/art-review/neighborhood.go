@@ -12,6 +12,7 @@ import (
 	"image"
 	"image/draw"
 	"io"
+	"math"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -26,9 +27,11 @@ type neighborhoodConfig struct {
 		CellsCSV string `json:"cells_csv"`
 	} `json:"maps"`
 	Replacements []struct {
-		Resource string `json:"resource"`
-		Image2x  string `json:"image_2x"`
-		Image4x  string `json:"image_4x"`
+		Resource   string `json:"resource"`
+		Image2x    string `json:"image_2x"`
+		Image4x    string `json:"image_4x"`
+		Source     string `json:"source,omitempty"`
+		Resampling string `json:"resampling,omitempty"`
 	} `json:"replacements"`
 	Scenes []neighborhoodScene `json:"scenes"`
 }
@@ -61,17 +64,27 @@ type neighborhoodDensity struct {
 }
 type neighborhoodResult struct {
 	neighborhoodScene
-	Center    neighborhoodCell        `json:"center"`
-	Cells     []neighborhoodCell      `json:"cells"`
-	Replaced  map[string]int          `json:"replaced_resources"`
-	Densities []neighborhoodDensity   `json:"densities"`
-	Images    map[string]*image.NRGBA `json:"-"`
+	Center       neighborhoodCell        `json:"center"`
+	Cells        []neighborhoodCell      `json:"cells"`
+	Replaced     map[string]int          `json:"replaced_resources"`
+	Densities    []neighborhoodDensity   `json:"densities"`
+	Images       map[string]*image.NRGBA `json:"-"`
+	SmoothRedraw bool                    `json:"-"`
+}
+type neighborhoodReplacementProvenance struct {
+	Resource     string   `json:"resource"`
+	SourcePath   string   `json:"source_path"`
+	SourceSHA256 string   `json:"source_sha256"`
+	Resampling   string   `json:"resampling"`
+	Algorithm    string   `json:"resampling_algorithm"`
+	Chain        []string `json:"resampling_chain"`
 }
 type neighborhoodReport struct {
-	Inputs   map[string]string    `json:"input_sha256"`
-	Scenes   []neighborhoodResult `json:"scenes"`
-	Metric   string               `json:"boundary_metric"`
-	Advisory string               `json:"advisory"`
+	Inputs       map[string]string                   `json:"input_sha256"`
+	Scenes       []neighborhoodResult                `json:"scenes"`
+	Metric       string                              `json:"boundary_metric"`
+	Advisory     string                              `json:"advisory"`
+	Replacements []neighborhoodReplacementProvenance `json:"replacement_provenance,omitempty"`
 }
 
 var neighborhoodName = regexp.MustCompile(`^[A-Za-z0-9_-]{1,64}$`)
@@ -167,9 +180,13 @@ func runNeighborhood(configPath, out string, log io.Writer) error {
 		return tile, nil
 	}
 	replacements := map[string]map[int]*image.NRGBA{}
+	sourceBacked := map[string]bool{}
 	for _, r := range config.Replacements {
 		if !neighborhoodResource.MatchString(r.Resource) || replacements[r.Resource] != nil || r.Image2x == "" || r.Image4x == "" {
 			return fmt.Errorf("invalid or duplicate replacement %q", r.Resource)
+		}
+		if (r.Source == "") != (r.Resampling == "") || r.Resampling != "" && r.Resampling != "lanczos" {
+			return fmt.Errorf("replacement %s requires source and resampling lanczos together", r.Resource)
 		}
 		ref, err := loadOriginal(r.Resource)
 		if err != nil {
@@ -193,21 +210,64 @@ func runNeighborhood(configPath, out string, log io.Writer) error {
 			}
 			levels[entry.n] = tile
 		}
-		reduced, err := boxDownsample(levels[4], 2)
-		if err != nil {
-			return err
-		}
-		for y := 0; y < 48; y++ {
-			for x := 0; x < 48; x++ {
-				a, b := reduced.NRGBAAt(x, y), levels[2].NRGBAAt(x, y)
-				if a != b {
-					return fmt.Errorf("replacement %s 2x differs from box-downsampled 4x", r.Resource)
+		if r.Source != "" {
+			src, err := load(r.Source)
+			if err != nil {
+				return fmt.Errorf("replacement %s source: %w", r.Resource, err)
+			}
+			sw, sh := src.Bounds().Dx(), src.Bounds().Dy()
+			if sw < 96 || sh < 96 {
+				return fmt.Errorf("replacement %s source must be at least 96x96 (4x reference)", r.Resource)
+			}
+			if math.Abs(float64(sw)/float64(sh)-1) > aspectTolerance {
+				return fmt.Errorf("replacement %s source aspect deviation exceeds %.2f tolerance", r.Resource, aspectTolerance)
+			}
+			raw4x, err := resizeLanczos(src, 96, 96)
+			if err != nil {
+				return err
+			}
+			for _, scale := range []int{4, 2, 1} {
+				raw := raw4x
+				if scale != 4 {
+					raw, err = resizeLanczos(raw4x, 24*scale, 24*scale)
+					if err != nil {
+						return err
+					}
+				}
+				expected := applyFootprint(raw, ref)
+				if scale != 1 && !bytes.Equal(expected.Pix, levels[scale].Pix) {
+					return fmt.Errorf("replacement %s %dx differs from source-backed Lanczos3 export", r.Resource, scale)
+				}
+				if scale == 1 {
+					if mask := measure(ref, expected); mask.AlphaMismatchPixels != 0 {
+						return fmt.Errorf("replacement %s native source-backed Lanczos3 mask mismatch", r.Resource)
+					}
+					levels[1] = expected
 				}
 			}
-		}
-		levels[1], err = boxDownsample(levels[2], 2)
-		if err != nil {
-			return err
+			sourceBacked[r.Resource] = true
+			report.Replacements = append(report.Replacements, neighborhoodReplacementProvenance{
+				Resource: r.Resource, SourcePath: resolve(r.Source), SourceSHA256: report.Inputs[resolve(r.Source)], Resampling: r.Resampling,
+				Algorithm: "Separable antialiased Lanczos3, kernel sinc(t)*sinc(t/3), radius 3 widened by source/destination per axis; pixel centers (d+0.5)*source/destination-0.5. Clip support to image and renormalize. Integer-coordinate distances, Go math.Sin kernel, row-major float64 sums without intermediate quantization; premultiplied byte RGB (no linear-light conversion). For positive raw alpha, clamp premultiplied channels to [0,255*raw alpha] before unpremultiplying; independently clamp alpha to [0,255], preserving constant straight color through alpha overshoot. Round half up once per reduction; zero RGB at zero output alpha.",
+				Chain:     []string{"source -> raw4x: lanczos", "raw4x -> raw2x: lanczos", "raw4x -> rawNative: lanczos", "raw4x/raw2x/rawNative -> outputs: apply reference footprint independently"},
+			})
+		} else {
+			reduced, err := boxDownsample(levels[4], 2)
+			if err != nil {
+				return err
+			}
+			for y := 0; y < 48; y++ {
+				for x := 0; x < 48; x++ {
+					a, b := reduced.NRGBAAt(x, y), levels[2].NRGBAAt(x, y)
+					if a != b {
+						return fmt.Errorf("replacement %s 2x differs from box-downsampled 4x", r.Resource)
+					}
+				}
+			}
+			levels[1], err = boxDownsample(levels[2], 2)
+			if err != nil {
+				return err
+			}
 		}
 		replacements[r.Resource] = levels
 	}
@@ -242,6 +302,9 @@ func runNeighborhood(configPath, out string, log io.Writer) error {
 			result.Cells = append(result.Cells, c)
 			if replacements[c.Resource] != nil {
 				result.Replaced[c.Resource]++
+			}
+			if sourceBacked[c.Resource] {
+				result.SmoothRedraw = true
 			}
 		}
 		for _, scale := range []int{1, 2, 4} {
@@ -420,6 +483,6 @@ func neighborhoodBoundary(original, mixed *image.NRGBA, owners []int, neighbor i
 
 var neighborhoodGallery = template.Must(template.New("neighborhood").Parse(`<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Original Amiga neighborhood review</title><style>
 body{font:16px system-ui;margin:2rem;background:#20242a;color:#eee}a{color:#9cd5ff}.pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}figure{margin:0;overflow:auto;padding:1rem;background:#30363e}img{image-rendering:pixelated;display:block;background:repeating-conic-gradient(#555 0 25%,#444 0 50%) 0/12px 12px}label{margin-right:1rem}section{margin:2rem 0}h3{margin:.5rem 0}figcaption{margin-bottom:.5rem}[hidden]{display:none!important}
-</style><h1>Original Amiga neighborhood review</h1><p>Original Amiga tiles versus mixed original/redraw patches. Unchanged orientation; seven adjacent cells include three-tile vertices. Every selected matching resource is replaced. In the current studies only resources matching the center are redrawn. Original tiles are enlarged with nearest pixels and gain no detail.</p><p>{{.Advisory}} <a href="diagnostics.json">Diagnostics and input SHA256s</a></p><p><label>Source density: <select id="density"><option value="1">Native 1x</option><option value="2">2x</option><option value="4" selected>4x</option></select></label>World display magnification: <label><input type="radio" name="zoom" value="1">1x</label><label><input type="radio" name="zoom" value="4" checked>4x</label><label><input type="radio" name="zoom" value="8">8x</label></p>
-{{range .Scenes}}<section><h2>{{.ID}} — {{.Map}} ({{.Column}}, {{.Row}}), center {{.Center.Resource}}</h2>{{ $id := .ID }}{{range .Densities}}<div data-density="{{.Scale}}" {{if ne .Scale 4}}hidden{{end}}><h3>{{if eq .Scale 1}}Native 1x{{else}}{{.Scale}}x{{end}} source density</h3><div class="pair"><figure><figcaption>Original Amiga — {{.Scale}}x source</figcaption><a href="{{$id}}/original-{{.Scale}}x.png"><img alt="Original Amiga neighborhood" data-scale="{{.Scale}}" src="{{$id}}/original-{{.Scale}}x.png"></a></figure><figure><figcaption>Mixed original/redraw — {{.Scale}}x source</figcaption><a href="{{$id}}/mixed-{{.Scale}}x.png"><img alt="Mixed original/redraw neighborhood" data-scale="{{.Scale}}" src="{{$id}}/mixed-{{.Scale}}x.png"></a></figure></div></div>{{end}}</section>{{end}}
+</style><h1>Original Amiga neighborhood review</h1><p>Original Amiga tiles versus mixed original/redraw patches. Unchanged orientation; seven adjacent cells include three-tile vertices. Every selected matching resource is replaced. {{if .Replacements}}Selected redraw resources replace every occurrence among the seven cells.{{else}}In the current studies only resources matching the center are redrawn.{{end}} Original tiles are enlarged with nearest pixels and gain no detail.</p><p>{{.Advisory}} <a href="diagnostics.json">Diagnostics and input SHA256s</a></p><p><label>Source density: <select id="density"><option value="1">Native 1x</option><option value="2">2x</option><option value="4" selected>4x</option></select></label>World display magnification: <label><input type="radio" name="zoom" value="1">1x</label><label><input type="radio" name="zoom" value="4" checked>4x</label><label><input type="radio" name="zoom" value="8">8x</label></p>
+{{range .Scenes}}<section><h2>{{.ID}} — {{.Map}} ({{.Column}}, {{.Row}}), center {{.Center.Resource}}</h2>{{ $id := .ID }}{{$smooth := .SmoothRedraw}}{{range .Densities}}<div data-density="{{.Scale}}" {{if ne .Scale 4}}hidden{{end}}><h3>{{if eq .Scale 1}}Native 1x{{else}}{{.Scale}}x{{end}} source density</h3><div class="pair"><figure><figcaption>Original Amiga — {{.Scale}}x source</figcaption><a href="{{$id}}/original-{{.Scale}}x.png"><img alt="Original Amiga neighborhood" data-scale="{{.Scale}}" src="{{$id}}/original-{{.Scale}}x.png"></a></figure><figure><figcaption>Mixed original/redraw — {{.Scale}}x source</figcaption><a href="{{$id}}/mixed-{{.Scale}}x.png"><img alt="Mixed original/redraw neighborhood"{{if and $smooth (ne .Scale 1)}} style="image-rendering:auto"{{end}} data-scale="{{.Scale}}" src="{{$id}}/mixed-{{.Scale}}x.png"></a></figure></div></div>{{end}}</section>{{end}}
 <script>function display(){const z=+document.querySelector('[name=zoom]:checked').value;const d=document.querySelector('#density').value;document.querySelectorAll('[data-density]').forEach(e=>e.hidden=e.dataset.density!==d);document.querySelectorAll('img').forEach(i=>{if(i.naturalWidth)i.style.width=(i.naturalWidth*z/+i.dataset.scale)+'px'})}document.querySelector('#density').addEventListener('change',display);document.querySelectorAll('[name=zoom]').forEach(e=>e.addEventListener('change',display));document.querySelectorAll('img').forEach(i=>i.addEventListener('load',display));display();</script></html>`))
