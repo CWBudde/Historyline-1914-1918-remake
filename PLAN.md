@@ -620,9 +620,13 @@ so interactive playback and responsive/input acceptance remain open. Approximate
 - [x] Add the weapon menu with legal target/range/ammunition feedback for the active profile.
       Placeholder menu at the bottom left (click or keys 1-4); unusable rows say why (ammo, range,
       target kind) and stay open. `TestWeaponMenu*` pass; not hand-tested in the window.
-- [ ] Add the content menu with the Python 2 × 9 grid for compatibility, capacity/weight
+- [x] Add the content menu with the Python 2 × 9 grid for compatibility, capacity/weight
       feedback, stored-unit selection, enter/leave flow and empty/full/hidden states.
       R3/R4 introduce the verified DOS inventory limits and cycle orders separately.
+      Placeholder: clicking an own visible building (or the selected carrier) lists its stored
+      units (flattened 2 × 9 grid, weight used/capacity in the message, "nothing stored here",
+      rows that cannot leave say why); picking one selects it and a hex click makes it leave;
+      entering is a move onto the building/carrier. Tests `TestContentMenu*`; not hand-tested.
 - [ ] Draw reachable/attackable overlays from engine queries and execute move, attack,
       enter/leave and capture commands through the rules API; display rejected actions.
       Placeholder done in `cmd/historyline` (`control.go`): click selects an own visible unit,

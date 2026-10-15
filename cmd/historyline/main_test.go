@@ -181,3 +181,85 @@ func TestWeaponMenuRejectsUnusable(t *testing.T) {
 		t.Errorf("menu %v message %q", c.menu, c.Message)
 	}
 }
+
+// ownBuilding finds a visible own building and stores an infantry unit in it.
+func ownBuilding(t *testing.T, c *control) (hexgrid.Coord, *state.Unit) {
+	t.Helper()
+	set, err := data.Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+	for l, line := range c.st.Hexes {
+		for col := range line {
+			at := hexgrid.Coord{Line: l, Col: col}
+			h := c.st.At(at)
+			if h.Container == nil || h.Owner != c.player || h.Unit != nil || c.st.Fog(c.player, at) != state.Visible {
+				continue
+			}
+			for _, u := range h.Container.Units() {
+				h.Container.Remove(u)
+			}
+			u, err := state.NewUnit(set, "CP_infantry")
+			if err != nil {
+				t.Skip("no infantryCP unit type:", err)
+			}
+			if err := h.Container.Add(u); err != nil {
+				t.Fatal(err)
+			}
+			return at, u
+		}
+	}
+	t.Skip("level1_cp has no visible own building without a unit")
+	return hexgrid.Coord{}, nil
+}
+
+func TestContentMenuLeave(t *testing.T) {
+	c := newTestControl(t)
+	at, u := ownBuilding(t, c)
+
+	c.Click(at)
+	if !c.MenuOpen() || len(c.menu) != 1 || !c.menu[0].Usable {
+		t.Fatalf("content menu %+v, message %q", c.menu, c.Message)
+	}
+	c.ChooseMenu(0)
+	if c.MenuOpen() || !c.selected || c.unit != u || len(c.moves) == 0 {
+		t.Fatalf("stored unit not selected: selected=%v moves=%d %q", c.selected, len(c.moves), c.Message)
+	}
+	var to hexgrid.Coord
+	for h := range c.moves {
+		if c.st.At(h).Unit == nil && c.st.At(h).Container == nil {
+			to = h
+			break
+		}
+	}
+	c.Click(to)
+	if !u.Moved || c.st.At(to).Unit != u {
+		t.Fatalf("unit did not leave to %v: %q", to, c.Message)
+	}
+	if slicesContains(c.st.At(at).Container.Units(), u) {
+		t.Error("unit still stored after leaving")
+	}
+}
+
+func TestContentMenuRejectsMovedUnit(t *testing.T) {
+	c := newTestControl(t)
+	at, u := ownBuilding(t, c)
+	u.Moved = true
+	c.OpenContents(at)
+	if len(c.menu) != 1 || c.menu[0].Usable {
+		t.Fatalf("moved unit offered as usable: %+v", c.menu)
+	}
+	c.ChooseMenu(0)
+	if c.selected || !c.MenuOpen() {
+		t.Error("unusable row changed state")
+	}
+}
+
+func slicesContains(us []*state.Unit, u *state.Unit) bool {
+	for _, x := range us {
+		if x == u {
+			return true
+		}
+	}
+	return false
+}

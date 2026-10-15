@@ -21,8 +21,9 @@ type control struct {
 	moves    map[hexgrid.Coord]state.Route
 	targets  map[hexgrid.Coord]bool
 
-	menu       []WeaponOption // open weapon menu, nil when closed
+	menu       []WeaponOption // open weapon or content menu, nil when closed
 	menuTarget hexgrid.Coord
+	stored     []*Unit // set while the menu lists container contents; row i is stored[i]
 
 	Message string // result of the last action, shown to the player
 }
@@ -31,7 +32,7 @@ type control struct {
 func roll() int { return rand.IntN(11) - 5 }
 
 func (c *control) clear() {
-	c.selected, c.unit, c.moves, c.targets, c.menu = false, nil, nil, nil, nil
+	c.selected, c.unit, c.moves, c.targets, c.menu, c.stored = false, nil, nil, nil, nil, nil
 }
 
 // mine reports whether it is the controlled player's turn.
@@ -57,7 +58,7 @@ func (c *control) Select(at hexgrid.Coord) {
 // Click handles a left click on a map hex: select, move, attack or deselect.
 func (c *control) Click(at hexgrid.Coord) {
 	c.Message = ""
-	c.menu = nil
+	c.menu, c.stored = nil, nil
 	if !c.mine() {
 		if c.st.Winner != state.None {
 			c.Message = fmt.Sprintf("%v has won", c.st.Winner)
@@ -69,9 +70,77 @@ func (c *control) Click(at hexgrid.Coord) {
 		c.OpenWeaponMenu(at)
 	case c.selected && c.moves[at].Path != nil:
 		c.move(at)
+	case c.selected && at == c.from && c.contents(at) != nil:
+		c.OpenContents(at)
 	default:
 		c.Select(at)
+		if !c.selected && c.contents(at) != nil {
+			c.OpenContents(at)
+		}
 	}
+}
+
+// contents returns the container of an own, visible building or carrier at at.
+func (c *control) contents(at hexgrid.Coord) *state.Container {
+	h := c.st.At(at)
+	if h == nil || c.st.Fog(c.player, at) != state.Visible {
+		return nil
+	}
+	switch {
+	case h.Unit != nil:
+		if h.Unit.Owner == c.player {
+			return h.Unit.Content
+		}
+	case h.Container != nil && h.Owner == c.player:
+		return h.Container
+	}
+	return nil
+}
+
+// Unit is the rules unit, so the stored list reads naturally in this file.
+type Unit = state.Unit
+
+// OpenContents lists the units stored at at (the Python 2 × 9 grid, flattened)
+// with the weight used; a row is usable when the stored unit may leave now.
+func (c *control) OpenContents(at hexgrid.Coord) {
+	box := c.contents(at)
+	if box == nil {
+		return
+	}
+	c.menuTarget, c.stored, c.menu = at, box.Units(), nil
+	if len(c.stored) == 0 {
+		c.Message = "nothing stored here"
+		c.stored = nil
+		return
+	}
+	c.Message = fmt.Sprintf("contents: weight %d of %d", box.Used(), box.Capacity)
+	for i, u := range c.stored {
+		o := WeaponOption{Slot: i, Usable: true, Label: fmt.Sprintf("%s (size %d)", u.Type, u.Size)}
+		if len(c.st.Movable(at, u)) == 0 {
+			o.Label, o.Usable = o.Label+": cannot leave now", false
+		}
+		c.menu = append(c.menu, o)
+	}
+}
+
+// ChooseMenu answers menu row i for whichever menu is open.
+func (c *control) ChooseMenu(i int) {
+	if c.stored == nil {
+		c.ChooseWeapon(i)
+		return
+	}
+	if i < 0 || i >= len(c.menu) {
+		return
+	}
+	if o := c.menu[i]; !o.Usable {
+		c.Message = o.Label
+		return
+	}
+	at, u := c.menuTarget, c.stored[i]
+	c.clear()
+	c.selected, c.from, c.unit = true, at, u
+	c.moves, c.targets = c.st.Movable(at, u), map[hexgrid.Coord]bool{}
+	c.Message = fmt.Sprintf("%s leaves: pick a hex", u.Type)
 }
 
 func (c *control) move(to hexgrid.Coord) {

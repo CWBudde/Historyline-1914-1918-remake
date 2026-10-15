@@ -181,9 +181,9 @@ func (g *game) updateMenu() bool {
 	if !g.ctl.MenuOpen() {
 		return false
 	}
-	for i, k := range []ebiten.Key{ebiten.Key1, ebiten.Key2, ebiten.Key3, ebiten.Key4} {
+	for i, k := range []ebiten.Key{ebiten.Key1, ebiten.Key2, ebiten.Key3, ebiten.Key4, ebiten.Key5, ebiten.Key6, ebiten.Key7, ebiten.Key8, ebiten.Key9} {
 		if inpututil.IsKeyJustPressed(k) && i < len(g.ctl.menu) {
-			g.ctl.ChooseWeapon(i)
+			g.ctl.ChooseMenu(i)
 			return true
 		}
 	}
@@ -192,7 +192,7 @@ func (g *game) updateMenu() bool {
 		for i := range g.ctl.menu {
 			x, y, w, h := g.menuRow(i)
 			if mx >= x && mx < x+w && my >= y && my < y+h {
-				g.ctl.ChooseWeapon(i)
+				g.ctl.ChooseMenu(i)
 				return true
 			}
 		}
@@ -244,7 +244,7 @@ func (g *game) Draw(screen *ebiten.Image) {
 	if dev := g.devIndicators(); dev != "" {
 		ebitenutil.DebugPrintAt(screen, dev, g.w-8*len(dev)-8, 0)
 	}
-	msg := fmt.Sprintf("%s  round %d, %v to move  zoom %.2f\narrows/WASD scroll, wheel zoom, click unit then hex (1-4 picks weapon), F1 end turn, Esc/right-click cancel",
+	msg := fmt.Sprintf("%s  round %d, %v to move  zoom %.2f\narrows/WASD scroll, wheel zoom, click unit then hex (1-9 picks menu row; click own building or selected carrier for contents), F1 end turn, Esc/right-click cancel",
 		g.lvl.MapName, g.state.Round, g.state.Turn, g.cam.Zoom)
 	if g.state.Winner != state.None {
 		msg += fmt.Sprintf("\n%v has won", g.state.Winner)
