@@ -25,7 +25,8 @@ type control struct {
 	menuTarget hexgrid.Coord
 	stored     []*Unit // set while the menu lists container contents; row i is stored[i]
 
-	walk *walk // movement being animated; input waits until it is done
+	walk   *walk   // movement being animated; input waits until it is done
+	report *report // battle panel of the last shot
 
 	Message string // result of the last action, shown to the player
 }
@@ -224,11 +225,20 @@ func (c *control) ChooseWeapon(i int) {
 }
 
 func (c *control) attack(to hexgrid.Coord, slot int) {
+	atk, def := c.st.At(c.from).Unit, c.st.At(to).Unit
+	rp := &report{frames: reportFrames,
+		Attacker: side{Name: atk.Type, Weapon: atk.Weapons[slot].Name, Rank: atk.Experience, Before: atk.Size, Max: atk.MaxSize},
+		Defender: side{Name: def.Type, Rank: def.Experience, Before: def.Size, Max: def.MaxSize}}
 	b, err := c.st.Attack(c.from, to, slot, roll)
 	if err != nil {
 		c.Message = err.Error()
 		return
 	}
+	rp.Attacker.After, rp.Defender.After = atk.Size, def.Size
+	if b.Counter >= 0 && def.Weapons[b.Counter] != nil {
+		rp.Defender.Weapon = def.Weapons[b.Counter].Name
+	}
+	c.report = rp
 	c.Message = fmt.Sprintf("hit for %d, took %d back", b.Damage, b.CounterDamage)
 	switch {
 	case b.DefenderDestroyed:

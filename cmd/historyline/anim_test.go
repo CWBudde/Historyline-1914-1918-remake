@@ -51,3 +51,40 @@ func TestClickWaitsForWalk(t *testing.T) {
 		t.Errorf("click during the walk was handled: %q", c.Message)
 	}
 }
+
+func TestBattleReportFromEngineResult(t *testing.T) {
+	c := newTestControl(t)
+	for l, line := range c.st.Hexes {
+		for col := range line {
+			at := hexgrid.Coord{Line: l, Col: col}
+			u := c.st.At(at).Unit
+			if u == nil || u.Owner != c.player {
+				continue
+			}
+			c.Select(at)
+			for tgt := range c.targets {
+				c.OpenWeaponMenu(tgt)
+				for i, o := range c.menu {
+					if !o.Usable {
+						continue
+					}
+					def := c.st.At(tgt).Unit
+					before := def.Size
+					c.ChooseWeapon(i)
+					r := c.report
+					if !r.Active() || r.Defender.Before != before || r.Defender.After != def.Size || r.Attacker.Weapon == "" {
+						t.Fatalf("report %+v does not match engine state (defender %d -> %d)", r, before, def.Size)
+					}
+					for range reportFrames {
+						r.Tick()
+					}
+					if r.Active() {
+						t.Error("report never expires")
+					}
+					return
+				}
+			}
+		}
+	}
+	t.Skip("no attack available at the start of level1_cp")
+}

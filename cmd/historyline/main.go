@@ -141,6 +141,7 @@ func (g *game) Update() error {
 	if g.ctl.walk != nil {
 		g.ctl.walk.Tick()
 	}
+	g.ctl.report.Tick()
 	if inpututil.IsKeyJustPressed(ebiten.KeyF1) {
 		g.ctl.EndTurn()
 	}
@@ -255,6 +256,7 @@ func (g *game) Draw(screen *ebiten.Image) {
 	}
 	g.drawMinimap(screen)
 	g.drawMenu(screen)
+	g.drawReport(screen)
 	if dev := g.devIndicators(); dev != "" {
 		ebitenutil.DebugPrintAt(screen, dev, g.w-8*len(dev)-8, 0)
 	}
@@ -438,5 +440,19 @@ func main() {
 	gm.hexNumbers = *hexNumbers
 	if err := ebiten.RunGame(gm); err != nil {
 		log.Fatal(err)
+	}
+}
+
+// drawReport shows the battle panel at the top centre while it is active.
+func (g *game) drawReport(dst *ebiten.Image) {
+	r := g.ctl.report
+	if !r.Active() {
+		return
+	}
+	const w, h = 360, 70
+	x := (g.w - w) / 2
+	vector.FillRect(dst, float32(x), 4, w, h, color.RGBA{20, 20, 40, 235}, false)
+	for i, l := range r.Lines() {
+		ebitenutil.DebugPrintAt(dst, l, x+6, 8+i*32)
 	}
 }
