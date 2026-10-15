@@ -882,6 +882,15 @@ below record work already delivered, plus G0.7's new neighborhood comparisons.
                   for both map-sprite pilots; keep native mapping and Blender method gates
                   open under G0.10/G3 until their separate evidence is established.
       - [ ] Unit portrait.
+            - [x] Deliver a distinct shared infantry portrait candidate at 210×188 logical,
+                  420×376 (2×) and 840×752 (4×). (2026-10-15) — batch 21 retains the
+                  unchanged new master, rejected initial style study, exact generation/edit
+                  prompts and pinned Lanczos recipe. Independent review closes the photographic
+                  style defect; anatomy, crop retention and logical-size readability pass.
+                  All 829,080 export pixels match the independent oracle exactly. See
+                  `docs/art/distinct-portraits-batch-21.md`.
+            - [ ] Verify native illustration correspondence and populated-panel composition;
+                  keep physical display aspect and runtime acceptance open under G0.10/G2.
       - [ ] Reconstructed unit panel with live text and separate frame/icons/portrait.
 - [ ] **G0.10 — Resolve remaining reference/migration decisions.** Verify populated colour
       captures, physical display aspect and scrolling; finish native-to-runtime port,
@@ -1308,8 +1317,9 @@ private originals/manual extracts in ignored `original/`, and reference gallerie
 outputs and research in ignored `build/`. Authored masters, recipes and pilot exports stay in
 tracked `art/`; commit verified graphics batches directly to `main`, per the user's preference.
 
-**Immediate next graphics slice:** complete G0.9's remaining image subjects: a newly authored
-unit portrait and separate panel artwork with live text. Infantry and light artillery now
+**Immediate next graphics slice:** complete G0.9's remaining separate panel artwork with
+live text, frame/icons and the new portrait. The infantry portrait now has reviewed
+logical/2×/4× candidates; see `docs/art/distinct-portraits-batch-21.md`. Infantry and light artillery now
 have six authored views and reproducible ownership/state candidates at both densities; see
 `docs/art/distinct-units-batch-19.md` and `docs/art/distinct-units-batch-20.md`. The shared
 registration and independent owner palette contract is verified offline; physical contact
@@ -1356,7 +1366,8 @@ The runtime ledger has
 and zero accepted replacements.
 The separate `docs/art/runtime-unit-coverage.csv` tracks all 27 actual unit IDs and their
 15 shared icon families: four infantry/artillery IDs have built candidates, 23 still need map sprites,
-all 27 portraits are pending and no unit replacement is runtime-accepted. It includes all
+two infantry portrait associations have built candidates, 25 portraits still need images,
+and no unit replacement is runtime-accepted. It includes all
 24 IDs used across the three current campaign levels and their stored units. These runtime
 bindings do not replace the native 306-map-sprite and 49-illustration mapping obligation.
 Pixel-aligned 2×/4× patches pass; full maps, other zooms and runtime integration remain open. Use the

@@ -106,6 +106,7 @@ func run(args []string, log io.Writer) error {
 	hillsPath := fs.String("hills", "", "bounded summer height-derived hills manifest; requires fresh -out")
 	shorePath := fs.String("shore", "", "bounded new-material summer shoreline manifest; requires fresh -out")
 	unitPath := fs.String("unit", "", "bounded six-facing infantry or lightArtillery pilot manifest; requires fresh -out")
+	portraitPath := fs.String("portrait", "", "bounded opaque infantry portrait manifest; requires fresh -out")
 	packPath := fs.String("pack", "", "candidate-only JSON pack manifest; fixed Lanczos3 rectangle exports, requires fresh -out")
 	candidatePath := fs.String("candidate", "", "candidate PNG, at least 4x reference dimensions and aspect within 1%")
 	resampling := fs.String("resampling", "area", "single-sprite reduction: area, bilinear (antialiased tent), or lanczos (antialiased Lanczos3); excluded by -neighborhood")
@@ -115,6 +116,24 @@ func run(args []string, log io.Writer) error {
 			return nil
 		}
 		return err
+	}
+	portraitProvided := false
+	fs.Visit(func(f *flag.Flag) {
+		if f.Name == "portrait" {
+			portraitProvided = true
+		}
+	})
+	if portraitProvided {
+		conflict := false
+		fs.Visit(func(f *flag.Flag) {
+			if f.Name != "portrait" && f.Name != "out" {
+				conflict = true
+			}
+		})
+		if conflict || *portraitPath == "" || *out == "" || fs.NArg() != 0 {
+			return errors.New("-portrait requires -out and excludes all other flags and positional arguments")
+		}
+		return runPortrait(*portraitPath, *out, log)
 	}
 	unitProvided := false
 	fs.Visit(func(f *flag.Flag) {
