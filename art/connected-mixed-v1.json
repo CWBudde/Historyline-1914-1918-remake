@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "manifests": [
+    {
+      "source": "connected-terrain-v1.json",
+      "source_sha256": "f4e18f0882ab9a12b4fa566aba4249e29a6f25911eb5a28df298565d8f1eb76d"
+    },
+    {
+      "source": "connected-paths-v1.json",
+      "source_sha256": "9b994b8de7b5f477bfe4887b658494ff2b7ad78cd2e66fa9eafd84725aca5ec6"
+    },
+    {
+      "source": "connected-rail-v1.json",
+      "source_sha256": "8f501a209f65e74cc897bbfaf40d25da274c71ca8f4c69fb7ab49a1152acabe4"
+    }
+  ],
+  "variants": [
+    {"id": "bridge25", "runtime_id": "bridge25", "kind": "footbridge", "ports": [2, 5]},
+    {"id": "bridge36", "runtime_id": "bridge36", "kind": "footbridge", "ports": [3, 6]},
+    {"id": "rbridge14", "runtime_id": "rBridge14", "kind": "road-bridge", "ports": [1, 4]},
+    {"id": "rbridge25", "runtime_id": "rBridge25", "kind": "road-bridge", "ports": [2, 5]},
+    {"id": "rbridge36", "runtime_id": "rBridge36", "kind": "road-bridge", "ports": [3, 6]},
+    {"id": "cross1", "runtime_id": "cross1", "kind": "crossing", "layers": ["path14", "rail36"]},
+    {"id": "cross2", "runtime_id": "cross2", "kind": "crossing", "layers": ["road14", "rail36"]},
+    {"id": "cross3", "runtime_id": "cross3", "kind": "crossing", "layers": ["road25", "rail36"]},
+    {"id": "cross4", "runtime_id": "cross4", "kind": "crossing", "layers": ["path36", "rail14"]}
+  ]
+}

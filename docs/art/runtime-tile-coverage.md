@@ -18,15 +18,16 @@ These point to generated art and 2×/4× rectangle exports, **not approved runti
 bindings**. Family geometry, shared phase and scale/quality review remain open;
 forest and mountain in particular retain recorded quality caveats.
 
-Grass plus all 16 road, 11 stream, 14 path, 12 rail and 12 trench IDs are `candidate-built`, with `patch-reviewed`
-seams and explicit ports. These 66 rows point to their respective connected manifests and
+Grass plus all 74 enabled infrastructure IDs are `candidate-built`, with `patch-reviewed`
+seams and explicit component/traversal semantics. These 75 rows point to their respective build manifests and
 192×160 / 384×320 polygon exports. Actual saved-PNG patches pass both parities and
 densities; independent [road/stream review](connected-family-batch-01.md) and
 [path review](distinct-terrain-batch-04.md), [rail review](distinct-terrain-batch-05.md)
-and [trench review](distinct-terrain-batch-06.md) provisionally pass.
+and [trench review](distinct-terrain-batch-06.md), plus
+[bridge/crossing review](distinct-terrain-batch-07.md), provisionally pass.
 Full maps, transitions, seasonal integration, fractional zoom and runtime/release
-acceptance remain open. The other 53 rows say `needs-image`.
-Total: **81 associated IDs, zero accepted runtime replacements**.
+acceptance remain open. The other 44 rows say `needs-image`; all are backgrounds.
+Total: **90 associated IDs, zero accepted runtime replacements**.
 
 The `build_manifest` column names the producing manifest; `ports` records the
 declared directions for built overlays. Source candidates are not interchangeable
@@ -35,9 +36,13 @@ with built runtime candidates, and `patch-reviewed` is not a release acceptance.
 Twenty-seven semantic/material source images do not mean twenty-seven replaced runtime IDs: dry meadow
 and dense/sparse forests are variations; bare earth is a material variant;
 the opaque road/river paintings remain family studies. Separate new material inputs
-feed the shared compositor, which authors transparent road/stream/path/rail/trench overlays.
+feed the compositors, which author transparent road/stream/path/rail/trench/bridge/crossing overlays.
 Trench `ports=none` identifies the closed ring; blind spurs/dugouts are declared
 separately in its manifest. The provisional 5a interpretation remains explicit.
+Mixed rows use typed port strings: `path:2|5`, or `road:1|4;rail:3|6`, rather
+than merging two different routes into one junction. Finite road-bridge structures
+use `traversal:1|4;overlay:none`: they have no painted boundary contacts and require
+a separate upper route. Runtime IDs retain `rBridge` case; their export IDs are lowercase.
 
 The table preserves all required loadable IDs, including editor-only entries.
 The three supplied missions place 58 background and 70 infrastructure IDs.

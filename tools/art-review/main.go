@@ -90,6 +90,7 @@ func run(args []string, log io.Writer) error {
 	referencePath := fs.String("reference", "", "reference PNG; seven-hex layout available only for 96x80")
 	referencePlatform := fs.String("reference-platform", "repo-provisional", "reference provenance label (e.g. repo-provisional or amiga-native); supplied by caller")
 	neighborhoodPath := fs.String("neighborhood", "", "JSON recipe for original Amiga seven-cell neighborhood review")
+	mixedPath := fs.String("mixed", "", "bounded new-material bridge/crossing manifest; requires fresh -out")
 	connectedPath := fs.String("connected", "", "new-material connected road/stream/path/rail/trench JSON manifest; requires fresh -out")
 	packPath := fs.String("pack", "", "candidate-only JSON pack manifest; fixed Lanczos3 rectangle exports, requires fresh -out")
 	candidatePath := fs.String("candidate", "", "candidate PNG, at least 4x reference dimensions and aspect within 1%")
@@ -100,6 +101,24 @@ func run(args []string, log io.Writer) error {
 			return nil
 		}
 		return err
+	}
+	mixedProvided := false
+	fs.Visit(func(f *flag.Flag) {
+		if f.Name == "mixed" {
+			mixedProvided = true
+		}
+	})
+	if mixedProvided {
+		conflict := false
+		fs.Visit(func(f *flag.Flag) {
+			if f.Name != "mixed" && f.Name != "out" {
+				conflict = true
+			}
+		})
+		if conflict || *mixedPath == "" || *out == "" || fs.NArg() != 0 {
+			return errors.New("-mixed requires -out and excludes all other flags and positional arguments")
+		}
+		return runMixed(*mixedPath, *out, log)
 	}
 	connectedProvided := false
 	fs.Visit(func(f *flag.Flag) {

@@ -37,8 +37,8 @@ Explicit exceptions: trench0 is an isolated ring with no through-port. The earli
 claim that trench5a has ports135 is corrected by the cap audit below: branch
 bearings and nonzero boundary alpha do not establish open channels.
 Cross1–4 map to components through their explicit loader filenames.
-Streams, bridge approaches, crossing order and all remaining special cases stay
-unverified until rendered through the new compositor. Existing picker thresholds
+Bridge structures, crossing order and all remaining special cases require explicit
+mixed-layer declarations. Existing picker thresholds
 are approximate and must not substitute for a measured mask.
 
 ## Reproduction and next implementation
@@ -73,8 +73,8 @@ with paired rails and phase-aligned sleepers. Its 54 port/density pairs and 48
 actual-PNG patches pass controller checks; independent visual/code review passes
 provisionally. Roads, streams and paths retain their existing export behavior.
 
-Next extend the compositor to bridge/crossing components,
-then test mixed families, seasons and runtime zoom. Preserve common endpoint tangents,
+The new `-mixed` compositor now supplies all nine bridge/crossing IDs using the
+same declared component profiles. Next test full maps, seasons and runtime zoom. Preserve common endpoint tangents,
 banks/verges, gauge and phase. Review actual exported pixels before accepting each
 connected family; the offline patch results do not close in-engine acceptance.
 
@@ -108,3 +108,26 @@ invented runtime IDs to the ledger. The new [trench delivery](distinct-terrain-b
 builds all 12 declared variants and provisionally passes assembled cap/port review;
 this does not settle the old 5a overflow. Private probes/contact sheets remain under ignored
 `build/gfx-research/_trench-geometry/`.
+
+## Mixed bridge and crossing declarations
+
+The explicit loader mappings are `cross1=path14+rail36`, `cross2=road14+rail36`,
+`cross3=road25+rail36`, `cross4=path36+rail14`. New level crossings paint the
+approach, fitted timber infill, then continuous paired steel. Protected contacts
+retain the existing component pixels, gauge and sleeper phase.
+
+`bridge25/36` are complete new timber footbridges with path approaches on those
+axes. `rBridge14/25/36` map to lowercase export IDs `rbridge14/25/36`: these are
+finite structures with semantic traversal axes, **no painted edge contacts**.
+Their upper road/path/rail is a separate layer. Do not treat their traversal ports
+as open alpha contacts or infer that a road is baked into the bridge PNG.
+
+The three live campaign files place stream then bridge, sometimes followed by
+road/path/rail; `rBridge14` is loaded but unused. Controller ran the numeric Go
+audit, excluding the BACK copy. There are eight road-bridge36 placements, including
+both stream14/25 underlays and road36/path36/rail36 upper layers. Two road-bridge25
+placements use stream36 and road25. Generic bridge25 appears four times and
+bridge36 once. The four crossing aliases are all placed; cross4 also appears after
+path36 or rail14. New review scenes include all bridge upper-route combinations.
+These observations establish layer order/topology, not original painted outlines.
+See [batch 07](distinct-terrain-batch-07.md) for the new geometry and PNG proofs.

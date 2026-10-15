@@ -933,6 +933,15 @@ below record work already delivered, plus G0.7's new neighborhood comparisons.
             the independent Go probe. Five new whole scenes can supply the required pieces.
             See `docs/art/compound-building-geometry.md`. Private depot studies and numeric
             layout guide prepare authoring; scene export and actual tile delivery remain open.
+      - [x] Deliver the remaining five bridge and four crossing IDs. (2026-10-15) — batch 07
+            adds 18 overlays at 2×/4×, explicit typed layers and finite bridge semantics.
+            Independent review prompted readable planks, frames/posts and fitted crossing
+            panels; repaired art provisionally passes. Controller verified all 64 actual-PNG
+            patches, 256 typed contact/density/parity pairs and 23,208 core seam pixels.
+            All 141 repeat/post-review artifacts match and all 497 earlier family artifacts
+            remain unchanged. See `docs/art/distinct-terrain-batch-07.md`. Every enabled
+            infrastructure ID now has new provisional images; 15 source + 75 built candidates,
+            44 backgrounds needing images, zero accepted replacements. Final `just ci` passes.
       - [ ] Complete missing subjects, seasonal images, connected variants and runtime/native
             mappings; validate assembled seams. Twenty-seven sources do not close a family.
 - [ ] **Gate — Approve the complete pilot and choose production density/tools.** Compare all
@@ -969,6 +978,11 @@ in a distinct continuous style; final quality/seam and runtime acceptance remain
       - [x] Add trench-specific courses, caps/ring/spurs, separate dugout rooms/necks and
             directional depth, with protected ports, shared timber material union and strict
             optional-field validation. Pin report profiles and verify actual-PNG joins.
+      - [x] Add bounded `-mixed` bridge/crossing export from pinned compatible connected
+            manifests: raw composition before Lanczos, finite structures with separate upper
+            routes, fitted crossing panels/continuous rails, typed contact metadata and decoded
+            PNG scenes. Verify exact approaches, order, source snapshots and repeat builds;
+            preserve earlier connected output bytes. General combinations and runtime use remain open.
 - [ ] Implement proposed commands `go run ./cmd/hlasset validate`, `build`, and `review`, all
       consuming `art/manifest.json`. Validation/build return nonzero on invalid inputs; review
       writes native/2×/4× sheets and actionable ID/direction diagnostics to `build/art-review/`.
@@ -1057,13 +1071,15 @@ private originals/manual extracts in ignored `original/`, and reference gallerie
 outputs and research in ignored `build/`. Authored masters, recipes and pilot exports stay in
 tracked `art/`; commit verified graphics batches directly to `main`, per the user's preference.
 
-**Immediate next graphics slice:** complete the remaining nine bridge/crossing infrastructure
-IDs, then author/slice five shared building scenes for the 26 compound IDs using
-`docs/art/compound-building-geometry.md`. Continue shores, mountain pieces and
+**Immediate next graphics slice:** author/slice five shared building scenes for the 26 compound
+IDs using `docs/art/compound-building-geometry.md`, starting with a shared-scene exporter
+and depot pair. Summer depot02 fits its union; the new private winter01 also fits with a
+uniform inset but independent review found seasonal layout drift, so repair it before promotion.
+Continue shores, mountain pieces and
 seasonal images; the hamlet pair and winter mountain are delivered source candidates.
-The source pack currently contains 27 candidates with 54 material exports, plus 65 connected
-variants and a grass base at both densities. The runtime ledger has 81 associated IDs
-(15 source candidates, 66 built candidates), 53 needing images and zero accepted replacements.
+The source pack currently contains 27 candidates with 54 material exports, plus all 74 enabled
+infrastructure variants and a grass base at both densities. The runtime ledger has 90 associated IDs
+(15 source candidates, 75 built candidates), 44 backgrounds needing images and zero accepted replacements.
 Pixel-aligned 2×/4× patches pass; full maps, other zooms and runtime integration remain open. Use the
 134-row runtime ledger as the enabled-ID checklist without dropping the separate 350 native
 resource mapping/coverage obligation. Establish shared forest scale and protected

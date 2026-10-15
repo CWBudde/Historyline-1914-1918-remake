@@ -8,10 +8,11 @@ ship original graphics or close reconstructions. Retain gameplay semantics, stab
 IDs, map placement and connection topology. Keep familiar information layouts.
 
 The current [new-source manifest](../../art/terrain-distinct-v1.json) contains
-27 semantic/material candidates. The separate connected builder delivers 65 road/stream/path/rail/trench
-variants and a grass base. Browse the [source gallery](distinct-terrain-review.html).
+27 semantic/material candidates. The connected and mixed builders deliver all 74
+enabled infrastructure variants and a grass base. Browse the [source gallery](distinct-terrain-review.html).
 Reviews for [roads/streams](connected-family-batch-01.md), [paths/seasons](distinct-terrain-batch-04.md),
-[rail/materials](distinct-terrain-batch-05.md) and [trenches](distinct-terrain-batch-06.md)
+[rail/materials](distinct-terrain-batch-05.md), [trenches](distinct-terrain-batch-06.md)
+and [bridges/crossings](distinct-terrain-batch-07.md)
 record delivery, evidence and defects.
 Historical `art/source/pilot/` reconstruction studies are excluded from this pack.
 

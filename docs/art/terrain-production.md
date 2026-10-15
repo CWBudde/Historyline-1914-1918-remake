@@ -28,8 +28,9 @@ assessment in an assembled terrain/unit preview.
 
 [runtime-tile-coverage.csv](runtime-tile-coverage.csv) explicitly lists all 134 enabled
 remake tile IDs (60 backgrounds, 74 infrastructure). Fifteen backgrounds have candidate
-source associations; grass and all 16 roads / 11 streams / 14 paths / 12 rails / 12 trenches have built candidates.
-That is 81 associated IDs, 53 still needing images, and zero accepted runtime replacements.
+source associations; grass and all 74 enabled infrastructure IDs have built candidates:
+16 roads / 11 streams / 14 paths / 12 rails / 12 trenches / five bridges / four crossings.
+That is 90 associated IDs, 44 still needing images, and zero accepted runtime replacements.
 Wet mud has its own reviewed source. Opaque road/river studies remain separate from the
 new transparent infrastructure overlays.
 
@@ -37,8 +38,9 @@ The source-pack exports are rectangular overscan images. The separate
 [road/stream manifest](../../art/connected-terrain-v1.json) and
 [path manifest](../../art/connected-paths-v1.json) and
 [rail manifest](../../art/connected-rail-v1.json) and
-[trench manifest](../../art/connected-trench-v1.json) build a grass base and
-65 transparent overlays with shared world phase and explicit ports. Actual saved PNG
+[trench manifest](../../art/connected-trench-v1.json), plus the
+[mixed manifest](../../art/connected-mixed-v1.json), build a grass base and
+74 transparent overlays with shared world phase and explicit component semantics. Actual saved PNG
 patches pass pixel-aligned 2×/4× seam checks at both parities; independent visual review
 provisionally passes. Full-map repetition, tree scale, other families, seasons,
 runtime integration and release acceptance remain open.
@@ -109,6 +111,15 @@ The rail manifest also uses this command; [batch 05](distinct-terrain-batch-05.m
 records rail profiles, sleeper phase and the materials for subsequent trench work.
 The [trench manifest](../../art/connected-trench-v1.json) uses the same command;
 [batch 06](distinct-terrain-batch-06.md) records its distinct rooms, caps and 95-file build.
+
+`go run ./tools/art-review -mixed art/connected-mixed-v1.json -out <fresh-directory>`
+builds the nine bridge/crossing variants from three SHA-pinned connected manifests.
+Finite road-bridge structures require the campaign's separate upper road/path/rail;
+footbridges include path approaches. Level crossings preserve the component contacts
+and steel gauge with fitted timber infill. [Batch 07](distinct-terrain-batch-07.md)
+records the construction-detail repair, layer-order fixtures and 141-file bundle.
+Every enabled infrastructure ID now has provisional 2×/4× artwork; this does not
+close seasonal/full-map quality, runtime acceptance or native-resource mapping.
 
 Legacy `-reference/-candidate/-resampling lanczos` comparisons remain available
 for historical research; their 90/100 fidelity gate does not govern the new pack.
