@@ -254,34 +254,17 @@ do not exist yet. Completed preparation below does not close runtime UI tasks.
 Section 4 retains the detailed graphics checklist and acceptance gates. Continue the
 requested graphics coverage first, then integrate the playable UI through these subphases.
 
-#### 2.1 — Core and offline graphics preparation
+#### 2.1 — Core and graphics tooling foundations
 
 - [x] Provide the headless state, level/data loaders, movement/combat/container commands,
       victory and per-player vision needed by the UI, with Classic/Standard profiles.
       Evidence: Phase 1 and Phase 3's existing Standard fixes; `internal/game`,
       `internal/level`, `internal/data` and `internal/hexgrid` tests. Pixel picking and
-      rendering remain in 2.3.
+      rendering remain in 2.4.
 - [x] Inventory stable terrain, infrastructure, unit and screen IDs, and record geometry,
       connection, placement and state contracts. Evidence: `docs/art/ui-inventory.md`,
       `runtime-tile-coverage.csv`, `runtime-unit-coverage.csv` and the geometry/placement
       documents under `docs/art/`. These are contracts for integration, not a runtime manifest.
-- [x] Build offline 2×/4× candidates for all 134 enabled terrain/infrastructure IDs
-      (60 backgrounds, 74 infrastructure), including seasonal buildings, shores, mountains,
-      fog, connected routes and context-aware ground/forest/hills. Evidence:
-      `docs/art/runtime-tile-coverage.md`, batches 01–18 and `tools/art-review`; all ledger
-      exports/manifests are present. Fixed PNG patches are reviewed; zero replacements
-      are runtime-accepted, and arbitrary-map context selection remains open in 2.2.
-- [x] Build infantry and light-artillery tactical candidates with six authored facings,
-      CP/EC/neutral ownership palettes and normal/spent states at 2×/4×. Evidence:
-      `f2127e6`, `e894cb0`, batches 19–20 and their sprite contracts. Four of 27 runtime
-      IDs have candidates; 23 still need sprites. Motion, fog and zoom acceptance remain open.
-- [x] Build the new infantry portrait and reproducible 1×/2×/4× exports. Evidence:
-      `8401169`, `docs/art/distinct-portraits-batch-21.md` and the portrait export tests.
-      Two of 27 portrait associations have candidates; 25 still need images.
-- [ ] Finish the missing graphics families and resolve G0.9/G0.10 mapping/placement gaps
-      using Section 4's existing checklist. Include ownership stripes, remaining unit and
-      weapon art, portraits, markers and effects; retain full-map/seasonal/zoom review gates.
-      Do not treat 134 candidate tile bindings as complete graphics or G3/G5 acceptance.
 - [ ] Establish a passing Windows verification baseline for the offline exporters.
       This review's fresh `go test` run passes `internal/hexgrid`, `internal/data`,
       `internal/level`, `internal/game` and `tools/native-reference`, but graphics checks
@@ -291,7 +274,98 @@ requested graphics coverage first, then integrate the playable UI through these 
       snapshot/rollback checks still fail. Resolve Windows path/identity handling and rerun
       these checks before claiming portable exporter verification.
 
-#### 2.2 — Runtime asset packs and composition (G1/G3)
+#### 2.2 — Graphics family coverage (G0.9/G0.10/G3/G4)
+
+Checked items below mean **offline candidates have been built**, with retained sources,
+exports and review evidence. Runtime integration and final visual acceptance remain open.
+The detailed contracts and reviews stay in Section 4 and `docs/art/`; arbitrary-map
+composition belongs to 2.3, and panel integration/retention belongs to 2.5.
+
+##### Terrain and infrastructure candidates
+
+All **134 enabled bindings** (60 backgrounds, 74 infrastructure) have 2×/4× candidates.
+Evidence: `docs/art/runtime-tile-coverage.csv`, its companion coverage document and
+batches 01–18. This review checked that every ledger export and build manifest exists.
+Counts below include the stable spelling aliases retained by the loader contract.
+
+- [x] Ground materials — summer/winter meadow and five earth/stone variants (7 IDs).
+- [x] Forests — summer/winter whole-crown context candidates (2 IDs).
+- [x] Hills — height-derived relief and world-phase context candidates (1 ID).
+- [x] Hamlets — summer/winter single-cell houses (2 IDs).
+- [x] Mountains — seasonal compound pieces and standalone tiles (10 IDs).
+- [x] Open water and shores — shared water and nine shoreline combinations (10 IDs).
+- [x] Water stones — transparent outcrop over the shared water phase (1 ID).
+- [x] Depots — summer/winter four-cell scenes (8 IDs).
+- [x] Headquarters — summer/winter seven-cell scenes (14 IDs).
+- [x] Factories — the enabled winter four-cell scene (4 IDs).
+- [x] Roads — connected route variants (16 IDs).
+- [x] Streams — connected watercourse variants (11 IDs).
+- [x] Paths — connected route variants (14 IDs).
+- [x] Railways — connected track variants (12 IDs).
+- [x] Trenches — connected infrastructure variants (12 IDs).
+- [x] Bridges and crossings — two bridge, three road-bridge and four crossing IDs (9 IDs).
+- [x] Unseen fog — opaque tile and concealment fixtures (1 ID).
+
+##### Unit sprites and portraits
+
+The enabled roster uses **15 shared visual families across 27 unit IDs**. Tactical
+deliveries need six authored facings, CP/EC/neutral ownership palettes, normal/spent
+states and 2×/4× exports. Portraits are separate artwork. Evidence:
+`docs/art/runtime-unit-coverage.csv`, batches 19–21 and their sprite/portrait contracts.
+Four unit IDs have sprite candidates and two have portrait candidates; **23 sprite
+bindings and 25 portrait bindings remain missing**.
+
+- [x] Infantry tactical sprites — `CP_infantry`, `EC_infantry` (`f2127e6`).
+- [x] Light-artillery tactical sprites — `CP_lArtillery`, `EC_lArtillery` (`e894cb0`).
+- [x] Infantry portrait — shared owner-neutral illustration with 1×/2×/4× exports (`8401169`).
+- [ ] Light-artillery portraits — both existing unit IDs still need portrait bindings.
+- [ ] Elite infantry — tactical sprites and portraits for both sides.
+- [ ] Cavalry — tactical sprites and portraits for both sides.
+- [ ] Medium artillery — tactical sprites and portraits for both sides.
+- [ ] Heavy artillery — tactical sprites and portraits for both sides.
+- [ ] Supply car — tactical sprites and portraits for both sides.
+- [ ] Bunker — tactical sprites and portraits for both sides.
+- [ ] Armoured car — tactical sprites and portrait for `CP_armCar`.
+- [ ] Charron — tactical sprites and portrait for `EC_charron`.
+- [ ] Patrol boat — tactical sprites and portraits for both sides, including editor-only use.
+- [ ] Transport train — tactical sprites and portrait for `CP_transTrain`.
+- [ ] Armoured train — tactical sprites and portraits for both sides.
+- [ ] Artillery train — tactical sprites and portraits for both sides, including editor-only use.
+- [ ] Sappers — tactical sprites and portraits for both sides.
+
+##### Interface, markers and effects still needed
+
+The infantry panel's frame/icon/font pilot is recorded in 2.5; it does not complete
+these wider families. Use `docs/art/ui-inventory.md` and Section 4.5 for state coverage.
+
+- [ ] Building ownership indicators — new owned/neutral stripes or symbols, including
+      the separate `depotOwnership.png` replacement outside the 134 tile bindings.
+- [ ] Weapon artwork — all 15 compatibility weapon definitions and four-row presentation;
+      the panel pilot's generic firearm/bayonet symbols do not replace model-specific art.
+- [ ] Information symbols — complete flags, rank/experience, skills and resource/bar assets
+      beyond the infantry pilot, with text and game values kept live.
+- [ ] Map interaction graphics — cursors, selection, movement paths, reachable/attackable/
+      invalid destinations, minimap/camera indicators and editor selection states.
+- [ ] Remaining panel/menu artwork — terrain, weapon, content and battle panels, action
+      icons and capture/round banners, with normal/hover/focus/pressed/disabled treatments.
+- [ ] Effects and animation assets — hits, death/explosions, movement/facing and capture/
+      turn transitions, with stable anchors, durations and reduced-animation variants.
+- [ ] Full-screen artwork — title, side/mission selection, briefings/campaign, options,
+      pause, save/load, handover, victory/defeat, credits/help and editor views. G4/Phase 6
+      retain delivery of the screens beyond playable parity.
+
+##### Remaining coverage and acceptance gates
+
+- [ ] Resolve G0.9/G0.10's native direction/faction/anchor and placement mappings; complete
+      source/export retention and the separate native-resource coverage obligations.
+- [ ] Confirm future-content requirements for summer factories, barbed wire, background
+      `trenches` and summer rough/shelled/stoney before authoring/enabling those gaps.
+      They are separate from the 134 currently enabled bindings; see `inventory-notes.md`.
+- [ ] Review full maps, material transitions/repetition, seasonal consistency, fractional
+      zoom, unit readability and motion/fog/selection states. Complete G3/G4/G5 acceptance;
+      no existing candidate is a runtime-accepted replacement yet.
+
+#### 2.3 — Runtime asset packs and composition (G1/G3)
 
 - [ ] Implement stable-ID runtime manifests, pack validation/loading and caches in
       `internal/assets`, with swappable reference/2×/4× packs and explicit missing-ID errors.
@@ -308,7 +382,7 @@ requested graphics coverage first, then integrate the playable UI through these 
       workbench. Existing `tools/art-review` exporters and HTML galleries are offline pilots;
       `cmd/hlasset` and `cmd/hlartpreview` remain proposed tools.
 
-#### 2.3 — Map view, camera and navigation (G2)
+#### 2.4 — Map view, camera and navigation (G2)
 
 - [ ] Load a selected shipped level into the Ebitengine app and render terrain,
       infrastructure, buildings and units through the runtime pack/compositor.
@@ -322,7 +396,7 @@ requested graphics coverage first, then integrate the playable UI through these 
 - [ ] Implement a fog-safe minimap with the camera rectangle and click-to-jump using the
       same map/camera transforms.
 
-#### 2.4 — Terrain and unit information panels (G0.9/G2/G4)
+#### 2.5 — Terrain and unit information panels (G0.9/G2/G4)
 
 - [x] Build the offline infantry unit-panel exporter with live text, separate text-free
       frame/icons and native 2×/4× renders. Local batch 22 uses real game data and nine
@@ -345,7 +419,7 @@ requested graphics coverage first, then integrate the playable UI through these 
       at supported window/UI scales with long labels, zero fuel/ammo, maximum rank,
       empty/hidden selection and both owners. Complete G4's interaction/readability gates.
 
-#### 2.5 — Selection, menus and movement playback
+#### 2.6 — Selection, menus and movement playback
 
 - [ ] Add selection and action menus (move / attack / contents / exit), driven by the
       selected rules profile and legal commands. Provide hover, keyboard focus, pressed,
@@ -359,7 +433,7 @@ requested graphics coverage first, then integrate the playable UI through these 
 - [ ] Animate movement along the engine path with stable unit anchors and facing changes.
       Keep animation/input timing separate from authoritative game state.
 
-#### 2.6 — Combat and turn presentation
+#### 2.7 — Combat and turn presentation
 
 - [ ] Implement the battle panel with attacker/defender, chosen and counter weapons, result
       bars, sizes and ranks driven by engine combat results.
@@ -368,7 +442,7 @@ requested graphics coverage first, then integrate the playable UI through these 
 - [ ] Wire end turn and refresh selection, legal actions, panels, minimap and fog for the
       active side. Keep Python/Standard turn flow distinct from the future R3 scheduler.
 
-#### 2.7 — Controls and playable parity acceptance
+#### 2.8 — Controls and playable parity acceptance
 
 - [ ] Implement Python-equivalent keyboard/mouse controls, including F1 end turn, scrolling,
       menu selection and cancellation; replace the reference double-click detection.
