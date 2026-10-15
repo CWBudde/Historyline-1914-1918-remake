@@ -1082,6 +1082,21 @@ below record work already delivered, plus G0.7's new neighborhood comparisons.
             134 bindings, browser16/16 and final `just ci` pass. See
             `docs/art/distinct-terrain-batch-17.md` and `docs/art/water-stones-geometry.md`.
             Ledger: 1 source + 133 built = 134 associated IDs, zero accepted replacements.
+      - [x] Build continuous hills over the shared new grass material. (2026-10-15) —
+            batch 18 retains one new text-only height control, two default runtime PNGs,
+            238 context PNGs and sixteen scene PNGs at 2×/4×. The global height-derived
+            normal field preserves broad ridges without repeated cell stamps; post-gradient
+            grass attenuation avoids artificial clearing walls. An isolated-only smooth
+            interior cue keeps all 32 phases readable. Independent actual-production art/code
+            reviews pass. Controller checks all 10,996,480 owned 4× and 2,749,120 owned 2×
+            pixels against an independent source/filter oracle (zero observed error), 1,572,159
+            exact quiet-grass pixels, sixteen PNG assemblies, 192 contacts and 48 vertices.
+            All 263 repeat files and 1,172 earlier artifacts match; source provenance, all
+            134 bindings, browser256/256 and final `just ci` pass. See
+            `docs/art/distinct-terrain-batch-18.md` and `docs/art/hills-material-contexts.md`.
+            Phase-aware profiles cover all 64 neighbor masks at phase zero, all 32 isolated
+            phases and fixed fixture contexts; arbitrary-map/runtime selection remains open.
+            Ledger: zero source + 134 built = 134 associated IDs, zero accepted replacements.
       - [ ] Complete missing subjects, seasonal images, connected variants and runtime/native
             mappings; validate assembled seams. Twenty-seven sources do not close a family.
 - [ ] **Gate — Approve the complete pilot and choose production density/tools.** Compare all
@@ -1178,6 +1193,14 @@ in a distinct continuous style; final quality/seam and runtime acceptance remain
             retain truthful per-scene water profiles and single-cell absolute line parity.
             Actual PNG phase/ownership/quiet-water/assembly tests, independent reviews,
             19-file repeat, 1,153 prior-artifact regression and final CI pass.
+      - [x] Add bounded `-hills` height-derived normal/context export with strict pinned
+            grass/height inputs, phase-sensitive descriptors, all 64 phase-zero masks,
+            all 32 isolated phases and actual nineteen-site/seven-visible-cell fixtures.
+            Preserve world lighting, filter-aware grass quiet bands, compact cue containment
+            and decoded PNG assembly. Loaded-source snapshots, fresh-output rollback,
+            negative/period origins and all output bytes are verified; independent reviews,
+            263-file repeat, 1,172 prior-artifact regression and final CI pass.
+            Other phase/mask combinations, full maps and runtime context selection stay open.
 - [ ] Implement proposed commands `go run ./cmd/hlasset validate`, `build`, and `review`, all
       consuming `art/manifest.json`. Validation/build return nonzero on invalid inputs; review
       writes native/2×/4× sheets and actionable ID/direction diagnostics to `build/art-review/`.
@@ -1266,12 +1289,16 @@ private originals/manual extracts in ignored `original/`, and reference gallerie
 outputs and research in ignored `build/`. Authored masters, recipes and pilot exports stay in
 tracked `art/`; commit verified graphics batches directly to `main`, per the user's preference.
 
-**Immediate next graphics slice:** build `hills`, the last source-only enabled background,
-with coherent height/relief shading that preserves broad readable ridges at 2× and joins
-adjacent hills and ordinary grass without mirrored patterns or generic flat hex frames.
-Root and independent art review rejected the private opaque hills projection: source relief
-collapsed into repeated grass mottle. Do not promote that diagnostic; author and review a
-coherent relief field instead. Water stones now have 2×/4× polygon candidates, exact shared
+**Immediate next graphics slice:** complete G0.9's remaining unit pilot: newly authored
+infantry and light-artillery map sprites, then a unit portrait and separate panel artwork.
+Verify facing, faction and anchor contracts before extending directional art across units;
+compare authored sprites with a Blender pilot as G3 requires. Keep original pixels and close
+reconstructions out of generation/export inputs. Continue the separate native-resource mapping
+and G1 assembled-map/context workbench; built enabled-terrain associations do not close those gates.
+Hills now have continuous 2×/4× relief, all 32 readable isolated phases and reviewed grass
+joins; see `docs/art/distinct-terrain-batch-18.md`. Default and context selection depend on
+absolute world phase and neighbors. Long-period repetition, other-ground joins and runtime
+selection remain open. Water stones now have 2×/4× polygon candidates, exact shared
 water and reviewed shore/homogeneous contexts; see `docs/art/distinct-terrain-batch-17.md`.
 Their repeated three-group arrangement still needs dense-map shape/placement variation.
 Both forests have
@@ -1295,13 +1322,14 @@ All 26 enabled depot/HQ/factory pieces are delivered as provisional candidates f
 whole scenes using `docs/art/compound-building-geometry.md`. HQ's manor occupies
 lower N and its entrance reaches C; retain gameplay cell N and review selection affordance
 when integrating runtime graphics.
-The remaining hills source still needs geometry/material acceptance.
+The hills binding is now polygon-built; broader map/runtime acceptance remains open.
 The terrain source pack contains 27 candidates with 54 material exports, plus all 74 enabled
 infrastructure variants and a grass base at both densities. Ten additional compound masters
 build the depot, HQ, factory, mountain, hamlet and water-stone scenes. Both ground seasons, nine shores and open water
-are polygon-built. Two further seasonal crown atlases build the forest contexts.
+are polygon-built. Two further seasonal crown atlases build the forest contexts, and a new
+unlit height control builds the phase-aware hills profiles.
 The runtime ledger has
-134 associated IDs (1 source candidate, 133 built candidates), no enabled ID without an image association
+134 associated IDs (zero source candidates, 134 built candidates), no enabled ID without an image association
 and zero accepted replacements.
 Pixel-aligned 2×/4× patches pass; full maps, other zooms and runtime integration remain open. Use the
 134-row runtime ledger as the enabled-ID checklist without dropping the separate 350 native

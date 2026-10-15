@@ -20,13 +20,16 @@ fog master completes the enabled-ID image associations; see the [fog gallery](fo
 Five ground-material adapters now add neighbor-aware mud, stone and winter rough/stony/shelled
 regions; see the [ground gallery](ground-material-review.html) and [context contract](ground-material-contexts.md).
 Two further transparent masters produce summer/winter hamlets; see the
-[hamlet gallery](compound-hamlet-review.html). These remain provisional candidates,
-with one terrain binding still source-only. The [forest gallery](forest-review.html)
+[hamlet gallery](compound-hamlet-review.html). These remain provisional candidates.
+The [forest gallery](forest-review.html)
 adds whole broadleaf/conifer crowns at shared seasonal positions, with reviewed
 continuous forest and hamlet-clearing patches. See its [context contract](forest-material-contexts.md)
 for isolated defaults, neighbor profiles and runtime-selection limits.
 The [water-stones gallery](water-stones-review.html) adds a new transparent outcrop
 scene over unchanged shared water, including mixed-shore and repeated-rock contexts.
+The [hills gallery](hills-review.html) adds continuous height-derived relief and
+all 32 isolated phases. All 134 enabled tile bindings now have built candidates;
+native-resource coverage, other graphics and runtime acceptance remain open.
 Nine new shore profiles and a shared polygon water base are also delivered;
 see the [shore gallery](shoreline-review.html) and [topology contract](shoreline-topology.md).
 Reviews for [roads/streams](connected-family-batch-01.md), [paths/seasons](distinct-terrain-batch-04.md),
@@ -36,7 +39,7 @@ and [HQ scenes](distinct-terrain-batch-09.md), [factory scene](distinct-terrain-
 and [shorelines](distinct-terrain-batch-11.md), [mountains](distinct-terrain-batch-12.md)
 and [fog](distinct-terrain-batch-13.md), plus [neighboring ground](distinct-terrain-batch-14.md)
 and [seasonal hamlets](distinct-terrain-batch-15.md), plus [forests](distinct-terrain-batch-16.md)
-and [water stones](distinct-terrain-batch-17.md),
+and [water stones](distinct-terrain-batch-17.md), plus [hills](distinct-terrain-batch-18.md),
 record delivery, evidence and defects.
 Historical `art/source/pilot/` reconstruction studies are excluded from this pack.
 
@@ -56,6 +59,13 @@ Historical `art/source/pilot/` reconstruction studies are excluded from this pac
   ownership overlays should remain separable during later runtime integration.
 
 ## Geometry and seams
+
+Hills use a new unlit height control and consistent world lighting over shared
+painted grass, with slope attenuation near real grass boundaries. Their profile
+keys include absolute lattice phase as well as neighbors; use the matching
+context rather than repeating the default isolated tile. Isolated low-relief
+positions receive a small smooth interior height cue, while connected hills
+retain the broad continuous field. See [the phase/geometry contract](hills-material-contexts.md).
 
 A full opaque overscan source is a painting canvas, not a runtime tile mask.
 Keep game geometry independent from illustration bounds. Existing Python placements

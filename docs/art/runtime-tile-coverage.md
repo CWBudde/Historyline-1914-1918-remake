@@ -11,17 +11,16 @@ confirm every ledger ID/path and the campaign-use flags.
 
 ## Status
 
-One background has a `candidate-source` association: `hills`.
-It points to generated art and 2×/4× rectangle exports, **not an approved runtime
-binding**. A private projection lost readable relief and exposed mirrored patterns;
-coherent hill geometry/shading and quality review remain open.
+All enabled backgrounds and infrastructure IDs now have `candidate-built`
+associations. These are polygon-built 2×/4× candidates with reviewed fixed
+contexts, **not accepted runtime replacements**. No source-only association remains.
 
 Summer/winter ground, eight depot pieces, fourteen HQ pieces, four factory pieces,
 nine shores, open water, ten mountain tiles, opaque fog, five further ground materials,
-both seasonal hamlets and forests, shared water stones
+both seasonal hamlets and forests, shared water stones and hills
 and all 74 enabled infrastructure IDs are `candidate-built`,
 with `patch-reviewed` seams and explicit component, shared-scene or shore-corner
-geometry. These 133 rows point to their respective build manifests and
+geometry. These 134 rows point to their respective build manifests and
 192×160 / 384×320 polygon exports. Actual saved-PNG patches pass both parities and
 densities; independent [road/stream review](connected-family-batch-01.md) and
 [path review](distinct-terrain-batch-04.md), [rail review](distinct-terrain-batch-05.md)
@@ -65,8 +64,16 @@ The [water-stones review](distinct-terrain-batch-17.md) adds a transparent whole
 outcrop scene over byte-identical shared water, with both-parity water surrounds,
 compatible shore replacements and repeated-stone contexts. The repeated three-group
 arrangement still needs dense-map shape/placement variation.
+The [hills review](distinct-terrain-batch-18.md) promotes the final source-only
+binding using a new unlit height control, fixed world lighting and continuous
+relief with protected grass transitions. The 121 profiles cover all 64 neighbor
+masks at phase zero, all 32 isolated phases and actual fixture contexts.
+An isolated-only smooth inner cue restores low-knoll readability in weak phases.
+Context keys include world phase; the default applies only at phase zero with
+six grass neighbors. All phase/mask combinations, arbitrary-map selection and
+full-map variation remain open.
 Full maps, transitions, seasonal integration, fractional zoom and runtime/release
-acceptance remain open. No enabled ID remains `needs-image`; hills is still source-only.
+acceptance remain open. No enabled ID remains `needs-image` or source-only.
 Total: **134 associated IDs, zero accepted runtime replacements**.
 
 The `build_manifest` column names the producing manifest; `ports` records the

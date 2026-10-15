@@ -26,6 +26,7 @@
 // -fog builds the bounded opaque unseen candidate and seasonal frontier patches.
 // -ground builds five context-aware ground materials and fixed seasonal patches.
 // -forest builds bounded whole-crown seasonal forest contexts and fixed patches.
+// -hills builds bounded summer height-derived relief contexts and fixed patches.
 package main
 
 import (
@@ -101,6 +102,7 @@ func run(args []string, log io.Writer) error {
 	fogPath := fs.String("fog", "", "bounded opaque unseen candidate manifest; requires fresh -out")
 	groundPath := fs.String("ground", "", "bounded context-aware ground material manifest; requires fresh -out")
 	forestPath := fs.String("forest", "", "bounded whole-crown seasonal forest manifest; requires fresh -out")
+	hillsPath := fs.String("hills", "", "bounded summer height-derived hills manifest; requires fresh -out")
 	shorePath := fs.String("shore", "", "bounded new-material summer shoreline manifest; requires fresh -out")
 	packPath := fs.String("pack", "", "candidate-only JSON pack manifest; fixed Lanczos3 rectangle exports, requires fresh -out")
 	candidatePath := fs.String("candidate", "", "candidate PNG, at least 4x reference dimensions and aspect within 1%")
@@ -111,6 +113,24 @@ func run(args []string, log io.Writer) error {
 			return nil
 		}
 		return err
+	}
+	hillsProvided := false
+	fs.Visit(func(f *flag.Flag) {
+		if f.Name == "hills" {
+			hillsProvided = true
+		}
+	})
+	if hillsProvided {
+		conflict := false
+		fs.Visit(func(f *flag.Flag) {
+			if f.Name != "hills" && f.Name != "out" {
+				conflict = true
+			}
+		})
+		if conflict || *hillsPath == "" || *out == "" || fs.NArg() != 0 {
+			return errors.New("-hills requires -out and excludes all other flags and positional arguments")
+		}
+		return runHills(*hillsPath, *out, log)
 	}
 	forestProvided := false
 	fs.Visit(func(f *flag.Flag) {
