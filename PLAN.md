@@ -862,6 +862,17 @@ below record work already delivered, plus G0.7's new neighborhood comparisons.
             supersedes the old 90% original-likeness target. Inspect continuous masters and
             Lanczos exports; historical style approval does not establish current seams.
       - [ ] Infantry and artillery map sprites.
+            - [x] Deliver a distinct infantry-family candidate with all six authored
+                  facings, independent CP/EC/neutral ownership palettes and normal/spent
+                  states at 2×/4×. (2026-10-15) — batch 19 retains 72 sprites, 24 neutral/tint
+                  planes and 28 review PNGs. Source, exact generation prompts, pinned Go
+                  recipe and registration contract are retained. Independent source-plane,
+                  saved-state, scene, art and code reviews pass; no original images were
+                  generation/export inputs. See `docs/art/distinct-units-batch-19.md`.
+                  This is an offline candidate: physical pivot, native facing mapping,
+                  Blender comparison and runtime acceptance remain open.
+            - [ ] Deliver the corresponding six-direction light-artillery candidate,
+                  ownership palettes, spent state, retained recipe and reviewed ground fixtures.
       - [ ] Unit portrait.
       - [ ] Reconstructed unit panel with live text and separate frame/icons/portrait.
 - [ ] **G0.10 — Resolve remaining reference/migration decisions.** Verify populated colour
@@ -1290,7 +1301,10 @@ outputs and research in ignored `build/`. Authored masters, recipes and pilot ex
 tracked `art/`; commit verified graphics batches directly to `main`, per the user's preference.
 
 **Immediate next graphics slice:** complete G0.9's remaining unit pilot: newly authored
-infantry and light-artillery map sprites, then a unit portrait and separate panel artwork.
+light-artillery map sprites, then a unit portrait and separate panel artwork. Infantry now
+has six authored views and reproducible ownership/state candidates at both densities; see
+`docs/art/distinct-units-batch-19.md`. Extend its validated runtime registration and independent
+owner palette contract to artillery, then verify physical contact and movement in engine.
 Verify facing, faction and anchor contracts before extending directional art across units;
 compare authored sprites with a Blender pilot as G3 requires. Keep original pixels and close
 reconstructions out of generation/export inputs. Continue the separate native-resource mapping
@@ -1331,6 +1345,11 @@ unlit height control builds the phase-aware hills profiles.
 The runtime ledger has
 134 associated IDs (zero source candidates, 134 built candidates), no enabled ID without an image association
 and zero accepted replacements.
+The separate `docs/art/runtime-unit-coverage.csv` tracks all 27 actual unit IDs and their
+15 shared icon families: two infantry IDs have built candidates, 25 still need map sprites,
+all 27 portraits are pending and no unit replacement is runtime-accepted. It includes all
+24 IDs used across the three current campaign levels and their stored units. These runtime
+bindings do not replace the native 306-map-sprite and 49-illustration mapping obligation.
 Pixel-aligned 2×/4× patches pass; full maps, other zooms and runtime integration remain open. Use the
 134-row runtime ledger as the enabled-ID checklist without dropping the separate 350 native
 resource mapping/coverage obligation. Establish shared forest scale and protected

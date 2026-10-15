@@ -27,6 +27,7 @@
 // -ground builds five context-aware ground materials and fixed seasonal patches.
 // -forest builds bounded whole-crown seasonal forest contexts and fixed patches.
 // -hills builds bounded summer height-derived relief contexts and fixed patches.
+// -unit builds the bounded authored six-facing infantry pilot and actual PNG terrain fixtures.
 package main
 
 import (
@@ -104,6 +105,7 @@ func run(args []string, log io.Writer) error {
 	forestPath := fs.String("forest", "", "bounded whole-crown seasonal forest manifest; requires fresh -out")
 	hillsPath := fs.String("hills", "", "bounded summer height-derived hills manifest; requires fresh -out")
 	shorePath := fs.String("shore", "", "bounded new-material summer shoreline manifest; requires fresh -out")
+	unitPath := fs.String("unit", "", "bounded six-facing infantry pilot manifest; requires fresh -out")
 	packPath := fs.String("pack", "", "candidate-only JSON pack manifest; fixed Lanczos3 rectangle exports, requires fresh -out")
 	candidatePath := fs.String("candidate", "", "candidate PNG, at least 4x reference dimensions and aspect within 1%")
 	resampling := fs.String("resampling", "area", "single-sprite reduction: area, bilinear (antialiased tent), or lanczos (antialiased Lanczos3); excluded by -neighborhood")
@@ -113,6 +115,24 @@ func run(args []string, log io.Writer) error {
 			return nil
 		}
 		return err
+	}
+	unitProvided := false
+	fs.Visit(func(f *flag.Flag) {
+		if f.Name == "unit" {
+			unitProvided = true
+		}
+	})
+	if unitProvided {
+		conflict := false
+		fs.Visit(func(f *flag.Flag) {
+			if f.Name != "unit" && f.Name != "out" {
+				conflict = true
+			}
+		})
+		if conflict || *unitPath == "" || *out == "" || fs.NArg() != 0 {
+			return errors.New("-unit requires -out and excludes all other flags and positional arguments")
+		}
+		return runUnit(*unitPath, *out, log)
 	}
 	hillsProvided := false
 	fs.Visit(func(f *flag.Flag) {

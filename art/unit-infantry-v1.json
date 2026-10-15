@@ -1,0 +1,57 @@
+{
+  "atlas": {
+    "source": "source/units/distinct-v1/infantry.png",
+    "source_sha256": "a151ab9f110782ead6eba6bc4af3b4a17eb789204c5f19e4ca2e786614912290"
+  },
+  "family": "infantry",
+  "grounds": {
+    "grass": {
+      "2x": {
+        "source": "exports/connected-v1/grass-2x.png",
+        "source_sha256": "5285a565b5a882a24477fc48c7f5f69fc7a81a4ef2cdf5b87708b0eadfa13b17"
+      },
+      "4x": {
+        "source": "exports/connected-v1/grass-4x.png",
+        "source_sha256": "2feea3fd1e9026a16c87bf11ac6c2c33ec8d173719866427da42827bcc2d119e"
+      }
+    },
+    "grass_w": {
+      "2x": {
+        "source": "exports/compound-v1/grass_w-2x.png",
+        "source_sha256": "d2db0b7ce97f3145abcd651b0042654433dd7f36875de7b88438688c0716d947"
+      },
+      "4x": {
+        "source": "exports/compound-v1/grass_w-4x.png",
+        "source_sha256": "7ac55b80d4106a18504a9529f04905a4164755363175a15a65948adb52e95cd3"
+      }
+    },
+    "mud": {
+      "2x": {
+        "source": "exports/ground-v1/mud-2x.png",
+        "source_sha256": "ec9a5f0900c53190f1627e8bfb80f664704dc58a2e1b98910906923c2dabb669"
+      },
+      "4x": {
+        "source": "exports/ground-v1/mud-4x.png",
+        "source_sha256": "454f2979e6be9ea83ea7bb892f235fccf4a36c9ed99e95637fafaf48af1a359c"
+      }
+    }
+  },
+  "palettes": {
+    "cp": [
+      104,
+      142,
+      83
+    ],
+    "ec": [
+      190,
+      143,
+      92
+    ],
+    "neutral": [
+      146,
+      146,
+      146
+    ]
+  },
+  "schema_version": 1
+}
