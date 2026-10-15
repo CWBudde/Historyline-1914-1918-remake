@@ -29,9 +29,9 @@ records are not 51 distinct named units: repeated naval records differ in flags.
 | **executed** | reproduced by running the routine (R1 harness) or the game, with recorded inputs |
 | **hypothesis** | inferred, untraced, or contradicted by another source |
 
-Rows marked **executed (emulated)** ran in the 8086 interpreter (`tools/original-rules/dos_combat.py`)
-and agree with the independent transcription `dos_combat_model.py` (`compare_combat.py`, 300 random
-cases, 0 mismatches, 2026-10-15; a deliberately wrong divisor fails it). That establishes the
+Rows marked **executed (emulated)** ran in the 8086 interpreter (`internal/dosoracle`, `Export.Battle`)
+and agree with the independent transcription `Resolve` (300 random
+cases, 0 mismatches, 2026-10-15, first with the Python harness, now ported to Go and cross-checked on 1,300 shared cases; a deliberately wrong divisor fails it). That establishes the
 routine's arithmetic as written, not the running game's callers or inputs. A rule moves up only
 with a fixture or trace id recorded in its row. Conflicts between sources are listed in the discrepancy section, never merged silently.
 
@@ -57,10 +57,10 @@ with a fixture or trace id recorded in its row. Conflicts between sources are li
 
 | Topic | Binary | Other source | Validation route | State |
 |---|---|---|---|---|
-| Blocking | **executed** (`02dc:262a` run on synthetic maps, `dos_support.py`): the two ring hexes beside the defender's direction around the attacker each add 80 when they hold a unit that is friendly to the defender (side bits, `0ca6:020a`), whose type flag word shares a bit with the attacker's class bits (`flags4 & 0x3c`, or `flags6 & 2`), and is not long-range (0x40); sum capped at 150; applied as a percentage to armour (`2466:03b3–03fc`) | Manual: each blocker adds one quarter | Controlled DOS battle to confirm the game feeds these inputs; name the class bits | executed |
+| Blocking | **executed** (`02dc:262a` run on synthetic maps, `Export.RunSupport`): the two ring hexes beside the defender's direction around the attacker each add 80 when they hold a unit that is friendly to the defender (side bits, `0ca6:020a`), whose type flag word shares a bit with the attacker's class bits (`flags4 & 0x3c`, or `flags6 & 2`), and is not long-range (0x40); sum capped at 150; applied as a percentage to armour (`2466:03b3–03fc`) | Manual: each blocker adds one quarter | Controlled DOS battle to confirm the game feeds these inputs; name the class bits | executed |
 | Pincer sum | **executed**: weights 25/50/100/50/25 by steps 1–5 from the attacker's direction around the defender, for ring units friendly to the *attacker* with the same eligibility test; zero for the attacker's own direction; the sum is a byte (max 250, so the 300 cap and its 0x2c clamp are dead code) | Manual describes support without numbers | Controlled battles with 1–5 supporters, to confirm the game's inputs | executed |
 | Experience terms | divisor 256 for attack and attacker defence, 512 for defender defence (`2466:06c9`); denominator parameter clamps differ (attacker 1…7, defender 2/6 substitution) | Manual treats ranks symmetrically | Already visible in the emulated routine (asymmetric terms); confirm with a swapped-role controlled battle | open |
-| Kill experience | extracted and executed (emulated) at `02dc:0908–0abb`: the opponent gains 1 for any strength lost (unless the loser's live flag word at +6 has bit 0x20) and 1 more when the loser is destroyed, so a kill awards 2; clamp 6; transcription in `dos_experience.py` | Manual wording | Check against one controlled kill and one non-kill battle; name flag bit 0x20 | extracted |
+| Kill experience | extracted and executed (emulated) at `02dc:0908–0abb`: the opponent gains 1 for any strength lost (unless the loser's live flag word at +6 has bit 0x20) and 1 more when the loser is destroyed, so a kill awards 2; clamp 6; transcription `Award` in `internal/dosoracle` | Manual wording | Check against one controlled kill and one non-kill battle; name flag bit 0x20 | extracted |
 | Ranged support | **executed**: a non-adjacent attacker gets pincer 0 and blocking 0 when all six defender neighbours are on the map; at a map edge the attacker's direction comes from an uninitialised stack byte (undefined, not reproducible); long-range units never count as supporters or blockers | Manual | Controlled ranged battle, one at the map edge | executed (edge case undefined) |
 | Raw budget vs 2 × speed | budget byte 0 vs speed byte 1 (e.g. 16 vs 6, 8 vs 2, 4 vs 1) | Standard uses 2 × speed | R2 movement trace | open |
 | Fixed-point rounding | `adjust` truncates: 20 armour with 150% blocking gives 49 in the high word, not 50 (13107 × 150 stays just below 30.0) | none | recorded as a test (`test_combat_model.py`) | observed |

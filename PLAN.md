@@ -343,7 +343,7 @@ The completed compatibility work below remains useful and stays completed.
       (2026-10-15) — seven rows with validation routes; adds the fixed-point truncation (`adjust(20, 150)` = 49).
 - [x] **Gate:** every planned original mechanic has an evidence status and validation route;
       the next battle fixtures can be reproduced against the identified executable.
-      (2026-10-15) — coverage table for R1–R4; `dos_combat.py` refuses an export from another build.
+      (2026-10-15) — coverage table for R1–R4; `LoadExport` refuses an export from another build.
 
 #### R1 — Verify the DOS combat oracle
 
@@ -351,9 +351,11 @@ The completed compatibility work below remains useful and stays completed.
       segmented battle pointers and Borland signed integer semantics. Compare both strength
       writebacks with an independently transcribed resolver. Keep private executable inputs
       outside CI; ordinary CI uses synthetic inputs and recorded numerical expectations.
-      (2026-10-15) — `emu8086.py` + `dos_combat.py` run the routine from the relocated image; 300 random cases
-      agree with the independent `dos_combat_model.py` (a wrong divisor is caught). Tests without the
-      original run with `unittest discover`; the comparison skips without the local export. Callers and real inputs remain open.
+      (2026-10-15) — `internal/dos8086` + `Export.Battle` run the routine from the relocated image (first as `emu8086.py` +
+      `dos_combat.py`, ported to Go; Go and Python agree on 1,300 shared cases); 300 random cases
+      agree with the independent `Resolve` (a wrong divisor is caught). Tests without the
+      original run with `go test ./internal/dos8086 ./internal/dosoracle`; the comparison skips without the
+      local export. Callers and real inputs remain open.
 - [ ] Cover group sizes, experience 0–6, air/ground/water targets, encoded range boundaries,
       all nine terrain modifier classes, pincer directions, blocking eligibility, conditional
       return fire, alternate strength, minimum losses, casualty caps and destruction. Preserve

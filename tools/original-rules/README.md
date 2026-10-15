@@ -35,26 +35,24 @@ in Git. The synthetic tests can run without the original installation.
 
 ## Combat harness
 
-`emu8086.py` is a small 8086 interpreter (integer subset, hooks for far addresses; unknown
-opcodes raise). `dos_combat.py` loads the exported load image with its relocations, builds a
-synthetic battle context and runs `2466:000e`; `dos_combat_model.py` is an independent
-transcription of the same routine, and `compare_combat.py` runs both on random cases:
+`internal/dos8086` is a small 8086 interpreter (integer subset, hooks for far addresses;
+unknown opcodes return an error). `internal/dosoracle` loads the exported load image with
+its relocations and runs the real routines on synthetic contexts, next to independent
+transcriptions of the same code:
+
+- `Export.Battle` runs the casualty routine `2466:000e`; `Resolve` is the transcription.
+- `Export.RunExperienceWindow` runs the experience awards after a battle (`02dc:0908-0abb`) with
+  its near-call helpers hooked; `Award` is the transcription. The window can run on its own
+  because it only reads the battle context and two saved strengths from the caller's frame.
+- `Export.RunSupport` runs the pincer and blocking caller `02dc:262a` on a synthetic map,
+  executing the real neighbour routine `0b06:0157` and side test `0ca6:020a`; `Support` is the
+  transcription. The ranged case with an off-map neighbour reads an uninitialised stack byte,
+  so the transcription returns `ErrUndefined` there and the comparison skips it.
 
 ```sh
-python3 -I tools/original-rules/compare_combat.py --cases 300
+go test ./internal/dos8086 ./internal/dosoracle -v
 ```
 
-The interpreter tests and the transcription tests need no original files; the comparison test
-is skipped when `build/original-rules/dos-full` is absent. Agreement shows the routine's
+The interpreter and transcription tests need no original files; the agreement tests read
+`build/original-rules/dos-full` and are skipped when it is absent. Agreement shows the routine's
 arithmetic as written, not how the game fills its inputs.
-
-`dos_experience.py` does the same for the experience awards after a battle
-(`02dc:0908–0abb`): `award` is the transcription, `run_window` executes that code window with
-its near-call helpers hooked. The window can be run on its own because it only reads the
-battle context and two saved strengths from the caller's frame.
-
-`dos_support.py` runs the pincer and blocking caller `02dc:262a` on a synthetic map, executing
-the real neighbour routine `0b06:0157` and side test `0ca6:020a`; `dos_support_model.py` is the
-independent transcription and `test_support.py` compares them on random maps. The ranged case
-with an off-map neighbour reads an uninitialised stack byte, so the model raises `Undefined`
-there and the comparison skips it.

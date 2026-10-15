@@ -14,7 +14,7 @@ path, so do not move it. `FINdecoder/00.FIN` is a sample DOS level for `internal
 ## Language policy
 
 Write new code and tooling in **Go**. Python is acceptable only for the existing reference code and the
-existing research harness in `tools/original-rules/` and `tools/art-inventory/`; do not add new Python
+remaining tools `tools/original-rules/disassemble.py` and `tools/art-inventory/`; do not add new Python
 tools. Ports of those to Go are welcome.
 
 ## Commands
@@ -43,8 +43,9 @@ Run Python tests with `-I` and from the repo root. After a same-size `sed` edit 
 - `internal/tpwm`: Turbo Packer unpacker; the size byte order (DOS little, Amiga big) is a parameter.
 - `internal/level`: `levels/*.json` read/write; `Marshal` reproduces `mapEditor.py` byte for byte.
 - Rule sets: `Classic` (Python parity) and `Standard` (improved). Neither is original-game fidelity.
-- `tools/original-rules` (R0–R5 in PLAN.md): static disassembly of the DOS `HL.EXE`, an 8086 interpreter
-  (`emu8086.py`) and independent transcriptions that are compared against executed code. Findings live in
+- `tools/original-rules` (R0–R5 in PLAN.md): static disassembly of the DOS `HL.EXE` (still the Python
+  `disassemble.py`); the 8086 interpreter is `internal/dos8086`, and `internal/dosoracle` holds the runners and the
+  independent transcriptions that are compared against executed code. Findings live in
   `docs/research/original-dos-rule-spec.md` (profile `dos-0.1`) with an evidence status per rule.
 - `tools/art-inventory`, `tools/art-review`, `tools/native-reference`: graphics tooling (`just gfx-check`).
 
