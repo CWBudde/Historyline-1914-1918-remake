@@ -44,19 +44,21 @@ const (
 )
 
 type game struct {
-	lvl         *level.Level
-	state       *state.State
-	player      state.Player // whose fog is shown
-	reveal      bool         // dev: ignore fog
-	hexNumbers  bool         // dev: print line,col on every hex
-	grid        hexgrid.Grid
-	cam         *camera.Camera
-	mini        minimap.Minimap
-	hover       hexgrid.Coord
-	hoverOnMap  bool
-	w, h        int
-	terrainFill map[string]color.RGBA
-	ctl         *control
+	menuMX, menuMY int // last cursor position seen by the menu
+	menuFocus      int // focused action-menu row, menuNone when unset
+	lvl            *level.Level
+	state          *state.State
+	player         state.Player // whose fog is shown
+	reveal         bool         // dev: ignore fog
+	hexNumbers     bool         // dev: print line,col on every hex
+	grid           hexgrid.Grid
+	cam            *camera.Camera
+	mini           minimap.Minimap
+	hover          hexgrid.Coord
+	hoverOnMap     bool
+	w, h           int
+	terrainFill    map[string]color.RGBA
+	ctl            *control
 }
 
 func newGame(lvl *level.Level, st *state.State, player state.Player, reveal bool) *game {
@@ -189,7 +191,27 @@ func (g *game) menuRow(i int) (x, y, w, h int) {
 // reports whether it consumed this frame's input.
 func (g *game) updateMenu() bool {
 	if !g.ctl.MenuOpen() {
+		g.menuFocus = menuNone
 		return false
+	}
+	g.menuFocus = menuFocusValid(g.menuFocus, g.ctl.menu)
+	mx, my := ebiten.CursorPosition()
+	if mx != g.menuMX || my != g.menuMY {
+		g.menuMX, g.menuMY = mx, my
+		if h := menuHit(mx, my, len(g.ctl.menu), g.menuRow); h != menuNone {
+			g.menuFocus = h
+		}
+	}
+	switch {
+	case inpututil.IsKeyJustPressed(ebiten.KeyArrowDown):
+		g.menuFocus = menuStep(g.menuFocus, 1, g.ctl.menu)
+	case inpututil.IsKeyJustPressed(ebiten.KeyArrowUp):
+		g.menuFocus = menuStep(g.menuFocus, -1, g.ctl.menu)
+	case inpututil.IsKeyJustPressed(ebiten.KeyEnter), inpututil.IsKeyJustPressed(ebiten.KeyNumpadEnter):
+		if g.menuFocus != menuNone {
+			g.ctl.ChooseMenu(g.menuFocus)
+			return true
+		}
 	}
 	for i, k := range []ebiten.Key{ebiten.Key1, ebiten.Key2, ebiten.Key3, ebiten.Key4, ebiten.Key5, ebiten.Key6, ebiten.Key7, ebiten.Key8, ebiten.Key9} {
 		if inpututil.IsKeyJustPressed(k) && i < len(g.ctl.menu) {
@@ -198,13 +220,9 @@ func (g *game) updateMenu() bool {
 		}
 	}
 	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
-		mx, my := ebiten.CursorPosition()
-		for i := range g.ctl.menu {
-			x, y, w, h := g.menuRow(i)
-			if mx >= x && mx < x+w && my >= y && my < y+h {
-				g.ctl.ChooseMenu(i)
-				return true
-			}
+		if h := menuHit(mx, my, len(g.ctl.menu), g.menuRow); h != menuNone {
+			g.ctl.ChooseMenu(h)
+			return true
 		}
 	}
 	return false
@@ -215,10 +233,19 @@ func (g *game) drawMenu(dst *ebiten.Image) {
 		x, y, w, h := g.menuRow(i)
 		bg := color.RGBA{30, 60, 30, 230}
 		if !o.Usable {
-			bg = color.RGBA{60, 30, 30, 230}
+			bg = color.RGBA{50, 40, 40, 200}
+		}
+		if i == g.menuFocus {
+			bg = color.RGBA{70, 110, 60, 245}
+			if !o.Usable {
+				bg = color.RGBA{100, 50, 50, 245}
+			}
 		}
 		vector.FillRect(dst, float32(x), float32(y), float32(w), float32(h), bg, false)
-		ebitenutil.DebugPrintAt(dst, fmt.Sprintf("%d %s", i+1, o.Label), x+4, y+1)
+		if i == g.menuFocus {
+			vector.StrokeRect(dst, float32(x), float32(y), float32(w), float32(h), 2, color.RGBA{240, 220, 120, 255}, false)
+		}
+		ebitenutil.DebugPrintAt(dst, menuLabel(i, o), x+4, y+1)
 	}
 }
 

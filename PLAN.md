@@ -622,6 +622,10 @@ so interactive playback and responsive/input acceptance remain open. Approximate
 - [ ] Add selection and action menus (move / attack / contents / exit), driven by the
       selected rules profile and legal commands. Provide hover, keyboard focus, pressed,
       disabled and cancel states, including menus at screen edges.
+      Progress: the weapon/content menu now has hover and keyboard focus (up/down wrap and skip
+      disabled rows, Enter, number keys, Esc cancels), a focus outline and dimmed disabled rows
+      marked "x" with the reason (`cmd/historyline/menu.go`, `TestMenu*`). Open: the selection/
+      move/attack menu, pressed state, edge placement; not hand-tested in the window.
 - [x] Add the weapon menu with legal target/range/ammunition feedback for the active profile.
       Placeholder menu at the bottom left (click or keys 1-4); unusable rows say why (ammo, range,
       target kind) and stay open. `TestWeaponMenu*` pass; not hand-tested in the window.
