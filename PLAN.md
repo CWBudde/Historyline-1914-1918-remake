@@ -243,27 +243,132 @@ docs/research/              original-DOS findings; verified rule specification/f
 
 ### Phase 2 — Playable parity (Ebitengine UI)
 
-- [ ] Asset loading with stable IDs and swappable reference/2x/4x packs (G1). For parity, port
-      the five-shade faction palette swap, six rotations, greyscale states and ownership
-      stripes. New illustrated packs use explicit recolour masks/authored directions (G3).
-      Embed exports from `assets/assets.go`; `go:embed` cannot reach root `gfx/` via `../`.
-- [ ] Map renderer with camera and scrolling, plus pixel→hex picking. Replace the hard-coded
-      `findHex` with general geometry.
-- [ ] Responsive layout and high-DPI rendering (G2/G4): independent asset density, camera zoom
-      and UI scale; resize/fullscreen support; inverse-transform picking and minimap navigation.
-- [ ] Minimap with view rectangle and click-to-jump
-- [ ] Terrain panel (movement/battle/sight bars), and unit panel (flag, rank, picture, stats,
-      skills, four weapon rows)
-- [ ] Action menu (move / attack / contents / exit), weapon menu, content menu (Python 2 × 9
-      grid for parity). Keep layout and available actions driven by the selected rules profile;
-      R3/R4 add cycle orders and verified inventory limits.
-- [ ] Overlays for reachable and attackable hexes. Movement animation along the path with
-      rotation.
-- [ ] Battle screen (result bars, sizes, ranks, weapons), hit markers, explosion animation,
-      capture banner, round banner
-- [ ] Keyboard and mouse controls matching the Python version. Replace the double-click
-      detection.
-- [ ] Dev flags: `-reveal`, `-hexnumbers`
+**Status review (2026-10-15):** [PR #1](https://github.com/CWBudde/Historyline-1914-1918-remake/pull/1)
+through [PR #5](https://github.com/CWBudde/Historyline-1914-1918-remake/pull/5) merged the
+bootstrap and core-model foundations. Later rules and graphics work landed directly on
+`main`; this review includes local commits through `8401169` and the uncommitted batch-22
+panel pilot. `cmd/historyline/main.go` still draws an empty fixed-size window;
+`internal/ui`, `internal/assets`, `assets/assets.go`, `cmd/hlasset` and `cmd/hlartpreview`
+do not exist yet. Completed preparation below does not close runtime UI tasks.
+Section 4 retains the detailed graphics checklist and acceptance gates. Continue the
+requested graphics coverage first, then integrate the playable UI through these subphases.
+
+#### 2.1 — Core and offline graphics preparation
+
+- [x] Provide the headless state, level/data loaders, movement/combat/container commands,
+      victory and per-player vision needed by the UI, with Classic/Standard profiles.
+      Evidence: Phase 1 and Phase 3's existing Standard fixes; `internal/game`,
+      `internal/level`, `internal/data` and `internal/hexgrid` tests. Pixel picking and
+      rendering remain in 2.3.
+- [x] Inventory stable terrain, infrastructure, unit and screen IDs, and record geometry,
+      connection, placement and state contracts. Evidence: `docs/art/ui-inventory.md`,
+      `runtime-tile-coverage.csv`, `runtime-unit-coverage.csv` and the geometry/placement
+      documents under `docs/art/`. These are contracts for integration, not a runtime manifest.
+- [x] Build offline 2×/4× candidates for all 134 enabled terrain/infrastructure IDs
+      (60 backgrounds, 74 infrastructure), including seasonal buildings, shores, mountains,
+      fog, connected routes and context-aware ground/forest/hills. Evidence:
+      `docs/art/runtime-tile-coverage.md`, batches 01–18 and `tools/art-review`; all ledger
+      exports/manifests are present. Fixed PNG patches are reviewed; zero replacements
+      are runtime-accepted, and arbitrary-map context selection remains open in 2.2.
+- [x] Build infantry and light-artillery tactical candidates with six authored facings,
+      CP/EC/neutral ownership palettes and normal/spent states at 2×/4×. Evidence:
+      `f2127e6`, `e894cb0`, batches 19–20 and their sprite contracts. Four of 27 runtime
+      IDs have candidates; 23 still need sprites. Motion, fog and zoom acceptance remain open.
+- [x] Build the new infantry portrait and reproducible 1×/2×/4× exports. Evidence:
+      `8401169`, `docs/art/distinct-portraits-batch-21.md` and the portrait export tests.
+      Two of 27 portrait associations have candidates; 25 still need images.
+- [ ] Finish the missing graphics families and resolve G0.9/G0.10 mapping/placement gaps
+      using Section 4's existing checklist. Include ownership stripes, remaining unit and
+      weapon art, portraits, markers and effects; retain full-map/seasonal/zoom review gates.
+      Do not treat 134 candidate tile bindings as complete graphics or G3/G5 acceptance.
+
+#### 2.2 — Runtime asset packs and composition (G1/G3)
+
+- [ ] Implement stable-ID runtime manifests, pack validation/loading and caches in
+      `internal/assets`, with swappable reference/2×/4× packs and explicit missing-ID errors.
+      Embed approved exports from `assets/assets.go`; `go:embed` cannot reach root `gfx/`
+      via `../`. Keep private original reference bytes out of distributed packs.
+- [ ] Implement the shared map compositor and arbitrary-map context selection. Preserve
+      neighbor masks, absolute world phase, seasonal ground, route ports, shore corners,
+      compound-building registration and isolated-mountain display selection. Reuse the
+      offline contracts; default context PNGs are not unconditional tile replacements.
+- [ ] Port the reference five-shade faction swap, six rotations, greyscale moved/remembered
+      states and ownership stripes for compatibility. Bind new illustrated packs to authored
+      directions and recolour masks; ownership must remain independent of unit type/country.
+- [ ] Deliver the reusable G1 validation/build/review commands and in-engine seam/asset
+      workbench. Existing `tools/art-review` exporters and HTML galleries are offline pilots;
+      `cmd/hlasset` and `cmd/hlartpreview` remain proposed tools.
+
+#### 2.3 — Map view, camera and navigation (G2)
+
+- [ ] Load a selected shipped level into the Ebitengine app and render terrain,
+      infrastructure, buildings and units through the runtime pack/compositor.
+- [ ] Add camera scrolling, map bounds and general pixel→hex picking, including both line
+      parities, odd-row edges and outside-map clicks. Replace Python's hard-coded `findHex`.
+- [ ] Implement responsive layout and high-DPI rendering: independent asset density, camera
+      zoom and UI scale, resize/fullscreen support, and inverse-transform input. Verify that
+      the same world point remains selectable after zoom, resize and display-scale changes.
+- [ ] Connect per-player vision to unseen/remembered/visible rendering and unit concealment.
+      The new opaque `unseen` tile does not implement remembered terrain or visibility plumbing.
+- [ ] Implement a fog-safe minimap with the camera rectangle and click-to-jump using the
+      same map/camera transforms.
+
+#### 2.4 — Terrain and unit information panels (G0.9/G2/G4)
+
+- [x] Build the offline infantry unit-panel exporter with live text, separate text-free
+      frame/icons and native 2×/4× renders. Local batch 22 uses real game data and nine
+      fixtures covering owner/state changes, depleted values, long labels and empty/hidden
+      selection; the latter two have identical panel pixels. Evidence:
+      `tools/unit-panel/README.md`, its tests and `docs/art/unit-panel-contract.md`;
+      the verified 70-file bundle exists under ignored
+      `build/gfx-production/unit-panel-v1/candidate-01`. This is an uncommitted pilot.
+- [ ] Retain/publish batch 22's reviewed vector masters, runtime exports and gallery/recipe,
+      and commit its sources/dependencies. G0.9 records the outstanding retention work;
+      an ignored build bundle does not establish delivered runtime assets.
+- [ ] Implement the terrain panel with movement/battle/sight bars, selected tile/infra,
+      live labels and blank/hidden/impassable/missing-value states.
+- [ ] Integrate the unit panel with actual selection and visibility, current owner, rank,
+      portrait, stats, skills and four weapon rows. Preserve empty/unlimited/zero-ammo
+      distinctions and suppress hidden unit data before binding any fields.
+- [ ] Extend beyond the infantry pilot to all enabled units and exercise the panels in game
+      at supported window/UI scales with long labels, zero fuel/ammo, maximum rank,
+      empty/hidden selection and both owners. Complete G4's interaction/readability gates.
+
+#### 2.5 — Selection, menus and movement playback
+
+- [ ] Add selection and action menus (move / attack / contents / exit), driven by the
+      selected rules profile and legal commands. Provide hover, keyboard focus, pressed,
+      disabled and cancel states, including menus at screen edges.
+- [ ] Add the weapon menu with legal target/range/ammunition feedback for the active profile.
+- [ ] Add the content menu with the Python 2 × 9 grid for compatibility, capacity/weight
+      feedback, stored-unit selection, enter/leave flow and empty/full/hidden states.
+      R3/R4 introduce the verified DOS inventory limits and cycle orders separately.
+- [ ] Draw reachable/attackable overlays from engine queries and execute move, attack,
+      enter/leave and capture commands through the rules API; display rejected actions.
+- [ ] Animate movement along the engine path with stable unit anchors and facing changes.
+      Keep animation/input timing separate from authoritative game state.
+
+#### 2.6 — Combat and turn presentation
+
+- [ ] Implement the battle panel with attacker/defender, chosen and counter weapons, result
+      bars, sizes and ranks driven by engine combat results.
+- [ ] Add hit markers, death/explosion playback and capture/round banners, with bounded
+      durations and skip/reduced-animation behavior. Show HQ-capture victory in the app.
+- [ ] Wire end turn and refresh selection, legal actions, panels, minimap and fog for the
+      active side. Keep Python/Standard turn flow distinct from the future R3 scheduler.
+
+#### 2.7 — Controls and playable parity acceptance
+
+- [ ] Implement Python-equivalent keyboard/mouse controls, including F1 end turn, scrolling,
+      menu selection and cancellation; replace the reference double-click detection.
+- [ ] Implement level selection via `-level` and dev flags `-reveal`, `-hexnumbers`, with
+      visible development indicators. The current bootstrap accepts none of these flags.
+- [ ] Exercise the G2 recreated scene through move, attack, enter/leave container, capture
+      and end turn, with responsive layout and high-DPI picking. Record runtime evidence;
+      offline fixture renders do not satisfy this gate.
+- [ ] Play all three shipped missions with Classic/Standard, recording expected Python
+      behavior versus intentional Standard fixes. Check both sides' vision, summer/winter,
+      map edges, menus and hidden information; smoke-test desktop and WASM execution.
 - [ ] **Milestone:** all three levels play the same as in Python (apart from the fixed bugs).
       Reference artwork is acceptable at this milestone; visual completion requires G5.
       Label this Python/Standard parity. It does not satisfy the original-DOS rules gate.
