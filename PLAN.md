@@ -530,8 +530,15 @@ so interactive playback and responsive/input acceptance remain open. Approximate
 
 - [ ] Load a selected shipped level into the Ebitengine app and render terrain,
       infrastructure, buildings and units through the runtime pack/compositor.
-- [ ] Add camera scrolling, map bounds and general pixel→hex picking, including both line
+- [x] Add camera scrolling, map bounds and general pixel→hex picking, including both line
       parities, odd-row edges and outside-map clicks. Replace Python's hard-coded `findHex`.
+      Evidence: `hexgrid.Center`/`Grid.PixelToHex` (nearest-centre cells, any parity, off-map
+      and the short odd-line edge) and renderer-independent `internal/camera` (scroll, clamp,
+      zoom about the cursor, resize, centre-on). Tests: centre round trips, outside clicks,
+      the same hex stays picked through zoom/resize, and agreement with Python `findHex`
+      (`testdata/pixel.json`) except within 12 px of an edge and at its wrong right-edge
+      handling. `cmd/historyline -level` shows a level as placeholder hexes with scroll/zoom/
+      hover; real rendering stays under the items above and below.
 - [ ] Implement responsive layout and high-DPI rendering: independent asset density, camera
       zoom and UI scale, resize/fullscreen support, and inverse-transform input. Verify that
       the same world point remains selectable after zoom, resize and display-scale changes.

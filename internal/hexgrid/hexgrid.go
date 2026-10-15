@@ -4,6 +4,8 @@
 // directly above each other.
 package hexgrid
 
+import "math"
+
 // Coord addresses a hex by line and column, the (x, y) pair used by hlrData.py.
 type Coord struct {
 	Line, Col int
@@ -72,4 +74,46 @@ func abs(v int) int {
 		return -v
 	}
 	return v
+}
+
+// Layout of the Python reference in map pixels, with (0, 0) at the top-left corner
+// of the bounding box of hex (0, 0). Hexes are flat-topped, 96×80 pixels. A hex sits
+// ColPitch pixels from its same-line neighbour and LinePitch pixels from the next
+// line; odd lines are shifted by HalfPitch. This reproduces gui.py/main.py, where
+// the map surface advances 142×40 pixels per hex column/line.
+const (
+	ColPitch  = 142
+	HalfPitch = ColPitch / 2
+	LinePitch = 40
+	HexWidth  = 96
+	HexHeight = 80
+	centerX   = HexWidth / 2
+	centerY   = HexHeight / 2
+)
+
+// Center returns the pixel centre of hex c. It is defined for any coordinate,
+// on the map or not.
+func Center(c Coord) (x, y float64) {
+	return float64(c.Col*ColPitch + (c.Line&1)*HalfPitch + centerX), float64(c.Line*LinePitch + centerY)
+}
+
+// PixelToHex returns the hex under map pixel (x, y) and whether that hex is on the
+// map. It replaces Python's hard-coded findHex: the cell of a hex is the set of
+// points closer to its centre than to any other centre, which covers both line
+// parities, the half-hex gaps at odd-line edges and points outside the map.
+func (g Grid) PixelToHex(x, y float64) (Coord, bool) {
+	line0 := int(math.Floor((y - centerY) / LinePitch))
+	best, bestD := Coord{}, math.Inf(1)
+	for line := line0 - 1; line <= line0+2; line++ {
+		shift := float64((line & 1) * HalfPitch)
+		col0 := int(math.Floor((x - centerX - shift) / ColPitch))
+		for col := col0; col <= col0+1; col++ {
+			c := Coord{line, col}
+			cx, cy := Center(c)
+			if d := (x-cx)*(x-cx) + (y-cy)*(y-cy); d < bestD {
+				best, bestD = c, d
+			}
+		}
+	}
+	return best, g.Contains(best)
 }
