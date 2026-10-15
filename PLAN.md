@@ -401,6 +401,23 @@ close candidate artwork delivery, not runtime input flows or final visual approv
 - [ ] Full-screen artwork — title, side/mission selection, briefings/campaign, options,
       pause, save/load, handover, victory/defeat, credits/help and editor views. G4/Phase 6
       retain delivery of the screens beyond playable parity.
+      - [x] Deliver sixteen separate offline frame/layout candidates for those views,
+            including separate side/mission, briefing/campaign, save/load, victory/defeat,
+            credits/help and editor/new-map compositions. Reuse the slate/brass controls
+            and independent country layers; keep all text and values live.
+      - [x] Retain the painted backdrop and exact generation prompt, 71 text-free PNGs,
+            23 SVGs, sixteen native-font 2× review compositions and pinned fonts/layouts.
+            The 119-file bundle repeats byte-for-byte; saved pins/dimensions, strict
+            inputs/crops, gallery links and opaque handover backdrop independence pass
+            tests. Vet/lint pass; see `docs/art/screens-contract.md` and its
+            sixteen-view `runtime-screen-coverage.csv` ledger.
+      - [ ] Complete dedicated input/toggle/slider/dropdown artwork, loading/error/
+            progress and confirmation variants, long-text/overflow and content-specific
+            illustrations. The new painting supports 1×/2× only; a true 4× painted
+            backdrop remains open while vector frames already have 1×/2×/4× exports.
+      - [ ] Exercise browser/input/responsive layouts and actual runtime screen flows;
+            approve visual/reference fidelity and all required faction/season states.
+            Native saved compositions were inspected; no browser was available.
 
 Interface verification: all 469 build files repeat byte-for-byte; retained PNG
 dimensions/hashes, 15 weapon bindings, marker containment, finite animation tracks,
@@ -1566,6 +1583,10 @@ in a distinct continuous style; final quality/seam and runtime acceptance remain
       - [x] Retain the interface batch's text-free panel/control candidates in five
             interaction states, pinned local fonts, live-label fixtures and coverage
             ledger. Runtime navigation, responsive layouts and screen acceptance stay open.
+      - [x] Retain sixteen full-screen frame/layout candidates, the painted 2× backdrop,
+            live-label fixtures and per-view coverage ledger in the subsequent 119-file
+            reproducible bundle; see `docs/art/screens-contract.md`. Detailed control/
+            screen-state art and exercised runtime flows remain open.
 - [ ] Implement title, selection, briefing/campaign, settings, pause, save/load, handover,
       victory/defeat, credits and editor screens against their owning gameplay/content phases.
       Include R3 planning/confirmation and R4 energy/repair/production controls with accurate

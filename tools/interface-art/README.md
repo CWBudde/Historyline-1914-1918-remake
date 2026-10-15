@@ -1,5 +1,8 @@
 # Interface, markers and effects candidates
 
+The continuing full-screen artwork uses the separate
+[`screens-v1` profile](SCREENS.md) in the same exporter.
+
 From the repository root, with a fresh output directory:
 
 ```sh

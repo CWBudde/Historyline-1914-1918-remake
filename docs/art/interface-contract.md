@@ -116,3 +116,6 @@ flows remain in 2.3–2.6 and G3/G4/G5. HTML fixtures establish no gameplay comm
 Full-screen title, side/mission selection, briefing/campaign, options, pause,
 save/load, privacy handover, victory/defeat, credits/help and editor artwork still
 belong to G4/Phase 6. This delivery does not tick those screens complete.
+The subsequent [full-screen continuation](screens-contract.md) supplies initial
+frame/layout candidates for sixteen separate views; detailed state artwork and
+actual screen flows remain open there.

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="400" viewBox="0 0 640 400">
+<path fill="#162630" fill-opacity="0.65882353" d="M 0 0L 640 0L 640 400L 0 400Z"/>
+<path fill="#c4a773" fill-opacity="1.00000000" d="M 8 8L 632 8L 632 9L 8 9Z"/>
+<path fill="#c4a773" fill-opacity="1.00000000" d="M 8 391L 632 391L 632 392L 8 392Z"/>
+<path fill="#c4a773" fill-opacity="1.00000000" d="M 8 9L 9 9L 9 391L 8 391Z"/>
+<path fill="#c4a773" fill-opacity="1.00000000" d="M 631 9L 632 9L 632 391L 631 391Z"/>
+<path fill="#162630" fill-opacity="0.92941176" d="M 24 20L 616 20L 616 70L 24 70Z"/>
+<path fill="#c4a773" fill-opacity="1.00000000" d="M 24 70L 616 70L 616 72L 24 72Z"/>
+<path fill="#162630" fill-opacity="0.92941176" d="M 105 88L 535 88Q 540 88 540 93L 540 321Q 540 326 535 326L 105 326Q 100 326 100 321L 100 93Q 100 88 105 88Z"/>
+<path fill="#6e8088" fill-opacity="1.00000000" d="M 101 89L 539 89L 539 90L 101 90Z"/>
+<path fill="#6e8088" fill-opacity="1.00000000" d="M 101 324L 539 324L 539 325L 101 325Z"/>
+<path fill="#6e8088" fill-opacity="1.00000000" d="M 101 90L 102 90L 102 324L 101 324Z"/>
+<path fill="#6e8088" fill-opacity="1.00000000" d="M 538 90L 539 90L 539 324L 538 324Z"/>
+<path fill="#c4a773" fill-opacity="1.00000000" d="M 108 96L 130 96L 130 98L 108 98Z"/>
+</svg>

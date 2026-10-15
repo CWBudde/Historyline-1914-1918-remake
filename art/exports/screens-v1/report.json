@@ -1,0 +1,1496 @@
+{
+  "schema_version": 1,
+  "profile": "screens-v1",
+  "acceptance": "offline artwork and layout fixtures; gameplay flows, original correspondence and runtime acceptance pending",
+  "filter": "native 4x vectors -\u003e 2x -\u003e 1x signed premultiplied byte-RGB Lanczos3; painted backdrop 2x/1x only, no upscaling",
+  "manifest_sha256": "daa221c3ea172f2e283aa8a8ef7ab80ed1d81d84c44c321df45b0fe581ee93ff",
+  "files": [
+    {
+      "id": "backdrop/western-front",
+      "family": "backdrop",
+      "path": "backdrop/western-front-1x.png",
+      "sha256": "9601823856ac69668f8d0cf5eb20801bc967e2307f9acfb8489e7f37da79684f",
+      "width": 640,
+      "height": 400,
+      "density": 1,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "backdrop/western-front",
+      "family": "backdrop",
+      "path": "backdrop/western-front-2x.png",
+      "sha256": "12532a9c38af6d305ab0a8c2d6d61017b093d4c250ffae3e639dc55d297e23f0",
+      "width": 1280,
+      "height": 800,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "button/disabled",
+      "family": "controls",
+      "path": "button/disabled-1x.png",
+      "sha256": "65d95e1cbd25774f5a0f79aadfdcf9afe920ba02f382adf28e0e0f0376338e91",
+      "width": 160,
+      "height": 40,
+      "density": 1,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "button/disabled",
+      "family": "controls",
+      "path": "button/disabled-2x.png",
+      "sha256": "99571533a5af6040d3ceaff79f102a1daec3f521585308b3badf3300aaf5cf6a",
+      "width": 320,
+      "height": 80,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "button/disabled",
+      "family": "controls",
+      "path": "button/disabled-4x.png",
+      "sha256": "de7a1acc69583706bfde54a28058f4e26cc72d8fd48877bf67641d9c76f2d194",
+      "width": 640,
+      "height": 160,
+      "density": 4,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "button/disabled",
+      "family": "controls",
+      "path": "button/disabled.svg",
+      "sha256": "5791c1a492e40d329038181b320469b818035bac3475f2d5af2d99a26e086c83",
+      "width": 160,
+      "height": 40,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "button/focus",
+      "family": "controls",
+      "path": "button/focus-1x.png",
+      "sha256": "9fe69c8562cbce1477d5731efd416cdc54e609522b7889ccd4d529fde909a020",
+      "width": 160,
+      "height": 40,
+      "density": 1,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "button/focus",
+      "family": "controls",
+      "path": "button/focus-2x.png",
+      "sha256": "1f0ed39940e6fb14de2e0afaf9d28b742c68321102939e2c285d078fad4c5d5c",
+      "width": 320,
+      "height": 80,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "button/focus",
+      "family": "controls",
+      "path": "button/focus-4x.png",
+      "sha256": "7b8ea238c310bd3aaf5f2dd467778c29d0e09f2c370cff20d5779f8f75eed3d9",
+      "width": 640,
+      "height": 160,
+      "density": 4,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "button/focus",
+      "family": "controls",
+      "path": "button/focus.svg",
+      "sha256": "4cbd0c77980ea1a2ac6d785986dbf12b88f034ebd77a017cd3419660693f702f",
+      "width": 160,
+      "height": 40,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "button/hover",
+      "family": "controls",
+      "path": "button/hover-1x.png",
+      "sha256": "6db16d0ef8ec32de1b7c0943b5d0d50ba5f49937cf886ed41321a56c3b211019",
+      "width": 160,
+      "height": 40,
+      "density": 1,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "button/hover",
+      "family": "controls",
+      "path": "button/hover-2x.png",
+      "sha256": "4e717d0b44d964e08e0eb5a3d8b337f6fe3e41f7133f3e3910006fc57ea21e17",
+      "width": 320,
+      "height": 80,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "button/hover",
+      "family": "controls",
+      "path": "button/hover-4x.png",
+      "sha256": "d640a5059705e40ca0bbd42d84ad80928c3d7b93881879e4b5e16b6bbe624ee9",
+      "width": 640,
+      "height": 160,
+      "density": 4,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "button/hover",
+      "family": "controls",
+      "path": "button/hover.svg",
+      "sha256": "f4602fadcd980503cb1ef31b7735de17426e41c29819bc70b5c01c4b809b5a42",
+      "width": 160,
+      "height": 40,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "button/normal",
+      "family": "controls",
+      "path": "button/normal-1x.png",
+      "sha256": "be96eb3bb7b1658529fe6fd96b318cb47daed8dcc0858b2d323f69b05493add9",
+      "width": 160,
+      "height": 40,
+      "density": 1,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "button/normal",
+      "family": "controls",
+      "path": "button/normal-2x.png",
+      "sha256": "5cc4954354807e06e318e4c899ce0fd73a003eeb662bb81c9e806f5ecfc6494b",
+      "width": 320,
+      "height": 80,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "button/normal",
+      "family": "controls",
+      "path": "button/normal-4x.png",
+      "sha256": "b0f416e6211ff09d33b240169807287bfe30f711a8d922addead4b6efb427789",
+      "width": 640,
+      "height": 160,
+      "density": 4,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "button/normal",
+      "family": "controls",
+      "path": "button/normal.svg",
+      "sha256": "c1712ee9794f8d62af5ab7a82a8b81a1046d5d897aa9a11256efdd7825bde179",
+      "width": 160,
+      "height": 40,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "button/pressed",
+      "family": "controls",
+      "path": "button/pressed-1x.png",
+      "sha256": "2a86d62ea5d79e02dc89cc80265e88fbace57e7706f8cdc2bcddc9260c6d1607",
+      "width": 160,
+      "height": 40,
+      "density": 1,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "button/pressed",
+      "family": "controls",
+      "path": "button/pressed-2x.png",
+      "sha256": "6aad8b2263734def7c696c036fed427968ad734beb36334262b9e2bb26aa282d",
+      "width": 320,
+      "height": 80,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "button/pressed",
+      "family": "controls",
+      "path": "button/pressed-4x.png",
+      "sha256": "fa0d675e81867b8749572e1dbdb6c6555a2c0ddfa4c275719efbc9352279ef65",
+      "width": 640,
+      "height": 160,
+      "density": 4,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "button/pressed",
+      "family": "controls",
+      "path": "button/pressed.svg",
+      "sha256": "2813b7e6caa950d79159ea25dc2beacc165e26604f04100234726db72acf0997",
+      "width": 160,
+      "height": 40,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "country/france",
+      "family": "information",
+      "path": "country/france-1x.png",
+      "sha256": "98d53d61a0a3cff538d9919181af97fcc6dceabd4fecbb232c9bd4d644cb8faa",
+      "width": 88,
+      "height": 88,
+      "density": 1,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "country/france",
+      "family": "information",
+      "path": "country/france-2x.png",
+      "sha256": "c4b0fcd5b0af076a2f3a652bfb5418e7599aef6c53f72852fd409a90f786ac5f",
+      "width": 176,
+      "height": 176,
+      "density": 2,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "country/france",
+      "family": "information",
+      "path": "country/france-4x.png",
+      "sha256": "0fb1076191a681dad90df2dc6642593ce00dd5676dc0065d2d58b4d11ac82130",
+      "width": 352,
+      "height": 352,
+      "density": 4,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "country/france",
+      "family": "information",
+      "path": "country/france.svg",
+      "sha256": "7abbbe79256b914164d9beabc8adc7ba74025b14e132e9cc6a68c79df0de89ff",
+      "width": 88,
+      "height": 88,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "country/germany",
+      "family": "information",
+      "path": "country/germany-1x.png",
+      "sha256": "358529f1243f33b982b5c1db81aa3f0b510deafaf76bf56ec8eb1eb6396e94ff",
+      "width": 88,
+      "height": 88,
+      "density": 1,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "country/germany",
+      "family": "information",
+      "path": "country/germany-2x.png",
+      "sha256": "c1fb155d1075888b1bca61e3db2f383ae159ce05a05be423787523ce1fe33e60",
+      "width": 176,
+      "height": 176,
+      "density": 2,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "country/germany",
+      "family": "information",
+      "path": "country/germany-4x.png",
+      "sha256": "26c88951c96ac4f8b4899bf0c4d5632e115fcd880564cd3e6d8b04048334c34d",
+      "width": 352,
+      "height": 352,
+      "density": 4,
+      "logical_anchor": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "country/germany",
+      "family": "information",
+      "path": "country/germany.svg",
+      "sha256": "de53766feb9decd753e53dcca71dfb6c461cbf8e33401d1a56cf0067feb1f8ba",
+      "width": 88,
+      "height": 88,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "fixture/briefing",
+      "family": "review",
+      "path": "fixtures/briefing-2x.png",
+      "sha256": "01bd84179b0439e8d41630acf9ea010b59ab0bbc577e81a710360d2eda96d84d",
+      "width": 1280,
+      "height": 800,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "fixture/campaign",
+      "family": "review",
+      "path": "fixtures/campaign-2x.png",
+      "sha256": "5c5bb124b5fcf8a7ef5a144c61da393622cc69e36902daecf9e54ff9ff52b4a3",
+      "width": 1280,
+      "height": 800,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "fixture/credits",
+      "family": "review",
+      "path": "fixtures/credits-2x.png",
+      "sha256": "8227a3ab8fca235d6dd6bac546f62f7d3ea2d69eda799eac007e6a5878f48502",
+      "width": 1280,
+      "height": 800,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "fixture/defeat",
+      "family": "review",
+      "path": "fixtures/defeat-2x.png",
+      "sha256": "b7cf943985846ffb22e4c2fdcb6a68f6ad7e0cc6ec4542adc31cdb3bb5b2461b",
+      "width": 1280,
+      "height": 800,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "fixture/editor",
+      "family": "review",
+      "path": "fixtures/editor-2x.png",
+      "sha256": "dc4cc0be9855475d29a54b8d44245207620cf86e61e6dca482378532e7fa6645",
+      "width": 1280,
+      "height": 800,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "fixture/handover",
+      "family": "review",
+      "path": "fixtures/handover-2x.png",
+      "sha256": "25f3ebe77e2c7e2c387f083c4eb9f3c56b6b557b9ac102f1948bf9c52af182d1",
+      "width": 1280,
+      "height": 800,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "fixture/help",
+      "family": "review",
+      "path": "fixtures/help-2x.png",
+      "sha256": "80ef2326b50376e1db2715f132983b3a2c15ea59179ede4747fb51e70a5952fb",
+      "width": 1280,
+      "height": 800,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "fixture/load",
+      "family": "review",
+      "path": "fixtures/load-2x.png",
+      "sha256": "75951ea7d8d1fcb2e4f1c9067182dc573ee0021d2ac5cea0dacf8c2273e2180f",
+      "width": 1280,
+      "height": 800,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "fixture/mission-selection",
+      "family": "review",
+      "path": "fixtures/mission-selection-2x.png",
+      "sha256": "051c7b17321e4e31efd05b9671d26d1f68dc6512a2701af07862ae3de14294c2",
+      "width": 1280,
+      "height": 800,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "fixture/new-map",
+      "family": "review",
+      "path": "fixtures/new-map-2x.png",
+      "sha256": "4007e0d98c296be5f0180c7bde681b67455e069c8b210d20eac0814f861c262b",
+      "width": 1280,
+      "height": 800,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "fixture/options",
+      "family": "review",
+      "path": "fixtures/options-2x.png",
+      "sha256": "04be45b0fabcf5451e7b5f2c4d88bd2cc8d39508abc206c57c9ee4fa2dccf551",
+      "width": 1280,
+      "height": 800,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "fixture/pause",
+      "family": "review",
+      "path": "fixtures/pause-2x.png",
+      "sha256": "61c8e841bd1f24fb2bc8362f75be5662ffeae72604ecffd0be58faafb91b788b",
+      "width": 1280,
+      "height": 800,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "fixture/save",
+      "family": "review",
+      "path": "fixtures/save-2x.png",
+      "sha256": "05e93a2b013a6ed669429c7395cbf3cff6719d3e4586a6551dac09f9af86671d",
+      "width": 1280,
+      "height": 800,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "fixture/side-selection",
+      "family": "review",
+      "path": "fixtures/side-selection-2x.png",
+      "sha256": "9dd50cb594b2adb49ced781a4afec233d138c4aea080bc307f143ae9790022a1",
+      "width": 1280,
+      "height": 800,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "fixture/title",
+      "family": "review",
+      "path": "fixtures/title-2x.png",
+      "sha256": "4be3f77405c5a5d857676cbd6778990264357de4339ec9bde3dca104087a5f4e",
+      "width": 1280,
+      "height": 800,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "fixture/victory",
+      "family": "review",
+      "path": "fixtures/victory-2x.png",
+      "sha256": "157e8ed1fbe47ce64f6ce3e9bd1f1adf7785da5a6d8c16c5b1fa8488f45207b2",
+      "width": 1280,
+      "height": 800,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "gallery",
+      "family": "review",
+      "path": "index.html",
+      "sha256": "44ec228dab455febb45a2eafc452a64af429c8185309f97984424e52fc1628ac",
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "backdrop/western-front",
+      "family": "source",
+      "path": "inputs/backdrop/western-front.png",
+      "sha256": "d6ff552f10738fb8c09eee553860fc0ce8baa753da5442627f92b528be71bdf5",
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "font/bold",
+      "family": "source",
+      "path": "inputs/font/bold.ttf",
+      "sha256": "c18494baa7ea35b8dbfac3861787d360b9c0ab91232562371a09e6fbf09aaa40",
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "font/license",
+      "family": "source",
+      "path": "inputs/font/license.txt",
+      "sha256": "dc588a7ba9130043b67c2380cc03cc6644ed3557f6d5e8589b96acba1c64e343",
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "font/regular",
+      "family": "source",
+      "path": "inputs/font/regular.ttf",
+      "sha256": "197d9f3703b4c00af609178876a8d73e396f64fe438b2c871778566632374be3",
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "manifest",
+      "family": "metadata",
+      "path": "manifest.json",
+      "sha256": "daa221c3ea172f2e283aa8a8ef7ab80ed1d81d84c44c321df45b0fe581ee93ff",
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/briefing",
+      "family": "screen-frame",
+      "path": "screen/briefing-1x.png",
+      "sha256": "487dbf9a7fa28fd8415018d0058306347b785bc0405ff426b034117793f4ed0e",
+      "width": 640,
+      "height": 400,
+      "density": 1,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/briefing",
+      "family": "screen-frame",
+      "path": "screen/briefing-2x.png",
+      "sha256": "274177823fcddd42a6d4b7836b131458970746ef4c9a1c2f4f486e1a9ebb5a8a",
+      "width": 1280,
+      "height": 800,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/briefing",
+      "family": "screen-frame",
+      "path": "screen/briefing-4x.png",
+      "sha256": "91239b0dec53e0175e449d9d28f576d97780830c3bcd4ed35b69562520fd213e",
+      "width": 2560,
+      "height": 1600,
+      "density": 4,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/briefing",
+      "family": "screen-frame",
+      "path": "screen/briefing.svg",
+      "sha256": "e68c7df2d09df4fb52dcc62a3e3076c348797af58a05afedc11f5658cc300017",
+      "width": 640,
+      "height": 400,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/campaign",
+      "family": "screen-frame",
+      "path": "screen/campaign-1x.png",
+      "sha256": "667fc928b9c43be782d21fdbbaff055a88f29314bcef3d5593df44915e5e5ed1",
+      "width": 640,
+      "height": 400,
+      "density": 1,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/campaign",
+      "family": "screen-frame",
+      "path": "screen/campaign-2x.png",
+      "sha256": "5d8274e2993feed78238b485e6280e46253c0592e269bba44475ed5f7bba9f13",
+      "width": 1280,
+      "height": 800,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/campaign",
+      "family": "screen-frame",
+      "path": "screen/campaign-4x.png",
+      "sha256": "7926e54b1032a84b08f655e149f708de8b78f17ed3244820cc4a3d435ff4ec85",
+      "width": 2560,
+      "height": 1600,
+      "density": 4,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/campaign",
+      "family": "screen-frame",
+      "path": "screen/campaign.svg",
+      "sha256": "d49077498299ee93a8552056f9196e6e67db0986f6d82ee9b593ded641d2232b",
+      "width": 640,
+      "height": 400,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/credits",
+      "family": "screen-frame",
+      "path": "screen/credits-1x.png",
+      "sha256": "667fc928b9c43be782d21fdbbaff055a88f29314bcef3d5593df44915e5e5ed1",
+      "width": 640,
+      "height": 400,
+      "density": 1,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/credits",
+      "family": "screen-frame",
+      "path": "screen/credits-2x.png",
+      "sha256": "5d8274e2993feed78238b485e6280e46253c0592e269bba44475ed5f7bba9f13",
+      "width": 1280,
+      "height": 800,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/credits",
+      "family": "screen-frame",
+      "path": "screen/credits-4x.png",
+      "sha256": "7926e54b1032a84b08f655e149f708de8b78f17ed3244820cc4a3d435ff4ec85",
+      "width": 2560,
+      "height": 1600,
+      "density": 4,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/credits",
+      "family": "screen-frame",
+      "path": "screen/credits.svg",
+      "sha256": "d49077498299ee93a8552056f9196e6e67db0986f6d82ee9b593ded641d2232b",
+      "width": 640,
+      "height": 400,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/defeat",
+      "family": "screen-frame",
+      "path": "screen/defeat-1x.png",
+      "sha256": "60f9571f4660a377e5867ee1bd2359f6c041854468e1683795501e6073af21bd",
+      "width": 640,
+      "height": 400,
+      "density": 1,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/defeat",
+      "family": "screen-frame",
+      "path": "screen/defeat-2x.png",
+      "sha256": "3748221829a0a29859440ff913a5490df3f5a9d4fd840e90ef7022f725ed2daa",
+      "width": 1280,
+      "height": 800,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/defeat",
+      "family": "screen-frame",
+      "path": "screen/defeat-4x.png",
+      "sha256": "58acc722c7d638e63858bb2551d73b485721094c417f5a84529b3fe941a99cea",
+      "width": 2560,
+      "height": 1600,
+      "density": 4,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/defeat",
+      "family": "screen-frame",
+      "path": "screen/defeat.svg",
+      "sha256": "5b6e2fa4fdb8f3b06281e94d4b1973785ce5524af04393a97d84f545a6767993",
+      "width": 640,
+      "height": 400,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/editor",
+      "family": "screen-frame",
+      "path": "screen/editor-1x.png",
+      "sha256": "8b50aa6467245482caa744687bdec8f2369ccba36a20afbfdeccead4d9890748",
+      "width": 640,
+      "height": 400,
+      "density": 1,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/editor",
+      "family": "screen-frame",
+      "path": "screen/editor-2x.png",
+      "sha256": "763fe2591f809e4be437e668ccaa14c1a8f79c2d2a80442b9d3f6335aa47da60",
+      "width": 1280,
+      "height": 800,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/editor",
+      "family": "screen-frame",
+      "path": "screen/editor-4x.png",
+      "sha256": "49754cdaddab1e691e3b80ab799476957013145e6a9df0a3e467ecba63a72fdf",
+      "width": 2560,
+      "height": 1600,
+      "density": 4,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/editor",
+      "family": "screen-frame",
+      "path": "screen/editor.svg",
+      "sha256": "8f17c054c7f9950b29c8174d67665136ccee7a095635ea2dc30074051eb27daf",
+      "width": 640,
+      "height": 400,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/handover",
+      "family": "screen-frame",
+      "path": "screen/handover-1x.png",
+      "sha256": "89b25c9a774b747e26302f8bbde0f245a3bc81f8b066eca8e66bbe62dc46a67a",
+      "width": 640,
+      "height": 400,
+      "density": 1,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/handover",
+      "family": "screen-frame",
+      "path": "screen/handover-2x.png",
+      "sha256": "0c5d732d3ff57c04ea6d7291a7a4e6b609876c4e2de8712f981abf42f9ed400e",
+      "width": 1280,
+      "height": 800,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/handover",
+      "family": "screen-frame",
+      "path": "screen/handover-4x.png",
+      "sha256": "53d8f186c79de3f9264eaaf57297236ba03573911299f50caf45ee6b6774cdc9",
+      "width": 2560,
+      "height": 1600,
+      "density": 4,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/handover",
+      "family": "screen-frame",
+      "path": "screen/handover.svg",
+      "sha256": "0ab9383a8d238b5eba4ad4101d1cd1d6ac7b3e26bdaf377e3d4f75daacb216ec",
+      "width": 640,
+      "height": 400,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/help",
+      "family": "screen-frame",
+      "path": "screen/help-1x.png",
+      "sha256": "667fc928b9c43be782d21fdbbaff055a88f29314bcef3d5593df44915e5e5ed1",
+      "width": 640,
+      "height": 400,
+      "density": 1,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/help",
+      "family": "screen-frame",
+      "path": "screen/help-2x.png",
+      "sha256": "5d8274e2993feed78238b485e6280e46253c0592e269bba44475ed5f7bba9f13",
+      "width": 1280,
+      "height": 800,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/help",
+      "family": "screen-frame",
+      "path": "screen/help-4x.png",
+      "sha256": "7926e54b1032a84b08f655e149f708de8b78f17ed3244820cc4a3d435ff4ec85",
+      "width": 2560,
+      "height": 1600,
+      "density": 4,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/help",
+      "family": "screen-frame",
+      "path": "screen/help.svg",
+      "sha256": "d49077498299ee93a8552056f9196e6e67db0986f6d82ee9b593ded641d2232b",
+      "width": 640,
+      "height": 400,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/load",
+      "family": "screen-frame",
+      "path": "screen/load-1x.png",
+      "sha256": "0f9e8aa6f65d0ad4543d021ff27ec44f86aa9e764625953736da2f9ffdfdd71f",
+      "width": 640,
+      "height": 400,
+      "density": 1,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/load",
+      "family": "screen-frame",
+      "path": "screen/load-2x.png",
+      "sha256": "d56c895752d0e125a7b41dddb2a9b1564f10d80f7bac5dd24c0c5391e15a6f78",
+      "width": 1280,
+      "height": 800,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/load",
+      "family": "screen-frame",
+      "path": "screen/load-4x.png",
+      "sha256": "8a7c35295ec2d2361f32f4371dd70ca448374e563b4b3dc5090c87e1705cb700",
+      "width": 2560,
+      "height": 1600,
+      "density": 4,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/load",
+      "family": "screen-frame",
+      "path": "screen/load.svg",
+      "sha256": "3ca7e1a771c237e2852cb88a14cd4ff9ae760714f0595b049a6800b236142cd5",
+      "width": 640,
+      "height": 400,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/mission-selection",
+      "family": "screen-frame",
+      "path": "screen/mission-selection-1x.png",
+      "sha256": "a32df27c23bdb30dbf914de8bc8062d3e5a3945f19bf74016066dad82c50d023",
+      "width": 640,
+      "height": 400,
+      "density": 1,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/mission-selection",
+      "family": "screen-frame",
+      "path": "screen/mission-selection-2x.png",
+      "sha256": "90a8f86fdb5344ed7814b62c74fdb9f9e6ab5259e96395377a6742e8ddf31913",
+      "width": 1280,
+      "height": 800,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/mission-selection",
+      "family": "screen-frame",
+      "path": "screen/mission-selection-4x.png",
+      "sha256": "fac94f45021513114a675c4c75b2f831ea2c8f9747cde1d91bb67cbafb916b59",
+      "width": 2560,
+      "height": 1600,
+      "density": 4,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/mission-selection",
+      "family": "screen-frame",
+      "path": "screen/mission-selection.svg",
+      "sha256": "469be8071a0cbc299157d00e89fe0675a4ea914ac156339338e0c6c11ddeda2e",
+      "width": 640,
+      "height": 400,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/new-map",
+      "family": "screen-frame",
+      "path": "screen/new-map-1x.png",
+      "sha256": "667fc928b9c43be782d21fdbbaff055a88f29314bcef3d5593df44915e5e5ed1",
+      "width": 640,
+      "height": 400,
+      "density": 1,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/new-map",
+      "family": "screen-frame",
+      "path": "screen/new-map-2x.png",
+      "sha256": "5d8274e2993feed78238b485e6280e46253c0592e269bba44475ed5f7bba9f13",
+      "width": 1280,
+      "height": 800,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/new-map",
+      "family": "screen-frame",
+      "path": "screen/new-map-4x.png",
+      "sha256": "7926e54b1032a84b08f655e149f708de8b78f17ed3244820cc4a3d435ff4ec85",
+      "width": 2560,
+      "height": 1600,
+      "density": 4,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/new-map",
+      "family": "screen-frame",
+      "path": "screen/new-map.svg",
+      "sha256": "d49077498299ee93a8552056f9196e6e67db0986f6d82ee9b593ded641d2232b",
+      "width": 640,
+      "height": 400,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/options",
+      "family": "screen-frame",
+      "path": "screen/options-1x.png",
+      "sha256": "667fc928b9c43be782d21fdbbaff055a88f29314bcef3d5593df44915e5e5ed1",
+      "width": 640,
+      "height": 400,
+      "density": 1,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/options",
+      "family": "screen-frame",
+      "path": "screen/options-2x.png",
+      "sha256": "5d8274e2993feed78238b485e6280e46253c0592e269bba44475ed5f7bba9f13",
+      "width": 1280,
+      "height": 800,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/options",
+      "family": "screen-frame",
+      "path": "screen/options-4x.png",
+      "sha256": "7926e54b1032a84b08f655e149f708de8b78f17ed3244820cc4a3d435ff4ec85",
+      "width": 2560,
+      "height": 1600,
+      "density": 4,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/options",
+      "family": "screen-frame",
+      "path": "screen/options.svg",
+      "sha256": "d49077498299ee93a8552056f9196e6e67db0986f6d82ee9b593ded641d2232b",
+      "width": 640,
+      "height": 400,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/pause",
+      "family": "screen-frame",
+      "path": "screen/pause-1x.png",
+      "sha256": "b2eaded83e2f700471600bebeaca27eb68e3884abe3a9615958d2de662c793b0",
+      "width": 640,
+      "height": 400,
+      "density": 1,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/pause",
+      "family": "screen-frame",
+      "path": "screen/pause-2x.png",
+      "sha256": "d6ee190fcc47e4bbc1711f8d2879e0d0f50437ad61614122d682c453f22b66c8",
+      "width": 1280,
+      "height": 800,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/pause",
+      "family": "screen-frame",
+      "path": "screen/pause-4x.png",
+      "sha256": "ede714035906b7a8304c184122aa0228bf75a6b4379401b0c9b992b4a1339b78",
+      "width": 2560,
+      "height": 1600,
+      "density": 4,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/pause",
+      "family": "screen-frame",
+      "path": "screen/pause.svg",
+      "sha256": "0772fc39ee07addf14b2d126339b21f07b6513fa22d4805c7dea09cb88d4900b",
+      "width": 640,
+      "height": 400,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/save",
+      "family": "screen-frame",
+      "path": "screen/save-1x.png",
+      "sha256": "0f9e8aa6f65d0ad4543d021ff27ec44f86aa9e764625953736da2f9ffdfdd71f",
+      "width": 640,
+      "height": 400,
+      "density": 1,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/save",
+      "family": "screen-frame",
+      "path": "screen/save-2x.png",
+      "sha256": "d56c895752d0e125a7b41dddb2a9b1564f10d80f7bac5dd24c0c5391e15a6f78",
+      "width": 1280,
+      "height": 800,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/save",
+      "family": "screen-frame",
+      "path": "screen/save-4x.png",
+      "sha256": "8a7c35295ec2d2361f32f4371dd70ca448374e563b4b3dc5090c87e1705cb700",
+      "width": 2560,
+      "height": 1600,
+      "density": 4,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/save",
+      "family": "screen-frame",
+      "path": "screen/save.svg",
+      "sha256": "3ca7e1a771c237e2852cb88a14cd4ff9ae760714f0595b049a6800b236142cd5",
+      "width": 640,
+      "height": 400,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/side-selection",
+      "family": "screen-frame",
+      "path": "screen/side-selection-1x.png",
+      "sha256": "acc6b98500b34383145a84710f3a33224d90665848557b9b01a846447f8618c4",
+      "width": 640,
+      "height": 400,
+      "density": 1,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/side-selection",
+      "family": "screen-frame",
+      "path": "screen/side-selection-2x.png",
+      "sha256": "7624d4c1661385ad79f2d5ee49e32f290ffb50c794e4600af643ba92e5c73c4f",
+      "width": 1280,
+      "height": 800,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/side-selection",
+      "family": "screen-frame",
+      "path": "screen/side-selection-4x.png",
+      "sha256": "609e6b1c5e3a9108b8da7bf7e367e91981ef06d9a11d4b432aa1df4441c15e12",
+      "width": 2560,
+      "height": 1600,
+      "density": 4,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/side-selection",
+      "family": "screen-frame",
+      "path": "screen/side-selection.svg",
+      "sha256": "a8235d7068accade26daff402b5a29057bbb5a1e819d11c41f45c2e9345894ce",
+      "width": 640,
+      "height": 400,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/title",
+      "family": "screen-frame",
+      "path": "screen/title-1x.png",
+      "sha256": "8fb4d76c6356f9ecda0df096f7f7f190fda53359ad683fc7dd3399121346ccb5",
+      "width": 640,
+      "height": 400,
+      "density": 1,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/title",
+      "family": "screen-frame",
+      "path": "screen/title-2x.png",
+      "sha256": "7b129ff5ef923820365fbcd367cfd2aa582e3a6424c451bd90bc38678737e82f",
+      "width": 1280,
+      "height": 800,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/title",
+      "family": "screen-frame",
+      "path": "screen/title-4x.png",
+      "sha256": "3d470a1cddf28de6d86b412941ec583138e54c50417f7aedd35a4e511d447ad7",
+      "width": 2560,
+      "height": 1600,
+      "density": 4,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/title",
+      "family": "screen-frame",
+      "path": "screen/title.svg",
+      "sha256": "1b083f6ad96a0ac200c44e1f256f5ddff23ac6811300d3d10fe5a70d43f86961",
+      "width": 640,
+      "height": 400,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/victory",
+      "family": "screen-frame",
+      "path": "screen/victory-1x.png",
+      "sha256": "60f9571f4660a377e5867ee1bd2359f6c041854468e1683795501e6073af21bd",
+      "width": 640,
+      "height": 400,
+      "density": 1,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/victory",
+      "family": "screen-frame",
+      "path": "screen/victory-2x.png",
+      "sha256": "3748221829a0a29859440ff913a5490df3f5a9d4fd840e90ef7022f725ed2daa",
+      "width": 1280,
+      "height": 800,
+      "density": 2,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/victory",
+      "family": "screen-frame",
+      "path": "screen/victory-4x.png",
+      "sha256": "58acc722c7d638e63858bb2551d73b485721094c417f5a84529b3fe941a99cea",
+      "width": 2560,
+      "height": 1600,
+      "density": 4,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screen/victory",
+      "family": "screen-frame",
+      "path": "screen/victory.svg",
+      "sha256": "5b6e2fa4fdb8f3b06281e94d4b1973785ce5524af04393a97d84f545a6767993",
+      "width": 640,
+      "height": 400,
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "screens",
+      "family": "metadata",
+      "path": "screens.json",
+      "sha256": "ff56af6177e8ed539b9d50b77588c4edf8575c0a8dcbd3d3c21452afe4585867",
+      "logical_anchor": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "vectors",
+      "family": "source",
+      "path": "vectors.json",
+      "sha256": "dd247d799a091d9dce245d442f8e26134306b1311d7acce27e93cb55d1c8e4c3",
+      "logical_anchor": [
+        0,
+        0
+      ]
+    }
+  ]
+}

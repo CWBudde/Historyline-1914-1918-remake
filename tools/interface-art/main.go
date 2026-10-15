@@ -168,6 +168,15 @@ func export(manifestPath, out string) error {
 	if e != nil {
 		return e
 	}
+	var profile struct {
+		Profile string `json:"profile"`
+	}
+	if e = json.Unmarshal(raw, &profile); e != nil {
+		return e
+	}
+	if profile.Profile == "screens-v1" {
+		return exportScreens(manifestPath, out, raw)
+	}
 	var m Manifest
 	if e = decodeStrict(raw, &m); e != nil {
 		return e
