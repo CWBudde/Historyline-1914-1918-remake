@@ -1,5 +1,5 @@
 {
-  "acceptance": "Provisional distinct illustrated candidates only. Stable IDs house/house_w and game semantics unchanged. Fullmaps/nativecoverage/fractionalzoom/runtime/release acceptance remain open.",
+  "acceptance": "Current provisional reference-guided candidate rebuild. Actual PNG assembly and pinned inputs are recorded; current user visual approval, approximately 90% resemblance, whole-map/runtime integration and release acceptance remain open.",
   "date": "2026-10-15",
   "exports": [
     {
@@ -9,7 +9,7 @@
         "width": 192
       },
       "path": "art/exports/compound-v1/house-2x.png",
-      "sha256": "836c6a5d5c5c5ad5ecd9ad96999ceaeadc811b96d746147ad028c4e189ed8785"
+      "sha256": "3418fa58eae9562160a0aaba8ff849b8054f6927215b4951e16571e264c5a2df"
     },
     {
       "build_output": "tiles/house-4x.png",
@@ -18,7 +18,7 @@
         "width": 384
       },
       "path": "art/exports/compound-v1/house-4x.png",
-      "sha256": "2517d17affda67a04b48df20396d04153fb6d994629eec4834e54744f3f81aa5"
+      "sha256": "bbe4ba9018b386b8f906752e3989fe00c2bec2e380334a2f01667998e2cfda35"
     },
     {
       "build_output": "tiles/house_w-2x.png",
@@ -42,8 +42,11 @@
   "generation_recipes": [
     "art/recipes/compound/distinct-v1/hamlet-summer-01.json",
     "art/recipes/compound/distinct-v1/hamlet-winter-01.json",
-    "art/recipes/compound/distinct-v1/hamlet-winter-02.json"
+    "art/recipes/compound/distinct-v1/hamlet-winter-02.json",
+    "art/recipes/terrain/distinct-v1/snow-ground.json",
+    "art/recipes/terrain/reference-v2/meadow-03.json"
   ],
+  "generation_recipes_scope": "Includes historical generation studies and the current pinned master records. Current source selection is established by the producing manifest and its exact SHA256 pins; historical records are unchanged.",
   "geometry": {
     "height": 80,
     "neighbors": [
@@ -132,14 +135,16 @@
         "height": 1145,
         "width": 1374
       },
-      "source": "art/source/terrain/distinct-v1/meadow.png",
-      "source_sha256": "8c8935efbbd463e39d49208e42ca0e87b140268a1b11941764dfa7c29c4fff85"
+      "retained_source": "sources/ground-summer.png",
+      "source": "art/source/terrain/reference-v2/meadow-03.png",
+      "source_sha256": "4de543f0906e1311eff5ae4f202eb8fa68665c67103039bee089e60e02c68eb4"
     },
     "winter": {
       "dimensions": {
         "height": 1145,
         "width": 1374
       },
+      "retained_source": "sources/ground-winter.png",
       "source": "art/source/terrain/distinct-v1/snow-ground.png",
       "source_sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3"
     }
@@ -150,9 +155,22 @@
     "Compact hamlet's local turf is intentionally retained. Larger shared-ground repetition/forest scale/full-map readability need review."
   ],
   "manifest": "art/compound-hamlet-v1.json",
-  "manifest_sha256": "252523cdf2e9374cf826f5523c62053092c7f9bfaa5b0750b09fc5841b11fedf",
-  "original_image_inputs": [],
+  "manifest_sha256": "4c8d59b0a9be222b43c37a3609abe941a3b2f0d0aeff9838876ee86522ee0bd1",
+  "original_image_inputs": [
+    {
+      "generation_recipe": "art/recipes/terrain/reference-v2/meadow-03.json",
+      "path": "legacy/python/gfx/hexTypes/hex_grass.png",
+      "role": "Semantic original reference only: Only image input: composition, muted olive palette and low-frequency restoration reference; original file remains reference-only.",
+      "sha256": "67257c01c1e3e30ddc438e85e5e376cd1aa72f888cfb2851b288061e1eb7a0de"
+    }
+  ],
+  "original_image_inputs_scope": "Semantic visual references used to paint the current masters or their fixture ground. Originals remain reference-only and are not bundled as runtime PNGs; source masters are newly painted. Unit sprite planes retain their existing independent artwork provenance.",
+  "previous_acceptance": {
+    "scope": "Historical source set before the current redraw; not an approval of the current artwork.",
+    "text": "Provisional distinct illustrated candidates only. Stable IDs house/house_w and game semantics unchanged. Fullmaps/nativecoverage/fractionalzoom/runtime/release acceptance remain open."
+  },
   "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; reject any sampled alpha \u003e=250 at signed distance \u003c=8 world pixels before guard; alpha zero through 4 world pixels then smoothstep 4..8. Guard full unmasked 4x artwork, then existing resizeLanczos to whole-scene 2x. Ground independently exported by exportConnectionTiles with fixed geometry and grass only, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim.",
+  "rebuild_note": "Rebuilt from the current reference-guided grass/compound inputs; user visual approval remains open. Historical generation recipes retain their original provenance.",
   "review_exports": [
     {
       "build_output": "hamlet-summer-scene-2x.png",
@@ -161,7 +179,7 @@
         "width": 192
       },
       "path": "art/review/compound-v1/hamlet-summer-scene-2x.png",
-      "sha256": "836c6a5d5c5c5ad5ecd9ad96999ceaeadc811b96d746147ad028c4e189ed8785"
+      "sha256": "3418fa58eae9562160a0aaba8ff849b8054f6927215b4951e16571e264c5a2df"
     },
     {
       "build_output": "hamlet-summer-patch-parity0-2x.png",
@@ -170,7 +188,7 @@
         "width": 476
       },
       "path": "art/review/compound-v1/hamlet-summer-patch-parity0-2x.png",
-      "sha256": "c7b58e56f11f35007d2536b6ffe623ecceed7c4266a51356f3a1fe78adfca052"
+      "sha256": "ea17cf44910e5b5ae5eca15e9e5060766464a2ddfc25470eed0e6e5dbf3e01e1"
     },
     {
       "build_output": "hamlet-summer-patch-parity1-2x.png",
@@ -179,7 +197,7 @@
         "width": 476
       },
       "path": "art/review/compound-v1/hamlet-summer-patch-parity1-2x.png",
-      "sha256": "c7b58e56f11f35007d2536b6ffe623ecceed7c4266a51356f3a1fe78adfca052"
+      "sha256": "ea17cf44910e5b5ae5eca15e9e5060766464a2ddfc25470eed0e6e5dbf3e01e1"
     },
     {
       "build_output": "hamlet-summer-scene-4x.png",
@@ -188,7 +206,7 @@
         "width": 384
       },
       "path": "art/review/compound-v1/hamlet-summer-scene-4x.png",
-      "sha256": "2517d17affda67a04b48df20396d04153fb6d994629eec4834e54744f3f81aa5"
+      "sha256": "bbe4ba9018b386b8f906752e3989fe00c2bec2e380334a2f01667998e2cfda35"
     },
     {
       "build_output": "hamlet-summer-patch-parity0-4x.png",
@@ -197,7 +215,7 @@
         "width": 952
       },
       "path": "art/review/compound-v1/hamlet-summer-patch-parity0-4x.png",
-      "sha256": "2f1d56434b34f39eb09a7439b5d4ed197de8018fd6492ef71ebee9fd63cb4b8f"
+      "sha256": "5b1c49db7396192f11cee8326140f827166cbbccf6628bbdc44aed40678bb3c4"
     },
     {
       "build_output": "hamlet-summer-patch-parity1-4x.png",
@@ -206,7 +224,7 @@
         "width": 952
       },
       "path": "art/review/compound-v1/hamlet-summer-patch-parity1-4x.png",
-      "sha256": "2f1d56434b34f39eb09a7439b5d4ed197de8018fd6492ef71ebee9fd63cb4b8f"
+      "sha256": "5b1c49db7396192f11cee8326140f827166cbbccf6628bbdc44aed40678bb3c4"
     },
     {
       "build_output": "hamlet-winter-scene-2x.png",
@@ -265,8 +283,43 @@
   ],
   "scenes": [
     {
+      "artwork": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "hamlet-summer-artwork-2x.png",
+          "sha256": "43c99a8d692f1f86bd214b950ead33e62ac9d7bc07f8bdfbf358144a4c87b059"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "hamlet-summer-artwork-4x.png",
+          "sha256": "ad8f00da67062bd16d9aaad99a4818bebd89b9bcec4fddd71d275681baa691b2"
+        }
+      ],
+      "assembled": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "hamlet-summer-assembled-2x.png",
+          "sha256": "3418fa58eae9562160a0aaba8ff849b8054f6927215b4951e16571e264c5a2df"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "hamlet-summer-assembled-4x.png",
+          "sha256": "bbe4ba9018b386b8f906752e3989fe00c2bec2e380334a2f01667998e2cfda35"
+        }
+      ],
       "entry_cell": "",
-      "generation_recipe": "art/recipes/compound/distinct-v1/hamlet-summer-01.json",
       "guard": {
         "boundary_alpha_mass": 134,
         "boundary_pixels": 134,
@@ -283,12 +336,221 @@
           "height": 1145,
           "width": 1374
         },
+        "retained_source": "sources/hamlet-summer.png",
         "source": "art/source/compound/distinct-v1/hamlet-summer.png",
         "source_sha256": "02a8bb2d90cb78ca1d8c37c35ccb071f4cc1a44cde3956fd879d3de1c7f98b7d"
       },
       "inset": 0.75,
       "layout": "hamlet",
+      "parity_outputs": [
+        {
+          "canvas_origin": [
+            -71,
+            -80
+          ],
+          "cells": [
+            {
+              "compound": false,
+              "origin": [
+                0,
+                -80
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                -71,
+                -40
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                71,
+                -40
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": true,
+              "origin": [
+                0,
+                0
+              ],
+              "runtime_id": "house",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                -71,
+                40
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                71,
+                40
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                0,
+                80
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            }
+          ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 480,
+                "width": 476
+              },
+              "path": "art/review/compound-v1/hamlet-summer-patch-parity0-2x.png",
+              "sha256": "ea17cf44910e5b5ae5eca15e9e5060766464a2ddfc25470eed0e6e5dbf3e01e1"
+            },
+            {
+              "dimensions": {
+                "height": 960,
+                "width": 952
+              },
+              "path": "art/review/compound-v1/hamlet-summer-patch-parity0-4x.png",
+              "sha256": "5b1c49db7396192f11cee8326140f827166cbbccf6628bbdc44aed40678bb3c4"
+            }
+          ],
+          "parity": 0,
+          "scene_origin": [
+            0,
+            0
+          ]
+        },
+        {
+          "canvas_origin": [
+            0,
+            -40
+          ],
+          "cells": [
+            {
+              "compound": false,
+              "origin": [
+                71,
+                -40
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                0,
+                0
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                142,
+                0
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": true,
+              "origin": [
+                71,
+                40
+              ],
+              "runtime_id": "house",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                0,
+                80
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                142,
+                80
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                71,
+                120
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            }
+          ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 480,
+                "width": 476
+              },
+              "path": "art/review/compound-v1/hamlet-summer-patch-parity1-2x.png",
+              "sha256": "ea17cf44910e5b5ae5eca15e9e5060766464a2ddfc25470eed0e6e5dbf3e01e1"
+            },
+            {
+              "dimensions": {
+                "height": 960,
+                "width": 952
+              },
+              "path": "art/review/compound-v1/hamlet-summer-patch-parity1-4x.png",
+              "sha256": "5b1c49db7396192f11cee8326140f827166cbbccf6628bbdc44aed40678bb3c4"
+            }
+          ],
+          "parity": 1,
+          "scene_origin": [
+            71,
+            40
+          ]
+        }
+      ],
       "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; reject any sampled alpha \u003e=250 at signed distance \u003c=8 world pixels before guard; alpha zero through 4 world pixels then smoothstep 4..8. Guard full unmasked 4x artwork, then existing resizeLanczos to whole-scene 2x. Ground independently exported by exportConnectionTiles with fixed geometry and grass only, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim.",
+      "reference": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "art/review/compound-v1/hamlet-summer-scene-2x.png",
+          "sha256": "3418fa58eae9562160a0aaba8ff849b8054f6927215b4951e16571e264c5a2df"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "art/review/compound-v1/hamlet-summer-scene-4x.png",
+          "sha256": "bbe4ba9018b386b8f906752e3989fe00c2bec2e380334a2f01667998e2cfda35"
+        }
+      ],
       "season": "summer",
       "tiles": [
         {
@@ -296,6 +558,24 @@
           "origin": [
             0,
             0
+          ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 160,
+                "width": 192
+              },
+              "path": "art/exports/compound-v1/house-2x.png",
+              "sha256": "3418fa58eae9562160a0aaba8ff849b8054f6927215b4951e16571e264c5a2df"
+            },
+            {
+              "dimensions": {
+                "height": 320,
+                "width": 384
+              },
+              "path": "art/exports/compound-v1/house-4x.png",
+              "sha256": "bbe4ba9018b386b8f906752e3989fe00c2bec2e380334a2f01667998e2cfda35"
+            }
           ],
           "runtime_id": "house"
         }
@@ -314,8 +594,43 @@
       "width": 96
     },
     {
+      "artwork": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "hamlet-winter-artwork-2x.png",
+          "sha256": "dc260e27e6624fad0ae224cdc7631e5626c6fbe141b17d301d11a1c20c5e4577"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "hamlet-winter-artwork-4x.png",
+          "sha256": "ea9933084fd27b2417486d76258adc40ef5cd47ed1e1910f4da74089fe018d6c"
+        }
+      ],
+      "assembled": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "hamlet-winter-assembled-2x.png",
+          "sha256": "3cc3aefdc6d96939949f34d67ed20af75e136505530dd768cb26eeaf192a118b"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "hamlet-winter-assembled-4x.png",
+          "sha256": "49ad22f62f42cafd2f99b689cb4060f11a7e96ead9f6c96c4b539a25181c9a0f"
+        }
+      ],
       "entry_cell": "",
-      "generation_recipe": "art/recipes/compound/distinct-v1/hamlet-winter-02.json",
       "guard": {
         "boundary_alpha_mass": 0,
         "boundary_pixels": 0,
@@ -332,12 +647,221 @@
           "height": 1145,
           "width": 1374
         },
+        "retained_source": "sources/hamlet-winter.png",
         "source": "art/source/compound/distinct-v1/hamlet-winter.png",
         "source_sha256": "cfde8d1a24a57fbeee54ebe7b61421f2f5bcb2bab6376af9f0e8e26ce1981257"
       },
       "inset": 0.75,
       "layout": "hamlet",
+      "parity_outputs": [
+        {
+          "canvas_origin": [
+            -71,
+            -80
+          ],
+          "cells": [
+            {
+              "compound": false,
+              "origin": [
+                0,
+                -80
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                -71,
+                -40
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                71,
+                -40
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": true,
+              "origin": [
+                0,
+                0
+              ],
+              "runtime_id": "house_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                -71,
+                40
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                71,
+                40
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                0,
+                80
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            }
+          ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 480,
+                "width": 476
+              },
+              "path": "art/review/compound-v1/hamlet-winter-patch-parity0-2x.png",
+              "sha256": "eff81b29d5a54813a0c7221fa11cef98bead19fd8b38b3316b05127b9aebfe1b"
+            },
+            {
+              "dimensions": {
+                "height": 960,
+                "width": 952
+              },
+              "path": "art/review/compound-v1/hamlet-winter-patch-parity0-4x.png",
+              "sha256": "c8618cf86853ef3d2e47bd4d9a25174135fe4f9df36202bc6e6c76d74a06ef8d"
+            }
+          ],
+          "parity": 0,
+          "scene_origin": [
+            0,
+            0
+          ]
+        },
+        {
+          "canvas_origin": [
+            0,
+            -40
+          ],
+          "cells": [
+            {
+              "compound": false,
+              "origin": [
+                71,
+                -40
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                0,
+                0
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                142,
+                0
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": true,
+              "origin": [
+                71,
+                40
+              ],
+              "runtime_id": "house_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                0,
+                80
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                142,
+                80
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                71,
+                120
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            }
+          ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 480,
+                "width": 476
+              },
+              "path": "art/review/compound-v1/hamlet-winter-patch-parity1-2x.png",
+              "sha256": "eff81b29d5a54813a0c7221fa11cef98bead19fd8b38b3316b05127b9aebfe1b"
+            },
+            {
+              "dimensions": {
+                "height": 960,
+                "width": 952
+              },
+              "path": "art/review/compound-v1/hamlet-winter-patch-parity1-4x.png",
+              "sha256": "c8618cf86853ef3d2e47bd4d9a25174135fe4f9df36202bc6e6c76d74a06ef8d"
+            }
+          ],
+          "parity": 1,
+          "scene_origin": [
+            71,
+            40
+          ]
+        }
+      ],
       "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; reject any sampled alpha \u003e=250 at signed distance \u003c=8 world pixels before guard; alpha zero through 4 world pixels then smoothstep 4..8. Guard full unmasked 4x artwork, then existing resizeLanczos to whole-scene 2x. Ground independently exported by exportConnectionTiles with fixed geometry and grass only, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim.",
+      "reference": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "art/review/compound-v1/hamlet-winter-scene-2x.png",
+          "sha256": "3cc3aefdc6d96939949f34d67ed20af75e136505530dd768cb26eeaf192a118b"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "art/review/compound-v1/hamlet-winter-scene-4x.png",
+          "sha256": "49ad22f62f42cafd2f99b689cb4060f11a7e96ead9f6c96c4b539a25181c9a0f"
+        }
+      ],
       "season": "winter",
       "tiles": [
         {
@@ -345,6 +869,24 @@
           "origin": [
             0,
             0
+          ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 160,
+                "width": 192
+              },
+              "path": "art/exports/compound-v1/house_w-2x.png",
+              "sha256": "3cc3aefdc6d96939949f34d67ed20af75e136505530dd768cb26eeaf192a118b"
+            },
+            {
+              "dimensions": {
+                "height": 320,
+                "width": 384
+              },
+              "path": "art/exports/compound-v1/house_w-4x.png",
+              "sha256": "49ad22f62f42cafd2f99b689cb4060f11a7e96ead9f6c96c4b539a25181c9a0f"
+            }
           ],
           "runtime_id": "house_w"
         }

@@ -94,6 +94,8 @@ ignored `build/`; final visual/runtime acceptance remains separate.
 The linked `build/gfx-review/compose.html` lets you join HQ/depot/factory pieces
 and build your own saved scenes with terrain, roads, units and markers, including
 reference comparisons and JSON collection import/export.
+The [reference-led redraw](docs/art/reference-redraw-v2.md) records the current
+grass, fortress HQ, red-cross medical camp and east-exit factory candidates.
 
 Open `build/native-reference/index.html` for the offline gallery of 705 library resources,
 the original UI frame and 46 campaign illustrations. Search/filter, integer inspection scales,

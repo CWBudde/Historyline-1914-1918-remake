@@ -98,3 +98,22 @@ Old custom context fixtures that were not recreated remain explicitly historical
 with their original authored input snapshots/hashes retained rather than repinned
 to new images. Full-map transitions, arbitrary neighbor context and runtime visual
 acceptance remain open.
+
+## Executed verification
+
+- Rebuilt all 30 affected terrain/compound/unit-fixture bundles. Before changing
+  inputs, the same staging process reproduced every baseline PNG byte-for-byte.
+- Verified and promoted 915 files: 30 manifests, 31 recipes, 564 candidate export
+  PNGs, 272 review PNGs and 18 historical authored input snapshots. All destinations
+  are under `art/`; no original reference image bytes were promoted.
+- Fresh `tools/phase2-audit` run: 2,927 PNG checks and 3,011 hash pins, zero problems.
+- Focused compound framing/guard/manifest/actual-PNG/resource tests pass, as do
+  `cmd/hlgfxreview`, `cmd/hleffectpreview` and coverage-auditor tests. Browser checks
+  cover the single-image desk and editable collections at desktop/narrow widths.
+- Vet and lint pass for the changed graphics tooling. Independent final-size
+  review finds the requested fortress/camp/east-exit structures readable without
+  obvious clipping; both seasonal HQ assemblies rejoin exactly from actual PNGs.
+
+The refreshed review pages still contain 390 selected entries and 3,434 unique
+image snapshots. This evidence establishes rebuilding, coverage and placement,
+not the unapproved visual resemblance or gameplay/runtime acceptance gates.

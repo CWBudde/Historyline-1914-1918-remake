@@ -1,9 +1,8 @@
 {
-  "schema_version": 1,
   "grounds": {
     "summer": {
-      "source": "source/terrain/distinct-v1/meadow.png",
-      "source_sha256": "8c8935efbbd463e39d49208e42ca0e87b140268a1b11941764dfa7c29c4fff85"
+      "source": "source/terrain/reference-v2/meadow-03.png",
+      "source_sha256": "4de543f0906e1311eff5ae4f202eb8fa68665c67103039bee089e60e02c68eb4"
     },
     "winter": {
       "source": "source/terrain/distinct-v1/snow-ground.png",
@@ -12,20 +11,23 @@
   },
   "scenes": [
     {
-      "id": "hq-summer",
       "artwork": {
-        "source": "source/compound/distinct-v1/hq-summer.png",
-        "source_sha256": "8b26241b29cdf894265e2fd898de8f0d8fa2ba5fb7f104ba39baa3532b463f1c"
+        "source": "source/compound/reference-v2/hq-summer.png",
+        "source_sha256": "4c907dbacd4751cc1bf4f9a4a29294d788bfa05911d1e21347d66faf14a78c32"
       },
-      "inset": 0.75
+      "framing": "reference-layout",
+      "id": "hq-summer",
+      "inset": 1
     },
     {
-      "id": "hq-winter",
       "artwork": {
-        "source": "source/compound/distinct-v1/hq-winter.png",
-        "source_sha256": "064b38d83e33ddb61469cf2d16656070898bfaa12c9f8dd2c40c5a2b43da33f7"
+        "source": "source/compound/reference-v2/hq-winter.png",
+        "source_sha256": "9a9b09325ff426c4b4c092d26dd98c6ce4c6cf093d8794a0e9e7307f39757583"
       },
-      "inset": 0.75
+      "framing": "reference-layout",
+      "id": "hq-winter",
+      "inset": 1
     }
-  ]
+  ],
+  "schema_version": 1
 }

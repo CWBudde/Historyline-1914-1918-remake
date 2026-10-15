@@ -1,40 +1,213 @@
 {
-  "schema_version": 1,
-  "id": "connected-rail-v1",
+  "acceptance": "Current provisional reference-guided candidate rebuild. Actual PNG assembly and pinned inputs are recorded; current user visual approval, approximately 90% resemblance, whole-map/runtime integration and release acceptance remain open.",
+  "composition_scope": "Tested composition scope: pixel-aligned 2x/4x export sprites with integer runtime lattice translations and ordinary source-over blits. Other camera zoom should assemble the scene at asset density and resample the completed scene once. Independently filtered or fractional-position sprite zoom is not validated; no runtime zoom implementation is included.",
   "date": "2026-10-15",
-  "tool": "Go tools/art-review -connected",
-  "status": "candidate-built",
-  "manifest": "art/connected-rail-v1.json",
-  "manifest_sha256": "8f501a209f65e74cc897bbfaf40d25da274c71ca8f4c69fb7ab49a1152acabe4",
+  "exports": [
+    {
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/rail-v1/rail13-4x.png",
+      "sha256": "d5d3741db0ecb3df420349e75cda77e02b903862dc05f634fdfc6ef7822f9311"
+    },
+    {
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/rail-v1/rail13-2x.png",
+      "sha256": "e5a6e3bad0423e3ef8c73fe20ed0d7d7de1bf19d64c101f40e5b17b543bbc6bf"
+    },
+    {
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/rail-v1/rail14-4x.png",
+      "sha256": "d03c843418542a8711de75363d18646db7ac754f00a8910c78d7132acb220e60"
+    },
+    {
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/rail-v1/rail14-2x.png",
+      "sha256": "b0ec9249756ccbbf24a6a5b0f387ff592a577fea49cbc9014554c683d546ffe6"
+    },
+    {
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/rail-v1/rail15-4x.png",
+      "sha256": "dee958a8721d2b8986643391e57398bbbc7990858eb61d39448ed05de69de53e"
+    },
+    {
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/rail-v1/rail15-2x.png",
+      "sha256": "13d7c013702e1861d780dec73dc60be7df3ce3ea40b111d08776ba2856d02c04"
+    },
+    {
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/rail-v1/rail236-4x.png",
+      "sha256": "4eb716026ff5b9a46f7ebcd4b51219b254e566d66a222fa36791fa88b15179ff"
+    },
+    {
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/rail-v1/rail236-2x.png",
+      "sha256": "23aa06d80820399b7eea9cb090fe9b515f7e0e655878dc29f910cbb987c1b436"
+    },
+    {
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/rail-v1/rail24-4x.png",
+      "sha256": "4e18449ad52c55a498c6e04c53c3ce555ea6ab4be4d33b27b6a8440294c5e427"
+    },
+    {
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/rail-v1/rail24-2x.png",
+      "sha256": "bfb83bcf86347b5c12e8181bef4a355e9a13273f8ba6019f21d2ae9dbfe3fab9"
+    },
+    {
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/rail-v1/rail25-4x.png",
+      "sha256": "372caaa49695b26920655aebc6da7cc46c2ce0ec17bcd1e800f8b3249049c067"
+    },
+    {
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/rail-v1/rail25-2x.png",
+      "sha256": "c1cac646c05f68dbab681d88bfac0c8b9bcede24ff8917526187ddd7dd153f29"
+    },
+    {
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/rail-v1/rail26-4x.png",
+      "sha256": "664ca74c4a03fd0e6448534dd74bfe18e00f0353143f08b7145bb5581c594313"
+    },
+    {
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/rail-v1/rail26-2x.png",
+      "sha256": "f857cbecb94bdbe0b46e1ca0f13ce239788d1c3f384701dca8374c7c386d1bd9"
+    },
+    {
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/rail-v1/rail346-4x.png",
+      "sha256": "54b176a90e9ceee1a07fd2bef7c7e2334123d0d19b52bc2ee24322b2639db2c3"
+    },
+    {
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/rail-v1/rail346-2x.png",
+      "sha256": "82d693c7a047eb3d812807fc85249cf9ce80380a57bec6b977794dd5702deb8e"
+    },
+    {
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/rail-v1/rail35-4x.png",
+      "sha256": "1c3ad140be72fcc131d9cbda7388b434c44b4bd21b0d9ed77b640f05ada62166"
+    },
+    {
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/rail-v1/rail35-2x.png",
+      "sha256": "391191c19a18d37b8eda6e974de5637ccb57e61b1251777f9e21a7f3be472deb"
+    },
+    {
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/rail-v1/rail356-4x.png",
+      "sha256": "761125bffb09a325ea94453c0f9b9d22cfef58352527d78fb0f81d4ff3330910"
+    },
+    {
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/rail-v1/rail356-2x.png",
+      "sha256": "5ad1d9d5612d31b47307bae8dd4cfee39229898e0da5506fcabfdb14701e52ab"
+    },
+    {
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/rail-v1/rail36-4x.png",
+      "sha256": "a0fd816a7cbecbfe1a7e86fe30cbac9a3396e81765b39dce761d0f5319fc7f37"
+    },
+    {
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/rail-v1/rail36-2x.png",
+      "sha256": "606b14089d8f1dec79dea64772856b4f9225763559ae6d46ebcff78da0d9b724"
+    },
+    {
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/rail-v1/rail46-4x.png",
+      "sha256": "3e6268489f2fb631017df8bf5227223d85c3fb8104baa24548e52f4326cf4b96"
+    },
+    {
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/rail-v1/rail46-2x.png",
+      "sha256": "43c16e726487ea0421ef4cfcbdb0c12f2e4fb289fa03be251d873781c40fc4de"
+    }
+  ],
+  "generation_recipes": [
+    "art/recipes/terrain/distinct-v1/earth-bare.json",
+    "art/recipes/terrain/distinct-v1/rail-ballast.json",
+    "art/recipes/terrain/distinct-v1/road-gravel.json",
+    "art/recipes/terrain/distinct-v1/steel-weathered.json",
+    "art/recipes/terrain/distinct-v1/timber-weathered.json",
+    "art/recipes/terrain/distinct-v1/water-open.json",
+    "art/recipes/terrain/reference-v2/meadow-03.json"
+  ],
+  "generation_recipes_scope": "Includes historical generation studies and the current pinned master records. Current source selection is established by the producing manifest and its exact SHA256 pins; historical records are unchanged.",
   "geometry": {
-    "width": 96,
     "height": 80,
-    "polygon": [
-      [
-        25,
-        0
-      ],
-      [
-        71,
-        0
-      ],
-      [
-        96,
-        40
-      ],
-      [
-        71,
-        80
-      ],
-      [
-        25,
-        80
-      ],
-      [
-        0,
-        40
-      ]
-    ],
     "neighbors": [
       [
         71,
@@ -59,6 +232,32 @@
       [
         0,
         -80
+      ]
+    ],
+    "polygon": [
+      [
+        25,
+        0
+      ],
+      [
+        71,
+        0
+      ],
+      [
+        96,
+        40
+      ],
+      [
+        71,
+        80
+      ],
+      [
+        25,
+        80
+      ],
+      [
+        0,
+        40
       ]
     ],
     "ports": [
@@ -86,539 +285,610 @@
         48,
         0
       ]
-    ]
+    ],
+    "width": 96
   },
+  "id": "connected-rail-v1",
+  "manifest": "art/connected-rail-v1.json",
+  "manifest_sha256": "79b228fc0df139d5b1643051a8d960ae8b326ddd6fe850388fdd18851ade6094",
   "materials": {
     "earth": {
-      "source": "art/source/terrain/distinct-v1/earth-bare.png",
-      "source_sha256": "e7d3188bc9c734a1f45ad80ccce934c46d93cb4cf9843c079bbc6260ec848404",
       "dimensions": {
-        "width": 1374,
-        "height": 1145
-      }
+        "height": 1145,
+        "width": 1374
+      },
+      "retained_source": "earth-material-source.png",
+      "source": "art/source/terrain/distinct-v1/earth-bare.png",
+      "source_sha256": "e7d3188bc9c734a1f45ad80ccce934c46d93cb4cf9843c079bbc6260ec848404"
     },
     "grass": {
-      "source": "art/source/terrain/distinct-v1/meadow.png",
-      "source_sha256": "8c8935efbbd463e39d49208e42ca0e87b140268a1b11941764dfa7c29c4fff85",
       "dimensions": {
-        "width": 1374,
-        "height": 1145
-      }
+        "height": 1145,
+        "width": 1374
+      },
+      "retained_source": "grass-material-source.png",
+      "source": "art/source/terrain/reference-v2/meadow-03.png",
+      "source_sha256": "4de543f0906e1311eff5ae4f202eb8fa68665c67103039bee089e60e02c68eb4"
     },
     "rail": {
-      "source": "art/source/terrain/distinct-v1/rail-ballast.png",
-      "source_sha256": "9464088e4a0ec25942b87eda3d229a07f3538d5ad575ef663848ba99fcb0a385",
       "dimensions": {
-        "width": 1374,
-        "height": 1145
-      }
+        "height": 1145,
+        "width": 1374
+      },
+      "retained_source": "rail-material-source.png",
+      "source": "art/source/terrain/distinct-v1/rail-ballast.png",
+      "source_sha256": "9464088e4a0ec25942b87eda3d229a07f3538d5ad575ef663848ba99fcb0a385"
     },
     "road": {
-      "source": "art/source/terrain/distinct-v1/road-gravel.png",
-      "source_sha256": "93991a9f33f3d125f68f0ed2d14b329f1092428a0df59ba90f92c5b2bc85dd26",
       "dimensions": {
-        "width": 1374,
-        "height": 1145
-      }
+        "height": 1145,
+        "width": 1374
+      },
+      "retained_source": "road-material-source.png",
+      "source": "art/source/terrain/distinct-v1/road-gravel.png",
+      "source_sha256": "93991a9f33f3d125f68f0ed2d14b329f1092428a0df59ba90f92c5b2bc85dd26"
     },
     "steel": {
-      "source": "art/source/terrain/distinct-v1/steel-weathered.png",
-      "source_sha256": "a8cea787aeb3a319241245e2d439af4b536733b20634f713044ec36897e00551",
       "dimensions": {
-        "width": 1374,
-        "height": 1145
-      }
+        "height": 1145,
+        "width": 1374
+      },
+      "retained_source": "steel-material-source.png",
+      "source": "art/source/terrain/distinct-v1/steel-weathered.png",
+      "source_sha256": "a8cea787aeb3a319241245e2d439af4b536733b20634f713044ec36897e00551"
     },
     "timber": {
-      "source": "art/source/terrain/distinct-v1/timber-weathered.png",
-      "source_sha256": "c4d42a70eee2b05cdcb5948b15598c4373104893187ece5202907d8f21048faa",
       "dimensions": {
-        "width": 1374,
-        "height": 1145
-      }
+        "height": 1145,
+        "width": 1374
+      },
+      "retained_source": "timber-material-source.png",
+      "source": "art/source/terrain/distinct-v1/timber-weathered.png",
+      "source_sha256": "c4d42a70eee2b05cdcb5948b15598c4373104893187ece5202907d8f21048faa"
     },
     "water": {
-      "source": "art/source/terrain/distinct-v1/water-open.png",
-      "source_sha256": "0b080163804881ac49bc4b3162da547abf443c9082d6e67065c119174d79b51d",
       "dimensions": {
-        "width": 1374,
-        "height": 1145
-      }
+        "height": 1145,
+        "width": 1374
+      },
+      "retained_source": "water-material-source.png",
+      "source": "art/source/terrain/distinct-v1/water-open.png",
+      "source_sha256": "0b080163804881ac49bc4b3162da547abf443c9082d6e67065c119174d79b51d"
     }
   },
-  "method": "Candidate overlay. Unclipped new feature and grass render at 4x with four WORLD pixels of overscan on every side (416x352). Feature/bank edges use analytic signed-distance AA, 0.25 world-pixel ramp; distances round to 1e-9 world px for reciprocal half-alpha stability. Existing alpha-aware Lanczos3 reduces the UNMASKED overscan 416x352 -> 208x176. Crop 4-world-pixel margins AFTER filtering to 384x320 and 192x160, then apply complementary hard half-open polygon ownership at final pixel centers. No per-sprite polygon-edge AA; a future complete-map compositor may AA its outer boundary once. Each port has >=8 straight world pixels and extends beyond cutout by outer radius+4; cubic connectors flatten at 64 steps; junctions merge by minimum distance. No legacy footprint or pixels; no painted road markings.",
+  "method": "Candidate overlay. Unclipped new feature and grass render at 4x with four WORLD pixels of overscan on every side (416x352). Feature/bank edges use analytic signed-distance AA, 0.25 world-pixel ramp; distances round to 1e-9 world px for reciprocal half-alpha stability. Existing alpha-aware Lanczos3 reduces the UNMASKED overscan 416x352 -\u003e 208x176. Crop 4-world-pixel margins AFTER filtering to 384x320 and 192x160, then apply complementary hard half-open polygon ownership at final pixel centers. No per-sprite polygon-edge AA; a future complete-map compositor may AA its outer boundary once. Each port has \u003e=8 straight world pixels and extends beyond cutout by outer radius+4; cubic connectors flatten at 64 steps; junctions merge by minimum distance. No legacy footprint or pixels; no painted road markings.",
+  "original_image_inputs": [
+    {
+      "generation_recipe": "art/recipes/terrain/reference-v2/meadow-03.json",
+      "path": "legacy/python/gfx/hexTypes/hex_grass.png",
+      "role": "Semantic original reference only: Only image input: composition, muted olive palette and low-frequency restoration reference; original file remains reference-only.",
+      "sha256": "67257c01c1e3e30ddc438e85e5e376cd1aa72f888cfb2851b288061e1eb7a0de"
+    }
+  ],
+  "original_image_inputs_scope": "Semantic visual references used to paint the current masters or their fixture ground. Originals remain reference-only and are not bundled as runtime PNGs; source masters are newly painted. Unit sprite planes retain their existing independent artwork provenance.",
+  "ownership": "Binary final-pixel polygon ownership: cross(edge,point)\u003e0; on an edge include dy\u003c0 or dy==0 \u0026\u0026 dx\u003e0 (top-left rule), exclude the reciprocal edge. Ground and overlay exports share this new polygon. Zero RGBA outside ownership. Gallery patches decode exported PNG bytes and assemble ground then overlays using ordinary image.Draw Over at integer runtime cell translations, at BOTH 2x and 4x. They do not rerender world geometry or conceal sprite assembly gaps.",
+  "previous_acceptance": {
+    "scope": "Historical source set before the current redraw; not an approval of the current artwork.",
+    "text": "Independent visual review provisionally passes all12 rail variants. Actual2x/4x PNG assembly and protected rail/sleeper profiles tested. Dense turnout frog/sleeper overlap remains a scale compromise; full-map/runtime/unit legibility and release acceptance remain open."
+  },
   "rail_profile": {
     "gauge_world_px": 4.5,
-    "rail_width_world_px": 0.8,
-    "sleeper_length_world_px": 7.5,
-    "sleeper_width_world_px": 1.05,
-    "sleeper_nominal_pitch_world_px": 4,
-    "port_guard_world_px": 8,
     "method": "Rail only: earth border, opaque ballast, timber rectangles, then paired steel bands on separately offset route polylines; cubic curves flatten at 64 steps. Two-port bends use 20-world-pixel inward control vectors from both fixed guards. Gauge 4.5, steel width 0.8, sleeper length 7.5, width 1.05 world px. Arc-length sleeper positions use local route normals. Existing 4x analytic AA, overscan/filter/crop and half-open ownership are retained.",
     "phase": "All ports anchor a sleeper centre at the port and at 4 and 8 world px inward, plus pitch-4 continuation outward. Each port guard is straight for 8 world px. Between fixed guards fit round(interior arc length/4) intervals of equal adjusted pitch. Shared port anchors use the lattice world phase (0,0); reciprocal half-sleepers assemble exactly at both line parities.",
+    "port_guard_world_px": 8,
+    "rail_width_world_px": 0.8,
+    "sleeper_length_world_px": 7.5,
+    "sleeper_nominal_pitch_world_px": 4,
+    "sleeper_width_world_px": 1.05,
     "turnouts": "Three-port masks retain the complete straight 3/6 spine. A separate branch merges at (48,40), tangent north for port 2 or 4, south for port 1 or 5; branch cubic controls are 16 world px inward from its guard and 12 world px opposite the merge tangent from the centre. Paired offset branch rails meet the spine rails; no star junction or merged-ballast contour rails."
   },
+  "rebuild_note": "Rebuilt from the current reference-guided grass/compound inputs; user visual approval remains open. Historical generation recipes retain their original provenance.",
+  "review": "docs/art/distinct-terrain-batch-05.md",
+  "review_exports": [
+    {
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/review/rail-v1/rail13-grass-2x.png",
+      "sha256": "b6e0135827ea1ef6274766a776c1b9c99958a9ef7d609d2b5d63cd23e6f01188"
+    },
+    {
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/review/rail-v1/rail14-grass-2x.png",
+      "sha256": "9b2bf2acc65f6d827ca80c9e6657d88ae7c4e6c8a4ba599cd12d9eb4c9febd75"
+    },
+    {
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/review/rail-v1/rail15-grass-2x.png",
+      "sha256": "94479d1615fd7e601051734851269d8e63e03a96ed2313b4b361502b16e91523"
+    },
+    {
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/review/rail-v1/rail236-grass-2x.png",
+      "sha256": "cc6abd36f5af1a387e0c224ac2b161f318e4a85408d4220363b9a4ceb1d605ce"
+    },
+    {
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/review/rail-v1/rail24-grass-2x.png",
+      "sha256": "8770f4f5d984e3e08a8208afc21fe8bbe4a31ca606dc3b0d1a48ca6d0edcb034"
+    },
+    {
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/review/rail-v1/rail25-grass-2x.png",
+      "sha256": "242fe63a32a5fab276d022051378c650d74a1e198b684f113e792e4b7aadc062"
+    },
+    {
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/review/rail-v1/rail26-grass-2x.png",
+      "sha256": "cee3d56881a11129b1f9e005011fc58f29e4405193dcf23bf06f6fe23b8ba94a"
+    },
+    {
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/review/rail-v1/rail346-grass-2x.png",
+      "sha256": "24259bf46f68860d82c0e508a9cffa4840baab0f17b78259400f072da4445ba5"
+    },
+    {
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/review/rail-v1/rail35-grass-2x.png",
+      "sha256": "22cd7d78723dea948204d23cc312819250a7831696d812630bdeaf07d37e66cd"
+    },
+    {
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/review/rail-v1/rail356-grass-2x.png",
+      "sha256": "6f691fdedbfc51b68fddf5ecb751682bab170e09ea47730f7b949f785b430f48"
+    },
+    {
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/review/rail-v1/rail36-grass-2x.png",
+      "sha256": "5335d365589a358a3cd013773ee8362e01ac64f1f789c1fd497f006cbf59b1c8"
+    },
+    {
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/review/rail-v1/rail46-grass-2x.png",
+      "sha256": "46747a8a1046fe3c20b7e868c6588f49b368c5540004006b5037d2462e6493f7"
+    },
+    {
+      "dimensions": {
+        "height": 1920,
+        "width": 384
+      },
+      "path": "art/review/rail-v1/contact-sheet.png",
+      "sha256": "34324dc6cae4230595054d54c9062151aea8549cdcf55c0c9c8534cbe4d0c914"
+    },
+    {
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/rail-v1/rail14-patch-parity0.png",
+      "sha256": "c0811f2393c8fd8037424e0f7dda88128df9e12709905cd7c16b34d5b78bfeaf"
+    },
+    {
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/rail-v1/rail13-patch-parity1.png",
+      "sha256": "2230c354ce0982bdb63368b7f4510070eed79a56618d6baf2e96b82065fa762b"
+    },
+    {
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/rail-v1/rail236-patch-parity0.png",
+      "sha256": "5448dbd40f76172de56f8d96e3223bbde8af895d7651c63de55cefbe664a2207"
+    },
+    {
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/rail-v1/rail346-patch-parity1.png",
+      "sha256": "ee87302716916b856a3b42984ef09e4968c3cb0cb9f41ed0b5f4d07cd9c9e07a"
+    }
+  ],
+  "schema_version": 1,
+  "status": "candidate-built",
   "texture_method": "New opaque source images only. Bilinear source sampling through continuous mirror-periodic coordinates, periods (142,80); average f(x,y) and f(x+71,y+40) in byte RGB. This derived texture average is invariant under all six lattice neighbor shifts. All independent cells use world origin phase (0,0). No original-game pixels.",
-  "ownership": "Binary final-pixel polygon ownership: cross(edge,point)>0; on an edge include dy<0 or dy==0 && dx>0 (top-left rule), exclude the reciprocal edge. Ground and overlay exports share this new polygon. Zero RGBA outside ownership. Gallery patches decode exported PNG bytes and assemble ground then overlays using ordinary image.Draw Over at integer runtime cell translations, at BOTH 2x and 4x. They do not rerender world geometry or conceal sprite assembly gaps.",
-  "composition_scope": "Tested composition scope: pixel-aligned 2x/4x export sprites with integer runtime lattice translations and ordinary source-over blits. Other camera zoom should assemble the scene at asset density and resample the completed scene once. Independently filtered or fractional-position sprite zoom is not validated; no runtime zoom implementation is included.",
+  "tool": "Go tools/art-review -connected",
   "variants": [
     {
-      "id": "rail13",
+      "border": 1,
+      "border_material": "earth",
       "family": "rail",
+      "id": "rail13",
+      "material": "rail",
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "art/exports/rail-v1/rail13-4x.png",
+          "sha256": "d5d3741db0ecb3df420349e75cda77e02b903862dc05f634fdfc6ef7822f9311"
+        },
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "art/exports/rail-v1/rail13-2x.png",
+          "sha256": "e5a6e3bad0423e3ef8c73fe20ed0d7d7de1bf19d64c101f40e5b17b543bbc6bf"
+        }
+      ],
       "ports": [
         1,
         3
       ],
-      "width": 11,
-      "border": 1
+      "width": 11
     },
     {
-      "id": "rail14",
+      "border": 1,
+      "border_material": "earth",
       "family": "rail",
+      "id": "rail14",
+      "material": "rail",
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "art/exports/rail-v1/rail14-4x.png",
+          "sha256": "d03c843418542a8711de75363d18646db7ac754f00a8910c78d7132acb220e60"
+        },
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "art/exports/rail-v1/rail14-2x.png",
+          "sha256": "b0ec9249756ccbbf24a6a5b0f387ff592a577fea49cbc9014554c683d546ffe6"
+        }
+      ],
       "ports": [
         1,
         4
       ],
-      "width": 11,
-      "border": 1
+      "width": 11
     },
     {
-      "id": "rail15",
+      "border": 1,
+      "border_material": "earth",
       "family": "rail",
+      "id": "rail15",
+      "material": "rail",
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "art/exports/rail-v1/rail15-4x.png",
+          "sha256": "dee958a8721d2b8986643391e57398bbbc7990858eb61d39448ed05de69de53e"
+        },
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "art/exports/rail-v1/rail15-2x.png",
+          "sha256": "13d7c013702e1861d780dec73dc60be7df3ce3ea40b111d08776ba2856d02c04"
+        }
+      ],
       "ports": [
         1,
         5
       ],
-      "width": 11,
-      "border": 1
+      "width": 11
     },
     {
-      "id": "rail236",
+      "border": 1,
+      "border_material": "earth",
       "family": "rail",
+      "id": "rail236",
+      "material": "rail",
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "art/exports/rail-v1/rail236-4x.png",
+          "sha256": "4eb716026ff5b9a46f7ebcd4b51219b254e566d66a222fa36791fa88b15179ff"
+        },
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "art/exports/rail-v1/rail236-2x.png",
+          "sha256": "23aa06d80820399b7eea9cb090fe9b515f7e0e655878dc29f910cbb987c1b436"
+        }
+      ],
       "ports": [
         2,
         3,
         6
       ],
-      "width": 11,
-      "border": 1
+      "width": 11
     },
     {
-      "id": "rail24",
+      "border": 1,
+      "border_material": "earth",
       "family": "rail",
+      "id": "rail24",
+      "material": "rail",
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "art/exports/rail-v1/rail24-4x.png",
+          "sha256": "4e18449ad52c55a498c6e04c53c3ce555ea6ab4be4d33b27b6a8440294c5e427"
+        },
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "art/exports/rail-v1/rail24-2x.png",
+          "sha256": "bfb83bcf86347b5c12e8181bef4a355e9a13273f8ba6019f21d2ae9dbfe3fab9"
+        }
+      ],
       "ports": [
         2,
         4
       ],
-      "width": 11,
-      "border": 1
+      "width": 11
     },
     {
-      "id": "rail25",
+      "border": 1,
+      "border_material": "earth",
       "family": "rail",
+      "id": "rail25",
+      "material": "rail",
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "art/exports/rail-v1/rail25-4x.png",
+          "sha256": "372caaa49695b26920655aebc6da7cc46c2ce0ec17bcd1e800f8b3249049c067"
+        },
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "art/exports/rail-v1/rail25-2x.png",
+          "sha256": "c1cac646c05f68dbab681d88bfac0c8b9bcede24ff8917526187ddd7dd153f29"
+        }
+      ],
       "ports": [
         2,
         5
       ],
-      "width": 11,
-      "border": 1
+      "width": 11
     },
     {
-      "id": "rail26",
+      "border": 1,
+      "border_material": "earth",
       "family": "rail",
+      "id": "rail26",
+      "material": "rail",
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "art/exports/rail-v1/rail26-4x.png",
+          "sha256": "664ca74c4a03fd0e6448534dd74bfe18e00f0353143f08b7145bb5581c594313"
+        },
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "art/exports/rail-v1/rail26-2x.png",
+          "sha256": "f857cbecb94bdbe0b46e1ca0f13ce239788d1c3f384701dca8374c7c386d1bd9"
+        }
+      ],
       "ports": [
         2,
         6
       ],
-      "width": 11,
-      "border": 1
+      "width": 11
     },
     {
-      "id": "rail346",
+      "border": 1,
+      "border_material": "earth",
       "family": "rail",
+      "id": "rail346",
+      "material": "rail",
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "art/exports/rail-v1/rail346-4x.png",
+          "sha256": "54b176a90e9ceee1a07fd2bef7c7e2334123d0d19b52bc2ee24322b2639db2c3"
+        },
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "art/exports/rail-v1/rail346-2x.png",
+          "sha256": "82d693c7a047eb3d812807fc85249cf9ce80380a57bec6b977794dd5702deb8e"
+        }
+      ],
       "ports": [
         3,
         4,
         6
       ],
-      "width": 11,
-      "border": 1
+      "width": 11
     },
     {
-      "id": "rail35",
+      "border": 1,
+      "border_material": "earth",
       "family": "rail",
+      "id": "rail35",
+      "material": "rail",
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "art/exports/rail-v1/rail35-4x.png",
+          "sha256": "1c3ad140be72fcc131d9cbda7388b434c44b4bd21b0d9ed77b640f05ada62166"
+        },
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "art/exports/rail-v1/rail35-2x.png",
+          "sha256": "391191c19a18d37b8eda6e974de5637ccb57e61b1251777f9e21a7f3be472deb"
+        }
+      ],
       "ports": [
         3,
         5
       ],
-      "width": 11,
-      "border": 1
+      "width": 11
     },
     {
-      "id": "rail356",
+      "border": 1,
+      "border_material": "earth",
       "family": "rail",
+      "id": "rail356",
+      "material": "rail",
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "art/exports/rail-v1/rail356-4x.png",
+          "sha256": "761125bffb09a325ea94453c0f9b9d22cfef58352527d78fb0f81d4ff3330910"
+        },
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "art/exports/rail-v1/rail356-2x.png",
+          "sha256": "5ad1d9d5612d31b47307bae8dd4cfee39229898e0da5506fcabfdb14701e52ab"
+        }
+      ],
       "ports": [
         3,
         5,
         6
       ],
-      "width": 11,
-      "border": 1
+      "width": 11
     },
     {
-      "id": "rail36",
+      "border": 1,
+      "border_material": "earth",
       "family": "rail",
+      "id": "rail36",
+      "material": "rail",
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "art/exports/rail-v1/rail36-4x.png",
+          "sha256": "a0fd816a7cbecbfe1a7e86fe30cbac9a3396e81765b39dce761d0f5319fc7f37"
+        },
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "art/exports/rail-v1/rail36-2x.png",
+          "sha256": "606b14089d8f1dec79dea64772856b4f9225763559ae6d46ebcff78da0d9b724"
+        }
+      ],
       "ports": [
         3,
         6
       ],
-      "width": 11,
-      "border": 1
+      "width": 11
     },
     {
-      "id": "rail46",
+      "border": 1,
+      "border_material": "earth",
       "family": "rail",
+      "id": "rail46",
+      "material": "rail",
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "art/exports/rail-v1/rail46-4x.png",
+          "sha256": "3e6268489f2fb631017df8bf5227223d85c3fb8104baa24548e52f4326cf4b96"
+        },
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "art/exports/rail-v1/rail46-2x.png",
+          "sha256": "43c16e726487ea0421ef4cfcbdb0c12f2e4fb289fa03be251d873781c40fc4de"
+        }
+      ],
       "ports": [
         4,
         6
       ],
-      "width": 11,
-      "border": 1
+      "width": 11
     }
-  ],
-  "exports": [
-    {
-      "path": "art/exports/rail-v1/rail13-4x.png",
-      "sha256": "d5d3741db0ecb3df420349e75cda77e02b903862dc05f634fdfc6ef7822f9311",
-      "dimensions": {
-        "width": 384,
-        "height": 320
-      }
-    },
-    {
-      "path": "art/exports/rail-v1/rail13-2x.png",
-      "sha256": "e5a6e3bad0423e3ef8c73fe20ed0d7d7de1bf19d64c101f40e5b17b543bbc6bf",
-      "dimensions": {
-        "width": 192,
-        "height": 160
-      }
-    },
-    {
-      "path": "art/exports/rail-v1/rail14-4x.png",
-      "sha256": "d03c843418542a8711de75363d18646db7ac754f00a8910c78d7132acb220e60",
-      "dimensions": {
-        "width": 384,
-        "height": 320
-      }
-    },
-    {
-      "path": "art/exports/rail-v1/rail14-2x.png",
-      "sha256": "b0ec9249756ccbbf24a6a5b0f387ff592a577fea49cbc9014554c683d546ffe6",
-      "dimensions": {
-        "width": 192,
-        "height": 160
-      }
-    },
-    {
-      "path": "art/exports/rail-v1/rail15-4x.png",
-      "sha256": "dee958a8721d2b8986643391e57398bbbc7990858eb61d39448ed05de69de53e",
-      "dimensions": {
-        "width": 384,
-        "height": 320
-      }
-    },
-    {
-      "path": "art/exports/rail-v1/rail15-2x.png",
-      "sha256": "13d7c013702e1861d780dec73dc60be7df3ce3ea40b111d08776ba2856d02c04",
-      "dimensions": {
-        "width": 192,
-        "height": 160
-      }
-    },
-    {
-      "path": "art/exports/rail-v1/rail236-4x.png",
-      "sha256": "4eb716026ff5b9a46f7ebcd4b51219b254e566d66a222fa36791fa88b15179ff",
-      "dimensions": {
-        "width": 384,
-        "height": 320
-      }
-    },
-    {
-      "path": "art/exports/rail-v1/rail236-2x.png",
-      "sha256": "23aa06d80820399b7eea9cb090fe9b515f7e0e655878dc29f910cbb987c1b436",
-      "dimensions": {
-        "width": 192,
-        "height": 160
-      }
-    },
-    {
-      "path": "art/exports/rail-v1/rail24-4x.png",
-      "sha256": "4e18449ad52c55a498c6e04c53c3ce555ea6ab4be4d33b27b6a8440294c5e427",
-      "dimensions": {
-        "width": 384,
-        "height": 320
-      }
-    },
-    {
-      "path": "art/exports/rail-v1/rail24-2x.png",
-      "sha256": "bfb83bcf86347b5c12e8181bef4a355e9a13273f8ba6019f21d2ae9dbfe3fab9",
-      "dimensions": {
-        "width": 192,
-        "height": 160
-      }
-    },
-    {
-      "path": "art/exports/rail-v1/rail25-4x.png",
-      "sha256": "372caaa49695b26920655aebc6da7cc46c2ce0ec17bcd1e800f8b3249049c067",
-      "dimensions": {
-        "width": 384,
-        "height": 320
-      }
-    },
-    {
-      "path": "art/exports/rail-v1/rail25-2x.png",
-      "sha256": "c1cac646c05f68dbab681d88bfac0c8b9bcede24ff8917526187ddd7dd153f29",
-      "dimensions": {
-        "width": 192,
-        "height": 160
-      }
-    },
-    {
-      "path": "art/exports/rail-v1/rail26-4x.png",
-      "sha256": "664ca74c4a03fd0e6448534dd74bfe18e00f0353143f08b7145bb5581c594313",
-      "dimensions": {
-        "width": 384,
-        "height": 320
-      }
-    },
-    {
-      "path": "art/exports/rail-v1/rail26-2x.png",
-      "sha256": "f857cbecb94bdbe0b46e1ca0f13ce239788d1c3f384701dca8374c7c386d1bd9",
-      "dimensions": {
-        "width": 192,
-        "height": 160
-      }
-    },
-    {
-      "path": "art/exports/rail-v1/rail346-4x.png",
-      "sha256": "54b176a90e9ceee1a07fd2bef7c7e2334123d0d19b52bc2ee24322b2639db2c3",
-      "dimensions": {
-        "width": 384,
-        "height": 320
-      }
-    },
-    {
-      "path": "art/exports/rail-v1/rail346-2x.png",
-      "sha256": "82d693c7a047eb3d812807fc85249cf9ce80380a57bec6b977794dd5702deb8e",
-      "dimensions": {
-        "width": 192,
-        "height": 160
-      }
-    },
-    {
-      "path": "art/exports/rail-v1/rail35-4x.png",
-      "sha256": "1c3ad140be72fcc131d9cbda7388b434c44b4bd21b0d9ed77b640f05ada62166",
-      "dimensions": {
-        "width": 384,
-        "height": 320
-      }
-    },
-    {
-      "path": "art/exports/rail-v1/rail35-2x.png",
-      "sha256": "391191c19a18d37b8eda6e974de5637ccb57e61b1251777f9e21a7f3be472deb",
-      "dimensions": {
-        "width": 192,
-        "height": 160
-      }
-    },
-    {
-      "path": "art/exports/rail-v1/rail356-4x.png",
-      "sha256": "761125bffb09a325ea94453c0f9b9d22cfef58352527d78fb0f81d4ff3330910",
-      "dimensions": {
-        "width": 384,
-        "height": 320
-      }
-    },
-    {
-      "path": "art/exports/rail-v1/rail356-2x.png",
-      "sha256": "5ad1d9d5612d31b47307bae8dd4cfee39229898e0da5506fcabfdb14701e52ab",
-      "dimensions": {
-        "width": 192,
-        "height": 160
-      }
-    },
-    {
-      "path": "art/exports/rail-v1/rail36-4x.png",
-      "sha256": "a0fd816a7cbecbfe1a7e86fe30cbac9a3396e81765b39dce761d0f5319fc7f37",
-      "dimensions": {
-        "width": 384,
-        "height": 320
-      }
-    },
-    {
-      "path": "art/exports/rail-v1/rail36-2x.png",
-      "sha256": "606b14089d8f1dec79dea64772856b4f9225763559ae6d46ebcff78da0d9b724",
-      "dimensions": {
-        "width": 192,
-        "height": 160
-      }
-    },
-    {
-      "path": "art/exports/rail-v1/rail46-4x.png",
-      "sha256": "3e6268489f2fb631017df8bf5227223d85c3fb8104baa24548e52f4326cf4b96",
-      "dimensions": {
-        "width": 384,
-        "height": 320
-      }
-    },
-    {
-      "path": "art/exports/rail-v1/rail46-2x.png",
-      "sha256": "43c16e726487ea0421ef4cfcbdb0c12f2e4fb289fa03be251d873781c40fc4de",
-      "dimensions": {
-        "width": 192,
-        "height": 160
-      }
-    }
-  ],
-  "review_exports": [
-    {
-      "path": "art/review/rail-v1/rail13-grass-2x.png",
-      "sha256": "0285ff9d31d4c7b1d735c4f449798100a46c632af7c9b3fd7b977c3c792b2707",
-      "dimensions": {
-        "width": 192,
-        "height": 160
-      }
-    },
-    {
-      "path": "art/review/rail-v1/rail14-grass-2x.png",
-      "sha256": "11b357af1e84a303b6ea224b74ffc985e4129ec5d53d5cb94d7c8a0ab30517d8",
-      "dimensions": {
-        "width": 192,
-        "height": 160
-      }
-    },
-    {
-      "path": "art/review/rail-v1/rail15-grass-2x.png",
-      "sha256": "1e8d294128a1d6b0b6e20cb3088eed0dc97f0808f6e07bc5f1e15a4373ffa638",
-      "dimensions": {
-        "width": 192,
-        "height": 160
-      }
-    },
-    {
-      "path": "art/review/rail-v1/rail236-grass-2x.png",
-      "sha256": "a6ae6b0e35ecdcd5f644dd62415e51f799559dc94087f1ac789f69231e1eb750",
-      "dimensions": {
-        "width": 192,
-        "height": 160
-      }
-    },
-    {
-      "path": "art/review/rail-v1/rail24-grass-2x.png",
-      "sha256": "1b9eb2f2a2845200cc96e5f0139179073764c3bf31b9d41d7baaecf9e94c2166",
-      "dimensions": {
-        "width": 192,
-        "height": 160
-      }
-    },
-    {
-      "path": "art/review/rail-v1/rail25-grass-2x.png",
-      "sha256": "3387724476825f4e3de3847afe92cc58a0dc95eea2eb87888318ff6bc92ba361",
-      "dimensions": {
-        "width": 192,
-        "height": 160
-      }
-    },
-    {
-      "path": "art/review/rail-v1/rail26-grass-2x.png",
-      "sha256": "6dbc9d146d8f94b531bd47bf727abcf0c2c27e551a2b80a1efb2604d3b0a9534",
-      "dimensions": {
-        "width": 192,
-        "height": 160
-      }
-    },
-    {
-      "path": "art/review/rail-v1/rail346-grass-2x.png",
-      "sha256": "c3fa5774d1a596d685099521ce17c3c1dfae7f1d8fe87447622088d028fe1cd2",
-      "dimensions": {
-        "width": 192,
-        "height": 160
-      }
-    },
-    {
-      "path": "art/review/rail-v1/rail35-grass-2x.png",
-      "sha256": "5323f4614d9c2bc1ad52dc98082cb0e68d4e07365544e3ca5e89ce5047f085db",
-      "dimensions": {
-        "width": 192,
-        "height": 160
-      }
-    },
-    {
-      "path": "art/review/rail-v1/rail356-grass-2x.png",
-      "sha256": "7bd7b4ea04421ee301a3bba87e99bebb1d164fe894d0dff1a4cf4242c7b550a1",
-      "dimensions": {
-        "width": 192,
-        "height": 160
-      }
-    },
-    {
-      "path": "art/review/rail-v1/rail36-grass-2x.png",
-      "sha256": "35a7ce220b1ba51aaf69c3cbbbbe3c1d6a08da7e2baeaa0226dd7426aef6b5c1",
-      "dimensions": {
-        "width": 192,
-        "height": 160
-      }
-    },
-    {
-      "path": "art/review/rail-v1/rail46-grass-2x.png",
-      "sha256": "4a08f644ed5ea5e088d91f97f067d6617ec6a70533abd26ac3cc2657c7c960f3",
-      "dimensions": {
-        "width": 192,
-        "height": 160
-      }
-    },
-    {
-      "path": "art/review/rail-v1/contact-sheet.png",
-      "sha256": "494774dcba330d4c01be94a1e803333a85f197a22a06c8751b504c5a014a9d16",
-      "dimensions": {
-        "width": 384,
-        "height": 1920
-      }
-    },
-    {
-      "path": "art/review/rail-v1/rail14-patch-parity0.png",
-      "sha256": "a25eb690b32d631550ce9255d1abbc9c167a8c90fbe8626db1ca4b438c5299c5",
-      "dimensions": {
-        "width": 476,
-        "height": 480
-      }
-    },
-    {
-      "path": "art/review/rail-v1/rail13-patch-parity1.png",
-      "sha256": "6709ed8d62450f1e251de3f4c9ed33247e7296ebb99199e8df866f5a1d5e24c2",
-      "dimensions": {
-        "width": 476,
-        "height": 480
-      }
-    },
-    {
-      "path": "art/review/rail-v1/rail236-patch-parity0.png",
-      "sha256": "8107f9595982ce5d68198e192bd9c3e8f7bb179c5e69c87cbc5ba212e3398ade",
-      "dimensions": {
-        "width": 476,
-        "height": 480
-      }
-    },
-    {
-      "path": "art/review/rail-v1/rail346-patch-parity1.png",
-      "sha256": "a3447d512fb4829be449217b30026b80593ff488a8e5ea1f82a0f3aafc2ad587",
-      "dimensions": {
-        "width": 476,
-        "height": 480
-      }
-    }
-  ],
-  "original_image_inputs": [],
-  "review": "docs/art/distinct-terrain-batch-05.md",
-  "acceptance": "Independent visual review provisionally passes all12 rail variants. Actual2x/4x PNG assembly and protected rail/sleeper profiles tested. Dense turnout frog/sleeper overlap remains a scale compromise; full-map/runtime/unit legibility and release acceptance remain open."
+  ]
 }

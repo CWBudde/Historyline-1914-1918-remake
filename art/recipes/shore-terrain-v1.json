@@ -1,5 +1,5 @@
 {
-  "acceptance": "Provisional new shoreline and polygon water candidates. Explicitnumericcornerprofilesincluding23effective234. ActualPNGownership/patch/edgephasechecks pass; independentartreview passes afterC2curverepair. Fullmap/otherterraintransitions/fractionalzoom/nativecoverage/runtimeintegration/userreleaseacceptance remainopen.",
+  "acceptance": "Current provisional reference-guided candidate rebuild. Actual PNG assembly and pinned inputs are recorded; current user visual approval, approximately 90% resemblance, whole-map/runtime integration and release acceptance remain open.",
   "date": "2026-10-15",
   "exports": [
     {
@@ -9,7 +9,7 @@
         "width": 192
       },
       "path": "art/exports/shore-v1/lakeside12-2x.png",
-      "sha256": "b1a0c96ceb2c87e8fa7599dbf158f2ca086c5ea8ff32b691201269017a07e6e2"
+      "sha256": "2c48cfa7fa4b2f175a370b379d7176c2f235ed96f725b7b236a672995e109cef"
     },
     {
       "build_output": "tiles/lakeside12-4x.png",
@@ -18,7 +18,7 @@
         "width": 384
       },
       "path": "art/exports/shore-v1/lakeside12-4x.png",
-      "sha256": "fb9df3c2ae4c5120b1cecbd6e5c3d532600dd7434be2cf5d8ef1e5f5b69d87a3"
+      "sha256": "3f707ec1348100a9ae0f0ab2bfc56ecf5a3ad5bf3257670e14dafdaeed753f22"
     },
     {
       "build_output": "tiles/lakeside123-2x.png",
@@ -27,7 +27,7 @@
         "width": 192
       },
       "path": "art/exports/shore-v1/lakeside123-2x.png",
-      "sha256": "0affbc2ffc3ceb52a8f4408cc03a492148dfcf3f1e84851791c3567ba08b6d7c"
+      "sha256": "0b664ada5fc571afc18472723a17cf2f2ed4f425aedfd0c1302a01d5958dcd85"
     },
     {
       "build_output": "tiles/lakeside123-4x.png",
@@ -36,7 +36,7 @@
         "width": 384
       },
       "path": "art/exports/shore-v1/lakeside123-4x.png",
-      "sha256": "ddd86600a9dd1e95e8176637a9190b4088424f672d327394f380365e5cb868d0"
+      "sha256": "2f48f6e80b9dfe60b1b149a0070d48b112a1c4720308673b9c4c813070913061"
     },
     {
       "build_output": "tiles/lakeside126-2x.png",
@@ -45,7 +45,7 @@
         "width": 192
       },
       "path": "art/exports/shore-v1/lakeside126-2x.png",
-      "sha256": "86bd096d7578d911a36b4dc1e4d3f55b09eec79681ab14403b97a6b295a057c5"
+      "sha256": "4e89b10b09239127f9259fc9af82e0ade85a245508da8253fabe1350d5b0800d"
     },
     {
       "build_output": "tiles/lakeside126-4x.png",
@@ -54,7 +54,7 @@
         "width": 384
       },
       "path": "art/exports/shore-v1/lakeside126-4x.png",
-      "sha256": "98c656ebf85d6d078193af1ac1d9f00cbdda365a0f555ad97698e9fe646724b2"
+      "sha256": "73a85504018705098a0169ea6d4fa66a01e5519e3c6e31b40717adeca4774569"
     },
     {
       "build_output": "tiles/lakeside156-2x.png",
@@ -63,7 +63,7 @@
         "width": 192
       },
       "path": "art/exports/shore-v1/lakeside156-2x.png",
-      "sha256": "1261ab4d99e16af9614cfffb0b85833ec0f1a4bc86b07520d5113b1a0f8caa12"
+      "sha256": "61999c17d3661493f827839920a24e1b53c2283b587d714c4fceafa36ebd6013"
     },
     {
       "build_output": "tiles/lakeside156-4x.png",
@@ -72,7 +72,7 @@
         "width": 384
       },
       "path": "art/exports/shore-v1/lakeside156-4x.png",
-      "sha256": "24cce4433abe9897dcf2df3b1a98db2967b05200f474b655896b211eaf4f613a"
+      "sha256": "6657fb6603b8dc892335cb1100b448f73e7b59b1091373de88e5794852b70168"
     },
     {
       "build_output": "tiles/lakeside16-2x.png",
@@ -81,7 +81,7 @@
         "width": 192
       },
       "path": "art/exports/shore-v1/lakeside16-2x.png",
-      "sha256": "4baaece27a9e68d76597b60c740353a52b6977bd704dc3cacac0cf949dba986e"
+      "sha256": "354fc0431092e0c148e6d26b4bd383350b9d562553c9d3208a9c62e8b8344d25"
     },
     {
       "build_output": "tiles/lakeside16-4x.png",
@@ -90,7 +90,7 @@
         "width": 384
       },
       "path": "art/exports/shore-v1/lakeside16-4x.png",
-      "sha256": "ab02adcc9ef758f7876617b894501f3cca65e7854734004e63d54e0fc0c095af"
+      "sha256": "b9490352eaca72a2bebe7d413d38098c22ea3a439b3470f893857e88038c50ce"
     },
     {
       "build_output": "tiles/lakeside23-2x.png",
@@ -99,7 +99,7 @@
         "width": 192
       },
       "path": "art/exports/shore-v1/lakeside23-2x.png",
-      "sha256": "3f2f3855280392773059c57050c130c09ad9e3f987dc4105b7663bd4b1936eea"
+      "sha256": "824fbef35a873147c190845aa3df0f792e4248df4989e169af4864a4a407b0e1"
     },
     {
       "build_output": "tiles/lakeside23-4x.png",
@@ -108,7 +108,7 @@
         "width": 384
       },
       "path": "art/exports/shore-v1/lakeside23-4x.png",
-      "sha256": "964e51aeea72340368d92609c31d76dfc6c9b06977d54caf0062a41b85cfc738"
+      "sha256": "7a91a9805bdf333d83c09864e3922e8b66237442b92d8fb4307c9cf0639cd476"
     },
     {
       "build_output": "tiles/lakeside34-2x.png",
@@ -117,7 +117,7 @@
         "width": 192
       },
       "path": "art/exports/shore-v1/lakeside34-2x.png",
-      "sha256": "f97190c2d85f117c9ea866f41718e5454a04243258b1df679838b44e27ea0424"
+      "sha256": "c2be1a42ac8bc5127a8dc3bf77640c430d46dc3ead21f0d6f45f751097083660"
     },
     {
       "build_output": "tiles/lakeside34-4x.png",
@@ -126,7 +126,7 @@
         "width": 384
       },
       "path": "art/exports/shore-v1/lakeside34-4x.png",
-      "sha256": "d0153bb76bb6701b9fee4efed43ee6496c90a99954ec82d4d8918518510b19d9"
+      "sha256": "d9e4ed048d91c9fa480eb803ce7060b5d2a894ba358a7b7e70cab79ef981f07c"
     },
     {
       "build_output": "tiles/lakeside3456-2x.png",
@@ -135,7 +135,7 @@
         "width": 192
       },
       "path": "art/exports/shore-v1/lakeside3456-2x.png",
-      "sha256": "01d06e1bdbc64a0cf181e4dc1ab08fc45863265821049f3dc2c62d78be685e6a"
+      "sha256": "647f8c9986f095e72875fb39960059469847776dcf0fcff94237e89c7ee66803"
     },
     {
       "build_output": "tiles/lakeside3456-4x.png",
@@ -144,7 +144,7 @@
         "width": 384
       },
       "path": "art/exports/shore-v1/lakeside3456-4x.png",
-      "sha256": "6d2c41cb36793f2fdae0405e7c065fd1e44429609797a79e5432ba83140f3e11"
+      "sha256": "603cd847a895f7ab7948573411efd3222750c2fccb11d57a75d5555a4fbaaa44"
     },
     {
       "build_output": "tiles/lakeside56-2x.png",
@@ -153,7 +153,7 @@
         "width": 192
       },
       "path": "art/exports/shore-v1/lakeside56-2x.png",
-      "sha256": "2e726dafbe226f8bcdbd4205d67d60c31bba08e88260a0f7a06ce0c8d64f0968"
+      "sha256": "b68d6e053a8479ea91434a1b35f536b152bb51e6f123fa20b9e992243eb37958"
     },
     {
       "build_output": "tiles/lakeside56-4x.png",
@@ -162,7 +162,7 @@
         "width": 384
       },
       "path": "art/exports/shore-v1/lakeside56-4x.png",
-      "sha256": "5e1336a5de4681fa07a8dcb5f085b1a924d73d17628fe15e2e82e89a5538608d"
+      "sha256": "3c086fd6f71db1bbc8e6d3c91194398775f686484c5b1d1938cc0c68c13e278a"
     },
     {
       "build_output": "tiles/water-2x.png",
@@ -186,8 +186,10 @@
   "generation_recipes": [
     "art/recipes/terrain/distinct-v1/meadow.json",
     "art/recipes/terrain/distinct-v1/water-open.json",
-    "art/recipes/terrain/distinct-v1/earth-bare.json"
+    "art/recipes/terrain/distinct-v1/earth-bare.json",
+    "art/recipes/terrain/reference-v2/meadow-03.json"
   ],
+  "generation_recipes_scope": "Includes historical generation studies and the current pinned master records. Current source selection is established by the producing manifest and its exact SHA256 pins; historical records are unchanged.",
   "geometry": {
     "height": 80,
     "neighbors": [
@@ -272,13 +274,14 @@
   },
   "id": "shore-terrain-v1",
   "manifest": "art/shore-terrain-v1.json",
-  "manifest_sha256": "80ca93236cf694bb4bd3ca8a540ab47f52980b65151a2cb69c24cebb091cdbbf",
+  "manifest_sha256": "786b8ad3922650183ec8b5ada23e695e203717afe6803ea8be263e60c1bc0519",
   "materials": {
     "bank": {
       "dimensions": {
         "height": 1145,
         "width": 1374
       },
+      "retained_source": "sources/bank.png",
       "source": "art/source/terrain/distinct-v1/earth-bare.png",
       "source_sha256": "e7d3188bc9c734a1f45ad80ccce934c46d93cb4cf9843c079bbc6260ec848404"
     },
@@ -287,20 +290,35 @@
         "height": 1145,
         "width": 1374
       },
-      "source": "art/source/terrain/distinct-v1/meadow.png",
-      "source_sha256": "8c8935efbbd463e39d49208e42ca0e87b140268a1b11941764dfa7c29c4fff85"
+      "retained_source": "sources/grass.png",
+      "source": "art/source/terrain/reference-v2/meadow-03.png",
+      "source_sha256": "4de543f0906e1311eff5ae4f202eb8fa68665c67103039bee089e60e02c68eb4"
     },
     "water": {
       "dimensions": {
         "height": 1145,
         "width": 1374
       },
+      "retained_source": "sources/water.png",
       "source": "art/source/terrain/distinct-v1/water-open.png",
       "source_sha256": "0b080163804881ac49bc4b3162da547abf443c9082d6e67065c119174d79b51d"
     }
   },
-  "original_image_inputs": [],
+  "original_image_inputs": [
+    {
+      "generation_recipe": "art/recipes/terrain/reference-v2/meadow-03.json",
+      "path": "legacy/python/gfx/hexTypes/hex_grass.png",
+      "role": "Semantic original reference only: Only image input: composition, muted olive palette and low-frequency restoration reference; original file remains reference-only.",
+      "sha256": "67257c01c1e3e30ddc438e85e5e376cd1aa72f888cfb2851b288061e1eb7a0de"
+    }
+  ],
+  "original_image_inputs_scope": "Semantic visual references used to paint the current masters or their fixture ground. Originals remain reference-only and are not bundled as runtime PNGs; source masters are newly painted. Unit sprite planes retain their existing independent artwork provenance.",
+  "previous_acceptance": {
+    "scope": "Historical source set before the current redraw; not an approval of the current artwork.",
+    "text": "Provisional new shoreline and polygon water candidates. Explicitnumericcornerprofilesincluding23effective234. ActualPNGownership/patch/edgephasechecks pass; independentartreview passes afterC2curverepair. Fullmap/otherterraintransitions/fractionalzoom/nativecoverage/runtimeintegration/userreleaseacceptance remainopen."
+  },
   "profile": "shore-v1-shaped candidate: explicit corner land profiles, lakeside23 effective land-side mask234; no original outlines measured. Guard through8worldpx and all exterior/filtermargin uses nearest edge: LL field+32, WW -32, mixed signed projection along edge from midpoint positive toward land endpoint. Every shore has exactly two mixededges and one contiguous landarc. Crossings enter along inward unit edge normals for8worldpx; connect anchors A,B with one quintic Bezier, handle h=.24*|B-A|, controls A,A+h*nA,A+2h*nA,B+2h*nB,B+h*nB,B. Equal collinear handles give zero curvature at the straight joins. Add chord-normal displacement .7*64*t^3*(1-t)^3*sin(2*pi*t+.4): value and first two derivatives vanish at anchors. Flatten256 equal parameter steps; signed nearest segment distance in the interior, with160worldpx straight exterior extensions. No nearest-edge field blend or triangular fan in the interior. Shared mirror-periodic sampleConnectionMaterial worldphase for grass/water/bank. Shading with S=clamped smoothstep: pure water d\u003c=-5; shallow=blend(water,bank,.16); wet=blend(bank,RGB(33,43,28),.27*(1-S((d+.7)/1.8))); blend water-\u003eshallow with S((d+5)/3.3), then -\u003ewet S((d+1.7)/1), then -\u003egrass S((d-.5)/1.9); pure grass d\u003e=2.4. Earth bank spans approximately -1.7..2.4worldpx with soft shallow water to-5. Each blend rounds byteRGB. Opaque unmasked4x margin4worldpx; whole416x352 Lanczos3 to208x176, crop then final complementary hard polygon ownership at2x/4x. Bases byte-exact existing grass adapter with corresponding material. Source-over decoded actualPNG scenes, deterministic vertex-constraint CSP for all center/ringcontacts at both runtime lineparities. Pixel-aligned2x/4x only.",
+  "rebuild_note": "Rebuilt from the current reference-guided grass/compound inputs; user visual approval remains open. Historical generation recipes retain their original provenance.",
   "review_exports": [
     {
       "build_output": "lakeside12-patch-parity0-2x.png",
@@ -309,7 +327,7 @@
         "width": 476
       },
       "path": "art/review/shore-v1/lakeside12-patch-parity0-2x.png",
-      "sha256": "cb72d9fa3ef86965df2320333107385c1062b68cbd65ab11e7abccc74e0f3391"
+      "sha256": "fe226d1a1cb4e14c27713bea159066b6bcdb56ca3164c96225c3d844c389e475"
     },
     {
       "build_output": "lakeside12-patch-parity0-4x.png",
@@ -318,7 +336,7 @@
         "width": 952
       },
       "path": "art/review/shore-v1/lakeside12-patch-parity0-4x.png",
-      "sha256": "09caae45348959fd6498c4441d1f6cec02deb5e3125633b76c0581bb1647353e"
+      "sha256": "f9f1e76346943e2333179a97770c1d4bff4b6dc5ad0be9c5c339aa9be28fb0b0"
     },
     {
       "build_output": "lakeside12-patch-parity1-2x.png",
@@ -327,7 +345,7 @@
         "width": 476
       },
       "path": "art/review/shore-v1/lakeside12-patch-parity1-2x.png",
-      "sha256": "cb72d9fa3ef86965df2320333107385c1062b68cbd65ab11e7abccc74e0f3391"
+      "sha256": "fe226d1a1cb4e14c27713bea159066b6bcdb56ca3164c96225c3d844c389e475"
     },
     {
       "build_output": "lakeside12-patch-parity1-4x.png",
@@ -336,7 +354,7 @@
         "width": 952
       },
       "path": "art/review/shore-v1/lakeside12-patch-parity1-4x.png",
-      "sha256": "09caae45348959fd6498c4441d1f6cec02deb5e3125633b76c0581bb1647353e"
+      "sha256": "f9f1e76346943e2333179a97770c1d4bff4b6dc5ad0be9c5c339aa9be28fb0b0"
     },
     {
       "build_output": "lakeside16-patch-parity0-2x.png",
@@ -345,7 +363,7 @@
         "width": 476
       },
       "path": "art/review/shore-v1/lakeside16-patch-parity0-2x.png",
-      "sha256": "e5a4c11e738983c19119d91d69a87c080a366b3da8732dfdb8fd50caad17459c"
+      "sha256": "9593b468eeae5cebadaf574b1dbe9777e655c9fdb50eca1136e8491f15d13560"
     },
     {
       "build_output": "lakeside16-patch-parity0-4x.png",
@@ -354,7 +372,7 @@
         "width": 952
       },
       "path": "art/review/shore-v1/lakeside16-patch-parity0-4x.png",
-      "sha256": "64e78a814f06071e017d20c58fd12a07ac0f3424aef7642dfbce985c5e09035e"
+      "sha256": "29f03ef7723ccaf1ce87be5027c776877af0a8800db2b7cbafd700a3dd62427c"
     },
     {
       "build_output": "lakeside16-patch-parity1-2x.png",
@@ -363,7 +381,7 @@
         "width": 476
       },
       "path": "art/review/shore-v1/lakeside16-patch-parity1-2x.png",
-      "sha256": "e5a4c11e738983c19119d91d69a87c080a366b3da8732dfdb8fd50caad17459c"
+      "sha256": "9593b468eeae5cebadaf574b1dbe9777e655c9fdb50eca1136e8491f15d13560"
     },
     {
       "build_output": "lakeside16-patch-parity1-4x.png",
@@ -372,7 +390,7 @@
         "width": 952
       },
       "path": "art/review/shore-v1/lakeside16-patch-parity1-4x.png",
-      "sha256": "64e78a814f06071e017d20c58fd12a07ac0f3424aef7642dfbce985c5e09035e"
+      "sha256": "29f03ef7723ccaf1ce87be5027c776877af0a8800db2b7cbafd700a3dd62427c"
     },
     {
       "build_output": "lakeside23-patch-parity0-2x.png",
@@ -381,7 +399,7 @@
         "width": 476
       },
       "path": "art/review/shore-v1/lakeside23-patch-parity0-2x.png",
-      "sha256": "1db8af24d45c163b4bc8bf0cafb555667632a405bd137e4925153ed6d81d3761"
+      "sha256": "9bc1e3c7244ecbc82de68f79cbc8b46243a924525f92355931ea4fccce9326bb"
     },
     {
       "build_output": "lakeside23-patch-parity0-4x.png",
@@ -390,7 +408,7 @@
         "width": 952
       },
       "path": "art/review/shore-v1/lakeside23-patch-parity0-4x.png",
-      "sha256": "bbd87c563cb968878cff6062f0690fd57e1ab7ee853ab251e68f93e2e8853e63"
+      "sha256": "2f33ab71f9c8286c137b59ac33ed629f1ebaff2f7015f3e973ab75ab73d4a6fe"
     },
     {
       "build_output": "lakeside23-patch-parity1-2x.png",
@@ -399,7 +417,7 @@
         "width": 476
       },
       "path": "art/review/shore-v1/lakeside23-patch-parity1-2x.png",
-      "sha256": "1db8af24d45c163b4bc8bf0cafb555667632a405bd137e4925153ed6d81d3761"
+      "sha256": "9bc1e3c7244ecbc82de68f79cbc8b46243a924525f92355931ea4fccce9326bb"
     },
     {
       "build_output": "lakeside23-patch-parity1-4x.png",
@@ -408,7 +426,7 @@
         "width": 952
       },
       "path": "art/review/shore-v1/lakeside23-patch-parity1-4x.png",
-      "sha256": "bbd87c563cb968878cff6062f0690fd57e1ab7ee853ab251e68f93e2e8853e63"
+      "sha256": "2f33ab71f9c8286c137b59ac33ed629f1ebaff2f7015f3e973ab75ab73d4a6fe"
     },
     {
       "build_output": "lakeside34-patch-parity0-2x.png",
@@ -417,7 +435,7 @@
         "width": 476
       },
       "path": "art/review/shore-v1/lakeside34-patch-parity0-2x.png",
-      "sha256": "43f27ee75f911d28d9455c0025a2741ca49f029cd5f1d0aeff445eeda91c98bb"
+      "sha256": "229f4acaaf60bf21784f2f32ae1c4449a26c35f082acd93bb5d76f7631e6a56d"
     },
     {
       "build_output": "lakeside34-patch-parity0-4x.png",
@@ -426,7 +444,7 @@
         "width": 952
       },
       "path": "art/review/shore-v1/lakeside34-patch-parity0-4x.png",
-      "sha256": "313116b974694835a4a5c836462238c9decab87e8b98b0e28b2903e89d3ab3a1"
+      "sha256": "ee224014cff85c18e88a935a5a1c018f2fc018f725545ac629af2391bb195352"
     },
     {
       "build_output": "lakeside34-patch-parity1-2x.png",
@@ -435,7 +453,7 @@
         "width": 476
       },
       "path": "art/review/shore-v1/lakeside34-patch-parity1-2x.png",
-      "sha256": "43f27ee75f911d28d9455c0025a2741ca49f029cd5f1d0aeff445eeda91c98bb"
+      "sha256": "229f4acaaf60bf21784f2f32ae1c4449a26c35f082acd93bb5d76f7631e6a56d"
     },
     {
       "build_output": "lakeside34-patch-parity1-4x.png",
@@ -444,7 +462,7 @@
         "width": 952
       },
       "path": "art/review/shore-v1/lakeside34-patch-parity1-4x.png",
-      "sha256": "313116b974694835a4a5c836462238c9decab87e8b98b0e28b2903e89d3ab3a1"
+      "sha256": "ee224014cff85c18e88a935a5a1c018f2fc018f725545ac629af2391bb195352"
     },
     {
       "build_output": "lakeside56-patch-parity0-2x.png",
@@ -453,7 +471,7 @@
         "width": 476
       },
       "path": "art/review/shore-v1/lakeside56-patch-parity0-2x.png",
-      "sha256": "f4ea4cae74b1a2a80e89421a0b14ce8e9394f15b3ddf6b278e2d9e14cebb3005"
+      "sha256": "02d9a0eaf4041c7f4cf1752b470f7b46123d0524481549c83d72f411f8f96ede"
     },
     {
       "build_output": "lakeside56-patch-parity0-4x.png",
@@ -462,7 +480,7 @@
         "width": 952
       },
       "path": "art/review/shore-v1/lakeside56-patch-parity0-4x.png",
-      "sha256": "b519a9173962bb8d05506eebff38e9ad3139f2306dfea933caa6da8e7afe758d"
+      "sha256": "6b39392ccb3e9a0fdf823951b566a0f580c8e61a8e20ea3f20c406663a7cf85a"
     },
     {
       "build_output": "lakeside56-patch-parity1-2x.png",
@@ -471,7 +489,7 @@
         "width": 476
       },
       "path": "art/review/shore-v1/lakeside56-patch-parity1-2x.png",
-      "sha256": "f4ea4cae74b1a2a80e89421a0b14ce8e9394f15b3ddf6b278e2d9e14cebb3005"
+      "sha256": "02d9a0eaf4041c7f4cf1752b470f7b46123d0524481549c83d72f411f8f96ede"
     },
     {
       "build_output": "lakeside56-patch-parity1-4x.png",
@@ -480,7 +498,7 @@
         "width": 952
       },
       "path": "art/review/shore-v1/lakeside56-patch-parity1-4x.png",
-      "sha256": "b519a9173962bb8d05506eebff38e9ad3139f2306dfea933caa6da8e7afe758d"
+      "sha256": "6b39392ccb3e9a0fdf823951b566a0f580c8e61a8e20ea3f20c406663a7cf85a"
     },
     {
       "build_output": "lakeside123-patch-parity0-2x.png",
@@ -489,7 +507,7 @@
         "width": 476
       },
       "path": "art/review/shore-v1/lakeside123-patch-parity0-2x.png",
-      "sha256": "c6c8bbdb14a74d9169d1c577941a150dba9e71203718f4912913c66ffa835457"
+      "sha256": "92f004dd66d7cdc726c51b44ab3b22c0621edcc47b57cc412526cb67117f165e"
     },
     {
       "build_output": "lakeside123-patch-parity0-4x.png",
@@ -498,7 +516,7 @@
         "width": 952
       },
       "path": "art/review/shore-v1/lakeside123-patch-parity0-4x.png",
-      "sha256": "d556816c2492cb3611c9bf7e1674688d6f372a0c7dc7854127d62dbebbfb2b52"
+      "sha256": "32dc051720d85f90ccd4d83c56945d228ed8668645ba478fbd9ade4bc90e9189"
     },
     {
       "build_output": "lakeside123-patch-parity1-2x.png",
@@ -507,7 +525,7 @@
         "width": 476
       },
       "path": "art/review/shore-v1/lakeside123-patch-parity1-2x.png",
-      "sha256": "c6c8bbdb14a74d9169d1c577941a150dba9e71203718f4912913c66ffa835457"
+      "sha256": "92f004dd66d7cdc726c51b44ab3b22c0621edcc47b57cc412526cb67117f165e"
     },
     {
       "build_output": "lakeside123-patch-parity1-4x.png",
@@ -516,7 +534,7 @@
         "width": 952
       },
       "path": "art/review/shore-v1/lakeside123-patch-parity1-4x.png",
-      "sha256": "d556816c2492cb3611c9bf7e1674688d6f372a0c7dc7854127d62dbebbfb2b52"
+      "sha256": "32dc051720d85f90ccd4d83c56945d228ed8668645ba478fbd9ade4bc90e9189"
     },
     {
       "build_output": "lakeside126-patch-parity0-2x.png",
@@ -525,7 +543,7 @@
         "width": 476
       },
       "path": "art/review/shore-v1/lakeside126-patch-parity0-2x.png",
-      "sha256": "5af6c12f083ca51288b8e886a4c04170c73633dc517bac6cc0f3abb19ebbc281"
+      "sha256": "b7c9cf6faa2ae2d04172592d0c2e48cd9391aaefdad9d0a3171261a6021b80e2"
     },
     {
       "build_output": "lakeside126-patch-parity0-4x.png",
@@ -534,7 +552,7 @@
         "width": 952
       },
       "path": "art/review/shore-v1/lakeside126-patch-parity0-4x.png",
-      "sha256": "156816aa2ef1d09d931a043ba95ad8e7ebcbb0ce3122fed1add6869b25f2e63a"
+      "sha256": "ee7d1acd46bf914abebd775a3103fc5fbfc08ff56db00f74676eee16b2560ae5"
     },
     {
       "build_output": "lakeside126-patch-parity1-2x.png",
@@ -543,7 +561,7 @@
         "width": 476
       },
       "path": "art/review/shore-v1/lakeside126-patch-parity1-2x.png",
-      "sha256": "5af6c12f083ca51288b8e886a4c04170c73633dc517bac6cc0f3abb19ebbc281"
+      "sha256": "b7c9cf6faa2ae2d04172592d0c2e48cd9391aaefdad9d0a3171261a6021b80e2"
     },
     {
       "build_output": "lakeside126-patch-parity1-4x.png",
@@ -552,7 +570,7 @@
         "width": 952
       },
       "path": "art/review/shore-v1/lakeside126-patch-parity1-4x.png",
-      "sha256": "156816aa2ef1d09d931a043ba95ad8e7ebcbb0ce3122fed1add6869b25f2e63a"
+      "sha256": "ee7d1acd46bf914abebd775a3103fc5fbfc08ff56db00f74676eee16b2560ae5"
     },
     {
       "build_output": "lakeside156-patch-parity0-2x.png",
@@ -561,7 +579,7 @@
         "width": 476
       },
       "path": "art/review/shore-v1/lakeside156-patch-parity0-2x.png",
-      "sha256": "d4b7f3e28cc18d2886abe18b6dfb1922f05980be690b46432f4c8cb7e867e801"
+      "sha256": "5408567db159048c0397bb621a6332f58528eb25881aaf9095e13420dc6744ef"
     },
     {
       "build_output": "lakeside156-patch-parity0-4x.png",
@@ -570,7 +588,7 @@
         "width": 952
       },
       "path": "art/review/shore-v1/lakeside156-patch-parity0-4x.png",
-      "sha256": "fd950b117f0b8886f23c81bcb3640d5a1d1e205e2f55b644edbd731dd0489291"
+      "sha256": "ccb90cb49b6d5cd9b87e943366c572862e570c49fbc43604149d1702c85ee700"
     },
     {
       "build_output": "lakeside156-patch-parity1-2x.png",
@@ -579,7 +597,7 @@
         "width": 476
       },
       "path": "art/review/shore-v1/lakeside156-patch-parity1-2x.png",
-      "sha256": "d4b7f3e28cc18d2886abe18b6dfb1922f05980be690b46432f4c8cb7e867e801"
+      "sha256": "5408567db159048c0397bb621a6332f58528eb25881aaf9095e13420dc6744ef"
     },
     {
       "build_output": "lakeside156-patch-parity1-4x.png",
@@ -588,7 +606,7 @@
         "width": 952
       },
       "path": "art/review/shore-v1/lakeside156-patch-parity1-4x.png",
-      "sha256": "fd950b117f0b8886f23c81bcb3640d5a1d1e205e2f55b644edbd731dd0489291"
+      "sha256": "ccb90cb49b6d5cd9b87e943366c572862e570c49fbc43604149d1702c85ee700"
     },
     {
       "build_output": "lakeside3456-patch-parity0-2x.png",
@@ -597,7 +615,7 @@
         "width": 476
       },
       "path": "art/review/shore-v1/lakeside3456-patch-parity0-2x.png",
-      "sha256": "d8fa77c8ce16b2d4f62d35ca9e51f753c20fa60f17f55ec98cbeb890e46ad464"
+      "sha256": "0ddcca5c9cbbb6dff0038001f68d4d5db7f59050204e17a0636a464724ccd5fc"
     },
     {
       "build_output": "lakeside3456-patch-parity0-4x.png",
@@ -606,7 +624,7 @@
         "width": 952
       },
       "path": "art/review/shore-v1/lakeside3456-patch-parity0-4x.png",
-      "sha256": "faa173cb223d54a593bee2df19f40187f56456f8ba18738dd141af5728d1de13"
+      "sha256": "23611d6552151580770e022be24b92561cd77741c941ba18286910343833f31b"
     },
     {
       "build_output": "lakeside3456-patch-parity1-2x.png",
@@ -615,7 +633,7 @@
         "width": 476
       },
       "path": "art/review/shore-v1/lakeside3456-patch-parity1-2x.png",
-      "sha256": "d8fa77c8ce16b2d4f62d35ca9e51f753c20fa60f17f55ec98cbeb890e46ad464"
+      "sha256": "0ddcca5c9cbbb6dff0038001f68d4d5db7f59050204e17a0636a464724ccd5fc"
     },
     {
       "build_output": "lakeside3456-patch-parity1-4x.png",
@@ -624,7 +642,7 @@
         "width": 952
       },
       "path": "art/review/shore-v1/lakeside3456-patch-parity1-4x.png",
-      "sha256": "faa173cb223d54a593bee2df19f40187f56456f8ba18738dd141af5728d1de13"
+      "sha256": "23611d6552151580770e022be24b92561cd77741c941ba18286910343833f31b"
     },
     {
       "build_output": "water-patch-parity0-2x.png",
@@ -761,16 +779,16 @@
           "height": 480,
           "width": 476
         },
-        "path": "lakeside12-patch-parity0-2x.png",
-        "sha256": "cb72d9fa3ef86965df2320333107385c1062b68cbd65ab11e7abccc74e0f3391"
+        "path": "art/review/shore-v1/lakeside12-patch-parity0-2x.png",
+        "sha256": "fe226d1a1cb4e14c27713bea159066b6bcdb56ca3164c96225c3d844c389e475"
       },
       "output_4x": {
         "dimensions": {
           "height": 960,
           "width": 952
         },
-        "path": "lakeside12-patch-parity0-4x.png",
-        "sha256": "09caae45348959fd6498c4441d1f6cec02deb5e3125633b76c0581bb1647353e"
+        "path": "art/review/shore-v1/lakeside12-patch-parity0-4x.png",
+        "sha256": "f9f1e76346943e2333179a97770c1d4bff4b6dc5ad0be9c5c339aa9be28fb0b0"
       }
     },
     {
@@ -870,16 +888,16 @@
           "height": 480,
           "width": 476
         },
-        "path": "lakeside12-patch-parity1-2x.png",
-        "sha256": "cb72d9fa3ef86965df2320333107385c1062b68cbd65ab11e7abccc74e0f3391"
+        "path": "art/review/shore-v1/lakeside12-patch-parity1-2x.png",
+        "sha256": "fe226d1a1cb4e14c27713bea159066b6bcdb56ca3164c96225c3d844c389e475"
       },
       "output_4x": {
         "dimensions": {
           "height": 960,
           "width": 952
         },
-        "path": "lakeside12-patch-parity1-4x.png",
-        "sha256": "09caae45348959fd6498c4441d1f6cec02deb5e3125633b76c0581bb1647353e"
+        "path": "art/review/shore-v1/lakeside12-patch-parity1-4x.png",
+        "sha256": "f9f1e76346943e2333179a97770c1d4bff4b6dc5ad0be9c5c339aa9be28fb0b0"
       }
     },
     {
@@ -979,16 +997,16 @@
           "height": 480,
           "width": 476
         },
-        "path": "lakeside16-patch-parity0-2x.png",
-        "sha256": "e5a4c11e738983c19119d91d69a87c080a366b3da8732dfdb8fd50caad17459c"
+        "path": "art/review/shore-v1/lakeside16-patch-parity0-2x.png",
+        "sha256": "9593b468eeae5cebadaf574b1dbe9777e655c9fdb50eca1136e8491f15d13560"
       },
       "output_4x": {
         "dimensions": {
           "height": 960,
           "width": 952
         },
-        "path": "lakeside16-patch-parity0-4x.png",
-        "sha256": "64e78a814f06071e017d20c58fd12a07ac0f3424aef7642dfbce985c5e09035e"
+        "path": "art/review/shore-v1/lakeside16-patch-parity0-4x.png",
+        "sha256": "29f03ef7723ccaf1ce87be5027c776877af0a8800db2b7cbafd700a3dd62427c"
       }
     },
     {
@@ -1088,16 +1106,16 @@
           "height": 480,
           "width": 476
         },
-        "path": "lakeside16-patch-parity1-2x.png",
-        "sha256": "e5a4c11e738983c19119d91d69a87c080a366b3da8732dfdb8fd50caad17459c"
+        "path": "art/review/shore-v1/lakeside16-patch-parity1-2x.png",
+        "sha256": "9593b468eeae5cebadaf574b1dbe9777e655c9fdb50eca1136e8491f15d13560"
       },
       "output_4x": {
         "dimensions": {
           "height": 960,
           "width": 952
         },
-        "path": "lakeside16-patch-parity1-4x.png",
-        "sha256": "64e78a814f06071e017d20c58fd12a07ac0f3424aef7642dfbce985c5e09035e"
+        "path": "art/review/shore-v1/lakeside16-patch-parity1-4x.png",
+        "sha256": "29f03ef7723ccaf1ce87be5027c776877af0a8800db2b7cbafd700a3dd62427c"
       }
     },
     {
@@ -1206,16 +1224,16 @@
           "height": 480,
           "width": 476
         },
-        "path": "lakeside23-patch-parity0-2x.png",
-        "sha256": "1db8af24d45c163b4bc8bf0cafb555667632a405bd137e4925153ed6d81d3761"
+        "path": "art/review/shore-v1/lakeside23-patch-parity0-2x.png",
+        "sha256": "9bc1e3c7244ecbc82de68f79cbc8b46243a924525f92355931ea4fccce9326bb"
       },
       "output_4x": {
         "dimensions": {
           "height": 960,
           "width": 952
         },
-        "path": "lakeside23-patch-parity0-4x.png",
-        "sha256": "bbd87c563cb968878cff6062f0690fd57e1ab7ee853ab251e68f93e2e8853e63"
+        "path": "art/review/shore-v1/lakeside23-patch-parity0-4x.png",
+        "sha256": "2f33ab71f9c8286c137b59ac33ed629f1ebaff2f7015f3e973ab75ab73d4a6fe"
       }
     },
     {
@@ -1324,16 +1342,16 @@
           "height": 480,
           "width": 476
         },
-        "path": "lakeside23-patch-parity1-2x.png",
-        "sha256": "1db8af24d45c163b4bc8bf0cafb555667632a405bd137e4925153ed6d81d3761"
+        "path": "art/review/shore-v1/lakeside23-patch-parity1-2x.png",
+        "sha256": "9bc1e3c7244ecbc82de68f79cbc8b46243a924525f92355931ea4fccce9326bb"
       },
       "output_4x": {
         "dimensions": {
           "height": 960,
           "width": 952
         },
-        "path": "lakeside23-patch-parity1-4x.png",
-        "sha256": "bbd87c563cb968878cff6062f0690fd57e1ab7ee853ab251e68f93e2e8853e63"
+        "path": "art/review/shore-v1/lakeside23-patch-parity1-4x.png",
+        "sha256": "2f33ab71f9c8286c137b59ac33ed629f1ebaff2f7015f3e973ab75ab73d4a6fe"
       }
     },
     {
@@ -1434,16 +1452,16 @@
           "height": 480,
           "width": 476
         },
-        "path": "lakeside34-patch-parity0-2x.png",
-        "sha256": "43f27ee75f911d28d9455c0025a2741ca49f029cd5f1d0aeff445eeda91c98bb"
+        "path": "art/review/shore-v1/lakeside34-patch-parity0-2x.png",
+        "sha256": "229f4acaaf60bf21784f2f32ae1c4449a26c35f082acd93bb5d76f7631e6a56d"
       },
       "output_4x": {
         "dimensions": {
           "height": 960,
           "width": 952
         },
-        "path": "lakeside34-patch-parity0-4x.png",
-        "sha256": "313116b974694835a4a5c836462238c9decab87e8b98b0e28b2903e89d3ab3a1"
+        "path": "art/review/shore-v1/lakeside34-patch-parity0-4x.png",
+        "sha256": "ee224014cff85c18e88a935a5a1c018f2fc018f725545ac629af2391bb195352"
       }
     },
     {
@@ -1544,16 +1562,16 @@
           "height": 480,
           "width": 476
         },
-        "path": "lakeside34-patch-parity1-2x.png",
-        "sha256": "43f27ee75f911d28d9455c0025a2741ca49f029cd5f1d0aeff445eeda91c98bb"
+        "path": "art/review/shore-v1/lakeside34-patch-parity1-2x.png",
+        "sha256": "229f4acaaf60bf21784f2f32ae1c4449a26c35f082acd93bb5d76f7631e6a56d"
       },
       "output_4x": {
         "dimensions": {
           "height": 960,
           "width": 952
         },
-        "path": "lakeside34-patch-parity1-4x.png",
-        "sha256": "313116b974694835a4a5c836462238c9decab87e8b98b0e28b2903e89d3ab3a1"
+        "path": "art/review/shore-v1/lakeside34-patch-parity1-4x.png",
+        "sha256": "ee224014cff85c18e88a935a5a1c018f2fc018f725545ac629af2391bb195352"
       }
     },
     {
@@ -1653,16 +1671,16 @@
           "height": 480,
           "width": 476
         },
-        "path": "lakeside56-patch-parity0-2x.png",
-        "sha256": "f4ea4cae74b1a2a80e89421a0b14ce8e9394f15b3ddf6b278e2d9e14cebb3005"
+        "path": "art/review/shore-v1/lakeside56-patch-parity0-2x.png",
+        "sha256": "02d9a0eaf4041c7f4cf1752b470f7b46123d0524481549c83d72f411f8f96ede"
       },
       "output_4x": {
         "dimensions": {
           "height": 960,
           "width": 952
         },
-        "path": "lakeside56-patch-parity0-4x.png",
-        "sha256": "b519a9173962bb8d05506eebff38e9ad3139f2306dfea933caa6da8e7afe758d"
+        "path": "art/review/shore-v1/lakeside56-patch-parity0-4x.png",
+        "sha256": "6b39392ccb3e9a0fdf823951b566a0f580c8e61a8e20ea3f20c406663a7cf85a"
       }
     },
     {
@@ -1762,16 +1780,16 @@
           "height": 480,
           "width": 476
         },
-        "path": "lakeside56-patch-parity1-2x.png",
-        "sha256": "f4ea4cae74b1a2a80e89421a0b14ce8e9394f15b3ddf6b278e2d9e14cebb3005"
+        "path": "art/review/shore-v1/lakeside56-patch-parity1-2x.png",
+        "sha256": "02d9a0eaf4041c7f4cf1752b470f7b46123d0524481549c83d72f411f8f96ede"
       },
       "output_4x": {
         "dimensions": {
           "height": 960,
           "width": 952
         },
-        "path": "lakeside56-patch-parity1-4x.png",
-        "sha256": "b519a9173962bb8d05506eebff38e9ad3139f2306dfea933caa6da8e7afe758d"
+        "path": "art/review/shore-v1/lakeside56-patch-parity1-4x.png",
+        "sha256": "6b39392ccb3e9a0fdf823951b566a0f580c8e61a8e20ea3f20c406663a7cf85a"
       }
     },
     {
@@ -1880,16 +1898,16 @@
           "height": 480,
           "width": 476
         },
-        "path": "lakeside123-patch-parity0-2x.png",
-        "sha256": "c6c8bbdb14a74d9169d1c577941a150dba9e71203718f4912913c66ffa835457"
+        "path": "art/review/shore-v1/lakeside123-patch-parity0-2x.png",
+        "sha256": "92f004dd66d7cdc726c51b44ab3b22c0621edcc47b57cc412526cb67117f165e"
       },
       "output_4x": {
         "dimensions": {
           "height": 960,
           "width": 952
         },
-        "path": "lakeside123-patch-parity0-4x.png",
-        "sha256": "d556816c2492cb3611c9bf7e1674688d6f372a0c7dc7854127d62dbebbfb2b52"
+        "path": "art/review/shore-v1/lakeside123-patch-parity0-4x.png",
+        "sha256": "32dc051720d85f90ccd4d83c56945d228ed8668645ba478fbd9ade4bc90e9189"
       }
     },
     {
@@ -1998,16 +2016,16 @@
           "height": 480,
           "width": 476
         },
-        "path": "lakeside123-patch-parity1-2x.png",
-        "sha256": "c6c8bbdb14a74d9169d1c577941a150dba9e71203718f4912913c66ffa835457"
+        "path": "art/review/shore-v1/lakeside123-patch-parity1-2x.png",
+        "sha256": "92f004dd66d7cdc726c51b44ab3b22c0621edcc47b57cc412526cb67117f165e"
       },
       "output_4x": {
         "dimensions": {
           "height": 960,
           "width": 952
         },
-        "path": "lakeside123-patch-parity1-4x.png",
-        "sha256": "d556816c2492cb3611c9bf7e1674688d6f372a0c7dc7854127d62dbebbfb2b52"
+        "path": "art/review/shore-v1/lakeside123-patch-parity1-4x.png",
+        "sha256": "32dc051720d85f90ccd4d83c56945d228ed8668645ba478fbd9ade4bc90e9189"
       }
     },
     {
@@ -2115,16 +2133,16 @@
           "height": 480,
           "width": 476
         },
-        "path": "lakeside126-patch-parity0-2x.png",
-        "sha256": "5af6c12f083ca51288b8e886a4c04170c73633dc517bac6cc0f3abb19ebbc281"
+        "path": "art/review/shore-v1/lakeside126-patch-parity0-2x.png",
+        "sha256": "b7c9cf6faa2ae2d04172592d0c2e48cd9391aaefdad9d0a3171261a6021b80e2"
       },
       "output_4x": {
         "dimensions": {
           "height": 960,
           "width": 952
         },
-        "path": "lakeside126-patch-parity0-4x.png",
-        "sha256": "156816aa2ef1d09d931a043ba95ad8e7ebcbb0ce3122fed1add6869b25f2e63a"
+        "path": "art/review/shore-v1/lakeside126-patch-parity0-4x.png",
+        "sha256": "ee7d1acd46bf914abebd775a3103fc5fbfc08ff56db00f74676eee16b2560ae5"
       }
     },
     {
@@ -2232,16 +2250,16 @@
           "height": 480,
           "width": 476
         },
-        "path": "lakeside126-patch-parity1-2x.png",
-        "sha256": "5af6c12f083ca51288b8e886a4c04170c73633dc517bac6cc0f3abb19ebbc281"
+        "path": "art/review/shore-v1/lakeside126-patch-parity1-2x.png",
+        "sha256": "b7c9cf6faa2ae2d04172592d0c2e48cd9391aaefdad9d0a3171261a6021b80e2"
       },
       "output_4x": {
         "dimensions": {
           "height": 960,
           "width": 952
         },
-        "path": "lakeside126-patch-parity1-4x.png",
-        "sha256": "156816aa2ef1d09d931a043ba95ad8e7ebcbb0ce3122fed1add6869b25f2e63a"
+        "path": "art/review/shore-v1/lakeside126-patch-parity1-4x.png",
+        "sha256": "ee7d1acd46bf914abebd775a3103fc5fbfc08ff56db00f74676eee16b2560ae5"
       }
     },
     {
@@ -2349,16 +2367,16 @@
           "height": 480,
           "width": 476
         },
-        "path": "lakeside156-patch-parity0-2x.png",
-        "sha256": "d4b7f3e28cc18d2886abe18b6dfb1922f05980be690b46432f4c8cb7e867e801"
+        "path": "art/review/shore-v1/lakeside156-patch-parity0-2x.png",
+        "sha256": "5408567db159048c0397bb621a6332f58528eb25881aaf9095e13420dc6744ef"
       },
       "output_4x": {
         "dimensions": {
           "height": 960,
           "width": 952
         },
-        "path": "lakeside156-patch-parity0-4x.png",
-        "sha256": "fd950b117f0b8886f23c81bcb3640d5a1d1e205e2f55b644edbd731dd0489291"
+        "path": "art/review/shore-v1/lakeside156-patch-parity0-4x.png",
+        "sha256": "ccb90cb49b6d5cd9b87e943366c572862e570c49fbc43604149d1702c85ee700"
       }
     },
     {
@@ -2466,16 +2484,16 @@
           "height": 480,
           "width": 476
         },
-        "path": "lakeside156-patch-parity1-2x.png",
-        "sha256": "d4b7f3e28cc18d2886abe18b6dfb1922f05980be690b46432f4c8cb7e867e801"
+        "path": "art/review/shore-v1/lakeside156-patch-parity1-2x.png",
+        "sha256": "5408567db159048c0397bb621a6332f58528eb25881aaf9095e13420dc6744ef"
       },
       "output_4x": {
         "dimensions": {
           "height": 960,
           "width": 952
         },
-        "path": "lakeside156-patch-parity1-4x.png",
-        "sha256": "fd950b117f0b8886f23c81bcb3640d5a1d1e205e2f55b644edbd731dd0489291"
+        "path": "art/review/shore-v1/lakeside156-patch-parity1-4x.png",
+        "sha256": "ccb90cb49b6d5cd9b87e943366c572862e570c49fbc43604149d1702c85ee700"
       }
     },
     {
@@ -2592,16 +2610,16 @@
           "height": 480,
           "width": 476
         },
-        "path": "lakeside3456-patch-parity0-2x.png",
-        "sha256": "d8fa77c8ce16b2d4f62d35ca9e51f753c20fa60f17f55ec98cbeb890e46ad464"
+        "path": "art/review/shore-v1/lakeside3456-patch-parity0-2x.png",
+        "sha256": "0ddcca5c9cbbb6dff0038001f68d4d5db7f59050204e17a0636a464724ccd5fc"
       },
       "output_4x": {
         "dimensions": {
           "height": 960,
           "width": 952
         },
-        "path": "lakeside3456-patch-parity0-4x.png",
-        "sha256": "faa173cb223d54a593bee2df19f40187f56456f8ba18738dd141af5728d1de13"
+        "path": "art/review/shore-v1/lakeside3456-patch-parity0-4x.png",
+        "sha256": "23611d6552151580770e022be24b92561cd77741c941ba18286910343833f31b"
       }
     },
     {
@@ -2718,16 +2736,16 @@
           "height": 480,
           "width": 476
         },
-        "path": "lakeside3456-patch-parity1-2x.png",
-        "sha256": "d8fa77c8ce16b2d4f62d35ca9e51f753c20fa60f17f55ec98cbeb890e46ad464"
+        "path": "art/review/shore-v1/lakeside3456-patch-parity1-2x.png",
+        "sha256": "0ddcca5c9cbbb6dff0038001f68d4d5db7f59050204e17a0636a464724ccd5fc"
       },
       "output_4x": {
         "dimensions": {
           "height": 960,
           "width": 952
         },
-        "path": "lakeside3456-patch-parity1-4x.png",
-        "sha256": "faa173cb223d54a593bee2df19f40187f56456f8ba18738dd141af5728d1de13"
+        "path": "art/review/shore-v1/lakeside3456-patch-parity1-4x.png",
+        "sha256": "23611d6552151580770e022be24b92561cd77741c941ba18286910343833f31b"
       }
     },
     {
@@ -2801,7 +2819,7 @@
           "height": 480,
           "width": 476
         },
-        "path": "water-patch-parity0-2x.png",
+        "path": "art/review/shore-v1/water-patch-parity0-2x.png",
         "sha256": "1c6f9aa2da55328046a884c739609969488c3ea568ad0ed2a1c5e52f3e678ee3"
       },
       "output_4x": {
@@ -2809,7 +2827,7 @@
           "height": 960,
           "width": 952
         },
-        "path": "water-patch-parity0-4x.png",
+        "path": "art/review/shore-v1/water-patch-parity0-4x.png",
         "sha256": "a2b2b4587370ce89d28114346e20226eaeca428b4ac4f7db08f169e13a5cbfa4"
       }
     },
@@ -2884,7 +2902,7 @@
           "height": 480,
           "width": 476
         },
-        "path": "water-patch-parity1-2x.png",
+        "path": "art/review/shore-v1/water-patch-parity1-2x.png",
         "sha256": "1c6f9aa2da55328046a884c739609969488c3ea568ad0ed2a1c5e52f3e678ee3"
       },
       "output_4x": {
@@ -2892,7 +2910,7 @@
           "height": 960,
           "width": 952
         },
-        "path": "water-patch-parity1-4x.png",
+        "path": "art/review/shore-v1/water-patch-parity1-4x.png",
         "sha256": "a2b2b4587370ce89d28114346e20226eaeca428b4ac4f7db08f169e13a5cbfa4"
       }
     }
@@ -2989,16 +3007,16 @@
             "height": 160,
             "width": 192
           },
-          "path": "tiles/lakeside12-2x.png",
-          "sha256": "b1a0c96ceb2c87e8fa7599dbf158f2ca086c5ea8ff32b691201269017a07e6e2"
+          "path": "art/exports/shore-v1/lakeside12-2x.png",
+          "sha256": "2c48cfa7fa4b2f175a370b379d7176c2f235ed96f725b7b236a672995e109cef"
         },
         {
           "dimensions": {
             "height": 320,
             "width": 384
           },
-          "path": "tiles/lakeside12-4x.png",
-          "sha256": "fb9df3c2ae4c5120b1cecbd6e5c3d532600dd7434be2cf5d8ef1e5f5b69d87a3"
+          "path": "art/exports/shore-v1/lakeside12-4x.png",
+          "sha256": "3f707ec1348100a9ae0f0ab2bfc56ecf5a3ad5bf3257670e14dafdaeed753f22"
         }
       ]
     },
@@ -3089,16 +3107,16 @@
             "height": 160,
             "width": 192
           },
-          "path": "tiles/lakeside16-2x.png",
-          "sha256": "4baaece27a9e68d76597b60c740353a52b6977bd704dc3cacac0cf949dba986e"
+          "path": "art/exports/shore-v1/lakeside16-2x.png",
+          "sha256": "354fc0431092e0c148e6d26b4bd383350b9d562553c9d3208a9c62e8b8344d25"
         },
         {
           "dimensions": {
             "height": 320,
             "width": 384
           },
-          "path": "tiles/lakeside16-4x.png",
-          "sha256": "ab02adcc9ef758f7876617b894501f3cca65e7854734004e63d54e0fc0c095af"
+          "path": "art/exports/shore-v1/lakeside16-4x.png",
+          "sha256": "b9490352eaca72a2bebe7d413d38098c22ea3a439b3470f893857e88038c50ce"
         }
       ]
     },
@@ -3190,16 +3208,16 @@
             "height": 160,
             "width": 192
           },
-          "path": "tiles/lakeside23-2x.png",
-          "sha256": "3f2f3855280392773059c57050c130c09ad9e3f987dc4105b7663bd4b1936eea"
+          "path": "art/exports/shore-v1/lakeside23-2x.png",
+          "sha256": "824fbef35a873147c190845aa3df0f792e4248df4989e169af4864a4a407b0e1"
         },
         {
           "dimensions": {
             "height": 320,
             "width": 384
           },
-          "path": "tiles/lakeside23-4x.png",
-          "sha256": "964e51aeea72340368d92609c31d76dfc6c9b06977d54caf0062a41b85cfc738"
+          "path": "art/exports/shore-v1/lakeside23-4x.png",
+          "sha256": "7a91a9805bdf333d83c09864e3922e8b66237442b92d8fb4307c9cf0639cd476"
         }
       ]
     },
@@ -3290,16 +3308,16 @@
             "height": 160,
             "width": 192
           },
-          "path": "tiles/lakeside34-2x.png",
-          "sha256": "f97190c2d85f117c9ea866f41718e5454a04243258b1df679838b44e27ea0424"
+          "path": "art/exports/shore-v1/lakeside34-2x.png",
+          "sha256": "c2be1a42ac8bc5127a8dc3bf77640c430d46dc3ead21f0d6f45f751097083660"
         },
         {
           "dimensions": {
             "height": 320,
             "width": 384
           },
-          "path": "tiles/lakeside34-4x.png",
-          "sha256": "d0153bb76bb6701b9fee4efed43ee6496c90a99954ec82d4d8918518510b19d9"
+          "path": "art/exports/shore-v1/lakeside34-4x.png",
+          "sha256": "d9e4ed048d91c9fa480eb803ce7060b5d2a894ba358a7b7e70cab79ef981f07c"
         }
       ]
     },
@@ -3390,16 +3408,16 @@
             "height": 160,
             "width": 192
           },
-          "path": "tiles/lakeside56-2x.png",
-          "sha256": "2e726dafbe226f8bcdbd4205d67d60c31bba08e88260a0f7a06ce0c8d64f0968"
+          "path": "art/exports/shore-v1/lakeside56-2x.png",
+          "sha256": "b68d6e053a8479ea91434a1b35f536b152bb51e6f123fa20b9e992243eb37958"
         },
         {
           "dimensions": {
             "height": 320,
             "width": 384
           },
-          "path": "tiles/lakeside56-4x.png",
-          "sha256": "5e1336a5de4681fa07a8dcb5f085b1a924d73d17628fe15e2e82e89a5538608d"
+          "path": "art/exports/shore-v1/lakeside56-4x.png",
+          "sha256": "3c086fd6f71db1bbc8e6d3c91194398775f686484c5b1d1938cc0c68c13e278a"
         }
       ]
     },
@@ -3491,16 +3509,16 @@
             "height": 160,
             "width": 192
           },
-          "path": "tiles/lakeside123-2x.png",
-          "sha256": "0affbc2ffc3ceb52a8f4408cc03a492148dfcf3f1e84851791c3567ba08b6d7c"
+          "path": "art/exports/shore-v1/lakeside123-2x.png",
+          "sha256": "0b664ada5fc571afc18472723a17cf2f2ed4f425aedfd0c1302a01d5958dcd85"
         },
         {
           "dimensions": {
             "height": 320,
             "width": 384
           },
-          "path": "tiles/lakeside123-4x.png",
-          "sha256": "ddd86600a9dd1e95e8176637a9190b4088424f672d327394f380365e5cb868d0"
+          "path": "art/exports/shore-v1/lakeside123-4x.png",
+          "sha256": "2f48f6e80b9dfe60b1b149a0070d48b112a1c4720308673b9c4c813070913061"
         }
       ]
     },
@@ -3592,16 +3610,16 @@
             "height": 160,
             "width": 192
           },
-          "path": "tiles/lakeside126-2x.png",
-          "sha256": "86bd096d7578d911a36b4dc1e4d3f55b09eec79681ab14403b97a6b295a057c5"
+          "path": "art/exports/shore-v1/lakeside126-2x.png",
+          "sha256": "4e89b10b09239127f9259fc9af82e0ade85a245508da8253fabe1350d5b0800d"
         },
         {
           "dimensions": {
             "height": 320,
             "width": 384
           },
-          "path": "tiles/lakeside126-4x.png",
-          "sha256": "98c656ebf85d6d078193af1ac1d9f00cbdda365a0f555ad97698e9fe646724b2"
+          "path": "art/exports/shore-v1/lakeside126-4x.png",
+          "sha256": "73a85504018705098a0169ea6d4fa66a01e5519e3c6e31b40717adeca4774569"
         }
       ]
     },
@@ -3693,16 +3711,16 @@
             "height": 160,
             "width": 192
           },
-          "path": "tiles/lakeside156-2x.png",
-          "sha256": "1261ab4d99e16af9614cfffb0b85833ec0f1a4bc86b07520d5113b1a0f8caa12"
+          "path": "art/exports/shore-v1/lakeside156-2x.png",
+          "sha256": "61999c17d3661493f827839920a24e1b53c2283b587d714c4fceafa36ebd6013"
         },
         {
           "dimensions": {
             "height": 320,
             "width": 384
           },
-          "path": "tiles/lakeside156-4x.png",
-          "sha256": "24cce4433abe9897dcf2df3b1a98db2967b05200f474b655896b211eaf4f613a"
+          "path": "art/exports/shore-v1/lakeside156-4x.png",
+          "sha256": "6657fb6603b8dc892335cb1100b448f73e7b59b1091373de88e5794852b70168"
         }
       ]
     },
@@ -3795,16 +3813,16 @@
             "height": 160,
             "width": 192
           },
-          "path": "tiles/lakeside3456-2x.png",
-          "sha256": "01d06e1bdbc64a0cf181e4dc1ab08fc45863265821049f3dc2c62d78be685e6a"
+          "path": "art/exports/shore-v1/lakeside3456-2x.png",
+          "sha256": "647f8c9986f095e72875fb39960059469847776dcf0fcff94237e89c7ee66803"
         },
         {
           "dimensions": {
             "height": 320,
             "width": 384
           },
-          "path": "tiles/lakeside3456-4x.png",
-          "sha256": "6d2c41cb36793f2fdae0405e7c065fd1e44429609797a79e5432ba83140f3e11"
+          "path": "art/exports/shore-v1/lakeside3456-4x.png",
+          "sha256": "603cd847a895f7ab7948573411efd3222750c2fccb11d57a75d5555a4fbaaa44"
         }
       ]
     },
@@ -3898,16 +3916,16 @@
             "height": 160,
             "width": 192
           },
-          "path": "tiles/grass-2x.png",
-          "sha256": "5285a565b5a882a24477fc48c7f5f69fc7a81a4ef2cdf5b87708b0eadfa13b17"
+          "path": "art/exports/connected-v1/grass-2x.png",
+          "sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
         },
         {
           "dimensions": {
             "height": 320,
             "width": 384
           },
-          "path": "tiles/grass-4x.png",
-          "sha256": "2feea3fd1e9026a16c87bf11ac6c2c33ec8d173719866427da42827bcc2d119e"
+          "path": "art/exports/connected-v1/grass-4x.png",
+          "sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
         }
       ]
     },
@@ -3994,7 +4012,7 @@
             "height": 160,
             "width": 192
           },
-          "path": "tiles/water-2x.png",
+          "path": "art/exports/shore-v1/water-2x.png",
           "sha256": "9d9ad933039173239ce66c78b095ff6d2f739e50ae08c029dc21d60921824eba"
         },
         {
@@ -4002,7 +4020,7 @@
             "height": 320,
             "width": 384
           },
-          "path": "tiles/water-4x.png",
+          "path": "art/exports/shore-v1/water-4x.png",
           "sha256": "608e20ac3fef905a5faf71eb5d8a2cf91e7a677c4c8a40bd5198fb9eb0469339"
         }
       ]

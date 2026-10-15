@@ -20,6 +20,14 @@ including all continuing unit portraits and sprites, use the established painted
 This overrides the distinct-composition brief for those assets; visual approval is
 separate from reproducible exports and is not a computed similarity percentage.
 
+**Reference-led correction (2026-10-16):** restore the grass's soft mottled relief;
+redraw all seven HQ pieces as an enclosed stone fortress with a north road/bridge,
+visible water and two rear bushes. Depot scenes must read as medical camps with a
+red cross and north road; the factory street exits right/east. The selected
+`reference-v2` paintings and full-layout exports supersede the earlier manor-style
+HQ/building candidates. Greater-than-90% original-size resemblance still requires
+visual review; it is not inferred from color-error scores.
+
 **Rules target:** recover and verify the original game's rules, using the supplied DOS
 `HL.EXE` as the current executable baseline. Keep the existing Python parity and improved
 turn-based rules available during migration. Neither current `Classic` nor `Standard` means
@@ -317,6 +325,23 @@ Counts below include the stable spelling aliases retained by the loader contract
 - [x] Trenches — connected infrastructure variants (12 IDs).
 - [x] Bridges and crossings — two bridge, three road-bridge and four crossing IDs (9 IDs).
 - [x] Unseen fog — opaque tile and concealment fixtures (1 ID).
+
+Reference-led corrections (2026-10-16):
+
+- [x] Redraw the summer grass master and all five compound scenes: seven HQ pieces
+      per season, four medical-camp depot pieces per season and four winter factory
+      pieces, including north/east streets, HQ bridge/moat, rear bushes and depot
+      red cross. Masters, prompts and hashes are retained in `reference-v2` source/
+      recipe directories; see `docs/art/reference-redraw-v2.md`.
+- [x] Add opt-in `reference-layout` framing. Default guarded framing is unchanged;
+      all five layouts have exact actual-PNG assembly and road-edge tests at 2×/4×.
+- [x] Rebuild 30 dependent bundles and promote 915 verified files, preserving 18
+      historical authored inputs for older context fixtures. Fresh audit checks
+      2,927 PNGs and 3,011 pins with zero problems. Framing, workbench, browser and
+      coverage tests, vet and lint pass; comparison pages are regenerated.
+- [ ] Approve greater-than-90% original-size grass resemblance and re-review all
+      rebuilt context/material transitions. Brightness/contrast improve but clump
+      arrangement still differs; historical fixtures and runtime acceptance stay open.
 
 ##### 2.2.2 — Unit sprites and portraits
 

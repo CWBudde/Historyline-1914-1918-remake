@@ -1,124 +1,10 @@
 {
-  "schema_version": 1,
-  "geometry": {
-    "width": 96,
-    "height": 80,
-    "polygon": [
-      [
-        25,
-        0
-      ],
-      [
-        71,
-        0
-      ],
-      [
-        96,
-        40
-      ],
-      [
-        71,
-        80
-      ],
-      [
-        25,
-        80
-      ],
-      [
-        0,
-        40
-      ]
-    ],
-    "neighbors": [
-      [
-        71,
-        -40
-      ],
-      [
-        71,
-        40
-      ],
-      [
-        0,
-        80
-      ],
-      [
-        -71,
-        40
-      ],
-      [
-        -71,
-        -40
-      ],
-      [
-        0,
-        -80
-      ]
-    ],
-    "ports": [
-      [
-        83.5,
-        20
-      ],
-      [
-        83.5,
-        60
-      ],
-      [
-        48,
-        80
-      ],
-      [
-        12.5,
-        60
-      ],
-      [
-        12.5,
-        20
-      ],
-      [
-        48,
-        0
-      ]
-    ]
-  },
-  "materials": {
-    "grass": {
-      "source": "source/terrain/distinct-v1/meadow.png",
-      "source_sha256": "8c8935efbbd463e39d49208e42ca0e87b140268a1b11941764dfa7c29c4fff85"
-    },
-    "road": {
-      "source": "source/terrain/distinct-v1/road-gravel.png",
-      "source_sha256": "93991a9f33f3d125f68f0ed2d14b329f1092428a0df59ba90f92c5b2bc85dd26"
-    },
-    "water": {
-      "source": "source/terrain/distinct-v1/water-open.png",
-      "source_sha256": "0b080163804881ac49bc4b3162da547abf443c9082d6e67065c119174d79b51d"
-    },
-    "earth": {
-      "source": "source/terrain/distinct-v1/earth-bare.png",
-      "source_sha256": "e7d3188bc9c734a1f45ad80ccce934c46d93cb4cf9843c079bbc6260ec848404"
-    },
-    "rail": {
-      "source": "source/terrain/distinct-v1/rail-ballast.png",
-      "source_sha256": "9464088e4a0ec25942b87eda3d229a07f3538d5ad575ef663848ba99fcb0a385"
-    },
-    "timber": {
-      "source": "source/terrain/distinct-v1/timber-weathered.png",
-      "source_sha256": "c4d42a70eee2b05cdcb5948b15598c4373104893187ece5202907d8f21048faa"
-    },
-    "steel": {
-      "source": "source/terrain/distinct-v1/steel-weathered.png",
-      "source_sha256": "a8cea787aeb3a319241245e2d439af4b536733b20634f713044ec36897e00551"
-    }
-  },
   "families": [
     {
-      "id": "rail",
-      "width": 11,
       "border": 1,
-      "material": "rail",
       "border_material": "earth",
+      "id": "rail",
+      "material": "rail",
       "variants": [
         {
           "id": "rail13",
@@ -207,7 +93,121 @@
             6
           ]
         }
-      ]
+      ],
+      "width": 11
     }
-  ]
+  ],
+  "geometry": {
+    "height": 80,
+    "neighbors": [
+      [
+        71,
+        -40
+      ],
+      [
+        71,
+        40
+      ],
+      [
+        0,
+        80
+      ],
+      [
+        -71,
+        40
+      ],
+      [
+        -71,
+        -40
+      ],
+      [
+        0,
+        -80
+      ]
+    ],
+    "polygon": [
+      [
+        25,
+        0
+      ],
+      [
+        71,
+        0
+      ],
+      [
+        96,
+        40
+      ],
+      [
+        71,
+        80
+      ],
+      [
+        25,
+        80
+      ],
+      [
+        0,
+        40
+      ]
+    ],
+    "ports": [
+      [
+        83.5,
+        20
+      ],
+      [
+        83.5,
+        60
+      ],
+      [
+        48,
+        80
+      ],
+      [
+        12.5,
+        60
+      ],
+      [
+        12.5,
+        20
+      ],
+      [
+        48,
+        0
+      ]
+    ],
+    "width": 96
+  },
+  "materials": {
+    "earth": {
+      "source": "source/terrain/distinct-v1/earth-bare.png",
+      "source_sha256": "e7d3188bc9c734a1f45ad80ccce934c46d93cb4cf9843c079bbc6260ec848404"
+    },
+    "grass": {
+      "source": "source/terrain/reference-v2/meadow-03.png",
+      "source_sha256": "4de543f0906e1311eff5ae4f202eb8fa68665c67103039bee089e60e02c68eb4"
+    },
+    "rail": {
+      "source": "source/terrain/distinct-v1/rail-ballast.png",
+      "source_sha256": "9464088e4a0ec25942b87eda3d229a07f3538d5ad575ef663848ba99fcb0a385"
+    },
+    "road": {
+      "source": "source/terrain/distinct-v1/road-gravel.png",
+      "source_sha256": "93991a9f33f3d125f68f0ed2d14b329f1092428a0df59ba90f92c5b2bc85dd26"
+    },
+    "steel": {
+      "source": "source/terrain/distinct-v1/steel-weathered.png",
+      "source_sha256": "a8cea787aeb3a319241245e2d439af4b536733b20634f713044ec36897e00551"
+    },
+    "timber": {
+      "source": "source/terrain/distinct-v1/timber-weathered.png",
+      "source_sha256": "c4d42a70eee2b05cdcb5948b15598c4373104893187ece5202907d8f21048faa"
+    },
+    "water": {
+      "source": "source/terrain/distinct-v1/water-open.png",
+      "source_sha256": "0b080163804881ac49bc4b3162da547abf443c9082d6e67065c119174d79b51d"
+    }
+  },
+  "schema_version": 1
 }

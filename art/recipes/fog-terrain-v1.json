@@ -1,8 +1,9 @@
 {
-  "acceptance": "Provisional fullyopaque never-seen graphics candidate; independent art/code review and actualPNG concealment/parity/repeatchecks pass. Source-only backgrounds/nativecoverage/unit/UI/fullmap/rememberedstate/runtime/release acceptance remainopen.",
+  "acceptance": "Current provisional reference-guided candidate rebuild. Actual PNG assembly and pinned inputs are recorded; current user visual approval, approximately 90% resemblance, whole-map/runtime integration and release acceptance remain open.",
   "concealment_policy": "Never-seen cells use only the same opaque unseen PNG, independent of underlying terrain, units, routes, structures and season; no terrain hints or transparency-to-terrain. Seasonal grass/grass_w PNGs are visible frontier neighbors only. No runtime IDs inferred or invented.",
   "concealment_previews": {
     "policy": "New opaque unseen overwrites backgrounds and routes of four declared hidden cells; route approaches at the visibility frontier are intentionally concealed. This is an offline graphics proof; runtime integration remains open.",
+    "rebuild_status": "Historical fixture from the previous source set. Replaced inputs are preserved under art/review/history/2026-10-15 with their original hashes. This fixture has not been re-reviewed for the current artwork.",
     "scenes": [
       {
         "canvas_world_origin": [
@@ -79,7 +80,7 @@
         "id": "summer-road",
         "inputs": [
           {
-            "path": "art/exports/connected-v1/grass-2x.png",
+            "path": "art/review/history/2026-10-15/exports/connected-v1/grass-2x.png",
             "sha256": "5285a565b5a882a24477fc48c7f5f69fc7a81a4ef2cdf5b87708b0eadfa13b17"
           },
           {
@@ -185,7 +186,7 @@
         "id": "summer-road",
         "inputs": [
           {
-            "path": "art/exports/connected-v1/grass-4x.png",
+            "path": "art/review/history/2026-10-15/exports/connected-v1/grass-4x.png",
             "sha256": "2feea3fd1e9026a16c87bf11ac6c2c33ec8d173719866427da42827bcc2d119e"
           },
           {
@@ -453,8 +454,11 @@
     }
   ],
   "generation_recipes": [
-    "art/recipes/fog/distinct-v1/unseen-01.json"
+    "art/recipes/fog/distinct-v1/unseen-01.json",
+    "art/recipes/terrain/distinct-v1/snow-ground.json",
+    "art/recipes/terrain/reference-v2/meadow-03.json"
   ],
+  "generation_recipes_scope": "Includes historical generation studies and the current pinned master records. Current source selection is established by the producing manifest and its exact SHA256 pins; historical records are unchanged.",
   "geometry": {
     "height": 80,
     "neighbors": [
@@ -539,21 +543,23 @@
   },
   "id": "fog-terrain-v1",
   "manifest": "art/fog-terrain-v1.json",
-  "manifest_sha256": "abcfeecd8cc695379c98254acb063f0f428adb0e1d573930a49560a5cce1ad2f",
+  "manifest_sha256": "c4ad8fdbd9607bb2211495bb395618017fc02a3b789e8b687c750734b7cb0050",
   "materials": {
     "summer": {
       "dimensions": {
         "height": 1145,
         "width": 1374
       },
-      "source": "art/source/terrain/distinct-v1/meadow.png",
-      "source_sha256": "8c8935efbbd463e39d49208e42ca0e87b140268a1b11941764dfa7c29c4fff85"
+      "retained_source": "sources/summer.png",
+      "source": "art/source/terrain/reference-v2/meadow-03.png",
+      "source_sha256": "4de543f0906e1311eff5ae4f202eb8fa68665c67103039bee089e60e02c68eb4"
     },
     "unseen": {
       "dimensions": {
         "height": 1254,
         "width": 1254
       },
+      "retained_source": "sources/unseen.png",
       "source": "art/source/fog/distinct-v1/unseen.png",
       "source_sha256": "4724facc952e2b8cb526deec05cb758270bce24b3bebd8f9a61be3fc465d06f5"
     },
@@ -562,13 +568,27 @@
         "height": 1145,
         "width": 1374
       },
+      "retained_source": "sources/winter.png",
       "source": "art/source/terrain/distinct-v1/snow-ground.png",
       "source_sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3"
     }
   },
-  "original_image_inputs": [],
+  "original_image_inputs": [
+    {
+      "generation_recipe": "art/recipes/terrain/reference-v2/meadow-03.json",
+      "path": "legacy/python/gfx/hexTypes/hex_grass.png",
+      "role": "Semantic original reference only: Only image input: composition, muted olive palette and low-frequency restoration reference; original file remains reference-only.",
+      "sha256": "67257c01c1e3e30ddc438e85e5e376cd1aa72f888cfb2851b288061e1eb7a0de"
+    }
+  ],
+  "original_image_inputs_scope": "Semantic visual references used to paint the current masters or their fixture ground. Originals remain reference-only and are not bundled as runtime PNGs; source masters are newly painted. Unit sprite planes retain their existing independent artwork provenance.",
   "ownership": "Final pixel centers use the shared polygon (25,0),(71,0),(96,40),(71,80),(25,80),(0,40). Complementary top-left half-open ownership: cross(edge,point)\u003e0; edge ties include dy\u003c0 or dy==0 \u0026\u0026 dx\u003e0. Owned pixels are alpha 255; outside is zero RGBA. No outline, edge fade or per-scene filtering.",
+  "previous_acceptance": {
+    "scope": "Historical source set before the current redraw; not an approval of the current artwork.",
+    "text": "Provisional fullyopaque never-seen graphics candidate; independent art/code review and actualPNG concealment/parity/repeatchecks pass. Source-only backgrounds/nativecoverage/unit/UI/fullmap/rememberedstate/runtime/release acceptance remainopen."
+  },
   "profile": "fog-v1: fixed opaque never-seen candidate, runtime ID unseen only. Each of unseen/summer/winter independently uses unchanged exportConnectionTiles with its opaque source mapped to grass and nil family/variant; no feature rendering. New 96x80 polygon, four world pixels of unmasked overscan at 4x (416x352); unchanged premultiplied byte-RGB antialiased Lanczos3 to whole unmasked 2x overscan (208x176); crop then final binary ownership at each density. Existing continuous mirror-periodic material sampler with periods (142,80) and average f(x,y), f(x+71,y+40); invariant under all six lattice neighbor shifts, all tiles at common world phase. Six fixed seven-hex patches, decoded exported PNGs and ordinary image.Draw Over only; pixel-aligned 2x/4x. Runtime integration remains open.",
+  "rebuild_note": "Rebuilt from the current reference-guided grass/compound inputs; user visual approval remains open. Historical generation recipes retain their original provenance.",
   "resampling_chain": [
     "opaque source -\u003e unmasked 4x overscan 416x352: unchanged lattice material sampler",
     "whole unmasked 4x -\u003e whole unmasked 2x 208x176: unchanged resizeLanczos (Lanczos3)",
@@ -619,7 +639,7 @@
         "width": 476
       },
       "path": "art/review/fog-v1/summer-frontier-parity0-2x.png",
-      "sha256": "650690e9b7252a7d24e4dfceb240d44334e61274ca4b3bfac2050fdd6d72abcb"
+      "sha256": "3881c2b9c78ba9b0b89683f8c567f4da4d99fcf31dda10811c639080f320a9e5"
     },
     {
       "build_output": "scenes/summer-frontier-parity0-4x.png",
@@ -628,7 +648,7 @@
         "width": 952
       },
       "path": "art/review/fog-v1/summer-frontier-parity0-4x.png",
-      "sha256": "0e14f31d9c6adbe9b78b4db6ae9840d76b6a0deb89dceb64809aac357a8de56d"
+      "sha256": "5f43b7aecb97151f0683f5197ed3c7897707c018911466309c225851a9f785c6"
     },
     {
       "build_output": "scenes/summer-frontier-parity1-2x.png",
@@ -637,7 +657,7 @@
         "width": 476
       },
       "path": "art/review/fog-v1/summer-frontier-parity1-2x.png",
-      "sha256": "650690e9b7252a7d24e4dfceb240d44334e61274ca4b3bfac2050fdd6d72abcb"
+      "sha256": "3881c2b9c78ba9b0b89683f8c567f4da4d99fcf31dda10811c639080f320a9e5"
     },
     {
       "build_output": "scenes/summer-frontier-parity1-4x.png",
@@ -646,7 +666,7 @@
         "width": 952
       },
       "path": "art/review/fog-v1/summer-frontier-parity1-4x.png",
-      "sha256": "0e14f31d9c6adbe9b78b4db6ae9840d76b6a0deb89dceb64809aac357a8de56d"
+      "sha256": "5f43b7aecb97151f0683f5197ed3c7897707c018911466309c225851a9f785c6"
     },
     {
       "build_output": "scenes/winter-frontier-parity0-2x.png",
@@ -769,7 +789,7 @@
             "height": 480,
             "width": 476
           },
-          "path": "scenes/all-hidden-parity0-2x.png",
+          "path": "art/review/fog-v1/all-hidden-parity0-2x.png",
           "sha256": "683e9715e62ff4da7e9348de0854da068d21aa730a21317e0f61a8b4af76344b"
         },
         {
@@ -777,7 +797,7 @@
             "height": 960,
             "width": 952
           },
-          "path": "scenes/all-hidden-parity0-4x.png",
+          "path": "art/review/fog-v1/all-hidden-parity0-4x.png",
           "sha256": "d5bca66229684c417d6c9fbc92885109e9dd0f0ba1f0d2e256f9df859b94f022"
         }
       ],
@@ -866,7 +886,7 @@
             "height": 480,
             "width": 476
           },
-          "path": "scenes/all-hidden-parity1-2x.png",
+          "path": "art/review/fog-v1/all-hidden-parity1-2x.png",
           "sha256": "683e9715e62ff4da7e9348de0854da068d21aa730a21317e0f61a8b4af76344b"
         },
         {
@@ -874,7 +894,7 @@
             "height": 960,
             "width": 952
           },
-          "path": "scenes/all-hidden-parity1-4x.png",
+          "path": "art/review/fog-v1/all-hidden-parity1-4x.png",
           "sha256": "d5bca66229684c417d6c9fbc92885109e9dd0f0ba1f0d2e256f9df859b94f022"
         }
       ],
@@ -963,16 +983,16 @@
             "height": 480,
             "width": 476
           },
-          "path": "scenes/summer-frontier-parity0-2x.png",
-          "sha256": "650690e9b7252a7d24e4dfceb240d44334e61274ca4b3bfac2050fdd6d72abcb"
+          "path": "art/review/fog-v1/summer-frontier-parity0-2x.png",
+          "sha256": "3881c2b9c78ba9b0b89683f8c567f4da4d99fcf31dda10811c639080f320a9e5"
         },
         {
           "dimensions": {
             "height": 960,
             "width": 952
           },
-          "path": "scenes/summer-frontier-parity0-4x.png",
-          "sha256": "0e14f31d9c6adbe9b78b4db6ae9840d76b6a0deb89dceb64809aac357a8de56d"
+          "path": "art/review/fog-v1/summer-frontier-parity0-4x.png",
+          "sha256": "5f43b7aecb97151f0683f5197ed3c7897707c018911466309c225851a9f785c6"
         }
       ],
       "season": "summer"
@@ -1060,16 +1080,16 @@
             "height": 480,
             "width": 476
           },
-          "path": "scenes/summer-frontier-parity1-2x.png",
-          "sha256": "650690e9b7252a7d24e4dfceb240d44334e61274ca4b3bfac2050fdd6d72abcb"
+          "path": "art/review/fog-v1/summer-frontier-parity1-2x.png",
+          "sha256": "3881c2b9c78ba9b0b89683f8c567f4da4d99fcf31dda10811c639080f320a9e5"
         },
         {
           "dimensions": {
             "height": 960,
             "width": 952
           },
-          "path": "scenes/summer-frontier-parity1-4x.png",
-          "sha256": "0e14f31d9c6adbe9b78b4db6ae9840d76b6a0deb89dceb64809aac357a8de56d"
+          "path": "art/review/fog-v1/summer-frontier-parity1-4x.png",
+          "sha256": "5f43b7aecb97151f0683f5197ed3c7897707c018911466309c225851a9f785c6"
         }
       ],
       "season": "summer"
@@ -1157,7 +1177,7 @@
             "height": 480,
             "width": 476
           },
-          "path": "scenes/winter-frontier-parity0-2x.png",
+          "path": "art/review/fog-v1/winter-frontier-parity0-2x.png",
           "sha256": "9000920b45363b84cfb9adbe4feb941bfa84f04384e72a78a052259b4ffef90b"
         },
         {
@@ -1165,7 +1185,7 @@
             "height": 960,
             "width": 952
           },
-          "path": "scenes/winter-frontier-parity0-4x.png",
+          "path": "art/review/fog-v1/winter-frontier-parity0-4x.png",
           "sha256": "a24bc73db217e6d0682d0b2ddaeb437f5c93f16d8c67c7497d767720589888d5"
         }
       ],
@@ -1254,7 +1274,7 @@
             "height": 480,
             "width": 476
           },
-          "path": "scenes/winter-frontier-parity1-2x.png",
+          "path": "art/review/fog-v1/winter-frontier-parity1-2x.png",
           "sha256": "9000920b45363b84cfb9adbe4feb941bfa84f04384e72a78a052259b4ffef90b"
         },
         {
@@ -1262,7 +1282,7 @@
             "height": 960,
             "width": 952
           },
-          "path": "scenes/winter-frontier-parity1-4x.png",
+          "path": "art/review/fog-v1/winter-frontier-parity1-4x.png",
           "sha256": "a24bc73db217e6d0682d0b2ddaeb437f5c93f16d8c67c7497d767720589888d5"
         }
       ],

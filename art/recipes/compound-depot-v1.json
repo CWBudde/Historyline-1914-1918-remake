@@ -1,5 +1,5 @@
 {
-  "acceptance": "Provisional new depot pair and masked winter-ground candidates. Independent source/final-size art review passes. Whole-scene actual-PNG and surround-parity checks pass at2x/4x. Fullmap/nativecoverage/materialquality/runtimeintegration/zoom/releaseacceptance remainopen.",
+  "acceptance": "Four-piece depot is a medical camp with an L-shaped red-cross barracks, canvas tents and north entrance street. Current provisional reference-guided candidate rebuild. Actual PNG assembly and pinned inputs are recorded; current user visual approval, approximately 90% resemblance, whole-map/runtime integration and release acceptance remain open.",
   "date": "2026-10-15",
   "exports": [
     {
@@ -9,7 +9,7 @@
         "width": 192
       },
       "path": "art/exports/compound-v1/cmpN-2x.png",
-      "sha256": "41e77eb9b4b8a84cc9f9a00f181493afa9d3e29042ffc390e5b0373349f98e98"
+      "sha256": "8ab3cc547b7b47305c84f89cbc64884a5cfa7dc0148a53a0c636f121d0eb0dfb"
     },
     {
       "build_output": "tiles/cmpN-4x.png",
@@ -18,7 +18,7 @@
         "width": 384
       },
       "path": "art/exports/compound-v1/cmpN-4x.png",
-      "sha256": "7c79b9de1e14062834dbb8cf068ec4e3cf36681b29c7961ae6372c3a91aa30dc"
+      "sha256": "b0ba936c0c96a25f76fa59a2cfab766bedf25d22992405f9e67b4d6aea161ac9"
     },
     {
       "build_output": "tiles/cmpW-2x.png",
@@ -27,7 +27,7 @@
         "width": 192
       },
       "path": "art/exports/compound-v1/cmpW-2x.png",
-      "sha256": "de27e4352fa793e8df460c27289110d970b99a731a72118a1455373ea394d991"
+      "sha256": "624a0416bc2cf457b5f491ecfb11e9b07e31148817e064d920f43880a273c984"
     },
     {
       "build_output": "tiles/cmpW-4x.png",
@@ -36,7 +36,7 @@
         "width": 384
       },
       "path": "art/exports/compound-v1/cmpW-4x.png",
-      "sha256": "f7788330df42a39f89c00c29604995c6cee84b27892abb0179acb4ae6d0c3329"
+      "sha256": "69f370bbe2ade088ee6bf89fdf5ab6db07eee2717516935ccfc7d5b606bab013"
     },
     {
       "build_output": "tiles/cmpE-2x.png",
@@ -45,7 +45,7 @@
         "width": 192
       },
       "path": "art/exports/compound-v1/cmpE-2x.png",
-      "sha256": "f1661203e8de725163fbc56bea2bc6b5f72cdba52655a31a90af273069deefa1"
+      "sha256": "9e89bbca13eff62dfe4a9e08666c0ac225135078004652afee909c3c0791030c"
     },
     {
       "build_output": "tiles/cmpE-4x.png",
@@ -54,7 +54,7 @@
         "width": 384
       },
       "path": "art/exports/compound-v1/cmpE-4x.png",
-      "sha256": "6b849bed3f6f004ec6401631826013766f0421c96a755debb4c691ad98b1d93f"
+      "sha256": "f75bb5de1d461cb08780777aa269cbebf1a49f84506ad6b0a1c0fc6e7672e72d"
     },
     {
       "build_output": "tiles/cmpS-2x.png",
@@ -63,7 +63,7 @@
         "width": 192
       },
       "path": "art/exports/compound-v1/cmpS-2x.png",
-      "sha256": "bbb2d37e8710b9d7d3442a3a890c5ba108c158dc36933abac213461733e84d39"
+      "sha256": "a220a02160ea7be3af62c9afb0c7b8a62ab88c227f19829eb62d7121a7c1a459"
     },
     {
       "build_output": "tiles/cmpS-4x.png",
@@ -72,7 +72,7 @@
         "width": 384
       },
       "path": "art/exports/compound-v1/cmpS-4x.png",
-      "sha256": "95f2b3bd7a598ea2e5172baff7ff9da6ceb72b0767fd93875379c625336a61a2"
+      "sha256": "bd91ee5dafb0a81f1ebbadad8887ee48efe60cc657abcc6ad63a2aebd07f52bc"
     },
     {
       "build_output": "tiles/cmpN_w-2x.png",
@@ -81,7 +81,7 @@
         "width": 192
       },
       "path": "art/exports/compound-v1/cmpN_w-2x.png",
-      "sha256": "a4346c8016c75eb35a37c00740ac6b89de6ca5e636e4dfa095e4091daa61f923"
+      "sha256": "700689acf4ba0fa29149db79b64f5430b2e3c53553a522feff7443b7a352cb56"
     },
     {
       "build_output": "tiles/cmpN_w-4x.png",
@@ -90,7 +90,7 @@
         "width": 384
       },
       "path": "art/exports/compound-v1/cmpN_w-4x.png",
-      "sha256": "7bd8f44929b79fd50e44160ecb19b68682c22603d70bdf22eb49a94beff41352"
+      "sha256": "f65105ba803858919312a0aab2a820dfc9f58fd11eaa513b9a081d0def02e27f"
     },
     {
       "build_output": "tiles/cmpW_w-2x.png",
@@ -99,7 +99,7 @@
         "width": 192
       },
       "path": "art/exports/compound-v1/cmpW_w-2x.png",
-      "sha256": "07840de14879493465c3f01db8b2ecbf59adefc5d2e3f0aba2ce71c07b5ac3b7"
+      "sha256": "7f7967db8708affa06ac2a7dd4ec0d8aabe6794fdc2581e1669b486c0846ed22"
     },
     {
       "build_output": "tiles/cmpW_w-4x.png",
@@ -108,7 +108,7 @@
         "width": 384
       },
       "path": "art/exports/compound-v1/cmpW_w-4x.png",
-      "sha256": "ec5d308cf014d24493c336278fcd67a9da86c6bd57465205be09861dfb396fa3"
+      "sha256": "f5f1fce0eb6ed435e5f9da946c8a804d9f4c44377a5ffe88708ae2cdde4b9d94"
     },
     {
       "build_output": "tiles/cmpE_w-2x.png",
@@ -117,7 +117,7 @@
         "width": 192
       },
       "path": "art/exports/compound-v1/cmpE_w-2x.png",
-      "sha256": "a1f29cdb70b20674c176fe7cceb36b9b7e2ec877467cff6afebbfca3c066d9d6"
+      "sha256": "ef15cf1cdf71982fe566cb11976c14e7da03a02547f9a423f6047681709e3424"
     },
     {
       "build_output": "tiles/cmpE_w-4x.png",
@@ -126,7 +126,7 @@
         "width": 384
       },
       "path": "art/exports/compound-v1/cmpE_w-4x.png",
-      "sha256": "d609c21c7be875b5634d48f53aae720a13d4c3b721d351004a756058211dd5a7"
+      "sha256": "10748ec72b0cd5499b1f8487b5b4a5b2d95e19221a76fd59306eccc26e82140d"
     },
     {
       "build_output": "tiles/cmpS_w-2x.png",
@@ -135,7 +135,7 @@
         "width": 192
       },
       "path": "art/exports/compound-v1/cmpS_w-2x.png",
-      "sha256": "ade06f6aa49bff27a55a6f171649845b9acca90c4cdd315e291ff52c5d7daef2"
+      "sha256": "75b1502df5d8b6997e045dc58c4541f2c7a98bd3708ee5d436a2cfca49436b9f"
     },
     {
       "build_output": "tiles/cmpS_w-4x.png",
@@ -144,7 +144,7 @@
         "width": 384
       },
       "path": "art/exports/compound-v1/cmpS_w-4x.png",
-      "sha256": "e2ef2467c8605f4ab1d6cb20c76f33772f15660849375efb63b310cd93398459"
+      "sha256": "fedf7974b8497abee51a8f9c9f76e9883e5acbfd55b75005ff2255e20bd7896d"
     },
     {
       "build_output": "ground/grass_w-2x.png",
@@ -169,8 +169,13 @@
     "art/recipes/compound/distinct-v1/depot-summer-01.json",
     "art/recipes/compound/distinct-v1/depot-layout-guide.json",
     "art/recipes/compound/distinct-v1/depot-summer-02.json",
-    "art/recipes/compound/distinct-v1/depot-winter-02.json"
+    "art/recipes/compound/distinct-v1/depot-winter-02.json",
+    "art/recipes/compound/reference-v2/depot-summer.json",
+    "art/recipes/compound/reference-v2/depot-winter.json",
+    "art/recipes/terrain/distinct-v1/snow-ground.json",
+    "art/recipes/terrain/reference-v2/meadow-03.json"
   ],
+  "generation_recipes_scope": "Includes historical generation studies and the current pinned master records. Current source selection is established by the producing manifest and its exact SHA256 pins; historical records are unchanged.",
   "geometry": {
     "height": 80,
     "neighbors": [
@@ -259,23 +264,50 @@
         "height": 1145,
         "width": 1374
       },
-      "source": "art/source/terrain/distinct-v1/meadow.png",
-      "source_sha256": "8c8935efbbd463e39d49208e42ca0e87b140268a1b11941764dfa7c29c4fff85"
+      "retained_source": "sources/ground-summer.png",
+      "source": "art/source/terrain/reference-v2/meadow-03.png",
+      "source_sha256": "4de543f0906e1311eff5ae4f202eb8fa68665c67103039bee089e60e02c68eb4"
     },
     "winter": {
       "dimensions": {
         "height": 1145,
         "width": 1374
       },
+      "retained_source": "sources/ground-winter.png",
       "source": "art/source/terrain/distinct-v1/snow-ground.png",
       "source_sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3"
     }
   },
   "id": "compound-depot-v1",
   "manifest": "art/compound-depot-v1.json",
-  "manifest_sha256": "eb8ecadbd8fea6ccbba8efd7f47867dfa33a47b1a487e0941af83c11f130c2f8",
-  "original_image_inputs": [],
-  "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; reject any sampled alpha \u003e=250 at signed distance \u003c=8 world pixels before guard; alpha zero through 4 world pixels then smoothstep 4..8. Guard full unmasked 4x artwork, then existing resizeLanczos to whole-scene 2x. Ground independently exported by exportConnectionTiles with fixed geometry and grass only, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim.",
+  "manifest_sha256": "cf775dce08fe6f8e4f91efb210394aaa10013e50b8970b9edd93984a479529c1",
+  "original_image_inputs": [
+    {
+      "generation_recipe": "art/recipes/compound/reference-v2/depot-summer.json",
+      "path": "build/compound-ref/depot-summer.png",
+      "role": "Semantic original reference only: private assembled original visual composition reference, not edited or copied into output",
+      "sha256": "dfcd760b7fac75d465b21237e2d610e8aa4a4f711e5cce35525bb3db02b0c4f1"
+    },
+    {
+      "generation_recipe": "art/recipes/compound/reference-v2/depot-winter.json",
+      "path": "build/compound-ref/depot-winter.png",
+      "role": "Semantic original reference only: private assembled original visual composition reference, not edited or copied into output",
+      "sha256": "4f54a58c6b5a3af97e15f098b0151f897ca93877dbeabaee68d7a40d63c12f24"
+    },
+    {
+      "generation_recipe": "art/recipes/terrain/reference-v2/meadow-03.json",
+      "path": "legacy/python/gfx/hexTypes/hex_grass.png",
+      "role": "Semantic original reference only: Only image input: composition, muted olive palette and low-frequency restoration reference; original file remains reference-only.",
+      "sha256": "67257c01c1e3e30ddc438e85e5e376cd1aa72f888cfb2851b288061e1eb7a0de"
+    }
+  ],
+  "original_image_inputs_scope": "Semantic visual references used to paint the current masters or their fixture ground. Originals remain reference-only and are not bundled as runtime PNGs; source masters are newly painted. Unit sprite planes retain their existing independent artwork provenance.",
+  "previous_acceptance": {
+    "scope": "Historical source set before the current redraw; not an approval of the current artwork.",
+    "text": "Provisional new depot pair and masked winter-ground candidates. Independent source/final-size art review passes. Whole-scene actual-PNG and surround-parity checks pass at2x/4x. Fullmap/nativecoverage/materialquality/runtimeintegration/zoom/releaseacceptance remainopen."
+  },
+  "profile": "Per-scene profiles; explicit reference-layout scenes retain edge roads and fences without the default eight-world-pixel guard. See each scene's profile and framing.",
+  "rebuild_note": "Rebuilt from the current reference-guided grass/compound inputs; user visual approval remains open. Historical generation recipes retain their original provenance.",
   "review_exports": [
     {
       "build_output": "depot-summer-scene-2x.png",
@@ -284,7 +316,7 @@
         "width": 476
       },
       "path": "art/review/compound-v1/depot-summer-scene-2x.png",
-      "sha256": "90ed8c68ab3dc98e55d2a6ed72cfde7e2f214ccb1d439826cf552d849848c68d"
+      "sha256": "f7b6b7c69aec8dec5acc4079a04b0574c37f27d4660a4aefd22c7c5e7ffde965"
     },
     {
       "build_output": "depot-summer-patch-parity0-2x.png",
@@ -293,7 +325,7 @@
         "width": 760
       },
       "path": "art/review/compound-v1/depot-summer-patch-parity0-2x.png",
-      "sha256": "c5cb877bdd06b1b309333ab3ee8b1ec0d700a443d4bd2c5d237a325c82a3b6fa"
+      "sha256": "30506f31a3a0e0f6a0a44ea5cb76a35b584c130d84968c1f203af03f871fa155"
     },
     {
       "build_output": "depot-summer-patch-parity1-2x.png",
@@ -302,7 +334,7 @@
         "width": 760
       },
       "path": "art/review/compound-v1/depot-summer-patch-parity1-2x.png",
-      "sha256": "c5cb877bdd06b1b309333ab3ee8b1ec0d700a443d4bd2c5d237a325c82a3b6fa"
+      "sha256": "30506f31a3a0e0f6a0a44ea5cb76a35b584c130d84968c1f203af03f871fa155"
     },
     {
       "build_output": "depot-summer-scene-4x.png",
@@ -311,7 +343,7 @@
         "width": 952
       },
       "path": "art/review/compound-v1/depot-summer-scene-4x.png",
-      "sha256": "888d105ace7046680eb060fe6734d476078ad38af00da4f4616f644fb0d254d8"
+      "sha256": "f63838a0dbc2a7cd36fb3c09e9ea32c55619a34ccbfbd4b7410b9563145babbb"
     },
     {
       "build_output": "depot-summer-patch-parity0-4x.png",
@@ -320,7 +352,7 @@
         "width": 1520
       },
       "path": "art/review/compound-v1/depot-summer-patch-parity0-4x.png",
-      "sha256": "987e0f3254c158ba22241d03e451bc84d4762ef3d0ddf329b17b870561c0c09f"
+      "sha256": "5cea94affe522460f95e8434522717cbbd6c3e575af19c4691edcf4a64e7f578"
     },
     {
       "build_output": "depot-summer-patch-parity1-4x.png",
@@ -329,7 +361,7 @@
         "width": 1520
       },
       "path": "art/review/compound-v1/depot-summer-patch-parity1-4x.png",
-      "sha256": "987e0f3254c158ba22241d03e451bc84d4762ef3d0ddf329b17b870561c0c09f"
+      "sha256": "5cea94affe522460f95e8434522717cbbd6c3e575af19c4691edcf4a64e7f578"
     },
     {
       "build_output": "depot-winter-scene-2x.png",
@@ -338,7 +370,7 @@
         "width": 476
       },
       "path": "art/review/compound-v1/depot-winter-scene-2x.png",
-      "sha256": "6ca0708047ee1921d0147426bd186e1e27e20da0f711ea39b3278175bc158478"
+      "sha256": "22aecab7054f628e27cf8711ce22d4c5cc3d36baca6b943e38fb1111a57d317f"
     },
     {
       "build_output": "depot-winter-patch-parity0-2x.png",
@@ -347,7 +379,7 @@
         "width": 760
       },
       "path": "art/review/compound-v1/depot-winter-patch-parity0-2x.png",
-      "sha256": "99217fa954d715f49940b382777cefd80ae1f0d038e31f80f7bb92edcf74e5d2"
+      "sha256": "0147495adc496b888784b02290462700970b94cf590a666b834d042aafe2c21b"
     },
     {
       "build_output": "depot-winter-patch-parity1-2x.png",
@@ -356,7 +388,7 @@
         "width": 760
       },
       "path": "art/review/compound-v1/depot-winter-patch-parity1-2x.png",
-      "sha256": "99217fa954d715f49940b382777cefd80ae1f0d038e31f80f7bb92edcf74e5d2"
+      "sha256": "0147495adc496b888784b02290462700970b94cf590a666b834d042aafe2c21b"
     },
     {
       "build_output": "depot-winter-scene-4x.png",
@@ -365,7 +397,7 @@
         "width": 952
       },
       "path": "art/review/compound-v1/depot-winter-scene-4x.png",
-      "sha256": "be3d69f465a8076e3b4f718d5b8053ea411490bc75bfbcbcd932d94a9a05cc5d"
+      "sha256": "ee5c2209c78fadb76a063899e8858bc5a05b077ee3db0e81e81a722d551d2d5c"
     },
     {
       "build_output": "depot-winter-patch-parity0-4x.png",
@@ -374,7 +406,7 @@
         "width": 1520
       },
       "path": "art/review/compound-v1/depot-winter-patch-parity0-4x.png",
-      "sha256": "fe64f7d0cfa0126639a3bdd86b94b3e58966a7aa43d614cb795ddead2d36199f"
+      "sha256": "c6fb759c41282bd5b2326c2751b86b3c31988e19d34f3ad68030cc0ab4319095"
     },
     {
       "build_output": "depot-winter-patch-parity1-4x.png",
@@ -383,21 +415,58 @@
         "width": 1520
       },
       "path": "art/review/compound-v1/depot-winter-patch-parity1-4x.png",
-      "sha256": "fe64f7d0cfa0126639a3bdd86b94b3e58966a7aa43d614cb795ddead2d36199f"
+      "sha256": "c6fb759c41282bd5b2326c2751b86b3c31988e19d34f3ad68030cc0ab4319095"
     }
   ],
   "scenes": [
     {
+      "artwork": [
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 476
+          },
+          "path": "depot-summer-artwork-2x.png",
+          "sha256": "156eba1c01fab2aa07a5b9f9acf5e7939f0168d09962e877cdc990e202993fb6"
+        },
+        {
+          "dimensions": {
+            "height": 640,
+            "width": 952
+          },
+          "path": "depot-summer-artwork-4x.png",
+          "sha256": "ca25e83c6a9531e8804af58e2d2ea3cac867216e7ce107b9b94e69d1129bff56"
+        }
+      ],
+      "assembled": [
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 476
+          },
+          "path": "depot-summer-assembled-2x.png",
+          "sha256": "f7b6b7c69aec8dec5acc4079a04b0574c37f27d4660a4aefd22c7c5e7ffde965"
+        },
+        {
+          "dimensions": {
+            "height": 640,
+            "width": 952
+          },
+          "path": "depot-summer-assembled-4x.png",
+          "sha256": "f63838a0dbc2a7cd36fb3c09e9ea32c55619a34ccbfbd4b7410b9563145babbb"
+        }
+      ],
       "entry_cell": "N",
-      "generation_recipe": "art/recipes/compound/distinct-v1/depot-summer-02.json",
+      "framing": "reference-layout",
       "guard": {
-        "boundary_alpha_mass": 50,
-        "boundary_pixels": 50,
-        "clipped_alpha_mass": 50,
-        "clipped_pixels": 50,
-        "guarded_opaque_count": 0,
-        "max_boundary_alpha": 1,
-        "minimum_opaque_distance_world": 9.625
+        "boundary_alpha_mass": 4537140,
+        "boundary_pixels": 26506,
+        "clipped_alpha_mass": 0,
+        "clipped_pixels": 0,
+        "guarded_opaque_count": 15225,
+        "max_boundary_alpha": 255,
+        "minimum_opaque_distance_world": -1.375,
+        "policy": "reference-layout: eight-world-pixel band is diagnostic only; no rejection or fade; final compound union mask clips outside after density resampling"
       },
       "height": 160,
       "id": "depot-summer",
@@ -406,12 +475,347 @@
           "height": 1024,
           "width": 1536
         },
-        "source": "art/source/compound/distinct-v1/depot-summer.png",
-        "source_sha256": "e1f78ec16fc736ae4bc0974b0a7ccc56b2d672ef98584def69572c410ce3e91a"
+        "retained_source": "sources/depot-summer.png",
+        "source": "art/source/compound/reference-v2/depot-summer.png",
+        "source_sha256": "71c8e02269ed8b66f0c903abd541ee5ddab8a0c176f4b9afae8a9eb2affd56c5"
       },
-      "inset": 0.9,
+      "inset": 1,
       "layout": "depot",
-      "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; reject any sampled alpha \u003e=250 at signed distance \u003c=8 world pixels before guard; alpha zero through 4 world pixels then smoothstep 4..8. Guard full unmasked 4x artwork, then existing resizeLanczos to whole-scene 2x. Ground independently exported by exportConnectionTiles with fixed geometry and grass only, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim.",
+      "parity_outputs": [
+        {
+          "canvas_origin": [
+            -142,
+            -80
+          ],
+          "cells": [
+            {
+              "compound": false,
+              "origin": [
+                0,
+                -80
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                -71,
+                -40
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                71,
+                -40
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                -142,
+                0
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": true,
+              "origin": [
+                0,
+                0
+              ],
+              "runtime_id": "cmpN",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                142,
+                0
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": true,
+              "origin": [
+                -71,
+                40
+              ],
+              "runtime_id": "cmpW",
+              "season": "summer"
+            },
+            {
+              "compound": true,
+              "origin": [
+                71,
+                40
+              ],
+              "runtime_id": "cmpE",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                -142,
+                80
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": true,
+              "origin": [
+                0,
+                80
+              ],
+              "runtime_id": "cmpS",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                142,
+                80
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                -71,
+                120
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                71,
+                120
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                0,
+                160
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            }
+          ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 640,
+                "width": 760
+              },
+              "path": "art/review/compound-v1/depot-summer-patch-parity0-2x.png",
+              "sha256": "30506f31a3a0e0f6a0a44ea5cb76a35b584c130d84968c1f203af03f871fa155"
+            },
+            {
+              "dimensions": {
+                "height": 1280,
+                "width": 1520
+              },
+              "path": "art/review/compound-v1/depot-summer-patch-parity0-4x.png",
+              "sha256": "5cea94affe522460f95e8434522717cbbd6c3e575af19c4691edcf4a64e7f578"
+            }
+          ],
+          "parity": 0,
+          "scene_origin": [
+            -71,
+            0
+          ]
+        },
+        {
+          "canvas_origin": [
+            -71,
+            -40
+          ],
+          "cells": [
+            {
+              "compound": false,
+              "origin": [
+                71,
+                -40
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                0,
+                0
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                142,
+                0
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                -71,
+                40
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": true,
+              "origin": [
+                71,
+                40
+              ],
+              "runtime_id": "cmpN",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                213,
+                40
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": true,
+              "origin": [
+                0,
+                80
+              ],
+              "runtime_id": "cmpW",
+              "season": "summer"
+            },
+            {
+              "compound": true,
+              "origin": [
+                142,
+                80
+              ],
+              "runtime_id": "cmpE",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                -71,
+                120
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": true,
+              "origin": [
+                71,
+                120
+              ],
+              "runtime_id": "cmpS",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                213,
+                120
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                0,
+                160
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                142,
+                160
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                71,
+                200
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            }
+          ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 640,
+                "width": 760
+              },
+              "path": "art/review/compound-v1/depot-summer-patch-parity1-2x.png",
+              "sha256": "30506f31a3a0e0f6a0a44ea5cb76a35b584c130d84968c1f203af03f871fa155"
+            },
+            {
+              "dimensions": {
+                "height": 1280,
+                "width": 1520
+              },
+              "path": "art/review/compound-v1/depot-summer-patch-parity1-4x.png",
+              "sha256": "5cea94affe522460f95e8434522717cbbd6c3e575af19c4691edcf4a64e7f578"
+            }
+          ],
+          "parity": 1,
+          "scene_origin": [
+            0,
+            40
+          ]
+        }
+      ],
+      "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; explicit reference-layout framing: preserve full affine source at the requested inset; report the eight-world-pixel boundary band diagnostically without rejection or fade. Existing resizeLanczos filters full unmasked 4x artwork to whole-scene 2x before final union clipping. Ground independently exported by exportConnectionTiles with fixed geometry and grass only, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim.",
+      "reference": [
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 476
+          },
+          "path": "art/review/compound-v1/depot-summer-scene-2x.png",
+          "sha256": "f7b6b7c69aec8dec5acc4079a04b0574c37f27d4660a4aefd22c7c5e7ffde965"
+        },
+        {
+          "dimensions": {
+            "height": 640,
+            "width": 952
+          },
+          "path": "art/review/compound-v1/depot-summer-scene-4x.png",
+          "sha256": "f63838a0dbc2a7cd36fb3c09e9ea32c55619a34ccbfbd4b7410b9563145babbb"
+        }
+      ],
       "season": "summer",
       "tiles": [
         {
@@ -419,6 +823,24 @@
           "origin": [
             71,
             0
+          ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 160,
+                "width": 192
+              },
+              "path": "art/exports/compound-v1/cmpN-2x.png",
+              "sha256": "8ab3cc547b7b47305c84f89cbc64884a5cfa7dc0148a53a0c636f121d0eb0dfb"
+            },
+            {
+              "dimensions": {
+                "height": 320,
+                "width": 384
+              },
+              "path": "art/exports/compound-v1/cmpN-4x.png",
+              "sha256": "b0ba936c0c96a25f76fa59a2cfab766bedf25d22992405f9e67b4d6aea161ac9"
+            }
           ],
           "runtime_id": "cmpN"
         },
@@ -428,6 +850,24 @@
             0,
             40
           ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 160,
+                "width": 192
+              },
+              "path": "art/exports/compound-v1/cmpW-2x.png",
+              "sha256": "624a0416bc2cf457b5f491ecfb11e9b07e31148817e064d920f43880a273c984"
+            },
+            {
+              "dimensions": {
+                "height": 320,
+                "width": 384
+              },
+              "path": "art/exports/compound-v1/cmpW-4x.png",
+              "sha256": "69f370bbe2ade088ee6bf89fdf5ab6db07eee2717516935ccfc7d5b606bab013"
+            }
+          ],
           "runtime_id": "cmpW"
         },
         {
@@ -435,6 +875,24 @@
           "origin": [
             142,
             40
+          ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 160,
+                "width": 192
+              },
+              "path": "art/exports/compound-v1/cmpE-2x.png",
+              "sha256": "9e89bbca13eff62dfe4a9e08666c0ac225135078004652afee909c3c0791030c"
+            },
+            {
+              "dimensions": {
+                "height": 320,
+                "width": 384
+              },
+              "path": "art/exports/compound-v1/cmpE-4x.png",
+              "sha256": "f75bb5de1d461cb08780777aa269cbebf1a49f84506ad6b0a1c0fc6e7672e72d"
+            }
           ],
           "runtime_id": "cmpE"
         },
@@ -444,15 +902,33 @@
             71,
             80
           ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 160,
+                "width": 192
+              },
+              "path": "art/exports/compound-v1/cmpS-2x.png",
+              "sha256": "a220a02160ea7be3af62c9afb0c7b8a62ab88c227f19829eb62d7121a7c1a459"
+            },
+            {
+              "dimensions": {
+                "height": 320,
+                "width": 384
+              },
+              "path": "art/exports/compound-v1/cmpS-4x.png",
+              "sha256": "bd91ee5dafb0a81f1ebbadad8887ee48efe60cc657abcc6ad63a2aebd07f52bc"
+            }
+          ],
           "runtime_id": "cmpS"
         }
       ],
       "transform": {
         "offset": [
-          11.900000000000006,
-          8.600000000000009
+          0,
+          0.6666666666666714
         ],
-        "scale": 0.13945312499999998,
+        "scale": 0.15494791666666666,
         "source_dimensions": {
           "height": 1024,
           "width": 1536
@@ -461,16 +937,53 @@
       "width": 238
     },
     {
+      "artwork": [
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 476
+          },
+          "path": "depot-winter-artwork-2x.png",
+          "sha256": "cc11588f68e2dc2353872a761d3bc65360863b1b2d014bf15960b08ec8ea2be5"
+        },
+        {
+          "dimensions": {
+            "height": 640,
+            "width": 952
+          },
+          "path": "depot-winter-artwork-4x.png",
+          "sha256": "baf2452ecdd15eb75b51fb739526d4f9b28d9d4a3a17fff957a5e6c6cc398cc1"
+        }
+      ],
+      "assembled": [
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 476
+          },
+          "path": "depot-winter-assembled-2x.png",
+          "sha256": "22aecab7054f628e27cf8711ce22d4c5cc3d36baca6b943e38fb1111a57d317f"
+        },
+        {
+          "dimensions": {
+            "height": 640,
+            "width": 952
+          },
+          "path": "depot-winter-assembled-4x.png",
+          "sha256": "ee5c2209c78fadb76a063899e8858bc5a05b077ee3db0e81e81a722d551d2d5c"
+        }
+      ],
       "entry_cell": "N",
-      "generation_recipe": "art/recipes/compound/distinct-v1/depot-winter-02.json",
+      "framing": "reference-layout",
       "guard": {
-        "boundary_alpha_mass": 4,
-        "boundary_pixels": 4,
-        "clipped_alpha_mass": 4,
-        "clipped_pixels": 4,
-        "guarded_opaque_count": 0,
-        "max_boundary_alpha": 1,
-        "minimum_opaque_distance_world": 9.125
+        "boundary_alpha_mass": 5354397,
+        "boundary_pixels": 27356,
+        "clipped_alpha_mass": 0,
+        "clipped_pixels": 0,
+        "guarded_opaque_count": 17795,
+        "max_boundary_alpha": 255,
+        "minimum_opaque_distance_world": -2.125,
+        "policy": "reference-layout: eight-world-pixel band is diagnostic only; no rejection or fade; final compound union mask clips outside after density resampling"
       },
       "height": 160,
       "id": "depot-winter",
@@ -479,12 +992,347 @@
           "height": 1024,
           "width": 1536
         },
-        "source": "art/source/compound/distinct-v1/depot-winter.png",
-        "source_sha256": "3f8eff50d7fa03d505fffc024d619f1398c60742768452208ebce7671a82525b"
+        "retained_source": "sources/depot-winter.png",
+        "source": "art/source/compound/reference-v2/depot-winter.png",
+        "source_sha256": "0d1071c7ae1b2d47e4220528edbabb212b5f0636cc90b2b34053d0fa0ff8faea"
       },
-      "inset": 0.9,
+      "inset": 1,
       "layout": "depot",
-      "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; reject any sampled alpha \u003e=250 at signed distance \u003c=8 world pixels before guard; alpha zero through 4 world pixels then smoothstep 4..8. Guard full unmasked 4x artwork, then existing resizeLanczos to whole-scene 2x. Ground independently exported by exportConnectionTiles with fixed geometry and grass only, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim.",
+      "parity_outputs": [
+        {
+          "canvas_origin": [
+            -142,
+            -80
+          ],
+          "cells": [
+            {
+              "compound": false,
+              "origin": [
+                0,
+                -80
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                -71,
+                -40
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                71,
+                -40
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                -142,
+                0
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": true,
+              "origin": [
+                0,
+                0
+              ],
+              "runtime_id": "cmpN_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                142,
+                0
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": true,
+              "origin": [
+                -71,
+                40
+              ],
+              "runtime_id": "cmpW_w",
+              "season": "winter"
+            },
+            {
+              "compound": true,
+              "origin": [
+                71,
+                40
+              ],
+              "runtime_id": "cmpE_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                -142,
+                80
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": true,
+              "origin": [
+                0,
+                80
+              ],
+              "runtime_id": "cmpS_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                142,
+                80
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                -71,
+                120
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                71,
+                120
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                0,
+                160
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            }
+          ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 640,
+                "width": 760
+              },
+              "path": "art/review/compound-v1/depot-winter-patch-parity0-2x.png",
+              "sha256": "0147495adc496b888784b02290462700970b94cf590a666b834d042aafe2c21b"
+            },
+            {
+              "dimensions": {
+                "height": 1280,
+                "width": 1520
+              },
+              "path": "art/review/compound-v1/depot-winter-patch-parity0-4x.png",
+              "sha256": "c6fb759c41282bd5b2326c2751b86b3c31988e19d34f3ad68030cc0ab4319095"
+            }
+          ],
+          "parity": 0,
+          "scene_origin": [
+            -71,
+            0
+          ]
+        },
+        {
+          "canvas_origin": [
+            -71,
+            -40
+          ],
+          "cells": [
+            {
+              "compound": false,
+              "origin": [
+                71,
+                -40
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                0,
+                0
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                142,
+                0
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                -71,
+                40
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": true,
+              "origin": [
+                71,
+                40
+              ],
+              "runtime_id": "cmpN_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                213,
+                40
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": true,
+              "origin": [
+                0,
+                80
+              ],
+              "runtime_id": "cmpW_w",
+              "season": "winter"
+            },
+            {
+              "compound": true,
+              "origin": [
+                142,
+                80
+              ],
+              "runtime_id": "cmpE_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                -71,
+                120
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": true,
+              "origin": [
+                71,
+                120
+              ],
+              "runtime_id": "cmpS_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                213,
+                120
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                0,
+                160
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                142,
+                160
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                71,
+                200
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            }
+          ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 640,
+                "width": 760
+              },
+              "path": "art/review/compound-v1/depot-winter-patch-parity1-2x.png",
+              "sha256": "0147495adc496b888784b02290462700970b94cf590a666b834d042aafe2c21b"
+            },
+            {
+              "dimensions": {
+                "height": 1280,
+                "width": 1520
+              },
+              "path": "art/review/compound-v1/depot-winter-patch-parity1-4x.png",
+              "sha256": "c6fb759c41282bd5b2326c2751b86b3c31988e19d34f3ad68030cc0ab4319095"
+            }
+          ],
+          "parity": 1,
+          "scene_origin": [
+            0,
+            40
+          ]
+        }
+      ],
+      "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; explicit reference-layout framing: preserve full affine source at the requested inset; report the eight-world-pixel boundary band diagnostically without rejection or fade. Existing resizeLanczos filters full unmasked 4x artwork to whole-scene 2x before final union clipping. Ground independently exported by exportConnectionTiles with fixed geometry and grass only, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim.",
+      "reference": [
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 476
+          },
+          "path": "art/review/compound-v1/depot-winter-scene-2x.png",
+          "sha256": "22aecab7054f628e27cf8711ce22d4c5cc3d36baca6b943e38fb1111a57d317f"
+        },
+        {
+          "dimensions": {
+            "height": 640,
+            "width": 952
+          },
+          "path": "art/review/compound-v1/depot-winter-scene-4x.png",
+          "sha256": "ee5c2209c78fadb76a063899e8858bc5a05b077ee3db0e81e81a722d551d2d5c"
+        }
+      ],
       "season": "winter",
       "tiles": [
         {
@@ -492,6 +1340,24 @@
           "origin": [
             71,
             0
+          ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 160,
+                "width": 192
+              },
+              "path": "art/exports/compound-v1/cmpN_w-2x.png",
+              "sha256": "700689acf4ba0fa29149db79b64f5430b2e3c53553a522feff7443b7a352cb56"
+            },
+            {
+              "dimensions": {
+                "height": 320,
+                "width": 384
+              },
+              "path": "art/exports/compound-v1/cmpN_w-4x.png",
+              "sha256": "f65105ba803858919312a0aab2a820dfc9f58fd11eaa513b9a081d0def02e27f"
+            }
           ],
           "runtime_id": "cmpN_w"
         },
@@ -501,6 +1367,24 @@
             0,
             40
           ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 160,
+                "width": 192
+              },
+              "path": "art/exports/compound-v1/cmpW_w-2x.png",
+              "sha256": "7f7967db8708affa06ac2a7dd4ec0d8aabe6794fdc2581e1669b486c0846ed22"
+            },
+            {
+              "dimensions": {
+                "height": 320,
+                "width": 384
+              },
+              "path": "art/exports/compound-v1/cmpW_w-4x.png",
+              "sha256": "f5f1fce0eb6ed435e5f9da946c8a804d9f4c44377a5ffe88708ae2cdde4b9d94"
+            }
+          ],
           "runtime_id": "cmpW_w"
         },
         {
@@ -508,6 +1392,24 @@
           "origin": [
             142,
             40
+          ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 160,
+                "width": 192
+              },
+              "path": "art/exports/compound-v1/cmpE_w-2x.png",
+              "sha256": "ef15cf1cdf71982fe566cb11976c14e7da03a02547f9a423f6047681709e3424"
+            },
+            {
+              "dimensions": {
+                "height": 320,
+                "width": 384
+              },
+              "path": "art/exports/compound-v1/cmpE_w-4x.png",
+              "sha256": "10748ec72b0cd5499b1f8487b5b4a5b2d95e19221a76fd59306eccc26e82140d"
+            }
           ],
           "runtime_id": "cmpE_w"
         },
@@ -517,15 +1419,33 @@
             71,
             80
           ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 160,
+                "width": 192
+              },
+              "path": "art/exports/compound-v1/cmpS_w-2x.png",
+              "sha256": "75b1502df5d8b6997e045dc58c4541f2c7a98bd3708ee5d436a2cfca49436b9f"
+            },
+            {
+              "dimensions": {
+                "height": 320,
+                "width": 384
+              },
+              "path": "art/exports/compound-v1/cmpS_w-4x.png",
+              "sha256": "fedf7974b8497abee51a8f9c9f76e9883e5acbfd55b75005ff2255e20bd7896d"
+            }
+          ],
           "runtime_id": "cmpS_w"
         }
       ],
       "transform": {
         "offset": [
-          11.900000000000006,
-          8.600000000000009
+          0,
+          0.6666666666666714
         ],
-        "scale": 0.13945312499999998,
+        "scale": 0.15494791666666666,
         "source_dimensions": {
           "height": 1024,
           "width": 1536

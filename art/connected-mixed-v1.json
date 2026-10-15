@@ -1,28 +1,100 @@
 {
-  "schema_version": 1,
   "manifests": [
     {
       "source": "connected-terrain-v1.json",
-      "source_sha256": "f4e18f0882ab9a12b4fa566aba4249e29a6f25911eb5a28df298565d8f1eb76d"
+      "source_sha256": "daa139b10c95dbd453788278bf1e565238fb801091623f1d678df9c88eb73032"
     },
     {
       "source": "connected-paths-v1.json",
-      "source_sha256": "9b994b8de7b5f477bfe4887b658494ff2b7ad78cd2e66fa9eafd84725aca5ec6"
+      "source_sha256": "7c52a09bd0b4b391a924920353bfafea3a7ea6ec5f7556923206bafeb8a70f5d"
     },
     {
       "source": "connected-rail-v1.json",
-      "source_sha256": "8f501a209f65e74cc897bbfaf40d25da274c71ca8f4c69fb7ab49a1152acabe4"
+      "source_sha256": "79b228fc0df139d5b1643051a8d960ae8b326ddd6fe850388fdd18851ade6094"
     }
   ],
+  "schema_version": 1,
   "variants": [
-    {"id": "bridge25", "runtime_id": "bridge25", "kind": "footbridge", "ports": [2, 5]},
-    {"id": "bridge36", "runtime_id": "bridge36", "kind": "footbridge", "ports": [3, 6]},
-    {"id": "rbridge14", "runtime_id": "rBridge14", "kind": "road-bridge", "ports": [1, 4]},
-    {"id": "rbridge25", "runtime_id": "rBridge25", "kind": "road-bridge", "ports": [2, 5]},
-    {"id": "rbridge36", "runtime_id": "rBridge36", "kind": "road-bridge", "ports": [3, 6]},
-    {"id": "cross1", "runtime_id": "cross1", "kind": "crossing", "layers": ["path14", "rail36"]},
-    {"id": "cross2", "runtime_id": "cross2", "kind": "crossing", "layers": ["road14", "rail36"]},
-    {"id": "cross3", "runtime_id": "cross3", "kind": "crossing", "layers": ["road25", "rail36"]},
-    {"id": "cross4", "runtime_id": "cross4", "kind": "crossing", "layers": ["path36", "rail14"]}
+    {
+      "id": "bridge25",
+      "kind": "footbridge",
+      "ports": [
+        2,
+        5
+      ],
+      "runtime_id": "bridge25"
+    },
+    {
+      "id": "bridge36",
+      "kind": "footbridge",
+      "ports": [
+        3,
+        6
+      ],
+      "runtime_id": "bridge36"
+    },
+    {
+      "id": "rbridge14",
+      "kind": "road-bridge",
+      "ports": [
+        1,
+        4
+      ],
+      "runtime_id": "rBridge14"
+    },
+    {
+      "id": "rbridge25",
+      "kind": "road-bridge",
+      "ports": [
+        2,
+        5
+      ],
+      "runtime_id": "rBridge25"
+    },
+    {
+      "id": "rbridge36",
+      "kind": "road-bridge",
+      "ports": [
+        3,
+        6
+      ],
+      "runtime_id": "rBridge36"
+    },
+    {
+      "id": "cross1",
+      "kind": "crossing",
+      "layers": [
+        "path14",
+        "rail36"
+      ],
+      "runtime_id": "cross1"
+    },
+    {
+      "id": "cross2",
+      "kind": "crossing",
+      "layers": [
+        "road14",
+        "rail36"
+      ],
+      "runtime_id": "cross2"
+    },
+    {
+      "id": "cross3",
+      "kind": "crossing",
+      "layers": [
+        "road25",
+        "rail36"
+      ],
+      "runtime_id": "cross3"
+    },
+    {
+      "id": "cross4",
+      "kind": "crossing",
+      "layers": [
+        "path36",
+        "rail14"
+      ],
+      "runtime_id": "cross4"
+    }
   ]
 }

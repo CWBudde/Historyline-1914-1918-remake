@@ -1,5 +1,5 @@
 {
-  "acceptance": "Provisional new overhead mountain candidates. Independent art/code review, actualPNG ownership/assembly/bothparities pass. Isolatedquarter fallback shown as graphics proposal only; runtime selection NOT implemented. Fullmaps/materialvariation/fractionalzoom/nativecoverage/runtime/release acceptance remainopen.",
+  "acceptance": "Current provisional reference-guided candidate rebuild. Actual PNG assembly and pinned inputs are recorded; current user visual approval, approximately 90% resemblance, whole-map/runtime integration and release acceptance remain open.",
   "conditional_display_preview": {
     "campaign": "levels/level3_cp.json",
     "canvas_world_origin": [
@@ -200,7 +200,8 @@
         "path": "art/review/compound-v1/orphan-fallback-4x.png",
         "sha256": "c6f1d5c8e6e8bf69facffb3e9eec5706327891bb0dc91fa75cc69419f6b02b25"
       }
-    ]
+    ],
+    "rebuild_status": "Historical fixture preserved from the previous source set. Pixels and hashes were not refreshed by this rebuild; re-review is required."
   },
   "date": "2026-10-15",
   "exports": [
@@ -211,7 +212,7 @@
         "width": 192
       },
       "path": "art/exports/compound-v1/mountN-2x.png",
-      "sha256": "21a27f3fc4e5fe2f202d3c07a8fe13248c0091e9e8db479c445ae46c225230f7"
+      "sha256": "5b394d620e1d84f27b0b250a3ae70bd06bb433683152c21e99312b41e2884689"
     },
     {
       "build_output": "tiles/mountN-4x.png",
@@ -220,7 +221,7 @@
         "width": 384
       },
       "path": "art/exports/compound-v1/mountN-4x.png",
-      "sha256": "c04aa8af53fc9e5987b4dee1bc3d0d57c960bb57e88558a421428e39e3219ca3"
+      "sha256": "2980dfff18477eb7c055615f67de03592575c02e2117a8c42bc07fb44e3caa81"
     },
     {
       "build_output": "tiles/mountW-2x.png",
@@ -229,7 +230,7 @@
         "width": 192
       },
       "path": "art/exports/compound-v1/mountW-2x.png",
-      "sha256": "33501bf753049f9322af1bedfc1dac7c343d33175a7e27e2d2c7c2c9fae13649"
+      "sha256": "93c45f12c7685824e3d2e1840e760c80eef518d7f5a9893a16d4ac9826e99141"
     },
     {
       "build_output": "tiles/mountW-4x.png",
@@ -238,7 +239,7 @@
         "width": 384
       },
       "path": "art/exports/compound-v1/mountW-4x.png",
-      "sha256": "67a90d5b468676b470dc00b116da662daaaa8063a8bb0ad65e4464c2ab4f1926"
+      "sha256": "2918308047436e35d9441a461b44fdf6feb725d91c0e6dcd607d7d58e5a8a650"
     },
     {
       "build_output": "tiles/mountE-2x.png",
@@ -247,7 +248,7 @@
         "width": 192
       },
       "path": "art/exports/compound-v1/mountE-2x.png",
-      "sha256": "64624be2dd1f54c7820b26706d019013a6ac73e0c81d8943fdbf150d05c78afc"
+      "sha256": "3d20d3f6cf89dadf79cbe1b18523f1cb6bf3b1d11029d48f96851d018b8f9100"
     },
     {
       "build_output": "tiles/mountE-4x.png",
@@ -256,7 +257,7 @@
         "width": 384
       },
       "path": "art/exports/compound-v1/mountE-4x.png",
-      "sha256": "34a6502d30016dc8f89f89ec5f8110ac541d35471bcda7aab8848dce0c550a27"
+      "sha256": "01e34ec3c27644990e0c27851f67522b0c70cee84112640836ac2a8ab533636a"
     },
     {
       "build_output": "tiles/mountS-2x.png",
@@ -265,7 +266,7 @@
         "width": 192
       },
       "path": "art/exports/compound-v1/mountS-2x.png",
-      "sha256": "dbf1858fe0e77d789154bbdfebc2c033d2a4b37a6be2573afc4b4e0b0a005d0c"
+      "sha256": "904a093fbec3da14f5dc15e4ed48fe49e3e8c1d06a799c14bbbf58c178024572"
     },
     {
       "build_output": "tiles/mountS-4x.png",
@@ -274,7 +275,7 @@
         "width": 384
       },
       "path": "art/exports/compound-v1/mountS-4x.png",
-      "sha256": "2f3c16fc9dd369760f0a4d8d44cfe60968f4fd9249c84891fbc92f404472f8c5"
+      "sha256": "f4a28bc03dcf1d69954cb681694366e4e113294f03b42bfb0b93e578572630a0"
     },
     {
       "build_output": "tiles/mountN_w-2x.png",
@@ -355,7 +356,7 @@
         "width": 192
       },
       "path": "art/exports/compound-v1/mountain-2x.png",
-      "sha256": "5add4cc463cde760460cff47669c99ad9df12ac29a9dbf948e8d60f24f2cb857"
+      "sha256": "5eeb5baee622eb06c47c47805ba6e67d5f0971d900916f8b8407f1d4687a17c9"
     },
     {
       "build_output": "tiles/mountain-4x.png",
@@ -364,7 +365,7 @@
         "width": 384
       },
       "path": "art/exports/compound-v1/mountain-4x.png",
-      "sha256": "f2724c6b05008e0bf2cc37298bf595c994e5bf4379d5145fbf7adf6de01b0d22"
+      "sha256": "7b7b849d83e393bf6eb8cd464a5486b488f72d0e8d61f6205c334c2596e8cb27"
     },
     {
       "build_output": "tiles/mountain_w-2x.png",
@@ -388,8 +389,11 @@
   "generation_recipes": [
     "art/recipes/compound/distinct-v1/mountain-layout-guide.json",
     "art/recipes/compound/distinct-v1/mountain-summer-03.json",
-    "art/recipes/compound/distinct-v1/mountain-winter-01.json"
+    "art/recipes/compound/distinct-v1/mountain-winter-01.json",
+    "art/recipes/terrain/distinct-v1/snow-ground.json",
+    "art/recipes/terrain/reference-v2/meadow-03.json"
   ],
+  "generation_recipes_scope": "Includes historical generation studies and the current pinned master records. Current source selection is established by the producing manifest and its exact SHA256 pins; historical records are unchanged.",
   "geometry": {
     "height": 80,
     "neighbors": [
@@ -478,23 +482,38 @@
         "height": 1145,
         "width": 1374
       },
-      "source": "art/source/terrain/distinct-v1/meadow.png",
-      "source_sha256": "8c8935efbbd463e39d49208e42ca0e87b140268a1b11941764dfa7c29c4fff85"
+      "retained_source": "sources/ground-summer.png",
+      "source": "art/source/terrain/reference-v2/meadow-03.png",
+      "source_sha256": "4de543f0906e1311eff5ae4f202eb8fa68665c67103039bee089e60e02c68eb4"
     },
     "winter": {
       "dimensions": {
         "height": 1145,
         "width": 1374
       },
+      "retained_source": "sources/ground-winter.png",
       "source": "art/source/terrain/distinct-v1/snow-ground.png",
       "source_sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3"
     }
   },
   "id": "compound-mountain-v1",
   "manifest": "art/compound-mountain-v1.json",
-  "manifest_sha256": "6ce9cf31dd30f7c09070a2400c1b764e18196b9ae68edbab86488334e3ece6f1",
-  "original_image_inputs": [],
+  "manifest_sha256": "dd716521b18da6ef9fff4be61accab2beb5f774affeec6a5d3d044986461db58",
+  "original_image_inputs": [
+    {
+      "generation_recipe": "art/recipes/terrain/reference-v2/meadow-03.json",
+      "path": "legacy/python/gfx/hexTypes/hex_grass.png",
+      "role": "Semantic original reference only: Only image input: composition, muted olive palette and low-frequency restoration reference; original file remains reference-only.",
+      "sha256": "67257c01c1e3e30ddc438e85e5e376cd1aa72f888cfb2851b288061e1eb7a0de"
+    }
+  ],
+  "original_image_inputs_scope": "Semantic visual references used to paint the current masters or their fixture ground. Originals remain reference-only and are not bundled as runtime PNGs; source masters are newly painted. Unit sprite planes retain their existing independent artwork provenance.",
+  "previous_acceptance": {
+    "scope": "Historical source set before the current redraw; not an approval of the current artwork.",
+    "text": "Provisional new overhead mountain candidates. Independent art/code review, actualPNG ownership/assembly/bothparities pass. Isolatedquarter fallback shown as graphics proposal only; runtime selection NOT implemented. Fullmaps/materialvariation/fractionalzoom/nativecoverage/runtime/release acceptance remainopen."
+  },
   "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; reject any sampled alpha \u003e=250 at signed distance \u003c=8 world pixels before guard; alpha zero through 4 world pixels then smoothstep 4..8. Guard full unmasked 4x artwork, then existing resizeLanczos to whole-scene 2x. Ground independently exported by exportConnectionTiles with fixed geometry and grass only, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim.",
+  "rebuild_note": "Rebuilt from the current reference-guided grass/compound inputs; user visual approval remains open. Historical generation recipes retain their original provenance.",
   "review_exports": [
     {
       "build_output": "mountain-summer-scene-2x.png",
@@ -503,7 +522,7 @@
         "width": 476
       },
       "path": "art/review/compound-v1/mountain-summer-scene-2x.png",
-      "sha256": "96b8b289612f11d69602b28e204af973c48d663e8ffd78df85081db941a6fffb"
+      "sha256": "2e1f300a9eaf36799f3090780aae398436156198249309ed90ac7223e96d09a0"
     },
     {
       "build_output": "mountain-summer-patch-parity0-2x.png",
@@ -512,7 +531,7 @@
         "width": 760
       },
       "path": "art/review/compound-v1/mountain-summer-patch-parity0-2x.png",
-      "sha256": "aee208e6a7569ed79cd0d24932a9a182b418b6a826b07b5f949eaf2b6d437b07"
+      "sha256": "2391ef71c1da15dca01fedd06eb660a0b758fe39db96bc663f878af7e717e6d9"
     },
     {
       "build_output": "mountain-summer-patch-parity1-2x.png",
@@ -521,7 +540,7 @@
         "width": 760
       },
       "path": "art/review/compound-v1/mountain-summer-patch-parity1-2x.png",
-      "sha256": "aee208e6a7569ed79cd0d24932a9a182b418b6a826b07b5f949eaf2b6d437b07"
+      "sha256": "2391ef71c1da15dca01fedd06eb660a0b758fe39db96bc663f878af7e717e6d9"
     },
     {
       "build_output": "mountain-summer-scene-4x.png",
@@ -530,7 +549,7 @@
         "width": 952
       },
       "path": "art/review/compound-v1/mountain-summer-scene-4x.png",
-      "sha256": "9945b6f9314cbc97e068e93d0cd5636caaaad6d134632965389d52d350f46d47"
+      "sha256": "e9837ea52a47e7337a4fd9b73bb5da0f17fa1333c6917bdc50b733591d640c73"
     },
     {
       "build_output": "mountain-summer-patch-parity0-4x.png",
@@ -539,7 +558,7 @@
         "width": 1520
       },
       "path": "art/review/compound-v1/mountain-summer-patch-parity0-4x.png",
-      "sha256": "0d1badce7acc99d4b79a4b2755b2d019295931bf7e425d529d7b9d6f684213bc"
+      "sha256": "0fb9561da8413846c2fbb79a808d6823290747b25abc8e240fd994267b96a646"
     },
     {
       "build_output": "mountain-summer-patch-parity1-4x.png",
@@ -548,7 +567,7 @@
         "width": 1520
       },
       "path": "art/review/compound-v1/mountain-summer-patch-parity1-4x.png",
-      "sha256": "0d1badce7acc99d4b79a4b2755b2d019295931bf7e425d529d7b9d6f684213bc"
+      "sha256": "0fb9561da8413846c2fbb79a808d6823290747b25abc8e240fd994267b96a646"
     },
     {
       "build_output": "mountain-winter-scene-2x.png",
@@ -611,7 +630,7 @@
         "width": 192
       },
       "path": "art/review/compound-v1/mountain-single-summer-scene-2x.png",
-      "sha256": "5add4cc463cde760460cff47669c99ad9df12ac29a9dbf948e8d60f24f2cb857"
+      "sha256": "5eeb5baee622eb06c47c47805ba6e67d5f0971d900916f8b8407f1d4687a17c9"
     },
     {
       "build_output": "mountain-single-summer-patch-parity0-2x.png",
@@ -620,7 +639,7 @@
         "width": 476
       },
       "path": "art/review/compound-v1/mountain-single-summer-patch-parity0-2x.png",
-      "sha256": "3dce3a312ba27306fdfb383f844cabba3f19011b2d8263a78c236e4b55fd6136"
+      "sha256": "24e5e1aa70030cfb4237f19baa0303e0b898cfdde85619cf8cabbefb0ddd070f"
     },
     {
       "build_output": "mountain-single-summer-patch-parity1-2x.png",
@@ -629,7 +648,7 @@
         "width": 476
       },
       "path": "art/review/compound-v1/mountain-single-summer-patch-parity1-2x.png",
-      "sha256": "3dce3a312ba27306fdfb383f844cabba3f19011b2d8263a78c236e4b55fd6136"
+      "sha256": "24e5e1aa70030cfb4237f19baa0303e0b898cfdde85619cf8cabbefb0ddd070f"
     },
     {
       "build_output": "mountain-single-summer-scene-4x.png",
@@ -638,7 +657,7 @@
         "width": 384
       },
       "path": "art/review/compound-v1/mountain-single-summer-scene-4x.png",
-      "sha256": "f2724c6b05008e0bf2cc37298bf595c994e5bf4379d5145fbf7adf6de01b0d22"
+      "sha256": "7b7b849d83e393bf6eb8cd464a5486b488f72d0e8d61f6205c334c2596e8cb27"
     },
     {
       "build_output": "mountain-single-summer-patch-parity0-4x.png",
@@ -647,7 +666,7 @@
         "width": 952
       },
       "path": "art/review/compound-v1/mountain-single-summer-patch-parity0-4x.png",
-      "sha256": "132e8f50e69d89a9b4b67fcd494f88b16f774168388f61c88e98096098bf0c7d"
+      "sha256": "e9ed386d48bc6f0c6af1734c4ce081daf8a17af1f22b952e4bdf8bc00a076440"
     },
     {
       "build_output": "mountain-single-summer-patch-parity1-4x.png",
@@ -656,7 +675,7 @@
         "width": 952
       },
       "path": "art/review/compound-v1/mountain-single-summer-patch-parity1-4x.png",
-      "sha256": "132e8f50e69d89a9b4b67fcd494f88b16f774168388f61c88e98096098bf0c7d"
+      "sha256": "e9ed386d48bc6f0c6af1734c4ce081daf8a17af1f22b952e4bdf8bc00a076440"
     },
     {
       "build_output": "mountain-single-winter-scene-2x.png",
@@ -715,8 +734,43 @@
   ],
   "scenes": [
     {
+      "artwork": [
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 476
+          },
+          "path": "mountain-summer-artwork-2x.png",
+          "sha256": "128157092d3c389f10bf2581961022363fccb66707b57da6e66ec1f5b3232419"
+        },
+        {
+          "dimensions": {
+            "height": 640,
+            "width": 952
+          },
+          "path": "mountain-summer-artwork-4x.png",
+          "sha256": "0afbbe60ab7b810405bfe24638ecce253e843b5d6cf00b55d35d6e25c1848242"
+        }
+      ],
+      "assembled": [
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 476
+          },
+          "path": "mountain-summer-assembled-2x.png",
+          "sha256": "2e1f300a9eaf36799f3090780aae398436156198249309ed90ac7223e96d09a0"
+        },
+        {
+          "dimensions": {
+            "height": 640,
+            "width": 952
+          },
+          "path": "mountain-summer-assembled-4x.png",
+          "sha256": "e9837ea52a47e7337a4fd9b73bb5da0f17fa1333c6917bdc50b733591d640c73"
+        }
+      ],
       "entry_cell": "",
-      "generation_recipe": "art/recipes/compound/distinct-v1/mountain-summer-03.json",
       "guard": {
         "boundary_alpha_mass": 69,
         "boundary_pixels": 69,
@@ -733,12 +787,347 @@
           "height": 1024,
           "width": 1536
         },
+        "retained_source": "sources/mountain-summer.png",
         "source": "art/source/compound/distinct-v1/mountain-summer.png",
         "source_sha256": "620316294fc71cc75f37145f0516669ee140d73ff1d537cc01175c74d7a5ae66"
       },
       "inset": 0.55,
       "layout": "mountain",
+      "parity_outputs": [
+        {
+          "canvas_origin": [
+            -142,
+            -80
+          ],
+          "cells": [
+            {
+              "compound": false,
+              "origin": [
+                0,
+                -80
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                -71,
+                -40
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                71,
+                -40
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                -142,
+                0
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": true,
+              "origin": [
+                0,
+                0
+              ],
+              "runtime_id": "mountN",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                142,
+                0
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": true,
+              "origin": [
+                -71,
+                40
+              ],
+              "runtime_id": "mountW",
+              "season": "summer"
+            },
+            {
+              "compound": true,
+              "origin": [
+                71,
+                40
+              ],
+              "runtime_id": "mountE",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                -142,
+                80
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": true,
+              "origin": [
+                0,
+                80
+              ],
+              "runtime_id": "mountS",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                142,
+                80
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                -71,
+                120
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                71,
+                120
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                0,
+                160
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            }
+          ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 640,
+                "width": 760
+              },
+              "path": "art/review/compound-v1/mountain-summer-patch-parity0-2x.png",
+              "sha256": "2391ef71c1da15dca01fedd06eb660a0b758fe39db96bc663f878af7e717e6d9"
+            },
+            {
+              "dimensions": {
+                "height": 1280,
+                "width": 1520
+              },
+              "path": "art/review/compound-v1/mountain-summer-patch-parity0-4x.png",
+              "sha256": "0fb9561da8413846c2fbb79a808d6823290747b25abc8e240fd994267b96a646"
+            }
+          ],
+          "parity": 0,
+          "scene_origin": [
+            -71,
+            0
+          ]
+        },
+        {
+          "canvas_origin": [
+            -71,
+            -40
+          ],
+          "cells": [
+            {
+              "compound": false,
+              "origin": [
+                71,
+                -40
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                0,
+                0
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                142,
+                0
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                -71,
+                40
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": true,
+              "origin": [
+                71,
+                40
+              ],
+              "runtime_id": "mountN",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                213,
+                40
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": true,
+              "origin": [
+                0,
+                80
+              ],
+              "runtime_id": "mountW",
+              "season": "summer"
+            },
+            {
+              "compound": true,
+              "origin": [
+                142,
+                80
+              ],
+              "runtime_id": "mountE",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                -71,
+                120
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": true,
+              "origin": [
+                71,
+                120
+              ],
+              "runtime_id": "mountS",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                213,
+                120
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                0,
+                160
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                142,
+                160
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                71,
+                200
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            }
+          ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 640,
+                "width": 760
+              },
+              "path": "art/review/compound-v1/mountain-summer-patch-parity1-2x.png",
+              "sha256": "2391ef71c1da15dca01fedd06eb660a0b758fe39db96bc663f878af7e717e6d9"
+            },
+            {
+              "dimensions": {
+                "height": 1280,
+                "width": 1520
+              },
+              "path": "art/review/compound-v1/mountain-summer-patch-parity1-4x.png",
+              "sha256": "0fb9561da8413846c2fbb79a808d6823290747b25abc8e240fd994267b96a646"
+            }
+          ],
+          "parity": 1,
+          "scene_origin": [
+            0,
+            40
+          ]
+        }
+      ],
       "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; reject any sampled alpha \u003e=250 at signed distance \u003c=8 world pixels before guard; alpha zero through 4 world pixels then smoothstep 4..8. Guard full unmasked 4x artwork, then existing resizeLanczos to whole-scene 2x. Ground independently exported by exportConnectionTiles with fixed geometry and grass only, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim.",
+      "reference": [
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 476
+          },
+          "path": "art/review/compound-v1/mountain-summer-scene-2x.png",
+          "sha256": "2e1f300a9eaf36799f3090780aae398436156198249309ed90ac7223e96d09a0"
+        },
+        {
+          "dimensions": {
+            "height": 640,
+            "width": 952
+          },
+          "path": "art/review/compound-v1/mountain-summer-scene-4x.png",
+          "sha256": "e9837ea52a47e7337a4fd9b73bb5da0f17fa1333c6917bdc50b733591d640c73"
+        }
+      ],
       "season": "summer",
       "tiles": [
         {
@@ -746,6 +1135,24 @@
           "origin": [
             71,
             0
+          ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 160,
+                "width": 192
+              },
+              "path": "art/exports/compound-v1/mountN-2x.png",
+              "sha256": "5b394d620e1d84f27b0b250a3ae70bd06bb433683152c21e99312b41e2884689"
+            },
+            {
+              "dimensions": {
+                "height": 320,
+                "width": 384
+              },
+              "path": "art/exports/compound-v1/mountN-4x.png",
+              "sha256": "2980dfff18477eb7c055615f67de03592575c02e2117a8c42bc07fb44e3caa81"
+            }
           ],
           "runtime_id": "mountN"
         },
@@ -755,6 +1162,24 @@
             0,
             40
           ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 160,
+                "width": 192
+              },
+              "path": "art/exports/compound-v1/mountW-2x.png",
+              "sha256": "93c45f12c7685824e3d2e1840e760c80eef518d7f5a9893a16d4ac9826e99141"
+            },
+            {
+              "dimensions": {
+                "height": 320,
+                "width": 384
+              },
+              "path": "art/exports/compound-v1/mountW-4x.png",
+              "sha256": "2918308047436e35d9441a461b44fdf6feb725d91c0e6dcd607d7d58e5a8a650"
+            }
+          ],
           "runtime_id": "mountW"
         },
         {
@@ -763,6 +1188,24 @@
             142,
             40
           ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 160,
+                "width": 192
+              },
+              "path": "art/exports/compound-v1/mountE-2x.png",
+              "sha256": "3d20d3f6cf89dadf79cbe1b18523f1cb6bf3b1d11029d48f96851d018b8f9100"
+            },
+            {
+              "dimensions": {
+                "height": 320,
+                "width": 384
+              },
+              "path": "art/exports/compound-v1/mountE-4x.png",
+              "sha256": "01e34ec3c27644990e0c27851f67522b0c70cee84112640836ac2a8ab533636a"
+            }
+          ],
           "runtime_id": "mountE"
         },
         {
@@ -770,6 +1213,24 @@
           "origin": [
             71,
             80
+          ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 160,
+                "width": 192
+              },
+              "path": "art/exports/compound-v1/mountS-2x.png",
+              "sha256": "904a093fbec3da14f5dc15e4ed48fe49e3e8c1d06a799c14bbbf58c178024572"
+            },
+            {
+              "dimensions": {
+                "height": 320,
+                "width": 384
+              },
+              "path": "art/exports/compound-v1/mountS-4x.png",
+              "sha256": "f4a28bc03dcf1d69954cb681694366e4e113294f03b42bfb0b93e578572630a0"
+            }
           ],
           "runtime_id": "mountS"
         }
@@ -788,8 +1249,43 @@
       "width": 238
     },
     {
+      "artwork": [
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 476
+          },
+          "path": "mountain-winter-artwork-2x.png",
+          "sha256": "f0438d3eedd24d0157ecf24137fcd9634325528f9eb48c9deec5b8c5595c173a"
+        },
+        {
+          "dimensions": {
+            "height": 640,
+            "width": 952
+          },
+          "path": "mountain-winter-artwork-4x.png",
+          "sha256": "2db371e0e164f5308fa55cd1688280a182ee9ecee22b994c2d9b012b7e52caf6"
+        }
+      ],
+      "assembled": [
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 476
+          },
+          "path": "mountain-winter-assembled-2x.png",
+          "sha256": "8afe24154e20de6d10f95f087f6f144c6a3c3ae322037858bc646039bb8a3fef"
+        },
+        {
+          "dimensions": {
+            "height": 640,
+            "width": 952
+          },
+          "path": "mountain-winter-assembled-4x.png",
+          "sha256": "03568034d4c2d2869ed80aab6b34729d1207409b3fd1f66789e6567b6679c7f6"
+        }
+      ],
       "entry_cell": "",
-      "generation_recipe": "art/recipes/compound/distinct-v1/mountain-winter-01.json",
       "guard": {
         "boundary_alpha_mass": 5310,
         "boundary_pixels": 5299,
@@ -806,12 +1302,347 @@
           "height": 1024,
           "width": 1536
         },
+        "retained_source": "sources/mountain-winter.png",
         "source": "art/source/compound/distinct-v1/mountain-winter.png",
         "source_sha256": "2e90ccac63b02a4103ad48f015c3a9665e91ff1b19848500eb2da5b542a76225"
       },
       "inset": 0.55,
       "layout": "mountain",
+      "parity_outputs": [
+        {
+          "canvas_origin": [
+            -142,
+            -80
+          ],
+          "cells": [
+            {
+              "compound": false,
+              "origin": [
+                0,
+                -80
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                -71,
+                -40
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                71,
+                -40
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                -142,
+                0
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": true,
+              "origin": [
+                0,
+                0
+              ],
+              "runtime_id": "mountN_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                142,
+                0
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": true,
+              "origin": [
+                -71,
+                40
+              ],
+              "runtime_id": "mountW_w",
+              "season": "winter"
+            },
+            {
+              "compound": true,
+              "origin": [
+                71,
+                40
+              ],
+              "runtime_id": "mountE_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                -142,
+                80
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": true,
+              "origin": [
+                0,
+                80
+              ],
+              "runtime_id": "mountS_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                142,
+                80
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                -71,
+                120
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                71,
+                120
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                0,
+                160
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            }
+          ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 640,
+                "width": 760
+              },
+              "path": "art/review/compound-v1/mountain-winter-patch-parity0-2x.png",
+              "sha256": "e9a6d6e299553ebe0bdc6596ae1671ede7fb9fa01cae221910bdf783154b7bd3"
+            },
+            {
+              "dimensions": {
+                "height": 1280,
+                "width": 1520
+              },
+              "path": "art/review/compound-v1/mountain-winter-patch-parity0-4x.png",
+              "sha256": "1ed5521bf1f60d2ba664ea1ca2b0ba22f4906293f8ae69ddb17c96ed0e2d5fe4"
+            }
+          ],
+          "parity": 0,
+          "scene_origin": [
+            -71,
+            0
+          ]
+        },
+        {
+          "canvas_origin": [
+            -71,
+            -40
+          ],
+          "cells": [
+            {
+              "compound": false,
+              "origin": [
+                71,
+                -40
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                0,
+                0
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                142,
+                0
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                -71,
+                40
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": true,
+              "origin": [
+                71,
+                40
+              ],
+              "runtime_id": "mountN_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                213,
+                40
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": true,
+              "origin": [
+                0,
+                80
+              ],
+              "runtime_id": "mountW_w",
+              "season": "winter"
+            },
+            {
+              "compound": true,
+              "origin": [
+                142,
+                80
+              ],
+              "runtime_id": "mountE_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                -71,
+                120
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": true,
+              "origin": [
+                71,
+                120
+              ],
+              "runtime_id": "mountS_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                213,
+                120
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                0,
+                160
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                142,
+                160
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                71,
+                200
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            }
+          ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 640,
+                "width": 760
+              },
+              "path": "art/review/compound-v1/mountain-winter-patch-parity1-2x.png",
+              "sha256": "e9a6d6e299553ebe0bdc6596ae1671ede7fb9fa01cae221910bdf783154b7bd3"
+            },
+            {
+              "dimensions": {
+                "height": 1280,
+                "width": 1520
+              },
+              "path": "art/review/compound-v1/mountain-winter-patch-parity1-4x.png",
+              "sha256": "1ed5521bf1f60d2ba664ea1ca2b0ba22f4906293f8ae69ddb17c96ed0e2d5fe4"
+            }
+          ],
+          "parity": 1,
+          "scene_origin": [
+            0,
+            40
+          ]
+        }
+      ],
       "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; reject any sampled alpha \u003e=250 at signed distance \u003c=8 world pixels before guard; alpha zero through 4 world pixels then smoothstep 4..8. Guard full unmasked 4x artwork, then existing resizeLanczos to whole-scene 2x. Ground independently exported by exportConnectionTiles with fixed geometry and grass only, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim.",
+      "reference": [
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 476
+          },
+          "path": "art/review/compound-v1/mountain-winter-scene-2x.png",
+          "sha256": "8afe24154e20de6d10f95f087f6f144c6a3c3ae322037858bc646039bb8a3fef"
+        },
+        {
+          "dimensions": {
+            "height": 640,
+            "width": 952
+          },
+          "path": "art/review/compound-v1/mountain-winter-scene-4x.png",
+          "sha256": "03568034d4c2d2869ed80aab6b34729d1207409b3fd1f66789e6567b6679c7f6"
+        }
+      ],
       "season": "winter",
       "tiles": [
         {
@@ -819,6 +1650,24 @@
           "origin": [
             71,
             0
+          ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 160,
+                "width": 192
+              },
+              "path": "art/exports/compound-v1/mountN_w-2x.png",
+              "sha256": "0370b577989ca0406eea495a81b6ba89d4e1fd3fe333daf0c48e5d7e1cff3d59"
+            },
+            {
+              "dimensions": {
+                "height": 320,
+                "width": 384
+              },
+              "path": "art/exports/compound-v1/mountN_w-4x.png",
+              "sha256": "17e9fc527088c1d4ec7ff0f456abc09e284e0c878501a17253c99d554fb11c69"
+            }
           ],
           "runtime_id": "mountN_w"
         },
@@ -828,6 +1677,24 @@
             0,
             40
           ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 160,
+                "width": 192
+              },
+              "path": "art/exports/compound-v1/mountW_w-2x.png",
+              "sha256": "40149a290c89972c29724f88c2595ff4d31cf85062de94bfdc75438027182322"
+            },
+            {
+              "dimensions": {
+                "height": 320,
+                "width": 384
+              },
+              "path": "art/exports/compound-v1/mountW_w-4x.png",
+              "sha256": "7709376257a7eab7ab91047a346e5d35932e7fd262dbcbed6f4bd841ceecab64"
+            }
+          ],
           "runtime_id": "mountW_w"
         },
         {
@@ -836,6 +1703,24 @@
             142,
             40
           ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 160,
+                "width": 192
+              },
+              "path": "art/exports/compound-v1/mountE_w-2x.png",
+              "sha256": "a6aebb4795464146413d38c0645254e8bb4a6e5257de986be25316e103352062"
+            },
+            {
+              "dimensions": {
+                "height": 320,
+                "width": 384
+              },
+              "path": "art/exports/compound-v1/mountE_w-4x.png",
+              "sha256": "f05ecff225e940c0509bac49ce5a8a23bc1d49cae7f8c11d7e373b4c8b061fa9"
+            }
+          ],
           "runtime_id": "mountE_w"
         },
         {
@@ -843,6 +1728,24 @@
           "origin": [
             71,
             80
+          ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 160,
+                "width": 192
+              },
+              "path": "art/exports/compound-v1/mountS_w-2x.png",
+              "sha256": "417e2441ca3740e1517c93f923e0975124a708b070c5ebdd890a1181741c0d1c"
+            },
+            {
+              "dimensions": {
+                "height": 320,
+                "width": 384
+              },
+              "path": "art/exports/compound-v1/mountS_w-4x.png",
+              "sha256": "5c7ca18564dda4ae8a339a6d0ee5d809dd4626355d3a2160ec95602c106e5a70"
+            }
           ],
           "runtime_id": "mountS_w"
         }
@@ -861,8 +1764,43 @@
       "width": 238
     },
     {
+      "artwork": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "mountain-single-summer-artwork-2x.png",
+          "sha256": "27bbe94e5242ad40acebdf8aef03aa6f853d5811f05dba8496c32701fedfcd98"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "mountain-single-summer-artwork-4x.png",
+          "sha256": "25de8fe0520e6627eec49c2193bff3a9b70157e59305ca2e3118c8c5fb1392c4"
+        }
+      ],
+      "assembled": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "mountain-single-summer-assembled-2x.png",
+          "sha256": "5eeb5baee622eb06c47c47805ba6e67d5f0971d900916f8b8407f1d4687a17c9"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "mountain-single-summer-assembled-4x.png",
+          "sha256": "7b7b849d83e393bf6eb8cd464a5486b488f72d0e8d61f6205c334c2596e8cb27"
+        }
+      ],
       "entry_cell": "",
-      "generation_recipe": "art/recipes/compound/distinct-v1/mountain-summer-03.json",
       "guard": {
         "boundary_alpha_mass": 0,
         "boundary_pixels": 0,
@@ -879,12 +1817,221 @@
           "height": 1024,
           "width": 1536
         },
+        "retained_source": "sources/mountain-single-summer.png",
         "source": "art/source/compound/distinct-v1/mountain-summer.png",
         "source_sha256": "620316294fc71cc75f37145f0516669ee140d73ff1d537cc01175c74d7a5ae66"
       },
       "inset": 0.55,
       "layout": "mountain-single",
+      "parity_outputs": [
+        {
+          "canvas_origin": [
+            -71,
+            -80
+          ],
+          "cells": [
+            {
+              "compound": false,
+              "origin": [
+                0,
+                -80
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                -71,
+                -40
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                71,
+                -40
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": true,
+              "origin": [
+                0,
+                0
+              ],
+              "runtime_id": "mountain",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                -71,
+                40
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                71,
+                40
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                0,
+                80
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            }
+          ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 480,
+                "width": 476
+              },
+              "path": "art/review/compound-v1/mountain-single-summer-patch-parity0-2x.png",
+              "sha256": "24e5e1aa70030cfb4237f19baa0303e0b898cfdde85619cf8cabbefb0ddd070f"
+            },
+            {
+              "dimensions": {
+                "height": 960,
+                "width": 952
+              },
+              "path": "art/review/compound-v1/mountain-single-summer-patch-parity0-4x.png",
+              "sha256": "e9ed386d48bc6f0c6af1734c4ce081daf8a17af1f22b952e4bdf8bc00a076440"
+            }
+          ],
+          "parity": 0,
+          "scene_origin": [
+            0,
+            0
+          ]
+        },
+        {
+          "canvas_origin": [
+            0,
+            -40
+          ],
+          "cells": [
+            {
+              "compound": false,
+              "origin": [
+                71,
+                -40
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                0,
+                0
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                142,
+                0
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": true,
+              "origin": [
+                71,
+                40
+              ],
+              "runtime_id": "mountain",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                0,
+                80
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                142,
+                80
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            },
+            {
+              "compound": false,
+              "origin": [
+                71,
+                120
+              ],
+              "runtime_id": "grass",
+              "season": "summer"
+            }
+          ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 480,
+                "width": 476
+              },
+              "path": "art/review/compound-v1/mountain-single-summer-patch-parity1-2x.png",
+              "sha256": "24e5e1aa70030cfb4237f19baa0303e0b898cfdde85619cf8cabbefb0ddd070f"
+            },
+            {
+              "dimensions": {
+                "height": 960,
+                "width": 952
+              },
+              "path": "art/review/compound-v1/mountain-single-summer-patch-parity1-4x.png",
+              "sha256": "e9ed386d48bc6f0c6af1734c4ce081daf8a17af1f22b952e4bdf8bc00a076440"
+            }
+          ],
+          "parity": 1,
+          "scene_origin": [
+            71,
+            40
+          ]
+        }
+      ],
       "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; reject any sampled alpha \u003e=250 at signed distance \u003c=8 world pixels before guard; alpha zero through 4 world pixels then smoothstep 4..8. Guard full unmasked 4x artwork, then existing resizeLanczos to whole-scene 2x. Ground independently exported by exportConnectionTiles with fixed geometry and grass only, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim.",
+      "reference": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "art/review/compound-v1/mountain-single-summer-scene-2x.png",
+          "sha256": "5eeb5baee622eb06c47c47805ba6e67d5f0971d900916f8b8407f1d4687a17c9"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "art/review/compound-v1/mountain-single-summer-scene-4x.png",
+          "sha256": "7b7b849d83e393bf6eb8cd464a5486b488f72d0e8d61f6205c334c2596e8cb27"
+        }
+      ],
       "season": "summer",
       "tiles": [
         {
@@ -892,6 +2039,24 @@
           "origin": [
             0,
             0
+          ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 160,
+                "width": 192
+              },
+              "path": "art/exports/compound-v1/mountain-2x.png",
+              "sha256": "5eeb5baee622eb06c47c47805ba6e67d5f0971d900916f8b8407f1d4687a17c9"
+            },
+            {
+              "dimensions": {
+                "height": 320,
+                "width": 384
+              },
+              "path": "art/exports/compound-v1/mountain-4x.png",
+              "sha256": "7b7b849d83e393bf6eb8cd464a5486b488f72d0e8d61f6205c334c2596e8cb27"
+            }
           ],
           "runtime_id": "mountain"
         }
@@ -910,8 +2075,43 @@
       "width": 96
     },
     {
+      "artwork": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "mountain-single-winter-artwork-2x.png",
+          "sha256": "38627b51ec03aa7d54765bdc8b8132d9779879020dbee9005afd89d5347d5504"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "mountain-single-winter-artwork-4x.png",
+          "sha256": "3ecd868f357dc1b0e76cfdbcf1872216a424ee4a28e588757ff69cd1f3ef1922"
+        }
+      ],
+      "assembled": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "mountain-single-winter-assembled-2x.png",
+          "sha256": "164deefd073bdddd254cf1afbf540c6b7b77ebf75f49de6ba1c7fb69b0bce023"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "mountain-single-winter-assembled-4x.png",
+          "sha256": "40e7de9fb0f68ad03b2ea87f728661d682ac19e486861edbae5d5e7877cd091c"
+        }
+      ],
       "entry_cell": "",
-      "generation_recipe": "art/recipes/compound/distinct-v1/mountain-winter-01.json",
       "guard": {
         "boundary_alpha_mass": 0,
         "boundary_pixels": 0,
@@ -928,12 +2128,221 @@
           "height": 1024,
           "width": 1536
         },
+        "retained_source": "sources/mountain-single-winter.png",
         "source": "art/source/compound/distinct-v1/mountain-winter.png",
         "source_sha256": "2e90ccac63b02a4103ad48f015c3a9665e91ff1b19848500eb2da5b542a76225"
       },
       "inset": 0.55,
       "layout": "mountain-single",
+      "parity_outputs": [
+        {
+          "canvas_origin": [
+            -71,
+            -80
+          ],
+          "cells": [
+            {
+              "compound": false,
+              "origin": [
+                0,
+                -80
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                -71,
+                -40
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                71,
+                -40
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": true,
+              "origin": [
+                0,
+                0
+              ],
+              "runtime_id": "mountain_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                -71,
+                40
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                71,
+                40
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                0,
+                80
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            }
+          ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 480,
+                "width": 476
+              },
+              "path": "art/review/compound-v1/mountain-single-winter-patch-parity0-2x.png",
+              "sha256": "ea09e774943b1de28cace2a473a67826913c4e4b9b53aecd647971081f1be3ee"
+            },
+            {
+              "dimensions": {
+                "height": 960,
+                "width": 952
+              },
+              "path": "art/review/compound-v1/mountain-single-winter-patch-parity0-4x.png",
+              "sha256": "005f2f40e83d41194ceb4fe2b2186aa0fc6d2ac88a4bec31ad03e948ed5c1d64"
+            }
+          ],
+          "parity": 0,
+          "scene_origin": [
+            0,
+            0
+          ]
+        },
+        {
+          "canvas_origin": [
+            0,
+            -40
+          ],
+          "cells": [
+            {
+              "compound": false,
+              "origin": [
+                71,
+                -40
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                0,
+                0
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                142,
+                0
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": true,
+              "origin": [
+                71,
+                40
+              ],
+              "runtime_id": "mountain_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                0,
+                80
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                142,
+                80
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            },
+            {
+              "compound": false,
+              "origin": [
+                71,
+                120
+              ],
+              "runtime_id": "grass_w",
+              "season": "winter"
+            }
+          ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 480,
+                "width": 476
+              },
+              "path": "art/review/compound-v1/mountain-single-winter-patch-parity1-2x.png",
+              "sha256": "ea09e774943b1de28cace2a473a67826913c4e4b9b53aecd647971081f1be3ee"
+            },
+            {
+              "dimensions": {
+                "height": 960,
+                "width": 952
+              },
+              "path": "art/review/compound-v1/mountain-single-winter-patch-parity1-4x.png",
+              "sha256": "005f2f40e83d41194ceb4fe2b2186aa0fc6d2ac88a4bec31ad03e948ed5c1d64"
+            }
+          ],
+          "parity": 1,
+          "scene_origin": [
+            71,
+            40
+          ]
+        }
+      ],
       "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; reject any sampled alpha \u003e=250 at signed distance \u003c=8 world pixels before guard; alpha zero through 4 world pixels then smoothstep 4..8. Guard full unmasked 4x artwork, then existing resizeLanczos to whole-scene 2x. Ground independently exported by exportConnectionTiles with fixed geometry and grass only, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim.",
+      "reference": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "art/review/compound-v1/mountain-single-winter-scene-2x.png",
+          "sha256": "164deefd073bdddd254cf1afbf540c6b7b77ebf75f49de6ba1c7fb69b0bce023"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "art/review/compound-v1/mountain-single-winter-scene-4x.png",
+          "sha256": "40e7de9fb0f68ad03b2ea87f728661d682ac19e486861edbae5d5e7877cd091c"
+        }
+      ],
       "season": "winter",
       "tiles": [
         {
@@ -941,6 +2350,24 @@
           "origin": [
             0,
             0
+          ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 160,
+                "width": 192
+              },
+              "path": "art/exports/compound-v1/mountain_w-2x.png",
+              "sha256": "164deefd073bdddd254cf1afbf540c6b7b77ebf75f49de6ba1c7fb69b0bce023"
+            },
+            {
+              "dimensions": {
+                "height": 320,
+                "width": 384
+              },
+              "path": "art/exports/compound-v1/mountain_w-4x.png",
+              "sha256": "40e7de9fb0f68ad03b2ea87f728661d682ac19e486861edbae5d5e7877cd091c"
+            }
           ],
           "runtime_id": "mountain_w"
         }

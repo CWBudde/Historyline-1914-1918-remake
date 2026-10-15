@@ -1,5 +1,12 @@
 # Compound tile geometry for new artwork
 
+**2026-10-16 update:** the [reference-led redraw](reference-redraw-v2.md) replaces
+the active HQ/depot/factory masters and selects explicit `reference-layout`
+framing at inset 1. The geometry and gameplay IDs below remain unchanged.
+Source/framing/art-direction observations in the earlier batch records below
+describe the historical candidates, including the rejected manor-style HQ;
+they do not describe the current fortress/camp/factory paintings.
+
 2026-10-15. Numeric production prerequisite, separate from original image pixels.
 Five newly authored whole scenes can supply the 26 enabled compound background
 images: summer/winter HQ, summer/winter depot, and winter factory. Generate each

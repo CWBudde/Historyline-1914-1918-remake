@@ -1,13 +1,13 @@
 {
-  "schema_version": 1,
   "materials": {
     "grass": {
-      "source": "source/terrain/distinct-v1/meadow.png",
-      "source_sha256": "8c8935efbbd463e39d49208e42ca0e87b140268a1b11941764dfa7c29c4fff85"
+      "source": "source/terrain/reference-v2/meadow-03.png",
+      "source_sha256": "4de543f0906e1311eff5ae4f202eb8fa68665c67103039bee089e60e02c68eb4"
     },
     "height": {
       "source": "source/hills/distinct-v1/height.png",
       "source_sha256": "31b342bb5d98f26b59d5015c371c6f88327ec9cfd9caed38ef177bc48cbeb102"
     }
-  }
+  },
+  "schema_version": 1
 }

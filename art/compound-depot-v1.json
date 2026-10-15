@@ -1,9 +1,8 @@
 {
-  "schema_version": 1,
   "grounds": {
     "summer": {
-      "source": "source/terrain/distinct-v1/meadow.png",
-      "source_sha256": "8c8935efbbd463e39d49208e42ca0e87b140268a1b11941764dfa7c29c4fff85"
+      "source": "source/terrain/reference-v2/meadow-03.png",
+      "source_sha256": "4de543f0906e1311eff5ae4f202eb8fa68665c67103039bee089e60e02c68eb4"
     },
     "winter": {
       "source": "source/terrain/distinct-v1/snow-ground.png",
@@ -12,20 +11,23 @@
   },
   "scenes": [
     {
-      "id": "depot-summer",
       "artwork": {
-        "source": "source/compound/distinct-v1/depot-summer.png",
-        "source_sha256": "e1f78ec16fc736ae4bc0974b0a7ccc56b2d672ef98584def69572c410ce3e91a"
+        "source": "source/compound/reference-v2/depot-summer.png",
+        "source_sha256": "71c8e02269ed8b66f0c903abd541ee5ddab8a0c176f4b9afae8a9eb2affd56c5"
       },
-      "inset": 0.9
+      "framing": "reference-layout",
+      "id": "depot-summer",
+      "inset": 1
     },
     {
-      "id": "depot-winter",
       "artwork": {
-        "source": "source/compound/distinct-v1/depot-winter.png",
-        "source_sha256": "3f8eff50d7fa03d505fffc024d619f1398c60742768452208ebce7671a82525b"
+        "source": "source/compound/reference-v2/depot-winter.png",
+        "source_sha256": "0d1071c7ae1b2d47e4220528edbabb212b5f0636cc90b2b34053d0fa0ff8faea"
       },
-      "inset": 0.9
+      "framing": "reference-layout",
+      "id": "depot-winter",
+      "inset": 1
     }
-  ]
+  ],
+  "schema_version": 1
 }

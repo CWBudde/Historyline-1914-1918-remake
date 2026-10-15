@@ -8,11 +8,12 @@
   "scenes": [
     {
       "artwork": {
-        "source": "source/compound/distinct-v1/factory-winter.png",
-        "source_sha256": "cc00982556887fc2c7cf2f8d52ee9776d3fb1cc1ecb5cacb252e008d08418167"
+        "source": "source/compound/reference-v2/factory-winter.png",
+        "source_sha256": "8168ea4623b2e3e9547db268c79690cfba5633c5bc469a97f1b701312f44428f"
       },
+      "framing": "reference-layout",
       "id": "factory-winter",
-      "inset": 0.85
+      "inset": 1
     }
   ],
   "schema_version": 1
