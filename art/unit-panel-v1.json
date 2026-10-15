@@ -1,0 +1,60 @@
+{
+  "fonts": {
+    "bold": {
+      "source": "source/fonts/go-fonts/Go-Bold.ttf",
+      "source_sha256": "c18494baa7ea35b8dbfac3861787d360b9c0ab91232562371a09e6fbf09aaa40"
+    },
+    "license": {
+      "source": "source/fonts/go-fonts/LICENSE.txt",
+      "source_sha256": "dc588a7ba9130043b67c2380cc03cc6644ed3557f6d5e8589b96acba1c64e343"
+    },
+    "regular": {
+      "source": "source/fonts/go-fonts/Go-Regular.ttf",
+      "source_sha256": "197d9f3703b4c00af609178876a8d73e396f64fe438b2c871778566632374be3"
+    }
+  },
+  "portrait": {
+    "2x": {
+      "source": "exports/portrait-infantry-v1/infantry-2x.png",
+      "source_sha256": "3503be46728754bebc3fb829716ec6aac3e2ddb587a62206d92486278df0852b"
+    },
+    "4x": {
+      "source": "exports/portrait-infantry-v1/infantry-4x.png",
+      "source_sha256": "8d84a8b9977c2e513b100e153964c7a48dc8670f03f3b2da011c2da2bfc4d4dd"
+    }
+  },
+  "profile": "unit-panel-v1",
+  "schema_version": 1,
+  "units": {
+    "cp": {
+      "2x": {
+        "source": "exports/unit-infantry-v1/sprites/infantry/cp/n-normal-2x.png",
+        "source_sha256": "ce9a7be66421f3249bb52529e1f1a0dbc27171bf96266c588fdec56925090244"
+      },
+      "4x": {
+        "source": "exports/unit-infantry-v1/sprites/infantry/cp/n-normal-4x.png",
+        "source_sha256": "ef88b6641c450ffd2ca6f5f9381b9f76b5562ef6393113263f91835ac900ec2e"
+      }
+    },
+    "ec": {
+      "2x": {
+        "source": "exports/unit-infantry-v1/sprites/infantry/ec/n-normal-2x.png",
+        "source_sha256": "ade2d475fa748dca782517cfe0b5becd8354dc6ba164a24a9892859fe44cddae"
+      },
+      "4x": {
+        "source": "exports/unit-infantry-v1/sprites/infantry/ec/n-normal-4x.png",
+        "source_sha256": "4422687f11b39bc37b629fd1e47ff4ae7b2284eae4d665051b024ad5c63e86f8"
+      }
+    },
+    "neutral": {
+      "2x": {
+        "source": "exports/unit-infantry-v1/sprites/infantry/neutral/n-normal-2x.png",
+        "source_sha256": "8604ce9348fd0d049ada3201e730e93d6e954ac112086dd5c783ab401fba6414"
+      },
+      "4x": {
+        "source": "exports/unit-infantry-v1/sprites/infantry/neutral/n-normal-4x.png",
+        "source_sha256": "e8937269428f6b77814fa746e5318569caf3e6e29c34ab17f991968d9ff74a4f"
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -iE 'requirements|\\\\.py$')",
+      "Bash(grep -v '\\\\.py$')"
+    ]
+  }
+}

@@ -281,6 +281,12 @@ requested graphics coverage first, then integrate the playable UI through these 
       using Section 4's existing checklist. Include ownership stripes, remaining unit and
       weapon art, portraits, markers and effects; retain full-map/seasonal/zoom review gates.
       Do not treat 134 candidate tile bindings as complete graphics or G3/G5 acceptance.
+- [ ] Establish a passing Windows verification baseline for the offline exporters.
+      This review's fresh `go test` run passes `internal/hexgrid`, `internal/data`,
+      `internal/level`, `internal/game` and `tools/native-reference`, but graphics checks
+      expose replacement-directory rollback failures in `tools/art-review` and snapshot/
+      rollback failures in the local `tools/unit-panel` pilot. Separate sandbox Go-cache
+      permission errors from remaining failures; retain this gate until the affected checks pass.
 
 #### 2.2 — Runtime asset packs and composition (G1/G3)
 
@@ -997,6 +1003,24 @@ below record work already delivered, plus G0.7's new neighborhood comparisons.
             - [ ] Verify native illustration correspondence and populated-panel composition;
                   keep physical display aspect and runtime acceptance open under G0.10/G2.
       - [ ] Reconstructed unit panel with live text and separate frame/icons/portrait.
+            - [x] Build and verify the distinct infantry panel exporter with live text,
+                  separate text-free frame/role icons and native 2×/4× fixture renders.
+                  (2026-10-15) — batch 22's isolated Go tool covers nine real-data/stress
+                  fixtures, pinned fonts and existing new portrait/tactical exports. All
+                  70 fresh-build files repeat byte-identically. Independent code/art review,
+                  logical-size browser checks and the pixel oracle pass; all 46,080,000
+                  scene pixels agree within one premultiplied channel value. Final full
+                  just ci passes with zero lint issues. See tools/unit-panel/README.md
+                  and docs/art/unit-panel-contract.md. This closes exporter verification only.
+            - [ ] Retain the new vector masters and 2×/4× runtime assets, publish the panel
+                  gallery/recipe and commit the reviewed batch. New project file/directory
+                  creation currently fails with ENOSPC despite reported free space; the
+                  complete verified 70-file bundle is preserved in ignored
+                  build/gfx-production/unit-panel-v1/candidate-01; all files match both
+                  the fresh CLI build and its repeat in temporary storage.
+                  Resume retention from the existing production brief, without regenerating art.
+            - [ ] Exercise the populated/empty/hidden panel in the game and complete the
+                  remaining native/display and responsive/input gates under G0.10/G2/G4.
 - [ ] **G0.10 — Resolve remaining reference/migration decisions.** Verify populated colour
       captures, physical display aspect and scrolling; finish native-to-runtime port,
       direction, faction and anchor mappings, and the full-tile-to-layered-overlay migration.
@@ -1422,9 +1446,15 @@ private originals/manual extracts in ignored `original/`, and reference gallerie
 outputs and research in ignored `build/`. Authored masters, recipes and pilot exports stay in
 tracked `art/`; commit verified graphics batches directly to `main`, per the user's preference.
 
-**Immediate next graphics slice:** complete G0.9's remaining separate panel artwork with
-live text, frame/icons and the new portrait. The infantry portrait now has reviewed
-logical/2×/4× candidates; see `docs/art/distinct-portraits-batch-21.md`. Infantry and light artillery now
+**Immediate next graphics slice:** finish batch 22's source/export retention and public
+review for the separate unit panel once project file creation recovers. The verified offline
+pilot has live text, new vector frame/icons and the existing new portrait/tactical images;
+see tools/unit-panel/README.md and docs/art/unit-panel-contract.md. Do not mark delivery
+or runtime acceptance complete while final assets, gallery and commit remain pending.
+Then finish G0.9/G0.10's native correspondence and assembled-map/context checks, compare the
+six-direction authoring method with the planned Blender pilot, and extend the missing unit
+and portrait families. The infantry portrait has reviewed logical/2×/4× candidates; see
+docs/art/distinct-portraits-batch-21.md. Infantry and light artillery now
 have six authored views and reproducible ownership/state candidates at both densities; see
 `docs/art/distinct-units-batch-19.md` and `docs/art/distinct-units-batch-20.md`. The shared
 registration and independent owner palette contract is verified offline; physical contact
