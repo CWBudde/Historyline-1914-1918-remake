@@ -190,7 +190,7 @@ func TestCompoundActualPNGBundle(t *testing.T) {
 	g, a := source("ground.png", ground), source("art.png", art)
 	m := compoundManifest{SchemaVersion: 1, Grounds: map[string]connectionMaterial{"summer": g, "winter": g}}
 	for _, id := range []string{"depot-summer", "depot-winter", "hq-summer", "hq-winter", "factory-winter"} {
-		m.Scenes = append(m.Scenes, compoundSceneInput{id, a, .9})
+		m.Scenes = append(m.Scenes, compoundSceneInput{ID: id, Artwork: a, Inset: .9})
 	}
 	b, err := json.Marshal(m)
 	if err != nil {
@@ -419,7 +419,7 @@ func compoundTestFixture(t *testing.T) (string, compoundManifest) {
 		sum := sha256.Sum256(b.Bytes())
 		return connectionMaterial{name, hex.EncodeToString(sum[:])}
 	}
-	m := compoundManifest{SchemaVersion: 1, Grounds: map[string]connectionMaterial{"summer": ref("ground.png", ground)}, Scenes: []compoundSceneInput{{"depot-summer", ref("art.png", art), .9}}}
+	m := compoundManifest{SchemaVersion: 1, Grounds: map[string]connectionMaterial{"summer": ref("ground.png", ground)}, Scenes: []compoundSceneInput{{ID: "depot-summer", Artwork: ref("art.png", art), Inset: .9}}}
 	path := filepath.Join(dir, "manifest.json")
 	compoundTestWriteManifest(t, path, m)
 	return path, m

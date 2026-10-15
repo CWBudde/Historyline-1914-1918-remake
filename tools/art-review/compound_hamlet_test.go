@@ -27,8 +27,8 @@ func hamletFixture(t *testing.T) (string, compoundManifest) {
 	t.Helper()
 	path, m := mountainFixture(t)
 	m.Scenes = []compoundSceneInput{
-		{"hamlet-summer", m.Scenes[0].Artwork, .9},
-		{"hamlet-winter", m.Scenes[1].Artwork, .9},
+		{ID: "hamlet-summer", Artwork: m.Scenes[0].Artwork, Inset: .9},
+		{ID: "hamlet-winter", Artwork: m.Scenes[1].Artwork, Inset: .9},
 	}
 	compoundTestWriteManifest(t, path, m)
 	return path, m
@@ -145,7 +145,7 @@ func TestCompoundHamletCLIActualPNGs(t *testing.T) {
 func TestCompoundHamletElevenSceneBound(t *testing.T) {
 	path, m := hamletFixture(t)
 	for _, id := range []string{"depot-summer", "depot-winter", "hq-summer", "hq-winter", "factory-winter", "mountain-summer", "mountain-winter", "mountain-single-summer", "mountain-single-winter"} {
-		m.Scenes = append(m.Scenes, compoundSceneInput{id, m.Scenes[0].Artwork, .9})
+		m.Scenes = append(m.Scenes, compoundSceneInput{ID: id, Artwork: m.Scenes[0].Artwork, Inset: .9})
 	}
 	compoundTestWriteManifest(t, path, m)
 	in, err := loadCompoundInputs(path)
@@ -167,7 +167,7 @@ func TestCompoundHamletElevenSceneBound(t *testing.T) {
 			bad.Scenes = append([]compoundSceneInput(nil), m.Scenes...)
 			if tc.name == "thirteenth" {
 				for range 2 {
-					bad.Scenes = append(bad.Scenes, compoundSceneInput{tc.id, m.Scenes[0].Artwork, .9})
+					bad.Scenes = append(bad.Scenes, compoundSceneInput{ID: tc.id, Artwork: m.Scenes[0].Artwork, Inset: .9})
 				}
 			} else {
 				bad.Scenes[1].ID = tc.id

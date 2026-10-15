@@ -271,6 +271,7 @@ func compoundAffine(src *image.NRGBA, l compoundLayout, inset float64) (*image.N
 }
 
 type compoundGuardReport struct {
+	Policy                string   `json:"policy,omitempty"`
 	MaxBoundaryAlpha      uint8    `json:"max_boundary_alpha"`
 	BoundaryPixels        int      `json:"boundary_pixels"`
 	BoundaryAlphaMass     uint64   `json:"boundary_alpha_mass"`
@@ -278,6 +279,58 @@ type compoundGuardReport struct {
 	ClippedAlphaMass      uint64   `json:"clipped_alpha_mass"`
 	GuardedOpaque         int      `json:"guarded_opaque_count"`
 	MinimumOpaqueDistance *float64 `json:"minimum_opaque_distance_world,omitempty"`
+}
+
+// Reference-layout is explicit because original compound fences and entrance
+// roads intentionally reach the union boundary. Other artwork keeps the strict
+// eight-world-pixel exclusion and fade, including existing manifests.
+func compoundValidateFraming(l compoundLayout, framing string) error {
+	switch framing {
+	case "":
+		return nil
+	case "reference-layout":
+		if l.Layout == "hq" || l.Layout == "depot" || l.Layout == "factory" {
+			return nil
+		}
+		return errors.New("reference-layout framing is restricted to HQ, depot and factory")
+	default:
+		return fmt.Errorf("unsupported compound framing %q", framing)
+	}
+}
+
+func compoundFrame(raw *image.NRGBA, l compoundLayout, framing string) (*image.NRGBA, compoundGuardReport, error) {
+	if err := compoundValidateFraming(l, framing); err != nil {
+		return nil, compoundGuardReport{}, err
+	}
+	if framing == "" {
+		return compoundGuard(raw, l)
+	}
+	stats := compoundGuardReport{Policy: "reference-layout: eight-world-pixel band is diagnostic only; no rejection or fade; final compound union mask clips outside after density resampling"}
+	edges := compoundBoundary(l)
+	for y := range raw.Bounds().Dy() {
+		for x := range raw.Bounds().Dx() {
+			c := raw.NRGBAAt(x, y)
+			if c.A == 0 {
+				continue
+			}
+			d := compoundSignedDistance(l, edges, connectionPoint{(float64(x) + .5) / 4, (float64(y) + .5) / 4})
+			if c.A >= 250 && (stats.MinimumOpaqueDistance == nil || d < *stats.MinimumOpaqueDistance) {
+				dd := d
+				stats.MinimumOpaqueDistance = &dd
+			}
+			if d <= 8 {
+				stats.BoundaryPixels++
+				stats.BoundaryAlphaMass += uint64(c.A)
+				stats.MaxBoundaryAlpha = max(stats.MaxBoundaryAlpha, c.A)
+				if c.A >= 250 {
+					stats.GuardedOpaque++
+				}
+			}
+		}
+	}
+	// Keep the complete source through 2x Lanczos filtering. Union masking
+	// happens in compoundCompose, before complementary tile crops.
+	return raw, stats, nil
 }
 
 func compoundGuard(raw *image.NRGBA, l compoundLayout) (*image.NRGBA, compoundGuardReport, error) {

@@ -282,7 +282,7 @@ func TestCompoundMountainLayoutsAndGuardBoundary(t *testing.T) {
 func TestCompoundMountainBoundedManifestAndLoadedPins(t *testing.T) {
 	path, m := mountainFixture(t)
 	for _, id := range []string{"depot-summer", "depot-winter", "hq-summer", "hq-winter", "factory-winter"} {
-		m.Scenes = append(m.Scenes, compoundSceneInput{id, m.Scenes[0].Artwork, .9})
+		m.Scenes = append(m.Scenes, compoundSceneInput{ID: id, Artwork: m.Scenes[0].Artwork, Inset: .9})
 	}
 	compoundTestWriteManifest(t, path, m)
 	in, err := loadCompoundInputs(path)
@@ -317,7 +317,7 @@ func TestCompoundMountainBoundedManifestAndLoadedPins(t *testing.T) {
 			bad.Scenes = append([]compoundSceneInput(nil), m.Scenes...)
 			if tc.name == "thirteenth" {
 				for range 4 {
-					bad.Scenes = append(bad.Scenes, compoundSceneInput{tc.id, m.Scenes[0].Artwork, .9})
+					bad.Scenes = append(bad.Scenes, compoundSceneInput{ID: tc.id, Artwork: m.Scenes[0].Artwork, Inset: .9})
 				}
 			} else {
 				bad.Scenes[1].ID = tc.id
@@ -381,7 +381,7 @@ func mountainFixture(t *testing.T) (string, compoundManifest) {
 		artwork[season] = write("master-"+season+".png", art)
 	}
 	for _, scene := range mountainScenes() {
-		m.Scenes = append(m.Scenes, compoundSceneInput{scene.id, artwork[scene.season], .9})
+		m.Scenes = append(m.Scenes, compoundSceneInput{ID: scene.id, Artwork: artwork[scene.season], Inset: .9})
 	}
 	path := filepath.Join(dir, "manifest.json")
 	compoundTestWriteManifest(t, path, m)

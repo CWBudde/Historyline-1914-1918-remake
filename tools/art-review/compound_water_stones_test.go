@@ -24,7 +24,7 @@ func waterStonesFixture(t *testing.T) (string, compoundManifest) {
 	t.Helper()
 	path, m := mountainFixture(t)
 	m.Grounds = map[string]connectionMaterial{"shared": m.Grounds["summer"]}
-	m.Scenes = []compoundSceneInput{{"water-stones", m.Scenes[0].Artwork, .9}}
+	m.Scenes = []compoundSceneInput{{ID: "water-stones", Artwork: m.Scenes[0].Artwork, Inset: .9}}
 	compoundTestWriteManifest(t, path, m)
 	return path, m
 }
@@ -205,7 +205,7 @@ func TestCompoundWaterStonesCLIActualPNGs(t *testing.T) {
 func TestCompoundWaterStonesTwelveSceneRegistryAndExactGrounds(t *testing.T) {
 	path, m := hamletFixture(t)
 	for _, id := range []string{"depot-summer", "depot-winter", "hq-summer", "hq-winter", "factory-winter", "mountain-summer", "mountain-winter", "mountain-single-summer", "mountain-single-winter", "water-stones"} {
-		m.Scenes = append(m.Scenes, compoundSceneInput{id, m.Scenes[0].Artwork, .9})
+		m.Scenes = append(m.Scenes, compoundSceneInput{ID: id, Artwork: m.Scenes[0].Artwork, Inset: .9})
 	}
 	m.Grounds["shared"] = m.Grounds["summer"]
 	compoundTestWriteManifest(t, path, m)

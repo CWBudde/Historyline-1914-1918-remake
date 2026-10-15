@@ -20,6 +20,7 @@ type compoundSceneInput struct {
 	ID      string             `json:"id"`
 	Artwork connectionMaterial `json:"artwork"`
 	Inset   float64            `json:"inset"`
+	Framing string             `json:"framing,omitempty"`
 }
 type compoundManifest struct {
 	SchemaVersion int                           `json:"schema_version"`
@@ -96,7 +97,7 @@ func decodeCompoundManifest(b []byte, m *compoundManifest) error {
 		}
 	}
 	for _, s := range scenes {
-		if err := keys(s, "id", "artwork", "inset"); err != nil {
+		if err := keys(s, "id", "artwork", "inset", "framing"); err != nil {
 			return err
 		}
 		if err := checkRef(s["artwork"]); err != nil {
@@ -225,6 +226,9 @@ func loadCompoundInputs(path string) (compoundInputs, error) {
 		l, e := compoundLayoutFor(s.ID)
 		if e != nil {
 			return in, e
+		}
+		if e = compoundValidateFraming(l, s.Framing); e != nil {
+			return in, fmt.Errorf("%s: %w", s.ID, e)
 		}
 		if seen[s.ID] {
 			return in, errors.New("duplicate compound scene")
