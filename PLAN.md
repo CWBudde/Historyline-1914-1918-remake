@@ -1050,6 +1050,24 @@ below record work already delivered, plus G0.7's new neighborhood comparisons.
             source provenance, all 134 bindings, browser16/16 and final `just ci` pass. See
             `docs/art/distinct-terrain-batch-15.md` and `docs/art/hamlet-tile-geometry.md`.
             Ledger: 4 source + 130 built = 134 associated IDs, zero accepted replacements.
+      - [x] Build the seasonal forest pair with intact shared-world crowns. (2026-10-15) —
+            batch 16 retains two new transparent four-crown atlases, four isolated defaults,
+            32 context variants, 32 scene PNGs and four actual hamlet-clearing previews at 2×/4×.
+            Independent review rejected mirrored opaque projections; whole crowns at 36 pinned
+            quarter-grid centers preserve camera, seasonal species/placement and tree/building
+            scale. A filter-aware whole-tree gate preserves four final quiet pixels at real base
+            boundaries without framing homogeneous forest. Twenty profiles and sixteen nineteen-
+            site/seven-visible-cell fixtures cover isolated, homogeneous, frontier and clearing
+            cases at both absolute parities, including all six inward edge orientations.
+            Controller independently verifies every owned profile pixel (1,817,600 at 4×,
+            454,400 at 2×; max error one byte), 331,828 exact quiet-ground pixels, all 32 PNG
+            assemblies and 384 contacts. All 79 repeat files and 1,074 earlier artifacts match.
+            Independent art/code/provenance reviews, all 134 bindings, browser72/72 and final
+            `just ci` pass. See `docs/art/distinct-terrain-batch-16.md` and
+            `docs/art/forest-material-contexts.md`. Defaults require six seasonal base neighbors;
+            arbitrary-map/context runtime selection is unimplemented. Repeated neighborhoods,
+            open woodland density and generous clearings remain broader quality limits.
+            Ledger: 2 source + 132 built = 134 associated IDs, zero accepted replacements.
       - [ ] Complete missing subjects, seasonal images, connected variants and runtime/native
             mappings; validate assembled seams. Twenty-seven sources do not close a family.
 - [ ] **Gate — Approve the complete pilot and choose production density/tools.** Compare all
@@ -1133,6 +1151,13 @@ in a distinct continuous style; final quality/seam and runtime acceptance remain
             context descriptors, safe fresh-output rollback and all output bytes are verified.
             Code/art review, 104-file repeat, 935-artifact regression and final CI pass.
             This exports fixed fixtures; general map/context selection remains open.
+      - [x] Add bounded `-forest` whole-crown context export with paired seasonal atlases,
+            deterministic periodic placements, strict panel/source guards and source snapshots.
+            Independently prove seven-site locality and filter-aware quiet clearance; retain
+            context keys separately from stable IDs. Actual saved-PNG fixtures cover all six
+            forest/clearing orientations, both densities/parities and shared cross-edge crowns.
+            Independent code/art/whole-image pixel oracles, 79-file repeat, 1,074 old-artifact
+            regression and final CI pass. Runtime selection and other-ground joins remain open.
 - [ ] Implement proposed commands `go run ./cmd/hlasset validate`, `build`, and `review`, all
       consuming `art/manifest.json`. Validation/build return nonzero on invalid inputs; review
       writes native/2×/4× sheets and actionable ID/direction diagnostics to `build/art-review/`.
@@ -1221,10 +1246,13 @@ private originals/manual extracts in ignored `original/`, and reference gallerie
 outputs and research in ignored `build/`. Authored masters, recipes and pilot exports stay in
 tracked `art/`; commit verified graphics batches directly to `main`, per the user's preference.
 
-**Immediate next graphics slice:** build the seasonal forest pair from newly authored sources,
-with shared tree scale, continuous neighboring canopy, reviewed overhead camera and protected
-ground transitions. Then finish hills and water stones, completing the four source-only
-backgrounds. The hamlet pair now has polygon-built 2×/4× candidates and exact seasonal ground
+**Immediate next graphics slice:** build hills and water stones from the new authored sources,
+with readable overhead relief, shared neighboring ground/water and reviewed 2×/4× polygon
+placement. These are the two remaining source-only background bindings. Both forests now have
+whole-crown context exports, protected real forest edges and reviewed seasonal/hamlet scale;
+see `docs/art/distinct-terrain-batch-16.md`. Repeated neighborhoods, open woodland density,
+other-ground transitions and arbitrary-map/runtime context selection remain open.
+The hamlet pair has polygon-built 2×/4× candidates and exact seasonal ground
 phase; see `docs/art/distinct-terrain-batch-15.md`. Tiny native-source winter edge flecks remain
 a minor caveat without visible runtime halos; full-map scale/readability remains open.
 Five ground adapters now deliver continuous/mixed context fixtures; see
@@ -1245,8 +1273,9 @@ The remaining source-only terrain still needs geometry/material acceptance.
 The terrain source pack contains 27 candidates with 54 material exports, plus all 74 enabled
 infrastructure variants and a grass base at both densities. Nine additional compound masters
 build the depot, HQ, factory, mountain and hamlet scenes. Both ground seasons, nine shores and open water
-are polygon-built. The runtime ledger has
-134 associated IDs (4 source candidates, 130 built candidates), no enabled ID without an image association
+are polygon-built. Two further seasonal crown atlases build the forest contexts.
+The runtime ledger has
+134 associated IDs (2 source candidates, 132 built candidates), no enabled ID without an image association
 and zero accepted replacements.
 Pixel-aligned 2×/4× patches pass; full maps, other zooms and runtime integration remain open. Use the
 134-row runtime ledger as the enabled-ID checklist without dropping the separate 350 native

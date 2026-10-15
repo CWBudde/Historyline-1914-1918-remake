@@ -11,18 +11,16 @@ confirm every ledger ID/path and the campaign-use flags.
 
 ## Status
 
-Four backgrounds have a `candidate-source` association:
-`forest`, `forest_w`, `waterStones`, `hills`.
+Two backgrounds have a `candidate-source` association: `waterStones`, `hills`.
 These point to generated art and 2×/4× rectangle exports, **not approved runtime
-bindings**. Family geometry, shared phase and scale/quality review remain open;
-forest in particular retains recorded quality caveats.
+bindings**. Family geometry, shared phase and scale/quality review remain open.
 
 Summer/winter ground, eight depot pieces, fourteen HQ pieces, four factory pieces,
 nine shores, open water, ten mountain tiles, opaque fog, five further ground materials,
-both seasonal hamlets
+both seasonal hamlets and forests
 and all 74 enabled infrastructure IDs are `candidate-built`,
 with `patch-reviewed` seams and explicit component, shared-scene or shore-corner
-geometry. These 130 rows point to their respective build manifests and
+geometry. These 132 rows point to their respective build manifests and
 192×160 / 384×320 polygon exports. Actual saved-PNG patches pass both parities and
 densities; independent [road/stream review](connected-family-batch-01.md) and
 [path review](distinct-terrain-batch-04.md), [rail review](distinct-terrain-batch-05.md)
@@ -56,8 +54,14 @@ The [hamlet review](distinct-terrain-batch-15.md) adds single-cell summer/winter
 `house`/`house_w` candidates from two transparent masters, with exact absolute
 ground phase and complete surrounding patches at both densities/parities.
 Winter edge cleanup leaves tiny native-source flecks without visible runtime halos.
+The [forest review](distinct-terrain-batch-16.md) promotes both forests using
+whole transparent crowns in shared world coordinates, matching seasonal positions
+and protected real forest boundaries. Twenty profiles cover fixed isolated,
+homogeneous, frontier and clearing fixtures. Canonical defaults require six
+base neighbors; runtime context selection/arbitrary-map export are unimplemented.
+Periodic neighborhoods, open woodland density and other-ground transitions remain open.
 Full maps, transitions, seasonal integration, fractional zoom and runtime/release
-acceptance remain open. No enabled ID remains `needs-image`; four are still source-only.
+acceptance remain open. No enabled ID remains `needs-image`; two are still source-only.
 Total: **134 associated IDs, zero accepted runtime replacements**.
 
 The `build_manifest` column names the producing manifest; `ports` records the

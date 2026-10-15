@@ -1,0 +1,23 @@
+{
+  "atlases": {
+    "summer": {
+      "source": "source/forest/distinct-v1/crowns-summer.png",
+      "source_sha256": "a1f12a95d12e48cefd79d1236efa0b30a93bb98e3e5a3af46da5cdf95e4e5d72"
+    },
+    "winter": {
+      "source": "source/forest/distinct-v1/crowns-winter.png",
+      "source_sha256": "ce32d9e4f30f2a983a7bd575de06580dbe82abb59920fc44b58afc03114ad5fe"
+    }
+  },
+  "grounds": {
+    "summer": {
+      "source": "source/terrain/distinct-v1/meadow.png",
+      "source_sha256": "8c8935efbbd463e39d49208e42ca0e87b140268a1b11941764dfa7c29c4fff85"
+    },
+    "winter": {
+      "source": "source/terrain/distinct-v1/snow-ground.png",
+      "source_sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3"
+    }
+  },
+  "schema_version": 1
+}
