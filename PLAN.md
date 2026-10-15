@@ -555,8 +555,14 @@ so interactive playback and responsive/input acceptance remain open. Approximate
       the same world point remains selectable after zoom, resize and display-scale changes.
 - [ ] Connect per-player vision to unseen/remembered/visible rendering and unit concealment.
       The new opaque `unseen` tile does not implement remembered terrain or visibility plumbing.
-- [ ] Implement a fog-safe minimap with the camera rectangle and click-to-jump using the
+      Placeholder done: `cmd/historyline` shades hexes from `game.State.Fog` (`-player`, dev
+      `-reveal`), dims Seen hexes and draws units only on Visible ones (`TestFogPolicy`).
+      Open: remembered terrain/unit snapshots and the real tiles via the compositor.
+- [x] Implement a fog-safe minimap with the camera rectangle and click-to-jump using the
       same map/camera transforms.
+      Evidence: `internal/minimap` (fit, world<->minimap, clipped camera rectangle; tests incl.
+      click centres the camera) drawn with the same fog rules, so unseen terrain and hidden
+      units never show; dragging on it calls `Camera.CenterOn`. Not hand-tested interactively.
 
 #### 2.5 — Terrain and unit information panels (G0.9/G2/G4)
 

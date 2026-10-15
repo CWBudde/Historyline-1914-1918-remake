@@ -18,8 +18,11 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/vector"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/camera"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
+	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/minimap"
 )
 
 const (
@@ -31,29 +34,69 @@ const (
 // Pixel outline of a hex around its centre (flat top, 96×80).
 var hexOutline = [6][2]float32{{-48, 0}, {-25, -40}, {25, -40}, {48, 0}, {25, 40}, {-25, 40}}
 
+const (
+	minimapMax    = 280 // longest minimap edge in screen pixels
+	minimapMargin = 12
+)
+
 type game struct {
 	lvl         *level.Level
+	state       *state.State
+	player      state.Player // whose fog is shown
+	reveal      bool         // dev: ignore fog
 	grid        hexgrid.Grid
 	cam         *camera.Camera
+	mini        minimap.Minimap
 	hover       hexgrid.Coord
 	hoverOnMap  bool
 	w, h        int
 	terrainFill map[string]color.RGBA
 }
 
-func newGame(lvl *level.Level) *game {
+func newGame(lvl *level.Level, st *state.State, player state.Player, reveal bool) *game {
 	g := lvl.Grid()
 	world := camera.Size{
 		W: float64(g.Width*hexgrid.ColPitch + hexgrid.HalfPitch),
 		H: float64((g.Lines-1)*hexgrid.LinePitch + hexgrid.HexHeight),
 	}
-	return &game{
-		lvl: lvl, grid: g,
+	gm := &game{
+		lvl: lvl, state: st, player: player, reveal: reveal, grid: g,
 		cam: camera.New(world, camera.Size{W: startWidth, H: startHeight}),
 		w:   startWidth, h: startHeight,
 		terrainFill: map[string]color.RGBA{},
 	}
+	gm.layoutMinimap()
+	return gm
 }
+
+func (g *game) layoutMinimap() {
+	g.mini = minimap.Fit(g.cam.World, camera.Size{W: minimapMax, H: minimapMax},
+		camera.Size{W: float64(g.w), H: float64(g.h)}, minimapMargin)
+}
+
+// fogOf is what the shown player knows about c; everything is visible in reveal mode.
+func (g *game) fogOf(c hexgrid.Coord) state.Fog {
+	if g.reveal {
+		return state.Visible
+	}
+	return g.state.Fog(g.player, c)
+}
+
+// fogShade applies what the player knows to a terrain colour. Unseen hexes show
+// nothing of the terrain and remembered ones are dimmed and grey.
+func fogShade(f state.Fog, c color.RGBA) color.RGBA {
+	switch f {
+	case state.Visible:
+		return c
+	case state.Seen:
+		grey := uint8((int(c.R) + int(c.G) + int(c.B)) / 3 / 2)
+		return color.RGBA{R: grey, G: grey, B: grey + 8, A: 255}
+	}
+	return color.RGBA{R: 8, G: 8, B: 10, A: 255}
+}
+
+// showsUnit reports whether units on a hex of the given fog state are drawn.
+func showsUnit(f state.Fog) bool { return f == state.Visible }
 
 func (g *game) fill(terrain string) color.RGBA {
 	if c, ok := g.terrainFill[terrain]; ok {
@@ -91,6 +134,13 @@ func (g *game) Update() error {
 		}
 		g.cam.ZoomAt(factor, float64(mx), float64(my))
 	}
+	if g.mini.Contains(float64(mx), float64(my)) {
+		g.hoverOnMap = false
+		if ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft) {
+			g.cam.CenterOn(g.mini.ToWorld(float64(mx), float64(my)))
+		}
+		return nil
+	}
 	wx, wy := g.cam.ScreenToWorld(float64(mx), float64(my))
 	g.hover, g.hoverOnMap = g.grid.PixelToHex(wx, wy)
 	return nil
@@ -107,8 +157,9 @@ func (g *game) Draw(screen *ebiten.Image) {
 				continue
 			}
 			sx, sy := g.cam.WorldToScreen(cx, cy)
-			g.drawHex(screen, float32(sx), float32(sy), g.fill(hx.Terrain), false)
-			if hx.Unit != "" {
+			fog := g.fogOf(coord)
+			g.drawHex(screen, float32(sx), float32(sy), fogShade(fog, g.fill(hx.Terrain)), false)
+			if hx.Unit != "" && showsUnit(fog) {
 				vector.FillCircle(screen, float32(sx), float32(sy), float32(14*g.cam.Zoom), color.RGBA{230, 230, 230, 255}, true)
 			}
 		}
@@ -118,12 +169,38 @@ func (g *game) Draw(screen *ebiten.Image) {
 		sx, sy := g.cam.WorldToScreen(cx, cy)
 		g.drawHex(screen, float32(sx), float32(sy), color.RGBA{}, true)
 	}
+	g.drawMinimap(screen)
 	msg := fmt.Sprintf("%s  zoom %.2f  arrows/WASD scroll, wheel zoom", g.lvl.MapName, g.cam.Zoom)
 	if g.hoverOnMap {
 		hx := g.lvl.Lines[g.hover.Line][g.hover.Col]
 		msg += fmt.Sprintf("\nline %d col %d  %s", g.hover.Line, g.hover.Col, hx.Terrain)
 	}
 	ebitenutil.DebugPrint(screen, msg)
+}
+
+// drawMinimap draws one small cell per hex with the same fog rules as the main
+// view, so unseen terrain and hidden units never show, plus the camera rectangle.
+func (g *game) drawMinimap(dst *ebiten.Image) {
+	m := g.mini
+	s := m.Size()
+	vector.FillRect(dst, float32(m.Pos.X)-2, float32(m.Pos.Y)-2, float32(s.W)+4, float32(s.H)+4, color.RGBA{0, 0, 0, 220}, false)
+	cw := float32(hexgrid.ColPitch * m.Scale)
+	ch := float32(hexgrid.HexHeight * m.Scale)
+	for l, line := range g.lvl.Lines {
+		for c, hx := range line {
+			coord := hexgrid.Coord{Line: l, Col: c}
+			cx, cy := hexgrid.Center(coord)
+			sx, sy := m.FromWorld(cx, cy)
+			fog := g.fogOf(coord)
+			col := fogShade(fog, g.fill(hx.Terrain))
+			if hx.Unit != "" && showsUnit(fog) {
+				col = color.RGBA{240, 240, 240, 255}
+			}
+			vector.FillRect(dst, float32(sx)-cw/2, float32(sy)-ch/2, cw, ch, col, false)
+		}
+	}
+	x, y, w, h := m.ViewRect(g.cam)
+	vector.StrokeRect(dst, float32(x), float32(y), float32(w), float32(h), 1.5, color.RGBA{255, 240, 80, 255}, false)
 }
 
 func (g *game) drawHex(dst *ebiten.Image, cx, cy float32, fill color.RGBA, outline bool) {
@@ -157,6 +234,7 @@ func (g *game) Layout(outsideW, outsideH int) (int, int) {
 	if outsideW != g.w || outsideH != g.h {
 		g.w, g.h = outsideW, outsideH
 		g.cam.Resize(camera.Size{W: float64(outsideW), H: float64(outsideH)})
+		g.layoutMinimap()
 	}
 	return outsideW, outsideH
 }
@@ -164,16 +242,36 @@ func (g *game) Layout(outsideW, outsideH int) (int, int) {
 func main() {
 	name := flag.String("level", "level1_cp", "shipped level to load from levels/ (name without .json)")
 	dir := flag.String("levels", "levels", "directory with the level files")
+	side := flag.String("player", "", "side whose fog of war is shown: central, entente (default: the level's side)")
+	reveal := flag.Bool("reveal", false, "dev: show the whole map, ignoring fog of war")
 	flag.Parse()
 
 	lvl, err := level.Load(filepath.Join(*dir, *name+".json"))
 	if err != nil {
 		log.Fatal(err)
 	}
+	set, err := data.Load()
+	if err != nil {
+		log.Fatal(err)
+	}
+	st, err := state.New(lvl, set)
+	if err != nil {
+		log.Fatal(err)
+	}
+	player := st.Human
+	switch *side {
+	case "":
+	case "central":
+		player = state.CentralPowers
+	case "entente":
+		player = state.Entente
+	default:
+		log.Fatalf("unknown -player %q (want central or entente)", *side)
+	}
 	ebiten.SetWindowSize(startWidth, startHeight)
 	ebiten.SetWindowResizingMode(ebiten.WindowResizingModeEnabled)
 	ebiten.SetWindowTitle("Historyline 1914-1918")
-	if err := ebiten.RunGame(newGame(lvl)); err != nil {
+	if err := ebiten.RunGame(newGame(lvl, st, player, *reveal)); err != nil {
 		log.Fatal(err)
 	}
 }
