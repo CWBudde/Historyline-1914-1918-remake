@@ -19,7 +19,9 @@ see the [mountain gallery](compound-mountain-review.html). A separate new opaque
 fog master completes the enabled-ID image associations; see the [fog gallery](fog-review.html).
 Five ground-material adapters now add neighbor-aware mud, stone and winter rough/stony/shelled
 regions; see the [ground gallery](ground-material-review.html) and [context contract](ground-material-contexts.md).
-These remain provisional candidates, with six terrain bindings still source-only.
+Two further transparent masters produce summer/winter hamlets; see the
+[hamlet gallery](compound-hamlet-review.html). These remain provisional candidates,
+with four terrain bindings still source-only.
 Nine new shore profiles and a shared polygon water base are also delivered;
 see the [shore gallery](shoreline-review.html) and [topology contract](shoreline-topology.md).
 Reviews for [roads/streams](connected-family-batch-01.md), [paths/seasons](distinct-terrain-batch-04.md),
@@ -27,7 +29,8 @@ Reviews for [roads/streams](connected-family-batch-01.md), [paths/seasons](disti
 and [bridges/crossings](distinct-terrain-batch-07.md), plus [depot scenes](distinct-terrain-batch-08.md)
 and [HQ scenes](distinct-terrain-batch-09.md), [factory scene](distinct-terrain-batch-10.md)
 and [shorelines](distinct-terrain-batch-11.md), [mountains](distinct-terrain-batch-12.md)
-and [fog](distinct-terrain-batch-13.md), plus [neighboring ground](distinct-terrain-batch-14.md),
+and [fog](distinct-terrain-batch-13.md), plus [neighboring ground](distinct-terrain-batch-14.md)
+and [seasonal hamlets](distinct-terrain-batch-15.md),
 record delivery, evidence and defects.
 Historical `art/source/pilot/` reconstruction studies are excluded from this pack.
 

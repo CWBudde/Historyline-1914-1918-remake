@@ -11,17 +11,18 @@ confirm every ledger ID/path and the campaign-use flags.
 
 ## Status
 
-Six backgrounds have a `candidate-source` association:
-`forest`, `forest_w`, `waterStones`, `hills`, `house`, `house_w`.
+Four backgrounds have a `candidate-source` association:
+`forest`, `forest_w`, `waterStones`, `hills`.
 These point to generated art and 2×/4× rectangle exports, **not approved runtime
 bindings**. Family geometry, shared phase and scale/quality review remain open;
 forest in particular retains recorded quality caveats.
 
 Summer/winter ground, eight depot pieces, fourteen HQ pieces, four factory pieces,
-nine shores, open water, ten mountain tiles, opaque fog, five further ground materials
+nine shores, open water, ten mountain tiles, opaque fog, five further ground materials,
+both seasonal hamlets
 and all 74 enabled infrastructure IDs are `candidate-built`,
 with `patch-reviewed` seams and explicit component, shared-scene or shore-corner
-geometry. These 128 rows point to their respective build manifests and
+geometry. These 130 rows point to their respective build manifests and
 192×160 / 384×320 polygon exports. Actual saved-PNG patches pass both parities and
 densities; independent [road/stream review](connected-family-batch-01.md) and
 [path review](distinct-terrain-batch-04.md), [rail review](distinct-terrain-batch-05.md)
@@ -51,8 +52,12 @@ winter ground using neighbor-aware material profiles. Ten isolated default PNGs 
 matching contexts and arbitrary-map export remain unimplemented; default profiles
 are not unconditional replacements. Repeating motifs and rounded isolated footprints
 remain broader quality caveats.
+The [hamlet review](distinct-terrain-batch-15.md) adds single-cell summer/winter
+`house`/`house_w` candidates from two transparent masters, with exact absolute
+ground phase and complete surrounding patches at both densities/parities.
+Winter edge cleanup leaves tiny native-source flecks without visible runtime halos.
 Full maps, transitions, seasonal integration, fractional zoom and runtime/release
-acceptance remain open. No enabled ID remains `needs-image`; six are still source-only.
+acceptance remain open. No enabled ID remains `needs-image`; four are still source-only.
 Total: **134 associated IDs, zero accepted runtime replacements**.
 
 The `build_manifest` column names the producing manifest; `ports` records the

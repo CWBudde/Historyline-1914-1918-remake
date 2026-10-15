@@ -1,0 +1,31 @@
+{
+  "grounds": {
+    "summer": {
+      "source": "source/terrain/distinct-v1/meadow.png",
+      "source_sha256": "8c8935efbbd463e39d49208e42ca0e87b140268a1b11941764dfa7c29c4fff85"
+    },
+    "winter": {
+      "source": "source/terrain/distinct-v1/snow-ground.png",
+      "source_sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3"
+    }
+  },
+  "scenes": [
+    {
+      "artwork": {
+        "source": "source/compound/distinct-v1/hamlet-summer.png",
+        "source_sha256": "02a8bb2d90cb78ca1d8c37c35ccb071f4cc1a44cde3956fd879d3de1c7f98b7d"
+      },
+      "id": "hamlet-summer",
+      "inset": 0.75
+    },
+    {
+      "artwork": {
+        "source": "source/compound/distinct-v1/hamlet-winter.png",
+        "source_sha256": "cfde8d1a24a57fbeee54ebe7b61421f2f5bcb2bab6376af9f0e8e26ce1981257"
+      },
+      "id": "hamlet-winter",
+      "inset": 0.75
+    }
+  ],
+  "schema_version": 1
+}

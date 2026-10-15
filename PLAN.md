@@ -1035,6 +1035,19 @@ below record work already delivered, plus G0.7's new neighborhood comparisons.
             Runtime context selection and arbitrary-map export remain unimplemented; defaults
             apply only to isolated cells. Repeated motifs and rounded isolated footprints remain
             quality caveats. Ledger: 6 source + 128 built = 134 associated IDs, zero accepted.
+      - [x] Build the seasonal hamlet pair as single-cell polygon tiles. (2026-10-15) —
+            batch 15 retains two new transparent masters, four runtime and twelve scene/parity
+            PNGs at 2×/4×. Independent art review prompted winter alpha-edge cleanup; selected
+            revision 02 passes actual-output review with tiny native-source flecks recorded as
+            minor. Whole-source uniform inset 0.75 preserves all roofs, gardens, trees and well;
+            correct single-cell parity offsets retain absolute seasonal ground phase. Controller
+            proof verifies 227,200 opaque owned pixels, 80,000 clear exterior pixels, 21,848
+            exact quiet-ground pixels, 7,040 affine samples and all 61,440 2× artwork pixels
+            (zero observed oracle error). All eight parity PNG assemblies and 96 contacts pass.
+            All 35 repeat files and 1,039 earlier artifacts match. Independent code/art reviews,
+            source provenance, all 134 bindings, browser16/16 and final `just ci` pass. See
+            `docs/art/distinct-terrain-batch-15.md` and `docs/art/hamlet-tile-geometry.md`.
+            Ledger: 4 source + 130 built = 134 associated IDs, zero accepted replacements.
       - [ ] Complete missing subjects, seasonal images, connected variants and runtime/native
             mappings; validate assembled seams. Twenty-seven sources do not close a family.
 - [ ] **Gate — Approve the complete pilot and choose production density/tools.** Compare all
@@ -1090,6 +1103,11 @@ in a distinct continuous style; final quality/seam and runtime acceptance remain
             Actual PNG proof, source snapshots, repeat builds, 838 old-artifact regression,
             independent code/art review and final CI pass. Orphan fallback selection remains
             a runtime task, separately recorded in `docs/art/mountain-tile-geometry.md`.
+      - [x] Extend bounded compound layouts for single-cell seasonal hamlets with literal
+            `house`/`house_w` bindings, eleven-scene limit and correct absolute line-parity
+            placement. Real CLI tests cover saved PNG ownership/assembly/quiet ground and a
+            witness for incorrect world phase; all 1,039 prior artifacts remain byte-identical.
+            Independent code/art review and final CI pass; runtime integration remains open.
       - [x] Add bounded `-shore` explicit corner-profile export with reciprocal mixed-edge
             guards, smooth constrained coasts, shared material/base phase and Lanczos-before-mask
             ownership. Retain loaded manifest/material snapshots; test strict schema/path/pins,
@@ -1201,9 +1219,12 @@ private originals/manual extracts in ignored `original/`, and reference gallerie
 outputs and research in ignored `build/`. Authored masters, recipes and pilot exports stay in
 tracked `art/`; commit verified graphics batches directly to `main`, per the user's preference.
 
-**Immediate next graphics slice:** build the seasonal hamlet pair's polygon geometry from
-the newly authored sources, with reviewed camera, framing and quiet shared ground. Then
-finish both forests, hills and water stones, which complete the six source-only backgrounds.
+**Immediate next graphics slice:** build the seasonal forest pair from newly authored sources,
+with shared tree scale, continuous neighboring canopy, reviewed overhead camera and protected
+ground transitions. Then finish hills and water stones, completing the four source-only
+backgrounds. The hamlet pair now has polygon-built 2×/4× candidates and exact seasonal ground
+phase; see `docs/art/distinct-terrain-batch-15.md`. Tiny native-source winter edge flecks remain
+a minor caveat without visible runtime halos; full-map scale/readability remains open.
 Five ground adapters now deliver continuous/mixed context fixtures; see
 `docs/art/distinct-terrain-batch-14.md`. Their default images require six base neighbors;
 runtime context selection/arbitrary-map export and material-repeat quality remain open.
@@ -1218,12 +1239,12 @@ All 26 enabled depot/HQ/factory pieces are delivered as provisional candidates f
 whole scenes using `docs/art/compound-building-geometry.md`. HQ's manor occupies
 lower N and its entrance reaches C; retain gameplay cell N and review selection affordance
 when integrating runtime graphics.
-The hamlet pair and other source-only terrain still need geometry/material acceptance.
+The remaining source-only terrain still needs geometry/material acceptance.
 The terrain source pack contains 27 candidates with 54 material exports, plus all 74 enabled
-infrastructure variants and a grass base at both densities. Seven additional compound masters
-build the depot, HQ, factory and mountain scenes. Both ground seasons, nine shores and open water
+infrastructure variants and a grass base at both densities. Nine additional compound masters
+build the depot, HQ, factory, mountain and hamlet scenes. Both ground seasons, nine shores and open water
 are polygon-built. The runtime ledger has
-134 associated IDs (6 source candidates, 128 built candidates), no enabled ID without an image association
+134 associated IDs (4 source candidates, 130 built candidates), no enabled ID without an image association
 and zero accepted replacements.
 Pixel-aligned 2×/4× patches pass; full maps, other zooms and runtime integration remain open. Use the
 134-row runtime ledger as the enabled-ID checklist without dropping the separate 350 native

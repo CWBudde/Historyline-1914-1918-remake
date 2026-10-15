@@ -41,6 +41,9 @@ func compoundLayoutFor(id string) (compoundLayout, error) {
 	case "mountain-single-summer", "mountain-single-winter":
 		l.Layout = "mountain-single"
 		l.Width, l.Height, l.EntryCell = 96, 80, ""
+	case "hamlet-summer", "hamlet-winter":
+		l.Layout = "hamlet"
+		l.Width, l.Height, l.EntryCell = 96, 80, ""
 	default:
 		return l, fmt.Errorf("unsupported compound scene %q", id)
 	}
@@ -52,6 +55,10 @@ func compoundLayoutFor(id string) (compoundLayout, error) {
 	}
 	if l.Layout == "mountain-single" {
 		l.Tiles = []compoundTile{{Cell: "C", RuntimeID: "mountain" + suffix, Origin: connectionPoint{0, 0}}}
+		return l, nil
+	}
+	if l.Layout == "hamlet" {
+		l.Tiles = []compoundTile{{Cell: "C", RuntimeID: "house" + suffix, Origin: connectionPoint{0, 0}}}
 		return l, nil
 	}
 	cells := []string{"N", "W", "E", "S"}

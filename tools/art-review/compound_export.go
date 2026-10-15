@@ -116,7 +116,7 @@ func compoundPatchFor(l compoundLayout, parity int) compoundPatch {
 	if parity == 1 {
 		offset = connectionPoint{0, 40}
 	}
-	if l.Layout == "mountain-single" {
+	if l.Layout == "mountain-single" || l.Layout == "hamlet" {
 		// C starts at x=0; the other layouts' N cell starts at x=71.
 		offset[0] += 71
 	}

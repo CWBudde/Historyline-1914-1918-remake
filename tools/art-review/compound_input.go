@@ -216,8 +216,8 @@ func loadCompoundInputs(path string) (compoundInputs, error) {
 		return in, err
 	}
 	m := in.Manifest
-	if m.SchemaVersion != 1 || len(m.Scenes) < 1 || len(m.Scenes) > 9 {
-		return in, errors.New("compound requires schema_version 1 and one to nine scenes")
+	if m.SchemaVersion != 1 || len(m.Scenes) < 1 || len(m.Scenes) > 11 {
+		return in, errors.New("compound requires schema_version 1 and one to eleven scenes")
 	}
 	used := map[string]bool{}
 	seen := map[string]bool{}

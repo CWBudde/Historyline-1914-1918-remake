@@ -1,0 +1,369 @@
+{
+  "acceptance": "Provisional distinct illustrated candidates only. Stable IDs house/house_w and game semantics unchanged. Fullmaps/nativecoverage/fractionalzoom/runtime/release acceptance remain open.",
+  "date": "2026-10-15",
+  "exports": [
+    {
+      "build_output": "tiles/house-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/compound-v1/house-2x.png",
+      "sha256": "836c6a5d5c5c5ad5ecd9ad96999ceaeadc811b96d746147ad028c4e189ed8785"
+    },
+    {
+      "build_output": "tiles/house-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/compound-v1/house-4x.png",
+      "sha256": "2517d17affda67a04b48df20396d04153fb6d994629eec4834e54744f3f81aa5"
+    },
+    {
+      "build_output": "tiles/house_w-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/compound-v1/house_w-2x.png",
+      "sha256": "3cc3aefdc6d96939949f34d67ed20af75e136505530dd768cb26eeaf192a118b"
+    },
+    {
+      "build_output": "tiles/house_w-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/compound-v1/house_w-4x.png",
+      "sha256": "49ad22f62f42cafd2f99b689cb4060f11a7e96ead9f6c96c4b539a25181c9a0f"
+    }
+  ],
+  "generation_recipes": [
+    "art/recipes/compound/distinct-v1/hamlet-summer-01.json",
+    "art/recipes/compound/distinct-v1/hamlet-winter-01.json",
+    "art/recipes/compound/distinct-v1/hamlet-winter-02.json"
+  ],
+  "geometry": {
+    "height": 80,
+    "neighbors": [
+      [
+        71,
+        -40
+      ],
+      [
+        71,
+        40
+      ],
+      [
+        0,
+        80
+      ],
+      [
+        -71,
+        40
+      ],
+      [
+        -71,
+        -40
+      ],
+      [
+        0,
+        -80
+      ]
+    ],
+    "polygon": [
+      [
+        25,
+        0
+      ],
+      [
+        71,
+        0
+      ],
+      [
+        96,
+        40
+      ],
+      [
+        71,
+        80
+      ],
+      [
+        25,
+        80
+      ],
+      [
+        0,
+        40
+      ]
+    ],
+    "ports": [
+      [
+        83.5,
+        20
+      ],
+      [
+        83.5,
+        60
+      ],
+      [
+        48,
+        80
+      ],
+      [
+        12.5,
+        60
+      ],
+      [
+        12.5,
+        20
+      ],
+      [
+        48,
+        0
+      ]
+    ],
+    "width": 96
+  },
+  "grounds": {
+    "summer": {
+      "dimensions": {
+        "height": 1145,
+        "width": 1374
+      },
+      "source": "art/source/terrain/distinct-v1/meadow.png",
+      "source_sha256": "8c8935efbbd463e39d49208e42ca0e87b140268a1b11941764dfa7c29c4fff85"
+    },
+    "winter": {
+      "dimensions": {
+        "height": 1145,
+        "width": 1374
+      },
+      "source": "art/source/terrain/distinct-v1/snow-ground.png",
+      "source_sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3"
+    }
+  },
+  "id": "compound-hamlet-v1",
+  "limitations": [
+    "Winter02 reduces cyan contamination; tiny native-alpha-edge flecks remain as minor source-only caveat. No discernible halo in reviewed runtime outputs.",
+    "Compact hamlet's local turf is intentionally retained. Larger shared-ground repetition/forest scale/full-map readability need review."
+  ],
+  "manifest": "art/compound-hamlet-v1.json",
+  "manifest_sha256": "252523cdf2e9374cf826f5523c62053092c7f9bfaa5b0750b09fc5841b11fedf",
+  "original_image_inputs": [],
+  "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; reject any sampled alpha \u003e=250 at signed distance \u003c=8 world pixels before guard; alpha zero through 4 world pixels then smoothstep 4..8. Guard full unmasked 4x artwork, then existing resizeLanczos to whole-scene 2x. Ground independently exported by exportConnectionTiles with fixed geometry and grass only, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim.",
+  "review_exports": [
+    {
+      "build_output": "hamlet-summer-scene-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/review/compound-v1/hamlet-summer-scene-2x.png",
+      "sha256": "836c6a5d5c5c5ad5ecd9ad96999ceaeadc811b96d746147ad028c4e189ed8785"
+    },
+    {
+      "build_output": "hamlet-summer-patch-parity0-2x.png",
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/compound-v1/hamlet-summer-patch-parity0-2x.png",
+      "sha256": "c7b58e56f11f35007d2536b6ffe623ecceed7c4266a51356f3a1fe78adfca052"
+    },
+    {
+      "build_output": "hamlet-summer-patch-parity1-2x.png",
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/compound-v1/hamlet-summer-patch-parity1-2x.png",
+      "sha256": "c7b58e56f11f35007d2536b6ffe623ecceed7c4266a51356f3a1fe78adfca052"
+    },
+    {
+      "build_output": "hamlet-summer-scene-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/review/compound-v1/hamlet-summer-scene-4x.png",
+      "sha256": "2517d17affda67a04b48df20396d04153fb6d994629eec4834e54744f3f81aa5"
+    },
+    {
+      "build_output": "hamlet-summer-patch-parity0-4x.png",
+      "dimensions": {
+        "height": 960,
+        "width": 952
+      },
+      "path": "art/review/compound-v1/hamlet-summer-patch-parity0-4x.png",
+      "sha256": "2f1d56434b34f39eb09a7439b5d4ed197de8018fd6492ef71ebee9fd63cb4b8f"
+    },
+    {
+      "build_output": "hamlet-summer-patch-parity1-4x.png",
+      "dimensions": {
+        "height": 960,
+        "width": 952
+      },
+      "path": "art/review/compound-v1/hamlet-summer-patch-parity1-4x.png",
+      "sha256": "2f1d56434b34f39eb09a7439b5d4ed197de8018fd6492ef71ebee9fd63cb4b8f"
+    },
+    {
+      "build_output": "hamlet-winter-scene-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/review/compound-v1/hamlet-winter-scene-2x.png",
+      "sha256": "3cc3aefdc6d96939949f34d67ed20af75e136505530dd768cb26eeaf192a118b"
+    },
+    {
+      "build_output": "hamlet-winter-patch-parity0-2x.png",
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/compound-v1/hamlet-winter-patch-parity0-2x.png",
+      "sha256": "eff81b29d5a54813a0c7221fa11cef98bead19fd8b38b3316b05127b9aebfe1b"
+    },
+    {
+      "build_output": "hamlet-winter-patch-parity1-2x.png",
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/compound-v1/hamlet-winter-patch-parity1-2x.png",
+      "sha256": "eff81b29d5a54813a0c7221fa11cef98bead19fd8b38b3316b05127b9aebfe1b"
+    },
+    {
+      "build_output": "hamlet-winter-scene-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/review/compound-v1/hamlet-winter-scene-4x.png",
+      "sha256": "49ad22f62f42cafd2f99b689cb4060f11a7e96ead9f6c96c4b539a25181c9a0f"
+    },
+    {
+      "build_output": "hamlet-winter-patch-parity0-4x.png",
+      "dimensions": {
+        "height": 960,
+        "width": 952
+      },
+      "path": "art/review/compound-v1/hamlet-winter-patch-parity0-4x.png",
+      "sha256": "c8618cf86853ef3d2e47bd4d9a25174135fe4f9df36202bc6e6c76d74a06ef8d"
+    },
+    {
+      "build_output": "hamlet-winter-patch-parity1-4x.png",
+      "dimensions": {
+        "height": 960,
+        "width": 952
+      },
+      "path": "art/review/compound-v1/hamlet-winter-patch-parity1-4x.png",
+      "sha256": "c8618cf86853ef3d2e47bd4d9a25174135fe4f9df36202bc6e6c76d74a06ef8d"
+    }
+  ],
+  "scenes": [
+    {
+      "entry_cell": "",
+      "generation_recipe": "art/recipes/compound/distinct-v1/hamlet-summer-01.json",
+      "guard": {
+        "boundary_alpha_mass": 134,
+        "boundary_pixels": 134,
+        "clipped_alpha_mass": 67,
+        "clipped_pixels": 67,
+        "guarded_opaque_count": 0,
+        "max_boundary_alpha": 1,
+        "minimum_opaque_distance_world": 12.01772596457211
+      },
+      "height": 80,
+      "id": "hamlet-summer",
+      "input_artwork": {
+        "dimensions": {
+          "height": 1145,
+          "width": 1374
+        },
+        "source": "art/source/compound/distinct-v1/hamlet-summer.png",
+        "source_sha256": "02a8bb2d90cb78ca1d8c37c35ccb071f4cc1a44cde3956fd879d3de1c7f98b7d"
+      },
+      "inset": 0.75,
+      "layout": "hamlet",
+      "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; reject any sampled alpha \u003e=250 at signed distance \u003c=8 world pixels before guard; alpha zero through 4 world pixels then smoothstep 4..8. Guard full unmasked 4x artwork, then existing resizeLanczos to whole-scene 2x. Ground independently exported by exportConnectionTiles with fixed geometry and grass only, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim.",
+      "season": "summer",
+      "tiles": [
+        {
+          "cell": "C",
+          "origin": [
+            0,
+            0
+          ],
+          "runtime_id": "house"
+        }
+      ],
+      "transform": {
+        "offset": [
+          12,
+          10
+        ],
+        "scale": 0.05240174672489083,
+        "source_dimensions": {
+          "height": 1145,
+          "width": 1374
+        }
+      },
+      "width": 96
+    },
+    {
+      "entry_cell": "",
+      "generation_recipe": "art/recipes/compound/distinct-v1/hamlet-winter-02.json",
+      "guard": {
+        "boundary_alpha_mass": 0,
+        "boundary_pixels": 0,
+        "clipped_alpha_mass": 0,
+        "clipped_pixels": 0,
+        "guarded_opaque_count": 0,
+        "max_boundary_alpha": 0,
+        "minimum_opaque_distance_world": 12.01772596457211
+      },
+      "height": 80,
+      "id": "hamlet-winter",
+      "input_artwork": {
+        "dimensions": {
+          "height": 1145,
+          "width": 1374
+        },
+        "source": "art/source/compound/distinct-v1/hamlet-winter.png",
+        "source_sha256": "cfde8d1a24a57fbeee54ebe7b61421f2f5bcb2bab6376af9f0e8e26ce1981257"
+      },
+      "inset": 0.75,
+      "layout": "hamlet",
+      "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; reject any sampled alpha \u003e=250 at signed distance \u003c=8 world pixels before guard; alpha zero through 4 world pixels then smoothstep 4..8. Guard full unmasked 4x artwork, then existing resizeLanczos to whole-scene 2x. Ground independently exported by exportConnectionTiles with fixed geometry and grass only, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim.",
+      "season": "winter",
+      "tiles": [
+        {
+          "cell": "C",
+          "origin": [
+            0,
+            0
+          ],
+          "runtime_id": "house_w"
+        }
+      ],
+      "transform": {
+        "offset": [
+          12,
+          10
+        ],
+        "scale": 0.05240174672489083,
+        "source_dimensions": {
+          "height": 1145,
+          "width": 1374
+        }
+      },
+      "width": 96
+    }
+  ],
+  "schema_version": 1,
+  "status": "candidate-built",
+  "tool": "Go tools/art-review -compound"
+}

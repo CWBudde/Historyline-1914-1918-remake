@@ -306,7 +306,7 @@ func TestCompoundMountainBoundedManifestAndLoadedPins(t *testing.T) {
 		t.Fatal("shared seasonal master was changed")
 	}
 	for _, tc := range []struct{ name, id, errorPart string }{
-		{"tenth", "mountain-summer", "one to nine"},
+		{"twelfth", "mountain-summer", "one to eleven"},
 		{"duplicate", "mountain-summer", "duplicate compound scene"},
 		{"unsupported-single", "mountain-single-other", "unsupported compound scene"},
 		{"unsupported-season", "mountain-autumn", "unsupported compound scene"},
@@ -315,8 +315,10 @@ func TestCompoundMountainBoundedManifestAndLoadedPins(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			bad := m
 			bad.Scenes = append([]compoundSceneInput(nil), m.Scenes...)
-			if tc.name == "tenth" {
-				bad.Scenes = append(bad.Scenes, compoundSceneInput{tc.id, m.Scenes[0].Artwork, .9})
+			if tc.name == "twelfth" {
+				for range 3 {
+					bad.Scenes = append(bad.Scenes, compoundSceneInput{tc.id, m.Scenes[0].Artwork, .9})
+				}
 			} else {
 				bad.Scenes[1].ID = tc.id
 			}
