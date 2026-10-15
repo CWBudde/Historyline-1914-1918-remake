@@ -255,8 +255,10 @@ bootstrap and core-model foundations. Later rules and graphics work landed direc
 `main`; this review includes commits through `a65cc4f`, which retains the batch-22 panel
 tooling, manifest, fonts and contract. `cmd/historyline/main.go` still draws an empty
 fixed-size window;
-`internal/ui`, `internal/assets`, `assets/assets.go`, `cmd/hlasset` and `cmd/hlartpreview`
-do not exist yet. Completed preparation below does not close runtime UI tasks.
+`internal/ui`, `assets/assets.go` and `cmd/hlartpreview` do not exist yet. Subsequent
+Phase 2.3 work adds `internal/assets` and the first `cmd/hlasset` build/validate
+commands, exercised by the effects workbench; the playable app remains a stub.
+Completed preparation below does not close runtime UI tasks.
 Section 4 retains the detailed graphics checklist and acceptance gates. Continue the
 requested graphics coverage first, then integrate the playable UI through these subphases.
 
@@ -485,6 +487,22 @@ so interactive playback and responsive/input acceptance remain open. Approximate
       `internal/assets`, with swappable reference/2×/4× packs and explicit missing-ID errors.
       Embed approved exports from `assets/assets.go`; `go:embed` cannot reach `legacy/python/gfx/`
       via `../`. Keep private original reference bytes out of distributed packs.
+      - [x] Add the renderer-independent schema-1 PNG loader with stable ID/density pairs,
+            logical anchors, hash/header checks, full decode validation, bounded encoded/
+            decoded storage and concurrent lazy image caching. Candidate use requires
+            opt-in; missing variants return typed errors, without density fallback.
+            Snapshot/pack-switch/concurrent-first-decode/corruption tests pass.
+      - [x] Build separate local 1×/2×/4× interface candidate packs through `hlasset build`:
+            117 IDs / 118 files per density, preserving the retained PNG bytes. All three
+            densities pass; two 2× builds repeat byte-for-byte. Full CLI validation,
+            existing-output refusal and invalid-input checks pass. See
+            `docs/runtime-assets.md`; review status is not promoted by packaging.
+      - [x] Use the shared loader in the native effects workbench for interface PNGs.
+            Existing all-family/tamper checks pass; rebuilt normal/reduced/skip native
+            runs complete with 42 captures. Focused tests, vet and lint pass on Windows.
+      - [ ] Extend runtime catalogs to units, terrain/context selections, screens/fonts and
+            animation metadata; support live reference/replacement pack selection and GPU
+            caches, then embed approved exports. No asset is approved by this foundation.
 - [ ] Implement the shared map compositor and arbitrary-map context selection. Preserve
       neighbor masks, absolute world phase, seasonal ground, route ports, shore corners,
       compound-building registration and isolated-mountain display selection. Reuse the
@@ -494,7 +512,8 @@ so interactive playback and responsive/input acceptance remain open. Approximate
       directions and recolour masks; ownership must remain independent of unit type/country.
 - [ ] Deliver the reusable G1 validation/build/review commands and in-engine seam/asset
       workbench. Existing `tools/art-review` exporters and HTML galleries are offline pilots;
-      `cmd/hlasset` and `cmd/hlartpreview` remain proposed tools.
+      `cmd/hlasset build`/`validate` now cover interface PNG candidate packs only.
+      `hlasset review`, `art/manifest.json` integration and `cmd/hlartpreview` remain open.
 
 #### 2.4 — Map view, camera and navigation (G2)
 
@@ -1551,9 +1570,11 @@ in a distinct continuous style; final quality/seam and runtime acceptance remain
             negative/period origins and all output bytes are verified; independent reviews,
             263-file repeat, 1,172 prior-artifact regression and final CI pass.
             Other phase/mask combinations, full maps and runtime context selection stay open.
-- [ ] Implement proposed commands `go run ./cmd/hlasset validate`, `build`, and `review`, all
+- [ ] Complete commands `go run ./cmd/hlasset validate`, `build`, and `review`, all
       consuming `art/manifest.json`. Validation/build return nonzero on invalid inputs; review
       writes native/2×/4× sheets and actionable ID/direction diagnostics to `build/art-review/`.
+      Phase 2.3 delivers the first interface-PNG-only build/validate commands using a separate
+      runtime manifest; terrain/context coverage, the shared art manifest and review stay open.
 - [ ] Implement `go run ./cmd/hlartpreview`: seven-hex patches, larger deterministic random
       fixtures and imported shipped maps; change tile family, season, facing and visual state;
       toggle reference/replacement, grid, port markers and zoom; reload local exports and save

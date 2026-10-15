@@ -1,8 +1,10 @@
 # Candidate movement and effects preview
 
 This native Ebitengine command loads new-art disk candidates. It is isolated from
-the gameplay rules and does not accept a runtime pack. The reusable scheduler in
-`internal/presentation` consumes immutable visual descriptions using caller time.
+the gameplay rules and does not accept an external runtime pack. The reusable
+scheduler in `internal/presentation` consumes immutable visual descriptions using caller time.
+Selected interface PNGs now load through `internal/assets` with explicit candidate
+opt-in; see [the runtime pack contract](../../docs/runtime-assets.md).
 
 From the repository root:
 

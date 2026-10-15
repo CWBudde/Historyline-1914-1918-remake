@@ -11,8 +11,10 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 
+	runtimeassets "github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/presentation"
 )
 
@@ -189,14 +191,30 @@ func loadFamilyAssets(repo, family string) (*assets, error) {
 		a.images[id] = im
 		return nil
 	}
+	// The shared runtime loader snapshots and caches the selected interface PNGs.
+	// Candidate use is explicit; this diagnostic does not promote the art.
+	manifest := runtimeassets.Manifest{Schema: 1, ID: "effects-interface-v1", Status: "candidate"}
 	for id := range wanted {
 		f, ok := entries[id]
 		if !ok {
 			return nil, fmt.Errorf("missing asset %s", id)
 		}
-		if err := decode(id, base+f.Path, f.SHA, f.Width, f.Height); err != nil {
+		manifest.Entries = append(manifest.Entries, runtimeassets.Entry{
+			ID: id, Path: base + f.Path, SHA256: f.SHA, Width: f.Width, Height: f.Height, Density: 1, Anchor: f.Anchor,
+		})
+	}
+	sort.Slice(manifest.Entries, func(i, j int) bool { return manifest.Entries[i].ID < manifest.Entries[j].ID })
+	pack, err := runtimeassets.Load(r.FS(), manifest, runtimeassets.Options{AllowCandidates: true})
+	if err != nil {
+		return nil, err
+	}
+	for _, entry := range manifest.Entries {
+		im, err := pack.Image(entry.ID, entry.Density)
+		if err != nil {
 			return nil, err
 		}
+		a.images[entry.ID] = im
+		a.hashes[entry.Path] = entry.SHA256
 	}
 	// Existing unit bundles have no exported-output hash report. Their dimensions
 	// are validated and exact bytes are fingerprinted in the smoke-test evidence.
