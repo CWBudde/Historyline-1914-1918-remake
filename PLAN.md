@@ -514,6 +514,17 @@ so interactive playback and responsive/input acceptance remain open. Approximate
       workbench. Existing `tools/art-review` exporters and HTML galleries are offline pilots;
       `cmd/hlasset build`/`validate` now cover interface PNG candidate packs only.
       `hlasset review`, `art/manifest.json` integration and `cmd/hlartpreview` remain open.
+      - [x] Add the consolidated local comparison desk for current game candidates
+            (2026-10-15): `go run ./cmd/hlgfxreview` / `just gfx-game-review` generates
+            ignored `build/gfx-review/index.html`, selecting 390 entries from current
+            coverage ledgers/reports, including all 27 unit bindings and 540 authored
+            sprite variants. Side-by-side, wipe, opacity and difference modes retain
+            image proportions; missing-reference/density states stay explicit.
+            Original-size views use retained exports or offline Lanczos3 reductions.
+            Real-catalog tests verify 2,894 unique image snapshots; isolated Chromium
+            interaction checks pass in desktop and narrow windows, and vet/lint pass.
+            See `docs/gfx-review.md`. This is an offline review, not asset approval,
+            native correspondence, game composition or completion of G1's workbench.
 
 #### 2.4 — Map view, camera and navigation (G2)
 

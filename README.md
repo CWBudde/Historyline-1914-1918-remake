@@ -76,6 +76,7 @@ sources and recipes stay in tracked `art/`; verified graphics batches are commit
 
 ```sh
 just gfx-check                 # inventory tests, drift check and offline Go tools
+just gfx-game-review           # current game candidates: side-by-side / wipe / blend / difference
 just gfx-review -reference legacy/python/gfx/hexTypes/hex_forest.png \
   -candidate art/source/pilot/forest-study-01.png -out build/art-review/forest-repo
 just gfx-references \
@@ -83,6 +84,13 @@ just gfx-references \
   -screen GAME.IFF -briefings \
   -out build/native-reference
 ```
+
+For the graphics intended for game integration, run `go run ./cmd/hlgfxreview`
+(or `just gfx-game-review`) and open `build/gfx-review/index.html`. The
+[comparison desk](docs/gfx-review.md) selects current ledger/report exports rather
+than historical art studies, with unit variants, equal-scale comparison, density
+and zoom controls. The generated page and its private reference snapshots stay in
+ignored `build/`; final visual/runtime acceptance remains separate.
 
 Open `build/native-reference/index.html` for the offline gallery of 705 library resources,
 the original UI frame and 46 campaign illustrations. Search/filter, integer inspection scales,

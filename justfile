@@ -55,6 +55,11 @@ gfx-check:
 gfx-review *args:
     go run ./tools/art-review "$@"
 
+# Compare current game-bound candidates; open build/gfx-review/index.html
+[positional-arguments]
+gfx-game-review *args:
+    go run ./cmd/hlgfxreview "$@"
+
 # Decode privately supplied Amiga libraries; pass -data and an ignored -out
 [positional-arguments]
 gfx-references *args:

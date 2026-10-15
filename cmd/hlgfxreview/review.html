@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Historyline · game graphics review</title>
+<style>
+:root{color-scheme:dark;--bg:#10191f;--panel:#19262e;--edge:#394b56;--ink:#f0eadc;--dim:#b5c1c6;--gold:#d5b880;--check:repeating-conic-gradient(#58636b 0% 25%,#707c83 0% 50%) 0/16px 16px}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,sans-serif}button,input,select{font:inherit}button,select,input{background:#152129;color:var(--ink);border:1px solid var(--edge);border-radius:5px;padding:7px 10px}button{cursor:pointer}button:hover,button[aria-pressed=true]{border-color:var(--gold);background:#30424b}button:disabled{opacity:.4;cursor:default}:focus-visible{outline:2px solid var(--gold);outline-offset:3px}a{color:var(--gold)}header{padding:22px 28px;border-bottom:1px solid var(--edge);display:flex;justify-content:space-between;gap:24px}h1{font:600 25px/1.25 system-ui;margin:0 0 7px}header p{margin:0;color:var(--dim);max-width:86ch}.eyebrow{color:var(--gold);font-size:11px;font-weight:700;letter-spacing:.18em;margin-bottom:7px}.badge{align-self:start;white-space:nowrap;border:1px solid #7f714f;color:#ead4a8;border-radius:30px;padding:5px 12px;font-size:12px}.shell{display:grid;grid-template-columns:300px minmax(0,1fr);min-height:calc(100vh - 135px)}aside{padding:18px;border-right:1px solid var(--edge);background:#142027;position:sticky;top:0;height:100vh;overflow:auto}.filters{display:grid;gap:10px}.filters label{min-width:0;display:grid;gap:4px;font-size:12px;color:var(--dim)}.filters input,.filters select{width:100%}#count{font-size:12px;color:var(--dim);margin:16px 0 10px}#items{display:grid;gap:5px}.entry{width:100%;text-align:left;display:flex;align-items:center;gap:10px;min-width:0;padding:7px}.entry img{width:45px;height:40px;object-fit:contain;background:var(--check)}.entry span{overflow:hidden;text-overflow:ellipsis}.entry small{display:block;font-size:11px;color:var(--dim)}main{padding:22px 28px;min-width:0}.title-row{display:flex;justify-content:space-between;gap:16px;align-items:start}h2{font-size:22px;margin:0;overflow-wrap:anywhere}#meta{font-size:12px;color:var(--gold);margin:6px 0}#note{font-size:13px;color:var(--dim);max-width:110ch;margin:8px 0 18px}.toolbar{display:flex;align-items:end;flex-wrap:wrap;gap:12px;margin:12px 0}.toolbar label{font-size:12px;color:var(--dim);display:grid;gap:4px}.modes{display:flex;gap:5px;flex-wrap:wrap}.toolbar select{max-width:270px}#slider-row{display:flex;gap:12px;align-items:center;min-height:32px;font-size:12px;color:var(--dim)}#slider{width:220px;accent-color:var(--gold)}.stage-scroll{border:1px solid var(--edge);border-radius:8px;overflow:auto;background:#0c141a;padding:24px;min-height:280px;max-height:72vh}.comparison{display:flex;gap:24px;min-width:max-content;align-items:start}.plane{margin:0}.plane figcaption{font-size:12px;color:var(--dim);margin-bottom:10px;display:flex;justify-content:space-between;gap:24px}.board{position:relative;background:var(--check);isolation:isolate;overflow:hidden}.board img{position:absolute;display:block;max-width:none}.pixel{image-rendering:pixelated}.board .top{z-index:1}.board .divider{position:absolute;top:0;bottom:0;z-index:3;border-left:2px solid #f8e5ad;pointer-events:none}.bg-dark .board{background:#17232a}.bg-light .board{background:#eee9df}.bg-grass .board{background:#4f6038}.anchor{position:absolute;left:50%;top:50%;width:16px;height:16px;border:1px solid #ffcc55;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:4}.anchor:after,.anchor:before{content:"";position:absolute;background:#ffcc55}.anchor:after{left:7px;top:-6px;width:1px;height:26px}.anchor:before{top:7px;left:-6px;height:1px;width:26px}.empty{padding:40px;color:var(--dim)}#error{color:#ffb7a7;font-size:13px}details{margin-top:18px;border-top:1px solid var(--edge);padding-top:14px;font-size:12px;color:var(--dim)}summary{cursor:pointer;color:var(--ink)}.sources{display:grid;grid-template-columns:130px minmax(0,1fr);gap:7px 12px;margin-top:12px;overflow-wrap:anywhere}.sources p{margin:0}.help{color:var(--dim);font-size:12px;margin-top:18px;max-width:100ch}#unpaired{font-size:12px;color:var(--gold);margin:0 0 12px}.nav{display:flex;gap:6px}.nav button{padding:5px 12px}.hidden,[hidden]{display:none!important}@media(max-width:850px){header{padding:18px;flex-direction:column;gap:12px}.shell{grid-template-columns:minmax(0,1fr)}aside{min-width:0;position:static;height:auto;border-right:0;border-bottom:1px solid var(--edge)}.filters{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}#items{display:flex;overflow:auto;max-height:100px}.entry{width:200px;flex:0 0 200px}main{padding:18px}.stage-scroll{padding:12px}.sources{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div><div class="eyebrow">HISTORYLINE 1914–1918 / CURRENT GAME ART</div><h1>Graphics comparison desk</h1><p>Current bound candidates, together in one place. Compare the reference with the artwork selected for continuing game integration.</p></div><span class="badge">Final runtime approval pending</span></header>
+<div class="shell"><aside><div class="filters">
+<label>Find an asset<input id="search" type="search" placeholder="Grass, infantry, cursor…" autocomplete="off"></label>
+<label>Collection<select id="category"><option value="">All collections</option></select></label>
+<label>Season<select id="season"><option value="">Both seasons / all assets</option><option value="summer">Summer terrain</option><option value="winter">Winter terrain</option></select></label>
+<label>Reference<select id="paired"><option value="">All assets</option><option value="yes">With a mapped reference</option><option value="no">Without a mapped reference</option></select></label>
+</div><p id="count" aria-live="polite"></p><nav id="items" aria-label="Assets"></nav></aside>
+<main><div class="title-row"><div><h2 id="title"></h2><p id="meta"></p></div><div class="nav"><button id="prev" aria-label="Previous asset">←</button><button id="next" aria-label="Next asset">→</button></div></div><p id="note"></p>
+<div class="toolbar"><div class="modes" role="group" aria-label="Comparison mode"><button data-mode="side" aria-pressed="true">Side by side</button><button data-mode="wipe" aria-pressed="false">Wipe</button><button data-mode="blend" aria-pressed="false">Blend</button><button data-mode="difference" aria-pressed="false">Difference</button></div></div>
+<div class="toolbar"><label>Variant<select id="variant"></select></label><label>Candidate source<select id="density"><option value="1">Lanczos / original size</option><option value="2">Retained 2× export</option><option value="4">Retained 4× export</option></select></label><label>Display zoom<select id="zoom"><option value="1">1× original size</option><option value="2" selected>2×</option><option value="4">4×</option><option value="8">8×</option></select></label><label>Background<select id="background"><option value="checker">Checkerboard</option><option value="dark">Dark slate</option><option value="light">Light paper</option><option value="grass">Grass tone</option></select></label></div>
+<div id="slider-row"><label for="slider" id="slider-label">Wipe position</label><input id="slider" type="range" min="0" max="100" value="50"><output id="slider-value">50%</output></div>
+<p id="unpaired" hidden>No direct reference image is mapped. Showing the current candidate.</p><p id="error" role="status"></p>
+<div class="stage-scroll" id="stage"><div class="comparison" id="comparison"></div></div>
+<p class="help">1× uses retained original-size exports where available, otherwise an offline premultiplied Lanczos3 reduction. Enlarging those pixels uses nearest-neighbor sampling. The 2×/4× sources expose retained detail, displayed in the same logical area. Images are centered on a common canvas at their own dimensions, without stretching; this does not establish game anchor alignment. Difference compares both images over the selected background; it is not a similarity score.</p>
+<details id="files"><summary>Files, dimensions and comparison method</summary><div class="sources" id="sources"></div></details>
+<p class="help">This selection follows the current terrain, unit, interface and screen ledgers/reports. Historical alternatives, source atlases, tint planes and art experiments are excluded. Screens show the intended layouts with example content; they do not imply working gameplay flows. References are the repository’s Python remake images, not verified native DOS/Amiga mappings.</p>
+<noscript>This interactive comparison needs JavaScript. All image files are stored locally beside this page.</noscript></main></div>
+<script>
+'use strict';
+const catalog = /*CATALOG*/null;
+const $ = id => document.getElementById(id);
+const all = catalog.items;
+let current, filtered = all, mode = 'side';
+let renderID = 0;
+for (const [name,count] of Object.entries(catalog.counts)) $('category').add(new Option(name+' · '+count,name));
+function thumb(item) { return item.variants[0].images['1'].url; }
+function filter() {
+ const query = $('search').value.trim().toLowerCase();
+ filtered = all.filter(i => (!$('category').value || i.category === $('category').value) && (!$('season').value || i.season === $('season').value) && (!$('paired').value || Boolean(i.reference) === ($('paired').value === 'yes')) && [i.id,i.name,i.family,...(i.bindings||[])].join(' ').toLowerCase().includes(query));
+ $('items').replaceChildren();
+ for (const item of filtered) {
+  const button = document.createElement('button'); button.className='entry'; button.dataset.id=item.id;
+  const image = document.createElement('img'); image.src=thumb(item); image.alt=''; image.loading='lazy';
+  const text = document.createElement('span'); text.append(document.createTextNode(item.name));
+  const sub = document.createElement('small'); sub.textContent=item.category+' · '+item.family; text.append(sub); button.append(image,text);
+  button.onclick=()=>select(item); $('items').append(button);
+ }
+ $('count').textContent=filtered.length+' / '+all.length+' assets';
+ if (!filtered.includes(current)) select(filtered[0]); else markSelection();
+}
+function markSelection() {
+ document.querySelectorAll('.entry').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.id===current?.id)));
+ const n=filtered.indexOf(current); $('prev').disabled=n<=0; $('next').disabled=n<0||n>=filtered.length-1;
+}
+function select(item) {
+ current=item; markSelection(); $('variant').replaceChildren();
+ if (!item) {renderID++; $('title').textContent='No matching assets'; $('meta').textContent='';$('note').textContent='Try a different search or collection.';$('comparison').replaceChildren();$('sources').replaceChildren();$('error').textContent='';return;}
+ $('title').textContent=item.name;
+ $('meta').textContent=[item.category,item.family,item.season,item.bindings?.join(', ')].filter(Boolean).join(' / ');
+ $('note').textContent=item.note;
+ for (const v of item.variants) $('variant').add(new Option(v.label,v.id));
+ $('variant').disabled=item.variants.length===1;
+ history.replaceState(null,'','#'+encodeURIComponent(item.id));
+ render();
+}
+function makeImage(pic,w,h,pixel) {
+ const im=document.createElement('img'); im.src=pic.url;im.alt=pic.source;im.style.width=w+'px';im.style.height=h+'px';if(pixel)im.className='pixel';return im;
+}
+function board(w,h) {const b=document.createElement('div');b.className='board';b.style.width=w+'px';b.style.height=h+'px';return b;}
+function figure(label,b) {const f=document.createElement('figure'),cap=document.createElement('figcaption');f.className='plane';cap.textContent=label;f.append(cap,b);return f;}
+function source(label,pic) {
+ const term=document.createElement('p');term.textContent=label;
+ const value=document.createElement('p');const a=document.createElement('a');a.href=pic.url;a.target='_blank';a.rel='noopener';a.textContent=pic.source;
+ value.append(a,document.createTextNode(' · '+pic.width+' × '+pic.height+' px · '+pic.method));$('sources').append(term,value);
+ const hash=document.createElement('p');hash.textContent='SHA-256';const pin=document.createElement('p');pin.textContent=pic.sha256;$('sources').append(hash,pin);
+}
+function render() {
+ if(!current)return;
+ const ticket=++renderID, item=current, v=item.variants.find(v=>v.id===$('variant').value)||item.variants[0];
+ for(const o of $('density').options)o.disabled=!v.images[o.value];
+ if(!v.images[$('density').value])$('density').value='1';
+ const density=$('density').value,candidate=v.images[density],ref=item.reference,zoom=Number($('zoom').value);
+ const cw=item.width,ch=item.height,rw=ref?.width||cw,rh=ref?.height||ch;
+ const w=Math.max(cw,rw)*zoom,h=Math.max(ch,rh)*zoom;
+ $('comparison').replaceChildren();$('sources').replaceChildren();$('error').textContent='';
+ $('stage').className='stage-scroll bg-'+$('background').value;
+ $('unpaired').hidden=Boolean(ref);
+ document.querySelectorAll('[data-mode]').forEach(b=>{b.disabled=b.dataset.mode!=='side'&&!ref;b.setAttribute('aria-pressed',String(b.dataset.mode===mode));});
+ const effective=ref?mode:'side';
+ $('slider-row').style.visibility=['wipe','blend'].includes(effective)?'visible':'hidden';
+ $('slider-label').textContent=effective==='blend'?'Candidate opacity':'Wipe position';
+ const percent=Number($('slider').value);$('slider-value').textContent=percent+'%';
+ function add(b,pic,isCandidate) {
+  const iw=(isCandidate?cw:rw)*zoom,ih=(isCandidate?ch:rh)*zoom;
+  const im=makeImage(pic,iw,ih,!isCandidate||density==='1');
+  im.style.left=((w-iw)/2)+'px';im.style.top=((h-ih)/2)+'px';
+  im.onerror=()=>{if(ticket===renderID)$('error').textContent='Unable to load '+pic.source;};
+  b.append(im);return im;
+ }
+ if(effective==='side') {
+  if(ref){const b=board(w,h);add(b,ref,false);$('comparison').append(figure('REFERENCE · '+rw+' × '+rh,b));}
+  const b=board(w,h);add(b,candidate,true);$('comparison').append(figure('CURRENT · '+cw+' × '+ch+' comparison area',b));
+ } else {
+  const b=board(w,h);add(b,ref,false);
+  // Each layer has its own opaque backdrop: transparent candidate pixels reveal
+  // the same checker/slate, not reference pixels underneath. Difference includes alpha.
+  const layer=board(w,h);layer.classList.add('top');layer.style.position='absolute';layer.style.inset='0';add(layer,candidate,true);b.append(layer);
+  if(effective==='wipe') {layer.style.clipPath='inset(0 0 0 '+percent+'%)';const line=document.createElement('div');line.className='divider';line.style.left=percent+'%';b.append(line);}
+  if(effective==='blend')layer.style.opacity=percent/100;
+  if(effective==='difference')layer.style.mixBlendMode='difference';
+  $('comparison').append(figure(effective==='wipe'?'REFERENCE ← / → CURRENT':effective==='blend'?'REFERENCE + CURRENT · opacity blend':'ABSOLUTE DISPLAY DIFFERENCE · black = same',b));
+ }
+ if(ref)source('Reference',ref);
+ source('Current '+density+'×',candidate);
+ for(const d of ['1','2','4'])if(d!==density&&v.images[d])source('Other source '+d+'×',v.images[d]);
+}
+for(const id of ['search','category','season','paired'])$(id).addEventListener(id==='search'?'input':'change',filter);
+for(const id of ['variant','density','zoom','background'])$(id).addEventListener('change',render);
+$('slider').addEventListener('input',render);
+document.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>{mode=b.dataset.mode;render();});
+$('prev').onclick=()=>select(filtered[filtered.indexOf(current)-1]);$('next').onclick=()=>select(filtered[filtered.indexOf(current)+1]);
+document.addEventListener('keydown',e=>{if(['INPUT','SELECT','TEXTAREA'].includes(e.target.tagName))return;if(e.key==='ArrowRight'&&!$('next').disabled){e.preventDefault();$('next').click();}if(e.key==='ArrowLeft'&&!$('prev').disabled){e.preventDefault();$('prev').click();}});
+let fragment='';try{fragment=decodeURIComponent(location.hash.slice(1));}catch{}
+const initial=all.find(i=>i.id===fragment)||all.find(i=>i.id==='background/grass')||all[0];
+current=initial;filter();select(initial);
+</script></body></html>

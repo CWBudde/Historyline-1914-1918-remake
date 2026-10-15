@@ -1,0 +1,261 @@
+package main
+
+import (
+	"bytes"
+	"context"
+	"crypto/sha256"
+	"encoding/json"
+	"fmt"
+	"image"
+	"image/color"
+	"image/png"
+	"os"
+	"os/exec"
+	"path/filepath"
+	"strings"
+	"testing"
+	"time"
+)
+
+func TestCurrentGameSelection(t *testing.T) {
+	r, err := os.OpenRoot("../..")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer func() { _ = r.Close() }()
+	dir := t.TempDir()
+	w, err := os.OpenRoot(dir)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer func() { _ = w.Close() }()
+	if err := w.Mkdir("media", 0755); err != nil {
+		t.Fatal(err)
+	}
+	c := collector{root: r, out: w, seen: map[string]picture{}}
+	for _, collect := range []func() error{c.tiles, c.units, c.interfaceArt, c.screens} {
+		if err := collect(); err != nil {
+			t.Fatal(err)
+		}
+	}
+	counts := map[string]int{}
+	ids := map[string]bool{}
+	bindings := map[string]bool{}
+	for _, it := range c.items {
+		if ids[it.ID] {
+			t.Fatalf("duplicate ID %s", it.ID)
+		}
+		ids[it.ID] = true
+		counts[it.Category]++
+		if it.Category == "Sprites" {
+			if len(it.Variants) != 36 {
+				t.Fatalf("missing variants: %s", it.ID)
+			}
+			for _, id := range it.Bindings {
+				bindings[id] = true
+			}
+		}
+		if it.Category == "Screens" && it.Reference != nil {
+			t.Fatalf("invented screen reference: %s", it.ID)
+		}
+		for _, v := range it.Variants {
+			if strings.Contains(v.ID, "planes") || strings.Contains(v.ID, "sheets") {
+				t.Fatalf("study in current set: %s", it.ID)
+			}
+			p := v.Images["1"]
+			if p.Width != it.Width || p.Height != it.Height {
+				t.Fatalf("wrong comparison geometry %s/%s", it.ID, v.ID)
+			}
+		}
+	}
+	want := map[string]int{"Terrain": 134, "Sprites": 15, "Portraits": 15, "Interface": 117, "Screens": 36, "Screen components": 73}
+	for k, n := range want {
+		if counts[k] != n {
+			t.Errorf("%s: got %d, want %d", k, counts[k], n)
+		}
+	}
+	if len(bindings) != 27 {
+		t.Errorf("got %d runtime unit bindings", len(bindings))
+	}
+	// The snapshots are the actual inputs the HTML will load, not source filenames.
+	checked := map[string]bool{}
+	for _, p := range c.seen {
+		if checked[p.URL] {
+			continue
+		}
+		checked[p.URL] = true
+		b, err := w.ReadFile(p.URL)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if got := fmt.Sprintf("%x", sha256.Sum256(b)); got != p.SHA {
+			t.Fatalf("snapshot hash %s", p.Source)
+		}
+		cfg, err := png.DecodeConfig(bytes.NewReader(b))
+		if err != nil {
+			t.Fatal(err)
+		}
+		if cfg.Width != p.Width || cfg.Height != p.Height {
+			t.Fatalf("snapshot geometry %s", p.Source)
+		}
+	}
+	t.Logf("%d current entries, %d complete image snapshots, 27 bindings, 540 authored sprite variants", len(c.items), len(checked))
+	if browser := os.Getenv("HL_GFX_REVIEW_BROWSER"); browser != "" {
+		b, err := json.Marshal(struct {
+			Items  []item         `json:"items"`
+			Counts map[string]int `json:"counts"`
+		}{c.items, counts})
+		if err != nil {
+			t.Fatal(err)
+		}
+		html := strings.Replace(page, "/*CATALOG*/null", string(b), 1)
+		html = strings.Replace(html, "</body>", "<script>"+browserSmoke+"</script></body>", 1)
+		if err := w.WriteFile("smoke.html", []byte(html), 0644); err != nil {
+			t.Fatal(err)
+		}
+		for _, size := range []string{"1440,1040", "460,920"} {
+			t.Run(size, func(t *testing.T) {
+				ctx, cancel := context.WithTimeout(context.Background(), 45*time.Second)
+				defer cancel()
+				cmd := exec.CommandContext(ctx, browser, "--headless=new", "--disable-gpu", "--no-first-run", "--no-default-browser-check", "--user-data-dir="+filepath.Join(dir, "browser-"+size), "--window-size="+size, "--virtual-time-budget=12000", "--dump-dom", "file:///"+filepath.ToSlash(filepath.Join(dir, "smoke.html")))
+				out, err := cmd.CombinedOutput()
+				if err != nil {
+					t.Fatalf("browser: %v\n%.2000s", err, out)
+				}
+				if !bytes.Contains(out, []byte(`data-smoke="pass"`)) {
+					start := bytes.Index(out, []byte("data-smoke"))
+					if start < 0 {
+						start = 0
+					}
+					t.Fatalf("browser smoke failed: %.1200s", out[start:])
+				}
+			})
+		}
+	}
+}
+
+func TestSnapshotRejectsStalePinAndBadGeometry(t *testing.T) {
+	dir := t.TempDir()
+	r, err := os.OpenRoot(dir)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer func() { _ = r.Close() }()
+	if err := r.Mkdir("media", 0755); err != nil {
+		t.Fatal(err)
+	}
+	im := image.NewNRGBA(image.Rect(0, 0, 8, 8))
+	im.SetNRGBA(3, 3, color.NRGBA{230, 80, 40, 255})
+	var buf bytes.Buffer
+	if err := png.Encode(&buf, im); err != nil {
+		t.Fatal(err)
+	}
+	if err := r.WriteFile("source.png", buf.Bytes(), 0644); err != nil {
+		t.Fatal(err)
+	}
+	c := collector{root: r, out: r, seen: map[string]picture{}}
+	for _, test := range []struct {
+		p, pin string
+		crop   image.Rectangle
+		w, h   int
+	}{
+		{"source.png", strings.Repeat("0", 64), image.Rectangle{}, 0, 0},
+		{"../escape.png", "", image.Rectangle{}, 0, 0},
+		{"source.png", "", image.Rect(0, 0, 9, 8), 0, 0},
+		{"source.png", "", image.Rectangle{}, 4, 3},
+		{"source.png", "", image.Rectangle{}, 16, 16},
+	} {
+		if _, err := c.snapshot(test.p, test.pin, test.crop, test.w, test.h); err == nil {
+			t.Errorf("accepted invalid snapshot: %+v", test)
+		}
+	}
+	files, err := os.ReadDir(filepath.Join(dir, "media"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(files) != 0 {
+		t.Fatal("invalid snapshot wrote media")
+	}
+	for _, out := range []string{"art/review", "docs/art/review", "build/../art", "build\\review", "../build/review"} {
+		if err := run([]string{"-root", dir, "-out", out}, &bytes.Buffer{}); err == nil {
+			t.Errorf("accepted output %s", out)
+		}
+	}
+}
+
+func TestLanczosOpaqueAndTransparentEdges(t *testing.T) {
+	src := image.NewNRGBA(image.Rect(0, 0, 24, 12))
+	for y := range 12 {
+		for x := range 24 {
+			a := uint8(255)
+			if x >= 12 {
+				a = 0
+			}
+			src.SetNRGBA(x, y, color.NRGBA{211, 97, 53, a})
+		}
+	}
+	got, err := resizeLanczos(src, 8, 4)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for y := range 4 {
+		for x := range 8 {
+			p := got.NRGBAAt(x, y)
+			if p.A > 0 && (p.R != 211 || p.G != 97 || p.B != 53) {
+				t.Fatalf("color fringe: %v", p)
+			}
+			if p.A == 0 && (p.R != 0 || p.G != 0 || p.B != 0) {
+				t.Fatalf("nonzero transparent RGB: %v", p)
+			}
+		}
+	}
+	if got.NRGBAAt(0, 0).A != 255 || got.NRGBAAt(7, 0).A != 0 {
+		t.Fatal("wrong flat alpha regions")
+	}
+	identity, err := resizeLanczos(got, 8, 4)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !bytes.Equal(got.Pix, identity.Pix) {
+		t.Fatal("identity resampling changed pixels")
+	}
+}
+
+const browserSmoke = `
+(async()=>{
+ const assert=(x,m)=>{if(!x)throw Error(m)};
+ const change=(id,value)=>{const el=document.getElementById(id);el.value=value;el.dispatchEvent(new Event(id==='search'||id==='slider'?'input':'change',{bubbles:true}));};
+ try {
+  assert(document.querySelectorAll('.entry').length===390,'initial selection');
+  change('category','Sprites');change('search','infantry');
+  document.querySelector('[data-id="sprite/infantry"]').click();
+  assert(document.getElementById('variant').options.length===36,'sprite variants');
+  change('variant','ec/se-spent');change('density','4');change('zoom','4');
+  assert(document.querySelector('#sources a').textContent.includes('units/icons/infantry'),'reference pin');
+  assert(document.querySelectorAll('#comparison img')[1].alt.includes('/ec/se-spent-4x.png'),'variant selection');
+  document.querySelector('[data-mode="wipe"]').click();change('slider','25');
+  assert(document.querySelector('.top').style.clipPath==='inset(0px 0px 0px 25%)','wipe slider');
+  document.querySelector('[data-mode="blend"]').click();
+  assert(document.querySelector('.top').style.opacity==='0.25','blend slider');
+  document.querySelector('[data-mode="difference"]').click();
+  assert(document.querySelector('.top').style.mixBlendMode==='difference','difference layer');
+  change('search','');change('category','Terrain');change('season','winter');
+  assert(document.querySelectorAll('.entry').length>0,'winter collection');
+  assert(document.getElementById('meta').textContent.includes('winter'),'winter item');
+  change('season','');change('category','Interface');change('search','symbol/infinity');
+  assert(document.querySelector('[data-mode="wipe"]').disabled,'unpaired overlay disabled');
+  assert(document.querySelectorAll('#comparison figure').length===1,'unpaired candidate view');
+  change('search','');change('category','Screens');change('search','options');
+  assert(document.getElementById('title').textContent==='options','intended screen layout');
+  assert(document.getElementById('density').options[2].disabled,'no invented fixture 4x');
+  change('search','no-such-asset-xyz');assert(document.getElementById('title').textContent==='No matching assets','empty search');
+  change('search','');change('category','Portraits');change('search','infantry');
+  document.querySelector('[data-id="portrait/infantry"]').click();
+  document.querySelector('[data-mode="side"]').click();change('density','2');change('zoom','2');
+  await Promise.all(Array.from(document.querySelectorAll('#comparison img'),im=>im.decode()));
+  assert(!document.getElementById('error').textContent,'image load errors');
+  assert(document.documentElement.scrollWidth<=innerWidth+1,'page overflows viewport');
+  assert(document.querySelector('.filters').getBoundingClientRect().right<=innerWidth,'filters overflow viewport');
+  document.body.dataset.smoke='pass';
+ }catch(e){document.body.dataset.smoke='FAIL: '+e.message;document.getElementById('error').textContent=e.message;}
+})();`
