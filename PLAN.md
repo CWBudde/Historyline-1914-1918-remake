@@ -41,7 +41,7 @@ implementation plans to be written for each milestone before execution.
 
 About 3,400 lines: `main.py` (loop/input), `gui.py` (rendering, movement, combat, fog of war),
 `hlrData.py` (data tables, classes and menus), `mapEditor.py`, `ArtificialIntelligence.py`,
-and `FINdecoder/`.
+and the (since ported) `FINdecoder/`.
 
 ### Working
 
@@ -472,9 +472,12 @@ before implementing a replacement formula or changing the existing game defaults
 
 - [ ] Extend verified R2 gameplay ID mappings to the complete campaign; core rule tables and
       minimal fixtures are Phase 3 dependencies and must not wait for full campaign import.
-- [ ] TPWM unpacker in Go, checked against the existing Python DOS research decoder and
+- [x] TPWM unpacker in Go, checked against the existing Python DOS research decoder and
       synthetic fixtures, then local `FINdecoder/00.FIN`. DOS lengths are little endian;
       the existing Amiga native-reference decoder uses big endian. Keep the variants explicit.
+      (2026-10-15) — `internal/tpwm.Unpack(data, byteOrder)`: synthetic and rejection tests plus
+      `00.FIN` unpacks to the header size with the same SHA-256 as the Python decoder. The
+      Python scratch files in `FINdecoder/` are removed; `native-reference` keeps its own decoder.
 - [ ] Decode and validate the full `.FIN` layout, including headers, dimensions, tile/unit
       placement, buildings, inventories, energy, availability and mission metadata. The
       tile-byte + unit-byte note in `decode.py` is a hypothesis, not a complete format contract.
