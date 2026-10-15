@@ -100,6 +100,9 @@ func decodeCompoundManifest(b []byte, m *compoundManifest) error {
 		if err := keys(s, "id", "artwork", "inset", "framing"); err != nil {
 			return err
 		}
+		if field, ok := s["framing"]; ok && bytes.Equal(bytes.TrimSpace(field), []byte("null")) {
+			return errors.New("compound framing must be a string")
+		}
 		if err := checkRef(s["artwork"]); err != nil {
 			return err
 		}

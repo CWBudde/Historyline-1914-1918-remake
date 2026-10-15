@@ -15,6 +15,7 @@ import (
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
+	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"github.com/hajimehoshi/ebiten/v2/vector"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/camera"
@@ -52,6 +53,7 @@ type game struct {
 	hoverOnMap  bool
 	w, h        int
 	terrainFill map[string]color.RGBA
+	ctl         *control
 }
 
 func newGame(lvl *level.Level, st *state.State, player state.Player, reveal bool) *game {
@@ -65,6 +67,7 @@ func newGame(lvl *level.Level, st *state.State, player state.Player, reveal bool
 		cam: camera.New(world, camera.Size{W: startWidth, H: startHeight}),
 		w:   startWidth, h: startHeight,
 		terrainFill: map[string]color.RGBA{},
+		ctl:         &control{st: st, player: player},
 	}
 	gm.layoutMinimap()
 	return gm
@@ -126,6 +129,12 @@ func (g *game) Update() error {
 		dy += scrollSpeed
 	}
 	g.cam.Scroll(dx, dy)
+	if inpututil.IsKeyJustPressed(ebiten.KeyF1) {
+		g.ctl.EndTurn()
+	}
+	if inpututil.IsKeyJustPressed(ebiten.KeyEscape) {
+		g.ctl.clear()
+	}
 
 	mx, my := ebiten.CursorPosition()
 	if _, wheel := ebiten.Wheel(); wheel != 0 {
@@ -144,6 +153,12 @@ func (g *game) Update() error {
 	}
 	wx, wy := g.cam.ScreenToWorld(float64(mx), float64(my))
 	g.hover, g.hoverOnMap = g.grid.PixelToHex(wx, wy)
+	if g.hoverOnMap && inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
+		g.ctl.Click(g.hover)
+	}
+	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonRight) {
+		g.ctl.clear()
+	}
 	return nil
 }
 
@@ -165,18 +180,49 @@ func (g *game) Draw(screen *ebiten.Image) {
 			}
 		}
 	}
+	g.drawOverlays(screen)
 	if g.hoverOnMap {
 		cx, cy := hexgrid.Center(g.hover)
 		sx, sy := g.cam.WorldToScreen(cx, cy)
 		g.drawHex(screen, float32(sx), float32(sy), color.RGBA{}, true)
 	}
 	g.drawMinimap(screen)
-	msg := fmt.Sprintf("%s  zoom %.2f  arrows/WASD scroll, wheel zoom", g.lvl.MapName, g.cam.Zoom)
+	msg := fmt.Sprintf("%s  round %d, %v to move  zoom %.2f\narrows/WASD scroll, wheel zoom, click unit then hex, F1 end turn, Esc/right-click cancel",
+		g.lvl.MapName, g.state.Round, g.state.Turn, g.cam.Zoom)
+	if g.state.Winner != state.None {
+		msg += fmt.Sprintf("\n%v has won", g.state.Winner)
+	}
+	if g.ctl.Message != "" {
+		msg += "\n" + g.ctl.Message
+	}
 	if g.hoverOnMap {
 		hx := g.lvl.Lines[g.hover.Line][g.hover.Col]
 		msg += fmt.Sprintf("\nline %d col %d  %s", g.hover.Line, g.hover.Col, hx.Terrain)
 	}
 	ebitenutil.DebugPrint(screen, msg)
+}
+
+// drawOverlays tints the hexes the selected unit may reach (blue) or attack
+// (red) and outlines the selection, all taken from the rules engine's queries.
+func (g *game) drawOverlays(dst *ebiten.Image) {
+	c := g.ctl
+	if !c.selected {
+		return
+	}
+	tint := func(at hexgrid.Coord, col color.RGBA) {
+		cx, cy := hexgrid.Center(at)
+		sx, sy := g.cam.WorldToScreen(cx, cy)
+		g.drawHex(dst, float32(sx), float32(sy), col, false)
+	}
+	for at := range c.moves {
+		tint(at, color.RGBA{60, 120, 255, 90})
+	}
+	for at := range c.targets {
+		tint(at, color.RGBA{255, 50, 40, 130})
+	}
+	cx, cy := hexgrid.Center(c.from)
+	sx, sy := g.cam.WorldToScreen(cx, cy)
+	g.drawHex(dst, float32(sx), float32(sy), color.RGBA{}, true)
 }
 
 // drawMinimap draws one small cell per hex with the same fog rules as the main
