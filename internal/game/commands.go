@@ -437,3 +437,7 @@ func (s *State) EndTurn() error {
 	s.updateVision()
 	return nil
 }
+
+// CanFire reports whether weapon slot of a has ammunition (when the rules count
+// it) and can hit the kind of unit target is. Range is not checked here.
+func (s *State) CanFire(a *Unit, slot int, target *Unit) bool { return s.usable(a, slot, target) }

@@ -138,3 +138,46 @@ func TestDevIndicators(t *testing.T) {
 		t.Errorf("got %q", got)
 	}
 }
+
+func TestWeaponMenu(t *testing.T) {
+	c := newTestControl(t)
+	for l, line := range c.st.Hexes {
+		for col := range line {
+			at := hexgrid.Coord{Line: l, Col: col}
+			u := c.st.At(at).Unit
+			if u == nil || u.Owner != c.player {
+				continue
+			}
+			c.Select(at)
+			for tgt := range c.targets {
+				c.OpenWeaponMenu(tgt)
+				if !c.MenuOpen() {
+					t.Fatal("menu empty for a legal target")
+				}
+				usable := -1
+				for i, o := range c.menu {
+					if o.Usable {
+						usable = i
+					}
+				}
+				if usable < 0 {
+					t.Fatalf("legal target %v but no usable weapon: %+v", tgt, c.menu)
+				}
+				c.ChooseWeapon(usable)
+				if c.MenuOpen() || !u.Attacked {
+					t.Fatalf("weapon did not fire: %q", c.Message)
+				}
+				return
+			}
+		}
+	}
+	t.Skip("level1_cp has no unit with a target at the start")
+}
+
+func TestWeaponMenuRejectsUnusable(t *testing.T) {
+	c := &control{menu: []WeaponOption{{Slot: 0, Label: "gun: no ammo"}}}
+	c.ChooseWeapon(0)
+	if !c.MenuOpen() || c.Message != "gun: no ammo" {
+		t.Errorf("menu %v message %q", c.menu, c.Message)
+	}
+}

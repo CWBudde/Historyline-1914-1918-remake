@@ -592,7 +592,9 @@ so interactive playback and responsive/input acceptance remain open. Approximate
 - [ ] Add selection and action menus (move / attack / contents / exit), driven by the
       selected rules profile and legal commands. Provide hover, keyboard focus, pressed,
       disabled and cancel states, including menus at screen edges.
-- [ ] Add the weapon menu with legal target/range/ammunition feedback for the active profile.
+- [x] Add the weapon menu with legal target/range/ammunition feedback for the active profile.
+      Placeholder menu at the bottom left (click or keys 1-4); unusable rows say why (ammo, range,
+      target kind) and stay open. `TestWeaponMenu*` pass; not hand-tested in the window.
 - [ ] Add the content menu with the Python 2 × 9 grid for compatibility, capacity/weight
       feedback, stored-unit selection, enter/leave flow and empty/full/hidden states.
       R3/R4 introduce the verified DOS inventory limits and cycle orders separately.

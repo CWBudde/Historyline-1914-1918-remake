@@ -135,6 +135,9 @@ func (g *game) Update() error {
 	if inpututil.IsKeyJustPressed(ebiten.KeyF1) {
 		g.ctl.EndTurn()
 	}
+	if g.updateMenu() {
+		return nil
+	}
 	if inpututil.IsKeyJustPressed(ebiten.KeyEscape) {
 		g.ctl.clear()
 	}
@@ -165,6 +168,50 @@ func (g *game) Update() error {
 	return nil
 }
 
+const menuRowH, menuW = 18, 340
+
+// menuRow is the screen rectangle of weapon menu row i (bottom left).
+func (g *game) menuRow(i int) (x, y, w, h int) {
+	return 8, g.h - 8 - (len(g.ctl.menu)-i)*menuRowH, menuW, menuRowH
+}
+
+// updateMenu handles the open weapon menu (number keys or a click on a row) and
+// reports whether it consumed this frame's input.
+func (g *game) updateMenu() bool {
+	if !g.ctl.MenuOpen() {
+		return false
+	}
+	for i, k := range []ebiten.Key{ebiten.Key1, ebiten.Key2, ebiten.Key3, ebiten.Key4} {
+		if inpututil.IsKeyJustPressed(k) && i < len(g.ctl.menu) {
+			g.ctl.ChooseWeapon(i)
+			return true
+		}
+	}
+	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
+		mx, my := ebiten.CursorPosition()
+		for i := range g.ctl.menu {
+			x, y, w, h := g.menuRow(i)
+			if mx >= x && mx < x+w && my >= y && my < y+h {
+				g.ctl.ChooseWeapon(i)
+				return true
+			}
+		}
+	}
+	return false
+}
+
+func (g *game) drawMenu(dst *ebiten.Image) {
+	for i, o := range g.ctl.menu {
+		x, y, w, h := g.menuRow(i)
+		bg := color.RGBA{30, 60, 30, 230}
+		if !o.Usable {
+			bg = color.RGBA{60, 30, 30, 230}
+		}
+		vector.FillRect(dst, float32(x), float32(y), float32(w), float32(h), bg, false)
+		ebitenutil.DebugPrintAt(dst, fmt.Sprintf("%d %s", i+1, o.Label), x+4, y+1)
+	}
+}
+
 func (g *game) Draw(screen *ebiten.Image) {
 	screen.Fill(color.RGBA{20, 20, 24, 255})
 	vx, vy, vw, vh := g.cam.Visible()
@@ -193,10 +240,11 @@ func (g *game) Draw(screen *ebiten.Image) {
 		g.drawHex(screen, float32(sx), float32(sy), color.RGBA{}, true)
 	}
 	g.drawMinimap(screen)
+	g.drawMenu(screen)
 	if dev := g.devIndicators(); dev != "" {
 		ebitenutil.DebugPrintAt(screen, dev, g.w-8*len(dev)-8, 0)
 	}
-	msg := fmt.Sprintf("%s  round %d, %v to move  zoom %.2f\narrows/WASD scroll, wheel zoom, click unit then hex, F1 end turn, Esc/right-click cancel",
+	msg := fmt.Sprintf("%s  round %d, %v to move  zoom %.2f\narrows/WASD scroll, wheel zoom, click unit then hex (1-4 picks weapon), F1 end turn, Esc/right-click cancel",
 		g.lvl.MapName, g.state.Round, g.state.Turn, g.cam.Zoom)
 	if g.state.Winner != state.None {
 		msg += fmt.Sprintf("\n%v has won", g.state.Winner)
