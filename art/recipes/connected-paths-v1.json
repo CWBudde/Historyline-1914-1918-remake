@@ -233,7 +233,8 @@
     "art/recipes/terrain/distinct-v1/path-earth.json",
     "art/recipes/terrain/distinct-v1/road-gravel.json",
     "art/recipes/terrain/distinct-v1/water-open.json",
-    "art/recipes/terrain/reference-v2/meadow-03.json"
+    "art/recipes/terrain/reference-v2/meadow-03.json",
+    "art/recipes/terrain/reference-v2/road-paved.json"
   ],
   "generation_recipes_scope": "Includes historical generation studies and the current pinned master records. Current source selection is established by the producing manifest and its exact SHA256 pins; historical records are unchanged.",
   "geometry": {
@@ -320,7 +321,7 @@
   },
   "id": "connected-paths-v1",
   "manifest": "art/connected-paths-v1.json",
-  "manifest_sha256": "7c52a09bd0b4b391a924920353bfafea3a7ea6ec5f7556923206bafeb8a70f5d",
+  "manifest_sha256": "b07ad428e2bae2d656528e9cc7127da62c00ca78f452c55eda483468e54db2a3",
   "materials": {
     "earth": {
       "dimensions": {
@@ -355,8 +356,8 @@
         "width": 1374
       },
       "retained_source": "road-material-source.png",
-      "source": "art/source/terrain/distinct-v1/road-gravel.png",
-      "source_sha256": "93991a9f33f3d125f68f0ed2d14b329f1092428a0df59ba90f92c5b2bc85dd26"
+      "source": "art/source/terrain/reference-v2/road-paved.png",
+      "source_sha256": "48f521aa74bb1759896b33c95e84abb5d6d1d9146ab2925620a6b3234e5dcd2e"
     },
     "water": {
       "dimensions": {
@@ -368,13 +369,19 @@
       "source_sha256": "0b080163804881ac49bc4b3162da547abf443c9082d6e67065c119174d79b51d"
     }
   },
-  "method": "Candidate overlay. Unclipped new feature and grass render at 4x with four WORLD pixels of overscan on every side (416x352). Feature/bank edges use analytic signed-distance AA, 0.25 world-pixel ramp; distances round to 1e-9 world px for reciprocal half-alpha stability. Existing alpha-aware Lanczos3 reduces the UNMASKED overscan 416x352 -\u003e 208x176. Crop 4-world-pixel margins AFTER filtering to 384x320 and 192x160, then apply complementary hard half-open polygon ownership at final pixel centers. No per-sprite polygon-edge AA; a future complete-map compositor may AA its outer boundary once. Each port has \u003e=8 straight world pixels and extends beyond cutout by outer radius+4; cubic connectors flatten at 64 steps; junctions merge by minimum distance. No legacy footprint or pixels; no painted road markings.",
+  "method": "Candidate overlay. Unclipped new feature and grass render at 4x with four WORLD pixels of overscan on every side (416x352). Feature/bank edges use analytic signed-distance AA, 0.25 world-pixel ramp; distances round to 1e-9 world px for reciprocal half-alpha stability. Existing alpha-aware Lanczos3 reduces the UNMASKED overscan 416x352 -\u003e 208x176. Crop 4-world-pixel margins AFTER filtering to 384x320 and 192x160, then apply complementary hard half-open polygon ownership at final pixel centers. No per-sprite polygon-edge AA; a future complete-map compositor may AA its outer boundary once. Each port has \u003e=8 straight world pixels and extends beyond cutout by outer radius+4; cubic connectors flatten at 64 steps; junctions merge by minimum distance. No legacy footprint or pixels. Optional road markings=dashed: six-world-pixel light centre dashes, eight-world-pixel nominal dash length and twelve-world-pixel nominal period; eight-world-pixel port phases are reciprocal, curved interiors fit the phase, junction centres remain unmarked. Narrow road borders use darkened pavement.",
   "original_image_inputs": [
     {
       "generation_recipe": "art/recipes/terrain/reference-v2/meadow-03.json",
       "path": "legacy/python/gfx/hexTypes/hex_grass.png",
       "role": "Semantic original reference only: Only image input: composition, muted olive palette and low-frequency restoration reference; original file remains reference-only.",
       "sha256": "67257c01c1e3e30ddc438e85e5e376cd1aa72f888cfb2851b288061e1eb7a0de"
+    },
+    {
+      "generation_recipe": "art/recipes/terrain/reference-v2/road-paved.json",
+      "path": "legacy/python/gfx/infrastructure/road36.png",
+      "role": "Semantic original reference only: reference colour and values only",
+      "sha256": "0b31995635a3c56427b1481e04583b9c6dc0a246ef47f87a824b149d0d6565e3"
     }
   ],
   "original_image_inputs_scope": "Semantic visual references used to paint the current masters or their fixture ground. Originals remain reference-only and are not bundled as runtime PNGs; source masters are newly painted. Unit sprite planes retain their existing independent artwork provenance.",

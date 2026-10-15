@@ -54,7 +54,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/cp/n-normal-2x.png",
-        "sha256": "e442b9da41109af620b72fa3f256d697519ee37b067da080ff9674ae67a56bbf"
+        "sha256": "39e896a0bc3093030da2d57846587b00ae2e05934e84bf0a413a8d6656bf3845"
       },
       {
         "dimensions": {
@@ -62,7 +62,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/cp/n-normal-4x.png",
-        "sha256": "9de29f54a02738f0b62a6c0282dc757cf85b3620d2851cc23ed9bbe762598e45"
+        "sha256": "9b3b9bc8e6e18a71f82e8ff5cb72d69bcafa494feaedb61c81219a0e4d21efee"
       },
       {
         "dimensions": {
@@ -70,7 +70,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/cp/n-spent-2x.png",
-        "sha256": "cb866ae4f9d1afd18392c0125047c628500219e47ae98fd92af8f729e035a048"
+        "sha256": "58050b77dd8d16c7a5acee8440509b978bfbadb9cda0825e1501807c6f17d5b1"
       },
       {
         "dimensions": {
@@ -78,7 +78,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/cp/n-spent-4x.png",
-        "sha256": "da4156db63336b2ffa5da5a649eadda944d15d043d4013af60cb16c61896a178"
+        "sha256": "103c3eb325970c5e3d49742f4c9fec68962745bb149527eb170ec18efdfb6ec0"
       },
       {
         "dimensions": {
@@ -86,7 +86,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/ec/n-normal-2x.png",
-        "sha256": "e3a00ecfc9b29abf2983edcd295d47e5e0f977d82cc91480bce4c165b75fa5d1"
+        "sha256": "d0104740212b47d7eb8fe3fb0a00e1b3462bff260fc3e44b60700d0dab3b04d6"
       },
       {
         "dimensions": {
@@ -94,7 +94,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/ec/n-normal-4x.png",
-        "sha256": "98c3ed68cf90a4927d4f83dd9d8d2e319faa027e0aec828150a08eb120919d95"
+        "sha256": "56815d4ee9472adfb9878358b43a40a4927a4def77a54366f688cae32be44a95"
       },
       {
         "dimensions": {
@@ -102,7 +102,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/ec/n-spent-2x.png",
-        "sha256": "ba9a8ad0e1191f25a5bae3aa5ccfc4e4059dee115c59333cffa81eb0de46606c"
+        "sha256": "94f73c0f44e58019ea0d0ba19769a0b89692bde80e0bb46f2fe0603103d82f68"
       },
       {
         "dimensions": {
@@ -110,7 +110,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/ec/n-spent-4x.png",
-        "sha256": "59950e1065ff0055a2452abe4abe30102bd627aa42c201995534bd954bc65752"
+        "sha256": "9526283ad7b492dce6ab8f876219ef8e6b6e010f3ef4bbb45ee913cd549112de"
       },
       {
         "dimensions": {
@@ -118,7 +118,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/neutral/n-normal-2x.png",
-        "sha256": "a90d714aad5764ef72d6ded0e14c9fd4fca8f808e0f9af85d4e403bb1f3e68ad"
+        "sha256": "a69a3eb45234a24fdb9cd8b69a5303281927df02b0aef12fd55ffc6b27af1b4d"
       },
       {
         "dimensions": {
@@ -126,7 +126,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/neutral/n-normal-4x.png",
-        "sha256": "e5da01a60e6d366707108a14892ba74ae58834a36aec2c4f89db05585e5835fc"
+        "sha256": "0aea6fde0e508027fb8d1af05317c19bc1678a7abc854ae90ff979d5a08f3b17"
       },
       {
         "dimensions": {
@@ -134,7 +134,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/neutral/n-spent-2x.png",
-        "sha256": "0ffa835b852d32477f027faa5b590e023471260ed865515bc3882d22e328acbb"
+        "sha256": "948bcab5457c98980eca2722eb121ea6323c0123dba7c849df8d246767a3bc7f"
       },
       {
         "dimensions": {
@@ -142,7 +142,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/neutral/n-spent-4x.png",
-        "sha256": "390d00fa4826778d9157a84c7b3eb0c209499692754ab1938d13423a324f776b"
+        "sha256": "88a9e29387466539938042bfa6c5550b85af35a0bb85f365e92dcf77135725ea"
       },
       {
         "dimensions": {
@@ -182,7 +182,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/cp/nw-normal-2x.png",
-        "sha256": "02ff5b23dfb87a479c7cb0838bd1ad205a100bdd64fff847e971ba8ddf75ed21"
+        "sha256": "2228165ef92ad1855d2a780f2339fc85a6cb1b3e5fa65f12fb71fd0ccb00e61f"
       },
       {
         "dimensions": {
@@ -190,7 +190,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/cp/nw-normal-4x.png",
-        "sha256": "d6a56310890256ddae333fb0d3412f1023e1de2d39f03b9ec9eb559516f4a21b"
+        "sha256": "f69cc7d79df61efb36640012b5609f3fb4f8dbb511fb90d4ed187b366f34c8bc"
       },
       {
         "dimensions": {
@@ -198,7 +198,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/cp/nw-spent-2x.png",
-        "sha256": "89613b491556279ac808629908dbf54787cb49363c77ad46c257b2bfffecec6d"
+        "sha256": "0a1b862aaddf9418e5fb9cd714f7146c2f982507ecc567fecf823e8bfd13a17e"
       },
       {
         "dimensions": {
@@ -206,7 +206,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/cp/nw-spent-4x.png",
-        "sha256": "ba47ddb70a87e583c8f27021b6be0bf5f208b17a4f9ebbe98130bccbc28a2d98"
+        "sha256": "0fa0296d5b2b81029ba51c34ec508a759e12ab11c66bebf0e55353b3c1573532"
       },
       {
         "dimensions": {
@@ -214,7 +214,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/ec/nw-normal-2x.png",
-        "sha256": "12e5946bfebd018124712710a13620bcadedd59b0efd01fb65458fa74ea5fd00"
+        "sha256": "135fcbcadabbafbf2b9c47006eb6cde3141bd056c7604efda5dcf5ec137221f9"
       },
       {
         "dimensions": {
@@ -222,7 +222,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/ec/nw-normal-4x.png",
-        "sha256": "a4aa22322f0f2c9008475b35c98197b9304d3ffde011b198f2dc8d43d9a528d1"
+        "sha256": "c8dcde3535509eb46008657376a7efc30997a8e0670313abd9e106fa1b378bca"
       },
       {
         "dimensions": {
@@ -230,7 +230,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/ec/nw-spent-2x.png",
-        "sha256": "a598678c1ac9e9fee3723224b9cd84e879a64bc830a3640db048be999abfb930"
+        "sha256": "1c8b188f280ecc7c2c1ba5499e8e4636f4fd9ede9561cd6dea1daa5784c30afc"
       },
       {
         "dimensions": {
@@ -238,7 +238,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/ec/nw-spent-4x.png",
-        "sha256": "647860870838dad5f04275a659ce40dd09f92596f60ce4b943b18e0586ac5abd"
+        "sha256": "3d53d1215d8caa5bd4cdb65f35716e7b3eac14dbc640f40549875ccf8aa98d92"
       },
       {
         "dimensions": {
@@ -246,7 +246,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/neutral/nw-normal-2x.png",
-        "sha256": "680fdd7d41fc234ba840d641d2294b8e8d25db9e80d53026913959bac837b71c"
+        "sha256": "7f71852b58f0dbfd21d6680f37af6686e83251eed6e7f34a42c224e44e9e5f53"
       },
       {
         "dimensions": {
@@ -254,7 +254,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/neutral/nw-normal-4x.png",
-        "sha256": "a9d3d65986db1b4404b43005ce0bfc3ae99262797de0b55d34827d4ecf56aa6b"
+        "sha256": "77511033d335d9475cb48dbc54f09ed9dd100e46d360e7ca67c62068f272d319"
       },
       {
         "dimensions": {
@@ -262,7 +262,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/neutral/nw-spent-2x.png",
-        "sha256": "bf0ae34db562182f31a3ddf92fc20d627ca74945faf22edb99b95c1824272c61"
+        "sha256": "ac91ecc31ca15bc70c143240bd7eb08a88b2492946ece513b34c246490bbce84"
       },
       {
         "dimensions": {
@@ -270,7 +270,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/neutral/nw-spent-4x.png",
-        "sha256": "928384a00ae33d4e920da0e6ffbe546ad13043881edab3cb055d12c0e2f584dd"
+        "sha256": "7a0da457cca052c3b0b8257d692b05dc3d76190c61d301eaa3fd9d9446ca4056"
       },
       {
         "dimensions": {
@@ -310,7 +310,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/cp/sw-normal-2x.png",
-        "sha256": "7ff0c5976c92ad9f64a8a87c2eb30bb1f9728c982a28f1bbc4c163940bdb4f9d"
+        "sha256": "224b95e890efbe47c14754f65a63d4056eb647029dfedc65f20b840fee1dcb13"
       },
       {
         "dimensions": {
@@ -318,7 +318,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/cp/sw-normal-4x.png",
-        "sha256": "5e339adbca2a14c25285c0ab09e3c88ffbf663df2d1633a6f0f9598b5b7c587f"
+        "sha256": "97eb0b68105f94b52ef3cdbf6ffc3a31630b6e207a2d41130aea65e02a95e4c6"
       },
       {
         "dimensions": {
@@ -326,7 +326,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/cp/sw-spent-2x.png",
-        "sha256": "1fe5b4cc2ca9c16199780b61f2cc103ea557f7bf1f959ee30a14886a21b1af55"
+        "sha256": "98cc7035ea669fa68f08cdc635e7a0c3b194917fcaffdce38dc60647644fec3a"
       },
       {
         "dimensions": {
@@ -334,7 +334,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/cp/sw-spent-4x.png",
-        "sha256": "2c762637428f8ed860b308e8ca311f99d7e7aad4e663bc93428e190c8fc3ed94"
+        "sha256": "b9b9a32fd0e64f4d0e077750e30594af2eac30d39d7e9d685ffecf661df2886d"
       },
       {
         "dimensions": {
@@ -342,7 +342,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/ec/sw-normal-2x.png",
-        "sha256": "d558323b2fcece0b314c5e4058a25916134a2fb3bc6592a671719898ac9b5270"
+        "sha256": "173632ee6429e3220f5ba3246ac1f5b8f908b32581577f49754940f4678d260e"
       },
       {
         "dimensions": {
@@ -350,7 +350,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/ec/sw-normal-4x.png",
-        "sha256": "24cd363635c9a41bb09aa592dd481229f36cd02c868739673140d77d6262f56d"
+        "sha256": "816e5931bf6f47456e3b643ebb5a457c2b0eb36db385d1955a4a5c2f0c4a8736"
       },
       {
         "dimensions": {
@@ -358,7 +358,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/ec/sw-spent-2x.png",
-        "sha256": "1ed1cda0ae130c3de13f882a92dc0ba46b6771b19e91c0b4d6f287f0f062b49a"
+        "sha256": "9c2f777546197ded743fd0f6f9a902e12bafbf6aeeb9cc1b53b047ee60f26b31"
       },
       {
         "dimensions": {
@@ -366,7 +366,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/ec/sw-spent-4x.png",
-        "sha256": "f22c0972a4059bf3868441e188f95ddd43c191f596a216442b542a74492dd92b"
+        "sha256": "b657d7f09628001d3cc662f70bab1aa9880c797690ca7c2e9ef673a58a8cdf65"
       },
       {
         "dimensions": {
@@ -374,7 +374,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/neutral/sw-normal-2x.png",
-        "sha256": "53f8558b8e37e87ede584b0d7730638e9356d195708765a019dd409bd8a2e17b"
+        "sha256": "0a5fd8d00f278c0f69b244b9580e47ea2e98ee30901f6b06c3d9ef32ddfb43e4"
       },
       {
         "dimensions": {
@@ -382,7 +382,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/neutral/sw-normal-4x.png",
-        "sha256": "dfe1cd74d3a628f167485232b165d159a23a6b4351fc67bfc10d26cf82925cac"
+        "sha256": "eb07d0f1d6c85979ee4f192622723f8484e26c07ca75f4da919705c395594cc1"
       },
       {
         "dimensions": {
@@ -390,7 +390,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/neutral/sw-spent-2x.png",
-        "sha256": "bc22dd5a86e368521891c11872c188e58014386c41d620561e7f2ba51f9afecf"
+        "sha256": "3bebcfcc63bdcb7bb91b3e3a5f68a309c1ee72e9df9ce91ac51c8aca2e15eb9c"
       },
       {
         "dimensions": {
@@ -398,7 +398,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/neutral/sw-spent-4x.png",
-        "sha256": "a16f1adbf3ce9f846b2ed90f4d68414c84c0224f2fbf6ff027d5c4716d97ba9e"
+        "sha256": "9f35aae9167816e68158a5ad0508fba1bac9324a3e806c45055673bfb9f8f906"
       },
       {
         "dimensions": {
@@ -438,7 +438,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/cp/s-normal-2x.png",
-        "sha256": "cb02584b2c255f0ff006fe613336a6d417a815b58f7c985dd70004e0ffed7438"
+        "sha256": "421a53d9db63cbc133bf9084ee3c0bb2a3f6a0f631dc8e3a2610e310b972fefe"
       },
       {
         "dimensions": {
@@ -446,7 +446,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/cp/s-normal-4x.png",
-        "sha256": "6ac1eed6c5fb988b80c6185c8f407c43a72f668f5acc8a8d07abeca329d39a0d"
+        "sha256": "75a6bd389dd55ea29d023fdb2e158bd47a512abbd66d04fd782675eb40032caa"
       },
       {
         "dimensions": {
@@ -454,7 +454,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/cp/s-spent-2x.png",
-        "sha256": "84a07556ed5f86429cf7779f7882d9e934e885cce46b65ac62cdaa901d506041"
+        "sha256": "de47db6646aa90de357f89c9d01e6c2a66eac8392cf2fcfd109418d103478dd6"
       },
       {
         "dimensions": {
@@ -462,7 +462,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/cp/s-spent-4x.png",
-        "sha256": "75d0b6263634c8b5a054fd90fe4df6882350ebd27f223369f9a7ff35b8acb2e6"
+        "sha256": "ea7d401ffded70b7ea49e1ec17ccdbefc4e481853c029a653be4d211facaae94"
       },
       {
         "dimensions": {
@@ -470,7 +470,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/ec/s-normal-2x.png",
-        "sha256": "e2dfa44f6264b6eb0008169468e0bc88e7b3b069a3fd3decc790ecd53bef84a1"
+        "sha256": "984133eeb3f652c6fd3c558be8cff27869cfbbd7e11e6554ef0d35496aa9b998"
       },
       {
         "dimensions": {
@@ -478,7 +478,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/ec/s-normal-4x.png",
-        "sha256": "66622bcca96c8b6ed17d4ed58c96210e2ff5110f2573375618894e370da184de"
+        "sha256": "398b7637f0e6782eccc934b5eea36991a8625e8f0e108267151b42a6a3a235e3"
       },
       {
         "dimensions": {
@@ -486,7 +486,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/ec/s-spent-2x.png",
-        "sha256": "7c56e666eb9e55ef2de8df64a7590c0d7e04eb5f4a1c8d8f3c4fe640f3ab7990"
+        "sha256": "0ce3134b80a882a995b8d8632e34b05a6523891d3a63ae913d851256173252c4"
       },
       {
         "dimensions": {
@@ -494,7 +494,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/ec/s-spent-4x.png",
-        "sha256": "e1f6716c171e6fd2374bef7c2c25dcb7e01bc35c47eb5110c86f38e82aeb7efd"
+        "sha256": "d61b2e6d589d5db688b7d7d62395da225ee42b8554a23e3f3676b9a8b8d5f10f"
       },
       {
         "dimensions": {
@@ -502,7 +502,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/neutral/s-normal-2x.png",
-        "sha256": "4386f60395098cd3efe54fbab19285fda053ff3bce26ab2cb6ea96c297de57ec"
+        "sha256": "554c55531cdd00f80bb47911e88371975c5946f391bfa1fd6f7e3a29eaf45523"
       },
       {
         "dimensions": {
@@ -510,7 +510,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/neutral/s-normal-4x.png",
-        "sha256": "4c2ac17a5a0c5982ae373f7fd50d415e94ebf764e7cab40563b4fff8a55a9a5e"
+        "sha256": "291fae28646e4bc6f021b96149d30daaf0bd5ccc8400c5d5f86e93cb951aec1a"
       },
       {
         "dimensions": {
@@ -518,7 +518,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/neutral/s-spent-2x.png",
-        "sha256": "9934c47b5a8f696289965218da0e3acba29a576dfb3f9940d8ef0cf9fbc20276"
+        "sha256": "1715916036101a953a641a7e18e5e35204b1966628cd61eb36a47e922d041d57"
       },
       {
         "dimensions": {
@@ -526,7 +526,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/neutral/s-spent-4x.png",
-        "sha256": "6d1d4a7c54697665591dc36c8158633b04d92a103a85f0c92df9004b2bef0de4"
+        "sha256": "37da02845fe0efdf1604b633ea6ac430844d48370782b5725379c4a4daa00b6b"
       },
       {
         "dimensions": {
@@ -566,7 +566,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/cp/se-normal-2x.png",
-        "sha256": "4e97e8824cda84325c1985f87add8d5f594a39813319f74c27f1880565e3270d"
+        "sha256": "05d88f31d9b095ae82107a99467ae842e191024089c067ec08ae14518e42a9c0"
       },
       {
         "dimensions": {
@@ -574,7 +574,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/cp/se-normal-4x.png",
-        "sha256": "c92b7d6307b6c9a6fc633297676c1bb06c091dc6c375fbfea566f486a95cb620"
+        "sha256": "71de5cfa7a5ceda2c96bb5dcb014bb6daea9b5edeeacca09406be72e287b0eac"
       },
       {
         "dimensions": {
@@ -582,7 +582,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/cp/se-spent-2x.png",
-        "sha256": "cdf8adfe559a450c1c05b6c64551b639d1bcde185a15c1b921ee9731b4647ff8"
+        "sha256": "f0a4309b8a59b81e79ad0417e7af0464f2c33e0a77d9f61b806971f6457ab9f4"
       },
       {
         "dimensions": {
@@ -590,7 +590,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/cp/se-spent-4x.png",
-        "sha256": "a9e4e4c2f3288a0e36ac7a95b295d8f6415c8cdd05d571831dd5004d3cf6940f"
+        "sha256": "feef3044f9180a179050c0e4bf2f862a1678629404a278e8782c6a3454fc620d"
       },
       {
         "dimensions": {
@@ -598,7 +598,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/ec/se-normal-2x.png",
-        "sha256": "49f4136d8465997d474b1a700d63fa7204f9ef3dd0b16104ebb495b4a4093ab8"
+        "sha256": "d1dbdd2333635bdcf015cc810170ef0259e335a60a53e03c5c7873dabbe81144"
       },
       {
         "dimensions": {
@@ -606,7 +606,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/ec/se-normal-4x.png",
-        "sha256": "ad341770d5306552e7c12931b71b6fbc8b2d41068d288c3468192913b32d562c"
+        "sha256": "6db25cc3bb266304b18c4bfeed032b583d6eb7477c39ef7d8f4846100ce43d45"
       },
       {
         "dimensions": {
@@ -614,7 +614,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/ec/se-spent-2x.png",
-        "sha256": "a036c412a678a12c805f3275525add14ed054d3b981040c8e2dc3a186a0711dd"
+        "sha256": "2d0deed5ab25d14c355dd194d2c2a9702cbf76abb73c0e2263891c133d9149fd"
       },
       {
         "dimensions": {
@@ -622,7 +622,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/ec/se-spent-4x.png",
-        "sha256": "c3db653fc4de264d1779d9abdb21e06489e99055a86344fbf294af93a27aaa2e"
+        "sha256": "e88120f4701560b6d49ea3bbd5625d2f7704ee50f6a67e5107f5e69bb5ff9d52"
       },
       {
         "dimensions": {
@@ -630,7 +630,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/neutral/se-normal-2x.png",
-        "sha256": "ae5ad8c261ecfe61ac7728ee30c043c4050acfc2e6efb8130d84ada282e1e990"
+        "sha256": "18f02a222e6f1b3faad02f241531c6351512b4ca6e235bbc19792e7e4bba6a4d"
       },
       {
         "dimensions": {
@@ -638,7 +638,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/neutral/se-normal-4x.png",
-        "sha256": "f0f41f9f87b475715dd72a50c3921c555d9fee809fb1e0db7b0c0df1df624a6b"
+        "sha256": "12638365e0c37d9f0c20caf7f2e1ed113f34aad0bb3101e8c7165e9fd873f151"
       },
       {
         "dimensions": {
@@ -646,7 +646,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/neutral/se-spent-2x.png",
-        "sha256": "6a70ee2980d849ea9ea85e171f383276c109c1b99820347908ec01ca97e8472b"
+        "sha256": "addcbfdd26adf13160c1cd208d4b2a0ec4e423bd32a630b6010de66712452a19"
       },
       {
         "dimensions": {
@@ -654,7 +654,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/neutral/se-spent-4x.png",
-        "sha256": "44486e78867863d074faec7c9fb353dcbf1cbf4e2e671c030d96736d5b8036f2"
+        "sha256": "9869258d0434b9ecb9f2f50d4f68d87cacf4525e5db9db261b0f9ccf81f394f2"
       },
       {
         "dimensions": {
@@ -694,7 +694,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/cp/ne-normal-2x.png",
-        "sha256": "ab0331a3fb2b6808d56ed7c27b58bfef894f68da50e69f989554b7dcbf999dec"
+        "sha256": "cf4e67c583fe1b97ab6f5da2cdc495838291d9da0049e03b92a2df9a52cca079"
       },
       {
         "dimensions": {
@@ -702,7 +702,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/cp/ne-normal-4x.png",
-        "sha256": "f621940eb6ef1ffb2ec30994c086436f89cffabf50ad398579539a5a0f89fd0e"
+        "sha256": "dc436d8a86f150eed0b4c1f44e347d500f88a339e2fa2abd92068b869beb514f"
       },
       {
         "dimensions": {
@@ -710,7 +710,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/cp/ne-spent-2x.png",
-        "sha256": "608caf7dbc00eaae2ad5799398903bb6214c8569a76802639b5d85c91572f874"
+        "sha256": "851dd8855a78b6f1df5c8a064f8e7152e8e7bae773ad34992e6b535175b9dd6a"
       },
       {
         "dimensions": {
@@ -718,7 +718,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/cp/ne-spent-4x.png",
-        "sha256": "d419a311f2e436ada3ebd29558984693525b9324997c52b39bd057e16ffaae6f"
+        "sha256": "4f5f41b582c0e058174306d4585035651d641a82d47da3e80e34a14193b489fc"
       },
       {
         "dimensions": {
@@ -726,7 +726,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/ec/ne-normal-2x.png",
-        "sha256": "a84c02d1f56f9ad876aa1b3c942f02408b7ec2f8f5327096291949c13814afb5"
+        "sha256": "92de1f19ae972276b59f6aef4573a01043bad1e4daac57bc4d0f89e2b9f246f6"
       },
       {
         "dimensions": {
@@ -734,7 +734,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/ec/ne-normal-4x.png",
-        "sha256": "f2f36cb9b74d4b99fdf7d85d71593e76ba609f8c0877ef9ae1b15c4d9ce2fb5c"
+        "sha256": "c1d63e5c6eb046a71e8077d0bd54a205ab287f3b33c4ce78ad293e5e52eefb1f"
       },
       {
         "dimensions": {
@@ -742,7 +742,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/ec/ne-spent-2x.png",
-        "sha256": "6977c63a68b7e5d9f935eb1eee68b04f05f15180ab85bff845e45f1f9b94184e"
+        "sha256": "913e8ebf4fa1dcd13868014a5b6dcc5d0371f116b90696e178559110247aecb8"
       },
       {
         "dimensions": {
@@ -750,7 +750,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/ec/ne-spent-4x.png",
-        "sha256": "3ca55d9af8a6b9d415b5c6fb13ec760e2ecc9a748960a9615cc64dc9539ffdfa"
+        "sha256": "d3eea82aa7a916de07f136334f8a42f26fb706699422f227e664ea9391027a95"
       },
       {
         "dimensions": {
@@ -758,7 +758,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/neutral/ne-normal-2x.png",
-        "sha256": "655c173e14f80660ac75a9a52d1a959c5a88a8083ae2af0f5e38d30fcac74437"
+        "sha256": "3aac837b032adb48d7309a926617929d7b9dfed89c99bb166d9efc7d569c9ebe"
       },
       {
         "dimensions": {
@@ -766,7 +766,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/neutral/ne-normal-4x.png",
-        "sha256": "278c37a1ed86254de5a6e3007c961e2c98f8abc95ff90c26ccebdf3de52813ed"
+        "sha256": "e121084241522ed5350f1acdf16b58899c8fcdc23e53e6db8a0b85c409606534"
       },
       {
         "dimensions": {
@@ -774,7 +774,7 @@
           "width": 192
         },
         "path": "sprites/eliteInfantry/neutral/ne-spent-2x.png",
-        "sha256": "b41aeaefaa3cf4c2c1a58a29282721af4dbca897bacd0b283ac4c160d0a26011"
+        "sha256": "721c91505864a5cb526d76f750a3d2fdfd3e4012c298682d74006b67189ae4d1"
       },
       {
         "dimensions": {
@@ -782,7 +782,7 @@
           "width": 384
         },
         "path": "sprites/eliteInfantry/neutral/ne-spent-4x.png",
-        "sha256": "4e008d3947e4f5810c5131a5711cf8f47358c16f78282492f83e26a5ee46044e"
+        "sha256": "a2cbcfcd30f390d4887722ddafa169068faa533119dc56863e82256d66e6231d"
       },
       {
         "dimensions": {
@@ -790,7 +790,7 @@
           "width": 1152
         },
         "path": "sheets/eliteInfantry-white-2x.png",
-        "sha256": "ac4d4550f5d5839ca8c146522b0c9c4ac3cb4811cd72816ae1c42066fe78bcb1"
+        "sha256": "5db723f7d45ca3494295b4f11b1eea90b778264a2b8c0b57f27f29345690fe72"
       },
       {
         "dimensions": {
@@ -798,7 +798,7 @@
           "width": 2304
         },
         "path": "sheets/eliteInfantry-white-4x.png",
-        "sha256": "d7fd5dd49cbfd7eba48859f7c73b865561a23b7404a6cf9bd7915c62850be72f"
+        "sha256": "d4ff5ad506735215f1c59e11690e3b0cb7f0e8b0811443c9c9092d83ea20e130"
       },
       {
         "dimensions": {
@@ -806,7 +806,7 @@
           "width": 1152
         },
         "path": "sheets/eliteInfantry-checker-2x.png",
-        "sha256": "d01572c5efc2baed0cdbea3bb52ae2352b6155ea4d647a0f5371246ad19c446c"
+        "sha256": "5b86e9e0e8733efb69c5d5f2e68cf81af6b04fdd6b1d30c1d18869810a221754"
       },
       {
         "dimensions": {
@@ -814,7 +814,7 @@
           "width": 2304
         },
         "path": "sheets/eliteInfantry-checker-4x.png",
-        "sha256": "5b4584968cd653d65bfc678427a50321ad856393cf1f4e3d529131ce23804058"
+        "sha256": "08a010eb9d483511f60feecde634e236e2c827af744b67ab1b865730d2b10a2f"
       },
       {
         "dimensions": {
@@ -822,7 +822,7 @@
           "width": 476
         },
         "path": "scenes/grass-normal-p0-2x.png",
-        "sha256": "542db13108e88c1cd5eba15293caaaaebfc9a4686c0dbaa55599c103dae57afd"
+        "sha256": "d68e5b3d562fc316c03f01506d4fa406656e7e72b80b31248d4607b5ce2390de"
       },
       {
         "dimensions": {
@@ -830,7 +830,7 @@
           "width": 952
         },
         "path": "scenes/grass-normal-p0-4x.png",
-        "sha256": "eae972178c753e17d04cc8a840c6b3d4076ec93b7db1db8649d00f867f34f3dc"
+        "sha256": "2016ad4d64804c8eee76ff4dec47bd4e45e0e49b520474a68802389a0ad0ea09"
       },
       {
         "dimensions": {
@@ -838,7 +838,7 @@
           "width": 476
         },
         "path": "scenes/grass-normal-p1-2x.png",
-        "sha256": "542db13108e88c1cd5eba15293caaaaebfc9a4686c0dbaa55599c103dae57afd"
+        "sha256": "d68e5b3d562fc316c03f01506d4fa406656e7e72b80b31248d4607b5ce2390de"
       },
       {
         "dimensions": {
@@ -846,7 +846,7 @@
           "width": 952
         },
         "path": "scenes/grass-normal-p1-4x.png",
-        "sha256": "eae972178c753e17d04cc8a840c6b3d4076ec93b7db1db8649d00f867f34f3dc"
+        "sha256": "2016ad4d64804c8eee76ff4dec47bd4e45e0e49b520474a68802389a0ad0ea09"
       },
       {
         "dimensions": {
@@ -854,7 +854,7 @@
           "width": 476
         },
         "path": "scenes/grass-spent-p0-2x.png",
-        "sha256": "6227d57048d8dbe560ea493a41b4578b9fe19d0290fa5290f344017f2c70593c"
+        "sha256": "8c7222aca259bb8b5126aca8756bc3de713619c1e004f0e7d085550b1dcbbaf0"
       },
       {
         "dimensions": {
@@ -862,7 +862,7 @@
           "width": 952
         },
         "path": "scenes/grass-spent-p0-4x.png",
-        "sha256": "0aef8470fac784240d1ce86ab7e1e579fd2c9b95b51fc763b593b4176e906385"
+        "sha256": "12b1c33da9c177d1978684e8a7469a7ffe704a190c924e38dda36cd5969bc0ce"
       },
       {
         "dimensions": {
@@ -870,7 +870,7 @@
           "width": 476
         },
         "path": "scenes/grass-spent-p1-2x.png",
-        "sha256": "6227d57048d8dbe560ea493a41b4578b9fe19d0290fa5290f344017f2c70593c"
+        "sha256": "8c7222aca259bb8b5126aca8756bc3de713619c1e004f0e7d085550b1dcbbaf0"
       },
       {
         "dimensions": {
@@ -878,7 +878,7 @@
           "width": 952
         },
         "path": "scenes/grass-spent-p1-4x.png",
-        "sha256": "0aef8470fac784240d1ce86ab7e1e579fd2c9b95b51fc763b593b4176e906385"
+        "sha256": "12b1c33da9c177d1978684e8a7469a7ffe704a190c924e38dda36cd5969bc0ce"
       },
       {
         "dimensions": {
@@ -886,7 +886,7 @@
           "width": 476
         },
         "path": "scenes/grass_w-normal-p0-2x.png",
-        "sha256": "12cf4575549edcd752dd87950595c7a2d9252dbfc8e3b8167479ea2f790d0d31"
+        "sha256": "3858a728f2fc58269098e97d1d6b64b20e5c20ff484af9fa088358c002441c0a"
       },
       {
         "dimensions": {
@@ -894,7 +894,7 @@
           "width": 952
         },
         "path": "scenes/grass_w-normal-p0-4x.png",
-        "sha256": "3e4d6f36e68553d3f78b3c8a0e776451b75867f4fb26fb811377c8845549b2fe"
+        "sha256": "44434aa65673e72b0347061f950adcd3f6bf0f05b88be041c6d6d14b7ee2df39"
       },
       {
         "dimensions": {
@@ -902,7 +902,7 @@
           "width": 476
         },
         "path": "scenes/grass_w-normal-p1-2x.png",
-        "sha256": "12cf4575549edcd752dd87950595c7a2d9252dbfc8e3b8167479ea2f790d0d31"
+        "sha256": "3858a728f2fc58269098e97d1d6b64b20e5c20ff484af9fa088358c002441c0a"
       },
       {
         "dimensions": {
@@ -910,7 +910,7 @@
           "width": 952
         },
         "path": "scenes/grass_w-normal-p1-4x.png",
-        "sha256": "3e4d6f36e68553d3f78b3c8a0e776451b75867f4fb26fb811377c8845549b2fe"
+        "sha256": "44434aa65673e72b0347061f950adcd3f6bf0f05b88be041c6d6d14b7ee2df39"
       },
       {
         "dimensions": {
@@ -918,7 +918,7 @@
           "width": 476
         },
         "path": "scenes/grass_w-spent-p0-2x.png",
-        "sha256": "332305766e09e8f87c92efed6e47b89d5a072b9ed9d04cbaae6288b846d4d2fa"
+        "sha256": "d9373e3a93cdaace5ae297088dcdd2b1acf402a1518b1f9f59f19e1bc13b94e4"
       },
       {
         "dimensions": {
@@ -926,7 +926,7 @@
           "width": 952
         },
         "path": "scenes/grass_w-spent-p0-4x.png",
-        "sha256": "f51a78029ddcef5ebefc893bb680d80861ba6e1718a495496e343c6239431e33"
+        "sha256": "8fa6b2c7866336d1ea44950b9a2c76e2b1472c2e43f0b79bd02c51d9e3a146b9"
       },
       {
         "dimensions": {
@@ -934,7 +934,7 @@
           "width": 476
         },
         "path": "scenes/grass_w-spent-p1-2x.png",
-        "sha256": "332305766e09e8f87c92efed6e47b89d5a072b9ed9d04cbaae6288b846d4d2fa"
+        "sha256": "d9373e3a93cdaace5ae297088dcdd2b1acf402a1518b1f9f59f19e1bc13b94e4"
       },
       {
         "dimensions": {
@@ -942,7 +942,7 @@
           "width": 952
         },
         "path": "scenes/grass_w-spent-p1-4x.png",
-        "sha256": "f51a78029ddcef5ebefc893bb680d80861ba6e1718a495496e343c6239431e33"
+        "sha256": "8fa6b2c7866336d1ea44950b9a2c76e2b1472c2e43f0b79bd02c51d9e3a146b9"
       },
       {
         "dimensions": {
@@ -950,7 +950,7 @@
           "width": 476
         },
         "path": "scenes/mud-normal-p0-2x.png",
-        "sha256": "2d9b24d927023aec777bcdea644fb03fd51273d5dadee7ef8c7f5ad7f9db8136"
+        "sha256": "d631426979c7343ca053c6bc217c4b0cb4f59a5fd91b98803427a4a93db23b0d"
       },
       {
         "dimensions": {
@@ -958,7 +958,7 @@
           "width": 952
         },
         "path": "scenes/mud-normal-p0-4x.png",
-        "sha256": "715427ba7691f468174dbf4e220a48cc68cc013e94c66e6b08fb5fcb70952901"
+        "sha256": "97905d1210f65b8fbfd90f1ab928fd8f9d12af4abd07de66421482427eefc931"
       },
       {
         "dimensions": {
@@ -966,7 +966,7 @@
           "width": 476
         },
         "path": "scenes/mud-normal-p1-2x.png",
-        "sha256": "2d9b24d927023aec777bcdea644fb03fd51273d5dadee7ef8c7f5ad7f9db8136"
+        "sha256": "d631426979c7343ca053c6bc217c4b0cb4f59a5fd91b98803427a4a93db23b0d"
       },
       {
         "dimensions": {
@@ -974,7 +974,7 @@
           "width": 952
         },
         "path": "scenes/mud-normal-p1-4x.png",
-        "sha256": "715427ba7691f468174dbf4e220a48cc68cc013e94c66e6b08fb5fcb70952901"
+        "sha256": "97905d1210f65b8fbfd90f1ab928fd8f9d12af4abd07de66421482427eefc931"
       },
       {
         "dimensions": {
@@ -982,7 +982,7 @@
           "width": 476
         },
         "path": "scenes/mud-spent-p0-2x.png",
-        "sha256": "e4b52503bb65b141d59ca17c35a4c79d77b2d91b87e0410db7cff45a9d8f2e40"
+        "sha256": "d7d663e5b277dfccb52bb9ce3ac33c81e4812a6574d7ed861e23452e6e5725a5"
       },
       {
         "dimensions": {
@@ -990,7 +990,7 @@
           "width": 952
         },
         "path": "scenes/mud-spent-p0-4x.png",
-        "sha256": "d4f38a3d777d70db8d5a1d02320c0cb283ce939d4e345898895944ccd8ae228c"
+        "sha256": "bf2831eb3128a6ae2036ece10492adf108ea1a2130381e8fc64d8dc4d24aa729"
       },
       {
         "dimensions": {
@@ -998,7 +998,7 @@
           "width": 476
         },
         "path": "scenes/mud-spent-p1-2x.png",
-        "sha256": "e4b52503bb65b141d59ca17c35a4c79d77b2d91b87e0410db7cff45a9d8f2e40"
+        "sha256": "d7d663e5b277dfccb52bb9ce3ac33c81e4812a6574d7ed861e23452e6e5725a5"
       },
       {
         "dimensions": {
@@ -1006,7 +1006,7 @@
           "width": 952
         },
         "path": "scenes/mud-spent-p1-4x.png",
-        "sha256": "d4f38a3d777d70db8d5a1d02320c0cb283ce939d4e345898895944ccd8ae228c"
+        "sha256": "bf2831eb3128a6ae2036ece10492adf108ea1a2130381e8fc64d8dc4d24aa729"
       }
     ],
     "family": "eliteInfantry",
@@ -1690,28 +1690,28 @@
         }
       }
     },
-    "manifest_sha256": "f4ec4fea96883231df0f05841f7a8319fb3c18b718b51b291a2c1c4fbe66393a",
+    "manifest_sha256": "20ae0db4c4a917c42f1f67c6447bbe2651666ed6212d3975cc8bc5dbea784482",
     "manifest_snapshot": "manifest.json",
     "palette_selector": "Owner palette is independent of class ID/country, including captured elite infantry; no ordinary infantry alias.",
     "palettes": {
       "cp": [
-        104,
-        142,
-        83
+        205,
+        190,
+        159
       ],
       "ec": [
-        190,
-        143,
-        92
+        138,
+        164,
+        186
       ],
       "neutral": [
-        146,
-        146,
-        146
+        174,
+        174,
+        164
       ]
     },
     "physical_png_count": 131,
-    "profile": "unit-elite-infantry-v1: six authored square panels row-major N,NW,SW,S,SE,NE; class family lookup CP_eliteInf and EC_eliteInf independently selects owner cp/ec/neutral. Source straight RGB V=max(R,G,B); q=max(0,(min(R,B)-G)/max(1,V)); t=clamp((q-.02)/.08); k=t^3*(6*t^2-15*t+10); K=k*V; N_c=(1-k)*source_c+K. Round N/K half up before filtering; alpha-zero clears RGB. Base=(N_R,N_G,N_B,A), tint-energy mask=(K,K,K,A), never binary coverage. Whole-panel pixel-edge affine source anchor=(cell/2,49*cell/96), logical anchor=(48,49), top-left offset=(0,-9), inset=.8. 4x destination=(192,196)+(.8*384/cell)*(source-source_anchor); destination centers map to (d+.5-offset)/scale-.5; offset=(38.4,39.2). Unchanged compound tap budget \u003c=4,000,000 conservative full-support axis taps, checked before allocation. Transparent zero extension, normalized premultiplied float64 separable antialiased Lanczos3, signed lobes retained, positive raw alpha unpremultiply, half-up clamped RGB/A, zero-alpha clear. Independently whole-alpha-aware Lanczos3 reduce base/mask 384-\u003e192. At each density tint=halfup(clamp(N_c+K*(palette_c/255-1),0,255)), same alpha. Spent after tint is (R,R,R,A). 2x coloured sprites are composed after plane reduction, not claimed identical to downsampled coloured 4x sprites. Required six-world-pixel zero-RGBA guard, no threshold/background removal, bounding-box crops, mirrors, rotation, per-frame scaling, unit hex clipping or light rotation. Seven-cell fixtures use decoded pinned ground PNGs first and decoded exported sprite PNGs next, stable world y/x order, ordinary image/draw Over.",
+    "profile": "unit-elite-infantry-v1: six authored square panels row-major N,NW,SW,S,SE,NE; class family lookup CP_eliteInf and EC_eliteInf independently selects owner cp/ec/neutral. Source straight RGB V=max(R,G,B); q=max(0,(min(R,B)-G)/max(1,V)); t=clamp((q-.02)/.08); k=t^3*(6*t^2-15*t+10); K=k*V; N_c=(1-k)*source_c+K. Round N/K half up before filtering; alpha-zero clears RGB. Base=(N_R,N_G,N_B,A), tint-energy mask=(K,K,K,A), never binary coverage. Whole-panel pixel-edge affine source anchor=(cell/2,49*cell/96), logical anchor=(48,49), top-left offset=(0,-9), inset=manifest framing_inset or default .8, fixed across the entire atlas. 4x destination=(192,196)+(inset*384/cell)*(source-source_anchor); destination centers map to (d+.5-offset)/scale-.5; offset=(192*(1-inset),196*(1-inset)), default (38.4,39.2). Unchanged compound tap budget \u003c=4,000,000 conservative full-support axis taps, checked before allocation. Transparent zero extension, normalized premultiplied float64 separable antialiased Lanczos3, signed lobes retained, positive raw alpha unpremultiply, half-up clamped RGB/A, zero-alpha clear. Independently whole-alpha-aware Lanczos3 reduce base/mask 384-\u003e192. At each density tint=halfup(clamp(N_c+K*(palette_c/255-1),0,255)), same alpha. Spent after tint is (R,R,R,A). 2x coloured sprites are composed after plane reduction, not claimed identical to downsampled coloured 4x sprites. Default six-world-pixel zero-RGBA guard; explicit framing_inset uses an alpha\u003e=8 guard with unchanged lower-alpha fringe counts, not a strict-zero pass. No threshold/background removal, bounding-box crops, mirrors, rotation, per-frame scaling, unit hex clipping or light rotation. Seven-cell fixtures use decoded pinned ground PNGs first and decoded exported sprite PNGs next, stable world y/x order, ordinary image/draw Over.",
     "scenes": [
       {
         "absolute_line_parity": 0,
@@ -1746,7 +1746,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/neutral/n-normal-2x.png",
-              "sha256": "a90d714aad5764ef72d6ded0e14c9fd4fca8f808e0f9af85d4e403bb1f3e68ad"
+              "sha256": "a69a3eb45234a24fdb9cd8b69a5303281927df02b0aef12fd55ffc6b27af1b4d"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1785,7 +1785,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/ne-normal-2x.png",
-              "sha256": "a84c02d1f56f9ad876aa1b3c942f02408b7ec2f8f5327096291949c13814afb5"
+              "sha256": "92de1f19ae972276b59f6aef4573a01043bad1e4daac57bc4d0f89e2b9f246f6"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1824,7 +1824,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/se-normal-2x.png",
-              "sha256": "49f4136d8465997d474b1a700d63fa7204f9ef3dd0b16104ebb495b4a4093ab8"
+              "sha256": "d1dbdd2333635bdcf015cc810170ef0259e335a60a53e03c5c7873dabbe81144"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1863,7 +1863,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/cp/s-normal-2x.png",
-              "sha256": "cb02584b2c255f0ff006fe613336a6d417a815b58f7c985dd70004e0ffed7438"
+              "sha256": "421a53d9db63cbc133bf9084ee3c0bb2a3f6a0f631dc8e3a2610e310b972fefe"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1902,7 +1902,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/sw-normal-2x.png",
-              "sha256": "d558323b2fcece0b314c5e4058a25916134a2fb3bc6592a671719898ac9b5270"
+              "sha256": "173632ee6429e3220f5ba3246ac1f5b8f908b32581577f49754940f4678d260e"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1941,7 +1941,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/cp/nw-normal-2x.png",
-              "sha256": "02ff5b23dfb87a479c7cb0838bd1ad205a100bdd64fff847e971ba8ddf75ed21"
+              "sha256": "2228165ef92ad1855d2a780f2339fc85a6cb1b3e5fa65f12fb71fd0ccb00e61f"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1980,7 +1980,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/n-normal-2x.png",
-              "sha256": "e3a00ecfc9b29abf2983edcd295d47e5e0f977d82cc91480bce4c165b75fa5d1"
+              "sha256": "d0104740212b47d7eb8fe3fb0a00e1b3462bff260fc3e44b60700d0dab3b04d6"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2011,7 +2011,7 @@
             "width": 476
           },
           "path": "scenes/grass-normal-p0-2x.png",
-          "sha256": "542db13108e88c1cd5eba15293caaaaebfc9a4686c0dbaa55599c103dae57afd"
+          "sha256": "d68e5b3d562fc316c03f01506d4fa406656e7e72b80b31248d4607b5ce2390de"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -2049,7 +2049,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/neutral/n-normal-4x.png",
-              "sha256": "e5da01a60e6d366707108a14892ba74ae58834a36aec2c4f89db05585e5835fc"
+              "sha256": "0aea6fde0e508027fb8d1af05317c19bc1678a7abc854ae90ff979d5a08f3b17"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2088,7 +2088,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/ne-normal-4x.png",
-              "sha256": "f2f36cb9b74d4b99fdf7d85d71593e76ba609f8c0877ef9ae1b15c4d9ce2fb5c"
+              "sha256": "c1d63e5c6eb046a71e8077d0bd54a205ab287f3b33c4ce78ad293e5e52eefb1f"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2127,7 +2127,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/se-normal-4x.png",
-              "sha256": "ad341770d5306552e7c12931b71b6fbc8b2d41068d288c3468192913b32d562c"
+              "sha256": "6db25cc3bb266304b18c4bfeed032b583d6eb7477c39ef7d8f4846100ce43d45"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2166,7 +2166,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/cp/s-normal-4x.png",
-              "sha256": "6ac1eed6c5fb988b80c6185c8f407c43a72f668f5acc8a8d07abeca329d39a0d"
+              "sha256": "75a6bd389dd55ea29d023fdb2e158bd47a512abbd66d04fd782675eb40032caa"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2205,7 +2205,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/sw-normal-4x.png",
-              "sha256": "24cd363635c9a41bb09aa592dd481229f36cd02c868739673140d77d6262f56d"
+              "sha256": "816e5931bf6f47456e3b643ebb5a457c2b0eb36db385d1955a4a5c2f0c4a8736"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2244,7 +2244,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/cp/nw-normal-4x.png",
-              "sha256": "d6a56310890256ddae333fb0d3412f1023e1de2d39f03b9ec9eb559516f4a21b"
+              "sha256": "f69cc7d79df61efb36640012b5609f3fb4f8dbb511fb90d4ed187b366f34c8bc"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2283,7 +2283,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/n-normal-4x.png",
-              "sha256": "98c3ed68cf90a4927d4f83dd9d8d2e319faa027e0aec828150a08eb120919d95"
+              "sha256": "56815d4ee9472adfb9878358b43a40a4927a4def77a54366f688cae32be44a95"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2314,7 +2314,7 @@
             "width": 952
           },
           "path": "scenes/grass-normal-p0-4x.png",
-          "sha256": "eae972178c753e17d04cc8a840c6b3d4076ec93b7db1db8649d00f867f34f3dc"
+          "sha256": "2016ad4d64804c8eee76ff4dec47bd4e45e0e49b520474a68802389a0ad0ea09"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -2352,7 +2352,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/neutral/n-normal-2x.png",
-              "sha256": "a90d714aad5764ef72d6ded0e14c9fd4fca8f808e0f9af85d4e403bb1f3e68ad"
+              "sha256": "a69a3eb45234a24fdb9cd8b69a5303281927df02b0aef12fd55ffc6b27af1b4d"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2391,7 +2391,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/ne-normal-2x.png",
-              "sha256": "a84c02d1f56f9ad876aa1b3c942f02408b7ec2f8f5327096291949c13814afb5"
+              "sha256": "92de1f19ae972276b59f6aef4573a01043bad1e4daac57bc4d0f89e2b9f246f6"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2430,7 +2430,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/se-normal-2x.png",
-              "sha256": "49f4136d8465997d474b1a700d63fa7204f9ef3dd0b16104ebb495b4a4093ab8"
+              "sha256": "d1dbdd2333635bdcf015cc810170ef0259e335a60a53e03c5c7873dabbe81144"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2469,7 +2469,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/cp/s-normal-2x.png",
-              "sha256": "cb02584b2c255f0ff006fe613336a6d417a815b58f7c985dd70004e0ffed7438"
+              "sha256": "421a53d9db63cbc133bf9084ee3c0bb2a3f6a0f631dc8e3a2610e310b972fefe"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2508,7 +2508,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/sw-normal-2x.png",
-              "sha256": "d558323b2fcece0b314c5e4058a25916134a2fb3bc6592a671719898ac9b5270"
+              "sha256": "173632ee6429e3220f5ba3246ac1f5b8f908b32581577f49754940f4678d260e"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2547,7 +2547,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/cp/nw-normal-2x.png",
-              "sha256": "02ff5b23dfb87a479c7cb0838bd1ad205a100bdd64fff847e971ba8ddf75ed21"
+              "sha256": "2228165ef92ad1855d2a780f2339fc85a6cb1b3e5fa65f12fb71fd0ccb00e61f"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2586,7 +2586,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/n-normal-2x.png",
-              "sha256": "e3a00ecfc9b29abf2983edcd295d47e5e0f977d82cc91480bce4c165b75fa5d1"
+              "sha256": "d0104740212b47d7eb8fe3fb0a00e1b3462bff260fc3e44b60700d0dab3b04d6"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2617,7 +2617,7 @@
             "width": 476
           },
           "path": "scenes/grass-normal-p1-2x.png",
-          "sha256": "542db13108e88c1cd5eba15293caaaaebfc9a4686c0dbaa55599c103dae57afd"
+          "sha256": "d68e5b3d562fc316c03f01506d4fa406656e7e72b80b31248d4607b5ce2390de"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -2655,7 +2655,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/neutral/n-normal-4x.png",
-              "sha256": "e5da01a60e6d366707108a14892ba74ae58834a36aec2c4f89db05585e5835fc"
+              "sha256": "0aea6fde0e508027fb8d1af05317c19bc1678a7abc854ae90ff979d5a08f3b17"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2694,7 +2694,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/ne-normal-4x.png",
-              "sha256": "f2f36cb9b74d4b99fdf7d85d71593e76ba609f8c0877ef9ae1b15c4d9ce2fb5c"
+              "sha256": "c1d63e5c6eb046a71e8077d0bd54a205ab287f3b33c4ce78ad293e5e52eefb1f"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2733,7 +2733,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/se-normal-4x.png",
-              "sha256": "ad341770d5306552e7c12931b71b6fbc8b2d41068d288c3468192913b32d562c"
+              "sha256": "6db25cc3bb266304b18c4bfeed032b583d6eb7477c39ef7d8f4846100ce43d45"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2772,7 +2772,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/cp/s-normal-4x.png",
-              "sha256": "6ac1eed6c5fb988b80c6185c8f407c43a72f668f5acc8a8d07abeca329d39a0d"
+              "sha256": "75a6bd389dd55ea29d023fdb2e158bd47a512abbd66d04fd782675eb40032caa"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2811,7 +2811,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/sw-normal-4x.png",
-              "sha256": "24cd363635c9a41bb09aa592dd481229f36cd02c868739673140d77d6262f56d"
+              "sha256": "816e5931bf6f47456e3b643ebb5a457c2b0eb36db385d1955a4a5c2f0c4a8736"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2850,7 +2850,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/cp/nw-normal-4x.png",
-              "sha256": "d6a56310890256ddae333fb0d3412f1023e1de2d39f03b9ec9eb559516f4a21b"
+              "sha256": "f69cc7d79df61efb36640012b5609f3fb4f8dbb511fb90d4ed187b366f34c8bc"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2889,7 +2889,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/n-normal-4x.png",
-              "sha256": "98c3ed68cf90a4927d4f83dd9d8d2e319faa027e0aec828150a08eb120919d95"
+              "sha256": "56815d4ee9472adfb9878358b43a40a4927a4def77a54366f688cae32be44a95"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2920,7 +2920,7 @@
             "width": 952
           },
           "path": "scenes/grass-normal-p1-4x.png",
-          "sha256": "eae972178c753e17d04cc8a840c6b3d4076ec93b7db1db8649d00f867f34f3dc"
+          "sha256": "2016ad4d64804c8eee76ff4dec47bd4e45e0e49b520474a68802389a0ad0ea09"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -2958,7 +2958,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/neutral/n-spent-2x.png",
-              "sha256": "0ffa835b852d32477f027faa5b590e023471260ed865515bc3882d22e328acbb"
+              "sha256": "948bcab5457c98980eca2722eb121ea6323c0123dba7c849df8d246767a3bc7f"
             },
             "state": "spent",
             "terrain": "grass",
@@ -2997,7 +2997,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/ne-spent-2x.png",
-              "sha256": "6977c63a68b7e5d9f935eb1eee68b04f05f15180ab85bff845e45f1f9b94184e"
+              "sha256": "913e8ebf4fa1dcd13868014a5b6dcc5d0371f116b90696e178559110247aecb8"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3036,7 +3036,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/se-spent-2x.png",
-              "sha256": "a036c412a678a12c805f3275525add14ed054d3b981040c8e2dc3a186a0711dd"
+              "sha256": "2d0deed5ab25d14c355dd194d2c2a9702cbf76abb73c0e2263891c133d9149fd"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3075,7 +3075,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/cp/s-spent-2x.png",
-              "sha256": "84a07556ed5f86429cf7779f7882d9e934e885cce46b65ac62cdaa901d506041"
+              "sha256": "de47db6646aa90de357f89c9d01e6c2a66eac8392cf2fcfd109418d103478dd6"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3114,7 +3114,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/sw-spent-2x.png",
-              "sha256": "1ed1cda0ae130c3de13f882a92dc0ba46b6771b19e91c0b4d6f287f0f062b49a"
+              "sha256": "9c2f777546197ded743fd0f6f9a902e12bafbf6aeeb9cc1b53b047ee60f26b31"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3153,7 +3153,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/cp/nw-spent-2x.png",
-              "sha256": "89613b491556279ac808629908dbf54787cb49363c77ad46c257b2bfffecec6d"
+              "sha256": "0a1b862aaddf9418e5fb9cd714f7146c2f982507ecc567fecf823e8bfd13a17e"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3192,7 +3192,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/n-spent-2x.png",
-              "sha256": "ba9a8ad0e1191f25a5bae3aa5ccfc4e4059dee115c59333cffa81eb0de46606c"
+              "sha256": "94f73c0f44e58019ea0d0ba19769a0b89692bde80e0bb46f2fe0603103d82f68"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3223,7 +3223,7 @@
             "width": 476
           },
           "path": "scenes/grass-spent-p0-2x.png",
-          "sha256": "6227d57048d8dbe560ea493a41b4578b9fe19d0290fa5290f344017f2c70593c"
+          "sha256": "8c7222aca259bb8b5126aca8756bc3de713619c1e004f0e7d085550b1dcbbaf0"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -3261,7 +3261,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/neutral/n-spent-4x.png",
-              "sha256": "390d00fa4826778d9157a84c7b3eb0c209499692754ab1938d13423a324f776b"
+              "sha256": "88a9e29387466539938042bfa6c5550b85af35a0bb85f365e92dcf77135725ea"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3300,7 +3300,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/ne-spent-4x.png",
-              "sha256": "3ca55d9af8a6b9d415b5c6fb13ec760e2ecc9a748960a9615cc64dc9539ffdfa"
+              "sha256": "d3eea82aa7a916de07f136334f8a42f26fb706699422f227e664ea9391027a95"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3339,7 +3339,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/se-spent-4x.png",
-              "sha256": "c3db653fc4de264d1779d9abdb21e06489e99055a86344fbf294af93a27aaa2e"
+              "sha256": "e88120f4701560b6d49ea3bbd5625d2f7704ee50f6a67e5107f5e69bb5ff9d52"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3378,7 +3378,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/cp/s-spent-4x.png",
-              "sha256": "75d0b6263634c8b5a054fd90fe4df6882350ebd27f223369f9a7ff35b8acb2e6"
+              "sha256": "ea7d401ffded70b7ea49e1ec17ccdbefc4e481853c029a653be4d211facaae94"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3417,7 +3417,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/sw-spent-4x.png",
-              "sha256": "f22c0972a4059bf3868441e188f95ddd43c191f596a216442b542a74492dd92b"
+              "sha256": "b657d7f09628001d3cc662f70bab1aa9880c797690ca7c2e9ef673a58a8cdf65"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3456,7 +3456,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/cp/nw-spent-4x.png",
-              "sha256": "ba47ddb70a87e583c8f27021b6be0bf5f208b17a4f9ebbe98130bccbc28a2d98"
+              "sha256": "0fa0296d5b2b81029ba51c34ec508a759e12ab11c66bebf0e55353b3c1573532"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3495,7 +3495,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/n-spent-4x.png",
-              "sha256": "59950e1065ff0055a2452abe4abe30102bd627aa42c201995534bd954bc65752"
+              "sha256": "9526283ad7b492dce6ab8f876219ef8e6b6e010f3ef4bbb45ee913cd549112de"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3526,7 +3526,7 @@
             "width": 952
           },
           "path": "scenes/grass-spent-p0-4x.png",
-          "sha256": "0aef8470fac784240d1ce86ab7e1e579fd2c9b95b51fc763b593b4176e906385"
+          "sha256": "12b1c33da9c177d1978684e8a7469a7ffe704a190c924e38dda36cd5969bc0ce"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -3564,7 +3564,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/neutral/n-spent-2x.png",
-              "sha256": "0ffa835b852d32477f027faa5b590e023471260ed865515bc3882d22e328acbb"
+              "sha256": "948bcab5457c98980eca2722eb121ea6323c0123dba7c849df8d246767a3bc7f"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3603,7 +3603,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/ne-spent-2x.png",
-              "sha256": "6977c63a68b7e5d9f935eb1eee68b04f05f15180ab85bff845e45f1f9b94184e"
+              "sha256": "913e8ebf4fa1dcd13868014a5b6dcc5d0371f116b90696e178559110247aecb8"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3642,7 +3642,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/se-spent-2x.png",
-              "sha256": "a036c412a678a12c805f3275525add14ed054d3b981040c8e2dc3a186a0711dd"
+              "sha256": "2d0deed5ab25d14c355dd194d2c2a9702cbf76abb73c0e2263891c133d9149fd"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3681,7 +3681,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/cp/s-spent-2x.png",
-              "sha256": "84a07556ed5f86429cf7779f7882d9e934e885cce46b65ac62cdaa901d506041"
+              "sha256": "de47db6646aa90de357f89c9d01e6c2a66eac8392cf2fcfd109418d103478dd6"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3720,7 +3720,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/sw-spent-2x.png",
-              "sha256": "1ed1cda0ae130c3de13f882a92dc0ba46b6771b19e91c0b4d6f287f0f062b49a"
+              "sha256": "9c2f777546197ded743fd0f6f9a902e12bafbf6aeeb9cc1b53b047ee60f26b31"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3759,7 +3759,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/cp/nw-spent-2x.png",
-              "sha256": "89613b491556279ac808629908dbf54787cb49363c77ad46c257b2bfffecec6d"
+              "sha256": "0a1b862aaddf9418e5fb9cd714f7146c2f982507ecc567fecf823e8bfd13a17e"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3798,7 +3798,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/n-spent-2x.png",
-              "sha256": "ba9a8ad0e1191f25a5bae3aa5ccfc4e4059dee115c59333cffa81eb0de46606c"
+              "sha256": "94f73c0f44e58019ea0d0ba19769a0b89692bde80e0bb46f2fe0603103d82f68"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3829,7 +3829,7 @@
             "width": 476
           },
           "path": "scenes/grass-spent-p1-2x.png",
-          "sha256": "6227d57048d8dbe560ea493a41b4578b9fe19d0290fa5290f344017f2c70593c"
+          "sha256": "8c7222aca259bb8b5126aca8756bc3de713619c1e004f0e7d085550b1dcbbaf0"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -3867,7 +3867,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/neutral/n-spent-4x.png",
-              "sha256": "390d00fa4826778d9157a84c7b3eb0c209499692754ab1938d13423a324f776b"
+              "sha256": "88a9e29387466539938042bfa6c5550b85af35a0bb85f365e92dcf77135725ea"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3906,7 +3906,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/ne-spent-4x.png",
-              "sha256": "3ca55d9af8a6b9d415b5c6fb13ec760e2ecc9a748960a9615cc64dc9539ffdfa"
+              "sha256": "d3eea82aa7a916de07f136334f8a42f26fb706699422f227e664ea9391027a95"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3945,7 +3945,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/se-spent-4x.png",
-              "sha256": "c3db653fc4de264d1779d9abdb21e06489e99055a86344fbf294af93a27aaa2e"
+              "sha256": "e88120f4701560b6d49ea3bbd5625d2f7704ee50f6a67e5107f5e69bb5ff9d52"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3984,7 +3984,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/cp/s-spent-4x.png",
-              "sha256": "75d0b6263634c8b5a054fd90fe4df6882350ebd27f223369f9a7ff35b8acb2e6"
+              "sha256": "ea7d401ffded70b7ea49e1ec17ccdbefc4e481853c029a653be4d211facaae94"
             },
             "state": "spent",
             "terrain": "grass",
@@ -4023,7 +4023,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/sw-spent-4x.png",
-              "sha256": "f22c0972a4059bf3868441e188f95ddd43c191f596a216442b542a74492dd92b"
+              "sha256": "b657d7f09628001d3cc662f70bab1aa9880c797690ca7c2e9ef673a58a8cdf65"
             },
             "state": "spent",
             "terrain": "grass",
@@ -4062,7 +4062,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/cp/nw-spent-4x.png",
-              "sha256": "ba47ddb70a87e583c8f27021b6be0bf5f208b17a4f9ebbe98130bccbc28a2d98"
+              "sha256": "0fa0296d5b2b81029ba51c34ec508a759e12ab11c66bebf0e55353b3c1573532"
             },
             "state": "spent",
             "terrain": "grass",
@@ -4101,7 +4101,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/n-spent-4x.png",
-              "sha256": "59950e1065ff0055a2452abe4abe30102bd627aa42c201995534bd954bc65752"
+              "sha256": "9526283ad7b492dce6ab8f876219ef8e6b6e010f3ef4bbb45ee913cd549112de"
             },
             "state": "spent",
             "terrain": "grass",
@@ -4132,7 +4132,7 @@
             "width": 952
           },
           "path": "scenes/grass-spent-p1-4x.png",
-          "sha256": "0aef8470fac784240d1ce86ab7e1e579fd2c9b95b51fc763b593b4176e906385"
+          "sha256": "12b1c33da9c177d1978684e8a7469a7ffe704a190c924e38dda36cd5969bc0ce"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -4170,7 +4170,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/neutral/n-normal-2x.png",
-              "sha256": "a90d714aad5764ef72d6ded0e14c9fd4fca8f808e0f9af85d4e403bb1f3e68ad"
+              "sha256": "a69a3eb45234a24fdb9cd8b69a5303281927df02b0aef12fd55ffc6b27af1b4d"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4209,7 +4209,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/ne-normal-2x.png",
-              "sha256": "a84c02d1f56f9ad876aa1b3c942f02408b7ec2f8f5327096291949c13814afb5"
+              "sha256": "92de1f19ae972276b59f6aef4573a01043bad1e4daac57bc4d0f89e2b9f246f6"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4248,7 +4248,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/se-normal-2x.png",
-              "sha256": "49f4136d8465997d474b1a700d63fa7204f9ef3dd0b16104ebb495b4a4093ab8"
+              "sha256": "d1dbdd2333635bdcf015cc810170ef0259e335a60a53e03c5c7873dabbe81144"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4287,7 +4287,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/cp/s-normal-2x.png",
-              "sha256": "cb02584b2c255f0ff006fe613336a6d417a815b58f7c985dd70004e0ffed7438"
+              "sha256": "421a53d9db63cbc133bf9084ee3c0bb2a3f6a0f631dc8e3a2610e310b972fefe"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4326,7 +4326,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/sw-normal-2x.png",
-              "sha256": "d558323b2fcece0b314c5e4058a25916134a2fb3bc6592a671719898ac9b5270"
+              "sha256": "173632ee6429e3220f5ba3246ac1f5b8f908b32581577f49754940f4678d260e"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4365,7 +4365,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/cp/nw-normal-2x.png",
-              "sha256": "02ff5b23dfb87a479c7cb0838bd1ad205a100bdd64fff847e971ba8ddf75ed21"
+              "sha256": "2228165ef92ad1855d2a780f2339fc85a6cb1b3e5fa65f12fb71fd0ccb00e61f"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4404,7 +4404,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/n-normal-2x.png",
-              "sha256": "e3a00ecfc9b29abf2983edcd295d47e5e0f977d82cc91480bce4c165b75fa5d1"
+              "sha256": "d0104740212b47d7eb8fe3fb0a00e1b3462bff260fc3e44b60700d0dab3b04d6"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4435,7 +4435,7 @@
             "width": 476
           },
           "path": "scenes/grass_w-normal-p0-2x.png",
-          "sha256": "12cf4575549edcd752dd87950595c7a2d9252dbfc8e3b8167479ea2f790d0d31"
+          "sha256": "3858a728f2fc58269098e97d1d6b64b20e5c20ff484af9fa088358c002441c0a"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -4473,7 +4473,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/neutral/n-normal-4x.png",
-              "sha256": "e5da01a60e6d366707108a14892ba74ae58834a36aec2c4f89db05585e5835fc"
+              "sha256": "0aea6fde0e508027fb8d1af05317c19bc1678a7abc854ae90ff979d5a08f3b17"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4512,7 +4512,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/ne-normal-4x.png",
-              "sha256": "f2f36cb9b74d4b99fdf7d85d71593e76ba609f8c0877ef9ae1b15c4d9ce2fb5c"
+              "sha256": "c1d63e5c6eb046a71e8077d0bd54a205ab287f3b33c4ce78ad293e5e52eefb1f"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4551,7 +4551,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/se-normal-4x.png",
-              "sha256": "ad341770d5306552e7c12931b71b6fbc8b2d41068d288c3468192913b32d562c"
+              "sha256": "6db25cc3bb266304b18c4bfeed032b583d6eb7477c39ef7d8f4846100ce43d45"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4590,7 +4590,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/cp/s-normal-4x.png",
-              "sha256": "6ac1eed6c5fb988b80c6185c8f407c43a72f668f5acc8a8d07abeca329d39a0d"
+              "sha256": "75a6bd389dd55ea29d023fdb2e158bd47a512abbd66d04fd782675eb40032caa"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4629,7 +4629,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/sw-normal-4x.png",
-              "sha256": "24cd363635c9a41bb09aa592dd481229f36cd02c868739673140d77d6262f56d"
+              "sha256": "816e5931bf6f47456e3b643ebb5a457c2b0eb36db385d1955a4a5c2f0c4a8736"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4668,7 +4668,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/cp/nw-normal-4x.png",
-              "sha256": "d6a56310890256ddae333fb0d3412f1023e1de2d39f03b9ec9eb559516f4a21b"
+              "sha256": "f69cc7d79df61efb36640012b5609f3fb4f8dbb511fb90d4ed187b366f34c8bc"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4707,7 +4707,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/n-normal-4x.png",
-              "sha256": "98c3ed68cf90a4927d4f83dd9d8d2e319faa027e0aec828150a08eb120919d95"
+              "sha256": "56815d4ee9472adfb9878358b43a40a4927a4def77a54366f688cae32be44a95"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4738,7 +4738,7 @@
             "width": 952
           },
           "path": "scenes/grass_w-normal-p0-4x.png",
-          "sha256": "3e4d6f36e68553d3f78b3c8a0e776451b75867f4fb26fb811377c8845549b2fe"
+          "sha256": "44434aa65673e72b0347061f950adcd3f6bf0f05b88be041c6d6d14b7ee2df39"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -4776,7 +4776,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/neutral/n-normal-2x.png",
-              "sha256": "a90d714aad5764ef72d6ded0e14c9fd4fca8f808e0f9af85d4e403bb1f3e68ad"
+              "sha256": "a69a3eb45234a24fdb9cd8b69a5303281927df02b0aef12fd55ffc6b27af1b4d"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4815,7 +4815,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/ne-normal-2x.png",
-              "sha256": "a84c02d1f56f9ad876aa1b3c942f02408b7ec2f8f5327096291949c13814afb5"
+              "sha256": "92de1f19ae972276b59f6aef4573a01043bad1e4daac57bc4d0f89e2b9f246f6"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4854,7 +4854,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/se-normal-2x.png",
-              "sha256": "49f4136d8465997d474b1a700d63fa7204f9ef3dd0b16104ebb495b4a4093ab8"
+              "sha256": "d1dbdd2333635bdcf015cc810170ef0259e335a60a53e03c5c7873dabbe81144"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4893,7 +4893,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/cp/s-normal-2x.png",
-              "sha256": "cb02584b2c255f0ff006fe613336a6d417a815b58f7c985dd70004e0ffed7438"
+              "sha256": "421a53d9db63cbc133bf9084ee3c0bb2a3f6a0f631dc8e3a2610e310b972fefe"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4932,7 +4932,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/sw-normal-2x.png",
-              "sha256": "d558323b2fcece0b314c5e4058a25916134a2fb3bc6592a671719898ac9b5270"
+              "sha256": "173632ee6429e3220f5ba3246ac1f5b8f908b32581577f49754940f4678d260e"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4971,7 +4971,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/cp/nw-normal-2x.png",
-              "sha256": "02ff5b23dfb87a479c7cb0838bd1ad205a100bdd64fff847e971ba8ddf75ed21"
+              "sha256": "2228165ef92ad1855d2a780f2339fc85a6cb1b3e5fa65f12fb71fd0ccb00e61f"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5010,7 +5010,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/n-normal-2x.png",
-              "sha256": "e3a00ecfc9b29abf2983edcd295d47e5e0f977d82cc91480bce4c165b75fa5d1"
+              "sha256": "d0104740212b47d7eb8fe3fb0a00e1b3462bff260fc3e44b60700d0dab3b04d6"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5041,7 +5041,7 @@
             "width": 476
           },
           "path": "scenes/grass_w-normal-p1-2x.png",
-          "sha256": "12cf4575549edcd752dd87950595c7a2d9252dbfc8e3b8167479ea2f790d0d31"
+          "sha256": "3858a728f2fc58269098e97d1d6b64b20e5c20ff484af9fa088358c002441c0a"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -5079,7 +5079,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/neutral/n-normal-4x.png",
-              "sha256": "e5da01a60e6d366707108a14892ba74ae58834a36aec2c4f89db05585e5835fc"
+              "sha256": "0aea6fde0e508027fb8d1af05317c19bc1678a7abc854ae90ff979d5a08f3b17"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5118,7 +5118,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/ne-normal-4x.png",
-              "sha256": "f2f36cb9b74d4b99fdf7d85d71593e76ba609f8c0877ef9ae1b15c4d9ce2fb5c"
+              "sha256": "c1d63e5c6eb046a71e8077d0bd54a205ab287f3b33c4ce78ad293e5e52eefb1f"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5157,7 +5157,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/se-normal-4x.png",
-              "sha256": "ad341770d5306552e7c12931b71b6fbc8b2d41068d288c3468192913b32d562c"
+              "sha256": "6db25cc3bb266304b18c4bfeed032b583d6eb7477c39ef7d8f4846100ce43d45"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5196,7 +5196,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/cp/s-normal-4x.png",
-              "sha256": "6ac1eed6c5fb988b80c6185c8f407c43a72f668f5acc8a8d07abeca329d39a0d"
+              "sha256": "75a6bd389dd55ea29d023fdb2e158bd47a512abbd66d04fd782675eb40032caa"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5235,7 +5235,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/sw-normal-4x.png",
-              "sha256": "24cd363635c9a41bb09aa592dd481229f36cd02c868739673140d77d6262f56d"
+              "sha256": "816e5931bf6f47456e3b643ebb5a457c2b0eb36db385d1955a4a5c2f0c4a8736"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5274,7 +5274,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/cp/nw-normal-4x.png",
-              "sha256": "d6a56310890256ddae333fb0d3412f1023e1de2d39f03b9ec9eb559516f4a21b"
+              "sha256": "f69cc7d79df61efb36640012b5609f3fb4f8dbb511fb90d4ed187b366f34c8bc"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5313,7 +5313,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/n-normal-4x.png",
-              "sha256": "98c3ed68cf90a4927d4f83dd9d8d2e319faa027e0aec828150a08eb120919d95"
+              "sha256": "56815d4ee9472adfb9878358b43a40a4927a4def77a54366f688cae32be44a95"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5344,7 +5344,7 @@
             "width": 952
           },
           "path": "scenes/grass_w-normal-p1-4x.png",
-          "sha256": "3e4d6f36e68553d3f78b3c8a0e776451b75867f4fb26fb811377c8845549b2fe"
+          "sha256": "44434aa65673e72b0347061f950adcd3f6bf0f05b88be041c6d6d14b7ee2df39"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -5382,7 +5382,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/neutral/n-spent-2x.png",
-              "sha256": "0ffa835b852d32477f027faa5b590e023471260ed865515bc3882d22e328acbb"
+              "sha256": "948bcab5457c98980eca2722eb121ea6323c0123dba7c849df8d246767a3bc7f"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5421,7 +5421,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/ne-spent-2x.png",
-              "sha256": "6977c63a68b7e5d9f935eb1eee68b04f05f15180ab85bff845e45f1f9b94184e"
+              "sha256": "913e8ebf4fa1dcd13868014a5b6dcc5d0371f116b90696e178559110247aecb8"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5460,7 +5460,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/se-spent-2x.png",
-              "sha256": "a036c412a678a12c805f3275525add14ed054d3b981040c8e2dc3a186a0711dd"
+              "sha256": "2d0deed5ab25d14c355dd194d2c2a9702cbf76abb73c0e2263891c133d9149fd"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5499,7 +5499,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/cp/s-spent-2x.png",
-              "sha256": "84a07556ed5f86429cf7779f7882d9e934e885cce46b65ac62cdaa901d506041"
+              "sha256": "de47db6646aa90de357f89c9d01e6c2a66eac8392cf2fcfd109418d103478dd6"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5538,7 +5538,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/sw-spent-2x.png",
-              "sha256": "1ed1cda0ae130c3de13f882a92dc0ba46b6771b19e91c0b4d6f287f0f062b49a"
+              "sha256": "9c2f777546197ded743fd0f6f9a902e12bafbf6aeeb9cc1b53b047ee60f26b31"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5577,7 +5577,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/cp/nw-spent-2x.png",
-              "sha256": "89613b491556279ac808629908dbf54787cb49363c77ad46c257b2bfffecec6d"
+              "sha256": "0a1b862aaddf9418e5fb9cd714f7146c2f982507ecc567fecf823e8bfd13a17e"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5616,7 +5616,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/n-spent-2x.png",
-              "sha256": "ba9a8ad0e1191f25a5bae3aa5ccfc4e4059dee115c59333cffa81eb0de46606c"
+              "sha256": "94f73c0f44e58019ea0d0ba19769a0b89692bde80e0bb46f2fe0603103d82f68"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5647,7 +5647,7 @@
             "width": 476
           },
           "path": "scenes/grass_w-spent-p0-2x.png",
-          "sha256": "332305766e09e8f87c92efed6e47b89d5a072b9ed9d04cbaae6288b846d4d2fa"
+          "sha256": "d9373e3a93cdaace5ae297088dcdd2b1acf402a1518b1f9f59f19e1bc13b94e4"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -5685,7 +5685,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/neutral/n-spent-4x.png",
-              "sha256": "390d00fa4826778d9157a84c7b3eb0c209499692754ab1938d13423a324f776b"
+              "sha256": "88a9e29387466539938042bfa6c5550b85af35a0bb85f365e92dcf77135725ea"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5724,7 +5724,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/ne-spent-4x.png",
-              "sha256": "3ca55d9af8a6b9d415b5c6fb13ec760e2ecc9a748960a9615cc64dc9539ffdfa"
+              "sha256": "d3eea82aa7a916de07f136334f8a42f26fb706699422f227e664ea9391027a95"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5763,7 +5763,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/se-spent-4x.png",
-              "sha256": "c3db653fc4de264d1779d9abdb21e06489e99055a86344fbf294af93a27aaa2e"
+              "sha256": "e88120f4701560b6d49ea3bbd5625d2f7704ee50f6a67e5107f5e69bb5ff9d52"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5802,7 +5802,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/cp/s-spent-4x.png",
-              "sha256": "75d0b6263634c8b5a054fd90fe4df6882350ebd27f223369f9a7ff35b8acb2e6"
+              "sha256": "ea7d401ffded70b7ea49e1ec17ccdbefc4e481853c029a653be4d211facaae94"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5841,7 +5841,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/sw-spent-4x.png",
-              "sha256": "f22c0972a4059bf3868441e188f95ddd43c191f596a216442b542a74492dd92b"
+              "sha256": "b657d7f09628001d3cc662f70bab1aa9880c797690ca7c2e9ef673a58a8cdf65"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5880,7 +5880,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/cp/nw-spent-4x.png",
-              "sha256": "ba47ddb70a87e583c8f27021b6be0bf5f208b17a4f9ebbe98130bccbc28a2d98"
+              "sha256": "0fa0296d5b2b81029ba51c34ec508a759e12ab11c66bebf0e55353b3c1573532"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5919,7 +5919,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/n-spent-4x.png",
-              "sha256": "59950e1065ff0055a2452abe4abe30102bd627aa42c201995534bd954bc65752"
+              "sha256": "9526283ad7b492dce6ab8f876219ef8e6b6e010f3ef4bbb45ee913cd549112de"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5950,7 +5950,7 @@
             "width": 952
           },
           "path": "scenes/grass_w-spent-p0-4x.png",
-          "sha256": "f51a78029ddcef5ebefc893bb680d80861ba6e1718a495496e343c6239431e33"
+          "sha256": "8fa6b2c7866336d1ea44950b9a2c76e2b1472c2e43f0b79bd02c51d9e3a146b9"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -5988,7 +5988,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/neutral/n-spent-2x.png",
-              "sha256": "0ffa835b852d32477f027faa5b590e023471260ed865515bc3882d22e328acbb"
+              "sha256": "948bcab5457c98980eca2722eb121ea6323c0123dba7c849df8d246767a3bc7f"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6027,7 +6027,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/ne-spent-2x.png",
-              "sha256": "6977c63a68b7e5d9f935eb1eee68b04f05f15180ab85bff845e45f1f9b94184e"
+              "sha256": "913e8ebf4fa1dcd13868014a5b6dcc5d0371f116b90696e178559110247aecb8"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6066,7 +6066,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/se-spent-2x.png",
-              "sha256": "a036c412a678a12c805f3275525add14ed054d3b981040c8e2dc3a186a0711dd"
+              "sha256": "2d0deed5ab25d14c355dd194d2c2a9702cbf76abb73c0e2263891c133d9149fd"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6105,7 +6105,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/cp/s-spent-2x.png",
-              "sha256": "84a07556ed5f86429cf7779f7882d9e934e885cce46b65ac62cdaa901d506041"
+              "sha256": "de47db6646aa90de357f89c9d01e6c2a66eac8392cf2fcfd109418d103478dd6"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6144,7 +6144,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/sw-spent-2x.png",
-              "sha256": "1ed1cda0ae130c3de13f882a92dc0ba46b6771b19e91c0b4d6f287f0f062b49a"
+              "sha256": "9c2f777546197ded743fd0f6f9a902e12bafbf6aeeb9cc1b53b047ee60f26b31"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6183,7 +6183,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/cp/nw-spent-2x.png",
-              "sha256": "89613b491556279ac808629908dbf54787cb49363c77ad46c257b2bfffecec6d"
+              "sha256": "0a1b862aaddf9418e5fb9cd714f7146c2f982507ecc567fecf823e8bfd13a17e"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6222,7 +6222,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/n-spent-2x.png",
-              "sha256": "ba9a8ad0e1191f25a5bae3aa5ccfc4e4059dee115c59333cffa81eb0de46606c"
+              "sha256": "94f73c0f44e58019ea0d0ba19769a0b89692bde80e0bb46f2fe0603103d82f68"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6253,7 +6253,7 @@
             "width": 476
           },
           "path": "scenes/grass_w-spent-p1-2x.png",
-          "sha256": "332305766e09e8f87c92efed6e47b89d5a072b9ed9d04cbaae6288b846d4d2fa"
+          "sha256": "d9373e3a93cdaace5ae297088dcdd2b1acf402a1518b1f9f59f19e1bc13b94e4"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -6291,7 +6291,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/neutral/n-spent-4x.png",
-              "sha256": "390d00fa4826778d9157a84c7b3eb0c209499692754ab1938d13423a324f776b"
+              "sha256": "88a9e29387466539938042bfa6c5550b85af35a0bb85f365e92dcf77135725ea"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6330,7 +6330,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/ne-spent-4x.png",
-              "sha256": "3ca55d9af8a6b9d415b5c6fb13ec760e2ecc9a748960a9615cc64dc9539ffdfa"
+              "sha256": "d3eea82aa7a916de07f136334f8a42f26fb706699422f227e664ea9391027a95"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6369,7 +6369,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/se-spent-4x.png",
-              "sha256": "c3db653fc4de264d1779d9abdb21e06489e99055a86344fbf294af93a27aaa2e"
+              "sha256": "e88120f4701560b6d49ea3bbd5625d2f7704ee50f6a67e5107f5e69bb5ff9d52"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6408,7 +6408,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/cp/s-spent-4x.png",
-              "sha256": "75d0b6263634c8b5a054fd90fe4df6882350ebd27f223369f9a7ff35b8acb2e6"
+              "sha256": "ea7d401ffded70b7ea49e1ec17ccdbefc4e481853c029a653be4d211facaae94"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6447,7 +6447,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/sw-spent-4x.png",
-              "sha256": "f22c0972a4059bf3868441e188f95ddd43c191f596a216442b542a74492dd92b"
+              "sha256": "b657d7f09628001d3cc662f70bab1aa9880c797690ca7c2e9ef673a58a8cdf65"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6486,7 +6486,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/cp/nw-spent-4x.png",
-              "sha256": "ba47ddb70a87e583c8f27021b6be0bf5f208b17a4f9ebbe98130bccbc28a2d98"
+              "sha256": "0fa0296d5b2b81029ba51c34ec508a759e12ab11c66bebf0e55353b3c1573532"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6525,7 +6525,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/n-spent-4x.png",
-              "sha256": "59950e1065ff0055a2452abe4abe30102bd627aa42c201995534bd954bc65752"
+              "sha256": "9526283ad7b492dce6ab8f876219ef8e6b6e010f3ef4bbb45ee913cd549112de"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6556,7 +6556,7 @@
             "width": 952
           },
           "path": "scenes/grass_w-spent-p1-4x.png",
-          "sha256": "f51a78029ddcef5ebefc893bb680d80861ba6e1718a495496e343c6239431e33"
+          "sha256": "8fa6b2c7866336d1ea44950b9a2c76e2b1472c2e43f0b79bd02c51d9e3a146b9"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -6594,7 +6594,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/neutral/n-normal-2x.png",
-              "sha256": "a90d714aad5764ef72d6ded0e14c9fd4fca8f808e0f9af85d4e403bb1f3e68ad"
+              "sha256": "a69a3eb45234a24fdb9cd8b69a5303281927df02b0aef12fd55ffc6b27af1b4d"
             },
             "state": "normal",
             "terrain": "mud",
@@ -6633,7 +6633,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/ne-normal-2x.png",
-              "sha256": "a84c02d1f56f9ad876aa1b3c942f02408b7ec2f8f5327096291949c13814afb5"
+              "sha256": "92de1f19ae972276b59f6aef4573a01043bad1e4daac57bc4d0f89e2b9f246f6"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6672,7 +6672,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/se-normal-2x.png",
-              "sha256": "49f4136d8465997d474b1a700d63fa7204f9ef3dd0b16104ebb495b4a4093ab8"
+              "sha256": "d1dbdd2333635bdcf015cc810170ef0259e335a60a53e03c5c7873dabbe81144"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6711,7 +6711,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/cp/s-normal-2x.png",
-              "sha256": "cb02584b2c255f0ff006fe613336a6d417a815b58f7c985dd70004e0ffed7438"
+              "sha256": "421a53d9db63cbc133bf9084ee3c0bb2a3f6a0f631dc8e3a2610e310b972fefe"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6750,7 +6750,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/sw-normal-2x.png",
-              "sha256": "d558323b2fcece0b314c5e4058a25916134a2fb3bc6592a671719898ac9b5270"
+              "sha256": "173632ee6429e3220f5ba3246ac1f5b8f908b32581577f49754940f4678d260e"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6789,7 +6789,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/cp/nw-normal-2x.png",
-              "sha256": "02ff5b23dfb87a479c7cb0838bd1ad205a100bdd64fff847e971ba8ddf75ed21"
+              "sha256": "2228165ef92ad1855d2a780f2339fc85a6cb1b3e5fa65f12fb71fd0ccb00e61f"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6828,7 +6828,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/n-normal-2x.png",
-              "sha256": "e3a00ecfc9b29abf2983edcd295d47e5e0f977d82cc91480bce4c165b75fa5d1"
+              "sha256": "d0104740212b47d7eb8fe3fb0a00e1b3462bff260fc3e44b60700d0dab3b04d6"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6859,7 +6859,7 @@
             "width": 476
           },
           "path": "scenes/mud-normal-p0-2x.png",
-          "sha256": "2d9b24d927023aec777bcdea644fb03fd51273d5dadee7ef8c7f5ad7f9db8136"
+          "sha256": "d631426979c7343ca053c6bc217c4b0cb4f59a5fd91b98803427a4a93db23b0d"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -6897,7 +6897,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/neutral/n-normal-4x.png",
-              "sha256": "e5da01a60e6d366707108a14892ba74ae58834a36aec2c4f89db05585e5835fc"
+              "sha256": "0aea6fde0e508027fb8d1af05317c19bc1678a7abc854ae90ff979d5a08f3b17"
             },
             "state": "normal",
             "terrain": "mud",
@@ -6936,7 +6936,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/ne-normal-4x.png",
-              "sha256": "f2f36cb9b74d4b99fdf7d85d71593e76ba609f8c0877ef9ae1b15c4d9ce2fb5c"
+              "sha256": "c1d63e5c6eb046a71e8077d0bd54a205ab287f3b33c4ce78ad293e5e52eefb1f"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6975,7 +6975,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/se-normal-4x.png",
-              "sha256": "ad341770d5306552e7c12931b71b6fbc8b2d41068d288c3468192913b32d562c"
+              "sha256": "6db25cc3bb266304b18c4bfeed032b583d6eb7477c39ef7d8f4846100ce43d45"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7014,7 +7014,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/cp/s-normal-4x.png",
-              "sha256": "6ac1eed6c5fb988b80c6185c8f407c43a72f668f5acc8a8d07abeca329d39a0d"
+              "sha256": "75a6bd389dd55ea29d023fdb2e158bd47a512abbd66d04fd782675eb40032caa"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7053,7 +7053,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/sw-normal-4x.png",
-              "sha256": "24cd363635c9a41bb09aa592dd481229f36cd02c868739673140d77d6262f56d"
+              "sha256": "816e5931bf6f47456e3b643ebb5a457c2b0eb36db385d1955a4a5c2f0c4a8736"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7092,7 +7092,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/cp/nw-normal-4x.png",
-              "sha256": "d6a56310890256ddae333fb0d3412f1023e1de2d39f03b9ec9eb559516f4a21b"
+              "sha256": "f69cc7d79df61efb36640012b5609f3fb4f8dbb511fb90d4ed187b366f34c8bc"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7131,7 +7131,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/n-normal-4x.png",
-              "sha256": "98c3ed68cf90a4927d4f83dd9d8d2e319faa027e0aec828150a08eb120919d95"
+              "sha256": "56815d4ee9472adfb9878358b43a40a4927a4def77a54366f688cae32be44a95"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7162,7 +7162,7 @@
             "width": 952
           },
           "path": "scenes/mud-normal-p0-4x.png",
-          "sha256": "715427ba7691f468174dbf4e220a48cc68cc013e94c66e6b08fb5fcb70952901"
+          "sha256": "97905d1210f65b8fbfd90f1ab928fd8f9d12af4abd07de66421482427eefc931"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -7200,7 +7200,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/neutral/n-normal-2x.png",
-              "sha256": "a90d714aad5764ef72d6ded0e14c9fd4fca8f808e0f9af85d4e403bb1f3e68ad"
+              "sha256": "a69a3eb45234a24fdb9cd8b69a5303281927df02b0aef12fd55ffc6b27af1b4d"
             },
             "state": "normal",
             "terrain": "mud",
@@ -7239,7 +7239,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/ne-normal-2x.png",
-              "sha256": "a84c02d1f56f9ad876aa1b3c942f02408b7ec2f8f5327096291949c13814afb5"
+              "sha256": "92de1f19ae972276b59f6aef4573a01043bad1e4daac57bc4d0f89e2b9f246f6"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7278,7 +7278,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/se-normal-2x.png",
-              "sha256": "49f4136d8465997d474b1a700d63fa7204f9ef3dd0b16104ebb495b4a4093ab8"
+              "sha256": "d1dbdd2333635bdcf015cc810170ef0259e335a60a53e03c5c7873dabbe81144"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7317,7 +7317,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/cp/s-normal-2x.png",
-              "sha256": "cb02584b2c255f0ff006fe613336a6d417a815b58f7c985dd70004e0ffed7438"
+              "sha256": "421a53d9db63cbc133bf9084ee3c0bb2a3f6a0f631dc8e3a2610e310b972fefe"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7356,7 +7356,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/sw-normal-2x.png",
-              "sha256": "d558323b2fcece0b314c5e4058a25916134a2fb3bc6592a671719898ac9b5270"
+              "sha256": "173632ee6429e3220f5ba3246ac1f5b8f908b32581577f49754940f4678d260e"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7395,7 +7395,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/cp/nw-normal-2x.png",
-              "sha256": "02ff5b23dfb87a479c7cb0838bd1ad205a100bdd64fff847e971ba8ddf75ed21"
+              "sha256": "2228165ef92ad1855d2a780f2339fc85a6cb1b3e5fa65f12fb71fd0ccb00e61f"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7434,7 +7434,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/n-normal-2x.png",
-              "sha256": "e3a00ecfc9b29abf2983edcd295d47e5e0f977d82cc91480bce4c165b75fa5d1"
+              "sha256": "d0104740212b47d7eb8fe3fb0a00e1b3462bff260fc3e44b60700d0dab3b04d6"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7465,7 +7465,7 @@
             "width": 476
           },
           "path": "scenes/mud-normal-p1-2x.png",
-          "sha256": "2d9b24d927023aec777bcdea644fb03fd51273d5dadee7ef8c7f5ad7f9db8136"
+          "sha256": "d631426979c7343ca053c6bc217c4b0cb4f59a5fd91b98803427a4a93db23b0d"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -7503,7 +7503,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/neutral/n-normal-4x.png",
-              "sha256": "e5da01a60e6d366707108a14892ba74ae58834a36aec2c4f89db05585e5835fc"
+              "sha256": "0aea6fde0e508027fb8d1af05317c19bc1678a7abc854ae90ff979d5a08f3b17"
             },
             "state": "normal",
             "terrain": "mud",
@@ -7542,7 +7542,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/ne-normal-4x.png",
-              "sha256": "f2f36cb9b74d4b99fdf7d85d71593e76ba609f8c0877ef9ae1b15c4d9ce2fb5c"
+              "sha256": "c1d63e5c6eb046a71e8077d0bd54a205ab287f3b33c4ce78ad293e5e52eefb1f"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7581,7 +7581,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/se-normal-4x.png",
-              "sha256": "ad341770d5306552e7c12931b71b6fbc8b2d41068d288c3468192913b32d562c"
+              "sha256": "6db25cc3bb266304b18c4bfeed032b583d6eb7477c39ef7d8f4846100ce43d45"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7620,7 +7620,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/cp/s-normal-4x.png",
-              "sha256": "6ac1eed6c5fb988b80c6185c8f407c43a72f668f5acc8a8d07abeca329d39a0d"
+              "sha256": "75a6bd389dd55ea29d023fdb2e158bd47a512abbd66d04fd782675eb40032caa"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7659,7 +7659,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/sw-normal-4x.png",
-              "sha256": "24cd363635c9a41bb09aa592dd481229f36cd02c868739673140d77d6262f56d"
+              "sha256": "816e5931bf6f47456e3b643ebb5a457c2b0eb36db385d1955a4a5c2f0c4a8736"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7698,7 +7698,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/cp/nw-normal-4x.png",
-              "sha256": "d6a56310890256ddae333fb0d3412f1023e1de2d39f03b9ec9eb559516f4a21b"
+              "sha256": "f69cc7d79df61efb36640012b5609f3fb4f8dbb511fb90d4ed187b366f34c8bc"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7737,7 +7737,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/n-normal-4x.png",
-              "sha256": "98c3ed68cf90a4927d4f83dd9d8d2e319faa027e0aec828150a08eb120919d95"
+              "sha256": "56815d4ee9472adfb9878358b43a40a4927a4def77a54366f688cae32be44a95"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7768,7 +7768,7 @@
             "width": 952
           },
           "path": "scenes/mud-normal-p1-4x.png",
-          "sha256": "715427ba7691f468174dbf4e220a48cc68cc013e94c66e6b08fb5fcb70952901"
+          "sha256": "97905d1210f65b8fbfd90f1ab928fd8f9d12af4abd07de66421482427eefc931"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -7806,7 +7806,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/neutral/n-spent-2x.png",
-              "sha256": "0ffa835b852d32477f027faa5b590e023471260ed865515bc3882d22e328acbb"
+              "sha256": "948bcab5457c98980eca2722eb121ea6323c0123dba7c849df8d246767a3bc7f"
             },
             "state": "spent",
             "terrain": "mud",
@@ -7845,7 +7845,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/ne-spent-2x.png",
-              "sha256": "6977c63a68b7e5d9f935eb1eee68b04f05f15180ab85bff845e45f1f9b94184e"
+              "sha256": "913e8ebf4fa1dcd13868014a5b6dcc5d0371f116b90696e178559110247aecb8"
             },
             "state": "spent",
             "terrain": "grass",
@@ -7884,7 +7884,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/se-spent-2x.png",
-              "sha256": "a036c412a678a12c805f3275525add14ed054d3b981040c8e2dc3a186a0711dd"
+              "sha256": "2d0deed5ab25d14c355dd194d2c2a9702cbf76abb73c0e2263891c133d9149fd"
             },
             "state": "spent",
             "terrain": "grass",
@@ -7923,7 +7923,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/cp/s-spent-2x.png",
-              "sha256": "84a07556ed5f86429cf7779f7882d9e934e885cce46b65ac62cdaa901d506041"
+              "sha256": "de47db6646aa90de357f89c9d01e6c2a66eac8392cf2fcfd109418d103478dd6"
             },
             "state": "spent",
             "terrain": "grass",
@@ -7962,7 +7962,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/sw-spent-2x.png",
-              "sha256": "1ed1cda0ae130c3de13f882a92dc0ba46b6771b19e91c0b4d6f287f0f062b49a"
+              "sha256": "9c2f777546197ded743fd0f6f9a902e12bafbf6aeeb9cc1b53b047ee60f26b31"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8001,7 +8001,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/cp/nw-spent-2x.png",
-              "sha256": "89613b491556279ac808629908dbf54787cb49363c77ad46c257b2bfffecec6d"
+              "sha256": "0a1b862aaddf9418e5fb9cd714f7146c2f982507ecc567fecf823e8bfd13a17e"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8040,7 +8040,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/n-spent-2x.png",
-              "sha256": "ba9a8ad0e1191f25a5bae3aa5ccfc4e4059dee115c59333cffa81eb0de46606c"
+              "sha256": "94f73c0f44e58019ea0d0ba19769a0b89692bde80e0bb46f2fe0603103d82f68"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8071,7 +8071,7 @@
             "width": 476
           },
           "path": "scenes/mud-spent-p0-2x.png",
-          "sha256": "e4b52503bb65b141d59ca17c35a4c79d77b2d91b87e0410db7cff45a9d8f2e40"
+          "sha256": "d7d663e5b277dfccb52bb9ce3ac33c81e4812a6574d7ed861e23452e6e5725a5"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -8109,7 +8109,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/neutral/n-spent-4x.png",
-              "sha256": "390d00fa4826778d9157a84c7b3eb0c209499692754ab1938d13423a324f776b"
+              "sha256": "88a9e29387466539938042bfa6c5550b85af35a0bb85f365e92dcf77135725ea"
             },
             "state": "spent",
             "terrain": "mud",
@@ -8148,7 +8148,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/ne-spent-4x.png",
-              "sha256": "3ca55d9af8a6b9d415b5c6fb13ec760e2ecc9a748960a9615cc64dc9539ffdfa"
+              "sha256": "d3eea82aa7a916de07f136334f8a42f26fb706699422f227e664ea9391027a95"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8187,7 +8187,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/se-spent-4x.png",
-              "sha256": "c3db653fc4de264d1779d9abdb21e06489e99055a86344fbf294af93a27aaa2e"
+              "sha256": "e88120f4701560b6d49ea3bbd5625d2f7704ee50f6a67e5107f5e69bb5ff9d52"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8226,7 +8226,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/cp/s-spent-4x.png",
-              "sha256": "75d0b6263634c8b5a054fd90fe4df6882350ebd27f223369f9a7ff35b8acb2e6"
+              "sha256": "ea7d401ffded70b7ea49e1ec17ccdbefc4e481853c029a653be4d211facaae94"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8265,7 +8265,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/sw-spent-4x.png",
-              "sha256": "f22c0972a4059bf3868441e188f95ddd43c191f596a216442b542a74492dd92b"
+              "sha256": "b657d7f09628001d3cc662f70bab1aa9880c797690ca7c2e9ef673a58a8cdf65"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8304,7 +8304,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/cp/nw-spent-4x.png",
-              "sha256": "ba47ddb70a87e583c8f27021b6be0bf5f208b17a4f9ebbe98130bccbc28a2d98"
+              "sha256": "0fa0296d5b2b81029ba51c34ec508a759e12ab11c66bebf0e55353b3c1573532"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8343,7 +8343,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/n-spent-4x.png",
-              "sha256": "59950e1065ff0055a2452abe4abe30102bd627aa42c201995534bd954bc65752"
+              "sha256": "9526283ad7b492dce6ab8f876219ef8e6b6e010f3ef4bbb45ee913cd549112de"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8374,7 +8374,7 @@
             "width": 952
           },
           "path": "scenes/mud-spent-p0-4x.png",
-          "sha256": "d4f38a3d777d70db8d5a1d02320c0cb283ce939d4e345898895944ccd8ae228c"
+          "sha256": "bf2831eb3128a6ae2036ece10492adf108ea1a2130381e8fc64d8dc4d24aa729"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -8412,7 +8412,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/neutral/n-spent-2x.png",
-              "sha256": "0ffa835b852d32477f027faa5b590e023471260ed865515bc3882d22e328acbb"
+              "sha256": "948bcab5457c98980eca2722eb121ea6323c0123dba7c849df8d246767a3bc7f"
             },
             "state": "spent",
             "terrain": "mud",
@@ -8451,7 +8451,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/ne-spent-2x.png",
-              "sha256": "6977c63a68b7e5d9f935eb1eee68b04f05f15180ab85bff845e45f1f9b94184e"
+              "sha256": "913e8ebf4fa1dcd13868014a5b6dcc5d0371f116b90696e178559110247aecb8"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8490,7 +8490,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/se-spent-2x.png",
-              "sha256": "a036c412a678a12c805f3275525add14ed054d3b981040c8e2dc3a186a0711dd"
+              "sha256": "2d0deed5ab25d14c355dd194d2c2a9702cbf76abb73c0e2263891c133d9149fd"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8529,7 +8529,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/cp/s-spent-2x.png",
-              "sha256": "84a07556ed5f86429cf7779f7882d9e934e885cce46b65ac62cdaa901d506041"
+              "sha256": "de47db6646aa90de357f89c9d01e6c2a66eac8392cf2fcfd109418d103478dd6"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8568,7 +8568,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/sw-spent-2x.png",
-              "sha256": "1ed1cda0ae130c3de13f882a92dc0ba46b6771b19e91c0b4d6f287f0f062b49a"
+              "sha256": "9c2f777546197ded743fd0f6f9a902e12bafbf6aeeb9cc1b53b047ee60f26b31"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8607,7 +8607,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/cp/nw-spent-2x.png",
-              "sha256": "89613b491556279ac808629908dbf54787cb49363c77ad46c257b2bfffecec6d"
+              "sha256": "0a1b862aaddf9418e5fb9cd714f7146c2f982507ecc567fecf823e8bfd13a17e"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8646,7 +8646,7 @@
                 "width": 192
               },
               "path": "sprites/eliteInfantry/ec/n-spent-2x.png",
-              "sha256": "ba9a8ad0e1191f25a5bae3aa5ccfc4e4059dee115c59333cffa81eb0de46606c"
+              "sha256": "94f73c0f44e58019ea0d0ba19769a0b89692bde80e0bb46f2fe0603103d82f68"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8677,7 +8677,7 @@
             "width": 476
           },
           "path": "scenes/mud-spent-p1-2x.png",
-          "sha256": "e4b52503bb65b141d59ca17c35a4c79d77b2d91b87e0410db7cff45a9d8f2e40"
+          "sha256": "d7d663e5b277dfccb52bb9ce3ac33c81e4812a6574d7ed861e23452e6e5725a5"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -8715,7 +8715,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/neutral/n-spent-4x.png",
-              "sha256": "390d00fa4826778d9157a84c7b3eb0c209499692754ab1938d13423a324f776b"
+              "sha256": "88a9e29387466539938042bfa6c5550b85af35a0bb85f365e92dcf77135725ea"
             },
             "state": "spent",
             "terrain": "mud",
@@ -8754,7 +8754,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/ne-spent-4x.png",
-              "sha256": "3ca55d9af8a6b9d415b5c6fb13ec760e2ecc9a748960a9615cc64dc9539ffdfa"
+              "sha256": "d3eea82aa7a916de07f136334f8a42f26fb706699422f227e664ea9391027a95"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8793,7 +8793,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/se-spent-4x.png",
-              "sha256": "c3db653fc4de264d1779d9abdb21e06489e99055a86344fbf294af93a27aaa2e"
+              "sha256": "e88120f4701560b6d49ea3bbd5625d2f7704ee50f6a67e5107f5e69bb5ff9d52"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8832,7 +8832,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/cp/s-spent-4x.png",
-              "sha256": "75d0b6263634c8b5a054fd90fe4df6882350ebd27f223369f9a7ff35b8acb2e6"
+              "sha256": "ea7d401ffded70b7ea49e1ec17ccdbefc4e481853c029a653be4d211facaae94"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8871,7 +8871,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/sw-spent-4x.png",
-              "sha256": "f22c0972a4059bf3868441e188f95ddd43c191f596a216442b542a74492dd92b"
+              "sha256": "b657d7f09628001d3cc662f70bab1aa9880c797690ca7c2e9ef673a58a8cdf65"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8910,7 +8910,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/cp/nw-spent-4x.png",
-              "sha256": "ba47ddb70a87e583c8f27021b6be0bf5f208b17a4f9ebbe98130bccbc28a2d98"
+              "sha256": "0fa0296d5b2b81029ba51c34ec508a759e12ab11c66bebf0e55353b3c1573532"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8949,7 +8949,7 @@
                 "width": 384
               },
               "path": "sprites/eliteInfantry/ec/n-spent-4x.png",
-              "sha256": "59950e1065ff0055a2452abe4abe30102bd627aa42c201995534bd954bc65752"
+              "sha256": "9526283ad7b492dce6ab8f876219ef8e6b6e010f3ef4bbb45ee913cd549112de"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8980,7 +8980,7 @@
             "width": 952
           },
           "path": "scenes/mud-spent-p1-4x.png",
-          "sha256": "d4f38a3d777d70db8d5a1d02320c0cb283ce939d4e345898895944ccd8ae228c"
+          "sha256": "bf2831eb3128a6ae2036ece10492adf108ea1a2130381e8fc64d8dc4d24aa729"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -9005,7 +9005,7 @@
             "width": 1152
           },
           "path": "sheets/eliteInfantry-white-2x.png",
-          "sha256": "ac4d4550f5d5839ca8c146522b0c9c4ac3cb4811cd72816ae1c42066fe78bcb1"
+          "sha256": "5db723f7d45ca3494295b4f11b1eea90b778264a2b8c0b57f27f29345690fe72"
         },
         "rows": [
           "n",
@@ -9033,7 +9033,7 @@
             "width": 2304
           },
           "path": "sheets/eliteInfantry-white-4x.png",
-          "sha256": "d7fd5dd49cbfd7eba48859f7c73b865561a23b7404a6cf9bd7915c62850be72f"
+          "sha256": "d4ff5ad506735215f1c59e11690e3b0cb7f0e8b0811443c9c9092d83ea20e130"
         },
         "rows": [
           "n",
@@ -9061,7 +9061,7 @@
             "width": 1152
           },
           "path": "sheets/eliteInfantry-checker-2x.png",
-          "sha256": "d01572c5efc2baed0cdbea3bb52ae2352b6155ea4d647a0f5371246ad19c446c"
+          "sha256": "5b86e9e0e8733efb69c5d5f2e68cf81af6b04fdd6b1d30c1d18869810a221754"
         },
         "rows": [
           "n",
@@ -9089,7 +9089,7 @@
             "width": 2304
           },
           "path": "sheets/eliteInfantry-checker-4x.png",
-          "sha256": "5b4584968cd653d65bfc678427a50321ad856393cf1f4e3d529131ce23804058"
+          "sha256": "08a010eb9d483511f60feecde634e236e2c827af744b67ab1b865730d2b10a2f"
         },
         "rows": [
           "n",
@@ -9140,7 +9140,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/cp/n-normal-2x.png",
-            "sha256": "e442b9da41109af620b72fa3f256d697519ee37b067da080ff9674ae67a56bbf"
+            "sha256": "39e896a0bc3093030da2d57846587b00ae2e05934e84bf0a413a8d6656bf3845"
           },
           {
             "dimensions": {
@@ -9148,7 +9148,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/cp/n-normal-4x.png",
-            "sha256": "9de29f54a02738f0b62a6c0282dc757cf85b3620d2851cc23ed9bbe762598e45"
+            "sha256": "9b3b9bc8e6e18a71f82e8ff5cb72d69bcafa494feaedb61c81219a0e4d21efee"
           }
         ],
         "palette": "cp",
@@ -9191,7 +9191,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/cp/n-spent-2x.png",
-            "sha256": "cb866ae4f9d1afd18392c0125047c628500219e47ae98fd92af8f729e035a048"
+            "sha256": "58050b77dd8d16c7a5acee8440509b978bfbadb9cda0825e1501807c6f17d5b1"
           },
           {
             "dimensions": {
@@ -9199,7 +9199,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/cp/n-spent-4x.png",
-            "sha256": "da4156db63336b2ffa5da5a649eadda944d15d043d4013af60cb16c61896a178"
+            "sha256": "103c3eb325970c5e3d49742f4c9fec68962745bb149527eb170ec18efdfb6ec0"
           }
         ],
         "palette": "cp",
@@ -9242,7 +9242,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/ec/n-normal-2x.png",
-            "sha256": "e3a00ecfc9b29abf2983edcd295d47e5e0f977d82cc91480bce4c165b75fa5d1"
+            "sha256": "d0104740212b47d7eb8fe3fb0a00e1b3462bff260fc3e44b60700d0dab3b04d6"
           },
           {
             "dimensions": {
@@ -9250,7 +9250,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/ec/n-normal-4x.png",
-            "sha256": "98c3ed68cf90a4927d4f83dd9d8d2e319faa027e0aec828150a08eb120919d95"
+            "sha256": "56815d4ee9472adfb9878358b43a40a4927a4def77a54366f688cae32be44a95"
           }
         ],
         "palette": "ec",
@@ -9293,7 +9293,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/ec/n-spent-2x.png",
-            "sha256": "ba9a8ad0e1191f25a5bae3aa5ccfc4e4059dee115c59333cffa81eb0de46606c"
+            "sha256": "94f73c0f44e58019ea0d0ba19769a0b89692bde80e0bb46f2fe0603103d82f68"
           },
           {
             "dimensions": {
@@ -9301,7 +9301,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/ec/n-spent-4x.png",
-            "sha256": "59950e1065ff0055a2452abe4abe30102bd627aa42c201995534bd954bc65752"
+            "sha256": "9526283ad7b492dce6ab8f876219ef8e6b6e010f3ef4bbb45ee913cd549112de"
           }
         ],
         "palette": "ec",
@@ -9344,7 +9344,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/neutral/n-normal-2x.png",
-            "sha256": "a90d714aad5764ef72d6ded0e14c9fd4fca8f808e0f9af85d4e403bb1f3e68ad"
+            "sha256": "a69a3eb45234a24fdb9cd8b69a5303281927df02b0aef12fd55ffc6b27af1b4d"
           },
           {
             "dimensions": {
@@ -9352,7 +9352,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/neutral/n-normal-4x.png",
-            "sha256": "e5da01a60e6d366707108a14892ba74ae58834a36aec2c4f89db05585e5835fc"
+            "sha256": "0aea6fde0e508027fb8d1af05317c19bc1678a7abc854ae90ff979d5a08f3b17"
           }
         ],
         "palette": "neutral",
@@ -9395,7 +9395,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/neutral/n-spent-2x.png",
-            "sha256": "0ffa835b852d32477f027faa5b590e023471260ed865515bc3882d22e328acbb"
+            "sha256": "948bcab5457c98980eca2722eb121ea6323c0123dba7c849df8d246767a3bc7f"
           },
           {
             "dimensions": {
@@ -9403,7 +9403,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/neutral/n-spent-4x.png",
-            "sha256": "390d00fa4826778d9157a84c7b3eb0c209499692754ab1938d13423a324f776b"
+            "sha256": "88a9e29387466539938042bfa6c5550b85af35a0bb85f365e92dcf77135725ea"
           }
         ],
         "palette": "neutral",
@@ -9446,7 +9446,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/cp/nw-normal-2x.png",
-            "sha256": "02ff5b23dfb87a479c7cb0838bd1ad205a100bdd64fff847e971ba8ddf75ed21"
+            "sha256": "2228165ef92ad1855d2a780f2339fc85a6cb1b3e5fa65f12fb71fd0ccb00e61f"
           },
           {
             "dimensions": {
@@ -9454,7 +9454,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/cp/nw-normal-4x.png",
-            "sha256": "d6a56310890256ddae333fb0d3412f1023e1de2d39f03b9ec9eb559516f4a21b"
+            "sha256": "f69cc7d79df61efb36640012b5609f3fb4f8dbb511fb90d4ed187b366f34c8bc"
           }
         ],
         "palette": "cp",
@@ -9497,7 +9497,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/cp/nw-spent-2x.png",
-            "sha256": "89613b491556279ac808629908dbf54787cb49363c77ad46c257b2bfffecec6d"
+            "sha256": "0a1b862aaddf9418e5fb9cd714f7146c2f982507ecc567fecf823e8bfd13a17e"
           },
           {
             "dimensions": {
@@ -9505,7 +9505,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/cp/nw-spent-4x.png",
-            "sha256": "ba47ddb70a87e583c8f27021b6be0bf5f208b17a4f9ebbe98130bccbc28a2d98"
+            "sha256": "0fa0296d5b2b81029ba51c34ec508a759e12ab11c66bebf0e55353b3c1573532"
           }
         ],
         "palette": "cp",
@@ -9548,7 +9548,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/ec/nw-normal-2x.png",
-            "sha256": "12e5946bfebd018124712710a13620bcadedd59b0efd01fb65458fa74ea5fd00"
+            "sha256": "135fcbcadabbafbf2b9c47006eb6cde3141bd056c7604efda5dcf5ec137221f9"
           },
           {
             "dimensions": {
@@ -9556,7 +9556,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/ec/nw-normal-4x.png",
-            "sha256": "a4aa22322f0f2c9008475b35c98197b9304d3ffde011b198f2dc8d43d9a528d1"
+            "sha256": "c8dcde3535509eb46008657376a7efc30997a8e0670313abd9e106fa1b378bca"
           }
         ],
         "palette": "ec",
@@ -9599,7 +9599,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/ec/nw-spent-2x.png",
-            "sha256": "a598678c1ac9e9fee3723224b9cd84e879a64bc830a3640db048be999abfb930"
+            "sha256": "1c8b188f280ecc7c2c1ba5499e8e4636f4fd9ede9561cd6dea1daa5784c30afc"
           },
           {
             "dimensions": {
@@ -9607,7 +9607,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/ec/nw-spent-4x.png",
-            "sha256": "647860870838dad5f04275a659ce40dd09f92596f60ce4b943b18e0586ac5abd"
+            "sha256": "3d53d1215d8caa5bd4cdb65f35716e7b3eac14dbc640f40549875ccf8aa98d92"
           }
         ],
         "palette": "ec",
@@ -9650,7 +9650,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/neutral/nw-normal-2x.png",
-            "sha256": "680fdd7d41fc234ba840d641d2294b8e8d25db9e80d53026913959bac837b71c"
+            "sha256": "7f71852b58f0dbfd21d6680f37af6686e83251eed6e7f34a42c224e44e9e5f53"
           },
           {
             "dimensions": {
@@ -9658,7 +9658,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/neutral/nw-normal-4x.png",
-            "sha256": "a9d3d65986db1b4404b43005ce0bfc3ae99262797de0b55d34827d4ecf56aa6b"
+            "sha256": "77511033d335d9475cb48dbc54f09ed9dd100e46d360e7ca67c62068f272d319"
           }
         ],
         "palette": "neutral",
@@ -9701,7 +9701,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/neutral/nw-spent-2x.png",
-            "sha256": "bf0ae34db562182f31a3ddf92fc20d627ca74945faf22edb99b95c1824272c61"
+            "sha256": "ac91ecc31ca15bc70c143240bd7eb08a88b2492946ece513b34c246490bbce84"
           },
           {
             "dimensions": {
@@ -9709,7 +9709,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/neutral/nw-spent-4x.png",
-            "sha256": "928384a00ae33d4e920da0e6ffbe546ad13043881edab3cb055d12c0e2f584dd"
+            "sha256": "7a0da457cca052c3b0b8257d692b05dc3d76190c61d301eaa3fd9d9446ca4056"
           }
         ],
         "palette": "neutral",
@@ -9752,7 +9752,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/cp/sw-normal-2x.png",
-            "sha256": "7ff0c5976c92ad9f64a8a87c2eb30bb1f9728c982a28f1bbc4c163940bdb4f9d"
+            "sha256": "224b95e890efbe47c14754f65a63d4056eb647029dfedc65f20b840fee1dcb13"
           },
           {
             "dimensions": {
@@ -9760,7 +9760,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/cp/sw-normal-4x.png",
-            "sha256": "5e339adbca2a14c25285c0ab09e3c88ffbf663df2d1633a6f0f9598b5b7c587f"
+            "sha256": "97eb0b68105f94b52ef3cdbf6ffc3a31630b6e207a2d41130aea65e02a95e4c6"
           }
         ],
         "palette": "cp",
@@ -9803,7 +9803,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/cp/sw-spent-2x.png",
-            "sha256": "1fe5b4cc2ca9c16199780b61f2cc103ea557f7bf1f959ee30a14886a21b1af55"
+            "sha256": "98cc7035ea669fa68f08cdc635e7a0c3b194917fcaffdce38dc60647644fec3a"
           },
           {
             "dimensions": {
@@ -9811,7 +9811,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/cp/sw-spent-4x.png",
-            "sha256": "2c762637428f8ed860b308e8ca311f99d7e7aad4e663bc93428e190c8fc3ed94"
+            "sha256": "b9b9a32fd0e64f4d0e077750e30594af2eac30d39d7e9d685ffecf661df2886d"
           }
         ],
         "palette": "cp",
@@ -9854,7 +9854,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/ec/sw-normal-2x.png",
-            "sha256": "d558323b2fcece0b314c5e4058a25916134a2fb3bc6592a671719898ac9b5270"
+            "sha256": "173632ee6429e3220f5ba3246ac1f5b8f908b32581577f49754940f4678d260e"
           },
           {
             "dimensions": {
@@ -9862,7 +9862,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/ec/sw-normal-4x.png",
-            "sha256": "24cd363635c9a41bb09aa592dd481229f36cd02c868739673140d77d6262f56d"
+            "sha256": "816e5931bf6f47456e3b643ebb5a457c2b0eb36db385d1955a4a5c2f0c4a8736"
           }
         ],
         "palette": "ec",
@@ -9905,7 +9905,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/ec/sw-spent-2x.png",
-            "sha256": "1ed1cda0ae130c3de13f882a92dc0ba46b6771b19e91c0b4d6f287f0f062b49a"
+            "sha256": "9c2f777546197ded743fd0f6f9a902e12bafbf6aeeb9cc1b53b047ee60f26b31"
           },
           {
             "dimensions": {
@@ -9913,7 +9913,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/ec/sw-spent-4x.png",
-            "sha256": "f22c0972a4059bf3868441e188f95ddd43c191f596a216442b542a74492dd92b"
+            "sha256": "b657d7f09628001d3cc662f70bab1aa9880c797690ca7c2e9ef673a58a8cdf65"
           }
         ],
         "palette": "ec",
@@ -9956,7 +9956,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/neutral/sw-normal-2x.png",
-            "sha256": "53f8558b8e37e87ede584b0d7730638e9356d195708765a019dd409bd8a2e17b"
+            "sha256": "0a5fd8d00f278c0f69b244b9580e47ea2e98ee30901f6b06c3d9ef32ddfb43e4"
           },
           {
             "dimensions": {
@@ -9964,7 +9964,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/neutral/sw-normal-4x.png",
-            "sha256": "dfe1cd74d3a628f167485232b165d159a23a6b4351fc67bfc10d26cf82925cac"
+            "sha256": "eb07d0f1d6c85979ee4f192622723f8484e26c07ca75f4da919705c395594cc1"
           }
         ],
         "palette": "neutral",
@@ -10007,7 +10007,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/neutral/sw-spent-2x.png",
-            "sha256": "bc22dd5a86e368521891c11872c188e58014386c41d620561e7f2ba51f9afecf"
+            "sha256": "3bebcfcc63bdcb7bb91b3e3a5f68a309c1ee72e9df9ce91ac51c8aca2e15eb9c"
           },
           {
             "dimensions": {
@@ -10015,7 +10015,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/neutral/sw-spent-4x.png",
-            "sha256": "a16f1adbf3ce9f846b2ed90f4d68414c84c0224f2fbf6ff027d5c4716d97ba9e"
+            "sha256": "9f35aae9167816e68158a5ad0508fba1bac9324a3e806c45055673bfb9f8f906"
           }
         ],
         "palette": "neutral",
@@ -10058,7 +10058,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/cp/s-normal-2x.png",
-            "sha256": "cb02584b2c255f0ff006fe613336a6d417a815b58f7c985dd70004e0ffed7438"
+            "sha256": "421a53d9db63cbc133bf9084ee3c0bb2a3f6a0f631dc8e3a2610e310b972fefe"
           },
           {
             "dimensions": {
@@ -10066,7 +10066,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/cp/s-normal-4x.png",
-            "sha256": "6ac1eed6c5fb988b80c6185c8f407c43a72f668f5acc8a8d07abeca329d39a0d"
+            "sha256": "75a6bd389dd55ea29d023fdb2e158bd47a512abbd66d04fd782675eb40032caa"
           }
         ],
         "palette": "cp",
@@ -10109,7 +10109,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/cp/s-spent-2x.png",
-            "sha256": "84a07556ed5f86429cf7779f7882d9e934e885cce46b65ac62cdaa901d506041"
+            "sha256": "de47db6646aa90de357f89c9d01e6c2a66eac8392cf2fcfd109418d103478dd6"
           },
           {
             "dimensions": {
@@ -10117,7 +10117,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/cp/s-spent-4x.png",
-            "sha256": "75d0b6263634c8b5a054fd90fe4df6882350ebd27f223369f9a7ff35b8acb2e6"
+            "sha256": "ea7d401ffded70b7ea49e1ec17ccdbefc4e481853c029a653be4d211facaae94"
           }
         ],
         "palette": "cp",
@@ -10160,7 +10160,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/ec/s-normal-2x.png",
-            "sha256": "e2dfa44f6264b6eb0008169468e0bc88e7b3b069a3fd3decc790ecd53bef84a1"
+            "sha256": "984133eeb3f652c6fd3c558be8cff27869cfbbd7e11e6554ef0d35496aa9b998"
           },
           {
             "dimensions": {
@@ -10168,7 +10168,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/ec/s-normal-4x.png",
-            "sha256": "66622bcca96c8b6ed17d4ed58c96210e2ff5110f2573375618894e370da184de"
+            "sha256": "398b7637f0e6782eccc934b5eea36991a8625e8f0e108267151b42a6a3a235e3"
           }
         ],
         "palette": "ec",
@@ -10211,7 +10211,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/ec/s-spent-2x.png",
-            "sha256": "7c56e666eb9e55ef2de8df64a7590c0d7e04eb5f4a1c8d8f3c4fe640f3ab7990"
+            "sha256": "0ce3134b80a882a995b8d8632e34b05a6523891d3a63ae913d851256173252c4"
           },
           {
             "dimensions": {
@@ -10219,7 +10219,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/ec/s-spent-4x.png",
-            "sha256": "e1f6716c171e6fd2374bef7c2c25dcb7e01bc35c47eb5110c86f38e82aeb7efd"
+            "sha256": "d61b2e6d589d5db688b7d7d62395da225ee42b8554a23e3f3676b9a8b8d5f10f"
           }
         ],
         "palette": "ec",
@@ -10262,7 +10262,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/neutral/s-normal-2x.png",
-            "sha256": "4386f60395098cd3efe54fbab19285fda053ff3bce26ab2cb6ea96c297de57ec"
+            "sha256": "554c55531cdd00f80bb47911e88371975c5946f391bfa1fd6f7e3a29eaf45523"
           },
           {
             "dimensions": {
@@ -10270,7 +10270,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/neutral/s-normal-4x.png",
-            "sha256": "4c2ac17a5a0c5982ae373f7fd50d415e94ebf764e7cab40563b4fff8a55a9a5e"
+            "sha256": "291fae28646e4bc6f021b96149d30daaf0bd5ccc8400c5d5f86e93cb951aec1a"
           }
         ],
         "palette": "neutral",
@@ -10313,7 +10313,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/neutral/s-spent-2x.png",
-            "sha256": "9934c47b5a8f696289965218da0e3acba29a576dfb3f9940d8ef0cf9fbc20276"
+            "sha256": "1715916036101a953a641a7e18e5e35204b1966628cd61eb36a47e922d041d57"
           },
           {
             "dimensions": {
@@ -10321,7 +10321,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/neutral/s-spent-4x.png",
-            "sha256": "6d1d4a7c54697665591dc36c8158633b04d92a103a85f0c92df9004b2bef0de4"
+            "sha256": "37da02845fe0efdf1604b633ea6ac430844d48370782b5725379c4a4daa00b6b"
           }
         ],
         "palette": "neutral",
@@ -10364,7 +10364,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/cp/se-normal-2x.png",
-            "sha256": "4e97e8824cda84325c1985f87add8d5f594a39813319f74c27f1880565e3270d"
+            "sha256": "05d88f31d9b095ae82107a99467ae842e191024089c067ec08ae14518e42a9c0"
           },
           {
             "dimensions": {
@@ -10372,7 +10372,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/cp/se-normal-4x.png",
-            "sha256": "c92b7d6307b6c9a6fc633297676c1bb06c091dc6c375fbfea566f486a95cb620"
+            "sha256": "71de5cfa7a5ceda2c96bb5dcb014bb6daea9b5edeeacca09406be72e287b0eac"
           }
         ],
         "palette": "cp",
@@ -10415,7 +10415,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/cp/se-spent-2x.png",
-            "sha256": "cdf8adfe559a450c1c05b6c64551b639d1bcde185a15c1b921ee9731b4647ff8"
+            "sha256": "f0a4309b8a59b81e79ad0417e7af0464f2c33e0a77d9f61b806971f6457ab9f4"
           },
           {
             "dimensions": {
@@ -10423,7 +10423,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/cp/se-spent-4x.png",
-            "sha256": "a9e4e4c2f3288a0e36ac7a95b295d8f6415c8cdd05d571831dd5004d3cf6940f"
+            "sha256": "feef3044f9180a179050c0e4bf2f862a1678629404a278e8782c6a3454fc620d"
           }
         ],
         "palette": "cp",
@@ -10466,7 +10466,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/ec/se-normal-2x.png",
-            "sha256": "49f4136d8465997d474b1a700d63fa7204f9ef3dd0b16104ebb495b4a4093ab8"
+            "sha256": "d1dbdd2333635bdcf015cc810170ef0259e335a60a53e03c5c7873dabbe81144"
           },
           {
             "dimensions": {
@@ -10474,7 +10474,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/ec/se-normal-4x.png",
-            "sha256": "ad341770d5306552e7c12931b71b6fbc8b2d41068d288c3468192913b32d562c"
+            "sha256": "6db25cc3bb266304b18c4bfeed032b583d6eb7477c39ef7d8f4846100ce43d45"
           }
         ],
         "palette": "ec",
@@ -10517,7 +10517,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/ec/se-spent-2x.png",
-            "sha256": "a036c412a678a12c805f3275525add14ed054d3b981040c8e2dc3a186a0711dd"
+            "sha256": "2d0deed5ab25d14c355dd194d2c2a9702cbf76abb73c0e2263891c133d9149fd"
           },
           {
             "dimensions": {
@@ -10525,7 +10525,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/ec/se-spent-4x.png",
-            "sha256": "c3db653fc4de264d1779d9abdb21e06489e99055a86344fbf294af93a27aaa2e"
+            "sha256": "e88120f4701560b6d49ea3bbd5625d2f7704ee50f6a67e5107f5e69bb5ff9d52"
           }
         ],
         "palette": "ec",
@@ -10568,7 +10568,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/neutral/se-normal-2x.png",
-            "sha256": "ae5ad8c261ecfe61ac7728ee30c043c4050acfc2e6efb8130d84ada282e1e990"
+            "sha256": "18f02a222e6f1b3faad02f241531c6351512b4ca6e235bbc19792e7e4bba6a4d"
           },
           {
             "dimensions": {
@@ -10576,7 +10576,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/neutral/se-normal-4x.png",
-            "sha256": "f0f41f9f87b475715dd72a50c3921c555d9fee809fb1e0db7b0c0df1df624a6b"
+            "sha256": "12638365e0c37d9f0c20caf7f2e1ed113f34aad0bb3101e8c7165e9fd873f151"
           }
         ],
         "palette": "neutral",
@@ -10619,7 +10619,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/neutral/se-spent-2x.png",
-            "sha256": "6a70ee2980d849ea9ea85e171f383276c109c1b99820347908ec01ca97e8472b"
+            "sha256": "addcbfdd26adf13160c1cd208d4b2a0ec4e423bd32a630b6010de66712452a19"
           },
           {
             "dimensions": {
@@ -10627,7 +10627,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/neutral/se-spent-4x.png",
-            "sha256": "44486e78867863d074faec7c9fb353dcbf1cbf4e2e671c030d96736d5b8036f2"
+            "sha256": "9869258d0434b9ecb9f2f50d4f68d87cacf4525e5db9db261b0f9ccf81f394f2"
           }
         ],
         "palette": "neutral",
@@ -10670,7 +10670,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/cp/ne-normal-2x.png",
-            "sha256": "ab0331a3fb2b6808d56ed7c27b58bfef894f68da50e69f989554b7dcbf999dec"
+            "sha256": "cf4e67c583fe1b97ab6f5da2cdc495838291d9da0049e03b92a2df9a52cca079"
           },
           {
             "dimensions": {
@@ -10678,7 +10678,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/cp/ne-normal-4x.png",
-            "sha256": "f621940eb6ef1ffb2ec30994c086436f89cffabf50ad398579539a5a0f89fd0e"
+            "sha256": "dc436d8a86f150eed0b4c1f44e347d500f88a339e2fa2abd92068b869beb514f"
           }
         ],
         "palette": "cp",
@@ -10721,7 +10721,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/cp/ne-spent-2x.png",
-            "sha256": "608caf7dbc00eaae2ad5799398903bb6214c8569a76802639b5d85c91572f874"
+            "sha256": "851dd8855a78b6f1df5c8a064f8e7152e8e7bae773ad34992e6b535175b9dd6a"
           },
           {
             "dimensions": {
@@ -10729,7 +10729,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/cp/ne-spent-4x.png",
-            "sha256": "d419a311f2e436ada3ebd29558984693525b9324997c52b39bd057e16ffaae6f"
+            "sha256": "4f5f41b582c0e058174306d4585035651d641a82d47da3e80e34a14193b489fc"
           }
         ],
         "palette": "cp",
@@ -10772,7 +10772,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/ec/ne-normal-2x.png",
-            "sha256": "a84c02d1f56f9ad876aa1b3c942f02408b7ec2f8f5327096291949c13814afb5"
+            "sha256": "92de1f19ae972276b59f6aef4573a01043bad1e4daac57bc4d0f89e2b9f246f6"
           },
           {
             "dimensions": {
@@ -10780,7 +10780,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/ec/ne-normal-4x.png",
-            "sha256": "f2f36cb9b74d4b99fdf7d85d71593e76ba609f8c0877ef9ae1b15c4d9ce2fb5c"
+            "sha256": "c1d63e5c6eb046a71e8077d0bd54a205ab287f3b33c4ce78ad293e5e52eefb1f"
           }
         ],
         "palette": "ec",
@@ -10823,7 +10823,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/ec/ne-spent-2x.png",
-            "sha256": "6977c63a68b7e5d9f935eb1eee68b04f05f15180ab85bff845e45f1f9b94184e"
+            "sha256": "913e8ebf4fa1dcd13868014a5b6dcc5d0371f116b90696e178559110247aecb8"
           },
           {
             "dimensions": {
@@ -10831,7 +10831,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/ec/ne-spent-4x.png",
-            "sha256": "3ca55d9af8a6b9d415b5c6fb13ec760e2ecc9a748960a9615cc64dc9539ffdfa"
+            "sha256": "d3eea82aa7a916de07f136334f8a42f26fb706699422f227e664ea9391027a95"
           }
         ],
         "palette": "ec",
@@ -10874,7 +10874,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/neutral/ne-normal-2x.png",
-            "sha256": "655c173e14f80660ac75a9a52d1a959c5a88a8083ae2af0f5e38d30fcac74437"
+            "sha256": "3aac837b032adb48d7309a926617929d7b9dfed89c99bb166d9efc7d569c9ebe"
           },
           {
             "dimensions": {
@@ -10882,7 +10882,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/neutral/ne-normal-4x.png",
-            "sha256": "278c37a1ed86254de5a6e3007c961e2c98f8abc95ff90c26ccebdf3de52813ed"
+            "sha256": "e121084241522ed5350f1acdf16b58899c8fcdc23e53e6db8a0b85c409606534"
           }
         ],
         "palette": "neutral",
@@ -10925,7 +10925,7 @@
               "width": 192
             },
             "path": "sprites/eliteInfantry/neutral/ne-spent-2x.png",
-            "sha256": "b41aeaefaa3cf4c2c1a58a29282721af4dbca897bacd0b283ac4c160d0a26011"
+            "sha256": "721c91505864a5cb526d76f750a3d2fdfd3e4012c298682d74006b67189ae4d1"
           },
           {
             "dimensions": {
@@ -10933,7 +10933,7 @@
               "width": 384
             },
             "path": "sprites/eliteInfantry/neutral/ne-spent-4x.png",
-            "sha256": "4e008d3947e4f5810c5131a5711cf8f47358c16f78282492f83e26a5ee46044e"
+            "sha256": "a2cbcfcd30f390d4887722ddafa169068faa533119dc56863e82256d66e6231d"
           }
         ],
         "palette": "neutral",
@@ -10986,7 +10986,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/n-normal-2x.png",
-      "sha256": "e442b9da41109af620b72fa3f256d697519ee37b067da080ff9674ae67a56bbf"
+      "sha256": "39e896a0bc3093030da2d57846587b00ae2e05934e84bf0a413a8d6656bf3845"
     },
     {
       "build_output": "sprites/eliteInfantry/cp/n-normal-4x.png",
@@ -10995,7 +10995,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/n-normal-4x.png",
-      "sha256": "9de29f54a02738f0b62a6c0282dc757cf85b3620d2851cc23ed9bbe762598e45"
+      "sha256": "9b3b9bc8e6e18a71f82e8ff5cb72d69bcafa494feaedb61c81219a0e4d21efee"
     },
     {
       "build_output": "sprites/eliteInfantry/cp/n-spent-2x.png",
@@ -11004,7 +11004,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/n-spent-2x.png",
-      "sha256": "cb866ae4f9d1afd18392c0125047c628500219e47ae98fd92af8f729e035a048"
+      "sha256": "58050b77dd8d16c7a5acee8440509b978bfbadb9cda0825e1501807c6f17d5b1"
     },
     {
       "build_output": "sprites/eliteInfantry/cp/n-spent-4x.png",
@@ -11013,7 +11013,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/n-spent-4x.png",
-      "sha256": "da4156db63336b2ffa5da5a649eadda944d15d043d4013af60cb16c61896a178"
+      "sha256": "103c3eb325970c5e3d49742f4c9fec68962745bb149527eb170ec18efdfb6ec0"
     },
     {
       "build_output": "sprites/eliteInfantry/ec/n-normal-2x.png",
@@ -11022,7 +11022,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/n-normal-2x.png",
-      "sha256": "e3a00ecfc9b29abf2983edcd295d47e5e0f977d82cc91480bce4c165b75fa5d1"
+      "sha256": "d0104740212b47d7eb8fe3fb0a00e1b3462bff260fc3e44b60700d0dab3b04d6"
     },
     {
       "build_output": "sprites/eliteInfantry/ec/n-normal-4x.png",
@@ -11031,7 +11031,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/n-normal-4x.png",
-      "sha256": "98c3ed68cf90a4927d4f83dd9d8d2e319faa027e0aec828150a08eb120919d95"
+      "sha256": "56815d4ee9472adfb9878358b43a40a4927a4def77a54366f688cae32be44a95"
     },
     {
       "build_output": "sprites/eliteInfantry/ec/n-spent-2x.png",
@@ -11040,7 +11040,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/n-spent-2x.png",
-      "sha256": "ba9a8ad0e1191f25a5bae3aa5ccfc4e4059dee115c59333cffa81eb0de46606c"
+      "sha256": "94f73c0f44e58019ea0d0ba19769a0b89692bde80e0bb46f2fe0603103d82f68"
     },
     {
       "build_output": "sprites/eliteInfantry/ec/n-spent-4x.png",
@@ -11049,7 +11049,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/n-spent-4x.png",
-      "sha256": "59950e1065ff0055a2452abe4abe30102bd627aa42c201995534bd954bc65752"
+      "sha256": "9526283ad7b492dce6ab8f876219ef8e6b6e010f3ef4bbb45ee913cd549112de"
     },
     {
       "build_output": "sprites/eliteInfantry/neutral/n-normal-2x.png",
@@ -11058,7 +11058,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/n-normal-2x.png",
-      "sha256": "a90d714aad5764ef72d6ded0e14c9fd4fca8f808e0f9af85d4e403bb1f3e68ad"
+      "sha256": "a69a3eb45234a24fdb9cd8b69a5303281927df02b0aef12fd55ffc6b27af1b4d"
     },
     {
       "build_output": "sprites/eliteInfantry/neutral/n-normal-4x.png",
@@ -11067,7 +11067,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/n-normal-4x.png",
-      "sha256": "e5da01a60e6d366707108a14892ba74ae58834a36aec2c4f89db05585e5835fc"
+      "sha256": "0aea6fde0e508027fb8d1af05317c19bc1678a7abc854ae90ff979d5a08f3b17"
     },
     {
       "build_output": "sprites/eliteInfantry/neutral/n-spent-2x.png",
@@ -11076,7 +11076,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/n-spent-2x.png",
-      "sha256": "0ffa835b852d32477f027faa5b590e023471260ed865515bc3882d22e328acbb"
+      "sha256": "948bcab5457c98980eca2722eb121ea6323c0123dba7c849df8d246767a3bc7f"
     },
     {
       "build_output": "sprites/eliteInfantry/neutral/n-spent-4x.png",
@@ -11085,7 +11085,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/n-spent-4x.png",
-      "sha256": "390d00fa4826778d9157a84c7b3eb0c209499692754ab1938d13423a324f776b"
+      "sha256": "88a9e29387466539938042bfa6c5550b85af35a0bb85f365e92dcf77135725ea"
     },
     {
       "build_output": "planes/eliteInfantry/nw-base-2x.png",
@@ -11130,7 +11130,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/nw-normal-2x.png",
-      "sha256": "02ff5b23dfb87a479c7cb0838bd1ad205a100bdd64fff847e971ba8ddf75ed21"
+      "sha256": "2228165ef92ad1855d2a780f2339fc85a6cb1b3e5fa65f12fb71fd0ccb00e61f"
     },
     {
       "build_output": "sprites/eliteInfantry/cp/nw-normal-4x.png",
@@ -11139,7 +11139,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/nw-normal-4x.png",
-      "sha256": "d6a56310890256ddae333fb0d3412f1023e1de2d39f03b9ec9eb559516f4a21b"
+      "sha256": "f69cc7d79df61efb36640012b5609f3fb4f8dbb511fb90d4ed187b366f34c8bc"
     },
     {
       "build_output": "sprites/eliteInfantry/cp/nw-spent-2x.png",
@@ -11148,7 +11148,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/nw-spent-2x.png",
-      "sha256": "89613b491556279ac808629908dbf54787cb49363c77ad46c257b2bfffecec6d"
+      "sha256": "0a1b862aaddf9418e5fb9cd714f7146c2f982507ecc567fecf823e8bfd13a17e"
     },
     {
       "build_output": "sprites/eliteInfantry/cp/nw-spent-4x.png",
@@ -11157,7 +11157,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/nw-spent-4x.png",
-      "sha256": "ba47ddb70a87e583c8f27021b6be0bf5f208b17a4f9ebbe98130bccbc28a2d98"
+      "sha256": "0fa0296d5b2b81029ba51c34ec508a759e12ab11c66bebf0e55353b3c1573532"
     },
     {
       "build_output": "sprites/eliteInfantry/ec/nw-normal-2x.png",
@@ -11166,7 +11166,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/nw-normal-2x.png",
-      "sha256": "12e5946bfebd018124712710a13620bcadedd59b0efd01fb65458fa74ea5fd00"
+      "sha256": "135fcbcadabbafbf2b9c47006eb6cde3141bd056c7604efda5dcf5ec137221f9"
     },
     {
       "build_output": "sprites/eliteInfantry/ec/nw-normal-4x.png",
@@ -11175,7 +11175,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/nw-normal-4x.png",
-      "sha256": "a4aa22322f0f2c9008475b35c98197b9304d3ffde011b198f2dc8d43d9a528d1"
+      "sha256": "c8dcde3535509eb46008657376a7efc30997a8e0670313abd9e106fa1b378bca"
     },
     {
       "build_output": "sprites/eliteInfantry/ec/nw-spent-2x.png",
@@ -11184,7 +11184,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/nw-spent-2x.png",
-      "sha256": "a598678c1ac9e9fee3723224b9cd84e879a64bc830a3640db048be999abfb930"
+      "sha256": "1c8b188f280ecc7c2c1ba5499e8e4636f4fd9ede9561cd6dea1daa5784c30afc"
     },
     {
       "build_output": "sprites/eliteInfantry/ec/nw-spent-4x.png",
@@ -11193,7 +11193,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/nw-spent-4x.png",
-      "sha256": "647860870838dad5f04275a659ce40dd09f92596f60ce4b943b18e0586ac5abd"
+      "sha256": "3d53d1215d8caa5bd4cdb65f35716e7b3eac14dbc640f40549875ccf8aa98d92"
     },
     {
       "build_output": "sprites/eliteInfantry/neutral/nw-normal-2x.png",
@@ -11202,7 +11202,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/nw-normal-2x.png",
-      "sha256": "680fdd7d41fc234ba840d641d2294b8e8d25db9e80d53026913959bac837b71c"
+      "sha256": "7f71852b58f0dbfd21d6680f37af6686e83251eed6e7f34a42c224e44e9e5f53"
     },
     {
       "build_output": "sprites/eliteInfantry/neutral/nw-normal-4x.png",
@@ -11211,7 +11211,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/nw-normal-4x.png",
-      "sha256": "a9d3d65986db1b4404b43005ce0bfc3ae99262797de0b55d34827d4ecf56aa6b"
+      "sha256": "77511033d335d9475cb48dbc54f09ed9dd100e46d360e7ca67c62068f272d319"
     },
     {
       "build_output": "sprites/eliteInfantry/neutral/nw-spent-2x.png",
@@ -11220,7 +11220,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/nw-spent-2x.png",
-      "sha256": "bf0ae34db562182f31a3ddf92fc20d627ca74945faf22edb99b95c1824272c61"
+      "sha256": "ac91ecc31ca15bc70c143240bd7eb08a88b2492946ece513b34c246490bbce84"
     },
     {
       "build_output": "sprites/eliteInfantry/neutral/nw-spent-4x.png",
@@ -11229,7 +11229,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/nw-spent-4x.png",
-      "sha256": "928384a00ae33d4e920da0e6ffbe546ad13043881edab3cb055d12c0e2f584dd"
+      "sha256": "7a0da457cca052c3b0b8257d692b05dc3d76190c61d301eaa3fd9d9446ca4056"
     },
     {
       "build_output": "planes/eliteInfantry/sw-base-2x.png",
@@ -11274,7 +11274,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/sw-normal-2x.png",
-      "sha256": "7ff0c5976c92ad9f64a8a87c2eb30bb1f9728c982a28f1bbc4c163940bdb4f9d"
+      "sha256": "224b95e890efbe47c14754f65a63d4056eb647029dfedc65f20b840fee1dcb13"
     },
     {
       "build_output": "sprites/eliteInfantry/cp/sw-normal-4x.png",
@@ -11283,7 +11283,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/sw-normal-4x.png",
-      "sha256": "5e339adbca2a14c25285c0ab09e3c88ffbf663df2d1633a6f0f9598b5b7c587f"
+      "sha256": "97eb0b68105f94b52ef3cdbf6ffc3a31630b6e207a2d41130aea65e02a95e4c6"
     },
     {
       "build_output": "sprites/eliteInfantry/cp/sw-spent-2x.png",
@@ -11292,7 +11292,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/sw-spent-2x.png",
-      "sha256": "1fe5b4cc2ca9c16199780b61f2cc103ea557f7bf1f959ee30a14886a21b1af55"
+      "sha256": "98cc7035ea669fa68f08cdc635e7a0c3b194917fcaffdce38dc60647644fec3a"
     },
     {
       "build_output": "sprites/eliteInfantry/cp/sw-spent-4x.png",
@@ -11301,7 +11301,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/sw-spent-4x.png",
-      "sha256": "2c762637428f8ed860b308e8ca311f99d7e7aad4e663bc93428e190c8fc3ed94"
+      "sha256": "b9b9a32fd0e64f4d0e077750e30594af2eac30d39d7e9d685ffecf661df2886d"
     },
     {
       "build_output": "sprites/eliteInfantry/ec/sw-normal-2x.png",
@@ -11310,7 +11310,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/sw-normal-2x.png",
-      "sha256": "d558323b2fcece0b314c5e4058a25916134a2fb3bc6592a671719898ac9b5270"
+      "sha256": "173632ee6429e3220f5ba3246ac1f5b8f908b32581577f49754940f4678d260e"
     },
     {
       "build_output": "sprites/eliteInfantry/ec/sw-normal-4x.png",
@@ -11319,7 +11319,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/sw-normal-4x.png",
-      "sha256": "24cd363635c9a41bb09aa592dd481229f36cd02c868739673140d77d6262f56d"
+      "sha256": "816e5931bf6f47456e3b643ebb5a457c2b0eb36db385d1955a4a5c2f0c4a8736"
     },
     {
       "build_output": "sprites/eliteInfantry/ec/sw-spent-2x.png",
@@ -11328,7 +11328,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/sw-spent-2x.png",
-      "sha256": "1ed1cda0ae130c3de13f882a92dc0ba46b6771b19e91c0b4d6f287f0f062b49a"
+      "sha256": "9c2f777546197ded743fd0f6f9a902e12bafbf6aeeb9cc1b53b047ee60f26b31"
     },
     {
       "build_output": "sprites/eliteInfantry/ec/sw-spent-4x.png",
@@ -11337,7 +11337,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/sw-spent-4x.png",
-      "sha256": "f22c0972a4059bf3868441e188f95ddd43c191f596a216442b542a74492dd92b"
+      "sha256": "b657d7f09628001d3cc662f70bab1aa9880c797690ca7c2e9ef673a58a8cdf65"
     },
     {
       "build_output": "sprites/eliteInfantry/neutral/sw-normal-2x.png",
@@ -11346,7 +11346,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/sw-normal-2x.png",
-      "sha256": "53f8558b8e37e87ede584b0d7730638e9356d195708765a019dd409bd8a2e17b"
+      "sha256": "0a5fd8d00f278c0f69b244b9580e47ea2e98ee30901f6b06c3d9ef32ddfb43e4"
     },
     {
       "build_output": "sprites/eliteInfantry/neutral/sw-normal-4x.png",
@@ -11355,7 +11355,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/sw-normal-4x.png",
-      "sha256": "dfe1cd74d3a628f167485232b165d159a23a6b4351fc67bfc10d26cf82925cac"
+      "sha256": "eb07d0f1d6c85979ee4f192622723f8484e26c07ca75f4da919705c395594cc1"
     },
     {
       "build_output": "sprites/eliteInfantry/neutral/sw-spent-2x.png",
@@ -11364,7 +11364,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/sw-spent-2x.png",
-      "sha256": "bc22dd5a86e368521891c11872c188e58014386c41d620561e7f2ba51f9afecf"
+      "sha256": "3bebcfcc63bdcb7bb91b3e3a5f68a309c1ee72e9df9ce91ac51c8aca2e15eb9c"
     },
     {
       "build_output": "sprites/eliteInfantry/neutral/sw-spent-4x.png",
@@ -11373,7 +11373,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/sw-spent-4x.png",
-      "sha256": "a16f1adbf3ce9f846b2ed90f4d68414c84c0224f2fbf6ff027d5c4716d97ba9e"
+      "sha256": "9f35aae9167816e68158a5ad0508fba1bac9324a3e806c45055673bfb9f8f906"
     },
     {
       "build_output": "planes/eliteInfantry/s-base-2x.png",
@@ -11418,7 +11418,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/s-normal-2x.png",
-      "sha256": "cb02584b2c255f0ff006fe613336a6d417a815b58f7c985dd70004e0ffed7438"
+      "sha256": "421a53d9db63cbc133bf9084ee3c0bb2a3f6a0f631dc8e3a2610e310b972fefe"
     },
     {
       "build_output": "sprites/eliteInfantry/cp/s-normal-4x.png",
@@ -11427,7 +11427,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/s-normal-4x.png",
-      "sha256": "6ac1eed6c5fb988b80c6185c8f407c43a72f668f5acc8a8d07abeca329d39a0d"
+      "sha256": "75a6bd389dd55ea29d023fdb2e158bd47a512abbd66d04fd782675eb40032caa"
     },
     {
       "build_output": "sprites/eliteInfantry/cp/s-spent-2x.png",
@@ -11436,7 +11436,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/s-spent-2x.png",
-      "sha256": "84a07556ed5f86429cf7779f7882d9e934e885cce46b65ac62cdaa901d506041"
+      "sha256": "de47db6646aa90de357f89c9d01e6c2a66eac8392cf2fcfd109418d103478dd6"
     },
     {
       "build_output": "sprites/eliteInfantry/cp/s-spent-4x.png",
@@ -11445,7 +11445,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/s-spent-4x.png",
-      "sha256": "75d0b6263634c8b5a054fd90fe4df6882350ebd27f223369f9a7ff35b8acb2e6"
+      "sha256": "ea7d401ffded70b7ea49e1ec17ccdbefc4e481853c029a653be4d211facaae94"
     },
     {
       "build_output": "sprites/eliteInfantry/ec/s-normal-2x.png",
@@ -11454,7 +11454,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/s-normal-2x.png",
-      "sha256": "e2dfa44f6264b6eb0008169468e0bc88e7b3b069a3fd3decc790ecd53bef84a1"
+      "sha256": "984133eeb3f652c6fd3c558be8cff27869cfbbd7e11e6554ef0d35496aa9b998"
     },
     {
       "build_output": "sprites/eliteInfantry/ec/s-normal-4x.png",
@@ -11463,7 +11463,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/s-normal-4x.png",
-      "sha256": "66622bcca96c8b6ed17d4ed58c96210e2ff5110f2573375618894e370da184de"
+      "sha256": "398b7637f0e6782eccc934b5eea36991a8625e8f0e108267151b42a6a3a235e3"
     },
     {
       "build_output": "sprites/eliteInfantry/ec/s-spent-2x.png",
@@ -11472,7 +11472,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/s-spent-2x.png",
-      "sha256": "7c56e666eb9e55ef2de8df64a7590c0d7e04eb5f4a1c8d8f3c4fe640f3ab7990"
+      "sha256": "0ce3134b80a882a995b8d8632e34b05a6523891d3a63ae913d851256173252c4"
     },
     {
       "build_output": "sprites/eliteInfantry/ec/s-spent-4x.png",
@@ -11481,7 +11481,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/s-spent-4x.png",
-      "sha256": "e1f6716c171e6fd2374bef7c2c25dcb7e01bc35c47eb5110c86f38e82aeb7efd"
+      "sha256": "d61b2e6d589d5db688b7d7d62395da225ee42b8554a23e3f3676b9a8b8d5f10f"
     },
     {
       "build_output": "sprites/eliteInfantry/neutral/s-normal-2x.png",
@@ -11490,7 +11490,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/s-normal-2x.png",
-      "sha256": "4386f60395098cd3efe54fbab19285fda053ff3bce26ab2cb6ea96c297de57ec"
+      "sha256": "554c55531cdd00f80bb47911e88371975c5946f391bfa1fd6f7e3a29eaf45523"
     },
     {
       "build_output": "sprites/eliteInfantry/neutral/s-normal-4x.png",
@@ -11499,7 +11499,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/s-normal-4x.png",
-      "sha256": "4c2ac17a5a0c5982ae373f7fd50d415e94ebf764e7cab40563b4fff8a55a9a5e"
+      "sha256": "291fae28646e4bc6f021b96149d30daaf0bd5ccc8400c5d5f86e93cb951aec1a"
     },
     {
       "build_output": "sprites/eliteInfantry/neutral/s-spent-2x.png",
@@ -11508,7 +11508,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/s-spent-2x.png",
-      "sha256": "9934c47b5a8f696289965218da0e3acba29a576dfb3f9940d8ef0cf9fbc20276"
+      "sha256": "1715916036101a953a641a7e18e5e35204b1966628cd61eb36a47e922d041d57"
     },
     {
       "build_output": "sprites/eliteInfantry/neutral/s-spent-4x.png",
@@ -11517,7 +11517,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/s-spent-4x.png",
-      "sha256": "6d1d4a7c54697665591dc36c8158633b04d92a103a85f0c92df9004b2bef0de4"
+      "sha256": "37da02845fe0efdf1604b633ea6ac430844d48370782b5725379c4a4daa00b6b"
     },
     {
       "build_output": "planes/eliteInfantry/se-base-2x.png",
@@ -11562,7 +11562,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/se-normal-2x.png",
-      "sha256": "4e97e8824cda84325c1985f87add8d5f594a39813319f74c27f1880565e3270d"
+      "sha256": "05d88f31d9b095ae82107a99467ae842e191024089c067ec08ae14518e42a9c0"
     },
     {
       "build_output": "sprites/eliteInfantry/cp/se-normal-4x.png",
@@ -11571,7 +11571,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/se-normal-4x.png",
-      "sha256": "c92b7d6307b6c9a6fc633297676c1bb06c091dc6c375fbfea566f486a95cb620"
+      "sha256": "71de5cfa7a5ceda2c96bb5dcb014bb6daea9b5edeeacca09406be72e287b0eac"
     },
     {
       "build_output": "sprites/eliteInfantry/cp/se-spent-2x.png",
@@ -11580,7 +11580,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/se-spent-2x.png",
-      "sha256": "cdf8adfe559a450c1c05b6c64551b639d1bcde185a15c1b921ee9731b4647ff8"
+      "sha256": "f0a4309b8a59b81e79ad0417e7af0464f2c33e0a77d9f61b806971f6457ab9f4"
     },
     {
       "build_output": "sprites/eliteInfantry/cp/se-spent-4x.png",
@@ -11589,7 +11589,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/se-spent-4x.png",
-      "sha256": "a9e4e4c2f3288a0e36ac7a95b295d8f6415c8cdd05d571831dd5004d3cf6940f"
+      "sha256": "feef3044f9180a179050c0e4bf2f862a1678629404a278e8782c6a3454fc620d"
     },
     {
       "build_output": "sprites/eliteInfantry/ec/se-normal-2x.png",
@@ -11598,7 +11598,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/se-normal-2x.png",
-      "sha256": "49f4136d8465997d474b1a700d63fa7204f9ef3dd0b16104ebb495b4a4093ab8"
+      "sha256": "d1dbdd2333635bdcf015cc810170ef0259e335a60a53e03c5c7873dabbe81144"
     },
     {
       "build_output": "sprites/eliteInfantry/ec/se-normal-4x.png",
@@ -11607,7 +11607,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/se-normal-4x.png",
-      "sha256": "ad341770d5306552e7c12931b71b6fbc8b2d41068d288c3468192913b32d562c"
+      "sha256": "6db25cc3bb266304b18c4bfeed032b583d6eb7477c39ef7d8f4846100ce43d45"
     },
     {
       "build_output": "sprites/eliteInfantry/ec/se-spent-2x.png",
@@ -11616,7 +11616,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/se-spent-2x.png",
-      "sha256": "a036c412a678a12c805f3275525add14ed054d3b981040c8e2dc3a186a0711dd"
+      "sha256": "2d0deed5ab25d14c355dd194d2c2a9702cbf76abb73c0e2263891c133d9149fd"
     },
     {
       "build_output": "sprites/eliteInfantry/ec/se-spent-4x.png",
@@ -11625,7 +11625,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/se-spent-4x.png",
-      "sha256": "c3db653fc4de264d1779d9abdb21e06489e99055a86344fbf294af93a27aaa2e"
+      "sha256": "e88120f4701560b6d49ea3bbd5625d2f7704ee50f6a67e5107f5e69bb5ff9d52"
     },
     {
       "build_output": "sprites/eliteInfantry/neutral/se-normal-2x.png",
@@ -11634,7 +11634,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/se-normal-2x.png",
-      "sha256": "ae5ad8c261ecfe61ac7728ee30c043c4050acfc2e6efb8130d84ada282e1e990"
+      "sha256": "18f02a222e6f1b3faad02f241531c6351512b4ca6e235bbc19792e7e4bba6a4d"
     },
     {
       "build_output": "sprites/eliteInfantry/neutral/se-normal-4x.png",
@@ -11643,7 +11643,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/se-normal-4x.png",
-      "sha256": "f0f41f9f87b475715dd72a50c3921c555d9fee809fb1e0db7b0c0df1df624a6b"
+      "sha256": "12638365e0c37d9f0c20caf7f2e1ed113f34aad0bb3101e8c7165e9fd873f151"
     },
     {
       "build_output": "sprites/eliteInfantry/neutral/se-spent-2x.png",
@@ -11652,7 +11652,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/se-spent-2x.png",
-      "sha256": "6a70ee2980d849ea9ea85e171f383276c109c1b99820347908ec01ca97e8472b"
+      "sha256": "addcbfdd26adf13160c1cd208d4b2a0ec4e423bd32a630b6010de66712452a19"
     },
     {
       "build_output": "sprites/eliteInfantry/neutral/se-spent-4x.png",
@@ -11661,7 +11661,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/se-spent-4x.png",
-      "sha256": "44486e78867863d074faec7c9fb353dcbf1cbf4e2e671c030d96736d5b8036f2"
+      "sha256": "9869258d0434b9ecb9f2f50d4f68d87cacf4525e5db9db261b0f9ccf81f394f2"
     },
     {
       "build_output": "planes/eliteInfantry/ne-base-2x.png",
@@ -11706,7 +11706,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/ne-normal-2x.png",
-      "sha256": "ab0331a3fb2b6808d56ed7c27b58bfef894f68da50e69f989554b7dcbf999dec"
+      "sha256": "cf4e67c583fe1b97ab6f5da2cdc495838291d9da0049e03b92a2df9a52cca079"
     },
     {
       "build_output": "sprites/eliteInfantry/cp/ne-normal-4x.png",
@@ -11715,7 +11715,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/ne-normal-4x.png",
-      "sha256": "f621940eb6ef1ffb2ec30994c086436f89cffabf50ad398579539a5a0f89fd0e"
+      "sha256": "dc436d8a86f150eed0b4c1f44e347d500f88a339e2fa2abd92068b869beb514f"
     },
     {
       "build_output": "sprites/eliteInfantry/cp/ne-spent-2x.png",
@@ -11724,7 +11724,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/ne-spent-2x.png",
-      "sha256": "608caf7dbc00eaae2ad5799398903bb6214c8569a76802639b5d85c91572f874"
+      "sha256": "851dd8855a78b6f1df5c8a064f8e7152e8e7bae773ad34992e6b535175b9dd6a"
     },
     {
       "build_output": "sprites/eliteInfantry/cp/ne-spent-4x.png",
@@ -11733,7 +11733,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/ne-spent-4x.png",
-      "sha256": "d419a311f2e436ada3ebd29558984693525b9324997c52b39bd057e16ffaae6f"
+      "sha256": "4f5f41b582c0e058174306d4585035651d641a82d47da3e80e34a14193b489fc"
     },
     {
       "build_output": "sprites/eliteInfantry/ec/ne-normal-2x.png",
@@ -11742,7 +11742,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/ne-normal-2x.png",
-      "sha256": "a84c02d1f56f9ad876aa1b3c942f02408b7ec2f8f5327096291949c13814afb5"
+      "sha256": "92de1f19ae972276b59f6aef4573a01043bad1e4daac57bc4d0f89e2b9f246f6"
     },
     {
       "build_output": "sprites/eliteInfantry/ec/ne-normal-4x.png",
@@ -11751,7 +11751,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/ne-normal-4x.png",
-      "sha256": "f2f36cb9b74d4b99fdf7d85d71593e76ba609f8c0877ef9ae1b15c4d9ce2fb5c"
+      "sha256": "c1d63e5c6eb046a71e8077d0bd54a205ab287f3b33c4ce78ad293e5e52eefb1f"
     },
     {
       "build_output": "sprites/eliteInfantry/ec/ne-spent-2x.png",
@@ -11760,7 +11760,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/ne-spent-2x.png",
-      "sha256": "6977c63a68b7e5d9f935eb1eee68b04f05f15180ab85bff845e45f1f9b94184e"
+      "sha256": "913e8ebf4fa1dcd13868014a5b6dcc5d0371f116b90696e178559110247aecb8"
     },
     {
       "build_output": "sprites/eliteInfantry/ec/ne-spent-4x.png",
@@ -11769,7 +11769,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/ne-spent-4x.png",
-      "sha256": "3ca55d9af8a6b9d415b5c6fb13ec760e2ecc9a748960a9615cc64dc9539ffdfa"
+      "sha256": "d3eea82aa7a916de07f136334f8a42f26fb706699422f227e664ea9391027a95"
     },
     {
       "build_output": "sprites/eliteInfantry/neutral/ne-normal-2x.png",
@@ -11778,7 +11778,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/ne-normal-2x.png",
-      "sha256": "655c173e14f80660ac75a9a52d1a959c5a88a8083ae2af0f5e38d30fcac74437"
+      "sha256": "3aac837b032adb48d7309a926617929d7b9dfed89c99bb166d9efc7d569c9ebe"
     },
     {
       "build_output": "sprites/eliteInfantry/neutral/ne-normal-4x.png",
@@ -11787,7 +11787,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/ne-normal-4x.png",
-      "sha256": "278c37a1ed86254de5a6e3007c961e2c98f8abc95ff90c26ccebdf3de52813ed"
+      "sha256": "e121084241522ed5350f1acdf16b58899c8fcdc23e53e6db8a0b85c409606534"
     },
     {
       "build_output": "sprites/eliteInfantry/neutral/ne-spent-2x.png",
@@ -11796,7 +11796,7 @@
         "width": 192
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/ne-spent-2x.png",
-      "sha256": "b41aeaefaa3cf4c2c1a58a29282721af4dbca897bacd0b283ac4c160d0a26011"
+      "sha256": "721c91505864a5cb526d76f750a3d2fdfd3e4012c298682d74006b67189ae4d1"
     },
     {
       "build_output": "sprites/eliteInfantry/neutral/ne-spent-4x.png",
@@ -11805,7 +11805,7 @@
         "width": 384
       },
       "path": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/ne-spent-4x.png",
-      "sha256": "4e008d3947e4f5810c5131a5711cf8f47358c16f78282492f83e26a5ee46044e"
+      "sha256": "a2cbcfcd30f390d4887722ddafa169068faa533119dc56863e82256d66e6231d"
     },
     {
       "build_output": "sheets/eliteInfantry-white-2x.png",
@@ -11814,7 +11814,7 @@
         "width": 1152
       },
       "path": "art/exports/unit-elite-infantry-v1/sheets/eliteInfantry-white-2x.png",
-      "sha256": "ac4d4550f5d5839ca8c146522b0c9c4ac3cb4811cd72816ae1c42066fe78bcb1"
+      "sha256": "5db723f7d45ca3494295b4f11b1eea90b778264a2b8c0b57f27f29345690fe72"
     },
     {
       "build_output": "sheets/eliteInfantry-white-4x.png",
@@ -11823,7 +11823,7 @@
         "width": 2304
       },
       "path": "art/exports/unit-elite-infantry-v1/sheets/eliteInfantry-white-4x.png",
-      "sha256": "d7fd5dd49cbfd7eba48859f7c73b865561a23b7404a6cf9bd7915c62850be72f"
+      "sha256": "d4ff5ad506735215f1c59e11690e3b0cb7f0e8b0811443c9c9092d83ea20e130"
     },
     {
       "build_output": "sheets/eliteInfantry-checker-2x.png",
@@ -11832,7 +11832,7 @@
         "width": 1152
       },
       "path": "art/exports/unit-elite-infantry-v1/sheets/eliteInfantry-checker-2x.png",
-      "sha256": "d01572c5efc2baed0cdbea3bb52ae2352b6155ea4d647a0f5371246ad19c446c"
+      "sha256": "5b86e9e0e8733efb69c5d5f2e68cf81af6b04fdd6b1d30c1d18869810a221754"
     },
     {
       "build_output": "sheets/eliteInfantry-checker-4x.png",
@@ -11841,7 +11841,7 @@
         "width": 2304
       },
       "path": "art/exports/unit-elite-infantry-v1/sheets/eliteInfantry-checker-4x.png",
-      "sha256": "5b4584968cd653d65bfc678427a50321ad856393cf1f4e3d529131ce23804058"
+      "sha256": "08a010eb9d483511f60feecde634e236e2c827af744b67ab1b865730d2b10a2f"
     },
     {
       "build_output": "scenes/grass-normal-p0-2x.png",
@@ -11850,7 +11850,7 @@
         "width": 476
       },
       "path": "art/exports/unit-elite-infantry-v1/scenes/grass-normal-p0-2x.png",
-      "sha256": "542db13108e88c1cd5eba15293caaaaebfc9a4686c0dbaa55599c103dae57afd"
+      "sha256": "d68e5b3d562fc316c03f01506d4fa406656e7e72b80b31248d4607b5ce2390de"
     },
     {
       "build_output": "scenes/grass-normal-p0-4x.png",
@@ -11859,7 +11859,7 @@
         "width": 952
       },
       "path": "art/exports/unit-elite-infantry-v1/scenes/grass-normal-p0-4x.png",
-      "sha256": "eae972178c753e17d04cc8a840c6b3d4076ec93b7db1db8649d00f867f34f3dc"
+      "sha256": "2016ad4d64804c8eee76ff4dec47bd4e45e0e49b520474a68802389a0ad0ea09"
     },
     {
       "build_output": "scenes/grass-normal-p1-2x.png",
@@ -11868,7 +11868,7 @@
         "width": 476
       },
       "path": "art/exports/unit-elite-infantry-v1/scenes/grass-normal-p1-2x.png",
-      "sha256": "542db13108e88c1cd5eba15293caaaaebfc9a4686c0dbaa55599c103dae57afd"
+      "sha256": "d68e5b3d562fc316c03f01506d4fa406656e7e72b80b31248d4607b5ce2390de"
     },
     {
       "build_output": "scenes/grass-normal-p1-4x.png",
@@ -11877,7 +11877,7 @@
         "width": 952
       },
       "path": "art/exports/unit-elite-infantry-v1/scenes/grass-normal-p1-4x.png",
-      "sha256": "eae972178c753e17d04cc8a840c6b3d4076ec93b7db1db8649d00f867f34f3dc"
+      "sha256": "2016ad4d64804c8eee76ff4dec47bd4e45e0e49b520474a68802389a0ad0ea09"
     },
     {
       "build_output": "scenes/grass-spent-p0-2x.png",
@@ -11886,7 +11886,7 @@
         "width": 476
       },
       "path": "art/exports/unit-elite-infantry-v1/scenes/grass-spent-p0-2x.png",
-      "sha256": "6227d57048d8dbe560ea493a41b4578b9fe19d0290fa5290f344017f2c70593c"
+      "sha256": "8c7222aca259bb8b5126aca8756bc3de713619c1e004f0e7d085550b1dcbbaf0"
     },
     {
       "build_output": "scenes/grass-spent-p0-4x.png",
@@ -11895,7 +11895,7 @@
         "width": 952
       },
       "path": "art/exports/unit-elite-infantry-v1/scenes/grass-spent-p0-4x.png",
-      "sha256": "0aef8470fac784240d1ce86ab7e1e579fd2c9b95b51fc763b593b4176e906385"
+      "sha256": "12b1c33da9c177d1978684e8a7469a7ffe704a190c924e38dda36cd5969bc0ce"
     },
     {
       "build_output": "scenes/grass-spent-p1-2x.png",
@@ -11904,7 +11904,7 @@
         "width": 476
       },
       "path": "art/exports/unit-elite-infantry-v1/scenes/grass-spent-p1-2x.png",
-      "sha256": "6227d57048d8dbe560ea493a41b4578b9fe19d0290fa5290f344017f2c70593c"
+      "sha256": "8c7222aca259bb8b5126aca8756bc3de713619c1e004f0e7d085550b1dcbbaf0"
     },
     {
       "build_output": "scenes/grass-spent-p1-4x.png",
@@ -11913,7 +11913,7 @@
         "width": 952
       },
       "path": "art/exports/unit-elite-infantry-v1/scenes/grass-spent-p1-4x.png",
-      "sha256": "0aef8470fac784240d1ce86ab7e1e579fd2c9b95b51fc763b593b4176e906385"
+      "sha256": "12b1c33da9c177d1978684e8a7469a7ffe704a190c924e38dda36cd5969bc0ce"
     },
     {
       "build_output": "scenes/grass_w-normal-p0-2x.png",
@@ -11922,7 +11922,7 @@
         "width": 476
       },
       "path": "art/exports/unit-elite-infantry-v1/scenes/grass_w-normal-p0-2x.png",
-      "sha256": "12cf4575549edcd752dd87950595c7a2d9252dbfc8e3b8167479ea2f790d0d31"
+      "sha256": "3858a728f2fc58269098e97d1d6b64b20e5c20ff484af9fa088358c002441c0a"
     },
     {
       "build_output": "scenes/grass_w-normal-p0-4x.png",
@@ -11931,7 +11931,7 @@
         "width": 952
       },
       "path": "art/exports/unit-elite-infantry-v1/scenes/grass_w-normal-p0-4x.png",
-      "sha256": "3e4d6f36e68553d3f78b3c8a0e776451b75867f4fb26fb811377c8845549b2fe"
+      "sha256": "44434aa65673e72b0347061f950adcd3f6bf0f05b88be041c6d6d14b7ee2df39"
     },
     {
       "build_output": "scenes/grass_w-normal-p1-2x.png",
@@ -11940,7 +11940,7 @@
         "width": 476
       },
       "path": "art/exports/unit-elite-infantry-v1/scenes/grass_w-normal-p1-2x.png",
-      "sha256": "12cf4575549edcd752dd87950595c7a2d9252dbfc8e3b8167479ea2f790d0d31"
+      "sha256": "3858a728f2fc58269098e97d1d6b64b20e5c20ff484af9fa088358c002441c0a"
     },
     {
       "build_output": "scenes/grass_w-normal-p1-4x.png",
@@ -11949,7 +11949,7 @@
         "width": 952
       },
       "path": "art/exports/unit-elite-infantry-v1/scenes/grass_w-normal-p1-4x.png",
-      "sha256": "3e4d6f36e68553d3f78b3c8a0e776451b75867f4fb26fb811377c8845549b2fe"
+      "sha256": "44434aa65673e72b0347061f950adcd3f6bf0f05b88be041c6d6d14b7ee2df39"
     },
     {
       "build_output": "scenes/grass_w-spent-p0-2x.png",
@@ -11958,7 +11958,7 @@
         "width": 476
       },
       "path": "art/exports/unit-elite-infantry-v1/scenes/grass_w-spent-p0-2x.png",
-      "sha256": "332305766e09e8f87c92efed6e47b89d5a072b9ed9d04cbaae6288b846d4d2fa"
+      "sha256": "d9373e3a93cdaace5ae297088dcdd2b1acf402a1518b1f9f59f19e1bc13b94e4"
     },
     {
       "build_output": "scenes/grass_w-spent-p0-4x.png",
@@ -11967,7 +11967,7 @@
         "width": 952
       },
       "path": "art/exports/unit-elite-infantry-v1/scenes/grass_w-spent-p0-4x.png",
-      "sha256": "f51a78029ddcef5ebefc893bb680d80861ba6e1718a495496e343c6239431e33"
+      "sha256": "8fa6b2c7866336d1ea44950b9a2c76e2b1472c2e43f0b79bd02c51d9e3a146b9"
     },
     {
       "build_output": "scenes/grass_w-spent-p1-2x.png",
@@ -11976,7 +11976,7 @@
         "width": 476
       },
       "path": "art/exports/unit-elite-infantry-v1/scenes/grass_w-spent-p1-2x.png",
-      "sha256": "332305766e09e8f87c92efed6e47b89d5a072b9ed9d04cbaae6288b846d4d2fa"
+      "sha256": "d9373e3a93cdaace5ae297088dcdd2b1acf402a1518b1f9f59f19e1bc13b94e4"
     },
     {
       "build_output": "scenes/grass_w-spent-p1-4x.png",
@@ -11985,7 +11985,7 @@
         "width": 952
       },
       "path": "art/exports/unit-elite-infantry-v1/scenes/grass_w-spent-p1-4x.png",
-      "sha256": "f51a78029ddcef5ebefc893bb680d80861ba6e1718a495496e343c6239431e33"
+      "sha256": "8fa6b2c7866336d1ea44950b9a2c76e2b1472c2e43f0b79bd02c51d9e3a146b9"
     },
     {
       "build_output": "scenes/mud-normal-p0-2x.png",
@@ -11994,7 +11994,7 @@
         "width": 476
       },
       "path": "art/exports/unit-elite-infantry-v1/scenes/mud-normal-p0-2x.png",
-      "sha256": "2d9b24d927023aec777bcdea644fb03fd51273d5dadee7ef8c7f5ad7f9db8136"
+      "sha256": "d631426979c7343ca053c6bc217c4b0cb4f59a5fd91b98803427a4a93db23b0d"
     },
     {
       "build_output": "scenes/mud-normal-p0-4x.png",
@@ -12003,7 +12003,7 @@
         "width": 952
       },
       "path": "art/exports/unit-elite-infantry-v1/scenes/mud-normal-p0-4x.png",
-      "sha256": "715427ba7691f468174dbf4e220a48cc68cc013e94c66e6b08fb5fcb70952901"
+      "sha256": "97905d1210f65b8fbfd90f1ab928fd8f9d12af4abd07de66421482427eefc931"
     },
     {
       "build_output": "scenes/mud-normal-p1-2x.png",
@@ -12012,7 +12012,7 @@
         "width": 476
       },
       "path": "art/exports/unit-elite-infantry-v1/scenes/mud-normal-p1-2x.png",
-      "sha256": "2d9b24d927023aec777bcdea644fb03fd51273d5dadee7ef8c7f5ad7f9db8136"
+      "sha256": "d631426979c7343ca053c6bc217c4b0cb4f59a5fd91b98803427a4a93db23b0d"
     },
     {
       "build_output": "scenes/mud-normal-p1-4x.png",
@@ -12021,7 +12021,7 @@
         "width": 952
       },
       "path": "art/exports/unit-elite-infantry-v1/scenes/mud-normal-p1-4x.png",
-      "sha256": "715427ba7691f468174dbf4e220a48cc68cc013e94c66e6b08fb5fcb70952901"
+      "sha256": "97905d1210f65b8fbfd90f1ab928fd8f9d12af4abd07de66421482427eefc931"
     },
     {
       "build_output": "scenes/mud-spent-p0-2x.png",
@@ -12030,7 +12030,7 @@
         "width": 476
       },
       "path": "art/exports/unit-elite-infantry-v1/scenes/mud-spent-p0-2x.png",
-      "sha256": "e4b52503bb65b141d59ca17c35a4c79d77b2d91b87e0410db7cff45a9d8f2e40"
+      "sha256": "d7d663e5b277dfccb52bb9ce3ac33c81e4812a6574d7ed861e23452e6e5725a5"
     },
     {
       "build_output": "scenes/mud-spent-p0-4x.png",
@@ -12039,7 +12039,7 @@
         "width": 952
       },
       "path": "art/exports/unit-elite-infantry-v1/scenes/mud-spent-p0-4x.png",
-      "sha256": "d4f38a3d777d70db8d5a1d02320c0cb283ce939d4e345898895944ccd8ae228c"
+      "sha256": "bf2831eb3128a6ae2036ece10492adf108ea1a2130381e8fc64d8dc4d24aa729"
     },
     {
       "build_output": "scenes/mud-spent-p1-2x.png",
@@ -12048,7 +12048,7 @@
         "width": 476
       },
       "path": "art/exports/unit-elite-infantry-v1/scenes/mud-spent-p1-2x.png",
-      "sha256": "e4b52503bb65b141d59ca17c35a4c79d77b2d91b87e0410db7cff45a9d8f2e40"
+      "sha256": "d7d663e5b277dfccb52bb9ce3ac33c81e4812a6574d7ed861e23452e6e5725a5"
     },
     {
       "build_output": "scenes/mud-spent-p1-4x.png",
@@ -12057,7 +12057,7 @@
         "width": 952
       },
       "path": "art/exports/unit-elite-infantry-v1/scenes/mud-spent-p1-4x.png",
-      "sha256": "d4f38a3d777d70db8d5a1d02320c0cb283ce939d4e345898895944ccd8ae228c"
+      "sha256": "bf2831eb3128a6ae2036ece10492adf108ea1a2130381e8fc64d8dc4d24aa729"
     }
   ],
   "generation_recipes": [
@@ -12067,7 +12067,7 @@
   "generation_recipes_scope": "Includes historical generation studies and the current pinned master records. Current source selection is established by the producing manifest and its exact SHA256 pins; historical records are unchanged.",
   "id": "unit-elite-infantry-v1",
   "manifest": "art/unit-elite-infantry-v1.json",
-  "manifest_sha256": "f4ec4fea96883231df0f05841f7a8319fb3c18b718b51b291a2c1c4fbe66393a",
+  "manifest_sha256": "20ae0db4c4a917c42f1f67c6447bbe2651666ed6212d3975cc8bc5dbea784482",
   "original_image_inputs": [
     {
       "generation_recipe": "art/recipes/terrain/reference-v2/meadow-03.json",

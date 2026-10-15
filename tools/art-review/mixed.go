@@ -197,6 +197,9 @@ func loadMixedInputs(path string) (mixedInputs, error) {
 		for _, f := range src.manifest.Families {
 			expected := map[string][2]float64{"road": {14, 2}, "stream": {18, 2.5}, "path": {7, .75}, "rail": {11, 1}}
 			profile, ok := expected[f.ID]
+			if f.ID == "road" && f.Markings == "dashed" {
+				profile = [2]float64{22, 1}
+			}
 			if !ok || f.Width != profile[0] || f.Border != profile[1] {
 				return in, fmt.Errorf("mixed incompatible %s profile", f.ID)
 			}

@@ -119,7 +119,7 @@
             "sha256": "d2db0b7ce97f3145abcd651b0042654433dd7f36875de7b88438688c0716d947"
           },
           {
-            "path": "art/exports/connected-v1/road14-2x.png",
+            "path": "art/review/history/2026-10-15/exports/connected-v1/road14-2x.png",
             "sha256": "010f5678e234a584341bc6d3442e235d85ce8bba8ac9da57fb3ed9d00f49c9bc"
           },
           {
@@ -131,7 +131,7 @@
             "sha256": "d2db0b7ce97f3145abcd651b0042654433dd7f36875de7b88438688c0716d947"
           },
           {
-            "path": "art/exports/connected-v1/road14-2x.png",
+            "path": "art/review/history/2026-10-15/exports/connected-v1/road14-2x.png",
             "sha256": "010f5678e234a584341bc6d3442e235d85ce8bba8ac9da57fb3ed9d00f49c9bc"
           },
           {
@@ -139,7 +139,7 @@
             "sha256": "d2db0b7ce97f3145abcd651b0042654433dd7f36875de7b88438688c0716d947"
           },
           {
-            "path": "art/exports/connected-v1/road124-2x.png",
+            "path": "art/review/history/2026-10-15/exports/connected-v1/road124-2x.png",
             "sha256": "e81a2259b8befdf8231faac7f076b101c9db5a9bf7929b7da25f5eb475a07c77"
           }
         ],
@@ -173,7 +173,7 @@
             "sha256": "7ac55b80d4106a18504a9529f04905a4164755363175a15a65948adb52e95cd3"
           },
           {
-            "path": "art/exports/connected-v1/road14-4x.png",
+            "path": "art/review/history/2026-10-15/exports/connected-v1/road14-4x.png",
             "sha256": "dd70190f1145abbbd98047cfad4212269a1df72ef4be33b58665341bb0b68155"
           },
           {
@@ -185,7 +185,7 @@
             "sha256": "7ac55b80d4106a18504a9529f04905a4164755363175a15a65948adb52e95cd3"
           },
           {
-            "path": "art/exports/connected-v1/road14-4x.png",
+            "path": "art/review/history/2026-10-15/exports/connected-v1/road14-4x.png",
             "sha256": "dd70190f1145abbbd98047cfad4212269a1df72ef4be33b58665341bb0b68155"
           },
           {
@@ -193,7 +193,7 @@
             "sha256": "7ac55b80d4106a18504a9529f04905a4164755363175a15a65948adb52e95cd3"
           },
           {
-            "path": "art/exports/connected-v1/road124-4x.png",
+            "path": "art/review/history/2026-10-15/exports/connected-v1/road124-4x.png",
             "sha256": "c5ad6c13f37e3b34e71a278902f6e848349ba03be99e47c886decb7f5af74fd1"
           }
         ],
@@ -201,7 +201,7 @@
         "sha256": "c6f1d5c8e6e8bf69facffb3e9eec5706327891bb0dc91fa75cc69419f6b02b25"
       }
     ],
-    "rebuild_status": "Historical fixture preserved from the previous source set. Pixels and hashes were not refreshed by this rebuild; re-review is required."
+    "rebuild_status": "Historical fixture from the previous source set. Replaced inputs are preserved under art/review/history/2026-10-15 with their original hashes. This fixture has not been re-reviewed for the current artwork."
   },
   "date": "2026-10-15",
   "exports": [

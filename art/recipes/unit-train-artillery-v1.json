@@ -54,7 +54,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/cp/n-normal-2x.png",
-        "sha256": "7337665bac16a1ba042338082873e6f77ea99f7ec70ad50dfef6807694aaf0a5"
+        "sha256": "f4bdd4cea71b6fb65537f6e3712e55d16f99de926b9aaef7545c7f1d388a267c"
       },
       {
         "dimensions": {
@@ -62,7 +62,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/cp/n-normal-4x.png",
-        "sha256": "72a9220fe1c206dc9483e61e6dd8dd4696a3787df619835af065d5caf5dfff07"
+        "sha256": "550341b47812e6ba6594cdfb4326ec501cccaefe7b1b281df0d7fc3ca2ac8cb4"
       },
       {
         "dimensions": {
@@ -70,7 +70,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/cp/n-spent-2x.png",
-        "sha256": "b91e7b7303d1147f506748248f6dd95cad010dd5b597663ddae936c4fe3e8d7e"
+        "sha256": "9074d6ddf4526ef3b39d2b2be2e7fa6873681757855661419892c5c1d551e915"
       },
       {
         "dimensions": {
@@ -78,7 +78,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/cp/n-spent-4x.png",
-        "sha256": "1760d20ed79f7d746a810d899c05377ff24adba9f43fc10dc18da5f7b8881a9c"
+        "sha256": "f2f275b3962f1ec38f7e61f6969b6be982e77df9f746ad845d82dd7d73495685"
       },
       {
         "dimensions": {
@@ -86,7 +86,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/ec/n-normal-2x.png",
-        "sha256": "df2b2666ae29622bc58382ea782af6065799f0a82ad12ffa904ae42be697f69e"
+        "sha256": "9843a0bfdfbb752e5118e1c69f43e7dab932a6a4b7b9d9d26d1160818ba939d8"
       },
       {
         "dimensions": {
@@ -94,7 +94,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/ec/n-normal-4x.png",
-        "sha256": "5e548c767f5e7a1ce758d69e8de81aacd74d695c5f2fe8f2479af81cd5041884"
+        "sha256": "940aa9a4ced7aa2b02c24878e68fb8a0497e11d506a4f67e9cfd409729386ab0"
       },
       {
         "dimensions": {
@@ -102,7 +102,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/ec/n-spent-2x.png",
-        "sha256": "7159fd977e8b06a2dce07c20f92e95ecdd9ed9da574602c41a19f8857b620925"
+        "sha256": "3001790ea0a0f9c2b637a9f20f936687794bd1dc4ea9c17f83cc1c401bda29db"
       },
       {
         "dimensions": {
@@ -110,7 +110,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/ec/n-spent-4x.png",
-        "sha256": "47275f2178c555c1911af9a7c5858b601fd234779b6f0e95ef53f179d944ef81"
+        "sha256": "1aa3aeff25b607267daaeee76910995c6258ed040f4e20b627aa279cb7cc0cfc"
       },
       {
         "dimensions": {
@@ -118,7 +118,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/neutral/n-normal-2x.png",
-        "sha256": "0aefa1cee79631b5df79759740034a6d04a3a6b5b8b6764f854e865cff0fadca"
+        "sha256": "3f5baf4914d1a91765614f82c82e9b8840d0c614430ef711c0652000f57643b2"
       },
       {
         "dimensions": {
@@ -126,7 +126,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/neutral/n-normal-4x.png",
-        "sha256": "75cb02f76076479a11e41eda219546f31ef7a48fd692a5fc1997c01e0f4c73f7"
+        "sha256": "8c9d16fcced8f4180903bf24f982cf3b93b9f50cd15f14237426600a8f0b2c06"
       },
       {
         "dimensions": {
@@ -134,7 +134,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/neutral/n-spent-2x.png",
-        "sha256": "21e3d97ea7dceaae6e7e64a7dbb9977c63a5954fb04da5b1c8f29f61ca57c3a8"
+        "sha256": "5b39cc6f8dad78104ab12f5a1c7256185ffc464fe2842f6bf259903f9942d145"
       },
       {
         "dimensions": {
@@ -142,7 +142,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/neutral/n-spent-4x.png",
-        "sha256": "83c8a474b086576e7d4293251bee065c6eb830dbcd0efecb4f958c1f5350da23"
+        "sha256": "9379b4f99108e76c53f8e2d5b0408f934e54f9856c5912d14878bfebe1256b85"
       },
       {
         "dimensions": {
@@ -182,7 +182,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/cp/nw-normal-2x.png",
-        "sha256": "8f0c5dd188a9fcf4af3db3ac2b64455c3e3023059a4667d9eeea7fe9657ae7a2"
+        "sha256": "2e5b6e8fd60eda3c7071f13e931094e2641ca64d9ceeafede5526fb73fcdb9c6"
       },
       {
         "dimensions": {
@@ -190,7 +190,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/cp/nw-normal-4x.png",
-        "sha256": "9bca02b64978e8a4b7517a5ea9588d7db72f981002741e9b6e120b5e99cab67b"
+        "sha256": "8c0024592314a1b1f91c5d0f51e4900b225a0e82624d480557f68e8a5c5ccdc9"
       },
       {
         "dimensions": {
@@ -198,7 +198,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/cp/nw-spent-2x.png",
-        "sha256": "dd1d65c218ddca89a1538f25ac374d4cad4201a51e2e40d3e96d8d04d3a9db92"
+        "sha256": "7665a6042f69c948aca2d545915eb149252e61bb1dec0444793fe75325bfdcd4"
       },
       {
         "dimensions": {
@@ -206,7 +206,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/cp/nw-spent-4x.png",
-        "sha256": "4b1d3ad3b828f34bbda3aade5d43715554ed3732e333db33ec6119dc142cacc5"
+        "sha256": "48856e205042adcc52b58f038bd6d067030cc389a143a90d9cabc6dc6212b626"
       },
       {
         "dimensions": {
@@ -214,7 +214,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/ec/nw-normal-2x.png",
-        "sha256": "b5919d0ba83d739b8b6936bb7b99831e59854b782bab20064963701f12f6ca91"
+        "sha256": "5e8b32c10cad89fbfb11b6140a3513afc8fda51352c5d8a3b7cb09699e504544"
       },
       {
         "dimensions": {
@@ -222,7 +222,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/ec/nw-normal-4x.png",
-        "sha256": "6ec60bb7b5d3fa2084a8eebcee01c15d883f758a94a255bad11b8f8540d92bd6"
+        "sha256": "4835038c3a83d8340189f6536969e00a723a2fda941cca7673c763466c16980e"
       },
       {
         "dimensions": {
@@ -230,7 +230,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/ec/nw-spent-2x.png",
-        "sha256": "fb0694867fe7766ded9e0a002eb34db4a816f4b115935d077c1c02f5c00ed30b"
+        "sha256": "0df908c3c2a1cb9edd931856a59b68cfde6866323197f16eea2a30987252e3f0"
       },
       {
         "dimensions": {
@@ -238,7 +238,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/ec/nw-spent-4x.png",
-        "sha256": "0e51674f82b794b1393bde8ece388d777534b9318ee03546db951ebd7d5c47b1"
+        "sha256": "e0300df57a14bf271fad113372bae3cc95cfe6d765559a5cd6a3b0a9dec44024"
       },
       {
         "dimensions": {
@@ -246,7 +246,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/neutral/nw-normal-2x.png",
-        "sha256": "38dd0243ac0e41cc6e63afa6cff945a0b79d47fec300fc2b19d47327ad30c8fc"
+        "sha256": "f040baabede3e431bb7bad77f918728d69cbcecec35012b9135a890cd112eed8"
       },
       {
         "dimensions": {
@@ -254,7 +254,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/neutral/nw-normal-4x.png",
-        "sha256": "3d35144489f553839d530b346df8c067a97bf1a8859129c19dc9e515e4dbab01"
+        "sha256": "d171bc126d45ab7402cf7986192282a25f59042aef245a45f873f9d77fe524fa"
       },
       {
         "dimensions": {
@@ -262,7 +262,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/neutral/nw-spent-2x.png",
-        "sha256": "b30cc7d58bbe9fa96ebe47373e5f41fb86052feb74a351739e93ab562fc822f5"
+        "sha256": "cf00024b9ed2b5f5aa133c954758d4eb324be9c8e1274032119fd2607759c62f"
       },
       {
         "dimensions": {
@@ -270,7 +270,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/neutral/nw-spent-4x.png",
-        "sha256": "1f52f6647dbd6b5c58877fee700bcec96846d316bb9f97f22daaec2a0b352729"
+        "sha256": "7a82f14a259b3d2e96129c5547d6eb91158c82b4d8e8c5a7353b859a0daa05db"
       },
       {
         "dimensions": {
@@ -310,7 +310,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/cp/sw-normal-2x.png",
-        "sha256": "290325140836b5c7904078f421d525af0c247c63fcdb4c437daee55bd39752c3"
+        "sha256": "de9599cb6b1e25ceb593d340a281ab5972fcaa2e753f2fbf28c3ac432c34acaa"
       },
       {
         "dimensions": {
@@ -318,7 +318,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/cp/sw-normal-4x.png",
-        "sha256": "4fcb8910227abec10e73c3da4f5c5a380a5c4e3c87b3a5cb73a054e07ebcc8e0"
+        "sha256": "4b7d742eb8dd9b47cb29ca5d67c34f501de342a638b82d323c6714ac9c24d952"
       },
       {
         "dimensions": {
@@ -326,7 +326,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/cp/sw-spent-2x.png",
-        "sha256": "134abb4e6bd4df77d7154ce0dfa6e266c83f60ee0ed840a2a81c39199e5d5ea9"
+        "sha256": "9aa339caccc71baac19f79c015ac7f97a8499141f4c11f7e8746e0d3e33b3cfb"
       },
       {
         "dimensions": {
@@ -334,7 +334,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/cp/sw-spent-4x.png",
-        "sha256": "10b6756ce9148f8bedc0b227d0ae224a3af534b1ecd86d21002da03d3c274787"
+        "sha256": "212e50a100a2e334dc869e06076f83d87caca61b8a4170d1bdc1d4b0bbf080eb"
       },
       {
         "dimensions": {
@@ -342,7 +342,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/ec/sw-normal-2x.png",
-        "sha256": "7ac3d93f1915f1739e9225c6bce976926a8b88398fea494c0c4f187f3a8d939d"
+        "sha256": "bed565e3e53904e284ae043fdcc874128a723b4babe8f130ce856afe250cdf74"
       },
       {
         "dimensions": {
@@ -350,7 +350,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/ec/sw-normal-4x.png",
-        "sha256": "0f676b565a4103ba201545ba3f3d6b420dda47e6a0f804ccc73e90bd6d79ea33"
+        "sha256": "eae6085e1b1007a9b82323e90153b56c581d8e75424caa30f5dbe9029d1c1719"
       },
       {
         "dimensions": {
@@ -358,7 +358,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/ec/sw-spent-2x.png",
-        "sha256": "8a5263f1b8ef5a5af39be9a50257e4ed89ff1585f70fb11c1bb48ab65658793a"
+        "sha256": "fa759ff47c862effabbbb1d98a53fb555640948780d89eb10a60eb51ea1b48d3"
       },
       {
         "dimensions": {
@@ -366,7 +366,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/ec/sw-spent-4x.png",
-        "sha256": "3ec449d1ca7be58fe944a5d8609954cdea5824d63ecc02f93503e6fa6a63bef9"
+        "sha256": "865d27aef2d9c4b4dc6fb2d8bbbb58baab7519871bd3ab7f6bf1e6b2a9dfdd85"
       },
       {
         "dimensions": {
@@ -374,7 +374,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/neutral/sw-normal-2x.png",
-        "sha256": "189489b8cb77c2c399bb7ef691b8c7ad715e126c3da23926971c358106528535"
+        "sha256": "2fa12438c05c9b745309ce2b232cb09306a717f8bd94ebcd57c783d17449768a"
       },
       {
         "dimensions": {
@@ -382,7 +382,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/neutral/sw-normal-4x.png",
-        "sha256": "f26ddd460d3c669c4d14fadac85b34ad973148436f75f04fe64e3ced40d7d578"
+        "sha256": "8fc7c7b5b4aab7472a7f91a2a48ea03725d1e31aff62c1da041c9c3db1bd8669"
       },
       {
         "dimensions": {
@@ -390,7 +390,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/neutral/sw-spent-2x.png",
-        "sha256": "2c7e470440ff620c4eba7705fb17976340d4d407856d941879ea03705adc286c"
+        "sha256": "fe03495f35973080996abb51924d3d321e46ecb0801e2cb329543872feffd26d"
       },
       {
         "dimensions": {
@@ -398,7 +398,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/neutral/sw-spent-4x.png",
-        "sha256": "3e09dee63ecb9524dbeb140d4a513aa240c8eb97f7a25d530233a43b7f9ceeb0"
+        "sha256": "dadd108f0e5fd904fe94663d0d2fabfc7d817f6f0654c61baddabcd7510843a8"
       },
       {
         "dimensions": {
@@ -438,7 +438,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/cp/s-normal-2x.png",
-        "sha256": "b7291b0b21c529b6f8b8ae6fc1de5f7f43a9fe5839021c8d3a1eaece6ced16a6"
+        "sha256": "93391cb05b867dc57dc8eaa338638527bc2e53ddfaaea2fc19901550cf4c2819"
       },
       {
         "dimensions": {
@@ -446,7 +446,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/cp/s-normal-4x.png",
-        "sha256": "425bf5e2879ab22829241e27c29114fa84e0ad95453a94c59f6b061ea0628416"
+        "sha256": "9e34e9a0ff24d4a117d076562ed07877a2eae917939dc003fb20ebed79eaad73"
       },
       {
         "dimensions": {
@@ -454,7 +454,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/cp/s-spent-2x.png",
-        "sha256": "38d97ab35af4b9513626dd3764efb09ea9f81a4f5e7ef35686513a9de02b1fb6"
+        "sha256": "cffa2f44af1eba657f1ab0db1189807c7d9d4d7c1b1bd0568a16471bc0fa02ba"
       },
       {
         "dimensions": {
@@ -462,7 +462,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/cp/s-spent-4x.png",
-        "sha256": "0a6cc007ac14198ab4dc4ad52990324a889369392fc55c0aaa4551c22d32ca13"
+        "sha256": "470bacf535691df3d45b29f150a6b72b412135787d71f107193dd2e1fe0000f6"
       },
       {
         "dimensions": {
@@ -470,7 +470,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/ec/s-normal-2x.png",
-        "sha256": "e106ac0e5292e88db1794736aaec8a6181454ff68217e1a441ac29aaa58ef870"
+        "sha256": "7a3daa7ebe9865d194fc8ac138fe991e422196c6173fe9ed340ad7deca4b777f"
       },
       {
         "dimensions": {
@@ -478,7 +478,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/ec/s-normal-4x.png",
-        "sha256": "c9a30960da24c8ab689b4b52112a23caaf547d85300adb62e457be6c73214a0a"
+        "sha256": "1e10b5422542ae1620233bcba6ebaab393bdc121d4d438a09373f53dc23dee14"
       },
       {
         "dimensions": {
@@ -486,7 +486,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/ec/s-spent-2x.png",
-        "sha256": "3e13342e7760f1821d361216204be6f8b28b5308e38b661a5b5d80fb13b5b872"
+        "sha256": "d8199cff3246fbf0bd1ef574b736d9f2c4c7cbdc720f4236a0faf4dfca44add8"
       },
       {
         "dimensions": {
@@ -494,7 +494,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/ec/s-spent-4x.png",
-        "sha256": "8bbf20a18b47fb185f1b6c2b51521180efe1d22cd2954e09b8fa1afa446edee3"
+        "sha256": "45ad935718d4c8272e8966687aa3f15f193eeb9140fa5c45ff9dafb94107bdfd"
       },
       {
         "dimensions": {
@@ -502,7 +502,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/neutral/s-normal-2x.png",
-        "sha256": "9800c3fa37902ea95d1baabc959094d4d1fd8b1a99401372ea0cef6819846b5a"
+        "sha256": "39f813e86bc614ae88b32acd66c114d76a88c77fbf2896c6a7494b1a91ea59e5"
       },
       {
         "dimensions": {
@@ -510,7 +510,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/neutral/s-normal-4x.png",
-        "sha256": "f9177f0f8b6cffed491e399839b54aad65e7fea084bb5bd6c91e868b4adde61b"
+        "sha256": "28299a8f5f9c978c530d03adfbb83f2563c4f6a61ae14b38a9cb49e120def2e6"
       },
       {
         "dimensions": {
@@ -518,7 +518,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/neutral/s-spent-2x.png",
-        "sha256": "aa93aa721877db73f5667ee159b4c332c7ec8ec16d405019d995165909508a9c"
+        "sha256": "51b726b3965fd84e659b7eab11ee8039ddc456a53652f4bdb90d24ae2653753b"
       },
       {
         "dimensions": {
@@ -526,7 +526,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/neutral/s-spent-4x.png",
-        "sha256": "302c1b03f6e73be5e19a3c2967866c49893146970a0a976c2536a3b40468f183"
+        "sha256": "c67ebe39b70c2f2124609dd5dba1b42c0ffda20f692cd6aaad95647c730bc2e8"
       },
       {
         "dimensions": {
@@ -566,7 +566,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/cp/se-normal-2x.png",
-        "sha256": "269b1099de7b452412ecd5e1e621340993bde577446972933f6c9b749bcfa335"
+        "sha256": "3e5cb6139139baeb06ee1de9b0a84ed6310a8caaa295398509c902e1d71f05cd"
       },
       {
         "dimensions": {
@@ -574,7 +574,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/cp/se-normal-4x.png",
-        "sha256": "8bb333e472b7814fc205c8f7f70126461f70d5e8a0492d4692cdedb8b6470876"
+        "sha256": "10659a560844ed0e81064fd4453514e69714cbb89878dd07e5da41067fddb7a5"
       },
       {
         "dimensions": {
@@ -582,7 +582,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/cp/se-spent-2x.png",
-        "sha256": "28484c168b1402da59d17be15e3b319187d52705dcc0d8abe1e9c4ff1abd85c3"
+        "sha256": "aeb0e5a37822361110e340f3e0636cda279a12840b261fe3898c529215f81d2d"
       },
       {
         "dimensions": {
@@ -590,7 +590,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/cp/se-spent-4x.png",
-        "sha256": "aea6e92570183f6f6fd2419314b5d1c484e3974a6dc98ea57d91ffdc2b3759c8"
+        "sha256": "b0976a4dec97c12deaa249c3ddb3cd3435e50d2b47065e938dd872ebd5b8b2cf"
       },
       {
         "dimensions": {
@@ -598,7 +598,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/ec/se-normal-2x.png",
-        "sha256": "bdec52504ab1dad8071ee02c4e63a12ee0657756648b57de3973ea6436d18f93"
+        "sha256": "f97273a644762d4b0b54994bbf07a614cf945fc7bc295cefab3dc28323b8b2e6"
       },
       {
         "dimensions": {
@@ -606,7 +606,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/ec/se-normal-4x.png",
-        "sha256": "29277da73a6b992483d8bfe4a7d9a30f6b580a6e2dc988df0336cd8adb4da8f1"
+        "sha256": "397744fad0abc7b30aacd0c93fcd687ba51cc05d47e548d1b040034dd82a0cb1"
       },
       {
         "dimensions": {
@@ -614,7 +614,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/ec/se-spent-2x.png",
-        "sha256": "b989e735bba6e4d9d291f8bee880c18302a9908c763e7c85cd1be7dca2a232d7"
+        "sha256": "e4704ab4620cd87ff2d5f8a3d93635b7ef6d104e332c0dd5f9d5ac5fe569566e"
       },
       {
         "dimensions": {
@@ -622,7 +622,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/ec/se-spent-4x.png",
-        "sha256": "aef9daf894a4eb3ad7098cb7ba52cdcb50e7693df6e40e9ed21636614aacf8de"
+        "sha256": "af892da081bfb76e47c19e631d48759906df77518cb2eb9820814a538cf4f91c"
       },
       {
         "dimensions": {
@@ -630,7 +630,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/neutral/se-normal-2x.png",
-        "sha256": "951c8bf2e048c960ad4f29be6714244c28f8a16aefd13555ac0ffbee9056738e"
+        "sha256": "4033c0ff861caf6923ea9b69fb620a2189ef50c7aada6535186f9da8a457e3d8"
       },
       {
         "dimensions": {
@@ -638,7 +638,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/neutral/se-normal-4x.png",
-        "sha256": "2b707832a8ee0452df3684264cb07ede9709be254bf2b4852103ff4d1517360e"
+        "sha256": "248d3e67ae8d1b4b6bc77a36a8b87b4184dcc6a61a328787274433f83503fead"
       },
       {
         "dimensions": {
@@ -646,7 +646,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/neutral/se-spent-2x.png",
-        "sha256": "76ac3dd40e4774ecc75b6e2400189dc57136d5b4541bc16fe557b830fb9b81ce"
+        "sha256": "f3472a8defba8df258c2c416b1168f04daada2d1b287e64c1d9863a8de053956"
       },
       {
         "dimensions": {
@@ -654,7 +654,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/neutral/se-spent-4x.png",
-        "sha256": "b8bf64c0fa2c5cebe1f2a3e0a3e83462a4dc7c5c8a9d49a89e4615e69df028a6"
+        "sha256": "ffa5f8af8484566ad8fbbb788c54ba87b65134e3536853e186c4be93f3669091"
       },
       {
         "dimensions": {
@@ -694,7 +694,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/cp/ne-normal-2x.png",
-        "sha256": "34e6dd9d2ce0b9e994cfa2361c42b26a5828e3535ac42a52bd6cdf5a0632529a"
+        "sha256": "2a827349622961a4a5fdbdd2f3f464b244bb0537cf4eb49a014984990df554d8"
       },
       {
         "dimensions": {
@@ -702,7 +702,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/cp/ne-normal-4x.png",
-        "sha256": "662fa4e7679fcc60786baa4c1734e9c1ca0534f7fa200b2b06103579433aa865"
+        "sha256": "6bd7041e4172dc1087741124576dd832c62e0b0684f038d4936282efcbdb44ec"
       },
       {
         "dimensions": {
@@ -710,7 +710,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/cp/ne-spent-2x.png",
-        "sha256": "d820be019b386e72d90ade7226a6ce5c8ae4e78f38c31f2df14c5d003c468f2b"
+        "sha256": "46d47c7541588091ad0b22adc1380a6bc63ef5c215c5b3f754fe5fd879b2f862"
       },
       {
         "dimensions": {
@@ -718,7 +718,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/cp/ne-spent-4x.png",
-        "sha256": "fd5fe1e176427b10b0db1d38dc41ea3de475ced30c203e84cb084fb4431d9b20"
+        "sha256": "64e2d361140e0678d4c765f55a3b1ac5f50472f7bb462a1925d46eada4d2b702"
       },
       {
         "dimensions": {
@@ -726,7 +726,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/ec/ne-normal-2x.png",
-        "sha256": "c4107be86a2ed3241a4edd4dd6d4edc9b9d0bb0ed9eb3025a0b5e6e08f242540"
+        "sha256": "4b4b420595ce719ddbea2189ca287776debdf770787bb76e648a3ff24c5acfe1"
       },
       {
         "dimensions": {
@@ -734,7 +734,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/ec/ne-normal-4x.png",
-        "sha256": "3f1b01fa99450dd9495e8c2974ab357c133efc2f00e69326320ad03da63f999a"
+        "sha256": "a1282235ff77c7abba2c86d38093fc6522d73be6f5c2e814b82228b6b93b698d"
       },
       {
         "dimensions": {
@@ -742,7 +742,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/ec/ne-spent-2x.png",
-        "sha256": "5cfb2db5780be7d422d47bf668070081adac10021fa885954e714462cfc8c0cd"
+        "sha256": "e8b1c8d05437461186970c7b830aa690a897e93f6bfb2b2f9e13cd840a4d5e65"
       },
       {
         "dimensions": {
@@ -750,7 +750,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/ec/ne-spent-4x.png",
-        "sha256": "5296d067ee7394fe3b9062a0daa2918e6f09798d59027da131ef0fd00346e239"
+        "sha256": "70903a123f43c8d587ca212ca22aa667b9c553c37e56bbc6535196902cd75307"
       },
       {
         "dimensions": {
@@ -758,7 +758,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/neutral/ne-normal-2x.png",
-        "sha256": "6050ff261222532737385231365923447453af891918d5f99bad8ab814115e26"
+        "sha256": "a4f9118e04106c0f13d365245841f81d246ea945c8729817d85e1a546826f1f5"
       },
       {
         "dimensions": {
@@ -766,7 +766,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/neutral/ne-normal-4x.png",
-        "sha256": "c3f0cda5e8bb3be8185deb99a88035ca37a7257193175f520235df71232c6995"
+        "sha256": "b13bded0157cc4e84b3437e670bca954801ecb7dd18ce734d4d59a4ae17541cc"
       },
       {
         "dimensions": {
@@ -774,7 +774,7 @@
           "width": 192
         },
         "path": "sprites/trainArtillery/neutral/ne-spent-2x.png",
-        "sha256": "5759d70dfc2f0b0fc45c5e52908793632a4651fe551014b5fbb6655908b77a55"
+        "sha256": "8d8f12681593fdb7a952b166dd617c52ceaa000e1159954987dc005475e1852c"
       },
       {
         "dimensions": {
@@ -782,7 +782,7 @@
           "width": 384
         },
         "path": "sprites/trainArtillery/neutral/ne-spent-4x.png",
-        "sha256": "46c699b7e84d776dc0171a4c52340a8435be148e86646af98d361ff64a0c7968"
+        "sha256": "6b5b8507b509cd062a37ce7f720e6a3a91c0e1261323bb16180183482bd1692f"
       },
       {
         "dimensions": {
@@ -790,7 +790,7 @@
           "width": 1152
         },
         "path": "sheets/trainArtillery-white-2x.png",
-        "sha256": "6d91c76cc89bf3482d11a82edf35bd52b8bac7247c900c3af1d0ef2514e72026"
+        "sha256": "08aa42e599ce45af1a14fecd6f1553386f401f9c12a6dc449b6b40a2589cf949"
       },
       {
         "dimensions": {
@@ -798,7 +798,7 @@
           "width": 2304
         },
         "path": "sheets/trainArtillery-white-4x.png",
-        "sha256": "b51fc28d7ba027ac139e77a28087cd0445dc4d1c59b8d38ff430dd049cbdfbce"
+        "sha256": "d3089e4896480b7e5b699597efa7bdd3120cd56e976fdf9842664f454c98b62a"
       },
       {
         "dimensions": {
@@ -806,7 +806,7 @@
           "width": 1152
         },
         "path": "sheets/trainArtillery-checker-2x.png",
-        "sha256": "bcf1204edc5ee34398de223a7944c74fc99843a77522ba87bcdc94bc7c0e5a4a"
+        "sha256": "9207560df0637b7cf83a2f6ed0dcaf8fe659829cc58694323f457a9f33bef95a"
       },
       {
         "dimensions": {
@@ -814,7 +814,7 @@
           "width": 2304
         },
         "path": "sheets/trainArtillery-checker-4x.png",
-        "sha256": "482d3de9f909a477c8d5de20a82307c245078d98a9b81700d92fada3c9cb01fb"
+        "sha256": "f854bbb5e1701695ef041c736d3879fc84ca56b5555dd5a493839ee29a8e6bde"
       },
       {
         "dimensions": {
@@ -822,7 +822,7 @@
           "width": 476
         },
         "path": "scenes/grass-normal-p0-2x.png",
-        "sha256": "887ee7e23756e3695b52301e819fd514138a0ed7bfa4655a397349aa05eed8a7"
+        "sha256": "41ad77707bebe3ef2a8c862a4ee52df0d4ea802f5aa95abbfa55d4b8090d2161"
       },
       {
         "dimensions": {
@@ -830,7 +830,7 @@
           "width": 952
         },
         "path": "scenes/grass-normal-p0-4x.png",
-        "sha256": "25e24274f7c10129c7527ac35d39c204d7e5d27e3d9d4c8cd4b71e330fc08805"
+        "sha256": "42a9706609ae3d0b18e9c04d7843ab3ea4253d9f27409d36878874845fbf1488"
       },
       {
         "dimensions": {
@@ -838,7 +838,7 @@
           "width": 476
         },
         "path": "scenes/grass-normal-p1-2x.png",
-        "sha256": "887ee7e23756e3695b52301e819fd514138a0ed7bfa4655a397349aa05eed8a7"
+        "sha256": "41ad77707bebe3ef2a8c862a4ee52df0d4ea802f5aa95abbfa55d4b8090d2161"
       },
       {
         "dimensions": {
@@ -846,7 +846,7 @@
           "width": 952
         },
         "path": "scenes/grass-normal-p1-4x.png",
-        "sha256": "25e24274f7c10129c7527ac35d39c204d7e5d27e3d9d4c8cd4b71e330fc08805"
+        "sha256": "42a9706609ae3d0b18e9c04d7843ab3ea4253d9f27409d36878874845fbf1488"
       },
       {
         "dimensions": {
@@ -854,7 +854,7 @@
           "width": 476
         },
         "path": "scenes/grass-spent-p0-2x.png",
-        "sha256": "ad44daa0d49a92a7627049983499c7b7eca82c23c9567ba2a28110a9aaa43b9f"
+        "sha256": "979c94dbeeca9529283517d7bed02ec12853814f1ae77a62a0c6031a4f33d298"
       },
       {
         "dimensions": {
@@ -862,7 +862,7 @@
           "width": 952
         },
         "path": "scenes/grass-spent-p0-4x.png",
-        "sha256": "2aca8e9ce9887a8d8e6138d1903fa7bb861d3c8b3fee6ec5ab2407604c1807e5"
+        "sha256": "9f45e5ec1baec6ccde99a88ea93105975d82b777b70731273e64f00554ee6c99"
       },
       {
         "dimensions": {
@@ -870,7 +870,7 @@
           "width": 476
         },
         "path": "scenes/grass-spent-p1-2x.png",
-        "sha256": "ad44daa0d49a92a7627049983499c7b7eca82c23c9567ba2a28110a9aaa43b9f"
+        "sha256": "979c94dbeeca9529283517d7bed02ec12853814f1ae77a62a0c6031a4f33d298"
       },
       {
         "dimensions": {
@@ -878,7 +878,7 @@
           "width": 952
         },
         "path": "scenes/grass-spent-p1-4x.png",
-        "sha256": "2aca8e9ce9887a8d8e6138d1903fa7bb861d3c8b3fee6ec5ab2407604c1807e5"
+        "sha256": "9f45e5ec1baec6ccde99a88ea93105975d82b777b70731273e64f00554ee6c99"
       },
       {
         "dimensions": {
@@ -886,7 +886,7 @@
           "width": 476
         },
         "path": "scenes/grass_w-normal-p0-2x.png",
-        "sha256": "9cc7d6747b4bf8f431e71e391da7017b4fe902bcf6cbc7507eacd321fba5de12"
+        "sha256": "3645f4009865592286ac18bab9b8169752c8bd2b553ecfa679353c443a5f3a20"
       },
       {
         "dimensions": {
@@ -894,7 +894,7 @@
           "width": 952
         },
         "path": "scenes/grass_w-normal-p0-4x.png",
-        "sha256": "b74a2a91c9aefc9c7e35074f3f2d1b91b08d58ab24c72a33d0a217a72582d305"
+        "sha256": "7bf85c2f798e0179ce7ccaede68525bb52c9c016d147cfad0fdcd43998d47575"
       },
       {
         "dimensions": {
@@ -902,7 +902,7 @@
           "width": 476
         },
         "path": "scenes/grass_w-normal-p1-2x.png",
-        "sha256": "9cc7d6747b4bf8f431e71e391da7017b4fe902bcf6cbc7507eacd321fba5de12"
+        "sha256": "3645f4009865592286ac18bab9b8169752c8bd2b553ecfa679353c443a5f3a20"
       },
       {
         "dimensions": {
@@ -910,7 +910,7 @@
           "width": 952
         },
         "path": "scenes/grass_w-normal-p1-4x.png",
-        "sha256": "b74a2a91c9aefc9c7e35074f3f2d1b91b08d58ab24c72a33d0a217a72582d305"
+        "sha256": "7bf85c2f798e0179ce7ccaede68525bb52c9c016d147cfad0fdcd43998d47575"
       },
       {
         "dimensions": {
@@ -918,7 +918,7 @@
           "width": 476
         },
         "path": "scenes/grass_w-spent-p0-2x.png",
-        "sha256": "50269d1d23bee3ca91f5453d3dbd563848ee20fff3c6525b85ae98bfe559d966"
+        "sha256": "a2113065abf02d588918c8a571a3bb093cafb17e810446ef9bf1883fa0547e82"
       },
       {
         "dimensions": {
@@ -926,7 +926,7 @@
           "width": 952
         },
         "path": "scenes/grass_w-spent-p0-4x.png",
-        "sha256": "563d4222146671d521489608f48835a2ba95a5be4231bfa39471673eaae7000d"
+        "sha256": "0572c97d8ac4f439abbaab07f8b862e3bacf33c063feb7eba619f41e77f93c4a"
       },
       {
         "dimensions": {
@@ -934,7 +934,7 @@
           "width": 476
         },
         "path": "scenes/grass_w-spent-p1-2x.png",
-        "sha256": "50269d1d23bee3ca91f5453d3dbd563848ee20fff3c6525b85ae98bfe559d966"
+        "sha256": "a2113065abf02d588918c8a571a3bb093cafb17e810446ef9bf1883fa0547e82"
       },
       {
         "dimensions": {
@@ -942,7 +942,7 @@
           "width": 952
         },
         "path": "scenes/grass_w-spent-p1-4x.png",
-        "sha256": "563d4222146671d521489608f48835a2ba95a5be4231bfa39471673eaae7000d"
+        "sha256": "0572c97d8ac4f439abbaab07f8b862e3bacf33c063feb7eba619f41e77f93c4a"
       },
       {
         "dimensions": {
@@ -950,7 +950,7 @@
           "width": 476
         },
         "path": "scenes/mud-normal-p0-2x.png",
-        "sha256": "3708da4fea40c1160d55105091a0d0fae4af686b2b3bd7292ff0fad0c3e67fa4"
+        "sha256": "c45f4a4d883de25a71e568fb2b31ec85945ba02714ee46edc40b922f7cb0ddad"
       },
       {
         "dimensions": {
@@ -958,7 +958,7 @@
           "width": 952
         },
         "path": "scenes/mud-normal-p0-4x.png",
-        "sha256": "ce7fa72d22b385f47dae03706964a2c904ed7d77bed92144d18ada1bb13c8db7"
+        "sha256": "20f641048a595b61dcc2248d58f8598e61a9cac658899f0828941b4f2714ff8a"
       },
       {
         "dimensions": {
@@ -966,7 +966,7 @@
           "width": 476
         },
         "path": "scenes/mud-normal-p1-2x.png",
-        "sha256": "3708da4fea40c1160d55105091a0d0fae4af686b2b3bd7292ff0fad0c3e67fa4"
+        "sha256": "c45f4a4d883de25a71e568fb2b31ec85945ba02714ee46edc40b922f7cb0ddad"
       },
       {
         "dimensions": {
@@ -974,7 +974,7 @@
           "width": 952
         },
         "path": "scenes/mud-normal-p1-4x.png",
-        "sha256": "ce7fa72d22b385f47dae03706964a2c904ed7d77bed92144d18ada1bb13c8db7"
+        "sha256": "20f641048a595b61dcc2248d58f8598e61a9cac658899f0828941b4f2714ff8a"
       },
       {
         "dimensions": {
@@ -982,7 +982,7 @@
           "width": 476
         },
         "path": "scenes/mud-spent-p0-2x.png",
-        "sha256": "b81b0c9b1247772aed97144154829ab1526d58bcc9f7de001fcabc7c3af67dfc"
+        "sha256": "e991b7f8fa4e5f487ab15e8117687d21b21017fb9aab07c94212cc54bcd0aac6"
       },
       {
         "dimensions": {
@@ -990,7 +990,7 @@
           "width": 952
         },
         "path": "scenes/mud-spent-p0-4x.png",
-        "sha256": "d80ad3534d7fc8a55bb43482587ac0f51ba64e3d4ddacf461eeeeb072fa65171"
+        "sha256": "36fea78d4d1b5448e4d1ed8b4147fe414bc0540c6f33e82a4987a01d86202332"
       },
       {
         "dimensions": {
@@ -998,7 +998,7 @@
           "width": 476
         },
         "path": "scenes/mud-spent-p1-2x.png",
-        "sha256": "b81b0c9b1247772aed97144154829ab1526d58bcc9f7de001fcabc7c3af67dfc"
+        "sha256": "e991b7f8fa4e5f487ab15e8117687d21b21017fb9aab07c94212cc54bcd0aac6"
       },
       {
         "dimensions": {
@@ -1006,7 +1006,7 @@
           "width": 952
         },
         "path": "scenes/mud-spent-p1-4x.png",
-        "sha256": "d80ad3534d7fc8a55bb43482587ac0f51ba64e3d4ddacf461eeeeb072fa65171"
+        "sha256": "36fea78d4d1b5448e4d1ed8b4147fe414bc0540c6f33e82a4987a01d86202332"
       }
     ],
     "family": "trainArtillery",
@@ -1690,28 +1690,28 @@
         }
       }
     },
-    "manifest_sha256": "7bec45e8b03abab5f657d1bc16223e3a2058af6b36076a401530c9236ffe17d9",
+    "manifest_sha256": "ba03a4fab6a54ab4ec0365cf65ab298005db5f616c4b9ece54951b98183e2cde",
     "manifest_snapshot": "manifest.json",
     "palette_selector": "Owner palette is independent of class ID/country, including captured artillery train; no other family aliases.",
     "palettes": {
       "cp": [
-        104,
-        142,
-        83
+        205,
+        190,
+        159
       ],
       "ec": [
-        190,
-        143,
-        92
+        138,
+        164,
+        186
       ],
       "neutral": [
-        146,
-        146,
-        146
+        174,
+        174,
+        164
       ]
     },
     "physical_png_count": 131,
-    "profile": "unit-train-artillery-v1: six authored square panels row-major N,NW,SW,S,SE,NE; class family lookup CP_trainArt and EC_trainArt independently selects owner cp/ec/neutral. Source straight RGB V=max(R,G,B); q=max(0,(min(R,B)-G)/max(1,V)); t=clamp((q-.02)/.08); k=t^3*(6*t^2-15*t+10); K=k*V; N_c=(1-k)*source_c+K. Round N/K half up before filtering; alpha-zero clears RGB. Base=(N_R,N_G,N_B,A), tint-energy mask=(K,K,K,A), never binary coverage. Whole-panel pixel-edge affine source anchor=(cell/2,49*cell/96), logical anchor=(48,49), top-left offset=(0,-9), inset=.8. 4x destination=(192,196)+(.8*384/cell)*(source-source_anchor); destination centers map to (d+.5-offset)/scale-.5; offset=(38.4,39.2). Unchanged compound tap budget \u003c=4,000,000 conservative full-support axis taps, checked before allocation. Transparent zero extension, normalized premultiplied float64 separable antialiased Lanczos3, signed lobes retained, positive raw alpha unpremultiply, half-up clamped RGB/A, zero-alpha clear. Independently whole-alpha-aware Lanczos3 reduce base/mask 384-\u003e192. At each density tint=halfup(clamp(N_c+K*(palette_c/255-1),0,255)), same alpha. Spent after tint is (R,R,R,A). 2x coloured sprites are composed after plane reduction, not claimed identical to downsampled coloured 4x sprites. Required six-world-pixel zero-RGBA guard, no threshold/background removal, bounding-box crops, mirrors, rotation, per-frame scaling, unit hex clipping or light rotation. Seven-cell fixtures use decoded pinned ground PNGs first and decoded exported sprite PNGs next, stable world y/x order, ordinary image/draw Over.",
+    "profile": "unit-train-artillery-v1: six authored square panels row-major N,NW,SW,S,SE,NE; class family lookup CP_trainArt and EC_trainArt independently selects owner cp/ec/neutral. Source straight RGB V=max(R,G,B); q=max(0,(min(R,B)-G)/max(1,V)); t=clamp((q-.02)/.08); k=t^3*(6*t^2-15*t+10); K=k*V; N_c=(1-k)*source_c+K. Round N/K half up before filtering; alpha-zero clears RGB. Base=(N_R,N_G,N_B,A), tint-energy mask=(K,K,K,A), never binary coverage. Whole-panel pixel-edge affine source anchor=(cell/2,49*cell/96), logical anchor=(48,49), top-left offset=(0,-9), inset=manifest framing_inset or default .8, fixed across the entire atlas. 4x destination=(192,196)+(inset*384/cell)*(source-source_anchor); destination centers map to (d+.5-offset)/scale-.5; offset=(192*(1-inset),196*(1-inset)), default (38.4,39.2). Unchanged compound tap budget \u003c=4,000,000 conservative full-support axis taps, checked before allocation. Transparent zero extension, normalized premultiplied float64 separable antialiased Lanczos3, signed lobes retained, positive raw alpha unpremultiply, half-up clamped RGB/A, zero-alpha clear. Independently whole-alpha-aware Lanczos3 reduce base/mask 384-\u003e192. At each density tint=halfup(clamp(N_c+K*(palette_c/255-1),0,255)), same alpha. Spent after tint is (R,R,R,A). 2x coloured sprites are composed after plane reduction, not claimed identical to downsampled coloured 4x sprites. Default six-world-pixel zero-RGBA guard; explicit framing_inset uses an alpha\u003e=8 guard with unchanged lower-alpha fringe counts, not a strict-zero pass. No threshold/background removal, bounding-box crops, mirrors, rotation, per-frame scaling, unit hex clipping or light rotation. Seven-cell fixtures use decoded pinned ground PNGs first and decoded exported sprite PNGs next, stable world y/x order, ordinary image/draw Over.",
     "scenes": [
       {
         "absolute_line_parity": 0,
@@ -1746,7 +1746,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/neutral/n-normal-2x.png",
-              "sha256": "0aefa1cee79631b5df79759740034a6d04a3a6b5b8b6764f854e865cff0fadca"
+              "sha256": "3f5baf4914d1a91765614f82c82e9b8840d0c614430ef711c0652000f57643b2"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1785,7 +1785,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/ne-normal-2x.png",
-              "sha256": "c4107be86a2ed3241a4edd4dd6d4edc9b9d0bb0ed9eb3025a0b5e6e08f242540"
+              "sha256": "4b4b420595ce719ddbea2189ca287776debdf770787bb76e648a3ff24c5acfe1"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1824,7 +1824,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/se-normal-2x.png",
-              "sha256": "bdec52504ab1dad8071ee02c4e63a12ee0657756648b57de3973ea6436d18f93"
+              "sha256": "f97273a644762d4b0b54994bbf07a614cf945fc7bc295cefab3dc28323b8b2e6"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1863,7 +1863,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/cp/s-normal-2x.png",
-              "sha256": "b7291b0b21c529b6f8b8ae6fc1de5f7f43a9fe5839021c8d3a1eaece6ced16a6"
+              "sha256": "93391cb05b867dc57dc8eaa338638527bc2e53ddfaaea2fc19901550cf4c2819"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1902,7 +1902,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/sw-normal-2x.png",
-              "sha256": "7ac3d93f1915f1739e9225c6bce976926a8b88398fea494c0c4f187f3a8d939d"
+              "sha256": "bed565e3e53904e284ae043fdcc874128a723b4babe8f130ce856afe250cdf74"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1941,7 +1941,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/cp/nw-normal-2x.png",
-              "sha256": "8f0c5dd188a9fcf4af3db3ac2b64455c3e3023059a4667d9eeea7fe9657ae7a2"
+              "sha256": "2e5b6e8fd60eda3c7071f13e931094e2641ca64d9ceeafede5526fb73fcdb9c6"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1980,7 +1980,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/n-normal-2x.png",
-              "sha256": "df2b2666ae29622bc58382ea782af6065799f0a82ad12ffa904ae42be697f69e"
+              "sha256": "9843a0bfdfbb752e5118e1c69f43e7dab932a6a4b7b9d9d26d1160818ba939d8"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2011,7 +2011,7 @@
             "width": 476
           },
           "path": "scenes/grass-normal-p0-2x.png",
-          "sha256": "887ee7e23756e3695b52301e819fd514138a0ed7bfa4655a397349aa05eed8a7"
+          "sha256": "41ad77707bebe3ef2a8c862a4ee52df0d4ea802f5aa95abbfa55d4b8090d2161"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -2049,7 +2049,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/neutral/n-normal-4x.png",
-              "sha256": "75cb02f76076479a11e41eda219546f31ef7a48fd692a5fc1997c01e0f4c73f7"
+              "sha256": "8c9d16fcced8f4180903bf24f982cf3b93b9f50cd15f14237426600a8f0b2c06"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2088,7 +2088,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/ne-normal-4x.png",
-              "sha256": "3f1b01fa99450dd9495e8c2974ab357c133efc2f00e69326320ad03da63f999a"
+              "sha256": "a1282235ff77c7abba2c86d38093fc6522d73be6f5c2e814b82228b6b93b698d"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2127,7 +2127,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/se-normal-4x.png",
-              "sha256": "29277da73a6b992483d8bfe4a7d9a30f6b580a6e2dc988df0336cd8adb4da8f1"
+              "sha256": "397744fad0abc7b30aacd0c93fcd687ba51cc05d47e548d1b040034dd82a0cb1"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2166,7 +2166,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/cp/s-normal-4x.png",
-              "sha256": "425bf5e2879ab22829241e27c29114fa84e0ad95453a94c59f6b061ea0628416"
+              "sha256": "9e34e9a0ff24d4a117d076562ed07877a2eae917939dc003fb20ebed79eaad73"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2205,7 +2205,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/sw-normal-4x.png",
-              "sha256": "0f676b565a4103ba201545ba3f3d6b420dda47e6a0f804ccc73e90bd6d79ea33"
+              "sha256": "eae6085e1b1007a9b82323e90153b56c581d8e75424caa30f5dbe9029d1c1719"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2244,7 +2244,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/cp/nw-normal-4x.png",
-              "sha256": "9bca02b64978e8a4b7517a5ea9588d7db72f981002741e9b6e120b5e99cab67b"
+              "sha256": "8c0024592314a1b1f91c5d0f51e4900b225a0e82624d480557f68e8a5c5ccdc9"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2283,7 +2283,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/n-normal-4x.png",
-              "sha256": "5e548c767f5e7a1ce758d69e8de81aacd74d695c5f2fe8f2479af81cd5041884"
+              "sha256": "940aa9a4ced7aa2b02c24878e68fb8a0497e11d506a4f67e9cfd409729386ab0"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2314,7 +2314,7 @@
             "width": 952
           },
           "path": "scenes/grass-normal-p0-4x.png",
-          "sha256": "25e24274f7c10129c7527ac35d39c204d7e5d27e3d9d4c8cd4b71e330fc08805"
+          "sha256": "42a9706609ae3d0b18e9c04d7843ab3ea4253d9f27409d36878874845fbf1488"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -2352,7 +2352,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/neutral/n-normal-2x.png",
-              "sha256": "0aefa1cee79631b5df79759740034a6d04a3a6b5b8b6764f854e865cff0fadca"
+              "sha256": "3f5baf4914d1a91765614f82c82e9b8840d0c614430ef711c0652000f57643b2"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2391,7 +2391,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/ne-normal-2x.png",
-              "sha256": "c4107be86a2ed3241a4edd4dd6d4edc9b9d0bb0ed9eb3025a0b5e6e08f242540"
+              "sha256": "4b4b420595ce719ddbea2189ca287776debdf770787bb76e648a3ff24c5acfe1"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2430,7 +2430,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/se-normal-2x.png",
-              "sha256": "bdec52504ab1dad8071ee02c4e63a12ee0657756648b57de3973ea6436d18f93"
+              "sha256": "f97273a644762d4b0b54994bbf07a614cf945fc7bc295cefab3dc28323b8b2e6"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2469,7 +2469,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/cp/s-normal-2x.png",
-              "sha256": "b7291b0b21c529b6f8b8ae6fc1de5f7f43a9fe5839021c8d3a1eaece6ced16a6"
+              "sha256": "93391cb05b867dc57dc8eaa338638527bc2e53ddfaaea2fc19901550cf4c2819"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2508,7 +2508,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/sw-normal-2x.png",
-              "sha256": "7ac3d93f1915f1739e9225c6bce976926a8b88398fea494c0c4f187f3a8d939d"
+              "sha256": "bed565e3e53904e284ae043fdcc874128a723b4babe8f130ce856afe250cdf74"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2547,7 +2547,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/cp/nw-normal-2x.png",
-              "sha256": "8f0c5dd188a9fcf4af3db3ac2b64455c3e3023059a4667d9eeea7fe9657ae7a2"
+              "sha256": "2e5b6e8fd60eda3c7071f13e931094e2641ca64d9ceeafede5526fb73fcdb9c6"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2586,7 +2586,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/n-normal-2x.png",
-              "sha256": "df2b2666ae29622bc58382ea782af6065799f0a82ad12ffa904ae42be697f69e"
+              "sha256": "9843a0bfdfbb752e5118e1c69f43e7dab932a6a4b7b9d9d26d1160818ba939d8"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2617,7 +2617,7 @@
             "width": 476
           },
           "path": "scenes/grass-normal-p1-2x.png",
-          "sha256": "887ee7e23756e3695b52301e819fd514138a0ed7bfa4655a397349aa05eed8a7"
+          "sha256": "41ad77707bebe3ef2a8c862a4ee52df0d4ea802f5aa95abbfa55d4b8090d2161"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -2655,7 +2655,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/neutral/n-normal-4x.png",
-              "sha256": "75cb02f76076479a11e41eda219546f31ef7a48fd692a5fc1997c01e0f4c73f7"
+              "sha256": "8c9d16fcced8f4180903bf24f982cf3b93b9f50cd15f14237426600a8f0b2c06"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2694,7 +2694,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/ne-normal-4x.png",
-              "sha256": "3f1b01fa99450dd9495e8c2974ab357c133efc2f00e69326320ad03da63f999a"
+              "sha256": "a1282235ff77c7abba2c86d38093fc6522d73be6f5c2e814b82228b6b93b698d"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2733,7 +2733,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/se-normal-4x.png",
-              "sha256": "29277da73a6b992483d8bfe4a7d9a30f6b580a6e2dc988df0336cd8adb4da8f1"
+              "sha256": "397744fad0abc7b30aacd0c93fcd687ba51cc05d47e548d1b040034dd82a0cb1"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2772,7 +2772,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/cp/s-normal-4x.png",
-              "sha256": "425bf5e2879ab22829241e27c29114fa84e0ad95453a94c59f6b061ea0628416"
+              "sha256": "9e34e9a0ff24d4a117d076562ed07877a2eae917939dc003fb20ebed79eaad73"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2811,7 +2811,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/sw-normal-4x.png",
-              "sha256": "0f676b565a4103ba201545ba3f3d6b420dda47e6a0f804ccc73e90bd6d79ea33"
+              "sha256": "eae6085e1b1007a9b82323e90153b56c581d8e75424caa30f5dbe9029d1c1719"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2850,7 +2850,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/cp/nw-normal-4x.png",
-              "sha256": "9bca02b64978e8a4b7517a5ea9588d7db72f981002741e9b6e120b5e99cab67b"
+              "sha256": "8c0024592314a1b1f91c5d0f51e4900b225a0e82624d480557f68e8a5c5ccdc9"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2889,7 +2889,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/n-normal-4x.png",
-              "sha256": "5e548c767f5e7a1ce758d69e8de81aacd74d695c5f2fe8f2479af81cd5041884"
+              "sha256": "940aa9a4ced7aa2b02c24878e68fb8a0497e11d506a4f67e9cfd409729386ab0"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2920,7 +2920,7 @@
             "width": 952
           },
           "path": "scenes/grass-normal-p1-4x.png",
-          "sha256": "25e24274f7c10129c7527ac35d39c204d7e5d27e3d9d4c8cd4b71e330fc08805"
+          "sha256": "42a9706609ae3d0b18e9c04d7843ab3ea4253d9f27409d36878874845fbf1488"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -2958,7 +2958,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/neutral/n-spent-2x.png",
-              "sha256": "21e3d97ea7dceaae6e7e64a7dbb9977c63a5954fb04da5b1c8f29f61ca57c3a8"
+              "sha256": "5b39cc6f8dad78104ab12f5a1c7256185ffc464fe2842f6bf259903f9942d145"
             },
             "state": "spent",
             "terrain": "grass",
@@ -2997,7 +2997,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/ne-spent-2x.png",
-              "sha256": "5cfb2db5780be7d422d47bf668070081adac10021fa885954e714462cfc8c0cd"
+              "sha256": "e8b1c8d05437461186970c7b830aa690a897e93f6bfb2b2f9e13cd840a4d5e65"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3036,7 +3036,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/se-spent-2x.png",
-              "sha256": "b989e735bba6e4d9d291f8bee880c18302a9908c763e7c85cd1be7dca2a232d7"
+              "sha256": "e4704ab4620cd87ff2d5f8a3d93635b7ef6d104e332c0dd5f9d5ac5fe569566e"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3075,7 +3075,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/cp/s-spent-2x.png",
-              "sha256": "38d97ab35af4b9513626dd3764efb09ea9f81a4f5e7ef35686513a9de02b1fb6"
+              "sha256": "cffa2f44af1eba657f1ab0db1189807c7d9d4d7c1b1bd0568a16471bc0fa02ba"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3114,7 +3114,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/sw-spent-2x.png",
-              "sha256": "8a5263f1b8ef5a5af39be9a50257e4ed89ff1585f70fb11c1bb48ab65658793a"
+              "sha256": "fa759ff47c862effabbbb1d98a53fb555640948780d89eb10a60eb51ea1b48d3"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3153,7 +3153,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/cp/nw-spent-2x.png",
-              "sha256": "dd1d65c218ddca89a1538f25ac374d4cad4201a51e2e40d3e96d8d04d3a9db92"
+              "sha256": "7665a6042f69c948aca2d545915eb149252e61bb1dec0444793fe75325bfdcd4"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3192,7 +3192,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/n-spent-2x.png",
-              "sha256": "7159fd977e8b06a2dce07c20f92e95ecdd9ed9da574602c41a19f8857b620925"
+              "sha256": "3001790ea0a0f9c2b637a9f20f936687794bd1dc4ea9c17f83cc1c401bda29db"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3223,7 +3223,7 @@
             "width": 476
           },
           "path": "scenes/grass-spent-p0-2x.png",
-          "sha256": "ad44daa0d49a92a7627049983499c7b7eca82c23c9567ba2a28110a9aaa43b9f"
+          "sha256": "979c94dbeeca9529283517d7bed02ec12853814f1ae77a62a0c6031a4f33d298"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -3261,7 +3261,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/neutral/n-spent-4x.png",
-              "sha256": "83c8a474b086576e7d4293251bee065c6eb830dbcd0efecb4f958c1f5350da23"
+              "sha256": "9379b4f99108e76c53f8e2d5b0408f934e54f9856c5912d14878bfebe1256b85"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3300,7 +3300,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/ne-spent-4x.png",
-              "sha256": "5296d067ee7394fe3b9062a0daa2918e6f09798d59027da131ef0fd00346e239"
+              "sha256": "70903a123f43c8d587ca212ca22aa667b9c553c37e56bbc6535196902cd75307"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3339,7 +3339,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/se-spent-4x.png",
-              "sha256": "aef9daf894a4eb3ad7098cb7ba52cdcb50e7693df6e40e9ed21636614aacf8de"
+              "sha256": "af892da081bfb76e47c19e631d48759906df77518cb2eb9820814a538cf4f91c"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3378,7 +3378,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/cp/s-spent-4x.png",
-              "sha256": "0a6cc007ac14198ab4dc4ad52990324a889369392fc55c0aaa4551c22d32ca13"
+              "sha256": "470bacf535691df3d45b29f150a6b72b412135787d71f107193dd2e1fe0000f6"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3417,7 +3417,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/sw-spent-4x.png",
-              "sha256": "3ec449d1ca7be58fe944a5d8609954cdea5824d63ecc02f93503e6fa6a63bef9"
+              "sha256": "865d27aef2d9c4b4dc6fb2d8bbbb58baab7519871bd3ab7f6bf1e6b2a9dfdd85"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3456,7 +3456,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/cp/nw-spent-4x.png",
-              "sha256": "4b1d3ad3b828f34bbda3aade5d43715554ed3732e333db33ec6119dc142cacc5"
+              "sha256": "48856e205042adcc52b58f038bd6d067030cc389a143a90d9cabc6dc6212b626"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3495,7 +3495,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/n-spent-4x.png",
-              "sha256": "47275f2178c555c1911af9a7c5858b601fd234779b6f0e95ef53f179d944ef81"
+              "sha256": "1aa3aeff25b607267daaeee76910995c6258ed040f4e20b627aa279cb7cc0cfc"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3526,7 +3526,7 @@
             "width": 952
           },
           "path": "scenes/grass-spent-p0-4x.png",
-          "sha256": "2aca8e9ce9887a8d8e6138d1903fa7bb861d3c8b3fee6ec5ab2407604c1807e5"
+          "sha256": "9f45e5ec1baec6ccde99a88ea93105975d82b777b70731273e64f00554ee6c99"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -3564,7 +3564,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/neutral/n-spent-2x.png",
-              "sha256": "21e3d97ea7dceaae6e7e64a7dbb9977c63a5954fb04da5b1c8f29f61ca57c3a8"
+              "sha256": "5b39cc6f8dad78104ab12f5a1c7256185ffc464fe2842f6bf259903f9942d145"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3603,7 +3603,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/ne-spent-2x.png",
-              "sha256": "5cfb2db5780be7d422d47bf668070081adac10021fa885954e714462cfc8c0cd"
+              "sha256": "e8b1c8d05437461186970c7b830aa690a897e93f6bfb2b2f9e13cd840a4d5e65"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3642,7 +3642,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/se-spent-2x.png",
-              "sha256": "b989e735bba6e4d9d291f8bee880c18302a9908c763e7c85cd1be7dca2a232d7"
+              "sha256": "e4704ab4620cd87ff2d5f8a3d93635b7ef6d104e332c0dd5f9d5ac5fe569566e"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3681,7 +3681,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/cp/s-spent-2x.png",
-              "sha256": "38d97ab35af4b9513626dd3764efb09ea9f81a4f5e7ef35686513a9de02b1fb6"
+              "sha256": "cffa2f44af1eba657f1ab0db1189807c7d9d4d7c1b1bd0568a16471bc0fa02ba"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3720,7 +3720,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/sw-spent-2x.png",
-              "sha256": "8a5263f1b8ef5a5af39be9a50257e4ed89ff1585f70fb11c1bb48ab65658793a"
+              "sha256": "fa759ff47c862effabbbb1d98a53fb555640948780d89eb10a60eb51ea1b48d3"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3759,7 +3759,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/cp/nw-spent-2x.png",
-              "sha256": "dd1d65c218ddca89a1538f25ac374d4cad4201a51e2e40d3e96d8d04d3a9db92"
+              "sha256": "7665a6042f69c948aca2d545915eb149252e61bb1dec0444793fe75325bfdcd4"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3798,7 +3798,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/n-spent-2x.png",
-              "sha256": "7159fd977e8b06a2dce07c20f92e95ecdd9ed9da574602c41a19f8857b620925"
+              "sha256": "3001790ea0a0f9c2b637a9f20f936687794bd1dc4ea9c17f83cc1c401bda29db"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3829,7 +3829,7 @@
             "width": 476
           },
           "path": "scenes/grass-spent-p1-2x.png",
-          "sha256": "ad44daa0d49a92a7627049983499c7b7eca82c23c9567ba2a28110a9aaa43b9f"
+          "sha256": "979c94dbeeca9529283517d7bed02ec12853814f1ae77a62a0c6031a4f33d298"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -3867,7 +3867,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/neutral/n-spent-4x.png",
-              "sha256": "83c8a474b086576e7d4293251bee065c6eb830dbcd0efecb4f958c1f5350da23"
+              "sha256": "9379b4f99108e76c53f8e2d5b0408f934e54f9856c5912d14878bfebe1256b85"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3906,7 +3906,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/ne-spent-4x.png",
-              "sha256": "5296d067ee7394fe3b9062a0daa2918e6f09798d59027da131ef0fd00346e239"
+              "sha256": "70903a123f43c8d587ca212ca22aa667b9c553c37e56bbc6535196902cd75307"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3945,7 +3945,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/se-spent-4x.png",
-              "sha256": "aef9daf894a4eb3ad7098cb7ba52cdcb50e7693df6e40e9ed21636614aacf8de"
+              "sha256": "af892da081bfb76e47c19e631d48759906df77518cb2eb9820814a538cf4f91c"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3984,7 +3984,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/cp/s-spent-4x.png",
-              "sha256": "0a6cc007ac14198ab4dc4ad52990324a889369392fc55c0aaa4551c22d32ca13"
+              "sha256": "470bacf535691df3d45b29f150a6b72b412135787d71f107193dd2e1fe0000f6"
             },
             "state": "spent",
             "terrain": "grass",
@@ -4023,7 +4023,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/sw-spent-4x.png",
-              "sha256": "3ec449d1ca7be58fe944a5d8609954cdea5824d63ecc02f93503e6fa6a63bef9"
+              "sha256": "865d27aef2d9c4b4dc6fb2d8bbbb58baab7519871bd3ab7f6bf1e6b2a9dfdd85"
             },
             "state": "spent",
             "terrain": "grass",
@@ -4062,7 +4062,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/cp/nw-spent-4x.png",
-              "sha256": "4b1d3ad3b828f34bbda3aade5d43715554ed3732e333db33ec6119dc142cacc5"
+              "sha256": "48856e205042adcc52b58f038bd6d067030cc389a143a90d9cabc6dc6212b626"
             },
             "state": "spent",
             "terrain": "grass",
@@ -4101,7 +4101,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/n-spent-4x.png",
-              "sha256": "47275f2178c555c1911af9a7c5858b601fd234779b6f0e95ef53f179d944ef81"
+              "sha256": "1aa3aeff25b607267daaeee76910995c6258ed040f4e20b627aa279cb7cc0cfc"
             },
             "state": "spent",
             "terrain": "grass",
@@ -4132,7 +4132,7 @@
             "width": 952
           },
           "path": "scenes/grass-spent-p1-4x.png",
-          "sha256": "2aca8e9ce9887a8d8e6138d1903fa7bb861d3c8b3fee6ec5ab2407604c1807e5"
+          "sha256": "9f45e5ec1baec6ccde99a88ea93105975d82b777b70731273e64f00554ee6c99"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -4170,7 +4170,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/neutral/n-normal-2x.png",
-              "sha256": "0aefa1cee79631b5df79759740034a6d04a3a6b5b8b6764f854e865cff0fadca"
+              "sha256": "3f5baf4914d1a91765614f82c82e9b8840d0c614430ef711c0652000f57643b2"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4209,7 +4209,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/ne-normal-2x.png",
-              "sha256": "c4107be86a2ed3241a4edd4dd6d4edc9b9d0bb0ed9eb3025a0b5e6e08f242540"
+              "sha256": "4b4b420595ce719ddbea2189ca287776debdf770787bb76e648a3ff24c5acfe1"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4248,7 +4248,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/se-normal-2x.png",
-              "sha256": "bdec52504ab1dad8071ee02c4e63a12ee0657756648b57de3973ea6436d18f93"
+              "sha256": "f97273a644762d4b0b54994bbf07a614cf945fc7bc295cefab3dc28323b8b2e6"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4287,7 +4287,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/cp/s-normal-2x.png",
-              "sha256": "b7291b0b21c529b6f8b8ae6fc1de5f7f43a9fe5839021c8d3a1eaece6ced16a6"
+              "sha256": "93391cb05b867dc57dc8eaa338638527bc2e53ddfaaea2fc19901550cf4c2819"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4326,7 +4326,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/sw-normal-2x.png",
-              "sha256": "7ac3d93f1915f1739e9225c6bce976926a8b88398fea494c0c4f187f3a8d939d"
+              "sha256": "bed565e3e53904e284ae043fdcc874128a723b4babe8f130ce856afe250cdf74"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4365,7 +4365,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/cp/nw-normal-2x.png",
-              "sha256": "8f0c5dd188a9fcf4af3db3ac2b64455c3e3023059a4667d9eeea7fe9657ae7a2"
+              "sha256": "2e5b6e8fd60eda3c7071f13e931094e2641ca64d9ceeafede5526fb73fcdb9c6"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4404,7 +4404,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/n-normal-2x.png",
-              "sha256": "df2b2666ae29622bc58382ea782af6065799f0a82ad12ffa904ae42be697f69e"
+              "sha256": "9843a0bfdfbb752e5118e1c69f43e7dab932a6a4b7b9d9d26d1160818ba939d8"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4435,7 +4435,7 @@
             "width": 476
           },
           "path": "scenes/grass_w-normal-p0-2x.png",
-          "sha256": "9cc7d6747b4bf8f431e71e391da7017b4fe902bcf6cbc7507eacd321fba5de12"
+          "sha256": "3645f4009865592286ac18bab9b8169752c8bd2b553ecfa679353c443a5f3a20"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -4473,7 +4473,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/neutral/n-normal-4x.png",
-              "sha256": "75cb02f76076479a11e41eda219546f31ef7a48fd692a5fc1997c01e0f4c73f7"
+              "sha256": "8c9d16fcced8f4180903bf24f982cf3b93b9f50cd15f14237426600a8f0b2c06"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4512,7 +4512,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/ne-normal-4x.png",
-              "sha256": "3f1b01fa99450dd9495e8c2974ab357c133efc2f00e69326320ad03da63f999a"
+              "sha256": "a1282235ff77c7abba2c86d38093fc6522d73be6f5c2e814b82228b6b93b698d"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4551,7 +4551,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/se-normal-4x.png",
-              "sha256": "29277da73a6b992483d8bfe4a7d9a30f6b580a6e2dc988df0336cd8adb4da8f1"
+              "sha256": "397744fad0abc7b30aacd0c93fcd687ba51cc05d47e548d1b040034dd82a0cb1"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4590,7 +4590,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/cp/s-normal-4x.png",
-              "sha256": "425bf5e2879ab22829241e27c29114fa84e0ad95453a94c59f6b061ea0628416"
+              "sha256": "9e34e9a0ff24d4a117d076562ed07877a2eae917939dc003fb20ebed79eaad73"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4629,7 +4629,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/sw-normal-4x.png",
-              "sha256": "0f676b565a4103ba201545ba3f3d6b420dda47e6a0f804ccc73e90bd6d79ea33"
+              "sha256": "eae6085e1b1007a9b82323e90153b56c581d8e75424caa30f5dbe9029d1c1719"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4668,7 +4668,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/cp/nw-normal-4x.png",
-              "sha256": "9bca02b64978e8a4b7517a5ea9588d7db72f981002741e9b6e120b5e99cab67b"
+              "sha256": "8c0024592314a1b1f91c5d0f51e4900b225a0e82624d480557f68e8a5c5ccdc9"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4707,7 +4707,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/n-normal-4x.png",
-              "sha256": "5e548c767f5e7a1ce758d69e8de81aacd74d695c5f2fe8f2479af81cd5041884"
+              "sha256": "940aa9a4ced7aa2b02c24878e68fb8a0497e11d506a4f67e9cfd409729386ab0"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4738,7 +4738,7 @@
             "width": 952
           },
           "path": "scenes/grass_w-normal-p0-4x.png",
-          "sha256": "b74a2a91c9aefc9c7e35074f3f2d1b91b08d58ab24c72a33d0a217a72582d305"
+          "sha256": "7bf85c2f798e0179ce7ccaede68525bb52c9c016d147cfad0fdcd43998d47575"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -4776,7 +4776,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/neutral/n-normal-2x.png",
-              "sha256": "0aefa1cee79631b5df79759740034a6d04a3a6b5b8b6764f854e865cff0fadca"
+              "sha256": "3f5baf4914d1a91765614f82c82e9b8840d0c614430ef711c0652000f57643b2"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4815,7 +4815,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/ne-normal-2x.png",
-              "sha256": "c4107be86a2ed3241a4edd4dd6d4edc9b9d0bb0ed9eb3025a0b5e6e08f242540"
+              "sha256": "4b4b420595ce719ddbea2189ca287776debdf770787bb76e648a3ff24c5acfe1"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4854,7 +4854,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/se-normal-2x.png",
-              "sha256": "bdec52504ab1dad8071ee02c4e63a12ee0657756648b57de3973ea6436d18f93"
+              "sha256": "f97273a644762d4b0b54994bbf07a614cf945fc7bc295cefab3dc28323b8b2e6"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4893,7 +4893,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/cp/s-normal-2x.png",
-              "sha256": "b7291b0b21c529b6f8b8ae6fc1de5f7f43a9fe5839021c8d3a1eaece6ced16a6"
+              "sha256": "93391cb05b867dc57dc8eaa338638527bc2e53ddfaaea2fc19901550cf4c2819"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4932,7 +4932,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/sw-normal-2x.png",
-              "sha256": "7ac3d93f1915f1739e9225c6bce976926a8b88398fea494c0c4f187f3a8d939d"
+              "sha256": "bed565e3e53904e284ae043fdcc874128a723b4babe8f130ce856afe250cdf74"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4971,7 +4971,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/cp/nw-normal-2x.png",
-              "sha256": "8f0c5dd188a9fcf4af3db3ac2b64455c3e3023059a4667d9eeea7fe9657ae7a2"
+              "sha256": "2e5b6e8fd60eda3c7071f13e931094e2641ca64d9ceeafede5526fb73fcdb9c6"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5010,7 +5010,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/n-normal-2x.png",
-              "sha256": "df2b2666ae29622bc58382ea782af6065799f0a82ad12ffa904ae42be697f69e"
+              "sha256": "9843a0bfdfbb752e5118e1c69f43e7dab932a6a4b7b9d9d26d1160818ba939d8"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5041,7 +5041,7 @@
             "width": 476
           },
           "path": "scenes/grass_w-normal-p1-2x.png",
-          "sha256": "9cc7d6747b4bf8f431e71e391da7017b4fe902bcf6cbc7507eacd321fba5de12"
+          "sha256": "3645f4009865592286ac18bab9b8169752c8bd2b553ecfa679353c443a5f3a20"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -5079,7 +5079,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/neutral/n-normal-4x.png",
-              "sha256": "75cb02f76076479a11e41eda219546f31ef7a48fd692a5fc1997c01e0f4c73f7"
+              "sha256": "8c9d16fcced8f4180903bf24f982cf3b93b9f50cd15f14237426600a8f0b2c06"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5118,7 +5118,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/ne-normal-4x.png",
-              "sha256": "3f1b01fa99450dd9495e8c2974ab357c133efc2f00e69326320ad03da63f999a"
+              "sha256": "a1282235ff77c7abba2c86d38093fc6522d73be6f5c2e814b82228b6b93b698d"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5157,7 +5157,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/se-normal-4x.png",
-              "sha256": "29277da73a6b992483d8bfe4a7d9a30f6b580a6e2dc988df0336cd8adb4da8f1"
+              "sha256": "397744fad0abc7b30aacd0c93fcd687ba51cc05d47e548d1b040034dd82a0cb1"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5196,7 +5196,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/cp/s-normal-4x.png",
-              "sha256": "425bf5e2879ab22829241e27c29114fa84e0ad95453a94c59f6b061ea0628416"
+              "sha256": "9e34e9a0ff24d4a117d076562ed07877a2eae917939dc003fb20ebed79eaad73"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5235,7 +5235,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/sw-normal-4x.png",
-              "sha256": "0f676b565a4103ba201545ba3f3d6b420dda47e6a0f804ccc73e90bd6d79ea33"
+              "sha256": "eae6085e1b1007a9b82323e90153b56c581d8e75424caa30f5dbe9029d1c1719"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5274,7 +5274,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/cp/nw-normal-4x.png",
-              "sha256": "9bca02b64978e8a4b7517a5ea9588d7db72f981002741e9b6e120b5e99cab67b"
+              "sha256": "8c0024592314a1b1f91c5d0f51e4900b225a0e82624d480557f68e8a5c5ccdc9"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5313,7 +5313,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/n-normal-4x.png",
-              "sha256": "5e548c767f5e7a1ce758d69e8de81aacd74d695c5f2fe8f2479af81cd5041884"
+              "sha256": "940aa9a4ced7aa2b02c24878e68fb8a0497e11d506a4f67e9cfd409729386ab0"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5344,7 +5344,7 @@
             "width": 952
           },
           "path": "scenes/grass_w-normal-p1-4x.png",
-          "sha256": "b74a2a91c9aefc9c7e35074f3f2d1b91b08d58ab24c72a33d0a217a72582d305"
+          "sha256": "7bf85c2f798e0179ce7ccaede68525bb52c9c016d147cfad0fdcd43998d47575"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -5382,7 +5382,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/neutral/n-spent-2x.png",
-              "sha256": "21e3d97ea7dceaae6e7e64a7dbb9977c63a5954fb04da5b1c8f29f61ca57c3a8"
+              "sha256": "5b39cc6f8dad78104ab12f5a1c7256185ffc464fe2842f6bf259903f9942d145"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5421,7 +5421,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/ne-spent-2x.png",
-              "sha256": "5cfb2db5780be7d422d47bf668070081adac10021fa885954e714462cfc8c0cd"
+              "sha256": "e8b1c8d05437461186970c7b830aa690a897e93f6bfb2b2f9e13cd840a4d5e65"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5460,7 +5460,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/se-spent-2x.png",
-              "sha256": "b989e735bba6e4d9d291f8bee880c18302a9908c763e7c85cd1be7dca2a232d7"
+              "sha256": "e4704ab4620cd87ff2d5f8a3d93635b7ef6d104e332c0dd5f9d5ac5fe569566e"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5499,7 +5499,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/cp/s-spent-2x.png",
-              "sha256": "38d97ab35af4b9513626dd3764efb09ea9f81a4f5e7ef35686513a9de02b1fb6"
+              "sha256": "cffa2f44af1eba657f1ab0db1189807c7d9d4d7c1b1bd0568a16471bc0fa02ba"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5538,7 +5538,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/sw-spent-2x.png",
-              "sha256": "8a5263f1b8ef5a5af39be9a50257e4ed89ff1585f70fb11c1bb48ab65658793a"
+              "sha256": "fa759ff47c862effabbbb1d98a53fb555640948780d89eb10a60eb51ea1b48d3"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5577,7 +5577,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/cp/nw-spent-2x.png",
-              "sha256": "dd1d65c218ddca89a1538f25ac374d4cad4201a51e2e40d3e96d8d04d3a9db92"
+              "sha256": "7665a6042f69c948aca2d545915eb149252e61bb1dec0444793fe75325bfdcd4"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5616,7 +5616,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/n-spent-2x.png",
-              "sha256": "7159fd977e8b06a2dce07c20f92e95ecdd9ed9da574602c41a19f8857b620925"
+              "sha256": "3001790ea0a0f9c2b637a9f20f936687794bd1dc4ea9c17f83cc1c401bda29db"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5647,7 +5647,7 @@
             "width": 476
           },
           "path": "scenes/grass_w-spent-p0-2x.png",
-          "sha256": "50269d1d23bee3ca91f5453d3dbd563848ee20fff3c6525b85ae98bfe559d966"
+          "sha256": "a2113065abf02d588918c8a571a3bb093cafb17e810446ef9bf1883fa0547e82"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -5685,7 +5685,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/neutral/n-spent-4x.png",
-              "sha256": "83c8a474b086576e7d4293251bee065c6eb830dbcd0efecb4f958c1f5350da23"
+              "sha256": "9379b4f99108e76c53f8e2d5b0408f934e54f9856c5912d14878bfebe1256b85"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5724,7 +5724,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/ne-spent-4x.png",
-              "sha256": "5296d067ee7394fe3b9062a0daa2918e6f09798d59027da131ef0fd00346e239"
+              "sha256": "70903a123f43c8d587ca212ca22aa667b9c553c37e56bbc6535196902cd75307"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5763,7 +5763,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/se-spent-4x.png",
-              "sha256": "aef9daf894a4eb3ad7098cb7ba52cdcb50e7693df6e40e9ed21636614aacf8de"
+              "sha256": "af892da081bfb76e47c19e631d48759906df77518cb2eb9820814a538cf4f91c"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5802,7 +5802,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/cp/s-spent-4x.png",
-              "sha256": "0a6cc007ac14198ab4dc4ad52990324a889369392fc55c0aaa4551c22d32ca13"
+              "sha256": "470bacf535691df3d45b29f150a6b72b412135787d71f107193dd2e1fe0000f6"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5841,7 +5841,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/sw-spent-4x.png",
-              "sha256": "3ec449d1ca7be58fe944a5d8609954cdea5824d63ecc02f93503e6fa6a63bef9"
+              "sha256": "865d27aef2d9c4b4dc6fb2d8bbbb58baab7519871bd3ab7f6bf1e6b2a9dfdd85"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5880,7 +5880,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/cp/nw-spent-4x.png",
-              "sha256": "4b1d3ad3b828f34bbda3aade5d43715554ed3732e333db33ec6119dc142cacc5"
+              "sha256": "48856e205042adcc52b58f038bd6d067030cc389a143a90d9cabc6dc6212b626"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5919,7 +5919,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/n-spent-4x.png",
-              "sha256": "47275f2178c555c1911af9a7c5858b601fd234779b6f0e95ef53f179d944ef81"
+              "sha256": "1aa3aeff25b607267daaeee76910995c6258ed040f4e20b627aa279cb7cc0cfc"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5950,7 +5950,7 @@
             "width": 952
           },
           "path": "scenes/grass_w-spent-p0-4x.png",
-          "sha256": "563d4222146671d521489608f48835a2ba95a5be4231bfa39471673eaae7000d"
+          "sha256": "0572c97d8ac4f439abbaab07f8b862e3bacf33c063feb7eba619f41e77f93c4a"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -5988,7 +5988,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/neutral/n-spent-2x.png",
-              "sha256": "21e3d97ea7dceaae6e7e64a7dbb9977c63a5954fb04da5b1c8f29f61ca57c3a8"
+              "sha256": "5b39cc6f8dad78104ab12f5a1c7256185ffc464fe2842f6bf259903f9942d145"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6027,7 +6027,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/ne-spent-2x.png",
-              "sha256": "5cfb2db5780be7d422d47bf668070081adac10021fa885954e714462cfc8c0cd"
+              "sha256": "e8b1c8d05437461186970c7b830aa690a897e93f6bfb2b2f9e13cd840a4d5e65"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6066,7 +6066,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/se-spent-2x.png",
-              "sha256": "b989e735bba6e4d9d291f8bee880c18302a9908c763e7c85cd1be7dca2a232d7"
+              "sha256": "e4704ab4620cd87ff2d5f8a3d93635b7ef6d104e332c0dd5f9d5ac5fe569566e"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6105,7 +6105,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/cp/s-spent-2x.png",
-              "sha256": "38d97ab35af4b9513626dd3764efb09ea9f81a4f5e7ef35686513a9de02b1fb6"
+              "sha256": "cffa2f44af1eba657f1ab0db1189807c7d9d4d7c1b1bd0568a16471bc0fa02ba"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6144,7 +6144,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/sw-spent-2x.png",
-              "sha256": "8a5263f1b8ef5a5af39be9a50257e4ed89ff1585f70fb11c1bb48ab65658793a"
+              "sha256": "fa759ff47c862effabbbb1d98a53fb555640948780d89eb10a60eb51ea1b48d3"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6183,7 +6183,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/cp/nw-spent-2x.png",
-              "sha256": "dd1d65c218ddca89a1538f25ac374d4cad4201a51e2e40d3e96d8d04d3a9db92"
+              "sha256": "7665a6042f69c948aca2d545915eb149252e61bb1dec0444793fe75325bfdcd4"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6222,7 +6222,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/n-spent-2x.png",
-              "sha256": "7159fd977e8b06a2dce07c20f92e95ecdd9ed9da574602c41a19f8857b620925"
+              "sha256": "3001790ea0a0f9c2b637a9f20f936687794bd1dc4ea9c17f83cc1c401bda29db"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6253,7 +6253,7 @@
             "width": 476
           },
           "path": "scenes/grass_w-spent-p1-2x.png",
-          "sha256": "50269d1d23bee3ca91f5453d3dbd563848ee20fff3c6525b85ae98bfe559d966"
+          "sha256": "a2113065abf02d588918c8a571a3bb093cafb17e810446ef9bf1883fa0547e82"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -6291,7 +6291,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/neutral/n-spent-4x.png",
-              "sha256": "83c8a474b086576e7d4293251bee065c6eb830dbcd0efecb4f958c1f5350da23"
+              "sha256": "9379b4f99108e76c53f8e2d5b0408f934e54f9856c5912d14878bfebe1256b85"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6330,7 +6330,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/ne-spent-4x.png",
-              "sha256": "5296d067ee7394fe3b9062a0daa2918e6f09798d59027da131ef0fd00346e239"
+              "sha256": "70903a123f43c8d587ca212ca22aa667b9c553c37e56bbc6535196902cd75307"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6369,7 +6369,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/se-spent-4x.png",
-              "sha256": "aef9daf894a4eb3ad7098cb7ba52cdcb50e7693df6e40e9ed21636614aacf8de"
+              "sha256": "af892da081bfb76e47c19e631d48759906df77518cb2eb9820814a538cf4f91c"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6408,7 +6408,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/cp/s-spent-4x.png",
-              "sha256": "0a6cc007ac14198ab4dc4ad52990324a889369392fc55c0aaa4551c22d32ca13"
+              "sha256": "470bacf535691df3d45b29f150a6b72b412135787d71f107193dd2e1fe0000f6"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6447,7 +6447,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/sw-spent-4x.png",
-              "sha256": "3ec449d1ca7be58fe944a5d8609954cdea5824d63ecc02f93503e6fa6a63bef9"
+              "sha256": "865d27aef2d9c4b4dc6fb2d8bbbb58baab7519871bd3ab7f6bf1e6b2a9dfdd85"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6486,7 +6486,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/cp/nw-spent-4x.png",
-              "sha256": "4b1d3ad3b828f34bbda3aade5d43715554ed3732e333db33ec6119dc142cacc5"
+              "sha256": "48856e205042adcc52b58f038bd6d067030cc389a143a90d9cabc6dc6212b626"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6525,7 +6525,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/n-spent-4x.png",
-              "sha256": "47275f2178c555c1911af9a7c5858b601fd234779b6f0e95ef53f179d944ef81"
+              "sha256": "1aa3aeff25b607267daaeee76910995c6258ed040f4e20b627aa279cb7cc0cfc"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6556,7 +6556,7 @@
             "width": 952
           },
           "path": "scenes/grass_w-spent-p1-4x.png",
-          "sha256": "563d4222146671d521489608f48835a2ba95a5be4231bfa39471673eaae7000d"
+          "sha256": "0572c97d8ac4f439abbaab07f8b862e3bacf33c063feb7eba619f41e77f93c4a"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -6594,7 +6594,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/neutral/n-normal-2x.png",
-              "sha256": "0aefa1cee79631b5df79759740034a6d04a3a6b5b8b6764f854e865cff0fadca"
+              "sha256": "3f5baf4914d1a91765614f82c82e9b8840d0c614430ef711c0652000f57643b2"
             },
             "state": "normal",
             "terrain": "mud",
@@ -6633,7 +6633,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/ne-normal-2x.png",
-              "sha256": "c4107be86a2ed3241a4edd4dd6d4edc9b9d0bb0ed9eb3025a0b5e6e08f242540"
+              "sha256": "4b4b420595ce719ddbea2189ca287776debdf770787bb76e648a3ff24c5acfe1"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6672,7 +6672,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/se-normal-2x.png",
-              "sha256": "bdec52504ab1dad8071ee02c4e63a12ee0657756648b57de3973ea6436d18f93"
+              "sha256": "f97273a644762d4b0b54994bbf07a614cf945fc7bc295cefab3dc28323b8b2e6"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6711,7 +6711,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/cp/s-normal-2x.png",
-              "sha256": "b7291b0b21c529b6f8b8ae6fc1de5f7f43a9fe5839021c8d3a1eaece6ced16a6"
+              "sha256": "93391cb05b867dc57dc8eaa338638527bc2e53ddfaaea2fc19901550cf4c2819"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6750,7 +6750,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/sw-normal-2x.png",
-              "sha256": "7ac3d93f1915f1739e9225c6bce976926a8b88398fea494c0c4f187f3a8d939d"
+              "sha256": "bed565e3e53904e284ae043fdcc874128a723b4babe8f130ce856afe250cdf74"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6789,7 +6789,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/cp/nw-normal-2x.png",
-              "sha256": "8f0c5dd188a9fcf4af3db3ac2b64455c3e3023059a4667d9eeea7fe9657ae7a2"
+              "sha256": "2e5b6e8fd60eda3c7071f13e931094e2641ca64d9ceeafede5526fb73fcdb9c6"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6828,7 +6828,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/n-normal-2x.png",
-              "sha256": "df2b2666ae29622bc58382ea782af6065799f0a82ad12ffa904ae42be697f69e"
+              "sha256": "9843a0bfdfbb752e5118e1c69f43e7dab932a6a4b7b9d9d26d1160818ba939d8"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6859,7 +6859,7 @@
             "width": 476
           },
           "path": "scenes/mud-normal-p0-2x.png",
-          "sha256": "3708da4fea40c1160d55105091a0d0fae4af686b2b3bd7292ff0fad0c3e67fa4"
+          "sha256": "c45f4a4d883de25a71e568fb2b31ec85945ba02714ee46edc40b922f7cb0ddad"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -6897,7 +6897,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/neutral/n-normal-4x.png",
-              "sha256": "75cb02f76076479a11e41eda219546f31ef7a48fd692a5fc1997c01e0f4c73f7"
+              "sha256": "8c9d16fcced8f4180903bf24f982cf3b93b9f50cd15f14237426600a8f0b2c06"
             },
             "state": "normal",
             "terrain": "mud",
@@ -6936,7 +6936,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/ne-normal-4x.png",
-              "sha256": "3f1b01fa99450dd9495e8c2974ab357c133efc2f00e69326320ad03da63f999a"
+              "sha256": "a1282235ff77c7abba2c86d38093fc6522d73be6f5c2e814b82228b6b93b698d"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6975,7 +6975,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/se-normal-4x.png",
-              "sha256": "29277da73a6b992483d8bfe4a7d9a30f6b580a6e2dc988df0336cd8adb4da8f1"
+              "sha256": "397744fad0abc7b30aacd0c93fcd687ba51cc05d47e548d1b040034dd82a0cb1"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7014,7 +7014,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/cp/s-normal-4x.png",
-              "sha256": "425bf5e2879ab22829241e27c29114fa84e0ad95453a94c59f6b061ea0628416"
+              "sha256": "9e34e9a0ff24d4a117d076562ed07877a2eae917939dc003fb20ebed79eaad73"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7053,7 +7053,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/sw-normal-4x.png",
-              "sha256": "0f676b565a4103ba201545ba3f3d6b420dda47e6a0f804ccc73e90bd6d79ea33"
+              "sha256": "eae6085e1b1007a9b82323e90153b56c581d8e75424caa30f5dbe9029d1c1719"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7092,7 +7092,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/cp/nw-normal-4x.png",
-              "sha256": "9bca02b64978e8a4b7517a5ea9588d7db72f981002741e9b6e120b5e99cab67b"
+              "sha256": "8c0024592314a1b1f91c5d0f51e4900b225a0e82624d480557f68e8a5c5ccdc9"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7131,7 +7131,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/n-normal-4x.png",
-              "sha256": "5e548c767f5e7a1ce758d69e8de81aacd74d695c5f2fe8f2479af81cd5041884"
+              "sha256": "940aa9a4ced7aa2b02c24878e68fb8a0497e11d506a4f67e9cfd409729386ab0"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7162,7 +7162,7 @@
             "width": 952
           },
           "path": "scenes/mud-normal-p0-4x.png",
-          "sha256": "ce7fa72d22b385f47dae03706964a2c904ed7d77bed92144d18ada1bb13c8db7"
+          "sha256": "20f641048a595b61dcc2248d58f8598e61a9cac658899f0828941b4f2714ff8a"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -7200,7 +7200,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/neutral/n-normal-2x.png",
-              "sha256": "0aefa1cee79631b5df79759740034a6d04a3a6b5b8b6764f854e865cff0fadca"
+              "sha256": "3f5baf4914d1a91765614f82c82e9b8840d0c614430ef711c0652000f57643b2"
             },
             "state": "normal",
             "terrain": "mud",
@@ -7239,7 +7239,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/ne-normal-2x.png",
-              "sha256": "c4107be86a2ed3241a4edd4dd6d4edc9b9d0bb0ed9eb3025a0b5e6e08f242540"
+              "sha256": "4b4b420595ce719ddbea2189ca287776debdf770787bb76e648a3ff24c5acfe1"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7278,7 +7278,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/se-normal-2x.png",
-              "sha256": "bdec52504ab1dad8071ee02c4e63a12ee0657756648b57de3973ea6436d18f93"
+              "sha256": "f97273a644762d4b0b54994bbf07a614cf945fc7bc295cefab3dc28323b8b2e6"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7317,7 +7317,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/cp/s-normal-2x.png",
-              "sha256": "b7291b0b21c529b6f8b8ae6fc1de5f7f43a9fe5839021c8d3a1eaece6ced16a6"
+              "sha256": "93391cb05b867dc57dc8eaa338638527bc2e53ddfaaea2fc19901550cf4c2819"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7356,7 +7356,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/sw-normal-2x.png",
-              "sha256": "7ac3d93f1915f1739e9225c6bce976926a8b88398fea494c0c4f187f3a8d939d"
+              "sha256": "bed565e3e53904e284ae043fdcc874128a723b4babe8f130ce856afe250cdf74"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7395,7 +7395,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/cp/nw-normal-2x.png",
-              "sha256": "8f0c5dd188a9fcf4af3db3ac2b64455c3e3023059a4667d9eeea7fe9657ae7a2"
+              "sha256": "2e5b6e8fd60eda3c7071f13e931094e2641ca64d9ceeafede5526fb73fcdb9c6"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7434,7 +7434,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/n-normal-2x.png",
-              "sha256": "df2b2666ae29622bc58382ea782af6065799f0a82ad12ffa904ae42be697f69e"
+              "sha256": "9843a0bfdfbb752e5118e1c69f43e7dab932a6a4b7b9d9d26d1160818ba939d8"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7465,7 +7465,7 @@
             "width": 476
           },
           "path": "scenes/mud-normal-p1-2x.png",
-          "sha256": "3708da4fea40c1160d55105091a0d0fae4af686b2b3bd7292ff0fad0c3e67fa4"
+          "sha256": "c45f4a4d883de25a71e568fb2b31ec85945ba02714ee46edc40b922f7cb0ddad"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -7503,7 +7503,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/neutral/n-normal-4x.png",
-              "sha256": "75cb02f76076479a11e41eda219546f31ef7a48fd692a5fc1997c01e0f4c73f7"
+              "sha256": "8c9d16fcced8f4180903bf24f982cf3b93b9f50cd15f14237426600a8f0b2c06"
             },
             "state": "normal",
             "terrain": "mud",
@@ -7542,7 +7542,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/ne-normal-4x.png",
-              "sha256": "3f1b01fa99450dd9495e8c2974ab357c133efc2f00e69326320ad03da63f999a"
+              "sha256": "a1282235ff77c7abba2c86d38093fc6522d73be6f5c2e814b82228b6b93b698d"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7581,7 +7581,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/se-normal-4x.png",
-              "sha256": "29277da73a6b992483d8bfe4a7d9a30f6b580a6e2dc988df0336cd8adb4da8f1"
+              "sha256": "397744fad0abc7b30aacd0c93fcd687ba51cc05d47e548d1b040034dd82a0cb1"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7620,7 +7620,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/cp/s-normal-4x.png",
-              "sha256": "425bf5e2879ab22829241e27c29114fa84e0ad95453a94c59f6b061ea0628416"
+              "sha256": "9e34e9a0ff24d4a117d076562ed07877a2eae917939dc003fb20ebed79eaad73"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7659,7 +7659,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/sw-normal-4x.png",
-              "sha256": "0f676b565a4103ba201545ba3f3d6b420dda47e6a0f804ccc73e90bd6d79ea33"
+              "sha256": "eae6085e1b1007a9b82323e90153b56c581d8e75424caa30f5dbe9029d1c1719"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7698,7 +7698,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/cp/nw-normal-4x.png",
-              "sha256": "9bca02b64978e8a4b7517a5ea9588d7db72f981002741e9b6e120b5e99cab67b"
+              "sha256": "8c0024592314a1b1f91c5d0f51e4900b225a0e82624d480557f68e8a5c5ccdc9"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7737,7 +7737,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/n-normal-4x.png",
-              "sha256": "5e548c767f5e7a1ce758d69e8de81aacd74d695c5f2fe8f2479af81cd5041884"
+              "sha256": "940aa9a4ced7aa2b02c24878e68fb8a0497e11d506a4f67e9cfd409729386ab0"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7768,7 +7768,7 @@
             "width": 952
           },
           "path": "scenes/mud-normal-p1-4x.png",
-          "sha256": "ce7fa72d22b385f47dae03706964a2c904ed7d77bed92144d18ada1bb13c8db7"
+          "sha256": "20f641048a595b61dcc2248d58f8598e61a9cac658899f0828941b4f2714ff8a"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -7806,7 +7806,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/neutral/n-spent-2x.png",
-              "sha256": "21e3d97ea7dceaae6e7e64a7dbb9977c63a5954fb04da5b1c8f29f61ca57c3a8"
+              "sha256": "5b39cc6f8dad78104ab12f5a1c7256185ffc464fe2842f6bf259903f9942d145"
             },
             "state": "spent",
             "terrain": "mud",
@@ -7845,7 +7845,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/ne-spent-2x.png",
-              "sha256": "5cfb2db5780be7d422d47bf668070081adac10021fa885954e714462cfc8c0cd"
+              "sha256": "e8b1c8d05437461186970c7b830aa690a897e93f6bfb2b2f9e13cd840a4d5e65"
             },
             "state": "spent",
             "terrain": "grass",
@@ -7884,7 +7884,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/se-spent-2x.png",
-              "sha256": "b989e735bba6e4d9d291f8bee880c18302a9908c763e7c85cd1be7dca2a232d7"
+              "sha256": "e4704ab4620cd87ff2d5f8a3d93635b7ef6d104e332c0dd5f9d5ac5fe569566e"
             },
             "state": "spent",
             "terrain": "grass",
@@ -7923,7 +7923,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/cp/s-spent-2x.png",
-              "sha256": "38d97ab35af4b9513626dd3764efb09ea9f81a4f5e7ef35686513a9de02b1fb6"
+              "sha256": "cffa2f44af1eba657f1ab0db1189807c7d9d4d7c1b1bd0568a16471bc0fa02ba"
             },
             "state": "spent",
             "terrain": "grass",
@@ -7962,7 +7962,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/sw-spent-2x.png",
-              "sha256": "8a5263f1b8ef5a5af39be9a50257e4ed89ff1585f70fb11c1bb48ab65658793a"
+              "sha256": "fa759ff47c862effabbbb1d98a53fb555640948780d89eb10a60eb51ea1b48d3"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8001,7 +8001,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/cp/nw-spent-2x.png",
-              "sha256": "dd1d65c218ddca89a1538f25ac374d4cad4201a51e2e40d3e96d8d04d3a9db92"
+              "sha256": "7665a6042f69c948aca2d545915eb149252e61bb1dec0444793fe75325bfdcd4"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8040,7 +8040,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/n-spent-2x.png",
-              "sha256": "7159fd977e8b06a2dce07c20f92e95ecdd9ed9da574602c41a19f8857b620925"
+              "sha256": "3001790ea0a0f9c2b637a9f20f936687794bd1dc4ea9c17f83cc1c401bda29db"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8071,7 +8071,7 @@
             "width": 476
           },
           "path": "scenes/mud-spent-p0-2x.png",
-          "sha256": "b81b0c9b1247772aed97144154829ab1526d58bcc9f7de001fcabc7c3af67dfc"
+          "sha256": "e991b7f8fa4e5f487ab15e8117687d21b21017fb9aab07c94212cc54bcd0aac6"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -8109,7 +8109,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/neutral/n-spent-4x.png",
-              "sha256": "83c8a474b086576e7d4293251bee065c6eb830dbcd0efecb4f958c1f5350da23"
+              "sha256": "9379b4f99108e76c53f8e2d5b0408f934e54f9856c5912d14878bfebe1256b85"
             },
             "state": "spent",
             "terrain": "mud",
@@ -8148,7 +8148,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/ne-spent-4x.png",
-              "sha256": "5296d067ee7394fe3b9062a0daa2918e6f09798d59027da131ef0fd00346e239"
+              "sha256": "70903a123f43c8d587ca212ca22aa667b9c553c37e56bbc6535196902cd75307"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8187,7 +8187,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/se-spent-4x.png",
-              "sha256": "aef9daf894a4eb3ad7098cb7ba52cdcb50e7693df6e40e9ed21636614aacf8de"
+              "sha256": "af892da081bfb76e47c19e631d48759906df77518cb2eb9820814a538cf4f91c"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8226,7 +8226,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/cp/s-spent-4x.png",
-              "sha256": "0a6cc007ac14198ab4dc4ad52990324a889369392fc55c0aaa4551c22d32ca13"
+              "sha256": "470bacf535691df3d45b29f150a6b72b412135787d71f107193dd2e1fe0000f6"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8265,7 +8265,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/sw-spent-4x.png",
-              "sha256": "3ec449d1ca7be58fe944a5d8609954cdea5824d63ecc02f93503e6fa6a63bef9"
+              "sha256": "865d27aef2d9c4b4dc6fb2d8bbbb58baab7519871bd3ab7f6bf1e6b2a9dfdd85"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8304,7 +8304,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/cp/nw-spent-4x.png",
-              "sha256": "4b1d3ad3b828f34bbda3aade5d43715554ed3732e333db33ec6119dc142cacc5"
+              "sha256": "48856e205042adcc52b58f038bd6d067030cc389a143a90d9cabc6dc6212b626"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8343,7 +8343,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/n-spent-4x.png",
-              "sha256": "47275f2178c555c1911af9a7c5858b601fd234779b6f0e95ef53f179d944ef81"
+              "sha256": "1aa3aeff25b607267daaeee76910995c6258ed040f4e20b627aa279cb7cc0cfc"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8374,7 +8374,7 @@
             "width": 952
           },
           "path": "scenes/mud-spent-p0-4x.png",
-          "sha256": "d80ad3534d7fc8a55bb43482587ac0f51ba64e3d4ddacf461eeeeb072fa65171"
+          "sha256": "36fea78d4d1b5448e4d1ed8b4147fe414bc0540c6f33e82a4987a01d86202332"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -8412,7 +8412,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/neutral/n-spent-2x.png",
-              "sha256": "21e3d97ea7dceaae6e7e64a7dbb9977c63a5954fb04da5b1c8f29f61ca57c3a8"
+              "sha256": "5b39cc6f8dad78104ab12f5a1c7256185ffc464fe2842f6bf259903f9942d145"
             },
             "state": "spent",
             "terrain": "mud",
@@ -8451,7 +8451,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/ne-spent-2x.png",
-              "sha256": "5cfb2db5780be7d422d47bf668070081adac10021fa885954e714462cfc8c0cd"
+              "sha256": "e8b1c8d05437461186970c7b830aa690a897e93f6bfb2b2f9e13cd840a4d5e65"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8490,7 +8490,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/se-spent-2x.png",
-              "sha256": "b989e735bba6e4d9d291f8bee880c18302a9908c763e7c85cd1be7dca2a232d7"
+              "sha256": "e4704ab4620cd87ff2d5f8a3d93635b7ef6d104e332c0dd5f9d5ac5fe569566e"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8529,7 +8529,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/cp/s-spent-2x.png",
-              "sha256": "38d97ab35af4b9513626dd3764efb09ea9f81a4f5e7ef35686513a9de02b1fb6"
+              "sha256": "cffa2f44af1eba657f1ab0db1189807c7d9d4d7c1b1bd0568a16471bc0fa02ba"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8568,7 +8568,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/sw-spent-2x.png",
-              "sha256": "8a5263f1b8ef5a5af39be9a50257e4ed89ff1585f70fb11c1bb48ab65658793a"
+              "sha256": "fa759ff47c862effabbbb1d98a53fb555640948780d89eb10a60eb51ea1b48d3"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8607,7 +8607,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/cp/nw-spent-2x.png",
-              "sha256": "dd1d65c218ddca89a1538f25ac374d4cad4201a51e2e40d3e96d8d04d3a9db92"
+              "sha256": "7665a6042f69c948aca2d545915eb149252e61bb1dec0444793fe75325bfdcd4"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8646,7 +8646,7 @@
                 "width": 192
               },
               "path": "sprites/trainArtillery/ec/n-spent-2x.png",
-              "sha256": "7159fd977e8b06a2dce07c20f92e95ecdd9ed9da574602c41a19f8857b620925"
+              "sha256": "3001790ea0a0f9c2b637a9f20f936687794bd1dc4ea9c17f83cc1c401bda29db"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8677,7 +8677,7 @@
             "width": 476
           },
           "path": "scenes/mud-spent-p1-2x.png",
-          "sha256": "b81b0c9b1247772aed97144154829ab1526d58bcc9f7de001fcabc7c3af67dfc"
+          "sha256": "e991b7f8fa4e5f487ab15e8117687d21b21017fb9aab07c94212cc54bcd0aac6"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -8715,7 +8715,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/neutral/n-spent-4x.png",
-              "sha256": "83c8a474b086576e7d4293251bee065c6eb830dbcd0efecb4f958c1f5350da23"
+              "sha256": "9379b4f99108e76c53f8e2d5b0408f934e54f9856c5912d14878bfebe1256b85"
             },
             "state": "spent",
             "terrain": "mud",
@@ -8754,7 +8754,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/ne-spent-4x.png",
-              "sha256": "5296d067ee7394fe3b9062a0daa2918e6f09798d59027da131ef0fd00346e239"
+              "sha256": "70903a123f43c8d587ca212ca22aa667b9c553c37e56bbc6535196902cd75307"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8793,7 +8793,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/se-spent-4x.png",
-              "sha256": "aef9daf894a4eb3ad7098cb7ba52cdcb50e7693df6e40e9ed21636614aacf8de"
+              "sha256": "af892da081bfb76e47c19e631d48759906df77518cb2eb9820814a538cf4f91c"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8832,7 +8832,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/cp/s-spent-4x.png",
-              "sha256": "0a6cc007ac14198ab4dc4ad52990324a889369392fc55c0aaa4551c22d32ca13"
+              "sha256": "470bacf535691df3d45b29f150a6b72b412135787d71f107193dd2e1fe0000f6"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8871,7 +8871,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/sw-spent-4x.png",
-              "sha256": "3ec449d1ca7be58fe944a5d8609954cdea5824d63ecc02f93503e6fa6a63bef9"
+              "sha256": "865d27aef2d9c4b4dc6fb2d8bbbb58baab7519871bd3ab7f6bf1e6b2a9dfdd85"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8910,7 +8910,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/cp/nw-spent-4x.png",
-              "sha256": "4b1d3ad3b828f34bbda3aade5d43715554ed3732e333db33ec6119dc142cacc5"
+              "sha256": "48856e205042adcc52b58f038bd6d067030cc389a143a90d9cabc6dc6212b626"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8949,7 +8949,7 @@
                 "width": 384
               },
               "path": "sprites/trainArtillery/ec/n-spent-4x.png",
-              "sha256": "47275f2178c555c1911af9a7c5858b601fd234779b6f0e95ef53f179d944ef81"
+              "sha256": "1aa3aeff25b607267daaeee76910995c6258ed040f4e20b627aa279cb7cc0cfc"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8980,7 +8980,7 @@
             "width": 952
           },
           "path": "scenes/mud-spent-p1-4x.png",
-          "sha256": "d80ad3534d7fc8a55bb43482587ac0f51ba64e3d4ddacf461eeeeb072fa65171"
+          "sha256": "36fea78d4d1b5448e4d1ed8b4147fe414bc0540c6f33e82a4987a01d86202332"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -9005,7 +9005,7 @@
             "width": 1152
           },
           "path": "sheets/trainArtillery-white-2x.png",
-          "sha256": "6d91c76cc89bf3482d11a82edf35bd52b8bac7247c900c3af1d0ef2514e72026"
+          "sha256": "08aa42e599ce45af1a14fecd6f1553386f401f9c12a6dc449b6b40a2589cf949"
         },
         "rows": [
           "n",
@@ -9033,7 +9033,7 @@
             "width": 2304
           },
           "path": "sheets/trainArtillery-white-4x.png",
-          "sha256": "b51fc28d7ba027ac139e77a28087cd0445dc4d1c59b8d38ff430dd049cbdfbce"
+          "sha256": "d3089e4896480b7e5b699597efa7bdd3120cd56e976fdf9842664f454c98b62a"
         },
         "rows": [
           "n",
@@ -9061,7 +9061,7 @@
             "width": 1152
           },
           "path": "sheets/trainArtillery-checker-2x.png",
-          "sha256": "bcf1204edc5ee34398de223a7944c74fc99843a77522ba87bcdc94bc7c0e5a4a"
+          "sha256": "9207560df0637b7cf83a2f6ed0dcaf8fe659829cc58694323f457a9f33bef95a"
         },
         "rows": [
           "n",
@@ -9089,7 +9089,7 @@
             "width": 2304
           },
           "path": "sheets/trainArtillery-checker-4x.png",
-          "sha256": "482d3de9f909a477c8d5de20a82307c245078d98a9b81700d92fada3c9cb01fb"
+          "sha256": "f854bbb5e1701695ef041c736d3879fc84ca56b5555dd5a493839ee29a8e6bde"
         },
         "rows": [
           "n",
@@ -9140,7 +9140,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/cp/n-normal-2x.png",
-            "sha256": "7337665bac16a1ba042338082873e6f77ea99f7ec70ad50dfef6807694aaf0a5"
+            "sha256": "f4bdd4cea71b6fb65537f6e3712e55d16f99de926b9aaef7545c7f1d388a267c"
           },
           {
             "dimensions": {
@@ -9148,7 +9148,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/cp/n-normal-4x.png",
-            "sha256": "72a9220fe1c206dc9483e61e6dd8dd4696a3787df619835af065d5caf5dfff07"
+            "sha256": "550341b47812e6ba6594cdfb4326ec501cccaefe7b1b281df0d7fc3ca2ac8cb4"
           }
         ],
         "palette": "cp",
@@ -9191,7 +9191,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/cp/n-spent-2x.png",
-            "sha256": "b91e7b7303d1147f506748248f6dd95cad010dd5b597663ddae936c4fe3e8d7e"
+            "sha256": "9074d6ddf4526ef3b39d2b2be2e7fa6873681757855661419892c5c1d551e915"
           },
           {
             "dimensions": {
@@ -9199,7 +9199,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/cp/n-spent-4x.png",
-            "sha256": "1760d20ed79f7d746a810d899c05377ff24adba9f43fc10dc18da5f7b8881a9c"
+            "sha256": "f2f275b3962f1ec38f7e61f6969b6be982e77df9f746ad845d82dd7d73495685"
           }
         ],
         "palette": "cp",
@@ -9242,7 +9242,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/ec/n-normal-2x.png",
-            "sha256": "df2b2666ae29622bc58382ea782af6065799f0a82ad12ffa904ae42be697f69e"
+            "sha256": "9843a0bfdfbb752e5118e1c69f43e7dab932a6a4b7b9d9d26d1160818ba939d8"
           },
           {
             "dimensions": {
@@ -9250,7 +9250,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/ec/n-normal-4x.png",
-            "sha256": "5e548c767f5e7a1ce758d69e8de81aacd74d695c5f2fe8f2479af81cd5041884"
+            "sha256": "940aa9a4ced7aa2b02c24878e68fb8a0497e11d506a4f67e9cfd409729386ab0"
           }
         ],
         "palette": "ec",
@@ -9293,7 +9293,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/ec/n-spent-2x.png",
-            "sha256": "7159fd977e8b06a2dce07c20f92e95ecdd9ed9da574602c41a19f8857b620925"
+            "sha256": "3001790ea0a0f9c2b637a9f20f936687794bd1dc4ea9c17f83cc1c401bda29db"
           },
           {
             "dimensions": {
@@ -9301,7 +9301,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/ec/n-spent-4x.png",
-            "sha256": "47275f2178c555c1911af9a7c5858b601fd234779b6f0e95ef53f179d944ef81"
+            "sha256": "1aa3aeff25b607267daaeee76910995c6258ed040f4e20b627aa279cb7cc0cfc"
           }
         ],
         "palette": "ec",
@@ -9344,7 +9344,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/neutral/n-normal-2x.png",
-            "sha256": "0aefa1cee79631b5df79759740034a6d04a3a6b5b8b6764f854e865cff0fadca"
+            "sha256": "3f5baf4914d1a91765614f82c82e9b8840d0c614430ef711c0652000f57643b2"
           },
           {
             "dimensions": {
@@ -9352,7 +9352,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/neutral/n-normal-4x.png",
-            "sha256": "75cb02f76076479a11e41eda219546f31ef7a48fd692a5fc1997c01e0f4c73f7"
+            "sha256": "8c9d16fcced8f4180903bf24f982cf3b93b9f50cd15f14237426600a8f0b2c06"
           }
         ],
         "palette": "neutral",
@@ -9395,7 +9395,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/neutral/n-spent-2x.png",
-            "sha256": "21e3d97ea7dceaae6e7e64a7dbb9977c63a5954fb04da5b1c8f29f61ca57c3a8"
+            "sha256": "5b39cc6f8dad78104ab12f5a1c7256185ffc464fe2842f6bf259903f9942d145"
           },
           {
             "dimensions": {
@@ -9403,7 +9403,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/neutral/n-spent-4x.png",
-            "sha256": "83c8a474b086576e7d4293251bee065c6eb830dbcd0efecb4f958c1f5350da23"
+            "sha256": "9379b4f99108e76c53f8e2d5b0408f934e54f9856c5912d14878bfebe1256b85"
           }
         ],
         "palette": "neutral",
@@ -9446,7 +9446,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/cp/nw-normal-2x.png",
-            "sha256": "8f0c5dd188a9fcf4af3db3ac2b64455c3e3023059a4667d9eeea7fe9657ae7a2"
+            "sha256": "2e5b6e8fd60eda3c7071f13e931094e2641ca64d9ceeafede5526fb73fcdb9c6"
           },
           {
             "dimensions": {
@@ -9454,7 +9454,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/cp/nw-normal-4x.png",
-            "sha256": "9bca02b64978e8a4b7517a5ea9588d7db72f981002741e9b6e120b5e99cab67b"
+            "sha256": "8c0024592314a1b1f91c5d0f51e4900b225a0e82624d480557f68e8a5c5ccdc9"
           }
         ],
         "palette": "cp",
@@ -9497,7 +9497,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/cp/nw-spent-2x.png",
-            "sha256": "dd1d65c218ddca89a1538f25ac374d4cad4201a51e2e40d3e96d8d04d3a9db92"
+            "sha256": "7665a6042f69c948aca2d545915eb149252e61bb1dec0444793fe75325bfdcd4"
           },
           {
             "dimensions": {
@@ -9505,7 +9505,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/cp/nw-spent-4x.png",
-            "sha256": "4b1d3ad3b828f34bbda3aade5d43715554ed3732e333db33ec6119dc142cacc5"
+            "sha256": "48856e205042adcc52b58f038bd6d067030cc389a143a90d9cabc6dc6212b626"
           }
         ],
         "palette": "cp",
@@ -9548,7 +9548,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/ec/nw-normal-2x.png",
-            "sha256": "b5919d0ba83d739b8b6936bb7b99831e59854b782bab20064963701f12f6ca91"
+            "sha256": "5e8b32c10cad89fbfb11b6140a3513afc8fda51352c5d8a3b7cb09699e504544"
           },
           {
             "dimensions": {
@@ -9556,7 +9556,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/ec/nw-normal-4x.png",
-            "sha256": "6ec60bb7b5d3fa2084a8eebcee01c15d883f758a94a255bad11b8f8540d92bd6"
+            "sha256": "4835038c3a83d8340189f6536969e00a723a2fda941cca7673c763466c16980e"
           }
         ],
         "palette": "ec",
@@ -9599,7 +9599,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/ec/nw-spent-2x.png",
-            "sha256": "fb0694867fe7766ded9e0a002eb34db4a816f4b115935d077c1c02f5c00ed30b"
+            "sha256": "0df908c3c2a1cb9edd931856a59b68cfde6866323197f16eea2a30987252e3f0"
           },
           {
             "dimensions": {
@@ -9607,7 +9607,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/ec/nw-spent-4x.png",
-            "sha256": "0e51674f82b794b1393bde8ece388d777534b9318ee03546db951ebd7d5c47b1"
+            "sha256": "e0300df57a14bf271fad113372bae3cc95cfe6d765559a5cd6a3b0a9dec44024"
           }
         ],
         "palette": "ec",
@@ -9650,7 +9650,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/neutral/nw-normal-2x.png",
-            "sha256": "38dd0243ac0e41cc6e63afa6cff945a0b79d47fec300fc2b19d47327ad30c8fc"
+            "sha256": "f040baabede3e431bb7bad77f918728d69cbcecec35012b9135a890cd112eed8"
           },
           {
             "dimensions": {
@@ -9658,7 +9658,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/neutral/nw-normal-4x.png",
-            "sha256": "3d35144489f553839d530b346df8c067a97bf1a8859129c19dc9e515e4dbab01"
+            "sha256": "d171bc126d45ab7402cf7986192282a25f59042aef245a45f873f9d77fe524fa"
           }
         ],
         "palette": "neutral",
@@ -9701,7 +9701,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/neutral/nw-spent-2x.png",
-            "sha256": "b30cc7d58bbe9fa96ebe47373e5f41fb86052feb74a351739e93ab562fc822f5"
+            "sha256": "cf00024b9ed2b5f5aa133c954758d4eb324be9c8e1274032119fd2607759c62f"
           },
           {
             "dimensions": {
@@ -9709,7 +9709,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/neutral/nw-spent-4x.png",
-            "sha256": "1f52f6647dbd6b5c58877fee700bcec96846d316bb9f97f22daaec2a0b352729"
+            "sha256": "7a82f14a259b3d2e96129c5547d6eb91158c82b4d8e8c5a7353b859a0daa05db"
           }
         ],
         "palette": "neutral",
@@ -9752,7 +9752,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/cp/sw-normal-2x.png",
-            "sha256": "290325140836b5c7904078f421d525af0c247c63fcdb4c437daee55bd39752c3"
+            "sha256": "de9599cb6b1e25ceb593d340a281ab5972fcaa2e753f2fbf28c3ac432c34acaa"
           },
           {
             "dimensions": {
@@ -9760,7 +9760,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/cp/sw-normal-4x.png",
-            "sha256": "4fcb8910227abec10e73c3da4f5c5a380a5c4e3c87b3a5cb73a054e07ebcc8e0"
+            "sha256": "4b7d742eb8dd9b47cb29ca5d67c34f501de342a638b82d323c6714ac9c24d952"
           }
         ],
         "palette": "cp",
@@ -9803,7 +9803,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/cp/sw-spent-2x.png",
-            "sha256": "134abb4e6bd4df77d7154ce0dfa6e266c83f60ee0ed840a2a81c39199e5d5ea9"
+            "sha256": "9aa339caccc71baac19f79c015ac7f97a8499141f4c11f7e8746e0d3e33b3cfb"
           },
           {
             "dimensions": {
@@ -9811,7 +9811,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/cp/sw-spent-4x.png",
-            "sha256": "10b6756ce9148f8bedc0b227d0ae224a3af534b1ecd86d21002da03d3c274787"
+            "sha256": "212e50a100a2e334dc869e06076f83d87caca61b8a4170d1bdc1d4b0bbf080eb"
           }
         ],
         "palette": "cp",
@@ -9854,7 +9854,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/ec/sw-normal-2x.png",
-            "sha256": "7ac3d93f1915f1739e9225c6bce976926a8b88398fea494c0c4f187f3a8d939d"
+            "sha256": "bed565e3e53904e284ae043fdcc874128a723b4babe8f130ce856afe250cdf74"
           },
           {
             "dimensions": {
@@ -9862,7 +9862,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/ec/sw-normal-4x.png",
-            "sha256": "0f676b565a4103ba201545ba3f3d6b420dda47e6a0f804ccc73e90bd6d79ea33"
+            "sha256": "eae6085e1b1007a9b82323e90153b56c581d8e75424caa30f5dbe9029d1c1719"
           }
         ],
         "palette": "ec",
@@ -9905,7 +9905,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/ec/sw-spent-2x.png",
-            "sha256": "8a5263f1b8ef5a5af39be9a50257e4ed89ff1585f70fb11c1bb48ab65658793a"
+            "sha256": "fa759ff47c862effabbbb1d98a53fb555640948780d89eb10a60eb51ea1b48d3"
           },
           {
             "dimensions": {
@@ -9913,7 +9913,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/ec/sw-spent-4x.png",
-            "sha256": "3ec449d1ca7be58fe944a5d8609954cdea5824d63ecc02f93503e6fa6a63bef9"
+            "sha256": "865d27aef2d9c4b4dc6fb2d8bbbb58baab7519871bd3ab7f6bf1e6b2a9dfdd85"
           }
         ],
         "palette": "ec",
@@ -9956,7 +9956,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/neutral/sw-normal-2x.png",
-            "sha256": "189489b8cb77c2c399bb7ef691b8c7ad715e126c3da23926971c358106528535"
+            "sha256": "2fa12438c05c9b745309ce2b232cb09306a717f8bd94ebcd57c783d17449768a"
           },
           {
             "dimensions": {
@@ -9964,7 +9964,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/neutral/sw-normal-4x.png",
-            "sha256": "f26ddd460d3c669c4d14fadac85b34ad973148436f75f04fe64e3ced40d7d578"
+            "sha256": "8fc7c7b5b4aab7472a7f91a2a48ea03725d1e31aff62c1da041c9c3db1bd8669"
           }
         ],
         "palette": "neutral",
@@ -10007,7 +10007,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/neutral/sw-spent-2x.png",
-            "sha256": "2c7e470440ff620c4eba7705fb17976340d4d407856d941879ea03705adc286c"
+            "sha256": "fe03495f35973080996abb51924d3d321e46ecb0801e2cb329543872feffd26d"
           },
           {
             "dimensions": {
@@ -10015,7 +10015,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/neutral/sw-spent-4x.png",
-            "sha256": "3e09dee63ecb9524dbeb140d4a513aa240c8eb97f7a25d530233a43b7f9ceeb0"
+            "sha256": "dadd108f0e5fd904fe94663d0d2fabfc7d817f6f0654c61baddabcd7510843a8"
           }
         ],
         "palette": "neutral",
@@ -10058,7 +10058,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/cp/s-normal-2x.png",
-            "sha256": "b7291b0b21c529b6f8b8ae6fc1de5f7f43a9fe5839021c8d3a1eaece6ced16a6"
+            "sha256": "93391cb05b867dc57dc8eaa338638527bc2e53ddfaaea2fc19901550cf4c2819"
           },
           {
             "dimensions": {
@@ -10066,7 +10066,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/cp/s-normal-4x.png",
-            "sha256": "425bf5e2879ab22829241e27c29114fa84e0ad95453a94c59f6b061ea0628416"
+            "sha256": "9e34e9a0ff24d4a117d076562ed07877a2eae917939dc003fb20ebed79eaad73"
           }
         ],
         "palette": "cp",
@@ -10109,7 +10109,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/cp/s-spent-2x.png",
-            "sha256": "38d97ab35af4b9513626dd3764efb09ea9f81a4f5e7ef35686513a9de02b1fb6"
+            "sha256": "cffa2f44af1eba657f1ab0db1189807c7d9d4d7c1b1bd0568a16471bc0fa02ba"
           },
           {
             "dimensions": {
@@ -10117,7 +10117,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/cp/s-spent-4x.png",
-            "sha256": "0a6cc007ac14198ab4dc4ad52990324a889369392fc55c0aaa4551c22d32ca13"
+            "sha256": "470bacf535691df3d45b29f150a6b72b412135787d71f107193dd2e1fe0000f6"
           }
         ],
         "palette": "cp",
@@ -10160,7 +10160,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/ec/s-normal-2x.png",
-            "sha256": "e106ac0e5292e88db1794736aaec8a6181454ff68217e1a441ac29aaa58ef870"
+            "sha256": "7a3daa7ebe9865d194fc8ac138fe991e422196c6173fe9ed340ad7deca4b777f"
           },
           {
             "dimensions": {
@@ -10168,7 +10168,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/ec/s-normal-4x.png",
-            "sha256": "c9a30960da24c8ab689b4b52112a23caaf547d85300adb62e457be6c73214a0a"
+            "sha256": "1e10b5422542ae1620233bcba6ebaab393bdc121d4d438a09373f53dc23dee14"
           }
         ],
         "palette": "ec",
@@ -10211,7 +10211,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/ec/s-spent-2x.png",
-            "sha256": "3e13342e7760f1821d361216204be6f8b28b5308e38b661a5b5d80fb13b5b872"
+            "sha256": "d8199cff3246fbf0bd1ef574b736d9f2c4c7cbdc720f4236a0faf4dfca44add8"
           },
           {
             "dimensions": {
@@ -10219,7 +10219,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/ec/s-spent-4x.png",
-            "sha256": "8bbf20a18b47fb185f1b6c2b51521180efe1d22cd2954e09b8fa1afa446edee3"
+            "sha256": "45ad935718d4c8272e8966687aa3f15f193eeb9140fa5c45ff9dafb94107bdfd"
           }
         ],
         "palette": "ec",
@@ -10262,7 +10262,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/neutral/s-normal-2x.png",
-            "sha256": "9800c3fa37902ea95d1baabc959094d4d1fd8b1a99401372ea0cef6819846b5a"
+            "sha256": "39f813e86bc614ae88b32acd66c114d76a88c77fbf2896c6a7494b1a91ea59e5"
           },
           {
             "dimensions": {
@@ -10270,7 +10270,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/neutral/s-normal-4x.png",
-            "sha256": "f9177f0f8b6cffed491e399839b54aad65e7fea084bb5bd6c91e868b4adde61b"
+            "sha256": "28299a8f5f9c978c530d03adfbb83f2563c4f6a61ae14b38a9cb49e120def2e6"
           }
         ],
         "palette": "neutral",
@@ -10313,7 +10313,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/neutral/s-spent-2x.png",
-            "sha256": "aa93aa721877db73f5667ee159b4c332c7ec8ec16d405019d995165909508a9c"
+            "sha256": "51b726b3965fd84e659b7eab11ee8039ddc456a53652f4bdb90d24ae2653753b"
           },
           {
             "dimensions": {
@@ -10321,7 +10321,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/neutral/s-spent-4x.png",
-            "sha256": "302c1b03f6e73be5e19a3c2967866c49893146970a0a976c2536a3b40468f183"
+            "sha256": "c67ebe39b70c2f2124609dd5dba1b42c0ffda20f692cd6aaad95647c730bc2e8"
           }
         ],
         "palette": "neutral",
@@ -10364,7 +10364,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/cp/se-normal-2x.png",
-            "sha256": "269b1099de7b452412ecd5e1e621340993bde577446972933f6c9b749bcfa335"
+            "sha256": "3e5cb6139139baeb06ee1de9b0a84ed6310a8caaa295398509c902e1d71f05cd"
           },
           {
             "dimensions": {
@@ -10372,7 +10372,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/cp/se-normal-4x.png",
-            "sha256": "8bb333e472b7814fc205c8f7f70126461f70d5e8a0492d4692cdedb8b6470876"
+            "sha256": "10659a560844ed0e81064fd4453514e69714cbb89878dd07e5da41067fddb7a5"
           }
         ],
         "palette": "cp",
@@ -10415,7 +10415,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/cp/se-spent-2x.png",
-            "sha256": "28484c168b1402da59d17be15e3b319187d52705dcc0d8abe1e9c4ff1abd85c3"
+            "sha256": "aeb0e5a37822361110e340f3e0636cda279a12840b261fe3898c529215f81d2d"
           },
           {
             "dimensions": {
@@ -10423,7 +10423,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/cp/se-spent-4x.png",
-            "sha256": "aea6e92570183f6f6fd2419314b5d1c484e3974a6dc98ea57d91ffdc2b3759c8"
+            "sha256": "b0976a4dec97c12deaa249c3ddb3cd3435e50d2b47065e938dd872ebd5b8b2cf"
           }
         ],
         "palette": "cp",
@@ -10466,7 +10466,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/ec/se-normal-2x.png",
-            "sha256": "bdec52504ab1dad8071ee02c4e63a12ee0657756648b57de3973ea6436d18f93"
+            "sha256": "f97273a644762d4b0b54994bbf07a614cf945fc7bc295cefab3dc28323b8b2e6"
           },
           {
             "dimensions": {
@@ -10474,7 +10474,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/ec/se-normal-4x.png",
-            "sha256": "29277da73a6b992483d8bfe4a7d9a30f6b580a6e2dc988df0336cd8adb4da8f1"
+            "sha256": "397744fad0abc7b30aacd0c93fcd687ba51cc05d47e548d1b040034dd82a0cb1"
           }
         ],
         "palette": "ec",
@@ -10517,7 +10517,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/ec/se-spent-2x.png",
-            "sha256": "b989e735bba6e4d9d291f8bee880c18302a9908c763e7c85cd1be7dca2a232d7"
+            "sha256": "e4704ab4620cd87ff2d5f8a3d93635b7ef6d104e332c0dd5f9d5ac5fe569566e"
           },
           {
             "dimensions": {
@@ -10525,7 +10525,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/ec/se-spent-4x.png",
-            "sha256": "aef9daf894a4eb3ad7098cb7ba52cdcb50e7693df6e40e9ed21636614aacf8de"
+            "sha256": "af892da081bfb76e47c19e631d48759906df77518cb2eb9820814a538cf4f91c"
           }
         ],
         "palette": "ec",
@@ -10568,7 +10568,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/neutral/se-normal-2x.png",
-            "sha256": "951c8bf2e048c960ad4f29be6714244c28f8a16aefd13555ac0ffbee9056738e"
+            "sha256": "4033c0ff861caf6923ea9b69fb620a2189ef50c7aada6535186f9da8a457e3d8"
           },
           {
             "dimensions": {
@@ -10576,7 +10576,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/neutral/se-normal-4x.png",
-            "sha256": "2b707832a8ee0452df3684264cb07ede9709be254bf2b4852103ff4d1517360e"
+            "sha256": "248d3e67ae8d1b4b6bc77a36a8b87b4184dcc6a61a328787274433f83503fead"
           }
         ],
         "palette": "neutral",
@@ -10619,7 +10619,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/neutral/se-spent-2x.png",
-            "sha256": "76ac3dd40e4774ecc75b6e2400189dc57136d5b4541bc16fe557b830fb9b81ce"
+            "sha256": "f3472a8defba8df258c2c416b1168f04daada2d1b287e64c1d9863a8de053956"
           },
           {
             "dimensions": {
@@ -10627,7 +10627,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/neutral/se-spent-4x.png",
-            "sha256": "b8bf64c0fa2c5cebe1f2a3e0a3e83462a4dc7c5c8a9d49a89e4615e69df028a6"
+            "sha256": "ffa5f8af8484566ad8fbbb788c54ba87b65134e3536853e186c4be93f3669091"
           }
         ],
         "palette": "neutral",
@@ -10670,7 +10670,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/cp/ne-normal-2x.png",
-            "sha256": "34e6dd9d2ce0b9e994cfa2361c42b26a5828e3535ac42a52bd6cdf5a0632529a"
+            "sha256": "2a827349622961a4a5fdbdd2f3f464b244bb0537cf4eb49a014984990df554d8"
           },
           {
             "dimensions": {
@@ -10678,7 +10678,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/cp/ne-normal-4x.png",
-            "sha256": "662fa4e7679fcc60786baa4c1734e9c1ca0534f7fa200b2b06103579433aa865"
+            "sha256": "6bd7041e4172dc1087741124576dd832c62e0b0684f038d4936282efcbdb44ec"
           }
         ],
         "palette": "cp",
@@ -10721,7 +10721,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/cp/ne-spent-2x.png",
-            "sha256": "d820be019b386e72d90ade7226a6ce5c8ae4e78f38c31f2df14c5d003c468f2b"
+            "sha256": "46d47c7541588091ad0b22adc1380a6bc63ef5c215c5b3f754fe5fd879b2f862"
           },
           {
             "dimensions": {
@@ -10729,7 +10729,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/cp/ne-spent-4x.png",
-            "sha256": "fd5fe1e176427b10b0db1d38dc41ea3de475ced30c203e84cb084fb4431d9b20"
+            "sha256": "64e2d361140e0678d4c765f55a3b1ac5f50472f7bb462a1925d46eada4d2b702"
           }
         ],
         "palette": "cp",
@@ -10772,7 +10772,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/ec/ne-normal-2x.png",
-            "sha256": "c4107be86a2ed3241a4edd4dd6d4edc9b9d0bb0ed9eb3025a0b5e6e08f242540"
+            "sha256": "4b4b420595ce719ddbea2189ca287776debdf770787bb76e648a3ff24c5acfe1"
           },
           {
             "dimensions": {
@@ -10780,7 +10780,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/ec/ne-normal-4x.png",
-            "sha256": "3f1b01fa99450dd9495e8c2974ab357c133efc2f00e69326320ad03da63f999a"
+            "sha256": "a1282235ff77c7abba2c86d38093fc6522d73be6f5c2e814b82228b6b93b698d"
           }
         ],
         "palette": "ec",
@@ -10823,7 +10823,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/ec/ne-spent-2x.png",
-            "sha256": "5cfb2db5780be7d422d47bf668070081adac10021fa885954e714462cfc8c0cd"
+            "sha256": "e8b1c8d05437461186970c7b830aa690a897e93f6bfb2b2f9e13cd840a4d5e65"
           },
           {
             "dimensions": {
@@ -10831,7 +10831,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/ec/ne-spent-4x.png",
-            "sha256": "5296d067ee7394fe3b9062a0daa2918e6f09798d59027da131ef0fd00346e239"
+            "sha256": "70903a123f43c8d587ca212ca22aa667b9c553c37e56bbc6535196902cd75307"
           }
         ],
         "palette": "ec",
@@ -10874,7 +10874,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/neutral/ne-normal-2x.png",
-            "sha256": "6050ff261222532737385231365923447453af891918d5f99bad8ab814115e26"
+            "sha256": "a4f9118e04106c0f13d365245841f81d246ea945c8729817d85e1a546826f1f5"
           },
           {
             "dimensions": {
@@ -10882,7 +10882,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/neutral/ne-normal-4x.png",
-            "sha256": "c3f0cda5e8bb3be8185deb99a88035ca37a7257193175f520235df71232c6995"
+            "sha256": "b13bded0157cc4e84b3437e670bca954801ecb7dd18ce734d4d59a4ae17541cc"
           }
         ],
         "palette": "neutral",
@@ -10925,7 +10925,7 @@
               "width": 192
             },
             "path": "sprites/trainArtillery/neutral/ne-spent-2x.png",
-            "sha256": "5759d70dfc2f0b0fc45c5e52908793632a4651fe551014b5fbb6655908b77a55"
+            "sha256": "8d8f12681593fdb7a952b166dd617c52ceaa000e1159954987dc005475e1852c"
           },
           {
             "dimensions": {
@@ -10933,7 +10933,7 @@
               "width": 384
             },
             "path": "sprites/trainArtillery/neutral/ne-spent-4x.png",
-            "sha256": "46c699b7e84d776dc0171a4c52340a8435be148e86646af98d361ff64a0c7968"
+            "sha256": "6b5b8507b509cd062a37ce7f720e6a3a91c0e1261323bb16180183482bd1692f"
           }
         ],
         "palette": "neutral",
@@ -10986,7 +10986,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/cp/n-normal-2x.png",
-      "sha256": "7337665bac16a1ba042338082873e6f77ea99f7ec70ad50dfef6807694aaf0a5"
+      "sha256": "f4bdd4cea71b6fb65537f6e3712e55d16f99de926b9aaef7545c7f1d388a267c"
     },
     {
       "build_output": "sprites/trainArtillery/cp/n-normal-4x.png",
@@ -10995,7 +10995,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/cp/n-normal-4x.png",
-      "sha256": "72a9220fe1c206dc9483e61e6dd8dd4696a3787df619835af065d5caf5dfff07"
+      "sha256": "550341b47812e6ba6594cdfb4326ec501cccaefe7b1b281df0d7fc3ca2ac8cb4"
     },
     {
       "build_output": "sprites/trainArtillery/cp/n-spent-2x.png",
@@ -11004,7 +11004,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/cp/n-spent-2x.png",
-      "sha256": "b91e7b7303d1147f506748248f6dd95cad010dd5b597663ddae936c4fe3e8d7e"
+      "sha256": "9074d6ddf4526ef3b39d2b2be2e7fa6873681757855661419892c5c1d551e915"
     },
     {
       "build_output": "sprites/trainArtillery/cp/n-spent-4x.png",
@@ -11013,7 +11013,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/cp/n-spent-4x.png",
-      "sha256": "1760d20ed79f7d746a810d899c05377ff24adba9f43fc10dc18da5f7b8881a9c"
+      "sha256": "f2f275b3962f1ec38f7e61f6969b6be982e77df9f746ad845d82dd7d73495685"
     },
     {
       "build_output": "sprites/trainArtillery/ec/n-normal-2x.png",
@@ -11022,7 +11022,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/ec/n-normal-2x.png",
-      "sha256": "df2b2666ae29622bc58382ea782af6065799f0a82ad12ffa904ae42be697f69e"
+      "sha256": "9843a0bfdfbb752e5118e1c69f43e7dab932a6a4b7b9d9d26d1160818ba939d8"
     },
     {
       "build_output": "sprites/trainArtillery/ec/n-normal-4x.png",
@@ -11031,7 +11031,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/ec/n-normal-4x.png",
-      "sha256": "5e548c767f5e7a1ce758d69e8de81aacd74d695c5f2fe8f2479af81cd5041884"
+      "sha256": "940aa9a4ced7aa2b02c24878e68fb8a0497e11d506a4f67e9cfd409729386ab0"
     },
     {
       "build_output": "sprites/trainArtillery/ec/n-spent-2x.png",
@@ -11040,7 +11040,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/ec/n-spent-2x.png",
-      "sha256": "7159fd977e8b06a2dce07c20f92e95ecdd9ed9da574602c41a19f8857b620925"
+      "sha256": "3001790ea0a0f9c2b637a9f20f936687794bd1dc4ea9c17f83cc1c401bda29db"
     },
     {
       "build_output": "sprites/trainArtillery/ec/n-spent-4x.png",
@@ -11049,7 +11049,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/ec/n-spent-4x.png",
-      "sha256": "47275f2178c555c1911af9a7c5858b601fd234779b6f0e95ef53f179d944ef81"
+      "sha256": "1aa3aeff25b607267daaeee76910995c6258ed040f4e20b627aa279cb7cc0cfc"
     },
     {
       "build_output": "sprites/trainArtillery/neutral/n-normal-2x.png",
@@ -11058,7 +11058,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/neutral/n-normal-2x.png",
-      "sha256": "0aefa1cee79631b5df79759740034a6d04a3a6b5b8b6764f854e865cff0fadca"
+      "sha256": "3f5baf4914d1a91765614f82c82e9b8840d0c614430ef711c0652000f57643b2"
     },
     {
       "build_output": "sprites/trainArtillery/neutral/n-normal-4x.png",
@@ -11067,7 +11067,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/neutral/n-normal-4x.png",
-      "sha256": "75cb02f76076479a11e41eda219546f31ef7a48fd692a5fc1997c01e0f4c73f7"
+      "sha256": "8c9d16fcced8f4180903bf24f982cf3b93b9f50cd15f14237426600a8f0b2c06"
     },
     {
       "build_output": "sprites/trainArtillery/neutral/n-spent-2x.png",
@@ -11076,7 +11076,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/neutral/n-spent-2x.png",
-      "sha256": "21e3d97ea7dceaae6e7e64a7dbb9977c63a5954fb04da5b1c8f29f61ca57c3a8"
+      "sha256": "5b39cc6f8dad78104ab12f5a1c7256185ffc464fe2842f6bf259903f9942d145"
     },
     {
       "build_output": "sprites/trainArtillery/neutral/n-spent-4x.png",
@@ -11085,7 +11085,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/neutral/n-spent-4x.png",
-      "sha256": "83c8a474b086576e7d4293251bee065c6eb830dbcd0efecb4f958c1f5350da23"
+      "sha256": "9379b4f99108e76c53f8e2d5b0408f934e54f9856c5912d14878bfebe1256b85"
     },
     {
       "build_output": "planes/trainArtillery/nw-base-2x.png",
@@ -11130,7 +11130,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/cp/nw-normal-2x.png",
-      "sha256": "8f0c5dd188a9fcf4af3db3ac2b64455c3e3023059a4667d9eeea7fe9657ae7a2"
+      "sha256": "2e5b6e8fd60eda3c7071f13e931094e2641ca64d9ceeafede5526fb73fcdb9c6"
     },
     {
       "build_output": "sprites/trainArtillery/cp/nw-normal-4x.png",
@@ -11139,7 +11139,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/cp/nw-normal-4x.png",
-      "sha256": "9bca02b64978e8a4b7517a5ea9588d7db72f981002741e9b6e120b5e99cab67b"
+      "sha256": "8c0024592314a1b1f91c5d0f51e4900b225a0e82624d480557f68e8a5c5ccdc9"
     },
     {
       "build_output": "sprites/trainArtillery/cp/nw-spent-2x.png",
@@ -11148,7 +11148,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/cp/nw-spent-2x.png",
-      "sha256": "dd1d65c218ddca89a1538f25ac374d4cad4201a51e2e40d3e96d8d04d3a9db92"
+      "sha256": "7665a6042f69c948aca2d545915eb149252e61bb1dec0444793fe75325bfdcd4"
     },
     {
       "build_output": "sprites/trainArtillery/cp/nw-spent-4x.png",
@@ -11157,7 +11157,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/cp/nw-spent-4x.png",
-      "sha256": "4b1d3ad3b828f34bbda3aade5d43715554ed3732e333db33ec6119dc142cacc5"
+      "sha256": "48856e205042adcc52b58f038bd6d067030cc389a143a90d9cabc6dc6212b626"
     },
     {
       "build_output": "sprites/trainArtillery/ec/nw-normal-2x.png",
@@ -11166,7 +11166,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/ec/nw-normal-2x.png",
-      "sha256": "b5919d0ba83d739b8b6936bb7b99831e59854b782bab20064963701f12f6ca91"
+      "sha256": "5e8b32c10cad89fbfb11b6140a3513afc8fda51352c5d8a3b7cb09699e504544"
     },
     {
       "build_output": "sprites/trainArtillery/ec/nw-normal-4x.png",
@@ -11175,7 +11175,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/ec/nw-normal-4x.png",
-      "sha256": "6ec60bb7b5d3fa2084a8eebcee01c15d883f758a94a255bad11b8f8540d92bd6"
+      "sha256": "4835038c3a83d8340189f6536969e00a723a2fda941cca7673c763466c16980e"
     },
     {
       "build_output": "sprites/trainArtillery/ec/nw-spent-2x.png",
@@ -11184,7 +11184,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/ec/nw-spent-2x.png",
-      "sha256": "fb0694867fe7766ded9e0a002eb34db4a816f4b115935d077c1c02f5c00ed30b"
+      "sha256": "0df908c3c2a1cb9edd931856a59b68cfde6866323197f16eea2a30987252e3f0"
     },
     {
       "build_output": "sprites/trainArtillery/ec/nw-spent-4x.png",
@@ -11193,7 +11193,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/ec/nw-spent-4x.png",
-      "sha256": "0e51674f82b794b1393bde8ece388d777534b9318ee03546db951ebd7d5c47b1"
+      "sha256": "e0300df57a14bf271fad113372bae3cc95cfe6d765559a5cd6a3b0a9dec44024"
     },
     {
       "build_output": "sprites/trainArtillery/neutral/nw-normal-2x.png",
@@ -11202,7 +11202,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/neutral/nw-normal-2x.png",
-      "sha256": "38dd0243ac0e41cc6e63afa6cff945a0b79d47fec300fc2b19d47327ad30c8fc"
+      "sha256": "f040baabede3e431bb7bad77f918728d69cbcecec35012b9135a890cd112eed8"
     },
     {
       "build_output": "sprites/trainArtillery/neutral/nw-normal-4x.png",
@@ -11211,7 +11211,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/neutral/nw-normal-4x.png",
-      "sha256": "3d35144489f553839d530b346df8c067a97bf1a8859129c19dc9e515e4dbab01"
+      "sha256": "d171bc126d45ab7402cf7986192282a25f59042aef245a45f873f9d77fe524fa"
     },
     {
       "build_output": "sprites/trainArtillery/neutral/nw-spent-2x.png",
@@ -11220,7 +11220,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/neutral/nw-spent-2x.png",
-      "sha256": "b30cc7d58bbe9fa96ebe47373e5f41fb86052feb74a351739e93ab562fc822f5"
+      "sha256": "cf00024b9ed2b5f5aa133c954758d4eb324be9c8e1274032119fd2607759c62f"
     },
     {
       "build_output": "sprites/trainArtillery/neutral/nw-spent-4x.png",
@@ -11229,7 +11229,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/neutral/nw-spent-4x.png",
-      "sha256": "1f52f6647dbd6b5c58877fee700bcec96846d316bb9f97f22daaec2a0b352729"
+      "sha256": "7a82f14a259b3d2e96129c5547d6eb91158c82b4d8e8c5a7353b859a0daa05db"
     },
     {
       "build_output": "planes/trainArtillery/sw-base-2x.png",
@@ -11274,7 +11274,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/cp/sw-normal-2x.png",
-      "sha256": "290325140836b5c7904078f421d525af0c247c63fcdb4c437daee55bd39752c3"
+      "sha256": "de9599cb6b1e25ceb593d340a281ab5972fcaa2e753f2fbf28c3ac432c34acaa"
     },
     {
       "build_output": "sprites/trainArtillery/cp/sw-normal-4x.png",
@@ -11283,7 +11283,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/cp/sw-normal-4x.png",
-      "sha256": "4fcb8910227abec10e73c3da4f5c5a380a5c4e3c87b3a5cb73a054e07ebcc8e0"
+      "sha256": "4b7d742eb8dd9b47cb29ca5d67c34f501de342a638b82d323c6714ac9c24d952"
     },
     {
       "build_output": "sprites/trainArtillery/cp/sw-spent-2x.png",
@@ -11292,7 +11292,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/cp/sw-spent-2x.png",
-      "sha256": "134abb4e6bd4df77d7154ce0dfa6e266c83f60ee0ed840a2a81c39199e5d5ea9"
+      "sha256": "9aa339caccc71baac19f79c015ac7f97a8499141f4c11f7e8746e0d3e33b3cfb"
     },
     {
       "build_output": "sprites/trainArtillery/cp/sw-spent-4x.png",
@@ -11301,7 +11301,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/cp/sw-spent-4x.png",
-      "sha256": "10b6756ce9148f8bedc0b227d0ae224a3af534b1ecd86d21002da03d3c274787"
+      "sha256": "212e50a100a2e334dc869e06076f83d87caca61b8a4170d1bdc1d4b0bbf080eb"
     },
     {
       "build_output": "sprites/trainArtillery/ec/sw-normal-2x.png",
@@ -11310,7 +11310,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/ec/sw-normal-2x.png",
-      "sha256": "7ac3d93f1915f1739e9225c6bce976926a8b88398fea494c0c4f187f3a8d939d"
+      "sha256": "bed565e3e53904e284ae043fdcc874128a723b4babe8f130ce856afe250cdf74"
     },
     {
       "build_output": "sprites/trainArtillery/ec/sw-normal-4x.png",
@@ -11319,7 +11319,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/ec/sw-normal-4x.png",
-      "sha256": "0f676b565a4103ba201545ba3f3d6b420dda47e6a0f804ccc73e90bd6d79ea33"
+      "sha256": "eae6085e1b1007a9b82323e90153b56c581d8e75424caa30f5dbe9029d1c1719"
     },
     {
       "build_output": "sprites/trainArtillery/ec/sw-spent-2x.png",
@@ -11328,7 +11328,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/ec/sw-spent-2x.png",
-      "sha256": "8a5263f1b8ef5a5af39be9a50257e4ed89ff1585f70fb11c1bb48ab65658793a"
+      "sha256": "fa759ff47c862effabbbb1d98a53fb555640948780d89eb10a60eb51ea1b48d3"
     },
     {
       "build_output": "sprites/trainArtillery/ec/sw-spent-4x.png",
@@ -11337,7 +11337,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/ec/sw-spent-4x.png",
-      "sha256": "3ec449d1ca7be58fe944a5d8609954cdea5824d63ecc02f93503e6fa6a63bef9"
+      "sha256": "865d27aef2d9c4b4dc6fb2d8bbbb58baab7519871bd3ab7f6bf1e6b2a9dfdd85"
     },
     {
       "build_output": "sprites/trainArtillery/neutral/sw-normal-2x.png",
@@ -11346,7 +11346,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/neutral/sw-normal-2x.png",
-      "sha256": "189489b8cb77c2c399bb7ef691b8c7ad715e126c3da23926971c358106528535"
+      "sha256": "2fa12438c05c9b745309ce2b232cb09306a717f8bd94ebcd57c783d17449768a"
     },
     {
       "build_output": "sprites/trainArtillery/neutral/sw-normal-4x.png",
@@ -11355,7 +11355,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/neutral/sw-normal-4x.png",
-      "sha256": "f26ddd460d3c669c4d14fadac85b34ad973148436f75f04fe64e3ced40d7d578"
+      "sha256": "8fc7c7b5b4aab7472a7f91a2a48ea03725d1e31aff62c1da041c9c3db1bd8669"
     },
     {
       "build_output": "sprites/trainArtillery/neutral/sw-spent-2x.png",
@@ -11364,7 +11364,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/neutral/sw-spent-2x.png",
-      "sha256": "2c7e470440ff620c4eba7705fb17976340d4d407856d941879ea03705adc286c"
+      "sha256": "fe03495f35973080996abb51924d3d321e46ecb0801e2cb329543872feffd26d"
     },
     {
       "build_output": "sprites/trainArtillery/neutral/sw-spent-4x.png",
@@ -11373,7 +11373,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/neutral/sw-spent-4x.png",
-      "sha256": "3e09dee63ecb9524dbeb140d4a513aa240c8eb97f7a25d530233a43b7f9ceeb0"
+      "sha256": "dadd108f0e5fd904fe94663d0d2fabfc7d817f6f0654c61baddabcd7510843a8"
     },
     {
       "build_output": "planes/trainArtillery/s-base-2x.png",
@@ -11418,7 +11418,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/cp/s-normal-2x.png",
-      "sha256": "b7291b0b21c529b6f8b8ae6fc1de5f7f43a9fe5839021c8d3a1eaece6ced16a6"
+      "sha256": "93391cb05b867dc57dc8eaa338638527bc2e53ddfaaea2fc19901550cf4c2819"
     },
     {
       "build_output": "sprites/trainArtillery/cp/s-normal-4x.png",
@@ -11427,7 +11427,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/cp/s-normal-4x.png",
-      "sha256": "425bf5e2879ab22829241e27c29114fa84e0ad95453a94c59f6b061ea0628416"
+      "sha256": "9e34e9a0ff24d4a117d076562ed07877a2eae917939dc003fb20ebed79eaad73"
     },
     {
       "build_output": "sprites/trainArtillery/cp/s-spent-2x.png",
@@ -11436,7 +11436,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/cp/s-spent-2x.png",
-      "sha256": "38d97ab35af4b9513626dd3764efb09ea9f81a4f5e7ef35686513a9de02b1fb6"
+      "sha256": "cffa2f44af1eba657f1ab0db1189807c7d9d4d7c1b1bd0568a16471bc0fa02ba"
     },
     {
       "build_output": "sprites/trainArtillery/cp/s-spent-4x.png",
@@ -11445,7 +11445,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/cp/s-spent-4x.png",
-      "sha256": "0a6cc007ac14198ab4dc4ad52990324a889369392fc55c0aaa4551c22d32ca13"
+      "sha256": "470bacf535691df3d45b29f150a6b72b412135787d71f107193dd2e1fe0000f6"
     },
     {
       "build_output": "sprites/trainArtillery/ec/s-normal-2x.png",
@@ -11454,7 +11454,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/ec/s-normal-2x.png",
-      "sha256": "e106ac0e5292e88db1794736aaec8a6181454ff68217e1a441ac29aaa58ef870"
+      "sha256": "7a3daa7ebe9865d194fc8ac138fe991e422196c6173fe9ed340ad7deca4b777f"
     },
     {
       "build_output": "sprites/trainArtillery/ec/s-normal-4x.png",
@@ -11463,7 +11463,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/ec/s-normal-4x.png",
-      "sha256": "c9a30960da24c8ab689b4b52112a23caaf547d85300adb62e457be6c73214a0a"
+      "sha256": "1e10b5422542ae1620233bcba6ebaab393bdc121d4d438a09373f53dc23dee14"
     },
     {
       "build_output": "sprites/trainArtillery/ec/s-spent-2x.png",
@@ -11472,7 +11472,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/ec/s-spent-2x.png",
-      "sha256": "3e13342e7760f1821d361216204be6f8b28b5308e38b661a5b5d80fb13b5b872"
+      "sha256": "d8199cff3246fbf0bd1ef574b736d9f2c4c7cbdc720f4236a0faf4dfca44add8"
     },
     {
       "build_output": "sprites/trainArtillery/ec/s-spent-4x.png",
@@ -11481,7 +11481,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/ec/s-spent-4x.png",
-      "sha256": "8bbf20a18b47fb185f1b6c2b51521180efe1d22cd2954e09b8fa1afa446edee3"
+      "sha256": "45ad935718d4c8272e8966687aa3f15f193eeb9140fa5c45ff9dafb94107bdfd"
     },
     {
       "build_output": "sprites/trainArtillery/neutral/s-normal-2x.png",
@@ -11490,7 +11490,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/neutral/s-normal-2x.png",
-      "sha256": "9800c3fa37902ea95d1baabc959094d4d1fd8b1a99401372ea0cef6819846b5a"
+      "sha256": "39f813e86bc614ae88b32acd66c114d76a88c77fbf2896c6a7494b1a91ea59e5"
     },
     {
       "build_output": "sprites/trainArtillery/neutral/s-normal-4x.png",
@@ -11499,7 +11499,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/neutral/s-normal-4x.png",
-      "sha256": "f9177f0f8b6cffed491e399839b54aad65e7fea084bb5bd6c91e868b4adde61b"
+      "sha256": "28299a8f5f9c978c530d03adfbb83f2563c4f6a61ae14b38a9cb49e120def2e6"
     },
     {
       "build_output": "sprites/trainArtillery/neutral/s-spent-2x.png",
@@ -11508,7 +11508,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/neutral/s-spent-2x.png",
-      "sha256": "aa93aa721877db73f5667ee159b4c332c7ec8ec16d405019d995165909508a9c"
+      "sha256": "51b726b3965fd84e659b7eab11ee8039ddc456a53652f4bdb90d24ae2653753b"
     },
     {
       "build_output": "sprites/trainArtillery/neutral/s-spent-4x.png",
@@ -11517,7 +11517,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/neutral/s-spent-4x.png",
-      "sha256": "302c1b03f6e73be5e19a3c2967866c49893146970a0a976c2536a3b40468f183"
+      "sha256": "c67ebe39b70c2f2124609dd5dba1b42c0ffda20f692cd6aaad95647c730bc2e8"
     },
     {
       "build_output": "planes/trainArtillery/se-base-2x.png",
@@ -11562,7 +11562,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/cp/se-normal-2x.png",
-      "sha256": "269b1099de7b452412ecd5e1e621340993bde577446972933f6c9b749bcfa335"
+      "sha256": "3e5cb6139139baeb06ee1de9b0a84ed6310a8caaa295398509c902e1d71f05cd"
     },
     {
       "build_output": "sprites/trainArtillery/cp/se-normal-4x.png",
@@ -11571,7 +11571,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/cp/se-normal-4x.png",
-      "sha256": "8bb333e472b7814fc205c8f7f70126461f70d5e8a0492d4692cdedb8b6470876"
+      "sha256": "10659a560844ed0e81064fd4453514e69714cbb89878dd07e5da41067fddb7a5"
     },
     {
       "build_output": "sprites/trainArtillery/cp/se-spent-2x.png",
@@ -11580,7 +11580,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/cp/se-spent-2x.png",
-      "sha256": "28484c168b1402da59d17be15e3b319187d52705dcc0d8abe1e9c4ff1abd85c3"
+      "sha256": "aeb0e5a37822361110e340f3e0636cda279a12840b261fe3898c529215f81d2d"
     },
     {
       "build_output": "sprites/trainArtillery/cp/se-spent-4x.png",
@@ -11589,7 +11589,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/cp/se-spent-4x.png",
-      "sha256": "aea6e92570183f6f6fd2419314b5d1c484e3974a6dc98ea57d91ffdc2b3759c8"
+      "sha256": "b0976a4dec97c12deaa249c3ddb3cd3435e50d2b47065e938dd872ebd5b8b2cf"
     },
     {
       "build_output": "sprites/trainArtillery/ec/se-normal-2x.png",
@@ -11598,7 +11598,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/ec/se-normal-2x.png",
-      "sha256": "bdec52504ab1dad8071ee02c4e63a12ee0657756648b57de3973ea6436d18f93"
+      "sha256": "f97273a644762d4b0b54994bbf07a614cf945fc7bc295cefab3dc28323b8b2e6"
     },
     {
       "build_output": "sprites/trainArtillery/ec/se-normal-4x.png",
@@ -11607,7 +11607,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/ec/se-normal-4x.png",
-      "sha256": "29277da73a6b992483d8bfe4a7d9a30f6b580a6e2dc988df0336cd8adb4da8f1"
+      "sha256": "397744fad0abc7b30aacd0c93fcd687ba51cc05d47e548d1b040034dd82a0cb1"
     },
     {
       "build_output": "sprites/trainArtillery/ec/se-spent-2x.png",
@@ -11616,7 +11616,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/ec/se-spent-2x.png",
-      "sha256": "b989e735bba6e4d9d291f8bee880c18302a9908c763e7c85cd1be7dca2a232d7"
+      "sha256": "e4704ab4620cd87ff2d5f8a3d93635b7ef6d104e332c0dd5f9d5ac5fe569566e"
     },
     {
       "build_output": "sprites/trainArtillery/ec/se-spent-4x.png",
@@ -11625,7 +11625,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/ec/se-spent-4x.png",
-      "sha256": "aef9daf894a4eb3ad7098cb7ba52cdcb50e7693df6e40e9ed21636614aacf8de"
+      "sha256": "af892da081bfb76e47c19e631d48759906df77518cb2eb9820814a538cf4f91c"
     },
     {
       "build_output": "sprites/trainArtillery/neutral/se-normal-2x.png",
@@ -11634,7 +11634,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/neutral/se-normal-2x.png",
-      "sha256": "951c8bf2e048c960ad4f29be6714244c28f8a16aefd13555ac0ffbee9056738e"
+      "sha256": "4033c0ff861caf6923ea9b69fb620a2189ef50c7aada6535186f9da8a457e3d8"
     },
     {
       "build_output": "sprites/trainArtillery/neutral/se-normal-4x.png",
@@ -11643,7 +11643,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/neutral/se-normal-4x.png",
-      "sha256": "2b707832a8ee0452df3684264cb07ede9709be254bf2b4852103ff4d1517360e"
+      "sha256": "248d3e67ae8d1b4b6bc77a36a8b87b4184dcc6a61a328787274433f83503fead"
     },
     {
       "build_output": "sprites/trainArtillery/neutral/se-spent-2x.png",
@@ -11652,7 +11652,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/neutral/se-spent-2x.png",
-      "sha256": "76ac3dd40e4774ecc75b6e2400189dc57136d5b4541bc16fe557b830fb9b81ce"
+      "sha256": "f3472a8defba8df258c2c416b1168f04daada2d1b287e64c1d9863a8de053956"
     },
     {
       "build_output": "sprites/trainArtillery/neutral/se-spent-4x.png",
@@ -11661,7 +11661,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/neutral/se-spent-4x.png",
-      "sha256": "b8bf64c0fa2c5cebe1f2a3e0a3e83462a4dc7c5c8a9d49a89e4615e69df028a6"
+      "sha256": "ffa5f8af8484566ad8fbbb788c54ba87b65134e3536853e186c4be93f3669091"
     },
     {
       "build_output": "planes/trainArtillery/ne-base-2x.png",
@@ -11706,7 +11706,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/cp/ne-normal-2x.png",
-      "sha256": "34e6dd9d2ce0b9e994cfa2361c42b26a5828e3535ac42a52bd6cdf5a0632529a"
+      "sha256": "2a827349622961a4a5fdbdd2f3f464b244bb0537cf4eb49a014984990df554d8"
     },
     {
       "build_output": "sprites/trainArtillery/cp/ne-normal-4x.png",
@@ -11715,7 +11715,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/cp/ne-normal-4x.png",
-      "sha256": "662fa4e7679fcc60786baa4c1734e9c1ca0534f7fa200b2b06103579433aa865"
+      "sha256": "6bd7041e4172dc1087741124576dd832c62e0b0684f038d4936282efcbdb44ec"
     },
     {
       "build_output": "sprites/trainArtillery/cp/ne-spent-2x.png",
@@ -11724,7 +11724,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/cp/ne-spent-2x.png",
-      "sha256": "d820be019b386e72d90ade7226a6ce5c8ae4e78f38c31f2df14c5d003c468f2b"
+      "sha256": "46d47c7541588091ad0b22adc1380a6bc63ef5c215c5b3f754fe5fd879b2f862"
     },
     {
       "build_output": "sprites/trainArtillery/cp/ne-spent-4x.png",
@@ -11733,7 +11733,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/cp/ne-spent-4x.png",
-      "sha256": "fd5fe1e176427b10b0db1d38dc41ea3de475ced30c203e84cb084fb4431d9b20"
+      "sha256": "64e2d361140e0678d4c765f55a3b1ac5f50472f7bb462a1925d46eada4d2b702"
     },
     {
       "build_output": "sprites/trainArtillery/ec/ne-normal-2x.png",
@@ -11742,7 +11742,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/ec/ne-normal-2x.png",
-      "sha256": "c4107be86a2ed3241a4edd4dd6d4edc9b9d0bb0ed9eb3025a0b5e6e08f242540"
+      "sha256": "4b4b420595ce719ddbea2189ca287776debdf770787bb76e648a3ff24c5acfe1"
     },
     {
       "build_output": "sprites/trainArtillery/ec/ne-normal-4x.png",
@@ -11751,7 +11751,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/ec/ne-normal-4x.png",
-      "sha256": "3f1b01fa99450dd9495e8c2974ab357c133efc2f00e69326320ad03da63f999a"
+      "sha256": "a1282235ff77c7abba2c86d38093fc6522d73be6f5c2e814b82228b6b93b698d"
     },
     {
       "build_output": "sprites/trainArtillery/ec/ne-spent-2x.png",
@@ -11760,7 +11760,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/ec/ne-spent-2x.png",
-      "sha256": "5cfb2db5780be7d422d47bf668070081adac10021fa885954e714462cfc8c0cd"
+      "sha256": "e8b1c8d05437461186970c7b830aa690a897e93f6bfb2b2f9e13cd840a4d5e65"
     },
     {
       "build_output": "sprites/trainArtillery/ec/ne-spent-4x.png",
@@ -11769,7 +11769,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/ec/ne-spent-4x.png",
-      "sha256": "5296d067ee7394fe3b9062a0daa2918e6f09798d59027da131ef0fd00346e239"
+      "sha256": "70903a123f43c8d587ca212ca22aa667b9c553c37e56bbc6535196902cd75307"
     },
     {
       "build_output": "sprites/trainArtillery/neutral/ne-normal-2x.png",
@@ -11778,7 +11778,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/neutral/ne-normal-2x.png",
-      "sha256": "6050ff261222532737385231365923447453af891918d5f99bad8ab814115e26"
+      "sha256": "a4f9118e04106c0f13d365245841f81d246ea945c8729817d85e1a546826f1f5"
     },
     {
       "build_output": "sprites/trainArtillery/neutral/ne-normal-4x.png",
@@ -11787,7 +11787,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/neutral/ne-normal-4x.png",
-      "sha256": "c3f0cda5e8bb3be8185deb99a88035ca37a7257193175f520235df71232c6995"
+      "sha256": "b13bded0157cc4e84b3437e670bca954801ecb7dd18ce734d4d59a4ae17541cc"
     },
     {
       "build_output": "sprites/trainArtillery/neutral/ne-spent-2x.png",
@@ -11796,7 +11796,7 @@
         "width": 192
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/neutral/ne-spent-2x.png",
-      "sha256": "5759d70dfc2f0b0fc45c5e52908793632a4651fe551014b5fbb6655908b77a55"
+      "sha256": "8d8f12681593fdb7a952b166dd617c52ceaa000e1159954987dc005475e1852c"
     },
     {
       "build_output": "sprites/trainArtillery/neutral/ne-spent-4x.png",
@@ -11805,7 +11805,7 @@
         "width": 384
       },
       "path": "art/exports/unit-train-artillery-v1/sprites/trainArtillery/neutral/ne-spent-4x.png",
-      "sha256": "46c699b7e84d776dc0171a4c52340a8435be148e86646af98d361ff64a0c7968"
+      "sha256": "6b5b8507b509cd062a37ce7f720e6a3a91c0e1261323bb16180183482bd1692f"
     },
     {
       "build_output": "sheets/trainArtillery-white-2x.png",
@@ -11814,7 +11814,7 @@
         "width": 1152
       },
       "path": "art/exports/unit-train-artillery-v1/sheets/trainArtillery-white-2x.png",
-      "sha256": "6d91c76cc89bf3482d11a82edf35bd52b8bac7247c900c3af1d0ef2514e72026"
+      "sha256": "08aa42e599ce45af1a14fecd6f1553386f401f9c12a6dc449b6b40a2589cf949"
     },
     {
       "build_output": "sheets/trainArtillery-white-4x.png",
@@ -11823,7 +11823,7 @@
         "width": 2304
       },
       "path": "art/exports/unit-train-artillery-v1/sheets/trainArtillery-white-4x.png",
-      "sha256": "b51fc28d7ba027ac139e77a28087cd0445dc4d1c59b8d38ff430dd049cbdfbce"
+      "sha256": "d3089e4896480b7e5b699597efa7bdd3120cd56e976fdf9842664f454c98b62a"
     },
     {
       "build_output": "sheets/trainArtillery-checker-2x.png",
@@ -11832,7 +11832,7 @@
         "width": 1152
       },
       "path": "art/exports/unit-train-artillery-v1/sheets/trainArtillery-checker-2x.png",
-      "sha256": "bcf1204edc5ee34398de223a7944c74fc99843a77522ba87bcdc94bc7c0e5a4a"
+      "sha256": "9207560df0637b7cf83a2f6ed0dcaf8fe659829cc58694323f457a9f33bef95a"
     },
     {
       "build_output": "sheets/trainArtillery-checker-4x.png",
@@ -11841,7 +11841,7 @@
         "width": 2304
       },
       "path": "art/exports/unit-train-artillery-v1/sheets/trainArtillery-checker-4x.png",
-      "sha256": "482d3de9f909a477c8d5de20a82307c245078d98a9b81700d92fada3c9cb01fb"
+      "sha256": "f854bbb5e1701695ef041c736d3879fc84ca56b5555dd5a493839ee29a8e6bde"
     },
     {
       "build_output": "scenes/grass-normal-p0-2x.png",
@@ -11850,7 +11850,7 @@
         "width": 476
       },
       "path": "art/exports/unit-train-artillery-v1/scenes/grass-normal-p0-2x.png",
-      "sha256": "887ee7e23756e3695b52301e819fd514138a0ed7bfa4655a397349aa05eed8a7"
+      "sha256": "41ad77707bebe3ef2a8c862a4ee52df0d4ea802f5aa95abbfa55d4b8090d2161"
     },
     {
       "build_output": "scenes/grass-normal-p0-4x.png",
@@ -11859,7 +11859,7 @@
         "width": 952
       },
       "path": "art/exports/unit-train-artillery-v1/scenes/grass-normal-p0-4x.png",
-      "sha256": "25e24274f7c10129c7527ac35d39c204d7e5d27e3d9d4c8cd4b71e330fc08805"
+      "sha256": "42a9706609ae3d0b18e9c04d7843ab3ea4253d9f27409d36878874845fbf1488"
     },
     {
       "build_output": "scenes/grass-normal-p1-2x.png",
@@ -11868,7 +11868,7 @@
         "width": 476
       },
       "path": "art/exports/unit-train-artillery-v1/scenes/grass-normal-p1-2x.png",
-      "sha256": "887ee7e23756e3695b52301e819fd514138a0ed7bfa4655a397349aa05eed8a7"
+      "sha256": "41ad77707bebe3ef2a8c862a4ee52df0d4ea802f5aa95abbfa55d4b8090d2161"
     },
     {
       "build_output": "scenes/grass-normal-p1-4x.png",
@@ -11877,7 +11877,7 @@
         "width": 952
       },
       "path": "art/exports/unit-train-artillery-v1/scenes/grass-normal-p1-4x.png",
-      "sha256": "25e24274f7c10129c7527ac35d39c204d7e5d27e3d9d4c8cd4b71e330fc08805"
+      "sha256": "42a9706609ae3d0b18e9c04d7843ab3ea4253d9f27409d36878874845fbf1488"
     },
     {
       "build_output": "scenes/grass-spent-p0-2x.png",
@@ -11886,7 +11886,7 @@
         "width": 476
       },
       "path": "art/exports/unit-train-artillery-v1/scenes/grass-spent-p0-2x.png",
-      "sha256": "ad44daa0d49a92a7627049983499c7b7eca82c23c9567ba2a28110a9aaa43b9f"
+      "sha256": "979c94dbeeca9529283517d7bed02ec12853814f1ae77a62a0c6031a4f33d298"
     },
     {
       "build_output": "scenes/grass-spent-p0-4x.png",
@@ -11895,7 +11895,7 @@
         "width": 952
       },
       "path": "art/exports/unit-train-artillery-v1/scenes/grass-spent-p0-4x.png",
-      "sha256": "2aca8e9ce9887a8d8e6138d1903fa7bb861d3c8b3fee6ec5ab2407604c1807e5"
+      "sha256": "9f45e5ec1baec6ccde99a88ea93105975d82b777b70731273e64f00554ee6c99"
     },
     {
       "build_output": "scenes/grass-spent-p1-2x.png",
@@ -11904,7 +11904,7 @@
         "width": 476
       },
       "path": "art/exports/unit-train-artillery-v1/scenes/grass-spent-p1-2x.png",
-      "sha256": "ad44daa0d49a92a7627049983499c7b7eca82c23c9567ba2a28110a9aaa43b9f"
+      "sha256": "979c94dbeeca9529283517d7bed02ec12853814f1ae77a62a0c6031a4f33d298"
     },
     {
       "build_output": "scenes/grass-spent-p1-4x.png",
@@ -11913,7 +11913,7 @@
         "width": 952
       },
       "path": "art/exports/unit-train-artillery-v1/scenes/grass-spent-p1-4x.png",
-      "sha256": "2aca8e9ce9887a8d8e6138d1903fa7bb861d3c8b3fee6ec5ab2407604c1807e5"
+      "sha256": "9f45e5ec1baec6ccde99a88ea93105975d82b777b70731273e64f00554ee6c99"
     },
     {
       "build_output": "scenes/grass_w-normal-p0-2x.png",
@@ -11922,7 +11922,7 @@
         "width": 476
       },
       "path": "art/exports/unit-train-artillery-v1/scenes/grass_w-normal-p0-2x.png",
-      "sha256": "9cc7d6747b4bf8f431e71e391da7017b4fe902bcf6cbc7507eacd321fba5de12"
+      "sha256": "3645f4009865592286ac18bab9b8169752c8bd2b553ecfa679353c443a5f3a20"
     },
     {
       "build_output": "scenes/grass_w-normal-p0-4x.png",
@@ -11931,7 +11931,7 @@
         "width": 952
       },
       "path": "art/exports/unit-train-artillery-v1/scenes/grass_w-normal-p0-4x.png",
-      "sha256": "b74a2a91c9aefc9c7e35074f3f2d1b91b08d58ab24c72a33d0a217a72582d305"
+      "sha256": "7bf85c2f798e0179ce7ccaede68525bb52c9c016d147cfad0fdcd43998d47575"
     },
     {
       "build_output": "scenes/grass_w-normal-p1-2x.png",
@@ -11940,7 +11940,7 @@
         "width": 476
       },
       "path": "art/exports/unit-train-artillery-v1/scenes/grass_w-normal-p1-2x.png",
-      "sha256": "9cc7d6747b4bf8f431e71e391da7017b4fe902bcf6cbc7507eacd321fba5de12"
+      "sha256": "3645f4009865592286ac18bab9b8169752c8bd2b553ecfa679353c443a5f3a20"
     },
     {
       "build_output": "scenes/grass_w-normal-p1-4x.png",
@@ -11949,7 +11949,7 @@
         "width": 952
       },
       "path": "art/exports/unit-train-artillery-v1/scenes/grass_w-normal-p1-4x.png",
-      "sha256": "b74a2a91c9aefc9c7e35074f3f2d1b91b08d58ab24c72a33d0a217a72582d305"
+      "sha256": "7bf85c2f798e0179ce7ccaede68525bb52c9c016d147cfad0fdcd43998d47575"
     },
     {
       "build_output": "scenes/grass_w-spent-p0-2x.png",
@@ -11958,7 +11958,7 @@
         "width": 476
       },
       "path": "art/exports/unit-train-artillery-v1/scenes/grass_w-spent-p0-2x.png",
-      "sha256": "50269d1d23bee3ca91f5453d3dbd563848ee20fff3c6525b85ae98bfe559d966"
+      "sha256": "a2113065abf02d588918c8a571a3bb093cafb17e810446ef9bf1883fa0547e82"
     },
     {
       "build_output": "scenes/grass_w-spent-p0-4x.png",
@@ -11967,7 +11967,7 @@
         "width": 952
       },
       "path": "art/exports/unit-train-artillery-v1/scenes/grass_w-spent-p0-4x.png",
-      "sha256": "563d4222146671d521489608f48835a2ba95a5be4231bfa39471673eaae7000d"
+      "sha256": "0572c97d8ac4f439abbaab07f8b862e3bacf33c063feb7eba619f41e77f93c4a"
     },
     {
       "build_output": "scenes/grass_w-spent-p1-2x.png",
@@ -11976,7 +11976,7 @@
         "width": 476
       },
       "path": "art/exports/unit-train-artillery-v1/scenes/grass_w-spent-p1-2x.png",
-      "sha256": "50269d1d23bee3ca91f5453d3dbd563848ee20fff3c6525b85ae98bfe559d966"
+      "sha256": "a2113065abf02d588918c8a571a3bb093cafb17e810446ef9bf1883fa0547e82"
     },
     {
       "build_output": "scenes/grass_w-spent-p1-4x.png",
@@ -11985,7 +11985,7 @@
         "width": 952
       },
       "path": "art/exports/unit-train-artillery-v1/scenes/grass_w-spent-p1-4x.png",
-      "sha256": "563d4222146671d521489608f48835a2ba95a5be4231bfa39471673eaae7000d"
+      "sha256": "0572c97d8ac4f439abbaab07f8b862e3bacf33c063feb7eba619f41e77f93c4a"
     },
     {
       "build_output": "scenes/mud-normal-p0-2x.png",
@@ -11994,7 +11994,7 @@
         "width": 476
       },
       "path": "art/exports/unit-train-artillery-v1/scenes/mud-normal-p0-2x.png",
-      "sha256": "3708da4fea40c1160d55105091a0d0fae4af686b2b3bd7292ff0fad0c3e67fa4"
+      "sha256": "c45f4a4d883de25a71e568fb2b31ec85945ba02714ee46edc40b922f7cb0ddad"
     },
     {
       "build_output": "scenes/mud-normal-p0-4x.png",
@@ -12003,7 +12003,7 @@
         "width": 952
       },
       "path": "art/exports/unit-train-artillery-v1/scenes/mud-normal-p0-4x.png",
-      "sha256": "ce7fa72d22b385f47dae03706964a2c904ed7d77bed92144d18ada1bb13c8db7"
+      "sha256": "20f641048a595b61dcc2248d58f8598e61a9cac658899f0828941b4f2714ff8a"
     },
     {
       "build_output": "scenes/mud-normal-p1-2x.png",
@@ -12012,7 +12012,7 @@
         "width": 476
       },
       "path": "art/exports/unit-train-artillery-v1/scenes/mud-normal-p1-2x.png",
-      "sha256": "3708da4fea40c1160d55105091a0d0fae4af686b2b3bd7292ff0fad0c3e67fa4"
+      "sha256": "c45f4a4d883de25a71e568fb2b31ec85945ba02714ee46edc40b922f7cb0ddad"
     },
     {
       "build_output": "scenes/mud-normal-p1-4x.png",
@@ -12021,7 +12021,7 @@
         "width": 952
       },
       "path": "art/exports/unit-train-artillery-v1/scenes/mud-normal-p1-4x.png",
-      "sha256": "ce7fa72d22b385f47dae03706964a2c904ed7d77bed92144d18ada1bb13c8db7"
+      "sha256": "20f641048a595b61dcc2248d58f8598e61a9cac658899f0828941b4f2714ff8a"
     },
     {
       "build_output": "scenes/mud-spent-p0-2x.png",
@@ -12030,7 +12030,7 @@
         "width": 476
       },
       "path": "art/exports/unit-train-artillery-v1/scenes/mud-spent-p0-2x.png",
-      "sha256": "b81b0c9b1247772aed97144154829ab1526d58bcc9f7de001fcabc7c3af67dfc"
+      "sha256": "e991b7f8fa4e5f487ab15e8117687d21b21017fb9aab07c94212cc54bcd0aac6"
     },
     {
       "build_output": "scenes/mud-spent-p0-4x.png",
@@ -12039,7 +12039,7 @@
         "width": 952
       },
       "path": "art/exports/unit-train-artillery-v1/scenes/mud-spent-p0-4x.png",
-      "sha256": "d80ad3534d7fc8a55bb43482587ac0f51ba64e3d4ddacf461eeeeb072fa65171"
+      "sha256": "36fea78d4d1b5448e4d1ed8b4147fe414bc0540c6f33e82a4987a01d86202332"
     },
     {
       "build_output": "scenes/mud-spent-p1-2x.png",
@@ -12048,7 +12048,7 @@
         "width": 476
       },
       "path": "art/exports/unit-train-artillery-v1/scenes/mud-spent-p1-2x.png",
-      "sha256": "b81b0c9b1247772aed97144154829ab1526d58bcc9f7de001fcabc7c3af67dfc"
+      "sha256": "e991b7f8fa4e5f487ab15e8117687d21b21017fb9aab07c94212cc54bcd0aac6"
     },
     {
       "build_output": "scenes/mud-spent-p1-4x.png",
@@ -12057,7 +12057,7 @@
         "width": 952
       },
       "path": "art/exports/unit-train-artillery-v1/scenes/mud-spent-p1-4x.png",
-      "sha256": "d80ad3534d7fc8a55bb43482587ac0f51ba64e3d4ddacf461eeeeb072fa65171"
+      "sha256": "36fea78d4d1b5448e4d1ed8b4147fe414bc0540c6f33e82a4987a01d86202332"
     }
   ],
   "generation_recipes": [
@@ -12067,7 +12067,7 @@
   "generation_recipes_scope": "Includes historical generation studies and the current pinned master records. Current source selection is established by the producing manifest and its exact SHA256 pins; historical records are unchanged.",
   "id": "unit-train-artillery-v1",
   "manifest": "art/unit-train-artillery-v1.json",
-  "manifest_sha256": "7bec45e8b03abab5f657d1bc16223e3a2058af6b36076a401530c9236ffe17d9",
+  "manifest_sha256": "ba03a4fab6a54ab4ec0365cf65ab298005db5f616c4b9ece54951b98183e2cde",
   "original_image_inputs": [
     {
       "generation_recipe": "art/recipes/terrain/reference-v2/meadow-03.json",

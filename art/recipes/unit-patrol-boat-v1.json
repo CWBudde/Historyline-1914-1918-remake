@@ -54,7 +54,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/cp/n-normal-2x.png",
-        "sha256": "dc27f8984b4d08165f539865a4874cbfdf82c32ffa27e2dd6ee88092c4047ff9"
+        "sha256": "e978618802f35277a49d8c6a35af2aaa808a1b756ee166ddb85db2c8f05f8021"
       },
       {
         "dimensions": {
@@ -62,7 +62,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/cp/n-normal-4x.png",
-        "sha256": "3b2bb806d795128a309c771e622deeca1cef53ddaec392dde9fec514b4b31c44"
+        "sha256": "8fb8852cb7fe23497152d7441cfac1d1ceaf3157a9f5ee0f3eec360f658f7fcc"
       },
       {
         "dimensions": {
@@ -70,7 +70,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/cp/n-spent-2x.png",
-        "sha256": "351d3479e011a22c23ff12e42e059bd7767d26a5fe8e2057d5d7251a96789bf0"
+        "sha256": "95e33afa0a39c6d1f627fad01a935f26a995d56766b67142bc912ceab2d563ee"
       },
       {
         "dimensions": {
@@ -78,7 +78,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/cp/n-spent-4x.png",
-        "sha256": "34c1d62a2824103e2997ee289148fe6d839a85ce444ad06f26ec2d9d2ce84db1"
+        "sha256": "d62310812993bfeffbd8fb0c8c190075ea8aa27ad25c5bfe0baafde75b7b4188"
       },
       {
         "dimensions": {
@@ -86,7 +86,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/ec/n-normal-2x.png",
-        "sha256": "91790b7f32b9e474a83db0093d43664404475a5bb97c1aab6cac5e445931a376"
+        "sha256": "ad2a0d0208d7a3f1f1cf5c9c6fab75d759c8187fcac1caaaa1e9d25588a24f3f"
       },
       {
         "dimensions": {
@@ -94,7 +94,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/ec/n-normal-4x.png",
-        "sha256": "2ddd2d37c6dc129dcc4bd065d3262cfa390ed62b653395f73907887257263f1f"
+        "sha256": "102bf2c9b4ff1f6826b0a1373314ada449badcecf7a5596e5f8287921d7027dd"
       },
       {
         "dimensions": {
@@ -102,7 +102,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/ec/n-spent-2x.png",
-        "sha256": "72d24a19eaf31b759dd88d28021bfd36ef0d4ddc23987a1bc982f222156c4906"
+        "sha256": "2a3af8b501bd32a4adfd9ea0e36455a5ccc86a22bba09c2e63903f50557fd599"
       },
       {
         "dimensions": {
@@ -110,7 +110,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/ec/n-spent-4x.png",
-        "sha256": "911a77668d36cf49896ee11e4e36366ec68295d7622676b74f37712191ac122d"
+        "sha256": "58e38bb75a85c3e08a715ccdad6880f9244bdd2edeb2a30e21cf51b49bb6b2d6"
       },
       {
         "dimensions": {
@@ -118,7 +118,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/neutral/n-normal-2x.png",
-        "sha256": "d4dccc05057c9e96f21c806c8fe949450e46803329e549e5e13be8e2b0756e7e"
+        "sha256": "cbf9a4418131bc02090e4010da90300d251785bcf226b8f5d617bb282817cf21"
       },
       {
         "dimensions": {
@@ -126,7 +126,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/neutral/n-normal-4x.png",
-        "sha256": "92a2ddafe6691e1b8d89a8f571afe5fe58666e614db89cd670a81bab18577f92"
+        "sha256": "efadf02c60cc8ff9c17c4ae0151c5fc6d7d8fdebc4afbe0cb88d0129f2f13074"
       },
       {
         "dimensions": {
@@ -134,7 +134,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/neutral/n-spent-2x.png",
-        "sha256": "8d91ad2f4158e5d6d37a861fe328d16d57eb8abfab0a4ea80d9d99d0e13b2baa"
+        "sha256": "634b5d74b7f5785a0956c3e08dbf35da406af57847a481d21ba8e5f7870f10c5"
       },
       {
         "dimensions": {
@@ -142,7 +142,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/neutral/n-spent-4x.png",
-        "sha256": "29d9921558e2a4c82cc0002e4637392cc1c9c9412de5ca2e4055f0b720f6dcd0"
+        "sha256": "d6e532a1b234a38e027122828200d49effdea6bc26ade0c58b0de26bd9449f41"
       },
       {
         "dimensions": {
@@ -182,7 +182,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/cp/nw-normal-2x.png",
-        "sha256": "b904c2948fb5dd3eb5d4d11fbbe13e2c0a268ff174319c407d0f01cbb4ebbec5"
+        "sha256": "78c9bc5bd2539e6cf3b3658f8c2dcdd36e6f8c2cfde49e470e41f5d45d138cbb"
       },
       {
         "dimensions": {
@@ -190,7 +190,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/cp/nw-normal-4x.png",
-        "sha256": "37f87265975d93a4caff431ceb3473115094688931329e5a8c45edf428a18dfd"
+        "sha256": "0c9f054d8c1d75ca3a477ac2d929b45114f4cc7334d4c13c0ae747edd3dc91d0"
       },
       {
         "dimensions": {
@@ -198,7 +198,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/cp/nw-spent-2x.png",
-        "sha256": "67d7b7daa9b4a79550f50659f5d4084f0d26830b0a4f2dbec38f9e9c93b19613"
+        "sha256": "1644b0d304a8109f902ceadae30c3907d7586ca7efe0e336a7a6f1fd8f2956fe"
       },
       {
         "dimensions": {
@@ -206,7 +206,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/cp/nw-spent-4x.png",
-        "sha256": "5097a5756dbd9f7232d5cbd97b6e7979c15efabf160fbfcefeb4b8fc50e11bc1"
+        "sha256": "6e2c3478c9f5777096bf63fcc47109c116a61bacc94f712d1e9e450ee423360a"
       },
       {
         "dimensions": {
@@ -214,7 +214,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/ec/nw-normal-2x.png",
-        "sha256": "95d642a262c473702f1055c6ab848f66eec3b6106e1dc37e2fc7723b989239d4"
+        "sha256": "89112209ad235d2ae89484388b528af29af9be745e92bb7f2970d511d3608494"
       },
       {
         "dimensions": {
@@ -222,7 +222,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/ec/nw-normal-4x.png",
-        "sha256": "635b2cfde4353ef81811e6696cbb898a1e4590a5d35550baa364ed1a0d13a4fc"
+        "sha256": "49c8aa65725456cf00262b49a2c975c5dc605c8028d8ef153b4de894dfdef68d"
       },
       {
         "dimensions": {
@@ -230,7 +230,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/ec/nw-spent-2x.png",
-        "sha256": "9de6a4ef5606e306d860501663ab282d534319357f668d41e159df009c438d4d"
+        "sha256": "181a5ad66d8ace9313012a44bdd8bcb58a816fa01df59c79e92384beb9fdbd96"
       },
       {
         "dimensions": {
@@ -238,7 +238,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/ec/nw-spent-4x.png",
-        "sha256": "6c178d1227fb0e65af0c5e0ded5ade4753ad699df8dc9f049216142c1073de4c"
+        "sha256": "62164181955f6295acb8116536d8fb42af11c9e3f9b0f3847259aed19d544b15"
       },
       {
         "dimensions": {
@@ -246,7 +246,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/neutral/nw-normal-2x.png",
-        "sha256": "3bda136df401f740f94a7a3cb9352ceb5bdeeb8b8ff4ae939007fd1f6f67e928"
+        "sha256": "a97112a0731db4c03fbe07a4ab1ac735123f52dbb099bca0104af606de3c46dd"
       },
       {
         "dimensions": {
@@ -254,7 +254,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/neutral/nw-normal-4x.png",
-        "sha256": "72bd348043a67597adae58f13c32b55ab9dfc1c2652bd6078d0131bd5a427b0c"
+        "sha256": "e22adcd7ed73b03e02eab69da211066325c53c97c717e286907f38ca0b355068"
       },
       {
         "dimensions": {
@@ -262,7 +262,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/neutral/nw-spent-2x.png",
-        "sha256": "3df4fe8f052f50d5e78f5ca380001facde370bea2e7e60f93580dce61f2b106d"
+        "sha256": "2fc16a4b32b5154c3dbbb667a272a590d93ab546a1194e493818615c113691ea"
       },
       {
         "dimensions": {
@@ -270,7 +270,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/neutral/nw-spent-4x.png",
-        "sha256": "7b73a7600c73abcbd3ea0cfccb438e3a963ce96b1b151500fad8a631fcef3e70"
+        "sha256": "2538554e915e831087edd6546b04b04d295e9bc15aea823cac2f3c6620358b3f"
       },
       {
         "dimensions": {
@@ -310,7 +310,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/cp/sw-normal-2x.png",
-        "sha256": "51f349707f2f7552db4709167cfa1ac7e18dab6b955bdb2e01e8b404106c277a"
+        "sha256": "0b9910d0daa97c966f158308b9fd4b0fcfd503fd26c160973518f7582f0b5e44"
       },
       {
         "dimensions": {
@@ -318,7 +318,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/cp/sw-normal-4x.png",
-        "sha256": "5a8b34624d958118a647c01b3ae9948461dd97ecb308ea64a9d72976e4e63e20"
+        "sha256": "465078736c0a341381b34284d2abcb8e5ffe399f43b24286946d0427c8403850"
       },
       {
         "dimensions": {
@@ -326,7 +326,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/cp/sw-spent-2x.png",
-        "sha256": "9dc82f33b9408e1b19d75e8d7a2a0f876533ae4f0cde66a9a1b0652289de11ba"
+        "sha256": "27b4ec980109939888dc599ee40e7728239b1a2a3cb56aa88607637f0d5ebc93"
       },
       {
         "dimensions": {
@@ -334,7 +334,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/cp/sw-spent-4x.png",
-        "sha256": "e133ce4cffb796b67fe81d9d3a3ab950358d4a58cc1f3ef7346e6fe1a250ea5c"
+        "sha256": "263bbc5c30445efac6a9b0db582a2f7809f6036f5c80273298a36b01309480f2"
       },
       {
         "dimensions": {
@@ -342,7 +342,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/ec/sw-normal-2x.png",
-        "sha256": "5e76038ce93c04c9e282c212aafe8ade4bf3db6536e1f04d46a4a5450d98cf1e"
+        "sha256": "ef79110ff469ef38676b9a6dff3eebaf1bcac88e5f60ca6b8e91488c294c4c51"
       },
       {
         "dimensions": {
@@ -350,7 +350,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/ec/sw-normal-4x.png",
-        "sha256": "0ae36631cf80685399e6c73edb986dcbe810fe7308dafb042921dfa47add7936"
+        "sha256": "483d8500274b4ed602f579deb108323c5f7bb103f9c4007db00e2fbc7b48cd4f"
       },
       {
         "dimensions": {
@@ -358,7 +358,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/ec/sw-spent-2x.png",
-        "sha256": "119174dc93c8c11bdf72ee5ef2f369a0e6f17143d1d7a922ef5723d9e9f1923f"
+        "sha256": "1ebba9c99a71aef12e0fa41cbbd3070155d5d85458285a04eeebd8b1a08e696c"
       },
       {
         "dimensions": {
@@ -366,7 +366,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/ec/sw-spent-4x.png",
-        "sha256": "0c3c1bb996cc8d3df6e1f861b7fe192c7a9011d744e5587ea1ccb46f1bd745e0"
+        "sha256": "bb7cf6b280d5170b8fbed08878f3aa4757aa6e4db128f553baf459db7552e396"
       },
       {
         "dimensions": {
@@ -374,7 +374,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/neutral/sw-normal-2x.png",
-        "sha256": "f3c36a6b1da5f119d62b2254ec62a14d9d626f6a858abc73830ed9f27d24f8af"
+        "sha256": "45575ce68d67e60d8c1b2b631b9b0010305dc993a5b53838f357ec05a57344f8"
       },
       {
         "dimensions": {
@@ -382,7 +382,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/neutral/sw-normal-4x.png",
-        "sha256": "0e5de1e7c1cba177b04e5bca93a1b7a38966ce53831f8af41aad156140e1f2d8"
+        "sha256": "998b0b8ee2efe702678561bc37bffbe437ff1f882e5125dd26450c228a072cfa"
       },
       {
         "dimensions": {
@@ -390,7 +390,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/neutral/sw-spent-2x.png",
-        "sha256": "83cc3f7feef51c8493f5cb76ea9b281d42a3437c5223b85b4827c54aacb43521"
+        "sha256": "97b99ccfb96636ad7e325d2689fc5537a9c28b250576f2c8830e4069ca7b0477"
       },
       {
         "dimensions": {
@@ -398,7 +398,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/neutral/sw-spent-4x.png",
-        "sha256": "dc49a3af0e645d7d2c90e1cdcc0acde18192f7eccf1ab54ec92683e0095bde55"
+        "sha256": "95d2dd4a8b9f628ea2a345ff8e1326851317f627ee397fab6a233f189d7d19ca"
       },
       {
         "dimensions": {
@@ -438,7 +438,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/cp/s-normal-2x.png",
-        "sha256": "c3ad4aa17e044f4faa8bc74ac8363955d82917094983d7285d0c0abf716b4d84"
+        "sha256": "bde0ecce4623c57d3d5b02a55932d985b728850fedafbfda26216a32c30d4175"
       },
       {
         "dimensions": {
@@ -446,7 +446,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/cp/s-normal-4x.png",
-        "sha256": "38d62a6b3d1a9f83190ec23d7f647a4b70139657bffc76f860137a809619daf2"
+        "sha256": "a1f33b78ad0ea4c4c4e409c8fd6e499b67bf0199bf8433626bec13339258a984"
       },
       {
         "dimensions": {
@@ -454,7 +454,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/cp/s-spent-2x.png",
-        "sha256": "5b4494261bdd8269db334ba6cfd07f9205330d0186a0bcc5802f15a17149e1ee"
+        "sha256": "ae95b29d3e67d42c16cd345b5a788ff8c4abd8f72a5216584db2a1506cf165e6"
       },
       {
         "dimensions": {
@@ -462,7 +462,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/cp/s-spent-4x.png",
-        "sha256": "89a647b5daae365787d0a3c19acc68006c1d1a67e5c3da077bcaf8b8de1fbc74"
+        "sha256": "8a1a512f5d157249416ba1005d9e3bd973cc4ac617b65bdc557111d1a6faec01"
       },
       {
         "dimensions": {
@@ -470,7 +470,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/ec/s-normal-2x.png",
-        "sha256": "becf45c864fee5fc90c1817cd61d44c4fbf199c3882cadecfe71e3555b1b5ab6"
+        "sha256": "f9de9da9c019de648fb3888fbe2df1fe6ae4cce28eeec8ffa4b2495aab46de8b"
       },
       {
         "dimensions": {
@@ -478,7 +478,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/ec/s-normal-4x.png",
-        "sha256": "c817eac04e2c6f256522a8fc473f0f86b19f008eaea254cf3f915c73034fed2f"
+        "sha256": "16556daff0feb9109c14d5e9dd0e62f5cd1a35e86982f26cdceda42f67d77abd"
       },
       {
         "dimensions": {
@@ -486,7 +486,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/ec/s-spent-2x.png",
-        "sha256": "029228d4ca6b042e29f9b1bce9ee6c5b3a6cd6c211457d94a1b9f871a970c629"
+        "sha256": "bf2ce748f253f558978a27f9088ddac65ff8780ca1cec970e0b2d07b1f13c310"
       },
       {
         "dimensions": {
@@ -494,7 +494,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/ec/s-spent-4x.png",
-        "sha256": "540cea66338a0556141b13afe2ab74d6f79ecb0e7605983d28101dd36196c75f"
+        "sha256": "ee01337f30aff477d97e64287fb64c48a8e018088468bff5d7a8dbbe418af832"
       },
       {
         "dimensions": {
@@ -502,7 +502,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/neutral/s-normal-2x.png",
-        "sha256": "cd5fb96d6f703158353a9db352bfbec1a83376540536789a4e055789804eb57c"
+        "sha256": "c6a504177a03823b9d962e7e91611a83fc381724f8ef6cd2f3161d4b157786ad"
       },
       {
         "dimensions": {
@@ -510,7 +510,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/neutral/s-normal-4x.png",
-        "sha256": "808ef0ce85586de63bde9f1ff3475b27573a96aea9f081fa6be53f3901a11341"
+        "sha256": "3da504f7ba1e3ff7584b6fceaef78aea3ffd625e1993d4a14aebeb503184f4cb"
       },
       {
         "dimensions": {
@@ -518,7 +518,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/neutral/s-spent-2x.png",
-        "sha256": "0038a333bb8a659da2fe84fab219fe1287a289cce857cbc172d2f3d10fdb4b49"
+        "sha256": "15e1159b2a676cda964be7f8c12901efae7ab2a2808e85318f2c232ffb9e02d3"
       },
       {
         "dimensions": {
@@ -526,7 +526,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/neutral/s-spent-4x.png",
-        "sha256": "3274c68a5d613a775ab3a5a790baebaf9a95053fddcfa86c8255719d3c3502de"
+        "sha256": "c5237ee9c429b5b95fb9d5d3f5521778c90defc7950100809bd2b78cade7a631"
       },
       {
         "dimensions": {
@@ -566,7 +566,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/cp/se-normal-2x.png",
-        "sha256": "4c361ec98d8a61daf3fa4c51cbb749e6e2c10d4bae6c83fedb7bbd720cf8b9b5"
+        "sha256": "b9a68dde3790c8d08094332cb609be5cb9d280bc144e28e8056e7a26672b2643"
       },
       {
         "dimensions": {
@@ -574,7 +574,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/cp/se-normal-4x.png",
-        "sha256": "6852ee509b4d92be8d68e195f289786856ed0097da22b154cc407da3679a5c8c"
+        "sha256": "49c226ff78c661ae38432acde10cf9c51987633e8643c55bf9f1ae96f8f9af28"
       },
       {
         "dimensions": {
@@ -582,7 +582,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/cp/se-spent-2x.png",
-        "sha256": "c1a40352c0d4baab08b8bf879ee36e7af7accc1975da1549a91df4c32bd96d34"
+        "sha256": "f8ae25554c514c3fca2bd597a2590d0aa1f0174edd8007788121059a26723f8d"
       },
       {
         "dimensions": {
@@ -590,7 +590,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/cp/se-spent-4x.png",
-        "sha256": "ac60cf5dc33e656c5b9dcd7124f9ebd7833583f1b7e9d805040231debc2d280c"
+        "sha256": "843befe13ea0c82b9cb13fca149f596d1883983f2f2ee1844b3e890ab73fc41f"
       },
       {
         "dimensions": {
@@ -598,7 +598,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/ec/se-normal-2x.png",
-        "sha256": "0f8846533f2577aa0162004f1476ebbd178d27d132f02a622ed34b14ba2d722c"
+        "sha256": "e0d4fe50884ea56ffb68f1a52cd710edeb77d93933518168b58473c67edb9b5c"
       },
       {
         "dimensions": {
@@ -606,7 +606,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/ec/se-normal-4x.png",
-        "sha256": "d8137eba3eaa9bf710811a35527bae6e180d0eb5640d2637e752aeef386621d7"
+        "sha256": "e309059e0de56486d260f42a50efe6a8e520ee51e9e5cde8487191bf2c500dd0"
       },
       {
         "dimensions": {
@@ -614,7 +614,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/ec/se-spent-2x.png",
-        "sha256": "533ef0084be19ecd8dd11cb804a12db509df270da3461f76c94949906d6fec4e"
+        "sha256": "ee380f3b2aee3433dc36317bc87c78a0b34f889e21e0350ac50d5c3bc2152efc"
       },
       {
         "dimensions": {
@@ -622,7 +622,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/ec/se-spent-4x.png",
-        "sha256": "90b99e01b756b5ab6dd34c27ab912c5191aeb88a31a67d71645d42402468e011"
+        "sha256": "c313c81bb5b8659c4d1edf91131f800ab26c7e9f7d790c8e59c9f897d8ddbdcd"
       },
       {
         "dimensions": {
@@ -630,7 +630,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/neutral/se-normal-2x.png",
-        "sha256": "12b1fda91bc7bc2033f586b12a4765cc66565ed66d3ad7005ab9870cd4ed46fb"
+        "sha256": "b45a5cb3cedea6ee5b3ff621e19ad98786828d071fc40c33e95cb9767865cd15"
       },
       {
         "dimensions": {
@@ -638,7 +638,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/neutral/se-normal-4x.png",
-        "sha256": "9133cee83e5cf7e9c6cbe255004d6e8974d56996621753eca36e9ce1bf6ea690"
+        "sha256": "75a26d89cbdc1d8c4358b9df63ace152156dba8f688896f4ac86c7bbd8c9e82b"
       },
       {
         "dimensions": {
@@ -646,7 +646,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/neutral/se-spent-2x.png",
-        "sha256": "736d3999d925b662b78426ca5b634d6aa2de830132ab56865e39caf45a718a16"
+        "sha256": "990b5199d3ce23c0a327413bbc61d21043eef1db4c9e83d51e3f8dc969c4b40e"
       },
       {
         "dimensions": {
@@ -654,7 +654,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/neutral/se-spent-4x.png",
-        "sha256": "787340d14e1454b3476111a03560aa854aabe89adc13f4f60a8c64da8b58c5d0"
+        "sha256": "88cb21366c876100ee23a6bd8e2bc21bd74cc86932b17181d5a020a03adaf473"
       },
       {
         "dimensions": {
@@ -694,7 +694,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/cp/ne-normal-2x.png",
-        "sha256": "772517bac3647025434c0da9d800c59c1a1a6fb00430f3319200516abb6915ad"
+        "sha256": "6eb5ac71d2572c4863e6fda44e4b52833fce6587d245f496195bb046e5469c5b"
       },
       {
         "dimensions": {
@@ -702,7 +702,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/cp/ne-normal-4x.png",
-        "sha256": "29710184fa776a02fcb895fb056be8beb57e2ddf6c2685a9af73daafdb70948a"
+        "sha256": "22ceab310a21a043836bb9601786c4dbbad15c63366fdd8057e3af8bb0f79d01"
       },
       {
         "dimensions": {
@@ -710,7 +710,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/cp/ne-spent-2x.png",
-        "sha256": "f794b88acb4065624415102ea918f29d995abee66370304c78d2bba8a24b95a1"
+        "sha256": "f461a33483b0c3bd7854895ef1418415ee38542b1dbfe3ed2500cea0b2ecef21"
       },
       {
         "dimensions": {
@@ -718,7 +718,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/cp/ne-spent-4x.png",
-        "sha256": "68fd0c0833a1b424c936525ed07e9de9cc52ef08130cf640cce9722754907604"
+        "sha256": "d5bdcfd41c43366829dc45b717b0da4a846e0fba904fd1263a8ea363c54a975e"
       },
       {
         "dimensions": {
@@ -726,7 +726,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/ec/ne-normal-2x.png",
-        "sha256": "30be681d960e007680a3c03e36843891483a82fc948bff18042416c11ef1aaef"
+        "sha256": "c8bb4dbd3f0e3daae67e0c09ef334ccf9ec5ebcf8fe56edb687cb876a4a23504"
       },
       {
         "dimensions": {
@@ -734,7 +734,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/ec/ne-normal-4x.png",
-        "sha256": "ff04a9f962cd037c5540205a83c6516d8b9927fd4534719a073a4c4571c3b992"
+        "sha256": "4a28b4aa68014e3e71342d0de6c16ed0b9e1121e4cad6f403327cd7df28d9375"
       },
       {
         "dimensions": {
@@ -742,7 +742,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/ec/ne-spent-2x.png",
-        "sha256": "d38221034b1f946d7738308b4422ecea0fdf3e8e29a0de6793abdaee4180f605"
+        "sha256": "caf18e996adeb2f1d109328fcf9cd81019c5874c53989012f203cf0936347903"
       },
       {
         "dimensions": {
@@ -750,7 +750,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/ec/ne-spent-4x.png",
-        "sha256": "067acbb7d651b62b4a68addd51cec7c52ae346318682191866f7c3f9b85b3d05"
+        "sha256": "085fb00e1908278e00d2a7cdeb609a2e50fbcb3135ce995177462ee6a65ada6d"
       },
       {
         "dimensions": {
@@ -758,7 +758,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/neutral/ne-normal-2x.png",
-        "sha256": "78703003999b0276a5d7e8328edba27861ceeb6181b2a0a77e8e0a1e428f7e46"
+        "sha256": "affa422da6dab2e15a43090755bd7b0db702d30020a615c07d3948ca3cda841a"
       },
       {
         "dimensions": {
@@ -766,7 +766,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/neutral/ne-normal-4x.png",
-        "sha256": "74334529f575dbfc5b9f103527871610c8038b4dbb0768a6bd8db2b1334df224"
+        "sha256": "2c4e83982fd45647c3376f31a7b73de86a29e57bb58264f27912f48b6a92ddd6"
       },
       {
         "dimensions": {
@@ -774,7 +774,7 @@
           "width": 192
         },
         "path": "sprites/patrolBoat/neutral/ne-spent-2x.png",
-        "sha256": "987ce184a414382b71a38d5ab19a4aef92e18ef3cccf52a3375f4298e60dbe99"
+        "sha256": "e44b364374c0815eab8a58c73319f103c32059e8ff4ae555ae3baac91c1057fb"
       },
       {
         "dimensions": {
@@ -782,7 +782,7 @@
           "width": 384
         },
         "path": "sprites/patrolBoat/neutral/ne-spent-4x.png",
-        "sha256": "ae3cf11dd27720e9a7d80296f436801c7c2f9a244690e0bfae0fb33313fdf586"
+        "sha256": "beb778cf8b08b96ab1f1dbc18f33ab74e26edda3528babedd5cd1ac9d464a592"
       },
       {
         "dimensions": {
@@ -790,7 +790,7 @@
           "width": 1152
         },
         "path": "sheets/patrolBoat-white-2x.png",
-        "sha256": "107a1ca040fcc58324c2e9920dae9b19217af6bc54fd2406dd3a5f2e0549bd1b"
+        "sha256": "f0137ef3cdf3eb1b36a168a6c09495f5262673f4ae2ec345a6469e648182b114"
       },
       {
         "dimensions": {
@@ -798,7 +798,7 @@
           "width": 2304
         },
         "path": "sheets/patrolBoat-white-4x.png",
-        "sha256": "329b1a6bf824a6606f5504f1c5c1894038c4630ce1dfdb1561585be3cff62836"
+        "sha256": "3cd4cf4ed4ea21e4359367e1ec4c550f335e591c197ddf14bd319017a9dfff98"
       },
       {
         "dimensions": {
@@ -806,7 +806,7 @@
           "width": 1152
         },
         "path": "sheets/patrolBoat-checker-2x.png",
-        "sha256": "724861d922511a2c5e6a7ef3f4ffc2ce58bbfd3bc55739117c6ac1aa9e5db61e"
+        "sha256": "e41fb4d9748bcc8bc27d6065389a7f2649ecbc5ed096be6afa84e675cbb1ed90"
       },
       {
         "dimensions": {
@@ -814,7 +814,7 @@
           "width": 2304
         },
         "path": "sheets/patrolBoat-checker-4x.png",
-        "sha256": "d1172fd5cf4bea78bd2fb2976fc8f119e9b230d7e94b6c9fd30947fc6078d65b"
+        "sha256": "8ea419e2af5743f5e726085982de5ba44f6b80196f0a530e2f24eb9b2103e967"
       },
       {
         "dimensions": {
@@ -822,7 +822,7 @@
           "width": 476
         },
         "path": "scenes/grass-normal-p0-2x.png",
-        "sha256": "94743571d7793da7b3327e4bbe2ceb7fb46714974cb1e1fb530c15606b59687e"
+        "sha256": "50b330dc03891c84ed22b8ad4d963d0eacf1f2c5f9b4016632e5b8b49890cd47"
       },
       {
         "dimensions": {
@@ -830,7 +830,7 @@
           "width": 952
         },
         "path": "scenes/grass-normal-p0-4x.png",
-        "sha256": "88874cba6ec1c82bea1320456c7050e4a3d90858e2b0d7c35923fe15b19afb66"
+        "sha256": "2364349fa9e0b92c4e57bababb82045a1e493984f7b5fc0e14f9a135205c4f75"
       },
       {
         "dimensions": {
@@ -838,7 +838,7 @@
           "width": 476
         },
         "path": "scenes/grass-normal-p1-2x.png",
-        "sha256": "94743571d7793da7b3327e4bbe2ceb7fb46714974cb1e1fb530c15606b59687e"
+        "sha256": "50b330dc03891c84ed22b8ad4d963d0eacf1f2c5f9b4016632e5b8b49890cd47"
       },
       {
         "dimensions": {
@@ -846,7 +846,7 @@
           "width": 952
         },
         "path": "scenes/grass-normal-p1-4x.png",
-        "sha256": "88874cba6ec1c82bea1320456c7050e4a3d90858e2b0d7c35923fe15b19afb66"
+        "sha256": "2364349fa9e0b92c4e57bababb82045a1e493984f7b5fc0e14f9a135205c4f75"
       },
       {
         "dimensions": {
@@ -854,7 +854,7 @@
           "width": 476
         },
         "path": "scenes/grass-spent-p0-2x.png",
-        "sha256": "fc24642ca63e4298f7dc89d375316ff4a67d181a99397af9f1152cd705d8cbf3"
+        "sha256": "ad747857f5658518ac9c5455c28b1478fc65ec0b67c1b2fe115765cfc6943f36"
       },
       {
         "dimensions": {
@@ -862,7 +862,7 @@
           "width": 952
         },
         "path": "scenes/grass-spent-p0-4x.png",
-        "sha256": "c098ce5624c4dec015ac0cb00dd3e1aee696cbbd1de1ce7816328fbe9aab0d01"
+        "sha256": "a05b96b607ada032dc1f5f20b0c483b5e98dbaf825875bd6fcd3f00616df6049"
       },
       {
         "dimensions": {
@@ -870,7 +870,7 @@
           "width": 476
         },
         "path": "scenes/grass-spent-p1-2x.png",
-        "sha256": "fc24642ca63e4298f7dc89d375316ff4a67d181a99397af9f1152cd705d8cbf3"
+        "sha256": "ad747857f5658518ac9c5455c28b1478fc65ec0b67c1b2fe115765cfc6943f36"
       },
       {
         "dimensions": {
@@ -878,7 +878,7 @@
           "width": 952
         },
         "path": "scenes/grass-spent-p1-4x.png",
-        "sha256": "c098ce5624c4dec015ac0cb00dd3e1aee696cbbd1de1ce7816328fbe9aab0d01"
+        "sha256": "a05b96b607ada032dc1f5f20b0c483b5e98dbaf825875bd6fcd3f00616df6049"
       },
       {
         "dimensions": {
@@ -886,7 +886,7 @@
           "width": 476
         },
         "path": "scenes/grass_w-normal-p0-2x.png",
-        "sha256": "f43dec66b8834a7f7b91c38784b9f7ecaa7257a6b26f593c846ea0ddf8ae9cd2"
+        "sha256": "ee270b21482dc1837cf3ab0c44e23c2b6f249bda2bcd41e2609467c2d9ea09fd"
       },
       {
         "dimensions": {
@@ -894,7 +894,7 @@
           "width": 952
         },
         "path": "scenes/grass_w-normal-p0-4x.png",
-        "sha256": "d0bd649ab842fdd3e42afb6aff5316432a1e0ea88438dd4e89d7f26c41f48d1a"
+        "sha256": "a831e4491f0c5440ac361e3aa915c0ddca9b9822c40f414f2f8a3f3843be2e6f"
       },
       {
         "dimensions": {
@@ -902,7 +902,7 @@
           "width": 476
         },
         "path": "scenes/grass_w-normal-p1-2x.png",
-        "sha256": "f43dec66b8834a7f7b91c38784b9f7ecaa7257a6b26f593c846ea0ddf8ae9cd2"
+        "sha256": "ee270b21482dc1837cf3ab0c44e23c2b6f249bda2bcd41e2609467c2d9ea09fd"
       },
       {
         "dimensions": {
@@ -910,7 +910,7 @@
           "width": 952
         },
         "path": "scenes/grass_w-normal-p1-4x.png",
-        "sha256": "d0bd649ab842fdd3e42afb6aff5316432a1e0ea88438dd4e89d7f26c41f48d1a"
+        "sha256": "a831e4491f0c5440ac361e3aa915c0ddca9b9822c40f414f2f8a3f3843be2e6f"
       },
       {
         "dimensions": {
@@ -918,7 +918,7 @@
           "width": 476
         },
         "path": "scenes/grass_w-spent-p0-2x.png",
-        "sha256": "a053c2518e9eff41a7739d53f3cce05a7f3edeb69d1bd2bdac4bc8619eee6a72"
+        "sha256": "eec2319ea41ec6cc0e343335f96fd149f714a1165400c855267a91c808aa902f"
       },
       {
         "dimensions": {
@@ -926,7 +926,7 @@
           "width": 952
         },
         "path": "scenes/grass_w-spent-p0-4x.png",
-        "sha256": "c5bca08c3e787ab872891a72f7e2a79dd1c69e5300909617cea322fbe604feb0"
+        "sha256": "7e2c35ecd2aee966ba37fbf8439986812e78bc67cc02032db295b581fc360414"
       },
       {
         "dimensions": {
@@ -934,7 +934,7 @@
           "width": 476
         },
         "path": "scenes/grass_w-spent-p1-2x.png",
-        "sha256": "a053c2518e9eff41a7739d53f3cce05a7f3edeb69d1bd2bdac4bc8619eee6a72"
+        "sha256": "eec2319ea41ec6cc0e343335f96fd149f714a1165400c855267a91c808aa902f"
       },
       {
         "dimensions": {
@@ -942,7 +942,7 @@
           "width": 952
         },
         "path": "scenes/grass_w-spent-p1-4x.png",
-        "sha256": "c5bca08c3e787ab872891a72f7e2a79dd1c69e5300909617cea322fbe604feb0"
+        "sha256": "7e2c35ecd2aee966ba37fbf8439986812e78bc67cc02032db295b581fc360414"
       },
       {
         "dimensions": {
@@ -950,7 +950,7 @@
           "width": 476
         },
         "path": "scenes/mud-normal-p0-2x.png",
-        "sha256": "93497af99b6ec268bb0acc3434d7d414e38d5ce6c9ae5724a39ccce8f1388f20"
+        "sha256": "11f49363012d6c3df2e651315498aa6a69805e59aca02d82aa2c4b45ffcb8fb9"
       },
       {
         "dimensions": {
@@ -958,7 +958,7 @@
           "width": 952
         },
         "path": "scenes/mud-normal-p0-4x.png",
-        "sha256": "1e79e253c0dd8917dbd5a44a58adc5eb5f81145a6343c4ebc7d6c9a7b140036d"
+        "sha256": "799302f8301993ee73a59324ac00fe6f9941bb86981e929e6692d0bf45d6ffea"
       },
       {
         "dimensions": {
@@ -966,7 +966,7 @@
           "width": 476
         },
         "path": "scenes/mud-normal-p1-2x.png",
-        "sha256": "93497af99b6ec268bb0acc3434d7d414e38d5ce6c9ae5724a39ccce8f1388f20"
+        "sha256": "11f49363012d6c3df2e651315498aa6a69805e59aca02d82aa2c4b45ffcb8fb9"
       },
       {
         "dimensions": {
@@ -974,7 +974,7 @@
           "width": 952
         },
         "path": "scenes/mud-normal-p1-4x.png",
-        "sha256": "1e79e253c0dd8917dbd5a44a58adc5eb5f81145a6343c4ebc7d6c9a7b140036d"
+        "sha256": "799302f8301993ee73a59324ac00fe6f9941bb86981e929e6692d0bf45d6ffea"
       },
       {
         "dimensions": {
@@ -982,7 +982,7 @@
           "width": 476
         },
         "path": "scenes/mud-spent-p0-2x.png",
-        "sha256": "6dbc769891f98f851db26260c86899127e6af8901e9fa07e5f6303bf1bce8f26"
+        "sha256": "971990a7f6e47b0b74c33310c7c2c87c17da9343a6a037a4f81b494edaa8e9a8"
       },
       {
         "dimensions": {
@@ -990,7 +990,7 @@
           "width": 952
         },
         "path": "scenes/mud-spent-p0-4x.png",
-        "sha256": "bd39221edf893dc204e59f3560987fd46b6b8feb5728a50a19ae1b9639027c78"
+        "sha256": "309a65eaf351fa1d057e5cfbcc58f68066c9ed19236d4b95d44277906aa0f210"
       },
       {
         "dimensions": {
@@ -998,7 +998,7 @@
           "width": 476
         },
         "path": "scenes/mud-spent-p1-2x.png",
-        "sha256": "6dbc769891f98f851db26260c86899127e6af8901e9fa07e5f6303bf1bce8f26"
+        "sha256": "971990a7f6e47b0b74c33310c7c2c87c17da9343a6a037a4f81b494edaa8e9a8"
       },
       {
         "dimensions": {
@@ -1006,7 +1006,7 @@
           "width": 952
         },
         "path": "scenes/mud-spent-p1-4x.png",
-        "sha256": "bd39221edf893dc204e59f3560987fd46b6b8feb5728a50a19ae1b9639027c78"
+        "sha256": "309a65eaf351fa1d057e5cfbcc58f68066c9ed19236d4b95d44277906aa0f210"
       }
     ],
     "family": "patrolBoat",
@@ -1690,28 +1690,28 @@
         }
       }
     },
-    "manifest_sha256": "5cb5e7806f31c37e6bebb1008ff6ce183fdafa9c31150c2be015e741d8c98021",
+    "manifest_sha256": "cda284f1ef7724f4653b0769b1442e5a65a4b90625630450ce00db581cfd76eb",
     "manifest_snapshot": "manifest.json",
     "palette_selector": "Owner palette is independent of class ID/country, including captured patrol boat; no other family aliases.",
     "palettes": {
       "cp": [
-        104,
-        142,
-        83
+        205,
+        190,
+        159
       ],
       "ec": [
-        190,
-        143,
-        92
+        138,
+        164,
+        186
       ],
       "neutral": [
-        146,
-        146,
-        146
+        174,
+        174,
+        164
       ]
     },
     "physical_png_count": 131,
-    "profile": "unit-patrol-boat-v1: six authored square panels row-major N,NW,SW,S,SE,NE; class family lookup CP_patrolBoat and EC_patrolBoat independently selects owner cp/ec/neutral. Source straight RGB V=max(R,G,B); q=max(0,(min(R,B)-G)/max(1,V)); t=clamp((q-.02)/.08); k=t^3*(6*t^2-15*t+10); K=k*V; N_c=(1-k)*source_c+K. Round N/K half up before filtering; alpha-zero clears RGB. Base=(N_R,N_G,N_B,A), tint-energy mask=(K,K,K,A), never binary coverage. Whole-panel pixel-edge affine source anchor=(cell/2,49*cell/96), logical anchor=(48,49), top-left offset=(0,-9), inset=.8. 4x destination=(192,196)+(.8*384/cell)*(source-source_anchor); destination centers map to (d+.5-offset)/scale-.5; offset=(38.4,39.2). Unchanged compound tap budget \u003c=4,000,000 conservative full-support axis taps, checked before allocation. Transparent zero extension, normalized premultiplied float64 separable antialiased Lanczos3, signed lobes retained, positive raw alpha unpremultiply, half-up clamped RGB/A, zero-alpha clear. Independently whole-alpha-aware Lanczos3 reduce base/mask 384-\u003e192. At each density tint=halfup(clamp(N_c+K*(palette_c/255-1),0,255)), same alpha. Spent after tint is (R,R,R,A). 2x coloured sprites are composed after plane reduction, not claimed identical to downsampled coloured 4x sprites. Required six-world-pixel zero-RGBA guard, no threshold/background removal, bounding-box crops, mirrors, rotation, per-frame scaling, unit hex clipping or light rotation. Seven-cell fixtures use decoded pinned ground PNGs first and decoded exported sprite PNGs next, stable world y/x order, ordinary image/draw Over.",
+    "profile": "unit-patrol-boat-v1: six authored square panels row-major N,NW,SW,S,SE,NE; class family lookup CP_patrolBoat and EC_patrolBoat independently selects owner cp/ec/neutral. Source straight RGB V=max(R,G,B); q=max(0,(min(R,B)-G)/max(1,V)); t=clamp((q-.02)/.08); k=t^3*(6*t^2-15*t+10); K=k*V; N_c=(1-k)*source_c+K. Round N/K half up before filtering; alpha-zero clears RGB. Base=(N_R,N_G,N_B,A), tint-energy mask=(K,K,K,A), never binary coverage. Whole-panel pixel-edge affine source anchor=(cell/2,49*cell/96), logical anchor=(48,49), top-left offset=(0,-9), inset=manifest framing_inset or default .8, fixed across the entire atlas. 4x destination=(192,196)+(inset*384/cell)*(source-source_anchor); destination centers map to (d+.5-offset)/scale-.5; offset=(192*(1-inset),196*(1-inset)), default (38.4,39.2). Unchanged compound tap budget \u003c=4,000,000 conservative full-support axis taps, checked before allocation. Transparent zero extension, normalized premultiplied float64 separable antialiased Lanczos3, signed lobes retained, positive raw alpha unpremultiply, half-up clamped RGB/A, zero-alpha clear. Independently whole-alpha-aware Lanczos3 reduce base/mask 384-\u003e192. At each density tint=halfup(clamp(N_c+K*(palette_c/255-1),0,255)), same alpha. Spent after tint is (R,R,R,A). 2x coloured sprites are composed after plane reduction, not claimed identical to downsampled coloured 4x sprites. Default six-world-pixel zero-RGBA guard; explicit framing_inset uses an alpha\u003e=8 guard with unchanged lower-alpha fringe counts, not a strict-zero pass. No threshold/background removal, bounding-box crops, mirrors, rotation, per-frame scaling, unit hex clipping or light rotation. Seven-cell fixtures use decoded pinned ground PNGs first and decoded exported sprite PNGs next, stable world y/x order, ordinary image/draw Over.",
     "scenes": [
       {
         "absolute_line_parity": 0,
@@ -1746,7 +1746,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/neutral/n-normal-2x.png",
-              "sha256": "d4dccc05057c9e96f21c806c8fe949450e46803329e549e5e13be8e2b0756e7e"
+              "sha256": "cbf9a4418131bc02090e4010da90300d251785bcf226b8f5d617bb282817cf21"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1785,7 +1785,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/ne-normal-2x.png",
-              "sha256": "30be681d960e007680a3c03e36843891483a82fc948bff18042416c11ef1aaef"
+              "sha256": "c8bb4dbd3f0e3daae67e0c09ef334ccf9ec5ebcf8fe56edb687cb876a4a23504"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1824,7 +1824,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/se-normal-2x.png",
-              "sha256": "0f8846533f2577aa0162004f1476ebbd178d27d132f02a622ed34b14ba2d722c"
+              "sha256": "e0d4fe50884ea56ffb68f1a52cd710edeb77d93933518168b58473c67edb9b5c"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1863,7 +1863,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/cp/s-normal-2x.png",
-              "sha256": "c3ad4aa17e044f4faa8bc74ac8363955d82917094983d7285d0c0abf716b4d84"
+              "sha256": "bde0ecce4623c57d3d5b02a55932d985b728850fedafbfda26216a32c30d4175"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1902,7 +1902,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/sw-normal-2x.png",
-              "sha256": "5e76038ce93c04c9e282c212aafe8ade4bf3db6536e1f04d46a4a5450d98cf1e"
+              "sha256": "ef79110ff469ef38676b9a6dff3eebaf1bcac88e5f60ca6b8e91488c294c4c51"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1941,7 +1941,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/cp/nw-normal-2x.png",
-              "sha256": "b904c2948fb5dd3eb5d4d11fbbe13e2c0a268ff174319c407d0f01cbb4ebbec5"
+              "sha256": "78c9bc5bd2539e6cf3b3658f8c2dcdd36e6f8c2cfde49e470e41f5d45d138cbb"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1980,7 +1980,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/n-normal-2x.png",
-              "sha256": "91790b7f32b9e474a83db0093d43664404475a5bb97c1aab6cac5e445931a376"
+              "sha256": "ad2a0d0208d7a3f1f1cf5c9c6fab75d759c8187fcac1caaaa1e9d25588a24f3f"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2011,7 +2011,7 @@
             "width": 476
           },
           "path": "scenes/grass-normal-p0-2x.png",
-          "sha256": "94743571d7793da7b3327e4bbe2ceb7fb46714974cb1e1fb530c15606b59687e"
+          "sha256": "50b330dc03891c84ed22b8ad4d963d0eacf1f2c5f9b4016632e5b8b49890cd47"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -2049,7 +2049,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/neutral/n-normal-4x.png",
-              "sha256": "92a2ddafe6691e1b8d89a8f571afe5fe58666e614db89cd670a81bab18577f92"
+              "sha256": "efadf02c60cc8ff9c17c4ae0151c5fc6d7d8fdebc4afbe0cb88d0129f2f13074"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2088,7 +2088,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/ne-normal-4x.png",
-              "sha256": "ff04a9f962cd037c5540205a83c6516d8b9927fd4534719a073a4c4571c3b992"
+              "sha256": "4a28b4aa68014e3e71342d0de6c16ed0b9e1121e4cad6f403327cd7df28d9375"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2127,7 +2127,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/se-normal-4x.png",
-              "sha256": "d8137eba3eaa9bf710811a35527bae6e180d0eb5640d2637e752aeef386621d7"
+              "sha256": "e309059e0de56486d260f42a50efe6a8e520ee51e9e5cde8487191bf2c500dd0"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2166,7 +2166,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/cp/s-normal-4x.png",
-              "sha256": "38d62a6b3d1a9f83190ec23d7f647a4b70139657bffc76f860137a809619daf2"
+              "sha256": "a1f33b78ad0ea4c4c4e409c8fd6e499b67bf0199bf8433626bec13339258a984"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2205,7 +2205,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/sw-normal-4x.png",
-              "sha256": "0ae36631cf80685399e6c73edb986dcbe810fe7308dafb042921dfa47add7936"
+              "sha256": "483d8500274b4ed602f579deb108323c5f7bb103f9c4007db00e2fbc7b48cd4f"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2244,7 +2244,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/cp/nw-normal-4x.png",
-              "sha256": "37f87265975d93a4caff431ceb3473115094688931329e5a8c45edf428a18dfd"
+              "sha256": "0c9f054d8c1d75ca3a477ac2d929b45114f4cc7334d4c13c0ae747edd3dc91d0"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2283,7 +2283,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/n-normal-4x.png",
-              "sha256": "2ddd2d37c6dc129dcc4bd065d3262cfa390ed62b653395f73907887257263f1f"
+              "sha256": "102bf2c9b4ff1f6826b0a1373314ada449badcecf7a5596e5f8287921d7027dd"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2314,7 +2314,7 @@
             "width": 952
           },
           "path": "scenes/grass-normal-p0-4x.png",
-          "sha256": "88874cba6ec1c82bea1320456c7050e4a3d90858e2b0d7c35923fe15b19afb66"
+          "sha256": "2364349fa9e0b92c4e57bababb82045a1e493984f7b5fc0e14f9a135205c4f75"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -2352,7 +2352,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/neutral/n-normal-2x.png",
-              "sha256": "d4dccc05057c9e96f21c806c8fe949450e46803329e549e5e13be8e2b0756e7e"
+              "sha256": "cbf9a4418131bc02090e4010da90300d251785bcf226b8f5d617bb282817cf21"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2391,7 +2391,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/ne-normal-2x.png",
-              "sha256": "30be681d960e007680a3c03e36843891483a82fc948bff18042416c11ef1aaef"
+              "sha256": "c8bb4dbd3f0e3daae67e0c09ef334ccf9ec5ebcf8fe56edb687cb876a4a23504"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2430,7 +2430,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/se-normal-2x.png",
-              "sha256": "0f8846533f2577aa0162004f1476ebbd178d27d132f02a622ed34b14ba2d722c"
+              "sha256": "e0d4fe50884ea56ffb68f1a52cd710edeb77d93933518168b58473c67edb9b5c"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2469,7 +2469,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/cp/s-normal-2x.png",
-              "sha256": "c3ad4aa17e044f4faa8bc74ac8363955d82917094983d7285d0c0abf716b4d84"
+              "sha256": "bde0ecce4623c57d3d5b02a55932d985b728850fedafbfda26216a32c30d4175"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2508,7 +2508,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/sw-normal-2x.png",
-              "sha256": "5e76038ce93c04c9e282c212aafe8ade4bf3db6536e1f04d46a4a5450d98cf1e"
+              "sha256": "ef79110ff469ef38676b9a6dff3eebaf1bcac88e5f60ca6b8e91488c294c4c51"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2547,7 +2547,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/cp/nw-normal-2x.png",
-              "sha256": "b904c2948fb5dd3eb5d4d11fbbe13e2c0a268ff174319c407d0f01cbb4ebbec5"
+              "sha256": "78c9bc5bd2539e6cf3b3658f8c2dcdd36e6f8c2cfde49e470e41f5d45d138cbb"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2586,7 +2586,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/n-normal-2x.png",
-              "sha256": "91790b7f32b9e474a83db0093d43664404475a5bb97c1aab6cac5e445931a376"
+              "sha256": "ad2a0d0208d7a3f1f1cf5c9c6fab75d759c8187fcac1caaaa1e9d25588a24f3f"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2617,7 +2617,7 @@
             "width": 476
           },
           "path": "scenes/grass-normal-p1-2x.png",
-          "sha256": "94743571d7793da7b3327e4bbe2ceb7fb46714974cb1e1fb530c15606b59687e"
+          "sha256": "50b330dc03891c84ed22b8ad4d963d0eacf1f2c5f9b4016632e5b8b49890cd47"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -2655,7 +2655,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/neutral/n-normal-4x.png",
-              "sha256": "92a2ddafe6691e1b8d89a8f571afe5fe58666e614db89cd670a81bab18577f92"
+              "sha256": "efadf02c60cc8ff9c17c4ae0151c5fc6d7d8fdebc4afbe0cb88d0129f2f13074"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2694,7 +2694,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/ne-normal-4x.png",
-              "sha256": "ff04a9f962cd037c5540205a83c6516d8b9927fd4534719a073a4c4571c3b992"
+              "sha256": "4a28b4aa68014e3e71342d0de6c16ed0b9e1121e4cad6f403327cd7df28d9375"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2733,7 +2733,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/se-normal-4x.png",
-              "sha256": "d8137eba3eaa9bf710811a35527bae6e180d0eb5640d2637e752aeef386621d7"
+              "sha256": "e309059e0de56486d260f42a50efe6a8e520ee51e9e5cde8487191bf2c500dd0"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2772,7 +2772,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/cp/s-normal-4x.png",
-              "sha256": "38d62a6b3d1a9f83190ec23d7f647a4b70139657bffc76f860137a809619daf2"
+              "sha256": "a1f33b78ad0ea4c4c4e409c8fd6e499b67bf0199bf8433626bec13339258a984"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2811,7 +2811,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/sw-normal-4x.png",
-              "sha256": "0ae36631cf80685399e6c73edb986dcbe810fe7308dafb042921dfa47add7936"
+              "sha256": "483d8500274b4ed602f579deb108323c5f7bb103f9c4007db00e2fbc7b48cd4f"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2850,7 +2850,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/cp/nw-normal-4x.png",
-              "sha256": "37f87265975d93a4caff431ceb3473115094688931329e5a8c45edf428a18dfd"
+              "sha256": "0c9f054d8c1d75ca3a477ac2d929b45114f4cc7334d4c13c0ae747edd3dc91d0"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2889,7 +2889,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/n-normal-4x.png",
-              "sha256": "2ddd2d37c6dc129dcc4bd065d3262cfa390ed62b653395f73907887257263f1f"
+              "sha256": "102bf2c9b4ff1f6826b0a1373314ada449badcecf7a5596e5f8287921d7027dd"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2920,7 +2920,7 @@
             "width": 952
           },
           "path": "scenes/grass-normal-p1-4x.png",
-          "sha256": "88874cba6ec1c82bea1320456c7050e4a3d90858e2b0d7c35923fe15b19afb66"
+          "sha256": "2364349fa9e0b92c4e57bababb82045a1e493984f7b5fc0e14f9a135205c4f75"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -2958,7 +2958,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/neutral/n-spent-2x.png",
-              "sha256": "8d91ad2f4158e5d6d37a861fe328d16d57eb8abfab0a4ea80d9d99d0e13b2baa"
+              "sha256": "634b5d74b7f5785a0956c3e08dbf35da406af57847a481d21ba8e5f7870f10c5"
             },
             "state": "spent",
             "terrain": "grass",
@@ -2997,7 +2997,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/ne-spent-2x.png",
-              "sha256": "d38221034b1f946d7738308b4422ecea0fdf3e8e29a0de6793abdaee4180f605"
+              "sha256": "caf18e996adeb2f1d109328fcf9cd81019c5874c53989012f203cf0936347903"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3036,7 +3036,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/se-spent-2x.png",
-              "sha256": "533ef0084be19ecd8dd11cb804a12db509df270da3461f76c94949906d6fec4e"
+              "sha256": "ee380f3b2aee3433dc36317bc87c78a0b34f889e21e0350ac50d5c3bc2152efc"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3075,7 +3075,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/cp/s-spent-2x.png",
-              "sha256": "5b4494261bdd8269db334ba6cfd07f9205330d0186a0bcc5802f15a17149e1ee"
+              "sha256": "ae95b29d3e67d42c16cd345b5a788ff8c4abd8f72a5216584db2a1506cf165e6"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3114,7 +3114,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/sw-spent-2x.png",
-              "sha256": "119174dc93c8c11bdf72ee5ef2f369a0e6f17143d1d7a922ef5723d9e9f1923f"
+              "sha256": "1ebba9c99a71aef12e0fa41cbbd3070155d5d85458285a04eeebd8b1a08e696c"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3153,7 +3153,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/cp/nw-spent-2x.png",
-              "sha256": "67d7b7daa9b4a79550f50659f5d4084f0d26830b0a4f2dbec38f9e9c93b19613"
+              "sha256": "1644b0d304a8109f902ceadae30c3907d7586ca7efe0e336a7a6f1fd8f2956fe"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3192,7 +3192,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/n-spent-2x.png",
-              "sha256": "72d24a19eaf31b759dd88d28021bfd36ef0d4ddc23987a1bc982f222156c4906"
+              "sha256": "2a3af8b501bd32a4adfd9ea0e36455a5ccc86a22bba09c2e63903f50557fd599"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3223,7 +3223,7 @@
             "width": 476
           },
           "path": "scenes/grass-spent-p0-2x.png",
-          "sha256": "fc24642ca63e4298f7dc89d375316ff4a67d181a99397af9f1152cd705d8cbf3"
+          "sha256": "ad747857f5658518ac9c5455c28b1478fc65ec0b67c1b2fe115765cfc6943f36"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -3261,7 +3261,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/neutral/n-spent-4x.png",
-              "sha256": "29d9921558e2a4c82cc0002e4637392cc1c9c9412de5ca2e4055f0b720f6dcd0"
+              "sha256": "d6e532a1b234a38e027122828200d49effdea6bc26ade0c58b0de26bd9449f41"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3300,7 +3300,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/ne-spent-4x.png",
-              "sha256": "067acbb7d651b62b4a68addd51cec7c52ae346318682191866f7c3f9b85b3d05"
+              "sha256": "085fb00e1908278e00d2a7cdeb609a2e50fbcb3135ce995177462ee6a65ada6d"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3339,7 +3339,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/se-spent-4x.png",
-              "sha256": "90b99e01b756b5ab6dd34c27ab912c5191aeb88a31a67d71645d42402468e011"
+              "sha256": "c313c81bb5b8659c4d1edf91131f800ab26c7e9f7d790c8e59c9f897d8ddbdcd"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3378,7 +3378,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/cp/s-spent-4x.png",
-              "sha256": "89a647b5daae365787d0a3c19acc68006c1d1a67e5c3da077bcaf8b8de1fbc74"
+              "sha256": "8a1a512f5d157249416ba1005d9e3bd973cc4ac617b65bdc557111d1a6faec01"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3417,7 +3417,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/sw-spent-4x.png",
-              "sha256": "0c3c1bb996cc8d3df6e1f861b7fe192c7a9011d744e5587ea1ccb46f1bd745e0"
+              "sha256": "bb7cf6b280d5170b8fbed08878f3aa4757aa6e4db128f553baf459db7552e396"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3456,7 +3456,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/cp/nw-spent-4x.png",
-              "sha256": "5097a5756dbd9f7232d5cbd97b6e7979c15efabf160fbfcefeb4b8fc50e11bc1"
+              "sha256": "6e2c3478c9f5777096bf63fcc47109c116a61bacc94f712d1e9e450ee423360a"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3495,7 +3495,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/n-spent-4x.png",
-              "sha256": "911a77668d36cf49896ee11e4e36366ec68295d7622676b74f37712191ac122d"
+              "sha256": "58e38bb75a85c3e08a715ccdad6880f9244bdd2edeb2a30e21cf51b49bb6b2d6"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3526,7 +3526,7 @@
             "width": 952
           },
           "path": "scenes/grass-spent-p0-4x.png",
-          "sha256": "c098ce5624c4dec015ac0cb00dd3e1aee696cbbd1de1ce7816328fbe9aab0d01"
+          "sha256": "a05b96b607ada032dc1f5f20b0c483b5e98dbaf825875bd6fcd3f00616df6049"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -3564,7 +3564,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/neutral/n-spent-2x.png",
-              "sha256": "8d91ad2f4158e5d6d37a861fe328d16d57eb8abfab0a4ea80d9d99d0e13b2baa"
+              "sha256": "634b5d74b7f5785a0956c3e08dbf35da406af57847a481d21ba8e5f7870f10c5"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3603,7 +3603,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/ne-spent-2x.png",
-              "sha256": "d38221034b1f946d7738308b4422ecea0fdf3e8e29a0de6793abdaee4180f605"
+              "sha256": "caf18e996adeb2f1d109328fcf9cd81019c5874c53989012f203cf0936347903"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3642,7 +3642,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/se-spent-2x.png",
-              "sha256": "533ef0084be19ecd8dd11cb804a12db509df270da3461f76c94949906d6fec4e"
+              "sha256": "ee380f3b2aee3433dc36317bc87c78a0b34f889e21e0350ac50d5c3bc2152efc"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3681,7 +3681,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/cp/s-spent-2x.png",
-              "sha256": "5b4494261bdd8269db334ba6cfd07f9205330d0186a0bcc5802f15a17149e1ee"
+              "sha256": "ae95b29d3e67d42c16cd345b5a788ff8c4abd8f72a5216584db2a1506cf165e6"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3720,7 +3720,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/sw-spent-2x.png",
-              "sha256": "119174dc93c8c11bdf72ee5ef2f369a0e6f17143d1d7a922ef5723d9e9f1923f"
+              "sha256": "1ebba9c99a71aef12e0fa41cbbd3070155d5d85458285a04eeebd8b1a08e696c"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3759,7 +3759,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/cp/nw-spent-2x.png",
-              "sha256": "67d7b7daa9b4a79550f50659f5d4084f0d26830b0a4f2dbec38f9e9c93b19613"
+              "sha256": "1644b0d304a8109f902ceadae30c3907d7586ca7efe0e336a7a6f1fd8f2956fe"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3798,7 +3798,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/n-spent-2x.png",
-              "sha256": "72d24a19eaf31b759dd88d28021bfd36ef0d4ddc23987a1bc982f222156c4906"
+              "sha256": "2a3af8b501bd32a4adfd9ea0e36455a5ccc86a22bba09c2e63903f50557fd599"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3829,7 +3829,7 @@
             "width": 476
           },
           "path": "scenes/grass-spent-p1-2x.png",
-          "sha256": "fc24642ca63e4298f7dc89d375316ff4a67d181a99397af9f1152cd705d8cbf3"
+          "sha256": "ad747857f5658518ac9c5455c28b1478fc65ec0b67c1b2fe115765cfc6943f36"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -3867,7 +3867,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/neutral/n-spent-4x.png",
-              "sha256": "29d9921558e2a4c82cc0002e4637392cc1c9c9412de5ca2e4055f0b720f6dcd0"
+              "sha256": "d6e532a1b234a38e027122828200d49effdea6bc26ade0c58b0de26bd9449f41"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3906,7 +3906,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/ne-spent-4x.png",
-              "sha256": "067acbb7d651b62b4a68addd51cec7c52ae346318682191866f7c3f9b85b3d05"
+              "sha256": "085fb00e1908278e00d2a7cdeb609a2e50fbcb3135ce995177462ee6a65ada6d"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3945,7 +3945,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/se-spent-4x.png",
-              "sha256": "90b99e01b756b5ab6dd34c27ab912c5191aeb88a31a67d71645d42402468e011"
+              "sha256": "c313c81bb5b8659c4d1edf91131f800ab26c7e9f7d790c8e59c9f897d8ddbdcd"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3984,7 +3984,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/cp/s-spent-4x.png",
-              "sha256": "89a647b5daae365787d0a3c19acc68006c1d1a67e5c3da077bcaf8b8de1fbc74"
+              "sha256": "8a1a512f5d157249416ba1005d9e3bd973cc4ac617b65bdc557111d1a6faec01"
             },
             "state": "spent",
             "terrain": "grass",
@@ -4023,7 +4023,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/sw-spent-4x.png",
-              "sha256": "0c3c1bb996cc8d3df6e1f861b7fe192c7a9011d744e5587ea1ccb46f1bd745e0"
+              "sha256": "bb7cf6b280d5170b8fbed08878f3aa4757aa6e4db128f553baf459db7552e396"
             },
             "state": "spent",
             "terrain": "grass",
@@ -4062,7 +4062,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/cp/nw-spent-4x.png",
-              "sha256": "5097a5756dbd9f7232d5cbd97b6e7979c15efabf160fbfcefeb4b8fc50e11bc1"
+              "sha256": "6e2c3478c9f5777096bf63fcc47109c116a61bacc94f712d1e9e450ee423360a"
             },
             "state": "spent",
             "terrain": "grass",
@@ -4101,7 +4101,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/n-spent-4x.png",
-              "sha256": "911a77668d36cf49896ee11e4e36366ec68295d7622676b74f37712191ac122d"
+              "sha256": "58e38bb75a85c3e08a715ccdad6880f9244bdd2edeb2a30e21cf51b49bb6b2d6"
             },
             "state": "spent",
             "terrain": "grass",
@@ -4132,7 +4132,7 @@
             "width": 952
           },
           "path": "scenes/grass-spent-p1-4x.png",
-          "sha256": "c098ce5624c4dec015ac0cb00dd3e1aee696cbbd1de1ce7816328fbe9aab0d01"
+          "sha256": "a05b96b607ada032dc1f5f20b0c483b5e98dbaf825875bd6fcd3f00616df6049"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -4170,7 +4170,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/neutral/n-normal-2x.png",
-              "sha256": "d4dccc05057c9e96f21c806c8fe949450e46803329e549e5e13be8e2b0756e7e"
+              "sha256": "cbf9a4418131bc02090e4010da90300d251785bcf226b8f5d617bb282817cf21"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4209,7 +4209,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/ne-normal-2x.png",
-              "sha256": "30be681d960e007680a3c03e36843891483a82fc948bff18042416c11ef1aaef"
+              "sha256": "c8bb4dbd3f0e3daae67e0c09ef334ccf9ec5ebcf8fe56edb687cb876a4a23504"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4248,7 +4248,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/se-normal-2x.png",
-              "sha256": "0f8846533f2577aa0162004f1476ebbd178d27d132f02a622ed34b14ba2d722c"
+              "sha256": "e0d4fe50884ea56ffb68f1a52cd710edeb77d93933518168b58473c67edb9b5c"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4287,7 +4287,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/cp/s-normal-2x.png",
-              "sha256": "c3ad4aa17e044f4faa8bc74ac8363955d82917094983d7285d0c0abf716b4d84"
+              "sha256": "bde0ecce4623c57d3d5b02a55932d985b728850fedafbfda26216a32c30d4175"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4326,7 +4326,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/sw-normal-2x.png",
-              "sha256": "5e76038ce93c04c9e282c212aafe8ade4bf3db6536e1f04d46a4a5450d98cf1e"
+              "sha256": "ef79110ff469ef38676b9a6dff3eebaf1bcac88e5f60ca6b8e91488c294c4c51"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4365,7 +4365,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/cp/nw-normal-2x.png",
-              "sha256": "b904c2948fb5dd3eb5d4d11fbbe13e2c0a268ff174319c407d0f01cbb4ebbec5"
+              "sha256": "78c9bc5bd2539e6cf3b3658f8c2dcdd36e6f8c2cfde49e470e41f5d45d138cbb"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4404,7 +4404,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/n-normal-2x.png",
-              "sha256": "91790b7f32b9e474a83db0093d43664404475a5bb97c1aab6cac5e445931a376"
+              "sha256": "ad2a0d0208d7a3f1f1cf5c9c6fab75d759c8187fcac1caaaa1e9d25588a24f3f"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4435,7 +4435,7 @@
             "width": 476
           },
           "path": "scenes/grass_w-normal-p0-2x.png",
-          "sha256": "f43dec66b8834a7f7b91c38784b9f7ecaa7257a6b26f593c846ea0ddf8ae9cd2"
+          "sha256": "ee270b21482dc1837cf3ab0c44e23c2b6f249bda2bcd41e2609467c2d9ea09fd"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -4473,7 +4473,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/neutral/n-normal-4x.png",
-              "sha256": "92a2ddafe6691e1b8d89a8f571afe5fe58666e614db89cd670a81bab18577f92"
+              "sha256": "efadf02c60cc8ff9c17c4ae0151c5fc6d7d8fdebc4afbe0cb88d0129f2f13074"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4512,7 +4512,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/ne-normal-4x.png",
-              "sha256": "ff04a9f962cd037c5540205a83c6516d8b9927fd4534719a073a4c4571c3b992"
+              "sha256": "4a28b4aa68014e3e71342d0de6c16ed0b9e1121e4cad6f403327cd7df28d9375"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4551,7 +4551,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/se-normal-4x.png",
-              "sha256": "d8137eba3eaa9bf710811a35527bae6e180d0eb5640d2637e752aeef386621d7"
+              "sha256": "e309059e0de56486d260f42a50efe6a8e520ee51e9e5cde8487191bf2c500dd0"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4590,7 +4590,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/cp/s-normal-4x.png",
-              "sha256": "38d62a6b3d1a9f83190ec23d7f647a4b70139657bffc76f860137a809619daf2"
+              "sha256": "a1f33b78ad0ea4c4c4e409c8fd6e499b67bf0199bf8433626bec13339258a984"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4629,7 +4629,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/sw-normal-4x.png",
-              "sha256": "0ae36631cf80685399e6c73edb986dcbe810fe7308dafb042921dfa47add7936"
+              "sha256": "483d8500274b4ed602f579deb108323c5f7bb103f9c4007db00e2fbc7b48cd4f"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4668,7 +4668,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/cp/nw-normal-4x.png",
-              "sha256": "37f87265975d93a4caff431ceb3473115094688931329e5a8c45edf428a18dfd"
+              "sha256": "0c9f054d8c1d75ca3a477ac2d929b45114f4cc7334d4c13c0ae747edd3dc91d0"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4707,7 +4707,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/n-normal-4x.png",
-              "sha256": "2ddd2d37c6dc129dcc4bd065d3262cfa390ed62b653395f73907887257263f1f"
+              "sha256": "102bf2c9b4ff1f6826b0a1373314ada449badcecf7a5596e5f8287921d7027dd"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4738,7 +4738,7 @@
             "width": 952
           },
           "path": "scenes/grass_w-normal-p0-4x.png",
-          "sha256": "d0bd649ab842fdd3e42afb6aff5316432a1e0ea88438dd4e89d7f26c41f48d1a"
+          "sha256": "a831e4491f0c5440ac361e3aa915c0ddca9b9822c40f414f2f8a3f3843be2e6f"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -4776,7 +4776,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/neutral/n-normal-2x.png",
-              "sha256": "d4dccc05057c9e96f21c806c8fe949450e46803329e549e5e13be8e2b0756e7e"
+              "sha256": "cbf9a4418131bc02090e4010da90300d251785bcf226b8f5d617bb282817cf21"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4815,7 +4815,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/ne-normal-2x.png",
-              "sha256": "30be681d960e007680a3c03e36843891483a82fc948bff18042416c11ef1aaef"
+              "sha256": "c8bb4dbd3f0e3daae67e0c09ef334ccf9ec5ebcf8fe56edb687cb876a4a23504"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4854,7 +4854,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/se-normal-2x.png",
-              "sha256": "0f8846533f2577aa0162004f1476ebbd178d27d132f02a622ed34b14ba2d722c"
+              "sha256": "e0d4fe50884ea56ffb68f1a52cd710edeb77d93933518168b58473c67edb9b5c"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4893,7 +4893,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/cp/s-normal-2x.png",
-              "sha256": "c3ad4aa17e044f4faa8bc74ac8363955d82917094983d7285d0c0abf716b4d84"
+              "sha256": "bde0ecce4623c57d3d5b02a55932d985b728850fedafbfda26216a32c30d4175"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4932,7 +4932,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/sw-normal-2x.png",
-              "sha256": "5e76038ce93c04c9e282c212aafe8ade4bf3db6536e1f04d46a4a5450d98cf1e"
+              "sha256": "ef79110ff469ef38676b9a6dff3eebaf1bcac88e5f60ca6b8e91488c294c4c51"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4971,7 +4971,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/cp/nw-normal-2x.png",
-              "sha256": "b904c2948fb5dd3eb5d4d11fbbe13e2c0a268ff174319c407d0f01cbb4ebbec5"
+              "sha256": "78c9bc5bd2539e6cf3b3658f8c2dcdd36e6f8c2cfde49e470e41f5d45d138cbb"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5010,7 +5010,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/n-normal-2x.png",
-              "sha256": "91790b7f32b9e474a83db0093d43664404475a5bb97c1aab6cac5e445931a376"
+              "sha256": "ad2a0d0208d7a3f1f1cf5c9c6fab75d759c8187fcac1caaaa1e9d25588a24f3f"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5041,7 +5041,7 @@
             "width": 476
           },
           "path": "scenes/grass_w-normal-p1-2x.png",
-          "sha256": "f43dec66b8834a7f7b91c38784b9f7ecaa7257a6b26f593c846ea0ddf8ae9cd2"
+          "sha256": "ee270b21482dc1837cf3ab0c44e23c2b6f249bda2bcd41e2609467c2d9ea09fd"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -5079,7 +5079,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/neutral/n-normal-4x.png",
-              "sha256": "92a2ddafe6691e1b8d89a8f571afe5fe58666e614db89cd670a81bab18577f92"
+              "sha256": "efadf02c60cc8ff9c17c4ae0151c5fc6d7d8fdebc4afbe0cb88d0129f2f13074"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5118,7 +5118,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/ne-normal-4x.png",
-              "sha256": "ff04a9f962cd037c5540205a83c6516d8b9927fd4534719a073a4c4571c3b992"
+              "sha256": "4a28b4aa68014e3e71342d0de6c16ed0b9e1121e4cad6f403327cd7df28d9375"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5157,7 +5157,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/se-normal-4x.png",
-              "sha256": "d8137eba3eaa9bf710811a35527bae6e180d0eb5640d2637e752aeef386621d7"
+              "sha256": "e309059e0de56486d260f42a50efe6a8e520ee51e9e5cde8487191bf2c500dd0"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5196,7 +5196,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/cp/s-normal-4x.png",
-              "sha256": "38d62a6b3d1a9f83190ec23d7f647a4b70139657bffc76f860137a809619daf2"
+              "sha256": "a1f33b78ad0ea4c4c4e409c8fd6e499b67bf0199bf8433626bec13339258a984"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5235,7 +5235,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/sw-normal-4x.png",
-              "sha256": "0ae36631cf80685399e6c73edb986dcbe810fe7308dafb042921dfa47add7936"
+              "sha256": "483d8500274b4ed602f579deb108323c5f7bb103f9c4007db00e2fbc7b48cd4f"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5274,7 +5274,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/cp/nw-normal-4x.png",
-              "sha256": "37f87265975d93a4caff431ceb3473115094688931329e5a8c45edf428a18dfd"
+              "sha256": "0c9f054d8c1d75ca3a477ac2d929b45114f4cc7334d4c13c0ae747edd3dc91d0"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5313,7 +5313,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/n-normal-4x.png",
-              "sha256": "2ddd2d37c6dc129dcc4bd065d3262cfa390ed62b653395f73907887257263f1f"
+              "sha256": "102bf2c9b4ff1f6826b0a1373314ada449badcecf7a5596e5f8287921d7027dd"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5344,7 +5344,7 @@
             "width": 952
           },
           "path": "scenes/grass_w-normal-p1-4x.png",
-          "sha256": "d0bd649ab842fdd3e42afb6aff5316432a1e0ea88438dd4e89d7f26c41f48d1a"
+          "sha256": "a831e4491f0c5440ac361e3aa915c0ddca9b9822c40f414f2f8a3f3843be2e6f"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -5382,7 +5382,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/neutral/n-spent-2x.png",
-              "sha256": "8d91ad2f4158e5d6d37a861fe328d16d57eb8abfab0a4ea80d9d99d0e13b2baa"
+              "sha256": "634b5d74b7f5785a0956c3e08dbf35da406af57847a481d21ba8e5f7870f10c5"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5421,7 +5421,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/ne-spent-2x.png",
-              "sha256": "d38221034b1f946d7738308b4422ecea0fdf3e8e29a0de6793abdaee4180f605"
+              "sha256": "caf18e996adeb2f1d109328fcf9cd81019c5874c53989012f203cf0936347903"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5460,7 +5460,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/se-spent-2x.png",
-              "sha256": "533ef0084be19ecd8dd11cb804a12db509df270da3461f76c94949906d6fec4e"
+              "sha256": "ee380f3b2aee3433dc36317bc87c78a0b34f889e21e0350ac50d5c3bc2152efc"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5499,7 +5499,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/cp/s-spent-2x.png",
-              "sha256": "5b4494261bdd8269db334ba6cfd07f9205330d0186a0bcc5802f15a17149e1ee"
+              "sha256": "ae95b29d3e67d42c16cd345b5a788ff8c4abd8f72a5216584db2a1506cf165e6"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5538,7 +5538,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/sw-spent-2x.png",
-              "sha256": "119174dc93c8c11bdf72ee5ef2f369a0e6f17143d1d7a922ef5723d9e9f1923f"
+              "sha256": "1ebba9c99a71aef12e0fa41cbbd3070155d5d85458285a04eeebd8b1a08e696c"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5577,7 +5577,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/cp/nw-spent-2x.png",
-              "sha256": "67d7b7daa9b4a79550f50659f5d4084f0d26830b0a4f2dbec38f9e9c93b19613"
+              "sha256": "1644b0d304a8109f902ceadae30c3907d7586ca7efe0e336a7a6f1fd8f2956fe"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5616,7 +5616,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/n-spent-2x.png",
-              "sha256": "72d24a19eaf31b759dd88d28021bfd36ef0d4ddc23987a1bc982f222156c4906"
+              "sha256": "2a3af8b501bd32a4adfd9ea0e36455a5ccc86a22bba09c2e63903f50557fd599"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5647,7 +5647,7 @@
             "width": 476
           },
           "path": "scenes/grass_w-spent-p0-2x.png",
-          "sha256": "a053c2518e9eff41a7739d53f3cce05a7f3edeb69d1bd2bdac4bc8619eee6a72"
+          "sha256": "eec2319ea41ec6cc0e343335f96fd149f714a1165400c855267a91c808aa902f"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -5685,7 +5685,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/neutral/n-spent-4x.png",
-              "sha256": "29d9921558e2a4c82cc0002e4637392cc1c9c9412de5ca2e4055f0b720f6dcd0"
+              "sha256": "d6e532a1b234a38e027122828200d49effdea6bc26ade0c58b0de26bd9449f41"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5724,7 +5724,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/ne-spent-4x.png",
-              "sha256": "067acbb7d651b62b4a68addd51cec7c52ae346318682191866f7c3f9b85b3d05"
+              "sha256": "085fb00e1908278e00d2a7cdeb609a2e50fbcb3135ce995177462ee6a65ada6d"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5763,7 +5763,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/se-spent-4x.png",
-              "sha256": "90b99e01b756b5ab6dd34c27ab912c5191aeb88a31a67d71645d42402468e011"
+              "sha256": "c313c81bb5b8659c4d1edf91131f800ab26c7e9f7d790c8e59c9f897d8ddbdcd"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5802,7 +5802,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/cp/s-spent-4x.png",
-              "sha256": "89a647b5daae365787d0a3c19acc68006c1d1a67e5c3da077bcaf8b8de1fbc74"
+              "sha256": "8a1a512f5d157249416ba1005d9e3bd973cc4ac617b65bdc557111d1a6faec01"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5841,7 +5841,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/sw-spent-4x.png",
-              "sha256": "0c3c1bb996cc8d3df6e1f861b7fe192c7a9011d744e5587ea1ccb46f1bd745e0"
+              "sha256": "bb7cf6b280d5170b8fbed08878f3aa4757aa6e4db128f553baf459db7552e396"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5880,7 +5880,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/cp/nw-spent-4x.png",
-              "sha256": "5097a5756dbd9f7232d5cbd97b6e7979c15efabf160fbfcefeb4b8fc50e11bc1"
+              "sha256": "6e2c3478c9f5777096bf63fcc47109c116a61bacc94f712d1e9e450ee423360a"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5919,7 +5919,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/n-spent-4x.png",
-              "sha256": "911a77668d36cf49896ee11e4e36366ec68295d7622676b74f37712191ac122d"
+              "sha256": "58e38bb75a85c3e08a715ccdad6880f9244bdd2edeb2a30e21cf51b49bb6b2d6"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5950,7 +5950,7 @@
             "width": 952
           },
           "path": "scenes/grass_w-spent-p0-4x.png",
-          "sha256": "c5bca08c3e787ab872891a72f7e2a79dd1c69e5300909617cea322fbe604feb0"
+          "sha256": "7e2c35ecd2aee966ba37fbf8439986812e78bc67cc02032db295b581fc360414"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -5988,7 +5988,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/neutral/n-spent-2x.png",
-              "sha256": "8d91ad2f4158e5d6d37a861fe328d16d57eb8abfab0a4ea80d9d99d0e13b2baa"
+              "sha256": "634b5d74b7f5785a0956c3e08dbf35da406af57847a481d21ba8e5f7870f10c5"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6027,7 +6027,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/ne-spent-2x.png",
-              "sha256": "d38221034b1f946d7738308b4422ecea0fdf3e8e29a0de6793abdaee4180f605"
+              "sha256": "caf18e996adeb2f1d109328fcf9cd81019c5874c53989012f203cf0936347903"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6066,7 +6066,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/se-spent-2x.png",
-              "sha256": "533ef0084be19ecd8dd11cb804a12db509df270da3461f76c94949906d6fec4e"
+              "sha256": "ee380f3b2aee3433dc36317bc87c78a0b34f889e21e0350ac50d5c3bc2152efc"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6105,7 +6105,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/cp/s-spent-2x.png",
-              "sha256": "5b4494261bdd8269db334ba6cfd07f9205330d0186a0bcc5802f15a17149e1ee"
+              "sha256": "ae95b29d3e67d42c16cd345b5a788ff8c4abd8f72a5216584db2a1506cf165e6"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6144,7 +6144,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/sw-spent-2x.png",
-              "sha256": "119174dc93c8c11bdf72ee5ef2f369a0e6f17143d1d7a922ef5723d9e9f1923f"
+              "sha256": "1ebba9c99a71aef12e0fa41cbbd3070155d5d85458285a04eeebd8b1a08e696c"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6183,7 +6183,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/cp/nw-spent-2x.png",
-              "sha256": "67d7b7daa9b4a79550f50659f5d4084f0d26830b0a4f2dbec38f9e9c93b19613"
+              "sha256": "1644b0d304a8109f902ceadae30c3907d7586ca7efe0e336a7a6f1fd8f2956fe"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6222,7 +6222,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/n-spent-2x.png",
-              "sha256": "72d24a19eaf31b759dd88d28021bfd36ef0d4ddc23987a1bc982f222156c4906"
+              "sha256": "2a3af8b501bd32a4adfd9ea0e36455a5ccc86a22bba09c2e63903f50557fd599"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6253,7 +6253,7 @@
             "width": 476
           },
           "path": "scenes/grass_w-spent-p1-2x.png",
-          "sha256": "a053c2518e9eff41a7739d53f3cce05a7f3edeb69d1bd2bdac4bc8619eee6a72"
+          "sha256": "eec2319ea41ec6cc0e343335f96fd149f714a1165400c855267a91c808aa902f"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -6291,7 +6291,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/neutral/n-spent-4x.png",
-              "sha256": "29d9921558e2a4c82cc0002e4637392cc1c9c9412de5ca2e4055f0b720f6dcd0"
+              "sha256": "d6e532a1b234a38e027122828200d49effdea6bc26ade0c58b0de26bd9449f41"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6330,7 +6330,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/ne-spent-4x.png",
-              "sha256": "067acbb7d651b62b4a68addd51cec7c52ae346318682191866f7c3f9b85b3d05"
+              "sha256": "085fb00e1908278e00d2a7cdeb609a2e50fbcb3135ce995177462ee6a65ada6d"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6369,7 +6369,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/se-spent-4x.png",
-              "sha256": "90b99e01b756b5ab6dd34c27ab912c5191aeb88a31a67d71645d42402468e011"
+              "sha256": "c313c81bb5b8659c4d1edf91131f800ab26c7e9f7d790c8e59c9f897d8ddbdcd"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6408,7 +6408,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/cp/s-spent-4x.png",
-              "sha256": "89a647b5daae365787d0a3c19acc68006c1d1a67e5c3da077bcaf8b8de1fbc74"
+              "sha256": "8a1a512f5d157249416ba1005d9e3bd973cc4ac617b65bdc557111d1a6faec01"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6447,7 +6447,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/sw-spent-4x.png",
-              "sha256": "0c3c1bb996cc8d3df6e1f861b7fe192c7a9011d744e5587ea1ccb46f1bd745e0"
+              "sha256": "bb7cf6b280d5170b8fbed08878f3aa4757aa6e4db128f553baf459db7552e396"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6486,7 +6486,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/cp/nw-spent-4x.png",
-              "sha256": "5097a5756dbd9f7232d5cbd97b6e7979c15efabf160fbfcefeb4b8fc50e11bc1"
+              "sha256": "6e2c3478c9f5777096bf63fcc47109c116a61bacc94f712d1e9e450ee423360a"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6525,7 +6525,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/n-spent-4x.png",
-              "sha256": "911a77668d36cf49896ee11e4e36366ec68295d7622676b74f37712191ac122d"
+              "sha256": "58e38bb75a85c3e08a715ccdad6880f9244bdd2edeb2a30e21cf51b49bb6b2d6"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6556,7 +6556,7 @@
             "width": 952
           },
           "path": "scenes/grass_w-spent-p1-4x.png",
-          "sha256": "c5bca08c3e787ab872891a72f7e2a79dd1c69e5300909617cea322fbe604feb0"
+          "sha256": "7e2c35ecd2aee966ba37fbf8439986812e78bc67cc02032db295b581fc360414"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -6594,7 +6594,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/neutral/n-normal-2x.png",
-              "sha256": "d4dccc05057c9e96f21c806c8fe949450e46803329e549e5e13be8e2b0756e7e"
+              "sha256": "cbf9a4418131bc02090e4010da90300d251785bcf226b8f5d617bb282817cf21"
             },
             "state": "normal",
             "terrain": "mud",
@@ -6633,7 +6633,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/ne-normal-2x.png",
-              "sha256": "30be681d960e007680a3c03e36843891483a82fc948bff18042416c11ef1aaef"
+              "sha256": "c8bb4dbd3f0e3daae67e0c09ef334ccf9ec5ebcf8fe56edb687cb876a4a23504"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6672,7 +6672,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/se-normal-2x.png",
-              "sha256": "0f8846533f2577aa0162004f1476ebbd178d27d132f02a622ed34b14ba2d722c"
+              "sha256": "e0d4fe50884ea56ffb68f1a52cd710edeb77d93933518168b58473c67edb9b5c"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6711,7 +6711,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/cp/s-normal-2x.png",
-              "sha256": "c3ad4aa17e044f4faa8bc74ac8363955d82917094983d7285d0c0abf716b4d84"
+              "sha256": "bde0ecce4623c57d3d5b02a55932d985b728850fedafbfda26216a32c30d4175"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6750,7 +6750,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/sw-normal-2x.png",
-              "sha256": "5e76038ce93c04c9e282c212aafe8ade4bf3db6536e1f04d46a4a5450d98cf1e"
+              "sha256": "ef79110ff469ef38676b9a6dff3eebaf1bcac88e5f60ca6b8e91488c294c4c51"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6789,7 +6789,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/cp/nw-normal-2x.png",
-              "sha256": "b904c2948fb5dd3eb5d4d11fbbe13e2c0a268ff174319c407d0f01cbb4ebbec5"
+              "sha256": "78c9bc5bd2539e6cf3b3658f8c2dcdd36e6f8c2cfde49e470e41f5d45d138cbb"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6828,7 +6828,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/n-normal-2x.png",
-              "sha256": "91790b7f32b9e474a83db0093d43664404475a5bb97c1aab6cac5e445931a376"
+              "sha256": "ad2a0d0208d7a3f1f1cf5c9c6fab75d759c8187fcac1caaaa1e9d25588a24f3f"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6859,7 +6859,7 @@
             "width": 476
           },
           "path": "scenes/mud-normal-p0-2x.png",
-          "sha256": "93497af99b6ec268bb0acc3434d7d414e38d5ce6c9ae5724a39ccce8f1388f20"
+          "sha256": "11f49363012d6c3df2e651315498aa6a69805e59aca02d82aa2c4b45ffcb8fb9"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -6897,7 +6897,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/neutral/n-normal-4x.png",
-              "sha256": "92a2ddafe6691e1b8d89a8f571afe5fe58666e614db89cd670a81bab18577f92"
+              "sha256": "efadf02c60cc8ff9c17c4ae0151c5fc6d7d8fdebc4afbe0cb88d0129f2f13074"
             },
             "state": "normal",
             "terrain": "mud",
@@ -6936,7 +6936,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/ne-normal-4x.png",
-              "sha256": "ff04a9f962cd037c5540205a83c6516d8b9927fd4534719a073a4c4571c3b992"
+              "sha256": "4a28b4aa68014e3e71342d0de6c16ed0b9e1121e4cad6f403327cd7df28d9375"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6975,7 +6975,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/se-normal-4x.png",
-              "sha256": "d8137eba3eaa9bf710811a35527bae6e180d0eb5640d2637e752aeef386621d7"
+              "sha256": "e309059e0de56486d260f42a50efe6a8e520ee51e9e5cde8487191bf2c500dd0"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7014,7 +7014,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/cp/s-normal-4x.png",
-              "sha256": "38d62a6b3d1a9f83190ec23d7f647a4b70139657bffc76f860137a809619daf2"
+              "sha256": "a1f33b78ad0ea4c4c4e409c8fd6e499b67bf0199bf8433626bec13339258a984"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7053,7 +7053,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/sw-normal-4x.png",
-              "sha256": "0ae36631cf80685399e6c73edb986dcbe810fe7308dafb042921dfa47add7936"
+              "sha256": "483d8500274b4ed602f579deb108323c5f7bb103f9c4007db00e2fbc7b48cd4f"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7092,7 +7092,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/cp/nw-normal-4x.png",
-              "sha256": "37f87265975d93a4caff431ceb3473115094688931329e5a8c45edf428a18dfd"
+              "sha256": "0c9f054d8c1d75ca3a477ac2d929b45114f4cc7334d4c13c0ae747edd3dc91d0"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7131,7 +7131,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/n-normal-4x.png",
-              "sha256": "2ddd2d37c6dc129dcc4bd065d3262cfa390ed62b653395f73907887257263f1f"
+              "sha256": "102bf2c9b4ff1f6826b0a1373314ada449badcecf7a5596e5f8287921d7027dd"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7162,7 +7162,7 @@
             "width": 952
           },
           "path": "scenes/mud-normal-p0-4x.png",
-          "sha256": "1e79e253c0dd8917dbd5a44a58adc5eb5f81145a6343c4ebc7d6c9a7b140036d"
+          "sha256": "799302f8301993ee73a59324ac00fe6f9941bb86981e929e6692d0bf45d6ffea"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -7200,7 +7200,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/neutral/n-normal-2x.png",
-              "sha256": "d4dccc05057c9e96f21c806c8fe949450e46803329e549e5e13be8e2b0756e7e"
+              "sha256": "cbf9a4418131bc02090e4010da90300d251785bcf226b8f5d617bb282817cf21"
             },
             "state": "normal",
             "terrain": "mud",
@@ -7239,7 +7239,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/ne-normal-2x.png",
-              "sha256": "30be681d960e007680a3c03e36843891483a82fc948bff18042416c11ef1aaef"
+              "sha256": "c8bb4dbd3f0e3daae67e0c09ef334ccf9ec5ebcf8fe56edb687cb876a4a23504"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7278,7 +7278,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/se-normal-2x.png",
-              "sha256": "0f8846533f2577aa0162004f1476ebbd178d27d132f02a622ed34b14ba2d722c"
+              "sha256": "e0d4fe50884ea56ffb68f1a52cd710edeb77d93933518168b58473c67edb9b5c"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7317,7 +7317,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/cp/s-normal-2x.png",
-              "sha256": "c3ad4aa17e044f4faa8bc74ac8363955d82917094983d7285d0c0abf716b4d84"
+              "sha256": "bde0ecce4623c57d3d5b02a55932d985b728850fedafbfda26216a32c30d4175"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7356,7 +7356,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/sw-normal-2x.png",
-              "sha256": "5e76038ce93c04c9e282c212aafe8ade4bf3db6536e1f04d46a4a5450d98cf1e"
+              "sha256": "ef79110ff469ef38676b9a6dff3eebaf1bcac88e5f60ca6b8e91488c294c4c51"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7395,7 +7395,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/cp/nw-normal-2x.png",
-              "sha256": "b904c2948fb5dd3eb5d4d11fbbe13e2c0a268ff174319c407d0f01cbb4ebbec5"
+              "sha256": "78c9bc5bd2539e6cf3b3658f8c2dcdd36e6f8c2cfde49e470e41f5d45d138cbb"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7434,7 +7434,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/n-normal-2x.png",
-              "sha256": "91790b7f32b9e474a83db0093d43664404475a5bb97c1aab6cac5e445931a376"
+              "sha256": "ad2a0d0208d7a3f1f1cf5c9c6fab75d759c8187fcac1caaaa1e9d25588a24f3f"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7465,7 +7465,7 @@
             "width": 476
           },
           "path": "scenes/mud-normal-p1-2x.png",
-          "sha256": "93497af99b6ec268bb0acc3434d7d414e38d5ce6c9ae5724a39ccce8f1388f20"
+          "sha256": "11f49363012d6c3df2e651315498aa6a69805e59aca02d82aa2c4b45ffcb8fb9"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -7503,7 +7503,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/neutral/n-normal-4x.png",
-              "sha256": "92a2ddafe6691e1b8d89a8f571afe5fe58666e614db89cd670a81bab18577f92"
+              "sha256": "efadf02c60cc8ff9c17c4ae0151c5fc6d7d8fdebc4afbe0cb88d0129f2f13074"
             },
             "state": "normal",
             "terrain": "mud",
@@ -7542,7 +7542,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/ne-normal-4x.png",
-              "sha256": "ff04a9f962cd037c5540205a83c6516d8b9927fd4534719a073a4c4571c3b992"
+              "sha256": "4a28b4aa68014e3e71342d0de6c16ed0b9e1121e4cad6f403327cd7df28d9375"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7581,7 +7581,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/se-normal-4x.png",
-              "sha256": "d8137eba3eaa9bf710811a35527bae6e180d0eb5640d2637e752aeef386621d7"
+              "sha256": "e309059e0de56486d260f42a50efe6a8e520ee51e9e5cde8487191bf2c500dd0"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7620,7 +7620,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/cp/s-normal-4x.png",
-              "sha256": "38d62a6b3d1a9f83190ec23d7f647a4b70139657bffc76f860137a809619daf2"
+              "sha256": "a1f33b78ad0ea4c4c4e409c8fd6e499b67bf0199bf8433626bec13339258a984"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7659,7 +7659,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/sw-normal-4x.png",
-              "sha256": "0ae36631cf80685399e6c73edb986dcbe810fe7308dafb042921dfa47add7936"
+              "sha256": "483d8500274b4ed602f579deb108323c5f7bb103f9c4007db00e2fbc7b48cd4f"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7698,7 +7698,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/cp/nw-normal-4x.png",
-              "sha256": "37f87265975d93a4caff431ceb3473115094688931329e5a8c45edf428a18dfd"
+              "sha256": "0c9f054d8c1d75ca3a477ac2d929b45114f4cc7334d4c13c0ae747edd3dc91d0"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7737,7 +7737,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/n-normal-4x.png",
-              "sha256": "2ddd2d37c6dc129dcc4bd065d3262cfa390ed62b653395f73907887257263f1f"
+              "sha256": "102bf2c9b4ff1f6826b0a1373314ada449badcecf7a5596e5f8287921d7027dd"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7768,7 +7768,7 @@
             "width": 952
           },
           "path": "scenes/mud-normal-p1-4x.png",
-          "sha256": "1e79e253c0dd8917dbd5a44a58adc5eb5f81145a6343c4ebc7d6c9a7b140036d"
+          "sha256": "799302f8301993ee73a59324ac00fe6f9941bb86981e929e6692d0bf45d6ffea"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -7806,7 +7806,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/neutral/n-spent-2x.png",
-              "sha256": "8d91ad2f4158e5d6d37a861fe328d16d57eb8abfab0a4ea80d9d99d0e13b2baa"
+              "sha256": "634b5d74b7f5785a0956c3e08dbf35da406af57847a481d21ba8e5f7870f10c5"
             },
             "state": "spent",
             "terrain": "mud",
@@ -7845,7 +7845,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/ne-spent-2x.png",
-              "sha256": "d38221034b1f946d7738308b4422ecea0fdf3e8e29a0de6793abdaee4180f605"
+              "sha256": "caf18e996adeb2f1d109328fcf9cd81019c5874c53989012f203cf0936347903"
             },
             "state": "spent",
             "terrain": "grass",
@@ -7884,7 +7884,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/se-spent-2x.png",
-              "sha256": "533ef0084be19ecd8dd11cb804a12db509df270da3461f76c94949906d6fec4e"
+              "sha256": "ee380f3b2aee3433dc36317bc87c78a0b34f889e21e0350ac50d5c3bc2152efc"
             },
             "state": "spent",
             "terrain": "grass",
@@ -7923,7 +7923,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/cp/s-spent-2x.png",
-              "sha256": "5b4494261bdd8269db334ba6cfd07f9205330d0186a0bcc5802f15a17149e1ee"
+              "sha256": "ae95b29d3e67d42c16cd345b5a788ff8c4abd8f72a5216584db2a1506cf165e6"
             },
             "state": "spent",
             "terrain": "grass",
@@ -7962,7 +7962,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/sw-spent-2x.png",
-              "sha256": "119174dc93c8c11bdf72ee5ef2f369a0e6f17143d1d7a922ef5723d9e9f1923f"
+              "sha256": "1ebba9c99a71aef12e0fa41cbbd3070155d5d85458285a04eeebd8b1a08e696c"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8001,7 +8001,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/cp/nw-spent-2x.png",
-              "sha256": "67d7b7daa9b4a79550f50659f5d4084f0d26830b0a4f2dbec38f9e9c93b19613"
+              "sha256": "1644b0d304a8109f902ceadae30c3907d7586ca7efe0e336a7a6f1fd8f2956fe"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8040,7 +8040,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/n-spent-2x.png",
-              "sha256": "72d24a19eaf31b759dd88d28021bfd36ef0d4ddc23987a1bc982f222156c4906"
+              "sha256": "2a3af8b501bd32a4adfd9ea0e36455a5ccc86a22bba09c2e63903f50557fd599"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8071,7 +8071,7 @@
             "width": 476
           },
           "path": "scenes/mud-spent-p0-2x.png",
-          "sha256": "6dbc769891f98f851db26260c86899127e6af8901e9fa07e5f6303bf1bce8f26"
+          "sha256": "971990a7f6e47b0b74c33310c7c2c87c17da9343a6a037a4f81b494edaa8e9a8"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -8109,7 +8109,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/neutral/n-spent-4x.png",
-              "sha256": "29d9921558e2a4c82cc0002e4637392cc1c9c9412de5ca2e4055f0b720f6dcd0"
+              "sha256": "d6e532a1b234a38e027122828200d49effdea6bc26ade0c58b0de26bd9449f41"
             },
             "state": "spent",
             "terrain": "mud",
@@ -8148,7 +8148,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/ne-spent-4x.png",
-              "sha256": "067acbb7d651b62b4a68addd51cec7c52ae346318682191866f7c3f9b85b3d05"
+              "sha256": "085fb00e1908278e00d2a7cdeb609a2e50fbcb3135ce995177462ee6a65ada6d"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8187,7 +8187,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/se-spent-4x.png",
-              "sha256": "90b99e01b756b5ab6dd34c27ab912c5191aeb88a31a67d71645d42402468e011"
+              "sha256": "c313c81bb5b8659c4d1edf91131f800ab26c7e9f7d790c8e59c9f897d8ddbdcd"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8226,7 +8226,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/cp/s-spent-4x.png",
-              "sha256": "89a647b5daae365787d0a3c19acc68006c1d1a67e5c3da077bcaf8b8de1fbc74"
+              "sha256": "8a1a512f5d157249416ba1005d9e3bd973cc4ac617b65bdc557111d1a6faec01"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8265,7 +8265,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/sw-spent-4x.png",
-              "sha256": "0c3c1bb996cc8d3df6e1f861b7fe192c7a9011d744e5587ea1ccb46f1bd745e0"
+              "sha256": "bb7cf6b280d5170b8fbed08878f3aa4757aa6e4db128f553baf459db7552e396"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8304,7 +8304,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/cp/nw-spent-4x.png",
-              "sha256": "5097a5756dbd9f7232d5cbd97b6e7979c15efabf160fbfcefeb4b8fc50e11bc1"
+              "sha256": "6e2c3478c9f5777096bf63fcc47109c116a61bacc94f712d1e9e450ee423360a"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8343,7 +8343,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/n-spent-4x.png",
-              "sha256": "911a77668d36cf49896ee11e4e36366ec68295d7622676b74f37712191ac122d"
+              "sha256": "58e38bb75a85c3e08a715ccdad6880f9244bdd2edeb2a30e21cf51b49bb6b2d6"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8374,7 +8374,7 @@
             "width": 952
           },
           "path": "scenes/mud-spent-p0-4x.png",
-          "sha256": "bd39221edf893dc204e59f3560987fd46b6b8feb5728a50a19ae1b9639027c78"
+          "sha256": "309a65eaf351fa1d057e5cfbcc58f68066c9ed19236d4b95d44277906aa0f210"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -8412,7 +8412,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/neutral/n-spent-2x.png",
-              "sha256": "8d91ad2f4158e5d6d37a861fe328d16d57eb8abfab0a4ea80d9d99d0e13b2baa"
+              "sha256": "634b5d74b7f5785a0956c3e08dbf35da406af57847a481d21ba8e5f7870f10c5"
             },
             "state": "spent",
             "terrain": "mud",
@@ -8451,7 +8451,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/ne-spent-2x.png",
-              "sha256": "d38221034b1f946d7738308b4422ecea0fdf3e8e29a0de6793abdaee4180f605"
+              "sha256": "caf18e996adeb2f1d109328fcf9cd81019c5874c53989012f203cf0936347903"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8490,7 +8490,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/se-spent-2x.png",
-              "sha256": "533ef0084be19ecd8dd11cb804a12db509df270da3461f76c94949906d6fec4e"
+              "sha256": "ee380f3b2aee3433dc36317bc87c78a0b34f889e21e0350ac50d5c3bc2152efc"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8529,7 +8529,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/cp/s-spent-2x.png",
-              "sha256": "5b4494261bdd8269db334ba6cfd07f9205330d0186a0bcc5802f15a17149e1ee"
+              "sha256": "ae95b29d3e67d42c16cd345b5a788ff8c4abd8f72a5216584db2a1506cf165e6"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8568,7 +8568,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/sw-spent-2x.png",
-              "sha256": "119174dc93c8c11bdf72ee5ef2f369a0e6f17143d1d7a922ef5723d9e9f1923f"
+              "sha256": "1ebba9c99a71aef12e0fa41cbbd3070155d5d85458285a04eeebd8b1a08e696c"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8607,7 +8607,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/cp/nw-spent-2x.png",
-              "sha256": "67d7b7daa9b4a79550f50659f5d4084f0d26830b0a4f2dbec38f9e9c93b19613"
+              "sha256": "1644b0d304a8109f902ceadae30c3907d7586ca7efe0e336a7a6f1fd8f2956fe"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8646,7 +8646,7 @@
                 "width": 192
               },
               "path": "sprites/patrolBoat/ec/n-spent-2x.png",
-              "sha256": "72d24a19eaf31b759dd88d28021bfd36ef0d4ddc23987a1bc982f222156c4906"
+              "sha256": "2a3af8b501bd32a4adfd9ea0e36455a5ccc86a22bba09c2e63903f50557fd599"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8677,7 +8677,7 @@
             "width": 476
           },
           "path": "scenes/mud-spent-p1-2x.png",
-          "sha256": "6dbc769891f98f851db26260c86899127e6af8901e9fa07e5f6303bf1bce8f26"
+          "sha256": "971990a7f6e47b0b74c33310c7c2c87c17da9343a6a037a4f81b494edaa8e9a8"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -8715,7 +8715,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/neutral/n-spent-4x.png",
-              "sha256": "29d9921558e2a4c82cc0002e4637392cc1c9c9412de5ca2e4055f0b720f6dcd0"
+              "sha256": "d6e532a1b234a38e027122828200d49effdea6bc26ade0c58b0de26bd9449f41"
             },
             "state": "spent",
             "terrain": "mud",
@@ -8754,7 +8754,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/ne-spent-4x.png",
-              "sha256": "067acbb7d651b62b4a68addd51cec7c52ae346318682191866f7c3f9b85b3d05"
+              "sha256": "085fb00e1908278e00d2a7cdeb609a2e50fbcb3135ce995177462ee6a65ada6d"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8793,7 +8793,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/se-spent-4x.png",
-              "sha256": "90b99e01b756b5ab6dd34c27ab912c5191aeb88a31a67d71645d42402468e011"
+              "sha256": "c313c81bb5b8659c4d1edf91131f800ab26c7e9f7d790c8e59c9f897d8ddbdcd"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8832,7 +8832,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/cp/s-spent-4x.png",
-              "sha256": "89a647b5daae365787d0a3c19acc68006c1d1a67e5c3da077bcaf8b8de1fbc74"
+              "sha256": "8a1a512f5d157249416ba1005d9e3bd973cc4ac617b65bdc557111d1a6faec01"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8871,7 +8871,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/sw-spent-4x.png",
-              "sha256": "0c3c1bb996cc8d3df6e1f861b7fe192c7a9011d744e5587ea1ccb46f1bd745e0"
+              "sha256": "bb7cf6b280d5170b8fbed08878f3aa4757aa6e4db128f553baf459db7552e396"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8910,7 +8910,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/cp/nw-spent-4x.png",
-              "sha256": "5097a5756dbd9f7232d5cbd97b6e7979c15efabf160fbfcefeb4b8fc50e11bc1"
+              "sha256": "6e2c3478c9f5777096bf63fcc47109c116a61bacc94f712d1e9e450ee423360a"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8949,7 +8949,7 @@
                 "width": 384
               },
               "path": "sprites/patrolBoat/ec/n-spent-4x.png",
-              "sha256": "911a77668d36cf49896ee11e4e36366ec68295d7622676b74f37712191ac122d"
+              "sha256": "58e38bb75a85c3e08a715ccdad6880f9244bdd2edeb2a30e21cf51b49bb6b2d6"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8980,7 +8980,7 @@
             "width": 952
           },
           "path": "scenes/mud-spent-p1-4x.png",
-          "sha256": "bd39221edf893dc204e59f3560987fd46b6b8feb5728a50a19ae1b9639027c78"
+          "sha256": "309a65eaf351fa1d057e5cfbcc58f68066c9ed19236d4b95d44277906aa0f210"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -9005,7 +9005,7 @@
             "width": 1152
           },
           "path": "sheets/patrolBoat-white-2x.png",
-          "sha256": "107a1ca040fcc58324c2e9920dae9b19217af6bc54fd2406dd3a5f2e0549bd1b"
+          "sha256": "f0137ef3cdf3eb1b36a168a6c09495f5262673f4ae2ec345a6469e648182b114"
         },
         "rows": [
           "n",
@@ -9033,7 +9033,7 @@
             "width": 2304
           },
           "path": "sheets/patrolBoat-white-4x.png",
-          "sha256": "329b1a6bf824a6606f5504f1c5c1894038c4630ce1dfdb1561585be3cff62836"
+          "sha256": "3cd4cf4ed4ea21e4359367e1ec4c550f335e591c197ddf14bd319017a9dfff98"
         },
         "rows": [
           "n",
@@ -9061,7 +9061,7 @@
             "width": 1152
           },
           "path": "sheets/patrolBoat-checker-2x.png",
-          "sha256": "724861d922511a2c5e6a7ef3f4ffc2ce58bbfd3bc55739117c6ac1aa9e5db61e"
+          "sha256": "e41fb4d9748bcc8bc27d6065389a7f2649ecbc5ed096be6afa84e675cbb1ed90"
         },
         "rows": [
           "n",
@@ -9089,7 +9089,7 @@
             "width": 2304
           },
           "path": "sheets/patrolBoat-checker-4x.png",
-          "sha256": "d1172fd5cf4bea78bd2fb2976fc8f119e9b230d7e94b6c9fd30947fc6078d65b"
+          "sha256": "8ea419e2af5743f5e726085982de5ba44f6b80196f0a530e2f24eb9b2103e967"
         },
         "rows": [
           "n",
@@ -9140,7 +9140,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/cp/n-normal-2x.png",
-            "sha256": "dc27f8984b4d08165f539865a4874cbfdf82c32ffa27e2dd6ee88092c4047ff9"
+            "sha256": "e978618802f35277a49d8c6a35af2aaa808a1b756ee166ddb85db2c8f05f8021"
           },
           {
             "dimensions": {
@@ -9148,7 +9148,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/cp/n-normal-4x.png",
-            "sha256": "3b2bb806d795128a309c771e622deeca1cef53ddaec392dde9fec514b4b31c44"
+            "sha256": "8fb8852cb7fe23497152d7441cfac1d1ceaf3157a9f5ee0f3eec360f658f7fcc"
           }
         ],
         "palette": "cp",
@@ -9191,7 +9191,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/cp/n-spent-2x.png",
-            "sha256": "351d3479e011a22c23ff12e42e059bd7767d26a5fe8e2057d5d7251a96789bf0"
+            "sha256": "95e33afa0a39c6d1f627fad01a935f26a995d56766b67142bc912ceab2d563ee"
           },
           {
             "dimensions": {
@@ -9199,7 +9199,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/cp/n-spent-4x.png",
-            "sha256": "34c1d62a2824103e2997ee289148fe6d839a85ce444ad06f26ec2d9d2ce84db1"
+            "sha256": "d62310812993bfeffbd8fb0c8c190075ea8aa27ad25c5bfe0baafde75b7b4188"
           }
         ],
         "palette": "cp",
@@ -9242,7 +9242,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/ec/n-normal-2x.png",
-            "sha256": "91790b7f32b9e474a83db0093d43664404475a5bb97c1aab6cac5e445931a376"
+            "sha256": "ad2a0d0208d7a3f1f1cf5c9c6fab75d759c8187fcac1caaaa1e9d25588a24f3f"
           },
           {
             "dimensions": {
@@ -9250,7 +9250,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/ec/n-normal-4x.png",
-            "sha256": "2ddd2d37c6dc129dcc4bd065d3262cfa390ed62b653395f73907887257263f1f"
+            "sha256": "102bf2c9b4ff1f6826b0a1373314ada449badcecf7a5596e5f8287921d7027dd"
           }
         ],
         "palette": "ec",
@@ -9293,7 +9293,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/ec/n-spent-2x.png",
-            "sha256": "72d24a19eaf31b759dd88d28021bfd36ef0d4ddc23987a1bc982f222156c4906"
+            "sha256": "2a3af8b501bd32a4adfd9ea0e36455a5ccc86a22bba09c2e63903f50557fd599"
           },
           {
             "dimensions": {
@@ -9301,7 +9301,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/ec/n-spent-4x.png",
-            "sha256": "911a77668d36cf49896ee11e4e36366ec68295d7622676b74f37712191ac122d"
+            "sha256": "58e38bb75a85c3e08a715ccdad6880f9244bdd2edeb2a30e21cf51b49bb6b2d6"
           }
         ],
         "palette": "ec",
@@ -9344,7 +9344,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/neutral/n-normal-2x.png",
-            "sha256": "d4dccc05057c9e96f21c806c8fe949450e46803329e549e5e13be8e2b0756e7e"
+            "sha256": "cbf9a4418131bc02090e4010da90300d251785bcf226b8f5d617bb282817cf21"
           },
           {
             "dimensions": {
@@ -9352,7 +9352,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/neutral/n-normal-4x.png",
-            "sha256": "92a2ddafe6691e1b8d89a8f571afe5fe58666e614db89cd670a81bab18577f92"
+            "sha256": "efadf02c60cc8ff9c17c4ae0151c5fc6d7d8fdebc4afbe0cb88d0129f2f13074"
           }
         ],
         "palette": "neutral",
@@ -9395,7 +9395,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/neutral/n-spent-2x.png",
-            "sha256": "8d91ad2f4158e5d6d37a861fe328d16d57eb8abfab0a4ea80d9d99d0e13b2baa"
+            "sha256": "634b5d74b7f5785a0956c3e08dbf35da406af57847a481d21ba8e5f7870f10c5"
           },
           {
             "dimensions": {
@@ -9403,7 +9403,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/neutral/n-spent-4x.png",
-            "sha256": "29d9921558e2a4c82cc0002e4637392cc1c9c9412de5ca2e4055f0b720f6dcd0"
+            "sha256": "d6e532a1b234a38e027122828200d49effdea6bc26ade0c58b0de26bd9449f41"
           }
         ],
         "palette": "neutral",
@@ -9446,7 +9446,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/cp/nw-normal-2x.png",
-            "sha256": "b904c2948fb5dd3eb5d4d11fbbe13e2c0a268ff174319c407d0f01cbb4ebbec5"
+            "sha256": "78c9bc5bd2539e6cf3b3658f8c2dcdd36e6f8c2cfde49e470e41f5d45d138cbb"
           },
           {
             "dimensions": {
@@ -9454,7 +9454,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/cp/nw-normal-4x.png",
-            "sha256": "37f87265975d93a4caff431ceb3473115094688931329e5a8c45edf428a18dfd"
+            "sha256": "0c9f054d8c1d75ca3a477ac2d929b45114f4cc7334d4c13c0ae747edd3dc91d0"
           }
         ],
         "palette": "cp",
@@ -9497,7 +9497,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/cp/nw-spent-2x.png",
-            "sha256": "67d7b7daa9b4a79550f50659f5d4084f0d26830b0a4f2dbec38f9e9c93b19613"
+            "sha256": "1644b0d304a8109f902ceadae30c3907d7586ca7efe0e336a7a6f1fd8f2956fe"
           },
           {
             "dimensions": {
@@ -9505,7 +9505,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/cp/nw-spent-4x.png",
-            "sha256": "5097a5756dbd9f7232d5cbd97b6e7979c15efabf160fbfcefeb4b8fc50e11bc1"
+            "sha256": "6e2c3478c9f5777096bf63fcc47109c116a61bacc94f712d1e9e450ee423360a"
           }
         ],
         "palette": "cp",
@@ -9548,7 +9548,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/ec/nw-normal-2x.png",
-            "sha256": "95d642a262c473702f1055c6ab848f66eec3b6106e1dc37e2fc7723b989239d4"
+            "sha256": "89112209ad235d2ae89484388b528af29af9be745e92bb7f2970d511d3608494"
           },
           {
             "dimensions": {
@@ -9556,7 +9556,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/ec/nw-normal-4x.png",
-            "sha256": "635b2cfde4353ef81811e6696cbb898a1e4590a5d35550baa364ed1a0d13a4fc"
+            "sha256": "49c8aa65725456cf00262b49a2c975c5dc605c8028d8ef153b4de894dfdef68d"
           }
         ],
         "palette": "ec",
@@ -9599,7 +9599,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/ec/nw-spent-2x.png",
-            "sha256": "9de6a4ef5606e306d860501663ab282d534319357f668d41e159df009c438d4d"
+            "sha256": "181a5ad66d8ace9313012a44bdd8bcb58a816fa01df59c79e92384beb9fdbd96"
           },
           {
             "dimensions": {
@@ -9607,7 +9607,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/ec/nw-spent-4x.png",
-            "sha256": "6c178d1227fb0e65af0c5e0ded5ade4753ad699df8dc9f049216142c1073de4c"
+            "sha256": "62164181955f6295acb8116536d8fb42af11c9e3f9b0f3847259aed19d544b15"
           }
         ],
         "palette": "ec",
@@ -9650,7 +9650,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/neutral/nw-normal-2x.png",
-            "sha256": "3bda136df401f740f94a7a3cb9352ceb5bdeeb8b8ff4ae939007fd1f6f67e928"
+            "sha256": "a97112a0731db4c03fbe07a4ab1ac735123f52dbb099bca0104af606de3c46dd"
           },
           {
             "dimensions": {
@@ -9658,7 +9658,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/neutral/nw-normal-4x.png",
-            "sha256": "72bd348043a67597adae58f13c32b55ab9dfc1c2652bd6078d0131bd5a427b0c"
+            "sha256": "e22adcd7ed73b03e02eab69da211066325c53c97c717e286907f38ca0b355068"
           }
         ],
         "palette": "neutral",
@@ -9701,7 +9701,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/neutral/nw-spent-2x.png",
-            "sha256": "3df4fe8f052f50d5e78f5ca380001facde370bea2e7e60f93580dce61f2b106d"
+            "sha256": "2fc16a4b32b5154c3dbbb667a272a590d93ab546a1194e493818615c113691ea"
           },
           {
             "dimensions": {
@@ -9709,7 +9709,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/neutral/nw-spent-4x.png",
-            "sha256": "7b73a7600c73abcbd3ea0cfccb438e3a963ce96b1b151500fad8a631fcef3e70"
+            "sha256": "2538554e915e831087edd6546b04b04d295e9bc15aea823cac2f3c6620358b3f"
           }
         ],
         "palette": "neutral",
@@ -9752,7 +9752,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/cp/sw-normal-2x.png",
-            "sha256": "51f349707f2f7552db4709167cfa1ac7e18dab6b955bdb2e01e8b404106c277a"
+            "sha256": "0b9910d0daa97c966f158308b9fd4b0fcfd503fd26c160973518f7582f0b5e44"
           },
           {
             "dimensions": {
@@ -9760,7 +9760,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/cp/sw-normal-4x.png",
-            "sha256": "5a8b34624d958118a647c01b3ae9948461dd97ecb308ea64a9d72976e4e63e20"
+            "sha256": "465078736c0a341381b34284d2abcb8e5ffe399f43b24286946d0427c8403850"
           }
         ],
         "palette": "cp",
@@ -9803,7 +9803,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/cp/sw-spent-2x.png",
-            "sha256": "9dc82f33b9408e1b19d75e8d7a2a0f876533ae4f0cde66a9a1b0652289de11ba"
+            "sha256": "27b4ec980109939888dc599ee40e7728239b1a2a3cb56aa88607637f0d5ebc93"
           },
           {
             "dimensions": {
@@ -9811,7 +9811,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/cp/sw-spent-4x.png",
-            "sha256": "e133ce4cffb796b67fe81d9d3a3ab950358d4a58cc1f3ef7346e6fe1a250ea5c"
+            "sha256": "263bbc5c30445efac6a9b0db582a2f7809f6036f5c80273298a36b01309480f2"
           }
         ],
         "palette": "cp",
@@ -9854,7 +9854,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/ec/sw-normal-2x.png",
-            "sha256": "5e76038ce93c04c9e282c212aafe8ade4bf3db6536e1f04d46a4a5450d98cf1e"
+            "sha256": "ef79110ff469ef38676b9a6dff3eebaf1bcac88e5f60ca6b8e91488c294c4c51"
           },
           {
             "dimensions": {
@@ -9862,7 +9862,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/ec/sw-normal-4x.png",
-            "sha256": "0ae36631cf80685399e6c73edb986dcbe810fe7308dafb042921dfa47add7936"
+            "sha256": "483d8500274b4ed602f579deb108323c5f7bb103f9c4007db00e2fbc7b48cd4f"
           }
         ],
         "palette": "ec",
@@ -9905,7 +9905,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/ec/sw-spent-2x.png",
-            "sha256": "119174dc93c8c11bdf72ee5ef2f369a0e6f17143d1d7a922ef5723d9e9f1923f"
+            "sha256": "1ebba9c99a71aef12e0fa41cbbd3070155d5d85458285a04eeebd8b1a08e696c"
           },
           {
             "dimensions": {
@@ -9913,7 +9913,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/ec/sw-spent-4x.png",
-            "sha256": "0c3c1bb996cc8d3df6e1f861b7fe192c7a9011d744e5587ea1ccb46f1bd745e0"
+            "sha256": "bb7cf6b280d5170b8fbed08878f3aa4757aa6e4db128f553baf459db7552e396"
           }
         ],
         "palette": "ec",
@@ -9956,7 +9956,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/neutral/sw-normal-2x.png",
-            "sha256": "f3c36a6b1da5f119d62b2254ec62a14d9d626f6a858abc73830ed9f27d24f8af"
+            "sha256": "45575ce68d67e60d8c1b2b631b9b0010305dc993a5b53838f357ec05a57344f8"
           },
           {
             "dimensions": {
@@ -9964,7 +9964,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/neutral/sw-normal-4x.png",
-            "sha256": "0e5de1e7c1cba177b04e5bca93a1b7a38966ce53831f8af41aad156140e1f2d8"
+            "sha256": "998b0b8ee2efe702678561bc37bffbe437ff1f882e5125dd26450c228a072cfa"
           }
         ],
         "palette": "neutral",
@@ -10007,7 +10007,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/neutral/sw-spent-2x.png",
-            "sha256": "83cc3f7feef51c8493f5cb76ea9b281d42a3437c5223b85b4827c54aacb43521"
+            "sha256": "97b99ccfb96636ad7e325d2689fc5537a9c28b250576f2c8830e4069ca7b0477"
           },
           {
             "dimensions": {
@@ -10015,7 +10015,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/neutral/sw-spent-4x.png",
-            "sha256": "dc49a3af0e645d7d2c90e1cdcc0acde18192f7eccf1ab54ec92683e0095bde55"
+            "sha256": "95d2dd4a8b9f628ea2a345ff8e1326851317f627ee397fab6a233f189d7d19ca"
           }
         ],
         "palette": "neutral",
@@ -10058,7 +10058,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/cp/s-normal-2x.png",
-            "sha256": "c3ad4aa17e044f4faa8bc74ac8363955d82917094983d7285d0c0abf716b4d84"
+            "sha256": "bde0ecce4623c57d3d5b02a55932d985b728850fedafbfda26216a32c30d4175"
           },
           {
             "dimensions": {
@@ -10066,7 +10066,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/cp/s-normal-4x.png",
-            "sha256": "38d62a6b3d1a9f83190ec23d7f647a4b70139657bffc76f860137a809619daf2"
+            "sha256": "a1f33b78ad0ea4c4c4e409c8fd6e499b67bf0199bf8433626bec13339258a984"
           }
         ],
         "palette": "cp",
@@ -10109,7 +10109,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/cp/s-spent-2x.png",
-            "sha256": "5b4494261bdd8269db334ba6cfd07f9205330d0186a0bcc5802f15a17149e1ee"
+            "sha256": "ae95b29d3e67d42c16cd345b5a788ff8c4abd8f72a5216584db2a1506cf165e6"
           },
           {
             "dimensions": {
@@ -10117,7 +10117,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/cp/s-spent-4x.png",
-            "sha256": "89a647b5daae365787d0a3c19acc68006c1d1a67e5c3da077bcaf8b8de1fbc74"
+            "sha256": "8a1a512f5d157249416ba1005d9e3bd973cc4ac617b65bdc557111d1a6faec01"
           }
         ],
         "palette": "cp",
@@ -10160,7 +10160,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/ec/s-normal-2x.png",
-            "sha256": "becf45c864fee5fc90c1817cd61d44c4fbf199c3882cadecfe71e3555b1b5ab6"
+            "sha256": "f9de9da9c019de648fb3888fbe2df1fe6ae4cce28eeec8ffa4b2495aab46de8b"
           },
           {
             "dimensions": {
@@ -10168,7 +10168,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/ec/s-normal-4x.png",
-            "sha256": "c817eac04e2c6f256522a8fc473f0f86b19f008eaea254cf3f915c73034fed2f"
+            "sha256": "16556daff0feb9109c14d5e9dd0e62f5cd1a35e86982f26cdceda42f67d77abd"
           }
         ],
         "palette": "ec",
@@ -10211,7 +10211,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/ec/s-spent-2x.png",
-            "sha256": "029228d4ca6b042e29f9b1bce9ee6c5b3a6cd6c211457d94a1b9f871a970c629"
+            "sha256": "bf2ce748f253f558978a27f9088ddac65ff8780ca1cec970e0b2d07b1f13c310"
           },
           {
             "dimensions": {
@@ -10219,7 +10219,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/ec/s-spent-4x.png",
-            "sha256": "540cea66338a0556141b13afe2ab74d6f79ecb0e7605983d28101dd36196c75f"
+            "sha256": "ee01337f30aff477d97e64287fb64c48a8e018088468bff5d7a8dbbe418af832"
           }
         ],
         "palette": "ec",
@@ -10262,7 +10262,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/neutral/s-normal-2x.png",
-            "sha256": "cd5fb96d6f703158353a9db352bfbec1a83376540536789a4e055789804eb57c"
+            "sha256": "c6a504177a03823b9d962e7e91611a83fc381724f8ef6cd2f3161d4b157786ad"
           },
           {
             "dimensions": {
@@ -10270,7 +10270,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/neutral/s-normal-4x.png",
-            "sha256": "808ef0ce85586de63bde9f1ff3475b27573a96aea9f081fa6be53f3901a11341"
+            "sha256": "3da504f7ba1e3ff7584b6fceaef78aea3ffd625e1993d4a14aebeb503184f4cb"
           }
         ],
         "palette": "neutral",
@@ -10313,7 +10313,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/neutral/s-spent-2x.png",
-            "sha256": "0038a333bb8a659da2fe84fab219fe1287a289cce857cbc172d2f3d10fdb4b49"
+            "sha256": "15e1159b2a676cda964be7f8c12901efae7ab2a2808e85318f2c232ffb9e02d3"
           },
           {
             "dimensions": {
@@ -10321,7 +10321,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/neutral/s-spent-4x.png",
-            "sha256": "3274c68a5d613a775ab3a5a790baebaf9a95053fddcfa86c8255719d3c3502de"
+            "sha256": "c5237ee9c429b5b95fb9d5d3f5521778c90defc7950100809bd2b78cade7a631"
           }
         ],
         "palette": "neutral",
@@ -10364,7 +10364,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/cp/se-normal-2x.png",
-            "sha256": "4c361ec98d8a61daf3fa4c51cbb749e6e2c10d4bae6c83fedb7bbd720cf8b9b5"
+            "sha256": "b9a68dde3790c8d08094332cb609be5cb9d280bc144e28e8056e7a26672b2643"
           },
           {
             "dimensions": {
@@ -10372,7 +10372,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/cp/se-normal-4x.png",
-            "sha256": "6852ee509b4d92be8d68e195f289786856ed0097da22b154cc407da3679a5c8c"
+            "sha256": "49c226ff78c661ae38432acde10cf9c51987633e8643c55bf9f1ae96f8f9af28"
           }
         ],
         "palette": "cp",
@@ -10415,7 +10415,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/cp/se-spent-2x.png",
-            "sha256": "c1a40352c0d4baab08b8bf879ee36e7af7accc1975da1549a91df4c32bd96d34"
+            "sha256": "f8ae25554c514c3fca2bd597a2590d0aa1f0174edd8007788121059a26723f8d"
           },
           {
             "dimensions": {
@@ -10423,7 +10423,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/cp/se-spent-4x.png",
-            "sha256": "ac60cf5dc33e656c5b9dcd7124f9ebd7833583f1b7e9d805040231debc2d280c"
+            "sha256": "843befe13ea0c82b9cb13fca149f596d1883983f2f2ee1844b3e890ab73fc41f"
           }
         ],
         "palette": "cp",
@@ -10466,7 +10466,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/ec/se-normal-2x.png",
-            "sha256": "0f8846533f2577aa0162004f1476ebbd178d27d132f02a622ed34b14ba2d722c"
+            "sha256": "e0d4fe50884ea56ffb68f1a52cd710edeb77d93933518168b58473c67edb9b5c"
           },
           {
             "dimensions": {
@@ -10474,7 +10474,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/ec/se-normal-4x.png",
-            "sha256": "d8137eba3eaa9bf710811a35527bae6e180d0eb5640d2637e752aeef386621d7"
+            "sha256": "e309059e0de56486d260f42a50efe6a8e520ee51e9e5cde8487191bf2c500dd0"
           }
         ],
         "palette": "ec",
@@ -10517,7 +10517,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/ec/se-spent-2x.png",
-            "sha256": "533ef0084be19ecd8dd11cb804a12db509df270da3461f76c94949906d6fec4e"
+            "sha256": "ee380f3b2aee3433dc36317bc87c78a0b34f889e21e0350ac50d5c3bc2152efc"
           },
           {
             "dimensions": {
@@ -10525,7 +10525,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/ec/se-spent-4x.png",
-            "sha256": "90b99e01b756b5ab6dd34c27ab912c5191aeb88a31a67d71645d42402468e011"
+            "sha256": "c313c81bb5b8659c4d1edf91131f800ab26c7e9f7d790c8e59c9f897d8ddbdcd"
           }
         ],
         "palette": "ec",
@@ -10568,7 +10568,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/neutral/se-normal-2x.png",
-            "sha256": "12b1fda91bc7bc2033f586b12a4765cc66565ed66d3ad7005ab9870cd4ed46fb"
+            "sha256": "b45a5cb3cedea6ee5b3ff621e19ad98786828d071fc40c33e95cb9767865cd15"
           },
           {
             "dimensions": {
@@ -10576,7 +10576,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/neutral/se-normal-4x.png",
-            "sha256": "9133cee83e5cf7e9c6cbe255004d6e8974d56996621753eca36e9ce1bf6ea690"
+            "sha256": "75a26d89cbdc1d8c4358b9df63ace152156dba8f688896f4ac86c7bbd8c9e82b"
           }
         ],
         "palette": "neutral",
@@ -10619,7 +10619,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/neutral/se-spent-2x.png",
-            "sha256": "736d3999d925b662b78426ca5b634d6aa2de830132ab56865e39caf45a718a16"
+            "sha256": "990b5199d3ce23c0a327413bbc61d21043eef1db4c9e83d51e3f8dc969c4b40e"
           },
           {
             "dimensions": {
@@ -10627,7 +10627,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/neutral/se-spent-4x.png",
-            "sha256": "787340d14e1454b3476111a03560aa854aabe89adc13f4f60a8c64da8b58c5d0"
+            "sha256": "88cb21366c876100ee23a6bd8e2bc21bd74cc86932b17181d5a020a03adaf473"
           }
         ],
         "palette": "neutral",
@@ -10670,7 +10670,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/cp/ne-normal-2x.png",
-            "sha256": "772517bac3647025434c0da9d800c59c1a1a6fb00430f3319200516abb6915ad"
+            "sha256": "6eb5ac71d2572c4863e6fda44e4b52833fce6587d245f496195bb046e5469c5b"
           },
           {
             "dimensions": {
@@ -10678,7 +10678,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/cp/ne-normal-4x.png",
-            "sha256": "29710184fa776a02fcb895fb056be8beb57e2ddf6c2685a9af73daafdb70948a"
+            "sha256": "22ceab310a21a043836bb9601786c4dbbad15c63366fdd8057e3af8bb0f79d01"
           }
         ],
         "palette": "cp",
@@ -10721,7 +10721,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/cp/ne-spent-2x.png",
-            "sha256": "f794b88acb4065624415102ea918f29d995abee66370304c78d2bba8a24b95a1"
+            "sha256": "f461a33483b0c3bd7854895ef1418415ee38542b1dbfe3ed2500cea0b2ecef21"
           },
           {
             "dimensions": {
@@ -10729,7 +10729,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/cp/ne-spent-4x.png",
-            "sha256": "68fd0c0833a1b424c936525ed07e9de9cc52ef08130cf640cce9722754907604"
+            "sha256": "d5bdcfd41c43366829dc45b717b0da4a846e0fba904fd1263a8ea363c54a975e"
           }
         ],
         "palette": "cp",
@@ -10772,7 +10772,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/ec/ne-normal-2x.png",
-            "sha256": "30be681d960e007680a3c03e36843891483a82fc948bff18042416c11ef1aaef"
+            "sha256": "c8bb4dbd3f0e3daae67e0c09ef334ccf9ec5ebcf8fe56edb687cb876a4a23504"
           },
           {
             "dimensions": {
@@ -10780,7 +10780,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/ec/ne-normal-4x.png",
-            "sha256": "ff04a9f962cd037c5540205a83c6516d8b9927fd4534719a073a4c4571c3b992"
+            "sha256": "4a28b4aa68014e3e71342d0de6c16ed0b9e1121e4cad6f403327cd7df28d9375"
           }
         ],
         "palette": "ec",
@@ -10823,7 +10823,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/ec/ne-spent-2x.png",
-            "sha256": "d38221034b1f946d7738308b4422ecea0fdf3e8e29a0de6793abdaee4180f605"
+            "sha256": "caf18e996adeb2f1d109328fcf9cd81019c5874c53989012f203cf0936347903"
           },
           {
             "dimensions": {
@@ -10831,7 +10831,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/ec/ne-spent-4x.png",
-            "sha256": "067acbb7d651b62b4a68addd51cec7c52ae346318682191866f7c3f9b85b3d05"
+            "sha256": "085fb00e1908278e00d2a7cdeb609a2e50fbcb3135ce995177462ee6a65ada6d"
           }
         ],
         "palette": "ec",
@@ -10874,7 +10874,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/neutral/ne-normal-2x.png",
-            "sha256": "78703003999b0276a5d7e8328edba27861ceeb6181b2a0a77e8e0a1e428f7e46"
+            "sha256": "affa422da6dab2e15a43090755bd7b0db702d30020a615c07d3948ca3cda841a"
           },
           {
             "dimensions": {
@@ -10882,7 +10882,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/neutral/ne-normal-4x.png",
-            "sha256": "74334529f575dbfc5b9f103527871610c8038b4dbb0768a6bd8db2b1334df224"
+            "sha256": "2c4e83982fd45647c3376f31a7b73de86a29e57bb58264f27912f48b6a92ddd6"
           }
         ],
         "palette": "neutral",
@@ -10925,7 +10925,7 @@
               "width": 192
             },
             "path": "sprites/patrolBoat/neutral/ne-spent-2x.png",
-            "sha256": "987ce184a414382b71a38d5ab19a4aef92e18ef3cccf52a3375f4298e60dbe99"
+            "sha256": "e44b364374c0815eab8a58c73319f103c32059e8ff4ae555ae3baac91c1057fb"
           },
           {
             "dimensions": {
@@ -10933,7 +10933,7 @@
               "width": 384
             },
             "path": "sprites/patrolBoat/neutral/ne-spent-4x.png",
-            "sha256": "ae3cf11dd27720e9a7d80296f436801c7c2f9a244690e0bfae0fb33313fdf586"
+            "sha256": "beb778cf8b08b96ab1f1dbc18f33ab74e26edda3528babedd5cd1ac9d464a592"
           }
         ],
         "palette": "neutral",
@@ -10986,7 +10986,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/cp/n-normal-2x.png",
-      "sha256": "dc27f8984b4d08165f539865a4874cbfdf82c32ffa27e2dd6ee88092c4047ff9"
+      "sha256": "e978618802f35277a49d8c6a35af2aaa808a1b756ee166ddb85db2c8f05f8021"
     },
     {
       "build_output": "sprites/patrolBoat/cp/n-normal-4x.png",
@@ -10995,7 +10995,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/cp/n-normal-4x.png",
-      "sha256": "3b2bb806d795128a309c771e622deeca1cef53ddaec392dde9fec514b4b31c44"
+      "sha256": "8fb8852cb7fe23497152d7441cfac1d1ceaf3157a9f5ee0f3eec360f658f7fcc"
     },
     {
       "build_output": "sprites/patrolBoat/cp/n-spent-2x.png",
@@ -11004,7 +11004,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/cp/n-spent-2x.png",
-      "sha256": "351d3479e011a22c23ff12e42e059bd7767d26a5fe8e2057d5d7251a96789bf0"
+      "sha256": "95e33afa0a39c6d1f627fad01a935f26a995d56766b67142bc912ceab2d563ee"
     },
     {
       "build_output": "sprites/patrolBoat/cp/n-spent-4x.png",
@@ -11013,7 +11013,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/cp/n-spent-4x.png",
-      "sha256": "34c1d62a2824103e2997ee289148fe6d839a85ce444ad06f26ec2d9d2ce84db1"
+      "sha256": "d62310812993bfeffbd8fb0c8c190075ea8aa27ad25c5bfe0baafde75b7b4188"
     },
     {
       "build_output": "sprites/patrolBoat/ec/n-normal-2x.png",
@@ -11022,7 +11022,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/ec/n-normal-2x.png",
-      "sha256": "91790b7f32b9e474a83db0093d43664404475a5bb97c1aab6cac5e445931a376"
+      "sha256": "ad2a0d0208d7a3f1f1cf5c9c6fab75d759c8187fcac1caaaa1e9d25588a24f3f"
     },
     {
       "build_output": "sprites/patrolBoat/ec/n-normal-4x.png",
@@ -11031,7 +11031,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/ec/n-normal-4x.png",
-      "sha256": "2ddd2d37c6dc129dcc4bd065d3262cfa390ed62b653395f73907887257263f1f"
+      "sha256": "102bf2c9b4ff1f6826b0a1373314ada449badcecf7a5596e5f8287921d7027dd"
     },
     {
       "build_output": "sprites/patrolBoat/ec/n-spent-2x.png",
@@ -11040,7 +11040,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/ec/n-spent-2x.png",
-      "sha256": "72d24a19eaf31b759dd88d28021bfd36ef0d4ddc23987a1bc982f222156c4906"
+      "sha256": "2a3af8b501bd32a4adfd9ea0e36455a5ccc86a22bba09c2e63903f50557fd599"
     },
     {
       "build_output": "sprites/patrolBoat/ec/n-spent-4x.png",
@@ -11049,7 +11049,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/ec/n-spent-4x.png",
-      "sha256": "911a77668d36cf49896ee11e4e36366ec68295d7622676b74f37712191ac122d"
+      "sha256": "58e38bb75a85c3e08a715ccdad6880f9244bdd2edeb2a30e21cf51b49bb6b2d6"
     },
     {
       "build_output": "sprites/patrolBoat/neutral/n-normal-2x.png",
@@ -11058,7 +11058,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/neutral/n-normal-2x.png",
-      "sha256": "d4dccc05057c9e96f21c806c8fe949450e46803329e549e5e13be8e2b0756e7e"
+      "sha256": "cbf9a4418131bc02090e4010da90300d251785bcf226b8f5d617bb282817cf21"
     },
     {
       "build_output": "sprites/patrolBoat/neutral/n-normal-4x.png",
@@ -11067,7 +11067,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/neutral/n-normal-4x.png",
-      "sha256": "92a2ddafe6691e1b8d89a8f571afe5fe58666e614db89cd670a81bab18577f92"
+      "sha256": "efadf02c60cc8ff9c17c4ae0151c5fc6d7d8fdebc4afbe0cb88d0129f2f13074"
     },
     {
       "build_output": "sprites/patrolBoat/neutral/n-spent-2x.png",
@@ -11076,7 +11076,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/neutral/n-spent-2x.png",
-      "sha256": "8d91ad2f4158e5d6d37a861fe328d16d57eb8abfab0a4ea80d9d99d0e13b2baa"
+      "sha256": "634b5d74b7f5785a0956c3e08dbf35da406af57847a481d21ba8e5f7870f10c5"
     },
     {
       "build_output": "sprites/patrolBoat/neutral/n-spent-4x.png",
@@ -11085,7 +11085,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/neutral/n-spent-4x.png",
-      "sha256": "29d9921558e2a4c82cc0002e4637392cc1c9c9412de5ca2e4055f0b720f6dcd0"
+      "sha256": "d6e532a1b234a38e027122828200d49effdea6bc26ade0c58b0de26bd9449f41"
     },
     {
       "build_output": "planes/patrolBoat/nw-base-2x.png",
@@ -11130,7 +11130,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/cp/nw-normal-2x.png",
-      "sha256": "b904c2948fb5dd3eb5d4d11fbbe13e2c0a268ff174319c407d0f01cbb4ebbec5"
+      "sha256": "78c9bc5bd2539e6cf3b3658f8c2dcdd36e6f8c2cfde49e470e41f5d45d138cbb"
     },
     {
       "build_output": "sprites/patrolBoat/cp/nw-normal-4x.png",
@@ -11139,7 +11139,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/cp/nw-normal-4x.png",
-      "sha256": "37f87265975d93a4caff431ceb3473115094688931329e5a8c45edf428a18dfd"
+      "sha256": "0c9f054d8c1d75ca3a477ac2d929b45114f4cc7334d4c13c0ae747edd3dc91d0"
     },
     {
       "build_output": "sprites/patrolBoat/cp/nw-spent-2x.png",
@@ -11148,7 +11148,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/cp/nw-spent-2x.png",
-      "sha256": "67d7b7daa9b4a79550f50659f5d4084f0d26830b0a4f2dbec38f9e9c93b19613"
+      "sha256": "1644b0d304a8109f902ceadae30c3907d7586ca7efe0e336a7a6f1fd8f2956fe"
     },
     {
       "build_output": "sprites/patrolBoat/cp/nw-spent-4x.png",
@@ -11157,7 +11157,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/cp/nw-spent-4x.png",
-      "sha256": "5097a5756dbd9f7232d5cbd97b6e7979c15efabf160fbfcefeb4b8fc50e11bc1"
+      "sha256": "6e2c3478c9f5777096bf63fcc47109c116a61bacc94f712d1e9e450ee423360a"
     },
     {
       "build_output": "sprites/patrolBoat/ec/nw-normal-2x.png",
@@ -11166,7 +11166,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/ec/nw-normal-2x.png",
-      "sha256": "95d642a262c473702f1055c6ab848f66eec3b6106e1dc37e2fc7723b989239d4"
+      "sha256": "89112209ad235d2ae89484388b528af29af9be745e92bb7f2970d511d3608494"
     },
     {
       "build_output": "sprites/patrolBoat/ec/nw-normal-4x.png",
@@ -11175,7 +11175,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/ec/nw-normal-4x.png",
-      "sha256": "635b2cfde4353ef81811e6696cbb898a1e4590a5d35550baa364ed1a0d13a4fc"
+      "sha256": "49c8aa65725456cf00262b49a2c975c5dc605c8028d8ef153b4de894dfdef68d"
     },
     {
       "build_output": "sprites/patrolBoat/ec/nw-spent-2x.png",
@@ -11184,7 +11184,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/ec/nw-spent-2x.png",
-      "sha256": "9de6a4ef5606e306d860501663ab282d534319357f668d41e159df009c438d4d"
+      "sha256": "181a5ad66d8ace9313012a44bdd8bcb58a816fa01df59c79e92384beb9fdbd96"
     },
     {
       "build_output": "sprites/patrolBoat/ec/nw-spent-4x.png",
@@ -11193,7 +11193,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/ec/nw-spent-4x.png",
-      "sha256": "6c178d1227fb0e65af0c5e0ded5ade4753ad699df8dc9f049216142c1073de4c"
+      "sha256": "62164181955f6295acb8116536d8fb42af11c9e3f9b0f3847259aed19d544b15"
     },
     {
       "build_output": "sprites/patrolBoat/neutral/nw-normal-2x.png",
@@ -11202,7 +11202,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/neutral/nw-normal-2x.png",
-      "sha256": "3bda136df401f740f94a7a3cb9352ceb5bdeeb8b8ff4ae939007fd1f6f67e928"
+      "sha256": "a97112a0731db4c03fbe07a4ab1ac735123f52dbb099bca0104af606de3c46dd"
     },
     {
       "build_output": "sprites/patrolBoat/neutral/nw-normal-4x.png",
@@ -11211,7 +11211,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/neutral/nw-normal-4x.png",
-      "sha256": "72bd348043a67597adae58f13c32b55ab9dfc1c2652bd6078d0131bd5a427b0c"
+      "sha256": "e22adcd7ed73b03e02eab69da211066325c53c97c717e286907f38ca0b355068"
     },
     {
       "build_output": "sprites/patrolBoat/neutral/nw-spent-2x.png",
@@ -11220,7 +11220,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/neutral/nw-spent-2x.png",
-      "sha256": "3df4fe8f052f50d5e78f5ca380001facde370bea2e7e60f93580dce61f2b106d"
+      "sha256": "2fc16a4b32b5154c3dbbb667a272a590d93ab546a1194e493818615c113691ea"
     },
     {
       "build_output": "sprites/patrolBoat/neutral/nw-spent-4x.png",
@@ -11229,7 +11229,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/neutral/nw-spent-4x.png",
-      "sha256": "7b73a7600c73abcbd3ea0cfccb438e3a963ce96b1b151500fad8a631fcef3e70"
+      "sha256": "2538554e915e831087edd6546b04b04d295e9bc15aea823cac2f3c6620358b3f"
     },
     {
       "build_output": "planes/patrolBoat/sw-base-2x.png",
@@ -11274,7 +11274,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/cp/sw-normal-2x.png",
-      "sha256": "51f349707f2f7552db4709167cfa1ac7e18dab6b955bdb2e01e8b404106c277a"
+      "sha256": "0b9910d0daa97c966f158308b9fd4b0fcfd503fd26c160973518f7582f0b5e44"
     },
     {
       "build_output": "sprites/patrolBoat/cp/sw-normal-4x.png",
@@ -11283,7 +11283,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/cp/sw-normal-4x.png",
-      "sha256": "5a8b34624d958118a647c01b3ae9948461dd97ecb308ea64a9d72976e4e63e20"
+      "sha256": "465078736c0a341381b34284d2abcb8e5ffe399f43b24286946d0427c8403850"
     },
     {
       "build_output": "sprites/patrolBoat/cp/sw-spent-2x.png",
@@ -11292,7 +11292,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/cp/sw-spent-2x.png",
-      "sha256": "9dc82f33b9408e1b19d75e8d7a2a0f876533ae4f0cde66a9a1b0652289de11ba"
+      "sha256": "27b4ec980109939888dc599ee40e7728239b1a2a3cb56aa88607637f0d5ebc93"
     },
     {
       "build_output": "sprites/patrolBoat/cp/sw-spent-4x.png",
@@ -11301,7 +11301,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/cp/sw-spent-4x.png",
-      "sha256": "e133ce4cffb796b67fe81d9d3a3ab950358d4a58cc1f3ef7346e6fe1a250ea5c"
+      "sha256": "263bbc5c30445efac6a9b0db582a2f7809f6036f5c80273298a36b01309480f2"
     },
     {
       "build_output": "sprites/patrolBoat/ec/sw-normal-2x.png",
@@ -11310,7 +11310,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/ec/sw-normal-2x.png",
-      "sha256": "5e76038ce93c04c9e282c212aafe8ade4bf3db6536e1f04d46a4a5450d98cf1e"
+      "sha256": "ef79110ff469ef38676b9a6dff3eebaf1bcac88e5f60ca6b8e91488c294c4c51"
     },
     {
       "build_output": "sprites/patrolBoat/ec/sw-normal-4x.png",
@@ -11319,7 +11319,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/ec/sw-normal-4x.png",
-      "sha256": "0ae36631cf80685399e6c73edb986dcbe810fe7308dafb042921dfa47add7936"
+      "sha256": "483d8500274b4ed602f579deb108323c5f7bb103f9c4007db00e2fbc7b48cd4f"
     },
     {
       "build_output": "sprites/patrolBoat/ec/sw-spent-2x.png",
@@ -11328,7 +11328,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/ec/sw-spent-2x.png",
-      "sha256": "119174dc93c8c11bdf72ee5ef2f369a0e6f17143d1d7a922ef5723d9e9f1923f"
+      "sha256": "1ebba9c99a71aef12e0fa41cbbd3070155d5d85458285a04eeebd8b1a08e696c"
     },
     {
       "build_output": "sprites/patrolBoat/ec/sw-spent-4x.png",
@@ -11337,7 +11337,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/ec/sw-spent-4x.png",
-      "sha256": "0c3c1bb996cc8d3df6e1f861b7fe192c7a9011d744e5587ea1ccb46f1bd745e0"
+      "sha256": "bb7cf6b280d5170b8fbed08878f3aa4757aa6e4db128f553baf459db7552e396"
     },
     {
       "build_output": "sprites/patrolBoat/neutral/sw-normal-2x.png",
@@ -11346,7 +11346,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/neutral/sw-normal-2x.png",
-      "sha256": "f3c36a6b1da5f119d62b2254ec62a14d9d626f6a858abc73830ed9f27d24f8af"
+      "sha256": "45575ce68d67e60d8c1b2b631b9b0010305dc993a5b53838f357ec05a57344f8"
     },
     {
       "build_output": "sprites/patrolBoat/neutral/sw-normal-4x.png",
@@ -11355,7 +11355,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/neutral/sw-normal-4x.png",
-      "sha256": "0e5de1e7c1cba177b04e5bca93a1b7a38966ce53831f8af41aad156140e1f2d8"
+      "sha256": "998b0b8ee2efe702678561bc37bffbe437ff1f882e5125dd26450c228a072cfa"
     },
     {
       "build_output": "sprites/patrolBoat/neutral/sw-spent-2x.png",
@@ -11364,7 +11364,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/neutral/sw-spent-2x.png",
-      "sha256": "83cc3f7feef51c8493f5cb76ea9b281d42a3437c5223b85b4827c54aacb43521"
+      "sha256": "97b99ccfb96636ad7e325d2689fc5537a9c28b250576f2c8830e4069ca7b0477"
     },
     {
       "build_output": "sprites/patrolBoat/neutral/sw-spent-4x.png",
@@ -11373,7 +11373,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/neutral/sw-spent-4x.png",
-      "sha256": "dc49a3af0e645d7d2c90e1cdcc0acde18192f7eccf1ab54ec92683e0095bde55"
+      "sha256": "95d2dd4a8b9f628ea2a345ff8e1326851317f627ee397fab6a233f189d7d19ca"
     },
     {
       "build_output": "planes/patrolBoat/s-base-2x.png",
@@ -11418,7 +11418,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/cp/s-normal-2x.png",
-      "sha256": "c3ad4aa17e044f4faa8bc74ac8363955d82917094983d7285d0c0abf716b4d84"
+      "sha256": "bde0ecce4623c57d3d5b02a55932d985b728850fedafbfda26216a32c30d4175"
     },
     {
       "build_output": "sprites/patrolBoat/cp/s-normal-4x.png",
@@ -11427,7 +11427,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/cp/s-normal-4x.png",
-      "sha256": "38d62a6b3d1a9f83190ec23d7f647a4b70139657bffc76f860137a809619daf2"
+      "sha256": "a1f33b78ad0ea4c4c4e409c8fd6e499b67bf0199bf8433626bec13339258a984"
     },
     {
       "build_output": "sprites/patrolBoat/cp/s-spent-2x.png",
@@ -11436,7 +11436,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/cp/s-spent-2x.png",
-      "sha256": "5b4494261bdd8269db334ba6cfd07f9205330d0186a0bcc5802f15a17149e1ee"
+      "sha256": "ae95b29d3e67d42c16cd345b5a788ff8c4abd8f72a5216584db2a1506cf165e6"
     },
     {
       "build_output": "sprites/patrolBoat/cp/s-spent-4x.png",
@@ -11445,7 +11445,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/cp/s-spent-4x.png",
-      "sha256": "89a647b5daae365787d0a3c19acc68006c1d1a67e5c3da077bcaf8b8de1fbc74"
+      "sha256": "8a1a512f5d157249416ba1005d9e3bd973cc4ac617b65bdc557111d1a6faec01"
     },
     {
       "build_output": "sprites/patrolBoat/ec/s-normal-2x.png",
@@ -11454,7 +11454,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/ec/s-normal-2x.png",
-      "sha256": "becf45c864fee5fc90c1817cd61d44c4fbf199c3882cadecfe71e3555b1b5ab6"
+      "sha256": "f9de9da9c019de648fb3888fbe2df1fe6ae4cce28eeec8ffa4b2495aab46de8b"
     },
     {
       "build_output": "sprites/patrolBoat/ec/s-normal-4x.png",
@@ -11463,7 +11463,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/ec/s-normal-4x.png",
-      "sha256": "c817eac04e2c6f256522a8fc473f0f86b19f008eaea254cf3f915c73034fed2f"
+      "sha256": "16556daff0feb9109c14d5e9dd0e62f5cd1a35e86982f26cdceda42f67d77abd"
     },
     {
       "build_output": "sprites/patrolBoat/ec/s-spent-2x.png",
@@ -11472,7 +11472,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/ec/s-spent-2x.png",
-      "sha256": "029228d4ca6b042e29f9b1bce9ee6c5b3a6cd6c211457d94a1b9f871a970c629"
+      "sha256": "bf2ce748f253f558978a27f9088ddac65ff8780ca1cec970e0b2d07b1f13c310"
     },
     {
       "build_output": "sprites/patrolBoat/ec/s-spent-4x.png",
@@ -11481,7 +11481,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/ec/s-spent-4x.png",
-      "sha256": "540cea66338a0556141b13afe2ab74d6f79ecb0e7605983d28101dd36196c75f"
+      "sha256": "ee01337f30aff477d97e64287fb64c48a8e018088468bff5d7a8dbbe418af832"
     },
     {
       "build_output": "sprites/patrolBoat/neutral/s-normal-2x.png",
@@ -11490,7 +11490,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/neutral/s-normal-2x.png",
-      "sha256": "cd5fb96d6f703158353a9db352bfbec1a83376540536789a4e055789804eb57c"
+      "sha256": "c6a504177a03823b9d962e7e91611a83fc381724f8ef6cd2f3161d4b157786ad"
     },
     {
       "build_output": "sprites/patrolBoat/neutral/s-normal-4x.png",
@@ -11499,7 +11499,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/neutral/s-normal-4x.png",
-      "sha256": "808ef0ce85586de63bde9f1ff3475b27573a96aea9f081fa6be53f3901a11341"
+      "sha256": "3da504f7ba1e3ff7584b6fceaef78aea3ffd625e1993d4a14aebeb503184f4cb"
     },
     {
       "build_output": "sprites/patrolBoat/neutral/s-spent-2x.png",
@@ -11508,7 +11508,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/neutral/s-spent-2x.png",
-      "sha256": "0038a333bb8a659da2fe84fab219fe1287a289cce857cbc172d2f3d10fdb4b49"
+      "sha256": "15e1159b2a676cda964be7f8c12901efae7ab2a2808e85318f2c232ffb9e02d3"
     },
     {
       "build_output": "sprites/patrolBoat/neutral/s-spent-4x.png",
@@ -11517,7 +11517,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/neutral/s-spent-4x.png",
-      "sha256": "3274c68a5d613a775ab3a5a790baebaf9a95053fddcfa86c8255719d3c3502de"
+      "sha256": "c5237ee9c429b5b95fb9d5d3f5521778c90defc7950100809bd2b78cade7a631"
     },
     {
       "build_output": "planes/patrolBoat/se-base-2x.png",
@@ -11562,7 +11562,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/cp/se-normal-2x.png",
-      "sha256": "4c361ec98d8a61daf3fa4c51cbb749e6e2c10d4bae6c83fedb7bbd720cf8b9b5"
+      "sha256": "b9a68dde3790c8d08094332cb609be5cb9d280bc144e28e8056e7a26672b2643"
     },
     {
       "build_output": "sprites/patrolBoat/cp/se-normal-4x.png",
@@ -11571,7 +11571,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/cp/se-normal-4x.png",
-      "sha256": "6852ee509b4d92be8d68e195f289786856ed0097da22b154cc407da3679a5c8c"
+      "sha256": "49c226ff78c661ae38432acde10cf9c51987633e8643c55bf9f1ae96f8f9af28"
     },
     {
       "build_output": "sprites/patrolBoat/cp/se-spent-2x.png",
@@ -11580,7 +11580,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/cp/se-spent-2x.png",
-      "sha256": "c1a40352c0d4baab08b8bf879ee36e7af7accc1975da1549a91df4c32bd96d34"
+      "sha256": "f8ae25554c514c3fca2bd597a2590d0aa1f0174edd8007788121059a26723f8d"
     },
     {
       "build_output": "sprites/patrolBoat/cp/se-spent-4x.png",
@@ -11589,7 +11589,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/cp/se-spent-4x.png",
-      "sha256": "ac60cf5dc33e656c5b9dcd7124f9ebd7833583f1b7e9d805040231debc2d280c"
+      "sha256": "843befe13ea0c82b9cb13fca149f596d1883983f2f2ee1844b3e890ab73fc41f"
     },
     {
       "build_output": "sprites/patrolBoat/ec/se-normal-2x.png",
@@ -11598,7 +11598,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/ec/se-normal-2x.png",
-      "sha256": "0f8846533f2577aa0162004f1476ebbd178d27d132f02a622ed34b14ba2d722c"
+      "sha256": "e0d4fe50884ea56ffb68f1a52cd710edeb77d93933518168b58473c67edb9b5c"
     },
     {
       "build_output": "sprites/patrolBoat/ec/se-normal-4x.png",
@@ -11607,7 +11607,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/ec/se-normal-4x.png",
-      "sha256": "d8137eba3eaa9bf710811a35527bae6e180d0eb5640d2637e752aeef386621d7"
+      "sha256": "e309059e0de56486d260f42a50efe6a8e520ee51e9e5cde8487191bf2c500dd0"
     },
     {
       "build_output": "sprites/patrolBoat/ec/se-spent-2x.png",
@@ -11616,7 +11616,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/ec/se-spent-2x.png",
-      "sha256": "533ef0084be19ecd8dd11cb804a12db509df270da3461f76c94949906d6fec4e"
+      "sha256": "ee380f3b2aee3433dc36317bc87c78a0b34f889e21e0350ac50d5c3bc2152efc"
     },
     {
       "build_output": "sprites/patrolBoat/ec/se-spent-4x.png",
@@ -11625,7 +11625,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/ec/se-spent-4x.png",
-      "sha256": "90b99e01b756b5ab6dd34c27ab912c5191aeb88a31a67d71645d42402468e011"
+      "sha256": "c313c81bb5b8659c4d1edf91131f800ab26c7e9f7d790c8e59c9f897d8ddbdcd"
     },
     {
       "build_output": "sprites/patrolBoat/neutral/se-normal-2x.png",
@@ -11634,7 +11634,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/neutral/se-normal-2x.png",
-      "sha256": "12b1fda91bc7bc2033f586b12a4765cc66565ed66d3ad7005ab9870cd4ed46fb"
+      "sha256": "b45a5cb3cedea6ee5b3ff621e19ad98786828d071fc40c33e95cb9767865cd15"
     },
     {
       "build_output": "sprites/patrolBoat/neutral/se-normal-4x.png",
@@ -11643,7 +11643,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/neutral/se-normal-4x.png",
-      "sha256": "9133cee83e5cf7e9c6cbe255004d6e8974d56996621753eca36e9ce1bf6ea690"
+      "sha256": "75a26d89cbdc1d8c4358b9df63ace152156dba8f688896f4ac86c7bbd8c9e82b"
     },
     {
       "build_output": "sprites/patrolBoat/neutral/se-spent-2x.png",
@@ -11652,7 +11652,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/neutral/se-spent-2x.png",
-      "sha256": "736d3999d925b662b78426ca5b634d6aa2de830132ab56865e39caf45a718a16"
+      "sha256": "990b5199d3ce23c0a327413bbc61d21043eef1db4c9e83d51e3f8dc969c4b40e"
     },
     {
       "build_output": "sprites/patrolBoat/neutral/se-spent-4x.png",
@@ -11661,7 +11661,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/neutral/se-spent-4x.png",
-      "sha256": "787340d14e1454b3476111a03560aa854aabe89adc13f4f60a8c64da8b58c5d0"
+      "sha256": "88cb21366c876100ee23a6bd8e2bc21bd74cc86932b17181d5a020a03adaf473"
     },
     {
       "build_output": "planes/patrolBoat/ne-base-2x.png",
@@ -11706,7 +11706,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/cp/ne-normal-2x.png",
-      "sha256": "772517bac3647025434c0da9d800c59c1a1a6fb00430f3319200516abb6915ad"
+      "sha256": "6eb5ac71d2572c4863e6fda44e4b52833fce6587d245f496195bb046e5469c5b"
     },
     {
       "build_output": "sprites/patrolBoat/cp/ne-normal-4x.png",
@@ -11715,7 +11715,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/cp/ne-normal-4x.png",
-      "sha256": "29710184fa776a02fcb895fb056be8beb57e2ddf6c2685a9af73daafdb70948a"
+      "sha256": "22ceab310a21a043836bb9601786c4dbbad15c63366fdd8057e3af8bb0f79d01"
     },
     {
       "build_output": "sprites/patrolBoat/cp/ne-spent-2x.png",
@@ -11724,7 +11724,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/cp/ne-spent-2x.png",
-      "sha256": "f794b88acb4065624415102ea918f29d995abee66370304c78d2bba8a24b95a1"
+      "sha256": "f461a33483b0c3bd7854895ef1418415ee38542b1dbfe3ed2500cea0b2ecef21"
     },
     {
       "build_output": "sprites/patrolBoat/cp/ne-spent-4x.png",
@@ -11733,7 +11733,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/cp/ne-spent-4x.png",
-      "sha256": "68fd0c0833a1b424c936525ed07e9de9cc52ef08130cf640cce9722754907604"
+      "sha256": "d5bdcfd41c43366829dc45b717b0da4a846e0fba904fd1263a8ea363c54a975e"
     },
     {
       "build_output": "sprites/patrolBoat/ec/ne-normal-2x.png",
@@ -11742,7 +11742,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/ec/ne-normal-2x.png",
-      "sha256": "30be681d960e007680a3c03e36843891483a82fc948bff18042416c11ef1aaef"
+      "sha256": "c8bb4dbd3f0e3daae67e0c09ef334ccf9ec5ebcf8fe56edb687cb876a4a23504"
     },
     {
       "build_output": "sprites/patrolBoat/ec/ne-normal-4x.png",
@@ -11751,7 +11751,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/ec/ne-normal-4x.png",
-      "sha256": "ff04a9f962cd037c5540205a83c6516d8b9927fd4534719a073a4c4571c3b992"
+      "sha256": "4a28b4aa68014e3e71342d0de6c16ed0b9e1121e4cad6f403327cd7df28d9375"
     },
     {
       "build_output": "sprites/patrolBoat/ec/ne-spent-2x.png",
@@ -11760,7 +11760,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/ec/ne-spent-2x.png",
-      "sha256": "d38221034b1f946d7738308b4422ecea0fdf3e8e29a0de6793abdaee4180f605"
+      "sha256": "caf18e996adeb2f1d109328fcf9cd81019c5874c53989012f203cf0936347903"
     },
     {
       "build_output": "sprites/patrolBoat/ec/ne-spent-4x.png",
@@ -11769,7 +11769,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/ec/ne-spent-4x.png",
-      "sha256": "067acbb7d651b62b4a68addd51cec7c52ae346318682191866f7c3f9b85b3d05"
+      "sha256": "085fb00e1908278e00d2a7cdeb609a2e50fbcb3135ce995177462ee6a65ada6d"
     },
     {
       "build_output": "sprites/patrolBoat/neutral/ne-normal-2x.png",
@@ -11778,7 +11778,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/neutral/ne-normal-2x.png",
-      "sha256": "78703003999b0276a5d7e8328edba27861ceeb6181b2a0a77e8e0a1e428f7e46"
+      "sha256": "affa422da6dab2e15a43090755bd7b0db702d30020a615c07d3948ca3cda841a"
     },
     {
       "build_output": "sprites/patrolBoat/neutral/ne-normal-4x.png",
@@ -11787,7 +11787,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/neutral/ne-normal-4x.png",
-      "sha256": "74334529f575dbfc5b9f103527871610c8038b4dbb0768a6bd8db2b1334df224"
+      "sha256": "2c4e83982fd45647c3376f31a7b73de86a29e57bb58264f27912f48b6a92ddd6"
     },
     {
       "build_output": "sprites/patrolBoat/neutral/ne-spent-2x.png",
@@ -11796,7 +11796,7 @@
         "width": 192
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/neutral/ne-spent-2x.png",
-      "sha256": "987ce184a414382b71a38d5ab19a4aef92e18ef3cccf52a3375f4298e60dbe99"
+      "sha256": "e44b364374c0815eab8a58c73319f103c32059e8ff4ae555ae3baac91c1057fb"
     },
     {
       "build_output": "sprites/patrolBoat/neutral/ne-spent-4x.png",
@@ -11805,7 +11805,7 @@
         "width": 384
       },
       "path": "art/exports/unit-patrol-boat-v1/sprites/patrolBoat/neutral/ne-spent-4x.png",
-      "sha256": "ae3cf11dd27720e9a7d80296f436801c7c2f9a244690e0bfae0fb33313fdf586"
+      "sha256": "beb778cf8b08b96ab1f1dbc18f33ab74e26edda3528babedd5cd1ac9d464a592"
     },
     {
       "build_output": "sheets/patrolBoat-white-2x.png",
@@ -11814,7 +11814,7 @@
         "width": 1152
       },
       "path": "art/exports/unit-patrol-boat-v1/sheets/patrolBoat-white-2x.png",
-      "sha256": "107a1ca040fcc58324c2e9920dae9b19217af6bc54fd2406dd3a5f2e0549bd1b"
+      "sha256": "f0137ef3cdf3eb1b36a168a6c09495f5262673f4ae2ec345a6469e648182b114"
     },
     {
       "build_output": "sheets/patrolBoat-white-4x.png",
@@ -11823,7 +11823,7 @@
         "width": 2304
       },
       "path": "art/exports/unit-patrol-boat-v1/sheets/patrolBoat-white-4x.png",
-      "sha256": "329b1a6bf824a6606f5504f1c5c1894038c4630ce1dfdb1561585be3cff62836"
+      "sha256": "3cd4cf4ed4ea21e4359367e1ec4c550f335e591c197ddf14bd319017a9dfff98"
     },
     {
       "build_output": "sheets/patrolBoat-checker-2x.png",
@@ -11832,7 +11832,7 @@
         "width": 1152
       },
       "path": "art/exports/unit-patrol-boat-v1/sheets/patrolBoat-checker-2x.png",
-      "sha256": "724861d922511a2c5e6a7ef3f4ffc2ce58bbfd3bc55739117c6ac1aa9e5db61e"
+      "sha256": "e41fb4d9748bcc8bc27d6065389a7f2649ecbc5ed096be6afa84e675cbb1ed90"
     },
     {
       "build_output": "sheets/patrolBoat-checker-4x.png",
@@ -11841,7 +11841,7 @@
         "width": 2304
       },
       "path": "art/exports/unit-patrol-boat-v1/sheets/patrolBoat-checker-4x.png",
-      "sha256": "d1172fd5cf4bea78bd2fb2976fc8f119e9b230d7e94b6c9fd30947fc6078d65b"
+      "sha256": "8ea419e2af5743f5e726085982de5ba44f6b80196f0a530e2f24eb9b2103e967"
     },
     {
       "build_output": "scenes/grass-normal-p0-2x.png",
@@ -11850,7 +11850,7 @@
         "width": 476
       },
       "path": "art/exports/unit-patrol-boat-v1/scenes/grass-normal-p0-2x.png",
-      "sha256": "94743571d7793da7b3327e4bbe2ceb7fb46714974cb1e1fb530c15606b59687e"
+      "sha256": "50b330dc03891c84ed22b8ad4d963d0eacf1f2c5f9b4016632e5b8b49890cd47"
     },
     {
       "build_output": "scenes/grass-normal-p0-4x.png",
@@ -11859,7 +11859,7 @@
         "width": 952
       },
       "path": "art/exports/unit-patrol-boat-v1/scenes/grass-normal-p0-4x.png",
-      "sha256": "88874cba6ec1c82bea1320456c7050e4a3d90858e2b0d7c35923fe15b19afb66"
+      "sha256": "2364349fa9e0b92c4e57bababb82045a1e493984f7b5fc0e14f9a135205c4f75"
     },
     {
       "build_output": "scenes/grass-normal-p1-2x.png",
@@ -11868,7 +11868,7 @@
         "width": 476
       },
       "path": "art/exports/unit-patrol-boat-v1/scenes/grass-normal-p1-2x.png",
-      "sha256": "94743571d7793da7b3327e4bbe2ceb7fb46714974cb1e1fb530c15606b59687e"
+      "sha256": "50b330dc03891c84ed22b8ad4d963d0eacf1f2c5f9b4016632e5b8b49890cd47"
     },
     {
       "build_output": "scenes/grass-normal-p1-4x.png",
@@ -11877,7 +11877,7 @@
         "width": 952
       },
       "path": "art/exports/unit-patrol-boat-v1/scenes/grass-normal-p1-4x.png",
-      "sha256": "88874cba6ec1c82bea1320456c7050e4a3d90858e2b0d7c35923fe15b19afb66"
+      "sha256": "2364349fa9e0b92c4e57bababb82045a1e493984f7b5fc0e14f9a135205c4f75"
     },
     {
       "build_output": "scenes/grass-spent-p0-2x.png",
@@ -11886,7 +11886,7 @@
         "width": 476
       },
       "path": "art/exports/unit-patrol-boat-v1/scenes/grass-spent-p0-2x.png",
-      "sha256": "fc24642ca63e4298f7dc89d375316ff4a67d181a99397af9f1152cd705d8cbf3"
+      "sha256": "ad747857f5658518ac9c5455c28b1478fc65ec0b67c1b2fe115765cfc6943f36"
     },
     {
       "build_output": "scenes/grass-spent-p0-4x.png",
@@ -11895,7 +11895,7 @@
         "width": 952
       },
       "path": "art/exports/unit-patrol-boat-v1/scenes/grass-spent-p0-4x.png",
-      "sha256": "c098ce5624c4dec015ac0cb00dd3e1aee696cbbd1de1ce7816328fbe9aab0d01"
+      "sha256": "a05b96b607ada032dc1f5f20b0c483b5e98dbaf825875bd6fcd3f00616df6049"
     },
     {
       "build_output": "scenes/grass-spent-p1-2x.png",
@@ -11904,7 +11904,7 @@
         "width": 476
       },
       "path": "art/exports/unit-patrol-boat-v1/scenes/grass-spent-p1-2x.png",
-      "sha256": "fc24642ca63e4298f7dc89d375316ff4a67d181a99397af9f1152cd705d8cbf3"
+      "sha256": "ad747857f5658518ac9c5455c28b1478fc65ec0b67c1b2fe115765cfc6943f36"
     },
     {
       "build_output": "scenes/grass-spent-p1-4x.png",
@@ -11913,7 +11913,7 @@
         "width": 952
       },
       "path": "art/exports/unit-patrol-boat-v1/scenes/grass-spent-p1-4x.png",
-      "sha256": "c098ce5624c4dec015ac0cb00dd3e1aee696cbbd1de1ce7816328fbe9aab0d01"
+      "sha256": "a05b96b607ada032dc1f5f20b0c483b5e98dbaf825875bd6fcd3f00616df6049"
     },
     {
       "build_output": "scenes/grass_w-normal-p0-2x.png",
@@ -11922,7 +11922,7 @@
         "width": 476
       },
       "path": "art/exports/unit-patrol-boat-v1/scenes/grass_w-normal-p0-2x.png",
-      "sha256": "f43dec66b8834a7f7b91c38784b9f7ecaa7257a6b26f593c846ea0ddf8ae9cd2"
+      "sha256": "ee270b21482dc1837cf3ab0c44e23c2b6f249bda2bcd41e2609467c2d9ea09fd"
     },
     {
       "build_output": "scenes/grass_w-normal-p0-4x.png",
@@ -11931,7 +11931,7 @@
         "width": 952
       },
       "path": "art/exports/unit-patrol-boat-v1/scenes/grass_w-normal-p0-4x.png",
-      "sha256": "d0bd649ab842fdd3e42afb6aff5316432a1e0ea88438dd4e89d7f26c41f48d1a"
+      "sha256": "a831e4491f0c5440ac361e3aa915c0ddca9b9822c40f414f2f8a3f3843be2e6f"
     },
     {
       "build_output": "scenes/grass_w-normal-p1-2x.png",
@@ -11940,7 +11940,7 @@
         "width": 476
       },
       "path": "art/exports/unit-patrol-boat-v1/scenes/grass_w-normal-p1-2x.png",
-      "sha256": "f43dec66b8834a7f7b91c38784b9f7ecaa7257a6b26f593c846ea0ddf8ae9cd2"
+      "sha256": "ee270b21482dc1837cf3ab0c44e23c2b6f249bda2bcd41e2609467c2d9ea09fd"
     },
     {
       "build_output": "scenes/grass_w-normal-p1-4x.png",
@@ -11949,7 +11949,7 @@
         "width": 952
       },
       "path": "art/exports/unit-patrol-boat-v1/scenes/grass_w-normal-p1-4x.png",
-      "sha256": "d0bd649ab842fdd3e42afb6aff5316432a1e0ea88438dd4e89d7f26c41f48d1a"
+      "sha256": "a831e4491f0c5440ac361e3aa915c0ddca9b9822c40f414f2f8a3f3843be2e6f"
     },
     {
       "build_output": "scenes/grass_w-spent-p0-2x.png",
@@ -11958,7 +11958,7 @@
         "width": 476
       },
       "path": "art/exports/unit-patrol-boat-v1/scenes/grass_w-spent-p0-2x.png",
-      "sha256": "a053c2518e9eff41a7739d53f3cce05a7f3edeb69d1bd2bdac4bc8619eee6a72"
+      "sha256": "eec2319ea41ec6cc0e343335f96fd149f714a1165400c855267a91c808aa902f"
     },
     {
       "build_output": "scenes/grass_w-spent-p0-4x.png",
@@ -11967,7 +11967,7 @@
         "width": 952
       },
       "path": "art/exports/unit-patrol-boat-v1/scenes/grass_w-spent-p0-4x.png",
-      "sha256": "c5bca08c3e787ab872891a72f7e2a79dd1c69e5300909617cea322fbe604feb0"
+      "sha256": "7e2c35ecd2aee966ba37fbf8439986812e78bc67cc02032db295b581fc360414"
     },
     {
       "build_output": "scenes/grass_w-spent-p1-2x.png",
@@ -11976,7 +11976,7 @@
         "width": 476
       },
       "path": "art/exports/unit-patrol-boat-v1/scenes/grass_w-spent-p1-2x.png",
-      "sha256": "a053c2518e9eff41a7739d53f3cce05a7f3edeb69d1bd2bdac4bc8619eee6a72"
+      "sha256": "eec2319ea41ec6cc0e343335f96fd149f714a1165400c855267a91c808aa902f"
     },
     {
       "build_output": "scenes/grass_w-spent-p1-4x.png",
@@ -11985,7 +11985,7 @@
         "width": 952
       },
       "path": "art/exports/unit-patrol-boat-v1/scenes/grass_w-spent-p1-4x.png",
-      "sha256": "c5bca08c3e787ab872891a72f7e2a79dd1c69e5300909617cea322fbe604feb0"
+      "sha256": "7e2c35ecd2aee966ba37fbf8439986812e78bc67cc02032db295b581fc360414"
     },
     {
       "build_output": "scenes/mud-normal-p0-2x.png",
@@ -11994,7 +11994,7 @@
         "width": 476
       },
       "path": "art/exports/unit-patrol-boat-v1/scenes/mud-normal-p0-2x.png",
-      "sha256": "93497af99b6ec268bb0acc3434d7d414e38d5ce6c9ae5724a39ccce8f1388f20"
+      "sha256": "11f49363012d6c3df2e651315498aa6a69805e59aca02d82aa2c4b45ffcb8fb9"
     },
     {
       "build_output": "scenes/mud-normal-p0-4x.png",
@@ -12003,7 +12003,7 @@
         "width": 952
       },
       "path": "art/exports/unit-patrol-boat-v1/scenes/mud-normal-p0-4x.png",
-      "sha256": "1e79e253c0dd8917dbd5a44a58adc5eb5f81145a6343c4ebc7d6c9a7b140036d"
+      "sha256": "799302f8301993ee73a59324ac00fe6f9941bb86981e929e6692d0bf45d6ffea"
     },
     {
       "build_output": "scenes/mud-normal-p1-2x.png",
@@ -12012,7 +12012,7 @@
         "width": 476
       },
       "path": "art/exports/unit-patrol-boat-v1/scenes/mud-normal-p1-2x.png",
-      "sha256": "93497af99b6ec268bb0acc3434d7d414e38d5ce6c9ae5724a39ccce8f1388f20"
+      "sha256": "11f49363012d6c3df2e651315498aa6a69805e59aca02d82aa2c4b45ffcb8fb9"
     },
     {
       "build_output": "scenes/mud-normal-p1-4x.png",
@@ -12021,7 +12021,7 @@
         "width": 952
       },
       "path": "art/exports/unit-patrol-boat-v1/scenes/mud-normal-p1-4x.png",
-      "sha256": "1e79e253c0dd8917dbd5a44a58adc5eb5f81145a6343c4ebc7d6c9a7b140036d"
+      "sha256": "799302f8301993ee73a59324ac00fe6f9941bb86981e929e6692d0bf45d6ffea"
     },
     {
       "build_output": "scenes/mud-spent-p0-2x.png",
@@ -12030,7 +12030,7 @@
         "width": 476
       },
       "path": "art/exports/unit-patrol-boat-v1/scenes/mud-spent-p0-2x.png",
-      "sha256": "6dbc769891f98f851db26260c86899127e6af8901e9fa07e5f6303bf1bce8f26"
+      "sha256": "971990a7f6e47b0b74c33310c7c2c87c17da9343a6a037a4f81b494edaa8e9a8"
     },
     {
       "build_output": "scenes/mud-spent-p0-4x.png",
@@ -12039,7 +12039,7 @@
         "width": 952
       },
       "path": "art/exports/unit-patrol-boat-v1/scenes/mud-spent-p0-4x.png",
-      "sha256": "bd39221edf893dc204e59f3560987fd46b6b8feb5728a50a19ae1b9639027c78"
+      "sha256": "309a65eaf351fa1d057e5cfbcc58f68066c9ed19236d4b95d44277906aa0f210"
     },
     {
       "build_output": "scenes/mud-spent-p1-2x.png",
@@ -12048,7 +12048,7 @@
         "width": 476
       },
       "path": "art/exports/unit-patrol-boat-v1/scenes/mud-spent-p1-2x.png",
-      "sha256": "6dbc769891f98f851db26260c86899127e6af8901e9fa07e5f6303bf1bce8f26"
+      "sha256": "971990a7f6e47b0b74c33310c7c2c87c17da9343a6a037a4f81b494edaa8e9a8"
     },
     {
       "build_output": "scenes/mud-spent-p1-4x.png",
@@ -12057,7 +12057,7 @@
         "width": 952
       },
       "path": "art/exports/unit-patrol-boat-v1/scenes/mud-spent-p1-4x.png",
-      "sha256": "bd39221edf893dc204e59f3560987fd46b6b8feb5728a50a19ae1b9639027c78"
+      "sha256": "309a65eaf351fa1d057e5cfbcc58f68066c9ed19236d4b95d44277906aa0f210"
     }
   ],
   "generation_recipes": [
@@ -12067,7 +12067,7 @@
   "generation_recipes_scope": "Includes historical generation studies and the current pinned master records. Current source selection is established by the producing manifest and its exact SHA256 pins; historical records are unchanged.",
   "id": "unit-patrol-boat-v1",
   "manifest": "art/unit-patrol-boat-v1.json",
-  "manifest_sha256": "5cb5e7806f31c37e6bebb1008ff6ce183fdafa9c31150c2be015e741d8c98021",
+  "manifest_sha256": "cda284f1ef7724f4653b0769b1442e5a65a4b90625630450ce00db581cfd76eb",
   "original_image_inputs": [
     {
       "generation_recipe": "art/recipes/terrain/reference-v2/meadow-03.json",

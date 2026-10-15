@@ -104,7 +104,7 @@
         "width": 192
       },
       "path": "art/exports/mixed-v1/cross2-2x.png",
-      "sha256": "a67e50883228a275fdf028b2a06da461e94fffba10f1380e8e325e0d9d718e84"
+      "sha256": "75c5f30fef554d01d90094dc5ec777ecf35acd50c7e4fc4140205f84008ea7c7"
     },
     {
       "dimensions": {
@@ -112,7 +112,7 @@
         "width": 384
       },
       "path": "art/exports/mixed-v1/cross2-4x.png",
-      "sha256": "4f24c9cf5615e074aae341ec1958465716764e1a3b89d1a27d40be7fd1dfaa8d"
+      "sha256": "b1f9377dc7a728f664943dae219cecd3ce9f7b0ec52752c1bbbbbf612ecdd5f9"
     },
     {
       "dimensions": {
@@ -120,7 +120,7 @@
         "width": 192
       },
       "path": "art/exports/mixed-v1/cross3-2x.png",
-      "sha256": "c4d30b9666e42a8e46cd91df2e9dc654308b70c394d470616e3e96a308912208"
+      "sha256": "7a3310bf7af0bbb778549afae35e5620f49c26347da5b2d09425176bfbb6da23"
     },
     {
       "dimensions": {
@@ -128,7 +128,7 @@
         "width": 384
       },
       "path": "art/exports/mixed-v1/cross3-4x.png",
-      "sha256": "d3720ba1d90b1725656b5e4f323cce9629eab3a00a821d2e62977bdf6142bce7"
+      "sha256": "cf71c414ef570bbf4ea28a9641c05bf214436e7831b89289d478421271fdcb2e"
     },
     {
       "dimensions": {
@@ -244,19 +244,19 @@
   "id": "connected-mixed-v1",
   "manifest": "art/connected-mixed-v1.json",
   "manifest_reference_base": "art/",
-  "manifest_sha256": "cb950143b8de24850572b55cf66015ff37fbf34eaa817b41617d9c28adf9bbdd",
+  "manifest_sha256": "04d38b73fcc06317beead09824c64502c9ddec929441bc8fc40364206057a1ec",
   "manifests": [
     {
       "source": "art/connected-terrain-v1.json",
-      "source_sha256": "daa139b10c95dbd453788278bf1e565238fb801091623f1d678df9c88eb73032"
+      "source_sha256": "6e661ba910a2ed356a1cc6895d6a6f752d5d6f6ee46f051ce86caabd1c7a1160"
     },
     {
       "source": "art/connected-paths-v1.json",
-      "source_sha256": "7c52a09bd0b4b391a924920353bfafea3a7ea6ec5f7556923206bafeb8a70f5d"
+      "source_sha256": "b07ad428e2bae2d656528e9cc7127da62c00ca78f452c55eda483468e54db2a3"
     },
     {
       "source": "art/connected-rail-v1.json",
-      "source_sha256": "79b228fc0df139d5b1643051a8d960ae8b326ddd6fe850388fdd18851ade6094"
+      "source_sha256": "9601e172f85d713188f810af1e04ce4bfc1fd8b70f2b690dc96b35f3e5b0107c"
     }
   ],
   "materials": {
@@ -302,8 +302,8 @@
         "width": 1374
       },
       "retained_source": "dependencies/road-material-source.png",
-      "source": "art/source/terrain/distinct-v1/road-gravel.png",
-      "source_sha256": "93991a9f33f3d125f68f0ed2d14b329f1092428a0df59ba90f92c5b2bc85dd26"
+      "source": "art/source/terrain/reference-v2/road-paved.png",
+      "source_sha256": "48f521aa74bb1759896b33c95e84abb5d6d1d9146ab2925620a6b3234e5dcd2e"
     },
     "steel": {
       "dimensions": {
@@ -381,7 +381,7 @@
         "width": 192
       },
       "path": "art/review/mixed-v1/rbridge14-grass-2x.png",
-      "sha256": "eae0fd276d5ddd2e37dd79b119371b28c3c07bc96f7f058d1af040e73fe31c46"
+      "sha256": "f92947fd972321d00ad725b51f2d592a161152da59c2b945008e532af528a2e2"
     },
     {
       "dimensions": {
@@ -389,7 +389,7 @@
         "width": 192
       },
       "path": "art/review/mixed-v1/rbridge25-grass-2x.png",
-      "sha256": "640851f190a9f24c450466f55ccd68068ca2725841e04846f11228c28cf0b453"
+      "sha256": "8e9930fd6357406d399c1466b5e77d01ab17a690ea5a65911023034cbcc0d154"
     },
     {
       "dimensions": {
@@ -397,7 +397,7 @@
         "width": 192
       },
       "path": "art/review/mixed-v1/rbridge36-grass-2x.png",
-      "sha256": "d9eb642221dfd2cc94990e29457a63b1199cd0db8d8ce10794490b8fd9b9615b"
+      "sha256": "f9ce5c6f1746dbf22ee7e06c1c66e7be775420f4e605bd50dbbe3a8194a4dd0b"
     },
     {
       "dimensions": {
@@ -413,7 +413,7 @@
         "width": 192
       },
       "path": "art/review/mixed-v1/cross2-grass-2x.png",
-      "sha256": "f1917a20417724be441867c5ed21d7ace077455548705462ee9730bd542b90ff"
+      "sha256": "3d286721acaf6be2b16bc7b4149a38510619b30f67ac32e599337935aa389adf"
     },
     {
       "dimensions": {
@@ -421,7 +421,7 @@
         "width": 192
       },
       "path": "art/review/mixed-v1/cross3-grass-2x.png",
-      "sha256": "a657d274dc5211a398cbc57dd1e991d24bf1bc9efc2e9f5fc13215b9e4a5e7ad"
+      "sha256": "612a7223d1478514c2e5535753264dcf7dd4665233e51593c2baa6bab74610ed"
     },
     {
       "dimensions": {
@@ -453,7 +453,7 @@
         "width": 476
       },
       "path": "art/review/mixed-v1/rbridge14-patch-parity0.png",
-      "sha256": "bd5c8ba3526f2c7a3cf94f475457af1ba604651a52869b757e42923cf2766b2f"
+      "sha256": "547f1093b270bab75f70300d037897a83c532b1380fa2ea9393d96a742f4f899"
     },
     {
       "dimensions": {
@@ -461,7 +461,7 @@
         "width": 476
       },
       "path": "art/review/mixed-v1/rbridge25-patch-parity1.png",
-      "sha256": "507d7ea7d40151dd685e6cb89fe3cc443c03e31a5e84530faf345cc00a9bc4ea"
+      "sha256": "303c0e947e033cb703f555a7fc6585eddd5a2a3470c95dfe79edf9d1808e1133"
     },
     {
       "dimensions": {
@@ -469,7 +469,7 @@
         "width": 476
       },
       "path": "art/review/mixed-v1/rbridge36-patch-parity0.png",
-      "sha256": "799825fea233ca5e7f6a86f0a84f51a85e6748781ed9c10775b9b7b5b4b40922"
+      "sha256": "d8660243137a7b70a55416fcd6926e95c2495dcb82efc19a853b9cb9bc1eeff6"
     },
     {
       "dimensions": {
@@ -485,7 +485,7 @@
         "width": 476
       },
       "path": "art/review/mixed-v1/cross2-patch-parity0.png",
-      "sha256": "3c501382ba9af65cadc462306fc38395536f26b35554976079a07a1e18765e94"
+      "sha256": "47e10893579012709afb0420531b3e074e38f5ab20c0afab67e201739f64fd3c"
     },
     {
       "dimensions": {
@@ -493,7 +493,7 @@
         "width": 476
       },
       "path": "art/review/mixed-v1/cross3-patch-parity1.png",
-      "sha256": "beb72f845951fa3ff518020e7884bb12e082ea6ab4ba728931f7f97bd08f51e4"
+      "sha256": "5804af0afd903ff2193deb3470e893fa52b961eaefe9980f0b0f1b80f7a3a944"
     },
     {
       "dimensions": {
@@ -525,7 +525,7 @@
         "width": 384
       },
       "path": "art/review/mixed-v1/contact-sheet.png",
-      "sha256": "f1517ebe6e89c4d56525bf6b7cd7fddf1738b74adf7457050728cc1a423c48c2"
+      "sha256": "04911a120b8d1c266a84f8dc9301780a0468fac8a2fb99dab446510fbad9fa61"
     }
   ],
   "schema_version": 1,
@@ -661,7 +661,7 @@
             "width": 192
           },
           "path": "art/review/mixed-v1/rbridge14-grass-2x.png",
-          "sha256": "eae0fd276d5ddd2e37dd79b119371b28c3c07bc96f7f058d1af040e73fe31c46"
+          "sha256": "f92947fd972321d00ad725b51f2d592a161152da59c2b945008e532af528a2e2"
         },
         {
           "dimensions": {
@@ -669,7 +669,7 @@
             "width": 384
           },
           "path": "rbridge14-grass-4x.png",
-          "sha256": "f613bfced121104c1f993e0667e8565f529b3f21af383727e8fc8ba730ff226a"
+          "sha256": "6e23ce806dd64eee73d6cdb0db1cb9283a9e71c9be6b208c87ab622bc36dc2d6"
         }
       ],
       "ports": [
@@ -709,7 +709,7 @@
             "width": 192
           },
           "path": "art/review/mixed-v1/rbridge25-grass-2x.png",
-          "sha256": "640851f190a9f24c450466f55ccd68068ca2725841e04846f11228c28cf0b453"
+          "sha256": "8e9930fd6357406d399c1466b5e77d01ab17a690ea5a65911023034cbcc0d154"
         },
         {
           "dimensions": {
@@ -717,7 +717,7 @@
             "width": 384
           },
           "path": "rbridge25-grass-4x.png",
-          "sha256": "6b62a46427e09fbc5ad671b927c0623599cf979dda70bc64ccfcc716360a9c39"
+          "sha256": "5995c7e342c3d35e25aad64ee4cdae5bde7ee2ec7d6fae31c8f899e35d48171f"
         }
       ],
       "ports": [
@@ -757,7 +757,7 @@
             "width": 192
           },
           "path": "art/review/mixed-v1/rbridge36-grass-2x.png",
-          "sha256": "d9eb642221dfd2cc94990e29457a63b1199cd0db8d8ce10794490b8fd9b9615b"
+          "sha256": "f9ce5c6f1746dbf22ee7e06c1c66e7be775420f4e605bd50dbbe3a8194a4dd0b"
         },
         {
           "dimensions": {
@@ -765,7 +765,7 @@
             "width": 384
           },
           "path": "rbridge36-grass-4x.png",
-          "sha256": "baf788897e00f98e5e24f81d86d0e33a5abd6d1c47905793062db0a6fc5174e9"
+          "sha256": "17e4f94493310d56e00b44d48af2f869528c77cb129b26063ef42e8c1e50fb29"
         }
       ],
       "ports": [
@@ -853,7 +853,7 @@
             "width": 192
           },
           "path": "art/exports/mixed-v1/cross2-2x.png",
-          "sha256": "a67e50883228a275fdf028b2a06da461e94fffba10f1380e8e325e0d9d718e84"
+          "sha256": "75c5f30fef554d01d90094dc5ec777ecf35acd50c7e4fc4140205f84008ea7c7"
         },
         {
           "dimensions": {
@@ -861,7 +861,7 @@
             "width": 384
           },
           "path": "art/exports/mixed-v1/cross2-4x.png",
-          "sha256": "4f24c9cf5615e074aae341ec1958465716764e1a3b89d1a27d40be7fd1dfaa8d"
+          "sha256": "b1f9377dc7a728f664943dae219cecd3ce9f7b0ec52752c1bbbbbf612ecdd5f9"
         },
         {
           "dimensions": {
@@ -869,7 +869,7 @@
             "width": 192
           },
           "path": "art/review/mixed-v1/cross2-grass-2x.png",
-          "sha256": "f1917a20417724be441867c5ed21d7ace077455548705462ee9730bd542b90ff"
+          "sha256": "3d286721acaf6be2b16bc7b4149a38510619b30f67ac32e599337935aa389adf"
         },
         {
           "dimensions": {
@@ -877,7 +877,7 @@
             "width": 384
           },
           "path": "cross2-grass-4x.png",
-          "sha256": "1d26f9aed6be18d7dc4077f1a648d105b03a62c7d48ba8ae25f8deeca0fcae68"
+          "sha256": "140b09ee1b43c304416a2f8229f8eb95149f167e46817212aaea143e6139346d"
         }
       ],
       "runtime_id": "cross2",
@@ -908,7 +908,7 @@
             "width": 192
           },
           "path": "art/exports/mixed-v1/cross3-2x.png",
-          "sha256": "c4d30b9666e42a8e46cd91df2e9dc654308b70c394d470616e3e96a308912208"
+          "sha256": "7a3310bf7af0bbb778549afae35e5620f49c26347da5b2d09425176bfbb6da23"
         },
         {
           "dimensions": {
@@ -916,7 +916,7 @@
             "width": 384
           },
           "path": "art/exports/mixed-v1/cross3-4x.png",
-          "sha256": "d3720ba1d90b1725656b5e4f323cce9629eab3a00a821d2e62977bdf6142bce7"
+          "sha256": "cf71c414ef570bbf4ea28a9641c05bf214436e7831b89289d478421271fdcb2e"
         },
         {
           "dimensions": {
@@ -924,7 +924,7 @@
             "width": 192
           },
           "path": "art/review/mixed-v1/cross3-grass-2x.png",
-          "sha256": "a657d274dc5211a398cbc57dd1e991d24bf1bc9efc2e9f5fc13215b9e4a5e7ad"
+          "sha256": "612a7223d1478514c2e5535753264dcf7dd4665233e51593c2baa6bab74610ed"
         },
         {
           "dimensions": {
@@ -932,7 +932,7 @@
             "width": 384
           },
           "path": "cross3-grass-4x.png",
-          "sha256": "ffea7e4c1c817124cc46f43403d8cf97f4b05839414cbe95f53b8ac487c86e1b"
+          "sha256": "2beb7ed4c89d1c2200b53c2046046aab9c9b5f40b93d9fd38e8a224de3cc9532"
         }
       ],
       "runtime_id": "cross3",

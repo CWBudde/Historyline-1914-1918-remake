@@ -1,0 +1,25 @@
+{
+    "schema_version":  1,
+    "date":  "2026-10-16",
+    "tool":  "built-in image_gen",
+    "status":  "selected candidate",
+    "art_direction":  "reference-faithful-painted-readability-v2",
+    "source":  "art/source/units/reference-v2/heavy-artillery.png",
+    "prompt":  "Use case: precise-object-edit. EDIT the supplied six-direction heavy gun atlas. Keep the corrected six muzzle headings exactly as shown: N, NW, SW, S, SE, NE row-major. CRITICAL FIX: each gun is currently TOO LARGE and one trail crosses a cell boundary. Reduce EACH WHOLE GUN by approximately 20 percent within its OWN cell, keeping its center at (256,261) within that512cell. This means the tallest vertical guns should be about400pixels tall, with at least55 fully transparent pixels above and below. Every gun part and all semitransparent fringes MUST lie inside panel x/y=48..464. No gun may touch or cross its512pixel cell edge. Do not crop gun ends. Preserve long bright steel barrel, magenta carriage, brass/tan wheels, dark illustrated outline, consistent upper-left lighting, camera and individual six views. Exact1024x1536 canvas with six512squarecells 2columns by3rows, NO gutters or grid. The unused area including all background haze is genuinely alpha0, not grey/black painted. No shadows outside objects, labels, grid, arrows or text. This is a framing/margin correction only; keep all six headings and full equipment complete.",
+    "transparent_background":  true,
+    "generation_inputs":  [
+                              {
+                                  "path":  "legacy/python/gfx/units/icons/heavyArtillery.png",
+                                  "role":  "unchanged original subject/proportions/camera reference only",
+                                  "sha256":  "b191e2fc5f3a35b35c54bb3947c782ff720a0006ce2197af6d59ac4ff344e5e8"
+                              }
+                          ],
+    "acceptance":  "Original-size silhouette, facing, user visual likeness and runtime acceptance remain review gates. No computed greater-than-90-percent approval.",
+    "edit_target":  "art/source/units/reference-v2/heavy-artillery-02.png",
+    "source_sha256":  "a90380a77e6168cbb923481c36f6842370cdba1962048f3a1cdba4be716d0cf7",
+    "source_dimensions":  [
+                              1024,
+                              1536
+                          ],
+    "edit_target_sha256":  "abecf9846c3a58ceb4f4e40f1080a2906f404a4c4ac662cf64f94a18f9f7bbbe"
+}

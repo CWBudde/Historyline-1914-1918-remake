@@ -193,8 +193,8 @@
       "source_sha256": "9464088e4a0ec25942b87eda3d229a07f3538d5ad575ef663848ba99fcb0a385"
     },
     "road": {
-      "source": "source/terrain/distinct-v1/road-gravel.png",
-      "source_sha256": "93991a9f33f3d125f68f0ed2d14b329f1092428a0df59ba90f92c5b2bc85dd26"
+      "source": "source/terrain/reference-v2/road-paved.png",
+      "source_sha256": "48f521aa74bb1759896b33c95e84abb5d6d1d9146ab2925620a6b3234e5dcd2e"
     },
     "steel": {
       "source": "source/terrain/distinct-v1/steel-weathered.png",

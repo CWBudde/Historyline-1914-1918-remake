@@ -19,7 +19,7 @@ import (
 )
 
 const unitProfile = "unit-infantry-v1: six authored square panels row-major N,NW,SW,S,SE,NE; class family lookup CP_infantry and EC_infantry independently selects owner cp/ec/neutral. " + unitAlgorithmProfile
-const unitAlgorithmProfile = "Source straight RGB V=max(R,G,B); q=max(0,(min(R,B)-G)/max(1,V)); t=clamp((q-.02)/.08); k=t^3*(6*t^2-15*t+10); K=k*V; N_c=(1-k)*source_c+K. Round N/K half up before filtering; alpha-zero clears RGB. Base=(N_R,N_G,N_B,A), tint-energy mask=(K,K,K,A), never binary coverage. Whole-panel pixel-edge affine source anchor=(cell/2,49*cell/96), logical anchor=(48,49), top-left offset=(0,-9), inset=.8. 4x destination=(192,196)+(.8*384/cell)*(source-source_anchor); destination centers map to (d+.5-offset)/scale-.5; offset=(38.4,39.2). Unchanged compound tap budget <=4,000,000 conservative full-support axis taps, checked before allocation. Transparent zero extension, normalized premultiplied float64 separable antialiased Lanczos3, signed lobes retained, positive raw alpha unpremultiply, half-up clamped RGB/A, zero-alpha clear. Independently whole-alpha-aware Lanczos3 reduce base/mask 384->192. At each density tint=halfup(clamp(N_c+K*(palette_c/255-1),0,255)), same alpha. Spent after tint is (R,R,R,A). 2x coloured sprites are composed after plane reduction, not claimed identical to downsampled coloured 4x sprites. Required six-world-pixel zero-RGBA guard, no threshold/background removal, bounding-box crops, mirrors, rotation, per-frame scaling, unit hex clipping or light rotation. Seven-cell fixtures use decoded pinned ground PNGs first and decoded exported sprite PNGs next, stable world y/x order, ordinary image/draw Over."
+const unitAlgorithmProfile = "Source straight RGB V=max(R,G,B); q=max(0,(min(R,B)-G)/max(1,V)); t=clamp((q-.02)/.08); k=t^3*(6*t^2-15*t+10); K=k*V; N_c=(1-k)*source_c+K. Round N/K half up before filtering; alpha-zero clears RGB. Base=(N_R,N_G,N_B,A), tint-energy mask=(K,K,K,A), never binary coverage. Whole-panel pixel-edge affine source anchor=(cell/2,49*cell/96), logical anchor=(48,49), top-left offset=(0,-9), inset=manifest framing_inset or default .8, fixed across the entire atlas. 4x destination=(192,196)+(inset*384/cell)*(source-source_anchor); destination centers map to (d+.5-offset)/scale-.5; offset=(192*(1-inset),196*(1-inset)), default (38.4,39.2). Unchanged compound tap budget <=4,000,000 conservative full-support axis taps, checked before allocation. Transparent zero extension, normalized premultiplied float64 separable antialiased Lanczos3, signed lobes retained, positive raw alpha unpremultiply, half-up clamped RGB/A, zero-alpha clear. Independently whole-alpha-aware Lanczos3 reduce base/mask 384->192. At each density tint=halfup(clamp(N_c+K*(palette_c/255-1),0,255)), same alpha. Spent after tint is (R,R,R,A). 2x coloured sprites are composed after plane reduction, not claimed identical to downsampled coloured 4x sprites. Default six-world-pixel zero-RGBA guard; explicit framing_inset uses an alpha>=8 guard with unchanged lower-alpha fringe counts, not a strict-zero pass. No threshold/background removal, bounding-box crops, mirrors, rotation, per-frame scaling, unit hex clipping or light rotation. Seven-cell fixtures use decoded pinned ground PNGs first and decoded exported sprite PNGs next, stable world y/x order, ordinary image/draw Over."
 const unitAcceptance = "PROVISIONAL infantry family candidate; no runtime installation or gameplay/whole-map acceptance. Blender comparison gate OPEN: this authored pilot does not choose a whole-unit-set method. Exact physical boot pivot and native Amiga A-F facing mapping remain unverified. Other units, portraits, zoom and runtime facing integration remain OPEN. Technical key atlas is not finished faction art. Negative-lobed filtering may produce K>min(N); final tint clamps RGB. Small residual cloth hue fringes can remain; no zero-residual-magenta or automated anatomy/count acceptance claim."
 
 var unitFaces = []string{"n", "nw", "sw", "s", "se", "ne"}
@@ -158,14 +158,21 @@ func buildUnitBundle(in unitInputs) (unitBundle, error) {
 		}
 	}
 	cell := in.Atlas.Image.Bounds().Dx() / 2
+	inset := .8
+	guardAlpha := uint8(1)
+	if in.Manifest.FramingInset != nil {
+		inset = *in.Manifest.FramingInset
+		guardAlpha = 8
+	}
+	scale4x, offset4x := unitAffineParameters(cell, inset)
 	for face, label := range unitFaces {
 		rect := image.Rect(face%2*cell, face/2*cell, (face%2+1)*cell, (face/2+1)*cell)
 		n, k := unitPlanes(in.Atlas.Image.SubImage(rect).(*image.NRGBA))
-		n4, err := unitAffine(n)
+		n4, err := unitAffineInset(n, inset)
 		if err != nil {
 			return b, err
 		}
-		k4, err := unitAffine(k)
+		k4, err := unitAffineInset(k, inset)
 		if err != nil {
 			return b, err
 		}
@@ -177,17 +184,17 @@ func buildUnitBundle(in unitInputs) (unitBundle, error) {
 		if err != nil {
 			return b, err
 		}
-		frame := unitFrameReport{FacingIndex: face, FacingLabel: label, HeadingDegrees: (360 - 60*face) % 360, SourceCell: [4]int{rect.Min.X, rect.Min.Y, rect.Max.X, rect.Max.Y}, SourceAnchor: connectionPoint{float64(cell) / 2, float64(cell) * 49 / 96}, LogicalAnchor: connectionPoint{48, 49}, TopLeftOffset: connectionPoint{0, -9}, Inset: .8, Scale4x: .8 * 384 / float64(cell), Offset4x: connectionPoint{38.4, 39.2}}
+		frame := unitFrameReport{FacingIndex: face, FacingLabel: label, HeadingDegrees: (360 - 60*face) % 360, SourceCell: [4]int{rect.Min.X, rect.Min.Y, rect.Max.X, rect.Max.Y}, SourceAnchor: connectionPoint{float64(cell) / 2, float64(cell) * 49 / 96}, LogicalAnchor: connectionPoint{48, 49}, TopLeftOffset: connectionPoint{0, -9}, Inset: inset, Scale4x: scale4x, Offset4x: offset4x}
 		for _, d := range []int{2, 4} {
 			base, mask := n2, k2
 			if d == 4 {
 				base, mask = n4, k4
 			}
-			guard, e := unitGuard(base, d)
+			guard, e := unitGuardAlpha(base, d, guardAlpha)
 			if e != nil {
 				return b, fmt.Errorf("unit %s base %dx: %w", label, d, e)
 			}
-			if _, e = unitGuard(mask, d); e != nil {
+			if _, e = unitGuardAlpha(mask, d, guardAlpha); e != nil {
 				return b, e
 			}
 			bo, e := b.addPNG(fmt.Sprintf("planes/%s/%s-base-%dx.png", family.name, label, d), base)
@@ -206,7 +213,7 @@ func buildUnitBundle(in unitInputs) (unitBundle, error) {
 				v := unitVariant{Family: family.name, ClassIDs: family.classIDs, FacingIndex: face, FacingLabel: label, Palette: palette, State: state}
 				for _, p := range frame.Planes {
 					im := unitTint(b.pixels[p.Base.Path], b.pixels[p.Mask.Path], in.Manifest.Palettes[palette], state == "spent")
-					guard, e := unitGuard(im, p.Density)
+					guard, e := unitGuardAlpha(im, p.Density, guardAlpha)
 					if e != nil {
 						return b, e
 					}

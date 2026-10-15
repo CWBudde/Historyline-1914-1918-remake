@@ -61,6 +61,7 @@ type connectionFamily struct {
 	Material       string              `json:"material"`
 	BorderMaterial string              `json:"border_material"`
 	Variants       []connectionVariant `json:"variants"`
+	Markings       string              `json:"markings,omitempty"`
 }
 type connectionManifest struct {
 	SchemaVersion int                           `json:"schema_version"`
@@ -81,6 +82,7 @@ type connectionVariantReport struct {
 	Material       string       `json:"material"`
 	BorderMaterial string       `json:"border_material"`
 	Outputs        []packOutput `json:"outputs"`
+	Markings       string       `json:"markings,omitempty"`
 }
 type connectionCell struct {
 	Origin  connectionPoint `json:"origin"`
@@ -186,6 +188,9 @@ func loadConnectionInputs(path string) (connectionInputs, error) {
 		return in, fmt.Errorf("connected manifest: %w", err)
 	}
 	if err = validateConnectionTrenchFields(b); err != nil {
+		return in, err
+	}
+	if err = validateConnectionRoadFields(b); err != nil {
 		return in, err
 	}
 	m := &in.manifest
@@ -353,7 +358,7 @@ func runConnected(path, out string, log io.Writer) (resultErr error) {
 		return err
 	}
 	report := connectionReport{SchemaVersion: 1, ManifestSHA256: in.hash, Geometry: in.manifest.Geometry, Materials: map[string]connectionMaterialReport{},
-		Method:           "Candidate overlay. Unclipped new feature and grass render at 4x with four WORLD pixels of overscan on every side (416x352). Feature/bank edges use analytic signed-distance AA, 0.25 world-pixel ramp; distances round to 1e-9 world px for reciprocal half-alpha stability. Existing alpha-aware Lanczos3 reduces the UNMASKED overscan 416x352 -> 208x176. Crop 4-world-pixel margins AFTER filtering to 384x320 and 192x160, then apply complementary hard half-open polygon ownership at final pixel centers. No per-sprite polygon-edge AA; a future complete-map compositor may AA its outer boundary once. Each port has >=8 straight world pixels and extends beyond cutout by outer radius+4; cubic connectors flatten at 64 steps; junctions merge by minimum distance. No legacy footprint or pixels; no painted road markings.",
+		Method:           "Candidate overlay. Unclipped new feature and grass render at 4x with four WORLD pixels of overscan on every side (416x352). Feature/bank edges use analytic signed-distance AA, 0.25 world-pixel ramp; distances round to 1e-9 world px for reciprocal half-alpha stability. Existing alpha-aware Lanczos3 reduces the UNMASKED overscan 416x352 -> 208x176. Crop 4-world-pixel margins AFTER filtering to 384x320 and 192x160, then apply complementary hard half-open polygon ownership at final pixel centers. No per-sprite polygon-edge AA; a future complete-map compositor may AA its outer boundary once. Each port has >=8 straight world pixels and extends beyond cutout by outer radius+4; cubic connectors flatten at 64 steps; junctions merge by minimum distance. No legacy footprint or pixels. Optional road markings=dashed: six-world-pixel light centre dashes, eight-world-pixel nominal dash length and twelve-world-pixel nominal period; eight-world-pixel port phases are reciprocal, curved interiors fit the phase, junction centres remain unmarked. Narrow road borders use darkened pavement.",
 		TextureMethod:    "New opaque source images only. Bilinear source sampling through continuous mirror-periodic coordinates, periods (142,80); average f(x,y) and f(x+71,y+40) in byte RGB. This derived texture average is invariant under all six lattice neighbor shifts. All independent cells use world origin phase (0,0). No original-game pixels.",
 		StreamInterior:   "Stream-only organic interior. Let S(t)=clamp(t,0,1)^2*(3-2*clamp(t,0,1)), E=S((minimum signed polygon-edge distance-8)/8), A=2pi(x/142+y/80), B=2pi(x/142-y/80), using world x/y. Warp local route lookup by E*(1.2*sin(A),1.2*sin(B)); core radius=width/2+0.8*E*sin(A+0.4)*cos(B). Thus the 8-world-pixel edge zone is unchanged and the envelope reaches full effect at 16 px. For junctions, smoothly union core SDF with a central disc of radius 0.68*width at warped coordinates: h=max(3-abs(core-disc),0)/3, merged=min(core,disc)-3*h*h/4, core=core+E*(merged-core). Border=max(0,border-0.8*E+0.3*E*sin(B+0.7)). Pocket=S((sin(A)*sin(B)-0.15)/0.65); bank opacity=1-0.65*E*pocket; final alpha=outer_AA*(core_AA+(1-core_AA)*bank_opacity). Cores stay opaque; translucent earth banks reveal underlying terrain with no baked-in grass. Road arithmetic and protected stream profiles are unchanged.",
 		CompositionScope: "Tested composition scope: pixel-aligned 2x/4x export sprites with integer runtime lattice translations and ordinary source-over blits. Other camera zoom should assemble the scene at asset density and resample the completed scene once. Independently filtered or fractional-position sprite zoom is not validated; no runtime zoom implementation is included.",
@@ -419,7 +424,7 @@ func runConnected(path, out string, log io.Writer) (resultErr error) {
 				return err
 			}
 			four, two := tiles[4], tiles[2]
-			vr := connectionVariantReport{connectionVariant: v, Family: f.ID, Width: f.Width, Border: f.Border, Material: f.Material, BorderMaterial: f.BorderMaterial}
+			vr := connectionVariantReport{connectionVariant: v, Family: f.ID, Width: f.Width, Border: f.Border, Material: f.Material, BorderMaterial: f.BorderMaterial, Markings: f.Markings}
 			for _, a := range []struct {
 				name string
 				im   *image.NRGBA

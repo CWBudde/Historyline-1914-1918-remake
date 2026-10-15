@@ -54,7 +54,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/cp/n-normal-2x.png",
-        "sha256": "0ec7e054c81400b0094b1ccfc9a5432ae7fe2d7e1129562ab985ba8ea04d0a4c"
+        "sha256": "4d28977445f8e89c6a5c9ea0d2c2820be0d84135dc316ea86ee5dff6fc3fbf82"
       },
       {
         "dimensions": {
@@ -62,7 +62,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/cp/n-normal-4x.png",
-        "sha256": "2aa5de5fa9b2b648779de85f3addd0b7e20a2995ff74a9fa108d392cab298b4b"
+        "sha256": "7d17016d1158250c7586756c41bcf17f0db20ac97a585600920b52cf5428f5d5"
       },
       {
         "dimensions": {
@@ -70,7 +70,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/cp/n-spent-2x.png",
-        "sha256": "7a0321b52d0b0223d743c851f9667d7a18fa42fd1b7c285e4965e5b219336192"
+        "sha256": "9d6b98c53a2d0a3b420f28bcb9f2d737ffb0141e578a38bbbfa519f088070a57"
       },
       {
         "dimensions": {
@@ -78,7 +78,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/cp/n-spent-4x.png",
-        "sha256": "f441da3aa3c433e6837c0c36af5ecbf66f5dfe34ecc72de7c44b73a39fe0d249"
+        "sha256": "1f9cc4dece77d6c7d1dd67edf49f6d32d2dfaade85564b4c2b9c8b7be7ad1d65"
       },
       {
         "dimensions": {
@@ -86,7 +86,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/ec/n-normal-2x.png",
-        "sha256": "eaddb49c45aeec7a6bbd8085acb0943657d4de85f4c18d842adcd34e6f1e90a0"
+        "sha256": "81b7354a913000b317e9da4acdec0c054f21968921f45f50db4640a8e7d6164e"
       },
       {
         "dimensions": {
@@ -94,7 +94,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/ec/n-normal-4x.png",
-        "sha256": "b4eb9ac4436795291aed8b0b7de90dc17f628aa04da0c98ec1bfc7581037239a"
+        "sha256": "cb85bd58f940ceb56d117d25d5e03c20b9ec87683b040a24ef9ad007b888f72e"
       },
       {
         "dimensions": {
@@ -102,7 +102,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/ec/n-spent-2x.png",
-        "sha256": "51984f2d5499e276887c8bb032cfc03ac69521bff2da529e003b7b89c268d7b9"
+        "sha256": "4fc9b2818dcec01d856b5ae400e8581c1580354dcf450a3483faac5ef0886be8"
       },
       {
         "dimensions": {
@@ -110,7 +110,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/ec/n-spent-4x.png",
-        "sha256": "57f4590d9a71ae622c1085db71269dea780b365cacc76fe205137ca17a556030"
+        "sha256": "44872ff71da8bdbb3281366b997d36b022e37319eaf1d2fb23ab99ec55a9118f"
       },
       {
         "dimensions": {
@@ -118,7 +118,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/neutral/n-normal-2x.png",
-        "sha256": "d288f2397d4cf10ae1c4ea8b417f72aa3a3faf1b7140121b30d1d211e9761475"
+        "sha256": "d40556c505567f9799db6cf8d3710cfcb4f6c86798ccb9e452ae9ee119c7c430"
       },
       {
         "dimensions": {
@@ -126,7 +126,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/neutral/n-normal-4x.png",
-        "sha256": "71691ff2aefc201320c3fb0d2f2778df01b5ab3d50c3f7af2f2d8e5209d0748f"
+        "sha256": "b3d071f457e462c3f4d9c50d4a26a3af65548e4b14175e2ab6cd5fda3adf47c4"
       },
       {
         "dimensions": {
@@ -134,7 +134,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/neutral/n-spent-2x.png",
-        "sha256": "157c698e6d03cbcd9f8834160dc3a4ce65753250f04bea568618147ad387c78c"
+        "sha256": "9ffa292d57d0f8bb7e396ffea9aedd56a9685be04b4411e977946c700839afc5"
       },
       {
         "dimensions": {
@@ -142,7 +142,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/neutral/n-spent-4x.png",
-        "sha256": "08cca9d7646faa8ea28bc7a36dad014d71513137195b54f94c6f616e4a5e56b2"
+        "sha256": "4f626d261c351b995cb8ba4aeed951442fc43e786587c3682542d18edde32c3b"
       },
       {
         "dimensions": {
@@ -182,7 +182,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/cp/nw-normal-2x.png",
-        "sha256": "c71383136a1de38d7b165bcd6fc561e7c52bc92b998b950350a36a21ff71524e"
+        "sha256": "7e3eca17cc736bd0096ccf059b98810164a90e8c08801d3a7e7387d9d1c461ce"
       },
       {
         "dimensions": {
@@ -190,7 +190,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/cp/nw-normal-4x.png",
-        "sha256": "0b2a334479e4db369d4d12e331c7e9081f84e9bdedb632a7567488222e7bcf83"
+        "sha256": "2bcae760349efc302244c6241b4b4b288b32578ad9cb11b699dd0be376f7c4d3"
       },
       {
         "dimensions": {
@@ -198,7 +198,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/cp/nw-spent-2x.png",
-        "sha256": "cc568160ef114b4e8638ebf8f474fdcfbf321f629cf82da46343d86318afe145"
+        "sha256": "b05f035ccbb93920b1eef540cc285da34388a72960f8e6a035e5ec7b7c4cff3e"
       },
       {
         "dimensions": {
@@ -206,7 +206,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/cp/nw-spent-4x.png",
-        "sha256": "ff1ac8392876c6944734891d1a50c3037e09be7ec7d685a7af30eeba2a264176"
+        "sha256": "cb5b414b7c6d55eb52b9e44767dbd87c15c7ace1c4770a8e62c21680be81ea4b"
       },
       {
         "dimensions": {
@@ -214,7 +214,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/ec/nw-normal-2x.png",
-        "sha256": "f8b73f35c553bf2a01b68fa70688554cf81ee1a5dc8e83d3a7eb896dc9ebde6b"
+        "sha256": "bff95eb9a95b851981843c7688fc537aad98ceed5bdccc0d73b060fbbb2d012c"
       },
       {
         "dimensions": {
@@ -222,7 +222,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/ec/nw-normal-4x.png",
-        "sha256": "5ff1c1869fc53b9cbc72867b1b81dc53937cde30aa26673617895ec844c25f98"
+        "sha256": "e98b35a56b4b21179918a633884f906b8157190ac843a68c130719df2c45e875"
       },
       {
         "dimensions": {
@@ -230,7 +230,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/ec/nw-spent-2x.png",
-        "sha256": "84086cc5c035c273a9a2e22a9f262f4f4878f64d39d8140f201c7b088cf8ba89"
+        "sha256": "0d7f49b64aa2db804a6419d461f1ae838de86bc7fd32d1af01db9d8e5890f634"
       },
       {
         "dimensions": {
@@ -238,7 +238,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/ec/nw-spent-4x.png",
-        "sha256": "628d4d79de14e2bb24623b23721a6da11e93e696501721691019369921e53031"
+        "sha256": "f174fef4d1c559e13556e46640096c0fbbe288129709b6ca4a979fe5d8591019"
       },
       {
         "dimensions": {
@@ -246,7 +246,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/neutral/nw-normal-2x.png",
-        "sha256": "9355c7384318fe2a3ec4069e92b963be007e4c4d87ff99e2d543cf9c2a4315b2"
+        "sha256": "d7963152d511d0b1f5accd99743bae876c5f5ba693936d0146f69365fca756e1"
       },
       {
         "dimensions": {
@@ -254,7 +254,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/neutral/nw-normal-4x.png",
-        "sha256": "7c85e255c967b12948473e9ff9b7544f287ea68d5aea6e9693719ac5cea582e7"
+        "sha256": "33b0fd2eb4711b28f82f527abca88adeb1cfbd5b69f29ec8df518a594f8c371f"
       },
       {
         "dimensions": {
@@ -262,7 +262,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/neutral/nw-spent-2x.png",
-        "sha256": "142b4996effdef2b16d1f1c653022a9e423ed7e017a48a08f5de5ece61ca78ca"
+        "sha256": "25b632f163729e36826f195a47b58bc612c2d606856c32a74d946ad54bcbb9ad"
       },
       {
         "dimensions": {
@@ -270,7 +270,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/neutral/nw-spent-4x.png",
-        "sha256": "076f137b645841a375f904eab0a7d8c3a39c9c2b347f086373de520cc8dc81c8"
+        "sha256": "e2285eb6d88eba794a2d1ed5eb321f176ed0336e3f094dd41a413d32a2b2962b"
       },
       {
         "dimensions": {
@@ -310,7 +310,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/cp/sw-normal-2x.png",
-        "sha256": "8b9223776be6c2aa8ee5f95e3b4e66fc943840407977445f1d925c5c5cd9c83a"
+        "sha256": "dd0335b62c65ab23c5ad60461ed551c9c7df96b6b0cfd60a206d5c552604a0e1"
       },
       {
         "dimensions": {
@@ -318,7 +318,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/cp/sw-normal-4x.png",
-        "sha256": "614356137fdd58e29940a43eec2424e0f2a7d32cdd97d280274a5b317688dca2"
+        "sha256": "6365d91fc8950dcf0e6d052f6ee262bf8c61367bc4ea5ac947f5a07ff60afb19"
       },
       {
         "dimensions": {
@@ -326,7 +326,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/cp/sw-spent-2x.png",
-        "sha256": "52b7a676f84fc9251cb5c9506979a49754ef74866c54aaff8ef0c25dff519db7"
+        "sha256": "c71ed7d0f257d7c39154e8baaae2e4fd801b242523201e7e7f4166684d02b3e0"
       },
       {
         "dimensions": {
@@ -334,7 +334,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/cp/sw-spent-4x.png",
-        "sha256": "69c099d39839860b68058b7eedb0a1d1635055884f72b97b14fe58852a3172d3"
+        "sha256": "375e1da2536b1b14c97bb805cfa4eb25ee073dacbeb40cf58201716e2cd51034"
       },
       {
         "dimensions": {
@@ -342,7 +342,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/ec/sw-normal-2x.png",
-        "sha256": "b192d73caea9c991e81d40f976a9f578a392b65236477760fc9ebafebdd5c988"
+        "sha256": "89e34368c733d3a33807b369f2e03af98c4ae6a0e58c19a3563b99b180ad0f97"
       },
       {
         "dimensions": {
@@ -350,7 +350,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/ec/sw-normal-4x.png",
-        "sha256": "f0cfd519a85b17cfc7b72245484892093e5aeafba7ae5f534754b89cb0175403"
+        "sha256": "0506077c665e1b7af8c6a786dc6fae888ce1fa5a6414ba84021d56ba9c3d8498"
       },
       {
         "dimensions": {
@@ -358,7 +358,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/ec/sw-spent-2x.png",
-        "sha256": "3b075f7bad74c239acc8834530ea08aad550171e1447dacdb78a4efad9e09cdf"
+        "sha256": "e9bee78268a953684d0c721e6e5b0724218bf35b5fb8b2e27cf8206cab07a01a"
       },
       {
         "dimensions": {
@@ -366,7 +366,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/ec/sw-spent-4x.png",
-        "sha256": "f464ff5758a827ac87dfeaa3f497f8c5a176c863b994485cad27c748900b26be"
+        "sha256": "19c2065cc3af6487e4e035a41799b890c323a9e64f487eaa4b75e7a440a329ae"
       },
       {
         "dimensions": {
@@ -374,7 +374,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/neutral/sw-normal-2x.png",
-        "sha256": "0484942e36838ad90eaa1dd3b902d5b41be50ffbd378a79e88684171436203b3"
+        "sha256": "207062edff87d7020e34d169c56cdf2a27f637a8dacecbf9c1a6d83d57792417"
       },
       {
         "dimensions": {
@@ -382,7 +382,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/neutral/sw-normal-4x.png",
-        "sha256": "109603a88523415ef2b895cbdd78165652db497ef1c6c43b449fbe039c412f02"
+        "sha256": "16d1dd58b964d5b354c6de51d53aa857413f5faba28bd41d67214ae9e3a743dc"
       },
       {
         "dimensions": {
@@ -390,7 +390,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/neutral/sw-spent-2x.png",
-        "sha256": "9a1242ed76bdb44154d18706ced6b7bbec5da72d66bde56b0b96f2e2b7d21cfe"
+        "sha256": "2a457fff42aca1b7e9a561bdcc0f0da57332b465cd91b6aadedc2d8d8b91d360"
       },
       {
         "dimensions": {
@@ -398,7 +398,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/neutral/sw-spent-4x.png",
-        "sha256": "d04a1eaff8309308686ded8a15325700e3f7b35aea5333af40202b173c82327d"
+        "sha256": "86d64ac493e4678849956eb202912af4d64e17460090fe9addb958de7558b44b"
       },
       {
         "dimensions": {
@@ -438,7 +438,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/cp/s-normal-2x.png",
-        "sha256": "5f8088ee8cb9c2b31d233158c1054c6017108a70f9bd5a5aa1e0b2b1af93049c"
+        "sha256": "43c6cc262f4bdd769f4f908bdc33614c091b9ceb7636010f1f54c63193fa86c3"
       },
       {
         "dimensions": {
@@ -446,7 +446,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/cp/s-normal-4x.png",
-        "sha256": "0e2e36bdf8b0cfd6dde16be7eb6757c463547a9b8abe0fac0bc0725137c3c27d"
+        "sha256": "72b61ec53b79c553e8acd56fb7bfeffae733a3e52f50d81d1928bcf64d20ccf6"
       },
       {
         "dimensions": {
@@ -454,7 +454,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/cp/s-spent-2x.png",
-        "sha256": "451090cfa9676d2615dce6fd2d738e04ce8a764a0e7865282bbcea25ab56984d"
+        "sha256": "dbb77b83004538d836c0d4f6d96a4ab02d8aca71a4c22c15781f1007da7e14e1"
       },
       {
         "dimensions": {
@@ -462,7 +462,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/cp/s-spent-4x.png",
-        "sha256": "d60714948db3f039253d3a5c0ea2cbf49212b81ab2efac7fce7f1ac3c59c3e13"
+        "sha256": "42d7a887ce4af58100348f5fcecff1b346fd83fdc77a0e638cb9eb88a5d8098e"
       },
       {
         "dimensions": {
@@ -470,7 +470,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/ec/s-normal-2x.png",
-        "sha256": "f66385ef21071c971bd26de572a2e3c3ca7dfc85581dc41be44f511248df4fa9"
+        "sha256": "bb41eddf2650dacc34b8b9214f3b00001af14bdbde0eefc08a466f28f849e457"
       },
       {
         "dimensions": {
@@ -478,7 +478,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/ec/s-normal-4x.png",
-        "sha256": "d3e8110bb2f4759c06593c2253403a6ff4a170a4a3c19a17e7c7da390d5f1cc1"
+        "sha256": "0b5d7b2041838fccdebac7ac8df2c9993d2170d1efa7064903aab5f3184bc1fe"
       },
       {
         "dimensions": {
@@ -486,7 +486,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/ec/s-spent-2x.png",
-        "sha256": "2b15ba79e5a35f2d4ee2bd86d690bc5dcd6f3be34bb97228c8a438bc22bc1427"
+        "sha256": "87e92c46ff081e75aef1bd044ee1b1f449f377dd5474cae2df8a405823269ab8"
       },
       {
         "dimensions": {
@@ -494,7 +494,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/ec/s-spent-4x.png",
-        "sha256": "457261bac8a5dd7e2e97fbca5ab0f47bb50f1928384b8133082f7744e9bef6fd"
+        "sha256": "60e32d1a33881ff7139708bf3d667ab70fabe1ae11b7b175ccac58d3fd2a9dfe"
       },
       {
         "dimensions": {
@@ -502,7 +502,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/neutral/s-normal-2x.png",
-        "sha256": "38193e073088943b2a15475fc122195a802c5535c5b6ff7cc792110ed6172144"
+        "sha256": "47bd5a8c48850a9a08034fd8b0d10273bf39588b6dfeaab4ae0b27d4796831c5"
       },
       {
         "dimensions": {
@@ -510,7 +510,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/neutral/s-normal-4x.png",
-        "sha256": "5492b72d1026ce7492a36b3e83233263daefcba42508bd55787042c86b09f48b"
+        "sha256": "457469c9872b86b8676811ce53e6fdb9183c2eaf9a06435e5f99676de1c5bde6"
       },
       {
         "dimensions": {
@@ -518,7 +518,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/neutral/s-spent-2x.png",
-        "sha256": "b9da2e690ed90429e693172419867d115816b25468e7837f4a81ea16f7225282"
+        "sha256": "f0a5b1ed2a5ee1be0bb30b6d1c3336815f9054345be8b74ef0cf36aea9d91967"
       },
       {
         "dimensions": {
@@ -526,7 +526,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/neutral/s-spent-4x.png",
-        "sha256": "247e78b9f7985066272b920d3e6558ab6be8e789cb1433151b1d36fab7603395"
+        "sha256": "24a3ffb3045a6477065037ec31e9d8bb33c60d85b10e77dd11574389d3c01af4"
       },
       {
         "dimensions": {
@@ -566,7 +566,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/cp/se-normal-2x.png",
-        "sha256": "6e1c54d54d897f66c46dfcfcbb94c3f434496e6b8c074a578737eb381b9dd85b"
+        "sha256": "0a903490bfdee75a766447cf4bae8740330bf767d7abdc928d2fd8a3d63c1678"
       },
       {
         "dimensions": {
@@ -574,7 +574,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/cp/se-normal-4x.png",
-        "sha256": "803eba58e1236b494d896f38cbbec10ee24af7bb327633d348180825dbd01cd2"
+        "sha256": "c0aa60027a54210cc23f573575bb7251e4aa8d1a58e7771b6c64eb992b995121"
       },
       {
         "dimensions": {
@@ -582,7 +582,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/cp/se-spent-2x.png",
-        "sha256": "03e33042537965ced77de78aa18d5763971c77812b85d872dc1142c135094936"
+        "sha256": "28e1924ca8127e2e637650078c7b57f5309fe59d92b7fe45290d328592ae5f2a"
       },
       {
         "dimensions": {
@@ -590,7 +590,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/cp/se-spent-4x.png",
-        "sha256": "3b011755e04da126da5906773262cc8f1c303397c58afeaa88c0cb06d5d4c75e"
+        "sha256": "99fe62181fce9c97113fd37b0d522ff4764696d809e43f053884e5ae2bd78cc8"
       },
       {
         "dimensions": {
@@ -598,7 +598,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/ec/se-normal-2x.png",
-        "sha256": "19b2fd8c1a594d934874b83c0c844a820295d8c80ba5b41a316736a2ebf2cd3e"
+        "sha256": "5d19e9d629fb281d30e58b238901b8657b987a17a4e88e0c299ef6539ae7d28e"
       },
       {
         "dimensions": {
@@ -606,7 +606,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/ec/se-normal-4x.png",
-        "sha256": "d6c5cb174bf42053437e728ce2e5e618acc18ceeb524dc4bfec3baf998015e6c"
+        "sha256": "0fea8f13f6419984b50419b26a7c25a223bae3c5878c320e5b065b5fc3f07d98"
       },
       {
         "dimensions": {
@@ -614,7 +614,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/ec/se-spent-2x.png",
-        "sha256": "cd6fdce1a96469b56332f9879c2141865c459e2d2b82028cc96767be505cb81b"
+        "sha256": "4fc245915dc84559734f7d79f7803fd1e3ec0be5ff06c0f6886d39c59b2daca1"
       },
       {
         "dimensions": {
@@ -622,7 +622,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/ec/se-spent-4x.png",
-        "sha256": "7de3d4dc2474f432f7f09313725b1cebe523cd009d570cf3bbcdc3ec3f1ec34d"
+        "sha256": "1f0228b64979381715cf1b89715e63b0b1e3ddbf10300c304b36105157e4a492"
       },
       {
         "dimensions": {
@@ -630,7 +630,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/neutral/se-normal-2x.png",
-        "sha256": "00e622973d0027c490d3723615805c82a7be993d47dca2f1c470c0b063ec9444"
+        "sha256": "b7cd116d932cc683360d9a4b72c906abeb04e03632f372cbcdae712a029d3632"
       },
       {
         "dimensions": {
@@ -638,7 +638,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/neutral/se-normal-4x.png",
-        "sha256": "0d274e9627ae8c427eb40828d20ec0e8bbb6d772d8d91427556f3c7799aa4f02"
+        "sha256": "0d9677c914d3de00d447534d972587acbc0744e449049742bae7824c3192353e"
       },
       {
         "dimensions": {
@@ -646,7 +646,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/neutral/se-spent-2x.png",
-        "sha256": "cb57eb6a7d45ab96c386cd960065983ba128a9247b5c0af609c70dedcae320a2"
+        "sha256": "db3dadf49884d692abae6355cbf67a9b3f5aadd06a1ec885f6f9f3bcf478e781"
       },
       {
         "dimensions": {
@@ -654,7 +654,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/neutral/se-spent-4x.png",
-        "sha256": "9634787b509b8ef077c867d0f8b184723050ca56980539ee1ba22e9a5754944e"
+        "sha256": "9efd0b54922f1389fc4fabf98b9d4fc9da10984be6e139984a2d99379c952901"
       },
       {
         "dimensions": {
@@ -694,7 +694,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/cp/ne-normal-2x.png",
-        "sha256": "1424748617a073a16807b97db00dbefe11021ea922572d3cb1878bbc8cbb5f90"
+        "sha256": "6d9040feedbe6dfbabbff6a12b5ef4ef1ac2a0a555688bd0ac4330be30385090"
       },
       {
         "dimensions": {
@@ -702,7 +702,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/cp/ne-normal-4x.png",
-        "sha256": "9d6bdc6005d3428863af9f011fb995e3bc749d0e7bf9b80aea163b5b27239a41"
+        "sha256": "a2ae000a658dfe29aa51f92433adbc2fd7efc1bd84f1fd66b15bf78e3ed4cc29"
       },
       {
         "dimensions": {
@@ -710,7 +710,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/cp/ne-spent-2x.png",
-        "sha256": "75346b543943bc1749bbd503748240210e64cf8db9dcb71b266bf887c96923e8"
+        "sha256": "57b71fc751e6ea61b423757d5991666f559822b09bb14fe4e7164c3bfb446ec9"
       },
       {
         "dimensions": {
@@ -718,7 +718,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/cp/ne-spent-4x.png",
-        "sha256": "69fe98bcdb4546358a0e7af841efb607a3cdce3672ccf4006ed720033d73575f"
+        "sha256": "2ab4ff2bf1112e6fec01fbf16fc169b9554359b1630a16886894801fe290ff2d"
       },
       {
         "dimensions": {
@@ -726,7 +726,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/ec/ne-normal-2x.png",
-        "sha256": "8c37d6bd8d53978dd6a5c3b68792e74f804cb481648b2cc4541a93f3ec365083"
+        "sha256": "c1f031610639c60441130f2617a7875e6f2c379188008166cbad068e0032f97f"
       },
       {
         "dimensions": {
@@ -734,7 +734,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/ec/ne-normal-4x.png",
-        "sha256": "753dbafbfe26539b6a770a6661ddd998f5da5adaec12d0ed353459fd81943866"
+        "sha256": "49f4818c230aaaf0a90df8c2ac9e6af48f30c50551a41fbc3a2d39f12ed6fd1d"
       },
       {
         "dimensions": {
@@ -742,7 +742,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/ec/ne-spent-2x.png",
-        "sha256": "d72f0af2003d8b7e764c2723f9addf639c040daba787f4cfa14510a510ecc701"
+        "sha256": "6bf5445e6427f26039dcaf708d241be99625516eecded4b4132301c02cdc9f9e"
       },
       {
         "dimensions": {
@@ -750,7 +750,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/ec/ne-spent-4x.png",
-        "sha256": "3c347869a4ba33fa933465d1be34bbf8e45dfade4f47ac8d8f3e700ede30d9d9"
+        "sha256": "4c13004478d34db7907a5e75a2d106dbd62177ccdeff85e3ef18ef4f1976022b"
       },
       {
         "dimensions": {
@@ -758,7 +758,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/neutral/ne-normal-2x.png",
-        "sha256": "cc41d47a0d9b9d8185b9e4ec065be15b67da0a31c6640f793d887eb00c648148"
+        "sha256": "6ca60ef1b6490aba60887bbef64a0036db8238134450b83abd79ea210d558fc0"
       },
       {
         "dimensions": {
@@ -766,7 +766,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/neutral/ne-normal-4x.png",
-        "sha256": "6d50b24fda7d256de385d9b8f83603011d6c4547234352edd9e5f9a5e4227b18"
+        "sha256": "6f1dff3ad8eb9ce7ccc8707d17b318fe3f75ee50b48fdde9d8c0e26c3476be9c"
       },
       {
         "dimensions": {
@@ -774,7 +774,7 @@
           "width": 192
         },
         "path": "sprites/armoredTrain/neutral/ne-spent-2x.png",
-        "sha256": "d40dc6688b688f738970fec573dde5236e55f3365c296760084528c789e1435a"
+        "sha256": "3aad662b253df2057e9947df06c05092b977e1812d6f99d1c07de43e607527f8"
       },
       {
         "dimensions": {
@@ -782,7 +782,7 @@
           "width": 384
         },
         "path": "sprites/armoredTrain/neutral/ne-spent-4x.png",
-        "sha256": "f5c29ac3c4d53f369f997a6b0eeb47c6ef59421acfd90ba7064130b04deebd19"
+        "sha256": "5237b70e7982241158d52da9831a8184efa8dfb49ca6a5dbc76f64d503b2c595"
       },
       {
         "dimensions": {
@@ -790,7 +790,7 @@
           "width": 1152
         },
         "path": "sheets/armoredTrain-white-2x.png",
-        "sha256": "cdf15f096b5f5f4cb5e6f2ce763adb67276301558bd468def42bd3eca902ea77"
+        "sha256": "97e753fc70cb65439ff4d79b1e211c54e5eddd9f5ec4b09afddee5c3b4f72637"
       },
       {
         "dimensions": {
@@ -798,7 +798,7 @@
           "width": 2304
         },
         "path": "sheets/armoredTrain-white-4x.png",
-        "sha256": "13a128f3deb73ce38971262c2a45da6e773ce76dab6d9541a16f98e3f420b4ff"
+        "sha256": "771eef174e139ebb220bdafef8f595bf2d145b07ef8b1d8e963efee570900459"
       },
       {
         "dimensions": {
@@ -806,7 +806,7 @@
           "width": 1152
         },
         "path": "sheets/armoredTrain-checker-2x.png",
-        "sha256": "d2fc09a81c129252bcdaa65f49bf735a1bf80d171a7d184f52439e8522e99f8f"
+        "sha256": "cbde1327f277f83c69f4f1a45c1395202aa591513045bc2e0204814f4137e205"
       },
       {
         "dimensions": {
@@ -814,7 +814,7 @@
           "width": 2304
         },
         "path": "sheets/armoredTrain-checker-4x.png",
-        "sha256": "95faf67d50ba17573c43020285359a2c8e42b758c3b85b28b46d589779664728"
+        "sha256": "f54626efccefd4709248804273af0e19f6a8ca1d4788b4d765710df8d423f60c"
       },
       {
         "dimensions": {
@@ -822,7 +822,7 @@
           "width": 476
         },
         "path": "scenes/grass-normal-p0-2x.png",
-        "sha256": "ad2a10ad4699715c340970dfd99ef46a232c80f1aab0d12e276689e976f0340a"
+        "sha256": "d2dba4f8ea8a4e99ab3392a814c0a5bc217b0fb6256ca9913948b72f280b2257"
       },
       {
         "dimensions": {
@@ -830,7 +830,7 @@
           "width": 952
         },
         "path": "scenes/grass-normal-p0-4x.png",
-        "sha256": "083a0236457a05672b0ca17a105720a9b92988f9b2fa16006715bd681ab3673e"
+        "sha256": "4c624e9401bce7ce8292639bacde6c12902d46f5e3cbff2d0fae86f4e0dd6879"
       },
       {
         "dimensions": {
@@ -838,7 +838,7 @@
           "width": 476
         },
         "path": "scenes/grass-normal-p1-2x.png",
-        "sha256": "ad2a10ad4699715c340970dfd99ef46a232c80f1aab0d12e276689e976f0340a"
+        "sha256": "d2dba4f8ea8a4e99ab3392a814c0a5bc217b0fb6256ca9913948b72f280b2257"
       },
       {
         "dimensions": {
@@ -846,7 +846,7 @@
           "width": 952
         },
         "path": "scenes/grass-normal-p1-4x.png",
-        "sha256": "083a0236457a05672b0ca17a105720a9b92988f9b2fa16006715bd681ab3673e"
+        "sha256": "4c624e9401bce7ce8292639bacde6c12902d46f5e3cbff2d0fae86f4e0dd6879"
       },
       {
         "dimensions": {
@@ -854,7 +854,7 @@
           "width": 476
         },
         "path": "scenes/grass-spent-p0-2x.png",
-        "sha256": "7a6678518e45a9935f2c71e92dc3496e2e2cd0ea38bd231e3595bea59627c2f0"
+        "sha256": "6bbbf773ae6e451442e8a93862b67f25214914e526268e87a281a5fef1e421ac"
       },
       {
         "dimensions": {
@@ -862,7 +862,7 @@
           "width": 952
         },
         "path": "scenes/grass-spent-p0-4x.png",
-        "sha256": "55d232d6e5edf1d6451967c48ba68e50e8058e2c74061d1fae0310018dceb779"
+        "sha256": "771c4102de94fe0aab792cb823b53b94e8c6cf66940d259fd6ef3e3640f8084a"
       },
       {
         "dimensions": {
@@ -870,7 +870,7 @@
           "width": 476
         },
         "path": "scenes/grass-spent-p1-2x.png",
-        "sha256": "7a6678518e45a9935f2c71e92dc3496e2e2cd0ea38bd231e3595bea59627c2f0"
+        "sha256": "6bbbf773ae6e451442e8a93862b67f25214914e526268e87a281a5fef1e421ac"
       },
       {
         "dimensions": {
@@ -878,7 +878,7 @@
           "width": 952
         },
         "path": "scenes/grass-spent-p1-4x.png",
-        "sha256": "55d232d6e5edf1d6451967c48ba68e50e8058e2c74061d1fae0310018dceb779"
+        "sha256": "771c4102de94fe0aab792cb823b53b94e8c6cf66940d259fd6ef3e3640f8084a"
       },
       {
         "dimensions": {
@@ -886,7 +886,7 @@
           "width": 476
         },
         "path": "scenes/grass_w-normal-p0-2x.png",
-        "sha256": "11cbb3466f4e4d9ab18b15f391cfc4ed1eb56dc95c236d7c4a4a1e4e68c37bae"
+        "sha256": "8e1fa9080b5be63ce42b3dff00401d1ce7c921f96bfc9926b7554083a9e34b8e"
       },
       {
         "dimensions": {
@@ -894,7 +894,7 @@
           "width": 952
         },
         "path": "scenes/grass_w-normal-p0-4x.png",
-        "sha256": "fc93ac95a7c024dd6b1b95140533c858fc2cce990c0fb112c84fcd39d8bd2b2d"
+        "sha256": "8f652d92a339b75bf6a48b982f5da6ba10b2704542552ee43f3fddc821ac86ea"
       },
       {
         "dimensions": {
@@ -902,7 +902,7 @@
           "width": 476
         },
         "path": "scenes/grass_w-normal-p1-2x.png",
-        "sha256": "11cbb3466f4e4d9ab18b15f391cfc4ed1eb56dc95c236d7c4a4a1e4e68c37bae"
+        "sha256": "8e1fa9080b5be63ce42b3dff00401d1ce7c921f96bfc9926b7554083a9e34b8e"
       },
       {
         "dimensions": {
@@ -910,7 +910,7 @@
           "width": 952
         },
         "path": "scenes/grass_w-normal-p1-4x.png",
-        "sha256": "fc93ac95a7c024dd6b1b95140533c858fc2cce990c0fb112c84fcd39d8bd2b2d"
+        "sha256": "8f652d92a339b75bf6a48b982f5da6ba10b2704542552ee43f3fddc821ac86ea"
       },
       {
         "dimensions": {
@@ -918,7 +918,7 @@
           "width": 476
         },
         "path": "scenes/grass_w-spent-p0-2x.png",
-        "sha256": "edfc71f629dc20a6d9f14f72278205c661a7ee22aa9c61ecd0fbee66c23874dd"
+        "sha256": "76f6a90cae73feee6fa297491d927d715911c3748f116d63aacfc1db6cefa850"
       },
       {
         "dimensions": {
@@ -926,7 +926,7 @@
           "width": 952
         },
         "path": "scenes/grass_w-spent-p0-4x.png",
-        "sha256": "00477da47b1bd83d55484feba910eaaaf18dd2ec8fddc897e70a180e9a339f67"
+        "sha256": "1997cd515f04fcd3e136d13e80107def24e88bedef7a28ee7660e8db7b677ebf"
       },
       {
         "dimensions": {
@@ -934,7 +934,7 @@
           "width": 476
         },
         "path": "scenes/grass_w-spent-p1-2x.png",
-        "sha256": "edfc71f629dc20a6d9f14f72278205c661a7ee22aa9c61ecd0fbee66c23874dd"
+        "sha256": "76f6a90cae73feee6fa297491d927d715911c3748f116d63aacfc1db6cefa850"
       },
       {
         "dimensions": {
@@ -942,7 +942,7 @@
           "width": 952
         },
         "path": "scenes/grass_w-spent-p1-4x.png",
-        "sha256": "00477da47b1bd83d55484feba910eaaaf18dd2ec8fddc897e70a180e9a339f67"
+        "sha256": "1997cd515f04fcd3e136d13e80107def24e88bedef7a28ee7660e8db7b677ebf"
       },
       {
         "dimensions": {
@@ -950,7 +950,7 @@
           "width": 476
         },
         "path": "scenes/mud-normal-p0-2x.png",
-        "sha256": "599af9cd0d4fd9df51a28271ecd716327d88448cffc26b1e454d30ad4155cab7"
+        "sha256": "008289620c85b29eba19d28598b5546aa3421d4bd5b88bbbf12525838d524864"
       },
       {
         "dimensions": {
@@ -958,7 +958,7 @@
           "width": 952
         },
         "path": "scenes/mud-normal-p0-4x.png",
-        "sha256": "03b088895f69bff72a29e5ec6ff17416b406decf89e5d1ed50c03691a4cd8566"
+        "sha256": "400a68c3678606e118e459a6f8f5f2fa9f86a04c3f3cb4af8ca80323f26a6390"
       },
       {
         "dimensions": {
@@ -966,7 +966,7 @@
           "width": 476
         },
         "path": "scenes/mud-normal-p1-2x.png",
-        "sha256": "599af9cd0d4fd9df51a28271ecd716327d88448cffc26b1e454d30ad4155cab7"
+        "sha256": "008289620c85b29eba19d28598b5546aa3421d4bd5b88bbbf12525838d524864"
       },
       {
         "dimensions": {
@@ -974,7 +974,7 @@
           "width": 952
         },
         "path": "scenes/mud-normal-p1-4x.png",
-        "sha256": "03b088895f69bff72a29e5ec6ff17416b406decf89e5d1ed50c03691a4cd8566"
+        "sha256": "400a68c3678606e118e459a6f8f5f2fa9f86a04c3f3cb4af8ca80323f26a6390"
       },
       {
         "dimensions": {
@@ -982,7 +982,7 @@
           "width": 476
         },
         "path": "scenes/mud-spent-p0-2x.png",
-        "sha256": "a446278201ebb911b9cdb98fa40456cec0f5433596805dec106d33a1a4a6a21c"
+        "sha256": "e6cacde27fe66e45b1a3caaab07703ef4a587f789fe3715c90dfb72435fa9c7c"
       },
       {
         "dimensions": {
@@ -990,7 +990,7 @@
           "width": 952
         },
         "path": "scenes/mud-spent-p0-4x.png",
-        "sha256": "6aac2bdc28490980327959fe885057a2c80baf1c88c353a153239fafa205cb51"
+        "sha256": "b203253ee565d744ea8a31b07e1b60c702e7afaa5f2df82238cad95c41b21898"
       },
       {
         "dimensions": {
@@ -998,7 +998,7 @@
           "width": 476
         },
         "path": "scenes/mud-spent-p1-2x.png",
-        "sha256": "a446278201ebb911b9cdb98fa40456cec0f5433596805dec106d33a1a4a6a21c"
+        "sha256": "e6cacde27fe66e45b1a3caaab07703ef4a587f789fe3715c90dfb72435fa9c7c"
       },
       {
         "dimensions": {
@@ -1006,7 +1006,7 @@
           "width": 952
         },
         "path": "scenes/mud-spent-p1-4x.png",
-        "sha256": "6aac2bdc28490980327959fe885057a2c80baf1c88c353a153239fafa205cb51"
+        "sha256": "b203253ee565d744ea8a31b07e1b60c702e7afaa5f2df82238cad95c41b21898"
       }
     ],
     "family": "armoredTrain",
@@ -1690,28 +1690,28 @@
         }
       }
     },
-    "manifest_sha256": "384af78863dbb770e446c917456246cc17ac3a09671f7b404f95398586e3e25d",
+    "manifest_sha256": "ed5cc8017eb83fda3240e171a0617579ca81b4303d2c883d3a2ddff4a51b25bf",
     "manifest_snapshot": "manifest.json",
     "palette_selector": "Owner palette is independent of class ID/country, including captured armoured train; no other family aliases.",
     "palettes": {
       "cp": [
-        104,
-        142,
-        83
+        205,
+        190,
+        159
       ],
       "ec": [
-        190,
-        143,
-        92
+        138,
+        164,
+        186
       ],
       "neutral": [
-        146,
-        146,
-        146
+        174,
+        174,
+        164
       ]
     },
     "physical_png_count": 131,
-    "profile": "unit-armored-train-v1: six authored square panels row-major N,NW,SW,S,SE,NE; class family lookup CP_armTrain and EC_armTrain independently selects owner cp/ec/neutral. Source straight RGB V=max(R,G,B); q=max(0,(min(R,B)-G)/max(1,V)); t=clamp((q-.02)/.08); k=t^3*(6*t^2-15*t+10); K=k*V; N_c=(1-k)*source_c+K. Round N/K half up before filtering; alpha-zero clears RGB. Base=(N_R,N_G,N_B,A), tint-energy mask=(K,K,K,A), never binary coverage. Whole-panel pixel-edge affine source anchor=(cell/2,49*cell/96), logical anchor=(48,49), top-left offset=(0,-9), inset=.8. 4x destination=(192,196)+(.8*384/cell)*(source-source_anchor); destination centers map to (d+.5-offset)/scale-.5; offset=(38.4,39.2). Unchanged compound tap budget \u003c=4,000,000 conservative full-support axis taps, checked before allocation. Transparent zero extension, normalized premultiplied float64 separable antialiased Lanczos3, signed lobes retained, positive raw alpha unpremultiply, half-up clamped RGB/A, zero-alpha clear. Independently whole-alpha-aware Lanczos3 reduce base/mask 384-\u003e192. At each density tint=halfup(clamp(N_c+K*(palette_c/255-1),0,255)), same alpha. Spent after tint is (R,R,R,A). 2x coloured sprites are composed after plane reduction, not claimed identical to downsampled coloured 4x sprites. Required six-world-pixel zero-RGBA guard, no threshold/background removal, bounding-box crops, mirrors, rotation, per-frame scaling, unit hex clipping or light rotation. Seven-cell fixtures use decoded pinned ground PNGs first and decoded exported sprite PNGs next, stable world y/x order, ordinary image/draw Over.",
+    "profile": "unit-armored-train-v1: six authored square panels row-major N,NW,SW,S,SE,NE; class family lookup CP_armTrain and EC_armTrain independently selects owner cp/ec/neutral. Source straight RGB V=max(R,G,B); q=max(0,(min(R,B)-G)/max(1,V)); t=clamp((q-.02)/.08); k=t^3*(6*t^2-15*t+10); K=k*V; N_c=(1-k)*source_c+K. Round N/K half up before filtering; alpha-zero clears RGB. Base=(N_R,N_G,N_B,A), tint-energy mask=(K,K,K,A), never binary coverage. Whole-panel pixel-edge affine source anchor=(cell/2,49*cell/96), logical anchor=(48,49), top-left offset=(0,-9), inset=manifest framing_inset or default .8, fixed across the entire atlas. 4x destination=(192,196)+(inset*384/cell)*(source-source_anchor); destination centers map to (d+.5-offset)/scale-.5; offset=(192*(1-inset),196*(1-inset)), default (38.4,39.2). Unchanged compound tap budget \u003c=4,000,000 conservative full-support axis taps, checked before allocation. Transparent zero extension, normalized premultiplied float64 separable antialiased Lanczos3, signed lobes retained, positive raw alpha unpremultiply, half-up clamped RGB/A, zero-alpha clear. Independently whole-alpha-aware Lanczos3 reduce base/mask 384-\u003e192. At each density tint=halfup(clamp(N_c+K*(palette_c/255-1),0,255)), same alpha. Spent after tint is (R,R,R,A). 2x coloured sprites are composed after plane reduction, not claimed identical to downsampled coloured 4x sprites. Default six-world-pixel zero-RGBA guard; explicit framing_inset uses an alpha\u003e=8 guard with unchanged lower-alpha fringe counts, not a strict-zero pass. No threshold/background removal, bounding-box crops, mirrors, rotation, per-frame scaling, unit hex clipping or light rotation. Seven-cell fixtures use decoded pinned ground PNGs first and decoded exported sprite PNGs next, stable world y/x order, ordinary image/draw Over.",
     "scenes": [
       {
         "absolute_line_parity": 0,
@@ -1746,7 +1746,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/neutral/n-normal-2x.png",
-              "sha256": "d288f2397d4cf10ae1c4ea8b417f72aa3a3faf1b7140121b30d1d211e9761475"
+              "sha256": "d40556c505567f9799db6cf8d3710cfcb4f6c86798ccb9e452ae9ee119c7c430"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1785,7 +1785,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/ne-normal-2x.png",
-              "sha256": "8c37d6bd8d53978dd6a5c3b68792e74f804cb481648b2cc4541a93f3ec365083"
+              "sha256": "c1f031610639c60441130f2617a7875e6f2c379188008166cbad068e0032f97f"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1824,7 +1824,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/se-normal-2x.png",
-              "sha256": "19b2fd8c1a594d934874b83c0c844a820295d8c80ba5b41a316736a2ebf2cd3e"
+              "sha256": "5d19e9d629fb281d30e58b238901b8657b987a17a4e88e0c299ef6539ae7d28e"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1863,7 +1863,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/cp/s-normal-2x.png",
-              "sha256": "5f8088ee8cb9c2b31d233158c1054c6017108a70f9bd5a5aa1e0b2b1af93049c"
+              "sha256": "43c6cc262f4bdd769f4f908bdc33614c091b9ceb7636010f1f54c63193fa86c3"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1902,7 +1902,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/sw-normal-2x.png",
-              "sha256": "b192d73caea9c991e81d40f976a9f578a392b65236477760fc9ebafebdd5c988"
+              "sha256": "89e34368c733d3a33807b369f2e03af98c4ae6a0e58c19a3563b99b180ad0f97"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1941,7 +1941,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/cp/nw-normal-2x.png",
-              "sha256": "c71383136a1de38d7b165bcd6fc561e7c52bc92b998b950350a36a21ff71524e"
+              "sha256": "7e3eca17cc736bd0096ccf059b98810164a90e8c08801d3a7e7387d9d1c461ce"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1980,7 +1980,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/n-normal-2x.png",
-              "sha256": "eaddb49c45aeec7a6bbd8085acb0943657d4de85f4c18d842adcd34e6f1e90a0"
+              "sha256": "81b7354a913000b317e9da4acdec0c054f21968921f45f50db4640a8e7d6164e"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2011,7 +2011,7 @@
             "width": 476
           },
           "path": "scenes/grass-normal-p0-2x.png",
-          "sha256": "ad2a10ad4699715c340970dfd99ef46a232c80f1aab0d12e276689e976f0340a"
+          "sha256": "d2dba4f8ea8a4e99ab3392a814c0a5bc217b0fb6256ca9913948b72f280b2257"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -2049,7 +2049,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/neutral/n-normal-4x.png",
-              "sha256": "71691ff2aefc201320c3fb0d2f2778df01b5ab3d50c3f7af2f2d8e5209d0748f"
+              "sha256": "b3d071f457e462c3f4d9c50d4a26a3af65548e4b14175e2ab6cd5fda3adf47c4"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2088,7 +2088,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/ne-normal-4x.png",
-              "sha256": "753dbafbfe26539b6a770a6661ddd998f5da5adaec12d0ed353459fd81943866"
+              "sha256": "49f4818c230aaaf0a90df8c2ac9e6af48f30c50551a41fbc3a2d39f12ed6fd1d"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2127,7 +2127,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/se-normal-4x.png",
-              "sha256": "d6c5cb174bf42053437e728ce2e5e618acc18ceeb524dc4bfec3baf998015e6c"
+              "sha256": "0fea8f13f6419984b50419b26a7c25a223bae3c5878c320e5b065b5fc3f07d98"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2166,7 +2166,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/cp/s-normal-4x.png",
-              "sha256": "0e2e36bdf8b0cfd6dde16be7eb6757c463547a9b8abe0fac0bc0725137c3c27d"
+              "sha256": "72b61ec53b79c553e8acd56fb7bfeffae733a3e52f50d81d1928bcf64d20ccf6"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2205,7 +2205,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/sw-normal-4x.png",
-              "sha256": "f0cfd519a85b17cfc7b72245484892093e5aeafba7ae5f534754b89cb0175403"
+              "sha256": "0506077c665e1b7af8c6a786dc6fae888ce1fa5a6414ba84021d56ba9c3d8498"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2244,7 +2244,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/cp/nw-normal-4x.png",
-              "sha256": "0b2a334479e4db369d4d12e331c7e9081f84e9bdedb632a7567488222e7bcf83"
+              "sha256": "2bcae760349efc302244c6241b4b4b288b32578ad9cb11b699dd0be376f7c4d3"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2283,7 +2283,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/n-normal-4x.png",
-              "sha256": "b4eb9ac4436795291aed8b0b7de90dc17f628aa04da0c98ec1bfc7581037239a"
+              "sha256": "cb85bd58f940ceb56d117d25d5e03c20b9ec87683b040a24ef9ad007b888f72e"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2314,7 +2314,7 @@
             "width": 952
           },
           "path": "scenes/grass-normal-p0-4x.png",
-          "sha256": "083a0236457a05672b0ca17a105720a9b92988f9b2fa16006715bd681ab3673e"
+          "sha256": "4c624e9401bce7ce8292639bacde6c12902d46f5e3cbff2d0fae86f4e0dd6879"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -2352,7 +2352,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/neutral/n-normal-2x.png",
-              "sha256": "d288f2397d4cf10ae1c4ea8b417f72aa3a3faf1b7140121b30d1d211e9761475"
+              "sha256": "d40556c505567f9799db6cf8d3710cfcb4f6c86798ccb9e452ae9ee119c7c430"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2391,7 +2391,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/ne-normal-2x.png",
-              "sha256": "8c37d6bd8d53978dd6a5c3b68792e74f804cb481648b2cc4541a93f3ec365083"
+              "sha256": "c1f031610639c60441130f2617a7875e6f2c379188008166cbad068e0032f97f"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2430,7 +2430,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/se-normal-2x.png",
-              "sha256": "19b2fd8c1a594d934874b83c0c844a820295d8c80ba5b41a316736a2ebf2cd3e"
+              "sha256": "5d19e9d629fb281d30e58b238901b8657b987a17a4e88e0c299ef6539ae7d28e"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2469,7 +2469,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/cp/s-normal-2x.png",
-              "sha256": "5f8088ee8cb9c2b31d233158c1054c6017108a70f9bd5a5aa1e0b2b1af93049c"
+              "sha256": "43c6cc262f4bdd769f4f908bdc33614c091b9ceb7636010f1f54c63193fa86c3"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2508,7 +2508,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/sw-normal-2x.png",
-              "sha256": "b192d73caea9c991e81d40f976a9f578a392b65236477760fc9ebafebdd5c988"
+              "sha256": "89e34368c733d3a33807b369f2e03af98c4ae6a0e58c19a3563b99b180ad0f97"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2547,7 +2547,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/cp/nw-normal-2x.png",
-              "sha256": "c71383136a1de38d7b165bcd6fc561e7c52bc92b998b950350a36a21ff71524e"
+              "sha256": "7e3eca17cc736bd0096ccf059b98810164a90e8c08801d3a7e7387d9d1c461ce"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2586,7 +2586,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/n-normal-2x.png",
-              "sha256": "eaddb49c45aeec7a6bbd8085acb0943657d4de85f4c18d842adcd34e6f1e90a0"
+              "sha256": "81b7354a913000b317e9da4acdec0c054f21968921f45f50db4640a8e7d6164e"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2617,7 +2617,7 @@
             "width": 476
           },
           "path": "scenes/grass-normal-p1-2x.png",
-          "sha256": "ad2a10ad4699715c340970dfd99ef46a232c80f1aab0d12e276689e976f0340a"
+          "sha256": "d2dba4f8ea8a4e99ab3392a814c0a5bc217b0fb6256ca9913948b72f280b2257"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -2655,7 +2655,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/neutral/n-normal-4x.png",
-              "sha256": "71691ff2aefc201320c3fb0d2f2778df01b5ab3d50c3f7af2f2d8e5209d0748f"
+              "sha256": "b3d071f457e462c3f4d9c50d4a26a3af65548e4b14175e2ab6cd5fda3adf47c4"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2694,7 +2694,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/ne-normal-4x.png",
-              "sha256": "753dbafbfe26539b6a770a6661ddd998f5da5adaec12d0ed353459fd81943866"
+              "sha256": "49f4818c230aaaf0a90df8c2ac9e6af48f30c50551a41fbc3a2d39f12ed6fd1d"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2733,7 +2733,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/se-normal-4x.png",
-              "sha256": "d6c5cb174bf42053437e728ce2e5e618acc18ceeb524dc4bfec3baf998015e6c"
+              "sha256": "0fea8f13f6419984b50419b26a7c25a223bae3c5878c320e5b065b5fc3f07d98"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2772,7 +2772,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/cp/s-normal-4x.png",
-              "sha256": "0e2e36bdf8b0cfd6dde16be7eb6757c463547a9b8abe0fac0bc0725137c3c27d"
+              "sha256": "72b61ec53b79c553e8acd56fb7bfeffae733a3e52f50d81d1928bcf64d20ccf6"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2811,7 +2811,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/sw-normal-4x.png",
-              "sha256": "f0cfd519a85b17cfc7b72245484892093e5aeafba7ae5f534754b89cb0175403"
+              "sha256": "0506077c665e1b7af8c6a786dc6fae888ce1fa5a6414ba84021d56ba9c3d8498"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2850,7 +2850,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/cp/nw-normal-4x.png",
-              "sha256": "0b2a334479e4db369d4d12e331c7e9081f84e9bdedb632a7567488222e7bcf83"
+              "sha256": "2bcae760349efc302244c6241b4b4b288b32578ad9cb11b699dd0be376f7c4d3"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2889,7 +2889,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/n-normal-4x.png",
-              "sha256": "b4eb9ac4436795291aed8b0b7de90dc17f628aa04da0c98ec1bfc7581037239a"
+              "sha256": "cb85bd58f940ceb56d117d25d5e03c20b9ec87683b040a24ef9ad007b888f72e"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2920,7 +2920,7 @@
             "width": 952
           },
           "path": "scenes/grass-normal-p1-4x.png",
-          "sha256": "083a0236457a05672b0ca17a105720a9b92988f9b2fa16006715bd681ab3673e"
+          "sha256": "4c624e9401bce7ce8292639bacde6c12902d46f5e3cbff2d0fae86f4e0dd6879"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -2958,7 +2958,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/neutral/n-spent-2x.png",
-              "sha256": "157c698e6d03cbcd9f8834160dc3a4ce65753250f04bea568618147ad387c78c"
+              "sha256": "9ffa292d57d0f8bb7e396ffea9aedd56a9685be04b4411e977946c700839afc5"
             },
             "state": "spent",
             "terrain": "grass",
@@ -2997,7 +2997,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/ne-spent-2x.png",
-              "sha256": "d72f0af2003d8b7e764c2723f9addf639c040daba787f4cfa14510a510ecc701"
+              "sha256": "6bf5445e6427f26039dcaf708d241be99625516eecded4b4132301c02cdc9f9e"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3036,7 +3036,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/se-spent-2x.png",
-              "sha256": "cd6fdce1a96469b56332f9879c2141865c459e2d2b82028cc96767be505cb81b"
+              "sha256": "4fc245915dc84559734f7d79f7803fd1e3ec0be5ff06c0f6886d39c59b2daca1"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3075,7 +3075,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/cp/s-spent-2x.png",
-              "sha256": "451090cfa9676d2615dce6fd2d738e04ce8a764a0e7865282bbcea25ab56984d"
+              "sha256": "dbb77b83004538d836c0d4f6d96a4ab02d8aca71a4c22c15781f1007da7e14e1"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3114,7 +3114,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/sw-spent-2x.png",
-              "sha256": "3b075f7bad74c239acc8834530ea08aad550171e1447dacdb78a4efad9e09cdf"
+              "sha256": "e9bee78268a953684d0c721e6e5b0724218bf35b5fb8b2e27cf8206cab07a01a"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3153,7 +3153,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/cp/nw-spent-2x.png",
-              "sha256": "cc568160ef114b4e8638ebf8f474fdcfbf321f629cf82da46343d86318afe145"
+              "sha256": "b05f035ccbb93920b1eef540cc285da34388a72960f8e6a035e5ec7b7c4cff3e"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3192,7 +3192,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/n-spent-2x.png",
-              "sha256": "51984f2d5499e276887c8bb032cfc03ac69521bff2da529e003b7b89c268d7b9"
+              "sha256": "4fc9b2818dcec01d856b5ae400e8581c1580354dcf450a3483faac5ef0886be8"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3223,7 +3223,7 @@
             "width": 476
           },
           "path": "scenes/grass-spent-p0-2x.png",
-          "sha256": "7a6678518e45a9935f2c71e92dc3496e2e2cd0ea38bd231e3595bea59627c2f0"
+          "sha256": "6bbbf773ae6e451442e8a93862b67f25214914e526268e87a281a5fef1e421ac"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -3261,7 +3261,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/neutral/n-spent-4x.png",
-              "sha256": "08cca9d7646faa8ea28bc7a36dad014d71513137195b54f94c6f616e4a5e56b2"
+              "sha256": "4f626d261c351b995cb8ba4aeed951442fc43e786587c3682542d18edde32c3b"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3300,7 +3300,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/ne-spent-4x.png",
-              "sha256": "3c347869a4ba33fa933465d1be34bbf8e45dfade4f47ac8d8f3e700ede30d9d9"
+              "sha256": "4c13004478d34db7907a5e75a2d106dbd62177ccdeff85e3ef18ef4f1976022b"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3339,7 +3339,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/se-spent-4x.png",
-              "sha256": "7de3d4dc2474f432f7f09313725b1cebe523cd009d570cf3bbcdc3ec3f1ec34d"
+              "sha256": "1f0228b64979381715cf1b89715e63b0b1e3ddbf10300c304b36105157e4a492"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3378,7 +3378,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/cp/s-spent-4x.png",
-              "sha256": "d60714948db3f039253d3a5c0ea2cbf49212b81ab2efac7fce7f1ac3c59c3e13"
+              "sha256": "42d7a887ce4af58100348f5fcecff1b346fd83fdc77a0e638cb9eb88a5d8098e"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3417,7 +3417,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/sw-spent-4x.png",
-              "sha256": "f464ff5758a827ac87dfeaa3f497f8c5a176c863b994485cad27c748900b26be"
+              "sha256": "19c2065cc3af6487e4e035a41799b890c323a9e64f487eaa4b75e7a440a329ae"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3456,7 +3456,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/cp/nw-spent-4x.png",
-              "sha256": "ff1ac8392876c6944734891d1a50c3037e09be7ec7d685a7af30eeba2a264176"
+              "sha256": "cb5b414b7c6d55eb52b9e44767dbd87c15c7ace1c4770a8e62c21680be81ea4b"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3495,7 +3495,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/n-spent-4x.png",
-              "sha256": "57f4590d9a71ae622c1085db71269dea780b365cacc76fe205137ca17a556030"
+              "sha256": "44872ff71da8bdbb3281366b997d36b022e37319eaf1d2fb23ab99ec55a9118f"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3526,7 +3526,7 @@
             "width": 952
           },
           "path": "scenes/grass-spent-p0-4x.png",
-          "sha256": "55d232d6e5edf1d6451967c48ba68e50e8058e2c74061d1fae0310018dceb779"
+          "sha256": "771c4102de94fe0aab792cb823b53b94e8c6cf66940d259fd6ef3e3640f8084a"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -3564,7 +3564,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/neutral/n-spent-2x.png",
-              "sha256": "157c698e6d03cbcd9f8834160dc3a4ce65753250f04bea568618147ad387c78c"
+              "sha256": "9ffa292d57d0f8bb7e396ffea9aedd56a9685be04b4411e977946c700839afc5"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3603,7 +3603,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/ne-spent-2x.png",
-              "sha256": "d72f0af2003d8b7e764c2723f9addf639c040daba787f4cfa14510a510ecc701"
+              "sha256": "6bf5445e6427f26039dcaf708d241be99625516eecded4b4132301c02cdc9f9e"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3642,7 +3642,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/se-spent-2x.png",
-              "sha256": "cd6fdce1a96469b56332f9879c2141865c459e2d2b82028cc96767be505cb81b"
+              "sha256": "4fc245915dc84559734f7d79f7803fd1e3ec0be5ff06c0f6886d39c59b2daca1"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3681,7 +3681,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/cp/s-spent-2x.png",
-              "sha256": "451090cfa9676d2615dce6fd2d738e04ce8a764a0e7865282bbcea25ab56984d"
+              "sha256": "dbb77b83004538d836c0d4f6d96a4ab02d8aca71a4c22c15781f1007da7e14e1"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3720,7 +3720,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/sw-spent-2x.png",
-              "sha256": "3b075f7bad74c239acc8834530ea08aad550171e1447dacdb78a4efad9e09cdf"
+              "sha256": "e9bee78268a953684d0c721e6e5b0724218bf35b5fb8b2e27cf8206cab07a01a"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3759,7 +3759,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/cp/nw-spent-2x.png",
-              "sha256": "cc568160ef114b4e8638ebf8f474fdcfbf321f629cf82da46343d86318afe145"
+              "sha256": "b05f035ccbb93920b1eef540cc285da34388a72960f8e6a035e5ec7b7c4cff3e"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3798,7 +3798,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/n-spent-2x.png",
-              "sha256": "51984f2d5499e276887c8bb032cfc03ac69521bff2da529e003b7b89c268d7b9"
+              "sha256": "4fc9b2818dcec01d856b5ae400e8581c1580354dcf450a3483faac5ef0886be8"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3829,7 +3829,7 @@
             "width": 476
           },
           "path": "scenes/grass-spent-p1-2x.png",
-          "sha256": "7a6678518e45a9935f2c71e92dc3496e2e2cd0ea38bd231e3595bea59627c2f0"
+          "sha256": "6bbbf773ae6e451442e8a93862b67f25214914e526268e87a281a5fef1e421ac"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -3867,7 +3867,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/neutral/n-spent-4x.png",
-              "sha256": "08cca9d7646faa8ea28bc7a36dad014d71513137195b54f94c6f616e4a5e56b2"
+              "sha256": "4f626d261c351b995cb8ba4aeed951442fc43e786587c3682542d18edde32c3b"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3906,7 +3906,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/ne-spent-4x.png",
-              "sha256": "3c347869a4ba33fa933465d1be34bbf8e45dfade4f47ac8d8f3e700ede30d9d9"
+              "sha256": "4c13004478d34db7907a5e75a2d106dbd62177ccdeff85e3ef18ef4f1976022b"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3945,7 +3945,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/se-spent-4x.png",
-              "sha256": "7de3d4dc2474f432f7f09313725b1cebe523cd009d570cf3bbcdc3ec3f1ec34d"
+              "sha256": "1f0228b64979381715cf1b89715e63b0b1e3ddbf10300c304b36105157e4a492"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3984,7 +3984,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/cp/s-spent-4x.png",
-              "sha256": "d60714948db3f039253d3a5c0ea2cbf49212b81ab2efac7fce7f1ac3c59c3e13"
+              "sha256": "42d7a887ce4af58100348f5fcecff1b346fd83fdc77a0e638cb9eb88a5d8098e"
             },
             "state": "spent",
             "terrain": "grass",
@@ -4023,7 +4023,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/sw-spent-4x.png",
-              "sha256": "f464ff5758a827ac87dfeaa3f497f8c5a176c863b994485cad27c748900b26be"
+              "sha256": "19c2065cc3af6487e4e035a41799b890c323a9e64f487eaa4b75e7a440a329ae"
             },
             "state": "spent",
             "terrain": "grass",
@@ -4062,7 +4062,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/cp/nw-spent-4x.png",
-              "sha256": "ff1ac8392876c6944734891d1a50c3037e09be7ec7d685a7af30eeba2a264176"
+              "sha256": "cb5b414b7c6d55eb52b9e44767dbd87c15c7ace1c4770a8e62c21680be81ea4b"
             },
             "state": "spent",
             "terrain": "grass",
@@ -4101,7 +4101,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/n-spent-4x.png",
-              "sha256": "57f4590d9a71ae622c1085db71269dea780b365cacc76fe205137ca17a556030"
+              "sha256": "44872ff71da8bdbb3281366b997d36b022e37319eaf1d2fb23ab99ec55a9118f"
             },
             "state": "spent",
             "terrain": "grass",
@@ -4132,7 +4132,7 @@
             "width": 952
           },
           "path": "scenes/grass-spent-p1-4x.png",
-          "sha256": "55d232d6e5edf1d6451967c48ba68e50e8058e2c74061d1fae0310018dceb779"
+          "sha256": "771c4102de94fe0aab792cb823b53b94e8c6cf66940d259fd6ef3e3640f8084a"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -4170,7 +4170,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/neutral/n-normal-2x.png",
-              "sha256": "d288f2397d4cf10ae1c4ea8b417f72aa3a3faf1b7140121b30d1d211e9761475"
+              "sha256": "d40556c505567f9799db6cf8d3710cfcb4f6c86798ccb9e452ae9ee119c7c430"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4209,7 +4209,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/ne-normal-2x.png",
-              "sha256": "8c37d6bd8d53978dd6a5c3b68792e74f804cb481648b2cc4541a93f3ec365083"
+              "sha256": "c1f031610639c60441130f2617a7875e6f2c379188008166cbad068e0032f97f"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4248,7 +4248,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/se-normal-2x.png",
-              "sha256": "19b2fd8c1a594d934874b83c0c844a820295d8c80ba5b41a316736a2ebf2cd3e"
+              "sha256": "5d19e9d629fb281d30e58b238901b8657b987a17a4e88e0c299ef6539ae7d28e"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4287,7 +4287,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/cp/s-normal-2x.png",
-              "sha256": "5f8088ee8cb9c2b31d233158c1054c6017108a70f9bd5a5aa1e0b2b1af93049c"
+              "sha256": "43c6cc262f4bdd769f4f908bdc33614c091b9ceb7636010f1f54c63193fa86c3"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4326,7 +4326,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/sw-normal-2x.png",
-              "sha256": "b192d73caea9c991e81d40f976a9f578a392b65236477760fc9ebafebdd5c988"
+              "sha256": "89e34368c733d3a33807b369f2e03af98c4ae6a0e58c19a3563b99b180ad0f97"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4365,7 +4365,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/cp/nw-normal-2x.png",
-              "sha256": "c71383136a1de38d7b165bcd6fc561e7c52bc92b998b950350a36a21ff71524e"
+              "sha256": "7e3eca17cc736bd0096ccf059b98810164a90e8c08801d3a7e7387d9d1c461ce"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4404,7 +4404,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/n-normal-2x.png",
-              "sha256": "eaddb49c45aeec7a6bbd8085acb0943657d4de85f4c18d842adcd34e6f1e90a0"
+              "sha256": "81b7354a913000b317e9da4acdec0c054f21968921f45f50db4640a8e7d6164e"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4435,7 +4435,7 @@
             "width": 476
           },
           "path": "scenes/grass_w-normal-p0-2x.png",
-          "sha256": "11cbb3466f4e4d9ab18b15f391cfc4ed1eb56dc95c236d7c4a4a1e4e68c37bae"
+          "sha256": "8e1fa9080b5be63ce42b3dff00401d1ce7c921f96bfc9926b7554083a9e34b8e"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -4473,7 +4473,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/neutral/n-normal-4x.png",
-              "sha256": "71691ff2aefc201320c3fb0d2f2778df01b5ab3d50c3f7af2f2d8e5209d0748f"
+              "sha256": "b3d071f457e462c3f4d9c50d4a26a3af65548e4b14175e2ab6cd5fda3adf47c4"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4512,7 +4512,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/ne-normal-4x.png",
-              "sha256": "753dbafbfe26539b6a770a6661ddd998f5da5adaec12d0ed353459fd81943866"
+              "sha256": "49f4818c230aaaf0a90df8c2ac9e6af48f30c50551a41fbc3a2d39f12ed6fd1d"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4551,7 +4551,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/se-normal-4x.png",
-              "sha256": "d6c5cb174bf42053437e728ce2e5e618acc18ceeb524dc4bfec3baf998015e6c"
+              "sha256": "0fea8f13f6419984b50419b26a7c25a223bae3c5878c320e5b065b5fc3f07d98"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4590,7 +4590,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/cp/s-normal-4x.png",
-              "sha256": "0e2e36bdf8b0cfd6dde16be7eb6757c463547a9b8abe0fac0bc0725137c3c27d"
+              "sha256": "72b61ec53b79c553e8acd56fb7bfeffae733a3e52f50d81d1928bcf64d20ccf6"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4629,7 +4629,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/sw-normal-4x.png",
-              "sha256": "f0cfd519a85b17cfc7b72245484892093e5aeafba7ae5f534754b89cb0175403"
+              "sha256": "0506077c665e1b7af8c6a786dc6fae888ce1fa5a6414ba84021d56ba9c3d8498"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4668,7 +4668,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/cp/nw-normal-4x.png",
-              "sha256": "0b2a334479e4db369d4d12e331c7e9081f84e9bdedb632a7567488222e7bcf83"
+              "sha256": "2bcae760349efc302244c6241b4b4b288b32578ad9cb11b699dd0be376f7c4d3"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4707,7 +4707,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/n-normal-4x.png",
-              "sha256": "b4eb9ac4436795291aed8b0b7de90dc17f628aa04da0c98ec1bfc7581037239a"
+              "sha256": "cb85bd58f940ceb56d117d25d5e03c20b9ec87683b040a24ef9ad007b888f72e"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4738,7 +4738,7 @@
             "width": 952
           },
           "path": "scenes/grass_w-normal-p0-4x.png",
-          "sha256": "fc93ac95a7c024dd6b1b95140533c858fc2cce990c0fb112c84fcd39d8bd2b2d"
+          "sha256": "8f652d92a339b75bf6a48b982f5da6ba10b2704542552ee43f3fddc821ac86ea"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -4776,7 +4776,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/neutral/n-normal-2x.png",
-              "sha256": "d288f2397d4cf10ae1c4ea8b417f72aa3a3faf1b7140121b30d1d211e9761475"
+              "sha256": "d40556c505567f9799db6cf8d3710cfcb4f6c86798ccb9e452ae9ee119c7c430"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4815,7 +4815,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/ne-normal-2x.png",
-              "sha256": "8c37d6bd8d53978dd6a5c3b68792e74f804cb481648b2cc4541a93f3ec365083"
+              "sha256": "c1f031610639c60441130f2617a7875e6f2c379188008166cbad068e0032f97f"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4854,7 +4854,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/se-normal-2x.png",
-              "sha256": "19b2fd8c1a594d934874b83c0c844a820295d8c80ba5b41a316736a2ebf2cd3e"
+              "sha256": "5d19e9d629fb281d30e58b238901b8657b987a17a4e88e0c299ef6539ae7d28e"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4893,7 +4893,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/cp/s-normal-2x.png",
-              "sha256": "5f8088ee8cb9c2b31d233158c1054c6017108a70f9bd5a5aa1e0b2b1af93049c"
+              "sha256": "43c6cc262f4bdd769f4f908bdc33614c091b9ceb7636010f1f54c63193fa86c3"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4932,7 +4932,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/sw-normal-2x.png",
-              "sha256": "b192d73caea9c991e81d40f976a9f578a392b65236477760fc9ebafebdd5c988"
+              "sha256": "89e34368c733d3a33807b369f2e03af98c4ae6a0e58c19a3563b99b180ad0f97"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4971,7 +4971,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/cp/nw-normal-2x.png",
-              "sha256": "c71383136a1de38d7b165bcd6fc561e7c52bc92b998b950350a36a21ff71524e"
+              "sha256": "7e3eca17cc736bd0096ccf059b98810164a90e8c08801d3a7e7387d9d1c461ce"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5010,7 +5010,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/n-normal-2x.png",
-              "sha256": "eaddb49c45aeec7a6bbd8085acb0943657d4de85f4c18d842adcd34e6f1e90a0"
+              "sha256": "81b7354a913000b317e9da4acdec0c054f21968921f45f50db4640a8e7d6164e"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5041,7 +5041,7 @@
             "width": 476
           },
           "path": "scenes/grass_w-normal-p1-2x.png",
-          "sha256": "11cbb3466f4e4d9ab18b15f391cfc4ed1eb56dc95c236d7c4a4a1e4e68c37bae"
+          "sha256": "8e1fa9080b5be63ce42b3dff00401d1ce7c921f96bfc9926b7554083a9e34b8e"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -5079,7 +5079,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/neutral/n-normal-4x.png",
-              "sha256": "71691ff2aefc201320c3fb0d2f2778df01b5ab3d50c3f7af2f2d8e5209d0748f"
+              "sha256": "b3d071f457e462c3f4d9c50d4a26a3af65548e4b14175e2ab6cd5fda3adf47c4"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5118,7 +5118,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/ne-normal-4x.png",
-              "sha256": "753dbafbfe26539b6a770a6661ddd998f5da5adaec12d0ed353459fd81943866"
+              "sha256": "49f4818c230aaaf0a90df8c2ac9e6af48f30c50551a41fbc3a2d39f12ed6fd1d"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5157,7 +5157,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/se-normal-4x.png",
-              "sha256": "d6c5cb174bf42053437e728ce2e5e618acc18ceeb524dc4bfec3baf998015e6c"
+              "sha256": "0fea8f13f6419984b50419b26a7c25a223bae3c5878c320e5b065b5fc3f07d98"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5196,7 +5196,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/cp/s-normal-4x.png",
-              "sha256": "0e2e36bdf8b0cfd6dde16be7eb6757c463547a9b8abe0fac0bc0725137c3c27d"
+              "sha256": "72b61ec53b79c553e8acd56fb7bfeffae733a3e52f50d81d1928bcf64d20ccf6"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5235,7 +5235,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/sw-normal-4x.png",
-              "sha256": "f0cfd519a85b17cfc7b72245484892093e5aeafba7ae5f534754b89cb0175403"
+              "sha256": "0506077c665e1b7af8c6a786dc6fae888ce1fa5a6414ba84021d56ba9c3d8498"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5274,7 +5274,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/cp/nw-normal-4x.png",
-              "sha256": "0b2a334479e4db369d4d12e331c7e9081f84e9bdedb632a7567488222e7bcf83"
+              "sha256": "2bcae760349efc302244c6241b4b4b288b32578ad9cb11b699dd0be376f7c4d3"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5313,7 +5313,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/n-normal-4x.png",
-              "sha256": "b4eb9ac4436795291aed8b0b7de90dc17f628aa04da0c98ec1bfc7581037239a"
+              "sha256": "cb85bd58f940ceb56d117d25d5e03c20b9ec87683b040a24ef9ad007b888f72e"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5344,7 +5344,7 @@
             "width": 952
           },
           "path": "scenes/grass_w-normal-p1-4x.png",
-          "sha256": "fc93ac95a7c024dd6b1b95140533c858fc2cce990c0fb112c84fcd39d8bd2b2d"
+          "sha256": "8f652d92a339b75bf6a48b982f5da6ba10b2704542552ee43f3fddc821ac86ea"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -5382,7 +5382,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/neutral/n-spent-2x.png",
-              "sha256": "157c698e6d03cbcd9f8834160dc3a4ce65753250f04bea568618147ad387c78c"
+              "sha256": "9ffa292d57d0f8bb7e396ffea9aedd56a9685be04b4411e977946c700839afc5"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5421,7 +5421,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/ne-spent-2x.png",
-              "sha256": "d72f0af2003d8b7e764c2723f9addf639c040daba787f4cfa14510a510ecc701"
+              "sha256": "6bf5445e6427f26039dcaf708d241be99625516eecded4b4132301c02cdc9f9e"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5460,7 +5460,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/se-spent-2x.png",
-              "sha256": "cd6fdce1a96469b56332f9879c2141865c459e2d2b82028cc96767be505cb81b"
+              "sha256": "4fc245915dc84559734f7d79f7803fd1e3ec0be5ff06c0f6886d39c59b2daca1"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5499,7 +5499,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/cp/s-spent-2x.png",
-              "sha256": "451090cfa9676d2615dce6fd2d738e04ce8a764a0e7865282bbcea25ab56984d"
+              "sha256": "dbb77b83004538d836c0d4f6d96a4ab02d8aca71a4c22c15781f1007da7e14e1"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5538,7 +5538,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/sw-spent-2x.png",
-              "sha256": "3b075f7bad74c239acc8834530ea08aad550171e1447dacdb78a4efad9e09cdf"
+              "sha256": "e9bee78268a953684d0c721e6e5b0724218bf35b5fb8b2e27cf8206cab07a01a"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5577,7 +5577,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/cp/nw-spent-2x.png",
-              "sha256": "cc568160ef114b4e8638ebf8f474fdcfbf321f629cf82da46343d86318afe145"
+              "sha256": "b05f035ccbb93920b1eef540cc285da34388a72960f8e6a035e5ec7b7c4cff3e"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5616,7 +5616,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/n-spent-2x.png",
-              "sha256": "51984f2d5499e276887c8bb032cfc03ac69521bff2da529e003b7b89c268d7b9"
+              "sha256": "4fc9b2818dcec01d856b5ae400e8581c1580354dcf450a3483faac5ef0886be8"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5647,7 +5647,7 @@
             "width": 476
           },
           "path": "scenes/grass_w-spent-p0-2x.png",
-          "sha256": "edfc71f629dc20a6d9f14f72278205c661a7ee22aa9c61ecd0fbee66c23874dd"
+          "sha256": "76f6a90cae73feee6fa297491d927d715911c3748f116d63aacfc1db6cefa850"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -5685,7 +5685,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/neutral/n-spent-4x.png",
-              "sha256": "08cca9d7646faa8ea28bc7a36dad014d71513137195b54f94c6f616e4a5e56b2"
+              "sha256": "4f626d261c351b995cb8ba4aeed951442fc43e786587c3682542d18edde32c3b"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5724,7 +5724,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/ne-spent-4x.png",
-              "sha256": "3c347869a4ba33fa933465d1be34bbf8e45dfade4f47ac8d8f3e700ede30d9d9"
+              "sha256": "4c13004478d34db7907a5e75a2d106dbd62177ccdeff85e3ef18ef4f1976022b"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5763,7 +5763,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/se-spent-4x.png",
-              "sha256": "7de3d4dc2474f432f7f09313725b1cebe523cd009d570cf3bbcdc3ec3f1ec34d"
+              "sha256": "1f0228b64979381715cf1b89715e63b0b1e3ddbf10300c304b36105157e4a492"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5802,7 +5802,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/cp/s-spent-4x.png",
-              "sha256": "d60714948db3f039253d3a5c0ea2cbf49212b81ab2efac7fce7f1ac3c59c3e13"
+              "sha256": "42d7a887ce4af58100348f5fcecff1b346fd83fdc77a0e638cb9eb88a5d8098e"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5841,7 +5841,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/sw-spent-4x.png",
-              "sha256": "f464ff5758a827ac87dfeaa3f497f8c5a176c863b994485cad27c748900b26be"
+              "sha256": "19c2065cc3af6487e4e035a41799b890c323a9e64f487eaa4b75e7a440a329ae"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5880,7 +5880,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/cp/nw-spent-4x.png",
-              "sha256": "ff1ac8392876c6944734891d1a50c3037e09be7ec7d685a7af30eeba2a264176"
+              "sha256": "cb5b414b7c6d55eb52b9e44767dbd87c15c7ace1c4770a8e62c21680be81ea4b"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5919,7 +5919,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/n-spent-4x.png",
-              "sha256": "57f4590d9a71ae622c1085db71269dea780b365cacc76fe205137ca17a556030"
+              "sha256": "44872ff71da8bdbb3281366b997d36b022e37319eaf1d2fb23ab99ec55a9118f"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5950,7 +5950,7 @@
             "width": 952
           },
           "path": "scenes/grass_w-spent-p0-4x.png",
-          "sha256": "00477da47b1bd83d55484feba910eaaaf18dd2ec8fddc897e70a180e9a339f67"
+          "sha256": "1997cd515f04fcd3e136d13e80107def24e88bedef7a28ee7660e8db7b677ebf"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -5988,7 +5988,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/neutral/n-spent-2x.png",
-              "sha256": "157c698e6d03cbcd9f8834160dc3a4ce65753250f04bea568618147ad387c78c"
+              "sha256": "9ffa292d57d0f8bb7e396ffea9aedd56a9685be04b4411e977946c700839afc5"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6027,7 +6027,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/ne-spent-2x.png",
-              "sha256": "d72f0af2003d8b7e764c2723f9addf639c040daba787f4cfa14510a510ecc701"
+              "sha256": "6bf5445e6427f26039dcaf708d241be99625516eecded4b4132301c02cdc9f9e"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6066,7 +6066,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/se-spent-2x.png",
-              "sha256": "cd6fdce1a96469b56332f9879c2141865c459e2d2b82028cc96767be505cb81b"
+              "sha256": "4fc245915dc84559734f7d79f7803fd1e3ec0be5ff06c0f6886d39c59b2daca1"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6105,7 +6105,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/cp/s-spent-2x.png",
-              "sha256": "451090cfa9676d2615dce6fd2d738e04ce8a764a0e7865282bbcea25ab56984d"
+              "sha256": "dbb77b83004538d836c0d4f6d96a4ab02d8aca71a4c22c15781f1007da7e14e1"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6144,7 +6144,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/sw-spent-2x.png",
-              "sha256": "3b075f7bad74c239acc8834530ea08aad550171e1447dacdb78a4efad9e09cdf"
+              "sha256": "e9bee78268a953684d0c721e6e5b0724218bf35b5fb8b2e27cf8206cab07a01a"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6183,7 +6183,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/cp/nw-spent-2x.png",
-              "sha256": "cc568160ef114b4e8638ebf8f474fdcfbf321f629cf82da46343d86318afe145"
+              "sha256": "b05f035ccbb93920b1eef540cc285da34388a72960f8e6a035e5ec7b7c4cff3e"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6222,7 +6222,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/n-spent-2x.png",
-              "sha256": "51984f2d5499e276887c8bb032cfc03ac69521bff2da529e003b7b89c268d7b9"
+              "sha256": "4fc9b2818dcec01d856b5ae400e8581c1580354dcf450a3483faac5ef0886be8"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6253,7 +6253,7 @@
             "width": 476
           },
           "path": "scenes/grass_w-spent-p1-2x.png",
-          "sha256": "edfc71f629dc20a6d9f14f72278205c661a7ee22aa9c61ecd0fbee66c23874dd"
+          "sha256": "76f6a90cae73feee6fa297491d927d715911c3748f116d63aacfc1db6cefa850"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -6291,7 +6291,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/neutral/n-spent-4x.png",
-              "sha256": "08cca9d7646faa8ea28bc7a36dad014d71513137195b54f94c6f616e4a5e56b2"
+              "sha256": "4f626d261c351b995cb8ba4aeed951442fc43e786587c3682542d18edde32c3b"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6330,7 +6330,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/ne-spent-4x.png",
-              "sha256": "3c347869a4ba33fa933465d1be34bbf8e45dfade4f47ac8d8f3e700ede30d9d9"
+              "sha256": "4c13004478d34db7907a5e75a2d106dbd62177ccdeff85e3ef18ef4f1976022b"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6369,7 +6369,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/se-spent-4x.png",
-              "sha256": "7de3d4dc2474f432f7f09313725b1cebe523cd009d570cf3bbcdc3ec3f1ec34d"
+              "sha256": "1f0228b64979381715cf1b89715e63b0b1e3ddbf10300c304b36105157e4a492"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6408,7 +6408,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/cp/s-spent-4x.png",
-              "sha256": "d60714948db3f039253d3a5c0ea2cbf49212b81ab2efac7fce7f1ac3c59c3e13"
+              "sha256": "42d7a887ce4af58100348f5fcecff1b346fd83fdc77a0e638cb9eb88a5d8098e"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6447,7 +6447,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/sw-spent-4x.png",
-              "sha256": "f464ff5758a827ac87dfeaa3f497f8c5a176c863b994485cad27c748900b26be"
+              "sha256": "19c2065cc3af6487e4e035a41799b890c323a9e64f487eaa4b75e7a440a329ae"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6486,7 +6486,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/cp/nw-spent-4x.png",
-              "sha256": "ff1ac8392876c6944734891d1a50c3037e09be7ec7d685a7af30eeba2a264176"
+              "sha256": "cb5b414b7c6d55eb52b9e44767dbd87c15c7ace1c4770a8e62c21680be81ea4b"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6525,7 +6525,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/n-spent-4x.png",
-              "sha256": "57f4590d9a71ae622c1085db71269dea780b365cacc76fe205137ca17a556030"
+              "sha256": "44872ff71da8bdbb3281366b997d36b022e37319eaf1d2fb23ab99ec55a9118f"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6556,7 +6556,7 @@
             "width": 952
           },
           "path": "scenes/grass_w-spent-p1-4x.png",
-          "sha256": "00477da47b1bd83d55484feba910eaaaf18dd2ec8fddc897e70a180e9a339f67"
+          "sha256": "1997cd515f04fcd3e136d13e80107def24e88bedef7a28ee7660e8db7b677ebf"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -6594,7 +6594,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/neutral/n-normal-2x.png",
-              "sha256": "d288f2397d4cf10ae1c4ea8b417f72aa3a3faf1b7140121b30d1d211e9761475"
+              "sha256": "d40556c505567f9799db6cf8d3710cfcb4f6c86798ccb9e452ae9ee119c7c430"
             },
             "state": "normal",
             "terrain": "mud",
@@ -6633,7 +6633,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/ne-normal-2x.png",
-              "sha256": "8c37d6bd8d53978dd6a5c3b68792e74f804cb481648b2cc4541a93f3ec365083"
+              "sha256": "c1f031610639c60441130f2617a7875e6f2c379188008166cbad068e0032f97f"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6672,7 +6672,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/se-normal-2x.png",
-              "sha256": "19b2fd8c1a594d934874b83c0c844a820295d8c80ba5b41a316736a2ebf2cd3e"
+              "sha256": "5d19e9d629fb281d30e58b238901b8657b987a17a4e88e0c299ef6539ae7d28e"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6711,7 +6711,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/cp/s-normal-2x.png",
-              "sha256": "5f8088ee8cb9c2b31d233158c1054c6017108a70f9bd5a5aa1e0b2b1af93049c"
+              "sha256": "43c6cc262f4bdd769f4f908bdc33614c091b9ceb7636010f1f54c63193fa86c3"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6750,7 +6750,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/sw-normal-2x.png",
-              "sha256": "b192d73caea9c991e81d40f976a9f578a392b65236477760fc9ebafebdd5c988"
+              "sha256": "89e34368c733d3a33807b369f2e03af98c4ae6a0e58c19a3563b99b180ad0f97"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6789,7 +6789,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/cp/nw-normal-2x.png",
-              "sha256": "c71383136a1de38d7b165bcd6fc561e7c52bc92b998b950350a36a21ff71524e"
+              "sha256": "7e3eca17cc736bd0096ccf059b98810164a90e8c08801d3a7e7387d9d1c461ce"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6828,7 +6828,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/n-normal-2x.png",
-              "sha256": "eaddb49c45aeec7a6bbd8085acb0943657d4de85f4c18d842adcd34e6f1e90a0"
+              "sha256": "81b7354a913000b317e9da4acdec0c054f21968921f45f50db4640a8e7d6164e"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6859,7 +6859,7 @@
             "width": 476
           },
           "path": "scenes/mud-normal-p0-2x.png",
-          "sha256": "599af9cd0d4fd9df51a28271ecd716327d88448cffc26b1e454d30ad4155cab7"
+          "sha256": "008289620c85b29eba19d28598b5546aa3421d4bd5b88bbbf12525838d524864"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -6897,7 +6897,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/neutral/n-normal-4x.png",
-              "sha256": "71691ff2aefc201320c3fb0d2f2778df01b5ab3d50c3f7af2f2d8e5209d0748f"
+              "sha256": "b3d071f457e462c3f4d9c50d4a26a3af65548e4b14175e2ab6cd5fda3adf47c4"
             },
             "state": "normal",
             "terrain": "mud",
@@ -6936,7 +6936,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/ne-normal-4x.png",
-              "sha256": "753dbafbfe26539b6a770a6661ddd998f5da5adaec12d0ed353459fd81943866"
+              "sha256": "49f4818c230aaaf0a90df8c2ac9e6af48f30c50551a41fbc3a2d39f12ed6fd1d"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6975,7 +6975,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/se-normal-4x.png",
-              "sha256": "d6c5cb174bf42053437e728ce2e5e618acc18ceeb524dc4bfec3baf998015e6c"
+              "sha256": "0fea8f13f6419984b50419b26a7c25a223bae3c5878c320e5b065b5fc3f07d98"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7014,7 +7014,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/cp/s-normal-4x.png",
-              "sha256": "0e2e36bdf8b0cfd6dde16be7eb6757c463547a9b8abe0fac0bc0725137c3c27d"
+              "sha256": "72b61ec53b79c553e8acd56fb7bfeffae733a3e52f50d81d1928bcf64d20ccf6"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7053,7 +7053,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/sw-normal-4x.png",
-              "sha256": "f0cfd519a85b17cfc7b72245484892093e5aeafba7ae5f534754b89cb0175403"
+              "sha256": "0506077c665e1b7af8c6a786dc6fae888ce1fa5a6414ba84021d56ba9c3d8498"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7092,7 +7092,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/cp/nw-normal-4x.png",
-              "sha256": "0b2a334479e4db369d4d12e331c7e9081f84e9bdedb632a7567488222e7bcf83"
+              "sha256": "2bcae760349efc302244c6241b4b4b288b32578ad9cb11b699dd0be376f7c4d3"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7131,7 +7131,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/n-normal-4x.png",
-              "sha256": "b4eb9ac4436795291aed8b0b7de90dc17f628aa04da0c98ec1bfc7581037239a"
+              "sha256": "cb85bd58f940ceb56d117d25d5e03c20b9ec87683b040a24ef9ad007b888f72e"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7162,7 +7162,7 @@
             "width": 952
           },
           "path": "scenes/mud-normal-p0-4x.png",
-          "sha256": "03b088895f69bff72a29e5ec6ff17416b406decf89e5d1ed50c03691a4cd8566"
+          "sha256": "400a68c3678606e118e459a6f8f5f2fa9f86a04c3f3cb4af8ca80323f26a6390"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -7200,7 +7200,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/neutral/n-normal-2x.png",
-              "sha256": "d288f2397d4cf10ae1c4ea8b417f72aa3a3faf1b7140121b30d1d211e9761475"
+              "sha256": "d40556c505567f9799db6cf8d3710cfcb4f6c86798ccb9e452ae9ee119c7c430"
             },
             "state": "normal",
             "terrain": "mud",
@@ -7239,7 +7239,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/ne-normal-2x.png",
-              "sha256": "8c37d6bd8d53978dd6a5c3b68792e74f804cb481648b2cc4541a93f3ec365083"
+              "sha256": "c1f031610639c60441130f2617a7875e6f2c379188008166cbad068e0032f97f"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7278,7 +7278,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/se-normal-2x.png",
-              "sha256": "19b2fd8c1a594d934874b83c0c844a820295d8c80ba5b41a316736a2ebf2cd3e"
+              "sha256": "5d19e9d629fb281d30e58b238901b8657b987a17a4e88e0c299ef6539ae7d28e"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7317,7 +7317,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/cp/s-normal-2x.png",
-              "sha256": "5f8088ee8cb9c2b31d233158c1054c6017108a70f9bd5a5aa1e0b2b1af93049c"
+              "sha256": "43c6cc262f4bdd769f4f908bdc33614c091b9ceb7636010f1f54c63193fa86c3"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7356,7 +7356,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/sw-normal-2x.png",
-              "sha256": "b192d73caea9c991e81d40f976a9f578a392b65236477760fc9ebafebdd5c988"
+              "sha256": "89e34368c733d3a33807b369f2e03af98c4ae6a0e58c19a3563b99b180ad0f97"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7395,7 +7395,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/cp/nw-normal-2x.png",
-              "sha256": "c71383136a1de38d7b165bcd6fc561e7c52bc92b998b950350a36a21ff71524e"
+              "sha256": "7e3eca17cc736bd0096ccf059b98810164a90e8c08801d3a7e7387d9d1c461ce"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7434,7 +7434,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/n-normal-2x.png",
-              "sha256": "eaddb49c45aeec7a6bbd8085acb0943657d4de85f4c18d842adcd34e6f1e90a0"
+              "sha256": "81b7354a913000b317e9da4acdec0c054f21968921f45f50db4640a8e7d6164e"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7465,7 +7465,7 @@
             "width": 476
           },
           "path": "scenes/mud-normal-p1-2x.png",
-          "sha256": "599af9cd0d4fd9df51a28271ecd716327d88448cffc26b1e454d30ad4155cab7"
+          "sha256": "008289620c85b29eba19d28598b5546aa3421d4bd5b88bbbf12525838d524864"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -7503,7 +7503,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/neutral/n-normal-4x.png",
-              "sha256": "71691ff2aefc201320c3fb0d2f2778df01b5ab3d50c3f7af2f2d8e5209d0748f"
+              "sha256": "b3d071f457e462c3f4d9c50d4a26a3af65548e4b14175e2ab6cd5fda3adf47c4"
             },
             "state": "normal",
             "terrain": "mud",
@@ -7542,7 +7542,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/ne-normal-4x.png",
-              "sha256": "753dbafbfe26539b6a770a6661ddd998f5da5adaec12d0ed353459fd81943866"
+              "sha256": "49f4818c230aaaf0a90df8c2ac9e6af48f30c50551a41fbc3a2d39f12ed6fd1d"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7581,7 +7581,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/se-normal-4x.png",
-              "sha256": "d6c5cb174bf42053437e728ce2e5e618acc18ceeb524dc4bfec3baf998015e6c"
+              "sha256": "0fea8f13f6419984b50419b26a7c25a223bae3c5878c320e5b065b5fc3f07d98"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7620,7 +7620,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/cp/s-normal-4x.png",
-              "sha256": "0e2e36bdf8b0cfd6dde16be7eb6757c463547a9b8abe0fac0bc0725137c3c27d"
+              "sha256": "72b61ec53b79c553e8acd56fb7bfeffae733a3e52f50d81d1928bcf64d20ccf6"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7659,7 +7659,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/sw-normal-4x.png",
-              "sha256": "f0cfd519a85b17cfc7b72245484892093e5aeafba7ae5f534754b89cb0175403"
+              "sha256": "0506077c665e1b7af8c6a786dc6fae888ce1fa5a6414ba84021d56ba9c3d8498"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7698,7 +7698,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/cp/nw-normal-4x.png",
-              "sha256": "0b2a334479e4db369d4d12e331c7e9081f84e9bdedb632a7567488222e7bcf83"
+              "sha256": "2bcae760349efc302244c6241b4b4b288b32578ad9cb11b699dd0be376f7c4d3"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7737,7 +7737,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/n-normal-4x.png",
-              "sha256": "b4eb9ac4436795291aed8b0b7de90dc17f628aa04da0c98ec1bfc7581037239a"
+              "sha256": "cb85bd58f940ceb56d117d25d5e03c20b9ec87683b040a24ef9ad007b888f72e"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7768,7 +7768,7 @@
             "width": 952
           },
           "path": "scenes/mud-normal-p1-4x.png",
-          "sha256": "03b088895f69bff72a29e5ec6ff17416b406decf89e5d1ed50c03691a4cd8566"
+          "sha256": "400a68c3678606e118e459a6f8f5f2fa9f86a04c3f3cb4af8ca80323f26a6390"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -7806,7 +7806,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/neutral/n-spent-2x.png",
-              "sha256": "157c698e6d03cbcd9f8834160dc3a4ce65753250f04bea568618147ad387c78c"
+              "sha256": "9ffa292d57d0f8bb7e396ffea9aedd56a9685be04b4411e977946c700839afc5"
             },
             "state": "spent",
             "terrain": "mud",
@@ -7845,7 +7845,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/ne-spent-2x.png",
-              "sha256": "d72f0af2003d8b7e764c2723f9addf639c040daba787f4cfa14510a510ecc701"
+              "sha256": "6bf5445e6427f26039dcaf708d241be99625516eecded4b4132301c02cdc9f9e"
             },
             "state": "spent",
             "terrain": "grass",
@@ -7884,7 +7884,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/se-spent-2x.png",
-              "sha256": "cd6fdce1a96469b56332f9879c2141865c459e2d2b82028cc96767be505cb81b"
+              "sha256": "4fc245915dc84559734f7d79f7803fd1e3ec0be5ff06c0f6886d39c59b2daca1"
             },
             "state": "spent",
             "terrain": "grass",
@@ -7923,7 +7923,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/cp/s-spent-2x.png",
-              "sha256": "451090cfa9676d2615dce6fd2d738e04ce8a764a0e7865282bbcea25ab56984d"
+              "sha256": "dbb77b83004538d836c0d4f6d96a4ab02d8aca71a4c22c15781f1007da7e14e1"
             },
             "state": "spent",
             "terrain": "grass",
@@ -7962,7 +7962,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/sw-spent-2x.png",
-              "sha256": "3b075f7bad74c239acc8834530ea08aad550171e1447dacdb78a4efad9e09cdf"
+              "sha256": "e9bee78268a953684d0c721e6e5b0724218bf35b5fb8b2e27cf8206cab07a01a"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8001,7 +8001,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/cp/nw-spent-2x.png",
-              "sha256": "cc568160ef114b4e8638ebf8f474fdcfbf321f629cf82da46343d86318afe145"
+              "sha256": "b05f035ccbb93920b1eef540cc285da34388a72960f8e6a035e5ec7b7c4cff3e"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8040,7 +8040,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/n-spent-2x.png",
-              "sha256": "51984f2d5499e276887c8bb032cfc03ac69521bff2da529e003b7b89c268d7b9"
+              "sha256": "4fc9b2818dcec01d856b5ae400e8581c1580354dcf450a3483faac5ef0886be8"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8071,7 +8071,7 @@
             "width": 476
           },
           "path": "scenes/mud-spent-p0-2x.png",
-          "sha256": "a446278201ebb911b9cdb98fa40456cec0f5433596805dec106d33a1a4a6a21c"
+          "sha256": "e6cacde27fe66e45b1a3caaab07703ef4a587f789fe3715c90dfb72435fa9c7c"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -8109,7 +8109,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/neutral/n-spent-4x.png",
-              "sha256": "08cca9d7646faa8ea28bc7a36dad014d71513137195b54f94c6f616e4a5e56b2"
+              "sha256": "4f626d261c351b995cb8ba4aeed951442fc43e786587c3682542d18edde32c3b"
             },
             "state": "spent",
             "terrain": "mud",
@@ -8148,7 +8148,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/ne-spent-4x.png",
-              "sha256": "3c347869a4ba33fa933465d1be34bbf8e45dfade4f47ac8d8f3e700ede30d9d9"
+              "sha256": "4c13004478d34db7907a5e75a2d106dbd62177ccdeff85e3ef18ef4f1976022b"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8187,7 +8187,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/se-spent-4x.png",
-              "sha256": "7de3d4dc2474f432f7f09313725b1cebe523cd009d570cf3bbcdc3ec3f1ec34d"
+              "sha256": "1f0228b64979381715cf1b89715e63b0b1e3ddbf10300c304b36105157e4a492"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8226,7 +8226,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/cp/s-spent-4x.png",
-              "sha256": "d60714948db3f039253d3a5c0ea2cbf49212b81ab2efac7fce7f1ac3c59c3e13"
+              "sha256": "42d7a887ce4af58100348f5fcecff1b346fd83fdc77a0e638cb9eb88a5d8098e"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8265,7 +8265,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/sw-spent-4x.png",
-              "sha256": "f464ff5758a827ac87dfeaa3f497f8c5a176c863b994485cad27c748900b26be"
+              "sha256": "19c2065cc3af6487e4e035a41799b890c323a9e64f487eaa4b75e7a440a329ae"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8304,7 +8304,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/cp/nw-spent-4x.png",
-              "sha256": "ff1ac8392876c6944734891d1a50c3037e09be7ec7d685a7af30eeba2a264176"
+              "sha256": "cb5b414b7c6d55eb52b9e44767dbd87c15c7ace1c4770a8e62c21680be81ea4b"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8343,7 +8343,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/n-spent-4x.png",
-              "sha256": "57f4590d9a71ae622c1085db71269dea780b365cacc76fe205137ca17a556030"
+              "sha256": "44872ff71da8bdbb3281366b997d36b022e37319eaf1d2fb23ab99ec55a9118f"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8374,7 +8374,7 @@
             "width": 952
           },
           "path": "scenes/mud-spent-p0-4x.png",
-          "sha256": "6aac2bdc28490980327959fe885057a2c80baf1c88c353a153239fafa205cb51"
+          "sha256": "b203253ee565d744ea8a31b07e1b60c702e7afaa5f2df82238cad95c41b21898"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -8412,7 +8412,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/neutral/n-spent-2x.png",
-              "sha256": "157c698e6d03cbcd9f8834160dc3a4ce65753250f04bea568618147ad387c78c"
+              "sha256": "9ffa292d57d0f8bb7e396ffea9aedd56a9685be04b4411e977946c700839afc5"
             },
             "state": "spent",
             "terrain": "mud",
@@ -8451,7 +8451,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/ne-spent-2x.png",
-              "sha256": "d72f0af2003d8b7e764c2723f9addf639c040daba787f4cfa14510a510ecc701"
+              "sha256": "6bf5445e6427f26039dcaf708d241be99625516eecded4b4132301c02cdc9f9e"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8490,7 +8490,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/se-spent-2x.png",
-              "sha256": "cd6fdce1a96469b56332f9879c2141865c459e2d2b82028cc96767be505cb81b"
+              "sha256": "4fc245915dc84559734f7d79f7803fd1e3ec0be5ff06c0f6886d39c59b2daca1"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8529,7 +8529,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/cp/s-spent-2x.png",
-              "sha256": "451090cfa9676d2615dce6fd2d738e04ce8a764a0e7865282bbcea25ab56984d"
+              "sha256": "dbb77b83004538d836c0d4f6d96a4ab02d8aca71a4c22c15781f1007da7e14e1"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8568,7 +8568,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/sw-spent-2x.png",
-              "sha256": "3b075f7bad74c239acc8834530ea08aad550171e1447dacdb78a4efad9e09cdf"
+              "sha256": "e9bee78268a953684d0c721e6e5b0724218bf35b5fb8b2e27cf8206cab07a01a"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8607,7 +8607,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/cp/nw-spent-2x.png",
-              "sha256": "cc568160ef114b4e8638ebf8f474fdcfbf321f629cf82da46343d86318afe145"
+              "sha256": "b05f035ccbb93920b1eef540cc285da34388a72960f8e6a035e5ec7b7c4cff3e"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8646,7 +8646,7 @@
                 "width": 192
               },
               "path": "sprites/armoredTrain/ec/n-spent-2x.png",
-              "sha256": "51984f2d5499e276887c8bb032cfc03ac69521bff2da529e003b7b89c268d7b9"
+              "sha256": "4fc9b2818dcec01d856b5ae400e8581c1580354dcf450a3483faac5ef0886be8"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8677,7 +8677,7 @@
             "width": 476
           },
           "path": "scenes/mud-spent-p1-2x.png",
-          "sha256": "a446278201ebb911b9cdb98fa40456cec0f5433596805dec106d33a1a4a6a21c"
+          "sha256": "e6cacde27fe66e45b1a3caaab07703ef4a587f789fe3715c90dfb72435fa9c7c"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -8715,7 +8715,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/neutral/n-spent-4x.png",
-              "sha256": "08cca9d7646faa8ea28bc7a36dad014d71513137195b54f94c6f616e4a5e56b2"
+              "sha256": "4f626d261c351b995cb8ba4aeed951442fc43e786587c3682542d18edde32c3b"
             },
             "state": "spent",
             "terrain": "mud",
@@ -8754,7 +8754,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/ne-spent-4x.png",
-              "sha256": "3c347869a4ba33fa933465d1be34bbf8e45dfade4f47ac8d8f3e700ede30d9d9"
+              "sha256": "4c13004478d34db7907a5e75a2d106dbd62177ccdeff85e3ef18ef4f1976022b"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8793,7 +8793,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/se-spent-4x.png",
-              "sha256": "7de3d4dc2474f432f7f09313725b1cebe523cd009d570cf3bbcdc3ec3f1ec34d"
+              "sha256": "1f0228b64979381715cf1b89715e63b0b1e3ddbf10300c304b36105157e4a492"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8832,7 +8832,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/cp/s-spent-4x.png",
-              "sha256": "d60714948db3f039253d3a5c0ea2cbf49212b81ab2efac7fce7f1ac3c59c3e13"
+              "sha256": "42d7a887ce4af58100348f5fcecff1b346fd83fdc77a0e638cb9eb88a5d8098e"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8871,7 +8871,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/sw-spent-4x.png",
-              "sha256": "f464ff5758a827ac87dfeaa3f497f8c5a176c863b994485cad27c748900b26be"
+              "sha256": "19c2065cc3af6487e4e035a41799b890c323a9e64f487eaa4b75e7a440a329ae"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8910,7 +8910,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/cp/nw-spent-4x.png",
-              "sha256": "ff1ac8392876c6944734891d1a50c3037e09be7ec7d685a7af30eeba2a264176"
+              "sha256": "cb5b414b7c6d55eb52b9e44767dbd87c15c7ace1c4770a8e62c21680be81ea4b"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8949,7 +8949,7 @@
                 "width": 384
               },
               "path": "sprites/armoredTrain/ec/n-spent-4x.png",
-              "sha256": "57f4590d9a71ae622c1085db71269dea780b365cacc76fe205137ca17a556030"
+              "sha256": "44872ff71da8bdbb3281366b997d36b022e37319eaf1d2fb23ab99ec55a9118f"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8980,7 +8980,7 @@
             "width": 952
           },
           "path": "scenes/mud-spent-p1-4x.png",
-          "sha256": "6aac2bdc28490980327959fe885057a2c80baf1c88c353a153239fafa205cb51"
+          "sha256": "b203253ee565d744ea8a31b07e1b60c702e7afaa5f2df82238cad95c41b21898"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -9005,7 +9005,7 @@
             "width": 1152
           },
           "path": "sheets/armoredTrain-white-2x.png",
-          "sha256": "cdf15f096b5f5f4cb5e6f2ce763adb67276301558bd468def42bd3eca902ea77"
+          "sha256": "97e753fc70cb65439ff4d79b1e211c54e5eddd9f5ec4b09afddee5c3b4f72637"
         },
         "rows": [
           "n",
@@ -9033,7 +9033,7 @@
             "width": 2304
           },
           "path": "sheets/armoredTrain-white-4x.png",
-          "sha256": "13a128f3deb73ce38971262c2a45da6e773ce76dab6d9541a16f98e3f420b4ff"
+          "sha256": "771eef174e139ebb220bdafef8f595bf2d145b07ef8b1d8e963efee570900459"
         },
         "rows": [
           "n",
@@ -9061,7 +9061,7 @@
             "width": 1152
           },
           "path": "sheets/armoredTrain-checker-2x.png",
-          "sha256": "d2fc09a81c129252bcdaa65f49bf735a1bf80d171a7d184f52439e8522e99f8f"
+          "sha256": "cbde1327f277f83c69f4f1a45c1395202aa591513045bc2e0204814f4137e205"
         },
         "rows": [
           "n",
@@ -9089,7 +9089,7 @@
             "width": 2304
           },
           "path": "sheets/armoredTrain-checker-4x.png",
-          "sha256": "95faf67d50ba17573c43020285359a2c8e42b758c3b85b28b46d589779664728"
+          "sha256": "f54626efccefd4709248804273af0e19f6a8ca1d4788b4d765710df8d423f60c"
         },
         "rows": [
           "n",
@@ -9140,7 +9140,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/cp/n-normal-2x.png",
-            "sha256": "0ec7e054c81400b0094b1ccfc9a5432ae7fe2d7e1129562ab985ba8ea04d0a4c"
+            "sha256": "4d28977445f8e89c6a5c9ea0d2c2820be0d84135dc316ea86ee5dff6fc3fbf82"
           },
           {
             "dimensions": {
@@ -9148,7 +9148,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/cp/n-normal-4x.png",
-            "sha256": "2aa5de5fa9b2b648779de85f3addd0b7e20a2995ff74a9fa108d392cab298b4b"
+            "sha256": "7d17016d1158250c7586756c41bcf17f0db20ac97a585600920b52cf5428f5d5"
           }
         ],
         "palette": "cp",
@@ -9191,7 +9191,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/cp/n-spent-2x.png",
-            "sha256": "7a0321b52d0b0223d743c851f9667d7a18fa42fd1b7c285e4965e5b219336192"
+            "sha256": "9d6b98c53a2d0a3b420f28bcb9f2d737ffb0141e578a38bbbfa519f088070a57"
           },
           {
             "dimensions": {
@@ -9199,7 +9199,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/cp/n-spent-4x.png",
-            "sha256": "f441da3aa3c433e6837c0c36af5ecbf66f5dfe34ecc72de7c44b73a39fe0d249"
+            "sha256": "1f9cc4dece77d6c7d1dd67edf49f6d32d2dfaade85564b4c2b9c8b7be7ad1d65"
           }
         ],
         "palette": "cp",
@@ -9242,7 +9242,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/ec/n-normal-2x.png",
-            "sha256": "eaddb49c45aeec7a6bbd8085acb0943657d4de85f4c18d842adcd34e6f1e90a0"
+            "sha256": "81b7354a913000b317e9da4acdec0c054f21968921f45f50db4640a8e7d6164e"
           },
           {
             "dimensions": {
@@ -9250,7 +9250,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/ec/n-normal-4x.png",
-            "sha256": "b4eb9ac4436795291aed8b0b7de90dc17f628aa04da0c98ec1bfc7581037239a"
+            "sha256": "cb85bd58f940ceb56d117d25d5e03c20b9ec87683b040a24ef9ad007b888f72e"
           }
         ],
         "palette": "ec",
@@ -9293,7 +9293,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/ec/n-spent-2x.png",
-            "sha256": "51984f2d5499e276887c8bb032cfc03ac69521bff2da529e003b7b89c268d7b9"
+            "sha256": "4fc9b2818dcec01d856b5ae400e8581c1580354dcf450a3483faac5ef0886be8"
           },
           {
             "dimensions": {
@@ -9301,7 +9301,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/ec/n-spent-4x.png",
-            "sha256": "57f4590d9a71ae622c1085db71269dea780b365cacc76fe205137ca17a556030"
+            "sha256": "44872ff71da8bdbb3281366b997d36b022e37319eaf1d2fb23ab99ec55a9118f"
           }
         ],
         "palette": "ec",
@@ -9344,7 +9344,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/neutral/n-normal-2x.png",
-            "sha256": "d288f2397d4cf10ae1c4ea8b417f72aa3a3faf1b7140121b30d1d211e9761475"
+            "sha256": "d40556c505567f9799db6cf8d3710cfcb4f6c86798ccb9e452ae9ee119c7c430"
           },
           {
             "dimensions": {
@@ -9352,7 +9352,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/neutral/n-normal-4x.png",
-            "sha256": "71691ff2aefc201320c3fb0d2f2778df01b5ab3d50c3f7af2f2d8e5209d0748f"
+            "sha256": "b3d071f457e462c3f4d9c50d4a26a3af65548e4b14175e2ab6cd5fda3adf47c4"
           }
         ],
         "palette": "neutral",
@@ -9395,7 +9395,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/neutral/n-spent-2x.png",
-            "sha256": "157c698e6d03cbcd9f8834160dc3a4ce65753250f04bea568618147ad387c78c"
+            "sha256": "9ffa292d57d0f8bb7e396ffea9aedd56a9685be04b4411e977946c700839afc5"
           },
           {
             "dimensions": {
@@ -9403,7 +9403,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/neutral/n-spent-4x.png",
-            "sha256": "08cca9d7646faa8ea28bc7a36dad014d71513137195b54f94c6f616e4a5e56b2"
+            "sha256": "4f626d261c351b995cb8ba4aeed951442fc43e786587c3682542d18edde32c3b"
           }
         ],
         "palette": "neutral",
@@ -9446,7 +9446,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/cp/nw-normal-2x.png",
-            "sha256": "c71383136a1de38d7b165bcd6fc561e7c52bc92b998b950350a36a21ff71524e"
+            "sha256": "7e3eca17cc736bd0096ccf059b98810164a90e8c08801d3a7e7387d9d1c461ce"
           },
           {
             "dimensions": {
@@ -9454,7 +9454,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/cp/nw-normal-4x.png",
-            "sha256": "0b2a334479e4db369d4d12e331c7e9081f84e9bdedb632a7567488222e7bcf83"
+            "sha256": "2bcae760349efc302244c6241b4b4b288b32578ad9cb11b699dd0be376f7c4d3"
           }
         ],
         "palette": "cp",
@@ -9497,7 +9497,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/cp/nw-spent-2x.png",
-            "sha256": "cc568160ef114b4e8638ebf8f474fdcfbf321f629cf82da46343d86318afe145"
+            "sha256": "b05f035ccbb93920b1eef540cc285da34388a72960f8e6a035e5ec7b7c4cff3e"
           },
           {
             "dimensions": {
@@ -9505,7 +9505,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/cp/nw-spent-4x.png",
-            "sha256": "ff1ac8392876c6944734891d1a50c3037e09be7ec7d685a7af30eeba2a264176"
+            "sha256": "cb5b414b7c6d55eb52b9e44767dbd87c15c7ace1c4770a8e62c21680be81ea4b"
           }
         ],
         "palette": "cp",
@@ -9548,7 +9548,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/ec/nw-normal-2x.png",
-            "sha256": "f8b73f35c553bf2a01b68fa70688554cf81ee1a5dc8e83d3a7eb896dc9ebde6b"
+            "sha256": "bff95eb9a95b851981843c7688fc537aad98ceed5bdccc0d73b060fbbb2d012c"
           },
           {
             "dimensions": {
@@ -9556,7 +9556,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/ec/nw-normal-4x.png",
-            "sha256": "5ff1c1869fc53b9cbc72867b1b81dc53937cde30aa26673617895ec844c25f98"
+            "sha256": "e98b35a56b4b21179918a633884f906b8157190ac843a68c130719df2c45e875"
           }
         ],
         "palette": "ec",
@@ -9599,7 +9599,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/ec/nw-spent-2x.png",
-            "sha256": "84086cc5c035c273a9a2e22a9f262f4f4878f64d39d8140f201c7b088cf8ba89"
+            "sha256": "0d7f49b64aa2db804a6419d461f1ae838de86bc7fd32d1af01db9d8e5890f634"
           },
           {
             "dimensions": {
@@ -9607,7 +9607,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/ec/nw-spent-4x.png",
-            "sha256": "628d4d79de14e2bb24623b23721a6da11e93e696501721691019369921e53031"
+            "sha256": "f174fef4d1c559e13556e46640096c0fbbe288129709b6ca4a979fe5d8591019"
           }
         ],
         "palette": "ec",
@@ -9650,7 +9650,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/neutral/nw-normal-2x.png",
-            "sha256": "9355c7384318fe2a3ec4069e92b963be007e4c4d87ff99e2d543cf9c2a4315b2"
+            "sha256": "d7963152d511d0b1f5accd99743bae876c5f5ba693936d0146f69365fca756e1"
           },
           {
             "dimensions": {
@@ -9658,7 +9658,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/neutral/nw-normal-4x.png",
-            "sha256": "7c85e255c967b12948473e9ff9b7544f287ea68d5aea6e9693719ac5cea582e7"
+            "sha256": "33b0fd2eb4711b28f82f527abca88adeb1cfbd5b69f29ec8df518a594f8c371f"
           }
         ],
         "palette": "neutral",
@@ -9701,7 +9701,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/neutral/nw-spent-2x.png",
-            "sha256": "142b4996effdef2b16d1f1c653022a9e423ed7e017a48a08f5de5ece61ca78ca"
+            "sha256": "25b632f163729e36826f195a47b58bc612c2d606856c32a74d946ad54bcbb9ad"
           },
           {
             "dimensions": {
@@ -9709,7 +9709,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/neutral/nw-spent-4x.png",
-            "sha256": "076f137b645841a375f904eab0a7d8c3a39c9c2b347f086373de520cc8dc81c8"
+            "sha256": "e2285eb6d88eba794a2d1ed5eb321f176ed0336e3f094dd41a413d32a2b2962b"
           }
         ],
         "palette": "neutral",
@@ -9752,7 +9752,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/cp/sw-normal-2x.png",
-            "sha256": "8b9223776be6c2aa8ee5f95e3b4e66fc943840407977445f1d925c5c5cd9c83a"
+            "sha256": "dd0335b62c65ab23c5ad60461ed551c9c7df96b6b0cfd60a206d5c552604a0e1"
           },
           {
             "dimensions": {
@@ -9760,7 +9760,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/cp/sw-normal-4x.png",
-            "sha256": "614356137fdd58e29940a43eec2424e0f2a7d32cdd97d280274a5b317688dca2"
+            "sha256": "6365d91fc8950dcf0e6d052f6ee262bf8c61367bc4ea5ac947f5a07ff60afb19"
           }
         ],
         "palette": "cp",
@@ -9803,7 +9803,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/cp/sw-spent-2x.png",
-            "sha256": "52b7a676f84fc9251cb5c9506979a49754ef74866c54aaff8ef0c25dff519db7"
+            "sha256": "c71ed7d0f257d7c39154e8baaae2e4fd801b242523201e7e7f4166684d02b3e0"
           },
           {
             "dimensions": {
@@ -9811,7 +9811,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/cp/sw-spent-4x.png",
-            "sha256": "69c099d39839860b68058b7eedb0a1d1635055884f72b97b14fe58852a3172d3"
+            "sha256": "375e1da2536b1b14c97bb805cfa4eb25ee073dacbeb40cf58201716e2cd51034"
           }
         ],
         "palette": "cp",
@@ -9854,7 +9854,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/ec/sw-normal-2x.png",
-            "sha256": "b192d73caea9c991e81d40f976a9f578a392b65236477760fc9ebafebdd5c988"
+            "sha256": "89e34368c733d3a33807b369f2e03af98c4ae6a0e58c19a3563b99b180ad0f97"
           },
           {
             "dimensions": {
@@ -9862,7 +9862,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/ec/sw-normal-4x.png",
-            "sha256": "f0cfd519a85b17cfc7b72245484892093e5aeafba7ae5f534754b89cb0175403"
+            "sha256": "0506077c665e1b7af8c6a786dc6fae888ce1fa5a6414ba84021d56ba9c3d8498"
           }
         ],
         "palette": "ec",
@@ -9905,7 +9905,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/ec/sw-spent-2x.png",
-            "sha256": "3b075f7bad74c239acc8834530ea08aad550171e1447dacdb78a4efad9e09cdf"
+            "sha256": "e9bee78268a953684d0c721e6e5b0724218bf35b5fb8b2e27cf8206cab07a01a"
           },
           {
             "dimensions": {
@@ -9913,7 +9913,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/ec/sw-spent-4x.png",
-            "sha256": "f464ff5758a827ac87dfeaa3f497f8c5a176c863b994485cad27c748900b26be"
+            "sha256": "19c2065cc3af6487e4e035a41799b890c323a9e64f487eaa4b75e7a440a329ae"
           }
         ],
         "palette": "ec",
@@ -9956,7 +9956,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/neutral/sw-normal-2x.png",
-            "sha256": "0484942e36838ad90eaa1dd3b902d5b41be50ffbd378a79e88684171436203b3"
+            "sha256": "207062edff87d7020e34d169c56cdf2a27f637a8dacecbf9c1a6d83d57792417"
           },
           {
             "dimensions": {
@@ -9964,7 +9964,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/neutral/sw-normal-4x.png",
-            "sha256": "109603a88523415ef2b895cbdd78165652db497ef1c6c43b449fbe039c412f02"
+            "sha256": "16d1dd58b964d5b354c6de51d53aa857413f5faba28bd41d67214ae9e3a743dc"
           }
         ],
         "palette": "neutral",
@@ -10007,7 +10007,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/neutral/sw-spent-2x.png",
-            "sha256": "9a1242ed76bdb44154d18706ced6b7bbec5da72d66bde56b0b96f2e2b7d21cfe"
+            "sha256": "2a457fff42aca1b7e9a561bdcc0f0da57332b465cd91b6aadedc2d8d8b91d360"
           },
           {
             "dimensions": {
@@ -10015,7 +10015,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/neutral/sw-spent-4x.png",
-            "sha256": "d04a1eaff8309308686ded8a15325700e3f7b35aea5333af40202b173c82327d"
+            "sha256": "86d64ac493e4678849956eb202912af4d64e17460090fe9addb958de7558b44b"
           }
         ],
         "palette": "neutral",
@@ -10058,7 +10058,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/cp/s-normal-2x.png",
-            "sha256": "5f8088ee8cb9c2b31d233158c1054c6017108a70f9bd5a5aa1e0b2b1af93049c"
+            "sha256": "43c6cc262f4bdd769f4f908bdc33614c091b9ceb7636010f1f54c63193fa86c3"
           },
           {
             "dimensions": {
@@ -10066,7 +10066,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/cp/s-normal-4x.png",
-            "sha256": "0e2e36bdf8b0cfd6dde16be7eb6757c463547a9b8abe0fac0bc0725137c3c27d"
+            "sha256": "72b61ec53b79c553e8acd56fb7bfeffae733a3e52f50d81d1928bcf64d20ccf6"
           }
         ],
         "palette": "cp",
@@ -10109,7 +10109,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/cp/s-spent-2x.png",
-            "sha256": "451090cfa9676d2615dce6fd2d738e04ce8a764a0e7865282bbcea25ab56984d"
+            "sha256": "dbb77b83004538d836c0d4f6d96a4ab02d8aca71a4c22c15781f1007da7e14e1"
           },
           {
             "dimensions": {
@@ -10117,7 +10117,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/cp/s-spent-4x.png",
-            "sha256": "d60714948db3f039253d3a5c0ea2cbf49212b81ab2efac7fce7f1ac3c59c3e13"
+            "sha256": "42d7a887ce4af58100348f5fcecff1b346fd83fdc77a0e638cb9eb88a5d8098e"
           }
         ],
         "palette": "cp",
@@ -10160,7 +10160,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/ec/s-normal-2x.png",
-            "sha256": "f66385ef21071c971bd26de572a2e3c3ca7dfc85581dc41be44f511248df4fa9"
+            "sha256": "bb41eddf2650dacc34b8b9214f3b00001af14bdbde0eefc08a466f28f849e457"
           },
           {
             "dimensions": {
@@ -10168,7 +10168,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/ec/s-normal-4x.png",
-            "sha256": "d3e8110bb2f4759c06593c2253403a6ff4a170a4a3c19a17e7c7da390d5f1cc1"
+            "sha256": "0b5d7b2041838fccdebac7ac8df2c9993d2170d1efa7064903aab5f3184bc1fe"
           }
         ],
         "palette": "ec",
@@ -10211,7 +10211,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/ec/s-spent-2x.png",
-            "sha256": "2b15ba79e5a35f2d4ee2bd86d690bc5dcd6f3be34bb97228c8a438bc22bc1427"
+            "sha256": "87e92c46ff081e75aef1bd044ee1b1f449f377dd5474cae2df8a405823269ab8"
           },
           {
             "dimensions": {
@@ -10219,7 +10219,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/ec/s-spent-4x.png",
-            "sha256": "457261bac8a5dd7e2e97fbca5ab0f47bb50f1928384b8133082f7744e9bef6fd"
+            "sha256": "60e32d1a33881ff7139708bf3d667ab70fabe1ae11b7b175ccac58d3fd2a9dfe"
           }
         ],
         "palette": "ec",
@@ -10262,7 +10262,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/neutral/s-normal-2x.png",
-            "sha256": "38193e073088943b2a15475fc122195a802c5535c5b6ff7cc792110ed6172144"
+            "sha256": "47bd5a8c48850a9a08034fd8b0d10273bf39588b6dfeaab4ae0b27d4796831c5"
           },
           {
             "dimensions": {
@@ -10270,7 +10270,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/neutral/s-normal-4x.png",
-            "sha256": "5492b72d1026ce7492a36b3e83233263daefcba42508bd55787042c86b09f48b"
+            "sha256": "457469c9872b86b8676811ce53e6fdb9183c2eaf9a06435e5f99676de1c5bde6"
           }
         ],
         "palette": "neutral",
@@ -10313,7 +10313,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/neutral/s-spent-2x.png",
-            "sha256": "b9da2e690ed90429e693172419867d115816b25468e7837f4a81ea16f7225282"
+            "sha256": "f0a5b1ed2a5ee1be0bb30b6d1c3336815f9054345be8b74ef0cf36aea9d91967"
           },
           {
             "dimensions": {
@@ -10321,7 +10321,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/neutral/s-spent-4x.png",
-            "sha256": "247e78b9f7985066272b920d3e6558ab6be8e789cb1433151b1d36fab7603395"
+            "sha256": "24a3ffb3045a6477065037ec31e9d8bb33c60d85b10e77dd11574389d3c01af4"
           }
         ],
         "palette": "neutral",
@@ -10364,7 +10364,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/cp/se-normal-2x.png",
-            "sha256": "6e1c54d54d897f66c46dfcfcbb94c3f434496e6b8c074a578737eb381b9dd85b"
+            "sha256": "0a903490bfdee75a766447cf4bae8740330bf767d7abdc928d2fd8a3d63c1678"
           },
           {
             "dimensions": {
@@ -10372,7 +10372,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/cp/se-normal-4x.png",
-            "sha256": "803eba58e1236b494d896f38cbbec10ee24af7bb327633d348180825dbd01cd2"
+            "sha256": "c0aa60027a54210cc23f573575bb7251e4aa8d1a58e7771b6c64eb992b995121"
           }
         ],
         "palette": "cp",
@@ -10415,7 +10415,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/cp/se-spent-2x.png",
-            "sha256": "03e33042537965ced77de78aa18d5763971c77812b85d872dc1142c135094936"
+            "sha256": "28e1924ca8127e2e637650078c7b57f5309fe59d92b7fe45290d328592ae5f2a"
           },
           {
             "dimensions": {
@@ -10423,7 +10423,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/cp/se-spent-4x.png",
-            "sha256": "3b011755e04da126da5906773262cc8f1c303397c58afeaa88c0cb06d5d4c75e"
+            "sha256": "99fe62181fce9c97113fd37b0d522ff4764696d809e43f053884e5ae2bd78cc8"
           }
         ],
         "palette": "cp",
@@ -10466,7 +10466,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/ec/se-normal-2x.png",
-            "sha256": "19b2fd8c1a594d934874b83c0c844a820295d8c80ba5b41a316736a2ebf2cd3e"
+            "sha256": "5d19e9d629fb281d30e58b238901b8657b987a17a4e88e0c299ef6539ae7d28e"
           },
           {
             "dimensions": {
@@ -10474,7 +10474,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/ec/se-normal-4x.png",
-            "sha256": "d6c5cb174bf42053437e728ce2e5e618acc18ceeb524dc4bfec3baf998015e6c"
+            "sha256": "0fea8f13f6419984b50419b26a7c25a223bae3c5878c320e5b065b5fc3f07d98"
           }
         ],
         "palette": "ec",
@@ -10517,7 +10517,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/ec/se-spent-2x.png",
-            "sha256": "cd6fdce1a96469b56332f9879c2141865c459e2d2b82028cc96767be505cb81b"
+            "sha256": "4fc245915dc84559734f7d79f7803fd1e3ec0be5ff06c0f6886d39c59b2daca1"
           },
           {
             "dimensions": {
@@ -10525,7 +10525,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/ec/se-spent-4x.png",
-            "sha256": "7de3d4dc2474f432f7f09313725b1cebe523cd009d570cf3bbcdc3ec3f1ec34d"
+            "sha256": "1f0228b64979381715cf1b89715e63b0b1e3ddbf10300c304b36105157e4a492"
           }
         ],
         "palette": "ec",
@@ -10568,7 +10568,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/neutral/se-normal-2x.png",
-            "sha256": "00e622973d0027c490d3723615805c82a7be993d47dca2f1c470c0b063ec9444"
+            "sha256": "b7cd116d932cc683360d9a4b72c906abeb04e03632f372cbcdae712a029d3632"
           },
           {
             "dimensions": {
@@ -10576,7 +10576,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/neutral/se-normal-4x.png",
-            "sha256": "0d274e9627ae8c427eb40828d20ec0e8bbb6d772d8d91427556f3c7799aa4f02"
+            "sha256": "0d9677c914d3de00d447534d972587acbc0744e449049742bae7824c3192353e"
           }
         ],
         "palette": "neutral",
@@ -10619,7 +10619,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/neutral/se-spent-2x.png",
-            "sha256": "cb57eb6a7d45ab96c386cd960065983ba128a9247b5c0af609c70dedcae320a2"
+            "sha256": "db3dadf49884d692abae6355cbf67a9b3f5aadd06a1ec885f6f9f3bcf478e781"
           },
           {
             "dimensions": {
@@ -10627,7 +10627,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/neutral/se-spent-4x.png",
-            "sha256": "9634787b509b8ef077c867d0f8b184723050ca56980539ee1ba22e9a5754944e"
+            "sha256": "9efd0b54922f1389fc4fabf98b9d4fc9da10984be6e139984a2d99379c952901"
           }
         ],
         "palette": "neutral",
@@ -10670,7 +10670,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/cp/ne-normal-2x.png",
-            "sha256": "1424748617a073a16807b97db00dbefe11021ea922572d3cb1878bbc8cbb5f90"
+            "sha256": "6d9040feedbe6dfbabbff6a12b5ef4ef1ac2a0a555688bd0ac4330be30385090"
           },
           {
             "dimensions": {
@@ -10678,7 +10678,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/cp/ne-normal-4x.png",
-            "sha256": "9d6bdc6005d3428863af9f011fb995e3bc749d0e7bf9b80aea163b5b27239a41"
+            "sha256": "a2ae000a658dfe29aa51f92433adbc2fd7efc1bd84f1fd66b15bf78e3ed4cc29"
           }
         ],
         "palette": "cp",
@@ -10721,7 +10721,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/cp/ne-spent-2x.png",
-            "sha256": "75346b543943bc1749bbd503748240210e64cf8db9dcb71b266bf887c96923e8"
+            "sha256": "57b71fc751e6ea61b423757d5991666f559822b09bb14fe4e7164c3bfb446ec9"
           },
           {
             "dimensions": {
@@ -10729,7 +10729,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/cp/ne-spent-4x.png",
-            "sha256": "69fe98bcdb4546358a0e7af841efb607a3cdce3672ccf4006ed720033d73575f"
+            "sha256": "2ab4ff2bf1112e6fec01fbf16fc169b9554359b1630a16886894801fe290ff2d"
           }
         ],
         "palette": "cp",
@@ -10772,7 +10772,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/ec/ne-normal-2x.png",
-            "sha256": "8c37d6bd8d53978dd6a5c3b68792e74f804cb481648b2cc4541a93f3ec365083"
+            "sha256": "c1f031610639c60441130f2617a7875e6f2c379188008166cbad068e0032f97f"
           },
           {
             "dimensions": {
@@ -10780,7 +10780,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/ec/ne-normal-4x.png",
-            "sha256": "753dbafbfe26539b6a770a6661ddd998f5da5adaec12d0ed353459fd81943866"
+            "sha256": "49f4818c230aaaf0a90df8c2ac9e6af48f30c50551a41fbc3a2d39f12ed6fd1d"
           }
         ],
         "palette": "ec",
@@ -10823,7 +10823,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/ec/ne-spent-2x.png",
-            "sha256": "d72f0af2003d8b7e764c2723f9addf639c040daba787f4cfa14510a510ecc701"
+            "sha256": "6bf5445e6427f26039dcaf708d241be99625516eecded4b4132301c02cdc9f9e"
           },
           {
             "dimensions": {
@@ -10831,7 +10831,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/ec/ne-spent-4x.png",
-            "sha256": "3c347869a4ba33fa933465d1be34bbf8e45dfade4f47ac8d8f3e700ede30d9d9"
+            "sha256": "4c13004478d34db7907a5e75a2d106dbd62177ccdeff85e3ef18ef4f1976022b"
           }
         ],
         "palette": "ec",
@@ -10874,7 +10874,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/neutral/ne-normal-2x.png",
-            "sha256": "cc41d47a0d9b9d8185b9e4ec065be15b67da0a31c6640f793d887eb00c648148"
+            "sha256": "6ca60ef1b6490aba60887bbef64a0036db8238134450b83abd79ea210d558fc0"
           },
           {
             "dimensions": {
@@ -10882,7 +10882,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/neutral/ne-normal-4x.png",
-            "sha256": "6d50b24fda7d256de385d9b8f83603011d6c4547234352edd9e5f9a5e4227b18"
+            "sha256": "6f1dff3ad8eb9ce7ccc8707d17b318fe3f75ee50b48fdde9d8c0e26c3476be9c"
           }
         ],
         "palette": "neutral",
@@ -10925,7 +10925,7 @@
               "width": 192
             },
             "path": "sprites/armoredTrain/neutral/ne-spent-2x.png",
-            "sha256": "d40dc6688b688f738970fec573dde5236e55f3365c296760084528c789e1435a"
+            "sha256": "3aad662b253df2057e9947df06c05092b977e1812d6f99d1c07de43e607527f8"
           },
           {
             "dimensions": {
@@ -10933,7 +10933,7 @@
               "width": 384
             },
             "path": "sprites/armoredTrain/neutral/ne-spent-4x.png",
-            "sha256": "f5c29ac3c4d53f369f997a6b0eeb47c6ef59421acfd90ba7064130b04deebd19"
+            "sha256": "5237b70e7982241158d52da9831a8184efa8dfb49ca6a5dbc76f64d503b2c595"
           }
         ],
         "palette": "neutral",
@@ -10986,7 +10986,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/n-normal-2x.png",
-      "sha256": "0ec7e054c81400b0094b1ccfc9a5432ae7fe2d7e1129562ab985ba8ea04d0a4c"
+      "sha256": "4d28977445f8e89c6a5c9ea0d2c2820be0d84135dc316ea86ee5dff6fc3fbf82"
     },
     {
       "build_output": "sprites/armoredTrain/cp/n-normal-4x.png",
@@ -10995,7 +10995,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/n-normal-4x.png",
-      "sha256": "2aa5de5fa9b2b648779de85f3addd0b7e20a2995ff74a9fa108d392cab298b4b"
+      "sha256": "7d17016d1158250c7586756c41bcf17f0db20ac97a585600920b52cf5428f5d5"
     },
     {
       "build_output": "sprites/armoredTrain/cp/n-spent-2x.png",
@@ -11004,7 +11004,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/n-spent-2x.png",
-      "sha256": "7a0321b52d0b0223d743c851f9667d7a18fa42fd1b7c285e4965e5b219336192"
+      "sha256": "9d6b98c53a2d0a3b420f28bcb9f2d737ffb0141e578a38bbbfa519f088070a57"
     },
     {
       "build_output": "sprites/armoredTrain/cp/n-spent-4x.png",
@@ -11013,7 +11013,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/n-spent-4x.png",
-      "sha256": "f441da3aa3c433e6837c0c36af5ecbf66f5dfe34ecc72de7c44b73a39fe0d249"
+      "sha256": "1f9cc4dece77d6c7d1dd67edf49f6d32d2dfaade85564b4c2b9c8b7be7ad1d65"
     },
     {
       "build_output": "sprites/armoredTrain/ec/n-normal-2x.png",
@@ -11022,7 +11022,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/n-normal-2x.png",
-      "sha256": "eaddb49c45aeec7a6bbd8085acb0943657d4de85f4c18d842adcd34e6f1e90a0"
+      "sha256": "81b7354a913000b317e9da4acdec0c054f21968921f45f50db4640a8e7d6164e"
     },
     {
       "build_output": "sprites/armoredTrain/ec/n-normal-4x.png",
@@ -11031,7 +11031,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/n-normal-4x.png",
-      "sha256": "b4eb9ac4436795291aed8b0b7de90dc17f628aa04da0c98ec1bfc7581037239a"
+      "sha256": "cb85bd58f940ceb56d117d25d5e03c20b9ec87683b040a24ef9ad007b888f72e"
     },
     {
       "build_output": "sprites/armoredTrain/ec/n-spent-2x.png",
@@ -11040,7 +11040,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/n-spent-2x.png",
-      "sha256": "51984f2d5499e276887c8bb032cfc03ac69521bff2da529e003b7b89c268d7b9"
+      "sha256": "4fc9b2818dcec01d856b5ae400e8581c1580354dcf450a3483faac5ef0886be8"
     },
     {
       "build_output": "sprites/armoredTrain/ec/n-spent-4x.png",
@@ -11049,7 +11049,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/n-spent-4x.png",
-      "sha256": "57f4590d9a71ae622c1085db71269dea780b365cacc76fe205137ca17a556030"
+      "sha256": "44872ff71da8bdbb3281366b997d36b022e37319eaf1d2fb23ab99ec55a9118f"
     },
     {
       "build_output": "sprites/armoredTrain/neutral/n-normal-2x.png",
@@ -11058,7 +11058,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/n-normal-2x.png",
-      "sha256": "d288f2397d4cf10ae1c4ea8b417f72aa3a3faf1b7140121b30d1d211e9761475"
+      "sha256": "d40556c505567f9799db6cf8d3710cfcb4f6c86798ccb9e452ae9ee119c7c430"
     },
     {
       "build_output": "sprites/armoredTrain/neutral/n-normal-4x.png",
@@ -11067,7 +11067,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/n-normal-4x.png",
-      "sha256": "71691ff2aefc201320c3fb0d2f2778df01b5ab3d50c3f7af2f2d8e5209d0748f"
+      "sha256": "b3d071f457e462c3f4d9c50d4a26a3af65548e4b14175e2ab6cd5fda3adf47c4"
     },
     {
       "build_output": "sprites/armoredTrain/neutral/n-spent-2x.png",
@@ -11076,7 +11076,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/n-spent-2x.png",
-      "sha256": "157c698e6d03cbcd9f8834160dc3a4ce65753250f04bea568618147ad387c78c"
+      "sha256": "9ffa292d57d0f8bb7e396ffea9aedd56a9685be04b4411e977946c700839afc5"
     },
     {
       "build_output": "sprites/armoredTrain/neutral/n-spent-4x.png",
@@ -11085,7 +11085,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/n-spent-4x.png",
-      "sha256": "08cca9d7646faa8ea28bc7a36dad014d71513137195b54f94c6f616e4a5e56b2"
+      "sha256": "4f626d261c351b995cb8ba4aeed951442fc43e786587c3682542d18edde32c3b"
     },
     {
       "build_output": "planes/armoredTrain/nw-base-2x.png",
@@ -11130,7 +11130,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/nw-normal-2x.png",
-      "sha256": "c71383136a1de38d7b165bcd6fc561e7c52bc92b998b950350a36a21ff71524e"
+      "sha256": "7e3eca17cc736bd0096ccf059b98810164a90e8c08801d3a7e7387d9d1c461ce"
     },
     {
       "build_output": "sprites/armoredTrain/cp/nw-normal-4x.png",
@@ -11139,7 +11139,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/nw-normal-4x.png",
-      "sha256": "0b2a334479e4db369d4d12e331c7e9081f84e9bdedb632a7567488222e7bcf83"
+      "sha256": "2bcae760349efc302244c6241b4b4b288b32578ad9cb11b699dd0be376f7c4d3"
     },
     {
       "build_output": "sprites/armoredTrain/cp/nw-spent-2x.png",
@@ -11148,7 +11148,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/nw-spent-2x.png",
-      "sha256": "cc568160ef114b4e8638ebf8f474fdcfbf321f629cf82da46343d86318afe145"
+      "sha256": "b05f035ccbb93920b1eef540cc285da34388a72960f8e6a035e5ec7b7c4cff3e"
     },
     {
       "build_output": "sprites/armoredTrain/cp/nw-spent-4x.png",
@@ -11157,7 +11157,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/nw-spent-4x.png",
-      "sha256": "ff1ac8392876c6944734891d1a50c3037e09be7ec7d685a7af30eeba2a264176"
+      "sha256": "cb5b414b7c6d55eb52b9e44767dbd87c15c7ace1c4770a8e62c21680be81ea4b"
     },
     {
       "build_output": "sprites/armoredTrain/ec/nw-normal-2x.png",
@@ -11166,7 +11166,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/nw-normal-2x.png",
-      "sha256": "f8b73f35c553bf2a01b68fa70688554cf81ee1a5dc8e83d3a7eb896dc9ebde6b"
+      "sha256": "bff95eb9a95b851981843c7688fc537aad98ceed5bdccc0d73b060fbbb2d012c"
     },
     {
       "build_output": "sprites/armoredTrain/ec/nw-normal-4x.png",
@@ -11175,7 +11175,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/nw-normal-4x.png",
-      "sha256": "5ff1c1869fc53b9cbc72867b1b81dc53937cde30aa26673617895ec844c25f98"
+      "sha256": "e98b35a56b4b21179918a633884f906b8157190ac843a68c130719df2c45e875"
     },
     {
       "build_output": "sprites/armoredTrain/ec/nw-spent-2x.png",
@@ -11184,7 +11184,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/nw-spent-2x.png",
-      "sha256": "84086cc5c035c273a9a2e22a9f262f4f4878f64d39d8140f201c7b088cf8ba89"
+      "sha256": "0d7f49b64aa2db804a6419d461f1ae838de86bc7fd32d1af01db9d8e5890f634"
     },
     {
       "build_output": "sprites/armoredTrain/ec/nw-spent-4x.png",
@@ -11193,7 +11193,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/nw-spent-4x.png",
-      "sha256": "628d4d79de14e2bb24623b23721a6da11e93e696501721691019369921e53031"
+      "sha256": "f174fef4d1c559e13556e46640096c0fbbe288129709b6ca4a979fe5d8591019"
     },
     {
       "build_output": "sprites/armoredTrain/neutral/nw-normal-2x.png",
@@ -11202,7 +11202,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/nw-normal-2x.png",
-      "sha256": "9355c7384318fe2a3ec4069e92b963be007e4c4d87ff99e2d543cf9c2a4315b2"
+      "sha256": "d7963152d511d0b1f5accd99743bae876c5f5ba693936d0146f69365fca756e1"
     },
     {
       "build_output": "sprites/armoredTrain/neutral/nw-normal-4x.png",
@@ -11211,7 +11211,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/nw-normal-4x.png",
-      "sha256": "7c85e255c967b12948473e9ff9b7544f287ea68d5aea6e9693719ac5cea582e7"
+      "sha256": "33b0fd2eb4711b28f82f527abca88adeb1cfbd5b69f29ec8df518a594f8c371f"
     },
     {
       "build_output": "sprites/armoredTrain/neutral/nw-spent-2x.png",
@@ -11220,7 +11220,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/nw-spent-2x.png",
-      "sha256": "142b4996effdef2b16d1f1c653022a9e423ed7e017a48a08f5de5ece61ca78ca"
+      "sha256": "25b632f163729e36826f195a47b58bc612c2d606856c32a74d946ad54bcbb9ad"
     },
     {
       "build_output": "sprites/armoredTrain/neutral/nw-spent-4x.png",
@@ -11229,7 +11229,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/nw-spent-4x.png",
-      "sha256": "076f137b645841a375f904eab0a7d8c3a39c9c2b347f086373de520cc8dc81c8"
+      "sha256": "e2285eb6d88eba794a2d1ed5eb321f176ed0336e3f094dd41a413d32a2b2962b"
     },
     {
       "build_output": "planes/armoredTrain/sw-base-2x.png",
@@ -11274,7 +11274,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/sw-normal-2x.png",
-      "sha256": "8b9223776be6c2aa8ee5f95e3b4e66fc943840407977445f1d925c5c5cd9c83a"
+      "sha256": "dd0335b62c65ab23c5ad60461ed551c9c7df96b6b0cfd60a206d5c552604a0e1"
     },
     {
       "build_output": "sprites/armoredTrain/cp/sw-normal-4x.png",
@@ -11283,7 +11283,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/sw-normal-4x.png",
-      "sha256": "614356137fdd58e29940a43eec2424e0f2a7d32cdd97d280274a5b317688dca2"
+      "sha256": "6365d91fc8950dcf0e6d052f6ee262bf8c61367bc4ea5ac947f5a07ff60afb19"
     },
     {
       "build_output": "sprites/armoredTrain/cp/sw-spent-2x.png",
@@ -11292,7 +11292,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/sw-spent-2x.png",
-      "sha256": "52b7a676f84fc9251cb5c9506979a49754ef74866c54aaff8ef0c25dff519db7"
+      "sha256": "c71ed7d0f257d7c39154e8baaae2e4fd801b242523201e7e7f4166684d02b3e0"
     },
     {
       "build_output": "sprites/armoredTrain/cp/sw-spent-4x.png",
@@ -11301,7 +11301,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/sw-spent-4x.png",
-      "sha256": "69c099d39839860b68058b7eedb0a1d1635055884f72b97b14fe58852a3172d3"
+      "sha256": "375e1da2536b1b14c97bb805cfa4eb25ee073dacbeb40cf58201716e2cd51034"
     },
     {
       "build_output": "sprites/armoredTrain/ec/sw-normal-2x.png",
@@ -11310,7 +11310,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/sw-normal-2x.png",
-      "sha256": "b192d73caea9c991e81d40f976a9f578a392b65236477760fc9ebafebdd5c988"
+      "sha256": "89e34368c733d3a33807b369f2e03af98c4ae6a0e58c19a3563b99b180ad0f97"
     },
     {
       "build_output": "sprites/armoredTrain/ec/sw-normal-4x.png",
@@ -11319,7 +11319,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/sw-normal-4x.png",
-      "sha256": "f0cfd519a85b17cfc7b72245484892093e5aeafba7ae5f534754b89cb0175403"
+      "sha256": "0506077c665e1b7af8c6a786dc6fae888ce1fa5a6414ba84021d56ba9c3d8498"
     },
     {
       "build_output": "sprites/armoredTrain/ec/sw-spent-2x.png",
@@ -11328,7 +11328,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/sw-spent-2x.png",
-      "sha256": "3b075f7bad74c239acc8834530ea08aad550171e1447dacdb78a4efad9e09cdf"
+      "sha256": "e9bee78268a953684d0c721e6e5b0724218bf35b5fb8b2e27cf8206cab07a01a"
     },
     {
       "build_output": "sprites/armoredTrain/ec/sw-spent-4x.png",
@@ -11337,7 +11337,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/sw-spent-4x.png",
-      "sha256": "f464ff5758a827ac87dfeaa3f497f8c5a176c863b994485cad27c748900b26be"
+      "sha256": "19c2065cc3af6487e4e035a41799b890c323a9e64f487eaa4b75e7a440a329ae"
     },
     {
       "build_output": "sprites/armoredTrain/neutral/sw-normal-2x.png",
@@ -11346,7 +11346,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/sw-normal-2x.png",
-      "sha256": "0484942e36838ad90eaa1dd3b902d5b41be50ffbd378a79e88684171436203b3"
+      "sha256": "207062edff87d7020e34d169c56cdf2a27f637a8dacecbf9c1a6d83d57792417"
     },
     {
       "build_output": "sprites/armoredTrain/neutral/sw-normal-4x.png",
@@ -11355,7 +11355,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/sw-normal-4x.png",
-      "sha256": "109603a88523415ef2b895cbdd78165652db497ef1c6c43b449fbe039c412f02"
+      "sha256": "16d1dd58b964d5b354c6de51d53aa857413f5faba28bd41d67214ae9e3a743dc"
     },
     {
       "build_output": "sprites/armoredTrain/neutral/sw-spent-2x.png",
@@ -11364,7 +11364,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/sw-spent-2x.png",
-      "sha256": "9a1242ed76bdb44154d18706ced6b7bbec5da72d66bde56b0b96f2e2b7d21cfe"
+      "sha256": "2a457fff42aca1b7e9a561bdcc0f0da57332b465cd91b6aadedc2d8d8b91d360"
     },
     {
       "build_output": "sprites/armoredTrain/neutral/sw-spent-4x.png",
@@ -11373,7 +11373,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/sw-spent-4x.png",
-      "sha256": "d04a1eaff8309308686ded8a15325700e3f7b35aea5333af40202b173c82327d"
+      "sha256": "86d64ac493e4678849956eb202912af4d64e17460090fe9addb958de7558b44b"
     },
     {
       "build_output": "planes/armoredTrain/s-base-2x.png",
@@ -11418,7 +11418,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/s-normal-2x.png",
-      "sha256": "5f8088ee8cb9c2b31d233158c1054c6017108a70f9bd5a5aa1e0b2b1af93049c"
+      "sha256": "43c6cc262f4bdd769f4f908bdc33614c091b9ceb7636010f1f54c63193fa86c3"
     },
     {
       "build_output": "sprites/armoredTrain/cp/s-normal-4x.png",
@@ -11427,7 +11427,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/s-normal-4x.png",
-      "sha256": "0e2e36bdf8b0cfd6dde16be7eb6757c463547a9b8abe0fac0bc0725137c3c27d"
+      "sha256": "72b61ec53b79c553e8acd56fb7bfeffae733a3e52f50d81d1928bcf64d20ccf6"
     },
     {
       "build_output": "sprites/armoredTrain/cp/s-spent-2x.png",
@@ -11436,7 +11436,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/s-spent-2x.png",
-      "sha256": "451090cfa9676d2615dce6fd2d738e04ce8a764a0e7865282bbcea25ab56984d"
+      "sha256": "dbb77b83004538d836c0d4f6d96a4ab02d8aca71a4c22c15781f1007da7e14e1"
     },
     {
       "build_output": "sprites/armoredTrain/cp/s-spent-4x.png",
@@ -11445,7 +11445,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/s-spent-4x.png",
-      "sha256": "d60714948db3f039253d3a5c0ea2cbf49212b81ab2efac7fce7f1ac3c59c3e13"
+      "sha256": "42d7a887ce4af58100348f5fcecff1b346fd83fdc77a0e638cb9eb88a5d8098e"
     },
     {
       "build_output": "sprites/armoredTrain/ec/s-normal-2x.png",
@@ -11454,7 +11454,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/s-normal-2x.png",
-      "sha256": "f66385ef21071c971bd26de572a2e3c3ca7dfc85581dc41be44f511248df4fa9"
+      "sha256": "bb41eddf2650dacc34b8b9214f3b00001af14bdbde0eefc08a466f28f849e457"
     },
     {
       "build_output": "sprites/armoredTrain/ec/s-normal-4x.png",
@@ -11463,7 +11463,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/s-normal-4x.png",
-      "sha256": "d3e8110bb2f4759c06593c2253403a6ff4a170a4a3c19a17e7c7da390d5f1cc1"
+      "sha256": "0b5d7b2041838fccdebac7ac8df2c9993d2170d1efa7064903aab5f3184bc1fe"
     },
     {
       "build_output": "sprites/armoredTrain/ec/s-spent-2x.png",
@@ -11472,7 +11472,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/s-spent-2x.png",
-      "sha256": "2b15ba79e5a35f2d4ee2bd86d690bc5dcd6f3be34bb97228c8a438bc22bc1427"
+      "sha256": "87e92c46ff081e75aef1bd044ee1b1f449f377dd5474cae2df8a405823269ab8"
     },
     {
       "build_output": "sprites/armoredTrain/ec/s-spent-4x.png",
@@ -11481,7 +11481,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/s-spent-4x.png",
-      "sha256": "457261bac8a5dd7e2e97fbca5ab0f47bb50f1928384b8133082f7744e9bef6fd"
+      "sha256": "60e32d1a33881ff7139708bf3d667ab70fabe1ae11b7b175ccac58d3fd2a9dfe"
     },
     {
       "build_output": "sprites/armoredTrain/neutral/s-normal-2x.png",
@@ -11490,7 +11490,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/s-normal-2x.png",
-      "sha256": "38193e073088943b2a15475fc122195a802c5535c5b6ff7cc792110ed6172144"
+      "sha256": "47bd5a8c48850a9a08034fd8b0d10273bf39588b6dfeaab4ae0b27d4796831c5"
     },
     {
       "build_output": "sprites/armoredTrain/neutral/s-normal-4x.png",
@@ -11499,7 +11499,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/s-normal-4x.png",
-      "sha256": "5492b72d1026ce7492a36b3e83233263daefcba42508bd55787042c86b09f48b"
+      "sha256": "457469c9872b86b8676811ce53e6fdb9183c2eaf9a06435e5f99676de1c5bde6"
     },
     {
       "build_output": "sprites/armoredTrain/neutral/s-spent-2x.png",
@@ -11508,7 +11508,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/s-spent-2x.png",
-      "sha256": "b9da2e690ed90429e693172419867d115816b25468e7837f4a81ea16f7225282"
+      "sha256": "f0a5b1ed2a5ee1be0bb30b6d1c3336815f9054345be8b74ef0cf36aea9d91967"
     },
     {
       "build_output": "sprites/armoredTrain/neutral/s-spent-4x.png",
@@ -11517,7 +11517,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/s-spent-4x.png",
-      "sha256": "247e78b9f7985066272b920d3e6558ab6be8e789cb1433151b1d36fab7603395"
+      "sha256": "24a3ffb3045a6477065037ec31e9d8bb33c60d85b10e77dd11574389d3c01af4"
     },
     {
       "build_output": "planes/armoredTrain/se-base-2x.png",
@@ -11562,7 +11562,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/se-normal-2x.png",
-      "sha256": "6e1c54d54d897f66c46dfcfcbb94c3f434496e6b8c074a578737eb381b9dd85b"
+      "sha256": "0a903490bfdee75a766447cf4bae8740330bf767d7abdc928d2fd8a3d63c1678"
     },
     {
       "build_output": "sprites/armoredTrain/cp/se-normal-4x.png",
@@ -11571,7 +11571,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/se-normal-4x.png",
-      "sha256": "803eba58e1236b494d896f38cbbec10ee24af7bb327633d348180825dbd01cd2"
+      "sha256": "c0aa60027a54210cc23f573575bb7251e4aa8d1a58e7771b6c64eb992b995121"
     },
     {
       "build_output": "sprites/armoredTrain/cp/se-spent-2x.png",
@@ -11580,7 +11580,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/se-spent-2x.png",
-      "sha256": "03e33042537965ced77de78aa18d5763971c77812b85d872dc1142c135094936"
+      "sha256": "28e1924ca8127e2e637650078c7b57f5309fe59d92b7fe45290d328592ae5f2a"
     },
     {
       "build_output": "sprites/armoredTrain/cp/se-spent-4x.png",
@@ -11589,7 +11589,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/se-spent-4x.png",
-      "sha256": "3b011755e04da126da5906773262cc8f1c303397c58afeaa88c0cb06d5d4c75e"
+      "sha256": "99fe62181fce9c97113fd37b0d522ff4764696d809e43f053884e5ae2bd78cc8"
     },
     {
       "build_output": "sprites/armoredTrain/ec/se-normal-2x.png",
@@ -11598,7 +11598,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/se-normal-2x.png",
-      "sha256": "19b2fd8c1a594d934874b83c0c844a820295d8c80ba5b41a316736a2ebf2cd3e"
+      "sha256": "5d19e9d629fb281d30e58b238901b8657b987a17a4e88e0c299ef6539ae7d28e"
     },
     {
       "build_output": "sprites/armoredTrain/ec/se-normal-4x.png",
@@ -11607,7 +11607,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/se-normal-4x.png",
-      "sha256": "d6c5cb174bf42053437e728ce2e5e618acc18ceeb524dc4bfec3baf998015e6c"
+      "sha256": "0fea8f13f6419984b50419b26a7c25a223bae3c5878c320e5b065b5fc3f07d98"
     },
     {
       "build_output": "sprites/armoredTrain/ec/se-spent-2x.png",
@@ -11616,7 +11616,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/se-spent-2x.png",
-      "sha256": "cd6fdce1a96469b56332f9879c2141865c459e2d2b82028cc96767be505cb81b"
+      "sha256": "4fc245915dc84559734f7d79f7803fd1e3ec0be5ff06c0f6886d39c59b2daca1"
     },
     {
       "build_output": "sprites/armoredTrain/ec/se-spent-4x.png",
@@ -11625,7 +11625,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/se-spent-4x.png",
-      "sha256": "7de3d4dc2474f432f7f09313725b1cebe523cd009d570cf3bbcdc3ec3f1ec34d"
+      "sha256": "1f0228b64979381715cf1b89715e63b0b1e3ddbf10300c304b36105157e4a492"
     },
     {
       "build_output": "sprites/armoredTrain/neutral/se-normal-2x.png",
@@ -11634,7 +11634,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/se-normal-2x.png",
-      "sha256": "00e622973d0027c490d3723615805c82a7be993d47dca2f1c470c0b063ec9444"
+      "sha256": "b7cd116d932cc683360d9a4b72c906abeb04e03632f372cbcdae712a029d3632"
     },
     {
       "build_output": "sprites/armoredTrain/neutral/se-normal-4x.png",
@@ -11643,7 +11643,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/se-normal-4x.png",
-      "sha256": "0d274e9627ae8c427eb40828d20ec0e8bbb6d772d8d91427556f3c7799aa4f02"
+      "sha256": "0d9677c914d3de00d447534d972587acbc0744e449049742bae7824c3192353e"
     },
     {
       "build_output": "sprites/armoredTrain/neutral/se-spent-2x.png",
@@ -11652,7 +11652,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/se-spent-2x.png",
-      "sha256": "cb57eb6a7d45ab96c386cd960065983ba128a9247b5c0af609c70dedcae320a2"
+      "sha256": "db3dadf49884d692abae6355cbf67a9b3f5aadd06a1ec885f6f9f3bcf478e781"
     },
     {
       "build_output": "sprites/armoredTrain/neutral/se-spent-4x.png",
@@ -11661,7 +11661,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/se-spent-4x.png",
-      "sha256": "9634787b509b8ef077c867d0f8b184723050ca56980539ee1ba22e9a5754944e"
+      "sha256": "9efd0b54922f1389fc4fabf98b9d4fc9da10984be6e139984a2d99379c952901"
     },
     {
       "build_output": "planes/armoredTrain/ne-base-2x.png",
@@ -11706,7 +11706,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/ne-normal-2x.png",
-      "sha256": "1424748617a073a16807b97db00dbefe11021ea922572d3cb1878bbc8cbb5f90"
+      "sha256": "6d9040feedbe6dfbabbff6a12b5ef4ef1ac2a0a555688bd0ac4330be30385090"
     },
     {
       "build_output": "sprites/armoredTrain/cp/ne-normal-4x.png",
@@ -11715,7 +11715,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/ne-normal-4x.png",
-      "sha256": "9d6bdc6005d3428863af9f011fb995e3bc749d0e7bf9b80aea163b5b27239a41"
+      "sha256": "a2ae000a658dfe29aa51f92433adbc2fd7efc1bd84f1fd66b15bf78e3ed4cc29"
     },
     {
       "build_output": "sprites/armoredTrain/cp/ne-spent-2x.png",
@@ -11724,7 +11724,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/ne-spent-2x.png",
-      "sha256": "75346b543943bc1749bbd503748240210e64cf8db9dcb71b266bf887c96923e8"
+      "sha256": "57b71fc751e6ea61b423757d5991666f559822b09bb14fe4e7164c3bfb446ec9"
     },
     {
       "build_output": "sprites/armoredTrain/cp/ne-spent-4x.png",
@@ -11733,7 +11733,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/ne-spent-4x.png",
-      "sha256": "69fe98bcdb4546358a0e7af841efb607a3cdce3672ccf4006ed720033d73575f"
+      "sha256": "2ab4ff2bf1112e6fec01fbf16fc169b9554359b1630a16886894801fe290ff2d"
     },
     {
       "build_output": "sprites/armoredTrain/ec/ne-normal-2x.png",
@@ -11742,7 +11742,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/ne-normal-2x.png",
-      "sha256": "8c37d6bd8d53978dd6a5c3b68792e74f804cb481648b2cc4541a93f3ec365083"
+      "sha256": "c1f031610639c60441130f2617a7875e6f2c379188008166cbad068e0032f97f"
     },
     {
       "build_output": "sprites/armoredTrain/ec/ne-normal-4x.png",
@@ -11751,7 +11751,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/ne-normal-4x.png",
-      "sha256": "753dbafbfe26539b6a770a6661ddd998f5da5adaec12d0ed353459fd81943866"
+      "sha256": "49f4818c230aaaf0a90df8c2ac9e6af48f30c50551a41fbc3a2d39f12ed6fd1d"
     },
     {
       "build_output": "sprites/armoredTrain/ec/ne-spent-2x.png",
@@ -11760,7 +11760,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/ne-spent-2x.png",
-      "sha256": "d72f0af2003d8b7e764c2723f9addf639c040daba787f4cfa14510a510ecc701"
+      "sha256": "6bf5445e6427f26039dcaf708d241be99625516eecded4b4132301c02cdc9f9e"
     },
     {
       "build_output": "sprites/armoredTrain/ec/ne-spent-4x.png",
@@ -11769,7 +11769,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/ne-spent-4x.png",
-      "sha256": "3c347869a4ba33fa933465d1be34bbf8e45dfade4f47ac8d8f3e700ede30d9d9"
+      "sha256": "4c13004478d34db7907a5e75a2d106dbd62177ccdeff85e3ef18ef4f1976022b"
     },
     {
       "build_output": "sprites/armoredTrain/neutral/ne-normal-2x.png",
@@ -11778,7 +11778,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/ne-normal-2x.png",
-      "sha256": "cc41d47a0d9b9d8185b9e4ec065be15b67da0a31c6640f793d887eb00c648148"
+      "sha256": "6ca60ef1b6490aba60887bbef64a0036db8238134450b83abd79ea210d558fc0"
     },
     {
       "build_output": "sprites/armoredTrain/neutral/ne-normal-4x.png",
@@ -11787,7 +11787,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/ne-normal-4x.png",
-      "sha256": "6d50b24fda7d256de385d9b8f83603011d6c4547234352edd9e5f9a5e4227b18"
+      "sha256": "6f1dff3ad8eb9ce7ccc8707d17b318fe3f75ee50b48fdde9d8c0e26c3476be9c"
     },
     {
       "build_output": "sprites/armoredTrain/neutral/ne-spent-2x.png",
@@ -11796,7 +11796,7 @@
         "width": 192
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/ne-spent-2x.png",
-      "sha256": "d40dc6688b688f738970fec573dde5236e55f3365c296760084528c789e1435a"
+      "sha256": "3aad662b253df2057e9947df06c05092b977e1812d6f99d1c07de43e607527f8"
     },
     {
       "build_output": "sprites/armoredTrain/neutral/ne-spent-4x.png",
@@ -11805,7 +11805,7 @@
         "width": 384
       },
       "path": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/ne-spent-4x.png",
-      "sha256": "f5c29ac3c4d53f369f997a6b0eeb47c6ef59421acfd90ba7064130b04deebd19"
+      "sha256": "5237b70e7982241158d52da9831a8184efa8dfb49ca6a5dbc76f64d503b2c595"
     },
     {
       "build_output": "sheets/armoredTrain-white-2x.png",
@@ -11814,7 +11814,7 @@
         "width": 1152
       },
       "path": "art/exports/unit-armored-train-v1/sheets/armoredTrain-white-2x.png",
-      "sha256": "cdf15f096b5f5f4cb5e6f2ce763adb67276301558bd468def42bd3eca902ea77"
+      "sha256": "97e753fc70cb65439ff4d79b1e211c54e5eddd9f5ec4b09afddee5c3b4f72637"
     },
     {
       "build_output": "sheets/armoredTrain-white-4x.png",
@@ -11823,7 +11823,7 @@
         "width": 2304
       },
       "path": "art/exports/unit-armored-train-v1/sheets/armoredTrain-white-4x.png",
-      "sha256": "13a128f3deb73ce38971262c2a45da6e773ce76dab6d9541a16f98e3f420b4ff"
+      "sha256": "771eef174e139ebb220bdafef8f595bf2d145b07ef8b1d8e963efee570900459"
     },
     {
       "build_output": "sheets/armoredTrain-checker-2x.png",
@@ -11832,7 +11832,7 @@
         "width": 1152
       },
       "path": "art/exports/unit-armored-train-v1/sheets/armoredTrain-checker-2x.png",
-      "sha256": "d2fc09a81c129252bcdaa65f49bf735a1bf80d171a7d184f52439e8522e99f8f"
+      "sha256": "cbde1327f277f83c69f4f1a45c1395202aa591513045bc2e0204814f4137e205"
     },
     {
       "build_output": "sheets/armoredTrain-checker-4x.png",
@@ -11841,7 +11841,7 @@
         "width": 2304
       },
       "path": "art/exports/unit-armored-train-v1/sheets/armoredTrain-checker-4x.png",
-      "sha256": "95faf67d50ba17573c43020285359a2c8e42b758c3b85b28b46d589779664728"
+      "sha256": "f54626efccefd4709248804273af0e19f6a8ca1d4788b4d765710df8d423f60c"
     },
     {
       "build_output": "scenes/grass-normal-p0-2x.png",
@@ -11850,7 +11850,7 @@
         "width": 476
       },
       "path": "art/exports/unit-armored-train-v1/scenes/grass-normal-p0-2x.png",
-      "sha256": "ad2a10ad4699715c340970dfd99ef46a232c80f1aab0d12e276689e976f0340a"
+      "sha256": "d2dba4f8ea8a4e99ab3392a814c0a5bc217b0fb6256ca9913948b72f280b2257"
     },
     {
       "build_output": "scenes/grass-normal-p0-4x.png",
@@ -11859,7 +11859,7 @@
         "width": 952
       },
       "path": "art/exports/unit-armored-train-v1/scenes/grass-normal-p0-4x.png",
-      "sha256": "083a0236457a05672b0ca17a105720a9b92988f9b2fa16006715bd681ab3673e"
+      "sha256": "4c624e9401bce7ce8292639bacde6c12902d46f5e3cbff2d0fae86f4e0dd6879"
     },
     {
       "build_output": "scenes/grass-normal-p1-2x.png",
@@ -11868,7 +11868,7 @@
         "width": 476
       },
       "path": "art/exports/unit-armored-train-v1/scenes/grass-normal-p1-2x.png",
-      "sha256": "ad2a10ad4699715c340970dfd99ef46a232c80f1aab0d12e276689e976f0340a"
+      "sha256": "d2dba4f8ea8a4e99ab3392a814c0a5bc217b0fb6256ca9913948b72f280b2257"
     },
     {
       "build_output": "scenes/grass-normal-p1-4x.png",
@@ -11877,7 +11877,7 @@
         "width": 952
       },
       "path": "art/exports/unit-armored-train-v1/scenes/grass-normal-p1-4x.png",
-      "sha256": "083a0236457a05672b0ca17a105720a9b92988f9b2fa16006715bd681ab3673e"
+      "sha256": "4c624e9401bce7ce8292639bacde6c12902d46f5e3cbff2d0fae86f4e0dd6879"
     },
     {
       "build_output": "scenes/grass-spent-p0-2x.png",
@@ -11886,7 +11886,7 @@
         "width": 476
       },
       "path": "art/exports/unit-armored-train-v1/scenes/grass-spent-p0-2x.png",
-      "sha256": "7a6678518e45a9935f2c71e92dc3496e2e2cd0ea38bd231e3595bea59627c2f0"
+      "sha256": "6bbbf773ae6e451442e8a93862b67f25214914e526268e87a281a5fef1e421ac"
     },
     {
       "build_output": "scenes/grass-spent-p0-4x.png",
@@ -11895,7 +11895,7 @@
         "width": 952
       },
       "path": "art/exports/unit-armored-train-v1/scenes/grass-spent-p0-4x.png",
-      "sha256": "55d232d6e5edf1d6451967c48ba68e50e8058e2c74061d1fae0310018dceb779"
+      "sha256": "771c4102de94fe0aab792cb823b53b94e8c6cf66940d259fd6ef3e3640f8084a"
     },
     {
       "build_output": "scenes/grass-spent-p1-2x.png",
@@ -11904,7 +11904,7 @@
         "width": 476
       },
       "path": "art/exports/unit-armored-train-v1/scenes/grass-spent-p1-2x.png",
-      "sha256": "7a6678518e45a9935f2c71e92dc3496e2e2cd0ea38bd231e3595bea59627c2f0"
+      "sha256": "6bbbf773ae6e451442e8a93862b67f25214914e526268e87a281a5fef1e421ac"
     },
     {
       "build_output": "scenes/grass-spent-p1-4x.png",
@@ -11913,7 +11913,7 @@
         "width": 952
       },
       "path": "art/exports/unit-armored-train-v1/scenes/grass-spent-p1-4x.png",
-      "sha256": "55d232d6e5edf1d6451967c48ba68e50e8058e2c74061d1fae0310018dceb779"
+      "sha256": "771c4102de94fe0aab792cb823b53b94e8c6cf66940d259fd6ef3e3640f8084a"
     },
     {
       "build_output": "scenes/grass_w-normal-p0-2x.png",
@@ -11922,7 +11922,7 @@
         "width": 476
       },
       "path": "art/exports/unit-armored-train-v1/scenes/grass_w-normal-p0-2x.png",
-      "sha256": "11cbb3466f4e4d9ab18b15f391cfc4ed1eb56dc95c236d7c4a4a1e4e68c37bae"
+      "sha256": "8e1fa9080b5be63ce42b3dff00401d1ce7c921f96bfc9926b7554083a9e34b8e"
     },
     {
       "build_output": "scenes/grass_w-normal-p0-4x.png",
@@ -11931,7 +11931,7 @@
         "width": 952
       },
       "path": "art/exports/unit-armored-train-v1/scenes/grass_w-normal-p0-4x.png",
-      "sha256": "fc93ac95a7c024dd6b1b95140533c858fc2cce990c0fb112c84fcd39d8bd2b2d"
+      "sha256": "8f652d92a339b75bf6a48b982f5da6ba10b2704542552ee43f3fddc821ac86ea"
     },
     {
       "build_output": "scenes/grass_w-normal-p1-2x.png",
@@ -11940,7 +11940,7 @@
         "width": 476
       },
       "path": "art/exports/unit-armored-train-v1/scenes/grass_w-normal-p1-2x.png",
-      "sha256": "11cbb3466f4e4d9ab18b15f391cfc4ed1eb56dc95c236d7c4a4a1e4e68c37bae"
+      "sha256": "8e1fa9080b5be63ce42b3dff00401d1ce7c921f96bfc9926b7554083a9e34b8e"
     },
     {
       "build_output": "scenes/grass_w-normal-p1-4x.png",
@@ -11949,7 +11949,7 @@
         "width": 952
       },
       "path": "art/exports/unit-armored-train-v1/scenes/grass_w-normal-p1-4x.png",
-      "sha256": "fc93ac95a7c024dd6b1b95140533c858fc2cce990c0fb112c84fcd39d8bd2b2d"
+      "sha256": "8f652d92a339b75bf6a48b982f5da6ba10b2704542552ee43f3fddc821ac86ea"
     },
     {
       "build_output": "scenes/grass_w-spent-p0-2x.png",
@@ -11958,7 +11958,7 @@
         "width": 476
       },
       "path": "art/exports/unit-armored-train-v1/scenes/grass_w-spent-p0-2x.png",
-      "sha256": "edfc71f629dc20a6d9f14f72278205c661a7ee22aa9c61ecd0fbee66c23874dd"
+      "sha256": "76f6a90cae73feee6fa297491d927d715911c3748f116d63aacfc1db6cefa850"
     },
     {
       "build_output": "scenes/grass_w-spent-p0-4x.png",
@@ -11967,7 +11967,7 @@
         "width": 952
       },
       "path": "art/exports/unit-armored-train-v1/scenes/grass_w-spent-p0-4x.png",
-      "sha256": "00477da47b1bd83d55484feba910eaaaf18dd2ec8fddc897e70a180e9a339f67"
+      "sha256": "1997cd515f04fcd3e136d13e80107def24e88bedef7a28ee7660e8db7b677ebf"
     },
     {
       "build_output": "scenes/grass_w-spent-p1-2x.png",
@@ -11976,7 +11976,7 @@
         "width": 476
       },
       "path": "art/exports/unit-armored-train-v1/scenes/grass_w-spent-p1-2x.png",
-      "sha256": "edfc71f629dc20a6d9f14f72278205c661a7ee22aa9c61ecd0fbee66c23874dd"
+      "sha256": "76f6a90cae73feee6fa297491d927d715911c3748f116d63aacfc1db6cefa850"
     },
     {
       "build_output": "scenes/grass_w-spent-p1-4x.png",
@@ -11985,7 +11985,7 @@
         "width": 952
       },
       "path": "art/exports/unit-armored-train-v1/scenes/grass_w-spent-p1-4x.png",
-      "sha256": "00477da47b1bd83d55484feba910eaaaf18dd2ec8fddc897e70a180e9a339f67"
+      "sha256": "1997cd515f04fcd3e136d13e80107def24e88bedef7a28ee7660e8db7b677ebf"
     },
     {
       "build_output": "scenes/mud-normal-p0-2x.png",
@@ -11994,7 +11994,7 @@
         "width": 476
       },
       "path": "art/exports/unit-armored-train-v1/scenes/mud-normal-p0-2x.png",
-      "sha256": "599af9cd0d4fd9df51a28271ecd716327d88448cffc26b1e454d30ad4155cab7"
+      "sha256": "008289620c85b29eba19d28598b5546aa3421d4bd5b88bbbf12525838d524864"
     },
     {
       "build_output": "scenes/mud-normal-p0-4x.png",
@@ -12003,7 +12003,7 @@
         "width": 952
       },
       "path": "art/exports/unit-armored-train-v1/scenes/mud-normal-p0-4x.png",
-      "sha256": "03b088895f69bff72a29e5ec6ff17416b406decf89e5d1ed50c03691a4cd8566"
+      "sha256": "400a68c3678606e118e459a6f8f5f2fa9f86a04c3f3cb4af8ca80323f26a6390"
     },
     {
       "build_output": "scenes/mud-normal-p1-2x.png",
@@ -12012,7 +12012,7 @@
         "width": 476
       },
       "path": "art/exports/unit-armored-train-v1/scenes/mud-normal-p1-2x.png",
-      "sha256": "599af9cd0d4fd9df51a28271ecd716327d88448cffc26b1e454d30ad4155cab7"
+      "sha256": "008289620c85b29eba19d28598b5546aa3421d4bd5b88bbbf12525838d524864"
     },
     {
       "build_output": "scenes/mud-normal-p1-4x.png",
@@ -12021,7 +12021,7 @@
         "width": 952
       },
       "path": "art/exports/unit-armored-train-v1/scenes/mud-normal-p1-4x.png",
-      "sha256": "03b088895f69bff72a29e5ec6ff17416b406decf89e5d1ed50c03691a4cd8566"
+      "sha256": "400a68c3678606e118e459a6f8f5f2fa9f86a04c3f3cb4af8ca80323f26a6390"
     },
     {
       "build_output": "scenes/mud-spent-p0-2x.png",
@@ -12030,7 +12030,7 @@
         "width": 476
       },
       "path": "art/exports/unit-armored-train-v1/scenes/mud-spent-p0-2x.png",
-      "sha256": "a446278201ebb911b9cdb98fa40456cec0f5433596805dec106d33a1a4a6a21c"
+      "sha256": "e6cacde27fe66e45b1a3caaab07703ef4a587f789fe3715c90dfb72435fa9c7c"
     },
     {
       "build_output": "scenes/mud-spent-p0-4x.png",
@@ -12039,7 +12039,7 @@
         "width": 952
       },
       "path": "art/exports/unit-armored-train-v1/scenes/mud-spent-p0-4x.png",
-      "sha256": "6aac2bdc28490980327959fe885057a2c80baf1c88c353a153239fafa205cb51"
+      "sha256": "b203253ee565d744ea8a31b07e1b60c702e7afaa5f2df82238cad95c41b21898"
     },
     {
       "build_output": "scenes/mud-spent-p1-2x.png",
@@ -12048,7 +12048,7 @@
         "width": 476
       },
       "path": "art/exports/unit-armored-train-v1/scenes/mud-spent-p1-2x.png",
-      "sha256": "a446278201ebb911b9cdb98fa40456cec0f5433596805dec106d33a1a4a6a21c"
+      "sha256": "e6cacde27fe66e45b1a3caaab07703ef4a587f789fe3715c90dfb72435fa9c7c"
     },
     {
       "build_output": "scenes/mud-spent-p1-4x.png",
@@ -12057,7 +12057,7 @@
         "width": 952
       },
       "path": "art/exports/unit-armored-train-v1/scenes/mud-spent-p1-4x.png",
-      "sha256": "6aac2bdc28490980327959fe885057a2c80baf1c88c353a153239fafa205cb51"
+      "sha256": "b203253ee565d744ea8a31b07e1b60c702e7afaa5f2df82238cad95c41b21898"
     }
   ],
   "generation_recipes": [
@@ -12067,7 +12067,7 @@
   "generation_recipes_scope": "Includes historical generation studies and the current pinned master records. Current source selection is established by the producing manifest and its exact SHA256 pins; historical records are unchanged.",
   "id": "unit-armored-train-v1",
   "manifest": "art/unit-armored-train-v1.json",
-  "manifest_sha256": "384af78863dbb770e446c917456246cc17ac3a09671f7b404f95398586e3e25d",
+  "manifest_sha256": "ed5cc8017eb83fda3240e171a0617579ca81b4303d2c883d3a2ddff4a51b25bf",
   "original_image_inputs": [
     {
       "generation_recipe": "art/recipes/terrain/reference-v2/meadow-03.json",

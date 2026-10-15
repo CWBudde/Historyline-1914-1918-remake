@@ -1,9 +1,10 @@
 {
   "atlas": {
-    "source": "source/units/reference-v1/charron.png",
-    "source_sha256": "a7bb6289988b18b923d4cf98e6fea43461e693f931a472dffb268f1d4c6ac6d9"
+    "source": "source/units/reference-v2/charron.png",
+    "source_sha256": "541551cb38a492d7415a5599952fbfc4cee9e8c4bea5c96dd98f89cb80969020"
   },
   "family": "charron",
+  "framing_inset": 0.95,
   "grounds": {
     "grass": {
       "2x": {
@@ -38,19 +39,19 @@
   },
   "palettes": {
     "cp": [
-      104,
-      142,
-      83
+      205,
+      190,
+      159
     ],
     "ec": [
-      190,
-      143,
-      92
+      138,
+      164,
+      186
     ],
     "neutral": [
-      146,
-      146,
-      146
+      174,
+      174,
+      164
     ]
   },
   "schema_version": 1

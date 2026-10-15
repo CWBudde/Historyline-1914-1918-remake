@@ -15,12 +15,12 @@ is included in the authored export packs.
 | Current asset | Selected source | Result |
 |---|---|---|
 | Summer grass | `meadow-03.png` | Muted olive/lime cushions, soft relief and fine grass blades |
-| HQ summer/winter | `hq-summer-natural.png`, `hq-winter-natural.png` | Four pale stone towers and enclosed ramparts, dirt courtyard, red north gate, connecting gravel road, water/bridge, two irregular rear shrubs |
+| HQ summer/winter | `hq-summer-natural.png`, `hq-winter-street.png` | Four pale stone towers and enclosed ramparts, dirt courtyard, red north gate, connecting road, water/bridge, two irregular rear shrubs |
 | Depot summer/winter | `depot-summer.png`, `depot-winter.png` | Fenced medical camp: L-shaped shelter/red cross, three white tents, southern annex, north road |
 | Factory winter | `factory-winter.png` | Dense industrial roofs, tanks/basin and a street exiting to the right/east |
 
 HQ master edits are retained in numbered, courtyard and earlier unnumbered recipes;
-only the selected `-natural` summer/winter masters feed the active manifest.
+only the selected summer `-natural` and winter `-street` masters feed the active manifest.
 Grass pass 03 supersedes pass 02
 for integration. The comparison desk selects the active exports, not those studies.
 
@@ -129,7 +129,8 @@ a stone cap. Its entrance is slightly wider than the regular street.
 
 Both seasonal actual PNG assemblies were checked against the real `road36` tile
 at 2×/4×: their shared centerline is x=119 in scene coordinates and the entire
-14-world-pixel carriageway meets opaque HQ artwork without a gap. Native-size
+22-world-pixel carriageway meets opaque HQ artwork without a gap after the
+marked-road follow-up widened the winter entrance. Native-size
 Lanczos inspection also covers the joined road, yard and shrubs. New HQ composer
 templates include this adjoining road; existing saved collections keep their
 layout and use the updated artwork. The 42 changed HQ export/fixture/metadata

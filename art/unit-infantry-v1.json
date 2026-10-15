@@ -1,9 +1,10 @@
 {
   "atlas": {
-    "source": "source/units/distinct-v1/infantry.png",
-    "source_sha256": "a151ab9f110782ead6eba6bc4af3b4a17eb789204c5f19e4ca2e786614912290"
+    "source": "source/units/reference-v2/infantry.png",
+    "source_sha256": "a81cbe6bc35d4e0709e9b1fdaf6690821f303e77d61b1717eb88369c333a8b80"
   },
   "family": "infantry",
+  "framing_inset": 0.95,
   "grounds": {
     "grass": {
       "2x": {
@@ -38,19 +39,19 @@
   },
   "palettes": {
     "cp": [
-      104,
-      142,
-      83
+      205,
+      190,
+      159
     ],
     "ec": [
-      190,
-      143,
-      92
+      138,
+      164,
+      186
     ],
     "neutral": [
-      146,
-      146,
-      146
+      174,
+      174,
+      164
     ]
   },
   "schema_version": 1

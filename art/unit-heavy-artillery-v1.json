@@ -1,9 +1,10 @@
 {
   "atlas": {
-    "source": "source/units/reference-v1/heavy-artillery.png",
-    "source_sha256": "ffeb502337de50a6f6eb52603d66da662c28a3fba767adf84fa8e36711c69509"
+    "source": "source/units/reference-v2/heavy-artillery.png",
+    "source_sha256": "a90380a77e6168cbb923481c36f6842370cdba1962048f3a1cdba4be716d0cf7"
   },
   "family": "heavyArtillery",
+  "framing_inset": 0.95,
   "grounds": {
     "grass": {
       "2x": {
@@ -38,19 +39,19 @@
   },
   "palettes": {
     "cp": [
-      104,
-      142,
-      83
+      205,
+      190,
+      159
     ],
     "ec": [
-      190,
-      143,
-      92
+      138,
+      164,
+      186
     ],
     "neutral": [
-      146,
-      146,
-      146
+      174,
+      174,
+      164
     ]
   },
   "schema_version": 1

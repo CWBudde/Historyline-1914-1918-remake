@@ -17,6 +17,12 @@ For joined pieces and your own combinations, open `build/gfx-review/compose.html
 or follow **Open scene composer** on the comparison desk. Both pages are generated
 by the same command and share the image snapshots.
 
+`build/gfx-review/road-units.html` starts a side-by-side road and four-unit scene
+with its own saved collection. It uses the same editing controls and snapshots;
+the main composer's saved scenes stay separate. See the
+[readability correction](art/road-unit-readability-v2.md) for current master
+selection, palette/framing changes and remaining reference differences.
+
 Search by name, family or runtime unit ID, then select a collection or season.
 Choose an asset in the left list; previous/next buttons and left/right arrow keys
 step through the filtered results. Each entry has a stable URL fragment.

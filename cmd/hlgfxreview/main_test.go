@@ -113,7 +113,7 @@ func TestCurrentGameSelection(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		for _, review := range []struct{ name, template, smoke string }{{"asset", page, browserSmoke}, {"composer", composePage, composerSmoke}} {
+		for _, review := range []struct{ name, template, smoke string }{{"asset", page, browserSmoke}, {"composer", composePage, composerSmoke}, {"road-units", roadUnitComparisonTemplate(), roadUnitsSmoke}} {
 			html := strings.Replace(review.template, "/*CATALOG*/null", string(b), 1)
 			html = strings.Replace(html, "</body>", "<script>"+review.smoke+"</script></body>", 1)
 			name := review.name + "-smoke.html"

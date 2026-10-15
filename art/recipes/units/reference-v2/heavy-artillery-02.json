@@ -1,0 +1,30 @@
+{
+    "schema_version":  1,
+    "date":  "2026-10-16",
+    "tool":  "built-in image_gen",
+    "status":  "unselected study; margin correction needed",
+    "art_direction":  "reference-faithful-painted-readability-v2",
+    "source":  "art/source/units/reference-v2/heavy-artillery-02.png",
+    "prompt":  "Use case: precise-object-edit. Image1 is the new heavy artillery six-panel atlas, the EDIT TARGET. Image2 is a direction diagram, SUPPORTING GUIDE ONLY; do not include its arrows, labels or background. Correct the muzzle heading of each independently painted view to match its exact diagram panel: top left N barrel UP; top right NW barrel UP-LEFT; middle left SW barrel DOWN-LEFT; middle right S barrel DOWN; bottom left SE barrel DOWN-RIGHT; bottom right NE barrel UP-RIGHT. The carriage trail must extend opposite the muzzle. The existing middle-left, middle-right and bottom-left views have wrong directions; repaint those views properly while keeping the same physical gun. Preserve the detailed painterly style, long bright pale-steel barrel, tan brass/wood wheels and saturated technical magenta carriage trim. Scale/position all six whole guns slightly inward so EVERY alpha pixel, including muzzle/trail and subtle fringes, fits inside x/y=38..474 of its512panel. Keep each gun as large as that safety margin allows. All six consistent scale and fixed upper-left lighting. Exactly1024x1536 canvas, 2columns x3rows, no gutters. Preserve actual transparency outside guns; no ground, cast shadow, haze, glow, checkerboard, text, arrows, grid or labels.",
+    "transparent_background":  true,
+    "generation_inputs":  [
+                              {
+                                  "path":  "legacy/python/gfx/units/icons/heavyArtillery.png",
+                                  "role":  "unchanged original subject/proportions/camera reference only",
+                                  "sha256":  "b191e2fc5f3a35b35c54bb3947c782ff720a0006ce2197af6d59ac4ff344e5e8"
+                              },
+                              {
+                                  "path":  "art/source/units/reference-v2/facing-guide.png",
+                                  "role":  "newly drawn direction diagram only",
+                                  "sha256":  "67eb2dcfc13430889b6ef4c35210a9f3049dc91c33f5ef724d4d76a77a020f90"
+                              }
+                          ],
+    "acceptance":  "Original-size silhouette, facing, user visual likeness and runtime acceptance remain review gates. No computed greater-than-90-percent approval.",
+    "edit_target":  "art/source/units/reference-v2/heavy-artillery-01.png",
+    "source_sha256":  "abecf9846c3a58ceb4f4e40f1080a2906f404a4c4ac662cf64f94a18f9f7bbbe",
+    "source_dimensions":  [
+                              1024,
+                              1536
+                          ],
+    "edit_target_sha256":  "223c2a28a2e37b8085c73256ee02cfd380ef81c57c453ac38eb6da2d6f282432"
+}

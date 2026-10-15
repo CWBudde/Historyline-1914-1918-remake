@@ -328,6 +328,12 @@ Counts below include the stable spelling aliases retained by the loader contract
 
 Reference-led corrections (2026-10-16):
 
+- [x] Restore the road's grey paved surface, 24-pixel footprint and dashed centre
+      line across all road variants and dependent bridge/crossing contexts.
+      Authored material, six-port dash continuity, width and mixed-import tests
+      are retained; see `docs/art/road-unit-readability-v2.md`.
+      Widen the winter HQ entrance too; both seasonal approaches meet the real
+      road across its full 22-pixel carriageway at 2×/4×.
 - [x] Redraw the summer grass master and all five compound scenes: seven HQ pieces
       per season, four medical-camp depot pieces per season and four winter factory
       pieces, including north/east streets, HQ bridge/moat, rear bushes and depot
@@ -360,6 +366,17 @@ visual approval, native-resource correspondence and runtime acceptance remain op
 
 - [x] Complete offline sprite and portrait candidate coverage for all 15 enabled
       families / 27 runtime unit IDs (`d88e3ed`); individual deliveries follow below.
+
+- [x] Revise infantry, heavy artillery, armoured car and Charron tactical masters
+      for the assembled road scene: wider infantry spacing, more overhead vehicle
+      views, clearer steel/tan values and explicit shared framing. Rebuild all 15
+      families with consistent lighter owner palettes; retain default-frame
+      compatibility, per-view alpha diagnostics and saved-PNG tests.
+- [x] Add a dedicated editable road/unit comparison with separate saved collection
+      storage; desktop/narrow browser tests and the 2,927-PNG / 3,011-pin audit pass.
+- [ ] Approve revised unit likeness, colour separation and native-size silhouettes;
+      heavy artillery and some vehicle widths still differ. Review the other 11
+      families' camera/footprints, all native facings and runtime placement.
 
 - [x] Infantry tactical sprites — `CP_infantry`, `EC_infantry` (`f2127e6`).
 - [x] Light-artillery tactical sprites — `CP_lArtillery`, `EC_lArtillery` (`e894cb0`).

@@ -1,9 +1,10 @@
 {
   "atlas": {
-    "source": "source/units/reference-v1/armored-car.png",
-    "source_sha256": "60e5e6bb3c1f25f9c71154c97b3ed85d719f151b43d521ec161cd84bc1a6e851"
+    "source": "source/units/reference-v2/armored-car.png",
+    "source_sha256": "a76fa1ab724addcd63024acdc1cd54cc52d685724410d4bb93cb197a9a67a129"
   },
   "family": "armoredCar",
+  "framing_inset": 0.95,
   "grounds": {
     "grass": {
       "2x": {
@@ -38,19 +39,19 @@
   },
   "palettes": {
     "cp": [
-      104,
-      142,
-      83
+      205,
+      190,
+      159
     ],
     "ec": [
-      190,
-      143,
-      92
+      138,
+      164,
+      186
     ],
     "neutral": [
-      146,
-      146,
-      146
+      174,
+      174,
+      164
     ]
   },
   "schema_version": 1

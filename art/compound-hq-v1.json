@@ -21,8 +21,8 @@
     },
     {
       "artwork": {
-        "source": "source/compound/reference-v2/hq-winter-natural.png",
-        "source_sha256": "37a03c5bdee507d2f14d9af1a9d703a1ab9785a3be531d96d860f0ecf08a407f"
+        "source": "source/compound/reference-v2/hq-winter-street.png",
+        "source_sha256": "1fb27001f23797ac98f36b95baf9cc5b6f1f5459df32a18e980b485f1cc96204"
       },
       "framing": "reference-layout",
       "id": "hq-winter",

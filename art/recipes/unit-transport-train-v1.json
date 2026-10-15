@@ -53,7 +53,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/cp/n-normal-2x.png",
-        "sha256": "dace0d6fca6e134c293b9e3b8c03337a7a3e4ceeee3d45b7d07a9bc441d7bd9b"
+        "sha256": "2d94ea7e6ab96f1fd5ce4a3944021dc0a3d77c16a12ebeaeee8b45771999c2f7"
       },
       {
         "dimensions": {
@@ -61,7 +61,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/cp/n-normal-4x.png",
-        "sha256": "ca1c071365236f3bf8ead10f8003ec288d3c672d7d701f078b4a4d44583a79d7"
+        "sha256": "ec2d8dc06cc01c930415acddcc6fe746c9aa5b2204540b8fc78472279b47ab2f"
       },
       {
         "dimensions": {
@@ -69,7 +69,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/cp/n-spent-2x.png",
-        "sha256": "8178ac1fea2f55b63033814c8ec9ec74611306f706ab8c273d43d87d0be696e0"
+        "sha256": "779484af014c671c0da113691129ae7d331eecfa0a663a6e76edb9c0c011a344"
       },
       {
         "dimensions": {
@@ -77,7 +77,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/cp/n-spent-4x.png",
-        "sha256": "2fb2f1a549d9ddce3ff025896bf38f1adefcb97dec9cb3c00b98c07d7c5daebb"
+        "sha256": "b3659b61f8718997d7f29f1be3ecaf1f17da26f616ef8902434d9a7e10663551"
       },
       {
         "dimensions": {
@@ -85,7 +85,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/ec/n-normal-2x.png",
-        "sha256": "bd38369eeb3705b173f6d4cd10fa78e9ed7adb4f87e95efe5af85ac36b9f0999"
+        "sha256": "100c481898f7591595fb9aaa37b387256b174cd20f57a52eae9b09ad06e39236"
       },
       {
         "dimensions": {
@@ -93,7 +93,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/ec/n-normal-4x.png",
-        "sha256": "a9ae30773e308c1c7bb67700f1c4f2c3fc71e2b7690fd11e6f788c2e89bbbf40"
+        "sha256": "d7f18cdc1344fb1ceceeda370e47948b132166d2caac027effcff0cb1468268b"
       },
       {
         "dimensions": {
@@ -101,7 +101,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/ec/n-spent-2x.png",
-        "sha256": "47a27518e8192b0f97873116b7f7473ef35193e7816914bc1beac581fa97bda0"
+        "sha256": "ea18b80d2edfa62fa31aead54d2ffa4bc69fe9b089d711635a47209c662b6860"
       },
       {
         "dimensions": {
@@ -109,7 +109,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/ec/n-spent-4x.png",
-        "sha256": "596afada06127f76c165227dc826ff27e3f1528e9e0c0efc69182fd1f3d8065c"
+        "sha256": "62ec8c012ab6aef412d8fa01cc2ec92234b2650fb43b165c01cc865129462588"
       },
       {
         "dimensions": {
@@ -117,7 +117,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/neutral/n-normal-2x.png",
-        "sha256": "d7a1f3d63d1040f4a4486626700aafd8b4ad656535c44541d219cc2ad4d9f88e"
+        "sha256": "f1c1129db7501a23e60db12361acf67305ebe15f62f7f0ec2b60bd2f9c03a692"
       },
       {
         "dimensions": {
@@ -125,7 +125,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/neutral/n-normal-4x.png",
-        "sha256": "d92fd61b7b0f3abfc0c3b316a3bcd54010d32f48e5e4d5f3ca223b7072f7d50a"
+        "sha256": "b1c2be187e524f50f06a40465029668f75c282a74984fa5c96d4367bd0eff751"
       },
       {
         "dimensions": {
@@ -133,7 +133,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/neutral/n-spent-2x.png",
-        "sha256": "9dbc70b445bec4f618f994cd809f3005a77c2b11fb5dc808216bdedd4c010e52"
+        "sha256": "52fc4f7b28074ddc52fd64e49b827be59c9819c6823594f66439350ca5cd7e5d"
       },
       {
         "dimensions": {
@@ -141,7 +141,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/neutral/n-spent-4x.png",
-        "sha256": "9f7cc89e5794768cd6a3361f1b8e2b7084778e6db6fe4ac7f93fb2e9d86d2b9e"
+        "sha256": "6aedcf2c8067f4fbf4bb4ae48be58147bb2303ce305ac30649db5a8402df7152"
       },
       {
         "dimensions": {
@@ -181,7 +181,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/cp/nw-normal-2x.png",
-        "sha256": "8133f660eb983cd8e8a66dfb0e7bc85d1618b0feba1807ab1660d50b2c8c601f"
+        "sha256": "486b5685461c29b7ad64625073d020949e45efac24590539d4922608f3a081bd"
       },
       {
         "dimensions": {
@@ -189,7 +189,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/cp/nw-normal-4x.png",
-        "sha256": "91ea0b54849cc57a651465110a72e071a0c17e5030f110e935f890ece6b061a5"
+        "sha256": "e372a09f295e8ce6728b8882fed843ba05fb158ac0f551d0833941c0ac862804"
       },
       {
         "dimensions": {
@@ -197,7 +197,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/cp/nw-spent-2x.png",
-        "sha256": "ba3c964067a74811da346f639d2b29e5c2b3671549b218b69a2f2cfb4abbcbe3"
+        "sha256": "14cf24e5eb5097fcfa25e2271842d308fa3fb41b25ac5c9fa87276e8376b3d01"
       },
       {
         "dimensions": {
@@ -205,7 +205,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/cp/nw-spent-4x.png",
-        "sha256": "eac90470ea0798f1a34f59bbe0ca442a07144b3698c8a9cb0fe2e23127555d0b"
+        "sha256": "9062ee5f1fe83b3bf1924e019442a17cfc8de3b838158f297f97b124ac9ddcd1"
       },
       {
         "dimensions": {
@@ -213,7 +213,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/ec/nw-normal-2x.png",
-        "sha256": "5b0be50a1f5217bb653312b4a70dfc1a1ef3cb1e77c2279f93911c96b9e6cdaf"
+        "sha256": "a727f2b48f86043c216df076f46d0c9f2879a62cefd222f75db4be9a617e1491"
       },
       {
         "dimensions": {
@@ -221,7 +221,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/ec/nw-normal-4x.png",
-        "sha256": "792a5d8558d1b32f0718766df671f4b0ba7524f6b851d2ef87e594dd07ac47eb"
+        "sha256": "6784f8b83d80ab9cffb2baa6c6361765561e0034a4c8a32ea4b9c892174a5b88"
       },
       {
         "dimensions": {
@@ -229,7 +229,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/ec/nw-spent-2x.png",
-        "sha256": "4631c1ee14f3d37b06567a3c3c4b9147213aae4f741061f0d4662969f2db8a7a"
+        "sha256": "92e2db2cbec4ef4a50717685c169943274ffa89214f03f6181f8b38cd7c3de42"
       },
       {
         "dimensions": {
@@ -237,7 +237,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/ec/nw-spent-4x.png",
-        "sha256": "c78e0f53bb4bbec32c3b531ddc6a2af4e7410d81300159360a72d85098a79bd4"
+        "sha256": "b11da0f9531641dff5b5553e36dd1ba246c56cf12145a836c266a2cff96b4d75"
       },
       {
         "dimensions": {
@@ -245,7 +245,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/neutral/nw-normal-2x.png",
-        "sha256": "57d2a6888eb5479e1b155e30a9148d237573cedb0683730425fdec3aaef1b4a2"
+        "sha256": "96de1b26d40c27d7074257005bd53be590e00788ebed2f2ab92f7696df3a8d25"
       },
       {
         "dimensions": {
@@ -253,7 +253,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/neutral/nw-normal-4x.png",
-        "sha256": "f7720065d67a655459480c6a6ef45235739890e7f2bea7ce38ea77e4c87ff990"
+        "sha256": "e11f73d744ff00d62c742bdb191b21c992e112b2f2c2385db6653d9e4c448992"
       },
       {
         "dimensions": {
@@ -261,7 +261,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/neutral/nw-spent-2x.png",
-        "sha256": "0d29ee844f00f7215fd5732de507e68ec24464ab3601d78c6c979e1aecf84b70"
+        "sha256": "4c33d52c48a67f8de26e83aff26802dcc2c181ad7569c9c5d4c1217dc35f551e"
       },
       {
         "dimensions": {
@@ -269,7 +269,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/neutral/nw-spent-4x.png",
-        "sha256": "0fdde208cbbd432ef9ca6b5e0e35b01036ae82e153ecd9136f81b1b0b6c6f8a4"
+        "sha256": "862337919faecdc38c80bf61d336377f3dccc1422b86a15452eb66e9337ccf0d"
       },
       {
         "dimensions": {
@@ -309,7 +309,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/cp/sw-normal-2x.png",
-        "sha256": "41c86ad81e77f9372d639488e3664dd2ce380523cb582d575d50a04d21d0f9bd"
+        "sha256": "286223a385450569fc833fc6f60f375eee7042a79f9f5acefd7a278c78d8bb34"
       },
       {
         "dimensions": {
@@ -317,7 +317,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/cp/sw-normal-4x.png",
-        "sha256": "f1fb960f2f990921a0743787199ae762a8de961ad635a8bf72bdcec8d6d6426c"
+        "sha256": "a66dfd7f8f6e26cc995317556aad7c8cf395c7f4c39c512a9302176f67aee425"
       },
       {
         "dimensions": {
@@ -325,7 +325,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/cp/sw-spent-2x.png",
-        "sha256": "bebe30f07db7e6a38254cd17925f1cd66b69ff96614126dcaeb677610e2dfc82"
+        "sha256": "f357de524cf2cccbdf3caf418bb2e7f2b4c27fc239882f78ccfd9477cafda634"
       },
       {
         "dimensions": {
@@ -333,7 +333,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/cp/sw-spent-4x.png",
-        "sha256": "1a1f3a9ac888951dbd2b144b444d24b80f32ed762adcfd56505f71cd69475d06"
+        "sha256": "eca630ef2936da5919dde5c923798c67a76c9490ec4cd7fb04dcd54c36dcbc35"
       },
       {
         "dimensions": {
@@ -341,7 +341,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/ec/sw-normal-2x.png",
-        "sha256": "0e4caacae5ceb52b6852a51d7589ba2af499c64c8281d3f76d8e9ed38ece0b9f"
+        "sha256": "de2ab85d7e0da734c96a8b45f3be427cc14c7dc713104cee344c2576e42bb97d"
       },
       {
         "dimensions": {
@@ -349,7 +349,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/ec/sw-normal-4x.png",
-        "sha256": "f6606179615a145c5f3e6fb3bd01131920e9eabc7dd9f2660e53b8aeedaf7dc8"
+        "sha256": "74179cd821f53cf74a2287cf19f2c45ae34b5e63a7643cc72465aa76e9b53f06"
       },
       {
         "dimensions": {
@@ -357,7 +357,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/ec/sw-spent-2x.png",
-        "sha256": "757fd4f2c0a0ef32c6cca073a16b3922871e268704fcb40fc830f39011325b36"
+        "sha256": "0fdd80a8f0cdd15b6e48b9ab5be745e3ac498fb172dfc4d0d09236bd89982c4c"
       },
       {
         "dimensions": {
@@ -365,7 +365,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/ec/sw-spent-4x.png",
-        "sha256": "8095a3590dbcdaf73c56abcc0f84167876504bc83c8a4a35f7ef02f9e36faa1c"
+        "sha256": "9da2164853ab1c891ec20a3e780b2fef071a96f41ecc9eb6bebff33b8cf5dee8"
       },
       {
         "dimensions": {
@@ -373,7 +373,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/neutral/sw-normal-2x.png",
-        "sha256": "37aac9086466ae248eb8d05f73e4c60bb724ee02195820e6cd102062d1474c4c"
+        "sha256": "3342cc8185c166cc4de4ed1f9e66efa27140af52853bc422cf280ad804559df0"
       },
       {
         "dimensions": {
@@ -381,7 +381,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/neutral/sw-normal-4x.png",
-        "sha256": "99da29908e5ee20955dc12611e1fa60571684d41bfdf46e14ef54c8563132c2e"
+        "sha256": "e6cf3e2072795f377a81328d08c3cce9c26dcc2b25c6e84af98e5cbe83e5ea6b"
       },
       {
         "dimensions": {
@@ -389,7 +389,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/neutral/sw-spent-2x.png",
-        "sha256": "4c24e1c6f7d8991745e6d3e09a4e3d6b17865ff7dbd1a1fe284f92a4b3a03b9c"
+        "sha256": "bfb4a3467876bd229634f34aa93a90b4d979b5a245106012a6e4a16bceefb4f3"
       },
       {
         "dimensions": {
@@ -397,7 +397,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/neutral/sw-spent-4x.png",
-        "sha256": "824df39f442ef4acba1aa7ff9e9ed47a59a520cfa902347f8efa03605dfbf11a"
+        "sha256": "9f96a81879052e87323f1b2fc7c08d73c1e5d8dbeb88234c33578e23d5506e98"
       },
       {
         "dimensions": {
@@ -437,7 +437,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/cp/s-normal-2x.png",
-        "sha256": "4e9dc20ee24bacf93e54d319ba16997558b82bc03df89eb42872a3352858cd75"
+        "sha256": "f610b51e985af19e64b6e1d02fa96bf225a6c7046db6a31bfc4547a003daab4b"
       },
       {
         "dimensions": {
@@ -445,7 +445,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/cp/s-normal-4x.png",
-        "sha256": "cc99d90424747aa3b5f5b7365ac415f89c930d342a56f23f2aca6e3233687196"
+        "sha256": "c38876399f27ffc328fa4b485a51ee25dc3c58abd55616d1b37b62be6a8e24dc"
       },
       {
         "dimensions": {
@@ -453,7 +453,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/cp/s-spent-2x.png",
-        "sha256": "afdd36192f5bf79f935209f52733db3a8766e1bad9780de0cbaa635ebabd0772"
+        "sha256": "3c32540019d464c84110081d264502e76fcd426ebca86d2fde8a764c3f0894f8"
       },
       {
         "dimensions": {
@@ -461,7 +461,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/cp/s-spent-4x.png",
-        "sha256": "9618ed7100e74a7473359b9b5f72d149a50ebaa861e4bc8245394a55e606b762"
+        "sha256": "5446045b6db0019f4fb711e05efd358deda919419be9cdc1ac3908b67534cb6e"
       },
       {
         "dimensions": {
@@ -469,7 +469,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/ec/s-normal-2x.png",
-        "sha256": "967935b14dd8e741a090fdbe147e66590e0e20abdce7d0c2d4274704604e20fb"
+        "sha256": "350985c8b7ab8954ec40b731cd53ce1fafeda59fd38d84efc783a337a13d28d6"
       },
       {
         "dimensions": {
@@ -477,7 +477,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/ec/s-normal-4x.png",
-        "sha256": "91c1709759376f176e84c4a97cc32116792ad1516e3d1050680364baeaa8f06e"
+        "sha256": "85eaf4cea0e960952952876d852fffb1ebc9f88553f9896d0c46e8e326c380fd"
       },
       {
         "dimensions": {
@@ -485,7 +485,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/ec/s-spent-2x.png",
-        "sha256": "6bd003d927d9536af72890902331ed227b5b00984600af1b7edb878680908f35"
+        "sha256": "16dc0dc57527fd53dda21e9ece4478f2ae2f669aa3d50ca50de13811cafdfd47"
       },
       {
         "dimensions": {
@@ -493,7 +493,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/ec/s-spent-4x.png",
-        "sha256": "9505824fe8b0a04945c29412ce016ea7cf81a63ac6630d4def589a7c527063d1"
+        "sha256": "00794ae126bfac46aa128e07e5ca6755071e9884c1323508cb96955568b22d10"
       },
       {
         "dimensions": {
@@ -501,7 +501,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/neutral/s-normal-2x.png",
-        "sha256": "404f1e265a81452912768bd12e128293ac9b1dd8b3e743b672ef8035a252a37a"
+        "sha256": "236339068d6f85f51947c7464919bfa8b0e0e8333f24de03d06fffb810277c17"
       },
       {
         "dimensions": {
@@ -509,7 +509,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/neutral/s-normal-4x.png",
-        "sha256": "129c5c2a745c34d7ab14d4df3a26a03f25c259ed5c54813914b0418e6cb8d1bc"
+        "sha256": "ec28af9b5bf108eae4178600b7486342710aa21a463490b081877ac70eab7020"
       },
       {
         "dimensions": {
@@ -517,7 +517,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/neutral/s-spent-2x.png",
-        "sha256": "0f090869eb37d6afed9a11c9d98d8e4f73d8613ab3955298f9caecc21ced89c0"
+        "sha256": "8fd97a370818e78aabf1b03b2ac971a669289ff1ea71a0b2ea0ec6bf58ec087b"
       },
       {
         "dimensions": {
@@ -525,7 +525,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/neutral/s-spent-4x.png",
-        "sha256": "5303f933f7f42d167780bd0b21b9b5e1482b0b3304f1641302e96265154420e7"
+        "sha256": "af68b8d3d69998dd38a4b1026c4c4a2def4ea61133af75da687c6d8599fb5efb"
       },
       {
         "dimensions": {
@@ -565,7 +565,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/cp/se-normal-2x.png",
-        "sha256": "d5343446d54c781503ff5675ee4f87307ce2754adb25904d2085ee1e4fbebf82"
+        "sha256": "db11b9562c8529f30ef8b76dcea7b49ac0cb07e8f8260841b0c99be9c5db3225"
       },
       {
         "dimensions": {
@@ -573,7 +573,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/cp/se-normal-4x.png",
-        "sha256": "37942faeaee225dcbb58513d4720df6ce28a686db2dd9eaad1d8948679435bfd"
+        "sha256": "8740d89bb03f1efef42c96332a3c0d2673fb3bc77c93e7689bcaf5b642992179"
       },
       {
         "dimensions": {
@@ -581,7 +581,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/cp/se-spent-2x.png",
-        "sha256": "f979115352e4bbbdb5409e4c3cae1294d429004035ffcf39ce2901d5c10036a4"
+        "sha256": "85fb445b80ccc42ab06eabe1ca691f8ea2c82d0a9e4dcb83dabd4a599d08edab"
       },
       {
         "dimensions": {
@@ -589,7 +589,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/cp/se-spent-4x.png",
-        "sha256": "d3eb3b7b5692017131c7752a630d0c58fb57c92aae4f464857ee5a1e57ca3e79"
+        "sha256": "304fd918dacec44a42b15c8d06fc1a1ac7a4ddcf633ad287fbad67dbdf09c9ca"
       },
       {
         "dimensions": {
@@ -597,7 +597,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/ec/se-normal-2x.png",
-        "sha256": "9570af0cc524edfe094106433a0d63e22fa1710fb4c1b9c318fb2d9cb3b29a33"
+        "sha256": "3099feda6ccbae3b5aa41c2bea5909809153548c94a12a1c269e452adbda54ca"
       },
       {
         "dimensions": {
@@ -605,7 +605,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/ec/se-normal-4x.png",
-        "sha256": "25e0b28e089b0265df791f87764e98055ae35617569758add9274b57134744e0"
+        "sha256": "3da07df6fd73c97af4df75d901babc8c0b81759e1d95e385d79897140fac39de"
       },
       {
         "dimensions": {
@@ -613,7 +613,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/ec/se-spent-2x.png",
-        "sha256": "d5b5aba24b9e85b82980d478c3ee0052a68ea01a0abfd49b3edce1f0a0905db2"
+        "sha256": "9b67be688788a693228b79d6aa3b8c154fe2f47d1467dc816881c18f855d18f1"
       },
       {
         "dimensions": {
@@ -621,7 +621,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/ec/se-spent-4x.png",
-        "sha256": "a1c86258b17f31a468de885d2cc76b7f3785c3dd61a60cd68e97ddf3d43a44a6"
+        "sha256": "3dee8ccca13ca4b5c6d08eb2bb50e72cf34d410a44b9e99b3319a35f3897fcb2"
       },
       {
         "dimensions": {
@@ -629,7 +629,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/neutral/se-normal-2x.png",
-        "sha256": "f0b94a6c41857147365eb9d999be3af418dbe2cc9726f08fcb41869a7ea168e8"
+        "sha256": "b72ac0c6004c98b89fda0f183bce39305dd800b3c7651b03318cefb9b45b8113"
       },
       {
         "dimensions": {
@@ -637,7 +637,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/neutral/se-normal-4x.png",
-        "sha256": "41c3d7682df22e50fda3078b1f1827a12c25d9a0f58bbd2fc94b5e0950eef436"
+        "sha256": "adb9c393032cb83c1b1ed51f963da69463e0e70d845f176f92feabf273c1218d"
       },
       {
         "dimensions": {
@@ -645,7 +645,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/neutral/se-spent-2x.png",
-        "sha256": "835b88281407198c8536c07885ac90240f632fecd0a9ca0c4b1363ac86821172"
+        "sha256": "823b2696efb47867576113edc4ee43d3f4efdca5f09741d33ca94680f590924b"
       },
       {
         "dimensions": {
@@ -653,7 +653,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/neutral/se-spent-4x.png",
-        "sha256": "b960d69a6d5afff9c698d5caa5752960e481c1884ccb5d9d664a6057ba3d3a7b"
+        "sha256": "154b77f3374f29c606ec5ff1e0d2586201ca292c8826a0227394e557101bd213"
       },
       {
         "dimensions": {
@@ -693,7 +693,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/cp/ne-normal-2x.png",
-        "sha256": "cdc34459140b1605a885b388e3f591b4bb34046eae0c1cbdddf810329b23a338"
+        "sha256": "2c37b88cb84b10ddd3939b16620ea74405f516c7243c0105fc88b4789c2b6f4b"
       },
       {
         "dimensions": {
@@ -701,7 +701,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/cp/ne-normal-4x.png",
-        "sha256": "81496562804487bd44132ec48cb036c249b59585d42c77b8e68e164dde2d92af"
+        "sha256": "3facfffdc2cb44d1523a5963d99c87d61c8246b698ff9ee9155768fc59573013"
       },
       {
         "dimensions": {
@@ -709,7 +709,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/cp/ne-spent-2x.png",
-        "sha256": "5b389bfefb398056f3ff98a055df081c45fcaa8f32c39fee7cb9200f9ef89a5f"
+        "sha256": "b9f71dedcd7d0394070aa48616a360042b8180186cc90d50e69c43eda4876ca6"
       },
       {
         "dimensions": {
@@ -717,7 +717,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/cp/ne-spent-4x.png",
-        "sha256": "0320bda78bb7f531c50f5fcca1bbbb34979870b5170e94d687c855eda745e4bd"
+        "sha256": "ad2027c2637cb1afe4333d801fbe28f74206fa61268010d2552a58d98f573c7e"
       },
       {
         "dimensions": {
@@ -725,7 +725,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/ec/ne-normal-2x.png",
-        "sha256": "ff79962432f5757ca36b5f26f70347197b37279279222dba7c913b6b70ac3c80"
+        "sha256": "d4ecc3930bc52431dc31a711e1220e204ec7d2708e09f46177334e5dc17fd540"
       },
       {
         "dimensions": {
@@ -733,7 +733,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/ec/ne-normal-4x.png",
-        "sha256": "b3c685bbc882aedf3581fa25fa167f3d77fdb619f5f1b6559b7b77eae25b6219"
+        "sha256": "5f7a77fea4c7728131f32052f7e64ba5d8d9b3d16a80b305aeb9abc4399c63a1"
       },
       {
         "dimensions": {
@@ -741,7 +741,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/ec/ne-spent-2x.png",
-        "sha256": "72126c4055f96b5d10ba4af7ab496462a2c67c331bd56d8579519043bb88cf6d"
+        "sha256": "99fe51f01a28bb01e5b409ec0620d63a34fe5388fa5cedf9601a1d3276bd1c19"
       },
       {
         "dimensions": {
@@ -749,7 +749,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/ec/ne-spent-4x.png",
-        "sha256": "986e97aee323f05bb89aceedb25071dc63c8c11ca1065f7aa3d58592b78d3b8b"
+        "sha256": "67f38470bdd5872e3eb7860f4cbcd246f103a627648ff800c3aa0858a7a80d66"
       },
       {
         "dimensions": {
@@ -757,7 +757,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/neutral/ne-normal-2x.png",
-        "sha256": "155966b4f3866859a69b314877ef2c6c0749ff5860e1271ed6fc3b270fca6c5e"
+        "sha256": "44b91d71074fc5a391de2b066e544efcdc650c3994fd48c31ad951db83831dee"
       },
       {
         "dimensions": {
@@ -765,7 +765,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/neutral/ne-normal-4x.png",
-        "sha256": "19661b7095ffe6edeab1c1ca5ea00288e0974bf3355378d7fb97f877277960d9"
+        "sha256": "a10ef60f91f22ee1f284a4c965b33f7396e0cd08d7f49f69b0563370c0e12f22"
       },
       {
         "dimensions": {
@@ -773,7 +773,7 @@
           "width": 192
         },
         "path": "sprites/transportTrain/neutral/ne-spent-2x.png",
-        "sha256": "6050833d1fa361a3c37ca2f7b86c351e82d3be46b49eaf604c1d27fa9c305f2d"
+        "sha256": "d062fe82c1c409d6d5c75d63211ff45b16f2e85cb945618fbd253086c32f0ca6"
       },
       {
         "dimensions": {
@@ -781,7 +781,7 @@
           "width": 384
         },
         "path": "sprites/transportTrain/neutral/ne-spent-4x.png",
-        "sha256": "e9220e57a74f808ea9f33acd2bce5b5dc34747c19f48bd08514d4dfb9d240f1c"
+        "sha256": "f5dce3a408d7b76a51ce8bd40496fe861b8a1df5c95d65961fc3ce37a722c898"
       },
       {
         "dimensions": {
@@ -789,7 +789,7 @@
           "width": 1152
         },
         "path": "sheets/transportTrain-white-2x.png",
-        "sha256": "73eb8e042e1ae9de28e781358797de68a5ce527ba5f56c471129ca5c6f33a120"
+        "sha256": "4309e3f973e713cc542fb7a5070098c805f3339fcd1cf4c5df52016429593078"
       },
       {
         "dimensions": {
@@ -797,7 +797,7 @@
           "width": 2304
         },
         "path": "sheets/transportTrain-white-4x.png",
-        "sha256": "ca01f36d5646394ab71ef3eeaf19c7a038411aed2010df32081bdfc0015f1537"
+        "sha256": "d837bc9e9e31103e5bf50fb000b1bea618f86117e3039f07a52276374fe2c88b"
       },
       {
         "dimensions": {
@@ -805,7 +805,7 @@
           "width": 1152
         },
         "path": "sheets/transportTrain-checker-2x.png",
-        "sha256": "32ad4bca1139ff10b9aaae3ede4ea18a5e2e7e34ca75026ed0cace9d1f78581a"
+        "sha256": "39790a0fa96a2d70aac785bde72217d6edc15c8c14fa3c01aa8d9ed823910ba0"
       },
       {
         "dimensions": {
@@ -813,7 +813,7 @@
           "width": 2304
         },
         "path": "sheets/transportTrain-checker-4x.png",
-        "sha256": "8579f56df692b882f0a965ce9139eac5e74f8d1f526c6764f72926aba224cf5c"
+        "sha256": "062281948149af6431136ec740b1e24dd76d7d18693dbb885f7f0fd4fa83cf72"
       },
       {
         "dimensions": {
@@ -821,7 +821,7 @@
           "width": 476
         },
         "path": "scenes/grass-normal-p0-2x.png",
-        "sha256": "2d1a291d2dfb075caf16af53575a9347ad79f295fe65d6eca26cf01d9d7f3e6e"
+        "sha256": "f336c3bd073fe5dccbdc7cc7e38235d6f85455934a98f8438366a303c98738d2"
       },
       {
         "dimensions": {
@@ -829,7 +829,7 @@
           "width": 952
         },
         "path": "scenes/grass-normal-p0-4x.png",
-        "sha256": "5e1905fe72699a554675e326f7bec09c2f7bfbca8dd9eb701b5bd42067f39409"
+        "sha256": "5f3052adc4edfd3ee7d6ebef4d5a9a5780e23b15cf1ff46d7c5034854b7afe11"
       },
       {
         "dimensions": {
@@ -837,7 +837,7 @@
           "width": 476
         },
         "path": "scenes/grass-normal-p1-2x.png",
-        "sha256": "2d1a291d2dfb075caf16af53575a9347ad79f295fe65d6eca26cf01d9d7f3e6e"
+        "sha256": "f336c3bd073fe5dccbdc7cc7e38235d6f85455934a98f8438366a303c98738d2"
       },
       {
         "dimensions": {
@@ -845,7 +845,7 @@
           "width": 952
         },
         "path": "scenes/grass-normal-p1-4x.png",
-        "sha256": "5e1905fe72699a554675e326f7bec09c2f7bfbca8dd9eb701b5bd42067f39409"
+        "sha256": "5f3052adc4edfd3ee7d6ebef4d5a9a5780e23b15cf1ff46d7c5034854b7afe11"
       },
       {
         "dimensions": {
@@ -853,7 +853,7 @@
           "width": 476
         },
         "path": "scenes/grass-spent-p0-2x.png",
-        "sha256": "7d548e137ecca645ce2a9670a78362577119cf5df734f161df1c42d3ea20c1f4"
+        "sha256": "0af1d45a95e7b33d1e341542b6f83c1bb4cf20583eae9d20aaed697b2dafcd65"
       },
       {
         "dimensions": {
@@ -861,7 +861,7 @@
           "width": 952
         },
         "path": "scenes/grass-spent-p0-4x.png",
-        "sha256": "58b27e2fd728578d5dd84ad21703ca371b68725049ce960a08c62f6794e2f303"
+        "sha256": "a5648682060db33acf19e100028bfb94b8ed325a15a19ccc85f45ae741abc596"
       },
       {
         "dimensions": {
@@ -869,7 +869,7 @@
           "width": 476
         },
         "path": "scenes/grass-spent-p1-2x.png",
-        "sha256": "7d548e137ecca645ce2a9670a78362577119cf5df734f161df1c42d3ea20c1f4"
+        "sha256": "0af1d45a95e7b33d1e341542b6f83c1bb4cf20583eae9d20aaed697b2dafcd65"
       },
       {
         "dimensions": {
@@ -877,7 +877,7 @@
           "width": 952
         },
         "path": "scenes/grass-spent-p1-4x.png",
-        "sha256": "58b27e2fd728578d5dd84ad21703ca371b68725049ce960a08c62f6794e2f303"
+        "sha256": "a5648682060db33acf19e100028bfb94b8ed325a15a19ccc85f45ae741abc596"
       },
       {
         "dimensions": {
@@ -885,7 +885,7 @@
           "width": 476
         },
         "path": "scenes/grass_w-normal-p0-2x.png",
-        "sha256": "6efd9df4c5d725b234edb75b6149417ed1291f7b70f55e0c698d48fc8fa3c341"
+        "sha256": "cdfb221aeda856dbdf74185ce3228b8c8095facd986fe9d2219ee63c35d47042"
       },
       {
         "dimensions": {
@@ -893,7 +893,7 @@
           "width": 952
         },
         "path": "scenes/grass_w-normal-p0-4x.png",
-        "sha256": "56912aa7f72824f17e46cd3b3117d5d74866a17043261739b6c036d22371cb58"
+        "sha256": "30776d4d76bc612f690ceed107b0d34a03f488eb17a279c30a6d22c914ae6daa"
       },
       {
         "dimensions": {
@@ -901,7 +901,7 @@
           "width": 476
         },
         "path": "scenes/grass_w-normal-p1-2x.png",
-        "sha256": "6efd9df4c5d725b234edb75b6149417ed1291f7b70f55e0c698d48fc8fa3c341"
+        "sha256": "cdfb221aeda856dbdf74185ce3228b8c8095facd986fe9d2219ee63c35d47042"
       },
       {
         "dimensions": {
@@ -909,7 +909,7 @@
           "width": 952
         },
         "path": "scenes/grass_w-normal-p1-4x.png",
-        "sha256": "56912aa7f72824f17e46cd3b3117d5d74866a17043261739b6c036d22371cb58"
+        "sha256": "30776d4d76bc612f690ceed107b0d34a03f488eb17a279c30a6d22c914ae6daa"
       },
       {
         "dimensions": {
@@ -917,7 +917,7 @@
           "width": 476
         },
         "path": "scenes/grass_w-spent-p0-2x.png",
-        "sha256": "0da80fadaf6db06bb928ccb88975e32a9ed4f35b63bcc20611f6c31ac5a12a33"
+        "sha256": "fe8a48617a6d66c41f1aecb7133e5c39d5f62f9246fd8716653f3f3740e6ab1b"
       },
       {
         "dimensions": {
@@ -925,7 +925,7 @@
           "width": 952
         },
         "path": "scenes/grass_w-spent-p0-4x.png",
-        "sha256": "b4186f5e2283b1e4ac35ac4b70cdbf91bbd26339c73edb8b15c1e72dc6af1469"
+        "sha256": "33584ba537e41b8fd10b6581653171ba438de3557b706aae950b7c8f512a43da"
       },
       {
         "dimensions": {
@@ -933,7 +933,7 @@
           "width": 476
         },
         "path": "scenes/grass_w-spent-p1-2x.png",
-        "sha256": "0da80fadaf6db06bb928ccb88975e32a9ed4f35b63bcc20611f6c31ac5a12a33"
+        "sha256": "fe8a48617a6d66c41f1aecb7133e5c39d5f62f9246fd8716653f3f3740e6ab1b"
       },
       {
         "dimensions": {
@@ -941,7 +941,7 @@
           "width": 952
         },
         "path": "scenes/grass_w-spent-p1-4x.png",
-        "sha256": "b4186f5e2283b1e4ac35ac4b70cdbf91bbd26339c73edb8b15c1e72dc6af1469"
+        "sha256": "33584ba537e41b8fd10b6581653171ba438de3557b706aae950b7c8f512a43da"
       },
       {
         "dimensions": {
@@ -949,7 +949,7 @@
           "width": 476
         },
         "path": "scenes/mud-normal-p0-2x.png",
-        "sha256": "75c1d4e5abcfd02b9370655a61b7c81bad0d9ef042dc190986d1a3b4519af13d"
+        "sha256": "247705eb7fc086c307b2d1075cf0f074608a2db2ac52f164f1b814393da1fa0c"
       },
       {
         "dimensions": {
@@ -957,7 +957,7 @@
           "width": 952
         },
         "path": "scenes/mud-normal-p0-4x.png",
-        "sha256": "72b5532a72241d1b79b413fa7e0d12fd2359c0017234982107b0fba72e028e1f"
+        "sha256": "89e431c21e401919c3c8874f7291f52cbc0f8832f3ee3c00407ccf1f4ec36fb7"
       },
       {
         "dimensions": {
@@ -965,7 +965,7 @@
           "width": 476
         },
         "path": "scenes/mud-normal-p1-2x.png",
-        "sha256": "75c1d4e5abcfd02b9370655a61b7c81bad0d9ef042dc190986d1a3b4519af13d"
+        "sha256": "247705eb7fc086c307b2d1075cf0f074608a2db2ac52f164f1b814393da1fa0c"
       },
       {
         "dimensions": {
@@ -973,7 +973,7 @@
           "width": 952
         },
         "path": "scenes/mud-normal-p1-4x.png",
-        "sha256": "72b5532a72241d1b79b413fa7e0d12fd2359c0017234982107b0fba72e028e1f"
+        "sha256": "89e431c21e401919c3c8874f7291f52cbc0f8832f3ee3c00407ccf1f4ec36fb7"
       },
       {
         "dimensions": {
@@ -981,7 +981,7 @@
           "width": 476
         },
         "path": "scenes/mud-spent-p0-2x.png",
-        "sha256": "3a122abb125bc281f9610f33ba34f1fed04eeba82f06c4b31977d8039574ae97"
+        "sha256": "ea10af4ac75869e0a2327f8ddbc1656d6b6c0aafd1880b22b827a449558a0e11"
       },
       {
         "dimensions": {
@@ -989,7 +989,7 @@
           "width": 952
         },
         "path": "scenes/mud-spent-p0-4x.png",
-        "sha256": "3d83cc1a5a772de879680d402f70bb770607ad3f00d7159a44befd3043b9522e"
+        "sha256": "057a419eef24a3bfd80487123c2377829e551207dc4873363c891e378200752f"
       },
       {
         "dimensions": {
@@ -997,7 +997,7 @@
           "width": 476
         },
         "path": "scenes/mud-spent-p1-2x.png",
-        "sha256": "3a122abb125bc281f9610f33ba34f1fed04eeba82f06c4b31977d8039574ae97"
+        "sha256": "ea10af4ac75869e0a2327f8ddbc1656d6b6c0aafd1880b22b827a449558a0e11"
       },
       {
         "dimensions": {
@@ -1005,7 +1005,7 @@
           "width": 952
         },
         "path": "scenes/mud-spent-p1-4x.png",
-        "sha256": "3d83cc1a5a772de879680d402f70bb770607ad3f00d7159a44befd3043b9522e"
+        "sha256": "057a419eef24a3bfd80487123c2377829e551207dc4873363c891e378200752f"
       }
     ],
     "family": "transportTrain",
@@ -1689,28 +1689,28 @@
         }
       }
     },
-    "manifest_sha256": "d49a9560ed42e6720d954fd05517444d7e61c997886f736051c4537666fe6c78",
+    "manifest_sha256": "051b4212382c57feb4291b9c7917c768c71b50ef37b3c1850f66bbbbcbacc15e",
     "manifest_snapshot": "manifest.json",
     "palette_selector": "Owner palette is independent of class ID/country, including captured transport train; no other family aliases.",
     "palettes": {
       "cp": [
-        104,
-        142,
-        83
+        205,
+        190,
+        159
       ],
       "ec": [
-        190,
-        143,
-        92
+        138,
+        164,
+        186
       ],
       "neutral": [
-        146,
-        146,
-        146
+        174,
+        174,
+        164
       ]
     },
     "physical_png_count": 131,
-    "profile": "unit-transport-train-v1: six authored square panels row-major N,NW,SW,S,SE,NE; class family lookup CP_transTrain independently selects owner cp/ec/neutral. Source straight RGB V=max(R,G,B); q=max(0,(min(R,B)-G)/max(1,V)); t=clamp((q-.02)/.08); k=t^3*(6*t^2-15*t+10); K=k*V; N_c=(1-k)*source_c+K. Round N/K half up before filtering; alpha-zero clears RGB. Base=(N_R,N_G,N_B,A), tint-energy mask=(K,K,K,A), never binary coverage. Whole-panel pixel-edge affine source anchor=(cell/2,49*cell/96), logical anchor=(48,49), top-left offset=(0,-9), inset=.8. 4x destination=(192,196)+(.8*384/cell)*(source-source_anchor); destination centers map to (d+.5-offset)/scale-.5; offset=(38.4,39.2). Unchanged compound tap budget \u003c=4,000,000 conservative full-support axis taps, checked before allocation. Transparent zero extension, normalized premultiplied float64 separable antialiased Lanczos3, signed lobes retained, positive raw alpha unpremultiply, half-up clamped RGB/A, zero-alpha clear. Independently whole-alpha-aware Lanczos3 reduce base/mask 384-\u003e192. At each density tint=halfup(clamp(N_c+K*(palette_c/255-1),0,255)), same alpha. Spent after tint is (R,R,R,A). 2x coloured sprites are composed after plane reduction, not claimed identical to downsampled coloured 4x sprites. Required six-world-pixel zero-RGBA guard, no threshold/background removal, bounding-box crops, mirrors, rotation, per-frame scaling, unit hex clipping or light rotation. Seven-cell fixtures use decoded pinned ground PNGs first and decoded exported sprite PNGs next, stable world y/x order, ordinary image/draw Over.",
+    "profile": "unit-transport-train-v1: six authored square panels row-major N,NW,SW,S,SE,NE; class family lookup CP_transTrain independently selects owner cp/ec/neutral. Source straight RGB V=max(R,G,B); q=max(0,(min(R,B)-G)/max(1,V)); t=clamp((q-.02)/.08); k=t^3*(6*t^2-15*t+10); K=k*V; N_c=(1-k)*source_c+K. Round N/K half up before filtering; alpha-zero clears RGB. Base=(N_R,N_G,N_B,A), tint-energy mask=(K,K,K,A), never binary coverage. Whole-panel pixel-edge affine source anchor=(cell/2,49*cell/96), logical anchor=(48,49), top-left offset=(0,-9), inset=manifest framing_inset or default .8, fixed across the entire atlas. 4x destination=(192,196)+(inset*384/cell)*(source-source_anchor); destination centers map to (d+.5-offset)/scale-.5; offset=(192*(1-inset),196*(1-inset)), default (38.4,39.2). Unchanged compound tap budget \u003c=4,000,000 conservative full-support axis taps, checked before allocation. Transparent zero extension, normalized premultiplied float64 separable antialiased Lanczos3, signed lobes retained, positive raw alpha unpremultiply, half-up clamped RGB/A, zero-alpha clear. Independently whole-alpha-aware Lanczos3 reduce base/mask 384-\u003e192. At each density tint=halfup(clamp(N_c+K*(palette_c/255-1),0,255)), same alpha. Spent after tint is (R,R,R,A). 2x coloured sprites are composed after plane reduction, not claimed identical to downsampled coloured 4x sprites. Default six-world-pixel zero-RGBA guard; explicit framing_inset uses an alpha\u003e=8 guard with unchanged lower-alpha fringe counts, not a strict-zero pass. No threshold/background removal, bounding-box crops, mirrors, rotation, per-frame scaling, unit hex clipping or light rotation. Seven-cell fixtures use decoded pinned ground PNGs first and decoded exported sprite PNGs next, stable world y/x order, ordinary image/draw Over.",
     "scenes": [
       {
         "absolute_line_parity": 0,
@@ -1745,7 +1745,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/neutral/n-normal-2x.png",
-              "sha256": "d7a1f3d63d1040f4a4486626700aafd8b4ad656535c44541d219cc2ad4d9f88e"
+              "sha256": "f1c1129db7501a23e60db12361acf67305ebe15f62f7f0ec2b60bd2f9c03a692"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1784,7 +1784,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/ne-normal-2x.png",
-              "sha256": "ff79962432f5757ca36b5f26f70347197b37279279222dba7c913b6b70ac3c80"
+              "sha256": "d4ecc3930bc52431dc31a711e1220e204ec7d2708e09f46177334e5dc17fd540"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1823,7 +1823,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/se-normal-2x.png",
-              "sha256": "9570af0cc524edfe094106433a0d63e22fa1710fb4c1b9c318fb2d9cb3b29a33"
+              "sha256": "3099feda6ccbae3b5aa41c2bea5909809153548c94a12a1c269e452adbda54ca"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1862,7 +1862,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/cp/s-normal-2x.png",
-              "sha256": "4e9dc20ee24bacf93e54d319ba16997558b82bc03df89eb42872a3352858cd75"
+              "sha256": "f610b51e985af19e64b6e1d02fa96bf225a6c7046db6a31bfc4547a003daab4b"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1901,7 +1901,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/sw-normal-2x.png",
-              "sha256": "0e4caacae5ceb52b6852a51d7589ba2af499c64c8281d3f76d8e9ed38ece0b9f"
+              "sha256": "de2ab85d7e0da734c96a8b45f3be427cc14c7dc713104cee344c2576e42bb97d"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1940,7 +1940,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/cp/nw-normal-2x.png",
-              "sha256": "8133f660eb983cd8e8a66dfb0e7bc85d1618b0feba1807ab1660d50b2c8c601f"
+              "sha256": "486b5685461c29b7ad64625073d020949e45efac24590539d4922608f3a081bd"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1979,7 +1979,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/n-normal-2x.png",
-              "sha256": "bd38369eeb3705b173f6d4cd10fa78e9ed7adb4f87e95efe5af85ac36b9f0999"
+              "sha256": "100c481898f7591595fb9aaa37b387256b174cd20f57a52eae9b09ad06e39236"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2010,7 +2010,7 @@
             "width": 476
           },
           "path": "scenes/grass-normal-p0-2x.png",
-          "sha256": "2d1a291d2dfb075caf16af53575a9347ad79f295fe65d6eca26cf01d9d7f3e6e"
+          "sha256": "f336c3bd073fe5dccbdc7cc7e38235d6f85455934a98f8438366a303c98738d2"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -2048,7 +2048,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/neutral/n-normal-4x.png",
-              "sha256": "d92fd61b7b0f3abfc0c3b316a3bcd54010d32f48e5e4d5f3ca223b7072f7d50a"
+              "sha256": "b1c2be187e524f50f06a40465029668f75c282a74984fa5c96d4367bd0eff751"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2087,7 +2087,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/ne-normal-4x.png",
-              "sha256": "b3c685bbc882aedf3581fa25fa167f3d77fdb619f5f1b6559b7b77eae25b6219"
+              "sha256": "5f7a77fea4c7728131f32052f7e64ba5d8d9b3d16a80b305aeb9abc4399c63a1"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2126,7 +2126,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/se-normal-4x.png",
-              "sha256": "25e0b28e089b0265df791f87764e98055ae35617569758add9274b57134744e0"
+              "sha256": "3da07df6fd73c97af4df75d901babc8c0b81759e1d95e385d79897140fac39de"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2165,7 +2165,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/cp/s-normal-4x.png",
-              "sha256": "cc99d90424747aa3b5f5b7365ac415f89c930d342a56f23f2aca6e3233687196"
+              "sha256": "c38876399f27ffc328fa4b485a51ee25dc3c58abd55616d1b37b62be6a8e24dc"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2204,7 +2204,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/sw-normal-4x.png",
-              "sha256": "f6606179615a145c5f3e6fb3bd01131920e9eabc7dd9f2660e53b8aeedaf7dc8"
+              "sha256": "74179cd821f53cf74a2287cf19f2c45ae34b5e63a7643cc72465aa76e9b53f06"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2243,7 +2243,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/cp/nw-normal-4x.png",
-              "sha256": "91ea0b54849cc57a651465110a72e071a0c17e5030f110e935f890ece6b061a5"
+              "sha256": "e372a09f295e8ce6728b8882fed843ba05fb158ac0f551d0833941c0ac862804"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2282,7 +2282,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/n-normal-4x.png",
-              "sha256": "a9ae30773e308c1c7bb67700f1c4f2c3fc71e2b7690fd11e6f788c2e89bbbf40"
+              "sha256": "d7f18cdc1344fb1ceceeda370e47948b132166d2caac027effcff0cb1468268b"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2313,7 +2313,7 @@
             "width": 952
           },
           "path": "scenes/grass-normal-p0-4x.png",
-          "sha256": "5e1905fe72699a554675e326f7bec09c2f7bfbca8dd9eb701b5bd42067f39409"
+          "sha256": "5f3052adc4edfd3ee7d6ebef4d5a9a5780e23b15cf1ff46d7c5034854b7afe11"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -2351,7 +2351,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/neutral/n-normal-2x.png",
-              "sha256": "d7a1f3d63d1040f4a4486626700aafd8b4ad656535c44541d219cc2ad4d9f88e"
+              "sha256": "f1c1129db7501a23e60db12361acf67305ebe15f62f7f0ec2b60bd2f9c03a692"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2390,7 +2390,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/ne-normal-2x.png",
-              "sha256": "ff79962432f5757ca36b5f26f70347197b37279279222dba7c913b6b70ac3c80"
+              "sha256": "d4ecc3930bc52431dc31a711e1220e204ec7d2708e09f46177334e5dc17fd540"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2429,7 +2429,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/se-normal-2x.png",
-              "sha256": "9570af0cc524edfe094106433a0d63e22fa1710fb4c1b9c318fb2d9cb3b29a33"
+              "sha256": "3099feda6ccbae3b5aa41c2bea5909809153548c94a12a1c269e452adbda54ca"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2468,7 +2468,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/cp/s-normal-2x.png",
-              "sha256": "4e9dc20ee24bacf93e54d319ba16997558b82bc03df89eb42872a3352858cd75"
+              "sha256": "f610b51e985af19e64b6e1d02fa96bf225a6c7046db6a31bfc4547a003daab4b"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2507,7 +2507,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/sw-normal-2x.png",
-              "sha256": "0e4caacae5ceb52b6852a51d7589ba2af499c64c8281d3f76d8e9ed38ece0b9f"
+              "sha256": "de2ab85d7e0da734c96a8b45f3be427cc14c7dc713104cee344c2576e42bb97d"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2546,7 +2546,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/cp/nw-normal-2x.png",
-              "sha256": "8133f660eb983cd8e8a66dfb0e7bc85d1618b0feba1807ab1660d50b2c8c601f"
+              "sha256": "486b5685461c29b7ad64625073d020949e45efac24590539d4922608f3a081bd"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2585,7 +2585,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/n-normal-2x.png",
-              "sha256": "bd38369eeb3705b173f6d4cd10fa78e9ed7adb4f87e95efe5af85ac36b9f0999"
+              "sha256": "100c481898f7591595fb9aaa37b387256b174cd20f57a52eae9b09ad06e39236"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2616,7 +2616,7 @@
             "width": 476
           },
           "path": "scenes/grass-normal-p1-2x.png",
-          "sha256": "2d1a291d2dfb075caf16af53575a9347ad79f295fe65d6eca26cf01d9d7f3e6e"
+          "sha256": "f336c3bd073fe5dccbdc7cc7e38235d6f85455934a98f8438366a303c98738d2"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -2654,7 +2654,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/neutral/n-normal-4x.png",
-              "sha256": "d92fd61b7b0f3abfc0c3b316a3bcd54010d32f48e5e4d5f3ca223b7072f7d50a"
+              "sha256": "b1c2be187e524f50f06a40465029668f75c282a74984fa5c96d4367bd0eff751"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2693,7 +2693,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/ne-normal-4x.png",
-              "sha256": "b3c685bbc882aedf3581fa25fa167f3d77fdb619f5f1b6559b7b77eae25b6219"
+              "sha256": "5f7a77fea4c7728131f32052f7e64ba5d8d9b3d16a80b305aeb9abc4399c63a1"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2732,7 +2732,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/se-normal-4x.png",
-              "sha256": "25e0b28e089b0265df791f87764e98055ae35617569758add9274b57134744e0"
+              "sha256": "3da07df6fd73c97af4df75d901babc8c0b81759e1d95e385d79897140fac39de"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2771,7 +2771,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/cp/s-normal-4x.png",
-              "sha256": "cc99d90424747aa3b5f5b7365ac415f89c930d342a56f23f2aca6e3233687196"
+              "sha256": "c38876399f27ffc328fa4b485a51ee25dc3c58abd55616d1b37b62be6a8e24dc"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2810,7 +2810,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/sw-normal-4x.png",
-              "sha256": "f6606179615a145c5f3e6fb3bd01131920e9eabc7dd9f2660e53b8aeedaf7dc8"
+              "sha256": "74179cd821f53cf74a2287cf19f2c45ae34b5e63a7643cc72465aa76e9b53f06"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2849,7 +2849,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/cp/nw-normal-4x.png",
-              "sha256": "91ea0b54849cc57a651465110a72e071a0c17e5030f110e935f890ece6b061a5"
+              "sha256": "e372a09f295e8ce6728b8882fed843ba05fb158ac0f551d0833941c0ac862804"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2888,7 +2888,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/n-normal-4x.png",
-              "sha256": "a9ae30773e308c1c7bb67700f1c4f2c3fc71e2b7690fd11e6f788c2e89bbbf40"
+              "sha256": "d7f18cdc1344fb1ceceeda370e47948b132166d2caac027effcff0cb1468268b"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2919,7 +2919,7 @@
             "width": 952
           },
           "path": "scenes/grass-normal-p1-4x.png",
-          "sha256": "5e1905fe72699a554675e326f7bec09c2f7bfbca8dd9eb701b5bd42067f39409"
+          "sha256": "5f3052adc4edfd3ee7d6ebef4d5a9a5780e23b15cf1ff46d7c5034854b7afe11"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -2957,7 +2957,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/neutral/n-spent-2x.png",
-              "sha256": "9dbc70b445bec4f618f994cd809f3005a77c2b11fb5dc808216bdedd4c010e52"
+              "sha256": "52fc4f7b28074ddc52fd64e49b827be59c9819c6823594f66439350ca5cd7e5d"
             },
             "state": "spent",
             "terrain": "grass",
@@ -2996,7 +2996,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/ne-spent-2x.png",
-              "sha256": "72126c4055f96b5d10ba4af7ab496462a2c67c331bd56d8579519043bb88cf6d"
+              "sha256": "99fe51f01a28bb01e5b409ec0620d63a34fe5388fa5cedf9601a1d3276bd1c19"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3035,7 +3035,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/se-spent-2x.png",
-              "sha256": "d5b5aba24b9e85b82980d478c3ee0052a68ea01a0abfd49b3edce1f0a0905db2"
+              "sha256": "9b67be688788a693228b79d6aa3b8c154fe2f47d1467dc816881c18f855d18f1"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3074,7 +3074,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/cp/s-spent-2x.png",
-              "sha256": "afdd36192f5bf79f935209f52733db3a8766e1bad9780de0cbaa635ebabd0772"
+              "sha256": "3c32540019d464c84110081d264502e76fcd426ebca86d2fde8a764c3f0894f8"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3113,7 +3113,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/sw-spent-2x.png",
-              "sha256": "757fd4f2c0a0ef32c6cca073a16b3922871e268704fcb40fc830f39011325b36"
+              "sha256": "0fdd80a8f0cdd15b6e48b9ab5be745e3ac498fb172dfc4d0d09236bd89982c4c"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3152,7 +3152,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/cp/nw-spent-2x.png",
-              "sha256": "ba3c964067a74811da346f639d2b29e5c2b3671549b218b69a2f2cfb4abbcbe3"
+              "sha256": "14cf24e5eb5097fcfa25e2271842d308fa3fb41b25ac5c9fa87276e8376b3d01"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3191,7 +3191,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/n-spent-2x.png",
-              "sha256": "47a27518e8192b0f97873116b7f7473ef35193e7816914bc1beac581fa97bda0"
+              "sha256": "ea18b80d2edfa62fa31aead54d2ffa4bc69fe9b089d711635a47209c662b6860"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3222,7 +3222,7 @@
             "width": 476
           },
           "path": "scenes/grass-spent-p0-2x.png",
-          "sha256": "7d548e137ecca645ce2a9670a78362577119cf5df734f161df1c42d3ea20c1f4"
+          "sha256": "0af1d45a95e7b33d1e341542b6f83c1bb4cf20583eae9d20aaed697b2dafcd65"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -3260,7 +3260,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/neutral/n-spent-4x.png",
-              "sha256": "9f7cc89e5794768cd6a3361f1b8e2b7084778e6db6fe4ac7f93fb2e9d86d2b9e"
+              "sha256": "6aedcf2c8067f4fbf4bb4ae48be58147bb2303ce305ac30649db5a8402df7152"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3299,7 +3299,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/ne-spent-4x.png",
-              "sha256": "986e97aee323f05bb89aceedb25071dc63c8c11ca1065f7aa3d58592b78d3b8b"
+              "sha256": "67f38470bdd5872e3eb7860f4cbcd246f103a627648ff800c3aa0858a7a80d66"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3338,7 +3338,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/se-spent-4x.png",
-              "sha256": "a1c86258b17f31a468de885d2cc76b7f3785c3dd61a60cd68e97ddf3d43a44a6"
+              "sha256": "3dee8ccca13ca4b5c6d08eb2bb50e72cf34d410a44b9e99b3319a35f3897fcb2"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3377,7 +3377,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/cp/s-spent-4x.png",
-              "sha256": "9618ed7100e74a7473359b9b5f72d149a50ebaa861e4bc8245394a55e606b762"
+              "sha256": "5446045b6db0019f4fb711e05efd358deda919419be9cdc1ac3908b67534cb6e"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3416,7 +3416,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/sw-spent-4x.png",
-              "sha256": "8095a3590dbcdaf73c56abcc0f84167876504bc83c8a4a35f7ef02f9e36faa1c"
+              "sha256": "9da2164853ab1c891ec20a3e780b2fef071a96f41ecc9eb6bebff33b8cf5dee8"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3455,7 +3455,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/cp/nw-spent-4x.png",
-              "sha256": "eac90470ea0798f1a34f59bbe0ca442a07144b3698c8a9cb0fe2e23127555d0b"
+              "sha256": "9062ee5f1fe83b3bf1924e019442a17cfc8de3b838158f297f97b124ac9ddcd1"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3494,7 +3494,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/n-spent-4x.png",
-              "sha256": "596afada06127f76c165227dc826ff27e3f1528e9e0c0efc69182fd1f3d8065c"
+              "sha256": "62ec8c012ab6aef412d8fa01cc2ec92234b2650fb43b165c01cc865129462588"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3525,7 +3525,7 @@
             "width": 952
           },
           "path": "scenes/grass-spent-p0-4x.png",
-          "sha256": "58b27e2fd728578d5dd84ad21703ca371b68725049ce960a08c62f6794e2f303"
+          "sha256": "a5648682060db33acf19e100028bfb94b8ed325a15a19ccc85f45ae741abc596"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -3563,7 +3563,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/neutral/n-spent-2x.png",
-              "sha256": "9dbc70b445bec4f618f994cd809f3005a77c2b11fb5dc808216bdedd4c010e52"
+              "sha256": "52fc4f7b28074ddc52fd64e49b827be59c9819c6823594f66439350ca5cd7e5d"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3602,7 +3602,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/ne-spent-2x.png",
-              "sha256": "72126c4055f96b5d10ba4af7ab496462a2c67c331bd56d8579519043bb88cf6d"
+              "sha256": "99fe51f01a28bb01e5b409ec0620d63a34fe5388fa5cedf9601a1d3276bd1c19"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3641,7 +3641,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/se-spent-2x.png",
-              "sha256": "d5b5aba24b9e85b82980d478c3ee0052a68ea01a0abfd49b3edce1f0a0905db2"
+              "sha256": "9b67be688788a693228b79d6aa3b8c154fe2f47d1467dc816881c18f855d18f1"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3680,7 +3680,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/cp/s-spent-2x.png",
-              "sha256": "afdd36192f5bf79f935209f52733db3a8766e1bad9780de0cbaa635ebabd0772"
+              "sha256": "3c32540019d464c84110081d264502e76fcd426ebca86d2fde8a764c3f0894f8"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3719,7 +3719,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/sw-spent-2x.png",
-              "sha256": "757fd4f2c0a0ef32c6cca073a16b3922871e268704fcb40fc830f39011325b36"
+              "sha256": "0fdd80a8f0cdd15b6e48b9ab5be745e3ac498fb172dfc4d0d09236bd89982c4c"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3758,7 +3758,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/cp/nw-spent-2x.png",
-              "sha256": "ba3c964067a74811da346f639d2b29e5c2b3671549b218b69a2f2cfb4abbcbe3"
+              "sha256": "14cf24e5eb5097fcfa25e2271842d308fa3fb41b25ac5c9fa87276e8376b3d01"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3797,7 +3797,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/n-spent-2x.png",
-              "sha256": "47a27518e8192b0f97873116b7f7473ef35193e7816914bc1beac581fa97bda0"
+              "sha256": "ea18b80d2edfa62fa31aead54d2ffa4bc69fe9b089d711635a47209c662b6860"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3828,7 +3828,7 @@
             "width": 476
           },
           "path": "scenes/grass-spent-p1-2x.png",
-          "sha256": "7d548e137ecca645ce2a9670a78362577119cf5df734f161df1c42d3ea20c1f4"
+          "sha256": "0af1d45a95e7b33d1e341542b6f83c1bb4cf20583eae9d20aaed697b2dafcd65"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -3866,7 +3866,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/neutral/n-spent-4x.png",
-              "sha256": "9f7cc89e5794768cd6a3361f1b8e2b7084778e6db6fe4ac7f93fb2e9d86d2b9e"
+              "sha256": "6aedcf2c8067f4fbf4bb4ae48be58147bb2303ce305ac30649db5a8402df7152"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3905,7 +3905,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/ne-spent-4x.png",
-              "sha256": "986e97aee323f05bb89aceedb25071dc63c8c11ca1065f7aa3d58592b78d3b8b"
+              "sha256": "67f38470bdd5872e3eb7860f4cbcd246f103a627648ff800c3aa0858a7a80d66"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3944,7 +3944,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/se-spent-4x.png",
-              "sha256": "a1c86258b17f31a468de885d2cc76b7f3785c3dd61a60cd68e97ddf3d43a44a6"
+              "sha256": "3dee8ccca13ca4b5c6d08eb2bb50e72cf34d410a44b9e99b3319a35f3897fcb2"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3983,7 +3983,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/cp/s-spent-4x.png",
-              "sha256": "9618ed7100e74a7473359b9b5f72d149a50ebaa861e4bc8245394a55e606b762"
+              "sha256": "5446045b6db0019f4fb711e05efd358deda919419be9cdc1ac3908b67534cb6e"
             },
             "state": "spent",
             "terrain": "grass",
@@ -4022,7 +4022,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/sw-spent-4x.png",
-              "sha256": "8095a3590dbcdaf73c56abcc0f84167876504bc83c8a4a35f7ef02f9e36faa1c"
+              "sha256": "9da2164853ab1c891ec20a3e780b2fef071a96f41ecc9eb6bebff33b8cf5dee8"
             },
             "state": "spent",
             "terrain": "grass",
@@ -4061,7 +4061,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/cp/nw-spent-4x.png",
-              "sha256": "eac90470ea0798f1a34f59bbe0ca442a07144b3698c8a9cb0fe2e23127555d0b"
+              "sha256": "9062ee5f1fe83b3bf1924e019442a17cfc8de3b838158f297f97b124ac9ddcd1"
             },
             "state": "spent",
             "terrain": "grass",
@@ -4100,7 +4100,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/n-spent-4x.png",
-              "sha256": "596afada06127f76c165227dc826ff27e3f1528e9e0c0efc69182fd1f3d8065c"
+              "sha256": "62ec8c012ab6aef412d8fa01cc2ec92234b2650fb43b165c01cc865129462588"
             },
             "state": "spent",
             "terrain": "grass",
@@ -4131,7 +4131,7 @@
             "width": 952
           },
           "path": "scenes/grass-spent-p1-4x.png",
-          "sha256": "58b27e2fd728578d5dd84ad21703ca371b68725049ce960a08c62f6794e2f303"
+          "sha256": "a5648682060db33acf19e100028bfb94b8ed325a15a19ccc85f45ae741abc596"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -4169,7 +4169,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/neutral/n-normal-2x.png",
-              "sha256": "d7a1f3d63d1040f4a4486626700aafd8b4ad656535c44541d219cc2ad4d9f88e"
+              "sha256": "f1c1129db7501a23e60db12361acf67305ebe15f62f7f0ec2b60bd2f9c03a692"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4208,7 +4208,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/ne-normal-2x.png",
-              "sha256": "ff79962432f5757ca36b5f26f70347197b37279279222dba7c913b6b70ac3c80"
+              "sha256": "d4ecc3930bc52431dc31a711e1220e204ec7d2708e09f46177334e5dc17fd540"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4247,7 +4247,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/se-normal-2x.png",
-              "sha256": "9570af0cc524edfe094106433a0d63e22fa1710fb4c1b9c318fb2d9cb3b29a33"
+              "sha256": "3099feda6ccbae3b5aa41c2bea5909809153548c94a12a1c269e452adbda54ca"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4286,7 +4286,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/cp/s-normal-2x.png",
-              "sha256": "4e9dc20ee24bacf93e54d319ba16997558b82bc03df89eb42872a3352858cd75"
+              "sha256": "f610b51e985af19e64b6e1d02fa96bf225a6c7046db6a31bfc4547a003daab4b"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4325,7 +4325,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/sw-normal-2x.png",
-              "sha256": "0e4caacae5ceb52b6852a51d7589ba2af499c64c8281d3f76d8e9ed38ece0b9f"
+              "sha256": "de2ab85d7e0da734c96a8b45f3be427cc14c7dc713104cee344c2576e42bb97d"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4364,7 +4364,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/cp/nw-normal-2x.png",
-              "sha256": "8133f660eb983cd8e8a66dfb0e7bc85d1618b0feba1807ab1660d50b2c8c601f"
+              "sha256": "486b5685461c29b7ad64625073d020949e45efac24590539d4922608f3a081bd"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4403,7 +4403,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/n-normal-2x.png",
-              "sha256": "bd38369eeb3705b173f6d4cd10fa78e9ed7adb4f87e95efe5af85ac36b9f0999"
+              "sha256": "100c481898f7591595fb9aaa37b387256b174cd20f57a52eae9b09ad06e39236"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4434,7 +4434,7 @@
             "width": 476
           },
           "path": "scenes/grass_w-normal-p0-2x.png",
-          "sha256": "6efd9df4c5d725b234edb75b6149417ed1291f7b70f55e0c698d48fc8fa3c341"
+          "sha256": "cdfb221aeda856dbdf74185ce3228b8c8095facd986fe9d2219ee63c35d47042"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -4472,7 +4472,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/neutral/n-normal-4x.png",
-              "sha256": "d92fd61b7b0f3abfc0c3b316a3bcd54010d32f48e5e4d5f3ca223b7072f7d50a"
+              "sha256": "b1c2be187e524f50f06a40465029668f75c282a74984fa5c96d4367bd0eff751"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4511,7 +4511,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/ne-normal-4x.png",
-              "sha256": "b3c685bbc882aedf3581fa25fa167f3d77fdb619f5f1b6559b7b77eae25b6219"
+              "sha256": "5f7a77fea4c7728131f32052f7e64ba5d8d9b3d16a80b305aeb9abc4399c63a1"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4550,7 +4550,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/se-normal-4x.png",
-              "sha256": "25e0b28e089b0265df791f87764e98055ae35617569758add9274b57134744e0"
+              "sha256": "3da07df6fd73c97af4df75d901babc8c0b81759e1d95e385d79897140fac39de"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4589,7 +4589,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/cp/s-normal-4x.png",
-              "sha256": "cc99d90424747aa3b5f5b7365ac415f89c930d342a56f23f2aca6e3233687196"
+              "sha256": "c38876399f27ffc328fa4b485a51ee25dc3c58abd55616d1b37b62be6a8e24dc"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4628,7 +4628,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/sw-normal-4x.png",
-              "sha256": "f6606179615a145c5f3e6fb3bd01131920e9eabc7dd9f2660e53b8aeedaf7dc8"
+              "sha256": "74179cd821f53cf74a2287cf19f2c45ae34b5e63a7643cc72465aa76e9b53f06"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4667,7 +4667,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/cp/nw-normal-4x.png",
-              "sha256": "91ea0b54849cc57a651465110a72e071a0c17e5030f110e935f890ece6b061a5"
+              "sha256": "e372a09f295e8ce6728b8882fed843ba05fb158ac0f551d0833941c0ac862804"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4706,7 +4706,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/n-normal-4x.png",
-              "sha256": "a9ae30773e308c1c7bb67700f1c4f2c3fc71e2b7690fd11e6f788c2e89bbbf40"
+              "sha256": "d7f18cdc1344fb1ceceeda370e47948b132166d2caac027effcff0cb1468268b"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4737,7 +4737,7 @@
             "width": 952
           },
           "path": "scenes/grass_w-normal-p0-4x.png",
-          "sha256": "56912aa7f72824f17e46cd3b3117d5d74866a17043261739b6c036d22371cb58"
+          "sha256": "30776d4d76bc612f690ceed107b0d34a03f488eb17a279c30a6d22c914ae6daa"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -4775,7 +4775,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/neutral/n-normal-2x.png",
-              "sha256": "d7a1f3d63d1040f4a4486626700aafd8b4ad656535c44541d219cc2ad4d9f88e"
+              "sha256": "f1c1129db7501a23e60db12361acf67305ebe15f62f7f0ec2b60bd2f9c03a692"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4814,7 +4814,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/ne-normal-2x.png",
-              "sha256": "ff79962432f5757ca36b5f26f70347197b37279279222dba7c913b6b70ac3c80"
+              "sha256": "d4ecc3930bc52431dc31a711e1220e204ec7d2708e09f46177334e5dc17fd540"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4853,7 +4853,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/se-normal-2x.png",
-              "sha256": "9570af0cc524edfe094106433a0d63e22fa1710fb4c1b9c318fb2d9cb3b29a33"
+              "sha256": "3099feda6ccbae3b5aa41c2bea5909809153548c94a12a1c269e452adbda54ca"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4892,7 +4892,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/cp/s-normal-2x.png",
-              "sha256": "4e9dc20ee24bacf93e54d319ba16997558b82bc03df89eb42872a3352858cd75"
+              "sha256": "f610b51e985af19e64b6e1d02fa96bf225a6c7046db6a31bfc4547a003daab4b"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4931,7 +4931,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/sw-normal-2x.png",
-              "sha256": "0e4caacae5ceb52b6852a51d7589ba2af499c64c8281d3f76d8e9ed38ece0b9f"
+              "sha256": "de2ab85d7e0da734c96a8b45f3be427cc14c7dc713104cee344c2576e42bb97d"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4970,7 +4970,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/cp/nw-normal-2x.png",
-              "sha256": "8133f660eb983cd8e8a66dfb0e7bc85d1618b0feba1807ab1660d50b2c8c601f"
+              "sha256": "486b5685461c29b7ad64625073d020949e45efac24590539d4922608f3a081bd"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5009,7 +5009,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/n-normal-2x.png",
-              "sha256": "bd38369eeb3705b173f6d4cd10fa78e9ed7adb4f87e95efe5af85ac36b9f0999"
+              "sha256": "100c481898f7591595fb9aaa37b387256b174cd20f57a52eae9b09ad06e39236"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5040,7 +5040,7 @@
             "width": 476
           },
           "path": "scenes/grass_w-normal-p1-2x.png",
-          "sha256": "6efd9df4c5d725b234edb75b6149417ed1291f7b70f55e0c698d48fc8fa3c341"
+          "sha256": "cdfb221aeda856dbdf74185ce3228b8c8095facd986fe9d2219ee63c35d47042"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -5078,7 +5078,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/neutral/n-normal-4x.png",
-              "sha256": "d92fd61b7b0f3abfc0c3b316a3bcd54010d32f48e5e4d5f3ca223b7072f7d50a"
+              "sha256": "b1c2be187e524f50f06a40465029668f75c282a74984fa5c96d4367bd0eff751"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5117,7 +5117,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/ne-normal-4x.png",
-              "sha256": "b3c685bbc882aedf3581fa25fa167f3d77fdb619f5f1b6559b7b77eae25b6219"
+              "sha256": "5f7a77fea4c7728131f32052f7e64ba5d8d9b3d16a80b305aeb9abc4399c63a1"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5156,7 +5156,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/se-normal-4x.png",
-              "sha256": "25e0b28e089b0265df791f87764e98055ae35617569758add9274b57134744e0"
+              "sha256": "3da07df6fd73c97af4df75d901babc8c0b81759e1d95e385d79897140fac39de"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5195,7 +5195,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/cp/s-normal-4x.png",
-              "sha256": "cc99d90424747aa3b5f5b7365ac415f89c930d342a56f23f2aca6e3233687196"
+              "sha256": "c38876399f27ffc328fa4b485a51ee25dc3c58abd55616d1b37b62be6a8e24dc"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5234,7 +5234,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/sw-normal-4x.png",
-              "sha256": "f6606179615a145c5f3e6fb3bd01131920e9eabc7dd9f2660e53b8aeedaf7dc8"
+              "sha256": "74179cd821f53cf74a2287cf19f2c45ae34b5e63a7643cc72465aa76e9b53f06"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5273,7 +5273,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/cp/nw-normal-4x.png",
-              "sha256": "91ea0b54849cc57a651465110a72e071a0c17e5030f110e935f890ece6b061a5"
+              "sha256": "e372a09f295e8ce6728b8882fed843ba05fb158ac0f551d0833941c0ac862804"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5312,7 +5312,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/n-normal-4x.png",
-              "sha256": "a9ae30773e308c1c7bb67700f1c4f2c3fc71e2b7690fd11e6f788c2e89bbbf40"
+              "sha256": "d7f18cdc1344fb1ceceeda370e47948b132166d2caac027effcff0cb1468268b"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5343,7 +5343,7 @@
             "width": 952
           },
           "path": "scenes/grass_w-normal-p1-4x.png",
-          "sha256": "56912aa7f72824f17e46cd3b3117d5d74866a17043261739b6c036d22371cb58"
+          "sha256": "30776d4d76bc612f690ceed107b0d34a03f488eb17a279c30a6d22c914ae6daa"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -5381,7 +5381,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/neutral/n-spent-2x.png",
-              "sha256": "9dbc70b445bec4f618f994cd809f3005a77c2b11fb5dc808216bdedd4c010e52"
+              "sha256": "52fc4f7b28074ddc52fd64e49b827be59c9819c6823594f66439350ca5cd7e5d"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5420,7 +5420,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/ne-spent-2x.png",
-              "sha256": "72126c4055f96b5d10ba4af7ab496462a2c67c331bd56d8579519043bb88cf6d"
+              "sha256": "99fe51f01a28bb01e5b409ec0620d63a34fe5388fa5cedf9601a1d3276bd1c19"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5459,7 +5459,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/se-spent-2x.png",
-              "sha256": "d5b5aba24b9e85b82980d478c3ee0052a68ea01a0abfd49b3edce1f0a0905db2"
+              "sha256": "9b67be688788a693228b79d6aa3b8c154fe2f47d1467dc816881c18f855d18f1"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5498,7 +5498,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/cp/s-spent-2x.png",
-              "sha256": "afdd36192f5bf79f935209f52733db3a8766e1bad9780de0cbaa635ebabd0772"
+              "sha256": "3c32540019d464c84110081d264502e76fcd426ebca86d2fde8a764c3f0894f8"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5537,7 +5537,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/sw-spent-2x.png",
-              "sha256": "757fd4f2c0a0ef32c6cca073a16b3922871e268704fcb40fc830f39011325b36"
+              "sha256": "0fdd80a8f0cdd15b6e48b9ab5be745e3ac498fb172dfc4d0d09236bd89982c4c"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5576,7 +5576,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/cp/nw-spent-2x.png",
-              "sha256": "ba3c964067a74811da346f639d2b29e5c2b3671549b218b69a2f2cfb4abbcbe3"
+              "sha256": "14cf24e5eb5097fcfa25e2271842d308fa3fb41b25ac5c9fa87276e8376b3d01"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5615,7 +5615,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/n-spent-2x.png",
-              "sha256": "47a27518e8192b0f97873116b7f7473ef35193e7816914bc1beac581fa97bda0"
+              "sha256": "ea18b80d2edfa62fa31aead54d2ffa4bc69fe9b089d711635a47209c662b6860"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5646,7 +5646,7 @@
             "width": 476
           },
           "path": "scenes/grass_w-spent-p0-2x.png",
-          "sha256": "0da80fadaf6db06bb928ccb88975e32a9ed4f35b63bcc20611f6c31ac5a12a33"
+          "sha256": "fe8a48617a6d66c41f1aecb7133e5c39d5f62f9246fd8716653f3f3740e6ab1b"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -5684,7 +5684,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/neutral/n-spent-4x.png",
-              "sha256": "9f7cc89e5794768cd6a3361f1b8e2b7084778e6db6fe4ac7f93fb2e9d86d2b9e"
+              "sha256": "6aedcf2c8067f4fbf4bb4ae48be58147bb2303ce305ac30649db5a8402df7152"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5723,7 +5723,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/ne-spent-4x.png",
-              "sha256": "986e97aee323f05bb89aceedb25071dc63c8c11ca1065f7aa3d58592b78d3b8b"
+              "sha256": "67f38470bdd5872e3eb7860f4cbcd246f103a627648ff800c3aa0858a7a80d66"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5762,7 +5762,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/se-spent-4x.png",
-              "sha256": "a1c86258b17f31a468de885d2cc76b7f3785c3dd61a60cd68e97ddf3d43a44a6"
+              "sha256": "3dee8ccca13ca4b5c6d08eb2bb50e72cf34d410a44b9e99b3319a35f3897fcb2"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5801,7 +5801,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/cp/s-spent-4x.png",
-              "sha256": "9618ed7100e74a7473359b9b5f72d149a50ebaa861e4bc8245394a55e606b762"
+              "sha256": "5446045b6db0019f4fb711e05efd358deda919419be9cdc1ac3908b67534cb6e"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5840,7 +5840,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/sw-spent-4x.png",
-              "sha256": "8095a3590dbcdaf73c56abcc0f84167876504bc83c8a4a35f7ef02f9e36faa1c"
+              "sha256": "9da2164853ab1c891ec20a3e780b2fef071a96f41ecc9eb6bebff33b8cf5dee8"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5879,7 +5879,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/cp/nw-spent-4x.png",
-              "sha256": "eac90470ea0798f1a34f59bbe0ca442a07144b3698c8a9cb0fe2e23127555d0b"
+              "sha256": "9062ee5f1fe83b3bf1924e019442a17cfc8de3b838158f297f97b124ac9ddcd1"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5918,7 +5918,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/n-spent-4x.png",
-              "sha256": "596afada06127f76c165227dc826ff27e3f1528e9e0c0efc69182fd1f3d8065c"
+              "sha256": "62ec8c012ab6aef412d8fa01cc2ec92234b2650fb43b165c01cc865129462588"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5949,7 +5949,7 @@
             "width": 952
           },
           "path": "scenes/grass_w-spent-p0-4x.png",
-          "sha256": "b4186f5e2283b1e4ac35ac4b70cdbf91bbd26339c73edb8b15c1e72dc6af1469"
+          "sha256": "33584ba537e41b8fd10b6581653171ba438de3557b706aae950b7c8f512a43da"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -5987,7 +5987,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/neutral/n-spent-2x.png",
-              "sha256": "9dbc70b445bec4f618f994cd809f3005a77c2b11fb5dc808216bdedd4c010e52"
+              "sha256": "52fc4f7b28074ddc52fd64e49b827be59c9819c6823594f66439350ca5cd7e5d"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6026,7 +6026,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/ne-spent-2x.png",
-              "sha256": "72126c4055f96b5d10ba4af7ab496462a2c67c331bd56d8579519043bb88cf6d"
+              "sha256": "99fe51f01a28bb01e5b409ec0620d63a34fe5388fa5cedf9601a1d3276bd1c19"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6065,7 +6065,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/se-spent-2x.png",
-              "sha256": "d5b5aba24b9e85b82980d478c3ee0052a68ea01a0abfd49b3edce1f0a0905db2"
+              "sha256": "9b67be688788a693228b79d6aa3b8c154fe2f47d1467dc816881c18f855d18f1"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6104,7 +6104,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/cp/s-spent-2x.png",
-              "sha256": "afdd36192f5bf79f935209f52733db3a8766e1bad9780de0cbaa635ebabd0772"
+              "sha256": "3c32540019d464c84110081d264502e76fcd426ebca86d2fde8a764c3f0894f8"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6143,7 +6143,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/sw-spent-2x.png",
-              "sha256": "757fd4f2c0a0ef32c6cca073a16b3922871e268704fcb40fc830f39011325b36"
+              "sha256": "0fdd80a8f0cdd15b6e48b9ab5be745e3ac498fb172dfc4d0d09236bd89982c4c"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6182,7 +6182,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/cp/nw-spent-2x.png",
-              "sha256": "ba3c964067a74811da346f639d2b29e5c2b3671549b218b69a2f2cfb4abbcbe3"
+              "sha256": "14cf24e5eb5097fcfa25e2271842d308fa3fb41b25ac5c9fa87276e8376b3d01"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6221,7 +6221,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/n-spent-2x.png",
-              "sha256": "47a27518e8192b0f97873116b7f7473ef35193e7816914bc1beac581fa97bda0"
+              "sha256": "ea18b80d2edfa62fa31aead54d2ffa4bc69fe9b089d711635a47209c662b6860"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6252,7 +6252,7 @@
             "width": 476
           },
           "path": "scenes/grass_w-spent-p1-2x.png",
-          "sha256": "0da80fadaf6db06bb928ccb88975e32a9ed4f35b63bcc20611f6c31ac5a12a33"
+          "sha256": "fe8a48617a6d66c41f1aecb7133e5c39d5f62f9246fd8716653f3f3740e6ab1b"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -6290,7 +6290,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/neutral/n-spent-4x.png",
-              "sha256": "9f7cc89e5794768cd6a3361f1b8e2b7084778e6db6fe4ac7f93fb2e9d86d2b9e"
+              "sha256": "6aedcf2c8067f4fbf4bb4ae48be58147bb2303ce305ac30649db5a8402df7152"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6329,7 +6329,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/ne-spent-4x.png",
-              "sha256": "986e97aee323f05bb89aceedb25071dc63c8c11ca1065f7aa3d58592b78d3b8b"
+              "sha256": "67f38470bdd5872e3eb7860f4cbcd246f103a627648ff800c3aa0858a7a80d66"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6368,7 +6368,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/se-spent-4x.png",
-              "sha256": "a1c86258b17f31a468de885d2cc76b7f3785c3dd61a60cd68e97ddf3d43a44a6"
+              "sha256": "3dee8ccca13ca4b5c6d08eb2bb50e72cf34d410a44b9e99b3319a35f3897fcb2"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6407,7 +6407,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/cp/s-spent-4x.png",
-              "sha256": "9618ed7100e74a7473359b9b5f72d149a50ebaa861e4bc8245394a55e606b762"
+              "sha256": "5446045b6db0019f4fb711e05efd358deda919419be9cdc1ac3908b67534cb6e"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6446,7 +6446,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/sw-spent-4x.png",
-              "sha256": "8095a3590dbcdaf73c56abcc0f84167876504bc83c8a4a35f7ef02f9e36faa1c"
+              "sha256": "9da2164853ab1c891ec20a3e780b2fef071a96f41ecc9eb6bebff33b8cf5dee8"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6485,7 +6485,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/cp/nw-spent-4x.png",
-              "sha256": "eac90470ea0798f1a34f59bbe0ca442a07144b3698c8a9cb0fe2e23127555d0b"
+              "sha256": "9062ee5f1fe83b3bf1924e019442a17cfc8de3b838158f297f97b124ac9ddcd1"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6524,7 +6524,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/n-spent-4x.png",
-              "sha256": "596afada06127f76c165227dc826ff27e3f1528e9e0c0efc69182fd1f3d8065c"
+              "sha256": "62ec8c012ab6aef412d8fa01cc2ec92234b2650fb43b165c01cc865129462588"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6555,7 +6555,7 @@
             "width": 952
           },
           "path": "scenes/grass_w-spent-p1-4x.png",
-          "sha256": "b4186f5e2283b1e4ac35ac4b70cdbf91bbd26339c73edb8b15c1e72dc6af1469"
+          "sha256": "33584ba537e41b8fd10b6581653171ba438de3557b706aae950b7c8f512a43da"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -6593,7 +6593,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/neutral/n-normal-2x.png",
-              "sha256": "d7a1f3d63d1040f4a4486626700aafd8b4ad656535c44541d219cc2ad4d9f88e"
+              "sha256": "f1c1129db7501a23e60db12361acf67305ebe15f62f7f0ec2b60bd2f9c03a692"
             },
             "state": "normal",
             "terrain": "mud",
@@ -6632,7 +6632,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/ne-normal-2x.png",
-              "sha256": "ff79962432f5757ca36b5f26f70347197b37279279222dba7c913b6b70ac3c80"
+              "sha256": "d4ecc3930bc52431dc31a711e1220e204ec7d2708e09f46177334e5dc17fd540"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6671,7 +6671,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/se-normal-2x.png",
-              "sha256": "9570af0cc524edfe094106433a0d63e22fa1710fb4c1b9c318fb2d9cb3b29a33"
+              "sha256": "3099feda6ccbae3b5aa41c2bea5909809153548c94a12a1c269e452adbda54ca"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6710,7 +6710,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/cp/s-normal-2x.png",
-              "sha256": "4e9dc20ee24bacf93e54d319ba16997558b82bc03df89eb42872a3352858cd75"
+              "sha256": "f610b51e985af19e64b6e1d02fa96bf225a6c7046db6a31bfc4547a003daab4b"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6749,7 +6749,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/sw-normal-2x.png",
-              "sha256": "0e4caacae5ceb52b6852a51d7589ba2af499c64c8281d3f76d8e9ed38ece0b9f"
+              "sha256": "de2ab85d7e0da734c96a8b45f3be427cc14c7dc713104cee344c2576e42bb97d"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6788,7 +6788,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/cp/nw-normal-2x.png",
-              "sha256": "8133f660eb983cd8e8a66dfb0e7bc85d1618b0feba1807ab1660d50b2c8c601f"
+              "sha256": "486b5685461c29b7ad64625073d020949e45efac24590539d4922608f3a081bd"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6827,7 +6827,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/n-normal-2x.png",
-              "sha256": "bd38369eeb3705b173f6d4cd10fa78e9ed7adb4f87e95efe5af85ac36b9f0999"
+              "sha256": "100c481898f7591595fb9aaa37b387256b174cd20f57a52eae9b09ad06e39236"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6858,7 +6858,7 @@
             "width": 476
           },
           "path": "scenes/mud-normal-p0-2x.png",
-          "sha256": "75c1d4e5abcfd02b9370655a61b7c81bad0d9ef042dc190986d1a3b4519af13d"
+          "sha256": "247705eb7fc086c307b2d1075cf0f074608a2db2ac52f164f1b814393da1fa0c"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -6896,7 +6896,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/neutral/n-normal-4x.png",
-              "sha256": "d92fd61b7b0f3abfc0c3b316a3bcd54010d32f48e5e4d5f3ca223b7072f7d50a"
+              "sha256": "b1c2be187e524f50f06a40465029668f75c282a74984fa5c96d4367bd0eff751"
             },
             "state": "normal",
             "terrain": "mud",
@@ -6935,7 +6935,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/ne-normal-4x.png",
-              "sha256": "b3c685bbc882aedf3581fa25fa167f3d77fdb619f5f1b6559b7b77eae25b6219"
+              "sha256": "5f7a77fea4c7728131f32052f7e64ba5d8d9b3d16a80b305aeb9abc4399c63a1"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6974,7 +6974,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/se-normal-4x.png",
-              "sha256": "25e0b28e089b0265df791f87764e98055ae35617569758add9274b57134744e0"
+              "sha256": "3da07df6fd73c97af4df75d901babc8c0b81759e1d95e385d79897140fac39de"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7013,7 +7013,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/cp/s-normal-4x.png",
-              "sha256": "cc99d90424747aa3b5f5b7365ac415f89c930d342a56f23f2aca6e3233687196"
+              "sha256": "c38876399f27ffc328fa4b485a51ee25dc3c58abd55616d1b37b62be6a8e24dc"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7052,7 +7052,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/sw-normal-4x.png",
-              "sha256": "f6606179615a145c5f3e6fb3bd01131920e9eabc7dd9f2660e53b8aeedaf7dc8"
+              "sha256": "74179cd821f53cf74a2287cf19f2c45ae34b5e63a7643cc72465aa76e9b53f06"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7091,7 +7091,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/cp/nw-normal-4x.png",
-              "sha256": "91ea0b54849cc57a651465110a72e071a0c17e5030f110e935f890ece6b061a5"
+              "sha256": "e372a09f295e8ce6728b8882fed843ba05fb158ac0f551d0833941c0ac862804"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7130,7 +7130,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/n-normal-4x.png",
-              "sha256": "a9ae30773e308c1c7bb67700f1c4f2c3fc71e2b7690fd11e6f788c2e89bbbf40"
+              "sha256": "d7f18cdc1344fb1ceceeda370e47948b132166d2caac027effcff0cb1468268b"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7161,7 +7161,7 @@
             "width": 952
           },
           "path": "scenes/mud-normal-p0-4x.png",
-          "sha256": "72b5532a72241d1b79b413fa7e0d12fd2359c0017234982107b0fba72e028e1f"
+          "sha256": "89e431c21e401919c3c8874f7291f52cbc0f8832f3ee3c00407ccf1f4ec36fb7"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -7199,7 +7199,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/neutral/n-normal-2x.png",
-              "sha256": "d7a1f3d63d1040f4a4486626700aafd8b4ad656535c44541d219cc2ad4d9f88e"
+              "sha256": "f1c1129db7501a23e60db12361acf67305ebe15f62f7f0ec2b60bd2f9c03a692"
             },
             "state": "normal",
             "terrain": "mud",
@@ -7238,7 +7238,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/ne-normal-2x.png",
-              "sha256": "ff79962432f5757ca36b5f26f70347197b37279279222dba7c913b6b70ac3c80"
+              "sha256": "d4ecc3930bc52431dc31a711e1220e204ec7d2708e09f46177334e5dc17fd540"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7277,7 +7277,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/se-normal-2x.png",
-              "sha256": "9570af0cc524edfe094106433a0d63e22fa1710fb4c1b9c318fb2d9cb3b29a33"
+              "sha256": "3099feda6ccbae3b5aa41c2bea5909809153548c94a12a1c269e452adbda54ca"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7316,7 +7316,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/cp/s-normal-2x.png",
-              "sha256": "4e9dc20ee24bacf93e54d319ba16997558b82bc03df89eb42872a3352858cd75"
+              "sha256": "f610b51e985af19e64b6e1d02fa96bf225a6c7046db6a31bfc4547a003daab4b"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7355,7 +7355,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/sw-normal-2x.png",
-              "sha256": "0e4caacae5ceb52b6852a51d7589ba2af499c64c8281d3f76d8e9ed38ece0b9f"
+              "sha256": "de2ab85d7e0da734c96a8b45f3be427cc14c7dc713104cee344c2576e42bb97d"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7394,7 +7394,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/cp/nw-normal-2x.png",
-              "sha256": "8133f660eb983cd8e8a66dfb0e7bc85d1618b0feba1807ab1660d50b2c8c601f"
+              "sha256": "486b5685461c29b7ad64625073d020949e45efac24590539d4922608f3a081bd"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7433,7 +7433,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/n-normal-2x.png",
-              "sha256": "bd38369eeb3705b173f6d4cd10fa78e9ed7adb4f87e95efe5af85ac36b9f0999"
+              "sha256": "100c481898f7591595fb9aaa37b387256b174cd20f57a52eae9b09ad06e39236"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7464,7 +7464,7 @@
             "width": 476
           },
           "path": "scenes/mud-normal-p1-2x.png",
-          "sha256": "75c1d4e5abcfd02b9370655a61b7c81bad0d9ef042dc190986d1a3b4519af13d"
+          "sha256": "247705eb7fc086c307b2d1075cf0f074608a2db2ac52f164f1b814393da1fa0c"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -7502,7 +7502,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/neutral/n-normal-4x.png",
-              "sha256": "d92fd61b7b0f3abfc0c3b316a3bcd54010d32f48e5e4d5f3ca223b7072f7d50a"
+              "sha256": "b1c2be187e524f50f06a40465029668f75c282a74984fa5c96d4367bd0eff751"
             },
             "state": "normal",
             "terrain": "mud",
@@ -7541,7 +7541,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/ne-normal-4x.png",
-              "sha256": "b3c685bbc882aedf3581fa25fa167f3d77fdb619f5f1b6559b7b77eae25b6219"
+              "sha256": "5f7a77fea4c7728131f32052f7e64ba5d8d9b3d16a80b305aeb9abc4399c63a1"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7580,7 +7580,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/se-normal-4x.png",
-              "sha256": "25e0b28e089b0265df791f87764e98055ae35617569758add9274b57134744e0"
+              "sha256": "3da07df6fd73c97af4df75d901babc8c0b81759e1d95e385d79897140fac39de"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7619,7 +7619,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/cp/s-normal-4x.png",
-              "sha256": "cc99d90424747aa3b5f5b7365ac415f89c930d342a56f23f2aca6e3233687196"
+              "sha256": "c38876399f27ffc328fa4b485a51ee25dc3c58abd55616d1b37b62be6a8e24dc"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7658,7 +7658,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/sw-normal-4x.png",
-              "sha256": "f6606179615a145c5f3e6fb3bd01131920e9eabc7dd9f2660e53b8aeedaf7dc8"
+              "sha256": "74179cd821f53cf74a2287cf19f2c45ae34b5e63a7643cc72465aa76e9b53f06"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7697,7 +7697,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/cp/nw-normal-4x.png",
-              "sha256": "91ea0b54849cc57a651465110a72e071a0c17e5030f110e935f890ece6b061a5"
+              "sha256": "e372a09f295e8ce6728b8882fed843ba05fb158ac0f551d0833941c0ac862804"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7736,7 +7736,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/n-normal-4x.png",
-              "sha256": "a9ae30773e308c1c7bb67700f1c4f2c3fc71e2b7690fd11e6f788c2e89bbbf40"
+              "sha256": "d7f18cdc1344fb1ceceeda370e47948b132166d2caac027effcff0cb1468268b"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7767,7 +7767,7 @@
             "width": 952
           },
           "path": "scenes/mud-normal-p1-4x.png",
-          "sha256": "72b5532a72241d1b79b413fa7e0d12fd2359c0017234982107b0fba72e028e1f"
+          "sha256": "89e431c21e401919c3c8874f7291f52cbc0f8832f3ee3c00407ccf1f4ec36fb7"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -7805,7 +7805,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/neutral/n-spent-2x.png",
-              "sha256": "9dbc70b445bec4f618f994cd809f3005a77c2b11fb5dc808216bdedd4c010e52"
+              "sha256": "52fc4f7b28074ddc52fd64e49b827be59c9819c6823594f66439350ca5cd7e5d"
             },
             "state": "spent",
             "terrain": "mud",
@@ -7844,7 +7844,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/ne-spent-2x.png",
-              "sha256": "72126c4055f96b5d10ba4af7ab496462a2c67c331bd56d8579519043bb88cf6d"
+              "sha256": "99fe51f01a28bb01e5b409ec0620d63a34fe5388fa5cedf9601a1d3276bd1c19"
             },
             "state": "spent",
             "terrain": "grass",
@@ -7883,7 +7883,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/se-spent-2x.png",
-              "sha256": "d5b5aba24b9e85b82980d478c3ee0052a68ea01a0abfd49b3edce1f0a0905db2"
+              "sha256": "9b67be688788a693228b79d6aa3b8c154fe2f47d1467dc816881c18f855d18f1"
             },
             "state": "spent",
             "terrain": "grass",
@@ -7922,7 +7922,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/cp/s-spent-2x.png",
-              "sha256": "afdd36192f5bf79f935209f52733db3a8766e1bad9780de0cbaa635ebabd0772"
+              "sha256": "3c32540019d464c84110081d264502e76fcd426ebca86d2fde8a764c3f0894f8"
             },
             "state": "spent",
             "terrain": "grass",
@@ -7961,7 +7961,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/sw-spent-2x.png",
-              "sha256": "757fd4f2c0a0ef32c6cca073a16b3922871e268704fcb40fc830f39011325b36"
+              "sha256": "0fdd80a8f0cdd15b6e48b9ab5be745e3ac498fb172dfc4d0d09236bd89982c4c"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8000,7 +8000,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/cp/nw-spent-2x.png",
-              "sha256": "ba3c964067a74811da346f639d2b29e5c2b3671549b218b69a2f2cfb4abbcbe3"
+              "sha256": "14cf24e5eb5097fcfa25e2271842d308fa3fb41b25ac5c9fa87276e8376b3d01"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8039,7 +8039,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/n-spent-2x.png",
-              "sha256": "47a27518e8192b0f97873116b7f7473ef35193e7816914bc1beac581fa97bda0"
+              "sha256": "ea18b80d2edfa62fa31aead54d2ffa4bc69fe9b089d711635a47209c662b6860"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8070,7 +8070,7 @@
             "width": 476
           },
           "path": "scenes/mud-spent-p0-2x.png",
-          "sha256": "3a122abb125bc281f9610f33ba34f1fed04eeba82f06c4b31977d8039574ae97"
+          "sha256": "ea10af4ac75869e0a2327f8ddbc1656d6b6c0aafd1880b22b827a449558a0e11"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -8108,7 +8108,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/neutral/n-spent-4x.png",
-              "sha256": "9f7cc89e5794768cd6a3361f1b8e2b7084778e6db6fe4ac7f93fb2e9d86d2b9e"
+              "sha256": "6aedcf2c8067f4fbf4bb4ae48be58147bb2303ce305ac30649db5a8402df7152"
             },
             "state": "spent",
             "terrain": "mud",
@@ -8147,7 +8147,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/ne-spent-4x.png",
-              "sha256": "986e97aee323f05bb89aceedb25071dc63c8c11ca1065f7aa3d58592b78d3b8b"
+              "sha256": "67f38470bdd5872e3eb7860f4cbcd246f103a627648ff800c3aa0858a7a80d66"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8186,7 +8186,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/se-spent-4x.png",
-              "sha256": "a1c86258b17f31a468de885d2cc76b7f3785c3dd61a60cd68e97ddf3d43a44a6"
+              "sha256": "3dee8ccca13ca4b5c6d08eb2bb50e72cf34d410a44b9e99b3319a35f3897fcb2"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8225,7 +8225,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/cp/s-spent-4x.png",
-              "sha256": "9618ed7100e74a7473359b9b5f72d149a50ebaa861e4bc8245394a55e606b762"
+              "sha256": "5446045b6db0019f4fb711e05efd358deda919419be9cdc1ac3908b67534cb6e"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8264,7 +8264,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/sw-spent-4x.png",
-              "sha256": "8095a3590dbcdaf73c56abcc0f84167876504bc83c8a4a35f7ef02f9e36faa1c"
+              "sha256": "9da2164853ab1c891ec20a3e780b2fef071a96f41ecc9eb6bebff33b8cf5dee8"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8303,7 +8303,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/cp/nw-spent-4x.png",
-              "sha256": "eac90470ea0798f1a34f59bbe0ca442a07144b3698c8a9cb0fe2e23127555d0b"
+              "sha256": "9062ee5f1fe83b3bf1924e019442a17cfc8de3b838158f297f97b124ac9ddcd1"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8342,7 +8342,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/n-spent-4x.png",
-              "sha256": "596afada06127f76c165227dc826ff27e3f1528e9e0c0efc69182fd1f3d8065c"
+              "sha256": "62ec8c012ab6aef412d8fa01cc2ec92234b2650fb43b165c01cc865129462588"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8373,7 +8373,7 @@
             "width": 952
           },
           "path": "scenes/mud-spent-p0-4x.png",
-          "sha256": "3d83cc1a5a772de879680d402f70bb770607ad3f00d7159a44befd3043b9522e"
+          "sha256": "057a419eef24a3bfd80487123c2377829e551207dc4873363c891e378200752f"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -8411,7 +8411,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/neutral/n-spent-2x.png",
-              "sha256": "9dbc70b445bec4f618f994cd809f3005a77c2b11fb5dc808216bdedd4c010e52"
+              "sha256": "52fc4f7b28074ddc52fd64e49b827be59c9819c6823594f66439350ca5cd7e5d"
             },
             "state": "spent",
             "terrain": "mud",
@@ -8450,7 +8450,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/ne-spent-2x.png",
-              "sha256": "72126c4055f96b5d10ba4af7ab496462a2c67c331bd56d8579519043bb88cf6d"
+              "sha256": "99fe51f01a28bb01e5b409ec0620d63a34fe5388fa5cedf9601a1d3276bd1c19"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8489,7 +8489,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/se-spent-2x.png",
-              "sha256": "d5b5aba24b9e85b82980d478c3ee0052a68ea01a0abfd49b3edce1f0a0905db2"
+              "sha256": "9b67be688788a693228b79d6aa3b8c154fe2f47d1467dc816881c18f855d18f1"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8528,7 +8528,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/cp/s-spent-2x.png",
-              "sha256": "afdd36192f5bf79f935209f52733db3a8766e1bad9780de0cbaa635ebabd0772"
+              "sha256": "3c32540019d464c84110081d264502e76fcd426ebca86d2fde8a764c3f0894f8"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8567,7 +8567,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/sw-spent-2x.png",
-              "sha256": "757fd4f2c0a0ef32c6cca073a16b3922871e268704fcb40fc830f39011325b36"
+              "sha256": "0fdd80a8f0cdd15b6e48b9ab5be745e3ac498fb172dfc4d0d09236bd89982c4c"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8606,7 +8606,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/cp/nw-spent-2x.png",
-              "sha256": "ba3c964067a74811da346f639d2b29e5c2b3671549b218b69a2f2cfb4abbcbe3"
+              "sha256": "14cf24e5eb5097fcfa25e2271842d308fa3fb41b25ac5c9fa87276e8376b3d01"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8645,7 +8645,7 @@
                 "width": 192
               },
               "path": "sprites/transportTrain/ec/n-spent-2x.png",
-              "sha256": "47a27518e8192b0f97873116b7f7473ef35193e7816914bc1beac581fa97bda0"
+              "sha256": "ea18b80d2edfa62fa31aead54d2ffa4bc69fe9b089d711635a47209c662b6860"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8676,7 +8676,7 @@
             "width": 476
           },
           "path": "scenes/mud-spent-p1-2x.png",
-          "sha256": "3a122abb125bc281f9610f33ba34f1fed04eeba82f06c4b31977d8039574ae97"
+          "sha256": "ea10af4ac75869e0a2327f8ddbc1656d6b6c0aafd1880b22b827a449558a0e11"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -8714,7 +8714,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/neutral/n-spent-4x.png",
-              "sha256": "9f7cc89e5794768cd6a3361f1b8e2b7084778e6db6fe4ac7f93fb2e9d86d2b9e"
+              "sha256": "6aedcf2c8067f4fbf4bb4ae48be58147bb2303ce305ac30649db5a8402df7152"
             },
             "state": "spent",
             "terrain": "mud",
@@ -8753,7 +8753,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/ne-spent-4x.png",
-              "sha256": "986e97aee323f05bb89aceedb25071dc63c8c11ca1065f7aa3d58592b78d3b8b"
+              "sha256": "67f38470bdd5872e3eb7860f4cbcd246f103a627648ff800c3aa0858a7a80d66"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8792,7 +8792,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/se-spent-4x.png",
-              "sha256": "a1c86258b17f31a468de885d2cc76b7f3785c3dd61a60cd68e97ddf3d43a44a6"
+              "sha256": "3dee8ccca13ca4b5c6d08eb2bb50e72cf34d410a44b9e99b3319a35f3897fcb2"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8831,7 +8831,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/cp/s-spent-4x.png",
-              "sha256": "9618ed7100e74a7473359b9b5f72d149a50ebaa861e4bc8245394a55e606b762"
+              "sha256": "5446045b6db0019f4fb711e05efd358deda919419be9cdc1ac3908b67534cb6e"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8870,7 +8870,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/sw-spent-4x.png",
-              "sha256": "8095a3590dbcdaf73c56abcc0f84167876504bc83c8a4a35f7ef02f9e36faa1c"
+              "sha256": "9da2164853ab1c891ec20a3e780b2fef071a96f41ecc9eb6bebff33b8cf5dee8"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8909,7 +8909,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/cp/nw-spent-4x.png",
-              "sha256": "eac90470ea0798f1a34f59bbe0ca442a07144b3698c8a9cb0fe2e23127555d0b"
+              "sha256": "9062ee5f1fe83b3bf1924e019442a17cfc8de3b838158f297f97b124ac9ddcd1"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8948,7 +8948,7 @@
                 "width": 384
               },
               "path": "sprites/transportTrain/ec/n-spent-4x.png",
-              "sha256": "596afada06127f76c165227dc826ff27e3f1528e9e0c0efc69182fd1f3d8065c"
+              "sha256": "62ec8c012ab6aef412d8fa01cc2ec92234b2650fb43b165c01cc865129462588"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8979,7 +8979,7 @@
             "width": 952
           },
           "path": "scenes/mud-spent-p1-4x.png",
-          "sha256": "3d83cc1a5a772de879680d402f70bb770607ad3f00d7159a44befd3043b9522e"
+          "sha256": "057a419eef24a3bfd80487123c2377829e551207dc4873363c891e378200752f"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -9004,7 +9004,7 @@
             "width": 1152
           },
           "path": "sheets/transportTrain-white-2x.png",
-          "sha256": "73eb8e042e1ae9de28e781358797de68a5ce527ba5f56c471129ca5c6f33a120"
+          "sha256": "4309e3f973e713cc542fb7a5070098c805f3339fcd1cf4c5df52016429593078"
         },
         "rows": [
           "n",
@@ -9032,7 +9032,7 @@
             "width": 2304
           },
           "path": "sheets/transportTrain-white-4x.png",
-          "sha256": "ca01f36d5646394ab71ef3eeaf19c7a038411aed2010df32081bdfc0015f1537"
+          "sha256": "d837bc9e9e31103e5bf50fb000b1bea618f86117e3039f07a52276374fe2c88b"
         },
         "rows": [
           "n",
@@ -9060,7 +9060,7 @@
             "width": 1152
           },
           "path": "sheets/transportTrain-checker-2x.png",
-          "sha256": "32ad4bca1139ff10b9aaae3ede4ea18a5e2e7e34ca75026ed0cace9d1f78581a"
+          "sha256": "39790a0fa96a2d70aac785bde72217d6edc15c8c14fa3c01aa8d9ed823910ba0"
         },
         "rows": [
           "n",
@@ -9088,7 +9088,7 @@
             "width": 2304
           },
           "path": "sheets/transportTrain-checker-4x.png",
-          "sha256": "8579f56df692b882f0a965ce9139eac5e74f8d1f526c6764f72926aba224cf5c"
+          "sha256": "062281948149af6431136ec740b1e24dd76d7d18693dbb885f7f0fd4fa83cf72"
         },
         "rows": [
           "n",
@@ -9138,7 +9138,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/cp/n-normal-2x.png",
-            "sha256": "dace0d6fca6e134c293b9e3b8c03337a7a3e4ceeee3d45b7d07a9bc441d7bd9b"
+            "sha256": "2d94ea7e6ab96f1fd5ce4a3944021dc0a3d77c16a12ebeaeee8b45771999c2f7"
           },
           {
             "dimensions": {
@@ -9146,7 +9146,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/cp/n-normal-4x.png",
-            "sha256": "ca1c071365236f3bf8ead10f8003ec288d3c672d7d701f078b4a4d44583a79d7"
+            "sha256": "ec2d8dc06cc01c930415acddcc6fe746c9aa5b2204540b8fc78472279b47ab2f"
           }
         ],
         "palette": "cp",
@@ -9188,7 +9188,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/cp/n-spent-2x.png",
-            "sha256": "8178ac1fea2f55b63033814c8ec9ec74611306f706ab8c273d43d87d0be696e0"
+            "sha256": "779484af014c671c0da113691129ae7d331eecfa0a663a6e76edb9c0c011a344"
           },
           {
             "dimensions": {
@@ -9196,7 +9196,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/cp/n-spent-4x.png",
-            "sha256": "2fb2f1a549d9ddce3ff025896bf38f1adefcb97dec9cb3c00b98c07d7c5daebb"
+            "sha256": "b3659b61f8718997d7f29f1be3ecaf1f17da26f616ef8902434d9a7e10663551"
           }
         ],
         "palette": "cp",
@@ -9238,7 +9238,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/ec/n-normal-2x.png",
-            "sha256": "bd38369eeb3705b173f6d4cd10fa78e9ed7adb4f87e95efe5af85ac36b9f0999"
+            "sha256": "100c481898f7591595fb9aaa37b387256b174cd20f57a52eae9b09ad06e39236"
           },
           {
             "dimensions": {
@@ -9246,7 +9246,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/ec/n-normal-4x.png",
-            "sha256": "a9ae30773e308c1c7bb67700f1c4f2c3fc71e2b7690fd11e6f788c2e89bbbf40"
+            "sha256": "d7f18cdc1344fb1ceceeda370e47948b132166d2caac027effcff0cb1468268b"
           }
         ],
         "palette": "ec",
@@ -9288,7 +9288,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/ec/n-spent-2x.png",
-            "sha256": "47a27518e8192b0f97873116b7f7473ef35193e7816914bc1beac581fa97bda0"
+            "sha256": "ea18b80d2edfa62fa31aead54d2ffa4bc69fe9b089d711635a47209c662b6860"
           },
           {
             "dimensions": {
@@ -9296,7 +9296,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/ec/n-spent-4x.png",
-            "sha256": "596afada06127f76c165227dc826ff27e3f1528e9e0c0efc69182fd1f3d8065c"
+            "sha256": "62ec8c012ab6aef412d8fa01cc2ec92234b2650fb43b165c01cc865129462588"
           }
         ],
         "palette": "ec",
@@ -9338,7 +9338,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/neutral/n-normal-2x.png",
-            "sha256": "d7a1f3d63d1040f4a4486626700aafd8b4ad656535c44541d219cc2ad4d9f88e"
+            "sha256": "f1c1129db7501a23e60db12361acf67305ebe15f62f7f0ec2b60bd2f9c03a692"
           },
           {
             "dimensions": {
@@ -9346,7 +9346,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/neutral/n-normal-4x.png",
-            "sha256": "d92fd61b7b0f3abfc0c3b316a3bcd54010d32f48e5e4d5f3ca223b7072f7d50a"
+            "sha256": "b1c2be187e524f50f06a40465029668f75c282a74984fa5c96d4367bd0eff751"
           }
         ],
         "palette": "neutral",
@@ -9388,7 +9388,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/neutral/n-spent-2x.png",
-            "sha256": "9dbc70b445bec4f618f994cd809f3005a77c2b11fb5dc808216bdedd4c010e52"
+            "sha256": "52fc4f7b28074ddc52fd64e49b827be59c9819c6823594f66439350ca5cd7e5d"
           },
           {
             "dimensions": {
@@ -9396,7 +9396,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/neutral/n-spent-4x.png",
-            "sha256": "9f7cc89e5794768cd6a3361f1b8e2b7084778e6db6fe4ac7f93fb2e9d86d2b9e"
+            "sha256": "6aedcf2c8067f4fbf4bb4ae48be58147bb2303ce305ac30649db5a8402df7152"
           }
         ],
         "palette": "neutral",
@@ -9438,7 +9438,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/cp/nw-normal-2x.png",
-            "sha256": "8133f660eb983cd8e8a66dfb0e7bc85d1618b0feba1807ab1660d50b2c8c601f"
+            "sha256": "486b5685461c29b7ad64625073d020949e45efac24590539d4922608f3a081bd"
           },
           {
             "dimensions": {
@@ -9446,7 +9446,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/cp/nw-normal-4x.png",
-            "sha256": "91ea0b54849cc57a651465110a72e071a0c17e5030f110e935f890ece6b061a5"
+            "sha256": "e372a09f295e8ce6728b8882fed843ba05fb158ac0f551d0833941c0ac862804"
           }
         ],
         "palette": "cp",
@@ -9488,7 +9488,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/cp/nw-spent-2x.png",
-            "sha256": "ba3c964067a74811da346f639d2b29e5c2b3671549b218b69a2f2cfb4abbcbe3"
+            "sha256": "14cf24e5eb5097fcfa25e2271842d308fa3fb41b25ac5c9fa87276e8376b3d01"
           },
           {
             "dimensions": {
@@ -9496,7 +9496,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/cp/nw-spent-4x.png",
-            "sha256": "eac90470ea0798f1a34f59bbe0ca442a07144b3698c8a9cb0fe2e23127555d0b"
+            "sha256": "9062ee5f1fe83b3bf1924e019442a17cfc8de3b838158f297f97b124ac9ddcd1"
           }
         ],
         "palette": "cp",
@@ -9538,7 +9538,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/ec/nw-normal-2x.png",
-            "sha256": "5b0be50a1f5217bb653312b4a70dfc1a1ef3cb1e77c2279f93911c96b9e6cdaf"
+            "sha256": "a727f2b48f86043c216df076f46d0c9f2879a62cefd222f75db4be9a617e1491"
           },
           {
             "dimensions": {
@@ -9546,7 +9546,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/ec/nw-normal-4x.png",
-            "sha256": "792a5d8558d1b32f0718766df671f4b0ba7524f6b851d2ef87e594dd07ac47eb"
+            "sha256": "6784f8b83d80ab9cffb2baa6c6361765561e0034a4c8a32ea4b9c892174a5b88"
           }
         ],
         "palette": "ec",
@@ -9588,7 +9588,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/ec/nw-spent-2x.png",
-            "sha256": "4631c1ee14f3d37b06567a3c3c4b9147213aae4f741061f0d4662969f2db8a7a"
+            "sha256": "92e2db2cbec4ef4a50717685c169943274ffa89214f03f6181f8b38cd7c3de42"
           },
           {
             "dimensions": {
@@ -9596,7 +9596,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/ec/nw-spent-4x.png",
-            "sha256": "c78e0f53bb4bbec32c3b531ddc6a2af4e7410d81300159360a72d85098a79bd4"
+            "sha256": "b11da0f9531641dff5b5553e36dd1ba246c56cf12145a836c266a2cff96b4d75"
           }
         ],
         "palette": "ec",
@@ -9638,7 +9638,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/neutral/nw-normal-2x.png",
-            "sha256": "57d2a6888eb5479e1b155e30a9148d237573cedb0683730425fdec3aaef1b4a2"
+            "sha256": "96de1b26d40c27d7074257005bd53be590e00788ebed2f2ab92f7696df3a8d25"
           },
           {
             "dimensions": {
@@ -9646,7 +9646,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/neutral/nw-normal-4x.png",
-            "sha256": "f7720065d67a655459480c6a6ef45235739890e7f2bea7ce38ea77e4c87ff990"
+            "sha256": "e11f73d744ff00d62c742bdb191b21c992e112b2f2c2385db6653d9e4c448992"
           }
         ],
         "palette": "neutral",
@@ -9688,7 +9688,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/neutral/nw-spent-2x.png",
-            "sha256": "0d29ee844f00f7215fd5732de507e68ec24464ab3601d78c6c979e1aecf84b70"
+            "sha256": "4c33d52c48a67f8de26e83aff26802dcc2c181ad7569c9c5d4c1217dc35f551e"
           },
           {
             "dimensions": {
@@ -9696,7 +9696,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/neutral/nw-spent-4x.png",
-            "sha256": "0fdde208cbbd432ef9ca6b5e0e35b01036ae82e153ecd9136f81b1b0b6c6f8a4"
+            "sha256": "862337919faecdc38c80bf61d336377f3dccc1422b86a15452eb66e9337ccf0d"
           }
         ],
         "palette": "neutral",
@@ -9738,7 +9738,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/cp/sw-normal-2x.png",
-            "sha256": "41c86ad81e77f9372d639488e3664dd2ce380523cb582d575d50a04d21d0f9bd"
+            "sha256": "286223a385450569fc833fc6f60f375eee7042a79f9f5acefd7a278c78d8bb34"
           },
           {
             "dimensions": {
@@ -9746,7 +9746,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/cp/sw-normal-4x.png",
-            "sha256": "f1fb960f2f990921a0743787199ae762a8de961ad635a8bf72bdcec8d6d6426c"
+            "sha256": "a66dfd7f8f6e26cc995317556aad7c8cf395c7f4c39c512a9302176f67aee425"
           }
         ],
         "palette": "cp",
@@ -9788,7 +9788,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/cp/sw-spent-2x.png",
-            "sha256": "bebe30f07db7e6a38254cd17925f1cd66b69ff96614126dcaeb677610e2dfc82"
+            "sha256": "f357de524cf2cccbdf3caf418bb2e7f2b4c27fc239882f78ccfd9477cafda634"
           },
           {
             "dimensions": {
@@ -9796,7 +9796,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/cp/sw-spent-4x.png",
-            "sha256": "1a1f3a9ac888951dbd2b144b444d24b80f32ed762adcfd56505f71cd69475d06"
+            "sha256": "eca630ef2936da5919dde5c923798c67a76c9490ec4cd7fb04dcd54c36dcbc35"
           }
         ],
         "palette": "cp",
@@ -9838,7 +9838,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/ec/sw-normal-2x.png",
-            "sha256": "0e4caacae5ceb52b6852a51d7589ba2af499c64c8281d3f76d8e9ed38ece0b9f"
+            "sha256": "de2ab85d7e0da734c96a8b45f3be427cc14c7dc713104cee344c2576e42bb97d"
           },
           {
             "dimensions": {
@@ -9846,7 +9846,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/ec/sw-normal-4x.png",
-            "sha256": "f6606179615a145c5f3e6fb3bd01131920e9eabc7dd9f2660e53b8aeedaf7dc8"
+            "sha256": "74179cd821f53cf74a2287cf19f2c45ae34b5e63a7643cc72465aa76e9b53f06"
           }
         ],
         "palette": "ec",
@@ -9888,7 +9888,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/ec/sw-spent-2x.png",
-            "sha256": "757fd4f2c0a0ef32c6cca073a16b3922871e268704fcb40fc830f39011325b36"
+            "sha256": "0fdd80a8f0cdd15b6e48b9ab5be745e3ac498fb172dfc4d0d09236bd89982c4c"
           },
           {
             "dimensions": {
@@ -9896,7 +9896,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/ec/sw-spent-4x.png",
-            "sha256": "8095a3590dbcdaf73c56abcc0f84167876504bc83c8a4a35f7ef02f9e36faa1c"
+            "sha256": "9da2164853ab1c891ec20a3e780b2fef071a96f41ecc9eb6bebff33b8cf5dee8"
           }
         ],
         "palette": "ec",
@@ -9938,7 +9938,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/neutral/sw-normal-2x.png",
-            "sha256": "37aac9086466ae248eb8d05f73e4c60bb724ee02195820e6cd102062d1474c4c"
+            "sha256": "3342cc8185c166cc4de4ed1f9e66efa27140af52853bc422cf280ad804559df0"
           },
           {
             "dimensions": {
@@ -9946,7 +9946,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/neutral/sw-normal-4x.png",
-            "sha256": "99da29908e5ee20955dc12611e1fa60571684d41bfdf46e14ef54c8563132c2e"
+            "sha256": "e6cf3e2072795f377a81328d08c3cce9c26dcc2b25c6e84af98e5cbe83e5ea6b"
           }
         ],
         "palette": "neutral",
@@ -9988,7 +9988,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/neutral/sw-spent-2x.png",
-            "sha256": "4c24e1c6f7d8991745e6d3e09a4e3d6b17865ff7dbd1a1fe284f92a4b3a03b9c"
+            "sha256": "bfb4a3467876bd229634f34aa93a90b4d979b5a245106012a6e4a16bceefb4f3"
           },
           {
             "dimensions": {
@@ -9996,7 +9996,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/neutral/sw-spent-4x.png",
-            "sha256": "824df39f442ef4acba1aa7ff9e9ed47a59a520cfa902347f8efa03605dfbf11a"
+            "sha256": "9f96a81879052e87323f1b2fc7c08d73c1e5d8dbeb88234c33578e23d5506e98"
           }
         ],
         "palette": "neutral",
@@ -10038,7 +10038,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/cp/s-normal-2x.png",
-            "sha256": "4e9dc20ee24bacf93e54d319ba16997558b82bc03df89eb42872a3352858cd75"
+            "sha256": "f610b51e985af19e64b6e1d02fa96bf225a6c7046db6a31bfc4547a003daab4b"
           },
           {
             "dimensions": {
@@ -10046,7 +10046,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/cp/s-normal-4x.png",
-            "sha256": "cc99d90424747aa3b5f5b7365ac415f89c930d342a56f23f2aca6e3233687196"
+            "sha256": "c38876399f27ffc328fa4b485a51ee25dc3c58abd55616d1b37b62be6a8e24dc"
           }
         ],
         "palette": "cp",
@@ -10088,7 +10088,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/cp/s-spent-2x.png",
-            "sha256": "afdd36192f5bf79f935209f52733db3a8766e1bad9780de0cbaa635ebabd0772"
+            "sha256": "3c32540019d464c84110081d264502e76fcd426ebca86d2fde8a764c3f0894f8"
           },
           {
             "dimensions": {
@@ -10096,7 +10096,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/cp/s-spent-4x.png",
-            "sha256": "9618ed7100e74a7473359b9b5f72d149a50ebaa861e4bc8245394a55e606b762"
+            "sha256": "5446045b6db0019f4fb711e05efd358deda919419be9cdc1ac3908b67534cb6e"
           }
         ],
         "palette": "cp",
@@ -10138,7 +10138,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/ec/s-normal-2x.png",
-            "sha256": "967935b14dd8e741a090fdbe147e66590e0e20abdce7d0c2d4274704604e20fb"
+            "sha256": "350985c8b7ab8954ec40b731cd53ce1fafeda59fd38d84efc783a337a13d28d6"
           },
           {
             "dimensions": {
@@ -10146,7 +10146,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/ec/s-normal-4x.png",
-            "sha256": "91c1709759376f176e84c4a97cc32116792ad1516e3d1050680364baeaa8f06e"
+            "sha256": "85eaf4cea0e960952952876d852fffb1ebc9f88553f9896d0c46e8e326c380fd"
           }
         ],
         "palette": "ec",
@@ -10188,7 +10188,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/ec/s-spent-2x.png",
-            "sha256": "6bd003d927d9536af72890902331ed227b5b00984600af1b7edb878680908f35"
+            "sha256": "16dc0dc57527fd53dda21e9ece4478f2ae2f669aa3d50ca50de13811cafdfd47"
           },
           {
             "dimensions": {
@@ -10196,7 +10196,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/ec/s-spent-4x.png",
-            "sha256": "9505824fe8b0a04945c29412ce016ea7cf81a63ac6630d4def589a7c527063d1"
+            "sha256": "00794ae126bfac46aa128e07e5ca6755071e9884c1323508cb96955568b22d10"
           }
         ],
         "palette": "ec",
@@ -10238,7 +10238,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/neutral/s-normal-2x.png",
-            "sha256": "404f1e265a81452912768bd12e128293ac9b1dd8b3e743b672ef8035a252a37a"
+            "sha256": "236339068d6f85f51947c7464919bfa8b0e0e8333f24de03d06fffb810277c17"
           },
           {
             "dimensions": {
@@ -10246,7 +10246,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/neutral/s-normal-4x.png",
-            "sha256": "129c5c2a745c34d7ab14d4df3a26a03f25c259ed5c54813914b0418e6cb8d1bc"
+            "sha256": "ec28af9b5bf108eae4178600b7486342710aa21a463490b081877ac70eab7020"
           }
         ],
         "palette": "neutral",
@@ -10288,7 +10288,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/neutral/s-spent-2x.png",
-            "sha256": "0f090869eb37d6afed9a11c9d98d8e4f73d8613ab3955298f9caecc21ced89c0"
+            "sha256": "8fd97a370818e78aabf1b03b2ac971a669289ff1ea71a0b2ea0ec6bf58ec087b"
           },
           {
             "dimensions": {
@@ -10296,7 +10296,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/neutral/s-spent-4x.png",
-            "sha256": "5303f933f7f42d167780bd0b21b9b5e1482b0b3304f1641302e96265154420e7"
+            "sha256": "af68b8d3d69998dd38a4b1026c4c4a2def4ea61133af75da687c6d8599fb5efb"
           }
         ],
         "palette": "neutral",
@@ -10338,7 +10338,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/cp/se-normal-2x.png",
-            "sha256": "d5343446d54c781503ff5675ee4f87307ce2754adb25904d2085ee1e4fbebf82"
+            "sha256": "db11b9562c8529f30ef8b76dcea7b49ac0cb07e8f8260841b0c99be9c5db3225"
           },
           {
             "dimensions": {
@@ -10346,7 +10346,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/cp/se-normal-4x.png",
-            "sha256": "37942faeaee225dcbb58513d4720df6ce28a686db2dd9eaad1d8948679435bfd"
+            "sha256": "8740d89bb03f1efef42c96332a3c0d2673fb3bc77c93e7689bcaf5b642992179"
           }
         ],
         "palette": "cp",
@@ -10388,7 +10388,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/cp/se-spent-2x.png",
-            "sha256": "f979115352e4bbbdb5409e4c3cae1294d429004035ffcf39ce2901d5c10036a4"
+            "sha256": "85fb445b80ccc42ab06eabe1ca691f8ea2c82d0a9e4dcb83dabd4a599d08edab"
           },
           {
             "dimensions": {
@@ -10396,7 +10396,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/cp/se-spent-4x.png",
-            "sha256": "d3eb3b7b5692017131c7752a630d0c58fb57c92aae4f464857ee5a1e57ca3e79"
+            "sha256": "304fd918dacec44a42b15c8d06fc1a1ac7a4ddcf633ad287fbad67dbdf09c9ca"
           }
         ],
         "palette": "cp",
@@ -10438,7 +10438,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/ec/se-normal-2x.png",
-            "sha256": "9570af0cc524edfe094106433a0d63e22fa1710fb4c1b9c318fb2d9cb3b29a33"
+            "sha256": "3099feda6ccbae3b5aa41c2bea5909809153548c94a12a1c269e452adbda54ca"
           },
           {
             "dimensions": {
@@ -10446,7 +10446,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/ec/se-normal-4x.png",
-            "sha256": "25e0b28e089b0265df791f87764e98055ae35617569758add9274b57134744e0"
+            "sha256": "3da07df6fd73c97af4df75d901babc8c0b81759e1d95e385d79897140fac39de"
           }
         ],
         "palette": "ec",
@@ -10488,7 +10488,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/ec/se-spent-2x.png",
-            "sha256": "d5b5aba24b9e85b82980d478c3ee0052a68ea01a0abfd49b3edce1f0a0905db2"
+            "sha256": "9b67be688788a693228b79d6aa3b8c154fe2f47d1467dc816881c18f855d18f1"
           },
           {
             "dimensions": {
@@ -10496,7 +10496,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/ec/se-spent-4x.png",
-            "sha256": "a1c86258b17f31a468de885d2cc76b7f3785c3dd61a60cd68e97ddf3d43a44a6"
+            "sha256": "3dee8ccca13ca4b5c6d08eb2bb50e72cf34d410a44b9e99b3319a35f3897fcb2"
           }
         ],
         "palette": "ec",
@@ -10538,7 +10538,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/neutral/se-normal-2x.png",
-            "sha256": "f0b94a6c41857147365eb9d999be3af418dbe2cc9726f08fcb41869a7ea168e8"
+            "sha256": "b72ac0c6004c98b89fda0f183bce39305dd800b3c7651b03318cefb9b45b8113"
           },
           {
             "dimensions": {
@@ -10546,7 +10546,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/neutral/se-normal-4x.png",
-            "sha256": "41c3d7682df22e50fda3078b1f1827a12c25d9a0f58bbd2fc94b5e0950eef436"
+            "sha256": "adb9c393032cb83c1b1ed51f963da69463e0e70d845f176f92feabf273c1218d"
           }
         ],
         "palette": "neutral",
@@ -10588,7 +10588,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/neutral/se-spent-2x.png",
-            "sha256": "835b88281407198c8536c07885ac90240f632fecd0a9ca0c4b1363ac86821172"
+            "sha256": "823b2696efb47867576113edc4ee43d3f4efdca5f09741d33ca94680f590924b"
           },
           {
             "dimensions": {
@@ -10596,7 +10596,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/neutral/se-spent-4x.png",
-            "sha256": "b960d69a6d5afff9c698d5caa5752960e481c1884ccb5d9d664a6057ba3d3a7b"
+            "sha256": "154b77f3374f29c606ec5ff1e0d2586201ca292c8826a0227394e557101bd213"
           }
         ],
         "palette": "neutral",
@@ -10638,7 +10638,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/cp/ne-normal-2x.png",
-            "sha256": "cdc34459140b1605a885b388e3f591b4bb34046eae0c1cbdddf810329b23a338"
+            "sha256": "2c37b88cb84b10ddd3939b16620ea74405f516c7243c0105fc88b4789c2b6f4b"
           },
           {
             "dimensions": {
@@ -10646,7 +10646,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/cp/ne-normal-4x.png",
-            "sha256": "81496562804487bd44132ec48cb036c249b59585d42c77b8e68e164dde2d92af"
+            "sha256": "3facfffdc2cb44d1523a5963d99c87d61c8246b698ff9ee9155768fc59573013"
           }
         ],
         "palette": "cp",
@@ -10688,7 +10688,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/cp/ne-spent-2x.png",
-            "sha256": "5b389bfefb398056f3ff98a055df081c45fcaa8f32c39fee7cb9200f9ef89a5f"
+            "sha256": "b9f71dedcd7d0394070aa48616a360042b8180186cc90d50e69c43eda4876ca6"
           },
           {
             "dimensions": {
@@ -10696,7 +10696,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/cp/ne-spent-4x.png",
-            "sha256": "0320bda78bb7f531c50f5fcca1bbbb34979870b5170e94d687c855eda745e4bd"
+            "sha256": "ad2027c2637cb1afe4333d801fbe28f74206fa61268010d2552a58d98f573c7e"
           }
         ],
         "palette": "cp",
@@ -10738,7 +10738,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/ec/ne-normal-2x.png",
-            "sha256": "ff79962432f5757ca36b5f26f70347197b37279279222dba7c913b6b70ac3c80"
+            "sha256": "d4ecc3930bc52431dc31a711e1220e204ec7d2708e09f46177334e5dc17fd540"
           },
           {
             "dimensions": {
@@ -10746,7 +10746,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/ec/ne-normal-4x.png",
-            "sha256": "b3c685bbc882aedf3581fa25fa167f3d77fdb619f5f1b6559b7b77eae25b6219"
+            "sha256": "5f7a77fea4c7728131f32052f7e64ba5d8d9b3d16a80b305aeb9abc4399c63a1"
           }
         ],
         "palette": "ec",
@@ -10788,7 +10788,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/ec/ne-spent-2x.png",
-            "sha256": "72126c4055f96b5d10ba4af7ab496462a2c67c331bd56d8579519043bb88cf6d"
+            "sha256": "99fe51f01a28bb01e5b409ec0620d63a34fe5388fa5cedf9601a1d3276bd1c19"
           },
           {
             "dimensions": {
@@ -10796,7 +10796,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/ec/ne-spent-4x.png",
-            "sha256": "986e97aee323f05bb89aceedb25071dc63c8c11ca1065f7aa3d58592b78d3b8b"
+            "sha256": "67f38470bdd5872e3eb7860f4cbcd246f103a627648ff800c3aa0858a7a80d66"
           }
         ],
         "palette": "ec",
@@ -10838,7 +10838,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/neutral/ne-normal-2x.png",
-            "sha256": "155966b4f3866859a69b314877ef2c6c0749ff5860e1271ed6fc3b270fca6c5e"
+            "sha256": "44b91d71074fc5a391de2b066e544efcdc650c3994fd48c31ad951db83831dee"
           },
           {
             "dimensions": {
@@ -10846,7 +10846,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/neutral/ne-normal-4x.png",
-            "sha256": "19661b7095ffe6edeab1c1ca5ea00288e0974bf3355378d7fb97f877277960d9"
+            "sha256": "a10ef60f91f22ee1f284a4c965b33f7396e0cd08d7f49f69b0563370c0e12f22"
           }
         ],
         "palette": "neutral",
@@ -10888,7 +10888,7 @@
               "width": 192
             },
             "path": "sprites/transportTrain/neutral/ne-spent-2x.png",
-            "sha256": "6050833d1fa361a3c37ca2f7b86c351e82d3be46b49eaf604c1d27fa9c305f2d"
+            "sha256": "d062fe82c1c409d6d5c75d63211ff45b16f2e85cb945618fbd253086c32f0ca6"
           },
           {
             "dimensions": {
@@ -10896,7 +10896,7 @@
               "width": 384
             },
             "path": "sprites/transportTrain/neutral/ne-spent-4x.png",
-            "sha256": "e9220e57a74f808ea9f33acd2bce5b5dc34747c19f48bd08514d4dfb9d240f1c"
+            "sha256": "f5dce3a408d7b76a51ce8bd40496fe861b8a1df5c95d65961fc3ce37a722c898"
           }
         ],
         "palette": "neutral",
@@ -10949,7 +10949,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/n-normal-2x.png",
-      "sha256": "dace0d6fca6e134c293b9e3b8c03337a7a3e4ceeee3d45b7d07a9bc441d7bd9b"
+      "sha256": "2d94ea7e6ab96f1fd5ce4a3944021dc0a3d77c16a12ebeaeee8b45771999c2f7"
     },
     {
       "build_output": "sprites/transportTrain/cp/n-normal-4x.png",
@@ -10958,7 +10958,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/n-normal-4x.png",
-      "sha256": "ca1c071365236f3bf8ead10f8003ec288d3c672d7d701f078b4a4d44583a79d7"
+      "sha256": "ec2d8dc06cc01c930415acddcc6fe746c9aa5b2204540b8fc78472279b47ab2f"
     },
     {
       "build_output": "sprites/transportTrain/cp/n-spent-2x.png",
@@ -10967,7 +10967,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/n-spent-2x.png",
-      "sha256": "8178ac1fea2f55b63033814c8ec9ec74611306f706ab8c273d43d87d0be696e0"
+      "sha256": "779484af014c671c0da113691129ae7d331eecfa0a663a6e76edb9c0c011a344"
     },
     {
       "build_output": "sprites/transportTrain/cp/n-spent-4x.png",
@@ -10976,7 +10976,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/n-spent-4x.png",
-      "sha256": "2fb2f1a549d9ddce3ff025896bf38f1adefcb97dec9cb3c00b98c07d7c5daebb"
+      "sha256": "b3659b61f8718997d7f29f1be3ecaf1f17da26f616ef8902434d9a7e10663551"
     },
     {
       "build_output": "sprites/transportTrain/ec/n-normal-2x.png",
@@ -10985,7 +10985,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/n-normal-2x.png",
-      "sha256": "bd38369eeb3705b173f6d4cd10fa78e9ed7adb4f87e95efe5af85ac36b9f0999"
+      "sha256": "100c481898f7591595fb9aaa37b387256b174cd20f57a52eae9b09ad06e39236"
     },
     {
       "build_output": "sprites/transportTrain/ec/n-normal-4x.png",
@@ -10994,7 +10994,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/n-normal-4x.png",
-      "sha256": "a9ae30773e308c1c7bb67700f1c4f2c3fc71e2b7690fd11e6f788c2e89bbbf40"
+      "sha256": "d7f18cdc1344fb1ceceeda370e47948b132166d2caac027effcff0cb1468268b"
     },
     {
       "build_output": "sprites/transportTrain/ec/n-spent-2x.png",
@@ -11003,7 +11003,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/n-spent-2x.png",
-      "sha256": "47a27518e8192b0f97873116b7f7473ef35193e7816914bc1beac581fa97bda0"
+      "sha256": "ea18b80d2edfa62fa31aead54d2ffa4bc69fe9b089d711635a47209c662b6860"
     },
     {
       "build_output": "sprites/transportTrain/ec/n-spent-4x.png",
@@ -11012,7 +11012,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/n-spent-4x.png",
-      "sha256": "596afada06127f76c165227dc826ff27e3f1528e9e0c0efc69182fd1f3d8065c"
+      "sha256": "62ec8c012ab6aef412d8fa01cc2ec92234b2650fb43b165c01cc865129462588"
     },
     {
       "build_output": "sprites/transportTrain/neutral/n-normal-2x.png",
@@ -11021,7 +11021,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/n-normal-2x.png",
-      "sha256": "d7a1f3d63d1040f4a4486626700aafd8b4ad656535c44541d219cc2ad4d9f88e"
+      "sha256": "f1c1129db7501a23e60db12361acf67305ebe15f62f7f0ec2b60bd2f9c03a692"
     },
     {
       "build_output": "sprites/transportTrain/neutral/n-normal-4x.png",
@@ -11030,7 +11030,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/n-normal-4x.png",
-      "sha256": "d92fd61b7b0f3abfc0c3b316a3bcd54010d32f48e5e4d5f3ca223b7072f7d50a"
+      "sha256": "b1c2be187e524f50f06a40465029668f75c282a74984fa5c96d4367bd0eff751"
     },
     {
       "build_output": "sprites/transportTrain/neutral/n-spent-2x.png",
@@ -11039,7 +11039,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/n-spent-2x.png",
-      "sha256": "9dbc70b445bec4f618f994cd809f3005a77c2b11fb5dc808216bdedd4c010e52"
+      "sha256": "52fc4f7b28074ddc52fd64e49b827be59c9819c6823594f66439350ca5cd7e5d"
     },
     {
       "build_output": "sprites/transportTrain/neutral/n-spent-4x.png",
@@ -11048,7 +11048,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/n-spent-4x.png",
-      "sha256": "9f7cc89e5794768cd6a3361f1b8e2b7084778e6db6fe4ac7f93fb2e9d86d2b9e"
+      "sha256": "6aedcf2c8067f4fbf4bb4ae48be58147bb2303ce305ac30649db5a8402df7152"
     },
     {
       "build_output": "planes/transportTrain/nw-base-2x.png",
@@ -11093,7 +11093,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/nw-normal-2x.png",
-      "sha256": "8133f660eb983cd8e8a66dfb0e7bc85d1618b0feba1807ab1660d50b2c8c601f"
+      "sha256": "486b5685461c29b7ad64625073d020949e45efac24590539d4922608f3a081bd"
     },
     {
       "build_output": "sprites/transportTrain/cp/nw-normal-4x.png",
@@ -11102,7 +11102,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/nw-normal-4x.png",
-      "sha256": "91ea0b54849cc57a651465110a72e071a0c17e5030f110e935f890ece6b061a5"
+      "sha256": "e372a09f295e8ce6728b8882fed843ba05fb158ac0f551d0833941c0ac862804"
     },
     {
       "build_output": "sprites/transportTrain/cp/nw-spent-2x.png",
@@ -11111,7 +11111,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/nw-spent-2x.png",
-      "sha256": "ba3c964067a74811da346f639d2b29e5c2b3671549b218b69a2f2cfb4abbcbe3"
+      "sha256": "14cf24e5eb5097fcfa25e2271842d308fa3fb41b25ac5c9fa87276e8376b3d01"
     },
     {
       "build_output": "sprites/transportTrain/cp/nw-spent-4x.png",
@@ -11120,7 +11120,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/nw-spent-4x.png",
-      "sha256": "eac90470ea0798f1a34f59bbe0ca442a07144b3698c8a9cb0fe2e23127555d0b"
+      "sha256": "9062ee5f1fe83b3bf1924e019442a17cfc8de3b838158f297f97b124ac9ddcd1"
     },
     {
       "build_output": "sprites/transportTrain/ec/nw-normal-2x.png",
@@ -11129,7 +11129,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/nw-normal-2x.png",
-      "sha256": "5b0be50a1f5217bb653312b4a70dfc1a1ef3cb1e77c2279f93911c96b9e6cdaf"
+      "sha256": "a727f2b48f86043c216df076f46d0c9f2879a62cefd222f75db4be9a617e1491"
     },
     {
       "build_output": "sprites/transportTrain/ec/nw-normal-4x.png",
@@ -11138,7 +11138,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/nw-normal-4x.png",
-      "sha256": "792a5d8558d1b32f0718766df671f4b0ba7524f6b851d2ef87e594dd07ac47eb"
+      "sha256": "6784f8b83d80ab9cffb2baa6c6361765561e0034a4c8a32ea4b9c892174a5b88"
     },
     {
       "build_output": "sprites/transportTrain/ec/nw-spent-2x.png",
@@ -11147,7 +11147,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/nw-spent-2x.png",
-      "sha256": "4631c1ee14f3d37b06567a3c3c4b9147213aae4f741061f0d4662969f2db8a7a"
+      "sha256": "92e2db2cbec4ef4a50717685c169943274ffa89214f03f6181f8b38cd7c3de42"
     },
     {
       "build_output": "sprites/transportTrain/ec/nw-spent-4x.png",
@@ -11156,7 +11156,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/nw-spent-4x.png",
-      "sha256": "c78e0f53bb4bbec32c3b531ddc6a2af4e7410d81300159360a72d85098a79bd4"
+      "sha256": "b11da0f9531641dff5b5553e36dd1ba246c56cf12145a836c266a2cff96b4d75"
     },
     {
       "build_output": "sprites/transportTrain/neutral/nw-normal-2x.png",
@@ -11165,7 +11165,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/nw-normal-2x.png",
-      "sha256": "57d2a6888eb5479e1b155e30a9148d237573cedb0683730425fdec3aaef1b4a2"
+      "sha256": "96de1b26d40c27d7074257005bd53be590e00788ebed2f2ab92f7696df3a8d25"
     },
     {
       "build_output": "sprites/transportTrain/neutral/nw-normal-4x.png",
@@ -11174,7 +11174,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/nw-normal-4x.png",
-      "sha256": "f7720065d67a655459480c6a6ef45235739890e7f2bea7ce38ea77e4c87ff990"
+      "sha256": "e11f73d744ff00d62c742bdb191b21c992e112b2f2c2385db6653d9e4c448992"
     },
     {
       "build_output": "sprites/transportTrain/neutral/nw-spent-2x.png",
@@ -11183,7 +11183,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/nw-spent-2x.png",
-      "sha256": "0d29ee844f00f7215fd5732de507e68ec24464ab3601d78c6c979e1aecf84b70"
+      "sha256": "4c33d52c48a67f8de26e83aff26802dcc2c181ad7569c9c5d4c1217dc35f551e"
     },
     {
       "build_output": "sprites/transportTrain/neutral/nw-spent-4x.png",
@@ -11192,7 +11192,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/nw-spent-4x.png",
-      "sha256": "0fdde208cbbd432ef9ca6b5e0e35b01036ae82e153ecd9136f81b1b0b6c6f8a4"
+      "sha256": "862337919faecdc38c80bf61d336377f3dccc1422b86a15452eb66e9337ccf0d"
     },
     {
       "build_output": "planes/transportTrain/sw-base-2x.png",
@@ -11237,7 +11237,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/sw-normal-2x.png",
-      "sha256": "41c86ad81e77f9372d639488e3664dd2ce380523cb582d575d50a04d21d0f9bd"
+      "sha256": "286223a385450569fc833fc6f60f375eee7042a79f9f5acefd7a278c78d8bb34"
     },
     {
       "build_output": "sprites/transportTrain/cp/sw-normal-4x.png",
@@ -11246,7 +11246,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/sw-normal-4x.png",
-      "sha256": "f1fb960f2f990921a0743787199ae762a8de961ad635a8bf72bdcec8d6d6426c"
+      "sha256": "a66dfd7f8f6e26cc995317556aad7c8cf395c7f4c39c512a9302176f67aee425"
     },
     {
       "build_output": "sprites/transportTrain/cp/sw-spent-2x.png",
@@ -11255,7 +11255,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/sw-spent-2x.png",
-      "sha256": "bebe30f07db7e6a38254cd17925f1cd66b69ff96614126dcaeb677610e2dfc82"
+      "sha256": "f357de524cf2cccbdf3caf418bb2e7f2b4c27fc239882f78ccfd9477cafda634"
     },
     {
       "build_output": "sprites/transportTrain/cp/sw-spent-4x.png",
@@ -11264,7 +11264,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/sw-spent-4x.png",
-      "sha256": "1a1f3a9ac888951dbd2b144b444d24b80f32ed762adcfd56505f71cd69475d06"
+      "sha256": "eca630ef2936da5919dde5c923798c67a76c9490ec4cd7fb04dcd54c36dcbc35"
     },
     {
       "build_output": "sprites/transportTrain/ec/sw-normal-2x.png",
@@ -11273,7 +11273,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/sw-normal-2x.png",
-      "sha256": "0e4caacae5ceb52b6852a51d7589ba2af499c64c8281d3f76d8e9ed38ece0b9f"
+      "sha256": "de2ab85d7e0da734c96a8b45f3be427cc14c7dc713104cee344c2576e42bb97d"
     },
     {
       "build_output": "sprites/transportTrain/ec/sw-normal-4x.png",
@@ -11282,7 +11282,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/sw-normal-4x.png",
-      "sha256": "f6606179615a145c5f3e6fb3bd01131920e9eabc7dd9f2660e53b8aeedaf7dc8"
+      "sha256": "74179cd821f53cf74a2287cf19f2c45ae34b5e63a7643cc72465aa76e9b53f06"
     },
     {
       "build_output": "sprites/transportTrain/ec/sw-spent-2x.png",
@@ -11291,7 +11291,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/sw-spent-2x.png",
-      "sha256": "757fd4f2c0a0ef32c6cca073a16b3922871e268704fcb40fc830f39011325b36"
+      "sha256": "0fdd80a8f0cdd15b6e48b9ab5be745e3ac498fb172dfc4d0d09236bd89982c4c"
     },
     {
       "build_output": "sprites/transportTrain/ec/sw-spent-4x.png",
@@ -11300,7 +11300,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/sw-spent-4x.png",
-      "sha256": "8095a3590dbcdaf73c56abcc0f84167876504bc83c8a4a35f7ef02f9e36faa1c"
+      "sha256": "9da2164853ab1c891ec20a3e780b2fef071a96f41ecc9eb6bebff33b8cf5dee8"
     },
     {
       "build_output": "sprites/transportTrain/neutral/sw-normal-2x.png",
@@ -11309,7 +11309,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/sw-normal-2x.png",
-      "sha256": "37aac9086466ae248eb8d05f73e4c60bb724ee02195820e6cd102062d1474c4c"
+      "sha256": "3342cc8185c166cc4de4ed1f9e66efa27140af52853bc422cf280ad804559df0"
     },
     {
       "build_output": "sprites/transportTrain/neutral/sw-normal-4x.png",
@@ -11318,7 +11318,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/sw-normal-4x.png",
-      "sha256": "99da29908e5ee20955dc12611e1fa60571684d41bfdf46e14ef54c8563132c2e"
+      "sha256": "e6cf3e2072795f377a81328d08c3cce9c26dcc2b25c6e84af98e5cbe83e5ea6b"
     },
     {
       "build_output": "sprites/transportTrain/neutral/sw-spent-2x.png",
@@ -11327,7 +11327,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/sw-spent-2x.png",
-      "sha256": "4c24e1c6f7d8991745e6d3e09a4e3d6b17865ff7dbd1a1fe284f92a4b3a03b9c"
+      "sha256": "bfb4a3467876bd229634f34aa93a90b4d979b5a245106012a6e4a16bceefb4f3"
     },
     {
       "build_output": "sprites/transportTrain/neutral/sw-spent-4x.png",
@@ -11336,7 +11336,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/sw-spent-4x.png",
-      "sha256": "824df39f442ef4acba1aa7ff9e9ed47a59a520cfa902347f8efa03605dfbf11a"
+      "sha256": "9f96a81879052e87323f1b2fc7c08d73c1e5d8dbeb88234c33578e23d5506e98"
     },
     {
       "build_output": "planes/transportTrain/s-base-2x.png",
@@ -11381,7 +11381,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/s-normal-2x.png",
-      "sha256": "4e9dc20ee24bacf93e54d319ba16997558b82bc03df89eb42872a3352858cd75"
+      "sha256": "f610b51e985af19e64b6e1d02fa96bf225a6c7046db6a31bfc4547a003daab4b"
     },
     {
       "build_output": "sprites/transportTrain/cp/s-normal-4x.png",
@@ -11390,7 +11390,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/s-normal-4x.png",
-      "sha256": "cc99d90424747aa3b5f5b7365ac415f89c930d342a56f23f2aca6e3233687196"
+      "sha256": "c38876399f27ffc328fa4b485a51ee25dc3c58abd55616d1b37b62be6a8e24dc"
     },
     {
       "build_output": "sprites/transportTrain/cp/s-spent-2x.png",
@@ -11399,7 +11399,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/s-spent-2x.png",
-      "sha256": "afdd36192f5bf79f935209f52733db3a8766e1bad9780de0cbaa635ebabd0772"
+      "sha256": "3c32540019d464c84110081d264502e76fcd426ebca86d2fde8a764c3f0894f8"
     },
     {
       "build_output": "sprites/transportTrain/cp/s-spent-4x.png",
@@ -11408,7 +11408,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/s-spent-4x.png",
-      "sha256": "9618ed7100e74a7473359b9b5f72d149a50ebaa861e4bc8245394a55e606b762"
+      "sha256": "5446045b6db0019f4fb711e05efd358deda919419be9cdc1ac3908b67534cb6e"
     },
     {
       "build_output": "sprites/transportTrain/ec/s-normal-2x.png",
@@ -11417,7 +11417,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/s-normal-2x.png",
-      "sha256": "967935b14dd8e741a090fdbe147e66590e0e20abdce7d0c2d4274704604e20fb"
+      "sha256": "350985c8b7ab8954ec40b731cd53ce1fafeda59fd38d84efc783a337a13d28d6"
     },
     {
       "build_output": "sprites/transportTrain/ec/s-normal-4x.png",
@@ -11426,7 +11426,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/s-normal-4x.png",
-      "sha256": "91c1709759376f176e84c4a97cc32116792ad1516e3d1050680364baeaa8f06e"
+      "sha256": "85eaf4cea0e960952952876d852fffb1ebc9f88553f9896d0c46e8e326c380fd"
     },
     {
       "build_output": "sprites/transportTrain/ec/s-spent-2x.png",
@@ -11435,7 +11435,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/s-spent-2x.png",
-      "sha256": "6bd003d927d9536af72890902331ed227b5b00984600af1b7edb878680908f35"
+      "sha256": "16dc0dc57527fd53dda21e9ece4478f2ae2f669aa3d50ca50de13811cafdfd47"
     },
     {
       "build_output": "sprites/transportTrain/ec/s-spent-4x.png",
@@ -11444,7 +11444,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/s-spent-4x.png",
-      "sha256": "9505824fe8b0a04945c29412ce016ea7cf81a63ac6630d4def589a7c527063d1"
+      "sha256": "00794ae126bfac46aa128e07e5ca6755071e9884c1323508cb96955568b22d10"
     },
     {
       "build_output": "sprites/transportTrain/neutral/s-normal-2x.png",
@@ -11453,7 +11453,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/s-normal-2x.png",
-      "sha256": "404f1e265a81452912768bd12e128293ac9b1dd8b3e743b672ef8035a252a37a"
+      "sha256": "236339068d6f85f51947c7464919bfa8b0e0e8333f24de03d06fffb810277c17"
     },
     {
       "build_output": "sprites/transportTrain/neutral/s-normal-4x.png",
@@ -11462,7 +11462,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/s-normal-4x.png",
-      "sha256": "129c5c2a745c34d7ab14d4df3a26a03f25c259ed5c54813914b0418e6cb8d1bc"
+      "sha256": "ec28af9b5bf108eae4178600b7486342710aa21a463490b081877ac70eab7020"
     },
     {
       "build_output": "sprites/transportTrain/neutral/s-spent-2x.png",
@@ -11471,7 +11471,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/s-spent-2x.png",
-      "sha256": "0f090869eb37d6afed9a11c9d98d8e4f73d8613ab3955298f9caecc21ced89c0"
+      "sha256": "8fd97a370818e78aabf1b03b2ac971a669289ff1ea71a0b2ea0ec6bf58ec087b"
     },
     {
       "build_output": "sprites/transportTrain/neutral/s-spent-4x.png",
@@ -11480,7 +11480,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/s-spent-4x.png",
-      "sha256": "5303f933f7f42d167780bd0b21b9b5e1482b0b3304f1641302e96265154420e7"
+      "sha256": "af68b8d3d69998dd38a4b1026c4c4a2def4ea61133af75da687c6d8599fb5efb"
     },
     {
       "build_output": "planes/transportTrain/se-base-2x.png",
@@ -11525,7 +11525,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/se-normal-2x.png",
-      "sha256": "d5343446d54c781503ff5675ee4f87307ce2754adb25904d2085ee1e4fbebf82"
+      "sha256": "db11b9562c8529f30ef8b76dcea7b49ac0cb07e8f8260841b0c99be9c5db3225"
     },
     {
       "build_output": "sprites/transportTrain/cp/se-normal-4x.png",
@@ -11534,7 +11534,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/se-normal-4x.png",
-      "sha256": "37942faeaee225dcbb58513d4720df6ce28a686db2dd9eaad1d8948679435bfd"
+      "sha256": "8740d89bb03f1efef42c96332a3c0d2673fb3bc77c93e7689bcaf5b642992179"
     },
     {
       "build_output": "sprites/transportTrain/cp/se-spent-2x.png",
@@ -11543,7 +11543,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/se-spent-2x.png",
-      "sha256": "f979115352e4bbbdb5409e4c3cae1294d429004035ffcf39ce2901d5c10036a4"
+      "sha256": "85fb445b80ccc42ab06eabe1ca691f8ea2c82d0a9e4dcb83dabd4a599d08edab"
     },
     {
       "build_output": "sprites/transportTrain/cp/se-spent-4x.png",
@@ -11552,7 +11552,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/se-spent-4x.png",
-      "sha256": "d3eb3b7b5692017131c7752a630d0c58fb57c92aae4f464857ee5a1e57ca3e79"
+      "sha256": "304fd918dacec44a42b15c8d06fc1a1ac7a4ddcf633ad287fbad67dbdf09c9ca"
     },
     {
       "build_output": "sprites/transportTrain/ec/se-normal-2x.png",
@@ -11561,7 +11561,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/se-normal-2x.png",
-      "sha256": "9570af0cc524edfe094106433a0d63e22fa1710fb4c1b9c318fb2d9cb3b29a33"
+      "sha256": "3099feda6ccbae3b5aa41c2bea5909809153548c94a12a1c269e452adbda54ca"
     },
     {
       "build_output": "sprites/transportTrain/ec/se-normal-4x.png",
@@ -11570,7 +11570,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/se-normal-4x.png",
-      "sha256": "25e0b28e089b0265df791f87764e98055ae35617569758add9274b57134744e0"
+      "sha256": "3da07df6fd73c97af4df75d901babc8c0b81759e1d95e385d79897140fac39de"
     },
     {
       "build_output": "sprites/transportTrain/ec/se-spent-2x.png",
@@ -11579,7 +11579,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/se-spent-2x.png",
-      "sha256": "d5b5aba24b9e85b82980d478c3ee0052a68ea01a0abfd49b3edce1f0a0905db2"
+      "sha256": "9b67be688788a693228b79d6aa3b8c154fe2f47d1467dc816881c18f855d18f1"
     },
     {
       "build_output": "sprites/transportTrain/ec/se-spent-4x.png",
@@ -11588,7 +11588,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/se-spent-4x.png",
-      "sha256": "a1c86258b17f31a468de885d2cc76b7f3785c3dd61a60cd68e97ddf3d43a44a6"
+      "sha256": "3dee8ccca13ca4b5c6d08eb2bb50e72cf34d410a44b9e99b3319a35f3897fcb2"
     },
     {
       "build_output": "sprites/transportTrain/neutral/se-normal-2x.png",
@@ -11597,7 +11597,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/se-normal-2x.png",
-      "sha256": "f0b94a6c41857147365eb9d999be3af418dbe2cc9726f08fcb41869a7ea168e8"
+      "sha256": "b72ac0c6004c98b89fda0f183bce39305dd800b3c7651b03318cefb9b45b8113"
     },
     {
       "build_output": "sprites/transportTrain/neutral/se-normal-4x.png",
@@ -11606,7 +11606,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/se-normal-4x.png",
-      "sha256": "41c3d7682df22e50fda3078b1f1827a12c25d9a0f58bbd2fc94b5e0950eef436"
+      "sha256": "adb9c393032cb83c1b1ed51f963da69463e0e70d845f176f92feabf273c1218d"
     },
     {
       "build_output": "sprites/transportTrain/neutral/se-spent-2x.png",
@@ -11615,7 +11615,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/se-spent-2x.png",
-      "sha256": "835b88281407198c8536c07885ac90240f632fecd0a9ca0c4b1363ac86821172"
+      "sha256": "823b2696efb47867576113edc4ee43d3f4efdca5f09741d33ca94680f590924b"
     },
     {
       "build_output": "sprites/transportTrain/neutral/se-spent-4x.png",
@@ -11624,7 +11624,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/se-spent-4x.png",
-      "sha256": "b960d69a6d5afff9c698d5caa5752960e481c1884ccb5d9d664a6057ba3d3a7b"
+      "sha256": "154b77f3374f29c606ec5ff1e0d2586201ca292c8826a0227394e557101bd213"
     },
     {
       "build_output": "planes/transportTrain/ne-base-2x.png",
@@ -11669,7 +11669,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/ne-normal-2x.png",
-      "sha256": "cdc34459140b1605a885b388e3f591b4bb34046eae0c1cbdddf810329b23a338"
+      "sha256": "2c37b88cb84b10ddd3939b16620ea74405f516c7243c0105fc88b4789c2b6f4b"
     },
     {
       "build_output": "sprites/transportTrain/cp/ne-normal-4x.png",
@@ -11678,7 +11678,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/ne-normal-4x.png",
-      "sha256": "81496562804487bd44132ec48cb036c249b59585d42c77b8e68e164dde2d92af"
+      "sha256": "3facfffdc2cb44d1523a5963d99c87d61c8246b698ff9ee9155768fc59573013"
     },
     {
       "build_output": "sprites/transportTrain/cp/ne-spent-2x.png",
@@ -11687,7 +11687,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/ne-spent-2x.png",
-      "sha256": "5b389bfefb398056f3ff98a055df081c45fcaa8f32c39fee7cb9200f9ef89a5f"
+      "sha256": "b9f71dedcd7d0394070aa48616a360042b8180186cc90d50e69c43eda4876ca6"
     },
     {
       "build_output": "sprites/transportTrain/cp/ne-spent-4x.png",
@@ -11696,7 +11696,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/ne-spent-4x.png",
-      "sha256": "0320bda78bb7f531c50f5fcca1bbbb34979870b5170e94d687c855eda745e4bd"
+      "sha256": "ad2027c2637cb1afe4333d801fbe28f74206fa61268010d2552a58d98f573c7e"
     },
     {
       "build_output": "sprites/transportTrain/ec/ne-normal-2x.png",
@@ -11705,7 +11705,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/ne-normal-2x.png",
-      "sha256": "ff79962432f5757ca36b5f26f70347197b37279279222dba7c913b6b70ac3c80"
+      "sha256": "d4ecc3930bc52431dc31a711e1220e204ec7d2708e09f46177334e5dc17fd540"
     },
     {
       "build_output": "sprites/transportTrain/ec/ne-normal-4x.png",
@@ -11714,7 +11714,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/ne-normal-4x.png",
-      "sha256": "b3c685bbc882aedf3581fa25fa167f3d77fdb619f5f1b6559b7b77eae25b6219"
+      "sha256": "5f7a77fea4c7728131f32052f7e64ba5d8d9b3d16a80b305aeb9abc4399c63a1"
     },
     {
       "build_output": "sprites/transportTrain/ec/ne-spent-2x.png",
@@ -11723,7 +11723,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/ne-spent-2x.png",
-      "sha256": "72126c4055f96b5d10ba4af7ab496462a2c67c331bd56d8579519043bb88cf6d"
+      "sha256": "99fe51f01a28bb01e5b409ec0620d63a34fe5388fa5cedf9601a1d3276bd1c19"
     },
     {
       "build_output": "sprites/transportTrain/ec/ne-spent-4x.png",
@@ -11732,7 +11732,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/ne-spent-4x.png",
-      "sha256": "986e97aee323f05bb89aceedb25071dc63c8c11ca1065f7aa3d58592b78d3b8b"
+      "sha256": "67f38470bdd5872e3eb7860f4cbcd246f103a627648ff800c3aa0858a7a80d66"
     },
     {
       "build_output": "sprites/transportTrain/neutral/ne-normal-2x.png",
@@ -11741,7 +11741,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/ne-normal-2x.png",
-      "sha256": "155966b4f3866859a69b314877ef2c6c0749ff5860e1271ed6fc3b270fca6c5e"
+      "sha256": "44b91d71074fc5a391de2b066e544efcdc650c3994fd48c31ad951db83831dee"
     },
     {
       "build_output": "sprites/transportTrain/neutral/ne-normal-4x.png",
@@ -11750,7 +11750,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/ne-normal-4x.png",
-      "sha256": "19661b7095ffe6edeab1c1ca5ea00288e0974bf3355378d7fb97f877277960d9"
+      "sha256": "a10ef60f91f22ee1f284a4c965b33f7396e0cd08d7f49f69b0563370c0e12f22"
     },
     {
       "build_output": "sprites/transportTrain/neutral/ne-spent-2x.png",
@@ -11759,7 +11759,7 @@
         "width": 192
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/ne-spent-2x.png",
-      "sha256": "6050833d1fa361a3c37ca2f7b86c351e82d3be46b49eaf604c1d27fa9c305f2d"
+      "sha256": "d062fe82c1c409d6d5c75d63211ff45b16f2e85cb945618fbd253086c32f0ca6"
     },
     {
       "build_output": "sprites/transportTrain/neutral/ne-spent-4x.png",
@@ -11768,7 +11768,7 @@
         "width": 384
       },
       "path": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/ne-spent-4x.png",
-      "sha256": "e9220e57a74f808ea9f33acd2bce5b5dc34747c19f48bd08514d4dfb9d240f1c"
+      "sha256": "f5dce3a408d7b76a51ce8bd40496fe861b8a1df5c95d65961fc3ce37a722c898"
     },
     {
       "build_output": "sheets/transportTrain-white-2x.png",
@@ -11777,7 +11777,7 @@
         "width": 1152
       },
       "path": "art/exports/unit-transport-train-v1/sheets/transportTrain-white-2x.png",
-      "sha256": "73eb8e042e1ae9de28e781358797de68a5ce527ba5f56c471129ca5c6f33a120"
+      "sha256": "4309e3f973e713cc542fb7a5070098c805f3339fcd1cf4c5df52016429593078"
     },
     {
       "build_output": "sheets/transportTrain-white-4x.png",
@@ -11786,7 +11786,7 @@
         "width": 2304
       },
       "path": "art/exports/unit-transport-train-v1/sheets/transportTrain-white-4x.png",
-      "sha256": "ca01f36d5646394ab71ef3eeaf19c7a038411aed2010df32081bdfc0015f1537"
+      "sha256": "d837bc9e9e31103e5bf50fb000b1bea618f86117e3039f07a52276374fe2c88b"
     },
     {
       "build_output": "sheets/transportTrain-checker-2x.png",
@@ -11795,7 +11795,7 @@
         "width": 1152
       },
       "path": "art/exports/unit-transport-train-v1/sheets/transportTrain-checker-2x.png",
-      "sha256": "32ad4bca1139ff10b9aaae3ede4ea18a5e2e7e34ca75026ed0cace9d1f78581a"
+      "sha256": "39790a0fa96a2d70aac785bde72217d6edc15c8c14fa3c01aa8d9ed823910ba0"
     },
     {
       "build_output": "sheets/transportTrain-checker-4x.png",
@@ -11804,7 +11804,7 @@
         "width": 2304
       },
       "path": "art/exports/unit-transport-train-v1/sheets/transportTrain-checker-4x.png",
-      "sha256": "8579f56df692b882f0a965ce9139eac5e74f8d1f526c6764f72926aba224cf5c"
+      "sha256": "062281948149af6431136ec740b1e24dd76d7d18693dbb885f7f0fd4fa83cf72"
     },
     {
       "build_output": "scenes/grass-normal-p0-2x.png",
@@ -11813,7 +11813,7 @@
         "width": 476
       },
       "path": "art/exports/unit-transport-train-v1/scenes/grass-normal-p0-2x.png",
-      "sha256": "2d1a291d2dfb075caf16af53575a9347ad79f295fe65d6eca26cf01d9d7f3e6e"
+      "sha256": "f336c3bd073fe5dccbdc7cc7e38235d6f85455934a98f8438366a303c98738d2"
     },
     {
       "build_output": "scenes/grass-normal-p0-4x.png",
@@ -11822,7 +11822,7 @@
         "width": 952
       },
       "path": "art/exports/unit-transport-train-v1/scenes/grass-normal-p0-4x.png",
-      "sha256": "5e1905fe72699a554675e326f7bec09c2f7bfbca8dd9eb701b5bd42067f39409"
+      "sha256": "5f3052adc4edfd3ee7d6ebef4d5a9a5780e23b15cf1ff46d7c5034854b7afe11"
     },
     {
       "build_output": "scenes/grass-normal-p1-2x.png",
@@ -11831,7 +11831,7 @@
         "width": 476
       },
       "path": "art/exports/unit-transport-train-v1/scenes/grass-normal-p1-2x.png",
-      "sha256": "2d1a291d2dfb075caf16af53575a9347ad79f295fe65d6eca26cf01d9d7f3e6e"
+      "sha256": "f336c3bd073fe5dccbdc7cc7e38235d6f85455934a98f8438366a303c98738d2"
     },
     {
       "build_output": "scenes/grass-normal-p1-4x.png",
@@ -11840,7 +11840,7 @@
         "width": 952
       },
       "path": "art/exports/unit-transport-train-v1/scenes/grass-normal-p1-4x.png",
-      "sha256": "5e1905fe72699a554675e326f7bec09c2f7bfbca8dd9eb701b5bd42067f39409"
+      "sha256": "5f3052adc4edfd3ee7d6ebef4d5a9a5780e23b15cf1ff46d7c5034854b7afe11"
     },
     {
       "build_output": "scenes/grass-spent-p0-2x.png",
@@ -11849,7 +11849,7 @@
         "width": 476
       },
       "path": "art/exports/unit-transport-train-v1/scenes/grass-spent-p0-2x.png",
-      "sha256": "7d548e137ecca645ce2a9670a78362577119cf5df734f161df1c42d3ea20c1f4"
+      "sha256": "0af1d45a95e7b33d1e341542b6f83c1bb4cf20583eae9d20aaed697b2dafcd65"
     },
     {
       "build_output": "scenes/grass-spent-p0-4x.png",
@@ -11858,7 +11858,7 @@
         "width": 952
       },
       "path": "art/exports/unit-transport-train-v1/scenes/grass-spent-p0-4x.png",
-      "sha256": "58b27e2fd728578d5dd84ad21703ca371b68725049ce960a08c62f6794e2f303"
+      "sha256": "a5648682060db33acf19e100028bfb94b8ed325a15a19ccc85f45ae741abc596"
     },
     {
       "build_output": "scenes/grass-spent-p1-2x.png",
@@ -11867,7 +11867,7 @@
         "width": 476
       },
       "path": "art/exports/unit-transport-train-v1/scenes/grass-spent-p1-2x.png",
-      "sha256": "7d548e137ecca645ce2a9670a78362577119cf5df734f161df1c42d3ea20c1f4"
+      "sha256": "0af1d45a95e7b33d1e341542b6f83c1bb4cf20583eae9d20aaed697b2dafcd65"
     },
     {
       "build_output": "scenes/grass-spent-p1-4x.png",
@@ -11876,7 +11876,7 @@
         "width": 952
       },
       "path": "art/exports/unit-transport-train-v1/scenes/grass-spent-p1-4x.png",
-      "sha256": "58b27e2fd728578d5dd84ad21703ca371b68725049ce960a08c62f6794e2f303"
+      "sha256": "a5648682060db33acf19e100028bfb94b8ed325a15a19ccc85f45ae741abc596"
     },
     {
       "build_output": "scenes/grass_w-normal-p0-2x.png",
@@ -11885,7 +11885,7 @@
         "width": 476
       },
       "path": "art/exports/unit-transport-train-v1/scenes/grass_w-normal-p0-2x.png",
-      "sha256": "6efd9df4c5d725b234edb75b6149417ed1291f7b70f55e0c698d48fc8fa3c341"
+      "sha256": "cdfb221aeda856dbdf74185ce3228b8c8095facd986fe9d2219ee63c35d47042"
     },
     {
       "build_output": "scenes/grass_w-normal-p0-4x.png",
@@ -11894,7 +11894,7 @@
         "width": 952
       },
       "path": "art/exports/unit-transport-train-v1/scenes/grass_w-normal-p0-4x.png",
-      "sha256": "56912aa7f72824f17e46cd3b3117d5d74866a17043261739b6c036d22371cb58"
+      "sha256": "30776d4d76bc612f690ceed107b0d34a03f488eb17a279c30a6d22c914ae6daa"
     },
     {
       "build_output": "scenes/grass_w-normal-p1-2x.png",
@@ -11903,7 +11903,7 @@
         "width": 476
       },
       "path": "art/exports/unit-transport-train-v1/scenes/grass_w-normal-p1-2x.png",
-      "sha256": "6efd9df4c5d725b234edb75b6149417ed1291f7b70f55e0c698d48fc8fa3c341"
+      "sha256": "cdfb221aeda856dbdf74185ce3228b8c8095facd986fe9d2219ee63c35d47042"
     },
     {
       "build_output": "scenes/grass_w-normal-p1-4x.png",
@@ -11912,7 +11912,7 @@
         "width": 952
       },
       "path": "art/exports/unit-transport-train-v1/scenes/grass_w-normal-p1-4x.png",
-      "sha256": "56912aa7f72824f17e46cd3b3117d5d74866a17043261739b6c036d22371cb58"
+      "sha256": "30776d4d76bc612f690ceed107b0d34a03f488eb17a279c30a6d22c914ae6daa"
     },
     {
       "build_output": "scenes/grass_w-spent-p0-2x.png",
@@ -11921,7 +11921,7 @@
         "width": 476
       },
       "path": "art/exports/unit-transport-train-v1/scenes/grass_w-spent-p0-2x.png",
-      "sha256": "0da80fadaf6db06bb928ccb88975e32a9ed4f35b63bcc20611f6c31ac5a12a33"
+      "sha256": "fe8a48617a6d66c41f1aecb7133e5c39d5f62f9246fd8716653f3f3740e6ab1b"
     },
     {
       "build_output": "scenes/grass_w-spent-p0-4x.png",
@@ -11930,7 +11930,7 @@
         "width": 952
       },
       "path": "art/exports/unit-transport-train-v1/scenes/grass_w-spent-p0-4x.png",
-      "sha256": "b4186f5e2283b1e4ac35ac4b70cdbf91bbd26339c73edb8b15c1e72dc6af1469"
+      "sha256": "33584ba537e41b8fd10b6581653171ba438de3557b706aae950b7c8f512a43da"
     },
     {
       "build_output": "scenes/grass_w-spent-p1-2x.png",
@@ -11939,7 +11939,7 @@
         "width": 476
       },
       "path": "art/exports/unit-transport-train-v1/scenes/grass_w-spent-p1-2x.png",
-      "sha256": "0da80fadaf6db06bb928ccb88975e32a9ed4f35b63bcc20611f6c31ac5a12a33"
+      "sha256": "fe8a48617a6d66c41f1aecb7133e5c39d5f62f9246fd8716653f3f3740e6ab1b"
     },
     {
       "build_output": "scenes/grass_w-spent-p1-4x.png",
@@ -11948,7 +11948,7 @@
         "width": 952
       },
       "path": "art/exports/unit-transport-train-v1/scenes/grass_w-spent-p1-4x.png",
-      "sha256": "b4186f5e2283b1e4ac35ac4b70cdbf91bbd26339c73edb8b15c1e72dc6af1469"
+      "sha256": "33584ba537e41b8fd10b6581653171ba438de3557b706aae950b7c8f512a43da"
     },
     {
       "build_output": "scenes/mud-normal-p0-2x.png",
@@ -11957,7 +11957,7 @@
         "width": 476
       },
       "path": "art/exports/unit-transport-train-v1/scenes/mud-normal-p0-2x.png",
-      "sha256": "75c1d4e5abcfd02b9370655a61b7c81bad0d9ef042dc190986d1a3b4519af13d"
+      "sha256": "247705eb7fc086c307b2d1075cf0f074608a2db2ac52f164f1b814393da1fa0c"
     },
     {
       "build_output": "scenes/mud-normal-p0-4x.png",
@@ -11966,7 +11966,7 @@
         "width": 952
       },
       "path": "art/exports/unit-transport-train-v1/scenes/mud-normal-p0-4x.png",
-      "sha256": "72b5532a72241d1b79b413fa7e0d12fd2359c0017234982107b0fba72e028e1f"
+      "sha256": "89e431c21e401919c3c8874f7291f52cbc0f8832f3ee3c00407ccf1f4ec36fb7"
     },
     {
       "build_output": "scenes/mud-normal-p1-2x.png",
@@ -11975,7 +11975,7 @@
         "width": 476
       },
       "path": "art/exports/unit-transport-train-v1/scenes/mud-normal-p1-2x.png",
-      "sha256": "75c1d4e5abcfd02b9370655a61b7c81bad0d9ef042dc190986d1a3b4519af13d"
+      "sha256": "247705eb7fc086c307b2d1075cf0f074608a2db2ac52f164f1b814393da1fa0c"
     },
     {
       "build_output": "scenes/mud-normal-p1-4x.png",
@@ -11984,7 +11984,7 @@
         "width": 952
       },
       "path": "art/exports/unit-transport-train-v1/scenes/mud-normal-p1-4x.png",
-      "sha256": "72b5532a72241d1b79b413fa7e0d12fd2359c0017234982107b0fba72e028e1f"
+      "sha256": "89e431c21e401919c3c8874f7291f52cbc0f8832f3ee3c00407ccf1f4ec36fb7"
     },
     {
       "build_output": "scenes/mud-spent-p0-2x.png",
@@ -11993,7 +11993,7 @@
         "width": 476
       },
       "path": "art/exports/unit-transport-train-v1/scenes/mud-spent-p0-2x.png",
-      "sha256": "3a122abb125bc281f9610f33ba34f1fed04eeba82f06c4b31977d8039574ae97"
+      "sha256": "ea10af4ac75869e0a2327f8ddbc1656d6b6c0aafd1880b22b827a449558a0e11"
     },
     {
       "build_output": "scenes/mud-spent-p0-4x.png",
@@ -12002,7 +12002,7 @@
         "width": 952
       },
       "path": "art/exports/unit-transport-train-v1/scenes/mud-spent-p0-4x.png",
-      "sha256": "3d83cc1a5a772de879680d402f70bb770607ad3f00d7159a44befd3043b9522e"
+      "sha256": "057a419eef24a3bfd80487123c2377829e551207dc4873363c891e378200752f"
     },
     {
       "build_output": "scenes/mud-spent-p1-2x.png",
@@ -12011,7 +12011,7 @@
         "width": 476
       },
       "path": "art/exports/unit-transport-train-v1/scenes/mud-spent-p1-2x.png",
-      "sha256": "3a122abb125bc281f9610f33ba34f1fed04eeba82f06c4b31977d8039574ae97"
+      "sha256": "ea10af4ac75869e0a2327f8ddbc1656d6b6c0aafd1880b22b827a449558a0e11"
     },
     {
       "build_output": "scenes/mud-spent-p1-4x.png",
@@ -12020,7 +12020,7 @@
         "width": 952
       },
       "path": "art/exports/unit-transport-train-v1/scenes/mud-spent-p1-4x.png",
-      "sha256": "3d83cc1a5a772de879680d402f70bb770607ad3f00d7159a44befd3043b9522e"
+      "sha256": "057a419eef24a3bfd80487123c2377829e551207dc4873363c891e378200752f"
     }
   ],
   "generation_recipes": [
@@ -12030,7 +12030,7 @@
   "generation_recipes_scope": "Includes historical generation studies and the current pinned master records. Current source selection is established by the producing manifest and its exact SHA256 pins; historical records are unchanged.",
   "id": "unit-transport-train-v1",
   "manifest": "art/unit-transport-train-v1.json",
-  "manifest_sha256": "d49a9560ed42e6720d954fd05517444d7e61c997886f736051c4537666fe6c78",
+  "manifest_sha256": "051b4212382c57feb4291b9c7917c768c71b50ef37b3c1850f66bbbbcbacc15e",
   "original_image_inputs": [
     {
       "generation_recipe": "art/recipes/terrain/reference-v2/meadow-03.json",

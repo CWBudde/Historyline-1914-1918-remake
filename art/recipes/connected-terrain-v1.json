@@ -25,7 +25,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/road13-4x.png",
-      "sha256": "5e3a3e2019ede6f23a30e0b6918cee7e2661d6135816a90248731a99bcd90fbb"
+      "sha256": "3c1ad664787c604c5c20ab4fad5099b075ae950bd594197f6221991280ddb580"
     },
     {
       "dimensions": {
@@ -33,7 +33,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/road13-2x.png",
-      "sha256": "1956a1fa9b2774b302b9288c272bd4585fa1bb612d51fb81ecca10651757f392"
+      "sha256": "49066290ec8bfdc58db4525f4995a766622cebbebb5cc2ad45b2a20a87959a97"
     },
     {
       "dimensions": {
@@ -41,7 +41,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/road14-4x.png",
-      "sha256": "dd70190f1145abbbd98047cfad4212269a1df72ef4be33b58665341bb0b68155"
+      "sha256": "17a10358037fc6fd4156782a0ae5365571d36c216c8b716d0f27795bcb568a01"
     },
     {
       "dimensions": {
@@ -49,7 +49,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/road14-2x.png",
-      "sha256": "010f5678e234a584341bc6d3442e235d85ce8bba8ac9da57fb3ed9d00f49c9bc"
+      "sha256": "a0682088c8e57a9d60de208d3c1cb7c2dbf15f663137bcfe4286c6ddb1210fba"
     },
     {
       "dimensions": {
@@ -57,7 +57,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/road15-4x.png",
-      "sha256": "a980cf41d1b6fd12b15e72faa9b95eb7df8b0d90575c697718c062876d0ce3b7"
+      "sha256": "6698eda12d8a8bc45a86547cea50c806baf3bb68e44f1c2d80da14bcd9adcdb9"
     },
     {
       "dimensions": {
@@ -65,7 +65,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/road15-2x.png",
-      "sha256": "61d7a7b6d78316c0d24d6ab46154b3dd037c319ef4267547e8bb84013b1b41e8"
+      "sha256": "2b049d8d16eb55415df15df9bdd321b9c0ba5690cfa81f58902b586f63a612ab"
     },
     {
       "dimensions": {
@@ -73,7 +73,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/road25-4x.png",
-      "sha256": "046c37ca3baac568fb2a09fab744313cc4135e22d19dcaa7ef8333abd11fc6b6"
+      "sha256": "f751f2059defcfaa6ab6d7cc62a2d8fb1a4eaf8c9bc86df1c15d379f0bf85697"
     },
     {
       "dimensions": {
@@ -81,7 +81,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/road25-2x.png",
-      "sha256": "44f11f78f9a07182b0c5418e82fe72f35ca353eaa27d63790c9c5ef8875d5e42"
+      "sha256": "be3c620009a03b44dbc680457b21266ff30725930b883bf64cfbd447bb29fd2b"
     },
     {
       "dimensions": {
@@ -89,7 +89,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/road35-4x.png",
-      "sha256": "de20ec59d5fdd91e82bf050cfb9b6b9bc9c4517396be2a3a7b0e89b1f162711e"
+      "sha256": "af6106ed5bc6b54eb7ab060c0a77754bdeb1f369a35ef4adc3f65289a5680ac9"
     },
     {
       "dimensions": {
@@ -97,7 +97,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/road35-2x.png",
-      "sha256": "4d0349643948a81e8970b0a6a7feb05ee5c9d36e6b57bac29a7b467cbd119c9b"
+      "sha256": "1311b8f7056871e2e1b9c12b6d0d89f1c4f448cd5fe8e27f31a169883971e8c2"
     },
     {
       "dimensions": {
@@ -105,7 +105,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/road36-4x.png",
-      "sha256": "9fd7f5bfdf2571690933f891ee68d1a118f649dd3860de663bc3909880535bf6"
+      "sha256": "2019e64eb5e5fe80f908367edb6ee7b747fba7d427548899e9da5634fc5e9963"
     },
     {
       "dimensions": {
@@ -113,7 +113,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/road36-2x.png",
-      "sha256": "547c35410082a652670925015c66c1455d8d886f3ab477f21ab79e4735fd568a"
+      "sha256": "0cc5328c6469936b894f6faa467c4bf2401120910d70583b38002e78d90dbd7a"
     },
     {
       "dimensions": {
@@ -121,7 +121,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/road46-4x.png",
-      "sha256": "bfca33b9f24217a6d17d9597d29570cf46fe46c9739043caad7abf0b9e62774f"
+      "sha256": "87bb620cfee39923b666fb4a6ace066c579e2da8e7b9c09870ae640df230b34a"
     },
     {
       "dimensions": {
@@ -129,7 +129,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/road46-2x.png",
-      "sha256": "e48c080e94d5bda832a66615262a22aa586f5d40f21edfcc1e0d6605ac4ea5ff"
+      "sha256": "74539df7dd98f3adb8260ee33638895632226f5a23ba6e406580d4270353320a"
     },
     {
       "dimensions": {
@@ -137,7 +137,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/road26-4x.png",
-      "sha256": "df7c39e6a88aa1f368d0f5956aef2a96b9e4432430ad2b3e347903621c169609"
+      "sha256": "3ad24bb92a878a2d0a76a3ec0b019ceb4cc19dc4c74336a801a00599ab9a7e47"
     },
     {
       "dimensions": {
@@ -145,7 +145,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/road26-2x.png",
-      "sha256": "e8492e464ac9a1eec4c9c10b5cd38f7908ef1b4eb65aaf714162b518de4f8b18"
+      "sha256": "15ad563730816f14c2fd6a028fc27f4920169c3830d05acaee0d998c0daf7320"
     },
     {
       "dimensions": {
@@ -153,7 +153,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/road125-4x.png",
-      "sha256": "c8e0014bbbf9a2fba0e05418fe51656239ffdaeb452cc05369e371c54a91d5a2"
+      "sha256": "848a2685cb5957f5ba1e1e63c8b00dc0ff5436da30d25ad65a1bf9581d975c6d"
     },
     {
       "dimensions": {
@@ -161,7 +161,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/road125-2x.png",
-      "sha256": "1a01f6672f48fc250b4b016df42e8ff67b138b092a01f1b89e3cd36bb6bcd651"
+      "sha256": "95e79ece3bd352062f495ab7e72978846014dbe606d65e4ecf1dd2ee85f50997"
     },
     {
       "dimensions": {
@@ -169,7 +169,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/road124-4x.png",
-      "sha256": "c5ad6c13f37e3b34e71a278902f6e848349ba03be99e47c886decb7f5af74fd1"
+      "sha256": "d849b830f805aa34a4aa7aa42a39fd52d471739fbb2d6218f4aef67cc17c51c9"
     },
     {
       "dimensions": {
@@ -177,7 +177,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/road124-2x.png",
-      "sha256": "e81a2259b8befdf8231faac7f076b101c9db5a9bf7929b7da25f5eb475a07c77"
+      "sha256": "5e48f6aa65a6bf6e8192a2854c5f898fec92f11f3a6853b2cf2873699fbe969c"
     },
     {
       "dimensions": {
@@ -185,7 +185,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/road145-4x.png",
-      "sha256": "c0025900278b7316da622bfc4f328cfdd4e1a9a1ae773fdeb42b99ab8723e804"
+      "sha256": "31d42cca113771173b94f6fbe2551b50f54753de0fee0d1d0b22c7417f943dd0"
     },
     {
       "dimensions": {
@@ -193,7 +193,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/road145-2x.png",
-      "sha256": "4e709ab63e8a16ee14c21014828435b105693bd806d4f2a3c1e5b5835e981fe6"
+      "sha256": "d555e29203f8b9591eb5d780cfea5fc9ede447d59deb2d282563c55d932b519a"
     },
     {
       "dimensions": {
@@ -201,7 +201,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/road236-4x.png",
-      "sha256": "8daba5ecf86be8be82272c22dd779bb60bd9d998e4d220edc1e9b1c1d7c23125"
+      "sha256": "7b30c6704c25e25967453c102b0250e1e2fd9d8535fabee4f0452d16bfd9d96d"
     },
     {
       "dimensions": {
@@ -209,7 +209,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/road236-2x.png",
-      "sha256": "c9be47db81bf4f29248bb8d7d78f5d967635e4e96936239cd96b839a2c6270c4"
+      "sha256": "9d0d420a6d8da08bafa8cedf59eeac39baf8c41867530d485707a7b9190c86c3"
     },
     {
       "dimensions": {
@@ -217,7 +217,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/road346-4x.png",
-      "sha256": "b5eba2d808ec33ab9640d13ad777e201ae7d3331f2624004e76bc86d730b276c"
+      "sha256": "eab050eaa372ec57f11e92005d161e2ebb2e691e6c98be04eb6260f8ebfd37e5"
     },
     {
       "dimensions": {
@@ -225,7 +225,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/road346-2x.png",
-      "sha256": "5289af191638db05f77a569223a7b5b8c3b2b1f314287f11fc3e6dd4f125beed"
+      "sha256": "9e5cd7eac4219aaae7e663ca936229083c3ad3cd075a6b492d5adabd56c8c3f9"
     },
     {
       "dimensions": {
@@ -233,7 +233,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/road356-4x.png",
-      "sha256": "5234ab5404dfa1dca60bc2468ed699e7a02e80c6733e95c766e96fa44e88fe12"
+      "sha256": "cbefdab51a142ce64c3422f17b9c627b6ba73e564b4348e8409684dd9594e4b8"
     },
     {
       "dimensions": {
@@ -241,7 +241,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/road356-2x.png",
-      "sha256": "3f1928039076a5751051f6dad4428ed4eec024a169196e7e6aedbc872e032298"
+      "sha256": "64903413f09164909bdb98a04711adced3d297c4d5d6ba9f002ad9b282253619"
     },
     {
       "dimensions": {
@@ -249,7 +249,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/road135-4x.png",
-      "sha256": "036aab58961f0439c45fe4f667eb3c504dbdfa387e38282762b3b2f7299b016b"
+      "sha256": "cc1ab9794591f8311d291f0ba710f63df14882ec90492c3f82e4eb21d8011224"
     },
     {
       "dimensions": {
@@ -257,7 +257,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/road135-2x.png",
-      "sha256": "e6fb7b164d91ea99cdf209148855a2a7939e06251fcb5373ffa20c39c8ddec93"
+      "sha256": "1b6c52ad359b096938de3325ca342abdeba1d52c5fe7bc05829e0a1cb5318836"
     },
     {
       "dimensions": {
@@ -265,7 +265,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/road24-4x.png",
-      "sha256": "d6468b37b42c09beb13b51267273b83bf0f671358acbd21fa0d051ebb17b8340"
+      "sha256": "a82c255327765193aafb3e4afbd9ac4bf869d5559bd6242637ee601629766f11"
     },
     {
       "dimensions": {
@@ -273,7 +273,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/road24-2x.png",
-      "sha256": "bbb8eb407d8f9e15313c94dcca699da138e0e9beb691e7dde1cf52c2c3a88b4b"
+      "sha256": "caa16fa9b06bb090099473d97f412ade1110d9bf4878f0adf9397c78361a6b0c"
     },
     {
       "dimensions": {
@@ -456,7 +456,8 @@
     "art/recipes/terrain/distinct-v1/earth-bare.json",
     "art/recipes/terrain/distinct-v1/road-gravel.json",
     "art/recipes/terrain/distinct-v1/water-open.json",
-    "art/recipes/terrain/reference-v2/meadow-03.json"
+    "art/recipes/terrain/reference-v2/meadow-03.json",
+    "art/recipes/terrain/reference-v2/road-paved.json"
   ],
   "generation_recipes_scope": "Includes historical generation studies and the current pinned master records. Current source selection is established by the producing manifest and its exact SHA256 pins; historical records are unchanged.",
   "geometry": {
@@ -543,7 +544,7 @@
   },
   "id": "connected-terrain-v1",
   "manifest": "art/connected-terrain-v1.json",
-  "manifest_sha256": "daa139b10c95dbd453788278bf1e565238fb801091623f1d678df9c88eb73032",
+  "manifest_sha256": "6e661ba910a2ed356a1cc6895d6a6f752d5d6f6ee46f051ce86caabd1c7a1160",
   "materials": {
     "earth": {
       "dimensions": {
@@ -569,8 +570,8 @@
         "width": 1374
       },
       "retained_source": "road-material-source.png",
-      "source": "art/source/terrain/distinct-v1/road-gravel.png",
-      "source_sha256": "93991a9f33f3d125f68f0ed2d14b329f1092428a0df59ba90f92c5b2bc85dd26"
+      "source": "art/source/terrain/reference-v2/road-paved.png",
+      "source_sha256": "48f521aa74bb1759896b33c95e84abb5d6d1d9146ab2925620a6b3234e5dcd2e"
     },
     "water": {
       "dimensions": {
@@ -582,13 +583,19 @@
       "source_sha256": "0b080163804881ac49bc4b3162da547abf443c9082d6e67065c119174d79b51d"
     }
   },
-  "method": "Candidate overlay. Unclipped new feature and grass render at 4x with four WORLD pixels of overscan on every side (416x352). Feature/bank edges use analytic signed-distance AA, 0.25 world-pixel ramp; distances round to 1e-9 world px for reciprocal half-alpha stability. Existing alpha-aware Lanczos3 reduces the UNMASKED overscan 416x352 -\u003e 208x176. Crop 4-world-pixel margins AFTER filtering to 384x320 and 192x160, then apply complementary hard half-open polygon ownership at final pixel centers. No per-sprite polygon-edge AA; a future complete-map compositor may AA its outer boundary once. Each port has \u003e=8 straight world pixels and extends beyond cutout by outer radius+4; cubic connectors flatten at 64 steps; junctions merge by minimum distance. No legacy footprint or pixels; no painted road markings.",
+  "method": "Candidate overlay. Unclipped new feature and grass render at 4x with four WORLD pixels of overscan on every side (416x352). Feature/bank edges use analytic signed-distance AA, 0.25 world-pixel ramp; distances round to 1e-9 world px for reciprocal half-alpha stability. Existing alpha-aware Lanczos3 reduces the UNMASKED overscan 416x352 -\u003e 208x176. Crop 4-world-pixel margins AFTER filtering to 384x320 and 192x160, then apply complementary hard half-open polygon ownership at final pixel centers. No per-sprite polygon-edge AA; a future complete-map compositor may AA its outer boundary once. Each port has \u003e=8 straight world pixels and extends beyond cutout by outer radius+4; cubic connectors flatten at 64 steps; junctions merge by minimum distance. No legacy footprint or pixels. Optional road markings=dashed: six-world-pixel light centre dashes, eight-world-pixel nominal dash length and twelve-world-pixel nominal period; eight-world-pixel port phases are reciprocal, curved interiors fit the phase, junction centres remain unmarked. Narrow road borders use darkened pavement.",
   "original_image_inputs": [
     {
       "generation_recipe": "art/recipes/terrain/reference-v2/meadow-03.json",
       "path": "legacy/python/gfx/hexTypes/hex_grass.png",
       "role": "Semantic original reference only: Only image input: composition, muted olive palette and low-frequency restoration reference; original file remains reference-only.",
       "sha256": "67257c01c1e3e30ddc438e85e5e376cd1aa72f888cfb2851b288061e1eb7a0de"
+    },
+    {
+      "generation_recipe": "art/recipes/terrain/reference-v2/road-paved.json",
+      "path": "legacy/python/gfx/infrastructure/road36.png",
+      "role": "Semantic original reference only: reference colour and values only",
+      "sha256": "0b31995635a3c56427b1481e04583b9c6dc0a246ef47f87a824b149d0d6565e3"
     }
   ],
   "original_image_inputs_scope": "Semantic visual references used to paint the current masters or their fixture ground. Originals remain reference-only and are not bundled as runtime PNGs; source masters are newly painted. Unit sprite planes retain their existing independent artwork provenance.",
@@ -606,7 +613,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/road13-grass-2x.png",
-      "sha256": "c8fdb18cdb41bf79c97a28b7537260f35fa05080b2566a0930c08cfd580a1810"
+      "sha256": "ea6fb21b0347d1f54ee18822504c1dc2ff1314d3f7c7da15c03ac5ed2f1effce"
     },
     {
       "dimensions": {
@@ -614,7 +621,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/road14-grass-2x.png",
-      "sha256": "09b3844db6df0f92b3228d1c684253aa5fa9e04ed754fcad13370616a7d8c605"
+      "sha256": "9c5b4f98918ff3f9e0e4aedfac99a3c8e0652d7013d5ca45c0665283ee5b9f43"
     },
     {
       "dimensions": {
@@ -622,7 +629,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/road15-grass-2x.png",
-      "sha256": "3feb4d4e501f23586f446b17d0a0cee13fd4a7b28ceed3b2fdafdc8069874231"
+      "sha256": "4ce1f177d48ad128bf4845e0d56156696b04fb38166ef4693c1fff6926d24287"
     },
     {
       "dimensions": {
@@ -630,7 +637,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/road25-grass-2x.png",
-      "sha256": "5123f6ff4ad33428683593cc403043faaa2bfcc9fb738da7befd2c194ad261e5"
+      "sha256": "9f6e51c9c7690b27f1c79c914d13867195867b847be00ee2f4fa6e9bba1f4412"
     },
     {
       "dimensions": {
@@ -638,7 +645,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/road35-grass-2x.png",
-      "sha256": "ae60b26aefde45bd1a714a352b180ea86a2ba3d3d9ba657a9424e9c0c66f07be"
+      "sha256": "bad4846bab2dc9f1a6ca1e894f8630ac5c980e36a05915af2b12155ea1ce5cd3"
     },
     {
       "dimensions": {
@@ -646,7 +653,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/road36-grass-2x.png",
-      "sha256": "9beab095762f6b738d788cea786873b63d51cbc3ee873c25ea7428dad4ec5578"
+      "sha256": "9690ff1564ade50934bc6f4422f32131f71b6cba1c1f216110baa0646d264ca7"
     },
     {
       "dimensions": {
@@ -654,7 +661,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/road46-grass-2x.png",
-      "sha256": "5fb080ac4e82f35d54c26490153d63bcefa7d8bc4e6cfac387820b8b3cc4f415"
+      "sha256": "69fdf3eafb5266db6db6a9994aa63d475155d6dc8bb2fc7c49227d164eaba21e"
     },
     {
       "dimensions": {
@@ -662,7 +669,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/road26-grass-2x.png",
-      "sha256": "a858647a88391b51c80ee5cf25287c18b67ef27c2ce987220d804915ed7741a9"
+      "sha256": "074b1abeb69200b8adf638a6e679bccd1386034eccd2f95a63cd60f180f84215"
     },
     {
       "dimensions": {
@@ -670,7 +677,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/road125-grass-2x.png",
-      "sha256": "cde573b305441c135c33b923f0968f2a2f63179e10a8f83e85355b107805d6b3"
+      "sha256": "6c0e78c921029a15df33b7d892e18d058bceb8de4f6b1dddfd10d7ea6408f01d"
     },
     {
       "dimensions": {
@@ -678,7 +685,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/road124-grass-2x.png",
-      "sha256": "007866389e25e323fc27bf5eb94c405dcee9359e946623e9d4871dbcdb7ad310"
+      "sha256": "2429bd6086f8a5e2c6854f1d47aa3663fa359545f50d82c4fa81ae0aa747c1d3"
     },
     {
       "dimensions": {
@@ -686,7 +693,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/road145-grass-2x.png",
-      "sha256": "d786a2326c6ed188f6e16f864b373cc03aa00ffb04d3e50191c4ab035c1d9857"
+      "sha256": "bb20b61c472ed7e3750138c4778f47a367cd6d8357d36ebe8016420db37b526e"
     },
     {
       "dimensions": {
@@ -694,7 +701,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/road236-grass-2x.png",
-      "sha256": "dd9c3c1b1041e898cdf6477c6fa6eea81b894bf927f5285468d9c3e595b11aca"
+      "sha256": "a19bae998bcdae50635402c5a2ece15fb317b50c4427a62ee1f4fc3849d2cd6b"
     },
     {
       "dimensions": {
@@ -702,7 +709,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/road346-grass-2x.png",
-      "sha256": "56c822a03f9887d2ff1c84490b0d1c21032e687d159acc726615035af568ae04"
+      "sha256": "01f1ec93109b287bac1fbeb0cb6ae22e113f17e55606ec1eb2c1f41ff836ba7c"
     },
     {
       "dimensions": {
@@ -710,7 +717,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/road356-grass-2x.png",
-      "sha256": "3a9d9639ed68e7b499eafde5a071ca2f3d6df751f018d04f0656c2acffb8f1af"
+      "sha256": "630d20658d6ff92bdd6a83d3613a14138fa9f07db78118fa545fd5bf1c44e91b"
     },
     {
       "dimensions": {
@@ -718,7 +725,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/road135-grass-2x.png",
-      "sha256": "ebdc119bfa3e979c1bdb3f9ab0f261573d37d4ac17ec0a63ca4e42539cc44510"
+      "sha256": "bfb6d1d23795b072c8b3354573f59e1a8784efe70b4464dcc41fa4b5720239a2"
     },
     {
       "dimensions": {
@@ -726,7 +733,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/road24-grass-2x.png",
-      "sha256": "79128a745c1f5b7090efec613952d496cd0338012dd3652c18ebe66f7164eebe"
+      "sha256": "10c227193930bb2fdb8329c4b1a63b0a5a67b5458c39c3e1717408bd2c42bacb"
     },
     {
       "dimensions": {
@@ -822,7 +829,7 @@
         "width": 476
       },
       "path": "art/review/connected-v1/road13-patch-parity0.png",
-      "sha256": "42b81f0ecbed54ac9e045ca284f1e3ee62c33b0b5527496544e66cdc4e416841"
+      "sha256": "d33d523273e02de2d3d1494474e6fb9e055fe4bdaf50eeb557f35994c5ea180f"
     },
     {
       "dimensions": {
@@ -830,7 +837,7 @@
         "width": 476
       },
       "path": "art/review/connected-v1/road14-patch-parity1.png",
-      "sha256": "29aba4f93034fdee46609ee60554daf2a3b55176aac81f6e775d72f1336f4fa2"
+      "sha256": "9bdf89dff26235c0139b3449522641c31d897a82f4782205a6376ea4887d7bda"
     },
     {
       "dimensions": {
@@ -838,7 +845,7 @@
         "width": 476
       },
       "path": "art/review/connected-v1/road135-patch-parity0.png",
-      "sha256": "b9c5f5f5f6f68feddb19ad5b428100ce873c4bc925c72d9de24cc16afa1c256d"
+      "sha256": "84418e8cb9fe56805b23da1d110575acec237396ac3645c637eb08271435492e"
     },
     {
       "dimensions": {
@@ -870,7 +877,7 @@
         "width": 384
       },
       "path": "art/review/connected-v1/contact-sheet.png",
-      "sha256": "d73f24f06cab75a1d7ff2396a32a841ffe89516aa5606f7bbe6304fd7d193efc"
+      "sha256": "6e614eb20a7e5e4e80fbd17517495ffbad23d1dc490240f7d980cb1e905122e2"
     }
   ],
   "schema_version": 1,
@@ -880,10 +887,11 @@
   "tool": "Go tools/art-review -connected",
   "variants": [
     {
-      "border": 2,
+      "border": 1,
       "border_material": "earth",
       "family": "road",
       "id": "road13",
+      "markings": "dashed",
       "material": "road",
       "outputs": [
         {
@@ -892,7 +900,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/road13-4x.png",
-          "sha256": "5e3a3e2019ede6f23a30e0b6918cee7e2661d6135816a90248731a99bcd90fbb"
+          "sha256": "3c1ad664787c604c5c20ab4fad5099b075ae950bd594197f6221991280ddb580"
         },
         {
           "dimensions": {
@@ -900,20 +908,21 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/road13-2x.png",
-          "sha256": "1956a1fa9b2774b302b9288c272bd4585fa1bb612d51fb81ecca10651757f392"
+          "sha256": "49066290ec8bfdc58db4525f4995a766622cebbebb5cc2ad45b2a20a87959a97"
         }
       ],
       "ports": [
         1,
         3
       ],
-      "width": 14
+      "width": 22
     },
     {
-      "border": 2,
+      "border": 1,
       "border_material": "earth",
       "family": "road",
       "id": "road14",
+      "markings": "dashed",
       "material": "road",
       "outputs": [
         {
@@ -922,7 +931,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/road14-4x.png",
-          "sha256": "dd70190f1145abbbd98047cfad4212269a1df72ef4be33b58665341bb0b68155"
+          "sha256": "17a10358037fc6fd4156782a0ae5365571d36c216c8b716d0f27795bcb568a01"
         },
         {
           "dimensions": {
@@ -930,20 +939,21 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/road14-2x.png",
-          "sha256": "010f5678e234a584341bc6d3442e235d85ce8bba8ac9da57fb3ed9d00f49c9bc"
+          "sha256": "a0682088c8e57a9d60de208d3c1cb7c2dbf15f663137bcfe4286c6ddb1210fba"
         }
       ],
       "ports": [
         1,
         4
       ],
-      "width": 14
+      "width": 22
     },
     {
-      "border": 2,
+      "border": 1,
       "border_material": "earth",
       "family": "road",
       "id": "road15",
+      "markings": "dashed",
       "material": "road",
       "outputs": [
         {
@@ -952,7 +962,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/road15-4x.png",
-          "sha256": "a980cf41d1b6fd12b15e72faa9b95eb7df8b0d90575c697718c062876d0ce3b7"
+          "sha256": "6698eda12d8a8bc45a86547cea50c806baf3bb68e44f1c2d80da14bcd9adcdb9"
         },
         {
           "dimensions": {
@@ -960,20 +970,21 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/road15-2x.png",
-          "sha256": "61d7a7b6d78316c0d24d6ab46154b3dd037c319ef4267547e8bb84013b1b41e8"
+          "sha256": "2b049d8d16eb55415df15df9bdd321b9c0ba5690cfa81f58902b586f63a612ab"
         }
       ],
       "ports": [
         1,
         5
       ],
-      "width": 14
+      "width": 22
     },
     {
-      "border": 2,
+      "border": 1,
       "border_material": "earth",
       "family": "road",
       "id": "road25",
+      "markings": "dashed",
       "material": "road",
       "outputs": [
         {
@@ -982,7 +993,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/road25-4x.png",
-          "sha256": "046c37ca3baac568fb2a09fab744313cc4135e22d19dcaa7ef8333abd11fc6b6"
+          "sha256": "f751f2059defcfaa6ab6d7cc62a2d8fb1a4eaf8c9bc86df1c15d379f0bf85697"
         },
         {
           "dimensions": {
@@ -990,20 +1001,21 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/road25-2x.png",
-          "sha256": "44f11f78f9a07182b0c5418e82fe72f35ca353eaa27d63790c9c5ef8875d5e42"
+          "sha256": "be3c620009a03b44dbc680457b21266ff30725930b883bf64cfbd447bb29fd2b"
         }
       ],
       "ports": [
         2,
         5
       ],
-      "width": 14
+      "width": 22
     },
     {
-      "border": 2,
+      "border": 1,
       "border_material": "earth",
       "family": "road",
       "id": "road35",
+      "markings": "dashed",
       "material": "road",
       "outputs": [
         {
@@ -1012,7 +1024,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/road35-4x.png",
-          "sha256": "de20ec59d5fdd91e82bf050cfb9b6b9bc9c4517396be2a3a7b0e89b1f162711e"
+          "sha256": "af6106ed5bc6b54eb7ab060c0a77754bdeb1f369a35ef4adc3f65289a5680ac9"
         },
         {
           "dimensions": {
@@ -1020,20 +1032,21 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/road35-2x.png",
-          "sha256": "4d0349643948a81e8970b0a6a7feb05ee5c9d36e6b57bac29a7b467cbd119c9b"
+          "sha256": "1311b8f7056871e2e1b9c12b6d0d89f1c4f448cd5fe8e27f31a169883971e8c2"
         }
       ],
       "ports": [
         3,
         5
       ],
-      "width": 14
+      "width": 22
     },
     {
-      "border": 2,
+      "border": 1,
       "border_material": "earth",
       "family": "road",
       "id": "road36",
+      "markings": "dashed",
       "material": "road",
       "outputs": [
         {
@@ -1042,7 +1055,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/road36-4x.png",
-          "sha256": "9fd7f5bfdf2571690933f891ee68d1a118f649dd3860de663bc3909880535bf6"
+          "sha256": "2019e64eb5e5fe80f908367edb6ee7b747fba7d427548899e9da5634fc5e9963"
         },
         {
           "dimensions": {
@@ -1050,20 +1063,21 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/road36-2x.png",
-          "sha256": "547c35410082a652670925015c66c1455d8d886f3ab477f21ab79e4735fd568a"
+          "sha256": "0cc5328c6469936b894f6faa467c4bf2401120910d70583b38002e78d90dbd7a"
         }
       ],
       "ports": [
         3,
         6
       ],
-      "width": 14
+      "width": 22
     },
     {
-      "border": 2,
+      "border": 1,
       "border_material": "earth",
       "family": "road",
       "id": "road46",
+      "markings": "dashed",
       "material": "road",
       "outputs": [
         {
@@ -1072,7 +1086,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/road46-4x.png",
-          "sha256": "bfca33b9f24217a6d17d9597d29570cf46fe46c9739043caad7abf0b9e62774f"
+          "sha256": "87bb620cfee39923b666fb4a6ace066c579e2da8e7b9c09870ae640df230b34a"
         },
         {
           "dimensions": {
@@ -1080,20 +1094,21 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/road46-2x.png",
-          "sha256": "e48c080e94d5bda832a66615262a22aa586f5d40f21edfcc1e0d6605ac4ea5ff"
+          "sha256": "74539df7dd98f3adb8260ee33638895632226f5a23ba6e406580d4270353320a"
         }
       ],
       "ports": [
         4,
         6
       ],
-      "width": 14
+      "width": 22
     },
     {
-      "border": 2,
+      "border": 1,
       "border_material": "earth",
       "family": "road",
       "id": "road26",
+      "markings": "dashed",
       "material": "road",
       "outputs": [
         {
@@ -1102,7 +1117,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/road26-4x.png",
-          "sha256": "df7c39e6a88aa1f368d0f5956aef2a96b9e4432430ad2b3e347903621c169609"
+          "sha256": "3ad24bb92a878a2d0a76a3ec0b019ceb4cc19dc4c74336a801a00599ab9a7e47"
         },
         {
           "dimensions": {
@@ -1110,20 +1125,21 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/road26-2x.png",
-          "sha256": "e8492e464ac9a1eec4c9c10b5cd38f7908ef1b4eb65aaf714162b518de4f8b18"
+          "sha256": "15ad563730816f14c2fd6a028fc27f4920169c3830d05acaee0d998c0daf7320"
         }
       ],
       "ports": [
         2,
         6
       ],
-      "width": 14
+      "width": 22
     },
     {
-      "border": 2,
+      "border": 1,
       "border_material": "earth",
       "family": "road",
       "id": "road125",
+      "markings": "dashed",
       "material": "road",
       "outputs": [
         {
@@ -1132,7 +1148,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/road125-4x.png",
-          "sha256": "c8e0014bbbf9a2fba0e05418fe51656239ffdaeb452cc05369e371c54a91d5a2"
+          "sha256": "848a2685cb5957f5ba1e1e63c8b00dc0ff5436da30d25ad65a1bf9581d975c6d"
         },
         {
           "dimensions": {
@@ -1140,7 +1156,7 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/road125-2x.png",
-          "sha256": "1a01f6672f48fc250b4b016df42e8ff67b138b092a01f1b89e3cd36bb6bcd651"
+          "sha256": "95e79ece3bd352062f495ab7e72978846014dbe606d65e4ecf1dd2ee85f50997"
         }
       ],
       "ports": [
@@ -1148,13 +1164,14 @@
         2,
         5
       ],
-      "width": 14
+      "width": 22
     },
     {
-      "border": 2,
+      "border": 1,
       "border_material": "earth",
       "family": "road",
       "id": "road124",
+      "markings": "dashed",
       "material": "road",
       "outputs": [
         {
@@ -1163,7 +1180,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/road124-4x.png",
-          "sha256": "c5ad6c13f37e3b34e71a278902f6e848349ba03be99e47c886decb7f5af74fd1"
+          "sha256": "d849b830f805aa34a4aa7aa42a39fd52d471739fbb2d6218f4aef67cc17c51c9"
         },
         {
           "dimensions": {
@@ -1171,7 +1188,7 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/road124-2x.png",
-          "sha256": "e81a2259b8befdf8231faac7f076b101c9db5a9bf7929b7da25f5eb475a07c77"
+          "sha256": "5e48f6aa65a6bf6e8192a2854c5f898fec92f11f3a6853b2cf2873699fbe969c"
         }
       ],
       "ports": [
@@ -1179,13 +1196,14 @@
         2,
         4
       ],
-      "width": 14
+      "width": 22
     },
     {
-      "border": 2,
+      "border": 1,
       "border_material": "earth",
       "family": "road",
       "id": "road145",
+      "markings": "dashed",
       "material": "road",
       "outputs": [
         {
@@ -1194,7 +1212,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/road145-4x.png",
-          "sha256": "c0025900278b7316da622bfc4f328cfdd4e1a9a1ae773fdeb42b99ab8723e804"
+          "sha256": "31d42cca113771173b94f6fbe2551b50f54753de0fee0d1d0b22c7417f943dd0"
         },
         {
           "dimensions": {
@@ -1202,7 +1220,7 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/road145-2x.png",
-          "sha256": "4e709ab63e8a16ee14c21014828435b105693bd806d4f2a3c1e5b5835e981fe6"
+          "sha256": "d555e29203f8b9591eb5d780cfea5fc9ede447d59deb2d282563c55d932b519a"
         }
       ],
       "ports": [
@@ -1210,13 +1228,14 @@
         4,
         5
       ],
-      "width": 14
+      "width": 22
     },
     {
-      "border": 2,
+      "border": 1,
       "border_material": "earth",
       "family": "road",
       "id": "road236",
+      "markings": "dashed",
       "material": "road",
       "outputs": [
         {
@@ -1225,7 +1244,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/road236-4x.png",
-          "sha256": "8daba5ecf86be8be82272c22dd779bb60bd9d998e4d220edc1e9b1c1d7c23125"
+          "sha256": "7b30c6704c25e25967453c102b0250e1e2fd9d8535fabee4f0452d16bfd9d96d"
         },
         {
           "dimensions": {
@@ -1233,7 +1252,7 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/road236-2x.png",
-          "sha256": "c9be47db81bf4f29248bb8d7d78f5d967635e4e96936239cd96b839a2c6270c4"
+          "sha256": "9d0d420a6d8da08bafa8cedf59eeac39baf8c41867530d485707a7b9190c86c3"
         }
       ],
       "ports": [
@@ -1241,13 +1260,14 @@
         3,
         6
       ],
-      "width": 14
+      "width": 22
     },
     {
-      "border": 2,
+      "border": 1,
       "border_material": "earth",
       "family": "road",
       "id": "road346",
+      "markings": "dashed",
       "material": "road",
       "outputs": [
         {
@@ -1256,7 +1276,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/road346-4x.png",
-          "sha256": "b5eba2d808ec33ab9640d13ad777e201ae7d3331f2624004e76bc86d730b276c"
+          "sha256": "eab050eaa372ec57f11e92005d161e2ebb2e691e6c98be04eb6260f8ebfd37e5"
         },
         {
           "dimensions": {
@@ -1264,7 +1284,7 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/road346-2x.png",
-          "sha256": "5289af191638db05f77a569223a7b5b8c3b2b1f314287f11fc3e6dd4f125beed"
+          "sha256": "9e5cd7eac4219aaae7e663ca936229083c3ad3cd075a6b492d5adabd56c8c3f9"
         }
       ],
       "ports": [
@@ -1272,13 +1292,14 @@
         4,
         6
       ],
-      "width": 14
+      "width": 22
     },
     {
-      "border": 2,
+      "border": 1,
       "border_material": "earth",
       "family": "road",
       "id": "road356",
+      "markings": "dashed",
       "material": "road",
       "outputs": [
         {
@@ -1287,7 +1308,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/road356-4x.png",
-          "sha256": "5234ab5404dfa1dca60bc2468ed699e7a02e80c6733e95c766e96fa44e88fe12"
+          "sha256": "cbefdab51a142ce64c3422f17b9c627b6ba73e564b4348e8409684dd9594e4b8"
         },
         {
           "dimensions": {
@@ -1295,7 +1316,7 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/road356-2x.png",
-          "sha256": "3f1928039076a5751051f6dad4428ed4eec024a169196e7e6aedbc872e032298"
+          "sha256": "64903413f09164909bdb98a04711adced3d297c4d5d6ba9f002ad9b282253619"
         }
       ],
       "ports": [
@@ -1303,13 +1324,14 @@
         5,
         6
       ],
-      "width": 14
+      "width": 22
     },
     {
-      "border": 2,
+      "border": 1,
       "border_material": "earth",
       "family": "road",
       "id": "road135",
+      "markings": "dashed",
       "material": "road",
       "outputs": [
         {
@@ -1318,7 +1340,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/road135-4x.png",
-          "sha256": "036aab58961f0439c45fe4f667eb3c504dbdfa387e38282762b3b2f7299b016b"
+          "sha256": "cc1ab9794591f8311d291f0ba710f63df14882ec90492c3f82e4eb21d8011224"
         },
         {
           "dimensions": {
@@ -1326,7 +1348,7 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/road135-2x.png",
-          "sha256": "e6fb7b164d91ea99cdf209148855a2a7939e06251fcb5373ffa20c39c8ddec93"
+          "sha256": "1b6c52ad359b096938de3325ca342abdeba1d52c5fe7bc05829e0a1cb5318836"
         }
       ],
       "ports": [
@@ -1334,13 +1356,14 @@
         3,
         5
       ],
-      "width": 14
+      "width": 22
     },
     {
-      "border": 2,
+      "border": 1,
       "border_material": "earth",
       "family": "road",
       "id": "road24",
+      "markings": "dashed",
       "material": "road",
       "outputs": [
         {
@@ -1349,7 +1372,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/road24-4x.png",
-          "sha256": "d6468b37b42c09beb13b51267273b83bf0f671358acbd21fa0d051ebb17b8340"
+          "sha256": "a82c255327765193aafb3e4afbd9ac4bf869d5559bd6242637ee601629766f11"
         },
         {
           "dimensions": {
@@ -1357,14 +1380,14 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/road24-2x.png",
-          "sha256": "bbb8eb407d8f9e15313c94dcca699da138e0e9beb691e7dde1cf52c2c3a88b4b"
+          "sha256": "caa16fa9b06bb090099473d97f412ade1110d9bf4878f0adf9397c78361a6b0c"
         }
       ],
       "ports": [
         2,
         4
       ],
-      "width": 14
+      "width": 22
     },
     {
       "border": 2.5,

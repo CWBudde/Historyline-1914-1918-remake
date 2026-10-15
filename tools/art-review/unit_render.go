@@ -55,17 +55,33 @@ func unitTint(base, mask *image.NRGBA, palette []int, spent bool) *image.NRGBA {
 
 // Source and destination coordinates are pixel edges. The (48,49) logical
 // anchor registers at terrain origin+(48,40), with top left at origin+(0,-9).
-// Keep the entire authored panel and one shared .8 framing; never crop to art.
+// Keep the entire authored panel and one shared framing value for all six views;
+// the default is .8. Never crop to art or rescale individual facings.
 func unitAffine(src *image.NRGBA) (*image.NRGBA, error) {
+	return unitAffineInset(src, .8)
+}
+
+func unitAffineParameters(cell int, inset float64) (float64, connectionPoint) {
+	if inset == .8 {
+		// Preserve the original constant arithmetic and exact report offsets.
+		return .8 * 384 / float64(cell), connectionPoint{38.4, 39.2}
+	}
+	return inset * 384 / float64(cell), connectionPoint{192 * (1 - inset), 196 * (1 - inset)}
+}
+
+func unitAffineInset(src *image.NRGBA, inset float64) (*image.NRGBA, error) {
 	cell := src.Bounds().Dx()
 	if cell < 384 || cell > 2048 || src.Bounds().Dy() != cell {
 		return nil, errors.New("unit affine requires a square source cell of size 384..2048")
 	}
-	scale := .8 * 384 / float64(cell)
+	if inset < .8 || inset > 1 || math.IsNaN(inset) || math.IsInf(inset, 0) {
+		return nil, errors.New("unit framing inset must be finite and between 0.8 and 1")
+	}
+	scale, offset := unitAffineParameters(cell, inset)
 	if err := compoundCheckTapBudget(384, 384, scale); err != nil {
 		return nil, err
 	}
-	wx, wy := compoundAxis(384, cell, scale, 38.4), compoundAxis(384, cell, scale, 39.2)
+	wx, wy := compoundAxis(384, cell, scale, offset[0]), compoundAxis(384, cell, scale, offset[1])
 	tmp := make([][4]float64, 384*cell)
 	for y := range cell {
 		for x, weights := range wx {
@@ -105,14 +121,31 @@ func unitAffine(src *image.NRGBA) (*image.NRGBA, error) {
 }
 
 type unitAlphaReport struct {
-	Bounds     [4]int  `json:"alpha_bounds_pixels"`
-	ClearWorld float64 `json:"minimum_clear_world_pixels"`
-	GuardWorld int     `json:"required_zero_rgba_guard_world_pixels"`
+	Bounds             [4]int  `json:"alpha_bounds_pixels"`
+	ClearWorld         float64 `json:"minimum_clear_world_pixels"`
+	GuardWorld         int     `json:"required_zero_rgba_guard_world_pixels"`
+	ContrastGuardWorld int     `json:"required_alpha_guard_world_pixels,omitempty"`
+	GuardAlphaMin      uint8   `json:"guard_minimum_alpha,omitempty"`
+	FringeSamples      int     `json:"low_alpha_guard_samples,omitempty"`
+	FringeMaximum      uint8   `json:"low_alpha_guard_maximum,omitempty"`
+	GuardPolicy        string  `json:"guard_policy,omitempty"`
 }
 
 func unitGuard(im *image.NRGBA, density int) (unitAlphaReport, error) {
+	return unitGuardAlpha(im, density, 1)
+}
+
+// Explicit reference framing retains faint generated alpha fringes unchanged.
+// The original strict guard remains the default; reports never call the wider
+// frame a zero-RGBA pass when low-alpha samples occupy the perimeter.
+func unitGuardAlpha(im *image.NRGBA, density int, minimumAlpha uint8) (unitAlphaReport, error) {
 	w, h := im.Bounds().Dx(), im.Bounds().Dy()
 	r := unitAlphaReport{Bounds: [4]int{w, h, 0, 0}, GuardWorld: 6}
+	if minimumAlpha != 1 {
+		r.GuardWorld = 0
+		r.ContrastGuardWorld, r.GuardAlphaMin = 6, minimumAlpha
+		r.GuardPolicy = "Explicit reference framing: six-world-pixel guard for alpha >=8; lower-alpha source fringes are retained unchanged and counted. Not a zero-RGBA guard pass."
+	}
 	found := false
 	for y := range h {
 		for x := range w {
@@ -124,7 +157,11 @@ func unitGuard(im *image.NRGBA, density int) (unitAlphaReport, error) {
 				continue
 			}
 			if x < 6*density || y < 6*density || x >= w-6*density || y >= h-6*density {
-				return r, fmt.Errorf("unit art violates six-world-pixel guard at (%d,%d)", x, y)
+				if p.A >= minimumAlpha {
+					return r, fmt.Errorf("unit art violates six-world-pixel guard at (%d,%d), alpha=%d threshold=%d", x, y, p.A, minimumAlpha)
+				}
+				r.FringeSamples++
+				r.FringeMaximum = max(r.FringeMaximum, p.A)
 			}
 			found = true
 			r.Bounds[0] = min(r.Bounds[0], x)

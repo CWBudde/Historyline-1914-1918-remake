@@ -1,5 +1,21 @@
 package main
 
+const roadUnitsSmoke = `
+(async()=>{
+ try{
+  const assert=(ok,message)=>{if(!ok)throw Error(message)};
+  assert($('view').value==='side'&&$('grid').value==='no','side-by-side road review');
+  assert(scene().cells.filter(c=>c.layers.some(l=>l.asset==='infrastructure/road36')).length===4,'four connected road tiles');
+  for(const family of ['infantry','heavyArtillery','armoredCar','charron'])assert(scene().cells.some(c=>c.layers.some(l=>l.asset==='sprite/'+family)),'missing '+family);
+  assert(storageKey==='historyline-gfx-road-unit-collection-v1','preserve main collection');
+  const images=Array.from(document.querySelectorAll('#views img'));
+  assert(images.length>40,'both assembled comparison panels');
+  await Promise.all(images.map(im=>im.complete?Promise.resolve():new Promise((resolve,reject)=>{im.onload=resolve;im.onerror=reject;})));
+  assert(images.every(im=>im.naturalWidth>0),'all road/unit images load');
+  document.body.dataset.smoke='pass';
+ }catch(error){document.body.dataset.smoke='FAIL: '+error.message;}
+})();`
+
 // Exercise saved collections and actual DOM placement with the same catalog
 // and image snapshots used by the single-asset browser checks.
 const composerSmoke = `
@@ -23,6 +39,7 @@ const composerSmoke = `
    }
   }
   const roadScene=makeScene('road-unit');assert([0,2,4,6].every(row=>cell(roadScene,row,1).layers.some(l=>l.asset==='infrastructure/road36')),'connected vertical road template');
+  assert(['infantry','heavyArtillery','armoredCar','charron'].every(f=>roadScene.cells.some(c=>c.layers.some(l=>l.asset==='sprite/'+f))),'road and unit readability comparison families');
   change('template','grass');document.getElementById('add-scene').click();
   assert(collection.scenes.length===2,'user scene added');
   change('scene-name','My combined scene');change('collection-name','My review collection');

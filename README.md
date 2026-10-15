@@ -96,6 +96,9 @@ and build your own saved scenes with terrain, roads, units and markers, includin
 reference comparisons and JSON collection import/export.
 The [reference-led redraw](docs/art/reference-redraw-v2.md) records the current
 grass, fortress HQ, red-cross medical camp and east-exit factory candidates.
+`build/gfx-review/road-units.html` compares the current marked road and revised
+unit silhouettes; [readability notes](docs/art/road-unit-readability-v2.md) record
+the selected masters and remaining differences.
 
 Open `build/native-reference/index.html` for the offline gallery of 705 library resources,
 the original UI frame and 46 campaign illustrations. Search/filter, integer inspection scales,

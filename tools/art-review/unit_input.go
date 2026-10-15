@@ -15,14 +15,15 @@ import (
 	"path/filepath"
 )
 
-// The only configurable pilot choices are the explicit families, new source
-// pins and three owner colours. Geometry, facing order and state semantics are fixed.
+// Configurable choices are the explicit family, source pins, owner colours and
+// one optional whole-atlas framing inset. Anchors, facing order and states stay fixed.
 type unitManifest struct {
 	SchemaVersion int                                      `json:"schema_version"`
 	Family        string                                   `json:"family"`
 	Atlas         connectionMaterial                       `json:"atlas"`
 	Palettes      map[string][]int                         `json:"palettes"`
 	Grounds       map[string]map[string]connectionMaterial `json:"grounds"`
+	FramingInset  *float64                                 `json:"framing_inset,omitempty"`
 }
 type unitInputs struct {
 	Manifest unitManifest
@@ -52,7 +53,14 @@ func decodeUnitManifest(b []byte, m *unitManifest) error {
 	if err := decodeConnectionJSON(b, m); err != nil {
 		return err
 	}
-	root, err := unitObject(b, "schema_version", "family", "atlas", "palettes", "grounds")
+	fields := []string{"schema_version", "family", "atlas", "palettes", "grounds"}
+	if m.FramingInset != nil {
+		fields = append(fields, "framing_inset")
+		if *m.FramingInset < .8 || *m.FramingInset > 1 {
+			return errors.New("unit framing_inset must be between 0.8 and 1; one fixed inset applies to all six panels")
+		}
+	}
+	root, err := unitObject(b, fields...)
 	if err != nil {
 		return err
 	}

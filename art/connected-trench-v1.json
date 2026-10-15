@@ -195,8 +195,8 @@
       "source_sha256": "4de543f0906e1311eff5ae4f202eb8fa68665c67103039bee089e60e02c68eb4"
     },
     "road": {
-      "source": "source/terrain/distinct-v1/road-gravel.png",
-      "source_sha256": "93991a9f33f3d125f68f0ed2d14b329f1092428a0df59ba90f92c5b2bc85dd26"
+      "source": "source/terrain/reference-v2/road-paved.png",
+      "source_sha256": "48f521aa74bb1759896b33c95e84abb5d6d1d9146ab2925620a6b3234e5dcd2e"
     },
     "timber": {
       "source": "source/terrain/distinct-v1/timber-weathered.png",

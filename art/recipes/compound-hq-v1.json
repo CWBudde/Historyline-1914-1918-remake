@@ -1,5 +1,5 @@
 {
-  "acceptance": "Seven joined HQ pieces form a stone fortress with four corner towers, red north gate, edge-reaching gravel road, bridge/moat, dirt courtyard and two irregular rear shrubs. Current provisional reference-guided candidate rebuild. Actual PNG assembly and pinned inputs are recorded; current user visual approval, approximately 90% resemblance, whole-map/runtime integration and release acceptance remain open.",
+  "acceptance": "Seven joined HQ pieces form a stone fortress with four corner towers, red north gate, road, bridge/moat and two rear bushes. Current provisional reference-guided candidate rebuild. Actual PNG assembly and pinned inputs are recorded; current user visual approval, approximately 90% resemblance, whole-map/runtime integration and release acceptance remain open.",
   "date": "2026-10-15",
   "exports": [
     {
@@ -135,7 +135,7 @@
         "width": 192
       },
       "path": "art/exports/compound-v1/hqN_w-2x.png",
-      "sha256": "475d13bb4ca767c153b6f540f57886f821bbd80ec4db2e5177c7ef60642f06de"
+      "sha256": "887151ce8a32e37b10d279646121e288c2bd5ef6d7e8701145b8c1d8168a6ee7"
     },
     {
       "build_output": "tiles/hqN_w-4x.png",
@@ -144,7 +144,7 @@
         "width": 384
       },
       "path": "art/exports/compound-v1/hqN_w-4x.png",
-      "sha256": "97af0fde16e99697cd02b996195eb356d5bc4c13593a2e692867ac108121be2f"
+      "sha256": "e02957a89b312ad699daaaf5e5eed70a1a5bf25220b62507508e19f439cc80b6"
     },
     {
       "build_output": "tiles/hqNW_w-2x.png",
@@ -153,7 +153,7 @@
         "width": 192
       },
       "path": "art/exports/compound-v1/hqNW_w-2x.png",
-      "sha256": "7c3aa7a1e06b7f74b472e0bce0e007c3fd74013fb7842db7e81146d922e974a4"
+      "sha256": "b0b76cea7750eb655f6c2a860cbf3a0574ab89b34233220490adee12ffa1c43b"
     },
     {
       "build_output": "tiles/hqNW_w-4x.png",
@@ -162,7 +162,7 @@
         "width": 384
       },
       "path": "art/exports/compound-v1/hqNW_w-4x.png",
-      "sha256": "358273bbc9ac22b41a79119b178cff4fecbbe4f6c0be2d068ed9148733209065"
+      "sha256": "4ec42d2cc9a776409995605c52b175621c66e21bac17d065cf55686f338bb2f0"
     },
     {
       "build_output": "tiles/hqNE_w-2x.png",
@@ -171,7 +171,7 @@
         "width": 192
       },
       "path": "art/exports/compound-v1/hqNE_w-2x.png",
-      "sha256": "ae7210fbf1e0856b36a9478438435245993f8bfd6124e25ed3e4169bd9073d90"
+      "sha256": "2f594c883d679b25e7b7930645f65402ad8721ae2922700294fdcead6641bc48"
     },
     {
       "build_output": "tiles/hqNE_w-4x.png",
@@ -180,7 +180,7 @@
         "width": 384
       },
       "path": "art/exports/compound-v1/hqNE_w-4x.png",
-      "sha256": "daeeef6afcec7ea38dbadcce93e0a31cb3a45e93d3ced18e89a92043a3814666"
+      "sha256": "0021f8a778cfacf002724983b2a67a60053197a08e11eac1a2b780b8cfea402d"
     },
     {
       "build_output": "tiles/hqC_w-2x.png",
@@ -189,7 +189,7 @@
         "width": 192
       },
       "path": "art/exports/compound-v1/hqC_w-2x.png",
-      "sha256": "99dfc0326cd31d94e0025758f73b0470642902b9087e74deeb937e3fbfd5aa90"
+      "sha256": "dd468249833aa61ecd2062a902beb6a6958b012af957d18d432c0b655c68f8a0"
     },
     {
       "build_output": "tiles/hqC_w-4x.png",
@@ -198,7 +198,7 @@
         "width": 384
       },
       "path": "art/exports/compound-v1/hqC_w-4x.png",
-      "sha256": "1a1cd10464021e7aaab63b668dea95e024b128b0909598b6da93646fc06d272a"
+      "sha256": "0d2770d72f4bd59f9e745545828b351c7a5f0e4903a04d30483d15e0b8072c35"
     },
     {
       "build_output": "tiles/hqSW_w-2x.png",
@@ -207,7 +207,7 @@
         "width": 192
       },
       "path": "art/exports/compound-v1/hqSW_w-2x.png",
-      "sha256": "ff47b580587072955bb4e337128794b493a8ae61f0f8a55c1c1148f9bd97d88c"
+      "sha256": "11027e5fbc1f086e236c8e60484654e02d660b4ad95fa1e81c36b88d132a6fc6"
     },
     {
       "build_output": "tiles/hqSW_w-4x.png",
@@ -216,7 +216,7 @@
         "width": 384
       },
       "path": "art/exports/compound-v1/hqSW_w-4x.png",
-      "sha256": "0ceb60c91194964ff95e1e0c01fa327ff24cf8abe7dd7d0c0322884039527748"
+      "sha256": "a520451ab25ecf749073b1f07e2d5e2e0ae3796e857ea8d7482059ea299a320e"
     },
     {
       "build_output": "tiles/hqSE_w-2x.png",
@@ -225,7 +225,7 @@
         "width": 192
       },
       "path": "art/exports/compound-v1/hqSE_w-2x.png",
-      "sha256": "e7040dae2c208971f3d70ef4871a069417d83ee0e3b9eb6e7d3aff4f81eb9b13"
+      "sha256": "b1575d2add50d55e619c949da81c42c003f68967f46b6a3b9bf8bb628c411da6"
     },
     {
       "build_output": "tiles/hqSE_w-4x.png",
@@ -234,7 +234,7 @@
         "width": 384
       },
       "path": "art/exports/compound-v1/hqSE_w-4x.png",
-      "sha256": "9845741acbf9e47669c223715dc61fcf0dd6940f302284c418146091ea72a378"
+      "sha256": "a548d491ed59f777b25cd03cd14e47c60329c25fe96507c4cb3cfae692c565d9"
     },
     {
       "build_output": "tiles/hqS_w-2x.png",
@@ -243,7 +243,7 @@
         "width": 192
       },
       "path": "art/exports/compound-v1/hqS_w-2x.png",
-      "sha256": "4f502d2d7ec4bd5721f165d162fbfc4421e31457a35d36c4fcbd2d2ebcc3e981"
+      "sha256": "c359509710f6b8c6c91429b3bebee9f6024cfe4c75b44f8c7444f1c6680a0b7c"
     },
     {
       "build_output": "tiles/hqS_w-4x.png",
@@ -252,7 +252,7 @@
         "width": 384
       },
       "path": "art/exports/compound-v1/hqS_w-4x.png",
-      "sha256": "40648c8dc1e487e4027a4a658f9392ec62a3b98a853a2e1a3a30fcf3102075d6"
+      "sha256": "3cb461783ca59730a87b3dedcfda3b2199005cf47bc3cd6435dce82a18f5741f"
     }
   ],
   "generation_recipes": [
@@ -264,7 +264,8 @@
     "art/recipes/terrain/distinct-v1/snow-ground.json",
     "art/recipes/terrain/reference-v2/meadow-03.json",
     "art/recipes/compound/reference-v2/hq-summer-natural.json",
-    "art/recipes/compound/reference-v2/hq-winter-natural.json"
+    "art/recipes/compound/reference-v2/hq-winter-natural.json",
+    "art/recipes/compound/reference-v2/hq-winter-street.json"
   ],
   "generation_recipes_scope": "Includes historical generation studies and the current pinned master records. Current source selection is established by the producing manifest and its exact SHA256 pins; historical records are unchanged.",
   "geometry": {
@@ -371,7 +372,7 @@
   },
   "id": "compound-hq-v1",
   "manifest": "art/compound-hq-v1.json",
-  "manifest_sha256": "e812dfdd8e3f179720a7c38b4bf4796ddac60531213caa9152fc96112435be70",
+  "manifest_sha256": "6440caa2f56ef1fadb64d55710de5b0bfc38518b5e260982d2046bd843da4a9e",
   "original_image_inputs": [
     {
       "generation_recipe": "art/recipes/terrain/reference-v2/meadow-03.json",
@@ -449,7 +450,7 @@
         "width": 476
       },
       "path": "art/review/compound-v1/hq-winter-scene-2x.png",
-      "sha256": "4a0f181a6b2aa687d62425729f2a7ed9cba3dada577f44d55fd902d0f50d17e8"
+      "sha256": "d382d609545d5d4c49e2579de5385f688651ba7fb2d806050b9661ebfa3c91b2"
     },
     {
       "build_output": "hq-winter-patch-parity0-2x.png",
@@ -458,7 +459,7 @@
         "width": 760
       },
       "path": "art/review/compound-v1/hq-winter-patch-parity0-2x.png",
-      "sha256": "dbe604b9e0f74b9969db6b1dd408f868833ad4a796e09e8dadaacd0acd419337"
+      "sha256": "e725f6eb0a17b1a0be2c1a98d5d9fad9dde5aed3fd8d173f0bec9b3c100ae4e9"
     },
     {
       "build_output": "hq-winter-patch-parity1-2x.png",
@@ -467,7 +468,7 @@
         "width": 760
       },
       "path": "art/review/compound-v1/hq-winter-patch-parity1-2x.png",
-      "sha256": "dbe604b9e0f74b9969db6b1dd408f868833ad4a796e09e8dadaacd0acd419337"
+      "sha256": "e725f6eb0a17b1a0be2c1a98d5d9fad9dde5aed3fd8d173f0bec9b3c100ae4e9"
     },
     {
       "build_output": "hq-winter-scene-4x.png",
@@ -476,7 +477,7 @@
         "width": 952
       },
       "path": "art/review/compound-v1/hq-winter-scene-4x.png",
-      "sha256": "7ffbf5b69e5d64eccb4bf3c0b48206b06084f823274fee75b2bbcfa2d156e214"
+      "sha256": "defb6b48369317fbd3ea3a755800fdd3a2489d891978bea6dab1c36894414007"
     },
     {
       "build_output": "hq-winter-patch-parity0-4x.png",
@@ -485,7 +486,7 @@
         "width": 1520
       },
       "path": "art/review/compound-v1/hq-winter-patch-parity0-4x.png",
-      "sha256": "65d6ae5810e79c45ed59675e87950658f24a4bea67c1ee59f26557d7d7553749"
+      "sha256": "ed49ab540c995f4f975aca6ec7d38a749281d1d82a299ce2d8c70a134283dd96"
     },
     {
       "build_output": "hq-winter-patch-parity1-4x.png",
@@ -494,7 +495,7 @@
         "width": 1520
       },
       "path": "art/review/compound-v1/hq-winter-patch-parity1-4x.png",
-      "sha256": "65d6ae5810e79c45ed59675e87950658f24a4bea67c1ee59f26557d7d7553749"
+      "sha256": "ed49ab540c995f4f975aca6ec7d38a749281d1d82a299ce2d8c70a134283dd96"
     }
   ],
   "scenes": [
@@ -1191,7 +1192,7 @@
             "width": 476
           },
           "path": "hq-winter-artwork-2x.png",
-          "sha256": "166b6523d849e802c95c6bbff281c399208537232fd487ba00d11412800448c5"
+          "sha256": "9fff46ea98645db1025b51521b5d0f27f501089bf5eaa1b649827f973a4e0646"
         },
         {
           "dimensions": {
@@ -1199,7 +1200,7 @@
             "width": 952
           },
           "path": "hq-winter-artwork-4x.png",
-          "sha256": "98306c67db032dab7fbb55d44b579e7959be49a1f0cb1385ecaaf2e018ef7d64"
+          "sha256": "7d724f595e83304e96d4915c64306161717c9e228be5bdfa883350aef1e95cdf"
         }
       ],
       "assembled": [
@@ -1209,7 +1210,7 @@
             "width": 476
           },
           "path": "hq-winter-assembled-2x.png",
-          "sha256": "4a0f181a6b2aa687d62425729f2a7ed9cba3dada577f44d55fd902d0f50d17e8"
+          "sha256": "d382d609545d5d4c49e2579de5385f688651ba7fb2d806050b9661ebfa3c91b2"
         },
         {
           "dimensions": {
@@ -1217,19 +1218,19 @@
             "width": 952
           },
           "path": "hq-winter-assembled-4x.png",
-          "sha256": "7ffbf5b69e5d64eccb4bf3c0b48206b06084f823274fee75b2bbcfa2d156e214"
+          "sha256": "defb6b48369317fbd3ea3a755800fdd3a2489d891978bea6dab1c36894414007"
         }
       ],
       "entry_cell": "N",
       "framing": "reference-layout",
       "guard": {
-        "boundary_alpha_mass": 3342823,
-        "boundary_pixels": 14802,
+        "boundary_alpha_mass": 3749133,
+        "boundary_pixels": 16460,
         "clipped_alpha_mass": 0,
         "clipped_pixels": 0,
-        "guarded_opaque_count": 12467,
+        "guarded_opaque_count": 14072,
         "max_boundary_alpha": 255,
-        "minimum_opaque_distance_world": -1.625,
+        "minimum_opaque_distance_world": -2.125,
         "policy": "reference-layout: eight-world-pixel band is diagnostic only; no rejection or fade; final compound union mask clips outside after density resampling"
       },
       "height": 240,
@@ -1240,8 +1241,8 @@
           "width": 1243
         },
         "retained_source": "sources/hq-winter.png",
-        "source": "art/source/compound/reference-v2/hq-winter-natural.png",
-        "source_sha256": "37a03c5bdee507d2f14d9af1a9d703a1ab9785a3be531d96d860f0ecf08a407f"
+        "source": "art/source/compound/reference-v2/hq-winter-street.png",
+        "source_sha256": "1fb27001f23797ac98f36b95baf9cc5b6f1f5459df32a18e980b485f1cc96204"
       },
       "inset": 1,
       "layout": "hq",
@@ -1431,7 +1432,7 @@
                 "width": 760
               },
               "path": "art/review/compound-v1/hq-winter-patch-parity0-2x.png",
-              "sha256": "dbe604b9e0f74b9969db6b1dd408f868833ad4a796e09e8dadaacd0acd419337"
+              "sha256": "e725f6eb0a17b1a0be2c1a98d5d9fad9dde5aed3fd8d173f0bec9b3c100ae4e9"
             },
             {
               "dimensions": {
@@ -1439,7 +1440,7 @@
                 "width": 1520
               },
               "path": "art/review/compound-v1/hq-winter-patch-parity0-4x.png",
-              "sha256": "65d6ae5810e79c45ed59675e87950658f24a4bea67c1ee59f26557d7d7553749"
+              "sha256": "ed49ab540c995f4f975aca6ec7d38a749281d1d82a299ce2d8c70a134283dd96"
             }
           ],
           "parity": 0,
@@ -1633,7 +1634,7 @@
                 "width": 760
               },
               "path": "art/review/compound-v1/hq-winter-patch-parity1-2x.png",
-              "sha256": "dbe604b9e0f74b9969db6b1dd408f868833ad4a796e09e8dadaacd0acd419337"
+              "sha256": "e725f6eb0a17b1a0be2c1a98d5d9fad9dde5aed3fd8d173f0bec9b3c100ae4e9"
             },
             {
               "dimensions": {
@@ -1641,7 +1642,7 @@
                 "width": 1520
               },
               "path": "art/review/compound-v1/hq-winter-patch-parity1-4x.png",
-              "sha256": "65d6ae5810e79c45ed59675e87950658f24a4bea67c1ee59f26557d7d7553749"
+              "sha256": "ed49ab540c995f4f975aca6ec7d38a749281d1d82a299ce2d8c70a134283dd96"
             }
           ],
           "parity": 1,
@@ -1659,7 +1660,7 @@
             "width": 476
           },
           "path": "art/review/compound-v1/hq-winter-scene-2x.png",
-          "sha256": "4a0f181a6b2aa687d62425729f2a7ed9cba3dada577f44d55fd902d0f50d17e8"
+          "sha256": "d382d609545d5d4c49e2579de5385f688651ba7fb2d806050b9661ebfa3c91b2"
         },
         {
           "dimensions": {
@@ -1667,7 +1668,7 @@
             "width": 952
           },
           "path": "art/review/compound-v1/hq-winter-scene-4x.png",
-          "sha256": "7ffbf5b69e5d64eccb4bf3c0b48206b06084f823274fee75b2bbcfa2d156e214"
+          "sha256": "defb6b48369317fbd3ea3a755800fdd3a2489d891978bea6dab1c36894414007"
         }
       ],
       "season": "winter",
@@ -1685,7 +1686,7 @@
                 "width": 192
               },
               "path": "art/exports/compound-v1/hqN_w-2x.png",
-              "sha256": "475d13bb4ca767c153b6f540f57886f821bbd80ec4db2e5177c7ef60642f06de"
+              "sha256": "887151ce8a32e37b10d279646121e288c2bd5ef6d7e8701145b8c1d8168a6ee7"
             },
             {
               "dimensions": {
@@ -1693,7 +1694,7 @@
                 "width": 384
               },
               "path": "art/exports/compound-v1/hqN_w-4x.png",
-              "sha256": "97af0fde16e99697cd02b996195eb356d5bc4c13593a2e692867ac108121be2f"
+              "sha256": "e02957a89b312ad699daaaf5e5eed70a1a5bf25220b62507508e19f439cc80b6"
             }
           ],
           "runtime_id": "hqN_w"
@@ -1711,7 +1712,7 @@
                 "width": 192
               },
               "path": "art/exports/compound-v1/hqNW_w-2x.png",
-              "sha256": "7c3aa7a1e06b7f74b472e0bce0e007c3fd74013fb7842db7e81146d922e974a4"
+              "sha256": "b0b76cea7750eb655f6c2a860cbf3a0574ab89b34233220490adee12ffa1c43b"
             },
             {
               "dimensions": {
@@ -1719,7 +1720,7 @@
                 "width": 384
               },
               "path": "art/exports/compound-v1/hqNW_w-4x.png",
-              "sha256": "358273bbc9ac22b41a79119b178cff4fecbbe4f6c0be2d068ed9148733209065"
+              "sha256": "4ec42d2cc9a776409995605c52b175621c66e21bac17d065cf55686f338bb2f0"
             }
           ],
           "runtime_id": "hqNW_w"
@@ -1737,7 +1738,7 @@
                 "width": 192
               },
               "path": "art/exports/compound-v1/hqNE_w-2x.png",
-              "sha256": "ae7210fbf1e0856b36a9478438435245993f8bfd6124e25ed3e4169bd9073d90"
+              "sha256": "2f594c883d679b25e7b7930645f65402ad8721ae2922700294fdcead6641bc48"
             },
             {
               "dimensions": {
@@ -1745,7 +1746,7 @@
                 "width": 384
               },
               "path": "art/exports/compound-v1/hqNE_w-4x.png",
-              "sha256": "daeeef6afcec7ea38dbadcce93e0a31cb3a45e93d3ced18e89a92043a3814666"
+              "sha256": "0021f8a778cfacf002724983b2a67a60053197a08e11eac1a2b780b8cfea402d"
             }
           ],
           "runtime_id": "hqNE_w"
@@ -1763,7 +1764,7 @@
                 "width": 192
               },
               "path": "art/exports/compound-v1/hqC_w-2x.png",
-              "sha256": "99dfc0326cd31d94e0025758f73b0470642902b9087e74deeb937e3fbfd5aa90"
+              "sha256": "dd468249833aa61ecd2062a902beb6a6958b012af957d18d432c0b655c68f8a0"
             },
             {
               "dimensions": {
@@ -1771,7 +1772,7 @@
                 "width": 384
               },
               "path": "art/exports/compound-v1/hqC_w-4x.png",
-              "sha256": "1a1cd10464021e7aaab63b668dea95e024b128b0909598b6da93646fc06d272a"
+              "sha256": "0d2770d72f4bd59f9e745545828b351c7a5f0e4903a04d30483d15e0b8072c35"
             }
           ],
           "runtime_id": "hqC_w"
@@ -1789,7 +1790,7 @@
                 "width": 192
               },
               "path": "art/exports/compound-v1/hqSW_w-2x.png",
-              "sha256": "ff47b580587072955bb4e337128794b493a8ae61f0f8a55c1c1148f9bd97d88c"
+              "sha256": "11027e5fbc1f086e236c8e60484654e02d660b4ad95fa1e81c36b88d132a6fc6"
             },
             {
               "dimensions": {
@@ -1797,7 +1798,7 @@
                 "width": 384
               },
               "path": "art/exports/compound-v1/hqSW_w-4x.png",
-              "sha256": "0ceb60c91194964ff95e1e0c01fa327ff24cf8abe7dd7d0c0322884039527748"
+              "sha256": "a520451ab25ecf749073b1f07e2d5e2e0ae3796e857ea8d7482059ea299a320e"
             }
           ],
           "runtime_id": "hqSW_w"
@@ -1815,7 +1816,7 @@
                 "width": 192
               },
               "path": "art/exports/compound-v1/hqSE_w-2x.png",
-              "sha256": "e7040dae2c208971f3d70ef4871a069417d83ee0e3b9eb6e7d3aff4f81eb9b13"
+              "sha256": "b1575d2add50d55e619c949da81c42c003f68967f46b6a3b9bf8bb628c411da6"
             },
             {
               "dimensions": {
@@ -1823,7 +1824,7 @@
                 "width": 384
               },
               "path": "art/exports/compound-v1/hqSE_w-4x.png",
-              "sha256": "9845741acbf9e47669c223715dc61fcf0dd6940f302284c418146091ea72a378"
+              "sha256": "a548d491ed59f777b25cd03cd14e47c60329c25fe96507c4cb3cfae692c565d9"
             }
           ],
           "runtime_id": "hqSE_w"
@@ -1841,7 +1842,7 @@
                 "width": 192
               },
               "path": "art/exports/compound-v1/hqS_w-2x.png",
-              "sha256": "4f502d2d7ec4bd5721f165d162fbfc4421e31457a35d36c4fcbd2d2ebcc3e981"
+              "sha256": "c359509710f6b8c6c91429b3bebee9f6024cfe4c75b44f8c7444f1c6680a0b7c"
             },
             {
               "dimensions": {
@@ -1849,7 +1850,7 @@
                 "width": 384
               },
               "path": "art/exports/compound-v1/hqS_w-4x.png",
-              "sha256": "40648c8dc1e487e4027a4a658f9392ec62a3b98a853a2e1a3a30fcf3102075d6"
+              "sha256": "3cb461783ca59730a87b3dedcfda3b2199005cf47bc3cd6435dce82a18f5741f"
             }
           ],
           "runtime_id": "hqS_w"

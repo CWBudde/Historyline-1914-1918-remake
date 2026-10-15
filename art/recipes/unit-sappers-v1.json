@@ -54,7 +54,7 @@
           "width": 192
         },
         "path": "sprites/sappers/cp/n-normal-2x.png",
-        "sha256": "e37a978879f527a3bc2d0b5dc73ad67ffe5cd9531430ad202b34ee40b2057ae7"
+        "sha256": "7dde4960c5cb69e6fe01bdca1a6b490f258b1681663b6280147e32d5b488d169"
       },
       {
         "dimensions": {
@@ -62,7 +62,7 @@
           "width": 384
         },
         "path": "sprites/sappers/cp/n-normal-4x.png",
-        "sha256": "667544278c2d9e3edc59739d8bed08c4b352fd8f307049039ccba932e5f8c7bf"
+        "sha256": "c3e0cd59fa05fc8de86cc78a8add4b9e8db22829b4675d286ba1c06244c8f8cc"
       },
       {
         "dimensions": {
@@ -70,7 +70,7 @@
           "width": 192
         },
         "path": "sprites/sappers/cp/n-spent-2x.png",
-        "sha256": "0d594205a9fa7319628cdcb7a466ba17c7d7b5e7b27a6ca8a758a101bf5d7c0f"
+        "sha256": "8b6db174014898519a163593e71639ce7b78782fbe9d2ba0e35c933358857d9f"
       },
       {
         "dimensions": {
@@ -78,7 +78,7 @@
           "width": 384
         },
         "path": "sprites/sappers/cp/n-spent-4x.png",
-        "sha256": "bd9a272c04ebebe1898515170e1af56718f23cb3d9d27d6b818c008b4d0d74c8"
+        "sha256": "ca4d0a4c1db809e39cc45838ee3453e37b2dcae4b4f827a12e70ebad55b28b7d"
       },
       {
         "dimensions": {
@@ -86,7 +86,7 @@
           "width": 192
         },
         "path": "sprites/sappers/ec/n-normal-2x.png",
-        "sha256": "c9b0b7f6115d028ba817c00d18029a23a21c5dc8d99cbeea30b0ede6dfc52720"
+        "sha256": "a8feeac222cd54efba7421f2264ad701f06a1696238927c28af85708b8afe9c0"
       },
       {
         "dimensions": {
@@ -94,7 +94,7 @@
           "width": 384
         },
         "path": "sprites/sappers/ec/n-normal-4x.png",
-        "sha256": "d1c82f2789386248e4367cee879c8a4106fb915c9430d69fad565894c9f49718"
+        "sha256": "3b35b996623891c6fca56bd84f7a26bbd874512d756934c2c543d6851bd89f97"
       },
       {
         "dimensions": {
@@ -102,7 +102,7 @@
           "width": 192
         },
         "path": "sprites/sappers/ec/n-spent-2x.png",
-        "sha256": "d71a02e025e0eb1fbcd7dbc8baa2d55e622455d189df99a0c39fe84f7b67c078"
+        "sha256": "6c3ca5e50d0a45f6ab460a1b7b7b64a5b36a3264dbb1c6c1d1361cc08c4389b3"
       },
       {
         "dimensions": {
@@ -110,7 +110,7 @@
           "width": 384
         },
         "path": "sprites/sappers/ec/n-spent-4x.png",
-        "sha256": "c00f904fc448a5b657a8ba4c13e28ad21fc5633f6207d3784be49fdf92354d01"
+        "sha256": "39402bd4c81497cca020d8402a720b8733d3714d7dc5d6c459e2279248eebd96"
       },
       {
         "dimensions": {
@@ -118,7 +118,7 @@
           "width": 192
         },
         "path": "sprites/sappers/neutral/n-normal-2x.png",
-        "sha256": "3861e8df62a0140031e0537e0f87ca38ec81e79aef4794fcd075e3c05896ce8d"
+        "sha256": "3b34ea341e09c91c5a9665c80e06dd0ba5c5e08d94ccb2db9847d08e0e929dd8"
       },
       {
         "dimensions": {
@@ -126,7 +126,7 @@
           "width": 384
         },
         "path": "sprites/sappers/neutral/n-normal-4x.png",
-        "sha256": "8b9a7f7ea497c13b0071f76db30280c6d00b496f8109a29f13db46a77c44e25d"
+        "sha256": "8d2823ca2cdb952368c579ada1122dcaa01268063043506caa20376626909c8d"
       },
       {
         "dimensions": {
@@ -134,7 +134,7 @@
           "width": 192
         },
         "path": "sprites/sappers/neutral/n-spent-2x.png",
-        "sha256": "39375c5ec19303134751c9fd228742d2c2da5e0522cb051e6860189625b9d632"
+        "sha256": "d3144b6a780c5315e984d0670eb37ad676b18edd3628617de4b2a9022f5ee4a0"
       },
       {
         "dimensions": {
@@ -142,7 +142,7 @@
           "width": 384
         },
         "path": "sprites/sappers/neutral/n-spent-4x.png",
-        "sha256": "16467008f5c99205473423818454b9c631b9fa5490470595fc91b3bea3faea4b"
+        "sha256": "d38c64918b68d3d540568895348dcafd6073ee34c624d2f7c17a6cf36b42644c"
       },
       {
         "dimensions": {
@@ -182,7 +182,7 @@
           "width": 192
         },
         "path": "sprites/sappers/cp/nw-normal-2x.png",
-        "sha256": "51ea0c9ca66a387553987f10012dccb77feda7f20968947f1c825bc304cbe072"
+        "sha256": "82fa729cf59bdd7a3c8f751e8bd675b66ef7d0b7c08d799c191b9fa1706db85d"
       },
       {
         "dimensions": {
@@ -190,7 +190,7 @@
           "width": 384
         },
         "path": "sprites/sappers/cp/nw-normal-4x.png",
-        "sha256": "2e2f54a3eee2c21aacc10e760acdc1c53e4a8e76faf5050026584840a06f3b40"
+        "sha256": "59b06641092d7be536698ba0c30429eff2231d269801a27b33b9a16608e6542d"
       },
       {
         "dimensions": {
@@ -198,7 +198,7 @@
           "width": 192
         },
         "path": "sprites/sappers/cp/nw-spent-2x.png",
-        "sha256": "1de168f6495f5f59e56380b25e60cf36bb6a09490f756616d673899ca922703a"
+        "sha256": "b433f5004c5bc132c7205dc1fa4fbd03cb77f8254dcb5306deb7202f4f4f774d"
       },
       {
         "dimensions": {
@@ -206,7 +206,7 @@
           "width": 384
         },
         "path": "sprites/sappers/cp/nw-spent-4x.png",
-        "sha256": "6d28341e71d3a00a2747881d13da1ebafa3219a168633c4df3516d11816eda0d"
+        "sha256": "f3bd26238dd930c77935e06cb287a7b342f9aa181d5be8e388a60eed0f3b46a2"
       },
       {
         "dimensions": {
@@ -214,7 +214,7 @@
           "width": 192
         },
         "path": "sprites/sappers/ec/nw-normal-2x.png",
-        "sha256": "258710a3f80dead48d2f97be084b013c0836d51d94841d533a7eb79216b3cae5"
+        "sha256": "454c38806382e8c034be32c535c4786c19dfec9015c6529b94672912d7cc8a04"
       },
       {
         "dimensions": {
@@ -222,7 +222,7 @@
           "width": 384
         },
         "path": "sprites/sappers/ec/nw-normal-4x.png",
-        "sha256": "045f5bae06e7e75fa30903e8a59a8c8e9cd3db696c5934ab99bef834f026c5e5"
+        "sha256": "3bd016d5f94595e8acc0f5acef1882d3b5c0e88a725b84fef341640c28d3c131"
       },
       {
         "dimensions": {
@@ -230,7 +230,7 @@
           "width": 192
         },
         "path": "sprites/sappers/ec/nw-spent-2x.png",
-        "sha256": "79cee0c4d4e793abc0f4f68f37fd2680e1c191acf65046543f223789cf4b9ba4"
+        "sha256": "ac5231f00fcc3dc1baff5e468ef8c8667783e3351e31845dec99eeafa10dffb7"
       },
       {
         "dimensions": {
@@ -238,7 +238,7 @@
           "width": 384
         },
         "path": "sprites/sappers/ec/nw-spent-4x.png",
-        "sha256": "bf4c63a885e74f5266c7037d965012d33ec4fbbc2c8e1e79fe3da2f05e4b4d8b"
+        "sha256": "04af6946ce050e731e129b308e3aad02fc2d581f92ec42b92391b5b6ac9b4ee9"
       },
       {
         "dimensions": {
@@ -246,7 +246,7 @@
           "width": 192
         },
         "path": "sprites/sappers/neutral/nw-normal-2x.png",
-        "sha256": "932ba508cce236dcbaddf2c53667d765418d1bb52c71e39992db39fa341ee306"
+        "sha256": "07d2c3d727415ce3a708d7265c148e3e8575a4690252f0af31bad8bca96dcb3c"
       },
       {
         "dimensions": {
@@ -254,7 +254,7 @@
           "width": 384
         },
         "path": "sprites/sappers/neutral/nw-normal-4x.png",
-        "sha256": "25fcc6999aa8e75638aa28deb6d430657cfd6930b361dd4b6508b2ee827513a0"
+        "sha256": "a05d8736af3bf3c88cfadba396d41aa09a45d985ff6276582349dab404c2ca9f"
       },
       {
         "dimensions": {
@@ -262,7 +262,7 @@
           "width": 192
         },
         "path": "sprites/sappers/neutral/nw-spent-2x.png",
-        "sha256": "e437a2587edd1b5a291aa8d7eabda629932d4037675dce45c878c5ab2330c2a8"
+        "sha256": "f05ff0785720e3c36bb115973d6d8659944386570630824a07f0b381eccadcbe"
       },
       {
         "dimensions": {
@@ -270,7 +270,7 @@
           "width": 384
         },
         "path": "sprites/sappers/neutral/nw-spent-4x.png",
-        "sha256": "b7bba45da15b7b6495db3a271553b485cca5ac29802cc657e35d10a33e0d78a4"
+        "sha256": "0ef93ec91e4a6890df33057c0b80585060b01351b2509970ee98734208b28225"
       },
       {
         "dimensions": {
@@ -310,7 +310,7 @@
           "width": 192
         },
         "path": "sprites/sappers/cp/sw-normal-2x.png",
-        "sha256": "1782b1290aa991dbf820ce3c172b349a916f68082b549b619294287fcc8fecea"
+        "sha256": "8b588d10ec878c0f968a412779f65a95c7141705aa1bcd93f7554919e6d539af"
       },
       {
         "dimensions": {
@@ -318,7 +318,7 @@
           "width": 384
         },
         "path": "sprites/sappers/cp/sw-normal-4x.png",
-        "sha256": "2f8aa4522fd7df7efebca2eefc791b72e0694974486913aedcdfbb575aa0f338"
+        "sha256": "20087c2a7bde964824f10441bce0cb96315f7e92f95df1fcdf67411db1c76670"
       },
       {
         "dimensions": {
@@ -326,7 +326,7 @@
           "width": 192
         },
         "path": "sprites/sappers/cp/sw-spent-2x.png",
-        "sha256": "6114c0698031f0ecfa157c04dc6b6887fc7d348fc4504186360e17627186a545"
+        "sha256": "a2eb322e8176695e27e64525a60579cf01d557ea8c9c8fed36a422300d72e328"
       },
       {
         "dimensions": {
@@ -334,7 +334,7 @@
           "width": 384
         },
         "path": "sprites/sappers/cp/sw-spent-4x.png",
-        "sha256": "33cdfae6aa4011f1842cd59d848e60e9f6574c7300d262980c65658f2bf7bd8f"
+        "sha256": "181517ad1321d03374d8a10345d6e35c1b197068281d914c6ec666bbe7380241"
       },
       {
         "dimensions": {
@@ -342,7 +342,7 @@
           "width": 192
         },
         "path": "sprites/sappers/ec/sw-normal-2x.png",
-        "sha256": "f084f0af50425a6a3064dd2e5f1367a4d6e7218ce96a458aeb671f808d480142"
+        "sha256": "14dadaeaae7394307a0a4aa4e4f3a9d17deed58494705e2d0f37de375a3594d5"
       },
       {
         "dimensions": {
@@ -350,7 +350,7 @@
           "width": 384
         },
         "path": "sprites/sappers/ec/sw-normal-4x.png",
-        "sha256": "102c123862ccfce776553b11909913b70d7eb4f99092d4d1f301a90a311abde2"
+        "sha256": "bca9b5735edb80ccf726189e78dffea92f3230054b0ff882aadda7516bd8c88d"
       },
       {
         "dimensions": {
@@ -358,7 +358,7 @@
           "width": 192
         },
         "path": "sprites/sappers/ec/sw-spent-2x.png",
-        "sha256": "2ee415448a9e1890a30ccd8bd02443d69dbc4bad0cec0523142e01647ee5a443"
+        "sha256": "2e6d84fe146f81ba5acf159dc6b751e798daf326e70eb6b31b8fab87c2801364"
       },
       {
         "dimensions": {
@@ -366,7 +366,7 @@
           "width": 384
         },
         "path": "sprites/sappers/ec/sw-spent-4x.png",
-        "sha256": "2f56692963831d30202656fc4c64c0e34b70f15ecc76f31bb42e3fd4c032b30c"
+        "sha256": "d98b4b53da86714e534b24680cee1d9527760db2b3cc99150fafc77513bb05b8"
       },
       {
         "dimensions": {
@@ -374,7 +374,7 @@
           "width": 192
         },
         "path": "sprites/sappers/neutral/sw-normal-2x.png",
-        "sha256": "146a445fc9314b2a263d8fb876f01f3c7c3fb85e2e74855e331edd60c63f4aee"
+        "sha256": "73ba32f0ab7d5bfe030cf5d7d5fce61f0b46679d5f2ebf783e74971f3e865685"
       },
       {
         "dimensions": {
@@ -382,7 +382,7 @@
           "width": 384
         },
         "path": "sprites/sappers/neutral/sw-normal-4x.png",
-        "sha256": "3de4886ec1e36354dfb421cfa0bfe92a7063a7f22c56c20f64065aa8c99264b6"
+        "sha256": "da6c8b01476212b8709b3c157ec19409491d650500df9a21f57d04d9948ebe4f"
       },
       {
         "dimensions": {
@@ -390,7 +390,7 @@
           "width": 192
         },
         "path": "sprites/sappers/neutral/sw-spent-2x.png",
-        "sha256": "04e26b7811e630bddc4bb8d3d244cdf9c01c66316ae9b62756d2d93b0f6476f7"
+        "sha256": "51554af2530eaaacfdd8a581da7c79d3d326e558d2ee1654beb0f9ca657c15f5"
       },
       {
         "dimensions": {
@@ -398,7 +398,7 @@
           "width": 384
         },
         "path": "sprites/sappers/neutral/sw-spent-4x.png",
-        "sha256": "9867519b1d213bdb818a664e5e02f7e2ae1b7ebecfe4ef3297f94ef6d25be5e9"
+        "sha256": "68827338ba7ab99ed2d4f04d350ee3d7f49a4138ac167021f562e6d4787921c9"
       },
       {
         "dimensions": {
@@ -438,7 +438,7 @@
           "width": 192
         },
         "path": "sprites/sappers/cp/s-normal-2x.png",
-        "sha256": "88fd7f900e04a2712aa6759fac5bc734b534dbb4cfc1f929d1abbd423cfd61fc"
+        "sha256": "757868e06b75def6572663b0ff02721d25d40e4f5b4cc20e7c4416db5a58c0c9"
       },
       {
         "dimensions": {
@@ -446,7 +446,7 @@
           "width": 384
         },
         "path": "sprites/sappers/cp/s-normal-4x.png",
-        "sha256": "ca5d00a92e9faabaf7b054f7f51663684e80d4ea077fb834921debf9353213df"
+        "sha256": "77d6b1061c3230927caeb5a501bbce52ba9732a356d5d593ee107ac9cf6d001f"
       },
       {
         "dimensions": {
@@ -454,7 +454,7 @@
           "width": 192
         },
         "path": "sprites/sappers/cp/s-spent-2x.png",
-        "sha256": "a8f7843df66d203aa87ac540a1a5ea25e737420dc03196e540273e88d0ce7f8a"
+        "sha256": "40d9f13cdef3d143195d514b10d3ac2eaeeba18f5ddd10b3558603e067f7f9f2"
       },
       {
         "dimensions": {
@@ -462,7 +462,7 @@
           "width": 384
         },
         "path": "sprites/sappers/cp/s-spent-4x.png",
-        "sha256": "0bc31e2247289e2321f747d20d4143b7d646f06ce63a65b31b1148f5f1798771"
+        "sha256": "0b43e9748e6ffafe1c3f899fe1c5348e8b6df997eb81863b3d63fa4071d7a0de"
       },
       {
         "dimensions": {
@@ -470,7 +470,7 @@
           "width": 192
         },
         "path": "sprites/sappers/ec/s-normal-2x.png",
-        "sha256": "2650a36399046e3c0dd6674dc159158632d4feaeddb153ead0350c0e4e9750f8"
+        "sha256": "15be9b6f103958d4a61bcde5a50f493faa85c94c26297ab201f630f85c6e9bfb"
       },
       {
         "dimensions": {
@@ -478,7 +478,7 @@
           "width": 384
         },
         "path": "sprites/sappers/ec/s-normal-4x.png",
-        "sha256": "065598e8e02ff6f6ae3c8068e0ed9e729a8a7cc2c723b39a54211b3d10c9b780"
+        "sha256": "27d4aa3b66bb2c71aa00da0327d7c0ad748be29ffa24edf4d87941f335723abf"
       },
       {
         "dimensions": {
@@ -486,7 +486,7 @@
           "width": 192
         },
         "path": "sprites/sappers/ec/s-spent-2x.png",
-        "sha256": "7956f25b0c49dd9300e2921f2e7f4f25a5dc569ee6c8fc3849f16209b9928ffd"
+        "sha256": "615957bfd99e08992a0f43eee12b089f25be98d07da6830d0a839e12ed291e4a"
       },
       {
         "dimensions": {
@@ -494,7 +494,7 @@
           "width": 384
         },
         "path": "sprites/sappers/ec/s-spent-4x.png",
-        "sha256": "2863ede808fe1460585bbf4a6510de3117d11581a15372d5d20b71a90f2c7ea0"
+        "sha256": "8a5d5d99af27c335b0408228bdef6a09000e0cbe952f36cab396ed968f018595"
       },
       {
         "dimensions": {
@@ -502,7 +502,7 @@
           "width": 192
         },
         "path": "sprites/sappers/neutral/s-normal-2x.png",
-        "sha256": "2cf90967df5369cbe08ef7b6ff98c2f0ed52104cf2677639451f0f15aa537079"
+        "sha256": "8dc8648fad15b42dd3d76cc193224c6704e64641929ae144d6c77a7dde5cca49"
       },
       {
         "dimensions": {
@@ -510,7 +510,7 @@
           "width": 384
         },
         "path": "sprites/sappers/neutral/s-normal-4x.png",
-        "sha256": "997632d3e7937cc003f83457693c228dfb8fb0dde932660f526b1cd583913228"
+        "sha256": "55f1c420a91846a378e068107e254786b0726b9ceb43f5fb50771ff891930cf8"
       },
       {
         "dimensions": {
@@ -518,7 +518,7 @@
           "width": 192
         },
         "path": "sprites/sappers/neutral/s-spent-2x.png",
-        "sha256": "0822e154e1acaef0dfba7b5c6e402b8151077a8a90c48850cc5c941ec74c44c6"
+        "sha256": "33574c0ddc0dbeafa92e4492c0caec4f49d5c4f8134cbe05912c6200e4840c67"
       },
       {
         "dimensions": {
@@ -526,7 +526,7 @@
           "width": 384
         },
         "path": "sprites/sappers/neutral/s-spent-4x.png",
-        "sha256": "2ecb095a5979c0fe9301f505a5bc1d8ce55b1c8e8874a038db407e1c056657b6"
+        "sha256": "36bbbf23268e23617710bdd1c25274015649f83cd0fe8bf0b5ea7c2c6ace1b0c"
       },
       {
         "dimensions": {
@@ -566,7 +566,7 @@
           "width": 192
         },
         "path": "sprites/sappers/cp/se-normal-2x.png",
-        "sha256": "cd47b58f29a7357e2e507eb78ab6180727c8dc32853044f27f3a92fdfde98704"
+        "sha256": "ea82c08ede39022f3a136bc5de873471c766d8e8a7a7d855d6b45304fa432555"
       },
       {
         "dimensions": {
@@ -574,7 +574,7 @@
           "width": 384
         },
         "path": "sprites/sappers/cp/se-normal-4x.png",
-        "sha256": "353f5df163876330770431de86bce44c0b938b4966635fd6a6bd931132f70f75"
+        "sha256": "eebcafb9ac7957d0355b6227fe382ea8fbb0b317a356d1b125a3f8f1f37ba57e"
       },
       {
         "dimensions": {
@@ -582,7 +582,7 @@
           "width": 192
         },
         "path": "sprites/sappers/cp/se-spent-2x.png",
-        "sha256": "80dbbc2a24775f2c27cfe3834747127390e21d5f17a88e6556595a9feffd6131"
+        "sha256": "4c73887dbbbe13d807ce8623f4971cdc0acf7c7dcf9a2f01cbd4e8a3cbaba244"
       },
       {
         "dimensions": {
@@ -590,7 +590,7 @@
           "width": 384
         },
         "path": "sprites/sappers/cp/se-spent-4x.png",
-        "sha256": "0cceb4bd7b0f6445a9d298ce3c6d01ef4202229ea82ea913a27648d924166b14"
+        "sha256": "8c4cc9ed149ddef1c2e1cca0a7896d332768123c6818660ff68ccdba24bec0d8"
       },
       {
         "dimensions": {
@@ -598,7 +598,7 @@
           "width": 192
         },
         "path": "sprites/sappers/ec/se-normal-2x.png",
-        "sha256": "955e093c604e4758d33f8dc46e00205d5f185a16982cabbc1acb55f3b4348742"
+        "sha256": "5163fc11fbd0d76920ab9624057a772f3a366442a807aa7544bab182af7ae39f"
       },
       {
         "dimensions": {
@@ -606,7 +606,7 @@
           "width": 384
         },
         "path": "sprites/sappers/ec/se-normal-4x.png",
-        "sha256": "efd51d45e30f7b970d0f50887937cccae634addbcc450ad4b1e6036cb29932a8"
+        "sha256": "c1e41baeff6da34dc9aa969015e8993a63a3cee94f3c64f129e2e50ee2a84b1f"
       },
       {
         "dimensions": {
@@ -614,7 +614,7 @@
           "width": 192
         },
         "path": "sprites/sappers/ec/se-spent-2x.png",
-        "sha256": "f26d32c1ed276c19343ef62f31c631a2af8a131f1e60fbee340944a339a7f49a"
+        "sha256": "3c949e06d41c3fa06ed02ea65821cdb12f8270e0dd9c98197c2298292450785d"
       },
       {
         "dimensions": {
@@ -622,7 +622,7 @@
           "width": 384
         },
         "path": "sprites/sappers/ec/se-spent-4x.png",
-        "sha256": "ace1a59110b40e1c3d86ae3642ac314be837e24bc976805c969e518d668ed003"
+        "sha256": "15f206f8e4501bc5309135d5d1aef7fbdbca09aadac6890810ccf871c7ff006c"
       },
       {
         "dimensions": {
@@ -630,7 +630,7 @@
           "width": 192
         },
         "path": "sprites/sappers/neutral/se-normal-2x.png",
-        "sha256": "b7cf54818e791c6162fa258ec79ebd7db4c46d63eb0fae2ef506f3484cc86fd4"
+        "sha256": "e31094b1f44eff8a084f158aad48f28afc304341dbbc2acffe5e445335984ab0"
       },
       {
         "dimensions": {
@@ -638,7 +638,7 @@
           "width": 384
         },
         "path": "sprites/sappers/neutral/se-normal-4x.png",
-        "sha256": "29461a980ac568d643509c5436ef4551c31b3f4751c2620d0d18406ce4961b3e"
+        "sha256": "68d303b042129e824b38648f4cec8e903be300c007ccd9c6875c96d4ba9ddd3e"
       },
       {
         "dimensions": {
@@ -646,7 +646,7 @@
           "width": 192
         },
         "path": "sprites/sappers/neutral/se-spent-2x.png",
-        "sha256": "bd9980816c4decb93c31f91d334e09c30cf733eb0754303e47c8e9dbc559c7a5"
+        "sha256": "6c5def7ffd3b8318c9964edf4c72da7bbcad9530b1f0a3251c36b0b81751f1c6"
       },
       {
         "dimensions": {
@@ -654,7 +654,7 @@
           "width": 384
         },
         "path": "sprites/sappers/neutral/se-spent-4x.png",
-        "sha256": "e1075b1580cb620edbdff4eab28dbe7396d5abda1cc0c308a45b92db6a733c9a"
+        "sha256": "f1eeb3fb33dc3cd8218923758286abfa07a44fe4e437739b4b21c296546bf36e"
       },
       {
         "dimensions": {
@@ -694,7 +694,7 @@
           "width": 192
         },
         "path": "sprites/sappers/cp/ne-normal-2x.png",
-        "sha256": "598c9cf914db7cf7fe1cc0ec209e627293e4068f3503b2c47bc836cb12915e1c"
+        "sha256": "00f8e07668dc5135e8b1724b062829ebb1a67ea1234c867585c770786e6805d5"
       },
       {
         "dimensions": {
@@ -702,7 +702,7 @@
           "width": 384
         },
         "path": "sprites/sappers/cp/ne-normal-4x.png",
-        "sha256": "6f344b06883a5327714b291c4fe64c05a9a34a617f0831ed2cb9254eb52fd27f"
+        "sha256": "8637d035b3aa9afb94d15e4234456f0e5c6920cf575f032870a019b939d1a6ed"
       },
       {
         "dimensions": {
@@ -710,7 +710,7 @@
           "width": 192
         },
         "path": "sprites/sappers/cp/ne-spent-2x.png",
-        "sha256": "0170fef5d0a333bf339ab481e087043cc544a9f344eb12c4ba7d17cfb29a37b3"
+        "sha256": "3a12aeb315266e04872f8983b76e2c363ea608529626c28678916ad1dbf90d41"
       },
       {
         "dimensions": {
@@ -718,7 +718,7 @@
           "width": 384
         },
         "path": "sprites/sappers/cp/ne-spent-4x.png",
-        "sha256": "1428f90ef6b60e70217447cf60e60b8dabcaa5136c331ec17b138e7c4579cdc2"
+        "sha256": "633fd8ac9604524173bfda9c1ee0a21d3541073ed1419015f54c2d877dfed83a"
       },
       {
         "dimensions": {
@@ -726,7 +726,7 @@
           "width": 192
         },
         "path": "sprites/sappers/ec/ne-normal-2x.png",
-        "sha256": "e5c606ae46dc29a8a071f33180f9b0dcc6bd268132a68158c4f9b5ab10561e3c"
+        "sha256": "a0cda84343c55a32b73fbc9ad1811a8812a47e3bc5117acaa3412005227a4a17"
       },
       {
         "dimensions": {
@@ -734,7 +734,7 @@
           "width": 384
         },
         "path": "sprites/sappers/ec/ne-normal-4x.png",
-        "sha256": "ea27f34991d2996f2def9dbbf7594e33ddd04ff81b3b0cfe80e209733074fd1c"
+        "sha256": "dbbddbdd6a0872c028234098537d9308f421041325d8a3e594be9c6b3fbf8dd1"
       },
       {
         "dimensions": {
@@ -742,7 +742,7 @@
           "width": 192
         },
         "path": "sprites/sappers/ec/ne-spent-2x.png",
-        "sha256": "1f0bd090a553ccd2419de4417925df24964d35ede004fad6806e4e7e8aa50b21"
+        "sha256": "3017bfd73a31a2882e4208437aeac7891ec808d9ac1e46cf5b0660385b51e093"
       },
       {
         "dimensions": {
@@ -750,7 +750,7 @@
           "width": 384
         },
         "path": "sprites/sappers/ec/ne-spent-4x.png",
-        "sha256": "ac6a6dd4ac9b9a30294be16ffd89a649d4e00986060f4bc8cf1cebe398cd2180"
+        "sha256": "c783bc3c9d5b47399a6a2af3009e961e987e73f5339822752176069ac5bdd143"
       },
       {
         "dimensions": {
@@ -758,7 +758,7 @@
           "width": 192
         },
         "path": "sprites/sappers/neutral/ne-normal-2x.png",
-        "sha256": "07281f768db0a17ad1d91849e62a1b2cf6a472cc5e5e71882e3d73de99fadd0c"
+        "sha256": "b6ced170cf08bbd402b272f4d6da6401e77fec95f63e9d8b8564d0cc72ece06f"
       },
       {
         "dimensions": {
@@ -766,7 +766,7 @@
           "width": 384
         },
         "path": "sprites/sappers/neutral/ne-normal-4x.png",
-        "sha256": "31cd390361fe80772a57f03ffc4e03c6a8fb0d039426df8b86ab9c50f2a7824a"
+        "sha256": "c376178b92aa0eed8e71485f32d2e898b9a3d8204c022ad7d261359b08e6acf2"
       },
       {
         "dimensions": {
@@ -774,7 +774,7 @@
           "width": 192
         },
         "path": "sprites/sappers/neutral/ne-spent-2x.png",
-        "sha256": "89433d06981374a8bc29f186d7d27344776dd9271d9fd47d8592b75e220cf9ad"
+        "sha256": "ebf0f68f9c174b0726342fe1a8a264730b8c65864ef7dda408b7732da600c537"
       },
       {
         "dimensions": {
@@ -782,7 +782,7 @@
           "width": 384
         },
         "path": "sprites/sappers/neutral/ne-spent-4x.png",
-        "sha256": "44335f97aa37a206b3550b0e068978c1880cfdfa4b3df2e4227d2ebabe45c677"
+        "sha256": "a2868995a6890aca212778a5b4475b42069c531df1a6be8aea5a52790941d3ef"
       },
       {
         "dimensions": {
@@ -790,7 +790,7 @@
           "width": 1152
         },
         "path": "sheets/sappers-white-2x.png",
-        "sha256": "1d7bb324d6e3f316eade1cd57503ea9ebcbe6842a64ece7488558fa3b9a45b30"
+        "sha256": "4a5b24dae95e27ac0dd02d127191e90a574ed03054b0a97e27d1613bf6caad57"
       },
       {
         "dimensions": {
@@ -798,7 +798,7 @@
           "width": 2304
         },
         "path": "sheets/sappers-white-4x.png",
-        "sha256": "bd53c03a4997b40670c324a605ef0252383a7d33a0117fb9cd2940d6a714976c"
+        "sha256": "e35548e55f7752703b7ec7e4ca022931e180ff4b6bbd0765c44091e86d6af982"
       },
       {
         "dimensions": {
@@ -806,7 +806,7 @@
           "width": 1152
         },
         "path": "sheets/sappers-checker-2x.png",
-        "sha256": "5ecb9432eb35b628b08a4437e175f93eb99a2288dcae5b79a4cc90bbce277666"
+        "sha256": "836ade84ce06d19a703f2594cd6874a59990be737a9dcd0ea4dbb502e2c0b444"
       },
       {
         "dimensions": {
@@ -814,7 +814,7 @@
           "width": 2304
         },
         "path": "sheets/sappers-checker-4x.png",
-        "sha256": "ccacf32b7863fa5f50ff1c7c7b44d2d0c570793a5e84f0404418654a4b0dfa1d"
+        "sha256": "24229bf80755420ffb6e941fccf788dbbd82f79d43d0320dc2c63d8837951bf1"
       },
       {
         "dimensions": {
@@ -822,7 +822,7 @@
           "width": 476
         },
         "path": "scenes/grass-normal-p0-2x.png",
-        "sha256": "b833ed500d122ffc063f04f453fd550eeeec9f7152fa9dbc8bf20919e1b8d6e5"
+        "sha256": "ddb74328c71274d92e142114486302603b98a271324d6a7eef3bcda298645043"
       },
       {
         "dimensions": {
@@ -830,7 +830,7 @@
           "width": 952
         },
         "path": "scenes/grass-normal-p0-4x.png",
-        "sha256": "022eb9e1d4393cd3599b2e8fd9a4147a3cc55342b5c9e745ac0e6246ef35f50f"
+        "sha256": "263418ec6798e5ea281028ddcb57d2344ab6dcb120732bd17f13b659dc2e3902"
       },
       {
         "dimensions": {
@@ -838,7 +838,7 @@
           "width": 476
         },
         "path": "scenes/grass-normal-p1-2x.png",
-        "sha256": "b833ed500d122ffc063f04f453fd550eeeec9f7152fa9dbc8bf20919e1b8d6e5"
+        "sha256": "ddb74328c71274d92e142114486302603b98a271324d6a7eef3bcda298645043"
       },
       {
         "dimensions": {
@@ -846,7 +846,7 @@
           "width": 952
         },
         "path": "scenes/grass-normal-p1-4x.png",
-        "sha256": "022eb9e1d4393cd3599b2e8fd9a4147a3cc55342b5c9e745ac0e6246ef35f50f"
+        "sha256": "263418ec6798e5ea281028ddcb57d2344ab6dcb120732bd17f13b659dc2e3902"
       },
       {
         "dimensions": {
@@ -854,7 +854,7 @@
           "width": 476
         },
         "path": "scenes/grass-spent-p0-2x.png",
-        "sha256": "5a26b60ba3f16c1bd0425b3662bd405c85b9b766627a2cd2535c22ecdd3ad0d3"
+        "sha256": "936694d291960c8ec6ce3cc4eb7a2d29d23dbf753a3e0cdd6479b1424998e332"
       },
       {
         "dimensions": {
@@ -862,7 +862,7 @@
           "width": 952
         },
         "path": "scenes/grass-spent-p0-4x.png",
-        "sha256": "9ec6e701b2e080689bf45418e40b73235b066514a1e0debc20ccd451e3babdb7"
+        "sha256": "e521acb18aeb5ad1ffaa4ea3b097535e73e16d1d2b5467dc920cd1dcab7a92f1"
       },
       {
         "dimensions": {
@@ -870,7 +870,7 @@
           "width": 476
         },
         "path": "scenes/grass-spent-p1-2x.png",
-        "sha256": "5a26b60ba3f16c1bd0425b3662bd405c85b9b766627a2cd2535c22ecdd3ad0d3"
+        "sha256": "936694d291960c8ec6ce3cc4eb7a2d29d23dbf753a3e0cdd6479b1424998e332"
       },
       {
         "dimensions": {
@@ -878,7 +878,7 @@
           "width": 952
         },
         "path": "scenes/grass-spent-p1-4x.png",
-        "sha256": "9ec6e701b2e080689bf45418e40b73235b066514a1e0debc20ccd451e3babdb7"
+        "sha256": "e521acb18aeb5ad1ffaa4ea3b097535e73e16d1d2b5467dc920cd1dcab7a92f1"
       },
       {
         "dimensions": {
@@ -886,7 +886,7 @@
           "width": 476
         },
         "path": "scenes/grass_w-normal-p0-2x.png",
-        "sha256": "c5ecf287ab3fe78330281c1a42d62816363879c0ca9dc53f619f12d96861278f"
+        "sha256": "d516320a92f12e36417e1c139a9f28d87541160260003235672de215f8064d23"
       },
       {
         "dimensions": {
@@ -894,7 +894,7 @@
           "width": 952
         },
         "path": "scenes/grass_w-normal-p0-4x.png",
-        "sha256": "680f0831b8f7a0d94f6c7a6d352d105ee43d0324463dd12e39e64e31cca4bc0c"
+        "sha256": "192dd9c90ff093b03f230b59302909bbf01b0723e138e6660106e18a6bfdab48"
       },
       {
         "dimensions": {
@@ -902,7 +902,7 @@
           "width": 476
         },
         "path": "scenes/grass_w-normal-p1-2x.png",
-        "sha256": "c5ecf287ab3fe78330281c1a42d62816363879c0ca9dc53f619f12d96861278f"
+        "sha256": "d516320a92f12e36417e1c139a9f28d87541160260003235672de215f8064d23"
       },
       {
         "dimensions": {
@@ -910,7 +910,7 @@
           "width": 952
         },
         "path": "scenes/grass_w-normal-p1-4x.png",
-        "sha256": "680f0831b8f7a0d94f6c7a6d352d105ee43d0324463dd12e39e64e31cca4bc0c"
+        "sha256": "192dd9c90ff093b03f230b59302909bbf01b0723e138e6660106e18a6bfdab48"
       },
       {
         "dimensions": {
@@ -918,7 +918,7 @@
           "width": 476
         },
         "path": "scenes/grass_w-spent-p0-2x.png",
-        "sha256": "97852ea4e485c25a1b30afe87d00ef134a9cd264a5e8e728365cad761202526c"
+        "sha256": "7aab944920c7e03c805236d75190434692a932a0a3332628736dfa96e5174cbf"
       },
       {
         "dimensions": {
@@ -926,7 +926,7 @@
           "width": 952
         },
         "path": "scenes/grass_w-spent-p0-4x.png",
-        "sha256": "9f91cc74a901a3d54380fc63a402666a0700c9e88da8706c1419cc817a432845"
+        "sha256": "74c172cc35129a5163c1cdc70c75dc3b01eaf095c79deba7cc18505c8a5331df"
       },
       {
         "dimensions": {
@@ -934,7 +934,7 @@
           "width": 476
         },
         "path": "scenes/grass_w-spent-p1-2x.png",
-        "sha256": "97852ea4e485c25a1b30afe87d00ef134a9cd264a5e8e728365cad761202526c"
+        "sha256": "7aab944920c7e03c805236d75190434692a932a0a3332628736dfa96e5174cbf"
       },
       {
         "dimensions": {
@@ -942,7 +942,7 @@
           "width": 952
         },
         "path": "scenes/grass_w-spent-p1-4x.png",
-        "sha256": "9f91cc74a901a3d54380fc63a402666a0700c9e88da8706c1419cc817a432845"
+        "sha256": "74c172cc35129a5163c1cdc70c75dc3b01eaf095c79deba7cc18505c8a5331df"
       },
       {
         "dimensions": {
@@ -950,7 +950,7 @@
           "width": 476
         },
         "path": "scenes/mud-normal-p0-2x.png",
-        "sha256": "d1ffd379ac9c5f230e12f186df4de088c29529ddbe1de1d9f33c805423e88830"
+        "sha256": "5b4a82bdaccf18c3c232462ae7491d9470d80bb9387049b87a30ba8406179500"
       },
       {
         "dimensions": {
@@ -958,7 +958,7 @@
           "width": 952
         },
         "path": "scenes/mud-normal-p0-4x.png",
-        "sha256": "e35c5c22e01af549427a400964c2e71d7fff11b386093a1d949ed885d361596d"
+        "sha256": "d5dd02490df355c509e636f3ac37098877c8b595b16a5f26a466ab8733dc4ddf"
       },
       {
         "dimensions": {
@@ -966,7 +966,7 @@
           "width": 476
         },
         "path": "scenes/mud-normal-p1-2x.png",
-        "sha256": "d1ffd379ac9c5f230e12f186df4de088c29529ddbe1de1d9f33c805423e88830"
+        "sha256": "5b4a82bdaccf18c3c232462ae7491d9470d80bb9387049b87a30ba8406179500"
       },
       {
         "dimensions": {
@@ -974,7 +974,7 @@
           "width": 952
         },
         "path": "scenes/mud-normal-p1-4x.png",
-        "sha256": "e35c5c22e01af549427a400964c2e71d7fff11b386093a1d949ed885d361596d"
+        "sha256": "d5dd02490df355c509e636f3ac37098877c8b595b16a5f26a466ab8733dc4ddf"
       },
       {
         "dimensions": {
@@ -982,7 +982,7 @@
           "width": 476
         },
         "path": "scenes/mud-spent-p0-2x.png",
-        "sha256": "8a42a24211861dbef87bbfbcd9ebdbf8075d3cdc762a8e487bc8b9edfa44accb"
+        "sha256": "6dc2c98db254a2e64b5d6b43085cb4a053cff20a073628dda23d12a69b7e0454"
       },
       {
         "dimensions": {
@@ -990,7 +990,7 @@
           "width": 952
         },
         "path": "scenes/mud-spent-p0-4x.png",
-        "sha256": "779bf9d170f9604faac4653045670f858da7a8d81526d6268afe652c362deab4"
+        "sha256": "603d5fc68ee685c7c77213d24c11443477c223abd5e3c14e167178dda97d893a"
       },
       {
         "dimensions": {
@@ -998,7 +998,7 @@
           "width": 476
         },
         "path": "scenes/mud-spent-p1-2x.png",
-        "sha256": "8a42a24211861dbef87bbfbcd9ebdbf8075d3cdc762a8e487bc8b9edfa44accb"
+        "sha256": "6dc2c98db254a2e64b5d6b43085cb4a053cff20a073628dda23d12a69b7e0454"
       },
       {
         "dimensions": {
@@ -1006,7 +1006,7 @@
           "width": 952
         },
         "path": "scenes/mud-spent-p1-4x.png",
-        "sha256": "779bf9d170f9604faac4653045670f858da7a8d81526d6268afe652c362deab4"
+        "sha256": "603d5fc68ee685c7c77213d24c11443477c223abd5e3c14e167178dda97d893a"
       }
     ],
     "family": "sappers",
@@ -1690,28 +1690,28 @@
         }
       }
     },
-    "manifest_sha256": "e9bcf36135b19475f28a0851660b539ac9abb23e3754f2a39086cc8152ad1794",
+    "manifest_sha256": "830acdc59f9a8b1ce93ba15b05920f767d9cd5dce7132414d57bd988e301d492",
     "manifest_snapshot": "manifest.json",
     "palette_selector": "Owner palette is independent of class ID/country, including captured sappers; no other family aliases.",
     "palettes": {
       "cp": [
-        104,
-        142,
-        83
+        205,
+        190,
+        159
       ],
       "ec": [
-        190,
-        143,
-        92
+        138,
+        164,
+        186
       ],
       "neutral": [
-        146,
-        146,
-        146
+        174,
+        174,
+        164
       ]
     },
     "physical_png_count": 131,
-    "profile": "unit-sappers-v1: six authored square panels row-major N,NW,SW,S,SE,NE; class family lookup CP_sappers and EC_sappers independently selects owner cp/ec/neutral. Source straight RGB V=max(R,G,B); q=max(0,(min(R,B)-G)/max(1,V)); t=clamp((q-.02)/.08); k=t^3*(6*t^2-15*t+10); K=k*V; N_c=(1-k)*source_c+K. Round N/K half up before filtering; alpha-zero clears RGB. Base=(N_R,N_G,N_B,A), tint-energy mask=(K,K,K,A), never binary coverage. Whole-panel pixel-edge affine source anchor=(cell/2,49*cell/96), logical anchor=(48,49), top-left offset=(0,-9), inset=.8. 4x destination=(192,196)+(.8*384/cell)*(source-source_anchor); destination centers map to (d+.5-offset)/scale-.5; offset=(38.4,39.2). Unchanged compound tap budget \u003c=4,000,000 conservative full-support axis taps, checked before allocation. Transparent zero extension, normalized premultiplied float64 separable antialiased Lanczos3, signed lobes retained, positive raw alpha unpremultiply, half-up clamped RGB/A, zero-alpha clear. Independently whole-alpha-aware Lanczos3 reduce base/mask 384-\u003e192. At each density tint=halfup(clamp(N_c+K*(palette_c/255-1),0,255)), same alpha. Spent after tint is (R,R,R,A). 2x coloured sprites are composed after plane reduction, not claimed identical to downsampled coloured 4x sprites. Required six-world-pixel zero-RGBA guard, no threshold/background removal, bounding-box crops, mirrors, rotation, per-frame scaling, unit hex clipping or light rotation. Seven-cell fixtures use decoded pinned ground PNGs first and decoded exported sprite PNGs next, stable world y/x order, ordinary image/draw Over.",
+    "profile": "unit-sappers-v1: six authored square panels row-major N,NW,SW,S,SE,NE; class family lookup CP_sappers and EC_sappers independently selects owner cp/ec/neutral. Source straight RGB V=max(R,G,B); q=max(0,(min(R,B)-G)/max(1,V)); t=clamp((q-.02)/.08); k=t^3*(6*t^2-15*t+10); K=k*V; N_c=(1-k)*source_c+K. Round N/K half up before filtering; alpha-zero clears RGB. Base=(N_R,N_G,N_B,A), tint-energy mask=(K,K,K,A), never binary coverage. Whole-panel pixel-edge affine source anchor=(cell/2,49*cell/96), logical anchor=(48,49), top-left offset=(0,-9), inset=manifest framing_inset or default .8, fixed across the entire atlas. 4x destination=(192,196)+(inset*384/cell)*(source-source_anchor); destination centers map to (d+.5-offset)/scale-.5; offset=(192*(1-inset),196*(1-inset)), default (38.4,39.2). Unchanged compound tap budget \u003c=4,000,000 conservative full-support axis taps, checked before allocation. Transparent zero extension, normalized premultiplied float64 separable antialiased Lanczos3, signed lobes retained, positive raw alpha unpremultiply, half-up clamped RGB/A, zero-alpha clear. Independently whole-alpha-aware Lanczos3 reduce base/mask 384-\u003e192. At each density tint=halfup(clamp(N_c+K*(palette_c/255-1),0,255)), same alpha. Spent after tint is (R,R,R,A). 2x coloured sprites are composed after plane reduction, not claimed identical to downsampled coloured 4x sprites. Default six-world-pixel zero-RGBA guard; explicit framing_inset uses an alpha\u003e=8 guard with unchanged lower-alpha fringe counts, not a strict-zero pass. No threshold/background removal, bounding-box crops, mirrors, rotation, per-frame scaling, unit hex clipping or light rotation. Seven-cell fixtures use decoded pinned ground PNGs first and decoded exported sprite PNGs next, stable world y/x order, ordinary image/draw Over.",
     "scenes": [
       {
         "absolute_line_parity": 0,
@@ -1746,7 +1746,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/neutral/n-normal-2x.png",
-              "sha256": "3861e8df62a0140031e0537e0f87ca38ec81e79aef4794fcd075e3c05896ce8d"
+              "sha256": "3b34ea341e09c91c5a9665c80e06dd0ba5c5e08d94ccb2db9847d08e0e929dd8"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1785,7 +1785,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/ne-normal-2x.png",
-              "sha256": "e5c606ae46dc29a8a071f33180f9b0dcc6bd268132a68158c4f9b5ab10561e3c"
+              "sha256": "a0cda84343c55a32b73fbc9ad1811a8812a47e3bc5117acaa3412005227a4a17"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1824,7 +1824,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/se-normal-2x.png",
-              "sha256": "955e093c604e4758d33f8dc46e00205d5f185a16982cabbc1acb55f3b4348742"
+              "sha256": "5163fc11fbd0d76920ab9624057a772f3a366442a807aa7544bab182af7ae39f"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1863,7 +1863,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/cp/s-normal-2x.png",
-              "sha256": "88fd7f900e04a2712aa6759fac5bc734b534dbb4cfc1f929d1abbd423cfd61fc"
+              "sha256": "757868e06b75def6572663b0ff02721d25d40e4f5b4cc20e7c4416db5a58c0c9"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1902,7 +1902,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/sw-normal-2x.png",
-              "sha256": "f084f0af50425a6a3064dd2e5f1367a4d6e7218ce96a458aeb671f808d480142"
+              "sha256": "14dadaeaae7394307a0a4aa4e4f3a9d17deed58494705e2d0f37de375a3594d5"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1941,7 +1941,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/cp/nw-normal-2x.png",
-              "sha256": "51ea0c9ca66a387553987f10012dccb77feda7f20968947f1c825bc304cbe072"
+              "sha256": "82fa729cf59bdd7a3c8f751e8bd675b66ef7d0b7c08d799c191b9fa1706db85d"
             },
             "state": "normal",
             "terrain": "grass",
@@ -1980,7 +1980,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/n-normal-2x.png",
-              "sha256": "c9b0b7f6115d028ba817c00d18029a23a21c5dc8d99cbeea30b0ede6dfc52720"
+              "sha256": "a8feeac222cd54efba7421f2264ad701f06a1696238927c28af85708b8afe9c0"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2011,7 +2011,7 @@
             "width": 476
           },
           "path": "scenes/grass-normal-p0-2x.png",
-          "sha256": "b833ed500d122ffc063f04f453fd550eeeec9f7152fa9dbc8bf20919e1b8d6e5"
+          "sha256": "ddb74328c71274d92e142114486302603b98a271324d6a7eef3bcda298645043"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -2049,7 +2049,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/neutral/n-normal-4x.png",
-              "sha256": "8b9a7f7ea497c13b0071f76db30280c6d00b496f8109a29f13db46a77c44e25d"
+              "sha256": "8d2823ca2cdb952368c579ada1122dcaa01268063043506caa20376626909c8d"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2088,7 +2088,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/ne-normal-4x.png",
-              "sha256": "ea27f34991d2996f2def9dbbf7594e33ddd04ff81b3b0cfe80e209733074fd1c"
+              "sha256": "dbbddbdd6a0872c028234098537d9308f421041325d8a3e594be9c6b3fbf8dd1"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2127,7 +2127,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/se-normal-4x.png",
-              "sha256": "efd51d45e30f7b970d0f50887937cccae634addbcc450ad4b1e6036cb29932a8"
+              "sha256": "c1e41baeff6da34dc9aa969015e8993a63a3cee94f3c64f129e2e50ee2a84b1f"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2166,7 +2166,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/cp/s-normal-4x.png",
-              "sha256": "ca5d00a92e9faabaf7b054f7f51663684e80d4ea077fb834921debf9353213df"
+              "sha256": "77d6b1061c3230927caeb5a501bbce52ba9732a356d5d593ee107ac9cf6d001f"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2205,7 +2205,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/sw-normal-4x.png",
-              "sha256": "102c123862ccfce776553b11909913b70d7eb4f99092d4d1f301a90a311abde2"
+              "sha256": "bca9b5735edb80ccf726189e78dffea92f3230054b0ff882aadda7516bd8c88d"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2244,7 +2244,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/cp/nw-normal-4x.png",
-              "sha256": "2e2f54a3eee2c21aacc10e760acdc1c53e4a8e76faf5050026584840a06f3b40"
+              "sha256": "59b06641092d7be536698ba0c30429eff2231d269801a27b33b9a16608e6542d"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2283,7 +2283,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/n-normal-4x.png",
-              "sha256": "d1c82f2789386248e4367cee879c8a4106fb915c9430d69fad565894c9f49718"
+              "sha256": "3b35b996623891c6fca56bd84f7a26bbd874512d756934c2c543d6851bd89f97"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2314,7 +2314,7 @@
             "width": 952
           },
           "path": "scenes/grass-normal-p0-4x.png",
-          "sha256": "022eb9e1d4393cd3599b2e8fd9a4147a3cc55342b5c9e745ac0e6246ef35f50f"
+          "sha256": "263418ec6798e5ea281028ddcb57d2344ab6dcb120732bd17f13b659dc2e3902"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -2352,7 +2352,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/neutral/n-normal-2x.png",
-              "sha256": "3861e8df62a0140031e0537e0f87ca38ec81e79aef4794fcd075e3c05896ce8d"
+              "sha256": "3b34ea341e09c91c5a9665c80e06dd0ba5c5e08d94ccb2db9847d08e0e929dd8"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2391,7 +2391,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/ne-normal-2x.png",
-              "sha256": "e5c606ae46dc29a8a071f33180f9b0dcc6bd268132a68158c4f9b5ab10561e3c"
+              "sha256": "a0cda84343c55a32b73fbc9ad1811a8812a47e3bc5117acaa3412005227a4a17"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2430,7 +2430,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/se-normal-2x.png",
-              "sha256": "955e093c604e4758d33f8dc46e00205d5f185a16982cabbc1acb55f3b4348742"
+              "sha256": "5163fc11fbd0d76920ab9624057a772f3a366442a807aa7544bab182af7ae39f"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2469,7 +2469,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/cp/s-normal-2x.png",
-              "sha256": "88fd7f900e04a2712aa6759fac5bc734b534dbb4cfc1f929d1abbd423cfd61fc"
+              "sha256": "757868e06b75def6572663b0ff02721d25d40e4f5b4cc20e7c4416db5a58c0c9"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2508,7 +2508,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/sw-normal-2x.png",
-              "sha256": "f084f0af50425a6a3064dd2e5f1367a4d6e7218ce96a458aeb671f808d480142"
+              "sha256": "14dadaeaae7394307a0a4aa4e4f3a9d17deed58494705e2d0f37de375a3594d5"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2547,7 +2547,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/cp/nw-normal-2x.png",
-              "sha256": "51ea0c9ca66a387553987f10012dccb77feda7f20968947f1c825bc304cbe072"
+              "sha256": "82fa729cf59bdd7a3c8f751e8bd675b66ef7d0b7c08d799c191b9fa1706db85d"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2586,7 +2586,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/n-normal-2x.png",
-              "sha256": "c9b0b7f6115d028ba817c00d18029a23a21c5dc8d99cbeea30b0ede6dfc52720"
+              "sha256": "a8feeac222cd54efba7421f2264ad701f06a1696238927c28af85708b8afe9c0"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2617,7 +2617,7 @@
             "width": 476
           },
           "path": "scenes/grass-normal-p1-2x.png",
-          "sha256": "b833ed500d122ffc063f04f453fd550eeeec9f7152fa9dbc8bf20919e1b8d6e5"
+          "sha256": "ddb74328c71274d92e142114486302603b98a271324d6a7eef3bcda298645043"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -2655,7 +2655,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/neutral/n-normal-4x.png",
-              "sha256": "8b9a7f7ea497c13b0071f76db30280c6d00b496f8109a29f13db46a77c44e25d"
+              "sha256": "8d2823ca2cdb952368c579ada1122dcaa01268063043506caa20376626909c8d"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2694,7 +2694,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/ne-normal-4x.png",
-              "sha256": "ea27f34991d2996f2def9dbbf7594e33ddd04ff81b3b0cfe80e209733074fd1c"
+              "sha256": "dbbddbdd6a0872c028234098537d9308f421041325d8a3e594be9c6b3fbf8dd1"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2733,7 +2733,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/se-normal-4x.png",
-              "sha256": "efd51d45e30f7b970d0f50887937cccae634addbcc450ad4b1e6036cb29932a8"
+              "sha256": "c1e41baeff6da34dc9aa969015e8993a63a3cee94f3c64f129e2e50ee2a84b1f"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2772,7 +2772,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/cp/s-normal-4x.png",
-              "sha256": "ca5d00a92e9faabaf7b054f7f51663684e80d4ea077fb834921debf9353213df"
+              "sha256": "77d6b1061c3230927caeb5a501bbce52ba9732a356d5d593ee107ac9cf6d001f"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2811,7 +2811,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/sw-normal-4x.png",
-              "sha256": "102c123862ccfce776553b11909913b70d7eb4f99092d4d1f301a90a311abde2"
+              "sha256": "bca9b5735edb80ccf726189e78dffea92f3230054b0ff882aadda7516bd8c88d"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2850,7 +2850,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/cp/nw-normal-4x.png",
-              "sha256": "2e2f54a3eee2c21aacc10e760acdc1c53e4a8e76faf5050026584840a06f3b40"
+              "sha256": "59b06641092d7be536698ba0c30429eff2231d269801a27b33b9a16608e6542d"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2889,7 +2889,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/n-normal-4x.png",
-              "sha256": "d1c82f2789386248e4367cee879c8a4106fb915c9430d69fad565894c9f49718"
+              "sha256": "3b35b996623891c6fca56bd84f7a26bbd874512d756934c2c543d6851bd89f97"
             },
             "state": "normal",
             "terrain": "grass",
@@ -2920,7 +2920,7 @@
             "width": 952
           },
           "path": "scenes/grass-normal-p1-4x.png",
-          "sha256": "022eb9e1d4393cd3599b2e8fd9a4147a3cc55342b5c9e745ac0e6246ef35f50f"
+          "sha256": "263418ec6798e5ea281028ddcb57d2344ab6dcb120732bd17f13b659dc2e3902"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -2958,7 +2958,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/neutral/n-spent-2x.png",
-              "sha256": "39375c5ec19303134751c9fd228742d2c2da5e0522cb051e6860189625b9d632"
+              "sha256": "d3144b6a780c5315e984d0670eb37ad676b18edd3628617de4b2a9022f5ee4a0"
             },
             "state": "spent",
             "terrain": "grass",
@@ -2997,7 +2997,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/ne-spent-2x.png",
-              "sha256": "1f0bd090a553ccd2419de4417925df24964d35ede004fad6806e4e7e8aa50b21"
+              "sha256": "3017bfd73a31a2882e4208437aeac7891ec808d9ac1e46cf5b0660385b51e093"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3036,7 +3036,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/se-spent-2x.png",
-              "sha256": "f26d32c1ed276c19343ef62f31c631a2af8a131f1e60fbee340944a339a7f49a"
+              "sha256": "3c949e06d41c3fa06ed02ea65821cdb12f8270e0dd9c98197c2298292450785d"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3075,7 +3075,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/cp/s-spent-2x.png",
-              "sha256": "a8f7843df66d203aa87ac540a1a5ea25e737420dc03196e540273e88d0ce7f8a"
+              "sha256": "40d9f13cdef3d143195d514b10d3ac2eaeeba18f5ddd10b3558603e067f7f9f2"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3114,7 +3114,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/sw-spent-2x.png",
-              "sha256": "2ee415448a9e1890a30ccd8bd02443d69dbc4bad0cec0523142e01647ee5a443"
+              "sha256": "2e6d84fe146f81ba5acf159dc6b751e798daf326e70eb6b31b8fab87c2801364"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3153,7 +3153,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/cp/nw-spent-2x.png",
-              "sha256": "1de168f6495f5f59e56380b25e60cf36bb6a09490f756616d673899ca922703a"
+              "sha256": "b433f5004c5bc132c7205dc1fa4fbd03cb77f8254dcb5306deb7202f4f4f774d"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3192,7 +3192,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/n-spent-2x.png",
-              "sha256": "d71a02e025e0eb1fbcd7dbc8baa2d55e622455d189df99a0c39fe84f7b67c078"
+              "sha256": "6c3ca5e50d0a45f6ab460a1b7b7b64a5b36a3264dbb1c6c1d1361cc08c4389b3"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3223,7 +3223,7 @@
             "width": 476
           },
           "path": "scenes/grass-spent-p0-2x.png",
-          "sha256": "5a26b60ba3f16c1bd0425b3662bd405c85b9b766627a2cd2535c22ecdd3ad0d3"
+          "sha256": "936694d291960c8ec6ce3cc4eb7a2d29d23dbf753a3e0cdd6479b1424998e332"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -3261,7 +3261,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/neutral/n-spent-4x.png",
-              "sha256": "16467008f5c99205473423818454b9c631b9fa5490470595fc91b3bea3faea4b"
+              "sha256": "d38c64918b68d3d540568895348dcafd6073ee34c624d2f7c17a6cf36b42644c"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3300,7 +3300,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/ne-spent-4x.png",
-              "sha256": "ac6a6dd4ac9b9a30294be16ffd89a649d4e00986060f4bc8cf1cebe398cd2180"
+              "sha256": "c783bc3c9d5b47399a6a2af3009e961e987e73f5339822752176069ac5bdd143"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3339,7 +3339,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/se-spent-4x.png",
-              "sha256": "ace1a59110b40e1c3d86ae3642ac314be837e24bc976805c969e518d668ed003"
+              "sha256": "15f206f8e4501bc5309135d5d1aef7fbdbca09aadac6890810ccf871c7ff006c"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3378,7 +3378,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/cp/s-spent-4x.png",
-              "sha256": "0bc31e2247289e2321f747d20d4143b7d646f06ce63a65b31b1148f5f1798771"
+              "sha256": "0b43e9748e6ffafe1c3f899fe1c5348e8b6df997eb81863b3d63fa4071d7a0de"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3417,7 +3417,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/sw-spent-4x.png",
-              "sha256": "2f56692963831d30202656fc4c64c0e34b70f15ecc76f31bb42e3fd4c032b30c"
+              "sha256": "d98b4b53da86714e534b24680cee1d9527760db2b3cc99150fafc77513bb05b8"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3456,7 +3456,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/cp/nw-spent-4x.png",
-              "sha256": "6d28341e71d3a00a2747881d13da1ebafa3219a168633c4df3516d11816eda0d"
+              "sha256": "f3bd26238dd930c77935e06cb287a7b342f9aa181d5be8e388a60eed0f3b46a2"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3495,7 +3495,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/n-spent-4x.png",
-              "sha256": "c00f904fc448a5b657a8ba4c13e28ad21fc5633f6207d3784be49fdf92354d01"
+              "sha256": "39402bd4c81497cca020d8402a720b8733d3714d7dc5d6c459e2279248eebd96"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3526,7 +3526,7 @@
             "width": 952
           },
           "path": "scenes/grass-spent-p0-4x.png",
-          "sha256": "9ec6e701b2e080689bf45418e40b73235b066514a1e0debc20ccd451e3babdb7"
+          "sha256": "e521acb18aeb5ad1ffaa4ea3b097535e73e16d1d2b5467dc920cd1dcab7a92f1"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -3564,7 +3564,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/neutral/n-spent-2x.png",
-              "sha256": "39375c5ec19303134751c9fd228742d2c2da5e0522cb051e6860189625b9d632"
+              "sha256": "d3144b6a780c5315e984d0670eb37ad676b18edd3628617de4b2a9022f5ee4a0"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3603,7 +3603,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/ne-spent-2x.png",
-              "sha256": "1f0bd090a553ccd2419de4417925df24964d35ede004fad6806e4e7e8aa50b21"
+              "sha256": "3017bfd73a31a2882e4208437aeac7891ec808d9ac1e46cf5b0660385b51e093"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3642,7 +3642,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/se-spent-2x.png",
-              "sha256": "f26d32c1ed276c19343ef62f31c631a2af8a131f1e60fbee340944a339a7f49a"
+              "sha256": "3c949e06d41c3fa06ed02ea65821cdb12f8270e0dd9c98197c2298292450785d"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3681,7 +3681,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/cp/s-spent-2x.png",
-              "sha256": "a8f7843df66d203aa87ac540a1a5ea25e737420dc03196e540273e88d0ce7f8a"
+              "sha256": "40d9f13cdef3d143195d514b10d3ac2eaeeba18f5ddd10b3558603e067f7f9f2"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3720,7 +3720,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/sw-spent-2x.png",
-              "sha256": "2ee415448a9e1890a30ccd8bd02443d69dbc4bad0cec0523142e01647ee5a443"
+              "sha256": "2e6d84fe146f81ba5acf159dc6b751e798daf326e70eb6b31b8fab87c2801364"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3759,7 +3759,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/cp/nw-spent-2x.png",
-              "sha256": "1de168f6495f5f59e56380b25e60cf36bb6a09490f756616d673899ca922703a"
+              "sha256": "b433f5004c5bc132c7205dc1fa4fbd03cb77f8254dcb5306deb7202f4f4f774d"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3798,7 +3798,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/n-spent-2x.png",
-              "sha256": "d71a02e025e0eb1fbcd7dbc8baa2d55e622455d189df99a0c39fe84f7b67c078"
+              "sha256": "6c3ca5e50d0a45f6ab460a1b7b7b64a5b36a3264dbb1c6c1d1361cc08c4389b3"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3829,7 +3829,7 @@
             "width": 476
           },
           "path": "scenes/grass-spent-p1-2x.png",
-          "sha256": "5a26b60ba3f16c1bd0425b3662bd405c85b9b766627a2cd2535c22ecdd3ad0d3"
+          "sha256": "936694d291960c8ec6ce3cc4eb7a2d29d23dbf753a3e0cdd6479b1424998e332"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -3867,7 +3867,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/neutral/n-spent-4x.png",
-              "sha256": "16467008f5c99205473423818454b9c631b9fa5490470595fc91b3bea3faea4b"
+              "sha256": "d38c64918b68d3d540568895348dcafd6073ee34c624d2f7c17a6cf36b42644c"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3906,7 +3906,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/ne-spent-4x.png",
-              "sha256": "ac6a6dd4ac9b9a30294be16ffd89a649d4e00986060f4bc8cf1cebe398cd2180"
+              "sha256": "c783bc3c9d5b47399a6a2af3009e961e987e73f5339822752176069ac5bdd143"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3945,7 +3945,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/se-spent-4x.png",
-              "sha256": "ace1a59110b40e1c3d86ae3642ac314be837e24bc976805c969e518d668ed003"
+              "sha256": "15f206f8e4501bc5309135d5d1aef7fbdbca09aadac6890810ccf871c7ff006c"
             },
             "state": "spent",
             "terrain": "grass",
@@ -3984,7 +3984,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/cp/s-spent-4x.png",
-              "sha256": "0bc31e2247289e2321f747d20d4143b7d646f06ce63a65b31b1148f5f1798771"
+              "sha256": "0b43e9748e6ffafe1c3f899fe1c5348e8b6df997eb81863b3d63fa4071d7a0de"
             },
             "state": "spent",
             "terrain": "grass",
@@ -4023,7 +4023,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/sw-spent-4x.png",
-              "sha256": "2f56692963831d30202656fc4c64c0e34b70f15ecc76f31bb42e3fd4c032b30c"
+              "sha256": "d98b4b53da86714e534b24680cee1d9527760db2b3cc99150fafc77513bb05b8"
             },
             "state": "spent",
             "terrain": "grass",
@@ -4062,7 +4062,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/cp/nw-spent-4x.png",
-              "sha256": "6d28341e71d3a00a2747881d13da1ebafa3219a168633c4df3516d11816eda0d"
+              "sha256": "f3bd26238dd930c77935e06cb287a7b342f9aa181d5be8e388a60eed0f3b46a2"
             },
             "state": "spent",
             "terrain": "grass",
@@ -4101,7 +4101,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/n-spent-4x.png",
-              "sha256": "c00f904fc448a5b657a8ba4c13e28ad21fc5633f6207d3784be49fdf92354d01"
+              "sha256": "39402bd4c81497cca020d8402a720b8733d3714d7dc5d6c459e2279248eebd96"
             },
             "state": "spent",
             "terrain": "grass",
@@ -4132,7 +4132,7 @@
             "width": 952
           },
           "path": "scenes/grass-spent-p1-4x.png",
-          "sha256": "9ec6e701b2e080689bf45418e40b73235b066514a1e0debc20ccd451e3babdb7"
+          "sha256": "e521acb18aeb5ad1ffaa4ea3b097535e73e16d1d2b5467dc920cd1dcab7a92f1"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -4170,7 +4170,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/neutral/n-normal-2x.png",
-              "sha256": "3861e8df62a0140031e0537e0f87ca38ec81e79aef4794fcd075e3c05896ce8d"
+              "sha256": "3b34ea341e09c91c5a9665c80e06dd0ba5c5e08d94ccb2db9847d08e0e929dd8"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4209,7 +4209,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/ne-normal-2x.png",
-              "sha256": "e5c606ae46dc29a8a071f33180f9b0dcc6bd268132a68158c4f9b5ab10561e3c"
+              "sha256": "a0cda84343c55a32b73fbc9ad1811a8812a47e3bc5117acaa3412005227a4a17"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4248,7 +4248,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/se-normal-2x.png",
-              "sha256": "955e093c604e4758d33f8dc46e00205d5f185a16982cabbc1acb55f3b4348742"
+              "sha256": "5163fc11fbd0d76920ab9624057a772f3a366442a807aa7544bab182af7ae39f"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4287,7 +4287,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/cp/s-normal-2x.png",
-              "sha256": "88fd7f900e04a2712aa6759fac5bc734b534dbb4cfc1f929d1abbd423cfd61fc"
+              "sha256": "757868e06b75def6572663b0ff02721d25d40e4f5b4cc20e7c4416db5a58c0c9"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4326,7 +4326,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/sw-normal-2x.png",
-              "sha256": "f084f0af50425a6a3064dd2e5f1367a4d6e7218ce96a458aeb671f808d480142"
+              "sha256": "14dadaeaae7394307a0a4aa4e4f3a9d17deed58494705e2d0f37de375a3594d5"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4365,7 +4365,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/cp/nw-normal-2x.png",
-              "sha256": "51ea0c9ca66a387553987f10012dccb77feda7f20968947f1c825bc304cbe072"
+              "sha256": "82fa729cf59bdd7a3c8f751e8bd675b66ef7d0b7c08d799c191b9fa1706db85d"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4404,7 +4404,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/n-normal-2x.png",
-              "sha256": "c9b0b7f6115d028ba817c00d18029a23a21c5dc8d99cbeea30b0ede6dfc52720"
+              "sha256": "a8feeac222cd54efba7421f2264ad701f06a1696238927c28af85708b8afe9c0"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4435,7 +4435,7 @@
             "width": 476
           },
           "path": "scenes/grass_w-normal-p0-2x.png",
-          "sha256": "c5ecf287ab3fe78330281c1a42d62816363879c0ca9dc53f619f12d96861278f"
+          "sha256": "d516320a92f12e36417e1c139a9f28d87541160260003235672de215f8064d23"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -4473,7 +4473,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/neutral/n-normal-4x.png",
-              "sha256": "8b9a7f7ea497c13b0071f76db30280c6d00b496f8109a29f13db46a77c44e25d"
+              "sha256": "8d2823ca2cdb952368c579ada1122dcaa01268063043506caa20376626909c8d"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4512,7 +4512,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/ne-normal-4x.png",
-              "sha256": "ea27f34991d2996f2def9dbbf7594e33ddd04ff81b3b0cfe80e209733074fd1c"
+              "sha256": "dbbddbdd6a0872c028234098537d9308f421041325d8a3e594be9c6b3fbf8dd1"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4551,7 +4551,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/se-normal-4x.png",
-              "sha256": "efd51d45e30f7b970d0f50887937cccae634addbcc450ad4b1e6036cb29932a8"
+              "sha256": "c1e41baeff6da34dc9aa969015e8993a63a3cee94f3c64f129e2e50ee2a84b1f"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4590,7 +4590,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/cp/s-normal-4x.png",
-              "sha256": "ca5d00a92e9faabaf7b054f7f51663684e80d4ea077fb834921debf9353213df"
+              "sha256": "77d6b1061c3230927caeb5a501bbce52ba9732a356d5d593ee107ac9cf6d001f"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4629,7 +4629,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/sw-normal-4x.png",
-              "sha256": "102c123862ccfce776553b11909913b70d7eb4f99092d4d1f301a90a311abde2"
+              "sha256": "bca9b5735edb80ccf726189e78dffea92f3230054b0ff882aadda7516bd8c88d"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4668,7 +4668,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/cp/nw-normal-4x.png",
-              "sha256": "2e2f54a3eee2c21aacc10e760acdc1c53e4a8e76faf5050026584840a06f3b40"
+              "sha256": "59b06641092d7be536698ba0c30429eff2231d269801a27b33b9a16608e6542d"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4707,7 +4707,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/n-normal-4x.png",
-              "sha256": "d1c82f2789386248e4367cee879c8a4106fb915c9430d69fad565894c9f49718"
+              "sha256": "3b35b996623891c6fca56bd84f7a26bbd874512d756934c2c543d6851bd89f97"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4738,7 +4738,7 @@
             "width": 952
           },
           "path": "scenes/grass_w-normal-p0-4x.png",
-          "sha256": "680f0831b8f7a0d94f6c7a6d352d105ee43d0324463dd12e39e64e31cca4bc0c"
+          "sha256": "192dd9c90ff093b03f230b59302909bbf01b0723e138e6660106e18a6bfdab48"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -4776,7 +4776,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/neutral/n-normal-2x.png",
-              "sha256": "3861e8df62a0140031e0537e0f87ca38ec81e79aef4794fcd075e3c05896ce8d"
+              "sha256": "3b34ea341e09c91c5a9665c80e06dd0ba5c5e08d94ccb2db9847d08e0e929dd8"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4815,7 +4815,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/ne-normal-2x.png",
-              "sha256": "e5c606ae46dc29a8a071f33180f9b0dcc6bd268132a68158c4f9b5ab10561e3c"
+              "sha256": "a0cda84343c55a32b73fbc9ad1811a8812a47e3bc5117acaa3412005227a4a17"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4854,7 +4854,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/se-normal-2x.png",
-              "sha256": "955e093c604e4758d33f8dc46e00205d5f185a16982cabbc1acb55f3b4348742"
+              "sha256": "5163fc11fbd0d76920ab9624057a772f3a366442a807aa7544bab182af7ae39f"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4893,7 +4893,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/cp/s-normal-2x.png",
-              "sha256": "88fd7f900e04a2712aa6759fac5bc734b534dbb4cfc1f929d1abbd423cfd61fc"
+              "sha256": "757868e06b75def6572663b0ff02721d25d40e4f5b4cc20e7c4416db5a58c0c9"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4932,7 +4932,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/sw-normal-2x.png",
-              "sha256": "f084f0af50425a6a3064dd2e5f1367a4d6e7218ce96a458aeb671f808d480142"
+              "sha256": "14dadaeaae7394307a0a4aa4e4f3a9d17deed58494705e2d0f37de375a3594d5"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -4971,7 +4971,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/cp/nw-normal-2x.png",
-              "sha256": "51ea0c9ca66a387553987f10012dccb77feda7f20968947f1c825bc304cbe072"
+              "sha256": "82fa729cf59bdd7a3c8f751e8bd675b66ef7d0b7c08d799c191b9fa1706db85d"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5010,7 +5010,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/n-normal-2x.png",
-              "sha256": "c9b0b7f6115d028ba817c00d18029a23a21c5dc8d99cbeea30b0ede6dfc52720"
+              "sha256": "a8feeac222cd54efba7421f2264ad701f06a1696238927c28af85708b8afe9c0"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5041,7 +5041,7 @@
             "width": 476
           },
           "path": "scenes/grass_w-normal-p1-2x.png",
-          "sha256": "c5ecf287ab3fe78330281c1a42d62816363879c0ca9dc53f619f12d96861278f"
+          "sha256": "d516320a92f12e36417e1c139a9f28d87541160260003235672de215f8064d23"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -5079,7 +5079,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/neutral/n-normal-4x.png",
-              "sha256": "8b9a7f7ea497c13b0071f76db30280c6d00b496f8109a29f13db46a77c44e25d"
+              "sha256": "8d2823ca2cdb952368c579ada1122dcaa01268063043506caa20376626909c8d"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5118,7 +5118,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/ne-normal-4x.png",
-              "sha256": "ea27f34991d2996f2def9dbbf7594e33ddd04ff81b3b0cfe80e209733074fd1c"
+              "sha256": "dbbddbdd6a0872c028234098537d9308f421041325d8a3e594be9c6b3fbf8dd1"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5157,7 +5157,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/se-normal-4x.png",
-              "sha256": "efd51d45e30f7b970d0f50887937cccae634addbcc450ad4b1e6036cb29932a8"
+              "sha256": "c1e41baeff6da34dc9aa969015e8993a63a3cee94f3c64f129e2e50ee2a84b1f"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5196,7 +5196,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/cp/s-normal-4x.png",
-              "sha256": "ca5d00a92e9faabaf7b054f7f51663684e80d4ea077fb834921debf9353213df"
+              "sha256": "77d6b1061c3230927caeb5a501bbce52ba9732a356d5d593ee107ac9cf6d001f"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5235,7 +5235,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/sw-normal-4x.png",
-              "sha256": "102c123862ccfce776553b11909913b70d7eb4f99092d4d1f301a90a311abde2"
+              "sha256": "bca9b5735edb80ccf726189e78dffea92f3230054b0ff882aadda7516bd8c88d"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5274,7 +5274,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/cp/nw-normal-4x.png",
-              "sha256": "2e2f54a3eee2c21aacc10e760acdc1c53e4a8e76faf5050026584840a06f3b40"
+              "sha256": "59b06641092d7be536698ba0c30429eff2231d269801a27b33b9a16608e6542d"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5313,7 +5313,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/n-normal-4x.png",
-              "sha256": "d1c82f2789386248e4367cee879c8a4106fb915c9430d69fad565894c9f49718"
+              "sha256": "3b35b996623891c6fca56bd84f7a26bbd874512d756934c2c543d6851bd89f97"
             },
             "state": "normal",
             "terrain": "grass_w",
@@ -5344,7 +5344,7 @@
             "width": 952
           },
           "path": "scenes/grass_w-normal-p1-4x.png",
-          "sha256": "680f0831b8f7a0d94f6c7a6d352d105ee43d0324463dd12e39e64e31cca4bc0c"
+          "sha256": "192dd9c90ff093b03f230b59302909bbf01b0723e138e6660106e18a6bfdab48"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -5382,7 +5382,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/neutral/n-spent-2x.png",
-              "sha256": "39375c5ec19303134751c9fd228742d2c2da5e0522cb051e6860189625b9d632"
+              "sha256": "d3144b6a780c5315e984d0670eb37ad676b18edd3628617de4b2a9022f5ee4a0"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5421,7 +5421,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/ne-spent-2x.png",
-              "sha256": "1f0bd090a553ccd2419de4417925df24964d35ede004fad6806e4e7e8aa50b21"
+              "sha256": "3017bfd73a31a2882e4208437aeac7891ec808d9ac1e46cf5b0660385b51e093"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5460,7 +5460,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/se-spent-2x.png",
-              "sha256": "f26d32c1ed276c19343ef62f31c631a2af8a131f1e60fbee340944a339a7f49a"
+              "sha256": "3c949e06d41c3fa06ed02ea65821cdb12f8270e0dd9c98197c2298292450785d"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5499,7 +5499,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/cp/s-spent-2x.png",
-              "sha256": "a8f7843df66d203aa87ac540a1a5ea25e737420dc03196e540273e88d0ce7f8a"
+              "sha256": "40d9f13cdef3d143195d514b10d3ac2eaeeba18f5ddd10b3558603e067f7f9f2"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5538,7 +5538,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/sw-spent-2x.png",
-              "sha256": "2ee415448a9e1890a30ccd8bd02443d69dbc4bad0cec0523142e01647ee5a443"
+              "sha256": "2e6d84fe146f81ba5acf159dc6b751e798daf326e70eb6b31b8fab87c2801364"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5577,7 +5577,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/cp/nw-spent-2x.png",
-              "sha256": "1de168f6495f5f59e56380b25e60cf36bb6a09490f756616d673899ca922703a"
+              "sha256": "b433f5004c5bc132c7205dc1fa4fbd03cb77f8254dcb5306deb7202f4f4f774d"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5616,7 +5616,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/n-spent-2x.png",
-              "sha256": "d71a02e025e0eb1fbcd7dbc8baa2d55e622455d189df99a0c39fe84f7b67c078"
+              "sha256": "6c3ca5e50d0a45f6ab460a1b7b7b64a5b36a3264dbb1c6c1d1361cc08c4389b3"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5647,7 +5647,7 @@
             "width": 476
           },
           "path": "scenes/grass_w-spent-p0-2x.png",
-          "sha256": "97852ea4e485c25a1b30afe87d00ef134a9cd264a5e8e728365cad761202526c"
+          "sha256": "7aab944920c7e03c805236d75190434692a932a0a3332628736dfa96e5174cbf"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -5685,7 +5685,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/neutral/n-spent-4x.png",
-              "sha256": "16467008f5c99205473423818454b9c631b9fa5490470595fc91b3bea3faea4b"
+              "sha256": "d38c64918b68d3d540568895348dcafd6073ee34c624d2f7c17a6cf36b42644c"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5724,7 +5724,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/ne-spent-4x.png",
-              "sha256": "ac6a6dd4ac9b9a30294be16ffd89a649d4e00986060f4bc8cf1cebe398cd2180"
+              "sha256": "c783bc3c9d5b47399a6a2af3009e961e987e73f5339822752176069ac5bdd143"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5763,7 +5763,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/se-spent-4x.png",
-              "sha256": "ace1a59110b40e1c3d86ae3642ac314be837e24bc976805c969e518d668ed003"
+              "sha256": "15f206f8e4501bc5309135d5d1aef7fbdbca09aadac6890810ccf871c7ff006c"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5802,7 +5802,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/cp/s-spent-4x.png",
-              "sha256": "0bc31e2247289e2321f747d20d4143b7d646f06ce63a65b31b1148f5f1798771"
+              "sha256": "0b43e9748e6ffafe1c3f899fe1c5348e8b6df997eb81863b3d63fa4071d7a0de"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5841,7 +5841,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/sw-spent-4x.png",
-              "sha256": "2f56692963831d30202656fc4c64c0e34b70f15ecc76f31bb42e3fd4c032b30c"
+              "sha256": "d98b4b53da86714e534b24680cee1d9527760db2b3cc99150fafc77513bb05b8"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5880,7 +5880,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/cp/nw-spent-4x.png",
-              "sha256": "6d28341e71d3a00a2747881d13da1ebafa3219a168633c4df3516d11816eda0d"
+              "sha256": "f3bd26238dd930c77935e06cb287a7b342f9aa181d5be8e388a60eed0f3b46a2"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5919,7 +5919,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/n-spent-4x.png",
-              "sha256": "c00f904fc448a5b657a8ba4c13e28ad21fc5633f6207d3784be49fdf92354d01"
+              "sha256": "39402bd4c81497cca020d8402a720b8733d3714d7dc5d6c459e2279248eebd96"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -5950,7 +5950,7 @@
             "width": 952
           },
           "path": "scenes/grass_w-spent-p0-4x.png",
-          "sha256": "9f91cc74a901a3d54380fc63a402666a0700c9e88da8706c1419cc817a432845"
+          "sha256": "74c172cc35129a5163c1cdc70c75dc3b01eaf095c79deba7cc18505c8a5331df"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -5988,7 +5988,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/neutral/n-spent-2x.png",
-              "sha256": "39375c5ec19303134751c9fd228742d2c2da5e0522cb051e6860189625b9d632"
+              "sha256": "d3144b6a780c5315e984d0670eb37ad676b18edd3628617de4b2a9022f5ee4a0"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6027,7 +6027,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/ne-spent-2x.png",
-              "sha256": "1f0bd090a553ccd2419de4417925df24964d35ede004fad6806e4e7e8aa50b21"
+              "sha256": "3017bfd73a31a2882e4208437aeac7891ec808d9ac1e46cf5b0660385b51e093"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6066,7 +6066,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/se-spent-2x.png",
-              "sha256": "f26d32c1ed276c19343ef62f31c631a2af8a131f1e60fbee340944a339a7f49a"
+              "sha256": "3c949e06d41c3fa06ed02ea65821cdb12f8270e0dd9c98197c2298292450785d"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6105,7 +6105,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/cp/s-spent-2x.png",
-              "sha256": "a8f7843df66d203aa87ac540a1a5ea25e737420dc03196e540273e88d0ce7f8a"
+              "sha256": "40d9f13cdef3d143195d514b10d3ac2eaeeba18f5ddd10b3558603e067f7f9f2"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6144,7 +6144,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/sw-spent-2x.png",
-              "sha256": "2ee415448a9e1890a30ccd8bd02443d69dbc4bad0cec0523142e01647ee5a443"
+              "sha256": "2e6d84fe146f81ba5acf159dc6b751e798daf326e70eb6b31b8fab87c2801364"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6183,7 +6183,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/cp/nw-spent-2x.png",
-              "sha256": "1de168f6495f5f59e56380b25e60cf36bb6a09490f756616d673899ca922703a"
+              "sha256": "b433f5004c5bc132c7205dc1fa4fbd03cb77f8254dcb5306deb7202f4f4f774d"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6222,7 +6222,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/n-spent-2x.png",
-              "sha256": "d71a02e025e0eb1fbcd7dbc8baa2d55e622455d189df99a0c39fe84f7b67c078"
+              "sha256": "6c3ca5e50d0a45f6ab460a1b7b7b64a5b36a3264dbb1c6c1d1361cc08c4389b3"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6253,7 +6253,7 @@
             "width": 476
           },
           "path": "scenes/grass_w-spent-p1-2x.png",
-          "sha256": "97852ea4e485c25a1b30afe87d00ef134a9cd264a5e8e728365cad761202526c"
+          "sha256": "7aab944920c7e03c805236d75190434692a932a0a3332628736dfa96e5174cbf"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -6291,7 +6291,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/neutral/n-spent-4x.png",
-              "sha256": "16467008f5c99205473423818454b9c631b9fa5490470595fc91b3bea3faea4b"
+              "sha256": "d38c64918b68d3d540568895348dcafd6073ee34c624d2f7c17a6cf36b42644c"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6330,7 +6330,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/ne-spent-4x.png",
-              "sha256": "ac6a6dd4ac9b9a30294be16ffd89a649d4e00986060f4bc8cf1cebe398cd2180"
+              "sha256": "c783bc3c9d5b47399a6a2af3009e961e987e73f5339822752176069ac5bdd143"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6369,7 +6369,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/se-spent-4x.png",
-              "sha256": "ace1a59110b40e1c3d86ae3642ac314be837e24bc976805c969e518d668ed003"
+              "sha256": "15f206f8e4501bc5309135d5d1aef7fbdbca09aadac6890810ccf871c7ff006c"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6408,7 +6408,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/cp/s-spent-4x.png",
-              "sha256": "0bc31e2247289e2321f747d20d4143b7d646f06ce63a65b31b1148f5f1798771"
+              "sha256": "0b43e9748e6ffafe1c3f899fe1c5348e8b6df997eb81863b3d63fa4071d7a0de"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6447,7 +6447,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/sw-spent-4x.png",
-              "sha256": "2f56692963831d30202656fc4c64c0e34b70f15ecc76f31bb42e3fd4c032b30c"
+              "sha256": "d98b4b53da86714e534b24680cee1d9527760db2b3cc99150fafc77513bb05b8"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6486,7 +6486,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/cp/nw-spent-4x.png",
-              "sha256": "6d28341e71d3a00a2747881d13da1ebafa3219a168633c4df3516d11816eda0d"
+              "sha256": "f3bd26238dd930c77935e06cb287a7b342f9aa181d5be8e388a60eed0f3b46a2"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6525,7 +6525,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/n-spent-4x.png",
-              "sha256": "c00f904fc448a5b657a8ba4c13e28ad21fc5633f6207d3784be49fdf92354d01"
+              "sha256": "39402bd4c81497cca020d8402a720b8733d3714d7dc5d6c459e2279248eebd96"
             },
             "state": "spent",
             "terrain": "grass_w",
@@ -6556,7 +6556,7 @@
             "width": 952
           },
           "path": "scenes/grass_w-spent-p1-4x.png",
-          "sha256": "9f91cc74a901a3d54380fc63a402666a0700c9e88da8706c1419cc817a432845"
+          "sha256": "74c172cc35129a5163c1cdc70c75dc3b01eaf095c79deba7cc18505c8a5331df"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -6594,7 +6594,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/neutral/n-normal-2x.png",
-              "sha256": "3861e8df62a0140031e0537e0f87ca38ec81e79aef4794fcd075e3c05896ce8d"
+              "sha256": "3b34ea341e09c91c5a9665c80e06dd0ba5c5e08d94ccb2db9847d08e0e929dd8"
             },
             "state": "normal",
             "terrain": "mud",
@@ -6633,7 +6633,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/ne-normal-2x.png",
-              "sha256": "e5c606ae46dc29a8a071f33180f9b0dcc6bd268132a68158c4f9b5ab10561e3c"
+              "sha256": "a0cda84343c55a32b73fbc9ad1811a8812a47e3bc5117acaa3412005227a4a17"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6672,7 +6672,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/se-normal-2x.png",
-              "sha256": "955e093c604e4758d33f8dc46e00205d5f185a16982cabbc1acb55f3b4348742"
+              "sha256": "5163fc11fbd0d76920ab9624057a772f3a366442a807aa7544bab182af7ae39f"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6711,7 +6711,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/cp/s-normal-2x.png",
-              "sha256": "88fd7f900e04a2712aa6759fac5bc734b534dbb4cfc1f929d1abbd423cfd61fc"
+              "sha256": "757868e06b75def6572663b0ff02721d25d40e4f5b4cc20e7c4416db5a58c0c9"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6750,7 +6750,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/sw-normal-2x.png",
-              "sha256": "f084f0af50425a6a3064dd2e5f1367a4d6e7218ce96a458aeb671f808d480142"
+              "sha256": "14dadaeaae7394307a0a4aa4e4f3a9d17deed58494705e2d0f37de375a3594d5"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6789,7 +6789,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/cp/nw-normal-2x.png",
-              "sha256": "51ea0c9ca66a387553987f10012dccb77feda7f20968947f1c825bc304cbe072"
+              "sha256": "82fa729cf59bdd7a3c8f751e8bd675b66ef7d0b7c08d799c191b9fa1706db85d"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6828,7 +6828,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/n-normal-2x.png",
-              "sha256": "c9b0b7f6115d028ba817c00d18029a23a21c5dc8d99cbeea30b0ede6dfc52720"
+              "sha256": "a8feeac222cd54efba7421f2264ad701f06a1696238927c28af85708b8afe9c0"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6859,7 +6859,7 @@
             "width": 476
           },
           "path": "scenes/mud-normal-p0-2x.png",
-          "sha256": "d1ffd379ac9c5f230e12f186df4de088c29529ddbe1de1d9f33c805423e88830"
+          "sha256": "5b4a82bdaccf18c3c232462ae7491d9470d80bb9387049b87a30ba8406179500"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -6897,7 +6897,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/neutral/n-normal-4x.png",
-              "sha256": "8b9a7f7ea497c13b0071f76db30280c6d00b496f8109a29f13db46a77c44e25d"
+              "sha256": "8d2823ca2cdb952368c579ada1122dcaa01268063043506caa20376626909c8d"
             },
             "state": "normal",
             "terrain": "mud",
@@ -6936,7 +6936,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/ne-normal-4x.png",
-              "sha256": "ea27f34991d2996f2def9dbbf7594e33ddd04ff81b3b0cfe80e209733074fd1c"
+              "sha256": "dbbddbdd6a0872c028234098537d9308f421041325d8a3e594be9c6b3fbf8dd1"
             },
             "state": "normal",
             "terrain": "grass",
@@ -6975,7 +6975,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/se-normal-4x.png",
-              "sha256": "efd51d45e30f7b970d0f50887937cccae634addbcc450ad4b1e6036cb29932a8"
+              "sha256": "c1e41baeff6da34dc9aa969015e8993a63a3cee94f3c64f129e2e50ee2a84b1f"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7014,7 +7014,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/cp/s-normal-4x.png",
-              "sha256": "ca5d00a92e9faabaf7b054f7f51663684e80d4ea077fb834921debf9353213df"
+              "sha256": "77d6b1061c3230927caeb5a501bbce52ba9732a356d5d593ee107ac9cf6d001f"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7053,7 +7053,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/sw-normal-4x.png",
-              "sha256": "102c123862ccfce776553b11909913b70d7eb4f99092d4d1f301a90a311abde2"
+              "sha256": "bca9b5735edb80ccf726189e78dffea92f3230054b0ff882aadda7516bd8c88d"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7092,7 +7092,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/cp/nw-normal-4x.png",
-              "sha256": "2e2f54a3eee2c21aacc10e760acdc1c53e4a8e76faf5050026584840a06f3b40"
+              "sha256": "59b06641092d7be536698ba0c30429eff2231d269801a27b33b9a16608e6542d"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7131,7 +7131,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/n-normal-4x.png",
-              "sha256": "d1c82f2789386248e4367cee879c8a4106fb915c9430d69fad565894c9f49718"
+              "sha256": "3b35b996623891c6fca56bd84f7a26bbd874512d756934c2c543d6851bd89f97"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7162,7 +7162,7 @@
             "width": 952
           },
           "path": "scenes/mud-normal-p0-4x.png",
-          "sha256": "e35c5c22e01af549427a400964c2e71d7fff11b386093a1d949ed885d361596d"
+          "sha256": "d5dd02490df355c509e636f3ac37098877c8b595b16a5f26a466ab8733dc4ddf"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -7200,7 +7200,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/neutral/n-normal-2x.png",
-              "sha256": "3861e8df62a0140031e0537e0f87ca38ec81e79aef4794fcd075e3c05896ce8d"
+              "sha256": "3b34ea341e09c91c5a9665c80e06dd0ba5c5e08d94ccb2db9847d08e0e929dd8"
             },
             "state": "normal",
             "terrain": "mud",
@@ -7239,7 +7239,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/ne-normal-2x.png",
-              "sha256": "e5c606ae46dc29a8a071f33180f9b0dcc6bd268132a68158c4f9b5ab10561e3c"
+              "sha256": "a0cda84343c55a32b73fbc9ad1811a8812a47e3bc5117acaa3412005227a4a17"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7278,7 +7278,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/se-normal-2x.png",
-              "sha256": "955e093c604e4758d33f8dc46e00205d5f185a16982cabbc1acb55f3b4348742"
+              "sha256": "5163fc11fbd0d76920ab9624057a772f3a366442a807aa7544bab182af7ae39f"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7317,7 +7317,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/cp/s-normal-2x.png",
-              "sha256": "88fd7f900e04a2712aa6759fac5bc734b534dbb4cfc1f929d1abbd423cfd61fc"
+              "sha256": "757868e06b75def6572663b0ff02721d25d40e4f5b4cc20e7c4416db5a58c0c9"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7356,7 +7356,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/sw-normal-2x.png",
-              "sha256": "f084f0af50425a6a3064dd2e5f1367a4d6e7218ce96a458aeb671f808d480142"
+              "sha256": "14dadaeaae7394307a0a4aa4e4f3a9d17deed58494705e2d0f37de375a3594d5"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7395,7 +7395,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/cp/nw-normal-2x.png",
-              "sha256": "51ea0c9ca66a387553987f10012dccb77feda7f20968947f1c825bc304cbe072"
+              "sha256": "82fa729cf59bdd7a3c8f751e8bd675b66ef7d0b7c08d799c191b9fa1706db85d"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7434,7 +7434,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/n-normal-2x.png",
-              "sha256": "c9b0b7f6115d028ba817c00d18029a23a21c5dc8d99cbeea30b0ede6dfc52720"
+              "sha256": "a8feeac222cd54efba7421f2264ad701f06a1696238927c28af85708b8afe9c0"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7465,7 +7465,7 @@
             "width": 476
           },
           "path": "scenes/mud-normal-p1-2x.png",
-          "sha256": "d1ffd379ac9c5f230e12f186df4de088c29529ddbe1de1d9f33c805423e88830"
+          "sha256": "5b4a82bdaccf18c3c232462ae7491d9470d80bb9387049b87a30ba8406179500"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -7503,7 +7503,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/neutral/n-normal-4x.png",
-              "sha256": "8b9a7f7ea497c13b0071f76db30280c6d00b496f8109a29f13db46a77c44e25d"
+              "sha256": "8d2823ca2cdb952368c579ada1122dcaa01268063043506caa20376626909c8d"
             },
             "state": "normal",
             "terrain": "mud",
@@ -7542,7 +7542,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/ne-normal-4x.png",
-              "sha256": "ea27f34991d2996f2def9dbbf7594e33ddd04ff81b3b0cfe80e209733074fd1c"
+              "sha256": "dbbddbdd6a0872c028234098537d9308f421041325d8a3e594be9c6b3fbf8dd1"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7581,7 +7581,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/se-normal-4x.png",
-              "sha256": "efd51d45e30f7b970d0f50887937cccae634addbcc450ad4b1e6036cb29932a8"
+              "sha256": "c1e41baeff6da34dc9aa969015e8993a63a3cee94f3c64f129e2e50ee2a84b1f"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7620,7 +7620,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/cp/s-normal-4x.png",
-              "sha256": "ca5d00a92e9faabaf7b054f7f51663684e80d4ea077fb834921debf9353213df"
+              "sha256": "77d6b1061c3230927caeb5a501bbce52ba9732a356d5d593ee107ac9cf6d001f"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7659,7 +7659,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/sw-normal-4x.png",
-              "sha256": "102c123862ccfce776553b11909913b70d7eb4f99092d4d1f301a90a311abde2"
+              "sha256": "bca9b5735edb80ccf726189e78dffea92f3230054b0ff882aadda7516bd8c88d"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7698,7 +7698,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/cp/nw-normal-4x.png",
-              "sha256": "2e2f54a3eee2c21aacc10e760acdc1c53e4a8e76faf5050026584840a06f3b40"
+              "sha256": "59b06641092d7be536698ba0c30429eff2231d269801a27b33b9a16608e6542d"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7737,7 +7737,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/n-normal-4x.png",
-              "sha256": "d1c82f2789386248e4367cee879c8a4106fb915c9430d69fad565894c9f49718"
+              "sha256": "3b35b996623891c6fca56bd84f7a26bbd874512d756934c2c543d6851bd89f97"
             },
             "state": "normal",
             "terrain": "grass",
@@ -7768,7 +7768,7 @@
             "width": 952
           },
           "path": "scenes/mud-normal-p1-4x.png",
-          "sha256": "e35c5c22e01af549427a400964c2e71d7fff11b386093a1d949ed885d361596d"
+          "sha256": "d5dd02490df355c509e636f3ac37098877c8b595b16a5f26a466ab8733dc4ddf"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -7806,7 +7806,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/neutral/n-spent-2x.png",
-              "sha256": "39375c5ec19303134751c9fd228742d2c2da5e0522cb051e6860189625b9d632"
+              "sha256": "d3144b6a780c5315e984d0670eb37ad676b18edd3628617de4b2a9022f5ee4a0"
             },
             "state": "spent",
             "terrain": "mud",
@@ -7845,7 +7845,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/ne-spent-2x.png",
-              "sha256": "1f0bd090a553ccd2419de4417925df24964d35ede004fad6806e4e7e8aa50b21"
+              "sha256": "3017bfd73a31a2882e4208437aeac7891ec808d9ac1e46cf5b0660385b51e093"
             },
             "state": "spent",
             "terrain": "grass",
@@ -7884,7 +7884,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/se-spent-2x.png",
-              "sha256": "f26d32c1ed276c19343ef62f31c631a2af8a131f1e60fbee340944a339a7f49a"
+              "sha256": "3c949e06d41c3fa06ed02ea65821cdb12f8270e0dd9c98197c2298292450785d"
             },
             "state": "spent",
             "terrain": "grass",
@@ -7923,7 +7923,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/cp/s-spent-2x.png",
-              "sha256": "a8f7843df66d203aa87ac540a1a5ea25e737420dc03196e540273e88d0ce7f8a"
+              "sha256": "40d9f13cdef3d143195d514b10d3ac2eaeeba18f5ddd10b3558603e067f7f9f2"
             },
             "state": "spent",
             "terrain": "grass",
@@ -7962,7 +7962,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/sw-spent-2x.png",
-              "sha256": "2ee415448a9e1890a30ccd8bd02443d69dbc4bad0cec0523142e01647ee5a443"
+              "sha256": "2e6d84fe146f81ba5acf159dc6b751e798daf326e70eb6b31b8fab87c2801364"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8001,7 +8001,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/cp/nw-spent-2x.png",
-              "sha256": "1de168f6495f5f59e56380b25e60cf36bb6a09490f756616d673899ca922703a"
+              "sha256": "b433f5004c5bc132c7205dc1fa4fbd03cb77f8254dcb5306deb7202f4f4f774d"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8040,7 +8040,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/n-spent-2x.png",
-              "sha256": "d71a02e025e0eb1fbcd7dbc8baa2d55e622455d189df99a0c39fe84f7b67c078"
+              "sha256": "6c3ca5e50d0a45f6ab460a1b7b7b64a5b36a3264dbb1c6c1d1361cc08c4389b3"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8071,7 +8071,7 @@
             "width": 476
           },
           "path": "scenes/mud-spent-p0-2x.png",
-          "sha256": "8a42a24211861dbef87bbfbcd9ebdbf8075d3cdc762a8e487bc8b9edfa44accb"
+          "sha256": "6dc2c98db254a2e64b5d6b43085cb4a053cff20a073628dda23d12a69b7e0454"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -8109,7 +8109,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/neutral/n-spent-4x.png",
-              "sha256": "16467008f5c99205473423818454b9c631b9fa5490470595fc91b3bea3faea4b"
+              "sha256": "d38c64918b68d3d540568895348dcafd6073ee34c624d2f7c17a6cf36b42644c"
             },
             "state": "spent",
             "terrain": "mud",
@@ -8148,7 +8148,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/ne-spent-4x.png",
-              "sha256": "ac6a6dd4ac9b9a30294be16ffd89a649d4e00986060f4bc8cf1cebe398cd2180"
+              "sha256": "c783bc3c9d5b47399a6a2af3009e961e987e73f5339822752176069ac5bdd143"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8187,7 +8187,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/se-spent-4x.png",
-              "sha256": "ace1a59110b40e1c3d86ae3642ac314be837e24bc976805c969e518d668ed003"
+              "sha256": "15f206f8e4501bc5309135d5d1aef7fbdbca09aadac6890810ccf871c7ff006c"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8226,7 +8226,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/cp/s-spent-4x.png",
-              "sha256": "0bc31e2247289e2321f747d20d4143b7d646f06ce63a65b31b1148f5f1798771"
+              "sha256": "0b43e9748e6ffafe1c3f899fe1c5348e8b6df997eb81863b3d63fa4071d7a0de"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8265,7 +8265,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/sw-spent-4x.png",
-              "sha256": "2f56692963831d30202656fc4c64c0e34b70f15ecc76f31bb42e3fd4c032b30c"
+              "sha256": "d98b4b53da86714e534b24680cee1d9527760db2b3cc99150fafc77513bb05b8"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8304,7 +8304,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/cp/nw-spent-4x.png",
-              "sha256": "6d28341e71d3a00a2747881d13da1ebafa3219a168633c4df3516d11816eda0d"
+              "sha256": "f3bd26238dd930c77935e06cb287a7b342f9aa181d5be8e388a60eed0f3b46a2"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8343,7 +8343,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/n-spent-4x.png",
-              "sha256": "c00f904fc448a5b657a8ba4c13e28ad21fc5633f6207d3784be49fdf92354d01"
+              "sha256": "39402bd4c81497cca020d8402a720b8733d3714d7dc5d6c459e2279248eebd96"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8374,7 +8374,7 @@
             "width": 952
           },
           "path": "scenes/mud-spent-p0-4x.png",
-          "sha256": "779bf9d170f9604faac4653045670f858da7a8d81526d6268afe652c362deab4"
+          "sha256": "603d5fc68ee685c7c77213d24c11443477c223abd5e3c14e167178dda97d893a"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -8412,7 +8412,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/neutral/n-spent-2x.png",
-              "sha256": "39375c5ec19303134751c9fd228742d2c2da5e0522cb051e6860189625b9d632"
+              "sha256": "d3144b6a780c5315e984d0670eb37ad676b18edd3628617de4b2a9022f5ee4a0"
             },
             "state": "spent",
             "terrain": "mud",
@@ -8451,7 +8451,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/ne-spent-2x.png",
-              "sha256": "1f0bd090a553ccd2419de4417925df24964d35ede004fad6806e4e7e8aa50b21"
+              "sha256": "3017bfd73a31a2882e4208437aeac7891ec808d9ac1e46cf5b0660385b51e093"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8490,7 +8490,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/se-spent-2x.png",
-              "sha256": "f26d32c1ed276c19343ef62f31c631a2af8a131f1e60fbee340944a339a7f49a"
+              "sha256": "3c949e06d41c3fa06ed02ea65821cdb12f8270e0dd9c98197c2298292450785d"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8529,7 +8529,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/cp/s-spent-2x.png",
-              "sha256": "a8f7843df66d203aa87ac540a1a5ea25e737420dc03196e540273e88d0ce7f8a"
+              "sha256": "40d9f13cdef3d143195d514b10d3ac2eaeeba18f5ddd10b3558603e067f7f9f2"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8568,7 +8568,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/sw-spent-2x.png",
-              "sha256": "2ee415448a9e1890a30ccd8bd02443d69dbc4bad0cec0523142e01647ee5a443"
+              "sha256": "2e6d84fe146f81ba5acf159dc6b751e798daf326e70eb6b31b8fab87c2801364"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8607,7 +8607,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/cp/nw-spent-2x.png",
-              "sha256": "1de168f6495f5f59e56380b25e60cf36bb6a09490f756616d673899ca922703a"
+              "sha256": "b433f5004c5bc132c7205dc1fa4fbd03cb77f8254dcb5306deb7202f4f4f774d"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8646,7 +8646,7 @@
                 "width": 192
               },
               "path": "sprites/sappers/ec/n-spent-2x.png",
-              "sha256": "d71a02e025e0eb1fbcd7dbc8baa2d55e622455d189df99a0c39fe84f7b67c078"
+              "sha256": "6c3ca5e50d0a45f6ab460a1b7b7b64a5b36a3264dbb1c6c1d1361cc08c4389b3"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8677,7 +8677,7 @@
             "width": 476
           },
           "path": "scenes/mud-spent-p1-2x.png",
-          "sha256": "8a42a24211861dbef87bbfbcd9ebdbf8075d3cdc762a8e487bc8b9edfa44accb"
+          "sha256": "6dc2c98db254a2e64b5d6b43085cb4a053cff20a073628dda23d12a69b7e0454"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -8715,7 +8715,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/neutral/n-spent-4x.png",
-              "sha256": "16467008f5c99205473423818454b9c631b9fa5490470595fc91b3bea3faea4b"
+              "sha256": "d38c64918b68d3d540568895348dcafd6073ee34c624d2f7c17a6cf36b42644c"
             },
             "state": "spent",
             "terrain": "mud",
@@ -8754,7 +8754,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/ne-spent-4x.png",
-              "sha256": "ac6a6dd4ac9b9a30294be16ffd89a649d4e00986060f4bc8cf1cebe398cd2180"
+              "sha256": "c783bc3c9d5b47399a6a2af3009e961e987e73f5339822752176069ac5bdd143"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8793,7 +8793,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/se-spent-4x.png",
-              "sha256": "ace1a59110b40e1c3d86ae3642ac314be837e24bc976805c969e518d668ed003"
+              "sha256": "15f206f8e4501bc5309135d5d1aef7fbdbca09aadac6890810ccf871c7ff006c"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8832,7 +8832,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/cp/s-spent-4x.png",
-              "sha256": "0bc31e2247289e2321f747d20d4143b7d646f06ce63a65b31b1148f5f1798771"
+              "sha256": "0b43e9748e6ffafe1c3f899fe1c5348e8b6df997eb81863b3d63fa4071d7a0de"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8871,7 +8871,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/sw-spent-4x.png",
-              "sha256": "2f56692963831d30202656fc4c64c0e34b70f15ecc76f31bb42e3fd4c032b30c"
+              "sha256": "d98b4b53da86714e534b24680cee1d9527760db2b3cc99150fafc77513bb05b8"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8910,7 +8910,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/cp/nw-spent-4x.png",
-              "sha256": "6d28341e71d3a00a2747881d13da1ebafa3219a168633c4df3516d11816eda0d"
+              "sha256": "f3bd26238dd930c77935e06cb287a7b342f9aa181d5be8e388a60eed0f3b46a2"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8949,7 +8949,7 @@
                 "width": 384
               },
               "path": "sprites/sappers/ec/n-spent-4x.png",
-              "sha256": "c00f904fc448a5b657a8ba4c13e28ad21fc5633f6207d3784be49fdf92354d01"
+              "sha256": "39402bd4c81497cca020d8402a720b8733d3714d7dc5d6c459e2279248eebd96"
             },
             "state": "spent",
             "terrain": "grass",
@@ -8980,7 +8980,7 @@
             "width": 952
           },
           "path": "scenes/mud-spent-p1-4x.png",
-          "sha256": "779bf9d170f9604faac4653045670f858da7a8d81526d6268afe652c362deab4"
+          "sha256": "603d5fc68ee685c7c77213d24c11443477c223abd5e3c14e167178dda97d893a"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -9005,7 +9005,7 @@
             "width": 1152
           },
           "path": "sheets/sappers-white-2x.png",
-          "sha256": "1d7bb324d6e3f316eade1cd57503ea9ebcbe6842a64ece7488558fa3b9a45b30"
+          "sha256": "4a5b24dae95e27ac0dd02d127191e90a574ed03054b0a97e27d1613bf6caad57"
         },
         "rows": [
           "n",
@@ -9033,7 +9033,7 @@
             "width": 2304
           },
           "path": "sheets/sappers-white-4x.png",
-          "sha256": "bd53c03a4997b40670c324a605ef0252383a7d33a0117fb9cd2940d6a714976c"
+          "sha256": "e35548e55f7752703b7ec7e4ca022931e180ff4b6bbd0765c44091e86d6af982"
         },
         "rows": [
           "n",
@@ -9061,7 +9061,7 @@
             "width": 1152
           },
           "path": "sheets/sappers-checker-2x.png",
-          "sha256": "5ecb9432eb35b628b08a4437e175f93eb99a2288dcae5b79a4cc90bbce277666"
+          "sha256": "836ade84ce06d19a703f2594cd6874a59990be737a9dcd0ea4dbb502e2c0b444"
         },
         "rows": [
           "n",
@@ -9089,7 +9089,7 @@
             "width": 2304
           },
           "path": "sheets/sappers-checker-4x.png",
-          "sha256": "ccacf32b7863fa5f50ff1c7c7b44d2d0c570793a5e84f0404418654a4b0dfa1d"
+          "sha256": "24229bf80755420ffb6e941fccf788dbbd82f79d43d0320dc2c63d8837951bf1"
         },
         "rows": [
           "n",
@@ -9140,7 +9140,7 @@
               "width": 192
             },
             "path": "sprites/sappers/cp/n-normal-2x.png",
-            "sha256": "e37a978879f527a3bc2d0b5dc73ad67ffe5cd9531430ad202b34ee40b2057ae7"
+            "sha256": "7dde4960c5cb69e6fe01bdca1a6b490f258b1681663b6280147e32d5b488d169"
           },
           {
             "dimensions": {
@@ -9148,7 +9148,7 @@
               "width": 384
             },
             "path": "sprites/sappers/cp/n-normal-4x.png",
-            "sha256": "667544278c2d9e3edc59739d8bed08c4b352fd8f307049039ccba932e5f8c7bf"
+            "sha256": "c3e0cd59fa05fc8de86cc78a8add4b9e8db22829b4675d286ba1c06244c8f8cc"
           }
         ],
         "palette": "cp",
@@ -9191,7 +9191,7 @@
               "width": 192
             },
             "path": "sprites/sappers/cp/n-spent-2x.png",
-            "sha256": "0d594205a9fa7319628cdcb7a466ba17c7d7b5e7b27a6ca8a758a101bf5d7c0f"
+            "sha256": "8b6db174014898519a163593e71639ce7b78782fbe9d2ba0e35c933358857d9f"
           },
           {
             "dimensions": {
@@ -9199,7 +9199,7 @@
               "width": 384
             },
             "path": "sprites/sappers/cp/n-spent-4x.png",
-            "sha256": "bd9a272c04ebebe1898515170e1af56718f23cb3d9d27d6b818c008b4d0d74c8"
+            "sha256": "ca4d0a4c1db809e39cc45838ee3453e37b2dcae4b4f827a12e70ebad55b28b7d"
           }
         ],
         "palette": "cp",
@@ -9242,7 +9242,7 @@
               "width": 192
             },
             "path": "sprites/sappers/ec/n-normal-2x.png",
-            "sha256": "c9b0b7f6115d028ba817c00d18029a23a21c5dc8d99cbeea30b0ede6dfc52720"
+            "sha256": "a8feeac222cd54efba7421f2264ad701f06a1696238927c28af85708b8afe9c0"
           },
           {
             "dimensions": {
@@ -9250,7 +9250,7 @@
               "width": 384
             },
             "path": "sprites/sappers/ec/n-normal-4x.png",
-            "sha256": "d1c82f2789386248e4367cee879c8a4106fb915c9430d69fad565894c9f49718"
+            "sha256": "3b35b996623891c6fca56bd84f7a26bbd874512d756934c2c543d6851bd89f97"
           }
         ],
         "palette": "ec",
@@ -9293,7 +9293,7 @@
               "width": 192
             },
             "path": "sprites/sappers/ec/n-spent-2x.png",
-            "sha256": "d71a02e025e0eb1fbcd7dbc8baa2d55e622455d189df99a0c39fe84f7b67c078"
+            "sha256": "6c3ca5e50d0a45f6ab460a1b7b7b64a5b36a3264dbb1c6c1d1361cc08c4389b3"
           },
           {
             "dimensions": {
@@ -9301,7 +9301,7 @@
               "width": 384
             },
             "path": "sprites/sappers/ec/n-spent-4x.png",
-            "sha256": "c00f904fc448a5b657a8ba4c13e28ad21fc5633f6207d3784be49fdf92354d01"
+            "sha256": "39402bd4c81497cca020d8402a720b8733d3714d7dc5d6c459e2279248eebd96"
           }
         ],
         "palette": "ec",
@@ -9344,7 +9344,7 @@
               "width": 192
             },
             "path": "sprites/sappers/neutral/n-normal-2x.png",
-            "sha256": "3861e8df62a0140031e0537e0f87ca38ec81e79aef4794fcd075e3c05896ce8d"
+            "sha256": "3b34ea341e09c91c5a9665c80e06dd0ba5c5e08d94ccb2db9847d08e0e929dd8"
           },
           {
             "dimensions": {
@@ -9352,7 +9352,7 @@
               "width": 384
             },
             "path": "sprites/sappers/neutral/n-normal-4x.png",
-            "sha256": "8b9a7f7ea497c13b0071f76db30280c6d00b496f8109a29f13db46a77c44e25d"
+            "sha256": "8d2823ca2cdb952368c579ada1122dcaa01268063043506caa20376626909c8d"
           }
         ],
         "palette": "neutral",
@@ -9395,7 +9395,7 @@
               "width": 192
             },
             "path": "sprites/sappers/neutral/n-spent-2x.png",
-            "sha256": "39375c5ec19303134751c9fd228742d2c2da5e0522cb051e6860189625b9d632"
+            "sha256": "d3144b6a780c5315e984d0670eb37ad676b18edd3628617de4b2a9022f5ee4a0"
           },
           {
             "dimensions": {
@@ -9403,7 +9403,7 @@
               "width": 384
             },
             "path": "sprites/sappers/neutral/n-spent-4x.png",
-            "sha256": "16467008f5c99205473423818454b9c631b9fa5490470595fc91b3bea3faea4b"
+            "sha256": "d38c64918b68d3d540568895348dcafd6073ee34c624d2f7c17a6cf36b42644c"
           }
         ],
         "palette": "neutral",
@@ -9446,7 +9446,7 @@
               "width": 192
             },
             "path": "sprites/sappers/cp/nw-normal-2x.png",
-            "sha256": "51ea0c9ca66a387553987f10012dccb77feda7f20968947f1c825bc304cbe072"
+            "sha256": "82fa729cf59bdd7a3c8f751e8bd675b66ef7d0b7c08d799c191b9fa1706db85d"
           },
           {
             "dimensions": {
@@ -9454,7 +9454,7 @@
               "width": 384
             },
             "path": "sprites/sappers/cp/nw-normal-4x.png",
-            "sha256": "2e2f54a3eee2c21aacc10e760acdc1c53e4a8e76faf5050026584840a06f3b40"
+            "sha256": "59b06641092d7be536698ba0c30429eff2231d269801a27b33b9a16608e6542d"
           }
         ],
         "palette": "cp",
@@ -9497,7 +9497,7 @@
               "width": 192
             },
             "path": "sprites/sappers/cp/nw-spent-2x.png",
-            "sha256": "1de168f6495f5f59e56380b25e60cf36bb6a09490f756616d673899ca922703a"
+            "sha256": "b433f5004c5bc132c7205dc1fa4fbd03cb77f8254dcb5306deb7202f4f4f774d"
           },
           {
             "dimensions": {
@@ -9505,7 +9505,7 @@
               "width": 384
             },
             "path": "sprites/sappers/cp/nw-spent-4x.png",
-            "sha256": "6d28341e71d3a00a2747881d13da1ebafa3219a168633c4df3516d11816eda0d"
+            "sha256": "f3bd26238dd930c77935e06cb287a7b342f9aa181d5be8e388a60eed0f3b46a2"
           }
         ],
         "palette": "cp",
@@ -9548,7 +9548,7 @@
               "width": 192
             },
             "path": "sprites/sappers/ec/nw-normal-2x.png",
-            "sha256": "258710a3f80dead48d2f97be084b013c0836d51d94841d533a7eb79216b3cae5"
+            "sha256": "454c38806382e8c034be32c535c4786c19dfec9015c6529b94672912d7cc8a04"
           },
           {
             "dimensions": {
@@ -9556,7 +9556,7 @@
               "width": 384
             },
             "path": "sprites/sappers/ec/nw-normal-4x.png",
-            "sha256": "045f5bae06e7e75fa30903e8a59a8c8e9cd3db696c5934ab99bef834f026c5e5"
+            "sha256": "3bd016d5f94595e8acc0f5acef1882d3b5c0e88a725b84fef341640c28d3c131"
           }
         ],
         "palette": "ec",
@@ -9599,7 +9599,7 @@
               "width": 192
             },
             "path": "sprites/sappers/ec/nw-spent-2x.png",
-            "sha256": "79cee0c4d4e793abc0f4f68f37fd2680e1c191acf65046543f223789cf4b9ba4"
+            "sha256": "ac5231f00fcc3dc1baff5e468ef8c8667783e3351e31845dec99eeafa10dffb7"
           },
           {
             "dimensions": {
@@ -9607,7 +9607,7 @@
               "width": 384
             },
             "path": "sprites/sappers/ec/nw-spent-4x.png",
-            "sha256": "bf4c63a885e74f5266c7037d965012d33ec4fbbc2c8e1e79fe3da2f05e4b4d8b"
+            "sha256": "04af6946ce050e731e129b308e3aad02fc2d581f92ec42b92391b5b6ac9b4ee9"
           }
         ],
         "palette": "ec",
@@ -9650,7 +9650,7 @@
               "width": 192
             },
             "path": "sprites/sappers/neutral/nw-normal-2x.png",
-            "sha256": "932ba508cce236dcbaddf2c53667d765418d1bb52c71e39992db39fa341ee306"
+            "sha256": "07d2c3d727415ce3a708d7265c148e3e8575a4690252f0af31bad8bca96dcb3c"
           },
           {
             "dimensions": {
@@ -9658,7 +9658,7 @@
               "width": 384
             },
             "path": "sprites/sappers/neutral/nw-normal-4x.png",
-            "sha256": "25fcc6999aa8e75638aa28deb6d430657cfd6930b361dd4b6508b2ee827513a0"
+            "sha256": "a05d8736af3bf3c88cfadba396d41aa09a45d985ff6276582349dab404c2ca9f"
           }
         ],
         "palette": "neutral",
@@ -9701,7 +9701,7 @@
               "width": 192
             },
             "path": "sprites/sappers/neutral/nw-spent-2x.png",
-            "sha256": "e437a2587edd1b5a291aa8d7eabda629932d4037675dce45c878c5ab2330c2a8"
+            "sha256": "f05ff0785720e3c36bb115973d6d8659944386570630824a07f0b381eccadcbe"
           },
           {
             "dimensions": {
@@ -9709,7 +9709,7 @@
               "width": 384
             },
             "path": "sprites/sappers/neutral/nw-spent-4x.png",
-            "sha256": "b7bba45da15b7b6495db3a271553b485cca5ac29802cc657e35d10a33e0d78a4"
+            "sha256": "0ef93ec91e4a6890df33057c0b80585060b01351b2509970ee98734208b28225"
           }
         ],
         "palette": "neutral",
@@ -9752,7 +9752,7 @@
               "width": 192
             },
             "path": "sprites/sappers/cp/sw-normal-2x.png",
-            "sha256": "1782b1290aa991dbf820ce3c172b349a916f68082b549b619294287fcc8fecea"
+            "sha256": "8b588d10ec878c0f968a412779f65a95c7141705aa1bcd93f7554919e6d539af"
           },
           {
             "dimensions": {
@@ -9760,7 +9760,7 @@
               "width": 384
             },
             "path": "sprites/sappers/cp/sw-normal-4x.png",
-            "sha256": "2f8aa4522fd7df7efebca2eefc791b72e0694974486913aedcdfbb575aa0f338"
+            "sha256": "20087c2a7bde964824f10441bce0cb96315f7e92f95df1fcdf67411db1c76670"
           }
         ],
         "palette": "cp",
@@ -9803,7 +9803,7 @@
               "width": 192
             },
             "path": "sprites/sappers/cp/sw-spent-2x.png",
-            "sha256": "6114c0698031f0ecfa157c04dc6b6887fc7d348fc4504186360e17627186a545"
+            "sha256": "a2eb322e8176695e27e64525a60579cf01d557ea8c9c8fed36a422300d72e328"
           },
           {
             "dimensions": {
@@ -9811,7 +9811,7 @@
               "width": 384
             },
             "path": "sprites/sappers/cp/sw-spent-4x.png",
-            "sha256": "33cdfae6aa4011f1842cd59d848e60e9f6574c7300d262980c65658f2bf7bd8f"
+            "sha256": "181517ad1321d03374d8a10345d6e35c1b197068281d914c6ec666bbe7380241"
           }
         ],
         "palette": "cp",
@@ -9854,7 +9854,7 @@
               "width": 192
             },
             "path": "sprites/sappers/ec/sw-normal-2x.png",
-            "sha256": "f084f0af50425a6a3064dd2e5f1367a4d6e7218ce96a458aeb671f808d480142"
+            "sha256": "14dadaeaae7394307a0a4aa4e4f3a9d17deed58494705e2d0f37de375a3594d5"
           },
           {
             "dimensions": {
@@ -9862,7 +9862,7 @@
               "width": 384
             },
             "path": "sprites/sappers/ec/sw-normal-4x.png",
-            "sha256": "102c123862ccfce776553b11909913b70d7eb4f99092d4d1f301a90a311abde2"
+            "sha256": "bca9b5735edb80ccf726189e78dffea92f3230054b0ff882aadda7516bd8c88d"
           }
         ],
         "palette": "ec",
@@ -9905,7 +9905,7 @@
               "width": 192
             },
             "path": "sprites/sappers/ec/sw-spent-2x.png",
-            "sha256": "2ee415448a9e1890a30ccd8bd02443d69dbc4bad0cec0523142e01647ee5a443"
+            "sha256": "2e6d84fe146f81ba5acf159dc6b751e798daf326e70eb6b31b8fab87c2801364"
           },
           {
             "dimensions": {
@@ -9913,7 +9913,7 @@
               "width": 384
             },
             "path": "sprites/sappers/ec/sw-spent-4x.png",
-            "sha256": "2f56692963831d30202656fc4c64c0e34b70f15ecc76f31bb42e3fd4c032b30c"
+            "sha256": "d98b4b53da86714e534b24680cee1d9527760db2b3cc99150fafc77513bb05b8"
           }
         ],
         "palette": "ec",
@@ -9956,7 +9956,7 @@
               "width": 192
             },
             "path": "sprites/sappers/neutral/sw-normal-2x.png",
-            "sha256": "146a445fc9314b2a263d8fb876f01f3c7c3fb85e2e74855e331edd60c63f4aee"
+            "sha256": "73ba32f0ab7d5bfe030cf5d7d5fce61f0b46679d5f2ebf783e74971f3e865685"
           },
           {
             "dimensions": {
@@ -9964,7 +9964,7 @@
               "width": 384
             },
             "path": "sprites/sappers/neutral/sw-normal-4x.png",
-            "sha256": "3de4886ec1e36354dfb421cfa0bfe92a7063a7f22c56c20f64065aa8c99264b6"
+            "sha256": "da6c8b01476212b8709b3c157ec19409491d650500df9a21f57d04d9948ebe4f"
           }
         ],
         "palette": "neutral",
@@ -10007,7 +10007,7 @@
               "width": 192
             },
             "path": "sprites/sappers/neutral/sw-spent-2x.png",
-            "sha256": "04e26b7811e630bddc4bb8d3d244cdf9c01c66316ae9b62756d2d93b0f6476f7"
+            "sha256": "51554af2530eaaacfdd8a581da7c79d3d326e558d2ee1654beb0f9ca657c15f5"
           },
           {
             "dimensions": {
@@ -10015,7 +10015,7 @@
               "width": 384
             },
             "path": "sprites/sappers/neutral/sw-spent-4x.png",
-            "sha256": "9867519b1d213bdb818a664e5e02f7e2ae1b7ebecfe4ef3297f94ef6d25be5e9"
+            "sha256": "68827338ba7ab99ed2d4f04d350ee3d7f49a4138ac167021f562e6d4787921c9"
           }
         ],
         "palette": "neutral",
@@ -10058,7 +10058,7 @@
               "width": 192
             },
             "path": "sprites/sappers/cp/s-normal-2x.png",
-            "sha256": "88fd7f900e04a2712aa6759fac5bc734b534dbb4cfc1f929d1abbd423cfd61fc"
+            "sha256": "757868e06b75def6572663b0ff02721d25d40e4f5b4cc20e7c4416db5a58c0c9"
           },
           {
             "dimensions": {
@@ -10066,7 +10066,7 @@
               "width": 384
             },
             "path": "sprites/sappers/cp/s-normal-4x.png",
-            "sha256": "ca5d00a92e9faabaf7b054f7f51663684e80d4ea077fb834921debf9353213df"
+            "sha256": "77d6b1061c3230927caeb5a501bbce52ba9732a356d5d593ee107ac9cf6d001f"
           }
         ],
         "palette": "cp",
@@ -10109,7 +10109,7 @@
               "width": 192
             },
             "path": "sprites/sappers/cp/s-spent-2x.png",
-            "sha256": "a8f7843df66d203aa87ac540a1a5ea25e737420dc03196e540273e88d0ce7f8a"
+            "sha256": "40d9f13cdef3d143195d514b10d3ac2eaeeba18f5ddd10b3558603e067f7f9f2"
           },
           {
             "dimensions": {
@@ -10117,7 +10117,7 @@
               "width": 384
             },
             "path": "sprites/sappers/cp/s-spent-4x.png",
-            "sha256": "0bc31e2247289e2321f747d20d4143b7d646f06ce63a65b31b1148f5f1798771"
+            "sha256": "0b43e9748e6ffafe1c3f899fe1c5348e8b6df997eb81863b3d63fa4071d7a0de"
           }
         ],
         "palette": "cp",
@@ -10160,7 +10160,7 @@
               "width": 192
             },
             "path": "sprites/sappers/ec/s-normal-2x.png",
-            "sha256": "2650a36399046e3c0dd6674dc159158632d4feaeddb153ead0350c0e4e9750f8"
+            "sha256": "15be9b6f103958d4a61bcde5a50f493faa85c94c26297ab201f630f85c6e9bfb"
           },
           {
             "dimensions": {
@@ -10168,7 +10168,7 @@
               "width": 384
             },
             "path": "sprites/sappers/ec/s-normal-4x.png",
-            "sha256": "065598e8e02ff6f6ae3c8068e0ed9e729a8a7cc2c723b39a54211b3d10c9b780"
+            "sha256": "27d4aa3b66bb2c71aa00da0327d7c0ad748be29ffa24edf4d87941f335723abf"
           }
         ],
         "palette": "ec",
@@ -10211,7 +10211,7 @@
               "width": 192
             },
             "path": "sprites/sappers/ec/s-spent-2x.png",
-            "sha256": "7956f25b0c49dd9300e2921f2e7f4f25a5dc569ee6c8fc3849f16209b9928ffd"
+            "sha256": "615957bfd99e08992a0f43eee12b089f25be98d07da6830d0a839e12ed291e4a"
           },
           {
             "dimensions": {
@@ -10219,7 +10219,7 @@
               "width": 384
             },
             "path": "sprites/sappers/ec/s-spent-4x.png",
-            "sha256": "2863ede808fe1460585bbf4a6510de3117d11581a15372d5d20b71a90f2c7ea0"
+            "sha256": "8a5d5d99af27c335b0408228bdef6a09000e0cbe952f36cab396ed968f018595"
           }
         ],
         "palette": "ec",
@@ -10262,7 +10262,7 @@
               "width": 192
             },
             "path": "sprites/sappers/neutral/s-normal-2x.png",
-            "sha256": "2cf90967df5369cbe08ef7b6ff98c2f0ed52104cf2677639451f0f15aa537079"
+            "sha256": "8dc8648fad15b42dd3d76cc193224c6704e64641929ae144d6c77a7dde5cca49"
           },
           {
             "dimensions": {
@@ -10270,7 +10270,7 @@
               "width": 384
             },
             "path": "sprites/sappers/neutral/s-normal-4x.png",
-            "sha256": "997632d3e7937cc003f83457693c228dfb8fb0dde932660f526b1cd583913228"
+            "sha256": "55f1c420a91846a378e068107e254786b0726b9ceb43f5fb50771ff891930cf8"
           }
         ],
         "palette": "neutral",
@@ -10313,7 +10313,7 @@
               "width": 192
             },
             "path": "sprites/sappers/neutral/s-spent-2x.png",
-            "sha256": "0822e154e1acaef0dfba7b5c6e402b8151077a8a90c48850cc5c941ec74c44c6"
+            "sha256": "33574c0ddc0dbeafa92e4492c0caec4f49d5c4f8134cbe05912c6200e4840c67"
           },
           {
             "dimensions": {
@@ -10321,7 +10321,7 @@
               "width": 384
             },
             "path": "sprites/sappers/neutral/s-spent-4x.png",
-            "sha256": "2ecb095a5979c0fe9301f505a5bc1d8ce55b1c8e8874a038db407e1c056657b6"
+            "sha256": "36bbbf23268e23617710bdd1c25274015649f83cd0fe8bf0b5ea7c2c6ace1b0c"
           }
         ],
         "palette": "neutral",
@@ -10364,7 +10364,7 @@
               "width": 192
             },
             "path": "sprites/sappers/cp/se-normal-2x.png",
-            "sha256": "cd47b58f29a7357e2e507eb78ab6180727c8dc32853044f27f3a92fdfde98704"
+            "sha256": "ea82c08ede39022f3a136bc5de873471c766d8e8a7a7d855d6b45304fa432555"
           },
           {
             "dimensions": {
@@ -10372,7 +10372,7 @@
               "width": 384
             },
             "path": "sprites/sappers/cp/se-normal-4x.png",
-            "sha256": "353f5df163876330770431de86bce44c0b938b4966635fd6a6bd931132f70f75"
+            "sha256": "eebcafb9ac7957d0355b6227fe382ea8fbb0b317a356d1b125a3f8f1f37ba57e"
           }
         ],
         "palette": "cp",
@@ -10415,7 +10415,7 @@
               "width": 192
             },
             "path": "sprites/sappers/cp/se-spent-2x.png",
-            "sha256": "80dbbc2a24775f2c27cfe3834747127390e21d5f17a88e6556595a9feffd6131"
+            "sha256": "4c73887dbbbe13d807ce8623f4971cdc0acf7c7dcf9a2f01cbd4e8a3cbaba244"
           },
           {
             "dimensions": {
@@ -10423,7 +10423,7 @@
               "width": 384
             },
             "path": "sprites/sappers/cp/se-spent-4x.png",
-            "sha256": "0cceb4bd7b0f6445a9d298ce3c6d01ef4202229ea82ea913a27648d924166b14"
+            "sha256": "8c4cc9ed149ddef1c2e1cca0a7896d332768123c6818660ff68ccdba24bec0d8"
           }
         ],
         "palette": "cp",
@@ -10466,7 +10466,7 @@
               "width": 192
             },
             "path": "sprites/sappers/ec/se-normal-2x.png",
-            "sha256": "955e093c604e4758d33f8dc46e00205d5f185a16982cabbc1acb55f3b4348742"
+            "sha256": "5163fc11fbd0d76920ab9624057a772f3a366442a807aa7544bab182af7ae39f"
           },
           {
             "dimensions": {
@@ -10474,7 +10474,7 @@
               "width": 384
             },
             "path": "sprites/sappers/ec/se-normal-4x.png",
-            "sha256": "efd51d45e30f7b970d0f50887937cccae634addbcc450ad4b1e6036cb29932a8"
+            "sha256": "c1e41baeff6da34dc9aa969015e8993a63a3cee94f3c64f129e2e50ee2a84b1f"
           }
         ],
         "palette": "ec",
@@ -10517,7 +10517,7 @@
               "width": 192
             },
             "path": "sprites/sappers/ec/se-spent-2x.png",
-            "sha256": "f26d32c1ed276c19343ef62f31c631a2af8a131f1e60fbee340944a339a7f49a"
+            "sha256": "3c949e06d41c3fa06ed02ea65821cdb12f8270e0dd9c98197c2298292450785d"
           },
           {
             "dimensions": {
@@ -10525,7 +10525,7 @@
               "width": 384
             },
             "path": "sprites/sappers/ec/se-spent-4x.png",
-            "sha256": "ace1a59110b40e1c3d86ae3642ac314be837e24bc976805c969e518d668ed003"
+            "sha256": "15f206f8e4501bc5309135d5d1aef7fbdbca09aadac6890810ccf871c7ff006c"
           }
         ],
         "palette": "ec",
@@ -10568,7 +10568,7 @@
               "width": 192
             },
             "path": "sprites/sappers/neutral/se-normal-2x.png",
-            "sha256": "b7cf54818e791c6162fa258ec79ebd7db4c46d63eb0fae2ef506f3484cc86fd4"
+            "sha256": "e31094b1f44eff8a084f158aad48f28afc304341dbbc2acffe5e445335984ab0"
           },
           {
             "dimensions": {
@@ -10576,7 +10576,7 @@
               "width": 384
             },
             "path": "sprites/sappers/neutral/se-normal-4x.png",
-            "sha256": "29461a980ac568d643509c5436ef4551c31b3f4751c2620d0d18406ce4961b3e"
+            "sha256": "68d303b042129e824b38648f4cec8e903be300c007ccd9c6875c96d4ba9ddd3e"
           }
         ],
         "palette": "neutral",
@@ -10619,7 +10619,7 @@
               "width": 192
             },
             "path": "sprites/sappers/neutral/se-spent-2x.png",
-            "sha256": "bd9980816c4decb93c31f91d334e09c30cf733eb0754303e47c8e9dbc559c7a5"
+            "sha256": "6c5def7ffd3b8318c9964edf4c72da7bbcad9530b1f0a3251c36b0b81751f1c6"
           },
           {
             "dimensions": {
@@ -10627,7 +10627,7 @@
               "width": 384
             },
             "path": "sprites/sappers/neutral/se-spent-4x.png",
-            "sha256": "e1075b1580cb620edbdff4eab28dbe7396d5abda1cc0c308a45b92db6a733c9a"
+            "sha256": "f1eeb3fb33dc3cd8218923758286abfa07a44fe4e437739b4b21c296546bf36e"
           }
         ],
         "palette": "neutral",
@@ -10670,7 +10670,7 @@
               "width": 192
             },
             "path": "sprites/sappers/cp/ne-normal-2x.png",
-            "sha256": "598c9cf914db7cf7fe1cc0ec209e627293e4068f3503b2c47bc836cb12915e1c"
+            "sha256": "00f8e07668dc5135e8b1724b062829ebb1a67ea1234c867585c770786e6805d5"
           },
           {
             "dimensions": {
@@ -10678,7 +10678,7 @@
               "width": 384
             },
             "path": "sprites/sappers/cp/ne-normal-4x.png",
-            "sha256": "6f344b06883a5327714b291c4fe64c05a9a34a617f0831ed2cb9254eb52fd27f"
+            "sha256": "8637d035b3aa9afb94d15e4234456f0e5c6920cf575f032870a019b939d1a6ed"
           }
         ],
         "palette": "cp",
@@ -10721,7 +10721,7 @@
               "width": 192
             },
             "path": "sprites/sappers/cp/ne-spent-2x.png",
-            "sha256": "0170fef5d0a333bf339ab481e087043cc544a9f344eb12c4ba7d17cfb29a37b3"
+            "sha256": "3a12aeb315266e04872f8983b76e2c363ea608529626c28678916ad1dbf90d41"
           },
           {
             "dimensions": {
@@ -10729,7 +10729,7 @@
               "width": 384
             },
             "path": "sprites/sappers/cp/ne-spent-4x.png",
-            "sha256": "1428f90ef6b60e70217447cf60e60b8dabcaa5136c331ec17b138e7c4579cdc2"
+            "sha256": "633fd8ac9604524173bfda9c1ee0a21d3541073ed1419015f54c2d877dfed83a"
           }
         ],
         "palette": "cp",
@@ -10772,7 +10772,7 @@
               "width": 192
             },
             "path": "sprites/sappers/ec/ne-normal-2x.png",
-            "sha256": "e5c606ae46dc29a8a071f33180f9b0dcc6bd268132a68158c4f9b5ab10561e3c"
+            "sha256": "a0cda84343c55a32b73fbc9ad1811a8812a47e3bc5117acaa3412005227a4a17"
           },
           {
             "dimensions": {
@@ -10780,7 +10780,7 @@
               "width": 384
             },
             "path": "sprites/sappers/ec/ne-normal-4x.png",
-            "sha256": "ea27f34991d2996f2def9dbbf7594e33ddd04ff81b3b0cfe80e209733074fd1c"
+            "sha256": "dbbddbdd6a0872c028234098537d9308f421041325d8a3e594be9c6b3fbf8dd1"
           }
         ],
         "palette": "ec",
@@ -10823,7 +10823,7 @@
               "width": 192
             },
             "path": "sprites/sappers/ec/ne-spent-2x.png",
-            "sha256": "1f0bd090a553ccd2419de4417925df24964d35ede004fad6806e4e7e8aa50b21"
+            "sha256": "3017bfd73a31a2882e4208437aeac7891ec808d9ac1e46cf5b0660385b51e093"
           },
           {
             "dimensions": {
@@ -10831,7 +10831,7 @@
               "width": 384
             },
             "path": "sprites/sappers/ec/ne-spent-4x.png",
-            "sha256": "ac6a6dd4ac9b9a30294be16ffd89a649d4e00986060f4bc8cf1cebe398cd2180"
+            "sha256": "c783bc3c9d5b47399a6a2af3009e961e987e73f5339822752176069ac5bdd143"
           }
         ],
         "palette": "ec",
@@ -10874,7 +10874,7 @@
               "width": 192
             },
             "path": "sprites/sappers/neutral/ne-normal-2x.png",
-            "sha256": "07281f768db0a17ad1d91849e62a1b2cf6a472cc5e5e71882e3d73de99fadd0c"
+            "sha256": "b6ced170cf08bbd402b272f4d6da6401e77fec95f63e9d8b8564d0cc72ece06f"
           },
           {
             "dimensions": {
@@ -10882,7 +10882,7 @@
               "width": 384
             },
             "path": "sprites/sappers/neutral/ne-normal-4x.png",
-            "sha256": "31cd390361fe80772a57f03ffc4e03c6a8fb0d039426df8b86ab9c50f2a7824a"
+            "sha256": "c376178b92aa0eed8e71485f32d2e898b9a3d8204c022ad7d261359b08e6acf2"
           }
         ],
         "palette": "neutral",
@@ -10925,7 +10925,7 @@
               "width": 192
             },
             "path": "sprites/sappers/neutral/ne-spent-2x.png",
-            "sha256": "89433d06981374a8bc29f186d7d27344776dd9271d9fd47d8592b75e220cf9ad"
+            "sha256": "ebf0f68f9c174b0726342fe1a8a264730b8c65864ef7dda408b7732da600c537"
           },
           {
             "dimensions": {
@@ -10933,7 +10933,7 @@
               "width": 384
             },
             "path": "sprites/sappers/neutral/ne-spent-4x.png",
-            "sha256": "44335f97aa37a206b3550b0e068978c1880cfdfa4b3df2e4227d2ebabe45c677"
+            "sha256": "a2868995a6890aca212778a5b4475b42069c531df1a6be8aea5a52790941d3ef"
           }
         ],
         "palette": "neutral",
@@ -10986,7 +10986,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/cp/n-normal-2x.png",
-      "sha256": "e37a978879f527a3bc2d0b5dc73ad67ffe5cd9531430ad202b34ee40b2057ae7"
+      "sha256": "7dde4960c5cb69e6fe01bdca1a6b490f258b1681663b6280147e32d5b488d169"
     },
     {
       "build_output": "sprites/sappers/cp/n-normal-4x.png",
@@ -10995,7 +10995,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/cp/n-normal-4x.png",
-      "sha256": "667544278c2d9e3edc59739d8bed08c4b352fd8f307049039ccba932e5f8c7bf"
+      "sha256": "c3e0cd59fa05fc8de86cc78a8add4b9e8db22829b4675d286ba1c06244c8f8cc"
     },
     {
       "build_output": "sprites/sappers/cp/n-spent-2x.png",
@@ -11004,7 +11004,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/cp/n-spent-2x.png",
-      "sha256": "0d594205a9fa7319628cdcb7a466ba17c7d7b5e7b27a6ca8a758a101bf5d7c0f"
+      "sha256": "8b6db174014898519a163593e71639ce7b78782fbe9d2ba0e35c933358857d9f"
     },
     {
       "build_output": "sprites/sappers/cp/n-spent-4x.png",
@@ -11013,7 +11013,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/cp/n-spent-4x.png",
-      "sha256": "bd9a272c04ebebe1898515170e1af56718f23cb3d9d27d6b818c008b4d0d74c8"
+      "sha256": "ca4d0a4c1db809e39cc45838ee3453e37b2dcae4b4f827a12e70ebad55b28b7d"
     },
     {
       "build_output": "sprites/sappers/ec/n-normal-2x.png",
@@ -11022,7 +11022,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/ec/n-normal-2x.png",
-      "sha256": "c9b0b7f6115d028ba817c00d18029a23a21c5dc8d99cbeea30b0ede6dfc52720"
+      "sha256": "a8feeac222cd54efba7421f2264ad701f06a1696238927c28af85708b8afe9c0"
     },
     {
       "build_output": "sprites/sappers/ec/n-normal-4x.png",
@@ -11031,7 +11031,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/ec/n-normal-4x.png",
-      "sha256": "d1c82f2789386248e4367cee879c8a4106fb915c9430d69fad565894c9f49718"
+      "sha256": "3b35b996623891c6fca56bd84f7a26bbd874512d756934c2c543d6851bd89f97"
     },
     {
       "build_output": "sprites/sappers/ec/n-spent-2x.png",
@@ -11040,7 +11040,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/ec/n-spent-2x.png",
-      "sha256": "d71a02e025e0eb1fbcd7dbc8baa2d55e622455d189df99a0c39fe84f7b67c078"
+      "sha256": "6c3ca5e50d0a45f6ab460a1b7b7b64a5b36a3264dbb1c6c1d1361cc08c4389b3"
     },
     {
       "build_output": "sprites/sappers/ec/n-spent-4x.png",
@@ -11049,7 +11049,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/ec/n-spent-4x.png",
-      "sha256": "c00f904fc448a5b657a8ba4c13e28ad21fc5633f6207d3784be49fdf92354d01"
+      "sha256": "39402bd4c81497cca020d8402a720b8733d3714d7dc5d6c459e2279248eebd96"
     },
     {
       "build_output": "sprites/sappers/neutral/n-normal-2x.png",
@@ -11058,7 +11058,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/neutral/n-normal-2x.png",
-      "sha256": "3861e8df62a0140031e0537e0f87ca38ec81e79aef4794fcd075e3c05896ce8d"
+      "sha256": "3b34ea341e09c91c5a9665c80e06dd0ba5c5e08d94ccb2db9847d08e0e929dd8"
     },
     {
       "build_output": "sprites/sappers/neutral/n-normal-4x.png",
@@ -11067,7 +11067,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/neutral/n-normal-4x.png",
-      "sha256": "8b9a7f7ea497c13b0071f76db30280c6d00b496f8109a29f13db46a77c44e25d"
+      "sha256": "8d2823ca2cdb952368c579ada1122dcaa01268063043506caa20376626909c8d"
     },
     {
       "build_output": "sprites/sappers/neutral/n-spent-2x.png",
@@ -11076,7 +11076,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/neutral/n-spent-2x.png",
-      "sha256": "39375c5ec19303134751c9fd228742d2c2da5e0522cb051e6860189625b9d632"
+      "sha256": "d3144b6a780c5315e984d0670eb37ad676b18edd3628617de4b2a9022f5ee4a0"
     },
     {
       "build_output": "sprites/sappers/neutral/n-spent-4x.png",
@@ -11085,7 +11085,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/neutral/n-spent-4x.png",
-      "sha256": "16467008f5c99205473423818454b9c631b9fa5490470595fc91b3bea3faea4b"
+      "sha256": "d38c64918b68d3d540568895348dcafd6073ee34c624d2f7c17a6cf36b42644c"
     },
     {
       "build_output": "planes/sappers/nw-base-2x.png",
@@ -11130,7 +11130,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/cp/nw-normal-2x.png",
-      "sha256": "51ea0c9ca66a387553987f10012dccb77feda7f20968947f1c825bc304cbe072"
+      "sha256": "82fa729cf59bdd7a3c8f751e8bd675b66ef7d0b7c08d799c191b9fa1706db85d"
     },
     {
       "build_output": "sprites/sappers/cp/nw-normal-4x.png",
@@ -11139,7 +11139,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/cp/nw-normal-4x.png",
-      "sha256": "2e2f54a3eee2c21aacc10e760acdc1c53e4a8e76faf5050026584840a06f3b40"
+      "sha256": "59b06641092d7be536698ba0c30429eff2231d269801a27b33b9a16608e6542d"
     },
     {
       "build_output": "sprites/sappers/cp/nw-spent-2x.png",
@@ -11148,7 +11148,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/cp/nw-spent-2x.png",
-      "sha256": "1de168f6495f5f59e56380b25e60cf36bb6a09490f756616d673899ca922703a"
+      "sha256": "b433f5004c5bc132c7205dc1fa4fbd03cb77f8254dcb5306deb7202f4f4f774d"
     },
     {
       "build_output": "sprites/sappers/cp/nw-spent-4x.png",
@@ -11157,7 +11157,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/cp/nw-spent-4x.png",
-      "sha256": "6d28341e71d3a00a2747881d13da1ebafa3219a168633c4df3516d11816eda0d"
+      "sha256": "f3bd26238dd930c77935e06cb287a7b342f9aa181d5be8e388a60eed0f3b46a2"
     },
     {
       "build_output": "sprites/sappers/ec/nw-normal-2x.png",
@@ -11166,7 +11166,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/ec/nw-normal-2x.png",
-      "sha256": "258710a3f80dead48d2f97be084b013c0836d51d94841d533a7eb79216b3cae5"
+      "sha256": "454c38806382e8c034be32c535c4786c19dfec9015c6529b94672912d7cc8a04"
     },
     {
       "build_output": "sprites/sappers/ec/nw-normal-4x.png",
@@ -11175,7 +11175,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/ec/nw-normal-4x.png",
-      "sha256": "045f5bae06e7e75fa30903e8a59a8c8e9cd3db696c5934ab99bef834f026c5e5"
+      "sha256": "3bd016d5f94595e8acc0f5acef1882d3b5c0e88a725b84fef341640c28d3c131"
     },
     {
       "build_output": "sprites/sappers/ec/nw-spent-2x.png",
@@ -11184,7 +11184,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/ec/nw-spent-2x.png",
-      "sha256": "79cee0c4d4e793abc0f4f68f37fd2680e1c191acf65046543f223789cf4b9ba4"
+      "sha256": "ac5231f00fcc3dc1baff5e468ef8c8667783e3351e31845dec99eeafa10dffb7"
     },
     {
       "build_output": "sprites/sappers/ec/nw-spent-4x.png",
@@ -11193,7 +11193,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/ec/nw-spent-4x.png",
-      "sha256": "bf4c63a885e74f5266c7037d965012d33ec4fbbc2c8e1e79fe3da2f05e4b4d8b"
+      "sha256": "04af6946ce050e731e129b308e3aad02fc2d581f92ec42b92391b5b6ac9b4ee9"
     },
     {
       "build_output": "sprites/sappers/neutral/nw-normal-2x.png",
@@ -11202,7 +11202,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/neutral/nw-normal-2x.png",
-      "sha256": "932ba508cce236dcbaddf2c53667d765418d1bb52c71e39992db39fa341ee306"
+      "sha256": "07d2c3d727415ce3a708d7265c148e3e8575a4690252f0af31bad8bca96dcb3c"
     },
     {
       "build_output": "sprites/sappers/neutral/nw-normal-4x.png",
@@ -11211,7 +11211,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/neutral/nw-normal-4x.png",
-      "sha256": "25fcc6999aa8e75638aa28deb6d430657cfd6930b361dd4b6508b2ee827513a0"
+      "sha256": "a05d8736af3bf3c88cfadba396d41aa09a45d985ff6276582349dab404c2ca9f"
     },
     {
       "build_output": "sprites/sappers/neutral/nw-spent-2x.png",
@@ -11220,7 +11220,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/neutral/nw-spent-2x.png",
-      "sha256": "e437a2587edd1b5a291aa8d7eabda629932d4037675dce45c878c5ab2330c2a8"
+      "sha256": "f05ff0785720e3c36bb115973d6d8659944386570630824a07f0b381eccadcbe"
     },
     {
       "build_output": "sprites/sappers/neutral/nw-spent-4x.png",
@@ -11229,7 +11229,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/neutral/nw-spent-4x.png",
-      "sha256": "b7bba45da15b7b6495db3a271553b485cca5ac29802cc657e35d10a33e0d78a4"
+      "sha256": "0ef93ec91e4a6890df33057c0b80585060b01351b2509970ee98734208b28225"
     },
     {
       "build_output": "planes/sappers/sw-base-2x.png",
@@ -11274,7 +11274,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/cp/sw-normal-2x.png",
-      "sha256": "1782b1290aa991dbf820ce3c172b349a916f68082b549b619294287fcc8fecea"
+      "sha256": "8b588d10ec878c0f968a412779f65a95c7141705aa1bcd93f7554919e6d539af"
     },
     {
       "build_output": "sprites/sappers/cp/sw-normal-4x.png",
@@ -11283,7 +11283,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/cp/sw-normal-4x.png",
-      "sha256": "2f8aa4522fd7df7efebca2eefc791b72e0694974486913aedcdfbb575aa0f338"
+      "sha256": "20087c2a7bde964824f10441bce0cb96315f7e92f95df1fcdf67411db1c76670"
     },
     {
       "build_output": "sprites/sappers/cp/sw-spent-2x.png",
@@ -11292,7 +11292,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/cp/sw-spent-2x.png",
-      "sha256": "6114c0698031f0ecfa157c04dc6b6887fc7d348fc4504186360e17627186a545"
+      "sha256": "a2eb322e8176695e27e64525a60579cf01d557ea8c9c8fed36a422300d72e328"
     },
     {
       "build_output": "sprites/sappers/cp/sw-spent-4x.png",
@@ -11301,7 +11301,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/cp/sw-spent-4x.png",
-      "sha256": "33cdfae6aa4011f1842cd59d848e60e9f6574c7300d262980c65658f2bf7bd8f"
+      "sha256": "181517ad1321d03374d8a10345d6e35c1b197068281d914c6ec666bbe7380241"
     },
     {
       "build_output": "sprites/sappers/ec/sw-normal-2x.png",
@@ -11310,7 +11310,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/ec/sw-normal-2x.png",
-      "sha256": "f084f0af50425a6a3064dd2e5f1367a4d6e7218ce96a458aeb671f808d480142"
+      "sha256": "14dadaeaae7394307a0a4aa4e4f3a9d17deed58494705e2d0f37de375a3594d5"
     },
     {
       "build_output": "sprites/sappers/ec/sw-normal-4x.png",
@@ -11319,7 +11319,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/ec/sw-normal-4x.png",
-      "sha256": "102c123862ccfce776553b11909913b70d7eb4f99092d4d1f301a90a311abde2"
+      "sha256": "bca9b5735edb80ccf726189e78dffea92f3230054b0ff882aadda7516bd8c88d"
     },
     {
       "build_output": "sprites/sappers/ec/sw-spent-2x.png",
@@ -11328,7 +11328,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/ec/sw-spent-2x.png",
-      "sha256": "2ee415448a9e1890a30ccd8bd02443d69dbc4bad0cec0523142e01647ee5a443"
+      "sha256": "2e6d84fe146f81ba5acf159dc6b751e798daf326e70eb6b31b8fab87c2801364"
     },
     {
       "build_output": "sprites/sappers/ec/sw-spent-4x.png",
@@ -11337,7 +11337,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/ec/sw-spent-4x.png",
-      "sha256": "2f56692963831d30202656fc4c64c0e34b70f15ecc76f31bb42e3fd4c032b30c"
+      "sha256": "d98b4b53da86714e534b24680cee1d9527760db2b3cc99150fafc77513bb05b8"
     },
     {
       "build_output": "sprites/sappers/neutral/sw-normal-2x.png",
@@ -11346,7 +11346,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/neutral/sw-normal-2x.png",
-      "sha256": "146a445fc9314b2a263d8fb876f01f3c7c3fb85e2e74855e331edd60c63f4aee"
+      "sha256": "73ba32f0ab7d5bfe030cf5d7d5fce61f0b46679d5f2ebf783e74971f3e865685"
     },
     {
       "build_output": "sprites/sappers/neutral/sw-normal-4x.png",
@@ -11355,7 +11355,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/neutral/sw-normal-4x.png",
-      "sha256": "3de4886ec1e36354dfb421cfa0bfe92a7063a7f22c56c20f64065aa8c99264b6"
+      "sha256": "da6c8b01476212b8709b3c157ec19409491d650500df9a21f57d04d9948ebe4f"
     },
     {
       "build_output": "sprites/sappers/neutral/sw-spent-2x.png",
@@ -11364,7 +11364,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/neutral/sw-spent-2x.png",
-      "sha256": "04e26b7811e630bddc4bb8d3d244cdf9c01c66316ae9b62756d2d93b0f6476f7"
+      "sha256": "51554af2530eaaacfdd8a581da7c79d3d326e558d2ee1654beb0f9ca657c15f5"
     },
     {
       "build_output": "sprites/sappers/neutral/sw-spent-4x.png",
@@ -11373,7 +11373,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/neutral/sw-spent-4x.png",
-      "sha256": "9867519b1d213bdb818a664e5e02f7e2ae1b7ebecfe4ef3297f94ef6d25be5e9"
+      "sha256": "68827338ba7ab99ed2d4f04d350ee3d7f49a4138ac167021f562e6d4787921c9"
     },
     {
       "build_output": "planes/sappers/s-base-2x.png",
@@ -11418,7 +11418,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/cp/s-normal-2x.png",
-      "sha256": "88fd7f900e04a2712aa6759fac5bc734b534dbb4cfc1f929d1abbd423cfd61fc"
+      "sha256": "757868e06b75def6572663b0ff02721d25d40e4f5b4cc20e7c4416db5a58c0c9"
     },
     {
       "build_output": "sprites/sappers/cp/s-normal-4x.png",
@@ -11427,7 +11427,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/cp/s-normal-4x.png",
-      "sha256": "ca5d00a92e9faabaf7b054f7f51663684e80d4ea077fb834921debf9353213df"
+      "sha256": "77d6b1061c3230927caeb5a501bbce52ba9732a356d5d593ee107ac9cf6d001f"
     },
     {
       "build_output": "sprites/sappers/cp/s-spent-2x.png",
@@ -11436,7 +11436,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/cp/s-spent-2x.png",
-      "sha256": "a8f7843df66d203aa87ac540a1a5ea25e737420dc03196e540273e88d0ce7f8a"
+      "sha256": "40d9f13cdef3d143195d514b10d3ac2eaeeba18f5ddd10b3558603e067f7f9f2"
     },
     {
       "build_output": "sprites/sappers/cp/s-spent-4x.png",
@@ -11445,7 +11445,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/cp/s-spent-4x.png",
-      "sha256": "0bc31e2247289e2321f747d20d4143b7d646f06ce63a65b31b1148f5f1798771"
+      "sha256": "0b43e9748e6ffafe1c3f899fe1c5348e8b6df997eb81863b3d63fa4071d7a0de"
     },
     {
       "build_output": "sprites/sappers/ec/s-normal-2x.png",
@@ -11454,7 +11454,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/ec/s-normal-2x.png",
-      "sha256": "2650a36399046e3c0dd6674dc159158632d4feaeddb153ead0350c0e4e9750f8"
+      "sha256": "15be9b6f103958d4a61bcde5a50f493faa85c94c26297ab201f630f85c6e9bfb"
     },
     {
       "build_output": "sprites/sappers/ec/s-normal-4x.png",
@@ -11463,7 +11463,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/ec/s-normal-4x.png",
-      "sha256": "065598e8e02ff6f6ae3c8068e0ed9e729a8a7cc2c723b39a54211b3d10c9b780"
+      "sha256": "27d4aa3b66bb2c71aa00da0327d7c0ad748be29ffa24edf4d87941f335723abf"
     },
     {
       "build_output": "sprites/sappers/ec/s-spent-2x.png",
@@ -11472,7 +11472,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/ec/s-spent-2x.png",
-      "sha256": "7956f25b0c49dd9300e2921f2e7f4f25a5dc569ee6c8fc3849f16209b9928ffd"
+      "sha256": "615957bfd99e08992a0f43eee12b089f25be98d07da6830d0a839e12ed291e4a"
     },
     {
       "build_output": "sprites/sappers/ec/s-spent-4x.png",
@@ -11481,7 +11481,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/ec/s-spent-4x.png",
-      "sha256": "2863ede808fe1460585bbf4a6510de3117d11581a15372d5d20b71a90f2c7ea0"
+      "sha256": "8a5d5d99af27c335b0408228bdef6a09000e0cbe952f36cab396ed968f018595"
     },
     {
       "build_output": "sprites/sappers/neutral/s-normal-2x.png",
@@ -11490,7 +11490,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/neutral/s-normal-2x.png",
-      "sha256": "2cf90967df5369cbe08ef7b6ff98c2f0ed52104cf2677639451f0f15aa537079"
+      "sha256": "8dc8648fad15b42dd3d76cc193224c6704e64641929ae144d6c77a7dde5cca49"
     },
     {
       "build_output": "sprites/sappers/neutral/s-normal-4x.png",
@@ -11499,7 +11499,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/neutral/s-normal-4x.png",
-      "sha256": "997632d3e7937cc003f83457693c228dfb8fb0dde932660f526b1cd583913228"
+      "sha256": "55f1c420a91846a378e068107e254786b0726b9ceb43f5fb50771ff891930cf8"
     },
     {
       "build_output": "sprites/sappers/neutral/s-spent-2x.png",
@@ -11508,7 +11508,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/neutral/s-spent-2x.png",
-      "sha256": "0822e154e1acaef0dfba7b5c6e402b8151077a8a90c48850cc5c941ec74c44c6"
+      "sha256": "33574c0ddc0dbeafa92e4492c0caec4f49d5c4f8134cbe05912c6200e4840c67"
     },
     {
       "build_output": "sprites/sappers/neutral/s-spent-4x.png",
@@ -11517,7 +11517,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/neutral/s-spent-4x.png",
-      "sha256": "2ecb095a5979c0fe9301f505a5bc1d8ce55b1c8e8874a038db407e1c056657b6"
+      "sha256": "36bbbf23268e23617710bdd1c25274015649f83cd0fe8bf0b5ea7c2c6ace1b0c"
     },
     {
       "build_output": "planes/sappers/se-base-2x.png",
@@ -11562,7 +11562,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/cp/se-normal-2x.png",
-      "sha256": "cd47b58f29a7357e2e507eb78ab6180727c8dc32853044f27f3a92fdfde98704"
+      "sha256": "ea82c08ede39022f3a136bc5de873471c766d8e8a7a7d855d6b45304fa432555"
     },
     {
       "build_output": "sprites/sappers/cp/se-normal-4x.png",
@@ -11571,7 +11571,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/cp/se-normal-4x.png",
-      "sha256": "353f5df163876330770431de86bce44c0b938b4966635fd6a6bd931132f70f75"
+      "sha256": "eebcafb9ac7957d0355b6227fe382ea8fbb0b317a356d1b125a3f8f1f37ba57e"
     },
     {
       "build_output": "sprites/sappers/cp/se-spent-2x.png",
@@ -11580,7 +11580,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/cp/se-spent-2x.png",
-      "sha256": "80dbbc2a24775f2c27cfe3834747127390e21d5f17a88e6556595a9feffd6131"
+      "sha256": "4c73887dbbbe13d807ce8623f4971cdc0acf7c7dcf9a2f01cbd4e8a3cbaba244"
     },
     {
       "build_output": "sprites/sappers/cp/se-spent-4x.png",
@@ -11589,7 +11589,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/cp/se-spent-4x.png",
-      "sha256": "0cceb4bd7b0f6445a9d298ce3c6d01ef4202229ea82ea913a27648d924166b14"
+      "sha256": "8c4cc9ed149ddef1c2e1cca0a7896d332768123c6818660ff68ccdba24bec0d8"
     },
     {
       "build_output": "sprites/sappers/ec/se-normal-2x.png",
@@ -11598,7 +11598,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/ec/se-normal-2x.png",
-      "sha256": "955e093c604e4758d33f8dc46e00205d5f185a16982cabbc1acb55f3b4348742"
+      "sha256": "5163fc11fbd0d76920ab9624057a772f3a366442a807aa7544bab182af7ae39f"
     },
     {
       "build_output": "sprites/sappers/ec/se-normal-4x.png",
@@ -11607,7 +11607,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/ec/se-normal-4x.png",
-      "sha256": "efd51d45e30f7b970d0f50887937cccae634addbcc450ad4b1e6036cb29932a8"
+      "sha256": "c1e41baeff6da34dc9aa969015e8993a63a3cee94f3c64f129e2e50ee2a84b1f"
     },
     {
       "build_output": "sprites/sappers/ec/se-spent-2x.png",
@@ -11616,7 +11616,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/ec/se-spent-2x.png",
-      "sha256": "f26d32c1ed276c19343ef62f31c631a2af8a131f1e60fbee340944a339a7f49a"
+      "sha256": "3c949e06d41c3fa06ed02ea65821cdb12f8270e0dd9c98197c2298292450785d"
     },
     {
       "build_output": "sprites/sappers/ec/se-spent-4x.png",
@@ -11625,7 +11625,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/ec/se-spent-4x.png",
-      "sha256": "ace1a59110b40e1c3d86ae3642ac314be837e24bc976805c969e518d668ed003"
+      "sha256": "15f206f8e4501bc5309135d5d1aef7fbdbca09aadac6890810ccf871c7ff006c"
     },
     {
       "build_output": "sprites/sappers/neutral/se-normal-2x.png",
@@ -11634,7 +11634,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/neutral/se-normal-2x.png",
-      "sha256": "b7cf54818e791c6162fa258ec79ebd7db4c46d63eb0fae2ef506f3484cc86fd4"
+      "sha256": "e31094b1f44eff8a084f158aad48f28afc304341dbbc2acffe5e445335984ab0"
     },
     {
       "build_output": "sprites/sappers/neutral/se-normal-4x.png",
@@ -11643,7 +11643,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/neutral/se-normal-4x.png",
-      "sha256": "29461a980ac568d643509c5436ef4551c31b3f4751c2620d0d18406ce4961b3e"
+      "sha256": "68d303b042129e824b38648f4cec8e903be300c007ccd9c6875c96d4ba9ddd3e"
     },
     {
       "build_output": "sprites/sappers/neutral/se-spent-2x.png",
@@ -11652,7 +11652,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/neutral/se-spent-2x.png",
-      "sha256": "bd9980816c4decb93c31f91d334e09c30cf733eb0754303e47c8e9dbc559c7a5"
+      "sha256": "6c5def7ffd3b8318c9964edf4c72da7bbcad9530b1f0a3251c36b0b81751f1c6"
     },
     {
       "build_output": "sprites/sappers/neutral/se-spent-4x.png",
@@ -11661,7 +11661,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/neutral/se-spent-4x.png",
-      "sha256": "e1075b1580cb620edbdff4eab28dbe7396d5abda1cc0c308a45b92db6a733c9a"
+      "sha256": "f1eeb3fb33dc3cd8218923758286abfa07a44fe4e437739b4b21c296546bf36e"
     },
     {
       "build_output": "planes/sappers/ne-base-2x.png",
@@ -11706,7 +11706,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/cp/ne-normal-2x.png",
-      "sha256": "598c9cf914db7cf7fe1cc0ec209e627293e4068f3503b2c47bc836cb12915e1c"
+      "sha256": "00f8e07668dc5135e8b1724b062829ebb1a67ea1234c867585c770786e6805d5"
     },
     {
       "build_output": "sprites/sappers/cp/ne-normal-4x.png",
@@ -11715,7 +11715,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/cp/ne-normal-4x.png",
-      "sha256": "6f344b06883a5327714b291c4fe64c05a9a34a617f0831ed2cb9254eb52fd27f"
+      "sha256": "8637d035b3aa9afb94d15e4234456f0e5c6920cf575f032870a019b939d1a6ed"
     },
     {
       "build_output": "sprites/sappers/cp/ne-spent-2x.png",
@@ -11724,7 +11724,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/cp/ne-spent-2x.png",
-      "sha256": "0170fef5d0a333bf339ab481e087043cc544a9f344eb12c4ba7d17cfb29a37b3"
+      "sha256": "3a12aeb315266e04872f8983b76e2c363ea608529626c28678916ad1dbf90d41"
     },
     {
       "build_output": "sprites/sappers/cp/ne-spent-4x.png",
@@ -11733,7 +11733,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/cp/ne-spent-4x.png",
-      "sha256": "1428f90ef6b60e70217447cf60e60b8dabcaa5136c331ec17b138e7c4579cdc2"
+      "sha256": "633fd8ac9604524173bfda9c1ee0a21d3541073ed1419015f54c2d877dfed83a"
     },
     {
       "build_output": "sprites/sappers/ec/ne-normal-2x.png",
@@ -11742,7 +11742,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/ec/ne-normal-2x.png",
-      "sha256": "e5c606ae46dc29a8a071f33180f9b0dcc6bd268132a68158c4f9b5ab10561e3c"
+      "sha256": "a0cda84343c55a32b73fbc9ad1811a8812a47e3bc5117acaa3412005227a4a17"
     },
     {
       "build_output": "sprites/sappers/ec/ne-normal-4x.png",
@@ -11751,7 +11751,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/ec/ne-normal-4x.png",
-      "sha256": "ea27f34991d2996f2def9dbbf7594e33ddd04ff81b3b0cfe80e209733074fd1c"
+      "sha256": "dbbddbdd6a0872c028234098537d9308f421041325d8a3e594be9c6b3fbf8dd1"
     },
     {
       "build_output": "sprites/sappers/ec/ne-spent-2x.png",
@@ -11760,7 +11760,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/ec/ne-spent-2x.png",
-      "sha256": "1f0bd090a553ccd2419de4417925df24964d35ede004fad6806e4e7e8aa50b21"
+      "sha256": "3017bfd73a31a2882e4208437aeac7891ec808d9ac1e46cf5b0660385b51e093"
     },
     {
       "build_output": "sprites/sappers/ec/ne-spent-4x.png",
@@ -11769,7 +11769,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/ec/ne-spent-4x.png",
-      "sha256": "ac6a6dd4ac9b9a30294be16ffd89a649d4e00986060f4bc8cf1cebe398cd2180"
+      "sha256": "c783bc3c9d5b47399a6a2af3009e961e987e73f5339822752176069ac5bdd143"
     },
     {
       "build_output": "sprites/sappers/neutral/ne-normal-2x.png",
@@ -11778,7 +11778,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/neutral/ne-normal-2x.png",
-      "sha256": "07281f768db0a17ad1d91849e62a1b2cf6a472cc5e5e71882e3d73de99fadd0c"
+      "sha256": "b6ced170cf08bbd402b272f4d6da6401e77fec95f63e9d8b8564d0cc72ece06f"
     },
     {
       "build_output": "sprites/sappers/neutral/ne-normal-4x.png",
@@ -11787,7 +11787,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/neutral/ne-normal-4x.png",
-      "sha256": "31cd390361fe80772a57f03ffc4e03c6a8fb0d039426df8b86ab9c50f2a7824a"
+      "sha256": "c376178b92aa0eed8e71485f32d2e898b9a3d8204c022ad7d261359b08e6acf2"
     },
     {
       "build_output": "sprites/sappers/neutral/ne-spent-2x.png",
@@ -11796,7 +11796,7 @@
         "width": 192
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/neutral/ne-spent-2x.png",
-      "sha256": "89433d06981374a8bc29f186d7d27344776dd9271d9fd47d8592b75e220cf9ad"
+      "sha256": "ebf0f68f9c174b0726342fe1a8a264730b8c65864ef7dda408b7732da600c537"
     },
     {
       "build_output": "sprites/sappers/neutral/ne-spent-4x.png",
@@ -11805,7 +11805,7 @@
         "width": 384
       },
       "path": "art/exports/unit-sappers-v1/sprites/sappers/neutral/ne-spent-4x.png",
-      "sha256": "44335f97aa37a206b3550b0e068978c1880cfdfa4b3df2e4227d2ebabe45c677"
+      "sha256": "a2868995a6890aca212778a5b4475b42069c531df1a6be8aea5a52790941d3ef"
     },
     {
       "build_output": "sheets/sappers-white-2x.png",
@@ -11814,7 +11814,7 @@
         "width": 1152
       },
       "path": "art/exports/unit-sappers-v1/sheets/sappers-white-2x.png",
-      "sha256": "1d7bb324d6e3f316eade1cd57503ea9ebcbe6842a64ece7488558fa3b9a45b30"
+      "sha256": "4a5b24dae95e27ac0dd02d127191e90a574ed03054b0a97e27d1613bf6caad57"
     },
     {
       "build_output": "sheets/sappers-white-4x.png",
@@ -11823,7 +11823,7 @@
         "width": 2304
       },
       "path": "art/exports/unit-sappers-v1/sheets/sappers-white-4x.png",
-      "sha256": "bd53c03a4997b40670c324a605ef0252383a7d33a0117fb9cd2940d6a714976c"
+      "sha256": "e35548e55f7752703b7ec7e4ca022931e180ff4b6bbd0765c44091e86d6af982"
     },
     {
       "build_output": "sheets/sappers-checker-2x.png",
@@ -11832,7 +11832,7 @@
         "width": 1152
       },
       "path": "art/exports/unit-sappers-v1/sheets/sappers-checker-2x.png",
-      "sha256": "5ecb9432eb35b628b08a4437e175f93eb99a2288dcae5b79a4cc90bbce277666"
+      "sha256": "836ade84ce06d19a703f2594cd6874a59990be737a9dcd0ea4dbb502e2c0b444"
     },
     {
       "build_output": "sheets/sappers-checker-4x.png",
@@ -11841,7 +11841,7 @@
         "width": 2304
       },
       "path": "art/exports/unit-sappers-v1/sheets/sappers-checker-4x.png",
-      "sha256": "ccacf32b7863fa5f50ff1c7c7b44d2d0c570793a5e84f0404418654a4b0dfa1d"
+      "sha256": "24229bf80755420ffb6e941fccf788dbbd82f79d43d0320dc2c63d8837951bf1"
     },
     {
       "build_output": "scenes/grass-normal-p0-2x.png",
@@ -11850,7 +11850,7 @@
         "width": 476
       },
       "path": "art/exports/unit-sappers-v1/scenes/grass-normal-p0-2x.png",
-      "sha256": "b833ed500d122ffc063f04f453fd550eeeec9f7152fa9dbc8bf20919e1b8d6e5"
+      "sha256": "ddb74328c71274d92e142114486302603b98a271324d6a7eef3bcda298645043"
     },
     {
       "build_output": "scenes/grass-normal-p0-4x.png",
@@ -11859,7 +11859,7 @@
         "width": 952
       },
       "path": "art/exports/unit-sappers-v1/scenes/grass-normal-p0-4x.png",
-      "sha256": "022eb9e1d4393cd3599b2e8fd9a4147a3cc55342b5c9e745ac0e6246ef35f50f"
+      "sha256": "263418ec6798e5ea281028ddcb57d2344ab6dcb120732bd17f13b659dc2e3902"
     },
     {
       "build_output": "scenes/grass-normal-p1-2x.png",
@@ -11868,7 +11868,7 @@
         "width": 476
       },
       "path": "art/exports/unit-sappers-v1/scenes/grass-normal-p1-2x.png",
-      "sha256": "b833ed500d122ffc063f04f453fd550eeeec9f7152fa9dbc8bf20919e1b8d6e5"
+      "sha256": "ddb74328c71274d92e142114486302603b98a271324d6a7eef3bcda298645043"
     },
     {
       "build_output": "scenes/grass-normal-p1-4x.png",
@@ -11877,7 +11877,7 @@
         "width": 952
       },
       "path": "art/exports/unit-sappers-v1/scenes/grass-normal-p1-4x.png",
-      "sha256": "022eb9e1d4393cd3599b2e8fd9a4147a3cc55342b5c9e745ac0e6246ef35f50f"
+      "sha256": "263418ec6798e5ea281028ddcb57d2344ab6dcb120732bd17f13b659dc2e3902"
     },
     {
       "build_output": "scenes/grass-spent-p0-2x.png",
@@ -11886,7 +11886,7 @@
         "width": 476
       },
       "path": "art/exports/unit-sappers-v1/scenes/grass-spent-p0-2x.png",
-      "sha256": "5a26b60ba3f16c1bd0425b3662bd405c85b9b766627a2cd2535c22ecdd3ad0d3"
+      "sha256": "936694d291960c8ec6ce3cc4eb7a2d29d23dbf753a3e0cdd6479b1424998e332"
     },
     {
       "build_output": "scenes/grass-spent-p0-4x.png",
@@ -11895,7 +11895,7 @@
         "width": 952
       },
       "path": "art/exports/unit-sappers-v1/scenes/grass-spent-p0-4x.png",
-      "sha256": "9ec6e701b2e080689bf45418e40b73235b066514a1e0debc20ccd451e3babdb7"
+      "sha256": "e521acb18aeb5ad1ffaa4ea3b097535e73e16d1d2b5467dc920cd1dcab7a92f1"
     },
     {
       "build_output": "scenes/grass-spent-p1-2x.png",
@@ -11904,7 +11904,7 @@
         "width": 476
       },
       "path": "art/exports/unit-sappers-v1/scenes/grass-spent-p1-2x.png",
-      "sha256": "5a26b60ba3f16c1bd0425b3662bd405c85b9b766627a2cd2535c22ecdd3ad0d3"
+      "sha256": "936694d291960c8ec6ce3cc4eb7a2d29d23dbf753a3e0cdd6479b1424998e332"
     },
     {
       "build_output": "scenes/grass-spent-p1-4x.png",
@@ -11913,7 +11913,7 @@
         "width": 952
       },
       "path": "art/exports/unit-sappers-v1/scenes/grass-spent-p1-4x.png",
-      "sha256": "9ec6e701b2e080689bf45418e40b73235b066514a1e0debc20ccd451e3babdb7"
+      "sha256": "e521acb18aeb5ad1ffaa4ea3b097535e73e16d1d2b5467dc920cd1dcab7a92f1"
     },
     {
       "build_output": "scenes/grass_w-normal-p0-2x.png",
@@ -11922,7 +11922,7 @@
         "width": 476
       },
       "path": "art/exports/unit-sappers-v1/scenes/grass_w-normal-p0-2x.png",
-      "sha256": "c5ecf287ab3fe78330281c1a42d62816363879c0ca9dc53f619f12d96861278f"
+      "sha256": "d516320a92f12e36417e1c139a9f28d87541160260003235672de215f8064d23"
     },
     {
       "build_output": "scenes/grass_w-normal-p0-4x.png",
@@ -11931,7 +11931,7 @@
         "width": 952
       },
       "path": "art/exports/unit-sappers-v1/scenes/grass_w-normal-p0-4x.png",
-      "sha256": "680f0831b8f7a0d94f6c7a6d352d105ee43d0324463dd12e39e64e31cca4bc0c"
+      "sha256": "192dd9c90ff093b03f230b59302909bbf01b0723e138e6660106e18a6bfdab48"
     },
     {
       "build_output": "scenes/grass_w-normal-p1-2x.png",
@@ -11940,7 +11940,7 @@
         "width": 476
       },
       "path": "art/exports/unit-sappers-v1/scenes/grass_w-normal-p1-2x.png",
-      "sha256": "c5ecf287ab3fe78330281c1a42d62816363879c0ca9dc53f619f12d96861278f"
+      "sha256": "d516320a92f12e36417e1c139a9f28d87541160260003235672de215f8064d23"
     },
     {
       "build_output": "scenes/grass_w-normal-p1-4x.png",
@@ -11949,7 +11949,7 @@
         "width": 952
       },
       "path": "art/exports/unit-sappers-v1/scenes/grass_w-normal-p1-4x.png",
-      "sha256": "680f0831b8f7a0d94f6c7a6d352d105ee43d0324463dd12e39e64e31cca4bc0c"
+      "sha256": "192dd9c90ff093b03f230b59302909bbf01b0723e138e6660106e18a6bfdab48"
     },
     {
       "build_output": "scenes/grass_w-spent-p0-2x.png",
@@ -11958,7 +11958,7 @@
         "width": 476
       },
       "path": "art/exports/unit-sappers-v1/scenes/grass_w-spent-p0-2x.png",
-      "sha256": "97852ea4e485c25a1b30afe87d00ef134a9cd264a5e8e728365cad761202526c"
+      "sha256": "7aab944920c7e03c805236d75190434692a932a0a3332628736dfa96e5174cbf"
     },
     {
       "build_output": "scenes/grass_w-spent-p0-4x.png",
@@ -11967,7 +11967,7 @@
         "width": 952
       },
       "path": "art/exports/unit-sappers-v1/scenes/grass_w-spent-p0-4x.png",
-      "sha256": "9f91cc74a901a3d54380fc63a402666a0700c9e88da8706c1419cc817a432845"
+      "sha256": "74c172cc35129a5163c1cdc70c75dc3b01eaf095c79deba7cc18505c8a5331df"
     },
     {
       "build_output": "scenes/grass_w-spent-p1-2x.png",
@@ -11976,7 +11976,7 @@
         "width": 476
       },
       "path": "art/exports/unit-sappers-v1/scenes/grass_w-spent-p1-2x.png",
-      "sha256": "97852ea4e485c25a1b30afe87d00ef134a9cd264a5e8e728365cad761202526c"
+      "sha256": "7aab944920c7e03c805236d75190434692a932a0a3332628736dfa96e5174cbf"
     },
     {
       "build_output": "scenes/grass_w-spent-p1-4x.png",
@@ -11985,7 +11985,7 @@
         "width": 952
       },
       "path": "art/exports/unit-sappers-v1/scenes/grass_w-spent-p1-4x.png",
-      "sha256": "9f91cc74a901a3d54380fc63a402666a0700c9e88da8706c1419cc817a432845"
+      "sha256": "74c172cc35129a5163c1cdc70c75dc3b01eaf095c79deba7cc18505c8a5331df"
     },
     {
       "build_output": "scenes/mud-normal-p0-2x.png",
@@ -11994,7 +11994,7 @@
         "width": 476
       },
       "path": "art/exports/unit-sappers-v1/scenes/mud-normal-p0-2x.png",
-      "sha256": "d1ffd379ac9c5f230e12f186df4de088c29529ddbe1de1d9f33c805423e88830"
+      "sha256": "5b4a82bdaccf18c3c232462ae7491d9470d80bb9387049b87a30ba8406179500"
     },
     {
       "build_output": "scenes/mud-normal-p0-4x.png",
@@ -12003,7 +12003,7 @@
         "width": 952
       },
       "path": "art/exports/unit-sappers-v1/scenes/mud-normal-p0-4x.png",
-      "sha256": "e35c5c22e01af549427a400964c2e71d7fff11b386093a1d949ed885d361596d"
+      "sha256": "d5dd02490df355c509e636f3ac37098877c8b595b16a5f26a466ab8733dc4ddf"
     },
     {
       "build_output": "scenes/mud-normal-p1-2x.png",
@@ -12012,7 +12012,7 @@
         "width": 476
       },
       "path": "art/exports/unit-sappers-v1/scenes/mud-normal-p1-2x.png",
-      "sha256": "d1ffd379ac9c5f230e12f186df4de088c29529ddbe1de1d9f33c805423e88830"
+      "sha256": "5b4a82bdaccf18c3c232462ae7491d9470d80bb9387049b87a30ba8406179500"
     },
     {
       "build_output": "scenes/mud-normal-p1-4x.png",
@@ -12021,7 +12021,7 @@
         "width": 952
       },
       "path": "art/exports/unit-sappers-v1/scenes/mud-normal-p1-4x.png",
-      "sha256": "e35c5c22e01af549427a400964c2e71d7fff11b386093a1d949ed885d361596d"
+      "sha256": "d5dd02490df355c509e636f3ac37098877c8b595b16a5f26a466ab8733dc4ddf"
     },
     {
       "build_output": "scenes/mud-spent-p0-2x.png",
@@ -12030,7 +12030,7 @@
         "width": 476
       },
       "path": "art/exports/unit-sappers-v1/scenes/mud-spent-p0-2x.png",
-      "sha256": "8a42a24211861dbef87bbfbcd9ebdbf8075d3cdc762a8e487bc8b9edfa44accb"
+      "sha256": "6dc2c98db254a2e64b5d6b43085cb4a053cff20a073628dda23d12a69b7e0454"
     },
     {
       "build_output": "scenes/mud-spent-p0-4x.png",
@@ -12039,7 +12039,7 @@
         "width": 952
       },
       "path": "art/exports/unit-sappers-v1/scenes/mud-spent-p0-4x.png",
-      "sha256": "779bf9d170f9604faac4653045670f858da7a8d81526d6268afe652c362deab4"
+      "sha256": "603d5fc68ee685c7c77213d24c11443477c223abd5e3c14e167178dda97d893a"
     },
     {
       "build_output": "scenes/mud-spent-p1-2x.png",
@@ -12048,7 +12048,7 @@
         "width": 476
       },
       "path": "art/exports/unit-sappers-v1/scenes/mud-spent-p1-2x.png",
-      "sha256": "8a42a24211861dbef87bbfbcd9ebdbf8075d3cdc762a8e487bc8b9edfa44accb"
+      "sha256": "6dc2c98db254a2e64b5d6b43085cb4a053cff20a073628dda23d12a69b7e0454"
     },
     {
       "build_output": "scenes/mud-spent-p1-4x.png",
@@ -12057,7 +12057,7 @@
         "width": 952
       },
       "path": "art/exports/unit-sappers-v1/scenes/mud-spent-p1-4x.png",
-      "sha256": "779bf9d170f9604faac4653045670f858da7a8d81526d6268afe652c362deab4"
+      "sha256": "603d5fc68ee685c7c77213d24c11443477c223abd5e3c14e167178dda97d893a"
     }
   ],
   "generation_recipes": [
@@ -12067,7 +12067,7 @@
   "generation_recipes_scope": "Includes historical generation studies and the current pinned master records. Current source selection is established by the producing manifest and its exact SHA256 pins; historical records are unchanged.",
   "id": "unit-sappers-v1",
   "manifest": "art/unit-sappers-v1.json",
-  "manifest_sha256": "e9bcf36135b19475f28a0851660b539ac9abb23e3754f2a39086cc8152ad1794",
+  "manifest_sha256": "830acdc59f9a8b1ce93ba15b05920f767d9cd5dce7132414d57bd988e301d492",
   "original_image_inputs": [
     {
       "generation_recipe": "art/recipes/terrain/reference-v2/meadow-03.json",

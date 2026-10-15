@@ -140,12 +140,21 @@ func run(args []string, stdout io.Writer) error {
 	if err := w.WriteFile("compose.html", []byte(strings.Replace(composePage, "/*CATALOG*/null", string(data), 1)), 0644); err != nil {
 		return err
 	}
+	if err := w.WriteFile("road-units.html", []byte(strings.Replace(roadUnitComparisonTemplate(), "/*CATALOG*/null", string(data), 1)), 0644); err != nil {
+		return err
+	}
 	_, err = fmt.Fprintf(stdout, "%d game-candidate entries, %d image variants. Open %s/index.html\n", len(c.items), len(c.seen), *out)
 	return err
 }
 
 func local(p string) bool {
 	return p != "." && fs.ValidPath(p) && !strings.ContainsAny(p, "\\:")
+}
+
+func roadUnitComparisonTemplate() string {
+	html := strings.Replace(composePage, "scenes:[makeScene('hq-summer')]", "scenes:[makeScene('road-unit')]", 1)
+	html = strings.Replace(html, "historyline-gfx-collection-v1", "historyline-gfx-road-unit-collection-v1", 1)
+	return strings.Replace(html, "</script></body>", "$('view').value='side';$('grid').value='no';render();\n</script></body>", 1)
 }
 
 func (c *collector) read(p string) ([]byte, error) {

@@ -9,7 +9,7 @@
 <label>Collection name<input id="collection-name" maxlength="64"></label>
 <label>Scene<select id="scenes"></select></label>
 <label>Scene name<input id="scene-name" maxlength="64"></label>
-<label>New scene template<select id="template"><option value="blank">Empty grid</option><option value="grass">Grass field</option><option value="hq-summer" selected>HQ · summer</option><option value="hq-winter">HQ · winter</option><option value="depot-summer">Depot · summer</option><option value="depot-winter">Depot · winter</option><option value="factory-winter">Factory · winter</option><option value="road-unit">Grass + road + infantry</option></select></label>
+<label>New scene template<select id="template"><option value="blank">Empty grid</option><option value="grass">Grass field</option><option value="hq-summer" selected>HQ · summer</option><option value="hq-winter">HQ · winter</option><option value="depot-summer">Depot · summer</option><option value="depot-winter">Depot · winter</option><option value="factory-winter">Factory · winter</option><option value="road-unit">Grass + road + units</option></select></label>
 <div class="row"><button id="add-scene">Add scene</button><button id="duplicate">Duplicate</button><button id="delete-scene">Delete scene</button></div>
 <div class="row"><button id="export">Export collection</button><button id="import">Import collection</button><input id="file" type="file" accept="application/json,.json"></div>
 </div><hr><h2>Choose a piece</h2><div class="stack">
@@ -43,7 +43,7 @@ function inside(s,row,col){return Number.isInteger(row)&&Number.isInteger(col)&&
 function cell(s,row,col){return s.cells.find(c=>c.row===row&&c.col===col);}
 function layer(asset,variant){return {asset,variant:variant||assets.get(asset).variants[0].id,dx:0,dy:0,visible:true};}
 function makeScene(template){
- const names={blank:'Empty grid',grass:'Grass field','hq-summer':'HQ · summer','hq-winter':'HQ · winter','depot-summer':'Depot · summer','depot-winter':'Depot · winter','factory-winter':'Factory · winter','road-unit':'Grass + road + infantry'};
+ const names={blank:'Empty grid',grass:'Grass field','hq-summer':'HQ · summer','hq-winter':'HQ · winter','depot-summer':'Depot · summer','depot-winter':'Depot · winter','factory-winter':'Factory · winter','road-unit':'Grass + road + units'};
  if(!names[template])throw Error('Unknown template');
  const s={id:newID(),name:names[template],columns:4,rows:7,cells:[]};
  for(let row=0;row<s.rows;row++)for(let col=0;col<s.columns-row%2;col++)s.cells.push({row,col,layers:template==='blank'?[]:[layer('background/grass'+(template.endsWith('winter')?'_w':''))]});
@@ -58,6 +58,9 @@ function makeScene(template){
  }else if(template==='road-unit'){
   for(const row of [0,2,4,6])cell(s,row,1).layers.push(layer('infrastructure/road36'));
   cell(s,2,1).layers.push(layer('sprite/infantry','cp/n-normal'));
+  cell(s,2,2).layers.push(layer('sprite/heavyArtillery','cp/n-normal'));
+  cell(s,3,2).layers.push(layer('sprite/armoredCar','cp/n-normal'));
+  cell(s,5,0).layers.push(layer('sprite/charron','cp/n-normal'));
  }
  return s;
 }

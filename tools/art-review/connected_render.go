@@ -55,6 +55,7 @@ type connectionSegment struct{ a, b connectionPoint }
 type connectionRoute struct {
 	segments []connectionSegment
 	junction bool
+	road     *connectionRoadPaint
 }
 
 func connectionRoutes(g connectionGeometry, f connectionFamily, v connectionVariant) connectionRoute {
@@ -92,6 +93,10 @@ func connectionRoutes(g connectionGeometry, f connectionFamily, v connectionVari
 			a, n := guard(port)
 			cubic(a, a.add(n.mul(16)), center.sub(n.mul(8)), center)
 		}
+	}
+	if f.Markings == "dashed" {
+		paint := connectionRoadPaintFor(g, v)
+		route.road = &paint
 	}
 	return route
 }
@@ -212,8 +217,17 @@ func connectionFeature(in connectionInputs, f connectionFamily, route connection
 		return color.NRGBA{}
 	}
 	bank := sampleConnectionMaterial(in.materials[f.BorderMaterial], world)
+	if route.road != nil {
+		// The reference paved road has a narrow dark edge, rather than a dirt verge.
+		bank = sampleConnectionMaterial(in.materials[f.Material], world)
+		bank.R, bank.G, bank.B = unitByte(float64(bank.R)*.65), unitByte(float64(bank.G)*.65), unitByte(float64(bank.B)*.65)
+	}
 	if core > 0 {
 		bank = connectionBlend(bank, sampleConnectionMaterial(in.materials[f.Material], world), core)
+	}
+	if route.road != nil && core > 0 {
+		paint := connectionRoadPaintAt(*route.road, local, aa)
+		bank = connectionBlend(bank, color.NRGBA{242, 240, 237, 255}, math.Min(core, paint))
 	}
 	alpha := outer
 	if f.ID == "stream" || f.ID == "path" {
