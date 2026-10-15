@@ -94,6 +94,9 @@ func TestControlSelectMoveAndEndTurn(t *testing.T) {
 		t.Fatalf("click on %v did not move the unit: %q", to, c.Message)
 	}
 
+	for !c.walk.Done() {
+		c.walk.Tick()
+	}
 	// An enemy unit is never selectable.
 	for l, line := range c.st.Hexes {
 		for col := range line {

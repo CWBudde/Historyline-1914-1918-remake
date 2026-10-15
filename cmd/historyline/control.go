@@ -25,6 +25,8 @@ type control struct {
 	menuTarget hexgrid.Coord
 	stored     []*Unit // set while the menu lists container contents; row i is stored[i]
 
+	walk *walk // movement being animated; input waits until it is done
+
 	Message string // result of the last action, shown to the player
 }
 
@@ -59,6 +61,9 @@ func (c *control) Select(at hexgrid.Coord) {
 func (c *control) Click(at hexgrid.Coord) {
 	c.Message = ""
 	c.menu, c.stored = nil, nil
+	if !c.walk.Done() {
+		return
+	}
 	if !c.mine() {
 		if c.st.Winner != state.None {
 			c.Message = fmt.Sprintf("%v has won", c.st.Winner)
@@ -144,10 +149,12 @@ func (c *control) ChooseMenu(i int) {
 }
 
 func (c *control) move(to hexgrid.Coord) {
-	if _, err := c.st.Move(c.from, c.unit, to); err != nil {
+	path, err := c.st.Move(c.from, c.unit, to)
+	if err != nil {
 		c.Message = err.Error()
 		return
 	}
+	c.walk = newWalk(path)
 	c.Message = fmt.Sprintf("%s moved", c.unit.Type)
 	if c.st.Winner != state.None {
 		c.Message = fmt.Sprintf("%v captured the HQ and wins", c.st.Winner)
@@ -239,6 +246,7 @@ func (c *control) attack(to hexgrid.Coord, slot int) {
 // once, so the game stays playable for a single human.
 func (c *control) EndTurn() {
 	c.clear()
+	c.walk = nil
 	if !c.mine() {
 		return
 	}

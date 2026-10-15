@@ -641,6 +641,10 @@ so interactive playback and responsive/input acceptance remain open. Approximate
 
 - [ ] Implement the battle panel with attacker/defender, chosen and counter weapons, result
       bars, sizes and ranks driven by engine combat results.
+      Placeholder done: the unit dot walks the engine path (`walk` in `cmd/historyline/anim.go`,
+      8 frames per hex), clicks wait until it ends, units are drawn from `State` not the level;
+      `TestWalkInterpolatesAlongPath`, `TestClickWaitsForWalk`. Open: facing, real sprites,
+      skip/reduced-animation. Not hand-tested in the window.
 - [ ] Add hit markers, death/explosion playback and capture/round banners, with bounded
       durations and skip/reduced-animation behavior. Show HQ-capture victory in the app.
 - [ ] Wire end turn and refresh selection, legal actions, panels, minimap and fog for the

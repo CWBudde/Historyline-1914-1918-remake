@@ -102,6 +102,12 @@ func fogShade(f state.Fog, c color.RGBA) color.RGBA {
 	return color.RGBA{R: 8, G: 8, B: 10, A: 255}
 }
 
+// walking reports whether the unit standing on at is still being animated there.
+func (g *game) walking(at hexgrid.Coord) bool {
+	w := g.ctl.walk
+	return !w.Done() && w.path[len(w.path)-1] == at
+}
+
 // showsUnit reports whether units on a hex of the given fog state are drawn.
 func showsUnit(f state.Fog) bool { return f == state.Visible }
 
@@ -132,6 +138,9 @@ func (g *game) Update() error {
 		dy += scrollSpeed
 	}
 	g.cam.Scroll(dx, dy)
+	if g.ctl.walk != nil {
+		g.ctl.walk.Tick()
+	}
 	if inpututil.IsKeyJustPressed(ebiten.KeyF1) {
 		g.ctl.EndTurn()
 	}
@@ -225,10 +234,15 @@ func (g *game) Draw(screen *ebiten.Image) {
 			sx, sy := g.cam.WorldToScreen(cx, cy)
 			fog := g.fogOf(coord)
 			g.drawHex(screen, float32(sx), float32(sy), fogShade(fog, g.fill(hx.Terrain)), false)
-			if hx.Unit != "" && showsUnit(fog) {
+			if g.state.At(coord).Unit != nil && showsUnit(fog) && !g.walking(coord) {
 				vector.FillCircle(screen, float32(sx), float32(sy), float32(14*g.cam.Zoom), color.RGBA{230, 230, 230, 255}, true)
 			}
 		}
+	}
+	if w := g.ctl.walk; !w.Done() {
+		wx, wy := w.Pos()
+		sx, sy := g.cam.WorldToScreen(wx, wy)
+		vector.FillCircle(screen, float32(sx), float32(sy), float32(14*g.cam.Zoom), color.RGBA{230, 230, 230, 255}, true)
 	}
 	if g.hexNumbers && g.cam.Zoom >= minNumberZoom {
 		g.drawHexNumbers(screen, vx, vy, vw, vh)
@@ -327,7 +341,7 @@ func (g *game) drawMinimap(dst *ebiten.Image) {
 			sx, sy := m.FromWorld(cx, cy)
 			fog := g.fogOf(coord)
 			col := fogShade(fog, g.fill(hx.Terrain))
-			if hx.Unit != "" && showsUnit(fog) {
+			if g.state.At(coord).Unit != nil && showsUnit(fog) && !g.walking(coord) {
 				col = color.RGBA{240, 240, 240, 255}
 			}
 			vector.FillRect(dst, float32(sx)-cw/2, float32(sy)-ch/2, cw, ch, col, false)
