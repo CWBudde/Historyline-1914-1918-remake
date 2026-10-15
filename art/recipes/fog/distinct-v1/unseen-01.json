@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-15",
+  "dimensions": {
+    "height": 1254,
+    "width": 1254
+  },
+  "generation_inputs": [],
+  "id": "unseen-01",
+  "notes": "Prompt requests1024square; actualunchangedoutputis1254squareRGB andfullyopaque. Runtimefogdependssolelyonthisnewmaterial, neveronunderlyingterrainorroute. Nooriginalimageused.",
+  "original_image_inputs": [],
+  "output_manifest": "art/fog-terrain-v1.json",
+  "prompt": "Use case: stylized-concept\nAsset type: opaque high-resolution fog-of-war material texture for a strategy game's never-explored map cells.\nCreate one seamless, flat, square 1024x1024 texture. A quiet dark desaturated blue-grey charcoal surface, very subtle soft broad smoky pigment variations and restrained fine matte paper grain. Continuous hand-painted material, smooth detailed high resolution, no pixel art. Keep local tonal contrast very low and the illumination spatially even. Dominant color around muted midnight slate (#252e3a), subtle variations between deep slate and dark muted indigo. The whole canvas must be genuinely opaque and filled edge to edge.\nThis texture represents unknown space and must contain no recognizable terrain or information: no land, water, rivers, roads, stars, mountains, vegetation, buildings or map marks. No horizon, central object, vignette, border, hex outlines, grid, text, emblems, lighting hotspot, scratch network or directional streaks. It should remain a calm dark surface when tiled across a large area. Fine continuous cloudy pigment shading rather than white clouds or visible smoke plumes. Entirely new artwork.\n",
+  "schema_version": 1,
+  "source": "art/source/fog/distinct-v1/unseen.png",
+  "source_sha256": "4724facc952e2b8cb526deec05cb758270bce24b3bebd8f9a61be3fc465d06f5",
+  "status": "source-for-provisional-fog-exports",
+  "tool": "built-in image_gen.imagegen",
+  "transparent_background": false
+}

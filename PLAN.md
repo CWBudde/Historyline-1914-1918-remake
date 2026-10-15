@@ -1003,6 +1003,20 @@ below record work already delivered, plus G0.7's new neighborhood comparisons.
             but runtime selection remains unimplemented. Radial motifs/compact footprint remain
             full-map readability caveats. Ledger: 11 source + 122 built = 133 associated IDs,
             one missing fog background, zero accepted replacements.
+      - [x] Deliver the opaque `unseen` fog candidate at 2×/4×. (2026-10-15) — batch 13
+            retains a new reference-free 1254-square slate master, exact prompt/provenance,
+            two runtime and twenty review/context PNGs. Independent source/export art review
+            passes all-hidden and seasonal frontiers at both parities, plus actual road/river
+            concealment. Controller checks six tile PNGs, twelve ordinary PNG assemblies,
+            340,800 opaque owned tile pixels and 120,000 clear exterior pixels. Independent
+            material/Lanczos oracles cover 90,880 owned 4× pixels, 1,394 2× samples and 3,120
+            neighboring-phase samples (max byte error 1, tolerance 1). Separate reconstruction
+            verifies 908,800 hidden pixels in eight road/river views. All 24 repeat files and
+            911 earlier artifacts match; code/provenance/134 bindings/browser22/22/finalCI pass.
+            See `docs/art/distinct-terrain-batch-13.md` and `docs/art/fog-visibility-contract.md`.
+            Ledger: 11 source + 123 built = 134 associated IDs, none lacking an image association,
+            zero accepted replacements. Source-only geometry, native coverage, other graphics,
+            remembered states and runtime/full-map acceptance remain open.
       - [ ] Complete missing subjects, seasonal images, connected variants and runtime/native
             mappings; validate assembled seams. Twenty-seven sources do not close a family.
 - [ ] **Gate — Approve the complete pilot and choose production density/tools.** Compare all
@@ -1065,6 +1079,13 @@ in a distinct continuous style; final quality/seam and runtime acceptance remain
             Independent art/code review and controller oracle/repeat/769-artifact regressions
             pass for the nine authored profiles and open-water base. General terrain transitions,
             fractional zoom, imported full maps and runtime acceptance remain open.
+      - [x] Add bounded `-fog` export for the single opaque never-seen ID, with strict three-
+            material pins, exact loaded-source snapshots, shared unmodified ground rendering,
+            final ownership and six absolute-coordinate visibility fixtures at both densities.
+            Real CLI RED/GREEN tests cover different underlying pixels, source independence,
+            mode conflicts and unsafe inputs. Independent code/art reviews, actual-PNG material
+            oracle/assembly/concealment checks, 24-file repeat, 911-artifact regression and
+            final CI pass. Runtime draw order and remembered presentation remain separate tasks.
 - [ ] Implement proposed commands `go run ./cmd/hlasset validate`, `build`, and `review`, all
       consuming `art/manifest.json`. Validation/build return nonzero on invalid inputs; review
       writes native/2×/4× sheets and actionable ID/direction diagnostics to `build/art-review/`.
@@ -1153,8 +1174,11 @@ private originals/manual extracts in ignored `original/`, and reference gallerie
 outputs and research in ignored `build/`. Authored masters, recipes and pilot exports stay in
 tracked `art/`; commit verified graphics batches directly to `main`, per the user's preference.
 
-**Immediate next graphics slice:** deliver the `unseen` fog background at both densities,
-then build geometry/material adapters for the eleven source-only candidates. The eight
+**Immediate next graphics slice:** build geometry/material adapters for the eleven source-only
+candidates, starting with mud, stone and winter rough/stone/shelled ground; review their
+material transitions and source-quality caveats before promotion. The `unseen` fog now has
+opaque 2×/4× candidates and reviewed concealment fixtures; see `docs/art/distinct-terrain-batch-13.md`.
+The eight
 seasonal mountain pieces and both standalone mountains are now polygon-built; see
 `docs/art/distinct-terrain-batch-12.md`. Review compact footprint/radial ridge motifs at full-map
 scale and implement the isolated-quarter display selection during runtime integration.
@@ -1169,7 +1193,7 @@ The terrain source pack contains 27 candidates with 54 material exports, plus al
 infrastructure variants and a grass base at both densities. Seven additional compound masters
 build the depot, HQ, factory and mountain scenes. Both ground seasons, nine shores and open water
 are polygon-built. The runtime ledger has
-133 associated IDs (11 source candidates, 122 built candidates), one fog background needing an image
+134 associated IDs (11 source candidates, 123 built candidates), no enabled ID without an image association
 and zero accepted replacements.
 Pixel-aligned 2×/4× patches pass; full maps, other zooms and runtime integration remain open. Use the
 134-row runtime ledger as the enabled-ID checklist without dropping the separate 350 native

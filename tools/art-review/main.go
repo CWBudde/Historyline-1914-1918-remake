@@ -23,6 +23,7 @@
 // It requires a fresh output directory and excludes all other review modes.
 // -shore builds the bounded summer shoreline family and grass/water bases,
 // with pinned new materials and reciprocal patches at both runtime parities.
+// -fog builds the bounded opaque unseen candidate and seasonal frontier patches.
 package main
 
 import (
@@ -95,6 +96,7 @@ func run(args []string, log io.Writer) error {
 	mixedPath := fs.String("mixed", "", "bounded new-material bridge/crossing manifest; requires fresh -out")
 	connectedPath := fs.String("connected", "", "new-material connected road/stream/path/rail/trench JSON manifest; requires fresh -out")
 	compoundPath := fs.String("compound", "", "bounded compound scene manifest; requires fresh -out")
+	fogPath := fs.String("fog", "", "bounded opaque unseen candidate manifest; requires fresh -out")
 	shorePath := fs.String("shore", "", "bounded new-material summer shoreline manifest; requires fresh -out")
 	packPath := fs.String("pack", "", "candidate-only JSON pack manifest; fixed Lanczos3 rectangle exports, requires fresh -out")
 	candidatePath := fs.String("candidate", "", "candidate PNG, at least 4x reference dimensions and aspect within 1%")
@@ -105,6 +107,24 @@ func run(args []string, log io.Writer) error {
 			return nil
 		}
 		return err
+	}
+	fogProvided := false
+	fs.Visit(func(f *flag.Flag) {
+		if f.Name == "fog" {
+			fogProvided = true
+		}
+	})
+	if fogProvided {
+		conflict := false
+		fs.Visit(func(f *flag.Flag) {
+			if f.Name != "fog" && f.Name != "out" {
+				conflict = true
+			}
+		})
+		if conflict || *fogPath == "" || *out == "" || fs.NArg() != 0 {
+			return errors.New("-fog requires -out and excludes all other flags and positional arguments")
+		}
+		return runFog(*fogPath, *out, log)
 	}
 	shoreProvided := false
 	fs.Visit(func(f *flag.Flag) {

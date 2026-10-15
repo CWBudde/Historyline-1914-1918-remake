@@ -1,0 +1,1275 @@
+{
+  "acceptance": "Provisional fullyopaque never-seen graphics candidate; independent art/code review and actualPNG concealment/parity/repeatchecks pass. Source-only backgrounds/nativecoverage/unit/UI/fullmap/rememberedstate/runtime/release acceptance remainopen.",
+  "concealment_policy": "Never-seen cells use only the same opaque unseen PNG, independent of underlying terrain, units, routes, structures and season; no terrain hints or transparency-to-terrain. Seasonal grass/grass_w PNGs are visible frontier neighbors only. No runtime IDs inferred or invented.",
+  "concealment_previews": {
+    "policy": "New opaque unseen overwrites backgrounds and routes of four declared hidden cells; route approaches at the visibility frontier are intentionally concealed. This is an offline graphics proof; runtime integration remains open.",
+    "scenes": [
+      {
+        "canvas_world_origin": [
+          -71,
+          -80
+        ],
+        "cells": [
+          {
+            "background": "grass",
+            "hidden": true,
+            "route": "road14",
+            "world_origin": [
+              0,
+              0
+            ]
+          },
+          {
+            "background": "grass",
+            "hidden": true,
+            "route": "road14",
+            "world_origin": [
+              71,
+              -40
+            ]
+          },
+          {
+            "background": "grass",
+            "hidden": true,
+            "route": "",
+            "world_origin": [
+              71,
+              40
+            ]
+          },
+          {
+            "background": "grass",
+            "hidden": true,
+            "route": "",
+            "world_origin": [
+              0,
+              80
+            ]
+          },
+          {
+            "background": "grass",
+            "hidden": false,
+            "route": "road14",
+            "world_origin": [
+              -71,
+              40
+            ]
+          },
+          {
+            "background": "grass",
+            "hidden": false,
+            "route": "",
+            "world_origin": [
+              -71,
+              -40
+            ]
+          },
+          {
+            "background": "grass",
+            "hidden": false,
+            "route": "",
+            "world_origin": [
+              0,
+              -80
+            ]
+          }
+        ],
+        "center_line_parity": 0,
+        "density": 2,
+        "id": "summer-road",
+        "inputs": [
+          {
+            "path": "art/exports/connected-v1/grass-2x.png",
+            "sha256": "5285a565b5a882a24477fc48c7f5f69fc7a81a4ef2cdf5b87708b0eadfa13b17"
+          },
+          {
+            "path": "art/exports/fog-v1/unseen-2x.png",
+            "sha256": "d7ba80462427189ec63d22fbca5fc65aea6f2baade783edcd93745a0446382e8"
+          },
+          {
+            "path": "art/exports/connected-v1/road14-2x.png",
+            "sha256": "010f5678e234a584341bc6d3442e235d85ce8bba8ac9da57fb3ed9d00f49c9bc"
+          }
+        ],
+        "outputs": [
+          {
+            "dimensions": {
+              "height": 480,
+              "width": 476
+            },
+            "path": "art/review/fog-v1/summer-road-parity0-visible-2x.png",
+            "sha256": "fef2cf78300adcf1f8e6adb40c00cb7f588117fde93428ec6fd1f424acd03cde"
+          },
+          {
+            "dimensions": {
+              "height": 480,
+              "width": 476
+            },
+            "path": "art/review/fog-v1/summer-road-parity0-hidden-2x.png",
+            "sha256": "1d5a183f2d4e74e69bd22c69ed7f659d34dbd557644f71c6cee86d7dca164316"
+          }
+        ]
+      },
+      {
+        "canvas_world_origin": [
+          -71,
+          -80
+        ],
+        "cells": [
+          {
+            "background": "grass",
+            "hidden": true,
+            "route": "road14",
+            "world_origin": [
+              0,
+              0
+            ]
+          },
+          {
+            "background": "grass",
+            "hidden": true,
+            "route": "road14",
+            "world_origin": [
+              71,
+              -40
+            ]
+          },
+          {
+            "background": "grass",
+            "hidden": true,
+            "route": "",
+            "world_origin": [
+              71,
+              40
+            ]
+          },
+          {
+            "background": "grass",
+            "hidden": true,
+            "route": "",
+            "world_origin": [
+              0,
+              80
+            ]
+          },
+          {
+            "background": "grass",
+            "hidden": false,
+            "route": "road14",
+            "world_origin": [
+              -71,
+              40
+            ]
+          },
+          {
+            "background": "grass",
+            "hidden": false,
+            "route": "",
+            "world_origin": [
+              -71,
+              -40
+            ]
+          },
+          {
+            "background": "grass",
+            "hidden": false,
+            "route": "",
+            "world_origin": [
+              0,
+              -80
+            ]
+          }
+        ],
+        "center_line_parity": 0,
+        "density": 4,
+        "id": "summer-road",
+        "inputs": [
+          {
+            "path": "art/exports/connected-v1/grass-4x.png",
+            "sha256": "2feea3fd1e9026a16c87bf11ac6c2c33ec8d173719866427da42827bcc2d119e"
+          },
+          {
+            "path": "art/exports/fog-v1/unseen-4x.png",
+            "sha256": "5656c05342975e0f4b03c2471697b213a6a46e16b39587683dcd0002c29dd595"
+          },
+          {
+            "path": "art/exports/connected-v1/road14-4x.png",
+            "sha256": "dd70190f1145abbbd98047cfad4212269a1df72ef4be33b58665341bb0b68155"
+          }
+        ],
+        "outputs": [
+          {
+            "dimensions": {
+              "height": 960,
+              "width": 952
+            },
+            "path": "art/review/fog-v1/summer-road-parity0-visible-4x.png",
+            "sha256": "23ce8cdd12cb61da9a33747a1cb794f97638aa17fc7e4eef1c8cdce0847732d7"
+          },
+          {
+            "dimensions": {
+              "height": 960,
+              "width": 952
+            },
+            "path": "art/review/fog-v1/summer-road-parity0-hidden-4x.png",
+            "sha256": "2b8af986a072cd79fbf32f8cb904b8cdd0a782b43a850dc8ec3edcb1feb64e1c"
+          }
+        ]
+      },
+      {
+        "canvas_world_origin": [
+          0,
+          -40
+        ],
+        "cells": [
+          {
+            "background": "grass_w",
+            "hidden": true,
+            "route": "stream36",
+            "world_origin": [
+              71,
+              40
+            ]
+          },
+          {
+            "background": "grass_w",
+            "hidden": true,
+            "route": "",
+            "world_origin": [
+              142,
+              0
+            ]
+          },
+          {
+            "background": "grass_w",
+            "hidden": true,
+            "route": "",
+            "world_origin": [
+              142,
+              80
+            ]
+          },
+          {
+            "background": "grass_w",
+            "hidden": true,
+            "route": "stream36",
+            "world_origin": [
+              71,
+              120
+            ]
+          },
+          {
+            "background": "grass_w",
+            "hidden": false,
+            "route": "",
+            "world_origin": [
+              0,
+              80
+            ]
+          },
+          {
+            "background": "grass_w",
+            "hidden": false,
+            "route": "",
+            "world_origin": [
+              0,
+              0
+            ]
+          },
+          {
+            "background": "grass_w",
+            "hidden": false,
+            "route": "stream36",
+            "world_origin": [
+              71,
+              -40
+            ]
+          }
+        ],
+        "center_line_parity": 1,
+        "density": 2,
+        "id": "winter-river",
+        "inputs": [
+          {
+            "path": "art/exports/compound-v1/grass_w-2x.png",
+            "sha256": "d2db0b7ce97f3145abcd651b0042654433dd7f36875de7b88438688c0716d947"
+          },
+          {
+            "path": "art/exports/fog-v1/unseen-2x.png",
+            "sha256": "d7ba80462427189ec63d22fbca5fc65aea6f2baade783edcd93745a0446382e8"
+          },
+          {
+            "path": "art/exports/connected-v1/stream36-2x.png",
+            "sha256": "15337328d617f59960583b31c3eaae75efe8231121f11a018ae160e4c426ba15"
+          }
+        ],
+        "outputs": [
+          {
+            "dimensions": {
+              "height": 480,
+              "width": 476
+            },
+            "path": "art/review/fog-v1/winter-river-parity1-visible-2x.png",
+            "sha256": "b7c7f36d0d4f1d96e6c1d9f34ac33c4aeae338545be8d7238704be430fbf7dc2"
+          },
+          {
+            "dimensions": {
+              "height": 480,
+              "width": 476
+            },
+            "path": "art/review/fog-v1/winter-river-parity1-hidden-2x.png",
+            "sha256": "f78471b1bda4f5272cb57df83b0bb2514e51437a9c580629dcb2b91cefbc77b1"
+          }
+        ]
+      },
+      {
+        "canvas_world_origin": [
+          0,
+          -40
+        ],
+        "cells": [
+          {
+            "background": "grass_w",
+            "hidden": true,
+            "route": "stream36",
+            "world_origin": [
+              71,
+              40
+            ]
+          },
+          {
+            "background": "grass_w",
+            "hidden": true,
+            "route": "",
+            "world_origin": [
+              142,
+              0
+            ]
+          },
+          {
+            "background": "grass_w",
+            "hidden": true,
+            "route": "",
+            "world_origin": [
+              142,
+              80
+            ]
+          },
+          {
+            "background": "grass_w",
+            "hidden": true,
+            "route": "stream36",
+            "world_origin": [
+              71,
+              120
+            ]
+          },
+          {
+            "background": "grass_w",
+            "hidden": false,
+            "route": "",
+            "world_origin": [
+              0,
+              80
+            ]
+          },
+          {
+            "background": "grass_w",
+            "hidden": false,
+            "route": "",
+            "world_origin": [
+              0,
+              0
+            ]
+          },
+          {
+            "background": "grass_w",
+            "hidden": false,
+            "route": "stream36",
+            "world_origin": [
+              71,
+              -40
+            ]
+          }
+        ],
+        "center_line_parity": 1,
+        "density": 4,
+        "id": "winter-river",
+        "inputs": [
+          {
+            "path": "art/exports/compound-v1/grass_w-4x.png",
+            "sha256": "7ac55b80d4106a18504a9529f04905a4164755363175a15a65948adb52e95cd3"
+          },
+          {
+            "path": "art/exports/fog-v1/unseen-4x.png",
+            "sha256": "5656c05342975e0f4b03c2471697b213a6a46e16b39587683dcd0002c29dd595"
+          },
+          {
+            "path": "art/exports/connected-v1/stream36-4x.png",
+            "sha256": "97b44320be3987104aa7780976b55e72fce915a7f33c85d4f73befad3cd65746"
+          }
+        ],
+        "outputs": [
+          {
+            "dimensions": {
+              "height": 960,
+              "width": 952
+            },
+            "path": "art/review/fog-v1/winter-river-parity1-visible-4x.png",
+            "sha256": "b3d1c979fa3fc90dccc7ac6d980af76bdf128d2036360a7960f8252698b12e97"
+          },
+          {
+            "dimensions": {
+              "height": 960,
+              "width": 952
+            },
+            "path": "art/review/fog-v1/winter-river-parity1-hidden-4x.png",
+            "sha256": "b945afcedc63e7f9e724482f82ede1e246380ce67f78c41f91aec0c1c4d96b9b"
+          }
+        ]
+      }
+    ],
+    "verified_hidden_pixels": 908800
+  },
+  "date": "2026-10-15",
+  "exports": [
+    {
+      "build_output": "tiles/unseen-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/fog-v1/unseen-2x.png",
+      "sha256": "d7ba80462427189ec63d22fbca5fc65aea6f2baade783edcd93745a0446382e8"
+    },
+    {
+      "build_output": "tiles/unseen-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/fog-v1/unseen-4x.png",
+      "sha256": "5656c05342975e0f4b03c2471697b213a6a46e16b39587683dcd0002c29dd595"
+    }
+  ],
+  "generation_recipes": [
+    "art/recipes/fog/distinct-v1/unseen-01.json"
+  ],
+  "geometry": {
+    "height": 80,
+    "neighbors": [
+      [
+        71,
+        -40
+      ],
+      [
+        71,
+        40
+      ],
+      [
+        0,
+        80
+      ],
+      [
+        -71,
+        40
+      ],
+      [
+        -71,
+        -40
+      ],
+      [
+        0,
+        -80
+      ]
+    ],
+    "polygon": [
+      [
+        25,
+        0
+      ],
+      [
+        71,
+        0
+      ],
+      [
+        96,
+        40
+      ],
+      [
+        71,
+        80
+      ],
+      [
+        25,
+        80
+      ],
+      [
+        0,
+        40
+      ]
+    ],
+    "ports": [
+      [
+        83.5,
+        20
+      ],
+      [
+        83.5,
+        60
+      ],
+      [
+        48,
+        80
+      ],
+      [
+        12.5,
+        60
+      ],
+      [
+        12.5,
+        20
+      ],
+      [
+        48,
+        0
+      ]
+    ],
+    "width": 96
+  },
+  "id": "fog-terrain-v1",
+  "manifest": "art/fog-terrain-v1.json",
+  "manifest_sha256": "abcfeecd8cc695379c98254acb063f0f428adb0e1d573930a49560a5cce1ad2f",
+  "materials": {
+    "summer": {
+      "dimensions": {
+        "height": 1145,
+        "width": 1374
+      },
+      "source": "art/source/terrain/distinct-v1/meadow.png",
+      "source_sha256": "8c8935efbbd463e39d49208e42ca0e87b140268a1b11941764dfa7c29c4fff85"
+    },
+    "unseen": {
+      "dimensions": {
+        "height": 1254,
+        "width": 1254
+      },
+      "source": "art/source/fog/distinct-v1/unseen.png",
+      "source_sha256": "4724facc952e2b8cb526deec05cb758270bce24b3bebd8f9a61be3fc465d06f5"
+    },
+    "winter": {
+      "dimensions": {
+        "height": 1145,
+        "width": 1374
+      },
+      "source": "art/source/terrain/distinct-v1/snow-ground.png",
+      "source_sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3"
+    }
+  },
+  "original_image_inputs": [],
+  "ownership": "Final pixel centers use the shared polygon (25,0),(71,0),(96,40),(71,80),(25,80),(0,40). Complementary top-left half-open ownership: cross(edge,point)\u003e0; edge ties include dy\u003c0 or dy==0 \u0026\u0026 dx\u003e0. Owned pixels are alpha 255; outside is zero RGBA. No outline, edge fade or per-scene filtering.",
+  "profile": "fog-v1: fixed opaque never-seen candidate, runtime ID unseen only. Each of unseen/summer/winter independently uses unchanged exportConnectionTiles with its opaque source mapped to grass and nil family/variant; no feature rendering. New 96x80 polygon, four world pixels of unmasked overscan at 4x (416x352); unchanged premultiplied byte-RGB antialiased Lanczos3 to whole unmasked 2x overscan (208x176); crop then final binary ownership at each density. Existing continuous mirror-periodic material sampler with periods (142,80) and average f(x,y), f(x+71,y+40); invariant under all six lattice neighbor shifts, all tiles at common world phase. Six fixed seven-hex patches, decoded exported PNGs and ordinary image.Draw Over only; pixel-aligned 2x/4x. Runtime integration remains open.",
+  "resampling_chain": [
+    "opaque source -\u003e unmasked 4x overscan 416x352: unchanged lattice material sampler",
+    "whole unmasked 4x -\u003e whole unmasked 2x 208x176: unchanged resizeLanczos (Lanczos3)",
+    "crop four world pixels per side, then final polygon ownership independently at 4x 384x320 and 2x 192x160",
+    "decode exported tile PNG bytes -\u003e ordinary image.Draw Over patches, no filtering"
+  ],
+  "review_exports": [
+    {
+      "build_output": "scenes/all-hidden-parity0-2x.png",
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/fog-v1/all-hidden-parity0-2x.png",
+      "sha256": "683e9715e62ff4da7e9348de0854da068d21aa730a21317e0f61a8b4af76344b"
+    },
+    {
+      "build_output": "scenes/all-hidden-parity0-4x.png",
+      "dimensions": {
+        "height": 960,
+        "width": 952
+      },
+      "path": "art/review/fog-v1/all-hidden-parity0-4x.png",
+      "sha256": "d5bca66229684c417d6c9fbc92885109e9dd0f0ba1f0d2e256f9df859b94f022"
+    },
+    {
+      "build_output": "scenes/all-hidden-parity1-2x.png",
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/fog-v1/all-hidden-parity1-2x.png",
+      "sha256": "683e9715e62ff4da7e9348de0854da068d21aa730a21317e0f61a8b4af76344b"
+    },
+    {
+      "build_output": "scenes/all-hidden-parity1-4x.png",
+      "dimensions": {
+        "height": 960,
+        "width": 952
+      },
+      "path": "art/review/fog-v1/all-hidden-parity1-4x.png",
+      "sha256": "d5bca66229684c417d6c9fbc92885109e9dd0f0ba1f0d2e256f9df859b94f022"
+    },
+    {
+      "build_output": "scenes/summer-frontier-parity0-2x.png",
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/fog-v1/summer-frontier-parity0-2x.png",
+      "sha256": "650690e9b7252a7d24e4dfceb240d44334e61274ca4b3bfac2050fdd6d72abcb"
+    },
+    {
+      "build_output": "scenes/summer-frontier-parity0-4x.png",
+      "dimensions": {
+        "height": 960,
+        "width": 952
+      },
+      "path": "art/review/fog-v1/summer-frontier-parity0-4x.png",
+      "sha256": "0e14f31d9c6adbe9b78b4db6ae9840d76b6a0deb89dceb64809aac357a8de56d"
+    },
+    {
+      "build_output": "scenes/summer-frontier-parity1-2x.png",
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/fog-v1/summer-frontier-parity1-2x.png",
+      "sha256": "650690e9b7252a7d24e4dfceb240d44334e61274ca4b3bfac2050fdd6d72abcb"
+    },
+    {
+      "build_output": "scenes/summer-frontier-parity1-4x.png",
+      "dimensions": {
+        "height": 960,
+        "width": 952
+      },
+      "path": "art/review/fog-v1/summer-frontier-parity1-4x.png",
+      "sha256": "0e14f31d9c6adbe9b78b4db6ae9840d76b6a0deb89dceb64809aac357a8de56d"
+    },
+    {
+      "build_output": "scenes/winter-frontier-parity0-2x.png",
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/fog-v1/winter-frontier-parity0-2x.png",
+      "sha256": "9000920b45363b84cfb9adbe4feb941bfa84f04384e72a78a052259b4ffef90b"
+    },
+    {
+      "build_output": "scenes/winter-frontier-parity0-4x.png",
+      "dimensions": {
+        "height": 960,
+        "width": 952
+      },
+      "path": "art/review/fog-v1/winter-frontier-parity0-4x.png",
+      "sha256": "a24bc73db217e6d0682d0b2ddaeb437f5c93f16d8c67c7497d767720589888d5"
+    },
+    {
+      "build_output": "scenes/winter-frontier-parity1-2x.png",
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/fog-v1/winter-frontier-parity1-2x.png",
+      "sha256": "9000920b45363b84cfb9adbe4feb941bfa84f04384e72a78a052259b4ffef90b"
+    },
+    {
+      "build_output": "scenes/winter-frontier-parity1-4x.png",
+      "dimensions": {
+        "height": 960,
+        "width": 952
+      },
+      "path": "art/review/fog-v1/winter-frontier-parity1-4x.png",
+      "sha256": "a24bc73db217e6d0682d0b2ddaeb437f5c93f16d8c67c7497d767720589888d5"
+    }
+  ],
+  "scenes": [
+    {
+      "canvas_origin": [
+        -71,
+        -80
+      ],
+      "case": "all-hidden",
+      "cells": [
+        {
+          "label": "C",
+          "origin": [
+            0,
+            0
+          ],
+          "runtime_id": "unseen",
+          "visibility": "never-seen"
+        },
+        {
+          "label": "NE",
+          "origin": [
+            71,
+            -40
+          ],
+          "runtime_id": "unseen",
+          "visibility": "never-seen"
+        },
+        {
+          "label": "SE",
+          "origin": [
+            71,
+            40
+          ],
+          "runtime_id": "unseen",
+          "visibility": "never-seen"
+        },
+        {
+          "label": "S",
+          "origin": [
+            0,
+            80
+          ],
+          "runtime_id": "unseen",
+          "visibility": "never-seen"
+        },
+        {
+          "label": "SW",
+          "origin": [
+            -71,
+            40
+          ],
+          "runtime_id": "unseen",
+          "visibility": "never-seen"
+        },
+        {
+          "label": "NW",
+          "origin": [
+            -71,
+            -40
+          ],
+          "runtime_id": "unseen",
+          "visibility": "never-seen"
+        },
+        {
+          "label": "N",
+          "origin": [
+            0,
+            -80
+          ],
+          "runtime_id": "unseen",
+          "visibility": "never-seen"
+        }
+      ],
+      "center_line_parity": 0,
+      "center_origin": [
+        0,
+        0
+      ],
+      "id": "all-hidden-parity0",
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 480,
+            "width": 476
+          },
+          "path": "scenes/all-hidden-parity0-2x.png",
+          "sha256": "683e9715e62ff4da7e9348de0854da068d21aa730a21317e0f61a8b4af76344b"
+        },
+        {
+          "dimensions": {
+            "height": 960,
+            "width": 952
+          },
+          "path": "scenes/all-hidden-parity0-4x.png",
+          "sha256": "d5bca66229684c417d6c9fbc92885109e9dd0f0ba1f0d2e256f9df859b94f022"
+        }
+      ],
+      "season": "none"
+    },
+    {
+      "canvas_origin": [
+        0,
+        -40
+      ],
+      "case": "all-hidden",
+      "cells": [
+        {
+          "label": "C",
+          "origin": [
+            71,
+            40
+          ],
+          "runtime_id": "unseen",
+          "visibility": "never-seen"
+        },
+        {
+          "label": "NE",
+          "origin": [
+            142,
+            0
+          ],
+          "runtime_id": "unseen",
+          "visibility": "never-seen"
+        },
+        {
+          "label": "SE",
+          "origin": [
+            142,
+            80
+          ],
+          "runtime_id": "unseen",
+          "visibility": "never-seen"
+        },
+        {
+          "label": "S",
+          "origin": [
+            71,
+            120
+          ],
+          "runtime_id": "unseen",
+          "visibility": "never-seen"
+        },
+        {
+          "label": "SW",
+          "origin": [
+            0,
+            80
+          ],
+          "runtime_id": "unseen",
+          "visibility": "never-seen"
+        },
+        {
+          "label": "NW",
+          "origin": [
+            0,
+            0
+          ],
+          "runtime_id": "unseen",
+          "visibility": "never-seen"
+        },
+        {
+          "label": "N",
+          "origin": [
+            71,
+            -40
+          ],
+          "runtime_id": "unseen",
+          "visibility": "never-seen"
+        }
+      ],
+      "center_line_parity": 1,
+      "center_origin": [
+        71,
+        40
+      ],
+      "id": "all-hidden-parity1",
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 480,
+            "width": 476
+          },
+          "path": "scenes/all-hidden-parity1-2x.png",
+          "sha256": "683e9715e62ff4da7e9348de0854da068d21aa730a21317e0f61a8b4af76344b"
+        },
+        {
+          "dimensions": {
+            "height": 960,
+            "width": 952
+          },
+          "path": "scenes/all-hidden-parity1-4x.png",
+          "sha256": "d5bca66229684c417d6c9fbc92885109e9dd0f0ba1f0d2e256f9df859b94f022"
+        }
+      ],
+      "season": "none"
+    },
+    {
+      "canvas_origin": [
+        -71,
+        -80
+      ],
+      "case": "summer-frontier",
+      "cells": [
+        {
+          "label": "C",
+          "origin": [
+            0,
+            0
+          ],
+          "runtime_id": "unseen",
+          "visibility": "never-seen"
+        },
+        {
+          "label": "NE",
+          "origin": [
+            71,
+            -40
+          ],
+          "runtime_id": "unseen",
+          "visibility": "never-seen"
+        },
+        {
+          "label": "SE",
+          "origin": [
+            71,
+            40
+          ],
+          "runtime_id": "unseen",
+          "visibility": "never-seen"
+        },
+        {
+          "label": "S",
+          "origin": [
+            0,
+            80
+          ],
+          "runtime_id": "unseen",
+          "visibility": "never-seen"
+        },
+        {
+          "label": "SW",
+          "origin": [
+            -71,
+            40
+          ],
+          "runtime_id": "grass",
+          "visibility": "visible"
+        },
+        {
+          "label": "NW",
+          "origin": [
+            -71,
+            -40
+          ],
+          "runtime_id": "grass",
+          "visibility": "visible"
+        },
+        {
+          "label": "N",
+          "origin": [
+            0,
+            -80
+          ],
+          "runtime_id": "grass",
+          "visibility": "visible"
+        }
+      ],
+      "center_line_parity": 0,
+      "center_origin": [
+        0,
+        0
+      ],
+      "id": "summer-frontier-parity0",
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 480,
+            "width": 476
+          },
+          "path": "scenes/summer-frontier-parity0-2x.png",
+          "sha256": "650690e9b7252a7d24e4dfceb240d44334e61274ca4b3bfac2050fdd6d72abcb"
+        },
+        {
+          "dimensions": {
+            "height": 960,
+            "width": 952
+          },
+          "path": "scenes/summer-frontier-parity0-4x.png",
+          "sha256": "0e14f31d9c6adbe9b78b4db6ae9840d76b6a0deb89dceb64809aac357a8de56d"
+        }
+      ],
+      "season": "summer"
+    },
+    {
+      "canvas_origin": [
+        0,
+        -40
+      ],
+      "case": "summer-frontier",
+      "cells": [
+        {
+          "label": "C",
+          "origin": [
+            71,
+            40
+          ],
+          "runtime_id": "unseen",
+          "visibility": "never-seen"
+        },
+        {
+          "label": "NE",
+          "origin": [
+            142,
+            0
+          ],
+          "runtime_id": "unseen",
+          "visibility": "never-seen"
+        },
+        {
+          "label": "SE",
+          "origin": [
+            142,
+            80
+          ],
+          "runtime_id": "unseen",
+          "visibility": "never-seen"
+        },
+        {
+          "label": "S",
+          "origin": [
+            71,
+            120
+          ],
+          "runtime_id": "unseen",
+          "visibility": "never-seen"
+        },
+        {
+          "label": "SW",
+          "origin": [
+            0,
+            80
+          ],
+          "runtime_id": "grass",
+          "visibility": "visible"
+        },
+        {
+          "label": "NW",
+          "origin": [
+            0,
+            0
+          ],
+          "runtime_id": "grass",
+          "visibility": "visible"
+        },
+        {
+          "label": "N",
+          "origin": [
+            71,
+            -40
+          ],
+          "runtime_id": "grass",
+          "visibility": "visible"
+        }
+      ],
+      "center_line_parity": 1,
+      "center_origin": [
+        71,
+        40
+      ],
+      "id": "summer-frontier-parity1",
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 480,
+            "width": 476
+          },
+          "path": "scenes/summer-frontier-parity1-2x.png",
+          "sha256": "650690e9b7252a7d24e4dfceb240d44334e61274ca4b3bfac2050fdd6d72abcb"
+        },
+        {
+          "dimensions": {
+            "height": 960,
+            "width": 952
+          },
+          "path": "scenes/summer-frontier-parity1-4x.png",
+          "sha256": "0e14f31d9c6adbe9b78b4db6ae9840d76b6a0deb89dceb64809aac357a8de56d"
+        }
+      ],
+      "season": "summer"
+    },
+    {
+      "canvas_origin": [
+        -71,
+        -80
+      ],
+      "case": "winter-frontier",
+      "cells": [
+        {
+          "label": "C",
+          "origin": [
+            0,
+            0
+          ],
+          "runtime_id": "unseen",
+          "visibility": "never-seen"
+        },
+        {
+          "label": "NE",
+          "origin": [
+            71,
+            -40
+          ],
+          "runtime_id": "unseen",
+          "visibility": "never-seen"
+        },
+        {
+          "label": "SE",
+          "origin": [
+            71,
+            40
+          ],
+          "runtime_id": "unseen",
+          "visibility": "never-seen"
+        },
+        {
+          "label": "S",
+          "origin": [
+            0,
+            80
+          ],
+          "runtime_id": "unseen",
+          "visibility": "never-seen"
+        },
+        {
+          "label": "SW",
+          "origin": [
+            -71,
+            40
+          ],
+          "runtime_id": "grass_w",
+          "visibility": "visible"
+        },
+        {
+          "label": "NW",
+          "origin": [
+            -71,
+            -40
+          ],
+          "runtime_id": "grass_w",
+          "visibility": "visible"
+        },
+        {
+          "label": "N",
+          "origin": [
+            0,
+            -80
+          ],
+          "runtime_id": "grass_w",
+          "visibility": "visible"
+        }
+      ],
+      "center_line_parity": 0,
+      "center_origin": [
+        0,
+        0
+      ],
+      "id": "winter-frontier-parity0",
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 480,
+            "width": 476
+          },
+          "path": "scenes/winter-frontier-parity0-2x.png",
+          "sha256": "9000920b45363b84cfb9adbe4feb941bfa84f04384e72a78a052259b4ffef90b"
+        },
+        {
+          "dimensions": {
+            "height": 960,
+            "width": 952
+          },
+          "path": "scenes/winter-frontier-parity0-4x.png",
+          "sha256": "a24bc73db217e6d0682d0b2ddaeb437f5c93f16d8c67c7497d767720589888d5"
+        }
+      ],
+      "season": "winter"
+    },
+    {
+      "canvas_origin": [
+        0,
+        -40
+      ],
+      "case": "winter-frontier",
+      "cells": [
+        {
+          "label": "C",
+          "origin": [
+            71,
+            40
+          ],
+          "runtime_id": "unseen",
+          "visibility": "never-seen"
+        },
+        {
+          "label": "NE",
+          "origin": [
+            142,
+            0
+          ],
+          "runtime_id": "unseen",
+          "visibility": "never-seen"
+        },
+        {
+          "label": "SE",
+          "origin": [
+            142,
+            80
+          ],
+          "runtime_id": "unseen",
+          "visibility": "never-seen"
+        },
+        {
+          "label": "S",
+          "origin": [
+            71,
+            120
+          ],
+          "runtime_id": "unseen",
+          "visibility": "never-seen"
+        },
+        {
+          "label": "SW",
+          "origin": [
+            0,
+            80
+          ],
+          "runtime_id": "grass_w",
+          "visibility": "visible"
+        },
+        {
+          "label": "NW",
+          "origin": [
+            0,
+            0
+          ],
+          "runtime_id": "grass_w",
+          "visibility": "visible"
+        },
+        {
+          "label": "N",
+          "origin": [
+            71,
+            -40
+          ],
+          "runtime_id": "grass_w",
+          "visibility": "visible"
+        }
+      ],
+      "center_line_parity": 1,
+      "center_origin": [
+        71,
+        40
+      ],
+      "id": "winter-frontier-parity1",
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 480,
+            "width": 476
+          },
+          "path": "scenes/winter-frontier-parity1-2x.png",
+          "sha256": "9000920b45363b84cfb9adbe4feb941bfa84f04384e72a78a052259b4ffef90b"
+        },
+        {
+          "dimensions": {
+            "height": 960,
+            "width": 952
+          },
+          "path": "scenes/winter-frontier-parity1-4x.png",
+          "sha256": "a24bc73db217e6d0682d0b2ddaeb437f5c93f16d8c67c7497d767720589888d5"
+        }
+      ],
+      "season": "winter"
+    }
+  ],
+  "schema_version": 1,
+  "status": "candidate-built",
+  "tool": "Go tools/art-review -fog"
+}

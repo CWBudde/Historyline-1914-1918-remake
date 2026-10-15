@@ -19,9 +19,9 @@ bindings**. Family geometry, shared phase and scale/quality review remain open;
 forest in particular retains recorded quality caveats.
 
 Summer/winter ground, eight depot pieces, fourteen HQ pieces, four factory pieces,
-nine shores, open water, ten mountain tiles and all 74 enabled infrastructure IDs are `candidate-built`,
+nine shores, open water, ten mountain tiles, opaque fog and all 74 enabled infrastructure IDs are `candidate-built`,
 with `patch-reviewed` seams and explicit component, shared-scene or shore-corner
-geometry. These 122 rows point to their respective build manifests and
+geometry. These 123 rows point to their respective build manifests and
 192×160 / 384×320 polygon exports. Actual saved-PNG patches pass both parities and
 densities; independent [road/stream review](connected-family-batch-01.md) and
 [path review](distinct-terrain-batch-04.md), [rail review](distinct-terrain-batch-05.md)
@@ -42,9 +42,12 @@ and promotes the two standalone bindings from source-only to polygon-built.
 Overhead camera repair passes independent review; repeated radial motifs and
 compact footprint remain readability caveats. The isolated level-3 quarter has
 a proposed standalone display preview; runtime selection is still unimplemented.
+The [fog review](distinct-terrain-batch-13.md) adds the opaque `unseen` candidate,
+all-hidden/frontier fixtures and actual road/river concealment views at both densities.
+Never-seen artwork does not replace the separate remembered greyscale presentation.
 Full maps, transitions, seasonal integration, fractional zoom and runtime/release
-acceptance remain open. Only `unseen` fog still says `needs-image`.
-Total: **133 associated IDs, zero accepted runtime replacements**.
+acceptance remain open. No enabled ID remains `needs-image`; eleven are still source-only.
+Total: **134 associated IDs, zero accepted runtime replacements**.
 
 The `build_manifest` column names the producing manifest; `ports` records the
 declared directions for built overlays. Source candidates are not interchangeable
