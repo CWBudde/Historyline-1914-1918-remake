@@ -11,16 +11,34 @@ import (
 	"image/draw"
 	"io"
 	"io/fs"
+	"math"
 	"os"
 	"path/filepath"
 	"reflect"
 	"sort"
+	"strings"
 	"testing"
 )
 
 // This covers every real exported image, not a surrogate sprite or preview-only render.
 func TestUnitActualPNGBundle(t *testing.T) {
-	path, manifest := unitTestFixture(t)
+	for _, tc := range []struct {
+		family  string
+		classes []string
+		title   string
+	}{
+		{"infantry", []string{"CP_infantry", "EC_infantry"}, "Infantry"},
+		{"lightArtillery", []string{"CP_lArtillery", "EC_lArtillery"}, "Light artillery"},
+	} {
+		t.Run(tc.family, func(t *testing.T) {
+			unitTestActualFamilyPNGBundle(t, tc.family, tc.classes, tc.title)
+		})
+	}
+}
+
+func unitTestActualFamilyPNGBundle(t *testing.T, family string, classes []string, title string) {
+	t.Helper()
+	path, manifest := unitTestFamilyFixture(t, family)
 	out := filepath.Join(t.TempDir(), "new")
 	if err := run([]string{"-unit", path, "-out", out}, io.Discard); err != nil {
 		t.Fatal(err)
@@ -31,6 +49,26 @@ func TestUnitActualPNGBundle(t *testing.T) {
 	}
 	if len(r.Exports) != 124 || len(r.Frames) != 6 || len(r.Variants) != 36 || len(r.Sheets) != 4 || len(r.Scenes) != 24 {
 		t.Fatalf("counts %d/%d/%d/%d/%d", len(r.Exports), len(r.Frames), len(r.Variants), len(r.Sheets), len(r.Scenes))
+	}
+	profilePrefix := "unit-infantry-v1:"
+	if family == "lightArtillery" {
+		profilePrefix = "unit-light-artillery-v1:"
+	}
+	if r.Family != family || !reflect.DeepEqual(r.ClassIDs, classes) || !strings.HasPrefix(r.Profile, profilePrefix) || !strings.Contains(r.Profile, classes[0]+" and "+classes[1]) || !strings.Contains(r.PaletteSelector, "independent of class ID/country") {
+		t.Fatal("family report metadata", r.Family, r.ClassIDs, r.Profile, r.PaletteSelector)
+	}
+	ownerPalettes := map[string][]int{"cp": {104, 142, 83}, "ec": {190, 143, 92}, "neutral": {146, 146, 146}}
+	if !reflect.DeepEqual(r.Palettes, ownerPalettes) {
+		t.Fatal("owner palettes changed")
+	}
+	gallery := string(unitTestRead(t, filepath.Join(out, "index.html")))
+	if !strings.Contains(gallery, "<title>"+title+" family candidate</title>") || !strings.Contains(gallery, "<h1>"+title+" family candidate</h1>") {
+		t.Fatal("gallery family title")
+	}
+	if family == "lightArtillery" {
+		if strings.Contains(strings.ToLower(r.Acceptance+r.Profile+r.PaletteSelector+gallery), "infantry") || !strings.Contains(r.Acceptance, "light artillery") || !strings.Contains(gallery, `alt="Seven light artillery over pinned terrain PNGs"`) {
+			t.Fatal("artillery metadata or gallery describes infantry")
+		}
 	}
 	if !bytes.Equal(manifest, unitTestRead(t, filepath.Join(out, r.ManifestSnapshot))) {
 		t.Fatal("manifest bytes changed")
@@ -54,6 +92,7 @@ func TestUnitActualPNGBundle(t *testing.T) {
 		t.Fatalf("physical files %d PNG %d", files, pngs)
 	}
 	all := map[string]*image.NRGBA{}
+	canonicalOutputs := map[string]packOutput{}
 	for _, p := range r.Exports {
 		b := unitTestRead(t, filepath.Join(out, p.Path))
 		sum := sha256.Sum256(b)
@@ -68,13 +107,17 @@ func TestUnitActualPNGBundle(t *testing.T) {
 			t.Fatal("duplicate output")
 		}
 		all[p.Path] = im
+		canonicalOutputs[p.Path] = p
 	}
 	seen := map[string]bool{}
 	for face, f := range r.Frames {
-		if f.FacingIndex != face || f.FacingLabel != []string{"n", "nw", "sw", "s", "se", "ne"}[face] || f.SourceCell != [4]int{face % 2 * 384, face / 2 * 384, (face%2 + 1) * 384, (face/2 + 1) * 384} || f.SourceAnchor != (connectionPoint{192, 196}) || f.LogicalAnchor != (connectionPoint{48, 49}) || f.TopLeftOffset != (connectionPoint{0, -9}) {
+		if f.FacingIndex != face || f.FacingLabel != []string{"n", "nw", "sw", "s", "se", "ne"}[face] || f.HeadingDegrees != []int{0, 300, 240, 180, 120, 60}[face] || f.SourceCell != [4]int{face % 2 * 384, face / 2 * 384, (face%2 + 1) * 384, (face/2 + 1) * 384} || f.SourceAnchor != (connectionPoint{192, 196}) || f.LogicalAnchor != (connectionPoint{48, 49}) || f.TopLeftOffset != (connectionPoint{0, -9}) || f.Inset != .8 || math.Abs(f.Scale4x-.8) > 1e-14 || f.Offset4x != (connectionPoint{38.4, 39.2}) {
 			t.Fatal("frame registration/order", f)
 		}
 		for _, p := range f.Planes {
+			if p.Base.Path != fmt.Sprintf("planes/%s/%s-base-%dx.png", family, f.FacingLabel, p.Density) || p.Mask.Path != fmt.Sprintf("planes/%s/%s-mask-%dx.png", family, f.FacingLabel, p.Density) {
+				t.Fatal("family plane path")
+			}
 			n, k := all[p.Base.Path], all[p.Mask.Path]
 			if p.Density == 4 {
 				want := color.NRGBA{190, 140, uint8(70 + face*10), 255}
@@ -109,20 +152,29 @@ func TestUnitActualPNGBundle(t *testing.T) {
 			}
 		}
 	}
+	variantKeys := map[string]bool{}
 	for _, v := range r.Variants {
-		if v.Family != "infantry" || !reflect.DeepEqual(v.ClassIDs, []string{"CP_infantry", "EC_infantry"}) {
+		if v.Family != family || !reflect.DeepEqual(v.ClassIDs, classes) || v.FacingLabel != []string{"n", "nw", "sw", "s", "se", "ne"}[v.FacingIndex] {
 			t.Fatal("family bindings")
 		}
+		variantKey := v.FacingLabel + "/" + v.Palette + "/" + v.State
+		if variantKeys[variantKey] || len(v.Outputs) != 2 {
+			t.Fatal("duplicate variant or missing density", variantKey)
+		}
+		variantKeys[variantKey] = true
 		for _, o := range v.Outputs {
 			im := all[o.Path]
 			d := o.Dimensions.Width / 96
+			if o.Path != fmt.Sprintf("sprites/%s/%s/%s-%s-%dx.png", family, v.Palette, v.FacingLabel, v.State, d) || o != canonicalOutputs[o.Path] {
+				t.Fatal("family variant mapping")
+			}
 			var n, k *image.NRGBA
 			for _, p := range r.Frames[v.FacingIndex].Planes {
 				if p.Density == d {
 					n, k = all[p.Base.Path], all[p.Mask.Path]
 				}
 			}
-			palette := r.Palettes[v.Palette]
+			palette := ownerPalettes[v.Palette]
 			for y := range im.Bounds().Dy() {
 				for x := range im.Bounds().Dx() {
 					b, m := n.NRGBAAt(x, y), k.NRGBAAt(x, y)
@@ -154,7 +206,19 @@ func TestUnitActualPNGBundle(t *testing.T) {
 	if len(seen) != 96 {
 		t.Fatalf("profile images %d", len(seen))
 	}
+	for _, face := range []string{"n", "nw", "sw", "s", "se", "ne"} {
+		for _, palette := range []string{"cp", "ec", "neutral"} {
+			for _, state := range []string{"normal", "spent"} {
+				if !variantKeys[face+"/"+palette+"/"+state] {
+					t.Fatal("missing facing/palette/state variant")
+				}
+			}
+		}
+	}
 	for _, s := range r.Sheets {
+		if s.Output.Path != fmt.Sprintf("sheets/%s-%s-%dx.png", family, s.Background, s.Density) {
+			t.Fatal("family sheet path")
+		}
 		im := all[s.Output.Path]
 		d := s.Density
 		if im.Bounds() != image.Rect(0, 0, 576*d, 576*d) {
@@ -167,7 +231,7 @@ func TestUnitActualPNGBundle(t *testing.T) {
 				if col >= 3 {
 					state = "spent"
 				}
-				sprite := all[fmt.Sprintf("sprites/infantry/%s/%s-%s-%dx.png", palette, r.Frames[face].FacingLabel, state, d)]
+				sprite := all[fmt.Sprintf("sprites/%s/%s/%s-%s-%dx.png", family, palette, r.Frames[face].FacingLabel, state, d)]
 				for _, p := range []image.Point{{0, 0}, {96 * d / 2, 96 * d / 2}, {96*d - 1, 96*d - 1}} {
 					want := image.NewNRGBA(image.Rect(0, 0, 1, 1))
 					wx, wy := col*96*d+p.X, face*96*d+p.Y
@@ -187,7 +251,31 @@ func TestUnitActualPNGBundle(t *testing.T) {
 	offsets := [][2]int{{0, 0}, {71, -40}, {71, 40}, {0, 80}, {-71, 40}, {-71, -40}, {0, -80}}
 	labels := []string{"C", "NE", "SE", "S", "SW", "NW", "N"}
 	facings := []int{0, 5, 4, 3, 2, 1, 0}
+	faceLabels := []string{"n", "ne", "se", "s", "sw", "nw", "n"}
+	palettes := []string{"neutral", "ec", "ec", "cp", "ec", "cp", "ec"}
+	classIndices := []int{0, 0, 1, 0, 1, 1, 1}
+	canonicalGrounds := map[string]connectionMaterialReport{}
+	var inputManifest unitManifest
+	if err := json.Unmarshal(manifest, &inputManifest); err != nil {
+		t.Fatal(err)
+	}
+	for _, ground := range []string{"grass", "grass_w", "mud"} {
+		for _, d := range []int{2, 4} {
+			key := fmt.Sprintf("%dx", d)
+			want := connectionMaterialReport{inputManifest.Grounds[ground][key], dimensions{96 * d, 80 * d}, fmt.Sprintf("sources/%s-%s.png", ground, key)}
+			if r.Grounds[ground][key] != want {
+				t.Fatal("canonical ground metadata", ground, key)
+			}
+			canonicalGrounds[ground+key] = want
+		}
+	}
+	sceneKeys := map[string]bool{}
 	for _, s := range r.Scenes {
+		key := fmt.Sprintf("%s-%s-p%d-%dx", s.Ground, s.State, s.Parity, s.Density)
+		if sceneKeys[key] || s.ID != key || s.Output.Path != "scenes/"+key+".png" || s.CanvasSize != (dimensions{238, 256}) {
+			t.Fatal("scene Cartesian key/size", key)
+		}
+		sceneKeys[key] = true
 		d := s.Density
 		cx, cy := 0, 0
 		if s.Parity == 1 {
@@ -209,11 +297,18 @@ func TestUnitActualPNGBundle(t *testing.T) {
 			if c.Terrain != ground {
 				t.Fatal("ground context")
 			}
+			// Derive the expected selection independently before trusting any nested pin
+			// in the ordinary-Over reconstruction below.
+			spriteName := fmt.Sprintf("sprites/%s/%s/%s-%s-%dx.png", family, palettes[i], faceLabels[i], s.State, d)
+			canonicalSprite, exists := canonicalOutputs[spriteName]
+			if !exists || c.SpriteInput != canonicalSprite || c.SpriteInput.Path != spriteName || c.GroundInput != canonicalGrounds[ground+fmt.Sprintf("%dx", d)] || c.Family != family || c.RuntimeID != classes[classIndices[i]] || c.Palette != palettes[i] || c.FacingLabel != faceLabels[i] {
+				t.Fatalf("scene family selection or nested pins %s %s: %+v", s.ID, c.Label, c)
+			}
 			im := unitTestLoad(t, filepath.Join(out, c.GroundInput.RetainedSource))
 			at := image.Pt((ox-cx+71)*d, (oy-cy+89)*d)
 			draw.Draw(want, im.Bounds().Add(at), im, image.Point{}, draw.Over)
 		}
-		if s.Cells[1].RuntimeID != "CP_infantry" || s.Cells[1].Palette != "ec" || s.Cells[5].RuntimeID != "EC_infantry" || s.Cells[5].Palette != "cp" || s.Cells[0].Palette != "neutral" {
+		if s.Cells[1].RuntimeID != classes[0] || s.Cells[1].Palette != "ec" || s.Cells[5].RuntimeID != classes[1] || s.Cells[5].Palette != "cp" || s.Cells[0].Palette != "neutral" {
 			t.Fatal("captured owner independent of class")
 		}
 		cells := append([]unitSceneCell(nil), s.Cells...)
@@ -230,6 +325,17 @@ func TestUnitActualPNGBundle(t *testing.T) {
 		}
 		if !bytes.Equal(want.Pix, all[s.Output.Path].Pix) {
 			t.Fatal("scene is not ordinary Over of pinned actual PNGs", s.ID)
+		}
+	}
+	for _, ground := range []string{"grass", "grass_w", "mud"} {
+		for _, state := range []string{"normal", "spent"} {
+			for parity := range 2 {
+				for _, d := range []int{2, 4} {
+					if !sceneKeys[fmt.Sprintf("%s-%s-p%d-%dx", ground, state, parity, d)] {
+						t.Fatal("missing scene Cartesian combination")
+					}
+				}
+			}
 		}
 	}
 }

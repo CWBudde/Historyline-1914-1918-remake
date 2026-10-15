@@ -15,8 +15,8 @@ import (
 	"path/filepath"
 )
 
-// The only configurable pilot choices are new source pins and three owner colours.
-// Geometry, classes, authored facing order and moved-state semantics are fixed.
+// The only configurable pilot choices are the two explicit families, new source
+// pins and three owner colours. Geometry, facing order and state semantics are fixed.
 type unitManifest struct {
 	SchemaVersion int                                      `json:"schema_version"`
 	Family        string                                   `json:"family"`
@@ -56,8 +56,11 @@ func decodeUnitManifest(b []byte, m *unitManifest) error {
 	if err != nil {
 		return err
 	}
-	if m.SchemaVersion != 1 || m.Family != "infantry" {
-		return errors.New("unit requires schema_version 1 and family infantry")
+	if m.SchemaVersion != 1 {
+		return errors.New("unit requires schema_version 1")
+	}
+	if _, err = lookupUnitFamily(m.Family); err != nil {
+		return err
 	}
 	if _, err = unitObject(root["atlas"], "source", "source_sha256"); err != nil {
 		return err

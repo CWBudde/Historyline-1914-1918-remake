@@ -18,7 +18,8 @@ import (
 	"sort"
 )
 
-const unitProfile = "unit-infantry-v1: six authored square panels row-major N,NW,SW,S,SE,NE; class family lookup CP_infantry and EC_infantry independently selects owner cp/ec/neutral. Source straight RGB V=max(R,G,B); q=max(0,(min(R,B)-G)/max(1,V)); t=clamp((q-.02)/.08); k=t^3*(6*t^2-15*t+10); K=k*V; N_c=(1-k)*source_c+K. Round N/K half up before filtering; alpha-zero clears RGB. Base=(N_R,N_G,N_B,A), tint-energy mask=(K,K,K,A), never binary coverage. Whole-panel pixel-edge affine source anchor=(cell/2,49*cell/96), logical anchor=(48,49), top-left offset=(0,-9), inset=.8. 4x destination=(192,196)+(.8*384/cell)*(source-source_anchor); destination centers map to (d+.5-offset)/scale-.5; offset=(38.4,39.2). Unchanged compound tap budget <=4,000,000 conservative full-support axis taps, checked before allocation. Transparent zero extension, normalized premultiplied float64 separable antialiased Lanczos3, signed lobes retained, positive raw alpha unpremultiply, half-up clamped RGB/A, zero-alpha clear. Independently whole-alpha-aware Lanczos3 reduce base/mask 384->192. At each density tint=halfup(clamp(N_c+K*(palette_c/255-1),0,255)), same alpha. Spent after tint is (R,R,R,A). 2x coloured sprites are composed after plane reduction, not claimed identical to downsampled coloured 4x sprites. Required six-world-pixel zero-RGBA guard, no threshold/background removal, bounding-box crops, mirrors, rotation, per-frame scaling, unit hex clipping or light rotation. Seven-cell fixtures use decoded pinned ground PNGs first and decoded exported sprite PNGs next, stable world y/x order, ordinary image/draw Over."
+const unitProfile = "unit-infantry-v1: six authored square panels row-major N,NW,SW,S,SE,NE; class family lookup CP_infantry and EC_infantry independently selects owner cp/ec/neutral. " + unitAlgorithmProfile
+const unitAlgorithmProfile = "Source straight RGB V=max(R,G,B); q=max(0,(min(R,B)-G)/max(1,V)); t=clamp((q-.02)/.08); k=t^3*(6*t^2-15*t+10); K=k*V; N_c=(1-k)*source_c+K. Round N/K half up before filtering; alpha-zero clears RGB. Base=(N_R,N_G,N_B,A), tint-energy mask=(K,K,K,A), never binary coverage. Whole-panel pixel-edge affine source anchor=(cell/2,49*cell/96), logical anchor=(48,49), top-left offset=(0,-9), inset=.8. 4x destination=(192,196)+(.8*384/cell)*(source-source_anchor); destination centers map to (d+.5-offset)/scale-.5; offset=(38.4,39.2). Unchanged compound tap budget <=4,000,000 conservative full-support axis taps, checked before allocation. Transparent zero extension, normalized premultiplied float64 separable antialiased Lanczos3, signed lobes retained, positive raw alpha unpremultiply, half-up clamped RGB/A, zero-alpha clear. Independently whole-alpha-aware Lanczos3 reduce base/mask 384->192. At each density tint=halfup(clamp(N_c+K*(palette_c/255-1),0,255)), same alpha. Spent after tint is (R,R,R,A). 2x coloured sprites are composed after plane reduction, not claimed identical to downsampled coloured 4x sprites. Required six-world-pixel zero-RGBA guard, no threshold/background removal, bounding-box crops, mirrors, rotation, per-frame scaling, unit hex clipping or light rotation. Seven-cell fixtures use decoded pinned ground PNGs first and decoded exported sprite PNGs next, stable world y/x order, ordinary image/draw Over."
 const unitAcceptance = "PROVISIONAL infantry family candidate; no runtime installation or gameplay/whole-map acceptance. Blender comparison gate OPEN: this authored pilot does not choose a whole-unit-set method. Exact physical boot pivot and native Amiga A-F facing mapping remain unverified. Other units, portraits, zoom and runtime facing integration remain OPEN. Technical key atlas is not finished faction art. Negative-lobed filtering may produce K>min(N); final tint clamps RGB. Small residual cloth hue fringes can remain; no zero-residual-magenta or automated anatomy/count acceptance claim."
 
 var unitFaces = []string{"n", "nw", "sw", "s", "se", "ne"}
@@ -137,12 +138,16 @@ func (b *unitBundle) retain(name string, src compoundSource) connectionMaterialR
 	b.artifacts = append(b.artifacts, connectionArtifact{name, src.Bytes})
 	return connectionMaterialReport{src.Ref, dimensions{src.Image.Bounds().Dx(), src.Image.Bounds().Dy()}, name}
 }
-func unitSpriteName(palette, face, state string, density int) string {
-	return fmt.Sprintf("sprites/infantry/%s/%s-%s-%dx.png", palette, face, state, density)
+func unitSpriteName(family, palette, face, state string, density int) string {
+	return fmt.Sprintf("sprites/%s/%s/%s-%s-%dx.png", family, palette, face, state, density)
 }
 func buildUnitBundle(in unitInputs) (unitBundle, error) {
 	b := unitBundle{pixels: map[string]*image.NRGBA{}, outputs: map[string]packOutput{}}
-	b.report = unitReport{SchemaVersion: 1, ManifestSHA256: in.Hash, ManifestSnapshot: "manifest.json", Geometry: sharedConnectionGeometry(), Family: "infantry", ClassIDs: []string{"CP_infantry", "EC_infantry"}, PaletteSelector: "Owner palette is independent of class ID/country, including captured infantry; no eliteinfantry alias.", Palettes: in.Manifest.Palettes, Grounds: map[string]map[string]connectionMaterialReport{}, Profile: unitProfile, Acceptance: unitAcceptance}
+	family, err := lookupUnitFamily(in.Manifest.Family)
+	if err != nil {
+		return b, err
+	}
+	b.report = unitReport{SchemaVersion: 1, ManifestSHA256: in.Hash, ManifestSnapshot: "manifest.json", Geometry: sharedConnectionGeometry(), Family: family.name, ClassIDs: family.classIDs, PaletteSelector: family.paletteSelector, Palettes: in.Manifest.Palettes, Grounds: map[string]map[string]connectionMaterialReport{}, Profile: family.profile, Acceptance: family.acceptance}
 	b.artifacts = append(b.artifacts, connectionArtifact{"manifest.json", in.Bytes})
 	b.report.Atlas = b.retain("sources/atlas.png", in.Atlas)
 	for _, name := range []string{"grass", "grass_w", "mud"} {
@@ -185,11 +190,11 @@ func buildUnitBundle(in unitInputs) (unitBundle, error) {
 			if _, e = unitGuard(mask, d); e != nil {
 				return b, e
 			}
-			bo, e := b.addPNG(fmt.Sprintf("planes/infantry/%s-base-%dx.png", label, d), base)
+			bo, e := b.addPNG(fmt.Sprintf("planes/%s/%s-base-%dx.png", family.name, label, d), base)
 			if e != nil {
 				return b, e
 			}
-			ko, e := b.addPNG(fmt.Sprintf("planes/infantry/%s-mask-%dx.png", label, d), mask)
+			ko, e := b.addPNG(fmt.Sprintf("planes/%s/%s-mask-%dx.png", family.name, label, d), mask)
 			if e != nil {
 				return b, e
 			}
@@ -198,14 +203,14 @@ func buildUnitBundle(in unitInputs) (unitBundle, error) {
 		b.report.Frames = append(b.report.Frames, frame)
 		for _, palette := range []string{"cp", "ec", "neutral"} {
 			for _, state := range []string{"normal", "spent"} {
-				v := unitVariant{Family: "infantry", ClassIDs: []string{"CP_infantry", "EC_infantry"}, FacingIndex: face, FacingLabel: label, Palette: palette, State: state}
+				v := unitVariant{Family: family.name, ClassIDs: family.classIDs, FacingIndex: face, FacingLabel: label, Palette: palette, State: state}
 				for _, p := range frame.Planes {
 					im := unitTint(b.pixels[p.Base.Path], b.pixels[p.Mask.Path], in.Manifest.Palettes[palette], state == "spent")
 					guard, e := unitGuard(im, p.Density)
 					if e != nil {
 						return b, e
 					}
-					o, e := b.addPNG(unitSpriteName(palette, label, state, p.Density), im)
+					o, e := b.addPNG(unitSpriteName(family.name, palette, label, state, p.Density), im)
 					if e != nil {
 						return b, e
 					}
@@ -234,7 +239,10 @@ func buildUnitBundle(in unitInputs) (unitBundle, error) {
 	}
 	b.artifacts = append(b.artifacts, connectionArtifact{"report.json", append(data, '\n')})
 	var gallery bytes.Buffer
-	t, err := template.New("unit").Parse(unitGallery)
+	t, err := template.New("unit").Funcs(template.FuncMap{
+		"familyTitle":   func() string { return family.title },
+		"familySubject": func() string { return family.subject },
+	}).Parse(unitGallery)
 	if err != nil {
 		return b, err
 	}
@@ -264,12 +272,12 @@ func (b *unitBundle) buildSheets() error {
 					if col >= 3 {
 						state = "spent"
 					}
-					src := b.pixels[unitSpriteName(palette, label, state, d)]
+					src := b.pixels[unitSpriteName(b.report.Family, palette, label, state, d)]
 					at := image.Pt(col*96*d, face*96*d)
 					draw.Draw(im, src.Bounds().Add(at), src, image.Point{}, draw.Over)
 				}
 			}
-			out, err := b.addPNG(fmt.Sprintf("sheets/infantry-%s-%dx.png", bg, d), im)
+			out, err := b.addPNG(fmt.Sprintf("sheets/%s-%s-%dx.png", b.report.Family, bg, d), im)
 			if err != nil {
 				return err
 			}
@@ -301,24 +309,24 @@ func (b *unitBundle) buildScenes(in unitInputs) error {
 						if ground == "mud" && i > 0 {
 							terrain = "grass"
 						}
-						palette, runtimeID := "neutral", "CP_infantry"
+						palette, runtimeID := "neutral", b.report.ClassIDs[0]
 						if i > 0 {
 							palette = "cp"
-							runtimeID = "CP_infantry"
+							runtimeID = b.report.ClassIDs[0]
 							if (i-1)%2 == 1 {
 								palette = "ec"
-								runtimeID = "EC_infantry"
+								runtimeID = b.report.ClassIDs[1]
 							}
 						}
 						if label == "NE" {
-							runtimeID, palette = "CP_infantry", "ec"
+							runtimeID, palette = b.report.ClassIDs[0], "ec"
 						}
 						if label == "NW" {
-							runtimeID, palette = "EC_infantry", "cp"
+							runtimeID, palette = b.report.ClassIDs[1], "cp"
 						}
 						face := facings[i]
-						src := unitSpriteName(palette, unitFaces[face], state, d)
-						c := unitSceneCell{Label: label, Terrain: terrain, TerrainOrigin: origin, GroundInput: b.report.Grounds[terrain][fmt.Sprintf("%dx", d)], UnitTopLeft: origin.add(connectionPoint{0, -9}), RegistrationWorld: origin.add(connectionPoint{48, 40}), RuntimeID: runtimeID, Family: "infantry", Palette: palette, State: state, FacingIndex: face, FacingLabel: unitFaces[face], SpriteInput: b.outputs[src]}
+						src := unitSpriteName(b.report.Family, palette, unitFaces[face], state, d)
+						c := unitSceneCell{Label: label, Terrain: terrain, TerrainOrigin: origin, GroundInput: b.report.Grounds[terrain][fmt.Sprintf("%dx", d)], UnitTopLeft: origin.add(connectionPoint{0, -9}), RegistrationWorld: origin.add(connectionPoint{48, 40}), RuntimeID: runtimeID, Family: b.report.Family, Palette: palette, State: state, FacingIndex: face, FacingLabel: unitFaces[face], SpriteInput: b.outputs[src]}
 						s.Cells = append(s.Cells, c)
 						// Ground pixels come from the same retained bytes, not a procedural substitute.
 						groundPixels, err := unitDecodePNG(in.Grounds[terrain][d].Bytes)
@@ -403,4 +411,4 @@ func runUnit(path, out string, log io.Writer) (resultErr error) {
 	return err
 }
 
-const unitGallery = `<!doctype html><html lang="en"><meta charset="utf-8"><title>Infantry family candidate</title><style>body{background:#252a25;color:#eee;font:16px system-ui;margin:2rem}a{color:#c7e6ad}img{max-width:100%;height:auto}section{display:flex;flex-wrap:wrap;gap:1rem}figure{margin:0}article{border-top:1px solid #888;padding:1rem 0}</style><h1>Infantry family candidate</h1><p>{{.Acceptance}}</p><p><a href="report.json">Registration, plane algorithm and every PNG pin</a> · <a href="manifest.json">Immutable input manifest</a></p><p>Authored facings: N, NW, SW, S, SE, NE. Columns: cp normal, ec normal, neutral normal, cp spent, ec spent, neutral spent. Continuous image rendering.</p>{{range .Sheets}}<article><h2>{{.Background}} · {{.Density}}x</h2><a href="{{.Output.Path}}"><img src="{{.Output.Path}}" alt="Six authored facing rows and six owner/state columns"></a></article>{{end}}<h2>Actual PNG Over terrain fixtures</h2>{{range .Scenes}}<article><h3>{{.ID}}</h3><p>{{.Purpose}}</p><a href="{{.Output.Path}}"><img src="{{.Output.Path}}" alt="Seven infantry over pinned terrain PNGs"></a></article>{{end}}<h2>Technical controls and source provenance</h2><p>The key atlas is a technical control, not finished faction art.</p><a href="{{.Atlas.RetainedSource}}"><img src="{{.Atlas.RetainedSource}}" alt="Technical magenta-key authored atlas"></a><p>Source SHA256: {{.Atlas.SourceSHA256}}</p>{{range $id,$densities:=.Grounds}}{{range $density,$src:=$densities}}<p>{{$id}} {{$density}} · <a href="{{$src.RetainedSource}}">Ground source</a> · {{$src.SourceSHA256}}</p>{{end}}{{end}}<details><summary>Fixed profile and limitations</summary><p>{{.Profile}}</p></details></html>`
+const unitGallery = `<!doctype html><html lang="en"><meta charset="utf-8"><title>{{familyTitle}} family candidate</title><style>body{background:#252a25;color:#eee;font:16px system-ui;margin:2rem}a{color:#c7e6ad}img{max-width:100%;height:auto}section{display:flex;flex-wrap:wrap;gap:1rem}figure{margin:0}article{border-top:1px solid #888;padding:1rem 0}</style><h1>{{familyTitle}} family candidate</h1><p>{{.Acceptance}}</p><p><a href="report.json">Registration, plane algorithm and every PNG pin</a> · <a href="manifest.json">Immutable input manifest</a></p><p>Authored facings: N, NW, SW, S, SE, NE. Columns: cp normal, ec normal, neutral normal, cp spent, ec spent, neutral spent. Continuous image rendering.</p>{{range .Sheets}}<article><h2>{{.Background}} · {{.Density}}x</h2><a href="{{.Output.Path}}"><img src="{{.Output.Path}}" alt="Six authored facing rows and six owner/state columns"></a></article>{{end}}<h2>Actual PNG Over terrain fixtures</h2>{{range .Scenes}}<article><h3>{{.ID}}</h3><p>{{.Purpose}}</p><a href="{{.Output.Path}}"><img src="{{.Output.Path}}" alt="Seven {{familySubject}} over pinned terrain PNGs"></a></article>{{end}}<h2>Technical controls and source provenance</h2><p>The key atlas is a technical control, not finished faction art.</p><a href="{{.Atlas.RetainedSource}}"><img src="{{.Atlas.RetainedSource}}" alt="Technical magenta-key authored atlas"></a><p>Source SHA256: {{.Atlas.SourceSHA256}}</p>{{range $id,$densities:=.Grounds}}{{range $density,$src:=$densities}}<p>{{$id}} {{$density}} · <a href="{{$src.RetainedSource}}">Ground source</a> · {{$src.SourceSHA256}}</p>{{end}}{{end}}<details><summary>Fixed profile and limitations</summary><p>{{.Profile}}</p></details></html>`

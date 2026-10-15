@@ -46,6 +46,10 @@ func unitTestOwned(x, y, d int) bool {
 }
 func unitTestFixture(t *testing.T) (string, []byte) {
 	t.Helper()
+	return unitTestFamilyFixture(t, "infantry")
+}
+func unitTestFamilyFixture(t *testing.T, family string) (string, []byte) {
+	t.Helper()
 	dir := t.TempDir()
 	atlas := image.NewNRGBA(image.Rect(0, 0, 768, 1152))
 	for face := range 6 {
@@ -85,7 +89,7 @@ func unitTestFixture(t *testing.T) (string, []byte) {
 			grounds[id][fmt.Sprintf("%dx", d)] = unitTestPNG(t, filepath.Join(dir, fmt.Sprintf("%s-%dx.png", id, d)), im)
 		}
 	}
-	m := map[string]any{"schema_version": 1, "family": "infantry", "atlas": atlasRef, "palettes": map[string]any{"cp": []int{104, 142, 83}, "ec": []int{190, 143, 92}, "neutral": []int{146, 146, 146}}, "grounds": grounds}
+	m := map[string]any{"schema_version": 1, "family": family, "atlas": atlasRef, "palettes": map[string]any{"cp": []int{104, 142, 83}, "ec": []int{190, 143, 92}, "neutral": []int{146, 146, 146}}, "grounds": grounds}
 	b, err := json.Marshal(m)
 	if err != nil {
 		t.Fatal(err)
@@ -93,6 +97,29 @@ func unitTestFixture(t *testing.T) (string, []byte) {
 	path := filepath.Join(dir, "manifest.json")
 	unitTestWrite(t, path, b)
 	return path, b
+}
+
+// Only the two bounded families may select the shared rendering pipeline.
+func TestUnitFamilySelection(t *testing.T) {
+	path, valid := unitTestFixture(t)
+	for _, family := range []string{"infantry", "lightArtillery", "lightartillery", "LightArtillery", "artillery", "lArtillery", "mediumArtillery", "heavyArtillery", "CP_lArtillery", "eliteinfantry", ""} {
+		t.Run(family, func(t *testing.T) {
+			b := bytes.Replace(valid, []byte(`"family":"infantry"`), []byte(fmt.Sprintf(`"family":%q`, family)), 1)
+			unitTestWrite(t, path, b)
+			in, err := loadUnitInputs(path)
+			wantValid := family == "infantry" || family == "lightArtillery"
+			if (err == nil) != wantValid {
+				t.Fatalf("family %q: err=%v, want valid=%v", family, err, wantValid)
+			}
+			if wantValid && in.Manifest.Family != family {
+				t.Fatal("family changed during loading")
+			}
+		})
+	}
+	unitTestWrite(t, path, bytes.Replace(valid, []byte(`"family":"infantry"`), []byte(`"family":null`), 1))
+	if _, err := loadUnitInputs(path); err == nil {
+		t.Fatal("accepted null family")
+	}
 }
 
 // Case aliases, silent array truncation, numeric coercion, and duplicate keys must never alter the profile.
