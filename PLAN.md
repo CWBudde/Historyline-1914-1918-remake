@@ -942,6 +942,16 @@ below record work already delivered, plus G0.7's new neighborhood comparisons.
             remain unchanged. See `docs/art/distinct-terrain-batch-07.md`. Every enabled
             infrastructure ID now has new provisional images; 15 source + 75 built candidates,
             44 backgrounds needing images, zero accepted replacements. Final `just ci` passes.
+      - [x] Deliver shared summer/winter depot scenes and all eight enabled pieces, plus
+            polygon-built winter ground. (2026-10-15) — batch 08 retains two new masters,
+            exact generation-input provenance, 18 runtime and 12 review PNGs at 2×/4×.
+            Coordinate-constrained winter02 repairs seasonal layout drift; independent source
+            and final-size art review pass provisionally. Controller verified four full-scene
+            and eight parity PNG assemblies, 908,800 owned opaque pixels, 320,000 clear outside
+            pixels and 51,584 exact quiet-boundary samples. All 47 repeat files match; all 638
+            earlier family artifacts remain unchanged. See `docs/art/distinct-terrain-batch-08.md`.
+            Ledger: 14 source + 84 built = 98 associated IDs, 36 backgrounds needing images,
+            zero accepted replacements. Final `just ci` passes. HQ/factory artwork remains open.
       - [ ] Complete missing subjects, seasonal images, connected variants and runtime/native
             mappings; validate assembled seams. Twenty-seven sources do not close a family.
 - [ ] **Gate — Approve the complete pilot and choose production density/tools.** Compare all
@@ -983,6 +993,11 @@ in a distinct continuous style; final quality/seam and runtime acceptance remain
             routes, fitted crossing panels/continuous rails, typed contact metadata and decoded
             PNG scenes. Verify exact approaches, order, source snapshots and repeat builds;
             preserve earlier connected output bytes. General combinations and runtime use remain open.
+      - [x] Add bounded `-compound` whole-scene affine Lanczos export with fixed depot/HQ/factory
+            layouts, outer-only guard and opaque-art preflight, exported-ground phase assembly,
+            final ownership crops and decoded PNG parity surrounds. Pin source snapshots and
+            profiles, cap axis tap work before allocation, test every cell ID/origin and preserve
+            earlier exporter outputs. New HQ/factory masters and runtime integration remain open.
 - [ ] Implement proposed commands `go run ./cmd/hlasset validate`, `build`, and `review`, all
       consuming `art/manifest.json`. Validation/build return nonzero on invalid inputs; review
       writes native/2×/4× sheets and actionable ID/direction diagnostics to `build/art-review/`.
@@ -1071,15 +1086,17 @@ private originals/manual extracts in ignored `original/`, and reference gallerie
 outputs and research in ignored `build/`. Authored masters, recipes and pilot exports stay in
 tracked `art/`; commit verified graphics batches directly to `main`, per the user's preference.
 
-**Immediate next graphics slice:** author/slice five shared building scenes for the 26 compound
-IDs using `docs/art/compound-building-geometry.md`, starting with a shared-scene exporter
-and depot pair. Summer depot02 fits its union; the new private winter01 also fits with a
-uniform inset but independent review found seasonal layout drift, so repair it before promotion.
+**Immediate next graphics slice:** author/slice the remaining three building scenes for 18 HQ/factory
+IDs using `docs/art/compound-building-geometry.md`. The shared exporter and eight depot pieces
+are delivered; new winter02 fixes the rejected winter01 layout drift. A private new HQ study
+and numeric guide prepare the next pair, but still need framing/seasonal/art review before promotion.
 Continue shores, mountain pieces and
 seasonal images; the hamlet pair and winter mountain are delivered source candidates.
-The source pack currently contains 27 candidates with 54 material exports, plus all 74 enabled
-infrastructure variants and a grass base at both densities. The runtime ledger has 90 associated IDs
-(15 source candidates, 75 built candidates), 44 backgrounds needing images and zero accepted replacements.
+The terrain source pack contains 27 candidates with 54 material exports, plus all 74 enabled
+infrastructure variants and a grass base at both densities. Two additional compound masters
+build the depot pair, and shared winter ground is now polygon-built. The runtime ledger has
+98 associated IDs (14 source candidates, 84 built candidates), 36 backgrounds needing images
+and zero accepted replacements.
 Pixel-aligned 2×/4× patches pass; full maps, other zooms and runtime integration remain open. Use the
 134-row runtime ledger as the enabled-ID checklist without dropping the separate 350 native
 resource mapping/coverage obligation. Establish shared forest scale and protected

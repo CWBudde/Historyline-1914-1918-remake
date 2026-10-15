@@ -92,6 +92,7 @@ func run(args []string, log io.Writer) error {
 	neighborhoodPath := fs.String("neighborhood", "", "JSON recipe for original Amiga seven-cell neighborhood review")
 	mixedPath := fs.String("mixed", "", "bounded new-material bridge/crossing manifest; requires fresh -out")
 	connectedPath := fs.String("connected", "", "new-material connected road/stream/path/rail/trench JSON manifest; requires fresh -out")
+	compoundPath := fs.String("compound", "", "bounded compound scene manifest; requires fresh -out")
 	packPath := fs.String("pack", "", "candidate-only JSON pack manifest; fixed Lanczos3 rectangle exports, requires fresh -out")
 	candidatePath := fs.String("candidate", "", "candidate PNG, at least 4x reference dimensions and aspect within 1%")
 	resampling := fs.String("resampling", "area", "single-sprite reduction: area, bilinear (antialiased tent), or lanczos (antialiased Lanczos3); excluded by -neighborhood")
@@ -101,6 +102,24 @@ func run(args []string, log io.Writer) error {
 			return nil
 		}
 		return err
+	}
+	compoundProvided := false
+	fs.Visit(func(f *flag.Flag) {
+		if f.Name == "compound" {
+			compoundProvided = true
+		}
+	})
+	if compoundProvided {
+		conflict := false
+		fs.Visit(func(f *flag.Flag) {
+			if f.Name != "compound" && f.Name != "out" {
+				conflict = true
+			}
+		})
+		if conflict || *compoundPath == "" || *out == "" || fs.NArg() != 0 {
+			return errors.New("-compound requires -out and excludes all other flags and positional arguments")
+		}
+		return runCompound(*compoundPath, *out, log)
 	}
 	mixedProvided := false
 	fs.Visit(func(f *flag.Flag) {

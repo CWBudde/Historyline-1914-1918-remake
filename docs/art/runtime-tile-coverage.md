@@ -11,23 +11,26 @@ confirm every ledger ID/path and the campaign-use flags.
 
 ## Status
 
-Fifteen backgrounds have a `candidate-source` association:
-`grass_w`, `forest`, `forest_w`, `water`, `waterStones`, `mud`, `stone`,
+Fourteen backgrounds have a `candidate-source` association:
+`forest`, `forest_w`, `water`, `waterStones`, `mud`, `stone`,
 `hills`, `mountain`, `mountain_w`, `house`, `house_w`, `rough_w`, `stoney_w`, `shelled_w`.
 These point to generated art and 2×/4× rectangle exports, **not approved runtime
 bindings**. Family geometry, shared phase and scale/quality review remain open;
 forest and mountain in particular retain recorded quality caveats.
 
-Grass plus all 74 enabled infrastructure IDs are `candidate-built`, with `patch-reviewed`
-seams and explicit component/traversal semantics. These 75 rows point to their respective build manifests and
+Summer/winter ground, eight depot pieces and all 74 enabled infrastructure IDs are
+`candidate-built`, with `patch-reviewed` seams and explicit component/traversal or
+shared-scene geometry. These 84 rows point to their respective build manifests and
 192×160 / 384×320 polygon exports. Actual saved-PNG patches pass both parities and
 densities; independent [road/stream review](connected-family-batch-01.md) and
 [path review](distinct-terrain-batch-04.md), [rail review](distinct-terrain-batch-05.md)
 and [trench review](distinct-terrain-batch-06.md), plus
-[bridge/crossing review](distinct-terrain-batch-07.md), provisionally pass.
+[bridge/crossing review](distinct-terrain-batch-07.md), provisionally pass. The
+[depot review](distinct-terrain-batch-08.md) verifies complete summer/winter scenes,
+actual cropped PNG assembly and surrounding ground at both densities/parities.
 Full maps, transitions, seasonal integration, fractional zoom and runtime/release
-acceptance remain open. The other 44 rows say `needs-image`; all are backgrounds.
-Total: **90 associated IDs, zero accepted runtime replacements**.
+acceptance remain open. The other 36 rows say `needs-image`; all are backgrounds.
+Total: **98 associated IDs, zero accepted runtime replacements**.
 
 The `build_manifest` column names the producing manifest; `ports` records the
 declared directions for built overlays. Source candidates are not interchangeable
@@ -43,6 +46,9 @@ Mixed rows use typed port strings: `path:2|5`, or `road:1|4;rail:3|6`, rather
 than merging two different routes into one junction. Finite road-bridge structures
 use `traversal:1|4;overlay:none`: they have no painted boundary contacts and require
 a separate upper route. Runtime IDs retain `rBridge` case; their export IDs are lowercase.
+Depot `cmpN/W/E/S` and winter counterparts are cropped from one new master per
+season, with fixed origins and a quiet shared-ground boundary. `grass_w` is now a
+polygon-built winter ground candidate instead of the earlier rectangle association.
 
 The table preserves all required loadable IDs, including editor-only entries.
 The three supplied missions place 58 background and 70 infrastructure IDs.

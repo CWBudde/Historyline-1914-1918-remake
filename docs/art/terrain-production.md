@@ -27,10 +27,10 @@ hills 02 and mountain 02. Mountain remains provisional pending camera/material
 assessment in an assembled terrain/unit preview.
 
 [runtime-tile-coverage.csv](runtime-tile-coverage.csv) explicitly lists all 134 enabled
-remake tile IDs (60 backgrounds, 74 infrastructure). Fifteen backgrounds have candidate
-source associations; grass and all 74 enabled infrastructure IDs have built candidates:
+remake tile IDs (60 backgrounds, 74 infrastructure). Fourteen backgrounds have candidate
+source associations; both ground seasons, eight depot pieces and all 74 enabled infrastructure IDs have built candidates:
 16 roads / 11 streams / 14 paths / 12 rails / 12 trenches / five bridges / four crossings.
-That is 90 associated IDs, 44 still needing images, and zero accepted runtime replacements.
+That is 98 associated IDs, 36 still needing images, and zero accepted runtime replacements.
 Wet mud has its own reviewed source. Opaque road/river studies remain separate from the
 new transparent infrastructure overlays.
 
@@ -120,6 +120,16 @@ and steel gauge with fitted timber infill. [Batch 07](distinct-terrain-batch-07.
 records the construction-detail repair, layer-order fixtures and 141-file bundle.
 Every enabled infrastructure ID now has provisional 2×/4× artwork; this does not
 close seasonal/full-map quality, runtime acceptance or native-resource mapping.
+
+`go run ./tools/art-review -compound art/compound-depot-v1.json -out <fresh-directory>`
+exports the two new depot scene masters into eight background pieces, plus shared
+winter ground. The terrain source pack remains 27 masters / 54 rectangle exports;
+these two transparent compound masters have their own manifest and provenance.
+The whole artwork is sampled with uniform affine Lanczos3, then sliced after global
+composition over actual exported ground cells. Fixed outer guard and explicit
+crop origins preserve internal roofs and perimeter phase. [Batch 08](distinct-terrain-batch-08.md)
+records independent scene/parity assembly, exact quiet-boundary samples and the
+resource-budget repair. Browse the [compound gallery](compound-building-review.html).
 
 Legacy `-reference/-candidate/-resampling lanczos` comparisons remain available
 for historical research; their 90/100 fidelity gate does not govern the new pack.

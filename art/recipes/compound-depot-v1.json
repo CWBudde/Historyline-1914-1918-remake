@@ -1,0 +1,540 @@
+{
+  "acceptance": "Provisional new depot pair and masked winter-ground candidates. Independent source/final-size art review passes. Whole-scene actual-PNG and surround-parity checks pass at2x/4x. Fullmap/nativecoverage/materialquality/runtimeintegration/zoom/releaseacceptance remainopen.",
+  "date": "2026-10-15",
+  "exports": [
+    {
+      "build_output": "tiles/cmpN-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/compound-v1/cmpN-2x.png",
+      "sha256": "41e77eb9b4b8a84cc9f9a00f181493afa9d3e29042ffc390e5b0373349f98e98"
+    },
+    {
+      "build_output": "tiles/cmpN-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/compound-v1/cmpN-4x.png",
+      "sha256": "7c79b9de1e14062834dbb8cf068ec4e3cf36681b29c7961ae6372c3a91aa30dc"
+    },
+    {
+      "build_output": "tiles/cmpW-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/compound-v1/cmpW-2x.png",
+      "sha256": "de27e4352fa793e8df460c27289110d970b99a731a72118a1455373ea394d991"
+    },
+    {
+      "build_output": "tiles/cmpW-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/compound-v1/cmpW-4x.png",
+      "sha256": "f7788330df42a39f89c00c29604995c6cee84b27892abb0179acb4ae6d0c3329"
+    },
+    {
+      "build_output": "tiles/cmpE-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/compound-v1/cmpE-2x.png",
+      "sha256": "f1661203e8de725163fbc56bea2bc6b5f72cdba52655a31a90af273069deefa1"
+    },
+    {
+      "build_output": "tiles/cmpE-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/compound-v1/cmpE-4x.png",
+      "sha256": "6b849bed3f6f004ec6401631826013766f0421c96a755debb4c691ad98b1d93f"
+    },
+    {
+      "build_output": "tiles/cmpS-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/compound-v1/cmpS-2x.png",
+      "sha256": "bbb2d37e8710b9d7d3442a3a890c5ba108c158dc36933abac213461733e84d39"
+    },
+    {
+      "build_output": "tiles/cmpS-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/compound-v1/cmpS-4x.png",
+      "sha256": "95f2b3bd7a598ea2e5172baff7ff9da6ceb72b0767fd93875379c625336a61a2"
+    },
+    {
+      "build_output": "tiles/cmpN_w-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/compound-v1/cmpN_w-2x.png",
+      "sha256": "a4346c8016c75eb35a37c00740ac6b89de6ca5e636e4dfa095e4091daa61f923"
+    },
+    {
+      "build_output": "tiles/cmpN_w-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/compound-v1/cmpN_w-4x.png",
+      "sha256": "7bd8f44929b79fd50e44160ecb19b68682c22603d70bdf22eb49a94beff41352"
+    },
+    {
+      "build_output": "tiles/cmpW_w-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/compound-v1/cmpW_w-2x.png",
+      "sha256": "07840de14879493465c3f01db8b2ecbf59adefc5d2e3f0aba2ce71c07b5ac3b7"
+    },
+    {
+      "build_output": "tiles/cmpW_w-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/compound-v1/cmpW_w-4x.png",
+      "sha256": "ec5d308cf014d24493c336278fcd67a9da86c6bd57465205be09861dfb396fa3"
+    },
+    {
+      "build_output": "tiles/cmpE_w-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/compound-v1/cmpE_w-2x.png",
+      "sha256": "a1f29cdb70b20674c176fe7cceb36b9b7e2ec877467cff6afebbfca3c066d9d6"
+    },
+    {
+      "build_output": "tiles/cmpE_w-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/compound-v1/cmpE_w-4x.png",
+      "sha256": "d609c21c7be875b5634d48f53aae720a13d4c3b721d351004a756058211dd5a7"
+    },
+    {
+      "build_output": "tiles/cmpS_w-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/compound-v1/cmpS_w-2x.png",
+      "sha256": "ade06f6aa49bff27a55a6f171649845b9acca90c4cdd315e291ff52c5d7daef2"
+    },
+    {
+      "build_output": "tiles/cmpS_w-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/compound-v1/cmpS_w-4x.png",
+      "sha256": "e2ef2467c8605f4ab1d6cb20c76f33772f15660849375efb63b310cd93398459"
+    },
+    {
+      "build_output": "ground/grass_w-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/compound-v1/grass_w-2x.png",
+      "sha256": "d2db0b7ce97f3145abcd651b0042654433dd7f36875de7b88438688c0716d947"
+    },
+    {
+      "build_output": "ground/grass_w-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/compound-v1/grass_w-4x.png",
+      "sha256": "7ac55b80d4106a18504a9529f04905a4164755363175a15a65948adb52e95cd3"
+    }
+  ],
+  "generation_recipes": [
+    "art/recipes/compound/distinct-v1/depot-summer-01.json",
+    "art/recipes/compound/distinct-v1/depot-layout-guide.json",
+    "art/recipes/compound/distinct-v1/depot-summer-02.json",
+    "art/recipes/compound/distinct-v1/depot-winter-02.json"
+  ],
+  "geometry": {
+    "height": 80,
+    "neighbors": [
+      [
+        71,
+        -40
+      ],
+      [
+        71,
+        40
+      ],
+      [
+        0,
+        80
+      ],
+      [
+        -71,
+        40
+      ],
+      [
+        -71,
+        -40
+      ],
+      [
+        0,
+        -80
+      ]
+    ],
+    "polygon": [
+      [
+        25,
+        0
+      ],
+      [
+        71,
+        0
+      ],
+      [
+        96,
+        40
+      ],
+      [
+        71,
+        80
+      ],
+      [
+        25,
+        80
+      ],
+      [
+        0,
+        40
+      ]
+    ],
+    "ports": [
+      [
+        83.5,
+        20
+      ],
+      [
+        83.5,
+        60
+      ],
+      [
+        48,
+        80
+      ],
+      [
+        12.5,
+        60
+      ],
+      [
+        12.5,
+        20
+      ],
+      [
+        48,
+        0
+      ]
+    ],
+    "width": 96
+  },
+  "grounds": {
+    "summer": {
+      "dimensions": {
+        "height": 1145,
+        "width": 1374
+      },
+      "source": "art/source/terrain/distinct-v1/meadow.png",
+      "source_sha256": "8c8935efbbd463e39d49208e42ca0e87b140268a1b11941764dfa7c29c4fff85"
+    },
+    "winter": {
+      "dimensions": {
+        "height": 1145,
+        "width": 1374
+      },
+      "source": "art/source/terrain/distinct-v1/snow-ground.png",
+      "source_sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3"
+    }
+  },
+  "id": "compound-depot-v1",
+  "manifest": "art/compound-depot-v1.json",
+  "manifest_sha256": "eb8ecadbd8fea6ccbba8efd7f47867dfa33a47b1a487e0941af83c11f130c2f8",
+  "original_image_inputs": [],
+  "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; reject any sampled alpha \u003e=250 at signed distance \u003c=8 world pixels before guard; alpha zero through 4 world pixels then smoothstep 4..8. Guard full unmasked 4x artwork, then existing resizeLanczos to whole-scene 2x. Ground independently exported by exportConnectionTiles with fixed geometry and grass only, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim.",
+  "review_exports": [
+    {
+      "build_output": "depot-summer-scene-2x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 476
+      },
+      "path": "art/review/compound-v1/depot-summer-scene-2x.png",
+      "sha256": "90ed8c68ab3dc98e55d2a6ed72cfde7e2f214ccb1d439826cf552d849848c68d"
+    },
+    {
+      "build_output": "depot-summer-patch-parity0-2x.png",
+      "dimensions": {
+        "height": 640,
+        "width": 760
+      },
+      "path": "art/review/compound-v1/depot-summer-patch-parity0-2x.png",
+      "sha256": "c5cb877bdd06b1b309333ab3ee8b1ec0d700a443d4bd2c5d237a325c82a3b6fa"
+    },
+    {
+      "build_output": "depot-summer-patch-parity1-2x.png",
+      "dimensions": {
+        "height": 640,
+        "width": 760
+      },
+      "path": "art/review/compound-v1/depot-summer-patch-parity1-2x.png",
+      "sha256": "c5cb877bdd06b1b309333ab3ee8b1ec0d700a443d4bd2c5d237a325c82a3b6fa"
+    },
+    {
+      "build_output": "depot-summer-scene-4x.png",
+      "dimensions": {
+        "height": 640,
+        "width": 952
+      },
+      "path": "art/review/compound-v1/depot-summer-scene-4x.png",
+      "sha256": "888d105ace7046680eb060fe6734d476078ad38af00da4f4616f644fb0d254d8"
+    },
+    {
+      "build_output": "depot-summer-patch-parity0-4x.png",
+      "dimensions": {
+        "height": 1280,
+        "width": 1520
+      },
+      "path": "art/review/compound-v1/depot-summer-patch-parity0-4x.png",
+      "sha256": "987e0f3254c158ba22241d03e451bc84d4762ef3d0ddf329b17b870561c0c09f"
+    },
+    {
+      "build_output": "depot-summer-patch-parity1-4x.png",
+      "dimensions": {
+        "height": 1280,
+        "width": 1520
+      },
+      "path": "art/review/compound-v1/depot-summer-patch-parity1-4x.png",
+      "sha256": "987e0f3254c158ba22241d03e451bc84d4762ef3d0ddf329b17b870561c0c09f"
+    },
+    {
+      "build_output": "depot-winter-scene-2x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 476
+      },
+      "path": "art/review/compound-v1/depot-winter-scene-2x.png",
+      "sha256": "6ca0708047ee1921d0147426bd186e1e27e20da0f711ea39b3278175bc158478"
+    },
+    {
+      "build_output": "depot-winter-patch-parity0-2x.png",
+      "dimensions": {
+        "height": 640,
+        "width": 760
+      },
+      "path": "art/review/compound-v1/depot-winter-patch-parity0-2x.png",
+      "sha256": "99217fa954d715f49940b382777cefd80ae1f0d038e31f80f7bb92edcf74e5d2"
+    },
+    {
+      "build_output": "depot-winter-patch-parity1-2x.png",
+      "dimensions": {
+        "height": 640,
+        "width": 760
+      },
+      "path": "art/review/compound-v1/depot-winter-patch-parity1-2x.png",
+      "sha256": "99217fa954d715f49940b382777cefd80ae1f0d038e31f80f7bb92edcf74e5d2"
+    },
+    {
+      "build_output": "depot-winter-scene-4x.png",
+      "dimensions": {
+        "height": 640,
+        "width": 952
+      },
+      "path": "art/review/compound-v1/depot-winter-scene-4x.png",
+      "sha256": "be3d69f465a8076e3b4f718d5b8053ea411490bc75bfbcbcd932d94a9a05cc5d"
+    },
+    {
+      "build_output": "depot-winter-patch-parity0-4x.png",
+      "dimensions": {
+        "height": 1280,
+        "width": 1520
+      },
+      "path": "art/review/compound-v1/depot-winter-patch-parity0-4x.png",
+      "sha256": "fe64f7d0cfa0126639a3bdd86b94b3e58966a7aa43d614cb795ddead2d36199f"
+    },
+    {
+      "build_output": "depot-winter-patch-parity1-4x.png",
+      "dimensions": {
+        "height": 1280,
+        "width": 1520
+      },
+      "path": "art/review/compound-v1/depot-winter-patch-parity1-4x.png",
+      "sha256": "fe64f7d0cfa0126639a3bdd86b94b3e58966a7aa43d614cb795ddead2d36199f"
+    }
+  ],
+  "scenes": [
+    {
+      "entry_cell": "N",
+      "generation_recipe": "art/recipes/compound/distinct-v1/depot-summer-02.json",
+      "guard": {
+        "boundary_alpha_mass": 50,
+        "boundary_pixels": 50,
+        "clipped_alpha_mass": 50,
+        "clipped_pixels": 50,
+        "guarded_opaque_count": 0,
+        "max_boundary_alpha": 1,
+        "minimum_opaque_distance_world": 9.625
+      },
+      "height": 160,
+      "id": "depot-summer",
+      "input_artwork": {
+        "dimensions": {
+          "height": 1024,
+          "width": 1536
+        },
+        "source": "art/source/compound/distinct-v1/depot-summer.png",
+        "source_sha256": "e1f78ec16fc736ae4bc0974b0a7ccc56b2d672ef98584def69572c410ce3e91a"
+      },
+      "inset": 0.9,
+      "layout": "depot",
+      "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; reject any sampled alpha \u003e=250 at signed distance \u003c=8 world pixels before guard; alpha zero through 4 world pixels then smoothstep 4..8. Guard full unmasked 4x artwork, then existing resizeLanczos to whole-scene 2x. Ground independently exported by exportConnectionTiles with fixed geometry and grass only, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim.",
+      "season": "summer",
+      "tiles": [
+        {
+          "cell": "N",
+          "origin": [
+            71,
+            0
+          ],
+          "runtime_id": "cmpN"
+        },
+        {
+          "cell": "W",
+          "origin": [
+            0,
+            40
+          ],
+          "runtime_id": "cmpW"
+        },
+        {
+          "cell": "E",
+          "origin": [
+            142,
+            40
+          ],
+          "runtime_id": "cmpE"
+        },
+        {
+          "cell": "S",
+          "origin": [
+            71,
+            80
+          ],
+          "runtime_id": "cmpS"
+        }
+      ],
+      "transform": {
+        "offset": [
+          11.900000000000006,
+          8.600000000000009
+        ],
+        "scale": 0.13945312499999998,
+        "source_dimensions": {
+          "height": 1024,
+          "width": 1536
+        }
+      },
+      "width": 238
+    },
+    {
+      "entry_cell": "N",
+      "generation_recipe": "art/recipes/compound/distinct-v1/depot-winter-02.json",
+      "guard": {
+        "boundary_alpha_mass": 4,
+        "boundary_pixels": 4,
+        "clipped_alpha_mass": 4,
+        "clipped_pixels": 4,
+        "guarded_opaque_count": 0,
+        "max_boundary_alpha": 1,
+        "minimum_opaque_distance_world": 9.125
+      },
+      "height": 160,
+      "id": "depot-winter",
+      "input_artwork": {
+        "dimensions": {
+          "height": 1024,
+          "width": 1536
+        },
+        "source": "art/source/compound/distinct-v1/depot-winter.png",
+        "source_sha256": "3f8eff50d7fa03d505fffc024d619f1398c60742768452208ebce7671a82525b"
+      },
+      "inset": 0.9,
+      "layout": "depot",
+      "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; reject any sampled alpha \u003e=250 at signed distance \u003c=8 world pixels before guard; alpha zero through 4 world pixels then smoothstep 4..8. Guard full unmasked 4x artwork, then existing resizeLanczos to whole-scene 2x. Ground independently exported by exportConnectionTiles with fixed geometry and grass only, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim.",
+      "season": "winter",
+      "tiles": [
+        {
+          "cell": "N",
+          "origin": [
+            71,
+            0
+          ],
+          "runtime_id": "cmpN_w"
+        },
+        {
+          "cell": "W",
+          "origin": [
+            0,
+            40
+          ],
+          "runtime_id": "cmpW_w"
+        },
+        {
+          "cell": "E",
+          "origin": [
+            142,
+            40
+          ],
+          "runtime_id": "cmpE_w"
+        },
+        {
+          "cell": "S",
+          "origin": [
+            71,
+            80
+          ],
+          "runtime_id": "cmpS_w"
+        }
+      ],
+      "transform": {
+        "offset": [
+          11.900000000000006,
+          8.600000000000009
+        ],
+        "scale": 0.13945312499999998,
+        "source_dimensions": {
+          "height": 1024,
+          "width": 1536
+        }
+      },
+      "width": 238
+    }
+  ],
+  "schema_version": 1,
+  "status": "candidate-built",
+  "tool": "Go tools/art-review -compound"
+}
