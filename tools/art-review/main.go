@@ -21,6 +21,8 @@
 // -connected builds new-material road/stream/path/rail/trench overlays from explicit geometry and
 // profiles, with reciprocal seven-cell patches at both runtime line parities.
 // It requires a fresh output directory and excludes all other review modes.
+// -shore builds the bounded summer shoreline family and grass/water bases,
+// with pinned new materials and reciprocal patches at both runtime parities.
 package main
 
 import (
@@ -93,6 +95,7 @@ func run(args []string, log io.Writer) error {
 	mixedPath := fs.String("mixed", "", "bounded new-material bridge/crossing manifest; requires fresh -out")
 	connectedPath := fs.String("connected", "", "new-material connected road/stream/path/rail/trench JSON manifest; requires fresh -out")
 	compoundPath := fs.String("compound", "", "bounded compound scene manifest; requires fresh -out")
+	shorePath := fs.String("shore", "", "bounded new-material summer shoreline manifest; requires fresh -out")
 	packPath := fs.String("pack", "", "candidate-only JSON pack manifest; fixed Lanczos3 rectangle exports, requires fresh -out")
 	candidatePath := fs.String("candidate", "", "candidate PNG, at least 4x reference dimensions and aspect within 1%")
 	resampling := fs.String("resampling", "area", "single-sprite reduction: area, bilinear (antialiased tent), or lanczos (antialiased Lanczos3); excluded by -neighborhood")
@@ -102,6 +105,24 @@ func run(args []string, log io.Writer) error {
 			return nil
 		}
 		return err
+	}
+	shoreProvided := false
+	fs.Visit(func(f *flag.Flag) {
+		if f.Name == "shore" {
+			shoreProvided = true
+		}
+	})
+	if shoreProvided {
+		conflict := false
+		fs.Visit(func(f *flag.Flag) {
+			if f.Name != "shore" && f.Name != "out" {
+				conflict = true
+			}
+		})
+		if conflict || *shorePath == "" || *out == "" || fs.NArg() != 0 {
+			return errors.New("-shore requires -out and excludes all other flags and positional arguments")
+		}
+		return runShore(*shorePath, *out, log)
 	}
 	compoundProvided := false
 	fs.Visit(func(f *flag.Flag) {

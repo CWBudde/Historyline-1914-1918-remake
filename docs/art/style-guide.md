@@ -14,10 +14,13 @@ Five additional transparent compound masters now produce all 26 enabled depot,
 HQ and factory pieces, alongside shared winter ground. See the
 [depot gallery](compound-building-review.html), [HQ gallery](compound-hq-review.html)
 and [factory gallery](compound-factory-review.html).
+Nine new shore profiles and a shared polygon water base are also delivered;
+see the [shore gallery](shoreline-review.html) and [topology contract](shoreline-topology.md).
 Reviews for [roads/streams](connected-family-batch-01.md), [paths/seasons](distinct-terrain-batch-04.md),
 [rail/materials](distinct-terrain-batch-05.md), [trenches](distinct-terrain-batch-06.md)
 and [bridges/crossings](distinct-terrain-batch-07.md), plus [depot scenes](distinct-terrain-batch-08.md)
-and [HQ scenes](distinct-terrain-batch-09.md) and [factory scene](distinct-terrain-batch-10.md),
+and [HQ scenes](distinct-terrain-batch-09.md), [factory scene](distinct-terrain-batch-10.md)
+and [shorelines](distinct-terrain-batch-11.md),
 record delivery, evidence and defects.
 Historical `art/source/pilot/` reconstruction studies are excluded from this pack.
 

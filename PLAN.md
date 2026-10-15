@@ -976,6 +976,18 @@ below record work already delivered, plus G0.7's new neighborhood comparisons.
             `docs/art/distinct-terrain-batch-10.md`. All 26 enabled building IDs now have
             provisional candidates from five new whole-scene masters. Ledger: 14 source
             + 102 built = 116 associated IDs, 18 backgrounds needing images, zero accepted.
+      - [x] Deliver all nine summer shore IDs and polygon-built open water. (2026-10-15) —
+            batch 11 adds 20 runtime and 40 review PNGs at 2×/4× from three retained new
+            materials. Explicit corner profiles pass 100/100 directed campaign endpoint checks,
+            including `23`'s effective 234 exception and documented family-derived corners.
+            Art review rejected initial knuckles/flat cove; repaired C2 coasts pass re-review.
+            Controller verified 40 actual PNG assemblies, 240 contacts, 120 triple vertices,
+            234 compatible ordered pairs and 61,292 protected-strip PNG samples (max byte
+            error 1, tolerance 1). All 69 repeat files match; all 769 earlier family artifacts
+            reproduce byte-for-byte. Code review and final `just ci` pass; browser loads all
+            40 gallery images. See `docs/art/distinct-terrain-batch-11.md` and
+            `docs/art/shoreline-topology.md`. Ledger: 13 source + 112 built = 125 associated
+            IDs, nine backgrounds needing images, zero accepted replacements.
       - [ ] Complete missing subjects, seasonal images, connected variants and runtime/native
             mappings; validate assembled seams. Twenty-seven sources do not close a family.
 - [ ] **Gate — Approve the complete pilot and choose production density/tools.** Compare all
@@ -1021,7 +1033,15 @@ in a distinct continuous style; final quality/seam and runtime acceptance remain
             layouts, outer-only guard and opaque-art preflight, exported-ground phase assembly,
             final ownership crops and decoded PNG parity surrounds. Pin source snapshots and
             profiles, cap axis tap work before allocation, test every cell ID/origin and preserve
-            earlier exporter outputs. New HQ/factory masters and runtime integration remain open.
+            earlier exporter outputs. All five whole-scene masters are now delivered;
+            runtime integration remains open.
+      - [x] Add bounded `-shore` explicit corner-profile export with reciprocal mixed-edge
+            guards, smooth constrained coasts, shared material/base phase and Lanczos-before-mask
+            ownership. Retain loaded manifest/material snapshots; test strict schema/path/pins,
+            actual PNG assembly, all compatible pairs, ring contacts and three-cell vertices.
+            Independent art/code review and controller oracle/repeat/769-artifact regressions
+            pass for the nine authored profiles and open-water base. General terrain transitions,
+            fractional zoom, imported full maps and runtime acceptance remain open.
 - [ ] Implement proposed commands `go run ./cmd/hlasset validate`, `build`, and `review`, all
       consuming `art/manifest.json`. Validation/build return nonzero on invalid inputs; review
       writes native/2×/4× sheets and actionable ID/direction diagnostics to `build/art-review/`.
@@ -1110,19 +1130,21 @@ private originals/manual extracts in ignored `original/`, and reference gallerie
 outputs and research in ignored `build/`. Authored masters, recipes and pilot exports stay in
 tracked `art/`; commit verified graphics batches directly to `main`, per the user's preference.
 
-**Immediate next graphics slice:** verify the nine enabled shoreline IDs' water/land edge
-semantics against numeric campaign adjacency, then author/build seamless new shore candidates.
-Their ledger ports remain unverified; do not infer water sides from filename digits alone.
+**Immediate next graphics slice:** verify the eight seasonal `mountN/E/S/W` pieces' campaign
+group geometry, then author/slice a new summer/winter mountain scene pair. Follow with fog.
+The nine shores and polygon water base are delivered as provisional candidates; explicit
+corner profiles and the `23` exception are recorded in `docs/art/shoreline-topology.md`.
 All 26 enabled depot/HQ/factory pieces are delivered as provisional candidates from five new
 whole scenes using `docs/art/compound-building-geometry.md`. HQ's manor occupies
 lower N and its entrance reaches C; retain gameplay cell N and review selection affordance
 when integrating runtime graphics.
-Continue shores, mountain pieces and
-seasonal images; the hamlet pair and winter mountain are delivered source candidates.
+Continue mountain pieces and seasonal images; the hamlet pair and winter mountain are
+delivered source candidates, with geometry/material acceptance still open.
 The terrain source pack contains 27 candidates with 54 material exports, plus all 74 enabled
 infrastructure variants and a grass base at both densities. Five additional compound masters
-build the depot, HQ and factory scenes, and shared winter ground is polygon-built. The runtime ledger has
-116 associated IDs (14 source candidates, 102 built candidates), 18 backgrounds needing images
+build the depot, HQ and factory scenes. Both ground seasons, nine shores and open water
+are polygon-built. The runtime ledger has
+125 associated IDs (13 source candidates, 112 built candidates), nine backgrounds needing images
 and zero accepted replacements.
 Pixel-aligned 2×/4× patches pass; full maps, other zooms and runtime integration remain open. Use the
 134-row runtime ledger as the enabled-ID checklist without dropping the separate 350 native

@@ -1,0 +1,4011 @@
+{
+  "acceptance": "Provisional new shoreline and polygon water candidates. Explicitnumericcornerprofilesincluding23effective234. ActualPNGownership/patch/edgephasechecks pass; independentartreview passes afterC2curverepair. Fullmap/otherterraintransitions/fractionalzoom/nativecoverage/runtimeintegration/userreleaseacceptance remainopen.",
+  "date": "2026-10-15",
+  "exports": [
+    {
+      "build_output": "tiles/lakeside12-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/shore-v1/lakeside12-2x.png",
+      "sha256": "b1a0c96ceb2c87e8fa7599dbf158f2ca086c5ea8ff32b691201269017a07e6e2"
+    },
+    {
+      "build_output": "tiles/lakeside12-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/shore-v1/lakeside12-4x.png",
+      "sha256": "fb9df3c2ae4c5120b1cecbd6e5c3d532600dd7434be2cf5d8ef1e5f5b69d87a3"
+    },
+    {
+      "build_output": "tiles/lakeside123-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/shore-v1/lakeside123-2x.png",
+      "sha256": "0affbc2ffc3ceb52a8f4408cc03a492148dfcf3f1e84851791c3567ba08b6d7c"
+    },
+    {
+      "build_output": "tiles/lakeside123-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/shore-v1/lakeside123-4x.png",
+      "sha256": "ddd86600a9dd1e95e8176637a9190b4088424f672d327394f380365e5cb868d0"
+    },
+    {
+      "build_output": "tiles/lakeside126-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/shore-v1/lakeside126-2x.png",
+      "sha256": "86bd096d7578d911a36b4dc1e4d3f55b09eec79681ab14403b97a6b295a057c5"
+    },
+    {
+      "build_output": "tiles/lakeside126-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/shore-v1/lakeside126-4x.png",
+      "sha256": "98c656ebf85d6d078193af1ac1d9f00cbdda365a0f555ad97698e9fe646724b2"
+    },
+    {
+      "build_output": "tiles/lakeside156-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/shore-v1/lakeside156-2x.png",
+      "sha256": "1261ab4d99e16af9614cfffb0b85833ec0f1a4bc86b07520d5113b1a0f8caa12"
+    },
+    {
+      "build_output": "tiles/lakeside156-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/shore-v1/lakeside156-4x.png",
+      "sha256": "24cce4433abe9897dcf2df3b1a98db2967b05200f474b655896b211eaf4f613a"
+    },
+    {
+      "build_output": "tiles/lakeside16-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/shore-v1/lakeside16-2x.png",
+      "sha256": "4baaece27a9e68d76597b60c740353a52b6977bd704dc3cacac0cf949dba986e"
+    },
+    {
+      "build_output": "tiles/lakeside16-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/shore-v1/lakeside16-4x.png",
+      "sha256": "ab02adcc9ef758f7876617b894501f3cca65e7854734004e63d54e0fc0c095af"
+    },
+    {
+      "build_output": "tiles/lakeside23-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/shore-v1/lakeside23-2x.png",
+      "sha256": "3f2f3855280392773059c57050c130c09ad9e3f987dc4105b7663bd4b1936eea"
+    },
+    {
+      "build_output": "tiles/lakeside23-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/shore-v1/lakeside23-4x.png",
+      "sha256": "964e51aeea72340368d92609c31d76dfc6c9b06977d54caf0062a41b85cfc738"
+    },
+    {
+      "build_output": "tiles/lakeside34-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/shore-v1/lakeside34-2x.png",
+      "sha256": "f97190c2d85f117c9ea866f41718e5454a04243258b1df679838b44e27ea0424"
+    },
+    {
+      "build_output": "tiles/lakeside34-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/shore-v1/lakeside34-4x.png",
+      "sha256": "d0153bb76bb6701b9fee4efed43ee6496c90a99954ec82d4d8918518510b19d9"
+    },
+    {
+      "build_output": "tiles/lakeside3456-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/shore-v1/lakeside3456-2x.png",
+      "sha256": "01d06e1bdbc64a0cf181e4dc1ab08fc45863265821049f3dc2c62d78be685e6a"
+    },
+    {
+      "build_output": "tiles/lakeside3456-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/shore-v1/lakeside3456-4x.png",
+      "sha256": "6d2c41cb36793f2fdae0405e7c065fd1e44429609797a79e5432ba83140f3e11"
+    },
+    {
+      "build_output": "tiles/lakeside56-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/shore-v1/lakeside56-2x.png",
+      "sha256": "2e726dafbe226f8bcdbd4205d67d60c31bba08e88260a0f7a06ce0c8d64f0968"
+    },
+    {
+      "build_output": "tiles/lakeside56-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/shore-v1/lakeside56-4x.png",
+      "sha256": "5e1336a5de4681fa07a8dcb5f085b1a924d73d17628fe15e2e82e89a5538608d"
+    },
+    {
+      "build_output": "tiles/water-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/shore-v1/water-2x.png",
+      "sha256": "9d9ad933039173239ce66c78b095ff6d2f739e50ae08c029dc21d60921824eba"
+    },
+    {
+      "build_output": "tiles/water-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/shore-v1/water-4x.png",
+      "sha256": "608e20ac3fef905a5faf71eb5d8a2cf91e7a677c4c8a40bd5198fb9eb0469339"
+    }
+  ],
+  "generation_recipes": [
+    "art/recipes/terrain/distinct-v1/meadow.json",
+    "art/recipes/terrain/distinct-v1/water-open.json",
+    "art/recipes/terrain/distinct-v1/earth-bare.json"
+  ],
+  "geometry": {
+    "height": 80,
+    "neighbors": [
+      [
+        71,
+        -40
+      ],
+      [
+        71,
+        40
+      ],
+      [
+        0,
+        80
+      ],
+      [
+        -71,
+        40
+      ],
+      [
+        -71,
+        -40
+      ],
+      [
+        0,
+        -80
+      ]
+    ],
+    "polygon": [
+      [
+        25,
+        0
+      ],
+      [
+        71,
+        0
+      ],
+      [
+        96,
+        40
+      ],
+      [
+        71,
+        80
+      ],
+      [
+        25,
+        80
+      ],
+      [
+        0,
+        40
+      ]
+    ],
+    "ports": [
+      [
+        83.5,
+        20
+      ],
+      [
+        83.5,
+        60
+      ],
+      [
+        48,
+        80
+      ],
+      [
+        12.5,
+        60
+      ],
+      [
+        12.5,
+        20
+      ],
+      [
+        48,
+        0
+      ]
+    ],
+    "width": 96
+  },
+  "id": "shore-terrain-v1",
+  "manifest": "art/shore-terrain-v1.json",
+  "manifest_sha256": "80ca93236cf694bb4bd3ca8a540ab47f52980b65151a2cb69c24cebb091cdbbf",
+  "materials": {
+    "bank": {
+      "dimensions": {
+        "height": 1145,
+        "width": 1374
+      },
+      "source": "art/source/terrain/distinct-v1/earth-bare.png",
+      "source_sha256": "e7d3188bc9c734a1f45ad80ccce934c46d93cb4cf9843c079bbc6260ec848404"
+    },
+    "grass": {
+      "dimensions": {
+        "height": 1145,
+        "width": 1374
+      },
+      "source": "art/source/terrain/distinct-v1/meadow.png",
+      "source_sha256": "8c8935efbbd463e39d49208e42ca0e87b140268a1b11941764dfa7c29c4fff85"
+    },
+    "water": {
+      "dimensions": {
+        "height": 1145,
+        "width": 1374
+      },
+      "source": "art/source/terrain/distinct-v1/water-open.png",
+      "source_sha256": "0b080163804881ac49bc4b3162da547abf443c9082d6e67065c119174d79b51d"
+    }
+  },
+  "original_image_inputs": [],
+  "profile": "shore-v1-shaped candidate: explicit corner land profiles, lakeside23 effective land-side mask234; no original outlines measured. Guard through8worldpx and all exterior/filtermargin uses nearest edge: LL field+32, WW -32, mixed signed projection along edge from midpoint positive toward land endpoint. Every shore has exactly two mixededges and one contiguous landarc. Crossings enter along inward unit edge normals for8worldpx; connect anchors A,B with one quintic Bezier, handle h=.24*|B-A|, controls A,A+h*nA,A+2h*nA,B+2h*nB,B+h*nB,B. Equal collinear handles give zero curvature at the straight joins. Add chord-normal displacement .7*64*t^3*(1-t)^3*sin(2*pi*t+.4): value and first two derivatives vanish at anchors. Flatten256 equal parameter steps; signed nearest segment distance in the interior, with160worldpx straight exterior extensions. No nearest-edge field blend or triangular fan in the interior. Shared mirror-periodic sampleConnectionMaterial worldphase for grass/water/bank. Shading with S=clamped smoothstep: pure water d\u003c=-5; shallow=blend(water,bank,.16); wet=blend(bank,RGB(33,43,28),.27*(1-S((d+.7)/1.8))); blend water-\u003eshallow with S((d+5)/3.3), then -\u003ewet S((d+1.7)/1), then -\u003egrass S((d-.5)/1.9); pure grass d\u003e=2.4. Earth bank spans approximately -1.7..2.4worldpx with soft shallow water to-5. Each blend rounds byteRGB. Opaque unmasked4x margin4worldpx; whole416x352 Lanczos3 to208x176, crop then final complementary hard polygon ownership at2x/4x. Bases byte-exact existing grass adapter with corresponding material. Source-over decoded actualPNG scenes, deterministic vertex-constraint CSP for all center/ringcontacts at both runtime lineparities. Pixel-aligned2x/4x only.",
+  "review_exports": [
+    {
+      "build_output": "lakeside12-patch-parity0-2x.png",
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/shore-v1/lakeside12-patch-parity0-2x.png",
+      "sha256": "cb72d9fa3ef86965df2320333107385c1062b68cbd65ab11e7abccc74e0f3391"
+    },
+    {
+      "build_output": "lakeside12-patch-parity0-4x.png",
+      "dimensions": {
+        "height": 960,
+        "width": 952
+      },
+      "path": "art/review/shore-v1/lakeside12-patch-parity0-4x.png",
+      "sha256": "09caae45348959fd6498c4441d1f6cec02deb5e3125633b76c0581bb1647353e"
+    },
+    {
+      "build_output": "lakeside12-patch-parity1-2x.png",
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/shore-v1/lakeside12-patch-parity1-2x.png",
+      "sha256": "cb72d9fa3ef86965df2320333107385c1062b68cbd65ab11e7abccc74e0f3391"
+    },
+    {
+      "build_output": "lakeside12-patch-parity1-4x.png",
+      "dimensions": {
+        "height": 960,
+        "width": 952
+      },
+      "path": "art/review/shore-v1/lakeside12-patch-parity1-4x.png",
+      "sha256": "09caae45348959fd6498c4441d1f6cec02deb5e3125633b76c0581bb1647353e"
+    },
+    {
+      "build_output": "lakeside16-patch-parity0-2x.png",
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/shore-v1/lakeside16-patch-parity0-2x.png",
+      "sha256": "e5a4c11e738983c19119d91d69a87c080a366b3da8732dfdb8fd50caad17459c"
+    },
+    {
+      "build_output": "lakeside16-patch-parity0-4x.png",
+      "dimensions": {
+        "height": 960,
+        "width": 952
+      },
+      "path": "art/review/shore-v1/lakeside16-patch-parity0-4x.png",
+      "sha256": "64e78a814f06071e017d20c58fd12a07ac0f3424aef7642dfbce985c5e09035e"
+    },
+    {
+      "build_output": "lakeside16-patch-parity1-2x.png",
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/shore-v1/lakeside16-patch-parity1-2x.png",
+      "sha256": "e5a4c11e738983c19119d91d69a87c080a366b3da8732dfdb8fd50caad17459c"
+    },
+    {
+      "build_output": "lakeside16-patch-parity1-4x.png",
+      "dimensions": {
+        "height": 960,
+        "width": 952
+      },
+      "path": "art/review/shore-v1/lakeside16-patch-parity1-4x.png",
+      "sha256": "64e78a814f06071e017d20c58fd12a07ac0f3424aef7642dfbce985c5e09035e"
+    },
+    {
+      "build_output": "lakeside23-patch-parity0-2x.png",
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/shore-v1/lakeside23-patch-parity0-2x.png",
+      "sha256": "1db8af24d45c163b4bc8bf0cafb555667632a405bd137e4925153ed6d81d3761"
+    },
+    {
+      "build_output": "lakeside23-patch-parity0-4x.png",
+      "dimensions": {
+        "height": 960,
+        "width": 952
+      },
+      "path": "art/review/shore-v1/lakeside23-patch-parity0-4x.png",
+      "sha256": "bbd87c563cb968878cff6062f0690fd57e1ab7ee853ab251e68f93e2e8853e63"
+    },
+    {
+      "build_output": "lakeside23-patch-parity1-2x.png",
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/shore-v1/lakeside23-patch-parity1-2x.png",
+      "sha256": "1db8af24d45c163b4bc8bf0cafb555667632a405bd137e4925153ed6d81d3761"
+    },
+    {
+      "build_output": "lakeside23-patch-parity1-4x.png",
+      "dimensions": {
+        "height": 960,
+        "width": 952
+      },
+      "path": "art/review/shore-v1/lakeside23-patch-parity1-4x.png",
+      "sha256": "bbd87c563cb968878cff6062f0690fd57e1ab7ee853ab251e68f93e2e8853e63"
+    },
+    {
+      "build_output": "lakeside34-patch-parity0-2x.png",
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/shore-v1/lakeside34-patch-parity0-2x.png",
+      "sha256": "43f27ee75f911d28d9455c0025a2741ca49f029cd5f1d0aeff445eeda91c98bb"
+    },
+    {
+      "build_output": "lakeside34-patch-parity0-4x.png",
+      "dimensions": {
+        "height": 960,
+        "width": 952
+      },
+      "path": "art/review/shore-v1/lakeside34-patch-parity0-4x.png",
+      "sha256": "313116b974694835a4a5c836462238c9decab87e8b98b0e28b2903e89d3ab3a1"
+    },
+    {
+      "build_output": "lakeside34-patch-parity1-2x.png",
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/shore-v1/lakeside34-patch-parity1-2x.png",
+      "sha256": "43f27ee75f911d28d9455c0025a2741ca49f029cd5f1d0aeff445eeda91c98bb"
+    },
+    {
+      "build_output": "lakeside34-patch-parity1-4x.png",
+      "dimensions": {
+        "height": 960,
+        "width": 952
+      },
+      "path": "art/review/shore-v1/lakeside34-patch-parity1-4x.png",
+      "sha256": "313116b974694835a4a5c836462238c9decab87e8b98b0e28b2903e89d3ab3a1"
+    },
+    {
+      "build_output": "lakeside56-patch-parity0-2x.png",
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/shore-v1/lakeside56-patch-parity0-2x.png",
+      "sha256": "f4ea4cae74b1a2a80e89421a0b14ce8e9394f15b3ddf6b278e2d9e14cebb3005"
+    },
+    {
+      "build_output": "lakeside56-patch-parity0-4x.png",
+      "dimensions": {
+        "height": 960,
+        "width": 952
+      },
+      "path": "art/review/shore-v1/lakeside56-patch-parity0-4x.png",
+      "sha256": "b519a9173962bb8d05506eebff38e9ad3139f2306dfea933caa6da8e7afe758d"
+    },
+    {
+      "build_output": "lakeside56-patch-parity1-2x.png",
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/shore-v1/lakeside56-patch-parity1-2x.png",
+      "sha256": "f4ea4cae74b1a2a80e89421a0b14ce8e9394f15b3ddf6b278e2d9e14cebb3005"
+    },
+    {
+      "build_output": "lakeside56-patch-parity1-4x.png",
+      "dimensions": {
+        "height": 960,
+        "width": 952
+      },
+      "path": "art/review/shore-v1/lakeside56-patch-parity1-4x.png",
+      "sha256": "b519a9173962bb8d05506eebff38e9ad3139f2306dfea933caa6da8e7afe758d"
+    },
+    {
+      "build_output": "lakeside123-patch-parity0-2x.png",
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/shore-v1/lakeside123-patch-parity0-2x.png",
+      "sha256": "c6c8bbdb14a74d9169d1c577941a150dba9e71203718f4912913c66ffa835457"
+    },
+    {
+      "build_output": "lakeside123-patch-parity0-4x.png",
+      "dimensions": {
+        "height": 960,
+        "width": 952
+      },
+      "path": "art/review/shore-v1/lakeside123-patch-parity0-4x.png",
+      "sha256": "d556816c2492cb3611c9bf7e1674688d6f372a0c7dc7854127d62dbebbfb2b52"
+    },
+    {
+      "build_output": "lakeside123-patch-parity1-2x.png",
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/shore-v1/lakeside123-patch-parity1-2x.png",
+      "sha256": "c6c8bbdb14a74d9169d1c577941a150dba9e71203718f4912913c66ffa835457"
+    },
+    {
+      "build_output": "lakeside123-patch-parity1-4x.png",
+      "dimensions": {
+        "height": 960,
+        "width": 952
+      },
+      "path": "art/review/shore-v1/lakeside123-patch-parity1-4x.png",
+      "sha256": "d556816c2492cb3611c9bf7e1674688d6f372a0c7dc7854127d62dbebbfb2b52"
+    },
+    {
+      "build_output": "lakeside126-patch-parity0-2x.png",
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/shore-v1/lakeside126-patch-parity0-2x.png",
+      "sha256": "5af6c12f083ca51288b8e886a4c04170c73633dc517bac6cc0f3abb19ebbc281"
+    },
+    {
+      "build_output": "lakeside126-patch-parity0-4x.png",
+      "dimensions": {
+        "height": 960,
+        "width": 952
+      },
+      "path": "art/review/shore-v1/lakeside126-patch-parity0-4x.png",
+      "sha256": "156816aa2ef1d09d931a043ba95ad8e7ebcbb0ce3122fed1add6869b25f2e63a"
+    },
+    {
+      "build_output": "lakeside126-patch-parity1-2x.png",
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/shore-v1/lakeside126-patch-parity1-2x.png",
+      "sha256": "5af6c12f083ca51288b8e886a4c04170c73633dc517bac6cc0f3abb19ebbc281"
+    },
+    {
+      "build_output": "lakeside126-patch-parity1-4x.png",
+      "dimensions": {
+        "height": 960,
+        "width": 952
+      },
+      "path": "art/review/shore-v1/lakeside126-patch-parity1-4x.png",
+      "sha256": "156816aa2ef1d09d931a043ba95ad8e7ebcbb0ce3122fed1add6869b25f2e63a"
+    },
+    {
+      "build_output": "lakeside156-patch-parity0-2x.png",
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/shore-v1/lakeside156-patch-parity0-2x.png",
+      "sha256": "d4b7f3e28cc18d2886abe18b6dfb1922f05980be690b46432f4c8cb7e867e801"
+    },
+    {
+      "build_output": "lakeside156-patch-parity0-4x.png",
+      "dimensions": {
+        "height": 960,
+        "width": 952
+      },
+      "path": "art/review/shore-v1/lakeside156-patch-parity0-4x.png",
+      "sha256": "fd950b117f0b8886f23c81bcb3640d5a1d1e205e2f55b644edbd731dd0489291"
+    },
+    {
+      "build_output": "lakeside156-patch-parity1-2x.png",
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/shore-v1/lakeside156-patch-parity1-2x.png",
+      "sha256": "d4b7f3e28cc18d2886abe18b6dfb1922f05980be690b46432f4c8cb7e867e801"
+    },
+    {
+      "build_output": "lakeside156-patch-parity1-4x.png",
+      "dimensions": {
+        "height": 960,
+        "width": 952
+      },
+      "path": "art/review/shore-v1/lakeside156-patch-parity1-4x.png",
+      "sha256": "fd950b117f0b8886f23c81bcb3640d5a1d1e205e2f55b644edbd731dd0489291"
+    },
+    {
+      "build_output": "lakeside3456-patch-parity0-2x.png",
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/shore-v1/lakeside3456-patch-parity0-2x.png",
+      "sha256": "d8fa77c8ce16b2d4f62d35ca9e51f753c20fa60f17f55ec98cbeb890e46ad464"
+    },
+    {
+      "build_output": "lakeside3456-patch-parity0-4x.png",
+      "dimensions": {
+        "height": 960,
+        "width": 952
+      },
+      "path": "art/review/shore-v1/lakeside3456-patch-parity0-4x.png",
+      "sha256": "faa173cb223d54a593bee2df19f40187f56456f8ba18738dd141af5728d1de13"
+    },
+    {
+      "build_output": "lakeside3456-patch-parity1-2x.png",
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/shore-v1/lakeside3456-patch-parity1-2x.png",
+      "sha256": "d8fa77c8ce16b2d4f62d35ca9e51f753c20fa60f17f55ec98cbeb890e46ad464"
+    },
+    {
+      "build_output": "lakeside3456-patch-parity1-4x.png",
+      "dimensions": {
+        "height": 960,
+        "width": 952
+      },
+      "path": "art/review/shore-v1/lakeside3456-patch-parity1-4x.png",
+      "sha256": "faa173cb223d54a593bee2df19f40187f56456f8ba18738dd141af5728d1de13"
+    },
+    {
+      "build_output": "water-patch-parity0-2x.png",
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/shore-v1/water-patch-parity0-2x.png",
+      "sha256": "1c6f9aa2da55328046a884c739609969488c3ea568ad0ed2a1c5e52f3e678ee3"
+    },
+    {
+      "build_output": "water-patch-parity0-4x.png",
+      "dimensions": {
+        "height": 960,
+        "width": 952
+      },
+      "path": "art/review/shore-v1/water-patch-parity0-4x.png",
+      "sha256": "a2b2b4587370ce89d28114346e20226eaeca428b4ac4f7db08f169e13a5cbfa4"
+    },
+    {
+      "build_output": "water-patch-parity1-2x.png",
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/shore-v1/water-patch-parity1-2x.png",
+      "sha256": "1c6f9aa2da55328046a884c739609969488c3ea568ad0ed2a1c5e52f3e678ee3"
+    },
+    {
+      "build_output": "water-patch-parity1-4x.png",
+      "dimensions": {
+        "height": 960,
+        "width": 952
+      },
+      "path": "art/review/shore-v1/water-patch-parity1-4x.png",
+      "sha256": "a2b2b4587370ce89d28114346e20226eaeca428b4ac4f7db08f169e13a5cbfa4"
+    }
+  ],
+  "scenes": [
+    {
+      "canvas_origin": [
+        -71,
+        -80
+      ],
+      "cells": [
+        {
+          "land_vertices": [
+            1,
+            2,
+            3
+          ],
+          "origin": [
+            0,
+            -80
+          ],
+          "runtime_id": "lakeside12"
+        },
+        {
+          "land_vertices": [],
+          "origin": [
+            -71,
+            -40
+          ],
+          "runtime_id": "water"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            71,
+            -40
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            1,
+            2,
+            3
+          ],
+          "origin": [
+            0,
+            0
+          ],
+          "runtime_id": "lakeside12"
+        },
+        {
+          "land_vertices": [],
+          "origin": [
+            -71,
+            40
+          ],
+          "runtime_id": "water"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            71,
+            40
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            1,
+            2,
+            3
+          ],
+          "origin": [
+            0,
+            80
+          ],
+          "runtime_id": "lakeside12"
+        }
+      ],
+      "center_id": "lakeside12",
+      "center_line_parity": 0,
+      "id": "lakeside12-patch-parity0",
+      "output": {
+        "dimensions": {
+          "height": 480,
+          "width": 476
+        },
+        "path": "lakeside12-patch-parity0-2x.png",
+        "sha256": "cb72d9fa3ef86965df2320333107385c1062b68cbd65ab11e7abccc74e0f3391"
+      },
+      "output_4x": {
+        "dimensions": {
+          "height": 960,
+          "width": 952
+        },
+        "path": "lakeside12-patch-parity0-4x.png",
+        "sha256": "09caae45348959fd6498c4441d1f6cec02deb5e3125633b76c0581bb1647353e"
+      }
+    },
+    {
+      "canvas_origin": [
+        0,
+        -40
+      ],
+      "cells": [
+        {
+          "land_vertices": [
+            1,
+            2,
+            3
+          ],
+          "origin": [
+            71,
+            -40
+          ],
+          "runtime_id": "lakeside12"
+        },
+        {
+          "land_vertices": [],
+          "origin": [
+            0,
+            0
+          ],
+          "runtime_id": "water"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            142,
+            0
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            1,
+            2,
+            3
+          ],
+          "origin": [
+            71,
+            40
+          ],
+          "runtime_id": "lakeside12"
+        },
+        {
+          "land_vertices": [],
+          "origin": [
+            0,
+            80
+          ],
+          "runtime_id": "water"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            142,
+            80
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            1,
+            2,
+            3
+          ],
+          "origin": [
+            71,
+            120
+          ],
+          "runtime_id": "lakeside12"
+        }
+      ],
+      "center_id": "lakeside12",
+      "center_line_parity": 1,
+      "id": "lakeside12-patch-parity1",
+      "output": {
+        "dimensions": {
+          "height": 480,
+          "width": 476
+        },
+        "path": "lakeside12-patch-parity1-2x.png",
+        "sha256": "cb72d9fa3ef86965df2320333107385c1062b68cbd65ab11e7abccc74e0f3391"
+      },
+      "output_4x": {
+        "dimensions": {
+          "height": 960,
+          "width": 952
+        },
+        "path": "lakeside12-patch-parity1-4x.png",
+        "sha256": "09caae45348959fd6498c4441d1f6cec02deb5e3125633b76c0581bb1647353e"
+      }
+    },
+    {
+      "canvas_origin": [
+        -71,
+        -80
+      ],
+      "cells": [
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            0,
+            -80
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2
+          ],
+          "origin": [
+            -71,
+            -40
+          ],
+          "runtime_id": "lakeside16"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            71,
+            -40
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2
+          ],
+          "origin": [
+            0,
+            0
+          ],
+          "runtime_id": "lakeside16"
+        },
+        {
+          "land_vertices": [],
+          "origin": [
+            -71,
+            40
+          ],
+          "runtime_id": "water"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2
+          ],
+          "origin": [
+            71,
+            40
+          ],
+          "runtime_id": "lakeside16"
+        },
+        {
+          "land_vertices": [],
+          "origin": [
+            0,
+            80
+          ],
+          "runtime_id": "water"
+        }
+      ],
+      "center_id": "lakeside16",
+      "center_line_parity": 0,
+      "id": "lakeside16-patch-parity0",
+      "output": {
+        "dimensions": {
+          "height": 480,
+          "width": 476
+        },
+        "path": "lakeside16-patch-parity0-2x.png",
+        "sha256": "e5a4c11e738983c19119d91d69a87c080a366b3da8732dfdb8fd50caad17459c"
+      },
+      "output_4x": {
+        "dimensions": {
+          "height": 960,
+          "width": 952
+        },
+        "path": "lakeside16-patch-parity0-4x.png",
+        "sha256": "64e78a814f06071e017d20c58fd12a07ac0f3424aef7642dfbce985c5e09035e"
+      }
+    },
+    {
+      "canvas_origin": [
+        0,
+        -40
+      ],
+      "cells": [
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            71,
+            -40
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2
+          ],
+          "origin": [
+            0,
+            0
+          ],
+          "runtime_id": "lakeside16"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            142,
+            0
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2
+          ],
+          "origin": [
+            71,
+            40
+          ],
+          "runtime_id": "lakeside16"
+        },
+        {
+          "land_vertices": [],
+          "origin": [
+            0,
+            80
+          ],
+          "runtime_id": "water"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2
+          ],
+          "origin": [
+            142,
+            80
+          ],
+          "runtime_id": "lakeside16"
+        },
+        {
+          "land_vertices": [],
+          "origin": [
+            71,
+            120
+          ],
+          "runtime_id": "water"
+        }
+      ],
+      "center_id": "lakeside16",
+      "center_line_parity": 1,
+      "id": "lakeside16-patch-parity1",
+      "output": {
+        "dimensions": {
+          "height": 480,
+          "width": 476
+        },
+        "path": "lakeside16-patch-parity1-2x.png",
+        "sha256": "e5a4c11e738983c19119d91d69a87c080a366b3da8732dfdb8fd50caad17459c"
+      },
+      "output_4x": {
+        "dimensions": {
+          "height": 960,
+          "width": 952
+        },
+        "path": "lakeside16-patch-parity1-4x.png",
+        "sha256": "64e78a814f06071e017d20c58fd12a07ac0f3424aef7642dfbce985c5e09035e"
+      }
+    },
+    {
+      "canvas_origin": [
+        -71,
+        -80
+      ],
+      "cells": [
+        {
+          "land_vertices": [],
+          "origin": [
+            0,
+            -80
+          ],
+          "runtime_id": "water"
+        },
+        {
+          "land_vertices": [
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            -71,
+            -40
+          ],
+          "runtime_id": "lakeside34"
+        },
+        {
+          "land_vertices": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "origin": [
+            71,
+            -40
+          ],
+          "runtime_id": "lakeside123"
+        },
+        {
+          "land_vertices": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            0,
+            0
+          ],
+          "runtime_id": "lakeside23"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            -71,
+            40
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            71,
+            40
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            0,
+            80
+          ],
+          "runtime_id": "grass"
+        }
+      ],
+      "center_id": "lakeside23",
+      "center_line_parity": 0,
+      "id": "lakeside23-patch-parity0",
+      "output": {
+        "dimensions": {
+          "height": 480,
+          "width": 476
+        },
+        "path": "lakeside23-patch-parity0-2x.png",
+        "sha256": "1db8af24d45c163b4bc8bf0cafb555667632a405bd137e4925153ed6d81d3761"
+      },
+      "output_4x": {
+        "dimensions": {
+          "height": 960,
+          "width": 952
+        },
+        "path": "lakeside23-patch-parity0-4x.png",
+        "sha256": "bbd87c563cb968878cff6062f0690fd57e1ab7ee853ab251e68f93e2e8853e63"
+      }
+    },
+    {
+      "canvas_origin": [
+        0,
+        -40
+      ],
+      "cells": [
+        {
+          "land_vertices": [],
+          "origin": [
+            71,
+            -40
+          ],
+          "runtime_id": "water"
+        },
+        {
+          "land_vertices": [
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            0,
+            0
+          ],
+          "runtime_id": "lakeside34"
+        },
+        {
+          "land_vertices": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "origin": [
+            142,
+            0
+          ],
+          "runtime_id": "lakeside123"
+        },
+        {
+          "land_vertices": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            71,
+            40
+          ],
+          "runtime_id": "lakeside23"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            0,
+            80
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            142,
+            80
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            71,
+            120
+          ],
+          "runtime_id": "grass"
+        }
+      ],
+      "center_id": "lakeside23",
+      "center_line_parity": 1,
+      "id": "lakeside23-patch-parity1",
+      "output": {
+        "dimensions": {
+          "height": 480,
+          "width": 476
+        },
+        "path": "lakeside23-patch-parity1-2x.png",
+        "sha256": "1db8af24d45c163b4bc8bf0cafb555667632a405bd137e4925153ed6d81d3761"
+      },
+      "output_4x": {
+        "dimensions": {
+          "height": 960,
+          "width": 952
+        },
+        "path": "lakeside23-patch-parity1-4x.png",
+        "sha256": "bbd87c563cb968878cff6062f0690fd57e1ab7ee853ab251e68f93e2e8853e63"
+      }
+    },
+    {
+      "canvas_origin": [
+        -71,
+        -80
+      ],
+      "cells": [
+        {
+          "land_vertices": [],
+          "origin": [
+            0,
+            -80
+          ],
+          "runtime_id": "water"
+        },
+        {
+          "land_vertices": [
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            -71,
+            -40
+          ],
+          "runtime_id": "lakeside34"
+        },
+        {
+          "land_vertices": [],
+          "origin": [
+            71,
+            -40
+          ],
+          "runtime_id": "water"
+        },
+        {
+          "land_vertices": [
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            0,
+            0
+          ],
+          "runtime_id": "lakeside34"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            -71,
+            40
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            71,
+            40
+          ],
+          "runtime_id": "lakeside23"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            0,
+            80
+          ],
+          "runtime_id": "grass"
+        }
+      ],
+      "center_id": "lakeside34",
+      "center_line_parity": 0,
+      "id": "lakeside34-patch-parity0",
+      "output": {
+        "dimensions": {
+          "height": 480,
+          "width": 476
+        },
+        "path": "lakeside34-patch-parity0-2x.png",
+        "sha256": "43f27ee75f911d28d9455c0025a2741ca49f029cd5f1d0aeff445eeda91c98bb"
+      },
+      "output_4x": {
+        "dimensions": {
+          "height": 960,
+          "width": 952
+        },
+        "path": "lakeside34-patch-parity0-4x.png",
+        "sha256": "313116b974694835a4a5c836462238c9decab87e8b98b0e28b2903e89d3ab3a1"
+      }
+    },
+    {
+      "canvas_origin": [
+        0,
+        -40
+      ],
+      "cells": [
+        {
+          "land_vertices": [],
+          "origin": [
+            71,
+            -40
+          ],
+          "runtime_id": "water"
+        },
+        {
+          "land_vertices": [
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            0,
+            0
+          ],
+          "runtime_id": "lakeside34"
+        },
+        {
+          "land_vertices": [],
+          "origin": [
+            142,
+            0
+          ],
+          "runtime_id": "water"
+        },
+        {
+          "land_vertices": [
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            71,
+            40
+          ],
+          "runtime_id": "lakeside34"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            0,
+            80
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            142,
+            80
+          ],
+          "runtime_id": "lakeside23"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            71,
+            120
+          ],
+          "runtime_id": "grass"
+        }
+      ],
+      "center_id": "lakeside34",
+      "center_line_parity": 1,
+      "id": "lakeside34-patch-parity1",
+      "output": {
+        "dimensions": {
+          "height": 480,
+          "width": 476
+        },
+        "path": "lakeside34-patch-parity1-2x.png",
+        "sha256": "43f27ee75f911d28d9455c0025a2741ca49f029cd5f1d0aeff445eeda91c98bb"
+      },
+      "output_4x": {
+        "dimensions": {
+          "height": 960,
+          "width": 952
+        },
+        "path": "lakeside34-patch-parity1-4x.png",
+        "sha256": "313116b974694835a4a5c836462238c9decab87e8b98b0e28b2903e89d3ab3a1"
+      }
+    },
+    {
+      "canvas_origin": [
+        -71,
+        -80
+      ],
+      "cells": [
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            0,
+            -80
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            -71,
+            -40
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            5
+          ],
+          "origin": [
+            71,
+            -40
+          ],
+          "runtime_id": "lakeside56"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            5
+          ],
+          "origin": [
+            0,
+            0
+          ],
+          "runtime_id": "lakeside56"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            5
+          ],
+          "origin": [
+            -71,
+            40
+          ],
+          "runtime_id": "lakeside56"
+        },
+        {
+          "land_vertices": [],
+          "origin": [
+            71,
+            40
+          ],
+          "runtime_id": "water"
+        },
+        {
+          "land_vertices": [],
+          "origin": [
+            0,
+            80
+          ],
+          "runtime_id": "water"
+        }
+      ],
+      "center_id": "lakeside56",
+      "center_line_parity": 0,
+      "id": "lakeside56-patch-parity0",
+      "output": {
+        "dimensions": {
+          "height": 480,
+          "width": 476
+        },
+        "path": "lakeside56-patch-parity0-2x.png",
+        "sha256": "f4ea4cae74b1a2a80e89421a0b14ce8e9394f15b3ddf6b278e2d9e14cebb3005"
+      },
+      "output_4x": {
+        "dimensions": {
+          "height": 960,
+          "width": 952
+        },
+        "path": "lakeside56-patch-parity0-4x.png",
+        "sha256": "b519a9173962bb8d05506eebff38e9ad3139f2306dfea933caa6da8e7afe758d"
+      }
+    },
+    {
+      "canvas_origin": [
+        0,
+        -40
+      ],
+      "cells": [
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            71,
+            -40
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            0,
+            0
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            5
+          ],
+          "origin": [
+            142,
+            0
+          ],
+          "runtime_id": "lakeside56"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            5
+          ],
+          "origin": [
+            71,
+            40
+          ],
+          "runtime_id": "lakeside56"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            5
+          ],
+          "origin": [
+            0,
+            80
+          ],
+          "runtime_id": "lakeside56"
+        },
+        {
+          "land_vertices": [],
+          "origin": [
+            142,
+            80
+          ],
+          "runtime_id": "water"
+        },
+        {
+          "land_vertices": [],
+          "origin": [
+            71,
+            120
+          ],
+          "runtime_id": "water"
+        }
+      ],
+      "center_id": "lakeside56",
+      "center_line_parity": 1,
+      "id": "lakeside56-patch-parity1",
+      "output": {
+        "dimensions": {
+          "height": 480,
+          "width": 476
+        },
+        "path": "lakeside56-patch-parity1-2x.png",
+        "sha256": "f4ea4cae74b1a2a80e89421a0b14ce8e9394f15b3ddf6b278e2d9e14cebb3005"
+      },
+      "output_4x": {
+        "dimensions": {
+          "height": 960,
+          "width": 952
+        },
+        "path": "lakeside56-patch-parity1-4x.png",
+        "sha256": "b519a9173962bb8d05506eebff38e9ad3139f2306dfea933caa6da8e7afe758d"
+      }
+    },
+    {
+      "canvas_origin": [
+        -71,
+        -80
+      ],
+      "cells": [
+        {
+          "land_vertices": [
+            1,
+            2,
+            3
+          ],
+          "origin": [
+            0,
+            -80
+          ],
+          "runtime_id": "lakeside12"
+        },
+        {
+          "land_vertices": [],
+          "origin": [
+            -71,
+            -40
+          ],
+          "runtime_id": "water"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            71,
+            -40
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "origin": [
+            0,
+            0
+          ],
+          "runtime_id": "lakeside123"
+        },
+        {
+          "land_vertices": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            -71,
+            40
+          ],
+          "runtime_id": "lakeside23"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            71,
+            40
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            0,
+            80
+          ],
+          "runtime_id": "grass"
+        }
+      ],
+      "center_id": "lakeside123",
+      "center_line_parity": 0,
+      "id": "lakeside123-patch-parity0",
+      "output": {
+        "dimensions": {
+          "height": 480,
+          "width": 476
+        },
+        "path": "lakeside123-patch-parity0-2x.png",
+        "sha256": "c6c8bbdb14a74d9169d1c577941a150dba9e71203718f4912913c66ffa835457"
+      },
+      "output_4x": {
+        "dimensions": {
+          "height": 960,
+          "width": 952
+        },
+        "path": "lakeside123-patch-parity0-4x.png",
+        "sha256": "d556816c2492cb3611c9bf7e1674688d6f372a0c7dc7854127d62dbebbfb2b52"
+      }
+    },
+    {
+      "canvas_origin": [
+        0,
+        -40
+      ],
+      "cells": [
+        {
+          "land_vertices": [
+            1,
+            2,
+            3
+          ],
+          "origin": [
+            71,
+            -40
+          ],
+          "runtime_id": "lakeside12"
+        },
+        {
+          "land_vertices": [],
+          "origin": [
+            0,
+            0
+          ],
+          "runtime_id": "water"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            142,
+            0
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "origin": [
+            71,
+            40
+          ],
+          "runtime_id": "lakeside123"
+        },
+        {
+          "land_vertices": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            0,
+            80
+          ],
+          "runtime_id": "lakeside23"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            142,
+            80
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            71,
+            120
+          ],
+          "runtime_id": "grass"
+        }
+      ],
+      "center_id": "lakeside123",
+      "center_line_parity": 1,
+      "id": "lakeside123-patch-parity1",
+      "output": {
+        "dimensions": {
+          "height": 480,
+          "width": 476
+        },
+        "path": "lakeside123-patch-parity1-2x.png",
+        "sha256": "c6c8bbdb14a74d9169d1c577941a150dba9e71203718f4912913c66ffa835457"
+      },
+      "output_4x": {
+        "dimensions": {
+          "height": 960,
+          "width": 952
+        },
+        "path": "lakeside123-patch-parity1-4x.png",
+        "sha256": "d556816c2492cb3611c9bf7e1674688d6f372a0c7dc7854127d62dbebbfb2b52"
+      }
+    },
+    {
+      "canvas_origin": [
+        -71,
+        -80
+      ],
+      "cells": [
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            0,
+            -80
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2
+          ],
+          "origin": [
+            -71,
+            -40
+          ],
+          "runtime_id": "lakeside16"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            71,
+            -40
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "origin": [
+            0,
+            0
+          ],
+          "runtime_id": "lakeside126"
+        },
+        {
+          "land_vertices": [],
+          "origin": [
+            -71,
+            40
+          ],
+          "runtime_id": "water"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            71,
+            40
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            1,
+            2,
+            3
+          ],
+          "origin": [
+            0,
+            80
+          ],
+          "runtime_id": "lakeside12"
+        }
+      ],
+      "center_id": "lakeside126",
+      "center_line_parity": 0,
+      "id": "lakeside126-patch-parity0",
+      "output": {
+        "dimensions": {
+          "height": 480,
+          "width": 476
+        },
+        "path": "lakeside126-patch-parity0-2x.png",
+        "sha256": "5af6c12f083ca51288b8e886a4c04170c73633dc517bac6cc0f3abb19ebbc281"
+      },
+      "output_4x": {
+        "dimensions": {
+          "height": 960,
+          "width": 952
+        },
+        "path": "lakeside126-patch-parity0-4x.png",
+        "sha256": "156816aa2ef1d09d931a043ba95ad8e7ebcbb0ce3122fed1add6869b25f2e63a"
+      }
+    },
+    {
+      "canvas_origin": [
+        0,
+        -40
+      ],
+      "cells": [
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            71,
+            -40
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2
+          ],
+          "origin": [
+            0,
+            0
+          ],
+          "runtime_id": "lakeside16"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            142,
+            0
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "origin": [
+            71,
+            40
+          ],
+          "runtime_id": "lakeside126"
+        },
+        {
+          "land_vertices": [],
+          "origin": [
+            0,
+            80
+          ],
+          "runtime_id": "water"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            142,
+            80
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            1,
+            2,
+            3
+          ],
+          "origin": [
+            71,
+            120
+          ],
+          "runtime_id": "lakeside12"
+        }
+      ],
+      "center_id": "lakeside126",
+      "center_line_parity": 1,
+      "id": "lakeside126-patch-parity1",
+      "output": {
+        "dimensions": {
+          "height": 480,
+          "width": 476
+        },
+        "path": "lakeside126-patch-parity1-2x.png",
+        "sha256": "5af6c12f083ca51288b8e886a4c04170c73633dc517bac6cc0f3abb19ebbc281"
+      },
+      "output_4x": {
+        "dimensions": {
+          "height": 960,
+          "width": 952
+        },
+        "path": "lakeside126-patch-parity1-4x.png",
+        "sha256": "156816aa2ef1d09d931a043ba95ad8e7ebcbb0ce3122fed1add6869b25f2e63a"
+      }
+    },
+    {
+      "canvas_origin": [
+        -71,
+        -80
+      ],
+      "cells": [
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            0,
+            -80
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            -71,
+            -40
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            71,
+            -40
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            5
+          ],
+          "origin": [
+            0,
+            0
+          ],
+          "runtime_id": "lakeside156"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            5
+          ],
+          "origin": [
+            -71,
+            40
+          ],
+          "runtime_id": "lakeside56"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2
+          ],
+          "origin": [
+            71,
+            40
+          ],
+          "runtime_id": "lakeside16"
+        },
+        {
+          "land_vertices": [],
+          "origin": [
+            0,
+            80
+          ],
+          "runtime_id": "water"
+        }
+      ],
+      "center_id": "lakeside156",
+      "center_line_parity": 0,
+      "id": "lakeside156-patch-parity0",
+      "output": {
+        "dimensions": {
+          "height": 480,
+          "width": 476
+        },
+        "path": "lakeside156-patch-parity0-2x.png",
+        "sha256": "d4b7f3e28cc18d2886abe18b6dfb1922f05980be690b46432f4c8cb7e867e801"
+      },
+      "output_4x": {
+        "dimensions": {
+          "height": 960,
+          "width": 952
+        },
+        "path": "lakeside156-patch-parity0-4x.png",
+        "sha256": "fd950b117f0b8886f23c81bcb3640d5a1d1e205e2f55b644edbd731dd0489291"
+      }
+    },
+    {
+      "canvas_origin": [
+        0,
+        -40
+      ],
+      "cells": [
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            71,
+            -40
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            0,
+            0
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            142,
+            0
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            5
+          ],
+          "origin": [
+            71,
+            40
+          ],
+          "runtime_id": "lakeside156"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            5
+          ],
+          "origin": [
+            0,
+            80
+          ],
+          "runtime_id": "lakeside56"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2
+          ],
+          "origin": [
+            142,
+            80
+          ],
+          "runtime_id": "lakeside16"
+        },
+        {
+          "land_vertices": [],
+          "origin": [
+            71,
+            120
+          ],
+          "runtime_id": "water"
+        }
+      ],
+      "center_id": "lakeside156",
+      "center_line_parity": 1,
+      "id": "lakeside156-patch-parity1",
+      "output": {
+        "dimensions": {
+          "height": 480,
+          "width": 476
+        },
+        "path": "lakeside156-patch-parity1-2x.png",
+        "sha256": "d4b7f3e28cc18d2886abe18b6dfb1922f05980be690b46432f4c8cb7e867e801"
+      },
+      "output_4x": {
+        "dimensions": {
+          "height": 960,
+          "width": 952
+        },
+        "path": "lakeside156-patch-parity1-4x.png",
+        "sha256": "fd950b117f0b8886f23c81bcb3640d5a1d1e205e2f55b644edbd731dd0489291"
+      }
+    },
+    {
+      "canvas_origin": [
+        -71,
+        -80
+      ],
+      "cells": [
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            0,
+            -80
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            -71,
+            -40
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            5
+          ],
+          "origin": [
+            71,
+            -40
+          ],
+          "runtime_id": "lakeside56"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            0,
+            0
+          ],
+          "runtime_id": "lakeside3456"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            -71,
+            40
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            71,
+            40
+          ],
+          "runtime_id": "lakeside23"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            0,
+            80
+          ],
+          "runtime_id": "grass"
+        }
+      ],
+      "center_id": "lakeside3456",
+      "center_line_parity": 0,
+      "id": "lakeside3456-patch-parity0",
+      "output": {
+        "dimensions": {
+          "height": 480,
+          "width": 476
+        },
+        "path": "lakeside3456-patch-parity0-2x.png",
+        "sha256": "d8fa77c8ce16b2d4f62d35ca9e51f753c20fa60f17f55ec98cbeb890e46ad464"
+      },
+      "output_4x": {
+        "dimensions": {
+          "height": 960,
+          "width": 952
+        },
+        "path": "lakeside3456-patch-parity0-4x.png",
+        "sha256": "faa173cb223d54a593bee2df19f40187f56456f8ba18738dd141af5728d1de13"
+      }
+    },
+    {
+      "canvas_origin": [
+        0,
+        -40
+      ],
+      "cells": [
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            71,
+            -40
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            0,
+            0
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            5
+          ],
+          "origin": [
+            142,
+            0
+          ],
+          "runtime_id": "lakeside56"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            71,
+            40
+          ],
+          "runtime_id": "lakeside3456"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            0,
+            80
+          ],
+          "runtime_id": "grass"
+        },
+        {
+          "land_vertices": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            142,
+            80
+          ],
+          "runtime_id": "lakeside23"
+        },
+        {
+          "land_vertices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "origin": [
+            71,
+            120
+          ],
+          "runtime_id": "grass"
+        }
+      ],
+      "center_id": "lakeside3456",
+      "center_line_parity": 1,
+      "id": "lakeside3456-patch-parity1",
+      "output": {
+        "dimensions": {
+          "height": 480,
+          "width": 476
+        },
+        "path": "lakeside3456-patch-parity1-2x.png",
+        "sha256": "d8fa77c8ce16b2d4f62d35ca9e51f753c20fa60f17f55ec98cbeb890e46ad464"
+      },
+      "output_4x": {
+        "dimensions": {
+          "height": 960,
+          "width": 952
+        },
+        "path": "lakeside3456-patch-parity1-4x.png",
+        "sha256": "faa173cb223d54a593bee2df19f40187f56456f8ba18738dd141af5728d1de13"
+      }
+    },
+    {
+      "canvas_origin": [
+        -71,
+        -80
+      ],
+      "cells": [
+        {
+          "land_vertices": [],
+          "origin": [
+            0,
+            -80
+          ],
+          "runtime_id": "water"
+        },
+        {
+          "land_vertices": [],
+          "origin": [
+            -71,
+            -40
+          ],
+          "runtime_id": "water"
+        },
+        {
+          "land_vertices": [],
+          "origin": [
+            71,
+            -40
+          ],
+          "runtime_id": "water"
+        },
+        {
+          "land_vertices": [],
+          "origin": [
+            0,
+            0
+          ],
+          "runtime_id": "water"
+        },
+        {
+          "land_vertices": [],
+          "origin": [
+            -71,
+            40
+          ],
+          "runtime_id": "water"
+        },
+        {
+          "land_vertices": [],
+          "origin": [
+            71,
+            40
+          ],
+          "runtime_id": "water"
+        },
+        {
+          "land_vertices": [],
+          "origin": [
+            0,
+            80
+          ],
+          "runtime_id": "water"
+        }
+      ],
+      "center_id": "water",
+      "center_line_parity": 0,
+      "id": "water-patch-parity0",
+      "output": {
+        "dimensions": {
+          "height": 480,
+          "width": 476
+        },
+        "path": "water-patch-parity0-2x.png",
+        "sha256": "1c6f9aa2da55328046a884c739609969488c3ea568ad0ed2a1c5e52f3e678ee3"
+      },
+      "output_4x": {
+        "dimensions": {
+          "height": 960,
+          "width": 952
+        },
+        "path": "water-patch-parity0-4x.png",
+        "sha256": "a2b2b4587370ce89d28114346e20226eaeca428b4ac4f7db08f169e13a5cbfa4"
+      }
+    },
+    {
+      "canvas_origin": [
+        0,
+        -40
+      ],
+      "cells": [
+        {
+          "land_vertices": [],
+          "origin": [
+            71,
+            -40
+          ],
+          "runtime_id": "water"
+        },
+        {
+          "land_vertices": [],
+          "origin": [
+            0,
+            0
+          ],
+          "runtime_id": "water"
+        },
+        {
+          "land_vertices": [],
+          "origin": [
+            142,
+            0
+          ],
+          "runtime_id": "water"
+        },
+        {
+          "land_vertices": [],
+          "origin": [
+            71,
+            40
+          ],
+          "runtime_id": "water"
+        },
+        {
+          "land_vertices": [],
+          "origin": [
+            0,
+            80
+          ],
+          "runtime_id": "water"
+        },
+        {
+          "land_vertices": [],
+          "origin": [
+            142,
+            80
+          ],
+          "runtime_id": "water"
+        },
+        {
+          "land_vertices": [],
+          "origin": [
+            71,
+            120
+          ],
+          "runtime_id": "water"
+        }
+      ],
+      "center_id": "water",
+      "center_line_parity": 1,
+      "id": "water-patch-parity1",
+      "output": {
+        "dimensions": {
+          "height": 480,
+          "width": 476
+        },
+        "path": "water-patch-parity1-2x.png",
+        "sha256": "1c6f9aa2da55328046a884c739609969488c3ea568ad0ed2a1c5e52f3e678ee3"
+      },
+      "output_4x": {
+        "dimensions": {
+          "height": 960,
+          "width": 952
+        },
+        "path": "water-patch-parity1-4x.png",
+        "sha256": "a2b2b4587370ce89d28114346e20226eaeca428b4ac4f7db08f169e13a5cbfa4"
+      }
+    }
+  ],
+  "schema_version": 1,
+  "status": "candidate-built",
+  "tool": "Go tools/art-review -shore",
+  "topology_reference": "docs/art/shoreline-topology.md",
+  "variants": [
+    {
+      "edges": [
+        {
+          "direction": 1,
+          "endpoints": [
+            "land",
+            "land"
+          ],
+          "state": "land",
+          "vertices": [
+            1,
+            2
+          ]
+        },
+        {
+          "direction": 2,
+          "endpoints": [
+            "land",
+            "land"
+          ],
+          "state": "land",
+          "vertices": [
+            2,
+            3
+          ]
+        },
+        {
+          "direction": 3,
+          "endpoints": [
+            "land",
+            "water"
+          ],
+          "state": "mixed",
+          "vertices": [
+            3,
+            4
+          ]
+        },
+        {
+          "direction": 4,
+          "endpoints": [
+            "water",
+            "water"
+          ],
+          "state": "water",
+          "vertices": [
+            4,
+            5
+          ]
+        },
+        {
+          "direction": 5,
+          "endpoints": [
+            "water",
+            "water"
+          ],
+          "state": "water",
+          "vertices": [
+            5,
+            0
+          ]
+        },
+        {
+          "direction": 6,
+          "endpoints": [
+            "water",
+            "land"
+          ],
+          "state": "mixed",
+          "vertices": [
+            0,
+            1
+          ]
+        }
+      ],
+      "id": "lakeside12",
+      "land_vertices": [
+        1,
+        2,
+        3
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "tiles/lakeside12-2x.png",
+          "sha256": "b1a0c96ceb2c87e8fa7599dbf158f2ca086c5ea8ff32b691201269017a07e6e2"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "tiles/lakeside12-4x.png",
+          "sha256": "fb9df3c2ae4c5120b1cecbd6e5c3d532600dd7434be2cf5d8ef1e5f5b69d87a3"
+        }
+      ]
+    },
+    {
+      "edges": [
+        {
+          "direction": 1,
+          "endpoints": [
+            "land",
+            "land"
+          ],
+          "state": "land",
+          "vertices": [
+            1,
+            2
+          ]
+        },
+        {
+          "direction": 2,
+          "endpoints": [
+            "land",
+            "water"
+          ],
+          "state": "mixed",
+          "vertices": [
+            2,
+            3
+          ]
+        },
+        {
+          "direction": 3,
+          "endpoints": [
+            "water",
+            "water"
+          ],
+          "state": "water",
+          "vertices": [
+            3,
+            4
+          ]
+        },
+        {
+          "direction": 4,
+          "endpoints": [
+            "water",
+            "water"
+          ],
+          "state": "water",
+          "vertices": [
+            4,
+            5
+          ]
+        },
+        {
+          "direction": 5,
+          "endpoints": [
+            "water",
+            "land"
+          ],
+          "state": "mixed",
+          "vertices": [
+            5,
+            0
+          ]
+        },
+        {
+          "direction": 6,
+          "endpoints": [
+            "land",
+            "land"
+          ],
+          "state": "land",
+          "vertices": [
+            0,
+            1
+          ]
+        }
+      ],
+      "id": "lakeside16",
+      "land_vertices": [
+        0,
+        1,
+        2
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "tiles/lakeside16-2x.png",
+          "sha256": "4baaece27a9e68d76597b60c740353a52b6977bd704dc3cacac0cf949dba986e"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "tiles/lakeside16-4x.png",
+          "sha256": "ab02adcc9ef758f7876617b894501f3cca65e7854734004e63d54e0fc0c095af"
+        }
+      ]
+    },
+    {
+      "edges": [
+        {
+          "direction": 1,
+          "endpoints": [
+            "water",
+            "land"
+          ],
+          "state": "mixed",
+          "vertices": [
+            1,
+            2
+          ]
+        },
+        {
+          "direction": 2,
+          "endpoints": [
+            "land",
+            "land"
+          ],
+          "state": "land",
+          "vertices": [
+            2,
+            3
+          ]
+        },
+        {
+          "direction": 3,
+          "endpoints": [
+            "land",
+            "land"
+          ],
+          "state": "land",
+          "vertices": [
+            3,
+            4
+          ]
+        },
+        {
+          "direction": 4,
+          "endpoints": [
+            "land",
+            "land"
+          ],
+          "state": "land",
+          "vertices": [
+            4,
+            5
+          ]
+        },
+        {
+          "direction": 5,
+          "endpoints": [
+            "land",
+            "water"
+          ],
+          "state": "mixed",
+          "vertices": [
+            5,
+            0
+          ]
+        },
+        {
+          "direction": 6,
+          "endpoints": [
+            "water",
+            "water"
+          ],
+          "state": "water",
+          "vertices": [
+            0,
+            1
+          ]
+        }
+      ],
+      "id": "lakeside23",
+      "land_vertices": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "tiles/lakeside23-2x.png",
+          "sha256": "3f2f3855280392773059c57050c130c09ad9e3f987dc4105b7663bd4b1936eea"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "tiles/lakeside23-4x.png",
+          "sha256": "964e51aeea72340368d92609c31d76dfc6c9b06977d54caf0062a41b85cfc738"
+        }
+      ]
+    },
+    {
+      "edges": [
+        {
+          "direction": 1,
+          "endpoints": [
+            "water",
+            "water"
+          ],
+          "state": "water",
+          "vertices": [
+            1,
+            2
+          ]
+        },
+        {
+          "direction": 2,
+          "endpoints": [
+            "water",
+            "land"
+          ],
+          "state": "mixed",
+          "vertices": [
+            2,
+            3
+          ]
+        },
+        {
+          "direction": 3,
+          "endpoints": [
+            "land",
+            "land"
+          ],
+          "state": "land",
+          "vertices": [
+            3,
+            4
+          ]
+        },
+        {
+          "direction": 4,
+          "endpoints": [
+            "land",
+            "land"
+          ],
+          "state": "land",
+          "vertices": [
+            4,
+            5
+          ]
+        },
+        {
+          "direction": 5,
+          "endpoints": [
+            "land",
+            "water"
+          ],
+          "state": "mixed",
+          "vertices": [
+            5,
+            0
+          ]
+        },
+        {
+          "direction": 6,
+          "endpoints": [
+            "water",
+            "water"
+          ],
+          "state": "water",
+          "vertices": [
+            0,
+            1
+          ]
+        }
+      ],
+      "id": "lakeside34",
+      "land_vertices": [
+        3,
+        4,
+        5
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "tiles/lakeside34-2x.png",
+          "sha256": "f97190c2d85f117c9ea866f41718e5454a04243258b1df679838b44e27ea0424"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "tiles/lakeside34-4x.png",
+          "sha256": "d0153bb76bb6701b9fee4efed43ee6496c90a99954ec82d4d8918518510b19d9"
+        }
+      ]
+    },
+    {
+      "edges": [
+        {
+          "direction": 1,
+          "endpoints": [
+            "land",
+            "water"
+          ],
+          "state": "mixed",
+          "vertices": [
+            1,
+            2
+          ]
+        },
+        {
+          "direction": 2,
+          "endpoints": [
+            "water",
+            "water"
+          ],
+          "state": "water",
+          "vertices": [
+            2,
+            3
+          ]
+        },
+        {
+          "direction": 3,
+          "endpoints": [
+            "water",
+            "water"
+          ],
+          "state": "water",
+          "vertices": [
+            3,
+            4
+          ]
+        },
+        {
+          "direction": 4,
+          "endpoints": [
+            "water",
+            "land"
+          ],
+          "state": "mixed",
+          "vertices": [
+            4,
+            5
+          ]
+        },
+        {
+          "direction": 5,
+          "endpoints": [
+            "land",
+            "land"
+          ],
+          "state": "land",
+          "vertices": [
+            5,
+            0
+          ]
+        },
+        {
+          "direction": 6,
+          "endpoints": [
+            "land",
+            "land"
+          ],
+          "state": "land",
+          "vertices": [
+            0,
+            1
+          ]
+        }
+      ],
+      "id": "lakeside56",
+      "land_vertices": [
+        0,
+        1,
+        5
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "tiles/lakeside56-2x.png",
+          "sha256": "2e726dafbe226f8bcdbd4205d67d60c31bba08e88260a0f7a06ce0c8d64f0968"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "tiles/lakeside56-4x.png",
+          "sha256": "5e1336a5de4681fa07a8dcb5f085b1a924d73d17628fe15e2e82e89a5538608d"
+        }
+      ]
+    },
+    {
+      "edges": [
+        {
+          "direction": 1,
+          "endpoints": [
+            "land",
+            "land"
+          ],
+          "state": "land",
+          "vertices": [
+            1,
+            2
+          ]
+        },
+        {
+          "direction": 2,
+          "endpoints": [
+            "land",
+            "land"
+          ],
+          "state": "land",
+          "vertices": [
+            2,
+            3
+          ]
+        },
+        {
+          "direction": 3,
+          "endpoints": [
+            "land",
+            "land"
+          ],
+          "state": "land",
+          "vertices": [
+            3,
+            4
+          ]
+        },
+        {
+          "direction": 4,
+          "endpoints": [
+            "land",
+            "water"
+          ],
+          "state": "mixed",
+          "vertices": [
+            4,
+            5
+          ]
+        },
+        {
+          "direction": 5,
+          "endpoints": [
+            "water",
+            "water"
+          ],
+          "state": "water",
+          "vertices": [
+            5,
+            0
+          ]
+        },
+        {
+          "direction": 6,
+          "endpoints": [
+            "water",
+            "land"
+          ],
+          "state": "mixed",
+          "vertices": [
+            0,
+            1
+          ]
+        }
+      ],
+      "id": "lakeside123",
+      "land_vertices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "tiles/lakeside123-2x.png",
+          "sha256": "0affbc2ffc3ceb52a8f4408cc03a492148dfcf3f1e84851791c3567ba08b6d7c"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "tiles/lakeside123-4x.png",
+          "sha256": "ddd86600a9dd1e95e8176637a9190b4088424f672d327394f380365e5cb868d0"
+        }
+      ]
+    },
+    {
+      "edges": [
+        {
+          "direction": 1,
+          "endpoints": [
+            "land",
+            "land"
+          ],
+          "state": "land",
+          "vertices": [
+            1,
+            2
+          ]
+        },
+        {
+          "direction": 2,
+          "endpoints": [
+            "land",
+            "land"
+          ],
+          "state": "land",
+          "vertices": [
+            2,
+            3
+          ]
+        },
+        {
+          "direction": 3,
+          "endpoints": [
+            "land",
+            "water"
+          ],
+          "state": "mixed",
+          "vertices": [
+            3,
+            4
+          ]
+        },
+        {
+          "direction": 4,
+          "endpoints": [
+            "water",
+            "water"
+          ],
+          "state": "water",
+          "vertices": [
+            4,
+            5
+          ]
+        },
+        {
+          "direction": 5,
+          "endpoints": [
+            "water",
+            "land"
+          ],
+          "state": "mixed",
+          "vertices": [
+            5,
+            0
+          ]
+        },
+        {
+          "direction": 6,
+          "endpoints": [
+            "land",
+            "land"
+          ],
+          "state": "land",
+          "vertices": [
+            0,
+            1
+          ]
+        }
+      ],
+      "id": "lakeside126",
+      "land_vertices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "tiles/lakeside126-2x.png",
+          "sha256": "86bd096d7578d911a36b4dc1e4d3f55b09eec79681ab14403b97a6b295a057c5"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "tiles/lakeside126-4x.png",
+          "sha256": "98c656ebf85d6d078193af1ac1d9f00cbdda365a0f555ad97698e9fe646724b2"
+        }
+      ]
+    },
+    {
+      "edges": [
+        {
+          "direction": 1,
+          "endpoints": [
+            "land",
+            "land"
+          ],
+          "state": "land",
+          "vertices": [
+            1,
+            2
+          ]
+        },
+        {
+          "direction": 2,
+          "endpoints": [
+            "land",
+            "water"
+          ],
+          "state": "mixed",
+          "vertices": [
+            2,
+            3
+          ]
+        },
+        {
+          "direction": 3,
+          "endpoints": [
+            "water",
+            "water"
+          ],
+          "state": "water",
+          "vertices": [
+            3,
+            4
+          ]
+        },
+        {
+          "direction": 4,
+          "endpoints": [
+            "water",
+            "land"
+          ],
+          "state": "mixed",
+          "vertices": [
+            4,
+            5
+          ]
+        },
+        {
+          "direction": 5,
+          "endpoints": [
+            "land",
+            "land"
+          ],
+          "state": "land",
+          "vertices": [
+            5,
+            0
+          ]
+        },
+        {
+          "direction": 6,
+          "endpoints": [
+            "land",
+            "land"
+          ],
+          "state": "land",
+          "vertices": [
+            0,
+            1
+          ]
+        }
+      ],
+      "id": "lakeside156",
+      "land_vertices": [
+        0,
+        1,
+        2,
+        5
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "tiles/lakeside156-2x.png",
+          "sha256": "1261ab4d99e16af9614cfffb0b85833ec0f1a4bc86b07520d5113b1a0f8caa12"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "tiles/lakeside156-4x.png",
+          "sha256": "24cce4433abe9897dcf2df3b1a98db2967b05200f474b655896b211eaf4f613a"
+        }
+      ]
+    },
+    {
+      "edges": [
+        {
+          "direction": 1,
+          "endpoints": [
+            "land",
+            "water"
+          ],
+          "state": "mixed",
+          "vertices": [
+            1,
+            2
+          ]
+        },
+        {
+          "direction": 2,
+          "endpoints": [
+            "water",
+            "land"
+          ],
+          "state": "mixed",
+          "vertices": [
+            2,
+            3
+          ]
+        },
+        {
+          "direction": 3,
+          "endpoints": [
+            "land",
+            "land"
+          ],
+          "state": "land",
+          "vertices": [
+            3,
+            4
+          ]
+        },
+        {
+          "direction": 4,
+          "endpoints": [
+            "land",
+            "land"
+          ],
+          "state": "land",
+          "vertices": [
+            4,
+            5
+          ]
+        },
+        {
+          "direction": 5,
+          "endpoints": [
+            "land",
+            "land"
+          ],
+          "state": "land",
+          "vertices": [
+            5,
+            0
+          ]
+        },
+        {
+          "direction": 6,
+          "endpoints": [
+            "land",
+            "land"
+          ],
+          "state": "land",
+          "vertices": [
+            0,
+            1
+          ]
+        }
+      ],
+      "id": "lakeside3456",
+      "land_vertices": [
+        0,
+        1,
+        3,
+        4,
+        5
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "tiles/lakeside3456-2x.png",
+          "sha256": "01d06e1bdbc64a0cf181e4dc1ab08fc45863265821049f3dc2c62d78be685e6a"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "tiles/lakeside3456-4x.png",
+          "sha256": "6d2c41cb36793f2fdae0405e7c065fd1e44429609797a79e5432ba83140f3e11"
+        }
+      ]
+    },
+    {
+      "edges": [
+        {
+          "direction": 1,
+          "endpoints": [
+            "land",
+            "land"
+          ],
+          "state": "land",
+          "vertices": [
+            1,
+            2
+          ]
+        },
+        {
+          "direction": 2,
+          "endpoints": [
+            "land",
+            "land"
+          ],
+          "state": "land",
+          "vertices": [
+            2,
+            3
+          ]
+        },
+        {
+          "direction": 3,
+          "endpoints": [
+            "land",
+            "land"
+          ],
+          "state": "land",
+          "vertices": [
+            3,
+            4
+          ]
+        },
+        {
+          "direction": 4,
+          "endpoints": [
+            "land",
+            "land"
+          ],
+          "state": "land",
+          "vertices": [
+            4,
+            5
+          ]
+        },
+        {
+          "direction": 5,
+          "endpoints": [
+            "land",
+            "land"
+          ],
+          "state": "land",
+          "vertices": [
+            5,
+            0
+          ]
+        },
+        {
+          "direction": 6,
+          "endpoints": [
+            "land",
+            "land"
+          ],
+          "state": "land",
+          "vertices": [
+            0,
+            1
+          ]
+        }
+      ],
+      "id": "grass",
+      "land_vertices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "tiles/grass-2x.png",
+          "sha256": "5285a565b5a882a24477fc48c7f5f69fc7a81a4ef2cdf5b87708b0eadfa13b17"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "tiles/grass-4x.png",
+          "sha256": "2feea3fd1e9026a16c87bf11ac6c2c33ec8d173719866427da42827bcc2d119e"
+        }
+      ]
+    },
+    {
+      "edges": [
+        {
+          "direction": 1,
+          "endpoints": [
+            "water",
+            "water"
+          ],
+          "state": "water",
+          "vertices": [
+            1,
+            2
+          ]
+        },
+        {
+          "direction": 2,
+          "endpoints": [
+            "water",
+            "water"
+          ],
+          "state": "water",
+          "vertices": [
+            2,
+            3
+          ]
+        },
+        {
+          "direction": 3,
+          "endpoints": [
+            "water",
+            "water"
+          ],
+          "state": "water",
+          "vertices": [
+            3,
+            4
+          ]
+        },
+        {
+          "direction": 4,
+          "endpoints": [
+            "water",
+            "water"
+          ],
+          "state": "water",
+          "vertices": [
+            4,
+            5
+          ]
+        },
+        {
+          "direction": 5,
+          "endpoints": [
+            "water",
+            "water"
+          ],
+          "state": "water",
+          "vertices": [
+            5,
+            0
+          ]
+        },
+        {
+          "direction": 6,
+          "endpoints": [
+            "water",
+            "water"
+          ],
+          "state": "water",
+          "vertices": [
+            0,
+            1
+          ]
+        }
+      ],
+      "id": "water",
+      "land_vertices": [],
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "tiles/water-2x.png",
+          "sha256": "9d9ad933039173239ce66c78b095ff6d2f739e50ae08c029dc21d60921824eba"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "tiles/water-4x.png",
+          "sha256": "608e20ac3fef905a5faf71eb5d8a2cf91e7a677c4c8a40bd5198fb9eb0469339"
+        }
+      ]
+    }
+  ]
+}

@@ -11,17 +11,17 @@ confirm every ledger ID/path and the campaign-use flags.
 
 ## Status
 
-Fourteen backgrounds have a `candidate-source` association:
-`forest`, `forest_w`, `water`, `waterStones`, `mud`, `stone`,
+Thirteen backgrounds have a `candidate-source` association:
+`forest`, `forest_w`, `waterStones`, `mud`, `stone`,
 `hills`, `mountain`, `mountain_w`, `house`, `house_w`, `rough_w`, `stoney_w`, `shelled_w`.
 These point to generated art and 2×/4× rectangle exports, **not approved runtime
 bindings**. Family geometry, shared phase and scale/quality review remain open;
 forest and mountain in particular retain recorded quality caveats.
 
-Summer/winter ground, eight depot pieces, fourteen HQ pieces, four factory pieces
-and all 74 enabled infrastructure IDs are
-`candidate-built`, with `patch-reviewed` seams and explicit component/traversal or
-shared-scene geometry. These 102 rows point to their respective build manifests and
+Summer/winter ground, eight depot pieces, fourteen HQ pieces, four factory pieces,
+nine shores, open water and all 74 enabled infrastructure IDs are `candidate-built`,
+with `patch-reviewed` seams and explicit component, shared-scene or shore-corner
+geometry. These 112 rows point to their respective build manifests and
 192×160 / 384×320 polygon exports. Actual saved-PNG patches pass both parities and
 densities; independent [road/stream review](connected-family-batch-01.md) and
 [path review](distinct-terrain-batch-04.md), [rail review](distinct-terrain-batch-05.md)
@@ -34,9 +34,12 @@ the manor's lower-N/entrance-in-C placement recorded for runtime usability revie
 The [factory review](distinct-terrain-batch-10.md) adds all four winter pieces,
 with the eastern loading wing associated with gameplay cell E. All 26 enabled
 building IDs now have provisional candidates from five whole-scene masters.
+The [shore review](distinct-terrain-batch-11.md) adds explicit corner profiles,
+reciprocal mixed-edge banks and polygon-built water. Independent art review prompted
+smooth-coast repairs; the repaired candidates pass provisionally.
 Full maps, transitions, seasonal integration, fractional zoom and runtime/release
-acceptance remain open. The other 18 rows say `needs-image`; all are backgrounds.
-Total: **116 associated IDs, zero accepted runtime replacements**.
+acceptance remain open. The other nine rows say `needs-image`; all are backgrounds.
+Total: **125 associated IDs, zero accepted runtime replacements**.
 
 The `build_manifest` column names the producing manifest; `ports` records the
 declared directions for built overlays. Source candidates are not interchangeable
@@ -59,6 +62,10 @@ HQ `hqN/NW/NE/C/SW/SE/S` and winter counterparts use their own shared-scene
 manifest, with fixed seven-cell origins and the same complementary polygon ownership.
 Factory `factoryN_w`, `factoryW_w`, `factoryE_w`, `factoryS_w` share a single winter
 master and fixed four-cell origins, with E retained as the entry cell.
+Shore `ports=land-vertices:…` records zero-based polygon vertices, not route directions.
+See [the topology contract](shoreline-topology.md) for mixed-edge semantics,
+`lakeside23`'s effective 234 exception, and the unused/boundary inferences.
+Open water is now polygon-built; `waterStones` still needs shared-water integration.
 
 The table preserves all required loadable IDs, including editor-only entries.
 The three supplied missions place 58 background and 70 infrastructure IDs.
@@ -81,7 +88,8 @@ remain separate stable IDs; they are included in 134.
   They are not extra enabled loader IDs and must not be silently substituted.
 - Filename digits alone are insufficient port evidence. [Geometry research](runtime-connection-geometry.md)
   confirms the six directions and records exceptions. Unbuilt connected replacements
-  and shores retain `ports=unverified` until their own declarations/artwork are tested.
+  retain their separate declarations. Shores now have explicit tested corner profiles;
+  their full-map/material/runtime acceptance remains open.
 
 Keep the CSV up to date when assigning generated art. Require explicit quality,
 geometry and seam evidence before moving any row to accepted.
