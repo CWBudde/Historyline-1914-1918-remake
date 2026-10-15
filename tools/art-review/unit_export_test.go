@@ -29,6 +29,7 @@ func TestUnitActualPNGBundle(t *testing.T) {
 	}{
 		{"infantry", []string{"CP_infantry", "EC_infantry"}, "Infantry"},
 		{"lightArtillery", []string{"CP_lArtillery", "EC_lArtillery"}, "Light artillery"},
+		{"eliteInfantry", []string{"CP_eliteInf", "EC_eliteInf"}, "Elite infantry"},
 	} {
 		t.Run(tc.family, func(t *testing.T) {
 			unitTestActualFamilyPNGBundle(t, tc.family, tc.classes, tc.title)
@@ -53,6 +54,9 @@ func unitTestActualFamilyPNGBundle(t *testing.T, family string, classes []string
 	profilePrefix := "unit-infantry-v1:"
 	if family == "lightArtillery" {
 		profilePrefix = "unit-light-artillery-v1:"
+	}
+	if family == "eliteInfantry" {
+		profilePrefix = "unit-elite-infantry-v1:"
 	}
 	if r.Family != family || !reflect.DeepEqual(r.ClassIDs, classes) || !strings.HasPrefix(r.Profile, profilePrefix) || !strings.Contains(r.Profile, classes[0]+" and "+classes[1]) || !strings.Contains(r.PaletteSelector, "independent of class ID/country") {
 		t.Fatal("family report metadata", r.Family, r.ClassIDs, r.Profile, r.PaletteSelector)

@@ -15,6 +15,11 @@ UI border excluded. This exception does not change other delivered families.
 See [the portrait contract](light-artillery-portrait-contract.md); the resemblance
 target remains visual and is not a measured percentage or final acceptance.
 
+The user's continuation applies the same painted/reference-guided brief to the
+elite-infantry machine-gun team. Its separate six-view atlas and portrait are
+recorded in [the elite-infantry contract](elite-infantry-contract.md).
+Previously delivered families retain their recorded briefs.
+
 The current [new-source manifest](../../art/terrain-distinct-v1.json) contains
 27 semantic/material candidates. The connected and mixed builders deliver all 74
 enabled infrastructure variants and a grass base. Browse the [source gallery](distinct-terrain-review.html).

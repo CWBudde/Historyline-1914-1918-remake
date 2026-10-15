@@ -1,0 +1,8 @@
+{
+    "schema_version":  1,
+    "family":  "eliteInfantry",
+    "source":  {
+                   "source":  "source/portraits/reference-v1/elite-infantry-01.png",
+                   "source_sha256":  "ff30204643f3f5001dbbfb9241033cc01165c37e544ed98048494945a56ea571"
+               }
+}

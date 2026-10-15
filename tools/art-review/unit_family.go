@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-// The bounded pilot supports exactly these two runtime families. Owner palette
+// The bounded pilot supports the explicit runtime families below. Owner palette
 // selection and all image geometry/filtering remain shared between them.
 type unitFamily struct {
 	name            string
@@ -33,7 +33,15 @@ func lookupUnitFamily(name string) (unitFamily, error) {
 			acceptance:      strings.NewReplacer("infantry", "light artillery", "physical boot pivot", "physical gun/crew pivot", "residual cloth hue", "residual paint/cloth hue").Replace(unitAcceptance),
 			title:           "Light artillery", subject: "light artillery",
 		}, nil
+	case "eliteInfantry":
+		return unitFamily{
+			name: name, classIDs: []string{"CP_eliteInf", "EC_eliteInf"},
+			paletteSelector: "Owner palette is independent of class ID/country, including captured elite infantry; no ordinary infantry alias.",
+			profile:         "unit-elite-infantry-v1: six authored square panels row-major N,NW,SW,S,SE,NE; class family lookup CP_eliteInf and EC_eliteInf independently selects owner cp/ec/neutral. " + unitAlgorithmProfile,
+			acceptance:      strings.ReplaceAll(unitAcceptance, "PROVISIONAL infantry", "PROVISIONAL elite infantry machine-gun team"),
+			title:           "Elite infantry", subject: "elite infantry machine-gun team",
+		}, nil
 	default:
-		return unitFamily{}, fmt.Errorf("unit family %q must be infantry or lightArtillery", name)
+		return unitFamily{}, fmt.Errorf("unit family %q must be infantry, lightArtillery or eliteInfantry", name)
 	}
 }

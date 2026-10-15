@@ -1,0 +1,107 @@
+{
+    "schema_version":  1,
+    "id":  "portrait-elite-infantry-v1",
+    "date":  "2026-10-15",
+    "status":  "candidate-built",
+    "tool":  "Go tools/art-review -portrait",
+    "manifest":  "art/portrait-elite-infantry-v1.json",
+    "manifest_sha256":  "11cadfa70ba01a665ab10a935b87b1e2c45dcf6a7203ae254f85e59e8dd94d96",
+    "generation_recipes":  [
+                               "art/recipes/portraits/reference-v1/elite-infantry-01.json"
+                           ],
+    "exports":  [
+                    {
+                        "path":  "art/exports/portrait-elite-infantry-v1/eliteInfantry-4x.png",
+                        "build_output":  "eliteInfantry-4x.png",
+                        "sha256":  "899b7c5fb102461864689bc45360bbbdb5a7d7f6c5dd35f97f798de2d86a557a",
+                        "dimensions":  {
+                                           "width":  840,
+                                           "height":  752
+                                       }
+                    },
+                    {
+                        "path":  "art/exports/portrait-elite-infantry-v1/eliteInfantry-2x.png",
+                        "build_output":  "eliteInfantry-2x.png",
+                        "sha256":  "913acc3afff4fe805d7a88c5cfeb8dcbbabdfdad54073528c632cc6cba2811f0",
+                        "dimensions":  {
+                                           "width":  420,
+                                           "height":  376
+                                       }
+                    },
+                    {
+                        "path":  "art/exports/portrait-elite-infantry-v1/eliteInfantry-1x.png",
+                        "build_output":  "eliteInfantry-1x.png",
+                        "sha256":  "b0aaf397965fc8563c582d238343218611707bdc10069fca115780739379c421",
+                        "dimensions":  {
+                                           "width":  210,
+                                           "height":  188
+                                       }
+                    }
+                ],
+    "bundle_report":  {
+                          "schema_version":  1,
+                          "profile":  "portrait-elite-infantry-v1",
+                          "family":  "eliteInfantry",
+                          "classes":  [
+                                          "CP_eliteInf",
+                                          "EC_eliteInf"
+                                      ],
+                          "logical_dimensions":  {
+                                                     "width":  210,
+                                                     "height":  188
+                                                 },
+                          "source":  {
+                                         "source":  "source/portraits/reference-v1/elite-infantry-01.png",
+                                         "source_sha256":  "ff30204643f3f5001dbbfb9241033cc01165c37e544ed98048494945a56ea571",
+                                         "dimensions":  {
+                                                            "width":  1326,
+                                                            "height":  1187
+                                                        },
+                                         "retained_source":  "eliteInfantry-source.png"
+                                     },
+                          "manifest_sha256":  "11cadfa70ba01a665ab10a935b87b1e2c45dcf6a7203ae254f85e59e8dd94d96",
+                          "manifest_snapshot":  "manifest.json",
+                          "crop_rectangle":  {
+                                                 "x":  33,
+                                                 "y":  29,
+                                                 "width":  1260,
+                                                 "height":  1128
+                                             },
+                          "crop_policy":  "Largest exact 105*k by 94*k rectangle, k=min(source_width/105,source_height/94) using integer division; k\u003e=8. Center with floor offsets, discarding odd extra pixels on right/bottom. Copy crop without resampling to a zero-based NRGBA image before filtering; no stretch or upscaling.",
+                          "resampling":  "Unchanged resizeLanczos: antialiased premultiplied byte-RGB Lanczos3 with signed lobes, retained support normalized at edges, output-only half-up byte rounding and alpha/color clamping. Fixed chain cropped source -\u003e 4x 840x752 -\u003e 2x 420x376 -\u003e 1x 210x188; no quantized upsampling.",
+                          "opacity":  "Every decoded source pixel must have alpha 255, including discarded overscan; all exports remain opaque. No alpha editing, background flattening, or magenta key treatment.",
+                          "semantics":  "One owner-neutral illustrated elite-infantry portrait shared only by CP_eliteInf and EC_eliteInf. No faction recolouring, moved/spent grayscale, flags, text, frame, icons, or UI baked into this illustration. Source is the opaque art target, not a faction mask.",
+                          "acceptance":  "Provisional offline candidate. User requests approximately 90% visual resemblance after Lanczos reduction to the 210x188 repository reference size; this is a visual review target, not a measured similarity score. No runtime installation, native 96x77 resource alias binding, full UI acceptance, or whole graphics acceptance.",
+                          "outputs":  [
+                                          {
+                                              "path":  "eliteInfantry-4x.png",
+                                              "sha256":  "899b7c5fb102461864689bc45360bbbdb5a7d7f6c5dd35f97f798de2d86a557a",
+                                              "dimensions":  {
+                                                                 "width":  840,
+                                                                 "height":  752
+                                                             }
+                                          },
+                                          {
+                                              "path":  "eliteInfantry-2x.png",
+                                              "sha256":  "913acc3afff4fe805d7a88c5cfeb8dcbbabdfdad54073528c632cc6cba2811f0",
+                                              "dimensions":  {
+                                                                 "width":  420,
+                                                                 "height":  376
+                                                             }
+                                          },
+                                          {
+                                              "path":  "eliteInfantry-1x.png",
+                                              "sha256":  "b0aaf397965fc8563c582d238343218611707bdc10069fca115780739379c421",
+                                              "dimensions":  {
+                                                                 "width":  210,
+                                                                 "height":  188
+                                                             }
+                                          }
+                                      ],
+                          "candidate_png_count":  3,
+                          "physical_png_count":  4,
+                          "total_file_count":  7
+                      },
+    "runtime_acceptance":  "PENDING. Offline elite-infantry candidate only. Approximate90% resemblance is visual, not a measured score; native mappings, physical pivot, motion, Blender comparison and runtime integration remain open.",
+    "repeat_file_count":  7
+}

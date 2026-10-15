@@ -57,6 +57,11 @@ func buildPortraitBundle(in portraitInputs) (portraitBundle, error) {
 		classes = []string{"CP_lArtillery", "EC_lArtillery"}
 		acceptance = "Provisional offline candidate. User requests approximately 90% visual resemblance after Lanczos reduction to the 210x188 repository reference size; this is a visual review target, not a measured similarity score. No runtime installation, native 96x77 resource alias binding, full UI acceptance, or whole graphics acceptance."
 	}
+	if family == "eliteInfantry" {
+		profile, label = "portrait-elite-infantry-v1", "elite-infantry"
+		classes = []string{"CP_eliteInf", "EC_eliteInf"}
+		acceptance = "Provisional offline candidate. User requests approximately 90% visual resemblance after Lanczos reduction to the 210x188 repository reference size; this is a visual review target, not a measured similarity score. No runtime installation, native 96x77 resource alias binding, full UI acceptance, or whole graphics acceptance."
+	}
 	b := portraitBundle{report: portraitReport{
 		SchemaVersion:     1,
 		Profile:           profile,

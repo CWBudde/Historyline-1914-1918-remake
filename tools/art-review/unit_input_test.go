@@ -99,15 +99,15 @@ func unitTestFamilyFixture(t *testing.T, family string) (string, []byte) {
 	return path, b
 }
 
-// Only the two bounded families may select the shared rendering pipeline.
+// Only the explicit bounded families may select the shared rendering pipeline.
 func TestUnitFamilySelection(t *testing.T) {
 	path, valid := unitTestFixture(t)
-	for _, family := range []string{"infantry", "lightArtillery", "lightartillery", "LightArtillery", "artillery", "lArtillery", "mediumArtillery", "heavyArtillery", "CP_lArtillery", "eliteinfantry", ""} {
+	for _, family := range []string{"infantry", "lightArtillery", "eliteInfantry", "lightartillery", "LightArtillery", "artillery", "lArtillery", "mediumArtillery", "heavyArtillery", "CP_lArtillery", "eliteinfantry", ""} {
 		t.Run(family, func(t *testing.T) {
 			b := bytes.Replace(valid, []byte(`"family":"infantry"`), []byte(fmt.Sprintf(`"family":%q`, family)), 1)
 			unitTestWrite(t, path, b)
 			in, err := loadUnitInputs(path)
-			wantValid := family == "infantry" || family == "lightArtillery"
+			wantValid := family == "infantry" || family == "lightArtillery" || family == "eliteInfantry"
 			if (err == nil) != wantValid {
 				t.Fatalf("family %q: err=%v, want valid=%v", family, err, wantValid)
 			}

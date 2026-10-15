@@ -15,7 +15,7 @@ import (
 	"path/filepath"
 )
 
-// The only configurable pilot choices are the two explicit families, new source
+// The only configurable pilot choices are the explicit families, new source
 // pins and three owner colours. Geometry, facing order and state semantics are fixed.
 type unitManifest struct {
 	SchemaVersion int                                      `json:"schema_version"`

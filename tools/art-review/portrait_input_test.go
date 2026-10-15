@@ -20,7 +20,7 @@ import (
 func TestPortraitStrictManifest(t *testing.T) {
 	path, manifest, _ := portraitTestFixture(t, 840, 752)
 	for _, tc := range []struct{ name, old, replacement string }{
-		{"family", `"infantry"`, `"eliteInfantry"`},
+		{"family", `"infantry"`, `"eliteinfantry"`},
 		{"case family", `"infantry"`, `"Infantry"`},
 		{"version", `"schema_version":1`, `"schema_version":2`},
 		{"fraction version", `"schema_version":1`, `"schema_version":1.0`},
