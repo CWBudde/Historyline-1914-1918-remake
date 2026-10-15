@@ -35,6 +35,12 @@ func compoundLayoutFor(id string) (compoundLayout, error) {
 	case "factory-winter":
 		l.Layout = "factory"
 		l.EntryCell = "E"
+	case "mountain-summer", "mountain-winter":
+		l.Layout = "mountain"
+		l.EntryCell = ""
+	case "mountain-single-summer", "mountain-single-winter":
+		l.Layout = "mountain-single"
+		l.Width, l.Height, l.EntryCell = 96, 80, ""
 	default:
 		return l, fmt.Errorf("unsupported compound scene %q", id)
 	}
@@ -43,6 +49,10 @@ func compoundLayoutFor(id string) (compoundLayout, error) {
 	if strings.HasSuffix(id, "-winter") {
 		l.Season = "winter"
 		suffix = "_w"
+	}
+	if l.Layout == "mountain-single" {
+		l.Tiles = []compoundTile{{Cell: "C", RuntimeID: "mountain" + suffix, Origin: connectionPoint{0, 0}}}
+		return l, nil
 	}
 	cells := []string{"N", "W", "E", "S"}
 	origins := []connectionPoint{{71, 0}, {0, 40}, {142, 40}, {71, 80}}
@@ -53,6 +63,9 @@ func compoundLayoutFor(id string) (compoundLayout, error) {
 	prefix := l.Layout
 	if prefix == "depot" {
 		prefix = "cmp"
+	}
+	if prefix == "mountain" {
+		prefix = "mount"
 	}
 	for i, c := range cells {
 		l.Tiles = append(l.Tiles, compoundTile{Cell: c, RuntimeID: prefix + c + suffix, Origin: origins[i]})

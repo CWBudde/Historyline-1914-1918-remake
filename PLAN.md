@@ -988,6 +988,21 @@ below record work already delivered, plus G0.7's new neighborhood comparisons.
             40 gallery images. See `docs/art/distinct-terrain-batch-11.md` and
             `docs/art/shoreline-topology.md`. Ledger: 13 source + 112 built = 125 associated
             IDs, nine backgrounds needing images, zero accepted replacements.
+      - [x] Deliver eight seasonal mountain quarters and rebuild both standalone mountains.
+            (2026-10-15) — batch 12 retains two new overhead masters, numeric guide and exact
+            generation provenance, 20 runtime and 26 review/context PNGs at 2×/4×. Independent
+            review rejected oblique studies; fresh summer 03 and its winter edit pass source
+            and actual-export review provisionally. Shared uniform inset 0.55 passes the opaque
+            outer guard without erasing internal ridges. Controller verifies eight complete
+            scenes, sixteen parity surrounds, 1,136,000 opaque owned pixels, 400,000 clear
+            outside pixels, 73,432 exact quiet-boundary pixels and 6,615 internal-cut artwork
+            samples. All 73 repeat files match; all 838 earlier artifacts reproduce exactly.
+            Independent code review, all provenance/bindings and final `just ci` pass; browser
+            loads 46 images. See `docs/art/distinct-terrain-batch-12.md`. Campaign audit records
+            twelve full groups and one interior orphan; its standalone display preview passes,
+            but runtime selection remains unimplemented. Radial motifs/compact footprint remain
+            full-map readability caveats. Ledger: 11 source + 122 built = 133 associated IDs,
+            one missing fog background, zero accepted replacements.
       - [ ] Complete missing subjects, seasonal images, connected variants and runtime/native
             mappings; validate assembled seams. Twenty-seven sources do not close a family.
 - [ ] **Gate — Approve the complete pilot and choose production density/tools.** Compare all
@@ -1035,6 +1050,14 @@ in a distinct continuous style; final quality/seam and runtime acceptance remain
             profiles, cap axis tap work before allocation, test every cell ID/origin and preserve
             earlier exporter outputs. All five whole-scene masters are now delivered;
             runtime integration remains open.
+      - [x] Extend bounded compound layouts for mountain quads and standalone terrain, retaining
+            exact stable IDs and empty entry cells. Reuse the same two seasonal masters for
+            four layouts, validate up to nine exact scene IDs, and preserve old output bytes.
+            Independent verification caught the single-layout parity offset; formula-derived
+            runtime lattice and saved-ground phase tests fail before repair and pass after it.
+            Actual PNG proof, source snapshots, repeat builds, 838 old-artifact regression,
+            independent code/art review and final CI pass. Orphan fallback selection remains
+            a runtime task, separately recorded in `docs/art/mountain-tile-geometry.md`.
       - [x] Add bounded `-shore` explicit corner-profile export with reciprocal mixed-edge
             guards, smooth constrained coasts, shared material/base phase and Lanczos-before-mask
             ownership. Retain loaded manifest/material snapshots; test strict schema/path/pins,
@@ -1130,21 +1153,23 @@ private originals/manual extracts in ignored `original/`, and reference gallerie
 outputs and research in ignored `build/`. Authored masters, recipes and pilot exports stay in
 tracked `art/`; commit verified graphics batches directly to `main`, per the user's preference.
 
-**Immediate next graphics slice:** verify the eight seasonal `mountN/E/S/W` pieces' campaign
-group geometry, then author/slice a new summer/winter mountain scene pair. Follow with fog.
+**Immediate next graphics slice:** deliver the `unseen` fog background at both densities,
+then build geometry/material adapters for the eleven source-only candidates. The eight
+seasonal mountain pieces and both standalone mountains are now polygon-built; see
+`docs/art/distinct-terrain-batch-12.md`. Review compact footprint/radial ridge motifs at full-map
+scale and implement the isolated-quarter display selection during runtime integration.
 The nine shores and polygon water base are delivered as provisional candidates; explicit
 corner profiles and the `23` exception are recorded in `docs/art/shoreline-topology.md`.
 All 26 enabled depot/HQ/factory pieces are delivered as provisional candidates from five new
 whole scenes using `docs/art/compound-building-geometry.md`. HQ's manor occupies
 lower N and its entrance reaches C; retain gameplay cell N and review selection affordance
 when integrating runtime graphics.
-Continue mountain pieces and seasonal images; the hamlet pair and winter mountain are
-delivered source candidates, with geometry/material acceptance still open.
+The hamlet pair and other source-only terrain still need geometry/material acceptance.
 The terrain source pack contains 27 candidates with 54 material exports, plus all 74 enabled
-infrastructure variants and a grass base at both densities. Five additional compound masters
-build the depot, HQ and factory scenes. Both ground seasons, nine shores and open water
+infrastructure variants and a grass base at both densities. Seven additional compound masters
+build the depot, HQ, factory and mountain scenes. Both ground seasons, nine shores and open water
 are polygon-built. The runtime ledger has
-125 associated IDs (13 source candidates, 112 built candidates), nine backgrounds needing images
+133 associated IDs (11 source candidates, 122 built candidates), one fog background needing an image
 and zero accepted replacements.
 Pixel-aligned 2×/4× patches pass; full maps, other zooms and runtime integration remain open. Use the
 134-row runtime ledger as the enabled-ID checklist without dropping the separate 350 native

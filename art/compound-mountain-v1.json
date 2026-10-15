@@ -1,0 +1,47 @@
+{
+  "grounds": {
+    "summer": {
+      "source": "source/terrain/distinct-v1/meadow.png",
+      "source_sha256": "8c8935efbbd463e39d49208e42ca0e87b140268a1b11941764dfa7c29c4fff85"
+    },
+    "winter": {
+      "source": "source/terrain/distinct-v1/snow-ground.png",
+      "source_sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3"
+    }
+  },
+  "scenes": [
+    {
+      "artwork": {
+        "source": "source/compound/distinct-v1/mountain-summer.png",
+        "source_sha256": "620316294fc71cc75f37145f0516669ee140d73ff1d537cc01175c74d7a5ae66"
+      },
+      "id": "mountain-summer",
+      "inset": 0.55
+    },
+    {
+      "artwork": {
+        "source": "source/compound/distinct-v1/mountain-winter.png",
+        "source_sha256": "2e90ccac63b02a4103ad48f015c3a9665e91ff1b19848500eb2da5b542a76225"
+      },
+      "id": "mountain-winter",
+      "inset": 0.55
+    },
+    {
+      "artwork": {
+        "source": "source/compound/distinct-v1/mountain-summer.png",
+        "source_sha256": "620316294fc71cc75f37145f0516669ee140d73ff1d537cc01175c74d7a5ae66"
+      },
+      "id": "mountain-single-summer",
+      "inset": 0.55
+    },
+    {
+      "artwork": {
+        "source": "source/compound/distinct-v1/mountain-winter.png",
+        "source_sha256": "2e90ccac63b02a4103ad48f015c3a9665e91ff1b19848500eb2da5b542a76225"
+      },
+      "id": "mountain-single-winter",
+      "inset": 0.55
+    }
+  ],
+  "schema_version": 1
+}

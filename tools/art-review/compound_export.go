@@ -116,6 +116,10 @@ func compoundPatchFor(l compoundLayout, parity int) compoundPatch {
 	if parity == 1 {
 		offset = connectionPoint{0, 40}
 	}
+	if l.Layout == "mountain-single" {
+		// C starts at x=0; the other layouts' N cell starts at x=71.
+		offset[0] += 71
+	}
 	cells := map[connectionPoint]compoundPatchCell{}
 	groundID := "grass"
 	if l.Season == "winter" {

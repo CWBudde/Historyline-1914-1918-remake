@@ -11,17 +11,17 @@ confirm every ledger ID/path and the campaign-use flags.
 
 ## Status
 
-Thirteen backgrounds have a `candidate-source` association:
+Eleven backgrounds have a `candidate-source` association:
 `forest`, `forest_w`, `waterStones`, `mud`, `stone`,
-`hills`, `mountain`, `mountain_w`, `house`, `house_w`, `rough_w`, `stoney_w`, `shelled_w`.
+`hills`, `house`, `house_w`, `rough_w`, `stoney_w`, `shelled_w`.
 These point to generated art and 2×/4× rectangle exports, **not approved runtime
 bindings**. Family geometry, shared phase and scale/quality review remain open;
-forest and mountain in particular retain recorded quality caveats.
+forest in particular retains recorded quality caveats.
 
 Summer/winter ground, eight depot pieces, fourteen HQ pieces, four factory pieces,
-nine shores, open water and all 74 enabled infrastructure IDs are `candidate-built`,
+nine shores, open water, ten mountain tiles and all 74 enabled infrastructure IDs are `candidate-built`,
 with `patch-reviewed` seams and explicit component, shared-scene or shore-corner
-geometry. These 112 rows point to their respective build manifests and
+geometry. These 122 rows point to their respective build manifests and
 192×160 / 384×320 polygon exports. Actual saved-PNG patches pass both parities and
 densities; independent [road/stream review](connected-family-batch-01.md) and
 [path review](distinct-terrain-batch-04.md), [rail review](distinct-terrain-batch-05.md)
@@ -37,9 +37,14 @@ building IDs now have provisional candidates from five whole-scene masters.
 The [shore review](distinct-terrain-batch-11.md) adds explicit corner profiles,
 reciprocal mixed-edge banks and polygon-built water. Independent art review prompted
 smooth-coast repairs; the repaired candidates pass provisionally.
+The [mountain review](distinct-terrain-batch-12.md) adds eight seasonal quarters
+and promotes the two standalone bindings from source-only to polygon-built.
+Overhead camera repair passes independent review; repeated radial motifs and
+compact footprint remain readability caveats. The isolated level-3 quarter has
+a proposed standalone display preview; runtime selection is still unimplemented.
 Full maps, transitions, seasonal integration, fractional zoom and runtime/release
-acceptance remain open. The other nine rows say `needs-image`; all are backgrounds.
-Total: **125 associated IDs, zero accepted runtime replacements**.
+acceptance remain open. Only `unseen` fog still says `needs-image`.
+Total: **133 associated IDs, zero accepted runtime replacements**.
 
 The `build_manifest` column names the producing manifest; `ports` records the
 declared directions for built overlays. Source candidates are not interchangeable
