@@ -7,10 +7,10 @@ background,cmpS,cmp,summer,gfx/hexTypes/hex_campS.png,yes,cmpS,art/exports/compo
 background,cmpS_w,cmp,winter,gfx/hexTypes/hex_campS_winter.png,yes,cmpS_w,art/exports/compound-v1/cmpS_w-2x.png,art/exports/compound-v1/cmpS_w-4x.png,not-applicable,candidate-built,patch-reviewed,art/compound-depot-v1.json
 background,cmpW,cmp,summer,gfx/hexTypes/hex_campW.png,yes,cmpW,art/exports/compound-v1/cmpW-2x.png,art/exports/compound-v1/cmpW-4x.png,not-applicable,candidate-built,patch-reviewed,art/compound-depot-v1.json
 background,cmpW_w,cmp,winter,gfx/hexTypes/hex_campW_winter.png,yes,cmpW_w,art/exports/compound-v1/cmpW_w-2x.png,art/exports/compound-v1/cmpW_w-4x.png,not-applicable,candidate-built,patch-reviewed,art/compound-depot-v1.json
-background,factoryE_w,factory,winter,gfx/hexTypes/hex_factoryE_winter.png,yes,,,,not-applicable,needs-image,pending,
-background,factoryN_w,factory,winter,gfx/hexTypes/hex_factoryN_winter.png,yes,,,,not-applicable,needs-image,pending,
-background,factoryS_w,factory,winter,gfx/hexTypes/hex_factoryS_winter.png,yes,,,,not-applicable,needs-image,pending,
-background,factoryW_w,factory,winter,gfx/hexTypes/hex_factoryW_winter.png,yes,,,,not-applicable,needs-image,pending,
+background,factoryE_w,factory,winter,gfx/hexTypes/hex_factoryE_winter.png,yes,factoryE_w,art/exports/compound-v1/factoryE_w-2x.png,art/exports/compound-v1/factoryE_w-4x.png,not-applicable,candidate-built,patch-reviewed,art/compound-factory-v1.json
+background,factoryN_w,factory,winter,gfx/hexTypes/hex_factoryN_winter.png,yes,factoryN_w,art/exports/compound-v1/factoryN_w-2x.png,art/exports/compound-v1/factoryN_w-4x.png,not-applicable,candidate-built,patch-reviewed,art/compound-factory-v1.json
+background,factoryS_w,factory,winter,gfx/hexTypes/hex_factoryS_winter.png,yes,factoryS_w,art/exports/compound-v1/factoryS_w-2x.png,art/exports/compound-v1/factoryS_w-4x.png,not-applicable,candidate-built,patch-reviewed,art/compound-factory-v1.json
+background,factoryW_w,factory,winter,gfx/hexTypes/hex_factoryW_winter.png,yes,factoryW_w,art/exports/compound-v1/factoryW_w-2x.png,art/exports/compound-v1/factoryW_w-4x.png,not-applicable,candidate-built,patch-reviewed,art/compound-factory-v1.json
 background,forest,forest,summer,gfx/hexTypes/hex_forest.png,yes,forest-sparse,art/exports/terrain/distinct-v1/forest-sparse-2x.png,art/exports/terrain/distinct-v1/forest-sparse-4x.png,not-applicable,candidate-source,pending,art/terrain-distinct-v1.json
 background,forest_w,forest,winter,gfx/hexTypes/hex_forest_winter.png,yes,forest-winter,art/exports/terrain/distinct-v1/forest-winter-2x.png,art/exports/terrain/distinct-v1/forest-winter-4x.png,not-applicable,candidate-source,pending,art/terrain-distinct-v1.json
 background,grass,meadow,summer,gfx/hexTypes/hex_grass.png,yes,grass,art/exports/connected-v1/grass-2x.png,art/exports/connected-v1/grass-4x.png,not-applicable,candidate-built,patch-reviewed,art/connected-terrain-v1.json

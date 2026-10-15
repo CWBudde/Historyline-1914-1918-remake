@@ -1,0 +1,19 @@
+{
+  "grounds": {
+    "winter": {
+      "source": "source/terrain/distinct-v1/snow-ground.png",
+      "source_sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3"
+    }
+  },
+  "scenes": [
+    {
+      "artwork": {
+        "source": "source/compound/distinct-v1/factory-winter.png",
+        "source_sha256": "cc00982556887fc2c7cf2f8d52ee9776d3fb1cc1ecb5cacb252e008d08418167"
+      },
+      "id": "factory-winter",
+      "inset": 0.85
+    }
+  ],
+  "schema_version": 1
+}

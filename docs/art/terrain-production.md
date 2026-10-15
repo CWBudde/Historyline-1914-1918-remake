@@ -28,10 +28,10 @@ assessment in an assembled terrain/unit preview.
 
 [runtime-tile-coverage.csv](runtime-tile-coverage.csv) explicitly lists all 134 enabled
 remake tile IDs (60 backgrounds, 74 infrastructure). Fourteen backgrounds have candidate
-source associations; both ground seasons, eight depot pieces, fourteen HQ pieces
+source associations; both ground seasons, eight depot pieces, fourteen HQ pieces, four factory pieces
 and all 74 enabled infrastructure IDs have built candidates:
 16 roads / 11 streams / 14 paths / 12 rails / 12 trenches / five bridges / four crossings.
-That is 112 associated IDs, 22 still needing images, and zero accepted runtime replacements.
+That is 116 associated IDs, 18 still needing images, and zero accepted runtime replacements.
 Wet mud has its own reviewed source. Opaque road/river studies remain separate from the
 new transparent infrastructure overlays.
 
@@ -135,9 +135,14 @@ resource-budget repair. Browse the [compound gallery](compound-building-review.h
 The same command with `art/compound-hq-v1.json` builds two new HQ masters into
 fourteen pieces. [Batch 09](distinct-terrain-batch-09.md) and the
 [HQ gallery](compound-hq-review.html) record independent seasonal review and exact
-seven-cell scene/parity assembly. Four transparent compound masters are now retained;
-winter factory artwork remains open. HQ's manor sits in lower N with its entrance
+seven-cell scene/parity assembly. HQ's manor sits in lower N with its entrance
 in C; preserve the gameplay N ID and review its selection affordance in runtime.
+
+The same command with `art/compound-factory-v1.json` exports the winter industrial
+scene into four pieces, retaining E as the gameplay loading wing. [Batch 10](distinct-terrain-batch-10.md)
+and the [factory gallery](compound-factory-review.html) record its uniform-framing
+adjustment, actual PNG assembly and independent art review. Five transparent masters
+now supply all 26 enabled compound-building IDs; full-map/runtime acceptance remains open.
 
 Legacy `-reference/-candidate/-resampling lanczos` comparisons remain available
 for historical research; their 90/100 fidelity gate does not govern the new pack.

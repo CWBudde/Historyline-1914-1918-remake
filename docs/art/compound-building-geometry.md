@@ -4,8 +4,8 @@
 Five newly authored whole scenes can supply the 26 enabled compound background
 images: summer/winter HQ, summer/winter depot, and winter factory. Generate each
 scene once and slice its pieces; independent per-piece generation risks split roofs
-and discontinuous yards. The depot and HQ pairs are delivered as provisional
-candidates; winter factory scene artwork remains open.
+and discontinuous yards. All five whole scenes and their 26 enabled pieces are
+delivered as provisional candidates; full-map and runtime acceptance remain open.
 
 The runtime places 96×80 tiles at `(142*column+71*(line%2),40*line)`. Every crop uses
 the new polygon `(25,0),(71,0),(96,40),(71,80),(25,80),(0,40)` and complementary
@@ -82,5 +82,15 @@ provisionally, and all seven actual tile PNGs assemble exactly at both densities
 and surrounding line parities. See [batch 09](distinct-terrain-batch-09.md).
 The manor occupies lower N; its entrance reaches C. Keep this as a runtime
 selection/usability review item while retaining the gameplay building cell N.
-The bounded exporter also supports factory geometry, but synthetic tests do not
-count as delivered factory artwork. Its winter master and four pieces remain open.
+
+The winter factory is now built from
+[`art/compound-factory-v1.json`](../../art/compound-factory-v1.json), with one new
+1536×1024 master and retained numeric guide. Initial inset 0.9 was rejected for
+305 opaque samples inside the outer guard. Uniform inset 0.85 passes, with scale
+`0.13170572916666665`, offset approximately `(17.85,12.566666666666677)` and minimum
+opaque distance 9.182 world pixels. No opaque architecture is clipped; only 98
+alpha-1 pixels outside the footprint are discarded. All four tile PNGs assemble
+exactly at both densities and surrounding line parities. Independent art review
+passes provisionally, including the E loading-wing association. See
+[batch 10](distinct-terrain-batch-10.md). All five supported scenes now have actual
+new artwork; synthetic layout tests alone were never counted as delivery evidence.

@@ -1,0 +1,313 @@
+{
+  "acceptance": "Provisional new winter factory candidates. Independent source and actual2x/4x art review passes; factory eastloadingwing corresponds gameplayentryE. Whole-scene actualPNG/ownership/quietboundary/paritychecks pass. Fullmap/nativecoverage/materialquality/fractionalzoom/runtimeintegration/releaseacceptance remainopen.",
+  "date": "2026-10-15",
+  "exports": [
+    {
+      "build_output": "tiles/factoryN_w-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/compound-v1/factoryN_w-2x.png",
+      "sha256": "b738d1e42222659a8c3ba8752d4b4b89e66b562d560464b3ea484f7bf62f0bae"
+    },
+    {
+      "build_output": "tiles/factoryN_w-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/compound-v1/factoryN_w-4x.png",
+      "sha256": "7cea95e6b5cc01913676dda3efc9d39dd9478cd1066a9d3bfa6476336a0c6144"
+    },
+    {
+      "build_output": "tiles/factoryW_w-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/compound-v1/factoryW_w-2x.png",
+      "sha256": "b86dfa67eab3c5762d9db03f41863858251a5ad2ebedad70ff05f40f854643df"
+    },
+    {
+      "build_output": "tiles/factoryW_w-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/compound-v1/factoryW_w-4x.png",
+      "sha256": "e1b43e8f73e87083a4289005c3449736c74e3b337ada6cc6ef6a6128b3c30d22"
+    },
+    {
+      "build_output": "tiles/factoryE_w-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/compound-v1/factoryE_w-2x.png",
+      "sha256": "5e5cbf1d9640cc7a8031e99f7ea3569bd7475227ecdac8eb9390ac0e987804d2"
+    },
+    {
+      "build_output": "tiles/factoryE_w-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/compound-v1/factoryE_w-4x.png",
+      "sha256": "56f3e988ec42ab47ffe1ebfccaa38b94741d18c6b9ca743af6eae78845a00af1"
+    },
+    {
+      "build_output": "tiles/factoryS_w-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/compound-v1/factoryS_w-2x.png",
+      "sha256": "f26e1a5e3ea46c7bcac60b14d264423f7a7289b5d990eaa99f334267552fddd9"
+    },
+    {
+      "build_output": "tiles/factoryS_w-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/compound-v1/factoryS_w-4x.png",
+      "sha256": "14e5f6d3d384fc7fe6e4b561e447056e8c60e231470df119add133ea9088c8fc"
+    }
+  ],
+  "generation_recipes": [
+    "art/recipes/compound/distinct-v1/factory-layout-guide.json",
+    "art/recipes/compound/distinct-v1/factory-winter-01.json"
+  ],
+  "geometry": {
+    "height": 80,
+    "neighbors": [
+      [
+        71,
+        -40
+      ],
+      [
+        71,
+        40
+      ],
+      [
+        0,
+        80
+      ],
+      [
+        -71,
+        40
+      ],
+      [
+        -71,
+        -40
+      ],
+      [
+        0,
+        -80
+      ]
+    ],
+    "polygon": [
+      [
+        25,
+        0
+      ],
+      [
+        71,
+        0
+      ],
+      [
+        96,
+        40
+      ],
+      [
+        71,
+        80
+      ],
+      [
+        25,
+        80
+      ],
+      [
+        0,
+        40
+      ]
+    ],
+    "ports": [
+      [
+        83.5,
+        20
+      ],
+      [
+        83.5,
+        60
+      ],
+      [
+        48,
+        80
+      ],
+      [
+        12.5,
+        60
+      ],
+      [
+        12.5,
+        20
+      ],
+      [
+        48,
+        0
+      ]
+    ],
+    "width": 96
+  },
+  "grounds": {
+    "winter": {
+      "dimensions": {
+        "height": 1145,
+        "width": 1374
+      },
+      "source": "art/source/terrain/distinct-v1/snow-ground.png",
+      "source_sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3"
+    }
+  },
+  "id": "compound-factory-v1",
+  "manifest": "art/compound-factory-v1.json",
+  "manifest_sha256": "b2c54e8c195b771701f071f690655c73fb73d0cde905d55a417cc207cfe40be3",
+  "original_image_inputs": [],
+  "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; reject any sampled alpha \u003e=250 at signed distance \u003c=8 world pixels before guard; alpha zero through 4 world pixels then smoothstep 4..8. Guard full unmasked 4x artwork, then existing resizeLanczos to whole-scene 2x. Ground independently exported by exportConnectionTiles with fixed geometry and grass only, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim.",
+  "review_exports": [
+    {
+      "build_output": "factory-winter-scene-2x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 476
+      },
+      "path": "art/review/compound-v1/factory-winter-scene-2x.png",
+      "sha256": "b9d090a7ebc86d442c70fead9e5f74413f3321f84ef0002cc26986c529d09748"
+    },
+    {
+      "build_output": "factory-winter-patch-parity0-2x.png",
+      "dimensions": {
+        "height": 640,
+        "width": 760
+      },
+      "path": "art/review/compound-v1/factory-winter-patch-parity0-2x.png",
+      "sha256": "8e72020b5e1483a35431475760b75e19b9d53e37b7c9991e726b31b16ae07e9b"
+    },
+    {
+      "build_output": "factory-winter-patch-parity1-2x.png",
+      "dimensions": {
+        "height": 640,
+        "width": 760
+      },
+      "path": "art/review/compound-v1/factory-winter-patch-parity1-2x.png",
+      "sha256": "8e72020b5e1483a35431475760b75e19b9d53e37b7c9991e726b31b16ae07e9b"
+    },
+    {
+      "build_output": "factory-winter-scene-4x.png",
+      "dimensions": {
+        "height": 640,
+        "width": 952
+      },
+      "path": "art/review/compound-v1/factory-winter-scene-4x.png",
+      "sha256": "b2138eaa6d237c92e2ec50c16eae44225135788c6b0e2e5fa6f0d72cbef8c4d2"
+    },
+    {
+      "build_output": "factory-winter-patch-parity0-4x.png",
+      "dimensions": {
+        "height": 1280,
+        "width": 1520
+      },
+      "path": "art/review/compound-v1/factory-winter-patch-parity0-4x.png",
+      "sha256": "655ade676895e12005ea2ddd2c6f5883a94728eacbe8ce7f7f179e9394c3e03f"
+    },
+    {
+      "build_output": "factory-winter-patch-parity1-4x.png",
+      "dimensions": {
+        "height": 1280,
+        "width": 1520
+      },
+      "path": "art/review/compound-v1/factory-winter-patch-parity1-4x.png",
+      "sha256": "655ade676895e12005ea2ddd2c6f5883a94728eacbe8ce7f7f179e9394c3e03f"
+    }
+  ],
+  "scenes": [
+    {
+      "entry_cell": "E",
+      "generation_recipe": "art/recipes/compound/distinct-v1/factory-winter-01.json",
+      "guard": {
+        "boundary_alpha_mass": 99,
+        "boundary_pixels": 99,
+        "clipped_alpha_mass": 98,
+        "clipped_pixels": 98,
+        "guarded_opaque_count": 0,
+        "max_boundary_alpha": 1,
+        "minimum_opaque_distance_world": 9.182231635555086
+      },
+      "height": 160,
+      "id": "factory-winter",
+      "input_artwork": {
+        "dimensions": {
+          "height": 1024,
+          "width": 1536
+        },
+        "source": "art/source/compound/distinct-v1/factory-winter.png",
+        "source_sha256": "cc00982556887fc2c7cf2f8d52ee9776d3fb1cc1ecb5cacb252e008d08418167"
+      },
+      "inset": 0.85,
+      "layout": "factory",
+      "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; reject any sampled alpha \u003e=250 at signed distance \u003c=8 world pixels before guard; alpha zero through 4 world pixels then smoothstep 4..8. Guard full unmasked 4x artwork, then existing resizeLanczos to whole-scene 2x. Ground independently exported by exportConnectionTiles with fixed geometry and grass only, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim.",
+      "season": "winter",
+      "tiles": [
+        {
+          "cell": "N",
+          "origin": [
+            71,
+            0
+          ],
+          "runtime_id": "factoryN_w"
+        },
+        {
+          "cell": "W",
+          "origin": [
+            0,
+            40
+          ],
+          "runtime_id": "factoryW_w"
+        },
+        {
+          "cell": "E",
+          "origin": [
+            142,
+            40
+          ],
+          "runtime_id": "factoryE_w"
+        },
+        {
+          "cell": "S",
+          "origin": [
+            71,
+            80
+          ],
+          "runtime_id": "factoryS_w"
+        }
+      ],
+      "transform": {
+        "offset": [
+          17.850000000000023,
+          12.566666666666677
+        ],
+        "scale": 0.13170572916666665,
+        "source_dimensions": {
+          "height": 1024,
+          "width": 1536
+        }
+      },
+      "width": 238
+    }
+  ],
+  "schema_version": 1,
+  "status": "candidate-built",
+  "tool": "Go tools/art-review -compound"
+}

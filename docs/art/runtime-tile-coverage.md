@@ -18,9 +18,10 @@ These point to generated art and 2×/4× rectangle exports, **not approved runti
 bindings**. Family geometry, shared phase and scale/quality review remain open;
 forest and mountain in particular retain recorded quality caveats.
 
-Summer/winter ground, eight depot pieces, fourteen HQ pieces and all 74 enabled infrastructure IDs are
+Summer/winter ground, eight depot pieces, fourteen HQ pieces, four factory pieces
+and all 74 enabled infrastructure IDs are
 `candidate-built`, with `patch-reviewed` seams and explicit component/traversal or
-shared-scene geometry. These 98 rows point to their respective build manifests and
+shared-scene geometry. These 102 rows point to their respective build manifests and
 192×160 / 384×320 polygon exports. Actual saved-PNG patches pass both parities and
 densities; independent [road/stream review](connected-family-batch-01.md) and
 [path review](distinct-terrain-batch-04.md), [rail review](distinct-terrain-batch-05.md)
@@ -30,9 +31,12 @@ and [trench review](distinct-terrain-batch-06.md), plus
 actual cropped PNG assembly and surrounding ground at both densities/parities.
 The [HQ review](distinct-terrain-batch-09.md) adds seven-cell seasonal scenes, with
 the manor's lower-N/entrance-in-C placement recorded for runtime usability review.
+The [factory review](distinct-terrain-batch-10.md) adds all four winter pieces,
+with the eastern loading wing associated with gameplay cell E. All 26 enabled
+building IDs now have provisional candidates from five whole-scene masters.
 Full maps, transitions, seasonal integration, fractional zoom and runtime/release
-acceptance remain open. The other 22 rows say `needs-image`; all are backgrounds.
-Total: **112 associated IDs, zero accepted runtime replacements**.
+acceptance remain open. The other 18 rows say `needs-image`; all are backgrounds.
+Total: **116 associated IDs, zero accepted runtime replacements**.
 
 The `build_manifest` column names the producing manifest; `ports` records the
 declared directions for built overlays. Source candidates are not interchangeable
@@ -53,6 +57,8 @@ season, with fixed origins and a quiet shared-ground boundary. `grass_w` is now 
 polygon-built winter ground candidate instead of the earlier rectangle association.
 HQ `hqN/NW/NE/C/SW/SE/S` and winter counterparts use their own shared-scene
 manifest, with fixed seven-cell origins and the same complementary polygon ownership.
+Factory `factoryN_w`, `factoryW_w`, `factoryE_w`, `factoryS_w` share a single winter
+master and fixed four-cell origins, with E retained as the entry cell.
 
 The table preserves all required loadable IDs, including editor-only entries.
 The three supplied missions place 58 background and 70 infrastructure IDs.
