@@ -246,8 +246,9 @@ docs/research/              original-DOS findings; verified rule specification/f
 **Status review (2026-10-15):** [PR #1](https://github.com/CWBudde/Historyline-1914-1918-remake/pull/1)
 through [PR #5](https://github.com/CWBudde/Historyline-1914-1918-remake/pull/5) merged the
 bootstrap and core-model foundations. Later rules and graphics work landed directly on
-`main`; this review includes local commits through `8401169` and the uncommitted batch-22
-panel pilot. `cmd/historyline/main.go` still draws an empty fixed-size window;
+`main`; this review includes commits through `a65cc4f`, which retains the batch-22 panel
+tooling, manifest, fonts and contract. `cmd/historyline/main.go` still draws an empty
+fixed-size window;
 `internal/ui`, `internal/assets`, `assets/assets.go`, `cmd/hlasset` and `cmd/hlartpreview`
 do not exist yet. Completed preparation below does not close runtime UI tasks.
 Section 4 retains the detailed graphics checklist and acceptance gates. Continue the
@@ -284,9 +285,11 @@ requested graphics coverage first, then integrate the playable UI through these 
 - [ ] Establish a passing Windows verification baseline for the offline exporters.
       This review's fresh `go test` run passes `internal/hexgrid`, `internal/data`,
       `internal/level`, `internal/game` and `tools/native-reference`, but graphics checks
-      expose replacement-directory rollback failures in `tools/art-review` and snapshot/
-      rollback failures in the local `tools/unit-panel` pilot. Separate sandbox Go-cache
-      permission errors from remaining failures; retain this gate until the affected checks pass.
+      fail in `tools/art-review` and the local `tools/unit-panel` pilot. Retrying the affected
+      tests outside the sandbox clears Go-cache permission errors; ground-bundle file
+      reporting, forest/ground/hills/portrait/unit replacement-directory rollback, and panel
+      snapshot/rollback checks still fail. Resolve Windows path/identity handling and rerun
+      these checks before claiming portable exporter verification.
 
 #### 2.2 — Runtime asset packs and composition (G1/G3)
 
@@ -325,12 +328,14 @@ requested graphics coverage first, then integrate the playable UI through these 
       frame/icons and native 2×/4× renders. Local batch 22 uses real game data and nine
       fixtures covering owner/state changes, depleted values, long labels and empty/hidden
       selection; the latter two have identical panel pixels. Evidence:
-      `tools/unit-panel/README.md`, its tests and `docs/art/unit-panel-contract.md`;
+      `a65cc4f`, `tools/unit-panel/README.md`, its tests and `docs/art/unit-panel-contract.md`;
       the verified 70-file bundle exists under ignored
-      `build/gfx-production/unit-panel-v1/candidate-01`. This is an uncommitted pilot.
+      `build/gfx-production/unit-panel-v1/candidate-01`. This is an offline pilot;
+      remaining Windows verification failures are tracked in 2.1.
 - [ ] Retain/publish batch 22's reviewed vector masters, runtime exports and gallery/recipe,
-      and commit its sources/dependencies. G0.9 records the outstanding retention work;
-      an ignored build bundle does not establish delivered runtime assets.
+      beyond the committed exporter, manifest, fonts and dependencies. G0.9 records the
+      outstanding retention work; an ignored build bundle does not establish delivered
+      runtime assets.
 - [ ] Implement the terrain panel with movement/battle/sight bars, selected tile/infra,
       live labels and blank/hidden/impassable/missing-value states.
 - [ ] Integrate the unit panel with actual selection and visibility, current owner, rank,
