@@ -143,7 +143,7 @@ func TestCLIResamplingRejectsUnknownMethodAndNeighborhoodOverride(t *testing.T) 
 			t.Fatalf("method %q: %v", method, err)
 		}
 	}
-	for _, method := range []string{"area", "bilinear"} {
+	for _, method := range []string{"area", "bilinear", "lanczos"} {
 		dir, config, _ := neighborhoodFixture(t, false)
 		out := filepath.Join(dir, "review")
 		err := run([]string{"-neighborhood", config, "-out", out, "-resampling", method}, &bytes.Buffer{})
@@ -156,8 +156,8 @@ func TestCLIResamplingRejectsUnknownMethodAndNeighborhoodOverride(t *testing.T) 
 	}
 }
 
-// Golden hashes were captured before adding the option. They catch rounding,
-// mask-order and PNG changes in both implicit and explicit area mode.
+// Golden hashes were captured before adding each option. They catch rounding,
+// mask-order and PNG changes in area and bilinear mode.
 func TestCLIDefaultAreaPreservesExistingPNGBytes(t *testing.T) {
 	dir := t.TempDir()
 	ref := image.NewNRGBA(image.Rect(0, 0, 3, 2))
@@ -171,11 +171,11 @@ func TestCLIDefaultAreaPreservesExistingPNGBytes(t *testing.T) {
 		}
 	}
 	rp, cp := writeFixture(t, dir, "ref.png", ref), writeFixture(t, dir, "src.png", src)
-	for _, mode := range []string{"default", "area"} {
+	for _, mode := range []string{"default", "area", "bilinear"} {
 		out := filepath.Join(dir, mode)
 		args := []string{"-reference", rp, "-candidate", cp, "-out", out}
-		if mode == "area" {
-			args = append(args, "-resampling", "area")
+		if mode != "default" {
+			args = append(args, "-resampling", mode)
 		}
 		if err := run(args, &bytes.Buffer{}); err != nil {
 			t.Fatal(err)
@@ -192,6 +192,14 @@ func TestCLIDefaultAreaPreservesExistingPNGBytes(t *testing.T) {
 			}
 			sum := sha256.Sum256(data)
 			got := hex.EncodeToString(sum[:])
+			if mode == "bilinear" {
+				want = map[string]string{
+					"candidate-4x.png": "04fac0e5370dbfa11da16165454c7799803279e7cc06b497980ca643ba16beb4",
+					"candidate-2x.png": "34a54079717700a88556bf0ba8040e49bbad449eb5e2b07057a26023978bc9d3",
+					"downsample.png":   "1f1e31ee7949e08b4abd3c4aa8839930226ac295ffc0cd518bacc484e6aef831",
+					"comparison.png":   "ed9e5abb3099e1ce0e23ae07fd52766c06ef9d09a4fac1b1919cde8015a36a3b",
+				}[name]
+			}
 			if got != want {
 				t.Errorf("%s/%s sha256 = %s; want %s", mode, name, got, want)
 			}

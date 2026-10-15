@@ -14,14 +14,21 @@ rectangular cells. Preserve overall composition, material colors and recognizabl
 reconstruct their continuous shapes. A smooth image that no longer resembles the original
 also fails. Inspect both the full master and its native reduction before approval.
 
-Use the recorded `-resampling bilinear` method for new native material comparisons.
+**Approved direction (2026-10-15):** the user accepts continuous grass/water revision 02
+as the style for all terrain tiles. Use those masters as shared style/material references.
+The subsequent filter preference is **Lanczos**, replacing bilinear for current exports
+and native comparisons. See [terrain production](terrain-production.md) and its 350-resource
+ledger. Style authorization permits terrain authoring while per-tile fidelity, shared-edge
+acceptance and full pilot/runtime integration remain open.
+
+Use recorded `-resampling lanczos` (Lanczos3) for current native material comparisons.
 The target remains approximately 90% visual resemblance after that fixed reduction,
 not 90% equal pixels or `1 - RGB error`. Report the actual filter, sampling chain,
-color/alpha policy and residual differences. Older area-filtered studies are historical
-comparisons and do not meet this new sampling contract. Runtime-density exports may be
-small; show high-resolution masters without nearest-neighbor browser enlargement.
-Exact stepped reference masks remain diagnostic coverage; continuous production contours
-and shared family boundaries still need the G1 geometry work and visual approval.
+color/alpha policy and residual differences. Historical area and bilinear studies retain
+their original methods. Inspect both the continuous master and its Lanczos native reduction;
+show high-resolution masters without nearest-neighbor browser enlargement. Exact stepped
+reference masks remain diagnostic coverage; continuous production contours and shared family
+boundaries still need geometry work and visual approval.
 
 ## Reference order
 

@@ -347,3 +347,11 @@ Grass/water revision 01 is rejected for retaining visible source-pixel squares.
 fixed bilinear native comparison. Its square-grid defect is resolved, while the
 approximately 90% native resemblance target and family seam work remain open.
 The earlier neighborhood baseline still uses revision 01; it is historical evidence.
+
+## Terrain style accepted and Lanczos selected — 2026-10-15
+
+The user approves continuous grass/water revision 02 as the direction for all terrain
+and requests Lanczos in place of bilinear. The retained masters now have separate
+Lanczos3 exports and same-source native comparisons; previous bilinear files remain.
+[Terrain production](terrain-production.md) tracks all 350 summer/winter resources
+and keeps art assignment, native-fidelity review and seam acceptance separate.

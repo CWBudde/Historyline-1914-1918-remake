@@ -554,9 +554,10 @@ interaction markers readable. Summer/winter treatments share geometry and connec
 
 **Downsample acceptance:** show the original and recreated tile at the verified native size,
 plus the high-resolution version, an aligned difference view and a 50% opacity overlay. Use a
-fixed area/box reduction for integer density ratios, keeping colour handling and background
-consistent. For transparent sprites, use alpha-aware reduction and compare composited images
-on the same background to avoid halo-dependent scores. Judge five equally weighted categories:
+fixed Lanczos3 reduction for current terrain work, keeping colour handling and background
+consistent. Preserve older area/bilinear comparisons as historical records. For transparent
+sprites, use alpha-aware reduction and compare composited images on the same background to
+avoid halo-dependent scores. Judge five equally weighted categories:
 silhouette/footprint, composition/landmarks, dominant palette/value, connections/feature widths,
 and overall recognition/shading. Aim for at least **90/100 in visual review**; this formalises
 the requested approximate resemblance, not a claim that 90% of pixels must be identical.
@@ -674,7 +675,7 @@ illustration and selective AI assistance. Use a common master/reference sheet fo
 
 **Continuous-surface requirement (2026-10-15):** reconstruct organic shapes from the original
 samples; never paint detail inside traced source-pixel squares. Inspect full-resolution masters
-and fixed bilinear native reductions together. Preserve approximately 90% native visual appearance,
+and fixed Lanczos3 native reductions together. Preserve approximately 90% native visual appearance,
 with continuous high-resolution contours. Exact reference masks are diagnostic coverage, not a
 requirement to expose pixel staircases in production art. See `docs/art/style-guide.md`.
 
@@ -820,15 +821,14 @@ below record work already delivered, plus G0.7's new neighborhood comparisons.
       infantry and artillery, one portrait and the unit panel based on manual page 45. Each
       subject needs retained sources/recipes, native/2×/4× comparisons and a recorded review.
       Use separate delivery checkboxes below so completed subjects remain visible:
-      - [ ] Native grass and water with continuous high-resolution surfaces.
-            (2026-10-15) — revision 01 is rejected by the user: textured original pixel cells
-            are still visibly blocky. Reconstruct organic contours across those cells and
-            compare with a fixed documented bilinear reduction. Target approximately 90%
-            original visual appearance after reduction, plus smooth detailed masters; neither
-            requirement replaces the other. Retain rejected sources as history. See
-            `docs/art/native-material-pilot.md`. Revision 02 now has continuous 1254-pixel
-            masters, fixed bilinear comparisons and 48/96-pixel exports; the square-grid defect
-            is resolved, but approximately 90% native visual resemblance is not yet established.
+      - [x] Deliver continuous grass/water masters and native/2×/4× comparisons.
+            (2026-10-15) — revision 02 has continuous 1254-pixel masters and reproducible
+            exports. The user approves this style for all terrain tiles. Revision 01 remains
+            rejected. Lanczos3 supersedes bilinear for current comparisons. See
+            `docs/art/native-material-pilot.md` and `docs/art/terrain-production.md`.
+      - [ ] Verify grass/water fidelity and shared family edges. Keep approximately 90%
+            original appearance after fixed Lanczos reduction as the visual target; inspect
+            continuous masters too. Style approval does not establish the score or seams.
       - [ ] Infantry and artillery map sprites.
       - [ ] Unit portrait.
       - [ ] Reconstructed unit panel with live text and separate frame/icons/portrait.
@@ -836,17 +836,24 @@ below record work already delivered, plus G0.7's new neighborhood comparisons.
       captures, physical display aspect and scrolling; finish native-to-runtime port,
       direction, faction and anchor mappings, and the full-tile-to-layered-overlay migration.
       Keep unresolved provenance explicit. Static ground placement does not settle these.
+- [x] **G0.11 — Select the continuous style for all terrain resources.** The user approves
+      grass/water revision 02 as the common direction and chooses Lanczos3 reductions.
+      `docs/art/terrain-production.csv` covers all 350 native ground resources (175 per
+      season), with separate art/fidelity/seam status. Terrain authoring can proceed in
+      family batches while the remaining full pilot and runtime pack gates stay open.
 - [ ] **Gate — Approve the complete pilot and choose production density/tools.** Compare all
       pilot subjects at native size and normal play zoom, including connected neighborhoods.
       Require the five-category visual review at approximately 90/100, unchanged silhouettes,
       routes/connections and reviewed joins; record the user's visual acceptance and exceptions.
-      Choose master density/tools before batch art. No current study is approved; G0 remains open.
+      Style is approved for all terrain; record master density and runtime choices before pack
+      release. Per-asset fidelity/seam acceptance and the full pilot remain open.
 
 **Delivery cadence:** choose one bounded graphics deliverable per continuation: a subject pair,
 a targeted cleanup, a panel, or a usable comparison. Finish its exports and review record, run
 the affected checks plus final CI, then commit directly to local `main`. Reuse verified reference
 and placement evidence; reopen research only for a concrete blocker. Study production can
-continue while the overall gate is open; bulk family production follows pilot approval.
+continue while the overall gate is open. The user now authorizes terrain family production
+in the selected continuous style; final fidelity/seam and runtime acceptance remain required.
 
 #### G1 — Build the geometry, export and seam workbench
 
@@ -941,13 +948,14 @@ private originals/manual extracts in ignored `original/`, and reference gallerie
 outputs and research in ignored `build/`. Authored masters, recipes and pilot exports stay in
 tracked `art/`; commit verified graphics batches directly to `main`, per the user's preference.
 
-**Immediate next graphics slice:** finish the continuous grass/water pair under G0.9's reopened
-criterion. Review full-resolution masters and fixed bilinear native reductions together; do
-not accept pixel-grid tracing or a smooth texture that loses the original pattern. Use the
-recorded filter consistently and keep approximately 90% native visual resemblance as the
-acceptance target. Then integrate accepted material masters into G0.8's road/bridge/river
-cleanup and shared-edge review. Infantry/artillery, portrait and panel follow as separate
-art batches. The full visual pilot and production pack remain unapproved.
+**Immediate next graphics slice:** use the approved continuous style across the terrain rollout
+in `docs/art/terrain-production.md`. Use Lanczos3, retain original masters and previous filter
+baselines, and review native reductions against the original. Work through shared material and
+edge templates, then forest/ground, coasts/rivers/roads, mountains/building pieces, bridges/rail/
+walls and winter variants. Track all 350 native resources in `docs/art/terrain-production.csv`.
+Complete one small family batch and its actual-neighbor review per continuation; preserve
+landmarks and connections. Units, portrait and panel remain separate pilot work; they do not
+block terrain authoring. Fidelity, seamlessness and runtime pack acceptance remain open.
 
 ---
 

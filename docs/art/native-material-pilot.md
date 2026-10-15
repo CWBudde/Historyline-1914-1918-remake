@@ -1,15 +1,16 @@
 # Continuous grass and water studies
 
-The user clarified the target on 2026-10-15: **continuous high-resolution artwork
-that looks approximately 90% like the original after a fixed bilinear reduction**.
-Painting texture inside enlarged source-pixel squares fails this requirement.
-Revision 01 is rejected. Revision 02 below removes that grid, but its native
-fidelity still needs work; neither assistant review nor low RGB error approves it.
+The user approved continuous grass/water revision 02 as the style for **all terrain
+tiles** on 2026-10-15, and then selected **Lanczos instead of bilinear** for sharper
+reductions. The target remains continuous high-resolution artwork that looks
+approximately 90% like the original after the fixed reduction. Revision 01 remains
+rejected for tracing source-pixel squares. Per-tile fidelity and seams still need
+review; style approval authorizes the [terrain rollout](terrain-production.md).
 
 | Current candidate | Full continuous master | 2× comparison export | 4× comparison export | Exact prompt and recipe |
 | --- | --- | --- | --- | --- |
-| Grass 02 | [1254 × 1254](../../art/source/pilot/grass-amiga-study-02.png) | [48 × 48](../../art/exports/pilot/amiga-native-2x/grass-study-02.png) | [96 × 96](../../art/exports/pilot/amiga-native-4x/grass-study-02.png) | [Grass recipe](../../art/recipes/grass-amiga-study-02.json) |
-| Water 02 | [1254 × 1254](../../art/source/pilot/water-amiga-study-02.png) | [48 × 48](../../art/exports/pilot/amiga-native-2x/water-study-02.png) | [96 × 96](../../art/exports/pilot/amiga-native-4x/water-study-02.png) | [Water recipe](../../art/recipes/water-amiga-study-02.json) |
+| Grass 02 | [1254 × 1254](../../art/source/pilot/grass-amiga-study-02.png) | [48 × 48](../../art/exports/pilot/amiga-native-2x/grass-study-02-lanczos.png) | [96 × 96](../../art/exports/pilot/amiga-native-4x/grass-study-02-lanczos.png) | [Grass recipe](../../art/recipes/grass-amiga-study-02.json) |
+| Water 02 | [1254 × 1254](../../art/source/pilot/water-amiga-study-02.png) | [48 × 48](../../art/exports/pilot/amiga-native-2x/water-study-02-lanczos.png) | [96 × 96](../../art/exports/pilot/amiga-native-4x/water-study-02-lanczos.png) | [Water recipe](../../art/recipes/water-amiga-study-02.json) |
 
 [Open the comparison](connected-terrain-review.html). Full masters now appear first,
 with smooth browser scaling. Only original/native diagnostic images use nearest
@@ -17,7 +18,36 @@ magnification. The small exports retain the original diagnostic stepped footprin
 that mask is not approval of a stepped production silhouette. No image blur or
 pixel/colour correction was applied to the generated masters.
 
-## Fixed bilinear review contract
+## Current Lanczos3 review contract
+
+Use `-resampling lanczos`, pinned to a radius-three sinc-windowed sinc kernel,
+with support widened for downsampling, fixed pixel centers, clipped/normalized
+support and alpha-aware byte-RGB filtering. Negative lobes and overshoot are
+clamped without letting hidden RGB contaminate visible colors. Diagnostics and
+recipes state the complete algorithm and sampling chain. The retained generated
+masters are unchanged; no regeneration or source blur is involved.
+
+Reduce source → unmasked 96 × 96; derive 48 × 48 and 24 × 24 independently from
+that master, then apply the original diagnostic footprint independently. The
+review page shows the current Lanczos native result beside its original and the
+historical bilinear result from the exact same source. Previous bilinear exports
+remain under their original filenames; current ones add `-lanczos`.
+
+```sh
+just gfx-review -reference build/gfx-references/g0-corpus/PARTS/SPLAI152.png \
+  -reference-platform amiga-native -candidate art/source/pilot/grass-amiga-study-02.png \
+  -resampling lanczos -out build/art-review/connected-pilot/grass-02-lanczos
+just gfx-review -reference build/gfx-references/g0-corpus/PARTS/SCOAS060.png \
+  -reference-platform amiga-native -candidate art/source/pilot/water-amiga-study-02.png \
+  -resampling lanczos -out build/art-review/connected-pilot/water-02-lanczos
+```
+
+Outputs require fresh directories. Same-source native RGB diagnostics are grass:
+bilinear 0.04519 → Lanczos 0.04530; water: 0.08199 → 0.08001. These are neither
+resemblance percentages nor evidence that a filter always improves fidelity.
+Inspect the actual high-resolution and native images.
+
+## Historical bilinear review contract
 
 `tools/art-review -resampling bilinear` uses a deterministic antialiased tent:
 pixel-center coordinates, support widened for downsampling, support clipped at
@@ -50,7 +80,7 @@ historical box-density contract; it is explicitly labeled as a previous baseline
 Do not silently substitute bilinear exports into its exact-box validation contract.
 Integrating the continuous materials with shared edge templates remains open.
 
-## Continuous revision review
+## Historical continuous revision review with bilinear
 
 Controller and independent graphics reviewer inspected both full masters and fixed
 bilinear native/4× comparisons. Both eliminate the original rectangular color-cell
@@ -63,9 +93,9 @@ structure, with continuous grass blades and curved water contours. Both sources 
 - **Water:** the diagonal wave rhythm and teal/cyan family remain. Original compact
   pale accents become softer curved bands; stronger deep troughs and foam alter relief.
 - **Acceptance:** the pixel-grid defect is fixed. Approximately 90% native visual
-  resemblance is **not established**. Both requirements stay in the open plan item.
-  Next refine coarse contrast/crest placement with continuous contours, and review
-  the master and its bilinear native reduction together before family production.
+  resemblance is **not established**. Fidelity stays open; subsequent user approval accepts the style for all terrain.
+  Refine coarse contrast/crest placement during family production and review the
+  master and its current Lanczos native reduction together.
 
 Native mean absolute RGB difference /255 is **0.04519 grass** and **0.08199 water**.
 These values are diagnostics, not 95%/92% resemblance claims. A targeted revision 03

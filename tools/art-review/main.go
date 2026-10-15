@@ -12,7 +12,7 @@
 // for other reference dimensions. Set -reference-platform amiga-native for
 // a native Amiga reference; the default provenance is repo-provisional.
 // -resampling area (default) preserves the original area/box chain; bilinear
-// uses an alpha-aware antialiased tent and independently masks each raw level.
+// and lanczos use alpha-aware antialiased filters and mask each raw level.
 // Neighborhood recipes retain their box contract and reject -resampling.
 // Inputs are never modified;
 // existing output files are rejected. This is a contact-sheet utility, not
@@ -87,7 +87,7 @@ func run(args []string, log io.Writer) error {
 	referencePlatform := fs.String("reference-platform", "repo-provisional", "reference provenance label (e.g. repo-provisional or amiga-native); supplied by caller")
 	neighborhoodPath := fs.String("neighborhood", "", "JSON recipe for original Amiga seven-cell neighborhood review")
 	candidatePath := fs.String("candidate", "", "candidate PNG, at least 4x reference dimensions and aspect within 1%")
-	resampling := fs.String("resampling", "area", "single-sprite reduction: area or bilinear (antialiased tent); excluded by -neighborhood")
+	resampling := fs.String("resampling", "area", "single-sprite reduction: area, bilinear (antialiased tent), or lanczos (antialiased Lanczos3); excluded by -neighborhood")
 	out := fs.String("out", "", "output directory (existing artifact names are rejected)")
 	if err := fs.Parse(args); err != nil {
 		if errors.Is(err, flag.ErrHelp) {
@@ -107,8 +107,8 @@ func run(args []string, log io.Writer) error {
 		}
 		return runNeighborhood(*neighborhoodPath, *out, log)
 	}
-	if *resampling != "area" && *resampling != "bilinear" {
-		return errors.New("-resampling must be area or bilinear")
+	if *resampling != "area" && *resampling != "bilinear" && *resampling != "lanczos" {
+		return errors.New("-resampling must be area, bilinear, or lanczos")
 	}
 	if *referencePath == "" || *candidatePath == "" || *out == "" || *referencePlatform == "" || fs.NArg() != 0 {
 		return errors.New("required: -reference PNG -candidate PNG -out directory; no positional arguments")
@@ -137,8 +137,11 @@ func run(args []string, log io.Writer) error {
 		return fmt.Errorf("candidate must be at least %dx%d (4x reference); upscaling is not supported", 4*rw, 4*rh)
 	}
 	resize := resizeArea
-	if *resampling == "bilinear" {
+	switch *resampling {
+	case "bilinear":
 		resize = resizeBilinear
+	case "lanczos":
+		resize = resizeLanczos
 	}
 	raw4x, err := resize(src, 4*rw, 4*rh)
 	if err != nil {
@@ -148,12 +151,12 @@ func run(args []string, log io.Writer) error {
 	working4x := applyFootprint(raw4x, ref)
 	algorithm := "Integer rational-coordinate area overlaps; alpha-weighted byte RGB, straight RGB output, round half up after each reduction."
 	chain := []string{"source -> raw4x: area", "raw4x -> raw2x -> rawNative: box factor 2 at each step", "raw4x -> working4x: apply reference footprint", "working4x -> working2x -> native: box factor 2 then apply reference footprint at each step"}
-	if *resampling == "bilinear" {
-		raw2x, err = resizeBilinear(raw4x, 2*rw, 2*rh)
+	if *resampling != "area" {
+		raw2x, err = resize(raw4x, 2*rw, 2*rh)
 		if err != nil {
 			return err
 		}
-		rawNative, err = resizeBilinear(raw4x, rw, rh)
+		rawNative, err = resize(raw4x, rw, rh)
 		if err != nil {
 			return err
 		}
@@ -161,6 +164,10 @@ func run(args []string, log io.Writer) error {
 		native = applyFootprint(rawNative, ref)
 		algorithm = "Separable antialiased tent, radius source/destination per axis; pixel centers (d+0.5)*source/destination-0.5. Clip support to image and renormalize. Integer-coordinate weights, row-major float64 sums; alpha-weighted byte RGB (no linear-light conversion), unpremultiply and round half up once per reduction; zero RGB at zero output alpha."
 		chain = []string{"source -> raw4x: bilinear", "raw4x -> raw2x: bilinear", "raw4x -> rawNative: bilinear", "raw4x/raw2x/rawNative -> outputs: apply reference footprint independently"}
+		if *resampling == "lanczos" {
+			algorithm = "Separable antialiased Lanczos3, kernel sinc(t)*sinc(t/3), radius 3 widened by source/destination per axis; pixel centers (d+0.5)*source/destination-0.5. Clip support to image and renormalize. Integer-coordinate distances, Go math.Sin kernel, row-major float64 sums without intermediate quantization; premultiplied byte RGB (no linear-light conversion). For positive raw alpha, clamp premultiplied channels to [0,255*raw alpha] before unpremultiplying; independently clamp alpha to [0,255], preserving constant straight color through alpha overshoot. Round half up once per reduction; zero RGB at zero output alpha."
+			chain = []string{"source -> raw4x: lanczos", "raw4x -> raw2x: lanczos", "raw4x -> rawNative: lanczos", "raw4x/raw2x/rawNative -> outputs: apply reference footprint independently"}
+		}
 	} else {
 		raw2x, err = boxDownsample(raw4x, 2)
 		if err != nil {
