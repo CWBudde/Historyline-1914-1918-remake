@@ -952,6 +952,18 @@ below record work already delivered, plus G0.7's new neighborhood comparisons.
             earlier family artifacts remain unchanged. See `docs/art/distinct-terrain-batch-08.md`.
             Ledger: 14 source + 84 built = 98 associated IDs, 36 backgrounds needing images,
             zero accepted replacements. Final `just ci` passes. HQ/factory artwork remains open.
+      - [x] Deliver shared summer/winter HQ scenes and all fourteen enabled pieces.
+            (2026-10-15) — batch 09 retains two new transparent masters, numeric guide,
+            exact generation provenance, 28 tile and 12 review PNGs at 2×/4×. Independent
+            seasonal/final-size art review passes provisionally. Controller verified four
+            full scenes and eight parity assemblies, 1,590,400 owned opaque pixels,
+            560,000 clear outside pixels, 66,616 exact quiet-boundary pixels and artwork
+            across all twelve internal cuts. All 59 repeat files match; existing ground
+            and earlier retained artwork remain unchanged. Gallery loads all 34 images;
+            final `just ci` passes. See `docs/art/distinct-terrain-batch-09.md`.
+            Ledger: 14 source + 98 built = 112 associated IDs, 22 backgrounds needing images,
+            zero accepted replacements. Manor occupies lower N and its entrance reaches C;
+            runtime selection/usability acceptance remains open. Factory artwork remains open.
       - [ ] Complete missing subjects, seasonal images, connected variants and runtime/native
             mappings; validate assembled seams. Twenty-seven sources do not close a family.
 - [ ] **Gate — Approve the complete pilot and choose production density/tools.** Compare all
@@ -1086,16 +1098,17 @@ private originals/manual extracts in ignored `original/`, and reference gallerie
 outputs and research in ignored `build/`. Authored masters, recipes and pilot exports stay in
 tracked `art/`; commit verified graphics batches directly to `main`, per the user's preference.
 
-**Immediate next graphics slice:** author/slice the remaining three building scenes for 18 HQ/factory
-IDs using `docs/art/compound-building-geometry.md`. The shared exporter and eight depot pieces
-are delivered; new winter02 fixes the rejected winter01 layout drift. A private new HQ study
-and numeric guide prepare the next pair, but still need framing/seasonal/art review before promotion.
+**Immediate next graphics slice:** author/slice the winter factory scene for its four remaining
+building IDs using `docs/art/compound-building-geometry.md`. The shared exporter, eight depot
+pieces and fourteen HQ pieces are delivered as provisional candidates. HQ's manor occupies
+lower N and its entrance reaches C; retain gameplay cell N and review selection affordance
+when integrating runtime graphics.
 Continue shores, mountain pieces and
 seasonal images; the hamlet pair and winter mountain are delivered source candidates.
 The terrain source pack contains 27 candidates with 54 material exports, plus all 74 enabled
-infrastructure variants and a grass base at both densities. Two additional compound masters
-build the depot pair, and shared winter ground is now polygon-built. The runtime ledger has
-98 associated IDs (14 source candidates, 84 built candidates), 36 backgrounds needing images
+infrastructure variants and a grass base at both densities. Four additional compound masters
+build the depot and HQ pairs, and shared winter ground is polygon-built. The runtime ledger has
+112 associated IDs (14 source candidates, 98 built candidates), 22 backgrounds needing images
 and zero accepted replacements.
 Pixel-aligned 2×/4× patches pass; full maps, other zooms and runtime integration remain open. Use the
 134-row runtime ledger as the enabled-ID checklist without dropping the separate 350 native

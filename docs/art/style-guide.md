@@ -10,11 +10,13 @@ IDs, map placement and connection topology. Keep familiar information layouts.
 The current [new-source manifest](../../art/terrain-distinct-v1.json) contains
 27 semantic/material candidates. The connected and mixed builders deliver all 74
 enabled infrastructure variants and a grass base. Browse the [source gallery](distinct-terrain-review.html).
-Two additional transparent depot masters now produce eight adjoining summer/winter
-pieces and shared winter ground; see the [compound gallery](compound-building-review.html).
+Four additional transparent compound masters now produce eight depot and fourteen
+HQ summer/winter pieces, alongside shared winter ground. See the
+[depot gallery](compound-building-review.html) and [HQ gallery](compound-hq-review.html).
 Reviews for [roads/streams](connected-family-batch-01.md), [paths/seasons](distinct-terrain-batch-04.md),
 [rail/materials](distinct-terrain-batch-05.md), [trenches](distinct-terrain-batch-06.md)
-and [bridges/crossings](distinct-terrain-batch-07.md), plus [depot scenes](distinct-terrain-batch-08.md),
+and [bridges/crossings](distinct-terrain-batch-07.md), plus [depot scenes](distinct-terrain-batch-08.md)
+and [HQ scenes](distinct-terrain-batch-09.md),
 record delivery, evidence and defects.
 Historical `art/source/pilot/` reconstruction studies are excluded from this pack.
 

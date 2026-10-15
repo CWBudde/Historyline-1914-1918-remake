@@ -4,8 +4,8 @@
 Five newly authored whole scenes can supply the 26 enabled compound background
 images: summer/winter HQ, summer/winter depot, and winter factory. Generate each
 scene once and slice its pieces; independent per-piece generation risks split roofs
-and discontinuous yards. The depot pair is now delivered as provisional candidates;
-HQ and factory scene artwork remain open.
+and discontinuous yards. The depot and HQ pairs are delivered as provisional
+candidates; winter factory scene artwork remains open.
 
 The runtime places 96×80 tiles at `(142*column+71*(line%2),40*line)`. Every crop uses
 the new polygon `(25,0),(71,0),(96,40),(71,80),(25,80),(0,40)` and complementary
@@ -70,6 +70,17 @@ Ground cells are exported/decoded before assembling the common scene, preserving
 the lattice phase; source art is sampled once over the complete scene. Crops at both
 densities reassemble byte-for-byte with ordinary PNG source-over, and surrounding
 ground matches at both line parities. See [batch08](distinct-terrain-batch-08.md).
-The same bounded tool supports the remaining fixed HQ/factory geometry; synthetic
-layout tests do not count as delivered artwork. A new private HQ study and numeric
-guide prepare the next pair but still need framing, seasonal and visual review.
+
+The HQ pair is now built from
+[`art/compound-hq-v1.json`](../../art/compound-hq-v1.json), with two new 1254×1254
+transparent masters and a retained numeric guide. Both use uniform inset 0.75:
+`x=sourceX*0.1423444976076555+29.75`,
+`y=sourceY*0.1423444976076555+30.75`.
+Minimum opaque distances are 13.529 / 13.025 world pixels; the guard discards only
+one alpha-1 fringe pixel per scene. Independent seasonal/final-size review passes
+provisionally, and all seven actual tile PNGs assemble exactly at both densities
+and surrounding line parities. See [batch 09](distinct-terrain-batch-09.md).
+The manor occupies lower N; its entrance reaches C. Keep this as a runtime
+selection/usability review item while retaining the gameplay building cell N.
+The bounded exporter also supports factory geometry, but synthetic tests do not
+count as delivered factory artwork. Its winter master and four pieces remain open.

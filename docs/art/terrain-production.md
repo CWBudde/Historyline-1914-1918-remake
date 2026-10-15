@@ -28,9 +28,10 @@ assessment in an assembled terrain/unit preview.
 
 [runtime-tile-coverage.csv](runtime-tile-coverage.csv) explicitly lists all 134 enabled
 remake tile IDs (60 backgrounds, 74 infrastructure). Fourteen backgrounds have candidate
-source associations; both ground seasons, eight depot pieces and all 74 enabled infrastructure IDs have built candidates:
+source associations; both ground seasons, eight depot pieces, fourteen HQ pieces
+and all 74 enabled infrastructure IDs have built candidates:
 16 roads / 11 streams / 14 paths / 12 rails / 12 trenches / five bridges / four crossings.
-That is 98 associated IDs, 36 still needing images, and zero accepted runtime replacements.
+That is 112 associated IDs, 22 still needing images, and zero accepted runtime replacements.
 Wet mud has its own reviewed source. Opaque road/river studies remain separate from the
 new transparent infrastructure overlays.
 
@@ -130,6 +131,13 @@ composition over actual exported ground cells. Fixed outer guard and explicit
 crop origins preserve internal roofs and perimeter phase. [Batch 08](distinct-terrain-batch-08.md)
 records independent scene/parity assembly, exact quiet-boundary samples and the
 resource-budget repair. Browse the [compound gallery](compound-building-review.html).
+
+The same command with `art/compound-hq-v1.json` builds two new HQ masters into
+fourteen pieces. [Batch 09](distinct-terrain-batch-09.md) and the
+[HQ gallery](compound-hq-review.html) record independent seasonal review and exact
+seven-cell scene/parity assembly. Four transparent compound masters are now retained;
+winter factory artwork remains open. HQ's manor sits in lower N with its entrance
+in C; preserve the gameplay N ID and review its selection affordance in runtime.
 
 Legacy `-reference/-candidate/-resampling lanczos` comparisons remain available
 for historical research; their 90/100 fidelity gate does not govern the new pack.

@@ -1,0 +1,677 @@
+{
+  "acceptance": "Provisional new HQ seasonal pair. Manor occupies lower N; entrance reaches C, so runtime cell association remains an explicit review caveat. Independent source/final-size art review passes. Whole-scene actual-PNG and surround-parity checks pass at2x/4x. Fullmap/nativecoverage/materialquality/runtimeintegration/zoom/releaseacceptance remainopen.",
+  "date": "2026-10-15",
+  "exports": [
+    {
+      "build_output": "tiles/hqN-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/compound-v1/hqN-2x.png",
+      "sha256": "36f593d475b9b48c01d8016abb44dac4e18022e5a186b3768b5e0d9d03dd27de"
+    },
+    {
+      "build_output": "tiles/hqN-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/compound-v1/hqN-4x.png",
+      "sha256": "1c9ebdf53c4efbfa5700a0e8a49c25f63df9371c502cef11a9a270ee7c6e17c4"
+    },
+    {
+      "build_output": "tiles/hqNW-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/compound-v1/hqNW-2x.png",
+      "sha256": "78c497177c940103f13db8d7de64caba2ae9a38096bb0c6e3c0d3fc2ec4a767b"
+    },
+    {
+      "build_output": "tiles/hqNW-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/compound-v1/hqNW-4x.png",
+      "sha256": "6cfbcf1f65790cc91d0719dac96da6488aa19147d3c85f8fb4506643fad0fb39"
+    },
+    {
+      "build_output": "tiles/hqNE-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/compound-v1/hqNE-2x.png",
+      "sha256": "5bfe85845f5103cebe9dc5e9443e216b6f79674ea68ff35b50fd33a4a47aa572"
+    },
+    {
+      "build_output": "tiles/hqNE-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/compound-v1/hqNE-4x.png",
+      "sha256": "4d859e46360b3b212215ef33c79244893dabd39282c351cdf95694fde47022fe"
+    },
+    {
+      "build_output": "tiles/hqC-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/compound-v1/hqC-2x.png",
+      "sha256": "07da54b5ee4d07178f76108675094ff1fa60ea9c145321813611b35bfaa80c77"
+    },
+    {
+      "build_output": "tiles/hqC-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/compound-v1/hqC-4x.png",
+      "sha256": "962e9863c0c21e568e27f776eccefcfeb56c6f62064678499828f3c6b60df85b"
+    },
+    {
+      "build_output": "tiles/hqSW-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/compound-v1/hqSW-2x.png",
+      "sha256": "2bcde4db0db884ffa282df21d32094d45c327a2a94d59403413ae9b18c54e5b3"
+    },
+    {
+      "build_output": "tiles/hqSW-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/compound-v1/hqSW-4x.png",
+      "sha256": "ac0001290d0d5fa2545bb0a9c760ab8105533e7fc5c03bf229204e47377bcd03"
+    },
+    {
+      "build_output": "tiles/hqSE-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/compound-v1/hqSE-2x.png",
+      "sha256": "a675daaa63179dec31a0d52d68b87f3dbab4d6bcbd003d213ba85a80c80a3e44"
+    },
+    {
+      "build_output": "tiles/hqSE-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/compound-v1/hqSE-4x.png",
+      "sha256": "2f7a2db13cfaf902abb3fd05be2727a8f779e00b23fbaa4bb5118829b0df1c14"
+    },
+    {
+      "build_output": "tiles/hqS-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/compound-v1/hqS-2x.png",
+      "sha256": "66b38bf2abc7d5dc1366a43661cf79705f424c8209d1066c7884d9cafb251439"
+    },
+    {
+      "build_output": "tiles/hqS-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/compound-v1/hqS-4x.png",
+      "sha256": "8a6349e2fe45cc62ac783caf65cc7b0ddd3ff5ff81103b6acf6eb719d24c430d"
+    },
+    {
+      "build_output": "tiles/hqN_w-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/compound-v1/hqN_w-2x.png",
+      "sha256": "0ee6a144b3f43ab5a70df6cc8d8df3a155d53c342a191073ddc284d92384928e"
+    },
+    {
+      "build_output": "tiles/hqN_w-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/compound-v1/hqN_w-4x.png",
+      "sha256": "54572d43d24230d576e1571b12334f4effee24870b5868aa11989cc19a507779"
+    },
+    {
+      "build_output": "tiles/hqNW_w-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/compound-v1/hqNW_w-2x.png",
+      "sha256": "d40ee0ee389d5dde2eb94dcd0b7abf4dc5757409d9ffdd8e936b8a5202aabf24"
+    },
+    {
+      "build_output": "tiles/hqNW_w-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/compound-v1/hqNW_w-4x.png",
+      "sha256": "92d305e706d91c7d030c9a4afef6cecdc65cd4808be54bed6849c2a3f8cad383"
+    },
+    {
+      "build_output": "tiles/hqNE_w-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/compound-v1/hqNE_w-2x.png",
+      "sha256": "d719cf87dcbd9a3496d291232a2281d04f5cd15b685c6f8a368a4db046386d56"
+    },
+    {
+      "build_output": "tiles/hqNE_w-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/compound-v1/hqNE_w-4x.png",
+      "sha256": "bcd99e768f80300222b9bbdfb702298c4b635476f6242697189e662d1cdd90ac"
+    },
+    {
+      "build_output": "tiles/hqC_w-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/compound-v1/hqC_w-2x.png",
+      "sha256": "184999b8e7a6cd4abc04d4be400fd3f8aaae6eddadcd6fc3fc3061c05c6f7443"
+    },
+    {
+      "build_output": "tiles/hqC_w-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/compound-v1/hqC_w-4x.png",
+      "sha256": "07b0f3aef86cfac864f6370e8257cfdd89787d55987cd0cab45b7da199515c52"
+    },
+    {
+      "build_output": "tiles/hqSW_w-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/compound-v1/hqSW_w-2x.png",
+      "sha256": "4f6d162bbafbcd3ac65da670946992cbfa826e80d0adf26789252b298391a057"
+    },
+    {
+      "build_output": "tiles/hqSW_w-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/compound-v1/hqSW_w-4x.png",
+      "sha256": "27f3cf414d2ab410c666f5d79009253fa67627593b48f9e2153f6b0d1a529c68"
+    },
+    {
+      "build_output": "tiles/hqSE_w-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/compound-v1/hqSE_w-2x.png",
+      "sha256": "15a75085defefaa0b229582dddd205791d82677b3062ecd2cf12d878029078ad"
+    },
+    {
+      "build_output": "tiles/hqSE_w-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/compound-v1/hqSE_w-4x.png",
+      "sha256": "22ec910d62d91fe4a0e5650da92411f5055f9ad175c49a6876d05d2ae3492542"
+    },
+    {
+      "build_output": "tiles/hqS_w-2x.png",
+      "dimensions": {
+        "height": 160,
+        "width": 192
+      },
+      "path": "art/exports/compound-v1/hqS_w-2x.png",
+      "sha256": "138cab933d485b514a46f0c27f6765709ac3b2a73ed49a4bfd1aea0ce6b83f68"
+    },
+    {
+      "build_output": "tiles/hqS_w-4x.png",
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "path": "art/exports/compound-v1/hqS_w-4x.png",
+      "sha256": "7dc812d91ab84dfa8fb399c6e7a94bb30108b0ff5e7f1c799c3d4b3c0787987a"
+    }
+  ],
+  "generation_recipes": [
+    "art/recipes/compound/distinct-v1/hq-layout-guide.json",
+    "art/recipes/compound/distinct-v1/hq-summer-01.json",
+    "art/recipes/compound/distinct-v1/hq-winter-01.json"
+  ],
+  "geometry": {
+    "height": 80,
+    "neighbors": [
+      [
+        71,
+        -40
+      ],
+      [
+        71,
+        40
+      ],
+      [
+        0,
+        80
+      ],
+      [
+        -71,
+        40
+      ],
+      [
+        -71,
+        -40
+      ],
+      [
+        0,
+        -80
+      ]
+    ],
+    "polygon": [
+      [
+        25,
+        0
+      ],
+      [
+        71,
+        0
+      ],
+      [
+        96,
+        40
+      ],
+      [
+        71,
+        80
+      ],
+      [
+        25,
+        80
+      ],
+      [
+        0,
+        40
+      ]
+    ],
+    "ports": [
+      [
+        83.5,
+        20
+      ],
+      [
+        83.5,
+        60
+      ],
+      [
+        48,
+        80
+      ],
+      [
+        12.5,
+        60
+      ],
+      [
+        12.5,
+        20
+      ],
+      [
+        48,
+        0
+      ]
+    ],
+    "width": 96
+  },
+  "grounds": {
+    "summer": {
+      "dimensions": {
+        "height": 1145,
+        "width": 1374
+      },
+      "source": "art/source/terrain/distinct-v1/meadow.png",
+      "source_sha256": "8c8935efbbd463e39d49208e42ca0e87b140268a1b11941764dfa7c29c4fff85"
+    },
+    "winter": {
+      "dimensions": {
+        "height": 1145,
+        "width": 1374
+      },
+      "source": "art/source/terrain/distinct-v1/snow-ground.png",
+      "source_sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3"
+    }
+  },
+  "id": "compound-hq-v1",
+  "manifest": "art/compound-hq-v1.json",
+  "manifest_sha256": "05b2c10888415331122db8328b19b4505c92ab8df10e76538fab4b6489111388",
+  "original_image_inputs": [],
+  "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; reject any sampled alpha \u003e=250 at signed distance \u003c=8 world pixels before guard; alpha zero through 4 world pixels then smoothstep 4..8. Guard full unmasked 4x artwork, then existing resizeLanczos to whole-scene 2x. Ground independently exported by exportConnectionTiles with fixed geometry and grass only, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim.",
+  "review_exports": [
+    {
+      "build_output": "hq-summer-scene-2x.png",
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/compound-v1/hq-summer-scene-2x.png",
+      "sha256": "988e4d3bf0ffb60e328e074b5238e4aa3d0e139ba86d2fba7a416243d1fdd281"
+    },
+    {
+      "build_output": "hq-summer-patch-parity0-2x.png",
+      "dimensions": {
+        "height": 800,
+        "width": 760
+      },
+      "path": "art/review/compound-v1/hq-summer-patch-parity0-2x.png",
+      "sha256": "e4cb3f759df0194d890c2f8dc8d76de38f4b6d833aa409b3f1bea591fe163a51"
+    },
+    {
+      "build_output": "hq-summer-patch-parity1-2x.png",
+      "dimensions": {
+        "height": 800,
+        "width": 760
+      },
+      "path": "art/review/compound-v1/hq-summer-patch-parity1-2x.png",
+      "sha256": "e4cb3f759df0194d890c2f8dc8d76de38f4b6d833aa409b3f1bea591fe163a51"
+    },
+    {
+      "build_output": "hq-summer-scene-4x.png",
+      "dimensions": {
+        "height": 960,
+        "width": 952
+      },
+      "path": "art/review/compound-v1/hq-summer-scene-4x.png",
+      "sha256": "f5ce386eb93f31847bc60f83bfa55c67b2f9e4c2b6e27d41e44d0b6a32251e6a"
+    },
+    {
+      "build_output": "hq-summer-patch-parity0-4x.png",
+      "dimensions": {
+        "height": 1600,
+        "width": 1520
+      },
+      "path": "art/review/compound-v1/hq-summer-patch-parity0-4x.png",
+      "sha256": "3eed88fcb91b0864531c9f775ce2c19c8d4c78f25f5c39b31fe039abc6d80d1d"
+    },
+    {
+      "build_output": "hq-summer-patch-parity1-4x.png",
+      "dimensions": {
+        "height": 1600,
+        "width": 1520
+      },
+      "path": "art/review/compound-v1/hq-summer-patch-parity1-4x.png",
+      "sha256": "3eed88fcb91b0864531c9f775ce2c19c8d4c78f25f5c39b31fe039abc6d80d1d"
+    },
+    {
+      "build_output": "hq-winter-scene-2x.png",
+      "dimensions": {
+        "height": 480,
+        "width": 476
+      },
+      "path": "art/review/compound-v1/hq-winter-scene-2x.png",
+      "sha256": "94e593a54abad599ddb966d317bc21f5c7c102548d61b5a8c253ccd57c73e7c8"
+    },
+    {
+      "build_output": "hq-winter-patch-parity0-2x.png",
+      "dimensions": {
+        "height": 800,
+        "width": 760
+      },
+      "path": "art/review/compound-v1/hq-winter-patch-parity0-2x.png",
+      "sha256": "326f744c586fb9b6d870152a115d79366a8dabf536575871773731dab8c39d05"
+    },
+    {
+      "build_output": "hq-winter-patch-parity1-2x.png",
+      "dimensions": {
+        "height": 800,
+        "width": 760
+      },
+      "path": "art/review/compound-v1/hq-winter-patch-parity1-2x.png",
+      "sha256": "326f744c586fb9b6d870152a115d79366a8dabf536575871773731dab8c39d05"
+    },
+    {
+      "build_output": "hq-winter-scene-4x.png",
+      "dimensions": {
+        "height": 960,
+        "width": 952
+      },
+      "path": "art/review/compound-v1/hq-winter-scene-4x.png",
+      "sha256": "0c23b3a47d336ba5d4e8d38ea0170e239f444b4b9da69e3c8cc38910e93b6282"
+    },
+    {
+      "build_output": "hq-winter-patch-parity0-4x.png",
+      "dimensions": {
+        "height": 1600,
+        "width": 1520
+      },
+      "path": "art/review/compound-v1/hq-winter-patch-parity0-4x.png",
+      "sha256": "d0ada111640d25c9e93d2c6f16c835da9d39edd81171a8c793af1026231fbc8a"
+    },
+    {
+      "build_output": "hq-winter-patch-parity1-4x.png",
+      "dimensions": {
+        "height": 1600,
+        "width": 1520
+      },
+      "path": "art/review/compound-v1/hq-winter-patch-parity1-4x.png",
+      "sha256": "d0ada111640d25c9e93d2c6f16c835da9d39edd81171a8c793af1026231fbc8a"
+    }
+  ],
+  "scenes": [
+    {
+      "entry_cell": "N",
+      "generation_recipe": "art/recipes/compound/distinct-v1/hq-summer-01.json",
+      "guard": {
+        "boundary_alpha_mass": 1,
+        "boundary_pixels": 1,
+        "clipped_alpha_mass": 1,
+        "clipped_pixels": 1,
+        "guarded_opaque_count": 0,
+        "max_boundary_alpha": 1,
+        "minimum_opaque_distance_world": 13.528904242398939
+      },
+      "height": 240,
+      "id": "hq-summer",
+      "input_artwork": {
+        "dimensions": {
+          "height": 1254,
+          "width": 1254
+        },
+        "source": "art/source/compound/distinct-v1/hq-summer.png",
+        "source_sha256": "8b26241b29cdf894265e2fd898de8f0d8fa2ba5fb7f104ba39baa3532b463f1c"
+      },
+      "inset": 0.75,
+      "layout": "hq",
+      "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; reject any sampled alpha \u003e=250 at signed distance \u003c=8 world pixels before guard; alpha zero through 4 world pixels then smoothstep 4..8. Guard full unmasked 4x artwork, then existing resizeLanczos to whole-scene 2x. Ground independently exported by exportConnectionTiles with fixed geometry and grass only, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim.",
+      "season": "summer",
+      "tiles": [
+        {
+          "cell": "N",
+          "origin": [
+            71,
+            0
+          ],
+          "runtime_id": "hqN"
+        },
+        {
+          "cell": "NW",
+          "origin": [
+            0,
+            40
+          ],
+          "runtime_id": "hqNW"
+        },
+        {
+          "cell": "NE",
+          "origin": [
+            142,
+            40
+          ],
+          "runtime_id": "hqNE"
+        },
+        {
+          "cell": "C",
+          "origin": [
+            71,
+            80
+          ],
+          "runtime_id": "hqC"
+        },
+        {
+          "cell": "SW",
+          "origin": [
+            0,
+            120
+          ],
+          "runtime_id": "hqSW"
+        },
+        {
+          "cell": "SE",
+          "origin": [
+            142,
+            120
+          ],
+          "runtime_id": "hqSE"
+        },
+        {
+          "cell": "S",
+          "origin": [
+            71,
+            160
+          ],
+          "runtime_id": "hqS"
+        }
+      ],
+      "transform": {
+        "offset": [
+          29.75,
+          30.75
+        ],
+        "scale": 0.1423444976076555,
+        "source_dimensions": {
+          "height": 1254,
+          "width": 1254
+        }
+      },
+      "width": 238
+    },
+    {
+      "entry_cell": "N",
+      "generation_recipe": "art/recipes/compound/distinct-v1/hq-winter-01.json",
+      "guard": {
+        "boundary_alpha_mass": 1,
+        "boundary_pixels": 1,
+        "clipped_alpha_mass": 1,
+        "clipped_pixels": 1,
+        "guarded_opaque_count": 0,
+        "max_boundary_alpha": 1,
+        "minimum_opaque_distance_world": 13.025215929112269
+      },
+      "height": 240,
+      "id": "hq-winter",
+      "input_artwork": {
+        "dimensions": {
+          "height": 1254,
+          "width": 1254
+        },
+        "source": "art/source/compound/distinct-v1/hq-winter.png",
+        "source_sha256": "064b38d83e33ddb61469cf2d16656070898bfaa12c9f8dd2c40c5a2b43da33f7"
+      },
+      "inset": 0.75,
+      "layout": "hq",
+      "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; reject any sampled alpha \u003e=250 at signed distance \u003c=8 world pixels before guard; alpha zero through 4 world pixels then smoothstep 4..8. Guard full unmasked 4x artwork, then existing resizeLanczos to whole-scene 2x. Ground independently exported by exportConnectionTiles with fixed geometry and grass only, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim.",
+      "season": "winter",
+      "tiles": [
+        {
+          "cell": "N",
+          "origin": [
+            71,
+            0
+          ],
+          "runtime_id": "hqN_w"
+        },
+        {
+          "cell": "NW",
+          "origin": [
+            0,
+            40
+          ],
+          "runtime_id": "hqNW_w"
+        },
+        {
+          "cell": "NE",
+          "origin": [
+            142,
+            40
+          ],
+          "runtime_id": "hqNE_w"
+        },
+        {
+          "cell": "C",
+          "origin": [
+            71,
+            80
+          ],
+          "runtime_id": "hqC_w"
+        },
+        {
+          "cell": "SW",
+          "origin": [
+            0,
+            120
+          ],
+          "runtime_id": "hqSW_w"
+        },
+        {
+          "cell": "SE",
+          "origin": [
+            142,
+            120
+          ],
+          "runtime_id": "hqSE_w"
+        },
+        {
+          "cell": "S",
+          "origin": [
+            71,
+            160
+          ],
+          "runtime_id": "hqS_w"
+        }
+      ],
+      "transform": {
+        "offset": [
+          29.75,
+          30.75
+        ],
+        "scale": 0.1423444976076555,
+        "source_dimensions": {
+          "height": 1254,
+          "width": 1254
+        }
+      },
+      "width": 238
+    }
+  ],
+  "schema_version": 1,
+  "status": "candidate-built",
+  "tool": "Go tools/art-review -compound"
+}
