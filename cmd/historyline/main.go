@@ -144,6 +144,7 @@ func (g *game) Update() error {
 		g.ctl.walk.Tick()
 	}
 	g.ctl.report.Tick()
+	g.ctl.fx.Tick()
 	for _, a := range actionsFor(inpututil.IsKeyJustPressed) {
 		if !g.applyAction(a) {
 			return ebiten.Termination
@@ -283,6 +284,7 @@ func (g *game) Draw(screen *ebiten.Image) {
 	g.drawMinimap(screen)
 	g.drawMenu(screen)
 	g.drawReport(screen)
+	g.drawEffects(screen)
 	if dev := g.devIndicators(); dev != "" {
 		ebitenutil.DebugPrintAt(screen, dev, g.w-8*len(dev)-8, 0)
 	}

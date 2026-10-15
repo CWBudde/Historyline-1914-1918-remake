@@ -658,6 +658,10 @@ so interactive playback and responsive/input acceptance remain open. Approximate
       result). Open: real bars/sprites, click-to-skip, reduced-animation. Not hand-tested in the window.
 - [ ] Add hit markers, death/explosion playback and capture/round banners, with bounded
       durations and skip/reduced-animation behavior. Show HQ-capture victory in the app.
+      Placeholder done (`cmd/historyline/banner.go`): red X hit marker and orange death flash on the
+      defender/attacker hex from the engine `Battle`, round banner after end turn, HQ-capture banner;
+      bounded (24-300 frames), click dismisses banners; `banner_test.go`. Open: real explosion
+      sprites, capture-in-progress banner, reduced-animation. Not hand-tested in the window.
 - [ ] Wire end turn and refresh selection, legal actions, panels, minimap and fog for the
       active side. Keep Python/Standard turn flow distinct from the future R3 scheduler.
 

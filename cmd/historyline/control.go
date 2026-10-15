@@ -27,6 +27,7 @@ type control struct {
 
 	walk   *walk   // movement being animated; input waits until it is done
 	report *report // battle panel of the last shot
+	fx     effects // hit marks and banners
 
 	Message string // result of the last action, shown to the player
 }
@@ -61,6 +62,7 @@ func (c *control) Select(at hexgrid.Coord) {
 // Click handles a left click on a map hex: select, move, attack or deselect.
 func (c *control) Click(at hexgrid.Coord) {
 	c.Message = ""
+	c.fx.Dismiss()
 	c.menu, c.stored = nil, nil
 	if !c.walk.Done() {
 		return
@@ -159,6 +161,7 @@ func (c *control) move(to hexgrid.Coord) {
 	c.Message = fmt.Sprintf("%s moved", c.unit.Type)
 	if c.st.Winner != state.None {
 		c.Message = fmt.Sprintf("%v captured the HQ and wins", c.st.Winner)
+		c.fx.Victory(c.st.Winner)
 	}
 	c.Select(to)
 }
@@ -239,6 +242,7 @@ func (c *control) attack(to hexgrid.Coord, slot int) {
 		rp.Defender.Weapon = def.Weapons[b.Counter].Name
 	}
 	c.report = rp
+	c.fx.AddBattle(c.from, to, b)
 	c.Message = fmt.Sprintf("hit for %d, took %d back", b.Damage, b.CounterDamage)
 	switch {
 	case b.DefenderDestroyed:
@@ -271,4 +275,8 @@ func (c *control) EndTurn() {
 		}
 	}
 	c.Message = fmt.Sprintf("round %d (the opponent passed: no AI yet)", c.st.Round)
+	c.fx.Round(c.st.Round, c.st.Turn)
+	if c.st.Winner != state.None {
+		c.fx.Victory(c.st.Winner)
+	}
 }
