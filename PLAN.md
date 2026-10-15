@@ -598,6 +598,11 @@ so interactive playback and responsive/input acceptance remain open. Approximate
       R3/R4 introduce the verified DOS inventory limits and cycle orders separately.
 - [ ] Draw reachable/attackable overlays from engine queries and execute move, attack,
       enter/leave and capture commands through the rules API; display rejected actions.
+      Placeholder done in `cmd/historyline` (`control.go`): click selects an own visible unit,
+      blue/red overlays come from `Movable`/`Targets`, clicking moves or attacks (first
+      usable weapon), F1 ends the turn (the opponent passes: no AI), Esc/right-click cancel;
+      `TestControlSelectMoveAndEndTurn`. Open: enter/leave/capture UI, weapon choice, and
+      the real rendering. Not hand-tested interactively.
 - [ ] Animate movement along the engine path with stable unit anchors and facing changes.
       Keep animation/input timing separate from authoritative game state.
 

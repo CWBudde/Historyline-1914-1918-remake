@@ -44,7 +44,7 @@ func (c *control) Select(at hexgrid.Coord) {
 	c.selected, c.from, c.unit = true, at, h.Unit
 	c.moves = c.st.Movable(at, h.Unit)
 	c.targets = map[hexgrid.Coord]bool{}
-	if !(c.st.Rules.OneActionPerTurn && h.Unit.Moved) {
+	if !c.st.Rules.OneActionPerTurn || !h.Unit.Moved {
 		for _, t := range c.st.Targets(at) {
 			c.targets[t] = true
 		}
