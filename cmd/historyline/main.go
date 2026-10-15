@@ -12,6 +12,7 @@ import (
 	"image/color"
 	"log"
 	"path/filepath"
+	"strings"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
@@ -39,6 +40,7 @@ var hexOutline = [6][2]float32{{-48, 0}, {-25, -40}, {25, -40}, {48, 0}, {25, 40
 const (
 	minimapMax    = 280 // longest minimap edge in screen pixels
 	minimapMargin = 12
+	minNumberZoom = 0.6 // below this the hex numbers would overlap
 )
 
 type game struct {
@@ -46,6 +48,7 @@ type game struct {
 	state       *state.State
 	player      state.Player // whose fog is shown
 	reveal      bool         // dev: ignore fog
+	hexNumbers  bool         // dev: print line,col on every hex
 	grid        hexgrid.Grid
 	cam         *camera.Camera
 	mini        minimap.Minimap
@@ -180,6 +183,9 @@ func (g *game) Draw(screen *ebiten.Image) {
 			}
 		}
 	}
+	if g.hexNumbers && g.cam.Zoom >= minNumberZoom {
+		g.drawHexNumbers(screen, vx, vy, vw, vh)
+	}
 	g.drawOverlays(screen)
 	if g.hoverOnMap {
 		cx, cy := hexgrid.Center(g.hover)
@@ -187,6 +193,9 @@ func (g *game) Draw(screen *ebiten.Image) {
 		g.drawHex(screen, float32(sx), float32(sy), color.RGBA{}, true)
 	}
 	g.drawMinimap(screen)
+	if dev := g.devIndicators(); dev != "" {
+		ebitenutil.DebugPrintAt(screen, dev, g.w-8*len(dev)-8, 0)
+	}
 	msg := fmt.Sprintf("%s  round %d, %v to move  zoom %.2f\narrows/WASD scroll, wheel zoom, click unit then hex, F1 end turn, Esc/right-click cancel",
 		g.lvl.MapName, g.state.Round, g.state.Turn, g.cam.Zoom)
 	if g.state.Winner != state.None {
@@ -200,6 +209,36 @@ func (g *game) Draw(screen *ebiten.Image) {
 		msg += fmt.Sprintf("\nline %d col %d  %s", g.hover.Line, g.hover.Col, hx.Terrain)
 	}
 	ebitenutil.DebugPrint(screen, msg)
+}
+
+// devIndicators names the active development flags so a screenshot can never be
+// mistaken for normal play.
+func (g *game) devIndicators() string {
+	var on []string
+	if g.reveal {
+		on = append(on, "REVEAL")
+	}
+	if g.hexNumbers {
+		on = append(on, "HEXNUMBERS")
+	}
+	if len(on) == 0 {
+		return ""
+	}
+	return "DEV: " + strings.Join(on, " ")
+}
+
+// drawHexNumbers prints "line,col" under each visible hex centre (dev flag).
+func (g *game) drawHexNumbers(dst *ebiten.Image, vx, vy, vw, vh float64) {
+	for l, line := range g.lvl.Lines {
+		for c := range line {
+			cx, cy := hexgrid.Center(hexgrid.Coord{Line: l, Col: c})
+			if cx+48 < vx || cx-48 > vx+vw || cy+40 < vy || cy-40 > vy+vh {
+				continue
+			}
+			sx, sy := g.cam.WorldToScreen(cx, cy)
+			ebitenutil.DebugPrintAt(dst, fmt.Sprintf("%d,%d", l, c), int(sx)-14, int(sy+22*g.cam.Zoom)-8)
+		}
+	}
 }
 
 // drawOverlays tints the hexes the selected unit may reach (blue) or attack
@@ -305,6 +344,7 @@ func main() {
 	dir := flag.String("levels", "levels", "directory with the level files")
 	side := flag.String("player", "", "side whose fog of war is shown: central, entente (default: the level's side)")
 	reveal := flag.Bool("reveal", false, "dev: show the whole map, ignoring fog of war")
+	hexNumbers := flag.Bool("hexnumbers", false, "dev: print line,col on every hex")
 	flag.Parse()
 
 	lvl, err := loadLevel(*dir, *name)
@@ -332,7 +372,9 @@ func main() {
 	ebiten.SetWindowSize(startWidth, startHeight)
 	ebiten.SetWindowResizingMode(ebiten.WindowResizingModeEnabled)
 	ebiten.SetWindowTitle("Historyline 1914-1918")
-	if err := ebiten.RunGame(newGame(lvl, st, player, *reveal)); err != nil {
+	gm := newGame(lvl, st, player, *reveal)
+	gm.hexNumbers = *hexNumbers
+	if err := ebiten.RunGame(gm); err != nil {
 		log.Fatal(err)
 	}
 }

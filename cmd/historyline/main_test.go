@@ -127,3 +127,14 @@ func TestControlIgnoresClicksOutsideOwnTurn(t *testing.T) {
 		}
 	}
 }
+
+func TestDevIndicators(t *testing.T) {
+	g := &game{}
+	if got := g.devIndicators(); got != "" {
+		t.Errorf("no dev flags: got %q", got)
+	}
+	g.reveal, g.hexNumbers = true, true
+	if got := g.devIndicators(); got != "DEV: REVEAL HEXNUMBERS" {
+		t.Errorf("got %q", got)
+	}
+}

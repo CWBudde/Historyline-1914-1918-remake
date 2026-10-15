@@ -619,8 +619,8 @@ so interactive playback and responsive/input acceptance remain open. Approximate
 
 - [ ] Implement Python-equivalent keyboard/mouse controls, including F1 end turn, scrolling,
       menu selection and cancellation; replace the reference double-click detection.
-- [ ] Implement level selection via `-level` and dev flags `-reveal`, `-hexnumbers`, with
-      visible development indicators. The current bootstrap accepts none of these flags.
+- [x] Implement level selection via `-level` and dev flags `-reveal`, `-hexnumbers`, with
+      visible development indicators. Done in the placeholder view: `-level`, `-levels`, `-player`, `-reveal`, `-hexnumbers`; the top-right "DEV:" label names active flags.
 - [ ] Exercise the G2 recreated scene through move, attack, enter/leave container, capture
       and end turn, with responsive layout and high-DPI picking. Record runtime evidence;
       offline fixture renders do not satisfy this gate.
