@@ -665,6 +665,7 @@ so interactive playback and responsive/input acceptance remain open. Approximate
 
 - [ ] Implement Python-equivalent keyboard/mouse controls, including F1 end turn, scrolling,
       menu selection and cancellation; replace the reference double-click detection.
+      Partial: `cmd/historyline/input.go` key table (F1 end turn, Esc cancel, Space/Enter select hover hex, PgUp/PgDn or Home/End jump to map top/bottom, Q quit; arrows/WASD scroll, wheel zoom, number keys pick menu rows); `TestKeyBindingsMatchPython`. Python double-click is replaced by single click/Space. Not hand-tested in the window.
 - [x] Implement level selection via `-level` and dev flags `-reveal`, `-hexnumbers`, with
       visible development indicators. Done in the placeholder view: `-level`, `-levels`, `-player`, `-reveal`, `-hexnumbers`; the top-right "DEV:" label names active flags.
 - [ ] Exercise the G2 recreated scene through move, attack, enter/leave container, capture

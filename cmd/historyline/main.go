@@ -144,14 +144,13 @@ func (g *game) Update() error {
 		g.ctl.walk.Tick()
 	}
 	g.ctl.report.Tick()
-	if inpututil.IsKeyJustPressed(ebiten.KeyF1) {
-		g.ctl.EndTurn()
+	for _, a := range actionsFor(inpututil.IsKeyJustPressed) {
+		if !g.applyAction(a) {
+			return ebiten.Termination
+		}
 	}
 	if g.updateMenu() {
 		return nil
-	}
-	if inpututil.IsKeyJustPressed(ebiten.KeyEscape) {
-		g.ctl.clear()
 	}
 
 	mx, my := ebiten.CursorPosition()
