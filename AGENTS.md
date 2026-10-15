@@ -14,8 +14,8 @@ path, so do not move it. `FINdecoder/00.FIN` is a sample DOS level for `internal
 ## Language policy
 
 Write new code and tooling in **Go**. Python is acceptable only for the existing reference code and the
-remaining tools `tools/original-rules/disassemble.py` and `tools/art-inventory/`; do not add new Python
-tools. Ports of those to Go are welcome.
+remaining tool `tools/art-inventory/` and the research test `tools/original-rules/test_fixture_schema.py`;
+do not add new Python tools. Ports of those to Go are welcome.
 
 ## Commands
 
@@ -26,7 +26,7 @@ go test ./internal/game -run TestName   # single test
 just lint        # go vet + golangci-lint v2 (.golangci.yml)
 just run         # play; just build -> bin/historyline; just wasm -> bin/; just web 8080 -> build/web (served by cmd/serve)
 python3 main.py level1_cp               # run the Python reference
-python3 -I -m unittest discover -s tools/original-rules   # DOS research tests (not in just ci)
+python3 -I -m unittest discover -s tools/original-rules   # fixture-schema test (not in just ci)
 ```
 
 Run Python tests with `-I` and from the repo root. After a same-size `sed` edit of a `.py` file, delete
@@ -43,8 +43,8 @@ Run Python tests with `-I` and from the repo root. After a same-size `sed` edit 
 - `internal/tpwm`: Turbo Packer unpacker; the size byte order (DOS little, Amiga big) is a parameter.
 - `internal/level`: `levels/*.json` read/write; `Marshal` reproduces `mapEditor.py` byte for byte.
 - Rule sets: `Classic` (Python parity) and `Standard` (improved). Neither is original-game fidelity.
-- `tools/original-rules` (R0–R5 in PLAN.md): static disassembly of the DOS `HL.EXE` (still the Python
-  `disassemble.py`); the 8086 interpreter is `internal/dos8086`, and `internal/dosoracle` holds the runners and the
+- `tools/original-rules` (R0–R5 in PLAN.md): static disassembly of the DOS `HL.EXE` is `cmd/dosexport`
+  (`internal/dosexe` parses the MZ image and records); the 8086 interpreter is `internal/dos8086`, and `internal/dosoracle` holds the runners and the
   independent transcriptions that are compared against executed code. Findings live in
   `docs/research/original-dos-rule-spec.md` (profile `dos-0.1`) with an evidence status per rule.
 - `tools/art-inventory`, `tools/art-review`, `tools/native-reference`: graphics tooling (`just gfx-check`).

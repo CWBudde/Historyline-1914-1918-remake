@@ -319,7 +319,7 @@ The completed compatibility work below remains useful and stays completed.
 #### R0 — Establish the rules evidence and specification
 
 - [x] Disassemble the supplied DOS executable and extract the initial rule tables.
-      (2026-10-15) — `tools/original-rules/disassemble.py` identifies the exact `HL.EXE` hash,
+      (2026-10-15) — `cmd/dosexport` (ported from `disassemble.py`, byte-identical listings) identifies the exact `HL.EXE` hash,
       exports the load image, 123 overlapping segment views, ten traced instruction windows,
       relocation/far-call indexes, 51 × 69-byte unit records and 175 × 6-byte terrain records
       per season. Nine synthetic parser tests and repeated extraction checks pass. Original

@@ -14,8 +14,8 @@ The disassembly is available locally; it is not a recovery of the original C sou
 ## Reproduce the disassembly
 
 ```sh
-python3 -m unittest discover -s tools/original-rules -v
-python3 tools/original-rules/disassemble.py
+go test ./internal/dosexe ./internal/tpwm
+go run ./cmd/dosexport
 ```
 
 See [the analysis tool](../../tools/original-rules/README.md). The default generated

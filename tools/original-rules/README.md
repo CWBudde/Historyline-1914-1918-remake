@@ -3,14 +3,14 @@
 Reproduce the static disassembly and data extraction for the locally supplied
 `original/extracted/dos-full/HL.EXE`. Findings and limitations are in
 [`docs/research/original-dos-rules.md`](../../docs/research/original-dos-rules.md).
-Python 3 and GNU binutils `objdump` with `i8086` support are sufficient; no network,
-DOS execution, external Python packages, or changes to the installation are needed.
+Go and GNU binutils `objdump` with `i8086` support are sufficient; no network,
+DOS execution, or changes to the installation are needed.
 
 From the repository root:
 
 ```sh
-python3 -m unittest discover -s tools/original-rules -v
-python3 tools/original-rules/disassemble.py
+go test ./internal/dosexe ./internal/tpwm
+go run ./cmd/dosexport
 ```
 
 The default destination is ignored `build/original-rules/dos-full/`. Existing output

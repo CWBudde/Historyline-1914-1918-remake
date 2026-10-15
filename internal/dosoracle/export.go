@@ -28,7 +28,7 @@ var (
 	errStackCheck = errors.New("stack overflow check fired")
 )
 
-// Export is the local load image written by tools/original-rules/disassemble.
+// Export is the local load image written by cmd/dosexport.
 // The original bytes stay under the ignored build/ directory.
 type Export struct {
 	Image  []byte
