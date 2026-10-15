@@ -322,6 +322,9 @@ All 27 unit IDs now have sprite and portrait candidates across the 15 shared
 families. **No enabled runtime unit binding still needs an image association**;
 visual approval, native-resource correspondence and runtime acceptance remain open.
 
+- [x] Complete offline sprite and portrait candidate coverage for all 15 enabled
+      families / 27 runtime unit IDs (`d88e3ed`); individual deliveries follow below.
+
 - [x] Infantry tactical sprites — `CP_infantry`, `EC_infantry` (`f2127e6`).
 - [x] Light-artillery tactical sprites — `CP_lArtillery`, `EC_lArtillery` (`e894cb0`).
 - [x] Infantry portrait — shared owner-neutral illustration with 1×/2×/4× exports (`8401169`).
@@ -358,7 +361,7 @@ facings, CP/EC/neutral palettes, normal/spent states, 2×/4× tactical exports a
 repeat byte-for-byte. Fifteen-family saved-PNG tests, single-class bindings,
 focused regression tests, vet and lint pass. See
 `docs/art/remaining-unit-families-review.html` and its contract. Reference links
-follow the in-progress `legacy/python/gfx/` rearrangement. These checkboxes close
+follow the `legacy/python/gfx/` layout committed in `cc8f6f0`. These checkboxes close
 offline candidate delivery; approximately 90% resemblance, anatomy/mechanics,
 native facing/contact mapping, Blender comparison and runtime approval stay open.
 
@@ -1504,6 +1507,20 @@ in a distinct continuous style; final quality/seam and runtime acceptance remain
       armour, specialist ground units, naval variants, structures and 46 campaign illustrations
       absent from the current visual inventory. R2 owns their verified gameplay IDs/variants;
       Phase 5 completes campaign coverage.
+      - [x] Deliver offline tactical candidates for all 15 enabled unit families / 27 IDs:
+            six authored facings, CP/EC/neutral ownership palettes, normal/spent states
+            and 2×/4× exports. Completed through `d88e3ed`; Phase 2.2 records each family.
+      - [x] Deliver the 15 shared unit-portrait candidates covering all 27 IDs, with
+            retained masters and 1×/2×/4× Lanczos3 exports. These cover the enabled
+            unit roster; building and additional native/campaign illustrations remain open.
+      - [x] Retain exact prompts, source/manifest/export pins, comparison galleries and
+            reproducible bundles for the completed unit batches. The last twelve families
+            add 1,524 PNGs; all 1,692 build files repeat byte-for-byte. Saved-PNG family
+            and focused regression tests, vet and lint pass; see
+            `docs/art/remaining-unit-families-contract.md`.
+      - [ ] Complete visual/reference approval, native correspondence, physical contact
+            and in-engine acceptance for the delivered unit candidates; finish weapon,
+            effect/marker and additional native-content coverage.
 - [ ] Reuse templates and accepted reference sheets; use generation for constrained studies
       or details and paint cleanup. For six-direction units, compare hand-authored sprites
       with a Blender pilot before committing to either method for the whole set.
