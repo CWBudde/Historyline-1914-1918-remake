@@ -109,6 +109,12 @@
       "source": "source/terrain/distinct-v1/shelled-winter-02.png",
       "source_sha256": "22d08f6f163e525de7ade2d93253193d3c4b13a81ec61182c3ecf241e7126060",
       "description": "Churned winter earth with irregular artillery impact craters."
+    },
+    {
+      "id": "road-gravel",
+      "source": "source/terrain/distinct-v1/road-gravel.png",
+      "source_sha256": "93991a9f33f3d125f68f0ed2d14b329f1092428a0df59ba90f92c5b2bc85dd26",
+      "description": "Fine unmarked macadam/gravel material for shared connected road shapes."
     }
   ]
 }

@@ -7,9 +7,10 @@ brief supersedes the earlier approximately 90% original-likeness requirement: do
 ship original graphics or close reconstructions. Retain gameplay semantics, stable
 IDs, map placement and connection topology. Keep familiar information layouts.
 
-The current [new-source manifest](../../art/terrain-distinct-v1.json) starts with
-six semantic terrain candidates. [Gallery](distinct-terrain-review.html) and
-[independent review](distinct-terrain-batch-01.md) show the actual delivery and defects.
+The current [new-source manifest](../../art/terrain-distinct-v1.json) contains
+19 semantic/material candidates. The separate connected builder delivers 27 road/stream
+variants and a grass base. [Source gallery](distinct-terrain-review.html) and
+[connected review](connected-family-batch-01.md) show delivery, evidence and defects.
 Historical `art/source/pilot/` reconstruction studies are excluded from this pack.
 
 ## Drawing

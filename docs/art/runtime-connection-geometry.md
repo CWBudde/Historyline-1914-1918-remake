@@ -48,9 +48,21 @@ probe under ignored `build/gfx-research/_geometry/`. Controller inspected and ra
 registrations pass; periodic histogram is `{1:11288,2:72}`.
 The scratch draft is not a production interface or pack dependency.
 
-Next implement one Go compositor consuming explicit geometry, shared feature
-profiles and NEW material sources. Build straight/bend/junction previews before
-bulk generation. Sample base materials in world coordinates; keep common endpoint
-tangents, banks/verges, gauge and phase. Validate both parities, three-tile vertices,
-coverage ownership, declared masks and deterministic 2×/4× exports. Review actual
-painted pixels before accepting a connected family.
+## New road/stream compositor delivery
+
+`tools/art-review -connected` now consumes explicit geometry and NEW materials via
+`art/connected-terrain-v1.json`. The new polygon has vertices
+(25,0),(71,0),(96,40),(71,80),(25,80),(0,40), continuous area 5680. It does not reuse
+the legacy 5716-pixel raster mask. Complementary half-open ownership at final pixel
+centers gives exactly one owner per pixel for aligned 2×/4× source-over blits.
+Materials share world phase and features retain straight protected port zones.
+
+All 16 roads and 11 streams are built; 126 port/density pairs and 14,572 core seam
+pixels pass coverage checks. All 108 actual-PNG parity/density patches match ordinary
+source-over assembly. See [review and exact recipe](connected-family-batch-01.md).
+This verifies new declared road/stream contacts, not every historical painted endpoint.
+
+Next extend the compositor to paths/rail/trenches and bridge/crossing components,
+then test mixed families, seasons and runtime zoom. Preserve common endpoint tangents,
+banks/verges, gauge and phase. Review actual exported pixels before accepting each
+connected family; the offline patch results do not close in-engine acceptance.

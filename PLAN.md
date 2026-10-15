@@ -544,7 +544,8 @@ provide evidence, but do not establish the author's full intent:
 - `generatedMap.png` shows the existing tile composition and joins. It is a reference render,
   not an authoritative image of the 1992 game. The Go executable currently draws an empty
   1800 × 1000 window. Offline inventory, native-reference/gallery and fidelity-comparison
-  tools exist under `tools/`; G1's shared compositor and in-engine workbench remain planned.
+  tools exist under `tools/`. The offline road/stream compositor now builds new connected
+  candidates; broader geometry contracts and the in-engine workbench remain open.
 
 **Reference hierarchy:** use verified native-resolution tiles/screens from the 1992 game as
 the fidelity target. Default to its Amiga presentation, consistent with the README; document
@@ -887,14 +888,23 @@ below record work already delivered, plus G0.7's new neighborhood comparisons.
             artifacts match. See `docs/art/distinct-terrain-batch-02.md`.
       - [x] Enumerate the enabled runtime tile contract separately from native resources.
             `docs/art/runtime-tile-coverage.csv` contains all 60 background and 74 infrastructure
-            IDs, checked against loaders and campaign usage. Thirteen candidate-source
-            associations, 121 needing images, zero accepted replacements; seams remain open.
+            IDs, checked against loaders and campaign usage. Current associations and their
+            source/build/seam status are recorded per ID; none is accepted for runtime release.
       - [x] Deliver wet mud, water stones and winter forest/rough/stone/shelled sources.
             (2026-10-15) — batch 03 has six reviewed candidates, including revised mud/craters;
             pack now has 18 sources / 36 exports. Repeated 56-file builds match; source delivery
             is distinct from runtime acceptance. See `docs/art/distinct-terrain-batch-03.md`.
+      - [x] Build all 16 loaded road and 11 stream variants from new shared materials.
+            (2026-10-15) — new gravel brings the source pack to 19 masters / 38 exports.
+            `art/connected-terrain-v1.json` produces 54 overlays and two grass bases at 2×/4×.
+            Independent code/art reviews prompted final-pixel ownership and organic stream
+            repairs. Controller verified 126 port/density pairs, 14,572 opaque seam pixels,
+            108 actual-PNG patches and 198 byte-identical repeat artifacts. See
+            `docs/art/connected-family-batch-01.md` and its durable gallery. Delivery is
+            provisional: 12 source candidates + 28 built candidates, 94 IDs needing images,
+            zero accepted runtime replacements.
       - [ ] Complete missing subjects, seasonal images, connected variants and runtime/native
-            mappings; validate assembled seams. Eighteen semantic sources do not close a family.
+            mappings; validate assembled seams. Nineteen semantic sources do not close a family.
 - [ ] **Gate — Approve the complete pilot and choose production density/tools.** Compare all
       pilot subjects at native size and normal play zoom, including connected neighborhoods.
       Require distinct authored artwork, readable silhouettes, correct declared routes/connections
@@ -914,6 +924,12 @@ in a distinct continuous style; final quality/seam and runtime acceptance remain
 - [ ] Implement the geometry/manifest contracts and the shared compositor. Use deliberate
       broken fixtures to test wrong opposite ports, shifted anchors, missing corner coverage,
       double-painted edges, invalid dimensions and unsupported overlay combinations.
+      - [x] Deliver the bounded offline road/stream builder in `tools/art-review -connected`:
+            explicit ports, world-phase materials, protected banks, Lanczos3 overscan,
+            complementary polygon ownership, actual-PNG parity/density patches, strict
+            validation and repeat builds. Tests cover malformed declarations, output
+            collisions and filtered seams. Other families, transitions, combination rules
+            and shared runtime integration remain open.
 - [ ] Implement proposed commands `go run ./cmd/hlasset validate`, `build`, and `review`, all
       consuming `art/manifest.json`. Validation/build return nonzero on invalid inputs; review
       writes native/2×/4× sheets and actionable ID/direction diagnostics to `build/art-review/`.
@@ -1002,11 +1018,13 @@ private originals/manual extracts in ignored `original/`, and reference gallerie
 outputs and research in ignored `build/`. Authored masters, recipes and pilot exports stay in
 tracked `art/`; commit verified graphics batches directly to `main`, per the user's preference.
 
-**Immediate next graphics slice:** build the shared road/stream port/path compositor from
-`docs/art/runtime-connection-geometry.md` and the new materials. Export straight/bend/junction
-patches with both parities and vertices, then complete connected road/river/shore variants.
-Continue houses, bridges/rail/walls, building/mountain pieces and remaining seasonal images.
-The source pack currently contains 18 candidates with 36 exports. Use the
+**Immediate next graphics slice:** extend the reviewed road/stream compositor to paths,
+then rail/trenches and bridge/crossing components with explicit ports and new materials.
+Generate missing houses/building subjects, shores, mountain pieces and seasonal images.
+The source pack currently contains 19 candidates with 38 material exports, plus 27 connected
+variants and a grass base at both densities. The runtime ledger has 40 associated IDs
+(12 source candidates, 28 built candidates), 94 needing images and zero accepted replacements.
+Pixel-aligned 2×/4× patches pass; full maps, other zooms and runtime integration remain open. Use the
 134-row runtime ledger as the enabled-ID checklist without dropping the separate 350 native
 resource mapping/coverage obligation. Establish shared forest scale and protected
 port/bank templates in an assembled preview before accepting a connected family. The old

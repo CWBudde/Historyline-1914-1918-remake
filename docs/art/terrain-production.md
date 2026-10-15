@@ -8,27 +8,32 @@ connection topology; invent surface artwork, palette and detail.
 Current pack: [terrain-distinct-v1.json](../../art/terrain-distinct-v1.json).
 [Gallery](distinct-terrain-review.html) · [Batch 01 review](distinct-terrain-batch-01.md) ·
 [Batch 02 review](distinct-terrain-batch-02.md) · [Batch 03 review](distinct-terrain-batch-03.md) ·
+[Connected family review](connected-family-batch-01.md) ·
 [Runtime coverage](runtime-tile-coverage.md).
 
 ## Delivery and coverage
 
-Eighteen semantic candidates are delivered: meadow, dry meadow, sparse/dense forest,
+Nineteen semantic/material candidates are delivered: meadow, dry meadow, sparse/dense forest,
 unmarked road bend, diagonal river, open water, bare earth, snow, rocky ground,
-hills, mountain, wet mud, water stones, winter forest/rough/stone/shelled ground.
-Selected sources are 1374×1145 with 36 reproducible Lanczos3
+hills, mountain, wet mud, water stones, winter forest/rough/stone/shelled ground,
+and unmarked gravel. Selected sources are 1374×1145 with 38 reproducible Lanczos3
 exports at 192×160 / 384×320. Independent review prompted dense forest 02,
 hills 02 and mountain 02. Mountain remains provisional pending camera/material
 assessment in an assembled terrain/unit preview.
 
 [runtime-tile-coverage.csv](runtime-tile-coverage.csv) explicitly lists all 134 enabled
-remake tile IDs (60 backgrounds, 74 infrastructure). Thirteen backgrounds have candidate
-source associations, 121 IDs still need images, and zero replacements are accepted.
-Wet mud has its own reviewed source; opaque road/river studies are not infrastructure overlays.
-Keep those distinctions visible rather than equating source counts with coverage.
+remake tile IDs (60 backgrounds, 74 infrastructure). Twelve backgrounds have candidate
+source associations; grass and all 16 roads / 11 streams have built candidates.
+That is 40 associated IDs, 94 still needing images, and zero accepted runtime replacements.
+Wet mud has its own reviewed source. Opaque road/river studies remain separate from the
+new transparent infrastructure overlays.
 
-These are rectangular overscan images. Shared texture phase, tree scale, runtime
-hex clipping, six-edge ports, family variants, seasonal coverage and runtime mapping
-remain open. Candidate delivery is not accepted complete tile coverage.
+The source-pack exports are rectangular overscan images. The separate
+[connected manifest](../../art/connected-terrain-v1.json) builds a grass base and
+27 transparent overlays with shared world phase and explicit ports. Actual saved PNG
+patches pass pixel-aligned 2×/4× seam checks at both parities; independent visual review
+provisionally passes. Full-map repetition, tree scale, other families, seasons,
+runtime integration and release acceptance remain open.
 
 [terrain-production.csv](terrain-production.csv) retains the existing **350 native
 library/resource pairs** (175 summer, 175 winter) as an inventory and historical
@@ -57,13 +62,13 @@ representative image or a generated master merely resembling its name.
 
 ## Work order
 
-1. Build the shared road/stream port compositor using [verified runtime geometry](runtime-connection-geometry.md)
-   and new materials; generate straight/bend/junction previews before completing directional families.
-   Continue houses, shores and remaining seasonal/building/mountain pieces. Retain camera,
+1. Extend the reviewed road/stream compositor to paths, rail/trenches and bridge/crossing
+   components using [verified runtime geometry](runtime-connection-geometry.md) and new
+   materials. Continue houses, shores and remaining seasonal/building/mountain pieces. Retain camera,
    unit readability and material-quality caveats during integration.
-2. Establish shared forest scale and a small assembled connected preview using road
-   and river straights/bends, declared ports and protected material/bank profiles.
-   Correct adjoining edges and three-tile vertices before accepting a family.
+2. Establish shared forest scale and assemble larger mixed-family previews using the
+   delivered road/stream variants. Correct transitions and inspect three-tile vertices
+   before accepting a family; small same-family patches alone do not close integration.
 3. Expand all required coast, road/river/junction, bridge, rail, wall and multi-tile
    building/mountain combinations. Preserve topology without tracing original artwork.
 4. Complete winter variants, remaining terrain, infrastructure and overlays; map
@@ -84,6 +89,11 @@ It uses only declared new source images and fixed alpha-aware Lanczos3:
 centered exact 6:5 crop → 384×320 → 192×160. Current masters need no crop.
 Preserve generated source pixels and exact prompts. No original footprint or
 reference raster participates in this export mode.
+
+`go run ./tools/art-review -connected art/connected-terrain-v1.json -out <fresh-directory>`
+builds the connected base/overlays, actual-PNG patches and gallery. See the
+[batch recipe and verification record](connected-family-batch-01.md) for protected
+profiles, final-pixel ownership, 198-file repeat checks and zoom limitations.
 
 Legacy `-reference/-candidate/-resampling lanczos` comparisons remain available
 for historical research; their 90/100 fidelity gate does not govern the new pack.

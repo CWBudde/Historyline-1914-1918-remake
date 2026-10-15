@@ -1,0 +1,1138 @@
+{
+  "schema_version": 1,
+  "id": "connected-terrain-v1",
+  "date": "2026-10-15",
+  "tool": "Go tools/art-review -connected",
+  "status": "candidate-built",
+  "manifest": "art/connected-terrain-v1.json",
+  "manifest_sha256": "f4e18f0882ab9a12b4fa566aba4249e29a6f25911eb5a28df298565d8f1eb76d",
+  "geometry": {
+    "width": 96,
+    "height": 80,
+    "polygon": [
+      [
+        25,
+        0
+      ],
+      [
+        71,
+        0
+      ],
+      [
+        96,
+        40
+      ],
+      [
+        71,
+        80
+      ],
+      [
+        25,
+        80
+      ],
+      [
+        0,
+        40
+      ]
+    ],
+    "neighbors": [
+      [
+        71,
+        -40
+      ],
+      [
+        71,
+        40
+      ],
+      [
+        0,
+        80
+      ],
+      [
+        -71,
+        40
+      ],
+      [
+        -71,
+        -40
+      ],
+      [
+        0,
+        -80
+      ]
+    ],
+    "ports": [
+      [
+        83.5,
+        20
+      ],
+      [
+        83.5,
+        60
+      ],
+      [
+        48,
+        80
+      ],
+      [
+        12.5,
+        60
+      ],
+      [
+        12.5,
+        20
+      ],
+      [
+        48,
+        0
+      ]
+    ]
+  },
+  "materials": {
+    "earth": {
+      "source": "art/source/terrain/distinct-v1/earth-bare.png",
+      "source_sha256": "e7d3188bc9c734a1f45ad80ccce934c46d93cb4cf9843c079bbc6260ec848404",
+      "dimensions": {
+        "width": 1374,
+        "height": 1145
+      }
+    },
+    "grass": {
+      "source": "art/source/terrain/distinct-v1/meadow.png",
+      "source_sha256": "8c8935efbbd463e39d49208e42ca0e87b140268a1b11941764dfa7c29c4fff85",
+      "dimensions": {
+        "width": 1374,
+        "height": 1145
+      }
+    },
+    "road": {
+      "source": "art/source/terrain/distinct-v1/road-gravel.png",
+      "source_sha256": "93991a9f33f3d125f68f0ed2d14b329f1092428a0df59ba90f92c5b2bc85dd26",
+      "dimensions": {
+        "width": 1374,
+        "height": 1145
+      }
+    },
+    "water": {
+      "source": "art/source/terrain/distinct-v1/water-open.png",
+      "source_sha256": "0b080163804881ac49bc4b3162da547abf443c9082d6e67065c119174d79b51d",
+      "dimensions": {
+        "width": 1374,
+        "height": 1145
+      }
+    }
+  },
+  "method": "Candidate overlay. Unclipped new feature and grass render at 4x with four WORLD pixels of overscan on every side (416x352). Feature/bank edges use analytic signed-distance AA, 0.25 world-pixel ramp; distances round to 1e-9 world px for reciprocal half-alpha stability. Existing alpha-aware Lanczos3 reduces the UNMASKED overscan 416x352 -> 208x176. Crop 4-world-pixel margins AFTER filtering to 384x320 and 192x160, then apply complementary hard half-open polygon ownership at final pixel centers. No per-sprite polygon-edge AA; a future complete-map compositor may AA its outer boundary once. Each port has >=8 straight world pixels and extends beyond cutout by outer radius+4; cubic connectors flatten at 64 steps; junctions merge by minimum distance. No legacy footprint or pixels; no painted road markings.",
+  "stream_interior": "Stream-only organic interior. Let S(t)=clamp(t,0,1)^2*(3-2*clamp(t,0,1)), E=S((minimum signed polygon-edge distance-8)/8), A=2pi(x/142+y/80), B=2pi(x/142-y/80), using world x/y. Warp local route lookup by E*(1.2*sin(A),1.2*sin(B)); core radius=width/2+0.8*E*sin(A+0.4)*cos(B). Thus the 8-world-pixel edge zone is unchanged and the envelope reaches full effect at 16 px. For junctions, smoothly union core SDF with a central disc of radius 0.68*width at warped coordinates: h=max(3-abs(core-disc),0)/3, merged=min(core,disc)-3*h*h/4, core=core+E*(merged-core). Border=max(0,border-0.8*E+0.3*E*sin(B+0.7)). Pocket=S((sin(A)*sin(B)-0.15)/0.65); bank opacity=1-0.65*E*pocket; final alpha=outer_AA*(core_AA+(1-core_AA)*bank_opacity). Cores stay opaque; translucent earth banks reveal underlying terrain with no baked-in grass. Road arithmetic and protected stream profiles are unchanged.",
+  "texture_method": "New opaque source images only. Bilinear source sampling through continuous mirror-periodic coordinates, periods (142,80); average f(x,y) and f(x+71,y+40) in byte RGB. This derived texture average is invariant under all six lattice neighbor shifts. All independent cells use world origin phase (0,0). No original-game pixels.",
+  "ownership": "Binary final-pixel polygon ownership: cross(edge,point)>0; on an edge include dy<0 or dy==0 && dx>0 (top-left rule), exclude the reciprocal edge. Ground and overlay exports share this new polygon. Zero RGBA outside ownership. Gallery patches decode exported PNG bytes and assemble ground then overlays using ordinary image.Draw Over at integer runtime cell translations, at BOTH 2x and 4x. They do not rerender world geometry or conceal sprite assembly gaps.",
+  "composition_scope": "Tested composition scope: pixel-aligned 2x/4x export sprites with integer runtime lattice translations and ordinary source-over blits. Other camera zoom should assemble the scene at asset density and resample the completed scene once. Independently filtered or fractional-position sprite zoom is not validated; no runtime zoom implementation is included.",
+  "variants": [
+    {
+      "id": "road13",
+      "family": "road",
+      "ports": [
+        1,
+        3
+      ],
+      "width": 14,
+      "border": 2
+    },
+    {
+      "id": "road14",
+      "family": "road",
+      "ports": [
+        1,
+        4
+      ],
+      "width": 14,
+      "border": 2
+    },
+    {
+      "id": "road15",
+      "family": "road",
+      "ports": [
+        1,
+        5
+      ],
+      "width": 14,
+      "border": 2
+    },
+    {
+      "id": "road25",
+      "family": "road",
+      "ports": [
+        2,
+        5
+      ],
+      "width": 14,
+      "border": 2
+    },
+    {
+      "id": "road35",
+      "family": "road",
+      "ports": [
+        3,
+        5
+      ],
+      "width": 14,
+      "border": 2
+    },
+    {
+      "id": "road36",
+      "family": "road",
+      "ports": [
+        3,
+        6
+      ],
+      "width": 14,
+      "border": 2
+    },
+    {
+      "id": "road46",
+      "family": "road",
+      "ports": [
+        4,
+        6
+      ],
+      "width": 14,
+      "border": 2
+    },
+    {
+      "id": "road26",
+      "family": "road",
+      "ports": [
+        2,
+        6
+      ],
+      "width": 14,
+      "border": 2
+    },
+    {
+      "id": "road125",
+      "family": "road",
+      "ports": [
+        1,
+        2,
+        5
+      ],
+      "width": 14,
+      "border": 2
+    },
+    {
+      "id": "road124",
+      "family": "road",
+      "ports": [
+        1,
+        2,
+        4
+      ],
+      "width": 14,
+      "border": 2
+    },
+    {
+      "id": "road145",
+      "family": "road",
+      "ports": [
+        1,
+        4,
+        5
+      ],
+      "width": 14,
+      "border": 2
+    },
+    {
+      "id": "road236",
+      "family": "road",
+      "ports": [
+        2,
+        3,
+        6
+      ],
+      "width": 14,
+      "border": 2
+    },
+    {
+      "id": "road346",
+      "family": "road",
+      "ports": [
+        3,
+        4,
+        6
+      ],
+      "width": 14,
+      "border": 2
+    },
+    {
+      "id": "road356",
+      "family": "road",
+      "ports": [
+        3,
+        5,
+        6
+      ],
+      "width": 14,
+      "border": 2
+    },
+    {
+      "id": "road135",
+      "family": "road",
+      "ports": [
+        1,
+        3,
+        5
+      ],
+      "width": 14,
+      "border": 2
+    },
+    {
+      "id": "road24",
+      "family": "road",
+      "ports": [
+        2,
+        4
+      ],
+      "width": 14,
+      "border": 2
+    },
+    {
+      "id": "stream13",
+      "family": "stream",
+      "ports": [
+        1,
+        3
+      ],
+      "width": 18,
+      "border": 2.5
+    },
+    {
+      "id": "stream135",
+      "family": "stream",
+      "ports": [
+        1,
+        3,
+        5
+      ],
+      "width": 18,
+      "border": 2.5
+    },
+    {
+      "id": "stream14",
+      "family": "stream",
+      "ports": [
+        1,
+        4
+      ],
+      "width": 18,
+      "border": 2.5
+    },
+    {
+      "id": "stream15",
+      "family": "stream",
+      "ports": [
+        1,
+        5
+      ],
+      "width": 18,
+      "border": 2.5
+    },
+    {
+      "id": "stream24",
+      "family": "stream",
+      "ports": [
+        2,
+        4
+      ],
+      "width": 18,
+      "border": 2.5
+    },
+    {
+      "id": "stream246",
+      "family": "stream",
+      "ports": [
+        2,
+        4,
+        6
+      ],
+      "width": 18,
+      "border": 2.5
+    },
+    {
+      "id": "stream25",
+      "family": "stream",
+      "ports": [
+        2,
+        5
+      ],
+      "width": 18,
+      "border": 2.5
+    },
+    {
+      "id": "stream26",
+      "family": "stream",
+      "ports": [
+        2,
+        6
+      ],
+      "width": 18,
+      "border": 2.5
+    },
+    {
+      "id": "stream35",
+      "family": "stream",
+      "ports": [
+        3,
+        5
+      ],
+      "width": 18,
+      "border": 2.5
+    },
+    {
+      "id": "stream36",
+      "family": "stream",
+      "ports": [
+        3,
+        6
+      ],
+      "width": 18,
+      "border": 2.5
+    },
+    {
+      "id": "stream46",
+      "family": "stream",
+      "ports": [
+        4,
+        6
+      ],
+      "width": 18,
+      "border": 2.5
+    }
+  ],
+  "exports": [
+    {
+      "path": "art/exports/connected-v1/grass-4x.png",
+      "sha256": "2feea3fd1e9026a16c87bf11ac6c2c33ec8d173719866427da42827bcc2d119e",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/grass-2x.png",
+      "sha256": "5285a565b5a882a24477fc48c7f5f69fc7a81a4ef2cdf5b87708b0eadfa13b17",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/road13-4x.png",
+      "sha256": "5e3a3e2019ede6f23a30e0b6918cee7e2661d6135816a90248731a99bcd90fbb",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/road13-2x.png",
+      "sha256": "1956a1fa9b2774b302b9288c272bd4585fa1bb612d51fb81ecca10651757f392",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/road14-4x.png",
+      "sha256": "dd70190f1145abbbd98047cfad4212269a1df72ef4be33b58665341bb0b68155",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/road14-2x.png",
+      "sha256": "010f5678e234a584341bc6d3442e235d85ce8bba8ac9da57fb3ed9d00f49c9bc",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/road15-4x.png",
+      "sha256": "a980cf41d1b6fd12b15e72faa9b95eb7df8b0d90575c697718c062876d0ce3b7",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/road15-2x.png",
+      "sha256": "61d7a7b6d78316c0d24d6ab46154b3dd037c319ef4267547e8bb84013b1b41e8",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/road25-4x.png",
+      "sha256": "046c37ca3baac568fb2a09fab744313cc4135e22d19dcaa7ef8333abd11fc6b6",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/road25-2x.png",
+      "sha256": "44f11f78f9a07182b0c5418e82fe72f35ca353eaa27d63790c9c5ef8875d5e42",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/road35-4x.png",
+      "sha256": "de20ec59d5fdd91e82bf050cfb9b6b9bc9c4517396be2a3a7b0e89b1f162711e",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/road35-2x.png",
+      "sha256": "4d0349643948a81e8970b0a6a7feb05ee5c9d36e6b57bac29a7b467cbd119c9b",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/road36-4x.png",
+      "sha256": "9fd7f5bfdf2571690933f891ee68d1a118f649dd3860de663bc3909880535bf6",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/road36-2x.png",
+      "sha256": "547c35410082a652670925015c66c1455d8d886f3ab477f21ab79e4735fd568a",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/road46-4x.png",
+      "sha256": "bfca33b9f24217a6d17d9597d29570cf46fe46c9739043caad7abf0b9e62774f",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/road46-2x.png",
+      "sha256": "e48c080e94d5bda832a66615262a22aa586f5d40f21edfcc1e0d6605ac4ea5ff",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/road26-4x.png",
+      "sha256": "df7c39e6a88aa1f368d0f5956aef2a96b9e4432430ad2b3e347903621c169609",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/road26-2x.png",
+      "sha256": "e8492e464ac9a1eec4c9c10b5cd38f7908ef1b4eb65aaf714162b518de4f8b18",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/road125-4x.png",
+      "sha256": "c8e0014bbbf9a2fba0e05418fe51656239ffdaeb452cc05369e371c54a91d5a2",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/road125-2x.png",
+      "sha256": "1a01f6672f48fc250b4b016df42e8ff67b138b092a01f1b89e3cd36bb6bcd651",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/road124-4x.png",
+      "sha256": "c5ad6c13f37e3b34e71a278902f6e848349ba03be99e47c886decb7f5af74fd1",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/road124-2x.png",
+      "sha256": "e81a2259b8befdf8231faac7f076b101c9db5a9bf7929b7da25f5eb475a07c77",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/road145-4x.png",
+      "sha256": "c0025900278b7316da622bfc4f328cfdd4e1a9a1ae773fdeb42b99ab8723e804",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/road145-2x.png",
+      "sha256": "4e709ab63e8a16ee14c21014828435b105693bd806d4f2a3c1e5b5835e981fe6",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/road236-4x.png",
+      "sha256": "8daba5ecf86be8be82272c22dd779bb60bd9d998e4d220edc1e9b1c1d7c23125",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/road236-2x.png",
+      "sha256": "c9be47db81bf4f29248bb8d7d78f5d967635e4e96936239cd96b839a2c6270c4",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/road346-4x.png",
+      "sha256": "b5eba2d808ec33ab9640d13ad777e201ae7d3331f2624004e76bc86d730b276c",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/road346-2x.png",
+      "sha256": "5289af191638db05f77a569223a7b5b8c3b2b1f314287f11fc3e6dd4f125beed",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/road356-4x.png",
+      "sha256": "5234ab5404dfa1dca60bc2468ed699e7a02e80c6733e95c766e96fa44e88fe12",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/road356-2x.png",
+      "sha256": "3f1928039076a5751051f6dad4428ed4eec024a169196e7e6aedbc872e032298",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/road135-4x.png",
+      "sha256": "036aab58961f0439c45fe4f667eb3c504dbdfa387e38282762b3b2f7299b016b",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/road135-2x.png",
+      "sha256": "e6fb7b164d91ea99cdf209148855a2a7939e06251fcb5373ffa20c39c8ddec93",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/road24-4x.png",
+      "sha256": "d6468b37b42c09beb13b51267273b83bf0f671358acbd21fa0d051ebb17b8340",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/road24-2x.png",
+      "sha256": "bbb8eb407d8f9e15313c94dcca699da138e0e9beb691e7dde1cf52c2c3a88b4b",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/stream13-4x.png",
+      "sha256": "a5465b3c7b44867df01817c0b0e46e30c0ae2411f3af02d5c4e144c75692fae8",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/stream13-2x.png",
+      "sha256": "3de4871282ed422ccd3834cca6581722c2ccd1a53955d5de77e2dfc85b85e7c2",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/stream135-4x.png",
+      "sha256": "0cbdcdff9d8b9d66f8bd6baad2c79f65bf31157ad9d0e06b6dac4f5f0f03b8cd",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/stream135-2x.png",
+      "sha256": "14c08f0a38f01223b4e71f9ac817fd6c277cfef3aab9a7f6c6c65ccf10b47ce1",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/stream14-4x.png",
+      "sha256": "736dc910c28a7de5e5b3ce8279c807f79fb5592764adb815e9292400a2e5b0df",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/stream14-2x.png",
+      "sha256": "5ac245328860c24daa98b09808e5b248be3142dc675f1357f221fa5098a549c7",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/stream15-4x.png",
+      "sha256": "c96d63c3d56230767679d1e6b3aa438bae57f91b6d1d22efbb9bd2dd781a4a82",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/stream15-2x.png",
+      "sha256": "a68fa65c6242d931e23deba4cde6cad569e1a69acda1fa088c43484c01966432",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/stream24-4x.png",
+      "sha256": "e820edef486ec1d41bd00723b4a84dcb2d6793b04dee7830cd2f7a6d4600d8da",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/stream24-2x.png",
+      "sha256": "7e3c92bc6c3f723ef20890ed1e9dae63a1159d0ae3a60d355259ad400da35dca",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/stream246-4x.png",
+      "sha256": "86c7748179802b4241b47fdee79551a6672196a6f358abfb6a36026cba4422a7",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/stream246-2x.png",
+      "sha256": "8f9bf68f987e9f1cbde4184c4af99be85b4ad895d2454105267f13fab7ea9cab",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/stream25-4x.png",
+      "sha256": "fde1ae21b4151755324f08e4f92f55c3a9f05da2f0310a4b04150977c309f8e8",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/stream25-2x.png",
+      "sha256": "62f7837706a364538d575bbd12ab24504fa7ccec771a1eee08e47308c11aeb2c",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/stream26-4x.png",
+      "sha256": "09e2d77c0286a7b76e775d5d8944283678cd7e2089c4a49c9a494b2d23b807b3",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/stream26-2x.png",
+      "sha256": "d7558636bf1d7dbeeeab97149006ac01ef2c37ea8be4def9b011e7e2d4ef79fd",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/stream35-4x.png",
+      "sha256": "eaab92976c820f42ee22234c6d91cfdb0ddca1c26a9919a72c97f1d08d9ed826",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/stream35-2x.png",
+      "sha256": "4954cc285c50bc7c6127283781bf826e354ed1470651d55a6e449f1e6cffb4b6",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/stream36-4x.png",
+      "sha256": "97b44320be3987104aa7780976b55e72fce915a7f33c85d4f73befad3cd65746",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/stream36-2x.png",
+      "sha256": "15337328d617f59960583b31c3eaae75efe8231121f11a018ae160e4c426ba15",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/stream46-4x.png",
+      "sha256": "07d855be18f9da9b78bf4731d55c4994511206ed88bc9bfff8e7f85c9c162bc7",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/connected-v1/stream46-2x.png",
+      "sha256": "697cdba73d4935a1af1c89ac307a3d7681185d5f77a0ca0c22a5328ef330783a",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    }
+  ],
+  "review_exports": [
+    {
+      "path": "art/review/connected-v1/road13-grass-2x.png",
+      "sha256": "00c22319db8a3295cec6a43fdf8e2bf88627668cb18d7a38201db41486728f17",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/connected-v1/road14-grass-2x.png",
+      "sha256": "c97c8eeb2e14c71105a8117894b2c9ad23a35b14d7480051284c3e60cb52fc0c",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/connected-v1/road15-grass-2x.png",
+      "sha256": "73bc42a650c2974f87fe1548f5f9c826c4b73f9365672affca765e8e196ad9df",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/connected-v1/road25-grass-2x.png",
+      "sha256": "8689ce222e621504bacf9df1d5f58352ae274711a95708b4418dfe5e32bac969",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/connected-v1/road35-grass-2x.png",
+      "sha256": "74da9221b19eeca0b0cbe05816ae5280ddca7613013e509c77b740e018deb968",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/connected-v1/road36-grass-2x.png",
+      "sha256": "c6aec1a68010a9d8f23b3c8b8770562ba2c616a19fd010dcca26527b73d6afbe",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/connected-v1/road46-grass-2x.png",
+      "sha256": "4ab0f21aa220d0a56323abef44e333a49e2262ed8ce969134d0b963cf1d42fc6",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/connected-v1/road26-grass-2x.png",
+      "sha256": "9c89d200f01b248f4c1917bb6ac87eb5cd1268ae01a1c6b697b9bbedc86640b1",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/connected-v1/road125-grass-2x.png",
+      "sha256": "fd4cd0f21273a5579c49e5d0d2df94241fcaf91cbe0b2acdc2ae50849de168b8",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/connected-v1/road124-grass-2x.png",
+      "sha256": "65c5665088d7d547bc6adf3675cfe3315225fa90137954074ec1f5bccb9e9086",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/connected-v1/road145-grass-2x.png",
+      "sha256": "d6c515461546f3f1c8f6c41c5c0daf2181387848aa179f797097fa22a5366580",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/connected-v1/road236-grass-2x.png",
+      "sha256": "953e32df4af0b64e1ab1ae9ff491a68b0d8cb9118f4a7d303b8a4f189faab406",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/connected-v1/road346-grass-2x.png",
+      "sha256": "8224006a53fd89e6d14ee07e847f724838c508d871159a56090384c9eb84da90",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/connected-v1/road356-grass-2x.png",
+      "sha256": "dd7c0bd33ae3986b32a46a6804177dbe3877a162dcea1932d6b79b41f66a0000",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/connected-v1/road135-grass-2x.png",
+      "sha256": "ba4b4f0dc759fdb7870ac5d9c5fff4eec5772905091488e77eb456fa2128cefe",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/connected-v1/road24-grass-2x.png",
+      "sha256": "45f5eb5549e0f6ec8f6cd954b72fa439739d165fc8a09367037e32892c80106d",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/connected-v1/stream13-grass-2x.png",
+      "sha256": "d6304b46d9074cc2632e14e49f72ddefc2fcd189c795e2ae48e6adc44f86c83f",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/connected-v1/stream135-grass-2x.png",
+      "sha256": "63072e388addf535a38e51f03becd14d7749fa54559767c664968cc09218444f",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/connected-v1/stream14-grass-2x.png",
+      "sha256": "c727ccf2a9933e845075511358f4eb3a8d66e553d1ace9af5fa8d85fdacc115a",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/connected-v1/stream15-grass-2x.png",
+      "sha256": "42702c6f6d6ea57f914e31bea72bffbf29eabf65bd2668340dd38862760f7c3d",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/connected-v1/stream24-grass-2x.png",
+      "sha256": "8b199da380130e0a6d8b120716fe6dfa3cc30817fb528a998a81eed77eff701f",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/connected-v1/stream246-grass-2x.png",
+      "sha256": "1f2debc7c4695b2a0b0c7f4729783ff3754a5ef405e15736f72c77fa62a7493b",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/connected-v1/stream25-grass-2x.png",
+      "sha256": "7901113cb121a46016d7472d71d72c52c4c3587b6e29bb00c7dd78112f99c75e",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/connected-v1/stream26-grass-2x.png",
+      "sha256": "9b75ee1fa446420b13bd058f036a11bdf4b4c87f34df6ef742f19e5bae673cf7",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/connected-v1/stream35-grass-2x.png",
+      "sha256": "1fe330e868fb30e7ac05c4303ae743e44639966fe81029d3c6a03ce78491e9b6",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/connected-v1/stream36-grass-2x.png",
+      "sha256": "e3c307bfffb30364c3ba7e732f1c883d25bf16165985793d7c664b234d1b0da8",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/connected-v1/stream46-grass-2x.png",
+      "sha256": "94a6e679df475532892d2941bc91f4d7e4519cabb8e3aea2948c9699116bad09",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/connected-v1/road13-patch-parity0.png",
+      "sha256": "bd1cc7674027d46e6dcce48fb5d2f0fd8da3a1764dee971ffbe3686f4d0910b7",
+      "dimensions": {
+        "width": 476,
+        "height": 480
+      }
+    },
+    {
+      "path": "art/review/connected-v1/road14-patch-parity1.png",
+      "sha256": "fef2cf78300adcf1f8e6adb40c00cb7f588117fde93428ec6fd1f424acd03cde",
+      "dimensions": {
+        "width": 476,
+        "height": 480
+      }
+    },
+    {
+      "path": "art/review/connected-v1/road135-patch-parity0.png",
+      "sha256": "ad9b3f01058b0ef764a7628add383c8de71a6c2261e789b00e649f636e2ff0b7",
+      "dimensions": {
+        "width": 476,
+        "height": 480
+      }
+    },
+    {
+      "path": "art/review/connected-v1/stream13-patch-parity1.png",
+      "sha256": "40374cccedbe6f804c9a415edb8180f3a7a24b2d49a0ccbd7807c22a6fb16f37",
+      "dimensions": {
+        "width": 476,
+        "height": 480
+      }
+    },
+    {
+      "path": "art/review/connected-v1/stream135-patch-parity1.png",
+      "sha256": "81d6d031a780c8b48a4d158b4a969fd743e9376393938b234a32e5c17530f778",
+      "dimensions": {
+        "width": 476,
+        "height": 480
+      }
+    },
+    {
+      "path": "art/review/connected-v1/stream14-patch-parity0.png",
+      "sha256": "1297ec228dcabb86c054bd0948741da16fc7c524df3e122e17cb02574843ac9a",
+      "dimensions": {
+        "width": 476,
+        "height": 480
+      }
+    },
+    {
+      "path": "art/review/connected-v1/contact-sheet.png",
+      "sha256": "10881ee1c49bc13b6aa6bce43f059746698754cc56a5c51ff4ae1f1717fe194e",
+      "dimensions": {
+        "width": 384,
+        "height": 4320
+      }
+    }
+  ],
+  "review": "docs/art/connected-family-batch-01.md",
+  "original_image_inputs": [],
+  "acceptance": "Provisional source/variant delivery only. All27variants/126active-port-densitypairs have no core seam gaps; both-parity actual PNG patches reviewed. Broad map/zoom integration, transitions, native resource mapping and release acceptance remain open."
+}

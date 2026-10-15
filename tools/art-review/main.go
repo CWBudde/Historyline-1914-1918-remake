@@ -18,6 +18,9 @@
 // Inputs are never modified;
 // existing output files are rejected. This is a contact-sheet utility, not
 // a fidelity acceptance test or a claim that tile edges are seamless.
+// -connected builds new-material road/stream overlays from explicit geometry and
+// profiles, with reciprocal seven-cell patches at both runtime line parities.
+// It requires a fresh output directory and excludes all other review modes.
 package main
 
 import (
@@ -87,6 +90,7 @@ func run(args []string, log io.Writer) error {
 	referencePath := fs.String("reference", "", "reference PNG; seven-hex layout available only for 96x80")
 	referencePlatform := fs.String("reference-platform", "repo-provisional", "reference provenance label (e.g. repo-provisional or amiga-native); supplied by caller")
 	neighborhoodPath := fs.String("neighborhood", "", "JSON recipe for original Amiga seven-cell neighborhood review")
+	connectedPath := fs.String("connected", "", "new-material connected road/stream JSON manifest; requires fresh -out")
 	packPath := fs.String("pack", "", "candidate-only JSON pack manifest; fixed Lanczos3 rectangle exports, requires fresh -out")
 	candidatePath := fs.String("candidate", "", "candidate PNG, at least 4x reference dimensions and aspect within 1%")
 	resampling := fs.String("resampling", "area", "single-sprite reduction: area, bilinear (antialiased tent), or lanczos (antialiased Lanczos3); excluded by -neighborhood")
@@ -96,6 +100,24 @@ func run(args []string, log io.Writer) error {
 			return nil
 		}
 		return err
+	}
+	connectedProvided := false
+	fs.Visit(func(f *flag.Flag) {
+		if f.Name == "connected" {
+			connectedProvided = true
+		}
+	})
+	if connectedProvided {
+		conflict := false
+		fs.Visit(func(f *flag.Flag) {
+			if f.Name != "connected" && f.Name != "out" {
+				conflict = true
+			}
+		})
+		if conflict || *connectedPath == "" || *out == "" || fs.NArg() != 0 {
+			return errors.New("-connected requires -out and excludes all other flags and positional arguments")
+		}
+		return runConnected(*connectedPath, *out, log)
 	}
 	packProvided := false
 	fs.Visit(func(f *flag.Flag) {
