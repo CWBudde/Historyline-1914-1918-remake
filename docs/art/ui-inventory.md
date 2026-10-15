@@ -22,7 +22,9 @@ and [117-ID coverage ledger](runtime-interface-coverage.csv). These are text-fre
 becomes runtime-accepted through this delivery. A follow-up now retains sixteen
 [full-screen frame/layout candidates](screens-contract.md), a painted backdrop,
 five-state buttons and separate live labels/country layers. Detailed screen-state
-art, responsive layouts and runtime acceptance remain open.
+art has since gained 61 dedicated controls and twenty loading/error/confirmation/
+overflow studies in the [screen-state continuation](screen-states-contract.md).
+Responsive layouts and runtime acceptance remain open.
 
 | Stable ID | Drawing evidence | Asset families / composition | Existing states and graphics still needed |
 | --- | --- | --- | --- |

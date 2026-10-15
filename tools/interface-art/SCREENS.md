@@ -14,3 +14,13 @@ See [the contract](../../docs/art/screens-contract.md) for the density limit,
 reference evidence, full coverage and remaining acceptance work. The retained
 119-file candidate bundle lives in `art/exports/screens-v1/`. Runtime source
 should use text-free exports, not the labelled review PNGs in `fixtures/`.
+
+The continuing `screens-v2` profile adds dedicated controls and common screen states:
+
+```sh
+go run ./tools/interface-art -manifest art/screens-v2.json -out build/screen-review/fresh-states
+```
+
+It retains 61 widgets, twenty state studies and a 400-file bundle. See
+[the continuation contract](../../docs/art/screen-states-contract.md) for clipping,
+long-text behavior and evidence. Both earlier bundles remain byte-identical.

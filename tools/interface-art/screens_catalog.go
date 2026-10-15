@@ -20,8 +20,9 @@ type ScreenControl struct {
 	State string `json:"state"`
 }
 type ScreenDecoration struct {
-	ArtID string `json:"art_id"`
-	Rect  [4]int `json:"rect"`
+	ArtID string  `json:"art_id"`
+	Rect  [4]int  `json:"rect"`
+	Clip  *[4]int `json:"local_clip_xywh,omitempty"`
 }
 type Screen struct {
 	ID          string             `json:"id"`
@@ -32,6 +33,7 @@ type Screen struct {
 	Text        []ScreenText       `json:"live_fixture_text"`
 	Controls    []ScreenControl    `json:"fixture_controls"`
 	Decorations []ScreenDecoration `json:"fixture_decorations,omitempty"`
+	Scroll      *ScreenScroll      `json:"scrollable_text,omitempty"`
 }
 
 func screenCatalog() []Screen {
@@ -78,7 +80,7 @@ func screenCatalog() []Screen {
 	region(s, "ec-card", 332, 88, 284, 238)
 	label(s, "Central Powers", 44, 124)
 	label(s, "Entente", 352, 124)
-	s.Decorations = []ScreenDecoration{{"country/germany", [4]int{44, 140, 88, 88}}, {"country/france", [4]int{352, 140, 88, 88}}}
+	s.Decorations = []ScreenDecoration{{ArtID: "country/germany", Rect: [4]int{44, 140, 88, 88}}, {ArtID: "country/france", Rect: [4]int{352, 140, 88, 88}}}
 	label(s, "Germany", 148, 166)
 	label(s, "France", 456, 166)
 	label(s, "Country and owner", 148, 204)

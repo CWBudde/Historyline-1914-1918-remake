@@ -174,7 +174,7 @@ func export(manifestPath, out string) error {
 	if e = json.Unmarshal(raw, &profile); e != nil {
 		return e
 	}
-	if profile.Profile == "screens-v1" {
+	if profile.Profile == "screens-v1" || profile.Profile == "screens-v2" {
 		return exportScreens(manifestPath, out, raw)
 	}
 	var m Manifest

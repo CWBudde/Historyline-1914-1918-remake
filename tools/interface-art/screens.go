@@ -29,8 +29,8 @@ func screenInputs(manifestPath string, raw []byte) (ScreenManifest, []Loaded, er
 	if e := decodeStrict(raw, &m); e != nil {
 		return m, nil, e
 	}
-	if m.SchemaVersion != 1 || m.Profile != "screens-v1" || m.Backdrop.ID != "backdrop/western-front" {
-		return m, nil, errors.New("requires schema 1 screens-v1 and western-front backdrop")
+	if m.SchemaVersion != 1 || (m.Profile != "screens-v1" && m.Profile != "screens-v2") || m.Backdrop.ID != "backdrop/western-front" {
+		return m, nil, errors.New("requires schema 1 screens-v1/screens-v2 and western-front backdrop")
 	}
 	if len(m.Fonts) != 3 {
 		return m, nil, errors.New("requires regular/bold/licence font inputs")
@@ -128,6 +128,9 @@ func exportScreens(manifestPath, out string, raw []byte) error {
 		return e
 	}
 	screens := screenCatalog()
+	if m.Profile == "screens-v2" {
+		screens = screenStateCatalog()
+	}
 	if e = b.save("screens.json", writeJSON(screens), Output{ID: "screens", Family: "metadata"}); e != nil {
 		return e
 	}
@@ -141,6 +144,13 @@ func exportScreens(manifestPath, out string, raw []byte) error {
 	for _, a := range catalog() {
 		if strings.HasPrefix(a.ID, "country/") {
 			arts = append(arts, a)
+		}
+	}
+	if m.Profile == "screens-v2" {
+		arts = append(arts, widgetCatalog()...)
+		arts = append(arts, screenStateComponents()...)
+		if e = b.save("widget-geometry.json", writeJSON(widgetGeometry()), Output{ID: "widget-geometry", Family: "metadata"}); e != nil {
+			return e
 		}
 	}
 	if e = b.save("vectors.json", writeJSON(arts), Output{ID: "vectors", Family: "source"}); e != nil {
@@ -163,7 +173,11 @@ func exportScreens(manifestPath, out string, raw []byte) error {
 			return e
 		}
 	}
-	if e = b.save("index.html", []byte(screenGallery(screens)), Output{ID: "gallery", Family: "review"}); e != nil {
+	gallery := screenGallery(screens)
+	if m.Profile == "screens-v2" {
+		gallery = screenStateGallery(screens, arts)
+	}
+	if e = b.save("index.html", []byte(gallery), Output{ID: "gallery", Family: "review"}); e != nil {
 		return e
 	}
 	sort.Slice(b.Report.Files, func(i, j int) bool { return b.Report.Files[i].Path < b.Report.Files[j].Path })
@@ -180,11 +194,22 @@ func screenPreview(s Screen, backdrop *image.NRGBA, fonts map[string]*opentype.F
 		draw.Draw(im, im.Bounds(), backdrop, image.Point{}, draw.Src)
 	}
 	a := screenFrame(s)
+	ordered := false
 	for _, d := range s.Decorations {
-		for _, source := range catalog() {
+		if d.Clip != nil {
+			ordered = true
+		}
+	}
+	for _, d := range s.Decorations {
+		if ordered {
+			continue
+		}
+		for _, source := range screenDecorationSources() {
 			if source.ID == d.ArtID {
 				r := d.Rect
-				a.Shapes = append(a.Shapes, transform(source.Shapes, float64(r[2])/float64(source.Width), float64(r[3])/float64(source.Height), float64(r[0]), float64(r[1]), 0)...)
+				if d.Clip == nil {
+					a.Shapes = append(a.Shapes, transform(source.Shapes, float64(r[2])/float64(source.Width), float64(r[3])/float64(source.Height), float64(r[0]), float64(r[1]), 0)...)
+				}
 			}
 		}
 	}
@@ -192,6 +217,13 @@ func screenPreview(s Screen, backdrop *image.NRGBA, fonts map[string]*opentype.F
 		a.Shapes = append(a.Shapes, screenControlShapes(c)...)
 	}
 	draw.Draw(im, im.Bounds(), a.raster(2), image.Point{}, draw.Over)
+	for _, d := range s.Decorations {
+		if ordered {
+			if e := renderClippedDecoration(im, d); e != nil {
+				return nil, e
+			}
+		}
+	}
 	text := append([]ScreenText(nil), s.Text...)
 	for _, c := range s.Controls {
 		col := cream
@@ -219,6 +251,11 @@ func screenPreview(s Screen, backdrop *image.NRGBA, fonts map[string]*opentype.F
 		d.DrawString(t.Text)
 		_ = face.Close()
 	}
+	if s.Scroll != nil {
+		if e := renderScreenScroll(im, *s.Scroll, fonts["font/regular"]); e != nil {
+			return nil, e
+		}
+	}
 	return im, nil
 }
 
@@ -240,7 +277,12 @@ func screenGallery(screens []Screen) string {
 		fmt.Fprintf(&b, `<img class="layer" src="screen/%s-2x.png" alt="">`, s.ID)
 		for _, d := range s.Decorations {
 			r := d.Rect
-			fmt.Fprintf(&b, `<img class="live" src="%s-2x.png" alt="%s" style="left:%dpx;top:%dpx;width:%dpx;height:%dpx">`, d.ArtID, html.EscapeString(d.ArtID), r[0], r[1], r[2], r[3])
+			clip := ""
+			if d.Clip != nil {
+				c := d.Clip
+				clip = fmt.Sprintf(";clip-path:inset(%dpx %dpx %dpx %dpx)", c[1], r[2]-c[0]-c[2], r[3]-c[1]-c[3], c[0])
+			}
+			fmt.Fprintf(&b, `<img class="live" src="%s-2x.png" alt="%s" style="left:%dpx;top:%dpx;width:%dpx;height:%dpx%s">`, d.ArtID, html.EscapeString(d.ArtID), r[0], r[1], r[2], r[3], clip)
 		}
 		for _, t := range s.Text {
 			weight := 400

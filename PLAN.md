@@ -286,8 +286,12 @@ Checked items below mean **offline candidates have been built**, with retained s
 exports and review evidence. Runtime integration and final visual acceptance remain open.
 The detailed contracts and reviews stay in Section 4 and `docs/art/`; arbitrary-map
 composition belongs to 2.3, and panel integration/retention belongs to 2.5.
+The work is split into five slices below: enabled terrain, enabled units,
+interface/state candidates, reproducible coverage audit, and remaining native/
+runtime acceptance. The first four now have retained deliverables; 2.2.5 stays open
+and records the native-resource and runtime dependencies.
 
-##### Terrain and infrastructure candidates
+##### 2.2.1 — Terrain and infrastructure candidates
 
 All **134 enabled bindings** (60 backgrounds, 74 infrastructure) have 2×/4× candidates.
 Evidence: `docs/art/runtime-tile-coverage.csv`, its companion coverage document and
@@ -312,7 +316,7 @@ Counts below include the stable spelling aliases retained by the loader contract
 - [x] Bridges and crossings — two bridge, three road-bridge and four crossing IDs (9 IDs).
 - [x] Unseen fog — opaque tile and concealment fixtures (1 ID).
 
-##### Unit sprites and portraits
+##### 2.2.2 — Unit sprites and portraits
 
 The enabled roster uses **15 shared visual families across 27 unit IDs**. Tactical
 deliveries need six authored facings, CP/EC/neutral ownership palettes, normal/spent
@@ -365,7 +369,7 @@ follow the `legacy/python/gfx/` layout committed in `cc8f6f0`. These checkboxes 
 offline candidate delivery; approximately 90% resemblance, anatomy/mechanics,
 native facing/contact mapping, Blender comparison and runtime approval stay open.
 
-##### Interface, markers and effects
+##### 2.2.3 — Interface, markers, effects and screen-state candidates
 
 The infantry panel's frame/icon/font pilot is recorded in 2.5; it does not complete
 these wider families. Use `docs/art/ui-inventory.md` and Section 4.5 for state coverage.
@@ -389,17 +393,23 @@ close candidate artwork delivery, not runtime input flows or final visual approv
 - [x] Remaining panel/menu artwork — text-free terrain, weapon, 2×9-slot content and
       battle frames, action icons and capture/round banners. Actions, slots, weapon rows
       and buttons each have normal/hover/focus/pressed/disabled artwork.
-- [ ] Effects and animation assets — hits, death/explosions, movement/facing and capture/
+- [x] Effects and animation candidates — hits, death/explosions, movement/facing and capture/
       turn transitions, with stable anchors, durations and reduced-animation variants.
       - [x] Retain nine painted explosion frames, vector hit/reduced indicators and
             capture/round banners, with pinned exports and finite, skippable normal/
             reduced timing metadata. No baked loss counts, player identity or round text.
       - [x] Record anchor-preserving motion and six-view reuse against the already
             delivered unit families; reduced movement snaps to its destination.
-      - [ ] Exercise browser and in-engine playback, movement/facing transitions,
-            event ordering, skip/reduced behavior and visual contrast on assembled maps.
-- [ ] Full-screen artwork — title, side/mission selection, briefings/campaign, options,
-      pause, save/load, handover, victory/defeat, credits/help and editor views. G4/Phase 6
+      - [x] Implement the pure, caller-timed `internal/presentation` scheduler and
+            `cmd/hleffectpreview` workbench. Bounded native runs cover all 15 families'
+            six authored CP/normal facings, effect ordering and finite completion:
+            375 GPU captures, plus five reduced and twelve skip captures for infantry.
+            Inspect the 90-view montage; retain input fingerprints/run summary in
+            `docs/art/effects-playback.md` and its companion evidence files.
+            Browser/gameplay/full-map acceptance remains in 2.2.5.
+- [x] Full-screen frame, control and common-state candidates — title, side/mission
+      selection, briefings/campaign, options, pause, save/load, handover, victory/
+      defeat, credits/help and editor views. G4/Phase 6
       retain delivery of the screens beyond playable parity.
       - [x] Deliver sixteen separate offline frame/layout candidates for those views,
             including separate side/mission, briefing/campaign, save/load, victory/defeat,
@@ -411,13 +421,16 @@ close candidate artwork delivery, not runtime input flows or final visual approv
             inputs/crops, gallery links and opaque handover backdrop independence pass
             tests. Vet/lint pass; see `docs/art/screens-contract.md` and its
             sixteen-view `runtime-screen-coverage.csv` ledger.
-      - [ ] Complete dedicated input/toggle/slider/dropdown artwork, loading/error/
-            progress and confirmation variants, long-text/overflow and content-specific
-            illustrations. The new painting supports 1×/2× only; a true 4× painted
-            backdrop remains open while vector frames already have 1×/2×/4× exports.
-      - [ ] Exercise browser/input/responsive layouts and actual runtime screen flows;
-            approve visual/reference fidelity and all required faction/season states.
-            Native saved compositions were inspected; no browser was available.
+      - [x] Complete dedicated input/toggle/slider/dropdown artwork and loading/error/
+            progress, exit/restart/overwrite/delete confirmations, long-text/Unicode
+            overflow and invalid-code/dimension candidates: 61 widgets, twenty state
+            studies, 92 SVGs and 278 text-free PNGs including the reused 1×/2× painting.
+            All 400 bundle files repeat; measured wrapping/clipping, slider fill/thumb
+            ordering, saved dimensions/pins and gallery links pass tests. Inspect all
+            twenty native-font compositions and 61 logical widget images; see
+            `docs/art/screen-states-contract.md`. Both earlier bundles remain unchanged.
+      Later content-specific illustrations, the optional true 4× painting, responsive
+      screen flows and visual/reference approval remain in 2.2.5/G4/Phase 5–6.
 
 Interface verification: all 469 build files repeat byte-for-byte; retained PNG
 dimensions/hashes, 15 weapon bindings, marker containment, finite animation tracks,
@@ -427,16 +440,44 @@ and generated masters were inspected; the browser service had no available brows
 so interactive playback and responsive/input acceptance remain open. Approximately
 90% resemblance remains a visual review target, not a measured score.
 
-##### Remaining coverage and acceptance gates
+##### 2.2.4 — Reproducible enabled-coverage audit
+
+- [x] Add `tools/phase2-audit`: statically compare enabled loader/data IDs with the
+      retained ledgers, sources, recipes and saved exports. Verify 134 terrain/
+      infrastructure IDs, 27 units/15 families, 117 interface IDs, sixteen screens
+      and the twenty-state/61-widget continuation. The final run checks 2,927 unique
+      PNG headers/dimensions and 3,011 SHA-256 pins with zero problems. Tests cover
+      stale pins, dimension conflicts, path escapes, duplicate bindings and corrupt
+      optional bundles; see `docs/art/phase2-coverage-audit.md`.
+- [x] Record the nine disabled future backgrounds separately from enabled gaps:
+      summer `factoryN/S/E/W`, `barbedWire`, `trenches`, `rough`, `shelled`, `stoney`.
+      None is currently background/infrastructure-loadable under those exact IDs;
+      only `barbedWire`/`trenches` have modifier entries. No type was enabled by this audit.
+
+##### 2.2.5 — Remaining native, content and acceptance work
 
 - [ ] Resolve G0.9/G0.10's native direction/faction/anchor and placement mappings; complete
       source/export retention and the separate native-resource coverage obligations.
+      The separate 350-row terrain ledger still has 346 pending, two candidate and
+      two style-approved records; all 175 winter records are pending. Enabled
+      coverage does not close the 306 native sprite / 49 illustration mapping work.
 - [ ] Confirm future-content requirements for summer factories, barbed wire, background
       `trenches` and summer rough/shelled/stoney before authoring/enabling those gaps.
       They are separate from the 134 currently enabled bindings; see `inventory-notes.md`.
+- [ ] Supply content-specific campaign/intermission and future production/repair/editor
+      illustrations/states when verified IDs and behavior exist (Phase 5/G4/Phase 6).
+- [ ] Retain a true 4× painted backdrop if the optional 4× screen pack is shipped;
+      the required 2× backdrop already exists, and no source is upscaled.
+- [ ] Exercise browser/WASM playback, actual gameplay event binding, screen keyboard/
+      mouse navigation and responsive/high-DPI layouts after 2.3–2.8 integration.
+      The desktop workbench verifies CP normal-state candidates on a fixed grass
+      fixture, not gameplay legality, visibility or original correspondence.
 - [ ] Review full maps, material transitions/repetition, seasonal consistency, fractional
       zoom, unit readability and motion/fog/selection states. Complete G3/G4/G5 acceptance;
       no existing candidate is a runtime-accepted replacement yet.
+      Include all owners/spent states, seasons/densities, physical contact, facing
+      transitions, building/marker contrast and skip/reduced behavior in assembled
+      gameplay maps. Native preview evidence does not close those broader gates.
 
 #### 2.3 — Runtime asset packs and composition (G1/G3)
 
@@ -1585,8 +1626,12 @@ in a distinct continuous style; final quality/seam and runtime acceptance remain
             ledger. Runtime navigation, responsive layouts and screen acceptance stay open.
       - [x] Retain sixteen full-screen frame/layout candidates, the painted 2× backdrop,
             live-label fixtures and per-view coverage ledger in the subsequent 119-file
-            reproducible bundle; see `docs/art/screens-contract.md`. Detailed control/
-            screen-state art and exercised runtime flows remain open.
+            reproducible bundle; see `docs/art/screens-contract.md`. Dedicated controls
+            and common states are delivered below; exercised runtime flows remain open.
+      - [x] Retain the 61 dedicated widget candidates and twenty loading/error/progress/
+            confirmation/overflow studies in `screens-v2`, with measured text regions,
+            independent fill/thumb composition and a byte-identical 400-file repeat.
+            See `docs/art/screen-states-contract.md`; browser/runtime acceptance stays open.
 - [ ] Implement title, selection, briefing/campaign, settings, pause, save/load, handover,
       victory/defeat, credits and editor screens against their owning gameplay/content phases.
       Include R3 planning/confirmation and R4 energy/repair/production controls with accurate

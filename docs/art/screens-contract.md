@@ -97,8 +97,11 @@ Hover/focus rendering, keyboard traversal, mouse actions, scrolling and browser
 screenshots were not exercised. Tests and native PNG inspection do not close
 those checks. Full `just ci` is not claimed for this artwork continuation.
 
-Keep open: visual/reference approval, dedicated input/toggle/slider/dropdown art,
-loading/error/progress and confirmation-modal studies, long-text/overflow states,
+The [screen-state continuation](screen-states-contract.md) now delivers dedicated
+input/toggle/slider/dropdown artwork and loading/error/progress, confirmation and
+long-text/overflow studies in a separate reproducible bundle.
+
+Keep open: visual/reference approval,
 all faction/season variants, campaign/intermission illustrations, source/license
 review, the optional true 4× painting, responsive/high-DPI layouts, visibility
 plumbing and actual screen/input flows. Screen behavior belongs to its owning
