@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "id": "hamlet-01",
+  "date": "2026-10-15",
+  "tool": "built-in image_gen.imagegen",
+  "status": "rejected-camera",
+  "source": "art/source/terrain/distinct-v1/hamlet.png",
+  "source_dimensions": [
+    1374,
+    1145
+  ],
+  "source_sha256": "ec88c4caa34b28983eb43bc4b9eeb4559ba50a8670ba1175e40631f81d880e95",
+  "generation_inputs": [
+    {
+      "path": "art/source/terrain/distinct-v1/meadow.png",
+      "sha256": "8c8935efbbd463e39d49208e42ca0e87b140268a1b11941764dfa7c29c4fff85",
+      "role": "newly-authored-grass-style-reference-only"
+    }
+  ],
+  "original_image_inputs": [],
+  "prompt": "Use case: historical-scene. Asset: ONE newly authored 6:5 opaque highresolution terrain master for an overhead European 1914 strategy game. Image1 is a NEW meadow material/style reference ONLY. Invent a small quiet rural hamlet of THREE modest separate stone/plaster cottages with muted weathered clay/slate pitched roofs and tiny chimneys around an irregular compacted earth yard, a couple of small kitchen garden beds, one small broadleaf crown. Buildings readable from their roof silhouettes, no church, no town square. STRICT VERTICAL OVERHEAD ORTHOGRAPHIC MAP VIEW, roof ridges and footprints viewed from directly above, essentially no visible wall facades, no perspective or horizon. Fine continuous illustrated material detail in roof tiles, masonry edging and grass; subdued diffuse overcast upper-left light, no dramatic shadows, realistic coherent world scale. Muted sage/moss meadow fills the entire outer canvas like reference; village is compact and all roofs/fences/yard fit in central60% width and central60% height with a wide quiet grass buffer; no buildings cut by edges. Canvas full bleed, no drawn hex, frame, vignette, labels, grid or UI. NO pixel art, blocky contours, photographic tilt-shift, modern roads, lane paint, vehicles, people, flags or symbols. Buildings must read clearly at192x160 while remaining detailed atfullresolution. Invent fresh architecture and arrangement, never copy an original game's tile.",
+  "transparent_background": false,
+  "reason": "Oblique building facades exceed overhead map brief. Retained as camera-correction input; excluded from source-pack manifest. Selected hamlet-02 supersedes.",
+  "review": "docs/art/distinct-terrain-batch-04.md"
+}

@@ -41,6 +41,109 @@ func writeConnectedManifest(t *testing.T, dir string, m map[string]any) string {
 	return p
 }
 
+func connectedPathFamily() map[string]any {
+	return map[string]any{"id": "path", "width": 7, "border": .75, "material": "path", "border_material": "earth", "variants": []any{map[string]any{"id": "path14", "ports": []int{1, 4}}, map[string]any{"id": "path25", "ports": []int{2, 5}}, map[string]any{"id": "path36", "ports": []int{3, 6}}}}
+}
+
+// Catches paths sampling the road material or using the wider road profile.
+func TestConnectedPathBuildUsesItsMaterialAndNarrowProfile(t *testing.T) {
+	dir, m := connectedFixture(t)
+	m["families"] = []any{connectedPathFamily()}
+	core := color.NRGBA{210, 175, 115, 255}
+	im := image.NewNRGBA(image.Rect(0, 0, 384, 320))
+	draw.Draw(im, im.Bounds(), image.NewUniform(core), image.Point{}, draw.Src)
+	var source bytes.Buffer
+	if err := png.Encode(&source, im); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(dir, "path.png"), source.Bytes(), 0644); err != nil {
+		t.Fatal(err)
+	}
+	sum := sha256.Sum256(source.Bytes())
+	m["materials"].(map[string]any)["path"] = map[string]any{"source": "path.png", "source_sha256": hex.EncodeToString(sum[:])}
+	out := filepath.Join(dir, "out")
+	if err := run([]string{"-connected", writeConnectedManifest(t, dir, m), "-out", out}, io.Discard); err != nil {
+		t.Fatal(err)
+	}
+	for _, scale := range []int{2, 4} {
+		tile, err := loadPNG(filepath.Join(out, fmt.Sprintf("path36-%dx.png", scale)))
+		if err != nil {
+			t.Fatal(err)
+		}
+		for _, x := range []int{47, 48, 49} {
+			if got := tile.NRGBAAt(x*scale, 40*scale); got != core {
+				t.Fatalf("%dx path core at x=%d: %v, want %v", scale, x, got, core)
+			}
+		}
+		for _, p := range []image.Point{{0, 0}, {42, 40}, {54, 40}, {95, 79}} {
+			if got := tile.NRGBAAt(p.X*scale, p.Y*scale); got != (color.NRGBA{}) {
+				t.Fatalf("%dx outside narrow path at %v: %v", scale, p, got)
+			}
+		}
+		if scale == 4 {
+			// The protected port guard keeps seven world pixels (28 samples),
+			// from x=44.625 through x=51.375 on this vertical route.
+			for x := 0; x < 384; x++ {
+				if got := tile.NRGBAAt(x, 16) == core; got != (x >= 178 && x <= 205) {
+					t.Fatalf("4x path guard core width incorrect at x=%d: %v", x, tile.NRGBAAt(x, 16))
+				}
+			}
+		}
+	}
+	retained, err := os.ReadFile(filepath.Join(out, "path-material-source.png"))
+	if err != nil || !bytes.Equal(retained, source.Bytes()) {
+		t.Fatalf("path source not retained exactly: %v", err)
+	}
+	data, err := os.ReadFile(filepath.Join(out, "report.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var report connectionReport
+	if err = json.Unmarshal(data, &report); err != nil {
+		t.Fatal(err)
+	}
+	if got := report.Materials["path"]; got.SourceSHA256 != hex.EncodeToString(sum[:]) || got.RetainedSource != "path-material-source.png" {
+		t.Fatalf("missing path provenance: %+v", got)
+	}
+	assertConnectedPatchesUseExportedPNGs(t, out)
+}
+
+func TestConnectedPathMaterialRequiredExactlyForPathFamily(t *testing.T) {
+	for _, kind := range []string{"missing path", "stray path", "unknown fifth", "missing fixed", "wrong core", "wrong border", "duplicate path"} {
+		t.Run(kind, func(t *testing.T) {
+			dir, m := connectedFixture(t)
+			materials := m["materials"].(map[string]any)
+			materials["path"] = materials["road"]
+			path := connectedPathFamily()
+			m["families"] = append(m["families"].([]any), path)
+			switch kind {
+			case "missing path":
+				delete(materials, "path")
+			case "stray path":
+				m["families"] = m["families"].([]any)[:1]
+			case "unknown fifth":
+				materials["sand"] = materials["path"]
+				delete(materials, "path")
+			case "missing fixed":
+				delete(materials, "road")
+			case "wrong core":
+				path["material"] = "road"
+			case "wrong border":
+				path["border_material"] = "grass"
+			case "duplicate path":
+				m["families"] = append(m["families"].([]any), connectedPathFamily())
+			}
+			out := filepath.Join(dir, "out")
+			if err := run([]string{"-connected", writeConnectedManifest(t, dir, m), "-out", out}, io.Discard); err == nil {
+				t.Fatal("accepted invalid path manifest")
+			}
+			if _, err := os.Lstat(out); !os.IsNotExist(err) {
+				t.Fatal("created output before validation")
+			}
+		})
+	}
+}
+
 // Catches a missing command dispatch and clipped/opaque overlay exports.
 func TestConnectedBuildFreshDeterministicAndTransparent(t *testing.T) {
 	dir, m := connectedFixture(t)
@@ -406,7 +509,7 @@ func TestConnectedRollsBackFailedOutputAndRejectsDuplicateJSON(t *testing.T) {
 // Polygon-edge AA in individual exports used to leave alpha 191/255 here.
 func TestConnectedPNGExportsAssembleWithoutSharedEdgeGaps(t *testing.T) {
 	dir, m := connectedFixture(t)
-	colors := map[string]color.NRGBA{"grass": {40, 80, 30, 255}, "road": {160, 130, 90, 255}, "earth": {90, 60, 35, 255}, "water": {40, 90, 130, 255}}
+	colors := map[string]color.NRGBA{"grass": {40, 80, 30, 255}, "road": {160, 130, 90, 255}, "earth": {90, 60, 35, 255}, "water": {40, 90, 130, 255}, "path": {210, 175, 115, 255}}
 	for id, c := range colors {
 		im := image.NewNRGBA(image.Rect(0, 0, 384, 320))
 		for y := 0; y < 320; y++ {
@@ -427,6 +530,7 @@ func TestConnectedPNGExportsAssembleWithoutSharedEdgeGaps(t *testing.T) {
 	}
 	families := m["families"].([]any)
 	families = append(families, map[string]any{"id": "stream", "width": 18, "border": 2.5, "material": "water", "border_material": "earth", "variants": []any{map[string]any{"id": "stream14", "ports": []int{1, 4}}, map[string]any{"id": "stream25", "ports": []int{2, 5}}, map[string]any{"id": "stream36", "ports": []int{3, 6}}}})
+	families = append(families, connectedPathFamily())
 	m["families"] = families
 	out := filepath.Join(dir, "out")
 	path := writeConnectedManifest(t, dir, m)
@@ -465,7 +569,7 @@ func TestConnectedPNGExportsAssembleWithoutSharedEdgeGaps(t *testing.T) {
 		id            string
 		width, border float64
 		core          color.NRGBA
-	}{{"road", 14, 2, colors["road"]}, {"stream", 18, 2.5, colors["water"]}} {
+	}{{"road", 14, 2, colors["road"]}, {"stream", 18, 2.5, colors["water"]}, {"path", 7, .75, colors["path"]}} {
 		for _, scale := range []int{2, 4} {
 			for parity := 0; parity < 2; parity++ {
 				for port := 1; port <= 6; port++ {
@@ -503,7 +607,11 @@ func TestConnectedPNGExportsAssembleWithoutSharedEdgeGaps(t *testing.T) {
 							}
 							c := stitched.NRGBAAt(x+int(center[0])*scale, y+int(center[1])*scale)
 							want := unclipped[family.id+suffix][scale].NRGBAAt(x+4*scale, y+4*scale)
-							if across < family.width/2+family.border+2 && c != want {
+							// A transparent neighboring draw can round NRGBA RGB one
+							// further level while preserving alpha. Keep alpha and
+							// opaque core/bank checks exact at both densities.
+							faintRGBRoundoff := c.A == want.A && c.A > 0 && c.A < 255 && math.Abs(float64(c.R)-float64(want.R)) <= 1 && math.Abs(float64(c.G)-float64(want.G)) <= 1 && math.Abs(float64(c.B)-float64(want.B)) <= 1
+							if across < family.width/2+family.border+2 && c != want && !faintRGBRoundoff {
 								t.Fatalf("%s %dx parity%d port%d assembled %v != unclipped %v at %v", family.id, scale, parity, port, c, want, p)
 							}
 							if across < family.width/2-2 && c != family.core {
@@ -635,7 +743,7 @@ func connectedSolidInputs(t *testing.T) connectionInputs {
 	if err != nil {
 		t.Fatal(err)
 	}
-	for id, c := range map[string]color.NRGBA{"road": {160, 130, 90, 255}, "water": {40, 90, 130, 255}, "earth": {90, 60, 35, 255}, "grass": {40, 80, 30, 255}} {
+	for id, c := range map[string]color.NRGBA{"road": {160, 130, 90, 255}, "water": {40, 90, 130, 255}, "earth": {90, 60, 35, 255}, "grass": {40, 80, 30, 255}, "path": {210, 175, 115, 255}} {
 		im := image.NewNRGBA(image.Rect(0, 0, 384, 320))
 		for y := 0; y < 320; y++ {
 			for x := 0; x < 384; x++ {
@@ -645,6 +753,87 @@ func connectedSolidInputs(t *testing.T) connectionInputs {
 		in.materials[id] = im
 	}
 	return in
+}
+
+// Catches an organic path effect leaking into reciprocal guards, leaving
+// mathematically uniform interiors, or punching holes through the route core.
+func TestConnectedOrganicPathWearsInteriorAndProtectsPorts(t *testing.T) {
+	in := connectedSolidInputs(t)
+	g := in.manifest.Geometry
+	f := connectionFamily{ID: "path", Width: 7, Border: .75, Material: "path", BorderMaterial: "earth"}
+	baseline := f
+	baseline.ID = "road"
+	v := connectionVariant{Ports: []int{1, 3, 5}}
+	route := connectionRoutes(g, f, v)
+	for i, a := range g.Polygon {
+		edge := g.Polygon[(i+1)%6].sub(a)
+		inward := connectionPoint{-edge[1], edge[0]}.mul(1 / edge.length())
+		mid := a.add(g.Polygon[(i+1)%6]).mul(.5)
+		tangent := edge.mul(1 / edge.length())
+		for _, depth := range []float64{-4, 0, 4, 8} {
+			for offset := -7; offset <= 7; offset++ {
+				p := mid.add(inward.mul(depth)).add(tangent.mul(float64(offset)))
+				if got, want := connectionFeature(in, f, route, p, p, .25), connectionFeature(in, baseline, route, p, p, .25); got != want {
+					t.Fatalf("path changed protected edge %d depth %g at %v: %v != %v", i, depth, p, got, want)
+				}
+			}
+		}
+	}
+	rounded, worn, pockets := 0, 0, 0
+	for y := 16; y < 64; y++ {
+		for x := 20; x < 76; x++ {
+			p := connectionPoint{float64(x) + .125, float64(y) + .375}
+			got := connectionFeature(in, f, route, p, p, .25)
+			want := connectionFeature(in, baseline, route, p, p, .25)
+			if p.sub(connectionPoint{48, 40}).length() < 6 && got == (color.NRGBA{210, 175, 115, 255}) && want != got {
+				rounded++
+			}
+			if p.sub(connectionPoint{48, 40}).length() > 8 && want.A == 255 && got.A < 200 {
+				worn++
+			}
+			if got == (color.NRGBA{90, 60, 35, got.A}) && got.A > 0 && got.A < 240 && want.A == 255 {
+				pockets++
+			}
+			if connectionRouteDistance(route, p) < 2 && got.A != 255 {
+				t.Fatalf("path effect made a core hole at %v: %v", p, got)
+			}
+			for _, delta := range g.Neighbors {
+				if shifted := connectionFeature(in, f, route, p, p.add(delta), .25); got != shifted {
+					t.Fatalf("path phase changes under lattice shift %v at %v: %v != %v", delta, p, got, shifted)
+				}
+			}
+		}
+	}
+	if rounded < 3 || worn < 5 || pockets < 5 {
+		t.Fatalf("path remained too mechanical: rounded=%d worn=%d translucent earth=%d", rounded, worn, pockets)
+	}
+	organic, err := exportConnectionTiles(in, &f, &v)
+	if err != nil {
+		t.Fatal(err)
+	}
+	plain, err := exportConnectionTiles(in, &baseline, &v)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, scale := range []int{2, 4} {
+		for y := 0; y < 80*scale; y++ {
+			for x := 0; x < 96*scale; x++ {
+				p := connectionPoint{(float64(x) + .5) / float64(scale), (float64(y) + .5) / float64(scale)}
+				distance := math.Inf(1)
+				for i, a := range g.Polygon {
+					edge := g.Polygon[(i+1)%6].sub(a)
+					q := p.sub(a)
+					distance = math.Min(distance, (edge[0]*q[1]-edge[1]*q[0])/edge.length())
+				}
+				if distance <= 6 && organic[scale].NRGBAAt(x, y) != plain[scale].NRGBAAt(x, y) {
+					t.Fatalf("path effect escaped filtered port guard at %dx %v", scale, p)
+				}
+				if distance > 6 && connectionRouteDistance(route, p) < 1 && organic[scale].NRGBAAt(x, y).A != 255 {
+					t.Fatalf("exported path core not opaque at %dx %v", scale, p)
+				}
+			}
+		}
+	}
 }
 
 func TestConnectedOrganicStreamProtectsEdgesAndRoads(t *testing.T) {

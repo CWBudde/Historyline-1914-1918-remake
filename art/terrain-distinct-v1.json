@@ -115,6 +115,30 @@
       "source": "source/terrain/distinct-v1/road-gravel.png",
       "source_sha256": "93991a9f33f3d125f68f0ed2d14b329f1092428a0df59ba90f92c5b2bc85dd26",
       "description": "Fine unmarked macadam/gravel material for shared connected road shapes."
+    },
+    {
+      "id": "path-earth",
+      "source": "source/terrain/distinct-v1/path-earth.png",
+      "source_sha256": "eaae81c8dfea2ad506a02b80005d4ba94784b3827fa0ac6ee50d99e48519f04b",
+      "description": "Warm fine compacted sandy earth material for controlled narrow rural paths."
+    },
+    {
+      "id": "hamlet",
+      "source": "source/terrain/distinct-v1/hamlet-02.png",
+      "source_sha256": "5163ee929139be5bfd75c43d23ec5b709f11e58fcac1aea3f2818672bfc9cda7",
+      "description": "Compact three-cottage hamlet, roof-dominant overhead revision, with courtyard and gardens."
+    },
+    {
+      "id": "hamlet-winter",
+      "source": "source/terrain/distinct-v1/hamlet-winter.png",
+      "source_sha256": "ad974e3d68a990cf8505278d1aa067db8b85eaf7a5f1a711c2adf501d9181896",
+      "description": "Matching winter three-cottage hamlet with snow-covered roofs, trampled courtyard and dormant gardens."
+    },
+    {
+      "id": "mountain-winter",
+      "source": "source/terrain/distinct-v1/mountain-winter.png",
+      "source_sha256": "bcb27434a1f003c96c579a539ed64b1e03cd3f6b3c9c84d375e197abb9c584cf",
+      "description": "Winter counterpart to selected rocky mountain source, preserving branching limestone ridges and scree with settled snow."
     }
   ]
 }

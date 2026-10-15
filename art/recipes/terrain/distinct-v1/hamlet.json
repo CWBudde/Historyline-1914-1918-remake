@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "id": "hamlet",
+  "date": "2026-10-15",
+  "tool": "built-in image_gen.imagegen",
+  "art_direction": "distinct-continuous-illustrated-v1",
+  "status": "candidate",
+  "source": "art/source/terrain/distinct-v1/hamlet-02.png",
+  "source_dimensions": [
+    1374,
+    1145
+  ],
+  "source_sha256": "5163ee929139be5bfd75c43d23ec5b709f11e58fcac1aea3f2818672bfc9cda7",
+  "generation_inputs": [
+    {
+      "path": "art/source/terrain/distinct-v1/hamlet.png",
+      "sha256": "ec88c4caa34b28983eb43bc4b9eeb4559ba50a8670ba1175e40631f81d880e95",
+      "role": "newly-authored-camera-correction-target"
+    }
+  ],
+  "original_image_inputs": [],
+  "prompt": "Edit target image1: correct ONLY the camera/projection of this newly authored three-cottage hamlet for a strategy-game overhead terrain tile. Re-render as TRUE NADIR90-DEGREE STRAIGHT DOWN ORTHOGRAPHIC MAP ART: the camera looks exactly vertically down like a satellite orthophoto; see the TWO roof planes, thin eaves and tiny chimney tops, but ABSOLUTELY NO FRONT OR SIDE WALL FACES, NO WINDOWS OR DOORS, NO perspective recession. All ground footprints have no vertical displacement. Preserve the three-cottage arrangement, courtyard, tiny gardens, quiet grassy buffer and finely illustrated muted material style, with shadow kept close to footprints. Three clearly separated roof shapes, miniature period European rural architecture. Keep all buildings inside middle60% of6:5 canvas, entire outer canvas sage meadow. No new objects, text, grid, hexline, border or modern details. This is map-symbol overhead roofplan art, not an oblique game diorama. Highresolution continuous fine brushwork and readable192x160 reduction. Opaque fullbleed6:5.",
+  "transparent_background": false,
+  "export_manifest": "art/terrain-distinct-v1.json",
+  "export_tool": "go run ./tools/art-review -pack art/terrain-distinct-v1.json -out <fresh-directory>",
+  "exports": {
+    "two_x": {
+      "path": "art/exports/terrain/distinct-v1/hamlet-2x.png",
+      "dimensions": [
+        192,
+        160
+      ],
+      "sha256": "0c305c8a0fe4ba10a35c3dc67e5b0508a636a0d9b81c12af7042eb9682830067"
+    },
+    "four_x": {
+      "path": "art/exports/terrain/distinct-v1/hamlet-4x.png",
+      "dimensions": [
+        384,
+        320
+      ],
+      "sha256": "674bc77cee484bb9a1b0c44bfed6c001f223d2e104d3ae41b1a2b2cd0f94ed25"
+    }
+  },
+  "cleanup": "Generated master unchanged. Fixed Lanczos3 exports. No original-image input.",
+  "review": "docs/art/distinct-terrain-batch-04.md"
+}

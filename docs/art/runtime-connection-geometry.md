@@ -62,7 +62,12 @@ pixels pass coverage checks. All 108 actual-PNG parity/density patches match ord
 source-over assembly. See [review and exact recipe](connected-family-batch-01.md).
 This verifies new declared road/stream contacts, not every historical painted endpoint.
 
-Next extend the compositor to paths/rail/trenches and bridge/crossing components,
+The [path extension](distinct-terrain-batch-04.md) adds all 14 loaded path variants
+using a nominal width 7 core, protected contacts and organic interior variation.
+Its 66 port/density pairs and all 56 actual-PNG patches pass controller checks;
+independent code/art review provisionally passes. Road/stream outputs stay unchanged.
+
+Next extend the compositor to rail/trenches and bridge/crossing components,
 then test mixed families, seasons and runtime zoom. Preserve common endpoint tangents,
 banks/verges, gauge and phase. Review actual exported pixels before accepting each
 connected family; the offline patch results do not close in-engine acceptance.

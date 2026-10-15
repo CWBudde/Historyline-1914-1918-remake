@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "id": "hamlet-winter",
+  "date": "2026-10-15",
+  "tool": "built-in image_gen.imagegen",
+  "art_direction": "distinct-continuous-illustrated-v1",
+  "status": "candidate",
+  "source": "art/source/terrain/distinct-v1/hamlet-winter.png",
+  "source_dimensions": [
+    1374,
+    1145
+  ],
+  "source_sha256": "ad974e3d68a990cf8505278d1aa067db8b85eaf7a5f1a711c2adf501d9181896",
+  "generation_inputs": [
+    {
+      "path": "art/source/terrain/distinct-v1/hamlet-02.png",
+      "sha256": "5163ee929139be5bfd75c43d23ec5b709f11e58fcac1aea3f2818672bfc9cda7",
+      "role": "newly-authored-matching-season-edit-target"
+    }
+  ],
+  "original_image_inputs": [],
+  "prompt": "Use case: lighting-weather edit. Image1 is the selected newly authored overhead hamlet, the edit target. Make its matching WINTER terrain master. Preserve exactly the three cottage roof silhouettes/positions/orientations, courtyard footprint, well and garden plot boundaries, scale and near-vertical overhead orthographic map camera. Same6:5 opaque canvas and continuous fine illustrated brushwork. Change season only: subdued offwhite snow covering grass and gardenbeds, soft uneven snow on roof planes with enough reddish/slate edge exposed to keep the roofs recognizable, cleared/trampled grey-brown courtyard earth, dormant bare small tree crowns and shrubs, gardenplants dormant not lush green. Natural cold diffuse upperleft light, restrained blue-grey snow shadows, no dramatic cast shadows or vignette. Retain quiet snowy outerbuffer for joining future winter ground; all buildings centrally contained. No additional structures, roads, track exits, people, vehicles, text, hexoutline, grid or UI; no pixelart. Detailed fullresolution, clear at192x160. Do not alter the architecture or move any buildings.",
+  "transparent_background": false,
+  "export_manifest": "art/terrain-distinct-v1.json",
+  "export_tool": "go run ./tools/art-review -pack art/terrain-distinct-v1.json -out <fresh-directory>",
+  "exports": {
+    "two_x": {
+      "path": "art/exports/terrain/distinct-v1/hamlet-winter-2x.png",
+      "dimensions": [
+        192,
+        160
+      ],
+      "sha256": "aab29de665ddc71f88f3f39950a5fb6b6726d4317516d55a9c300743e4a4635c"
+    },
+    "four_x": {
+      "path": "art/exports/terrain/distinct-v1/hamlet-winter-4x.png",
+      "dimensions": [
+        384,
+        320
+      ],
+      "sha256": "9f2f9dc59c523eeab8860cf3b1c3ef1e248395715d58f8929bca8ad1202927fa"
+    }
+  },
+  "cleanup": "Generated master unchanged. Fixed Lanczos3 exports. No original-image input.",
+  "review": "docs/art/distinct-terrain-batch-04.md"
+}

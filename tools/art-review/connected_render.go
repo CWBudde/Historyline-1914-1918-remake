@@ -166,13 +166,44 @@ func connectionStreamProfile(g connectionGeometry, f connectionFamily, route con
 	return coreDistance, coreDistance - border, 1 - .65*envelope*pocket
 }
 
+// Paths keep straight, constant-width ports but wear down their interior verges.
+// The world-space phases repeat under every runtime lattice translation.
+func connectionPathProfile(g connectionGeometry, f connectionFamily, route connectionRoute, local, world connectionPoint) (float64, float64, float64) {
+	edgeDistance := math.Inf(1)
+	for i, a := range g.Polygon {
+		edge := g.Polygon[(i+1)%len(g.Polygon)].sub(a)
+		q := local.sub(a)
+		edgeDistance = math.Min(edgeDistance, (edge[0]*q[1]-edge[1]*q[0])/edge.length())
+	}
+	envelope := connectionSmoothStep((edgeDistance - 8) / 8)
+	phaseA := 2 * math.Pi * (world[0]/142 + world[1]/80)
+	phaseB := 2 * math.Pi * (world[0]/142 - world[1]/80)
+	warped := local.add(connectionPoint{.55 * envelope * math.Sin(phaseA), .55 * envelope * math.Sin(phaseB)})
+	wear := .2 * math.Sin(5*phaseA+2*phaseB+.7) * math.Sin(3*phaseB-phaseA)
+	radius := f.Width/2 + envelope*(.4*math.Sin(phaseA+.4)*math.Cos(phaseB)+wear)
+	coreDistance := connectionRouteDistance(route, warped) - radius
+	if route.junction && envelope > 0 {
+		disc := warped.sub(connectionPoint{48, 40}).length() - .65*f.Width
+		h := math.Max(1.5-math.Abs(coreDistance-disc), 0) / 1.5
+		merged := math.Min(coreDistance, disc) - 1.5*h*h/4
+		coreDistance += envelope * (merged - coreDistance)
+	}
+	border := f.Border * (1 - .45*envelope + .25*envelope*math.Sin(phaseB+.7))
+	pocket := connectionSmoothStep((math.Sin(2*phaseA+.3)*math.Cos(3*phaseB-.4) + .15) / .9)
+	return coreDistance, coreDistance - border, 1 - .75*envelope*pocket
+}
+
 func connectionFeature(in connectionInputs, f connectionFamily, route connectionRoute, local, world connectionPoint, aa float64) color.NRGBA {
 	var outer, core float64
 	bankOpacity := 1.0
-	if f.ID == "stream" {
+	switch f.ID {
+	case "stream":
 		coreDistance, outerDistance, opacity := connectionStreamProfile(in.manifest.Geometry, f, route, local, world)
 		outer, core, bankOpacity = connectionRamp(-outerDistance, aa), connectionRamp(-coreDistance, aa), opacity
-	} else {
+	case "path":
+		coreDistance, outerDistance, opacity := connectionPathProfile(in.manifest.Geometry, f, route, local, world)
+		outer, core, bankOpacity = connectionRamp(-outerDistance, aa), connectionRamp(-coreDistance, aa), opacity
+	default:
 		d := connectionRouteDistance(route, local)
 		outer = connectionRamp(f.Width/2+f.Border-d, aa)
 		core = connectionRamp(f.Width/2-d, aa)
@@ -185,7 +216,7 @@ func connectionFeature(in connectionInputs, f connectionFamily, route connection
 		bank = connectionBlend(bank, sampleConnectionMaterial(in.materials[f.Material], world), core)
 	}
 	alpha := outer
-	if f.ID == "stream" {
+	if f.ID == "stream" || f.ID == "path" {
 		alpha *= core + (1-core)*bankOpacity
 	}
 	bank.A = uint8(math.Floor(255*alpha + .5))
