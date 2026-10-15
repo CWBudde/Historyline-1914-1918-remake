@@ -2,7 +2,7 @@
 
 This plan continues PoulKalff's Python/pygame remake (last upstream commit `b2915b9`, 2024-11-21,
 version `0.80`) as a Go port. The Python code stays in the repo as the reference implementation
-until the Go version reaches parity (Phase 2). `gfx/` and `levels/` are shared reference inputs;
+until the Go version reaches parity (Phase 2). `legacy/python/gfx/` and `levels/` are shared reference inputs;
 new artwork will have its own source and export directories.
 
 **Goal:** a complete, playable remake with newly authored graphics at least 2× the reference
@@ -189,7 +189,7 @@ docs/research/              original-DOS findings; verified rule specification/f
       WASM build (2026-10-14) — `.github/workflows/ci.yml` with test, lint, build ×3 OS and wasm
       jobs; first run green (run 38631552367). Split (2026-10-14) into `test.yaml`, which calls the
       reusable `test-unit`, `test-lint`, `test-gfx`, `test-can-build` (×3 OS) and `test-wasm` workflows
-- [ ] Clarify asset provenance and reference fidelity (G0). Inventory `gfx/`, distinguish 1992
+- [ ] Clarify asset provenance and reference fidelity (G0). Inventory `legacy/python/gfx/`, distinguish 1992
       references, upstream creations and other-game references, and record the findings in
       `docs/art/asset-inventory.csv` and the README before any public release.
       (2026-10-14) — partial: the CSV records the first-add commit for every file, and the
@@ -425,7 +425,7 @@ so interactive playback and responsive/input acceptance remain open. Approximate
 
 - [ ] Implement stable-ID runtime manifests, pack validation/loading and caches in
       `internal/assets`, with swappable reference/2×/4× packs and explicit missing-ID errors.
-      Embed approved exports from `assets/assets.go`; `go:embed` cannot reach root `gfx/`
+      Embed approved exports from `assets/assets.go`; `go:embed` cannot reach `legacy/python/gfx/`
       via `../`. Keep private original reference bytes out of distributed packs.
 - [ ] Implement the shared map compositor and arbitrary-map context selection. Preserve
       neighbor masks, absolute world phase, seasonal ground, route ports, shore corners,
@@ -785,12 +785,12 @@ provide evidence, but do not establish the author's full intent:
 - `gui.py` uses a map/minimap layout, terrain and unit information, metal textures, action and
   weapon menus, a container grid and a combat panel. `hlrData.py` loads sepia unit portraits,
   flags, ranks, skill symbols and six rotated map icons.
-- `gfx/` currently contains 237 PNGs and 33 layered XCFs. There are 62 terrain-sized PNGs at
+- `legacy/python/gfx/` currently contains 237 PNGs and 33 layered XCFs. There are 62 terrain-sized PNGs at
   96 × 80, 75 infrastructure PNGs at 96 × 80, 15 unit icon PNGs at 48 × 48, and 18 portraits at
   210 × 188. File counts are not coverage: `bgTiles` loads 60 terrain IDs; `infraIcons` has
   74 non-empty entries, and some files are unused or experimental.
-- `gfx/bi3_unit_interface.png` and `gfx/bi3_battle_screen.png` are Battle Isle 3 references;
-  `gfx/OLD*`, workbench XCFs and alternate panels show experimentation. Filenames such as
+- `legacy/python/gfx/bi3_unit_interface.png` and `legacy/python/gfx/bi3_battle_screen.png` are Battle Isle 3 references;
+  `legacy/python/gfx/OLD*`, workbench XCFs and alternate panels show experimentation. Filenames such as
   `4X_HEX_SKABELON_WORKBENCH.xcf` are not evidence of a finished 4× pack.
 - `generatedMap.png` (since deleted from the tree) showed the existing tile composition and joins. It is a reference render,
   not an authoritative image of the 1992 game. The Go executable currently draws an empty
