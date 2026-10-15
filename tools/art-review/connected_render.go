@@ -229,10 +229,14 @@ func renderConnectionRaw(in connectionInputs, f *connectionFamily, v *connection
 	aa := 1 / float64(scale)
 	var route connectionRoute
 	var rail connectionRailGeometry
+	var trench connectionTrenchGeometry
 	if f != nil {
-		if f.ID == "rail" {
+		switch f.ID {
+		case "trench":
+			trench = connectionTrenchRoutes(g, *f, *v)
+		case "rail":
 			rail = connectionRailRoutes(g, *f, *v)
-		} else {
+		default:
 			route = connectionRoutes(g, *f, *v)
 		}
 	}
@@ -242,6 +246,8 @@ func renderConnectionRaw(in connectionInputs, f *connectionFamily, v *connection
 			var c color.NRGBA
 			if f == nil {
 				c = sampleConnectionMaterial(in.materials["grass"], p)
+			} else if f.ID == "trench" {
+				c = connectionTrenchFeature(in, *f, trench, p, aa)
 			} else if f.ID == "rail" {
 				c = connectionRailFeature(in, *f, rail, p, aa)
 			} else {

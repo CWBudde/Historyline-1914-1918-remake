@@ -10,6 +10,7 @@ Current pack: [terrain-distinct-v1.json](../../art/terrain-distinct-v1.json).
 [Batch 02 review](distinct-terrain-batch-02.md) · [Batch 03 review](distinct-terrain-batch-03.md) ·
 [Batch 04 review](distinct-terrain-batch-04.md) ·
 [Batch 05 review](distinct-terrain-batch-05.md) ·
+[Batch 06 review](distinct-terrain-batch-06.md) ·
 [Connected family review](connected-family-batch-01.md) ·
 [Runtime coverage](runtime-tile-coverage.md).
 
@@ -27,16 +28,17 @@ assessment in an assembled terrain/unit preview.
 
 [runtime-tile-coverage.csv](runtime-tile-coverage.csv) explicitly lists all 134 enabled
 remake tile IDs (60 backgrounds, 74 infrastructure). Fifteen backgrounds have candidate
-source associations; grass and all 16 roads / 11 streams / 14 paths / 12 rails have built candidates.
-That is 69 associated IDs, 65 still needing images, and zero accepted runtime replacements.
+source associations; grass and all 16 roads / 11 streams / 14 paths / 12 rails / 12 trenches have built candidates.
+That is 81 associated IDs, 53 still needing images, and zero accepted runtime replacements.
 Wet mud has its own reviewed source. Opaque road/river studies remain separate from the
 new transparent infrastructure overlays.
 
 The source-pack exports are rectangular overscan images. The separate
 [road/stream manifest](../../art/connected-terrain-v1.json) and
 [path manifest](../../art/connected-paths-v1.json) and
-[rail manifest](../../art/connected-rail-v1.json) build a grass base and
-53 transparent overlays with shared world phase and explicit ports. Actual saved PNG
+[rail manifest](../../art/connected-rail-v1.json) and
+[trench manifest](../../art/connected-trench-v1.json) build a grass base and
+65 transparent overlays with shared world phase and explicit ports. Actual saved PNG
 patches pass pixel-aligned 2×/4× seam checks at both parities; independent visual review
 provisionally passes. Full-map repetition, tree scale, other families, seasons,
 runtime integration and release acceptance remain open.
@@ -68,9 +70,10 @@ representative image or a generated master merely resembling its name.
 
 ## Work order
 
-1. Extend the reviewed connected compositor to trenches and bridge/crossing
+1. Extend the reviewed connected compositor to bridge/crossing
    components using [verified runtime geometry](runtime-connection-geometry.md) and new
-   materials. Continue compound buildings, shores and remaining seasonal/mountain pieces. Retain camera,
+   materials. Build/slice the five shared compound scenes for 26 building IDs using
+   [numeric crop geometry](compound-building-geometry.md), then shores and seasonal/mountain pieces. Retain camera,
    unit readability and material-quality caveats during integration.
 2. Establish shared forest scale and assemble larger mixed-family previews using the
    delivered road/stream variants. Correct transitions and inspect three-tile vertices
@@ -104,6 +107,8 @@ The path manifest uses the same command; [batch 04](distinct-terrain-batch-04.md
 records its 108-file builds and the new seasonal/hamlet sources.
 The rail manifest also uses this command; [batch 05](distinct-terrain-batch-05.md)
 records rail profiles, sleeper phase and the materials for subsequent trench work.
+The [trench manifest](../../art/connected-trench-v1.json) uses the same command;
+[batch 06](distinct-terrain-batch-06.md) records its distinct rooms, caps and 95-file build.
 
 Legacy `-reference/-candidate/-resampling lanczos` comparisons remain available
 for historical research; their 90/100 fidelity gate does not govern the new pack.

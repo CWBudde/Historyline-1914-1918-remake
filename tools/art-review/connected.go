@@ -48,8 +48,11 @@ type connectionMaterial struct {
 	SourceSHA256 string `json:"source_sha256"`
 }
 type connectionVariant struct {
-	ID    string `json:"id"`
-	Ports []int  `json:"ports"`
+	ID              string `json:"id"`
+	Ports           []int  `json:"ports"`
+	ClosedRing      bool   `json:"closed_ring,omitempty"`
+	BlindSpurs      []int  `json:"blind_spurs,omitempty"`
+	DugoutDirection int    `json:"dugout_direction,omitempty"`
 }
 type connectionFamily struct {
 	ID             string              `json:"id"`
@@ -103,6 +106,7 @@ type connectionReport struct {
 	StreamInterior   string                              `json:"stream_interior"`
 	PathInterior     string                              `json:"path_interior,omitempty"`
 	RailProfile      *connectionRailProfile              `json:"rail_profile,omitempty"`
+	TrenchProfile    *connectionTrenchProfile            `json:"trench_profile,omitempty"`
 	CompositionScope string                              `json:"composition_scope"`
 	Ownership        string                              `json:"ownership"`
 	Acceptance       string                              `json:"acceptance"`
@@ -181,17 +185,20 @@ func loadConnectionInputs(path string) (connectionInputs, error) {
 	if err = decodeConnectionJSON(b, &in.manifest); err != nil {
 		return in, fmt.Errorf("connected manifest: %w", err)
 	}
+	if err = validateConnectionTrenchFields(b); err != nil {
+		return in, err
+	}
 	m := &in.manifest
 	if m.SchemaVersion != 1 || !reflect.DeepEqual(m.Geometry, sharedConnectionGeometry()) {
 		return in, errors.New("connected requires schema_version 1 and the fixed authorized 96x80 connection geometry")
 	}
-	if len(m.Families) < 1 || len(m.Families) > 4 {
-		return in, errors.New("connected requires one to four unique road/stream/path/rail families")
+	if len(m.Families) < 1 || len(m.Families) > 5 {
+		return in, errors.New("connected requires one to five unique road/stream/path/rail/trench families")
 	}
 	families := map[string]bool{}
 	for _, f := range m.Families {
-		if (f.ID != "road" && f.ID != "stream" && f.ID != "path" && f.ID != "rail") || families[f.ID] {
-			return in, errors.New("family must be unique road, stream, path or rail")
+		if (f.ID != "road" && f.ID != "stream" && f.ID != "path" && f.ID != "rail" && f.ID != "trench") || families[f.ID] {
+			return in, errors.New("family must be unique road, stream, path, rail or trench")
 		}
 		families[f.ID] = true
 	}
@@ -202,8 +209,14 @@ func loadConnectionInputs(path string) (connectionInputs, error) {
 	if families["rail"] {
 		materialIDs = append(materialIDs, "rail", "timber", "steel")
 	}
+	if families["trench"] {
+		materialIDs = append(materialIDs, "trench")
+		if !families["rail"] {
+			materialIDs = append(materialIDs, "timber")
+		}
+	}
 	if len(m.Materials) != len(materialIDs) {
-		return in, errors.New("connected requires grass/road/water/earth materials, plus path exactly for path and rail/timber/steel exactly for rail")
+		return in, errors.New("connected requires grass/road/water/earth materials, plus path for path, rail/timber/steel for rail and trench/timber for trench (shared timber once)")
 	}
 	sum := sha256.Sum256(b)
 	in.hash = hex.EncodeToString(sum[:])
@@ -277,13 +290,16 @@ func loadConnectionInputs(path string) (connectionInputs, error) {
 			expected = "water"
 		}
 		if f.Material != expected || f.BorderMaterial != "earth" {
-			return in, errors.New("road/stream/path/rail must use road/water/path/rail and earth border materials")
+			return in, errors.New("road/stream/path/rail/trench must use road/water/path/rail/trench and earth border materials")
 		}
 		if math.IsNaN(f.Width) || math.IsInf(f.Width, 0) || math.IsNaN(f.Border) || math.IsInf(f.Border, 0) || f.Width < 2 || f.Width > 28 || f.Border < 0 || f.Border > 6 || f.Width/2+f.Border > 20 {
 			return in, errors.New("profile requires width 2..28, border 0..6, outer radius <=20")
 		}
 		if f.ID == "rail" && f.Width < 8 {
 			return in, errors.New("rail profile requires core width >=8 world px for fixed-gauge rails and sleepers")
+		}
+		if f.ID == "trench" && (f.Width < 4 || f.Width > 10 || f.Border < 1.5 || f.Border > 5) {
+			return in, errors.New("trench profile requires width 4..10 and border 1.5..5 world px")
 		}
 		if len(f.Variants) == 0 {
 			return in, errors.New("family requires variants")
@@ -301,7 +317,10 @@ func loadConnectionInputs(path string) (connectionInputs, error) {
 				}
 				outputNames[name] = true
 			}
-			if len(v.Ports) < 2 || len(v.Ports) > 6 {
+			if err := validateConnectionTrenchVariant(f.ID, v); err != nil {
+				return in, err
+			}
+			if f.ID != "trench" && (len(v.Ports) < 2 || len(v.Ports) > 6) {
 				return in, errors.New("variants require 2..6 explicit ports")
 			}
 			ports := map[int]bool{}
@@ -361,7 +380,7 @@ func runConnected(path, out string, log io.Writer) (resultErr error) {
 		report.Outputs = append(report.Outputs, o)
 		return o, nil
 	}
-	for _, id := range []string{"grass", "road", "water", "earth", "path", "rail", "timber", "steel"} {
+	for _, id := range []string{"grass", "road", "water", "earth", "path", "rail", "timber", "steel", "trench"} {
 		mat := in.materials[id]
 		if mat == nil {
 			continue
@@ -369,6 +388,10 @@ func runConnected(path, out string, log io.Writer) (resultErr error) {
 		if id == "rail" {
 			profile := fixedConnectionRailProfile()
 			report.RailProfile = &profile
+		}
+		if id == "trench" {
+			profile := fixedConnectionTrenchProfile()
+			report.TrenchProfile = &profile
 		}
 		if id == "path" {
 			report.PathInterior = "Path-only organic interior. Let S(t)=clamp(t,0,1)^2*(3-2*clamp(t,0,1)), E=S((minimum signed polygon-edge distance-8)/8), A=2pi(x/142+y/80), B=2pi(x/142-y/80), using world x/y. Warp local route lookup by E*(0.55*sin(A),0.55*sin(B)), displacement length <=0.55*sqrt(2)*E world px. Wear=0.2*sin(5*A+2*B+0.7)*sin(3*B-A); core radius=width/2+E*(0.4*sin(A+0.4)*cos(B)+wear). For 3+-port junctions smoothly union core SDF with a central disc of radius 0.65*width at warped coordinates: h=max(1.5-abs(core-disc),0)/1.5, merged=min(core,disc)-1.5*h*h/4, core=core+E*(merged-core). Border=border*(1-0.45*E+0.25*E*sin(B+0.7)). Pocket=S((sin(2*A+0.3)*cos(3*B-0.4)+0.15)/0.9); bank opacity=1-0.75*E*pocket; final alpha=outer_AA*(core_AA+(1-core_AA)*bank_opacity). The 8-world-pixel edge zone is unchanged; full variation begins at 16 px. Cores stay opaque; irregular translucent earth verges reveal underlying terrain without baked-in grass. Road and stream arithmetic is unchanged."

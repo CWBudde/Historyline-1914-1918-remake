@@ -1,0 +1,635 @@
+{
+  "schema_version": 1,
+  "id": "connected-trench-v1",
+  "date": "2026-10-15",
+  "tool": "Go tools/art-review -connected",
+  "status": "candidate-built",
+  "manifest": "art/connected-trench-v1.json",
+  "manifest_sha256": "266ddee93920d804b81aec740e27da9422f7abd953a62f403537bf23007c9e4f",
+  "geometry": {
+    "width": 96,
+    "height": 80,
+    "polygon": [
+      [
+        25,
+        0
+      ],
+      [
+        71,
+        0
+      ],
+      [
+        96,
+        40
+      ],
+      [
+        71,
+        80
+      ],
+      [
+        25,
+        80
+      ],
+      [
+        0,
+        40
+      ]
+    ],
+    "neighbors": [
+      [
+        71,
+        -40
+      ],
+      [
+        71,
+        40
+      ],
+      [
+        0,
+        80
+      ],
+      [
+        -71,
+        40
+      ],
+      [
+        -71,
+        -40
+      ],
+      [
+        0,
+        -80
+      ]
+    ],
+    "ports": [
+      [
+        83.5,
+        20
+      ],
+      [
+        83.5,
+        60
+      ],
+      [
+        48,
+        80
+      ],
+      [
+        12.5,
+        60
+      ],
+      [
+        12.5,
+        20
+      ],
+      [
+        48,
+        0
+      ]
+    ]
+  },
+  "materials": {
+    "earth": {
+      "source": "art/source/terrain/distinct-v1/earth-bare.png",
+      "source_sha256": "e7d3188bc9c734a1f45ad80ccce934c46d93cb4cf9843c079bbc6260ec848404",
+      "dimensions": {
+        "width": 1374,
+        "height": 1145
+      }
+    },
+    "grass": {
+      "source": "art/source/terrain/distinct-v1/meadow.png",
+      "source_sha256": "8c8935efbbd463e39d49208e42ca0e87b140268a1b11941764dfa7c29c4fff85",
+      "dimensions": {
+        "width": 1374,
+        "height": 1145
+      }
+    },
+    "road": {
+      "source": "art/source/terrain/distinct-v1/road-gravel.png",
+      "source_sha256": "93991a9f33f3d125f68f0ed2d14b329f1092428a0df59ba90f92c5b2bc85dd26",
+      "dimensions": {
+        "width": 1374,
+        "height": 1145
+      }
+    },
+    "timber": {
+      "source": "art/source/terrain/distinct-v1/timber-weathered.png",
+      "source_sha256": "c4d42a70eee2b05cdcb5948b15598c4373104893187ece5202907d8f21048faa",
+      "dimensions": {
+        "width": 1374,
+        "height": 1145
+      }
+    },
+    "trench": {
+      "source": "art/source/terrain/distinct-v1/trench-earth.png",
+      "source_sha256": "fbe3e9e8e72d8d441dae8903d130e1edd1aef1f0803d152d91f6cd49d77f11ef",
+      "dimensions": {
+        "width": 1374,
+        "height": 1145
+      }
+    },
+    "water": {
+      "source": "art/source/terrain/distinct-v1/water-open.png",
+      "source_sha256": "0b080163804881ac49bc4b3162da547abf443c9082d6e67065c119174d79b51d",
+      "dimensions": {
+        "width": 1374,
+        "height": 1145
+      }
+    }
+  },
+  "method": "Candidate overlay. Unclipped new feature and grass render at 4x with four WORLD pixels of overscan on every side (416x352). Feature/bank edges use analytic signed-distance AA, 0.25 world-pixel ramp; distances round to 1e-9 world px for reciprocal half-alpha stability. Existing alpha-aware Lanczos3 reduces the UNMASKED overscan 416x352 -> 208x176. Crop 4-world-pixel margins AFTER filtering to 384x320 and 192x160, then apply complementary hard half-open polygon ownership at final pixel centers. No per-sprite polygon-edge AA; a future complete-map compositor may AA its outer boundary once. Each port has >=8 straight world pixels and extends beyond cutout by outer radius+4; cubic connectors flatten at 64 steps; junctions merge by minimum distance. No legacy footprint or pixels; no painted road markings.",
+  "trench_profile": {
+    "port_guard_world_px": 8,
+    "interior_straight_world_px": 16,
+    "traverse_offset_world_px": 2,
+    "cap_beyond_center_world_px": 14,
+    "blind_spur_length_world_px": 14,
+    "dugout_offset_world_px": 15,
+    "dugout_neck_max_width_world_px": 3.5,
+    "dugout_neck_width_fraction": 0.6,
+    "chamber_floor_size_world_px": [
+      10,
+      9
+    ],
+    "ring_centerline_size_world_px": [
+      36,
+      26
+    ],
+    "ring_corner_radius_world_px": 7,
+    "revetment_width_world_px": 1.1,
+    "method": "Trench only: new dark earth floor, shaded new earth banks and new timber revetment/braces. Geometry uses numeric runtime ports only; no original pixels, masks or outlines. Candidate appearance requires visual review.",
+    "courses": "Each port runs straight 16 world px inward, then via a point 13 world px from center with a 2-world-pixel transverse offset to center. A single port with no explicit blind spurs extends 14 world px beyond center and ends in a round cap; explicit blind spurs supersede that implicit tail. Blind spurs run center to unit-neighbor*14 with round caps. A dugout uses an independent narrow neck from center to unit-neighbor*15 with floor width min(0.6*width,3.5), no width wear, and a separate rounded 10x9 floor chamber (corner radius 2), aligned with its direction. The neck is excluded from the full-width main course. Ring is a new 36x26 rounded rectangle centerline with radius 7, sampled 16 segments per quarter; center remains open.",
+    "guards": "The first 8 world px from every polygon edge have fixed width/bank and no wear. Straight continuation to 16 px keeps angular courses and their radius outside that guard. Width wear is 0.18*E*sin(3A+B), bank fringe is 0.25*E*sin(2B-A), E=S((edge_distance-8)/8), A=2pi(x/142+y/80), B=2pi(x/142-y/80). Texture, wood phase and shading repeat on the runtime lattice; actual exported PNG joins use existing overscan/Lanczos/final ownership and ordinary decoded blits.",
+    "shading": "Let N be the unit vector from the nearest main-course/neck point to the sample, or the chamber SDF gradient (central differences at +/-0.01 world px) for a chamber-owned sample; N=(0,0) at length <=1e-9. D=round(dot(N,(0.6,0.8))*1e9)/1e9. Wall=S((core_distance+2.25)/2.25). Floor samples trench at 0.72*(1-0.6*Wall*(0.5+0.5*D)) brightness, producing a consistent southeast inner-wall shadow. Banks sample earth at (0.94+0.1*sin(A+0.4)*cos(B))*(1-0.15*D) brightness. Timber is source*1.08 brightness; revetment is a 1.1-world-pixel band centered 0.1 px inside the floor edge. Braces use clamp(0.5+(sin(3A+2B)-0.97)/0.06,0,1) and reach 1.2 world px from the floor edge. RGB rounds to nearest byte and clamps to 255. Reciprocal straight guards share nearest-course world normals, textures and phases. Core remains opaque; only the exterior 0.25-world-pixel analytic AA ramp is translucent. No baked grass."
+  },
+  "texture_method": "New opaque source images only. Bilinear source sampling through continuous mirror-periodic coordinates, periods (142,80); average f(x,y) and f(x+71,y+40) in byte RGB. This derived texture average is invariant under all six lattice neighbor shifts. All independent cells use world origin phase (0,0). No original-game pixels.",
+  "ownership": "Binary final-pixel polygon ownership: cross(edge,point)>0; on an edge include dy<0 or dy==0 && dx>0 (top-left rule), exclude the reciprocal edge. Ground and overlay exports share this new polygon. Zero RGBA outside ownership. Gallery patches decode exported PNG bytes and assemble ground then overlays using ordinary image.Draw Over at integer runtime cell translations, at BOTH 2x and 4x. They do not rerender world geometry or conceal sprite assembly gaps.",
+  "composition_scope": "Tested composition scope: pixel-aligned 2x/4x export sprites with integer runtime lattice translations and ordinary source-over blits. Other camera zoom should assemble the scene at asset density and resample the completed scene once. Independently filtered or fractional-position sprite zoom is not validated; no runtime zoom implementation is included.",
+  "variants": [
+    {
+      "id": "trench0",
+      "ports": [],
+      "closed_ring": true,
+      "family": "trench",
+      "width": 6,
+      "border": 3
+    },
+    {
+      "id": "trench1",
+      "ports": [
+        1
+      ],
+      "family": "trench",
+      "width": 6,
+      "border": 3
+    },
+    {
+      "id": "trench12",
+      "ports": [
+        1,
+        2
+      ],
+      "dugout_direction": 5,
+      "family": "trench",
+      "width": 6,
+      "border": 3
+    },
+    {
+      "id": "trench124",
+      "ports": [
+        1,
+        2,
+        4
+      ],
+      "dugout_direction": 5,
+      "family": "trench",
+      "width": 6,
+      "border": 3
+    },
+    {
+      "id": "trench125",
+      "ports": [
+        1,
+        2,
+        5
+      ],
+      "dugout_direction": 4,
+      "family": "trench",
+      "width": 6,
+      "border": 3
+    },
+    {
+      "id": "trench14",
+      "ports": [
+        1,
+        4
+      ],
+      "family": "trench",
+      "width": 6,
+      "border": 3
+    },
+    {
+      "id": "trench15",
+      "ports": [
+        1,
+        5
+      ],
+      "blind_spurs": [
+        3
+      ],
+      "dugout_direction": 4,
+      "family": "trench",
+      "width": 6,
+      "border": 3
+    },
+    {
+      "id": "trench24",
+      "ports": [
+        2,
+        4
+      ],
+      "dugout_direction": 5,
+      "family": "trench",
+      "width": 6,
+      "border": 3
+    },
+    {
+      "id": "trench25",
+      "ports": [
+        2,
+        5
+      ],
+      "family": "trench",
+      "width": 6,
+      "border": 3
+    },
+    {
+      "id": "trench4",
+      "ports": [
+        4
+      ],
+      "family": "trench",
+      "width": 6,
+      "border": 3
+    },
+    {
+      "id": "trench5",
+      "ports": [
+        5
+      ],
+      "family": "trench",
+      "width": 6,
+      "border": 3
+    },
+    {
+      "id": "trench5a",
+      "ports": [
+        5
+      ],
+      "blind_spurs": [
+        1,
+        3
+      ],
+      "dugout_direction": 4,
+      "family": "trench",
+      "width": 6,
+      "border": 3
+    }
+  ],
+  "exports": [
+    {
+      "path": "art/exports/trench-v1/trench0-4x.png",
+      "sha256": "d5408db442b6003d9d58a15c0947a811440447b5e0189c1f8c148a6d955597a3",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/trench-v1/trench0-2x.png",
+      "sha256": "1ab3915370996a774fdcfbb2c37261d7cccebd98214b49869937f2dd3424704b",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/trench-v1/trench1-4x.png",
+      "sha256": "9a34f42b40117caffc4a04c61db1d7a31333c6c6512e6a4b37a4c518ee4e0964",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/trench-v1/trench1-2x.png",
+      "sha256": "1ff98f4fc74d555a9691ab54933ab84fec6c77579d154a941ba3c0228cab6fff",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/trench-v1/trench12-4x.png",
+      "sha256": "cdea337a6905b2ea07cfd6625fcc961e4b8a33477b6379699da33d5e52dc5c77",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/trench-v1/trench12-2x.png",
+      "sha256": "5cdfceb9cc429792d5cc1862656c5c6b22ebb9c5ed4405d1490c2f20a506af14",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/trench-v1/trench124-4x.png",
+      "sha256": "a825561a8b77acb5bf15cb59b06cce5ba34b96c04306d7ff65719edf6fec7375",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/trench-v1/trench124-2x.png",
+      "sha256": "9d47bb33b239dd9fa9a3dcf0af83223f5c847501383baf618603fe396617a819",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/trench-v1/trench125-4x.png",
+      "sha256": "3d442803678ccbac491916b19f89494757479dedc26aa1f468f3c0f6d696eb89",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/trench-v1/trench125-2x.png",
+      "sha256": "5b329379a916ec8ffa8542534240a08f5de10c415f881654fd454ade5b6e5b8f",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/trench-v1/trench14-4x.png",
+      "sha256": "83d64153e13d53779c646f0024145c4a51039cf50822080b04d37d12c9016121",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/trench-v1/trench14-2x.png",
+      "sha256": "bc87f33d8c38f3c3fe307cfa262aa909fb8f76c574e609288f8451c2c106c082",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/trench-v1/trench15-4x.png",
+      "sha256": "45bc8df225a458c1c5810c3be2aadb8465aadd8ee35489ba2c9e4310d8e82145",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/trench-v1/trench15-2x.png",
+      "sha256": "ffd5b8cc048fe99991b07222a4075e1d6990d24a0b69a06232d4e3d3ecedc9d9",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/trench-v1/trench24-4x.png",
+      "sha256": "d7e657ce29aa42ea8750a10d7d489177577115433015562eddf86dc7b8c9f5bb",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/trench-v1/trench24-2x.png",
+      "sha256": "f03483d33f6931e6529544b502fc757e128ed5d2a860eb46b261cc7b38548e1f",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/trench-v1/trench25-4x.png",
+      "sha256": "a0378472bcaea41fe7bc3cd3014f89e8a01c2bf88bcc539bf9cb47bf15b3baca",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/trench-v1/trench25-2x.png",
+      "sha256": "f3c86df5209997977b8431800e0dc9b67220dd5955276cfe5d9ee88170dcf0e7",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/trench-v1/trench4-4x.png",
+      "sha256": "a5adec3e7a0038491c3f86eb7e24c5243ab266d4345285c5a840ddd82fc483ec",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/trench-v1/trench4-2x.png",
+      "sha256": "402863eeb53320e631b576015bb2dc92a09b0b5b81e7dfdfb561b0421d028e09",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/trench-v1/trench5-4x.png",
+      "sha256": "1427d858a390b05d58791b343351903cc10251c4fb87c5198ed8946ca18ad6a9",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/trench-v1/trench5-2x.png",
+      "sha256": "ca7b1913d970192bb891270c41eae0c36a28154bbb0d2c19b6c51e6d1095fc2b",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/exports/trench-v1/trench5a-4x.png",
+      "sha256": "18535936edb3f23bd293698983dfa33372b43d9805061fa2f8b87573fb0160c0",
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      }
+    },
+    {
+      "path": "art/exports/trench-v1/trench5a-2x.png",
+      "sha256": "7dda43254e68b0ab910adca66af2d0af325bc214220ad4cf7babfca90a149e1a",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    }
+  ],
+  "review_exports": [
+    {
+      "path": "art/review/trench-v1/trench0-grass-2x.png",
+      "sha256": "797b0fe429c750cf28ea9715fc8858e5065e4256458c20547f5f06a3feea7767",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/trench-v1/trench1-grass-2x.png",
+      "sha256": "603b17af16937378f60c58a4bcbe03c90b4e5f248d339e5cc1f17efb713f21ec",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/trench-v1/trench12-grass-2x.png",
+      "sha256": "68c27e5759f85d4465142011e75cfb6be9871e4111d6e4519e34a408b59bcea2",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/trench-v1/trench124-grass-2x.png",
+      "sha256": "d7f1a82d694f7335715338661605ff748018473fec3e6371cbaa3b3b929bab05",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/trench-v1/trench125-grass-2x.png",
+      "sha256": "fcb2cd0b3050535ac4b23b232827ed63b361774f6b6d722ef53b99bfb4d7d351",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/trench-v1/trench14-grass-2x.png",
+      "sha256": "acdebcc7904c9ae2b1ce163073a4596a2bc24b5b4b9c00082c1205065b9c2440",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/trench-v1/trench15-grass-2x.png",
+      "sha256": "26268a9c983886d734f47fd0a9ca63068686875afa9771630096b2fc83bdba53",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/trench-v1/trench24-grass-2x.png",
+      "sha256": "9d0412cd0af31f357054109c4ac07105f2092a30a612610d8a8f6446a87d7361",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/trench-v1/trench25-grass-2x.png",
+      "sha256": "ecb63b2964c6c5cd8924e282f18b9e2ee1e4b0d3b8f693d1f4268706a54b1e2f",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/trench-v1/trench4-grass-2x.png",
+      "sha256": "cb1aa8bd91e20e237bd635d52e407d133929c50b7b9f1aa09aed96075ce232ca",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/trench-v1/trench5-grass-2x.png",
+      "sha256": "d368734c1d836f6028fe36d50f7d37fb6c4cdd61d0b40c948aa0ee8f7269163b",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/trench-v1/trench5a-grass-2x.png",
+      "sha256": "02a4b3b2350a7d42393296f94599526495584ab481c547872209f6425a66fa1c",
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      }
+    },
+    {
+      "path": "art/review/trench-v1/contact-sheet.png",
+      "sha256": "2f48af269054fa2612d3b7beba765b46e6b97e81fc8f76c13bc930df932362bd",
+      "dimensions": {
+        "width": 384,
+        "height": 1920
+      }
+    },
+    {
+      "path": "art/review/trench-v1/trench0-patch-parity0.png",
+      "sha256": "eb126774714260ca5ac3561a46dd6d6ada1b1e3cf9d0601fc5ef39b5fe4de855",
+      "dimensions": {
+        "width": 476,
+        "height": 480
+      }
+    },
+    {
+      "path": "art/review/trench-v1/trench14-patch-parity1.png",
+      "sha256": "d6f50e26dd6a1e01276f04b0561bdbcfa37694b10f408714ba361b21f2d42f40",
+      "dimensions": {
+        "width": 476,
+        "height": 480
+      }
+    },
+    {
+      "path": "art/review/trench-v1/trench124-patch-parity0.png",
+      "sha256": "cc412c8a75a3ce2e9ad78e4e8abef4f3389533c33b78f48cfa4ec8388f2870d8",
+      "dimensions": {
+        "width": 476,
+        "height": 480
+      }
+    },
+    {
+      "path": "art/review/trench-v1/trench5a-patch-parity1.png",
+      "sha256": "c11a72bd9b440e50ffb96019b2709800d3461e546b0eaa8314d9f98962dc7755",
+      "dimensions": {
+        "width": 476,
+        "height": 480
+      }
+    }
+  ],
+  "original_image_inputs": [],
+  "review": "docs/art/distinct-terrain-batch-06.md",
+  "acceptance": "Independent code and art re-review provisionally pass. New 10x9 chambers with narrow 3.5px necks distinguish dugouts; through ports retain 8px protected zones. Timber reads mainly as edge lining and some uniform banks remain. Trench5a port5/NE+S blind-spur interpretation is provisional. Full-map/unit/runtime/seasonal integration and acceptance remain open."
+}

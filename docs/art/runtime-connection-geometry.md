@@ -73,7 +73,7 @@ with paired rails and phase-aligned sleepers. Its 54 port/density pairs and 48
 actual-PNG patches pass controller checks; independent visual/code review passes
 provisionally. Roads, streams and paths retain their existing export behavior.
 
-Next extend the compositor to trenches and bridge/crossing components,
+Next extend the compositor to bridge/crossing components,
 then test mixed families, seasons and runtime zoom. Preserve common endpoint tangents,
 banks/verges, gauge and phase. Review actual exported pixels before accepting each
 connected family; the offline patch results do not close in-engine acceptance.
@@ -104,6 +104,7 @@ The 5a cap/overlap interpretation retains medium confidence; all other listed op
 cuts/caps have high confidence. New authored caps must stay inside the new polygon.
 The runtime roster has no trench36 and no open port6 variant. Use explicitly
 synthetic review fixtures if vertical continuation testing needs them; do not add
-invented runtime IDs to the ledger. Actual new trench art and assembled cap/port
-review are still required. Private probes/contact sheets remain under ignored
+invented runtime IDs to the ledger. The new [trench delivery](distinct-terrain-batch-06.md)
+builds all 12 declared variants and provisionally passes assembled cap/port review;
+this does not settle the old 5a overflow. Private probes/contact sheets remain under ignored
 `build/gfx-research/_trench-geometry/`.
