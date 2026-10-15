@@ -21,12 +21,14 @@ lint:
 
 # Build the desktop binary
 build:
-    go build -o {{binary}} ./cmd/historyline
+    mkdir -p bin
+    go build -o bin/{{binary}} ./cmd/historyline
 
 # Build the WASM binary plus the wasm_exec.js loader
 wasm:
-    GOOS=js GOARCH=wasm go build -o {{binary}}.wasm ./cmd/historyline
-    cp "$(go env GOROOT)/lib/wasm/wasm_exec.js" .
+    mkdir -p bin
+    GOOS=js GOARCH=wasm go build -o bin/{{binary}}.wasm ./cmd/historyline
+    cp "$(go env GOROOT)/lib/wasm/wasm_exec.js" bin/
 
 # Build the web demo (index.html, wasm and loader) into build/web; pass a port to serve it
 web port="":
