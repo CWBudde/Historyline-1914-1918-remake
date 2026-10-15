@@ -19,7 +19,7 @@ OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'python.json')
 
 
 def parse(name):
-    with open(os.path.join(ROOT, name), encoding='utf-8') as f:
+    with open(os.path.join(ROOT, 'legacy', 'python', name), encoding='utf-8') as f:
         return ast.parse(f.read())
 
 

@@ -3,7 +3,19 @@ A remake of a classical amiga game
 
 This fork is porting the game to Go with [Ebitengine](https://ebitengine.org). The plan is in
 [PLAN.md](PLAN.md). Until the Go version catches up, the original Python/pygame code stays in the
-repo as the reference implementation. Both versions use the same `gfx/` and `levels/`.
+repo as the reference implementation, together with the upstream art, under [`legacy/`](legacy/README.md).
+Both versions share `levels/`.
+
+## Repository layout
+
+| Path | Contents |
+| --- | --- |
+| `cmd/`, `internal/` | The Go game: front end, rules engine, data, level I/O |
+| `art/` | The new game's art: sources, exports, recipes (see PLAN.md section 4.6) |
+| `levels/` | Level files, shared by Go and the Python reference |
+| `tools/` | Offline tooling (asset inventory, art review, DOS research) |
+| `docs/` | Research notes, art docs, reconstructed manual |
+| `legacy/` | Inherited from upstream: Python reference game and its `gfx/`; to be removed |
 
 ## Running the Go version
 
@@ -31,6 +43,7 @@ You need Python 3 with `pygame` and `numpy`. Pass a level name from `levels/` wi
 extension:
 
 ```sh
+cd legacy/python                     # the code reads gfx/ relative to this directory
 python3 main.py level1_cp            # play a level
 python3 main.py level1_cp --reveal   # show the whole map (dev)
 python3 main.py level1_cp --mapedit  # map editor (dev)
@@ -39,7 +52,7 @@ python3 main.py --help               # all options
 
 ## Assets
 
-[`docs/art/asset-inventory.csv`](docs/art/asset-inventory.csv) lists every file in `gfx/`, every
+[`docs/art/asset-inventory.csv`](docs/art/asset-inventory.csv) lists every file in `legacy/python/gfx/`, every
 runtime ID the Python code loads, the screens it draws, and the art that is missing (for example
 summer factory tiles and barbed wire). The `status` column marks files as loaded, alias, unused,
 experimental, editable source or reference only.
@@ -47,9 +60,9 @@ experimental, editable source or reference only.
 **Provenance is mostly unknown.** Git history shows that PoulKalff, the upstream author,
 committed every image file. It does not show where the art came from: drawn for this remake,
 traced from the 1992 game, or taken from elsewhere. The only files known to
-come from another game are `gfx/bi3_unit_interface.png` and `gfx/bi3_battle_screen.png`, which
+come from another game are `legacy/python/gfx/bi3_unit_interface.png` and `legacy/python/gfx/bi3_battle_screen.png`, which
 are Battle Isle 3 screenshots. They are used as references and not loaded by the game. The
-rights to the art in `gfx/` are unclear until this is resolved, so do not redistribute it as
+rights to the art in `legacy/python/gfx/` are unclear until this is resolved, so do not redistribute it as
 part of a release.
 
 The graphics track uses the [style guide](docs/art/style-guide.md),
@@ -63,7 +76,7 @@ sources and recipes stay in tracked `art/`; verified graphics batches are commit
 
 ```sh
 just gfx-check                 # inventory tests, drift check and offline Go tools
-just gfx-review -reference gfx/hexTypes/hex_forest.png \
+just gfx-review -reference legacy/python/gfx/hexTypes/hex_forest.png \
   -candidate art/source/pilot/forest-study-01.png -out build/art-review/forest-repo
 just gfx-references \
   -data 'original/extracted/amiga/HistorylineDe/fsuae/Hard Drives/data' \

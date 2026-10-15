@@ -8,7 +8,7 @@ import (
 
 // The checked-in sample is a real DOS level; it is skipped when absent.
 func TestLocalFIN(t *testing.T) {
-	b, err := os.ReadFile("../../FINdecoder/00.FIN")
+	b, err := os.ReadFile("testdata/00.FIN")
 	if err != nil {
 		t.Skip("no local 00.FIN")
 	}

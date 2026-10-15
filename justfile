@@ -6,6 +6,10 @@ binary := "historyline"
 default:
     @just --list
 
+# Run the Python reference (from legacy/python, which holds the code and gfx/)
+py *args:
+    cd legacy/python && python3 main.py {{args}}
+
 # Run the game
 run *args:
     go run ./cmd/historyline {{args}}

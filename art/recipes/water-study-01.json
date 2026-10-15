@@ -4,7 +4,7 @@
   "date": "2026-10-14",
   "tool": "built-in image_gen.imagegen",
   "model": null,
-  "reference": "gfx/hexTypes/hex_water.png",
+  "reference": "legacy/python/gfx/hexTypes/hex_water.png",
   "reference_platform": "upstream-remake; not verified original Amiga pixels",
   "source": "art/source/pilot/water-study-01.png",
   "prompt": "Use case: style-transfer. Asset type: terrain tile redraw study for Historyline1914-1918. Input image: edit target, repository water tile96x80, a provisional reference until originalAmigaart is checked. Recreate precisely at4xdetail for384x320 export in restrained modern illustrated style. Preserve input composition, flattened horizontal hex exact ratio1.2, silhouette, muted original palette, brightness and upper-left soft lighting. Subject: muted dark blue and blue-violet water, scattered soft teal/violet ripple patches in the input. Preserve their approximate original distribution and overall value. Refine with subtle short painterly ripples. No shore, rocks, waves, foam, reflections of new objects or dramatic highlights. At96x80 downsampled should look about90%likeinput. Crisp details only withinexisting shapes; no newlargefeatures. Hex fillswholecanvas vertices25%0,75%0,100%50%,75%100%,25%100%,0%50%. Truly transparentoutsidehex. No textframegridoutlinebevelborderoroutside shadow. Groundsurface remainsflat and cornersfullycovered; do notadddarkrim. Exactlyone isolatedtile, no contactsheet. Unapprovedvisualstudy.",

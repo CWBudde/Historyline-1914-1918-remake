@@ -47,7 +47,7 @@ implementation plans to be written for each milestone before execution.
 
 About 3,400 lines: `main.py` (loop/input), `gui.py` (rendering, movement, combat, fog of war),
 `hlrData.py` (data tables, classes and menus), `mapEditor.py`, `ArtificialIntelligence.py`,
-and the (since ported) `FINdecoder/`.
+and the (since ported) `FINdecoder/`. All of it now lives in `legacy/python/`, next to the upstream `gfx/`.
 
 ### Working
 
@@ -753,7 +753,7 @@ provide evidence, but do not establish the author's full intent:
 - `gfx/bi3_unit_interface.png` and `gfx/bi3_battle_screen.png` are Battle Isle 3 references;
   `gfx/OLD*`, workbench XCFs and alternate panels show experimentation. Filenames such as
   `4X_HEX_SKABELON_WORKBENCH.xcf` are not evidence of a finished 4× pack.
-- `generatedMap.png` shows the existing tile composition and joins. It is a reference render,
+- `generatedMap.png` (since deleted from the tree) showed the existing tile composition and joins. It is a reference render,
   not an authoritative image of the 1992 game. The Go executable currently draws an empty
   1800 × 1000 window. Offline inventory, native-reference/gallery and fidelity-comparison
   tools exist under `tools/`. The offline road/stream compositor now builds new connected

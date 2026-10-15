@@ -1,1 +1,0 @@
-c:\Users\n1epok\Python\Python310\python.exe main.py level1_cp

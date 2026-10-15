@@ -13,7 +13,7 @@ import os
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'python.json')
 
-with open(os.path.join(ROOT, 'hlrData.py'), encoding='utf-8') as f:
+with open(os.path.join(ROOT, 'legacy', 'python', 'hlrData.py'), encoding='utf-8') as f:
     tree = ast.parse(f.read())
 
 

@@ -70,7 +70,7 @@ class GUI:
                 ["grass", "road14", ""]]}}''')
             units = {"CP_infantry": {"weapons": ["bayonet", None]},
                      "CP_hArtillery": {"weapons": ["morser", None]}}
-            usage = module.level_usage(root, units)
+            usage = module.level_usage(root / "levels", units)
             for key in ("cmpN", "stream25", "rBridge36", "CP_infantry",
                         "CP_hArtillery", "bayonet", "morser", "road14"):
                 self.assertEqual(usage[key], {"level1_cp.json"}, key)
@@ -110,7 +110,7 @@ class GUI:
                 writer.writerow({"path": "gfx/grass.png", "kind": "terrain", "width": "1",
                                  "height": "1", "provenance": "unknown", "evidence": "repository history"})
             before = inventory.read_bytes()
-            args = [sys.executable, str(MODULE), "--root", str(root)]
+            args = [sys.executable, str(MODULE), "--root", str(root), "--python-root", str(root)]
             check = subprocess.run(args + ["--check"], capture_output=True, text=True)
             self.assertEqual(check.returncode, 1, check.stderr)
             self.assertEqual(inventory.read_bytes(), before)

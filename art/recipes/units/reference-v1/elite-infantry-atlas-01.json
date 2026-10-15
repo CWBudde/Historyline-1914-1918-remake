@@ -15,12 +15,12 @@
                                   "role":  "painted atlas layout, camera and recolour convention"
                               },
                               {
-                                  "path":  "gfx/units/icons/eliteInfantry.png",
+                                  "path":  "legacy/python/gfx/units/icons/eliteInfantry.png",
                                   "sha256":  "54b2345415386782b59c39b8828a35c6ab488363a49771fa869d9a69225a1f47",
                                   "role":  "reference elite machine-gun team identity"
                               },
                               {
-                                  "path":  "gfx/units/pictures/eliteInfantry.png",
+                                  "path":  "legacy/python/gfx/units/pictures/eliteInfantry.png",
                                   "sha256":  "523f8b6df722dde4cf0dd3252c299647250c918681bd32fc59504bf27b1e8b36",
                                   "role":  "reference elite machine-gun team identity"
                               }

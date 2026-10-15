@@ -94,10 +94,10 @@ def data_tables(source):
     return units, modifiers
 
 
-def level_usage(root, units):
+def level_usage(levels, units):
     """Map IDs to levels, including stacked overlays and units inside containers."""
     usage = defaultdict(set)
-    for path in sorted((root / "levels").glob("*.json")):
+    for path in sorted(levels.glob("*.json")):
         level = json.loads(path.read_text())
         for line in level["tiles"].values():
             for tile in line:
@@ -126,24 +126,23 @@ def asset_kind(path):
     return next((kind for prefix, kind in prefixes.items() if path.startswith(prefix)), "ui")
 
 
-def render_inventory(root, curated):
+def render_inventory(root, curated, levels=None):
+    """root is the Python reference project (sources and gfx/); levels defaults to root/levels."""
     loads = []
     # Deliberately exclude private original archives and art tooling from the runtime scan.
-    # FINdecoder/twpm.py is C-style pseudocode, not importable Python or a UI loader.
+    # The tree has no other Python; tools and testdata generators live outside the root.
     sources = sorted(root.glob("*.py"))
     for path in sources:
         loads.extend(scan_source(path.read_text(), path.relative_to(root).as_posix()))
     source = root / "hlrData.py"
     units, modifiers = data_tables(source.read_text()) if source.exists() else ({}, set())
-    usage = level_usage(root, units)
+    usage = level_usage(levels or root / "levels", units)
     by_path = defaultdict(list)
     for load in loads:
         by_path[load["path"]].append(load)
     metadata = {row["path"]: row for row in curated if row["path"]}
     paths = {path.relative_to(root).as_posix() for path in (root / "gfx").rglob("*") if path.is_file()}
     paths.update(by_path)
-    if (root / "generatedMap.png").exists():
-        paths.add("generatedMap.png")
     rows = []
     for relative in sorted(paths):
         path = root / relative
@@ -211,12 +210,13 @@ def render_inventory(root, curated):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[2])
+    parser.add_argument("--python-root", type=Path, help="Python reference project; default <root>/legacy/python")
     parser.add_argument("--check", action="store_true", help="report drift without writing")
     args = parser.parse_args()
     inventory = args.root / "docs/art/asset-inventory.csv"
     with inventory.open(newline="") as handle:
         curated = list(csv.DictReader(handle))
-    generated, loads, paths = render_inventory(args.root, curated)
+    generated, loads, paths = render_inventory(args.python_root or args.root / "legacy/python", curated, args.root / "levels")
     if args.check:
         if generated != inventory.read_text():
             print("asset inventory is stale; regenerate with tools/art-inventory/inventory.py")

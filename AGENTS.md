@@ -6,10 +6,12 @@ This file provides guidance to AI coding agents (Claude Code, Codex, …) workin
 ## What this is
 
 A Go/Ebitengine port of a Python/pygame remake of the Amiga game Historyline 1914-1918. `PLAN.md` is the
-roadmap and the source of truth for what is done (tick boxes only with evidence you ran). The Python code
-at the repo root (`main.py`, `gui.py`, `hlrData.py`, `mapEditor.py`, `ArtificialIntelligence*.py`) is the
-**reference implementation**, kept until Go reaches parity; it reads `gfx/` and `levels/` by cwd-relative
-path, so do not move it. `FINdecoder/00.FIN` is a sample DOS level for `internal/tpwm`.
+roadmap and the source of truth for what is done (tick boxes only with evidence you ran). Everything
+inherited from upstream lives in `legacy/` (see `legacy/README.md`): the Python code in `legacy/python/`
+(`main.py`, `gui.py`, `hlrData.py`, `mapEditor.py`, `ArtificialIntelligence*.py`) is the **reference
+implementation**, kept until Go reaches parity, and the upstream art is `legacy/python/gfx/` (reference only,
+never shipped). Python reads `gfx/` by cwd-relative path, so run it from `legacy/python/`; it reads the shared
+`levels/` at the repo root. `internal/tpwm/testdata/00.FIN` is a sample DOS level for `internal/tpwm`.
 
 ## Language policy
 
@@ -25,7 +27,7 @@ just test        # go test ./...
 go test ./internal/game -run TestName   # single test
 just lint        # go vet + golangci-lint v2 (.golangci.yml)
 just run         # play; just build -> bin/historyline; just wasm -> bin/; just web 8080 -> build/web (served by cmd/serve)
-python3 main.py level1_cp               # run the Python reference
+just py level1_cp                      # run the Python reference (cwd legacy/python)
 python3 -I -m unittest discover -s tools/original-rules   # fixture-schema test (not in just ci)
 ```
 

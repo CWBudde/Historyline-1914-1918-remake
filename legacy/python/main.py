@@ -368,11 +368,11 @@ if args.version:
 if args.generate:
 	filename = generateMap()
 	sys.exit('\n  Generated new map was saved as "' + filename + '"\n')
-args.mapPath = "levels/" + args.levelMap + ".json"
+args.mapPath = "../../levels/" + args.levelMap + ".json"
 if not os.path.exists(args.mapPath):
 	print("\n  The level '" + str(args.levelMap) + "' does not exist.")
 	print("    These are the level files:")
-	levelFiles = os.listdir("levels")
+	levelFiles = os.listdir("../../levels")
 	for level in levelFiles:
 		print("      ", level[:-5])
 	print()

@@ -7,12 +7,12 @@ level IDs, runtime loaders or private original assets were changed.
 
 ## What was verified
 
-The legacy asset set is 237 PNGs, 33 XCFs and one GIF under `gfx/`, plus the root
+The legacy asset set is 237 PNGs, 33 XCFs and one GIF under `legacy/python/gfx/`, plus the root
 `generatedMap.png`. `freesansbold.ttf` is an external font dependency rather than a file
 in this checkout. All 246 source loader calls are represented: 239 `pygame.image.load`
 calls and seven `pygame.font.Font` calls. They load 215 distinct PNG files and one font
 name. The remaining 57 local files have no runtime loader: 33 XCF sources, one GIF,
-22 `gfx/` PNGs and the generated map render.
+22 `legacy/python/gfx/` PNGs and the generated map render.
 
 Stored sizes were read from PNG/GIF/XCF headers and SHA-256 hashes recorded for every
 local file. The 62 terrain-sized PNGs are 96 × 80; the ownership stripe is 35 × 18.
@@ -41,15 +41,15 @@ Do not rename the level ID to match a filename or invent duplicate runtime entri
 
 | Stable IDs | Files | Decision |
 | --- | --- | --- |
-| `cmpN`, `cmpS`, `cmpE`, `cmpW` | `gfx/hexTypes/hex_campN.png`, `hex_campS.png`, `hex_campE.png`, `hex_campW.png` | `camp` is the file family; `cmp` is the existing terrain ID. |
+| `cmpN`, `cmpS`, `cmpE`, `cmpW` | `legacy/python/gfx/hexTypes/hex_campN.png`, `hex_campS.png`, `hex_campE.png`, `hex_campW.png` | `camp` is the file family; `cmp` is the existing terrain ID. |
 | `cmpN_w`, `cmpS_w`, `cmpE_w`, `cmpW_w` | Corresponding `hex_camp{N,S,E,W}_winter.png` | `_w` denotes winter in runtime IDs; `_winter` is the file spelling. |
-| `mountN`, `mountS`, `mountE`, `mountW` | Corresponding `gfx/hexTypes/hex_mountain{N,S,E,W}.png` | Preserve multi-tile mountain piece IDs separately from the single `mountain` tile. |
+| `mountN`, `mountS`, `mountE`, `mountW` | Corresponding `legacy/python/gfx/hexTypes/hex_mountain{N,S,E,W}.png` | Preserve multi-tile mountain piece IDs separately from the single `mountain` tile. |
 | `mountN_w`, `mountS_w`, `mountE_w`, `mountW_w` | Corresponding `hex_mountain{N,S,E,W}_winter.png` | Preserve winter multi-tile IDs. |
-| `cross1` | `gfx/infrastructure/crossRail36Path14.png` | Exact loader mapping; digits are not yet a verified world-edge convention. |
-| `cross2` | `gfx/infrastructure/crossRail36Road14.png` | Preserve existing crossing ID. |
-| `cross3` | `gfx/infrastructure/crossRail36Road25.png` | Preserve existing crossing ID. |
-| `cross4` | `gfx/infrastructure/crossRail14Path36.png` | Preserve existing crossing ID. |
-| `rBridge14`, `rBridge25`, `rBridge36` | Corresponding `gfx/infrastructure/roadBridge{14,25,36}.png` | Preserve `rBridge` overlay IDs and file lookup spelling. `rBridge14` is loaded but not placed in supplied levels. |
+| `cross1` | `legacy/python/gfx/infrastructure/crossRail36Path14.png` | Exact loader mapping; digits are not yet a verified world-edge convention. |
+| `cross2` | `legacy/python/gfx/infrastructure/crossRail36Road14.png` | Preserve existing crossing ID. |
+| `cross3` | `legacy/python/gfx/infrastructure/crossRail36Road25.png` | Preserve existing crossing ID. |
+| `cross4` | `legacy/python/gfx/infrastructure/crossRail14Path36.png` | Preserve existing crossing ID. |
+| `rBridge14`, `rBridge25`, `rBridge36` | Corresponding `legacy/python/gfx/infrastructure/roadBridge{14,25,36}.png` | Preserve `rBridge` overlay IDs and file lookup spelling. `rBridge14` is loaded but not placed in supplied levels. |
 
 These 23 spelling aliases remain loaded assets, not unused files. Filename digits and
 N/S/E/W suffixes alone do not prove hex-edge directions, join geometry or anchor positions;
@@ -83,23 +83,23 @@ does not mark those loaded graphics unused.
 The 24 raster files without runtime loads are:
 
 - `generatedMap.png` (reference render).
-- `gfx/History_Line_Map_1.png`, `History_Line_Map_Civil.png`, `miniMap_to_File.png`
+- `legacy/python/gfx/History_Line_Map_1.png`, `History_Line_Map_Civil.png`, `miniMap_to_File.png`
   (unloaded map/render candidates).
-- `gfx/bi3_battle_screen.png`, `bi3_unit_interface.png` (Battle Isle 3 references).
-- `gfx/OLDunit_panel.png`, `conent_screen.png`, `weaponSelectMenu.png`, `statistics.png`
+- `legacy/python/gfx/bi3_battle_screen.png`, `bi3_unit_interface.png` (Battle Isle 3 references).
+- `legacy/python/gfx/OLDunit_panel.png`, `conent_screen.png`, `weaponSelectMenu.png`, `statistics.png`
   (old or alternate UI candidates; preserve the actual `conent` filename spelling).
-- `gfx/cursor_double.png`, `emptyAmmo.png`, `infinity.png`, `progressBar.png`, `ranks.png`,
+- `legacy/python/gfx/cursor_double.png`, `emptyAmmo.png`, `infinity.png`, `progressBar.png`, `ranks.png`,
   `skull.png` (unloaded cursor/status variants).
-- `gfx/explosion.gif` (runtime uses the PNG sprite sheet).
-- `gfx/hexTypes/hex_test.png`, `hex_several.png`, `hex_single.png`, `hex_single_filled.png`
+- `legacy/python/gfx/explosion.gif` (runtime uses the PNG sprite sheet).
+- `legacy/python/gfx/hexTypes/hex_test.png`, `hex_several.png`, `hex_single.png`, `hex_single_filled.png`
   (test/layout candidates; only `hex_test.png` is under `hexTypes/`).
-- `gfx/infrastructure/road245.png`, `gfx/weapons/3-inchM1902.png`
+- `legacy/python/gfx/infrastructure/road245.png`, `legacy/python/gfx/weapons/3-inchM1902.png`
   (unloaded overlay/weapon alternatives; not compatibility aliases).
-- `gfx/weapon_template.png` (experimental layout template).
+- `legacy/python/gfx/weapon_template.png` (experimental layout template).
 
 The inspected `hex_test.png` is a plain dark test placeholder and is unused. Workbench,
 OLD, Untitled and template XCFs retain experimental classification; filenames do not prove
-completed high-density art. `gfx/weapons/empty.png` is a deliberate blank frame for a
+completed high-density art. `legacy/python/gfx/weapons/empty.png` is a deliberate blank frame for a
 `None` weapon slot and is loaded inside `Unit.updateWeaponsGfx`; it is not missing art.
 Code-drawn menus, bars, minimap and terminal-only new-map/game-over prompts are separately
 identified in the UI inventory so layout scaffolding is not confused with accepted art.

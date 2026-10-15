@@ -10,7 +10,7 @@
     "transparent_background":  false,
     "generation_inputs":  [
                               {
-                                  "path":  "gfx/units/pictures/eliteInfantry.png",
+                                  "path":  "legacy/python/gfx/units/pictures/eliteInfantry.png",
                                   "sha256":  "523f8b6df722dde4cf0dd3252c299647250c918681bd32fc59504bf27b1e8b36",
                                   "role":  "composition and sepia colour reference; old UI frame excluded"
                               },

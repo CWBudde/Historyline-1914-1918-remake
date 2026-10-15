@@ -17,7 +17,7 @@ Reproduce repository-based exports with the offline review utility, for example:
 
 ```sh
 go run ./tools/art-review \
-  -reference gfx/hexTypes/hex_forest.png \
+  -reference legacy/python/gfx/hexTypes/hex_forest.png \
   -candidate art/source/pilot/forest-study-01.png \
   -out build/art-review/forest-repo
 ```

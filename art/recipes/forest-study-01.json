@@ -4,7 +4,7 @@
   "date": "2026-10-14",
   "tool": "built-in image_gen.imagegen",
   "model": null,
-  "reference": "gfx/hexTypes/hex_forest.png",
+  "reference": "legacy/python/gfx/hexTypes/hex_forest.png",
   "reference_platform": "upstream-remake; not verified original Amiga pixels",
   "source": "art/source/pilot/forest-study-01.png",
   "prompt": "Use case: style-transfer.\nAsset type: high-resolution terrain tile study for Historyline 1914-1918.\nInput image: edit target, repository forest hex at 96x80. Recreate this precise existing tile as newly painted restrained modern illustrated artwork at 4x detail, aimed at 384x320 logical export. Preserve the exact flattened horizontal hex silhouette, width/height ratio 1.2, six corners, original overhead oblique view, original number and exact relative positions/sizes of rounded tree crowns, muted olive green grass background, dark olive canopy shading and upper-left soft lighting. At 96x80 when downsampled the tile should look about 90% like the input, not a reinterpretation. Add crisp subtle leaf clusters and small grass details only within existing shapes, avoiding a new coarse layout. Keep every tree inside its existing footprint and retain dark gaps between trees. Texture should be understated, not noisy, cartoony or photorealistic. No new trees, roads, objects, text, decorative frame, grid, outline, rim, bevel or drop shadow outside the tile. The hex occupies the whole asset canvas with vertices at approximately (25%,0),(75%,0),(100%,50%),(75%,100%),(25%,100%),(0,50%). Outside the hex is genuinely transparent. Keep flat ground at hex edges available for later shared-edge cleanup. Generate exactly one tile, no contact sheet. This is an unapproved visual study, not a final runtime asset.",
