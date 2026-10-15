@@ -87,6 +87,7 @@ func run(args []string, log io.Writer) error {
 	referencePath := fs.String("reference", "", "reference PNG; seven-hex layout available only for 96x80")
 	referencePlatform := fs.String("reference-platform", "repo-provisional", "reference provenance label (e.g. repo-provisional or amiga-native); supplied by caller")
 	neighborhoodPath := fs.String("neighborhood", "", "JSON recipe for original Amiga seven-cell neighborhood review")
+	packPath := fs.String("pack", "", "candidate-only JSON pack manifest; fixed Lanczos3 rectangle exports, requires fresh -out")
 	candidatePath := fs.String("candidate", "", "candidate PNG, at least 4x reference dimensions and aspect within 1%")
 	resampling := fs.String("resampling", "area", "single-sprite reduction: area, bilinear (antialiased tent), or lanczos (antialiased Lanczos3); excluded by -neighborhood")
 	out := fs.String("out", "", "output directory (existing artifact names are rejected)")
@@ -95,6 +96,24 @@ func run(args []string, log io.Writer) error {
 			return nil
 		}
 		return err
+	}
+	packProvided := false
+	fs.Visit(func(f *flag.Flag) {
+		if f.Name == "pack" {
+			packProvided = true
+		}
+	})
+	if packProvided {
+		conflict := false
+		fs.Visit(func(f *flag.Flag) {
+			if f.Name != "pack" && f.Name != "out" {
+				conflict = true
+			}
+		})
+		if conflict || *packPath == "" || *out == "" || fs.NArg() != 0 {
+			return errors.New("-pack requires -out and excludes reference/candidate/neighborhood/resampling flags and positional arguments")
+		}
+		return runPack(*packPath, *out, log)
 	}
 	if *neighborhoodPath != "" {
 		conflict := false

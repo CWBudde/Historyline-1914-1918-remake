@@ -7,9 +7,12 @@ new artwork will have its own source and export directories.
 
 **Goal:** a complete, playable remake with newly authored graphics at least 2× the reference
 resolution, an optional 4× pack, and a fully recreated UI. The requested art direction is a
-modern illustrated treatment with familiar layouts, constrained by fidelity: when downsampled,
-each tile should look approximately 90% the same as the 1992 original. Preserve composition,
-silhouette, palette, landmarks and connections; add detail within those constraints.
+modern continuous illustrated treatment with familiar layouts and readable terrain semantics.
+**Current user brief (2026-10-15):** author distinct high-resolution images for every tile;
+do not ship original artwork or close visual reconstructions. This supersedes the earlier
+approximately 90% resemblance target. Preserve gameplay IDs, placement and connection topology,
+while inventing the artwork, palette and surface composition. Use independent art reviews
+periodically. Finish graphics coverage, then continue Phase 2 (playable Ebitengine UI).
 
 **Rules target:** recover and verify the original game's rules, using the supplied DOS
 `HL.EXE` as the current executable baseline. Keep the existing Python parity and improved
@@ -158,9 +161,9 @@ docs/research/              original-DOS findings; verified rule specification/f
   execution-verified behavior and hypotheses separately in the rule specification. Resolve
   disagreements with controlled original execution. Do not copy the Python random damage,
   ammo/fuel mechanics, action limits or container layout into the DOS profile by assumption.
-- **Art fidelity and independence.** Recreate assets from verified references; preserve stable
-  terrain/unit IDs and level topology. New detail must survive the downsample comparison.
-  Keep reference art and replacement packs separate until coverage is complete.
+- **Art independence and readability.** Preserve stable terrain/unit IDs and level topology;
+  newly author the illustrations without tracing original pixels or targeting close likeness.
+  Keep private reference art and historical pilot studies outside the new distribution manifest.
 - **Resolution independence starts in Phase 2.** Asset density, map zoom, UI scale and window
   size are separate controls. Larger source images must reach a suitably sized rendering
   surface; scaling a finished 1800 × 1000 frame alone cannot expose the new detail.
@@ -516,6 +519,15 @@ questions rather than unconditional original mechanics.
 
 ### 4.1 Evidence, visual brief and fidelity
 
+**Current brief overrides historical fidelity studies below.** The user now requires distinct
+new artwork, excluding originals and close reconstructions from shipping. The original
+reference hierarchy and 90/100 comparisons below explain the retained earlier studies only.
+Current acceptance is readable terrain semantics, continuous high-resolution drawing,
+consistent overhead scale/light, correct declared connections, reviewed seams and provenance.
+The active pack starts at `art/terrain-distinct-v1.json`; see
+`docs/art/distinct-terrain-batch-01.md`. Do not count historical study delivery as current pack
+coverage. The old 350-resource table remains a native-ID coverage checklist, not a release list.
+
 The repository does not contain a written upstream art concept. Its implementation and assets
 provide evidence, but do not establish the author's full intent:
 
@@ -611,8 +623,8 @@ marked “seamless” does not solve all six hex boundaries or three-tile juncti
 **Recommended approach: constrained layered tiles.** Separate ground material, terrain objects,
 transitions, infrastructure, buildings, ownership, units, fog and interaction overlays. Keep
 existing level IDs and rules; neighbour-aware presentation adds graphics without changing
-movement costs or silently rewriting the level's roads. The composition at native size remains
-the original's composition.
+movement costs or silently rewriting the level's roads. Composition must remain readable at
+normal play zoom; original surface artwork is not a production template under the current brief.
 
 1. **Ground continuity.** Start with a low-frequency, tileable material matching the original's
    colour/value. Sample it in continuous world coordinates so adjacent tiles use the same
@@ -661,7 +673,7 @@ transparent colour bleed separately from the hex's protected artwork boundary.
 | GIMP | Inspect existing XCFs; maintain layered templates; repair material textures with wrap-around offset and repeated previews | Rectangular wrapping does not validate hex connectivity. See the [Offset documentation](https://docs.gimp.org/3.0/en/gimp-layer-offset.html). |
 | Krita (optional painting alternative) | Illustrated masters and live repeated-material painting | [Wrap Around Mode](https://docs.krita.org/en/reference_manual/main_menu/view_menu.html) previews orthogonal repetition; use the engine preview for hex joins. |
 | SVG editor | Author exact UI frames, masks and road/rail/river centreline templates; rasterise offline | Keep all gameplay text live; preserve fixed endpoints when repainting details. |
-| Image generator available to this assistant | Reference-guided material/interior studies, portraits, title/briefing illustrations and selected detail passes | Generated output needs fidelity review, seam enforcement, alpha cleanup and exact-size export. It cannot guarantee matching ports or repeatable geometry. |
+| Image generator available to this assistant | Newly authored materials, terrain subjects, portraits, title/briefing illustrations and selected detail passes | Use new family art and geometry guides rather than original raster references. Output needs quality review, seam enforcement, alpha cleanup and exact-size export. It cannot guarantee matching ports or repeatable geometry. |
 | Blender (optional) | A shared camera/light rig for vehicle, artillery, ship and building directions, followed by illustrated paintover | Introduce only if the six-direction pilot beats hand-drawn production in consistency and effort; [orthographic cameras](https://docs.blender.org/manual/en/4.4/render/cameras.html) are available. |
 | `cmd/hlasset` (to build) | Local deterministic export processing, inventory validation, density packs, downsample comparisons and seam reports | Accept exported source PNGs/SVGs; layer editing stays in the art tools. CI must not call image-generation services. |
 | `cmd/hlartpreview` (to build) | Fast in-engine preview of real hex joins and all visual states, independent of finished game rules | Shares geometry, asset loader and compositor with the game. |
@@ -672,15 +684,15 @@ new authored detail; independent AI-generated tiles are quick studies but allow 
 boundary drift; the recommended shared-template workflow combines controlled geometry with
 illustration and selective AI assistance. Use a common master/reference sheet for each family.
 
-**Continuous-surface requirement (2026-10-15):** reconstruct organic shapes from the original
-samples; never paint detail inside traced source-pixel squares. Inspect full-resolution masters
-and fixed Lanczos3 native reductions together. Preserve approximately 90% native visual appearance,
-with continuous high-resolution contours. Exact reference masks are diagnostic coverage, not a
-requirement to expose pixel staircases in production art. See `docs/art/style-guide.md`.
+**Continuous-surface requirement (2026-10-15):** invent organic natural surfaces with continuous
+high-resolution contours; never trace source-pixel squares. Inspect full-resolution masters
+and fixed Lanczos3 reductions together for readable terrain semantics. Original masks are
+historical diagnostics, not production inputs. See `docs/art/style-guide.md`.
 
-**Generation recipe:** attach the verified reference and geometry guide; request the original
-viewing angle, silhouette, object positions, palette/value and light direction, with new detail
-inside those shapes. Ask for no text, frame or decorative border. Generate interiors or objects
+**Generation recipe:** use newly authored material references and a geometry guide; request a
+consistent overhead view, world scale, lighting and the declared connection topology. Invent
+surface composition and palette rather than tracing original artwork. Ask for no text, frame
+or decorative border. Generate interiors or objects
 separately where possible, with transparency for cutouts. Use tools and manual compositing to
 reapply the exact masks and protected boundaries after generation; do not rely on the prompt
 to keep them pixel-perfect. Produce/review a seven-hex patch before approving an entire family.
@@ -811,7 +823,7 @@ below record work already delivered, plus G0.7's new neighborhood comparisons.
       originals and mixed redraw scenes must be clearly labeled. Verified zero missing/extra
       coverage at every density. See `art/fixtures/amiga-neighborhoods.json` and
       `docs/art/neighborhood-review.md`. Surrounding tiles remain original; this is not a pack.
-- [ ] **G0.8 — Connected-terrain edge/value cleanup.** Repair road grass values, bridge earth
+- [ ] **G0.8 — Connected-terrain edge/value cleanup (historical pilot, superseded).** Repair road grass values, bridge earth
       values and excessive water/grass texture using G0.7's specific contacts. Re-export all
       three densities and re-review both parities; preserve native material widths, contact
       cells, landmarks and marks. Record remaining seam defects explicitly; opacity/coverage
@@ -840,9 +852,9 @@ below record work already delivered, plus G0.7's new neighborhood comparisons.
             exports. The user approves this style for all terrain tiles. Revision 01 remains
             rejected. Lanczos3 supersedes bilinear for current comparisons. See
             `docs/art/native-material-pilot.md` and `docs/art/terrain-production.md`.
-      - [ ] Verify grass/water fidelity and shared family edges. Keep approximately 90%
-            original appearance after fixed Lanczos reduction as the visual target; inspect
-            continuous masters too. Style approval does not establish the score or seams.
+      - [ ] Verify new grass/water readability and shared family edges. The latest brief
+            supersedes the old 90% original-likeness target. Inspect continuous masters and
+            Lanczos exports; historical style approval does not establish current seams.
       - [ ] Infantry and artillery map sprites.
       - [ ] Unit portrait.
       - [ ] Reconstructed unit panel with live text and separate frame/icons/portrait.
@@ -855,19 +867,32 @@ below record work already delivered, plus G0.7's new neighborhood comparisons.
       `docs/art/terrain-production.csv` covers all 350 native ground resources (175 per
       season), with separate art/fidelity/seam status. Terrain authoring can proceed in
       family batches while the remaining full pilot and runtime pack gates stay open.
+- [x] **G0.12 — Start the distinct production pack and reproducible export path.**
+      (2026-10-15) — six newly generated 1374×1145 terrain masters: meadow, dry meadow,
+      sparse/dense forest, unmarked road bend and through-running diagonal river. Independent
+      review caught side-view conifers; dense forest revision 02 corrects the main defect.
+      `art/terrain-distinct-v1.json` includes only new sources. Pack mode validates hashes,
+      crops deterministically and builds 192×160 / 384×320 Lanczos3 rectangle exports without
+      original references/masks. Source/export hashes and repeat builds verified. See
+      `docs/art/distinct-terrain-batch-01.md`; this closes delivery, not coverage or seam approval.
+- [ ] **G0.13 — Complete the distinct tile set.** Keep generating reviewed family batches
+      until all terrain, infrastructure and seasonal variants are present. Map the new semantic
+      IDs to all enabled runtime/native resources; track missing pieces explicitly. Include
+      road/river straights, bends, junctions, bridges, shores, mountains, buildings, rail,
+      walls and snow. Do not reuse original or close-reconstruction pilot sources in this pack.
 - [ ] **Gate — Approve the complete pilot and choose production density/tools.** Compare all
       pilot subjects at native size and normal play zoom, including connected neighborhoods.
-      Require the five-category visual review at approximately 90/100, unchanged silhouettes,
-      routes/connections and reviewed joins; record the user's visual acceptance and exceptions.
-      Style is approved for all terrain; record master density and runtime choices before pack
-      release. Per-asset fidelity/seam acceptance and the full pilot remain open.
+      Require distinct authored artwork, readable silhouettes, correct declared routes/connections
+      and reviewed joins; record the user's visual acceptance and exceptions.
+      Terrain authoring is authorized; record current art acceptance, density and runtime choices before pack
+      release. Per-asset quality/seam acceptance and the full pilot remain open.
 
 **Delivery cadence:** choose one bounded graphics deliverable per continuation: a subject pair,
 a targeted cleanup, a panel, or a usable comparison. Finish its exports and review record, run
 the affected checks plus final CI, then commit directly to local `main`. Reuse verified reference
 and placement evidence; reopen research only for a concrete blocker. Study production can
 continue while the overall gate is open. The user now authorizes terrain family production
-in the selected continuous style; final fidelity/seam and runtime acceptance remain required.
+in a distinct continuous style; final quality/seam and runtime acceptance remain required.
 
 #### G1 — Build the geometry, export and seam workbench
 
@@ -952,8 +977,8 @@ in the selected continuous style; final fidelity/seam and runtime acceptance rem
       decoded texture memory and frame times. Target 60 FPS there (95th-percentile frame time
       ≤16.7 ms) on the shipped-map stress scene. Ship 4× only when it passes the same visual
       and performance review; otherwise release complete 2× and retain the 4× masters.
-- [ ] **Done:** all runtime/UI coverage is recreated with accepted 2× assets, approximately
-      90% original appearance at native-size tile review, seamless declared joins, responsive
+- [ ] **Done:** all runtime/UI coverage is recreated with accepted distinct 2× assets,
+      no original or close-reconstruction art in the distribution, seamless declared joins, responsive
       interaction, documented provenance and a reproducible local export build. Visual release
       does not depend on removing the Python sources or discarding the reference artwork.
 
@@ -962,18 +987,15 @@ private originals/manual extracts in ignored `original/`, and reference gallerie
 outputs and research in ignored `build/`. Authored masters, recipes and pilot exports stay in
 tracked `art/`; commit verified graphics batches directly to `main`, per the user's preference.
 
-**Immediate next graphics slice:** build shared continuous road/bank paths and protected material
-bands to repair road 06 / river 04 registration, changing widths, markings and joins. Fold the
-needed narrow geometry/export prerequisite from G1 into G0.8; use the retained continuous
-masters as material references and sample common textures in world coordinates. Targeted
-freehand generation attempts did not reliably fix these defects. Keep Lanczos3 and recheck
-the same native reductions and six actual-neighbor scenes, including vertices. Then continue
-forest/ground, coasts/rivers/roads, mountains/building pieces, bridges/rail/walls and winter
-through `docs/art/terrain-production.md`. The 350-resource ledger currently records two
-style-approved materials, two candidates needing correction and 346 pending resources.
-Complete one bounded art/tool deliverable with its actual-neighbor review per continuation.
-Units, portrait and panel do not block terrain. Fidelity, seamlessness and runtime acceptance
-remain open.
+**Immediate next graphics slice:** continue the distinct pack from its six delivered sources:
+open water, earth/stone/snow materials, coasts, hills/mountains, then connected road/river
+variants and bridges/rail/walls/building pieces. Establish shared forest scale and protected
+port/bank templates in an assembled preview before accepting a connected family. The old
+road 06 / river 04 pixel-registration repair is retired; their close-reconstruction masters
+stay historical and are excluded from the new manifest. Original-ID mapping, all remaining
+tile images, seasonal coverage, seams and runtime acceptance stay open. Periodically delegate
+independent visual review and fix material defects before promoting assets. Finish the complete
+graphics set, then continue **Phase 2 — Playable parity (Ebitengine UI)** as the user requested.
 
 ---
 

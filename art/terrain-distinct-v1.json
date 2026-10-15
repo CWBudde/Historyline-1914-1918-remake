@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "art_direction": "Distinct, newly authored continuous illustrated European 1914 terrain. Muted sage greens, calm detail, diffuse light. No original game image inputs or pixel reconstruction. Rectangular overscan candidates; runtime mapping, clipping and shared six-edge joins remain pending.",
+  "assets": [
+    {
+      "id": "meadow",
+      "source": "source/terrain/distinct-v1/meadow.png",
+      "source_sha256": "8c8935efbbd463e39d49208e42ca0e87b140268a1b11941764dfa7c29c4fff85",
+      "description": "Quiet sage/moss meadow with fine grass and clover."
+    },
+    {
+      "id": "meadow-dry",
+      "source": "source/terrain/distinct-v1/meadow-dry.png",
+      "source_sha256": "59019afdafa0a8d76ae17dd398f27b01308b06cebd813d24fa7bb80ab320cfdc",
+      "description": "Dry straw/sage meadow with earth glimpses."
+    },
+    {
+      "id": "forest-sparse",
+      "source": "source/terrain/distinct-v1/forest-sparse.png",
+      "source_sha256": "3af519fe9bc698d1eec5068aaa6adb5213380ec6ac6568166a7ac58d056f1915",
+      "description": "Sparse broadleaf woodland with open meadow."
+    },
+    {
+      "id": "forest-dense",
+      "source": "source/terrain/distinct-v1/forest-dense-02.png",
+      "source_sha256": "53f4c67be90cf95b1410c7d4e2fdc815227c2e7722827752ed4c59fb4bccf427",
+      "description": "Dense mixed broadleaf/conifer woodland with small clearings."
+    },
+    {
+      "id": "road-bend",
+      "source": "source/terrain/distinct-v1/road-bend.png",
+      "source_sha256": "4c347558277bfb36113dde0d9a904f8ee744ca8b06287a227a35f000a338ec6e",
+      "description": "Unmarked gravel/macadam bend from bottom to upper right; both ends continue past canvas."
+    },
+    {
+      "id": "river-diagonal",
+      "source": "source/terrain/distinct-v1/river-diagonal.png",
+      "source_sha256": "de6237db22ba129e0825d233dd89964cba2e211f4db9f0e6f1d9b46bd5a2c6b4",
+      "description": "Quiet diagonal river from left to right; channel and both banks continue past canvas."
+    }
+  ]
+}

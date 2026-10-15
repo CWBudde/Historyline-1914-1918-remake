@@ -1,25 +1,32 @@
-# Continuous terrain production
+# Distinct terrain production
 
-On 2026-10-15 the user approved the continuous illustrated grass/water revision-02
-direction for **all terrain tiles**, and then selected **Lanczos** instead of
-bilinear to retain more detail in reductions. Those are the current art direction
-and filter decisions. The former pixel-cell-preserving direction is rejected.
+The latest user brief requires new continuous high-resolution images for **every
+tile**, excluding originals and close reconstructions from shipping. This supersedes
+the earlier 90% original-likeness target. Keep familiar gameplay semantics and
+connection topology; invent surface artwork, palette and detail.
 
-Use the existing grass and water masters as material/style references. Reconstruct
-natural curved forms from the original samples; keep material colors, landmarks,
-object counts, routes and connections recognizable. Judge both the full master and
-its fixed Lanczos native reduction. Approximately 90% original visual resemblance
-remains the target; style approval does not assert a measured score or accept seams.
+Current pack: [terrain-distinct-v1.json](../../art/terrain-distinct-v1.json).
+[Gallery](distinct-terrain-review.html) · [Batch 01 review](distinct-terrain-batch-01.md).
 
-## Coverage and completion
+## Delivery and coverage
 
-[terrain-production.csv](terrain-production.csv) lists every resource in the
-verified native summer and winter ground libraries: **350 unique library/resource
-pairs**, 175 per season. Resource IDs and reference PNG hashes are taken from the
-private corpus. Original PNGs are not committed. These IDs are native identifiers;
-mapping them into the layered remake remains a separate task.
+Six semantic candidates are delivered: meadow, dry meadow, sparse/dense forest,
+unmarked road bend and diagonal river. Selected sources are 1374×1145; reproducible
+Lanczos3 exports are 192×160 / 384×320. Dense forest 02 replaces the first attempt
+after independent review found side-view conifers.
 
-| Resource prefix | Summer | Winter |
+These are rectangular overscan images. Shared texture phase, tree scale, runtime
+hex clipping, six-edge ports, family variants, seasonal coverage and runtime mapping
+remain open. Candidate delivery is not accepted complete tile coverage.
+
+[terrain-production.csv](terrain-production.csv) retains the existing **350 native
+library/resource pairs** (175 summer, 175 winter) as an inventory and historical
+pilot record. Its old style-approved/candidate statuses describe the earlier studies,
+which are excluded from the new manifest. Do not count those statuses as new-pack
+acceptance. Keep the original reference hashes for private ID mapping; they are
+neither source artwork nor release dependencies for the new exporter.
+
+| Family | Summer IDs | Winter IDs |
 | --- | ---: | ---: |
 | SPLAI | 8 | 8 |
 | SFORE | 9 | 9 |
@@ -32,64 +39,38 @@ mapping them into the layered remake remains a separate task.
 | SWALL | 9 | 9 |
 | VERBO | 1 | 1 |
 
-Prefixes organize coverage; they do not prove a semantic category or an object's
-identity. In particular, inspect forest/building pieces rather than inventing a
-tree or structure from its name. Reuse identical seasonal source pixels only after
-verifying hashes and recording the reference relationship.
+Prefixes are inventory groups, not sufficient semantic mappings. The new pack's
+semantic IDs must be mapped explicitly to all enabled remake/native resources.
+Map every alias and required connection; do not mark a family complete based on one
+representative image or a generated master merely resembling its name.
 
-The ledger separates `status`, `fidelity_review` and `seam_review`:
+## Work order
 
-- `pending`: no current continuous source is assigned.
-- `style-approved`: the user accepted this material/style direction; per-tile
-  fidelity and seam columns still state their own review status.
-- `candidate`: a continuous source, recipe and density exports exist for review.
-- `accepted`: source, native comparison and required joins have passed recorded
-  review. A completed family must cover every required seasonal/connection variant.
+1. Generate missing new water, earth, stone and snow materials, shores and hills/
+   mountains. Maintain calm readable values and consistent overhead light.
+2. Establish shared forest scale and a small assembled connected preview using road
+   and river straights/bends, declared ports and protected material/bank profiles.
+   Correct adjoining edges and three-tile vertices before accepting a family.
+3. Expand all required coast, road/river/junction, bridge, rail, wall and multi-tile
+   building/mountain combinations. Preserve topology without tracing original artwork.
+4. Complete winter variants, remaining terrain, infrastructure and overlays; map
+   every required ID. Periodically use an independent subagent art review.
+5. Verify all tile images and their assembled joins. Complete the remaining sprite/
+   portrait/UI scope, then continue Phase 2 as requested. Release requires a complete
+   mapped asset set containing only the selected newly authored pack.
 
-Advance the ledger with evidence, not by counting an enlarged original as a
-finished tile. A runtime pack is complete only after mapping and integration too.
+Terrain authoring continues while pilot and runtime gates are open. Do not let the
+retired original-pixel alignment work delay new images. Do not infer seam acceptance
+from a full opaque rectangle or matching metadata.
 
-Current delivery: two style-approved material resources (grass/water), two
-continuous candidates (road `SSTRE114` and river `SCOAS071`), and 346 pending
-resources. Candidates have native/2×/4× exports and actual-neighbor reviews;
-their fidelity/seam columns say `needs-correction`. See the
-[connected-terrain review](continuous-connected-pilot.md). Shared road/bank paths
-and protected material boundaries precede further connected-family rollout.
+## Export
 
-## Family rollout
+`go run ./tools/art-review -pack art/terrain-distinct-v1.json -out <fresh-directory>`
+validates source hashes and builds a portable gallery/report plus 2×/4× rectangles.
+It uses only declared new source images and fixed alpha-aware Lanczos3:
+centered exact 6:5 crop → 384×320 → 192×160. Current masters need no crop.
+Preserve generated source pixels and exact prompts. No original footprint or
+reference raster participates in this export mode.
 
-1. Build shared grass, water, earth, snow and stone material treatments from the
-   accepted continuous style. Establish common texture phase and boundary bands.
-2. Extend those treatments into forest/ground variants, coasts, rivers and roads.
-   Keep tree/landmark counts and connection widths from each original. Review an
-   actual neighboring patch after every small batch, including three-tile vertices.
-3. Complete mountains, multi-tile buildings, bridges, rail and walls with shared
-   edge/corner templates. Validate all required directional/adjacency variants.
-4. Apply winter treatments with the same geometry, then finish the remaining
-   native ground resources. Retain masters and deterministic exports throughout.
-5. Integrate accepted families into the remake renderer and inspect full maps,
-   units, UI overlays and normal play. Keep runtime IDs and game rules stable.
-
-Terrain authoring is authorized now; missing infantry, portrait or panel studies
-do not prevent it. The full pilot, seamless family acceptance and released pack
-remain separate milestones. Do not generate every tile independently and assume
-that matching style makes their six boundaries continuous.
-
-## Fixed export filter
-
-Use `just gfx-review ... -resampling lanczos` for current native comparisons.
-The implementation is Lanczos3 with a radius-three sinc-windowed sinc kernel,
-widened for downsampling, fixed pixel centers and alpha-aware byte-RGB filtering.
-Diagnostics and recipes pin the sampling chain and negative-lobe clamping policy.
-Generate the 96-pixel unmasked comparison master from the retained large source;
-derive 48-pixel and native 24-pixel reductions independently from that master,
-then apply diagnostic reference coverage separately. Preserve source pixels.
-
-Keep previous area and bilinear results as historical baselines. Compare filters
-on the **same source** before attributing sharper edges or changed RGB error to
-new illustration. High-resolution previews use smooth display scaling; original
-and native diagnostics may be nearest-magnified to inspect their actual pixels.
-
-The reference mask retains original stepped coverage for comparisons. Continuous
-production contours, overscan and shared joins belong to the geometry/compositor
-work; a matching mask alone cannot establish seamlessness.
+Legacy `-reference/-candidate/-resampling lanczos` comparisons remain available
+for historical research; their 90/100 fidelity gate does not govern the new pack.

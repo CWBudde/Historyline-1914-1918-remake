@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "id": "forest-dense",
+  "date": "2026-10-15",
+  "tool": "built-in image_gen.imagegen",
+  "art_direction": "distinct-continuous-illustrated-v1",
+  "status": "candidate",
+  "source": "art/source/terrain/distinct-v1/forest-dense-02.png",
+  "source_dimensions": [
+    1374,
+    1145
+  ],
+  "source_sha256": "53f4c67be90cf95b1410c7d4e2fdc815227c2e7722827752ed4c59fb4bccf427",
+  "generation_inputs": [
+    {
+      "path": "build/gfx-research/distinct-v1/forest-dense-01.png",
+      "sha256": "12e686f63d5a862e9f9f4fb17183a6486e4438061fd0873e566182160c864718",
+      "role": "edit-target-newly-generated-first-attempt-retained-privately"
+    },
+    {
+      "path": "art/source/terrain/distinct-v1/meadow.png",
+      "sha256": "8c8935efbbd463e39d49208e42ca0e87b140268a1b11941764dfa7c29c4fff85",
+      "role": "newly-authored-material-style-only"
+    }
+  ],
+  "original_image_inputs": [],
+  "prompt": "Edit image1 to correct ONLY camera consistency and conifer crown shape. Keep its landscape6:5 canvas, muted greens, broadleaf canopy style, diffuse lighting, overall forest density, small meadow gaps and highresolution continuous natural painted finish. Image2 is the new meadow style reference. All trees must be viewed STRICTLY VERTICALLY DOWN FROM ABOVE. Replace EVERY elongated upright triangular Christmas-tree/side silhouette with a compact roughly round irregular radial starburst conifer crown viewed straight down: branches radiate evenly360degrees from central small tip, needles form overlapping horizontal whorls, no visible vertical trunk, no tree shape points uniformly toward image top. The conifers should read as compact dark bluegreen canopy discs, not tall upright firs or tiny sideways trees. Broadleaf crowns also fully overhead, largely round lobed aerial crowns. A quiet dense mixed woodland tile at aerial strategy-map scale with roughly75percent canopy occupancy and small distributed meadow gaps, canopies continue past image edges. No new paths, water, buildings, objects, outlines, hex border, pixel blocks or text. Source is NEW artwork unrelated to legacy game art. Match material and source sharpness, preserve opaque overscan and continuity. Output one full opaque corrected illustration.",
+  "transparent_background": false,
+  "export_manifest": "art/terrain-distinct-v1.json",
+  "export_tool": "go run ./tools/art-review -pack art/terrain-distinct-v1.json -out <fresh-directory>",
+  "exports": {
+    "two_x": {
+      "path": "art/exports/terrain/distinct-v1/forest-dense-2x.png",
+      "dimensions": [
+        192,
+        160
+      ],
+      "sha256": "2b0c07df153a78760e498322fcf68cb5ec20da4fc123fc136fdb4937ebfaba1d"
+    },
+    "four_x": {
+      "path": "art/exports/terrain/distinct-v1/forest-dense-4x.png",
+      "dimensions": [
+        384,
+        320
+      ],
+      "sha256": "caab2aed6c8d3fb0337852587b2e08df6d889aebe854b2f1e317fc7fc80e761a"
+    }
+  },
+  "cleanup": "Generated source preserved unchanged. Exact center crop then Lanczos3 exports, no original mask or pixels. Rectangular overscan; runtime hex clipping and connections not yet accepted.",
+  "review": "Independent batch review recorded in docs/art/distinct-terrain-batch-01.md. No original-fidelity acceptance sought under updated brief.",
+  "initial_prompt": "Generate one NEW high resolution terrain illustration for an early20th-century European strategy game. Image1 MATERIAL/STYLE ONLY: new muted sage/moss meadow, fine natural continuous illustration, flat diffuse overcast light. Strict directly above orthographic view and landscape6:5 full opaque canvas. Subject DENSE MIXED EUROPEAN FOREST: interlocking small dark olive deciduous crowns mixed with restrained deep blue-green conifer tops, gently varying crown sizes, around18 crowns as aerial terrain cover, forest fills75percent of tile with small irregular meadow clearings. Recognizable canopy masses at192x160, finely painted foliage at full size, no huge close-up leaves, no photographs or photoreal overhead drones. Calm cohesive greens, subtle soft short tree shadows with upperleft lighting, no dramatic black shadows. Canopy extends through edges naturally, same tree scale as sparse woodland. No central focal tree, no radial or ring layout, no border/vignette/hex outline. No paths, rivers, houses, people, writing, outlines, blocky pixels or grid. Fresh independent composition; not copied from any legacy game asset. Entire filled opaque image suitable for later continuous hex clipping with overscan.",
+  "revision_reason": "Independent reviewer found side-on conifer silhouettes. Revision02 uses radial overhead crowns; scale and runtime seam review remain open."
+}
