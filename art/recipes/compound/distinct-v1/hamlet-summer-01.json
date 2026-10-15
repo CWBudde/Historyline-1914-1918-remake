@@ -18,7 +18,7 @@
   "schema_version": 1,
   "source": "art/source/compound/distinct-v1/hamlet-summer.png",
   "source_sha256": "02a8bb2d90cb78ca1d8c37c35ccb071f4cc1a44cde3956fd879d3de1c7f98b7d",
-  "status": "provisional-source-pending-actual-export-review",
+  "status": "reviewed-source-for-provisional-compound-exports",
   "tool": "built-in image_gen.imagegen",
   "transparent_background": true,
   "use_case": "background-extraction"
