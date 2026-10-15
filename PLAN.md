@@ -339,6 +339,11 @@ Reference-led corrections (2026-10-16):
       historical authored inputs for older context fixtures. Fresh audit checks
       2,927 PNGs and 3,011 pins with zero problems. Framing, workbench, browser and
       coverage tests, vet and lint pass; comparison pages are regenerated.
+- [x] Restore HQ dirt courtyards in both seasons (patchy snow in winter), replace
+      round rear bushes with irregular foliage, and preserve the north road join.
+      Rebuilt 42 HQ files; actual road/HQ PNGs meet across the full carriageway
+      at 2×/4× and native-size Lanczos inspection passes. New composer HQ templates
+      include an adjoining game road; final artwork acceptance remains open.
 - [ ] Approve greater-than-90% original-size grass resemblance and re-review all
       rebuilt context/material transitions. Brightness/contrast improve but clump
       arrangement still differs; historical fixtures and runtime acceptance stay open.

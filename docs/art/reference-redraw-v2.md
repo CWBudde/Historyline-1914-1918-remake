@@ -15,12 +15,13 @@ is included in the authored export packs.
 | Current asset | Selected source | Result |
 |---|---|---|
 | Summer grass | `meadow-03.png` | Muted olive/lime cushions, soft relief and fine grass blades |
-| HQ summer/winter | `hq-summer.png`, `hq-winter.png` | Four pale stone towers and enclosed ramparts, red north gate, north road, water/bridge, two rear bushes |
+| HQ summer/winter | `hq-summer-natural.png`, `hq-winter-natural.png` | Four pale stone towers and enclosed ramparts, dirt courtyard, red north gate, connecting gravel road, water/bridge, two irregular rear shrubs |
 | Depot summer/winter | `depot-summer.png`, `depot-winter.png` | Fenced medical camp: L-shaped shelter/red cross, three white tents, southern annex, north road |
 | Factory winter | `factory-winter.png` | Dense industrial roofs, tanks/basin and a street exiting to the right/east |
 
-HQ master edits are retained in numbered recipes; only the selected unnumbered
-summer/winter masters feed the active manifest. Grass pass 03 supersedes pass 02
+HQ master edits are retained in numbered, courtyard and earlier unnumbered recipes;
+only the selected `-natural` summer/winter masters feed the active manifest.
+Grass pass 03 supersedes pass 02
 for integration. The comparison desk selects the active exports, not those studies.
 
 ## Building geometry and framing
@@ -117,3 +118,28 @@ acceptance remain open.
 The refreshed review pages still contain 390 selected entries and 3,434 unique
 image snapshots. This evidence establishes rebuilding, coverage and placement,
 not the unapproved visual resemblance or gameplay/runtime acceptance gates.
+
+## Courtyard, foliage and road follow-up
+
+The enclosed HQ yard now contains worn tan dirt instead of transparent grass;
+the winter variant adds sparse snow around its edges. Two unequal, irregular
+shrubs replace the clipped spherical bushes. The outer road approach uses gravel
+and remains on the north tile's centerline, reaching the very top edge without
+a stone cap. Its entrance is slightly wider than the regular street.
+
+Both seasonal actual PNG assemblies were checked against the real `road36` tile
+at 2×/4×: their shared centerline is x=119 in scene coordinates and the entire
+14-world-pixel carriageway meets opaque HQ artwork without a gap. Native-size
+Lanczos inspection also covers the joined road, yard and shrubs. New HQ composer
+templates include this adjoining road; existing saved collections keep their
+layout and use the updated artwork. The 42 changed HQ export/fixture/metadata
+files were rebuilt with the unchanged framing and tile ownership rules.
+
+Exact built-in imagegen prompts and input/output hashes are retained in
+`art/recipes/compound/reference-v2/hq-{summer,winter}-{courtyard,natural}.json`.
+Earlier masters remain available as studies; final visual acceptance stays open.
+
+Follow-up validation passed: fresh audit (2,927 PNGs / 3,011 pins, zero problems),
+compound reference/actual-PNG tests, graphics desk/composer tests including desktop
+and narrow browser runs, vet and lint. The new template test also checks that the
+real road ends exactly at the HQ north edge on the same centerline.
