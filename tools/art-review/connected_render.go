@@ -228,8 +228,13 @@ func renderConnectionRaw(in connectionInputs, f *connectionFamily, v *connection
 	g := in.manifest.Geometry
 	aa := 1 / float64(scale)
 	var route connectionRoute
+	var rail connectionRailGeometry
 	if f != nil {
-		route = connectionRoutes(g, *f, *v)
+		if f.ID == "rail" {
+			rail = connectionRailRoutes(g, *f, *v)
+		} else {
+			route = connectionRoutes(g, *f, *v)
+		}
 	}
 	for y := 0; y < im.Bounds().Dy(); y++ {
 		for x := 0; x < im.Bounds().Dx(); x++ {
@@ -237,6 +242,8 @@ func renderConnectionRaw(in connectionInputs, f *connectionFamily, v *connection
 			var c color.NRGBA
 			if f == nil {
 				c = sampleConnectionMaterial(in.materials["grass"], p)
+			} else if f.ID == "rail" {
+				c = connectionRailFeature(in, *f, rail, p, aa)
 			} else {
 				c = connectionFeature(in, *f, route, p, p, aa)
 			}

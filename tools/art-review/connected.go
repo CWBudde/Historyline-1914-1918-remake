@@ -102,6 +102,7 @@ type connectionReport struct {
 	TextureMethod    string                              `json:"texture_method"`
 	StreamInterior   string                              `json:"stream_interior"`
 	PathInterior     string                              `json:"path_interior,omitempty"`
+	RailProfile      *connectionRailProfile              `json:"rail_profile,omitempty"`
 	CompositionScope string                              `json:"composition_scope"`
 	Ownership        string                              `json:"ownership"`
 	Acceptance       string                              `json:"acceptance"`
@@ -184,13 +185,13 @@ func loadConnectionInputs(path string) (connectionInputs, error) {
 	if m.SchemaVersion != 1 || !reflect.DeepEqual(m.Geometry, sharedConnectionGeometry()) {
 		return in, errors.New("connected requires schema_version 1 and the fixed authorized 96x80 connection geometry")
 	}
-	if len(m.Families) < 1 || len(m.Families) > 3 {
-		return in, errors.New("connected requires one to three unique road/stream/path families")
+	if len(m.Families) < 1 || len(m.Families) > 4 {
+		return in, errors.New("connected requires one to four unique road/stream/path/rail families")
 	}
 	families := map[string]bool{}
 	for _, f := range m.Families {
-		if (f.ID != "road" && f.ID != "stream" && f.ID != "path") || families[f.ID] {
-			return in, errors.New("family must be unique road, stream or path")
+		if (f.ID != "road" && f.ID != "stream" && f.ID != "path" && f.ID != "rail") || families[f.ID] {
+			return in, errors.New("family must be unique road, stream, path or rail")
 		}
 		families[f.ID] = true
 	}
@@ -198,8 +199,11 @@ func loadConnectionInputs(path string) (connectionInputs, error) {
 	if families["path"] {
 		materialIDs = append(materialIDs, "path")
 	}
+	if families["rail"] {
+		materialIDs = append(materialIDs, "rail", "timber", "steel")
+	}
 	if len(m.Materials) != len(materialIDs) {
-		return in, errors.New("connected requires grass/road/water/earth materials, plus path exactly when a path family is declared")
+		return in, errors.New("connected requires grass/road/water/earth materials, plus path exactly for path and rail/timber/steel exactly for rail")
 	}
 	sum := sha256.Sum256(b)
 	in.hash = hex.EncodeToString(sum[:])
@@ -273,10 +277,13 @@ func loadConnectionInputs(path string) (connectionInputs, error) {
 			expected = "water"
 		}
 		if f.Material != expected || f.BorderMaterial != "earth" {
-			return in, errors.New("road/stream/path must use road/water/path and earth border materials")
+			return in, errors.New("road/stream/path/rail must use road/water/path/rail and earth border materials")
 		}
 		if math.IsNaN(f.Width) || math.IsInf(f.Width, 0) || math.IsNaN(f.Border) || math.IsInf(f.Border, 0) || f.Width < 2 || f.Width > 28 || f.Border < 0 || f.Border > 6 || f.Width/2+f.Border > 20 {
 			return in, errors.New("profile requires width 2..28, border 0..6, outer radius <=20")
+		}
+		if f.ID == "rail" && f.Width < 8 {
+			return in, errors.New("rail profile requires core width >=8 world px for fixed-gauge rails and sleepers")
 		}
 		if len(f.Variants) == 0 {
 			return in, errors.New("family requires variants")
@@ -303,6 +310,9 @@ func loadConnectionInputs(path string) (connectionInputs, error) {
 					return in, errors.New("ports must be unique integers 1..6")
 				}
 				ports[p] = true
+			}
+			if f.ID == "rail" && !validConnectionRailPorts(v.Ports) {
+				return in, errors.New("rail requires two ports or a 3/6 through spine with one branch")
 			}
 		}
 	}
@@ -351,10 +361,14 @@ func runConnected(path, out string, log io.Writer) (resultErr error) {
 		report.Outputs = append(report.Outputs, o)
 		return o, nil
 	}
-	for _, id := range []string{"grass", "road", "water", "earth", "path"} {
+	for _, id := range []string{"grass", "road", "water", "earth", "path", "rail", "timber", "steel"} {
 		mat := in.materials[id]
 		if mat == nil {
 			continue
+		}
+		if id == "rail" {
+			profile := fixedConnectionRailProfile()
+			report.RailProfile = &profile
 		}
 		if id == "path" {
 			report.PathInterior = "Path-only organic interior. Let S(t)=clamp(t,0,1)^2*(3-2*clamp(t,0,1)), E=S((minimum signed polygon-edge distance-8)/8), A=2pi(x/142+y/80), B=2pi(x/142-y/80), using world x/y. Warp local route lookup by E*(0.55*sin(A),0.55*sin(B)), displacement length <=0.55*sqrt(2)*E world px. Wear=0.2*sin(5*A+2*B+0.7)*sin(3*B-A); core radius=width/2+E*(0.4*sin(A+0.4)*cos(B)+wear). For 3+-port junctions smoothly union core SDF with a central disc of radius 0.65*width at warped coordinates: h=max(1.5-abs(core-disc),0)/1.5, merged=min(core,disc)-1.5*h*h/4, core=core+E*(merged-core). Border=border*(1-0.45*E+0.25*E*sin(B+0.7)). Pocket=S((sin(2*A+0.3)*cos(3*B-0.4)+0.15)/0.9); bank opacity=1-0.75*E*pocket; final alpha=outer_AA*(core_AA+(1-core_AA)*bank_opacity). The 8-world-pixel edge zone is unchanged; full variation begins at 16 px. Cores stay opaque; irregular translucent earth verges reveal underlying terrain without baked-in grass. Road and stream arithmetic is unchanged."
@@ -466,7 +480,7 @@ func runConnected(path, out string, log io.Writer) (resultErr error) {
 	return err
 }
 
-const connectionGallery = `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Connected material candidates</title><style>body{background:#242923;color:#eee;font:16px system-ui;margin:2rem}a{color:#c7e6ad}section{display:flex;flex-wrap:wrap;gap:1rem}img{max-width:100%;height:auto}.overlay{background:repeating-conic-gradient(#777 0% 25%,#555 0% 50%) 0/16px 16px}article{border-top:1px solid #888;padding:1rem 0}</style><h1>Connected material candidates</h1><p>{{.Acceptance}}</p><p>{{.Ownership}}</p><p>{{.Method}}</p><p>{{.StreamInterior}}</p>{{if .PathInterior}}<p>{{.PathInterior}}</p>{{end}}<p>{{.CompositionScope}}</p><p><a href="report.json">Geometry, provenance, topology and output hashes</a></p><img src="contact-sheet.png" alt="Overlay and grass composite pairs">{{range .Variants}}<article><h2>{{.ID}} · {{.Family}} · ports {{.Ports}}</h2><p>Core {{.Width}} world px; earth border {{.Border}} world px per side</p><section><a href="{{.ID}}-4x.png"><img class="overlay" src="{{.ID}}-2x.png" alt="{{.ID}} transparent overlay"></a><img src="{{.ID}}-grass-2x.png" alt="{{.ID}} on grass"></section></article>{{end}}<h2>Seven-cell patches · both line parities</h2>{{range .Scenes}}<article><h3>{{.ID}}</h3><a href="{{.Output4x.Path}}"><img src="{{.Output.Path}}" alt="{{.ID}}"></a><p>2× PNG assembly preview; open image for 4× assembly.</p><p>All interior declared ports are reciprocal. Outer patch continuations leave the patch.</p></article>{{end}}<h2>Full new material sources</h2><section>{{range $id,$m:=.Materials}}<figure><a href="{{$m.RetainedSource}}"><img style="width:192px" src="{{$m.RetainedSource}}" alt="{{$id}} new material"></a><figcaption>{{$id}} · {{$m.Dimensions.Width}}×{{$m.Dimensions.Height}}</figcaption></figure>{{end}}</section></html>`
+const connectionGallery = `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Connected material candidates</title><style>body{background:#242923;color:#eee;font:16px system-ui;margin:2rem}a{color:#c7e6ad}section{display:flex;flex-wrap:wrap;gap:1rem}img{max-width:100%;height:auto}.overlay{background:repeating-conic-gradient(#777 0% 25%,#555 0% 50%) 0/16px 16px}article{border-top:1px solid #888;padding:1rem 0}</style><h1>Connected material candidates</h1><p>{{.Acceptance}}</p><p>{{.Ownership}}</p><p>{{.Method}}</p><p>{{.StreamInterior}}</p>{{if .PathInterior}}<p>{{.PathInterior}}</p>{{end}}{{if .RailProfile}}<p>{{.RailProfile.Method}} {{.RailProfile.Phase}} {{.RailProfile.Turnouts}}</p>{{end}}<p>{{.CompositionScope}}</p><p><a href="report.json">Geometry, provenance, topology and output hashes</a></p><img src="contact-sheet.png" alt="Overlay and grass composite pairs">{{range .Variants}}<article><h2>{{.ID}} · {{.Family}} · ports {{.Ports}}</h2><p>Core {{.Width}} world px; earth border {{.Border}} world px per side</p><section><a href="{{.ID}}-4x.png"><img class="overlay" src="{{.ID}}-2x.png" alt="{{.ID}} transparent overlay"></a><img src="{{.ID}}-grass-2x.png" alt="{{.ID}} on grass"></section></article>{{end}}<h2>Seven-cell patches · both line parities</h2>{{range .Scenes}}<article><h3>{{.ID}}</h3><a href="{{.Output4x.Path}}"><img src="{{.Output.Path}}" alt="{{.ID}}"></a><p>2× PNG assembly preview; open image for 4× assembly.</p><p>All interior declared ports are reciprocal. Outer patch continuations leave the patch.</p></article>{{end}}<h2>Full new material sources</h2><section>{{range $id,$m:=.Materials}}<figure><a href="{{$m.RetainedSource}}"><img style="width:192px" src="{{$m.RetainedSource}}" alt="{{$id}} new material"></a><figcaption>{{$id}} · {{$m.Dimensions.Width}}×{{$m.Dimensions.Height}}</figcaption></figure>{{end}}</section></html>`
 
 // Keep sorting deterministic when selecting equivalent neighbor variants.
 func sortedConnectionVariants(vs []connectionVariant) []connectionVariant {

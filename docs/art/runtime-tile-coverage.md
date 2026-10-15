@@ -18,23 +18,23 @@ These point to generated art and 2×/4× rectangle exports, **not approved runti
 bindings**. Family geometry, shared phase and scale/quality review remain open;
 forest and mountain in particular retain recorded quality caveats.
 
-Grass plus all 16 road, 11 stream and 14 path IDs are `candidate-built`, with `patch-reviewed`
-seams and explicit ports. These 42 rows point to their respective connected manifests and
+Grass plus all 16 road, 11 stream, 14 path and 12 rail IDs are `candidate-built`, with `patch-reviewed`
+seams and explicit ports. These 54 rows point to their respective connected manifests and
 192×160 / 384×320 polygon exports. Actual saved-PNG patches pass both parities and
 densities; independent [road/stream review](connected-family-batch-01.md) and
-[path review](distinct-terrain-batch-04.md) provisionally pass.
+[path review](distinct-terrain-batch-04.md) and [rail review](distinct-terrain-batch-05.md) provisionally pass.
 Full maps, transitions, seasonal integration, fractional zoom and runtime/release
-acceptance remain open. The other 77 rows say `needs-image`.
-Total: **57 associated IDs, zero accepted runtime replacements**.
+acceptance remain open. The other 65 rows say `needs-image`.
+Total: **69 associated IDs, zero accepted runtime replacements**.
 
 The `build_manifest` column names the producing manifest; `ports` records the
 declared directions for built overlays. Source candidates are not interchangeable
 with built runtime candidates, and `patch-reviewed` is not a release acceptance.
 
-Twenty-three semantic/material source images do not mean twenty-three replaced runtime IDs: dry meadow
+Twenty-seven semantic/material source images do not mean twenty-seven replaced runtime IDs: dry meadow
 and dense/sparse forests are variations; bare earth is a material variant;
 the opaque road/river paintings remain family studies. Separate new material inputs
-feed the shared compositor, which authors the transparent road/stream/path overlays.
+feed the shared compositor, which authors the transparent road/stream/path/rail overlays.
 
 The table preserves all required loadable IDs, including editor-only entries.
 The three supplied missions place 58 background and 70 infrastructure IDs.

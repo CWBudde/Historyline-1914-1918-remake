@@ -33,8 +33,9 @@ neighbor displacement. All reciprocal registrations match exactly; they are not 
 claim that every legacy painted endpoint uses those coordinates. Neighbor vectors
 provide proposed route tangents; family widths/banks still need authored tests.
 
-Explicit exceptions: trench0 is an isolated ring with no through-port;
-trench5a visibly joins NE/S/NW (mask135) with a side dugout.
+Explicit exceptions: trench0 is an isolated ring with no through-port. The earlier
+claim that trench5a has ports135 is corrected by the cap audit below: branch
+bearings and nonzero boundary alpha do not establish open channels.
 Cross1–4 map to components through their explicit loader filenames.
 Streams, bridge approaches, crossing order and all remaining special cases stay
 unverified until rendered through the new compositor. Existing picker thresholds
@@ -67,7 +68,42 @@ using a nominal width 7 core, protected contacts and organic interior variation.
 Its 66 port/density pairs and all 56 actual-PNG patches pass controller checks;
 independent code/art review provisionally passes. Road/stream outputs stay unchanged.
 
-Next extend the compositor to rail/trenches and bridge/crossing components,
+The [rail extension](distinct-terrain-batch-05.md) delivers all 12 loaded variants
+with paired rails and phase-aligned sleepers. Its 54 port/density pairs and 48
+actual-PNG patches pass controller checks; independent visual/code review passes
+provisionally. Roads, streams and paths retain their existing export behavior.
+
+Next extend the compositor to trenches and bridge/crossing components,
 then test mixed families, seasons and runtime zoom. Preserve common endpoint tangents,
 banks/verges, gauge and phase. Review actual exported pixels before accepting each
 connected family; the offline patch results do not close in-engine acceptance.
+
+## Trench cap and through-port audit
+
+Independent inspection of all twelve enabled loader images, enlarged cap views and
+numeric channel/bank probes distinguishes flat open cuts from rounded earth caps.
+Controller inspected the contact sheet and both ambiguous southern tips. This
+records topology only; the pixels are not new-art inputs. Integers use bit(port−1).
+
+| Runtime ID | Through ports | Mask | Other shape semantics |
+| --- | --- | ---: | --- |
+| trench0 | none | 0 | Closed ring |
+| trench1 | 1 | 1 | Opposite end capped |
+| trench12 | 1,2 | 3 | Side dugout |
+| trench124 | 1,2,4 | 11 | Side dugout |
+| trench125 | 1,2,5 | 19 | Side dugout |
+| trench14 | 1,4 | 9 | Straight |
+| trench15 | 1,5 | 17 | Capped southern spur and side dugout |
+| trench24 | 2,4 | 10 | Side dugout |
+| trench25 | 2,5 | 18 | Straight |
+| trench4 | 4 | 8 | Opposite end capped |
+| trench5 | 5 | 16 | Opposite end capped |
+| trench5a | 5, provisional | 16 | Capped NE/S spurs and side dugout; NE cap overflows old nominal bounds |
+
+The 5a cap/overlap interpretation retains medium confidence; all other listed open
+cuts/caps have high confidence. New authored caps must stay inside the new polygon.
+The runtime roster has no trench36 and no open port6 variant. Use explicitly
+synthetic review fixtures if vertical continuation testing needs them; do not add
+invented runtime IDs to the ledger. Actual new trench art and assembled cap/port
+review are still required. Private probes/contact sheets remain under ignored
+`build/gfx-research/_trench-geometry/`.

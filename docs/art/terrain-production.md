@@ -9,31 +9,34 @@ Current pack: [terrain-distinct-v1.json](../../art/terrain-distinct-v1.json).
 [Gallery](distinct-terrain-review.html) · [Batch 01 review](distinct-terrain-batch-01.md) ·
 [Batch 02 review](distinct-terrain-batch-02.md) · [Batch 03 review](distinct-terrain-batch-03.md) ·
 [Batch 04 review](distinct-terrain-batch-04.md) ·
+[Batch 05 review](distinct-terrain-batch-05.md) ·
 [Connected family review](connected-family-batch-01.md) ·
 [Runtime coverage](runtime-tile-coverage.md).
 
 ## Delivery and coverage
 
-Twenty-three semantic/material candidates are delivered: meadow, dry meadow, sparse/dense forest,
+Twenty-seven semantic/material candidates are delivered: meadow, dry meadow, sparse/dense forest,
 unmarked road bend, diagonal river, open water, bare earth, snow, rocky ground,
 hills, mountain, wet mud, water stones, winter forest/rough/stone/shelled ground,
-unmarked gravel, path earth, summer/winter hamlets and winter mountain.
-Selected sources are 1374×1145 with 46 reproducible Lanczos3
+unmarked gravel, path earth, summer/winter hamlets, winter mountain and new
+ballast/timber/steel/trench-earth materials.
+Selected sources are 1374×1145 with 54 reproducible Lanczos3
 exports at 192×160 / 384×320. Independent review prompted dense forest 02,
 hills 02 and mountain 02. Mountain remains provisional pending camera/material
 assessment in an assembled terrain/unit preview.
 
 [runtime-tile-coverage.csv](runtime-tile-coverage.csv) explicitly lists all 134 enabled
 remake tile IDs (60 backgrounds, 74 infrastructure). Fifteen backgrounds have candidate
-source associations; grass and all 16 roads / 11 streams / 14 paths have built candidates.
-That is 57 associated IDs, 77 still needing images, and zero accepted runtime replacements.
+source associations; grass and all 16 roads / 11 streams / 14 paths / 12 rails have built candidates.
+That is 69 associated IDs, 65 still needing images, and zero accepted runtime replacements.
 Wet mud has its own reviewed source. Opaque road/river studies remain separate from the
 new transparent infrastructure overlays.
 
 The source-pack exports are rectangular overscan images. The separate
 [road/stream manifest](../../art/connected-terrain-v1.json) and
-[path manifest](../../art/connected-paths-v1.json) build a grass base and
-41 transparent overlays with shared world phase and explicit ports. Actual saved PNG
+[path manifest](../../art/connected-paths-v1.json) and
+[rail manifest](../../art/connected-rail-v1.json) build a grass base and
+53 transparent overlays with shared world phase and explicit ports. Actual saved PNG
 patches pass pixel-aligned 2×/4× seam checks at both parities; independent visual review
 provisionally passes. Full-map repetition, tree scale, other families, seasons,
 runtime integration and release acceptance remain open.
@@ -65,7 +68,7 @@ representative image or a generated master merely resembling its name.
 
 ## Work order
 
-1. Extend the reviewed road/stream/path compositor to rail/trenches and bridge/crossing
+1. Extend the reviewed connected compositor to trenches and bridge/crossing
    components using [verified runtime geometry](runtime-connection-geometry.md) and new
    materials. Continue compound buildings, shores and remaining seasonal/mountain pieces. Retain camera,
    unit readability and material-quality caveats during integration.
@@ -99,6 +102,8 @@ builds the connected base/overlays, actual-PNG patches and gallery. See the
 profiles, final-pixel ownership, 198-file repeat checks and zoom limitations.
 The path manifest uses the same command; [batch 04](distinct-terrain-batch-04.md)
 records its 108-file builds and the new seasonal/hamlet sources.
+The rail manifest also uses this command; [batch 05](distinct-terrain-batch-05.md)
+records rail profiles, sleeper phase and the materials for subsequent trench work.
 
 Legacy `-reference/-candidate/-resampling lanczos` comparisons remain available
 for historical research; their 90/100 fidelity gate does not govern the new pack.

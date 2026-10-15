@@ -18,7 +18,7 @@
 // Inputs are never modified;
 // existing output files are rejected. This is a contact-sheet utility, not
 // a fidelity acceptance test or a claim that tile edges are seamless.
-// -connected builds new-material road/stream/path overlays from explicit geometry and
+// -connected builds new-material road/stream/path/rail overlays from explicit geometry and
 // profiles, with reciprocal seven-cell patches at both runtime line parities.
 // It requires a fresh output directory and excludes all other review modes.
 package main
@@ -90,7 +90,7 @@ func run(args []string, log io.Writer) error {
 	referencePath := fs.String("reference", "", "reference PNG; seven-hex layout available only for 96x80")
 	referencePlatform := fs.String("reference-platform", "repo-provisional", "reference provenance label (e.g. repo-provisional or amiga-native); supplied by caller")
 	neighborhoodPath := fs.String("neighborhood", "", "JSON recipe for original Amiga seven-cell neighborhood review")
-	connectedPath := fs.String("connected", "", "new-material connected road/stream/path JSON manifest; requires fresh -out")
+	connectedPath := fs.String("connected", "", "new-material connected road/stream/path/rail JSON manifest; requires fresh -out")
 	packPath := fs.String("pack", "", "candidate-only JSON pack manifest; fixed Lanczos3 rectangle exports, requires fresh -out")
 	candidatePath := fs.String("candidate", "", "candidate PNG, at least 4x reference dimensions and aspect within 1%")
 	resampling := fs.String("resampling", "area", "single-sprite reduction: area, bilinear (antialiased tent), or lanczos (antialiased Lanczos3); excluded by -neighborhood")

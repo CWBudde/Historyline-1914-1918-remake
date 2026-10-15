@@ -912,8 +912,17 @@ below record work already delivered, plus G0.7's new neighborhood comparisons.
             source-pack artifacts. All 198 road/stream regression artifacts remain unchanged.
             See `docs/art/distinct-terrain-batch-04.md`. Current ledger: 15 source + 42 built
             candidates, 77 needing images, zero accepted runtime replacements.
+      - [x] Deliver all 12 loaded rail variants and new ballast/timber/steel/trench materials.
+            (2026-10-15) — batch 05 brings the source pack to 27 masters / 54 exports.
+            Paired rails, phase-aligned sleepers and tangential turnouts have 24 overlays
+            at 2×/4×. Independent reviews provisionally pass; a narrow-profile validation
+            defect was fixed. Controller verified 54 port/density pairs, 3,528 core seam
+            pixels and 48 actual-PNG patches. See `docs/art/distinct-terrain-batch-05.md`.
+            Current ledger: 15 source + 54 built candidates, 65 needing images, zero
+            accepted replacements. Trench topology/cap audit and new floor material are
+            prerequisites delivered; all trench variants still need authored images.
       - [ ] Complete missing subjects, seasonal images, connected variants and runtime/native
-            mappings; validate assembled seams. Twenty-three sources do not close a family.
+            mappings; validate assembled seams. Twenty-seven sources do not close a family.
 - [ ] **Gate — Approve the complete pilot and choose production density/tools.** Compare all
       pilot subjects at native size and normal play zoom, including connected neighborhoods.
       Require distinct authored artwork, readable silhouettes, correct declared routes/connections
@@ -942,6 +951,9 @@ in a distinct continuous style; final quality/seam and runtime acceptance remain
       - [x] Extend the builder to narrow earth paths with explicit optional material validation,
             protected contacts, interior wear/rounded junctions, pinned recipe and actual-PNG
             parity/density tests. Preserve byte-identical road/stream artifacts.
+      - [x] Add rail-specific geometry with paired offsets, arc-length sleepers anchored at
+            protected ports, through-spine turnouts, strict material/profile validation and
+            optional pinned report metadata. Retain actual-PNG density/parity fixtures.
 - [ ] Implement proposed commands `go run ./cmd/hlasset validate`, `build`, and `review`, all
       consuming `art/manifest.json`. Validation/build return nonzero on invalid inputs; review
       writes native/2×/4× sheets and actionable ID/direction diagnostics to `build/art-review/`.
@@ -1030,13 +1042,13 @@ private originals/manual extracts in ignored `original/`, and reference gallerie
 outputs and research in ignored `build/`. Authored masters, recipes and pilot exports stay in
 tracked `art/`; commit verified graphics batches directly to `main`, per the user's preference.
 
-**Immediate next graphics slice:** extend the reviewed connected compositor to rail/trenches
-and bridge/crossing components with explicit ports and new materials. These are the remaining
-33 enabled infrastructure IDs. Continue compound building pieces, shores, mountain pieces and
+**Immediate next graphics slice:** author the 12 trench variants with the audited through ports,
+closed ring, contained blind spurs and side dugouts; then bridge/crossing components. These are
+the remaining 21 enabled infrastructure IDs. Continue compound building pieces, shores, mountain pieces and
 seasonal images; the hamlet pair and winter mountain are delivered source candidates.
-The source pack currently contains 23 candidates with 46 material exports, plus 41 connected
-variants and a grass base at both densities. The runtime ledger has 57 associated IDs
-(15 source candidates, 42 built candidates), 77 needing images and zero accepted replacements.
+The source pack currently contains 27 candidates with 54 material exports, plus 53 connected
+variants and a grass base at both densities. The runtime ledger has 69 associated IDs
+(15 source candidates, 54 built candidates), 65 needing images and zero accepted replacements.
 Pixel-aligned 2×/4× patches pass; full maps, other zooms and runtime integration remain open. Use the
 134-row runtime ledger as the enabled-ID checklist without dropping the separate 350 native
 resource mapping/coverage obligation. Establish shared forest scale and protected

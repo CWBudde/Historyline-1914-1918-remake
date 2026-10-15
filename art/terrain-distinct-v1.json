@@ -139,6 +139,30 @@
       "source": "source/terrain/distinct-v1/mountain-winter.png",
       "source_sha256": "bcb27434a1f003c96c579a539ed64b1e03cd3f6b3c9c84d375e197abb9c584cf",
       "description": "Winter counterpart to selected rocky mountain source, preserving branching limestone ridges and scree with settled snow."
+    },
+    {
+      "id": "rail-ballast",
+      "source": "source/terrain/distinct-v1/rail-ballast.png",
+      "source_sha256": "9464088e4a0ec25942b87eda3d229a07f3538d5ad575ef663848ba99fcb0a385",
+      "description": "Angular weathered grey/greige railway ballast material."
+    },
+    {
+      "id": "timber-weathered",
+      "source": "source/terrain/distinct-v1/timber-weathered.png",
+      "source_sha256": "c4d42a70eee2b05cdcb5948b15598c4373104893187ece5202907d8f21048faa",
+      "description": "Dark matte weathered sleeper/revetment timber material, with fine grain."
+    },
+    {
+      "id": "steel-weathered",
+      "source": "source/terrain/distinct-v1/steel-weathered.png",
+      "source_sha256": "a8cea787aeb3a319241245e2d439af4b536733b20634f713044ec36897e00551",
+      "description": "Matte gunmetal rail steel with tiny oxidation specks and subdued grey wear."
+    },
+    {
+      "id": "trench-earth",
+      "source": "source/terrain/distinct-v1/trench-earth.png",
+      "source_sha256": "fbe3e9e8e72d8d441dae8903d130e1edd1aef1f0803d152d91f6cd49d77f11ef",
+      "description": "Damp dark compacted trench-floor earth, without prepainted trench silhouettes."
     }
   ]
 }
