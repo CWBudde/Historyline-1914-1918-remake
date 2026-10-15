@@ -1017,6 +1017,21 @@ below record work already delivered, plus G0.7's new neighborhood comparisons.
             Ledger: 11 source + 123 built = 134 associated IDs, none lacking an image association,
             zero accepted replacements. Source-only geometry, native coverage, other graphics,
             remembered states and runtime/full-map acceptance remain open.
+      - [x] Build mud, stone and winter rough/stony/shelled ground with neighbor-aware profiles.
+            (2026-10-15) — batch 14 retains ten default, 32 context and 48 review PNGs at 2×/4×,
+            with 23 profiles and 24 nineteen-site/seven-visible-cell fixtures. Existing new
+            materials are reused; two generated crater repairs address lost semantics and an
+            isolated-bowl grid, with selected revision 02 passing full-context art review.
+            Homogeneous regions have no base frames; mixed joins blend without inserted grass
+            or snow channels. Independent proof verifies 2,612,800 opaque owned pixels,
+            920,000 clear exterior pixels, 442,896 quiet-base pixels, 59,733 material/filter
+            oracle samples (max byte error 1), 48 PNG assemblies, 288 contacts and 144 triple
+            vertices. All 104 repeat files and 935 earlier artifacts match; source/context
+            provenance, 134 bindings, independent code/art reviews, browser90/90 and finalCI pass.
+            See `docs/art/distinct-terrain-batch-14.md` and `docs/art/ground-material-contexts.md`.
+            Runtime context selection and arbitrary-map export remain unimplemented; defaults
+            apply only to isolated cells. Repeated motifs and rounded isolated footprints remain
+            quality caveats. Ledger: 6 source + 128 built = 134 associated IDs, zero accepted.
       - [ ] Complete missing subjects, seasonal images, connected variants and runtime/native
             mappings; validate assembled seams. Twenty-seven sources do not close a family.
 - [ ] **Gate — Approve the complete pilot and choose production density/tools.** Compare all
@@ -1086,6 +1101,15 @@ in a distinct continuous style; final quality/seam and runtime acceptance remain
             mode conflicts and unsafe inputs. Independent code/art reviews, actual-PNG material
             oracle/assembly/concealment checks, 24-file repeat, 911-artifact regression and
             final CI pass. Runtime draw order and remembered presentation remain separate tasks.
+      - [x] Add bounded `-ground` material-context export for five existing terrain IDs and
+            unchanged seasonal bases. Compact neighbor fields and a product of filled-polygon
+            distance envelopes preserve homogeneous and mixed joins. Independently prove local
+            context sufficiency in the owned filter region, retain actual neighbors separately
+            from normalized base keys, and test absolute placement/ordinary PNG assembly.
+            Scalar envelopes are C2; spatial envelopes are C1/piecewise C2. Strict source pins,
+            context descriptors, safe fresh-output rollback and all output bytes are verified.
+            Code/art review, 104-file repeat, 935-artifact regression and final CI pass.
+            This exports fixed fixtures; general map/context selection remains open.
 - [ ] Implement proposed commands `go run ./cmd/hlasset validate`, `build`, and `review`, all
       consuming `art/manifest.json`. Validation/build return nonzero on invalid inputs; review
       writes native/2×/4× sheets and actionable ID/direction diagnostics to `build/art-review/`.
@@ -1174,12 +1198,15 @@ private originals/manual extracts in ignored `original/`, and reference gallerie
 outputs and research in ignored `build/`. Authored masters, recipes and pilot exports stay in
 tracked `art/`; commit verified graphics batches directly to `main`, per the user's preference.
 
-**Immediate next graphics slice:** build geometry/material adapters for the eleven source-only
-candidates, starting with mud, stone and winter rough/stone/shelled ground; review their
-material transitions and source-quality caveats before promotion. The `unseen` fog now has
+**Immediate next graphics slice:** build the seasonal hamlet pair's polygon geometry from
+the newly authored sources, with reviewed camera, framing and quiet shared ground. Then
+finish both forests, hills and water stones, which complete the six source-only backgrounds.
+Five ground adapters now deliver continuous/mixed context fixtures; see
+`docs/art/distinct-terrain-batch-14.md`. Their default images require six base neighbors;
+runtime context selection/arbitrary-map export and material-repeat quality remain open.
+The `unseen` fog now has
 opaque 2×/4× candidates and reviewed concealment fixtures; see `docs/art/distinct-terrain-batch-13.md`.
-The eight
-seasonal mountain pieces and both standalone mountains are now polygon-built; see
+The eight seasonal mountain pieces and both standalone mountains are now polygon-built; see
 `docs/art/distinct-terrain-batch-12.md`. Review compact footprint/radial ridge motifs at full-map
 scale and implement the isolated-quarter display selection during runtime integration.
 The nine shores and polygon water base are delivered as provisional candidates; explicit
@@ -1193,7 +1220,7 @@ The terrain source pack contains 27 candidates with 54 material exports, plus al
 infrastructure variants and a grass base at both densities. Seven additional compound masters
 build the depot, HQ, factory and mountain scenes. Both ground seasons, nine shores and open water
 are polygon-built. The runtime ledger has
-134 associated IDs (11 source candidates, 123 built candidates), no enabled ID without an image association
+134 associated IDs (6 source candidates, 128 built candidates), no enabled ID without an image association
 and zero accepted replacements.
 Pixel-aligned 2×/4× patches pass; full maps, other zooms and runtime integration remain open. Use the
 134-row runtime ledger as the enabled-ID checklist without dropping the separate 350 native

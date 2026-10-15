@@ -24,6 +24,7 @@
 // -shore builds the bounded summer shoreline family and grass/water bases,
 // with pinned new materials and reciprocal patches at both runtime parities.
 // -fog builds the bounded opaque unseen candidate and seasonal frontier patches.
+// -ground builds five context-aware ground materials and fixed seasonal patches.
 package main
 
 import (
@@ -97,6 +98,7 @@ func run(args []string, log io.Writer) error {
 	connectedPath := fs.String("connected", "", "new-material connected road/stream/path/rail/trench JSON manifest; requires fresh -out")
 	compoundPath := fs.String("compound", "", "bounded compound scene manifest; requires fresh -out")
 	fogPath := fs.String("fog", "", "bounded opaque unseen candidate manifest; requires fresh -out")
+	groundPath := fs.String("ground", "", "bounded context-aware ground material manifest; requires fresh -out")
 	shorePath := fs.String("shore", "", "bounded new-material summer shoreline manifest; requires fresh -out")
 	packPath := fs.String("pack", "", "candidate-only JSON pack manifest; fixed Lanczos3 rectangle exports, requires fresh -out")
 	candidatePath := fs.String("candidate", "", "candidate PNG, at least 4x reference dimensions and aspect within 1%")
@@ -107,6 +109,24 @@ func run(args []string, log io.Writer) error {
 			return nil
 		}
 		return err
+	}
+	groundProvided := false
+	fs.Visit(func(f *flag.Flag) {
+		if f.Name == "ground" {
+			groundProvided = true
+		}
+	})
+	if groundProvided {
+		conflict := false
+		fs.Visit(func(f *flag.Flag) {
+			if f.Name != "ground" && f.Name != "out" {
+				conflict = true
+			}
+		})
+		if conflict || *groundPath == "" || *out == "" || fs.NArg() != 0 {
+			return errors.New("-ground requires -out and excludes all other flags and positional arguments")
+		}
+		return runGround(*groundPath, *out, log)
 	}
 	fogProvided := false
 	fs.Visit(func(f *flag.Flag) {

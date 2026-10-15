@@ -1,0 +1,33 @@
+{
+  "materials": {
+    "grass": {
+      "source": "source/terrain/distinct-v1/meadow.png",
+      "source_sha256": "8c8935efbbd463e39d49208e42ca0e87b140268a1b11941764dfa7c29c4fff85"
+    },
+    "grass_w": {
+      "source": "source/terrain/distinct-v1/snow-ground.png",
+      "source_sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3"
+    },
+    "mud": {
+      "source": "source/terrain/distinct-v1/mud-wet-02.png",
+      "source_sha256": "93c62ec9452975a7ec4a725cf6b50ed0186d524cbb8d70943f799e68c348df8f"
+    },
+    "rough_w": {
+      "source": "source/terrain/distinct-v1/rough-winter.png",
+      "source_sha256": "c8b39bd445f98d584a91e645369c7fcde30f6c35aca03413a2f763c8c3cbdbb8"
+    },
+    "shelled_w": {
+      "source": "source/ground/distinct-v1/shelled-winter.png",
+      "source_sha256": "e9e46116c647bf09218f29bc190ab383baa09257b461fbd4d9f9edc3f93e911b"
+    },
+    "stone": {
+      "source": "source/terrain/distinct-v1/ground-rocky.png",
+      "source_sha256": "f59005d7033d85c7f22e2195a169114ea930a4646384847d2194408d102974bd"
+    },
+    "stoney_w": {
+      "source": "source/terrain/distinct-v1/stone-winter.png",
+      "source_sha256": "82f9d966c6327c9a05f3a6bfbff9451b2e51daea3968f3af095265af0e83de7c"
+    }
+  },
+  "schema_version": 1
+}
