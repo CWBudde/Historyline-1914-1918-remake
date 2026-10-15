@@ -1,0 +1,16 @@
+{
+    "schema_version":  1,
+    "date":  "2026-10-16",
+    "status":  "courtyard edit retained; superseded by natural foliage/road edit",
+    "tool":  "built-in image_gen",
+    "edit_target":  "art/source/compound/reference-v2/hq-winter.png",
+    "output":  "art/source/compound/reference-v2/hq-winter-courtyard.png",
+    "prompt":  "Use case: precise-object-edit. Edit target is the attached winter fortress game sprite. Change ONLY the transparent enclosed interior courtyard into painted compacted brown dirt/earth with sparse light patchy snow, showing plenty of visible worn soil. Fill the whole enclosed opening behind the gate and within the inner left, right and rear stone walls with muted tan-brown soil, subtle worn paths from the gate, fine natural mottling, small pebbles and soft wall contact shadows. Snow should gather subtly around the interior walls; do not cover the yard with a white slab. It must read as the same military dirt parade yard in winter at small game size. Preserve the exact 1243x1265 canvas and ALL existing architecture pixels and geometry as closely as possible: four corner towers, snow-covered battlements, red gate roof, bridge and water, north road touching top edge, wooden walkways, two rear bushes, lighting and detailed painted style. Preserve genuinely transparent background everywhere OUTSIDE the fortress. Do not fill the moat or gaps outside the walls. No people, text, grid, border or added objects. Only the enclosed inner yard gains dirt and sparse snow.",
+    "transparent_background":  true,
+    "output_dimensions":  [
+                              1243,
+                              1265
+                          ],
+    "output_sha256":  "82d28d02765f651860c2812555794578c2de8f4b1ab0326183300ff0c529697d",
+    "edit_target_sha256":  "9a9b09325ff426c4b4c092d26dd98c6ce4c6cf093d8794a0e9e7307f39757583"
+}

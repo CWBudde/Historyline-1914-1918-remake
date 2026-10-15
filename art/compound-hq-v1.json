@@ -12,8 +12,8 @@
   "scenes": [
     {
       "artwork": {
-        "source": "source/compound/reference-v2/hq-summer.png",
-        "source_sha256": "4c907dbacd4751cc1bf4f9a4a29294d788bfa05911d1e21347d66faf14a78c32"
+        "source": "source/compound/reference-v2/hq-summer-natural.png",
+        "source_sha256": "e1969c97d59312aee5bd43fcebd332357fd787344afaf6d05e29e36c1b53e4a9"
       },
       "framing": "reference-layout",
       "id": "hq-summer",
@@ -21,8 +21,8 @@
     },
     {
       "artwork": {
-        "source": "source/compound/reference-v2/hq-winter.png",
-        "source_sha256": "9a9b09325ff426c4b4c092d26dd98c6ce4c6cf093d8794a0e9e7307f39757583"
+        "source": "source/compound/reference-v2/hq-winter-natural.png",
+        "source_sha256": "37a03c5bdee507d2f14d9af1a9d703a1ab9785a3be531d96d860f0ecf08a407f"
       },
       "framing": "reference-layout",
       "id": "hq-winter",

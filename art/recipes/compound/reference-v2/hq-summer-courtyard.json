@@ -1,0 +1,16 @@
+{
+    "schema_version":  1,
+    "date":  "2026-10-16",
+    "status":  "courtyard edit retained; superseded by natural foliage/road edit",
+    "tool":  "built-in image_gen",
+    "edit_target":  "art/source/compound/reference-v2/hq-summer.png",
+    "output":  "art/source/compound/reference-v2/hq-summer-courtyard.png",
+    "prompt":  "Use case: precise-object-edit. Edit target is the attached summer fortress game sprite. Change ONLY the transparent enclosed interior courtyard into painted compacted tan-brown dirt/earth. Fill the whole enclosed opening behind the gate and within the inner left, right and rear stone walls with warm dusty soil, subtle worn paths from the gate, fine natural mottling, small pebbles and soft wall contact shadows. The courtyard should read as a military parade yard at small game size. Keep its surface modest, not a new structure or grass patch. Preserve the exact 1243x1265 canvas and ALL existing architecture pixels and geometry as closely as possible: four corner towers, battlements, red gate roof, bridge and water, north road touching top edge, wooden walkways, two rear bushes, lighting and detailed painted style. Preserve genuinely transparent background everywhere OUTSIDE the fortress. Do not fill the moat or the gaps outside the walls. No people, text, grid, border or added objects. Only the enclosed inner yard gains dirt.",
+    "transparent_background":  true,
+    "output_dimensions":  [
+                              1243,
+                              1265
+                          ],
+    "output_sha256":  "f4e37ec30af70ead4f486990608195b3393015a87dbebf21b99b776e53584fea",
+    "edit_target_sha256":  "4c907dbacd4751cc1bf4f9a4a29294d788bfa05911d1e21347d66faf14a78c32"
+}

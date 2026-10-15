@@ -48,7 +48,10 @@ function makeScene(template){
  const s={id:newID(),name:names[template],columns:4,rows:7,cells:[]};
  for(let row=0;row<s.rows;row++)for(let col=0;col<s.columns-row%2;col++)s.cells.push({row,col,layers:template==='blank'?[]:[layer('background/grass'+(template.endsWith('winter')?'_w':''))]});
  if(template.startsWith('hq-')){
-  for(const [part,row,col] of [['N',1,1],['NW',2,1],['NE',2,2],['C',3,1],['SW',4,1],['SE',4,2],['S',5,1]])cell(s,row,col).layers=[layer('background/hq'+part+(template.endsWith('winter')?'_w':''))];
+  s.rows=9;
+  for(let row=7;row<s.rows;row++)for(let col=0;col<s.columns-row%2;col++)s.cells.push({row,col,layers:[layer('background/grass'+(template.endsWith('winter')?'_w':''))]});
+  cell(s,1,1).layers.push(layer('infrastructure/road36'));
+  for(const [part,row,col] of [['N',3,1],['NW',4,1],['NE',4,2],['C',5,1],['SW',6,1],['SE',6,2],['S',7,1]])cell(s,row,col).layers=[layer('background/hq'+part+(template.endsWith('winter')?'_w':''))];
  }else if(template.startsWith('depot-')||template==='factory-winter'){
   const prefix=template.startsWith('depot-')?'cmp':'factory',suffix=template.endsWith('winter')?'_w':'';
   for(const [part,row,col]of[['N',1,1],['W',2,1],['E',2,2],['S',3,1]])cell(s,row,col).layers=[layer('background/'+prefix+part+suffix)];

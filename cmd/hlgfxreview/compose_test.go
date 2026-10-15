@@ -11,12 +11,16 @@ const composerSmoke = `
  const clickCell=(row,col)=>document.querySelector('.hex[data-row="'+row+'"][data-col="'+col+'"]').click();
  try {
   assert(scene().cells.filter(c=>c.layers.some(l=>l.asset.startsWith('background/hq'))).length===7,'complete HQ');
-  const n=cell(scene(),1,1).layers[0],nw=cell(scene(),2,1).layers[0],center=cell(scene(),3,1).layers[0];
+  const n=cell(scene(),3,1).layers[0],nw=cell(scene(),4,1).layers[0],center=cell(scene(),5,1).layers[0];
   assert(n.asset==='background/hqN'&&nw.asset==='background/hqNW'&&center.asset==='background/hqC','HQ part bindings');
-  const p=origin(1,1),q=origin(2,1);assert(p.x-q.x===71&&q.y-p.y===40,'compound registration');
+  const p=origin(3,1),q=origin(4,1);assert(p.x-q.x===71&&q.y-p.y===40,'compound registration');
   for(const [template,count]of[['hq-summer',7],['hq-winter',7],['depot-summer',4],['depot-winter',4],['factory-winter',4]]){
    const s=makeScene(template);validate({schema_version:1,name:'templates',scenes:[s]});
-   assert(s.cells.filter(c=>c.layers.some(l=>!l.asset.startsWith('background/grass'))).length===count,'template '+template);
+   assert(s.cells.filter(c=>c.layers.some(l=>l.asset.startsWith('background/')&&!l.asset.startsWith('background/grass'))).length===count,'template '+template);
+   if(template.startsWith('hq-')){
+    assert(cell(s,1,1).layers.some(l=>l.asset==='infrastructure/road36'),'HQ has actual adjoining road');
+    const road=origin(1,1),gate=origin(3,1);assert(road.x===gate.x&&road.y+80===gate.y,'HQ road meets north edge at shared centerline');
+   }
   }
   const roadScene=makeScene('road-unit');assert([0,2,4,6].every(row=>cell(roadScene,row,1).layers.some(l=>l.asset==='infrastructure/road36')),'connected vertical road template');
   change('template','grass');document.getElementById('add-scene').click();
