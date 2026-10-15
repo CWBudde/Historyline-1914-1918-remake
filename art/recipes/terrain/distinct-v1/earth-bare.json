@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "id": "earth-bare",
+  "date": "2026-10-15",
+  "tool": "built-in image_gen.imagegen",
+  "art_direction": "distinct-continuous-illustrated-v1",
+  "status": "candidate",
+  "source": "art/source/terrain/distinct-v1/earth-bare.png",
+  "source_dimensions": [
+    1374,
+    1145
+  ],
+  "source_sha256": "e7d3188bc9c734a1f45ad80ccce934c46d93cb4cf9843c079bbc6260ec848404",
+  "generation_inputs": [
+    {
+      "path": "art/source/terrain/distinct-v1/meadow.png",
+      "sha256": "8c8935efbbd463e39d49208e42ca0e87b140268a1b11941764dfa7c29c4fff85",
+      "role": "newly-authored-material-style-only"
+    }
+  ],
+  "original_image_inputs": [],
+  "prompt": "Create ONE newly authored high-resolution terrain illustration for an early twentieth-century European strategy game. Landscape canvas aspect6:5. Strictly vertically overhead orthographic view, no horizon or perspective. Continuous finely painted natural surfaces with tiny crisp organic detail, calm lowcontrast large forms, diffuse overcast light with gentle upperleft illumination. No pixel art, blocky cells, traced grid, UI, labels, borders, hex outline, vignette, objects or original-game-art imitation. Entire full opaque rectangular canvas with overscan; fill all edges. Must read clearly reduced192x160 while retaining continuous detail at full source size. Image1 is MATERIAL/STYLE reference only, the new muted meadow. Paint bare compacted earth terrain: warm muted taupe/umber soil, very fine irregular grains, tiny occasional grey grit, shallow broken soil fissures and very sparse faded short grass tufts under5percent coverage. Calm broad small mottling, not a road, no tracks, craters or central bare island. Whole canvas soil material with compatible quiet values and same aerial material scale as reference meadow. No pebbles larger than tiny specks, no large rocks, no trees, no flowers or strong cast shadows. Invent a new material, no copy of meadow's surface patch pattern.",
+  "transparent_background": false,
+  "export_manifest": "art/terrain-distinct-v1.json",
+  "export_tool": "go run ./tools/art-review -pack art/terrain-distinct-v1.json -out <fresh-directory>",
+  "exports": {
+    "two_x": {
+      "path": "art/exports/terrain/distinct-v1/earth-bare-2x.png",
+      "dimensions": [
+        192,
+        160
+      ],
+      "sha256": "06df9728f68f09094c47f45dfd0aca9b74155d4b2f63dd96a7bac7c5d4e77def"
+    },
+    "four_x": {
+      "path": "art/exports/terrain/distinct-v1/earth-bare-4x.png",
+      "dimensions": [
+        384,
+        320
+      ],
+      "sha256": "3859b8219f3a1afe50a0a443e283f4f4f5c0540513c43283b76c1ba2a5c41eb5"
+    }
+  },
+  "cleanup": "Generated source preserved unchanged. Exact centered 6:5 crop then Lanczos3 exports; no original reference or mask. Rectangular overscan; hex clipping, texture phase and connections remain unaccepted.",
+  "review": "Batch02 review in docs/art/distinct-terrain-batch-02.md; source candidacy does not establish runtime replacement or seamlessness."
+}

@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "id": "hills-grassy",
+  "date": "2026-10-15",
+  "tool": "built-in image_gen.imagegen",
+  "art_direction": "distinct-continuous-illustrated-v1",
+  "status": "candidate",
+  "source": "art/source/terrain/distinct-v1/hills-grassy-02.png",
+  "source_dimensions": [
+    1374,
+    1145
+  ],
+  "source_sha256": "290eaa3171fdbf37996b513317f04bea370da2bbad3097f6d117a519822cd873",
+  "generation_inputs": [
+    {
+      "path": "build/gfx-research/distinct-v1/hills-grassy-01.png",
+      "sha256": "aba4b141541a6397455e6cb3af180a0f39f06eee703ea3c4c3368d00f7bab34d",
+      "role": "edit-target-newly-authored-first-attempt"
+    },
+    {
+      "path": "art/source/terrain/distinct-v1/meadow.png",
+      "sha256": "8c8935efbbd463e39d49208e42ca0e87b140268a1b11941764dfa7c29c4fff85",
+      "role": "newly-authored-material-style-only"
+    }
+  ],
+  "original_image_inputs": [],
+  "prompt": "Edit image1 only to make its hilly terrain READ CLEARLY AT192x160 while retaining new continuous painterly illustration style, sagegrass palette, opaque landscape6:5canvas and directly overhead view. Image2 is meadowstyle comparison. Replace many small busy rounded humps with TWO OR THREE broad connected asymmetrical terrain elevations and one clear winding shallow saddle/depression crossing middle. A low grassy ridge runs diagonally upperleft to lowerright, gently branching; its crest is muted sunlit warm sage and lower-right slope cool muted olive, with soft but clearly visible mediumscale value separation from adjacent valley floor. The hill tile must be unmistakably different from flat meadow after reduction, without near-black shadows, contours, circles or cartoon mound icons. Ground is connected topography, not tree crowns, no upright hillsides or skyline; camera strictlyvertical above. Tiny greige soil exposures along steep crest under10percent, natural fine grass details, no huge clover or repetitive ground pattern. Edges approach meadow material without dark vignette. No rocks, mountains, water, trees, houses, roads, outlines, UI, text, frame or hexcutout. Entireimageopaque,newartonly.",
+  "transparent_background": false,
+  "export_manifest": "art/terrain-distinct-v1.json",
+  "export_tool": "go run ./tools/art-review -pack art/terrain-distinct-v1.json -out <fresh-directory>",
+  "exports": {
+    "two_x": {
+      "path": "art/exports/terrain/distinct-v1/hills-grassy-2x.png",
+      "dimensions": [
+        192,
+        160
+      ],
+      "sha256": "3ecc5c7f31630021a663f13ff2f4df70a9ee12c898692fb5b4c6ad3481efc881"
+    },
+    "four_x": {
+      "path": "art/exports/terrain/distinct-v1/hills-grassy-4x.png",
+      "dimensions": [
+        384,
+        320
+      ],
+      "sha256": "94d5e0b0350c766bbc7170074feede1e33d0453948c13e8a47950f0bd1e91f99"
+    }
+  },
+  "cleanup": "Generated source preserved unchanged. Exact centered 6:5 crop then Lanczos3 exports; no original reference or mask. Rectangular overscan; hex clipping, texture phase and connections remain unaccepted.",
+  "review": "Batch02 review in docs/art/distinct-terrain-batch-02.md; source candidacy does not establish runtime replacement or seamlessness.",
+  "initial_attempt": {
+    "path": "build/gfx-research/distinct-v1/hills-grassy-01.png",
+    "sha256": "aba4b141541a6397455e6cb3af180a0f39f06eee703ea3c4c3368d00f7bab34d",
+    "prompt": "Create ONE NEW terrain illustration for a European1914 strategy game. Image1 is solely the newly authored meadow's continuous finely painted style and muted sage/moss ground reference. Use strict VERTICAL TOP-DOWN ORTHOGRAPHIC view, looking straight down at terrain like an aerial map, never tilted/isometric or side-on, no horizon. Landscape full opaque6:5 canvas, consistent diffuse overcast illumination from upperleft, calm terrain value groups, fine crisp connected detail at large source size, legible192x160 reduction. No pixel art, grid tracing, hex outline, border, vignette, UI, text, human objects, roads or legacy game's art imitation. Fresh independent terrain composition. Subject LOW ROLLING GRASS HILLS: several interconnected gently elevated rounded terrain knolls and shallow saddles under sage/olive grass. Convey terrain relief using restrained upperleft-facing slope illumination and soft lower-right slope shading, not huge shadows or black valleys. Hills are continuous actual aerial LAND FORMS, no tree crowns or circular bushes, no isolated hemispherical green balls, no banded contour lines. Small muted exposed greige soil scuffs on steeper slopes, about10percent, no rock peak, cliff, trees, buildings or water. Most frame edges remain ordinary meadow with subtle terrain relief flowing outward, no neat central mound outline or isolated island. Whole landscape seen straight down with no visible sides or sky; maintain quiet readable ground.",
+    "disposition": "Relief loses readability at 192x160; excluded."
+  },
+  "revision_reason": "Edited toward broader connected ridges/saddles after independent review."
+}

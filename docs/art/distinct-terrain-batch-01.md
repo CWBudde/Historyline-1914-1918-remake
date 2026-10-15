@@ -2,6 +2,10 @@
 
 Delivered 2026-10-15. [View sources and 2×/4× exports](distinct-terrain-review.html).
 
+This records the six-source delivery at commit `bb602d7`. The active manifest and
+gallery now also include [batch 02](distinct-terrain-batch-02.md). The command below
+builds that active manifest; the 20-file count describes the original batch01 snapshot.
+
 ## Current brief
 
 The user's latest goal supersedes the earlier approximately 90% original-likeness

@@ -6,14 +6,23 @@ the earlier 90% original-likeness target. Keep familiar gameplay semantics and
 connection topology; invent surface artwork, palette and detail.
 
 Current pack: [terrain-distinct-v1.json](../../art/terrain-distinct-v1.json).
-[Gallery](distinct-terrain-review.html) · [Batch 01 review](distinct-terrain-batch-01.md).
+[Gallery](distinct-terrain-review.html) · [Batch 01 review](distinct-terrain-batch-01.md) ·
+[Batch 02 review](distinct-terrain-batch-02.md) · [Runtime coverage](runtime-tile-coverage.md).
 
 ## Delivery and coverage
 
-Six semantic candidates are delivered: meadow, dry meadow, sparse/dense forest,
-unmarked road bend and diagonal river. Selected sources are 1374×1145; reproducible
-Lanczos3 exports are 192×160 / 384×320. Dense forest 02 replaces the first attempt
-after independent review found side-view conifers.
+Twelve semantic candidates are delivered: meadow, dry meadow, sparse/dense forest,
+unmarked road bend, diagonal river, open water, bare earth, snow, rocky ground,
+hills and mountain. Selected sources are 1374×1145 with 24 reproducible Lanczos3
+exports at 192×160 / 384×320. Independent review prompted dense forest 02,
+hills 02 and mountain 02. Mountain remains provisional pending camera/material
+assessment in an assembled terrain/unit preview.
+
+[runtime-tile-coverage.csv](runtime-tile-coverage.csv) explicitly lists all 134 enabled
+remake tile IDs (60 backgrounds, 74 infrastructure). Seven backgrounds have candidate
+source associations, 127 IDs still need images, and zero replacements are accepted.
+Bare earth is not wet mud; opaque road/river studies are not infrastructure overlays.
+Keep those distinctions visible rather than equating source counts with coverage.
 
 These are rectangular overscan images. Shared texture phase, tree scale, runtime
 hex clipping, six-edge ports, family variants, seasonal coverage and runtime mapping
@@ -46,8 +55,9 @@ representative image or a generated master merely resembling its name.
 
 ## Work order
 
-1. Generate missing new water, earth, stone and snow materials, shores and hills/
-   mountains. Maintain calm readable values and consistent overhead light.
+1. Continue missing wet mud, water stones, winter forest/rough/stone/shelled ground,
+   houses and shore images. Basic water/earth/stone/snow/hill/mountain delivery exists;
+   retain camera, unit readability and material-quality caveats during integration.
 2. Establish shared forest scale and a small assembled connected preview using road
    and river straights/bends, declared ports and protected material/bank profiles.
    Correct adjoining edges and three-tile vertices before accepting a family.

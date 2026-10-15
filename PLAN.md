@@ -880,6 +880,17 @@ below record work already delivered, plus G0.7's new neighborhood comparisons.
       IDs to all enabled runtime/native resources; track missing pieces explicitly. Include
       road/river straights, bends, junctions, bridges, shores, mountains, buildings, rail,
       walls and snow. Do not reuse original or close-reconstruction pilot sources in this pack.
+      - [x] Deliver water, earth, snow, rocky ground, hills and mountain sources with 2×/4×
+            exports and independent review. (2026-10-15) — batch 02 brings the new pack to
+            twelve sources / 24 exports. Hills revision 02 fixes reduced relief; mountain
+            revision 02 improves the camera but remains provisional. All 38 repeated build
+            artifacts match. See `docs/art/distinct-terrain-batch-02.md`.
+      - [x] Enumerate the enabled runtime tile contract separately from native resources.
+            `docs/art/runtime-tile-coverage.csv` contains all 60 background and 74 infrastructure
+            IDs, checked against loaders and campaign usage. Seven candidate-source
+            associations, 127 needing images, zero accepted replacements; seams remain open.
+      - [ ] Complete missing subjects, seasonal images, connected variants and runtime/native
+            mappings; validate assembled seams. Twelve semantic sources do not close a family.
 - [ ] **Gate — Approve the complete pilot and choose production density/tools.** Compare all
       pilot subjects at native size and normal play zoom, including connected neighborhoods.
       Require distinct authored artwork, readable silhouettes, correct declared routes/connections
@@ -987,9 +998,11 @@ private originals/manual extracts in ignored `original/`, and reference gallerie
 outputs and research in ignored `build/`. Authored masters, recipes and pilot exports stay in
 tracked `art/`; commit verified graphics batches directly to `main`, per the user's preference.
 
-**Immediate next graphics slice:** continue the distinct pack from its six delivered sources:
-open water, earth/stone/snow materials, coasts, hills/mountains, then connected road/river
-variants and bridges/rail/walls/building pieces. Establish shared forest scale and protected
+**Immediate next graphics slice:** continue the distinct pack from its twelve delivered sources:
+wet mud, exposed water stones, winter forest/rough/stone/shelled ground and houses; then
+shared connected road/river/shore variants and bridges/rail/walls/building pieces. Use the
+134-row runtime ledger as the enabled-ID checklist without dropping the separate 350 native
+resource mapping/coverage obligation. Establish shared forest scale and protected
 port/bank templates in an assembled preview before accepting a connected family. The old
 road 06 / river 04 pixel-registration repair is retired; their close-reconstruction masters
 stay historical and are excluded from the new manifest. Original-ID mapping, all remaining
