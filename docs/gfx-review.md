@@ -13,6 +13,10 @@ the exact image snapshots it displays. Regenerate after updating graphics or
 rearranging their paths in the ledgers/recipes. Rerunning refreshes the index and
 content-addressed snapshots; it does not delete old snapshots.
 
+For joined pieces and your own combinations, open `build/gfx-review/compose.html`
+or follow **Open scene composer** on the comparison desk. Both pages are generated
+by the same command and share the image snapshots.
+
 Search by name, family or runtime unit ID, then select a collection or season.
 Choose an asset in the left list; previous/next buttons and left/right arrow keys
 step through the filtered results. Each entry has a stable URL fragment.
@@ -86,3 +90,49 @@ All generated HTML/images stay under ignored `build/` because the comparisons
 contain private reference images. The tool reads the user-owned graphics track
 without editing `art/`, `docs/art/` or `tools/art-review/`. It does not approve,
 install, embed or alter any game asset.
+
+## Compose your own collection
+
+The composer opens with an editable summer HQ scene. Use **New scene template**
+and **Add scene** to create an empty grid, a grass field, joined HQ/depot pieces
+in either season, a winter factory, or grass with a road and infantry. Only the
+current enabled factory season is offered. Templates use the exact existing
+compound tile positions: four pieces for depot/factory and seven for HQ.
+
+Give the collection and each scene your own name. Search the palette, choose a
+piece and its variant, then click a cell to place it. Dragging a piece onto a cell
+also places it. A terrain or unit replaces that layer; infrastructure and markers
+can be stacked. **Select a cell** inspects without painting; **Erase top layer**
+removes one piece at a time. The inspector changes variants and offsets, hides
+or removes layers, clears a cell and resizes the grid. Shrinking drops cells
+outside the new bounds; **Undo** restores them. Draw order is terrain,
+infrastructure, units, then markers, with stable row/column order within a layer.
+
+Choose current artwork, reference artwork, side-by-side or wipe comparison.
+Source density, display zoom and grid outlines are independent controls. Raw
+reference units are enlarged to their old 96×96 game footprint without inventing
+facings or faction swaps; candidates use authored variants. New game-size 96×96
+Lanczos reductions preserve the (48,49) unit anchor at the tile's (48,40) center.
+The original single-asset review still uses its 48×48 reference-size reductions.
+Missing reference layers remain empty and are counted in the scene status.
+
+The collection saves automatically in browser local storage when available.
+**Export collection** downloads version-1 JSON containing names, stable asset IDs,
+variants, grid coordinates, offsets and visibility. **Import collection** validates
+the entire file before replacing the open collection; undo also restores an import
+or scene deletion. Files contain no image bytes or external image URLs. Export is
+the portable backup, especially for browsers that restrict storage on `file://`.
+The review generator does not read, overwrite or delete saved collections.
+
+Imports allow up to 50 scenes, grids of 2–12 columns and 2–21 lines, eight layers
+per cell, integer offsets in [-192,192], and a 2 MiB exported file. Edits that
+exceed the portable file limit are rejected so exports remain importable.
+Unknown IDs/variants, duplicate cells,
+out-of-grid placements, oversized files and invalid dimensions are rejected.
+Odd lines have one fewer cell, matching the game layout. Export and regeneration
+remain compatible while referenced asset IDs and variants are retained.
+
+This is an offline placement/review tool. It uses the current default-context PNGs;
+it does not resolve arbitrary neighbor contexts, seasonal material matching,
+world-phase variants or gameplay legality. Joining the known building pieces does
+not complete the runtime map compositor or its acceptance work.

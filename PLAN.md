@@ -525,6 +525,17 @@ so interactive playback and responsive/input acceptance remain open. Approximate
             interaction checks pass in desktop and narrow windows, and vet/lint pass.
             See `docs/gfx-review.md`. This is an offline review, not asset approval,
             native correspondence, game composition or completion of G1's workbench.
+      - [x] Add the user-editable scene composer (2026-10-15), linked from the comparison
+            desk at `build/gfx-review/compose.html`. HQ/depot summer/winter and winter
+            factory templates join their exact four-/seven-tile layouts; empty/grass
+            grids and a connected road/unit example support custom collections.
+            Layer placement, authored variants, offsets, visibility, resizing, undo/redo,
+            local saving and validated JSON import/export are implemented, with assembled
+            side-by-side/wipe comparisons. Add 540 Lanczos 96×96 sprite views for the
+            game footprint. Focused tests verify 3,434 unique snapshots; desktop/narrow
+            Chromium checks cover templates, editing, persistence, invalid imports,
+            resizing and clean artwork views. Vet/lint and visual HQ/mixed-scene checks
+            pass. Default-context exports remain separate from the runtime compositor.
 
 #### 2.4 — Map view, camera and navigation (G2)
 

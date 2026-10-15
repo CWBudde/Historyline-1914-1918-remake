@@ -23,6 +23,9 @@ import (
 //go:embed review.html
 var page string
 
+//go:embed compose.html
+var composePage string
+
 type picture struct {
 	URL    string `json:"url"`
 	Source string `json:"source"`
@@ -132,6 +135,9 @@ func run(args []string, stdout io.Writer) error {
 	// Marshal escapes HTML-sensitive characters, including any script end tags.
 	html := strings.Replace(page, "/*CATALOG*/null", string(data), 1)
 	if err := w.WriteFile("index.html", []byte(html), 0644); err != nil {
+		return err
+	}
+	if err := w.WriteFile("compose.html", []byte(strings.Replace(composePage, "/*CATALOG*/null", string(data), 1)), 0644); err != nil {
 		return err
 	}
 	_, err = fmt.Fprintf(stdout, "%d game-candidate entries, %d image variants. Open %s/index.html\n", len(c.items), len(c.seen), *out)
@@ -417,6 +423,15 @@ func (c *collector) units() error {
 				imgs, err := c.images(paths[key], pins[key], w, h)
 				if err != nil {
 					return fmt.Errorf("%s/%s: %w", family, key, err)
+				}
+				if kind == "sprite" {
+					// The single-asset review compares against the raw 48px source.
+					// Composition needs the actual 96px logical game footprint.
+					logical, err := c.snapshot(paths[key]["2"], pins[key]["2"], image.Rectangle{}, 96, 96)
+					if err != nil {
+						return err
+					}
+					imgs["game"] = logical
 				}
 				it.Variants = append(it.Variants, variant{key, strings.ReplaceAll(key, "/", " · "), imgs})
 			}

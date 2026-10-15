@@ -91,6 +91,9 @@ For the graphics intended for game integration, run `go run ./cmd/hlgfxreview`
 than historical art studies, with unit variants, equal-scale comparison, density
 and zoom controls. The generated page and its private reference snapshots stay in
 ignored `build/`; final visual/runtime acceptance remains separate.
+The linked `build/gfx-review/compose.html` lets you join HQ/depot/factory pieces
+and build your own saved scenes with terrain, roads, units and markers, including
+reference comparisons and JSON collection import/export.
 
 Open `build/native-reference/index.html` for the offline gallery of 705 library resources,
 the original UI frame and 46 campaign illustrations. Search/filter, integer inspection scales,

@@ -54,6 +54,11 @@ func TestCurrentGameSelection(t *testing.T) {
 			for _, id := range it.Bindings {
 				bindings[id] = true
 			}
+			for _, v := range it.Variants {
+				if p := v.Images["game"]; p.Width != 96 || p.Height != 96 {
+					t.Fatalf("wrong game-size sprite: %s/%s", it.ID, v.ID)
+				}
+			}
 		}
 		if it.Category == "Screens" && it.Reference != nil {
 			t.Fatalf("invented screen reference: %s", it.ID)
@@ -108,28 +113,31 @@ func TestCurrentGameSelection(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		html := strings.Replace(page, "/*CATALOG*/null", string(b), 1)
-		html = strings.Replace(html, "</body>", "<script>"+browserSmoke+"</script></body>", 1)
-		if err := w.WriteFile("smoke.html", []byte(html), 0644); err != nil {
-			t.Fatal(err)
-		}
-		for _, size := range []string{"1440,1040", "460,920"} {
-			t.Run(size, func(t *testing.T) {
-				ctx, cancel := context.WithTimeout(context.Background(), 45*time.Second)
-				defer cancel()
-				cmd := exec.CommandContext(ctx, browser, "--headless=new", "--disable-gpu", "--no-first-run", "--no-default-browser-check", "--user-data-dir="+filepath.Join(dir, "browser-"+size), "--window-size="+size, "--virtual-time-budget=12000", "--dump-dom", "file:///"+filepath.ToSlash(filepath.Join(dir, "smoke.html")))
-				out, err := cmd.CombinedOutput()
-				if err != nil {
-					t.Fatalf("browser: %v\n%.2000s", err, out)
-				}
-				if !bytes.Contains(out, []byte(`data-smoke="pass"`)) {
-					start := bytes.Index(out, []byte("data-smoke"))
-					if start < 0 {
-						start = 0
+		for _, review := range []struct{ name, template, smoke string }{{"asset", page, browserSmoke}, {"composer", composePage, composerSmoke}} {
+			html := strings.Replace(review.template, "/*CATALOG*/null", string(b), 1)
+			html = strings.Replace(html, "</body>", "<script>"+review.smoke+"</script></body>", 1)
+			name := review.name + "-smoke.html"
+			if err := w.WriteFile(name, []byte(html), 0644); err != nil {
+				t.Fatal(err)
+			}
+			for _, size := range []string{"1440,1040", "460,920"} {
+				t.Run(review.name+"/"+size, func(t *testing.T) {
+					ctx, cancel := context.WithTimeout(context.Background(), 45*time.Second)
+					defer cancel()
+					cmd := exec.CommandContext(ctx, browser, "--headless=new", "--disable-gpu", "--no-first-run", "--no-default-browser-check", "--user-data-dir="+filepath.Join(dir, "browser-"+review.name+"-"+size), "--window-size="+size, "--virtual-time-budget=12000", "--dump-dom", "file:///"+filepath.ToSlash(filepath.Join(dir, name)))
+					out, err := cmd.CombinedOutput()
+					if err != nil {
+						t.Fatalf("browser: %v\n%.2000s", err, out)
 					}
-					t.Fatalf("browser smoke failed: %.1200s", out[start:])
-				}
-			})
+					if !bytes.Contains(out, []byte(`data-smoke="pass"`)) {
+						start := bytes.Index(out, []byte("data-smoke"))
+						if start < 0 {
+							start = 0
+						}
+						t.Fatalf("browser smoke failed: %.1200s", out[start:])
+					}
+				})
+			}
 		}
 	}
 }
