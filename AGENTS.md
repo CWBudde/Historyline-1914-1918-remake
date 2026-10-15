@@ -24,7 +24,7 @@ just ci          # everything CI runs: lint, test, build, wasm, gfx-check
 just test        # go test ./...
 go test ./internal/game -run TestName   # single test
 just lint        # go vet + golangci-lint v2 (.golangci.yml)
-just run         # play; just build -> bin/historyline; just wasm -> bin/; just web 8080 -> build/web
+just run         # play; just build -> bin/historyline; just wasm -> bin/; just web 8080 -> build/web (served by cmd/serve)
 python3 main.py level1_cp               # run the Python reference
 python3 -I -m unittest discover -s tools/original-rules   # DOS research tests (not in just ci)
 ```

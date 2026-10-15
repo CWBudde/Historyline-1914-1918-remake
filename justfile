@@ -35,7 +35,7 @@ web port="":
     mkdir -p build/web
     GOOS=js GOARCH=wasm go build -o build/web/{{binary}}.wasm ./cmd/historyline
     cp "$(go env GOROOT)/lib/wasm/wasm_exec.js" web/index.html build/web/
-    if [ -n "{{port}}" ]; then python3 -m http.server -d build/web {{port}}; fi
+    if [ -n "{{port}}" ]; then go run ./cmd/serve -dir build/web -addr localhost:{{port}}; fi
 
 # Everything CI checks
 ci: lint test build wasm gfx-check

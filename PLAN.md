@@ -76,8 +76,7 @@ and `FINdecoder/`.
 ### Stubbed or not started
 
 - **AI.** `AI.moveUnit()` is empty, so the computer's turn does nothing and hands the turn back.
-  `ArtificialIntelligence_the7thGame.py` is a move-scoring AI from an unrelated 7 × 7 board game.
-  It is only an idea source.
+  (An unrelated 7 × 7 board-game AI file was removed.)
 - **FIN decoder.** Started on the original game's map format (`00.FIN`). It contains the TPWM
   ("Turbo Packer") unpack routine as C-like pseudocode inside a `.py` file, and a byte dumper. It
   does not decode yet.
