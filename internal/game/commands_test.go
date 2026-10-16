@@ -3,6 +3,7 @@ package game
 import (
 	"fmt"
 	"reflect"
+	"slices"
 	"sort"
 	"testing"
 
@@ -213,13 +214,14 @@ func TestDepotCaptureWithoutVictory(t *testing.T) {
 }
 
 func TestFullDepotLeavesUnitOnHex(t *testing.T) {
-	sappers := []string{"CP_sappers", "CP_sappers", "CP_sappers", "CP_sappers", "CP_sappers", "CP_sappers"}
-	s := boardWith(t, Classic, map[hexgrid.Coord]level.Hex{at(4, 2): unit("CP_infantry"), at(6, 2): building("cmpN", CentralPowers, sappers...)})
+	// Eight heavy artillery of weight 5 fill the depot's 40.
+	full := slices.Repeat([]string{"CP_hArtillery"}, 8)
+	s := boardWith(t, Classic, map[hexgrid.Coord]level.Hex{at(4, 2): unit("CP_infantry"), at(6, 2): building("cmpN", CentralPowers, full...)})
 	u := s.At(at(4, 2)).Unit
 	if _, err := s.Move(at(4, 2), u, at(6, 2)); err != nil {
 		t.Fatal(err)
 	}
-	if h := s.At(at(6, 2)); h.Unit != u || len(h.Container.Units()) != 6 {
+	if h := s.At(at(6, 2)); h.Unit != u || len(h.Container.Units()) != 8 {
 		t.Errorf("unit on hex %v, depot holds %d", h.Unit, len(h.Container.Units()))
 	}
 }
@@ -233,7 +235,7 @@ func TestCarrier(t *testing.T) {
 	if car.Content.Slots[0][0] != inf || s.At(at(4, 2)).Unit != nil || s.At(at(6, 2)).Unit != car {
 		t.Fatal("infantry not in the supply car")
 	}
-	// Python computes the exit from the carrier's own stats (speed 7, not 3).
+	// Python computes the exit from the carrier's own stats (speed 7, not 4).
 	inf.Moved = false
 	var to hexgrid.Coord
 	for to = range s.Movable(at(6, 2), inf) {
@@ -255,7 +257,14 @@ func TestCarrier(t *testing.T) {
 func TestCarrierFull(t *testing.T) {
 	s := board(t, map[hexgrid.Coord]level.Hex{at(4, 2): unit("CP_hArtillery"), at(6, 2): unit("CP_supplyCar"), at(8, 2): unit("CP_infantry")})
 	if _, err := s.Move(at(4, 2), s.At(at(4, 2)).Unit, at(6, 2)); err != nil {
-		t.Fatalf("weight 5 into an empty car of 5: %v", err)
+		t.Fatalf("weight 5 into an empty car of 9: %v", err)
+	}
+	medium, err := NewUnit(loadSet(t), "CP_mArtillery")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := s.At(at(6, 2)).Unit.Content.Add(medium); err != nil {
+		t.Fatalf("weight 4 on top: %v", err)
 	}
 	if _, ok := s.Movable(at(8, 2), s.At(at(8, 2)).Unit)[at(6, 2)]; ok {
 		t.Error("infantry may enter a full car")

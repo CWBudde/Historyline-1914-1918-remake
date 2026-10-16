@@ -3,8 +3,11 @@
 gui.py and hlrData.py start pygame on import, so the rule functions are taken from
 their source (calculateFOW, getMovableSquares, markMovableSquares, findPath, the
 calculation part of handleBattle, adjacentHexes, Content) and run against stub
-hexes and units. Buildings follow internal/game: a factory piece other than
-factoryE that has content in the level is a container too. Run from the repo root:
+hexes and units. The unit types and weapons are the game's own tables in
+internal/data (unit stats from the original UNIT.DAT, the weapon catalogue from
+hlrData.py): the rules are Python's, the numbers the game's. Buildings follow
+internal/game: a factory piece other than factoryE that has content in the level
+is a container too. Run from the repo root:
 
     python3 -I internal/game/testdata/gen_python.py
 """
@@ -48,8 +51,15 @@ def define(tree, filename, names, scope):
 
 
 terrain = literal('bgTilesModifiers')
-unitsParameters = literal('unitsParameters')
-weaponsParameters = literal('weaponsParameters')
+
+
+def table(name):
+    with open(os.path.join(ROOT, 'internal', 'data', name), encoding='utf-8') as f:
+        return json.load(f)
+
+
+unitsParameters = table('units.json')
+weaponsParameters = table('weapons.json')
 scope = {'copy': copy}
 define(hlr, 'hlrData.py', {'adjacentHexes', 'Content'}, scope)
 adjacentHexes, Content = scope['adjacentHexes'], scope['Content']
@@ -81,10 +91,12 @@ class Obj:
         self.__dict__.update(kw)
 
 
-def weapon(key):
-    if not key:
+def weapon(slot):
+    """The catalogue weapon of a unit slot with the slot's original attack applied, as data.SlotWeapon."""
+    if not slot:
         return None
-    w = weaponsParameters[key]
+    w = dict(weaponsParameters[slot['weapon']])
+    w.update(slot.get('attack') or {})
     return Obj(name=w['name'], rangeMin=w['rangeMin'], rangeMax=w['rangeMax'], power=w['power'], ammo=w['ammo'])
 
 

@@ -104,28 +104,16 @@ func TestTerrainUnitsWeaponsMatchPython(t *testing.T) {
 	if len(s.Units) != 27 || len(p.Units) != 27 {
 		t.Errorf("units: Go has %d, Python has %d, want 27", len(s.Units), len(p.Units))
 	}
+	// Stats and attacks come from UNIT.DAT (TestUnitsFollowUnitDat); the rest is Python's.
 	for id, want := range p.Units {
 		got, ok := s.Units[id]
 		if !ok {
 			t.Errorf("unit %q missing", id)
 			continue
 		}
-		var weapons [4]string
-		for i, w := range want.Weapons {
-			if w != nil {
-				weapons[i] = *w
-			}
-		}
-		exp := Unit{
-			Name: want.Name, Country: want.Country, Armour: want.Armour, Speed: want.Speed,
-			Weight: want.Weight, StorageMax: want.StorageMax, Sight: want.Sight, Fuel: want.Fuel,
-			Exp: want.Exp, Skills: want.Skills, MovementType: want.MovementType, Weapons: weapons,
-		}
-		if len(want.Weapons) != 4 {
-			t.Errorf("unit %q: Python has %d weapon slots, want 4", id, len(want.Weapons))
-		}
-		if !reflect.DeepEqual(got, exp) {
-			t.Errorf("unit %q = %+v, Python %+v", id, got, exp)
+		if got.Country != want.Country || got.Sight != want.Sight || got.Fuel != want.Fuel || got.Exp != want.Exp ||
+			!reflect.DeepEqual(got.Skills, want.Skills) || got.MovementType != want.MovementType {
+			t.Errorf("unit %q = %+v, Python %+v", id, got, want)
 		}
 	}
 
@@ -170,14 +158,32 @@ func TestInfraRulesMatchPython(t *testing.T) {
 func TestUnitWeaponsExist(t *testing.T) {
 	s := loadSet(t)
 	for id, u := range s.Units {
-		for i, w := range u.Weapons {
-			if w == "" {
+		for i, sl := range u.Weapons {
+			if sl == nil {
 				continue
 			}
-			if _, ok := s.Weapons[w]; !ok {
-				t.Errorf("unit %q slot %d: unknown weapon %q", id, i, w)
+			if _, ok := s.Weapons[sl.Weapon]; !ok {
+				t.Errorf("unit %q slot %d: unknown weapon %q", id, i, sl.Weapon)
 			}
 		}
+	}
+}
+
+func TestSlotWeaponAppliesAttack(t *testing.T) {
+	s := loadSet(t)
+	inf := s.Units["CP_infantry"]
+	if w := s.SlotWeapon(inf.Weapons[0]); w != s.Weapons["bayonet"] {
+		t.Errorf("a slot without attack changed the catalogue weapon: %+v", w)
+	}
+	rifle := s.SlotWeapon(inf.Weapons[2])
+	want := s.Weapons["gewehr98"]
+	a := inf.Weapons[2].Attack
+	want.Power, want.RangeMin, want.RangeMax, want.Air, want.Ground, want.Water = a.Power, a.RangeMin, a.RangeMax, a.Air, a.Ground, a.Water
+	if rifle != want || rifle.Name != "Gewehr 98" || rifle.Ammo != s.Weapons["gewehr98"].Ammo {
+		t.Errorf("rifle slot %+v, want %+v", rifle, want)
+	}
+	if s.Weapons["maxim"].Power != 430 {
+		t.Error("the catalogue (bound to the weapon art) must keep hlrData.py's values")
 	}
 }
 

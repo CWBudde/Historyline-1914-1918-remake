@@ -36,7 +36,7 @@ func TestRealFixtures(t *testing.T) {
 		t.Fatal("moved must preserve normal sprite")
 	}
 	d := fs[5].Panel
-	if d.Stats[1].Value != "3" || d.Stats[2].Value != "1/10" || d.Stats[5].Value != "0" || d.Rank != 10 || d.Weapons[0].Ammo != "Unlimited" || d.Weapons[1].Ammo != "0" {
+	if d.Stats[1].Value != "4" || d.Stats[2].Value != "1/10" || d.Stats[5].Value != "0" || d.Rank != 10 || d.Weapons[0].Ammo != "Unlimited" || d.Weapons[1].Ammo != "0" {
 		t.Fatalf("depleted %+v", d)
 	}
 	if !reflect.DeepEqual(fs[7].Panel, fs[8].Panel) {

@@ -43,31 +43,31 @@ func routes(t *testing.T, place map[hexgrid.Coord]level.Hex, id string) (*State,
 }
 
 func TestPointsCostByTerrain(t *testing.T) {
-	// Infantry has speed 3: 6 points.
+	// Infantry has speed 4: 8 points.
 	_, r := routes(t, map[hexgrid.Coord]level.Hex{
 		at(2, 2): terrain("grass", "road25"), at(4, 2): terrain("grass", "road25"),
 		at(6, 2): terrain("grass", "road25"), at(8, 2): terrain("grass", "road25"),
 		at(10, 2): terrain("grass", "road25"),
 	}, "CP_infantry")
 	for i, want := range []int{1, 2, 3, 4, 5} {
-		if got := r[at(2*(i+1), 2)]; got.Cost != want || got.Left != 6-want || len(got.Path) != i+2 {
+		if got := r[at(2*(i+1), 2)]; got.Cost != want || got.Left != 8-want || len(got.Path) != i+2 {
 			t.Errorf("road %d: %+v, want cost %d", i+1, got, want)
 		}
 	}
 
 	_, r = routes(t, map[hexgrid.Coord]level.Hex{at(2, 2): terrain("forest")}, "CP_infantry")
-	if got := r[at(2, 2)]; got.Cost != 3 || got.Left != 3 {
-		t.Errorf("forest: %+v, want cost 3, left 3", got)
+	if got := r[at(2, 2)]; got.Cost != 3 || got.Left != 5 {
+		t.Errorf("forest: %+v, want cost 3, left 5", got)
 	}
-	if got := r[at(4, 2)]; got.Cost != 5 || got.Left != 1 || !slices.Equal(got.Path, []hexgrid.Coord{at(0, 2), at(2, 2), at(4, 2)}) {
+	if got := r[at(4, 2)]; got.Cost != 5 || got.Left != 3 || !slices.Equal(got.Path, []hexgrid.Coord{at(0, 2), at(2, 2), at(4, 2)}) {
 		t.Errorf("forest then grass: %+v, want cost 5", got)
 	}
-	if _, ok := r[at(6, 2)]; ok && r[at(6, 2)].Cost > 6 {
+	if _, ok := r[at(6, 2)]; ok && r[at(6, 2)].Cost > 8 {
 		t.Errorf("(6,2) costs %d, beyond the budget", r[at(6, 2)].Cost)
 	}
 	for c, route := range r {
-		if route.Cost > 6 {
-			t.Errorf("%v costs %d, beyond the budget of 6", c, route.Cost)
+		if route.Cost > 8 {
+			t.Errorf("%v costs %d, beyond the budget of 8", c, route.Cost)
 		}
 	}
 }
@@ -188,11 +188,9 @@ func TestOwnStatsOnExit(t *testing.T) {
 }
 
 func TestFullDepotBlocks(t *testing.T) {
-	sappers := make([]string, 6)
-	for i := range sappers {
-		sappers[i] = "CP_sappers"
-	}
-	s := board(t, map[hexgrid.Coord]level.Hex{at(4, 2): unit("CP_infantry"), at(6, 2): building("cmpN", CentralPowers, sappers...)})
+	// Eight heavy artillery of weight 5 fill the depot's 40.
+	full := slices.Repeat([]string{"CP_hArtillery"}, 8)
+	s := board(t, map[hexgrid.Coord]level.Hex{at(4, 2): unit("CP_infantry"), at(6, 2): building("cmpN", CentralPowers, full...)})
 	inf := s.At(at(4, 2)).Unit
 	if _, ok := s.Movable(at(4, 2), inf)[at(6, 2)]; ok {
 		t.Error("a full depot is a legal target")
@@ -226,7 +224,7 @@ func TestBuildingTargets(t *testing.T) {
 func TestClassicRouteCost(t *testing.T) {
 	s := boardWith(t, Classic, map[hexgrid.Coord]level.Hex{at(4, 2): unit("CP_infantry")})
 	r := s.Movable(at(4, 2), s.At(at(4, 2)).Unit)[at(10, 2)]
-	if r.Cost != 3 || r.Left != 0 || len(r.Path) != 4 {
-		t.Errorf("Classic route = %+v, want 3 steps and none left", r)
+	if r.Cost != 3 || r.Left != 1 || len(r.Path) != 4 {
+		t.Errorf("Classic route = %+v, want 3 steps of speed 4", r)
 	}
 }

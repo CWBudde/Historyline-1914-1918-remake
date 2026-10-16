@@ -75,11 +75,11 @@ func NewUnit(set *data.Set, id string) (*Unit, error) {
 		return nil, fmt.Errorf("unknown unit %q", id)
 	}
 	u := &Unit{Type: id, Def: def, Owner: FactionOf(def.Country), Size: 10, MaxSize: 10, Fuel: def.Fuel}
-	for i, w := range def.Weapons {
-		if w == "" {
+	for i, sl := range def.Weapons {
+		if sl == nil {
 			continue
 		}
-		wd := set.Weapons[w]
+		wd := set.SlotWeapon(sl)
 		u.Weapons[i] = &wd
 		if a := wd.Ammo; a != nil {
 			v := *a

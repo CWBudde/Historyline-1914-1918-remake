@@ -88,7 +88,7 @@ func TestActionMenuRows(t *testing.T) {
 			at(4, 2), func(u *state.Unit) { u.Attacked = true }, "Move: already attacked! | Attack: already attacked! | Exit"},
 		{"static unit", state.Standard,
 			map[hexgrid.Coord]level.Hex{at(4, 2): onGrass("CP_bunker")},
-			at(4, 2), nil, "Move: cannot move! | Attack: no target in range! | Contents: empty! | Exit"},
+			at(4, 2), nil, "Move: cannot move! | Attack: no target in range! | Exit"},
 		{"empty carrier", state.Standard,
 			map[hexgrid.Coord]level.Hex{at(4, 2): onGrass("CP_supplyCar")},
 			at(4, 2), nil, "Move | Contents: empty! | Exit"},

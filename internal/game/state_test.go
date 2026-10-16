@@ -173,7 +173,7 @@ func TestUnitDefaults(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if car.Owner != Entente || car.Content == nil || car.Content.Capacity != 5 || car.Fuel != 50 {
+	if car.Owner != Entente || car.Content == nil || car.Content.Capacity != 9 || car.Fuel != 50 {
 		t.Errorf("supply car owner %v content %+v fuel %d", car.Owner, car.Content, car.Fuel)
 	}
 	if _, err := NewUnit(set, "nope"); err == nil {
@@ -196,7 +196,7 @@ func TestContainerOrderAndWeight(t *testing.T) {
 		}
 		return u
 	}
-	c := &Container{Capacity: 5}
+	c := &Container{Capacity: 4} // infantry 1 + cavalry 2 + elite infantry 1
 	a, b, d := unit("CP_infantry"), unit("CP_cavalry"), unit("CP_eliteInf")
 	for _, u := range []*Unit{a, b, d} {
 		if err := c.Add(u); err != nil {
@@ -206,13 +206,13 @@ func TestContainerOrderAndWeight(t *testing.T) {
 	if c.Slots[0][0] != a || c.Slots[1][0] != b || c.Slots[0][1] != d {
 		t.Fatalf("fill order: %v", c.Slots)
 	}
-	if c.Used() != 5 || c.Fits(unit("CP_infantry")) {
+	if c.Used() != 4 || c.Fits(unit("CP_infantry")) {
 		t.Errorf("Used = %d, Fits(infantry) at capacity", c.Used())
 	}
 	if !c.Remove(b) || c.Slots[1][0] != nil || c.Remove(b) {
 		t.Fatal("Remove did not free the slot exactly once")
 	}
-	if c.Used() != 3 || !c.Fits(b) || c.Fits(unit("CP_lArtillery")) {
+	if c.Used() != 2 || !c.Fits(b) || c.Fits(unit("CP_lArtillery")) {
 		t.Errorf("after Remove: Used = %d", c.Used())
 	}
 	e := unit("CP_infantry")

@@ -1,6 +1,7 @@
-// Package data holds the terrain, unit and weapon tables ported from hlrData.py.
-// The tables live in embedded JSON files whose field names follow the Python
-// dictionaries.
+// Package data holds the terrain, unit and weapon tables. Terrain and the weapon
+// catalogue are ported from hlrData.py; unit stats and attacks come from the
+// original UNIT.DAT (see testdata/unitdat.json). The tables live in embedded JSON
+// files whose field names follow the Python dictionaries.
 package data
 
 import (
@@ -27,23 +28,47 @@ const (
 	MoveWater  = 2 // boats: only on water
 )
 
-// Unit is an unitsParameters entry without its graphics.
+// Unit is a unit type. Armour, speed (the speed the original shows), weight,
+// storageMax, group, cost and the slot attacks are the UNIT.DAT record Dos;
+// sight, fuel, exp, skills and movementType are hlrData.py's unitsParameters.
 type Unit struct {
-	Name         string    `json:"name"`
-	Country      string    `json:"country"`
-	Armour       int       `json:"armour"`
-	Speed        int       `json:"speed"`
-	Weight       int       `json:"weight"`
-	StorageMax   int       `json:"storageMax"`
-	Sight        int       `json:"sight"`
-	Fuel         int       `json:"fuel"`
-	Exp          int       `json:"exp"`
-	Skills       []int     `json:"skills"`
-	MovementType int       `json:"movementType"`
-	Weapons      [4]string `json:"weapons"` // weapon ids, "" for an empty slot
+	Name         string   `json:"name"`
+	Country      string   `json:"country"`
+	Armour       int      `json:"armour"`
+	Speed        int      `json:"speed"`
+	Weight       int      `json:"weight"`
+	StorageMax   int      `json:"storageMax"`
+	Group        int      `json:"group"` // original maximum group strength; not used by the rules yet
+	Cost         *int     `json:"cost"`  // production cost, nil when the original sells none
+	Dos          int      `json:"dos"`   // UNIT.DAT record index
+	Sight        int      `json:"sight"`
+	Fuel         int      `json:"fuel"`
+	Exp          int      `json:"exp"`
+	Skills       []int    `json:"skills"`
+	MovementType int      `json:"movementType"`
+	Weapons      [4]*Slot `json:"weapons"` // nil for an empty slot
 }
 
-// Weapon is a weaponsParameters entry without its graphics.
+// Slot is a weapon slot of a unit type: a catalogue weapon for name, art and
+// ammo, and the original attack that replaces the catalogue's power, ranges and
+// target classes. Slots without an attack (sidearms) keep the catalogue values.
+type Slot struct {
+	Weapon string  `json:"weapon"`
+	Attack *Attack `json:"attack,omitempty"`
+}
+
+// Attack is what a slot does against air, ground and water targets.
+type Attack struct {
+	Power    int  `json:"power"`
+	RangeMin int  `json:"rangeMin"`
+	RangeMax int  `json:"rangeMax"`
+	Air      bool `json:"air"`
+	Ground   bool `json:"ground"`
+	Water    bool `json:"water"`
+}
+
+// Weapon is a weaponsParameters entry without its graphics. The catalogue is
+// bound to the weapon art (art/interface-v1.json); units use it through Slot.
 type Weapon struct {
 	Name     string `json:"name"`
 	RangeMin int    `json:"rangeMin"`
@@ -80,11 +105,29 @@ func Load() (*Set, error) {
 		}
 	}
 	for id, u := range s.Units {
-		for _, w := range u.Weapons {
-			if _, ok := s.Weapons[w]; w != "" && !ok {
-				return nil, fmt.Errorf("data: unit %s: unknown weapon %q", id, w)
+		for _, sl := range u.Weapons {
+			if _, ok := s.Weapons[sl.weapon()]; sl != nil && !ok {
+				return nil, fmt.Errorf("data: unit %s: unknown weapon %q", id, sl.Weapon)
 			}
 		}
 	}
 	return s, nil
+}
+
+func (sl *Slot) weapon() string {
+	if sl == nil {
+		return ""
+	}
+	return sl.Weapon
+}
+
+// SlotWeapon is the weapon a unit fires from slot sl: the catalogue entry with
+// the slot's attack applied.
+func (s *Set) SlotWeapon(sl *Slot) Weapon {
+	w := s.Weapons[sl.Weapon]
+	if a := sl.Attack; a != nil {
+		w.Power, w.RangeMin, w.RangeMax = a.Power, a.RangeMin, a.RangeMax
+		w.Air, w.Ground, w.Water = a.Air, a.Ground, a.Water
+	}
+	return w
 }
