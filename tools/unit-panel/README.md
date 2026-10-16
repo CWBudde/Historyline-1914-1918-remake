@@ -33,7 +33,7 @@ state overrides. Owner controls tactical colour; country remains type data. Rank
 size, fuel and ammunition come from runtime state. Four weapon slots distinguish
 Empty, Unlimited and finite zero. Speed is base speed; Capture is the only skill
 legend. Per-row classes and footer counts expose raw Air/Ground/Water flags;
-Standard permits Ground weapons to attack vessels. Hidden state is discarded
+Under Standard, only Water weapons attack vessels. Hidden state is discarded
 before binding any unit fields and has the same product subtree and pixels as
 an empty selection. This preview does not establish runtime or G4 acceptance.
 

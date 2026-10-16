@@ -122,7 +122,7 @@ func TestRememberedSnapshot(t *testing.T) {
 		depot: building("cmpN", Entente)})
 	observer := s.At(obs).Unit
 	u := s.At(enemy).Unit
-	snap := Memory{Unit: &UnitMemory{Type: "EC_infantry", Owner: Entente, Size: 10}}
+	snap := Memory{Unit: &UnitMemory{Type: "EC_infantry", Owner: Entente, Size: 6}}
 	show := func(m Memory) string {
 		if m.Unit == nil {
 			return fmt.Sprintf("{no unit, owner %v}", m.Owner)

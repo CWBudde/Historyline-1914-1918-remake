@@ -302,7 +302,7 @@ func TestAttack(t *testing.T) {
 	if want := (Battle{Counter: 2, Damage: 1}); b != want {
 		t.Errorf("Battle = %+v, want %+v", b, want)
 	}
-	if d.Size != 9 || a.Size != 10 || a.Experience != 1 || d.Experience != 0 || !a.Attacked || a.Moved {
+	if d.Size != 5 || a.Size != 6 || a.Experience != 1 || d.Experience != 0 || !a.Attacked || a.Moved {
 		t.Errorf("after battle: attacker %d/%d exp %d, defender %d exp %d", a.Size, a.MaxSize, a.Experience, d.Size, d.Experience)
 	}
 

@@ -111,11 +111,15 @@ func TestTargetFlags(t *testing.T) {
 	}
 	_ = a
 
-	// A ground weapon hits a boat (no data weapon has the water flag).
+	// The infantry rifle has power against water and hits a boat; the bayonet,
+	// a ground-only weapon, does not.
 	s, _, _ = duel(t, Standard, "CP_infantry", "EC_patrolBoat")
 	s.At(at(6, 2)).Terrain = "water"
 	if _, err := s.Attack(at(4, 2), at(6, 2), 2, zero); err != nil {
-		t.Errorf("ground weapon on a boat: %v", err)
+		t.Errorf("rifle on a boat: %v", err)
+	}
+	if _, err := s.Attack(at(4, 2), at(6, 2), 0, zero); err == nil {
+		t.Error("a ground-only weapon hit a boat")
 	}
 	// A water-only weapon does not hit land but hits boats.
 	ww := *mustUnit(t, "CP_infantry").Weapons[2]
@@ -136,7 +140,7 @@ func TestNoCounterNoDamage(t *testing.T) {
 		}
 		return b, s.At(at(2, 2)).Unit
 	}
-	if b, a := fire(Standard); b.Counter != -1 || b.CounterDamage != 0 || a.Size != 10 {
+	if b, a := fire(Standard); b.Counter != -1 || b.CounterDamage != 0 || a.Size != a.MaxSize {
 		t.Errorf("Standard: %+v, attacker size %d", b, a.Size)
 	}
 	// Classic: the armour of the attacker works as counter power; with a big

@@ -103,7 +103,7 @@ def weapon(slot):
 def unit(key):
     d = unitsParameters[key]
     return Obj(key=key, name=d['name'], armour=d['armour'], speed=d['speed'], weight=d['weight'], sight=d['sight'],
-               experience=0, skills=d['skills'], movementType=d['movementType'], currentSize=10, moved=False,
+               experience=0, skills=d['skills'], movementType=d['movementType'], currentSize=d['group'], moved=False,
                faction=1 if d['country'] in ['Germany', 'Austria', 'Bulgaria', 'Ottoman'] else 2,
                content=Content(d['storageMax']) if d['storageMax'] > 0 else False,
                weapons=[weapon(w) for w in d['weapons']])
@@ -206,7 +206,7 @@ for _ in range(600):
     w = att.weapons[slot]
     steps = rng.randint(max(1, w.rangeMin), w.rangeMax)
     att.experience, dfn.experience = rng.randint(0, 10), rng.randint(0, 10)
-    att.currentSize, dfn.currentSize = rng.randint(1, 10), rng.randint(1, 10)
+    att.currentSize, dfn.currentSize = rng.randint(1, att.currentSize), rng.randint(1, dfn.currentSize)
     empty = [i for i, x in enumerate(dfn.weapons) if x and rng.random() < 0.2]
     for i in empty:
         dfn.weapons[i].ammo = 0

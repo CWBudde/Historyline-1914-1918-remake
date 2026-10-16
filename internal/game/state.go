@@ -67,14 +67,14 @@ type Unit struct {
 	Content    *Container // nil unless the unit type can carry units
 }
 
-// NewUnit creates a fresh unit of type id with the defaults of hlrData.py Unit:
-// size 10, no experience, full fuel and ammo.
+// NewUnit creates a fresh unit of type id at the full strength of its original
+// group, with no experience and full fuel and ammo.
 func NewUnit(set *data.Set, id string) (*Unit, error) {
 	def, ok := set.Units[id]
 	if !ok {
 		return nil, fmt.Errorf("unknown unit %q", id)
 	}
-	u := &Unit{Type: id, Def: def, Owner: FactionOf(def.Country), Size: 10, MaxSize: 10, Fuel: def.Fuel}
+	u := &Unit{Type: id, Def: def, Owner: FactionOf(def.Country), Size: def.Group, MaxSize: def.Group, Fuel: def.Fuel}
 	for i, sl := range def.Weapons {
 		if sl == nil {
 			continue

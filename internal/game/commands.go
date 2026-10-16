@@ -265,11 +265,12 @@ func (s *State) usable(a *Unit, slot int, target *Unit) bool {
 	return true
 }
 
-// canHit reports whether w can damage target: boats are hit by water or
-// ground weapons, every other unit by ground weapons.
+// canHit reports whether w can damage target: as in the original, a weapon
+// needs power against the target's class, Water for boats and Ground for every
+// other unit.
 func canHit(w *data.Weapon, target *Unit) bool {
 	if target.Def.MovementType == data.MoveWater {
-		return w.Water || w.Ground
+		return w.Water
 	}
 	return w.Ground
 }

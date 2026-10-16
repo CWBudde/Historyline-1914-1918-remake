@@ -55,7 +55,7 @@ func TestInfoVisibleHexAndUnits(t *testing.T) {
 	u := g.state.At(at).Unit
 	g.hover, g.hoverOnMap = at, true
 	lines := g.infoLines()
-	for _, want := range []string{g.state.At(at).Terrain, u.Def.Name, "size 10/10"} {
+	for _, want := range []string{g.state.At(at).Terrain, u.Def.Name, "size 6/6"} {
 		if !slices.ContainsFunc(lines, func(l string) bool { return strings.Contains(l, want) }) {
 			t.Errorf("info lacks %q: %q", want, lines)
 		}
@@ -91,7 +91,7 @@ func TestInfoSeenHexShowsOnlyMemory(t *testing.T) {
 	}
 	g.state.At(enemy).Unit.Size = 3 // changes after the player looked away
 	lines := strings.Join(g.infoLines(), "\n")
-	if !strings.Contains(lines, "last seen") || !strings.Contains(lines, "size 10") || strings.Contains(lines, "fuel") {
+	if !strings.Contains(lines, "last seen") || !strings.Contains(lines, "size 6") || strings.Contains(lines, "fuel") {
 		t.Errorf("seen enemy: %q", lines)
 	}
 }

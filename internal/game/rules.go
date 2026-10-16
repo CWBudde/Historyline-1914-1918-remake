@@ -27,7 +27,7 @@ type Rules struct {
 	// too) and disables a weapon without ammo for attacks and targeting.
 	AmmoPerShot bool
 	// TargetFlags enforces the weapons' ground and water flags: a weapon hits
-	// a boat when it has Water or Ground, any other unit when it has Ground.
+	// a boat when it has Water, any other unit when it has Ground.
 	// (No unit flies yet, so the Air flag has no target.)
 	TargetFlags bool
 	// NoCounterNoDamage spares the attacker when the defender has no weapon to

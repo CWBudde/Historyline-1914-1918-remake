@@ -17,7 +17,7 @@ func TestRealFixtures(t *testing.T) {
 		t.Fatalf("fixtures %d", len(fs))
 	}
 	cp := fs[0].Panel
-	if cp.Country != "Germany" || cp.Owner != "Central Powers" || cp.Rank != 0 || cp.Stats[2].Value != "10/10" || cp.Stats[5].Value != "30" {
+	if cp.Country != "Germany" || cp.Owner != "Central Powers" || cp.Rank != 0 || cp.Stats[2].Value != "6/6" || cp.Stats[5].Value != "30" {
 		t.Fatalf("runtime defaults %+v", cp)
 	}
 	if cp.Weapons[0].Ammo != "Unlimited" || cp.Weapons[1].Ammo != "5" || !cp.Weapons[3].Empty {
@@ -36,7 +36,7 @@ func TestRealFixtures(t *testing.T) {
 		t.Fatal("moved must preserve normal sprite")
 	}
 	d := fs[5].Panel
-	if d.Stats[1].Value != "4" || d.Stats[2].Value != "1/10" || d.Stats[5].Value != "0" || d.Rank != 10 || d.Weapons[0].Ammo != "Unlimited" || d.Weapons[1].Ammo != "0" {
+	if d.Stats[1].Value != "4" || d.Stats[2].Value != "1/6" || d.Stats[5].Value != "0" || d.Rank != 10 || d.Weapons[0].Ammo != "Unlimited" || d.Weapons[1].Ammo != "0" {
 		t.Fatalf("depleted %+v", d)
 	}
 	if !reflect.DeepEqual(fs[7].Panel, fs[8].Panel) {

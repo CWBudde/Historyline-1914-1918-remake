@@ -54,7 +54,7 @@ func galleryHTML(fs []Fixture, renders []FixtureRender) string {
 </style></head><body>
 <h1>Infantry inspector · Standard</h1>
 <p>New unit panel v1 composition pilot. The panel shows current game state from the embedded unit and weapon tables. These static fixtures demonstrate presentation; they provide no attack command.</p>
-<p class="help">Weapon class counts and row classes show raw Air / Ground / Water definition flags. Under Standard rules, a Ground weapon can also attack vessels. Capture permits entry into enemy or neutral buildings. Size and weight are abstract values; fuel is the stored number, speed is base speed, and rank is a number from 0 to 10.</p>
+<p class="help">Weapon class counts and row classes show raw Air / Ground / Water definition flags. Under Standard rules, as in the original, only a Water weapon can attack vessels. Capture permits entry into enemy or neutral buildings. Size and weight are abstract values; fuel is the stored number, speed is base speed, and rank is a number from 0 to 10.</p>
 <div class="gallery">
 `)
 	for i, f := range fs {

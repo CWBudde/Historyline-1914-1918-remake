@@ -151,7 +151,7 @@ func TestUnitDefaults(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if inf.Size != 10 || inf.MaxSize != 10 || inf.Experience != 0 || inf.Fuel != 30 || inf.Moved || inf.Attacked {
+	if inf.Size != 6 || inf.MaxSize != 6 || inf.Experience != 0 || inf.Fuel != 30 || inf.Moved || inf.Attacked {
 		t.Errorf("infantry = %+v", inf)
 	}
 	if inf.Owner != CentralPowers || inf.Content != nil {
