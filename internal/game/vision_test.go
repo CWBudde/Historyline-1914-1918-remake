@@ -1,9 +1,12 @@
 package game
 
 import (
+	"fmt"
+	"reflect"
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 )
 
 func TestVisionMatchesPython(t *testing.T) {
@@ -109,6 +112,68 @@ func TestVisionUnitSight(t *testing.T) {
 			if got := s.Fog(CentralPowers, c); (got == Visible) != inSight {
 				t.Errorf("%v at distance %d: Fog = %v, in sight %v", c, hexgrid.Distance(c, from), got, inSight)
 			}
+		}
+	}
+}
+
+func TestRememberedSnapshot(t *testing.T) {
+	obs, enemy, empty, depot := at(4, 2), at(4, 3), at(6, 2), at(2, 2)
+	s := board(t, map[hexgrid.Coord]level.Hex{obs: unit("CP_infantry"), enemy: unit("EC_infantry"),
+		depot: building("cmpN", Entente)})
+	observer := s.At(obs).Unit
+	u := s.At(enemy).Unit
+	snap := Memory{Unit: &UnitMemory{Type: "EC_infantry", Owner: Entente, Size: 10}}
+	show := func(m Memory) string {
+		if m.Unit == nil {
+			return fmt.Sprintf("{no unit, owner %v}", m.Owner)
+		}
+		return fmt.Sprintf("{%+v, owner %v}", *m.Unit, m.Owner)
+	}
+	remembered := func(c hexgrid.Coord, want Memory) {
+		t.Helper()
+		if got, ok := s.Remembered(CentralPowers, c); !ok || !reflect.DeepEqual(got, want) {
+			t.Errorf("Remembered(%v) = %v, %v; want %v, true", c, show(got), ok, show(want))
+		}
+	}
+
+	// In sight, the memory is the live hex.
+	remembered(enemy, snap)
+	remembered(empty, Memory{})
+	remembered(depot, Memory{Owner: Entente})
+
+	// Out of sight, it keeps the last seen state while the enemy shrinks,
+	// moves to an empty hex and the depot changes hands.
+	s.At(obs).Unit = nil
+	s.UpdateVision(CentralPowers)
+	if f := s.Fog(CentralPowers, enemy); f != Seen {
+		t.Fatalf("enemy hex Fog = %v, want Seen", f)
+	}
+	u.Size = 3
+	remembered(enemy, snap)
+	s.At(enemy).Unit = nil
+	s.At(empty).Unit = u
+	s.At(depot).Owner = None
+	s.UpdateVision(CentralPowers)
+	remembered(enemy, snap)
+	remembered(empty, Memory{})
+	remembered(depot, Memory{Owner: Entente})
+
+	// Seen again, the memory is refreshed.
+	s.At(obs).Unit = observer
+	s.UpdateVision(CentralPowers)
+	remembered(enemy, Memory{})
+	remembered(empty, Memory{Unit: &UnitMemory{Type: "EC_infantry", Owner: Entente, Size: 3}})
+	remembered(depot, Memory{})
+	s.At(obs).Unit = nil
+	s.UpdateVision(CentralPowers)
+	remembered(empty, Memory{Unit: &UnitMemory{Type: "EC_infantry", Owner: Entente, Size: 3}})
+
+	for _, c := range []struct {
+		p Player
+		c hexgrid.Coord
+	}{{CentralPowers, at(11, 0)}, {CentralPowers, at(-1, 0)}, {CentralPowers, at(0, 9)}, {None, enemy}, {Player(3), enemy}} {
+		if got, ok := s.Remembered(c.p, c.c); ok || got != (Memory{}) {
+			t.Errorf("Remembered(%v, %v) = %+v, %v; want nothing", c.p, c.c, got, ok)
 		}
 	}
 }
