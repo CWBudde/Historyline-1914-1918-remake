@@ -19,6 +19,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"github.com/hajimehoshi/ebiten/v2/vector"
 
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/ai"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/camera"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
@@ -234,6 +235,7 @@ func (g *game) Update() error {
 	}
 	g.ctl.report.Tick()
 	g.ctl.fx.Tick()
+	g.ctl.StepAI()
 	for _, a := range actionsFor(inpututil.IsKeyJustPressed) {
 		if !g.applyAction(a) {
 			return ebiten.Termination
@@ -375,7 +377,7 @@ func (g *game) Draw(screen *ebiten.Image) {
 			g.drawUnit(screen, coord, sx, sy, remembered)
 		}
 	}
-	if w := g.ctl.walk; !w.Done() {
+	if w := g.ctl.walk; !w.Done() && g.fogOf(w.Hex()) == state.Visible {
 		wx, wy := w.Pos()
 		sx, sy := g.cam.WorldToScreen(wx, wy)
 		u := g.state.At(w.path[len(w.path)-1]).Unit
@@ -597,6 +599,7 @@ func main() {
 	reduced := flag.Bool("reduced-motion", false, "walk instantly and show short static effects (toggle in game with M)")
 	units := flag.String("units", "", "unit sprite catalog built by hlasset build-units (default: placeholder dots)")
 	terrain := flag.String("terrain", "", "terrain tile catalog built by hlasset build-terrain (default: coloured hexes)")
+	opponent := flag.String("opponent", "ai", "who plays the other side: ai (simple computer opponent) or pass (passes every turn, as in Python)")
 	candidates := flag.Bool("allow-candidates", false, "allow unit and terrain packs that are review candidates, not approved art")
 	flag.Parse()
 
@@ -628,6 +631,13 @@ func main() {
 	gm := newGame(lvl, st, player, *reveal)
 	gm.hexNumbers = *hexNumbers
 	gm.ctl.SetReducedMotion(*reduced)
+	switch *opponent {
+	case "ai":
+		gm.ctl.ai = &ai.Planner{}
+	case "pass":
+	default:
+		log.Fatalf("unknown -opponent %q (want ai or pass)", *opponent)
+	}
 	if *units != "" {
 		if gm.art, err = loadUnitArt(*units, *candidates); err != nil {
 			log.Fatal(err)

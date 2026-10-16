@@ -16,6 +16,7 @@ type side struct {
 	Rank          int
 	Before, After int
 	Max           int
+	Hidden        bool // the player cannot see this side: show nothing but the name
 }
 
 // report is what the battle panel shows; it is built from the engine's Battle
@@ -60,6 +61,9 @@ func bar(s side, width int) string {
 // Lines renders the panel text, one row per line.
 func (r *report) Lines() []string {
 	row := func(role string, s side) string {
+		if s.Hidden {
+			return fmt.Sprintf("%s %s\n", role, s.Name)
+		}
 		w := s.Weapon
 		if w == "" {
 			w = "no reply"

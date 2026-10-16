@@ -166,6 +166,9 @@ func (e *effects) Marks() []mark {
 func (g *game) drawMarks(dst *ebiten.Image) {
 	fx := &g.ctl.fx
 	for _, m := range fx.Marks() {
+		if g.fogOf(m.At) != state.Visible {
+			continue // no hint of what the player cannot see
+		}
 		cx, cy := hexgrid.Center(m.At)
 		sx, sy := g.cam.WorldToScreen(cx, cy)
 		alpha := m.Alpha()

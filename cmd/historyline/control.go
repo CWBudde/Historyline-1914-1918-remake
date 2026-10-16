@@ -3,7 +3,9 @@ package main
 import (
 	"fmt"
 	"math/rand/v2"
+	"slices"
 
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/ai"
 	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
@@ -33,6 +35,9 @@ type control struct {
 	reduced bool // reduced motion: instant walk, short static effects
 
 	facing map[*state.Unit]unitsprite.Facing // presentation only: where each unit looks
+
+	ai                 *ai.Planner // computer opponent; nil passes every turn
+	aiMoves, aiAttacks int         // orders of the computer's current turn
 
 	Message string // result of the last action, shown to the player
 }
@@ -281,45 +286,65 @@ func (c *control) ChooseWeapon(i int) {
 }
 
 func (c *control) attack(to hexgrid.Coord, slot int) {
-	atk, def := c.st.At(c.from).Unit, c.st.At(to).Unit
-	rp := &report{frames: c.reportTime(),
-		Attacker: side{Name: atk.Type, Weapon: atk.Weapons[slot].Name, Rank: atk.Experience, Before: atk.Size, Max: atk.MaxSize},
-		Defender: side{Name: def.Type, Rank: def.Experience, Before: def.Size, Max: def.MaxSize}}
-	b, err := c.st.Attack(c.from, to, slot, roll)
+	b, err := c.fire(c.from, to, slot, false)
 	if err != nil {
 		c.Message = err.Error()
 		return
 	}
-	rp.Attacker.After, rp.Defender.After = atk.Size, def.Size
-	if b.Counter >= 0 && def.Weapons[b.Counter] != nil {
-		rp.Defender.Weapon = def.Weapons[b.Counter].Name
-	}
-	c.report = rp
-	c.fx.AddBattle(c.from, to, b)
-	c.turn(atk, c.from, to)
-	if b.DefenderDestroyed {
-		delete(c.facing, def)
-	} else {
-		c.turn(def, to, c.from)
-	}
-	if b.AttackerDestroyed {
-		delete(c.facing, atk)
-	}
-	c.Message = fmt.Sprintf("hit for %d, took %d back", b.Damage, b.CounterDamage)
-	switch {
-	case b.DefenderDestroyed:
-		c.Message += "; target destroyed"
-	case b.AttackerDestroyed:
-		c.Message += "; attacker destroyed"
-	}
+	c.Message = battleText(b, "target", "attacker")
 	c.clear()
 	if !b.AttackerDestroyed {
 		c.Select(c.from)
 	}
 }
 
-// EndTurn ends the player's turn. With no AI connected yet the opponent passes at
-// once, so the game stays playable for a single human.
+// fire resolves a shot of the map unit at from at to and shows it: the battle
+// panel, hit marks and facings. hidden means the player cannot see the shooter,
+// so the panel tells nothing about it.
+func (c *control) fire(from, to hexgrid.Coord, slot int, hidden bool) (state.Battle, error) {
+	atk, def := c.st.At(from).Unit, c.st.At(to).Unit
+	rp := &report{frames: c.reportTime(),
+		Attacker: side{Name: atk.Type, Weapon: atk.Weapons[slot].Name, Rank: atk.Experience, Before: atk.Size, Max: atk.MaxSize},
+		Defender: side{Name: def.Type, Rank: def.Experience, Before: def.Size, Max: def.MaxSize}}
+	b, err := c.st.Attack(from, to, slot, roll)
+	if err != nil {
+		return b, err
+	}
+	rp.Attacker.After, rp.Defender.After = atk.Size, def.Size
+	if b.Counter >= 0 && def.Weapons[b.Counter] != nil {
+		rp.Defender.Weapon = def.Weapons[b.Counter].Name
+	}
+	if hidden {
+		rp.Attacker = side{Name: "unknown", Hidden: true}
+	}
+	c.report = rp
+	c.fx.AddBattle(from, to, b)
+	c.turn(atk, from, to)
+	if b.DefenderDestroyed {
+		delete(c.facing, def)
+	} else {
+		c.turn(def, to, from)
+	}
+	if b.AttackerDestroyed {
+		delete(c.facing, atk)
+	}
+	return b, nil
+}
+
+// battleText sums a battle up, naming the two units as given.
+func battleText(b state.Battle, defender, attacker string) string {
+	msg := fmt.Sprintf("hit for %d, took %d back", b.Damage, b.CounterDamage)
+	switch {
+	case b.DefenderDestroyed:
+		msg += "; " + defender + " destroyed"
+	case b.AttackerDestroyed:
+		msg += "; " + attacker + " destroyed"
+	}
+	return msg
+}
+
+// EndTurn ends the player's turn. The opponent then plays: the computer one
+// order at a time through StepAI, or, without one, it passes at once.
 func (c *control) EndTurn() {
 	c.clear()
 	c.walk = nil
@@ -330,15 +355,109 @@ func (c *control) EndTurn() {
 		c.Message = err.Error()
 		return
 	}
+	c.aiMoves, c.aiAttacks = 0, 0
+	if c.ai == nil {
+		c.pass()
+		return
+	}
+	c.Message = "enemy turn"
+}
+
+// pass ends the opponent's turns until it is the player's again.
+func (c *control) pass() {
 	for c.st.Turn != c.player && c.st.Winner == state.None {
 		if err := c.st.EndTurn(); err != nil {
 			c.Message = err.Error()
 			return
 		}
 	}
-	c.Message = fmt.Sprintf("round %d (the opponent passed: no AI yet)", c.st.Round)
+	c.Message = fmt.Sprintf("round %d (the opponent passed: no AI)", c.st.Round)
+	c.newRound()
+}
+
+// newRound shows the banner of the round the player now moves in.
+func (c *control) newRound() {
 	c.fx.Round(c.st.Round, c.st.Turn)
 	if c.st.Winner != state.None {
 		c.fx.Victory(c.st.Winner)
 	}
+}
+
+// AITurn reports whether the opponent is playing its turn.
+func (c *control) AITurn() bool {
+	return c.st.Turn != c.player && c.st.Winner == state.None
+}
+
+// StepAI plays the opponent's next order once the last one has played out on
+// screen (walk finished, battle panel closed). When the computer has nothing
+// left to do the turn passes back to the player.
+func (c *control) StepAI() {
+	if !c.AITurn() || !c.walk.Done() || c.report.Active() {
+		return
+	}
+	if c.ai == nil {
+		c.pass()
+		return
+	}
+	o, ok := c.ai.Next(c.st)
+	if !ok {
+		if err := c.st.EndTurn(); err != nil {
+			c.Message = err.Error()
+			return
+		}
+		c.Message = fmt.Sprintf("round %d: the enemy made %s and %s", c.st.Round, count(c.aiMoves, "move"), count(c.aiAttacks, "attack"))
+		c.newRound()
+		return
+	}
+	if o.Attack {
+		c.aiFire(o)
+	} else {
+		c.aiMove(o)
+	}
+}
+
+// count is "n thing(s)".
+func count(n int, thing string) string {
+	if n == 1 {
+		return "1 " + thing
+	}
+	return fmt.Sprintf("%d %ss", n, thing)
+}
+
+// seen reports whether the player can see the hex at at now.
+func (c *control) seen(at hexgrid.Coord) bool { return c.st.Fog(c.player, at) == state.Visible }
+
+// aiMove executes a computer move. The walk is shown only when the player can
+// see part of the path; the map view draws it only on visible hexes.
+func (c *control) aiMove(o ai.Order) {
+	dst := c.st.At(o.To)
+	before := dst.Owner
+	path, err := c.st.Move(o.From, o.Unit, o.To)
+	if err != nil {
+		return // the planner has marked the unit; it is skipped
+	}
+	c.aiMoves++
+	if n := len(path); n >= 2 {
+		c.turn(o.Unit, path[n-2], path[n-1])
+	}
+	if slices.ContainsFunc(path, c.seen) {
+		c.walk = newWalkMotion(path, c.reduced)
+	}
+	switch {
+	case c.st.Winner != state.None:
+		c.Message = fmt.Sprintf("%v captured the HQ and wins", c.st.Winner)
+		c.fx.Victory(c.st.Winner)
+	case dst.Container != nil && dst.Owner != before && before == c.player:
+		c.Message = fmt.Sprintf("the enemy took your building at line %d col %d", o.To.Line, o.To.Col)
+	}
+}
+
+// aiFire executes a computer attack and shows it like the player's own.
+func (c *control) aiFire(o ai.Order) {
+	b, err := c.fire(o.From, o.To, o.Slot, !c.seen(o.From))
+	if err != nil {
+		return
+	}
+	c.aiAttacks++
+	c.Message = "enemy attack: " + battleText(b, "your unit", "attacker")
 }

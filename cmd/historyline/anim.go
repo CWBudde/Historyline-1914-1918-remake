@@ -45,6 +45,16 @@ func (w *walk) Heading() (dx, dy float64) {
 	return x1 - x0, y1 - y0
 }
 
+// Hex is the hex the unit is drawn over: the step's start until it is halfway
+// to the next hex.
+func (w *walk) Hex() hexgrid.Coord {
+	last := len(w.path) - 1
+	if w.Done() {
+		return w.path[last]
+	}
+	return w.path[min((w.frame+stepFrames/2)/stepFrames, last)]
+}
+
 // Pos is the world position of the unit, interpolated between hex centres.
 func (w *walk) Pos() (x, y float64) {
 	last := len(w.path) - 1
