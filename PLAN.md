@@ -723,13 +723,24 @@ so interactive playback and responsive/input acceptance remain open. Approximate
 
 #### 2.6 — Selection, menus and movement playback
 
-- [ ] Add selection and action menus (move / attack / contents / exit), driven by the
+- [x] Add selection and action menus (move / attack / contents / exit), driven by the
       selected rules profile and legal commands. Provide hover, keyboard focus, pressed,
       disabled and cancel states, including menus at screen edges.
       Progress: the weapon/content menu now has hover and keyboard focus (up/down wrap and skip
       disabled rows, Enter, number keys, Esc cancels), a focus outline and dimmed disabled rows
       marked "x" with the reason (`cmd/historyline/menu.go`, `TestMenu*`). Open: the selection/
       move/attack menu, pressed state, edge placement; not hand-tested in the window.
+      (2026-10-16) — selecting an own unit opens Python's action menu beside it
+      (`cmd/historyline/actions.go`): Move, Attack (armed map units), Contents (carriers),
+      Exit; each disabled row says why (already moved/attacked under Standard only, cannot
+      move, nowhere to go, no target in range, empty). Move/Attack narrow the overlays,
+      Contents lists the carrier, Exit/Esc deselect; a unit leaving a building or carrier
+      gets Move/Exit. Clicking a blue/red hex still acts directly. The menu sits right of
+      the unit, flips left at the right edge and is clamped to the screen; every menu row
+      is chosen on release over the row it was pressed on and is drawn sunk while held;
+      Space joins Enter. `TestActionMenu*`, `TestMenuPress*`. Checked in the window: menu
+      beside an infantry, flipped at the right edge (zoom 2.14), press/release on Move,
+      Down/Down/Enter skipping the disabled row to Exit.
 - [x] Add the weapon menu with legal target/range/ammunition feedback for the active profile.
       Placeholder menu at the bottom left (click or keys 1-4); unusable rows say why (ammo, range,
       target kind) and stay open. `TestWeaponMenu*` pass; not hand-tested in the window.
@@ -740,19 +751,33 @@ so interactive playback and responsive/input acceptance remain open. Approximate
       units (flattened 2 × 9 grid, weight used/capacity in the message, "nothing stored here",
       rows that cannot leave say why); picking one selects it and a hex click makes it leave;
       entering is a move onto the building/carrier. Tests `TestContentMenu*`; not hand-tested.
-- [ ] Draw reachable/attackable overlays from engine queries and execute move, attack,
+- [x] Draw reachable/attackable overlays from engine queries and execute move, attack,
       enter/leave and capture commands through the rules API; display rejected actions.
       Placeholder done in `cmd/historyline` (`control.go`): click selects an own visible unit,
       blue/red overlays come from `Movable`/`Targets`, clicking moves or attacks (first
       usable weapon), F1 ends the turn (the opponent passes: no AI), Esc/right-click cancel;
       `TestControlSelectMoveAndEndTurn`. Open: enter/leave/capture UI, weapon choice, and
       the real rendering. Not hand-tested interactively.
-- [ ] Animate movement along the engine path with stable unit anchors and facing changes.
+      (2026-10-16) — the whole flow is now tested through control clicks: entering an own
+      depot and a carrier and leaving through the contents menu
+      (`TestEnterOwnDepotAndLeave`, `TestActionMenuContentsAndLeave`), capturing an enemy
+      and a neutral depot with message and banner (`TestCaptureDepotThroughControl`), HQ
+      victory (`TestCaptureHQWinsThroughControl`) and an engine refusal shown as the message
+      (`TestRejectedMoveShowsEngineError`). A unit that has attacked under Standard no longer
+      gets red overlays. Real overlay art stays with G2/G4.
+- [x] Animate movement along the engine path with stable unit anchors and facing changes.
       Keep animation/input timing separate from authoritative game state.
       Placeholder done: the unit dot walks the engine path (`walk` in `cmd/historyline/anim.go`,
       8 frames per hex), clicks wait until it ends, units are drawn from `State` not the level;
       `TestWalkInterpolatesAlongPath`, `TestClickWaitsForWalk`. Open: facing, real sprites,
       skip/reduced-animation. Not hand-tested in the window.
+      (2026-10-16) — the walk carries its unit, so a unit walking into a depot or carrier
+      keeps its sprite and the carrier stays drawn (`TestWalkDrawsMovingUnitIntoCarrier`;
+      before, the carrier vanished and a dot walked). A click, Space/Enter or Esc during a
+      walk finishes it without acting or changing the game (`TestSkipFinishesWalk`).
+      Facing follows each step (`TestWalkHeading`, `TestMoveTurnsUnitAlongLastStep`);
+      reduced motion (M) is instant. Checked in the window with the candidate sprites:
+      infantry mid-walk, then skipped to its hex.
 
 #### 2.7 — Combat and turn presentation
 
@@ -1001,6 +1026,9 @@ before implementing a replacement formula or changing the existing game defaults
       (2026-10-16) — partial: the prototype's moves walk on screen only over hexes the player
       sees, and its attacks show the battle panel ("unknown" for an unseen shooter) and hit marks
       on visible hexes; reduced motion (M) makes it instant. Open: an explicit skip option.
+      (2026-10-16) — partial: a click, Space/Enter or Esc finishes the walk in progress,
+      the computer's too (clicked through a whole enemy turn in the window). Open: skipping
+      the rest of the computer's turn at once.
 - [ ] Headless AI-vs-AI runner for balance testing and regression tests, recording rules/data
       versions, submitted orders and any scheduler seed so failures can be replayed
 
