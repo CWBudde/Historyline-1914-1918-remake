@@ -36,6 +36,15 @@ func (w *walk) Tick() {
 	}
 }
 
+// Heading is the map-pixel direction of the step being walked; once the walk is
+// done it is the last step.
+func (w *walk) Heading() (dx, dy float64) {
+	i := min(w.frame/stepFrames, len(w.path)-2)
+	x0, y0 := hexgrid.Center(w.path[i])
+	x1, y1 := hexgrid.Center(w.path[i+1])
+	return x1 - x0, y1 - y0
+}
+
 // Pos is the world position of the unit, interpolated between hex centres.
 func (w *walk) Pos() (x, y float64) {
 	last := len(w.path) - 1

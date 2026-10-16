@@ -25,6 +25,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/minimap"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
 	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
 
@@ -60,6 +61,8 @@ type game struct {
 	hudImg         *ebiten.Image // logical HUD canvas, magnified onto the screen
 	terrainFill    map[string]color.RGBA
 	ctl            *control
+	art            *unitArt // unit sprite packs (-units); nil draws placeholder dots
+	artErr         string   // last sprite failure, shown in the status line
 }
 
 func newGame(lvl *level.Level, st *state.State, player state.Player, reveal bool) *game {
@@ -152,6 +155,22 @@ func (g *game) unitShown(c hexgrid.Coord) (shown, remembered bool) {
 	}
 	m, ok := g.state.Remembered(g.player, c)
 	return ok && m.Unit != nil && m.Unit.Owner != g.player, true
+}
+
+// drawUnit draws the unit shown on c at screen point (sx, sy): the live unit, or
+// the player's last-seen snapshot greyed. Without unit packs it is a dot.
+func (g *game) drawUnit(dst *ebiten.Image, c hexgrid.Coord, sx, sy float64, remembered bool) {
+	col := color.RGBA{230, 230, 230, 255}
+	if remembered {
+		col = rememberedUnit
+		if m, _ := g.state.Remembered(g.player, c); m.Unit != nil &&
+			g.drawUnitSprite(dst, sx, sy, m.Unit.Type, m.Unit.Owner, false, true, unitsprite.N) {
+			return
+		}
+	} else if u := g.state.At(c).Unit; g.drawUnitSprite(dst, sx, sy, u.Type, u.Owner, unitSpent(u), false, g.ctl.Facing(u)) {
+		return
+	}
+	vector.FillCircle(dst, float32(sx), float32(sy), float32(14*g.cam.Effective()), col, true)
 }
 
 // ownerShown is the building owner the player knows for c: live when Visible,
@@ -334,18 +353,18 @@ func (g *game) Draw(screen *ebiten.Image) {
 				vector.FillRect(screen, float32(sx)-20*e, float32(sy)-34*e, 40*e, 6*e, fogShade(fog, ownerColour(owner)), false)
 			}
 			if shown, remembered := g.unitShown(coord); shown {
-				col := color.RGBA{230, 230, 230, 255}
-				if remembered {
-					col = rememberedUnit
-				}
-				vector.FillCircle(screen, float32(sx), float32(sy), float32(14*g.cam.Effective()), col, true)
+				g.drawUnit(screen, coord, sx, sy, remembered)
 			}
 		}
 	}
 	if w := g.ctl.walk; !w.Done() {
 		wx, wy := w.Pos()
 		sx, sy := g.cam.WorldToScreen(wx, wy)
-		vector.FillCircle(screen, float32(sx), float32(sy), float32(14*g.cam.Effective()), color.RGBA{230, 230, 230, 255}, true)
+		u := g.state.At(w.path[len(w.path)-1]).Unit
+		face, _ := unitsprite.Toward(w.Heading())
+		if u == nil || !g.drawUnitSprite(screen, sx, sy, u.Type, u.Owner, unitSpent(u), false, face) {
+			vector.FillCircle(screen, float32(sx), float32(sy), float32(14*g.cam.Effective()), color.RGBA{230, 230, 230, 255}, true)
+		}
 	}
 	g.drawOverlays(screen)
 	if g.hoverOnMap {
@@ -387,6 +406,9 @@ func (g *game) drawStatus(dst *ebiten.Image) {
 	if g.ctl.Message != "" {
 		msg += "\n" + g.ctl.Message
 	}
+	if g.artErr != "" {
+		msg += "\nunit sprites: " + g.artErr
+	}
 	if g.hoverOnMap {
 		hx := g.lvl.Lines[g.hover.Line][g.hover.Col]
 		msg += fmt.Sprintf("\nline %d col %d  %s", g.hover.Line, g.hover.Col, hx.Terrain)
@@ -403,6 +425,9 @@ func (g *game) devIndicators() string {
 	}
 	if g.hexNumbers {
 		on = append(on, "HEXNUMBERS")
+	}
+	if g.art != nil && g.art.candidate {
+		on = append(on, "CANDIDATE-ART")
 	}
 	if len(on) == 0 {
 		return ""
@@ -531,6 +556,8 @@ func main() {
 	reveal := flag.Bool("reveal", false, "dev: show the whole map, ignoring fog of war")
 	hexNumbers := flag.Bool("hexnumbers", false, "dev: print line,col on every hex")
 	reduced := flag.Bool("reduced-motion", false, "walk instantly and show short static effects (toggle in game with M)")
+	units := flag.String("units", "", "unit sprite catalog built by hlasset build-units (default: placeholder dots)")
+	candidates := flag.Bool("allow-candidates", false, "allow unit packs that are review candidates, not approved art")
 	flag.Parse()
 
 	lvl, err := loadLevel(*dir, *name)
@@ -561,6 +588,11 @@ func main() {
 	gm := newGame(lvl, st, player, *reveal)
 	gm.hexNumbers = *hexNumbers
 	gm.ctl.SetReducedMotion(*reduced)
+	if *units != "" {
+		if gm.art, err = loadUnitArt(*units, *candidates); err != nil {
+			log.Fatal(err)
+		}
+	}
 	if err := ebiten.RunGame(gm); err != nil {
 		log.Fatal(err)
 	}

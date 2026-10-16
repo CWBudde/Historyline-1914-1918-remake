@@ -6,6 +6,7 @@ import (
 
 	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
 )
 
 // control turns hex clicks into rules commands for one player. It holds only the
@@ -30,6 +31,8 @@ type control struct {
 	fx     effects // hit marks and banners
 
 	reduced bool // reduced motion: instant walk, short static effects
+
+	facing map[*state.Unit]unitsprite.Facing // presentation only: where each unit looks
 
 	Message string // result of the last action, shown to the player
 }
@@ -59,6 +62,24 @@ func (c *control) reportTime() int {
 
 func (c *control) clear() {
 	c.selected, c.unit, c.moves, c.targets, c.menu, c.stored = false, nil, nil, nil, nil, nil
+}
+
+// Facing is the authored direction u is drawn in; units start facing north.
+// It is presentation state and never reaches the rules.
+func (c *control) Facing(u *state.Unit) unitsprite.Facing { return c.facing[u] }
+
+// turn makes u face from hex from towards hex to.
+func (c *control) turn(u *state.Unit, from, to hexgrid.Coord) {
+	x0, y0 := hexgrid.Center(from)
+	x1, y1 := hexgrid.Center(to)
+	f, ok := unitsprite.Toward(x1-x0, y1-y0)
+	if !ok {
+		return
+	}
+	if c.facing == nil {
+		c.facing = map[*state.Unit]unitsprite.Facing{}
+	}
+	c.facing[u] = f
 }
 
 // mine reports whether it is the controlled player's turn.
@@ -182,6 +203,9 @@ func (c *control) move(to hexgrid.Coord) {
 		return
 	}
 	c.walk = newWalkMotion(path, c.reduced)
+	if n := len(path); n >= 2 {
+		c.turn(c.unit, path[n-2], path[n-1])
+	}
 	c.Message = fmt.Sprintf("%s moved", c.unit.Type)
 	if dst.Container != nil && dst.Owner != before && c.st.Winner == state.None {
 		// The engine flips the depot owner when a unit enters it; report that.
@@ -272,6 +296,15 @@ func (c *control) attack(to hexgrid.Coord, slot int) {
 	}
 	c.report = rp
 	c.fx.AddBattle(c.from, to, b)
+	c.turn(atk, c.from, to)
+	if b.DefenderDestroyed {
+		delete(c.facing, def)
+	} else {
+		c.turn(def, to, c.from)
+	}
+	if b.AttackerDestroyed {
+		delete(c.facing, atk)
+	}
 	c.Message = fmt.Sprintf("hit for %d, took %d back", b.Damage, b.CounterDamage)
 	switch {
 	case b.DefenderDestroyed:

@@ -140,6 +140,15 @@ func TestDevIndicators(t *testing.T) {
 	if got := g.devIndicators(); got != "DEV: REVEAL HEXNUMBERS" {
 		t.Errorf("got %q", got)
 	}
+	// Unapproved unit art is labelled too, so screenshots are never mistaken for it.
+	g.reveal, g.hexNumbers, g.art = false, false, &unitArt{candidate: true}
+	if got := g.devIndicators(); got != "DEV: CANDIDATE-ART" {
+		t.Errorf("got %q", got)
+	}
+	g.art.candidate = false
+	if got := g.devIndicators(); got != "" {
+		t.Errorf("approved art: got %q", got)
+	}
 }
 
 func TestWeaponMenu(t *testing.T) {
