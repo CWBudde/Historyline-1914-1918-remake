@@ -153,14 +153,102 @@ placeholder dots. The browser build cannot read a local catalog.
 
 Not established: approval of any unit art, the native Amiga A–F facing mapping and
 the exact physical pivot (both open in the art reports), the reference five-shade
-faction swap, terrain composition and an interactive check in the game window.
+faction swap and an interactive check in the game window.
+
+## Terrain catalog and compositor (2026-10-16)
+
+`hlasset build-terrain` packages the terrain, infrastructure and context exports
+into a local candidate catalog, and the game composes each level from it:
+
+```sh
+go run ./cmd/hlasset build-terrain -out build/runtime-terrain
+go run ./cmd/hlasset validate -root build/runtime-terrain/4x/context-hills -allow-candidates
+go run ./cmd/hlasset terrain-gaps -terrain build/runtime-terrain
+go run ./cmd/historyline -terrain build/runtime-terrain -units build/runtime-units -allow-candidates
+```
+
+The builder reads `docs/art/runtime-tile-coverage.csv` (`-coverage`: one row per
+runtime ID with its 2×/4× export) and the recipes (`-recipes`). Every export must
+carry a `{path, sha256, dimensions}` pin in the row's recipe, wherever it is nested.
+Context tiles come from the `profiles` of the ground, forest and hills recipes. It
+writes five groups per density, `<out>/<d>x/<group>/`:
+- `backgrounds` (60 tiles, including the fog tile `unseen`);
+- `infrastructure` (74);
+- `context-ground` (23), `context-forest` (20) and `context-hills` (121).
+
+That makes 10 packs and 596 PNGs. All 4× terrain in one pack would be about 280 MB
+by the loader's estimate, over its 256 MiB budget. Tiles are 96×80 logical
+pixels, anchored (48, 40) on the hex centre. IDs are `tile/<runtime ID>` and
+`context/<family>/<context key>`. The build refuses:
+- a row without a pin or without a density;
+- a size or name that disagrees with the pin, and pin mismatches;
+- a context profile whose descriptor or key does not follow the contract below.
+
+`internal/mapcompose` turns a level into what each hex draws: a background, then
+the stored infrastructure overlays in order. Mud, stone and the winter rough
+grounds (`ground`), forest and hills look different depending on their neighbours.
+For those it builds the offline exporters' descriptor (season, centre, the six
+neighbours NE, SE, S, SW, NW, N, and for hills the tile origin modulo 568×320) and
+uses the context tile whose key is the SHA-256 of that descriptor.
+`TestDescriptorMatchesRecipeProfiles` reproduces all 164 recipe keys.
+
+Where no context tile exists, the hex shows its default tile and the compositor
+records a gap. A gap is either:
+- **missing**: the contract defines the context, but it was not exported;
+- **undefined**: a neighbour from another family or season, or the map edge, for
+  which the contract has no rule.
+
+`hlasset terrain-gaps` lists every gap with its coordinates and descriptor for the
+art track. Summary for the shipped levels:
+
+| Level | Context tiles selected | Missing | Undefined |
+| --- | --- | --- | --- |
+| Level 1 | 5 | 9 | 142 |
+| Level 2 | 35 | 48 | 150 |
+| Level 3 | 19 | 13 | 143 |
+
+HQ, depot, factory and mountain pieces must form complete groups (rosette or
+diamond, per `docs/art/compound-building-geometry.md`). A stray piece is reported
+and drawn as it is, never completed. A mountain quarter outside a complete group
+is shown as the whole `mountain`/`mountain_w`, for display only (level 3, line 21,
+col 6).
+
+The game opens the catalog only with `-terrain`, and candidates only with
+`-allow-candidates`. At load it composes the level and checks that every tile it
+draws, plus `unseen`, exists at both densities. The development label adds
+`CONTEXT-GAP n` (and `COMPOUND-ISSUE n` when there are stray pieces).
+
+Drawing works as follows:
+- **Passes:** all backgrounds first, then the overlays, then owner bars, then
+  units, so a later hex never covers anything drawn beyond an earlier one's
+  outline.
+- **Fog:** unseen hexes show the fog tile, and seen (remembered) hexes are drawn
+  grey and darkened.
+- **Density:** the same rule as for units, at least 2×.
+- **Seams:** the tiles own complementary pixels, so a tiled field is exactly
+  opaque. Scaled, filtered quads do not meet exactly, because Ebitengine snaps quad
+  corners to a sub-pixel grid. That left thin seams at fractional zoom, which
+  additive blending could not fix either. Each background texture therefore gets
+  a 3-texel border into which its opaque edge is grown, so neighbours overlap.
+  Overlays keep a transparent border.
+
+Without `-terrain` the map keeps the coloured hexes. The browser build cannot
+read a local catalog.
+
+Not established:
+- approval of any terrain art;
+- exports or rules for the missing and undefined contexts;
+- the HQ entrance cell, the `trench5a` port and the inferred lakeside corners
+  (open in `docs/art/`);
+- ownership strips;
+- an interactive check in the game window. Screenshots at zoom 0.68, 1.0, 1.77
+  and 3.8 show no seams.
 
 ## Remaining Phase 2.3 work
 
 Add portraits, screen layouts/fonts and animation metadata to purpose-built
-runtime catalogs (unit sprites have one, above). Integrate accepted terrain with
-the shared arbitrary-map/context compositor rather than treating default terrain
-previews as unconditional replacements. Add reference compatibility transforms
+runtime catalogs (unit sprites and terrain have one, above). Close the terrain
+context gaps listed by `hlasset terrain-gaps`. Add reference compatibility transforms
 separately, and embed only approved exports through `assets/assets.go`. The
 `hlasset review` command, `art/manifest.json` integration, live pack switching in
 the game, GPU caches beyond the unit textures, full-map acceptance, browser
