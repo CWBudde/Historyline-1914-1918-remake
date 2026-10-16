@@ -80,3 +80,28 @@ func TestZoomLimits(t *testing.T) {
 		t.Fatalf("zoom = %v", c.Zoom)
 	}
 }
+
+// Scale is the device factor under the user zoom: it multiplies the transform,
+// keeps the view centre and leaves Zoom and its limits alone.
+func TestScaleKeepsCentreAndZoom(t *testing.T) {
+	c := New(Size{4000, 3000}, Size{800, 600})
+	c.CenterOn(2000, 1500)
+	c.ZoomAt(1.5, 400, 300)
+	c.SetScale(2)
+	if c.Zoom != 1.5 || !near(c.Effective(), 3) {
+		t.Fatalf("zoom %v effective %v", c.Zoom, c.Effective())
+	}
+	if wx, wy := c.ScreenToWorld(400, 300); !near(wx, 2000) || !near(wy, 1500) {
+		t.Fatalf("centre moved to %v,%v", wx, wy)
+	}
+	if sx, sy := c.WorldToScreen(2010, 1500); !near(sx, 430) || !near(sy, 300) {
+		t.Fatalf("10 world px at effective 3 = %v,%v", sx, sy)
+	}
+	if _, _, w, h := c.Visible(); !near(w, 800/3.0) || !near(h, 200) {
+		t.Fatalf("visible %vx%v", w, h)
+	}
+	c.ZoomAt(100, 400, 300)
+	if c.Zoom != MaxZoom || !near(c.Effective(), 2*MaxZoom) {
+		t.Fatalf("zoom limit applies to the user zoom: %v / %v", c.Zoom, c.Effective())
+	}
+}

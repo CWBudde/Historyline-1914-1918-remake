@@ -13,11 +13,15 @@ const (
 
 // Camera shows part of a World.W × World.H pixel map in a View.W × View.H screen
 // area. Origin is the world point at the top-left of the view; a world point (wx, wy)
-// appears at screen ((wx-Origin.X)*Zoom, (wy-Origin.Y)*Zoom).
+// appears at screen ((wx-Origin.X)*Effective(), (wy-Origin.Y)*Effective()).
+// Zoom is the player's zoom (within MinZoom..MaxZoom); Scale is the display factor
+// under it (screen pixels per world pixel at Zoom 1), so a high-DPI screen shows the
+// same world area as a normal one without touching the player's zoom.
 type Camera struct {
 	World  Size
 	View   Size
 	Zoom   float64
+	Scale  float64
 	Origin Point
 }
 
@@ -27,27 +31,37 @@ type (
 	Size  struct{ W, H float64 }
 )
 
-// New returns a camera at zoom 1 looking at the top-left of the world.
+// New returns a camera at zoom and scale 1 looking at the top-left of the world.
 func New(world, view Size) *Camera {
-	c := &Camera{World: world, View: view, Zoom: 1}
+	c := &Camera{World: world, View: view, Zoom: 1, Scale: 1}
 	c.clamp()
 	return c
 }
 
+// Effective is the screen pixels per world pixel: Zoom × Scale (a zero Scale counts as 1).
+func (c *Camera) Effective() float64 {
+	if c.Scale <= 0 {
+		return c.Zoom
+	}
+	return c.Zoom * c.Scale
+}
+
 // ScreenToWorld converts a screen position to a world position.
 func (c *Camera) ScreenToWorld(sx, sy float64) (wx, wy float64) {
-	return sx/c.Zoom + c.Origin.X, sy/c.Zoom + c.Origin.Y
+	e := c.Effective()
+	return sx/e + c.Origin.X, sy/e + c.Origin.Y
 }
 
 // WorldToScreen converts a world position to a screen position.
 func (c *Camera) WorldToScreen(wx, wy float64) (sx, sy float64) {
-	return (wx - c.Origin.X) * c.Zoom, (wy - c.Origin.Y) * c.Zoom
+	e := c.Effective()
+	return (wx - c.Origin.X) * e, (wy - c.Origin.Y) * e
 }
 
 // Scroll moves the view by a screen-space delta.
 func (c *Camera) Scroll(dsx, dsy float64) {
-	c.Origin.X += dsx / c.Zoom
-	c.Origin.Y += dsy / c.Zoom
+	c.Origin.X += dsx / c.Effective()
+	c.Origin.Y += dsy / c.Effective()
 	c.clamp()
 }
 
@@ -56,7 +70,7 @@ func (c *Camera) Scroll(dsx, dsy float64) {
 func (c *Camera) ZoomAt(factor, sx, sy float64) {
 	wx, wy := c.ScreenToWorld(sx, sy)
 	c.Zoom = math.Min(MaxZoom, math.Max(MinZoom, c.Zoom*factor))
-	c.Origin = Point{wx - sx/c.Zoom, wy - sy/c.Zoom}
+	c.Origin = Point{wx - sx/c.Effective(), wy - sy/c.Effective()}
 	c.clamp()
 }
 
@@ -64,25 +78,34 @@ func (c *Camera) ZoomAt(factor, sx, sy float64) {
 func (c *Camera) Resize(view Size) {
 	cx, cy := c.ScreenToWorld(c.View.W/2, c.View.H/2)
 	c.View = view
-	c.Origin = Point{cx - view.W/2/c.Zoom, cy - view.H/2/c.Zoom}
-	c.clamp()
+	c.CenterOn(cx, cy)
+}
+
+// SetScale changes the display factor, keeping the world point at the view centre.
+func (c *Camera) SetScale(scale float64) {
+	cx, cy := c.ScreenToWorld(c.View.W/2, c.View.H/2)
+	c.Scale = scale
+	c.CenterOn(cx, cy)
 }
 
 // CenterOn puts world point (wx, wy) in the middle of the view (minimap jumps).
 func (c *Camera) CenterOn(wx, wy float64) {
-	c.Origin = Point{wx - c.View.W/2/c.Zoom, wy - c.View.H/2/c.Zoom}
+	e := c.Effective()
+	c.Origin = Point{wx - c.View.W/2/e, wy - c.View.H/2/e}
 	c.clamp()
 }
 
 // Visible returns the world rectangle shown (for the minimap rectangle and culling).
 func (c *Camera) Visible() (x, y, w, h float64) {
-	return c.Origin.X, c.Origin.Y, c.View.W / c.Zoom, c.View.H / c.Zoom
+	e := c.Effective()
+	return c.Origin.X, c.Origin.Y, c.View.W / e, c.View.H / e
 }
 
 // clamp keeps the view inside the map; a map smaller than the view is centred.
 func (c *Camera) clamp() {
-	c.Origin.X = clampAxis(c.Origin.X, c.World.W, c.View.W/c.Zoom)
-	c.Origin.Y = clampAxis(c.Origin.Y, c.World.H, c.View.H/c.Zoom)
+	e := c.Effective()
+	c.Origin.X = clampAxis(c.Origin.X, c.World.W, c.View.W/e)
+	c.Origin.Y = clampAxis(c.Origin.Y, c.World.H, c.View.H/e)
 }
 
 func clampAxis(origin, world, view float64) float64 {
