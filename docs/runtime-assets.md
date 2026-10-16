@@ -108,12 +108,60 @@ Executed checks:
   and registration were visually inspected. Screenshot bytes are not a cross-run
   golden-image contract; input PNG bytes and playback state have their own checks.
 
+## Unit catalog (2026-10-16)
+
+`hlasset build-units` packages the unit sprite exports of all 15 families into a
+local candidate catalog that the game can draw:
+
+```sh
+go run ./cmd/hlasset build-units -out build/runtime-units
+go run ./cmd/hlasset validate -root build/runtime-units/4x/cavalry -allow-candidates
+go run ./cmd/historyline -units build/runtime-units -allow-candidates
+```
+
+It reads every `art/recipes/unit-*-v1.json` bundle report (`-recipes`) and the
+matching `art/exports/unit-*-v1/` directories (`-exports`), and writes one pack per
+family and density: `<out>/<d>x/<family>/{manifest.json,images/NNNN.png}`. Each pack
+holds 36 sprites (palettes `cp`/`ec`/`neutral` × six facings × `normal`/`spent`),
+copied byte for byte; the retained exports give 2× and 4× (30 packs, 1,080 PNGs).
+Separate packs keep decoding bounded: all 4× units in one pack would need about
+637 MB by the loader's eight-bytes-per-pixel estimate, over its 256 MiB budget,
+while one 4× family is about 42 MB.
+
+Stable IDs are `unit/<family>/<palette>/<facing>-<state>`, for example
+`unit/light-artillery/ec/nw-spent`. Family slugs are the recipe IDs without `unit-`
+and `-v1`; facings are `n`, `nw`, `sw`, `s`, `se`, `ne` (export `facing_index` 0–5).
+Every sprite is 96×96 logical pixels with its `logical_anchor` (48, 49) on the hex
+centre. `internal/unitsprite` holds the unit-type → family table, the facing,
+palette and state names and the ID format, shared by the builder and the game. The
+build refuses recipes whose `class_ids` disagree with that table, unknown
+palettes/states/facings, duplicate or missing variants, a density missing for any
+variant, sizes that are not 96 logical pixels, pin mismatches and a catalog missing
+a family. Everything is validated before the new output directory is created.
+
+The game opens the catalog only with `-units`, and candidate packs only with
+`-allow-candidates`; the top-right development label then reads `DEV: CANDIDATE-ART`. At load, it checks that each family has every sprite at both
+densities. The palette follows the unit's current owner, not its country, so
+captured units change colour. Units that have moved or attacked use the `spent`
+(greyscale) sprite; remembered enemy units use it dimmed. Facing is presentation
+state in the UI: units start facing north, turn along their last move step and
+towards the opponent in combat, and the walking unit faces its current step. The
+drawn density is the asset density of the effective zoom, at least 2×. Below 2×
+the 2× sprite is drawn smaller with linear filtering. Textures are uploaded on
+first use and cached per ID and density. Without `-units` the map keeps the
+placeholder dots. The browser build cannot read a local catalog.
+
+Not established: approval of any unit art, the native Amiga A–F facing mapping and
+the exact physical pivot (both open in the art reports), the reference five-shade
+faction swap, terrain composition and an interactive check in the game window.
+
 ## Remaining Phase 2.3 work
 
-Add unit variants, portraits, screen layouts/fonts and animation metadata to
-purpose-built runtime catalogs. Integrate accepted terrain with the shared
-arbitrary-map/context compositor rather than treating default terrain previews as
-unconditional replacements. Add reference compatibility transforms separately,
-and embed only approved exports through `assets/assets.go`. The `hlasset review`
-command, `art/manifest.json` integration, live pack switching in the game, GPU
-caches, full-map acceptance, browser playback and measured performance remain open.
+Add portraits, screen layouts/fonts and animation metadata to purpose-built
+runtime catalogs (unit sprites have one, above). Integrate accepted terrain with
+the shared arbitrary-map/context compositor rather than treating default terrain
+previews as unconditional replacements. Add reference compatibility transforms
+separately, and embed only approved exports through `assets/assets.go`. The
+`hlasset review` command, `art/manifest.json` integration, live pack switching in
+the game, GPU caches beyond the unit textures, full-map acceptance, browser
+playback and measured performance remain open.
