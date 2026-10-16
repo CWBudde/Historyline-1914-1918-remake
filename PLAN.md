@@ -566,10 +566,30 @@ so interactive playback and responsive/input acceptance remain open. Approximate
             `go test ./internal/unitsprite ./cmd/hlasset ./cmd/historyline`; see
             `docs/runtime-assets.md`. Open: terrain/context, screens/fonts, animation metadata,
             live pack switching, approval and embedding.
+            (2026-10-16) — partial: terrain has a catalog too. `hlasset build-terrain` packs the
+            134 rows of `docs/art/runtime-tile-coverage.csv` plus the 164 ground/forest/hills
+            context profiles, each checked against its recipe pin, into 5 groups × 2 densities
+            (10 packs, 596 PNGs; IDs `tile/<id>`, `context/<family>/<key>`).
+            Tests: `go test ./cmd/hlasset -run Terrain`.
 - [ ] Implement the shared map compositor and arbitrary-map context selection. Preserve
       neighbor masks, absolute world phase, seasonal ground, route ports, shore corners,
       compound-building registration and isolated-mountain display selection. Reuse the
       offline contracts; default context PNGs are not unconditional tile replacements.
+      (2026-10-16) — partial: `internal/mapcompose` ports the context descriptors (season,
+      six neighbours, hills phase mod 568×320). `TestDescriptorMatchesRecipeProfiles`
+      reproduces all 164 recipe keys. It selects context tiles for any map, draws overlays in
+      stored order, checks HQ/depot/factory/mountain groups (stray pieces are reported, not
+      completed), and shows an orphan mountain quarter as the whole mountain (level 3,
+      21/6). A hex without its context tile shows the default tile and is listed as a
+      missing or undefined gap (user decision 2026-10-16). See `hlasset terrain-gaps`,
+      `TestShippedLevelGaps` and `docs/runtime-assets.md`. Open: the items below,
+      cross-hex route-port consistency checks, and a hand check in the window.
+- [ ] Export the missing ground/forest/hills contexts of the shipped levels (art track):
+      9 / 48 / 13 for levels 1 / 2 / 3 (`hlasset terrain-gaps`).
+- [ ] Define context rules for mixed-family neighbours (forest next to hills, mud,
+      mountain, buildings) and for the map edge: 142 / 150 / 143 undefined cells.
+- [ ] Decide the open art ambiguities before acceptance: the HQ entrance cell (N or C),
+      the `trench5a` port reading and the four inferred lakeside corners.
 - [ ] Port the reference five-shade faction swap, six rotations, greyscale moved/remembered
       states and ownership stripes for compatibility. Bind new illustrated packs to authored
       directions and recolour masks; ownership must remain independent of unit type/country.
@@ -614,6 +634,13 @@ so interactive playback and responsive/input acceptance remain open. Approximate
       `-units`/`-allow-candidates` are given (anchor on the hex centre, 2×/4× by effective zoom,
       `DEV: CANDIDATE-ART` label), with dots otherwise. Terrain, infrastructure and buildings
       wait for the compositor; not checked in the window yet (see 2.3).
+      (2026-10-16) — partial: with `-terrain DIR` the map is drawn from the compositor:
+      backgrounds, then overlays, then owner bars, then units, each in its own pass. Unseen
+      hexes show the fog tile, and the label gains `CONTEXT-GAP n`. Background textures get
+      a 3-texel bleeding border, because Ebitengine's sub-pixel quad snapping left seams at
+      fractional zoom. Screenshots at zoom 0.68 / 1.0 / 1.77 / 3.8 show none.
+      Tests: `TestOpenTerrainArt*`, `TestTerrainLayersFollowFog`, `TestPadded*`. Open: the
+      context gaps (2.3), ownership strips, and your hand check.
 - [x] Add camera scrolling, map bounds and general pixel→hex picking, including both line
       parities, odd-row edges and outside-map clicks. Replace Python's hard-coded `findHex`.
       Evidence: `hexgrid.Center`/`Grid.PixelToHex` (nearest-centre cells, any parity, off-map
@@ -636,6 +663,9 @@ so interactive playback and responsive/input acceptance remain open. Approximate
       the status line) but has no map pack to load until 2.3. World-point check passes:
       `TestWorldPointSurvivesZoomResizeAndDPI`, `TestHUDHitTest`, `TestScaleKeepsCentreAndZoom`.
       Open: map asset density in use (2.3), and a hand check on a real 4K/high-DPI display.
+      (2026-10-16) — the map now draws unit and terrain packs at `max(2, assetDensity)`,
+      and the status line names the density actually drawn (`TestDrawnDensity`). Still open:
+      the 4K hand check.
 - [ ] Connect per-player vision to unseen/remembered/visible rendering and unit concealment.
       The new opaque `unseen` tile does not implement remembered terrain or visibility plumbing.
       Placeholder done: `cmd/historyline` shades hexes from `game.State.Fog` (`-player`, dev
@@ -646,6 +676,10 @@ so interactive playback and responsive/input acceptance remain open. Approximate
       Seen hexes and an owner bar on buildings (live when Visible, last seen when Seen);
       remembered own units are skipped (`TestRememberedUnitShown`, `TestOwnerShown`).
       Open: the real tiles via the compositor (2.3), and a hand check in the window.
+      (2026-10-16) — with `-terrain`, unseen hexes draw the `unseen` tile and seen hexes their
+      remembered tiles in grey (`TestTerrainLayersFollowFog`); still needs the hand check.
+- [ ] Stop the status line naming the terrain under the cursor on unseen hexes (found
+      2026-10-16: "line 11 col 5 rough_w" shows through the fog).
 - [x] Implement a fog-safe minimap with the camera rectangle and click-to-jump using the
       same map/camera transforms.
       Evidence: `internal/minimap` (fit, world<->minimap, clipped camera rectangle; tests incl.
