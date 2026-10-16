@@ -405,6 +405,7 @@ func (g *game) Draw(screen *ebiten.Image) {
 	g.drawMenu(hud)
 	g.drawReport(hud)
 	g.drawBanner(hud)
+	g.drawInfo(hud)
 	if dev := g.devIndicators(); dev != "" {
 		ebitenutil.DebugPrintAt(hud, dev, g.hud.DevRight-textWidth(dev), 0)
 	}
@@ -415,7 +416,11 @@ func (g *game) Draw(screen *ebiten.Image) {
 }
 
 // drawStatus prints the status and help text at the top left of the HUD.
-func (g *game) drawStatus(dst *ebiten.Image) {
+func (g *game) drawStatus(dst *ebiten.Image) { ebitenutil.DebugPrint(dst, g.statusText()) }
+
+// statusText is the status and help text. It names nothing of the hovered hex:
+// the info box shows that, fog-safe.
+func (g *game) statusText() string {
 	msg := fmt.Sprintf("%s  round %d, %v to move  zoom %.2f (%dx assets)\narrows/WASD scroll, wheel zoom, click unit then hex (1-9 picks menu row; click own building or selected carrier for contents), F1 end turn, F11 fullscreen, Esc/right-click cancel",
 		g.lvl.MapName, g.state.Round, g.state.Turn, g.cam.Zoom, g.drawnDensity())
 	if g.state.Winner != state.None {
@@ -430,11 +435,7 @@ func (g *game) drawStatus(dst *ebiten.Image) {
 	if g.terrainErr != "" {
 		msg += "\nterrain tiles: " + g.terrainErr
 	}
-	if g.hoverOnMap {
-		hx := g.lvl.Lines[g.hover.Line][g.hover.Col]
-		msg += fmt.Sprintf("\nline %d col %d  %s", g.hover.Line, g.hover.Col, hx.Terrain)
-	}
-	ebitenutil.DebugPrint(dst, msg)
+	return msg
 }
 
 // drawnDensity is the asset density the map is drawn with: the sprite density

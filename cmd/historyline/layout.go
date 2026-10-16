@@ -11,17 +11,20 @@ const (
 	uiBaseW = 900
 	uiBaseH = 560
 
-	hudMargin     = 8   // gap between HUD elements and the screen edge
-	menuRowHeight = 18  // one action-menu row (the 16px debug font plus padding)
-	menuMaxWidth  = 340 // widest action menu
-	reportMaxW    = 360 // battle panel
-	reportHeight  = 70
-	reportTop     = 4
-	minimapCap    = 280 // largest minimap edge
-	minimapMin    = 80  // smallest minimap edge
-	minimapMargin = 12
-	bannerHeight  = 48
-	glyphW        = 6 // ebitenutil debug font advance
+	hudMargin      = 8   // gap between HUD elements and the screen edge
+	menuRowHeight  = 18  // one action-menu row (the 16px debug font plus padding)
+	menuMaxWidth   = 340 // widest action menu
+	reportMaxW     = 360 // battle panel
+	reportHeight   = 70
+	reportTop      = 4
+	minimapCap     = 280 // largest minimap edge
+	minimapMin     = 80  // smallest minimap edge
+	minimapMargin  = 12
+	bannerHeight   = 48
+	glyphW         = 6  // ebitenutil debug font advance
+	infoTop        = 20 // info box, below the dev indicator line
+	infoPad        = 6
+	infoLineHeight = 16
 )
 
 // uiScale is the whole-number factor between logical HUD pixels and physical
@@ -119,6 +122,13 @@ func layoutHUD(w, h int) hudLayout {
 	l.Banner = rect{0, (h - bannerHeight) / 2, w, bannerHeight}
 	l.DevRight = w - hudMargin
 	return l
+}
+
+// infoRect is the info box for n lines of text w pixels wide: at the top right,
+// below the dev indicators, no wider than the screen allows.
+func (l hudLayout) infoRect(w, n int) rect {
+	w = max(min(w+2*infoPad, l.DevRight-hudMargin), 1)
+	return rect{l.DevRight - w, infoTop, w, n*infoLineHeight + infoPad}
 }
 
 // menuRowRect is the rectangle of row i of n.
