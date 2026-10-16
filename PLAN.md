@@ -163,9 +163,10 @@ docs/research/              original-DOS findings; verified rule specification/f
 - **Rules and rendering are separate.** `internal/game` is deterministic and fully unit-tested.
   The UI only sends commands and plays back the events the engine returns (moved, attacked,
   died, captured, …). The AI, save games, replays and tests all build on this split.
-- **Data-driven, with source identity.** Preserve Python tables and parity tests against
-  `hlrData.py`. Keep DOS type/terrain IDs and data separate until mappings and field semantics
-  are verified; shared visual IDs must not merge distinct gameplay records or naval states.
+- **Data-driven, with source identity.** Unit stats come from the original `UNIT.DAT`
+  (decided 2026-10-16); terrain and the art-bound weapon catalogue stay `hlrData.py`'s, and the
+  parity tests run Python's rule functions on the game's tables. Keep the remaining DOS
+  type/terrain IDs and data separate until mappings and field semantics are verified; shared visual IDs must not merge distinct gameplay records or naval states.
 - **Compatibility and original fidelity are separate milestones.** Preserve `Classic` Python
   behavior and the existing `Standard` fixes. Introduce a versioned original-DOS profile
   through R1–R3 below; do not approximate it by enabling every existing rules flag.
@@ -926,6 +927,12 @@ The completed compatibility work below remains useful and stays completed.
       Resolve duplicate naval records, domain/ability flags, alternate strength, production
       costs, weights and capacities. Validate summer/winter terrain classes and masks without
       replacing the Python tables or assuming raw budget equals 2 × displayed speed.
+      (2026-10-16) — partial: by decision the Python unit tables were replaced. The 27
+      compatibility unit types map to `UNIT.DAT` records of the free DOS demo
+      (`internal/data/testdata/unitdat.json`, `TestUnitsFollowUnitDat`): armour, displayed
+      speed, weight, capacity, group, cost and per-class attacks, with bit `0x40` as minimum
+      range 2. Remaining: the other 24 records (duplicate naval ones among them), alternate
+      strength, movement masks, the raw budget, and the terrain tables.
 - [ ] Trace movement routines in `0b06` and `10d2`; capture fixtures for road/rail/water
       transitions, impassable terrain, occupied/hidden destinations, friendly passage, enemy
       adjacency/zone of control, first steps and remaining budgets. Establish whether enemy

@@ -132,6 +132,16 @@ Some useful decoded examples are:
 | 18 Infantry | 12 / 4 | 20 | 6 | 30 | 1 | 35 / 0 / 1 |
 | 22 Supply Car | 18 / 7 | 20 | 6 | 0 | 0 | 45 / 9 / 4 |
 
+The free DOS demo also ships `UNIT.DAT`: `hl-dem.zip` from DOS Games Archive
+(<https://www.dosgamesarchive.com/file.php?id=1929>, SHA-256
+`d20de42a6bd9bd2ef1772ddabc2f66d729a4d79d4d8cc97806d384c2ab016667`, files dated October and
+November 1992). Its packed file is 1,429 bytes instead of 1,455, but it decodes to the same 3,519
+bytes and 51 records, and the five examples above match field for field. The game's unit
+stats use it (`internal/data/testdata/unitdat.json`). StrategyWiki's unit pages agree with it
+on 41 of 48 types; the rest differ in group size for three ship types, Train Artillery
+speed (wiki 4) and Armoured Train air range (wiki 1). Records the full version does not quote
+here could still differ from the demo.
+
 For terrain, bytes 0–1 are flags, byte 2 is a movement mask, byte 3 is a movement
 cost, byte 4 remains unnamed, and byte 5 selects a combat modifier pair. The mask
 intersection is visible at `10d2:13c0–13fc`. The extracted raw costs are not yet a
