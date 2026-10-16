@@ -556,6 +556,16 @@ so interactive playback and responsive/input acceptance remain open. Approximate
       - [ ] Extend runtime catalogs to units, terrain/context selections, screens/fonts and
             animation metadata; support live reference/replacement pack selection and GPU
             caches, then embed approved exports. No asset is approved by this foundation.
+            (2026-10-16) — partial: unit sprites have a catalog. `hlasset build-units` packs
+            all 15 families from `art/recipes/unit-*-v1.json` into one candidate pack per family
+            and density (30 packs, 1,080 PNGs, bytes unchanged; all 4× units in one pack would
+            exceed the 256 MiB decode budget). `internal/unitsprite` holds the type→family table
+            (checked against the recipes' `class_ids`) and the IDs
+            `unit/<family>/<palette>/<facing>-<state>`. The game loads them with
+            `-units DIR -allow-candidates` and caches textures per ID/density. Tests:
+            `go test ./internal/unitsprite ./cmd/hlasset ./cmd/historyline`; see
+            `docs/runtime-assets.md`. Open: terrain/context, screens/fonts, animation metadata,
+            live pack switching, approval and embedding.
 - [ ] Implement the shared map compositor and arbitrary-map context selection. Preserve
       neighbor masks, absolute world phase, seasonal ground, route ports, shore corners,
       compound-building registration and isolated-mountain display selection. Reuse the
@@ -563,6 +573,12 @@ so interactive playback and responsive/input acceptance remain open. Approximate
 - [ ] Port the reference five-shade faction swap, six rotations, greyscale moved/remembered
       states and ownership stripes for compatibility. Bind new illustrated packs to authored
       directions and recolour masks; ownership must remain independent of unit type/country.
+      (2026-10-16) — partial: the illustrated unit packs are bound to their six authored
+      directions (`unitsprite.Toward`; units turn along their last move step and towards the
+      opponent in combat). Palette follows the owner, not the country (`TestUnitSprite*`).
+      Moved/attacked units use the greyscale `spent` sprite, and remembered units use it dimmed. Open:
+      the reference five-shade swap and rotations, ownership stripes, and the native A–F
+      facing mapping.
 - [ ] Deliver the reusable G1 validation/build/review commands and in-engine seam/asset
       workbench. Existing `tools/art-review` exporters and HTML galleries are offline pilots;
       `cmd/hlasset build`/`validate` now cover interface PNG candidate packs only.
@@ -594,6 +610,10 @@ so interactive playback and responsive/input acceptance remain open. Approximate
 
 - [ ] Load a selected shipped level into the Ebitengine app and render terrain,
       infrastructure, buildings and units through the runtime pack/compositor.
+      (2026-10-16) — partial: units are drawn from the runtime unit packs when
+      `-units`/`-allow-candidates` are given (anchor on the hex centre, 2×/4× by effective zoom,
+      `DEV: CANDIDATE-ART` label), with dots otherwise. Terrain, infrastructure and buildings
+      wait for the compositor; not checked in the window yet (see 2.3).
 - [x] Add camera scrolling, map bounds and general pixel→hex picking, including both line
       parities, odd-row edges and outside-map clicks. Replace Python's hard-coded `findHex`.
       Evidence: `hexgrid.Center`/`Grid.PixelToHex` (nearest-centre cells, any parity, off-map
