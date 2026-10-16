@@ -24,7 +24,7 @@ func main() {
 
 func run(args []string, stdout io.Writer) error {
 	if len(args) == 0 {
-		return fmt.Errorf("usage: hlasset build|build-units|validate [flags]")
+		return fmt.Errorf("usage: hlasset build|build-units|build-terrain|terrain-gaps|validate [flags]")
 	}
 	switch args[0] {
 	case "build":
@@ -67,6 +67,38 @@ func run(args []string, stdout io.Writer) error {
 		_, err = fmt.Fprintf(stdout, "built %d unit packs (%d families × %d densities, %d PNG variants; candidate, not runtime approved)\n",
 			len(packs), len(families), len(densities), variants)
 		return err
+	case "build-terrain":
+		flags := flag.NewFlagSet("build-terrain", flag.ContinueOnError)
+		coverage := flags.String("coverage", "docs/art/runtime-tile-coverage.csv", "runtime tile coverage ledger")
+		recipes := flags.String("recipes", "art/recipes", "directory with the terrain recipes")
+		root := flags.String("root", ".", "repository root the export paths are relative to")
+		out := flags.String("out", "", "new output directory (required)")
+		if err := flags.Parse(args[1:]); err != nil {
+			return err
+		}
+		if flags.NArg() != 0 || *out == "" {
+			return fmt.Errorf("build-terrain requires -out NEW_DIRECTORY and no positional arguments")
+		}
+		packs, err := buildTerrain(*coverage, *recipes, *root, *out)
+		if err != nil {
+			return err
+		}
+		tiles := 0
+		for _, p := range packs {
+			tiles += len(p.Manifest.Entries)
+		}
+		_, err = fmt.Fprintf(stdout, "built %d terrain packs (%d PNG variants; candidate, not runtime approved)\n", len(packs), tiles)
+		return err
+	case "terrain-gaps":
+		flags := flag.NewFlagSet("terrain-gaps", flag.ContinueOnError)
+		dir := flags.String("terrain", "", "terrain catalog built by build-terrain (required)")
+		if err := flags.Parse(args[1:]); err != nil {
+			return err
+		}
+		if flags.NArg() != 0 || *dir == "" {
+			return fmt.Errorf("terrain-gaps requires -terrain DIRECTORY and no positional arguments")
+		}
+		return terrainGaps(*dir, stdout)
 	case "validate":
 		flags := flag.NewFlagSet("validate", flag.ContinueOnError)
 		root := flags.String("root", ".", "pack filesystem root")
@@ -94,7 +126,7 @@ func run(args []string, stdout io.Writer) error {
 		_, err = fmt.Fprintf(stdout, "validated %s: %d PNG variants; status=%s\n", m.ID, len(m.Entries), m.Status)
 		return err
 	default:
-		return fmt.Errorf("unknown command %q; use build, build-units or validate", args[0])
+		return fmt.Errorf("unknown command %q; use build, build-units, build-terrain, terrain-gaps or validate", args[0])
 	}
 }
 
