@@ -186,9 +186,9 @@ func (g *game) drawEffects(dst *ebiten.Image) {
 		vector.StrokeLine(dst, float32(sx)-r/2, float32(sy)+r/2, float32(sx)+r/2, float32(sy)-r/2, 4, red, true)
 	}
 	if b := fx.Banner(); b != nil {
-		const h = 48
-		y := float32(g.h-h) / 2
-		vector.FillRect(dst, 0, y, float32(g.w), h, color.RGBA{20, 20, 40, 220}, false)
-		ebitenutil.DebugPrintAt(dst, b.Text, (g.w-6*len(b.Text))/2, int(y)+h/2-8)
+		h := g.hud.Banner.H
+		y := float32(g.hud.Banner.Y)
+		vector.FillRect(dst, 0, y, float32(g.hud.Banner.W), float32(h), color.RGBA{20, 20, 40, 220}, false)
+		ebitenutil.DebugPrintAt(dst, b.Text, (g.w-textWidth(b.Text))/2, int(y)+h/2-8)
 	}
 }

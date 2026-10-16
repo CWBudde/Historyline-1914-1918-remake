@@ -38,8 +38,6 @@ const (
 var hexOutline = [6][2]float32{{-48, 0}, {-25, -40}, {25, -40}, {48, 0}, {25, 40}, {-25, 40}}
 
 const (
-	minimapMax    = 280 // longest minimap edge in screen pixels
-	minimapMargin = 12
 	minNumberZoom = 0.6 // below this the hex numbers would overlap
 )
 
@@ -56,7 +54,8 @@ type game struct {
 	mini           minimap.Minimap
 	hover          hexgrid.Coord
 	hoverOnMap     bool
-	w, h           int
+	w, h           int // logical screen size (see logicalSize)
+	hud            hudLayout
 	terrainFill    map[string]color.RGBA
 	ctl            *control
 }
@@ -74,12 +73,13 @@ func newGame(lvl *level.Level, st *state.State, player state.Player, reveal bool
 		terrainFill: map[string]color.RGBA{},
 		ctl:         &control{st: st, player: player},
 	}
+	gm.hud = layoutHUD(gm.w, gm.h)
 	gm.layoutMinimap()
 	return gm
 }
 
 func (g *game) layoutMinimap() {
-	g.mini = minimap.Fit(g.cam.World, camera.Size{W: minimapMax, H: minimapMax},
+	g.mini = minimap.Fit(g.cam.World, camera.Size{W: float64(g.hud.MinimapMax), H: float64(g.hud.MinimapMax)},
 		camera.Size{W: float64(g.w), H: float64(g.h)}, minimapMargin)
 }
 
@@ -183,11 +183,10 @@ func (g *game) Update() error {
 	return nil
 }
 
-const menuRowH, menuW = 18, 340
-
 // menuRow is the screen rectangle of weapon menu row i (bottom left).
 func (g *game) menuRow(i int) (x, y, w, h int) {
-	return 8, g.h - 8 - (len(g.ctl.menu)-i)*menuRowH, menuW, menuRowH
+	r := g.hud.menuRowRect(i, len(g.ctl.menu))
+	return r.X, r.Y, r.W, r.H
 }
 
 // updateMenu handles the open weapon menu (number keys or a click on a row) and
@@ -289,7 +288,7 @@ func (g *game) Draw(screen *ebiten.Image) {
 	g.drawReport(screen)
 	g.drawEffects(screen)
 	if dev := g.devIndicators(); dev != "" {
-		ebitenutil.DebugPrintAt(screen, dev, g.w-8*len(dev)-8, 0)
+		ebitenutil.DebugPrintAt(screen, dev, g.hud.DevRight-textWidth(dev), 0)
 	}
 	msg := fmt.Sprintf("%s  round %d, %v to move  zoom %.2f\narrows/WASD scroll, wheel zoom, click unit then hex (1-9 picks menu row; click own building or selected carrier for contents), F1 end turn, Esc/right-click cancel",
 		g.lvl.MapName, g.state.Round, g.state.Turn, g.cam.Zoom)
@@ -412,12 +411,14 @@ func pathOptions(c color.RGBA) *vector.DrawPathOptions {
 }
 
 func (g *game) Layout(outsideW, outsideH int) (int, int) {
-	if outsideW != g.w || outsideH != g.h {
-		g.w, g.h = outsideW, outsideH
-		g.cam.Resize(camera.Size{W: float64(outsideW), H: float64(outsideH)})
+	lw, lh := logicalSize(outsideW, outsideH, ebiten.Monitor().DeviceScaleFactor())
+	if lw != g.w || lh != g.h {
+		g.w, g.h = lw, lh
+		g.hud = layoutHUD(lw, lh)
+		g.cam.Resize(camera.Size{W: float64(lw), H: float64(lh)})
 		g.layoutMinimap()
 	}
-	return outsideW, outsideH
+	return lw, lh
 }
 
 // loadLevel reads name from dir, falling back to the embedded shipped levels when
@@ -482,10 +483,10 @@ func (g *game) drawReport(dst *ebiten.Image) {
 	if !r.Active() {
 		return
 	}
-	const w, h = 360, 70
-	x := (g.w - w) / 2
-	vector.FillRect(dst, float32(x), 4, w, h, color.RGBA{20, 20, 40, 235}, false)
+	p := g.hud.Report
+
+	vector.FillRect(dst, float32(p.X), float32(p.Y), float32(p.W), float32(p.H), color.RGBA{20, 20, 40, 235}, false)
 	for i, l := range r.Lines() {
-		ebitenutil.DebugPrintAt(dst, l, x+6, 8+i*32)
+		ebitenutil.DebugPrintAt(dst, l, p.X+6, p.Y+4+i*32)
 	}
 }
