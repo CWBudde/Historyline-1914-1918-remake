@@ -36,20 +36,23 @@ func (g Grid) Size() int {
 // Neighbors returns the on-map neighbours of c in the same order as the Python
 // adjacentHexes.
 func (g Grid) Neighbors(c Coord) []Coord {
-	l, col := c.Line, c.Col
-	var all [6]Coord
-	if l%2 == 1 {
-		all = [6]Coord{{l - 1, col + 1}, {l + 1, col + 1}, {l + 2, col}, {l + 1, col}, {l - 1, col}, {l - 2, col}}
-	} else {
-		all = [6]Coord{{l - 1, col}, {l + 1, col}, {l + 2, col}, {l + 1, col - 1}, {l - 1, col - 1}, {l - 2, col}}
-	}
 	out := make([]Coord, 0, 6)
-	for _, n := range all {
+	for _, n := range Around(c) {
 		if g.Contains(n) {
 			out = append(out, n)
 		}
 	}
 	return out
+}
+
+// Around returns all six neighbours of c, on the map or not, in the order NE, SE,
+// S, SW, NW, N (Python's adjacentHexes order).
+func Around(c Coord) [6]Coord {
+	l, col := c.Line, c.Col
+	if l&1 == 1 {
+		return [6]Coord{{l - 1, col + 1}, {l + 1, col + 1}, {l + 2, col}, {l + 1, col}, {l - 1, col}, {l - 2, col}}
+	}
+	return [6]Coord{{l - 1, col}, {l + 1, col}, {l + 2, col}, {l + 1, col - 1}, {l - 1, col - 1}, {l - 2, col}}
 }
 
 // Cube converts c to cube coordinates (q+r+s == 0). Doubling the column axis

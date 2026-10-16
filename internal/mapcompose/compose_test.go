@@ -1,0 +1,182 @@
+package mapcompose
+
+import (
+	"fmt"
+	"io/fs"
+	"slices"
+	"strings"
+	"testing"
+
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
+	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
+)
+
+func loadLevel(t *testing.T, name string) (hexgrid.Grid, func(hexgrid.Coord) Hex) {
+	t.Helper()
+	b, err := fs.ReadFile(levels.FS, name+".json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	l, err := level.Parse(b)
+	if err != nil {
+		t.Fatal(err)
+	}
+	return l.Grid(), func(c hexgrid.Coord) Hex {
+		h := l.Lines[c.Line][c.Col]
+		return Hex{Terrain: h.Terrain, Infra: h.Infra.IDs}
+	}
+}
+
+// grid builds a small map from rows of terrain IDs (odd rows one shorter).
+func grid(rows ...string) (hexgrid.Grid, func(hexgrid.Coord) Hex) {
+	var lines [][]string
+	for _, r := range rows {
+		lines = append(lines, strings.Fields(r))
+	}
+	g := hexgrid.Grid{Width: len(lines[0]), Lines: len(lines)}
+	return g, func(c hexgrid.Coord) Hex { return Hex{Terrain: lines[c.Line][c.Col]} }
+}
+
+func none(string) bool { return false }
+
+func TestOverlaysKeepStoredOrder(t *testing.T) {
+	g := hexgrid.Grid{Width: 1, Lines: 1}
+	s := Compose(g, func(hexgrid.Coord) Hex {
+		return Hex{Terrain: "water", Infra: []string{"stream25", "bridge25", "road25"}}
+	}, none)
+	c := s.Cells[0][0]
+	if c.Background != "tile/water" || !slices.Equal(c.Overlays, []string{"tile/stream25", "tile/bridge25", "tile/road25"}) {
+		t.Errorf("cell = %+v", c)
+	}
+}
+
+func TestContextSelectedWhenExported(t *testing.T) {
+	g, at := grid(
+		"grass grass grass",
+		"grass grass",
+		"grass mud grass",
+		"grass grass",
+		"grass grass grass",
+	)
+	mud := hexgrid.Coord{Line: 2, Col: 1}
+	d, _ := Descriptor(Ground, "mud", [6]string{"grass", "grass", "grass", "grass", "grass", "grass"}, [2]int{})
+	id := ContextID(Ground, Key(d))
+	s := Compose(g, at, func(x string) bool { return x == id })
+	if got := s.Cells[mud.Line][mud.Col]; got.Background != id || got.Context != Ground {
+		t.Errorf("mud cell = %+v, want %s", got, id)
+	}
+	if len(s.Gaps) != 0 {
+		t.Errorf("gaps %v", s.Gaps)
+	}
+	// Without the export the default tile is drawn and the gap is reported.
+	s = Compose(g, at, none)
+	if got := s.Cells[mud.Line][mud.Col].Background; got != "tile/mud" {
+		t.Errorf("fallback = %s", got)
+	}
+	if len(s.Gaps) != 1 || s.Gaps[0].Reason != Missing || s.Gaps[0].Descriptor != d {
+		t.Errorf("gaps %+v", s.Gaps)
+	}
+}
+
+func TestUndefinedContexts(t *testing.T) {
+	g, at := grid(
+		"forest grass",
+		"hills",
+		"grass grass",
+	)
+	s := Compose(g, at, none)
+	byAt := map[hexgrid.Coord]Gap{}
+	for _, x := range s.Gaps {
+		byAt[x.At] = x
+	}
+	// Forest at the corner touches the map edge; hills touch forest.
+	if x := byAt[hexgrid.Coord{}]; x.Reason != Undefined || !strings.Contains(x.Detail, "map edge") {
+		t.Errorf("forest gap %+v", x)
+	}
+	if x := byAt[hexgrid.Coord{Line: 1}]; x.Reason != Undefined || !strings.Contains(x.Detail, "NW=forest") {
+		t.Errorf("hills gap %+v", x)
+	}
+}
+
+func TestCompoundGroups(t *testing.T) {
+	// A complete depot diamond: N, then W/E on the next line, S two lines down.
+	g, at := grid(
+		"grass cmpN grass",
+		"cmpW cmpE",
+		"grass cmpS grass",
+	)
+	if s := Compose(g, at, none); len(s.Issues) != 0 {
+		t.Errorf("complete depot: %v", s.Issues)
+	}
+	g, at = grid(
+		"grass cmpN grass",
+		"cmpW cmpE",
+		"grass grass grass",
+	)
+	s := Compose(g, at, none)
+	if len(s.Issues) != 3 {
+		t.Fatalf("broken depot: %v", s.Issues)
+	}
+	// The pieces still draw their own tiles; nothing is invented.
+	if s.Cells[0][1].Background != "tile/cmpN" {
+		t.Errorf("cmpN drawn as %s", s.Cells[0][1].Background)
+	}
+}
+
+func TestIsolatedMountainQuarterShowsMountain(t *testing.T) {
+	g, at := loadLevel(t, "level3_cp")
+	s := Compose(g, at, none)
+	at21 := hexgrid.Coord{Line: 21, Col: 6}
+	if at(at21).Terrain != "mountW_w" {
+		t.Fatalf("level 3 (21,6) is %s", at(at21).Terrain)
+	}
+	if got := s.Cells[21][6].Background; got != "tile/mountain_w" {
+		t.Errorf("orphan quarter drawn as %s", got)
+	}
+	if len(s.Issues) != 0 {
+		t.Errorf("level 3 compound issues: %v", s.Issues)
+	}
+}
+
+// Golden gap counts on the shipped levels with no context exported, and with
+// the exported profiles: they change only when the levels or the art change.
+func TestShippedLevelGaps(t *testing.T) {
+	exported := map[string]bool{}
+	for _, f := range Families {
+		for _, p := range readProfiles(t, f) {
+			exported[ContextID(f, p.Key)] = true
+		}
+	}
+	want := map[string]string{
+		"level1_cp": "forest/missing:5 forest/selected:4 forest/undefined:72 ground/missing:3 ground/undefined:21 hills/missing:1 hills/selected:1 hills/undefined:49",
+		"level2_cp": "forest/missing:26 forest/selected:29 forest/undefined:119 ground/missing:22 ground/selected:6 ground/undefined:31",
+		"level3_cp": "forest/missing:9 forest/selected:11 forest/undefined:77 ground/missing:4 ground/selected:8 ground/undefined:66",
+	}
+	for name := range want {
+		g, at := loadLevel(t, name)
+		s := Compose(g, at, func(id string) bool { return exported[id] })
+		if len(s.Issues) != 0 {
+			t.Errorf("%s compound issues: %v", name, s.Issues)
+		}
+		got := map[string]int{}
+		for _, x := range s.Gaps {
+			got[fmt.Sprintf("%s/%s", x.Family, x.Reason)]++
+		}
+		for _, line := range s.Cells {
+			for _, c := range line {
+				if c.Context != "" {
+					got[fmt.Sprintf("%s/selected", c.Context)]++
+				}
+			}
+		}
+		var keys []string
+		for k, n := range got {
+			keys = append(keys, fmt.Sprintf("%s:%d", k, n))
+		}
+		slices.Sort(keys)
+		if g := strings.Join(keys, " "); g != want[name] {
+			t.Errorf("%s:\n got %s\nwant %s", name, g, want[name])
+		}
+	}
+}

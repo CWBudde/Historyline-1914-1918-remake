@@ -5,6 +5,7 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
+	"slices"
 	"strings"
 	"testing"
 )
@@ -194,5 +195,30 @@ func TestCubeInvariant(t *testing.T) {
 				}
 			}
 		}
+	}
+}
+
+func TestAroundIsGeometric(t *testing.T) {
+	// Around lists all six neighbours, on the map or not, in the order NE, SE, S,
+	// SW, NW, N; their centres lie in exactly those directions.
+	want := [6][2]float64{{71, -40}, {71, 40}, {0, 80}, {-71, 40}, {-71, -40}, {0, -80}}
+	for _, c := range []Coord{{0, 0}, {1, 0}, {4, 3}, {7, 5}} {
+		cx, cy := Center(c)
+		for i, n := range Around(c) {
+			nx, ny := Center(n)
+			if nx-cx != want[i][0] || ny-cy != want[i][1] {
+				t.Errorf("Around(%v)[%d] = %v, offset (%v,%v), want %v", c, i, n, nx-cx, ny-cy, want[i])
+			}
+		}
+	}
+	g := Grid{Width: 3, Lines: 4}
+	var on []Coord
+	for _, n := range Around(Coord{0, 0}) {
+		if g.Contains(n) {
+			on = append(on, n)
+		}
+	}
+	if got := g.Neighbors(Coord{0, 0}); !slices.Equal(got, on) {
+		t.Errorf("Neighbors = %v, want the on-map part of Around %v", got, on)
 	}
 }
