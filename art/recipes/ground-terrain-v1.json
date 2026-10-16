@@ -828,6 +828,950 @@
       },
       "path": "art/exports/ground-v1/profiles/f6138c0b7726b88a5b146ef1f9581d9889de67739725aab2100d864d493356bb-4x.png",
       "sha256": "3a9fe5bac67cf4b2f1d76742dfb0d9e30eede3fc1aea09a865336ce06f0ddb9c"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/055818bb47841989ad16fd0996c2894519f2bf4d41c8354a9604eef6cda0705e-2x.png",
+      "sha256": "426bd13eee43d1d6d91e80d8becaec6782ae7d235224f0864421f719e9406953"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/055818bb47841989ad16fd0996c2894519f2bf4d41c8354a9604eef6cda0705e-4x.png",
+      "sha256": "e239491e256724a5fafb2ba0af043cef435118624509964ae09715c323f32ac2"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/12438bff848bb56c38e182737e1dbb81b25bf4433abf91dbcef08b5c25413340-2x.png",
+      "sha256": "82906cea5549e50705ccadb5977ab90f879e846d9883a59b344cad380fc6be02"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/12438bff848bb56c38e182737e1dbb81b25bf4433abf91dbcef08b5c25413340-4x.png",
+      "sha256": "f2419744a1eb5025b745adada9a029c19b869753dd8b75514f5c9615707ba57a"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/1a0733233908b9e60bbfb03064453577fbba515ded16a84148e58e11dc0245b3-2x.png",
+      "sha256": "63fdd5dd12e145e6022f402fee25d2730d8ea59780c1cf9b73720e2665a75776"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/1a0733233908b9e60bbfb03064453577fbba515ded16a84148e58e11dc0245b3-4x.png",
+      "sha256": "560a756d940ffd32ad0c0ff05c5a7a24f803cefb589a58215fd7a7459e43f534"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/1a8ee121e001941a0153019675fb554d86d9e618ee1430f508949f999b830ed3-2x.png",
+      "sha256": "b14fae03139008cc9d92343059c1d0a4e7f03ab6716ea90cb1cd6ea97fc40750"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/1a8ee121e001941a0153019675fb554d86d9e618ee1430f508949f999b830ed3-4x.png",
+      "sha256": "19b294d192903b99eb9dc729495efd1015554f67b6f6001a2d83bf99b5f7c73f"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/1c01dbda2dc835b6efec28837efed99e6bbc693cc92b1c275af6a336703c71ee-2x.png",
+      "sha256": "eb2fe1526cbaec4a8dc4eed65085931172aea18dfa05aa672e68cf46cbc654eb"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/1c01dbda2dc835b6efec28837efed99e6bbc693cc92b1c275af6a336703c71ee-4x.png",
+      "sha256": "f65892fb879fd5519bb439275467697bd75aa50836b6a41d3c4de78700837be8"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/2338f5a633871bdf4f2a5bddbcfad4d9cbe36ee92729fd600a6c1b420d1e8a61-2x.png",
+      "sha256": "25853c7fb494d4b932a4fbf83c96d7270a7ff16716dabb99b635bc61f127a774"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/2338f5a633871bdf4f2a5bddbcfad4d9cbe36ee92729fd600a6c1b420d1e8a61-4x.png",
+      "sha256": "aaeb0bf0966e147b49cbff626852deb694d5fa93c6683fef7d730e4260824bb0"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/25c37bad632413412d61587b075f83a11ff81c219d06d69236eb93de9b8f1a1f-2x.png",
+      "sha256": "e71177249829c9c7b492787ba54699098106acdbc00bef079d0eb5cba8a0e12e"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/25c37bad632413412d61587b075f83a11ff81c219d06d69236eb93de9b8f1a1f-4x.png",
+      "sha256": "f9c0f96b67aa9a10e351a8435f6d51d639755397fb29767a0a37f134aeef970d"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/2b362cd114e6b661e82d9262c4fbd8c52bf85d788158230b987b430a3af2d39d-2x.png",
+      "sha256": "176548bd0a3f643ca2fb04b893bc8191105b2ad902ee481b09d245d8376aede3"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/2b362cd114e6b661e82d9262c4fbd8c52bf85d788158230b987b430a3af2d39d-4x.png",
+      "sha256": "63b972ea02d9a39a7022673e62c7592caca7f20643404361b7060f709f099d8a"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/2c8070d0071353731b800c5cf2ec1ff68c53bdd67dba37f0467471b880d33ec5-2x.png",
+      "sha256": "48a73eecbd3381722da6c887e7b6063cb346961b850521072c2c8e8fefbc0933"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/2c8070d0071353731b800c5cf2ec1ff68c53bdd67dba37f0467471b880d33ec5-4x.png",
+      "sha256": "968e8db25cd4568d3a521ddd447c729781ac2bd67f020bf0bda602eba1877a96"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/2d2ded2a907ee9be67e31cad395f0279118f54172bb06bf43c7d7a164f64de5c-2x.png",
+      "sha256": "d720fc386136f64ce7d726cb428fb6c4c91f36d05be37a687bf6a17c15b5a16b"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/2d2ded2a907ee9be67e31cad395f0279118f54172bb06bf43c7d7a164f64de5c-4x.png",
+      "sha256": "ed9210a5fbf2eef9b779a1a80053de053737619098ea1c8986d1876c6a58c634"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/37a45b9800badb8289c175c2f302458a55531fe48067127f3f42b6fb9c7c3610-2x.png",
+      "sha256": "18b928bf49c1c7a6d279b6e6aa6404e2710578fd7df6635c93a76326255d8992"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/37a45b9800badb8289c175c2f302458a55531fe48067127f3f42b6fb9c7c3610-4x.png",
+      "sha256": "07453cff837e47b68262c7e314f2c36bcf60a949923daa1c5868ad0cd3b886f7"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/3bbdb892c7a85029286d082ab62ba9a1833c20b55bed75558f2e536322387574-2x.png",
+      "sha256": "11383382359d729a3e4459311d5a575207ef75edeb29b057c8cffe6828aeb1cd"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/3bbdb892c7a85029286d082ab62ba9a1833c20b55bed75558f2e536322387574-4x.png",
+      "sha256": "94236c590367d7266a430bd31831cf126d03098a27aea37f57592c1fc8a7de16"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/3d1777d49509810d5417995d9c0b548f3d87b6d80543d205740c139e01ea6a2a-2x.png",
+      "sha256": "7a9d01332de2328b5cb537fc0770826d67df24d75db35238911ce8385940e530"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/3d1777d49509810d5417995d9c0b548f3d87b6d80543d205740c139e01ea6a2a-4x.png",
+      "sha256": "bf79638bea32545bca371415e63d5e3309ccf53c4bbdad4a104aa4d17da5cb08"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/40061f1a79c7743b329080d63a216d42b2c271eebd57b449d8a32f86af9de962-2x.png",
+      "sha256": "90c4b1195a9a091563190c3ca3a8a2ee6161babd26c79e551d6862ecf013456d"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/40061f1a79c7743b329080d63a216d42b2c271eebd57b449d8a32f86af9de962-4x.png",
+      "sha256": "284714a744e033c48c8a53fc3e66001f1e29ccbd528659ff6afa2c2baca63269"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/48517b8de5d29a16befa4d522af01bd14719f1b91dfda0c04bdd3d8e59a3f4bf-2x.png",
+      "sha256": "52f6ad85cbbf0272f125bd1d81616a5a1352d192246376cdf64bf60609a06502"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/48517b8de5d29a16befa4d522af01bd14719f1b91dfda0c04bdd3d8e59a3f4bf-4x.png",
+      "sha256": "07a09ae9aee042c51a99004c6e8b6de23dea4dfae0cc38e43df83edac6650bb1"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/491e203ed62bcbba48f7d39b652e0abaee3f411b641ae9562b86c7491937e755-2x.png",
+      "sha256": "264801d63bf23a268206c4f02d8df897fdeef44dbcedaba481fe1c6acf738be5"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/491e203ed62bcbba48f7d39b652e0abaee3f411b641ae9562b86c7491937e755-4x.png",
+      "sha256": "e1e7f5f99a69d36bcf5b5cf963dadc79d2d909a18cc58ee3713b06735fe43b76"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/4b2d496702d3772a361ab6dce68d0be97732b67f854271daa637d73a5fc83fc0-2x.png",
+      "sha256": "5d6c31ef36b695cb48a216230a9aa12dd259d67182523722d1f0ff73b6669e21"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/4b2d496702d3772a361ab6dce68d0be97732b67f854271daa637d73a5fc83fc0-4x.png",
+      "sha256": "5f53b127a4e0d548b0342cd53b641cab0bffb7b8a18f20f32e21c4cc5b43f9a4"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/4ca5d116afbb59e92b07e8ed53c65d4ed699906b20e605826cb6603c86a11f82-2x.png",
+      "sha256": "dfb957c03686ee882079fd499b809a0645893025e3d5b17f60684b6a0debfc17"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/4ca5d116afbb59e92b07e8ed53c65d4ed699906b20e605826cb6603c86a11f82-4x.png",
+      "sha256": "5a44979fb40cc6d5dc1d7ad93a121603fde6e5d0d8427e5124f8a7509aa025f0"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/4f00e8f2750725cb85449cdef4f4cdf3a2c1b889930006c15f3d3a84136e7db9-2x.png",
+      "sha256": "3c7bd3b47cdbdcf6634d1d6bdd6a1f2b1160340bb1689f3cfeeb7cb25384591b"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/4f00e8f2750725cb85449cdef4f4cdf3a2c1b889930006c15f3d3a84136e7db9-4x.png",
+      "sha256": "fc080a1c8bd59cb29e39a6fb63d16fc42d38d10b6bdbeff04012f3399ea0c877"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/54bb168f7c332923709d416c66ab1757dfc94105e7b4be9fe5ba4c3cfc951407-2x.png",
+      "sha256": "31f38140413a0659ee074559c484e99d4a881ee31fd4853351525880d7ba8365"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/54bb168f7c332923709d416c66ab1757dfc94105e7b4be9fe5ba4c3cfc951407-4x.png",
+      "sha256": "b77077926b6dd9fe14f6771e7e9a9d26b0e4978126594939c40983baf3e6c673"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/57daffc0724e66a21931cf18eba2232108dcdfbb6008eb5929ae1d16b07b9ce2-2x.png",
+      "sha256": "50a09bd85d01e172075dc2647882bacca8e67d45185273b63fd0333a52625d07"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/57daffc0724e66a21931cf18eba2232108dcdfbb6008eb5929ae1d16b07b9ce2-4x.png",
+      "sha256": "dd3106842a0bcaec5f91eedb56391e699be2d2dbb26f18d427477818eec5c611"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/62a6cbf84c6de107aa44d5d228daebd27e793b07e6d57f1dc37389c5d1ae5686-2x.png",
+      "sha256": "3d2ba861c6c980292af825c58642e9aa6e9f75835f93bf6a1c3f06b3f0ec7432"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/62a6cbf84c6de107aa44d5d228daebd27e793b07e6d57f1dc37389c5d1ae5686-4x.png",
+      "sha256": "f3d1bb3324f509fefadf3cdb9b4890a2d427c083d3ce2d7443cf022acd512a78"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/6d0d980712a8b03f574c9dc2ea3f1a54f5246c196a20168dd0fdf4a84ea4b058-2x.png",
+      "sha256": "d717ef0920632e08176d86b3f9183ad6c6a1bb8bbce033682e86aa5141ef3c0d"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/6d0d980712a8b03f574c9dc2ea3f1a54f5246c196a20168dd0fdf4a84ea4b058-4x.png",
+      "sha256": "a760ef3190b3d5dab466f5fa17067e3acd489e814042309bb9d70ee74c3692c7"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/6e9da179e662bf9b48259f1f26d8ce59349bb1ea5c7ab97b79cab1300f747735-2x.png",
+      "sha256": "8867de602791613ef3d2eb9e546b5c68fb276b4f2b3383f21f8c9cd2ebb0023c"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/6e9da179e662bf9b48259f1f26d8ce59349bb1ea5c7ab97b79cab1300f747735-4x.png",
+      "sha256": "afa092c3bc4b2298d9ae182f5365c5007339820f3c967097631baa927e138a42"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/71a40071ddd2017ec98226024f635ece5f4d922dcde961cd6a12ebf1670ca4a8-2x.png",
+      "sha256": "6c8f3a9b0b63ab9333657ba4037886b1a00cc6415760351e606f697118ef62c3"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/71a40071ddd2017ec98226024f635ece5f4d922dcde961cd6a12ebf1670ca4a8-4x.png",
+      "sha256": "518debe28c877f41101e06063d1ed8ffe582c2e96450ef1f6e4bc7d91493074c"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/809842928b4d6da0017544b11d0e0d06369804b3a2646867d5eb6762c61fe9ea-2x.png",
+      "sha256": "c382feccc45424da47e76735cae348a2185aa5d0b9ad9466b7cf6fb98c2881cc"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/809842928b4d6da0017544b11d0e0d06369804b3a2646867d5eb6762c61fe9ea-4x.png",
+      "sha256": "3839e4946902e70820de641c0ea12e770fd20ca8b26d83db91b964d9706d2dd3"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/864eb309f4bb20cbc7b59e637c0cdb7d1697c7ed0f56194e41a572b25a4624ac-2x.png",
+      "sha256": "a75ffa421d02b15783be00845f1e4243b9ec58cdcbe7a19ebe413caf0fb3e967"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/864eb309f4bb20cbc7b59e637c0cdb7d1697c7ed0f56194e41a572b25a4624ac-4x.png",
+      "sha256": "b45fda286910476bbc01dc9165f723bf0108b22cfcff8309bad5201da62f4ac6"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/8d632d63eedc10313dd77863f2e0d2c00f3dfd50a2ce5b9010f83e4fca75a5e9-2x.png",
+      "sha256": "f26c8b84fbe8ff1ab886e35c7870cd219bb6807083d35e70ec75e06650f593f8"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/8d632d63eedc10313dd77863f2e0d2c00f3dfd50a2ce5b9010f83e4fca75a5e9-4x.png",
+      "sha256": "06992f8528816088b5114549cbcd2f6776447ec020a6a1152d06dca4995ebd8b"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/8df6d99030a907b5eef089e29653b516fd79433da40a317a0e2497885aba2e32-2x.png",
+      "sha256": "6b800aaa55fa89001ee815fd851511380f10523086bc8e49ff646b4ca3cfe3bf"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/8df6d99030a907b5eef089e29653b516fd79433da40a317a0e2497885aba2e32-4x.png",
+      "sha256": "b162c6d469d9f2baf3a2039e2d885ca93909c09dfb85b16aef82f4cac4437bb7"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/a1794ce0c07da0456e981e583bb0816afc66b2d80fcd3143e009a6315a51bec7-2x.png",
+      "sha256": "f1946b0f27e15e066e4af495e3bb2a5959e86d1663312417267ffd19140a0eef"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/a1794ce0c07da0456e981e583bb0816afc66b2d80fcd3143e009a6315a51bec7-4x.png",
+      "sha256": "3a22e898e8e7fe918dfa39964c796d113cb1701fb06f8a53bb009b5093d78f5a"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/a90474fd0344b015753bb0654017309290141793cfbf8252ecb3bfdabf0e1f83-2x.png",
+      "sha256": "ddf6b94b55b6a0a93dccb9cc49b5917a6a22beeae5f26ed8e5a5d0dc643bce0e"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/a90474fd0344b015753bb0654017309290141793cfbf8252ecb3bfdabf0e1f83-4x.png",
+      "sha256": "fda5ed863b60af1c6da073400f80689fcbf315b7981a29d77282ef83229cf32e"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/a9cd31b100033abd823917d6d69c1806c926ac29af5a6a7e3ca7e70a9afce392-2x.png",
+      "sha256": "698374e8cf67db2b43aaf1da864dbc1c9a3139a2029b82749b40e94cc859a87b"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/a9cd31b100033abd823917d6d69c1806c926ac29af5a6a7e3ca7e70a9afce392-4x.png",
+      "sha256": "0cb283b611fa4d4311ea30d77f7c81b4a5b659669dc705c818e91478e803e160"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/b1b3ed8c599499d8b8ffc8d3ed747af8b99a23928f04f159a7d2b681ec46c7c1-2x.png",
+      "sha256": "bbadc1f6f07acef60361fc6cbf0c0463c7d6d4d57a778b15db5ae94bcb62955f"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/b1b3ed8c599499d8b8ffc8d3ed747af8b99a23928f04f159a7d2b681ec46c7c1-4x.png",
+      "sha256": "07de616a7357becb5375f5afe18d26b5208664462568c50ca091320404297c20"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/b1eeb5d9789a8ef1ae058a0f1062247f657a7125b0a347d87ec293e4bbb9c174-2x.png",
+      "sha256": "ff43183c952a179024e7dc74e49437c323ac1ccb4eeb16e81fe136b69ec51a00"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/b1eeb5d9789a8ef1ae058a0f1062247f657a7125b0a347d87ec293e4bbb9c174-4x.png",
+      "sha256": "36cc2d5c3be5dcd2e9a84cef2e69460f1c7c917495fb1cdd7baa3cdafdeee112"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/b561b0d813da23ddbac662141662ab0051ce83a4748b08a07ac8459b705be143-2x.png",
+      "sha256": "512cd6d37b84ca55bd266dedc32f10fd70a295101d9573fcfaecfd5f95e13852"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/b561b0d813da23ddbac662141662ab0051ce83a4748b08a07ac8459b705be143-4x.png",
+      "sha256": "54658690a5d7d15d8c8ea40866d74fe24380b0ee53e14653c904f0429e50a1b2"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/ba5641435fad995e769584b1af8eb05fe0fa28e9c2a16cca35e01d249809690a-2x.png",
+      "sha256": "9823ced06202a0820cb967d94d2d71e8a17a4b001ad6730223b061d5b64a0406"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/ba5641435fad995e769584b1af8eb05fe0fa28e9c2a16cca35e01d249809690a-4x.png",
+      "sha256": "35c186137cc63988323c17ed19edd719c1eaecbc7fe765e2548f7efce9fc12df"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/bc866d392c7e32e3f2d109cc14d540d9f3892a382571ba508d8a669b60e044a4-2x.png",
+      "sha256": "a876ab6c3595ff531c6a9689a1d5b3940c00d1071d9b38c9b290d7a913e634e1"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/bc866d392c7e32e3f2d109cc14d540d9f3892a382571ba508d8a669b60e044a4-4x.png",
+      "sha256": "dcd9a2cb5d1adcc49be384364826c67922d5e9be62246c62c0ca1be9abc88460"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/c2925ac23cbc8cec7747de2b0437c4b7460bceca6222e9ade5f0797a5261a661-2x.png",
+      "sha256": "1a1dbacc2746b8e97e091cc0afb83041173abb38523d1ea70517f0a697322dab"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/c2925ac23cbc8cec7747de2b0437c4b7460bceca6222e9ade5f0797a5261a661-4x.png",
+      "sha256": "53e48e10e3fa114d8bced69050d8396f5050869f1d1959a44b9a75425c209790"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/c2a9deca6a5d3b9c144a22dae22f35866e01c1118f8195457392ee5dc914e58f-2x.png",
+      "sha256": "42e5f1ae2ab4a4d9ecbf90f36d97706288af4f351af03b7fc3dad2fb2cf98da5"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/c2a9deca6a5d3b9c144a22dae22f35866e01c1118f8195457392ee5dc914e58f-4x.png",
+      "sha256": "8a6634272158cfc9638d8f4b00a0b8cc6f9e690129c6286224047b01f9558135"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/c51d3103c6664f63bb91744566b5bc2f6ab934f5027550aaef908678c13d26f1-2x.png",
+      "sha256": "c063ccb2019b6a0161a3dcd6708e4227a8bf37509feae1d17f3fb3c94a8c3ac8"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/c51d3103c6664f63bb91744566b5bc2f6ab934f5027550aaef908678c13d26f1-4x.png",
+      "sha256": "aed89f69222cdbc53a73a8eca6a7ffe5b84f0e2e7dfedcdf608763099e636d10"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/c6c269bc0136e05dd6c457fd026a59e831735483f5284df0e2e0939dddbebe9b-2x.png",
+      "sha256": "d40f1f0c029672c9873a2f1c64c28b077cedb5525af68c0bbf9aa03a6d0c31d2"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/c6c269bc0136e05dd6c457fd026a59e831735483f5284df0e2e0939dddbebe9b-4x.png",
+      "sha256": "57231779e659307627cc8ce34b8f25fe85ff43e4ba1c98571a72172b6ca267c0"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/c82a837a3400db94a0b93e274880c931a12fec01040f3c3e51c2a546c8358876-2x.png",
+      "sha256": "38960e2faf34b16a6cc0557bb195c3a97659222831db28a5a5b3c68133d6c8fe"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/c82a837a3400db94a0b93e274880c931a12fec01040f3c3e51c2a546c8358876-4x.png",
+      "sha256": "bb192f8d933fd12451c4839e7fd30d7fc50af488cf61683fb6839fbeb25c4b84"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/c886902228a0e4e5bd7ac668569dfa81a2cfd185fa4ed4d93231c05a3bcb93a0-2x.png",
+      "sha256": "a4bf2a4d52ff7d4be5bad82d96844f2bcc0c2e57e673a8837676996c73c063d0"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/c886902228a0e4e5bd7ac668569dfa81a2cfd185fa4ed4d93231c05a3bcb93a0-4x.png",
+      "sha256": "9fe27fe543fafc56625a0143711117a3af8b3ce8c05f1f6127dc2274be9a6cb5"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/d25347fa3faa76904568a5a7744744284fba56ae8bbc006e3400c3421b0a48d0-2x.png",
+      "sha256": "11be21693ba391ab082248c72a269536127047efa7e64a9471b89c93755e74dc"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/d25347fa3faa76904568a5a7744744284fba56ae8bbc006e3400c3421b0a48d0-4x.png",
+      "sha256": "667dbec97a6f7f326c4a0c65e70f4e346fe6eb9bc54747888eef34874d32f079"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/dae05f2ece22d83846e07886282bd908d08a8ce70a0002ac652c05af5fdec20d-2x.png",
+      "sha256": "0019a84de45e18af06134f342394261164bf92424dd8c06324ec61f9e8b1bc06"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/dae05f2ece22d83846e07886282bd908d08a8ce70a0002ac652c05af5fdec20d-4x.png",
+      "sha256": "1670820d144e462adf2108b6f285d5c5c4861685de1fb3cbab8ae55290e59f02"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/db4624eb14906885d2f9f6f6b357859e4217397aa309c6d825dc2f7a0204544f-2x.png",
+      "sha256": "b749c116163dfe86b0a72390968c24bcb74cddc30f34ca542045dc4aeaecc198"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/db4624eb14906885d2f9f6f6b357859e4217397aa309c6d825dc2f7a0204544f-4x.png",
+      "sha256": "90faf83deb72b9d90245719b54d582f552b487124b98f22270fd3dc628b18ae0"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/dd51c4938cb9f12f11a3ba90a6bc2553f7a35dc1c1087f84b578c8daf2a9bc0c-2x.png",
+      "sha256": "b5f086dbc6eb049b9aed5ef6c4707b7b8f1fbe1ba7fe14a3a7e6b54ee5dc21a0"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/dd51c4938cb9f12f11a3ba90a6bc2553f7a35dc1c1087f84b578c8daf2a9bc0c-4x.png",
+      "sha256": "f57942854a4b452230136288fa8f050478748f4fc99ba4d4a17528194f675571"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/e1e717480e6a7ee65a0f4d811ef49e55f45ad443ee3b69def0b1c628415a14b1-2x.png",
+      "sha256": "3b1eed92e8697c9d373caf4d6cb5c93177723069451323badc66e20fe29c1844"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/e1e717480e6a7ee65a0f4d811ef49e55f45ad443ee3b69def0b1c628415a14b1-4x.png",
+      "sha256": "a730c0545a6910da27e5ad1d30e1b6a66247911b09c9fdb26de554fe58b0f15a"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/e4fed1b6b191ca0cab328cfd6b07f7893ea9f938881e08f5ab0ee22bcf5ef426-2x.png",
+      "sha256": "9e3ab109d8b4fdcabc5d52707830359a0b54c81a3f06590a0afc059e38a50610"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/e4fed1b6b191ca0cab328cfd6b07f7893ea9f938881e08f5ab0ee22bcf5ef426-4x.png",
+      "sha256": "abfe45f569d7b53c5467d797a69d902771c8a227b98dbbb799ee7a984c4a93d5"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/e6b45be00282d80689365b7ca65f14a9bd50f670394e26b03b9ca9f8616faab7-2x.png",
+      "sha256": "27d9aa1e1872cac972aec160c2b207cbb13e7fc3f41b7c6bd847290d576ae48e"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/e6b45be00282d80689365b7ca65f14a9bd50f670394e26b03b9ca9f8616faab7-4x.png",
+      "sha256": "b5a275a1ae42823f88d4556708b5470a5072fd720baddf0a0a78575c9b44dfa8"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/e7b263f90e856896262de4c8d186b65749cd4c8ef8f2c749dccc054b25d90323-2x.png",
+      "sha256": "860d227ecc46fbaf5b7a9d059717db17d37e918843c90232641313100687631e"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/e7b263f90e856896262de4c8d186b65749cd4c8ef8f2c749dccc054b25d90323-4x.png",
+      "sha256": "96bb493201d0011929ab63ee1883d69d79f0475ec2cdee9528389b342bc81512"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/e8f848ad3569a28b26f0b3fbaf18f0dfe62f7f8fcbcbdc11758c0b6a0feb6447-2x.png",
+      "sha256": "496a6f92dbb79c349aeff17fadf6c083f89a5065104dfb8964f2b2240236bbad"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/e8f848ad3569a28b26f0b3fbaf18f0dfe62f7f8fcbcbdc11758c0b6a0feb6447-4x.png",
+      "sha256": "2f932e9934910cccb2607f907f2253983906839c423262fdd8243197a9a73657"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/ea90a8745631cc7021ef3de19d8923966d89b59f3203e451d6c77ead717b820c-2x.png",
+      "sha256": "d257c01d4a3c5c19e13c8ed8e351aadce159999da7225e0312407823d9175e9c"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/ea90a8745631cc7021ef3de19d8923966d89b59f3203e451d6c77ead717b820c-4x.png",
+      "sha256": "11092a9f6d9f0f40dbf41d0020558ce19532278266bf83844399233f625cc5be"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/ecd8e023947c29bdd5adc53bdf669aa306e9280f20b2cd68e3b9791f58f01072-2x.png",
+      "sha256": "c4314d8809ddc39ba29ff57aa699aa05e50f4ec946759033ab7c466a3adc0d74"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/ecd8e023947c29bdd5adc53bdf669aa306e9280f20b2cd68e3b9791f58f01072-4x.png",
+      "sha256": "a19c7c03d89058d59ccd887a3384bc2853c7181f7404b6614f7ecd79babece66"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/ee44fed14cb2842e4f98db19a1b32e5008ea8028dc35fe55c0a6010cbed7348d-2x.png",
+      "sha256": "e0f164c1b2f8a3b9aac78fd905747f5f1fbbb1679288d274183a38dd9dc6d7c4"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/ee44fed14cb2842e4f98db19a1b32e5008ea8028dc35fe55c0a6010cbed7348d-4x.png",
+      "sha256": "8bb681558a85170ca51593a766198051c76021751e5d8c1f0c932caa29a52ab8"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/f0eb31ae429562c581b3f4f065bf13ef28e8be2c940bfa378f08f979be52b559-2x.png",
+      "sha256": "66177ef83c5bd416879b4cc3fc35532ffa31c75a8f28bafac452fd127a55f603"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/f0eb31ae429562c581b3f4f065bf13ef28e8be2c940bfa378f08f979be52b559-4x.png",
+      "sha256": "456b25cd8f9565299595c2948f9cf339c6102c453c1fad9aea7bb4ed911895ad"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/f59cf79496197c40e944ea11cce0df4d27f37b41b5954a78cca0a9a91e5c0333-2x.png",
+      "sha256": "d06f9529f0f43a5ed6d0d6951731b8624fede57bc04486ffdea0d7507c768359"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/f59cf79496197c40e944ea11cce0df4d27f37b41b5954a78cca0a9a91e5c0333-4x.png",
+      "sha256": "9d611a5fe98e648c0421d6b6274e7b625e5a1e83417912d93836a2b0b70abc62"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/f6888e5443c4242a1917781c060f541f9879bbfd1db035229d25a50fe47648ea-2x.png",
+      "sha256": "dfa8ac2de5bfd87b9b140a7f57ba2045439b28e8ce97c6d7a062bc88943a1549"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/f6888e5443c4242a1917781c060f541f9879bbfd1db035229d25a50fe47648ea-4x.png",
+      "sha256": "7880b15069314ee379c919165daf25f20194dad96e5990dd0ad4430189042a27"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/ground-v1/profiles/fb658a129e4fe5c732507ae3840e96a0567d8ee3ea5c238419f413357d61d835-2x.png",
+      "sha256": "ec935ab23f232014ce59e1592228918bd65dfe428e5c9fce8ef431b41196e094"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/ground-v1/profiles/fb658a129e4fe5c732507ae3840e96a0567d8ee3ea5c238419f413357d61d835-4x.png",
+      "sha256": "b620ebdc1445292acac5f7abd6e6dbebb7a5726edb33accff5430474042bca4d"
     }
   ],
   "generation_recipes": [
@@ -2687,6 +3631,1953 @@
           },
           "path": "art/exports/ground-v1/profiles/f6138c0b7726b88a5b146ef1f9581d9889de67739725aab2100d864d493356bb-4x.png",
           "sha256": "3a9fe5bac67cf4b2f1d76742dfb0d9e30eede3fc1aea09a865336ce06f0ddb9c"
+        }
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "055818bb47841989ad16fd0996c2894519f2bf4d41c8354a9604eef6cda0705e",
+      "descriptor": "ground-v1\nseason=winter\ncenter=shelled_w\nNE=shelled_w\nSE=shelled_w\nS=grass_w\nSW=shelled_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "shelled_w",
+        "shelled_w",
+        "grass_w",
+        "shelled_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/055818bb47841989ad16fd0996c2894519f2bf4d41c8354a9604eef6cda0705e-2x.png",
+          "sha256": "426bd13eee43d1d6d91e80d8becaec6782ae7d235224f0864421f719e9406953"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/055818bb47841989ad16fd0996c2894519f2bf4d41c8354a9604eef6cda0705e-4x.png",
+          "sha256": "e239491e256724a5fafb2ba0af043cef435118624509964ae09715c323f32ac2"
+        }
+      ],
+      "runtime_id": "shelled_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "12438bff848bb56c38e182737e1dbb81b25bf4433abf91dbcef08b5c25413340",
+      "descriptor": "ground-v1\nseason=summer\ncenter=stone\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=stone\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "stone",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/12438bff848bb56c38e182737e1dbb81b25bf4433abf91dbcef08b5c25413340-2x.png",
+          "sha256": "82906cea5549e50705ccadb5977ab90f879e846d9883a59b344cad380fc6be02"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/12438bff848bb56c38e182737e1dbb81b25bf4433abf91dbcef08b5c25413340-4x.png",
+          "sha256": "f2419744a1eb5025b745adada9a029c19b869753dd8b75514f5c9615707ba57a"
+        }
+      ],
+      "runtime_id": "stone",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "1a0733233908b9e60bbfb03064453577fbba515ded16a84148e58e11dc0245b3",
+      "descriptor": "ground-v1\nseason=summer\ncenter=stone\nNE=grass\nSE=stone\nS=grass\nSW=stone\nNW=stone\nN=stone\n",
+      "neighbor_ids": [
+        "grass",
+        "stone",
+        "grass",
+        "stone",
+        "stone",
+        "stone"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/1a0733233908b9e60bbfb03064453577fbba515ded16a84148e58e11dc0245b3-2x.png",
+          "sha256": "63fdd5dd12e145e6022f402fee25d2730d8ea59780c1cf9b73720e2665a75776"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/1a0733233908b9e60bbfb03064453577fbba515ded16a84148e58e11dc0245b3-4x.png",
+          "sha256": "560a756d940ffd32ad0c0ff05c5a7a24f803cefb589a58215fd7a7459e43f534"
+        }
+      ],
+      "runtime_id": "stone",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "1a8ee121e001941a0153019675fb554d86d9e618ee1430f508949f999b830ed3",
+      "descriptor": "ground-v1\nseason=winter\ncenter=shelled_w\nNE=grass_w\nSE=shelled_w\nS=grass_w\nSW=rough_w\nNW=stoney_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "shelled_w",
+        "grass_w",
+        "rough_w",
+        "stoney_w",
+        "grass_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/1a8ee121e001941a0153019675fb554d86d9e618ee1430f508949f999b830ed3-2x.png",
+          "sha256": "b14fae03139008cc9d92343059c1d0a4e7f03ab6716ea90cb1cd6ea97fc40750"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/1a8ee121e001941a0153019675fb554d86d9e618ee1430f508949f999b830ed3-4x.png",
+          "sha256": "19b294d192903b99eb9dc729495efd1015554f67b6f6001a2d83bf99b5f7c73f"
+        }
+      ],
+      "runtime_id": "shelled_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "1c01dbda2dc835b6efec28837efed99e6bbc693cc92b1c275af6a336703c71ee",
+      "descriptor": "ground-v1\nseason=winter\ncenter=shelled_w\nNE=shelled_w\nSE=shelled_w\nS=grass_w\nSW=grass_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "shelled_w",
+        "shelled_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/1c01dbda2dc835b6efec28837efed99e6bbc693cc92b1c275af6a336703c71ee-2x.png",
+          "sha256": "eb2fe1526cbaec4a8dc4eed65085931172aea18dfa05aa672e68cf46cbc654eb"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/1c01dbda2dc835b6efec28837efed99e6bbc693cc92b1c275af6a336703c71ee-4x.png",
+          "sha256": "f65892fb879fd5519bb439275467697bd75aa50836b6a41d3c4de78700837be8"
+        }
+      ],
+      "runtime_id": "shelled_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "2338f5a633871bdf4f2a5bddbcfad4d9cbe36ee92729fd600a6c1b420d1e8a61",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=rough_w\nS=rough_w\nSW=grass_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "rough_w",
+        "rough_w",
+        "grass_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/2338f5a633871bdf4f2a5bddbcfad4d9cbe36ee92729fd600a6c1b420d1e8a61-2x.png",
+          "sha256": "25853c7fb494d4b932a4fbf83c96d7270a7ff16716dabb99b635bc61f127a774"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/2338f5a633871bdf4f2a5bddbcfad4d9cbe36ee92729fd600a6c1b420d1e8a61-4x.png",
+          "sha256": "aaeb0bf0966e147b49cbff626852deb694d5fa93c6683fef7d730e4260824bb0"
+        }
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "25c37bad632413412d61587b075f83a11ff81c219d06d69236eb93de9b8f1a1f",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=rough_w\nS=stoney_w\nSW=grass_w\nNW=grass_w\nN=rough_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "rough_w",
+        "stoney_w",
+        "grass_w",
+        "grass_w",
+        "rough_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/25c37bad632413412d61587b075f83a11ff81c219d06d69236eb93de9b8f1a1f-2x.png",
+          "sha256": "e71177249829c9c7b492787ba54699098106acdbc00bef079d0eb5cba8a0e12e"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/25c37bad632413412d61587b075f83a11ff81c219d06d69236eb93de9b8f1a1f-4x.png",
+          "sha256": "f9c0f96b67aa9a10e351a8435f6d51d639755397fb29767a0a37f134aeef970d"
+        }
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "2b362cd114e6b661e82d9262c4fbd8c52bf85d788158230b987b430a3af2d39d",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=rough_w\nS=rough_w\nSW=rough_w\nNW=rough_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "rough_w",
+        "rough_w",
+        "rough_w",
+        "rough_w",
+        "grass_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/2b362cd114e6b661e82d9262c4fbd8c52bf85d788158230b987b430a3af2d39d-2x.png",
+          "sha256": "176548bd0a3f643ca2fb04b893bc8191105b2ad902ee481b09d245d8376aede3"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/2b362cd114e6b661e82d9262c4fbd8c52bf85d788158230b987b430a3af2d39d-4x.png",
+          "sha256": "63b972ea02d9a39a7022673e62c7592caca7f20643404361b7060f709f099d8a"
+        }
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "2c8070d0071353731b800c5cf2ec1ff68c53bdd67dba37f0467471b880d33ec5",
+      "descriptor": "ground-v1\nseason=summer\ncenter=stone\nNE=stone\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=stone\n",
+      "neighbor_ids": [
+        "stone",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "stone"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/2c8070d0071353731b800c5cf2ec1ff68c53bdd67dba37f0467471b880d33ec5-2x.png",
+          "sha256": "48a73eecbd3381722da6c887e7b6063cb346961b850521072c2c8e8fefbc0933"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/2c8070d0071353731b800c5cf2ec1ff68c53bdd67dba37f0467471b880d33ec5-4x.png",
+          "sha256": "968e8db25cd4568d3a521ddd447c729781ac2bd67f020bf0bda602eba1877a96"
+        }
+      ],
+      "runtime_id": "stone",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "2d2ded2a907ee9be67e31cad395f0279118f54172bb06bf43c7d7a164f64de5c",
+      "descriptor": "ground-v1\nseason=winter\ncenter=stoney_w\nNE=grass_w\nSE=grass_w\nS=grass_w\nSW=stoney_w\nNW=grass_w\nN=rough_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "stoney_w",
+        "grass_w",
+        "rough_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/2d2ded2a907ee9be67e31cad395f0279118f54172bb06bf43c7d7a164f64de5c-2x.png",
+          "sha256": "d720fc386136f64ce7d726cb428fb6c4c91f36d05be37a687bf6a17c15b5a16b"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/2d2ded2a907ee9be67e31cad395f0279118f54172bb06bf43c7d7a164f64de5c-4x.png",
+          "sha256": "ed9210a5fbf2eef9b779a1a80053de053737619098ea1c8986d1876c6a58c634"
+        }
+      ],
+      "runtime_id": "stoney_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "37a45b9800badb8289c175c2f302458a55531fe48067127f3f42b6fb9c7c3610",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=shelled_w\nS=grass_w\nSW=grass_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "shelled_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/37a45b9800badb8289c175c2f302458a55531fe48067127f3f42b6fb9c7c3610-2x.png",
+          "sha256": "18b928bf49c1c7a6d279b6e6aa6404e2710578fd7df6635c93a76326255d8992"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/37a45b9800badb8289c175c2f302458a55531fe48067127f3f42b6fb9c7c3610-4x.png",
+          "sha256": "07453cff837e47b68262c7e314f2c36bcf60a949923daa1c5868ad0cd3b886f7"
+        }
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "3bbdb892c7a85029286d082ab62ba9a1833c20b55bed75558f2e536322387574",
+      "descriptor": "ground-v1\nseason=winter\ncenter=stoney_w\nNE=grass_w\nSE=rough_w\nS=grass_w\nSW=grass_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "rough_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/3bbdb892c7a85029286d082ab62ba9a1833c20b55bed75558f2e536322387574-2x.png",
+          "sha256": "11383382359d729a3e4459311d5a575207ef75edeb29b057c8cffe6828aeb1cd"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/3bbdb892c7a85029286d082ab62ba9a1833c20b55bed75558f2e536322387574-4x.png",
+          "sha256": "94236c590367d7266a430bd31831cf126d03098a27aea37f57592c1fc8a7de16"
+        }
+      ],
+      "runtime_id": "stoney_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "3d1777d49509810d5417995d9c0b548f3d87b6d80543d205740c139e01ea6a2a",
+      "descriptor": "ground-v1\nseason=winter\ncenter=shelled_w\nNE=shelled_w\nSE=grass_w\nS=shelled_w\nSW=grass_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "shelled_w",
+        "grass_w",
+        "shelled_w",
+        "grass_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/3d1777d49509810d5417995d9c0b548f3d87b6d80543d205740c139e01ea6a2a-2x.png",
+          "sha256": "7a9d01332de2328b5cb537fc0770826d67df24d75db35238911ce8385940e530"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/3d1777d49509810d5417995d9c0b548f3d87b6d80543d205740c139e01ea6a2a-4x.png",
+          "sha256": "bf79638bea32545bca371415e63d5e3309ccf53c4bbdad4a104aa4d17da5cb08"
+        }
+      ],
+      "runtime_id": "shelled_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "40061f1a79c7743b329080d63a216d42b2c271eebd57b449d8a32f86af9de962",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=rough_w\nS=grass_w\nSW=grass_w\nNW=grass_w\nN=rough_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "rough_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "rough_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/40061f1a79c7743b329080d63a216d42b2c271eebd57b449d8a32f86af9de962-2x.png",
+          "sha256": "90c4b1195a9a091563190c3ca3a8a2ee6161babd26c79e551d6862ecf013456d"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/40061f1a79c7743b329080d63a216d42b2c271eebd57b449d8a32f86af9de962-4x.png",
+          "sha256": "284714a744e033c48c8a53fc3e66001f1e29ccbd528659ff6afa2c2baca63269"
+        }
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "48517b8de5d29a16befa4d522af01bd14719f1b91dfda0c04bdd3d8e59a3f4bf",
+      "descriptor": "ground-v1\nseason=winter\ncenter=stoney_w\nNE=grass_w\nSE=grass_w\nS=grass_w\nSW=rough_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "rough_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/48517b8de5d29a16befa4d522af01bd14719f1b91dfda0c04bdd3d8e59a3f4bf-2x.png",
+          "sha256": "52f6ad85cbbf0272f125bd1d81616a5a1352d192246376cdf64bf60609a06502"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/48517b8de5d29a16befa4d522af01bd14719f1b91dfda0c04bdd3d8e59a3f4bf-4x.png",
+          "sha256": "07a09ae9aee042c51a99004c6e8b6de23dea4dfae0cc38e43df83edac6650bb1"
+        }
+      ],
+      "runtime_id": "stoney_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "491e203ed62bcbba48f7d39b652e0abaee3f411b641ae9562b86c7491937e755",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=rough_w\nS=rough_w\nSW=rough_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "rough_w",
+        "rough_w",
+        "rough_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/491e203ed62bcbba48f7d39b652e0abaee3f411b641ae9562b86c7491937e755-2x.png",
+          "sha256": "264801d63bf23a268206c4f02d8df897fdeef44dbcedaba481fe1c6acf738be5"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/491e203ed62bcbba48f7d39b652e0abaee3f411b641ae9562b86c7491937e755-4x.png",
+          "sha256": "e1e7f5f99a69d36bcf5b5cf963dadc79d2d909a18cc58ee3713b06735fe43b76"
+        }
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "4b2d496702d3772a361ab6dce68d0be97732b67f854271daa637d73a5fc83fc0",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=grass_w\nS=grass_w\nSW=grass_w\nNW=rough_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "rough_w",
+        "grass_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/4b2d496702d3772a361ab6dce68d0be97732b67f854271daa637d73a5fc83fc0-2x.png",
+          "sha256": "5d6c31ef36b695cb48a216230a9aa12dd259d67182523722d1f0ff73b6669e21"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/4b2d496702d3772a361ab6dce68d0be97732b67f854271daa637d73a5fc83fc0-4x.png",
+          "sha256": "5f53b127a4e0d548b0342cd53b641cab0bffb7b8a18f20f32e21c4cc5b43f9a4"
+        }
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "4ca5d116afbb59e92b07e8ed53c65d4ed699906b20e605826cb6603c86a11f82",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=stoney_w\nSE=grass_w\nS=grass_w\nSW=rough_w\nNW=rough_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "stoney_w",
+        "grass_w",
+        "grass_w",
+        "rough_w",
+        "rough_w",
+        "grass_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/4ca5d116afbb59e92b07e8ed53c65d4ed699906b20e605826cb6603c86a11f82-2x.png",
+          "sha256": "dfb957c03686ee882079fd499b809a0645893025e3d5b17f60684b6a0debfc17"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/4ca5d116afbb59e92b07e8ed53c65d4ed699906b20e605826cb6603c86a11f82-4x.png",
+          "sha256": "5a44979fb40cc6d5dc1d7ad93a121603fde6e5d0d8427e5124f8a7509aa025f0"
+        }
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "4f00e8f2750725cb85449cdef4f4cdf3a2c1b889930006c15f3d3a84136e7db9",
+      "descriptor": "ground-v1\nseason=winter\ncenter=shelled_w\nNE=shelled_w\nSE=shelled_w\nS=shelled_w\nSW=shelled_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "shelled_w",
+        "shelled_w",
+        "shelled_w",
+        "shelled_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/4f00e8f2750725cb85449cdef4f4cdf3a2c1b889930006c15f3d3a84136e7db9-2x.png",
+          "sha256": "3c7bd3b47cdbdcf6634d1d6bdd6a1f2b1160340bb1689f3cfeeb7cb25384591b"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/4f00e8f2750725cb85449cdef4f4cdf3a2c1b889930006c15f3d3a84136e7db9-4x.png",
+          "sha256": "fc080a1c8bd59cb29e39a6fb63d16fc42d38d10b6bdbeff04012f3399ea0c877"
+        }
+      ],
+      "runtime_id": "shelled_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "54bb168f7c332923709d416c66ab1757dfc94105e7b4be9fe5ba4c3cfc951407",
+      "descriptor": "ground-v1\nseason=winter\ncenter=shelled_w\nNE=grass_w\nSE=grass_w\nS=grass_w\nSW=grass_w\nNW=rough_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "rough_w",
+        "grass_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/54bb168f7c332923709d416c66ab1757dfc94105e7b4be9fe5ba4c3cfc951407-2x.png",
+          "sha256": "31f38140413a0659ee074559c484e99d4a881ee31fd4853351525880d7ba8365"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/54bb168f7c332923709d416c66ab1757dfc94105e7b4be9fe5ba4c3cfc951407-4x.png",
+          "sha256": "b77077926b6dd9fe14f6771e7e9a9d26b0e4978126594939c40983baf3e6c673"
+        }
+      ],
+      "runtime_id": "shelled_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "57daffc0724e66a21931cf18eba2232108dcdfbb6008eb5929ae1d16b07b9ce2",
+      "descriptor": "ground-v1\nseason=winter\ncenter=shelled_w\nNE=shelled_w\nSE=grass_w\nS=grass_w\nSW=grass_w\nNW=shelled_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "shelled_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "shelled_w",
+        "grass_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/57daffc0724e66a21931cf18eba2232108dcdfbb6008eb5929ae1d16b07b9ce2-2x.png",
+          "sha256": "50a09bd85d01e172075dc2647882bacca8e67d45185273b63fd0333a52625d07"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/57daffc0724e66a21931cf18eba2232108dcdfbb6008eb5929ae1d16b07b9ce2-4x.png",
+          "sha256": "dd3106842a0bcaec5f91eedb56391e699be2d2dbb26f18d427477818eec5c611"
+        }
+      ],
+      "runtime_id": "shelled_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "62a6cbf84c6de107aa44d5d228daebd27e793b07e6d57f1dc37389c5d1ae5686",
+      "descriptor": "ground-v1\nseason=winter\ncenter=stoney_w\nNE=rough_w\nSE=grass_w\nS=grass_w\nSW=rough_w\nNW=grass_w\nN=rough_w\n",
+      "neighbor_ids": [
+        "rough_w",
+        "grass_w",
+        "grass_w",
+        "rough_w",
+        "grass_w",
+        "rough_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/62a6cbf84c6de107aa44d5d228daebd27e793b07e6d57f1dc37389c5d1ae5686-2x.png",
+          "sha256": "3d2ba861c6c980292af825c58642e9aa6e9f75835f93bf6a1c3f06b3f0ec7432"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/62a6cbf84c6de107aa44d5d228daebd27e793b07e6d57f1dc37389c5d1ae5686-4x.png",
+          "sha256": "f3d1bb3324f509fefadf3cdb9b4890a2d427c083d3ce2d7443cf022acd512a78"
+        }
+      ],
+      "runtime_id": "stoney_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "6d0d980712a8b03f574c9dc2ea3f1a54f5246c196a20168dd0fdf4a84ea4b058",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=rough_w\nSE=rough_w\nS=rough_w\nSW=rough_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "rough_w",
+        "rough_w",
+        "rough_w",
+        "rough_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/6d0d980712a8b03f574c9dc2ea3f1a54f5246c196a20168dd0fdf4a84ea4b058-2x.png",
+          "sha256": "d717ef0920632e08176d86b3f9183ad6c6a1bb8bbce033682e86aa5141ef3c0d"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/6d0d980712a8b03f574c9dc2ea3f1a54f5246c196a20168dd0fdf4a84ea4b058-4x.png",
+          "sha256": "a760ef3190b3d5dab466f5fa17067e3acd489e814042309bb9d70ee74c3692c7"
+        }
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "6e9da179e662bf9b48259f1f26d8ce59349bb1ea5c7ab97b79cab1300f747735",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=rough_w\nS=grass_w\nSW=rough_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "rough_w",
+        "grass_w",
+        "rough_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/6e9da179e662bf9b48259f1f26d8ce59349bb1ea5c7ab97b79cab1300f747735-2x.png",
+          "sha256": "8867de602791613ef3d2eb9e546b5c68fb276b4f2b3383f21f8c9cd2ebb0023c"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/6e9da179e662bf9b48259f1f26d8ce59349bb1ea5c7ab97b79cab1300f747735-4x.png",
+          "sha256": "afa092c3bc4b2298d9ae182f5365c5007339820f3c967097631baa927e138a42"
+        }
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "71a40071ddd2017ec98226024f635ece5f4d922dcde961cd6a12ebf1670ca4a8",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=grass_w\nS=rough_w\nSW=grass_w\nNW=rough_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "rough_w",
+        "grass_w",
+        "rough_w",
+        "grass_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/71a40071ddd2017ec98226024f635ece5f4d922dcde961cd6a12ebf1670ca4a8-2x.png",
+          "sha256": "6c8f3a9b0b63ab9333657ba4037886b1a00cc6415760351e606f697118ef62c3"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/71a40071ddd2017ec98226024f635ece5f4d922dcde961cd6a12ebf1670ca4a8-4x.png",
+          "sha256": "518debe28c877f41101e06063d1ed8ffe582c2e96450ef1f6e4bc7d91493074c"
+        }
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "809842928b4d6da0017544b11d0e0d06369804b3a2646867d5eb6762c61fe9ea",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=grass_w\nS=grass_w\nSW=grass_w\nNW=rough_w\nN=rough_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "rough_w",
+        "rough_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/809842928b4d6da0017544b11d0e0d06369804b3a2646867d5eb6762c61fe9ea-2x.png",
+          "sha256": "c382feccc45424da47e76735cae348a2185aa5d0b9ad9466b7cf6fb98c2881cc"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/809842928b4d6da0017544b11d0e0d06369804b3a2646867d5eb6762c61fe9ea-4x.png",
+          "sha256": "3839e4946902e70820de641c0ea12e770fd20ca8b26d83db91b964d9706d2dd3"
+        }
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "864eb309f4bb20cbc7b59e637c0cdb7d1697c7ed0f56194e41a572b25a4624ac",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=shelled_w\nSE=grass_w\nS=grass_w\nSW=grass_w\nNW=grass_w\nN=stoney_w\n",
+      "neighbor_ids": [
+        "shelled_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "stoney_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/864eb309f4bb20cbc7b59e637c0cdb7d1697c7ed0f56194e41a572b25a4624ac-2x.png",
+          "sha256": "a75ffa421d02b15783be00845f1e4243b9ec58cdcbe7a19ebe413caf0fb3e967"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/864eb309f4bb20cbc7b59e637c0cdb7d1697c7ed0f56194e41a572b25a4624ac-4x.png",
+          "sha256": "b45fda286910476bbc01dc9165f723bf0108b22cfcff8309bad5201da62f4ac6"
+        }
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "8d632d63eedc10313dd77863f2e0d2c00f3dfd50a2ce5b9010f83e4fca75a5e9",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=grass_w\nS=grass_w\nSW=grass_w\nNW=grass_w\nN=rough_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "rough_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/8d632d63eedc10313dd77863f2e0d2c00f3dfd50a2ce5b9010f83e4fca75a5e9-2x.png",
+          "sha256": "f26c8b84fbe8ff1ab886e35c7870cd219bb6807083d35e70ec75e06650f593f8"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/8d632d63eedc10313dd77863f2e0d2c00f3dfd50a2ce5b9010f83e4fca75a5e9-4x.png",
+          "sha256": "06992f8528816088b5114549cbcd2f6776447ec020a6a1152d06dca4995ebd8b"
+        }
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "8df6d99030a907b5eef089e29653b516fd79433da40a317a0e2497885aba2e32",
+      "descriptor": "ground-v1\nseason=winter\ncenter=stoney_w\nNE=grass_w\nSE=rough_w\nS=stoney_w\nSW=grass_w\nNW=rough_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "rough_w",
+        "stoney_w",
+        "grass_w",
+        "rough_w",
+        "grass_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/8df6d99030a907b5eef089e29653b516fd79433da40a317a0e2497885aba2e32-2x.png",
+          "sha256": "6b800aaa55fa89001ee815fd851511380f10523086bc8e49ff646b4ca3cfe3bf"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/8df6d99030a907b5eef089e29653b516fd79433da40a317a0e2497885aba2e32-4x.png",
+          "sha256": "b162c6d469d9f2baf3a2039e2d885ca93909c09dfb85b16aef82f4cac4437bb7"
+        }
+      ],
+      "runtime_id": "stoney_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "a1794ce0c07da0456e981e583bb0816afc66b2d80fcd3143e009a6315a51bec7",
+      "descriptor": "ground-v1\nseason=summer\ncenter=mud\nNE=grass\nSE=grass\nS=grass\nSW=mud\nNW=mud\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "mud",
+        "mud",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/a1794ce0c07da0456e981e583bb0816afc66b2d80fcd3143e009a6315a51bec7-2x.png",
+          "sha256": "f1946b0f27e15e066e4af495e3bb2a5959e86d1663312417267ffd19140a0eef"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/a1794ce0c07da0456e981e583bb0816afc66b2d80fcd3143e009a6315a51bec7-4x.png",
+          "sha256": "3a22e898e8e7fe918dfa39964c796d113cb1701fb06f8a53bb009b5093d78f5a"
+        }
+      ],
+      "runtime_id": "mud",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "a90474fd0344b015753bb0654017309290141793cfbf8252ecb3bfdabf0e1f83",
+      "descriptor": "ground-v1\nseason=summer\ncenter=stone\nNE=stone\nSE=stone\nS=stone\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "stone",
+        "stone",
+        "stone",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/a90474fd0344b015753bb0654017309290141793cfbf8252ecb3bfdabf0e1f83-2x.png",
+          "sha256": "ddf6b94b55b6a0a93dccb9cc49b5917a6a22beeae5f26ed8e5a5d0dc643bce0e"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/a90474fd0344b015753bb0654017309290141793cfbf8252ecb3bfdabf0e1f83-4x.png",
+          "sha256": "fda5ed863b60af1c6da073400f80689fcbf315b7981a29d77282ef83229cf32e"
+        }
+      ],
+      "runtime_id": "stone",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "a9cd31b100033abd823917d6d69c1806c926ac29af5a6a7e3ca7e70a9afce392",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=rough_w\nS=grass_w\nSW=rough_w\nNW=rough_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "rough_w",
+        "grass_w",
+        "rough_w",
+        "rough_w",
+        "grass_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/a9cd31b100033abd823917d6d69c1806c926ac29af5a6a7e3ca7e70a9afce392-2x.png",
+          "sha256": "698374e8cf67db2b43aaf1da864dbc1c9a3139a2029b82749b40e94cc859a87b"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/a9cd31b100033abd823917d6d69c1806c926ac29af5a6a7e3ca7e70a9afce392-4x.png",
+          "sha256": "0cb283b611fa4d4311ea30d77f7c81b4a5b659669dc705c818e91478e803e160"
+        }
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "b1b3ed8c599499d8b8ffc8d3ed747af8b99a23928f04f159a7d2b681ec46c7c1",
+      "descriptor": "ground-v1\nseason=summer\ncenter=stone\nNE=stone\nSE=stone\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "stone",
+        "stone",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/b1b3ed8c599499d8b8ffc8d3ed747af8b99a23928f04f159a7d2b681ec46c7c1-2x.png",
+          "sha256": "bbadc1f6f07acef60361fc6cbf0c0463c7d6d4d57a778b15db5ae94bcb62955f"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/b1b3ed8c599499d8b8ffc8d3ed747af8b99a23928f04f159a7d2b681ec46c7c1-4x.png",
+          "sha256": "07de616a7357becb5375f5afe18d26b5208664462568c50ca091320404297c20"
+        }
+      ],
+      "runtime_id": "stone",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "b1eeb5d9789a8ef1ae058a0f1062247f657a7125b0a347d87ec293e4bbb9c174",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=rough_w\nSE=grass_w\nS=grass_w\nSW=grass_w\nNW=rough_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "rough_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "rough_w",
+        "grass_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/b1eeb5d9789a8ef1ae058a0f1062247f657a7125b0a347d87ec293e4bbb9c174-2x.png",
+          "sha256": "ff43183c952a179024e7dc74e49437c323ac1ccb4eeb16e81fe136b69ec51a00"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/b1eeb5d9789a8ef1ae058a0f1062247f657a7125b0a347d87ec293e4bbb9c174-4x.png",
+          "sha256": "36cc2d5c3be5dcd2e9a84cef2e69460f1c7c917495fb1cdd7baa3cdafdeee112"
+        }
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "b561b0d813da23ddbac662141662ab0051ce83a4748b08a07ac8459b705be143",
+      "descriptor": "ground-v1\nseason=winter\ncenter=shelled_w\nNE=grass_w\nSE=grass_w\nS=grass_w\nSW=grass_w\nNW=shelled_w\nN=shelled_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "shelled_w",
+        "shelled_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/b561b0d813da23ddbac662141662ab0051ce83a4748b08a07ac8459b705be143-2x.png",
+          "sha256": "512cd6d37b84ca55bd266dedc32f10fd70a295101d9573fcfaecfd5f95e13852"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/b561b0d813da23ddbac662141662ab0051ce83a4748b08a07ac8459b705be143-4x.png",
+          "sha256": "54658690a5d7d15d8c8ea40866d74fe24380b0ee53e14653c904f0429e50a1b2"
+        }
+      ],
+      "runtime_id": "shelled_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "ba5641435fad995e769584b1af8eb05fe0fa28e9c2a16cca35e01d249809690a",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=rough_w\nS=rough_w\nSW=rough_w\nNW=rough_w\nN=rough_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "rough_w",
+        "rough_w",
+        "rough_w",
+        "rough_w",
+        "rough_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/ba5641435fad995e769584b1af8eb05fe0fa28e9c2a16cca35e01d249809690a-2x.png",
+          "sha256": "9823ced06202a0820cb967d94d2d71e8a17a4b001ad6730223b061d5b64a0406"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/ba5641435fad995e769584b1af8eb05fe0fa28e9c2a16cca35e01d249809690a-4x.png",
+          "sha256": "35c186137cc63988323c17ed19edd719c1eaecbc7fe765e2548f7efce9fc12df"
+        }
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "bc866d392c7e32e3f2d109cc14d540d9f3892a382571ba508d8a669b60e044a4",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=stoney_w\nS=grass_w\nSW=grass_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "stoney_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/bc866d392c7e32e3f2d109cc14d540d9f3892a382571ba508d8a669b60e044a4-2x.png",
+          "sha256": "a876ab6c3595ff531c6a9689a1d5b3940c00d1071d9b38c9b290d7a913e634e1"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/bc866d392c7e32e3f2d109cc14d540d9f3892a382571ba508d8a669b60e044a4-4x.png",
+          "sha256": "dcd9a2cb5d1adcc49be384364826c67922d5e9be62246c62c0ca1be9abc88460"
+        }
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "c2925ac23cbc8cec7747de2b0437c4b7460bceca6222e9ade5f0797a5261a661",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=rough_w\nSE=grass_w\nS=stoney_w\nSW=grass_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "rough_w",
+        "grass_w",
+        "stoney_w",
+        "grass_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/c2925ac23cbc8cec7747de2b0437c4b7460bceca6222e9ade5f0797a5261a661-2x.png",
+          "sha256": "1a1dbacc2746b8e97e091cc0afb83041173abb38523d1ea70517f0a697322dab"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/c2925ac23cbc8cec7747de2b0437c4b7460bceca6222e9ade5f0797a5261a661-4x.png",
+          "sha256": "53e48e10e3fa114d8bced69050d8396f5050869f1d1959a44b9a75425c209790"
+        }
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "c2a9deca6a5d3b9c144a22dae22f35866e01c1118f8195457392ee5dc914e58f",
+      "descriptor": "ground-v1\nseason=summer\ncenter=stone\nNE=grass\nSE=grass\nS=grass\nSW=stone\nNW=stone\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "stone",
+        "stone",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/c2a9deca6a5d3b9c144a22dae22f35866e01c1118f8195457392ee5dc914e58f-2x.png",
+          "sha256": "42e5f1ae2ab4a4d9ecbf90f36d97706288af4f351af03b7fc3dad2fb2cf98da5"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/c2a9deca6a5d3b9c144a22dae22f35866e01c1118f8195457392ee5dc914e58f-4x.png",
+          "sha256": "8a6634272158cfc9638d8f4b00a0b8cc6f9e690129c6286224047b01f9558135"
+        }
+      ],
+      "runtime_id": "stone",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "c51d3103c6664f63bb91744566b5bc2f6ab934f5027550aaef908678c13d26f1",
+      "descriptor": "ground-v1\nseason=winter\ncenter=shelled_w\nNE=grass_w\nSE=grass_w\nS=shelled_w\nSW=shelled_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "shelled_w",
+        "shelled_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/c51d3103c6664f63bb91744566b5bc2f6ab934f5027550aaef908678c13d26f1-2x.png",
+          "sha256": "c063ccb2019b6a0161a3dcd6708e4227a8bf37509feae1d17f3fb3c94a8c3ac8"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/c51d3103c6664f63bb91744566b5bc2f6ab934f5027550aaef908678c13d26f1-4x.png",
+          "sha256": "aed89f69222cdbc53a73a8eca6a7ffe5b84f0e2e7dfedcdf608763099e636d10"
+        }
+      ],
+      "runtime_id": "shelled_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "c6c269bc0136e05dd6c457fd026a59e831735483f5284df0e2e0939dddbebe9b",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=grass_w\nS=grass_w\nSW=rough_w\nNW=grass_w\nN=rough_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "rough_w",
+        "grass_w",
+        "rough_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/c6c269bc0136e05dd6c457fd026a59e831735483f5284df0e2e0939dddbebe9b-2x.png",
+          "sha256": "d40f1f0c029672c9873a2f1c64c28b077cedb5525af68c0bbf9aa03a6d0c31d2"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/c6c269bc0136e05dd6c457fd026a59e831735483f5284df0e2e0939dddbebe9b-4x.png",
+          "sha256": "57231779e659307627cc8ce34b8f25fe85ff43e4ba1c98571a72172b6ca267c0"
+        }
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "c82a837a3400db94a0b93e274880c931a12fec01040f3c3e51c2a546c8358876",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=rough_w\nSE=rough_w\nS=rough_w\nSW=grass_w\nNW=stoney_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "rough_w",
+        "rough_w",
+        "rough_w",
+        "grass_w",
+        "stoney_w",
+        "grass_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/c82a837a3400db94a0b93e274880c931a12fec01040f3c3e51c2a546c8358876-2x.png",
+          "sha256": "38960e2faf34b16a6cc0557bb195c3a97659222831db28a5a5b3c68133d6c8fe"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/c82a837a3400db94a0b93e274880c931a12fec01040f3c3e51c2a546c8358876-4x.png",
+          "sha256": "bb192f8d933fd12451c4839e7fd30d7fc50af488cf61683fb6839fbeb25c4b84"
+        }
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "c886902228a0e4e5bd7ac668569dfa81a2cfd185fa4ed4d93231c05a3bcb93a0",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=rough_w\nSE=grass_w\nS=grass_w\nSW=stoney_w\nNW=stoney_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "rough_w",
+        "grass_w",
+        "grass_w",
+        "stoney_w",
+        "stoney_w",
+        "grass_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/c886902228a0e4e5bd7ac668569dfa81a2cfd185fa4ed4d93231c05a3bcb93a0-2x.png",
+          "sha256": "a4bf2a4d52ff7d4be5bad82d96844f2bcc0c2e57e673a8837676996c73c063d0"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/c886902228a0e4e5bd7ac668569dfa81a2cfd185fa4ed4d93231c05a3bcb93a0-4x.png",
+          "sha256": "9fe27fe543fafc56625a0143711117a3af8b3ce8c05f1f6127dc2274be9a6cb5"
+        }
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "d25347fa3faa76904568a5a7744744284fba56ae8bbc006e3400c3421b0a48d0",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=rough_w\nSE=grass_w\nS=grass_w\nSW=stoney_w\nNW=rough_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "rough_w",
+        "grass_w",
+        "grass_w",
+        "stoney_w",
+        "rough_w",
+        "grass_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/d25347fa3faa76904568a5a7744744284fba56ae8bbc006e3400c3421b0a48d0-2x.png",
+          "sha256": "11be21693ba391ab082248c72a269536127047efa7e64a9471b89c93755e74dc"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/d25347fa3faa76904568a5a7744744284fba56ae8bbc006e3400c3421b0a48d0-4x.png",
+          "sha256": "667dbec97a6f7f326c4a0c65e70f4e346fe6eb9bc54747888eef34874d32f079"
+        }
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "dae05f2ece22d83846e07886282bd908d08a8ce70a0002ac652c05af5fdec20d",
+      "descriptor": "ground-v1\nseason=summer\ncenter=stone\nNE=grass\nSE=grass\nS=stone\nSW=stone\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "stone",
+        "stone",
+        "grass",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/dae05f2ece22d83846e07886282bd908d08a8ce70a0002ac652c05af5fdec20d-2x.png",
+          "sha256": "0019a84de45e18af06134f342394261164bf92424dd8c06324ec61f9e8b1bc06"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/dae05f2ece22d83846e07886282bd908d08a8ce70a0002ac652c05af5fdec20d-4x.png",
+          "sha256": "1670820d144e462adf2108b6f285d5c5c4861685de1fb3cbab8ae55290e59f02"
+        }
+      ],
+      "runtime_id": "stone",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "db4624eb14906885d2f9f6f6b357859e4217397aa309c6d825dc2f7a0204544f",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=rough_w\nSE=rough_w\nS=grass_w\nSW=grass_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "rough_w",
+        "rough_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/db4624eb14906885d2f9f6f6b357859e4217397aa309c6d825dc2f7a0204544f-2x.png",
+          "sha256": "b749c116163dfe86b0a72390968c24bcb74cddc30f34ca542045dc4aeaecc198"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/db4624eb14906885d2f9f6f6b357859e4217397aa309c6d825dc2f7a0204544f-4x.png",
+          "sha256": "90faf83deb72b9d90245719b54d582f552b487124b98f22270fd3dc628b18ae0"
+        }
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "dd51c4938cb9f12f11a3ba90a6bc2553f7a35dc1c1087f84b578c8daf2a9bc0c",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=rough_w\nSE=rough_w\nS=rough_w\nSW=grass_w\nNW=rough_w\nN=rough_w\n",
+      "neighbor_ids": [
+        "rough_w",
+        "rough_w",
+        "rough_w",
+        "grass_w",
+        "rough_w",
+        "rough_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/dd51c4938cb9f12f11a3ba90a6bc2553f7a35dc1c1087f84b578c8daf2a9bc0c-2x.png",
+          "sha256": "b5f086dbc6eb049b9aed5ef6c4707b7b8f1fbe1ba7fe14a3a7e6b54ee5dc21a0"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/dd51c4938cb9f12f11a3ba90a6bc2553f7a35dc1c1087f84b578c8daf2a9bc0c-4x.png",
+          "sha256": "f57942854a4b452230136288fa8f050478748f4fc99ba4d4a17528194f675571"
+        }
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "e1e717480e6a7ee65a0f4d811ef49e55f45ad443ee3b69def0b1c628415a14b1",
+      "descriptor": "ground-v1\nseason=winter\ncenter=shelled_w\nNE=shelled_w\nSE=shelled_w\nS=grass_w\nSW=rough_w\nNW=rough_w\nN=rough_w\n",
+      "neighbor_ids": [
+        "shelled_w",
+        "shelled_w",
+        "grass_w",
+        "rough_w",
+        "rough_w",
+        "rough_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/e1e717480e6a7ee65a0f4d811ef49e55f45ad443ee3b69def0b1c628415a14b1-2x.png",
+          "sha256": "3b1eed92e8697c9d373caf4d6cb5c93177723069451323badc66e20fe29c1844"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/e1e717480e6a7ee65a0f4d811ef49e55f45ad443ee3b69def0b1c628415a14b1-4x.png",
+          "sha256": "a730c0545a6910da27e5ad1d30e1b6a66247911b09c9fdb26de554fe58b0f15a"
+        }
+      ],
+      "runtime_id": "shelled_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "e4fed1b6b191ca0cab328cfd6b07f7893ea9f938881e08f5ab0ee22bcf5ef426",
+      "descriptor": "ground-v1\nseason=summer\ncenter=stone\nNE=grass\nSE=stone\nS=stone\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "stone",
+        "stone",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/e4fed1b6b191ca0cab328cfd6b07f7893ea9f938881e08f5ab0ee22bcf5ef426-2x.png",
+          "sha256": "9e3ab109d8b4fdcabc5d52707830359a0b54c81a3f06590a0afc059e38a50610"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/e4fed1b6b191ca0cab328cfd6b07f7893ea9f938881e08f5ab0ee22bcf5ef426-4x.png",
+          "sha256": "abfe45f569d7b53c5467d797a69d902771c8a227b98dbbb799ee7a984c4a93d5"
+        }
+      ],
+      "runtime_id": "stone",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "e6b45be00282d80689365b7ca65f14a9bd50f670394e26b03b9ca9f8616faab7",
+      "descriptor": "ground-v1\nseason=winter\ncenter=stoney_w\nNE=stoney_w\nSE=grass_w\nS=grass_w\nSW=stoney_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "stoney_w",
+        "grass_w",
+        "grass_w",
+        "stoney_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/e6b45be00282d80689365b7ca65f14a9bd50f670394e26b03b9ca9f8616faab7-2x.png",
+          "sha256": "27d9aa1e1872cac972aec160c2b207cbb13e7fc3f41b7c6bd847290d576ae48e"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/e6b45be00282d80689365b7ca65f14a9bd50f670394e26b03b9ca9f8616faab7-4x.png",
+          "sha256": "b5a275a1ae42823f88d4556708b5470a5072fd720baddf0a0a78575c9b44dfa8"
+        }
+      ],
+      "runtime_id": "stoney_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "e7b263f90e856896262de4c8d186b65749cd4c8ef8f2c749dccc054b25d90323",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=stoney_w\nSE=grass_w\nS=rough_w\nSW=grass_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "stoney_w",
+        "grass_w",
+        "rough_w",
+        "grass_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/e7b263f90e856896262de4c8d186b65749cd4c8ef8f2c749dccc054b25d90323-2x.png",
+          "sha256": "860d227ecc46fbaf5b7a9d059717db17d37e918843c90232641313100687631e"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/e7b263f90e856896262de4c8d186b65749cd4c8ef8f2c749dccc054b25d90323-4x.png",
+          "sha256": "96bb493201d0011929ab63ee1883d69d79f0475ec2cdee9528389b342bc81512"
+        }
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "e8f848ad3569a28b26f0b3fbaf18f0dfe62f7f8fcbcbdc11758c0b6a0feb6447",
+      "descriptor": "ground-v1\nseason=winter\ncenter=stoney_w\nNE=stoney_w\nSE=grass_w\nS=grass_w\nSW=grass_w\nNW=rough_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "stoney_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "rough_w",
+        "grass_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/e8f848ad3569a28b26f0b3fbaf18f0dfe62f7f8fcbcbdc11758c0b6a0feb6447-2x.png",
+          "sha256": "496a6f92dbb79c349aeff17fadf6c083f89a5065104dfb8964f2b2240236bbad"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/e8f848ad3569a28b26f0b3fbaf18f0dfe62f7f8fcbcbdc11758c0b6a0feb6447-4x.png",
+          "sha256": "2f932e9934910cccb2607f907f2253983906839c423262fdd8243197a9a73657"
+        }
+      ],
+      "runtime_id": "stoney_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "ea90a8745631cc7021ef3de19d8923966d89b59f3203e451d6c77ead717b820c",
+      "descriptor": "ground-v1\nseason=winter\ncenter=shelled_w\nNE=shelled_w\nSE=grass_w\nS=grass_w\nSW=grass_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "shelled_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/ea90a8745631cc7021ef3de19d8923966d89b59f3203e451d6c77ead717b820c-2x.png",
+          "sha256": "d257c01d4a3c5c19e13c8ed8e351aadce159999da7225e0312407823d9175e9c"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/ea90a8745631cc7021ef3de19d8923966d89b59f3203e451d6c77ead717b820c-4x.png",
+          "sha256": "11092a9f6d9f0f40dbf41d0020558ce19532278266bf83844399233f625cc5be"
+        }
+      ],
+      "runtime_id": "shelled_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "ecd8e023947c29bdd5adc53bdf669aa306e9280f20b2cd68e3b9791f58f01072",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=stoney_w\nSE=grass_w\nS=grass_w\nSW=rough_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "stoney_w",
+        "grass_w",
+        "grass_w",
+        "rough_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/ecd8e023947c29bdd5adc53bdf669aa306e9280f20b2cd68e3b9791f58f01072-2x.png",
+          "sha256": "c4314d8809ddc39ba29ff57aa699aa05e50f4ec946759033ab7c466a3adc0d74"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/ecd8e023947c29bdd5adc53bdf669aa306e9280f20b2cd68e3b9791f58f01072-4x.png",
+          "sha256": "a19c7c03d89058d59ccd887a3384bc2853c7181f7404b6614f7ecd79babece66"
+        }
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "ee44fed14cb2842e4f98db19a1b32e5008ea8028dc35fe55c0a6010cbed7348d",
+      "descriptor": "ground-v1\nseason=summer\ncenter=stone\nNE=stone\nSE=grass\nS=grass\nSW=stone\nNW=stone\nN=grass\n",
+      "neighbor_ids": [
+        "stone",
+        "grass",
+        "grass",
+        "stone",
+        "stone",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/ee44fed14cb2842e4f98db19a1b32e5008ea8028dc35fe55c0a6010cbed7348d-2x.png",
+          "sha256": "e0f164c1b2f8a3b9aac78fd905747f5f1fbbb1679288d274183a38dd9dc6d7c4"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/ee44fed14cb2842e4f98db19a1b32e5008ea8028dc35fe55c0a6010cbed7348d-4x.png",
+          "sha256": "8bb681558a85170ca51593a766198051c76021751e5d8c1f0c932caa29a52ab8"
+        }
+      ],
+      "runtime_id": "stone",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "f0eb31ae429562c581b3f4f065bf13ef28e8be2c940bfa378f08f979be52b559",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=rough_w\nS=rough_w\nSW=rough_w\nNW=grass_w\nN=rough_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "rough_w",
+        "rough_w",
+        "rough_w",
+        "grass_w",
+        "rough_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/f0eb31ae429562c581b3f4f065bf13ef28e8be2c940bfa378f08f979be52b559-2x.png",
+          "sha256": "66177ef83c5bd416879b4cc3fc35532ffa31c75a8f28bafac452fd127a55f603"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/f0eb31ae429562c581b3f4f065bf13ef28e8be2c940bfa378f08f979be52b559-4x.png",
+          "sha256": "456b25cd8f9565299595c2948f9cf339c6102c453c1fad9aea7bb4ed911895ad"
+        }
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "f59cf79496197c40e944ea11cce0df4d27f37b41b5954a78cca0a9a91e5c0333",
+      "descriptor": "ground-v1\nseason=summer\ncenter=stone\nNE=grass\nSE=grass\nS=grass\nSW=stone\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "stone",
+        "grass",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/f59cf79496197c40e944ea11cce0df4d27f37b41b5954a78cca0a9a91e5c0333-2x.png",
+          "sha256": "d06f9529f0f43a5ed6d0d6951731b8624fede57bc04486ffdea0d7507c768359"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/f59cf79496197c40e944ea11cce0df4d27f37b41b5954a78cca0a9a91e5c0333-4x.png",
+          "sha256": "9d611a5fe98e648c0421d6b6274e7b625e5a1e83417912d93836a2b0b70abc62"
+        }
+      ],
+      "runtime_id": "stone",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "f6888e5443c4242a1917781c060f541f9879bbfd1db035229d25a50fe47648ea",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=grass_w\nS=rough_w\nSW=grass_w\nNW=grass_w\nN=rough_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "rough_w",
+        "grass_w",
+        "grass_w",
+        "rough_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/f6888e5443c4242a1917781c060f541f9879bbfd1db035229d25a50fe47648ea-2x.png",
+          "sha256": "dfa8ac2de5bfd87b9b140a7f57ba2045439b28e8ce97c6d7a062bc88943a1549"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/f6888e5443c4242a1917781c060f541f9879bbfd1db035229d25a50fe47648ea-4x.png",
+          "sha256": "7880b15069314ee379c919165daf25f20194dad96e5990dd0ad4430189042a27"
+        }
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "fb658a129e4fe5c732507ae3840e96a0567d8ee3ea5c238419f413357d61d835",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=rough_w\nSE=rough_w\nS=shelled_w\nSW=rough_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "rough_w",
+        "rough_w",
+        "shelled_w",
+        "rough_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/ground-v1/profiles/fb658a129e4fe5c732507ae3840e96a0567d8ee3ea5c238419f413357d61d835-2x.png",
+          "sha256": "ec935ab23f232014ce59e1592228918bd65dfe428e5c9fce8ef431b41196e094"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/ground-v1/profiles/fb658a129e4fe5c732507ae3840e96a0567d8ee3ea5c238419f413357d61d835-4x.png",
+          "sha256": "b620ebdc1445292acac5f7abd6e6dbebb7a5726edb33accff5430474042bca4d"
         }
       ],
       "runtime_id": "rough_w",

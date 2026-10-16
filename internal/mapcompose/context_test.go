@@ -55,8 +55,8 @@ func TestDescriptorMatchesRecipeProfiles(t *testing.T) {
 			n++
 		}
 	}
-	if n != 51+43+122 {
-		t.Errorf("checked %d profiles, want 216", n)
+	if n != 110+82+159 {
+		t.Errorf("checked %d profiles, want 351", n)
 	}
 }
 

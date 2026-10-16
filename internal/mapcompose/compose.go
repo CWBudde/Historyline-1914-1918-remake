@@ -28,8 +28,8 @@ type Reason string
 const (
 	// Missing: the contract defines the context, but it has not been exported.
 	Missing Reason = "missing"
-	// Undefined: a neighbour from another family or season, or the map edge;
-	// the contract defines no tile for it.
+	// Undefined: an unknown terrain or a neighbour from another season.
+	// The contract defines no tile for it.
 	Undefined Reason = "undefined"
 )
 
@@ -94,15 +94,20 @@ func Compose(g hexgrid.Grid, at func(hexgrid.Coord) Hex, has func(id string) boo
 func selectContext(g hexgrid.Grid, at func(hexgrid.Coord) Hex, c hexgrid.Coord, f Family, centre string, has func(string) bool) (string, *Gap) {
 	var neighbors [6]string
 	var bad []string
-	season, _, _ := member(f, centre)
+	season, base, _ := member(f, centre)
 	for i, n := range hexgrid.Around(c) {
 		if !g.Contains(n) {
-			bad = append(bad, directions[i]+"=map edge")
+			// Continue the material beyond the visible map boundary.
+			neighbors[i] = centre
 			continue
 		}
 		neighbors[i] = at(n).Terrain
 		if s, _, ok := member(f, neighbors[i]); !ok || s != season {
-			bad = append(bad, directions[i]+"="+neighbors[i])
+			if boundaryTerrain(neighbors[i], season) {
+				neighbors[i] = base
+			} else {
+				bad = append(bad, directions[i]+"="+neighbors[i])
+			}
 		}
 	}
 	gap := &Gap{At: c, Terrain: centre, Family: f}

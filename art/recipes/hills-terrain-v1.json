@@ -2178,6 +2178,598 @@
       },
       "path": "art/exports/hills-v1/profiles/379e7a9cbda5d37babcf3ccd9fe270656642143df8596e8c8a14f7a233921f2f-4x.png",
       "sha256": "9dded54ebb87fa655e36bcc51bea26fb8d1084d409f4289b4186cbeb32cd2af2"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/02233fd352987bf996c32adeafc07bd12ce15157bd42649bc6972e0dedb1102e-2x.png",
+      "sha256": "16eb3e487e10d1f93abc75ddc20b09ebbed1c61f0f30c0992bc68d8cea6f1fd7"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/02233fd352987bf996c32adeafc07bd12ce15157bd42649bc6972e0dedb1102e-4x.png",
+      "sha256": "29d6523cd8ef6a010bbf14ce3b9ca6c49334820dd4076892195d82ca33f9412b"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/025b921ef2363bcf9fa4ed12b22b34d2cc819efa43e9fa5a63aded8492659fa3-2x.png",
+      "sha256": "09fc36bf7bf2901388adfab74e92e2fc469ce1429f4b2d6985451464c13fbf57"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/025b921ef2363bcf9fa4ed12b22b34d2cc819efa43e9fa5a63aded8492659fa3-4x.png",
+      "sha256": "227e714df7a4e8e4408d50d691e684ee055e40d58056d52d74cae952c39bef6e"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/087ff2d06a9a0103c33f275a99998a484a1b286f372f1059b7a9de176d81a845-2x.png",
+      "sha256": "3ae2a8861a2467c2b536225ed9ad6146250eefb53fd4029abb64f1d247dd856b"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/087ff2d06a9a0103c33f275a99998a484a1b286f372f1059b7a9de176d81a845-4x.png",
+      "sha256": "f5d0f2e422bedc7fcb46e63372ee36e8eacf3aa564d4d11b2e178d229e9f2cb0"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/0a1e6ad640fbfe5059a017849caae5e4fdf22a7d024068190f49b076f21674b8-2x.png",
+      "sha256": "80031925c42269f7513ec06457bbf028d8fc9532adfb1b383c44264adedc7fd4"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/0a1e6ad640fbfe5059a017849caae5e4fdf22a7d024068190f49b076f21674b8-4x.png",
+      "sha256": "3e85a21c8dff009d362e050dbe427dab4c283844c665f821b25b95a66c19cd72"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/1141ef8a588eeb2ad5f374a9eeb33773eb78b52ac63cfaa02bf2256c183871bd-2x.png",
+      "sha256": "68dad4fc951af777afbe7bd63b125e6ddd197a25c35f2388e4925cde9576c6e3"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/1141ef8a588eeb2ad5f374a9eeb33773eb78b52ac63cfaa02bf2256c183871bd-4x.png",
+      "sha256": "d9e2ce218e434f98728268b096c915df28d7ca82fa9fe3163802a81a97b77afa"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/11b9cc99ed13290033ee54aba77e373f8bd341b93c14b677d9c1baf88ddfa007-2x.png",
+      "sha256": "3a2f7e32b5df24c27f8e9a1778fdce34be11629a5b441f8c1bc406b4810d3a26"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/11b9cc99ed13290033ee54aba77e373f8bd341b93c14b677d9c1baf88ddfa007-4x.png",
+      "sha256": "5b4282cdefc94fbc9eacde34b2415eb07eebb6987ce306806e8004116febadc8"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/1678cc9268a59935fac5e84fb2ffc2ad8ea91b47e27338dd96ac0d4bb768d574-2x.png",
+      "sha256": "f4ae9eb8fdbec6522378752f0187d1af0c7b6fb646c0c8cd48f85c677f6e8f5c"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/1678cc9268a59935fac5e84fb2ffc2ad8ea91b47e27338dd96ac0d4bb768d574-4x.png",
+      "sha256": "4412c86477cac48b03394e9b19720effeb91c72401dae1670047685f3afc584a"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/255c23ce94c8a74a7b873bc8f0aa7ebdc93353a52d9c6b6357b2ad236141c9ae-2x.png",
+      "sha256": "1d3f5d7a9f53d34f45062e0add68825e00c6f9f71c715c9f4050f0986bf6a422"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/255c23ce94c8a74a7b873bc8f0aa7ebdc93353a52d9c6b6357b2ad236141c9ae-4x.png",
+      "sha256": "7953c629222b691bcbdae16313a849b794fe1fc314a404fda9a1017d82f72ec1"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/34f3ae7413ea84ba2e99bd57308637dca672d0317c9f47462ff600a8c984a368-2x.png",
+      "sha256": "3e9610a911acd1c4426c209348df6be9284a0b428c879cffad773a69513d6266"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/34f3ae7413ea84ba2e99bd57308637dca672d0317c9f47462ff600a8c984a368-4x.png",
+      "sha256": "f0b454c882a0916c9e35b95a6bfa10426b08e59c375b36b639d01cdb9a895b9d"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/44d769a4ba230402d2c35914f812507443a2e4bc3d629f464304d408a23a2b40-2x.png",
+      "sha256": "15b0404874e3aca96e467a412f815a2e4cd02a2dbdaca323c6cad5a1230d46c1"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/44d769a4ba230402d2c35914f812507443a2e4bc3d629f464304d408a23a2b40-4x.png",
+      "sha256": "225850c939c9d083071de213851313eb66b43ce558d466b68056f60d26df9f7b"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/4d8e70a3c20a2c3ce39434f9afcfff105f135fff314deb1a71403b5f3683486a-2x.png",
+      "sha256": "bd0d60a3cf10b43c1c375c16a428c5446014edb996459723d29f13b8849d149a"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/4d8e70a3c20a2c3ce39434f9afcfff105f135fff314deb1a71403b5f3683486a-4x.png",
+      "sha256": "3d5eea6030bff660b17319ececa8241f0903360614dd298b1030dac15dd47d44"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/573fa4dda4f461ef8926ee9b2cd8a3218ab70923ac42a3d76f4896d2c9cdde2d-2x.png",
+      "sha256": "1642638902cbd3bab7e8069a5f743fdc550ddff454a28b957e8b72403ca4cd72"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/573fa4dda4f461ef8926ee9b2cd8a3218ab70923ac42a3d76f4896d2c9cdde2d-4x.png",
+      "sha256": "ebef1bd3522b4f8b8946b9ba51d71bdb1f8b8816712b502ddea50edc92ef9a63"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/5787f9b33bc4b4c3f85d17578454552c2c10a219c8814de5ed86ca4ffa50876b-2x.png",
+      "sha256": "d27f553410ec8fba11832553a3a06c57f728c211e032abca06c92902abefc16b"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/5787f9b33bc4b4c3f85d17578454552c2c10a219c8814de5ed86ca4ffa50876b-4x.png",
+      "sha256": "7294ac95cdd0a926a6b34bad97ecff30a1b745cc565bd70405927ab32f9d5625"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/591bbc83e54c3fc80497f8b309db62b62037f1c6552b200397047992613ff1c3-2x.png",
+      "sha256": "6d0359f5513557bdf252590d3e9858e6475ff44bb3684ae95b0970146614af4e"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/591bbc83e54c3fc80497f8b309db62b62037f1c6552b200397047992613ff1c3-4x.png",
+      "sha256": "4c8e2336e025b8f8f258feef8250f7524c19358061c8e6a75f71f35b95271f9f"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/5c3f89303b4c1f31e2b2293088167d1931c8b29f0ad5551b9cc53b88f9742a77-2x.png",
+      "sha256": "dd291ee1758cf1b200502a754a96b2f8452a547b8abc3d92051416077ab4cb2f"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/5c3f89303b4c1f31e2b2293088167d1931c8b29f0ad5551b9cc53b88f9742a77-4x.png",
+      "sha256": "55ddbfd03a76e0a0c18d092fccefa39a21a1b30a894e922bc53ffaac9e5ebe20"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/6ba07631a5c5c66125b50a1b66dd6a65793978029aaf71e0a802a0605265468c-2x.png",
+      "sha256": "4fb82d67562cc250feb39bf550728b4ca0d266018661439513f112949d08d9f2"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/6ba07631a5c5c66125b50a1b66dd6a65793978029aaf71e0a802a0605265468c-4x.png",
+      "sha256": "b7456685365afe187eeda69e515d5141f47cf3f013f83d740971053e3059ac00"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/6c0056f064da2e321193122936a4a550c0ed82229d9d58f0839f1241a4279087-2x.png",
+      "sha256": "2248ad26a9b7ad87a47893cb5166f30cc8c05ca59e7c7e1926d7980e55e852bf"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/6c0056f064da2e321193122936a4a550c0ed82229d9d58f0839f1241a4279087-4x.png",
+      "sha256": "aeaafef4e600af99f041a6f99482c6121a94043303715cd8a1c3ba9ecb9d2419"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/7a47c5ac8a7e6957b3c5c2dd4b809609a3b33472cfc7aa6331a8483976bfef41-2x.png",
+      "sha256": "2d5d773270098d420ff80c658781deaf3f0ac3e78ba209ddbfd6c88db6bf0a7e"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/7a47c5ac8a7e6957b3c5c2dd4b809609a3b33472cfc7aa6331a8483976bfef41-4x.png",
+      "sha256": "0d5dc4dbba3c808beb00db0e5b6f9f3aa9216233eb9123e3d6cff7311ff0737b"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/7d190c0b26e1d05e452715e02760f55452a2bf815f708397b3b15a3994a7eb44-2x.png",
+      "sha256": "91a6c13e682f479f57c7718f4a120f10b9af5e7b37736b9437c8c2523aa7d8e4"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/7d190c0b26e1d05e452715e02760f55452a2bf815f708397b3b15a3994a7eb44-4x.png",
+      "sha256": "f5d9f94856499a4f5b21d498609e9f50893025af0a387cbffa2db0d21f5a4099"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/7faece425150795d8681f35f305aa87174871210bee8ead183bb55446972fca5-2x.png",
+      "sha256": "5a12ce53f7be3f91c9874a04ceea7c9d0e5dcddbb7446806b26c5967f79158af"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/7faece425150795d8681f35f305aa87174871210bee8ead183bb55446972fca5-4x.png",
+      "sha256": "719dd11c831030e9a6b03a679eacb6b1af536409d54ffd325b360768b20aa6b3"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/907f2ca1940a6a1808555888314c2cb90ed20ccbdb6f16a1a63127860a0bd530-2x.png",
+      "sha256": "b92f81774f6b5967cd353e9905808455e260f8269d2c1ecd5e600b51f257d9ef"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/907f2ca1940a6a1808555888314c2cb90ed20ccbdb6f16a1a63127860a0bd530-4x.png",
+      "sha256": "35f3980780132b48224e4ec270214b8583e8a2de6deb3f3ed33cbb6188c0a571"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/91e2ac8b1fb61307df51af9a431f32ecd78d6a01fe61b27a71e6a815ecd7aed2-2x.png",
+      "sha256": "123c81856739cd2d609509a5ca66dee5e2cb9ab816dcaa07a19965eff11822b4"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/91e2ac8b1fb61307df51af9a431f32ecd78d6a01fe61b27a71e6a815ecd7aed2-4x.png",
+      "sha256": "1efa37d2fd3012fe08cd18369a221fd0b1b68ebd909b9663e2aff4f8c9799f47"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/98c17608418438bbbbabe9627b5a2ed4473ae1fdf2805002f0d2c9913e721077-2x.png",
+      "sha256": "14e31466fc23856733c6c577262dce4d050ab053fc71be53d7f6cbc7b1b0213e"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/98c17608418438bbbbabe9627b5a2ed4473ae1fdf2805002f0d2c9913e721077-4x.png",
+      "sha256": "268e222834559c23cea257300fcdda32e0dec56a0412873a891feb0be68028f2"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/a9ea8d6484a94033b5ff2015a2cc49e78f3509948a3ccad494383ed0d1c75f01-2x.png",
+      "sha256": "932ae6ac07d90f8de4a0f7138d8ad8fee1ac7329eaabbdfd61c528c87799a003"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/a9ea8d6484a94033b5ff2015a2cc49e78f3509948a3ccad494383ed0d1c75f01-4x.png",
+      "sha256": "bfde74f8deafae77b8f356078fcaf629ea686c53b411511ae31e988b28dfbac2"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/ab1ee9cbb62e7dbe896ab262db3784a35f5a925a56bda79f7f1d125ab2a88938-2x.png",
+      "sha256": "def8e98df64ac090c2518c119474a116174fbfd936699df5946c28163064746a"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/ab1ee9cbb62e7dbe896ab262db3784a35f5a925a56bda79f7f1d125ab2a88938-4x.png",
+      "sha256": "a334d99723783a48eebeed67831065428f2b681cb20d7de0aa3c7be0aca09ae8"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/ad124f6098acce8eeadf91486aec20e84ed5f5169a88070503b175131902933d-2x.png",
+      "sha256": "c45f30d9cd3ececdb29317939618b5300957c97f3a77ba6844831f1fe0d3ba73"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/ad124f6098acce8eeadf91486aec20e84ed5f5169a88070503b175131902933d-4x.png",
+      "sha256": "2c97fd1a94cad94f81fa1f5452453c1306e1719ed431e503b034b00f524e79b5"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/b1d99ff94abfd67caace8e148db46cbb8eb03d5744eccd09ec344ded5b7e060a-2x.png",
+      "sha256": "46d212bf9722791e128e8bb37a1f6cc170674b6e889e139b39397e444b5ba072"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/b1d99ff94abfd67caace8e148db46cbb8eb03d5744eccd09ec344ded5b7e060a-4x.png",
+      "sha256": "33dd424c81b8bad44a0aa23c6c635ec80ca6e9497de4df8cb2e427bff7de9781"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/bc688ed70f50ce24c2a30d14fb5f5a3c0b2aa95c9a568e93f41c41780ae2077c-2x.png",
+      "sha256": "df0d24192d71f5a5818d457cf1169ca25066f36794b7498cebd1b932af5424c8"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/bc688ed70f50ce24c2a30d14fb5f5a3c0b2aa95c9a568e93f41c41780ae2077c-4x.png",
+      "sha256": "5b99d82fdb375ccdf63c422f51c386447beb6fe1dc4debb06c36cef50727910f"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/bf1b3db10f41088a814949fc9691f156bec481428c505bda5f7f18d12b894b4e-2x.png",
+      "sha256": "9574e99d3b50d7840d8034dd0d2ef7958a38ce12b0614b9c2594654ed7cfbf35"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/bf1b3db10f41088a814949fc9691f156bec481428c505bda5f7f18d12b894b4e-4x.png",
+      "sha256": "492b8512cbd9ff934905b2c14a36821c2c0406ae837a218c54fd4b71dbf0318e"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/c78be5277f22d679fb6dc3ef82b723f4106d1beddb2ba2561663884d4f5ea955-2x.png",
+      "sha256": "d5cf797747c720ff751992c68d239b584a88df3ca5f5f2a3708b8c518b36a002"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/c78be5277f22d679fb6dc3ef82b723f4106d1beddb2ba2561663884d4f5ea955-4x.png",
+      "sha256": "fcf7b446070d5e0e68220c1c333794ce67341888fdc1a4557aa083262383c7b5"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/c7bbba9cc242b2f561d0a35faaaf60d610b6e56984f3267118afdb7a14bef421-2x.png",
+      "sha256": "c19193ae48970913ab12efb9423546f67f8c306abb0b52dfc7efba6c993278c7"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/c7bbba9cc242b2f561d0a35faaaf60d610b6e56984f3267118afdb7a14bef421-4x.png",
+      "sha256": "78602cc6b2e8b2b17d30d63351f08fb976cd434c459d6c2a7f7b30aa2dc0cef9"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/cae159fffa1dccd646b22fc4c68a9e5ae96723539a65d3d613a866812cc56949-2x.png",
+      "sha256": "929e763c2251ad713cc0326b105fe3ed78e5608fdb7d9d20de1fc17ce2c416ce"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/cae159fffa1dccd646b22fc4c68a9e5ae96723539a65d3d613a866812cc56949-4x.png",
+      "sha256": "d2fa2b53ff208e40b5bca50b26d5ea43668973eba634a961084bef327b8a4ee1"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/cb0cd1fa78d4c6315574ab708f60f265f1f745e06088f54da33779b1b1b59173-2x.png",
+      "sha256": "2991f4554c02e43cc97953158a26097cd26d0355ef65e455aa6d0235a30ef935"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/cb0cd1fa78d4c6315574ab708f60f265f1f745e06088f54da33779b1b1b59173-4x.png",
+      "sha256": "829b198fc1ccc223c7a336d9ec4db134324ba1566e4bc70bc673151fce2a2d17"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/d01369da55eceb156f8d8ee1951d181e0ab5ddb1baaceb20c383fab6a03cd7e6-2x.png",
+      "sha256": "3305a2de6d63868bfdd939dbd79625cf4c77439e3e3ed46366c34f2bbc79d113"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/d01369da55eceb156f8d8ee1951d181e0ab5ddb1baaceb20c383fab6a03cd7e6-4x.png",
+      "sha256": "6aa627b4d097135085dd907df8d3c403b3d27753a55c7890f0c811fc50583050"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/d82342587d4904dd0bf74ab41e43443d9f92c15bc0c320d8de93ae396ff74a8e-2x.png",
+      "sha256": "ec94d22d0dea15dc8d65313826b7d2208a2a9c6654e2a47823eee5ebbe37e459"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/d82342587d4904dd0bf74ab41e43443d9f92c15bc0c320d8de93ae396ff74a8e-4x.png",
+      "sha256": "805f0b0e9cab12749136cd2bdd294b74553f423cdb399a8068a989da708ee30f"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/dc0d575c5a844bf4cd8d9bc3f68c5940791a253c3ff4918cd5a370c57c5b76ed-2x.png",
+      "sha256": "b9b29ee043a1a52653c177a9d2395f414130d0506048fcc87428ced117715538"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/dc0d575c5a844bf4cd8d9bc3f68c5940791a253c3ff4918cd5a370c57c5b76ed-4x.png",
+      "sha256": "a1a42c58a615c05fe0344405e5281faab3ba68cf9f8e1e74093686b4c0963742"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/ee92f488a15a4406f05d113f22fc0ea5242b562b6698e5f9a13b406c2a67a58a-2x.png",
+      "sha256": "8afa106e3d245a978b04a6143cb8d9b83e1cc6e3e21a4052eff9af1f850d8618"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/ee92f488a15a4406f05d113f22fc0ea5242b562b6698e5f9a13b406c2a67a58a-4x.png",
+      "sha256": "815c9b596dd3953072f50de0ca0972df053f201a612eaf2a9fcb3e2a9bde266f"
     }
   ],
   "date": "2026-10-15",
@@ -7660,6 +8252,1597 @@
       "phase": [
         0,
         240
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "02233fd352987bf996c32adeafc07bd12ce15157bd42649bc6972e0dedb1102e",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=497,200\nNE=grass\nSE=hills\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/02233fd352987bf996c32adeafc07bd12ce15157bd42649bc6972e0dedb1102e-2x.png",
+          "sha256": "16eb3e487e10d1f93abc75ddc20b09ebbed1c61f0f30c0992bc68d8cea6f1fd7"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/02233fd352987bf996c32adeafc07bd12ce15157bd42649bc6972e0dedb1102e-4x.png",
+          "sha256": "29d6523cd8ef6a010bbf14ce3b9ca6c49334820dd4076892195d82ca33f9412b"
+        }
+      ],
+      "phase": [
+        497,
+        200
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "025b921ef2363bcf9fa4ed12b22b34d2cc819efa43e9fa5a63aded8492659fa3",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=355,120\nNE=hills\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/025b921ef2363bcf9fa4ed12b22b34d2cc819efa43e9fa5a63aded8492659fa3-2x.png",
+          "sha256": "09fc36bf7bf2901388adfab74e92e2fc469ce1429f4b2d6985451464c13fbf57"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/025b921ef2363bcf9fa4ed12b22b34d2cc819efa43e9fa5a63aded8492659fa3-4x.png",
+          "sha256": "227e714df7a4e8e4408d50d691e684ee055e40d58056d52d74cae952c39bef6e"
+        }
+      ],
+      "phase": [
+        355,
+        120
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "087ff2d06a9a0103c33f275a99998a484a1b286f372f1059b7a9de176d81a845",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=213,280\nNE=grass\nSE=grass\nS=grass\nSW=hills\nNW=grass\nN=grass\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "hills",
+        "grass",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/087ff2d06a9a0103c33f275a99998a484a1b286f372f1059b7a9de176d81a845-2x.png",
+          "sha256": "3ae2a8861a2467c2b536225ed9ad6146250eefb53fd4029abb64f1d247dd856b"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/087ff2d06a9a0103c33f275a99998a484a1b286f372f1059b7a9de176d81a845-4x.png",
+          "sha256": "f5d0f2e422bedc7fcb46e63372ee36e8eacf3aa564d4d11b2e178d229e9f2cb0"
+        }
+      ],
+      "phase": [
+        213,
+        280
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "0a1e6ad640fbfe5059a017849caae5e4fdf22a7d024068190f49b076f21674b8",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=426,240\nNE=hills\nSE=hills\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/0a1e6ad640fbfe5059a017849caae5e4fdf22a7d024068190f49b076f21674b8-2x.png",
+          "sha256": "80031925c42269f7513ec06457bbf028d8fc9532adfb1b383c44264adedc7fd4"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/0a1e6ad640fbfe5059a017849caae5e4fdf22a7d024068190f49b076f21674b8-4x.png",
+          "sha256": "3e85a21c8dff009d362e050dbe427dab4c283844c665f821b25b95a66c19cd72"
+        }
+      ],
+      "phase": [
+        426,
+        240
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "1141ef8a588eeb2ad5f374a9eeb33773eb78b52ac63cfaa02bf2256c183871bd",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=284,80\nNE=grass\nSE=hills\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/1141ef8a588eeb2ad5f374a9eeb33773eb78b52ac63cfaa02bf2256c183871bd-2x.png",
+          "sha256": "68dad4fc951af777afbe7bd63b125e6ddd197a25c35f2388e4925cde9576c6e3"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/1141ef8a588eeb2ad5f374a9eeb33773eb78b52ac63cfaa02bf2256c183871bd-4x.png",
+          "sha256": "d9e2ce218e434f98728268b096c915df28d7ca82fa9fe3163802a81a97b77afa"
+        }
+      ],
+      "phase": [
+        284,
+        80
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "11b9cc99ed13290033ee54aba77e373f8bd341b93c14b677d9c1baf88ddfa007",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=497,120\nNE=grass\nSE=hills\nS=grass\nSW=grass\nNW=hills\nN=grass\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "grass",
+        "grass",
+        "hills",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/11b9cc99ed13290033ee54aba77e373f8bd341b93c14b677d9c1baf88ddfa007-2x.png",
+          "sha256": "3a2f7e32b5df24c27f8e9a1778fdce34be11629a5b441f8c1bc406b4810d3a26"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/11b9cc99ed13290033ee54aba77e373f8bd341b93c14b677d9c1baf88ddfa007-4x.png",
+          "sha256": "5b4282cdefc94fbc9eacde34b2415eb07eebb6987ce306806e8004116febadc8"
+        }
+      ],
+      "phase": [
+        497,
+        120
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "1678cc9268a59935fac5e84fb2ffc2ad8ea91b47e27338dd96ac0d4bb768d574",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,160\nNE=grass\nSE=hills\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/1678cc9268a59935fac5e84fb2ffc2ad8ea91b47e27338dd96ac0d4bb768d574-2x.png",
+          "sha256": "f4ae9eb8fdbec6522378752f0187d1af0c7b6fb646c0c8cd48f85c677f6e8f5c"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/1678cc9268a59935fac5e84fb2ffc2ad8ea91b47e27338dd96ac0d4bb768d574-4x.png",
+          "sha256": "4412c86477cac48b03394e9b19720effeb91c72401dae1670047685f3afc584a"
+        }
+      ],
+      "phase": [
+        0,
+        160
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "255c23ce94c8a74a7b873bc8f0aa7ebdc93353a52d9c6b6357b2ad236141c9ae",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=497,120\nNE=hills\nSE=hills\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/255c23ce94c8a74a7b873bc8f0aa7ebdc93353a52d9c6b6357b2ad236141c9ae-2x.png",
+          "sha256": "1d3f5d7a9f53d34f45062e0add68825e00c6f9f71c715c9f4050f0986bf6a422"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/255c23ce94c8a74a7b873bc8f0aa7ebdc93353a52d9c6b6357b2ad236141c9ae-4x.png",
+          "sha256": "7953c629222b691bcbdae16313a849b794fe1fc314a404fda9a1017d82f72ec1"
+        }
+      ],
+      "phase": [
+        497,
+        120
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "34f3ae7413ea84ba2e99bd57308637dca672d0317c9f47462ff600a8c984a368",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,160\nNE=grass\nSE=grass\nS=grass\nSW=hills\nNW=hills\nN=grass\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "hills",
+        "hills",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/34f3ae7413ea84ba2e99bd57308637dca672d0317c9f47462ff600a8c984a368-2x.png",
+          "sha256": "3e9610a911acd1c4426c209348df6be9284a0b428c879cffad773a69513d6266"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/34f3ae7413ea84ba2e99bd57308637dca672d0317c9f47462ff600a8c984a368-4x.png",
+          "sha256": "f0b454c882a0916c9e35b95a6bfa10426b08e59c375b36b639d01cdb9a895b9d"
+        }
+      ],
+      "phase": [
+        0,
+        160
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "44d769a4ba230402d2c35914f812507443a2e4bc3d629f464304d408a23a2b40",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,80\nNE=grass\nSE=hills\nS=hills\nSW=hills\nNW=grass\nN=grass\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "hills",
+        "hills",
+        "grass",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/44d769a4ba230402d2c35914f812507443a2e4bc3d629f464304d408a23a2b40-2x.png",
+          "sha256": "15b0404874e3aca96e467a412f815a2e4cd02a2dbdaca323c6cad5a1230d46c1"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/44d769a4ba230402d2c35914f812507443a2e4bc3d629f464304d408a23a2b40-4x.png",
+          "sha256": "225850c939c9d083071de213851313eb66b43ce558d466b68056f60d26df9f7b"
+        }
+      ],
+      "phase": [
+        0,
+        80
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "4d8e70a3c20a2c3ce39434f9afcfff105f135fff314deb1a71403b5f3683486a",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=71,120\nNE=grass\nSE=grass\nS=hills\nSW=hills\nNW=hills\nN=grass\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "hills",
+        "hills",
+        "hills",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/4d8e70a3c20a2c3ce39434f9afcfff105f135fff314deb1a71403b5f3683486a-2x.png",
+          "sha256": "bd0d60a3cf10b43c1c375c16a428c5446014edb996459723d29f13b8849d149a"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/4d8e70a3c20a2c3ce39434f9afcfff105f135fff314deb1a71403b5f3683486a-4x.png",
+          "sha256": "3d5eea6030bff660b17319ececa8241f0903360614dd298b1030dac15dd47d44"
+        }
+      ],
+      "phase": [
+        71,
+        120
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "573fa4dda4f461ef8926ee9b2cd8a3218ab70923ac42a3d76f4896d2c9cdde2d",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=426,80\nNE=hills\nSE=hills\nS=grass\nSW=hills\nNW=grass\nN=grass\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "grass",
+        "hills",
+        "grass",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/573fa4dda4f461ef8926ee9b2cd8a3218ab70923ac42a3d76f4896d2c9cdde2d-2x.png",
+          "sha256": "1642638902cbd3bab7e8069a5f743fdc550ddff454a28b957e8b72403ca4cd72"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/573fa4dda4f461ef8926ee9b2cd8a3218ab70923ac42a3d76f4896d2c9cdde2d-4x.png",
+          "sha256": "ebef1bd3522b4f8b8946b9ba51d71bdb1f8b8816712b502ddea50edc92ef9a63"
+        }
+      ],
+      "phase": [
+        426,
+        80
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "5787f9b33bc4b4c3f85d17578454552c2c10a219c8814de5ed86ca4ffa50876b",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=284,160\nNE=hills\nSE=grass\nS=grass\nSW=grass\nNW=hills\nN=grass\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "hills",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/5787f9b33bc4b4c3f85d17578454552c2c10a219c8814de5ed86ca4ffa50876b-2x.png",
+          "sha256": "d27f553410ec8fba11832553a3a06c57f728c211e032abca06c92902abefc16b"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/5787f9b33bc4b4c3f85d17578454552c2c10a219c8814de5ed86ca4ffa50876b-4x.png",
+          "sha256": "7294ac95cdd0a926a6b34bad97ecff30a1b745cc565bd70405927ab32f9d5625"
+        }
+      ],
+      "phase": [
+        284,
+        160
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "591bbc83e54c3fc80497f8b309db62b62037f1c6552b200397047992613ff1c3",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=355,120\nNE=grass\nSE=hills\nS=grass\nSW=hills\nNW=grass\nN=grass\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "grass",
+        "hills",
+        "grass",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/591bbc83e54c3fc80497f8b309db62b62037f1c6552b200397047992613ff1c3-2x.png",
+          "sha256": "6d0359f5513557bdf252590d3e9858e6475ff44bb3684ae95b0970146614af4e"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/591bbc83e54c3fc80497f8b309db62b62037f1c6552b200397047992613ff1c3-4x.png",
+          "sha256": "4c8e2336e025b8f8f258feef8250f7524c19358061c8e6a75f71f35b95271f9f"
+        }
+      ],
+      "phase": [
+        355,
+        120
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "5c3f89303b4c1f31e2b2293088167d1931c8b29f0ad5551b9cc53b88f9742a77",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=284,240\nNE=hills\nSE=hills\nS=hills\nSW=hills\nNW=grass\nN=grass\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "grass",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/5c3f89303b4c1f31e2b2293088167d1931c8b29f0ad5551b9cc53b88f9742a77-2x.png",
+          "sha256": "dd291ee1758cf1b200502a754a96b2f8452a547b8abc3d92051416077ab4cb2f"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/5c3f89303b4c1f31e2b2293088167d1931c8b29f0ad5551b9cc53b88f9742a77-4x.png",
+          "sha256": "55ddbfd03a76e0a0c18d092fccefa39a21a1b30a894e922bc53ffaac9e5ebe20"
+        }
+      ],
+      "phase": [
+        284,
+        240
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "6ba07631a5c5c66125b50a1b66dd6a65793978029aaf71e0a802a0605265468c",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,240\nNE=grass\nSE=grass\nS=grass\nSW=hills\nNW=hills\nN=grass\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "hills",
+        "hills",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/6ba07631a5c5c66125b50a1b66dd6a65793978029aaf71e0a802a0605265468c-2x.png",
+          "sha256": "4fb82d67562cc250feb39bf550728b4ca0d266018661439513f112949d08d9f2"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/6ba07631a5c5c66125b50a1b66dd6a65793978029aaf71e0a802a0605265468c-4x.png",
+          "sha256": "b7456685365afe187eeda69e515d5141f47cf3f013f83d740971053e3059ac00"
+        }
+      ],
+      "phase": [
+        0,
+        240
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "6c0056f064da2e321193122936a4a550c0ed82229d9d58f0839f1241a4279087",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=71,120\nNE=grass\nSE=grass\nS=grass\nSW=hills\nNW=grass\nN=grass\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "hills",
+        "grass",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/6c0056f064da2e321193122936a4a550c0ed82229d9d58f0839f1241a4279087-2x.png",
+          "sha256": "2248ad26a9b7ad87a47893cb5166f30cc8c05ca59e7c7e1926d7980e55e852bf"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/6c0056f064da2e321193122936a4a550c0ed82229d9d58f0839f1241a4279087-4x.png",
+          "sha256": "aeaafef4e600af99f041a6f99482c6121a94043303715cd8a1c3ba9ecb9d2419"
+        }
+      ],
+      "phase": [
+        71,
+        120
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "7a47c5ac8a7e6957b3c5c2dd4b809609a3b33472cfc7aa6331a8483976bfef41",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=426,80\nNE=grass\nSE=hills\nS=grass\nSW=hills\nNW=grass\nN=grass\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "grass",
+        "hills",
+        "grass",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/7a47c5ac8a7e6957b3c5c2dd4b809609a3b33472cfc7aa6331a8483976bfef41-2x.png",
+          "sha256": "2d5d773270098d420ff80c658781deaf3f0ac3e78ba209ddbfd6c88db6bf0a7e"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/7a47c5ac8a7e6957b3c5c2dd4b809609a3b33472cfc7aa6331a8483976bfef41-4x.png",
+          "sha256": "0d5dc4dbba3c808beb00db0e5b6f9f3aa9216233eb9123e3d6cff7311ff0737b"
+        }
+      ],
+      "phase": [
+        426,
+        80
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "7d190c0b26e1d05e452715e02760f55452a2bf815f708397b3b15a3994a7eb44",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=355,40\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=hills\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "hills"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/7d190c0b26e1d05e452715e02760f55452a2bf815f708397b3b15a3994a7eb44-2x.png",
+          "sha256": "91a6c13e682f479f57c7718f4a120f10b9af5e7b37736b9437c8c2523aa7d8e4"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/7d190c0b26e1d05e452715e02760f55452a2bf815f708397b3b15a3994a7eb44-4x.png",
+          "sha256": "f5d9f94856499a4f5b21d498609e9f50893025af0a387cbffa2db0d21f5a4099"
+        }
+      ],
+      "phase": [
+        355,
+        40
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "7faece425150795d8681f35f305aa87174871210bee8ead183bb55446972fca5",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=426,160\nNE=hills\nSE=hills\nS=hills\nSW=hills\nNW=grass\nN=grass\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "grass",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/7faece425150795d8681f35f305aa87174871210bee8ead183bb55446972fca5-2x.png",
+          "sha256": "5a12ce53f7be3f91c9874a04ceea7c9d0e5dcddbb7446806b26c5967f79158af"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/7faece425150795d8681f35f305aa87174871210bee8ead183bb55446972fca5-4x.png",
+          "sha256": "719dd11c831030e9a6b03a679eacb6b1af536409d54ffd325b360768b20aa6b3"
+        }
+      ],
+      "phase": [
+        426,
+        160
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "907f2ca1940a6a1808555888314c2cb90ed20ccbdb6f16a1a63127860a0bd530",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=71,200\nNE=grass\nSE=hills\nS=grass\nSW=grass\nNW=hills\nN=grass\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "grass",
+        "grass",
+        "hills",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/907f2ca1940a6a1808555888314c2cb90ed20ccbdb6f16a1a63127860a0bd530-2x.png",
+          "sha256": "b92f81774f6b5967cd353e9905808455e260f8269d2c1ecd5e600b51f257d9ef"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/907f2ca1940a6a1808555888314c2cb90ed20ccbdb6f16a1a63127860a0bd530-4x.png",
+          "sha256": "35f3980780132b48224e4ec270214b8583e8a2de6deb3f3ed33cbb6188c0a571"
+        }
+      ],
+      "phase": [
+        71,
+        200
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "91e2ac8b1fb61307df51af9a431f32ecd78d6a01fe61b27a71e6a815ecd7aed2",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=426,80\nNE=hills\nSE=hills\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/91e2ac8b1fb61307df51af9a431f32ecd78d6a01fe61b27a71e6a815ecd7aed2-2x.png",
+          "sha256": "123c81856739cd2d609509a5ca66dee5e2cb9ab816dcaa07a19965eff11822b4"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/91e2ac8b1fb61307df51af9a431f32ecd78d6a01fe61b27a71e6a815ecd7aed2-4x.png",
+          "sha256": "1efa37d2fd3012fe08cd18369a221fd0b1b68ebd909b9663e2aff4f8c9799f47"
+        }
+      ],
+      "phase": [
+        426,
+        80
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "98c17608418438bbbbabe9627b5a2ed4473ae1fdf2805002f0d2c9913e721077",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=213,120\nNE=grass\nSE=hills\nS=grass\nSW=hills\nNW=grass\nN=grass\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "grass",
+        "hills",
+        "grass",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/98c17608418438bbbbabe9627b5a2ed4473ae1fdf2805002f0d2c9913e721077-2x.png",
+          "sha256": "14e31466fc23856733c6c577262dce4d050ab053fc71be53d7f6cbc7b1b0213e"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/98c17608418438bbbbabe9627b5a2ed4473ae1fdf2805002f0d2c9913e721077-4x.png",
+          "sha256": "268e222834559c23cea257300fcdda32e0dec56a0412873a891feb0be68028f2"
+        }
+      ],
+      "phase": [
+        213,
+        120
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "a9ea8d6484a94033b5ff2015a2cc49e78f3509948a3ccad494383ed0d1c75f01",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=284,160\nNE=hills\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/a9ea8d6484a94033b5ff2015a2cc49e78f3509948a3ccad494383ed0d1c75f01-2x.png",
+          "sha256": "932ae6ac07d90f8de4a0f7138d8ad8fee1ac7329eaabbdfd61c528c87799a003"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/a9ea8d6484a94033b5ff2015a2cc49e78f3509948a3ccad494383ed0d1c75f01-4x.png",
+          "sha256": "bfde74f8deafae77b8f356078fcaf629ea686c53b411511ae31e988b28dfbac2"
+        }
+      ],
+      "phase": [
+        284,
+        160
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "ab1ee9cbb62e7dbe896ab262db3784a35f5a925a56bda79f7f1d125ab2a88938",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=142,0\nNE=hills\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/ab1ee9cbb62e7dbe896ab262db3784a35f5a925a56bda79f7f1d125ab2a88938-2x.png",
+          "sha256": "def8e98df64ac090c2518c119474a116174fbfd936699df5946c28163064746a"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/ab1ee9cbb62e7dbe896ab262db3784a35f5a925a56bda79f7f1d125ab2a88938-4x.png",
+          "sha256": "a334d99723783a48eebeed67831065428f2b681cb20d7de0aa3c7be0aca09ae8"
+        }
+      ],
+      "phase": [
+        142,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "ad124f6098acce8eeadf91486aec20e84ed5f5169a88070503b175131902933d",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=142,240\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=hills\nN=grass\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "hills",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/ad124f6098acce8eeadf91486aec20e84ed5f5169a88070503b175131902933d-2x.png",
+          "sha256": "c45f30d9cd3ececdb29317939618b5300957c97f3a77ba6844831f1fe0d3ba73"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/ad124f6098acce8eeadf91486aec20e84ed5f5169a88070503b175131902933d-4x.png",
+          "sha256": "2c97fd1a94cad94f81fa1f5452453c1306e1719ed431e503b034b00f524e79b5"
+        }
+      ],
+      "phase": [
+        142,
+        240
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "b1d99ff94abfd67caace8e148db46cbb8eb03d5744eccd09ec344ded5b7e060a",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,160\nNE=hills\nSE=hills\nS=grass\nSW=grass\nNW=hills\nN=hills\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "grass",
+        "grass",
+        "hills",
+        "hills"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/b1d99ff94abfd67caace8e148db46cbb8eb03d5744eccd09ec344ded5b7e060a-2x.png",
+          "sha256": "46d212bf9722791e128e8bb37a1f6cc170674b6e889e139b39397e444b5ba072"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/b1d99ff94abfd67caace8e148db46cbb8eb03d5744eccd09ec344ded5b7e060a-4x.png",
+          "sha256": "33dd424c81b8bad44a0aa23c6c635ec80ca6e9497de4df8cb2e427bff7de9781"
+        }
+      ],
+      "phase": [
+        0,
+        160
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "bc688ed70f50ce24c2a30d14fb5f5a3c0b2aa95c9a568e93f41c41780ae2077c",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=355,280\nNE=hills\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/bc688ed70f50ce24c2a30d14fb5f5a3c0b2aa95c9a568e93f41c41780ae2077c-2x.png",
+          "sha256": "df0d24192d71f5a5818d457cf1169ca25066f36794b7498cebd1b932af5424c8"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/bc688ed70f50ce24c2a30d14fb5f5a3c0b2aa95c9a568e93f41c41780ae2077c-4x.png",
+          "sha256": "5b99d82fdb375ccdf63c422f51c386447beb6fe1dc4debb06c36cef50727910f"
+        }
+      ],
+      "phase": [
+        355,
+        280
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "bf1b3db10f41088a814949fc9691f156bec481428c505bda5f7f18d12b894b4e",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=355,200\nNE=hills\nSE=hills\nS=hills\nSW=hills\nNW=grass\nN=grass\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "grass",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/bf1b3db10f41088a814949fc9691f156bec481428c505bda5f7f18d12b894b4e-2x.png",
+          "sha256": "9574e99d3b50d7840d8034dd0d2ef7958a38ce12b0614b9c2594654ed7cfbf35"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/bf1b3db10f41088a814949fc9691f156bec481428c505bda5f7f18d12b894b4e-4x.png",
+          "sha256": "492b8512cbd9ff934905b2c14a36821c2c0406ae837a218c54fd4b71dbf0318e"
+        }
+      ],
+      "phase": [
+        355,
+        200
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "c78be5277f22d679fb6dc3ef82b723f4106d1beddb2ba2561663884d4f5ea955",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=426,240\nNE=hills\nSE=hills\nS=grass\nSW=hills\nNW=grass\nN=grass\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "grass",
+        "hills",
+        "grass",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/c78be5277f22d679fb6dc3ef82b723f4106d1beddb2ba2561663884d4f5ea955-2x.png",
+          "sha256": "d5cf797747c720ff751992c68d239b584a88df3ca5f5f2a3708b8c518b36a002"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/c78be5277f22d679fb6dc3ef82b723f4106d1beddb2ba2561663884d4f5ea955-4x.png",
+          "sha256": "fcf7b446070d5e0e68220c1c333794ce67341888fdc1a4557aa083262383c7b5"
+        }
+      ],
+      "phase": [
+        426,
+        240
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "c7bbba9cc242b2f561d0a35faaaf60d610b6e56984f3267118afdb7a14bef421",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=71,200\nNE=grass\nSE=grass\nS=hills\nSW=grass\nNW=hills\nN=hills\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "hills",
+        "grass",
+        "hills",
+        "hills"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/c7bbba9cc242b2f561d0a35faaaf60d610b6e56984f3267118afdb7a14bef421-2x.png",
+          "sha256": "c19193ae48970913ab12efb9423546f67f8c306abb0b52dfc7efba6c993278c7"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/c7bbba9cc242b2f561d0a35faaaf60d610b6e56984f3267118afdb7a14bef421-4x.png",
+          "sha256": "78602cc6b2e8b2b17d30d63351f08fb976cd434c459d6c2a7f7b30aa2dc0cef9"
+        }
+      ],
+      "phase": [
+        71,
+        200
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "cae159fffa1dccd646b22fc4c68a9e5ae96723539a65d3d613a866812cc56949",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=426,240\nNE=hills\nSE=hills\nS=hills\nSW=hills\nNW=hills\nN=hills\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "hills"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/cae159fffa1dccd646b22fc4c68a9e5ae96723539a65d3d613a866812cc56949-2x.png",
+          "sha256": "929e763c2251ad713cc0326b105fe3ed78e5608fdb7d9d20de1fc17ce2c416ce"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/cae159fffa1dccd646b22fc4c68a9e5ae96723539a65d3d613a866812cc56949-4x.png",
+          "sha256": "d2fa2b53ff208e40b5bca50b26d5ea43668973eba634a961084bef327b8a4ee1"
+        }
+      ],
+      "phase": [
+        426,
+        240
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "cb0cd1fa78d4c6315574ab708f60f265f1f745e06088f54da33779b1b1b59173",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=355,120\nNE=grass\nSE=grass\nS=grass\nSW=hills\nNW=grass\nN=grass\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "hills",
+        "grass",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/cb0cd1fa78d4c6315574ab708f60f265f1f745e06088f54da33779b1b1b59173-2x.png",
+          "sha256": "2991f4554c02e43cc97953158a26097cd26d0355ef65e455aa6d0235a30ef935"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/cb0cd1fa78d4c6315574ab708f60f265f1f745e06088f54da33779b1b1b59173-4x.png",
+          "sha256": "829b198fc1ccc223c7a336d9ec4db134324ba1566e4bc70bc673151fce2a2d17"
+        }
+      ],
+      "phase": [
+        355,
+        120
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "d01369da55eceb156f8d8ee1951d181e0ab5ddb1baaceb20c383fab6a03cd7e6",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=426,160\nNE=hills\nSE=hills\nS=grass\nSW=grass\nNW=hills\nN=grass\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "grass",
+        "grass",
+        "hills",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/d01369da55eceb156f8d8ee1951d181e0ab5ddb1baaceb20c383fab6a03cd7e6-2x.png",
+          "sha256": "3305a2de6d63868bfdd939dbd79625cf4c77439e3e3ed46366c34f2bbc79d113"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/d01369da55eceb156f8d8ee1951d181e0ab5ddb1baaceb20c383fab6a03cd7e6-4x.png",
+          "sha256": "6aa627b4d097135085dd907df8d3c403b3d27753a55c7890f0c811fc50583050"
+        }
+      ],
+      "phase": [
+        426,
+        160
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "d82342587d4904dd0bf74ab41e43443d9f92c15bc0c320d8de93ae396ff74a8e",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=355,120\nNE=hills\nSE=grass\nS=grass\nSW=grass\nNW=hills\nN=grass\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "hills",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/d82342587d4904dd0bf74ab41e43443d9f92c15bc0c320d8de93ae396ff74a8e-2x.png",
+          "sha256": "ec94d22d0dea15dc8d65313826b7d2208a2a9c6654e2a47823eee5ebbe37e459"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/d82342587d4904dd0bf74ab41e43443d9f92c15bc0c320d8de93ae396ff74a8e-4x.png",
+          "sha256": "805f0b0e9cab12749136cd2bdd294b74553f423cdb399a8068a989da708ee30f"
+        }
+      ],
+      "phase": [
+        355,
+        120
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "dc0d575c5a844bf4cd8d9bc3f68c5940791a253c3ff4918cd5a370c57c5b76ed",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,160\nNE=hills\nSE=grass\nS=grass\nSW=grass\nNW=hills\nN=grass\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "hills",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/dc0d575c5a844bf4cd8d9bc3f68c5940791a253c3ff4918cd5a370c57c5b76ed-2x.png",
+          "sha256": "b9b29ee043a1a52653c177a9d2395f414130d0506048fcc87428ced117715538"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/dc0d575c5a844bf4cd8d9bc3f68c5940791a253c3ff4918cd5a370c57c5b76ed-4x.png",
+          "sha256": "a1a42c58a615c05fe0344405e5281faab3ba68cf9f8e1e74093686b4c0963742"
+        }
+      ],
+      "phase": [
+        0,
+        160
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "ee92f488a15a4406f05d113f22fc0ea5242b562b6698e5f9a13b406c2a67a58a",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=142,160\nNE=hills\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/ee92f488a15a4406f05d113f22fc0ea5242b562b6698e5f9a13b406c2a67a58a-2x.png",
+          "sha256": "8afa106e3d245a978b04a6143cb8d9b83e1cc6e3e21a4052eff9af1f850d8618"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/ee92f488a15a4406f05d113f22fc0ea5242b562b6698e5f9a13b406c2a67a58a-4x.png",
+          "sha256": "815c9b596dd3953072f50de0ca0972df053f201a612eaf2a9fcb3e2a9bde266f"
+        }
+      ],
+      "phase": [
+        142,
+        160
       ],
       "runtime_id": "hills",
       "season": "summer"

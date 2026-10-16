@@ -174,9 +174,9 @@ Context tiles come from the `profiles` of the ground, forest and hills recipes. 
 writes five groups per density, `<out>/<d>x/<group>/`:
 - `backgrounds` (60 tiles, including the fog tile `unseen`);
 - `infrastructure` (74);
-- `context-ground` (51), `context-forest` (43) and `context-hills` (122).
+- `context-ground` (110), `context-forest` (82) and `context-hills` (159).
 
-That makes 10 packs and 700 PNGs. All 4× terrain in one pack would exceed 280 MB
+That makes 10 packs and 970 PNGs. All 4× terrain in one pack would exceed 280 MB
 by the loader's estimate, over its 256 MiB budget. Tiles are 96×80 logical
 pixels, anchored (48, 40) on the hex centre. IDs are `tile/<runtime ID>` and
 `context/<family>/<context key>`. The build refuses:
@@ -190,26 +190,33 @@ grounds (`ground`), forest and hills look different depending on their neighbour
 For those it builds the offline exporters' descriptor (season, centre, the six
 neighbours NE, SE, S, SW, NW, N, and for hills the tile origin modulo 568×320) and
 uses the context tile whose key is the SHA-256 of that descriptor.
-`TestDescriptorMatchesRecipeProfiles` reproduces all 216 recipe keys.
+`TestDescriptorMatchesRecipeProfiles` reproduces all 351 recipe keys.
+
+Runtime context selection keeps neighbors from the center's family. A known
+same-season neighbor from another family is represented by the seasonal base
+(`grass`/`grass_w`); water is season-neutral. This makes each material retreat
+to the shared base at its boundary. Outside the map, the center terrain
+continues. These effective neighbors feed the unchanged strict offline
+descriptors and renderers. Level data and gameplay IDs are never rewritten.
 
 Where no context tile exists, the hex shows its default tile and the compositor
 records a gap. A gap is either:
 - **missing**: the contract defines the context, but it was not exported;
-- **undefined**: a neighbour from another family or season, or the map edge, for
-  which the contract has no rule.
+- **undefined**: an unknown terrain ID or a neighbour from another season.
 
 `hlasset terrain-gaps` lists every gap with its coordinates and descriptor for the
 art track. Summary for the shipped levels:
 
 | Level | Context tiles selected | Missing | Undefined |
 | --- | --- | --- | --- |
-| Level 1 | 14 | 0 | 142 |
-| Level 2 | 83 | 0 | 150 |
-| Level 3 | 32 | 0 | 143 |
+| Level 1 | 156 | 0 | 0 |
+| Level 2 | 233 | 0 | 0 |
+| Level 3 | 175 | 0 | 0 |
 
 The [campaign context regeneration](art/campaign-context-regeneration.md) adds
 52 profiles (104 PNGs), closing the 70 defined-context gaps in these maps.
-Cross-family and map-edge transitions still require rendering contracts.
+The [boundary completion](art/campaign-context-boundaries.md) adds another 135
+profiles (270 PNGs), closing the remaining 435 campaign placements.
 
 HQ, depot, factory and mountain pieces must form complete groups (rosette or
 diamond, per `docs/art/compound-building-geometry.md`). A stray piece is reported
@@ -241,7 +248,7 @@ read a local catalog.
 
 Not established:
 - approval of any terrain art;
-- exports or rules for the missing and undefined contexts;
+- contexts for arbitrary imported maps and mixed-season transitions;
 - the HQ entrance cell, the `trench5a` port and the inferred lakeside corners
   (open in `docs/art/`);
 - ownership strips;

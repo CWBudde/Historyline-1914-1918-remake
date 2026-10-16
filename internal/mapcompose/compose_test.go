@@ -80,22 +80,12 @@ func TestContextSelectedWhenExported(t *testing.T) {
 }
 
 func TestUndefinedContexts(t *testing.T) {
-	g, at := grid(
-		"forest grass",
-		"hills",
-		"grass grass",
-	)
-	s := Compose(g, at, none)
-	byAt := map[hexgrid.Coord]Gap{}
-	for _, x := range s.Gaps {
-		byAt[x.At] = x
-	}
-	// Forest at the corner touches the map edge; hills touch forest.
-	if x := byAt[hexgrid.Coord{}]; x.Reason != Undefined || !strings.Contains(x.Detail, "map edge") {
-		t.Errorf("forest gap %+v", x)
-	}
-	if x := byAt[hexgrid.Coord{Line: 1}]; x.Reason != Undefined || !strings.Contains(x.Detail, "NW=forest") {
-		t.Errorf("hills gap %+v", x)
+	for _, neighbor := range []string{"grass_w", "unknown"} {
+		g, at := grid("forest grass", neighbor, "grass grass")
+		s := Compose(g, at, none)
+		if len(s.Gaps) != 1 || s.Gaps[0].Reason != Undefined || !strings.Contains(s.Gaps[0].Detail, neighbor) {
+			t.Errorf("unsupported boundary %s: %+v", neighbor, s.Gaps)
+		}
 	}
 }
 
@@ -149,9 +139,9 @@ func TestShippedLevelGaps(t *testing.T) {
 		}
 	}
 	want := map[string]string{
-		"level1_cp": "forest/selected:9 forest/undefined:72 ground/selected:3 ground/undefined:21 hills/selected:2 hills/undefined:49",
-		"level2_cp": "forest/selected:55 forest/undefined:119 ground/selected:28 ground/undefined:31",
-		"level3_cp": "forest/selected:20 forest/undefined:77 ground/selected:12 ground/undefined:66",
+		"level1_cp": "forest/selected:81 ground/selected:24 hills/selected:51",
+		"level2_cp": "forest/selected:174 ground/selected:59",
+		"level3_cp": "forest/selected:97 ground/selected:78",
 	}
 	for name := range want {
 		g, at := loadLevel(t, name)

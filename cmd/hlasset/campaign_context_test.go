@@ -12,7 +12,7 @@ import (
 )
 
 // Removing a campaign context from the retained recipes must fail even when
-// all default terrain IDs still have artwork. Undefined transitions are separate.
+// all default terrain IDs still have artwork. Boundary transitions must also have an export.
 func TestCampaignContextExportsPresent(t *testing.T) {
 	root := filepath.Join("..", "..")
 	packs, err := planTerrain(filepath.Join(root, "docs/art/runtime-tile-coverage.csv"), filepath.Join(root, "art/recipes"))
@@ -44,12 +44,12 @@ func TestCampaignContextExportsPresent(t *testing.T) {
 		}, func(id string) bool { return have[id] })
 		missing := 0
 		for _, g := range s.Gaps {
-			if g.Reason == mapcompose.Missing {
+			if g.Reason == mapcompose.Missing || g.Reason == mapcompose.Undefined {
 				missing++
 			}
 		}
 		if missing != 0 {
-			t.Errorf("%s: %d defined terrain contexts lack exports", name, missing)
+			t.Errorf("%s: %d terrain contexts lack exports or rules", name, missing)
 		}
 	}
 }
