@@ -141,7 +141,7 @@ func TestDevIndicators(t *testing.T) {
 		t.Errorf("got %q", got)
 	}
 	// Unapproved unit art is labelled too, so screenshots are never mistaken for it.
-	g.reveal, g.hexNumbers, g.art = false, false, &unitArt{candidate: true}
+	g.reveal, g.hexNumbers, g.art = false, false, &artPacks{candidate: true}
 	if got := g.devIndicators(); got != "DEV: CANDIDATE-ART" {
 		t.Errorf("got %q", got)
 	}

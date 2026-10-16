@@ -61,8 +61,10 @@ type game struct {
 	hudImg         *ebiten.Image // logical HUD canvas, magnified onto the screen
 	terrainFill    map[string]color.RGBA
 	ctl            *control
-	art            *unitArt // unit sprite packs (-units); nil draws placeholder dots
-	artErr         string   // last sprite failure, shown in the status line
+	art            *artPacks   // unit sprite packs (-units); nil draws placeholder dots
+	artErr         string      // last sprite failure, shown in the status line
+	terrain        *terrainArt // composed terrain tiles (-terrain); nil draws coloured hexes
+	terrainErr     string      // last terrain tile failure, shown in the status line
 }
 
 func newGame(lvl *level.Level, st *state.State, player state.Player, reveal bool) *game {
@@ -338,23 +340,39 @@ func (g *game) drawMenu(dst *ebiten.Image) {
 func (g *game) Draw(screen *ebiten.Image) {
 	screen.Fill(color.RGBA{20, 20, 24, 255})
 	vx, vy, vw, vh := g.cam.Visible()
+	var inView []hexgrid.Coord
 	for l, line := range g.lvl.Lines {
-		for c, hx := range line {
+		for c := range line {
 			coord := hexgrid.Coord{Line: l, Col: c}
 			cx, cy := hexgrid.Center(coord)
 			if cx+48 < vx || cx-48 > vx+vw || cy+40 < vy || cy-40 > vy+vh {
 				continue
 			}
-			sx, sy := g.cam.WorldToScreen(cx, cy)
-			fog := g.fogOf(coord)
-			g.drawHex(screen, float32(sx), float32(sy), fogShade(fog, g.fill(hx.Terrain)), false)
-			if owner := g.ownerShown(coord); owner != state.None {
-				e := float32(g.cam.Effective())
-				vector.FillRect(screen, float32(sx)-20*e, float32(sy)-34*e, 40*e, 6*e, fogShade(fog, ownerColour(owner)), false)
-			}
-			if shown, remembered := g.unitShown(coord); shown {
-				g.drawUnit(screen, coord, sx, sy, remembered)
-			}
+			inView = append(inView, coord)
+		}
+	}
+	// Terrain, then owner marks, then units, each in its own pass so that a later
+	// hex never covers what an earlier one drew beyond its outline.
+	if g.terrain != nil {
+		g.drawTerrain(screen, inView)
+	} else {
+		for _, coord := range inView {
+			sx, sy := g.cam.WorldToScreen(hexgrid.Center(coord))
+			hx := g.lvl.Lines[coord.Line][coord.Col]
+			g.drawHex(screen, float32(sx), float32(sy), fogShade(g.fogOf(coord), g.fill(hx.Terrain)), false)
+		}
+	}
+	for _, coord := range inView {
+		if owner := g.ownerShown(coord); owner != state.None {
+			sx, sy := g.cam.WorldToScreen(hexgrid.Center(coord))
+			e := float32(g.cam.Effective())
+			vector.FillRect(screen, float32(sx)-20*e, float32(sy)-34*e, 40*e, 6*e, fogShade(g.fogOf(coord), ownerColour(owner)), false)
+		}
+	}
+	for _, coord := range inView {
+		if shown, remembered := g.unitShown(coord); shown {
+			sx, sy := g.cam.WorldToScreen(hexgrid.Center(coord))
+			g.drawUnit(screen, coord, sx, sy, remembered)
 		}
 	}
 	if w := g.ctl.walk; !w.Done() {
@@ -399,7 +417,7 @@ func (g *game) Draw(screen *ebiten.Image) {
 // drawStatus prints the status and help text at the top left of the HUD.
 func (g *game) drawStatus(dst *ebiten.Image) {
 	msg := fmt.Sprintf("%s  round %d, %v to move  zoom %.2f (%dx assets)\narrows/WASD scroll, wheel zoom, click unit then hex (1-9 picks menu row; click own building or selected carrier for contents), F1 end turn, F11 fullscreen, Esc/right-click cancel",
-		g.lvl.MapName, g.state.Round, g.state.Turn, g.cam.Zoom, assetDensity(g.cam.Effective()))
+		g.lvl.MapName, g.state.Round, g.state.Turn, g.cam.Zoom, g.drawnDensity())
 	if g.state.Winner != state.None {
 		msg += fmt.Sprintf("\n%v has won", g.state.Winner)
 	}
@@ -409,11 +427,23 @@ func (g *game) drawStatus(dst *ebiten.Image) {
 	if g.artErr != "" {
 		msg += "\nunit sprites: " + g.artErr
 	}
+	if g.terrainErr != "" {
+		msg += "\nterrain tiles: " + g.terrainErr
+	}
 	if g.hoverOnMap {
 		hx := g.lvl.Lines[g.hover.Line][g.hover.Col]
 		msg += fmt.Sprintf("\nline %d col %d  %s", g.hover.Line, g.hover.Col, hx.Terrain)
 	}
 	ebitenutil.DebugPrint(dst, msg)
+}
+
+// drawnDensity is the asset density the map is drawn with: the sprite density
+// once packs are loaded (no 1x art exists), the requested density otherwise.
+func (g *game) drawnDensity() int {
+	if g.art != nil || g.terrain != nil {
+		return spriteDensity(g.cam.Effective())
+	}
+	return assetDensity(g.cam.Effective())
 }
 
 // devIndicators names the active development flags so a screenshot can never be
@@ -426,8 +456,16 @@ func (g *game) devIndicators() string {
 	if g.hexNumbers {
 		on = append(on, "HEXNUMBERS")
 	}
-	if g.art != nil && g.art.candidate {
+	if g.art != nil && g.art.candidate || g.terrain != nil && g.terrain.candidate {
 		on = append(on, "CANDIDATE-ART")
+	}
+	if g.terrain != nil {
+		if n := len(g.terrain.scene.Gaps); n > 0 {
+			on = append(on, fmt.Sprintf("CONTEXT-GAP %d", n))
+		}
+		if n := len(g.terrain.scene.Issues); n > 0 {
+			on = append(on, fmt.Sprintf("COMPOUND-ISSUE %d", n))
+		}
 	}
 	if len(on) == 0 {
 		return ""
@@ -557,7 +595,8 @@ func main() {
 	hexNumbers := flag.Bool("hexnumbers", false, "dev: print line,col on every hex")
 	reduced := flag.Bool("reduced-motion", false, "walk instantly and show short static effects (toggle in game with M)")
 	units := flag.String("units", "", "unit sprite catalog built by hlasset build-units (default: placeholder dots)")
-	candidates := flag.Bool("allow-candidates", false, "allow unit packs that are review candidates, not approved art")
+	terrain := flag.String("terrain", "", "terrain tile catalog built by hlasset build-terrain (default: coloured hexes)")
+	candidates := flag.Bool("allow-candidates", false, "allow unit and terrain packs that are review candidates, not approved art")
 	flag.Parse()
 
 	lvl, err := loadLevel(*dir, *name)
@@ -590,6 +629,11 @@ func main() {
 	gm.ctl.SetReducedMotion(*reduced)
 	if *units != "" {
 		if gm.art, err = loadUnitArt(*units, *candidates); err != nil {
+			log.Fatal(err)
+		}
+	}
+	if *terrain != "" {
+		if gm.terrain, err = loadTerrainArt(*terrain, *candidates, lvl); err != nil {
 			log.Fatal(err)
 		}
 	}

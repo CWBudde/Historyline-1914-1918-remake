@@ -2,9 +2,12 @@ package main
 
 import (
 	"fmt"
+	"image"
+	"image/draw"
 	"io/fs"
 	"os"
 	"path"
+	"slices"
 
 	"github.com/hajimehoshi/ebiten/v2"
 
@@ -42,7 +45,7 @@ func unitSprite(typ string, owner state.Player, spent, remembered bool, face uni
 }
 
 type packKey struct {
-	family  string
+	group   string // unit family or terrain group
 	density int
 }
 
@@ -51,38 +54,56 @@ type texKey struct {
 	density int
 }
 
-// unitArt is the runtime unit catalog: one pack per family and density, laid out
-// as <d>x/<family>/manifest.json, plus the GPU textures made from it so far.
-type unitArt struct {
+// artPacks is a runtime catalog of packs laid out as <d>x/<group>/manifest.json,
+// plus the GPU textures made from them so far. Units have one group per family,
+// terrain one per tile group.
+type artPacks struct {
 	packs     map[packKey]*assets.Pack
 	tex       map[texKey]*ebiten.Image
 	candidate bool // some pack is a review candidate, not approved art
+	pad       int  // texels added around each texture
+	// bleed lists the groups whose opaque edges are extended into the added
+	// border; the others get a transparent border.
+	bleed map[string]bool
 }
 
-// openUnitArt opens the whole catalog and checks that every family has every
-// sprite at every density, so drawing never meets a missing variant.
-func openUnitArt(fsys fs.FS, opt assets.Options) (*unitArt, error) {
-	a := &unitArt{packs: map[packKey]*assets.Pack{}, tex: map[texKey]*ebiten.Image{}}
-	for _, d := range spriteDensities {
-		for _, fam := range unitsprite.Families() {
-			dir := path.Join(fmt.Sprintf("%dx", d), fam)
+// openPacks opens every group at every density.
+func openPacks(fsys fs.FS, opt assets.Options, groups []string, densities []int) (*artPacks, error) {
+	a := &artPacks{packs: map[packKey]*assets.Pack{}, tex: map[texKey]*ebiten.Image{}}
+	for _, d := range densities {
+		for _, group := range groups {
+			dir := path.Join(fmt.Sprintf("%dx", d), group)
 			sub, err := fs.Sub(fsys, dir)
 			if err != nil {
 				return nil, err
 			}
 			p, err := assets.Open(sub, "manifest.json", opt)
 			if err != nil {
-				return nil, fmt.Errorf("unit pack %s: %w", dir, err)
+				return nil, fmt.Errorf("pack %s: %w", dir, err)
 			}
-			a.packs[packKey{fam, d}] = p
+			a.packs[packKey{group, d}] = p
 			if p.Manifest().Status != "approved" {
 				a.candidate = true
 			}
+		}
+	}
+	return a, nil
+}
+
+// openUnitArt opens the whole unit catalog and checks that every family has
+// every sprite at every density, so drawing never meets a missing variant.
+func openUnitArt(fsys fs.FS, opt assets.Options) (*artPacks, error) {
+	a, err := openPacks(fsys, opt, unitsprite.Families(), spriteDensities)
+	if err != nil {
+		return nil, fmt.Errorf("unit %w", err)
+	}
+	for _, d := range spriteDensities {
+		for _, fam := range unitsprite.Families() {
 			for _, pal := range unitsprite.Palettes {
 				for f := range unitsprite.Facings {
 					for _, s := range unitsprite.States {
-						if _, err := p.Entry(unitsprite.ID(fam, pal, f, s), d); err != nil {
-							return nil, fmt.Errorf("unit pack %s: %w", dir, err)
+						if _, err := a.entry(fam, unitsprite.ID(fam, pal, f, s), d); err != nil {
+							return nil, fmt.Errorf("unit pack %dx/%s: %w", d, fam, err)
 						}
 					}
 				}
@@ -93,18 +114,18 @@ func openUnitArt(fsys fs.FS, opt assets.Options) (*unitArt, error) {
 }
 
 // entry is the catalog record of sprite id at density d.
-func (a *unitArt) entry(family, id string, d int) (assets.Entry, error) {
-	p, ok := a.packs[packKey{family, d}]
+func (a *artPacks) entry(group, id string, d int) (assets.Entry, error) {
+	p, ok := a.packs[packKey{group, d}]
 	if !ok {
-		return assets.Entry{}, fmt.Errorf("no %dx unit pack for %s", d, family)
+		return assets.Entry{}, fmt.Errorf("no %dx pack %s", d, group)
 	}
 	return p.Entry(id, d)
 }
 
 // image returns the texture of sprite id at density d, decoding and uploading it
 // on first use.
-func (a *unitArt) image(family, id string, d int) (*ebiten.Image, assets.Entry, error) {
-	e, err := a.entry(family, id, d)
+func (a *artPacks) image(group, id string, d int) (*ebiten.Image, assets.Entry, error) {
+	e, err := a.entry(group, id, d)
 	if err != nil {
 		return nil, e, err
 	}
@@ -112,13 +133,63 @@ func (a *unitArt) image(family, id string, d int) (*ebiten.Image, assets.Entry, 
 	if img, ok := a.tex[k]; ok {
 		return img, e, nil
 	}
-	src, err := a.packs[packKey{family, d}].Image(id, d)
+	src, err := a.packs[packKey{group, d}].Image(id, d)
 	if err != nil {
 		return nil, e, err
 	}
-	img := ebiten.NewImageFromImage(src)
+	var img *ebiten.Image
+	if a.pad == 0 {
+		img = ebiten.NewImageFromImage(src)
+	} else {
+		b := src.Bounds()
+		img = ebiten.NewImage(b.Dx()+2*a.pad, b.Dy()+2*a.pad)
+		img.WritePixels(padded(src, a.pad, a.bleed[group]))
+	}
 	a.tex[k] = img
 	return img, e, nil
+}
+
+// padded returns the RGBA pixels of src inside a border of pad texels,
+// premultiplied as ebiten.Image.WritePixels expects. The border is transparent,
+// or with bleed the opaque texels are grown into it one texel per step, copying
+// an opaque neighbour's colour.
+func padded(src image.Image, pad int, bleed bool) []byte {
+	b := src.Bounds()
+	dst := image.NewRGBA(image.Rect(0, 0, b.Dx()+2*pad, b.Dy()+2*pad))
+	draw.Draw(dst, b.Sub(b.Min).Add(image.Pt(pad, pad)), src, b.Min, draw.Src)
+	if !bleed {
+		return dst.Pix
+	}
+	w, h := dst.Bounds().Dx(), dst.Bounds().Dy()
+	for range pad {
+		old := slices.Clone(dst.Pix)
+		for y := range h {
+			for x := range w {
+				i := (y*w + x) * 4
+				if old[i+3] == 255 {
+					continue
+				}
+				for _, o := range [8][2]int{{1, 0}, {-1, 0}, {0, 1}, {0, -1}, {1, 1}, {-1, -1}, {1, -1}, {-1, 1}} {
+					nx, ny := x+o[0], y+o[1]
+					if j := (ny*w + nx) * 4; nx >= 0 && ny >= 0 && nx < w && ny < h && old[j+3] == 255 {
+						copy(dst.Pix[i:i+4], old[j:j+4])
+						break
+					}
+				}
+			}
+		}
+	}
+	return dst.Pix
+}
+
+// anchorGeoM places an image of entry e at density d, inside a border of pad
+// texels, with its logical anchor on screen point (sx, sy), at effective zoom eff.
+func anchorGeoM(e assets.Entry, d, pad int, eff, sx, sy float64) ebiten.GeoM {
+	var m ebiten.GeoM
+	m.Translate(-e.Anchor[0]*float64(d)-float64(pad), -e.Anchor[1]*float64(d)-float64(pad))
+	m.Scale(eff/float64(d), eff/float64(d))
+	m.Translate(sx, sy)
+	return m
 }
 
 // drawUnitSprite draws a unit sprite with its logical anchor on screen point
@@ -139,11 +210,8 @@ func (g *game) drawUnitSprite(dst *ebiten.Image, sx, sy float64, typ string, own
 		g.artErr = err.Error()
 		return false
 	}
-	scale := g.cam.Effective() / float64(d)
 	var op ebiten.DrawImageOptions
-	op.GeoM.Translate(-e.Anchor[0]*float64(d), -e.Anchor[1]*float64(d))
-	op.GeoM.Scale(scale, scale)
-	op.GeoM.Translate(sx, sy)
+	op.GeoM = anchorGeoM(e, d, g.art.pad, g.cam.Effective(), sx, sy)
 	op.Filter = ebiten.FilterLinear
 	if remembered {
 		op.ColorScale.Scale(0.6, 0.6, 0.65, 1)
@@ -154,7 +222,7 @@ func (g *game) drawUnitSprite(dst *ebiten.Image, sx, sy float64, typ string, own
 
 // loadUnitArt opens the unit catalog in dir. The packs snapshot their bytes, so
 // the directory is closed again at once.
-func loadUnitArt(dir string, allowCandidates bool) (*unitArt, error) {
+func loadUnitArt(dir string, allowCandidates bool) (*artPacks, error) {
 	r, err := os.OpenRoot(dir)
 	if err != nil {
 		return nil, err
