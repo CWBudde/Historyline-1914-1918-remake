@@ -141,3 +141,6 @@ dmypy.json
 
 # Isolated local checkouts for concurrent graphics/game work.
 /.worktrees/
+
+# Local StrategyWiki extract (third-party CC BY-SA text, reference only).
+/docs/strategywiki/
