@@ -374,9 +374,15 @@ visual approval, native-resource correspondence and runtime acceptance remain op
       compatibility, per-view alpha diagnostics and saved-PNG tests.
 - [x] Add a dedicated editable road/unit comparison with separate saved collection
       storage; desktop/narrow browser tests and the 2,927-PNG / 3,011-pin audit pass.
+- [x] Continue the proportion correction for heavy artillery, armoured car and
+      Charron: retain three broader six-view paintings, exact prompts and shared
+      atlas framing; rebuild 378 pinned files. Inspect all six CP facings after
+      Lanczos reduction to 48 pixels. Three-family saved-PNG tests and the
+      2,927-PNG / 3,011-pin audit pass; see `docs/art/road-unit-readability-v2.md`.
 - [ ] Approve revised unit likeness, colour separation and native-size silhouettes;
-      heavy artillery and some vehicle widths still differ. Review the other 11
-      families' camera/footprints, all native facings and runtime placement.
+      heavy artillery is now broader but remains shorter; vehicle widths slightly
+      exceed the reference. Review mechanical/camera consistency, the other 11
+      families' footprints, all native facings and runtime placement.
 
 - [x] Infantry tactical sprites — `CP_infantry`, `EC_infantry` (`f2127e6`).
 - [x] Light-artillery tactical sprites — `CP_lArtillery`, `EC_lArtillery` (`e894cb0`).

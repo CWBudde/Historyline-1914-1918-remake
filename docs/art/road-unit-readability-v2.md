@@ -11,9 +11,9 @@ and runtime approval still open.
 |---|---|---|
 | Road surface | `terrain/reference-v2/road-paved.png` | Restrained grey-mauve pavement instead of beige gravel |
 | Infantry | `units/reference-v2/infantry.png` | Wider, shallower three-person formation and clearer equipment |
-| Heavy artillery | `units/reference-v2/heavy-artillery.png` | Bright steel barrel, distinct axle/wheels, six corrected muzzle headings |
-| Armoured car | `units/reference-v2/armored-car.png` | More overhead, longer rectangular hull and smaller turret |
-| Charron | `units/reference-v2/charron.png` | More overhead, long hull, distinct wheels and small turret |
+| Heavy artillery | `units/reference-v2/heavy-artillery-wide.png` | Larger gun, broader carriage/wheelbase and longer bright steel barrel |
+| Armoured car | `units/reference-v2/armored-car-wide.png` | Broader rectangular hull and wheelbase; small turret |
+| Charron | `units/reference-v2/charron-wide.png` | Broader hull and wheelbase; retained long overhead silhouette |
 
 All paintings use the built-in imagegen tool. Matching records under
 `art/recipes/{terrain,units}/reference-v2/` retain exact prompts, source dimensions,
@@ -24,25 +24,32 @@ No original raster bytes are installed into the candidate exports.
 All 15 sprite families now share lighter owner palettes: CP `(205,190,159)`, EC
 `(138,164,186)`, neutral `(174,174,164)`. Owner selection remains independent of
 class/country, including captured units, and normal/spent states remain separate.
-Only the four listed families have new atlases and explicit `framing_inset=0.95`.
-Other families retain their previous source and exact default 0.8 transform.
+Only the four listed families have revised atlases and explicit framing. Infantry
+and armoured car use `framing_inset=0.95`, heavy artillery 0.91 and Charron 0.93.
+These are whole-atlas transforms, shared across every facing, chosen to retain the
+existing six-world-pixel alpha guard. Other families retain their previous source
+and exact default 0.8 transform. The earlier masters remain provenance inputs;
+the producing manifests select only the current pinned paintings.
 
 The north-facing visible bounds illustrate the remaining differences. These are
 alpha-at-least-128 bounds measured on 4× exports and divided by eight to express
 the 48-pixel reference scale, not resemblance percentages:
 
-| Family | Reference width × height | Prior candidate | Current candidate |
-|---|---:|---:|---:|
-| Infantry | 40 × 24 | 24.2 × 27.9 | 35.0 × 25.2 |
-| Heavy artillery | 28 × 46 | 21.6 × 29.1 | 20.1 × 34.0 |
-| Armoured car | 20 × 36 | 17.9 × 27.6 | 15.4 × 34.5 |
-| Charron | 22 × 38 | 17.9 × 27.0 | 17.4 × 37.0 |
+| Family | Reference width × height | Before road correction | Initial road correction | Current candidate |
+|---|---:|---:|---:|---:|
+| Infantry | 40 × 24 | 24.2 × 27.9 | 35.0 × 25.2 | 35.0 × 25.2 |
+| Heavy artillery | 28 × 46 | 21.6 × 29.1 | 20.1 × 34.0 | 31.0 × 39.8 |
+| Armoured car | 20 × 36 | 17.9 × 27.6 | 15.4 × 34.5 | 23.2 × 37.5 |
+| Charron | 22 × 38 | 17.9 × 27.0 | 17.4 × 37.0 | 23.4 × 37.5 |
 
-Vehicle lengths and infantry spread are closer, but some equipment remains
-narrower/smaller than the reference, especially heavy artillery. Further visual
-review, the other families' camera/footprints and the approximately 90% resemblance
-target remain open. The original reference pose/palette is never rotated or
-recoloured to disguise those differences.
+The follow-up broadens all three equipment families. Vehicle widths now slightly
+exceed their references; heavy artillery is broader but still shorter. Its barrel,
+carriage and wheel proportions still differ. Other facings also need mechanical
+and camera review: the reference supplied here establishes only one source pose,
+not native six-facing correspondence. Further visual review, the other eleven
+families' camera/footprints and the approximately 90% resemblance target remain
+open. The original reference pose/palette is never rotated or recoloured to
+disguise those differences.
 
 ## Connected roads and framing
 
@@ -88,6 +95,17 @@ their PNGs were unchanged. The fresh audit checks 2,927 PNGs and 3,011 hash pins
 with zero problems. A separate 22-file HQ rebuild updates the winter entrance.
 Native-size Lanczos previews and the assembled browser scene
 were visually inspected.
+
+The subsequent proportion correction retains three additional transparent masters
+and exact edit prompts under `art/{source,recipes}/units/reference-v2/*-wide.*`.
+It rebuilds 378 pinned files across the three selected families, including all six
+facings, three owners, normal/spent states, 2×/4× planes/sprites and context fixtures.
+All six CP/normal facings were inspected after Lanczos3 reduction to 48 pixels,
+with the unchanged original and previous north-facing exports alongside. The
+three-family saved-PNG tests pass and a fresh 2,927-PNG / 3,011-pin audit reports
+zero problems. The regenerated comparison retains 390 entries and 3,461 image
+variants; desktop and narrow browser checks pass for the desk, composer and
+dedicated road/unit page. No exporter code or guard policy changed in this follow-up.
 
 Road seam/width/marking tests, mixed-road import tests, unit framing/alpha tests,
 all unit-family saved-PNG tests and desk/composer/browser/coverage checks pass.

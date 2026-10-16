@@ -1,10 +1,10 @@
 {
   "atlas": {
-    "source": "source/units/reference-v2/charron.png",
-    "source_sha256": "541551cb38a492d7415a5599952fbfc4cee9e8c4bea5c96dd98f89cb80969020"
+    "source": "source/units/reference-v2/charron-wide.png",
+    "source_sha256": "c5f5f7730921fa5e91fa3b084bdebaa164faf34f587db29535beb8b55301fca3"
   },
   "family": "charron",
-  "framing_inset": 0.95,
+  "framing_inset": 0.93,
   "grounds": {
     "grass": {
       "2x": {

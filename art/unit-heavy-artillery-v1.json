@@ -1,10 +1,10 @@
 {
   "atlas": {
-    "source": "source/units/reference-v2/heavy-artillery.png",
-    "source_sha256": "a90380a77e6168cbb923481c36f6842370cdba1962048f3a1cdba4be716d0cf7"
+    "source": "source/units/reference-v2/heavy-artillery-wide.png",
+    "source_sha256": "dde6bb721671370a676d5f98e843da84267aa8b7437c59967ef2a1b853ccff32"
   },
   "family": "heavyArtillery",
-  "framing_inset": 0.95,
+  "framing_inset": 0.91,
   "grounds": {
     "grass": {
       "2x": {

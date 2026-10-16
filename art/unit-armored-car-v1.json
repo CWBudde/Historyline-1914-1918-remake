@@ -1,7 +1,7 @@
 {
   "atlas": {
-    "source": "source/units/reference-v2/armored-car.png",
-    "source_sha256": "a76fa1ab724addcd63024acdc1cd54cc52d685724410d4bb93cb197a9a67a129"
+    "source": "source/units/reference-v2/armored-car-wide.png",
+    "source_sha256": "47c81a6fce51979c9495966e15175c8616301b57580df8d1598bf185f0f50ce3"
   },
   "family": "armoredCar",
   "framing_inset": 0.95,
