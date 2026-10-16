@@ -607,13 +607,25 @@ so interactive playback and responsive/input acceptance remain open. Approximate
       zoom and UI scale, resize/fullscreen support, and inverse-transform input. Verify that
       the same world point remains selectable after zoom, resize and display-scale changes.
       Progress (not done): `cmd/historyline/layout.go` has table-tested layout maths (UI scale from
-      window size and DeviceScaleFactor, HUD placement) and `Layout` returns the logical size. Not
-      checked on a real 4K or high-DPI display; asset density and the world-point check remain.
+      window size and DeviceScaleFactor, HUD placement).
+      (2026-10-16) — the three scales are now independent: `Layout` returns device pixels, so the
+      map is drawn at full resolution; `camera.Camera` has a display `Scale` under the player's
+      `Zoom` (limits apply to `Zoom` only); the HUD is drawn on a logical canvas magnified by the
+      UI scale, and HUD/minimap input goes through the inverse transform (`view.toHUD`). F11
+      toggles fullscreen. `assetDensity` picks the 1×/2×/4× pack from the effective zoom (shown in
+      the status line) but has no map pack to load until 2.3. World-point check passes:
+      `TestWorldPointSurvivesZoomResizeAndDPI`, `TestHUDHitTest`, `TestScaleKeepsCentreAndZoom`.
+      Open: map asset density in use (2.3), and a hand check on a real 4K/high-DPI display.
 - [ ] Connect per-player vision to unseen/remembered/visible rendering and unit concealment.
       The new opaque `unseen` tile does not implement remembered terrain or visibility plumbing.
       Placeholder done: `cmd/historyline` shades hexes from `game.State.Fog` (`-player`, dev
       `-reveal`), dims Seen hexes and draws units only on Visible ones (`TestFogPolicy`).
-      Open: remembered terrain/unit snapshots and the real tiles via the compositor.
+      (2026-10-16) — remembered snapshots: `game.State.Remembered` returns each player's
+      last-seen unit (value copy) and building owner, refreshed only while the hex is Visible
+      (`TestRememberedSnapshot`). The map view and minimap draw remembered enemy units greyed on
+      Seen hexes and an owner bar on buildings (live when Visible, last seen when Seen);
+      remembered own units are skipped (`TestRememberedUnitShown`, `TestOwnerShown`).
+      Open: the real tiles via the compositor (2.3), and a hand check in the window.
 - [x] Implement a fog-safe minimap with the camera rectangle and click-to-jump using the
       same map/camera transforms.
       Evidence: `internal/minimap` (fit, world<->minimap, clipped camera rectangle; tests incl.
