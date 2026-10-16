@@ -300,66 +300,99 @@ type Battle struct {
 	DefenderDestroyed bool
 }
 
+// battle is a validated attack: the attacker's and the defender's hex and
+// the step distance between them.
+type battle struct {
+	fh, th *Hex
+	steps  int
+}
+
+// checkAttack validates an attack with weapon slot of the map unit at `from`
+// on the unit at `to`; Attack and Predict share it.
+func (s *State) checkAttack(from, to hexgrid.Coord, slot int) (battle, error) {
+	if s.Winner != None {
+		return battle{}, errGameOver
+	}
+	fh, th := s.At(from), s.At(to)
+	if fh == nil || fh.Unit == nil || fh.Unit.Owner != s.Turn {
+		return battle{}, errors.New("no own unit to attack with")
+	}
+	a := fh.Unit
+	if s.Rules.OneActionPerTurn && (a.Moved || a.Attacked) {
+		return battle{}, fmt.Errorf("%s has already acted this turn", a.Type)
+	}
+	if slot < 0 || slot >= len(a.Weapons) || a.Weapons[slot] == nil {
+		return battle{}, fmt.Errorf("%s has no weapon in slot %d", a.Type, slot)
+	}
+	if !slices.Contains(s.Targets(from), to) {
+		return battle{}, fmt.Errorf("%v is not a target of %s", to, a.Type)
+	}
+	if !s.usable(a, slot, th.Unit) {
+		return battle{}, fmt.Errorf("%s cannot fire at %v", a.Weapons[slot].Name, to)
+	}
+	steps := hexgrid.Distance(from, to)
+	if steps > a.Weapons[slot].RangeMax {
+		return battle{}, fmt.Errorf("%v is out of range of %s", to, a.Weapons[slot].Name)
+	}
+	if fh.Mods.Battle == nil || th.Mods.Battle == nil {
+		return battle{}, errors.New("a battle hex has no battle modifier")
+	}
+	return battle{fh: fh, th: th, steps: steps}, nil
+}
+
+// outcome resolves v with roll and fills in which side is destroyed; it
+// changes nothing.
+func (s *State) outcome(v battle, slot int, roll func() int) Battle {
+	a, d := v.fh.Unit, v.th.Unit
+	b := Battle{}
+	b.Counter, b.Damage, b.CounterDamage = resolve(s.Rules, a, d, slot, v.steps, *v.fh.Mods.Battle, *v.th.Mods.Battle, roll)
+	b.DefenderDestroyed = d.Size-b.Damage < 1
+	b.AttackerDestroyed = a.Size-b.CounterDamage < 1
+	return b
+}
+
+// Predict returns the Battle that Attack would produce with every roll 0,
+// without changing anything. It fails where Attack fails.
+func (s *State) Predict(from, to hexgrid.Coord, slot int) (Battle, error) {
+	v, err := s.checkAttack(from, to, slot)
+	if err != nil {
+		return Battle{}, err
+	}
+	return s.outcome(v, slot, func() int { return 0 }), nil
+}
+
 // Attack fires weapon slot of the map unit at `from` at the unit at `to`, as
 // gui.py handleBattle does. roll returns a number in -5..5 (random.randint); it
 // is called for the attacker and then for the defender.
 func (s *State) Attack(from, to hexgrid.Coord, slot int, roll func() int) (Battle, error) {
-	if s.Winner != None {
-		return Battle{}, errGameOver
+	v, err := s.checkAttack(from, to, slot)
+	if err != nil {
+		return Battle{}, err
 	}
-	fh, th := s.At(from), s.At(to)
-	if fh == nil || fh.Unit == nil || fh.Unit.Owner != s.Turn {
-		return Battle{}, errors.New("no own unit to attack with")
-	}
-	a := fh.Unit
-	if s.Rules.OneActionPerTurn && (a.Moved || a.Attacked) {
-		return Battle{}, fmt.Errorf("%s has already acted this turn", a.Type)
-	}
-	if slot < 0 || slot >= len(a.Weapons) || a.Weapons[slot] == nil {
-		return Battle{}, fmt.Errorf("%s has no weapon in slot %d", a.Type, slot)
-	}
-	if !slices.Contains(s.Targets(from), to) {
-		return Battle{}, fmt.Errorf("%v is not a target of %s", to, a.Type)
-	}
-	if !s.usable(a, slot, th.Unit) {
-		return Battle{}, fmt.Errorf("%s cannot fire at %v", a.Weapons[slot].Name, to)
-	}
-	steps := hexgrid.Distance(from, to)
-	if steps > a.Weapons[slot].RangeMax {
-		return Battle{}, fmt.Errorf("%v is out of range of %s", to, a.Weapons[slot].Name)
-	}
-	if fh.Mods.Battle == nil || th.Mods.Battle == nil {
-		return Battle{}, errors.New("a battle hex has no battle modifier")
-	}
-	d := th.Unit
-	b := Battle{}
-	defer func() {
-		if s.Rules.AmmoPerShot {
-			spend(a, slot)
-			if b.Counter >= 0 {
-				spend(d, b.Counter)
-			}
+	fh, th := v.fh, v.th
+	a, d := fh.Unit, th.Unit
+	b := s.outcome(v, slot, roll)
+	if s.Rules.AmmoPerShot {
+		spend(a, slot)
+		if b.Counter >= 0 {
+			spend(d, b.Counter)
 		}
-	}()
-	b.Counter, b.Damage, b.CounterDamage = resolve(s.Rules, a, d, slot, steps, *fh.Mods.Battle, *th.Mods.Battle, roll)
-
+	}
 	d.Size -= b.Damage
 	if b.Damage > 0 {
 		promote(a)
 	}
-	if d.Size < 1 {
+	if b.DefenderDestroyed {
 		d.Size = 0
 		promote(a)
-		b.DefenderDestroyed = true
 	}
 	a.Size -= b.CounterDamage
 	if b.CounterDamage > 0 {
 		promote(d)
 	}
-	if a.Size < 1 {
+	if b.AttackerDestroyed {
 		a.Size = 0
 		promote(d)
-		b.AttackerDestroyed = true
 	}
 	a.Attacked = true
 	if b.DefenderDestroyed {
