@@ -167,7 +167,7 @@ func TestMoveTurnsUnitAlongLastStep(t *testing.T) {
 	c.Click(from)
 	var to hexgrid.Coord
 	for at, r := range c.moves {
-		if len(r.Path) >= 2 && c.st.At(at).Container == nil {
+		if len(r.Path) >= 2 && c.st.At(at).Container == nil && c.st.At(at).Unit == nil {
 			to = at
 			break
 		}
