@@ -14,6 +14,13 @@ py *args:
 run *args:
     go run ./cmd/historyline {{args}}
 
+# Packs are built only when missing; delete build/runtime-units or build/runtime-terrain to rebuild.
+# Play with the candidate unit and terrain art
+play *args:
+    [ -d build/runtime-units ] || go run ./cmd/hlasset build-units -out build/runtime-units
+    [ -d build/runtime-terrain ] || go run ./cmd/hlasset build-terrain -out build/runtime-terrain
+    go run ./cmd/historyline -units build/runtime-units -terrain build/runtime-terrain -allow-candidates {{args}}
+
 # Run all Go tests
 test:
     go test ./...
