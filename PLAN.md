@@ -863,6 +863,9 @@ The completed compatibility work below remains useful and stays completed.
       empty weapon neither fires nor gives range in `Targets`. `Rules.TargetFlags`: a weapon
       hits a boat with `Water` or `Ground`, other units with `Ground`. No weapon sets `air` or
       `water` and no unit flies, so `air` has no target yet.
+      (2026-10-16) — with the `UNIT.DAT` attacks, slots carry real `air`/`water` flags and, as in
+      the original, only `Water` hits a boat; units start at their original group size (6, or
+      3 for bunkers) instead of 10.
       These remain Standard mechanics. DOS domain-specific firepower/target masks require
       their own verified mapping; per-shot ammo consumption is not established by the research.
 
@@ -1867,6 +1870,14 @@ in a distinct continuous style; final quality/seam and runtime acceptance remain
             add 1,524 PNGs; all 1,692 build files repeat byte-for-byte. Saved-PNG family
             and focused regression tests, vet and lint pass; see
             `docs/art/remaining-unit-families-contract.md`.
+      - [ ] Tactical sprites (six facings, CP/EC/neutral palettes, normal/spent, 2×/4×) and
+            portraits for the 33 original unit types that have no art yet. Checked
+            2026-10-16 on `407f289`: `art/recipes` and `art/exports` hold only the 15 enabled
+            families. Missing: Construction Unit, stationary and mobile AA, Anti-Tank Guns,
+            five tanks (A7V, Renault FT 17, Mark I, St. Chammond, Mark IV), five ship types
+            (torpedo boat, transport ship, destroyer, battleship, submarine), the static
+            balloon and 18 aircraft. Their stats are in `internal/data/testdata/unitdat.json`;
+            R2/Phase 5 settle which records share a family and gameplay ID.
       - [ ] Complete visual/reference approval, native correspondence, physical contact
             and in-engine acceptance for delivered unit/weapon/effect/marker candidates;
             finish additional native-content coverage.
