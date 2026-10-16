@@ -678,8 +678,10 @@ so interactive playback and responsive/input acceptance remain open. Approximate
       Open: the real tiles via the compositor (2.3), and a hand check in the window.
       (2026-10-16) — with `-terrain`, unseen hexes draw the `unseen` tile and seen hexes their
       remembered tiles in grey (`TestTerrainLayersFollowFog`); still needs the hand check.
-- [ ] Stop the status line naming the terrain under the cursor on unseen hexes (found
+- [x] Stop the status line naming the terrain under the cursor on unseen hexes (found
       2026-10-16: "line 11 col 5 rough_w" shows through the fog).
+      (2026-10-16) — the status line no longer names the hovered hex; the info box (2.5) says
+      "unexplored" there. `TestStatusLineKeepsUnseenTerrainHidden`.
 - [x] Implement a fog-safe minimap with the camera rectangle and click-to-jump using the
       same map/camera transforms.
       Evidence: `internal/minimap` (fit, world<->minimap, clipped camera rectangle; tests incl.
@@ -702,9 +704,19 @@ so interactive playback and responsive/input acceptance remain open. Approximate
       runtime assets.
 - [ ] Implement the terrain panel with movement/battle/sight bars, selected tile/infra,
       live labels and blank/hidden/impassable/missing-value states.
+      (2026-10-16) — partial: a text info box at the top right (`cmd/historyline/info.go`)
+      shows the hovered hex's terrain, infrastructure, movement/battle/sight values ("-" for
+      None) and the known building owner; "unexplored" on Unseen hexes (`TestInfo*`,
+      `TestTerrainInfoModifiers`). Open: bars, the real panel art, impassable/missing states.
 - [ ] Integrate the unit panel with actual selection and visibility, current owner, rank,
       portrait, stats, skills and four weapon rows. Preserve empty/unlimited/zero-ammo
       distinctions and suppress hidden unit data before binding any fields.
+      (2026-10-16) — partial: the same info box lists the selected unit, then the unit on the
+      hovered hex: name, owner, size, rank, fuel, moved/attacked, and each weapon with range,
+      power and ammo ("-" unlimited, 0 kept, empty slots skipped). On a Seen hex only the
+      remembered type and size, marked "last seen"; nothing on Unseen hexes
+      (`TestInfoSeenHexShowsOnlyMemory`, `TestUnitInfoWeapons`). Open: portrait, skills, the
+      real panel.
 - [ ] Extend beyond the infantry pilot to all enabled units and exercise the panels in game
       at supported window/UI scales with long labels, zero fuel/ammo, maximum rank,
       empty/hidden selection and both owners. Complete G4's interaction/readability gates.
@@ -756,6 +768,12 @@ so interactive playback and responsive/input acceptance remain open. Approximate
       sprites. Capture-in-progress banner (depot owner flips on entry) and reduced motion (`-reduced-motion`, key M: instant walk, short static effects) done, `motion_test.go`. Not hand-tested in the window.
 - [ ] Wire end turn and refresh selection, legal actions, panels, minimap and fog for the
       active side. Keep Python/Standard turn flow distinct from the future R3 scheduler.
+      (2026-10-16) — partial: after F1 the computer opponent (`-opponent ai`, the default; `pass`
+      keeps Python's passing opponent) plays one order per idle frame, then the turn comes back
+      with the round banner and a summary; it also opens when the player moves second
+      (`TestAITurnReturnsControl`, `TestOpponentOpensWhenPlayerMovesSecond`,
+      `TestPassOpponentKeepsPythonFlow`). Played five rounds of level 1 in the window. Open:
+      hot-seat, a hand check of the panel/minimap refresh.
 
 #### 2.8 — Controls and playable parity acceptance
 
@@ -964,6 +982,13 @@ before implementing a replacement formula or changing the existing game defaults
       not become the original scheduler contract.
 - [ ] The AI works only through `game` commands and its own side's vision (no cheating, with an
       optional difficulty setting that allows it)
+      (2026-10-16) — partial: compatibility prototype `internal/ai` (greedy, not the R3 order
+      API): the best attack by `State.Predict` (roll 0, no state change), else a move toward the
+      enemy HQ, depots, known enemies or, with none known, unexplored hexes. It reads units and
+      owners only through `Targets`, `Movable` and `Remembered`; `TestIgnoresUnseenEnemy` checks an
+      unseen enemy changes no order. `TestPlaysShippedLevels` plays every shipped level from
+      both sides against a passing opponent (attacks and captures in each; it wins five of six
+      within 20 rounds). Open: difficulty/cheat option, artillery stand-off, the R3/R4 AI.
 - [ ] Base heuristic: generate legal orders for the current movement or action cycle and
       evaluate the resulting positions with the verified resolver, including conditional
       return fire, support and concealed opposing orders. Use deterministic casualty results
@@ -973,6 +998,9 @@ before implementing a replacement formula or changing the existing game defaults
 - [ ] Strategic layer: assign each unit a role (attack, defend HQ/depots, capture neutral
       depots, escort), and budget energy for verified repair, construction and production
 - [ ] Optional animated playback of AI moves, with a skip option (like Battle Isle 3)
+      (2026-10-16) — partial: the prototype's moves walk on screen only over hexes the player
+      sees, and its attacks show the battle panel ("unknown" for an unseen shooter) and hit marks
+      on visible hexes; reduced motion (M) makes it instant. Open: an explicit skip option.
 - [ ] Headless AI-vs-AI runner for balance testing and regression tests, recording rules/data
       versions, submitted orders and any scheduler seed so failures can be replayed
 
