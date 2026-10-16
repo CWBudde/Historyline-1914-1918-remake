@@ -44,8 +44,9 @@ const (
 )
 
 type game struct {
-	menuMX, menuMY int // last cursor position seen by the menu
-	menuFocus      int // focused action-menu row, menuNone when unset
+	menuMX, menuMY int       // last cursor position seen by the menu
+	menuFocus      int       // focused menu row, menuNone when unset
+	menuPress      menuPress // row the mouse button went down on
 	lvl            *level.Level
 	state          *state.State
 	player         state.Player // whose fog is shown
@@ -79,6 +80,7 @@ func newGame(lvl *level.Level, st *state.State, player state.Player, reveal bool
 		cam:         camera.New(world, camera.Size{W: startWidth, H: startHeight}),
 		terrainFill: map[string]color.RGBA{},
 		ctl:         &control{st: st, player: player},
+		menuPress:   newMenuPress(),
 	}
 	gm.applyLayout(startWidth, startHeight, 1)
 	return gm
@@ -135,10 +137,11 @@ func fogShade(f state.Fog, c color.RGBA) color.RGBA {
 	return color.RGBA{R: 8, G: 8, B: 10, A: 255}
 }
 
-// walking reports whether the unit standing on at is still being animated there.
+// walking reports whether the unit standing on at is still being animated
+// there. A building or carrier the unit walks into stays drawn.
 func (g *game) walking(at hexgrid.Coord) bool {
 	w := g.ctl.walk
-	return !w.Done() && w.path[len(w.path)-1] == at
+	return !w.Done() && w.path[len(w.path)-1] == at && g.state.At(at).Unit == w.unit
 }
 
 // showsUnit reports whether live units on a hex of the given fog state are drawn.
@@ -271,17 +274,36 @@ func (g *game) Update() error {
 	return nil
 }
 
-// menuRow is the screen rectangle of weapon menu row i (bottom left).
+// menuRow is the HUD rectangle of menu row i: beside the selected unit for
+// the action menu, at the bottom left for the weapon and contents menus.
 func (g *game) menuRow(i int) (x, y, w, h int) {
-	r := g.hud.menuRowRect(i, len(g.ctl.menu))
-	return r.X, r.Y, r.W, r.H
+	if g.ctl.menuKind != menuActions {
+		r := g.hud.menuRowRect(i, len(g.ctl.menu))
+		return r.X, r.Y, r.W, r.H
+	}
+	r := g.actionMenu()
+	return r.X, r.Y + i*menuRowHeight, r.W, menuRowHeight
 }
 
-// updateMenu handles the open weapon menu (number keys or a click on a row) and
-// reports whether it consumed this frame's input.
+// actionMenu is the HUD rectangle of the action menu beside the selected unit.
+func (g *game) actionMenu() rect {
+	mw := 0
+	for i, o := range g.ctl.menu {
+		mw = max(mw, textWidth(menuLabel(i, o))+8)
+	}
+	px, py := g.cam.WorldToScreen(hexgrid.Center(g.ctl.from))
+	cx, cy := g.view.toHUD(int(px), int(py))
+	half := int(float64(hexgrid.HexWidth) / 2 * g.cam.Effective() / float64(max(g.view.UI, 1)))
+	return actionMenuRect(cx, cy, half, mw, len(g.ctl.menu), g.w, g.h)
+}
+
+// updateMenu handles the open menu (arrow keys, Enter or Space, number keys, or
+// a press and release on a row) and reports whether it consumed this frame's
+// input.
 func (g *game) updateMenu() bool {
 	if !g.ctl.MenuOpen() {
 		g.menuFocus = menuNone
+		g.menuPress = newMenuPress()
 		return false
 	}
 	g.menuFocus = menuFocusValid(g.menuFocus, g.ctl.menu)
@@ -297,7 +319,8 @@ func (g *game) updateMenu() bool {
 		g.menuFocus = menuStep(g.menuFocus, 1, g.ctl.menu)
 	case inpututil.IsKeyJustPressed(ebiten.KeyArrowUp):
 		g.menuFocus = menuStep(g.menuFocus, -1, g.ctl.menu)
-	case inpututil.IsKeyJustPressed(ebiten.KeyEnter), inpututil.IsKeyJustPressed(ebiten.KeyNumpadEnter):
+	case inpututil.IsKeyJustPressed(ebiten.KeyEnter), inpututil.IsKeyJustPressed(ebiten.KeyNumpadEnter),
+		inpututil.IsKeyJustPressed(ebiten.KeySpace):
 		if g.menuFocus != menuNone {
 			g.ctl.ChooseMenu(g.menuFocus)
 			return true
@@ -309,13 +332,14 @@ func (g *game) updateMenu() bool {
 			return true
 		}
 	}
-	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
-		if h := menuHit(mx, my, len(g.ctl.menu), g.menuRow); h != menuNone {
-			g.ctl.ChooseMenu(h)
-			return true
-		}
+	row, used := g.menuPress.update(inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft),
+		inpututil.IsMouseButtonJustReleased(ebiten.MouseButtonLeft),
+		ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft),
+		menuHit(mx, my, len(g.ctl.menu), g.menuRow))
+	if row != menuNone {
+		g.ctl.ChooseMenu(row)
 	}
-	return false
+	return used
 }
 
 func (g *game) drawMenu(dst *ebiten.Image) {
@@ -331,11 +355,19 @@ func (g *game) drawMenu(dst *ebiten.Image) {
 				bg = color.RGBA{100, 50, 50, 245}
 			}
 		}
+		pressed := i == g.menuPress.Row() && menuHit(g.menuMX, g.menuMY, len(g.ctl.menu), g.menuRow) == i
+		if pressed {
+			bg = color.RGBA{bg.R / 2, bg.G / 2, bg.B / 2, 250}
+		}
 		vector.FillRect(dst, float32(x), float32(y), float32(w), float32(h), bg, false)
 		if i == g.menuFocus {
 			vector.StrokeRect(dst, float32(x), float32(y), float32(w), float32(h), 2, color.RGBA{240, 220, 120, 255}, false)
 		}
-		ebitenutil.DebugPrintAt(dst, menuLabel(i, o), x+4, y+1)
+		dx := 0
+		if pressed {
+			dx = 1 // the label sinks with the row
+		}
+		ebitenutil.DebugPrintAt(dst, menuLabel(i, o), x+4+dx, y+1+dx)
 	}
 }
 
@@ -380,7 +412,7 @@ func (g *game) Draw(screen *ebiten.Image) {
 	if w := g.ctl.walk; !w.Done() && g.fogOf(w.Hex()) == state.Visible {
 		wx, wy := w.Pos()
 		sx, sy := g.cam.WorldToScreen(wx, wy)
-		u := g.state.At(w.path[len(w.path)-1]).Unit
+		u := w.unit
 		face, _ := unitsprite.Toward(w.Heading())
 		if u == nil || !g.drawUnitSprite(screen, sx, sy, u.Type, u.Owner, unitSpent(u), false, face) {
 			vector.FillCircle(screen, float32(sx), float32(sy), float32(14*g.cam.Effective()), color.RGBA{230, 230, 230, 255}, true)
@@ -423,7 +455,7 @@ func (g *game) drawStatus(dst *ebiten.Image) { ebitenutil.DebugPrint(dst, g.stat
 // statusText is the status and help text. It names nothing of the hovered hex:
 // the info box shows that, fog-safe.
 func (g *game) statusText() string {
-	msg := fmt.Sprintf("%s  round %d, %v to move  zoom %.2f (%dx assets)\narrows/WASD scroll, wheel zoom, click unit then hex (1-9 picks menu row; click own building or selected carrier for contents), F1 end turn, F11 fullscreen, Esc/right-click cancel",
+	msg := fmt.Sprintf("%s  round %d, %v to move  zoom %.2f (%dx assets)\narrows/WASD scroll, wheel zoom, click unit for its menu or click a blue/red hex (1-9 picks menu row; click own building for contents; click skips a walk), F1 end turn, F11 fullscreen, Esc/right-click cancel",
 		g.lvl.MapName, g.state.Round, g.state.Turn, g.cam.Zoom, g.drawnDensity())
 	if g.state.Winner != state.None {
 		msg += fmt.Sprintf("\n%v has won", g.state.Winner)

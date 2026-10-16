@@ -24,7 +24,8 @@ type control struct {
 	moves    map[hexgrid.Coord]state.Route
 	targets  map[hexgrid.Coord]bool
 
-	menu       []WeaponOption // open weapon or content menu, nil when closed
+	menu       []WeaponOption // open menu, nil when closed
+	menuKind   menuKind       // which menu menu is
 	menuTarget hexgrid.Coord
 	stored     []*Unit // set while the menu lists container contents; row i is stored[i]
 
@@ -53,6 +54,17 @@ func (c *control) SetReducedMotion(on bool) {
 		c.walk = nil
 		c.fx.Dismiss()
 	}
+}
+
+// SkipWalk finishes the walk in progress at once and reports whether there
+// was one. The rules engine has already placed the unit, so only the drawing
+// changes.
+func (c *control) SkipWalk() bool {
+	if c.walk.Done() {
+		return false
+	}
+	c.walk = nil
+	return true
 }
 
 // DismissReport hides the battle panel (map click or key press).
@@ -100,7 +112,7 @@ func (c *control) Select(at hexgrid.Coord) {
 	c.selected, c.from, c.unit = true, at, h.Unit
 	c.moves = c.st.Movable(at, h.Unit)
 	c.targets = map[hexgrid.Coord]bool{}
-	if !c.st.Rules.OneActionPerTurn || !h.Unit.Moved {
+	if !c.st.Rules.OneActionPerTurn || !h.Unit.Moved && !h.Unit.Attacked {
 		for _, t := range c.st.Targets(at) {
 			c.targets[t] = true
 		}
@@ -108,13 +120,15 @@ func (c *control) Select(at hexgrid.Coord) {
 }
 
 // Click handles a left click on a map hex: select, move, attack or deselect.
+// Selecting an own unit opens its action menu; a click on one of its blue or
+// red hexes acts at once. A click during a walk only finishes the walk.
 func (c *control) Click(at hexgrid.Coord) {
+	if c.SkipWalk() {
+		return
+	}
 	c.Message = ""
 	c.fx.Dismiss()
 	c.menu, c.stored = nil, nil
-	if !c.walk.Done() {
-		return
-	}
 	if !c.mine() {
 		if c.st.Winner != state.None {
 			c.Message = fmt.Sprintf("%v has won", c.st.Winner)
@@ -130,7 +144,10 @@ func (c *control) Click(at hexgrid.Coord) {
 		c.OpenContents(at)
 	default:
 		c.Select(at)
-		if !c.selected && c.contents(at) != nil {
+		switch {
+		case c.selected:
+			c.openActions()
+		case c.contents(at) != nil:
 			c.OpenContents(at)
 		}
 	}
@@ -163,7 +180,7 @@ func (c *control) OpenContents(at hexgrid.Coord) {
 	if box == nil {
 		return
 	}
-	c.menuTarget, c.stored, c.menu = at, box.Units(), nil
+	c.menuKind, c.menuTarget, c.stored, c.menu = menuContents, at, box.Units(), nil
 	if len(c.stored) == 0 {
 		c.Message = "nothing stored here"
 		c.stored = nil
@@ -181,9 +198,14 @@ func (c *control) OpenContents(at hexgrid.Coord) {
 
 // ChooseMenu answers menu row i for whichever menu is open.
 func (c *control) ChooseMenu(i int) {
-	if c.stored == nil {
+	switch c.menuKind {
+	case menuWeapons:
 		c.ChooseWeapon(i)
 		return
+	case menuActions:
+		c.chooseAction(i)
+		return
+	case menuContents:
 	}
 	if i < 0 || i >= len(c.menu) {
 		return
@@ -197,6 +219,7 @@ func (c *control) ChooseMenu(i int) {
 	c.selected, c.from, c.unit = true, at, u
 	c.moves, c.targets = c.st.Movable(at, u), map[hexgrid.Coord]bool{}
 	c.Message = fmt.Sprintf("%s leaves: pick a hex", u.Type)
+	c.openActions()
 }
 
 func (c *control) move(to hexgrid.Coord) {
@@ -207,7 +230,7 @@ func (c *control) move(to hexgrid.Coord) {
 		c.Message = err.Error()
 		return
 	}
-	c.walk = newWalkMotion(path, c.reduced)
+	c.walk = newWalkMotion(path, c.unit, c.reduced)
 	if n := len(path); n >= 2 {
 		c.turn(c.unit, path[n-2], path[n-1])
 	}
@@ -264,7 +287,7 @@ func (c *control) weaponOptions(to hexgrid.Coord) []WeaponOption {
 
 // OpenWeaponMenu starts the weapon choice for an attack on to.
 func (c *control) OpenWeaponMenu(to hexgrid.Coord) {
-	c.menuTarget, c.menu = to, c.weaponOptions(to)
+	c.menuKind, c.menuTarget, c.menu = menuWeapons, to, c.weaponOptions(to)
 }
 
 // MenuOpen reports whether the weapon menu waits for a choice.
@@ -441,7 +464,7 @@ func (c *control) aiMove(o ai.Order) {
 		c.turn(o.Unit, path[n-2], path[n-1])
 	}
 	if slices.ContainsFunc(path, c.seen) {
-		c.walk = newWalkMotion(path, c.reduced)
+		c.walk = newWalkMotion(path, o.Unit, c.reduced)
 	}
 	switch {
 	case c.st.Winner != state.None:

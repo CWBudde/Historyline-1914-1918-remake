@@ -234,7 +234,7 @@ func TestContentMenuLeave(t *testing.T) {
 		t.Fatalf("content menu %+v, message %q", c.menu, c.Message)
 	}
 	c.ChooseMenu(0)
-	if c.MenuOpen() || !c.selected || c.unit != u || len(c.moves) == 0 {
+	if c.menuKind != menuActions || !c.selected || c.unit != u || len(c.moves) == 0 {
 		t.Fatalf("stored unit not selected: selected=%v moves=%d %q", c.selected, len(c.moves), c.Message)
 	}
 	var to hexgrid.Coord

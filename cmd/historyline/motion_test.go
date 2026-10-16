@@ -30,10 +30,10 @@ func TestReportDismiss(t *testing.T) {
 
 func TestReducedMotionWalkAndEffects(t *testing.T) {
 	path := []hexgrid.Coord{{Line: 0, Col: 0}, {Line: 0, Col: 1}, {Line: 0, Col: 2}}
-	if w := newWalkMotion(path, false); w.Done() {
+	if w := newWalkMotion(path, nil, false); w.Done() {
 		t.Error("normal walk is instant")
 	}
-	if w := newWalkMotion(path, true); !w.Done() {
+	if w := newWalkMotion(path, nil, true); !w.Done() {
 		t.Error("reduced walk is not instant")
 	}
 

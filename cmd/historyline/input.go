@@ -60,7 +60,9 @@ func (g *game) applyAction(a action) (keepRunning bool) {
 	case actEndTurn:
 		g.ctl.EndTurn()
 	case actCancel:
-		g.ctl.clear()
+		if !g.ctl.SkipWalk() {
+			g.ctl.clear()
+		}
 	case actSelectHex:
 		if g.hoverOnMap {
 			g.ctl.Click(g.hover)

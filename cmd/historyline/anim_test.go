@@ -3,7 +3,9 @@ package main
 import (
 	"testing"
 
+	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 )
 
 func TestWalkInterpolatesAlongPath(t *testing.T) {
@@ -46,9 +48,10 @@ func TestClickWaitsForWalk(t *testing.T) {
 	if c.walk.Done() {
 		t.Skip("one-step move, nothing to wait for")
 	}
+	msg := c.Message
 	c.Click(from)
-	if c.Message != "" {
-		t.Errorf("click during the walk was handled: %q", c.Message)
+	if c.Message != msg || !c.walk.Done() {
+		t.Errorf("click during the walk did more than finish it: %q, walk done %v", c.Message, c.walk.Done())
 	}
 }
 
@@ -87,4 +90,43 @@ func TestBattleReportFromEngineResult(t *testing.T) {
 		}
 	}
 	t.Skip("no attack available at the start of level1_cp")
+}
+
+func TestSkipFinishesWalk(t *testing.T) {
+	c := boardControl(t, state.Standard, map[hexgrid.Coord]level.Hex{at(2, 2): onGrass("CP_cavalry")})
+	cav := c.st.At(at(2, 2)).Unit
+	c.Click(at(2, 2))
+	c.Click(at(6, 2))
+	if c.walk.Done() || c.st.At(at(6, 2)).Unit != cav {
+		t.Fatalf("no walk to skip: %q", c.Message)
+	}
+	c.Click(at(2, 2)) // a click during the walk only finishes it
+	if !c.walk.Done() {
+		t.Error("the click did not finish the walk")
+	}
+	if c.st.At(at(6, 2)).Unit != cav || c.st.At(at(2, 2)).Unit != nil || !c.selected || c.from != at(6, 2) {
+		t.Errorf("skipping changed the game or the selection: selected %v at %v", c.selected, c.from)
+	}
+	if c.SkipWalk() {
+		t.Error("SkipWalk with no walk reported a skip")
+	}
+}
+
+func TestWalkDrawsMovingUnitIntoCarrier(t *testing.T) {
+	place := map[hexgrid.Coord]level.Hex{at(2, 2): onGrass("CP_infantry"), at(6, 2): onGrass("CP_supplyCar")}
+	c := boardControl(t, state.Standard, place)
+	g := newGame(boardLevel(place), c.st, c.player, false)
+	g.ctl = c
+	inf, car := c.st.At(at(2, 2)).Unit, c.st.At(at(6, 2)).Unit
+	c.Click(at(2, 2))
+	c.Click(at(6, 2))
+	if c.walk.Done() {
+		t.Fatal("no walk")
+	}
+	if c.walk.unit != inf {
+		t.Errorf("the walk draws %v, want the infantry", c.walk.unit)
+	}
+	if shown, _ := g.unitShown(at(6, 2)); !shown || c.st.At(at(6, 2)).Unit != car {
+		t.Error("the carrier vanished while the infantry walked into it")
+	}
 }

@@ -1,6 +1,7 @@
 package main
 
 import (
+	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 )
 
@@ -11,19 +12,21 @@ const stepFrames = 8
 // already placed the unit on the last hex; the walk only decides where to draw it.
 type walk struct {
 	path  []hexgrid.Coord
+	unit  *state.Unit // the unit walking; the last hex may hold its building or carrier
 	frame int
 }
 
 func newWalk(path []hexgrid.Coord) *walk {
-	return newWalkMotion(path, false)
+	return newWalkMotion(path, nil, false)
 }
 
-// newWalkMotion is newWalk; with reduced set the unit is placed at once (nil walk).
-func newWalkMotion(path []hexgrid.Coord, reduced bool) *walk {
+// newWalkMotion is the walk of u along path; with reduced set the unit is
+// placed at once (nil walk).
+func newWalkMotion(path []hexgrid.Coord, u *state.Unit, reduced bool) *walk {
 	if reduced || len(path) < 2 {
 		return nil
 	}
-	return &walk{path: path}
+	return &walk{path: path, unit: u}
 }
 
 // Done reports whether the unit has reached the end of the path.
