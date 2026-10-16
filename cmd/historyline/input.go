@@ -17,6 +17,7 @@ const (
 	actViewBottom          // Python: PageDown, mapView = [0, 24]
 	actQuit                // Python: Q
 	actToggleMotion        // new: reduced-motion toggle
+	actFullscreen          // new: F11 toggles fullscreen
 )
 
 type keyBinding struct {
@@ -36,6 +37,7 @@ var keyBindings = []keyBinding{
 	{ebiten.KeyEnd, actViewBottom},
 	{ebiten.KeyQ, actQuit},
 	{ebiten.KeyM, actToggleMotion},
+	{ebiten.KeyF11, actFullscreen},
 }
 
 // actionsFor returns the actions of all keys for which pressed reports true.
@@ -70,6 +72,8 @@ func (g *game) applyAction(a action) (keepRunning bool) {
 	case actToggleMotion:
 		g.ctl.SetReducedMotion(!g.ctl.reduced)
 		g.ctl.Message = "reduced motion " + map[bool]string{true: "on", false: "off"}[g.ctl.reduced]
+	case actFullscreen:
+		ebiten.SetFullscreen(!ebiten.IsFullscreen())
 	case actNone:
 	case actQuit:
 		return false

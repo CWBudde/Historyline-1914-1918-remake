@@ -266,3 +266,92 @@ func slicesContains(us []*state.Unit, u *state.Unit) bool {
 	}
 	return false
 }
+
+// A unit the player saw stays drawn (dimmed) where it was last seen, and a unit
+// on a hex the player cannot see now is never drawn from live state.
+func TestRememberedUnitShown(t *testing.T) {
+	c := newTestControl(t)
+	lvl, err := loadLevel("", "level1_cp")
+	if err != nil {
+		t.Fatal(err)
+	}
+	st := c.st
+	g := newGame(lvl, st, c.player, false)
+	var enemy, spot hexgrid.Coord
+	found := false
+	for l, line := range st.Hexes {
+		for col := range line {
+			at := hexgrid.Coord{Line: l, Col: col}
+			u := st.At(at).Unit
+			if u == nil || u.Owner == c.player || st.Fog(c.player, at) != state.Unseen {
+				continue
+			}
+			for _, n := range st.Grid.Neighbors(at) {
+				if h := st.At(n); h.Unit == nil && h.Container == nil && st.Fog(c.player, n) == state.Unseen {
+					enemy, spot, found = at, n, true
+				}
+			}
+			if found {
+				break
+			}
+		}
+		if found {
+			break
+		}
+	}
+	if !found {
+		t.Fatal("no hidden enemy with a free hidden neighbour in level1_cp")
+	}
+	if shown, _ := g.unitShown(enemy); shown {
+		t.Fatal("hidden enemy drawn")
+	}
+	scout := st.At(ownMovers(c)[0]).Unit
+	st.At(spot).Unit = scout
+	st.UpdateVision(c.player)
+	if shown, rem := g.unitShown(enemy); !shown || rem {
+		t.Fatalf("visible enemy: shown %v remembered %v", shown, rem)
+	}
+	st.At(spot).Unit = nil
+	st.UpdateVision(c.player)
+	if st.Fog(c.player, enemy) != state.Seen {
+		t.Skipf("enemy hex is %v after the scout left; another own unit sees it", st.Fog(c.player, enemy))
+	}
+	gone := st.At(enemy).Unit
+	st.At(enemy).Unit = nil
+	if shown, rem := g.unitShown(enemy); !shown || !rem {
+		t.Errorf("left enemy: shown %v remembered %v, want last-seen snapshot", shown, rem)
+	}
+	st.At(enemy).Unit = gone
+	st.At(spot).Unit = gone // an enemy walks onto a hex that is only remembered
+	if shown, _ := g.unitShown(spot); shown {
+		t.Error("enemy on a remembered-empty hex drawn from live state")
+	}
+	st.At(spot).Unit = nil
+	g.reveal = true
+	if shown, rem := g.unitShown(enemy); !shown || rem {
+		t.Errorf("reveal: shown %v remembered %v", shown, rem)
+	}
+}
+
+func TestOwnerShown(t *testing.T) {
+	c := newTestControl(t)
+	lvl, err := loadLevel("", "level1_cp")
+	if err != nil {
+		t.Fatal(err)
+	}
+	g := newGame(lvl, c.st, c.player, false)
+	at, _ := ownBuilding(t, c)
+	if got := g.ownerShown(at); got != c.player {
+		t.Errorf("own visible building shows owner %v", got)
+	}
+	for l, line := range c.st.Hexes {
+		for col := range line {
+			p := hexgrid.Coord{Line: l, Col: col}
+			if h := c.st.At(p); h.Container != nil && c.st.Fog(c.player, p) == state.Unseen {
+				if got := g.ownerShown(p); got != state.None {
+					t.Errorf("unseen building %v shows owner %v", p, got)
+				}
+			}
+		}
+	}
+}

@@ -2,6 +2,8 @@ package main
 
 // Pure layout maths for the window and the HUD. Nothing here touches Ebitengine so
 // it can be table-tested; main.go feeds it the window size and device scale factor.
+// The map is drawn in device pixels and the HUD on a logical canvas magnified by
+// the UI scale (see view).
 
 const (
 	// uiBaseW and uiBaseH are the physical window size per step of whole-number
@@ -48,6 +50,47 @@ func logicalSize(outW, outH int, dpi float64) (w, h int) {
 	w = int(float64(outW)*dpi/s + 0.5)
 	h = int(float64(outH)*dpi/s + 0.5)
 	return max(w, 1), max(h, 1)
+}
+
+// view is the screen geometry for one window size and device scale factor. The
+// map is drawn at device resolution (Phys), the HUD at the logical size (Log) and
+// magnified UI times, so the camera zoom, the UI scale and the asset density are
+// independent of each other.
+type view struct {
+	PhysW, PhysH int // screen in device pixels (what Layout returns)
+	UI           int // whole-number HUD magnification
+	LogW, LogH   int // HUD canvas in logical pixels
+}
+
+func newView(outW, outH int, dpi float64) view {
+	if dpi <= 0 {
+		dpi = 1
+	}
+	v := view{
+		PhysW: max(int(float64(outW)*dpi+0.5), 1),
+		PhysH: max(int(float64(outH)*dpi+0.5), 1),
+		UI:    uiScale(outW, outH, dpi),
+	}
+	v.LogW, v.LogH = logicalSize(outW, outH, dpi)
+	return v
+}
+
+// toHUD maps a device-pixel cursor position to logical HUD pixels.
+func (v view) toHUD(px, py int) (x, y int) {
+	ui := max(v.UI, 1)
+	return px / ui, py / ui
+}
+
+// assetDensity picks the pack density (1×, 2× or 4×) for a map drawn at eff device
+// pixels per reference pixel: the smallest that is not magnified, capped at 4×.
+func assetDensity(eff float64) int {
+	switch {
+	case eff <= 1:
+		return 1
+	case eff <= 2:
+		return 2
+	}
+	return 4
 }
 
 // rect is an integer screen rectangle.

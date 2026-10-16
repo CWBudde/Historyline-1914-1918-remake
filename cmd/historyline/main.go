@@ -54,8 +54,10 @@ type game struct {
 	mini           minimap.Minimap
 	hover          hexgrid.Coord
 	hoverOnMap     bool
-	w, h           int // logical screen size (see logicalSize)
+	view           view // device and logical screen sizes, UI scale
+	w, h           int  // logical HUD size (view.LogW, view.LogH)
 	hud            hudLayout
+	hudImg         *ebiten.Image // logical HUD canvas, magnified onto the screen
 	terrainFill    map[string]color.RGBA
 	ctl            *control
 }
@@ -68,14 +70,37 @@ func newGame(lvl *level.Level, st *state.State, player state.Player, reveal bool
 	}
 	gm := &game{
 		lvl: lvl, state: st, player: player, reveal: reveal, grid: g,
-		cam: camera.New(world, camera.Size{W: startWidth, H: startHeight}),
-		w:   startWidth, h: startHeight,
+		cam:         camera.New(world, camera.Size{W: startWidth, H: startHeight}),
 		terrainFill: map[string]color.RGBA{},
 		ctl:         &control{st: st, player: player},
 	}
-	gm.hud = layoutHUD(gm.w, gm.h)
-	gm.layoutMinimap()
+	gm.applyLayout(startWidth, startHeight, 1)
 	return gm
+}
+
+// applyLayout adapts the camera, HUD and minimap to a window of outW × outH
+// device-independent pixels at display scale dpi. The camera works in device
+// pixels with the UI scale as its display factor, so the map keeps its apparent
+// size and the view centre stays put.
+func (g *game) applyLayout(outW, outH int, dpi float64) {
+	v := newView(outW, outH, dpi)
+	if v == g.view {
+		return
+	}
+	g.view = v
+	g.w, g.h = v.LogW, v.LogH
+	g.hud = layoutHUD(v.LogW, v.LogH)
+	g.cam.Resize(camera.Size{W: float64(v.PhysW), H: float64(v.PhysH)})
+	g.cam.SetScale(float64(v.UI))
+	g.layoutMinimap()
+}
+
+// cursor returns the mouse position in device pixels (map picking) and in logical
+// HUD pixels (menus, minimap).
+func (g *game) cursor() (px, py, hx, hy int) {
+	px, py = ebiten.CursorPosition()
+	hx, hy = g.view.toHUD(px, py)
+	return px, py, hx, hy
 }
 
 func (g *game) layoutMinimap() {
@@ -110,8 +135,48 @@ func (g *game) walking(at hexgrid.Coord) bool {
 	return !w.Done() && w.path[len(w.path)-1] == at
 }
 
-// showsUnit reports whether units on a hex of the given fog state are drawn.
+// showsUnit reports whether live units on a hex of the given fog state are drawn.
 func showsUnit(f state.Fog) bool { return f == state.Visible }
+
+// unitShown reports whether a unit is drawn on c and whether it is only the
+// player's last-seen snapshot (it may have gone since). Live units show only on
+// Visible hexes; remembered own units are skipped because the player always
+// knows where those are.
+func (g *game) unitShown(c hexgrid.Coord) (shown, remembered bool) {
+	f := g.fogOf(c)
+	if showsUnit(f) {
+		return g.state.At(c).Unit != nil && !g.walking(c), false
+	}
+	if f != state.Seen {
+		return false, false
+	}
+	m, ok := g.state.Remembered(g.player, c)
+	return ok && m.Unit != nil && m.Unit.Owner != g.player, true
+}
+
+// ownerShown is the building owner the player knows for c: live when Visible,
+// last seen when Seen, None when Unseen or not a building.
+func (g *game) ownerShown(c hexgrid.Coord) state.Player {
+	if g.fogOf(c) == state.Visible {
+		if h := g.state.At(c); h.Container != nil {
+			return h.Owner
+		}
+		return state.None
+	}
+	m, _ := g.state.Remembered(g.player, c)
+	return m.Owner
+}
+
+// ownerColour marks the two sides' buildings.
+func ownerColour(p state.Player) color.RGBA {
+	if p == state.CentralPowers {
+		return color.RGBA{215, 175, 40, 255}
+	}
+	return color.RGBA{60, 130, 230, 255}
+}
+
+// rememberedUnit is the colour of a last-seen unit (main view and minimap).
+var rememberedUnit = color.RGBA{120, 120, 128, 255}
 
 func (g *game) fill(terrain string) color.RGBA {
 	if c, ok := g.terrainFill[terrain]; ok {
@@ -139,7 +204,7 @@ func (g *game) Update() error {
 	if ebiten.IsKeyPressed(ebiten.KeyArrowDown) || ebiten.IsKeyPressed(ebiten.KeyS) {
 		dy += scrollSpeed
 	}
-	g.cam.Scroll(dx, dy)
+	g.cam.Scroll(dx*float64(g.view.UI), dy*float64(g.view.UI))
 	if g.ctl.walk != nil {
 		g.ctl.walk.Tick()
 	}
@@ -157,7 +222,7 @@ func (g *game) Update() error {
 		return nil
 	}
 
-	mx, my := ebiten.CursorPosition()
+	mx, my, hx, hy := g.cursor()
 	if _, wheel := ebiten.Wheel(); wheel != 0 {
 		factor := 1.1
 		if wheel < 0 {
@@ -165,10 +230,10 @@ func (g *game) Update() error {
 		}
 		g.cam.ZoomAt(factor, float64(mx), float64(my))
 	}
-	if g.mini.Contains(float64(mx), float64(my)) {
+	if g.mini.Contains(float64(hx), float64(hy)) {
 		g.hoverOnMap = false
 		if ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft) {
-			g.cam.CenterOn(g.mini.ToWorld(float64(mx), float64(my)))
+			g.cam.CenterOn(g.mini.ToWorld(float64(hx), float64(hy)))
 		}
 		return nil
 	}
@@ -197,7 +262,7 @@ func (g *game) updateMenu() bool {
 		return false
 	}
 	g.menuFocus = menuFocusValid(g.menuFocus, g.ctl.menu)
-	mx, my := ebiten.CursorPosition()
+	_, _, mx, my := g.cursor()
 	if mx != g.menuMX || my != g.menuMY {
 		g.menuMX, g.menuMY = mx, my
 		if h := menuHit(mx, my, len(g.ctl.menu), g.menuRow); h != menuNone {
@@ -264,18 +329,23 @@ func (g *game) Draw(screen *ebiten.Image) {
 			sx, sy := g.cam.WorldToScreen(cx, cy)
 			fog := g.fogOf(coord)
 			g.drawHex(screen, float32(sx), float32(sy), fogShade(fog, g.fill(hx.Terrain)), false)
-			if g.state.At(coord).Unit != nil && showsUnit(fog) && !g.walking(coord) {
-				vector.FillCircle(screen, float32(sx), float32(sy), float32(14*g.cam.Zoom), color.RGBA{230, 230, 230, 255}, true)
+			if owner := g.ownerShown(coord); owner != state.None {
+				e := float32(g.cam.Effective())
+				vector.FillRect(screen, float32(sx)-20*e, float32(sy)-34*e, 40*e, 6*e, fogShade(fog, ownerColour(owner)), false)
+			}
+			if shown, remembered := g.unitShown(coord); shown {
+				col := color.RGBA{230, 230, 230, 255}
+				if remembered {
+					col = rememberedUnit
+				}
+				vector.FillCircle(screen, float32(sx), float32(sy), float32(14*g.cam.Effective()), col, true)
 			}
 		}
 	}
 	if w := g.ctl.walk; !w.Done() {
 		wx, wy := w.Pos()
 		sx, sy := g.cam.WorldToScreen(wx, wy)
-		vector.FillCircle(screen, float32(sx), float32(sy), float32(14*g.cam.Zoom), color.RGBA{230, 230, 230, 255}, true)
-	}
-	if g.hexNumbers && g.cam.Zoom >= minNumberZoom {
-		g.drawHexNumbers(screen, vx, vy, vw, vh)
+		vector.FillCircle(screen, float32(sx), float32(sy), float32(14*g.cam.Effective()), color.RGBA{230, 230, 230, 255}, true)
 	}
 	g.drawOverlays(screen)
 	if g.hoverOnMap {
@@ -283,15 +353,34 @@ func (g *game) Draw(screen *ebiten.Image) {
 		sx, sy := g.cam.WorldToScreen(cx, cy)
 		g.drawHex(screen, float32(sx), float32(sy), color.RGBA{}, true)
 	}
-	g.drawMinimap(screen)
-	g.drawMenu(screen)
-	g.drawReport(screen)
-	g.drawEffects(screen)
-	if dev := g.devIndicators(); dev != "" {
-		ebitenutil.DebugPrintAt(screen, dev, g.hud.DevRight-textWidth(dev), 0)
+	g.drawMarks(screen)
+
+	// Everything below is HUD, drawn in logical pixels and magnified by the UI scale.
+	if g.hudImg == nil || g.hudImg.Bounds().Dx() != g.w || g.hudImg.Bounds().Dy() != g.h {
+		g.hudImg = ebiten.NewImage(g.w, g.h)
 	}
-	msg := fmt.Sprintf("%s  round %d, %v to move  zoom %.2f\narrows/WASD scroll, wheel zoom, click unit then hex (1-9 picks menu row; click own building or selected carrier for contents), F1 end turn, Esc/right-click cancel",
-		g.lvl.MapName, g.state.Round, g.state.Turn, g.cam.Zoom)
+	hud := g.hudImg
+	hud.Clear()
+	if g.hexNumbers && g.cam.Zoom >= minNumberZoom {
+		g.drawHexNumbers(hud, vx, vy, vw, vh)
+	}
+	g.drawMinimap(hud)
+	g.drawMenu(hud)
+	g.drawReport(hud)
+	g.drawBanner(hud)
+	if dev := g.devIndicators(); dev != "" {
+		ebitenutil.DebugPrintAt(hud, dev, g.hud.DevRight-textWidth(dev), 0)
+	}
+	g.drawStatus(hud)
+	var op ebiten.DrawImageOptions
+	op.GeoM.Scale(float64(g.view.UI), float64(g.view.UI))
+	screen.DrawImage(hud, &op)
+}
+
+// drawStatus prints the status and help text at the top left of the HUD.
+func (g *game) drawStatus(dst *ebiten.Image) {
+	msg := fmt.Sprintf("%s  round %d, %v to move  zoom %.2f (%dx assets)\narrows/WASD scroll, wheel zoom, click unit then hex (1-9 picks menu row; click own building or selected carrier for contents), F1 end turn, F11 fullscreen, Esc/right-click cancel",
+		g.lvl.MapName, g.state.Round, g.state.Turn, g.cam.Zoom, assetDensity(g.cam.Effective()))
 	if g.state.Winner != state.None {
 		msg += fmt.Sprintf("\n%v has won", g.state.Winner)
 	}
@@ -302,7 +391,7 @@ func (g *game) Draw(screen *ebiten.Image) {
 		hx := g.lvl.Lines[g.hover.Line][g.hover.Col]
 		msg += fmt.Sprintf("\nline %d col %d  %s", g.hover.Line, g.hover.Col, hx.Terrain)
 	}
-	ebitenutil.DebugPrint(screen, msg)
+	ebitenutil.DebugPrint(dst, msg)
 }
 
 // devIndicators names the active development flags so a screenshot can never be
@@ -330,7 +419,8 @@ func (g *game) drawHexNumbers(dst *ebiten.Image, vx, vy, vw, vh float64) {
 				continue
 			}
 			sx, sy := g.cam.WorldToScreen(cx, cy)
-			ebitenutil.DebugPrintAt(dst, fmt.Sprintf("%d,%d", l, c), int(sx)-14, int(sy+22*g.cam.Zoom)-8)
+			hx, hy := g.view.toHUD(int(sx), int(sy+22*g.cam.Effective()))
+			ebitenutil.DebugPrintAt(dst, fmt.Sprintf("%d,%d", l, c), hx-14, hy-8)
 		}
 	}
 }
@@ -373,8 +463,11 @@ func (g *game) drawMinimap(dst *ebiten.Image) {
 			sx, sy := m.FromWorld(cx, cy)
 			fog := g.fogOf(coord)
 			col := fogShade(fog, g.fill(hx.Terrain))
-			if g.state.At(coord).Unit != nil && showsUnit(fog) && !g.walking(coord) {
+			if shown, remembered := g.unitShown(coord); shown {
 				col = color.RGBA{240, 240, 240, 255}
+				if remembered {
+					col = rememberedUnit
+				}
 			}
 			vector.FillRect(dst, float32(sx)-cw/2, float32(sy)-ch/2, cw, ch, col, false)
 		}
@@ -384,7 +477,7 @@ func (g *game) drawMinimap(dst *ebiten.Image) {
 }
 
 func (g *game) drawHex(dst *ebiten.Image, cx, cy float32, fill color.RGBA, outline bool) {
-	z := float32(g.cam.Zoom)
+	z, ui := float32(g.cam.Effective()), float32(g.view.UI)
 	var p vector.Path
 	for i, v := range hexOutline {
 		x, y := cx+v[0]*z, cy+v[1]*z
@@ -396,11 +489,11 @@ func (g *game) drawHex(dst *ebiten.Image, cx, cy float32, fill color.RGBA, outli
 	}
 	p.Close()
 	if outline {
-		vector.StrokePath(dst, &p, &vector.StrokeOptions{Width: 3}, pathOptions(color.RGBA{255, 240, 80, 255}))
+		vector.StrokePath(dst, &p, &vector.StrokeOptions{Width: 3 * ui}, pathOptions(color.RGBA{255, 240, 80, 255}))
 		return
 	}
 	vector.FillPath(dst, &p, &vector.FillOptions{}, pathOptions(fill))
-	vector.StrokePath(dst, &p, &vector.StrokeOptions{Width: 1}, pathOptions(color.RGBA{0, 0, 0, 90}))
+	vector.StrokePath(dst, &p, &vector.StrokeOptions{Width: ui}, pathOptions(color.RGBA{0, 0, 0, 90}))
 }
 
 func pathOptions(c color.RGBA) *vector.DrawPathOptions {
@@ -410,15 +503,11 @@ func pathOptions(c color.RGBA) *vector.DrawPathOptions {
 	return &o
 }
 
+// Layout returns the screen in device pixels, so the map is drawn at full
+// resolution; the HUD is magnified separately (see view).
 func (g *game) Layout(outsideW, outsideH int) (int, int) {
-	lw, lh := logicalSize(outsideW, outsideH, ebiten.Monitor().DeviceScaleFactor())
-	if lw != g.w || lh != g.h {
-		g.w, g.h = lw, lh
-		g.hud = layoutHUD(lw, lh)
-		g.cam.Resize(camera.Size{W: float64(lw), H: float64(lh)})
-		g.layoutMinimap()
-	}
-	return lw, lh
+	g.applyLayout(outsideW, outsideH, ebiten.Monitor().DeviceScaleFactor())
+	return g.view.PhysW, g.view.PhysH
 }
 
 // loadLevel reads name from dir, falling back to the embedded shipped levels when

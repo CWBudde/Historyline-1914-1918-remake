@@ -162,8 +162,8 @@ func (e *effects) Marks() []mark {
 	return e.marks
 }
 
-// drawEffects paints marks over their hexes and the banner across the screen.
-func (g *game) drawEffects(dst *ebiten.Image) {
+// drawMarks paints hit and death marks over their hexes (map layer, device pixels).
+func (g *game) drawMarks(dst *ebiten.Image) {
 	fx := &g.ctl.fx
 	for _, m := range fx.Marks() {
 		cx, cy := hexgrid.Center(m.At)
@@ -173,7 +173,7 @@ func (g *game) drawEffects(dst *ebiten.Image) {
 			alpha = staticAlpha
 		}
 		a := uint8(255 * alpha)
-		r := float32(g.cam.Zoom) * 34
+		r := float32(g.cam.Effective()) * 34
 		if m.Kind == markDeath {
 			if !fx.Reduced {
 				r *= 2 - float32(alpha)
@@ -181,11 +181,15 @@ func (g *game) drawEffects(dst *ebiten.Image) {
 			vector.FillCircle(dst, float32(sx), float32(sy), r, color.RGBA{255, 140, 0, a / 2}, true)
 			continue
 		}
-		red := color.RGBA{255, 40, 40, a}
-		vector.StrokeLine(dst, float32(sx)-r/2, float32(sy)-r/2, float32(sx)+r/2, float32(sy)+r/2, 4, red, true)
-		vector.StrokeLine(dst, float32(sx)-r/2, float32(sy)+r/2, float32(sx)+r/2, float32(sy)-r/2, 4, red, true)
+		red, w := color.RGBA{255, 40, 40, a}, 4*float32(g.view.UI)
+		vector.StrokeLine(dst, float32(sx)-r/2, float32(sy)-r/2, float32(sx)+r/2, float32(sy)+r/2, w, red, true)
+		vector.StrokeLine(dst, float32(sx)-r/2, float32(sy)+r/2, float32(sx)+r/2, float32(sy)-r/2, w, red, true)
 	}
-	if b := fx.Banner(); b != nil {
+}
+
+// drawBanner paints the active banner across the HUD.
+func (g *game) drawBanner(dst *ebiten.Image) {
+	if b := g.ctl.fx.Banner(); b != nil {
 		h := g.hud.Banner.H
 		y := float32(g.hud.Banner.Y)
 		vector.FillRect(dst, 0, y, float32(g.hud.Banner.W), float32(h), color.RGBA{20, 20, 40, 220}, false)
