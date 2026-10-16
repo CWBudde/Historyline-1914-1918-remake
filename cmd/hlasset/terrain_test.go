@@ -39,7 +39,7 @@ func TestRetainedTerrainCatalogBuilds(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	want := map[string]int{"backgrounds": 60, "infrastructure": 74, "context-ground": 23, "context-forest": 20, "context-hills": 121}
+	want := map[string]int{"backgrounds": 60, "infrastructure": 74, "context-ground": 51, "context-forest": 43, "context-hills": 122}
 	if len(packs) != len(want)*2 {
 		t.Fatalf("built %d packs, want %d", len(packs), len(want)*2)
 	}
@@ -186,9 +186,10 @@ func TestTerrainGapsReport(t *testing.T) {
 	}
 	s := b.String()
 	for _, want := range []string{
-		"level1_cp: 5 context tiles selected, 9 missing, 142 undefined, 0 compound issues",
-		"level2_cp: 35 context tiles selected, 48 missing, 150 undefined",
-		"missing ground mud", "undefined forest forest", "map edge", "season=summer;center=",
+		"level1_cp: 14 context tiles selected, 0 missing, 142 undefined, 0 compound issues",
+		"level2_cp: 83 context tiles selected, 0 missing, 150 undefined",
+		"level3_cp: 32 context tiles selected, 0 missing, 143 undefined",
+		"undefined forest forest", "map edge",
 	} {
 		if !strings.Contains(s, want) {
 			t.Errorf("report lacks %q", want)

@@ -149,9 +149,9 @@ func TestShippedLevelGaps(t *testing.T) {
 		}
 	}
 	want := map[string]string{
-		"level1_cp": "forest/missing:5 forest/selected:4 forest/undefined:72 ground/missing:3 ground/undefined:21 hills/missing:1 hills/selected:1 hills/undefined:49",
-		"level2_cp": "forest/missing:26 forest/selected:29 forest/undefined:119 ground/missing:22 ground/selected:6 ground/undefined:31",
-		"level3_cp": "forest/missing:9 forest/selected:11 forest/undefined:77 ground/missing:4 ground/selected:8 ground/undefined:66",
+		"level1_cp": "forest/selected:9 forest/undefined:72 ground/selected:3 ground/undefined:21 hills/selected:2 hills/undefined:49",
+		"level2_cp": "forest/selected:55 forest/undefined:119 ground/selected:28 ground/undefined:31",
+		"level3_cp": "forest/selected:20 forest/undefined:77 ground/selected:12 ground/undefined:66",
 	}
 	for name := range want {
 		g, at := loadLevel(t, name)

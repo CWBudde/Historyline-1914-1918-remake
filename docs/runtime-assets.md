@@ -174,9 +174,9 @@ Context tiles come from the `profiles` of the ground, forest and hills recipes. 
 writes five groups per density, `<out>/<d>x/<group>/`:
 - `backgrounds` (60 tiles, including the fog tile `unseen`);
 - `infrastructure` (74);
-- `context-ground` (23), `context-forest` (20) and `context-hills` (121).
+- `context-ground` (51), `context-forest` (43) and `context-hills` (122).
 
-That makes 10 packs and 596 PNGs. All 4× terrain in one pack would be about 280 MB
+That makes 10 packs and 700 PNGs. All 4× terrain in one pack would exceed 280 MB
 by the loader's estimate, over its 256 MiB budget. Tiles are 96×80 logical
 pixels, anchored (48, 40) on the hex centre. IDs are `tile/<runtime ID>` and
 `context/<family>/<context key>`. The build refuses:
@@ -190,7 +190,7 @@ grounds (`ground`), forest and hills look different depending on their neighbour
 For those it builds the offline exporters' descriptor (season, centre, the six
 neighbours NE, SE, S, SW, NW, N, and for hills the tile origin modulo 568×320) and
 uses the context tile whose key is the SHA-256 of that descriptor.
-`TestDescriptorMatchesRecipeProfiles` reproduces all 164 recipe keys.
+`TestDescriptorMatchesRecipeProfiles` reproduces all 216 recipe keys.
 
 Where no context tile exists, the hex shows its default tile and the compositor
 records a gap. A gap is either:
@@ -203,9 +203,13 @@ art track. Summary for the shipped levels:
 
 | Level | Context tiles selected | Missing | Undefined |
 | --- | --- | --- | --- |
-| Level 1 | 5 | 9 | 142 |
-| Level 2 | 35 | 48 | 150 |
-| Level 3 | 19 | 13 | 143 |
+| Level 1 | 14 | 0 | 142 |
+| Level 2 | 83 | 0 | 150 |
+| Level 3 | 32 | 0 | 143 |
+
+The [campaign context regeneration](art/campaign-context-regeneration.md) adds
+52 profiles (104 PNGs), closing the 70 defined-context gaps in these maps.
+Cross-family and map-edge transitions still require rendering contracts.
 
 HQ, depot, factory and mountain pieces must form complete groups (rosette or
 diamond, per `docs/art/compound-building-geometry.md`). A stray piece is reported

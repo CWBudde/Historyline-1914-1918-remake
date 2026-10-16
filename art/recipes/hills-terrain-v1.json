@@ -19,6 +19,7 @@
       "sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
     }
   ],
+  "campaign_context_generation": "go test -tags campaigngfx ./tools/art-review -run TestGenerateCampaignContexts -count=1 -v",
   "context_exports": [
     {
       "build_output": "profiles/9297a8ee8a670b8cd560172e822f6a31ab25949dbadefea5a600fa1e65307ae4-2x.png",
@@ -2161,6 +2162,22 @@
       },
       "path": "art/exports/hills-v1/profiles/4ab481d641ef3d12dbaec8933040a7fcce7f461507c357d04635bf877134786e-4x.png",
       "sha256": "03c4f77b1aba62f754a5c8eda3ba8cbd0e23a0f6dcde8861b511e786e02b8545"
+    },
+    {
+      "dimensions": {
+        "width": 192,
+        "height": 160
+      },
+      "path": "art/exports/hills-v1/profiles/379e7a9cbda5d37babcf3ccd9fe270656642143df8596e8c8a14f7a233921f2f-2x.png",
+      "sha256": "d0be3b1767b5bbeddee8a61acc314164a246fefb587b1650b8cb68bb3d7bf5c8"
+    },
+    {
+      "dimensions": {
+        "width": 384,
+        "height": 320
+      },
+      "path": "art/exports/hills-v1/profiles/379e7a9cbda5d37babcf3ccd9fe270656642143df8596e8c8a14f7a233921f2f-4x.png",
+      "sha256": "9dded54ebb87fa655e36bcc51bea26fb8d1084d409f4289b4186cbeb32cd2af2"
     }
   ],
   "date": "2026-10-15",
@@ -7600,6 +7617,49 @@
       "phase": [
         71,
         280
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "379e7a9cbda5d37babcf3ccd9fe270656642143df8596e8c8a14f7a233921f2f",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,240\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=hills\nN=grass\n",
+      "isolated_cue": {
+        "enabled": false,
+        "A": 0,
+        "theta": 0,
+        "S": 0
+      },
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "hills",
+        "grass"
+      ],
+      "outputs": [
+        {
+          "dimensions": {
+            "width": 192,
+            "height": 160
+          },
+          "path": "art/exports/hills-v1/profiles/379e7a9cbda5d37babcf3ccd9fe270656642143df8596e8c8a14f7a233921f2f-2x.png",
+          "sha256": "d0be3b1767b5bbeddee8a61acc314164a246fefb587b1650b8cb68bb3d7bf5c8"
+        },
+        {
+          "dimensions": {
+            "width": 384,
+            "height": 320
+          },
+          "path": "art/exports/hills-v1/profiles/379e7a9cbda5d37babcf3ccd9fe270656642143df8596e8c8a14f7a233921f2f-4x.png",
+          "sha256": "9dded54ebb87fa655e36bcc51bea26fb8d1084d409f4289b4186cbeb32cd2af2"
+        }
+      ],
+      "phase": [
+        0,
+        240
       ],
       "runtime_id": "hills",
       "season": "summer"
