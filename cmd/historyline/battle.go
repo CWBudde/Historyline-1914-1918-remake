@@ -6,6 +6,9 @@ import "fmt"
 // any click or key dismisses it earlier.
 const reportFrames = 180
 
+// reportFramesReduced is the panel time with reduced motion.
+const reportFramesReduced = 60
+
 // side is one fighter in the battle panel, with its size before and after.
 type side struct {
 	Name          string
@@ -24,6 +27,13 @@ type report struct {
 
 // Active reports whether the panel is still shown.
 func (r *report) Active() bool { return r != nil && r.frames > 0 }
+
+// Dismiss hides the panel at once (a map click or key press).
+func (r *report) Dismiss() {
+	if r != nil {
+		r.frames = 0
+	}
+}
 
 // Tick counts the display time down.
 func (r *report) Tick() {

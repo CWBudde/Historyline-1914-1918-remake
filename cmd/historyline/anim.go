@@ -15,7 +15,12 @@ type walk struct {
 }
 
 func newWalk(path []hexgrid.Coord) *walk {
-	if len(path) < 2 {
+	return newWalkMotion(path, false)
+}
+
+// newWalkMotion is newWalk; with reduced set the unit is placed at once (nil walk).
+func newWalkMotion(path []hexgrid.Coord, reduced bool) *walk {
+	if reduced || len(path) < 2 {
 		return nil
 	}
 	return &walk{path: path}

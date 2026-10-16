@@ -29,11 +29,33 @@ type control struct {
 	report *report // battle panel of the last shot
 	fx     effects // hit marks and banners
 
+	reduced bool // reduced motion: instant walk, short static effects
+
 	Message string // result of the last action, shown to the player
 }
 
 // roll is random.randint(-5, 5) of the Python reference.
 func roll() int { return rand.IntN(11) - 5 }
+
+// SetReducedMotion switches reduced motion on or off. Turning it on ends any
+// walk and banner in progress.
+func (c *control) SetReducedMotion(on bool) {
+	c.reduced, c.fx.Reduced = on, on
+	if on {
+		c.walk = nil
+		c.fx.Dismiss()
+	}
+}
+
+// DismissReport hides the battle panel (map click or key press).
+func (c *control) DismissReport() { c.report.Dismiss() }
+
+func (c *control) reportTime() int {
+	if c.reduced {
+		return reportFramesReduced
+	}
+	return reportFrames
+}
 
 func (c *control) clear() {
 	c.selected, c.unit, c.moves, c.targets, c.menu, c.stored = false, nil, nil, nil, nil, nil
@@ -152,13 +174,20 @@ func (c *control) ChooseMenu(i int) {
 }
 
 func (c *control) move(to hexgrid.Coord) {
+	dst := c.st.At(to)
+	before := dst.Owner
 	path, err := c.st.Move(c.from, c.unit, to)
 	if err != nil {
 		c.Message = err.Error()
 		return
 	}
-	c.walk = newWalk(path)
+	c.walk = newWalkMotion(path, c.reduced)
 	c.Message = fmt.Sprintf("%s moved", c.unit.Type)
+	if dst.Container != nil && dst.Owner != before && c.st.Winner == state.None {
+		// The engine flips the depot owner when a unit enters it; report that.
+		c.Message = fmt.Sprintf("%s is capturing the depot", c.unit.Type)
+		c.fx.Capture(c.unit.Type)
+	}
 	if c.st.Winner != state.None {
 		c.Message = fmt.Sprintf("%v captured the HQ and wins", c.st.Winner)
 		c.fx.Victory(c.st.Winner)
@@ -229,7 +258,7 @@ func (c *control) ChooseWeapon(i int) {
 
 func (c *control) attack(to hexgrid.Coord, slot int) {
 	atk, def := c.st.At(c.from).Unit, c.st.At(to).Unit
-	rp := &report{frames: reportFrames,
+	rp := &report{frames: c.reportTime(),
 		Attacker: side{Name: atk.Type, Weapon: atk.Weapons[slot].Name, Rank: atk.Experience, Before: atk.Size, Max: atk.MaxSize},
 		Defender: side{Name: def.Type, Rank: def.Experience, Before: def.Size, Max: def.MaxSize}}
 	b, err := c.st.Attack(c.from, to, slot, roll)

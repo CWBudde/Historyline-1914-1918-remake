@@ -672,13 +672,13 @@ so interactive playback and responsive/input acceptance remain open. Approximate
 - [ ] Implement the battle panel with attacker/defender, chosen and counter weapons, result
       bars, sizes and ranks driven by engine combat results.
       Placeholder done (text panel, 3 s, sizes before/after, ranks, counter weapon from the engine
-      result). Open: real bars/sprites, click-to-skip, reduced-animation. Not hand-tested in the window.
+      result). Click or key press skips the panel (`DismissReport`); reduced motion shortens it to 1 s. Open: real bars/sprites. Not hand-tested in the window.
 - [ ] Add hit markers, death/explosion playback and capture/round banners, with bounded
       durations and skip/reduced-animation behavior. Show HQ-capture victory in the app.
       Placeholder done (`cmd/historyline/banner.go`): red X hit marker and orange death flash on the
       defender/attacker hex from the engine `Battle`, round banner after end turn, HQ-capture banner;
       bounded (24-300 frames), click dismisses banners; `banner_test.go`. Open: real explosion
-      sprites, capture-in-progress banner, reduced-animation. Not hand-tested in the window.
+      sprites. Capture-in-progress banner (depot owner flips on entry) and reduced motion (`-reduced-motion`, key M: instant walk, short static effects) done, `motion_test.go`. Not hand-tested in the window.
 - [ ] Wire end turn and refresh selection, legal actions, panels, minimap and fog for the
       active side. Keep Python/Standard turn flow distinct from the future R3 scheduler.
 

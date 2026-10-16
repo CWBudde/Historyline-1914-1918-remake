@@ -18,6 +18,10 @@ const (
 	deathFrames   = 40
 	roundFrames   = 120
 	victoryFrames = 300
+	captureFrames = 120
+
+	// With reduced motion marks and banners are static and short.
+	reducedFrames = 20
 )
 
 type markKind int
@@ -44,6 +48,9 @@ func (m mark) Alpha() float64 {
 	return float64(m.Frames) / float64(m.Total)
 }
 
+// staticAlpha is the opacity of a mark with reduced motion: no fade.
+const staticAlpha = 1.0
+
 // banner is a line of text across the screen (round start, HQ capture).
 type banner struct {
 	Text   string
@@ -56,6 +63,24 @@ type banner struct {
 type effects struct {
 	marks  []mark
 	banner *banner
+
+	Reduced bool // reduced motion: effects are short and do not fade or grow
+}
+
+// frames returns n, or the short static time with reduced motion.
+func (e *effects) frames(n int) int {
+	if e.Reduced {
+		return min(n, reducedFrames)
+	}
+	return n
+}
+
+// Capture shows the capture-in-progress banner for a depot entered by a unit.
+func (e *effects) Capture(unit string) {
+	if e == nil {
+		return
+	}
+	e.banner = &banner{Text: "CAPTURING DEPOT - " + unit, Frames: e.frames(captureFrames)}
 }
 
 // AddBattle marks the defender and, when it fired back or died, the attacker,
@@ -65,9 +90,9 @@ func (e *effects) AddBattle(from, to hexgrid.Coord, b state.Battle) {
 		return
 	}
 	add := func(at hexgrid.Coord, destroyed bool) {
-		k, n := markHit, hitFrames
+		k, n := markHit, e.frames(hitFrames)
 		if destroyed {
-			k, n = markDeath, deathFrames
+			k, n = markDeath, e.frames(deathFrames)
 		}
 		e.marks = append(e.marks, mark{At: at, Kind: k, Frames: n, Total: n})
 	}
@@ -84,7 +109,7 @@ func (e *effects) Round(round int, turn state.Player) {
 	if e == nil {
 		return
 	}
-	e.banner = &banner{Text: fmt.Sprintf("ROUND %d - %v to move", round, turn), Frames: roundFrames}
+	e.banner = &banner{Text: fmt.Sprintf("ROUND %d - %v to move", round, turn), Frames: e.frames(roundFrames)}
 }
 
 // Victory shows the HQ-capture banner; it replaces a round banner.
@@ -92,7 +117,7 @@ func (e *effects) Victory(winner state.Player) {
 	if e == nil || winner == state.None {
 		return
 	}
-	e.banner = &banner{Text: fmt.Sprintf("%v captured the HQ and wins", winner), Frames: victoryFrames}
+	e.banner = &banner{Text: fmt.Sprintf("%v captured the HQ and wins", winner), Frames: e.frames(victoryFrames)}
 }
 
 // Tick counts every effect down and drops finished ones.
@@ -143,10 +168,16 @@ func (g *game) drawEffects(dst *ebiten.Image) {
 	for _, m := range fx.Marks() {
 		cx, cy := hexgrid.Center(m.At)
 		sx, sy := g.cam.WorldToScreen(cx, cy)
-		a := uint8(255 * m.Alpha())
+		alpha := m.Alpha()
+		if fx.Reduced {
+			alpha = staticAlpha
+		}
+		a := uint8(255 * alpha)
 		r := float32(g.cam.Zoom) * 34
 		if m.Kind == markDeath {
-			r *= 2 - float32(m.Alpha())
+			if !fx.Reduced {
+				r *= 2 - float32(alpha)
+			}
 			vector.FillCircle(dst, float32(sx), float32(sy), r, color.RGBA{255, 140, 0, a / 2}, true)
 			continue
 		}

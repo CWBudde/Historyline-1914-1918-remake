@@ -143,6 +143,9 @@ func (g *game) Update() error {
 	if g.ctl.walk != nil {
 		g.ctl.walk.Tick()
 	}
+	if g.ctl.report.Active() && (len(inpututil.AppendJustPressedKeys(nil)) > 0 || inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft)) {
+		g.ctl.DismissReport()
+	}
 	g.ctl.report.Tick()
 	g.ctl.fx.Tick()
 	for _, a := range actionsFor(inpututil.IsKeyJustPressed) {
@@ -437,6 +440,7 @@ func main() {
 	side := flag.String("player", "", "side whose fog of war is shown: central, entente (default: the level's side)")
 	reveal := flag.Bool("reveal", false, "dev: show the whole map, ignoring fog of war")
 	hexNumbers := flag.Bool("hexnumbers", false, "dev: print line,col on every hex")
+	reduced := flag.Bool("reduced-motion", false, "walk instantly and show short static effects (toggle in game with M)")
 	flag.Parse()
 
 	lvl, err := loadLevel(*dir, *name)
@@ -466,6 +470,7 @@ func main() {
 	ebiten.SetWindowTitle("Historyline 1914-1918")
 	gm := newGame(lvl, st, player, *reveal)
 	gm.hexNumbers = *hexNumbers
+	gm.ctl.SetReducedMotion(*reduced)
 	if err := ebiten.RunGame(gm); err != nil {
 		log.Fatal(err)
 	}

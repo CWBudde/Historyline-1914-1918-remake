@@ -9,13 +9,14 @@ import "github.com/hajimehoshi/ebiten/v2"
 type action int
 
 const (
-	actNone       action = iota
-	actEndTurn           // Python: F1 (handleChangeMode)
-	actCancel            // Python: Escape closes the mode/menu; here it also clears the selection
-	actSelectHex         // Python: Space = handleSelection on the cursor hex
-	actViewTop           // Python: PageUp, mapView = [0, 0]
-	actViewBottom        // Python: PageDown, mapView = [0, 24]
-	actQuit              // Python: Q
+	actNone         action = iota
+	actEndTurn             // Python: F1 (handleChangeMode)
+	actCancel              // Python: Escape closes the mode/menu; here it also clears the selection
+	actSelectHex           // Python: Space = handleSelection on the cursor hex
+	actViewTop             // Python: PageUp, mapView = [0, 0]
+	actViewBottom          // Python: PageDown, mapView = [0, 24]
+	actQuit                // Python: Q
+	actToggleMotion        // new: reduced-motion toggle
 )
 
 type keyBinding struct {
@@ -34,6 +35,7 @@ var keyBindings = []keyBinding{
 	{ebiten.KeyPageDown, actViewBottom},
 	{ebiten.KeyEnd, actViewBottom},
 	{ebiten.KeyQ, actQuit},
+	{ebiten.KeyM, actToggleMotion},
 }
 
 // actionsFor returns the actions of all keys for which pressed reports true.
@@ -65,6 +67,9 @@ func (g *game) applyAction(a action) (keepRunning bool) {
 		g.cam.CenterOn(g.cam.World.W/2, 0)
 	case actViewBottom:
 		g.cam.CenterOn(g.cam.World.W/2, g.cam.World.H)
+	case actToggleMotion:
+		g.ctl.SetReducedMotion(!g.ctl.reduced)
+		g.ctl.Message = "reduced motion " + map[bool]string{true: "on", false: "off"}[g.ctl.reduced]
 	case actNone:
 	case actQuit:
 		return false
