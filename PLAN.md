@@ -600,6 +600,9 @@ so interactive playback and responsive/input acceptance remain open. Approximate
 - [ ] Implement responsive layout and high-DPI rendering: independent asset density, camera
       zoom and UI scale, resize/fullscreen support, and inverse-transform input. Verify that
       the same world point remains selectable after zoom, resize and display-scale changes.
+      Progress (not done): `cmd/historyline/layout.go` has table-tested layout maths (UI scale from
+      window size and DeviceScaleFactor, HUD placement) and `Layout` returns the logical size. Not
+      checked on a real 4K or high-DPI display; asset density and the world-point check remain.
 - [ ] Connect per-player vision to unseen/remembered/visible rendering and unit concealment.
       The new opaque `unseen` tile does not implement remembered terrain or visibility plumbing.
       Placeholder done: `cmd/historyline` shades hexes from `game.State.Fog` (`-player`, dev
