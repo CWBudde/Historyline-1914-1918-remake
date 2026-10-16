@@ -8,7 +8,9 @@ import (
 	"io"
 	"log"
 	"os"
+	"path"
 	"path/filepath"
+	"slices"
 	"strings"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
@@ -22,7 +24,7 @@ func main() {
 
 func run(args []string, stdout io.Writer) error {
 	if len(args) == 0 {
-		return fmt.Errorf("usage: hlasset build|validate [flags]")
+		return fmt.Errorf("usage: hlasset build|build-units|validate [flags]")
 	}
 	switch args[0] {
 	case "build":
@@ -41,6 +43,29 @@ func run(args []string, stdout io.Writer) error {
 			return err
 		}
 		_, err = fmt.Fprintf(stdout, "built %s: %d PNG variants (candidate; not runtime approved)\n", p.ID, len(p.Entries))
+		return err
+	case "build-units":
+		flags := flag.NewFlagSet("build-units", flag.ContinueOnError)
+		recipes := flags.String("recipes", "art/recipes", "directory with the unit-*-v1.json recipes")
+		exports := flags.String("exports", "art/exports", "directory with the unit-*-v1 export directories")
+		out := flags.String("out", "", "new output directory (required)")
+		if err := flags.Parse(args[1:]); err != nil {
+			return err
+		}
+		if flags.NArg() != 0 || *out == "" {
+			return fmt.Errorf("build-units requires -out NEW_DIRECTORY and no positional arguments")
+		}
+		packs, err := buildUnits(*recipes, *exports, *out)
+		if err != nil {
+			return err
+		}
+		families, densities, variants := map[string]bool{}, map[int]bool{}, 0
+		for _, p := range packs {
+			families[p.Family], densities[p.Density] = true, true
+			variants += len(p.Manifest.Entries)
+		}
+		_, err = fmt.Fprintf(stdout, "built %d unit packs (%d families × %d densities, %d PNG variants; candidate, not runtime approved)\n",
+			len(packs), len(families), len(densities), variants)
 		return err
 	case "validate":
 		flags := flag.NewFlagSet("validate", flag.ContinueOnError)
@@ -69,7 +94,7 @@ func run(args []string, stdout io.Writer) error {
 		_, err = fmt.Fprintf(stdout, "validated %s: %d PNG variants; status=%s\n", m.ID, len(m.Entries), m.Status)
 		return err
 	default:
-		return fmt.Errorf("unknown command %q; use build or validate", args[0])
+		return fmt.Errorf("unknown command %q; use build, build-units or validate", args[0])
 	}
 }
 
@@ -152,59 +177,102 @@ func build(source, out string, density int) (assets.Manifest, error) {
 	if err := p.Validate(); err != nil {
 		return assets.Manifest{}, err
 	}
-	// Reserve the final directory exclusively. Failed writes remove only paths
-	// created in this new directory; existing user directories are never replaced.
-	if err := os.Mkdir(out, 0o755); err != nil {
-		return assets.Manifest{}, err
-	}
-	outputRoot, err := os.OpenRoot(out)
+	o, err := newOutput(out)
 	if err != nil {
-		_ = os.Remove(out)
 		return assets.Manifest{}, err
 	}
-	written := []string{}
-	dirs := []string{}
-	complete := false
-	defer func() {
-		if !complete {
-			for _, name := range written {
-				_ = outputRoot.Remove(name)
-			}
-			for i := len(dirs) - 1; i >= 0; i-- {
-				_ = outputRoot.Remove(dirs[i])
-			}
-		}
-		_ = outputRoot.Close()
-		if !complete {
-			_ = os.Remove(out)
-		}
-	}()
-	// A flat output layout avoids collisions with metadata and source directories.
-	if err := outputRoot.Mkdir("images", 0o755); err != nil {
+	defer o.close()
+	if m, err = o.writePack(".", p, m); err != nil {
 		return assets.Manifest{}, err
 	}
-	dirs = append(dirs, "images")
+	o.done()
+	return m, nil
+}
+
+// output is a build directory reserved exclusively. Until done is called, close
+// removes only the paths this build created; existing user directories are never
+// replaced.
+type output struct {
+	dir      string
+	root     *os.Root
+	created  []string // files and directories, in creation order
+	complete bool
+}
+
+func newOutput(dir string) (*output, error) {
+	if err := os.Mkdir(dir, 0o755); err != nil {
+		return nil, err
+	}
+	r, err := os.OpenRoot(dir)
+	if err != nil {
+		_ = os.Remove(dir)
+		return nil, err
+	}
+	return &output{dir: dir, root: r}, nil
+}
+
+func (o *output) done() { o.complete = true }
+
+func (o *output) close() {
+	if !o.complete {
+		for i := len(o.created) - 1; i >= 0; i-- {
+			_ = o.root.Remove(filepath.FromSlash(o.created[i]))
+		}
+	}
+	_ = o.root.Close()
+	if !o.complete {
+		_ = os.Remove(o.dir)
+	}
+}
+
+// mkdirAll creates the missing directories of the slash path dir.
+func (o *output) mkdirAll(dir string) error {
+	if dir == "." || slices.Contains(o.created, dir) {
+		return nil
+	}
+	if err := o.mkdirAll(path.Dir(dir)); err != nil {
+		return err
+	}
+	if err := o.root.Mkdir(filepath.FromSlash(dir), 0o755); err != nil {
+		return err
+	}
+	o.created = append(o.created, dir)
+	return nil
+}
+
+// writePack writes p's exact PNG snapshots and manifest m under dir. A flat
+// images/NNNN.png layout avoids collisions with metadata and source directories.
+// It returns m with the new paths.
+func (o *output) writePack(dir string, p *assets.Pack, m assets.Manifest) (assets.Manifest, error) {
+	m.Entries = slices.Clone(m.Entries)
+	if err := o.mkdirAll(path.Join(dir, "images")); err != nil {
+		return m, err
+	}
 	for i := range m.Entries {
 		e := &m.Entries[i]
-		e.Path = fmt.Sprintf("images/%04d.png", i)
-		if err := writeNew(outputRoot, e.Path, func(w io.Writer) error { return p.WritePNG(w, e.ID, e.Density) }); err != nil {
-			return assets.Manifest{}, err
+		name := path.Join(dir, fmt.Sprintf("images/%04d.png", i))
+		if err := o.writeNew(name, func(w io.Writer) error { return p.WritePNG(w, e.ID, e.Density) }); err != nil {
+			return m, err
 		}
-		written = append(written, e.Path)
+		e.Path = fmt.Sprintf("images/%04d.png", i)
 	}
 	manifestBytes, err := json.MarshalIndent(m, "", "  ")
 	if err != nil {
-		return assets.Manifest{}, err
+		return m, err
 	}
-	if err := writeNew(outputRoot, "manifest.json", func(w io.Writer) error {
+	err = o.writeNew(path.Join(dir, "manifest.json"), func(w io.Writer) error {
 		_, err := w.Write(append(manifestBytes, '\n'))
 		return err
-	}); err != nil {
-		return assets.Manifest{}, err
+	})
+	return m, err
+}
+
+func (o *output) writeNew(name string, write func(io.Writer) error) error {
+	if err := writeNew(o.root, name, write); err != nil {
+		return err
 	}
-	written = append(written, "manifest.json")
-	complete = true
-	return m, nil
+	o.created = append(o.created, name)
+	return nil
 }
 
 func writeNew(root *os.Root, name string, write func(io.Writer) error) error {
