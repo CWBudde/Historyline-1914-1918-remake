@@ -14,14 +14,43 @@ type Build struct {
 	CombatDS                                               int
 
 	// Data is the segment holding the map width (height follows), the live
-	// unit table, the flag word of type record 0 (+0x0f) and the two support
-	// result bytes. DS is the module data segment of the code segment Code.
+	// unit table, the word the support routine reads from type record 0 and
+	// the two support result bytes. In the demo that word is the target-flag
+	// word (+6) of the records at 32e2:09bb. DS is the module data segment of
+	// the code segment Code.
 	Data, Width, Units, TypeFlags, Results int
 	DS, Code                               int
 
 	// Offsets in Code: support caller, experience window and its two hooked
 	// near-call helpers.
 	Support, ExpFirst, ExpLast, ExpDestroy, ExpRefresh int
+
+	// Handler is the order handler that runs the battles; nil where it has
+	// not been located.
+	Handler *Handler
+}
+
+// Handler holds the addresses of the order handler that resolves one side's
+// attack orders (02dc:0004 in the demo).
+type Handler struct {
+	// Offsets in Build.Code: entry, the end of the first battle (the last
+	// instruction of the experience window) and the exit after the last order.
+	Entry, Stop, Done int
+
+	// Offsets in Build.Data: the battle context the casualty routine reads,
+	// the 69-byte type records, the 6-byte terrain records, the side
+	// selector (2 runs side 0's orders), the two order lists of 0x17 bytes
+	// (far pointer to live unit indices, count byte at +4), the two map far
+	// pointers, the global flag word and the far pointer to the tile table.
+	Ctx, Types, Terrains, Turn, Orders, Maps, Flags, Tiles int
+
+	// The battle-animation switch byte, the battle-screen routine that runs
+	// the casualty routine when its third argument is zero, and the far
+	// pointer to the screen rectangle that routine draws into.
+	Option, Caller, Screen [2]int
+
+	// Routines that only draw, scroll the view or play sound.
+	Present [][2]int
 }
 
 // HLSHA256 identifies the investigated HL.EXE build.
@@ -49,6 +78,18 @@ var Demo = Build{
 	Data:     0x32E2, Width: 0x4C96, Units: 0x1892, TypeFlags: 0x09C1, Results: 0x1842,
 	DS: 0x32CD, Code: 0x02DC,
 	Support: 0x262A, ExpFirst: 0x0908, ExpLast: 0x0ABF, ExpDestroy: 0x2083, ExpRefresh: 0x254B,
+	Handler: &Handler{
+		Entry: 0x0004, Stop: 0x0ABF, Done: 0x0D58,
+		Ctx: 0x1812, Types: 0x09BB, Terrains: 0x05A1, Turn: 0x4D9E, Orders: 0x4D3A, Maps: 0x17A8,
+		Flags: 0x4C9A, Tiles: 0x0151,
+		Option: [2]int{0x37C1, 0x011B}, Caller: [2]int{0x1307, 0x178F}, Screen: [2]int{0x3CC5, 0x0092},
+		Present: [][2]int{
+			{0x109A, 0x0001}, {0x109A, 0x0123}, // map cursor and scrolling
+			{0x0E40, 0x177E}, {0x0E40, 0x0D46}, {0x0E40, 0x0F38}, // view centring and redraw (32e2:4d88)
+			{0x293D, 0x000C}, {0x28A6, 0x0004}, {0x29DA, 0x0000}, // mouse and screen updates
+			{0x2F03, 0x1054}, // sound
+		},
+	},
 }
 
 // Builds lists the identified executables.

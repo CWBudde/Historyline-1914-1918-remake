@@ -67,7 +67,7 @@ type Map struct {
 	Cells         []int
 	Terrain0      int
 	Units         map[int]Unit
-	Types         map[int]int // type index -> flag word at +0xf
+	Types         map[int]int // type index -> target-flag word at +6 of its record
 }
 
 func (m *Map) scan(anchor, reference int) (slots [6]bool, direction int, err error) {

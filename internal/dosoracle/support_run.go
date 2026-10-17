@@ -13,8 +13,9 @@ import "github.com/CWBudde/Historyline-1914-1918-remake/internal/dos8086"
 // Memory it reads (segment 32f7): +4ca8/+4caa map width and height in cells;
 // +18a4 live units of 26 bytes with +4 flag word (side bits 1/2, target class
 // bits 0x3c), +6 flag word (bit 2), +8 type index, +0xb position (byte offset
-// into the map plus 1); +09bc+69*type type records (flag word at +0xf is
-// read; 0x40 marks long-range units). The map is two bytes per cell; byte 1
+// into the map plus 1); Build.TypeFlags+69*type the type's target-flag word
+// (+6 of the records at 32e2:09bb in the demo; 0x40 marks long-range units).
+// The map is two bytes per cell; byte 1
 // is the unit index (0xf1 and up means empty). Arguments: attacker, defender,
 // map far pointer, selector (0 or 1).
 func (e *Export) RunSupport(mp *Map, attacker, defender, selector int) (pincer, blocking int, err error) {
