@@ -142,6 +142,32 @@ on 41 of 48 types; the rest differ in group size for three ship types, Train Art
 speed (wiki 4) and Armoured Train air range (wiki 1). Records the full version does not quote
 here could still differ from the demo.
 
+The demo's `HL14-18.EXE` (278,464 bytes, SHA-256
+`83fc4e3736d1d6b0bd30ddebaf304ae381ab28ee2ded3589322c466e71f5b846`, unpacked Borland C++ 1991
+MZ) is the same program with shifted addresses. The runtime in segment 0 (32-bit helpers
+`03a1`/`03dc`/`048a`, stack check `1fc3`) and the code of segment `02dc` (support caller
+`262a`, experience window `0908–0abf` with helpers `2083`/`254b`) sit where the full build has
+them. The rest moved; each address was located by instruction structure:
+
+| Full build | Demo | What |
+|---|---|---|
+| `2466:000e–0abb` | `2451:0004–0ab1` | casualty routine (same length) |
+| `3ac5:0008` | `3ab2:000e` | terrain terms (same 18 values) |
+| `3ac4:0010` | `3aae:0045` | far pointer to the battle context |
+| `0e47:2414` | `0e40:2421` | hex distance |
+| `3cd8:11fa` | `3cc5:11fa` | stack limit |
+| `32f7:4ca8` / `4caa` | `32e2:4c96` / `4c98` | map width / height |
+| `32f7:18a4` | `32e2:1892` | live units (26 bytes each) |
+| `32f7:09cb` | `32e2:09c1` | flag word of type record 0 |
+| `32f7:1854` / `1855` | `32e2:1842` / `1843` | pincer / blocking result |
+| `32e2` | `32cd` | data segment of `02dc` |
+| `0b06:0157`, `0ca6:020a` | `0b06:0122`, `0ca0:020c` | neighbour routine, side test |
+
+Executed on the demo build, the three routines agree with the transcriptions on every
+enumerated case (see the specification), so the demo is a usable stand-in where the full
+build's export is missing. Whether the full and demo routines are byte-identical apart from
+relocations is not established yet; the same tests decide it once both exports exist.
+
 For terrain, bytes 0–1 are flags, byte 2 is a movement mask, byte 3 is a movement
 cost, byte 4 remains unnamed, and byte 5 selects a combat modifier pair. The mask
 intersection is visible at `10d2:13c0–13fc`. The extracted raw costs are not yet a

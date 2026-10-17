@@ -51,7 +51,9 @@ Run Python tests with `-I` and from the repo root. After a same-size `sed` edit 
 - Rule sets: `Classic` (Python's rules) and `Standard` (improved). Neither is original-game fidelity.
 - `tools/original-rules` (R0–R5 in PLAN.md): static disassembly of the DOS `HL.EXE` is `cmd/dosexport`
   (`internal/dosexe` parses the MZ image and records); the 8086 interpreter is `internal/dos8086`, and `internal/dosoracle` holds the runners and the
-  independent transcriptions that are compared against executed code. Findings live in
+  independent transcriptions that are compared against executed code. Two builds are identified by
+  hash (`dosoracle.Builds`): the full `HL.EXE` and the free demo's `HL14-18.EXE`, each with its own
+  addresses; the tests run on every export present under `build/original-rules/`. Findings live in
   `docs/research/original-dos-rule-spec.md` (profile `dos-0.1`) with an evidence status per rule.
 - `tools/art-inventory`, `tools/art-review`, `tools/native-reference`: graphics tooling (`just gfx-check`).
 

@@ -909,10 +909,20 @@ The completed compatibility work below remains useful and stays completed.
       agree with the independent `Resolve` (a wrong divisor is caught). Tests without the
       original run with `go test ./internal/dos8086 ./internal/dosoracle`; the comparison skips without the
       local export. Callers and real inputs remain open.
-- [ ] Cover group sizes, experience 0–6, air/ground/water targets, encoded range boundaries,
+- [x] Cover group sizes, experience 0–6, air/ground/water targets, encoded range boundaries,
       all nine terrain modifier classes, pincer directions, blocking eligibility, conditional
       return fire, alternate strength, minimum losses, casualty caps and destruction. Preserve
       operation order, signed truncation, fixed-point adjustments and byte-width behavior.
+      (2026-10-17) — executed on the free demo's `HL14-18.EXE` (sha `83fc4e37…`), now a second
+      identified build (`dosoracle.Demo`, exported by `cmd/dosexport`; its addresses are in
+      `docs/research/original-dos-rules.md`). `TestBattleCoverage`, `TestSupportCoverage` and
+      `TestExperienceCoverage` enumerate every class: 4,828 battles, 243 of them zero-armour
+      divide errors on both sides; 756 support maps (six directions × both column parities ×
+      eligibility); 19,600 experience awards. All agree with `Resolve`/`Support`/`Award`, and
+      a branch trace shows each casualty path taken both ways. Findings: experience is read
+      unsigned, so the attacker's `E < 1` clamp is dead code; lowering losses of 7–11 to 6 has
+      no visible effect, because sizes are clamped to 6 first. The same tests run on the full
+      build when its export is present.
 - [ ] Reproduce controlled DOS battles for manual conflicts and caller-dependent behavior,
       including blocking, ranged pincer eligibility and kill experience. Trace the callers
       as well as the casualty routine before claiming complete combat fidelity.

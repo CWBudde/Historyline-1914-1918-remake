@@ -32,7 +32,14 @@ records are not 51 distinct named units: repeated naval records differ in flags.
 Rows marked **executed (emulated)** ran in the 8086 interpreter (`internal/dosoracle`, `Export.Battle`)
 and agree with the independent transcription `Resolve` (300 random
 cases, 0 mismatches, 2026-10-15, first with the Python harness, now ported to Go and cross-checked on 1,300 shared cases; a deliberately wrong divisor fails it). That establishes the
-routine's arithmetic as written, not the running game's callers or inputs. A rule moves up only
+routine's arithmetic as written, not the running game's callers or inputs.
+On 2026-10-17 the free demo's `HL14-18.EXE` (sha `83fc4e37…`) became a second identified build
+(`dosoracle.Demo`); its routines agree with the same transcriptions, and the R1 coverage tests
+(`TestBattleCoverage`, `TestSupportCoverage`, `TestExperienceCoverage`) enumerate every input
+class on it: 4,828 battles (243 zero-armour divide errors on both sides), 756 support maps and
+19,600 experience awards, 0 mismatches. They run on the full build too when its export is
+present. Addresses below are the full build's; the demo's are listed in
+`docs/research/original-dos-rules.md`. A rule moves up only
 with a fixture or trace id recorded in its row. Conflicts between sources are listed in the discrepancy section, never merged silently.
 
 ## Baseline rules
@@ -42,8 +49,10 @@ with a fixture or trace id recorded in its row. Conflicts between sources are li
 | Experience capped at 6 | static | `02dc:0a61–0abb` | high | R1 experience cases 0–6 |
 | Group size = type byte 3 (6, some 3) | static | `15a4:0071–0078` | high | R2 type table check |
 | Power by target domain (air/ground/water = bytes 10/11/12) | static | `2466:01c2–0217`, `032d–035e` | high | R1 domain cases |
-| Range penalty `P − trunc(3P(d−1)/(4R))` when R>1 | executed (emulated) | `2466:0220–02de` | medium | R1 distance 1…R |
-| Return fire suppressed: special flag, non-adjacent, mask mismatch, long-range defender | static | `2466:0045–00a4`, `0a22–0a68` | medium | R1 suppression cases |
+| Range penalty `P − trunc(3P(d−1)/(4R))` when R>1 | executed (emulated) | `2466:0220–02de` | medium | R1 distance 1…R+1 (`TestBattleCoverage`) |
+| Return fire suppressed: special flag, non-adjacent, mask mismatch, long-range defender | executed (emulated) | `2466:0045–00a4`, `0a22–0a68` | medium | R1 suppression cases (`TestBattleCoverage`) |
+| Experience is read unsigned: experience 255 gives E = 256, so the attacker's `E < 1` clamp cannot fire | executed (emulated, demo build) | `2466:077f–086a` | high | `TestBattleCoverage` (dead branch) |
+| Losses of 7–11 lowered to 6 have no visible effect: sizes are clamped to 1…6 first, so the size cap gives the same result | executed (emulated, demo build) | `2466:086d–0a13` | high | `TestBattleCoverage` (branch reached, outputs unchanged without it) |
 | Casualty routine draws no random number | executed (emulated: seed callback is a no-op, results deterministic) | `2466:03ff–0440`, `0660:0ce7–0cf0`, `0000:07ab` | high | R1: identical inputs, identical output |
 | Movement budget (byte 0) differs from displayed speed (byte 1) | static | `15a4:0009`, unit info | high | R2 budget fixtures |
 | Terrain: bytes 0–1 flags, 2 mask, 3 cost, 5 combat class | static | `10d2:13c0–13fc` | medium | R2 movement traces |

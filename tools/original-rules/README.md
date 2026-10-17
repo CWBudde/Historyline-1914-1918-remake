@@ -16,7 +16,16 @@ go run ./cmd/dosexport
 The default destination is ignored `build/original-rules/dos-full/`. Existing output
 is refused; use `--out build/original-rules/another-run` to repeat. `--source` can
 select another local copy of the same installation. The executable hash must match
-the investigated build because the named code windows are specific to that version.
+an identified build (`dosoracle.Builds`) because the named code windows and runner
+addresses are specific to each version.
+
+The free DOS demo (`hl-dem.zip`, see the research notes) is the second identified build.
+Its `HL14-18.EXE` is exported the same way, with five traced windows and only the summer
+terrain table:
+
+```sh
+go run ./cmd/dosexport -source original/demo/HL -out build/original-rules/dos-demo
+```
 
 Outputs include the header-free load image, a complete **linear sweep** listing,
 123 overlapping segment listings, ten traced instruction windows, relocation and
@@ -53,6 +62,16 @@ transcriptions of the same code:
 go test ./internal/dos8086 ./internal/dosoracle -v
 ```
 
-The interpreter and transcription tests need no original files; the agreement tests read
-`build/original-rules/dos-full` and are skipped when it is absent. Agreement shows the routine's
+The interpreter and transcription tests need no original files; the agreement and coverage
+tests run once per export present in `build/original-rules/dos-full` and `dos-demo` (subtests
+`full` and `demo`) and are skipped when neither exists. Agreement shows the routine's
 arithmetic as written, not how the game fills its inputs.
+
+The coverage tests (R1) enumerate the input classes instead of sampling them: group sizes
+0–8 and 255, experience 0–8, 127, 128 and 255, the four target-flag combinations, encoded
+ranges 0–3, the build's maximum and 255 at every distance up to R+1, all 81 terrain-class
+pairs, pincer 0–250 against blocking 0/80/150/160/255, the return-fire suppressions,
+alternate strength, a power × armour grid, every type record against every other, all six
+support directions for both column parities with each eligibility variant, and experience
+0–6 against kill/loss/no-loss outcomes. A branch trace of `Resolve` (`Trace`) must show
+each path taken both ways.
