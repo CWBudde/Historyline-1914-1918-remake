@@ -9,23 +9,35 @@ import (
 	"testing"
 )
 
-// The interpreter-against-transcription tests need the local export of the
-// supplied HL.EXE and are skipped without it.
-func loadExport(t *testing.T) *Export {
+// The interpreter-against-transcription tests need a local export of an
+// identified build (cmd/dosexport) and are skipped without one. Each present
+// export runs as a subtest named after its build.
+func eachExport(t *testing.T, run func(*testing.T, *Export)) {
 	t.Helper()
-	dir := filepath.Join("..", "..", "build", "original-rules", "dos-full")
-	if _, err := os.Stat(filepath.Join(dir, "manifest.json")); err != nil {
-		t.Skip("local DOS export absent")
+	found := false
+	for _, b := range Builds {
+		dir := filepath.Join("..", "..", "build", "original-rules", "dos-"+b.Name)
+		if _, err := os.Stat(filepath.Join(dir, "manifest.json")); err != nil {
+			continue
+		}
+		e, err := LoadExport(dir)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if e.B != b {
+			t.Fatalf("%s holds the %s build", dir, e.B.Name)
+		}
+		found = true
+		t.Run(b.Name, func(t *testing.T) { run(t, e) })
 	}
-	e, err := LoadExport(dir)
-	if err != nil {
-		t.Fatal(err)
+	if !found {
+		t.Skip("no local DOS export")
 	}
-	return e
 }
 
-func TestBattleAgreesWithTranscription(t *testing.T) {
-	e := loadExport(t)
+func TestBattleAgreesWithTranscription(t *testing.T) { eachExport(t, battleAgrees) }
+
+func battleAgrees(t *testing.T, e *Export) {
 	terms := e.TerrainTerms()
 	var armed []int
 	for i := range 51 {
@@ -62,8 +74,9 @@ func TestBattleAgreesWithTranscription(t *testing.T) {
 	t.Logf("300 cases, %d mismatches, %d divide errors", bad, divide)
 }
 
-func TestExperienceWindowAgreesWithTranscription(t *testing.T) {
-	e := loadExport(t)
+func TestExperienceWindowAgreesWithTranscription(t *testing.T) { eachExport(t, experienceAgrees) }
+
+func experienceAgrees(t *testing.T, e *Export) {
 	rng := rand.New(rand.NewSource(7))
 	pick := func(xs ...int) int { return xs[rng.Intn(len(xs))] }
 	for range 150 {
@@ -129,8 +142,9 @@ func randomMap(rng *rand.Rand) (*Map, int, int) {
 	return m, 0, 1
 }
 
-func TestSupportAgreesWithTranscription(t *testing.T) {
-	e := loadExport(t)
+func TestSupportAgreesWithTranscription(t *testing.T) { eachExport(t, supportAgrees) }
+
+func supportAgrees(t *testing.T, e *Export) {
 	rng := rand.New(rand.NewSource(11))
 	compared, nonzero := 0, 0
 	for range 300 {
