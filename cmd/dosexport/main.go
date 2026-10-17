@@ -10,8 +10,10 @@ import (
 	"encoding/csv"
 	"encoding/hex"
 	"encoding/json"
+	"errors"
 	"flag"
 	"fmt"
+	"io/fs"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -25,9 +27,6 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/tpwm"
 )
 
-// codeEnd is the first module data segment in this exact executable.
-const codeEnd = 0x32E20
-
 // window is a manually traced range: segment, first instruction, exclusive end.
 // They are not an automatic partition into functions.
 type window struct {
@@ -35,20 +34,48 @@ type window struct {
 	seg, start, end int
 }
 
-var windows = []window{
-	{"combat", 0x2466, 0x000E, 0x0ABC},
-	{"combat_wrapper", 0x2453, 0x0009, 0x013C},
-	{"experience", 0x02DC, 0x0908, 0x0ABF},
-	{"pincer_and_blocking", 0x02DC, 0x262A, 0x29C9},
-	{"score", 0x02DC, 0x29C9, 0x2B1D},
-	{"repair", 0x0660, 0x3108, 0x3268},
-	{"unit_constructor", 0x15A4, 0x0009, 0x01AB},
-	{"unit_information", 0x272C, 0x0650, 0x0A0F},
-	{"hex_distance", 0x0E47, 0x2414, 0x24DB},
-	{"long_arithmetic", 0x0000, 0x03A1, 0x04CB},
+// layout is what the export needs to know about one identified build.
+type layout struct {
+	build    *dosoracle.Build
+	codeEnd  int // the first module data segment
+	windows  []window
+	datFiles []string
 }
 
-var datFiles = []string{"UNIT.DAT", "WW1GNDS.DAT", "WW1GNDW.DAT", "NEWUNIT.DAT", "MNUDATA.DAT"}
+var layouts = []layout{
+	{&dosoracle.Full, 0x32E20, []window{
+		{"combat", 0x2466, 0x000E, 0x0ABC},
+		{"combat_wrapper", 0x2453, 0x0009, 0x013C},
+		{"experience", 0x02DC, 0x0908, 0x0ABF},
+		{"pincer_and_blocking", 0x02DC, 0x262A, 0x29C9},
+		{"score", 0x02DC, 0x29C9, 0x2B1D},
+		{"repair", 0x0660, 0x3108, 0x3268},
+		{"unit_constructor", 0x15A4, 0x0009, 0x01AB},
+		{"unit_information", 0x272C, 0x0650, 0x0A0F},
+		{"hex_distance", 0x0E47, 0x2414, 0x24DB},
+		{"long_arithmetic", 0x0000, 0x03A1, 0x04CB},
+	}, []string{"UNIT.DAT", "WW1GNDS.DAT", "WW1GNDW.DAT", "NEWUNIT.DAT", "MNUDATA.DAT"}},
+	// The free demo: only the windows located so far, and only the summer
+	// terrain table.
+	{&dosoracle.Demo, 0x32CD0, []window{
+		{"combat", 0x2451, 0x0004, 0x0AB2},
+		{"experience", 0x02DC, 0x0908, 0x0ABF},
+		{"pincer_and_blocking", 0x02DC, 0x262A, 0x29C9},
+		{"hex_distance", 0x0E40, 0x2421, 0x24E8},
+		{"long_arithmetic", 0x0000, 0x03A1, 0x04CB},
+	}, []string{"UNIT.DAT", "WW1GNDS.DAT"}},
+}
+
+// identify finds the build whose executable in src has its hash.
+func identify(src string) (layout, []byte, error) {
+	for _, l := range layouts {
+		exe, err := os.ReadFile(filepath.Join(src, l.build.Exe))
+		if err == nil && sum(exe) == l.build.SHA256 {
+			return l, exe, nil
+		}
+	}
+	return layout{}, nil, fmt.Errorf("no identified HL.EXE build in %s; named offsets need retracing", src)
+}
 
 func sum(b []byte) string { h := sha256.Sum256(b); return hex.EncodeToString(h[:]) }
 
@@ -106,13 +133,11 @@ func main() {
 	if dst == src || strings.HasPrefix(dst, src+string(filepath.Separator)) {
 		fatal(fmt.Errorf("output must be outside the original installation"))
 	}
-	exe, err := os.ReadFile(filepath.Join(src, "HL.EXE"))
+	lay, exe, err := identify(src)
 	if err != nil {
 		fatal(err)
 	}
-	if sum(exe) != dosoracle.HLSHA256 {
-		fatal(fmt.Errorf("HL.EXE differs from the investigated build; named offsets need retracing"))
-	}
+	codeEnd, windows, datFiles := lay.codeEnd, lay.windows, lay.datFiles
 	header, image, relocs, err := dosexe.ParseMZ(exe)
 	if err != nil {
 		fatal(err)
@@ -133,6 +158,9 @@ func main() {
 	}
 	ground := map[string][]dosexe.Terrain{}
 	for _, n := range []string{"WW1GNDS.DAT", "WW1GNDW.DAT"} {
+		if _, ok := decoded[n]; !ok {
+			continue
+		}
 		if ground[n], err = dosexe.TerrainTable(decoded[n]); err != nil {
 			fatal(err)
 		}
@@ -264,6 +292,9 @@ func main() {
 	sources := map[string]srcInfo{}
 	for _, n := range append([]string{"HL.EXE", "HL14-18.EXE"}, datFiles...) {
 		raw, err := os.ReadFile(filepath.Join(src, n))
+		if errors.Is(err, fs.ErrNotExist) && strings.HasSuffix(n, ".EXE") && n != lay.build.Exe {
+			continue // the demo has no HL.EXE
+		}
 		check(err)
 		e := srcInfo{StoredBytes: len(raw), SHA256: sum(raw)}
 		if d, ok := decoded[n]; ok {

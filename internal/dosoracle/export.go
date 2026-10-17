@@ -12,9 +12,6 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dos8086"
 )
 
-// HLSHA256 identifies the investigated HL.EXE build.
-const HLSHA256 = "fe4fa44699ef36df0f1152786557e790651f44b836f9f6bffd3ca5dcc38a9b92"
-
 const (
 	baseSeg   = 0x1000 // load segment of the image
 	scratch   = 0x6000 // segments from here up hold the synthetic structures
@@ -22,21 +19,20 @@ const (
 	recordLen = 69
 )
 
-var (
-	stackLimit = [2]int{0x3CD8, 0x11FA}
-	// errStackCheck reports that the Borland stack-overflow helper fired.
-	errStackCheck = errors.New("stack overflow check fired")
-)
+// errStackCheck reports that the Borland stack-overflow helper fired.
+var errStackCheck = errors.New("stack overflow check fired")
 
 // Export is the local load image written by cmd/dosexport.
 // The original bytes stay under the ignored build/ directory.
 type Export struct {
+	B      *Build
 	Image  []byte
 	Relocs []int
 	Units  []byte
 }
 
-// LoadExport reads an export directory and refuses one from another build.
+// LoadExport reads an export directory and refuses one from an unidentified
+// build.
 func LoadExport(dir string) (*Export, error) {
 	var manifest struct {
 		SHA string `json:"hl_sha256"`
@@ -48,10 +44,11 @@ func LoadExport(dir string) (*Export, error) {
 	if err := json.Unmarshal(b, &manifest); err != nil {
 		return nil, err
 	}
-	if manifest.SHA != HLSHA256 {
-		return nil, errors.New("export is not from the identified HL.EXE build")
+	b2 := BuildBySHA(manifest.SHA)
+	if b2 == nil {
+		return nil, errors.New("export is not from an identified HL.EXE build")
 	}
-	e := &Export{}
+	e := &Export{B: b2}
 	if e.Image, err = os.ReadFile(filepath.Join(dir, "HL.image.bin")); err != nil {
 		return nil, err
 	}
@@ -92,21 +89,27 @@ func (e *Export) TypeRecord(i int) []byte {
 }
 
 // TerrainTerms returns the (attack, defence) signed terms of the nine terrain
-// classes from 3ac5:0008.
+// classes (3ac5:0008 in the full build).
 func (e *Export) TerrainTerms() (t [9][2]int) {
-	base := 0x3AC5<<4 + 8
+	base := e.B.Terrain[0]<<4 + e.B.Terrain[1]
 	for i := range t {
 		t[i] = [2]int{int(int8(e.Image[base+2*i])), int(int8(e.Image[base+2*i+1]))}
 	}
 	return t
 }
 
-// machine loads the image into a fresh interpreter.
+// machine loads the image into a fresh interpreter with the stack check
+// disarmed and hooked.
 func (e *Export) machine() *dos8086.Machine {
 	m := dos8086.New()
 	m.Load(e.Image, e.Relocs, baseSeg)
+	m.Hooks[e.lin(e.B.StackCheck)] = errHook(errStackCheck)
+	m.WW(baseSeg+e.B.StackLimit[0], e.B.StackLimit[1], 0xFFFF)
 	return m
 }
+
+// lin is the linear address of an image segment:offset pair once loaded.
+func (e *Export) lin(a [2]int) int { return dos8086.Lin(baseSeg+a[0], a[1]) }
 
 // arena hands out paragraph-aligned segments for synthetic structures.
 type arena struct {

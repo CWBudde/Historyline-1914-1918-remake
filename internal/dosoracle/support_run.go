@@ -2,8 +2,8 @@ package dosoracle
 
 import "github.com/CWBudde/Historyline-1914-1918-remake/internal/dos8086"
 
-// RunSupport executes the pincer and blocking caller 02dc:262a on a synthetic
-// map. It rates the neighbours of a battle: the six hexes around the defender
+// RunSupport executes the pincer and blocking caller (02dc:262a) on a
+// synthetic map. It rates the neighbours of a battle: the six hexes around the defender
 // add the pincer percentage, the two beside the defender's direction around
 // the attacker add the blocking percentage; results are the bytes at
 // 32f7:1854 and 32f7:1855, which the casualty routine reads as ctx
@@ -19,13 +19,12 @@ import "github.com/CWBudde/Historyline-1914-1918-remake/internal/dos8086"
 // map far pointer, selector (0 or 1).
 func (e *Export) RunSupport(mp *Map, attacker, defender, selector int) (pincer, blocking int, err error) {
 	m := e.machine()
-	dseg := baseSeg + supportData
-	m.Hooks[dos8086.Lin(baseSeg, 0x1FC3)] = errHook(errStackCheck)
-	m.WW(baseSeg+stackLimit[0], stackLimit[1], 0xFFFF)
-	m.WW(dseg, 0x4CA8, mp.Width)
-	m.WW(dseg, 0x4CAA, len(mp.Cells)/mp.Width) // map height, read by the edge tests of 0b06:0254
+	b := e.B
+	dseg := baseSeg + b.Data
+	m.WW(dseg, b.Width, mp.Width)
+	m.WW(dseg, b.Width+2, len(mp.Cells)/mp.Width) // map height, read by the edge tests of 0b06:0254
 	for idx, u := range mp.Units {
-		base := 0x18A4 + 26*idx
+		base := b.Units + 26*idx
 		m.WW(dseg, base+4, u.Flags4)
 		m.WW(dseg, base+6, u.Flags6)
 		m.WB(dseg, base+8, u.Type)
@@ -34,7 +33,7 @@ func (e *Export) RunSupport(mp *Map, attacker, defender, selector int) (pincer, 
 		}
 	}
 	for t, flags := range mp.Types {
-		m.WW(dseg, 0x09BC+recordLen*t+0x0F, flags)
+		m.WW(dseg, b.TypeFlags+recordLen*t, flags)
 	}
 	mapSeg := scratch + 0x200
 	for i, c := range mp.Cells {
@@ -46,16 +45,16 @@ func (e *Export) RunSupport(mp *Map, attacker, defender, selector int) (pincer, 
 		m.WB(mapSeg, 2*i+1, c)
 	}
 
-	m.S = [4]uint16{dos8086.CS: baseSeg + codeSeg, dos8086.DS: baseSeg + dataSegDS, dos8086.SS: scratch - 0x400}
+	m.S = [4]uint16{dos8086.CS: uint16(baseSeg + b.Code), dos8086.DS: uint16(baseSeg + b.DS), dos8086.SS: scratch - 0x400}
 	m.R[dos8086.SP] = 0x3F00
 	for _, v := range [5]int{selector, mapSeg, 0, defender, attacker} {
 		m.Push(v)
 	}
 	m.Push(retSeg)
 	m.Push(0)
-	m.IP = supportEntry
+	m.IP = uint16(b.Support)
 	if err := m.Run(retSeg, 0, supportMaxSteps); err != nil {
 		return 0, 0, wrapRun("support", err)
 	}
-	return m.RB(dseg, 0x1854), m.RB(dseg, 0x1855), nil
+	return m.RB(dseg, b.Results), m.RB(dseg, b.Results+1), nil
 }
