@@ -57,6 +57,13 @@ transcriptions of the same code:
   executing the real neighbour routine `0b06:0157` and side test `0ca6:020a`; `Support` is the
   transcription. The ranged case with an off-map neighbour reads an uninitialised stack byte,
   so the transcription returns `ErrUndefined` there and the comparison skips it.
+- `Export.RunDistance` runs the hex distance `0e40:2421`; `Distance` is the transcription.
+- `Export.RunEngagement` runs the order handler `02dc:0004` for one attack order on a map
+  holding the build's own type records, through the neighbour list, support call, battle
+  screen, casualty routine and experience window, and stops after the first battle. Only
+  drawing, scrolling, sound and the routines named above are hooked. `Engage` composes the
+  transcriptions in the handler's order. The handler is located in the demo only
+  (`Build.Handler`); the engagement tests skip a build without it.
 
 ```sh
 go test ./internal/dos8086 ./internal/dosoracle -v
@@ -75,3 +82,9 @@ alternate strength, a power × armour grid, every type record against every othe
 support directions for both column parities with each eligibility variant, and experience
 0–6 against kill/loss/no-loss outcomes. A branch trace of `Resolve` (`Trace`) must show
 each path taken both ways.
+
+The engagement tests (R1, controlled battles) run real unit types through the handler:
+duels in all six directions for both sides, all 81 terrain pairs, experience 0–6 with roles
+swapped, an empty target, one or two blockers and every pincer step with eligible and
+ineligible units, ranged attacks at layout distance 2–4, adjacent defenders that never
+return fire, and kills and losses with and without the no-award bit.

@@ -162,6 +162,10 @@ them. The rest moved; each address was located by instruction structure:
 | `32f7:1854` / `1855` | `32e2:1842` / `1843` | pincer / blocking result |
 | `32e2` | `32cd` | data segment of `02dc` |
 | `0b06:0157`, `0ca6:020a` | `0b06:0122`, `0ca0:020c` | neighbour routine, side test |
+| not located | `02dc:0004` | order handler (battles at `0117–0abf`) |
+| not located | `32e2:1812` | battle context (`3aae:0045` points to it) |
+| not located | `1307:178f`, `242a:000f` | battle screen, animated battle (both call the casualty routine) |
+| not located | `32e2:09bb`, `32e2:05a1` | type records (69 bytes), terrain records (6 bytes) |
 
 Executed on the demo build, the three routines agree with the transcriptions on every
 enumerated case (see the specification), so the demo is a usable stand-in where the full
@@ -174,6 +178,34 @@ intersection is visible at `10d2:13c0–13fc`. The extracted raw costs are not y
 complete pathfinding specification: road transitions, occupancy, exit budgets and
 zones of control still need tracing. Terrain indices must also be mapped to named
 tiles before using these tables as game data.
+
+## Battle callers (demo build)
+
+The casualty routine has two callers, `1307:183f` and `242a:010b`, and both are reached only
+from the order handler `02dc:0004`, which walks the ordering side's list (far pointer at
+`32e2:4d3a + 0x17·side`, count at `+4`; `32e2:4d9e = 2` selects side 0). For each order it
+takes the attacker from the list, the target cell from the attacker's live word `+0x11`, and
+the defender from that cell's unit byte (above 0xf0: the order is skipped). It then fills the
+context at `32e2:1812`: live units at `+0/+4`, type records `32e2:09bb + 69·type` at
+`+0x0a/+0x0e`, terrain records `32e2:05a1 + 6·terrain` at `+0x12/+0x16`, positions at
+`+0x1a/+0x1c`, and return fire at `+0x2e`, which is 1 exactly when the target cell is among
+the six neighbours `0b06:0122` lists for the attacker (`32e2:17f1`). It calls the support
+routine `02dc:262a` (results at `+0x30/+0x31`), centres and redraws the view, and saves both
+strengths. The switch `37c1:011b` picks the path: when set, `1307:178f(ctx, 0)` stores the
+context pointer at `3aae:0045`, runs the casualty routine and draws the result; when clear,
+`1307:178f(ctx, 1)` only draws and `242a:000f` stores the same pointer and runs the routine
+once inside the battle animation. The experience window `0908–0abf` follows. The rest of
+`1307:178f` writes only the screen rectangle behind `3cc5:0092`.
+
+`Export.RunEngagement` executes this handler on a map with the build's own type records and
+stops at `0abf`; only the drawing, scrolling and sound routines, the stack check, the
+battle screen's drawing, the RNG seed callback and the experience window's destroy (recorded)
+and redraw helpers are hooked. `Engage` composes `Support`, `Distance`, `Resolve` and `Award`
+in the same order. Two findings: the support routine's eligibility word is the type
+record's target-flag word at `+6`, and the casualty routine calls the hex distance
+`0e40:2421` with (row, column) although the routine — and the movement code at `0b06:117f` —
+use (column, row). The resulting directional range penalty is described in the
+specification's discrepancy table.
 
 ## Combat arithmetic
 
@@ -272,10 +304,11 @@ or order scheduling, has not been excluded.
 1. Execute `2466:000e` with synthetic battle contexts in a 16-bit emulator, preserving
    MZ relocations, far pointers and Borland integer semantics. Compare both strength
    writebacks against a transcription across terrain classes, ranks and ranges.
-2. Capture controlled DOS battles for the manual discrepancies: blocking values,
-   experience awards on a kill, ranged pincer eligibility and asymmetric attacker/
-   defender experience terms. The rank cap is traced; exact gain semantics need
-   fixtures rather than the manual's wording alone.
+2. Controlled battles through the order handler now cover blocking, pincer, ranged
+   eligibility, kill experience and swapped roles on the demo build (see *Battle callers*).
+   Still open: the full build's handler addresses, inputs from a real level, the map-edge
+   ranged case and whether the transposed battle distance is visible in a real DOSBox
+   battle.
 3. Trace movement costs and destination restrictions in `0b06` and `10d2`, including
    enemy adjacency, roads/rails/water, hidden occupants, transport weights and exits.
 4. Finish the order scheduler and capture/production/construction paths. Establish

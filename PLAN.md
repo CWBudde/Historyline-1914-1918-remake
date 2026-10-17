@@ -923,9 +923,27 @@ The completed compatibility work below remains useful and stays completed.
       unsigned, so the attacker's `E < 1` clamp is dead code; lowering losses of 7–11 to 6 has
       no visible effect, because sizes are clamped to 6 first. The same tests run on the full
       build when its export is present.
-- [ ] Reproduce controlled DOS battles for manual conflicts and caller-dependent behavior,
+- [x] Reproduce controlled DOS battles for manual conflicts and caller-dependent behavior,
       including blocking, ranged pincer eligibility and kill experience. Trace the callers
       as well as the casualty routine before claiming complete combat fidelity.
+      (2026-10-17) — by decision the battles run through the game's own caller in the
+      emulator, on the demo build: both casualty callers (`1307:183f`, `242a:010b`) are
+      reached only from the order handler `02dc:0004`, which `Export.RunEngagement` executes
+      for one attack order on a map with the demo's `UNIT.DAT` records (only drawing,
+      scrolling and sound hooked). `Engage` composes `Support`, `Distance`, `Resolve` and
+      `Award` in the handler's order; `TestEngagementDuels`, `…Blocking`, `…Pincer`,
+      `…Ranged` and `…Experience` agree field for field (six directions, 81 terrain pairs,
+      experience 0–6 with roles swapped, blocking 80/150, every pincer step, ranged 0/0
+      without return fire, kill 2 / loss 1 / no-award bit), and a model with the wrong
+      distance or return-fire rule fails them. Findings: return fire is the caller's
+      neighbour test; support eligibility reads the type record's target flags (+6), not
+      +0x0f; the casualty routine calls the hex distance with row and column transposed,
+      so one of six adjacent directions takes the range penalty (panzers against infantry:
+      2 losses in five directions, 1 in the sixth). The full build's handler is not located
+      (no export); the map-edge ranged case stays undefined.
+- [ ] Decide whether the DOS profile reproduces the transposed battle distance (a
+      directional range penalty, ranged distances off by up to ±2) or uses the layout
+      distance as a recorded deviation; see the *Battle distance* discrepancy in the spec.
 - [ ] Implement a pure Go DOS resolver only after the comparison fixtures agree. The traced
       casualty routine seeds the RNG but makes no random draw; do not add Python's damage
       roll. Verify any randomness in scheduling or presentation separately. Preserve Python
