@@ -46,6 +46,17 @@ type Move struct {
 	// holds the moving unit, and the map far pointers of side 0 and side 1.
 	Types, Terrains, Bits, Count, Action int
 	Maps                                 [2]int
+
+	// Order plans a move to a destination (the route and the reach bits of
+	// its cells), Start begins it and Step moves the unit one cell. Sides
+	// holds the per-side records (0x17 bytes: the buffer far pointer, the
+	// order list far pointer and its count byte), Anim the animation flags,
+	// Saved the two occupants a moving unit covers, and Containers the
+	// 0x1c-byte container records a transporter's cargo sits in.
+	Order, Start, Step                [2]int
+	Sides, Anim, Saved, Containers    int
+	Redraw, RouteDraw, Refresh, Sound [2]int // drawing and sound, hooked
+	Message                           [2]int // the status message, hooked and recorded
 }
 
 // Handler holds the addresses of the order handler that resolves one side's
@@ -118,7 +129,11 @@ var Demo = Build{
 		Reach: [2]int{0x0B06, 0x0331}, Destinations: [2]int{0x0B06, 0x1383}, Path: [2]int{0x0B06, 0x0E12},
 		EndCell: [2]int{0x10CC, 0x0F74},
 		Types:   0x09BB, Terrains: 0x05A1, Bits: 0x3B50, Count: 0x17E9, Action: 0x1805,
-		Maps: [2]int{0x17AC, 0x17A8},
+		Maps:  [2]int{0x17AC, 0x17A8},
+		Order: [2]int{0x10CC, 0x02DD}, Start: [2]int{0x10CC, 0x05C3}, Step: [2]int{0x10CC, 0x071E},
+		Sides: 0x4D36, Anim: 0x4C9E, Saved: 0x1807, Containers: 0x310C,
+		Redraw: [2]int{0x0E40, 0x145C}, RouteDraw: [2]int{0x0E40, 0x1219}, Refresh: [2]int{0x0E40, 0x0F38},
+		Sound: [2]int{0x0CA0, 0x0279}, Message: [2]int{0x109A, 0x0001},
 	},
 }
 

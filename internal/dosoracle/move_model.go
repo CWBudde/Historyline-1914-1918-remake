@@ -85,6 +85,55 @@ func (g *Movement) occupants() map[int]int {
 	return o
 }
 
+// liveLen is the size of a live unit record (Build.Units).
+const liveLen = 26
+
+// liveRecords are the live records of Units and Unseen as the queries read
+// them: flags +4 and +6, the type at +8, the position 2*cell+1 at +0x0b and
+// +0x0d (the cell as each side sees it) and, for the moving unit, the budget
+// in byte 0.
+func liveRecords(g *Movement) map[int][]byte {
+	recs := map[int][]byte{}
+	place := func(idx int, u Piece) {
+		r := make([]byte, liveLen)
+		putWord(r, 4, u.Flags4)
+		putWord(r, 6, u.Flags6)
+		r[8] = byte(u.Type)
+		for k := range 2 {
+			putWord(r, 0x0B+2*k, 2*u.Cell+1)
+		}
+		recs[idx] = r
+	}
+	for idx, u := range g.Units {
+		place(idx, u)
+	}
+	for idx, u := range g.Unseen {
+		place(idx, u)
+	}
+	recs[g.Unit][0] = byte(g.Budget)
+	return recs
+}
+
+// movementMaps are the side's map, holding Units, and the other side's map,
+// holding Units and Unseen: the terrain record and the unit index per cell
+// (0xff empty).
+func movementMaps(g *Movement) (own, other []byte) {
+	own, other = make([]byte, 2*g.Width*g.Height), make([]byte, 2*g.Width*g.Height)
+	for c, t := range g.Terrain {
+		own[2*c], own[2*c+1] = byte(t), 0xFF
+		other[2*c], other[2*c+1] = byte(t), 0xFF
+	}
+	for idx, u := range g.Units {
+		own[2*u.Cell+1], other[2*u.Cell+1] = byte(idx), byte(idx)
+	}
+	for idx, u := range g.Unseen {
+		other[2*u.Cell+1] = byte(idx)
+	}
+	return own, other
+}
+
+func putWord(b []byte, off, v int) { b[off], b[off+1] = byte(v), byte(v>>8) }
+
 // neighbours64 is 0b06:005f with its edge clip 0b06:021f: the six neighbours
 // of (col, row) as indices of 64 per row, -1 off the map.
 func neighbours64(col, row, width, height int) [6]int {
@@ -318,8 +367,9 @@ type pathNode struct{ col, row, parent, score, prev, next int }
 // search runs dry or out of its 790 nodes. The score is not summed along the
 // route, so the route need not be the cheapest. The node pool is the buffer
 // the reach search left (buf); the sentinel's column and row stay buffer
-// bytes 20 and 21, so a goal they match, or a score past the sentinel's
-// 30000, gives ErrUndefined. The order code only asks for destinations.
+// bytes 20 and 21, so a goal they match, a score past the sentinel's 30000,
+// or expanding the sentinel past the bit array (a search that runs dry)
+// gives ErrUndefined. The order code only asks for destinations.
 func (t *MoveTables) Path(g *Movement, buf []int8, bits []byte, goal int) ([]int, error) {
 	w := g.Width
 	u := g.Units[g.Unit]
@@ -353,6 +403,11 @@ func (t *MoveTables) Path(g *Movement, buf []int8, bits []byte, goal int) ([]int
 			return route, nil
 		}
 		for _, k := range neighbours64(n.col, n.row, g.Width, g.Height) {
+			if k >= len(bits) {
+				// The sentinel's column and row (buffer bytes 20 and 21) lie
+				// past the array: the search reads the data behind it.
+				return nil, ErrUndefined
+			}
 			if k < 0 || bits[k]&reach == 0 || bits[k]&visit != 0 {
 				continue
 			}

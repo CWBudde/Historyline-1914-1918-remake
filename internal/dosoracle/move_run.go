@@ -31,98 +31,17 @@ type MoveRun struct {
 // sets it. Only the stack check is hooked; the routines call nothing that
 // draws. The side's map holds Units, the other side's map Units and Unseen.
 func (e *Export) RunMovement(g *Movement) (MoveRun, error) {
-	b, mv := e.B, e.B.Move
-	if mv == nil {
-		return MoveRun{}, errors.New("the movement routines are not located in this build")
+	v, err := e.moveEnv(g)
+	if err != nil {
+		return MoveRun{}, err
 	}
-	if g.Width > 64 || g.Height*64 > bufLen {
-		return MoveRun{}, fmt.Errorf("map %dx%d exceeds the 64-column arrays", g.Width, g.Height)
-	}
-	m := e.machine()
-	ar := newArena(m)
-	data := baseSeg + b.Data
-
-	m.WW(data, b.Width, g.Width)
-	m.WW(data, b.Width+2, g.Height)
-	for t := range len(e.Units) / recordLen {
-		copy(m.Mem[dos8086.Lin(data, mv.Types+recordLen*t):], e.TypeRecord(t))
-	}
-	copy(m.Mem[dos8086.Lin(data, mv.Terrains):], e.Terrains)
-	for i := range bufLen {
-		m.WB(data, mv.Bits+i, 0)
-	}
-	place := func(idx int, u Piece) {
-		base := b.Units + 26*idx
-		m.WW(data, base+4, u.Flags4)
-		m.WW(data, base+6, u.Flags6)
-		m.WB(data, base+8, u.Type)
-		for k := range 2 {
-			m.WW(data, base+0x0B+2*k, 2*u.Cell+1)
-		}
-	}
-	own, other := make([]byte, 2*g.Width*g.Height), make([]byte, 2*g.Width*g.Height)
-	for c, t := range g.Terrain {
-		own[2*c], own[2*c+1] = byte(t), 0xFF
-		other[2*c], other[2*c+1] = byte(t), 0xFF
-	}
-	for idx, u := range g.Units {
-		place(idx, u)
-		own[2*u.Cell+1], other[2*u.Cell+1] = byte(idx), byte(idx)
-	}
-	for idx, u := range g.Unseen {
-		place(idx, u)
-		other[2*u.Cell+1] = byte(idx)
-	}
-	m.WB(data, b.Units+26*g.Unit, g.Budget)
-	sideMap, otherMap := ar.alloc(own), ar.alloc(other)
-	m.WW(data, mv.Maps[g.Side&1], 0)
-	m.WW(data, mv.Maps[g.Side&1]+2, sideMap)
-	m.WW(data, mv.Maps[1-g.Side&1], 0)
-	m.WW(data, mv.Maps[1-g.Side&1]+2, otherMap)
-
-	guarded := func(n int) int {
-		buf := make([]byte, n+16)
-		for i := range buf {
-			buf[i] = guard
-		}
-		return ar.alloc(buf)
-	}
-	costSeg := guarded(0x1F40 + 2*0x317)
-	call := func(what string, at [2]int, args ...int) (int, error) {
-		m.S = [4]uint16{dos8086.CS: uint16(baseSeg + at[0]), dos8086.DS: uint16(baseSeg + b.DS), dos8086.SS: scratch - 0x400}
-		m.R[dos8086.SP] = 0x3F00
-		for i := len(args) - 1; i >= 0; i-- {
-			m.Push(args[i])
-		}
-		m.Push(retSeg)
-		m.Push(0)
-		m.IP = uint16(at[1])
-		m.Steps = 0
-		if err := m.Run(retSeg, 0, moveMaxSteps); err != nil {
-			return 0, wrapRun(what, err)
-		}
-		return int(m.R[dos8086.AX]), nil
-	}
+	m, data, mv := v.m, v.data, e.B.Move
 	start := g.Units[g.Unit].Cell
 	var r MoveRun
-	var err error
-	if r.Count, err = call("reach", mv.Reach,
-		2*start, 0, costSeg, g.Unit, g.Budget, g.Side, g.Block, 0, sideMap); err != nil {
+	if r.Buffer, r.Bits, r.Count, err = v.reach(g); err != nil {
 		return r, err
 	}
-	r.Buffer = make([]int8, bufLen)
-	for i := range bufLen {
-		r.Buffer[i] = int8(m.RB(costSeg, i))
-	}
-	for i := bufLen; i < bufLen+16; i++ {
-		if m.RB(costSeg, i) != guard {
-			return r, errors.New("reach: wrote past the cost buffer")
-		}
-	}
-	r.Bits = make([]byte, bufLen)
-	for i := range bufLen {
-		r.Bits[i] = byte(m.RB(data, mv.Bits+i))
-	}
+	sideMap, costSeg, guarded, call := v.sideMap, v.cost, v.guarded, v.call
 
 	outSeg := guarded(2 * 0x316)
 	if _, err := call("destinations", mv.Destinations, 0, outSeg, g.Side, g.Unit); err != nil {
@@ -173,10 +92,112 @@ func (e *Export) RunMovement(g *Movement) (MoveRun, error) {
 		}
 		r.Paths = append(r.Paths, route)
 		for i := range bufLen {
-			if v := m.RB(data, mv.Bits+i); byte(v) != r.Bits[i] {
+			if x := m.RB(data, mv.Bits+i); byte(x) != r.Bits[i] {
 				return r, errors.New("path: reach bits changed")
 			}
 		}
 	}
 	return r, nil
+}
+
+// moveEnv is a machine set up for the movement routines on a synthetic map.
+type moveEnv struct {
+	m                 *dos8086.Machine
+	mv                *Move
+	ar                *arena
+	data              int
+	sideMap, otherMap int // segments of the side's and the other side's map
+	cost              int // the guarded cost buffer the reach search fills
+	call              func(what string, at [2]int, args ...int) (int, error)
+	guarded           func(n int) int
+}
+
+// moveEnv loads the width and height, the type and terrain records, a zeroed
+// bit array, the live units (liveRecords) and both maps (movementMaps), and
+// points the map far pointers at them.
+func (e *Export) moveEnv(g *Movement) (*moveEnv, error) {
+	b, mv := e.B, e.B.Move
+	if mv == nil {
+		return nil, errors.New("the movement routines are not located in this build")
+	}
+	if g.Width > 64 || g.Height*64 > bufLen {
+		return nil, fmt.Errorf("map %dx%d exceeds the 64-column arrays", g.Width, g.Height)
+	}
+	m := e.machine()
+	v := &moveEnv{m: m, mv: mv, ar: newArena(m), data: baseSeg + b.Data}
+	data := v.data
+
+	m.WW(data, b.Width, g.Width)
+	m.WW(data, b.Width+2, g.Height)
+	for t := range len(e.Units) / recordLen {
+		copy(m.Mem[dos8086.Lin(data, mv.Types+recordLen*t):], e.TypeRecord(t))
+	}
+	copy(m.Mem[dos8086.Lin(data, mv.Terrains):], e.Terrains)
+	for i := range bufLen {
+		m.WB(data, mv.Bits+i, 0)
+	}
+	for idx, rec := range liveRecords(g) {
+		copy(m.Mem[dos8086.Lin(data, b.Units+liveLen*idx):], rec)
+	}
+	own, other := movementMaps(g)
+	v.sideMap, v.otherMap = v.ar.alloc(own), v.ar.alloc(other)
+	m.WW(data, mv.Maps[g.Side&1], 0)
+	m.WW(data, mv.Maps[g.Side&1]+2, v.sideMap)
+	m.WW(data, mv.Maps[1-g.Side&1], 0)
+	m.WW(data, mv.Maps[1-g.Side&1]+2, v.otherMap)
+
+	v.guarded = func(n int) int {
+		buf := make([]byte, n+16)
+		for i := range buf {
+			buf[i] = guard
+		}
+		return v.ar.alloc(buf)
+	}
+	v.cost = v.guarded(0x1F40 + 2*0x317)
+	v.call = func(what string, at [2]int, args ...int) (int, error) {
+		m.S = [4]uint16{dos8086.CS: uint16(baseSeg + at[0]), dos8086.DS: uint16(baseSeg + b.DS), dos8086.SS: scratch - 0x400}
+		m.R[dos8086.SP] = 0x3F00
+		for i := len(args) - 1; i >= 0; i-- {
+			m.Push(args[i])
+		}
+		m.Push(retSeg)
+		m.Push(0)
+		m.IP = uint16(at[1])
+		m.Steps = 0
+		if err := m.Run(retSeg, 0, moveMaxSteps); err != nil {
+			return 0, wrapRun(what, err)
+		}
+		return int(m.R[dos8086.AX]), nil
+	}
+	return v, nil
+}
+
+// reach runs the reach search 0b06:0331 as the player's order code calls it
+// and reads the cost buffer, the bit array and the count.
+func (v *moveEnv) reach(g *Movement) (buffer []int8, bits []byte, count int, err error) {
+	m := v.m
+	start := g.Units[g.Unit].Cell
+	if count, err = v.call("reach", v.mv.Reach,
+		2*start, 0, v.cost, g.Unit, g.Budget, g.Side, g.Block, 0, v.sideMap); err != nil {
+		return nil, nil, 0, err
+	}
+	buffer = make([]int8, bufLen)
+	for i := range bufLen {
+		buffer[i] = int8(m.RB(v.cost, i))
+	}
+	for i := bufLen; i < bufLen+16; i++ {
+		if m.RB(v.cost, i) != guard {
+			return nil, nil, 0, errors.New("reach: wrote past the cost buffer")
+		}
+	}
+	return buffer, v.bits(), count, nil
+}
+
+// bits reads the reach-bit array.
+func (v *moveEnv) bits() []byte {
+	bits := make([]byte, bufLen)
+	for i := range bufLen {
+		bits[i] = byte(v.m.RB(v.data, v.mv.Bits+i))
+	}
+	return bits
 }
