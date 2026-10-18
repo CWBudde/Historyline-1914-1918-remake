@@ -16,8 +16,8 @@ import (
 
 // The fixtures of internal/dosrules are recorded here from the executed
 // routines, numbers only: the build's tables (dosrules/<build>.json), every
-// controlled battle of the engagement tests and every casualty coverage case
-// (dosrules/testdata/<build>/). Without -update the test checks that the
+// controlled battle of the engagement tests, every casualty coverage case and
+// the movement cases (dosrules/testdata/<build>/). Without -update the test checks that the
 // committed files are what the emulator gives now.
 
 var update = flag.Bool("update", false, "rewrite the internal/dosrules tables and fixtures from the local exports")
@@ -182,6 +182,11 @@ func fixtures(t *testing.T, e *Export) {
 		filepath.Join(rules, e.B.Name+".json"):                         append(tables, '\n'),
 		filepath.Join(rules, "testdata", e.B.Name, "engagements.json"): eng,
 		filepath.Join(rules, "testdata", e.B.Name, "casualties.json"):  cas,
+	}
+	if e.B.Move != nil {
+		tables, cases := movementFixtures(t, e)
+		files[filepath.Join(rules, "testdata", e.B.Name, "movement-tables.json")] = tables
+		files[filepath.Join(rules, "testdata", e.B.Name, "movements.json")] = cases
 	}
 	for path, b := range files {
 		if *update {
