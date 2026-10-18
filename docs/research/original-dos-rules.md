@@ -66,7 +66,7 @@ instruction boundaries and avoid truncating functions at overlapping segment sta
 | Repairs cost **15**, or **50** for construction units | `0660:3115–315b` selects price, `315f–3172` checks energy, `31fb–3209` subtracts it | Cost is independent of damage. |
 | Repair restores group strength and preserves experience | `0660:3225–325e` restores type byte 3 to live byte 2; it does not reset live byte 1 | A veteran unit retains its experience. Construction repair also restores its secondary state to two. |
 | Production price, transport capacity and weight come from unit data | Unit information `272c:0913–0950`, `0a0f` onward; table bytes 63–65 | Use original type-specific values when implementing production/loading. |
-| Inventories have **seven slots per side/view** in the traced structures | `10d2:17ce–183b` counts seven entries; `0e47:0252–02fc` loads seven entries | The Python 2 × 9 inventory grid is not evidence of original capacity. Slot count and weight capacity are separate limits. |
+| Inventories have **seven slots per side/view** in the traced structures | `10d2:17ce–183b` counts seven entries; `0e47:0252–02fc` loads seven entries; executed on the demo (*Containers*) | The Python 2 × 9 inventory grid is not evidence of original capacity. Slot count and weight capacity are separate limits: a transporter checks both, a building only its slots. |
 | Score options multiply the base score | `02dc:29c9–2b1c` | Hidden inventories add 100; limits 4/8/16 multiply by 4/3/2. The score caps at 32,500. |
 
 The manual additionally specifies infantry/cavalry capture, capture of a building's
@@ -360,6 +360,102 @@ The reach search only ORs its bits into `32e2:3b50`; clearing them is left to it
 (`0b06:000f`, called from 19 places). Whether the player's reach ever starts on
 bits left from an earlier query is a question for the cycle trace (R3).
 
+### Containers
+
+Transporters and buildings keep their units in container records of 0x1c bytes at `32e2:310c`.
+Each record has seven slot bytes per side at `+7·side` (a unit index, or above 0xf0 free), four
+cell words at `+0x0e`, a flag word at `+0x19` and the occupant byte `+0x1b`. A transporter finds
+its record through live `+0x0a`. The building records follow the 70 transporter records in three
+tables, which the end-cell check picks by terrain flag:
+- `32e2:38b4` for flag 0x40, two records chosen by the flag's bit 1;
+- `32e2:38ec` for flag 0x100, ten records;
+- `32e2:3a04` for flag 0x400, ten records.
+
+For the last two, `0e40:1728` finds the record that lists the cell among its four cell words. A
+cell no record lists reads the record before the table. The records are per side like the maps:
+every check counts only the moving side's slots and weights.
+
+- **Loading, `10cc:0f74`.** On a cell held by an own transporter (live `+4` bit 0x1000; a
+  two-cell ship's rear stands for its head) the end-cell check refuses:
+  - with 0x3a when the unit's live `+6` shares none of the classes in the record's
+    `+0x19 & 0xfc0`, or when the transporter has moved (`+4` bit 0x200);
+  - with 0x3b when the side's seven slots are taken;
+  - with 0x3b when the weights exceed the transporter type's capacity (type byte 0x40). The
+    weights (`1307:15fd`, type byte 0x41) are the unit's, the side's cargo already in the
+    record and, for a transporter that moves, its own cargo.
+
+  Otherwise it leaves action 2 with the free slot.
+- **Buildings.** On building terrain the check does not look at the terrain mask:
+  - a building whose `+0x19` is another side's, or neutral (bit 2), gives action 4;
+  - an own building gives action 5 into a free slot, or 0x3b if there is none. There is no
+    weight limit.
+
+  Building terrain also carries the low flag bits that the player's flag mask closes (3 for
+  side 0, 6 for side 1), so some buildings cannot be reached by one side at all.
+- **Arrival, `10cc:0ae2`.** It jumps through `cs:0f6a` to one of five actions:
+  - **Action 2, into a transporter:** the unit takes the slot, and the map shows the
+    transporter again. The unit keeps the transporter's cell as its position. Live `+4` gains
+    0x4200 and loses 0x100, and the bit array gets no moved bit.
+  - **Action 5, into an own building:** the unit takes the slot, the map shows 0xf4, and the
+    unit's position becomes the record's first cell (an even map offset, 2·cell).
+  - **Action 4, onto a foreign or neutral building:** a plain arrival. Live `+0x17` holds the
+    building's flags and `+0x15` its index; nothing in the arrival captures it.
+  - **Action 1 (`0b48`):** reads a second unit from `32e2:1806`, but no code in the listing
+    sets it. These paths never reach it.
+- **Nested cargo.** A transporter that carries units can only enter a container with at least
+  one free slot more than its cargo (`10cc:17cb` counts the slots). On arrival `10cc:1840`
+  hands the cargo over: each carried unit moves to a free slot of the target and takes the
+  target's first cell as its position, and the transporter's own record is emptied. Cargo
+  never nests.
+- **Supply car into a depot.** The upstream TODO's "content of supply truck should be moved to
+  depot" is that hand-over. A Supply Car (type 22, capacity 9) that is ordered into an own
+  building moves its cargo units into the building's slots. The move is explicit, and only
+  units move.
+- **Exit, `0661:2f0a–30fe`.** This is a main-loop branch for an order record with `+0x1b` = 4,
+  which takes a unit out of a container. It:
+  - frees the slot and puts the unit at the record's first cell (one less for a transporter,
+    flag 0x20);
+  - shows the unit there on the side's map and marks the cell with the side's selection bit
+    (0x40, 0x80 for side 1);
+  - runs the reach search with **budget 4** for live `+6` bit 0x10 and **8** otherwise,
+    whatever live byte 0 holds. The flag mask is 3 (6 for side 1), with 0x18 added for live
+    `+6` bit 4.
+
+  The move itself is the ordinary order, start and step. The start takes the record's `+0x1b`
+  as the occupant to restore, so the cell gets the transporter or 0xf4 back once the unit
+  leaves it. The path search clears the side's visit bit over the whole array when it
+  returns, and the selection bit with it.
+- **No automatic unloading.** In every case run, a unit leaves a slot only through the exit
+  branch, or through the hand-over when its transporter enters another container. A loaded
+  transporter's plain move, or a move onto a foreign building, keeps its cargo in the slots
+  and moves only the cargo's positions (`159e:0805`).
+
+`EndCheck`, the arrival actions and `Exit` transcribe this; `Export.RunMove` and `Export.RunExit`
+execute it, the latter running the exit branch on a synthetic frame. The two agree on 1,524
+enumerated cases (`TestContainerCoverage`):
+- every type of distinct movement fields or weight into the three transporter types, under six
+  class masks, for both sides;
+- zero to seven slots taken;
+- weights one below, at and one above each capacity;
+- a moved transporter;
+- nested cargo into a transporter and a building with too few, just enough and plenty of free
+  slots;
+- every building terrain, owned by either side or neutral, empty and full;
+- a cell no record lists, and a building's second cell;
+- carried cargo on a plain move;
+- exits from a ground transporter, a ship and a building, for a unit with and without live
+  `+6` bit 0x10, with live byte 0 at 0 and at 255.
+
+528 of the cases are recorded in `containers.json` (schema `container-fixture.schema.json`), and
+`TestContainerFixtures` replays them in CI.
+
+Still open:
+- who fills a record's `+0x19` classes and `+0x1b` (the level loader);
+- what a refused or cancelled exit does with the unit, which stands on the map outside its slot
+  by then;
+- the names of the three building tables (R2 item 1);
+- capture of a foreign building (R4).
+
 ## Combat arithmetic
 
 The complete casualty routine is `2466:000e–0abb`, saved as `windows/combat.asm`.
@@ -469,9 +565,9 @@ screen's drawing, animations or order scheduling, has not been excluded.
    way (`go test ./internal/dosoracle -run TestFixtures -update`) and compared with the demo's
    tables and fixtures. A difference becomes a profile field, not a hidden constant.
 3. Movement costs, destination restrictions and the move execution are executed on the
-   demo (see *Movement* and *Move execution*). Still open: how the other side's map
-   follows a move (visibility), transport weights, loading and exits, and the full build's
-   addresses.
+   demo (see *Movement*, *Move execution* and *Containers*). Still open: how the other
+   side's map follows a move (visibility), who fills the container records, a cancelled
+   exit, and the full build's addresses.
 4. Finish the order scheduler and capture/production/construction paths. Establish
    cycle ordering, simultaneous-order conflicts, energy credit timing, repair timing,
    ownership transfer, map availability and victory checks.

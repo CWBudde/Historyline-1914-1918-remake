@@ -1064,9 +1064,46 @@ The completed compatibility work below remains useful and stays completed.
 
       748 orders are recorded in `steps.json` (schema `step-fixture.schema.json`), and
       `TestStepFixtures` replays them in CI; a hand-changed cell or live byte fails it.
-- [ ] Verify loading/unloading, seven-entry slot structures, weight limits, full buildings,
+- [x] Verify loading/unloading, seven-entry slot structures, weight limits, full buildings,
       nested cargo and reduced exit movement. Trace the supply-truck/depot transfer behavior
       from the upstream TODO; do not assume automatic unloading is an original rule.
+      (2026-10-18) — on the demo build of record. The movement runners set up the container
+      records (`32e2:310c`, 0x1c bytes: 70 transporter records, then building tables for terrain
+      flags 0x40/0x100/0x400). `RunMove` now executes the end-cell check's container branches and
+      the arrival into a transporter (action 2), a foreign or neutral building (4) and an own
+      building (5). `Export.RunExit` runs the main loop's exit branch `0661:2f0a–30fe`, then the
+      move order. `container_model.go` transcribes them, and the two agree on 1,524 enumerated
+      cases (`TestContainerCoverage`):
+      - loading every distinct type into the three transporter types under six class masks;
+      - 0–7 slots taken;
+      - weights at capacity −1/0/+1;
+      - a moved transporter;
+      - nested cargo;
+      - every building terrain and owner, empty and full;
+      - carried cargo;
+      - exits for both exit budgets.
+
+      Answers:
+      - **Slots:** seven per side in every record, and the checks count the moving side's only.
+      - **Transporters** refuse with 0x3a when the classes don't match or the transporter has
+        moved, and with 0x3b when the slots are full or the weights exceed its capacity (type
+        bytes 0x41/0x40).
+      - **Buildings** take a unit into a free slot (0x3b when full), with no weight limit and
+        no terrain-mask check. A foreign or neutral one is a plain arrival.
+      - **Nested cargo:** none. A carrying transporter needs one free slot more than its cargo,
+        and its cargo is handed over into the target (`10cc:1840`). That hand-over is the
+        supply car "unloading into a depot", and it happens only on an explicit move into the
+        building.
+      - **Exit:** the reach starts with budget 4 (live `+6` bit 0x10) or 8, whatever live byte
+        0 holds. The container's cell gets its occupant back afterwards.
+      - **No automatic unloading:** units leave slots only by the exit or the hand-over, and
+        this is checked on every case.
+
+      528 cases are recorded in `containers.json` (schema `container-fixture.schema.json`),
+      and `TestContainerFixtures` replays them in CI; a hand-changed slot byte, end code or exit
+      budget fails it. Not reached: arrival action 1 (`10cc:0b48`), which nothing in the listing
+      sets. Open for the cycle and the loader: what a refused or cancelled exit does with the
+      unit, and who fills a record's classes (`+0x19`) and occupant (`+0x1b`).
 - [ ] Trace visibility and terrain sight effects independently of Python's `sightModifier`;
       preserve per-player visibility and hidden-order isolation in the resulting rules.
       (2026-10-18) — from the step-executor trace: a move updates only the mover's side's
@@ -1090,6 +1127,10 @@ The completed compatibility work below remains useful and stays completed.
       cancellation rules, unit eligibility, move limits and resolution timing. Cover competing
       destinations, swaps, blocked routes and targets destroyed before their order executes.
       The manual establishes deferred orders; exact conflict/initiative behavior needs traces.
+      (2026-10-18) — note from the container trace: an exit is the main loop's branch for an
+      order record with `+0x1b` = 4 (`0661:2f0a`). It takes the unit out of its slot and
+      places it on the map before the destination is chosen, so trace what a refused or
+      cancelled exit does with it.
 - [ ] Add explicit profile, cycle, player readiness, pending-order and resolution state.
       Separate order validation/queuing from execution; resolve using the verified R1/R2 rules
       and emit ordered events for the UI, AI and replays. No game state advances with animation.
@@ -1114,6 +1155,9 @@ The completed compatibility work below remains useful and stays completed.
 - [ ] Trace infantry/cavalry capture, ownership of stored units, contested entry and HQ victory.
       Verify two half-depot construction operations, replenishing builder charges and sapper
       trench operations. Add other skills only after their flag/command paths are established.
+      (2026-10-18) — note from the container trace: a move onto a foreign or neutral building
+      is a plain arrival (`10cc:0ae2` action 4). It records the building's flags in live
+      `+0x17` and its index in `+0x15`, but nothing in the move captures it.
 - [ ] Add barbed wire's terrain/infrastructure definitions and art/editor coverage; establish
       its original placement, movement and combat behavior rather than inheriting movement 10
       as the final original rule. Coordinate enabled infrastructure with G3.

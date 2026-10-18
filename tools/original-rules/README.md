@@ -140,3 +140,20 @@ empty transporter. It checks on the executed outcomes that live byte 0 is not sp
 route is walked to its end and that the other side's map is untouched. The recorder writes
 `steps.json` (schema `docs/research/step-fixture.schema.json`), and `TestStepFixtures` replays it
 without the original files.
+
+The container records (`Movement.Holds`, `Movement.Held`) are set up in both runners. `RunMove`
+therefore also executes the end-cell check's container branches and the arrival into a
+transporter or building. `Export.RunExit` runs the main loop's exit branch `0661:2f0a–30fe` on
+a synthetic frame holding the order record, then the move order as `RunMove` does; the view
+centring and redraw are hooked as well. `container_model.go` is the transcription (`EndCheck`,
+`Exit`). `TestContainerCoverage` compares them on:
+- loading every distinct type into each transporter type;
+- slots, weights, a moved transporter and nested cargo;
+- every building terrain and owner;
+- carried cargo;
+- exits from transporters and buildings.
+
+It checks on the executed outcomes that no unit leaves a slot without an exit or a hand-over,
+that capacities hold and that the exit's reach starts at 4 or 8. The recorder writes
+`containers.json` (schema `docs/research/container-fixture.schema.json`), and
+`TestContainerFixtures` replays it without the original files.
