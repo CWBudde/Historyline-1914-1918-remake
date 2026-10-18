@@ -28,6 +28,24 @@ type Build struct {
 	// Handler is the order handler that runs the battles; nil where it has
 	// not been located.
 	Handler *Handler
+
+	// Move holds the movement routines; nil where they have not been located.
+	Move *Move
+}
+
+// Move holds the addresses of the movement queries (segment 0b06 and the
+// end-cell check in 10cc in the demo). Offsets are in Build.Data.
+type Move struct {
+	// Reach fills the remaining budget per cell and the side's reach bits,
+	// Destinations lists the reached cells the unit may end on, Path finds a
+	// route over the reach bits and EndCell is the check Destinations calls.
+	Reach, Destinations, Path, EndCell [2]int
+
+	// The 69-byte type records, the 6-byte terrain records, the reach-bit
+	// array (64 cells per row), the result count, the action record that
+	// holds the moving unit, and the map far pointers of side 0 and side 1.
+	Types, Terrains, Bits, Count, Action int
+	Maps                                 [2]int
 }
 
 // Handler holds the addresses of the order handler that resolves one side's
@@ -95,6 +113,12 @@ var Demo = Build{
 			{0x2F03, 0x1054}, // sound
 		},
 		Srand: [2]int{0x0000, 0x07AB}, Rand: [2]int{0x0000, 0x07C3}, RandState: [2]int{0x3CC5, 0x11F6},
+	},
+	Move: &Move{
+		Reach: [2]int{0x0B06, 0x0331}, Destinations: [2]int{0x0B06, 0x1383}, Path: [2]int{0x0B06, 0x0E12},
+		EndCell: [2]int{0x10CC, 0x0F74},
+		Types:   0x09BB, Terrains: 0x05A1, Bits: 0x3B50, Count: 0x17E9, Action: 0x1805,
+		Maps: [2]int{0x17AC, 0x17A8},
 	},
 }
 

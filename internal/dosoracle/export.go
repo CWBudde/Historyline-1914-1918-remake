@@ -29,6 +29,9 @@ type Export struct {
 	Image  []byte
 	Relocs []int
 	Units  []byte
+
+	// Terrains holds the 6-byte terrain records (the summer table, WW1GNDS.DAT).
+	Terrains []byte
 }
 
 // LoadExport reads an export directory and refuses one from an unidentified
@@ -53,6 +56,9 @@ func LoadExport(dir string) (*Export, error) {
 		return nil, err
 	}
 	if e.Units, err = os.ReadFile(filepath.Join(dir, "UNIT.DAT.bin")); err != nil {
+		return nil, err
+	}
+	if e.Terrains, err = os.ReadFile(filepath.Join(dir, "WW1GNDS.DAT.bin")); err != nil {
 		return nil, err
 	}
 	f, err := os.Open(filepath.Join(dir, "relocations.csv"))
