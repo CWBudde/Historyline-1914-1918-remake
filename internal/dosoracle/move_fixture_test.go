@@ -45,23 +45,68 @@ type moveExpected struct {
 	Paths [][]int `json:"paths"`
 }
 
+// fixtureMap is the map and the moving unit of a movement or step fixture.
+type fixtureMap struct {
+	Width  int            `json:"width"`
+	Height int            `json:"height"`
+	Fill   int            `json:"fill"`  // terrain record of every cell not in Cells
+	Cells  [][2]int       `json:"cells"` // [cell, terrain record]
+	Units  []fixturePiece `json:"units"`
+	Unseen []fixturePiece `json:"unseen"`
+	Unit   int            `json:"unit"`
+	Side   int            `json:"side"`
+	Budget int            `json:"budget"`
+	Block  int            `json:"block"`
+}
+
 type moveFixture struct {
-	Schema   int             `json:"schema"`
-	Profile  string          `json:"profile"`
-	ID       string          `json:"id"`
-	Source   dosrules.Source `json:"source"`
-	Width    int             `json:"width"`
-	Height   int             `json:"height"`
-	Fill     int             `json:"fill"`  // terrain record of every cell not in Cells
-	Cells    [][2]int        `json:"cells"` // [cell, terrain record]
-	Units    []fixturePiece  `json:"units"`
-	Unseen   []fixturePiece  `json:"unseen"`
-	Unit     int             `json:"unit"`
-	Side     int             `json:"side"`
-	Budget   int             `json:"budget"`
-	Block    int             `json:"block"`
-	Goals    []int           `json:"goals"`
-	Expected moveExpected    `json:"expected"`
+	Schema  int             `json:"schema"`
+	Profile string          `json:"profile"`
+	ID      string          `json:"id"`
+	Source  dosrules.Source `json:"source"`
+	fixtureMap
+	Goals    []int        `json:"goals"`
+	Expected moveExpected `json:"expected"`
+}
+
+func fixtureMapOf(g *Movement) fixtureMap {
+	f := fixtureMap{Width: g.Width, Height: g.Height, Cells: [][2]int{}, Units: pieces(g.Units),
+		Unseen: pieces(g.Unseen), Unit: g.Unit, Side: g.Side, Budget: g.Budget, Block: g.Block}
+	counts := map[int]int{}
+	for _, t := range g.Terrain {
+		counts[t]++
+	}
+	for t, n := range counts {
+		if n > counts[f.Fill] || n == counts[f.Fill] && t < f.Fill {
+			f.Fill = t
+		}
+	}
+	for cell, t := range g.Terrain {
+		if t != f.Fill {
+			f.Cells = append(f.Cells, [2]int{cell, t})
+		}
+	}
+	return f
+}
+
+// movement rebuilds the map of a fixture.
+func (f fixtureMap) movement() *Movement {
+	g := &Movement{Width: f.Width, Height: f.Height, Terrain: make([]int, f.Width*f.Height),
+		Units: map[int]Piece{}, Unseen: map[int]Piece{}, Unit: f.Unit, Side: f.Side,
+		Budget: f.Budget, Block: f.Block}
+	for i := range g.Terrain {
+		g.Terrain[i] = f.Fill
+	}
+	for _, c := range f.Cells {
+		g.Terrain[c[0]] = c[1]
+	}
+	for _, p := range f.Units {
+		g.Units[p.Index] = p.Piece
+	}
+	for _, p := range f.Unseen {
+		g.Unseen[p.Index] = p.Piece
+	}
+	return g
 }
 
 // fixtureMoveStride records every k-th case of a movement class.
@@ -80,23 +125,7 @@ func pieces(m map[int]Piece) []fixturePiece {
 func moveFixtureOf(e *Export, tab *MoveTables, c moveCase, r MoveRun) moveFixture {
 	g := c.g
 	f := moveFixture{Schema: 1, Profile: "dos-0.1", ID: c.class + "/" + c.name,
-		Source: source(e, "movement queries"), Width: g.Width, Height: g.Height,
-		Cells: [][2]int{}, Units: pieces(g.Units), Unseen: pieces(g.Unseen),
-		Unit: g.Unit, Side: g.Side, Budget: g.Budget, Block: g.Block, Goals: []int{}}
-	counts := map[int]int{}
-	for _, t := range g.Terrain {
-		counts[t]++
-	}
-	for t, n := range counts {
-		if n > counts[f.Fill] || n == counts[f.Fill] && t < f.Fill {
-			f.Fill = t
-		}
-	}
-	for cell, t := range g.Terrain {
-		if t != f.Fill {
-			f.Cells = append(f.Cells, [2]int{cell, t})
-		}
-	}
+		Source: source(e, "movement queries"), fixtureMap: fixtureMapOf(g), Goals: []int{}}
 	x := &f.Expected
 	for cell := range g.Width * g.Height {
 		x.Remaining = append(x.Remaining, int(r.Buffer[cell/g.Width*64+cell%g.Width]))
@@ -155,21 +184,8 @@ func movementFixtures(t *testing.T, e *Export) (tables []byte, cases []byte) {
 
 // movementOf rebuilds the query of a fixture.
 func movementOf(f moveFixture) *Movement {
-	g := &Movement{Width: f.Width, Height: f.Height, Terrain: make([]int, f.Width*f.Height),
-		Units: map[int]Piece{}, Unseen: map[int]Piece{}, Unit: f.Unit, Side: f.Side,
-		Budget: f.Budget, Block: f.Block, Goals: f.Goals}
-	for i := range g.Terrain {
-		g.Terrain[i] = f.Fill
-	}
-	for _, c := range f.Cells {
-		g.Terrain[c[0]] = c[1]
-	}
-	for _, p := range f.Units {
-		g.Units[p.Index] = p.Piece
-	}
-	for _, p := range f.Unseen {
-		g.Unseen[p.Index] = p.Piece
-	}
+	g := f.movement()
+	g.Goals = f.Goals
 	return g
 }
 
