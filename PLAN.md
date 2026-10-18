@@ -1033,7 +1033,7 @@ The completed compatibility work below remains useful and stays completed.
       770 cases are recorded in `movements.json` (schema `movement-fixture.schema.json`), and
       `TestMovementFixtures` replays them in CI; a hand-changed remaining budget or end code
       fails it.
-- [ ] Trace the step executor (`10cc:05c3`/`071e` in the demo) that moves a unit along its
+- [x] Trace the step executor (`10cc:05c3`/`071e` in the demo) that moves a unit along its
       route. Establish:
       - whether it spends live byte 0;
       - what it does on a route through a zone of control or over budget (the path search is
@@ -1042,17 +1042,45 @@ The completed compatibility work below remains useful and stays completed.
       - what happens when it meets a unit hidden from the moving side.
 
       (Found 2026-10-18 while tracing the movement queries.)
+      (2026-10-18) — on the demo build of record. `Export.RunMove` runs the player's chain:
+      reach, the order code `10cc:02dd`, the start `05c3` and the step `071e` per call until
+      the arrival `0ae2`, hooking only drawing, sound and messages. `step_model.go`
+      transcribes it, and the two agree on 2,796 enumerated orders (`TestStepCoverage`):
+      - routes from every movement class;
+      - refusals, including no path (message 0x48);
+      - an order changed before its start;
+      - own units passed;
+      - a hidden enemy on the route and on the destination;
+      - a two-cell ship and an empty transporter.
+
+      Answers:
+      - Live byte 0 is never spent; the budget only bounds the reach search.
+      - The step walks the given route to its end, checking neither a zone of control nor
+        the budget: 48 executed routes through a zone and 11 over budget all arrive.
+      - A move changes only the mover's side's map and position word. A hidden unit is
+        walked over or ended on unnoticed, and the other side's map is untouched.
+      - Started moves join the side's order list (`32e2:4d3a`), and the arrival sets the
+        moved bit 0x200.
+
+      748 orders are recorded in `steps.json` (schema `step-fixture.schema.json`), and
+      `TestStepFixtures` replays them in CI; a hand-changed cell or live byte fails it.
 - [ ] Verify loading/unloading, seven-entry slot structures, weight limits, full buildings,
       nested cargo and reduced exit movement. Trace the supply-truck/depot transfer behavior
       from the upstream TODO; do not assume automatic unloading is an original rule.
 - [ ] Trace visibility and terrain sight effects independently of Python's `sightModifier`;
       preserve per-player visibility and hidden-order isolation in the resulting rules.
+      (2026-10-18) — from the step-executor trace: a move updates only the mover's side's
+      map and position word (`+0x0b + 2·side`). Find what brings the other side's map and
+      its view of the unit up to date, and when.
 - [ ] Identify any actual ammo, fuel and resupply fields/consumers. Their existence in the
       Python UI does not establish DOS consumption or adjacent-depot/supply-car replenishment.
       If unsupported, keep them in compatibility/extension rules rather than the DOS profile.
 - [ ] Implement the verified data adapters and pure movement, loading/unloading and visibility
       functions for R3, with original input/output fixtures. Reuse search/geometry code where
       its behavior agrees, while preserving the separate Python/Standard rules and tables.
+      (2026-10-18) — note: the original executes the greedy route, not the reach's cheapest
+      path, so a route may cross a zone of control or exceed the budget
+      (`steps.json`). Whether the order cycle prevents that is R3's to trace.
 - [ ] **Gate:** original movement endpoints/costs, domain restrictions, container limits and
       exits match recorded fixtures; unsupported mechanics are not enabled as original rules.
 

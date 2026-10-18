@@ -282,16 +282,83 @@ cases and 16,487 routes (`TestMovementCoverage`). What the runs show:
 - **Unseen units.** The queries read only the moving side's own map. A unit that is only on
   the other side's map neither blocks nor exerts a zone of control, and its cell is a legal
   destination. What the per-side maps contain is visibility (item 4); what happens when a
-  move runs into such a unit is execution.
+  move runs into such a unit is execution (see *Move execution*).
 - **Routes.** The route is not the reach search's cheapest path. 193 routes cost more than
   the cheapest, 31 cost more than the whole budget, and 401 pass through a zone-of-control
   cell, where the reach search would have stopped the unit.
 - **Map edges.** The edge clips are else-ifs, so a map one cell wide or high leaks into the
   next column or row.
 
-Whether moving along a route spends live byte 0, how it treats a route through a zone of
-control or over budget, and what it does on meeting a hidden unit is decided by the step
-executor (`10cc:05c3`/`071e`), which is not traced yet.
+### Move execution
+
+The player's move runs in three routines of `10cc`, after a fresh reach search
+(`0ca0:0a6f`). None of them draws: they leave the drawing to `0e40:145c` (one cell),
+`0e40:1219` and `0e40:0f38`, the sound to `0ca0:0279` and the status message to
+`109a:0001`.
+
+- **Order, `10cc:02dd`** (called at `0ca0:07d0`). It refuses the order (0x12) when:
+  - the destination has no reach bit for the side;
+  - the destination is the unit's own cell;
+  - an air unit is sent onto terrain flag 0x4000;
+  - the end-cell check is not 0 (its code is shown);
+  - the path search finds no route (message 0x48).
+
+  Otherwise it clears the side's reach bits everywhere, sets them again on the route's cells
+  and stores the destination in live `+0x11`. A two-cell ship adds 8 to the result.
+- **Start, `10cc:05c3`** (called at `0ca0:0912`). It refuses an order whose destination no
+  longer equals live `+0x11`. Otherwise it:
+  - appends the unit to the side's order list (`32e2:4d3a`, count `4d3e`, the list the order
+    handler `02dc:0004` reads);
+  - stores the unit's position in `+0x11`;
+  - skips the route's start (count − 2);
+  - empties the two saved occupants `32e2:1807`/`1808`;
+  - starts the animation flags.
+- **Step, `10cc:071e`** (called by the main loop at `0661:43a8` while `32e2:4c9e` bit 0x40 is
+  set). Each call moves the unit one route cell, on the side's own map only:
+  - the cell it leaves gets back the occupant saved when it entered (0xff at the start);
+  - the occupant of the cell it enters is saved, and the unit is written there;
+  - it updates the position word `+0x0b + 2·side` and the facing `+0x0f + side` (`143e`, the
+    neighbour direction of the step);
+  - a two-cell ship's rear, the next record, takes the head's old cell;
+  - a transporter moves its cargo's positions (`159e:0805`).
+
+  At the last cell it runs the end-cell check again and the arrival `10cc:0ae2`. For a plain
+  move (action 3, `0d4d`), the arrival:
+  - clears live `+4` bits 0x4100;
+  - sets the moved bit 0x200 there and in the bit array (0x10, 0x20 for side 1; `0e40:1ddd`);
+  - sets `+0x13` to 3 and bit 1 of `+0x14`, and clears `+0x15`–`+0x19`;
+  - shows message 0x38.
+
+`Export.RunMove` runs the reach, the order, the start and every step with only the drawing,
+sound and message hooked. `step_model.go` transcribes the three routines. The two agree on
+2,796 enumerated orders (`TestStepCoverage`):
+- routes from every movement class;
+- the refusals;
+- an order changed before its start;
+- own units passed;
+- a hidden enemy on the route and on the destination;
+- a two-cell ship and an empty transporter.
+
+Seven more run in the emulator only, and their outcome is checked. Six are the map-edge
+leaks. The seventh is a reach bit left from an earlier query that the search cannot reach:
+the search then expands its sentinel, whose column and row are leftover buffer bytes, past
+the bit array. What the runs show:
+
+- **Budget.** Live byte 0 is not spent. Nothing in the move reads or writes it; the budget
+  only limits the reach search.
+- **Routes.** The step walks the route it is given, cell by cell. It checks neither a zone of
+  control nor the budget. Of the routes executed, 48 pass a zone of control and 11 cost more
+  than the whole budget, and all of them end at the destination.
+- **Hidden units.** The move happens on the moving side's map and position word only. A
+  unit that only the other side's map holds is walked over, or ended on, without any
+  reaction: the other side's map and its view of the unit's position are left as they were.
+  How and when the other side's map catches up is visibility (R2 item 4).
+- **Order list.** Every started move appends the unit to the side's order list, and the
+  arrival marks it moved (live `+4` bit 0x200). What the cycle does with both is R3.
+
+The reach search only ORs its bits into `32e2:3b50`; clearing them is left to its callers
+(`0b06:000f`, called from 19 places). Whether the player's reach ever starts on
+bits left from an earlier query is a question for the cycle trace (R3).
 
 ## Combat arithmetic
 
@@ -401,9 +468,10 @@ screen's drawing, animations or order scheduling, has not been excluded.
    recorded fixtures; once the full `HL.EXE` is supplied, its export is recorded the same
    way (`go test ./internal/dosoracle -run TestFixtures -update`) and compared with the demo's
    tables and fixtures. A difference becomes a profile field, not a hidden constant.
-3. Movement costs and destination restrictions are executed on the demo (see
-   *Movement*). Still open: the step executor `10cc:05c3`/`071e`, transport weights,
-   loading and exits, and the full build's addresses.
+3. Movement costs, destination restrictions and the move execution are executed on the
+   demo (see *Movement* and *Move execution*). Still open: how the other side's map
+   follows a move (visibility), transport weights, loading and exits, and the full build's
+   addresses.
 4. Finish the order scheduler and capture/production/construction paths. Establish
    cycle ordering, simultaneous-order conflicts, energy credit timing, repair timing,
    ownership transfer, map availability and victory checks.

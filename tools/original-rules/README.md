@@ -129,4 +129,14 @@ It also checks the rules these cases show on the executed outputs. The fixture r
 writes `movement-tables.json` and `movements.json` (schema
 `docs/research/movement-fixture.schema.json`) beside the dosrules fixtures.
 `TestMovementFixtures` replays them through the transcription without the original files.
-The step executor that moves a unit along a route is not run yet.
+
+`Export.RunMove` runs a move order the way the player gives it: the reach search, the order code
+`10cc:02dd`, the move start `10cc:05c3` and the step `10cc:071e` once per call until the unit
+arrives (`10cc:0ae2`). Only the drawing, the sound and the status message are hooked; the
+message codes are recorded. `step_model.go` is the transcription. `TestStepCoverage` compares
+them on the routes of every movement class, the refused orders, an order changed before its
+start, own units passed, hidden enemies on the route and the destination, a two-cell ship and an
+empty transporter. It checks on the executed outcomes that live byte 0 is not spent, that every
+route is walked to its end and that the other side's map is untouched. The recorder writes
+`steps.json` (schema `docs/research/step-fixture.schema.json`), and `TestStepFixtures` replays it
+without the original files.
