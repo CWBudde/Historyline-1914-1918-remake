@@ -56,9 +56,9 @@
       "properties": {
         "remaining": {"description": "The cost buffer after the reach search, per cell in cell order (signed byte): the budget left on reaching the cell; below 0 the negated entry cost, -80 closed, -102/-101 a zone of control of side 0/1, -1 untouched.", "type": "array", "items": {"type": "integer", "minimum": -128, "maximum": 127}},
         "count": {"description": "Cells reached (AX of the reach search).", "type": "integer", "minimum": 0},
-        "destinations": {"description": "Cells the unit may end on, in the order the routine lists them (column by column); null where the end-cell check reaches its container branch.", "type": ["array", "null"], "items": {"type": "integer", "minimum": 0}},
+        "destinations": {"description": "Cells the unit may end on, in the order the routine lists them (column by column); null where the end-cell check reaches its container branch (recorded in container-fixture form instead).", "type": ["array", "null"], "items": {"type": "integer", "minimum": 0}},
         "codes": {
-          "description": "[cell, end code] for reached cells outside the container branch: 0 allowed, 0x37 a unit of another side, 0x39 an own unit carrying nothing, 0x40 terrain closed to the unit.",
+          "description": "[cell, end code] for reached cells outside the container branch (see container-fixture.schema.json): 0 allowed, 0x37 a unit of another side, 0x39 an own unit carrying nothing, 0x40 terrain closed to the unit.",
           "type": "array",
           "items": {"type": "array", "prefixItems": [{"type": "integer", "minimum": 0}, {"type": "integer", "minimum": 0, "maximum": 65535}], "minItems": 2, "maxItems": 2}
         },
