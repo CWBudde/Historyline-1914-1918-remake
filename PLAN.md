@@ -941,13 +941,36 @@ The completed compatibility work below remains useful and stays completed.
       so one of six adjacent directions takes the range penalty (panzers against infantry:
       2 losses in five directions, 1 in the sixth). The full build's handler is not located
       (no export); the map-edge ranged case stays undefined.
-- [ ] Decide whether the DOS profile reproduces the transposed battle distance (a
+- [x] Decide whether the DOS profile reproduces the transposed battle distance (a
       directional range penalty, ranged distances off by up to ±2) or uses the layout
       distance as a recorded deviation; see the *Battle distance* discrepancy in the spec.
-- [ ] Implement a pure Go DOS resolver only after the comparison fixtures agree. The traced
+      (2026-10-18) — decided: `dos-0.1` reproduces it behind a switch
+      (`dosrules.Profile.TransposedDistance`, on in `dosrules.Demo`; off, the same routine is
+      called with (column, row), as the movement code does, and gives the layout distance,
+      `TestDistanceSwitch`); Standard keeps the layout distance. Also decided: the demo's
+      `HL14-18.EXE` is the build of record until the full `HL.EXE` is supplied.
+- [x] Implement a pure Go DOS resolver only after the comparison fixtures agree. The traced
       casualty routine seeds the RNG but makes no random draw; do not add Python's damage
       roll. Verify any randomness in scheduling or presentation separately. Preserve Python
       roll injection and its existing 600-case parity oracle in the compatibility profile.
+      (2026-10-18) — `internal/dosrules`: typed `Casualties`, `Support`, `Distance`, `Engage`
+      and the experience award, without the emulator and without any random draw, bound to
+      the demo's tables by `dosrules.Demo` (`demo.json`, numbers only; a full-build profile
+      can be added beside it). Locally it agrees with the emulator on every engagement scene
+      and all 4,828 coverage battles. `go test ./internal/dosoracle -run TestFixtures
+      -update` records 446 engagements and 1,386 casualty runs into
+      `internal/dosrules/testdata/demo/` (new `engagement-fixture.schema.json`; the battle
+      schema takes synthetic records). CI replays them (`TestEngagementFixtures`,
+      `TestCasualtyFixtures`, `TestRepeatable`), and the layout distance or unconditional
+      return fire fails them (16 and 54 mismatches). Randomness: the game's RNG is a Borland
+      C `rand` (seed `0000:07ab`, draw `0000:07c3`); with the game's own seed routine bound
+      and the draw armed to fail, the battle path never draws and four RNG states give the
+      same outcomes (`TestEngagementNoRandom`). Draws in scheduling (R3) and in the hooked
+      battle screen remain unverified. `internal/game`'s Classic roll injection and its Python
+      oracle are untouched.
+- [ ] Re-run the R1 oracle, fixtures and gate on the full `HL.EXE` once it is supplied:
+      export it, locate its order handler (`Build.Handler`), record its fixtures beside the
+      demo's and turn every difference from the demo into a `dosrules.Profile` field.
 - [ ] **Gate:** both sides' losses and experience transitions match the original fixtures;
       repeated identical battle states give identical casualty results, and every known
       arithmetic/manual discrepancy has an observed result or remains explicitly gated off.

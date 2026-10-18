@@ -166,6 +166,7 @@ them. The rest moved; each address was located by instruction structure:
 | not located | `32e2:1812` | battle context (`3aae:0045` points to it) |
 | not located | `1307:178f`, `242a:000f` | battle screen, animated battle (both call the casualty routine) |
 | not located | `32e2:09bb`, `32e2:05a1` | type records (69 bytes), terrain records (6 bytes) |
+| `0000:07ab` (draw and state not checked) | `0000:07ab`, `0000:07c3`, `3cc5:11f6` | RNG seed, draw, 32-bit state |
 
 Executed on the demo build, the three routines agree with the transcriptions on every
 enumerated case (see the specification), so the demo is a usable stand-in where the full
@@ -199,8 +200,10 @@ once inside the battle animation. The experience window `0908–0abf` follows. T
 
 `Export.RunEngagement` executes this handler on a map with the build's own type records and
 stops at `0abf`; only the drawing, scrolling and sound routines, the stack check, the
-battle screen's drawing, the RNG seed callback and the experience window's destroy (recorded)
-and redraw helpers are hooked. `Engage` composes `Support`, `Distance`, `Resolve` and `Award`
+battle screen's drawing and the experience window's destroy (recorded) and redraw helpers
+are hooked. The context's seed callback is bound to the game's own seed routine `0000:07ab`,
+and the RNG draw `0000:07c3` is armed to fail: no battle calls it, and four different RNG
+states give identical outcomes. `Engage` composes `Support`, `Distance`, `Resolve` and `Award`
 in the same order. Two findings: the support routine's eligibility word is the type
 record's target-flag word at `+6`, and the casualty routine calls the hex distance
 `0e40:2421` with (row, column) although the routine — and the movement code at `0b06:117f` —
@@ -296,8 +299,11 @@ update byte 2. Reaching zero secondary strength also zeroes primary strength.
 At `2466:03ff–0440`, a callback seeds the RNG. Initialization at `0660:0ce7–0cf0`
 binds that callback to `0000:07ab`, which only stores the seed. There is **no random
 draw in this casualty routine**. The exact routine therefore does not support
-copying the Python random damage term. Randomness elsewhere, including animations
-or order scheduling, has not been excluded.
+copying the Python random damage term. In the demo the RNG is a Borland C `rand`: the
+draw `0000:07c3` steps the 32-bit state at `3cc5:11f6` as state × 0x015a4e35 + 1 and returns
+its high word masked to 15 bits; only the seed routine and the draw touch the state. The
+order handler's battle path never calls the draw. Randomness elsewhere, in the battle
+screen's drawing, animations or order scheduling, has not been excluded.
 
 ## Next verification needed for exact fidelity
 
@@ -308,7 +314,10 @@ or order scheduling, has not been excluded.
    eligibility, kill experience and swapped roles on the demo build (see *Battle callers*).
    Still open: the full build's handler addresses, inputs from a real level, the map-edge
    ranged case and whether the transposed battle distance is visible in a real DOSBox
-   battle.
+   battle. The pure Go resolver `internal/dosrules` reproduces the demo's results from
+   recorded fixtures; once the full `HL.EXE` is supplied, its export is recorded the same
+   way (`go test ./internal/dosoracle -run TestFixtures -update`) and compared with the demo's
+   tables and fixtures. A difference becomes a profile field, not a hidden constant.
 3. Trace movement costs and destination restrictions in `0b06` and `10d2`, including
    enemy adjacency, roads/rails/water, hidden occupants, transport weights and exits.
 4. Finish the order scheduler and capture/production/construction paths. Establish

@@ -9,6 +9,7 @@ verify it. It is not an implementation guide until a rule reaches **execution-ve
 | Item | Value |
 |---|---|
 | Target build | `HL.EXE`, SHA-256 `fe4fa446…a38a9b92` (prefix `fe4fa446` in fixtures) |
+| Build of record | the demo's `HL14-18.EXE` (prefix `83fc4e37`) until the full `HL.EXE` is supplied and re-verified (decided 2026-10-18); `dosrules.Demo` binds `dos-0.1` to its tables |
 | Profile | `dos-MAJOR.MINOR`. Current: `dos-0.1` (research; nothing enabled in the game) |
 | Bump MAJOR | a rule changes meaning, or a fixture expectation changes |
 | Bump MINOR | a rule is added or its status rises without changing results |
@@ -16,9 +17,14 @@ verify it. It is not an implementation guide until a rule reaches **execution-ve
 
 Saves, replays and fixtures store the profile string. Fixtures follow
 [battle-fixture.schema.json](battle-fixture.schema.json) (checked by
-`tools/original-rules/test_fixture_schema.py`). A fixture holds numbers only, never original
-bytes or listings. Unknown record bytes stay raw (`raw` overrides by byte offset). The 51 unit
-records are not 51 distinct named units: repeated naval records differ in flags.
+`tools/original-rules/test_fixture_schema.py`); attack orders through the order handler follow
+[engagement-fixture.schema.json](engagement-fixture.schema.json). A fixture holds numbers only,
+never original bytes or listings. A side names a type record of the build or gives a synthetic
+record's numeric fields; unknown record bytes stay raw (`raw` overrides by byte offset). The 51 unit
+records are not 51 distinct named units: repeated naval records differ in flags. The recorded
+corpus is `internal/dosrules/testdata/<build>/` (`engagements.json`, `casualties.json`) with the
+build's tables in `internal/dosrules/<build>.json`; `go test ./internal/dosoracle -run TestFixtures
+-update` rewrites them from the local export, and without `-update` checks them.
 
 ## Evidence statuses
 
@@ -44,7 +50,12 @@ records, and its neighbour list, support call, battle screen, casualty routine a
 window agree field for field with `Engage`, which composes the transcriptions
 (`TestEngagementDuels`, `…Blocking`, `…Pincer`, `…Ranged`, `…Experience`; only drawing,
 scrolling and sound are hooked; see the *Battle callers* section of
-`docs/research/original-dos-rules.md`). Addresses below are the full build's; the demo's are listed in
+`docs/research/original-dos-rules.md`). Since 2026-10-18 the pure Go resolver
+`internal/dosrules` (no emulator) reproduces all of it: it agrees with the emulator on every
+engagement scene and all 4,828 coverage battles locally, and in CI with the recorded fixtures (446
+engagements, 1,386 casualty runs of the demo build; `TestEngagementFixtures`,
+`TestCasualtyFixtures`, `TestRepeatable`); a resolver with the layout distance or unconditional
+return fire fails them (16 and 54 mismatches). Addresses below are the full build's; the demo's are listed in
 `docs/research/original-dos-rules.md`. A rule moves up only
 with a fixture or trace id recorded in its row. Conflicts between sources are listed in the discrepancy section, never merged silently.
 
@@ -79,16 +90,16 @@ with a fixture or trace id recorded in its row. Conflicts between sources are li
 | Experience terms | divisor 256 for attack and attacker defence, 512 for defender defence (`2466:06c9`); denominator parameter clamps differ (attacker 1…7, defender 2/6 substitution). The order handler passes the ordering unit as attacker; experience 0–6 on both sides, each pair also with the roles swapped, agrees with `Resolve` (`TestEngagementDuels`) | Manual treats ranks symmetrically | Full-build export | executed (caller, demo) |
 | Kill experience | extracted and executed (emulated) at `02dc:0908–0abb`: the opponent gains 1 for any strength lost (unless the loser's live flag word at +6 has bit 0x20) and 1 more when the loser is destroyed, so a kill awards 2; clamp 6; transcription `Award` in `internal/dosoracle`. Through the order handler (demo): defender sizes 1–6, with and without 0x20, attacker experience 0/5/6 — a loss gives 1, a kill 2 (1 with 0x20, which suppresses only the loss award), the destroy helper is called for the defender (`TestEngagementExperience`) | Manual wording | Name flag bit 0x20 | executed (caller, demo) |
 | Ranged support | **executed**: a non-adjacent attacker gets pincer 0 and blocking 0 when all six defender neighbours are on the map; at a map edge the attacker's direction comes from an uninitialised stack byte (undefined, not reproducible); long-range units never count as supporters or blockers. Through the order handler (demo): light artillery at layout distance 2–4, with would-be supporters around both units, gets 0/0 and no return fire; adjacent long-range and special defenders do not return fire (`TestEngagementRanged`) | Manual | Map-edge case | executed (caller, demo; edge case undefined) |
-| Battle distance | **executed (emulated, demo)**: the casualty routine passes (row, column) pairs to the hex distance `0e40:2421`, which is written for (column, row) — the movement code calls it that way (`0b06:117f`), and so called it gives 1 for every cell the neighbour routine lists. Transposed, one of the six neighbours is at distance 2 (on an even row direction 1 from an even column and 2 from an odd one; on an odd row 5 and 4), so an adjacent attack in that direction takes the range penalty when the weapon's encoded range exceeds 1: a full group of panzers (47) or light artillery (10) against infantry kills 2 in five directions and 1 in the sixth. On a 9 × 9 map ranged distances are off by up to ±2. `Distance` agrees with the routine on all 4,096 pairs of an 8×8 grid (`TestDistanceAgrees`, `TestBattleDistanceTransposed`) | Manual: no directional effect | Full-build export; a real battle in DOSBox would show it | executed (emulated, demo) |
+| Battle distance | **executed (emulated, demo)**: the casualty routine passes (row, column) pairs to the hex distance `0e40:2421`, which is written for (column, row) — the movement code calls it that way (`0b06:117f`), and so called it gives 1 for every cell the neighbour routine lists. Transposed, one of the six neighbours is at distance 2 (on an even row direction 1 from an even column and 2 from an odd one; on an odd row 5 and 4), so an adjacent attack in that direction takes the range penalty when the weapon's encoded range exceeds 1: a full group of panzers (47) or light artillery (10) against infantry kills 2 in five directions and 1 in the sixth. On a 9 × 9 map ranged distances are off by up to ±2. `Distance` agrees with the routine on all 4,096 pairs of an 8×8 grid (`TestDistanceAgrees`, `TestBattleDistanceTransposed`). **Decided 2026-10-18:** `dos-0.1` reproduces it behind a switch (`dosrules.Profile.TransposedDistance`, on in `dosrules.Demo`; off, the same routine is called with (column, row) and gives the layout distance, `TestDistanceSwitch`); Standard keeps the layout distance | Manual: no directional effect | Full-build export; a real battle in DOSBox would show it | reproduced (switchable) |
 | Raw budget vs 2 × speed | budget byte 0 vs speed byte 1 (e.g. 16 vs 6, 8 vs 2, 4 vs 1) | Standard uses 2 × speed | R2 movement trace | open |
 | Fixed-point rounding | `adjust` truncates: 20 armour with 150% blocking gives 49 in the high word, not 50 (13107 × 150 stays just below 30.0) | none | recorded as a test (`test_combat_model.py`) | observed |
-| Python vs DOS damage | DOS has no random draw; Python adds one | `Classic` parity | none: both stay, separate profiles | accepted |
+| Python vs DOS damage | DOS has no random draw; Python adds one. Executed (demo): the game's RNG is a Borland C `rand` (state × 0x015a4e35 + 1; seed `0000:07ab`, draw `0000:07c3`, state `3cc5:11f6`); the casualty routine only seeds it through the context's callback, and the order handler's battle path never calls the draw — with the draw armed to fail and four different RNG states the outcomes are identical (`TestEngagementNoRandom`). Draws in scheduling or presentation (the hooked battle screen) are not covered | `Classic` parity | R3 traces the scheduler's draws | accepted |
 
 ## Mechanic coverage for R1–R4
 
 | Mechanic | Phase | Status | Next evidence |
 |---|---|---|---|
-| Casualty resolution | R1 | executed (emulated, with its caller on the demo) | full-build export; inputs from a real level |
+| Casualty resolution | R1 | executed (emulated, with its caller on the demo); resolver `internal/dosrules` matches the recorded fixtures | full-build export; inputs from a real level |
 | Terrain classes (9) | R1 | executed (emulated, random classes) | name the classes; map terrain bytes |
 | Movement cost, road/rail/water | R2 | static (table only) | trace `0b06`, `10d2` |
 | Zone of control / adjacency | R2 | hypothesis | trace; do not choose stop vs cost before this |

@@ -61,9 +61,22 @@ transcriptions of the same code:
 - `Export.RunEngagement` runs the order handler `02dc:0004` for one attack order on a map
   holding the build's own type records, through the neighbour list, support call, battle
   screen, casualty routine and experience window, and stops after the first battle. Only
-  drawing, scrolling, sound and the routines named above are hooked. `Engage` composes the
-  transcriptions in the handler's order. The handler is located in the demo only
-  (`Build.Handler`); the engagement tests skip a build without it.
+  drawing, scrolling, sound and the routines named above are hooked; the seed callback is the
+  game's own and the RNG draw fails if called. `Engage` composes the transcriptions in the
+  handler's order. The handler is located in the demo only (`Build.Handler`); the engagement
+  tests skip a build without it.
+
+`internal/dosrules` is the pure Go resolver of profile `dos-0.1`, written apart from the
+transcriptions and free of the emulator. `dosrules.Demo` binds it to the demo's tables
+(`internal/dosrules/demo.json`, numbers only); `Profile.TransposedDistance` switches the battle
+distance between the executed (row, column) call and the layout distance. The engagement and
+coverage tests compare it with the emulator on every case, and its own tests compare it with
+fixtures recorded from the emulator, so CI checks it without the original files. To re-record
+the tables and fixtures from a local export (and, without `-update`, to check them):
+
+```sh
+go test ./internal/dosoracle -run TestFixtures -update
+```
 
 ```sh
 go test ./internal/dos8086 ./internal/dosoracle -v
