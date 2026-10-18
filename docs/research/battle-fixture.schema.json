@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "battle-fixture.schema.json",
   "title": "Original-DOS battle fixture",
-  "description": "One casualty-routine case (2466:000e). Numbers only: no original bytes or listings. Unit type fields stay raw; indexes refer to the 51 UNIT.DAT type records.",
+  "description": "One casualty-routine case (2466:000e in the full build, 2451:0004 in the demo). Numbers only: no original bytes or listings. A side names one of the build's 51 UNIT.DAT type records or gives a synthetic record. Values beyond the game's ranges probe the routine's byte arithmetic.",
   "type": "object",
   "required": ["schema", "profile", "id", "source", "attacker", "defender", "context", "expected"],
   "additionalProperties": false,
@@ -10,17 +10,7 @@
     "schema": {"const": 1},
     "profile": {"description": "Rules profile and data version the case was recorded for.", "type": "string", "pattern": "^dos-[0-9]+\\.[0-9]+$"},
     "id": {"type": "string", "minLength": 1},
-    "source": {
-      "description": "How the expectation was obtained.",
-      "type": "object",
-      "required": ["kind", "build"],
-      "additionalProperties": false,
-      "properties": {
-        "kind": {"enum": ["emulated-routine", "controlled-game", "transcription", "manual"]},
-        "build": {"description": "SHA-256 prefix of the HL.EXE the case was recorded against.", "type": "string", "pattern": "^[0-9a-f]{8,64}$"},
-        "note": {"type": "string"}
-      }
-    },
+    "source": {"$ref": "#/$defs/source"},
     "attacker": {"$ref": "#/$defs/side"},
     "defender": {"$ref": "#/$defs/side"},
     "context": {
@@ -28,20 +18,23 @@
       "required": ["distance", "attackerTerrainClass", "defenderTerrainClass"],
       "additionalProperties": false,
       "properties": {
-        "distance": {"description": "Hex distance returned by 0e47:2414.", "type": "integer", "minimum": 0},
+        "distance": {"description": "Hex distance returned by 0e47:2414 (0e40:2421 in the demo).", "type": "integer", "minimum": 0},
         "attackerTerrainClass": {"description": "Terrain record byte 5.", "type": "integer", "minimum": 0, "maximum": 8},
         "defenderTerrainClass": {"type": "integer", "minimum": 0, "maximum": 8},
         "pincer": {"description": "Stored 8-bit pincer percentage (02dc:262a).", "type": "integer", "minimum": 0, "maximum": 255},
-        "blocking": {"description": "Stored blocking percentage, capped at 150 (02dc:275e).", "type": "integer", "minimum": 0, "maximum": 150}
+        "blocking": {"description": "Stored blocking percentage; the support routine stores at most 150.", "type": "integer", "minimum": 0, "maximum": 255},
+        "returnFire": {"description": "Context +0x2e: the caller allows return fire (the defender is adjacent).", "type": "boolean"}
       }
     },
     "expected": {
       "type": "object",
-      "required": ["attackerSizeAfter", "defenderSizeAfter"],
       "additionalProperties": false,
       "properties": {
+        "error": {"description": "The routine raised an error instead of a result.", "enum": ["divide-error"]},
         "attackerSizeAfter": {"type": "integer", "minimum": 0},
+        "attackerAlternateAfter": {"type": "integer", "minimum": 0},
         "defenderSizeAfter": {"type": "integer", "minimum": 0},
+        "defenderAlternateAfter": {"type": "integer", "minimum": 0},
         "attackerExperienceAfter": {"type": "integer", "minimum": 0, "maximum": 6},
         "defenderExperienceAfter": {"type": "integer", "minimum": 0, "maximum": 6},
         "returnFireSuppressed": {"type": "boolean"}
@@ -49,16 +42,47 @@
     }
   },
   "$defs": {
-    "side": {
+    "source": {
+      "description": "How the expectation was obtained.",
       "type": "object",
-      "required": ["type", "size", "experience"],
+      "required": ["kind", "build"],
       "additionalProperties": false,
       "properties": {
-        "type": {"description": "UNIT.DAT record index.", "type": "integer", "minimum": 0, "maximum": 50},
+        "kind": {"enum": ["emulated-routine", "controlled-game", "transcription", "manual"]},
+        "build": {"description": "SHA-256 prefix of the executable the case was recorded against (HL.EXE, or HL14-18.EXE of the demo).", "type": "string", "pattern": "^[0-9a-f]{8,64}$"},
+        "note": {"type": "string"}
+      }
+    },
+    "side": {
+      "type": "object",
+      "required": ["size", "experience"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {"description": "UNIT.DAT record index of the build.", "type": "integer", "minimum": 0, "maximum": 50},
+        "record": {"$ref": "#/$defs/record"},
         "size": {"description": "Live group strength (live byte 2).", "type": "integer", "minimum": 0},
         "alternateSize": {"description": "Live byte 3 for alternate-strength units.", "type": "integer", "minimum": 0},
-        "experience": {"type": "integer", "minimum": 0, "maximum": 6},
+        "experience": {"description": "Live byte 1; the game keeps 0-6.", "type": "integer", "minimum": 0, "maximum": 255},
+        "flags": {"description": "Live flag word +4: side bits 1/2, target class bits (0x08 boat, 0x10 aircraft).", "type": "integer", "minimum": 0},
         "raw": {"description": "Raw type-record overrides by byte offset, as hex; unknown fields stay raw.", "type": "object", "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{2}$"}}
+      }
+    },
+    "record": {
+      "description": "The type-record fields combat reads, as numbers.",
+      "type": "object",
+      "required": ["armour", "group", "targetFlags", "airRange", "surfaceRange", "airPower", "groundPower", "waterPower", "attackMask", "strengthFlags"],
+      "additionalProperties": false,
+      "properties": {
+        "armour": {"description": "+2", "type": "integer", "minimum": 0, "maximum": 255},
+        "group": {"description": "+3", "type": "integer", "minimum": 0, "maximum": 255},
+        "targetFlags": {"description": "+6 word", "type": "integer", "minimum": 0, "maximum": 65535},
+        "airRange": {"description": "+8, encoded", "type": "integer", "minimum": 0, "maximum": 255},
+        "surfaceRange": {"description": "+9, encoded", "type": "integer", "minimum": 0, "maximum": 255},
+        "airPower": {"description": "+10", "type": "integer", "minimum": 0, "maximum": 255},
+        "groundPower": {"description": "+11", "type": "integer", "minimum": 0, "maximum": 255},
+        "waterPower": {"description": "+12", "type": "integer", "minimum": 0, "maximum": 255},
+        "attackMask": {"description": "+0x0d word", "type": "integer", "minimum": 0, "maximum": 65535},
+        "strengthFlags": {"description": "+0x0f word; bit 4 counts the alternate strength", "type": "integer", "minimum": 0, "maximum": 65535}
       }
     }
   }

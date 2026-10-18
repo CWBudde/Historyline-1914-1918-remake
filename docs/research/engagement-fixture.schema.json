@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "engagement-fixture.schema.json",
+  "title": "Original-DOS engagement fixture",
+  "description": "One attack order resolved by the order handler (02dc:0004 in the demo) on a DOS map: Width x Height cells numbered row by row, odd columns half a cell lower. Numbers only; unit types index the build's UNIT.DAT records.",
+  "type": "object",
+  "required": ["schema", "profile", "id", "source", "width", "height", "side", "attacker", "target", "mapByte0", "units", "terrain", "expected"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {"const": 1},
+    "profile": {"type": "string", "pattern": "^dos-[0-9]+\\.[0-9]+$"},
+    "id": {"type": "string", "minLength": 1},
+    "source": {
+      "type": "object",
+      "required": ["kind", "build"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {"enum": ["emulated-routine", "controlled-game", "transcription", "manual"]},
+        "build": {"description": "SHA-256 prefix of the executable.", "type": "string", "pattern": "^[0-9a-f]{8,64}$"},
+        "note": {"type": "string"}
+      }
+    },
+    "width": {"type": "integer", "minimum": 2},
+    "height": {"type": "integer", "minimum": 2},
+    "side": {"description": "The player whose order list runs (0 or 1).", "type": "integer", "minimum": 0, "maximum": 1},
+    "attacker": {"description": "Live unit index of the ordered unit.", "type": "integer", "minimum": 0, "maximum": 240},
+    "target": {"description": "Target cell.", "type": "integer", "minimum": 0},
+    "mapByte0": {"description": "Low byte of cell 0 (its terrain index), read for off-map neighbours.", "type": "integer", "minimum": 0, "maximum": 255},
+    "units": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["index", "type", "cell", "size", "alternateSize", "experience", "flags4", "flags6"],
+        "additionalProperties": false,
+        "properties": {
+          "index": {"type": "integer", "minimum": 0, "maximum": 240},
+          "type": {"type": "integer", "minimum": 0, "maximum": 50},
+          "cell": {"type": "integer", "minimum": 0},
+          "size": {"type": "integer", "minimum": 0, "maximum": 255},
+          "alternateSize": {"type": "integer", "minimum": 0, "maximum": 255},
+          "experience": {"type": "integer", "minimum": 0, "maximum": 255},
+          "flags4": {"description": "Live word +4: side bits 1/2, target classes.", "type": "integer", "minimum": 0, "maximum": 65535},
+          "flags6": {"description": "Live word +6: bit 0x20 gives the opponent no experience for a loss.", "type": "integer", "minimum": 0, "maximum": 65535}
+        }
+      }
+    },
+    "terrain": {
+      "description": "Combat class of cells other than the default 7 (terms 0/0).",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["cell", "class"],
+        "additionalProperties": false,
+        "properties": {
+          "cell": {"type": "integer", "minimum": 0},
+          "class": {"type": "integer", "minimum": 0, "maximum": 8}
+        }
+      }
+    },
+    "expected": {
+      "type": "object",
+      "required": ["battle", "defender", "returnFire", "pincer", "blocking", "attackerSize", "attackerAlternateSize",
+        "defenderSize", "defenderAlternateSize", "attackerExperience", "defenderExperience", "destroyed"],
+      "additionalProperties": false,
+      "properties": {
+        "error": {"enum": ["divide-error", "undefined"]},
+        "battle": {"description": "False when the target cell is empty and the order is skipped.", "type": "boolean"},
+        "defender": {"type": "integer", "minimum": 0, "maximum": 255},
+        "returnFire": {"type": "boolean"},
+        "pincer": {"type": "integer", "minimum": 0, "maximum": 255},
+        "blocking": {"type": "integer", "minimum": 0, "maximum": 150},
+        "attackerSize": {"type": "integer", "minimum": 0, "maximum": 255},
+        "attackerAlternateSize": {"type": "integer", "minimum": 0, "maximum": 255},
+        "defenderSize": {"type": "integer", "minimum": 0, "maximum": 255},
+        "defenderAlternateSize": {"type": "integer", "minimum": 0, "maximum": 255},
+        "attackerExperience": {"type": "integer", "minimum": 0, "maximum": 255},
+        "defenderExperience": {"type": "integer", "minimum": 0, "maximum": 255},
+        "destroyed": {"description": "Live units destroyed, attacker first.", "type": "array", "items": {"type": "integer", "minimum": 0, "maximum": 255}}
+      }
+    }
+  }
+}
