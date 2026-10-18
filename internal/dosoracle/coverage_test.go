@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dos8086"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
 )
 
 // R1 coverage: each input class of the casualty, support and experience
@@ -170,6 +171,15 @@ func battleCoverage(t *testing.T, e *Export) {
 			t.Fatalf("%s case %d: emulator error %v, model error %v", c.class, i, gerr, werr)
 		}
 		perClass[c.class]++
+		f := casualtyFixture(e, c.class, c)
+		ra, rd, rc, err := f.Inputs(profileOf(e).Tables)
+		if err != nil {
+			t.Fatal(err)
+		}
+		res, rerr := profileOf(e).Casualties(ra, rd, rc)
+		if !errors.Is(rerr, dosrules.ErrDivideError) != (gerr == nil) || (gerr == nil && res != dosrules.Result(got.Result)) {
+			t.Errorf("%s case %d: emulator %+v %v, dosrules %+v %v", c.class, i, got.Result, gerr, res, rerr)
+		}
 		if gerr != nil {
 			divide++
 			continue

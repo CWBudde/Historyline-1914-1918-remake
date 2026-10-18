@@ -51,6 +51,11 @@ type Handler struct {
 
 	// Routines that only draw, scroll the view or play sound.
 	Present [][2]int
+
+	// The game's RNG: the seed routine that its initialisation binds to the
+	// context's callback at +0x6a, the draw routine, and the 32-bit state
+	// both use (state*0x015a4e35+1, the Borland C rand).
+	Srand, Rand, RandState [2]int
 }
 
 // HLSHA256 identifies the investigated HL.EXE build.
@@ -89,6 +94,7 @@ var Demo = Build{
 			{0x293D, 0x000C}, {0x28A6, 0x0004}, {0x29DA, 0x0000}, // mouse and screen updates
 			{0x2F03, 0x1054}, // sound
 		},
+		Srand: [2]int{0x0000, 0x07AB}, Rand: [2]int{0x0000, 0x07C3}, RandState: [2]int{0x3CC5, 0x11F6},
 	},
 }
 

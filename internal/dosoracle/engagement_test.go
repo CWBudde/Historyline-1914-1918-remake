@@ -129,11 +129,18 @@ func needHandler(t *testing.T, e *Export) {
 	}
 }
 
-// engage runs a scene through the handler and the model and compares them.
+// engage runs a scene through the handler, the model and the dosrules
+// resolver and compares them.
 func engage(t *testing.T, e *Export, what string, g *Engagement) Outcome {
 	t.Helper()
+	if sceneSink != nil {
+		sceneSink(what, g)
+	}
 	want, werr := Engage(g, e.TypeRecord, e.TerrainTerms())
 	got, gerr := e.RunEngagement(g)
+	if res, exp := resolved(e, g), expectedOf(got, gerr); !reflect.DeepEqual(res, exp) {
+		t.Errorf("%s:\nemulator %+v\ndosrules %+v", what, exp, res)
+	}
 	if werr != nil || gerr != nil {
 		if !errors.Is(werr, ErrDivideError) || !errors.Is(gerr, ErrDivideError) {
 			t.Fatalf("%s: model %v, emulator %v", what, werr, gerr)
@@ -317,6 +324,43 @@ func engagementRanged(t *testing.T, e *Export) {
 		before := g.Units[0].Size
 		if o := engage(t, e, fmt.Sprintf("adjacent type %d", typ), g); o.AttackerSize != before {
 			t.Errorf("type %d returned fire: %+v", typ, o)
+		}
+	}
+}
+
+func TestEngagementNoRandom(t *testing.T) { eachExport(t, engagementNoRandom) }
+
+// The battle path draws no random number: with the RNG draw armed to fail and
+// different RNG states, the outcomes stay the same. The casualty routine only
+// seeds the RNG through the context's callback, which leaves a 16-bit seed.
+func engagementNoRandom(t *testing.T, e *Export) {
+	needHandler(t, e)
+	var scenes []*Engagement
+	for _, d := range ring(centre) {
+		scenes = append(scenes, duel(e, centre, d))
+	}
+	g := duel(e, centre, 2*sceneW+4)
+	g.Units[0] = fighter(e, lightArt, 1, centre)
+	scenes = append(scenes, g)
+	g = duel(e, centre, ring(centre)[1])
+	g.Units[0] = fighter(e, panzer, 1, centre)
+	scenes = append(scenes, g)
+	for i, g := range scenes {
+		var first Outcome
+		for k, s := range []uint32{0, 1, 0x12345678, 0xFFFFFFFF} {
+			state := s
+			o, err := e.runEngagement(g, &state)
+			if err != nil {
+				t.Fatalf("scene %d state %#x: %v", i, s, err)
+			}
+			if state>>16 != 0 {
+				t.Errorf("scene %d state %#x: not reseeded, state %#x", i, s, state)
+			}
+			if k == 0 {
+				first = o
+			} else if !reflect.DeepEqual(o, first) {
+				t.Errorf("scene %d: state %#x gives %+v, state 0 gives %+v", i, s, o, first)
+			}
 		}
 	}
 }

@@ -39,12 +39,19 @@ func (e *Export) RunDistance(r1, c1, r2, c2 int) (int, error) {
 // drawing, scrolling and sound routines of Handler.Present, the battle
 // screen (only its context store and casualty call are performed, the rest
 // draws into the rectangle at Handler.Screen), the experience window's
-// destroy helper (recorded) and redraw helper, and the RNG seed callback at
-// context +0x6a, which the game's initialisation binds to a routine that only
-// stores the seed. The animation switch is set so that the handler takes the
-// direct path; the animated path calls the same casualty routine once on
-// the same context through 242a:000f.
-func (e *Export) RunEngagement(g *Engagement) (Outcome, error) {
+// destroy helper (recorded) and redraw helper. The context's seed callback at
+// +0x6a is bound to the game's seed routine, as its initialisation does, and
+// the RNG draw is armed to fail with ErrRandomDraw. The animation switch is
+// set so that the handler takes the direct path; the animated path calls the
+// same casualty routine once on the same context through 242a:000f.
+func (e *Export) RunEngagement(g *Engagement) (Outcome, error) { return e.runEngagement(g, nil) }
+
+// ErrRandomDraw reports that the battle path called the game's RNG.
+var ErrRandomDraw = errors.New("random draw in the battle path")
+
+// runEngagement is RunEngagement with the RNG state set first and read back
+// at the end (nil keeps the image's initial state).
+func (e *Export) runEngagement(g *Engagement, state *uint32) (Outcome, error) {
 	b, h := e.B, e.B.Handler
 	if h == nil {
 		return Outcome{}, errors.New("the order handler is not located in this build")
@@ -100,9 +107,15 @@ func (e *Export) RunEngagement(g *Engagement) (Outcome, error) {
 	m.WW(baseSeg+h.Screen[0], h.Screen[1], 0)
 	m.WW(baseSeg+h.Screen[0], h.Screen[1]+2, ar.alloc(make([]byte, 0x40)))
 	m.WB(baseSeg+h.Option[0], h.Option[1], 1)
-	m.WW(data, h.Ctx+0x6A, 0)
-	m.WW(data, h.Ctx+0x6C, scratch+0x100)
-	m.Hooks[dos8086.Lin(scratch+0x100, 0)] = noHook
+	// The game's own seed routine; a draw anywhere in the battle path fails.
+	m.WW(data, h.Ctx+0x6A, h.Srand[1])
+	m.WW(data, h.Ctx+0x6C, baseSeg+h.Srand[0])
+	m.Hooks[e.lin(h.Rand)] = errHook(ErrRandomDraw)
+	if state != nil {
+		rs := baseSeg + h.RandState[0]
+		m.WW(rs, h.RandState[1], int(*state&0xFFFF))
+		m.WW(rs, h.RandState[1]+2, int(*state>>16))
+	}
 
 	for _, p := range h.Present {
 		m.Hooks[e.lin(p)] = noHook
@@ -150,6 +163,10 @@ func (e *Export) RunEngagement(g *Engagement) (Outcome, error) {
 		if err := m.Step(); err != nil {
 			return Outcome{}, wrapRun("order handler", err)
 		}
+	}
+	if state != nil {
+		rs := baseSeg + h.RandState[0]
+		*state = uint32(m.RW(rs, h.RandState[1])) | uint32(m.RW(rs, h.RandState[1]+2))<<16
 	}
 
 	ctx := h.Ctx
