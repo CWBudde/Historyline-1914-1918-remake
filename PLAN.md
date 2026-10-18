@@ -971,9 +971,20 @@ The completed compatibility work below remains useful and stays completed.
 - [ ] Re-run the R1 oracle, fixtures and gate on the full `HL.EXE` once it is supplied:
       export it, locate its order handler (`Build.Handler`), record its fixtures beside the
       demo's and turn every difference from the demo into a `dosrules.Profile` field.
-- [ ] **Gate:** both sides' losses and experience transitions match the original fixtures;
+- [x] **Gate:** both sides' losses and experience transitions match the original fixtures;
       repeated identical battle states give identical casualty results, and every known
       arithmetic/manual discrepancy has an observed result or remains explicitly gated off.
+      (2026-10-18) — by decision judged on the demo build of record and on the combat rows
+      only. `dosrules` `TestGate` reads the expectations recorded from the emulator, not the
+      resolver's results. It checks attacker and defender losses and destructions, and every
+      experience transition against the award rule (726 gains of 1, 14 kills, 18 no-award-bit
+      losses, 72 capped). It replays the casualty runs in reverse order. Blocking may only be
+      0/80/150 and pincers only byte sums of 25/50/100/50/25 (sums above 200 included). Ranged
+      battles have no support, and adjacent battles reach transposed distance 2. It requires
+      runs at the blocking cap, `percent(20, 150) = 49` and zero armour as a divide error.
+      The map-edge ranged case stays gated off (`ErrUndefined`). A recorded blocking or
+      experience value changed by hand fails it. *Raw budget vs 2 × speed* is a movement row,
+      left to the R2 gate. The full `HL.EXE` re-runs this gate (item above).
 
 #### R2 — Verify original data, movement and containers
 
