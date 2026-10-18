@@ -1,7 +1,5 @@
 package dosoracle
 
-import "errors"
-
 // The movement queries of segment 0b06 (demo addresses) work on a byte per
 // cell in arrays of 64 cells per row (index row*64+column, 0x1104 bytes);
 // the map itself is two bytes per cell in rows of Width cells (terrain
@@ -18,10 +16,6 @@ const (
 	zocSide1    = -101 // 0x9b: next to an enemy of side 1
 )
 
-// ErrContainer marks a destination check that reaches the transporter or
-// building branch of the end-cell check, which is not transcribed (R2 item 3).
-var ErrContainer = errors.New("container branch of the end-cell check")
-
 // MoveType holds the fields of a type record the movement queries read.
 type MoveType struct {
 	Budget int `json:"budget"` // byte 0, copied into live byte 0 by the constructor
@@ -34,6 +28,11 @@ type MoveType struct {
 	// cost by +0x16 (signed bytes).
 	DistanceWeight int `json:"distanceWeight"`
 	CostWeight     int `json:"costWeight"`
+
+	// A transporter's capacity (+0x40) and every type's weight (+0x41),
+	// which the end-cell check compares (UNIT.DAT bytes 64 and 65).
+	Capacity int `json:"capacity"`
+	Weight   int `json:"weight"`
 }
 
 // MoveTerrain is a 6-byte terrain record as the movement queries read it.
@@ -51,12 +50,14 @@ type MoveTables struct {
 }
 
 // Piece is a live unit on a movement map: flags at +4 (side bits 1/2,
-// class bits from the type's +0x0d), flags at +6, type and cell.
+// class bits from the type's +0x0d), flags at +6, type and cell. Hold is
+// live +0x0a, the record a transporter's cargo sits in (see Hold).
 type Piece struct {
 	Type   int `json:"type"`
 	Cell   int `json:"cell"`
 	Flags4 int `json:"flags4"`
 	Flags6 int `json:"flags6"`
+	Hold   int `json:"hold,omitempty"`
 }
 
 // Movement is one movement query of the live unit Unit for player Side.
@@ -65,15 +66,30 @@ type Piece struct {
 // queries read. Budget is the argument the callers take from live byte 0;
 // Block is the terrain flag mask that closes cells (the player's order code
 // passes 0xffff for live +6 bit 1, else 6 for a side-1 unit and 3 for
-// others). Goals are the path targets.
+// others). Goals are the path targets. Held units sit only in the slots of
+// Holds, the container and building records (index from Move.Containers;
+// a record not given has empty slots and zeros otherwise).
 type Movement struct {
 	Width, Height int
 	Terrain       []int
 	Units         map[int]Piece
 	Unseen        map[int]Piece
+	Held          map[int]Piece
+	Holds         map[int]Hold
 	Unit, Side    int
 	Budget, Block int
 	Goals         []int
+}
+
+// piece is a placed unit's record as Movement gives it, zeros if none.
+func (g *Movement) piece(idx int) Piece {
+	if u, ok := g.Units[idx]; ok {
+		return u
+	}
+	if u, ok := g.Unseen[idx]; ok {
+		return u
+	}
+	return g.Held[idx]
 }
 
 // occupants maps the cells of the side's map to unit indices.
@@ -88,10 +104,10 @@ func (g *Movement) occupants() map[int]int {
 // liveLen is the size of a live unit record (Build.Units).
 const liveLen = 26
 
-// liveRecords are the live records of Units and Unseen as the queries read
-// them: flags +4 and +6, the type at +8, the position 2*cell+1 at +0x0b and
-// +0x0d (the cell as each side sees it) and, for the moving unit, the budget
-// in byte 0.
+// liveRecords are the live records of Units, Unseen and Held as the queries
+// read them: flags +4 and +6, the type at +8, the hold at +0x0a, the position
+// 2*cell+1 at +0x0b and +0x0d (the cell as each side sees it) and, for the
+// moving unit, the budget in byte 0.
 func liveRecords(g *Movement) map[int][]byte {
 	recs := map[int][]byte{}
 	place := func(idx int, u Piece) {
@@ -99,6 +115,7 @@ func liveRecords(g *Movement) map[int][]byte {
 		putWord(r, 4, u.Flags4)
 		putWord(r, 6, u.Flags6)
 		r[8] = byte(u.Type)
+		r[0x0A] = byte(u.Hold)
 		for k := range 2 {
 			putWord(r, 0x0B+2*k, 2*u.Cell+1)
 		}
@@ -108,6 +125,9 @@ func liveRecords(g *Movement) map[int][]byte {
 		place(idx, u)
 	}
 	for idx, u := range g.Unseen {
+		place(idx, u)
+	}
+	for idx, u := range g.Held {
 		place(idx, u)
 	}
 	recs[g.Unit][0] = byte(g.Budget)
@@ -169,7 +189,7 @@ func (t *MoveTables) costs(g *Movement) []int8 {
 	for i := range buf {
 		buf[i] = -1
 	}
-	u := g.Units[g.Unit]
+	u := g.piece(g.Unit)
 	typ := t.Types[u.Type]
 	mode := 2 // ground: byte 3
 	if u.Flags4&0x10 != 0 {
@@ -246,7 +266,7 @@ func (t *MoveTables) costs(g *Movement) []int8 {
 // its cost if that is not negative, and a zone-of-control cell takes 0.
 func (t *MoveTables) Reach(g *Movement) (buf []int8, bits []byte, count int) {
 	buf = t.costs(g)
-	start := g.Units[g.Unit].Cell
+	start := g.piece(g.Unit).Cell
 	col, row := start%g.Width, start/g.Width
 	half := g.Budget >> 1
 	colLo, rowLo := max(col-half, 0), max(row-half, 0)
@@ -299,34 +319,11 @@ func own(flags, side int) bool {
 	return side&1 == 0
 }
 
-// EndCode is 10cc:0f74 for the moving unit: 0 if it may end on the cell,
-// 0x37 for a unit of another side there, 0x39 for an own unit that carries
-// nothing (the moving unit's own cell included) and 0x40 for terrain its
-// mask does not enter or, for an air unit, terrain flag 0x4000. An own
-// transporter or a building cell gives ErrContainer.
+// EndCode is 10cc:0f74 for the moving unit (EndCheck): 0 if it may end on
+// the cell, else the code it shows.
 func (t *MoveTables) EndCode(g *Movement, cell int) (int, error) {
-	mover := g.Units[g.Unit]
-	if idx, ok := g.occupants()[cell]; ok {
-		o := g.Units[idx]
-		if o.Flags4&0x40 != 0 && o.Flags4&0x80 == 0 {
-			o = g.Units[idx-1] // the rear of a two-cell ship
-		}
-		switch {
-		case !own(o.Flags4, g.Side):
-			return 0x37, nil
-		case o.Flags4&0x1000 == 0:
-			return 0x39, nil
-		}
-		return 0, ErrContainer
-	}
-	tr := t.Terrains[g.Terrain[cell]]
-	if tr.Flags&(0x400|0x100|0x40) != 0 {
-		return 0, ErrContainer
-	}
-	if t.Types[mover.Type].Mask&tr.Mask == 0 || mover.Flags4&0x10 != 0 && tr.Flags&0x4000 != 0 {
-		return 0x40, nil
-	}
-	return 0, nil
+	code, _, err := t.EndCheck(g, cell)
+	return code, err
 }
 
 // Destinations is 0b06:1383 after Reach: the cells with the side's reach bit,
@@ -372,7 +369,7 @@ type pathNode struct{ col, row, parent, score, prev, next int }
 // gives ErrUndefined. The order code only asks for destinations.
 func (t *MoveTables) Path(g *Movement, buf []int8, bits []byte, goal int) ([]int, error) {
 	w := g.Width
-	u := g.Units[g.Unit]
+	u := g.piece(g.Unit)
 	typ := t.Types[u.Type]
 	reach, visit := byte(1), byte(0x40)
 	if g.Side != 0 {

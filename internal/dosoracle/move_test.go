@@ -17,7 +17,8 @@ func moveTablesOf(e *Export) *MoveTables {
 	for i := range len(e.Units) / recordLen {
 		r := e.TypeRecord(i)
 		t.Types = append(t.Types, MoveType{Budget: int(r[0]), Speed: int(r[1]), Mask: int(r[5]),
-			Class: word(r, 0x0D), Flags: word(r, 0x11), DistanceWeight: int(int8(r[0x15])), CostWeight: int(int8(r[0x16]))})
+			Class: word(r, 0x0D), Flags: word(r, 0x11), DistanceWeight: int(int8(r[0x15])), CostWeight: int(int8(r[0x16])),
+			Capacity: int(r[0x40]), Weight: int(r[0x41])})
 	}
 	for i := 0; i+6 <= len(e.Terrains); i += 6 {
 		r := e.Terrains[i : i+6]
@@ -94,9 +95,6 @@ func movesAgree(t *testing.T, e *Export, tab *MoveTables, c moveCase) MoveRun {
 	}
 	for cell, code := range got.Codes {
 		want, err := tab.EndCode(c.g, cell)
-		if errors.Is(err, ErrContainer) {
-			continue
-		}
 		if err != nil || want != code {
 			t.Errorf("%s/%s: end code of cell %d: executed %#x, transcribed %#x (%v)", c.class, c.name, cell, code, want, err)
 		}
@@ -138,13 +136,14 @@ const (
 )
 
 // distinctTypes returns the first type record of every distinct combination
-// of the fields the movement queries read.
+// of the fields the movement queries read; the capacity and weight only
+// matter on a transporter's cell (container_test.go).
 func distinctTypes(tab *MoveTables) []int {
 	var out []int
 	seen := map[MoveType]bool{}
 	for i, ty := range tab.Types {
 		k := ty
-		k.Speed = 0
+		k.Speed, k.Capacity, k.Weight = 0, 0, 0
 		if !seen[k] {
 			seen[k] = true
 			out = append(out, i)

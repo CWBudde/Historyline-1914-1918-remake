@@ -35,7 +35,8 @@ type moveExpected struct {
 	Remaining []int `json:"remaining"`
 	Count     int   `json:"count"`
 	// Destinations is null where the end-cell check reaches its container
-	// branch (an own transporter or a building cell), which is not recorded.
+	// branch (an own transporter or a building cell), which the container
+	// fixtures record.
 	Destinations []int `json:"destinations"`
 	// Codes holds [cell, end code] for every reached cell outside the
 	// container branch.
@@ -120,6 +121,20 @@ func pieces(m map[int]Piece) []fixturePiece {
 	return out
 }
 
+// holdCell reports whether the end-cell check takes its container branch on
+// the cell (an own transporter, or building terrain without a unit). The
+// movement and step fixtures leave those cells to the container fixtures.
+func holdCell(tab *MoveTables, g *Movement, cell int) bool {
+	if idx, ok := g.occupants()[cell]; ok {
+		o := g.piece(idx)
+		if o.Flags4&0x40 != 0 && o.Flags4&0x80 == 0 {
+			o = g.piece(idx - 1)
+		}
+		return own(o.Flags4, g.Side) && o.Flags4&0x1000 != 0
+	}
+	return tab.Terrains[g.Terrain[cell]].Flags&(0x400|0x100|0x40) != 0
+}
+
 // moveFixtureOf records a case; the end codes, destinations and routes the
 // transcription leaves undefined by its inputs are left out.
 func moveFixtureOf(e *Export, tab *MoveTables, c moveCase, r MoveRun) moveFixture {
@@ -134,7 +149,7 @@ func moveFixtureOf(e *Export, tab *MoveTables, c moveCase, r MoveRun) moveFixtur
 	x.Codes = [][2]int{}
 	container := false
 	for _, cell := range slices.Sorted(maps.Keys(r.Codes)) {
-		if _, err := tab.EndCode(g, cell); errors.Is(err, ErrContainer) {
+		if holdCell(tab, g, cell) {
 			container = true
 			continue
 		}

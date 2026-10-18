@@ -36,7 +36,7 @@ func (e *Export) RunMovement(g *Movement) (MoveRun, error) {
 		return MoveRun{}, err
 	}
 	m, data, mv := v.m, v.data, e.B.Move
-	start := g.Units[g.Unit].Cell
+	start := g.piece(g.Unit).Cell
 	var r MoveRun
 	if r.Buffer, r.Bits, r.Count, err = v.reach(g); err != nil {
 		return r, err
@@ -108,13 +108,16 @@ type moveEnv struct {
 	data              int
 	sideMap, otherMap int // segments of the side's and the other side's map
 	cost              int // the guarded cost buffer the reach search fills
+	orders            int // the guarded order list of the side (stepEnv)
+	units             int // offset of the live unit table
 	call              func(what string, at [2]int, args ...int) (int, error)
 	guarded           func(n int) int
 }
 
 // moveEnv loads the width and height, the type and terrain records, a zeroed
-// bit array, the live units (liveRecords) and both maps (movementMaps), and
-// points the map far pointers at them.
+// bit array, the live units (liveRecords), the container records
+// (holdBytes) and both maps (movementMaps), and points the map far pointers
+// at them, the current map pointer at the side's.
 func (e *Export) moveEnv(g *Movement) (*moveEnv, error) {
 	b, mv := e.B, e.B.Move
 	if mv == nil {
@@ -124,7 +127,7 @@ func (e *Export) moveEnv(g *Movement) (*moveEnv, error) {
 		return nil, fmt.Errorf("map %dx%d exceeds the 64-column arrays", g.Width, g.Height)
 	}
 	m := e.machine()
-	v := &moveEnv{m: m, mv: mv, ar: newArena(m), data: baseSeg + b.Data}
+	v := &moveEnv{m: m, mv: mv, ar: newArena(m), data: baseSeg + b.Data, units: b.Units}
 	data := v.data
 
 	m.WW(data, b.Width, g.Width)
@@ -139,12 +142,17 @@ func (e *Export) moveEnv(g *Movement) (*moveEnv, error) {
 	for idx, rec := range liveRecords(g) {
 		copy(m.Mem[dos8086.Lin(data, b.Units+liveLen*idx):], rec)
 	}
+	for idx, rec := range holdBytes(g) {
+		copy(m.Mem[dos8086.Lin(data, mv.Containers+containerLen*idx):], rec)
+	}
 	own, other := movementMaps(g)
 	v.sideMap, v.otherMap = v.ar.alloc(own), v.ar.alloc(other)
 	m.WW(data, mv.Maps[g.Side&1], 0)
 	m.WW(data, mv.Maps[g.Side&1]+2, v.sideMap)
 	m.WW(data, mv.Maps[1-g.Side&1], 0)
 	m.WW(data, mv.Maps[1-g.Side&1]+2, v.otherMap)
+	m.WW(data, mv.Current, 0)
+	m.WW(data, mv.Current+2, v.sideMap)
 
 	v.guarded = func(n int) int {
 		buf := make([]byte, n+16)
@@ -176,7 +184,7 @@ func (e *Export) moveEnv(g *Movement) (*moveEnv, error) {
 // and reads the cost buffer, the bit array and the count.
 func (v *moveEnv) reach(g *Movement) (buffer []int8, bits []byte, count int, err error) {
 	m := v.m
-	start := g.Units[g.Unit].Cell
+	start := g.piece(g.Unit).Cell
 	if count, err = v.call("reach", v.mv.Reach,
 		2*start, 0, v.cost, g.Unit, g.Budget, g.Side, g.Block, 0, v.sideMap); err != nil {
 		return nil, nil, 0, err

@@ -4,17 +4,25 @@ import "fmt"
 
 // moveState is the memory the move routines read and change.
 type moveState struct {
-	t         *MoveTables
-	g         *Movement
-	live      map[int][]byte
-	maps      [2][]byte // the side's map and the other side's map
-	bits      []byte
-	route     []int // cells from the goal back to the start, as the path search stores them
-	count     int
-	orders    []int
-	saved     [2]int // 32e2:1807 and 1808
-	container []byte // container record 0
-	messages  [][2]int
+	t        *MoveTables
+	g        *Movement
+	live     map[int][]byte
+	maps     [2][]byte // the side's map and the other side's map
+	bits     []byte
+	route    []int // cells from the goal back to the start, as the path search stores them
+	count    int
+	orders   []int
+	saved    [2]int         // 32e2:1807 and 1808
+	holds    map[int][]byte // the container records
+	action   Action         // the action record the order code's end-cell check left
+	messages [][2]int
+}
+
+// newMoveState is the memory RunMove sets up for a movement.
+func newMoveState(t *MoveTables, g *Movement) *moveState {
+	s := &moveState{t: t, g: g, live: liveRecords(g), holds: holdBytes(g)}
+	s.maps[0], s.maps[1] = movementMaps(g)
+	return s
 }
 
 // rec is a live record; one never placed reads as zeros, as in the game's
@@ -38,21 +46,23 @@ func (s *moveState) bitIndex(cell int) int { return cell/s.g.Width*64 + cell%s.g
 
 // Execute is a move order as RunMove executes it: Reach, then the order code
 // 10cc:02dd, the move start 10cc:05c3 and the step 10cc:071e until it
-// arrives. It returns ErrUndefined where Path does and ErrContainer where
-// EndCode does; the arrival is the plain move of 10cc:0ae2 (action 3).
+// arrives (10cc:0ae2). It returns ErrUndefined where Path or EndCheck do.
 func (t *MoveTables) Execute(g *Movement, o MoveOrder) (StepRun, error) {
-	s := &moveState{t: t, g: g, live: liveRecords(g)}
-	s.maps[0], s.maps[1] = movementMaps(g)
-	s.container = make([]byte, containerLen)
-	for i := range 14 {
-		s.container[i] = 0xFF
-	}
-	var r StepRun
+	s := newMoveState(t, g)
 	buf, bits, _ := t.Reach(g)
 	for _, c := range o.Stale {
 		bits[s.bitIndex(c)] |= byte(1 + g.Side)
 	}
 	s.bits = bits
+	return s.drive(buf, o, -1)
+}
+
+// drive runs the order code, the start and the steps on the reach search's
+// buffer and bits; from is the container record an exiting unit leaves
+// (-1: none).
+func (s *moveState) drive(buf []int8, o MoveOrder, from int) (StepRun, error) {
+	g := s.g
+	var r StepRun
 	var err error
 	if r.Order, err = s.order(buf, o.Goal); err != nil {
 		return r, err
@@ -62,7 +72,7 @@ func (t *MoveTables) Execute(g *Movement, o MoveOrder) (StepRun, error) {
 		dest = 2 * o.Retarget
 	}
 	if r.Order&1 != 0 {
-		r.Start = s.start(dest)
+		r.Start = s.start(dest, from)
 	}
 	for r.Start&1 != 0 {
 		entry := s.count
@@ -81,8 +91,9 @@ func (t *MoveTables) Execute(g *Movement, o MoveOrder) (StepRun, error) {
 	for idx := range liveRecords(g) {
 		r.Live[idx] = s.live[idx]
 	}
-	r.Messages, r.Maps, r.Bits, r.Orders, r.Count, r.Container =
-		s.messages, s.maps, s.bits, s.orders, s.count, s.container
+	r.Messages, r.Maps, r.Bits, r.Orders, r.Count, r.Holds =
+		s.messages, s.maps, s.bits, s.orders, s.count, s.holds
+	r.Container = s.holds[0]
 	return r, nil
 }
 
@@ -111,10 +122,11 @@ func (s *moveState) order(buf []int8, goal int) (int, error) {
 		res = 0x12
 	}
 	if res&1 != 0 {
-		code, err := t.EndCode(g, goal)
+		code, a, err := s.endCheck(goal)
 		if err != nil {
 			return 0, err
 		}
+		s.action = a
 		if code != 0 {
 			s.messages = append(s.messages, [2]int{code, g.Side})
 			res = 0x12
@@ -129,6 +141,11 @@ func (s *moveState) order(buf []int8, goal int) (int, error) {
 	route, err := t.Path(g, buf, s.bits, goal)
 	if err != nil {
 		return 0, err
+	}
+	// The path search clears the side's visit bit everywhere when it
+	// returns (0b06:000f), an exit's selection bit included.
+	for i := range s.bits {
+		s.bits[i] &^= byte(0x40 << g.Side)
 	}
 	if route == nil {
 		s.messages = append(s.messages, [2]int{0x48, g.Side})
@@ -148,8 +165,9 @@ func (s *moveState) order(buf []int8, goal int) (int, error) {
 // start is 10cc:05c3: it refuses (0x12) an order whose destination is no
 // longer the one in live +0x11. Otherwise it appends the unit to the side's
 // order list, stores the unit's cell in live +0x11, skips the route's start
-// and the first count step (count - 2) and clears both saved occupants.
-func (s *moveState) start(dest int) int {
+// and the first count step (count - 2) and clears both saved occupants; an
+// exit order (from >= 0) takes the first from the record's +0x1b.
+func (s *moveState) start(dest, from int) int {
 	u := s.g.Unit
 	res := 1
 	if word(s.rec(u), 0x11) != dest {
@@ -165,6 +183,9 @@ func (s *moveState) start(dest int) int {
 	putWord(s.rec(u), 0x11, s.pos(u))
 	s.count -= 2
 	s.saved = [2]int{0xFF, 0xFF}
+	if from >= 0 {
+		s.saved[0] = int(s.holds[from][0x1B])
+	}
 	return res
 }
 
@@ -215,23 +236,74 @@ func (s *moveState) step() error {
 	return s.arrive()
 }
 
-// arrive is the plain move of 10cc:0ae2 (action 3) and the end of 071e: live
-// +4 loses 0x4100 and gains the moved bit 0x200, which 0e40:1ddd also sets
-// in the bit array (0x10, 0x20 for side 1) at the unit's cell and at its
-// ship partner's. +0x13 takes the action, +0x14 gains 1, +0x15 to +0x19 are
-// cleared, and 0x38 is shown. Last, +4 bit 0x100 is cleared, for the ship
-// partner too.
+// arrive is 10cc:0ae2 for the action the end-cell check left, then the end
+// of 071e: it shows the arrival's code (0x38) and clears live +4 bit 0x100,
+// for the ship partner too.
 func (s *moveState) arrive() error {
 	u, side := s.g.Unit, s.g.Side
-	s.setFlags(u, s.flags(u)&0xBEFF|0x200)
-	s.setMoved(u, 0x200)
-	s.rec(u)[0x13] = 3
-	if s.flags(u)&0x1000 != 0 {
-		s.cargo(u)
-	}
+	a := s.action
 	l := s.rec(u)
-	l[0x14] |= 1
-	l[0x15], l[0x19], l[0x17], l[0x18], l[0x16] = 0, 0, 0, 0, 0
+	switch a.Kind {
+	case 3:
+		// The plain move: live +4 loses 0x4100 and gains the moved bit
+		// 0x200, which 0e40:1ddd also sets in the bit array (0x10, 0x20 for
+		// side 1) at the unit's cell and at its ship partner's. +0x13 takes
+		// the action, +0x14 gains 1 and +0x15 to +0x19 are cleared.
+		s.setFlags(u, s.flags(u)&0xBEFF|0x200)
+		s.setMoved(u, 0x200)
+		l[0x13] = 3
+		if s.flags(u)&0x1000 != 0 {
+			s.cargo(u)
+		}
+		l[0x14] |= 1
+		l[0x15], l[0x19], l[0x17], l[0x18], l[0x16] = 0, 0, 0, 0, 0
+	case 2:
+		// Into a transporter: the unit takes the free slot, the map shows
+		// the transporter again, live +4 loses 0x100 and gains 0x4200 (the
+		// bit array gets no moved bit) and a transporter hands its cargo
+		// over. +0x19 holds the slot, +0x15 the record, +0x16 the
+		// transporter.
+		h := s.holds[a.Hold]
+		h[7*side+a.Slot] = byte(u)
+		s.maps[0][s.pos(u)] = byte(a.Occupant)
+		s.setFlags(u, s.flags(u)&0xFEFF|0x4200)
+		if s.flags(u)&0x1000 != 0 {
+			s.transfer(s.holds[int(int8(l[0x0A]))], h)
+		}
+		l[0x13], l[0x19], l[0x15], l[0x16] = 2, byte(a.Slot), byte(a.Index), byte(a.Occupant)
+		l[0x14] |= 1
+	case 4:
+		// Onto a foreign or neutral building: a plain arrival on the map;
+		// +0x17 takes the building's flag word, +0x15 its index.
+		s.setFlags(u, s.flags(u)&0xBEFF|0x200)
+		s.setMoved(u, 0x200)
+		l[0x13] = 4
+		l[0x14] |= 1
+		if s.flags(u)&0x1000 != 0 {
+			s.cargo(u)
+		}
+		putWord(l, 0x17, word(s.holds[a.Hold], 0x19))
+		l[0x15], l[0x16] = byte(a.Index), 0
+	case 5:
+		// Into an own building: the unit takes the free slot, a
+		// transporter hands its cargo over, the map shows 0xf4 and the
+		// unit's position becomes the building's first cell (an even map
+		// offset); live +4 loses 0x100 and gains 0x4200.
+		h := s.holds[a.Hold]
+		l[0x13] = 5
+		l[0x14] |= 1
+		l[0x19], l[0x15] = byte(a.Slot), byte(a.Index)
+		putWord(l, 0x17, word(h, 0x19))
+		h[7*side+a.Slot] = byte(u)
+		if s.flags(u)&0x1000 != 0 {
+			s.transfer(s.holds[int(int8(l[0x0A]))], h)
+		}
+		s.maps[0][s.pos(u)] = inBuilding
+		s.setPos(u, word(h, 0x0E))
+		s.setFlags(u, s.flags(u)&0xFEFF|0x4200)
+	default:
+		return fmt.Errorf("arrival: action %d is not set by the end-cell check", a.Kind)
+	}
 	s.messages = append(s.messages, [2]int{0x38, side})
 	s.setFlags(u, s.flags(u)&^0x100)
 	if p, ok := s.partner(u); ok {
@@ -271,16 +343,13 @@ func (s *moveState) setMoved(u, flag int) {
 }
 
 // cargo is 159e:0805: the units in the side's seven slots of the unit's
-// container record (live +0x0a) and the record's +0x0e take the unit's
-// position. Only container record 0 is set up.
+// container record (live +0x0a) and the record's first cell take the unit's
+// position.
 func (s *moveState) cargo(u int) {
-	c := s.container
-	if int(int8(s.rec(u)[0x0A])) != 0 {
-		panic("cargo: only container record 0 is modelled")
-	}
+	c := s.holds[int(int8(s.rec(u)[0x0A]))]
 	p := s.pos(u)
 	for k := range 7 {
-		if occ := int(c[7*s.g.Side+k]); occ <= 0xF0 {
+		if occ := int(c[7*s.g.Side+k]); occ <= slotFree {
 			s.setPos(occ, p)
 		}
 	}

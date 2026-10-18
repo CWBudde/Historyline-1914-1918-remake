@@ -22,7 +22,7 @@ type stepCase struct {
 // stepsAgree runs an order in the emulator and in the transcription and
 // compares every output. It returns the emulator's outcome, whether the two
 // were compared and whether the emulator ran it: the transcription is
-// undefined in some (ErrUndefined), and neither runs a container branch.
+// undefined in some (ErrUndefined).
 func stepsAgree(t *testing.T, e *Export, tab *MoveTables, c stepCase) (r StepRun, compared, executed bool) {
 	t.Helper()
 	got, gerr := e.RunMove(c.g, c.o)
@@ -30,7 +30,7 @@ func stepsAgree(t *testing.T, e *Export, tab *MoveTables, c stepCase) (r StepRun
 	switch {
 	case errors.Is(werr, ErrUndefined) && gerr == nil:
 		return got, false, true
-	case errors.Is(werr, ErrUndefined), errors.Is(werr, ErrContainer) && errors.Is(gerr, ErrContainer):
+	case errors.Is(werr, ErrUndefined):
 		return got, false, false
 	case gerr != nil || werr != nil:
 		t.Fatalf("%s/%s to %d: executed %v, transcribed %v", c.class, c.name, c.o.Goal, gerr, werr)
@@ -98,7 +98,7 @@ func stepCases(tab *MoveTables) []stepCase {
 			_, bits, _ := tab.Reach(mc.g)
 			for c := range mc.g.Width * mc.g.Height {
 				code, err := tab.EndCode(mc.g, c)
-				if bits[c/mc.g.Width*64+c%mc.g.Width]&byte(1+mc.g.Side) != 0 && err == nil && code == 0 {
+				if bits[c/mc.g.Width*64+c%mc.g.Width]&byte(1+mc.g.Side) != 0 && err == nil && code == 0 && !holdCell(tab, mc.g, c) {
 					goals = append(goals, c)
 				}
 			}
@@ -115,6 +115,9 @@ func stepCases(tab *MoveTables) []stepCase {
 			goals = kept
 		}
 		for _, goal := range goals {
+			if holdCell(tab, mc.g, goal) {
+				continue // containers have their own cases (container_test.go)
+			}
 			cs = append(cs, stepCase{mc.class, mc.name, mc.g, MoveOrder{Goal: goal, Retarget: -1}})
 		}
 	}

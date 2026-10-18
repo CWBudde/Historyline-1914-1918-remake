@@ -43,20 +43,29 @@ type Move struct {
 
 	// The 69-byte type records, the 6-byte terrain records, the reach-bit
 	// array (64 cells per row), the result count, the action record that
-	// holds the moving unit, and the map far pointers of side 0 and side 1.
-	Types, Terrains, Bits, Count, Action int
-	Maps                                 [2]int
+	// holds the moving unit, the map far pointers of side 0 and side 1 and
+	// the far pointer to the map of the side whose turn it is.
+	Types, Terrains, Bits, Count, Action, Current int
+	Maps                                          [2]int
 
 	// Order plans a move to a destination (the route and the reach bits of
 	// its cells), Start begins it and Step moves the unit one cell. Sides
 	// holds the per-side records (0x17 bytes: the buffer far pointer, the
 	// order list far pointer and its count byte), Anim the animation flags,
 	// Saved the two occupants a moving unit covers, and Containers the
-	// 0x1c-byte container records a transporter's cargo sits in.
+	// 0x1c-byte container records a transporter's cargo sits in, followed
+	// by the building tables (Buildings: flag 0x40, 0x100 and 0x400).
 	Order, Start, Step                [2]int
 	Sides, Anim, Saved, Containers    int
-	Redraw, RouteDraw, Refresh, Sound [2]int // drawing and sound, hooked
-	Message                           [2]int // the status message, hooked and recorded
+	Buildings                         [3]int
+	Redraw, RouteDraw, Refresh, Sound [2]int    // drawing and sound, hooked
+	View                              [2][2]int // view centring and view redraw, hooked
+	Message                           [2]int    // the status message, hooked and recorded
+
+	// Exit is the main loop's branch that takes a unit out of a container
+	// and runs its reach search, ExitEnd the offset after it in Exit[0].
+	Exit    [2]int
+	ExitEnd int
 }
 
 // Handler holds the addresses of the order handler that resolves one side's
@@ -128,12 +137,15 @@ var Demo = Build{
 	Move: &Move{
 		Reach: [2]int{0x0B06, 0x0331}, Destinations: [2]int{0x0B06, 0x1383}, Path: [2]int{0x0B06, 0x0E12},
 		EndCell: [2]int{0x10CC, 0x0F74},
-		Types:   0x09BB, Terrains: 0x05A1, Bits: 0x3B50, Count: 0x17E9, Action: 0x1805,
+		Types:   0x09BB, Terrains: 0x05A1, Bits: 0x3B50, Count: 0x17E9, Action: 0x1805, Current: 0x17A4,
 		Maps:  [2]int{0x17AC, 0x17A8},
 		Order: [2]int{0x10CC, 0x02DD}, Start: [2]int{0x10CC, 0x05C3}, Step: [2]int{0x10CC, 0x071E},
 		Sides: 0x4D36, Anim: 0x4C9E, Saved: 0x1807, Containers: 0x310C,
-		Redraw: [2]int{0x0E40, 0x145C}, RouteDraw: [2]int{0x0E40, 0x1219}, Refresh: [2]int{0x0E40, 0x0F38},
+		Buildings: [3]int{0x38B4, 0x38EC, 0x3A04},
+		Redraw:    [2]int{0x0E40, 0x145C}, RouteDraw: [2]int{0x0E40, 0x1219}, Refresh: [2]int{0x0E40, 0x0F38},
 		Sound: [2]int{0x0CA0, 0x0279}, Message: [2]int{0x109A, 0x0001},
+		View: [2][2]int{{0x0E40, 0x177E}, {0x0E40, 0x0D46}},
+		Exit: [2]int{0x0661, 0x2F0A}, ExitEnd: 0x30FE,
 	},
 }
 
