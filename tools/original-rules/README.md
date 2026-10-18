@@ -101,3 +101,32 @@ duels in all six directions for both sides, all 81 terrain pairs, experience 0â€
 swapped, an empty target, one or two blockers and every pincer step with eligible and
 ineligible units, ranged attacks at layout distance 2â€“4, adjacent defenders that never
 return fire, and kills and losses with and without the no-award bit.
+
+## Movement harness
+
+`Export.RunMovement` runs the demo's movement queries (`Build.Move`), and `move_model.go` is
+their transcription:
+- the reach search `0b06:0331` with its cost routine `0b06:09c1`;
+- the destination list `0b06:1383` with the end-cell check `10cc:0f74`;
+- the path search `0b06:0e12`.
+
+The queries run on synthetic maps that hold the build's own type and terrain records
+(`WW1GNDS.DAT.bin`), in the order the game calls them. Only the stack check is hooked. The
+runner fails if a query writes past the cost buffer, and if a path search changes the reach
+bits.
+
+`TestMovementCoverage` compares them on every enumerated case:
+- every distinct type on every distinct terrain;
+- transitions between terrains of distinct mask and cost;
+- own, enemy and neutral units in all six directions from both column parities and for both
+  sides;
+- units only on the other side's map;
+- the terrain flag masks the callers pass;
+- budgets from 0 to 255;
+- map edges and random maps.
+
+It also checks the rules these cases show on the executed outputs. The fixture recorder
+writes `movement-tables.json` and `movements.json` (schema
+`docs/research/movement-fixture.schema.json`) beside the dosrules fixtures.
+`TestMovementFixtures` replays them through the transcription without the original files.
+The step executor that moves a unit along a route is not run yet.

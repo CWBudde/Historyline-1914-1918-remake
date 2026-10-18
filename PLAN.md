@@ -998,10 +998,50 @@ The completed compatibility work below remains useful and stays completed.
       speed, weight, capacity, group, cost and per-class attacks, with bit `0x40` as minimum
       range 2. Remaining: the other 24 records (duplicate naval ones among them), alternate
       strength, movement masks, the raw budget, and the terrain tables.
-- [ ] Trace movement routines in `0b06` and `10d2`; capture fixtures for road/rail/water
+      (2026-10-18) — correction and progress: 36 records have no Go type, not 24 (1–9,
+      14–16, 19, 23, 28–45, 47–50). By decision their semantic and visual IDs are deferred.
+      The movement fields (budget, mask, `+0x0d`, `+0x11`, path weights) and the demo's
+      summer terrain table are recorded with the movement fixtures
+      (`internal/dosrules/testdata/demo/movement-tables.json`). The constructor `159e:0006`
+      copies type bytes 0/3/4, `+0x11` and `+0x0d`|side into the live unit. Remaining: the
+      naming, alternate strength, the winter table (full build) and terrain record names.
+- [x] Trace movement routines in `0b06` and `10d2`; capture fixtures for road/rail/water
       transitions, impassable terrain, occupied/hidden destinations, friendly passage, enemy
       adjacency/zone of control, first steps and remaining budgets. Establish whether enemy
       adjacency stops, increases cost or forbids movement before choosing an algorithm.
+      (2026-10-18) — on the demo build of record. `Export.RunMovement` runs the reach search
+      `0b06:0331` (cost routine `09c1`), the destination list `0b06:1383` with the end-cell
+      check `10cc:0f74` (the full build's `10d2`) and the path search `0b06:0e12`.
+      `move_model.go` transcribes them, and the two agree on 2,480 enumerated cases and 16,487
+      routes (`TestMovementCoverage`):
+      - every distinct type on every distinct terrain;
+      - transitions between all terrains of distinct mask and cost, which include the
+        rail-only and water ones (their names wait on item 1);
+      - closed terrain and the callers' flag masks;
+      - own, enemy and neutral units in all six directions from both column parities;
+      - units only on the other side's map;
+      - budgets 0–255, map edges and random maps.
+
+      Findings:
+      - Enemy adjacency stops the unit: the cell can be entered whatever it costs, and leaves
+        0. It neither raises the cost nor forbids the move.
+      - Own units are passed but are no destination.
+      - There is no guaranteed first step.
+      - The budget is byte 0, spent against terrain byte 3.
+      - The queries read only the side's own map, so a hidden unit is a free cell.
+
+      770 cases are recorded in `movements.json` (schema `movement-fixture.schema.json`), and
+      `TestMovementFixtures` replays them in CI; a hand-changed remaining budget or end code
+      fails it.
+- [ ] Trace the step executor (`10cc:05c3`/`071e` in the demo) that moves a unit along its
+      route. Establish:
+      - whether it spends live byte 0;
+      - what it does on a route through a zone of control or over budget (the path search is
+        best-first and not the cheapest: 401 of 16,487 routes pass a zone of control and 31
+        exceed the budget);
+      - what happens when it meets a unit hidden from the moving side.
+
+      (Found 2026-10-18 while tracing the movement queries.)
 - [ ] Verify loading/unloading, seven-entry slot structures, weight limits, full buildings,
       nested cargo and reduced exit movement. Trace the supply-truck/depot transfer behavior
       from the upstream TODO; do not assume automatic unloading is an original rule.

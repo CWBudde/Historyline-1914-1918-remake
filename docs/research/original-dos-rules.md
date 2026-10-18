@@ -175,10 +175,10 @@ relocations is not established yet; the same tests decide it once both exports e
 
 For terrain, bytes 0–1 are flags, byte 2 is a movement mask, byte 3 is a movement
 cost, byte 4 remains unnamed, and byte 5 selects a combat modifier pair. The mask
-intersection is visible at `10d2:13c0–13fc`. The extracted raw costs are not yet a
-complete pathfinding specification: road transitions, occupancy, exit budgets and
-zones of control still need tracing. Terrain indices must also be mapped to named
-tiles before using these tables as game data.
+intersection is visible at `10d2:13c0–13fc`. Byte 4 is the entry cost for air units, and
+the flag word closes cells against the mask a caller passes (see *Movement*). Exit budgets
+are still open, and terrain indices must be mapped to named tiles before using these
+tables as game data.
 
 ## Battle callers (demo build)
 
@@ -209,6 +209,89 @@ record's target-flag word at `+6`, and the casualty routine calls the hex distan
 `0e40:2421` with (row, column) although the routine — and the movement code at `0b06:117f` —
 use (column, row). The resulting directional range penalty is described in the
 specification's discrepancy table.
+
+## Movement (demo build)
+
+The demo's movement queries sit in segment `0b06`, with the end-cell check in `10cc`, which
+corresponds to the full build's `10d2`. The type constructor `159e:0006` corresponds to the
+full build's `15a4:0009`. It copies type byte 0 into live byte 0, byte 3 into live byte 2,
+byte 4 into live byte 3, `+0x11` into live `+6`, and `+0x0d` ORed with the side bit into
+live `+4`. All of the queries are far routines whose arguments the caller pops. None of them
+draws. Their only far calls are the stack check and the pure helpers `0e40:2421` (distance),
+`0ca0:020c` (own unit), `0e40:1728`, `1307:15fd` and `10cc:17cb`; the last three are
+container lookups.
+
+- **Reach, `0b06:0331`.** Arguments: position, the per-side buffer, unit, budget, side, a
+  terrain flag mask and the side's map. Callers pass live byte 0 as the budget. The routine
+  first calls `0b06:09c1` to fill a buffer of 64 cells per row (0x1104 bytes) with the
+  negated entry cost of every cell:
+  - terrain byte 3 for ground units;
+  - byte 4 for units with live `+4` bit 0x10, the air units;
+  - a flat 2 with live `+6` bit 0x10 (from type `+0x11`; in the demo only type 23);
+  - 0xb0 (−80) where type byte 5 and terrain byte 2 share no bit, or where the terrain flag
+    word shares a bit with the flag mask.
+
+  A second pass over the occupied cells closes neutral and enemy cells (0xb0). Every not
+  yet closed neighbour of an enemy is marked as that side's zone of control (0x9a or 0x9b).
+  An own transporter costs 2. For a type with `+0x0d` bit 0x40 (a ship two cells long),
+  every other unit's cell is closed. Own units are left alone, so they can be passed.
+
+  The search is a bucketed Dijkstra. From the budget down to 1, it expands every cell
+  holding that value inside a window of `budget` cells around the start. A still-negative
+  neighbour takes the value minus its cost if that is not negative; a zone-of-control cell
+  takes 0 whatever its cost. Every cell left at 0 or more gets the side's reach bit in
+  `32e2:3b50`, and the routine returns their number.
+- **Destinations, `0b06:1383`.** Column by column, it calls the end-cell check `10cc:0f74`
+  for every cell with the side's reach bit and lists the cells that return 0.
+  - The check returns 0x37 for a unit of another side, and 0x39 for an own unit that carries
+    nothing; that includes the moving unit's own cell.
+  - It returns 0x40 for terrain the type's mask does not enter, and for terrain flag 0x4000
+    under an air unit.
+  - Own transporters and building terrain (flags 0x400, 0x100, 0x40) take the loading
+    branch (item 3).
+  - It writes an action record at `32e2:1805`.
+- **Path, `0b06:0e12`.** A best-first search over the reach bits.
+  - Nodes go into a list sorted by type `+0x15` × distance to the goal + `+0x16` × entry
+    cost (5 and 7 for every demo type), and each cell is entered once.
+  - The node pool is the side's buffer that the reach search left. The route lands at
+    `+0x1f40`, goal first.
+  - The player's order code `10cc:02dd` asks only for a reached, legal destination other
+    than the unit's own cell.
+- **The player's call, `0ca0:10e5–1124`.**
+  - It passes the side's own map: `32e2:17ac` for side 0, `17a8` for side 1.
+  - The flag mask is 3 for a side-0 unit, 6 for a side-1 unit and 0xffff for live `+6`
+    bit 1 (types 17–21 in the demo).
+  - The position is the per-side word `+0x0b + 2·side`.
+  - The computer player (`1fe6`, `23be`) runs reach and destinations in the same order.
+
+`Export.RunMovement` runs reach, destinations, the end-cell check of every reached cell, and
+one path per goal on synthetic maps that hold the build's own type and terrain records.
+`move_model.go` transcribes the same routines, and the two agree on all 2,480 enumerated
+cases and 16,487 routes (`TestMovementCoverage`). What the runs show:
+
+- **Budget.** Byte 0 is spent against terrain byte 3 (costs 4–11 in the summer table). Every
+  reached cell of a uniform map keeps the budget minus a whole number of entry costs. A unit
+  gets no guaranteed first step: in 555 cases a neighbour it may enter costs more than its
+  whole budget and stays unreached. A budget of 80 or more enters closed cells, because
+  0xb0 is just a cost of 80. A budget of 128 or more reaches nothing, because the budget is
+  a signed byte.
+- **Enemy adjacency.** It neither forbids nor raises the cost. The unit may enter the cell,
+  with any budget left and whatever the terrain costs there, and stops there with 0 left.
+- **Own units.** They are passed but cannot be ended on. Neutral units close their cell but
+  exert no zone of control.
+- **Unseen units.** The queries read only the moving side's own map. A unit that is only on
+  the other side's map neither blocks nor exerts a zone of control, and its cell is a legal
+  destination. What the per-side maps contain is visibility (item 4); what happens when a
+  move runs into such a unit is execution.
+- **Routes.** The route is not the reach search's cheapest path. 193 routes cost more than
+  the cheapest, 31 cost more than the whole budget, and 401 pass through a zone-of-control
+  cell, where the reach search would have stopped the unit.
+- **Map edges.** The edge clips are else-ifs, so a map one cell wide or high leaks into the
+  next column or row.
+
+Whether moving along a route spends live byte 0, how it treats a route through a zone of
+control or over budget, and what it does on meeting a hidden unit is decided by the step
+executor (`10cc:05c3`/`071e`), which is not traced yet.
 
 ## Combat arithmetic
 
@@ -318,8 +401,9 @@ screen's drawing, animations or order scheduling, has not been excluded.
    recorded fixtures; once the full `HL.EXE` is supplied, its export is recorded the same
    way (`go test ./internal/dosoracle -run TestFixtures -update`) and compared with the demo's
    tables and fixtures. A difference becomes a profile field, not a hidden constant.
-3. Trace movement costs and destination restrictions in `0b06` and `10d2`, including
-   enemy adjacency, roads/rails/water, hidden occupants, transport weights and exits.
+3. Movement costs and destination restrictions are executed on the demo (see
+   *Movement*). Still open: the step executor `10cc:05c3`/`071e`, transport weights,
+   loading and exits, and the full build's addresses.
 4. Finish the order scheduler and capture/production/construction paths. Establish
    cycle ordering, simultaneous-order conflicts, energy credit timing, repair timing,
    ownership transfer, map availability and victory checks.
