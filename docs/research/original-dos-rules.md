@@ -68,6 +68,7 @@ instruction boundaries and avoid truncating functions at overlapping segment sta
 | Production price, transport capacity and weight come from unit data | Unit information `272c:0913–0950`, `0a0f` onward; table bytes 63–65 | Use original type-specific values when implementing production/loading. |
 | Inventories have **seven slots per side/view** in the traced structures | `10d2:17ce–183b` counts seven entries; `0e47:0252–02fc` loads seven entries; executed on the demo (*Containers*) | The Python 2 × 9 inventory grid is not evidence of original capacity. Slot count and weight capacity are separate limits: a transporter checks both, a building only its slots. |
 | No sight range: each side's view of the other is refreshed whole at each phase change | `02dc:1a09–1cc6` rebuilds and copies the maps; no type or terrain sight field is read; executed on the demo (*Visibility*) | Fog of war by distance or terrain (Python's `sightModifier`) is not an original rule. What stays hidden is the other side's moves of the current phase, and attacks resolve on the attacking side's stale view. |
+| No ammo and no fuel; group strength is the only thing a battle spends | No type or live field is lowered by firing or moving; executed on the demo (*Ammo, fuel and resupply*) | Python's per-weapon ammo, fuel and adjacent resupply are not original rules. They stay in Classic/Standard. The original's replenishment is repair (R4), builder charges (live `+0x0a`), and per-phase regrowth for units flagged in live `+6`. |
 | Score options multiply the base score | `02dc:29c9–2b1c` | Hidden inventories add 100; limits 4/8/16 multiply by 4/3/2. The score caps at 32,500. |
 
 The manual additionally specifies infantry/cavalry capture, capture of a building's
@@ -111,17 +112,22 @@ not mean 51 distinct named units. Runtime constructor `15a4:0009` indexes types 
 | 8 | Encoded air range; the information display subtracts one |
 | 9 | Encoded surface range; the information display subtracts one |
 | 10, 11, 12 | Air, ground, water firepower |
-| 13–18 | Three flag words; only selected uses traced |
+| 13–18 | Three flag words; only selected uses traced. The word at 17 is copied into live `+6` (its bit 0x4000 marks a construction unit), and 13 into live `+4` (bit 0x1000 a transporter) |
+| 19–20 | The classes a transporter carries: 0x0040 on the Supply Car (22), 0x0100 on 26 and 0x0200 on 31, 0 on the others. ORed into the transporter's container record `+0x19` (`159e:055f`) |
+| 21–24 | 05 07 01 00 in every record; byte 23 is read once (`10cc:0a2a`) and passed on |
+| 25 | Varies by type; read at `1307:0dd5`, `0e08` and `2716:0521`; not named |
+| 26 | The record's own index |
 | 27–43 | Short category label |
 | 44–60 | Long unit label |
 | 61–62 | Per-side mutable identifiers, used/incremented by the constructor |
 | 63 | Production cost field |
 | 64 | Capacity field |
 | 65 | Weight field |
+| 66–68 | 0 in every record |
 
-All other bytes remain preserved in `units.csv` as raw hex. Unknown fields should
-not be renamed to ammo, fuel, sight or experience without tracing their consumers.
-In particular, the raw movement budget and displayed speed are different values.
+All bytes stay in `units.csv` as raw hex. No type byte is an ammo, fuel or sight value
+(*Ammo, fuel and resupply*, *Visibility*). The raw movement budget and the displayed speed
+are different values.
 
 Some useful decoded examples are:
 
@@ -451,7 +457,9 @@ enumerated cases (`TestContainerCoverage`):
 `TestContainerFixtures` replays them in CI.
 
 Still open:
-- who fills a record's `+0x19` classes and `+0x1b` (the level loader);
+- who fills a building record's `+0x19` classes and `+0x1b` (the level loader). A transporter's
+  are set when the constructor allocates its record (`159e:04af`): `+0x19` = the side bits |
+  0x20 | type bytes 19–20, and `+0x1b` = the transporter's index;
 - what a refused or cancelled exit does with the unit, which stands on the map outside its slot
   by then;
 - the names of the three building tables (R2 item 1);
@@ -545,6 +553,96 @@ Still open:
 - **R4:** the per-unit work before the window (`02dc:0e91–19a1`) and after it (`1cc6` on: flags
   `&0xf0ff`, the moved bit for type `+0x0f` bit 1, live `+6` bit 0x8000).
 - **Full build:** whether the full `HL.EXE` adds sight.
+
+### Ammo, fuel and resupply
+
+The demo has **no ammo and no fuel**. No type byte holds a shot count, a fuel capacity or a
+supply value, and no live field is spent by firing or by moving. The only thing a battle spends
+is group strength. Python's per-weapon ammo, its fuel and its resupply next to a depot or supply
+car have no counterpart, so they stay in Classic/Standard and out of profile `dos-0.1`.
+
+**Executed census.** `TestConsumables` repeats every executed runner family with the
+emulator's write watch on (`dos8086.Machine.OnWrite`, through `Export.watch`). It counts each
+write an instruction makes into the live records or the type records, by field, writing
+instruction and direction:
+- **494 engagements** (duels, blocking, pincer, ranged, experience and hidden-order attacks).
+  The order handler, the casualty routine and the experience window write:
+  - experience (`+1`), raised;
+  - group size (`+2`), lowered by `2451:0a5a`/`0aa7`;
+  - the facings, unchanged.
+- **2,798 moves** (the step cases). The arrival writes flags, positions, facings, the
+  target/start word and the action bytes `+0x13`–`+0x19`. Only positions and facings are
+  written once per cell, on routes of up to 11 cells. No other field of any unit is written
+  more than four times in a move.
+- **1,524 container cases** (loading, buildings, the supply car's hand-over, exits) and
+  **286 phase changes**: flags, positions, facings, the target/start word and the action bytes
+  only.
+
+In all four families:
+- nothing writes the type records;
+- live byte 0, the movement budget, is never written;
+- every lowered field is the casualties' group size, a flag bit cleared, or a position, facing
+  or target;
+- group size, alternate strength (`+3`) and the construction charges (`+0x0a`) are never
+  raised.
+
+Three hand-made changes each fail the test, and were reverted afterwards:
+- the image patched to decrement live byte 0 at an arrival;
+- the image patched to increment live `+2` there;
+- group size removed from the fields that may go down.
+
+**Static check.** Written type bytes, and writes that lower or raise strength fields outside
+the executed paths, were checked in the listing.
+- **Type records** are written only in two places:
+  - a load routine sets or clears bit 1 of word 15 per type from a 51-byte list
+    (`0e40:0140–0176`);
+  - the per-side serial counters (bytes 61/62) are reset at load (`0e40:03b4`), advanced by
+    the constructor and rewritten on capture (`02dc:105e`, `1557`). A captured unit takes its
+    new side's serial into live `+9`.
+- **Every `dec`/`sub`/`sbb` with a memory destination** (59 sites, apart from stack and data
+  words) was checked. The ones on unit data are:
+  - the casualty writes;
+  - cargo damage at `02dc:2615`, which lowers a held unit's `+2` and removes it from the slots
+    when that would reach 0;
+  - the builder charges below.
+
+  The others count down:
+  - counters in `32e2` (per side `4d2b–4d2d`, `4ca3–4ca5`, the route count `17e9`);
+  - a timer list at `32e2:4c54`;
+  - input repeat state (`0ca0:0690`);
+  - screen, library and computer-player structures.
+- **The neighbour routine `0b06:0122`** has 11 far callers and no near ones. They are:
+  - return fire (`02dc:01f9`);
+  - blocking and pincer (`02dc:2671`, `289e`);
+  - a sapper's target marking (`0ca0:13e2`: live `+6` bit 0x2000, terrain records with flag
+    0x8000);
+  - the computer player (`1c7c`, `1fe6`, `20ef`).
+
+  None writes a unit's strength or charges, so nothing replenishes by adjacency.
+
+**What does replenish.** None of these is ammo or fuel, and all of them belong to R4:
+- **Repair** (`0661:3227–3257`) sets live `+2` to the type's group strength. For a unit whose
+  live `+6` has bit 0x4000, it also resets the charges to 2. The energy price is in *Rule
+  evidence*.
+- **Builder charges.** The constructor sets live `+0x0a` from the type (`159e:013e–019c`):
+  - for a transporter (type word 13 bit 0x1000), the index of a container record it
+    allocates;
+  - for a construction unit (word 17 bit 0x4000), **2** charges;
+  - otherwise 0xff.
+
+  The per-unit phase work spends one charge each time a depot's cells are laid (`02dc:188c`,
+  `1975`). This is the manual's builder "materials", which repair restores.
+- **Regrowth.** In the new-phase work (`02dc:1d66–1eb4`), each unit with live `+6` bit
+  0x8000 gains one member, up to its type's maximum (byte 3, or byte 4 into live `+3` when
+  type word 15 has bit 2). If it holds a container (live `+4` bit 0x1000), so does each unit
+  in the first slot list of its record. No type record carries bit 0x8000 in word 17, and no
+  instruction found in the listing sets it in live `+6`. With the demo's data the branch looks
+  unreachable; a save game holds the live records as they are.
+
+Still open:
+- **R4:** execute repair, the builder charges and the regrowth branch, and find whether anything
+  sets live `+6` bit 0x8000 (a level or save file, or the full build).
+- **Full build:** whether the full `HL.EXE` adds ammo or fuel.
 
 ## Combat arithmetic
 
@@ -656,8 +754,10 @@ screen's drawing, animations or order scheduling, has not been excluded.
    tables and fixtures. A difference becomes a profile field, not a hidden constant.
 3. Movement costs, destination restrictions and the move execution are executed on the
    demo (see *Movement*, *Move execution* and *Containers*), and so is the phase change
-   that brings the other side's view up to date (*Visibility*). Still open: who fills the
-   container records, a cancelled exit, and the full build's addresses.
+   that brings the other side's view up to date (*Visibility*). A write census over all of
+   them finds no ammo and no fuel (*Ammo, fuel and resupply*). A transporter's record gets its
+   classes from type bytes 19–20 when the constructor allocates it (`159e:055f`). Still open: who
+   fills the building records, a cancelled exit, and the full build's addresses.
 4. Finish the order scheduler and capture/production/construction paths. Establish
    cycle ordering, simultaneous-order conflicts, energy credit timing, repair timing,
    ownership transfer, map availability and victory checks.

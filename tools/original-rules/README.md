@@ -178,3 +178,16 @@ order handler a different view for the other side, and `TestEngagementHidden` sh
 resolve on the attacking side's view. The recorder writes `visibility.json` (schema
 `docs/research/visibility-fixture.schema.json`), and `TestVisibilityFixtures` replays it without
 the original files.
+
+`TestConsumables` looks for ammo, fuel and resupply. It repeats the engagement, move, container
+and phase-change cases with the emulator's write watch on (`dos8086.Machine.OnWrite`, which
+`Export.watch` installs on every machine a runner creates). It counts each write into the live
+and type records by field, writing instruction and direction, and checks that:
+- nothing writes a type record or live byte 0;
+- only named fields are written;
+- only group size, flags, positions, facings and targets go down;
+- group size, alternate strength and the builder charges never go up;
+- no unit field other than a position or facing is written per cell walked.
+
+It needs the export but records no fixture: what it shows is an absence. The static side of
+the census is in `docs/research/original-dos-rules.md` (*Ammo, fuel and resupply*).

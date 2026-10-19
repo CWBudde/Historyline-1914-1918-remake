@@ -1005,6 +1005,9 @@ The completed compatibility work below remains useful and stays completed.
       (`internal/dosrules/testdata/demo/movement-tables.json`). The constructor `159e:0006`
       copies type bytes 0/3/4, `+0x11` and `+0x0d`|side into the live unit. Remaining: the
       naming, alternate strength, the winter table (full build) and terrain record names.
+      (2026-10-19) — note from the ammo census: type bytes 19–20 are a transporter's cargo
+      classes (`159e:055f`), 21–24 and 66–68 are constant, 26 is the record index, and live
+      `+9` is the per-side serial (`docs/research/original-dos-rules.md`).
 - [x] Trace movement routines in `0b06` and `10d2`; capture fixtures for road/rail/water
       transitions, impassable terrain, occupied/hidden destinations, friendly passage, enemy
       adjacency/zone of control, first steps and remaining budgets. Establish whether enemy
@@ -1142,9 +1145,31 @@ The completed compatibility work below remains useful and stays completed.
       148 cases are recorded in `visibility.json` (schema `visibility-fixture.schema.json`),
       and `TestVisibilityFixtures` replays them in CI; a hand-changed occupant, position word
       or slot byte fails it.
-- [ ] Identify any actual ammo, fuel and resupply fields/consumers. Their existence in the
+- [x] Identify any actual ammo, fuel and resupply fields/consumers. Their existence in the
       Python UI does not establish DOS consumption or adjacent-depot/supply-car replenishment.
       If unsupported, keep them in compatibility/extension rules rather than the DOS profile.
+      (2026-10-19) — on the demo build of record: **no ammo and no fuel**. `TestConsumables`
+      repeats 494 engagements, 2,798 moves, 1,524 container cases and 286 phase changes with
+      the emulator's new write watch (`dos8086.Machine.OnWrite`). It counts every write into
+      the live and type records by field, writing instruction and direction. It finds:
+      - nothing writes a type record;
+      - live byte 0 is never written;
+      - only group size (casualties), flags, positions, facings and targets go down;
+      - only positions and facings are written per cell walked;
+      - group size, alternate strength and the builder charges never go up, so moving into a
+        depot or next to a supply car replenishes nothing.
+
+      A patched image that decrements live byte 0 or raises `+2` at an arrival fails the
+      test. A static check of all memory decrements and of the 11 callers of the neighbour
+      routine finds no other consumer. Python's ammo, fuel and resupply stay in
+      Classic/Standard; `dos-0.1` gets none.
+
+      What does replenish is R4's, recorded statically:
+      - repair;
+      - builder charges in live `+0x0a` (2 from the constructor, one spent per depot, reset by
+        repair);
+      - a per-phase regrowth of one member for units with live `+6` bit 0x8000
+        (`02dc:1d66–1eb4`). Nothing found sets that bit.
 - [ ] Implement the verified data adapters and pure movement, loading/unloading and visibility
       functions for R3, with original input/output fixtures. Reuse search/geometry code where
       its behavior agrees, while preserving the separate Python/Standard rules and tables.
@@ -1193,12 +1218,22 @@ The completed compatibility work below remains useful and stays completed.
       before the phase change (`02dc:0e91–19a1`, building construction among it) and after
       it (`02dc:1cc6` on: live `+4 &= 0xf0ff`, the moved bit for type `+0x0f` bit 1, live
       `+6` bit 0x8000). Neither is traced yet.
+      (2026-10-19) — note from the ammo census (static):
+      - repair (`0661:3227–3257`) also resets a construction unit's charges, live `+0x0a`, to 2;
+      - the `+6` bit 0x8000 branch regrows one member per phase for the unit and its cargo,
+        but nothing found sets the bit.
+
+      Execute both, and find a setter, before implementing any regrowth.
 - [ ] Verify factory build lists, availability by mission/date/side, price deductions, slot and
       weight checks and when new units become usable. Recognise all building orientations.
       Use verified type costs; avoid an arbitrary automatic unit-per-turn production rule.
 - [ ] Trace infantry/cavalry capture, ownership of stored units, contested entry and HQ victory.
       Verify two half-depot construction operations, replenishing builder charges and sapper
       trench operations. Add other skills only after their flag/command paths are established.
+      (2026-10-19) — note from the ammo census: the charges are live `+0x0a`. The constructor
+      sets 2 for type word 17 bit 0x4000, and the per-unit phase work spends one per depot
+      (`02dc:188c`, `1975`). A sapper's targets are marked through the neighbour routine
+      (`0ca0:13e2`).
       (2026-10-18) — note from the container trace: a move onto a foreign or neutral building
       is a plain arrival (`10cc:0ae2` action 4). It records the building's flags in live
       `+0x17` and its index in `+0x15`, but nothing in the move captures it.
