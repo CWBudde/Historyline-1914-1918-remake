@@ -67,6 +67,7 @@ instruction boundaries and avoid truncating functions at overlapping segment sta
 | Repair restores group strength and preserves experience | `0660:3225–325e` restores type byte 3 to live byte 2; it does not reset live byte 1 | A veteran unit retains its experience. Construction repair also restores its secondary state to two. |
 | Production price, transport capacity and weight come from unit data | Unit information `272c:0913–0950`, `0a0f` onward; table bytes 63–65 | Use original type-specific values when implementing production/loading. |
 | Inventories have **seven slots per side/view** in the traced structures | `10d2:17ce–183b` counts seven entries; `0e47:0252–02fc` loads seven entries; executed on the demo (*Containers*) | The Python 2 × 9 inventory grid is not evidence of original capacity. Slot count and weight capacity are separate limits: a transporter checks both, a building only its slots. |
+| No sight range: each side's view of the other is refreshed whole at each phase change | `02dc:1a09–1cc6` rebuilds and copies the maps; no type or terrain sight field is read; executed on the demo (*Visibility*) | Fog of war by distance or terrain (Python's `sightModifier`) is not an original rule. What stays hidden is the other side's moves of the current phase, and attacks resolve on the attacking side's stale view. |
 | Score options multiply the base score | `02dc:29c9–2b1c` | Hidden inventories add 100; limits 4/8/16 multiply by 4/3/2. The score caps at 32,500. |
 
 The manual additionally specifies infantry/cavalry capture, capture of a building's
@@ -456,6 +457,95 @@ Still open:
 - the names of the three building tables (R2 item 1);
 - capture of a foreign building (R4).
 
+### Visibility
+
+The demo has **no sight**: no routine reads a sight range from the type or terrain records, no
+terrain hides a unit, and nothing removes a unit from a map because it is out of view. Python's
+`sightModifier` has no counterpart in this build. What each side sees is its own map
+(`32e2:17ac` for side 0, `17a8` for side 1) and its own position word in every live record
+(`+0x0b + 2·side`). A side's view of the other side is out of date only between two phase
+changes.
+
+- **During a phase**, a move changes only the moving side's map and position word
+  (`10cc:071e`, see *Move execution*).
+- **Attacks resolve on the attacking side's view.** The order handler `02dc:0004` takes side 0
+  as the attacking side when its phase byte `32e2:4d9e` is 2, else side 1. Before the battle it:
+  - reads the target cell from the attacker's live `+0x11`;
+  - takes the defender from that cell of the attacking side's map (`02dc:012c–01c5`), and
+    the blocking and pincer neighbours from the same map.
+
+  A unit that the other side has moved away is still fought at the cell where the attacking
+  side last saw it. A unit that moved onto an empty target cell is not fought. With two
+  different maps in the run, swapping them changes the outcome of every case. Swapping the
+  other units' position words changes none.
+- **The phase change (`02dc:1a09–1cc6`).** This is the tail of the handler. With A the
+  attacking side and B the other, it runs these steps:
+  1. **Container sync (`02dc:23e5`).** It runs over the 70 transporter records and the three
+     building tables, and skips records whose `+0x19` has bit 2 (neutral) or 0x8000.
+     - In a record B owns, B's slot list is copied over A's. A slot holding a unit already
+       marked destroyed (0x8000) is cleared to 0xff first.
+     - In any other record, A's list is copied over B's, unchecked.
+
+     `0ca0:020c` is called here with the side passed as the flags. Since neutral records are
+     skipped, this gives the same ownership as elsewhere.
+  2. **Clear.** Every occupant byte of A's map becomes 0xff.
+  3. **Copy B's view.** Each unit of B (flags & 1 for side 1; flags & 3 == 0 for side 0) that
+     is not marked 0x8000 gets B's position word and facing (`+0x0f + side`) in A's place.
+     Neutral units are never copied.
+  4. **Mark the destroyed (`02dc:2b1d`).** Every unit with strength `+2` = 0 is marked 0x8000.
+  5. **Rebuild A's map.** In index order, every unit marked neither 0x8000 nor 0x4000 (in a
+     container) is written at its `+0x0b`, **side 0's position word**, whichever side A is.
+     When two units share a word, the higher index wins.
+  6. **Copy the map (`0e40:1d9d`).** A's whole map, terrain bytes included, is copied over B's.
+  7. **Reset.**
+     - The per-side records (`32e2:4d88`, 0x31 bytes each) get `+0x17..+0x19` = 0 and
+       `+0x1b` = 5.
+     - Their phase bytes swap: side 0 becomes 2 if it was 1, else 1, and side 1 the other.
+     - Both attack order counts become 0, and the animation flags gain 0x18.
+     - Messages 0x35/0x36 go to each side (0x35 to the side whose phase becomes 1).
+     - The turn counter `32e2:4cab` counts up when side 0's phase becomes 1.
+
+  After the change both sides see the same map. A destroyed unit, or a unit in a container,
+  is on neither map, and the 0xf4 marker of a building with units is lost.
+
+  When side 1 attacks, its own units are written where side 0 last saw them. This is right
+  only if their side-0 word was brought up to date at the previous change, when side 1 was B.
+- **Elsewhere.** The scenario load copies side 0's map to side 1's (`0e40:08e1`), and a save
+  stores both maps.
+
+`ChangePhase` transcribes the window, and `Export.RunPhaseChange` executes it on a frame like the
+handler's (DI the attacking side, `[bp-2]` the other, `[bp-6]` the attacking side's map). Code in
+any segment other than the handler's, the side test's and the map copy's fails the run. The two
+agree on 286 enumerated phase changes for both attacking sides (`TestVisibilityCoverage`):
+- every phase-byte pair and turn counter, including its wrap;
+- units of each side flag with views that agree or differ;
+- alive, dying, destroyed and held units;
+- two units on one side-0 word, and stale or even side-0 words;
+- two-cell ships;
+- maps whose terrain differs, and building markers;
+- transporter and building records of every owner, with live, dying, destroyed and unlisted
+  cargo;
+- 120 random maps.
+
+`Engagement.Moved` gives the order handler the other side's view, and `TestEngagementHidden` runs
+four kinds of attack against it in all six directions for both sides:
+- a defender that left the target cell;
+- a defender that moved round the attacker;
+- blocking neighbours that left;
+- a unit that entered an empty target cell.
+
+The model, which ignores `Moved`, agrees on every one.
+
+148 phase changes are recorded in `visibility.json` (schema `visibility-fixture.schema.json`), and
+`TestVisibilityFixtures` replays them in CI.
+
+Still open:
+- **R3:** what the phases are and who acts in each. The main loop calls the handler at
+  `0661:3cfb` when order `+0x17` is 5 and both ready flags (`32e2:4d29`/`4d40` bit 2) are set.
+- **R4:** the per-unit work before the window (`02dc:0e91–19a1`) and after it (`1cc6` on: flags
+  `&0xf0ff`, the moved bit for type `+0x0f` bit 1, live `+6` bit 0x8000).
+- **Full build:** whether the full `HL.EXE` adds sight.
+
 ## Combat arithmetic
 
 The complete casualty routine is `2466:000e–0abb`, saved as `windows/combat.asm`.
@@ -565,9 +655,9 @@ screen's drawing, animations or order scheduling, has not been excluded.
    way (`go test ./internal/dosoracle -run TestFixtures -update`) and compared with the demo's
    tables and fixtures. A difference becomes a profile field, not a hidden constant.
 3. Movement costs, destination restrictions and the move execution are executed on the
-   demo (see *Movement*, *Move execution* and *Containers*). Still open: how the other
-   side's map follows a move (visibility), who fills the container records, a cancelled
-   exit, and the full build's addresses.
+   demo (see *Movement*, *Move execution* and *Containers*), and so is the phase change
+   that brings the other side's view up to date (*Visibility*). Still open: who fills the
+   container records, a cancelled exit, and the full build's addresses.
 4. Finish the order scheduler and capture/production/construction paths. Establish
    cycle ordering, simultaneous-order conflicts, energy credit timing, repair timing,
    ownership transfer, map availability and victory checks.

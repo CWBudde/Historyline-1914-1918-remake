@@ -157,3 +157,24 @@ It checks on the executed outcomes that no unit leaves a slot without an exit or
 that capacities hold and that the exit's reach starts at 4 or 8. The recorder writes
 `containers.json` (schema `docs/research/container-fixture.schema.json`), and
 `TestContainerFixtures` replays it without the original files.
+
+`Export.RunPhaseChange` runs the tail of the order handler, `02dc:1a09–1cc6`, on a frame as the
+handler leaves it after the attacking side's orders. This is where one side's view of the other
+is brought up to date; the demo has no sight range. Both maps, the live units, the container
+records and the per-side records are set up from a `PhaseChange`. The window calls only the
+container sync, the side test and the map copy; the status message is hooked, and code in any
+other segment fails the run. `visibility_model.go` is the transcription (`ChangePhase`), and
+`TestVisibilityCoverage` compares them on:
+- phase bytes and the turn counter;
+- units of each side with views that agree or differ;
+- alive, dying, destroyed and held units, and ships;
+- differing terrain and building markers;
+- container records of every owner;
+- random maps.
+
+It checks on the executed outcomes that both maps agree afterwards, that every unit on them
+stands at its side-0 position word, and that the slot lists agree. `Engagement.Moved` gives the
+order handler a different view for the other side, and `TestEngagementHidden` shows that attacks
+resolve on the attacking side's view. The recorder writes `visibility.json` (schema
+`docs/research/visibility-fixture.schema.json`), and `TestVisibilityFixtures` replays it without
+the original files.

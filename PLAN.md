@@ -1104,11 +1104,44 @@ The completed compatibility work below remains useful and stays completed.
       budget fails it. Not reached: arrival action 1 (`10cc:0b48`), which nothing in the listing
       sets. Open for the cycle and the loader: what a refused or cancelled exit does with the
       unit, and who fills a record's classes (`+0x19`) and occupant (`+0x1b`).
-- [ ] Trace visibility and terrain sight effects independently of Python's `sightModifier`;
+- [x] Trace visibility and terrain sight effects independently of Python's `sightModifier`;
       preserve per-player visibility and hidden-order isolation in the resulting rules.
       (2026-10-18) — from the step-executor trace: a move updates only the mover's side's
       map and position word (`+0x0b + 2·side`). Find what brings the other side's map and
       its view of the unit up to date, and when.
+      (2026-10-19) — on the demo build of record. The demo has **no sight**:
+      - no type or terrain field gives a sight range, and nothing hides a unit by distance or
+        terrain, so `sightModifier` has no DOS counterpart;
+      - the other side's view is brought up to date whole, only at the phase change in the
+        order handler's tail.
+
+      `Export.RunPhaseChange` executes that window (`02dc:1a09–1cc6`) on a synthetic frame,
+      and `visibility_model.go` (`ChangePhase`) transcribes it. The two agree on 286
+      enumerated phase changes (`TestVisibilityCoverage`), covering:
+      - phase bytes and the turn counter;
+      - each side flag with views that agree or differ;
+      - alive, dying, destroyed and held units, and ships;
+      - stale and shared position words;
+      - differing terrain and building markers;
+      - container records of every owner, with live and destroyed cargo;
+      - random maps.
+
+      Answers:
+      - **The phase change.** The other side's units get its position word and facing in the
+        attacking side's place, and units with strength 0 are marked destroyed. The attacking
+        side's map is rebuilt from every unit neither destroyed nor held, at its **side-0**
+        word, then copied whole, terrain too, over the other side's. Both sides then see the
+        same map, and building markers (0xf4) are lost.
+      - **Container slot lists** are synced to the owner's list at the same time.
+      - **Hidden-order isolation:** attacks resolve on the attacking side's map
+        (`02dc:012c–01c5`). `TestEngagementHidden` gives the handler a second view
+        (`Engagement.Moved`). A defender that the other side moved away is still fought where
+        it was seen, blockers that left still block, and a unit that moved onto an empty
+        target is not fought.
+
+      148 cases are recorded in `visibility.json` (schema `visibility-fixture.schema.json`),
+      and `TestVisibilityFixtures` replays them in CI; a hand-changed occupant, position word
+      or slot byte fails it.
 - [ ] Identify any actual ammo, fuel and resupply fields/consumers. Their existence in the
       Python UI does not establish DOS consumption or adjacent-depot/supply-car replenishment.
       If unsupported, keep them in compatibility/extension rules rather than the DOS profile.
@@ -1131,6 +1164,13 @@ The completed compatibility work below remains useful and stays completed.
       order record with `+0x1b` = 4 (`0661:2f0a`). It takes the unit out of its slot and
       places it on the map before the destination is chosen, so trace what a refused or
       cancelled exit does with it.
+      (2026-10-19) — note from the visibility trace. The order handler `02dc:0004` ends with
+      the phase change: the views are synced, the phase bytes `32e2:4d88/4db9 +0x16` swap 1
+      and 2, and the turn counter `4cab` counts up. The main loop calls it at `0661:3cfb`
+      when order `+0x17` is 5 and both ready flags (`32e2:4d29`/`4d40` bit 2) are set.
+      Establish what the phases are and who acts in each. Attacks resolve on the attacking
+      side's view, so a target that moved away during the phase is still fought where it
+      was seen.
 - [ ] Add explicit profile, cycle, player readiness, pending-order and resolution state.
       Separate order validation/queuing from execution; resolve using the verified R1/R2 rules
       and emit ordered events for the UI, AI and replays. No game state advances with animation.
@@ -1149,6 +1189,10 @@ The completed compatibility work below remains useful and stays completed.
       as action-cycle orders at 15 energy, or 50 for construction units, restoring group size
       and retaining experience. Verify repair completion timing, eligibility and construction
       charges; do not apply adjacent resupply rules without evidence.
+      (2026-10-19) — note from the visibility trace: the order handler runs per-unit work
+      before the phase change (`02dc:0e91–19a1`, building construction among it) and after
+      it (`02dc:1cc6` on: live `+4 &= 0xf0ff`, the moved bit for type `+0x0f` bit 1, live
+      `+6` bit 0x8000). Neither is traced yet.
 - [ ] Verify factory build lists, availability by mission/date/side, price deductions, slot and
       weight checks and when new units become usable. Recognise all building orientations.
       Use verified type costs; avoid an arbitrary automatic unit-per-turn production rule.
