@@ -94,6 +94,15 @@ type Handler struct {
 	// context's callback at +0x6a, the draw routine, and the 32-bit state
 	// both use (state*0x015a4e35+1, the Borland C rand).
 	Srand, Rand, RandState [2]int
+
+	// The phase change in the handler's tail: Phase is the window from the
+	// container sync to the per-unit work of the new phase (start and end
+	// offsets in Build.Code), Copy the map copy and Owner the side test it
+	// calls. Offsets in Build.Data: the 0x31-byte per-side records (the phase
+	// byte Turn is side 0's +0x16), the map's byte size and the turn counter.
+	Phase                [2]int
+	Copy, Owner          [2]int
+	Players, Size, Count int
 }
 
 // HLSHA256 identifies the investigated HL.EXE build.
@@ -133,6 +142,8 @@ var Demo = Build{
 			{0x2F03, 0x1054}, // sound
 		},
 		Srand: [2]int{0x0000, 0x07AB}, Rand: [2]int{0x0000, 0x07C3}, RandState: [2]int{0x3CC5, 0x11F6},
+		Phase: [2]int{0x1A09, 0x1CC6}, Copy: [2]int{0x0E40, 0x1D9D}, Owner: [2]int{0x0CA0, 0x020C},
+		Players: 0x4D88, Size: 0x4C94, Count: 0x4CAB,
 	},
 	Move: &Move{
 		Reach: [2]int{0x0B06, 0x0331}, Destinations: [2]int{0x0B06, 0x1383}, Path: [2]int{0x0B06, 0x0E12},

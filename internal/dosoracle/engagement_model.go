@@ -25,12 +25,16 @@ type Fighter struct{ Type, Cell, Size, Alt, Exp, Flags4, Flags6 int }
 // Engagement is one controlled battle: units on a map and a single attack
 // order of the live unit Attacker against the cell Target. Terrain gives a
 // cell's combat class (0-8, default 7); Side is the player whose orders run.
+// Units stand at Cell as Side sees them; Moved gives a unit's cell as the
+// other side sees it where the two differ (a move of the other side during
+// the phase), else both sides' maps and position words agree.
 type Engagement struct {
 	Width, Height    int
 	Units            map[int]Fighter
 	Attacker, Target int
 	Side             int
 	Terrain          map[int]int
+	Moved            map[int]int
 }
 
 // Outcome is the state the order handler leaves after the battle.
@@ -53,7 +57,7 @@ func (g *Engagement) class(cell int) int {
 	return defaultClass
 }
 
-// cells is the unit byte of every map cell (0xff empty).
+// cells is the unit byte of every map cell (0xff empty) as Side sees it.
 func (g *Engagement) cells() []int {
 	c := make([]int, g.Width*g.Height)
 	for i := range c {
@@ -63,6 +67,14 @@ func (g *Engagement) cells() []int {
 		c[u.Cell] = idx
 	}
 	return c
+}
+
+// seen is a unit's cell as the other side sees it.
+func (g *Engagement) seen(idx int) int {
+	if c, ok := g.Moved[idx]; ok {
+		return c
+	}
+	return g.Units[idx].Cell
 }
 
 // strength is the group size the experience window compares: the alternate

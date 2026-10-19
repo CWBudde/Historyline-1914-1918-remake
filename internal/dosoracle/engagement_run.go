@@ -65,10 +65,25 @@ func (e *Export) runEngagement(g *Engagement, state *uint32) (Outcome, error) {
 	for i, u := range cells {
 		mp[2*i], mp[2*i+1] = byte(g.class(i)), byte(u) // terrain index = combat class
 	}
-	mapSeg := ar.alloc(mp)
-	for k := range 2 {
+	own := ar.alloc(mp)
+	other := own // the other side's map
+	if len(g.Moved) > 0 {
+		mo := make([]byte, len(mp))
+		for i := range cells {
+			mo[2*i], mo[2*i+1] = byte(g.class(i)), 0xFF
+		}
+		for idx := range g.Units {
+			mo[2*g.seen(idx)+1] = byte(idx)
+		}
+		other = ar.alloc(mo)
+	}
+	for k := range 2 { // Maps holds side 1's map, then side 0's
+		view := other
+		if 1-k == g.Side&1 {
+			view = own
+		}
 		m.WW(data, h.Maps+4*k, 0)
-		m.WW(data, h.Maps+4*k+2, mapSeg)
+		m.WW(data, h.Maps+4*k+2, view)
 	}
 	m.WW(data, b.Width, g.Width)
 	m.WW(data, b.Width+2, g.Height)
@@ -87,7 +102,11 @@ func (e *Export) runEngagement(g *Engagement, state *uint32) (Outcome, error) {
 		m.WW(data, base+6, u.Flags6)
 		m.WB(data, base+8, u.Type)
 		for k := range 2 {
-			m.WW(data, base+0x0B+2*k, 2*u.Cell+1)
+			cell := u.Cell
+			if k != g.Side&1 {
+				cell = g.seen(idx)
+			}
+			m.WW(data, base+0x0B+2*k, 2*cell+1)
 		}
 	}
 	m.WW(data, b.Units+26*g.Attacker+0x11, 2*g.Target)

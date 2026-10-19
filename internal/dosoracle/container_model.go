@@ -56,10 +56,13 @@ func (h Hold) bytes() []byte {
 }
 
 // holdBytes are all container records of a movement.
-func holdBytes(g *Movement) map[int][]byte {
+func holdBytes(g *Movement) map[int][]byte { return holdsOf(g.Holds) }
+
+// holdsOf are all container records, EmptyHold where holds has none.
+func holdsOf(holds map[int]Hold) map[int][]byte {
 	out := make(map[int][]byte, holdRecords)
 	for i := range holdRecords {
-		h, ok := g.Holds[i]
+		h, ok := holds[i]
 		if !ok {
 			h = EmptyHold()
 		}
