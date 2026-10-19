@@ -32,6 +32,10 @@ type Export struct {
 
 	// Terrains holds the 6-byte terrain records (the summer table, WW1GNDS.DAT).
 	Terrains []byte
+
+	// watch, when set, receives every machine a runner creates, before the
+	// runner sets it up (the field census of consumables_test.go).
+	watch func(*dos8086.Machine)
 }
 
 // LoadExport reads an export directory and refuses one from an unidentified
@@ -111,6 +115,9 @@ func (e *Export) machine() *dos8086.Machine {
 	m.Load(e.Image, e.Relocs, baseSeg)
 	m.Hooks[e.lin(e.B.StackCheck)] = errHook(errStackCheck)
 	m.WW(baseSeg+e.B.StackLimit[0], e.B.StackLimit[1], 0xFFFF)
+	if e.watch != nil {
+		e.watch(m)
+	}
 	return m
 }
 

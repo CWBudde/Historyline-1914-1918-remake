@@ -60,6 +60,13 @@ type Machine struct {
 	F     Flags
 	Hooks map[int]Hook
 	Steps int
+
+	// At is the offset of the instruction being executed (in CS).
+	At uint16
+	// OnWrite, when set, is called before each memory write an instruction
+	// makes, with the linear address, the width (0 byte, 1 word) and the
+	// value. Stack pushes, hooks and setup writes are not reported.
+	OnWrite func(m *Machine, lin, w, v int)
 }
 
 // New returns a machine with 1 MiB of zeroed memory.
@@ -210,9 +217,21 @@ func (m *Machine) wr(rm int, e ea, w, v int) {
 	case e.reg:
 		m.put(rm, w, v)
 	case w != 0:
+		m.watch(e.seg, e.off, w, v)
 		m.WW(e.seg, e.off, v)
 	default:
+		m.watch(e.seg, e.off, w, v)
 		m.WB(e.seg, e.off, v)
+	}
+}
+
+func (m *Machine) watch(seg, off, w, v int) {
+	if m.OnWrite != nil {
+		mask := 0xFF
+		if w != 0 {
+			mask = 0xFFFF
+		}
+		m.OnWrite(m, Lin(seg, off), w, v&mask)
 	}
 }
 
@@ -337,6 +356,7 @@ var segPrefix = map[int]int{0x26: ES, 0x2E: CS, 0x36: SS, 0x3E: DS}
 // Step executes one instruction.
 func (m *Machine) Step() error {
 	start := m.IP
+	m.At = start
 	segO := -1
 	op := m.fb()
 	for op == 0x26 || op == 0x2E || op == 0x36 || op == 0x3E {
@@ -472,6 +492,7 @@ func (m *Machine) Step() error {
 		w := op & 1
 		off := m.fw()
 		seg := m.dsOr(segO)
+		m.watch(seg, off, w, m.get(0, w))
 		if w != 0 {
 			m.WW(seg, off, m.get(0, w))
 		} else {

@@ -159,3 +159,32 @@ func TestRelocation(t *testing.T) {
 		t.Fatalf("got %x", got)
 	}
 }
+
+func TestOnWriteSeesInstructionWrites(t *testing.T) {
+	type write struct{ ip, lin, w, old, v int }
+	var got []write
+	code := []byte{
+		0xC6, 0x06, 0x10, 0x00, 0x05, // mov byte [0x10], 5
+		0xFF, 0x4F, 0x02, // dec word [bx+2]
+		0xA3, 0x20, 0x00, // mov [0x20], ax
+		0x50, // push ax: the stack is not reported
+	}
+	run(t, code, func(m *Machine) {
+		m.R[AX], m.R[BX] = 0x1234, 0x30
+		m.WW(0x2000, 0x32, 0x0100) // setup writes are not reported either
+		m.OnWrite = func(mm *Machine, lin, w, v int) {
+			if mm.S[CS] != 0x1000 {
+				t.Errorf("cs %#x", mm.S[CS])
+			}
+			old := int(mm.Mem[lin])
+			if w != 0 {
+				old |= int(mm.Mem[lin+1]) << 8
+			}
+			got = append(got, write{int(mm.At), lin, w, old, v})
+		}
+	}, nil)
+	want := []write{{0, 0x20010, 0, 0, 5}, {5, 0x20032, 1, 0x100, 0xFF}, {8, 0x20020, 1, 0, 0x1234}}
+	if !slices.Equal(got, want) {
+		t.Fatalf("writes %+v, want %+v", got, want)
+	}
+}
