@@ -34,7 +34,19 @@ func forestTestDescriptor(id string, neighbors [6]string) (string, string) {
 	return descriptor, hex.EncodeToString(sum[:])
 }
 func TestForestCLIActualPNGsAndFixtureTopology(t *testing.T) {
+	forestTestCLIActualPNGsAndFixtureTopology(t, false)
+}
+
+func TestForestSummerCanopyCLIActualPNGsAndFixtureTopology(t *testing.T) {
+	forestTestCLIActualPNGsAndFixtureTopology(t, true)
+}
+
+func forestTestCLIActualPNGsAndFixtureTopology(t *testing.T, canopy bool) {
+	t.Helper()
 	path := forestTestFixture(t)
+	if canopy {
+		forestTestSelectCanopyProfile(t, path)
+	}
 	out := filepath.Join(filepath.Dir(path), "bundle")
 	cmd := exec.Command("go", "run", ".", "-forest", path, "-out", out)
 	if b, err := cmd.CombinedOutput(); err != nil {
@@ -46,6 +58,16 @@ func TestForestCLIActualPNGsAndFixtureTopology(t *testing.T) {
 	}
 	if r.SchemaVersion != 1 || len(r.Scenes) != 16 || len(r.Template) != 36 || len(r.Grounds) != 2 || len(r.Atlases) != 2 {
 		t.Fatal("bounded report roster")
+	}
+	if canopy {
+		if r.SummerProfile != testForestCanopyProfile || r.SummerCrownWorldSize != 26.5 || r.SummerTreeCount != 30 || len(r.SummerTemplate) != 30 || len(r.SummerPaintedSupport) != 4 || r.PaintedSupportBound != math.Hypot(12, 12) {
+			t.Fatal("optional summer geometry/support provenance missing")
+		}
+		for _, support := range r.SummerPaintedSupport {
+			if support > r.PaintedSupportBound {
+				t.Fatal("saved profile exceeds original seven-site bound")
+			}
+		}
 	}
 	if len(r.Profiles) != 20 || len(r.Exports) != 72 {
 		t.Fatal("missing profiles/scenes")
@@ -129,7 +151,7 @@ func TestForestCLIActualPNGsAndFixtureTopology(t *testing.T) {
 			id = "grass_w"
 		}
 		source := groundTestLoad(t, filepath.Join(filepath.Dir(path), r.Grounds[season].Source))
-		existing, err := exportConnectionTiles(connectionInputs{manifest: connectionManifest{Geometry: sharedConnectionGeometry()}, materials: map[string]*image.NRGBA{"grass": source}}, nil, nil)
+		existing, err := exportConnectionTiles(connectionInputs{manifest: connectionManifest{Geometry: sharedConnectionGeometry()}, materials: map[string]*image.NRGBA{"grass": source}, grassSampling: season == "summer"}, nil, nil)
 		if err != nil {
 			t.Fatal(err)
 		}

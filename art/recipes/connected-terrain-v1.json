@@ -1,5 +1,5 @@
 {
-  "acceptance": "Current provisional reference-guided candidate rebuild. Actual PNG assembly and pinned inputs are recorded; current user visual approval, approximately 90% resemblance, whole-map/runtime integration and release acceptance remain open.",
+  "acceptance": "Reference-guided candidate rebuild. Current exported assets and context proofs are pinned; final user visual review remains open.",
   "composition_scope": "Tested composition scope: pixel-aligned 2x/4x export sprites with integer runtime lattice translations and ordinary source-over blits. Other camera zoom should assemble the scene at asset density and resample the completed scene once. Independently filtered or fractional-position sprite zoom is not validated; no runtime zoom implementation is included.",
   "date": "2026-10-15",
   "exports": [
@@ -9,7 +9,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/grass-4x.png",
-      "sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+      "sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
     },
     {
       "dimensions": {
@@ -17,7 +17,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/grass-2x.png",
-      "sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+      "sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
     },
     {
       "dimensions": {
@@ -25,7 +25,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/road13-4x.png",
-      "sha256": "3c1ad664787c604c5c20ab4fad5099b075ae950bd594197f6221991280ddb580"
+      "sha256": "28581b5aaa89407b10e111542f261a3555a6b4065852d8923c12e225c4e41529"
     },
     {
       "dimensions": {
@@ -33,7 +33,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/road13-2x.png",
-      "sha256": "49066290ec8bfdc58db4525f4995a766622cebbebb5cc2ad45b2a20a87959a97"
+      "sha256": "2dfb92319ff78c402444fbcfec23843347e49e898305b0d84ed3de5f6524c383"
     },
     {
       "dimensions": {
@@ -41,7 +41,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/road14-4x.png",
-      "sha256": "17a10358037fc6fd4156782a0ae5365571d36c216c8b716d0f27795bcb568a01"
+      "sha256": "1125d1eb1e362ee1130c8ff256e78753b880039a384ab87bdba27befba09f0a0"
     },
     {
       "dimensions": {
@@ -49,7 +49,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/road14-2x.png",
-      "sha256": "a0682088c8e57a9d60de208d3c1cb7c2dbf15f663137bcfe4286c6ddb1210fba"
+      "sha256": "38bfa2a2f8cdc2e25a0cee46f3d6977ab413e86d79c0deda9258659491da3953"
     },
     {
       "dimensions": {
@@ -57,7 +57,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/road15-4x.png",
-      "sha256": "6698eda12d8a8bc45a86547cea50c806baf3bb68e44f1c2d80da14bcd9adcdb9"
+      "sha256": "c167208ba2365e2612c4d4401b4d8a007ffcd8d76dd863234c022b064775d3e8"
     },
     {
       "dimensions": {
@@ -65,7 +65,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/road15-2x.png",
-      "sha256": "2b049d8d16eb55415df15df9bdd321b9c0ba5690cfa81f58902b586f63a612ab"
+      "sha256": "900bc42305fbe62d6335a08a434be8cebbda3403a05a239e995bc6e1d126b333"
     },
     {
       "dimensions": {
@@ -73,7 +73,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/road25-4x.png",
-      "sha256": "f751f2059defcfaa6ab6d7cc62a2d8fb1a4eaf8c9bc86df1c15d379f0bf85697"
+      "sha256": "11cbe3b47c64ca0e7f30b11cb94e22cb929a6335e7e8297e951ee6b47d805dfa"
     },
     {
       "dimensions": {
@@ -81,7 +81,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/road25-2x.png",
-      "sha256": "be3c620009a03b44dbc680457b21266ff30725930b883bf64cfbd447bb29fd2b"
+      "sha256": "a923790b55f6a3988623d13cb2f4a36ad54a7ce10c7bb3e464220aa214e234c6"
     },
     {
       "dimensions": {
@@ -89,7 +89,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/road35-4x.png",
-      "sha256": "af6106ed5bc6b54eb7ab060c0a77754bdeb1f369a35ef4adc3f65289a5680ac9"
+      "sha256": "8fea9ebac9de96941c796cba1c6f9d2fb4baa02f9456a8ef97f1653ca887675e"
     },
     {
       "dimensions": {
@@ -97,7 +97,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/road35-2x.png",
-      "sha256": "1311b8f7056871e2e1b9c12b6d0d89f1c4f448cd5fe8e27f31a169883971e8c2"
+      "sha256": "1e4d7e5e7f522bfcb10a9aedfa7472b301222865fbdd69c0ff5645a303338def"
     },
     {
       "dimensions": {
@@ -105,7 +105,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/road36-4x.png",
-      "sha256": "2019e64eb5e5fe80f908367edb6ee7b747fba7d427548899e9da5634fc5e9963"
+      "sha256": "42aaa924cbe75fa96683a6e8bc1cff73096fff1d606de862f68243e5c123039e"
     },
     {
       "dimensions": {
@@ -113,7 +113,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/road36-2x.png",
-      "sha256": "0cc5328c6469936b894f6faa467c4bf2401120910d70583b38002e78d90dbd7a"
+      "sha256": "eb2140a6afcaa71874a72df68e2aa8d0b81a21454ee526cdf277a22a124891f1"
     },
     {
       "dimensions": {
@@ -121,7 +121,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/road46-4x.png",
-      "sha256": "87bb620cfee39923b666fb4a6ace066c579e2da8e7b9c09870ae640df230b34a"
+      "sha256": "d9d8c34844afb49f21e5c21f5a0698e3ee031bd22942676793f034d475f6b8c6"
     },
     {
       "dimensions": {
@@ -129,7 +129,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/road46-2x.png",
-      "sha256": "74539df7dd98f3adb8260ee33638895632226f5a23ba6e406580d4270353320a"
+      "sha256": "37ac6bae28999d1682b35c24586fd03b1097559e6a5046e095e8af7597780a37"
     },
     {
       "dimensions": {
@@ -137,7 +137,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/road26-4x.png",
-      "sha256": "3ad24bb92a878a2d0a76a3ec0b019ceb4cc19dc4c74336a801a00599ab9a7e47"
+      "sha256": "10d85c572c813553072e591f28f61bb8cefc802e419868f16a18a1b2260f889d"
     },
     {
       "dimensions": {
@@ -145,7 +145,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/road26-2x.png",
-      "sha256": "15ad563730816f14c2fd6a028fc27f4920169c3830d05acaee0d998c0daf7320"
+      "sha256": "1e95ca3e8f19dc776f641914d27935448b9fd9d1ff1826d90efd06ab8876ae44"
     },
     {
       "dimensions": {
@@ -153,7 +153,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/road125-4x.png",
-      "sha256": "848a2685cb5957f5ba1e1e63c8b00dc0ff5436da30d25ad65a1bf9581d975c6d"
+      "sha256": "a7cb164f65fd403bf144ea5ff356eca223380c5227f8afda040f40d77ee1c733"
     },
     {
       "dimensions": {
@@ -161,7 +161,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/road125-2x.png",
-      "sha256": "95e79ece3bd352062f495ab7e72978846014dbe606d65e4ecf1dd2ee85f50997"
+      "sha256": "fcf9b298465932f27ee6c237b32e68a18efe28697b56efed3d74fd9f881bb059"
     },
     {
       "dimensions": {
@@ -169,7 +169,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/road124-4x.png",
-      "sha256": "d849b830f805aa34a4aa7aa42a39fd52d471739fbb2d6218f4aef67cc17c51c9"
+      "sha256": "008624e90874456b435575fe8f6c2b4ec8948370e544cef921a7355912e9523a"
     },
     {
       "dimensions": {
@@ -177,7 +177,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/road124-2x.png",
-      "sha256": "5e48f6aa65a6bf6e8192a2854c5f898fec92f11f3a6853b2cf2873699fbe969c"
+      "sha256": "4ee4f825c5985a834bac7263ac9a63e12ed1a65c2a073cfbacf11ac72e8d5244"
     },
     {
       "dimensions": {
@@ -185,7 +185,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/road145-4x.png",
-      "sha256": "31d42cca113771173b94f6fbe2551b50f54753de0fee0d1d0b22c7417f943dd0"
+      "sha256": "243447bc206219ea92274d7c3ca30e7f8c0c016c47de9a6744af605a496f42d0"
     },
     {
       "dimensions": {
@@ -193,7 +193,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/road145-2x.png",
-      "sha256": "d555e29203f8b9591eb5d780cfea5fc9ede447d59deb2d282563c55d932b519a"
+      "sha256": "31ea0111fc5f6f24435544906cc2e330e60ca138c795dc094abe5f1f27bcb89e"
     },
     {
       "dimensions": {
@@ -201,7 +201,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/road236-4x.png",
-      "sha256": "7b30c6704c25e25967453c102b0250e1e2fd9d8535fabee4f0452d16bfd9d96d"
+      "sha256": "2762d8d5bf5ca0d62f0b8fb9d3cf57a58ef14a0a80ff4a195be7c10f89ce5089"
     },
     {
       "dimensions": {
@@ -209,7 +209,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/road236-2x.png",
-      "sha256": "9d0d420a6d8da08bafa8cedf59eeac39baf8c41867530d485707a7b9190c86c3"
+      "sha256": "40c03ec577cf668d06ee4c7693fb7629cfa14613186cf6a3bd660196a878fe53"
     },
     {
       "dimensions": {
@@ -217,7 +217,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/road346-4x.png",
-      "sha256": "eab050eaa372ec57f11e92005d161e2ebb2e691e6c98be04eb6260f8ebfd37e5"
+      "sha256": "2f2d63c4537669fda712f373223f8695251e0f7104c9b25ecc95c8f8a496314c"
     },
     {
       "dimensions": {
@@ -225,7 +225,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/road346-2x.png",
-      "sha256": "9e5cd7eac4219aaae7e663ca936229083c3ad3cd075a6b492d5adabd56c8c3f9"
+      "sha256": "7caea291c5a0e83454b6b6064a58772b660761bd936b672c640836d987fcc3a4"
     },
     {
       "dimensions": {
@@ -233,7 +233,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/road356-4x.png",
-      "sha256": "cbefdab51a142ce64c3422f17b9c627b6ba73e564b4348e8409684dd9594e4b8"
+      "sha256": "758e5a95ca9910e7601a36dcbb5ee26ad55605b4526f46e8a44588af162d1b82"
     },
     {
       "dimensions": {
@@ -241,7 +241,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/road356-2x.png",
-      "sha256": "64903413f09164909bdb98a04711adced3d297c4d5d6ba9f002ad9b282253619"
+      "sha256": "33e587b03e06221833e6451d0b5a1ed2f06a9fe494e8b415f296fbc084aa57cd"
     },
     {
       "dimensions": {
@@ -249,7 +249,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/road135-4x.png",
-      "sha256": "cc1ab9794591f8311d291f0ba710f63df14882ec90492c3f82e4eb21d8011224"
+      "sha256": "7af44c7977d75eb684410e01bfef628883e60612a2de8955250e683417aef5dd"
     },
     {
       "dimensions": {
@@ -257,7 +257,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/road135-2x.png",
-      "sha256": "1b6c52ad359b096938de3325ca342abdeba1d52c5fe7bc05829e0a1cb5318836"
+      "sha256": "1dbc5a561b2dbdb6ae4f019cfc0052d41b2de268c4d217aa3a7566f2b46d0fbe"
     },
     {
       "dimensions": {
@@ -265,7 +265,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/road24-4x.png",
-      "sha256": "a82c255327765193aafb3e4afbd9ac4bf869d5559bd6242637ee601629766f11"
+      "sha256": "75b9aa984584ee6ff27a4e578954d518203e25d6297687ca841486cddd6142ba"
     },
     {
       "dimensions": {
@@ -273,7 +273,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/road24-2x.png",
-      "sha256": "caa16fa9b06bb090099473d97f412ade1110d9bf4878f0adf9397c78361a6b0c"
+      "sha256": "dc74e51a4cd5cac04d0767493f3dd9379cfd30e07ba0b1307d7f89b349edfadb"
     },
     {
       "dimensions": {
@@ -281,7 +281,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/stream13-4x.png",
-      "sha256": "0a0d56654805e2ab6adcb2fbe888c5fb44f082d7854a64805b7e194bbadcfdc6"
+      "sha256": "974be68649338c081502db2a41cd9a95e5e264712ff7699de82b8a941fcb18a1"
     },
     {
       "dimensions": {
@@ -289,7 +289,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/stream13-2x.png",
-      "sha256": "e477a2e1c293ea2689d69a42a35d98acf2eb7682556b67735a4c733b13213826"
+      "sha256": "81043e3dbeb65928b8f6e8861ae985f90010b2f754b5a6a390227a6a9c5e34cd"
     },
     {
       "dimensions": {
@@ -297,7 +297,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/stream135-4x.png",
-      "sha256": "5ae25e0eeed739a1b861e18dab53ef0eb6643e76fdd99dd0a568fbcf211fae87"
+      "sha256": "beef8fad073ae5150114e8751482f552824720889e81e936ebe0cbc926323ccb"
     },
     {
       "dimensions": {
@@ -305,7 +305,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/stream135-2x.png",
-      "sha256": "1807b6b6ff5969872d5d8e08e4e29dda89996e6976af719f801682fd6bdf6ad9"
+      "sha256": "54031ca4690e21ad4bfee0cf41bffc694bc95a4f1d63d001d384f2c7b12b5903"
     },
     {
       "dimensions": {
@@ -313,7 +313,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/stream14-4x.png",
-      "sha256": "1bffb63193934b607568ef0706b6357a24d11b70d5622635db9731bbb9d1db5c"
+      "sha256": "4263ead7dc907d769960cd91bd1be1b7ec7ce3bdc28dcee3af51dd09c5dc5c2d"
     },
     {
       "dimensions": {
@@ -321,7 +321,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/stream14-2x.png",
-      "sha256": "f85e4bad4681982286dda1acf9c95912795e002e49797cf00a0e50fa18ebcb83"
+      "sha256": "b421daa8802f29a63e5b0a8964ba0a2a0920abc04ad64c4b9fe881f7a3944ce9"
     },
     {
       "dimensions": {
@@ -329,7 +329,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/stream15-4x.png",
-      "sha256": "fbef5985cede96f2692854a722853de7a6500fffe2a2b2fdab3fc1cb8613ef27"
+      "sha256": "053d8868869d02066438f50f7d1b77e2d2003ff5d5eecc2ee38b452aa428e1bc"
     },
     {
       "dimensions": {
@@ -337,7 +337,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/stream15-2x.png",
-      "sha256": "15f5a38666e66a9f3ad1949138645feabaef0a045148f2c1d43c91d085e785f2"
+      "sha256": "1dcc5e37c102eab407984ae2b097e8e175ab6f4931f80f29f73a9b006f3c1a2c"
     },
     {
       "dimensions": {
@@ -345,7 +345,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/stream24-4x.png",
-      "sha256": "8f6e156447b606e83ac0194786dba634f75d12b11bf7783d041718943796bec7"
+      "sha256": "bc870109491705e98eab79ba0f634d1b7da58b15f2169cc003f985a41a093e3a"
     },
     {
       "dimensions": {
@@ -353,7 +353,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/stream24-2x.png",
-      "sha256": "d1ac23fcad7f4409b116d2c3c9160c52ffbea065e6b33c079f21427f7abe3c4b"
+      "sha256": "969013646ed36bb64552d89585ff0c8a4c24cde7db8a5194e448955c12fcefe8"
     },
     {
       "dimensions": {
@@ -361,7 +361,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/stream246-4x.png",
-      "sha256": "e04d1424a3783bd610537690eb945c3be6dc1cac1faeecaeb82767ebc78c1ddf"
+      "sha256": "6099efa94232a47e93f7bc36a61cc06d2604b47344cb69b0e7cad7e504edbdbd"
     },
     {
       "dimensions": {
@@ -369,7 +369,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/stream246-2x.png",
-      "sha256": "f23aa2bcaea914387a2283b5e5d2b3551d6255b9f5940ccd5931536aa0b7e973"
+      "sha256": "92ab204c36d8367b99a228747bc905ea91f770c4a887caa9b0d2f473da44ad74"
     },
     {
       "dimensions": {
@@ -377,7 +377,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/stream25-4x.png",
-      "sha256": "e25fd72a96366fc2677a2fb6cd0250d64fb6216321b03e6efe9cd1248a187f07"
+      "sha256": "8818d88a51551a51f092828b85d1138bd77c5b9c03af9ead0874fda0805f6ef0"
     },
     {
       "dimensions": {
@@ -385,7 +385,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/stream25-2x.png",
-      "sha256": "f98b25a961b60406306a9bbc018a8700f22bc17cef4ea30c3b9f418b412b90fd"
+      "sha256": "d23931dd5005c869ff63215d5671d7c1f77dc3a0138a146b4db4555b4a30bcf6"
     },
     {
       "dimensions": {
@@ -393,7 +393,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/stream26-4x.png",
-      "sha256": "5653a95e0bac1c9619b0c536efc78741613667274b7bbc306084cc366aa56124"
+      "sha256": "52312afe5fce6a45049a57f4195f9f1f6bfa1e2621befd7878d176bb5bfd2f1b"
     },
     {
       "dimensions": {
@@ -401,7 +401,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/stream26-2x.png",
-      "sha256": "5518843936747dbffc8bc187aac8657fa018d786b39453e7db7f01d64f6b0c74"
+      "sha256": "b4fb19d8e93a80234c6fd84b430ab896461edc8458d0d4a3243e3f0f004b3eb1"
     },
     {
       "dimensions": {
@@ -409,7 +409,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/stream35-4x.png",
-      "sha256": "76494be278a0f76790078f47938b0200d20fa7d210ed912e752974f011d0e4d7"
+      "sha256": "56fa2afc9599fc1a97e160687b69d9a2985bb6ce1048dcd124c46d71872d0f5a"
     },
     {
       "dimensions": {
@@ -417,7 +417,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/stream35-2x.png",
-      "sha256": "310ec1d169dac1b889af98293ff99c08b2eab2c4f824842a7f394e1db0f85dbe"
+      "sha256": "b917eef2b9f719a802f78d23113e1dcc1eba688df3747b505b918982ab706a64"
     },
     {
       "dimensions": {
@@ -425,7 +425,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/stream36-4x.png",
-      "sha256": "b9f3c97010f42c0e4950e726b718b4afbed164bff3923ac26cdf8f95d1905438"
+      "sha256": "b2761e43e05c196cec9030457005497d17a3c0c9b6f9a2885cf052dae6e885de"
     },
     {
       "dimensions": {
@@ -433,7 +433,7 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/stream36-2x.png",
-      "sha256": "c30c848345012da3cb431c21b3fe1cff4551036e839d4c1cfa62c2318370bb9d"
+      "sha256": "a70c8006d9ede70364f4d4936ba281ca23597d0b7b40bc683adb4e53fae8e0b7"
     },
     {
       "dimensions": {
@@ -441,7 +441,7 @@
         "width": 384
       },
       "path": "art/exports/connected-v1/stream46-4x.png",
-      "sha256": "0f06f0d91aac3fbed8146f16561289579346f8c8f5ce2009fb13c2e679e705ef"
+      "sha256": "e563ca881c7dd7f165cb89b1b9f051b329c57c57bfb79cdea41ec5b733ea4f01"
     },
     {
       "dimensions": {
@@ -449,15 +449,24 @@
         "width": 192
       },
       "path": "art/exports/connected-v1/stream46-2x.png",
-      "sha256": "1f30f8ddb9ba2f7818eeec197c71355cf6eb7614882388fda7a462900ec948b5"
+      "sha256": "2756c708c67580fe3f6772029a3260016dc6e243dd5da9cc824c69f146d1bb66"
     }
   ],
   "generation_recipes": [
     "art/recipes/terrain/distinct-v1/earth-bare.json",
+    "art/recipes/terrain/distinct-v1/meadow.json",
+    "art/recipes/terrain/distinct-v1/river-diagonal.json",
+    "art/recipes/terrain/distinct-v1/road-bend.json",
     "art/recipes/terrain/distinct-v1/road-gravel.json",
     "art/recipes/terrain/distinct-v1/water-open.json",
+    "art/recipes/terrain/refdesign-v1/earth-bank.json",
+    "art/recipes/terrain/refdesign-v1/grass-base-01.json",
+    "art/recipes/terrain/refdesign-v1/grass-meadow-01.json",
+    "art/recipes/terrain/refdesign-v1/river-bank-gravel.json",
+    "art/recipes/terrain/refdesign-v1/road-asphalt.json",
     "art/recipes/terrain/reference-v2/meadow-03.json",
     "art/recipes/terrain/reference-v2/road-paved.json",
+    "art/recipes/terrain/shore-reference-v2/bank.json",
     "art/recipes/terrain/shore-reference-v2/water.json"
   ],
   "generation_recipes_scope": "Includes historical generation studies and the current pinned master records. Current source selection is established by the producing manifest and its exact SHA256 pins; historical records are unchanged.",
@@ -545,34 +554,43 @@
   },
   "id": "connected-terrain-v1",
   "manifest": "art/connected-terrain-v1.json",
-  "manifest_sha256": "a895fff966a9363b4c0948e5df11d148a7c82d656f982351992d590c39e8e5b3",
+  "manifest_sha256": "4c9f86f83bfaec6b0f2bcbb88dfb12d0791aaf2d33962a83e2848cee43c1a362",
   "materials": {
+    "bank": {
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "retained_source": "bank-material-source.png",
+      "source": "art/source/terrain/refdesign-v1/river-bank-gravel.png",
+      "source_sha256": "bec7afdd82d829aa9f3ae08f8e5e06eb8e1b3d1dbec3d8f36c19edfbc99ba0f0"
+    },
     "earth": {
       "dimensions": {
-        "height": 1145,
-        "width": 1374
+        "height": 1254,
+        "width": 1254
       },
       "retained_source": "earth-material-source.png",
-      "source": "art/source/terrain/distinct-v1/earth-bare.png",
-      "source_sha256": "e7d3188bc9c734a1f45ad80ccce934c46d93cb4cf9843c079bbc6260ec848404"
+      "source": "art/source/terrain/refdesign-v1/earth-bank.png",
+      "source_sha256": "6df0ffb17725f7c7ef81bbafd1c8537ad2a30b62beac21a4ce6ce8a4c522086d"
     },
     "grass": {
       "dimensions": {
-        "height": 1145,
-        "width": 1374
+        "height": 480,
+        "width": 768
       },
       "retained_source": "grass-material-source.png",
-      "source": "art/source/terrain/reference-v2/meadow-03.png",
-      "source_sha256": "4de543f0906e1311eff5ae4f202eb8fa68665c67103039bee089e60e02c68eb4"
+      "source": "art/source/terrain/refdesign-v1/grass-base-01.png",
+      "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
     },
     "road": {
       "dimensions": {
-        "height": 1145,
-        "width": 1374
+        "height": 1254,
+        "width": 1254
       },
       "retained_source": "road-material-source.png",
-      "source": "art/source/terrain/reference-v2/road-paved.png",
-      "source_sha256": "48f521aa74bb1759896b33c95e84abb5d6d1d9146ab2925620a6b3234e5dcd2e"
+      "source": "art/source/terrain/refdesign-v1/road-asphalt.png",
+      "source_sha256": "a86aa33d3261283f885228a404a4b31ee337c132728f55038c5714a2e46aec44"
     },
     "water": {
       "dimensions": {
@@ -584,7 +602,7 @@
       "source_sha256": "007b9babe0e69db5e628352a38dae0f1502ac42513bbf4018ad3df82f76c4c31"
     }
   },
-  "method": "Candidate overlay. Unclipped new feature and grass render at 4x with four WORLD pixels of overscan on every side (416x352). Feature/bank edges use analytic signed-distance AA, 0.25 world-pixel ramp; distances round to 1e-9 world px for reciprocal half-alpha stability. Existing alpha-aware Lanczos3 reduces the UNMASKED overscan 416x352 -\u003e 208x176. Crop 4-world-pixel margins AFTER filtering to 384x320 and 192x160, then apply complementary hard half-open polygon ownership at final pixel centers. No per-sprite polygon-edge AA; a future complete-map compositor may AA its outer boundary once. Each port has \u003e=8 straight world pixels and extends beyond cutout by outer radius+4; cubic connectors flatten at 64 steps; junctions merge by minimum distance. No legacy footprint or pixels. Optional road markings=dashed: six-world-pixel light centre dashes, eight-world-pixel nominal dash length and twelve-world-pixel nominal period; eight-world-pixel port phases are reciprocal, curved interiors fit the phase, junction centres remain unmarked. Narrow road borders use darkened pavement.",
+  "method": "Candidate overlay. Unclipped new feature and grass render at 4x with four WORLD pixels of overscan on every side (416x352). Feature/bank edges use analytic signed-distance AA, 0.25 world-pixel ramp; distances round to 1e-9 world px for reciprocal half-alpha stability. Existing alpha-aware Lanczos3 reduces the UNMASKED overscan 416x352 -\u003e 208x176. Crop 4-world-pixel margins AFTER filtering to 384x320 and 192x160, then apply complementary hard half-open polygon ownership at final pixel centers. No per-sprite polygon-edge AA; a future complete-map compositor may AA its outer boundary once. Each port has \u003e=8 straight world pixels and extends beyond cutout by outer radius+4; cubic connectors flatten at 64 steps; junctions merge by minimum distance. No legacy footprint or pixels. Optional road markings=dashed: 0.9-world-pixel light centre dashes and 0.6-world-pixel continuous edge lines one world pixel inside each pavement edge, eight-world-pixel nominal dash length and twelve-world-pixel nominal period; eight-world-pixel port phases are reciprocal, curved interiors fit the phase, junction centres remain unmarked. Narrow dusty shoulders blend the earth material with RGB(177,168,145) at weight.35. Marked-road verge only: add 0.65*E*(0.65*sin(3A+2B)+0.35*sin(7A-5B)) world pixels to the configured shoulder, where E=S((minimum polygon edge distance-8)/8), A=2pi(x/142+y/80), B=2pi(x/142-y/80). Pavement width and road markings are unchanged; the first eight world pixels at every port retain fixed shoulder width.",
   "original_image_inputs": [
     {
       "generation_recipe": "art/recipes/terrain/shore-reference-v2/water.json",
@@ -597,18 +615,6 @@
       "path": "build/pulse-study/dos-04/maps/00-PARTS.png",
       "role": "Semantic original reference only: Original DOS lake palette and shore character reference only; ignored local export.",
       "sha256": "58952d5eb3dc629b1346225da3feaa3fb7a7781d13ad3dc2011e9e153bd4bb40"
-    },
-    {
-      "generation_recipe": "art/recipes/terrain/reference-v2/meadow-03.json",
-      "path": "legacy/python/gfx/hexTypes/hex_grass.png",
-      "role": "Semantic original reference only: Only image input: composition, muted olive palette and low-frequency restoration reference; original file remains reference-only.",
-      "sha256": "67257c01c1e3e30ddc438e85e5e376cd1aa72f888cfb2851b288061e1eb7a0de"
-    },
-    {
-      "generation_recipe": "art/recipes/terrain/reference-v2/road-paved.json",
-      "path": "legacy/python/gfx/infrastructure/road36.png",
-      "role": "Semantic original reference only: reference colour and values only",
-      "sha256": "0b31995635a3c56427b1481e04583b9c6dc0a246ef47f87a824b149d0d6565e3"
     }
   ],
   "original_image_inputs_scope": "Semantic visual references used to paint the current masters or their fixture ground. Originals remain reference-only and are not bundled as runtime PNGs; source masters are newly painted. Unit sprite planes retain their existing independent artwork provenance.",
@@ -617,7 +623,7 @@
     "scope": "Historical source set before the current redraw; not an approval of the current artwork.",
     "text": "Provisional source/variant delivery only. All27variants/126active-port-densitypairs have no core seam gaps; both-parity actual PNG patches reviewed. Broad map/zoom integration, transitions, native resource mapping and release acceptance remain open."
   },
-  "rebuild_note": "Rebuilt with DOS-inspired blue-teal water and pale stony shore inputs; user visual approval remains open. Historical generation recipes retain their original provenance.",
+  "rebuild_note": "Rebuilt to the user-supplied RefDesign visual target with shared detailed grass, earthworks, roads, crowns, rocks and huts; user visual approval remains open. Historical generation recipes retain their original provenance.",
   "review": "docs/art/connected-family-batch-01.md",
   "review_exports": [
     {
@@ -626,7 +632,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/road13-grass-2x.png",
-      "sha256": "ea6fb21b0347d1f54ee18822504c1dc2ff1314d3f7c7da15c03ac5ed2f1effce"
+      "sha256": "cef2e09a8240507cad068c5be901638e162b433fda7c3c40e86f1adc6a1e18dd"
     },
     {
       "dimensions": {
@@ -634,7 +640,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/road14-grass-2x.png",
-      "sha256": "9c5b4f98918ff3f9e0e4aedfac99a3c8e0652d7013d5ca45c0665283ee5b9f43"
+      "sha256": "682c2f3053c32e405a5234c4c6626297dce6518fdb457305e37acfb6614136f5"
     },
     {
       "dimensions": {
@@ -642,7 +648,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/road15-grass-2x.png",
-      "sha256": "4ce1f177d48ad128bf4845e0d56156696b04fb38166ef4693c1fff6926d24287"
+      "sha256": "68065a517a904630356d574b0185f777f2857c0d48833f1a74aae2ae831e7f5d"
     },
     {
       "dimensions": {
@@ -650,7 +656,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/road25-grass-2x.png",
-      "sha256": "9f6e51c9c7690b27f1c79c914d13867195867b847be00ee2f4fa6e9bba1f4412"
+      "sha256": "422f1fa8c40955d7360ccec6cddf52937448323167e52368114b163fc85c675f"
     },
     {
       "dimensions": {
@@ -658,7 +664,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/road35-grass-2x.png",
-      "sha256": "bad4846bab2dc9f1a6ca1e894f8630ac5c980e36a05915af2b12155ea1ce5cd3"
+      "sha256": "ac0b66fbfdc7e80748779e1892b19b8b921cedd8f62aa575fe6b2b6233da0237"
     },
     {
       "dimensions": {
@@ -666,7 +672,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/road36-grass-2x.png",
-      "sha256": "9690ff1564ade50934bc6f4422f32131f71b6cba1c1f216110baa0646d264ca7"
+      "sha256": "7e017e347bcc45ca398205ae533edf14c9f1819a177231ed698b80b70e430bd7"
     },
     {
       "dimensions": {
@@ -674,7 +680,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/road46-grass-2x.png",
-      "sha256": "69fdf3eafb5266db6db6a9994aa63d475155d6dc8bb2fc7c49227d164eaba21e"
+      "sha256": "a83cbf9450454f9b287ffc370d641001182f9e8c6dc4c89764a3d46dafdcbcaf"
     },
     {
       "dimensions": {
@@ -682,7 +688,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/road26-grass-2x.png",
-      "sha256": "074b1abeb69200b8adf638a6e679bccd1386034eccd2f95a63cd60f180f84215"
+      "sha256": "91bdff67c54c32359b0ace5660cac9f0fad4d32fce8e1f50a541fefa1f02daaa"
     },
     {
       "dimensions": {
@@ -690,7 +696,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/road125-grass-2x.png",
-      "sha256": "6c0e78c921029a15df33b7d892e18d058bceb8de4f6b1dddfd10d7ea6408f01d"
+      "sha256": "56ea787f53db05a518ead58bfd196ebe15163817ea8702c7fdf09ab053dd13f2"
     },
     {
       "dimensions": {
@@ -698,7 +704,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/road124-grass-2x.png",
-      "sha256": "2429bd6086f8a5e2c6854f1d47aa3663fa359545f50d82c4fa81ae0aa747c1d3"
+      "sha256": "c0a45d8ca9763cec5c889f0628f3c83235ae4e805afa10cbf8fc9e705b78ebc7"
     },
     {
       "dimensions": {
@@ -706,7 +712,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/road145-grass-2x.png",
-      "sha256": "bb20b61c472ed7e3750138c4778f47a367cd6d8357d36ebe8016420db37b526e"
+      "sha256": "9ad18fc835b570391999195a4815e8127f71de48737f5b22eac41cd118bb5739"
     },
     {
       "dimensions": {
@@ -714,7 +720,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/road236-grass-2x.png",
-      "sha256": "a19bae998bcdae50635402c5a2ece15fb317b50c4427a62ee1f4fc3849d2cd6b"
+      "sha256": "80563a6a97e7bfb8051698f29429e9a56e607755a082bc9b0ebc4721090fa6e8"
     },
     {
       "dimensions": {
@@ -722,7 +728,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/road346-grass-2x.png",
-      "sha256": "01f1ec93109b287bac1fbeb0cb6ae22e113f17e55606ec1eb2c1f41ff836ba7c"
+      "sha256": "22e543c5d929692bf3288d543b8869ec41c1475192b9eef93ce0f78c84bc2ec2"
     },
     {
       "dimensions": {
@@ -730,7 +736,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/road356-grass-2x.png",
-      "sha256": "630d20658d6ff92bdd6a83d3613a14138fa9f07db78118fa545fd5bf1c44e91b"
+      "sha256": "920b1e8c730881fe35cc5bdfca528de3c6f896aaf2a03eced619c4516aac04ce"
     },
     {
       "dimensions": {
@@ -738,7 +744,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/road135-grass-2x.png",
-      "sha256": "bfb6d1d23795b072c8b3354573f59e1a8784efe70b4464dcc41fa4b5720239a2"
+      "sha256": "1842015d1edc8b1abc941e17efbf78d590ec47963e82af2dfa526e712edb1fdf"
     },
     {
       "dimensions": {
@@ -746,7 +752,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/road24-grass-2x.png",
-      "sha256": "10c227193930bb2fdb8329c4b1a63b0a5a67b5458c39c3e1717408bd2c42bacb"
+      "sha256": "068062322caa11c387afa53e7814542c3029d93df6e8fb9cb037db0ca981af25"
     },
     {
       "dimensions": {
@@ -754,7 +760,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/stream13-grass-2x.png",
-      "sha256": "fa0c9f122d968f40bdf5d603159792b25480d32ab75e64b219e05be33c6f03ac"
+      "sha256": "1480bda70e211da2e58755d207bd9c131391b75a38174edb2774120dfcad4e05"
     },
     {
       "dimensions": {
@@ -762,7 +768,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/stream135-grass-2x.png",
-      "sha256": "b97ecd7daf89c6dbb91512481074353f716d12c23eae620b407ec22b1f8f4501"
+      "sha256": "67b1d68f094e217a80584ef2a1d244099581eebec0387f7bf57290311f346611"
     },
     {
       "dimensions": {
@@ -770,7 +776,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/stream14-grass-2x.png",
-      "sha256": "916fc6f2c6ca78cc940a35636bba97dfa8a4b6ea4e6bf428ff3b24fd7c6196af"
+      "sha256": "30089172a10cd511098cd85cd3b2ad654799732bac3f003dada4bd72bc661a9a"
     },
     {
       "dimensions": {
@@ -778,7 +784,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/stream15-grass-2x.png",
-      "sha256": "735ce6b934c4b1b97567ec6716da099affd3fd671c3308ae68a7d314103f9d47"
+      "sha256": "093f9895dd65f383580a49030d3cc2b3b57febcff9775ed1195e54ac62afcc6a"
     },
     {
       "dimensions": {
@@ -786,7 +792,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/stream24-grass-2x.png",
-      "sha256": "3e46a99f9df4bac771153271d50206e71a9b87890c38f0626af81d97b5d696a8"
+      "sha256": "5a2c2cc2d20f708795df24274acc397c3a155e74d70953b67cf73e5e126d8b63"
     },
     {
       "dimensions": {
@@ -794,7 +800,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/stream246-grass-2x.png",
-      "sha256": "ce2876054f97613acb6cde569c55a4f2841d1799a28a7fd0f765045338c78622"
+      "sha256": "fc54d54235d6c99387a0dfadf018732a437b0b39b679e50fd85de37a3115ff74"
     },
     {
       "dimensions": {
@@ -802,7 +808,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/stream25-grass-2x.png",
-      "sha256": "81a6ea50eacf09900552df20c1c4ce75dd0f0b748e07b347f887fb075899cf6e"
+      "sha256": "fb671258772467dd1d8c23729d37a3669505289f7ae5dbf265a08cedd777f2f1"
     },
     {
       "dimensions": {
@@ -810,7 +816,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/stream26-grass-2x.png",
-      "sha256": "e5ef9f23f197ae0de61cb65518708bde533ef4e69d976d5e5691710c18c27891"
+      "sha256": "534baff5afaeae832a93f6968905558535f55fc1e23980abd5978b45e05e2e08"
     },
     {
       "dimensions": {
@@ -818,7 +824,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/stream35-grass-2x.png",
-      "sha256": "9b7a5b175385eac3518b07c59e824749f2a60d06257f682c5ec702ffac9a9baf"
+      "sha256": "56595a7832330b11318d082f43f3728346b446f2ac884da735dd53bc21fe9049"
     },
     {
       "dimensions": {
@@ -826,7 +832,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/stream36-grass-2x.png",
-      "sha256": "3e4fda69fc9ed480bae9971ed274e8deec0f76515d5de653f27b27a143bfa63d"
+      "sha256": "2e366b716bd28fc23aca0afceb5475578064af1fa1d37eee42a5ba1b3eeb0564"
     },
     {
       "dimensions": {
@@ -834,7 +840,7 @@
         "width": 192
       },
       "path": "art/review/connected-v1/stream46-grass-2x.png",
-      "sha256": "16f391fc79d9b48c1db29afb6b1f2fb0129f040440a5f4c121035d180cb041a1"
+      "sha256": "86ece3da1a00771381767230baca2ec9ca9bc1b6a3385d2061eb9ba2c9126643"
     },
     {
       "dimensions": {
@@ -842,7 +848,7 @@
         "width": 476
       },
       "path": "art/review/connected-v1/road13-patch-parity0.png",
-      "sha256": "d33d523273e02de2d3d1494474e6fb9e055fe4bdaf50eeb557f35994c5ea180f"
+      "sha256": "e7869fec23aeda65bc97a17375365bfd6e01f50de46b00fdfcf5f6d36fe977e9"
     },
     {
       "dimensions": {
@@ -850,7 +856,7 @@
         "width": 476
       },
       "path": "art/review/connected-v1/road14-patch-parity1.png",
-      "sha256": "9bdf89dff26235c0139b3449522641c31d897a82f4782205a6376ea4887d7bda"
+      "sha256": "83fa14afa757216a372200f141f6e7594a07b2a6b8e5fc172f0bdd9476598f15"
     },
     {
       "dimensions": {
@@ -858,7 +864,7 @@
         "width": 476
       },
       "path": "art/review/connected-v1/road135-patch-parity0.png",
-      "sha256": "84418e8cb9fe56805b23da1d110575acec237396ac3645c637eb08271435492e"
+      "sha256": "0753280020075e2bde2ebfcf4ad73f6bd4bdf67bec2fe7f0a4c52705a7a6531e"
     },
     {
       "dimensions": {
@@ -866,7 +872,7 @@
         "width": 476
       },
       "path": "art/review/connected-v1/stream13-patch-parity1.png",
-      "sha256": "33785c9d849c6d5c32ced8e9b7191383ffb8e52751a06b975523c1d97a41945e"
+      "sha256": "4886aff7c57340bf0a54b00f6cb0d959d6e3cf157a077ae2f088e8e5b9d28096"
     },
     {
       "dimensions": {
@@ -874,7 +880,7 @@
         "width": 476
       },
       "path": "art/review/connected-v1/stream135-patch-parity1.png",
-      "sha256": "a741efcb37c0b0565385d66c1287dd24f4268637db5b4f882af8658cb78e22c5"
+      "sha256": "635b07b603a542ebe6c6b09fba18cc3595ceddcba4a4d8f33af408cd01bc16f2"
     },
     {
       "dimensions": {
@@ -882,7 +888,7 @@
         "width": 476
       },
       "path": "art/review/connected-v1/stream14-patch-parity0.png",
-      "sha256": "0d250a6d606a26c3018c1e95cf9c8b92947fed14221db09406f10382bafb5e37"
+      "sha256": "53f7265b71e98f75facaa991658c1c9b58dc08a88c9241363ffdc9b56ebe4750"
     },
     {
       "dimensions": {
@@ -890,17 +896,17 @@
         "width": 384
       },
       "path": "art/review/connected-v1/contact-sheet.png",
-      "sha256": "f0e869cec805af6c6e6dc6066850253ff8d3654be6286493bcedb92f9e80fa73"
+      "sha256": "3bfe865a3d62313280e03c00ec333cb7cf8e4f4f7dc875a3f0e79c0ea741d7f6"
     }
   ],
   "schema_version": 1,
   "status": "candidate-built",
-  "stream_interior": "Stream-only organic interior. Let S(t)=clamp(t,0,1)^2*(3-2*clamp(t,0,1)), E=S((minimum signed polygon-edge distance-8)/8), A=2pi(x/142+y/80), B=2pi(x/142-y/80), using world x/y. Warp local route lookup by E*(1.2*sin(A),1.2*sin(B)); core radius=width/2+0.8*E*sin(A+0.4)*cos(B). Thus the 8-world-pixel edge zone is unchanged and the envelope reaches full effect at 16 px. For junctions, smoothly union core SDF with a central disc of radius 0.68*width at warped coordinates: h=max(3-abs(core-disc),0)/3, merged=min(core,disc)-3*h*h/4, core=core+E*(merged-core). Border=max(0,border-0.8*E+0.3*E*sin(B+0.7)). Pocket=S((sin(A)*sin(B)-0.15)/0.65); bank opacity=1-0.65*E*pocket; final alpha=outer_AA*(core_AA+(1-core_AA)*bank_opacity). Cores stay opaque; translucent earth banks reveal underlying terrain with no baked-in grass. Road arithmetic and protected stream profiles are unchanged.",
-  "texture_method": "New opaque source images only. Bilinear source sampling through continuous mirror-periodic coordinates, periods (142,80); average f(x,y) and f(x+71,y+40) in byte RGB. This derived texture average is invariant under all six lattice neighbor shifts. All independent cells use world origin phase (0,0). No original-game pixels.",
+  "stream_interior": "Stream-only organic interior. Let S(t)=clamp(t,0,1)^2*(3-2*clamp(t,0,1)), E=S((minimum signed polygon-edge distance-8)/8), A=2pi(x/142+y/80), B=2pi(x/142-y/80), using world x/y. Warp local route lookup by E*(1.2*sin(A),1.2*sin(B)); core radius=width/2+0.8*E*sin(A+0.4)*cos(B). Thus the 8-world-pixel edge zone is unchanged and the envelope reaches full effect at 16 px. For junctions, smoothly union core SDF with a central disc of radius 0.68*width at warped coordinates: h=max(3-abs(core-disc),0)/3, merged=min(core,disc)-3*h*h/4, core=core+E*(merged-core). Border=max(0,border-0.8*E+0.3*E*sin(B+0.7)). Pocket=S((sin(A)*sin(B)-0.15)/0.65); bank opacity=1-0.65*E*pocket; final alpha=outer_AA*(core_AA+(1-core_AA)*bank_opacity). Cores stay opaque; translucent earth banks reveal underlying terrain with no baked-in grass. Road arithmetic and protected stream profiles are unchanged. Opt-in stream border_material=bank overrides the earth-bank treatment: pinned bank material is retained independently of earth. Keep the same organic core geometry and protected port width; border=max(0,border+1.1*E*sin(3A+2B)), bank opacity=1-0.2*E*pocket, giving a 2.4..4.6 world-pixel interior bank for configured border3.5. Legacy earth-stream border2.5 remains a separate unchanged profile; optional bank-stream border2.5 remains supported. The river-bank material may use an unchanged-pixel crop of its parent master to make loose stones larger; other lakeside variants retain their full master. Water color blends toward RGB(84,135,139) at weight0.24 near the bank. Dark wet lip is bank blended toward RGB(35,50,43) at weight0.72 over signed core distance -0.45..1.05. Water-side current flecks and broken foam use only lattice-periodic A/B, a narrow Gaussian centered1.2 world pixels inside water (width0.45), crest=S((sin(6A+4B+0.8sin(3B))-0.15)/0.6), and foam RGB(215,231,226) at maximumweight0.72. Full pale bank replaces the wet lip by distance1.05 outside water. Signed color distance rounds1e-9 for reciprocal stability; no baked grass, no lakeside mask changes.",
+  "texture_method": "New opaque source images only. Non-grass materials retain bilinear mirror-periodic coordinates, periods (142,80), and two-coset averaging. All independent cells use world origin phase (0,0). No original-game pixels. Summer grass: unmirrored periodic bilinear source sampling. Per source axis, overlap=(size-1)/4 and span=3*(size-1)/4. At world phase t in [0,period), x=t/period*span. For x\u003coverlap blend source(x+span) toward source(x) with cubic smoothstep(x/overlap); otherwise source(x). Apply separable windows on both axes, periods142,80. Round wrapped world phases to1e-9 before source lookup. Average RGB of f(x,y),f(x+71,y+40), then round half-up once. This is invariant under all six neighbor translations without reflected source marks. Non-grass materials, unseen and winter retain the existing sampler.",
   "tool": "Go tools/art-review -connected",
   "variants": [
     {
-      "border": 1,
+      "border": 2,
       "border_material": "earth",
       "family": "road",
       "id": "road13",
@@ -913,7 +919,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/road13-4x.png",
-          "sha256": "3c1ad664787c604c5c20ab4fad5099b075ae950bd594197f6221991280ddb580"
+          "sha256": "28581b5aaa89407b10e111542f261a3555a6b4065852d8923c12e225c4e41529"
         },
         {
           "dimensions": {
@@ -921,7 +927,7 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/road13-2x.png",
-          "sha256": "49066290ec8bfdc58db4525f4995a766622cebbebb5cc2ad45b2a20a87959a97"
+          "sha256": "2dfb92319ff78c402444fbcfec23843347e49e898305b0d84ed3de5f6524c383"
         }
       ],
       "ports": [
@@ -931,7 +937,7 @@
       "width": 22
     },
     {
-      "border": 1,
+      "border": 2,
       "border_material": "earth",
       "family": "road",
       "id": "road14",
@@ -944,7 +950,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/road14-4x.png",
-          "sha256": "17a10358037fc6fd4156782a0ae5365571d36c216c8b716d0f27795bcb568a01"
+          "sha256": "1125d1eb1e362ee1130c8ff256e78753b880039a384ab87bdba27befba09f0a0"
         },
         {
           "dimensions": {
@@ -952,7 +958,7 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/road14-2x.png",
-          "sha256": "a0682088c8e57a9d60de208d3c1cb7c2dbf15f663137bcfe4286c6ddb1210fba"
+          "sha256": "38bfa2a2f8cdc2e25a0cee46f3d6977ab413e86d79c0deda9258659491da3953"
         }
       ],
       "ports": [
@@ -962,7 +968,7 @@
       "width": 22
     },
     {
-      "border": 1,
+      "border": 2,
       "border_material": "earth",
       "family": "road",
       "id": "road15",
@@ -975,7 +981,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/road15-4x.png",
-          "sha256": "6698eda12d8a8bc45a86547cea50c806baf3bb68e44f1c2d80da14bcd9adcdb9"
+          "sha256": "c167208ba2365e2612c4d4401b4d8a007ffcd8d76dd863234c022b064775d3e8"
         },
         {
           "dimensions": {
@@ -983,7 +989,7 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/road15-2x.png",
-          "sha256": "2b049d8d16eb55415df15df9bdd321b9c0ba5690cfa81f58902b586f63a612ab"
+          "sha256": "900bc42305fbe62d6335a08a434be8cebbda3403a05a239e995bc6e1d126b333"
         }
       ],
       "ports": [
@@ -993,7 +999,7 @@
       "width": 22
     },
     {
-      "border": 1,
+      "border": 2,
       "border_material": "earth",
       "family": "road",
       "id": "road25",
@@ -1006,7 +1012,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/road25-4x.png",
-          "sha256": "f751f2059defcfaa6ab6d7cc62a2d8fb1a4eaf8c9bc86df1c15d379f0bf85697"
+          "sha256": "11cbe3b47c64ca0e7f30b11cb94e22cb929a6335e7e8297e951ee6b47d805dfa"
         },
         {
           "dimensions": {
@@ -1014,7 +1020,7 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/road25-2x.png",
-          "sha256": "be3c620009a03b44dbc680457b21266ff30725930b883bf64cfbd447bb29fd2b"
+          "sha256": "a923790b55f6a3988623d13cb2f4a36ad54a7ce10c7bb3e464220aa214e234c6"
         }
       ],
       "ports": [
@@ -1024,7 +1030,7 @@
       "width": 22
     },
     {
-      "border": 1,
+      "border": 2,
       "border_material": "earth",
       "family": "road",
       "id": "road35",
@@ -1037,7 +1043,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/road35-4x.png",
-          "sha256": "af6106ed5bc6b54eb7ab060c0a77754bdeb1f369a35ef4adc3f65289a5680ac9"
+          "sha256": "8fea9ebac9de96941c796cba1c6f9d2fb4baa02f9456a8ef97f1653ca887675e"
         },
         {
           "dimensions": {
@@ -1045,7 +1051,7 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/road35-2x.png",
-          "sha256": "1311b8f7056871e2e1b9c12b6d0d89f1c4f448cd5fe8e27f31a169883971e8c2"
+          "sha256": "1e4d7e5e7f522bfcb10a9aedfa7472b301222865fbdd69c0ff5645a303338def"
         }
       ],
       "ports": [
@@ -1055,7 +1061,7 @@
       "width": 22
     },
     {
-      "border": 1,
+      "border": 2,
       "border_material": "earth",
       "family": "road",
       "id": "road36",
@@ -1068,7 +1074,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/road36-4x.png",
-          "sha256": "2019e64eb5e5fe80f908367edb6ee7b747fba7d427548899e9da5634fc5e9963"
+          "sha256": "42aaa924cbe75fa96683a6e8bc1cff73096fff1d606de862f68243e5c123039e"
         },
         {
           "dimensions": {
@@ -1076,7 +1082,7 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/road36-2x.png",
-          "sha256": "0cc5328c6469936b894f6faa467c4bf2401120910d70583b38002e78d90dbd7a"
+          "sha256": "eb2140a6afcaa71874a72df68e2aa8d0b81a21454ee526cdf277a22a124891f1"
         }
       ],
       "ports": [
@@ -1086,7 +1092,7 @@
       "width": 22
     },
     {
-      "border": 1,
+      "border": 2,
       "border_material": "earth",
       "family": "road",
       "id": "road46",
@@ -1099,7 +1105,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/road46-4x.png",
-          "sha256": "87bb620cfee39923b666fb4a6ace066c579e2da8e7b9c09870ae640df230b34a"
+          "sha256": "d9d8c34844afb49f21e5c21f5a0698e3ee031bd22942676793f034d475f6b8c6"
         },
         {
           "dimensions": {
@@ -1107,7 +1113,7 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/road46-2x.png",
-          "sha256": "74539df7dd98f3adb8260ee33638895632226f5a23ba6e406580d4270353320a"
+          "sha256": "37ac6bae28999d1682b35c24586fd03b1097559e6a5046e095e8af7597780a37"
         }
       ],
       "ports": [
@@ -1117,7 +1123,7 @@
       "width": 22
     },
     {
-      "border": 1,
+      "border": 2,
       "border_material": "earth",
       "family": "road",
       "id": "road26",
@@ -1130,7 +1136,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/road26-4x.png",
-          "sha256": "3ad24bb92a878a2d0a76a3ec0b019ceb4cc19dc4c74336a801a00599ab9a7e47"
+          "sha256": "10d85c572c813553072e591f28f61bb8cefc802e419868f16a18a1b2260f889d"
         },
         {
           "dimensions": {
@@ -1138,7 +1144,7 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/road26-2x.png",
-          "sha256": "15ad563730816f14c2fd6a028fc27f4920169c3830d05acaee0d998c0daf7320"
+          "sha256": "1e95ca3e8f19dc776f641914d27935448b9fd9d1ff1826d90efd06ab8876ae44"
         }
       ],
       "ports": [
@@ -1148,7 +1154,7 @@
       "width": 22
     },
     {
-      "border": 1,
+      "border": 2,
       "border_material": "earth",
       "family": "road",
       "id": "road125",
@@ -1161,7 +1167,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/road125-4x.png",
-          "sha256": "848a2685cb5957f5ba1e1e63c8b00dc0ff5436da30d25ad65a1bf9581d975c6d"
+          "sha256": "a7cb164f65fd403bf144ea5ff356eca223380c5227f8afda040f40d77ee1c733"
         },
         {
           "dimensions": {
@@ -1169,7 +1175,7 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/road125-2x.png",
-          "sha256": "95e79ece3bd352062f495ab7e72978846014dbe606d65e4ecf1dd2ee85f50997"
+          "sha256": "fcf9b298465932f27ee6c237b32e68a18efe28697b56efed3d74fd9f881bb059"
         }
       ],
       "ports": [
@@ -1180,7 +1186,7 @@
       "width": 22
     },
     {
-      "border": 1,
+      "border": 2,
       "border_material": "earth",
       "family": "road",
       "id": "road124",
@@ -1193,7 +1199,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/road124-4x.png",
-          "sha256": "d849b830f805aa34a4aa7aa42a39fd52d471739fbb2d6218f4aef67cc17c51c9"
+          "sha256": "008624e90874456b435575fe8f6c2b4ec8948370e544cef921a7355912e9523a"
         },
         {
           "dimensions": {
@@ -1201,7 +1207,7 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/road124-2x.png",
-          "sha256": "5e48f6aa65a6bf6e8192a2854c5f898fec92f11f3a6853b2cf2873699fbe969c"
+          "sha256": "4ee4f825c5985a834bac7263ac9a63e12ed1a65c2a073cfbacf11ac72e8d5244"
         }
       ],
       "ports": [
@@ -1212,7 +1218,7 @@
       "width": 22
     },
     {
-      "border": 1,
+      "border": 2,
       "border_material": "earth",
       "family": "road",
       "id": "road145",
@@ -1225,7 +1231,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/road145-4x.png",
-          "sha256": "31d42cca113771173b94f6fbe2551b50f54753de0fee0d1d0b22c7417f943dd0"
+          "sha256": "243447bc206219ea92274d7c3ca30e7f8c0c016c47de9a6744af605a496f42d0"
         },
         {
           "dimensions": {
@@ -1233,7 +1239,7 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/road145-2x.png",
-          "sha256": "d555e29203f8b9591eb5d780cfea5fc9ede447d59deb2d282563c55d932b519a"
+          "sha256": "31ea0111fc5f6f24435544906cc2e330e60ca138c795dc094abe5f1f27bcb89e"
         }
       ],
       "ports": [
@@ -1244,7 +1250,7 @@
       "width": 22
     },
     {
-      "border": 1,
+      "border": 2,
       "border_material": "earth",
       "family": "road",
       "id": "road236",
@@ -1257,7 +1263,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/road236-4x.png",
-          "sha256": "7b30c6704c25e25967453c102b0250e1e2fd9d8535fabee4f0452d16bfd9d96d"
+          "sha256": "2762d8d5bf5ca0d62f0b8fb9d3cf57a58ef14a0a80ff4a195be7c10f89ce5089"
         },
         {
           "dimensions": {
@@ -1265,7 +1271,7 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/road236-2x.png",
-          "sha256": "9d0d420a6d8da08bafa8cedf59eeac39baf8c41867530d485707a7b9190c86c3"
+          "sha256": "40c03ec577cf668d06ee4c7693fb7629cfa14613186cf6a3bd660196a878fe53"
         }
       ],
       "ports": [
@@ -1276,7 +1282,7 @@
       "width": 22
     },
     {
-      "border": 1,
+      "border": 2,
       "border_material": "earth",
       "family": "road",
       "id": "road346",
@@ -1289,7 +1295,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/road346-4x.png",
-          "sha256": "eab050eaa372ec57f11e92005d161e2ebb2e691e6c98be04eb6260f8ebfd37e5"
+          "sha256": "2f2d63c4537669fda712f373223f8695251e0f7104c9b25ecc95c8f8a496314c"
         },
         {
           "dimensions": {
@@ -1297,7 +1303,7 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/road346-2x.png",
-          "sha256": "9e5cd7eac4219aaae7e663ca936229083c3ad3cd075a6b492d5adabd56c8c3f9"
+          "sha256": "7caea291c5a0e83454b6b6064a58772b660761bd936b672c640836d987fcc3a4"
         }
       ],
       "ports": [
@@ -1308,7 +1314,7 @@
       "width": 22
     },
     {
-      "border": 1,
+      "border": 2,
       "border_material": "earth",
       "family": "road",
       "id": "road356",
@@ -1321,7 +1327,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/road356-4x.png",
-          "sha256": "cbefdab51a142ce64c3422f17b9c627b6ba73e564b4348e8409684dd9594e4b8"
+          "sha256": "758e5a95ca9910e7601a36dcbb5ee26ad55605b4526f46e8a44588af162d1b82"
         },
         {
           "dimensions": {
@@ -1329,7 +1335,7 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/road356-2x.png",
-          "sha256": "64903413f09164909bdb98a04711adced3d297c4d5d6ba9f002ad9b282253619"
+          "sha256": "33e587b03e06221833e6451d0b5a1ed2f06a9fe494e8b415f296fbc084aa57cd"
         }
       ],
       "ports": [
@@ -1340,7 +1346,7 @@
       "width": 22
     },
     {
-      "border": 1,
+      "border": 2,
       "border_material": "earth",
       "family": "road",
       "id": "road135",
@@ -1353,7 +1359,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/road135-4x.png",
-          "sha256": "cc1ab9794591f8311d291f0ba710f63df14882ec90492c3f82e4eb21d8011224"
+          "sha256": "7af44c7977d75eb684410e01bfef628883e60612a2de8955250e683417aef5dd"
         },
         {
           "dimensions": {
@@ -1361,7 +1367,7 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/road135-2x.png",
-          "sha256": "1b6c52ad359b096938de3325ca342abdeba1d52c5fe7bc05829e0a1cb5318836"
+          "sha256": "1dbc5a561b2dbdb6ae4f019cfc0052d41b2de268c4d217aa3a7566f2b46d0fbe"
         }
       ],
       "ports": [
@@ -1372,7 +1378,7 @@
       "width": 22
     },
     {
-      "border": 1,
+      "border": 2,
       "border_material": "earth",
       "family": "road",
       "id": "road24",
@@ -1385,7 +1391,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/road24-4x.png",
-          "sha256": "a82c255327765193aafb3e4afbd9ac4bf869d5559bd6242637ee601629766f11"
+          "sha256": "75b9aa984584ee6ff27a4e578954d518203e25d6297687ca841486cddd6142ba"
         },
         {
           "dimensions": {
@@ -1393,7 +1399,7 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/road24-2x.png",
-          "sha256": "caa16fa9b06bb090099473d97f412ade1110d9bf4878f0adf9397c78361a6b0c"
+          "sha256": "dc74e51a4cd5cac04d0767493f3dd9379cfd30e07ba0b1307d7f89b349edfadb"
         }
       ],
       "ports": [
@@ -1403,8 +1409,8 @@
       "width": 22
     },
     {
-      "border": 2.5,
-      "border_material": "earth",
+      "border": 3.5,
+      "border_material": "bank",
       "family": "stream",
       "id": "stream13",
       "material": "water",
@@ -1415,7 +1421,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/stream13-4x.png",
-          "sha256": "0a0d56654805e2ab6adcb2fbe888c5fb44f082d7854a64805b7e194bbadcfdc6"
+          "sha256": "974be68649338c081502db2a41cd9a95e5e264712ff7699de82b8a941fcb18a1"
         },
         {
           "dimensions": {
@@ -1423,7 +1429,7 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/stream13-2x.png",
-          "sha256": "e477a2e1c293ea2689d69a42a35d98acf2eb7682556b67735a4c733b13213826"
+          "sha256": "81043e3dbeb65928b8f6e8861ae985f90010b2f754b5a6a390227a6a9c5e34cd"
         }
       ],
       "ports": [
@@ -1433,8 +1439,8 @@
       "width": 18
     },
     {
-      "border": 2.5,
-      "border_material": "earth",
+      "border": 3.5,
+      "border_material": "bank",
       "family": "stream",
       "id": "stream135",
       "material": "water",
@@ -1445,7 +1451,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/stream135-4x.png",
-          "sha256": "5ae25e0eeed739a1b861e18dab53ef0eb6643e76fdd99dd0a568fbcf211fae87"
+          "sha256": "beef8fad073ae5150114e8751482f552824720889e81e936ebe0cbc926323ccb"
         },
         {
           "dimensions": {
@@ -1453,7 +1459,7 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/stream135-2x.png",
-          "sha256": "1807b6b6ff5969872d5d8e08e4e29dda89996e6976af719f801682fd6bdf6ad9"
+          "sha256": "54031ca4690e21ad4bfee0cf41bffc694bc95a4f1d63d001d384f2c7b12b5903"
         }
       ],
       "ports": [
@@ -1464,8 +1470,8 @@
       "width": 18
     },
     {
-      "border": 2.5,
-      "border_material": "earth",
+      "border": 3.5,
+      "border_material": "bank",
       "family": "stream",
       "id": "stream14",
       "material": "water",
@@ -1476,7 +1482,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/stream14-4x.png",
-          "sha256": "1bffb63193934b607568ef0706b6357a24d11b70d5622635db9731bbb9d1db5c"
+          "sha256": "4263ead7dc907d769960cd91bd1be1b7ec7ce3bdc28dcee3af51dd09c5dc5c2d"
         },
         {
           "dimensions": {
@@ -1484,7 +1490,7 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/stream14-2x.png",
-          "sha256": "f85e4bad4681982286dda1acf9c95912795e002e49797cf00a0e50fa18ebcb83"
+          "sha256": "b421daa8802f29a63e5b0a8964ba0a2a0920abc04ad64c4b9fe881f7a3944ce9"
         }
       ],
       "ports": [
@@ -1494,8 +1500,8 @@
       "width": 18
     },
     {
-      "border": 2.5,
-      "border_material": "earth",
+      "border": 3.5,
+      "border_material": "bank",
       "family": "stream",
       "id": "stream15",
       "material": "water",
@@ -1506,7 +1512,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/stream15-4x.png",
-          "sha256": "fbef5985cede96f2692854a722853de7a6500fffe2a2b2fdab3fc1cb8613ef27"
+          "sha256": "053d8868869d02066438f50f7d1b77e2d2003ff5d5eecc2ee38b452aa428e1bc"
         },
         {
           "dimensions": {
@@ -1514,7 +1520,7 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/stream15-2x.png",
-          "sha256": "15f5a38666e66a9f3ad1949138645feabaef0a045148f2c1d43c91d085e785f2"
+          "sha256": "1dcc5e37c102eab407984ae2b097e8e175ab6f4931f80f29f73a9b006f3c1a2c"
         }
       ],
       "ports": [
@@ -1524,8 +1530,8 @@
       "width": 18
     },
     {
-      "border": 2.5,
-      "border_material": "earth",
+      "border": 3.5,
+      "border_material": "bank",
       "family": "stream",
       "id": "stream24",
       "material": "water",
@@ -1536,7 +1542,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/stream24-4x.png",
-          "sha256": "8f6e156447b606e83ac0194786dba634f75d12b11bf7783d041718943796bec7"
+          "sha256": "bc870109491705e98eab79ba0f634d1b7da58b15f2169cc003f985a41a093e3a"
         },
         {
           "dimensions": {
@@ -1544,7 +1550,7 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/stream24-2x.png",
-          "sha256": "d1ac23fcad7f4409b116d2c3c9160c52ffbea065e6b33c079f21427f7abe3c4b"
+          "sha256": "969013646ed36bb64552d89585ff0c8a4c24cde7db8a5194e448955c12fcefe8"
         }
       ],
       "ports": [
@@ -1554,8 +1560,8 @@
       "width": 18
     },
     {
-      "border": 2.5,
-      "border_material": "earth",
+      "border": 3.5,
+      "border_material": "bank",
       "family": "stream",
       "id": "stream246",
       "material": "water",
@@ -1566,7 +1572,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/stream246-4x.png",
-          "sha256": "e04d1424a3783bd610537690eb945c3be6dc1cac1faeecaeb82767ebc78c1ddf"
+          "sha256": "6099efa94232a47e93f7bc36a61cc06d2604b47344cb69b0e7cad7e504edbdbd"
         },
         {
           "dimensions": {
@@ -1574,7 +1580,7 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/stream246-2x.png",
-          "sha256": "f23aa2bcaea914387a2283b5e5d2b3551d6255b9f5940ccd5931536aa0b7e973"
+          "sha256": "92ab204c36d8367b99a228747bc905ea91f770c4a887caa9b0d2f473da44ad74"
         }
       ],
       "ports": [
@@ -1585,8 +1591,8 @@
       "width": 18
     },
     {
-      "border": 2.5,
-      "border_material": "earth",
+      "border": 3.5,
+      "border_material": "bank",
       "family": "stream",
       "id": "stream25",
       "material": "water",
@@ -1597,7 +1603,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/stream25-4x.png",
-          "sha256": "e25fd72a96366fc2677a2fb6cd0250d64fb6216321b03e6efe9cd1248a187f07"
+          "sha256": "8818d88a51551a51f092828b85d1138bd77c5b9c03af9ead0874fda0805f6ef0"
         },
         {
           "dimensions": {
@@ -1605,7 +1611,7 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/stream25-2x.png",
-          "sha256": "f98b25a961b60406306a9bbc018a8700f22bc17cef4ea30c3b9f418b412b90fd"
+          "sha256": "d23931dd5005c869ff63215d5671d7c1f77dc3a0138a146b4db4555b4a30bcf6"
         }
       ],
       "ports": [
@@ -1615,8 +1621,8 @@
       "width": 18
     },
     {
-      "border": 2.5,
-      "border_material": "earth",
+      "border": 3.5,
+      "border_material": "bank",
       "family": "stream",
       "id": "stream26",
       "material": "water",
@@ -1627,7 +1633,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/stream26-4x.png",
-          "sha256": "5653a95e0bac1c9619b0c536efc78741613667274b7bbc306084cc366aa56124"
+          "sha256": "52312afe5fce6a45049a57f4195f9f1f6bfa1e2621befd7878d176bb5bfd2f1b"
         },
         {
           "dimensions": {
@@ -1635,7 +1641,7 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/stream26-2x.png",
-          "sha256": "5518843936747dbffc8bc187aac8657fa018d786b39453e7db7f01d64f6b0c74"
+          "sha256": "b4fb19d8e93a80234c6fd84b430ab896461edc8458d0d4a3243e3f0f004b3eb1"
         }
       ],
       "ports": [
@@ -1645,8 +1651,8 @@
       "width": 18
     },
     {
-      "border": 2.5,
-      "border_material": "earth",
+      "border": 3.5,
+      "border_material": "bank",
       "family": "stream",
       "id": "stream35",
       "material": "water",
@@ -1657,7 +1663,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/stream35-4x.png",
-          "sha256": "76494be278a0f76790078f47938b0200d20fa7d210ed912e752974f011d0e4d7"
+          "sha256": "56fa2afc9599fc1a97e160687b69d9a2985bb6ce1048dcd124c46d71872d0f5a"
         },
         {
           "dimensions": {
@@ -1665,7 +1671,7 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/stream35-2x.png",
-          "sha256": "310ec1d169dac1b889af98293ff99c08b2eab2c4f824842a7f394e1db0f85dbe"
+          "sha256": "b917eef2b9f719a802f78d23113e1dcc1eba688df3747b505b918982ab706a64"
         }
       ],
       "ports": [
@@ -1675,8 +1681,8 @@
       "width": 18
     },
     {
-      "border": 2.5,
-      "border_material": "earth",
+      "border": 3.5,
+      "border_material": "bank",
       "family": "stream",
       "id": "stream36",
       "material": "water",
@@ -1687,7 +1693,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/stream36-4x.png",
-          "sha256": "b9f3c97010f42c0e4950e726b718b4afbed164bff3923ac26cdf8f95d1905438"
+          "sha256": "b2761e43e05c196cec9030457005497d17a3c0c9b6f9a2885cf052dae6e885de"
         },
         {
           "dimensions": {
@@ -1695,7 +1701,7 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/stream36-2x.png",
-          "sha256": "c30c848345012da3cb431c21b3fe1cff4551036e839d4c1cfa62c2318370bb9d"
+          "sha256": "a70c8006d9ede70364f4d4936ba281ca23597d0b7b40bc683adb4e53fae8e0b7"
         }
       ],
       "ports": [
@@ -1705,8 +1711,8 @@
       "width": 18
     },
     {
-      "border": 2.5,
-      "border_material": "earth",
+      "border": 3.5,
+      "border_material": "bank",
       "family": "stream",
       "id": "stream46",
       "material": "water",
@@ -1717,7 +1723,7 @@
             "width": 384
           },
           "path": "art/exports/connected-v1/stream46-4x.png",
-          "sha256": "0f06f0d91aac3fbed8146f16561289579346f8c8f5ce2009fb13c2e679e705ef"
+          "sha256": "e563ca881c7dd7f165cb89b1b9f051b329c57c57bfb79cdea41ec5b733ea4f01"
         },
         {
           "dimensions": {
@@ -1725,7 +1731,7 @@
             "width": 192
           },
           "path": "art/exports/connected-v1/stream46-2x.png",
-          "sha256": "1f30f8ddb9ba2f7818eeec197c71355cf6eb7614882388fda7a462900ec948b5"
+          "sha256": "2756c708c67580fe3f6772029a3260016dc6e243dd5da9cc824c69f146d1bb66"
         }
       ],
       "ports": [
@@ -1734,5 +1740,10 @@
       ],
       "width": 18
     }
-  ]
+  ],
+  "visual_target": {
+    "reference": "RefDesign.png",
+    "role": "User-supplied scene target for the current grass, streets, earthworks, rocks, hut and summer canopy. Reference bytes are not runtime artwork.",
+    "sha256": "3924e55c20ca63cbe31a7e4b3d469977f20c9ddf7802912e92782360b4d1aa69"
+  }
 }

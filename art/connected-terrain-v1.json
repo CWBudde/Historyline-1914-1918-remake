@@ -1,7 +1,7 @@
 {
   "families": [
     {
-      "border": 1,
+      "border": 2,
       "border_material": "earth",
       "id": "road",
       "markings": "dashed",
@@ -130,8 +130,8 @@
       "width": 22
     },
     {
-      "border": 2.5,
-      "border_material": "earth",
+      "border": 3.5,
+      "border_material": "bank",
       "id": "stream",
       "material": "water",
       "variants": [
@@ -301,17 +301,21 @@
     "width": 96
   },
   "materials": {
+    "bank": {
+      "source": "source/terrain/refdesign-v1/river-bank-gravel.png",
+      "source_sha256": "bec7afdd82d829aa9f3ae08f8e5e06eb8e1b3d1dbec3d8f36c19edfbc99ba0f0"
+    },
     "earth": {
-      "source": "source/terrain/distinct-v1/earth-bare.png",
-      "source_sha256": "e7d3188bc9c734a1f45ad80ccce934c46d93cb4cf9843c079bbc6260ec848404"
+      "source": "source/terrain/refdesign-v1/earth-bank.png",
+      "source_sha256": "6df0ffb17725f7c7ef81bbafd1c8537ad2a30b62beac21a4ce6ce8a4c522086d"
     },
     "grass": {
-      "source": "source/terrain/reference-v2/meadow-03.png",
-      "source_sha256": "4de543f0906e1311eff5ae4f202eb8fa68665c67103039bee089e60e02c68eb4"
+      "source": "source/terrain/refdesign-v1/grass-base-01.png",
+      "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
     },
     "road": {
-      "source": "source/terrain/reference-v2/road-paved.png",
-      "source_sha256": "48f521aa74bb1759896b33c95e84abb5d6d1d9146ab2925620a6b3234e5dcd2e"
+      "source": "source/terrain/refdesign-v1/road-asphalt.png",
+      "source_sha256": "a86aa33d3261283f885228a404a4b31ee337c132728f55038c5714a2e46aec44"
     },
     "water": {
       "source": "source/terrain/shore-reference-v2/water.png",

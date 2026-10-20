@@ -50,6 +50,13 @@ func TestForestPinnedSeedReproducesSpeciesCenters(t *testing.T) {
 }
 
 func TestForestSharedLocalFieldsAndCrossingCrowns(t *testing.T) {
+	for _, profile := range []string{"", testForestCanopyProfile} {
+		t.Run(profile, func(t *testing.T) { forestTestSharedLocalFieldsAndCrossingCrowns(t, profile) })
+	}
+}
+
+func forestTestSharedLocalFieldsAndCrossingCrowns(t *testing.T, profile string) {
+	t.Helper()
 	path := forestTestFixture(t)
 	in, err := loadForestInputs(path)
 	if err != nil {
@@ -60,7 +67,7 @@ func TestForestSharedLocalFieldsAndCrossingCrowns(t *testing.T) {
 		grounds[season] = in.Grounds[season].Image
 		atlases[season] = in.Atlases[season].Image
 	}
-	renderer, err := newForestRenderer(grounds, atlases)
+	renderer, err := newForestRenderer(grounds, atlases, profile)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -158,7 +165,11 @@ func TestForestSharedLocalFieldsAndCrossingCrowns(t *testing.T) {
 	}
 	// Whole transparent panels remain distinct in row-major species order.
 	for i, crown := range renderer.crowns["summer"] {
-		if crown.Bounds() != image.Rect(0, 0, 96, 96) || crown.RGBAAt(0, 0) != (color.RGBA{}) {
+		pixels := 96
+		if profile != "" {
+			pixels = 106
+		}
+		if crown.Bounds() != image.Rect(0, 0, pixels, pixels) || crown.RGBAAt(0, 0) != (color.RGBA{}) {
 			t.Fatal("whole panel transparent margin lost")
 		}
 		for j, other := range renderer.crowns["summer"] {

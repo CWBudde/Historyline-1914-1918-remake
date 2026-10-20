@@ -21,7 +21,7 @@
         "1": {
           "url": "terrain/cross/infrastructure-cross4/1x.png",
           "source": "art/exports/mixed-v1/cross4-2x.png",
-          "sha256": "8794ac0352a25ecc096d8a96f7317e58d1f71bdbb71e486ee04c9900179f3171",
+          "sha256": "3dcce99f7a4acbbb8cb5841c7df774794dce07798d44f1000d92d67129b3e48d",
           "width": 96,
           "height": 80,
           "method": "Exact PNG export; premultiplied Lanczos3 reduction"
@@ -29,7 +29,7 @@
         "2": {
           "url": "terrain/cross/infrastructure-cross4/2x.png",
           "source": "art/exports/mixed-v1/cross4-2x.png",
-          "sha256": "8c2aeb2308834ac104cbfdae6a955e6af01993ec43f690115842a7f4ba817575",
+          "sha256": "d525d104b0c0537cfc95f44f435744cf6cf9dd117217b2541700bc44df811e9d",
           "width": 192,
           "height": 160,
           "method": "Exact PNG export"
@@ -37,7 +37,7 @@
         "4": {
           "url": "terrain/cross/infrastructure-cross4/4x.png",
           "source": "art/exports/mixed-v1/cross4-4x.png",
-          "sha256": "34b0ebc74ae8688fb96f2d0e074c862d7d1150fcb6b35f9999e734c3195c9771",
+          "sha256": "e196232c89465a8e74b3640e2e683d8b273752d921a020a63502af253ec5eec9",
           "width": 384,
           "height": 320,
           "method": "Exact PNG export"
@@ -49,7 +49,7 @@
     "default": {
       "1": {
         "path": "terrain/cross/infrastructure-cross4/1x.png",
-        "sha256": "8794ac0352a25ecc096d8a96f7317e58d1f71bdbb71e486ee04c9900179f3171",
+        "sha256": "3dcce99f7a4acbbb8cb5841c7df774794dce07798d44f1000d92d67129b3e48d",
         "width": 96,
         "height": 80,
         "source": "art/exports/mixed-v1/cross4-2x.png",
@@ -57,7 +57,7 @@
       },
       "2": {
         "path": "terrain/cross/infrastructure-cross4/2x.png",
-        "sha256": "8c2aeb2308834ac104cbfdae6a955e6af01993ec43f690115842a7f4ba817575",
+        "sha256": "d525d104b0c0537cfc95f44f435744cf6cf9dd117217b2541700bc44df811e9d",
         "width": 192,
         "height": 160,
         "source": "art/exports/mixed-v1/cross4-2x.png",
@@ -65,7 +65,7 @@
       },
       "4": {
         "path": "terrain/cross/infrastructure-cross4/4x.png",
-        "sha256": "34b0ebc74ae8688fb96f2d0e074c862d7d1150fcb6b35f9999e734c3195c9771",
+        "sha256": "e196232c89465a8e74b3640e2e683d8b273752d921a020a63502af253ec5eec9",
         "width": 384,
         "height": 320,
         "source": "art/exports/mixed-v1/cross4-4x.png",

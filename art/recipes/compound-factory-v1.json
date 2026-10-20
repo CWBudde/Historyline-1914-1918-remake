@@ -1,5 +1,5 @@
 {
-  "acceptance": "Four-piece winter factory includes a connected internal street network and east entrance street. Current provisional reference-guided candidate rebuild. Actual PNG assembly and pinned inputs are recorded; current user visual approval, approximately 90% resemblance, whole-map/runtime integration and release acceptance remain open.",
+  "acceptance": "Reference-guided candidate rebuild. Current exported assets and context proofs are pinned; final user visual review remains open.",
   "date": "2026-10-15",
   "exports": [
     {
@@ -78,7 +78,9 @@
   "generation_recipes": [
     "art/recipes/compound/distinct-v1/factory-layout-guide.json",
     "art/recipes/compound/distinct-v1/factory-winter-01.json",
+    "art/recipes/compound/reference-v2/depot-summer.json",
     "art/recipes/compound/reference-v2/factory-winter.json",
+    "art/recipes/terrain/distinct-v1/meadow.json",
     "art/recipes/terrain/distinct-v1/snow-ground.json"
   ],
   "generation_recipes_scope": "Includes historical generation studies and the current pinned master records. Current source selection is established by the producing manifest and its exact SHA256 pins; historical records are unchanged.",
@@ -192,7 +194,7 @@
     "text": "Provisional new winter factory candidates. Independent source and actual2x/4x art review passes; factory eastloadingwing corresponds gameplayentryE. Whole-scene actualPNG/ownership/quietboundary/paritychecks pass. Fullmap/nativecoverage/materialquality/fractionalzoom/runtimeintegration/releaseacceptance remainopen."
   },
   "profile": "Per-scene profiles; explicit reference-layout scenes retain edge roads and fences without the default eight-world-pixel guard. See each scene's profile and framing.",
-  "rebuild_note": "Rebuilt from the current reference-guided grass/compound inputs; user visual approval remains open. Historical generation recipes retain their original provenance.",
+  "rebuild_note": "Rebuilt to the user-supplied RefDesign visual target with shared detailed grass, earthworks, roads, crowns, rocks and huts; user visual approval remains open. Historical generation recipes retain their original provenance.",
   "review_exports": [
     {
       "build_output": "factory-winter-scene-2x.png",
@@ -628,7 +630,7 @@
           ]
         }
       ],
-      "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; explicit reference-layout framing: preserve full affine source at the requested inset; report the eight-world-pixel boundary band diagnostically without rejection or fade. Existing resizeLanczos filters full unmasked 4x artwork to whole-scene 2x before final union clipping. Ground independently exported by exportConnectionTiles with fixed geometry and grass only, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim.",
+      "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; explicit reference-layout framing: preserve full affine source at the requested inset; report the eight-world-pixel boundary band diagnostically without rejection or fade. Existing resizeLanczos filters full unmasked 4x artwork to whole-scene 2x before final union clipping. Ground independently exported by exportGrassBaseTiles in summer and unchanged exportConnectionTiles otherwise with fixed geometry and grass only, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim. Summer grass: unmirrored periodic bilinear source sampling. Per source axis, overlap=(size-1)/4 and span=3*(size-1)/4. At world phase t in [0,period), x=t/period*span. For x\u003coverlap blend source(x+span) toward source(x) with cubic smoothstep(x/overlap); otherwise source(x). Apply separable windows on both axes, periods142,80. Round wrapped world phases to1e-9 before source lookup. Average RGB of f(x,y),f(x+71,y+40), then round half-up once. This is invariant under all six neighbor translations without reflected source marks. Non-grass materials, unseen and winter retain the existing sampler.",
       "reference": [
         {
           "dimensions": {
@@ -770,5 +772,10 @@
   ],
   "schema_version": 1,
   "status": "candidate-built",
-  "tool": "Go tools/art-review -compound"
+  "tool": "Go tools/art-review -compound",
+  "visual_target": {
+    "reference": "RefDesign.png",
+    "role": "User-supplied scene target for the current grass, streets, earthworks, rocks, hut and summer canopy. Reference bytes are not runtime artwork.",
+    "sha256": "3924e55c20ca63cbe31a7e4b3d469977f20c9ddf7802912e92782360b4d1aa69"
+  }
 }

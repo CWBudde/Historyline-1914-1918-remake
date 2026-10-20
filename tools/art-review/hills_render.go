@@ -6,7 +6,7 @@ import (
 	"math"
 )
 
-const hillsProfileText = "hills-v1: bounded summer hills/grass exporter; context keys are full lowercase SHA256 of hills-v1\\nseason=summer\\ncenter=<id>\\nphase=<x>,<y>\\nNE=<id>\\nSE=<id>\\nS=<id>\\nSW=<id>\\nNW=<id>\\nN=<id>\\n with literal LF after every line. Normalize actual integer lattice origins modulo (568,320); grass normalizes phase and neighbors. Global height-derived relief normal with slope attenuation near grass: scalar H=32*Rec709(bilinear source at cosine world coordinates)/255, offsets (113,79), periods (568,320), central derivative h=2. Product of per-grass filled-polygon distance quintic gates on [7,19] attenuates slopes AFTER differentiation; no derivative of the grass gate. Only isolated hills (all six grass neighbors) add a compact rotated cubic ellipse height cue before differentiation, centered (48,40), radii (28,22); phase-derived angle and amplitude fade against nine-sample unattenuated global shade RMS. Connected and mixed hill contexts have no cue. Fixed world light (-.55,-.4,.75), ambient .35/diffuse .65, flat-normal normalization, shade clamp [.55,1.25]; unchanged grass sampling and half-up RGB rounding. No authored height bytes change or per-pixel art rotation. Whole opaque 416x352 4x overscan -> whole unmasked Lanczos3 208x176 2x -> crop four world pixels -> independent complementary half-open ownership; no pre-mask. Final four-world-pixel grass quiet band is byte exact; maximum filter displacement 1.375 per axis (1.944543648 radial), 4+1.944543648<7. Omitted grass polygons have distance >=42 on P expanded by four, greater than 19; global gradient is independent of context. Isolated cue radius+derivative reach+filter support <=28+2+1.944543648<40, so it cannot reach another cell's owned filter domain. No global C2 claim: polygon distance and bilinear luminance have their own regularity. Export all64 phase0 masks, all32 isolated phases and actual fixed eight fixture contexts; other phases/masks and arbitrary-map runtime selection remain OPEN."
+const hillsProfileText = "hills-v1: bounded summer hills/grass exporter; context keys are full lowercase SHA256 of hills-v1\\nseason=summer\\ncenter=<id>\\nphase=<x>,<y>\\nNE=<id>\\nSE=<id>\\nS=<id>\\nSW=<id>\\nNW=<id>\\nN=<id>\\n with literal LF after every line. Normalize actual integer lattice origins modulo (568,320); grass normalizes phase and neighbors. Global height-derived relief normal with slope attenuation near grass: scalar H=32*Rec709(bilinear source at cosine world coordinates)/255, offsets (113,79), periods (568,320), central derivative h=2. Product of per-grass filled-polygon distance quintic gates on [7,19] attenuates slopes AFTER differentiation; no derivative of the grass gate. Only isolated hills (all six grass neighbors) add a compact rotated cubic ellipse height cue before differentiation, centered (48,40), radii (28,22); phase-derived angle and amplitude fade against nine-sample unattenuated global shade RMS. Connected and mixed hill contexts have no cue. Fixed world light (-.55,-.4,.75), ambient .35/diffuse .65, flat-normal normalization, shade clamp [.55,1.25]; unmirrored lattice-periodic sampleGrassMaterial grass sampling and half-up RGB rounding. No authored height bytes change or per-pixel art rotation. Whole opaque 416x352 4x overscan -> whole unmasked Lanczos3 208x176 2x -> crop four world pixels -> independent complementary half-open ownership; no pre-mask. Final four-world-pixel grass quiet band is byte exact; maximum filter displacement 1.375 per axis (1.944543648 radial), 4+1.944543648<7. Omitted grass polygons have distance >=42 on P expanded by four, greater than 19; global gradient is independent of context. Isolated cue radius+derivative reach+filter support <=28+2+1.944543648<40, so it cannot reach another cell's owned filter domain. No global C2 claim: polygon distance and bilinear luminance have their own regularity. Export all64 phase0 masks, all32 isolated phases and actual fixed eight fixture contexts; other phases/masks and arbitrary-map runtime selection remain OPEN." + " " + grassSamplingProfile
 
 type hillsParameters struct {
 	HeightAmplitude       float64            `json:"height_amplitude"`
@@ -146,7 +146,7 @@ func newHillsRenderer(grass, height *image.NRGBA) *hillsRenderer {
 		for x := range 416 {
 			p := connectionPoint{(float64(x)+.5)/4 - 4, (float64(y)+.5)/4 - 4}
 			s := &r.samples[y*416+x]
-			s.grass = sampleConnectionMaterial(grass, p)
+			s.grass = sampleGrassMaterial(grass, p)
 			for i, o := range origins {
 				s.gates[i] = hillsQuintic((groundFilledDistance(p.sub(o)) - 7) / 12)
 			}
@@ -221,7 +221,7 @@ func (r *hillsRenderer) tiles(c hillsContext) (map[int]*image.NRGBA, error) {
 	}
 	c = validated.effective()
 	if c.RuntimeID == "grass" {
-		return exportConnectionTiles(connectionInputs{manifest: connectionManifest{Geometry: sharedConnectionGeometry()}, materials: map[string]*image.NRGBA{"grass": r.grass}}, nil, nil)
+		return exportGrassBaseTiles(r.grass)
 	}
 	raw4 := r.raw(c)
 	raw2, err := resizeLanczos(raw4, 208, 176)

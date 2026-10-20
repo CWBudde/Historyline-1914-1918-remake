@@ -1,5 +1,5 @@
 {
-  "acceptance": "Current provisional reference-guided candidate rebuild. Actual PNG assembly and pinned inputs are recorded; current user visual approval, approximately 90% resemblance, whole-map/runtime integration and release acceptance remain open.",
+  "acceptance": "Reference-guided candidate rebuild. Current exported assets and context proofs are pinned; final user visual review remains open.",
   "composition_scope": "Tested composition scope: pixel-aligned 2x/4x export sprites with integer runtime lattice translations and ordinary source-over blits. Other camera zoom should assemble the scene at asset density and resample the completed scene once. Independently filtered or fractional-position sprite zoom is not validated; no runtime zoom implementation is included.",
   "date": "2026-10-15",
   "exports": [
@@ -9,7 +9,7 @@
         "width": 384
       },
       "path": "art/exports/trench-v1/trench0-4x.png",
-      "sha256": "d5408db442b6003d9d58a15c0947a811440447b5e0189c1f8c148a6d955597a3"
+      "sha256": "3cf58a527128b42fa76cebe315d1693f59d5d91d9d2621f1d15e4207f6bb712f"
     },
     {
       "dimensions": {
@@ -17,7 +17,7 @@
         "width": 192
       },
       "path": "art/exports/trench-v1/trench0-2x.png",
-      "sha256": "1ab3915370996a774fdcfbb2c37261d7cccebd98214b49869937f2dd3424704b"
+      "sha256": "308235a916afe554e162570acb054c5b25e1e4d3b2fc3a4feb8d216868ecc0e1"
     },
     {
       "dimensions": {
@@ -25,7 +25,7 @@
         "width": 384
       },
       "path": "art/exports/trench-v1/trench1-4x.png",
-      "sha256": "9a34f42b40117caffc4a04c61db1d7a31333c6c6512e6a4b37a4c518ee4e0964"
+      "sha256": "f6ac4e9f192187c47a7ec78b5561e4b3b4503f998ee27866da3059281923d52c"
     },
     {
       "dimensions": {
@@ -33,7 +33,7 @@
         "width": 192
       },
       "path": "art/exports/trench-v1/trench1-2x.png",
-      "sha256": "1ff98f4fc74d555a9691ab54933ab84fec6c77579d154a941ba3c0228cab6fff"
+      "sha256": "4abdd06d022f5a8e67891bc94fb464a8d4b83d1128350f03f41e6b47ee766739"
     },
     {
       "dimensions": {
@@ -41,7 +41,7 @@
         "width": 384
       },
       "path": "art/exports/trench-v1/trench12-4x.png",
-      "sha256": "cdea337a6905b2ea07cfd6625fcc961e4b8a33477b6379699da33d5e52dc5c77"
+      "sha256": "31915bf77442db9cc2f8b9b0fa183384c819f920730107da55a8c39c617bb6f1"
     },
     {
       "dimensions": {
@@ -49,7 +49,7 @@
         "width": 192
       },
       "path": "art/exports/trench-v1/trench12-2x.png",
-      "sha256": "5cdfceb9cc429792d5cc1862656c5c6b22ebb9c5ed4405d1490c2f20a506af14"
+      "sha256": "e2384debafc33b5ec15d38dc661be5471e39c8397d29eecf9f3792fe7355cbcd"
     },
     {
       "dimensions": {
@@ -57,7 +57,7 @@
         "width": 384
       },
       "path": "art/exports/trench-v1/trench124-4x.png",
-      "sha256": "a825561a8b77acb5bf15cb59b06cce5ba34b96c04306d7ff65719edf6fec7375"
+      "sha256": "4504d2792a3cdf33272f38a1531beac94a9d8fb66aa72db89eab1468d7be2c51"
     },
     {
       "dimensions": {
@@ -65,7 +65,7 @@
         "width": 192
       },
       "path": "art/exports/trench-v1/trench124-2x.png",
-      "sha256": "9d47bb33b239dd9fa9a3dcf0af83223f5c847501383baf618603fe396617a819"
+      "sha256": "b62d70ea8ab425461522df31bed1da31cbf0a0d343e5b50b2837a8221012a16b"
     },
     {
       "dimensions": {
@@ -73,7 +73,7 @@
         "width": 384
       },
       "path": "art/exports/trench-v1/trench125-4x.png",
-      "sha256": "3d442803678ccbac491916b19f89494757479dedc26aa1f468f3c0f6d696eb89"
+      "sha256": "f486a1a8c67591d940fe28afb4d49aea092ed018edf71721c7433125f3388579"
     },
     {
       "dimensions": {
@@ -81,7 +81,7 @@
         "width": 192
       },
       "path": "art/exports/trench-v1/trench125-2x.png",
-      "sha256": "5b329379a916ec8ffa8542534240a08f5de10c415f881654fd454ade5b6e5b8f"
+      "sha256": "0bdc13c70a6b4ef683e4a584dd65cebee2e0d77044b60773c166cc526e0b032c"
     },
     {
       "dimensions": {
@@ -89,7 +89,7 @@
         "width": 384
       },
       "path": "art/exports/trench-v1/trench14-4x.png",
-      "sha256": "83d64153e13d53779c646f0024145c4a51039cf50822080b04d37d12c9016121"
+      "sha256": "37043a4cf27fb6adf37043b344d65be55193a45f0f37876cdb3c4fcfd4296d6e"
     },
     {
       "dimensions": {
@@ -97,7 +97,7 @@
         "width": 192
       },
       "path": "art/exports/trench-v1/trench14-2x.png",
-      "sha256": "bc87f33d8c38f3c3fe307cfa262aa909fb8f76c574e609288f8451c2c106c082"
+      "sha256": "2f93be478e394eb211ac3596253dfa3bd112d12af9ea6e8fb5121ad2a4012d89"
     },
     {
       "dimensions": {
@@ -105,7 +105,7 @@
         "width": 384
       },
       "path": "art/exports/trench-v1/trench15-4x.png",
-      "sha256": "45bc8df225a458c1c5810c3be2aadb8465aadd8ee35489ba2c9e4310d8e82145"
+      "sha256": "84c230c15d8a6fe624dcee4b0aaf6eaae2447ae2bc5c5e0b9de529136ea378c8"
     },
     {
       "dimensions": {
@@ -113,7 +113,7 @@
         "width": 192
       },
       "path": "art/exports/trench-v1/trench15-2x.png",
-      "sha256": "ffd5b8cc048fe99991b07222a4075e1d6990d24a0b69a06232d4e3d3ecedc9d9"
+      "sha256": "2e2a32780266fdf411bb8a28f13dcfec994531c813e870aa1b2e60e68db0e1a1"
     },
     {
       "dimensions": {
@@ -121,7 +121,7 @@
         "width": 384
       },
       "path": "art/exports/trench-v1/trench24-4x.png",
-      "sha256": "d7e657ce29aa42ea8750a10d7d489177577115433015562eddf86dc7b8c9f5bb"
+      "sha256": "4998154a51c718e3a71a8e37b0c2abf152a182f2d627b8db9afc6dff58fcc9f0"
     },
     {
       "dimensions": {
@@ -129,7 +129,7 @@
         "width": 192
       },
       "path": "art/exports/trench-v1/trench24-2x.png",
-      "sha256": "f03483d33f6931e6529544b502fc757e128ed5d2a860eb46b261cc7b38548e1f"
+      "sha256": "494eefff7f592f64c80fa095e55fb9b86bac0f9a4e1f65f714462d95750c4c30"
     },
     {
       "dimensions": {
@@ -137,7 +137,7 @@
         "width": 384
       },
       "path": "art/exports/trench-v1/trench25-4x.png",
-      "sha256": "a0378472bcaea41fe7bc3cd3014f89e8a01c2bf88bcc539bf9cb47bf15b3baca"
+      "sha256": "787b476a606e68755d5d2721eba2518bc4d627e68c2cf35de93ab9b54a0fab6c"
     },
     {
       "dimensions": {
@@ -145,7 +145,7 @@
         "width": 192
       },
       "path": "art/exports/trench-v1/trench25-2x.png",
-      "sha256": "f3c86df5209997977b8431800e0dc9b67220dd5955276cfe5d9ee88170dcf0e7"
+      "sha256": "c6aa9065367690c9967dd077dbecac5c929acf61772534414a0b4f89f44f62d3"
     },
     {
       "dimensions": {
@@ -153,7 +153,7 @@
         "width": 384
       },
       "path": "art/exports/trench-v1/trench4-4x.png",
-      "sha256": "a5adec3e7a0038491c3f86eb7e24c5243ab266d4345285c5a840ddd82fc483ec"
+      "sha256": "6c72892efa0d95be3818f6a72a4fb89f90fc7a554749941c87f7b3b893422c17"
     },
     {
       "dimensions": {
@@ -161,7 +161,7 @@
         "width": 192
       },
       "path": "art/exports/trench-v1/trench4-2x.png",
-      "sha256": "402863eeb53320e631b576015bb2dc92a09b0b5b81e7dfdfb561b0421d028e09"
+      "sha256": "976519e68bb584eb1734acc65ac75198c095306cc279797880dc7d73e4aaacf1"
     },
     {
       "dimensions": {
@@ -169,7 +169,7 @@
         "width": 384
       },
       "path": "art/exports/trench-v1/trench5-4x.png",
-      "sha256": "1427d858a390b05d58791b343351903cc10251c4fb87c5198ed8946ca18ad6a9"
+      "sha256": "3787134de080e07c77dcdf3c3bc4edd5ff58a6087915fae0743f51a404ce0e42"
     },
     {
       "dimensions": {
@@ -177,7 +177,7 @@
         "width": 192
       },
       "path": "art/exports/trench-v1/trench5-2x.png",
-      "sha256": "ca7b1913d970192bb891270c41eae0c36a28154bbb0d2c19b6c51e6d1095fc2b"
+      "sha256": "f9f28514cbaff14917618f341ac1e4df2ebdc1c159b8f6b077689c4b60ae9f5a"
     },
     {
       "dimensions": {
@@ -185,7 +185,7 @@
         "width": 384
       },
       "path": "art/exports/trench-v1/trench5a-4x.png",
-      "sha256": "18535936edb3f23bd293698983dfa33372b43d9805061fa2f8b87573fb0160c0"
+      "sha256": "919bcfa272270533bd689cb97050c9a9e181cc7ce0372a1b02c18639b2df802d"
     },
     {
       "dimensions": {
@@ -193,15 +193,24 @@
         "width": 192
       },
       "path": "art/exports/trench-v1/trench5a-2x.png",
-      "sha256": "7dda43254e68b0ab910adca66af2d0af325bc214220ad4cf7babfca90a149e1a"
+      "sha256": "baa704218b1bd904f26c948738136c825aec946cd25b93bcd6eaf6f99a06d5c1"
     }
   ],
   "generation_recipes": [
     "art/recipes/terrain/distinct-v1/earth-bare.json",
+    "art/recipes/terrain/distinct-v1/meadow.json",
+    "art/recipes/terrain/distinct-v1/river-diagonal.json",
+    "art/recipes/terrain/distinct-v1/road-bend.json",
     "art/recipes/terrain/distinct-v1/road-gravel.json",
     "art/recipes/terrain/distinct-v1/timber-weathered.json",
     "art/recipes/terrain/distinct-v1/trench-earth.json",
     "art/recipes/terrain/distinct-v1/water-open.json",
+    "art/recipes/terrain/refdesign-v1/earth-bank.json",
+    "art/recipes/terrain/refdesign-v1/grass-base-01.json",
+    "art/recipes/terrain/refdesign-v1/grass-meadow-01.json",
+    "art/recipes/terrain/refdesign-v1/road-asphalt.json",
+    "art/recipes/terrain/refdesign-v1/trench-floor.json",
+    "art/recipes/terrain/refdesign-v1/trench-timber.json",
     "art/recipes/terrain/reference-v2/meadow-03.json",
     "art/recipes/terrain/reference-v2/road-paved.json",
     "art/recipes/terrain/shore-reference-v2/water.json"
@@ -291,52 +300,52 @@
   },
   "id": "connected-trench-v1",
   "manifest": "art/connected-trench-v1.json",
-  "manifest_sha256": "d9fe8b56388ee07ad0e9bf9e0042db5234bdd7a74113d578f04c93f2a38cac4f",
+  "manifest_sha256": "4d67003ee93fa42e87d8f08e3e5c17dd5dee2e5bcad9c2a1b967294207bae99b",
   "materials": {
     "earth": {
       "dimensions": {
-        "height": 1145,
-        "width": 1374
+        "height": 1254,
+        "width": 1254
       },
       "retained_source": "earth-material-source.png",
-      "source": "art/source/terrain/distinct-v1/earth-bare.png",
-      "source_sha256": "e7d3188bc9c734a1f45ad80ccce934c46d93cb4cf9843c079bbc6260ec848404"
+      "source": "art/source/terrain/refdesign-v1/earth-bank.png",
+      "source_sha256": "6df0ffb17725f7c7ef81bbafd1c8537ad2a30b62beac21a4ce6ce8a4c522086d"
     },
     "grass": {
       "dimensions": {
-        "height": 1145,
-        "width": 1374
+        "height": 480,
+        "width": 768
       },
       "retained_source": "grass-material-source.png",
-      "source": "art/source/terrain/reference-v2/meadow-03.png",
-      "source_sha256": "4de543f0906e1311eff5ae4f202eb8fa68665c67103039bee089e60e02c68eb4"
+      "source": "art/source/terrain/refdesign-v1/grass-base-01.png",
+      "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
     },
     "road": {
       "dimensions": {
-        "height": 1145,
-        "width": 1374
+        "height": 1254,
+        "width": 1254
       },
       "retained_source": "road-material-source.png",
-      "source": "art/source/terrain/reference-v2/road-paved.png",
-      "source_sha256": "48f521aa74bb1759896b33c95e84abb5d6d1d9146ab2925620a6b3234e5dcd2e"
+      "source": "art/source/terrain/refdesign-v1/road-asphalt.png",
+      "source_sha256": "a86aa33d3261283f885228a404a4b31ee337c132728f55038c5714a2e46aec44"
     },
     "timber": {
       "dimensions": {
-        "height": 1145,
-        "width": 1374
+        "height": 1254,
+        "width": 1254
       },
       "retained_source": "timber-material-source.png",
-      "source": "art/source/terrain/distinct-v1/timber-weathered.png",
-      "source_sha256": "c4d42a70eee2b05cdcb5948b15598c4373104893187ece5202907d8f21048faa"
+      "source": "art/source/terrain/refdesign-v1/trench-timber.png",
+      "source_sha256": "2f74c059d43a9105e1827c8d368416340ce3312e058fd3a84b572735a86c12ed"
     },
     "trench": {
       "dimensions": {
-        "height": 1145,
-        "width": 1374
+        "height": 1254,
+        "width": 1254
       },
       "retained_source": "trench-material-source.png",
-      "source": "art/source/terrain/distinct-v1/trench-earth.png",
-      "source_sha256": "fbe3e9e8e72d8d441dae8903d130e1edd1aef1f0803d152d91f6cd49d77f11ef"
+      "source": "art/source/terrain/refdesign-v1/trench-floor.png",
+      "source_sha256": "118093f94da2873b4a66970a0864cd62ab10fd9af0c751c52b90e63f5a872062"
     },
     "water": {
       "dimensions": {
@@ -348,7 +357,7 @@
       "source_sha256": "007b9babe0e69db5e628352a38dae0f1502ac42513bbf4018ad3df82f76c4c31"
     }
   },
-  "method": "Candidate overlay. Unclipped new feature and grass render at 4x with four WORLD pixels of overscan on every side (416x352). Feature/bank edges use analytic signed-distance AA, 0.25 world-pixel ramp; distances round to 1e-9 world px for reciprocal half-alpha stability. Existing alpha-aware Lanczos3 reduces the UNMASKED overscan 416x352 -\u003e 208x176. Crop 4-world-pixel margins AFTER filtering to 384x320 and 192x160, then apply complementary hard half-open polygon ownership at final pixel centers. No per-sprite polygon-edge AA; a future complete-map compositor may AA its outer boundary once. Each port has \u003e=8 straight world pixels and extends beyond cutout by outer radius+4; cubic connectors flatten at 64 steps; junctions merge by minimum distance. No legacy footprint or pixels. Optional road markings=dashed: six-world-pixel light centre dashes, eight-world-pixel nominal dash length and twelve-world-pixel nominal period; eight-world-pixel port phases are reciprocal, curved interiors fit the phase, junction centres remain unmarked. Narrow road borders use darkened pavement.",
+  "method": "Candidate overlay. Unclipped new feature and grass render at 4x with four WORLD pixels of overscan on every side (416x352). Feature/bank edges use analytic signed-distance AA, 0.25 world-pixel ramp; distances round to 1e-9 world px for reciprocal half-alpha stability. Existing alpha-aware Lanczos3 reduces the UNMASKED overscan 416x352 -\u003e 208x176. Crop 4-world-pixel margins AFTER filtering to 384x320 and 192x160, then apply complementary hard half-open polygon ownership at final pixel centers. No per-sprite polygon-edge AA; a future complete-map compositor may AA its outer boundary once. Each port has \u003e=8 straight world pixels and extends beyond cutout by outer radius+4; cubic connectors flatten at 64 steps; junctions merge by minimum distance. No legacy footprint or pixels. Optional road markings=dashed: 0.9-world-pixel light centre dashes and 0.6-world-pixel continuous edge lines one world pixel inside each pavement edge, eight-world-pixel nominal dash length and twelve-world-pixel nominal period; eight-world-pixel port phases are reciprocal, curved interiors fit the phase, junction centres remain unmarked. Narrow dusty shoulders blend the earth material with RGB(177,168,145) at weight.35. Marked-road verge only: add 0.65*E*(0.65*sin(3A+2B)+0.35*sin(7A-5B)) world pixels to the configured shoulder, where E=S((minimum polygon edge distance-8)/8), A=2pi(x/142+y/80), B=2pi(x/142-y/80). Pavement width and road markings are unchanged; the first eight world pixels at every port retain fixed shoulder width.",
   "original_image_inputs": [
     {
       "generation_recipe": "art/recipes/terrain/shore-reference-v2/water.json",
@@ -361,18 +370,6 @@
       "path": "build/pulse-study/dos-04/maps/00-PARTS.png",
       "role": "Semantic original reference only: Original DOS lake palette and shore character reference only; ignored local export.",
       "sha256": "58952d5eb3dc629b1346225da3feaa3fb7a7781d13ad3dc2011e9e153bd4bb40"
-    },
-    {
-      "generation_recipe": "art/recipes/terrain/reference-v2/meadow-03.json",
-      "path": "legacy/python/gfx/hexTypes/hex_grass.png",
-      "role": "Semantic original reference only: Only image input: composition, muted olive palette and low-frequency restoration reference; original file remains reference-only.",
-      "sha256": "67257c01c1e3e30ddc438e85e5e376cd1aa72f888cfb2851b288061e1eb7a0de"
-    },
-    {
-      "generation_recipe": "art/recipes/terrain/reference-v2/road-paved.json",
-      "path": "legacy/python/gfx/infrastructure/road36.png",
-      "role": "Semantic original reference only: reference colour and values only",
-      "sha256": "0b31995635a3c56427b1481e04583b9c6dc0a246ef47f87a824b149d0d6565e3"
     }
   ],
   "original_image_inputs_scope": "Semantic visual references used to paint the current masters or their fixture ground. Originals remain reference-only and are not bundled as runtime PNGs; source masters are newly painted. Unit sprite planes retain their existing independent artwork provenance.",
@@ -381,7 +378,7 @@
     "scope": "Historical source set before the current redraw; not an approval of the current artwork.",
     "text": "Independent code and art re-review provisionally pass. New 10x9 chambers with narrow 3.5px necks distinguish dugouts; through ports retain 8px protected zones. Timber reads mainly as edge lining and some uniform banks remain. Trench5a port5/NE+S blind-spur interpretation is provisional. Full-map/unit/runtime/seasonal integration and acceptance remain open."
   },
-  "rebuild_note": "Rebuilt with DOS-inspired blue-teal water and pale stony shore inputs; user visual approval remains open. Historical generation recipes retain their original provenance.",
+  "rebuild_note": "Rebuilt to the user-supplied RefDesign visual target with shared detailed grass, earthworks, roads, crowns, rocks and huts; user visual approval remains open. Historical generation recipes retain their original provenance.",
   "review": "docs/art/distinct-terrain-batch-06.md",
   "review_exports": [
     {
@@ -390,7 +387,7 @@
         "width": 192
       },
       "path": "art/review/trench-v1/trench0-grass-2x.png",
-      "sha256": "d292bc17cf3cba65039c1d13aa5aaf668ff3bd768d09ce3c784cffa15dd804a0"
+      "sha256": "07fc9dc55b80f6218dd6d9dc5128f096fb3066b02e382fe36a0ca5aa9ef5b200"
     },
     {
       "dimensions": {
@@ -398,7 +395,7 @@
         "width": 192
       },
       "path": "art/review/trench-v1/trench1-grass-2x.png",
-      "sha256": "6ea7d1a72db0ae349aa7bf6090353ec7b3e3d2ff83c68ac21ef03571e580355d"
+      "sha256": "2080e664764872ab02cfbd5bb6525db9ede5f26a90f13ea14cedafb8a6c6420d"
     },
     {
       "dimensions": {
@@ -406,7 +403,7 @@
         "width": 192
       },
       "path": "art/review/trench-v1/trench12-grass-2x.png",
-      "sha256": "31efeec979b2abbe9a843b27706c971a8224a834065c18747a09d49b25e4d40f"
+      "sha256": "962b4447664bf9f3f621d92b2e1d797ace272231c472796ca471bbf265166e80"
     },
     {
       "dimensions": {
@@ -414,7 +411,7 @@
         "width": 192
       },
       "path": "art/review/trench-v1/trench124-grass-2x.png",
-      "sha256": "79588fb640cd87225fc2addc01e02aba3d70b6bf1631ac57973e8d656c465007"
+      "sha256": "fea40145a19ca3221a72c33aaa7eb4305a4af00272947056fd67f7d8bef75cd8"
     },
     {
       "dimensions": {
@@ -422,7 +419,7 @@
         "width": 192
       },
       "path": "art/review/trench-v1/trench125-grass-2x.png",
-      "sha256": "2297d7543afafc6658ab08a39613827948c36125f9abda4ed4ba6a1c5e7de4f0"
+      "sha256": "1872b57d6b1cdccb53ae435a211755087d246a9a831d2495d1583310f0b38c79"
     },
     {
       "dimensions": {
@@ -430,7 +427,7 @@
         "width": 192
       },
       "path": "art/review/trench-v1/trench14-grass-2x.png",
-      "sha256": "1ad54ac60ea113ecc0767728849adce44ab5c54b87563ba790be41494b910908"
+      "sha256": "841a3f8045726a05aeb584fff8eec95cbee52289c1c1e9f941a09484ea80579b"
     },
     {
       "dimensions": {
@@ -438,7 +435,7 @@
         "width": 192
       },
       "path": "art/review/trench-v1/trench15-grass-2x.png",
-      "sha256": "131f1f841876135e01ec48e682a5710087cf91d2c8af5c8b584641772a6f098c"
+      "sha256": "4b3f10c1de8790c86f8d0368e6950f0f86750bc9530ce75f776e2c7bfa3ce6ad"
     },
     {
       "dimensions": {
@@ -446,7 +443,7 @@
         "width": 192
       },
       "path": "art/review/trench-v1/trench24-grass-2x.png",
-      "sha256": "f4293f8983ec56f8494dd0c499d665c398726e0a6fe9ab8ebc1d923c70964f4b"
+      "sha256": "6470d874e7f3fa35a2cd83535df3576cfb9b104020017f452826e8dc847d9c43"
     },
     {
       "dimensions": {
@@ -454,7 +451,7 @@
         "width": 192
       },
       "path": "art/review/trench-v1/trench25-grass-2x.png",
-      "sha256": "dcd12dc877a7ee7b300f54b15709b43200693f4ed773f55d8d124bfcdb38ec6c"
+      "sha256": "2f1bebcf886e357e9983735f0794d3a7807a767d41fc66468442c3ee3990f9db"
     },
     {
       "dimensions": {
@@ -462,7 +459,7 @@
         "width": 192
       },
       "path": "art/review/trench-v1/trench4-grass-2x.png",
-      "sha256": "98abec1808e7c6904767d58f4c5cd5de73176e8e9032ddc45a359a88a08457e5"
+      "sha256": "2a5f37013ef56aa08e5a791658a2664744608db915eb552003c44d9dcaf3f1b3"
     },
     {
       "dimensions": {
@@ -470,7 +467,7 @@
         "width": 192
       },
       "path": "art/review/trench-v1/trench5-grass-2x.png",
-      "sha256": "80e722f4d77a966220a9d455d02ad4c25460b18d6f5a6755b8b05b8fa5423320"
+      "sha256": "05f625241d7b879dcaf4f9d40c145f7133de956dd870cd7bc4cd3aa46b7aef71"
     },
     {
       "dimensions": {
@@ -478,7 +475,7 @@
         "width": 192
       },
       "path": "art/review/trench-v1/trench5a-grass-2x.png",
-      "sha256": "322a937e8ea029aef84ed59970907c95621b226b3b5fa9ee81eb9f982fc44841"
+      "sha256": "dacefe26d45a5c433bb20eb070e03259f232bab9032ae964e8d1f1d725aa2e4d"
     },
     {
       "dimensions": {
@@ -486,7 +483,7 @@
         "width": 384
       },
       "path": "art/review/trench-v1/contact-sheet.png",
-      "sha256": "9190792ef19efccda9a3704ecd50248bb68247fa478f3a340a7f06cce213a438"
+      "sha256": "5c41d138b1be6987d74ba9bce648ff88860219e0ae6d095061a931c3704dd74c"
     },
     {
       "dimensions": {
@@ -494,7 +491,7 @@
         "width": 476
       },
       "path": "art/review/trench-v1/trench0-patch-parity0.png",
-      "sha256": "a38904f756c9fa2cc919df3f197000b44c60696aaff167b3772f148014cca30f"
+      "sha256": "3522832515b7e2a4ba7bcb69126942df8bf474cffe81ed456491c64379c38c13"
     },
     {
       "dimensions": {
@@ -502,7 +499,7 @@
         "width": 476
       },
       "path": "art/review/trench-v1/trench14-patch-parity1.png",
-      "sha256": "d4861046cc3de580d698c0a7423afa0e04eca614495862492081f27a118be590"
+      "sha256": "93a67cd884bf7e90df04fdf73792a0fae250e3d4e460cd5d431c5fae4996785e"
     },
     {
       "dimensions": {
@@ -510,7 +507,7 @@
         "width": 476
       },
       "path": "art/review/trench-v1/trench124-patch-parity0.png",
-      "sha256": "8639969f7c6089b867c38b7a1a4b98dea7bc6577996a0b4fbf53aa920d3673f6"
+      "sha256": "d45883c8de83ffe2195d88074bce2740c1e6612d422d4c5b997da6e7086c884f"
     },
     {
       "dimensions": {
@@ -518,12 +515,12 @@
         "width": 476
       },
       "path": "art/review/trench-v1/trench5a-patch-parity1.png",
-      "sha256": "825aa50ac321f323f5666b1a4cbac95c79bfd307abbd55225cde9bfd05c628a4"
+      "sha256": "21c29ac5c02b6458f5f85822397ccf36147228b2b866ffc2917e60363bb0d416"
     }
   ],
   "schema_version": 1,
   "status": "candidate-built",
-  "texture_method": "New opaque source images only. Bilinear source sampling through continuous mirror-periodic coordinates, periods (142,80); average f(x,y) and f(x+71,y+40) in byte RGB. This derived texture average is invariant under all six lattice neighbor shifts. All independent cells use world origin phase (0,0). No original-game pixels.",
+  "texture_method": "New opaque source images only. Non-grass materials retain bilinear mirror-periodic coordinates, periods (142,80), and two-coset averaging. All independent cells use world origin phase (0,0). No original-game pixels. Summer grass: unmirrored periodic bilinear source sampling. Per source axis, overlap=(size-1)/4 and span=3*(size-1)/4. At world phase t in [0,period), x=t/period*span. For x\u003coverlap blend source(x+span) toward source(x) with cubic smoothstep(x/overlap); otherwise source(x). Apply separable windows on both axes, periods142,80. Round wrapped world phases to1e-9 before source lookup. Average RGB of f(x,y),f(x+71,y+40), then round half-up once. This is invariant under all six neighbor translations without reflected source marks. Non-grass materials, unseen and winter retain the existing sampler.",
   "tool": "Go tools/art-review -connected",
   "trench_profile": {
     "blind_spur_length_world_px": 14,
@@ -536,7 +533,7 @@
     "dugout_neck_max_width_world_px": 3.5,
     "dugout_neck_width_fraction": 0.6,
     "dugout_offset_world_px": 15,
-    "guards": "The first 8 world px from every polygon edge have fixed width/bank and no wear. Straight continuation to 16 px keeps angular courses and their radius outside that guard. Width wear is 0.18*E*sin(3A+B), bank fringe is 0.25*E*sin(2B-A), E=S((edge_distance-8)/8), A=2pi(x/142+y/80), B=2pi(x/142-y/80). Texture, wood phase and shading repeat on the runtime lattice; actual exported PNG joins use existing overscan/Lanczos/final ownership and ordinary decoded blits.",
+    "guards": "The first 8 world px from every polygon edge have fixed width/bank and no wear. Straight continuation to 16 px keeps angular courses and their radius outside that guard. Width wear is 0.18*E*sin(3A+B). Bank fringe is E*(0.25*sin(2B-A)+0.8*clamp((L-110)/100,-0.6,0.8)), where L=0.2126R+0.7152G+0.0722B of the sampled earth material; its clods roughen only the interior bank silhouette. E=S((edge_distance-8)/8), A=2pi(x/142+y/80), B=2pi(x/142-y/80). Texture, wood phase and shading repeat on the runtime lattice; actual exported PNG joins use existing overscan/Lanczos/final ownership and ordinary decoded blits.",
     "interior_straight_world_px": 16,
     "method": "Trench only: new dark earth floor, shaded new earth banks and new timber revetment/braces. Geometry uses numeric runtime ports only; no original pixels, masks or outlines. Candidate appearance requires visual review.",
     "port_guard_world_px": 8,
@@ -546,7 +543,7 @@
       26
     ],
     "ring_corner_radius_world_px": 7,
-    "shading": "Let N be the unit vector from the nearest main-course/neck point to the sample, or the chamber SDF gradient (central differences at +/-0.01 world px) for a chamber-owned sample; N=(0,0) at length \u003c=1e-9. D=round(dot(N,(0.6,0.8))*1e9)/1e9. Wall=S((core_distance+2.25)/2.25). Floor samples trench at 0.72*(1-0.6*Wall*(0.5+0.5*D)) brightness, producing a consistent southeast inner-wall shadow. Banks sample earth at (0.94+0.1*sin(A+0.4)*cos(B))*(1-0.15*D) brightness. Timber is source*1.08 brightness; revetment is a 1.1-world-pixel band centered 0.1 px inside the floor edge. Braces use clamp(0.5+(sin(3A+2B)-0.97)/0.06,0,1) and reach 1.2 world px from the floor edge. RGB rounds to nearest byte and clamps to 255. Reciprocal straight guards share nearest-course world normals, textures and phases. Core remains opaque; only the exterior 0.25-world-pixel analytic AA ramp is translucent. No baked grass.",
+    "shading": "Let N be the unit vector from the nearest main-course/neck point to the sample, or the chamber SDF gradient (central differences at +/-0.01 world px) for a chamber-owned sample; N=(0,0) at length \u003c=1e-9. D=round(dot(N,(0.6,0.8))*1e9)/1e9. Wall=S((core_distance+2.25)/2.25). Floor samples trench at 0.72*(1-0.6*Wall*(0.5+0.5*D)) brightness, producing a consistent southeast inner-wall shadow. Banks sample earth at (0.94+0.1*sin(A+0.4)*cos(B))*(1-0.15*D) brightness. Timber is source*1.08 brightness; revetment is a 1.1-world-pixel band centered 0.1 px inside the floor edge. Braces use clamp(0.5+(sin(3A+2B)-0.97)/0.06,0,1) and reach 1.2 world px from the floor edge. RGB rounds to nearest byte and clamps to 255. Reciprocal straight guards share nearest-course world normals, textures and phases. Core remains opaque; only the exterior 0.25-world-pixel analytic AA ramp is translucent. No baked grass. Interior timber breakup: multiply the revetment by 1-E+E*S((sin(12A+4B+0.7sin(3A-2B))+0.15)/0.7), creating separate planks with dark gaps. Add interior braces with E²*ramp(sin(6A+2B)-0.92,0.08)*ramp(1.4-abs(core_distance),AA). The squared fade preserves readable directional wall shading through the guard transition. Guard E=0 retains the original continuous reciprocal revetment and original braces.",
     "traverse_offset_world_px": 2
   },
   "variants": [
@@ -564,7 +561,7 @@
             "width": 384
           },
           "path": "art/exports/trench-v1/trench0-4x.png",
-          "sha256": "d5408db442b6003d9d58a15c0947a811440447b5e0189c1f8c148a6d955597a3"
+          "sha256": "3cf58a527128b42fa76cebe315d1693f59d5d91d9d2621f1d15e4207f6bb712f"
         },
         {
           "dimensions": {
@@ -572,7 +569,7 @@
             "width": 192
           },
           "path": "art/exports/trench-v1/trench0-2x.png",
-          "sha256": "1ab3915370996a774fdcfbb2c37261d7cccebd98214b49869937f2dd3424704b"
+          "sha256": "308235a916afe554e162570acb054c5b25e1e4d3b2fc3a4feb8d216868ecc0e1"
         }
       ],
       "ports": [],
@@ -591,7 +588,7 @@
             "width": 384
           },
           "path": "art/exports/trench-v1/trench1-4x.png",
-          "sha256": "9a34f42b40117caffc4a04c61db1d7a31333c6c6512e6a4b37a4c518ee4e0964"
+          "sha256": "f6ac4e9f192187c47a7ec78b5561e4b3b4503f998ee27866da3059281923d52c"
         },
         {
           "dimensions": {
@@ -599,7 +596,7 @@
             "width": 192
           },
           "path": "art/exports/trench-v1/trench1-2x.png",
-          "sha256": "1ff98f4fc74d555a9691ab54933ab84fec6c77579d154a941ba3c0228cab6fff"
+          "sha256": "4abdd06d022f5a8e67891bc94fb464a8d4b83d1128350f03f41e6b47ee766739"
         }
       ],
       "ports": [
@@ -621,7 +618,7 @@
             "width": 384
           },
           "path": "art/exports/trench-v1/trench12-4x.png",
-          "sha256": "cdea337a6905b2ea07cfd6625fcc961e4b8a33477b6379699da33d5e52dc5c77"
+          "sha256": "31915bf77442db9cc2f8b9b0fa183384c819f920730107da55a8c39c617bb6f1"
         },
         {
           "dimensions": {
@@ -629,7 +626,7 @@
             "width": 192
           },
           "path": "art/exports/trench-v1/trench12-2x.png",
-          "sha256": "5cdfceb9cc429792d5cc1862656c5c6b22ebb9c5ed4405d1490c2f20a506af14"
+          "sha256": "e2384debafc33b5ec15d38dc661be5471e39c8397d29eecf9f3792fe7355cbcd"
         }
       ],
       "ports": [
@@ -652,7 +649,7 @@
             "width": 384
           },
           "path": "art/exports/trench-v1/trench124-4x.png",
-          "sha256": "a825561a8b77acb5bf15cb59b06cce5ba34b96c04306d7ff65719edf6fec7375"
+          "sha256": "4504d2792a3cdf33272f38a1531beac94a9d8fb66aa72db89eab1468d7be2c51"
         },
         {
           "dimensions": {
@@ -660,7 +657,7 @@
             "width": 192
           },
           "path": "art/exports/trench-v1/trench124-2x.png",
-          "sha256": "9d47bb33b239dd9fa9a3dcf0af83223f5c847501383baf618603fe396617a819"
+          "sha256": "b62d70ea8ab425461522df31bed1da31cbf0a0d343e5b50b2837a8221012a16b"
         }
       ],
       "ports": [
@@ -684,7 +681,7 @@
             "width": 384
           },
           "path": "art/exports/trench-v1/trench125-4x.png",
-          "sha256": "3d442803678ccbac491916b19f89494757479dedc26aa1f468f3c0f6d696eb89"
+          "sha256": "f486a1a8c67591d940fe28afb4d49aea092ed018edf71721c7433125f3388579"
         },
         {
           "dimensions": {
@@ -692,7 +689,7 @@
             "width": 192
           },
           "path": "art/exports/trench-v1/trench125-2x.png",
-          "sha256": "5b329379a916ec8ffa8542534240a08f5de10c415f881654fd454ade5b6e5b8f"
+          "sha256": "0bdc13c70a6b4ef683e4a584dd65cebee2e0d77044b60773c166cc526e0b032c"
         }
       ],
       "ports": [
@@ -715,7 +712,7 @@
             "width": 384
           },
           "path": "art/exports/trench-v1/trench14-4x.png",
-          "sha256": "83d64153e13d53779c646f0024145c4a51039cf50822080b04d37d12c9016121"
+          "sha256": "37043a4cf27fb6adf37043b344d65be55193a45f0f37876cdb3c4fcfd4296d6e"
         },
         {
           "dimensions": {
@@ -723,7 +720,7 @@
             "width": 192
           },
           "path": "art/exports/trench-v1/trench14-2x.png",
-          "sha256": "bc87f33d8c38f3c3fe307cfa262aa909fb8f76c574e609288f8451c2c106c082"
+          "sha256": "2f93be478e394eb211ac3596253dfa3bd112d12af9ea6e8fb5121ad2a4012d89"
         }
       ],
       "ports": [
@@ -749,7 +746,7 @@
             "width": 384
           },
           "path": "art/exports/trench-v1/trench15-4x.png",
-          "sha256": "45bc8df225a458c1c5810c3be2aadb8465aadd8ee35489ba2c9e4310d8e82145"
+          "sha256": "84c230c15d8a6fe624dcee4b0aaf6eaae2447ae2bc5c5e0b9de529136ea378c8"
         },
         {
           "dimensions": {
@@ -757,7 +754,7 @@
             "width": 192
           },
           "path": "art/exports/trench-v1/trench15-2x.png",
-          "sha256": "ffd5b8cc048fe99991b07222a4075e1d6990d24a0b69a06232d4e3d3ecedc9d9"
+          "sha256": "2e2a32780266fdf411bb8a28f13dcfec994531c813e870aa1b2e60e68db0e1a1"
         }
       ],
       "ports": [
@@ -780,7 +777,7 @@
             "width": 384
           },
           "path": "art/exports/trench-v1/trench24-4x.png",
-          "sha256": "d7e657ce29aa42ea8750a10d7d489177577115433015562eddf86dc7b8c9f5bb"
+          "sha256": "4998154a51c718e3a71a8e37b0c2abf152a182f2d627b8db9afc6dff58fcc9f0"
         },
         {
           "dimensions": {
@@ -788,7 +785,7 @@
             "width": 192
           },
           "path": "art/exports/trench-v1/trench24-2x.png",
-          "sha256": "f03483d33f6931e6529544b502fc757e128ed5d2a860eb46b261cc7b38548e1f"
+          "sha256": "494eefff7f592f64c80fa095e55fb9b86bac0f9a4e1f65f714462d95750c4c30"
         }
       ],
       "ports": [
@@ -810,7 +807,7 @@
             "width": 384
           },
           "path": "art/exports/trench-v1/trench25-4x.png",
-          "sha256": "a0378472bcaea41fe7bc3cd3014f89e8a01c2bf88bcc539bf9cb47bf15b3baca"
+          "sha256": "787b476a606e68755d5d2721eba2518bc4d627e68c2cf35de93ab9b54a0fab6c"
         },
         {
           "dimensions": {
@@ -818,7 +815,7 @@
             "width": 192
           },
           "path": "art/exports/trench-v1/trench25-2x.png",
-          "sha256": "f3c86df5209997977b8431800e0dc9b67220dd5955276cfe5d9ee88170dcf0e7"
+          "sha256": "c6aa9065367690c9967dd077dbecac5c929acf61772534414a0b4f89f44f62d3"
         }
       ],
       "ports": [
@@ -840,7 +837,7 @@
             "width": 384
           },
           "path": "art/exports/trench-v1/trench4-4x.png",
-          "sha256": "a5adec3e7a0038491c3f86eb7e24c5243ab266d4345285c5a840ddd82fc483ec"
+          "sha256": "6c72892efa0d95be3818f6a72a4fb89f90fc7a554749941c87f7b3b893422c17"
         },
         {
           "dimensions": {
@@ -848,7 +845,7 @@
             "width": 192
           },
           "path": "art/exports/trench-v1/trench4-2x.png",
-          "sha256": "402863eeb53320e631b576015bb2dc92a09b0b5b81e7dfdfb561b0421d028e09"
+          "sha256": "976519e68bb584eb1734acc65ac75198c095306cc279797880dc7d73e4aaacf1"
         }
       ],
       "ports": [
@@ -869,7 +866,7 @@
             "width": 384
           },
           "path": "art/exports/trench-v1/trench5-4x.png",
-          "sha256": "1427d858a390b05d58791b343351903cc10251c4fb87c5198ed8946ca18ad6a9"
+          "sha256": "3787134de080e07c77dcdf3c3bc4edd5ff58a6087915fae0743f51a404ce0e42"
         },
         {
           "dimensions": {
@@ -877,7 +874,7 @@
             "width": 192
           },
           "path": "art/exports/trench-v1/trench5-2x.png",
-          "sha256": "ca7b1913d970192bb891270c41eae0c36a28154bbb0d2c19b6c51e6d1095fc2b"
+          "sha256": "f9f28514cbaff14917618f341ac1e4df2ebdc1c159b8f6b077689c4b60ae9f5a"
         }
       ],
       "ports": [
@@ -903,7 +900,7 @@
             "width": 384
           },
           "path": "art/exports/trench-v1/trench5a-4x.png",
-          "sha256": "18535936edb3f23bd293698983dfa33372b43d9805061fa2f8b87573fb0160c0"
+          "sha256": "919bcfa272270533bd689cb97050c9a9e181cc7ce0372a1b02c18639b2df802d"
         },
         {
           "dimensions": {
@@ -911,7 +908,7 @@
             "width": 192
           },
           "path": "art/exports/trench-v1/trench5a-2x.png",
-          "sha256": "7dda43254e68b0ab910adca66af2d0af325bc214220ad4cf7babfca90a149e1a"
+          "sha256": "baa704218b1bd904f26c948738136c825aec946cd25b93bcd6eaf6f99a06d5c1"
         }
       ],
       "ports": [
@@ -919,5 +916,10 @@
       ],
       "width": 6
     }
-  ]
+  ],
+  "visual_target": {
+    "reference": "RefDesign.png",
+    "role": "User-supplied scene target for the current grass, streets, earthworks, rocks, hut and summer canopy. Reference bytes are not runtime artwork.",
+    "sha256": "3924e55c20ca63cbe31a7e4b3d469977f20c9ddf7802912e92782360b4d1aa69"
+  }
 }

@@ -127,10 +127,14 @@ func TestCompoundHamletCLIActualPNGs(t *testing.T) {
 							// the reported absolute world phase against runtime placement.
 							local := connectionPoint{(float64(x) + .5) / 4, (float64(y) + .5) / 4}
 							world := local.add(origin)
-							if c != sampleConnectionMaterial(material, world) || c != sampleConnectionMaterial(material, local.add(patch.SceneOrigin)) {
+							sample := sampleConnectionMaterial
+							if want.season == "summer" {
+								sample = sampleGrassMaterial
+							}
+							if c != sample(material, world) || c != sample(material, local.add(patch.SceneOrigin)) {
 								t.Fatalf("absolute world material phase at %v parity%d", point, parity)
 							}
-							phaseWitness = phaseWitness || c != sampleConnectionMaterial(material, world.add(connectionPoint{-71, 0}))
+							phaseWitness = phaseWitness || c != sample(material, world.add(connectionPoint{-71, 0}))
 						}
 					}
 					if density == 4 && !phaseWitness {

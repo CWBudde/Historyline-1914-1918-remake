@@ -9,12 +9,12 @@
   ],
   "note": "Reference is the unchanged 48×48 source pose and palette. Current authored sprites are reduced to that size with Lanczos3 for comparison; 2× zoom gives the 96×96 game footprint. Other facings/owners/spent states have no matching raw reference variant; no reference rotations or faction swaps are invented.",
   "recipes": [
-    "art/recipes/units/reference-v1/supply-car-atlas-01.json",
-    "art/recipes/terrain/reference-v2/meadow-03.json"
+    "art/recipes/terrain/reference-v2/meadow-03.json",
+    "art/recipes/units/reference-v1/supply-car-atlas-01.json"
   ],
   "prompts": [
-    "prompts/units/reference-v1/supply-car-atlas-01.md",
-    "prompts/terrain/reference-v2/meadow-03.md"
+    "prompts/terrain/reference-v2/meadow-03.md",
+    "prompts/units/reference-v1/supply-car-atlas-01.md"
   ],
   "width": 48,
   "height": 48,

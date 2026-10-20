@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "id": "grass-detail-flowers-master-02",
+  "date": "2026-10-20",
+  "tool": "built-in image_gen.imagegen",
+  "status": "candidate",
+  "source": "art/source/terrain/refdesign-v1/grass-detail-flowers-master-02.png",
+  "source_dimensions": [
+    1586,
+    992
+  ],
+  "source_sha256": "368607bd87ee0b7ecbe39fc87b970982b001d6d3eeaabc3d9ee4f36e811cac89",
+  "original_image_inputs": [
+    {
+      "path": "RefDesign.png",
+      "sha256": "3924e55c20ca63cbe31a7e4b3d469977f20c9ddf7802912e92782360b4d1aa69",
+      "role": "Input image2: user-supplied style reference for small natural meadow details only; no original pixels copied."
+    }
+  ],
+  "generation_inputs": [
+    {
+      "path": "art/source/terrain/refdesign-v1/grass-base-01.png",
+      "sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b",
+      "role": "Input image1: edit target. Preserve its existing grass composition, olive palette and relative feature scale while adding only requested authored meadow detail. Background preservation was requested, not assumed pixel-exact."
+    }
+  ],
+  "prompt": "Use case: precise-object-edit. Image1 is the EDIT TARGET, the actual768x480 canonical grass material. Image2 is RefDesign.png, STYLE REFERENCE ONLY for small botanical/gravel details. Edit image1 by adding only sparse tiny meadow details. Preserve its existing grass composition, exact underlying olive palette, grass blade sizes, brightness and texture everywhere else. Do not repaint, regenerate or recolor the grass background. No global tone or saturation change. Add roughly40individual tiny yellow/white wildflower specks, a handful of pale-grey fine gravel clusters, and5small dark low weed tufts, irregularly scattered through the whole original grass. At image1's768x480 native size each new flower dot is about5to8pixels wide and each pebble4to8pixels; weed tufts no wider than12pixels. Tiny natural details from the reference, never large garden flowers, bushes or boulders. Keep the additions occupying under3percent of the canvas so the original average RGB approximately(96,104,31) and dominant olive grass remain unchanged. Avoid any new smooth bright/dark ground masses, color zones, straw swirls, circles or repeating patterns. Preserve the complete rectangular composition and aspect ratio of image1; if generating a higher resolution output, scale the exact image1 composition uniformly, without changing grass feature scale relative to the canvas. Fully opaque image, no text, grids, borders, hex outlines, roads, trees, water, buildings or units. The existing image1 grass is the fixed background to keep, not merely a style cue.",
+  "transparent_background": false,
+  "cleanup": "Selected built-in generated master copied unchanged. Material derivative uses existing Go alpha-aware antialiased Lanczos3 whole-image projection; no tint correction or procedurally drawn flowers, pebbles, weeds or soil marks.",
+  "review": {
+    "candidate_comparison": "build/grass-refdesign-detail-v1/comparison-game1.5.png",
+    "material": "art/source/terrain/refdesign-v1/grass-detail-flowers-02.png",
+    "composition": "Variant interiors only:65percent selected material over35percent phased canonical meadow, smoothly gated over8..18worldpixels from the hex edges. Four of sixteen variants retain only original phased meadow. Canonical shared material and all other terrain families remain unchanged.",
+    "acceptance": "Provisional material candidate; full-map and user visual acceptance remain open."
+  }
+}

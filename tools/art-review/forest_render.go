@@ -96,6 +96,10 @@ type forestInstance struct {
 func forestGateRadius() float64 { return math.Hypot(12, 12) + 4 + 1.5*math.Sqrt2 }
 
 func forestInstances(c forestContext) []forestInstance {
+	return forestInstancesWithCount(c, 36)
+}
+
+func forestInstancesWithCount(c forestContext, count int) []forestInstance {
 	c = c.effective()
 	_, base := forestSeason(c.RuntimeID)
 	if c.RuntimeID == base {
@@ -110,7 +114,7 @@ func forestInstances(c forestContext) []forestInstance {
 		if ids[site] == base {
 			continue
 		}
-		for i, point := range forestTemplate() {
+		for i, point := range forestTemplate()[:count] {
 			center := origin.add(point)
 			omit := false
 			for other, baseOrigin := range origins {
@@ -144,13 +148,30 @@ func forestInstances(c forestContext) []forestInstance {
 }
 
 type forestRenderer struct {
-	grounds map[string]*image.NRGBA
-	baseRaw map[string]*image.NRGBA
-	crowns  map[string][4]*image.RGBA
+	grounds           map[string]*image.NRGBA
+	baseRaw           map[string]*image.NRGBA
+	crowns            map[string][4]*image.RGBA
+	summerProfile     string
+	summerCrownPixels int
+	summerTreeCount   int
+	summerSupport     [4]float64
 }
 
-func newForestRenderer(grounds, atlases map[string]*image.NRGBA) (*forestRenderer, error) {
-	r := &forestRenderer{grounds: grounds, baseRaw: map[string]*image.NRGBA{}, crowns: map[string][4]*image.RGBA{}}
+func newForestRenderer(grounds, atlases map[string]*image.NRGBA, summerProfile ...string) (*forestRenderer, error) {
+	r := &forestRenderer{grounds: grounds, baseRaw: map[string]*image.NRGBA{}, crowns: map[string][4]*image.RGBA{}, summerCrownPixels: 96, summerTreeCount: 36}
+	if len(summerProfile) > 1 {
+		return nil, errors.New("forest accepts at most one summer profile")
+	}
+	if len(summerProfile) == 1 {
+		r.summerProfile = summerProfile[0]
+	}
+	switch r.summerProfile {
+	case "":
+	case forestSummerCanopyProfile:
+		r.summerCrownPixels, r.summerTreeCount = 106, 30
+	default:
+		return nil, fmt.Errorf("unknown forest summer profile %q", r.summerProfile)
+	}
 	for _, season := range []string{"summer", "winter"} {
 		atlas := atlases[season]
 		if atlas == nil || grounds[season] == nil {
@@ -161,32 +182,85 @@ func newForestRenderer(grounds, atlases map[string]*image.NRGBA) (*forestRendere
 		for i := range 4 {
 			panel := image.NewNRGBA(image.Rect(0, 0, panelSize, panelSize))
 			draw.Draw(panel, panel.Bounds(), atlas, image.Pt(i%2*panelSize, i/2*panelSize), draw.Src)
-			scaled, err := resizeLanczos(panel, 96, 96)
+			pixels := 96
+			if season == "summer" {
+				pixels = r.summerCrownPixels
+			}
+			scaled, err := resizeLanczos(panel, pixels, pixels)
 			if err != nil {
 				return nil, err
 			}
 			crowns[i] = image.NewRGBA(scaled.Bounds())
 			draw.Draw(crowns[i], crowns[i].Bounds(), scaled, image.Point{}, draw.Src)
+			if season == "summer" && r.summerProfile != "" {
+				r.summerSupport[i] = forestCrownSupport(crowns[i])
+				if r.summerSupport[i] > math.Hypot(12, 12) {
+					return nil, fmt.Errorf("forest summer crown %d painted RGBA support %.9f exceeds original support bound %.9f", i, r.summerSupport[i], math.Hypot(12, 12))
+				}
+			}
 		}
 		r.crowns[season] = crowns
 		raw := image.NewNRGBA(image.Rect(0, 0, 416, 352))
 		for y := range 352 {
 			for x := range 416 {
-				raw.SetNRGBA(x, y, sampleConnectionMaterial(grounds[season], connectionPoint{(float64(x)+.5)/4 - 4, (float64(y)+.5)/4 - 4}))
+				if season == "summer" {
+					raw.SetNRGBA(x, y, sampleGrassMaterial(grounds[season], connectionPoint{(float64(x)+.5)/4 - 4, (float64(y)+.5)/4 - 4}))
+				} else {
+					raw.SetNRGBA(x, y, sampleConnectionMaterial(grounds[season], connectionPoint{(float64(x)+.5)/4 - 4, (float64(y)+.5)/4 - 4}))
+				}
 			}
 		}
 		r.baseRaw[season] = raw
 	}
 	return r, nil
 }
+
+// Include each nonzero-alpha pixel's entire square, not just its centre.
+// Thus a larger transparent panel can retain the original seven-site proof
+// only when every painted quarter-world pixel still fits its old radius.
+func forestCrownSupport(crown *image.RGBA) float64 {
+	half := float64(crown.Bounds().Dx()) / 2
+	radius := 0.0
+	for y := range crown.Bounds().Dy() {
+		for x := range crown.Bounds().Dx() {
+			if crown.RGBAAt(x, y).A == 0 {
+				continue
+			}
+			dx := math.Max(math.Abs(float64(x)-half), math.Abs(float64(x+1)-half)) / 4
+			dy := math.Max(math.Abs(float64(y)-half), math.Abs(float64(y+1)-half)) / 4
+			radius = math.Max(radius, math.Hypot(dx, dy))
+		}
+	}
+	return radius
+}
+
+func (r *forestRenderer) instances(c forestContext) []forestInstance {
+	season, _ := forestSeason(c.RuntimeID)
+	count := 36
+	if season == "summer" {
+		count = r.summerTreeCount
+	}
+	instances := forestInstancesWithCount(c, count)
+	if season == "summer" && r.summerProfile != "" {
+		order := forestCanopyVariantOrder()
+		for i := range instances {
+			instances[i].Variant = order[instances[i].PointIndex%len(order)]
+		}
+	}
+	return instances
+}
+
+func forestCanopyVariantOrder() []int { return []int{0, 1, 0, 1, 2, 0, 1, 3} }
+
 func (r *forestRenderer) raw(c forestContext) *image.NRGBA {
 	season, _ := forestSeason(c.RuntimeID)
 	im := image.NewNRGBA(image.Rect(0, 0, 416, 352))
 	copy(im.Pix, r.baseRaw[season].Pix)
-	for _, instance := range forestInstances(c) {
+	for _, instance := range r.instances(c) {
 		// Quarter-grid centers make every origin an exact integer at 4x.
-		at := image.Pt(int((instance.Center[0]-12+4)*4), int((instance.Center[1]-12+4)*4))
 		crown := r.crowns[season][instance.Variant]
+		half := float64(crown.Bounds().Dx()) / 8
+		at := image.Pt(int((instance.Center[0]-half+4)*4), int((instance.Center[1]-half+4)*4))
 		draw.Draw(im, crown.Bounds().Add(at), crown, image.Point{}, draw.Over)
 	}
 	return im
@@ -194,6 +268,9 @@ func (r *forestRenderer) raw(c forestContext) *image.NRGBA {
 func (r *forestRenderer) tiles(c forestContext) (map[int]*image.NRGBA, error) {
 	season, base := forestSeason(c.RuntimeID)
 	if c.RuntimeID == base {
+		if season == "summer" {
+			return exportGrassBaseTiles(r.grounds[season])
+		}
 		return exportConnectionTiles(connectionInputs{manifest: connectionManifest{Geometry: sharedConnectionGeometry()}, materials: map[string]*image.NRGBA{"grass": r.grounds[season]}}, nil, nil)
 	}
 	raw4 := r.raw(c)

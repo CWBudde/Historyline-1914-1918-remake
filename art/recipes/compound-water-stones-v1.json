@@ -1,5 +1,5 @@
 {
-  "acceptance": "Current provisional reference-guided candidate rebuild. Actual PNG assembly and pinned inputs are recorded; current user visual approval, approximately 90% resemblance, whole-map/runtime integration and release acceptance remain open.",
+  "acceptance": "Reference-guided candidate rebuild. Current exported assets and context proofs are pinned; final user visual review remains open.",
   "base_exports": [
     {
       "build_output": "ground/water-2x.png",
@@ -46,7 +46,7 @@
             ],
             "path": "art/exports/shore-v1/lakeside12-2x.png",
             "runtime_id": "lakeside12",
-            "sha256": "c7707d93225150d4ab6069eee607784247aa9a4377dc8769d0ad4221a244655d"
+            "sha256": "2c3c4ca1f7308d74a3cfc02b0c01e1c8b74a7efa373ec6439d08c71989837fa3"
           },
           {
             "fixture_runtime_id": "water",
@@ -66,7 +66,7 @@
             ],
             "path": "art/exports/connected-v1/grass-2x.png",
             "runtime_id": "grass",
-            "sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+            "sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
           },
           {
             "fixture_runtime_id": "lakeside12",
@@ -76,7 +76,7 @@
             ],
             "path": "art/exports/shore-v1/lakeside12-2x.png",
             "runtime_id": "lakeside12",
-            "sha256": "c7707d93225150d4ab6069eee607784247aa9a4377dc8769d0ad4221a244655d"
+            "sha256": "2c3c4ca1f7308d74a3cfc02b0c01e1c8b74a7efa373ec6439d08c71989837fa3"
           },
           {
             "fixture_runtime_id": "water",
@@ -96,7 +96,7 @@
             ],
             "path": "art/exports/connected-v1/grass-2x.png",
             "runtime_id": "grass",
-            "sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+            "sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
           },
           {
             "fixture_runtime_id": "lakeside12",
@@ -106,11 +106,11 @@
             ],
             "path": "art/exports/shore-v1/lakeside12-2x.png",
             "runtime_id": "lakeside12",
-            "sha256": "c7707d93225150d4ab6069eee607784247aa9a4377dc8769d0ad4221a244655d"
+            "sha256": "2c3c4ca1f7308d74a3cfc02b0c01e1c8b74a7efa373ec6439d08c71989837fa3"
           }
         ],
         "path": "art/review/water-stones-v1/shore-parity0-2x.png",
-        "sha256": "c1ca67fd698e07904935c1169dd77c29b6ec5beddd9aaa04b8214fcdc6c1741f",
+        "sha256": "0c80e95ea02bbe66c8f851b0a06df55be4845825d3fcd96f9ee6efa07b526c79",
         "target_origin": [
           -71,
           -40
@@ -139,7 +139,7 @@
             ],
             "path": "art/exports/shore-v1/lakeside12-4x.png",
             "runtime_id": "lakeside12",
-            "sha256": "edd3d8d4739e802f6a72859cf8c77c10a0677fbac83f044563587bffba44e445"
+            "sha256": "d8359ff83d152c29f6e3764f19dc3f5736fb6b43bfe087d861870adf2e745090"
           },
           {
             "fixture_runtime_id": "water",
@@ -159,7 +159,7 @@
             ],
             "path": "art/exports/connected-v1/grass-4x.png",
             "runtime_id": "grass",
-            "sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+            "sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
           },
           {
             "fixture_runtime_id": "lakeside12",
@@ -169,7 +169,7 @@
             ],
             "path": "art/exports/shore-v1/lakeside12-4x.png",
             "runtime_id": "lakeside12",
-            "sha256": "edd3d8d4739e802f6a72859cf8c77c10a0677fbac83f044563587bffba44e445"
+            "sha256": "d8359ff83d152c29f6e3764f19dc3f5736fb6b43bfe087d861870adf2e745090"
           },
           {
             "fixture_runtime_id": "water",
@@ -189,7 +189,7 @@
             ],
             "path": "art/exports/connected-v1/grass-4x.png",
             "runtime_id": "grass",
-            "sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+            "sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
           },
           {
             "fixture_runtime_id": "lakeside12",
@@ -199,11 +199,11 @@
             ],
             "path": "art/exports/shore-v1/lakeside12-4x.png",
             "runtime_id": "lakeside12",
-            "sha256": "edd3d8d4739e802f6a72859cf8c77c10a0677fbac83f044563587bffba44e445"
+            "sha256": "d8359ff83d152c29f6e3764f19dc3f5736fb6b43bfe087d861870adf2e745090"
           }
         ],
         "path": "art/review/water-stones-v1/shore-parity0-4x.png",
-        "sha256": "e37bb4303e56a9f4b084266fa2433b7f4b89945505f6627a34918ea03d721e3d",
+        "sha256": "771f1749b379be4243490c1be45eb20667ee46c7afd94775f36de5fc84e2a993",
         "target_origin": [
           -71,
           -40
@@ -232,7 +232,7 @@
             ],
             "path": "art/exports/shore-v1/lakeside12-2x.png",
             "runtime_id": "lakeside12",
-            "sha256": "c7707d93225150d4ab6069eee607784247aa9a4377dc8769d0ad4221a244655d"
+            "sha256": "2c3c4ca1f7308d74a3cfc02b0c01e1c8b74a7efa373ec6439d08c71989837fa3"
           },
           {
             "fixture_runtime_id": "water",
@@ -252,7 +252,7 @@
             ],
             "path": "art/exports/connected-v1/grass-2x.png",
             "runtime_id": "grass",
-            "sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+            "sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
           },
           {
             "fixture_runtime_id": "lakeside12",
@@ -262,7 +262,7 @@
             ],
             "path": "art/exports/shore-v1/lakeside12-2x.png",
             "runtime_id": "lakeside12",
-            "sha256": "c7707d93225150d4ab6069eee607784247aa9a4377dc8769d0ad4221a244655d"
+            "sha256": "2c3c4ca1f7308d74a3cfc02b0c01e1c8b74a7efa373ec6439d08c71989837fa3"
           },
           {
             "fixture_runtime_id": "water",
@@ -282,7 +282,7 @@
             ],
             "path": "art/exports/connected-v1/grass-2x.png",
             "runtime_id": "grass",
-            "sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+            "sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
           },
           {
             "fixture_runtime_id": "lakeside12",
@@ -292,11 +292,11 @@
             ],
             "path": "art/exports/shore-v1/lakeside12-2x.png",
             "runtime_id": "lakeside12",
-            "sha256": "c7707d93225150d4ab6069eee607784247aa9a4377dc8769d0ad4221a244655d"
+            "sha256": "2c3c4ca1f7308d74a3cfc02b0c01e1c8b74a7efa373ec6439d08c71989837fa3"
           }
         ],
         "path": "art/review/water-stones-v1/shore-parity1-2x.png",
-        "sha256": "c1ca67fd698e07904935c1169dd77c29b6ec5beddd9aaa04b8214fcdc6c1741f",
+        "sha256": "0c80e95ea02bbe66c8f851b0a06df55be4845825d3fcd96f9ee6efa07b526c79",
         "target_origin": [
           0,
           0
@@ -325,7 +325,7 @@
             ],
             "path": "art/exports/shore-v1/lakeside12-4x.png",
             "runtime_id": "lakeside12",
-            "sha256": "edd3d8d4739e802f6a72859cf8c77c10a0677fbac83f044563587bffba44e445"
+            "sha256": "d8359ff83d152c29f6e3764f19dc3f5736fb6b43bfe087d861870adf2e745090"
           },
           {
             "fixture_runtime_id": "water",
@@ -345,7 +345,7 @@
             ],
             "path": "art/exports/connected-v1/grass-4x.png",
             "runtime_id": "grass",
-            "sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+            "sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
           },
           {
             "fixture_runtime_id": "lakeside12",
@@ -355,7 +355,7 @@
             ],
             "path": "art/exports/shore-v1/lakeside12-4x.png",
             "runtime_id": "lakeside12",
-            "sha256": "edd3d8d4739e802f6a72859cf8c77c10a0677fbac83f044563587bffba44e445"
+            "sha256": "d8359ff83d152c29f6e3764f19dc3f5736fb6b43bfe087d861870adf2e745090"
           },
           {
             "fixture_runtime_id": "water",
@@ -375,7 +375,7 @@
             ],
             "path": "art/exports/connected-v1/grass-4x.png",
             "runtime_id": "grass",
-            "sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+            "sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
           },
           {
             "fixture_runtime_id": "lakeside12",
@@ -385,11 +385,11 @@
             ],
             "path": "art/exports/shore-v1/lakeside12-4x.png",
             "runtime_id": "lakeside12",
-            "sha256": "edd3d8d4739e802f6a72859cf8c77c10a0677fbac83f044563587bffba44e445"
+            "sha256": "d8359ff83d152c29f6e3764f19dc3f5736fb6b43bfe087d861870adf2e745090"
           }
         ],
         "path": "art/review/water-stones-v1/shore-parity1-4x.png",
-        "sha256": "e37bb4303e56a9f4b084266fa2433b7f4b89945505f6627a34918ea03d721e3d",
+        "sha256": "771f1749b379be4243490c1be45eb20667ee46c7afd94775f36de5fc84e2a993",
         "target_origin": [
           0,
           0
@@ -729,7 +729,7 @@
       }
     ],
     "purpose": "actual saved-PNG homogeneous waterStones and compatible mixed-shore contexts",
-    "rebuild_status": "Fresh actual-PNG assembly from the DOS-inspired shore/water refresh, at both densities and line parities.",
+    "rebuild_status": "Fresh actual-PNG assembly from the RefDesign grass and DOS-inspired shore/water refresh, at both densities and line parities.",
     "runtime_integration": "candidate pack; PULSE captures generated separately",
     "schema_version": 1
   },
@@ -756,6 +756,11 @@
   ],
   "generation_recipes": [
     "art/recipes/compound/distinct-v1/water-stones-01.json",
+    "art/recipes/terrain/distinct-v1/ground-rocky.json",
+    "art/recipes/terrain/distinct-v1/meadow.json",
+    "art/recipes/terrain/distinct-v1/river-diagonal.json",
+    "art/recipes/terrain/distinct-v1/water-open.json",
+    "art/recipes/terrain/distinct-v1/water-stones.json",
     "art/recipes/terrain/shore-reference-v2/water.json"
   ],
   "generation_recipes_scope": "Includes historical generation studies and the current pinned master records. Current source selection is established by the producing manifest and its exact SHA256 pins; historical records are unchanged.",
@@ -879,8 +884,8 @@
     "scope": "Historical source set before the current redraw; not an approval of the current artwork.",
     "text": "Provisional distinct illustrated waterStones candidate. Actual2x4x source/tile/parity/compatible-shore/homogeneous artreview passes. Uses exact existing shared water and stable runtime ID; no gameplay changes."
   },
-  "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; reject any sampled alpha \u003e=250 at signed distance \u003c=8 world pixels before guard; alpha zero through 4 world pixels then smoothstep 4..8. Guard full unmasked 4x artwork, then existing resizeLanczos to whole-scene 2x. Ground independently exported by exportConnectionTiles with fixed geometry and pinned shared water using the unchanged opaque base sampler, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim.",
-  "rebuild_note": "Rebuilt with DOS-inspired blue-teal water and pale stony shore inputs; user visual approval remains open. Historical generation recipes retain their original provenance.",
+  "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; reject any sampled alpha \u003e=250 at signed distance \u003c=8 world pixels before guard; alpha zero through 4 world pixels then smoothstep 4..8. Guard full unmasked 4x artwork, then existing resizeLanczos to whole-scene 2x. Ground independently exported by exportGrassBaseTiles in summer and unchanged exportConnectionTiles otherwise with fixed geometry and pinned shared water using the unchanged opaque base sampler, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim. Summer grass: unmirrored periodic bilinear source sampling. Per source axis, overlap=(size-1)/4 and span=3*(size-1)/4. At world phase t in [0,period), x=t/period*span. For x\u003coverlap blend source(x+span) toward source(x) with cubic smoothstep(x/overlap); otherwise source(x). Apply separable windows on both axes, periods142,80. Round wrapped world phases to1e-9 before source lookup. Average RGB of f(x,y),f(x+71,y+40), then round half-up once. This is invariant under all six neighbor translations without reflected source marks. Non-grass materials, unseen and winter retain the existing sampler.",
+  "rebuild_note": "Rebuilt to the user-supplied RefDesign visual target with shared detailed grass, earthworks, roads, crowns, rocks and huts; user visual approval remains open. Historical generation recipes retain their original provenance.",
   "review_exports": [
     {
       "build_output": "water-stones-scene-2x.png",
@@ -1188,7 +1193,7 @@
           ]
         }
       ],
-      "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; reject any sampled alpha \u003e=250 at signed distance \u003c=8 world pixels before guard; alpha zero through 4 world pixels then smoothstep 4..8. Guard full unmasked 4x artwork, then existing resizeLanczos to whole-scene 2x. Ground independently exported by exportConnectionTiles with fixed geometry and pinned shared water using the unchanged opaque base sampler, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim.",
+      "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; reject any sampled alpha \u003e=250 at signed distance \u003c=8 world pixels before guard; alpha zero through 4 world pixels then smoothstep 4..8. Guard full unmasked 4x artwork, then existing resizeLanczos to whole-scene 2x. Ground independently exported by exportGrassBaseTiles in summer and unchanged exportConnectionTiles otherwise with fixed geometry and pinned shared water using the unchanged opaque base sampler, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim. Summer grass: unmirrored periodic bilinear source sampling. Per source axis, overlap=(size-1)/4 and span=3*(size-1)/4. At world phase t in [0,period), x=t/period*span. For x\u003coverlap blend source(x+span) toward source(x) with cubic smoothstep(x/overlap); otherwise source(x). Apply separable windows on both axes, periods142,80. Round wrapped world phases to1e-9 before source lookup. Average RGB of f(x,y),f(x+71,y+40), then round half-up once. This is invariant under all six neighbor translations without reflected source marks. Non-grass materials, unseen and winter retain the existing sampler.",
       "reference": [
         {
           "dimensions": {
@@ -1252,5 +1257,10 @@
   ],
   "schema_version": 1,
   "status": "candidate-built",
-  "tool": "Go tools/art-review -compound"
+  "tool": "Go tools/art-review -compound",
+  "visual_target": {
+    "reference": "RefDesign.png",
+    "role": "User-supplied scene target for the current grass, streets, earthworks, rocks, hut and summer canopy. Reference bytes are not runtime artwork.",
+    "sha256": "3924e55c20ca63cbe31a7e4b3d469977f20c9ddf7802912e92782360b4d1aa69"
+  }
 }

@@ -119,10 +119,11 @@ type connectionArtifact struct {
 	data []byte
 }
 type connectionInputs struct {
-	manifest  connectionManifest
-	materials map[string]*image.NRGBA
-	sources   map[string][]byte
-	hash      string
+	manifest      connectionManifest
+	materials     map[string]*image.NRGBA
+	sources       map[string][]byte
+	hash          string
+	grassSampling bool
 }
 
 // decodeConnectionJSON rejects duplicate keys as well as unknown schema fields.
@@ -179,7 +180,7 @@ func decodeConnectionJSON(data []byte, dst any) error {
 }
 
 func loadConnectionInputs(path string) (connectionInputs, error) {
-	in := connectionInputs{materials: map[string]*image.NRGBA{}, sources: map[string][]byte{}}
+	in := connectionInputs{materials: map[string]*image.NRGBA{}, sources: map[string][]byte{}, grassSampling: true}
 	b, err := os.ReadFile(path)
 	if err != nil {
 		return in, err
@@ -201,13 +202,18 @@ func loadConnectionInputs(path string) (connectionInputs, error) {
 		return in, errors.New("connected requires one to five unique road/stream/path/rail/trench families")
 	}
 	families := map[string]bool{}
+	gravelBank := false
 	for _, f := range m.Families {
 		if (f.ID != "road" && f.ID != "stream" && f.ID != "path" && f.ID != "rail" && f.ID != "trench") || families[f.ID] {
 			return in, errors.New("family must be unique road, stream, path, rail or trench")
 		}
 		families[f.ID] = true
+		gravelBank = gravelBank || f.ID == "stream" && f.BorderMaterial == "bank"
 	}
 	materialIDs := []string{"grass", "road", "water", "earth"}
+	if gravelBank {
+		materialIDs = append(materialIDs, "bank")
+	}
 	if families["path"] {
 		materialIDs = append(materialIDs, "path")
 	}
@@ -221,7 +227,7 @@ func loadConnectionInputs(path string) (connectionInputs, error) {
 		}
 	}
 	if len(m.Materials) != len(materialIDs) {
-		return in, errors.New("connected requires grass/road/water/earth materials, plus path for path, rail/timber/steel for rail and trench/timber for trench (shared timber once)")
+		return in, errors.New("connected requires grass/road/water/earth materials, optional bank for gravel-bank stream, plus path for path, rail/timber/steel for rail and trench/timber for trench (shared timber once)")
 	}
 	sum := sha256.Sum256(b)
 	in.hash = hex.EncodeToString(sum[:])
@@ -294,8 +300,8 @@ func loadConnectionInputs(path string) (connectionInputs, error) {
 		if f.ID == "stream" {
 			expected = "water"
 		}
-		if f.Material != expected || f.BorderMaterial != "earth" {
-			return in, errors.New("road/stream/path/rail/trench must use road/water/path/rail/trench and earth border materials")
+		if f.Material != expected || f.BorderMaterial != "earth" && (f.ID != "stream" || f.BorderMaterial != "bank") {
+			return in, errors.New("road/stream/path/rail/trench must use road/water/path/rail/trench and earth border materials; stream alone may use bank")
 		}
 		if math.IsNaN(f.Width) || math.IsInf(f.Width, 0) || math.IsNaN(f.Border) || math.IsInf(f.Border, 0) || f.Width < 2 || f.Width > 28 || f.Border < 0 || f.Border > 6 || f.Width/2+f.Border > 20 {
 			return in, errors.New("profile requires width 2..28, border 0..6, outer radius <=20")
@@ -358,12 +364,16 @@ func runConnected(path, out string, log io.Writer) (resultErr error) {
 		return err
 	}
 	report := connectionReport{SchemaVersion: 1, ManifestSHA256: in.hash, Geometry: in.manifest.Geometry, Materials: map[string]connectionMaterialReport{},
-		Method:           "Candidate overlay. Unclipped new feature and grass render at 4x with four WORLD pixels of overscan on every side (416x352). Feature/bank edges use analytic signed-distance AA, 0.25 world-pixel ramp; distances round to 1e-9 world px for reciprocal half-alpha stability. Existing alpha-aware Lanczos3 reduces the UNMASKED overscan 416x352 -> 208x176. Crop 4-world-pixel margins AFTER filtering to 384x320 and 192x160, then apply complementary hard half-open polygon ownership at final pixel centers. No per-sprite polygon-edge AA; a future complete-map compositor may AA its outer boundary once. Each port has >=8 straight world pixels and extends beyond cutout by outer radius+4; cubic connectors flatten at 64 steps; junctions merge by minimum distance. No legacy footprint or pixels. Optional road markings=dashed: six-world-pixel light centre dashes, eight-world-pixel nominal dash length and twelve-world-pixel nominal period; eight-world-pixel port phases are reciprocal, curved interiors fit the phase, junction centres remain unmarked. Narrow road borders use darkened pavement.",
-		TextureMethod:    "New opaque source images only. Bilinear source sampling through continuous mirror-periodic coordinates, periods (142,80); average f(x,y) and f(x+71,y+40) in byte RGB. This derived texture average is invariant under all six lattice neighbor shifts. All independent cells use world origin phase (0,0). No original-game pixels.",
+		Method:           "Candidate overlay. Unclipped new feature and grass render at 4x with four WORLD pixels of overscan on every side (416x352). Feature/bank edges use analytic signed-distance AA, 0.25 world-pixel ramp; distances round to 1e-9 world px for reciprocal half-alpha stability. Existing alpha-aware Lanczos3 reduces the UNMASKED overscan 416x352 -> 208x176. Crop 4-world-pixel margins AFTER filtering to 384x320 and 192x160, then apply complementary hard half-open polygon ownership at final pixel centers. No per-sprite polygon-edge AA; a future complete-map compositor may AA its outer boundary once. Each port has >=8 straight world pixels and extends beyond cutout by outer radius+4; cubic connectors flatten at 64 steps; junctions merge by minimum distance. No legacy footprint or pixels. Optional road markings=dashed: 0.9-world-pixel light centre dashes and 0.6-world-pixel continuous edge lines one world pixel inside each pavement edge, eight-world-pixel nominal dash length and twelve-world-pixel nominal period; eight-world-pixel port phases are reciprocal, curved interiors fit the phase, junction centres remain unmarked. Narrow dusty shoulders blend the earth material with RGB(177,168,145) at weight.35.",
+		TextureMethod:    "New opaque source images only. Non-grass materials retain bilinear mirror-periodic coordinates, periods (142,80), and two-coset averaging. All independent cells use world origin phase (0,0). No original-game pixels. " + grassSamplingProfile,
 		StreamInterior:   "Stream-only organic interior. Let S(t)=clamp(t,0,1)^2*(3-2*clamp(t,0,1)), E=S((minimum signed polygon-edge distance-8)/8), A=2pi(x/142+y/80), B=2pi(x/142-y/80), using world x/y. Warp local route lookup by E*(1.2*sin(A),1.2*sin(B)); core radius=width/2+0.8*E*sin(A+0.4)*cos(B). Thus the 8-world-pixel edge zone is unchanged and the envelope reaches full effect at 16 px. For junctions, smoothly union core SDF with a central disc of radius 0.68*width at warped coordinates: h=max(3-abs(core-disc),0)/3, merged=min(core,disc)-3*h*h/4, core=core+E*(merged-core). Border=max(0,border-0.8*E+0.3*E*sin(B+0.7)). Pocket=S((sin(A)*sin(B)-0.15)/0.65); bank opacity=1-0.65*E*pocket; final alpha=outer_AA*(core_AA+(1-core_AA)*bank_opacity). Cores stay opaque; translucent earth banks reveal underlying terrain with no baked-in grass. Road arithmetic and protected stream profiles are unchanged.",
 		CompositionScope: "Tested composition scope: pixel-aligned 2x/4x export sprites with integer runtime lattice translations and ordinary source-over blits. Other camera zoom should assemble the scene at asset density and resample the completed scene once. Independently filtered or fractional-position sprite zoom is not validated; no runtime zoom implementation is included.",
 		Ownership:        "Binary final-pixel polygon ownership: cross(edge,point)>0; on an edge include dy<0 or dy==0 && dx>0 (top-left rule), exclude the reciprocal edge. Ground and overlay exports share this new polygon. Zero RGBA outside ownership. Gallery patches decode exported PNG bytes and assemble ground then overlays using ordinary image.Draw Over at integer runtime cell translations, at BOTH 2x and 4x. They do not rerender world geometry or conceal sprite assembly gaps.",
 		Acceptance:       "Candidate only. Actual painted joins, banks, curves, texture repetition and runtime appearance require visual review; no seamlessness or acceptance claim."}
+	report.Method += " Marked-road verge only: add 0.65*E*(0.65*sin(3A+2B)+0.35*sin(7A-5B)) world pixels to the configured shoulder, where E=S((minimum polygon edge distance-8)/8), A=2pi(x/142+y/80), B=2pi(x/142-y/80). Pavement width and road markings are unchanged; the first eight world pixels at every port retain fixed shoulder width."
+	if in.materials["bank"] != nil {
+		report.StreamInterior += " Opt-in stream border_material=bank overrides the earth-bank treatment: pinned bank material is retained independently of earth. Keep the same organic core geometry and protected port width; border=max(0,border+1.1*E*sin(3A+2B)), bank opacity=1-0.2*E*pocket, giving a 2.4..4.6 world-pixel interior bank for configured border3.5. Legacy earth-stream border2.5 remains a separate unchanged profile; optional bank-stream border2.5 remains supported. The river-bank material may use an unchanged-pixel crop of its parent master to make loose stones larger; other lakeside variants retain their full master. Water color blends toward RGB(84,135,139) at weight0.24 near the bank. Dark wet lip is bank blended toward RGB(35,50,43) at weight0.72 over signed core distance -0.45..1.05. Water-side current flecks and broken foam use only lattice-periodic A/B, a narrow Gaussian centered1.2 world pixels inside water (width0.45), crest=S((sin(6A+4B+0.8sin(3B))-0.15)/0.6), and foam RGB(215,231,226) at maximumweight0.72. Full pale bank replaces the wet lip by distance1.05 outside water. Signed color distance rounds1e-9 for reciprocal stability; no baked grass, no lakeside mask changes."
+	}
 	var artifacts []connectionArtifact
 	exports := map[string]map[int]*image.NRGBA{}
 	pngPixels := map[string]*image.NRGBA{}
@@ -385,7 +395,7 @@ func runConnected(path, out string, log io.Writer) (resultErr error) {
 		report.Outputs = append(report.Outputs, o)
 		return o, nil
 	}
-	for _, id := range []string{"grass", "road", "water", "earth", "path", "rail", "timber", "steel", "trench"} {
+	for _, id := range []string{"grass", "road", "water", "earth", "bank", "path", "rail", "timber", "steel", "trench"} {
 		mat := in.materials[id]
 		if mat == nil {
 			continue

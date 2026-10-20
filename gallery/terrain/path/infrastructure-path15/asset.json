@@ -7,18 +7,32 @@
   "note": "Current enabled infrastructure binding. This single-asset view uses its default context export; the PULSE study resolves available neighbor contexts through the shared compositor. Final runtime acceptance remains open.",
   "recipes": [
     "art/recipes/terrain/distinct-v1/earth-bare.json",
+    "art/recipes/terrain/distinct-v1/meadow.json",
     "art/recipes/terrain/distinct-v1/path-earth.json",
+    "art/recipes/terrain/distinct-v1/river-diagonal.json",
+    "art/recipes/terrain/distinct-v1/road-bend.json",
     "art/recipes/terrain/distinct-v1/road-gravel.json",
     "art/recipes/terrain/distinct-v1/water-open.json",
+    "art/recipes/terrain/refdesign-v1/earth-bank.json",
+    "art/recipes/terrain/refdesign-v1/grass-base-01.json",
+    "art/recipes/terrain/refdesign-v1/grass-meadow-01.json",
+    "art/recipes/terrain/refdesign-v1/road-asphalt.json",
     "art/recipes/terrain/reference-v2/meadow-03.json",
     "art/recipes/terrain/reference-v2/road-paved.json",
     "art/recipes/terrain/shore-reference-v2/water.json"
   ],
   "prompts": [
     "prompts/terrain/distinct-v1/earth-bare.md",
+    "prompts/terrain/distinct-v1/meadow.md",
     "prompts/terrain/distinct-v1/path-earth.md",
+    "prompts/terrain/distinct-v1/river-diagonal.md",
+    "prompts/terrain/distinct-v1/road-bend.md",
     "prompts/terrain/distinct-v1/road-gravel.md",
     "prompts/terrain/distinct-v1/water-open.md",
+    "prompts/terrain/refdesign-v1/earth-bank.md",
+    "prompts/terrain/refdesign-v1/grass-base-01.md",
+    "prompts/terrain/refdesign-v1/grass-meadow-01.md",
+    "prompts/terrain/refdesign-v1/road-asphalt.md",
     "prompts/terrain/reference-v2/meadow-03.md",
     "prompts/terrain/reference-v2/road-paved.md",
     "prompts/terrain/shore-reference-v2/water.md"
@@ -33,7 +47,7 @@
         "1": {
           "url": "terrain/path/infrastructure-path15/1x.png",
           "source": "art/exports/paths-v1/path15-2x.png",
-          "sha256": "99a1f2ef1a32e7659e09fb04e9003921c63ae66087c57a41e67d6ad97bff1ab2",
+          "sha256": "72a752c8b7351e6506506897b43fa4e9a8e2775c593bab067da650dfbbf4edb3",
           "width": 96,
           "height": 80,
           "method": "Exact PNG export; premultiplied Lanczos3 reduction"
@@ -41,7 +55,7 @@
         "2": {
           "url": "terrain/path/infrastructure-path15/2x.png",
           "source": "art/exports/paths-v1/path15-2x.png",
-          "sha256": "945e6e6951d658d588a685a0001d0bcdeb1d3f36937b06f9d0067ecd3f467e78",
+          "sha256": "b32a642866f701519b76468c1ad9d225bb4ed4592541adf36c7ea720b0ceabeb",
           "width": 192,
           "height": 160,
           "method": "Exact PNG export"
@@ -49,7 +63,7 @@
         "4": {
           "url": "terrain/path/infrastructure-path15/4x.png",
           "source": "art/exports/paths-v1/path15-4x.png",
-          "sha256": "fc6b2c024b4c943d079ef924b60b79dbb4f8ab227607c066b5615437082c2311",
+          "sha256": "174b24bc9cea5426a244339ba9cb6580c59abc6de4916017acb33990c232bf5a",
           "width": 384,
           "height": 320,
           "method": "Exact PNG export"
@@ -61,7 +75,7 @@
     "default": {
       "1": {
         "path": "terrain/path/infrastructure-path15/1x.png",
-        "sha256": "99a1f2ef1a32e7659e09fb04e9003921c63ae66087c57a41e67d6ad97bff1ab2",
+        "sha256": "72a752c8b7351e6506506897b43fa4e9a8e2775c593bab067da650dfbbf4edb3",
         "width": 96,
         "height": 80,
         "source": "art/exports/paths-v1/path15-2x.png",
@@ -69,7 +83,7 @@
       },
       "2": {
         "path": "terrain/path/infrastructure-path15/2x.png",
-        "sha256": "945e6e6951d658d588a685a0001d0bcdeb1d3f36937b06f9d0067ecd3f467e78",
+        "sha256": "b32a642866f701519b76468c1ad9d225bb4ed4592541adf36c7ea720b0ceabeb",
         "width": 192,
         "height": 160,
         "source": "art/exports/paths-v1/path15-2x.png",
@@ -77,7 +91,7 @@
       },
       "4": {
         "path": "terrain/path/infrastructure-path15/4x.png",
-        "sha256": "fc6b2c024b4c943d079ef924b60b79dbb4f8ab227607c066b5615437082c2311",
+        "sha256": "174b24bc9cea5426a244339ba9cb6580c59abc6de4916017acb33990c232bf5a",
         "width": 384,
         "height": 320,
         "source": "art/exports/paths-v1/path15-4x.png",

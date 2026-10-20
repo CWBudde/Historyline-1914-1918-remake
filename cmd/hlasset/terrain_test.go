@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"io/fs"
 	"os"
 	"path/filepath"
@@ -39,7 +40,7 @@ func TestRetainedTerrainCatalogBuilds(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	want := map[string]int{"backgrounds": 60, "infrastructure": 74, "context-ground": 110, "context-forest": 82, "context-hills": 159}
+	want := map[string]int{"backgrounds": 76, "infrastructure": 74, "context-ground": 110, "context-forest": 82, "context-hills": 159}
 	if len(packs) != len(want)*2 {
 		t.Fatalf("built %d packs, want %d", len(packs), len(want)*2)
 	}
@@ -142,8 +143,20 @@ func TestTerrainBuildRefusesBadInputs(t *testing.T) {
 		want       string
 	}{
 		{"tampered hash", "compound-hq-v1.json", func(s string) string {
-			return strings.ReplaceAll(s, `"sha256": "345ccd216dbe0a4ca1820b3cb4906fa17861107311782e28a710509ec001227c"`,
-				`"sha256": "`+strings.Repeat("0", 64)+`"`)
+			var recipe struct {
+				Exports []struct{ Path, SHA256 string }
+			}
+			if err := json.Unmarshal([]byte(s), &recipe); err != nil {
+				t.Fatal(err)
+			}
+			for _, output := range recipe.Exports {
+				if output.Path == "art/exports/compound-v1/hqN-2x.png" {
+					return strings.ReplaceAll(s, `"sha256": "`+output.SHA256+`"`,
+						`"sha256": "`+strings.Repeat("0", 64)+`"`)
+				}
+			}
+			t.Fatal("recipe lacks the HQ north export to tamper")
+			return s
 		}, "tile/hqN"},
 		{"unpinned export", "runtime-tile-coverage.csv", func(s string) string {
 			return strings.Replace(s, "art/exports/compound-v1/hqN-2x.png", "art/exports/compound-v1/hqN-copy-2x.png", 1)

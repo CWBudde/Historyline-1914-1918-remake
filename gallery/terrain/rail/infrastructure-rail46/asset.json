@@ -7,22 +7,38 @@
   "note": "Current enabled infrastructure binding. This single-asset view uses its default context export; the PULSE study resolves available neighbor contexts through the shared compositor. Final runtime acceptance remains open.",
   "recipes": [
     "art/recipes/terrain/distinct-v1/earth-bare.json",
+    "art/recipes/terrain/distinct-v1/meadow.json",
     "art/recipes/terrain/distinct-v1/rail-ballast.json",
+    "art/recipes/terrain/distinct-v1/river-diagonal.json",
+    "art/recipes/terrain/distinct-v1/road-bend.json",
     "art/recipes/terrain/distinct-v1/road-gravel.json",
     "art/recipes/terrain/distinct-v1/steel-weathered.json",
     "art/recipes/terrain/distinct-v1/timber-weathered.json",
     "art/recipes/terrain/distinct-v1/water-open.json",
+    "art/recipes/terrain/refdesign-v1/earth-bank.json",
+    "art/recipes/terrain/refdesign-v1/grass-base-01.json",
+    "art/recipes/terrain/refdesign-v1/grass-meadow-01.json",
+    "art/recipes/terrain/refdesign-v1/road-asphalt.json",
+    "art/recipes/terrain/refdesign-v1/trench-timber.json",
     "art/recipes/terrain/reference-v2/meadow-03.json",
     "art/recipes/terrain/reference-v2/road-paved.json",
     "art/recipes/terrain/shore-reference-v2/water.json"
   ],
   "prompts": [
     "prompts/terrain/distinct-v1/earth-bare.md",
+    "prompts/terrain/distinct-v1/meadow.md",
     "prompts/terrain/distinct-v1/rail-ballast.md",
+    "prompts/terrain/distinct-v1/river-diagonal.md",
+    "prompts/terrain/distinct-v1/road-bend.md",
     "prompts/terrain/distinct-v1/road-gravel.md",
     "prompts/terrain/distinct-v1/steel-weathered.md",
     "prompts/terrain/distinct-v1/timber-weathered.md",
     "prompts/terrain/distinct-v1/water-open.md",
+    "prompts/terrain/refdesign-v1/earth-bank.md",
+    "prompts/terrain/refdesign-v1/grass-base-01.md",
+    "prompts/terrain/refdesign-v1/grass-meadow-01.md",
+    "prompts/terrain/refdesign-v1/road-asphalt.md",
+    "prompts/terrain/refdesign-v1/trench-timber.md",
     "prompts/terrain/reference-v2/meadow-03.md",
     "prompts/terrain/reference-v2/road-paved.md",
     "prompts/terrain/shore-reference-v2/water.md"
@@ -37,7 +53,7 @@
         "1": {
           "url": "terrain/rail/infrastructure-rail46/1x.png",
           "source": "art/exports/rail-v1/rail46-2x.png",
-          "sha256": "cb61573ded380f69237dc7c46e4231ff22f6d3a91b5eab58dc127e8bee99d4f5",
+          "sha256": "cce69b0e99ef5fdf02b20af4317a31e6f6773f19793e93b97358bf5f49db3912",
           "width": 96,
           "height": 80,
           "method": "Exact PNG export; premultiplied Lanczos3 reduction"
@@ -45,7 +61,7 @@
         "2": {
           "url": "terrain/rail/infrastructure-rail46/2x.png",
           "source": "art/exports/rail-v1/rail46-2x.png",
-          "sha256": "43c16e726487ea0421ef4cfcbdb0c12f2e4fb289fa03be251d873781c40fc4de",
+          "sha256": "3ac9df1c1d8d3f65fe0477edb742756cfcb232751d3acdf682a178b78fbaffc7",
           "width": 192,
           "height": 160,
           "method": "Exact PNG export"
@@ -53,7 +69,7 @@
         "4": {
           "url": "terrain/rail/infrastructure-rail46/4x.png",
           "source": "art/exports/rail-v1/rail46-4x.png",
-          "sha256": "3e6268489f2fb631017df8bf5227223d85c3fb8104baa24548e52f4326cf4b96",
+          "sha256": "e6bffe54463698ed1b8524d7905939a4a538b50a3e1a34b67d32cd5b8f09194c",
           "width": 384,
           "height": 320,
           "method": "Exact PNG export"
@@ -65,7 +81,7 @@
     "default": {
       "1": {
         "path": "terrain/rail/infrastructure-rail46/1x.png",
-        "sha256": "cb61573ded380f69237dc7c46e4231ff22f6d3a91b5eab58dc127e8bee99d4f5",
+        "sha256": "cce69b0e99ef5fdf02b20af4317a31e6f6773f19793e93b97358bf5f49db3912",
         "width": 96,
         "height": 80,
         "source": "art/exports/rail-v1/rail46-2x.png",
@@ -73,7 +89,7 @@
       },
       "2": {
         "path": "terrain/rail/infrastructure-rail46/2x.png",
-        "sha256": "43c16e726487ea0421ef4cfcbdb0c12f2e4fb289fa03be251d873781c40fc4de",
+        "sha256": "3ac9df1c1d8d3f65fe0477edb742756cfcb232751d3acdf682a178b78fbaffc7",
         "width": 192,
         "height": 160,
         "source": "art/exports/rail-v1/rail46-2x.png",
@@ -81,7 +97,7 @@
       },
       "4": {
         "path": "terrain/rail/infrastructure-rail46/4x.png",
-        "sha256": "3e6268489f2fb631017df8bf5227223d85c3fb8104baa24548e52f4326cf4b96",
+        "sha256": "e6bffe54463698ed1b8524d7905939a4a538b50a3e1a34b67d32cd5b8f09194c",
         "width": 384,
         "height": 320,
         "source": "art/exports/rail-v1/rail46-4x.png",

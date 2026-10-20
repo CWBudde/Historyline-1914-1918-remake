@@ -7,20 +7,38 @@
   "note": "Current enabled infrastructure binding. This single-asset view uses its default context export; the PULSE study resolves available neighbor contexts through the shared compositor. Final runtime acceptance remains open.",
   "recipes": [
     "art/recipes/terrain/distinct-v1/earth-bare.json",
+    "art/recipes/terrain/distinct-v1/meadow.json",
+    "art/recipes/terrain/distinct-v1/river-diagonal.json",
+    "art/recipes/terrain/distinct-v1/road-bend.json",
     "art/recipes/terrain/distinct-v1/road-gravel.json",
     "art/recipes/terrain/distinct-v1/timber-weathered.json",
     "art/recipes/terrain/distinct-v1/trench-earth.json",
     "art/recipes/terrain/distinct-v1/water-open.json",
+    "art/recipes/terrain/refdesign-v1/earth-bank.json",
+    "art/recipes/terrain/refdesign-v1/grass-base-01.json",
+    "art/recipes/terrain/refdesign-v1/grass-meadow-01.json",
+    "art/recipes/terrain/refdesign-v1/road-asphalt.json",
+    "art/recipes/terrain/refdesign-v1/trench-floor.json",
+    "art/recipes/terrain/refdesign-v1/trench-timber.json",
     "art/recipes/terrain/reference-v2/meadow-03.json",
     "art/recipes/terrain/reference-v2/road-paved.json",
     "art/recipes/terrain/shore-reference-v2/water.json"
   ],
   "prompts": [
     "prompts/terrain/distinct-v1/earth-bare.md",
+    "prompts/terrain/distinct-v1/meadow.md",
+    "prompts/terrain/distinct-v1/river-diagonal.md",
+    "prompts/terrain/distinct-v1/road-bend.md",
     "prompts/terrain/distinct-v1/road-gravel.md",
     "prompts/terrain/distinct-v1/timber-weathered.md",
     "prompts/terrain/distinct-v1/trench-earth.md",
     "prompts/terrain/distinct-v1/water-open.md",
+    "prompts/terrain/refdesign-v1/earth-bank.md",
+    "prompts/terrain/refdesign-v1/grass-base-01.md",
+    "prompts/terrain/refdesign-v1/grass-meadow-01.md",
+    "prompts/terrain/refdesign-v1/road-asphalt.md",
+    "prompts/terrain/refdesign-v1/trench-floor.md",
+    "prompts/terrain/refdesign-v1/trench-timber.md",
     "prompts/terrain/reference-v2/meadow-03.md",
     "prompts/terrain/reference-v2/road-paved.md",
     "prompts/terrain/shore-reference-v2/water.md"
@@ -35,7 +53,7 @@
         "1": {
           "url": "terrain/trench/infrastructure-trench1/1x.png",
           "source": "art/exports/trench-v1/trench1-2x.png",
-          "sha256": "85740b2b81cdc49c784cb6b09a01be4f0eca63368d008e1248f1bd28be585355",
+          "sha256": "cf59f0e5a2183731fce806fdcd487cf7cdea5c53cd18998bd1a7ff4f72659b61",
           "width": 96,
           "height": 80,
           "method": "Exact PNG export; premultiplied Lanczos3 reduction"
@@ -43,7 +61,7 @@
         "2": {
           "url": "terrain/trench/infrastructure-trench1/2x.png",
           "source": "art/exports/trench-v1/trench1-2x.png",
-          "sha256": "1ff98f4fc74d555a9691ab54933ab84fec6c77579d154a941ba3c0228cab6fff",
+          "sha256": "4abdd06d022f5a8e67891bc94fb464a8d4b83d1128350f03f41e6b47ee766739",
           "width": 192,
           "height": 160,
           "method": "Exact PNG export"
@@ -51,7 +69,7 @@
         "4": {
           "url": "terrain/trench/infrastructure-trench1/4x.png",
           "source": "art/exports/trench-v1/trench1-4x.png",
-          "sha256": "9a34f42b40117caffc4a04c61db1d7a31333c6c6512e6a4b37a4c518ee4e0964",
+          "sha256": "f6ac4e9f192187c47a7ec78b5561e4b3b4503f998ee27866da3059281923d52c",
           "width": 384,
           "height": 320,
           "method": "Exact PNG export"
@@ -63,7 +81,7 @@
     "default": {
       "1": {
         "path": "terrain/trench/infrastructure-trench1/1x.png",
-        "sha256": "85740b2b81cdc49c784cb6b09a01be4f0eca63368d008e1248f1bd28be585355",
+        "sha256": "cf59f0e5a2183731fce806fdcd487cf7cdea5c53cd18998bd1a7ff4f72659b61",
         "width": 96,
         "height": 80,
         "source": "art/exports/trench-v1/trench1-2x.png",
@@ -71,7 +89,7 @@
       },
       "2": {
         "path": "terrain/trench/infrastructure-trench1/2x.png",
-        "sha256": "1ff98f4fc74d555a9691ab54933ab84fec6c77579d154a941ba3c0228cab6fff",
+        "sha256": "4abdd06d022f5a8e67891bc94fb464a8d4b83d1128350f03f41e6b47ee766739",
         "width": 192,
         "height": 160,
         "source": "art/exports/trench-v1/trench1-2x.png",
@@ -79,7 +97,7 @@
       },
       "4": {
         "path": "terrain/trench/infrastructure-trench1/4x.png",
-        "sha256": "9a34f42b40117caffc4a04c61db1d7a31333c6c6512e6a4b37a4c518ee4e0964",
+        "sha256": "f6ac4e9f192187c47a7ec78b5561e4b3b4503f998ee27866da3059281923d52c",
         "width": 384,
         "height": 320,
         "source": "art/exports/trench-v1/trench1-4x.png",

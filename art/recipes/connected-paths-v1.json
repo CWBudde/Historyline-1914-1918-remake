@@ -1,5 +1,5 @@
 {
-  "acceptance": "Current provisional reference-guided candidate rebuild. Actual PNG assembly and pinned inputs are recorded; current user visual approval, approximately 90% resemblance, whole-map/runtime integration and release acceptance remain open.",
+  "acceptance": "Reference-guided candidate rebuild. Current exported assets and context proofs are pinned; final user visual review remains open.",
   "composition_scope": "Tested composition scope: pixel-aligned 2x/4x export sprites with integer runtime lattice translations and ordinary source-over blits. Other camera zoom should assemble the scene at asset density and resample the completed scene once. Independently filtered or fractional-position sprite zoom is not validated; no runtime zoom implementation is included.",
   "date": "2026-10-15",
   "exports": [
@@ -9,7 +9,7 @@
         "width": 384
       },
       "path": "art/exports/paths-v1/path125-4x.png",
-      "sha256": "6e3dc5d655b9bb73049c5793b403fff248838697ccfbc83b3f76b1bc3c112a36"
+      "sha256": "c602ffa54a5bed1ee1680b6684089faf75adb65945328f1f2aafa11dc4acbe2f"
     },
     {
       "dimensions": {
@@ -17,7 +17,7 @@
         "width": 192
       },
       "path": "art/exports/paths-v1/path125-2x.png",
-      "sha256": "5bb70688956ade82e335739ac22d69fbf7300b1c6558e26ca5696b6b1769e59c"
+      "sha256": "3b2388a2b75612409b409afa6dcf72e8f6b991db8a94f1ac985dc3c0dbeea658"
     },
     {
       "dimensions": {
@@ -25,7 +25,7 @@
         "width": 384
       },
       "path": "art/exports/paths-v1/path13-4x.png",
-      "sha256": "a74f2281b5eedf42ebf1e164951d4b56ed8a5dcfecdded4740deb00fb435390f"
+      "sha256": "3b2c5e3ea1a0c5e4c7a4eaafaf751d2ae31df8c72965f12262c3604ebc86861e"
     },
     {
       "dimensions": {
@@ -33,7 +33,7 @@
         "width": 192
       },
       "path": "art/exports/paths-v1/path13-2x.png",
-      "sha256": "6d26b91ac800f2697d069a64838253e8d435cbb04950dbdb42f941b4a6efe15e"
+      "sha256": "acc7f6da33ac912069730953ef5b15ffe0f5d96556712871b0ddce9cd640e6c0"
     },
     {
       "dimensions": {
@@ -41,7 +41,7 @@
         "width": 384
       },
       "path": "art/exports/paths-v1/path135-4x.png",
-      "sha256": "d350d945a39fab99b2f3d293594a4d4c3a98ece9b6280beb01579355c32d7d12"
+      "sha256": "5ba750f9667b3ab6c915fb0d5cde62817c67bb5a89585364ecbb52f7d9f70b82"
     },
     {
       "dimensions": {
@@ -49,7 +49,7 @@
         "width": 192
       },
       "path": "art/exports/paths-v1/path135-2x.png",
-      "sha256": "7b380ed3c5e39cc1b663f8a4bf8981eb673c138e5a6057ae48f4b70c2aab2602"
+      "sha256": "4befef5ed7656bcfa6c7709aaf0b27bfab5bfa497c3defd7bc6971a0e686b3f4"
     },
     {
       "dimensions": {
@@ -57,7 +57,7 @@
         "width": 384
       },
       "path": "art/exports/paths-v1/path136-4x.png",
-      "sha256": "a2577c31d03326db4d9d328633d786b00adef8b1acf4c3e98bf2a06c5f4cccf6"
+      "sha256": "a4fffd9904e7c09a6386d10ce1f51b166553c0f5542079dc49552694400223a7"
     },
     {
       "dimensions": {
@@ -65,7 +65,7 @@
         "width": 192
       },
       "path": "art/exports/paths-v1/path136-2x.png",
-      "sha256": "cee9eac5851a180664f3419fed7653b7692e52aa868f7948894ec9570738750d"
+      "sha256": "96bd0af26188a3b317b238427a587ba6a155027c6586a522237ae45ad5676898"
     },
     {
       "dimensions": {
@@ -73,7 +73,7 @@
         "width": 384
       },
       "path": "art/exports/paths-v1/path14-4x.png",
-      "sha256": "da992774291c4fc6edfdd66c8b4129b34d2993c8e22708759cb3c01dbd3efe2d"
+      "sha256": "589c59f36872ec6901ac0d14ba0f6dd549ecd534ddd55a40644c2b2f35d6017e"
     },
     {
       "dimensions": {
@@ -81,7 +81,7 @@
         "width": 192
       },
       "path": "art/exports/paths-v1/path14-2x.png",
-      "sha256": "14241edca2642bccb8187bdfb4a56ce8b1884cc8d599550c2fd36245a098205d"
+      "sha256": "1af5ea7f8173750a9779153497dd1128ce8a30a9f52153296826cae09c53430b"
     },
     {
       "dimensions": {
@@ -89,7 +89,7 @@
         "width": 384
       },
       "path": "art/exports/paths-v1/path15-4x.png",
-      "sha256": "fc6b2c024b4c943d079ef924b60b79dbb4f8ab227607c066b5615437082c2311"
+      "sha256": "174b24bc9cea5426a244339ba9cb6580c59abc6de4916017acb33990c232bf5a"
     },
     {
       "dimensions": {
@@ -97,7 +97,7 @@
         "width": 192
       },
       "path": "art/exports/paths-v1/path15-2x.png",
-      "sha256": "945e6e6951d658d588a685a0001d0bcdeb1d3f36937b06f9d0067ecd3f467e78"
+      "sha256": "b32a642866f701519b76468c1ad9d225bb4ed4592541adf36c7ea720b0ceabeb"
     },
     {
       "dimensions": {
@@ -105,7 +105,7 @@
         "width": 384
       },
       "path": "art/exports/paths-v1/path24-4x.png",
-      "sha256": "ce10cebde3c74aec8c170e82cde2e7f674294911f3e9bce52295013bb37e4a39"
+      "sha256": "5e984fc95fcd33f3f651a198ce605fe06440deed3c1bde0b49d63017ccdb8ddb"
     },
     {
       "dimensions": {
@@ -113,7 +113,7 @@
         "width": 192
       },
       "path": "art/exports/paths-v1/path24-2x.png",
-      "sha256": "183517b63b8a1ac4ae07ed28a1778a62c6f4522042adec595e0b593b5c7aea4f"
+      "sha256": "c5f708e1edd2a1d7827200845352c0abce76c8b37da3afe6ddb7740a43581407"
     },
     {
       "dimensions": {
@@ -121,7 +121,7 @@
         "width": 384
       },
       "path": "art/exports/paths-v1/path25-4x.png",
-      "sha256": "cf3a085ec3164ee3196a878625c92e255b79a211df899214e4821d21fdcd0f28"
+      "sha256": "9fef01cd670fdc8f9faa33d57d73a7378eea02f1a571c210bdb2ec16d40d2677"
     },
     {
       "dimensions": {
@@ -129,7 +129,7 @@
         "width": 192
       },
       "path": "art/exports/paths-v1/path25-2x.png",
-      "sha256": "a987c185f214721525c3ba9b74ccdb4e8697e2976804b40247b6273609309868"
+      "sha256": "4102c8a551bd77339e4d393a118804e5e1cdcc55a14c9d8968d9baceff80089c"
     },
     {
       "dimensions": {
@@ -137,7 +137,7 @@
         "width": 384
       },
       "path": "art/exports/paths-v1/path26-4x.png",
-      "sha256": "a1d91a4656d4e65d59ac0e4d6a3ad01ab76defa48dafed27a282e1c8bbbe130e"
+      "sha256": "f6f3e18f8a66f86963f5aa318978e4782f9ab17b6982bd9d894122dffdbf2fb0"
     },
     {
       "dimensions": {
@@ -145,7 +145,7 @@
         "width": 192
       },
       "path": "art/exports/paths-v1/path26-2x.png",
-      "sha256": "29eab1c3f832e828205cfac3d4033bff5111b7ea0f4a401e4b439f5540cfd4ff"
+      "sha256": "f8a241c8669aa969b98a7b6c1f8108d3f82f9e91cec65a34a370265374ac612d"
     },
     {
       "dimensions": {
@@ -153,7 +153,7 @@
         "width": 384
       },
       "path": "art/exports/paths-v1/path346-4x.png",
-      "sha256": "31f9a1c681a7eec94ded3b87bf96c881e338f609549ba01a33c5d45446dff726"
+      "sha256": "4cde4ccd105b2d3ceba96abb640a01efbe866bc251c1dae6b2eb47fa2b426ba4"
     },
     {
       "dimensions": {
@@ -161,7 +161,7 @@
         "width": 192
       },
       "path": "art/exports/paths-v1/path346-2x.png",
-      "sha256": "b09d876ef1b75f55451eeaa52e8ac32a8a2cfa30981839e1329f0e9fa8e9201e"
+      "sha256": "803417b6e0036aafd746818907fab5e08e280c32e287b29ba08e22651b7eff83"
     },
     {
       "dimensions": {
@@ -169,7 +169,7 @@
         "width": 384
       },
       "path": "art/exports/paths-v1/path35-4x.png",
-      "sha256": "e109ca090658e4853560ccd22b3917485e2b8f694dbc2182748e9ed8b43d98b5"
+      "sha256": "8622f78a3fccbfdb6f04236c2b0622ecc1ff5edf9e3d3607ca7114e0a1d99df1"
     },
     {
       "dimensions": {
@@ -177,7 +177,7 @@
         "width": 192
       },
       "path": "art/exports/paths-v1/path35-2x.png",
-      "sha256": "a57fe7ff0e1dc9659c99024feb1a382cd3e04aaea6740f27a4e69d60deb41135"
+      "sha256": "6250caad804453f124264f8ed76646a2ac2834dc0d61caab8bfadff5aefe6bd6"
     },
     {
       "dimensions": {
@@ -185,7 +185,7 @@
         "width": 384
       },
       "path": "art/exports/paths-v1/path356-4x.png",
-      "sha256": "4ce825fe296acd3f61d20f600ba4628b7e1c967222df393e3bb8720ad4111834"
+      "sha256": "8d29ad0cbf44e7f993f7e939eb04cf015e31409624cb19e657a9cacf2a8157ae"
     },
     {
       "dimensions": {
@@ -193,7 +193,7 @@
         "width": 192
       },
       "path": "art/exports/paths-v1/path356-2x.png",
-      "sha256": "0db6b3d400f78adad4fd7df79034fb12bb037fff10113de3ec421ff011fc09a7"
+      "sha256": "d155143eb18a7def2edc33f47ef9673d11045b800b25c3efb8948436a20ea846"
     },
     {
       "dimensions": {
@@ -201,7 +201,7 @@
         "width": 384
       },
       "path": "art/exports/paths-v1/path36-4x.png",
-      "sha256": "69b34ec6f6122eb218963c805dad8bcb4e0e737e364e65db97f774c84abebf9e"
+      "sha256": "a20a53a29a0653f353bcfd4d7f3dda6ff94d1c593539aa6956345bb73b1da38c"
     },
     {
       "dimensions": {
@@ -209,7 +209,7 @@
         "width": 192
       },
       "path": "art/exports/paths-v1/path36-2x.png",
-      "sha256": "bbb06f605daf768d6f81aa95f5f9569cba5db6a8572d8df29f6455c75c436437"
+      "sha256": "35c51cf479d1b20540e701f60b899d6bf7dac3350d1eac5da783211ad0211c14"
     },
     {
       "dimensions": {
@@ -217,7 +217,7 @@
         "width": 384
       },
       "path": "art/exports/paths-v1/path46-4x.png",
-      "sha256": "106ce1cc63edec0b9be761def538762e8e819ebf17564ebb9e186db625f16cb9"
+      "sha256": "ed4daa0f0f37f6c4257e02d32bec9ed61da565e637fc6e964207f9a377b372e0"
     },
     {
       "dimensions": {
@@ -225,14 +225,21 @@
         "width": 192
       },
       "path": "art/exports/paths-v1/path46-2x.png",
-      "sha256": "1a8b5ca21c34b82b7b9f3fe888eb3675050c0f07cc1cb3aca1331a00333e38fd"
+      "sha256": "978fc48715389d817e827f3190d768f5bda2951ae4430e22355449004ba4a506"
     }
   ],
   "generation_recipes": [
     "art/recipes/terrain/distinct-v1/earth-bare.json",
+    "art/recipes/terrain/distinct-v1/meadow.json",
     "art/recipes/terrain/distinct-v1/path-earth.json",
+    "art/recipes/terrain/distinct-v1/river-diagonal.json",
+    "art/recipes/terrain/distinct-v1/road-bend.json",
     "art/recipes/terrain/distinct-v1/road-gravel.json",
     "art/recipes/terrain/distinct-v1/water-open.json",
+    "art/recipes/terrain/refdesign-v1/earth-bank.json",
+    "art/recipes/terrain/refdesign-v1/grass-base-01.json",
+    "art/recipes/terrain/refdesign-v1/grass-meadow-01.json",
+    "art/recipes/terrain/refdesign-v1/road-asphalt.json",
     "art/recipes/terrain/reference-v2/meadow-03.json",
     "art/recipes/terrain/reference-v2/road-paved.json",
     "art/recipes/terrain/shore-reference-v2/water.json"
@@ -322,25 +329,25 @@
   },
   "id": "connected-paths-v1",
   "manifest": "art/connected-paths-v1.json",
-  "manifest_sha256": "b38685c96efe6f5d40116b064941b3b38e94e613dc9bade0725f524f3470a5f9",
+  "manifest_sha256": "01ea91398b4f0a4027fc855c16956911db3b11b326281b6749abd49674889333",
   "materials": {
     "earth": {
       "dimensions": {
-        "height": 1145,
-        "width": 1374
+        "height": 1254,
+        "width": 1254
       },
       "retained_source": "earth-material-source.png",
-      "source": "art/source/terrain/distinct-v1/earth-bare.png",
-      "source_sha256": "e7d3188bc9c734a1f45ad80ccce934c46d93cb4cf9843c079bbc6260ec848404"
+      "source": "art/source/terrain/refdesign-v1/earth-bank.png",
+      "source_sha256": "6df0ffb17725f7c7ef81bbafd1c8537ad2a30b62beac21a4ce6ce8a4c522086d"
     },
     "grass": {
       "dimensions": {
-        "height": 1145,
-        "width": 1374
+        "height": 480,
+        "width": 768
       },
       "retained_source": "grass-material-source.png",
-      "source": "art/source/terrain/reference-v2/meadow-03.png",
-      "source_sha256": "4de543f0906e1311eff5ae4f202eb8fa68665c67103039bee089e60e02c68eb4"
+      "source": "art/source/terrain/refdesign-v1/grass-base-01.png",
+      "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
     },
     "path": {
       "dimensions": {
@@ -353,12 +360,12 @@
     },
     "road": {
       "dimensions": {
-        "height": 1145,
-        "width": 1374
+        "height": 1254,
+        "width": 1254
       },
       "retained_source": "road-material-source.png",
-      "source": "art/source/terrain/reference-v2/road-paved.png",
-      "source_sha256": "48f521aa74bb1759896b33c95e84abb5d6d1d9146ab2925620a6b3234e5dcd2e"
+      "source": "art/source/terrain/refdesign-v1/road-asphalt.png",
+      "source_sha256": "a86aa33d3261283f885228a404a4b31ee337c132728f55038c5714a2e46aec44"
     },
     "water": {
       "dimensions": {
@@ -370,7 +377,7 @@
       "source_sha256": "007b9babe0e69db5e628352a38dae0f1502ac42513bbf4018ad3df82f76c4c31"
     }
   },
-  "method": "Candidate overlay. Unclipped new feature and grass render at 4x with four WORLD pixels of overscan on every side (416x352). Feature/bank edges use analytic signed-distance AA, 0.25 world-pixel ramp; distances round to 1e-9 world px for reciprocal half-alpha stability. Existing alpha-aware Lanczos3 reduces the UNMASKED overscan 416x352 -\u003e 208x176. Crop 4-world-pixel margins AFTER filtering to 384x320 and 192x160, then apply complementary hard half-open polygon ownership at final pixel centers. No per-sprite polygon-edge AA; a future complete-map compositor may AA its outer boundary once. Each port has \u003e=8 straight world pixels and extends beyond cutout by outer radius+4; cubic connectors flatten at 64 steps; junctions merge by minimum distance. No legacy footprint or pixels. Optional road markings=dashed: six-world-pixel light centre dashes, eight-world-pixel nominal dash length and twelve-world-pixel nominal period; eight-world-pixel port phases are reciprocal, curved interiors fit the phase, junction centres remain unmarked. Narrow road borders use darkened pavement.",
+  "method": "Candidate overlay. Unclipped new feature and grass render at 4x with four WORLD pixels of overscan on every side (416x352). Feature/bank edges use analytic signed-distance AA, 0.25 world-pixel ramp; distances round to 1e-9 world px for reciprocal half-alpha stability. Existing alpha-aware Lanczos3 reduces the UNMASKED overscan 416x352 -\u003e 208x176. Crop 4-world-pixel margins AFTER filtering to 384x320 and 192x160, then apply complementary hard half-open polygon ownership at final pixel centers. No per-sprite polygon-edge AA; a future complete-map compositor may AA its outer boundary once. Each port has \u003e=8 straight world pixels and extends beyond cutout by outer radius+4; cubic connectors flatten at 64 steps; junctions merge by minimum distance. No legacy footprint or pixels. Optional road markings=dashed: 0.9-world-pixel light centre dashes and 0.6-world-pixel continuous edge lines one world pixel inside each pavement edge, eight-world-pixel nominal dash length and twelve-world-pixel nominal period; eight-world-pixel port phases are reciprocal, curved interiors fit the phase, junction centres remain unmarked. Narrow dusty shoulders blend the earth material with RGB(177,168,145) at weight.35. Marked-road verge only: add 0.65*E*(0.65*sin(3A+2B)+0.35*sin(7A-5B)) world pixels to the configured shoulder, where E=S((minimum polygon edge distance-8)/8), A=2pi(x/142+y/80), B=2pi(x/142-y/80). Pavement width and road markings are unchanged; the first eight world pixels at every port retain fixed shoulder width.",
   "original_image_inputs": [
     {
       "generation_recipe": "art/recipes/terrain/shore-reference-v2/water.json",
@@ -383,18 +390,6 @@
       "path": "build/pulse-study/dos-04/maps/00-PARTS.png",
       "role": "Semantic original reference only: Original DOS lake palette and shore character reference only; ignored local export.",
       "sha256": "58952d5eb3dc629b1346225da3feaa3fb7a7781d13ad3dc2011e9e153bd4bb40"
-    },
-    {
-      "generation_recipe": "art/recipes/terrain/reference-v2/meadow-03.json",
-      "path": "legacy/python/gfx/hexTypes/hex_grass.png",
-      "role": "Semantic original reference only: Only image input: composition, muted olive palette and low-frequency restoration reference; original file remains reference-only.",
-      "sha256": "67257c01c1e3e30ddc438e85e5e376cd1aa72f888cfb2851b288061e1eb7a0de"
-    },
-    {
-      "generation_recipe": "art/recipes/terrain/reference-v2/road-paved.json",
-      "path": "legacy/python/gfx/infrastructure/road36.png",
-      "role": "Semantic original reference only: reference colour and values only",
-      "sha256": "0b31995635a3c56427b1481e04583b9c6dc0a246ef47f87a824b149d0d6565e3"
     }
   ],
   "original_image_inputs_scope": "Semantic visual references used to paint the current masters or their fixture ground. Originals remain reference-only and are not bundled as runtime PNGs; source masters are newly painted. Unit sprite planes retain their existing independent artwork provenance.",
@@ -405,7 +400,7 @@
     "scope": "Historical source set before the current redraw; not an approval of the current artwork.",
     "text": "Independent code and visual re-review provisionally pass. Controller verified all14variants/66port-densitypairs/1868opaque core seam pixels and56actual-PNG patches; full-map/runtime integration, natural fringes and hamlet approaches remain open. No original rasters."
   },
-  "rebuild_note": "Rebuilt with DOS-inspired blue-teal water and pale stony shore inputs; user visual approval remains open. Historical generation recipes retain their original provenance.",
+  "rebuild_note": "Rebuilt to the user-supplied RefDesign visual target with shared detailed grass, earthworks, roads, crowns, rocks and huts; user visual approval remains open. Historical generation recipes retain their original provenance.",
   "review": "docs/art/distinct-terrain-batch-04.md",
   "review_exports": [
     {
@@ -414,7 +409,7 @@
         "width": 192
       },
       "path": "art/review/paths-v1/path125-grass-2x.png",
-      "sha256": "d9d4e56b4599718de92e016cfa2b657e77239504e6d7c70fcd8d198d9688b3ea"
+      "sha256": "c69dfdab6fa522bdc25d3e1486a841e19bfadca36d5cb890280a6facf8e93eb1"
     },
     {
       "dimensions": {
@@ -422,7 +417,7 @@
         "width": 192
       },
       "path": "art/review/paths-v1/path13-grass-2x.png",
-      "sha256": "7d0d451e0a66b8741577e4b50bf08c88c457984d65735591ac2a3ce7ed3f9d20"
+      "sha256": "a6f4012b5a8cb93fa33a35a8f728241f52d97b141415d83b8887a12b5f95d2e6"
     },
     {
       "dimensions": {
@@ -430,7 +425,7 @@
         "width": 192
       },
       "path": "art/review/paths-v1/path135-grass-2x.png",
-      "sha256": "f959627e2483ed0cdc302b8a8435a40b8dc509d0df5e1f27607d81492e914ebd"
+      "sha256": "80f39d2904afd56d15560f017f246f29ef242efe5724197be1f745628ba8f41c"
     },
     {
       "dimensions": {
@@ -438,7 +433,7 @@
         "width": 192
       },
       "path": "art/review/paths-v1/path136-grass-2x.png",
-      "sha256": "0de0151f50434d9bddf5190617536279abd985e489d952265f44d8e29cc00ffa"
+      "sha256": "367d66b4c8cf0aa1f63806d4eb55a8e7f876e906017de386ef388b281c68c4b6"
     },
     {
       "dimensions": {
@@ -446,7 +441,7 @@
         "width": 192
       },
       "path": "art/review/paths-v1/path14-grass-2x.png",
-      "sha256": "c34dc8f7e7383a5dc998aee3314dcf947b605b5431261a62e06476fb422033d4"
+      "sha256": "a5a0b8fbaf598c147de2481193793c0414b4e749068d4b4fa59e2b15282ddba5"
     },
     {
       "dimensions": {
@@ -454,7 +449,7 @@
         "width": 192
       },
       "path": "art/review/paths-v1/path15-grass-2x.png",
-      "sha256": "1c96c12b782bc339d6ef7307f504aff160cef99e65aaa0e93a98a2302f1ecb30"
+      "sha256": "1c84cb79d5b38aec9ff5cdf470551bba0f343f476d0c787738ce1fd5945cff84"
     },
     {
       "dimensions": {
@@ -462,7 +457,7 @@
         "width": 192
       },
       "path": "art/review/paths-v1/path24-grass-2x.png",
-      "sha256": "189e7f2e5266d529f3f07027504be5edee3ae56adfc5b88beb3199e125a69a71"
+      "sha256": "e1939779044cdb634eb31ae1051a374f6ca99ea00fc1c626e34fd9be9668d69d"
     },
     {
       "dimensions": {
@@ -470,7 +465,7 @@
         "width": 192
       },
       "path": "art/review/paths-v1/path25-grass-2x.png",
-      "sha256": "8122898bdaaf005ca777ffe4d9fe21bcffc4111d3b47d5b8d303d3d22999cadc"
+      "sha256": "c9025be864cdae6e006a0cfbba16c0ca8ebcdf8d43efcca62a9275ec6bc97df4"
     },
     {
       "dimensions": {
@@ -478,7 +473,7 @@
         "width": 192
       },
       "path": "art/review/paths-v1/path26-grass-2x.png",
-      "sha256": "26ca563406a8edb343f98d47f65b36eb0ecc24f2aa42e2e0dc1d95f2f70dbf34"
+      "sha256": "942639ac5716128f1221dbe13676efc0edf657bf7e5894eea4b41b8e23090752"
     },
     {
       "dimensions": {
@@ -486,7 +481,7 @@
         "width": 192
       },
       "path": "art/review/paths-v1/path346-grass-2x.png",
-      "sha256": "8862248bc626cc5a5fb6fa9276c78fea8a9c1341f021ee4cd88a10d57779fb85"
+      "sha256": "2253d669bddc1622dfd753042e71fc1dcceb7565d7aee8b23b1fd94929975f9b"
     },
     {
       "dimensions": {
@@ -494,7 +489,7 @@
         "width": 192
       },
       "path": "art/review/paths-v1/path35-grass-2x.png",
-      "sha256": "758c3f0c7f1509b338f042abe2d8d0bb514a6d6dcacc1b808c8badddd1287b04"
+      "sha256": "8379fe58fd3d012c97ba1ba425350908f6edeb183a3f44006c5594d3c8f235d1"
     },
     {
       "dimensions": {
@@ -502,7 +497,7 @@
         "width": 192
       },
       "path": "art/review/paths-v1/path356-grass-2x.png",
-      "sha256": "015d9892331fd933a824f52c0dd16a400217fbe034133f3259b5edc87838e13b"
+      "sha256": "574f0086932fa291a4fff518a00762bc822a6d8120ecc8c737c295b29c1f2695"
     },
     {
       "dimensions": {
@@ -510,7 +505,7 @@
         "width": 192
       },
       "path": "art/review/paths-v1/path36-grass-2x.png",
-      "sha256": "a41585bbcbd3cb88c3d5973f9fd89d4d4836ad2d3efb25481e4d87c546af8255"
+      "sha256": "626e3d660a0d2a5106545bfecdd4ab352ec476c85ce58f9856853dc7d7355cb2"
     },
     {
       "dimensions": {
@@ -518,7 +513,7 @@
         "width": 192
       },
       "path": "art/review/paths-v1/path46-grass-2x.png",
-      "sha256": "7552afc32aba3a8c5ec26c87da4b6843ee601abf908525ddc6b0e5da6fc548e3"
+      "sha256": "b62e3f6ede4fe5f70f07fc8a096e55765c10524eed731f5ac36efd5c5b73493e"
     },
     {
       "dimensions": {
@@ -526,7 +521,7 @@
         "width": 384
       },
       "path": "art/review/paths-v1/contact-sheet.png",
-      "sha256": "1754259a361e2f038df9f69ffe83749f97a04c0fcadef75ad71814a5234f076c"
+      "sha256": "a389fc089a0d39b16f6532e0652a7d3cfab020430d808d84cb1157d944d56df0"
     },
     {
       "dimensions": {
@@ -534,7 +529,7 @@
         "width": 476
       },
       "path": "art/review/paths-v1/path14-patch-parity0.png",
-      "sha256": "5d751028141631c58c3e30309d0dbd8fa18d81644628578bbb7615c1c5c4b503"
+      "sha256": "68e96f7e5146bd5dd10e57903173cd89d8cbcc1fc38c915d210ad8f5435bdbc2"
     },
     {
       "dimensions": {
@@ -542,7 +537,7 @@
         "width": 476
       },
       "path": "art/review/paths-v1/path13-patch-parity1.png",
-      "sha256": "a3ae93fd524f638c707d0b2a63cb8fb436d55f0c712999337b155fbc8403076a"
+      "sha256": "d94d1232a9e541add249342163fb3bce687088cd939d491252e38dfe5eb4c1ff"
     },
     {
       "dimensions": {
@@ -550,7 +545,7 @@
         "width": 476
       },
       "path": "art/review/paths-v1/path135-patch-parity0.png",
-      "sha256": "dd0a3a09030aa6915b023cb6fde7af66206391d1d0b9477a663c630d489a7f30"
+      "sha256": "28cfdad877fa7233b60f81a7c08f09d87598801520d402fdd78b4f73a092d9ac"
     },
     {
       "dimensions": {
@@ -558,12 +553,12 @@
         "width": 476
       },
       "path": "art/review/paths-v1/path136-patch-parity1.png",
-      "sha256": "47e67b66c02f25a5bc34f8562282948b61f3db21d9a63a8b583cf3c1b2f702c5"
+      "sha256": "e2fb219cbaf15dc137b7e188d27ad443a1c6f4055c2a724a889c9afdfd50b1f7"
     }
   ],
   "schema_version": 1,
   "status": "candidate-built",
-  "texture_method": "New opaque source images only. Bilinear source sampling through continuous mirror-periodic coordinates, periods (142,80); average f(x,y) and f(x+71,y+40) in byte RGB. This derived texture average is invariant under all six lattice neighbor shifts. All independent cells use world origin phase (0,0). No original-game pixels.",
+  "texture_method": "New opaque source images only. Non-grass materials retain bilinear mirror-periodic coordinates, periods (142,80), and two-coset averaging. All independent cells use world origin phase (0,0). No original-game pixels. Summer grass: unmirrored periodic bilinear source sampling. Per source axis, overlap=(size-1)/4 and span=3*(size-1)/4. At world phase t in [0,period), x=t/period*span. For x\u003coverlap blend source(x+span) toward source(x) with cubic smoothstep(x/overlap); otherwise source(x). Apply separable windows on both axes, periods142,80. Round wrapped world phases to1e-9 before source lookup. Average RGB of f(x,y),f(x+71,y+40), then round half-up once. This is invariant under all six neighbor translations without reflected source marks. Non-grass materials, unseen and winter retain the existing sampler.",
   "tool": "Go tools/art-review -connected",
   "variants": [
     {
@@ -579,7 +574,7 @@
             "width": 384
           },
           "path": "art/exports/paths-v1/path125-4x.png",
-          "sha256": "6e3dc5d655b9bb73049c5793b403fff248838697ccfbc83b3f76b1bc3c112a36"
+          "sha256": "c602ffa54a5bed1ee1680b6684089faf75adb65945328f1f2aafa11dc4acbe2f"
         },
         {
           "dimensions": {
@@ -587,7 +582,7 @@
             "width": 192
           },
           "path": "art/exports/paths-v1/path125-2x.png",
-          "sha256": "5bb70688956ade82e335739ac22d69fbf7300b1c6558e26ca5696b6b1769e59c"
+          "sha256": "3b2388a2b75612409b409afa6dcf72e8f6b991db8a94f1ac985dc3c0dbeea658"
         }
       ],
       "ports": [
@@ -610,7 +605,7 @@
             "width": 384
           },
           "path": "art/exports/paths-v1/path13-4x.png",
-          "sha256": "a74f2281b5eedf42ebf1e164951d4b56ed8a5dcfecdded4740deb00fb435390f"
+          "sha256": "3b2c5e3ea1a0c5e4c7a4eaafaf751d2ae31df8c72965f12262c3604ebc86861e"
         },
         {
           "dimensions": {
@@ -618,7 +613,7 @@
             "width": 192
           },
           "path": "art/exports/paths-v1/path13-2x.png",
-          "sha256": "6d26b91ac800f2697d069a64838253e8d435cbb04950dbdb42f941b4a6efe15e"
+          "sha256": "acc7f6da33ac912069730953ef5b15ffe0f5d96556712871b0ddce9cd640e6c0"
         }
       ],
       "ports": [
@@ -640,7 +635,7 @@
             "width": 384
           },
           "path": "art/exports/paths-v1/path135-4x.png",
-          "sha256": "d350d945a39fab99b2f3d293594a4d4c3a98ece9b6280beb01579355c32d7d12"
+          "sha256": "5ba750f9667b3ab6c915fb0d5cde62817c67bb5a89585364ecbb52f7d9f70b82"
         },
         {
           "dimensions": {
@@ -648,7 +643,7 @@
             "width": 192
           },
           "path": "art/exports/paths-v1/path135-2x.png",
-          "sha256": "7b380ed3c5e39cc1b663f8a4bf8981eb673c138e5a6057ae48f4b70c2aab2602"
+          "sha256": "4befef5ed7656bcfa6c7709aaf0b27bfab5bfa497c3defd7bc6971a0e686b3f4"
         }
       ],
       "ports": [
@@ -671,7 +666,7 @@
             "width": 384
           },
           "path": "art/exports/paths-v1/path136-4x.png",
-          "sha256": "a2577c31d03326db4d9d328633d786b00adef8b1acf4c3e98bf2a06c5f4cccf6"
+          "sha256": "a4fffd9904e7c09a6386d10ce1f51b166553c0f5542079dc49552694400223a7"
         },
         {
           "dimensions": {
@@ -679,7 +674,7 @@
             "width": 192
           },
           "path": "art/exports/paths-v1/path136-2x.png",
-          "sha256": "cee9eac5851a180664f3419fed7653b7692e52aa868f7948894ec9570738750d"
+          "sha256": "96bd0af26188a3b317b238427a587ba6a155027c6586a522237ae45ad5676898"
         }
       ],
       "ports": [
@@ -702,7 +697,7 @@
             "width": 384
           },
           "path": "art/exports/paths-v1/path14-4x.png",
-          "sha256": "da992774291c4fc6edfdd66c8b4129b34d2993c8e22708759cb3c01dbd3efe2d"
+          "sha256": "589c59f36872ec6901ac0d14ba0f6dd549ecd534ddd55a40644c2b2f35d6017e"
         },
         {
           "dimensions": {
@@ -710,7 +705,7 @@
             "width": 192
           },
           "path": "art/exports/paths-v1/path14-2x.png",
-          "sha256": "14241edca2642bccb8187bdfb4a56ce8b1884cc8d599550c2fd36245a098205d"
+          "sha256": "1af5ea7f8173750a9779153497dd1128ce8a30a9f52153296826cae09c53430b"
         }
       ],
       "ports": [
@@ -732,7 +727,7 @@
             "width": 384
           },
           "path": "art/exports/paths-v1/path15-4x.png",
-          "sha256": "fc6b2c024b4c943d079ef924b60b79dbb4f8ab227607c066b5615437082c2311"
+          "sha256": "174b24bc9cea5426a244339ba9cb6580c59abc6de4916017acb33990c232bf5a"
         },
         {
           "dimensions": {
@@ -740,7 +735,7 @@
             "width": 192
           },
           "path": "art/exports/paths-v1/path15-2x.png",
-          "sha256": "945e6e6951d658d588a685a0001d0bcdeb1d3f36937b06f9d0067ecd3f467e78"
+          "sha256": "b32a642866f701519b76468c1ad9d225bb4ed4592541adf36c7ea720b0ceabeb"
         }
       ],
       "ports": [
@@ -762,7 +757,7 @@
             "width": 384
           },
           "path": "art/exports/paths-v1/path24-4x.png",
-          "sha256": "ce10cebde3c74aec8c170e82cde2e7f674294911f3e9bce52295013bb37e4a39"
+          "sha256": "5e984fc95fcd33f3f651a198ce605fe06440deed3c1bde0b49d63017ccdb8ddb"
         },
         {
           "dimensions": {
@@ -770,7 +765,7 @@
             "width": 192
           },
           "path": "art/exports/paths-v1/path24-2x.png",
-          "sha256": "183517b63b8a1ac4ae07ed28a1778a62c6f4522042adec595e0b593b5c7aea4f"
+          "sha256": "c5f708e1edd2a1d7827200845352c0abce76c8b37da3afe6ddb7740a43581407"
         }
       ],
       "ports": [
@@ -792,7 +787,7 @@
             "width": 384
           },
           "path": "art/exports/paths-v1/path25-4x.png",
-          "sha256": "cf3a085ec3164ee3196a878625c92e255b79a211df899214e4821d21fdcd0f28"
+          "sha256": "9fef01cd670fdc8f9faa33d57d73a7378eea02f1a571c210bdb2ec16d40d2677"
         },
         {
           "dimensions": {
@@ -800,7 +795,7 @@
             "width": 192
           },
           "path": "art/exports/paths-v1/path25-2x.png",
-          "sha256": "a987c185f214721525c3ba9b74ccdb4e8697e2976804b40247b6273609309868"
+          "sha256": "4102c8a551bd77339e4d393a118804e5e1cdcc55a14c9d8968d9baceff80089c"
         }
       ],
       "ports": [
@@ -822,7 +817,7 @@
             "width": 384
           },
           "path": "art/exports/paths-v1/path26-4x.png",
-          "sha256": "a1d91a4656d4e65d59ac0e4d6a3ad01ab76defa48dafed27a282e1c8bbbe130e"
+          "sha256": "f6f3e18f8a66f86963f5aa318978e4782f9ab17b6982bd9d894122dffdbf2fb0"
         },
         {
           "dimensions": {
@@ -830,7 +825,7 @@
             "width": 192
           },
           "path": "art/exports/paths-v1/path26-2x.png",
-          "sha256": "29eab1c3f832e828205cfac3d4033bff5111b7ea0f4a401e4b439f5540cfd4ff"
+          "sha256": "f8a241c8669aa969b98a7b6c1f8108d3f82f9e91cec65a34a370265374ac612d"
         }
       ],
       "ports": [
@@ -852,7 +847,7 @@
             "width": 384
           },
           "path": "art/exports/paths-v1/path346-4x.png",
-          "sha256": "31f9a1c681a7eec94ded3b87bf96c881e338f609549ba01a33c5d45446dff726"
+          "sha256": "4cde4ccd105b2d3ceba96abb640a01efbe866bc251c1dae6b2eb47fa2b426ba4"
         },
         {
           "dimensions": {
@@ -860,7 +855,7 @@
             "width": 192
           },
           "path": "art/exports/paths-v1/path346-2x.png",
-          "sha256": "b09d876ef1b75f55451eeaa52e8ac32a8a2cfa30981839e1329f0e9fa8e9201e"
+          "sha256": "803417b6e0036aafd746818907fab5e08e280c32e287b29ba08e22651b7eff83"
         }
       ],
       "ports": [
@@ -883,7 +878,7 @@
             "width": 384
           },
           "path": "art/exports/paths-v1/path35-4x.png",
-          "sha256": "e109ca090658e4853560ccd22b3917485e2b8f694dbc2182748e9ed8b43d98b5"
+          "sha256": "8622f78a3fccbfdb6f04236c2b0622ecc1ff5edf9e3d3607ca7114e0a1d99df1"
         },
         {
           "dimensions": {
@@ -891,7 +886,7 @@
             "width": 192
           },
           "path": "art/exports/paths-v1/path35-2x.png",
-          "sha256": "a57fe7ff0e1dc9659c99024feb1a382cd3e04aaea6740f27a4e69d60deb41135"
+          "sha256": "6250caad804453f124264f8ed76646a2ac2834dc0d61caab8bfadff5aefe6bd6"
         }
       ],
       "ports": [
@@ -913,7 +908,7 @@
             "width": 384
           },
           "path": "art/exports/paths-v1/path356-4x.png",
-          "sha256": "4ce825fe296acd3f61d20f600ba4628b7e1c967222df393e3bb8720ad4111834"
+          "sha256": "8d29ad0cbf44e7f993f7e939eb04cf015e31409624cb19e657a9cacf2a8157ae"
         },
         {
           "dimensions": {
@@ -921,7 +916,7 @@
             "width": 192
           },
           "path": "art/exports/paths-v1/path356-2x.png",
-          "sha256": "0db6b3d400f78adad4fd7df79034fb12bb037fff10113de3ec421ff011fc09a7"
+          "sha256": "d155143eb18a7def2edc33f47ef9673d11045b800b25c3efb8948436a20ea846"
         }
       ],
       "ports": [
@@ -944,7 +939,7 @@
             "width": 384
           },
           "path": "art/exports/paths-v1/path36-4x.png",
-          "sha256": "69b34ec6f6122eb218963c805dad8bcb4e0e737e364e65db97f774c84abebf9e"
+          "sha256": "a20a53a29a0653f353bcfd4d7f3dda6ff94d1c593539aa6956345bb73b1da38c"
         },
         {
           "dimensions": {
@@ -952,7 +947,7 @@
             "width": 192
           },
           "path": "art/exports/paths-v1/path36-2x.png",
-          "sha256": "bbb06f605daf768d6f81aa95f5f9569cba5db6a8572d8df29f6455c75c436437"
+          "sha256": "35c51cf479d1b20540e701f60b899d6bf7dac3350d1eac5da783211ad0211c14"
         }
       ],
       "ports": [
@@ -974,7 +969,7 @@
             "width": 384
           },
           "path": "art/exports/paths-v1/path46-4x.png",
-          "sha256": "106ce1cc63edec0b9be761def538762e8e819ebf17564ebb9e186db625f16cb9"
+          "sha256": "ed4daa0f0f37f6c4257e02d32bec9ed61da565e637fc6e964207f9a377b372e0"
         },
         {
           "dimensions": {
@@ -982,7 +977,7 @@
             "width": 192
           },
           "path": "art/exports/paths-v1/path46-2x.png",
-          "sha256": "1a8b5ca21c34b82b7b9f3fe888eb3675050c0f07cc1cb3aca1331a00333e38fd"
+          "sha256": "978fc48715389d817e827f3190d768f5bda2951ae4430e22355449004ba4a506"
         }
       ],
       "ports": [
@@ -991,5 +986,10 @@
       ],
       "width": 7
     }
-  ]
+  ],
+  "visual_target": {
+    "reference": "RefDesign.png",
+    "role": "User-supplied scene target for the current grass, streets, earthworks, rocks, hut and summer canopy. Reference bytes are not runtime artwork.",
+    "sha256": "3924e55c20ca63cbe31a7e4b3d469977f20c9ddf7802912e92782360b4d1aa69"
+  }
 }

@@ -89,11 +89,13 @@ type connectionTrenchProfile struct {
 }
 
 func fixedConnectionTrenchProfile() connectionTrenchProfile {
-	return connectionTrenchProfile{8, 16, 2, 14, 14, 15, 3.5, .6, connectionPoint{10, 9}, connectionPoint{36, 26}, 7, 1.1,
+	profile := connectionTrenchProfile{8, 16, 2, 14, 14, 15, 3.5, .6, connectionPoint{10, 9}, connectionPoint{36, 26}, 7, 1.1,
 		"Trench only: new dark earth floor, shaded new earth banks and new timber revetment/braces. Geometry uses numeric runtime ports only; no original pixels, masks or outlines. Candidate appearance requires visual review.",
 		"Each port runs straight 16 world px inward, then via a point 13 world px from center with a 2-world-pixel transverse offset to center. A single port with no explicit blind spurs extends 14 world px beyond center and ends in a round cap; explicit blind spurs supersede that implicit tail. Blind spurs run center to unit-neighbor*14 with round caps. A dugout uses an independent narrow neck from center to unit-neighbor*15 with floor width min(0.6*width,3.5), no width wear, and a separate rounded 10x9 floor chamber (corner radius 2), aligned with its direction. The neck is excluded from the full-width main course. Ring is a new 36x26 rounded rectangle centerline with radius 7, sampled 16 segments per quarter; center remains open.",
-		"The first 8 world px from every polygon edge have fixed width/bank and no wear. Straight continuation to 16 px keeps angular courses and their radius outside that guard. Width wear is 0.18*E*sin(3A+B), bank fringe is 0.25*E*sin(2B-A), E=S((edge_distance-8)/8), A=2pi(x/142+y/80), B=2pi(x/142-y/80). Texture, wood phase and shading repeat on the runtime lattice; actual exported PNG joins use existing overscan/Lanczos/final ownership and ordinary decoded blits.",
+		"The first 8 world px from every polygon edge have fixed width/bank and no wear. Straight continuation to 16 px keeps angular courses and their radius outside that guard. Width wear is 0.18*E*sin(3A+B). Bank fringe is E*(0.25*sin(2B-A)+0.8*clamp((L-110)/100,-0.6,0.8)), where L=0.2126R+0.7152G+0.0722B of the sampled earth material; its clods roughen only the interior bank silhouette. E=S((edge_distance-8)/8), A=2pi(x/142+y/80), B=2pi(x/142-y/80). Texture, wood phase and shading repeat on the runtime lattice; actual exported PNG joins use existing overscan/Lanczos/final ownership and ordinary decoded blits.",
 		"Let N be the unit vector from the nearest main-course/neck point to the sample, or the chamber SDF gradient (central differences at +/-0.01 world px) for a chamber-owned sample; N=(0,0) at length <=1e-9. D=round(dot(N,(0.6,0.8))*1e9)/1e9. Wall=S((core_distance+2.25)/2.25). Floor samples trench at 0.72*(1-0.6*Wall*(0.5+0.5*D)) brightness, producing a consistent southeast inner-wall shadow. Banks sample earth at (0.94+0.1*sin(A+0.4)*cos(B))*(1-0.15*D) brightness. Timber is source*1.08 brightness; revetment is a 1.1-world-pixel band centered 0.1 px inside the floor edge. Braces use clamp(0.5+(sin(3A+2B)-0.97)/0.06,0,1) and reach 1.2 world px from the floor edge. RGB rounds to nearest byte and clamps to 255. Reciprocal straight guards share nearest-course world normals, textures and phases. Core remains opaque; only the exterior 0.25-world-pixel analytic AA ramp is translucent. No baked grass."}
+	profile.Shading += " Interior timber breakup: multiply the revetment by 1-E+E*S((sin(12A+4B+0.7sin(3A-2B))+0.15)/0.7), creating separate planks with dark gaps. Add interior braces with E²*ramp(sin(6A+2B)-0.92,0.08)*ramp(1.4-abs(core_distance),AA). The squared fade preserves readable directional wall shading through the guard transition. Guard E=0 retains the original continuous reciprocal revetment and original braces."
+	return profile
 }
 
 type connectionTrenchGeometry struct {
@@ -220,7 +222,12 @@ func connectionTrenchFeature(in connectionInputs, f connectionFamily, r connecti
 			}
 		}
 	}
-	border := f.Border + .25*envelope*math.Sin(2*phaseB-phaseA)
+	earth := sampleConnectionMaterial(in.materials["earth"], p)
+	// Source clods give the silhouette the same irregular soil detail as the
+	// bank surface. The fixed guard keeps every reciprocal port unchanged.
+	luminance := .2126*float64(earth.R) + .7152*float64(earth.G) + .0722*float64(earth.B)
+	clods := .8 * math.Max(-.6, math.Min(.8, (luminance-110)/100))
+	border := f.Border + envelope*(.25*math.Sin(2*phaseB-phaseA)+clods)
 	outer := connectionRamp(border-coreDistance, aa)
 	if outer == 0 {
 		return color.NRGBA{}
@@ -231,11 +238,15 @@ func connectionTrenchFeature(in connectionInputs, f connectionFamily, r connecti
 	shade := .94 + .1*math.Sin(phaseA+.4)*math.Cos(phaseB)
 	directional := math.Round((.6*normal[0]+.8*normal[1])*1e9) / 1e9
 	wall := connectionSmoothStep((coreDistance + 2.25) / 2.25)
-	bank := connectionTrenchShade(sampleConnectionMaterial(in.materials["earth"], p), shade*(1-.15*directional))
+	bank := connectionTrenchShade(earth, shade*(1-.15*directional))
 	floor := connectionTrenchShade(sampleConnectionMaterial(in.materials["trench"], p), .72*(1-.6*wall*(.5+.5*directional)))
 	paint := connectionBlend(bank, floor, core)
 	wood := connectionRamp(.55-math.Abs(coreDistance+.1), aa)
+	plank := connectionSmoothStep((math.Sin(12*phaseA+4*phaseB+.7*math.Sin(3*phaseA-2*phaseB)) + .15) / .7)
+	wood *= 1 - envelope + envelope*plank
 	brace := connectionRamp(math.Sin(3*phaseA+2*phaseB)-.97, .06) * connectionRamp(1.2-math.Abs(coreDistance), aa)
+	interiorBrace := connectionRamp(math.Sin(6*phaseA+2*phaseB)-.92, .08) * connectionRamp(1.4-math.Abs(coreDistance), aa)
+	brace = math.Max(brace, envelope*envelope*interiorBrace)
 	timber := math.Max(wood, brace)
 	if timber > 0 {
 		paint = connectionBlend(paint, connectionTrenchShade(sampleConnectionMaterial(in.materials["timber"], p), 1.08), timber)

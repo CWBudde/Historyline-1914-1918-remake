@@ -1,8 +1,8 @@
 {
   "grounds": {
     "summer": {
-      "source": "source/terrain/reference-v2/meadow-03.png",
-      "source_sha256": "4de543f0906e1311eff5ae4f202eb8fa68665c67103039bee089e60e02c68eb4"
+      "source": "source/terrain/refdesign-v1/grass-base-01.png",
+      "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
     },
     "winter": {
       "source": "source/terrain/distinct-v1/snow-ground.png",
@@ -12,16 +12,16 @@
   "scenes": [
     {
       "artwork": {
-        "source": "source/compound/distinct-v1/hamlet-summer.png",
-        "source_sha256": "02a8bb2d90cb78ca1d8c37c35ccb071f4cc1a44cde3956fd879d3de1c7f98b7d"
+        "source": "source/compound/refdesign-v1/hamlet-summer.png",
+        "source_sha256": "4e20895a10f9563d9429cda3cbe8825a8525c37cab0b2e5be78c9254b6d216d4"
       },
       "id": "hamlet-summer",
       "inset": 0.75
     },
     {
       "artwork": {
-        "source": "source/compound/distinct-v1/hamlet-winter.png",
-        "source_sha256": "cfde8d1a24a57fbeee54ebe7b61421f2f5bcb2bab6376af9f0e8e26ce1981257"
+        "source": "source/compound/refdesign-v1/hamlet-winter.png",
+        "source_sha256": "7096508ef69bfd4bccf6105a275c1598e9b51a0b88f9a02ae06c16838fe9f762"
       },
       "id": "hamlet-winter",
       "inset": 0.75

@@ -1,4 +1,5 @@
 {
+  "acceptance": "Reference-guided candidate rebuild. Current exported assets and context proofs are pinned; final user visual review remains open.",
   "bundle_report": {
     "acceptance": "PROVISIONAL infantry family candidate; no runtime installation or gameplay/whole-map acceptance. Blender comparison gate OPEN: this authored pilot does not choose a whole-unit-set method. Exact physical boot pivot and native Amiga A-F facing mapping remain unverified. Other units, portraits, zoom and runtime facing integration remain OPEN. Technical key atlas is not finished faction art. Negative-lobed filtering may produce K\u003emin(N); final tint clamps RGB. Small residual cloth hue fringes can remain; no zero-residual-magenta or automated anatomy/count acceptance claim.",
     "atlas": {
@@ -822,7 +823,7 @@
           "width": 476
         },
         "path": "scenes/grass-normal-p0-2x.png",
-        "sha256": "7577fb8c39c9eec5f5f409ba06d9ca8e1ffaccff9e9c86bf9fabf425cf735cdb"
+        "sha256": "78c985866a0c42b31a22a700028493a3440f8b179a7483b06f03996a4ec2f36b"
       },
       {
         "dimensions": {
@@ -830,7 +831,7 @@
           "width": 952
         },
         "path": "scenes/grass-normal-p0-4x.png",
-        "sha256": "cce4cc957e411d8b8de73890bdb65018dc65d1fd91cc61e252328b03c336b6de"
+        "sha256": "16f265d80387bb8105efc9452629c7d65f495ad7c376cd50b3d697d5e696609e"
       },
       {
         "dimensions": {
@@ -838,7 +839,7 @@
           "width": 476
         },
         "path": "scenes/grass-normal-p1-2x.png",
-        "sha256": "7577fb8c39c9eec5f5f409ba06d9ca8e1ffaccff9e9c86bf9fabf425cf735cdb"
+        "sha256": "78c985866a0c42b31a22a700028493a3440f8b179a7483b06f03996a4ec2f36b"
       },
       {
         "dimensions": {
@@ -846,7 +847,7 @@
           "width": 952
         },
         "path": "scenes/grass-normal-p1-4x.png",
-        "sha256": "cce4cc957e411d8b8de73890bdb65018dc65d1fd91cc61e252328b03c336b6de"
+        "sha256": "16f265d80387bb8105efc9452629c7d65f495ad7c376cd50b3d697d5e696609e"
       },
       {
         "dimensions": {
@@ -854,7 +855,7 @@
           "width": 476
         },
         "path": "scenes/grass-spent-p0-2x.png",
-        "sha256": "000bb263b4ec6dee16b7fb9f4d065374e2263af8f166096b568a9157d9ad3396"
+        "sha256": "675822295febf414aa021abd86a03695c3583026484917ee2c0e12d17bafdf21"
       },
       {
         "dimensions": {
@@ -862,7 +863,7 @@
           "width": 952
         },
         "path": "scenes/grass-spent-p0-4x.png",
-        "sha256": "714a691050d7b83b3c78feb6e1fd9f2c83c47ba1046e79b2dfb8635c69756df2"
+        "sha256": "25bd6c71f9fd4980bffcd49433239e247fc53ee20c80bc4c425b26880c653229"
       },
       {
         "dimensions": {
@@ -870,7 +871,7 @@
           "width": 476
         },
         "path": "scenes/grass-spent-p1-2x.png",
-        "sha256": "000bb263b4ec6dee16b7fb9f4d065374e2263af8f166096b568a9157d9ad3396"
+        "sha256": "675822295febf414aa021abd86a03695c3583026484917ee2c0e12d17bafdf21"
       },
       {
         "dimensions": {
@@ -878,7 +879,7 @@
           "width": 952
         },
         "path": "scenes/grass-spent-p1-4x.png",
-        "sha256": "714a691050d7b83b3c78feb6e1fd9f2c83c47ba1046e79b2dfb8635c69756df2"
+        "sha256": "25bd6c71f9fd4980bffcd49433239e247fc53ee20c80bc4c425b26880c653229"
       },
       {
         "dimensions": {
@@ -950,7 +951,7 @@
           "width": 476
         },
         "path": "scenes/mud-normal-p0-2x.png",
-        "sha256": "3178837af52aa195ce21e2334a83205da957a73ef61f9d6d2ee8d8fc47f4510f"
+        "sha256": "5fd09d0825dd8e22ab162392447ef1679552d2bd95fbf5f78c7e0d710d75181d"
       },
       {
         "dimensions": {
@@ -958,7 +959,7 @@
           "width": 952
         },
         "path": "scenes/mud-normal-p0-4x.png",
-        "sha256": "843871e29c4095aba6c1025ad4a576b512e642ac27f9a1dfc628056b653a7cfc"
+        "sha256": "f544408820ee8d3a14fd3bd16cd497ef3df1071c21b8f56109eb789b2c468c40"
       },
       {
         "dimensions": {
@@ -966,7 +967,7 @@
           "width": 476
         },
         "path": "scenes/mud-normal-p1-2x.png",
-        "sha256": "3178837af52aa195ce21e2334a83205da957a73ef61f9d6d2ee8d8fc47f4510f"
+        "sha256": "5fd09d0825dd8e22ab162392447ef1679552d2bd95fbf5f78c7e0d710d75181d"
       },
       {
         "dimensions": {
@@ -974,7 +975,7 @@
           "width": 952
         },
         "path": "scenes/mud-normal-p1-4x.png",
-        "sha256": "843871e29c4095aba6c1025ad4a576b512e642ac27f9a1dfc628056b653a7cfc"
+        "sha256": "f544408820ee8d3a14fd3bd16cd497ef3df1071c21b8f56109eb789b2c468c40"
       },
       {
         "dimensions": {
@@ -982,7 +983,7 @@
           "width": 476
         },
         "path": "scenes/mud-spent-p0-2x.png",
-        "sha256": "bbfa01ed6384cee9cc0e58596db3a706ec8711479610e1f05c4efda93de5dae1"
+        "sha256": "da648acdc149e0a95032923e3a55013391d92aa27babdbfe08faec7e77681ae5"
       },
       {
         "dimensions": {
@@ -990,7 +991,7 @@
           "width": 952
         },
         "path": "scenes/mud-spent-p0-4x.png",
-        "sha256": "0c36c3aa624dbf8832f5826c5be34621d993b7b8decffb89057f812bb1b227ae"
+        "sha256": "5b743a69d2b31299fce7c2a344b64c4b0591235cbfdcb8f911ac9f7e9991d1e5"
       },
       {
         "dimensions": {
@@ -998,7 +999,7 @@
           "width": 476
         },
         "path": "scenes/mud-spent-p1-2x.png",
-        "sha256": "bbfa01ed6384cee9cc0e58596db3a706ec8711479610e1f05c4efda93de5dae1"
+        "sha256": "da648acdc149e0a95032923e3a55013391d92aa27babdbfe08faec7e77681ae5"
       },
       {
         "dimensions": {
@@ -1006,7 +1007,7 @@
           "width": 952
         },
         "path": "scenes/mud-spent-p1-4x.png",
-        "sha256": "0c36c3aa624dbf8832f5826c5be34621d993b7b8decffb89057f812bb1b227ae"
+        "sha256": "5b743a69d2b31299fce7c2a344b64c4b0591235cbfdcb8f911ac9f7e9991d1e5"
       }
     ],
     "family": "infantry",
@@ -1695,7 +1696,7 @@
           },
           "retained_source": "sources/grass-2x.png",
           "source": "exports/connected-v1/grass-2x.png",
-          "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+          "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
         },
         "4x": {
           "dimensions": {
@@ -1704,7 +1705,7 @@
           },
           "retained_source": "sources/grass-4x.png",
           "source": "exports/connected-v1/grass-4x.png",
-          "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+          "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
         }
       },
       "grass_w": {
@@ -1735,7 +1736,7 @@
           },
           "retained_source": "sources/mud-2x.png",
           "source": "exports/ground-v1/mud-2x.png",
-          "source_sha256": "3ec457acf0229a47d3dc090315c7869527e712ae641daff1509fc7143fb526d5"
+          "source_sha256": "62c43c93760f9076af2e302a51aa5de39a52913538a7a555ccda3f6bd5358a07"
         },
         "4x": {
           "dimensions": {
@@ -1744,11 +1745,11 @@
           },
           "retained_source": "sources/mud-4x.png",
           "source": "exports/ground-v1/mud-4x.png",
-          "source_sha256": "ca5cbf8265d7bade1ccc4824d07e7ebe4927b17a636b52e939d1dedfe98dcce3"
+          "source_sha256": "e1c7567308d2537d6ecf553132358d65a338f1220f9bddce21a3948c728beba5"
         }
       }
     },
-    "manifest_sha256": "b7181db2b89bcf5622ef349686f6caca4f875bcea39a270d63ede3dfbbf0cb34",
+    "manifest_sha256": "6532877f19ce9d4a2cc93dbe52b258c67051997688b038e4627d4073c98bd49a",
     "manifest_snapshot": "manifest.json",
     "palette_selector": "Owner palette is independent of class ID/country, including captured infantry; no eliteinfantry alias.",
     "palettes": {
@@ -1789,7 +1790,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "C",
             "palette": "neutral",
@@ -1828,7 +1829,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "NE",
             "palette": "ec",
@@ -1867,7 +1868,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "SE",
             "palette": "ec",
@@ -1906,7 +1907,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "S",
             "palette": "cp",
@@ -1945,7 +1946,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "SW",
             "palette": "ec",
@@ -1984,7 +1985,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "NW",
             "palette": "cp",
@@ -2023,7 +2024,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "N",
             "palette": "ec",
@@ -2069,7 +2070,7 @@
             "width": 476
           },
           "path": "scenes/grass-normal-p0-2x.png",
-          "sha256": "7577fb8c39c9eec5f5f409ba06d9ca8e1ffaccff9e9c86bf9fabf425cf735cdb"
+          "sha256": "78c985866a0c42b31a22a700028493a3440f8b179a7483b06f03996a4ec2f36b"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -2092,7 +2093,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "C",
             "palette": "neutral",
@@ -2131,7 +2132,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "NE",
             "palette": "ec",
@@ -2170,7 +2171,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "SE",
             "palette": "ec",
@@ -2209,7 +2210,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "S",
             "palette": "cp",
@@ -2248,7 +2249,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "SW",
             "palette": "ec",
@@ -2287,7 +2288,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "NW",
             "palette": "cp",
@@ -2326,7 +2327,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "N",
             "palette": "ec",
@@ -2372,7 +2373,7 @@
             "width": 952
           },
           "path": "scenes/grass-normal-p0-4x.png",
-          "sha256": "cce4cc957e411d8b8de73890bdb65018dc65d1fd91cc61e252328b03c336b6de"
+          "sha256": "16f265d80387bb8105efc9452629c7d65f495ad7c376cd50b3d697d5e696609e"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -2395,7 +2396,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "C",
             "palette": "neutral",
@@ -2434,7 +2435,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "NE",
             "palette": "ec",
@@ -2473,7 +2474,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "SE",
             "palette": "ec",
@@ -2512,7 +2513,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "S",
             "palette": "cp",
@@ -2551,7 +2552,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "SW",
             "palette": "ec",
@@ -2590,7 +2591,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "NW",
             "palette": "cp",
@@ -2629,7 +2630,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "N",
             "palette": "ec",
@@ -2675,7 +2676,7 @@
             "width": 476
           },
           "path": "scenes/grass-normal-p1-2x.png",
-          "sha256": "7577fb8c39c9eec5f5f409ba06d9ca8e1ffaccff9e9c86bf9fabf425cf735cdb"
+          "sha256": "78c985866a0c42b31a22a700028493a3440f8b179a7483b06f03996a4ec2f36b"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -2698,7 +2699,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "C",
             "palette": "neutral",
@@ -2737,7 +2738,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "NE",
             "palette": "ec",
@@ -2776,7 +2777,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "SE",
             "palette": "ec",
@@ -2815,7 +2816,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "S",
             "palette": "cp",
@@ -2854,7 +2855,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "SW",
             "palette": "ec",
@@ -2893,7 +2894,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "NW",
             "palette": "cp",
@@ -2932,7 +2933,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "N",
             "palette": "ec",
@@ -2978,7 +2979,7 @@
             "width": 952
           },
           "path": "scenes/grass-normal-p1-4x.png",
-          "sha256": "cce4cc957e411d8b8de73890bdb65018dc65d1fd91cc61e252328b03c336b6de"
+          "sha256": "16f265d80387bb8105efc9452629c7d65f495ad7c376cd50b3d697d5e696609e"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -3001,7 +3002,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "C",
             "palette": "neutral",
@@ -3040,7 +3041,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "NE",
             "palette": "ec",
@@ -3079,7 +3080,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "SE",
             "palette": "ec",
@@ -3118,7 +3119,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "S",
             "palette": "cp",
@@ -3157,7 +3158,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "SW",
             "palette": "ec",
@@ -3196,7 +3197,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "NW",
             "palette": "cp",
@@ -3235,7 +3236,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "N",
             "palette": "ec",
@@ -3281,7 +3282,7 @@
             "width": 476
           },
           "path": "scenes/grass-spent-p0-2x.png",
-          "sha256": "000bb263b4ec6dee16b7fb9f4d065374e2263af8f166096b568a9157d9ad3396"
+          "sha256": "675822295febf414aa021abd86a03695c3583026484917ee2c0e12d17bafdf21"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -3304,7 +3305,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "C",
             "palette": "neutral",
@@ -3343,7 +3344,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "NE",
             "palette": "ec",
@@ -3382,7 +3383,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "SE",
             "palette": "ec",
@@ -3421,7 +3422,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "S",
             "palette": "cp",
@@ -3460,7 +3461,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "SW",
             "palette": "ec",
@@ -3499,7 +3500,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "NW",
             "palette": "cp",
@@ -3538,7 +3539,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "N",
             "palette": "ec",
@@ -3584,7 +3585,7 @@
             "width": 952
           },
           "path": "scenes/grass-spent-p0-4x.png",
-          "sha256": "714a691050d7b83b3c78feb6e1fd9f2c83c47ba1046e79b2dfb8635c69756df2"
+          "sha256": "25bd6c71f9fd4980bffcd49433239e247fc53ee20c80bc4c425b26880c653229"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -3607,7 +3608,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "C",
             "palette": "neutral",
@@ -3646,7 +3647,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "NE",
             "palette": "ec",
@@ -3685,7 +3686,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "SE",
             "palette": "ec",
@@ -3724,7 +3725,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "S",
             "palette": "cp",
@@ -3763,7 +3764,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "SW",
             "palette": "ec",
@@ -3802,7 +3803,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "NW",
             "palette": "cp",
@@ -3841,7 +3842,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "N",
             "palette": "ec",
@@ -3887,7 +3888,7 @@
             "width": 476
           },
           "path": "scenes/grass-spent-p1-2x.png",
-          "sha256": "000bb263b4ec6dee16b7fb9f4d065374e2263af8f166096b568a9157d9ad3396"
+          "sha256": "675822295febf414aa021abd86a03695c3583026484917ee2c0e12d17bafdf21"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -3910,7 +3911,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "C",
             "palette": "neutral",
@@ -3949,7 +3950,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "NE",
             "palette": "ec",
@@ -3988,7 +3989,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "SE",
             "palette": "ec",
@@ -4027,7 +4028,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "S",
             "palette": "cp",
@@ -4066,7 +4067,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "SW",
             "palette": "ec",
@@ -4105,7 +4106,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "NW",
             "palette": "cp",
@@ -4144,7 +4145,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "N",
             "palette": "ec",
@@ -4190,7 +4191,7 @@
             "width": 952
           },
           "path": "scenes/grass-spent-p1-4x.png",
-          "sha256": "714a691050d7b83b3c78feb6e1fd9f2c83c47ba1046e79b2dfb8635c69756df2"
+          "sha256": "25bd6c71f9fd4980bffcd49433239e247fc53ee20c80bc4c425b26880c653229"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -6637,7 +6638,7 @@
               },
               "retained_source": "sources/mud-2x.png",
               "source": "exports/ground-v1/mud-2x.png",
-              "source_sha256": "3ec457acf0229a47d3dc090315c7869527e712ae641daff1509fc7143fb526d5"
+              "source_sha256": "62c43c93760f9076af2e302a51aa5de39a52913538a7a555ccda3f6bd5358a07"
             },
             "label": "C",
             "palette": "neutral",
@@ -6676,7 +6677,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "NE",
             "palette": "ec",
@@ -6715,7 +6716,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "SE",
             "palette": "ec",
@@ -6754,7 +6755,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "S",
             "palette": "cp",
@@ -6793,7 +6794,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "SW",
             "palette": "ec",
@@ -6832,7 +6833,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "NW",
             "palette": "cp",
@@ -6871,7 +6872,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "N",
             "palette": "ec",
@@ -6917,7 +6918,7 @@
             "width": 476
           },
           "path": "scenes/mud-normal-p0-2x.png",
-          "sha256": "3178837af52aa195ce21e2334a83205da957a73ef61f9d6d2ee8d8fc47f4510f"
+          "sha256": "5fd09d0825dd8e22ab162392447ef1679552d2bd95fbf5f78c7e0d710d75181d"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -6940,7 +6941,7 @@
               },
               "retained_source": "sources/mud-4x.png",
               "source": "exports/ground-v1/mud-4x.png",
-              "source_sha256": "ca5cbf8265d7bade1ccc4824d07e7ebe4927b17a636b52e939d1dedfe98dcce3"
+              "source_sha256": "e1c7567308d2537d6ecf553132358d65a338f1220f9bddce21a3948c728beba5"
             },
             "label": "C",
             "palette": "neutral",
@@ -6979,7 +6980,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "NE",
             "palette": "ec",
@@ -7018,7 +7019,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "SE",
             "palette": "ec",
@@ -7057,7 +7058,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "S",
             "palette": "cp",
@@ -7096,7 +7097,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "SW",
             "palette": "ec",
@@ -7135,7 +7136,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "NW",
             "palette": "cp",
@@ -7174,7 +7175,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "N",
             "palette": "ec",
@@ -7220,7 +7221,7 @@
             "width": 952
           },
           "path": "scenes/mud-normal-p0-4x.png",
-          "sha256": "843871e29c4095aba6c1025ad4a576b512e642ac27f9a1dfc628056b653a7cfc"
+          "sha256": "f544408820ee8d3a14fd3bd16cd497ef3df1071c21b8f56109eb789b2c468c40"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -7243,7 +7244,7 @@
               },
               "retained_source": "sources/mud-2x.png",
               "source": "exports/ground-v1/mud-2x.png",
-              "source_sha256": "3ec457acf0229a47d3dc090315c7869527e712ae641daff1509fc7143fb526d5"
+              "source_sha256": "62c43c93760f9076af2e302a51aa5de39a52913538a7a555ccda3f6bd5358a07"
             },
             "label": "C",
             "palette": "neutral",
@@ -7282,7 +7283,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "NE",
             "palette": "ec",
@@ -7321,7 +7322,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "SE",
             "palette": "ec",
@@ -7360,7 +7361,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "S",
             "palette": "cp",
@@ -7399,7 +7400,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "SW",
             "palette": "ec",
@@ -7438,7 +7439,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "NW",
             "palette": "cp",
@@ -7477,7 +7478,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "N",
             "palette": "ec",
@@ -7523,7 +7524,7 @@
             "width": 476
           },
           "path": "scenes/mud-normal-p1-2x.png",
-          "sha256": "3178837af52aa195ce21e2334a83205da957a73ef61f9d6d2ee8d8fc47f4510f"
+          "sha256": "5fd09d0825dd8e22ab162392447ef1679552d2bd95fbf5f78c7e0d710d75181d"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -7546,7 +7547,7 @@
               },
               "retained_source": "sources/mud-4x.png",
               "source": "exports/ground-v1/mud-4x.png",
-              "source_sha256": "ca5cbf8265d7bade1ccc4824d07e7ebe4927b17a636b52e939d1dedfe98dcce3"
+              "source_sha256": "e1c7567308d2537d6ecf553132358d65a338f1220f9bddce21a3948c728beba5"
             },
             "label": "C",
             "palette": "neutral",
@@ -7585,7 +7586,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "NE",
             "palette": "ec",
@@ -7624,7 +7625,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "SE",
             "palette": "ec",
@@ -7663,7 +7664,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "S",
             "palette": "cp",
@@ -7702,7 +7703,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "SW",
             "palette": "ec",
@@ -7741,7 +7742,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "NW",
             "palette": "cp",
@@ -7780,7 +7781,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "N",
             "palette": "ec",
@@ -7826,7 +7827,7 @@
             "width": 952
           },
           "path": "scenes/mud-normal-p1-4x.png",
-          "sha256": "843871e29c4095aba6c1025ad4a576b512e642ac27f9a1dfc628056b653a7cfc"
+          "sha256": "f544408820ee8d3a14fd3bd16cd497ef3df1071c21b8f56109eb789b2c468c40"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "normal"
@@ -7849,7 +7850,7 @@
               },
               "retained_source": "sources/mud-2x.png",
               "source": "exports/ground-v1/mud-2x.png",
-              "source_sha256": "3ec457acf0229a47d3dc090315c7869527e712ae641daff1509fc7143fb526d5"
+              "source_sha256": "62c43c93760f9076af2e302a51aa5de39a52913538a7a555ccda3f6bd5358a07"
             },
             "label": "C",
             "palette": "neutral",
@@ -7888,7 +7889,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "NE",
             "palette": "ec",
@@ -7927,7 +7928,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "SE",
             "palette": "ec",
@@ -7966,7 +7967,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "S",
             "palette": "cp",
@@ -8005,7 +8006,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "SW",
             "palette": "ec",
@@ -8044,7 +8045,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "NW",
             "palette": "cp",
@@ -8083,7 +8084,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "N",
             "palette": "ec",
@@ -8129,7 +8130,7 @@
             "width": 476
           },
           "path": "scenes/mud-spent-p0-2x.png",
-          "sha256": "bbfa01ed6384cee9cc0e58596db3a706ec8711479610e1f05c4efda93de5dae1"
+          "sha256": "da648acdc149e0a95032923e3a55013391d92aa27babdbfe08faec7e77681ae5"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -8152,7 +8153,7 @@
               },
               "retained_source": "sources/mud-4x.png",
               "source": "exports/ground-v1/mud-4x.png",
-              "source_sha256": "ca5cbf8265d7bade1ccc4824d07e7ebe4927b17a636b52e939d1dedfe98dcce3"
+              "source_sha256": "e1c7567308d2537d6ecf553132358d65a338f1220f9bddce21a3948c728beba5"
             },
             "label": "C",
             "palette": "neutral",
@@ -8191,7 +8192,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "NE",
             "palette": "ec",
@@ -8230,7 +8231,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "SE",
             "palette": "ec",
@@ -8269,7 +8270,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "S",
             "palette": "cp",
@@ -8308,7 +8309,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "SW",
             "palette": "ec",
@@ -8347,7 +8348,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "NW",
             "palette": "cp",
@@ -8386,7 +8387,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "N",
             "palette": "ec",
@@ -8432,7 +8433,7 @@
             "width": 952
           },
           "path": "scenes/mud-spent-p0-4x.png",
-          "sha256": "0c36c3aa624dbf8832f5826c5be34621d993b7b8decffb89057f812bb1b227ae"
+          "sha256": "5b743a69d2b31299fce7c2a344b64c4b0591235cbfdcb8f911ac9f7e9991d1e5"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -8455,7 +8456,7 @@
               },
               "retained_source": "sources/mud-2x.png",
               "source": "exports/ground-v1/mud-2x.png",
-              "source_sha256": "3ec457acf0229a47d3dc090315c7869527e712ae641daff1509fc7143fb526d5"
+              "source_sha256": "62c43c93760f9076af2e302a51aa5de39a52913538a7a555ccda3f6bd5358a07"
             },
             "label": "C",
             "palette": "neutral",
@@ -8494,7 +8495,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "NE",
             "palette": "ec",
@@ -8533,7 +8534,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "SE",
             "palette": "ec",
@@ -8572,7 +8573,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "S",
             "palette": "cp",
@@ -8611,7 +8612,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "SW",
             "palette": "ec",
@@ -8650,7 +8651,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "NW",
             "palette": "cp",
@@ -8689,7 +8690,7 @@
               },
               "retained_source": "sources/grass-2x.png",
               "source": "exports/connected-v1/grass-2x.png",
-              "source_sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
+              "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
             },
             "label": "N",
             "palette": "ec",
@@ -8735,7 +8736,7 @@
             "width": 476
           },
           "path": "scenes/mud-spent-p1-2x.png",
-          "sha256": "bbfa01ed6384cee9cc0e58596db3a706ec8711479610e1f05c4efda93de5dae1"
+          "sha256": "da648acdc149e0a95032923e3a55013391d92aa27babdbfe08faec7e77681ae5"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -8758,7 +8759,7 @@
               },
               "retained_source": "sources/mud-4x.png",
               "source": "exports/ground-v1/mud-4x.png",
-              "source_sha256": "ca5cbf8265d7bade1ccc4824d07e7ebe4927b17a636b52e939d1dedfe98dcce3"
+              "source_sha256": "e1c7567308d2537d6ecf553132358d65a338f1220f9bddce21a3948c728beba5"
             },
             "label": "C",
             "palette": "neutral",
@@ -8797,7 +8798,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "NE",
             "palette": "ec",
@@ -8836,7 +8837,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "SE",
             "palette": "ec",
@@ -8875,7 +8876,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "S",
             "palette": "cp",
@@ -8914,7 +8915,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "SW",
             "palette": "ec",
@@ -8953,7 +8954,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "NW",
             "palette": "cp",
@@ -8992,7 +8993,7 @@
               },
               "retained_source": "sources/grass-4x.png",
               "source": "exports/connected-v1/grass-4x.png",
-              "source_sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
+              "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
             },
             "label": "N",
             "palette": "ec",
@@ -9038,7 +9039,7 @@
             "width": 952
           },
           "path": "scenes/mud-spent-p1-4x.png",
-          "sha256": "0c36c3aa624dbf8832f5826c5be34621d993b7b8decffb89057f812bb1b227ae"
+          "sha256": "5b743a69d2b31299fce7c2a344b64c4b0591235cbfdcb8f911ac9f7e9991d1e5"
         },
         "purpose": "Visual registration and palette/state fixture only; not a legal game-command replay. Seven visible actual terrain PNGs; mud center with six grass neighbors; no fog ghosts. Alternating default classes with explicit captured NE/NW owner overrides.",
         "state": "spent"
@@ -12257,7 +12258,7 @@
         "width": 476
       },
       "path": "art/review/unit-infantry-v1/scenes/grass-normal-p0-2x.png",
-      "sha256": "7577fb8c39c9eec5f5f409ba06d9ca8e1ffaccff9e9c86bf9fabf425cf735cdb"
+      "sha256": "78c985866a0c42b31a22a700028493a3440f8b179a7483b06f03996a4ec2f36b"
     },
     {
       "build_output": "scenes/grass-normal-p0-4x.png",
@@ -12266,7 +12267,7 @@
         "width": 952
       },
       "path": "art/review/unit-infantry-v1/scenes/grass-normal-p0-4x.png",
-      "sha256": "cce4cc957e411d8b8de73890bdb65018dc65d1fd91cc61e252328b03c336b6de"
+      "sha256": "16f265d80387bb8105efc9452629c7d65f495ad7c376cd50b3d697d5e696609e"
     },
     {
       "build_output": "scenes/grass-normal-p1-2x.png",
@@ -12275,7 +12276,7 @@
         "width": 476
       },
       "path": "art/review/unit-infantry-v1/scenes/grass-normal-p1-2x.png",
-      "sha256": "7577fb8c39c9eec5f5f409ba06d9ca8e1ffaccff9e9c86bf9fabf425cf735cdb"
+      "sha256": "78c985866a0c42b31a22a700028493a3440f8b179a7483b06f03996a4ec2f36b"
     },
     {
       "build_output": "scenes/grass-normal-p1-4x.png",
@@ -12284,7 +12285,7 @@
         "width": 952
       },
       "path": "art/review/unit-infantry-v1/scenes/grass-normal-p1-4x.png",
-      "sha256": "cce4cc957e411d8b8de73890bdb65018dc65d1fd91cc61e252328b03c336b6de"
+      "sha256": "16f265d80387bb8105efc9452629c7d65f495ad7c376cd50b3d697d5e696609e"
     },
     {
       "build_output": "scenes/grass-spent-p0-2x.png",
@@ -12293,7 +12294,7 @@
         "width": 476
       },
       "path": "art/review/unit-infantry-v1/scenes/grass-spent-p0-2x.png",
-      "sha256": "000bb263b4ec6dee16b7fb9f4d065374e2263af8f166096b568a9157d9ad3396"
+      "sha256": "675822295febf414aa021abd86a03695c3583026484917ee2c0e12d17bafdf21"
     },
     {
       "build_output": "scenes/grass-spent-p0-4x.png",
@@ -12302,7 +12303,7 @@
         "width": 952
       },
       "path": "art/review/unit-infantry-v1/scenes/grass-spent-p0-4x.png",
-      "sha256": "714a691050d7b83b3c78feb6e1fd9f2c83c47ba1046e79b2dfb8635c69756df2"
+      "sha256": "25bd6c71f9fd4980bffcd49433239e247fc53ee20c80bc4c425b26880c653229"
     },
     {
       "build_output": "scenes/grass-spent-p1-2x.png",
@@ -12311,7 +12312,7 @@
         "width": 476
       },
       "path": "art/review/unit-infantry-v1/scenes/grass-spent-p1-2x.png",
-      "sha256": "000bb263b4ec6dee16b7fb9f4d065374e2263af8f166096b568a9157d9ad3396"
+      "sha256": "675822295febf414aa021abd86a03695c3583026484917ee2c0e12d17bafdf21"
     },
     {
       "build_output": "scenes/grass-spent-p1-4x.png",
@@ -12320,7 +12321,7 @@
         "width": 952
       },
       "path": "art/review/unit-infantry-v1/scenes/grass-spent-p1-4x.png",
-      "sha256": "714a691050d7b83b3c78feb6e1fd9f2c83c47ba1046e79b2dfb8635c69756df2"
+      "sha256": "25bd6c71f9fd4980bffcd49433239e247fc53ee20c80bc4c425b26880c653229"
     },
     {
       "build_output": "scenes/grass_w-normal-p0-2x.png",
@@ -12401,7 +12402,7 @@
         "width": 476
       },
       "path": "art/review/unit-infantry-v1/scenes/mud-normal-p0-2x.png",
-      "sha256": "3178837af52aa195ce21e2334a83205da957a73ef61f9d6d2ee8d8fc47f4510f"
+      "sha256": "5fd09d0825dd8e22ab162392447ef1679552d2bd95fbf5f78c7e0d710d75181d"
     },
     {
       "build_output": "scenes/mud-normal-p0-4x.png",
@@ -12410,7 +12411,7 @@
         "width": 952
       },
       "path": "art/review/unit-infantry-v1/scenes/mud-normal-p0-4x.png",
-      "sha256": "843871e29c4095aba6c1025ad4a576b512e642ac27f9a1dfc628056b653a7cfc"
+      "sha256": "f544408820ee8d3a14fd3bd16cd497ef3df1071c21b8f56109eb789b2c468c40"
     },
     {
       "build_output": "scenes/mud-normal-p1-2x.png",
@@ -12419,7 +12420,7 @@
         "width": 476
       },
       "path": "art/review/unit-infantry-v1/scenes/mud-normal-p1-2x.png",
-      "sha256": "3178837af52aa195ce21e2334a83205da957a73ef61f9d6d2ee8d8fc47f4510f"
+      "sha256": "5fd09d0825dd8e22ab162392447ef1679552d2bd95fbf5f78c7e0d710d75181d"
     },
     {
       "build_output": "scenes/mud-normal-p1-4x.png",
@@ -12428,7 +12429,7 @@
         "width": 952
       },
       "path": "art/review/unit-infantry-v1/scenes/mud-normal-p1-4x.png",
-      "sha256": "843871e29c4095aba6c1025ad4a576b512e642ac27f9a1dfc628056b653a7cfc"
+      "sha256": "f544408820ee8d3a14fd3bd16cd497ef3df1071c21b8f56109eb789b2c468c40"
     },
     {
       "build_output": "scenes/mud-spent-p0-2x.png",
@@ -12437,7 +12438,7 @@
         "width": 476
       },
       "path": "art/review/unit-infantry-v1/scenes/mud-spent-p0-2x.png",
-      "sha256": "bbfa01ed6384cee9cc0e58596db3a706ec8711479610e1f05c4efda93de5dae1"
+      "sha256": "da648acdc149e0a95032923e3a55013391d92aa27babdbfe08faec7e77681ae5"
     },
     {
       "build_output": "scenes/mud-spent-p0-4x.png",
@@ -12446,7 +12447,7 @@
         "width": 952
       },
       "path": "art/review/unit-infantry-v1/scenes/mud-spent-p0-4x.png",
-      "sha256": "0c36c3aa624dbf8832f5826c5be34621d993b7b8decffb89057f812bb1b227ae"
+      "sha256": "5b743a69d2b31299fce7c2a344b64c4b0591235cbfdcb8f911ac9f7e9991d1e5"
     },
     {
       "build_output": "scenes/mud-spent-p1-2x.png",
@@ -12455,7 +12456,7 @@
         "width": 476
       },
       "path": "art/review/unit-infantry-v1/scenes/mud-spent-p1-2x.png",
-      "sha256": "bbfa01ed6384cee9cc0e58596db3a706ec8711479610e1f05c4efda93de5dae1"
+      "sha256": "da648acdc149e0a95032923e3a55013391d92aa27babdbfe08faec7e77681ae5"
     },
     {
       "build_output": "scenes/mud-spent-p1-4x.png",
@@ -12464,19 +12465,19 @@
         "width": 952
       },
       "path": "art/review/unit-infantry-v1/scenes/mud-spent-p1-4x.png",
-      "sha256": "0c36c3aa624dbf8832f5826c5be34621d993b7b8decffb89057f812bb1b227ae"
+      "sha256": "5b743a69d2b31299fce7c2a344b64c4b0591235cbfdcb8f911ac9f7e9991d1e5"
     }
   ],
   "generation_recipes": [
+    "art/recipes/terrain/reference-v2/meadow-03.json",
     "art/recipes/units/distinct-v1/infantry-atlas-01.json",
     "art/recipes/units/distinct-v1/infantry-atlas-02.json",
-    "art/recipes/terrain/reference-v2/meadow-03.json",
     "art/recipes/units/reference-v2/infantry.json"
   ],
   "generation_recipes_scope": "Includes historical generation studies and the current pinned master records. Current source selection is established by the producing manifest and its exact SHA256 pins; historical records are unchanged.",
   "id": "unit-infantry-v1",
   "manifest": "art/unit-infantry-v1.json",
-  "manifest_sha256": "b7181db2b89bcf5622ef349686f6caca4f875bcea39a270d63ede3dfbbf0cb34",
+  "manifest_sha256": "6532877f19ce9d4a2cc93dbe52b258c67051997688b038e4627d4073c98bd49a",
   "original_image_inputs": [
     {
       "generation_recipe": "art/recipes/units/reference-v2/infantry.json",
@@ -12486,9 +12487,18 @@
     }
   ],
   "original_image_inputs_scope": "Semantic visual references used to paint the current masters or their fixture ground. Originals remain reference-only and are not bundled as runtime PNGs; source masters are newly painted. Unit sprite planes retain their existing independent artwork provenance.",
-  "rebuild_note": "Rebuilt from the current reference-guided grass/compound inputs; user visual approval remains open. Historical generation recipes retain their original provenance.",
+  "previous_acceptance": {
+    "scope": "Historical source set before the current redraw; not an approval of the current artwork.",
+    "text": "Reference-guided candidate rebuild. Current exported assets and context proofs are pinned; final user visual review remains open."
+  },
+  "rebuild_note": "Rebuilt to the user-supplied RefDesign visual target with shared detailed grass, earthworks, roads, crowns, rocks and huts; user visual approval remains open. Historical generation recipes retain their original provenance.",
   "runtime_acceptance": "PENDING. Infantry pilot only. No installed runtime replacements; Blender comparison, remaining unit families, portraits and UI are open.",
   "schema_version": 1,
   "status": "candidate-built",
-  "tool": "Go tools/art-review -unit"
+  "tool": "Go tools/art-review -unit",
+  "visual_target": {
+    "reference": "RefDesign.png",
+    "role": "User-supplied scene target for the current grass, streets, earthworks, rocks, hut and summer canopy. Reference bytes are not runtime artwork.",
+    "sha256": "3924e55c20ca63cbe31a7e4b3d469977f20c9ddf7802912e92782360b4d1aa69"
+  }
 }

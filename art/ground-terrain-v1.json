@@ -1,16 +1,16 @@
 {
   "materials": {
     "grass": {
-      "source": "source/terrain/reference-v2/meadow-03.png",
-      "source_sha256": "4de543f0906e1311eff5ae4f202eb8fa68665c67103039bee089e60e02c68eb4"
+      "source": "source/terrain/refdesign-v1/grass-base-01.png",
+      "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
     },
     "grass_w": {
       "source": "source/terrain/distinct-v1/snow-ground.png",
       "source_sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3"
     },
     "mud": {
-      "source": "source/terrain/distinct-v1/mud-wet-02.png",
-      "source_sha256": "93c62ec9452975a7ec4a725cf6b50ed0186d524cbb8d70943f799e68c348df8f"
+      "source": "source/ground/refdesign-v1/circular-earthwork.png",
+      "source_sha256": "4efb92fa6a89b1816063095a02621908814e9e3bae8a998cf24395465e6a0b02"
     },
     "rough_w": {
       "source": "source/terrain/distinct-v1/rough-winter.png",
@@ -29,5 +29,6 @@
       "source_sha256": "82f9d966c6327c9a05f3a6bfbff9451b2e51daea3968f3af095265af0e83de7c"
     }
   },
+  "mud_feature": "circular-earthwork",
   "schema_version": 1
 }

@@ -7,18 +7,36 @@
   "note": "Current enabled infrastructure binding. This single-asset view uses its default context export; the PULSE study resolves available neighbor contexts through the shared compositor. Final runtime acceptance remains open.",
   "recipes": [
     "art/recipes/terrain/distinct-v1/earth-bare.json",
+    "art/recipes/terrain/distinct-v1/meadow.json",
+    "art/recipes/terrain/distinct-v1/river-diagonal.json",
+    "art/recipes/terrain/distinct-v1/road-bend.json",
     "art/recipes/terrain/distinct-v1/road-gravel.json",
     "art/recipes/terrain/distinct-v1/water-open.json",
+    "art/recipes/terrain/refdesign-v1/earth-bank.json",
+    "art/recipes/terrain/refdesign-v1/grass-base-01.json",
+    "art/recipes/terrain/refdesign-v1/grass-meadow-01.json",
+    "art/recipes/terrain/refdesign-v1/river-bank-gravel.json",
+    "art/recipes/terrain/refdesign-v1/road-asphalt.json",
     "art/recipes/terrain/reference-v2/meadow-03.json",
     "art/recipes/terrain/reference-v2/road-paved.json",
+    "art/recipes/terrain/shore-reference-v2/bank.json",
     "art/recipes/terrain/shore-reference-v2/water.json"
   ],
   "prompts": [
     "prompts/terrain/distinct-v1/earth-bare.md",
+    "prompts/terrain/distinct-v1/meadow.md",
+    "prompts/terrain/distinct-v1/river-diagonal.md",
+    "prompts/terrain/distinct-v1/road-bend.md",
     "prompts/terrain/distinct-v1/road-gravel.md",
     "prompts/terrain/distinct-v1/water-open.md",
+    "prompts/terrain/refdesign-v1/earth-bank.md",
+    "prompts/terrain/refdesign-v1/grass-base-01.md",
+    "prompts/terrain/refdesign-v1/grass-meadow-01.md",
+    "prompts/terrain/refdesign-v1/river-bank-gravel.md",
+    "prompts/terrain/refdesign-v1/road-asphalt.md",
     "prompts/terrain/reference-v2/meadow-03.md",
     "prompts/terrain/reference-v2/road-paved.md",
+    "prompts/terrain/shore-reference-v2/bank.md",
     "prompts/terrain/shore-reference-v2/water.md"
   ],
   "width": 96,
@@ -31,7 +49,7 @@
         "1": {
           "url": "terrain/stream/infrastructure-stream24/1x.png",
           "source": "art/exports/connected-v1/stream24-2x.png",
-          "sha256": "725e5bb3cd7b67340b170352e27eb0059b1a88eb34e8d695e3e51651e7d65a42",
+          "sha256": "1c479be70f0857cc0b7d94dd61c2d5303c2ed71e2baab549af06aed93fe2c5e0",
           "width": 96,
           "height": 80,
           "method": "Exact PNG export; premultiplied Lanczos3 reduction"
@@ -39,7 +57,7 @@
         "2": {
           "url": "terrain/stream/infrastructure-stream24/2x.png",
           "source": "art/exports/connected-v1/stream24-2x.png",
-          "sha256": "d1ac23fcad7f4409b116d2c3c9160c52ffbea065e6b33c079f21427f7abe3c4b",
+          "sha256": "969013646ed36bb64552d89585ff0c8a4c24cde7db8a5194e448955c12fcefe8",
           "width": 192,
           "height": 160,
           "method": "Exact PNG export"
@@ -47,7 +65,7 @@
         "4": {
           "url": "terrain/stream/infrastructure-stream24/4x.png",
           "source": "art/exports/connected-v1/stream24-4x.png",
-          "sha256": "8f6e156447b606e83ac0194786dba634f75d12b11bf7783d041718943796bec7",
+          "sha256": "bc870109491705e98eab79ba0f634d1b7da58b15f2169cc003f985a41a093e3a",
           "width": 384,
           "height": 320,
           "method": "Exact PNG export"
@@ -59,7 +77,7 @@
     "default": {
       "1": {
         "path": "terrain/stream/infrastructure-stream24/1x.png",
-        "sha256": "725e5bb3cd7b67340b170352e27eb0059b1a88eb34e8d695e3e51651e7d65a42",
+        "sha256": "1c479be70f0857cc0b7d94dd61c2d5303c2ed71e2baab549af06aed93fe2c5e0",
         "width": 96,
         "height": 80,
         "source": "art/exports/connected-v1/stream24-2x.png",
@@ -67,7 +85,7 @@
       },
       "2": {
         "path": "terrain/stream/infrastructure-stream24/2x.png",
-        "sha256": "d1ac23fcad7f4409b116d2c3c9160c52ffbea065e6b33c079f21427f7abe3c4b",
+        "sha256": "969013646ed36bb64552d89585ff0c8a4c24cde7db8a5194e448955c12fcefe8",
         "width": 192,
         "height": 160,
         "source": "art/exports/connected-v1/stream24-2x.png",
@@ -75,7 +93,7 @@
       },
       "4": {
         "path": "terrain/stream/infrastructure-stream24/4x.png",
-        "sha256": "8f6e156447b606e83ac0194786dba634f75d12b11bf7783d041718943796bec7",
+        "sha256": "bc870109491705e98eab79ba0f634d1b7da58b15f2169cc003f985a41a093e3a",
         "width": 384,
         "height": 320,
         "source": "art/exports/connected-v1/stream24-4x.png",

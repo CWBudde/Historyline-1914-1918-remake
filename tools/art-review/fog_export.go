@@ -16,7 +16,7 @@ import (
 	"path/filepath"
 )
 
-const fogProfile = "fog-v1: fixed opaque never-seen candidate, runtime ID unseen only. Each of unseen/summer/winter independently uses unchanged exportConnectionTiles with its opaque source mapped to grass and nil family/variant; no feature rendering. New 96x80 polygon, four world pixels of unmasked overscan at 4x (416x352); unchanged premultiplied byte-RGB antialiased Lanczos3 to whole unmasked 2x overscan (208x176); crop then final binary ownership at each density. Existing continuous mirror-periodic material sampler with periods (142,80) and average f(x,y), f(x+71,y+40); invariant under all six lattice neighbor shifts, all tiles at common world phase. Six fixed seven-hex patches, decoded exported PNGs and ordinary image.Draw Over only; pixel-aligned 2x/4x. Runtime integration remains open."
+const fogProfile = "fog-v1: fixed opaque never-seen candidate, runtime ID unseen only. Unseen and winter use unchanged exportConnectionTiles with opaque sources mapped to grass and nil family/variant; summer grass uses exportGrassBaseTiles with the unmirrored lattice-periodic grass sampler; no feature rendering. New 96x80 polygon, four world pixels of unmasked overscan at 4x (416x352); unchanged premultiplied byte-RGB antialiased Lanczos3 to whole unmasked 2x overscan (208x176); crop then final binary ownership at each density. Unseen and winter retain existing continuous mirror-periodic material sampler with periods (142,80) and average f(x,y), f(x+71,y+40); invariant under all six lattice neighbor shifts, all tiles at common world phase. Six fixed seven-hex patches, decoded exported PNGs and ordinary image.Draw Over only; pixel-aligned 2x/4x. Runtime integration remains open." + " " + grassSamplingProfile
 const fogOwnership = "Final pixel centers use the shared polygon (25,0),(71,0),(96,40),(71,80),(25,80),(0,40). Complementary top-left half-open ownership: cross(edge,point)>0; edge ties include dy<0 or dy==0 && dx>0. Owned pixels are alpha 255; outside is zero RGBA. No outline, edge fade or per-scene filtering."
 const fogConcealment = "Never-seen cells use only the same opaque unseen PNG, independent of underlying terrain, units, routes, structures and season; no terrain hints or transparency-to-terrain. Seasonal grass/grass_w PNGs are visible frontier neighbors only. No runtime IDs inferred or invented."
 
@@ -129,7 +129,7 @@ func buildFogBundle(in fogInputs) (fogBundle, error) {
 		retained := "sources/" + material.id + ".png"
 		b.artifacts = append(b.artifacts, connectionArtifact{retained, source.Bytes})
 		b.report.Materials[material.id] = connectionMaterialReport{source.Ref, dimensions{source.Image.Bounds().Dx(), source.Image.Bounds().Dy()}, retained}
-		exports, err := exportConnectionTiles(connectionInputs{manifest: connectionManifest{Geometry: sharedConnectionGeometry()}, materials: map[string]*image.NRGBA{"grass": source.Image}}, nil, nil)
+		exports, err := exportConnectionTiles(connectionInputs{manifest: connectionManifest{Geometry: sharedConnectionGeometry()}, materials: map[string]*image.NRGBA{"grass": source.Image}, grassSampling: material.id == "summer"}, nil, nil)
 		if err != nil {
 			return b, err
 		}

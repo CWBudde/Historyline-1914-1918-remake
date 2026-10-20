@@ -222,7 +222,7 @@ func TestCompoundActualPNGBundle(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			expectedGround, err := exportConnectionTiles(connectionInputs{manifest: connectionManifest{Geometry: sharedConnectionGeometry()}, materials: map[string]*image.NRGBA{"grass": ground}}, nil, nil)
+			expectedGround, err := exportConnectionTiles(connectionInputs{manifest: connectionManifest{Geometry: sharedConnectionGeometry()}, materials: map[string]*image.NRGBA{"grass": ground}, grassSampling: l.Season == "summer"}, nil, nil)
 			if err != nil {
 				t.Fatal(err)
 			}

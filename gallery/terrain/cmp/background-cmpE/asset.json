@@ -6,23 +6,29 @@
   "season": "summer",
   "note": "Current enabled background binding. This single-asset view uses its default context export; the PULSE study resolves available neighbor contexts through the shared compositor. Final runtime acceptance remains open.",
   "recipes": [
-    "art/recipes/compound/distinct-v1/depot-summer-01.json",
     "art/recipes/compound/distinct-v1/depot-layout-guide.json",
+    "art/recipes/compound/distinct-v1/depot-summer-01.json",
     "art/recipes/compound/distinct-v1/depot-summer-02.json",
     "art/recipes/compound/distinct-v1/depot-winter-02.json",
     "art/recipes/compound/reference-v2/depot-summer.json",
     "art/recipes/compound/reference-v2/depot-winter.json",
+    "art/recipes/terrain/distinct-v1/meadow.json",
     "art/recipes/terrain/distinct-v1/snow-ground.json",
+    "art/recipes/terrain/refdesign-v1/grass-base-01.json",
+    "art/recipes/terrain/refdesign-v1/grass-meadow-01.json",
     "art/recipes/terrain/reference-v2/meadow-03.json"
   ],
   "prompts": [
-    "prompts/compound/distinct-v1/depot-summer-01.md",
     "prompts/compound/distinct-v1/depot-layout-guide.md",
+    "prompts/compound/distinct-v1/depot-summer-01.md",
     "prompts/compound/distinct-v1/depot-summer-02.md",
     "prompts/compound/distinct-v1/depot-winter-02.md",
     "prompts/compound/reference-v2/depot-summer.md",
     "prompts/compound/reference-v2/depot-winter.md",
+    "prompts/terrain/distinct-v1/meadow.md",
     "prompts/terrain/distinct-v1/snow-ground.md",
+    "prompts/terrain/refdesign-v1/grass-base-01.md",
+    "prompts/terrain/refdesign-v1/grass-meadow-01.md",
     "prompts/terrain/reference-v2/meadow-03.md"
   ],
   "width": 96,
@@ -35,7 +41,7 @@
         "1": {
           "url": "terrain/cmp/background-cmpE/1x.png",
           "source": "art/exports/compound-v1/cmpE-2x.png",
-          "sha256": "e04260c5e415f1d2e6da40a635cfbfb36d9063157f594ba65e28a619709dced4",
+          "sha256": "6d8bb0584702d52a800834c14b6318745fbd02bf0f536ce2fc9d70e10c5ae3cf",
           "width": 96,
           "height": 80,
           "method": "Exact PNG export; premultiplied Lanczos3 reduction"
@@ -43,7 +49,7 @@
         "2": {
           "url": "terrain/cmp/background-cmpE/2x.png",
           "source": "art/exports/compound-v1/cmpE-2x.png",
-          "sha256": "9e89bbca13eff62dfe4a9e08666c0ac225135078004652afee909c3c0791030c",
+          "sha256": "6fc4d89a0e2feb4d17d2d134ed35f880a20eee9152d35cfa111bc51b62fac97f",
           "width": 192,
           "height": 160,
           "method": "Exact PNG export"
@@ -51,7 +57,7 @@
         "4": {
           "url": "terrain/cmp/background-cmpE/4x.png",
           "source": "art/exports/compound-v1/cmpE-4x.png",
-          "sha256": "f75bb5de1d461cb08780777aa269cbebf1a49f84506ad6b0a1c0fc6e7672e72d",
+          "sha256": "043541bb08e7c7688a68fd95a020eb5501e430fbff49a4f6b4559fcde4e58303",
           "width": 384,
           "height": 320,
           "method": "Exact PNG export"
@@ -63,7 +69,7 @@
     "default": {
       "1": {
         "path": "terrain/cmp/background-cmpE/1x.png",
-        "sha256": "e04260c5e415f1d2e6da40a635cfbfb36d9063157f594ba65e28a619709dced4",
+        "sha256": "6d8bb0584702d52a800834c14b6318745fbd02bf0f536ce2fc9d70e10c5ae3cf",
         "width": 96,
         "height": 80,
         "source": "art/exports/compound-v1/cmpE-2x.png",
@@ -71,7 +77,7 @@
       },
       "2": {
         "path": "terrain/cmp/background-cmpE/2x.png",
-        "sha256": "9e89bbca13eff62dfe4a9e08666c0ac225135078004652afee909c3c0791030c",
+        "sha256": "6fc4d89a0e2feb4d17d2d134ed35f880a20eee9152d35cfa111bc51b62fac97f",
         "width": 192,
         "height": 160,
         "source": "art/exports/compound-v1/cmpE-2x.png",
@@ -79,7 +85,7 @@
       },
       "4": {
         "path": "terrain/cmp/background-cmpE/4x.png",
-        "sha256": "f75bb5de1d461cb08780777aa269cbebf1a49f84506ad6b0a1c0fc6e7672e72d",
+        "sha256": "043541bb08e7c7688a68fd95a020eb5501e430fbff49a4f6b4559fcde4e58303",
         "width": 384,
         "height": 320,
         "source": "art/exports/compound-v1/cmpE-4x.png",

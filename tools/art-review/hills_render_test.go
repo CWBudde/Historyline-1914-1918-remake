@@ -61,7 +61,7 @@ func TestHillsAllMasksFinalQuietAndRelief(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	existing, err := exportConnectionTiles(connectionInputs{manifest: connectionManifest{Geometry: sharedConnectionGeometry()}, materials: map[string]*image.NRGBA{"grass": in.Sources["grass"].Image}}, nil, nil)
+	existing, err := exportGrassBaseTiles(in.Sources["grass"].Image)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -279,7 +279,7 @@ func TestHillsGrassSlopeGateProduct(t *testing.T) {
 		z := .75 / lightLength
 		dot := (g[0]*.55/lightLength + g[1]*.4/lightLength + z) / math.Sqrt(1+g[0]*g[0]+g[1]*g[1])
 		shade := max(.55, min(1.25, (.35+.65*max(0, dot))/(.35+.65*z)))
-		grass := sampleConnectionMaterial(in.Sources["grass"].Image, p)
+		grass := sampleGrassMaterial(in.Sources["grass"].Image, p)
 		round := func(v uint8) uint8 { return uint8(math.Floor(max(0, min(255, float64(v)*shade)) + .5)) }
 		want := color.NRGBA{round(grass.R), round(grass.G), round(grass.B), 255}
 		if got := raw.NRGBAAt(at.X, at.Y); got != want {

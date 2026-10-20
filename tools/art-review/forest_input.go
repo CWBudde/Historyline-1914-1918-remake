@@ -15,7 +15,11 @@ type forestManifest struct {
 	SchemaVersion int                           `json:"schema_version"`
 	Grounds       map[string]connectionMaterial `json:"grounds"`
 	Atlases       map[string]connectionMaterial `json:"atlases"`
+	SummerProfile string                        `json:"summer_profile,omitempty"`
 }
+
+const forestSummerCanopyProfile = "canopy-26.5-30-v1"
+
 type forestInputs struct {
 	Manifest forestManifest
 	Bytes    []byte
@@ -28,7 +32,18 @@ func decodeForestManifest(data []byte, m *forestManifest) error {
 	if err := decodeConnectionJSON(data, m); err != nil {
 		return err
 	}
-	root, err := groundObject(data, "schema_version", "grounds", "atlases")
+	var raw map[string]json.RawMessage
+	if err := json.Unmarshal(data, &raw); err != nil {
+		return err
+	}
+	keys := []string{"schema_version", "grounds", "atlases"}
+	if value, ok := raw["summer_profile"]; ok {
+		if string(value) != `"canopy-26.5-30-v1"` {
+			return errors.New("forest summer_profile requires canopy-26.5-30-v1")
+		}
+		keys = append(keys, "summer_profile")
+	}
+	root, err := groundObject(data, keys...)
 	if err != nil {
 		return err
 	}

@@ -1,5 +1,14 @@
 # Forest context and crown geometry
 
+The current manifest selects `canopy-26.5-30-v1`: thirty summer crowns at
+26.5 world pixels (106 pixels before the 2× reduction), with variant roster
+`0,1,0,1,2,0,1,3` favouring broadleaf crowns. Winter and the default profile keep
+36 centres and 24-world-pixel crowns. Every nonzero-alpha pixel square of the
+larger summer crowns must fit the original `hypot(12,12)` support radius; the
+selected atlas measures at most 16.905991 world pixels. The gate, seven-cell
+support proof and final quiet band below remain unchanged. The producing
+manifest/report and retained campaign profiles carry the selected profile.
+
 The bounded `-forest` exporter uses existing IDs `forest`, `forest_w`, `grass`
 and `grass_w`. It changes artwork only. Game rules, map placement and IDs stay
 unchanged. The [manifest](../../art/forest-terrain-v1.json) pins two new transparent
@@ -15,20 +24,21 @@ panel's outer eight-percent guard, and that guard must contain actual transparen
 pixels. This protects the visible crown during whole-panel filtering; it is not
 a claim that every low-alpha source pixel outside the crown is exactly zero.
 
-Each complete panel is uniformly resized with premultiplied alpha-aware signed
+In the default profile, each complete panel is uniformly resized with premultiplied alpha-aware signed
 Lanczos3 to 96×96 pixels, then converted to 8-bit premultiplied RGBA for ordinary
 source-over drawing. Its world footprint is a 24×24 square. No tree rotation,
 reflection, mirror wrapping or two-coset color averaging is used. The earlier
 private opaque-material projection failed: it turned summer crowns into patterned
 moss and produced ghosted winter branches. It is excluded from delivery.
 
-A fixed 36-point template places trees inside the shared 96×80 half-open hex
+A fixed 36-point template supplies tree positions inside the shared 96×80 half-open hex
 `(25,0),(71,0),(96,40),(71,80),(25,80),(0,40)`. The source LCG seed is
 `0x19141918`; its 36th accepted quarter-grid point occurs on attempt 1934.
 Points are at least ten world pixels apart, including neighboring translated
 copies. The literal coordinates, algorithm and replay test are retained in Go;
-the recipe pins every point. Point index modulo four selects the same species
-in both seasons. No species choice depends on neighbor-list order.
+the recipe pins every point. The default profile uses all points and selects
+species by point index modulo four. The selected summer profile uses the first
+thirty points and the roster above. No species choice depends on neighbor-list order.
 
 Instances come from the center cell and its six neighboring forest cells, then
 sort by world y, x, template index and translation. Quarter-grid centers and
@@ -39,7 +49,9 @@ grass frames.
 
 ## Real forest edges and locality
 
-Let `R = hypot(12,12)` be the maximum radius of a whole square sprite. Omit an
+Let `R = hypot(12,12)` be the support bound, equal to the default square sprite's
+radius. The selected larger panels validate every painted pixel against this
+same bound. Omit an
 entire tree if its center is within `R + 4 + 1.5*sqrt(2)` of any neighboring
 base tile's **filled** polygon. Distance is zero inside that polygon. This
 preserves whole crowns rather than fading or cutting them at real grass/snow
@@ -56,7 +68,8 @@ suffice throughout the owned filter region. This guarantee excludes unused
 rectangular overscan corners and requires neighboring contexts to be consistent
 restrictions of the same global forest/base assignment.
 
-Ground uses the unchanged phase-preserving grass/snow sampler. Whole trees are
+Summer ground uses the shared unmirrored meadow sampler; snow keeps its existing
+phase-preserving sampler. Whole trees are
 drawn over the unmasked 416×352 4× canvas with four world pixels of overscan.
 Whole-image Lanczos3 reduction produces 208×176 at 2×. Crop overscan, then apply
 the existing complementary half-open polygon ownership independently at each

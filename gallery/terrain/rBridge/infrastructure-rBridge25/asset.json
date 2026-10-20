@@ -21,7 +21,7 @@
         "1": {
           "url": "terrain/rBridge/infrastructure-rBridge25/1x.png",
           "source": "art/exports/mixed-v1/rbridge25-2x.png",
-          "sha256": "e76af990e083406bafc8cf9fae884b437f267e43d74c38fad25f1a85aa59ba7e",
+          "sha256": "0a9dd10e6ddc3664da421968c5d2173f7cf84e219d15e3a758daa0e5b9b49c33",
           "width": 96,
           "height": 80,
           "method": "Exact PNG export; premultiplied Lanczos3 reduction"
@@ -29,7 +29,7 @@
         "2": {
           "url": "terrain/rBridge/infrastructure-rBridge25/2x.png",
           "source": "art/exports/mixed-v1/rbridge25-2x.png",
-          "sha256": "1be38f527f787a5d8fc017cf80a9aa2d4e5cf7892ad18b1f425410468a67934c",
+          "sha256": "8977e1190f346abbd64f6be15fca9a9524924f5c5c9d908feea2a2e9bab9bae3",
           "width": 192,
           "height": 160,
           "method": "Exact PNG export"
@@ -37,7 +37,7 @@
         "4": {
           "url": "terrain/rBridge/infrastructure-rBridge25/4x.png",
           "source": "art/exports/mixed-v1/rbridge25-4x.png",
-          "sha256": "cc2ed445f6e40bd75f9209948581785bd48937a948475f4fe50201aba9b5c232",
+          "sha256": "66cbea45ebfc9cf588416ede0f0ee9a0d0e59baee27a6996ddfa3eece1ff8d8d",
           "width": 384,
           "height": 320,
           "method": "Exact PNG export"
@@ -49,7 +49,7 @@
     "default": {
       "1": {
         "path": "terrain/rBridge/infrastructure-rBridge25/1x.png",
-        "sha256": "e76af990e083406bafc8cf9fae884b437f267e43d74c38fad25f1a85aa59ba7e",
+        "sha256": "0a9dd10e6ddc3664da421968c5d2173f7cf84e219d15e3a758daa0e5b9b49c33",
         "width": 96,
         "height": 80,
         "source": "art/exports/mixed-v1/rbridge25-2x.png",
@@ -57,7 +57,7 @@
       },
       "2": {
         "path": "terrain/rBridge/infrastructure-rBridge25/2x.png",
-        "sha256": "1be38f527f787a5d8fc017cf80a9aa2d4e5cf7892ad18b1f425410468a67934c",
+        "sha256": "8977e1190f346abbd64f6be15fca9a9524924f5c5c9d908feea2a2e9bab9bae3",
         "width": 192,
         "height": 160,
         "source": "art/exports/mixed-v1/rbridge25-2x.png",
@@ -65,7 +65,7 @@
       },
       "4": {
         "path": "terrain/rBridge/infrastructure-rBridge25/4x.png",
-        "sha256": "cc2ed445f6e40bd75f9209948581785bd48937a948475f4fe50201aba9b5c232",
+        "sha256": "66cbea45ebfc9cf588416ede0f0ee9a0d0e59baee27a6996ddfa3eece1ff8d8d",
         "width": 384,
         "height": 320,
         "source": "art/exports/mixed-v1/rbridge25-4x.png",

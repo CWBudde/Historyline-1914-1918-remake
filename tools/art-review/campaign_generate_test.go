@@ -81,6 +81,7 @@ func TestGenerateCampaignContexts(t *testing.T) {
 		materials[id] = s.Image
 	}
 	ground := newGroundRenderer(materials)
+	ground.mudFeature = gi.Manifest.MudFeature
 	fi, err := loadForestInputs(filepath.Join(root, "art/forest-terrain-v1.json"))
 	if err != nil {
 		t.Fatal(err)
@@ -92,7 +93,7 @@ func TestGenerateCampaignContexts(t *testing.T) {
 	for id, s := range fi.Atlases {
 		atlases[id] = s.Image
 	}
-	forest, err := newForestRenderer(grounds, atlases)
+	forest, err := newForestRenderer(grounds, atlases, fi.Manifest.SummerProfile)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -141,7 +142,7 @@ func TestGenerateCampaignContexts(t *testing.T) {
 				t.Fatal("forest key mismatch")
 			}
 			tiles, err = forest.tiles(c)
-			p["instances"] = forestInstances(c)
+			p["instances"] = forest.instances(c)
 		case mapcompose.Hills:
 			origin := connectionPoint{float64(142*g.At.Col + 71*(g.At.Line%2)), float64(40 * g.At.Line)}
 			c, e := newHillsContext(g.Terrain, ns[:], origin)

@@ -75,6 +75,11 @@ func Compose(g hexgrid.Grid, at func(hexgrid.Coord) Hex, has func(id string) boo
 			h := at(c)
 			cell := &s.Cells[l][col]
 			cell.Background = TileID(h.Terrain)
+			if h.Terrain == "grass" {
+				if id := GrassVariationID(l, col); has(id) {
+					cell.Background = id
+				}
+			}
 			for _, id := range h.Infra {
 				cell.Overlays = append(cell.Overlays, TileID(id))
 			}

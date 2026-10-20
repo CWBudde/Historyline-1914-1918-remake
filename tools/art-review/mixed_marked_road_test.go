@@ -9,7 +9,8 @@ import (
 )
 
 func TestMixedAcceptsExplicitMarkedRoadAndRejectsWrongWidth(t *testing.T) {
-	for _, width := range []float64{22, 21} {
+	for _, profile := range [][2]float64{{22, 1}, {22, 2}, {21, 1}, {22, 3}} {
+		width, border := profile[0], profile[1]
 		path, m := mixedFixture(t)
 		component := filepath.Join(filepath.Dir(path), m.Manifests[0].Source)
 		var source connectionManifest
@@ -19,7 +20,7 @@ func TestMixedAcceptsExplicitMarkedRoadAndRejectsWrongWidth(t *testing.T) {
 		for i := range source.Families {
 			if source.Families[i].ID == "road" {
 				source.Families[i].Width = width
-				source.Families[i].Border = 1
+				source.Families[i].Border = border
 				source.Families[i].Markings = "dashed"
 			}
 		}
@@ -36,7 +37,7 @@ func TestMixedAcceptsExplicitMarkedRoadAndRejectsWrongWidth(t *testing.T) {
 		}
 		unitTestWrite(t, path, data)
 		in, err := loadMixedInputs(path)
-		if width == 22 {
+		if width == 22 && (border == 1 || border == 2) {
 			if err != nil {
 				t.Fatal(err)
 			}

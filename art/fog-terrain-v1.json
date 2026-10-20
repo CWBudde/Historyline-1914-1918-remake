@@ -1,8 +1,8 @@
 {
   "materials": {
     "summer": {
-      "source": "source/terrain/reference-v2/meadow-03.png",
-      "source_sha256": "4de543f0906e1311eff5ae4f202eb8fa68665c67103039bee089e60e02c68eb4"
+      "source": "source/terrain/refdesign-v1/grass-base-01.png",
+      "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
     },
     "unseen": {
       "source": "source/fog/distinct-v1/unseen.png",

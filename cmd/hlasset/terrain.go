@@ -172,6 +172,13 @@ func planTerrain(coverage, recipes string) ([]terrainPack, error) {
 			add(group, e)
 		}
 	}
+	grassDetails, err := planGrassVariations(recipes)
+	if err != nil {
+		return nil, err
+	}
+	for _, e := range grassDetails {
+		add("backgrounds", e)
+	}
 	for _, f := range mapcompose.Families {
 		b, err := readRecipe(string(f) + "-terrain-v1.json")
 		if err != nil {

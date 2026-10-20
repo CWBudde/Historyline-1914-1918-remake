@@ -9,25 +9,31 @@
     "art/recipes/compound/distinct-v1/hq-layout-guide.json",
     "art/recipes/compound/distinct-v1/hq-summer-01.json",
     "art/recipes/compound/distinct-v1/hq-winter-01.json",
-    "art/recipes/compound/reference-v2/hq-summer.json",
-    "art/recipes/compound/reference-v2/hq-winter.json",
-    "art/recipes/terrain/distinct-v1/snow-ground.json",
-    "art/recipes/terrain/reference-v2/meadow-03.json",
     "art/recipes/compound/reference-v2/hq-summer-natural.json",
+    "art/recipes/compound/reference-v2/hq-summer.json",
     "art/recipes/compound/reference-v2/hq-winter-natural.json",
-    "art/recipes/compound/reference-v2/hq-winter-street.json"
+    "art/recipes/compound/reference-v2/hq-winter-street.json",
+    "art/recipes/compound/reference-v2/hq-winter.json",
+    "art/recipes/terrain/distinct-v1/meadow.json",
+    "art/recipes/terrain/distinct-v1/snow-ground.json",
+    "art/recipes/terrain/refdesign-v1/grass-base-01.json",
+    "art/recipes/terrain/refdesign-v1/grass-meadow-01.json",
+    "art/recipes/terrain/reference-v2/meadow-03.json"
   ],
   "prompts": [
     "prompts/compound/distinct-v1/hq-layout-guide.md",
     "prompts/compound/distinct-v1/hq-summer-01.md",
     "prompts/compound/distinct-v1/hq-winter-01.md",
-    "prompts/compound/reference-v2/hq-summer.md",
-    "prompts/compound/reference-v2/hq-winter.md",
-    "prompts/terrain/distinct-v1/snow-ground.md",
-    "prompts/terrain/reference-v2/meadow-03.md",
     "prompts/compound/reference-v2/hq-summer-natural.md",
+    "prompts/compound/reference-v2/hq-summer.md",
     "prompts/compound/reference-v2/hq-winter-natural.md",
-    "prompts/compound/reference-v2/hq-winter-street.md"
+    "prompts/compound/reference-v2/hq-winter-street.md",
+    "prompts/compound/reference-v2/hq-winter.md",
+    "prompts/terrain/distinct-v1/meadow.md",
+    "prompts/terrain/distinct-v1/snow-ground.md",
+    "prompts/terrain/refdesign-v1/grass-base-01.md",
+    "prompts/terrain/refdesign-v1/grass-meadow-01.md",
+    "prompts/terrain/reference-v2/meadow-03.md"
   ],
   "width": 96,
   "height": 80,
@@ -39,7 +45,7 @@
         "1": {
           "url": "terrain/hq/background-hqSE/1x.png",
           "source": "art/exports/compound-v1/hqSE-2x.png",
-          "sha256": "b00160dc8ee8a8fb04e6b4890a1315bbeb0d7405bd75129ebfdd5a8a33b4e887",
+          "sha256": "b3b93c7dc47362fe75971d2b90adad7c84c86921515c956fd95f97fca49bacf5",
           "width": 96,
           "height": 80,
           "method": "Exact PNG export; premultiplied Lanczos3 reduction"
@@ -47,7 +53,7 @@
         "2": {
           "url": "terrain/hq/background-hqSE/2x.png",
           "source": "art/exports/compound-v1/hqSE-2x.png",
-          "sha256": "b00f7b89c41b437a025a3365edce5d55deaba1b47bb3fd18d96bf02b98c2a47a",
+          "sha256": "6cff0cc6c5aae1a89db7ea47b08133c8929f955012e776740d6d1685cb095da4",
           "width": 192,
           "height": 160,
           "method": "Exact PNG export"
@@ -55,7 +61,7 @@
         "4": {
           "url": "terrain/hq/background-hqSE/4x.png",
           "source": "art/exports/compound-v1/hqSE-4x.png",
-          "sha256": "20a9917cd6c6e6deae90c5e6af0c28c3458220f16797dae038314431f7ec90ad",
+          "sha256": "4d9afd5b904a313b2e5a0f7a3e13bade0a939367ed6ddf829e6ef7664b5ac4db",
           "width": 384,
           "height": 320,
           "method": "Exact PNG export"
@@ -67,7 +73,7 @@
     "default": {
       "1": {
         "path": "terrain/hq/background-hqSE/1x.png",
-        "sha256": "b00160dc8ee8a8fb04e6b4890a1315bbeb0d7405bd75129ebfdd5a8a33b4e887",
+        "sha256": "b3b93c7dc47362fe75971d2b90adad7c84c86921515c956fd95f97fca49bacf5",
         "width": 96,
         "height": 80,
         "source": "art/exports/compound-v1/hqSE-2x.png",
@@ -75,7 +81,7 @@
       },
       "2": {
         "path": "terrain/hq/background-hqSE/2x.png",
-        "sha256": "b00f7b89c41b437a025a3365edce5d55deaba1b47bb3fd18d96bf02b98c2a47a",
+        "sha256": "6cff0cc6c5aae1a89db7ea47b08133c8929f955012e776740d6d1685cb095da4",
         "width": 192,
         "height": 160,
         "source": "art/exports/compound-v1/hqSE-2x.png",
@@ -83,7 +89,7 @@
       },
       "4": {
         "path": "terrain/hq/background-hqSE/4x.png",
-        "sha256": "20a9917cd6c6e6deae90c5e6af0c28c3458220f16797dae038314431f7ec90ad",
+        "sha256": "4d9afd5b904a313b2e5a0f7a3e13bade0a939367ed6ddf829e6ef7664b5ac4db",
         "width": 384,
         "height": 320,
         "source": "art/exports/compound-v1/hqSE-4x.png",

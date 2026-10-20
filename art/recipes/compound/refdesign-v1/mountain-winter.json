@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "id": "mountain-winter-refdesign-v1",
+  "date": "2026-10-20",
+  "use_case": "lighting-weather",
+  "tool": "built-in image_gen.imagegen",
+  "transparent_background": true,
+  "prompt": "Use case: lighting-weather. Asset type: transparent winter terrain cutout for the same overhead strategy map. Input image 1 is the edit target: the newly authored summer low rocky outcrop. Change ONLY season. Preserve exactly the camera, canvas dimensions, every rock slab position, all silhouettes, fissures, stone chips, overall footprint, lighting direction and genuine alpha transparency. Add natural thin white snow settled on flat upper stone surfaces and in sheltered cracks; leave substantial warm-grey rock planes exposed, with muted brown olive moss peeking through. The tiny crevice shrubs become muted evergreen and lightly snowy. Snow is settled and softly granular, never a blobby icing cap. Shadows remain short grounded upper-left lighting with subtle cold tone. Do not add mountain height or peaks, trees, ground island, architecture, text, border, checkerboard or any background. Outside original outcrop stays genuinely transparent. Same fine-textured realistic aerial game-map art as the input.",
+  "generation_inputs": [
+    {
+      "path": "art/source/compound/refdesign-v1/mountain-summer.png",
+      "role": "new-authored-season-edit-target",
+      "sha256": "3b9e7f1b6183845f5eacf621a12af48adb0e3dd071363a948838906143ba932f"
+    }
+  ],
+  "reference_observations": [
+    {
+      "path": "RefDesign.png",
+      "role": "user-provided-reference-viewed-for-style-and-target-composition; not passed as imagegen input",
+      "sha256": "3924e55c20ca63cbe31a7e4b3d469977f20c9ddf7802912e92782360b4d1aa69",
+      "target": "low weathered rocky outcrop near x680 y850"
+    }
+  ],
+  "original_image_inputs": [],
+  "source": "art/source/compound/refdesign-v1/mountain-winter.png",
+  "source_sha256": "d1e08f8261aaba528bd4e2db1003af357fbe720888b0725cfc475de43cb7fe76",
+  "dimensions": {
+    "width": 1254,
+    "height": 1254
+  },
+  "status": "visually-reviewed-authored-master-awaiting-root-compound-integration",
+  "visual_review": "Seasonal edit preserves summer composition and silhouette; snow remains patchy.",
+  "framing_note": "Solid-alpha outcrop bounds about x70..1197,y243..1057 of 1254x1254. Source is broader than existing master; root should tune framing for footprint. Both mountain and mountain-single may share this source.",
+  "alpha_validation": "Go image.Decode check confirmed RGBA, fully transparent pixels, antialiased partial alpha, zero saturated red opaque pixels. A few very low-alpha exterior pixels mean alpha>=128 bounds are more useful than alpha>0 bounds for visual framing."
+}

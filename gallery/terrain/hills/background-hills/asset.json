@@ -7,10 +7,14 @@
   "note": "Current enabled background binding. This single-asset view uses its default context export; the PULSE study resolves available neighbor contexts through the shared compositor. Final runtime acceptance remains open.",
   "recipes": [
     "art/recipes/hills/distinct-v1/height-01.json",
+    "art/recipes/terrain/refdesign-v1/grass-base-01.json",
+    "art/recipes/terrain/refdesign-v1/grass-meadow-01.json",
     "art/recipes/terrain/reference-v2/meadow-03.json"
   ],
   "prompts": [
     "prompts/hills/distinct-v1/height-01.md",
+    "prompts/terrain/refdesign-v1/grass-base-01.md",
+    "prompts/terrain/refdesign-v1/grass-meadow-01.md",
     "prompts/terrain/reference-v2/meadow-03.md"
   ],
   "width": 96,
@@ -23,7 +27,7 @@
         "1": {
           "url": "terrain/hills/background-hills/1x.png",
           "source": "art/exports/hills-v1/hills-2x.png",
-          "sha256": "4caf35dd6e28bab67eb99c811a95e817075d81934620e193e7e3eedb0f08951e",
+          "sha256": "af76f1b3eb3b75887548c357ba66f203b627581b64fcbf4139034254a238bd54",
           "width": 96,
           "height": 80,
           "method": "Exact PNG export; premultiplied Lanczos3 reduction"
@@ -31,7 +35,7 @@
         "2": {
           "url": "terrain/hills/background-hills/2x.png",
           "source": "art/exports/hills-v1/hills-2x.png",
-          "sha256": "e7c81daebdb82892e44234ca11d84abe79aaf1625a2ece0b062dfd14027fc475",
+          "sha256": "0f22fc6ca3efcd016e9aff12773df9c793125b4e5a9435cc2fa035caf030cf4a",
           "width": 192,
           "height": 160,
           "method": "Exact PNG export"
@@ -39,7 +43,7 @@
         "4": {
           "url": "terrain/hills/background-hills/4x.png",
           "source": "art/exports/hills-v1/hills-4x.png",
-          "sha256": "8b4285a772d6feba7f9cec6d3d4230fc464b8165974f84ef6ac919cb075fd509",
+          "sha256": "0115cd2bcd7b2679927847806b2017f8f6c3aaf3ddaf5a95e4a24296b809f7ab",
           "width": 384,
           "height": 320,
           "method": "Exact PNG export"
@@ -51,7 +55,7 @@
     "default": {
       "1": {
         "path": "terrain/hills/background-hills/1x.png",
-        "sha256": "4caf35dd6e28bab67eb99c811a95e817075d81934620e193e7e3eedb0f08951e",
+        "sha256": "af76f1b3eb3b75887548c357ba66f203b627581b64fcbf4139034254a238bd54",
         "width": 96,
         "height": 80,
         "source": "art/exports/hills-v1/hills-2x.png",
@@ -59,7 +63,7 @@
       },
       "2": {
         "path": "terrain/hills/background-hills/2x.png",
-        "sha256": "e7c81daebdb82892e44234ca11d84abe79aaf1625a2ece0b062dfd14027fc475",
+        "sha256": "0f22fc6ca3efcd016e9aff12773df9c793125b4e5a9435cc2fa035caf030cf4a",
         "width": 192,
         "height": 160,
         "source": "art/exports/hills-v1/hills-2x.png",
@@ -67,7 +71,7 @@
       },
       "4": {
         "path": "terrain/hills/background-hills/4x.png",
-        "sha256": "8b4285a772d6feba7f9cec6d3d4230fc464b8165974f84ef6ac919cb075fd509",
+        "sha256": "0115cd2bcd7b2679927847806b2017f8f6c3aaf3ddaf5a95e4a24296b809f7ab",
         "width": 384,
         "height": 320,
         "source": "art/exports/hills-v1/hills-4x.png",

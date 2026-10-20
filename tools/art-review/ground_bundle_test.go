@@ -343,7 +343,7 @@ func groundTestBundleContract(t *testing.T, path, out string, r groundTestReport
 				homogeneous = homogeneous && id == profile.RuntimeID
 			}
 			if homogeneous {
-				old, err := exportConnectionTiles(connectionInputs{manifest: connectionManifest{Geometry: wantGeometry}, materials: map[string]*image.NRGBA{"grass": sources[profile.RuntimeID]}}, nil, nil)
+				old, err := exportConnectionTiles(connectionInputs{manifest: connectionManifest{Geometry: wantGeometry}, materials: map[string]*image.NRGBA{"grass": sources[profile.RuntimeID]}, grassSampling: profile.RuntimeID == "grass"}, nil, nil)
 				if err != nil {
 					t.Fatal(err)
 				}
@@ -360,7 +360,7 @@ func groundTestBundleContract(t *testing.T, path, out string, r groundTestReport
 	groundTestActualPNGOracle(t, r, pixels, sources)
 }
 
-// Independent mirror/bilinear sampler and global-field transcription for actual
+// Independent texture samplers and global-field transcription for actual
 // PNG checks. It deliberately takes all 19 scene sites instead of local contexts.
 func groundTestTexture(src *image.NRGBA, x, y float64) color.NRGBA {
 	mirror := func(q, period float64) float64 {
@@ -401,6 +401,9 @@ func groundTestTexture(src *image.NRGBA, x, y float64) color.NRGBA {
 }
 func groundTestWorldPixel(world []groundTestSite, p [2]float64, base string, sources map[string]*image.NRGBA) color.NRGBA {
 	bc := groundTestTexture(sources[base], p[0], p[1])
+	if base == "grass" {
+		bc = groundTestGrassTexture(sources[base], p[0], p[1])
+	}
 	var sums [3]float64
 	total, e := 0., 1.
 	for _, site := range world {

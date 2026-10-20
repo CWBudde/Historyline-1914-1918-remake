@@ -9,14 +9,26 @@
     "art/recipes/compound/distinct-v1/hamlet-summer-01.json",
     "art/recipes/compound/distinct-v1/hamlet-winter-01.json",
     "art/recipes/compound/distinct-v1/hamlet-winter-02.json",
+    "art/recipes/compound/refdesign-v1/hamlet-summer.json",
+    "art/recipes/compound/refdesign-v1/hamlet-winter.json",
+    "art/recipes/terrain/distinct-v1/hamlet-winter.json",
+    "art/recipes/terrain/distinct-v1/meadow.json",
     "art/recipes/terrain/distinct-v1/snow-ground.json",
+    "art/recipes/terrain/refdesign-v1/grass-base-01.json",
+    "art/recipes/terrain/refdesign-v1/grass-meadow-01.json",
     "art/recipes/terrain/reference-v2/meadow-03.json"
   ],
   "prompts": [
     "prompts/compound/distinct-v1/hamlet-summer-01.md",
     "prompts/compound/distinct-v1/hamlet-winter-01.md",
     "prompts/compound/distinct-v1/hamlet-winter-02.md",
+    "prompts/compound/refdesign-v1/hamlet-summer.md",
+    "prompts/compound/refdesign-v1/hamlet-winter.md",
+    "prompts/terrain/distinct-v1/hamlet-winter.md",
+    "prompts/terrain/distinct-v1/meadow.md",
     "prompts/terrain/distinct-v1/snow-ground.md",
+    "prompts/terrain/refdesign-v1/grass-base-01.md",
+    "prompts/terrain/refdesign-v1/grass-meadow-01.md",
     "prompts/terrain/reference-v2/meadow-03.md"
   ],
   "width": 96,
@@ -29,7 +41,7 @@
         "1": {
           "url": "terrain/house/background-house/1x.png",
           "source": "art/exports/compound-v1/house-2x.png",
-          "sha256": "635e6065bdbb30fe3d8a5b45700ecc9ca1ad1daf81b893c8be7e512117f45138",
+          "sha256": "2eabba50b9c0534d54c6a9c18deb34ece4cdfe99fbdebb023ae8922d9060c239",
           "width": 96,
           "height": 80,
           "method": "Exact PNG export; premultiplied Lanczos3 reduction"
@@ -37,7 +49,7 @@
         "2": {
           "url": "terrain/house/background-house/2x.png",
           "source": "art/exports/compound-v1/house-2x.png",
-          "sha256": "3418fa58eae9562160a0aaba8ff849b8054f6927215b4951e16571e264c5a2df",
+          "sha256": "7bced50cd389177f03eb51c3dcf5e0d1329ae91ec481d2d24b7696eebcdd880c",
           "width": 192,
           "height": 160,
           "method": "Exact PNG export"
@@ -45,7 +57,7 @@
         "4": {
           "url": "terrain/house/background-house/4x.png",
           "source": "art/exports/compound-v1/house-4x.png",
-          "sha256": "bbe4ba9018b386b8f906752e3989fe00c2bec2e380334a2f01667998e2cfda35",
+          "sha256": "bacfea822dcbe430ba99e423c3d529023da98db6ceff5425d7d9f9d6172ee922",
           "width": 384,
           "height": 320,
           "method": "Exact PNG export"
@@ -57,7 +69,7 @@
     "default": {
       "1": {
         "path": "terrain/house/background-house/1x.png",
-        "sha256": "635e6065bdbb30fe3d8a5b45700ecc9ca1ad1daf81b893c8be7e512117f45138",
+        "sha256": "2eabba50b9c0534d54c6a9c18deb34ece4cdfe99fbdebb023ae8922d9060c239",
         "width": 96,
         "height": 80,
         "source": "art/exports/compound-v1/house-2x.png",
@@ -65,7 +77,7 @@
       },
       "2": {
         "path": "terrain/house/background-house/2x.png",
-        "sha256": "3418fa58eae9562160a0aaba8ff849b8054f6927215b4951e16571e264c5a2df",
+        "sha256": "7bced50cd389177f03eb51c3dcf5e0d1329ae91ec481d2d24b7696eebcdd880c",
         "width": 192,
         "height": 160,
         "source": "art/exports/compound-v1/house-2x.png",
@@ -73,7 +85,7 @@
       },
       "4": {
         "path": "terrain/house/background-house/4x.png",
-        "sha256": "bbe4ba9018b386b8f906752e3989fe00c2bec2e380334a2f01667998e2cfda35",
+        "sha256": "bacfea822dcbe430ba99e423c3d529023da98db6ceff5425d7d9f9d6172ee922",
         "width": 384,
         "height": 320,
         "source": "art/exports/compound-v1/house-4x.png",

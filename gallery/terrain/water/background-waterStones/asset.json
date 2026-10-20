@@ -7,10 +7,20 @@
   "note": "Current enabled background binding. This single-asset view uses its default context export; the PULSE study resolves available neighbor contexts through the shared compositor. Final runtime acceptance remains open.",
   "recipes": [
     "art/recipes/compound/distinct-v1/water-stones-01.json",
+    "art/recipes/terrain/distinct-v1/ground-rocky.json",
+    "art/recipes/terrain/distinct-v1/meadow.json",
+    "art/recipes/terrain/distinct-v1/river-diagonal.json",
+    "art/recipes/terrain/distinct-v1/water-open.json",
+    "art/recipes/terrain/distinct-v1/water-stones.json",
     "art/recipes/terrain/shore-reference-v2/water.json"
   ],
   "prompts": [
     "prompts/compound/distinct-v1/water-stones-01.md",
+    "prompts/terrain/distinct-v1/ground-rocky.md",
+    "prompts/terrain/distinct-v1/meadow.md",
+    "prompts/terrain/distinct-v1/river-diagonal.md",
+    "prompts/terrain/distinct-v1/water-open.md",
+    "prompts/terrain/distinct-v1/water-stones.md",
     "prompts/terrain/shore-reference-v2/water.md"
   ],
   "width": 96,

@@ -157,7 +157,11 @@ func groundMix(c groundContext, g groundGeometrySample, samples [7]color.NRGBA) 
 func groundContextRGB(c groundContext, p connectionPoint, materials map[string]*image.NRGBA) [3]float64 {
 	var samples [7]color.NRGBA
 	for i, id := range groundMaterialIDs {
-		samples[i] = sampleConnectionMaterial(materials[id], p)
+		if id == "grass" {
+			samples[i] = sampleGrassMaterial(materials[id], p)
+		} else {
+			samples[i] = sampleConnectionMaterial(materials[id], p)
+		}
 	}
 	return groundMix(c, groundGeometryAt(p), samples)
 }
@@ -171,8 +175,9 @@ type groundRawSample struct {
 	materials [7]color.NRGBA
 }
 type groundRenderer struct {
-	materials map[string]*image.NRGBA
-	samples   []groundRawSample
+	materials  map[string]*image.NRGBA
+	samples    []groundRawSample
+	mudFeature string
 }
 
 func newGroundRenderer(materials map[string]*image.NRGBA) *groundRenderer {
@@ -183,7 +188,11 @@ func newGroundRenderer(materials map[string]*image.NRGBA) *groundRenderer {
 			s := &r.samples[y*416+x]
 			s.geometry = groundGeometryAt(p)
 			for i, id := range groundMaterialIDs {
-				s.materials[i] = sampleConnectionMaterial(materials[id], p)
+				if id == "grass" {
+					s.materials[i] = sampleGrassMaterial(materials[id], p)
+				} else {
+					s.materials[i] = sampleConnectionMaterial(materials[id], p)
+				}
 			}
 		}
 	}
@@ -192,6 +201,9 @@ func newGroundRenderer(materials map[string]*image.NRGBA) *groundRenderer {
 func (r *groundRenderer) tiles(c groundContext) (map[int]*image.NRGBA, error) {
 	_, base := groundSeason(c.RuntimeID)
 	if c.RuntimeID == base {
+		if base == "grass" {
+			return exportGrassBaseTiles(r.materials[base])
+		}
 		// Preserve both existing base pixels and the resulting encoded PNG bytes.
 		return exportConnectionTiles(connectionInputs{manifest: connectionManifest{Geometry: sharedConnectionGeometry()}, materials: map[string]*image.NRGBA{"grass": r.materials[base]}}, nil, nil)
 	}
@@ -199,7 +211,17 @@ func (r *groundRenderer) tiles(c groundContext) (map[int]*image.NRGBA, error) {
 	for y := range 352 {
 		for x := range 416 {
 			s := r.samples[y*416+x]
-			raw4.SetNRGBA(x, y, groundRounded(groundMix(c, s.geometry, s.materials)))
+			if r.mudFeature == "circular-earthwork" {
+				// Mud sites become grass outside their compact feature. Keep the
+				// same continuous context field for neighboring stone and grass.
+				s.materials[groundMaterialIndex("mud")] = s.materials[groundMaterialIndex("grass")]
+			}
+			paint := groundRounded(groundMix(c, s.geometry, s.materials))
+			if c.RuntimeID == "mud" && r.mudFeature == "circular-earthwork" {
+				p := connectionPoint{(float64(x)+.5)/4 - 4, (float64(y)+.5)/4 - 4}
+				paint = groundEarthwork(r.materials["mud"], p, paint)
+			}
+			raw4.SetNRGBA(x, y, paint)
 		}
 	}
 	raw2, err := resizeLanczos(raw4, 208, 176)
@@ -219,4 +241,39 @@ func (r *groundRenderer) tiles(c groundContext) (map[int]*image.NRGBA, error) {
 		tiles[scale] = im
 	}
 	return tiles, nil
+}
+
+// The full source is one authored feature, never mirrored or averaged. Its
+// elliptical footprint lies inside the hex with grass on the complete filter
+// guard. Thus a neighboring tile cannot clip the ring or receive half a crater.
+func groundEarthwork(source *image.NRGBA, p connectionPoint, base color.NRGBA) color.NRGBA {
+	q := connectionPoint{(p[0] - 48) / 34, (p[1] - 40) / 28}
+	alpha := 1 - connectionSmoothStep((q.length()-.88)/.12)
+	if alpha <= 0 {
+		return base
+	}
+	x := (q[0] + 1) / 2 * float64(source.Bounds().Dx()-1)
+	y := (q[1] + 1) / 2 * float64(source.Bounds().Dy()-1)
+	ix, iy := int(x), int(y)
+	fx, fy := x-float64(ix), y-float64(iy)
+	var rgb [3]float64
+	for dy := range 2 {
+		for dx := range 2 {
+			weight := (1 - fx) * (1 - fy)
+			if dx == 1 {
+				weight = fx * (1 - fy)
+			}
+			if dy == 1 {
+				weight = (1 - fx) * fy
+				if dx == 1 {
+					weight = fx * fy
+				}
+			}
+			c := source.NRGBAAt(ix+dx, iy+dy)
+			rgb[0] += weight * float64(c.R)
+			rgb[1] += weight * float64(c.G)
+			rgb[2] += weight * float64(c.B)
+		}
+	}
+	return connectionBlend(base, groundRounded(rgb), alpha)
 }

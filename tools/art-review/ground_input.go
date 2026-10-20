@@ -16,6 +16,7 @@ var groundTargetIDs = [...]string{"mud", "stone", "rough_w", "stoney_w", "shelle
 type groundManifest struct {
 	SchemaVersion int                           `json:"schema_version"`
 	Materials     map[string]connectionMaterial `json:"materials"`
+	MudFeature    string                        `json:"mud_feature,omitempty"`
 }
 type groundInputs struct {
 	Manifest groundManifest
@@ -43,7 +44,18 @@ func decodeGroundManifest(data []byte, m *groundManifest) error {
 	if err := decodeConnectionJSON(data, m); err != nil {
 		return err
 	}
-	root, err := groundObject(data, "schema_version", "materials")
+	var raw map[string]json.RawMessage
+	if err := json.Unmarshal(data, &raw); err != nil {
+		return err
+	}
+	keys := []string{"schema_version", "materials"}
+	if value, ok := raw["mud_feature"]; ok {
+		if string(value) != `"circular-earthwork"` {
+			return errors.New("mud_feature requires circular-earthwork")
+		}
+		keys = append(keys, "mud_feature")
+	}
+	root, err := groundObject(data, keys...)
 	if err != nil {
 		return err
 	}

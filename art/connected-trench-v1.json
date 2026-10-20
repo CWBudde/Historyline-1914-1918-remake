@@ -187,24 +187,24 @@
   },
   "materials": {
     "earth": {
-      "source": "source/terrain/distinct-v1/earth-bare.png",
-      "source_sha256": "e7d3188bc9c734a1f45ad80ccce934c46d93cb4cf9843c079bbc6260ec848404"
+      "source": "source/terrain/refdesign-v1/earth-bank.png",
+      "source_sha256": "6df0ffb17725f7c7ef81bbafd1c8537ad2a30b62beac21a4ce6ce8a4c522086d"
     },
     "grass": {
-      "source": "source/terrain/reference-v2/meadow-03.png",
-      "source_sha256": "4de543f0906e1311eff5ae4f202eb8fa68665c67103039bee089e60e02c68eb4"
+      "source": "source/terrain/refdesign-v1/grass-base-01.png",
+      "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
     },
     "road": {
-      "source": "source/terrain/reference-v2/road-paved.png",
-      "source_sha256": "48f521aa74bb1759896b33c95e84abb5d6d1d9146ab2925620a6b3234e5dcd2e"
+      "source": "source/terrain/refdesign-v1/road-asphalt.png",
+      "source_sha256": "a86aa33d3261283f885228a404a4b31ee337c132728f55038c5714a2e46aec44"
     },
     "timber": {
-      "source": "source/terrain/distinct-v1/timber-weathered.png",
-      "source_sha256": "c4d42a70eee2b05cdcb5948b15598c4373104893187ece5202907d8f21048faa"
+      "source": "source/terrain/refdesign-v1/trench-timber.png",
+      "source_sha256": "2f74c059d43a9105e1827c8d368416340ce3312e058fd3a84b572735a86c12ed"
     },
     "trench": {
-      "source": "source/terrain/distinct-v1/trench-earth.png",
-      "source_sha256": "fbe3e9e8e72d8d441dae8903d130e1edd1aef1f0803d152d91f6cd49d77f11ef"
+      "source": "source/terrain/refdesign-v1/trench-floor.png",
+      "source_sha256": "118093f94da2873b4a66970a0864cd62ab10fd9af0c751c52b90e63f5a872062"
     },
     "water": {
       "source": "source/terrain/shore-reference-v2/water.png",

@@ -103,7 +103,7 @@ func run(args []string, stdout io.Writer) error {
 		}
 	}
 	// The public output directory is wiped and regenerated, so it is confined to gallery/ or build/.
-	if !local(*out) || !(strings.HasPrefix(*out, "build/") || (!*private && (*out == "gallery" || strings.HasPrefix(*out, "gallery/")))) {
+	if !local(*out) || (!strings.HasPrefix(*out, "build/") && (*private || (*out != "gallery" && !strings.HasPrefix(*out, "gallery/")))) {
 		return fmt.Errorf("output must be gallery/ (build/ with -private) or a directory under build/")
 	}
 	if !*private && (*nativeMap != "" || *dosMap != "" || *captures != "") {

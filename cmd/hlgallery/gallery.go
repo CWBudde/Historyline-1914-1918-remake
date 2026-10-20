@@ -241,5 +241,5 @@ func renderRecipe(src string, r map[string]any) string {
 			fmt.Fprintf(&b, "\n## %s\n\n%s\n", k, s)
 		}
 	}
-	return b.String()
+	return strings.TrimRight(b.String(), "\n") + "\n"
 }

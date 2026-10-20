@@ -8,13 +8,17 @@
   "recipes": [
     "art/recipes/compound/distinct-v1/factory-layout-guide.json",
     "art/recipes/compound/distinct-v1/factory-winter-01.json",
+    "art/recipes/compound/reference-v2/depot-summer.json",
     "art/recipes/compound/reference-v2/factory-winter.json",
+    "art/recipes/terrain/distinct-v1/meadow.json",
     "art/recipes/terrain/distinct-v1/snow-ground.json"
   ],
   "prompts": [
     "prompts/compound/distinct-v1/factory-layout-guide.md",
     "prompts/compound/distinct-v1/factory-winter-01.md",
+    "prompts/compound/reference-v2/depot-summer.md",
     "prompts/compound/reference-v2/factory-winter.md",
+    "prompts/terrain/distinct-v1/meadow.md",
     "prompts/terrain/distinct-v1/snow-ground.md"
   ],
   "width": 96,

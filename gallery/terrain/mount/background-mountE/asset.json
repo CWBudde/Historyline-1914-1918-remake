@@ -9,14 +9,26 @@
     "art/recipes/compound/distinct-v1/mountain-layout-guide.json",
     "art/recipes/compound/distinct-v1/mountain-summer-03.json",
     "art/recipes/compound/distinct-v1/mountain-winter-01.json",
+    "art/recipes/compound/refdesign-v1/mountain-summer.json",
+    "art/recipes/compound/refdesign-v1/mountain-winter.json",
+    "art/recipes/terrain/distinct-v1/ground-rocky.json",
+    "art/recipes/terrain/distinct-v1/meadow.json",
     "art/recipes/terrain/distinct-v1/snow-ground.json",
+    "art/recipes/terrain/refdesign-v1/grass-base-01.json",
+    "art/recipes/terrain/refdesign-v1/grass-meadow-01.json",
     "art/recipes/terrain/reference-v2/meadow-03.json"
   ],
   "prompts": [
     "prompts/compound/distinct-v1/mountain-layout-guide.md",
     "prompts/compound/distinct-v1/mountain-summer-03.md",
     "prompts/compound/distinct-v1/mountain-winter-01.md",
+    "prompts/compound/refdesign-v1/mountain-summer.md",
+    "prompts/compound/refdesign-v1/mountain-winter.md",
+    "prompts/terrain/distinct-v1/ground-rocky.md",
+    "prompts/terrain/distinct-v1/meadow.md",
     "prompts/terrain/distinct-v1/snow-ground.md",
+    "prompts/terrain/refdesign-v1/grass-base-01.md",
+    "prompts/terrain/refdesign-v1/grass-meadow-01.md",
     "prompts/terrain/reference-v2/meadow-03.md"
   ],
   "width": 96,
@@ -29,7 +41,7 @@
         "1": {
           "url": "terrain/mount/background-mountE/1x.png",
           "source": "art/exports/compound-v1/mountE-2x.png",
-          "sha256": "8ddc94b8071893aa881c8e23a9c0b9825e60f5dc03f2f2347350bd7dc22c3c21",
+          "sha256": "d54e6cd700fef4bfc8d0e1dc3a086de975733cfc16863beda4e5130cf0a8d686",
           "width": 96,
           "height": 80,
           "method": "Exact PNG export; premultiplied Lanczos3 reduction"
@@ -37,7 +49,7 @@
         "2": {
           "url": "terrain/mount/background-mountE/2x.png",
           "source": "art/exports/compound-v1/mountE-2x.png",
-          "sha256": "3d20d3f6cf89dadf79cbe1b18523f1cb6bf3b1d11029d48f96851d018b8f9100",
+          "sha256": "d3acf1cb294068a3474a41674aa7a4bc17d6e502bffbeabfd683ade2d17dd9f7",
           "width": 192,
           "height": 160,
           "method": "Exact PNG export"
@@ -45,7 +57,7 @@
         "4": {
           "url": "terrain/mount/background-mountE/4x.png",
           "source": "art/exports/compound-v1/mountE-4x.png",
-          "sha256": "01e34ec3c27644990e0c27851f67522b0c70cee84112640836ac2a8ab533636a",
+          "sha256": "5c08312eee779e0b2a0f97ca84113ce62db7f4cbea72e4cc778e9ee2c44d14fb",
           "width": 384,
           "height": 320,
           "method": "Exact PNG export"
@@ -57,7 +69,7 @@
     "default": {
       "1": {
         "path": "terrain/mount/background-mountE/1x.png",
-        "sha256": "8ddc94b8071893aa881c8e23a9c0b9825e60f5dc03f2f2347350bd7dc22c3c21",
+        "sha256": "d54e6cd700fef4bfc8d0e1dc3a086de975733cfc16863beda4e5130cf0a8d686",
         "width": 96,
         "height": 80,
         "source": "art/exports/compound-v1/mountE-2x.png",
@@ -65,7 +77,7 @@
       },
       "2": {
         "path": "terrain/mount/background-mountE/2x.png",
-        "sha256": "3d20d3f6cf89dadf79cbe1b18523f1cb6bf3b1d11029d48f96851d018b8f9100",
+        "sha256": "d3acf1cb294068a3474a41674aa7a4bc17d6e502bffbeabfd683ade2d17dd9f7",
         "width": 192,
         "height": 160,
         "source": "art/exports/compound-v1/mountE-2x.png",
@@ -73,7 +85,7 @@
       },
       "4": {
         "path": "terrain/mount/background-mountE/4x.png",
-        "sha256": "01e34ec3c27644990e0c27851f67522b0c70cee84112640836ac2a8ab533636a",
+        "sha256": "5c08312eee779e0b2a0f97ca84113ce62db7f4cbea72e4cc778e9ee2c44d14fb",
         "width": 384,
         "height": 320,
         "source": "art/exports/compound-v1/mountE-4x.png",

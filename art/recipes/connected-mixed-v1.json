@@ -1,5 +1,5 @@
 {
-  "acceptance": "Current provisional reference-guided candidate rebuild. Actual PNG assembly and pinned inputs are recorded; current user visual approval, approximately 90% resemblance, whole-map/runtime integration and release acceptance remain open.",
+  "acceptance": "Reference-guided candidate rebuild. Current exported assets and context proofs are pinned; final user visual review remains open.",
   "date": "2026-10-15",
   "exports": [
     {
@@ -8,7 +8,7 @@
         "width": 192
       },
       "path": "art/exports/mixed-v1/bridge25-2x.png",
-      "sha256": "34dab6240abc7270db7755220b9b450811649e0142266cd2b592e51ba9d2457e"
+      "sha256": "53bbcbad3283dc793cf961c19d69bad8ec7f79795e4219a88de967ec23f3f365"
     },
     {
       "dimensions": {
@@ -16,7 +16,7 @@
         "width": 384
       },
       "path": "art/exports/mixed-v1/bridge25-4x.png",
-      "sha256": "a8568f44c3afab409488de69ce2647d5fd5a4c9163aa75bc070089bc6aa5fc10"
+      "sha256": "1e9c91663dbde217a435995e6739ebfd6586dd9a53f35211c8b18154359e9a8f"
     },
     {
       "dimensions": {
@@ -24,7 +24,7 @@
         "width": 192
       },
       "path": "art/exports/mixed-v1/bridge36-2x.png",
-      "sha256": "9170b6f36332ce035682e52e62f3b630353980840eabb5dfa57dce5be561adc4"
+      "sha256": "3664d6b7b297054edaad2a7a5dd5781e29c4b0c5597c0412625761bb38ee45cd"
     },
     {
       "dimensions": {
@@ -32,7 +32,7 @@
         "width": 384
       },
       "path": "art/exports/mixed-v1/bridge36-4x.png",
-      "sha256": "9b62ada06c5796dc00e2da3b9450ba98b523e8afa6d2f5d292434b2c7a46c798"
+      "sha256": "6f742e859142c81bd8fa06eb4a7f3111ade80c38b7ac35a10a42d575663f1e2b"
     },
     {
       "dimensions": {
@@ -40,7 +40,7 @@
         "width": 192
       },
       "path": "art/exports/mixed-v1/rbridge14-2x.png",
-      "sha256": "448655966d65021d4d770d48023916a070fcf0e9fd40526075369a7c5962dc8d"
+      "sha256": "4c2f64efee3da3303ad654a3c716c322cef99515e75dcd01e95ab7073fde3e69"
     },
     {
       "dimensions": {
@@ -48,7 +48,7 @@
         "width": 384
       },
       "path": "art/exports/mixed-v1/rbridge14-4x.png",
-      "sha256": "23da4a5c799cedf48fe3096c4c32a7bfc9e40a23d9dfca5ba27ad5225a852bce"
+      "sha256": "a76de00cd67491c99a863fec9e9604df618354349d5ff24e154711b946aabebc"
     },
     {
       "dimensions": {
@@ -56,7 +56,7 @@
         "width": 192
       },
       "path": "art/exports/mixed-v1/rbridge25-2x.png",
-      "sha256": "1be38f527f787a5d8fc017cf80a9aa2d4e5cf7892ad18b1f425410468a67934c"
+      "sha256": "8977e1190f346abbd64f6be15fca9a9524924f5c5c9d908feea2a2e9bab9bae3"
     },
     {
       "dimensions": {
@@ -64,7 +64,7 @@
         "width": 384
       },
       "path": "art/exports/mixed-v1/rbridge25-4x.png",
-      "sha256": "cc2ed445f6e40bd75f9209948581785bd48937a948475f4fe50201aba9b5c232"
+      "sha256": "66cbea45ebfc9cf588416ede0f0ee9a0d0e59baee27a6996ddfa3eece1ff8d8d"
     },
     {
       "dimensions": {
@@ -72,7 +72,7 @@
         "width": 192
       },
       "path": "art/exports/mixed-v1/rbridge36-2x.png",
-      "sha256": "5d9a3850ce9700872e78591dc1022d35922b87b1bcd78d1538139929c0957da6"
+      "sha256": "5c49ecd51ca73735dcd1ce781cc98ad3f95f386fccd1b5bb8e73a643f8e73087"
     },
     {
       "dimensions": {
@@ -80,7 +80,7 @@
         "width": 384
       },
       "path": "art/exports/mixed-v1/rbridge36-4x.png",
-      "sha256": "14f180be15b51e9811ceb8082ab852a179013b4c59038349473002df43ff9037"
+      "sha256": "1e76ca93df1adc4babb91eddbea5c180ac047d2d17646d9dab460ef49e12a617"
     },
     {
       "dimensions": {
@@ -88,7 +88,7 @@
         "width": 192
       },
       "path": "art/exports/mixed-v1/cross1-2x.png",
-      "sha256": "f8f379a2f41f8b1f997c935ade37bf355771f23818f368397f37e2e76cfd9c10"
+      "sha256": "8213596f17e8a79a0f49d1aec4911f58af8694926e88dc5509aa39b65a1b5b66"
     },
     {
       "dimensions": {
@@ -96,7 +96,7 @@
         "width": 384
       },
       "path": "art/exports/mixed-v1/cross1-4x.png",
-      "sha256": "72ffc8cb4f87e102bebe422a2fb11642baffcb4f1025803ecb48801998992349"
+      "sha256": "2c7e4559e9d38e75c80b56301bc7ec2510d5bc35332728ca445ee3328fa7c65e"
     },
     {
       "dimensions": {
@@ -104,7 +104,7 @@
         "width": 192
       },
       "path": "art/exports/mixed-v1/cross2-2x.png",
-      "sha256": "75c5f30fef554d01d90094dc5ec777ecf35acd50c7e4fc4140205f84008ea7c7"
+      "sha256": "72a5403f7372df3265ddb2d62a62e108aa80c394fb07af9ae3cbea5997e5db44"
     },
     {
       "dimensions": {
@@ -112,7 +112,7 @@
         "width": 384
       },
       "path": "art/exports/mixed-v1/cross2-4x.png",
-      "sha256": "b1f9377dc7a728f664943dae219cecd3ce9f7b0ec52752c1bbbbbf612ecdd5f9"
+      "sha256": "32dacef8f194aeda0a127286a6a0de35349fb7cee5c944805e583cb2c71e660a"
     },
     {
       "dimensions": {
@@ -120,7 +120,7 @@
         "width": 192
       },
       "path": "art/exports/mixed-v1/cross3-2x.png",
-      "sha256": "7a3310bf7af0bbb778549afae35e5620f49c26347da5b2d09425176bfbb6da23"
+      "sha256": "ad7ded6e8eaf16a84956e30cdd35954f136a9af13ebc2647da12b7da55138f8f"
     },
     {
       "dimensions": {
@@ -128,7 +128,7 @@
         "width": 384
       },
       "path": "art/exports/mixed-v1/cross3-4x.png",
-      "sha256": "cf71c414ef570bbf4ea28a9641c05bf214436e7831b89289d478421271fdcb2e"
+      "sha256": "553ae6390c3aa75aa741dbea98dba90f11864c30adbe0e17dcb1ae17893b9055"
     },
     {
       "dimensions": {
@@ -136,7 +136,7 @@
         "width": 192
       },
       "path": "art/exports/mixed-v1/cross4-2x.png",
-      "sha256": "8c2aeb2308834ac104cbfdae6a955e6af01993ec43f690115842a7f4ba817575"
+      "sha256": "d525d104b0c0537cfc95f44f435744cf6cf9dd117217b2541700bc44df811e9d"
     },
     {
       "dimensions": {
@@ -144,7 +144,7 @@
         "width": 384
       },
       "path": "art/exports/mixed-v1/cross4-4x.png",
-      "sha256": "34b0ebc74ae8688fb96f2d0e074c862d7d1150fcb6b35f9999e734c3195c9771"
+      "sha256": "e196232c89465a8e74b3640e2e683d8b273752d921a020a63502af253ec5eec9"
     }
   ],
   "fixed_profile": {
@@ -244,39 +244,48 @@
   "id": "connected-mixed-v1",
   "manifest": "art/connected-mixed-v1.json",
   "manifest_reference_base": "art/",
-  "manifest_sha256": "a2c0d0825f402741b0844f015f1a20fbc714093135022038558c6de07c5c3dbd",
+  "manifest_sha256": "bba66794c5efe1c0fdff1ec230f945a81d9ff1805367e8655308e17bcf798fa7",
   "manifests": [
     {
       "source": "art/connected-terrain-v1.json",
-      "source_sha256": "a895fff966a9363b4c0948e5df11d148a7c82d656f982351992d590c39e8e5b3"
+      "source_sha256": "4c9f86f83bfaec6b0f2bcbb88dfb12d0791aaf2d33962a83e2848cee43c1a362"
     },
     {
       "source": "art/connected-paths-v1.json",
-      "source_sha256": "b38685c96efe6f5d40116b064941b3b38e94e613dc9bade0725f524f3470a5f9"
+      "source_sha256": "01ea91398b4f0a4027fc855c16956911db3b11b326281b6749abd49674889333"
     },
     {
       "source": "art/connected-rail-v1.json",
-      "source_sha256": "c67f0ef522ed668d0455cf579fe794efcf18c51f53c9153e2b7a2c54f5b7b8c1"
+      "source_sha256": "bc8e8d0a52e427e8da8534a2f06ae38ee824e59abdec61b2d8cade037dfe49c1"
     }
   ],
   "materials": {
+    "bank": {
+      "dimensions": {
+        "height": 320,
+        "width": 384
+      },
+      "retained_source": "dependencies/bank-material-source.png",
+      "source": "art/source/terrain/refdesign-v1/river-bank-gravel.png",
+      "source_sha256": "bec7afdd82d829aa9f3ae08f8e5e06eb8e1b3d1dbec3d8f36c19edfbc99ba0f0"
+    },
     "earth": {
       "dimensions": {
-        "height": 1145,
-        "width": 1374
+        "height": 1254,
+        "width": 1254
       },
       "retained_source": "dependencies/earth-material-source.png",
-      "source": "art/source/terrain/distinct-v1/earth-bare.png",
-      "source_sha256": "e7d3188bc9c734a1f45ad80ccce934c46d93cb4cf9843c079bbc6260ec848404"
+      "source": "art/source/terrain/refdesign-v1/earth-bank.png",
+      "source_sha256": "6df0ffb17725f7c7ef81bbafd1c8537ad2a30b62beac21a4ce6ce8a4c522086d"
     },
     "grass": {
       "dimensions": {
-        "height": 1145,
-        "width": 1374
+        "height": 480,
+        "width": 768
       },
       "retained_source": "dependencies/grass-material-source.png",
-      "source": "art/source/terrain/reference-v2/meadow-03.png",
-      "source_sha256": "4de543f0906e1311eff5ae4f202eb8fa68665c67103039bee089e60e02c68eb4"
+      "source": "art/source/terrain/refdesign-v1/grass-base-01.png",
+      "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
     },
     "path": {
       "dimensions": {
@@ -298,12 +307,12 @@
     },
     "road": {
       "dimensions": {
-        "height": 1145,
-        "width": 1374
+        "height": 1254,
+        "width": 1254
       },
       "retained_source": "dependencies/road-material-source.png",
-      "source": "art/source/terrain/reference-v2/road-paved.png",
-      "source_sha256": "48f521aa74bb1759896b33c95e84abb5d6d1d9146ab2925620a6b3234e5dcd2e"
+      "source": "art/source/terrain/refdesign-v1/road-asphalt.png",
+      "source_sha256": "a86aa33d3261283f885228a404a4b31ee337c132728f55038c5714a2e46aec44"
     },
     "steel": {
       "dimensions": {
@@ -316,12 +325,12 @@
     },
     "timber": {
       "dimensions": {
-        "height": 1145,
-        "width": 1374
+        "height": 1254,
+        "width": 1254
       },
       "retained_source": "dependencies/timber-material-source.png",
-      "source": "art/source/terrain/distinct-v1/timber-weathered.png",
-      "source_sha256": "c4d42a70eee2b05cdcb5948b15598c4373104893187ece5202907d8f21048faa"
+      "source": "art/source/terrain/refdesign-v1/trench-timber.png",
+      "source_sha256": "2f74c059d43a9105e1827c8d368416340ce3312e058fd3a84b572735a86c12ed"
     },
     "water": {
       "dimensions": {
@@ -357,7 +366,7 @@
     "sleeper_width_world_px": 1.05,
     "turnouts": "Three-port masks retain the complete straight 3/6 spine. A separate branch merges at (48,40), tangent north for port 2 or 4, south for port 1 or 5; branch cubic controls are 16 world px inward from its guard and 12 world px opposite the merge tangent from the centre. Paired offset branch rails meet the spine rails; no star junction or merged-ballast contour rails."
   },
-  "rebuild_note": "Rebuilt with DOS-inspired blue-teal water and pale stony shore inputs; user visual approval remains open. Historical generation recipes retain their original provenance.",
+  "rebuild_note": "Rebuilt to the user-supplied RefDesign visual target with shared detailed grass, earthworks, roads, crowns, rocks and huts; user visual approval remains open. Historical generation recipes retain their original provenance.",
   "review_exports": [
     {
       "dimensions": {
@@ -365,7 +374,7 @@
         "width": 192
       },
       "path": "art/review/mixed-v1/bridge25-grass-2x.png",
-      "sha256": "a7e771e13d85f8140c58f037746699446f15c3c127508386ede41037b9a3459e"
+      "sha256": "2d664448dad6f5a0ab39c19aa15cf8aaddedaf45b498994b783c5c44ba9b0daf"
     },
     {
       "dimensions": {
@@ -373,7 +382,7 @@
         "width": 192
       },
       "path": "art/review/mixed-v1/bridge36-grass-2x.png",
-      "sha256": "ccb64f6d52703f6263a0777b32ea6f0f41db26cab197ba89e6e4617594d3ad55"
+      "sha256": "345a9282137c4f2faaecb674d479d0dc32095c5cb0fbf78bec7ca6b06d2d5a08"
     },
     {
       "dimensions": {
@@ -381,7 +390,7 @@
         "width": 192
       },
       "path": "art/review/mixed-v1/rbridge14-grass-2x.png",
-      "sha256": "bd35e8432f82441c2676ac896738df99128b8d7ce9874a8bc4a52b14c0a0d454"
+      "sha256": "847235053b1f9f66d5d51f2c04d13ee66205943d850af6049f01d7bd7a439165"
     },
     {
       "dimensions": {
@@ -389,7 +398,7 @@
         "width": 192
       },
       "path": "art/review/mixed-v1/rbridge25-grass-2x.png",
-      "sha256": "3dc2b550acd484f1d45512c0944143ad8e0f7604529bafdeea5ba48a09075b3b"
+      "sha256": "3bf6a2fd540303a23db263dee0a7b306c7d4b91e3840002944a9001cc1f5f23b"
     },
     {
       "dimensions": {
@@ -397,7 +406,7 @@
         "width": 192
       },
       "path": "art/review/mixed-v1/rbridge36-grass-2x.png",
-      "sha256": "7c28c6988602ae72e1316a8bff822f185a38c0ac17df9551b1a59cc947c0eab9"
+      "sha256": "291cc31f04b4c2842a2bc0595911859f79e511d8b68b616098d705789eb783cf"
     },
     {
       "dimensions": {
@@ -405,7 +414,7 @@
         "width": 192
       },
       "path": "art/review/mixed-v1/cross1-grass-2x.png",
-      "sha256": "eaa83935cfebe06ff046bcbd8ee1c734a78dcdea02c2be59acc54637883fd698"
+      "sha256": "b27a28a03e7e148b438509f37ba2d1fbc2af9a8073d1fc3159a1852e1abb35eb"
     },
     {
       "dimensions": {
@@ -413,7 +422,7 @@
         "width": 192
       },
       "path": "art/review/mixed-v1/cross2-grass-2x.png",
-      "sha256": "3d286721acaf6be2b16bc7b4149a38510619b30f67ac32e599337935aa389adf"
+      "sha256": "7e6882a4d34a053483fc8214bfadbf25b5824d3c9e775fc4fe2c350d4a5dda51"
     },
     {
       "dimensions": {
@@ -421,7 +430,7 @@
         "width": 192
       },
       "path": "art/review/mixed-v1/cross3-grass-2x.png",
-      "sha256": "612a7223d1478514c2e5535753264dcf7dd4665233e51593c2baa6bab74610ed"
+      "sha256": "10013e6819b53e653c95bc2e7b71f4de32fc1974d86175510dd25a99a5cdd7c0"
     },
     {
       "dimensions": {
@@ -429,7 +438,7 @@
         "width": 192
       },
       "path": "art/review/mixed-v1/cross4-grass-2x.png",
-      "sha256": "c58f89bb5026745dc2b4d6a56f04c8e78bee0ebfce5d81357910875eca55fea7"
+      "sha256": "6f82fd3761e6fbb38ba1b1a60caf07ab6a0b48b641bf529a011291e525c709d5"
     },
     {
       "dimensions": {
@@ -437,7 +446,7 @@
         "width": 476
       },
       "path": "art/review/mixed-v1/bridge25-patch-parity0.png",
-      "sha256": "e985873987cad51a5ad5b6a6ff864cbb1a888d24098ad473395a3c8f8ecb03cd"
+      "sha256": "4e2688b1bdf96d279d5247345f42dedc20965adb4001452e408d5bd3eb1ab5d3"
     },
     {
       "dimensions": {
@@ -445,7 +454,7 @@
         "width": 476
       },
       "path": "art/review/mixed-v1/bridge36-patch-parity1.png",
-      "sha256": "81e3b2d21fe61b82545c68c35f3f4f3163638c74455ae2ea26474109204ea4fb"
+      "sha256": "29f1988bf6ac88f35bfda4e88dec60ff11851c69ae24ec93b9a16d253022dcde"
     },
     {
       "dimensions": {
@@ -453,7 +462,7 @@
         "width": 476
       },
       "path": "art/review/mixed-v1/rbridge14-patch-parity0.png",
-      "sha256": "9f9454683c94db33c73c657e72d5d2261f1ad5d8cbc9a79e3caaa3b0cdd0404e"
+      "sha256": "f60bc9d7984b29bc2790a003de95a79bca61330cc47050f36e9efaa45cc5e864"
     },
     {
       "dimensions": {
@@ -461,7 +470,7 @@
         "width": 476
       },
       "path": "art/review/mixed-v1/rbridge25-patch-parity1.png",
-      "sha256": "5fa054f8e5a8a33b6f86a547ec1f22cdc8131896e1004f8482b5343a4a2b4b95"
+      "sha256": "67e5b0f22e1d5f7396052abe6afee55014c9f1b9d31eac79d2b09f49c002a151"
     },
     {
       "dimensions": {
@@ -469,7 +478,7 @@
         "width": 476
       },
       "path": "art/review/mixed-v1/rbridge36-patch-parity0.png",
-      "sha256": "f487f8b5ba5af91f7577e6c1813f3bd20b817955e7638d8626c8c53ccafb0295"
+      "sha256": "6d9e8e9a93b889c3a6b3dc0de63100214e71e625fa35f2539f1d91dad2d17c84"
     },
     {
       "dimensions": {
@@ -477,7 +486,7 @@
         "width": 476
       },
       "path": "art/review/mixed-v1/cross1-patch-parity1.png",
-      "sha256": "126e64530dc27b65b22dfe7d43637526e413af14dec611a91c583cdd43a21d70"
+      "sha256": "e0028a9d254eb4892214eaba9f18fb8c11cc6810a00b45aaeee3a17f867a8b3f"
     },
     {
       "dimensions": {
@@ -485,7 +494,7 @@
         "width": 476
       },
       "path": "art/review/mixed-v1/cross2-patch-parity0.png",
-      "sha256": "47e10893579012709afb0420531b3e074e38f5ab20c0afab67e201739f64fd3c"
+      "sha256": "5d747edb04da171d96de9c9f31a79eed857a8cc68c556c2d6a7ed10e1021b8bd"
     },
     {
       "dimensions": {
@@ -493,7 +502,7 @@
         "width": 476
       },
       "path": "art/review/mixed-v1/cross3-patch-parity1.png",
-      "sha256": "5804af0afd903ff2193deb3470e893fa52b961eaefe9980f0b0f1b80f7a3a944"
+      "sha256": "37516ba6879dd106ee4d5742012967ff7b515ebbb27767ca216cffdab1001dd4"
     },
     {
       "dimensions": {
@@ -501,7 +510,7 @@
         "width": 476
       },
       "path": "art/review/mixed-v1/cross4-patch-parity0.png",
-      "sha256": "ca297bf3b8275aa5d142d62091205f2d4cc8e0812ae4459b3d7af8450d16c6a5"
+      "sha256": "843545e58163a4d83c8119b0dd8dc5994e5a6adf81bcb9e33894e21fa4d55433"
     },
     {
       "dimensions": {
@@ -509,7 +518,7 @@
         "width": 476
       },
       "path": "art/review/mixed-v1/campaign-rbridge36-stream14-path36-patch-parity0.png",
-      "sha256": "ea36ca78370aa637f53ec74031987e036b63e365b277fa8ebc1312a1218ba3a4"
+      "sha256": "4530332d02a47b21ea069a7e2bd41e5d2aceb594a27a615223ea3f66d14db372"
     },
     {
       "dimensions": {
@@ -517,7 +526,7 @@
         "width": 476
       },
       "path": "art/review/mixed-v1/campaign-rbridge36-stream25-rail36-patch-parity1.png",
-      "sha256": "825938dce8e2c7108cd618a4fd850d6713ca003c807ba3fda57759ad3655808b"
+      "sha256": "8a47d78426f10f2d103e49bd75a042cbd4d319b5458495bb03e21121537ed7e2"
     },
     {
       "dimensions": {
@@ -525,7 +534,7 @@
         "width": 384
       },
       "path": "art/review/mixed-v1/contact-sheet.png",
-      "sha256": "e208c0feb7e01332a97aa51ee066b5a3ef84be4870d76cad4d986a81943ee006"
+      "sha256": "386d72b8ce4407798282d8cff09b2b27bb1cfc576c816e20bedf5264c537208b"
     }
   ],
   "schema_version": 1,
@@ -546,7 +555,7 @@
             "width": 192
           },
           "path": "art/exports/mixed-v1/bridge25-2x.png",
-          "sha256": "34dab6240abc7270db7755220b9b450811649e0142266cd2b592e51ba9d2457e"
+          "sha256": "53bbcbad3283dc793cf961c19d69bad8ec7f79795e4219a88de967ec23f3f365"
         },
         {
           "dimensions": {
@@ -554,7 +563,7 @@
             "width": 384
           },
           "path": "art/exports/mixed-v1/bridge25-4x.png",
-          "sha256": "a8568f44c3afab409488de69ce2647d5fd5a4c9163aa75bc070089bc6aa5fc10"
+          "sha256": "1e9c91663dbde217a435995e6739ebfd6586dd9a53f35211c8b18154359e9a8f"
         },
         {
           "dimensions": {
@@ -562,7 +571,7 @@
             "width": 192
           },
           "path": "art/review/mixed-v1/bridge25-grass-2x.png",
-          "sha256": "a7e771e13d85f8140c58f037746699446f15c3c127508386ede41037b9a3459e"
+          "sha256": "2d664448dad6f5a0ab39c19aa15cf8aaddedaf45b498994b783c5c44ba9b0daf"
         },
         {
           "dimensions": {
@@ -570,7 +579,7 @@
             "width": 384
           },
           "path": "bridge25-grass-4x.png",
-          "sha256": "ae87ddf2d3d05abd8ae375472a0af3e7c163c1c9025401760ee67b88d8ac4d7c"
+          "sha256": "6f3650d9f9a52542a8f4d8fdea190c3c9745fe5083f62e20d15df95a35994b9f"
         }
       ],
       "ports": [
@@ -597,7 +606,7 @@
             "width": 192
           },
           "path": "art/exports/mixed-v1/bridge36-2x.png",
-          "sha256": "9170b6f36332ce035682e52e62f3b630353980840eabb5dfa57dce5be561adc4"
+          "sha256": "3664d6b7b297054edaad2a7a5dd5781e29c4b0c5597c0412625761bb38ee45cd"
         },
         {
           "dimensions": {
@@ -605,7 +614,7 @@
             "width": 384
           },
           "path": "art/exports/mixed-v1/bridge36-4x.png",
-          "sha256": "9b62ada06c5796dc00e2da3b9450ba98b523e8afa6d2f5d292434b2c7a46c798"
+          "sha256": "6f742e859142c81bd8fa06eb4a7f3111ade80c38b7ac35a10a42d575663f1e2b"
         },
         {
           "dimensions": {
@@ -613,7 +622,7 @@
             "width": 192
           },
           "path": "art/review/mixed-v1/bridge36-grass-2x.png",
-          "sha256": "ccb64f6d52703f6263a0777b32ea6f0f41db26cab197ba89e6e4617594d3ad55"
+          "sha256": "345a9282137c4f2faaecb674d479d0dc32095c5cb0fbf78bec7ca6b06d2d5a08"
         },
         {
           "dimensions": {
@@ -621,7 +630,7 @@
             "width": 384
           },
           "path": "bridge36-grass-4x.png",
-          "sha256": "3369fb22483b6b6186f67f8a1131e46273313926c893e35ffffafe1b9a7135b9"
+          "sha256": "eb8a30e5b913f6a959a45321d5f3be53b354f64e5c8334a6dd7af19882c8a43c"
         }
       ],
       "ports": [
@@ -645,7 +654,7 @@
             "width": 192
           },
           "path": "art/exports/mixed-v1/rbridge14-2x.png",
-          "sha256": "448655966d65021d4d770d48023916a070fcf0e9fd40526075369a7c5962dc8d"
+          "sha256": "4c2f64efee3da3303ad654a3c716c322cef99515e75dcd01e95ab7073fde3e69"
         },
         {
           "dimensions": {
@@ -653,7 +662,7 @@
             "width": 384
           },
           "path": "art/exports/mixed-v1/rbridge14-4x.png",
-          "sha256": "23da4a5c799cedf48fe3096c4c32a7bfc9e40a23d9dfca5ba27ad5225a852bce"
+          "sha256": "a76de00cd67491c99a863fec9e9604df618354349d5ff24e154711b946aabebc"
         },
         {
           "dimensions": {
@@ -661,7 +670,7 @@
             "width": 192
           },
           "path": "art/review/mixed-v1/rbridge14-grass-2x.png",
-          "sha256": "bd35e8432f82441c2676ac896738df99128b8d7ce9874a8bc4a52b14c0a0d454"
+          "sha256": "847235053b1f9f66d5d51f2c04d13ee66205943d850af6049f01d7bd7a439165"
         },
         {
           "dimensions": {
@@ -669,7 +678,7 @@
             "width": 384
           },
           "path": "rbridge14-grass-4x.png",
-          "sha256": "79add4e6b63a2edfcf18cec5987e0a5d9d197dac198515f6ef5b0ef9a1f0495b"
+          "sha256": "e3873cea8b055a5e254d9c12069d5a7ca03712ee90f2d80f8bf7753391b3584d"
         }
       ],
       "ports": [
@@ -693,7 +702,7 @@
             "width": 192
           },
           "path": "art/exports/mixed-v1/rbridge25-2x.png",
-          "sha256": "1be38f527f787a5d8fc017cf80a9aa2d4e5cf7892ad18b1f425410468a67934c"
+          "sha256": "8977e1190f346abbd64f6be15fca9a9524924f5c5c9d908feea2a2e9bab9bae3"
         },
         {
           "dimensions": {
@@ -701,7 +710,7 @@
             "width": 384
           },
           "path": "art/exports/mixed-v1/rbridge25-4x.png",
-          "sha256": "cc2ed445f6e40bd75f9209948581785bd48937a948475f4fe50201aba9b5c232"
+          "sha256": "66cbea45ebfc9cf588416ede0f0ee9a0d0e59baee27a6996ddfa3eece1ff8d8d"
         },
         {
           "dimensions": {
@@ -709,7 +718,7 @@
             "width": 192
           },
           "path": "art/review/mixed-v1/rbridge25-grass-2x.png",
-          "sha256": "3dc2b550acd484f1d45512c0944143ad8e0f7604529bafdeea5ba48a09075b3b"
+          "sha256": "3bf6a2fd540303a23db263dee0a7b306c7d4b91e3840002944a9001cc1f5f23b"
         },
         {
           "dimensions": {
@@ -717,7 +726,7 @@
             "width": 384
           },
           "path": "rbridge25-grass-4x.png",
-          "sha256": "edee870865b47f16bb8f8df4d3acf311be3e9b431c96b997bfe9d6cf6f43a392"
+          "sha256": "5c8cba2b63ba3d36008f3d7e9d216a403b150bdf09a85ed322b75f1c52f02956"
         }
       ],
       "ports": [
@@ -741,7 +750,7 @@
             "width": 192
           },
           "path": "art/exports/mixed-v1/rbridge36-2x.png",
-          "sha256": "5d9a3850ce9700872e78591dc1022d35922b87b1bcd78d1538139929c0957da6"
+          "sha256": "5c49ecd51ca73735dcd1ce781cc98ad3f95f386fccd1b5bb8e73a643f8e73087"
         },
         {
           "dimensions": {
@@ -749,7 +758,7 @@
             "width": 384
           },
           "path": "art/exports/mixed-v1/rbridge36-4x.png",
-          "sha256": "14f180be15b51e9811ceb8082ab852a179013b4c59038349473002df43ff9037"
+          "sha256": "1e76ca93df1adc4babb91eddbea5c180ac047d2d17646d9dab460ef49e12a617"
         },
         {
           "dimensions": {
@@ -757,7 +766,7 @@
             "width": 192
           },
           "path": "art/review/mixed-v1/rbridge36-grass-2x.png",
-          "sha256": "7c28c6988602ae72e1316a8bff822f185a38c0ac17df9551b1a59cc947c0eab9"
+          "sha256": "291cc31f04b4c2842a2bc0595911859f79e511d8b68b616098d705789eb783cf"
         },
         {
           "dimensions": {
@@ -765,7 +774,7 @@
             "width": 384
           },
           "path": "rbridge36-grass-4x.png",
-          "sha256": "3a73850f4300701044b03986676c726d337e1c35a0199d17fda689759424833c"
+          "sha256": "ede5b2757a97cbc33236de719c34edcf33a972e7388db8a7bfc8cfc9225c5a55"
         }
       ],
       "ports": [
@@ -798,7 +807,7 @@
             "width": 192
           },
           "path": "art/exports/mixed-v1/cross1-2x.png",
-          "sha256": "f8f379a2f41f8b1f997c935ade37bf355771f23818f368397f37e2e76cfd9c10"
+          "sha256": "8213596f17e8a79a0f49d1aec4911f58af8694926e88dc5509aa39b65a1b5b66"
         },
         {
           "dimensions": {
@@ -806,7 +815,7 @@
             "width": 384
           },
           "path": "art/exports/mixed-v1/cross1-4x.png",
-          "sha256": "72ffc8cb4f87e102bebe422a2fb11642baffcb4f1025803ecb48801998992349"
+          "sha256": "2c7e4559e9d38e75c80b56301bc7ec2510d5bc35332728ca445ee3328fa7c65e"
         },
         {
           "dimensions": {
@@ -814,7 +823,7 @@
             "width": 192
           },
           "path": "art/review/mixed-v1/cross1-grass-2x.png",
-          "sha256": "eaa83935cfebe06ff046bcbd8ee1c734a78dcdea02c2be59acc54637883fd698"
+          "sha256": "b27a28a03e7e148b438509f37ba2d1fbc2af9a8073d1fc3159a1852e1abb35eb"
         },
         {
           "dimensions": {
@@ -822,7 +831,7 @@
             "width": 384
           },
           "path": "cross1-grass-4x.png",
-          "sha256": "c99cc8f9dfb5fcebfcb109df1434cc35874209c51e3feba0fa11e2ef7bb89d53"
+          "sha256": "854746a753093c7a483b2f470f4f875667ce0665334a858cf5086d0579671d21"
         }
       ],
       "runtime_id": "cross1",
@@ -853,7 +862,7 @@
             "width": 192
           },
           "path": "art/exports/mixed-v1/cross2-2x.png",
-          "sha256": "75c5f30fef554d01d90094dc5ec777ecf35acd50c7e4fc4140205f84008ea7c7"
+          "sha256": "72a5403f7372df3265ddb2d62a62e108aa80c394fb07af9ae3cbea5997e5db44"
         },
         {
           "dimensions": {
@@ -861,7 +870,7 @@
             "width": 384
           },
           "path": "art/exports/mixed-v1/cross2-4x.png",
-          "sha256": "b1f9377dc7a728f664943dae219cecd3ce9f7b0ec52752c1bbbbbf612ecdd5f9"
+          "sha256": "32dacef8f194aeda0a127286a6a0de35349fb7cee5c944805e583cb2c71e660a"
         },
         {
           "dimensions": {
@@ -869,7 +878,7 @@
             "width": 192
           },
           "path": "art/review/mixed-v1/cross2-grass-2x.png",
-          "sha256": "3d286721acaf6be2b16bc7b4149a38510619b30f67ac32e599337935aa389adf"
+          "sha256": "7e6882a4d34a053483fc8214bfadbf25b5824d3c9e775fc4fe2c350d4a5dda51"
         },
         {
           "dimensions": {
@@ -877,7 +886,7 @@
             "width": 384
           },
           "path": "cross2-grass-4x.png",
-          "sha256": "140b09ee1b43c304416a2f8229f8eb95149f167e46817212aaea143e6139346d"
+          "sha256": "0a4a48183197fe5501507d0e3a1660fc62d313f9a546786b4de69baf4986becb"
         }
       ],
       "runtime_id": "cross2",
@@ -908,7 +917,7 @@
             "width": 192
           },
           "path": "art/exports/mixed-v1/cross3-2x.png",
-          "sha256": "7a3310bf7af0bbb778549afae35e5620f49c26347da5b2d09425176bfbb6da23"
+          "sha256": "ad7ded6e8eaf16a84956e30cdd35954f136a9af13ebc2647da12b7da55138f8f"
         },
         {
           "dimensions": {
@@ -916,7 +925,7 @@
             "width": 384
           },
           "path": "art/exports/mixed-v1/cross3-4x.png",
-          "sha256": "cf71c414ef570bbf4ea28a9641c05bf214436e7831b89289d478421271fdcb2e"
+          "sha256": "553ae6390c3aa75aa741dbea98dba90f11864c30adbe0e17dcb1ae17893b9055"
         },
         {
           "dimensions": {
@@ -924,7 +933,7 @@
             "width": 192
           },
           "path": "art/review/mixed-v1/cross3-grass-2x.png",
-          "sha256": "612a7223d1478514c2e5535753264dcf7dd4665233e51593c2baa6bab74610ed"
+          "sha256": "10013e6819b53e653c95bc2e7b71f4de32fc1974d86175510dd25a99a5cdd7c0"
         },
         {
           "dimensions": {
@@ -932,7 +941,7 @@
             "width": 384
           },
           "path": "cross3-grass-4x.png",
-          "sha256": "2beb7ed4c89d1c2200b53c2046046aab9c9b5f40b93d9fd38e8a224de3cc9532"
+          "sha256": "328565d7ba21ee9c3c99b4e92b0cb420f3dfa2823c646f2e2de5f3d7170d18f0"
         }
       ],
       "runtime_id": "cross3",
@@ -963,7 +972,7 @@
             "width": 192
           },
           "path": "art/exports/mixed-v1/cross4-2x.png",
-          "sha256": "8c2aeb2308834ac104cbfdae6a955e6af01993ec43f690115842a7f4ba817575"
+          "sha256": "d525d104b0c0537cfc95f44f435744cf6cf9dd117217b2541700bc44df811e9d"
         },
         {
           "dimensions": {
@@ -971,7 +980,7 @@
             "width": 384
           },
           "path": "art/exports/mixed-v1/cross4-4x.png",
-          "sha256": "34b0ebc74ae8688fb96f2d0e074c862d7d1150fcb6b35f9999e734c3195c9771"
+          "sha256": "e196232c89465a8e74b3640e2e683d8b273752d921a020a63502af253ec5eec9"
         },
         {
           "dimensions": {
@@ -979,7 +988,7 @@
             "width": 192
           },
           "path": "art/review/mixed-v1/cross4-grass-2x.png",
-          "sha256": "c58f89bb5026745dc2b4d6a56f04c8e78bee0ebfce5d81357910875eca55fea7"
+          "sha256": "6f82fd3761e6fbb38ba1b1a60caf07ab6a0b48b641bf529a011291e525c709d5"
         },
         {
           "dimensions": {
@@ -987,7 +996,7 @@
             "width": 384
           },
           "path": "cross4-grass-4x.png",
-          "sha256": "a5a6a8515ee2b897724c517730220fa3f72e90ba5502af41ee089ceaf45759cf"
+          "sha256": "e76f42b03c58f9a83a98a1514c353bf64c6ca62dfcfdcdb8699f95bf6e7a65c7"
         }
       ],
       "runtime_id": "cross4",
@@ -998,5 +1007,10 @@
         6
       ]
     }
-  ]
+  ],
+  "visual_target": {
+    "reference": "RefDesign.png",
+    "role": "User-supplied scene target for the current grass, streets, earthworks, rocks, hut and summer canopy. Reference bytes are not runtime artwork.",
+    "sha256": "3924e55c20ca63cbe31a7e4b3d469977f20c9ddf7802912e92782360b4d1aa69"
+  }
 }

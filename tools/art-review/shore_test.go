@@ -135,7 +135,7 @@ func TestShoreCLIActualPNGFamily(t *testing.T) {
 				if err != nil {
 					t.Fatal(err)
 				}
-				adapter, err := exportConnectionTiles(connectionInputs{manifest: connectionManifest{Geometry: sharedConnectionGeometry()}, materials: map[string]*image.NRGBA{"grass": material}}, nil, nil)
+				adapter, err := exportConnectionTiles(connectionInputs{manifest: connectionManifest{Geometry: sharedConnectionGeometry()}, materials: map[string]*image.NRGBA{"grass": material}, grassSampling: v.ID == "grass"}, nil, nil)
 				if err != nil {
 					t.Fatal(err)
 				}

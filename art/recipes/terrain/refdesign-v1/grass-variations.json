@@ -1,0 +1,547 @@
+{
+  "candidate_generation_command": "go test -tags grassgfx ./tools/art-review -run TestGenerateGrassDetailCandidate -count=1 -v",
+  "canonical_material": {
+    "dimensions": {
+      "height": 480,
+      "width": 768
+    },
+    "path": "art/source/terrain/refdesign-v1/grass-base-01.png",
+    "sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
+  },
+  "canonical_source_crop": [
+    384,
+    272,
+    768,
+    480
+  ],
+  "detail_materials": {
+    "base": {
+      "source": "art/source/terrain/refdesign-v1/grass-base-01.png",
+      "source_dimensions": [
+        768,
+        480
+      ],
+      "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
+    },
+    "flowers": {
+      "generation_recipe": "art/recipes/terrain/refdesign-v1/grass-detail-flowers-master-02.json",
+      "master_dimensions": [
+        1586,
+        992
+      ],
+      "master_sha256": "368607bd87ee0b7ecbe39fc87b970982b001d6d3eeaabc3d9ee4f36e811cac89",
+      "master_source": "art/source/terrain/refdesign-v1/grass-detail-flowers-master-02.png",
+      "projection": "Whole source alpha-aware antialiased Lanczos3 to768x480, preserving the edited canonical grass composition and relative feature scale.",
+      "source": "art/source/terrain/refdesign-v1/grass-detail-flowers-02.png",
+      "source_dimensions": [
+        768,
+        480
+      ],
+      "source_sha256": "c7654af4c1ddc8dffdac194f83ddb5926a5f4d285b17571153cea2c43697d62d"
+    },
+    "worn": {
+      "generation_recipe": "art/recipes/terrain/refdesign-v1/grass-detail-worn-master-02.json",
+      "master_dimensions": [
+        1586,
+        992
+      ],
+      "master_sha256": "d0a4b7a2eec6551a246581d961f139f434ad9f3f9694d8a54fdbec5a48b77078",
+      "master_source": "art/source/terrain/refdesign-v1/grass-detail-worn-master-02.png",
+      "projection": "Whole source alpha-aware antialiased Lanczos3 to768x480, preserving the edited canonical grass composition and relative feature scale.",
+      "source": "art/source/terrain/refdesign-v1/grass-detail-worn-02.png",
+      "source_dimensions": [
+        768,
+        480
+      ],
+      "source_sha256": "6b376ea6dc5374f90b099841ab7a5dc204375cb597ca3a9aa57860c3470b93c8"
+    }
+  },
+  "generation_command": "go test -tags grassgfx ./tools/art-review -run TestGenerateGrassVariations -count=1 -v",
+  "grass_sampling": "Summer grass: unmirrored periodic bilinear source sampling. Per source axis, overlap=(size-1)/4 and span=3*(size-1)/4. At world phase t in [0,period), x=t/period*span. For x\u003coverlap blend source(x+span) toward source(x) with cubic smoothstep(x/overlap); otherwise source(x). Apply separable windows on both axes, periods142,80. Round wrapped world phases to1e-9 before source lookup. Average RGB of f(x,y),f(x+71,y+40), then round half-up once. This is invariant under all six neighbor translations without reflected source marks. Non-grass materials, unseen and winter retain the existing sampler.",
+  "id": "grass-variations-refdesign-v1",
+  "material_mix": {
+    "authored_detail_strength": 0.65,
+    "base_indices": [
+      0,
+      5,
+      10,
+      15
+    ],
+    "description": "Four variants retain the unchanged phased canonical meadow. For the other twelve, interior paint is65percent the selected authored material plus35percent the same phased canonical meadow. The8worldpixel canonical guard and smoothstep8..18 boundary envelope remain unchanged.",
+    "flowers_indices": [
+      1,
+      3,
+      6,
+      8,
+      11,
+      13
+    ],
+    "phased_canonical_strength": 0.35,
+    "worn_indices": [
+      2,
+      4,
+      7,
+      9,
+      12,
+      14
+    ]
+  },
+  "profile": "Sixteen authored material/phase variants: four unchanged phased canonical meadow, six wildflower/pebble/weed and six subtly worn meadow. Detail masters precisely edit canonical grass and project the complete output to768x480 with existing alpha-aware antialiased Lanczos3, retaining relative feature scale. Interior paint is65percent authored detail material plus35percent the existing phased canonical meadow. Canonical source and sampler unchanged through8worldpixels from everyedge; cubic smoothstep8..18 to interior paint. Unmasked416x352 opaque4x overscan, existing whole-image Lanczos3 to208x176, crop4worldpixels then complementary final half-open ownership. All final6worldpixel guards exactly match canonical exports at2x/4x. New botanical/pebble details are imagegen-authored, never drawn procedurally.",
+  "promotion_scope": "Only these32 grass-detail PNGs and this recipe. Canonical grass source and all other terrain-family exports stay byte-identical.",
+  "schema_version": 1,
+  "source": "art/source/terrain/refdesign-v1/grass-meadow-01.png",
+  "source_recipe": "art/recipes/terrain/refdesign-v1/grass-meadow-01.json",
+  "source_sha256": "d8e2f74e2a36cad07a0dc9b251a5bd3bcbbd9dae4d73341af72a7fb5349ecd60",
+  "status": "candidate",
+  "tool": "Go offline grassgfx exporter",
+  "variants": [
+    {
+      "detail_material": "base",
+      "detail_strength": 0.65,
+      "index": 0,
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "art/exports/grass-refdesign-v1/grass-detail-00-2x.png",
+          "sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "art/exports/grass-refdesign-v1/grass-detail-00-4x.png",
+          "sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
+        }
+      ],
+      "runtime_id": "grass-detail-00",
+      "source_phase_world": [
+        0,
+        0
+      ]
+    },
+    {
+      "detail_material": "flowers",
+      "detail_strength": 0.65,
+      "index": 1,
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "art/exports/grass-refdesign-v1/grass-detail-01-2x.png",
+          "sha256": "33a514192e950e84327d9f81253a08d391cf599dbdab751a589e25f49a3cbde0"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "art/exports/grass-refdesign-v1/grass-detail-01-4x.png",
+          "sha256": "74ace5a90402264e96fe75424fe3d0c269e6574b8fc7e8af120f63d9b9ef0848"
+        }
+      ],
+      "runtime_id": "grass-detail-01",
+      "source_phase_world": [
+        37,
+        23
+      ]
+    },
+    {
+      "detail_material": "worn",
+      "detail_strength": 0.65,
+      "index": 2,
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "art/exports/grass-refdesign-v1/grass-detail-02-2x.png",
+          "sha256": "645f90471ad729a189b24bd889cba646436eee2a4b55ff19eaf135657bb95404"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "art/exports/grass-refdesign-v1/grass-detail-02-4x.png",
+          "sha256": "c84e43af721e5db6837b4a653d080674f85c63c1b07bd5e0fc815beae873b1ef"
+        }
+      ],
+      "runtime_id": "grass-detail-02",
+      "source_phase_world": [
+        74,
+        46
+      ]
+    },
+    {
+      "detail_material": "flowers",
+      "detail_strength": 0.65,
+      "index": 3,
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "art/exports/grass-refdesign-v1/grass-detail-03-2x.png",
+          "sha256": "d2880aa0f411b8805ead5219cbe0fce18079976fe8666c166276ab4148713325"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "art/exports/grass-refdesign-v1/grass-detail-03-4x.png",
+          "sha256": "a7a4738110d89241814d9ba5f3b3840788dff675c80fb2f5b6f3cf73ba66c85c"
+        }
+      ],
+      "runtime_id": "grass-detail-03",
+      "source_phase_world": [
+        111,
+        69
+      ]
+    },
+    {
+      "detail_material": "worn",
+      "detail_strength": 0.65,
+      "index": 4,
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "art/exports/grass-refdesign-v1/grass-detail-04-2x.png",
+          "sha256": "4d331ed5b520cd8b265335c7cfbf50e39959ef345e62fe2f23467b849ae1a6bf"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "art/exports/grass-refdesign-v1/grass-detail-04-4x.png",
+          "sha256": "372f9cdd1d63de3f54dc84cc6bc97f462791ea52d444323a92f256673c02eafb"
+        }
+      ],
+      "runtime_id": "grass-detail-04",
+      "source_phase_world": [
+        6,
+        12
+      ]
+    },
+    {
+      "detail_material": "base",
+      "detail_strength": 0.65,
+      "index": 5,
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "art/exports/grass-refdesign-v1/grass-detail-05-2x.png",
+          "sha256": "b68a60f75d114b16092cb2e96cdefbf14f94aa3007aba5a14e3a5168c45ba449"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "art/exports/grass-refdesign-v1/grass-detail-05-4x.png",
+          "sha256": "0109bbc8af760aaf96e233f67b9a0375a8a4cf659ed8eed60153310e7fa866b2"
+        }
+      ],
+      "runtime_id": "grass-detail-05",
+      "source_phase_world": [
+        43,
+        35
+      ]
+    },
+    {
+      "detail_material": "flowers",
+      "detail_strength": 0.65,
+      "index": 6,
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "art/exports/grass-refdesign-v1/grass-detail-06-2x.png",
+          "sha256": "81a76859e434c7994e902ab3d83751ca9243b43d2e514105416e44da17706330"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "art/exports/grass-refdesign-v1/grass-detail-06-4x.png",
+          "sha256": "0fa8d9e24f5b6adcdb3bfeeca5f34e7c774570761e24eba80d0c5ed266c15e22"
+        }
+      ],
+      "runtime_id": "grass-detail-06",
+      "source_phase_world": [
+        80,
+        58
+      ]
+    },
+    {
+      "detail_material": "worn",
+      "detail_strength": 0.65,
+      "index": 7,
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "art/exports/grass-refdesign-v1/grass-detail-07-2x.png",
+          "sha256": "c26319ab39d841f56c059620705e6445c566558b2b1774e22bf1ec73e548e0d4"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "art/exports/grass-refdesign-v1/grass-detail-07-4x.png",
+          "sha256": "41396cb6725fa5af88911e27bca11c7438bf5bcc4250db77dc1fe5910b6f9265"
+        }
+      ],
+      "runtime_id": "grass-detail-07",
+      "source_phase_world": [
+        117,
+        1
+      ]
+    },
+    {
+      "detail_material": "flowers",
+      "detail_strength": 0.65,
+      "index": 8,
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "art/exports/grass-refdesign-v1/grass-detail-08-2x.png",
+          "sha256": "0a09cba5f6b0f3e136d65b00fa283117b80f615fd9e9caa565c69747f839bd64"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "art/exports/grass-refdesign-v1/grass-detail-08-4x.png",
+          "sha256": "b73d361ae6ab78d228569d20b7686108c120ca1f0ccce8c03594b8b60846515a"
+        }
+      ],
+      "runtime_id": "grass-detail-08",
+      "source_phase_world": [
+        12,
+        24
+      ]
+    },
+    {
+      "detail_material": "worn",
+      "detail_strength": 0.65,
+      "index": 9,
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "art/exports/grass-refdesign-v1/grass-detail-09-2x.png",
+          "sha256": "161a4f7fc97d3ab618b0b234ab90732296e867d2fee0acc48abc7daedb51ef5c"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "art/exports/grass-refdesign-v1/grass-detail-09-4x.png",
+          "sha256": "848f82b38d5958d90dcf29d5343d9b67e2819f28f0df099ab8d511089bb0268a"
+        }
+      ],
+      "runtime_id": "grass-detail-09",
+      "source_phase_world": [
+        49,
+        47
+      ]
+    },
+    {
+      "detail_material": "base",
+      "detail_strength": 0.65,
+      "index": 10,
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "art/exports/grass-refdesign-v1/grass-detail-10-2x.png",
+          "sha256": "984e615d6d30445bce9b6a96a2dd55a30f27e8ebabb11bde61c7a68722d18c48"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "art/exports/grass-refdesign-v1/grass-detail-10-4x.png",
+          "sha256": "e85d50c91c9566c06d9045542bc8210233e9c6b435eb8f7447c3fae5495b256d"
+        }
+      ],
+      "runtime_id": "grass-detail-10",
+      "source_phase_world": [
+        86,
+        70
+      ]
+    },
+    {
+      "detail_material": "flowers",
+      "detail_strength": 0.65,
+      "index": 11,
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "art/exports/grass-refdesign-v1/grass-detail-11-2x.png",
+          "sha256": "14df6a11a2246406aff48d779bfac907ca52d6e9297fba1bed63adeef3069234"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "art/exports/grass-refdesign-v1/grass-detail-11-4x.png",
+          "sha256": "2afc6c3ccca451d6b4d7b856dde1ef669848ae65421fa66506aa1720377f525b"
+        }
+      ],
+      "runtime_id": "grass-detail-11",
+      "source_phase_world": [
+        123,
+        13
+      ]
+    },
+    {
+      "detail_material": "worn",
+      "detail_strength": 0.65,
+      "index": 12,
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "art/exports/grass-refdesign-v1/grass-detail-12-2x.png",
+          "sha256": "7c2c80ac319e75b199c8927cca3eb121cee4f66c1e96ece8003599207531f692"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "art/exports/grass-refdesign-v1/grass-detail-12-4x.png",
+          "sha256": "caf9fe2299105fe8514608c799e468be53a58ca3e3ea9575fab525c1859fe5a5"
+        }
+      ],
+      "runtime_id": "grass-detail-12",
+      "source_phase_world": [
+        18,
+        36
+      ]
+    },
+    {
+      "detail_material": "flowers",
+      "detail_strength": 0.65,
+      "index": 13,
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "art/exports/grass-refdesign-v1/grass-detail-13-2x.png",
+          "sha256": "58df5db3394c75ab9965e3d18e8ab486566d9aa6caae1ca1e26a3b2798c29346"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "art/exports/grass-refdesign-v1/grass-detail-13-4x.png",
+          "sha256": "73b977043bb68f69afa8e804cd5b8c56a26cfacf8baef5ab27bc6ea383af7a55"
+        }
+      ],
+      "runtime_id": "grass-detail-13",
+      "source_phase_world": [
+        55,
+        59
+      ]
+    },
+    {
+      "detail_material": "worn",
+      "detail_strength": 0.65,
+      "index": 14,
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "art/exports/grass-refdesign-v1/grass-detail-14-2x.png",
+          "sha256": "d347df76c5eb200e8175d1f2f9081218a4352c63ff735a9c446462e59219245a"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "art/exports/grass-refdesign-v1/grass-detail-14-4x.png",
+          "sha256": "1fed8cd1ca11b11450c727e032d27a4c46afcf75650ecef2658fe3ad11f43b84"
+        }
+      ],
+      "runtime_id": "grass-detail-14",
+      "source_phase_world": [
+        92,
+        2
+      ]
+    },
+    {
+      "detail_material": "base",
+      "detail_strength": 0.65,
+      "index": 15,
+      "outputs": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "art/exports/grass-refdesign-v1/grass-detail-15-2x.png",
+          "sha256": "fc287f18f0f1f8c786e5274180f2b6e83d30772043d812336dd1edf71d7596ef"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "art/exports/grass-refdesign-v1/grass-detail-15-4x.png",
+          "sha256": "e99ac50ac3585f3ec97c9890b74de88ae76b31bd997bb021dd1cd75fa36e82c3"
+        }
+      ],
+      "runtime_id": "grass-detail-15",
+      "source_phase_world": [
+        129,
+        25
+      ]
+    }
+  ]
+}

@@ -1,8 +1,8 @@
 {
   "grounds": {
     "summer": {
-      "source": "source/terrain/reference-v2/meadow-03.png",
-      "source_sha256": "4de543f0906e1311eff5ae4f202eb8fa68665c67103039bee089e60e02c68eb4"
+      "source": "source/terrain/refdesign-v1/grass-base-01.png",
+      "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
     },
     "winter": {
       "source": "source/terrain/distinct-v1/snow-ground.png",
@@ -12,32 +12,32 @@
   "scenes": [
     {
       "artwork": {
-        "source": "source/compound/distinct-v1/mountain-summer.png",
-        "source_sha256": "620316294fc71cc75f37145f0516669ee140d73ff1d537cc01175c74d7a5ae66"
+        "source": "source/compound/refdesign-v1/mountain-summer.png",
+        "source_sha256": "3b9e7f1b6183845f5eacf621a12af48adb0e3dd071363a948838906143ba932f"
       },
       "id": "mountain-summer",
       "inset": 0.55
     },
     {
       "artwork": {
-        "source": "source/compound/distinct-v1/mountain-winter.png",
-        "source_sha256": "2e90ccac63b02a4103ad48f015c3a9665e91ff1b19848500eb2da5b542a76225"
+        "source": "source/compound/refdesign-v1/mountain-winter.png",
+        "source_sha256": "d1e08f8261aaba528bd4e2db1003af357fbe720888b0725cfc475de43cb7fe76"
       },
       "id": "mountain-winter",
       "inset": 0.55
     },
     {
       "artwork": {
-        "source": "source/compound/distinct-v1/mountain-summer.png",
-        "source_sha256": "620316294fc71cc75f37145f0516669ee140d73ff1d537cc01175c74d7a5ae66"
+        "source": "source/compound/refdesign-v1/mountain-summer.png",
+        "source_sha256": "3b9e7f1b6183845f5eacf621a12af48adb0e3dd071363a948838906143ba932f"
       },
       "id": "mountain-single-summer",
       "inset": 0.55
     },
     {
       "artwork": {
-        "source": "source/compound/distinct-v1/mountain-winter.png",
-        "source_sha256": "2e90ccac63b02a4103ad48f015c3a9665e91ff1b19848500eb2da5b542a76225"
+        "source": "source/compound/refdesign-v1/mountain-winter.png",
+        "source_sha256": "d1e08f8261aaba528bd4e2db1003af357fbe720888b0725cfc475de43cb7fe76"
       },
       "id": "mountain-single-winter",
       "inset": 0.55

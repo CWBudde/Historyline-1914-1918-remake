@@ -1,9 +1,9 @@
 {
-  "acceptance": "Current provisional reference-guided candidate rebuild. Actual PNG assembly and pinned inputs are recorded; current user visual approval, approximately 90% resemblance, whole-map/runtime integration and release acceptance remain open.",
+  "acceptance": "Reference-guided candidate rebuild. Current exported assets and context proofs are pinned; final user visual review remains open.",
   "concealment_policy": "Never-seen cells use only the same opaque unseen PNG, independent of underlying terrain, units, routes, structures and season; no terrain hints or transparency-to-terrain. Seasonal grass/grass_w PNGs are visible frontier neighbors only. No runtime IDs inferred or invented.",
   "concealment_previews": {
     "policy": "New opaque unseen overwrites backgrounds and routes of four declared hidden cells; route approaches at the visibility frontier are intentionally concealed. This is an offline graphics proof; runtime integration remains open.",
-    "rebuild_status": "Historical fixture from the previous source set. Replaced inputs are preserved under art/review/history/2026-10-20 with their original hashes. This fixture has not been re-reviewed for the current artwork.",
+    "rebuild_status": "Historical fixture preserved from the previous source set. Pixels and hashes were not refreshed by this rebuild; re-review is required.",
     "scenes": [
       {
         "canvas_world_origin": [
@@ -455,7 +455,10 @@
   ],
   "generation_recipes": [
     "art/recipes/fog/distinct-v1/unseen-01.json",
+    "art/recipes/terrain/distinct-v1/meadow.json",
     "art/recipes/terrain/distinct-v1/snow-ground.json",
+    "art/recipes/terrain/refdesign-v1/grass-base-01.json",
+    "art/recipes/terrain/refdesign-v1/grass-meadow-01.json",
     "art/recipes/terrain/reference-v2/meadow-03.json"
   ],
   "generation_recipes_scope": "Includes historical generation studies and the current pinned master records. Current source selection is established by the producing manifest and its exact SHA256 pins; historical records are unchanged.",
@@ -543,16 +546,16 @@
   },
   "id": "fog-terrain-v1",
   "manifest": "art/fog-terrain-v1.json",
-  "manifest_sha256": "c4ad8fdbd9607bb2211495bb395618017fc02a3b789e8b687c750734b7cb0050",
+  "manifest_sha256": "133717ff94aeefe07b478fca262202a621fad0f6fb851f50dcf715ae9cd9584a",
   "materials": {
     "summer": {
       "dimensions": {
-        "height": 1145,
-        "width": 1374
+        "height": 480,
+        "width": 768
       },
       "retained_source": "sources/summer.png",
-      "source": "art/source/terrain/reference-v2/meadow-03.png",
-      "source_sha256": "4de543f0906e1311eff5ae4f202eb8fa68665c67103039bee089e60e02c68eb4"
+      "source": "art/source/terrain/refdesign-v1/grass-base-01.png",
+      "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
     },
     "unseen": {
       "dimensions": {
@@ -573,22 +576,15 @@
       "source_sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3"
     }
   },
-  "original_image_inputs": [
-    {
-      "generation_recipe": "art/recipes/terrain/reference-v2/meadow-03.json",
-      "path": "legacy/python/gfx/hexTypes/hex_grass.png",
-      "role": "Semantic original reference only: Only image input: composition, muted olive palette and low-frequency restoration reference; original file remains reference-only.",
-      "sha256": "67257c01c1e3e30ddc438e85e5e376cd1aa72f888cfb2851b288061e1eb7a0de"
-    }
-  ],
+  "original_image_inputs": null,
   "original_image_inputs_scope": "Semantic visual references used to paint the current masters or their fixture ground. Originals remain reference-only and are not bundled as runtime PNGs; source masters are newly painted. Unit sprite planes retain their existing independent artwork provenance.",
   "ownership": "Final pixel centers use the shared polygon (25,0),(71,0),(96,40),(71,80),(25,80),(0,40). Complementary top-left half-open ownership: cross(edge,point)\u003e0; edge ties include dy\u003c0 or dy==0 \u0026\u0026 dx\u003e0. Owned pixels are alpha 255; outside is zero RGBA. No outline, edge fade or per-scene filtering.",
   "previous_acceptance": {
     "scope": "Historical source set before the current redraw; not an approval of the current artwork.",
     "text": "Provisional fullyopaque never-seen graphics candidate; independent art/code review and actualPNG concealment/parity/repeatchecks pass. Source-only backgrounds/nativecoverage/unit/UI/fullmap/rememberedstate/runtime/release acceptance remainopen."
   },
-  "profile": "fog-v1: fixed opaque never-seen candidate, runtime ID unseen only. Each of unseen/summer/winter independently uses unchanged exportConnectionTiles with its opaque source mapped to grass and nil family/variant; no feature rendering. New 96x80 polygon, four world pixels of unmasked overscan at 4x (416x352); unchanged premultiplied byte-RGB antialiased Lanczos3 to whole unmasked 2x overscan (208x176); crop then final binary ownership at each density. Existing continuous mirror-periodic material sampler with periods (142,80) and average f(x,y), f(x+71,y+40); invariant under all six lattice neighbor shifts, all tiles at common world phase. Six fixed seven-hex patches, decoded exported PNGs and ordinary image.Draw Over only; pixel-aligned 2x/4x. Runtime integration remains open.",
-  "rebuild_note": "Rebuilt from the current reference-guided grass/compound inputs; user visual approval remains open. Historical generation recipes retain their original provenance.",
+  "profile": "fog-v1: fixed opaque never-seen candidate, runtime ID unseen only. Unseen and winter use unchanged exportConnectionTiles with opaque sources mapped to grass and nil family/variant; summer grass uses exportGrassBaseTiles with the unmirrored lattice-periodic grass sampler; no feature rendering. New 96x80 polygon, four world pixels of unmasked overscan at 4x (416x352); unchanged premultiplied byte-RGB antialiased Lanczos3 to whole unmasked 2x overscan (208x176); crop then final binary ownership at each density. Unseen and winter retain existing continuous mirror-periodic material sampler with periods (142,80) and average f(x,y), f(x+71,y+40); invariant under all six lattice neighbor shifts, all tiles at common world phase. Six fixed seven-hex patches, decoded exported PNGs and ordinary image.Draw Over only; pixel-aligned 2x/4x. Runtime integration remains open. Summer grass: unmirrored periodic bilinear source sampling. Per source axis, overlap=(size-1)/4 and span=3*(size-1)/4. At world phase t in [0,period), x=t/period*span. For x\u003coverlap blend source(x+span) toward source(x) with cubic smoothstep(x/overlap); otherwise source(x). Apply separable windows on both axes, periods142,80. Round wrapped world phases to1e-9 before source lookup. Average RGB of f(x,y),f(x+71,y+40), then round half-up once. This is invariant under all six neighbor translations without reflected source marks. Non-grass materials, unseen and winter retain the existing sampler.",
+  "rebuild_note": "Rebuilt to the user-supplied RefDesign visual target with shared detailed grass, earthworks, roads, crowns, rocks and huts; user visual approval remains open. Historical generation recipes retain their original provenance.",
   "resampling_chain": [
     "opaque source -\u003e unmasked 4x overscan 416x352: unchanged lattice material sampler",
     "whole unmasked 4x -\u003e whole unmasked 2x 208x176: unchanged resizeLanczos (Lanczos3)",
@@ -639,7 +635,7 @@
         "width": 476
       },
       "path": "art/review/fog-v1/summer-frontier-parity0-2x.png",
-      "sha256": "3881c2b9c78ba9b0b89683f8c567f4da4d99fcf31dda10811c639080f320a9e5"
+      "sha256": "a0376cfc533b47f8a61dbeee3247e5d5cb55624d2f78cbd2824950baca7fd03f"
     },
     {
       "build_output": "scenes/summer-frontier-parity0-4x.png",
@@ -648,7 +644,7 @@
         "width": 952
       },
       "path": "art/review/fog-v1/summer-frontier-parity0-4x.png",
-      "sha256": "5f43b7aecb97151f0683f5197ed3c7897707c018911466309c225851a9f785c6"
+      "sha256": "5f2792fa225ab43059cce6de6c78b6e935b2b3656dfe0a8bdf9f681c85f3d672"
     },
     {
       "build_output": "scenes/summer-frontier-parity1-2x.png",
@@ -657,7 +653,7 @@
         "width": 476
       },
       "path": "art/review/fog-v1/summer-frontier-parity1-2x.png",
-      "sha256": "3881c2b9c78ba9b0b89683f8c567f4da4d99fcf31dda10811c639080f320a9e5"
+      "sha256": "a0376cfc533b47f8a61dbeee3247e5d5cb55624d2f78cbd2824950baca7fd03f"
     },
     {
       "build_output": "scenes/summer-frontier-parity1-4x.png",
@@ -666,7 +662,7 @@
         "width": 952
       },
       "path": "art/review/fog-v1/summer-frontier-parity1-4x.png",
-      "sha256": "5f43b7aecb97151f0683f5197ed3c7897707c018911466309c225851a9f785c6"
+      "sha256": "5f2792fa225ab43059cce6de6c78b6e935b2b3656dfe0a8bdf9f681c85f3d672"
     },
     {
       "build_output": "scenes/winter-frontier-parity0-2x.png",
@@ -984,7 +980,7 @@
             "width": 476
           },
           "path": "art/review/fog-v1/summer-frontier-parity0-2x.png",
-          "sha256": "3881c2b9c78ba9b0b89683f8c567f4da4d99fcf31dda10811c639080f320a9e5"
+          "sha256": "a0376cfc533b47f8a61dbeee3247e5d5cb55624d2f78cbd2824950baca7fd03f"
         },
         {
           "dimensions": {
@@ -992,7 +988,7 @@
             "width": 952
           },
           "path": "art/review/fog-v1/summer-frontier-parity0-4x.png",
-          "sha256": "5f43b7aecb97151f0683f5197ed3c7897707c018911466309c225851a9f785c6"
+          "sha256": "5f2792fa225ab43059cce6de6c78b6e935b2b3656dfe0a8bdf9f681c85f3d672"
         }
       ],
       "season": "summer"
@@ -1081,7 +1077,7 @@
             "width": 476
           },
           "path": "art/review/fog-v1/summer-frontier-parity1-2x.png",
-          "sha256": "3881c2b9c78ba9b0b89683f8c567f4da4d99fcf31dda10811c639080f320a9e5"
+          "sha256": "a0376cfc533b47f8a61dbeee3247e5d5cb55624d2f78cbd2824950baca7fd03f"
         },
         {
           "dimensions": {
@@ -1089,7 +1085,7 @@
             "width": 952
           },
           "path": "art/review/fog-v1/summer-frontier-parity1-4x.png",
-          "sha256": "5f43b7aecb97151f0683f5197ed3c7897707c018911466309c225851a9f785c6"
+          "sha256": "5f2792fa225ab43059cce6de6c78b6e935b2b3656dfe0a8bdf9f681c85f3d672"
         }
       ],
       "season": "summer"
@@ -1291,5 +1287,10 @@
   ],
   "schema_version": 1,
   "status": "candidate-built",
-  "tool": "Go tools/art-review -fog"
+  "tool": "Go tools/art-review -fog",
+  "visual_target": {
+    "reference": "RefDesign.png",
+    "role": "User-supplied scene target for the current grass, streets, earthworks, rocks, hut and summer canopy. Reference bytes are not runtime artwork.",
+    "sha256": "3924e55c20ca63cbe31a7e4b3d469977f20c9ddf7802912e92782360b4d1aa69"
+  }
 }

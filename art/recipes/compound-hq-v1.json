@@ -1,5 +1,5 @@
 {
-  "acceptance": "Seven joined HQ pieces form a stone fortress with four corner towers, red north gate, road, bridge/moat and two rear bushes. Current provisional reference-guided candidate rebuild. Actual PNG assembly and pinned inputs are recorded; current user visual approval, approximately 90% resemblance, whole-map/runtime integration and release acceptance remain open.",
+  "acceptance": "Reference-guided candidate rebuild. Current exported assets and context proofs are pinned; final user visual review remains open.",
   "date": "2026-10-15",
   "exports": [
     {
@@ -9,7 +9,7 @@
         "width": 192
       },
       "path": "art/exports/compound-v1/hqN-2x.png",
-      "sha256": "345ccd216dbe0a4ca1820b3cb4906fa17861107311782e28a710509ec001227c"
+      "sha256": "9db743d591a62e5968c97252c918fba195bd93a7233725a10d9c9098a1c5f8c9"
     },
     {
       "build_output": "tiles/hqN-4x.png",
@@ -18,7 +18,7 @@
         "width": 384
       },
       "path": "art/exports/compound-v1/hqN-4x.png",
-      "sha256": "2dbcba732c456828eb5798ab4cbdf355ebcf3e3b114e119d114d6a09ff767346"
+      "sha256": "efda6318a92834cc9ccdbd2f6a644d28c056383dc9d617e1aa515ab0b506660a"
     },
     {
       "build_output": "tiles/hqNW-2x.png",
@@ -27,7 +27,7 @@
         "width": 192
       },
       "path": "art/exports/compound-v1/hqNW-2x.png",
-      "sha256": "fa3b3bad2b54d82222938173f42d6c9207588b1ea9e6d08c7cfd6eb12dc049c5"
+      "sha256": "b8a83b7d5301a7e31a2b64c43b1e673a66588cdfd2a89ff87689bb29c64274e8"
     },
     {
       "build_output": "tiles/hqNW-4x.png",
@@ -36,7 +36,7 @@
         "width": 384
       },
       "path": "art/exports/compound-v1/hqNW-4x.png",
-      "sha256": "98987878571e3e49363aef3840e0cc45ee79cafe205d654b0d86c19b75eda901"
+      "sha256": "29b55851f4177e533c826c3595b6d91e94d7f805a1ef892358b433e36f412409"
     },
     {
       "build_output": "tiles/hqNE-2x.png",
@@ -45,7 +45,7 @@
         "width": 192
       },
       "path": "art/exports/compound-v1/hqNE-2x.png",
-      "sha256": "36fc2af942819afc57d19956c7fb3eb080af753dca3fd30a86dcf2d17fadeac6"
+      "sha256": "0c22fa0a2b8dca74198c736afff5ab7d810f18928d843e9bec6303534b3afc40"
     },
     {
       "build_output": "tiles/hqNE-4x.png",
@@ -54,7 +54,7 @@
         "width": 384
       },
       "path": "art/exports/compound-v1/hqNE-4x.png",
-      "sha256": "bf61f310fd18aed01686028823942f5fcd2439ce4bfec82ca76a4a280088c6fd"
+      "sha256": "fe9f0197522c5ead9ad54b96b94657f286b457528e28baa1f3471992cf082dde"
     },
     {
       "build_output": "tiles/hqC-2x.png",
@@ -63,7 +63,7 @@
         "width": 192
       },
       "path": "art/exports/compound-v1/hqC-2x.png",
-      "sha256": "f4852a1043de476db4d8680c790ca73a99419efa608921de8abbb1e280db4421"
+      "sha256": "6dcd5f49af0100ba7dedff8c688eff9b024d039919aa5fe647ad9cb5d5138b45"
     },
     {
       "build_output": "tiles/hqC-4x.png",
@@ -72,7 +72,7 @@
         "width": 384
       },
       "path": "art/exports/compound-v1/hqC-4x.png",
-      "sha256": "f034e3d1280446fd5fdf4a4e0c56c050e3eb4eff3539e27f8658715c0ecb19fe"
+      "sha256": "d462c7712ce18ab1271fda8f36ebe8366fd1c1effcd7714f8635daf5d1166637"
     },
     {
       "build_output": "tiles/hqSW-2x.png",
@@ -81,7 +81,7 @@
         "width": 192
       },
       "path": "art/exports/compound-v1/hqSW-2x.png",
-      "sha256": "167524aff1ef512377b24468c7aa358522ca4ab7a52658456a3fe7ec64153ec6"
+      "sha256": "ca26fb0496e7cf519782bd11bc6c852cef54afd69fb3f2052229750b82c7126e"
     },
     {
       "build_output": "tiles/hqSW-4x.png",
@@ -90,7 +90,7 @@
         "width": 384
       },
       "path": "art/exports/compound-v1/hqSW-4x.png",
-      "sha256": "37a1046b1e448fcd08be9cfb0ee9aa0ba895ca1fd3b5010e564c76274d3b42f9"
+      "sha256": "9b064f3fda180749959538f90a5074c0c86e068b8f70727b263c71905de31da3"
     },
     {
       "build_output": "tiles/hqSE-2x.png",
@@ -99,7 +99,7 @@
         "width": 192
       },
       "path": "art/exports/compound-v1/hqSE-2x.png",
-      "sha256": "b00f7b89c41b437a025a3365edce5d55deaba1b47bb3fd18d96bf02b98c2a47a"
+      "sha256": "6cff0cc6c5aae1a89db7ea47b08133c8929f955012e776740d6d1685cb095da4"
     },
     {
       "build_output": "tiles/hqSE-4x.png",
@@ -108,7 +108,7 @@
         "width": 384
       },
       "path": "art/exports/compound-v1/hqSE-4x.png",
-      "sha256": "20a9917cd6c6e6deae90c5e6af0c28c3458220f16797dae038314431f7ec90ad"
+      "sha256": "4d9afd5b904a313b2e5a0f7a3e13bade0a939367ed6ddf829e6ef7664b5ac4db"
     },
     {
       "build_output": "tiles/hqS-2x.png",
@@ -117,7 +117,7 @@
         "width": 192
       },
       "path": "art/exports/compound-v1/hqS-2x.png",
-      "sha256": "d0d66a202c83dc1f717a04fab0b2f4c77c99fff0d9e35063c59a825077a533e2"
+      "sha256": "a7287299e45054133188d60bdf5752e0955c109722b999f5fbc7c4014ea23a26"
     },
     {
       "build_output": "tiles/hqS-4x.png",
@@ -126,7 +126,7 @@
         "width": 384
       },
       "path": "art/exports/compound-v1/hqS-4x.png",
-      "sha256": "05f27c8603cbdaf0a6ffe7d7642dc565a106e78909ec7f698955aa0ace5a734a"
+      "sha256": "1187ca2469aa4f02c80860468517f318b51660b066595a4dbb8d32242e749520"
     },
     {
       "build_output": "tiles/hqN_w-2x.png",
@@ -259,13 +259,16 @@
     "art/recipes/compound/distinct-v1/hq-layout-guide.json",
     "art/recipes/compound/distinct-v1/hq-summer-01.json",
     "art/recipes/compound/distinct-v1/hq-winter-01.json",
-    "art/recipes/compound/reference-v2/hq-summer.json",
-    "art/recipes/compound/reference-v2/hq-winter.json",
-    "art/recipes/terrain/distinct-v1/snow-ground.json",
-    "art/recipes/terrain/reference-v2/meadow-03.json",
     "art/recipes/compound/reference-v2/hq-summer-natural.json",
+    "art/recipes/compound/reference-v2/hq-summer.json",
     "art/recipes/compound/reference-v2/hq-winter-natural.json",
-    "art/recipes/compound/reference-v2/hq-winter-street.json"
+    "art/recipes/compound/reference-v2/hq-winter-street.json",
+    "art/recipes/compound/reference-v2/hq-winter.json",
+    "art/recipes/terrain/distinct-v1/meadow.json",
+    "art/recipes/terrain/distinct-v1/snow-ground.json",
+    "art/recipes/terrain/refdesign-v1/grass-base-01.json",
+    "art/recipes/terrain/refdesign-v1/grass-meadow-01.json",
+    "art/recipes/terrain/reference-v2/meadow-03.json"
   ],
   "generation_recipes_scope": "Includes historical generation studies and the current pinned master records. Current source selection is established by the producing manifest and its exact SHA256 pins; historical records are unchanged.",
   "geometry": {
@@ -353,12 +356,12 @@
   "grounds": {
     "summer": {
       "dimensions": {
-        "height": 1145,
-        "width": 1374
+        "height": 480,
+        "width": 768
       },
       "retained_source": "sources/ground-summer.png",
-      "source": "art/source/terrain/reference-v2/meadow-03.png",
-      "source_sha256": "4de543f0906e1311eff5ae4f202eb8fa68665c67103039bee089e60e02c68eb4"
+      "source": "art/source/terrain/refdesign-v1/grass-base-01.png",
+      "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
     },
     "winter": {
       "dimensions": {
@@ -372,22 +375,15 @@
   },
   "id": "compound-hq-v1",
   "manifest": "art/compound-hq-v1.json",
-  "manifest_sha256": "6440caa2f56ef1fadb64d55710de5b0bfc38518b5e260982d2046bd843da4a9e",
-  "original_image_inputs": [
-    {
-      "generation_recipe": "art/recipes/terrain/reference-v2/meadow-03.json",
-      "path": "legacy/python/gfx/hexTypes/hex_grass.png",
-      "role": "Semantic original reference only: Only image input: composition, muted olive palette and low-frequency restoration reference; original file remains reference-only.",
-      "sha256": "67257c01c1e3e30ddc438e85e5e376cd1aa72f888cfb2851b288061e1eb7a0de"
-    }
-  ],
+  "manifest_sha256": "3ce94f9e6e32950ee5cf519a87e887c8fc274446a636dda2935e098bd2b5914e",
+  "original_image_inputs": null,
   "original_image_inputs_scope": "Semantic visual references used to paint the current masters or their fixture ground. Originals remain reference-only and are not bundled as runtime PNGs; source masters are newly painted. Unit sprite planes retain their existing independent artwork provenance.",
   "previous_acceptance": {
     "scope": "Historical source set before the current redraw; not an approval of the current artwork.",
     "text": "Provisional new HQ seasonal pair. Manor occupies lower N; entrance reaches C, so runtime cell association remains an explicit review caveat. Independent source/final-size art review passes. Whole-scene actual-PNG and surround-parity checks pass at2x/4x. Fullmap/nativecoverage/materialquality/runtimeintegration/zoom/releaseacceptance remainopen."
   },
   "profile": "Per-scene profiles; explicit reference-layout scenes retain edge roads and fences without the default eight-world-pixel guard. See each scene's profile and framing.",
-  "rebuild_note": "Rebuilt from the current reference-guided grass/compound inputs; user visual approval remains open. Historical generation recipes retain their original provenance.",
+  "rebuild_note": "Rebuilt to the user-supplied RefDesign visual target with shared detailed grass, earthworks, roads, crowns, rocks and huts; user visual approval remains open. Historical generation recipes retain their original provenance.",
   "review_exports": [
     {
       "build_output": "hq-summer-scene-2x.png",
@@ -396,7 +392,7 @@
         "width": 476
       },
       "path": "art/review/compound-v1/hq-summer-scene-2x.png",
-      "sha256": "5be86312d1048f44ef86cb4de0e1a4f5c335001269d7edc05b76eff62b8de9f2"
+      "sha256": "4be7b0d2c9cff4d818ff13b204382ef0b4e35a5f79568702540b2854e3530999"
     },
     {
       "build_output": "hq-summer-patch-parity0-2x.png",
@@ -405,7 +401,7 @@
         "width": 760
       },
       "path": "art/review/compound-v1/hq-summer-patch-parity0-2x.png",
-      "sha256": "1f93547754935b405c2493b249943efe9ef597508c4cfc51a1a8371abcd7b4a8"
+      "sha256": "0bf19e27636cf0dbecd495598d6198276d3410f1ffdc73fd79586ea3a86cb296"
     },
     {
       "build_output": "hq-summer-patch-parity1-2x.png",
@@ -414,7 +410,7 @@
         "width": 760
       },
       "path": "art/review/compound-v1/hq-summer-patch-parity1-2x.png",
-      "sha256": "1f93547754935b405c2493b249943efe9ef597508c4cfc51a1a8371abcd7b4a8"
+      "sha256": "0bf19e27636cf0dbecd495598d6198276d3410f1ffdc73fd79586ea3a86cb296"
     },
     {
       "build_output": "hq-summer-scene-4x.png",
@@ -423,7 +419,7 @@
         "width": 952
       },
       "path": "art/review/compound-v1/hq-summer-scene-4x.png",
-      "sha256": "47448bac8949e9905e3df91a63d0cf1803916c787beebfac7596b8ff26fdc1a8"
+      "sha256": "f7020dd2100a37ee033224953112476968459f9b4ed9d373786c1559bf5a00fa"
     },
     {
       "build_output": "hq-summer-patch-parity0-4x.png",
@@ -432,7 +428,7 @@
         "width": 1520
       },
       "path": "art/review/compound-v1/hq-summer-patch-parity0-4x.png",
-      "sha256": "6db1cbcd4f0809688c8b8e57d134cfc7ee26eb9566c77949ef2387fb6ee8e01e"
+      "sha256": "0dfb24e660cb240ea66a1dbc28134e58ed4df425ffdb4bb19bc29a935ab4d2ba"
     },
     {
       "build_output": "hq-summer-patch-parity1-4x.png",
@@ -441,7 +437,7 @@
         "width": 1520
       },
       "path": "art/review/compound-v1/hq-summer-patch-parity1-4x.png",
-      "sha256": "6db1cbcd4f0809688c8b8e57d134cfc7ee26eb9566c77949ef2387fb6ee8e01e"
+      "sha256": "0dfb24e660cb240ea66a1dbc28134e58ed4df425ffdb4bb19bc29a935ab4d2ba"
     },
     {
       "build_output": "hq-winter-scene-2x.png",
@@ -525,7 +521,7 @@
             "width": 476
           },
           "path": "hq-summer-assembled-2x.png",
-          "sha256": "5be86312d1048f44ef86cb4de0e1a4f5c335001269d7edc05b76eff62b8de9f2"
+          "sha256": "4be7b0d2c9cff4d818ff13b204382ef0b4e35a5f79568702540b2854e3530999"
         },
         {
           "dimensions": {
@@ -533,7 +529,7 @@
             "width": 952
           },
           "path": "hq-summer-assembled-4x.png",
-          "sha256": "47448bac8949e9905e3df91a63d0cf1803916c787beebfac7596b8ff26fdc1a8"
+          "sha256": "f7020dd2100a37ee033224953112476968459f9b4ed9d373786c1559bf5a00fa"
         }
       ],
       "entry_cell": "N",
@@ -747,7 +743,7 @@
                 "width": 760
               },
               "path": "art/review/compound-v1/hq-summer-patch-parity0-2x.png",
-              "sha256": "1f93547754935b405c2493b249943efe9ef597508c4cfc51a1a8371abcd7b4a8"
+              "sha256": "0bf19e27636cf0dbecd495598d6198276d3410f1ffdc73fd79586ea3a86cb296"
             },
             {
               "dimensions": {
@@ -755,7 +751,7 @@
                 "width": 1520
               },
               "path": "art/review/compound-v1/hq-summer-patch-parity0-4x.png",
-              "sha256": "6db1cbcd4f0809688c8b8e57d134cfc7ee26eb9566c77949ef2387fb6ee8e01e"
+              "sha256": "0dfb24e660cb240ea66a1dbc28134e58ed4df425ffdb4bb19bc29a935ab4d2ba"
             }
           ],
           "parity": 0,
@@ -949,7 +945,7 @@
                 "width": 760
               },
               "path": "art/review/compound-v1/hq-summer-patch-parity1-2x.png",
-              "sha256": "1f93547754935b405c2493b249943efe9ef597508c4cfc51a1a8371abcd7b4a8"
+              "sha256": "0bf19e27636cf0dbecd495598d6198276d3410f1ffdc73fd79586ea3a86cb296"
             },
             {
               "dimensions": {
@@ -957,7 +953,7 @@
                 "width": 1520
               },
               "path": "art/review/compound-v1/hq-summer-patch-parity1-4x.png",
-              "sha256": "6db1cbcd4f0809688c8b8e57d134cfc7ee26eb9566c77949ef2387fb6ee8e01e"
+              "sha256": "0dfb24e660cb240ea66a1dbc28134e58ed4df425ffdb4bb19bc29a935ab4d2ba"
             }
           ],
           "parity": 1,
@@ -967,7 +963,7 @@
           ]
         }
       ],
-      "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; explicit reference-layout framing: preserve full affine source at the requested inset; report the eight-world-pixel boundary band diagnostically without rejection or fade. Existing resizeLanczos filters full unmasked 4x artwork to whole-scene 2x before final union clipping. Ground independently exported by exportConnectionTiles with fixed geometry and grass only, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim.",
+      "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; explicit reference-layout framing: preserve full affine source at the requested inset; report the eight-world-pixel boundary band diagnostically without rejection or fade. Existing resizeLanczos filters full unmasked 4x artwork to whole-scene 2x before final union clipping. Ground independently exported by exportGrassBaseTiles in summer and unchanged exportConnectionTiles otherwise with fixed geometry and grass only, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim. Summer grass: unmirrored periodic bilinear source sampling. Per source axis, overlap=(size-1)/4 and span=3*(size-1)/4. At world phase t in [0,period), x=t/period*span. For x\u003coverlap blend source(x+span) toward source(x) with cubic smoothstep(x/overlap); otherwise source(x). Apply separable windows on both axes, periods142,80. Round wrapped world phases to1e-9 before source lookup. Average RGB of f(x,y),f(x+71,y+40), then round half-up once. This is invariant under all six neighbor translations without reflected source marks. Non-grass materials, unseen and winter retain the existing sampler.",
       "reference": [
         {
           "dimensions": {
@@ -975,7 +971,7 @@
             "width": 476
           },
           "path": "art/review/compound-v1/hq-summer-scene-2x.png",
-          "sha256": "5be86312d1048f44ef86cb4de0e1a4f5c335001269d7edc05b76eff62b8de9f2"
+          "sha256": "4be7b0d2c9cff4d818ff13b204382ef0b4e35a5f79568702540b2854e3530999"
         },
         {
           "dimensions": {
@@ -983,7 +979,7 @@
             "width": 952
           },
           "path": "art/review/compound-v1/hq-summer-scene-4x.png",
-          "sha256": "47448bac8949e9905e3df91a63d0cf1803916c787beebfac7596b8ff26fdc1a8"
+          "sha256": "f7020dd2100a37ee033224953112476968459f9b4ed9d373786c1559bf5a00fa"
         }
       ],
       "season": "summer",
@@ -1001,7 +997,7 @@
                 "width": 192
               },
               "path": "art/exports/compound-v1/hqN-2x.png",
-              "sha256": "345ccd216dbe0a4ca1820b3cb4906fa17861107311782e28a710509ec001227c"
+              "sha256": "9db743d591a62e5968c97252c918fba195bd93a7233725a10d9c9098a1c5f8c9"
             },
             {
               "dimensions": {
@@ -1009,7 +1005,7 @@
                 "width": 384
               },
               "path": "art/exports/compound-v1/hqN-4x.png",
-              "sha256": "2dbcba732c456828eb5798ab4cbdf355ebcf3e3b114e119d114d6a09ff767346"
+              "sha256": "efda6318a92834cc9ccdbd2f6a644d28c056383dc9d617e1aa515ab0b506660a"
             }
           ],
           "runtime_id": "hqN"
@@ -1027,7 +1023,7 @@
                 "width": 192
               },
               "path": "art/exports/compound-v1/hqNW-2x.png",
-              "sha256": "fa3b3bad2b54d82222938173f42d6c9207588b1ea9e6d08c7cfd6eb12dc049c5"
+              "sha256": "b8a83b7d5301a7e31a2b64c43b1e673a66588cdfd2a89ff87689bb29c64274e8"
             },
             {
               "dimensions": {
@@ -1035,7 +1031,7 @@
                 "width": 384
               },
               "path": "art/exports/compound-v1/hqNW-4x.png",
-              "sha256": "98987878571e3e49363aef3840e0cc45ee79cafe205d654b0d86c19b75eda901"
+              "sha256": "29b55851f4177e533c826c3595b6d91e94d7f805a1ef892358b433e36f412409"
             }
           ],
           "runtime_id": "hqNW"
@@ -1053,7 +1049,7 @@
                 "width": 192
               },
               "path": "art/exports/compound-v1/hqNE-2x.png",
-              "sha256": "36fc2af942819afc57d19956c7fb3eb080af753dca3fd30a86dcf2d17fadeac6"
+              "sha256": "0c22fa0a2b8dca74198c736afff5ab7d810f18928d843e9bec6303534b3afc40"
             },
             {
               "dimensions": {
@@ -1061,7 +1057,7 @@
                 "width": 384
               },
               "path": "art/exports/compound-v1/hqNE-4x.png",
-              "sha256": "bf61f310fd18aed01686028823942f5fcd2439ce4bfec82ca76a4a280088c6fd"
+              "sha256": "fe9f0197522c5ead9ad54b96b94657f286b457528e28baa1f3471992cf082dde"
             }
           ],
           "runtime_id": "hqNE"
@@ -1079,7 +1075,7 @@
                 "width": 192
               },
               "path": "art/exports/compound-v1/hqC-2x.png",
-              "sha256": "f4852a1043de476db4d8680c790ca73a99419efa608921de8abbb1e280db4421"
+              "sha256": "6dcd5f49af0100ba7dedff8c688eff9b024d039919aa5fe647ad9cb5d5138b45"
             },
             {
               "dimensions": {
@@ -1087,7 +1083,7 @@
                 "width": 384
               },
               "path": "art/exports/compound-v1/hqC-4x.png",
-              "sha256": "f034e3d1280446fd5fdf4a4e0c56c050e3eb4eff3539e27f8658715c0ecb19fe"
+              "sha256": "d462c7712ce18ab1271fda8f36ebe8366fd1c1effcd7714f8635daf5d1166637"
             }
           ],
           "runtime_id": "hqC"
@@ -1105,7 +1101,7 @@
                 "width": 192
               },
               "path": "art/exports/compound-v1/hqSW-2x.png",
-              "sha256": "167524aff1ef512377b24468c7aa358522ca4ab7a52658456a3fe7ec64153ec6"
+              "sha256": "ca26fb0496e7cf519782bd11bc6c852cef54afd69fb3f2052229750b82c7126e"
             },
             {
               "dimensions": {
@@ -1113,7 +1109,7 @@
                 "width": 384
               },
               "path": "art/exports/compound-v1/hqSW-4x.png",
-              "sha256": "37a1046b1e448fcd08be9cfb0ee9aa0ba895ca1fd3b5010e564c76274d3b42f9"
+              "sha256": "9b064f3fda180749959538f90a5074c0c86e068b8f70727b263c71905de31da3"
             }
           ],
           "runtime_id": "hqSW"
@@ -1131,7 +1127,7 @@
                 "width": 192
               },
               "path": "art/exports/compound-v1/hqSE-2x.png",
-              "sha256": "b00f7b89c41b437a025a3365edce5d55deaba1b47bb3fd18d96bf02b98c2a47a"
+              "sha256": "6cff0cc6c5aae1a89db7ea47b08133c8929f955012e776740d6d1685cb095da4"
             },
             {
               "dimensions": {
@@ -1139,7 +1135,7 @@
                 "width": 384
               },
               "path": "art/exports/compound-v1/hqSE-4x.png",
-              "sha256": "20a9917cd6c6e6deae90c5e6af0c28c3458220f16797dae038314431f7ec90ad"
+              "sha256": "4d9afd5b904a313b2e5a0f7a3e13bade0a939367ed6ddf829e6ef7664b5ac4db"
             }
           ],
           "runtime_id": "hqSE"
@@ -1157,7 +1153,7 @@
                 "width": 192
               },
               "path": "art/exports/compound-v1/hqS-2x.png",
-              "sha256": "d0d66a202c83dc1f717a04fab0b2f4c77c99fff0d9e35063c59a825077a533e2"
+              "sha256": "a7287299e45054133188d60bdf5752e0955c109722b999f5fbc7c4014ea23a26"
             },
             {
               "dimensions": {
@@ -1165,7 +1161,7 @@
                 "width": 384
               },
               "path": "art/exports/compound-v1/hqS-4x.png",
-              "sha256": "05f27c8603cbdaf0a6ffe7d7642dc565a106e78909ec7f698955aa0ace5a734a"
+              "sha256": "1187ca2469aa4f02c80860468517f318b51660b066595a4dbb8d32242e749520"
             }
           ],
           "runtime_id": "hqS"
@@ -1652,7 +1648,7 @@
           ]
         }
       ],
-      "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; explicit reference-layout framing: preserve full affine source at the requested inset; report the eight-world-pixel boundary band diagnostically without rejection or fade. Existing resizeLanczos filters full unmasked 4x artwork to whole-scene 2x before final union clipping. Ground independently exported by exportConnectionTiles with fixed geometry and grass only, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim.",
+      "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; explicit reference-layout framing: preserve full affine source at the requested inset; report the eight-world-pixel boundary band diagnostically without rejection or fade. Existing resizeLanczos filters full unmasked 4x artwork to whole-scene 2x before final union clipping. Ground independently exported by exportGrassBaseTiles in summer and unchanged exportConnectionTiles otherwise with fixed geometry and grass only, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim. Summer grass: unmirrored periodic bilinear source sampling. Per source axis, overlap=(size-1)/4 and span=3*(size-1)/4. At world phase t in [0,period), x=t/period*span. For x\u003coverlap blend source(x+span) toward source(x) with cubic smoothstep(x/overlap); otherwise source(x). Apply separable windows on both axes, periods142,80. Round wrapped world phases to1e-9 before source lookup. Average RGB of f(x,y),f(x+71,y+40), then round half-up once. This is invariant under all six neighbor translations without reflected source marks. Non-grass materials, unseen and winter retain the existing sampler.",
       "reference": [
         {
           "dimensions": {
@@ -1872,5 +1868,10 @@
   ],
   "schema_version": 1,
   "status": "candidate-built",
-  "tool": "Go tools/art-review -compound"
+  "tool": "Go tools/art-review -compound",
+  "visual_target": {
+    "reference": "RefDesign.png",
+    "role": "User-supplied scene target for the current grass, streets, earthworks, rocks, hut and summer canopy. Reference bytes are not runtime artwork.",
+    "sha256": "3924e55c20ca63cbe31a7e4b3d469977f20c9ddf7802912e92782360b4d1aa69"
+  }
 }

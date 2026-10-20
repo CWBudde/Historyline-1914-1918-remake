@@ -157,6 +157,9 @@ The [2026-10-20 refresh](shore-reference-v2.md) replaces the brown bank with
 DOS-inspired pale gravel and updates the shared water, including connected
 rivers, bridges and rocky-water surrounds. Its bank outline varies in a
 lattice-periodic field, preserving reciprocal joins at both densities.
+The subsequent [RefDesign refresh](refdesign-refresh.md) rebuilds these families
+over a common summer meadow and records the current scene sources, grass
+variation selection and retained campaign-context regeneration command.
 
 Legacy `-reference/-candidate/-resampling lanczos` comparisons remain available
 for historical research; their 90/100 fidelity gate does not govern the new pack.

@@ -96,6 +96,7 @@ func connectionRoutes(g connectionGeometry, f connectionFamily, v connectionVari
 	}
 	if f.Markings == "dashed" {
 		paint := connectionRoadPaintFor(g, v)
+		paint.halfWidth = f.Width / 2
 		route.road = &paint
 	}
 	return route
@@ -200,17 +201,26 @@ func connectionPathProfile(g connectionGeometry, f connectionFamily, route conne
 
 func connectionFeature(in connectionInputs, f connectionFamily, route connectionRoute, local, world connectionPoint, aa float64) color.NRGBA {
 	var outer, core float64
+	streamCoreDistance := 0.
 	bankOpacity := 1.0
 	switch f.ID {
 	case "stream":
 		coreDistance, outerDistance, opacity := connectionStreamProfile(in.manifest.Geometry, f, route, local, world)
+		if f.BorderMaterial == "bank" {
+			coreDistance, outerDistance, opacity = connectionGravelStreamProfile(in.manifest.Geometry, f, route, local, world)
+		}
+		streamCoreDistance = coreDistance
 		outer, core, bankOpacity = connectionRamp(-outerDistance, aa), connectionRamp(-coreDistance, aa), opacity
 	case "path":
 		coreDistance, outerDistance, opacity := connectionPathProfile(in.manifest.Geometry, f, route, local, world)
 		outer, core, bankOpacity = connectionRamp(-outerDistance, aa), connectionRamp(-coreDistance, aa), opacity
 	default:
 		d := connectionRouteDistance(route, local)
-		outer = connectionRamp(f.Width/2+f.Border-d, aa)
+		border := f.Border
+		if route.road != nil {
+			border = math.Max(0, border+connectionRoadVergeWear(in.manifest.Geometry, local, world))
+		}
+		outer = connectionRamp(f.Width/2+border-d, aa)
 		core = connectionRamp(f.Width/2-d, aa)
 	}
 	if outer == 0 {
@@ -218,12 +228,14 @@ func connectionFeature(in connectionInputs, f connectionFamily, route connection
 	}
 	bank := sampleConnectionMaterial(in.materials[f.BorderMaterial], world)
 	if route.road != nil {
-		// The reference paved road has a narrow dark edge, rather than a dirt verge.
-		bank = sampleConnectionMaterial(in.materials[f.Material], world)
-		bank.R, bank.G, bank.B = unitByte(float64(bank.R)*.65), unitByte(float64(bank.G)*.65), unitByte(float64(bank.B)*.65)
+		// A narrow dusty gravel shoulder borders the grey pavement.
+		bank = connectionBlend(bank, color.NRGBA{177, 168, 145, 255}, .35)
 	}
 	if core > 0 {
 		bank = connectionBlend(bank, sampleConnectionMaterial(in.materials[f.Material], world), core)
+	}
+	if f.ID == "stream" && f.BorderMaterial == "bank" {
+		bank = connectionGravelStreamColor(in, f, world, streamCoreDistance)
 	}
 	if route.road != nil && core > 0 {
 		paint := connectionRoadPaintAt(*route.road, local, aa)
@@ -259,7 +271,11 @@ func renderConnectionRaw(in connectionInputs, f *connectionFamily, v *connection
 			p := connectionPoint{(float64(x)+.5)/scale - margin, (float64(y)+.5)/scale - margin}
 			var c color.NRGBA
 			if f == nil {
-				c = sampleConnectionMaterial(in.materials["grass"], p)
+				if in.grassSampling {
+					c = sampleGrassMaterial(in.materials["grass"], p)
+				} else {
+					c = sampleConnectionMaterial(in.materials["grass"], p)
+				}
 			} else if f.ID == "trench" {
 				c = connectionTrenchFeature(in, *f, trench, p, aa)
 			} else if f.ID == "rail" {

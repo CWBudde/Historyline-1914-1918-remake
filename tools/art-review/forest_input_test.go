@@ -66,7 +66,7 @@ func forestTestFixture(t *testing.T) string {
 		}
 		atlases[season] = forestTestWritePNG(t, filepath.Join(dir, "atlas-"+season+".png"), atlas)
 	}
-	data, err := json.Marshal(forestManifest{1, grounds, atlases})
+	data, err := json.Marshal(forestManifest{SchemaVersion: 1, Grounds: grounds, Atlases: atlases})
 	if err != nil {
 		t.Fatal(err)
 	}

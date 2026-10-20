@@ -12,12 +12,13 @@ import (
 	"image/draw"
 	"image/png"
 	"io"
+	"math"
 	"os"
 	"path/filepath"
 	"sort"
 )
 
-const forestProfileText = "forest-v1: bounded offline context exporter for forest,forest_w,grass,grass_w only. Ordered neighbors NE,SE,S,SW,NW,N; full lowercase SHA256 of forest-v1\\nseason=<season>\\ncenter=<id>\\nNE=<id>\\nSE=<id>\\nS=<id>\\nSW=<id>\\nNW=<id>\\nN=<id>\\n, literal LF after each line. Base descriptors normalize all six effective neighbors. Four equal square row-major atlas panels: broadleaf-a,broadleaf-b,conifer-a,conifer-b. Whole panels uniformly resize with alpha-aware Lanczos3 to 96x96 RGBA (24 world pixels at 4x). No foliage rotation, mirroring or averaging. One pinned 36-point quarter-grid periodic template, min spacing 10 world pixels including all six neighboring copies; index modulo four fixes species in both seasons. Whole instances from seven sites are sorted by absolute y,x,point index,translation. Omit entire instance when its center's distance to any BASE FILLED polygon is <= R+4+1.5*sqrt(2), R=hypot(12,12); diagonal 4x->2x Lanczos support preserves the final four-world-pixel quiet band. No fade or clipped crown at a base boundary; no generic base frame in homogeneous forest. Seven sites suffice on P expanded by Euclidean distance 4: omitted generation cell min distance 42>R, omitted base min distance 42>2R+4+1.5sqrt(2)=40.0624. Ground uses unchanged sampleConnectionMaterial only. Ordinary Over whole RGBA crowns onto opaque 416x352 4x overscan, no pre-mask; whole unmasked Lanczos3 reduction to 208x176; crop then final complementary half-open ownership. Context keys are not runtime IDs. This bounded exporter and these fixtures do not implement arbitrary-map runtime context selection."
+const forestProfileText = "forest-v1: bounded offline context exporter for forest,forest_w,grass,grass_w only. Ordered neighbors NE,SE,S,SW,NW,N; full lowercase SHA256 of forest-v1\\nseason=<season>\\ncenter=<id>\\nNE=<id>\\nSE=<id>\\nS=<id>\\nSW=<id>\\nNW=<id>\\nN=<id>\\n, literal LF after each line. Base descriptors normalize all six effective neighbors. Four equal square row-major atlas panels: broadleaf-a,broadleaf-b,conifer-a,conifer-b. Whole panels uniformly resize with alpha-aware Lanczos3 to 96x96 RGBA (24 world pixels at 4x). No foliage rotation, mirroring or averaging. One pinned 36-point quarter-grid periodic template, min spacing 10 world pixels including all six neighboring copies; index modulo four fixes species in both seasons. Whole instances from seven sites are sorted by absolute y,x,point index,translation. Omit entire instance when its center's distance to any BASE FILLED polygon is <= R+4+1.5*sqrt(2), R=hypot(12,12); diagonal 4x->2x Lanczos support preserves the final four-world-pixel quiet band. No fade or clipped crown at a base boundary; no generic base frame in homogeneous forest. Seven sites suffice on P expanded by Euclidean distance 4: omitted generation cell min distance 42>R, omitted base min distance 42>2R+4+1.5sqrt(2)=40.0624. Summer ground uses unmirrored lattice-periodic sampleGrassMaterial; winter retains unchanged sampleConnectionMaterial. Ordinary Over whole RGBA crowns onto opaque 416x352 4x overscan, no pre-mask; whole unmasked Lanczos3 reduction to 208x176; crop then final complementary half-open ownership. Context keys are not runtime IDs. This bounded exporter and these fixtures do not implement arbitrary-map runtime context selection." + " " + grassSamplingProfile
 
 type forestProfileReport struct {
 	RuntimeID   string           `json:"runtime_id"`
@@ -30,25 +31,32 @@ type forestProfileReport struct {
 	Outputs     []packOutput     `json:"outputs"`
 }
 type forestReport struct {
-	SchemaVersion    int                                 `json:"schema_version"`
-	ManifestSHA256   string                              `json:"manifest_sha256"`
-	ManifestSnapshot string                              `json:"manifest_snapshot"`
-	Geometry         connectionGeometry                  `json:"geometry"`
-	Grounds          map[string]connectionMaterialReport `json:"grounds"`
-	Atlases          map[string]connectionMaterialReport `json:"atlases"`
-	Template         []connectionPoint                   `json:"template"`
-	TemplateSeed     string                              `json:"template_seed"`
-	TemplateAttempts int                                 `json:"template_attempts"`
-	PanelSpecies     []string                            `json:"panel_species"`
-	CrownWorldSize   float64                             `json:"crown_world_size"`
-	GateRadius       float64                             `json:"gate_radius"`
-	Profiles         []forestProfileReport               `json:"profiles"`
-	Scenes           []groundScene                       `json:"scenes"`
-	Exports          []packOutput                        `json:"exports"`
-	Profile          string                              `json:"profile"`
-	Ownership        string                              `json:"ownership"`
-	ResamplingChain  []string                            `json:"resampling_chain"`
-	Acceptance       string                              `json:"acceptance"`
+	SchemaVersion        int                                 `json:"schema_version"`
+	ManifestSHA256       string                              `json:"manifest_sha256"`
+	ManifestSnapshot     string                              `json:"manifest_snapshot"`
+	Geometry             connectionGeometry                  `json:"geometry"`
+	Grounds              map[string]connectionMaterialReport `json:"grounds"`
+	Atlases              map[string]connectionMaterialReport `json:"atlases"`
+	Template             []connectionPoint                   `json:"template"`
+	TemplateSeed         string                              `json:"template_seed"`
+	TemplateAttempts     int                                 `json:"template_attempts"`
+	PanelSpecies         []string                            `json:"panel_species"`
+	CrownWorldSize       float64                             `json:"crown_world_size"`
+	GateRadius           float64                             `json:"gate_radius"`
+	SummerProfile        string                              `json:"summer_profile,omitempty"`
+	SummerCrownWorldSize float64                             `json:"summer_crown_world_size,omitempty"`
+	SummerTreeCount      int                                 `json:"summer_tree_count,omitempty"`
+	SummerVariantOrder   []int                               `json:"summer_variant_order,omitempty"`
+	SummerTemplate       []connectionPoint                   `json:"summer_template,omitempty"`
+	SummerPaintedSupport []float64                           `json:"summer_painted_support,omitempty"`
+	PaintedSupportBound  float64                             `json:"painted_support_bound,omitempty"`
+	Profiles             []forestProfileReport               `json:"profiles"`
+	Scenes               []groundScene                       `json:"scenes"`
+	Exports              []packOutput                        `json:"exports"`
+	Profile              string                              `json:"profile"`
+	Ownership            string                              `json:"ownership"`
+	ResamplingChain      []string                            `json:"resampling_chain"`
+	Acceptance           string                              `json:"acceptance"`
 }
 type forestBundle struct {
 	artifacts []connectionArtifact
@@ -184,9 +192,20 @@ func buildForestBundle(in forestInputs) (forestBundle, error) {
 			reports[season] = connectionMaterialReport{source.Ref, dimensions{source.Image.Bounds().Dx(), source.Image.Bounds().Dy()}, retained}
 		}
 	}
-	renderer, err := newForestRenderer(grounds, atlases)
+	renderer, err := newForestRenderer(grounds, atlases, in.Manifest.SummerProfile)
 	if err != nil {
 		return b, err
+	}
+	if renderer.summerProfile != "" {
+		b.report.SummerProfile = renderer.summerProfile
+		b.report.SummerCrownWorldSize = float64(renderer.summerCrownPixels) / 4
+		b.report.SummerTreeCount = renderer.summerTreeCount
+		b.report.SummerVariantOrder = forestCanopyVariantOrder()
+		b.report.SummerTemplate = forestTemplate()[:renderer.summerTreeCount]
+		b.report.SummerPaintedSupport = append([]float64(nil), renderer.summerSupport[:]...)
+		b.report.PaintedSupportBound = math.Hypot(12, 12)
+		b.report.Profile += " Optional summer profile canopy-26.5-30-v1: whole panels resize to106x106RGBA (26.5world pixels), first30 unmodified pinned centres, deterministic species roster0,1,0,1,2,0,1,3 by point index modulo8 (75percent broadleaf over each full roster); winter remains96x96/36centres with point index modulo4. Constructor rejects any nonzero-alpha resampled RGBA pixel square outside R=hypot(12,12), preserving the original gate and seven-site proof without raster clipping."
+		b.report.ResamplingChain[0] = "pinned RGBA atlas -> four whole panels -> premultiplied alpha-aware Lanczos3; summer106x106RGBA, winter96x96RGBA; actual summer painted pixel-square support checked against unchanged R=hypot(12,12)"
 	}
 	tiles := map[string]map[int]*image.NRGBA{}
 	addProfile := func(c forestContext) error {
@@ -204,7 +223,7 @@ func buildForestBundle(in forestInputs) (forestBundle, error) {
 		if canonical {
 			dir, stem = "tiles", c.RuntimeID
 		}
-		profile := forestProfileReport{RuntimeID: c.RuntimeID, Season: season, ContextKey: key, Descriptor: c.descriptor(), NeighborIDs: c.NeighborIDs, Canonical: canonical, Instances: forestInstances(c)}
+		profile := forestProfileReport{RuntimeID: c.RuntimeID, Season: season, ContextKey: key, Descriptor: c.descriptor(), NeighborIDs: c.NeighborIDs, Canonical: canonical, Instances: renderer.instances(c)}
 		exports, err := renderer.tiles(c)
 		if err != nil {
 			return err

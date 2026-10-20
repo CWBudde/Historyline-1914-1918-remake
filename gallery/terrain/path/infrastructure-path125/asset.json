@@ -7,18 +7,32 @@
   "note": "Current enabled infrastructure binding. This single-asset view uses its default context export; the PULSE study resolves available neighbor contexts through the shared compositor. Final runtime acceptance remains open.",
   "recipes": [
     "art/recipes/terrain/distinct-v1/earth-bare.json",
+    "art/recipes/terrain/distinct-v1/meadow.json",
     "art/recipes/terrain/distinct-v1/path-earth.json",
+    "art/recipes/terrain/distinct-v1/river-diagonal.json",
+    "art/recipes/terrain/distinct-v1/road-bend.json",
     "art/recipes/terrain/distinct-v1/road-gravel.json",
     "art/recipes/terrain/distinct-v1/water-open.json",
+    "art/recipes/terrain/refdesign-v1/earth-bank.json",
+    "art/recipes/terrain/refdesign-v1/grass-base-01.json",
+    "art/recipes/terrain/refdesign-v1/grass-meadow-01.json",
+    "art/recipes/terrain/refdesign-v1/road-asphalt.json",
     "art/recipes/terrain/reference-v2/meadow-03.json",
     "art/recipes/terrain/reference-v2/road-paved.json",
     "art/recipes/terrain/shore-reference-v2/water.json"
   ],
   "prompts": [
     "prompts/terrain/distinct-v1/earth-bare.md",
+    "prompts/terrain/distinct-v1/meadow.md",
     "prompts/terrain/distinct-v1/path-earth.md",
+    "prompts/terrain/distinct-v1/river-diagonal.md",
+    "prompts/terrain/distinct-v1/road-bend.md",
     "prompts/terrain/distinct-v1/road-gravel.md",
     "prompts/terrain/distinct-v1/water-open.md",
+    "prompts/terrain/refdesign-v1/earth-bank.md",
+    "prompts/terrain/refdesign-v1/grass-base-01.md",
+    "prompts/terrain/refdesign-v1/grass-meadow-01.md",
+    "prompts/terrain/refdesign-v1/road-asphalt.md",
     "prompts/terrain/reference-v2/meadow-03.md",
     "prompts/terrain/reference-v2/road-paved.md",
     "prompts/terrain/shore-reference-v2/water.md"
@@ -33,7 +47,7 @@
         "1": {
           "url": "terrain/path/infrastructure-path125/1x.png",
           "source": "art/exports/paths-v1/path125-2x.png",
-          "sha256": "d1fa1866b2e1f54bee88d2b18810bdd04331b5ab5b43419f50aba560f04fccd4",
+          "sha256": "0e1d499108237f50f851bd74a26f0104f409b5fc00da8ee99434b4d3c60691b4",
           "width": 96,
           "height": 80,
           "method": "Exact PNG export; premultiplied Lanczos3 reduction"
@@ -41,7 +55,7 @@
         "2": {
           "url": "terrain/path/infrastructure-path125/2x.png",
           "source": "art/exports/paths-v1/path125-2x.png",
-          "sha256": "5bb70688956ade82e335739ac22d69fbf7300b1c6558e26ca5696b6b1769e59c",
+          "sha256": "3b2388a2b75612409b409afa6dcf72e8f6b991db8a94f1ac985dc3c0dbeea658",
           "width": 192,
           "height": 160,
           "method": "Exact PNG export"
@@ -49,7 +63,7 @@
         "4": {
           "url": "terrain/path/infrastructure-path125/4x.png",
           "source": "art/exports/paths-v1/path125-4x.png",
-          "sha256": "6e3dc5d655b9bb73049c5793b403fff248838697ccfbc83b3f76b1bc3c112a36",
+          "sha256": "c602ffa54a5bed1ee1680b6684089faf75adb65945328f1f2aafa11dc4acbe2f",
           "width": 384,
           "height": 320,
           "method": "Exact PNG export"
@@ -61,7 +75,7 @@
     "default": {
       "1": {
         "path": "terrain/path/infrastructure-path125/1x.png",
-        "sha256": "d1fa1866b2e1f54bee88d2b18810bdd04331b5ab5b43419f50aba560f04fccd4",
+        "sha256": "0e1d499108237f50f851bd74a26f0104f409b5fc00da8ee99434b4d3c60691b4",
         "width": 96,
         "height": 80,
         "source": "art/exports/paths-v1/path125-2x.png",
@@ -69,7 +83,7 @@
       },
       "2": {
         "path": "terrain/path/infrastructure-path125/2x.png",
-        "sha256": "5bb70688956ade82e335739ac22d69fbf7300b1c6558e26ca5696b6b1769e59c",
+        "sha256": "3b2388a2b75612409b409afa6dcf72e8f6b991db8a94f1ac985dc3c0dbeea658",
         "width": 192,
         "height": 160,
         "source": "art/exports/paths-v1/path125-2x.png",
@@ -77,7 +91,7 @@
       },
       "4": {
         "path": "terrain/path/infrastructure-path125/4x.png",
-        "sha256": "6e3dc5d655b9bb73049c5793b403fff248838697ccfbc83b3f76b1bc3c112a36",
+        "sha256": "c602ffa54a5bed1ee1680b6684089faf75adb65945328f1f2aafa11dc4acbe2f",
         "width": 384,
         "height": 320,
         "source": "art/exports/paths-v1/path125-4x.png",

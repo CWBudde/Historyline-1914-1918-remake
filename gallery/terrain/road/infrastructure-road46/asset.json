@@ -7,18 +7,36 @@
   "note": "Current enabled infrastructure binding. This single-asset view uses its default context export; the PULSE study resolves available neighbor contexts through the shared compositor. Final runtime acceptance remains open.",
   "recipes": [
     "art/recipes/terrain/distinct-v1/earth-bare.json",
+    "art/recipes/terrain/distinct-v1/meadow.json",
+    "art/recipes/terrain/distinct-v1/river-diagonal.json",
+    "art/recipes/terrain/distinct-v1/road-bend.json",
     "art/recipes/terrain/distinct-v1/road-gravel.json",
     "art/recipes/terrain/distinct-v1/water-open.json",
+    "art/recipes/terrain/refdesign-v1/earth-bank.json",
+    "art/recipes/terrain/refdesign-v1/grass-base-01.json",
+    "art/recipes/terrain/refdesign-v1/grass-meadow-01.json",
+    "art/recipes/terrain/refdesign-v1/river-bank-gravel.json",
+    "art/recipes/terrain/refdesign-v1/road-asphalt.json",
     "art/recipes/terrain/reference-v2/meadow-03.json",
     "art/recipes/terrain/reference-v2/road-paved.json",
+    "art/recipes/terrain/shore-reference-v2/bank.json",
     "art/recipes/terrain/shore-reference-v2/water.json"
   ],
   "prompts": [
     "prompts/terrain/distinct-v1/earth-bare.md",
+    "prompts/terrain/distinct-v1/meadow.md",
+    "prompts/terrain/distinct-v1/river-diagonal.md",
+    "prompts/terrain/distinct-v1/road-bend.md",
     "prompts/terrain/distinct-v1/road-gravel.md",
     "prompts/terrain/distinct-v1/water-open.md",
+    "prompts/terrain/refdesign-v1/earth-bank.md",
+    "prompts/terrain/refdesign-v1/grass-base-01.md",
+    "prompts/terrain/refdesign-v1/grass-meadow-01.md",
+    "prompts/terrain/refdesign-v1/river-bank-gravel.md",
+    "prompts/terrain/refdesign-v1/road-asphalt.md",
     "prompts/terrain/reference-v2/meadow-03.md",
     "prompts/terrain/reference-v2/road-paved.md",
+    "prompts/terrain/shore-reference-v2/bank.md",
     "prompts/terrain/shore-reference-v2/water.md"
   ],
   "width": 96,
@@ -31,7 +49,7 @@
         "1": {
           "url": "terrain/road/infrastructure-road46/1x.png",
           "source": "art/exports/connected-v1/road46-2x.png",
-          "sha256": "af6de257a7159b83b3486b4a80ac0289b0690588e81e4ed108f300278ea47269",
+          "sha256": "bfe7d5ac6ca5f787f25f62272e1325defab8c7f0a97180c207ddd8f958c81337",
           "width": 96,
           "height": 80,
           "method": "Exact PNG export; premultiplied Lanczos3 reduction"
@@ -39,7 +57,7 @@
         "2": {
           "url": "terrain/road/infrastructure-road46/2x.png",
           "source": "art/exports/connected-v1/road46-2x.png",
-          "sha256": "74539df7dd98f3adb8260ee33638895632226f5a23ba6e406580d4270353320a",
+          "sha256": "37ac6bae28999d1682b35c24586fd03b1097559e6a5046e095e8af7597780a37",
           "width": 192,
           "height": 160,
           "method": "Exact PNG export"
@@ -47,7 +65,7 @@
         "4": {
           "url": "terrain/road/infrastructure-road46/4x.png",
           "source": "art/exports/connected-v1/road46-4x.png",
-          "sha256": "87bb620cfee39923b666fb4a6ace066c579e2da8e7b9c09870ae640df230b34a",
+          "sha256": "d9d8c34844afb49f21e5c21f5a0698e3ee031bd22942676793f034d475f6b8c6",
           "width": 384,
           "height": 320,
           "method": "Exact PNG export"
@@ -59,7 +77,7 @@
     "default": {
       "1": {
         "path": "terrain/road/infrastructure-road46/1x.png",
-        "sha256": "af6de257a7159b83b3486b4a80ac0289b0690588e81e4ed108f300278ea47269",
+        "sha256": "bfe7d5ac6ca5f787f25f62272e1325defab8c7f0a97180c207ddd8f958c81337",
         "width": 96,
         "height": 80,
         "source": "art/exports/connected-v1/road46-2x.png",
@@ -67,7 +85,7 @@
       },
       "2": {
         "path": "terrain/road/infrastructure-road46/2x.png",
-        "sha256": "74539df7dd98f3adb8260ee33638895632226f5a23ba6e406580d4270353320a",
+        "sha256": "37ac6bae28999d1682b35c24586fd03b1097559e6a5046e095e8af7597780a37",
         "width": 192,
         "height": 160,
         "source": "art/exports/connected-v1/road46-2x.png",
@@ -75,7 +93,7 @@
       },
       "4": {
         "path": "terrain/road/infrastructure-road46/4x.png",
-        "sha256": "87bb620cfee39923b666fb4a6ace066c579e2da8e7b9c09870ae640df230b34a",
+        "sha256": "d9d8c34844afb49f21e5c21f5a0698e3ee031bd22942676793f034d475f6b8c6",
         "width": 384,
         "height": 320,
         "source": "art/exports/connected-v1/road46-4x.png",

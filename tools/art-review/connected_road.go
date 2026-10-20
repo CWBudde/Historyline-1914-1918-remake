@@ -34,8 +34,9 @@ type connectionRoadCourse struct {
 	length  float64
 }
 type connectionRoadPaint struct {
-	courses  []connectionRoadCourse
-	junction bool
+	courses   []connectionRoadCourse
+	junction  bool
+	halfWidth float64
 }
 
 // Markings follow the same curves as the surface. A fixed phase at each port
@@ -118,7 +119,13 @@ func connectionRoadPaintAt(paint connectionRoadPaint, p connectionPoint, aa floa
 			phase = 8 + (along-8)*(cycles*12-16)/(length-16)
 		}
 	}
-	stripe := connectionRamp(3-math.Sqrt(best), aa)
+	distance := math.Sqrt(best)
+	stripe := connectionRamp(.45-distance, aa)
 	dash := connectionRamp(4-math.Abs(math.Remainder(phase, 12)), aa)
-	return min(stripe, dash)
+	mark := min(stripe, dash)
+	if paint.halfWidth > 0 {
+		edge := connectionRamp(.3-math.Abs(distance-(paint.halfWidth-1)), aa)
+		mark = max(mark, edge)
+	}
+	return mark
 }

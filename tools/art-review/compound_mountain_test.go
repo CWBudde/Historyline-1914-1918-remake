@@ -199,7 +199,11 @@ func TestCompoundMountainCLIActualPNGs(t *testing.T) {
 								// 4x ground is sampled directly; verify its saved phase at
 								// the independent runtime world coordinate for each parity.
 								world := connectionPoint{float64(71*parity) + (float64(x)+.5)/4, float64(40*parity) + (float64(y)+.5)/4}
-								if c != sampleConnectionMaterial(material, world) {
+								sample := sampleConnectionMaterial
+								if want.season == "summer" {
+									sample = sampleGrassMaterial
+								}
+								if c != sample(material, world) {
 									t.Fatalf("single runtime ground phase mismatch at %v parity%d", p, parity)
 								}
 							}

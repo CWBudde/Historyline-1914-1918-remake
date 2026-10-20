@@ -179,7 +179,7 @@ func TestFogCLIActualBundle(t *testing.T) {
 			fogTestOwnershipAndConcealment(t, ground, density)
 			// Compare encoded ground bytes against the established, unchanged renderer.
 			source := fogTestLoad(t, filepath.Dir(path), materials[pair[0]].Source)
-			exports, e := exportConnectionTiles(connectionInputs{manifest: connectionManifest{Geometry: wantGeometry}, materials: map[string]*image.NRGBA{"grass": source}}, nil, nil)
+			exports, e := exportConnectionTiles(connectionInputs{manifest: connectionManifest{Geometry: wantGeometry}, materials: map[string]*image.NRGBA{"grass": source}, grassSampling: pair[0] == "summer"}, nil, nil)
 			if e != nil {
 				t.Fatal(e)
 			}
