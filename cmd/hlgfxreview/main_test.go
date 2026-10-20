@@ -105,6 +105,40 @@ func TestCurrentGameSelection(t *testing.T) {
 		}
 	}
 	t.Logf("%d current entries, %d complete image snapshots, 27 bindings, 540 authored sprite variants", len(c.items), len(checked))
+	// Exercise the actual PULSE bindings: a unit family's ledger name can differ
+	// from its runtime pack slug, so source-file placement tests alone miss it.
+	if err := c.pulse("", ""); err != nil {
+		t.Fatal(err)
+	}
+	studyBytes, err := w.ReadFile("pulse.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	var study pulseStudy
+	if err := json.Unmarshal(studyBytes, &study); err != nil {
+		t.Fatal(err)
+	}
+	if study.Hexes != 353 || study.Width != 1090 || study.Height != 1920 || len(study.Maps) != 4 {
+		t.Fatalf("invalid PULSE study geometry: %+v", study)
+	}
+	for key, p := range study.Maps {
+		b, err := w.ReadFile(p.URL)
+		if err != nil {
+			t.Fatal(err)
+		}
+		cfg, err := png.DecodeConfig(bytes.NewReader(b))
+		if err != nil {
+			t.Fatal(err)
+		}
+		d := map[string]int{"python": 1, "1": 1, "2": 2, "4": 4}[key]
+		if cfg.Width != 1090*d || cfg.Height != 1920*d || p.SHA != fmt.Sprintf("%x", sha256.Sum256(b)) {
+			t.Fatalf("invalid PULSE map %s", key)
+		}
+	}
+	pulseHTML, err := w.ReadFile("pulse.html")
+	if err != nil {
+		t.Fatal(err)
+	}
 	if browser := os.Getenv("HL_GFX_REVIEW_BROWSER"); browser != "" {
 		b, err := json.Marshal(struct {
 			Items  []item         `json:"items"`
@@ -113,7 +147,7 @@ func TestCurrentGameSelection(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		for _, review := range []struct{ name, template, smoke string }{{"asset", page, browserSmoke}, {"composer", composePage, composerSmoke}, {"road-units", roadUnitComparisonTemplate(), roadUnitsSmoke}} {
+		for _, review := range []struct{ name, template, smoke string }{{"asset", page, browserSmoke}, {"composer", composePage, composerSmoke}, {"road-units", roadUnitComparisonTemplate(), roadUnitsSmoke}, {"pulse", string(pulseHTML), pulseSmoke}} {
 			html := strings.Replace(review.template, "/*CATALOG*/null", string(b), 1)
 			html = strings.Replace(html, "</body>", "<script>"+review.smoke+"</script></body>", 1)
 			name := review.name + "-smoke.html"

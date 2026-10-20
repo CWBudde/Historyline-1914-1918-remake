@@ -142,3 +142,66 @@ This is an offline placement/review tool. It uses the current default-context PN
 it does not resolve arbitrary neighbor contexts, seasonal material matching,
 world-phase variants or gameplay legality. Joining the known building pieces does
 not complete the runtime map compositor or its acceptance work.
+
+## PULSE map and game study
+
+```sh
+just gfx-study
+# Headless Linux, when xvfb-run is installed:
+EGL_PLATFORM=x11 xvfb-run -a just gfx-study
+```
+
+Open `build/gfx-review/pulse.html`. This refreshes the graphics desk and adds:
+
+- Whole-map and matching northern/central/southern crops of PULSE, with side-by-side
+  and wipe comparisons of Python-reference artwork and current candidates.
+- Authored 2× and 4× map compositions selected through `internal/mapcompose`;
+  1× is a Lanczos reduction of the complete 2× map. Display zoom is independent.
+- Nine actual Go framebuffers: revealed overview, revealed HQ close-up and real
+  starting-player fog at 1280×720, 1920×1080 and 3840×2160. Effective camera zoom
+  scales with framebuffer height to keep the inspected world area consistent;
+  each capture records camera zoom, independent UI scale and drawn asset density.
+- Original Amiga MAP/00 ground when the local installation is available at the
+  repository's documented path. The exporter retains its native geometry, palette
+  00 and original forbidden border. Seven northern HQ landmarks identify the
+  correspondence to PULSE under `line=2*row+column%2, col=column/2`.
+
+Each run builds fresh candidate packs under a new ignored
+`build/pulse-study/run-*/` directory. It regenerates the native export when the
+Amiga installation is present; otherwise the page explicitly states that no
+native reference was selected. All displayed images are copied to the desk's
+content-addressed `media/` directory, so the page works offline without a server.
+Neither this command nor the review tool edits the parallel graphics track.
+
+The native view is a static ground reconstruction, without units, UI, animations
+or physical aspect correction. Its geometry differs from the remake, so it has
+no pixel-aligned wipe. The Python-reference map is assembled in Go from the
+retained terrain/infrastructure and raw unit poses at the old 96×96 footprint and
+`y=-9` placement. It omits Python faction recolouring, rotations and ownership
+strips; it is not a Python screenshot. Current offline maps omit ownership bars
+and UI. The actual Go captures include the current HUD and ownership rendering.
+The older screen designs remain labeled as design fixtures rather than current
+game screenshots; the study links them through the regenerated comparison desk.
+
+For separate generation or a different local Amiga installation:
+
+```sh
+mkdir -p build/my-study
+go run ./cmd/hlasset build-terrain -out build/my-study/terrain
+go run ./cmd/hlasset build-units -out build/my-study/units
+go run ./cmd/historyline -level level1_cp \
+  -terrain build/my-study/terrain -units build/my-study/units \
+  -allow-candidates -capture build/my-study/captures
+go run ./tools/native-reference -data /path/to/Amiga/data \
+  -libraries PARTS -map 00 -out build/my-study/amiga
+go run ./cmd/hlgfxreview -native-map build/my-study/amiga \
+  -captures build/my-study/captures
+```
+
+Pack/native output directories must be fresh. Omit `-native-map` or `-captures`
+when unavailable; plain `just gfx-game-review` still generates the PULSE map
+compositions and explicitly empty optional panels. Capture manifests pin the
+canonical level hash and require all nine unique resolution/view combinations,
+so a changed level or incomplete collection must be recaptured. `pulse.json`
+records the current level hash, map snapshot hashes and all reported context or
+compound gaps. No visual acceptance or roadmap completion is inferred.

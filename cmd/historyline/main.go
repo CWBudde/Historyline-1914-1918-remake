@@ -633,6 +633,7 @@ func main() {
 	terrain := flag.String("terrain", "", "terrain tile catalog built by hlasset build-terrain (default: coloured hexes)")
 	opponent := flag.String("opponent", "ai", "who plays the other side: ai (simple computer opponent) or pass (passes every turn, as in Python)")
 	candidates := flag.Bool("allow-candidates", false, "allow unit and terrain packs that are review candidates, not approved art")
+	capture := flag.String("capture", "", "dev: render nine 720p/1080p/4K review frames to a directory under build/ and exit (requires -units and -terrain)")
 	flag.Parse()
 
 	lvl, err := loadLevel(*dir, *name)
@@ -679,6 +680,15 @@ func main() {
 		if gm.terrain, err = loadTerrainArt(*terrain, *candidates, lvl); err != nil {
 			log.Fatal(err)
 		}
+	}
+	if *capture != "" {
+		if gm.art == nil || gm.terrain == nil {
+			log.Fatal("-capture requires both -units and -terrain")
+		}
+		if err := writeReviewFrames(gm, *capture); err != nil {
+			log.Fatal(err)
+		}
+		return
 	}
 	if err := ebiten.RunGame(gm); err != nil {
 		log.Fatal(err)

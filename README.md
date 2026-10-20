@@ -77,6 +77,7 @@ sources and recipes stay in tracked `art/`; verified graphics batches are commit
 ```sh
 just gfx-check                 # inventory tests, drift check and offline Go tools
 just gfx-game-review           # current game candidates: side-by-side / wipe / blend / difference
+just gfx-study                 # updated PULSE maps + actual 720p/1080p/4K game captures
 just gfx-review -reference legacy/python/gfx/hexTypes/hex_forest.png \
   -candidate art/source/pilot/forest-study-01.png -out build/art-review/forest-repo
 just gfx-references \
@@ -94,6 +95,13 @@ ignored `build/`; final visual/runtime acceptance remains separate.
 The linked `build/gfx-review/compose.html` lets you join HQ/depot/factory pieces
 and build your own saved scenes with terrain, roads, units and markers, including
 reference comparisons and JSON collection import/export.
+The updated `build/gfx-review/pulse.html` study adds the full PULSE map and matched
+neighbourhoods using Python-reference artwork and current 1×/2×/4× compositions.
+`just gfx-study` rebuilds fresh candidate packs and nine actual Go framebuffers
+(overview, close-up and starting fog at 720p, 1080p and 4K), and includes the
+original Amiga ground reconstruction when the local installation is present.
+The page distinguishes current game output from the retained screen design fixtures.
+See [regeneration and reference limits](docs/gfx-review.md#pulse-map-and-game-study).
 The [reference-led redraw](docs/art/reference-redraw-v2.md) records the current
 grass, fortress HQ, red-cross medical camp and east-exit factory candidates.
 `build/gfx-review/road-units.html` compares the current marked road and revised

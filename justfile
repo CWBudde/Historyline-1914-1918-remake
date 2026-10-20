@@ -67,6 +67,24 @@ gfx-review *args:
 gfx-game-review *args:
     go run ./cmd/hlgfxreview "$@"
 
+# Refresh PULSE maps and nine actual game captures; open build/gfx-review/pulse.html.
+# On headless Linux: EGL_PLATFORM=x11 xvfb-run -a just gfx-study
+[positional-arguments]
+gfx-study *args:
+    #!/usr/bin/env sh
+    set -eu
+    mkdir -p build/pulse-study
+    study_dir=$(mktemp -d build/pulse-study/run-XXXXXX)
+    go run ./cmd/hlasset build-terrain -out "$study_dir/terrain"
+    go run ./cmd/hlasset build-units -out "$study_dir/units"
+    go run ./cmd/historyline -level level1_cp -units "$study_dir/units" -terrain "$study_dir/terrain" -allow-candidates -capture "$study_dir/captures"
+    amiga_data='original/extracted/amiga/HistorylineDe/fsuae/Hard Drives/data'
+    if [ -d "$amiga_data" ]; then
+        go run ./tools/native-reference -data "$amiga_data" -libraries PARTS -map 00 -out "$study_dir/amiga"
+        set -- -native-map "$study_dir/amiga" "$@"
+    fi
+    go run ./cmd/hlgfxreview -captures "$study_dir/captures" "$@"
+
 # Decode privately supplied Amiga libraries; pass -data and an ignored -out
 [positional-arguments]
 gfx-references *args:

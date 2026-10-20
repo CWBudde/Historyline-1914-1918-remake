@@ -78,6 +78,8 @@ func run(args []string, stdout io.Writer) error {
 	f := flag.NewFlagSet("hlgfxreview", flag.ContinueOnError)
 	root := f.String("root", ".", "repository root")
 	out := f.String("out", "build/gfx-review", "output directory under build/ (contains private reference snapshots)")
+	nativeMap := f.String("native-map", "", "optional private native-reference MAP/00 export directory under build/")
+	captures := f.String("captures", "", "optional historyline -capture output under build/; absent captures are shown explicitly")
 	if err := f.Parse(args); err != nil {
 		return err
 	}
@@ -141,6 +143,9 @@ func run(args []string, stdout io.Writer) error {
 		return err
 	}
 	if err := w.WriteFile("road-units.html", []byte(strings.Replace(roadUnitComparisonTemplate(), "/*CATALOG*/null", string(data), 1)), 0644); err != nil {
+		return err
+	}
+	if err := c.pulse(*nativeMap, *captures); err != nil {
 		return err
 	}
 	_, err = fmt.Fprintf(stdout, "%d game-candidate entries, %d image variants. Open %s/index.html\n", len(c.items), len(c.seen), *out)
@@ -329,7 +334,7 @@ func (c *collector) tiles() error {
 			return err
 		}
 		c.items = append(c.items, item{ID: r["kind"] + "/" + r["runtime_id"], Name: r["runtime_id"], Category: "Terrain", Family: r["family"], Season: r["season"], Reference: ref, Width: 96, Height: 80,
-			Note: "Current enabled " + r["kind"] + " binding. Default context export; neighbor-aware composition and final runtime acceptance remain open.", Variants: []variant{{ID: "default", Label: "Current export", Images: imgs}}})
+			Note: "Current enabled " + r["kind"] + " binding. This single-asset view uses its default context export; the PULSE study resolves available neighbor contexts through the shared compositor. Final runtime acceptance remains open.", Variants: []variant{{ID: "default", Label: "Current export", Images: imgs}}})
 	}
 	return nil
 }
