@@ -52,9 +52,64 @@ var ErrRandomDraw = errors.New("random draw in the battle path")
 // runEngagement is RunEngagement with the RNG state set first and read back
 // at the end (nil keeps the image's initial state).
 func (e *Export) runEngagement(g *Engagement, state *uint32) (Outcome, error) {
+	m, err := e.handlerFrame(g, []Order{{g.Attacker, g.Target}}, nil, state)
+	if err != nil {
+		return Outcome{}, err
+	}
+	b, h := e.B, e.B.Handler
+	code := baseSeg + b.Code
+	var destroyed []int
+	m.Hooks[dos8086.Lin(code, b.ExpDestroy)] = func(mm *dos8086.Machine) error {
+		// "push cs; call near": the unit index lies above the pushed CS
+		destroyed = append(destroyed, mm.RB(int(mm.S[dos8086.SS]), int(mm.R[dos8086.SP])+2))
+		return nil
+	}
+	for int(m.S[dos8086.CS]) != code || int(m.IP) != h.Stop {
+		if int(m.S[dos8086.CS]) == code && int(m.IP) == h.Done {
+			return Outcome{}, nil
+		}
+		if m.Steps++; m.Steps > engagementMaxSteps {
+			return Outcome{}, wrapRun("order handler", dos8086.ErrStepLimit)
+		}
+		if err := m.Step(); err != nil {
+			return Outcome{}, wrapRun("order handler", err)
+		}
+	}
+	if state != nil {
+		rs := baseSeg + h.RandState[0]
+		*state = uint32(m.RW(rs, h.RandState[1])) | uint32(m.RW(rs, h.RandState[1]+2))<<16
+	}
+	o := e.outcome(m)
+	o.Destroyed = destroyed
+	return o, nil
+}
+
+// outcome reads the battle the handler has just finished from its context
+// and the live records.
+func (e *Export) outcome(m *dos8086.Machine) Outcome {
+	b, h := e.B, e.B.Handler
+	data := baseSeg + b.Data
+	att, def := m.RB(data, h.Ctx+8), m.RB(data, h.Ctx+9)
+	live := func(idx, off int) int { return m.RB(data, b.Units+26*idx+off) }
+	return Outcome{
+		Battle: true, Defender: def,
+		ReturnFire: m.RW(data, h.Ctx+0x2E) != 0,
+		Pincer:     m.RB(data, h.Ctx+0x30), Blocking: m.RB(data, h.Ctx+0x31),
+		Result:      Result{live(att, 2), live(att, 3), live(def, 2), live(def, 3)},
+		AttackerExp: live(att, 1), DefenderExp: live(def, 1),
+	}
+}
+
+// handlerFrame loads a machine for a handler run on g's battlefield and
+// leaves it at the handler's entry: the maps, the live units, the type and
+// terrain records, the attacking side's order list (orders, in list order:
+// each attacker's live +0x11 holds its target), the other side's list (idle,
+// nil leaves it empty), the side selector, the RNG (state nil keeps the
+// image's) and the hooks. The destroy helper is left to the caller.
+func (e *Export) handlerFrame(g *Engagement, orders []Order, idle []int, state *uint32) (*dos8086.Machine, error) {
 	b, h := e.B, e.B.Handler
 	if h == nil {
-		return Outcome{}, errors.New("the order handler is not located in this build")
+		return nil, errors.New("the order handler is not located in this build")
 	}
 	m := e.machine()
 	ar := newArena(m)
@@ -109,12 +164,25 @@ func (e *Export) runEngagement(g *Engagement, state *uint32) (Outcome, error) {
 			m.WW(data, base+0x0B+2*k, 2*cell+1)
 		}
 	}
-	m.WW(data, b.Units+26*g.Attacker+0x11, 2*g.Target)
-
-	order := h.Orders + 0x17*g.Side
-	m.WW(data, order, 0)
-	m.WW(data, order+2, ar.alloc([]byte{byte(g.Attacker)}))
-	m.WB(data, order+4, 1)
+	attackers := make([]byte, len(orders))
+	for i, o := range orders {
+		m.WW(data, b.Units+26*o.Attacker+0x11, 2*o.Target)
+		attackers[i] = byte(o.Attacker)
+	}
+	list := func(side int, units []byte) {
+		order := h.Orders + 0x17*side
+		m.WW(data, order, 0)
+		m.WW(data, order+2, ar.alloc(append(units, 0)))
+		m.WB(data, order+4, len(units))
+	}
+	list(g.Side, attackers)
+	if idle != nil {
+		idx := make([]byte, len(idle))
+		for i, u := range idle {
+			idx[i] = byte(u)
+		}
+		list(1-g.Side, idx)
+	}
 	turn := 1
 	if g.Side == 0 {
 		turn = 2
@@ -156,12 +224,6 @@ func (e *Export) runEngagement(g *Engagement, state *uint32) (Outcome, error) {
 		mm.S[dos8086.CS], mm.IP = cs, ip
 		return nil
 	}
-	var destroyed []int
-	m.Hooks[dos8086.Lin(code, b.ExpDestroy)] = func(mm *dos8086.Machine) error {
-		// "push cs; call near": the unit index lies above the pushed CS
-		destroyed = append(destroyed, mm.RB(int(mm.S[dos8086.SS]), int(mm.R[dos8086.SP])+2))
-		return nil
-	}
 	m.Hooks[dos8086.Lin(code, b.ExpRefresh)] = noHook
 
 	m.S = [4]uint16{dos8086.CS: uint16(code), dos8086.DS: uint16(baseSeg + b.DS), dos8086.SS: scratch - 0x400}
@@ -172,31 +234,5 @@ func (e *Export) runEngagement(g *Engagement, state *uint32) (Outcome, error) {
 	m.Push(retSeg)
 	m.Push(0)
 	m.IP = uint16(h.Entry)
-	for int(m.S[dos8086.CS]) != code || int(m.IP) != h.Stop {
-		if int(m.S[dos8086.CS]) == code && int(m.IP) == h.Done {
-			return Outcome{}, nil
-		}
-		if m.Steps++; m.Steps > engagementMaxSteps {
-			return Outcome{}, wrapRun("order handler", dos8086.ErrStepLimit)
-		}
-		if err := m.Step(); err != nil {
-			return Outcome{}, wrapRun("order handler", err)
-		}
-	}
-	if state != nil {
-		rs := baseSeg + h.RandState[0]
-		*state = uint32(m.RW(rs, h.RandState[1])) | uint32(m.RW(rs, h.RandState[1]+2))<<16
-	}
-
-	ctx := h.Ctx
-	att, def := m.RB(data, ctx+8), m.RB(data, ctx+9)
-	live := func(idx, off int) int { return m.RB(data, b.Units+26*idx+off) }
-	return Outcome{
-		Battle: true, Defender: def,
-		ReturnFire: m.RW(data, ctx+0x2E) != 0,
-		Pincer:     m.RB(data, ctx+0x30), Blocking: m.RB(data, ctx+0x31),
-		Result:      Result{live(att, 2), live(att, 3), live(def, 2), live(def, 3)},
-		AttackerExp: live(att, 1), DefenderExp: live(def, 1),
-		Destroyed: destroyed,
-	}, nil
+	return m, nil
 }

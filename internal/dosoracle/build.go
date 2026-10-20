@@ -75,6 +75,12 @@ type Handler struct {
 	// instruction of the experience window) and the exit after the last order.
 	Entry, Stop, Done int
 
+	// Offsets in Build.Code: the head of the per-order loop, which takes the
+	// next unit from the list, and the loop's test after an order (where a
+	// skipped order goes at once and a fought one after the destruction
+	// animation, which only draws and restores the map bytes it changed).
+	Next, Skip int
+
 	// Offsets in Build.Data: the battle context the casualty routine reads,
 	// the 69-byte type records, the 6-byte terrain records, the side
 	// selector (2 runs side 0's orders), the two order lists of 0x17 bytes
@@ -121,7 +127,7 @@ var Full = Build{
 	// instruction streams of the two builds segment by segment; every far
 	// call target here is one in the full build's relocation table.
 	Handler: &Handler{
-		Entry: 0x0004, Stop: 0x0ABF, Done: 0x0D58,
+		Entry: 0x0004, Stop: 0x0ABF, Done: 0x0D58, Next: 0x0117, Skip: 0x0D3D,
 		Ctx: 0x1824, Types: 0x09C5, Terrains: 0x05AB, Turn: 0x4DB0, Orders: 0x4D4C, Maps: 0x17BA,
 		Flags: 0x4CAC, Tiles: 0x015B,
 		Option: [2]int{0x37D8, 0x010D}, Caller: [2]int{0x130D, 0x1792}, Screen: [2]int{0x3CD8, 0x0092},
@@ -162,7 +168,7 @@ var Demo = Build{
 	DS: 0x32CD, Code: 0x02DC,
 	Support: 0x262A, ExpFirst: 0x0908, ExpLast: 0x0ABF, ExpDestroy: 0x2083, ExpRefresh: 0x254B,
 	Handler: &Handler{
-		Entry: 0x0004, Stop: 0x0ABF, Done: 0x0D58,
+		Entry: 0x0004, Stop: 0x0ABF, Done: 0x0D58, Next: 0x0117, Skip: 0x0D3D,
 		Ctx: 0x1812, Types: 0x09BB, Terrains: 0x05A1, Turn: 0x4D9E, Orders: 0x4D3A, Maps: 0x17A8,
 		Flags: 0x4C9A, Tiles: 0x0151,
 		Option: [2]int{0x37C1, 0x011B}, Caller: [2]int{0x1307, 0x178F}, Screen: [2]int{0x3CC5, 0x0092},
