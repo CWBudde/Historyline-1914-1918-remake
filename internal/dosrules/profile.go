@@ -1,7 +1,9 @@
-// Package dosrules is the pure Go resolver of the original DOS combat rules
+// Package dosrules is the pure Go resolver of the original DOS rules
 // (profile dos-0.1): the casualty routine, the pincer and blocking support,
 // the battle distance, the experience awards and the order handler that
-// composes them, as executed in the identified builds. It holds no original
+// composes them; the movement queries, the move order and its steps, loading,
+// unloading and exits, and the phase change that brings both sides' views
+// into line, as executed in the identified builds. It holds no original
 // bytes, only the numeric fields the rules read. The research oracle
 // internal/dosoracle checks it against the executed routines and records the
 // fixtures under testdata/.
@@ -33,11 +35,14 @@ func (t Type) alternate() bool { return t.StrengthFlags&4 != 0 }
 type Terms struct{ Attack, Defence int }
 
 // Tables are the numbers one build supplies: its 51 type records and the
-// terms of the nine terrain classes.
+// terms of the nine terrain classes, and the fields of the type and terrain
+// records the movement queries read (nil where the build's movement code is
+// not located).
 type Tables struct {
-	Build string   `json:"build"` // SHA-256 prefix of the executable
-	Types []Type   `json:"types"`
-	Terms [9]Terms `json:"terms"`
+	Build string      `json:"build"` // SHA-256 prefix of the executable
+	Types []Type      `json:"types"`
+	Terms [9]Terms    `json:"terms"`
+	Move  *MoveTables `json:"move,omitempty"`
 }
 
 // UnmarshalJSON reads the terms as [attack, defence] pairs.

@@ -9,6 +9,8 @@ import (
 	"sort"
 	"testing"
 	"time"
+
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
 )
 
 // holdCase is a move order onto a container (O.Hold < 0) or a unit leaving
@@ -57,7 +59,7 @@ func addTransporter(tab *MoveTables, g *Movement, typ, cell, rec, mask int) {
 	if tab.Types[typ].Mask&tab.Terrains[g.Terrain[cell]].Mask == 0 {
 		g.Terrain[cell] = tDeep
 	}
-	h := EmptyHold()
+	h := dosrules.EmptyHold()
 	h.Cells[0], h.Flags, h.Occupant = 2*cell+1, 0x20|mask, holdUnit
 	g.Holds[rec] = h
 }
@@ -68,15 +70,15 @@ func addTransporter(tab *MoveTables, g *Movement, typ, cell, rec, mask int) {
 func addBuilding(tab *MoveTables, g *Movement, terrain, cell, owner int) int {
 	g.Terrain[cell] = terrain
 	fl := tab.Terrains[terrain].Flags
-	rec := holdFlag40 + fl&1
+	rec := dosrules.HoldFlag40 + fl&1
 	switch {
 	case fl&0x400 != 0:
-		rec = holdFlag400 + 3
+		rec = dosrules.HoldFlag400 + 3
 	case fl&0x100 != 0:
-		rec = holdFlag100 + 3
+		rec = dosrules.HoldFlag100 + 3
 	}
-	h := EmptyHold()
-	h.Cells[0], h.Occupant = 2*cell, inBuilding
+	h := dosrules.EmptyHold()
+	h.Cells[0], h.Occupant = 2*cell, dosrules.InBuilding
 	h.Flags = [3]int{g.Side, 1 - g.Side, 2}[owner]
 	g.Holds[rec] = h
 	return rec
@@ -89,7 +91,7 @@ func fill(tab *MoveTables, g *Movement, rec, side, cell int, types ...int) {
 	for _, ty := range types {
 		idx := heldFirst + len(g.Held)
 		g.Held[idx] = piece(tab, ty, cell, side)
-		h.Slots[7*side+freeSlot(h.bytes(), side)] = idx
+		h.Slots[7*side+dosrules.FreeSlot(h.Bytes(), side)] = idx
 	}
 	g.Holds[rec] = h
 }
@@ -196,7 +198,7 @@ func holdCases(tab *MoveTables) []holdCase {
 				p := g.Units[0]
 				p.Hold = carriedRec
 				g.Units[0] = p
-				carried := EmptyHold()
+				carried := dosrules.EmptyHold()
 				carried.Cells[0], carried.Flags, carried.Occupant = 2*holdMiddle+1, 0x20|0xFC0, 0
 				g.Holds[carriedRec] = carried
 				fill(tab, g, carriedRec, 0, holdMiddle, slices.Repeat([]int{uLight}, k)...)
@@ -251,7 +253,7 @@ func holdCases(tab *MoveTables) []holdCase {
 		p := g.Units[0]
 		p.Hold = carriedRec
 		g.Units[0] = p
-		carried := EmptyHold()
+		carried := dosrules.EmptyHold()
 		carried.Cells[0], carried.Flags = 2*holdMiddle+1, 0x20|0xFC0
 		g.Holds[carriedRec] = carried
 		fill(tab, g, carriedRec, 0, holdMiddle, uLight, uLight)
@@ -341,7 +343,7 @@ func holdsAgree(t *testing.T, e *Export, tab *MoveTables, c holdCase) (r ExitRun
 
 // holdDiff names the first container record or exit output that differs.
 func holdDiff(got, want ExitRun) string {
-	for i := range holdRecords {
+	for i := range dosrules.HoldRecords {
 		if !bytes.Equal(got.Holds[i], want.Holds[i]) {
 			return fmt.Sprintf("container record %d executed % x, transcribed % x", i, got.Holds[i], want.Holds[i])
 		}
@@ -407,7 +409,7 @@ func slotted(holds map[int][]byte) map[int]int {
 	out := map[int]int{}
 	for i, h := range holds {
 		for k := range 14 {
-			if h[k] <= slotFree {
+			if h[k] <= dosrules.SlotFree {
 				out[int(h[k])] = i
 			}
 		}
@@ -423,7 +425,7 @@ func holdRules(t *testing.T, tab *MoveTables, c holdCase, r ExitRun, seen map[st
 	fail := func(format string, args ...any) {
 		t.Errorf("%s/%s to %d: "+format, append([]any{c.class, c.name, c.o.Goal}, args...)...)
 	}
-	before, after := slotted(holdBytes(g)), slotted(r.Holds)
+	before, after := slotted(dosrules.HoldBytes(g)), slotted(r.Holds)
 	moved := r.Order&1 != 0 && r.Start&1 != 0
 	shown := 0
 	if len(r.Messages) > 0 {
@@ -449,11 +451,11 @@ func holdRules(t *testing.T, tab *MoveTables, c holdCase, r ExitRun, seen map[st
 		}
 	}
 	for rec := range weights {
-		if rec >= holdFlag40 {
+		if rec >= dosrules.HoldFlag40 {
 			continue
 		}
 		for k := range 7 {
-			if v := r.Holds[rec][7*side+k]; v <= slotFree {
+			if v := r.Holds[rec][7*side+k]; v <= dosrules.SlotFree {
 				weights[rec] += tab.Types[r.Live[int(v)][8]].Weight
 			}
 		}
@@ -475,11 +477,11 @@ func holdRules(t *testing.T, tab *MoveTables, c holdCase, r ExitRun, seen map[st
 			}
 		case moved && a.Kind == 5:
 			seen["entered an own building"]++
-			if after[u] != a.Hold || r.Maps[0][2*c.o.Goal+1] != inBuilding || word(r.Live[u], 0x0B+2*side)&1 != 0 {
+			if after[u] != a.Hold || r.Maps[0][2*c.o.Goal+1] != dosrules.InBuilding || word(r.Live[u], 0x0B+2*side)&1 != 0 {
 				fail("not in the building's record, the map not 0xf4 or the position odd")
 			}
 		case moved && a.Kind == 4:
-			if word(g.Holds[a.Hold].bytes(), 0x19)&2 != 0 {
+			if word(g.Holds[a.Hold].Bytes(), 0x19)&2 != 0 {
 				seen["onto a neutral building"]++
 			} else {
 				seen["onto a foreign building"]++
@@ -500,7 +502,7 @@ func holdRules(t *testing.T, tab *MoveTables, c holdCase, r ExitRun, seen map[st
 		case shown == 0x3B && c.class == "nested":
 			seen["cargo kept: too few slots (0x3b)"]++
 		}
-		if moved && g.Units[0].Flags4&0x1000 != 0 && g.Holds[carriedRec].Slots[0] <= slotFree {
+		if moved && g.Units[0].Flags4&0x1000 != 0 && g.Holds[carriedRec].Slots[0] <= dosrules.SlotFree {
 			cargo := int(g.Holds[carriedRec].Slots[0])
 			switch a.Kind {
 			case 2, 5:
@@ -520,8 +522,8 @@ func holdRules(t *testing.T, tab *MoveTables, c holdCase, r ExitRun, seen map[st
 
 	// Exits: the reach starts at 4 or 8, whatever live byte 0 holds; the
 	// cell left gets the record's occupant back.
-	l := liveRecords(g)[r.Unit]
-	start := word(g.Holds[c.o.Hold].bytes(), 0x0E) &^ 1
+	l := dosrules.LiveRecords(g)[r.Unit]
+	start := word(g.Holds[c.o.Hold].Bytes(), 0x0E) &^ 1
 	budget := int(r.Remaining[start/2/g.Width*64+start/2%g.Width])
 	want := 8
 	if word(l, 6)&0x10 != 0 {

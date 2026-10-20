@@ -8,6 +8,8 @@ import (
 	"slices"
 	"testing"
 	"time"
+
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
 )
 
 // moveTablesOf reads the movement fields of the export's type and terrain
@@ -443,12 +445,12 @@ func moveRules(t *testing.T, tab *MoveTables, c moveCase, r MoveRun, seen map[st
 	g := c.g
 	at := func(cell int) int { return int(r.Buffer[cell/g.Width*64+cell%g.Width]) }
 	start := g.Units[g.Unit].Cell
-	costs := tab.costs(g)
+	costs := tab.Costs(g)
 	cost := func(cell int) int { return -int(costs[cell/g.Width*64+cell%g.Width]) }
 	fail := func(format string, args ...any) {
 		t.Errorf("%s/%s: "+format, append([]any{c.class, c.name}, args...)...)
 	}
-	occ := g.occupants()
+	occ := g.Occupants()
 
 	if code, ok := r.Codes[start]; ok && g.Units[g.Unit].Flags4&0x1000 == 0 {
 		if code != 0x39 {
@@ -503,7 +505,7 @@ func moveRules(t *testing.T, tab *MoveTables, c moveCase, r MoveRun, seen map[st
 			continue
 		}
 		switch {
-		case u.Flags4&2 == 0 && own(u.Flags4, g.Side):
+		case u.Flags4&2 == 0 && dosrules.Owns(u.Flags4, g.Side):
 			if at(u.Cell) >= 0 && r.Codes[u.Cell] == 0x39 && tab.Types[g.Units[g.Unit].Type].Class&0x40 == 0 {
 				seen["own unit passed"]++
 			}

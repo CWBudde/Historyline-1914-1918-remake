@@ -9,6 +9,8 @@ import (
 	"sort"
 	"testing"
 	"time"
+
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
 )
 
 // stepCase is one move order of a coverage class: the map, the goal and the
@@ -234,8 +236,8 @@ func stepRules(t *testing.T, tab *MoveTables, c stepCase, r StepRun, seen map[st
 	fail := func(format string, args ...any) {
 		t.Errorf("%s/%s to %d: "+format, append([]any{c.class, c.name, c.o.Goal}, args...)...)
 	}
-	before := liveRecords(g)
-	ownMap, other := movementMaps(g)
+	before := dosrules.LiveRecords(g)
+	ownMap, other := dosrules.MovementMaps(g)
 	if !bytes.Equal(r.Maps[1], other) {
 		fail("the other side's map changed")
 	}
@@ -275,10 +277,10 @@ func stepRules(t *testing.T, tab *MoveTables, c stepCase, r StepRun, seen map[st
 	}
 	route := append([]int{g.Units[u].Cell}, r.Cells...)
 	spent, zoc := 0, false
-	occ := g.occupants()
+	occ := g.Occupants()
 	enemyNext := func(cell int) bool {
 		for _, n := range Ring(cell, g.Width, g.Height) {
-			if o, ok := occ[n]; ok && n >= 0 && g.Units[o].Flags4&2 == 0 && !own(g.Units[o].Flags4, side) {
+			if o, ok := occ[n]; ok && n >= 0 && g.Units[o].Flags4&2 == 0 && !dosrules.Owns(g.Units[o].Flags4, side) {
 				return true
 			}
 		}

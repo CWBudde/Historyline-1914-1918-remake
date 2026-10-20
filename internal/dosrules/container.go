@@ -1,4 +1,4 @@
-package dosoracle
+package dosrules
 
 import "fmt"
 
@@ -9,13 +9,13 @@ import "fmt"
 // records, chosen by flag bit 1, for flag 0x40), 32e2:38ec (flag 0x100) and
 // 32e2:3a04 (flag 0x400), ten records each, found by cell (0e40:1728).
 const (
-	holdRecords = 92
-	holdFlag40  = 70 // (0x38b4 - 0x310c) / 0x1c
-	holdFlag100 = 72
-	holdFlag400 = 82
+	HoldRecords = 92
+	HoldFlag40  = 70 // (0x38b4 - 0x310c) / 0x1c
+	HoldFlag100 = 72
+	HoldFlag400 = 82
 	holdTable   = 10   // records 0e40:1728 searches
-	slotFree    = 0xF0 // a slot or map occupant above it holds no unit
-	inBuilding  = 0xF4 // the map occupant of a building cell with units in it
+	SlotFree    = 0xF0 // a slot or map occupant above it holds no unit
+	InBuilding  = 0xF4 // the map occupant of a building cell with units in it
 )
 
 // Hold is a container record: seven slot bytes per side (unit indices,
@@ -42,8 +42,9 @@ func EmptyHold() Hold {
 	return h
 }
 
-func (h Hold) bytes() []byte {
-	b := make([]byte, containerLen)
+// Bytes is the 0x1c-byte container record.
+func (h Hold) Bytes() []byte {
+	b := make([]byte, ContainerLen)
 	for i, v := range h.Slots {
 		b[i] = byte(v)
 	}
@@ -55,18 +56,18 @@ func (h Hold) bytes() []byte {
 	return b
 }
 
-// holdBytes are all container records of a movement.
-func holdBytes(g *Movement) map[int][]byte { return holdsOf(g.Holds) }
+// HoldBytes are all container records of a movement.
+func HoldBytes(g *Movement) map[int][]byte { return ContainerRecords(g.Holds) }
 
-// holdsOf are all container records, EmptyHold where holds has none.
-func holdsOf(holds map[int]Hold) map[int][]byte {
-	out := make(map[int][]byte, holdRecords)
-	for i := range holdRecords {
+// ContainerRecords are all container records, EmptyHold where holds has none.
+func ContainerRecords(holds map[int]Hold) map[int][]byte {
+	out := make(map[int][]byte, HoldRecords)
+	for i := range HoldRecords {
 		h, ok := holds[i]
 		if !ok {
 			h = EmptyHold()
 		}
-		out[i] = h.bytes()
+		out[i] = h.Bytes()
 	}
 	return out
 }
@@ -105,7 +106,7 @@ func (s *moveState) endCheck(cell int) (int, Action, error) {
 	t, side := s.t, s.g.Side
 	mover := s.rec(s.g.Unit)
 	a := Action{Kind: 3}
-	if occ := int(s.maps[0][2*cell+1]); occ <= slotFree {
+	if occ := int(s.maps[0][2*cell+1]); occ <= SlotFree {
 		a.Occupant = occ
 		o := occ
 		if f := s.flags(o); f&0x40 != 0 && f&0x80 == 0 {
@@ -113,7 +114,7 @@ func (s *moveState) endCheck(cell int) (int, Action, error) {
 		}
 		of := s.flags(o)
 		switch {
-		case !own(of, side):
+		case !Owns(of, side):
 			return 0x37, a, nil
 		case of&0x1000 == 0:
 			return 0x39, a, nil
@@ -127,7 +128,7 @@ func (s *moveState) endCheck(cell int) (int, Action, error) {
 		if word(mover, 6)&word(h, 0x19)&0xFC0 == 0 || of&0x200 != 0 {
 			return 0x3A, a, nil
 		}
-		slot := freeSlot(h, side)
+		slot := FreeSlot(h, side)
 		if slot == 7 {
 			return 0x3B, a, nil
 		}
@@ -155,18 +156,18 @@ func (s *moveState) endCheck(cell int) (int, Action, error) {
 	base, idx := -1, 0
 	switch {
 	case tr.Flags&0x400 != 0:
-		base, idx = holdFlag400, s.findHold(holdFlag400, 2*cell)
+		base, idx = HoldFlag400, s.findHold(HoldFlag400, 2*cell)
 	case tr.Flags&0x100 != 0:
-		base, idx = holdFlag100, s.findHold(holdFlag100, 2*cell)
+		base, idx = HoldFlag100, s.findHold(HoldFlag100, 2*cell)
 	case tr.Flags&0x40 != 0:
-		base, idx = holdFlag40, tr.Flags&1
+		base, idx = HoldFlag40, tr.Flags&1
 	}
 	if base >= 0 {
 		// A cell no record lists (-1) reads the record before the table.
 		a.Index, a.Hold = idx, base+idx
 		h, _ := s.hold(a.Hold)
-		slot := freeSlot(h, side)
-		if hf := word(h, 0x19); !own(hf, side) || hf&2 != 0 {
+		slot := FreeSlot(h, side)
+		if hf := word(h, 0x19); !Owns(hf, side) || hf&2 != 0 {
 			a.Kind = 4
 			return 0, a, nil
 		}
@@ -214,10 +215,10 @@ func (s *moveState) findHold(base, at int) int {
 	return -1
 }
 
-// freeSlot is the side's first free slot, 7 if none.
-func freeSlot(h []byte, side int) int {
+// FreeSlot is the side's first free slot, 7 if none.
+func FreeSlot(h []byte, side int) int {
 	for i := range 7 {
-		if h[7*side+i] > slotFree {
+		if h[7*side+i] > SlotFree {
 			return i
 		}
 	}
@@ -228,7 +229,7 @@ func freeSlot(h []byte, side int) int {
 func slotCount(h []byte, side int, taken bool) int {
 	n := 0
 	for i := range 7 {
-		if (h[7*side+i] <= slotFree) == taken {
+		if (h[7*side+i] <= SlotFree) == taken {
 			n++
 		}
 	}
@@ -240,7 +241,7 @@ func slotCount(h []byte, side int, taken bool) int {
 func (s *moveState) cargoWeight(h []byte) int {
 	w := 0
 	for i := range 7 {
-		if u := h[7*s.g.Side+i]; u <= slotFree {
+		if u := h[7*s.g.Side+i]; u <= SlotFree {
 			w += s.t.Types[s.rec(int(u))[8]].Weight
 		}
 	}
@@ -254,11 +255,11 @@ func (s *moveState) transfer(src, dst []byte) {
 	side := s.g.Side
 	for i := range 7 {
 		u := src[7*side+i]
-		if u > slotFree {
+		if u > SlotFree {
 			continue
 		}
 		for k := range 7 {
-			if dst[7*side+k] > slotFree {
+			if dst[7*side+k] > SlotFree {
 				dst[7*side+k] = u
 				s.setPos(int(u), word(dst, 0x0E))
 				src[7*side+i] = 0xFF
@@ -306,7 +307,7 @@ func (t *MoveTables) Exit(g *Movement, o ExitOrder) (ExitRun, error) {
 	if word(h, 0x19)&0x20 != 0 {
 		start--
 	}
-	if u > slotFree || start&1 != 0 || start/2 >= g.Width*g.Height {
+	if u > SlotFree || start&1 != 0 || start/2 >= g.Width*g.Height {
 		return ExitRun{}, ErrUndefined
 	}
 	if u != g.Unit {
@@ -327,7 +328,7 @@ func (t *MoveTables) Exit(g *Movement, o ExitOrder) (ExitRun, error) {
 	if word(l, 6)&4 != 0 {
 		moved.Block |= 0x18
 	}
-	p := moved.piece(u)
+	p := moved.PieceAt(u)
 	p.Cell = start / 2
 	moved.Held = map[int]Piece{u: p}
 	for idx, q := range g.Held {

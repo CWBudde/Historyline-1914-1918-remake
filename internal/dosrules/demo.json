@@ -651,5 +651,1622 @@
       0,
       0
     ]
-  ]
+  ],
+  "move": {
+    "types": [
+      {
+        "budget": 16,
+        "speed": 6,
+        "mask": 50,
+        "class": 4,
+        "flags": 768,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 3
+      },
+      {
+        "budget": 12,
+        "speed": 4,
+        "mask": 26,
+        "class": 4,
+        "flags": 768,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 5
+      },
+      {
+        "budget": 14,
+        "speed": 7,
+        "mask": 63,
+        "class": 16,
+        "flags": 0,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 0
+      },
+      {
+        "budget": 14,
+        "speed": 7,
+        "mask": 63,
+        "class": 16,
+        "flags": 0,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 0
+      },
+      {
+        "budget": 16,
+        "speed": 8,
+        "mask": 63,
+        "class": 16,
+        "flags": 0,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 0
+      },
+      {
+        "budget": 14,
+        "speed": 7,
+        "mask": 63,
+        "class": 16,
+        "flags": 0,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 0
+      },
+      {
+        "budget": 14,
+        "speed": 7,
+        "mask": 63,
+        "class": 16,
+        "flags": 0,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 0
+      },
+      {
+        "budget": 18,
+        "speed": 9,
+        "mask": 127,
+        "class": 16,
+        "flags": 0,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 0
+      },
+      {
+        "budget": 16,
+        "speed": 8,
+        "mask": 127,
+        "class": 16,
+        "flags": 0,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 0
+      },
+      {
+        "budget": 20,
+        "speed": 10,
+        "mask": 127,
+        "class": 16,
+        "flags": 0,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 0
+      },
+      {
+        "budget": 8,
+        "speed": 2,
+        "mask": 58,
+        "class": 4,
+        "flags": 832,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 3
+      },
+      {
+        "budget": 6,
+        "speed": 1,
+        "mask": 50,
+        "class": 4,
+        "flags": 832,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 4
+      },
+      {
+        "budget": 4,
+        "speed": 1,
+        "mask": 18,
+        "class": 4,
+        "flags": 832,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 5
+      },
+      {
+        "budget": 0,
+        "speed": 0,
+        "mask": 0,
+        "class": 4,
+        "flags": 0,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 0
+      },
+      {
+        "budget": 18,
+        "speed": 7,
+        "mask": 50,
+        "class": 4,
+        "flags": 768,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 4
+      },
+      {
+        "budget": 8,
+        "speed": 2,
+        "mask": 18,
+        "class": 4,
+        "flags": 832,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 2
+      },
+      {
+        "budget": 16,
+        "speed": 6,
+        "mask": 58,
+        "class": 4,
+        "flags": 17152,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 4
+      },
+      {
+        "budget": 12,
+        "speed": 4,
+        "mask": 122,
+        "class": 4,
+        "flags": 833,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 1
+      },
+      {
+        "budget": 12,
+        "speed": 4,
+        "mask": 122,
+        "class": 4,
+        "flags": 833,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 1
+      },
+      {
+        "budget": 10,
+        "speed": 3,
+        "mask": 122,
+        "class": 4,
+        "flags": 833,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 2
+      },
+      {
+        "budget": 12,
+        "speed": 4,
+        "mask": 122,
+        "class": 4,
+        "flags": 9025,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 1
+      },
+      {
+        "budget": 16,
+        "speed": 6,
+        "mask": 50,
+        "class": 4,
+        "flags": 769,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 2
+      },
+      {
+        "budget": 18,
+        "speed": 7,
+        "mask": 18,
+        "class": 4100,
+        "flags": 768,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 9,
+        "weight": 4
+      },
+      {
+        "budget": 2,
+        "speed": 1,
+        "mask": 18,
+        "class": 16,
+        "flags": 16,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 1
+      },
+      {
+        "budget": 20,
+        "speed": 5,
+        "mask": 2,
+        "class": 4,
+        "flags": 0,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 0
+      },
+      {
+        "budget": 24,
+        "speed": 6,
+        "mask": 2,
+        "class": 4,
+        "flags": 0,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 0
+      },
+      {
+        "budget": 28,
+        "speed": 7,
+        "mask": 2,
+        "class": 4100,
+        "flags": 0,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 15,
+        "weight": 0
+      },
+      {
+        "budget": 42,
+        "speed": 7,
+        "mask": 5,
+        "class": 8,
+        "flags": 0,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 0
+      },
+      {
+        "budget": 36,
+        "speed": 6,
+        "mask": 5,
+        "class": 8,
+        "flags": 0,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 0
+      },
+      {
+        "budget": 30,
+        "speed": 5,
+        "mask": 1,
+        "class": 200,
+        "flags": 2,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 0
+      },
+      {
+        "budget": 30,
+        "speed": 5,
+        "mask": 1,
+        "class": 72,
+        "flags": 2,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 0
+      },
+      {
+        "budget": 30,
+        "speed": 5,
+        "mask": 5,
+        "class": 4104,
+        "flags": 0,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 30,
+        "weight": 0
+      },
+      {
+        "budget": 36,
+        "speed": 6,
+        "mask": 1,
+        "class": 200,
+        "flags": 0,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 0
+      },
+      {
+        "budget": 36,
+        "speed": 6,
+        "mask": 1,
+        "class": 72,
+        "flags": 0,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 0
+      },
+      {
+        "budget": 30,
+        "speed": 5,
+        "mask": 1,
+        "class": 200,
+        "flags": 0,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 0
+      },
+      {
+        "budget": 30,
+        "speed": 5,
+        "mask": 1,
+        "class": 72,
+        "flags": 0,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 0
+      },
+      {
+        "budget": 14,
+        "speed": 7,
+        "mask": 63,
+        "class": 16,
+        "flags": 0,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 0
+      },
+      {
+        "budget": 14,
+        "speed": 7,
+        "mask": 63,
+        "class": 16,
+        "flags": 0,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 0
+      },
+      {
+        "budget": 16,
+        "speed": 8,
+        "mask": 63,
+        "class": 16,
+        "flags": 0,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 0
+      },
+      {
+        "budget": 14,
+        "speed": 7,
+        "mask": 63,
+        "class": 16,
+        "flags": 0,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 0
+      },
+      {
+        "budget": 14,
+        "speed": 7,
+        "mask": 63,
+        "class": 16,
+        "flags": 0,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 0
+      },
+      {
+        "budget": 16,
+        "speed": 8,
+        "mask": 127,
+        "class": 16,
+        "flags": 0,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 0
+      },
+      {
+        "budget": 18,
+        "speed": 9,
+        "mask": 127,
+        "class": 16,
+        "flags": 0,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 0
+      },
+      {
+        "budget": 18,
+        "speed": 9,
+        "mask": 127,
+        "class": 16,
+        "flags": 0,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 0
+      },
+      {
+        "budget": 20,
+        "speed": 10,
+        "mask": 127,
+        "class": 16,
+        "flags": 0,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 0
+      },
+      {
+        "budget": 18,
+        "speed": 9,
+        "mask": 127,
+        "class": 16,
+        "flags": 0,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 0
+      },
+      {
+        "budget": 16,
+        "speed": 6,
+        "mask": 50,
+        "class": 4,
+        "flags": 768,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 3
+      },
+      {
+        "budget": 14,
+        "speed": 5,
+        "mask": 50,
+        "class": 4,
+        "flags": 768,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 3
+      },
+      {
+        "budget": 12,
+        "speed": 4,
+        "mask": 26,
+        "class": 4,
+        "flags": 768,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 4
+      },
+      {
+        "budget": 12,
+        "speed": 4,
+        "mask": 26,
+        "class": 4,
+        "flags": 768,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 5
+      },
+      {
+        "budget": 12,
+        "speed": 4,
+        "mask": 26,
+        "class": 4,
+        "flags": 768,
+        "distanceWeight": 5,
+        "costWeight": 7,
+        "capacity": 0,
+        "weight": 5
+      }
+    ],
+    "terrains": [
+      {
+        "flags": 32776,
+        "mask": 16,
+        "cost": 6,
+        "airCost": 2
+      },
+      {
+        "flags": 108,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 105,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 16424,
+        "mask": 128,
+        "cost": 255,
+        "airCost": 2
+      },
+      {
+        "flags": 16424,
+        "mask": 128,
+        "cost": 255,
+        "airCost": 2
+      },
+      {
+        "flags": 16424,
+        "mask": 128,
+        "cost": 255,
+        "airCost": 2
+      },
+      {
+        "flags": 16424,
+        "mask": 128,
+        "cost": 255,
+        "airCost": 2
+      },
+      {
+        "flags": 16424,
+        "mask": 128,
+        "cost": 255,
+        "airCost": 2
+      },
+      {
+        "flags": 16424,
+        "mask": 128,
+        "cost": 255,
+        "airCost": 2
+      },
+      {
+        "flags": 18952,
+        "mask": 128,
+        "cost": 255,
+        "airCost": 2
+      },
+      {
+        "flags": 18952,
+        "mask": 128,
+        "cost": 255,
+        "airCost": 2
+      },
+      {
+        "flags": 18952,
+        "mask": 128,
+        "cost": 255,
+        "airCost": 2
+      },
+      {
+        "flags": 3594,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 3596,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 3593,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 2442,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 2444,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 2441,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 18568,
+        "mask": 128,
+        "cost": 255,
+        "airCost": 2
+      },
+      {
+        "flags": 18568,
+        "mask": 128,
+        "cost": 255,
+        "airCost": 2
+      },
+      {
+        "flags": 18568,
+        "mask": 128,
+        "cost": 255,
+        "airCost": 2
+      },
+      {
+        "flags": 16392,
+        "mask": 128,
+        "cost": 255,
+        "airCost": 2
+      },
+      {
+        "flags": 16392,
+        "mask": 128,
+        "cost": 255,
+        "airCost": 2
+      },
+      {
+        "flags": 16392,
+        "mask": 128,
+        "cost": 255,
+        "airCost": 2
+      },
+      {
+        "flags": 16392,
+        "mask": 128,
+        "cost": 255,
+        "airCost": 2
+      },
+      {
+        "flags": 16,
+        "mask": 4,
+        "cost": 8,
+        "airCost": 2
+      },
+      {
+        "flags": 16,
+        "mask": 4,
+        "cost": 8,
+        "airCost": 2
+      },
+      {
+        "flags": 16,
+        "mask": 4,
+        "cost": 8,
+        "airCost": 2
+      },
+      {
+        "flags": 16,
+        "mask": 4,
+        "cost": 8,
+        "airCost": 2
+      },
+      {
+        "flags": 16,
+        "mask": 4,
+        "cost": 8,
+        "airCost": 2
+      },
+      {
+        "flags": 16,
+        "mask": 4,
+        "cost": 8,
+        "airCost": 2
+      },
+      {
+        "flags": 16,
+        "mask": 4,
+        "cost": 8,
+        "airCost": 2
+      },
+      {
+        "flags": 16,
+        "mask": 4,
+        "cost": 8,
+        "airCost": 2
+      },
+      {
+        "flags": 16,
+        "mask": 4,
+        "cost": 8,
+        "airCost": 2
+      },
+      {
+        "flags": 16,
+        "mask": 4,
+        "cost": 10,
+        "airCost": 2
+      },
+      {
+        "flags": 16,
+        "mask": 4,
+        "cost": 10,
+        "airCost": 2
+      },
+      {
+        "flags": 16,
+        "mask": 4,
+        "cost": 10,
+        "airCost": 2
+      },
+      {
+        "flags": 16,
+        "mask": 4,
+        "cost": 10,
+        "airCost": 2
+      },
+      {
+        "flags": 16,
+        "mask": 4,
+        "cost": 10,
+        "airCost": 2
+      },
+      {
+        "flags": 16,
+        "mask": 4,
+        "cost": 10,
+        "airCost": 2
+      },
+      {
+        "flags": 16,
+        "mask": 4,
+        "cost": 10,
+        "airCost": 2
+      },
+      {
+        "flags": 16,
+        "mask": 4,
+        "cost": 10,
+        "airCost": 2
+      },
+      {
+        "flags": 16,
+        "mask": 4,
+        "cost": 10,
+        "airCost": 2
+      },
+      {
+        "flags": 16,
+        "mask": 4,
+        "cost": 10,
+        "airCost": 2
+      },
+      {
+        "flags": 16,
+        "mask": 4,
+        "cost": 10,
+        "airCost": 2
+      },
+      {
+        "flags": 16,
+        "mask": 4,
+        "cost": 10,
+        "airCost": 2
+      },
+      {
+        "flags": 16,
+        "mask": 4,
+        "cost": 10,
+        "airCost": 2
+      },
+      {
+        "flags": 16,
+        "mask": 4,
+        "cost": 6,
+        "airCost": 2
+      },
+      {
+        "flags": 16,
+        "mask": 1,
+        "cost": 6,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 32,
+        "cost": 7,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 32,
+        "cost": 7,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 32,
+        "cost": 7,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 32,
+        "cost": 7,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 32,
+        "cost": 7,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 32,
+        "cost": 7,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 32,
+        "cost": 7,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 32,
+        "cost": 7,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 32,
+        "cost": 7,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 64,
+        "cost": 6,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 64,
+        "cost": 6,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 64,
+        "cost": 8,
+        "airCost": 4
+      },
+      {
+        "flags": 8,
+        "mask": 64,
+        "cost": 8,
+        "airCost": 4
+      },
+      {
+        "flags": 8,
+        "mask": 64,
+        "cost": 8,
+        "airCost": 4
+      },
+      {
+        "flags": 8,
+        "mask": 65,
+        "cost": 8,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 64,
+        "cost": 8,
+        "airCost": 4
+      },
+      {
+        "flags": 8,
+        "mask": 64,
+        "cost": 8,
+        "airCost": 4
+      },
+      {
+        "flags": 8,
+        "mask": 64,
+        "cost": 8,
+        "airCost": 4
+      },
+      {
+        "flags": 8,
+        "mask": 64,
+        "cost": 9,
+        "airCost": 6
+      },
+      {
+        "flags": 8,
+        "mask": 64,
+        "cost": 9,
+        "airCost": 6
+      },
+      {
+        "flags": 8,
+        "mask": 64,
+        "cost": 9,
+        "airCost": 6
+      },
+      {
+        "flags": 8,
+        "mask": 64,
+        "cost": 9,
+        "airCost": 6
+      },
+      {
+        "flags": 8,
+        "mask": 64,
+        "cost": 9,
+        "airCost": 9
+      },
+      {
+        "flags": 8,
+        "mask": 64,
+        "cost": 9,
+        "airCost": 9
+      },
+      {
+        "flags": 8,
+        "mask": 64,
+        "cost": 9,
+        "airCost": 9
+      },
+      {
+        "flags": 8,
+        "mask": 64,
+        "cost": 9,
+        "airCost": 9
+      },
+      {
+        "flags": 8,
+        "mask": 64,
+        "cost": 9,
+        "airCost": 9
+      },
+      {
+        "flags": 8,
+        "mask": 64,
+        "cost": 9,
+        "airCost": 9
+      },
+      {
+        "flags": 8,
+        "mask": 64,
+        "cost": 9,
+        "airCost": 9
+      },
+      {
+        "flags": 32776,
+        "mask": 16,
+        "cost": 6,
+        "airCost": 2
+      },
+      {
+        "flags": 32776,
+        "mask": 16,
+        "cost": 6,
+        "airCost": 2
+      },
+      {
+        "flags": 32776,
+        "mask": 16,
+        "cost": 6,
+        "airCost": 2
+      },
+      {
+        "flags": 32776,
+        "mask": 16,
+        "cost": 6,
+        "airCost": 2
+      },
+      {
+        "flags": 32776,
+        "mask": 16,
+        "cost": 6,
+        "airCost": 2
+      },
+      {
+        "flags": 32776,
+        "mask": 16,
+        "cost": 8,
+        "airCost": 2
+      },
+      {
+        "flags": 32776,
+        "mask": 16,
+        "cost": 8,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 2,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 2,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 2,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 2,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 2,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 2,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 2,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 2,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 2,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 2,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 2,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 2,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 2,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 2,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 2,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 2,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 2,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 2,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 2,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 2,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 16,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 16,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 8200,
+        "mask": 16,
+        "cost": 4,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 16,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 16,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 16,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 16,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 16,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 16,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 16,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 16,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 16,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 16,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 16,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 16,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 16,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 16,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 16,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 16,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 16,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 16,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 8,
+        "mask": 16,
+        "cost": 5,
+        "airCost": 2
+      },
+      {
+        "flags": 34824,
+        "mask": 8,
+        "cost": 11,
+        "airCost": 2
+      },
+      {
+        "flags": 34824,
+        "mask": 8,
+        "cost": 11,
+        "airCost": 2
+      },
+      {
+        "flags": 34824,
+        "mask": 8,
+        "cost": 11,
+        "airCost": 2
+      },
+      {
+        "flags": 34824,
+        "mask": 8,
+        "cost": 11,
+        "airCost": 2
+      },
+      {
+        "flags": 34824,
+        "mask": 8,
+        "cost": 11,
+        "airCost": 2
+      },
+      {
+        "flags": 34824,
+        "mask": 8,
+        "cost": 11,
+        "airCost": 2
+      },
+      {
+        "flags": 34824,
+        "mask": 8,
+        "cost": 11,
+        "airCost": 2
+      },
+      {
+        "flags": 34824,
+        "mask": 8,
+        "cost": 11,
+        "airCost": 2
+      },
+      {
+        "flags": 34824,
+        "mask": 8,
+        "cost": 11,
+        "airCost": 2
+      },
+      {
+        "flags": 0,
+        "mask": 128,
+        "cost": 255,
+        "airCost": 255
+      }
+    ]
+  }
 }

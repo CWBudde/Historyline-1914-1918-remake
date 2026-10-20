@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dos8086"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
 )
 
 // The field census looks for ammo, fuel and resupply. Every executed runner
@@ -69,7 +70,7 @@ func watching(e *Export, c *census) *Export {
 				switch {
 				case a >= types && a < types+len(e.Units):
 					c.typeSites[at]++
-				case a >= units && a < units+26*liveUnits:
+				case a >= units && a < units+26*dosrules.LiveUnits:
 					k := (a - units) % 26
 					dir := 1
 					switch old := int(mm.Mem[a]); {

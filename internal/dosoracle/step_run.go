@@ -4,6 +4,7 @@ import (
 	"errors"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dos8086"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
 )
 
 // Offsets in the side records (Move.Sides) and the order record.
@@ -16,33 +17,6 @@ const (
 	orderUnit      = 0x1e // word: the unit index
 	containerLen   = 0x1c
 )
-
-// MoveOrder is a move order of the moving unit: the destination cell, the
-// cell the order is changed to between the order code and the start (-1:
-// none), and cells whose reach bit for the side is left from an earlier
-// query (the reach search ORs its bits into the array; its callers clear it).
-type MoveOrder struct {
-	Goal     int   `json:"goal"`
-	Retarget int   `json:"retarget"`
-	Stale    []int `json:"stale,omitempty"`
-}
-
-// StepRun is the executed outcome of one move order.
-type StepRun struct {
-	Order, Start int            // AX of the order code and of the move start (1, 0x12 refused, |8 two cells)
-	Messages     [][2]int       // status messages shown: code, side
-	Cells        []int          // the mover's cell as its side sees it, after each step
-	Live         map[int][]byte // the live record of every placed unit afterwards
-	Maps         [2][]byte      // the side's and the other side's map afterwards
-	Bits         []byte         // the bit array afterwards
-	Orders       []int          // the side's order list afterwards
-	Count        int            // the route count afterwards
-	Holds        map[int][]byte // the container records afterwards
-	Container    []byte         // container record 0 afterwards
-}
-
-// stepMaxCalls bounds the steps of one move (a route has at most 790 cells).
-const stepMaxCalls = 0x400
 
 // RunMove executes a move order the way the player gives it: the reach search
 // 0b06:0331 with the player's arguments (0ca0:0a6f), the order code 10cc:02dd
@@ -120,9 +94,9 @@ func (v *moveEnv) drive(g *Movement, o MoveOrder, r *StepRun, order int) (StepRu
 			return *r, err
 		}
 	}
-	unit := v.units + liveLen*g.Unit
+	unit := v.units + dosrules.LiveLen*g.Unit
 	for r.Start&1 != 0 {
-		if len(r.Cells) == stepMaxCalls {
+		if len(r.Cells) == dosrules.MaxSteps {
 			return *r, errors.New("step: no arrival")
 		}
 		entry := m.RW(data, mv.Count)
@@ -136,9 +110,9 @@ func (v *moveEnv) drive(g *Movement, o MoveOrder, r *StepRun, order int) (StepRu
 	}
 
 	r.Live = map[int][]byte{}
-	for idx := range liveRecords(g) {
-		b := make([]byte, liveLen)
-		copy(b, m.Mem[dos8086.Lin(data, v.units+liveLen*idx):])
+	for idx := range dosrules.LiveRecords(g) {
+		b := make([]byte, dosrules.LiveLen)
+		copy(b, m.Mem[dos8086.Lin(data, v.units+dosrules.LiveLen*idx):])
 		r.Live[idx] = b
 	}
 	for k, s := range [2]int{v.sideMap, v.otherMap} {
@@ -156,7 +130,7 @@ func (v *moveEnv) drive(g *Movement, o MoveOrder, r *StepRun, order int) (StepRu
 	}
 	r.Count = int(int16(m.RW(data, mv.Count)))
 	r.Holds = map[int][]byte{}
-	for i := range holdRecords {
+	for i := range dosrules.HoldRecords {
 		b := make([]byte, containerLen)
 		copy(b, m.Mem[dos8086.Lin(data, mv.Containers+containerLen*i):])
 		r.Holds[i] = b

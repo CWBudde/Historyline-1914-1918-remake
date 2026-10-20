@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dos8086"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
 )
 
 const moveMaxSteps = 20_000_000
@@ -14,7 +15,7 @@ const guard = 0xA5
 
 // MoveRun is the executed outcome of one movement query.
 type MoveRun struct {
-	Buffer       []int8      // the cost buffer after the reach search, bufLen bytes
+	Buffer       []int8      // the cost buffer after the reach search, dosrules.BufLen bytes
 	Bits         []byte      // the reach-bit array at Move.Bits
 	Count        int         // AX of the reach search
 	Destinations []int       // cells, in the order Destinations lists them
@@ -36,7 +37,7 @@ func (e *Export) RunMovement(g *Movement) (MoveRun, error) {
 		return MoveRun{}, err
 	}
 	m, data, mv := v.m, v.data, e.B.Move
-	start := g.piece(g.Unit).Cell
+	start := g.PieceAt(g.Unit).Cell
 	var r MoveRun
 	if r.Buffer, r.Bits, r.Count, err = v.reach(g); err != nil {
 		return r, err
@@ -74,7 +75,7 @@ func (e *Export) RunMovement(g *Movement) (MoveRun, error) {
 	// +0x1f40; each search starts from the buffer as the reach left it.
 	pool := costSeg
 	for _, goal := range g.Goals {
-		for i := range bufLen {
+		for i := range dosrules.BufLen {
 			m.WB(pool, i, int(byte(r.Buffer[i])))
 		}
 		ax, err := call("path", mv.Path, 0, pool, g.Unit, 2*start, 2*goal, g.Side, 0, sideMap)
@@ -91,7 +92,7 @@ func (e *Export) RunMovement(g *Movement) (MoveRun, error) {
 			return r, fmt.Errorf("path: result %#x with count %d", ax, m.RW(data, mv.Count))
 		}
 		r.Paths = append(r.Paths, route)
-		for i := range bufLen {
+		for i := range dosrules.BufLen {
 			if x := m.RB(data, mv.Bits+i); byte(x) != r.Bits[i] {
 				return r, errors.New("path: reach bits changed")
 			}
@@ -123,7 +124,7 @@ func (e *Export) moveEnv(g *Movement) (*moveEnv, error) {
 	if mv == nil {
 		return nil, errors.New("the movement routines are not located in this build")
 	}
-	if g.Width > 64 || g.Height*64 > bufLen {
+	if g.Width > 64 || g.Height*64 > dosrules.BufLen {
 		return nil, fmt.Errorf("map %dx%d exceeds the 64-column arrays", g.Width, g.Height)
 	}
 	m := e.machine()
@@ -136,16 +137,16 @@ func (e *Export) moveEnv(g *Movement) (*moveEnv, error) {
 		copy(m.Mem[dos8086.Lin(data, mv.Types+recordLen*t):], e.TypeRecord(t))
 	}
 	copy(m.Mem[dos8086.Lin(data, mv.Terrains):], e.Terrains)
-	for i := range bufLen {
+	for i := range dosrules.BufLen {
 		m.WB(data, mv.Bits+i, 0)
 	}
-	for idx, rec := range liveRecords(g) {
-		copy(m.Mem[dos8086.Lin(data, b.Units+liveLen*idx):], rec)
+	for idx, rec := range dosrules.LiveRecords(g) {
+		copy(m.Mem[dos8086.Lin(data, b.Units+dosrules.LiveLen*idx):], rec)
 	}
-	for idx, rec := range holdBytes(g) {
+	for idx, rec := range dosrules.HoldBytes(g) {
 		copy(m.Mem[dos8086.Lin(data, mv.Containers+containerLen*idx):], rec)
 	}
-	own, other := movementMaps(g)
+	own, other := dosrules.MovementMaps(g)
 	v.sideMap, v.otherMap = v.ar.alloc(own), v.ar.alloc(other)
 	m.WW(data, mv.Maps[g.Side&1], 0)
 	m.WW(data, mv.Maps[g.Side&1]+2, v.sideMap)
@@ -184,16 +185,16 @@ func (e *Export) moveEnv(g *Movement) (*moveEnv, error) {
 // and reads the cost buffer, the bit array and the count.
 func (v *moveEnv) reach(g *Movement) (buffer []int8, bits []byte, count int, err error) {
 	m := v.m
-	start := g.piece(g.Unit).Cell
+	start := g.PieceAt(g.Unit).Cell
 	if count, err = v.call("reach", v.mv.Reach,
 		2*start, 0, v.cost, g.Unit, g.Budget, g.Side, g.Block, 0, v.sideMap); err != nil {
 		return nil, nil, 0, err
 	}
-	buffer = make([]int8, bufLen)
-	for i := range bufLen {
+	buffer = make([]int8, dosrules.BufLen)
+	for i := range dosrules.BufLen {
 		buffer[i] = int8(m.RB(v.cost, i))
 	}
-	for i := bufLen; i < bufLen+16; i++ {
+	for i := dosrules.BufLen; i < dosrules.BufLen+16; i++ {
 		if m.RB(v.cost, i) != guard {
 			return nil, nil, 0, errors.New("reach: wrote past the cost buffer")
 		}
@@ -203,8 +204,8 @@ func (v *moveEnv) reach(g *Movement) (buffer []int8, bits []byte, count int, err
 
 // bits reads the reach-bit array.
 func (v *moveEnv) bits() []byte {
-	bits := make([]byte, bufLen)
-	for i := range bufLen {
+	bits := make([]byte, dosrules.BufLen)
+	for i := range dosrules.BufLen {
 		bits[i] = byte(v.m.RB(v.data, v.mv.Bits+i))
 	}
 	return bits

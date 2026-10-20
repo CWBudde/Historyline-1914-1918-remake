@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dos8086"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
 )
 
 // Order record fields the exit branch reads.
@@ -43,14 +44,14 @@ func (e *Export) RunExit(g *Movement, o ExitOrder) (ExitRun, error) {
 	if err := m.Run(code, mv.ExitEnd, moveMaxSteps); err != nil {
 		return ExitRun{}, wrapRun("exit", err)
 	}
-	x := ExitRun{Unit: m.RW(order, orderUnit), Remaining: make([]int8, bufLen)}
+	x := ExitRun{Unit: m.RW(order, orderUnit), Remaining: make([]int8, dosrules.BufLen)}
 	if x.Unit != g.Unit {
 		return x, fmt.Errorf("exit: the slot holds unit %d, not Movement.Unit %d", x.Unit, g.Unit)
 	}
-	for i := range bufLen {
+	for i := range dosrules.BufLen {
 		x.Remaining[i] = int8(m.RB(v.cost, i))
 	}
-	for i := bufLen; i < bufLen+16; i++ {
+	for i := dosrules.BufLen; i < dosrules.BufLen+16; i++ {
 		if m.RB(v.cost, i) != guard {
 			return x, errors.New("exit: the reach search wrote past the cost buffer")
 		}

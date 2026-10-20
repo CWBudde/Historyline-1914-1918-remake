@@ -1,9 +1,14 @@
 package dosoracle
 
-import "errors"
+import (
+	"errors"
 
-// ErrUndefined is raised where the original reads an uninitialised stack byte.
-var ErrUndefined = errors.New("undefined: direction from an uninitialised stack byte")
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
+)
+
+// ErrUndefined is raised where the original reads an uninitialised stack
+// byte; it is the error of internal/dosrules.
+var ErrUndefined = dosrules.ErrUndefined
 
 var supportWeights = [6]int{0, 25, 50, 100, 50, 25}
 

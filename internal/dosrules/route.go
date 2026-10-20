@@ -1,4 +1,4 @@
-package dosoracle
+package dosrules
 
 import "fmt"
 
@@ -20,8 +20,8 @@ type moveState struct {
 
 // newMoveState is the memory RunMove sets up for a movement.
 func newMoveState(t *MoveTables, g *Movement) *moveState {
-	s := &moveState{t: t, g: g, live: liveRecords(g), holds: holdBytes(g)}
-	s.maps[0], s.maps[1] = movementMaps(g)
+	s := &moveState{t: t, g: g, live: LiveRecords(g), holds: HoldBytes(g)}
+	s.maps[0], s.maps[1] = MovementMaps(g)
 	return s
 }
 
@@ -29,7 +29,7 @@ func newMoveState(t *MoveTables, g *Movement) *moveState {
 // array.
 func (s *moveState) rec(idx int) []byte {
 	if s.live[idx] == nil {
-		s.live[idx] = make([]byte, liveLen)
+		s.live[idx] = make([]byte, LiveLen)
 	}
 	return s.live[idx]
 }
@@ -83,12 +83,12 @@ func (s *moveState) drive(buf []int8, o MoveOrder, from int) (StepRun, error) {
 		if entry == 0 {
 			break
 		}
-		if len(r.Cells) == stepMaxCalls {
+		if len(r.Cells) == MaxSteps {
 			return r, fmt.Errorf("step: no arrival")
 		}
 	}
 	r.Live = map[int][]byte{}
-	for idx := range liveRecords(g) {
+	for idx := range LiveRecords(g) {
 		r.Live[idx] = s.live[idx]
 	}
 	r.Messages, r.Maps, r.Bits, r.Orders, r.Count, r.Holds =
@@ -298,7 +298,7 @@ func (s *moveState) arrive() error {
 		if s.flags(u)&0x1000 != 0 {
 			s.transfer(s.holds[int(int8(l[0x0A]))], h)
 		}
-		s.maps[0][s.pos(u)] = inBuilding
+		s.maps[0][s.pos(u)] = InBuilding
 		s.setPos(u, word(h, 0x0E))
 		s.setFlags(u, s.flags(u)&0xFEFF|0x4200)
 	default:
@@ -349,7 +349,7 @@ func (s *moveState) cargo(u int) {
 	c := s.holds[int(int8(s.rec(u)[0x0A]))]
 	p := s.pos(u)
 	for k := range 7 {
-		if occ := int(c[7*s.g.Side+k]); occ <= slotFree {
+		if occ := int(c[7*s.g.Side+k]); occ <= SlotFree {
 			s.setPos(occ, p)
 		}
 	}

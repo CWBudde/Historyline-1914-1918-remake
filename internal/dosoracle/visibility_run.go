@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dos8086"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
 )
 
 // RunPhaseChange executes the phase change in the tail of the order handler
@@ -13,7 +14,7 @@ import (
 // [bp-2] the other side, [bp-6] the far pointer to the attacking side's map.
 // Both maps, the live records 0-0xf0, the container records, the per-side
 // records (playerBytes), the order counts (0x55), the animation flags
-// (animStart), the map size and the turn counter are set up from g. The
+// (dosrules.AnimStart), the map size and the turn counter are set up from g. The
 // container sync, the map copy and the side test run; the status message is
 // hooked and recorded, and code in any other segment fails the run.
 func (e *Export) RunPhaseChange(g *PhaseChange) (PhaseRun, error) {
@@ -45,17 +46,17 @@ func (e *Export) RunPhaseChange(g *PhaseChange) (PhaseRun, error) {
 	m.WW(data, b.Width, g.Width)
 	m.WW(data, b.Width+2, g.Height)
 	m.WW(data, h.Size, size)
-	for idx, rec := range g.live() {
-		copy(m.Mem[dos8086.Lin(data, b.Units+liveLen*idx):], rec)
+	for idx, rec := range g.Records() {
+		copy(m.Mem[dos8086.Lin(data, b.Units+dosrules.LiveLen*idx):], rec)
 	}
-	for idx, rec := range holdsOf(g.Holds) {
+	for idx, rec := range dosrules.ContainerRecords(g.Holds) {
 		copy(m.Mem[dos8086.Lin(data, mv.Containers+containerLen*idx):], rec)
 	}
 	for k := range 2 {
-		copy(m.Mem[dos8086.Lin(data, h.Players+playerLen*k):], playerBytes(k, g.Phase[k]))
+		copy(m.Mem[dos8086.Lin(data, h.Players+dosrules.PlayerLen*k):], dosrules.PlayerRecord(k, g.Phase[k]))
 		m.WB(data, mv.Sides+sideLen*k+sideOrderCount, 0x55)
 	}
-	m.WW(data, mv.Anim, animStart)
+	m.WW(data, mv.Anim, dosrules.AnimStart)
 	m.WW(data, h.Count, g.Count)
 
 	r := PhaseRun{Live: map[int][]byte{}, Holds: map[int][]byte{}}
@@ -90,15 +91,15 @@ func (e *Export) RunPhaseChange(g *PhaseChange) (PhaseRun, error) {
 	for k := range 2 {
 		r.Maps[k] = make([]byte, size)
 		copy(r.Maps[k], m.Mem[maps[k]*16:])
-		r.Players[k] = make([]byte, playerLen)
-		copy(r.Players[k], m.Mem[dos8086.Lin(data, h.Players+playerLen*k):])
+		r.Players[k] = make([]byte, dosrules.PlayerLen)
+		copy(r.Players[k], m.Mem[dos8086.Lin(data, h.Players+dosrules.PlayerLen*k):])
 		r.Orders[k] = m.RB(data, mv.Sides+sideLen*k+sideOrderCount)
 	}
 	for idx := range g.Units {
-		r.Live[idx] = make([]byte, liveLen)
-		copy(r.Live[idx], m.Mem[dos8086.Lin(data, b.Units+liveLen*idx):])
+		r.Live[idx] = make([]byte, dosrules.LiveLen)
+		copy(r.Live[idx], m.Mem[dos8086.Lin(data, b.Units+dosrules.LiveLen*idx):])
 	}
-	for i := range holdRecords {
+	for i := range dosrules.HoldRecords {
 		r.Holds[i] = make([]byte, containerLen)
 		copy(r.Holds[i], m.Mem[dos8086.Lin(data, mv.Containers+containerLen*i):])
 	}

@@ -1,4 +1,4 @@
-package dosoracle
+package dosrules
 
 // The movement queries of segment 0b06 (demo addresses) work on a byte per
 // cell in arrays of 64 cells per row (index row*64+column, 0x1104 bytes);
@@ -6,8 +6,8 @@ package dosoracle
 // record, unit index, 0xf1 and up empty). Column and row are cell % Width and
 // cell / Width; odd columns sit half a cell lower.
 
-// bufLen is the size of the cost buffer and of the reach-bit array.
-const bufLen = 0x1104
+// BufLen is the size of the cost buffer and of the reach-bit array.
+const BufLen = 0x1104
 
 // Cost buffer markers (signed bytes).
 const (
@@ -62,7 +62,7 @@ type Piece struct {
 
 // Movement is one movement query of the live unit Unit for player Side.
 // Terrain holds a terrain record per cell. Units are the units on the side's
-// own map; Unseen ones are only on the other side's map, which none of the
+// Owns map; Unseen ones are only on the other side's map, which none of the
 // queries read. Budget is the argument the callers take from live byte 0;
 // Block is the terrain flag mask that closes cells (the player's order code
 // passes 0xffff for live +6 bit 1, else 6 for a side-1 unit and 3 for
@@ -81,8 +81,8 @@ type Movement struct {
 	Goals         []int
 }
 
-// piece is a placed unit's record as Movement gives it, zeros if none.
-func (g *Movement) piece(idx int) Piece {
+// PieceAt is a placed unit's record as Movement gives it, zeros if none.
+func (g *Movement) PieceAt(idx int) Piece {
 	if u, ok := g.Units[idx]; ok {
 		return u
 	}
@@ -92,8 +92,8 @@ func (g *Movement) piece(idx int) Piece {
 	return g.Held[idx]
 }
 
-// occupants maps the cells of the side's map to unit indices.
-func (g *Movement) occupants() map[int]int {
+// Occupants maps the cells of the side's map to unit indices.
+func (g *Movement) Occupants() map[int]int {
 	o := map[int]int{}
 	for i, u := range g.Units {
 		o[u.Cell] = i
@@ -101,17 +101,17 @@ func (g *Movement) occupants() map[int]int {
 	return o
 }
 
-// liveLen is the size of a live unit record (Build.Units).
-const liveLen = 26
+// LiveLen is the size of a live unit record (Build.Units).
+const LiveLen = 26
 
-// liveRecords are the live records of Units, Unseen and Held as the queries
+// LiveRecords are the live records of Units, Unseen and Held as the queries
 // read them: flags +4 and +6, the type at +8, the hold at +0x0a, the position
 // 2*cell+1 at +0x0b and +0x0d (the cell as each side sees it) and, for the
 // moving unit, the budget in byte 0.
-func liveRecords(g *Movement) map[int][]byte {
+func LiveRecords(g *Movement) map[int][]byte {
 	recs := map[int][]byte{}
 	place := func(idx int, u Piece) {
-		r := make([]byte, liveLen)
+		r := make([]byte, LiveLen)
 		putWord(r, 4, u.Flags4)
 		putWord(r, 6, u.Flags6)
 		r[8] = byte(u.Type)
@@ -134,10 +134,10 @@ func liveRecords(g *Movement) map[int][]byte {
 	return recs
 }
 
-// movementMaps are the side's map, holding Units, and the other side's map,
+// MovementMaps are the side's map, holding Units, and the other side's map,
 // holding Units and Unseen: the terrain record and the unit index per cell
 // (0xff empty).
-func movementMaps(g *Movement) (own, other []byte) {
+func MovementMaps(g *Movement) (own, other []byte) {
 	own, other = make([]byte, 2*g.Width*g.Height), make([]byte, 2*g.Width*g.Height)
 	for c, t := range g.Terrain {
 		own[2*c], own[2*c+1] = byte(t), 0xFF
@@ -183,13 +183,13 @@ func neighbours64(col, row, width, height int) [6]int {
 	return n
 }
 
-// costs is 0b06:09c1: the negated entry cost of every cell, or a marker.
-func (t *MoveTables) costs(g *Movement) []int8 {
-	buf := make([]int8, bufLen)
+// Costs is 0b06:09c1: the negated entry cost of every cell, or a marker.
+func (t *MoveTables) Costs(g *Movement) []int8 {
+	buf := make([]int8, BufLen)
 	for i := range buf {
 		buf[i] = -1
 	}
-	u := g.piece(g.Unit)
+	u := g.PieceAt(g.Unit)
 	typ := t.Types[u.Type]
 	mode := 2 // ground: byte 3
 	if u.Flags4&0x10 != 0 {
@@ -218,7 +218,7 @@ func (t *MoveTables) costs(g *Movement) []int8 {
 			buf[row*64+col] = v
 		}
 	}
-	occ := g.occupants()
+	occ := g.Occupants()
 	for row := range g.Height {
 		for col := range g.Width {
 			idx, ok := occ[row*g.Width+col]
@@ -265,8 +265,8 @@ func (t *MoveTables) costs(g *Movement) []int8 {
 // cells around the start; a neighbour still negative takes the value minus
 // its cost if that is not negative, and a zone-of-control cell takes 0.
 func (t *MoveTables) Reach(g *Movement) (buf []int8, bits []byte, count int) {
-	buf = t.costs(g)
-	start := g.piece(g.Unit).Cell
+	buf = t.Costs(g)
+	start := g.PieceAt(g.Unit).Cell
 	col, row := start%g.Width, start/g.Width
 	half := g.Budget >> 1
 	colLo, rowLo := max(col-half, 0), max(row-half, 0)
@@ -298,7 +298,7 @@ func (t *MoveTables) Reach(g *Movement) (buf []int8, bits []byte, count int) {
 	if g.Side == 1 {
 		bit = 2
 	}
-	bits = make([]byte, bufLen)
+	bits = make([]byte, BufLen)
 	for i, v := range buf {
 		if v >= 0 {
 			count++
@@ -308,8 +308,8 @@ func (t *MoveTables) Reach(g *Movement) (buf []int8, bits []byte, count int) {
 	return buf, bits, count
 }
 
-// own is 0ca0:020c: whether live flags +4 belong to player side.
-func own(flags, side int) bool {
+// Owns is 0ca0:020c: whether live flags +4 belong to player side.
+func Owns(flags, side int) bool {
 	switch {
 	case flags&1 != 0:
 		return side&1 != 0
@@ -369,7 +369,7 @@ type pathNode struct{ col, row, parent, score, prev, next int }
 // gives ErrUndefined. The order code only asks for destinations.
 func (t *MoveTables) Path(g *Movement, buf []int8, bits []byte, goal int) ([]int, error) {
 	w := g.Width
-	u := g.piece(g.Unit)
+	u := g.PieceAt(g.Unit)
 	typ := t.Types[u.Type]
 	reach, visit := byte(1), byte(0x40)
 	if g.Side != 0 {
@@ -409,7 +409,7 @@ func (t *MoveTables) Path(g *Movement, buf []int8, bits []byte, goal int) ([]int
 				continue
 			}
 			ncol, nrow := k%64, k/64
-			d := int(int8(Distance(ncol, nrow, gcol, grow)))
+			d := int(int8(hexDistance(ncol, nrow, gcol, grow)))
 			// A cell past the right edge (see neighbours64) reads the map
 			// bytes of the next row's first cell.
 			cell := nrow*w + ncol

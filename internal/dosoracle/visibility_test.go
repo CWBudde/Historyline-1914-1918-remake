@@ -10,6 +10,8 @@ import (
 	"sort"
 	"testing"
 	"time"
+
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
 )
 
 // R2 visibility: the phase change 02dc:1a09-1cc6 (RunPhaseChange) against
@@ -50,7 +52,7 @@ func phaseBase(a int) *PhaseChange {
 }
 
 // place puts a unit into both maps where each side sees it.
-func (g *PhaseChange) place(idx int, u Sighted) {
+func place(g *PhaseChange, idx int, u Sighted) {
 	g.Units[idx] = u
 	for k := range 2 {
 		if u.Pos[k] < len(g.Maps[k]) {
@@ -74,7 +76,7 @@ func phaseCases() []phaseCase {
 			for _, count := range []int{0, 7, 0xFFFF} {
 				g := phaseBase(a)
 				g.Phase, g.Count = ph, count
-				g.place(3, Sighted{Flags4: 0, Size: 5, Pos: [2]int{at(9), at(9)}})
+				place(g, 3, Sighted{Flags4: 0, Size: 5, Pos: [2]int{at(9), at(9)}})
 				add("phase", fmt.Sprintf("phases %v count %d", ph, count), g)
 			}
 		}
@@ -82,8 +84,8 @@ func phaseCases() []phaseCase {
 		for _, f := range sideFlags {
 			for _, pos := range [][2]int{{at(10), at(10)}, {at(10), at(20)}, {at(20), at(10)}} {
 				g := phaseBase(a)
-				g.place(5, Sighted{Flags4: f | 0x1C, Size: 4, Pos: pos, Facing: [2]int{1, 4}})
-				g.place(6, Sighted{Flags4: 1 - f&1, Size: 3, Pos: [2]int{at(30), at(31)}, Facing: [2]int{2, 5}})
+				place(g, 5, Sighted{Flags4: f | 0x1C, Size: 4, Pos: pos, Facing: [2]int{1, 4}})
+				place(g, 6, Sighted{Flags4: 1 - f&1, Size: 3, Pos: [2]int{at(30), at(31)}, Facing: [2]int{2, 5}})
 				add("sides", fmt.Sprintf("flags %d at %v", f, pos), g)
 			}
 		}
@@ -102,11 +104,11 @@ func phaseCases() []phaseCase {
 				g := phaseBase(a)
 				u := Sighted{Flags4: f | life.flags, Size: life.size, Pos: [2]int{at(12), at(13)}}
 				if life.onMaps {
-					g.place(40, u)
+					place(g, 40, u)
 				} else {
 					g.Units[40] = u
 				}
-				g.place(41, Sighted{Flags4: 1 - f, Size: 2, Pos: [2]int{at(14), at(14)}})
+				place(g, 41, Sighted{Flags4: 1 - f, Size: 2, Pos: [2]int{at(14), at(14)}})
 				add("life", fmt.Sprintf("flags %d %s", f, life.name), g)
 			}
 		}
@@ -114,29 +116,29 @@ func phaseCases() []phaseCase {
 		// last.
 		for _, f := range [][2]int{{0, 0}, {0, 1}, {1, 1}} {
 			g := phaseBase(a)
-			g.place(7, Sighted{Flags4: f[0], Size: 2, Pos: [2]int{at(16), at(17)}})
-			g.place(70, Sighted{Flags4: f[1], Size: 2, Pos: [2]int{at(16), at(18)}})
+			place(g, 7, Sighted{Flags4: f[0], Size: 2, Pos: [2]int{at(16), at(17)}})
+			place(g, 70, Sighted{Flags4: f[1], Size: 2, Pos: [2]int{at(16), at(18)}})
 			add("stale", fmt.Sprintf("flags %v on one cell", f), g)
 		}
 		// A side-1 unit whose side-0 word is stale when side 1 attacks.
 		for _, pos := range [][2]int{{at(22), at(23)}, {at(0), at(23)}, {0, at(23)}, {2 * 25, at(25)}} {
 			g := phaseBase(a)
-			g.place(9, Sighted{Flags4: 1, Size: 3, Pos: pos})
+			place(g, 9, Sighted{Flags4: 1, Size: 3, Pos: pos})
 			add("stale", fmt.Sprintf("side 1 at %v", pos), g)
 		}
 		// Two-cell ships: head (0x40|0x80) and rear (0x40) records.
 		for _, f := range sideFlags[:2] {
 			g := phaseBase(a)
-			g.place(20, Sighted{Flags4: f | 0xC0, Size: 4, Pos: [2]int{at(26), at(27)}})
-			g.place(21, Sighted{Flags4: f | 0x40, Size: 4, Pos: [2]int{at(34), at(35)}})
+			place(g, 20, Sighted{Flags4: f | 0xC0, Size: 4, Pos: [2]int{at(26), at(27)}})
+			place(g, 21, Sighted{Flags4: f | 0x40, Size: 4, Pos: [2]int{at(34), at(35)}})
 			add("ships", fmt.Sprintf("flags %d", f), g)
 		}
 		// Terrain that differs between the maps, and building markers.
 		for _, shift := range []int{0, 3} {
 			g := phaseBase(a)
 			g.Maps = phaseMaps(shift)
-			g.Maps[0][at(5)], g.Maps[1][at(6)] = inBuilding, inBuilding
-			g.place(11, Sighted{Flags4: 1, Size: 3, Pos: [2]int{at(8), at(8)}})
+			g.Maps[0][at(5)], g.Maps[1][at(6)] = dosrules.InBuilding, dosrules.InBuilding
+			place(g, 11, Sighted{Flags4: 1, Size: 3, Pos: [2]int{at(8), at(8)}})
 			add("terrain", fmt.Sprintf("shift %d", shift), g)
 		}
 		cases = append(cases, holdPhaseCases(a)...)
@@ -153,11 +155,11 @@ func phaseCases() []phaseCase {
 // unlisted cargo.
 func holdPhaseCases(a int) []phaseCase {
 	var cases []phaseCase
-	for _, rec := range []int{3, holdFlag40, holdFlag40 + 1, holdFlag100 + 4, holdFlag400 + 9} {
+	for _, rec := range []int{3, dosrules.HoldFlag40, dosrules.HoldFlag40 + 1, dosrules.HoldFlag100 + 4, dosrules.HoldFlag400 + 9} {
 		for _, owner := range []int{0, 1, 2, 3, 0x8000, 0x8001} {
 			g := phaseBase(a)
-			h := EmptyHold()
-			h.Flags = owner | 0x20*b2i(rec < holdFlag40)
+			h := dosrules.EmptyHold()
+			h.Flags = owner | 0x20*b2i(rec < dosrules.HoldFlag40)
 			// Side 0's slots: live, dying, destroyed, unlisted; side 1's: live
 			// and a destroyed unit.
 			g.Units[50] = Sighted{Flags4: 0x4000, Size: 3, Pos: [2]int{at(2), at(2)}}
@@ -189,7 +191,7 @@ func randomPhase(rng *rand.Rand, a int) *PhaseChange {
 	g.Count = rng.IntN(0x10000)
 	cells := phaseW * phaseH
 	for range rng.IntN(40) {
-		idx := rng.IntN(liveUnits)
+		idx := rng.IntN(dosrules.LiveUnits)
 		u := Sighted{Flags4: sideFlags[rng.IntN(4)] | rng.IntN(0x40)<<2, Size: rng.IntN(7),
 			Pos: [2]int{at(rng.IntN(cells)), at(rng.IntN(cells))}, Facing: [2]int{rng.IntN(6), rng.IntN(6)}}
 		switch rng.IntN(8) {
@@ -198,17 +200,17 @@ func randomPhase(rng *rand.Rand, a int) *PhaseChange {
 		case 1:
 			u.Flags4 |= 0x4000
 		}
-		g.place(idx, u)
+		place(g, idx, u)
 	}
 	for range rng.IntN(4) {
-		h := EmptyHold()
+		h := dosrules.EmptyHold()
 		h.Flags = []int{0, 1, 2, 0x20, 0x21, 0x8000}[rng.IntN(6)]
 		for k := range h.Slots {
 			if rng.IntN(2) == 0 {
-				h.Slots[k] = rng.IntN(liveUnits)
+				h.Slots[k] = rng.IntN(dosrules.LiveUnits)
 			}
 		}
-		g.Holds[rng.IntN(holdRecords)] = h
+		g.Holds[rng.IntN(dosrules.HoldRecords)] = h
 	}
 	return g
 }
@@ -227,7 +229,7 @@ func visibilityCoverage(t *testing.T, e *Export) {
 	perClass, seen := map[string]int{}, map[string]int{}
 	began := time.Now()
 	for _, c := range phaseCases() {
-		want, werr := ChangePhase(c.g)
+		want, werr := dosrules.ChangePhase(c.g)
 		got, gerr := e.RunPhaseChange(c.g)
 		if werr != nil || gerr != nil {
 			t.Errorf("%s/%s: model %v, emulator %v", c.class, c.name, werr, gerr)
@@ -332,14 +334,14 @@ func phaseRules(t *testing.T, c phaseCase, r PhaseRun, seen map[string]int) {
 		}
 		seen["slots synced"]++
 		for k := range 7 {
-			if u := h.Slots[7*b+k]; own(b, h.Flags) && u <= slotFree && rb[7*b+k] == 0xFF {
+			if u := h.Slots[7*b+k]; dosrules.Owns(b, h.Flags) && u <= dosrules.SlotFree && rb[7*b+k] == 0xFF {
 				seen["destroyed cargo cleared"]++
 			}
 		}
 	}
 	for c := range phaseW * phaseH {
-		if g.Maps[a][2*c+1] == inBuilding || g.Maps[b][2*c+1] == inBuilding {
-			if r.Maps[0][2*c+1] != inBuilding {
+		if g.Maps[a][2*c+1] == dosrules.InBuilding || g.Maps[b][2*c+1] == dosrules.InBuilding {
+			if r.Maps[0][2*c+1] != dosrules.InBuilding {
 				seen["building marker lost"]++
 			}
 		}

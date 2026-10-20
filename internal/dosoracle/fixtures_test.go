@@ -42,6 +42,9 @@ func tablesOf(e *Export) *dosrules.Tables {
 	for i, tt := range e.TerrainTerms() {
 		t.Terms[i] = dosrules.Terms{Attack: tt[0], Defence: tt[1]}
 	}
+	if e.B.Move != nil {
+		t.Move = moveTablesOf(e)
+	}
 	return t
 }
 
@@ -186,9 +189,7 @@ func fixtures(t *testing.T, e *Export) {
 		filepath.Join(rules, "testdata", e.B.Name, "casualties.json"):  cas,
 	}
 	if e.B.Move != nil {
-		tables, cases := movementFixtures(t, e)
-		files[filepath.Join(rules, "testdata", e.B.Name, "movement-tables.json")] = tables
-		files[filepath.Join(rules, "testdata", e.B.Name, "movements.json")] = cases
+		files[filepath.Join(rules, "testdata", e.B.Name, "movements.json")] = movementFixtures(t, e)
 		files[filepath.Join(rules, "testdata", e.B.Name, "steps.json")] = stepFixtures(t, e)
 		files[filepath.Join(rules, "testdata", e.B.Name, "containers.json")] = holdFixtures(t, e)
 		if e.B.Handler.Phase[1] != 0 {
