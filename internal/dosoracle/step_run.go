@@ -58,7 +58,7 @@ func (e *Export) stepEnv(g *Movement) (*moveEnv, *StepRun, error) {
 		}
 		return nil
 	}
-	for _, at := range [][2]int{mv.RouteDraw, mv.Refresh, mv.Sound, mv.View[0], mv.View[1]} {
+	for _, at := range [][2]int{mv.RouteDraw, mv.Refresh, mv.Timer, mv.View[0], mv.View[1]} {
 		m.Hooks[e.lin(at)] = noHook
 	}
 	m.Hooks[e.lin(mv.Message)] = func(mm *dos8086.Machine) error {

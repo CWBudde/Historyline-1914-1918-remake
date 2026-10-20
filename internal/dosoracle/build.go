@@ -31,6 +31,10 @@ type Build struct {
 
 	// Move holds the movement routines; nil where they have not been located.
 	Move *Move
+
+	// Cycle holds the order-entry routines; nil where they have not been
+	// located.
+	Cycle *Cycle
 }
 
 // Move holds the addresses of the movement queries (segment 0b06 and the
@@ -55,17 +59,38 @@ type Move struct {
 	// Saved the two occupants a moving unit covers, and Containers the
 	// 0x1c-byte container records a transporter's cargo sits in, followed
 	// by the building tables (Buildings: flag 0x40, 0x100 and 0x400).
-	Order, Start, Step                [2]int
-	Sides, Anim, Saved, Containers    int
-	Buildings                         [3]int
-	Redraw, RouteDraw, Refresh, Sound [2]int    // drawing and sound, hooked
-	View                              [2][2]int // view centring and view redraw, hooked
-	Message                           [2]int    // the status message, hooked and recorded
+	Order, Start, Step             [2]int
+	Sides, Anim, Saved, Containers int
+	Buildings                      [3]int
+	Redraw, RouteDraw, Refresh     [2]int // drawing, hooked
+	// Timer schedules a menu timer (one of 15 slots: the kind and its delay);
+	// hooked, so no timer runs out during a run.
+	Timer   [2]int
+	View    [2][2]int // view centring and view redraw, hooked
+	Message [2]int    // the status message, hooked and recorded
 
 	// Exit is the main loop's branch that takes a unit out of a container
 	// and runs its reach search, ExitEnd the offset after it in Exit[0].
 	Exit    [2]int
 	ExitEnd int
+}
+
+// Cycle holds the order-entry routines the player's (and the computer's)
+// menu calls during a phase. Both take the player's order record (the 0x31
+// bytes of 32e2:4d88 in the demo: +0 the cursor's map offset, +0x0e the
+// slot, +0x17-+0x1b the menu state, +0x1e the unit, +0x24 the container).
+type Cycle struct {
+	// Attack records an attack, depot or sapper order on the cursor's cell
+	// (0ad1:000c in the demo); Cancel ends an order or an exit without a
+	// move (10cc:0001), and with argument 0x10 cancels it.
+	Attack, Cancel [2]int
+
+	// Offsets in Build.Data: the terrain index a depot builder lays a depot
+	// on, the word an accepted order sets to 0 and a cancel to 1 (with
+	// animation flag 0x100), the count of depots under construction (at
+	// most 10) and the saved order record the inventory restores (0x28
+	// bytes, one for both sides).
+	Site, Wait, Depots, Saved int
 }
 
 // Handler holds the addresses of the order handler that resolves one side's
@@ -150,9 +175,13 @@ var Full = Build{
 		Sides: 0x4D48, Anim: 0x4CB0, Saved: 0x1819, Containers: 0x311E,
 		Buildings: [3]int{0x38C6, 0x38FE, 0x3A16},
 		Redraw:    [2]int{0x0E47, 0x144F}, RouteDraw: [2]int{0x0E47, 0x120C}, Refresh: [2]int{0x0E47, 0x0F2B},
-		Sound: [2]int{0x0CA6, 0x0277}, Message: [2]int{0x10A0, 0x0004},
+		Timer: [2]int{0x0CA6, 0x0277}, Message: [2]int{0x10A0, 0x0004},
 		View: [2][2]int{{0x0E47, 0x1771}, {0x0E47, 0x0D39}},
 		Exit: [2]int{0x0660, 0x2F11}, ExitEnd: 0x3105,
+	},
+	Cycle: &Cycle{
+		Attack: [2]int{0x0AD0, 0x000D}, Cancel: [2]int{0x10D2, 0x0004},
+		Site: 0x4C9A, Wait: 0x4CB2, Depots: 0x4CB6, Saved: 0x4D69,
 	},
 }
 
@@ -191,9 +220,13 @@ var Demo = Build{
 		Sides: 0x4D36, Anim: 0x4C9E, Saved: 0x1807, Containers: 0x310C,
 		Buildings: [3]int{0x38B4, 0x38EC, 0x3A04},
 		Redraw:    [2]int{0x0E40, 0x145C}, RouteDraw: [2]int{0x0E40, 0x1219}, Refresh: [2]int{0x0E40, 0x0F38},
-		Sound: [2]int{0x0CA0, 0x0279}, Message: [2]int{0x109A, 0x0001},
+		Timer: [2]int{0x0CA0, 0x0279}, Message: [2]int{0x109A, 0x0001},
 		View: [2][2]int{{0x0E40, 0x177E}, {0x0E40, 0x0D46}},
 		Exit: [2]int{0x0661, 0x2F0A}, ExitEnd: 0x30FE,
+	},
+	Cycle: &Cycle{
+		Attack: [2]int{0x0AD1, 0x000C}, Cancel: [2]int{0x10CC, 0x0001},
+		Site: 0x4C88, Wait: 0x4CA0, Depots: 0x4CA4, Saved: 0x4D57,
 	},
 }
 

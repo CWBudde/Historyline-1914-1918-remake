@@ -25,6 +25,17 @@ func (e *Export) RunExit(g *Movement, o ExitOrder) (ExitRun, error) {
 	if err != nil {
 		return ExitRun{}, err
 	}
+	order, x, err := e.exitBranch(v, g, o)
+	if err != nil {
+		return x, err
+	}
+	x.StepRun, err = v.drive(g, o.MoveOrder, r, order)
+	return x, err
+}
+
+// exitBranch runs the main loop's exit branch on v with an order record for
+// o (returned as its segment) and reads the unit and the cost buffer.
+func (e *Export) exitBranch(v *moveEnv, g *Movement, o ExitOrder) (int, ExitRun, error) {
 	m, data, mv := v.m, v.data, v.mv
 	rec := make([]byte, 0x30)
 	putWord(rec, orderSlot, o.Slot)
@@ -42,20 +53,19 @@ func (e *Export) RunExit(g *Movement, o ExitOrder) (ExitRun, error) {
 	m.IP = uint16(mv.Exit[1])
 	m.Steps = 0
 	if err := m.Run(code, mv.ExitEnd, moveMaxSteps); err != nil {
-		return ExitRun{}, wrapRun("exit", err)
+		return 0, ExitRun{}, wrapRun("exit", err)
 	}
 	x := ExitRun{Unit: m.RW(order, orderUnit), Remaining: make([]int8, dosrules.BufLen)}
 	if x.Unit != g.Unit {
-		return x, fmt.Errorf("exit: the slot holds unit %d, not Movement.Unit %d", x.Unit, g.Unit)
+		return 0, x, fmt.Errorf("exit: the slot holds unit %d, not Movement.Unit %d", x.Unit, g.Unit)
 	}
 	for i := range dosrules.BufLen {
 		x.Remaining[i] = int8(m.RB(v.cost, i))
 	}
 	for i := dosrules.BufLen; i < dosrules.BufLen+16; i++ {
 		if m.RB(v.cost, i) != guard {
-			return x, errors.New("exit: the reach search wrote past the cost buffer")
+			return 0, x, errors.New("exit: the reach search wrote past the cost buffer")
 		}
 	}
-	x.StepRun, err = v.drive(g, o.MoveOrder, r, order)
-	return x, err
+	return order, x, nil
 }
