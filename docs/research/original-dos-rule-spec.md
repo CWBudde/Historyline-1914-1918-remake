@@ -22,8 +22,9 @@ Saves, replays and fixtures store the profile string. Fixtures follow
 never original bytes or listings. A side names a type record of the build or gives a synthetic
 record's numeric fields; unknown record bytes stay raw (`raw` overrides by byte offset). The 51 unit
 records are not 51 distinct named units: repeated naval records differ in flags. The recorded
-corpus is `internal/dosrules/testdata/<build>/` (`engagements.json`, `casualties.json`) with the
-build's tables in `internal/dosrules/<build>.json`; `go test ./internal/dosoracle -run TestFixtures
+corpus is `internal/dosrules/testdata/<build>/` (`engagements.json`, `casualties.json`, and
+`movements.json`, `steps.json`, `containers.json`, `visibility.json` after their own schemas) with
+the build's tables, the movement fields among them (`move`), in `internal/dosrules/<build>.json`; `go test ./internal/dosoracle -run TestFixtures
 -update` rewrites them from the local export, and without `-update` checks them.
 
 ## Evidence statuses
@@ -140,12 +141,12 @@ fails it. The gate covers the combat rows; *Raw budget vs 2 × speed* is left to
 |---|---|---|---|
 | Casualty resolution | R1 | executed (emulated, with its caller on the demo); resolver `internal/dosrules` matches the recorded fixtures | full-build export; inputs from a real level |
 | Terrain classes (9) | R1 | executed (emulated, random classes) | name the classes; map terrain bytes |
-| Movement cost, road/rail/water | R2 | executed (emulated, demo: reach, destinations, routes, move execution; `movements.json`, `steps.json`) | name the terrain records (R2 item 1); full-build export |
+| Movement cost, road/rail/water | R2 | executed (emulated, demo: reach, destinations, routes, move execution; `movements.json`, `steps.json`); resolver `internal/dosrules` (`Profile.Destinations`, `Route`, `Move`) matches the recorded fixtures | name the terrain records (R2 item 1); full-build export |
 | Zone of control / adjacency | R2 | executed (emulated, demo): enter and stop in the reach; a route through a zone is walked through | whether the order cycle prevents such routes (R3) |
-| Loading, exits, weights, nested cargo | R2 | executed (emulated, demo: `containers.json`) | who fills the records' classes and occupant (level loader); a refused or cancelled exit; building table names (R2 item 1); full-build export |
+| Loading, exits, weights, nested cargo | R2 | executed (emulated, demo: `containers.json`); resolver `internal/dosrules` (`Profile.EndCheck`, `Move`, `Exit`) matches the recorded fixtures | who fills the records' classes and occupant (level loader); a refused or cancelled exit; building table names (R2 item 1); full-build export |
 | Supply truck unloading into depots | R2 | executed (emulated, demo): an explicit move of the supply car into an own building hands its cargo units over; nothing unloads automatically | capture of a foreign building (R4) |
 | Ammo, fuel, resupply | R2 | executed (emulated, demo: write census, `TestConsumables`) + static: no ammo, no fuel, no adjacent or depot resupply; Python's stay in Classic/Standard | builder charges, regrowth and repair (R4); full-build export |
-| Visibility and terrain sight | R2 | executed (emulated, demo: `visibility.json`): no sight range; the phase change refreshes the other side's view whole, and attacks read the attacking side's view | what the phases are and who acts in each (R3); full-build export |
+| Visibility and terrain sight | R2 | executed (emulated, demo: `visibility.json`): no sight range; the phase change refreshes the other side's view whole, and attacks read the attacking side's view; resolver `internal/dosrules` (`Profile.ChangePhase`) matches the recorded fixtures | what the phases are and who acts in each (R3); full-build export |
 | Cycle ordering, confirmations, conflicts | R3 | manual + static | trace `02dc:0004` |
 | Energy accounts and credit timing | R4 | static (repair only) | trace credit paths |
 | Repair timing and eligibility | R4 | static | repair fixture |

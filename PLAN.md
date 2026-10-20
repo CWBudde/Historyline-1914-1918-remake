@@ -1170,12 +1170,27 @@ The completed compatibility work below remains useful and stays completed.
         repair);
       - a per-phase regrowth of one member for units with live `+6` bit 0x8000
         (`02dc:1d66–1eb4`). Nothing found sets that bit.
-- [ ] Implement the verified data adapters and pure movement, loading/unloading and visibility
+- [x] Implement the verified data adapters and pure movement, loading/unloading and visibility
       functions for R3, with original input/output fixtures. Reuse search/geometry code where
       its behavior agrees, while preserving the separate Python/Standard rules and tables.
       (2026-10-18) — note: the original executes the greedy route, not the reach's cheapest
       path, so a route may cross a zone of control or exceed the budget
       (`steps.json`). Whether the order cycle prevents that is R3's to trace.
+      (2026-10-20) — by decision the movement, route, container and visibility models moved
+      from `dosoracle` into `internal/dosrules` (`move.go`, `route.go`, `container.go`,
+      `visibility.go`). That leaves one implementation: the oracle's runners compare it with the
+      executed routines through type aliases. The movement fields of the type and terrain
+      records are now the profile's `Tables.Move` (`move` in `demo.json`, identical to the
+      retired `movement-tables.json`). The fixture types and replays moved too: `dosrules`
+      `Test{Movement,Step,Container,Visibility}Fixtures` replay 770, 743, 528 and 148 recorded
+      cases in CI. A typed layer in `board.go` serves R3. It has `Live` and `Hold`
+      records and `Profile.Destinations`, `Route` (start first), `EndCheck`, `Move`, `Exit`
+      and `ChangePhase`. `TestTyped*` checks these against every fixture, and
+      `TestLiveRoundTrip` reads 3,532 live and 291 container records back byte for byte.
+      Each of four mutations fails the replays: swapped zone-of-control markers, the path's
+      distance weight dropped, the weight limit skipped, the other side's view sync skipped.
+      `internal/hexgrid` is not reused: it is Python's layout, and the DOS map's odd columns
+      sit half a cell lower. Classic/Standard and `internal/game` are unchanged.
 - [ ] **Gate:** original movement endpoints/costs, domain restrictions, container limits and
       exits match recorded fixtures; unsupported mechanics are not enabled as original rules.
 

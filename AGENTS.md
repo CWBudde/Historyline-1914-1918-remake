@@ -55,8 +55,9 @@ Run Python tests with `-I` and from the repo root. After a same-size `sed` edit 
   hash (`dosoracle.Builds`): the full `HL.EXE` and the free demo's `HL14-18.EXE`, each with its own
   addresses; the tests run on every export present under `build/original-rules/`. Findings live in
   `docs/research/original-dos-rule-spec.md` (profile `dos-0.1`) with an evidence status per rule.
-  `internal/dosrules` is the pure Go resolver of that profile (no emulator, not wired into `game`
-  yet); its fixtures are recorded by `go test ./internal/dosoracle -run TestFixtures -update`.
+  `internal/dosrules` is the pure Go resolver of that profile (combat, movement, containers and the
+  phase change; no emulator, not wired into `game` yet); its fixtures are recorded by
+  `go test ./internal/dosoracle -run TestFixtures -update`.
 - `tools/art-inventory`, `tools/art-review`, `tools/native-reference`: graphics tooling (`just gfx-check`).
 
 ## Repo rules

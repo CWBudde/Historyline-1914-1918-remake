@@ -78,6 +78,13 @@ the tables and fixtures from a local export (and, without `-update`, to check th
 go test ./internal/dosoracle -run TestFixtures -update
 ```
 
+The movement, route, container and visibility models are not written apart: they live in
+`internal/dosrules` (`move.go`, `route.go`, `container.go`, `visibility.go`) and the runners
+below compare that one implementation with the executed routines. Their record-level functions
+return the original records for that comparison. `board.go` reads them into typed values for
+the command cycle: `Live` and `Hold` records, and `Profile.Destinations`, `Route`, `EndCheck`,
+`Move`, `Exit` and `ChangePhase`. `TestTyped*` checks those against every recorded fixture.
+
 ```sh
 go test ./internal/dos8086 ./internal/dosoracle -v
 ```
@@ -104,8 +111,8 @@ return fire, and kills and losses with and without the no-award bit.
 
 ## Movement harness
 
-`Export.RunMovement` runs the demo's movement queries (`Build.Move`), and `move_model.go` is
-their transcription:
+`Export.RunMovement` runs the demo's movement queries (`Build.Move`), and
+`internal/dosrules/move.go` is their transcription:
 - the reach search `0b06:0331` with its cost routine `0b06:09c1`;
 - the destination list `0b06:1383` with the end-cell check `10cc:0f74`;
 - the path search `0b06:0e12`.
@@ -126,26 +133,27 @@ bits.
 - map edges and random maps.
 
 It also checks the rules these cases show on the executed outputs. The fixture recorder
-writes `movement-tables.json` and `movements.json` (schema
-`docs/research/movement-fixture.schema.json`) beside the dosrules fixtures.
-`TestMovementFixtures` replays them through the transcription without the original files.
+writes the type and terrain fields the queries read into the profile's tables (`move` in
+`internal/dosrules/demo.json`) and the cases into `movements.json` (schema
+`docs/research/movement-fixture.schema.json`) beside the other dosrules fixtures.
+`dosrules.TestMovementFixtures` replays them without the original files.
 
 `Export.RunMove` runs a move order the way the player gives it: the reach search, the order code
 `10cc:02dd`, the move start `10cc:05c3` and the step `10cc:071e` once per call until the unit
 arrives (`10cc:0ae2`). Only the drawing, the sound and the status message are hooked; the
-message codes are recorded. `step_model.go` is the transcription. `TestStepCoverage` compares
+message codes are recorded. `internal/dosrules/route.go` is the transcription. `TestStepCoverage` compares
 them on the routes of every movement class, the refused orders, an order changed before its
 start, own units passed, hidden enemies on the route and the destination, a two-cell ship and an
 empty transporter. It checks on the executed outcomes that live byte 0 is not spent, that every
 route is walked to its end and that the other side's map is untouched. The recorder writes
-`steps.json` (schema `docs/research/step-fixture.schema.json`), and `TestStepFixtures` replays it
-without the original files.
+`steps.json` (schema `docs/research/step-fixture.schema.json`), and `dosrules.TestStepFixtures`
+replays it without the original files.
 
 The container records (`Movement.Holds`, `Movement.Held`) are set up in both runners. `RunMove`
 therefore also executes the end-cell check's container branches and the arrival into a
 transporter or building. `Export.RunExit` runs the main loop's exit branch `0661:2f0a–30fe` on
 a synthetic frame holding the order record, then the move order as `RunMove` does; the view
-centring and redraw are hooked as well. `container_model.go` is the transcription (`EndCheck`,
+centring and redraw are hooked as well. `internal/dosrules/container.go` is the transcription (`EndCheck`,
 `Exit`). `TestContainerCoverage` compares them on:
 - loading every distinct type into each transporter type;
 - slots, weights, a moved transporter and nested cargo;
@@ -156,14 +164,14 @@ centring and redraw are hooked as well. `container_model.go` is the transcriptio
 It checks on the executed outcomes that no unit leaves a slot without an exit or a hand-over,
 that capacities hold and that the exit's reach starts at 4 or 8. The recorder writes
 `containers.json` (schema `docs/research/container-fixture.schema.json`), and
-`TestContainerFixtures` replays it without the original files.
+`dosrules.TestContainerFixtures` replays it without the original files.
 
 `Export.RunPhaseChange` runs the tail of the order handler, `02dc:1a09–1cc6`, on a frame as the
 handler leaves it after the attacking side's orders. This is where one side's view of the other
 is brought up to date; the demo has no sight range. Both maps, the live units, the container
 records and the per-side records are set up from a `PhaseChange`. The window calls only the
 container sync, the side test and the map copy; the status message is hooked, and code in any
-other segment fails the run. `visibility_model.go` is the transcription (`ChangePhase`), and
+other segment fails the run. `internal/dosrules/visibility.go` is the transcription (`ChangePhase`), and
 `TestVisibilityCoverage` compares them on:
 - phase bytes and the turn counter;
 - units of each side with views that agree or differ;
@@ -176,8 +184,8 @@ It checks on the executed outcomes that both maps agree afterwards, that every u
 stands at its side-0 position word, and that the slot lists agree. `Engagement.Moved` gives the
 order handler a different view for the other side, and `TestEngagementHidden` shows that attacks
 resolve on the attacking side's view. The recorder writes `visibility.json` (schema
-`docs/research/visibility-fixture.schema.json`), and `TestVisibilityFixtures` replays it without
-the original files.
+`docs/research/visibility-fixture.schema.json`), and `dosrules.TestVisibilityFixtures` replays it
+without the original files.
 
 `TestConsumables` looks for ammo, fuel and resupply. It repeats the engagement, move, container
 and phase-change cases with the emulator's write watch on (`dos8086.Machine.OnWrite`, which
