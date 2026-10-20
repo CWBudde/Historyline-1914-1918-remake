@@ -136,22 +136,34 @@ func shoreColor(in shoreInputs, v shoreVariant, p connectionPoint) color.NRGBA {
 	return shoreColorWithCurve(in, v, p, nil)
 }
 func shoreColorWithCurve(in shoreInputs, v shoreVariant, p connectionPoint, curve *shoreCurve) color.NRGBA {
-	d := shoreFieldWithCurve(v, p, curve)
+	return shoreMaterialColor(in, p, shoreFieldWithCurve(v, p, curve))
+}
+
+// The bank's broken outline uses only lattice-periodic coordinates and material
+// samples, so neighboring variants paint identical crossing profiles. Geometry
+// keeps the established land/water endpoints, including the lakeside23 mask.
+func shoreMaterialColor(in shoreInputs, p connectionPoint, d float64) color.NRGBA {
 	grass := sampleConnectionMaterial(in.Materials["grass"].Image, p)
 	water := sampleConnectionMaterial(in.Materials["water"].Image, p)
-	if d >= 2.4 {
+	if d >= 8 {
 		return grass
 	}
-	if d <= -5 {
+	if d <= -7 {
 		return water
 	}
 	bank := sampleConnectionMaterial(in.Materials["bank"].Image, p)
-	// Restrained shallow water, damp earth, dry earth, then coherent meadow.
-	shallow := connectionBlend(water, bank, .16)
-	wet := connectionBlend(bank, color.NRGBA{33, 43, 28, 255}, .27*(1-connectionSmoothStep((d+.7)/1.8)))
-	c := connectionBlend(water, shallow, connectionSmoothStep((d+5)/3.3))
-	c = connectionBlend(c, wet, connectionSmoothStep((d+1.7)/1))
-	return connectionBlend(c, grass, connectionSmoothStep((d-.5)/1.9))
+	u, v := 2*math.Pi*p[0]/71, 2*math.Pi*p[1]/40
+	broken := .65*math.Sin(3*u+2*v) + .35*math.Sin(7*u-5*v)
+	stone := (float64(bank.R)+float64(bank.G)+float64(bank.B))/765 - .5
+	d += broken + .65*stone
+	// DOS-inspired pale gravel above a narrow dark wet lip, with a local
+	// blue-green submerged shelf. Fine material detail survives at 4x.
+	shallow := connectionBlend(water, color.NRGBA{97, 159, 152, 255}, .28)
+	wet := connectionBlend(bank, color.NRGBA{38, 65, 58, 255}, .62)
+	c := connectionBlend(water, shallow, connectionSmoothStep((d+5.5)/2.5))
+	c = connectionBlend(c, wet, connectionSmoothStep((d+2.2)/.9))
+	c = connectionBlend(c, bank, connectionSmoothStep((d+.9)/1.4))
+	return connectionBlend(c, grass, connectionSmoothStep((d-3.8)/2.4))
 }
 func renderShoreRaw(in shoreInputs, v shoreVariant) *image.NRGBA {
 	curve := shoreCurveFor(v)

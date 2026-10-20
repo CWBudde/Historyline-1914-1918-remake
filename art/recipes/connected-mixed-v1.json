@@ -244,19 +244,19 @@
   "id": "connected-mixed-v1",
   "manifest": "art/connected-mixed-v1.json",
   "manifest_reference_base": "art/",
-  "manifest_sha256": "04d38b73fcc06317beead09824c64502c9ddec929441bc8fc40364206057a1ec",
+  "manifest_sha256": "a2c0d0825f402741b0844f015f1a20fbc714093135022038558c6de07c5c3dbd",
   "manifests": [
     {
       "source": "art/connected-terrain-v1.json",
-      "source_sha256": "6e661ba910a2ed356a1cc6895d6a6f752d5d6f6ee46f051ce86caabd1c7a1160"
+      "source_sha256": "a895fff966a9363b4c0948e5df11d148a7c82d656f982351992d590c39e8e5b3"
     },
     {
       "source": "art/connected-paths-v1.json",
-      "source_sha256": "b07ad428e2bae2d656528e9cc7127da62c00ca78f452c55eda483468e54db2a3"
+      "source_sha256": "b38685c96efe6f5d40116b064941b3b38e94e613dc9bade0725f524f3470a5f9"
     },
     {
       "source": "art/connected-rail-v1.json",
-      "source_sha256": "9601e172f85d713188f810af1e04ce4bfc1fd8b70f2b690dc96b35f3e5b0107c"
+      "source_sha256": "c67f0ef522ed668d0455cf579fe794efcf18c51f53c9153e2b7a2c54f5b7b8c1"
     }
   ],
   "materials": {
@@ -325,12 +325,12 @@
     },
     "water": {
       "dimensions": {
-        "height": 1145,
-        "width": 1374
+        "height": 1254,
+        "width": 1254
       },
       "retained_source": "dependencies/water-material-source.png",
-      "source": "art/source/terrain/distinct-v1/water-open.png",
-      "source_sha256": "0b080163804881ac49bc4b3162da547abf443c9082d6e67065c119174d79b51d"
+      "source": "art/source/terrain/shore-reference-v2/water.png",
+      "source_sha256": "007b9babe0e69db5e628352a38dae0f1502ac42513bbf4018ad3df82f76c4c31"
     }
   },
   "original_image_inputs": [
@@ -357,7 +357,7 @@
     "sleeper_width_world_px": 1.05,
     "turnouts": "Three-port masks retain the complete straight 3/6 spine. A separate branch merges at (48,40), tangent north for port 2 or 4, south for port 1 or 5; branch cubic controls are 16 world px inward from its guard and 12 world px opposite the merge tangent from the centre. Paired offset branch rails meet the spine rails; no star junction or merged-ballast contour rails."
   },
-  "rebuild_note": "Rebuilt from the current reference-guided grass/compound inputs; user visual approval remains open. Historical generation recipes retain their original provenance.",
+  "rebuild_note": "Rebuilt with DOS-inspired blue-teal water and pale stony shore inputs; user visual approval remains open. Historical generation recipes retain their original provenance.",
   "review_exports": [
     {
       "dimensions": {
@@ -365,7 +365,7 @@
         "width": 192
       },
       "path": "art/review/mixed-v1/bridge25-grass-2x.png",
-      "sha256": "22a75c15df2864fcf7041f20b15ee5a409bd7879dde0a769a923a422b1886e19"
+      "sha256": "a7e771e13d85f8140c58f037746699446f15c3c127508386ede41037b9a3459e"
     },
     {
       "dimensions": {
@@ -373,7 +373,7 @@
         "width": 192
       },
       "path": "art/review/mixed-v1/bridge36-grass-2x.png",
-      "sha256": "0ec58d5abf55e16e75eec099590813c5a8b1cfc04a654626c359517a5a6b6413"
+      "sha256": "ccb64f6d52703f6263a0777b32ea6f0f41db26cab197ba89e6e4617594d3ad55"
     },
     {
       "dimensions": {
@@ -381,7 +381,7 @@
         "width": 192
       },
       "path": "art/review/mixed-v1/rbridge14-grass-2x.png",
-      "sha256": "f92947fd972321d00ad725b51f2d592a161152da59c2b945008e532af528a2e2"
+      "sha256": "bd35e8432f82441c2676ac896738df99128b8d7ce9874a8bc4a52b14c0a0d454"
     },
     {
       "dimensions": {
@@ -389,7 +389,7 @@
         "width": 192
       },
       "path": "art/review/mixed-v1/rbridge25-grass-2x.png",
-      "sha256": "8e9930fd6357406d399c1466b5e77d01ab17a690ea5a65911023034cbcc0d154"
+      "sha256": "3dc2b550acd484f1d45512c0944143ad8e0f7604529bafdeea5ba48a09075b3b"
     },
     {
       "dimensions": {
@@ -397,7 +397,7 @@
         "width": 192
       },
       "path": "art/review/mixed-v1/rbridge36-grass-2x.png",
-      "sha256": "f9ce5c6f1746dbf22ee7e06c1c66e7be775420f4e605bd50dbbe3a8194a4dd0b"
+      "sha256": "7c28c6988602ae72e1316a8bff822f185a38c0ac17df9551b1a59cc947c0eab9"
     },
     {
       "dimensions": {
@@ -437,7 +437,7 @@
         "width": 476
       },
       "path": "art/review/mixed-v1/bridge25-patch-parity0.png",
-      "sha256": "89fc09d0cb39374a5fb3ff98c5b3aed0a8d25b53229c262c4f35ab1afd9f4701"
+      "sha256": "e985873987cad51a5ad5b6a6ff864cbb1a888d24098ad473395a3c8f8ecb03cd"
     },
     {
       "dimensions": {
@@ -445,7 +445,7 @@
         "width": 476
       },
       "path": "art/review/mixed-v1/bridge36-patch-parity1.png",
-      "sha256": "37ac788904894c70f2cf6e3ee57d284f9bd97705c034cc0a69b5b7947d2edce5"
+      "sha256": "81e3b2d21fe61b82545c68c35f3f4f3163638c74455ae2ea26474109204ea4fb"
     },
     {
       "dimensions": {
@@ -453,7 +453,7 @@
         "width": 476
       },
       "path": "art/review/mixed-v1/rbridge14-patch-parity0.png",
-      "sha256": "547f1093b270bab75f70300d037897a83c532b1380fa2ea9393d96a742f4f899"
+      "sha256": "9f9454683c94db33c73c657e72d5d2261f1ad5d8cbc9a79e3caaa3b0cdd0404e"
     },
     {
       "dimensions": {
@@ -461,7 +461,7 @@
         "width": 476
       },
       "path": "art/review/mixed-v1/rbridge25-patch-parity1.png",
-      "sha256": "303c0e947e033cb703f555a7fc6585eddd5a2a3470c95dfe79edf9d1808e1133"
+      "sha256": "5fa054f8e5a8a33b6f86a547ec1f22cdc8131896e1004f8482b5343a4a2b4b95"
     },
     {
       "dimensions": {
@@ -469,7 +469,7 @@
         "width": 476
       },
       "path": "art/review/mixed-v1/rbridge36-patch-parity0.png",
-      "sha256": "d8660243137a7b70a55416fcd6926e95c2495dcb82efc19a853b9cb9bc1eeff6"
+      "sha256": "f487f8b5ba5af91f7577e6c1813f3bd20b817955e7638d8626c8c53ccafb0295"
     },
     {
       "dimensions": {
@@ -509,7 +509,7 @@
         "width": 476
       },
       "path": "art/review/mixed-v1/campaign-rbridge36-stream14-path36-patch-parity0.png",
-      "sha256": "447b8a619ffaa9f76f3c061417a322f6d709c8a551d7e01e4e26c7adef973d15"
+      "sha256": "ea36ca78370aa637f53ec74031987e036b63e365b277fa8ebc1312a1218ba3a4"
     },
     {
       "dimensions": {
@@ -517,7 +517,7 @@
         "width": 476
       },
       "path": "art/review/mixed-v1/campaign-rbridge36-stream25-rail36-patch-parity1.png",
-      "sha256": "3eaaa1d80c1b2e164da2f5c8ec1f09c285b4ec8d86cde22143f913feacb1d83d"
+      "sha256": "825938dce8e2c7108cd618a4fd850d6713ca003c807ba3fda57759ad3655808b"
     },
     {
       "dimensions": {
@@ -525,7 +525,7 @@
         "width": 384
       },
       "path": "art/review/mixed-v1/contact-sheet.png",
-      "sha256": "04911a120b8d1c266a84f8dc9301780a0468fac8a2fb99dab446510fbad9fa61"
+      "sha256": "e208c0feb7e01332a97aa51ee066b5a3ef84be4870d76cad4d986a81943ee006"
     }
   ],
   "schema_version": 1,
@@ -562,7 +562,7 @@
             "width": 192
           },
           "path": "art/review/mixed-v1/bridge25-grass-2x.png",
-          "sha256": "22a75c15df2864fcf7041f20b15ee5a409bd7879dde0a769a923a422b1886e19"
+          "sha256": "a7e771e13d85f8140c58f037746699446f15c3c127508386ede41037b9a3459e"
         },
         {
           "dimensions": {
@@ -570,7 +570,7 @@
             "width": 384
           },
           "path": "bridge25-grass-4x.png",
-          "sha256": "8cf5e266e522bd0a3fb22dcc3bca64ebbc3b9fade3d070fa4b8a85874e51eaa2"
+          "sha256": "ae87ddf2d3d05abd8ae375472a0af3e7c163c1c9025401760ee67b88d8ac4d7c"
         }
       ],
       "ports": [
@@ -613,7 +613,7 @@
             "width": 192
           },
           "path": "art/review/mixed-v1/bridge36-grass-2x.png",
-          "sha256": "0ec58d5abf55e16e75eec099590813c5a8b1cfc04a654626c359517a5a6b6413"
+          "sha256": "ccb64f6d52703f6263a0777b32ea6f0f41db26cab197ba89e6e4617594d3ad55"
         },
         {
           "dimensions": {
@@ -621,7 +621,7 @@
             "width": 384
           },
           "path": "bridge36-grass-4x.png",
-          "sha256": "2b4dd1931f3a6a2cd26c8bfd42d0f586a5d0aed0cb8ba280eaf0ca96d1bc3acd"
+          "sha256": "3369fb22483b6b6186f67f8a1131e46273313926c893e35ffffafe1b9a7135b9"
         }
       ],
       "ports": [
@@ -661,7 +661,7 @@
             "width": 192
           },
           "path": "art/review/mixed-v1/rbridge14-grass-2x.png",
-          "sha256": "f92947fd972321d00ad725b51f2d592a161152da59c2b945008e532af528a2e2"
+          "sha256": "bd35e8432f82441c2676ac896738df99128b8d7ce9874a8bc4a52b14c0a0d454"
         },
         {
           "dimensions": {
@@ -669,7 +669,7 @@
             "width": 384
           },
           "path": "rbridge14-grass-4x.png",
-          "sha256": "6e23ce806dd64eee73d6cdb0db1cb9283a9e71c9be6b208c87ab622bc36dc2d6"
+          "sha256": "79add4e6b63a2edfcf18cec5987e0a5d9d197dac198515f6ef5b0ef9a1f0495b"
         }
       ],
       "ports": [
@@ -709,7 +709,7 @@
             "width": 192
           },
           "path": "art/review/mixed-v1/rbridge25-grass-2x.png",
-          "sha256": "8e9930fd6357406d399c1466b5e77d01ab17a690ea5a65911023034cbcc0d154"
+          "sha256": "3dc2b550acd484f1d45512c0944143ad8e0f7604529bafdeea5ba48a09075b3b"
         },
         {
           "dimensions": {
@@ -717,7 +717,7 @@
             "width": 384
           },
           "path": "rbridge25-grass-4x.png",
-          "sha256": "5995c7e342c3d35e25aad64ee4cdae5bde7ee2ec7d6fae31c8f899e35d48171f"
+          "sha256": "edee870865b47f16bb8f8df4d3acf311be3e9b431c96b997bfe9d6cf6f43a392"
         }
       ],
       "ports": [
@@ -757,7 +757,7 @@
             "width": 192
           },
           "path": "art/review/mixed-v1/rbridge36-grass-2x.png",
-          "sha256": "f9ce5c6f1746dbf22ee7e06c1c66e7be775420f4e605bd50dbbe3a8194a4dd0b"
+          "sha256": "7c28c6988602ae72e1316a8bff822f185a38c0ac17df9551b1a59cc947c0eab9"
         },
         {
           "dimensions": {
@@ -765,7 +765,7 @@
             "width": 384
           },
           "path": "rbridge36-grass-4x.png",
-          "sha256": "17e4f94493310d56e00b44d48af2f869528c77cb129b26063ef42e8c1e50fb29"
+          "sha256": "3a73850f4300701044b03986676c726d337e1c35a0199d17fda689759424833c"
         }
       ],
       "ports": [

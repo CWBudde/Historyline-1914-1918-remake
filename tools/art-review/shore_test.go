@@ -534,8 +534,9 @@ func shoreTestAssertScenes(t *testing.T, out string, scenes []shoreScene) {
 	}
 }
 
-// An independent projection/shader oracle catches a field or width change in
-// saved PNG guards. The same existing Lanczos kernel verifies the full unmasked
+// An independent projection oracle catches a field change in saved PNG guards.
+// Material appearance is checked separately by the all-variant bank test.
+// The same existing Lanczos kernel verifies the full unmasked
 // filter support instead of comparing unrelated nearest boundary pixel centers.
 func shoreTestProjectedColor(in shoreInputs, a, b connectionPoint, landA, landB bool, p connectionPoint) color.NRGBA {
 	d := -32.
@@ -549,23 +550,7 @@ func shoreTestProjectedColor(in shoreInputs, a, b connectionPoint, landA, landB 
 			d = -d
 		}
 	}
-	grass := sampleConnectionMaterial(in.Materials["grass"].Image, p)
-	water := sampleConnectionMaterial(in.Materials["water"].Image, p)
-	bank := sampleConnectionMaterial(in.Materials["bank"].Image, p)
-	s := func(v float64) float64 { v = math.Max(0, math.Min(1, v)); return v * v * (3 - 2*v) }
-	blend := func(a, b color.NRGBA, w float64) color.NRGBA {
-		q := func(a, b uint8) uint8 { return uint8(math.Floor(float64(a)*(1-w) + float64(b)*w + .5)) }
-		return color.NRGBA{q(a.R, b.R), q(a.G, b.G), q(a.B, b.B), 255}
-	}
-	if d >= 2.4 {
-		return grass
-	}
-	if d <= -5 {
-		return water
-	}
-	shallow := blend(water, bank, .16)
-	wet := blend(bank, color.NRGBA{33, 43, 28, 255}, .27*(1-s((d+.7)/1.8)))
-	return blend(blend(blend(water, shallow, s((d+5)/3.3)), wet, s(d+1.7)), grass, s((d-.5)/1.9))
+	return shoreMaterialColor(in, p, d)
 }
 func shoreTestAssertPNGGuards(t *testing.T, path, out string) {
 	t.Helper()
@@ -773,5 +758,41 @@ func TestShoreOpaqueMinimumMaterialDimensions(t *testing.T) {
 				t.Fatal("invalid pinned material accepted")
 			}
 		})
+	}
+}
+
+// A stony bank must remain readable several world pixels inland on every
+// crossing. Returning grass too early recreated the old hairline brown shore.
+func TestShoreStonyBankReadableAcrossAllNineVariants(t *testing.T) {
+	path, _ := shoreTestFixture(t)
+	in, err := loadShoreInputs(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	bank := in.Materials["bank"].Image
+	draw.Draw(bank, bank.Bounds(), image.NewUniform(color.NRGBA{205, 195, 175, 255}), image.Point{}, draw.Src)
+	g := sharedConnectionGeometry()
+	for _, v := range shoreRoster() {
+		for edge, a := range g.Polygon {
+			b := g.Polygon[(edge+1)%6]
+			landA, landB := false, false
+			for _, vertex := range v.LandVertices {
+				landA = landA || vertex == edge
+				landB = landB || vertex == (edge+1)%6
+			}
+			if landA == landB {
+				continue
+			}
+			e := b.sub(a)
+			along := e.mul(1 / e.length())
+			if landA {
+				along = along.mul(-1)
+			}
+			p := a.add(b).mul(.5).add(along.mul(2.8))
+			c := shoreColor(in, v, p)
+			if c.R < 150 || c.G < 140 || c.B < 115 {
+				t.Errorf("%s edge%d: bank disappears inland: %v", v.ID, edge, c)
+			}
+		}
 	}
 }

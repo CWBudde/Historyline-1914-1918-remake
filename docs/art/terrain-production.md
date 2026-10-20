@@ -153,6 +153,10 @@ records the art-directed curve repair, exact PNG assembly/edge-oracle checks and
 the [shore gallery](shoreline-review.html). The [numeric topology contract](shoreline-topology.md)
 documents the `23` exception and inferred corners. This promotes the open-water
 runtime ID from source-only to built without changing the 27-source material pack.
+The [2026-10-20 refresh](shore-reference-v2.md) replaces the brown bank with
+DOS-inspired pale gravel and updates the shared water, including connected
+rivers, bridges and rocky-water surrounds. Its bank outline varies in a
+lattice-periodic field, preserving reciprocal joins at both densities.
 
 Legacy `-reference/-candidate/-resampling lanczos` comparisons remain available
 for historical research; their 90/100 fidelity gate does not govern the new pack.

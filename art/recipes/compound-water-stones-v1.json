@@ -1,5 +1,5 @@
 {
-  "acceptance": "Provisional distinct illustrated waterStones candidate. Actual2x4x source/tile/parity/compatible-shore/homogeneous artreview passes. Uses exact existing shared water and stable runtime ID; no gameplay changes.",
+  "acceptance": "Current provisional reference-guided candidate rebuild. Actual PNG assembly and pinned inputs are recorded; current user visual approval, approximately 90% resemblance, whole-map/runtime integration and release acceptance remain open.",
   "base_exports": [
     {
       "build_output": "ground/water-2x.png",
@@ -8,7 +8,7 @@
         "width": 192
       },
       "path": "art/exports/shore-v1/water-2x.png",
-      "sha256": "9d9ad933039173239ce66c78b095ff6d2f739e50ae08c029dc21d60921824eba"
+      "sha256": "ed167128ea8974920e97aafad92ad8a7d77687f2558c27c66c5843a8dc7c2077"
     },
     {
       "build_output": "ground/water-4x.png",
@@ -17,10 +17,11 @@
         "width": 384
       },
       "path": "art/exports/shore-v1/water-4x.png",
-      "sha256": "608e20ac3fef905a5faf71eb5d8a2cf91e7a677c4c8a40bd5198fb9eb0469339"
+      "sha256": "33e0c1d1bd2ca3f97c913de37ed3fad3aea68367782ee4e6779061b75f49864f"
     }
   ],
   "context_review": {
+    "date": "2026-10-20",
     "outputs": [
       {
         "canvas_origin": [
@@ -29,7 +30,7 @@
         ],
         "case": "compatible-shore",
         "center_line_parity": 0,
-        "changed_pixels": 3825,
+        "changed_pixels": 3863,
         "dimensions": {
           "height": 480,
           "width": 476
@@ -43,9 +44,9 @@
               0,
               -80
             ],
-            "path": "art/review/history/2026-10-15/exports/shore-v1/lakeside12-2x.png",
+            "path": "art/exports/shore-v1/lakeside12-2x.png",
             "runtime_id": "lakeside12",
-            "sha256": "b1a0c96ceb2c87e8fa7599dbf158f2ca086c5ea8ff32b691201269017a07e6e2"
+            "sha256": "c7707d93225150d4ab6069eee607784247aa9a4377dc8769d0ad4221a244655d"
           },
           {
             "fixture_runtime_id": "water",
@@ -55,7 +56,7 @@
             ],
             "path": "art/exports/compound-v1/waterStones-2x.png",
             "runtime_id": "waterStones",
-            "sha256": "cb6a57180629853fde92e4708eda02b08b33f136492db05dbb06c8dadced0c1f"
+            "sha256": "9842e06a964c51b6738ca04a53a281687315c4dbddc02375623807dd83fb7fe8"
           },
           {
             "fixture_runtime_id": "grass",
@@ -63,9 +64,9 @@
               71,
               -40
             ],
-            "path": "art/review/history/2026-10-15/exports/connected-v1/grass-2x.png",
+            "path": "art/exports/connected-v1/grass-2x.png",
             "runtime_id": "grass",
-            "sha256": "5285a565b5a882a24477fc48c7f5f69fc7a81a4ef2cdf5b87708b0eadfa13b17"
+            "sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
           },
           {
             "fixture_runtime_id": "lakeside12",
@@ -73,9 +74,9 @@
               0,
               0
             ],
-            "path": "art/review/history/2026-10-15/exports/shore-v1/lakeside12-2x.png",
+            "path": "art/exports/shore-v1/lakeside12-2x.png",
             "runtime_id": "lakeside12",
-            "sha256": "b1a0c96ceb2c87e8fa7599dbf158f2ca086c5ea8ff32b691201269017a07e6e2"
+            "sha256": "c7707d93225150d4ab6069eee607784247aa9a4377dc8769d0ad4221a244655d"
           },
           {
             "fixture_runtime_id": "water",
@@ -85,7 +86,7 @@
             ],
             "path": "art/exports/shore-v1/water-2x.png",
             "runtime_id": "water",
-            "sha256": "9d9ad933039173239ce66c78b095ff6d2f739e50ae08c029dc21d60921824eba"
+            "sha256": "ed167128ea8974920e97aafad92ad8a7d77687f2558c27c66c5843a8dc7c2077"
           },
           {
             "fixture_runtime_id": "grass",
@@ -93,9 +94,9 @@
               71,
               40
             ],
-            "path": "art/review/history/2026-10-15/exports/connected-v1/grass-2x.png",
+            "path": "art/exports/connected-v1/grass-2x.png",
             "runtime_id": "grass",
-            "sha256": "5285a565b5a882a24477fc48c7f5f69fc7a81a4ef2cdf5b87708b0eadfa13b17"
+            "sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
           },
           {
             "fixture_runtime_id": "lakeside12",
@@ -103,13 +104,13 @@
               0,
               80
             ],
-            "path": "art/review/history/2026-10-15/exports/shore-v1/lakeside12-2x.png",
+            "path": "art/exports/shore-v1/lakeside12-2x.png",
             "runtime_id": "lakeside12",
-            "sha256": "b1a0c96ceb2c87e8fa7599dbf158f2ca086c5ea8ff32b691201269017a07e6e2"
+            "sha256": "c7707d93225150d4ab6069eee607784247aa9a4377dc8769d0ad4221a244655d"
           }
         ],
         "path": "art/review/water-stones-v1/shore-parity0-2x.png",
-        "sha256": "dfca7e945e72fab71e6a9fb57354c6d37c595802fc25907e00b7cc56de763094",
+        "sha256": "c1ca67fd698e07904935c1169dd77c29b6ec5beddd9aaa04b8214fcdc6c1741f",
         "target_origin": [
           -71,
           -40
@@ -122,7 +123,7 @@
         ],
         "case": "compatible-shore",
         "center_line_parity": 0,
-        "changed_pixels": 15222,
+        "changed_pixels": 15413,
         "dimensions": {
           "height": 960,
           "width": 952
@@ -136,9 +137,9 @@
               0,
               -80
             ],
-            "path": "art/review/history/2026-10-15/exports/shore-v1/lakeside12-4x.png",
+            "path": "art/exports/shore-v1/lakeside12-4x.png",
             "runtime_id": "lakeside12",
-            "sha256": "fb9df3c2ae4c5120b1cecbd6e5c3d532600dd7434be2cf5d8ef1e5f5b69d87a3"
+            "sha256": "edd3d8d4739e802f6a72859cf8c77c10a0677fbac83f044563587bffba44e445"
           },
           {
             "fixture_runtime_id": "water",
@@ -148,7 +149,7 @@
             ],
             "path": "art/exports/compound-v1/waterStones-4x.png",
             "runtime_id": "waterStones",
-            "sha256": "92502635b9d1147e138ad11d0847facb004a1aab721e35305bc5b9c0065ec82b"
+            "sha256": "de15663607420e390f4a129305eb3d530925bc4f3d6276719dd07d66e3fdd21f"
           },
           {
             "fixture_runtime_id": "grass",
@@ -156,9 +157,9 @@
               71,
               -40
             ],
-            "path": "art/review/history/2026-10-15/exports/connected-v1/grass-4x.png",
+            "path": "art/exports/connected-v1/grass-4x.png",
             "runtime_id": "grass",
-            "sha256": "2feea3fd1e9026a16c87bf11ac6c2c33ec8d173719866427da42827bcc2d119e"
+            "sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
           },
           {
             "fixture_runtime_id": "lakeside12",
@@ -166,9 +167,9 @@
               0,
               0
             ],
-            "path": "art/review/history/2026-10-15/exports/shore-v1/lakeside12-4x.png",
+            "path": "art/exports/shore-v1/lakeside12-4x.png",
             "runtime_id": "lakeside12",
-            "sha256": "fb9df3c2ae4c5120b1cecbd6e5c3d532600dd7434be2cf5d8ef1e5f5b69d87a3"
+            "sha256": "edd3d8d4739e802f6a72859cf8c77c10a0677fbac83f044563587bffba44e445"
           },
           {
             "fixture_runtime_id": "water",
@@ -178,7 +179,7 @@
             ],
             "path": "art/exports/shore-v1/water-4x.png",
             "runtime_id": "water",
-            "sha256": "608e20ac3fef905a5faf71eb5d8a2cf91e7a677c4c8a40bd5198fb9eb0469339"
+            "sha256": "33e0c1d1bd2ca3f97c913de37ed3fad3aea68367782ee4e6779061b75f49864f"
           },
           {
             "fixture_runtime_id": "grass",
@@ -186,9 +187,9 @@
               71,
               40
             ],
-            "path": "art/review/history/2026-10-15/exports/connected-v1/grass-4x.png",
+            "path": "art/exports/connected-v1/grass-4x.png",
             "runtime_id": "grass",
-            "sha256": "2feea3fd1e9026a16c87bf11ac6c2c33ec8d173719866427da42827bcc2d119e"
+            "sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
           },
           {
             "fixture_runtime_id": "lakeside12",
@@ -196,13 +197,13 @@
               0,
               80
             ],
-            "path": "art/review/history/2026-10-15/exports/shore-v1/lakeside12-4x.png",
+            "path": "art/exports/shore-v1/lakeside12-4x.png",
             "runtime_id": "lakeside12",
-            "sha256": "fb9df3c2ae4c5120b1cecbd6e5c3d532600dd7434be2cf5d8ef1e5f5b69d87a3"
+            "sha256": "edd3d8d4739e802f6a72859cf8c77c10a0677fbac83f044563587bffba44e445"
           }
         ],
         "path": "art/review/water-stones-v1/shore-parity0-4x.png",
-        "sha256": "1fa86c1529ede129dd45c91e5f2dceed8a63ab3e02ecd75bb4c0777f5418ce23",
+        "sha256": "e37bb4303e56a9f4b084266fa2433b7f4b89945505f6627a34918ea03d721e3d",
         "target_origin": [
           -71,
           -40
@@ -215,7 +216,7 @@
         ],
         "case": "compatible-shore",
         "center_line_parity": 1,
-        "changed_pixels": 3825,
+        "changed_pixels": 3863,
         "dimensions": {
           "height": 480,
           "width": 476
@@ -229,9 +230,9 @@
               71,
               -40
             ],
-            "path": "art/review/history/2026-10-15/exports/shore-v1/lakeside12-2x.png",
+            "path": "art/exports/shore-v1/lakeside12-2x.png",
             "runtime_id": "lakeside12",
-            "sha256": "b1a0c96ceb2c87e8fa7599dbf158f2ca086c5ea8ff32b691201269017a07e6e2"
+            "sha256": "c7707d93225150d4ab6069eee607784247aa9a4377dc8769d0ad4221a244655d"
           },
           {
             "fixture_runtime_id": "water",
@@ -241,7 +242,7 @@
             ],
             "path": "art/exports/compound-v1/waterStones-2x.png",
             "runtime_id": "waterStones",
-            "sha256": "cb6a57180629853fde92e4708eda02b08b33f136492db05dbb06c8dadced0c1f"
+            "sha256": "9842e06a964c51b6738ca04a53a281687315c4dbddc02375623807dd83fb7fe8"
           },
           {
             "fixture_runtime_id": "grass",
@@ -249,9 +250,9 @@
               142,
               0
             ],
-            "path": "art/review/history/2026-10-15/exports/connected-v1/grass-2x.png",
+            "path": "art/exports/connected-v1/grass-2x.png",
             "runtime_id": "grass",
-            "sha256": "5285a565b5a882a24477fc48c7f5f69fc7a81a4ef2cdf5b87708b0eadfa13b17"
+            "sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
           },
           {
             "fixture_runtime_id": "lakeside12",
@@ -259,9 +260,9 @@
               71,
               40
             ],
-            "path": "art/review/history/2026-10-15/exports/shore-v1/lakeside12-2x.png",
+            "path": "art/exports/shore-v1/lakeside12-2x.png",
             "runtime_id": "lakeside12",
-            "sha256": "b1a0c96ceb2c87e8fa7599dbf158f2ca086c5ea8ff32b691201269017a07e6e2"
+            "sha256": "c7707d93225150d4ab6069eee607784247aa9a4377dc8769d0ad4221a244655d"
           },
           {
             "fixture_runtime_id": "water",
@@ -271,7 +272,7 @@
             ],
             "path": "art/exports/shore-v1/water-2x.png",
             "runtime_id": "water",
-            "sha256": "9d9ad933039173239ce66c78b095ff6d2f739e50ae08c029dc21d60921824eba"
+            "sha256": "ed167128ea8974920e97aafad92ad8a7d77687f2558c27c66c5843a8dc7c2077"
           },
           {
             "fixture_runtime_id": "grass",
@@ -279,9 +280,9 @@
               142,
               80
             ],
-            "path": "art/review/history/2026-10-15/exports/connected-v1/grass-2x.png",
+            "path": "art/exports/connected-v1/grass-2x.png",
             "runtime_id": "grass",
-            "sha256": "5285a565b5a882a24477fc48c7f5f69fc7a81a4ef2cdf5b87708b0eadfa13b17"
+            "sha256": "36a76354ba79504482a248708ae2e0da08f83141dd2535caa9b26aafa8edccec"
           },
           {
             "fixture_runtime_id": "lakeside12",
@@ -289,13 +290,13 @@
               71,
               120
             ],
-            "path": "art/review/history/2026-10-15/exports/shore-v1/lakeside12-2x.png",
+            "path": "art/exports/shore-v1/lakeside12-2x.png",
             "runtime_id": "lakeside12",
-            "sha256": "b1a0c96ceb2c87e8fa7599dbf158f2ca086c5ea8ff32b691201269017a07e6e2"
+            "sha256": "c7707d93225150d4ab6069eee607784247aa9a4377dc8769d0ad4221a244655d"
           }
         ],
         "path": "art/review/water-stones-v1/shore-parity1-2x.png",
-        "sha256": "dfca7e945e72fab71e6a9fb57354c6d37c595802fc25907e00b7cc56de763094",
+        "sha256": "c1ca67fd698e07904935c1169dd77c29b6ec5beddd9aaa04b8214fcdc6c1741f",
         "target_origin": [
           0,
           0
@@ -308,7 +309,7 @@
         ],
         "case": "compatible-shore",
         "center_line_parity": 1,
-        "changed_pixels": 15222,
+        "changed_pixels": 15413,
         "dimensions": {
           "height": 960,
           "width": 952
@@ -322,9 +323,9 @@
               71,
               -40
             ],
-            "path": "art/review/history/2026-10-15/exports/shore-v1/lakeside12-4x.png",
+            "path": "art/exports/shore-v1/lakeside12-4x.png",
             "runtime_id": "lakeside12",
-            "sha256": "fb9df3c2ae4c5120b1cecbd6e5c3d532600dd7434be2cf5d8ef1e5f5b69d87a3"
+            "sha256": "edd3d8d4739e802f6a72859cf8c77c10a0677fbac83f044563587bffba44e445"
           },
           {
             "fixture_runtime_id": "water",
@@ -334,7 +335,7 @@
             ],
             "path": "art/exports/compound-v1/waterStones-4x.png",
             "runtime_id": "waterStones",
-            "sha256": "92502635b9d1147e138ad11d0847facb004a1aab721e35305bc5b9c0065ec82b"
+            "sha256": "de15663607420e390f4a129305eb3d530925bc4f3d6276719dd07d66e3fdd21f"
           },
           {
             "fixture_runtime_id": "grass",
@@ -342,9 +343,9 @@
               142,
               0
             ],
-            "path": "art/review/history/2026-10-15/exports/connected-v1/grass-4x.png",
+            "path": "art/exports/connected-v1/grass-4x.png",
             "runtime_id": "grass",
-            "sha256": "2feea3fd1e9026a16c87bf11ac6c2c33ec8d173719866427da42827bcc2d119e"
+            "sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
           },
           {
             "fixture_runtime_id": "lakeside12",
@@ -352,9 +353,9 @@
               71,
               40
             ],
-            "path": "art/review/history/2026-10-15/exports/shore-v1/lakeside12-4x.png",
+            "path": "art/exports/shore-v1/lakeside12-4x.png",
             "runtime_id": "lakeside12",
-            "sha256": "fb9df3c2ae4c5120b1cecbd6e5c3d532600dd7434be2cf5d8ef1e5f5b69d87a3"
+            "sha256": "edd3d8d4739e802f6a72859cf8c77c10a0677fbac83f044563587bffba44e445"
           },
           {
             "fixture_runtime_id": "water",
@@ -364,7 +365,7 @@
             ],
             "path": "art/exports/shore-v1/water-4x.png",
             "runtime_id": "water",
-            "sha256": "608e20ac3fef905a5faf71eb5d8a2cf91e7a677c4c8a40bd5198fb9eb0469339"
+            "sha256": "33e0c1d1bd2ca3f97c913de37ed3fad3aea68367782ee4e6779061b75f49864f"
           },
           {
             "fixture_runtime_id": "grass",
@@ -372,9 +373,9 @@
               142,
               80
             ],
-            "path": "art/review/history/2026-10-15/exports/connected-v1/grass-4x.png",
+            "path": "art/exports/connected-v1/grass-4x.png",
             "runtime_id": "grass",
-            "sha256": "2feea3fd1e9026a16c87bf11ac6c2c33ec8d173719866427da42827bcc2d119e"
+            "sha256": "3dc2e331594731d904599858bc01011c5d94e89ff6dfd9b16b752c6c5e0c5d5d"
           },
           {
             "fixture_runtime_id": "lakeside12",
@@ -382,13 +383,13 @@
               71,
               120
             ],
-            "path": "art/review/history/2026-10-15/exports/shore-v1/lakeside12-4x.png",
+            "path": "art/exports/shore-v1/lakeside12-4x.png",
             "runtime_id": "lakeside12",
-            "sha256": "fb9df3c2ae4c5120b1cecbd6e5c3d532600dd7434be2cf5d8ef1e5f5b69d87a3"
+            "sha256": "edd3d8d4739e802f6a72859cf8c77c10a0677fbac83f044563587bffba44e445"
           }
         ],
         "path": "art/review/water-stones-v1/shore-parity1-4x.png",
-        "sha256": "1fa86c1529ede129dd45c91e5f2dceed8a63ab3e02ecd75bb4c0777f5418ce23",
+        "sha256": "e37bb4303e56a9f4b084266fa2433b7f4b89945505f6627a34918ea03d721e3d",
         "target_origin": [
           0,
           0
@@ -417,7 +418,7 @@
             ],
             "path": "art/exports/compound-v1/waterStones-2x.png",
             "runtime_id": "waterStones",
-            "sha256": "cb6a57180629853fde92e4708eda02b08b33f136492db05dbb06c8dadced0c1f"
+            "sha256": "9842e06a964c51b6738ca04a53a281687315c4dbddc02375623807dd83fb7fe8"
           },
           {
             "origin": [
@@ -426,7 +427,7 @@
             ],
             "path": "art/exports/compound-v1/waterStones-2x.png",
             "runtime_id": "waterStones",
-            "sha256": "cb6a57180629853fde92e4708eda02b08b33f136492db05dbb06c8dadced0c1f"
+            "sha256": "9842e06a964c51b6738ca04a53a281687315c4dbddc02375623807dd83fb7fe8"
           },
           {
             "origin": [
@@ -435,7 +436,7 @@
             ],
             "path": "art/exports/compound-v1/waterStones-2x.png",
             "runtime_id": "waterStones",
-            "sha256": "cb6a57180629853fde92e4708eda02b08b33f136492db05dbb06c8dadced0c1f"
+            "sha256": "9842e06a964c51b6738ca04a53a281687315c4dbddc02375623807dd83fb7fe8"
           },
           {
             "origin": [
@@ -444,7 +445,7 @@
             ],
             "path": "art/exports/compound-v1/waterStones-2x.png",
             "runtime_id": "waterStones",
-            "sha256": "cb6a57180629853fde92e4708eda02b08b33f136492db05dbb06c8dadced0c1f"
+            "sha256": "9842e06a964c51b6738ca04a53a281687315c4dbddc02375623807dd83fb7fe8"
           },
           {
             "origin": [
@@ -453,7 +454,7 @@
             ],
             "path": "art/exports/compound-v1/waterStones-2x.png",
             "runtime_id": "waterStones",
-            "sha256": "cb6a57180629853fde92e4708eda02b08b33f136492db05dbb06c8dadced0c1f"
+            "sha256": "9842e06a964c51b6738ca04a53a281687315c4dbddc02375623807dd83fb7fe8"
           },
           {
             "origin": [
@@ -462,7 +463,7 @@
             ],
             "path": "art/exports/compound-v1/waterStones-2x.png",
             "runtime_id": "waterStones",
-            "sha256": "cb6a57180629853fde92e4708eda02b08b33f136492db05dbb06c8dadced0c1f"
+            "sha256": "9842e06a964c51b6738ca04a53a281687315c4dbddc02375623807dd83fb7fe8"
           },
           {
             "origin": [
@@ -471,11 +472,11 @@
             ],
             "path": "art/exports/compound-v1/waterStones-2x.png",
             "runtime_id": "waterStones",
-            "sha256": "cb6a57180629853fde92e4708eda02b08b33f136492db05dbb06c8dadced0c1f"
+            "sha256": "9842e06a964c51b6738ca04a53a281687315c4dbddc02375623807dd83fb7fe8"
           }
         ],
         "path": "art/review/water-stones-v1/homogeneous-parity0-2x.png",
-        "sha256": "f69cf45c7c7a7064264553c7a16956d6246c268ce8b1dcfbf958c40bbd356f11"
+        "sha256": "c8e93594290d7a4e3276f969f77564f8312089c2c6304b8d098dd9d705b79188"
       },
       {
         "canvas_origin": [
@@ -500,7 +501,7 @@
             ],
             "path": "art/exports/compound-v1/waterStones-4x.png",
             "runtime_id": "waterStones",
-            "sha256": "92502635b9d1147e138ad11d0847facb004a1aab721e35305bc5b9c0065ec82b"
+            "sha256": "de15663607420e390f4a129305eb3d530925bc4f3d6276719dd07d66e3fdd21f"
           },
           {
             "origin": [
@@ -509,7 +510,7 @@
             ],
             "path": "art/exports/compound-v1/waterStones-4x.png",
             "runtime_id": "waterStones",
-            "sha256": "92502635b9d1147e138ad11d0847facb004a1aab721e35305bc5b9c0065ec82b"
+            "sha256": "de15663607420e390f4a129305eb3d530925bc4f3d6276719dd07d66e3fdd21f"
           },
           {
             "origin": [
@@ -518,7 +519,7 @@
             ],
             "path": "art/exports/compound-v1/waterStones-4x.png",
             "runtime_id": "waterStones",
-            "sha256": "92502635b9d1147e138ad11d0847facb004a1aab721e35305bc5b9c0065ec82b"
+            "sha256": "de15663607420e390f4a129305eb3d530925bc4f3d6276719dd07d66e3fdd21f"
           },
           {
             "origin": [
@@ -527,7 +528,7 @@
             ],
             "path": "art/exports/compound-v1/waterStones-4x.png",
             "runtime_id": "waterStones",
-            "sha256": "92502635b9d1147e138ad11d0847facb004a1aab721e35305bc5b9c0065ec82b"
+            "sha256": "de15663607420e390f4a129305eb3d530925bc4f3d6276719dd07d66e3fdd21f"
           },
           {
             "origin": [
@@ -536,7 +537,7 @@
             ],
             "path": "art/exports/compound-v1/waterStones-4x.png",
             "runtime_id": "waterStones",
-            "sha256": "92502635b9d1147e138ad11d0847facb004a1aab721e35305bc5b9c0065ec82b"
+            "sha256": "de15663607420e390f4a129305eb3d530925bc4f3d6276719dd07d66e3fdd21f"
           },
           {
             "origin": [
@@ -545,7 +546,7 @@
             ],
             "path": "art/exports/compound-v1/waterStones-4x.png",
             "runtime_id": "waterStones",
-            "sha256": "92502635b9d1147e138ad11d0847facb004a1aab721e35305bc5b9c0065ec82b"
+            "sha256": "de15663607420e390f4a129305eb3d530925bc4f3d6276719dd07d66e3fdd21f"
           },
           {
             "origin": [
@@ -554,11 +555,11 @@
             ],
             "path": "art/exports/compound-v1/waterStones-4x.png",
             "runtime_id": "waterStones",
-            "sha256": "92502635b9d1147e138ad11d0847facb004a1aab721e35305bc5b9c0065ec82b"
+            "sha256": "de15663607420e390f4a129305eb3d530925bc4f3d6276719dd07d66e3fdd21f"
           }
         ],
         "path": "art/review/water-stones-v1/homogeneous-parity0-4x.png",
-        "sha256": "67f4a38bb6eade00b5323d62b442a148ac825bb7335b82bd07fb975dc6a77dbf"
+        "sha256": "518e04983d473b116155cd98b388eed7a9f446a77ea52de328cad64c1c1b63c4"
       },
       {
         "canvas_origin": [
@@ -583,7 +584,7 @@
             ],
             "path": "art/exports/compound-v1/waterStones-2x.png",
             "runtime_id": "waterStones",
-            "sha256": "cb6a57180629853fde92e4708eda02b08b33f136492db05dbb06c8dadced0c1f"
+            "sha256": "9842e06a964c51b6738ca04a53a281687315c4dbddc02375623807dd83fb7fe8"
           },
           {
             "origin": [
@@ -592,7 +593,7 @@
             ],
             "path": "art/exports/compound-v1/waterStones-2x.png",
             "runtime_id": "waterStones",
-            "sha256": "cb6a57180629853fde92e4708eda02b08b33f136492db05dbb06c8dadced0c1f"
+            "sha256": "9842e06a964c51b6738ca04a53a281687315c4dbddc02375623807dd83fb7fe8"
           },
           {
             "origin": [
@@ -601,7 +602,7 @@
             ],
             "path": "art/exports/compound-v1/waterStones-2x.png",
             "runtime_id": "waterStones",
-            "sha256": "cb6a57180629853fde92e4708eda02b08b33f136492db05dbb06c8dadced0c1f"
+            "sha256": "9842e06a964c51b6738ca04a53a281687315c4dbddc02375623807dd83fb7fe8"
           },
           {
             "origin": [
@@ -610,7 +611,7 @@
             ],
             "path": "art/exports/compound-v1/waterStones-2x.png",
             "runtime_id": "waterStones",
-            "sha256": "cb6a57180629853fde92e4708eda02b08b33f136492db05dbb06c8dadced0c1f"
+            "sha256": "9842e06a964c51b6738ca04a53a281687315c4dbddc02375623807dd83fb7fe8"
           },
           {
             "origin": [
@@ -619,7 +620,7 @@
             ],
             "path": "art/exports/compound-v1/waterStones-2x.png",
             "runtime_id": "waterStones",
-            "sha256": "cb6a57180629853fde92e4708eda02b08b33f136492db05dbb06c8dadced0c1f"
+            "sha256": "9842e06a964c51b6738ca04a53a281687315c4dbddc02375623807dd83fb7fe8"
           },
           {
             "origin": [
@@ -628,7 +629,7 @@
             ],
             "path": "art/exports/compound-v1/waterStones-2x.png",
             "runtime_id": "waterStones",
-            "sha256": "cb6a57180629853fde92e4708eda02b08b33f136492db05dbb06c8dadced0c1f"
+            "sha256": "9842e06a964c51b6738ca04a53a281687315c4dbddc02375623807dd83fb7fe8"
           },
           {
             "origin": [
@@ -637,11 +638,11 @@
             ],
             "path": "art/exports/compound-v1/waterStones-2x.png",
             "runtime_id": "waterStones",
-            "sha256": "cb6a57180629853fde92e4708eda02b08b33f136492db05dbb06c8dadced0c1f"
+            "sha256": "9842e06a964c51b6738ca04a53a281687315c4dbddc02375623807dd83fb7fe8"
           }
         ],
         "path": "art/review/water-stones-v1/homogeneous-parity1-2x.png",
-        "sha256": "f69cf45c7c7a7064264553c7a16956d6246c268ce8b1dcfbf958c40bbd356f11"
+        "sha256": "c8e93594290d7a4e3276f969f77564f8312089c2c6304b8d098dd9d705b79188"
       },
       {
         "canvas_origin": [
@@ -666,7 +667,7 @@
             ],
             "path": "art/exports/compound-v1/waterStones-4x.png",
             "runtime_id": "waterStones",
-            "sha256": "92502635b9d1147e138ad11d0847facb004a1aab721e35305bc5b9c0065ec82b"
+            "sha256": "de15663607420e390f4a129305eb3d530925bc4f3d6276719dd07d66e3fdd21f"
           },
           {
             "origin": [
@@ -675,7 +676,7 @@
             ],
             "path": "art/exports/compound-v1/waterStones-4x.png",
             "runtime_id": "waterStones",
-            "sha256": "92502635b9d1147e138ad11d0847facb004a1aab721e35305bc5b9c0065ec82b"
+            "sha256": "de15663607420e390f4a129305eb3d530925bc4f3d6276719dd07d66e3fdd21f"
           },
           {
             "origin": [
@@ -684,7 +685,7 @@
             ],
             "path": "art/exports/compound-v1/waterStones-4x.png",
             "runtime_id": "waterStones",
-            "sha256": "92502635b9d1147e138ad11d0847facb004a1aab721e35305bc5b9c0065ec82b"
+            "sha256": "de15663607420e390f4a129305eb3d530925bc4f3d6276719dd07d66e3fdd21f"
           },
           {
             "origin": [
@@ -693,7 +694,7 @@
             ],
             "path": "art/exports/compound-v1/waterStones-4x.png",
             "runtime_id": "waterStones",
-            "sha256": "92502635b9d1147e138ad11d0847facb004a1aab721e35305bc5b9c0065ec82b"
+            "sha256": "de15663607420e390f4a129305eb3d530925bc4f3d6276719dd07d66e3fdd21f"
           },
           {
             "origin": [
@@ -702,7 +703,7 @@
             ],
             "path": "art/exports/compound-v1/waterStones-4x.png",
             "runtime_id": "waterStones",
-            "sha256": "92502635b9d1147e138ad11d0847facb004a1aab721e35305bc5b9c0065ec82b"
+            "sha256": "de15663607420e390f4a129305eb3d530925bc4f3d6276719dd07d66e3fdd21f"
           },
           {
             "origin": [
@@ -711,7 +712,7 @@
             ],
             "path": "art/exports/compound-v1/waterStones-4x.png",
             "runtime_id": "waterStones",
-            "sha256": "92502635b9d1147e138ad11d0847facb004a1aab721e35305bc5b9c0065ec82b"
+            "sha256": "de15663607420e390f4a129305eb3d530925bc4f3d6276719dd07d66e3fdd21f"
           },
           {
             "origin": [
@@ -720,16 +721,16 @@
             ],
             "path": "art/exports/compound-v1/waterStones-4x.png",
             "runtime_id": "waterStones",
-            "sha256": "92502635b9d1147e138ad11d0847facb004a1aab721e35305bc5b9c0065ec82b"
+            "sha256": "de15663607420e390f4a129305eb3d530925bc4f3d6276719dd07d66e3fdd21f"
           }
         ],
         "path": "art/review/water-stones-v1/homogeneous-parity1-4x.png",
-        "sha256": "67f4a38bb6eade00b5323d62b442a148ac825bb7335b82bd07fb975dc6a77dbf"
+        "sha256": "518e04983d473b116155cd98b388eed7a9f446a77ea52de328cad64c1c1b63c4"
       }
     ],
     "purpose": "actual saved-PNG homogeneous waterStones and compatible mixed-shore contexts",
-    "rebuild_status": "Historical fixture from the previous source set. Replaced inputs are preserved under art/review/history/2026-10-15 with their original hashes. This fixture has not been re-reviewed for the current artwork.",
-    "runtime_integration": "unimplemented",
+    "rebuild_status": "Fresh actual-PNG assembly from the DOS-inspired shore/water refresh, at both densities and line parities.",
+    "runtime_integration": "candidate pack; PULSE captures generated separately",
     "schema_version": 1
   },
   "date": "2026-10-15",
@@ -741,7 +742,7 @@
         "width": 192
       },
       "path": "art/exports/compound-v1/waterStones-2x.png",
-      "sha256": "cb6a57180629853fde92e4708eda02b08b33f136492db05dbb06c8dadced0c1f"
+      "sha256": "9842e06a964c51b6738ca04a53a281687315c4dbddc02375623807dd83fb7fe8"
     },
     {
       "build_output": "tiles/waterStones-4x.png",
@@ -750,12 +751,14 @@
         "width": 384
       },
       "path": "art/exports/compound-v1/waterStones-4x.png",
-      "sha256": "92502635b9d1147e138ad11d0847facb004a1aab721e35305bc5b9c0065ec82b"
+      "sha256": "de15663607420e390f4a129305eb3d530925bc4f3d6276719dd07d66e3fdd21f"
     }
   ],
   "generation_recipes": [
-    "art/recipes/compound/distinct-v1/water-stones-01.json"
+    "art/recipes/compound/distinct-v1/water-stones-01.json",
+    "art/recipes/terrain/shore-reference-v2/water.json"
   ],
+  "generation_recipes_scope": "Includes historical generation studies and the current pinned master records. Current source selection is established by the producing manifest and its exact SHA256 pins; historical records are unchanged.",
   "geometry": {
     "height": 80,
     "neighbors": [
@@ -841,11 +844,12 @@
   "grounds": {
     "shared": {
       "dimensions": {
-        "height": 1145,
-        "width": 1374
+        "height": 1254,
+        "width": 1254
       },
-      "source": "art/source/terrain/distinct-v1/water-open.png",
-      "source_sha256": "0b080163804881ac49bc4b3162da547abf443c9082d6e67065c119174d79b51d"
+      "retained_source": "sources/ground-shared.png",
+      "source": "art/source/terrain/shore-reference-v2/water.png",
+      "source_sha256": "007b9babe0e69db5e628352a38dae0f1502ac42513bbf4018ad3df82f76c4c31"
     }
   },
   "id": "compound-water-stones-v1",
@@ -855,9 +859,28 @@
     "Fullmaps/nativecoverage/fractionalzoom/runtimeintegration/releaseacceptance remain open."
   ],
   "manifest": "art/compound-water-stones-v1.json",
-  "manifest_sha256": "3ee61ccb30dfc029f5eec59762b50f389acc392bfac30fe8dbbf04d456c75cc5",
-  "original_image_inputs": [],
+  "manifest_sha256": "e24e62a656619d679b987b63104053534d0322404308ced56fccf43cce22c79e",
+  "original_image_inputs": [
+    {
+      "generation_recipe": "art/recipes/terrain/shore-reference-v2/water.json",
+      "path": "build/pulse-study/dos-04/PARTS/SSSEA083.png",
+      "role": "Semantic original reference only: Original DOS reference only; ignored local export, never bundled as authored artwork.",
+      "sha256": "7e2ab820355398f16de88a88095eefe260a3345f8575dd4a3ca323a91b0bec74"
+    },
+    {
+      "generation_recipe": "art/recipes/terrain/shore-reference-v2/water.json",
+      "path": "build/pulse-study/dos-04/maps/00-PARTS.png",
+      "role": "Semantic original reference only: Original DOS lake palette and shore character reference only; ignored local export.",
+      "sha256": "58952d5eb3dc629b1346225da3feaa3fb7a7781d13ad3dc2011e9e153bd4bb40"
+    }
+  ],
+  "original_image_inputs_scope": "Semantic visual references used to paint the current masters or their fixture ground. Originals remain reference-only and are not bundled as runtime PNGs; source masters are newly painted. Unit sprite planes retain their existing independent artwork provenance.",
+  "previous_acceptance": {
+    "scope": "Historical source set before the current redraw; not an approval of the current artwork.",
+    "text": "Provisional distinct illustrated waterStones candidate. Actual2x4x source/tile/parity/compatible-shore/homogeneous artreview passes. Uses exact existing shared water and stable runtime ID; no gameplay changes."
+  },
   "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; reject any sampled alpha \u003e=250 at signed distance \u003c=8 world pixels before guard; alpha zero through 4 world pixels then smoothstep 4..8. Guard full unmasked 4x artwork, then existing resizeLanczos to whole-scene 2x. Ground independently exported by exportConnectionTiles with fixed geometry and pinned shared water using the unchanged opaque base sampler, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim.",
+  "rebuild_note": "Rebuilt with DOS-inspired blue-teal water and pale stony shore inputs; user visual approval remains open. Historical generation recipes retain their original provenance.",
   "review_exports": [
     {
       "build_output": "water-stones-scene-2x.png",
@@ -866,7 +889,7 @@
         "width": 192
       },
       "path": "art/review/compound-v1/water-stones-scene-2x.png",
-      "sha256": "cb6a57180629853fde92e4708eda02b08b33f136492db05dbb06c8dadced0c1f"
+      "sha256": "9842e06a964c51b6738ca04a53a281687315c4dbddc02375623807dd83fb7fe8"
     },
     {
       "build_output": "water-stones-patch-parity0-2x.png",
@@ -875,7 +898,7 @@
         "width": 476
       },
       "path": "art/review/compound-v1/water-stones-patch-parity0-2x.png",
-      "sha256": "22608b5343b127fba37c965469a83cf7ffa7af66f615b630dec4d6a841be9d69"
+      "sha256": "03a2f33f2b2dce1240d8601235783fe4e78335ced079dee975097c160e59cb1c"
     },
     {
       "build_output": "water-stones-patch-parity1-2x.png",
@@ -884,7 +907,7 @@
         "width": 476
       },
       "path": "art/review/compound-v1/water-stones-patch-parity1-2x.png",
-      "sha256": "22608b5343b127fba37c965469a83cf7ffa7af66f615b630dec4d6a841be9d69"
+      "sha256": "03a2f33f2b2dce1240d8601235783fe4e78335ced079dee975097c160e59cb1c"
     },
     {
       "build_output": "water-stones-scene-4x.png",
@@ -893,7 +916,7 @@
         "width": 384
       },
       "path": "art/review/compound-v1/water-stones-scene-4x.png",
-      "sha256": "92502635b9d1147e138ad11d0847facb004a1aab721e35305bc5b9c0065ec82b"
+      "sha256": "de15663607420e390f4a129305eb3d530925bc4f3d6276719dd07d66e3fdd21f"
     },
     {
       "build_output": "water-stones-patch-parity0-4x.png",
@@ -902,7 +925,7 @@
         "width": 952
       },
       "path": "art/review/compound-v1/water-stones-patch-parity0-4x.png",
-      "sha256": "9e2af1e357d6cd590f9117cd458a8982f3cf14e5abf60ff14d05dec3c01e2c16"
+      "sha256": "e36c7a27fad4b807a917069fa8eebd8163e2ceaae938194bccc7d30fda786b61"
     },
     {
       "build_output": "water-stones-patch-parity1-4x.png",
@@ -911,13 +934,48 @@
         "width": 952
       },
       "path": "art/review/compound-v1/water-stones-patch-parity1-4x.png",
-      "sha256": "9e2af1e357d6cd590f9117cd458a8982f3cf14e5abf60ff14d05dec3c01e2c16"
+      "sha256": "e36c7a27fad4b807a917069fa8eebd8163e2ceaae938194bccc7d30fda786b61"
     }
   ],
   "scenes": [
     {
+      "artwork": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "water-stones-artwork-2x.png",
+          "sha256": "75a6ca1da18d8bf3a8a6570a1ff4184815228aa5881e1c65a32f3cda917c1e5a"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "water-stones-artwork-4x.png",
+          "sha256": "81100a1f3f411b0be7c30cbce434c02fa10781387d45fd0b6d898b80a93c1bda"
+        }
+      ],
+      "assembled": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "water-stones-assembled-2x.png",
+          "sha256": "9842e06a964c51b6738ca04a53a281687315c4dbddc02375623807dd83fb7fe8"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "water-stones-assembled-4x.png",
+          "sha256": "de15663607420e390f4a129305eb3d530925bc4f3d6276719dd07d66e3fdd21f"
+        }
+      ],
       "entry_cell": "",
-      "generation_recipe": "art/recipes/compound/distinct-v1/water-stones-01.json",
       "guard": {
         "boundary_alpha_mass": 8,
         "boundary_pixels": 8,
@@ -934,12 +992,221 @@
           "height": 1145,
           "width": 1374
         },
+        "retained_source": "sources/water-stones.png",
         "source": "art/source/compound/distinct-v1/water-stones.png",
         "source_sha256": "877ff2eceb8644bfe89eecc64994cebfe9335641c640459afa63f3faca39490b"
       },
       "inset": 0.85,
       "layout": "water-stones",
+      "parity_outputs": [
+        {
+          "canvas_origin": [
+            -71,
+            -80
+          ],
+          "cells": [
+            {
+              "compound": false,
+              "origin": [
+                0,
+                -80
+              ],
+              "runtime_id": "water",
+              "season": "shared"
+            },
+            {
+              "compound": false,
+              "origin": [
+                -71,
+                -40
+              ],
+              "runtime_id": "water",
+              "season": "shared"
+            },
+            {
+              "compound": false,
+              "origin": [
+                71,
+                -40
+              ],
+              "runtime_id": "water",
+              "season": "shared"
+            },
+            {
+              "compound": true,
+              "origin": [
+                0,
+                0
+              ],
+              "runtime_id": "waterStones",
+              "season": "shared"
+            },
+            {
+              "compound": false,
+              "origin": [
+                -71,
+                40
+              ],
+              "runtime_id": "water",
+              "season": "shared"
+            },
+            {
+              "compound": false,
+              "origin": [
+                71,
+                40
+              ],
+              "runtime_id": "water",
+              "season": "shared"
+            },
+            {
+              "compound": false,
+              "origin": [
+                0,
+                80
+              ],
+              "runtime_id": "water",
+              "season": "shared"
+            }
+          ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 480,
+                "width": 476
+              },
+              "path": "art/review/compound-v1/water-stones-patch-parity0-2x.png",
+              "sha256": "03a2f33f2b2dce1240d8601235783fe4e78335ced079dee975097c160e59cb1c"
+            },
+            {
+              "dimensions": {
+                "height": 960,
+                "width": 952
+              },
+              "path": "art/review/compound-v1/water-stones-patch-parity0-4x.png",
+              "sha256": "e36c7a27fad4b807a917069fa8eebd8163e2ceaae938194bccc7d30fda786b61"
+            }
+          ],
+          "parity": 0,
+          "scene_origin": [
+            0,
+            0
+          ]
+        },
+        {
+          "canvas_origin": [
+            0,
+            -40
+          ],
+          "cells": [
+            {
+              "compound": false,
+              "origin": [
+                71,
+                -40
+              ],
+              "runtime_id": "water",
+              "season": "shared"
+            },
+            {
+              "compound": false,
+              "origin": [
+                0,
+                0
+              ],
+              "runtime_id": "water",
+              "season": "shared"
+            },
+            {
+              "compound": false,
+              "origin": [
+                142,
+                0
+              ],
+              "runtime_id": "water",
+              "season": "shared"
+            },
+            {
+              "compound": true,
+              "origin": [
+                71,
+                40
+              ],
+              "runtime_id": "waterStones",
+              "season": "shared"
+            },
+            {
+              "compound": false,
+              "origin": [
+                0,
+                80
+              ],
+              "runtime_id": "water",
+              "season": "shared"
+            },
+            {
+              "compound": false,
+              "origin": [
+                142,
+                80
+              ],
+              "runtime_id": "water",
+              "season": "shared"
+            },
+            {
+              "compound": false,
+              "origin": [
+                71,
+                120
+              ],
+              "runtime_id": "water",
+              "season": "shared"
+            }
+          ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 480,
+                "width": 476
+              },
+              "path": "art/review/compound-v1/water-stones-patch-parity1-2x.png",
+              "sha256": "03a2f33f2b2dce1240d8601235783fe4e78335ced079dee975097c160e59cb1c"
+            },
+            {
+              "dimensions": {
+                "height": 960,
+                "width": 952
+              },
+              "path": "art/review/compound-v1/water-stones-patch-parity1-4x.png",
+              "sha256": "e36c7a27fad4b807a917069fa8eebd8163e2ceaae938194bccc7d30fda786b61"
+            }
+          ],
+          "parity": 1,
+          "scene_origin": [
+            71,
+            40
+          ]
+        }
+      ],
       "profile": "compound-v1: pre-allocation resource budget \u003c=4,000,000 conservative full-support axis taps: (scene_width_4x+scene_height_4x) * (ceil(6*max(1,1/(4*uniform_scale)))+1), including out-of-source normalization work; \u003c=32,000,000 retained weight bytes plus \u003c=32,000,000 temporary kernel bytes; reject before weights allocate. Uniform whole-source pixel-edge affine to full 4x scene; transparent extension; separable antialiased premultiplied byte-RGB Lanczos3, signed lobes, source-space radius widened by reduction, output-only rounding and existing alpha/color clamp policy. Outer union boundary formed by reciprocal edge cancellation; reject any sampled alpha \u003e=250 at signed distance \u003c=8 world pixels before guard; alpha zero through 4 world pixels then smoothstep 4..8. Guard full unmasked 4x artwork, then existing resizeLanczos to whole-scene 2x. Ground independently exported by exportConnectionTiles with fixed geometry and pinned shared water using the unchanged opaque base sampler, PNG decoded and assembled at exact tile origins; never sampled at scene origin. Compose artwork globally over actual ground PNG assembly, mask union only at final pixels; crop without filtering, final complementary top-left half-open ownership. Decode tile PNG bytes and reassemble ordinary image.Draw Over. Both runtime line parities use actual PNGs, ground first, compound second. Pixel-aligned 2x/4x only; no runtime/whole-map/user acceptance claim.",
+      "reference": [
+        {
+          "dimensions": {
+            "height": 160,
+            "width": 192
+          },
+          "path": "art/review/compound-v1/water-stones-scene-2x.png",
+          "sha256": "9842e06a964c51b6738ca04a53a281687315c4dbddc02375623807dd83fb7fe8"
+        },
+        {
+          "dimensions": {
+            "height": 320,
+            "width": 384
+          },
+          "path": "art/review/compound-v1/water-stones-scene-4x.png",
+          "sha256": "de15663607420e390f4a129305eb3d530925bc4f3d6276719dd07d66e3fdd21f"
+        }
+      ],
       "season": "shared",
       "tiles": [
         {
@@ -947,6 +1214,24 @@
           "origin": [
             0,
             0
+          ],
+          "outputs": [
+            {
+              "dimensions": {
+                "height": 160,
+                "width": 192
+              },
+              "path": "art/exports/compound-v1/waterStones-2x.png",
+              "sha256": "9842e06a964c51b6738ca04a53a281687315c4dbddc02375623807dd83fb7fe8"
+            },
+            {
+              "dimensions": {
+                "height": 320,
+                "width": 384
+              },
+              "path": "art/exports/compound-v1/waterStones-4x.png",
+              "sha256": "de15663607420e390f4a129305eb3d530925bc4f3d6276719dd07d66e3fdd21f"
+            }
           ],
           "runtime_id": "waterStones"
         }

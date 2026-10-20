@@ -3,7 +3,7 @@
   "concealment_policy": "Never-seen cells use only the same opaque unseen PNG, independent of underlying terrain, units, routes, structures and season; no terrain hints or transparency-to-terrain. Seasonal grass/grass_w PNGs are visible frontier neighbors only. No runtime IDs inferred or invented.",
   "concealment_previews": {
     "policy": "New opaque unseen overwrites backgrounds and routes of four declared hidden cells; route approaches at the visibility frontier are intentionally concealed. This is an offline graphics proof; runtime integration remains open.",
-    "rebuild_status": "Historical fixture from the previous source set. Replaced inputs are preserved under art/review/history/2026-10-15 with their original hashes. This fixture has not been re-reviewed for the current artwork.",
+    "rebuild_status": "Historical fixture from the previous source set. Replaced inputs are preserved under art/review/history/2026-10-20 with their original hashes. This fixture has not been re-reviewed for the current artwork.",
     "scenes": [
       {
         "canvas_world_origin": [
@@ -300,7 +300,7 @@
             "sha256": "d7ba80462427189ec63d22fbca5fc65aea6f2baade783edcd93745a0446382e8"
           },
           {
-            "path": "art/exports/connected-v1/stream36-2x.png",
+            "path": "art/review/history/2026-10-20/exports/connected-v1/stream36-2x.png",
             "sha256": "15337328d617f59960583b31c3eaae75efe8231121f11a018ae160e4c426ba15"
           }
         ],
@@ -406,7 +406,7 @@
             "sha256": "5656c05342975e0f4b03c2471697b213a6a46e16b39587683dcd0002c29dd595"
           },
           {
-            "path": "art/exports/connected-v1/stream36-4x.png",
+            "path": "art/review/history/2026-10-20/exports/connected-v1/stream36-4x.png",
             "sha256": "97b44320be3987104aa7780976b55e72fce915a7f33c85d4f73befad3cd65746"
           }
         ],

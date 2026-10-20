@@ -54,12 +54,15 @@ adds whole broadleaf/conifer crowns at shared seasonal positions, with reviewed
 continuous forest and hamlet-clearing patches. See its [context contract](forest-material-contexts.md)
 for isolated defaults, neighbor profiles and runtime-selection limits.
 The [water-stones gallery](water-stones-review.html) adds a new transparent outcrop
-scene over unchanged shared water, including mixed-shore and repeated-rock contexts.
+scene over shared water, including mixed-shore and repeated-rock contexts.
 The [hills gallery](hills-review.html) adds continuous height-derived relief and
 all 32 isolated phases. All 134 enabled tile bindings now have built candidates;
 native-resource coverage, other graphics and runtime acceptance remain open.
 Nine new shore profiles and a shared polygon water base are also delivered;
 see the [shore gallery](shoreline-review.html) and [topology contract](shoreline-topology.md).
+The [DOS-inspired refresh](shore-reference-v2.md) updates all nine at 2×/4×
+with pale rough banks, dark wet edges and muted teal water. Rivers, bridges and
+rocky-water ground use the same new water master.
 Reviews for [roads/streams](connected-family-batch-01.md), [paths/seasons](distinct-terrain-batch-04.md),
 [rail/materials](distinct-terrain-batch-05.md), [trenches](distinct-terrain-batch-06.md)
 and [bridges/crossings](distinct-terrain-batch-07.md), plus [depot scenes](distinct-terrain-batch-08.md)

@@ -36,6 +36,9 @@ building IDs now have provisional candidates from five whole-scene masters.
 The [shore review](distinct-terrain-batch-11.md) adds explicit corner profiles,
 reciprocal mixed-edge banks and polygon-built water. Independent art review prompted
 smooth-coast repairs; the repaired candidates pass provisionally.
+The [DOS-inspired shore refresh](shore-reference-v2.md) now supplies all nine
+variants with pale stony banks and matching muted teal water at 2×/4×; the
+runtime IDs, corner profiles and binding paths remain the same.
 The [mountain review](distinct-terrain-batch-12.md) adds eight seasonal quarters
 and promotes the two standalone bindings from source-only to polygon-built.
 Overhead camera repair passes independent review; repeated radial motifs and

@@ -2,15 +2,15 @@
   "manifests": [
     {
       "source": "connected-terrain-v1.json",
-      "source_sha256": "6e661ba910a2ed356a1cc6895d6a6f752d5d6f6ee46f051ce86caabd1c7a1160"
+      "source_sha256": "a895fff966a9363b4c0948e5df11d148a7c82d656f982351992d590c39e8e5b3"
     },
     {
       "source": "connected-paths-v1.json",
-      "source_sha256": "b07ad428e2bae2d656528e9cc7127da62c00ca78f452c55eda483468e54db2a3"
+      "source_sha256": "b38685c96efe6f5d40116b064941b3b38e94e613dc9bade0725f524f3470a5f9"
     },
     {
       "source": "connected-rail-v1.json",
-      "source_sha256": "9601e172f85d713188f810af1e04ce4bfc1fd8b70f2b690dc96b35f3e5b0107c"
+      "source_sha256": "c67f0ef522ed668d0455cf579fe794efcf18c51f53c9153e2b7a2c54f5b7b8c1"
     }
   ],
   "schema_version": 1,
