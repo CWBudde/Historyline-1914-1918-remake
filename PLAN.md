@@ -1266,6 +1266,34 @@ The completed compatibility work below remains useful and stays completed.
       Establish what the phases are and who acts in each. Attacks resolve on the attacking
       side's view, so a target that moved away during the phase is still fought where it
       was seen.
+      (2026-10-20) — partial. These parts are executed on both builds and agree with their
+      transcriptions:
+      - Attack resolution. `Export.RunOrders` runs the handler over whole order lists, and
+        `ResolveOrders` agrees on 912 lists per build (`TestOrdersCoverage`). Only the action
+        side's list resolves, in the order given, with no alive check. The destroy helper
+        `02dc:2083` takes a destroyed unit off the attacking side's map at once, so a later
+        order on it is skipped and a destroyed attacker no longer supports. A surviving
+        target is fought again, so list order changes the result.
+      - The attack order `0ad1:000c` (`EnterAttack`). It needs the side's target bit. Only
+        attacks enter the list, depot and sapper orders don't, and it doesn't check the move
+        limit.
+      - The cancel `10cc:0001` (`Cancel`). A cancelled exit puts the unit back into the slot
+        it left (`TestEntryCoverage`).
+
+      Specified statically in `original-dos-rules.md` (*Command cycle*):
+      - phase 1 moves and phase 2 attacks, both sides at once;
+      - the ready/F1 block `0661:3b81–4129`;
+      - eligibility (`0ca0:0f59`) and the move limit (`0ca0:1757`, `0661:3349`).
+
+      Competing destinations and swaps can't occur: one unit moves at a time, on its own
+      side's map. This is derived from the R2 step runs.
+
+      Correction: `4d29`/`4d40` bit 2 marks a computer side, and readiness is `+0x17` = 5.
+
+      Remaining:
+      - run the ready block and the menu checks through a harness that enters `0661`
+        mid-function;
+      - `orders.json` fixtures and their resolver, which go with the next item.
 - [ ] Add explicit profile, cycle, player readiness, pending-order and resolution state.
       Separate order validation/queuing from execution; resolve using the verified R1/R2 rules
       and emit ordered events for the UI, AI and replays. No game state advances with animation.

@@ -206,3 +206,14 @@ and type records by field, writing instruction and direction, and checks that:
 
 It needs the export but records no fixture: what it shows is an absence. The static side of
 the census is in `docs/research/original-dos-rules.md` (*Ammo, fuel and resupply*).
+
+The command cycle (R3) has two more runners. `Export.RunOrders` runs the order handler over a
+whole list of attack orders (`OrderList`) to the end of its loop, with the destroy helper in
+place; the destruction animation between two orders is skipped. `ResolveOrders` chains the
+engagement model order by order, and `TestOrdersCoverage` compares them on two attackers on one
+target in both list orders, a supporter that dies first and random lists. `Export.RunAttackOrder`
+and `Export.RunCancel` run the attack order `0ad1:000c` and the cancel `10cc:0001` (after a
+planned move or after the exit branch) and return the state (`Desk`) before and after the call;
+`EnterAttack` and `Cancel` transcribe them, and `TestEntryCoverage` compares them. None records a
+fixture yet (R3 item 2). The ready and confirmation block of the main loop and the menu checks
+are read statically (`docs/research/original-dos-rules.md`, *Command cycle*).

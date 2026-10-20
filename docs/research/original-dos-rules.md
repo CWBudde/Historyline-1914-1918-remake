@@ -55,7 +55,7 @@ instruction boundaries and avoid truncating functions at overlapping segment sta
 
 | Rule | Evidence | Implication for the remake |
 |---|---|---|
-| Separate movement and action order cycles | [Manual orders](../manual/instructions/orders.typ), especially Moving the Units and Change of Mode; `02dc:0004` processes stored unit orders | An alternating immediate move/attack turn is insufficient for fidelity. Full resolution order remains to be traced. |
+| Separate movement and action order cycles | [Manual orders](../manual/instructions/orders.typ), especially Moving the Units and Change of Mode; `02dc:0004` processes stored unit orders | An alternating immediate move/attack turn is insufficient for fidelity. Both sides plan at once; moves execute during the movement cycle, attacks at the phase change in the order given (*Command cycle*). |
 | Experience caps at **6** | `02dc:0a61–0abb` adds combat gains and clamps both participants to six | The reference's rank cap of ten does not match this build. |
 | Group size is unit-specific | `15a4:0071–0078` copies type byte 3 into live unit byte 2; unit information reads the same type byte | Most groups have six members; some bombers and bunkers have three. |
 | Combat selects power by target domain | `2466:01c2–0217`, `032d–035e` selects air, water or ground power using live target flags | There are three power values, not one interchangeable attack rating. |
@@ -182,6 +182,10 @@ them. The rest moved; each address was located by instruction structure:
 | `32f7:3b62`, `17fb`, `1817`, `17b6`, `4d48`, `4cb0`, `1819`, `311e` | `32e2:3b50`, `17e9`, `1805`, `17a4`, `4d36`, `4c9e`, `1807`, `310c` | reach bits, result count, action record, current map, side records, animation flags, saved occupants, container records |
 | `32f7:38c6`, `38fe`, `3a16` | `32e2:38b4`, `38ec`, `3a04` | building tables (terrain flags 0x40, 0x100, 0x400) |
 | `02dc:1a09–1cc6`, `0e47:1d90`, `0ca6:020a` | `02dc:1a09–1cc6`, `0e40:1d9d`, `0ca0:020c` | phase change, map copy, side test |
+| `02dc:0117`, `0d3d`, `2083` | same | order loop head, loop test, destroy helper |
+| `0ad0:000d`, `10d2:0004`, `0ca6:044a`, `0e47:1dd0`, `0ca6:0277` | `0ad1:000c`, `10cc:0001`, `0ca0:044c`, `0e40:1ddd`, `0ca0:0279` | attack order, cancel, order-record copy, flag setter, timer scheduler |
+| `32f7:4c9a`, `4cb2`, `4cb6`, `4d69` | `32e2:4c88`, `4ca0`, `4ca4`, `4d57` | depot terrain index, menu wait word, depots under way, saved order record |
+| `0660:3b88–4130` (handler call `3d02`) | `0661:3b81–4129` (`3cfb`) | ready and confirmation block (static) |
 | `32f7:4d9a`, `4ca6`, `4cbd` | `32e2:4d88`, `4c94`, `4cab` | per-side records, map size, turn counter |
 
 (2026-10-20) The full build's handler, movement and phase-change addresses were located by
@@ -327,8 +331,8 @@ cases and 16,487 routes (`TestMovementCoverage`). What the runs show:
 
 The player's move runs in three routines of `10cc`, after a fresh reach search
 (`0ca0:0a6f`). None of them draws: they leave the drawing to `0e40:145c` (one cell),
-`0e40:1219` and `0e40:0f38`, the sound to `0ca0:0279` and the status message to
-`109a:0001`.
+`0e40:1219` and `0e40:0f38`, the timers to `0ca0:0279` (a scheduler of 15 timer slots,
+earlier mislabelled as sound) and the status message to `109a:0001`.
 
 - **Order, `10cc:02dd`** (called at `0ca0:07d0`). It refuses the order (0x12) when:
   - the destination has no reach bit for the side;
@@ -488,8 +492,9 @@ Still open:
 - who fills a building record's `+0x19` classes and `+0x1b` (the level loader). A transporter's
   are set when the constructor allocates its record (`159e:04af`): `+0x19` = the side bits |
   0x20 | type bytes 19–20, and `+0x1b` = the transporter's index;
-- what a refused or cancelled exit does with the unit, which stands on the map outside its slot
-  by then;
+- what a refused or cancelled exit does with the unit, which stands on the map outside its
+  slot by then: answered in *Command cycle* (a refused exit waits for a new goal or a cancel,
+  and a cancel puts the unit back into the slot it left);
 - the names of the three building tables (R2 item 1);
 - capture of a foreign building (R4).
 
@@ -576,8 +581,9 @@ The model, which ignores `Moved`, agrees on every one.
 `TestVisibilityFixtures` replays them in CI.
 
 Still open:
-- **R3:** what the phases are and who acts in each. The main loop calls the handler at
-  `0661:3cfb` when order `+0x17` is 5 and both ready flags (`32e2:4d29`/`4d40` bit 2) are set.
+- **R3:** what the phases are and who acts in each is answered in *Command cycle*: the main
+  loop calls the handler at `0661:3cfb` when both player records have `+0x17` = 5 (ready);
+  `32e2:4d29`/`4d40` bit 2 marks a computer side, not readiness.
 - **R4:** the per-unit work before the window (`02dc:0e91–19a1`) and after it (`1cc6` on: flags
   `&0xf0ff`, the moved bit for type `+0x0f` bit 1, live `+6` bit 0x8000).
 - **Full build:** whether the full `HL.EXE` adds sight.
@@ -671,6 +677,93 @@ Still open:
 - **R4:** execute repair, the builder charges and the regrowth branch, and find whether anything
   sets live `+6` bit 0x8000 (a level or save file, or the full build).
 - **Full build:** whether the full `HL.EXE` adds ammo or fuel.
+
+## Command cycle (R3)
+
+Both sides plan at the same time; there is no turn order. Each side's player record
+(`32e2:4d88 + 0x31·side`) holds its phase in `+0x16`: 1 is the **movement** cycle, 2 the
+**action** cycle. Side 0 starts in 1 and side 1 in 2 (`0661:0bb2`), and each phase change swaps
+them (*Visibility*). Demo addresses; the full build's follow the table above (the main loop is
+`0660`, `+7` around the cycle block).
+
+What was executed (both builds, `TestOrdersCoverage`, `TestEntryCoverage`):
+- **Resolution at the phase change.** The order handler resolves only the action side's list
+  (`32e2:4d3a`, count `4d3e`, `+0x17·side`), in **list order**, which is the order the attacks
+  were given (`02dc:0117–0d55`). The movement side's list is not read. `Export.RunOrders` runs
+  the whole loop with the destroy helper in place and stops at its end (`0d58`). After each
+  battle it skips the destruction animation (`0abf–0d3d`: drawing and a frame wait that, read
+  statically, ends by rewriting the map bytes the destroy helper left). `ResolveOrders` chains
+  `Engage` order by order and agrees on 912 lists per build (two attackers on one target in
+  both orders, every size; a supporter that dies first; 300 random lists of two to five
+  attackers with moved views and a list for the other side):
+  - There is **no alive check**. An order is skipped only when its target cell of the
+    attacking side's map holds no unit byte (above 0xf0).
+  - The **destroy helper** (`02dc:2083`), called for every unit the experience window
+    destroys, writes 0xff over the unit's cell of the attacking side's map (statically also
+    the other cell of a two-cell ship, which the runs leave out) and sets bit 4 of its live
+    `+0x14`; the record keeps its cell and strength. So a target destroyed by an earlier order
+    is no longer there and its later orders are skipped (about 290 orders per build), and an
+    attacker killed by return fire no longer blocks or supports the orders after it (about 95
+    orders).
+  - A target that survives is fought again at its reduced strength, so the **order of the
+    list changes the result** (210 of 288 reversed pairs).
+  - Units are marked 0x8000 only in the handler's tail (the phase change).
+- **The attack order, `0ad1:000c`** (`Export.RunAttackOrder`, transcribed by `EnterAttack`,
+  384 cases). It takes the player's order record, the side's map and the side:
+  - The kind comes from the unit's live `+6`: 0x4000 a depot builder, else 0x2000 a sapper,
+    else an attack, which needs a unit byte in the cursor's cell (message 0x45 if not).
+  - Every kind needs the side's **target bit** in that cell's bit-array byte (0x04, 0x08 for
+    side 1); the other side's bit does not count (0x45).
+  - Accepted orders set the moved flag at once (live `+4` 0x200 and the bit-array bit
+    0x10/0x20, `0e40:1ddd`) and live `+0x11` to the target. An attack gets `+0x13` = 9,
+    `+0x14` = 2, is appended to the order list and shows 0x49. A depot builder gets `+0x13` =
+    0x0d on depot terrain (the cell's terrain index equals `32e2:4c88`), refused with 0x47 when
+    10 depots are under way (`4ca4`), else 0x0b; a sapper gets 0x11 (message 0x6e, 0x46 for
+    depots). **Only attacks enter the list.**
+  - The routine does not compare the count with the move limit.
+- **The cancel, `10cc:0001`** (`Export.RunCancel`, transcribed by `Cancel`, 28 cases). The
+  menu calls it with 0x10 when the fire button is pressed again while a refused order's wait
+  runs (`0ca0:0a0e`):
+  - It clears the side's reach bits, and with 0x10 the selection bits (0x40/0x80) and the
+    unit's live `+4` 0x100, sets the menu back to the map cursor and `4ca0` = 1.
+  - A **cancelled exit** puts everything back: 0xf4 in the cell where the unit was placed, the
+    unit's position word set to the record's first cell, the transporter's index on its cell,
+    the order record restored from the copy the exit branch saved (`0661:2f9d` →
+    `0ca0:044c`, `32e2:4d57`), and the unit written back into the slot it left; the menu
+    returns to the inventory. A building record's first cell is the even map offset, so the
+    unit's position word is left even (`2·cell`) until it leaves again.
+  - Once an order is recorded, nothing withdraws it.
+
+Read statically, not executed (the main loop and the menu are interactive):
+
+- **Ready and confirmation, `0661:3b81–4129`** (full `0660:3b88–4130`). The double-arrow symbol
+  sets the record's `+0x17` = 5 (`0ca0:16b6`), offered unless a move animates. Each frame, for
+  a side with `+0x17` = 5: the fire button cancels it (`+0x17..0x19` = 0, `+0x1b` = 5, message
+  0x34); while the other side is not at 5, messages 0x32/0x33 show; when both are, F1 or two
+  computer sides call the handler (`3cfb`); 'D' saves. `32e2:4d29`/`4d40` bit 2 marks a
+  **computer side**, not readiness.
+- **Eligibility, `0ca0:0f59–0fb2`.** The cursor's cell must hold one of the side's own units
+  (`0ca0:020c`) whose live `+4` has neither 2 (neutral) nor 0x200 (moved). In phase 1 the menu
+  offers the move symbol (not while a move animates), in phase 2 the fist. A move sets 0x200
+  on arrival, while `4c9e` 0x80 blocks every other move of both sides until then; an attack
+  sets it when given. The phase change clears 0x200 for every unit.
+- **Move limit.** The option (4, 8 or 16, else 0xff) is the side's `4d3f`/`4d56`. The menu
+  (`0ca0:1757`) and the inventory exit (`0661:3349`) refuse with 0x53 when the count `4d3e`
+  has reached it, for human sides only. Moves, exits and attacks count; depot and sapper orders
+  do not. The count is reset at each phase change.
+- **The computer player** produces the same input bits (`1c2b:0005`, called at `0661:10a2`)
+  and goes through the same menu, routines, lists and handler.
+
+Derived from the executed R2 runs: during the movement cycle one unit moves at a time, only on
+its own side's map, and the action side does not move. Two moves therefore never compete for a
+cell or swap in one phase: a destination is checked when the order is given, against the
+side's own map. A unit of the other side that its map does not show is walked over or ended on
+(*Move execution*); the two views meet only at the next phase change (*Visibility*).
+
+Still open:
+- execute the cycle block and the menu checks (a harness entering `0661` mid-function);
+- `orders.json` fixtures and a `dosrules` resolver for order lists (R3 item 2);
+- the per-unit work `02dc:0e62–19a1` after the loop (R4).
 
 ## Combat arithmetic
 
@@ -785,10 +878,12 @@ screen's drawing, animations or order scheduling, has not been excluded.
    them finds no ammo and no fuel (*Ammo, fuel and resupply*). A transporter's record gets its
    classes from type bytes 19–20 when the constructor allocates it (`159e:055f`). Both builds
    execute them alike, the full build on its winter table too. Still open: who fills the
-   building records, a cancelled exit, and which season a map is played in.
-4. Finish the order scheduler and capture/production/construction paths. Establish
-   cycle ordering, simultaneous-order conflicts, energy credit timing, repair timing,
-   ownership transfer, map availability and victory checks.
+   building records and which season a map is played in.
+4. Finish the order scheduler and capture/production/construction paths. The cycle order,
+   the attack order, the cancel and the resolution of an order list are executed on both
+   builds (*Command cycle*); the ready/confirmation block and the menu checks are read
+   statically. Still open: executing those, energy credit timing, repair timing, ownership
+   transfer, map availability and victory checks.
 5. Add an explicitly named original-DOS rules mode and regression fixtures only after
    those checks. Keep existing Python parity fixtures identified as Python behavior.
 
