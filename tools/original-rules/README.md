@@ -85,7 +85,9 @@ The movement, route, container and visibility models are not written apart: they
 below compare that one implementation with the executed routines. Their record-level functions
 return the original records for that comparison. `board.go` reads them into typed values for
 the command cycle: `Live` and `Hold` records, and `Profile.Destinations`, `Route`, `EndCheck`,
-`Move`, `Exit` and `ChangePhase`. `TestTyped*` checks those against every recorded fixture.
+`Move`, `Exit` and `ChangePhase`. `TestTyped*` checks those against every recorded fixture. The R2 gate `TestMovementGate` checks the
+recorded movement, move and container expectations against the rules the spec states (costs, zone
+of control, domains, container limits, exits, no consumables), like `TestGate` for R1.
 
 ```sh
 go test ./internal/dos8086 ./internal/dosoracle -v

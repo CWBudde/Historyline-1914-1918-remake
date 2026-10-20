@@ -1220,8 +1220,34 @@ The completed compatibility work below remains useful and stays completed.
       distance weight dropped, the weight limit skipped, the other side's view sync skipped.
       `internal/hexgrid` is not reused: it is Python's layout, and the DOS map's odd columns
       sit half a cell lower. Classic/Standard and `internal/game` are unchanged.
-- [ ] **Gate:** original movement endpoints/costs, domain restrictions, container limits and
+- [x] **Gate:** original movement endpoints/costs, domain restrictions, container limits and
       exits match recorded fixtures; unsupported mechanics are not enabled as original rules.
+      (2026-10-20) — `dosrules` `TestMovementGate` runs on both builds. Like R1's `TestGate`, it
+      checks the recorded expectations against the rules the spec states, not the resolver's
+      results:
+      - **Costs** (*Raw budget vs 2 × speed*): each neighbour keeps budget − terrain byte 3 (the
+        season's table), byte 4 for air units, 2 for the flat-cost flag, or 80 when closed. The
+        budget is type byte 0, which is 2 × speed in only 70 of 330 terrain cases (demo; full build with winter
+        96 of 473). A budget of 128 or more reaches nothing.
+      - **Endpoints** (*Zone of control*): destinations are reached, not the own cell and not
+        occupied. A cell next to an enemy is entered with 0 left (258 cases). Own units are
+        passed, and an unseen unit's cell is a destination.
+      - **Domain:** closed terrain only from budget 80. Outside the mask, or air on flag 0x4000,
+        is never a destination.
+      - **Containers:** 0x3a (no shared class, moved) and 0x3b (seven slots, over capacity), and
+        loads into the first free slot. Buildings refuse only with 0x3b.
+      - **Exits:** the reach starts from budget 4 or 8, never from live byte 0.
+      - **Unsupported mechanics:**
+        - no move, load or exit changes live bytes 0–3 (no fuel, ammo or resupply);
+        - slots empty only by an exit or a hand-over;
+        - the profile's code imports only the standard library;
+        - `Live` is exactly the 26 original bytes;
+        - a dry path search and a one-row map stay `ErrUndefined`.
+
+      Mutations that each fail their own clause: a remaining budget on a one-terrain map, a
+      loaded unit moved to another slot (a slot count of 8 cannot be written, since a side has
+      seven slot bytes), a refusal recorded as a load, an exit budget of 7, live byte 0 changed
+      after a move, and an `internal/data` import in `profile.go`.
 
 #### R3 — Implement the command cycle scheduler
 
