@@ -180,8 +180,8 @@ The DOS views are static ground reconstructions without units, UI, ownership or
 runtime palette changes. The native view uses the 24×24 hex-mask lattice; the
 aligned view rescales the complete original lattice with nearest neighbour
 sampling to align cell centres, so its pixel aspect changes for comparison.
-Original hex outlines still differ from the remake's. The native view remains
-available to inspect the original proportions. The aligned view omits
+Original hex outlines still differ from the remake's. The native view is displayed with the original 24×20 hex aspect (height × 5/6,
+display only; PNG pixels are unchanged). The aligned view omits
 cells outside the remake grid and clips its outer edge; remaining original forbidden
 border cells stay visible, including the lower boundary changed in the remake.
 Neither view is an executed DOS game screenshot. Current terrain/infrastructure is

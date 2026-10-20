@@ -405,7 +405,7 @@ func (c *collector) pulseNative(s *pulseStudy, dir string) error {
 		return err
 	}
 	s.Native = &p
-	s.NativeNote = "Amiga MAP/00.FIN: seven northern HQ pieces match PULSE under line=2*row+column%2, col=column/2. Native 24x24 ground, PARTS / palette 00; original forbidden border retained. Static ground reconstruction: units, UI and state omitted; physical pixel aspect uncorrected. Different geometry: no pixel-aligned wipe against the remake."
+	s.NativeNote = "Amiga MAP/00.FIN: seven northern HQ pieces match PULSE under line=2*row+column%2, col=column/2. Native 24x24 ground, PARTS / palette 00; original forbidden border retained. Static ground reconstruction: units, UI and state omitted; shown with the 24×20 hex aspect (height × 5/6) in the page; PNG pixels unchanged. Different geometry: no pixel-aligned wipe against the remake."
 	return nil
 }
 

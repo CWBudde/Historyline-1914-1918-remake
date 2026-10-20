@@ -32,8 +32,8 @@ function renderMaps(){
  $('region-note').textContent=($('region').value==='full'?'Entire PULSE map':'Matched normalized crop: y='+top+'…'+(top+height))+' · '+study.width+' × '+study.height+' comparison pixels · '+p.width+' × '+p.height+' current source pixels. The native panel always shows the complete ground map; the aligned DOS panel changes geometry, not artwork.';
  if($('native').value!=='hide'){
   const dos=$('native').value==='dos',pic=dos?study.dos_native:study.native,name=dos?'DOS':'Amiga';const f=plane('Original '+name+' · native ground reconstruction');f.classList.add('native');
-  if(pic){const a=document.createElement('a');a.href=pic.url;a.target='_blank';a.rel='noopener';const im=new Image();im.src=pic.url;im.alt='Original '+name+' MAP/00 ground reconstruction';im.className='pixel';a.append(im);f.append(a);}
-  const note=document.createElement('p');note.textContent=pic?pic.width+' × '+pic.height+' native pixels · ground only · original aspect':dos?study.dos_note:study.native_note;f.append(note);$('map-stage').append(f);
+  if(pic){const a=document.createElement('a');a.href=pic.url;a.target='_blank';a.rel='noopener';const im=new Image();im.src=pic.url;im.alt='Original '+name+' MAP/00 ground reconstruction';im.className='pixel';im.style.aspectRatio=pic.width+' / '+(pic.height*5/6);a.append(im);f.append(a);}
+  const note=document.createElement('p');note.textContent=pic?pic.width+' × '+pic.height+' native pixels shown at 24×20 hex aspect (height × 5/6, display only) · ground only':dos?study.dos_note:study.native_note;f.append(note);$('map-stage').append(f);
  }
  if(mode==='side'){const f=plane('Original DOS ground · normalized to remake geometry');if(ref){const b=crop(ref,top,height,z);b.classList.add('pixel');f.append(b);}else{const b=document.createElement('p');b.className='empty';b.textContent=study.dos_note;f.style.maxWidth='360px';f.append(b);}$('map-stage').append(f);}
  const f=plane(mode==='wipe'?'Original DOS / current · normalized geometry':'Current artwork · '+density+'× source · '+($('layers').value==='ground'?'terrain/infrastructure':'with current units'));const b=crop(mode==='wipe'?ref:p,top,height,z);
