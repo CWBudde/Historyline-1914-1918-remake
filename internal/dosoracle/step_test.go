@@ -154,7 +154,9 @@ func stepCases(tab *MoveTables) []stepCase {
 
 	// A reach bit left on a cell the search cannot reach: the path search
 	// runs dry. An infantry unit and the stale cell on two islands of open
-	// terrain in deep water.
+	// terrain in deep water. A dry search reads the data behind the reach-bit
+	// array (ErrUndefined): the demo image then refuses with 0x48, the full
+	// one walks to the goal, so no outcome is required of it.
 	g = uniform(tab, uInfantry, tDeep, 9, 9)
 	g.Terrain[40], g.Terrain[0] = tOpen, tOpen
 	cs = append(cs, stepCase{"order", "stale reach bit", g, MoveOrder{Goal: 0, Retarget: -1, Stale: []int{0}}})
@@ -220,8 +222,8 @@ func stepCoverage(t *testing.T, e *Export) {
 		t.Logf("%s: %d", k, seen[k])
 	}
 	for _, k := range []string{"moved", "through a zone of control", "over the budget", "passed an own unit",
-		"passed a hidden unit", "ended on a hidden unit", "refused", "retargeted", "refused with message 0x48",
-		"refused with message 0x39", "two-cell ship", "transporter"} {
+		"passed a hidden unit", "ended on a hidden unit", "refused", "retargeted", "refused with message 0x39",
+		"two-cell ship", "transporter"} {
 		if seen[k] == 0 {
 			t.Errorf("no case showed %q", k)
 		}

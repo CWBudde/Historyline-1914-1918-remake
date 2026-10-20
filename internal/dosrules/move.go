@@ -46,7 +46,23 @@ type MoveTerrain struct {
 // MoveTables are a build's type and terrain records.
 type MoveTables struct {
 	Types    []MoveType    `json:"types"`
-	Terrains []MoveTerrain `json:"terrains"`
+	Terrains []MoveTerrain `json:"terrains"` // the summer table (WW1GNDS.DAT)
+	// Winter is the winter table (WW1GNDW.DAT) where the build has one. In
+	// the full build it differs from the summer table in the cost only.
+	Winter []MoveTerrain `json:"winter,omitempty"`
+}
+
+// Season is the tables with the season's terrain records as Terrains; nil
+// for winter where the build has no winter table. Which season a map is
+// played in is the scenario's.
+func (t *MoveTables) Season(winter bool) *MoveTables {
+	if !winter {
+		return t
+	}
+	if t.Winter == nil {
+		return nil
+	}
+	return &MoveTables{Types: t.Types, Terrains: t.Winter, Winter: t.Winter}
 }
 
 // Piece is a live unit on a movement map: flags at +4 (side bits 1/2,

@@ -22,11 +22,17 @@ func moveTablesOf(e *Export) *MoveTables {
 			Class: word(r, 0x0D), Flags: word(r, 0x11), DistanceWeight: int(int8(r[0x15])), CostWeight: int(int8(r[0x16])),
 			Capacity: int(r[0x40]), Weight: int(r[0x41])})
 	}
-	for i := 0; i+6 <= len(e.Terrains); i += 6 {
-		r := e.Terrains[i : i+6]
-		t.Terrains = append(t.Terrains, MoveTerrain{Flags: word(r, 0), Mask: int(r[2]), Cost: int(r[3]), AirCost: int(r[4])})
-	}
+	t.Terrains, t.Winter = moveTerrains(e.Terrains), moveTerrains(e.Winter)
 	return t
+}
+
+func moveTerrains(b []byte) []MoveTerrain {
+	var out []MoveTerrain
+	for i := 0; i+6 <= len(b); i += 6 {
+		r := b[i : i+6]
+		out = append(out, MoveTerrain{Flags: word(r, 0), Mask: int(r[2]), Cost: int(r[3]), AirCost: int(r[4])})
+	}
+	return out
 }
 
 func needMove(t *testing.T, e *Export) {
@@ -165,6 +171,30 @@ func distinctTerrains(tab *MoveTables) []int {
 		}
 	}
 	return out
+}
+
+// winterCases are the terrain cases on the winter table: every distinct type
+// on every distinct terrain record whose winter cost differs from its summer
+// one; nil without a winter table.
+func winterCases(tab *MoveTables) []moveCase {
+	wt := tab.Season(true)
+	if wt == nil {
+		return nil
+	}
+	var cs []moveCase
+	seen := map[[2]MoveTerrain]bool{}
+	for tr, w := range wt.Terrains {
+		k := [2]MoveTerrain{tab.Terrains[tr], w}
+		if w == k[0] || seen[k] {
+			continue
+		}
+		seen[k] = true
+		for _, ty := range distinctTypes(tab) {
+			g := uniform(wt, ty, tr, 9, 9)
+			cs = append(cs, moveCase{"winter", fmt.Sprintf("type %d terrain %d", ty, tr), withPaths(wt, g, pathLimit["terrain"])})
+		}
+	}
+	return cs
 }
 
 func building(tab *MoveTables, terrain int) bool {
@@ -418,6 +448,23 @@ func movementCoverage(t *testing.T, e *Export) {
 				t.Logf("%s/%s: buffer written outside the map at row %d column %d", c.class, c.name, i/64, i%64)
 			}
 		}
+	}
+	// The winter table: the reach must differ from the summer one somewhere,
+	// or the cases would not show that the runner reads it.
+	if w := e.winter(); w != nil {
+		wt, differs := tab.Season(true), 0
+		for _, c := range winterCases(tab) {
+			r := movesAgree(t, w, wt, c)
+			perClass[c.class]++
+			moveRules(t, wt, c, r, seen)
+			if buf, _, _ := tab.Reach(c.g); !slices.Equal(buf, r.Buffer) {
+				differs++
+			}
+		}
+		if differs == 0 {
+			t.Error("no winter case reaches differently from summer")
+		}
+		t.Logf("winter: %d cases, %d reach differently from summer", perClass["winter"], differs)
 	}
 	for _, class := range []string{"terrain", "transition", "units", "unseen", "block", "budget", "edge", "random"} {
 		if perClass[class] == 0 {

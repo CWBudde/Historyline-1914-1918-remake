@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io/fs"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -30,8 +31,9 @@ type Export struct {
 	Relocs []int
 	Units  []byte
 
-	// Terrains holds the 6-byte terrain records (the summer table, WW1GNDS.DAT).
-	Terrains []byte
+	// Terrains holds the 6-byte terrain records (the summer table, WW1GNDS.DAT)
+	// and Winter the winter table (WW1GNDW.DAT, nil where the export has none).
+	Terrains, Winter []byte
 
 	// watch, when set, receives every machine a runner creates, before the
 	// runner sets it up (the field census of consumables_test.go).
@@ -63,6 +65,9 @@ func LoadExport(dir string) (*Export, error) {
 		return nil, err
 	}
 	if e.Terrains, err = os.ReadFile(filepath.Join(dir, "WW1GNDS.DAT.bin")); err != nil {
+		return nil, err
+	}
+	if e.Winter, err = os.ReadFile(filepath.Join(dir, "WW1GNDW.DAT.bin")); err != nil && !errors.Is(err, fs.ErrNotExist) {
 		return nil, err
 	}
 	f, err := os.Open(filepath.Join(dir, "relocations.csv"))
@@ -155,4 +160,15 @@ func wrapRun(what string, err error) error {
 		return err
 	}
 	return fmt.Errorf("%s: %w", what, err)
+}
+
+// winter is the export with the winter terrain table in place of the summer
+// one; nil where the export has none.
+func (e *Export) winter() *Export {
+	if e.Winter == nil {
+		return nil
+	}
+	w := *e
+	w.Terrains = e.Winter
+	return &w
 }
