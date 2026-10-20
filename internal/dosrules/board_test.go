@@ -82,6 +82,7 @@ func TestTypedRoutes(t *testing.T) {
 	seen := map[string]int{}
 	for build, p := range profiles {
 		for _, f := range load[MovementFixture](t, build, "movements.json") {
+			p := p.Season(f.Winter)
 			g := f.Query()
 			if x := f.Expected.Destinations; x != nil {
 				got, err := p.Destinations(g)

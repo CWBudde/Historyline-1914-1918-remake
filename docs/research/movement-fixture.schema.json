@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "movement-fixture.schema.json",
   "title": "Original-DOS movement fixture",
-  "description": "One movement query run through the executed routines (demo: reach search 0b06:0331 with its cost routine 0b06:09c1, destination list 0b06:1383 with the end-cell check 10cc:0f74, path search 0b06:0e12) on a DOS map: Width x Height cells numbered row by row, column = cell % width, odd columns half a cell lower. Numbers only; unit types index the build's UNIT.DAT records and terrain the build's terrain records, whose movement fields are the \"move\" tables of the build's dosrules profile (internal/dosrules/demo.json).",
+  "description": "One movement query run through the executed routines (demo: reach search 0b06:0331 with its cost routine 0b06:09c1, destination list 0b06:1383 with the end-cell check 10cc:0f74, path search 0b06:0e12; full: 0b06:0366, 0b06:13e1 with 10d2:0f77, 0b06:0e47) on a DOS map: Width x Height cells numbered row by row, column = cell % width, odd columns half a cell lower. Numbers only; unit types index the build's UNIT.DAT records and terrain the build's terrain records, whose movement fields are the \"move\" tables of the build's dosrules profile (internal/dosrules/full.json, demo.json).",
   "type": "object",
   "required": ["schema", "profile", "id", "source", "width", "height", "fill", "cells", "units", "unseen", "unit", "side", "budget", "block", "goals", "expected"],
   "additionalProperties": false,
@@ -48,6 +48,7 @@
     "side": {"type": "integer", "minimum": 0, "maximum": 1},
     "budget": {"description": "The budget argument; callers pass live byte 0, which the constructor copies from type byte 0.", "type": "integer", "minimum": 0, "maximum": 255},
     "block": {"description": "Terrain flag mask that closes a cell (the order code passes 3 for side 0, 6 for side 1, 0xffff for live +6 bit 1).", "type": "integer", "minimum": 0, "maximum": 65535},
+    "winter": {"description": "The query reads the winter terrain table (\"winter\" in the profile's move tables, WW1GNDW.DAT) in place of the summer one; absent for summer.", "type": "boolean"},
     "goals": {"description": "Path targets, a subset of the destinations.", "type": "array", "items": {"type": "integer", "minimum": 0}},
     "expected": {
       "type": "object",

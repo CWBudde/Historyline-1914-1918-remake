@@ -111,6 +111,8 @@ type MovementFixture struct {
 	ID      string `json:"id"`
 	Source  Source `json:"source"`
 	FixtureMap
+	// Winter: the query reads the winter terrain table (MoveTables.Season).
+	Winter   bool             `json:"winter,omitempty"`
 	Goals    []int            `json:"goals"`
 	Expected MovementExpected `json:"expected"`
 }

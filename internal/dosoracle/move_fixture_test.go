@@ -16,7 +16,7 @@ import (
 // TestMovementFixtures replays them without the original files.
 
 // fixtureMoveStride records every k-th case of a movement class.
-var fixtureMoveStride = map[string]int{"terrain": 3, "transition": 5, "random": 4}
+var fixtureMoveStride = map[string]int{"terrain": 3, "transition": 5, "random": 4, "winter": 3}
 
 // holdCell reports whether the end-cell check takes its container branch on
 // the cell (an own transporter, or building terrain without a unit). The
@@ -82,6 +82,22 @@ func movementFixtures(t *testing.T, e *Export) []byte {
 			t.Fatalf("%s/%s: %v", c.class, c.name, err)
 		}
 		fs = append(fs, moveFixtureOf(e, tab, c, r))
+	}
+	if w := e.winter(); w != nil {
+		wt := tab.Season(true)
+		for _, c := range winterCases(tab) {
+			perClass[c.class]++
+			if (perClass[c.class]-1)%fixtureMoveStride[c.class] != 0 {
+				continue
+			}
+			r, err := w.RunMovement(c.g)
+			if err != nil {
+				t.Fatalf("%s/%s: %v", c.class, c.name, err)
+			}
+			f := moveFixtureOf(w, wt, c, r)
+			f.Winter = true
+			fs = append(fs, f)
+		}
 	}
 	cases, err := dosrules.MarshalFixtures(fs)
 	if err != nil {

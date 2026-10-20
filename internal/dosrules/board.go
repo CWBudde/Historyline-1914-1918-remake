@@ -147,6 +147,18 @@ type Moved struct {
 	Remaining map[int]int
 }
 
+// Season is the profile with the season's terrain records; in winter
+// without a winter table its movement methods return ErrNoMovement.
+func (p Profile) Season(winter bool) Profile {
+	if !winter || p.Tables == nil || p.Tables.Move == nil {
+		return p
+	}
+	t := *p.Tables
+	t.Move = t.Move.Season(true)
+	p.Tables = &t
+	return p
+}
+
 func (p Profile) moveTables() (*MoveTables, error) {
 	if p.Tables == nil || p.Tables.Move == nil {
 		return nil, ErrNoMovement

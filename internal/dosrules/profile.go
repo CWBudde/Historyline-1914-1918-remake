@@ -3,7 +3,8 @@
 // the battle distance, the experience awards and the order handler that
 // composes them; the movement queries, the move order and its steps, loading,
 // unloading and exits, and the phase change that brings both sides' views
-// into line, as executed in the identified builds. It holds no original
+// into line, as executed in the identified builds: the full HL.EXE (Full,
+// the build of record) and the free demo (Demo). It holds no original
 // bytes, only the numeric fields the rules read. The research oracle
 // internal/dosoracle checks it against the executed routines and records the
 // fixtures under testdata/.
@@ -71,15 +72,32 @@ type Profile struct {
 	TransposedDistance bool
 }
 
+//go:embed full.json
+var fullJSON []byte
+
 //go:embed demo.json
 var demoJSON []byte
 
-// DemoTables are the tables of HL14-18.EXE of the free DOS demo, the build
-// of record until the full HL.EXE is verified.
+// FullTables are the tables of the full game's HL.EXE, the build of record.
+// They add the winter terrain table (MoveTables.Winter).
+var FullTables = mustTables(fullJSON)
+
+// DemoTables are the tables of HL14-18.EXE of the free DOS demo. Apart from
+// the winter table, which the demo lacks, they equal the full build's.
 var DemoTables = mustTables(demoJSON)
 
-// Demo is profile dos-0.1 on the demo build, as executed.
+// Full is profile dos-0.1 on the full build, as executed: the build of
+// record.
+var Full = Profile{Name: "dos-0.1", Tables: FullTables, TransposedDistance: true}
+
+// Demo is profile dos-0.1 on the demo build, as executed. Every recorded
+// case gives what the full build gives; a rule found to differ becomes a
+// Profile field set here.
 var Demo = Profile{Name: "dos-0.1", Tables: DemoTables, TransposedDistance: true}
+
+// Profiles are the profiles of the identified builds by build name (the
+// directories under testdata/).
+var Profiles = map[string]Profile{"full": Full, "demo": Demo}
 
 func mustTables(b []byte) *Tables {
 	var t Tables

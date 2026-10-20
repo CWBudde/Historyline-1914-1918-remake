@@ -76,8 +76,45 @@ func TestMovementFixtures(t *testing.T) {
 		"terrain", "transition", "units", "unseen", "block", "budget", "edge", "random")
 }
 
+// TestWinterFixtures checks that the winter cases are there and that some of
+// them reach differently on the summer table, so their replay shows that the
+// season's table is read.
+func TestWinterFixtures(t *testing.T) {
+	builds := 0
+	for build, p := range profiles {
+		if p.Tables.Move.Winter == nil {
+			continue
+		}
+		builds++
+		n, differs := 0, 0
+		for _, f := range load[MovementFixture](t, build, "movements.json") {
+			if !f.Winter {
+				continue
+			}
+			n++
+			buf, _, _ := p.Tables.Move.Reach(f.Query())
+			for cell, want := range f.Expected.Remaining {
+				if int(buf[cell/f.Width*64+cell%f.Width]) != want {
+					differs++
+					break
+				}
+			}
+		}
+		if n == 0 || differs == 0 {
+			t.Errorf("%s: %d winter cases, %d reach differently in summer", build, n, differs)
+		}
+		t.Logf("%s: %d winter cases, %d reach differently in summer", build, n, differs)
+	}
+	if builds == 0 {
+		t.Error("no profile has a winter table")
+	}
+}
+
 func replayMovement(p Profile, f MovementFixture) error {
-	tab, g, x := p.Tables.Move, f.Query(), f.Expected
+	tab, g, x := p.Tables.Move.Season(f.Winter), f.Query(), f.Expected
+	if tab == nil {
+		return fmt.Errorf("a winter case without a winter table")
+	}
 	buf, bits, count := tab.Reach(g)
 	for cell, want := range x.Remaining {
 		if got := int(buf[cell/g.Width*64+cell%g.Width]); got != want {

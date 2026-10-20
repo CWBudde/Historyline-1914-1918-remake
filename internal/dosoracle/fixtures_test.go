@@ -50,11 +50,13 @@ func tablesOf(e *Export) *dosrules.Tables {
 
 var profileCache = map[*Build]dosrules.Profile{}
 
-// profileOf is profile dos-0.1 on the export's own tables.
+// profileOf is profile dos-0.1 on the export's own tables, with the rule
+// switches of the build's dosrules profile.
 func profileOf(e *Export) dosrules.Profile {
 	p, ok := profileCache[e.B]
 	if !ok {
-		p = dosrules.Profile{Name: "dos-0.1", Tables: tablesOf(e), TransposedDistance: true}
+		p = dosrules.Profiles[e.B.Name]
+		p.Tables = tablesOf(e)
 		profileCache[e.B] = p
 	}
 	return p

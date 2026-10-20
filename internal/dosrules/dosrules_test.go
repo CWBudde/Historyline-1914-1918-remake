@@ -8,8 +8,8 @@ import (
 )
 
 // profiles maps each recorded build to its profile; testdata/<name> holds
-// its fixtures. The full HL.EXE joins once its export is verified.
-var profiles = map[string]Profile{"demo": Demo}
+// its fixtures.
+var profiles = Profiles
 
 func load[T any](t *testing.T, build, name string) []T {
 	t.Helper()
@@ -38,9 +38,30 @@ func checkHeader(t *testing.T, p Profile, schema int, profile, id string, s Sour
 	seen[id] = true
 }
 
+// TestTables checks both builds' tables and that they differ only in the
+// full build's winter table: any other difference between the builds would
+// be a Profile field.
 func TestTables(t *testing.T) {
-	if len(DemoTables.Types) != 51 || DemoTables.Build != "83fc4e37" {
-		t.Fatalf("demo tables: %d types, build %q", len(DemoTables.Types), DemoTables.Build)
+	for _, c := range []struct {
+		tab   *Tables
+		build string
+	}{{FullTables, "fe4fa446"}, {DemoTables, "83fc4e37"}} {
+		if len(c.tab.Types) != 51 || c.tab.Build != c.build || c.tab.Move == nil || len(c.tab.Move.Terrains) != 175 {
+			t.Fatalf("tables %q: %d types", c.tab.Build, len(c.tab.Types))
+		}
+	}
+	if len(FullTables.Move.Winter) != 175 || DemoTables.Move.Winter != nil {
+		t.Fatalf("winter tables: full %d records, demo %d", len(FullTables.Move.Winter), len(DemoTables.Move.Winter))
+	}
+	full, demo := *FullTables, *DemoTables
+	move := *full.Move
+	move.Winter = nil
+	full.Move, full.Build, demo.Build = &move, "", ""
+	if !reflect.DeepEqual(full, demo) {
+		t.Error("the demo's tables differ from the full build's")
+	}
+	if Demo.TransposedDistance != Full.TransposedDistance {
+		t.Error("the demo's switches differ from the full build's")
 	}
 }
 
@@ -144,7 +165,7 @@ func TestRepeatable(t *testing.T) {
 // number of steps through neighbours.
 func TestDistanceSwitch(t *testing.T) {
 	const w, h = 9, 9
-	layout := Profile{Tables: DemoTables}
+	layout := Profile{Tables: FullTables}
 	for cell := range w * h {
 		far := 0
 		for _, n := range neighbours(cell, w, h) {
@@ -154,7 +175,7 @@ func TestDistanceSwitch(t *testing.T) {
 			if d := layout.Distance(w, cell, n); d != 1 {
 				t.Errorf("cell %d: neighbour %d at layout distance %d", cell, n, d)
 			}
-			if Demo.Distance(w, cell, n) != 1 {
+			if Full.Distance(w, cell, n) != 1 {
 				far++
 			}
 		}
