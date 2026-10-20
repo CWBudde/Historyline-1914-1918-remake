@@ -1,0 +1,75 @@
+{
+  "id": "screens-v2/widget/input/disabled",
+  "name": "widget/input/disabled",
+  "category": "Screen components",
+  "family": "widgets",
+  "note": "Current screen component, shared across layouts. No direct reference mapping. Painted backdrop has no authored 4× export.",
+  "recipes": [
+    "art/recipes/screens/v1/western-front.json"
+  ],
+  "prompts": [
+    "prompts/screens/v1/western-front.md"
+  ],
+  "width": 240,
+  "height": 40,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "screen-components/widgets/screens-v2-widget-input-disabled/1x.png",
+          "source": "art/exports/screens-v2/widget/input/disabled-1x.png",
+          "sha256": "4aa8fa3eebd9650b61169982abe62de4c8ed743c29fa5016117bcc6ec5cd3c33",
+          "width": 240,
+          "height": 40,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "screen-components/widgets/screens-v2-widget-input-disabled/2x.png",
+          "source": "art/exports/screens-v2/widget/input/disabled-2x.png",
+          "sha256": "ad093605f4a99a5b0940ca2e5c97fb6b1ee4a16e3ad29edc977ec626d5e112e2",
+          "width": 480,
+          "height": 80,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "screen-components/widgets/screens-v2-widget-input-disabled/4x.png",
+          "source": "art/exports/screens-v2/widget/input/disabled-4x.png",
+          "sha256": "8c6c9b2aeab8c76ef4703ac43cb038c50dd2b29df687fe2f69b3781e7b78ab73",
+          "width": 960,
+          "height": 160,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "screen-components/widgets/screens-v2-widget-input-disabled/1x.png",
+        "sha256": "4aa8fa3eebd9650b61169982abe62de4c8ed743c29fa5016117bcc6ec5cd3c33",
+        "width": 240,
+        "height": 40,
+        "source": "art/exports/screens-v2/widget/input/disabled-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "screen-components/widgets/screens-v2-widget-input-disabled/2x.png",
+        "sha256": "ad093605f4a99a5b0940ca2e5c97fb6b1ee4a16e3ad29edc977ec626d5e112e2",
+        "width": 480,
+        "height": 80,
+        "source": "art/exports/screens-v2/widget/input/disabled-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "screen-components/widgets/screens-v2-widget-input-disabled/4x.png",
+        "sha256": "8c6c9b2aeab8c76ef4703ac43cb038c50dd2b29df687fe2f69b3781e7b78ab73",
+        "width": 960,
+        "height": 160,
+        "source": "art/exports/screens-v2/widget/input/disabled-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

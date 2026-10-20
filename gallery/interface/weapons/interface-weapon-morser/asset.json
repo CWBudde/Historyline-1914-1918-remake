@@ -1,0 +1,75 @@
+{
+  "id": "interface/weapon/morser",
+  "name": "weapon/morser",
+  "category": "Interface",
+  "family": "weapons",
+  "note": "Current text-free game component. Labels and game values are drawn separately; runtime acceptance pending. Reference is the complete old weapon row, including its labels. Images retain their own dimensions on a common canvas; the row is not stretched into the new art region.",
+  "recipes": [
+    "art/recipes/interface/v1/morser.json"
+  ],
+  "prompts": [
+    "prompts/interface/v1/morser.md"
+  ],
+  "width": 252,
+  "height": 50,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "interface/weapons/interface-weapon-morser/1x.png",
+          "source": "art/exports/interface-v1/weapon/morser-1x.png",
+          "sha256": "5bdcf6f958a2b3ea2e04b2aa0d770e9aacaff6072187eaec9a8b707363d7e78c",
+          "width": 252,
+          "height": 50,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "interface/weapons/interface-weapon-morser/2x.png",
+          "source": "art/exports/interface-v1/weapon/morser-2x.png",
+          "sha256": "11e4761e454e5739291468831e368626ceb5e1a97015425533edc879cdcc0391",
+          "width": 504,
+          "height": 100,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "interface/weapons/interface-weapon-morser/4x.png",
+          "source": "art/exports/interface-v1/weapon/morser-4x.png",
+          "sha256": "6246ec25d6cab7ebb808dce3ef2b30f6256cb1659b1b937ca8c9df6dcea8a0ca",
+          "width": 1008,
+          "height": 200,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "interface/weapons/interface-weapon-morser/1x.png",
+        "sha256": "5bdcf6f958a2b3ea2e04b2aa0d770e9aacaff6072187eaec9a8b707363d7e78c",
+        "width": 252,
+        "height": 50,
+        "source": "art/exports/interface-v1/weapon/morser-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "interface/weapons/interface-weapon-morser/2x.png",
+        "sha256": "11e4761e454e5739291468831e368626ceb5e1a97015425533edc879cdcc0391",
+        "width": 504,
+        "height": 100,
+        "source": "art/exports/interface-v1/weapon/morser-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "interface/weapons/interface-weapon-morser/4x.png",
+        "sha256": "6246ec25d6cab7ebb808dce3ef2b30f6256cb1659b1b937ca8c9df6dcea8a0ca",
+        "width": 1008,
+        "height": 200,
+        "source": "art/exports/interface-v1/weapon/morser-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

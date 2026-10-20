@@ -1,0 +1,79 @@
+{
+  "id": "portrait/supplyCar",
+  "name": "supplyCar",
+  "category": "Portraits",
+  "family": "supplyCar",
+  "bindings": [
+    "CP_supplyCar",
+    "EC_supplyCar"
+  ],
+  "note": "Current family candidate. Visual approval and runtime acceptance pending.",
+  "recipes": [
+    "art/recipes/portraits/reference-v1/supply-car-01.json"
+  ],
+  "prompts": [
+    "prompts/portraits/reference-v1/supply-car-01.md"
+  ],
+  "width": 210,
+  "height": 188,
+  "variants": [
+    {
+      "id": "portrait",
+      "label": "portrait",
+      "images": {
+        "1": {
+          "url": "portraits/supplyCar/portrait-supplyCar/1x.png",
+          "source": "art/exports/portrait-supply-car-v1/supplyCar-1x.png",
+          "sha256": "0b18100e54c0dd2a8e513fb174a7c86dd99014991b8c0c706f09cf3ff8cc3fa0",
+          "width": 210,
+          "height": 188,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "portraits/supplyCar/portrait-supplyCar/2x.png",
+          "source": "art/exports/portrait-supply-car-v1/supplyCar-2x.png",
+          "sha256": "238f70ef7edda9b86355bc228c941cc34fce29f976cdbe969a892ca9ff8bf5b3",
+          "width": 420,
+          "height": 376,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "portraits/supplyCar/portrait-supplyCar/4x.png",
+          "source": "art/exports/portrait-supply-car-v1/supplyCar-4x.png",
+          "sha256": "ab1ca958c80eb8327591d63efbd1666d8bc7f08478d3a11693fee1b0382f00c7",
+          "width": 840,
+          "height": 752,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "portrait": {
+      "1": {
+        "path": "portraits/supplyCar/portrait-supplyCar/1x.png",
+        "sha256": "0b18100e54c0dd2a8e513fb174a7c86dd99014991b8c0c706f09cf3ff8cc3fa0",
+        "width": 210,
+        "height": 188,
+        "source": "art/exports/portrait-supply-car-v1/supplyCar-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "portraits/supplyCar/portrait-supplyCar/2x.png",
+        "sha256": "238f70ef7edda9b86355bc228c941cc34fce29f976cdbe969a892ca9ff8bf5b3",
+        "width": 420,
+        "height": 376,
+        "source": "art/exports/portrait-supply-car-v1/supplyCar-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "portraits/supplyCar/portrait-supplyCar/4x.png",
+        "sha256": "ab1ca958c80eb8327591d63efbd1666d8bc7f08478d3a11693fee1b0382f00c7",
+        "width": 840,
+        "height": 752,
+        "source": "art/exports/portrait-supply-car-v1/supplyCar-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

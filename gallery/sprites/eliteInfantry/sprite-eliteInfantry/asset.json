@@ -1,0 +1,2617 @@
+{
+  "id": "sprite/eliteInfantry",
+  "name": "eliteInfantry",
+  "category": "Sprites",
+  "family": "eliteInfantry",
+  "bindings": [
+    "CP_eliteInf",
+    "EC_eliteInf"
+  ],
+  "note": "Reference is the unchanged 48×48 source pose and palette. Current authored sprites are reduced to that size with Lanczos3 for comparison; 2× zoom gives the 96×96 game footprint. Other facings/owners/spent states have no matching raw reference variant; no reference rotations or faction swaps are invented.",
+  "recipes": [
+    "art/recipes/units/reference-v1/elite-infantry-atlas-01.json",
+    "art/recipes/terrain/reference-v2/meadow-03.json"
+  ],
+  "prompts": [
+    "prompts/units/reference-v1/elite-infantry-atlas-01.md",
+    "prompts/terrain/reference-v2/meadow-03.md"
+  ],
+  "width": 48,
+  "height": 48,
+  "variants": [
+    {
+      "id": "cp/n-normal",
+      "label": "cp · n-normal",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-n-normal-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/n-normal-2x.png",
+          "sha256": "87785926dcecdbd6e0e13652193e05748f29e673b856040c8539f8567bf5771a",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-n-normal-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/n-normal-2x.png",
+          "sha256": "39e896a0bc3093030da2d57846587b00ae2e05934e84bf0a413a8d6656bf3845",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-n-normal-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/n-normal-4x.png",
+          "sha256": "9b3b9bc8e6e18a71f82e8ff5cb72d69bcafa494feaedb61c81219a0e4d21efee",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-n-normal-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/n-normal-2x.png",
+          "sha256": "e6b1ad18af71e2025d01bf0252d8faac8f558a17d91c20886d511fd83c38b97d",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/n-spent",
+      "label": "cp · n-spent",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-n-spent-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/n-spent-2x.png",
+          "sha256": "8d1e59d050f9dce5a5f3b3f960a6a7654af50f0a6a93a1d95afe902ffd50c9b4",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-n-spent-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/n-spent-2x.png",
+          "sha256": "58050b77dd8d16c7a5acee8440509b978bfbadb9cda0825e1501807c6f17d5b1",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-n-spent-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/n-spent-4x.png",
+          "sha256": "103c3eb325970c5e3d49742f4c9fec68962745bb149527eb170ec18efdfb6ec0",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-n-spent-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/n-spent-2x.png",
+          "sha256": "edb21464701b6a8db7f2cbd41645ab56df13f6a9965ab2dd23215fb80c8d8a0f",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/ne-normal",
+      "label": "cp · ne-normal",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-ne-normal-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/ne-normal-2x.png",
+          "sha256": "3b6399ac79a1bb0e54bbb38ce9a1076251f05d08cb8265aa5e94291d1c754e78",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-ne-normal-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/ne-normal-2x.png",
+          "sha256": "cf4e67c583fe1b97ab6f5da2cdc495838291d9da0049e03b92a2df9a52cca079",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-ne-normal-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/ne-normal-4x.png",
+          "sha256": "dc436d8a86f150eed0b4c1f44e347d500f88a339e2fa2abd92068b869beb514f",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-ne-normal-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/ne-normal-2x.png",
+          "sha256": "9a251288dd640d345a03900071977b7d83fb1e00a81f92dcb7daf17b6df678a6",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/ne-spent",
+      "label": "cp · ne-spent",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-ne-spent-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/ne-spent-2x.png",
+          "sha256": "824bc4863fa821e1ed424c202f43f7720c05e62fa3ea5b134bbf56a2b25b9528",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-ne-spent-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/ne-spent-2x.png",
+          "sha256": "851dd8855a78b6f1df5c8a064f8e7152e8e7bae773ad34992e6b535175b9dd6a",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-ne-spent-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/ne-spent-4x.png",
+          "sha256": "4f5f41b582c0e058174306d4585035651d641a82d47da3e80e34a14193b489fc",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-ne-spent-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/ne-spent-2x.png",
+          "sha256": "961abba5c5da2eb69af6f8c09923bcd8ef9d46e83b590005db1876742552016f",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/nw-normal",
+      "label": "cp · nw-normal",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-nw-normal-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/nw-normal-2x.png",
+          "sha256": "7a77711facea6b4e94931bb91418ab8e688ebf738549062a60d218c3afe7a30f",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-nw-normal-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/nw-normal-2x.png",
+          "sha256": "2228165ef92ad1855d2a780f2339fc85a6cb1b3e5fa65f12fb71fd0ccb00e61f",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-nw-normal-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/nw-normal-4x.png",
+          "sha256": "f69cc7d79df61efb36640012b5609f3fb4f8dbb511fb90d4ed187b366f34c8bc",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-nw-normal-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/nw-normal-2x.png",
+          "sha256": "ec62b04780d8c0c0ecd41395e644b078eed639ca05629643573fa608fa4baa6c",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/nw-spent",
+      "label": "cp · nw-spent",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-nw-spent-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/nw-spent-2x.png",
+          "sha256": "1630592b97ac2de4f88e5628c2446030c72520061b08c02c48e8e8bad6600194",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-nw-spent-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/nw-spent-2x.png",
+          "sha256": "0a1b862aaddf9418e5fb9cd714f7146c2f982507ecc567fecf823e8bfd13a17e",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-nw-spent-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/nw-spent-4x.png",
+          "sha256": "0fa0296d5b2b81029ba51c34ec508a759e12ab11c66bebf0e55353b3c1573532",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-nw-spent-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/nw-spent-2x.png",
+          "sha256": "de269d466a5c6da57e919e5db75860f91d27fe7a87f1f1c99e4804da78573fc0",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/s-normal",
+      "label": "cp · s-normal",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-s-normal-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/s-normal-2x.png",
+          "sha256": "52538ce4ff9c2280d93ae080417dff211548d95967a1acb832aac5ce8fd202e9",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-s-normal-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/s-normal-2x.png",
+          "sha256": "421a53d9db63cbc133bf9084ee3c0bb2a3f6a0f631dc8e3a2610e310b972fefe",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-s-normal-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/s-normal-4x.png",
+          "sha256": "75a6bd389dd55ea29d023fdb2e158bd47a512abbd66d04fd782675eb40032caa",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-s-normal-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/s-normal-2x.png",
+          "sha256": "e28fa51e3e089d8d34819930167dacfce36669eaccbfc7e3082a4f816fc113d0",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/s-spent",
+      "label": "cp · s-spent",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-s-spent-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/s-spent-2x.png",
+          "sha256": "31c70d4a546def8b88c10f2f989fbc5a3bcbb79e815e3808df4f66be97d5d3bf",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-s-spent-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/s-spent-2x.png",
+          "sha256": "de47db6646aa90de357f89c9d01e6c2a66eac8392cf2fcfd109418d103478dd6",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-s-spent-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/s-spent-4x.png",
+          "sha256": "ea7d401ffded70b7ea49e1ec17ccdbefc4e481853c029a653be4d211facaae94",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-s-spent-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/s-spent-2x.png",
+          "sha256": "2d6dddc679b75ec1e4a8e3a828f985f76cd493188960567663dea9e1a3382c18",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/se-normal",
+      "label": "cp · se-normal",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-se-normal-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/se-normal-2x.png",
+          "sha256": "dab53838dd5c385b71da9ec0d8451acda7bdc59980fdb098aa1c91ff6b753890",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-se-normal-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/se-normal-2x.png",
+          "sha256": "05d88f31d9b095ae82107a99467ae842e191024089c067ec08ae14518e42a9c0",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-se-normal-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/se-normal-4x.png",
+          "sha256": "71de5cfa7a5ceda2c96bb5dcb014bb6daea9b5edeeacca09406be72e287b0eac",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-se-normal-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/se-normal-2x.png",
+          "sha256": "b3205e5ac00ddc35abbfe12c57a84d96d550d98e20120059aa9ac5f46d650a67",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/se-spent",
+      "label": "cp · se-spent",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-se-spent-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/se-spent-2x.png",
+          "sha256": "f9c98ca396a94b4aff2a49139222bf5ac42707b6d762f24ec1dbcef2d97f68c5",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-se-spent-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/se-spent-2x.png",
+          "sha256": "f0a4309b8a59b81e79ad0417e7af0464f2c33e0a77d9f61b806971f6457ab9f4",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-se-spent-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/se-spent-4x.png",
+          "sha256": "feef3044f9180a179050c0e4bf2f862a1678629404a278e8782c6a3454fc620d",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-se-spent-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/se-spent-2x.png",
+          "sha256": "aecf3ecd7ed7e553bec8fce04edafa284a2e4d2d3380dbf8b146653669c82466",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/sw-normal",
+      "label": "cp · sw-normal",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-sw-normal-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/sw-normal-2x.png",
+          "sha256": "175c1d21b449c2ae208b317ff6bba99abb2917c2afb49500e2156129e2dd4a28",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-sw-normal-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/sw-normal-2x.png",
+          "sha256": "224b95e890efbe47c14754f65a63d4056eb647029dfedc65f20b840fee1dcb13",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-sw-normal-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/sw-normal-4x.png",
+          "sha256": "97eb0b68105f94b52ef3cdbf6ffc3a31630b6e207a2d41130aea65e02a95e4c6",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-sw-normal-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/sw-normal-2x.png",
+          "sha256": "e9ed3e395e6cee8670bd3a75f43c0eb3513b6ed5663fd9658baa5793baee7d31",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/sw-spent",
+      "label": "cp · sw-spent",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-sw-spent-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/sw-spent-2x.png",
+          "sha256": "2060bc7e85054672d8c71926b6f1d46249e6fc2bafd3160cb19d909799c795c4",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-sw-spent-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/sw-spent-2x.png",
+          "sha256": "98cc7035ea669fa68f08cdc635e7a0c3b194917fcaffdce38dc60647644fec3a",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-sw-spent-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/sw-spent-4x.png",
+          "sha256": "b9b9a32fd0e64f4d0e077750e30594af2eac30d39d7e9d685ffecf661df2886d",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/cp-sw-spent-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/sw-spent-2x.png",
+          "sha256": "0bf19b7b3b6629e1ce555ba78ab44383dea2053935dac505aaaf43f41f5ac8e2",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/n-normal",
+      "label": "ec · n-normal",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-n-normal-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/n-normal-2x.png",
+          "sha256": "3ae919c6f8270a4dafbdc6742b51c109976397f153c38c188c6b43b5e6577055",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-n-normal-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/n-normal-2x.png",
+          "sha256": "d0104740212b47d7eb8fe3fb0a00e1b3462bff260fc3e44b60700d0dab3b04d6",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-n-normal-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/n-normal-4x.png",
+          "sha256": "56815d4ee9472adfb9878358b43a40a4927a4def77a54366f688cae32be44a95",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-n-normal-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/n-normal-2x.png",
+          "sha256": "d3863a9e5318ac55b121e4f6209dd164e7419bd3bc0a098d4795e8c43b724c21",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/n-spent",
+      "label": "ec · n-spent",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-n-spent-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/n-spent-2x.png",
+          "sha256": "057b54dbb83fd5266eec342b2e4739ee7758000ed26a2ae9f91d018b3c28efe9",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-n-spent-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/n-spent-2x.png",
+          "sha256": "94f73c0f44e58019ea0d0ba19769a0b89692bde80e0bb46f2fe0603103d82f68",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-n-spent-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/n-spent-4x.png",
+          "sha256": "9526283ad7b492dce6ab8f876219ef8e6b6e010f3ef4bbb45ee913cd549112de",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-n-spent-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/n-spent-2x.png",
+          "sha256": "92cc192ff28802e612b380591dd1ae5b8515ea1aac6c9f1338282b17def07dc8",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/ne-normal",
+      "label": "ec · ne-normal",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-ne-normal-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/ne-normal-2x.png",
+          "sha256": "486c0cd70514d9662252a688679c8f677629d74f808643a69c6a323c866c6c44",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-ne-normal-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/ne-normal-2x.png",
+          "sha256": "92de1f19ae972276b59f6aef4573a01043bad1e4daac57bc4d0f89e2b9f246f6",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-ne-normal-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/ne-normal-4x.png",
+          "sha256": "c1d63e5c6eb046a71e8077d0bd54a205ab287f3b33c4ce78ad293e5e52eefb1f",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-ne-normal-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/ne-normal-2x.png",
+          "sha256": "7efe20b922d2821d7ad34f779fece34c7d72be3f06694e3c83f5204b99cee4a1",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/ne-spent",
+      "label": "ec · ne-spent",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-ne-spent-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/ne-spent-2x.png",
+          "sha256": "e12b9805d7776c61ebe0557cb15ec6b189312e5bb1fb27f0380017cfdfa6ee6a",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-ne-spent-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/ne-spent-2x.png",
+          "sha256": "913e8ebf4fa1dcd13868014a5b6dcc5d0371f116b90696e178559110247aecb8",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-ne-spent-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/ne-spent-4x.png",
+          "sha256": "d3eea82aa7a916de07f136334f8a42f26fb706699422f227e664ea9391027a95",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-ne-spent-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/ne-spent-2x.png",
+          "sha256": "666c71b66097c630840dc1346ec4857ff1253218c6e08412da1631e7a001d372",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/nw-normal",
+      "label": "ec · nw-normal",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-nw-normal-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/nw-normal-2x.png",
+          "sha256": "73e08a2f5925c2f3ee437a1ca4353016cea6a4cc2d393aa84bda3ea85ab8c5c9",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-nw-normal-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/nw-normal-2x.png",
+          "sha256": "135fcbcadabbafbf2b9c47006eb6cde3141bd056c7604efda5dcf5ec137221f9",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-nw-normal-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/nw-normal-4x.png",
+          "sha256": "c8dcde3535509eb46008657376a7efc30997a8e0670313abd9e106fa1b378bca",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-nw-normal-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/nw-normal-2x.png",
+          "sha256": "0a0e45ee4813ccdca4e7f148d41deb1795ec7b8d2db439f49d72954c427edaad",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/nw-spent",
+      "label": "ec · nw-spent",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-nw-spent-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/nw-spent-2x.png",
+          "sha256": "c6981db5ccb0d5707a979adb2d91144898f40fd2e7cb8535ba5884d74c390dc1",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-nw-spent-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/nw-spent-2x.png",
+          "sha256": "1c8b188f280ecc7c2c1ba5499e8e4636f4fd9ede9561cd6dea1daa5784c30afc",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-nw-spent-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/nw-spent-4x.png",
+          "sha256": "3d53d1215d8caa5bd4cdb65f35716e7b3eac14dbc640f40549875ccf8aa98d92",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-nw-spent-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/nw-spent-2x.png",
+          "sha256": "440778b09f50e620134ede7708021583016d19176d8e86a170c1eddf930f147f",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/s-normal",
+      "label": "ec · s-normal",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-s-normal-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/s-normal-2x.png",
+          "sha256": "0618279e72b586b4910ac5ae728464942ca7da9cbcf1fb3dcb81cb502e8aadb3",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-s-normal-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/s-normal-2x.png",
+          "sha256": "984133eeb3f652c6fd3c558be8cff27869cfbbd7e11e6554ef0d35496aa9b998",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-s-normal-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/s-normal-4x.png",
+          "sha256": "398b7637f0e6782eccc934b5eea36991a8625e8f0e108267151b42a6a3a235e3",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-s-normal-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/s-normal-2x.png",
+          "sha256": "ed28aa48e3b894653cfe5756f260b280cd37fb189105710511b68d86a44bab13",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/s-spent",
+      "label": "ec · s-spent",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-s-spent-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/s-spent-2x.png",
+          "sha256": "0f2c8ffddf75d6a58aeaf4355912cacc0183a1a3c58258fed495f2287a503cf2",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-s-spent-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/s-spent-2x.png",
+          "sha256": "0ce3134b80a882a995b8d8632e34b05a6523891d3a63ae913d851256173252c4",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-s-spent-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/s-spent-4x.png",
+          "sha256": "d61b2e6d589d5db688b7d7d62395da225ee42b8554a23e3f3676b9a8b8d5f10f",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-s-spent-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/s-spent-2x.png",
+          "sha256": "5c393962609ecfb77b0fc74ffe18a98534e370610394e20b4fcc943057a777d3",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/se-normal",
+      "label": "ec · se-normal",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-se-normal-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/se-normal-2x.png",
+          "sha256": "39c995c6e5e344c156dadcafe57104c722ec70ffbd48f58c32b084ebdcb0cee5",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-se-normal-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/se-normal-2x.png",
+          "sha256": "d1dbdd2333635bdcf015cc810170ef0259e335a60a53e03c5c7873dabbe81144",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-se-normal-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/se-normal-4x.png",
+          "sha256": "6db25cc3bb266304b18c4bfeed032b583d6eb7477c39ef7d8f4846100ce43d45",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-se-normal-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/se-normal-2x.png",
+          "sha256": "43e811b60df5ab9037e6936f7c0f31e88a2891bd1150eb3888a4ab63c08670e5",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/se-spent",
+      "label": "ec · se-spent",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-se-spent-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/se-spent-2x.png",
+          "sha256": "3ae021d64649e0b7bfc1d6ba3b27de584549774c23096216e1dfb23ff17400d3",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-se-spent-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/se-spent-2x.png",
+          "sha256": "2d0deed5ab25d14c355dd194d2c2a9702cbf76abb73c0e2263891c133d9149fd",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-se-spent-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/se-spent-4x.png",
+          "sha256": "e88120f4701560b6d49ea3bbd5625d2f7704ee50f6a67e5107f5e69bb5ff9d52",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-se-spent-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/se-spent-2x.png",
+          "sha256": "7249b19b462b417ced61b080f8610ff73bad702b4ca95ef76dc90c684ea45880",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/sw-normal",
+      "label": "ec · sw-normal",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-sw-normal-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/sw-normal-2x.png",
+          "sha256": "d8b6e684ec9147bf34726e8166dd163de184ee312b2b549b89448389ad95e52f",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-sw-normal-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/sw-normal-2x.png",
+          "sha256": "173632ee6429e3220f5ba3246ac1f5b8f908b32581577f49754940f4678d260e",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-sw-normal-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/sw-normal-4x.png",
+          "sha256": "816e5931bf6f47456e3b643ebb5a457c2b0eb36db385d1955a4a5c2f0c4a8736",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-sw-normal-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/sw-normal-2x.png",
+          "sha256": "68141ab51629302aa5a45abac38696d969e7c6f37968b897694af1e5c56bb089",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/sw-spent",
+      "label": "ec · sw-spent",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-sw-spent-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/sw-spent-2x.png",
+          "sha256": "b5e7327f8cc3cfd8c346cfae3944b8ec44392328451b3f53a61a8930715a7cb6",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-sw-spent-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/sw-spent-2x.png",
+          "sha256": "9c2f777546197ded743fd0f6f9a902e12bafbf6aeeb9cc1b53b047ee60f26b31",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-sw-spent-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/sw-spent-4x.png",
+          "sha256": "b657d7f09628001d3cc662f70bab1aa9880c797690ca7c2e9ef673a58a8cdf65",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/ec-sw-spent-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/sw-spent-2x.png",
+          "sha256": "3d4fa31ed22f5638c044c671f50c564234db43d4e28ae201152015f59c0ba885",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/n-normal",
+      "label": "neutral · n-normal",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-n-normal-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/n-normal-2x.png",
+          "sha256": "846cda6a424849f2eb7ae3396673c67bb918228fced666dbbbe881d468fc6abe",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-n-normal-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/n-normal-2x.png",
+          "sha256": "a69a3eb45234a24fdb9cd8b69a5303281927df02b0aef12fd55ffc6b27af1b4d",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-n-normal-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/n-normal-4x.png",
+          "sha256": "0aea6fde0e508027fb8d1af05317c19bc1678a7abc854ae90ff979d5a08f3b17",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-n-normal-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/n-normal-2x.png",
+          "sha256": "c9ea94d2c9080b93b1f7b7370a2e6d4d707a2b2fa35c579223c8b93ba0ad6780",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/n-spent",
+      "label": "neutral · n-spent",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-n-spent-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/n-spent-2x.png",
+          "sha256": "25af0173b87ab25a08748c197ca753ca30a583854225754d3149176ba81bbf7e",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-n-spent-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/n-spent-2x.png",
+          "sha256": "948bcab5457c98980eca2722eb121ea6323c0123dba7c849df8d246767a3bc7f",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-n-spent-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/n-spent-4x.png",
+          "sha256": "88a9e29387466539938042bfa6c5550b85af35a0bb85f365e92dcf77135725ea",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-n-spent-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/n-spent-2x.png",
+          "sha256": "e3837ac0988a57044e4e308ccd4598b3e55872303878cc9dade8ff508cbceb2b",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/ne-normal",
+      "label": "neutral · ne-normal",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-ne-normal-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/ne-normal-2x.png",
+          "sha256": "86713004ca92ea54547a5ff473f9caa9a1aa1787ee0e4b082ac9d8c27f5f2d5a",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-ne-normal-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/ne-normal-2x.png",
+          "sha256": "3aac837b032adb48d7309a926617929d7b9dfed89c99bb166d9efc7d569c9ebe",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-ne-normal-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/ne-normal-4x.png",
+          "sha256": "e121084241522ed5350f1acdf16b58899c8fcdc23e53e6db8a0b85c409606534",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-ne-normal-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/ne-normal-2x.png",
+          "sha256": "fab152b7f6b1dcda78f822939b253a20369e33786492d72bc4befa0c71d2627f",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/ne-spent",
+      "label": "neutral · ne-spent",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-ne-spent-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/ne-spent-2x.png",
+          "sha256": "ca16f24278dd22fcf824e0dc64ab79fda7cf09835225ff9c65808dd2a7be8edf",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-ne-spent-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/ne-spent-2x.png",
+          "sha256": "721c91505864a5cb526d76f750a3d2fdfd3e4012c298682d74006b67189ae4d1",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-ne-spent-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/ne-spent-4x.png",
+          "sha256": "a2cbcfcd30f390d4887722ddafa169068faa533119dc56863e82256d66e6231d",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-ne-spent-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/ne-spent-2x.png",
+          "sha256": "fd25c75837d50cfe29c19f2e4f5800a3f78cfe24077448ed8a5ed35690462068",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/nw-normal",
+      "label": "neutral · nw-normal",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-nw-normal-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/nw-normal-2x.png",
+          "sha256": "d2609cd83f5cd87323709eae7330de81037071b4513cc177edd352ebf8381e3e",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-nw-normal-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/nw-normal-2x.png",
+          "sha256": "7f71852b58f0dbfd21d6680f37af6686e83251eed6e7f34a42c224e44e9e5f53",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-nw-normal-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/nw-normal-4x.png",
+          "sha256": "77511033d335d9475cb48dbc54f09ed9dd100e46d360e7ca67c62068f272d319",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-nw-normal-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/nw-normal-2x.png",
+          "sha256": "7d26ae67af393ccbea29e83b78543422d119a91ab96ba3be3b9323f1c989c91d",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/nw-spent",
+      "label": "neutral · nw-spent",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-nw-spent-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/nw-spent-2x.png",
+          "sha256": "ac25fca2d26a288317226be7fc2cfd3f8c9d389cc3988526ae541d510ce199c7",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-nw-spent-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/nw-spent-2x.png",
+          "sha256": "ac91ecc31ca15bc70c143240bd7eb08a88b2492946ece513b34c246490bbce84",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-nw-spent-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/nw-spent-4x.png",
+          "sha256": "7a0da457cca052c3b0b8257d692b05dc3d76190c61d301eaa3fd9d9446ca4056",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-nw-spent-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/nw-spent-2x.png",
+          "sha256": "f150930b5b489536d878f6e4f02e07ec9c6fb36985ba0f62c48e4f4fc4fbb254",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/s-normal",
+      "label": "neutral · s-normal",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-s-normal-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/s-normal-2x.png",
+          "sha256": "94076a1d7f1ca369bc17ab0fbbc805eafd48f0f4ee15b23ec9754f3eada5d962",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-s-normal-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/s-normal-2x.png",
+          "sha256": "554c55531cdd00f80bb47911e88371975c5946f391bfa1fd6f7e3a29eaf45523",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-s-normal-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/s-normal-4x.png",
+          "sha256": "291fae28646e4bc6f021b96149d30daaf0bd5ccc8400c5d5f86e93cb951aec1a",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-s-normal-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/s-normal-2x.png",
+          "sha256": "0ca17d26f293e61df83ca9131d96cd01d93881c6e799db646781841223d15ee0",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/s-spent",
+      "label": "neutral · s-spent",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-s-spent-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/s-spent-2x.png",
+          "sha256": "7ce00f1891f255d507217452c90bda7795fd654fbe0832e3e63f3431212dbe35",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-s-spent-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/s-spent-2x.png",
+          "sha256": "1715916036101a953a641a7e18e5e35204b1966628cd61eb36a47e922d041d57",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-s-spent-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/s-spent-4x.png",
+          "sha256": "37da02845fe0efdf1604b633ea6ac430844d48370782b5725379c4a4daa00b6b",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-s-spent-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/s-spent-2x.png",
+          "sha256": "c4c663a50abaf78827484966e205d1a87e1cfbb3f2ea7f94889f5ff0a1c90edc",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/se-normal",
+      "label": "neutral · se-normal",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-se-normal-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/se-normal-2x.png",
+          "sha256": "136a22a0fdb0f24b8c720aa245650b2ebdfd02db6b76fc04c05d635215f84c82",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-se-normal-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/se-normal-2x.png",
+          "sha256": "18f02a222e6f1b3faad02f241531c6351512b4ca6e235bbc19792e7e4bba6a4d",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-se-normal-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/se-normal-4x.png",
+          "sha256": "12638365e0c37d9f0c20caf7f2e1ed113f34aad0bb3101e8c7165e9fd873f151",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-se-normal-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/se-normal-2x.png",
+          "sha256": "c4f3b415690078bf4ff39a5fbbd36d832a1e031b3ec408d3e47413a719230753",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/se-spent",
+      "label": "neutral · se-spent",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-se-spent-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/se-spent-2x.png",
+          "sha256": "df72b53713eedc3f65219aae0c3250e94a7123fd87ebdb07628f669de1dce53c",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-se-spent-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/se-spent-2x.png",
+          "sha256": "addcbfdd26adf13160c1cd208d4b2a0ec4e423bd32a630b6010de66712452a19",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-se-spent-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/se-spent-4x.png",
+          "sha256": "9869258d0434b9ecb9f2f50d4f68d87cacf4525e5db9db261b0f9ccf81f394f2",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-se-spent-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/se-spent-2x.png",
+          "sha256": "10929e079443add627b2663e8bb7e094769787228f34579d992be4799b490501",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/sw-normal",
+      "label": "neutral · sw-normal",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-sw-normal-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/sw-normal-2x.png",
+          "sha256": "79768cc634b3a22d97048ecfa1a0c79fb026f5023025526f018d5427f827a3e6",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-sw-normal-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/sw-normal-2x.png",
+          "sha256": "0a5fd8d00f278c0f69b244b9580e47ea2e98ee30901f6b06c3d9ef32ddfb43e4",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-sw-normal-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/sw-normal-4x.png",
+          "sha256": "eb07d0f1d6c85979ee4f192622723f8484e26c07ca75f4da919705c395594cc1",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-sw-normal-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/sw-normal-2x.png",
+          "sha256": "010b3ab046a75d862c2506af88f3e0077c4ea6a5b81ed34a0e8143804b35fd3c",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/sw-spent",
+      "label": "neutral · sw-spent",
+      "images": {
+        "1": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-sw-spent-1x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/sw-spent-2x.png",
+          "sha256": "7e9545266e6adfac478bec44b4166c8c2c0d7ac30adb707a437aeb2172d94534",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-sw-spent-2x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/sw-spent-2x.png",
+          "sha256": "3bebcfcc63bdcb7bb91b3e3a5f68a309c1ee72e9df9ce91ac51c8aca2e15eb9c",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-sw-spent-4x.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/sw-spent-4x.png",
+          "sha256": "9f35aae9167816e68158a5ad0508fba1bac9324a3e806c45055673bfb9f8f906",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-sw-spent-game.png",
+          "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/sw-spent-2x.png",
+          "sha256": "dd8190633bea200ed14688bd9d02d01c4ca32d254579f60ca6c48ce8a7891863",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    }
+  ],
+  "files": {
+    "cp/n-normal": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-n-normal-1x.png",
+        "sha256": "87785926dcecdbd6e0e13652193e05748f29e673b856040c8539f8567bf5771a",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/n-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-n-normal-2x.png",
+        "sha256": "39e896a0bc3093030da2d57846587b00ae2e05934e84bf0a413a8d6656bf3845",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/n-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-n-normal-4x.png",
+        "sha256": "9b3b9bc8e6e18a71f82e8ff5cb72d69bcafa494feaedb61c81219a0e4d21efee",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/n-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-n-normal-game.png",
+        "sha256": "e6b1ad18af71e2025d01bf0252d8faac8f558a17d91c20886d511fd83c38b97d",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/n-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/n-spent": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-n-spent-1x.png",
+        "sha256": "8d1e59d050f9dce5a5f3b3f960a6a7654af50f0a6a93a1d95afe902ffd50c9b4",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/n-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-n-spent-2x.png",
+        "sha256": "58050b77dd8d16c7a5acee8440509b978bfbadb9cda0825e1501807c6f17d5b1",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/n-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-n-spent-4x.png",
+        "sha256": "103c3eb325970c5e3d49742f4c9fec68962745bb149527eb170ec18efdfb6ec0",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/n-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-n-spent-game.png",
+        "sha256": "edb21464701b6a8db7f2cbd41645ab56df13f6a9965ab2dd23215fb80c8d8a0f",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/n-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/ne-normal": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-ne-normal-1x.png",
+        "sha256": "3b6399ac79a1bb0e54bbb38ce9a1076251f05d08cb8265aa5e94291d1c754e78",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/ne-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-ne-normal-2x.png",
+        "sha256": "cf4e67c583fe1b97ab6f5da2cdc495838291d9da0049e03b92a2df9a52cca079",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/ne-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-ne-normal-4x.png",
+        "sha256": "dc436d8a86f150eed0b4c1f44e347d500f88a339e2fa2abd92068b869beb514f",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/ne-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-ne-normal-game.png",
+        "sha256": "9a251288dd640d345a03900071977b7d83fb1e00a81f92dcb7daf17b6df678a6",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/ne-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/ne-spent": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-ne-spent-1x.png",
+        "sha256": "824bc4863fa821e1ed424c202f43f7720c05e62fa3ea5b134bbf56a2b25b9528",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/ne-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-ne-spent-2x.png",
+        "sha256": "851dd8855a78b6f1df5c8a064f8e7152e8e7bae773ad34992e6b535175b9dd6a",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/ne-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-ne-spent-4x.png",
+        "sha256": "4f5f41b582c0e058174306d4585035651d641a82d47da3e80e34a14193b489fc",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/ne-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-ne-spent-game.png",
+        "sha256": "961abba5c5da2eb69af6f8c09923bcd8ef9d46e83b590005db1876742552016f",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/ne-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/nw-normal": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-nw-normal-1x.png",
+        "sha256": "7a77711facea6b4e94931bb91418ab8e688ebf738549062a60d218c3afe7a30f",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/nw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-nw-normal-2x.png",
+        "sha256": "2228165ef92ad1855d2a780f2339fc85a6cb1b3e5fa65f12fb71fd0ccb00e61f",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/nw-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-nw-normal-4x.png",
+        "sha256": "f69cc7d79df61efb36640012b5609f3fb4f8dbb511fb90d4ed187b366f34c8bc",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/nw-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-nw-normal-game.png",
+        "sha256": "ec62b04780d8c0c0ecd41395e644b078eed639ca05629643573fa608fa4baa6c",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/nw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/nw-spent": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-nw-spent-1x.png",
+        "sha256": "1630592b97ac2de4f88e5628c2446030c72520061b08c02c48e8e8bad6600194",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/nw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-nw-spent-2x.png",
+        "sha256": "0a1b862aaddf9418e5fb9cd714f7146c2f982507ecc567fecf823e8bfd13a17e",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/nw-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-nw-spent-4x.png",
+        "sha256": "0fa0296d5b2b81029ba51c34ec508a759e12ab11c66bebf0e55353b3c1573532",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/nw-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-nw-spent-game.png",
+        "sha256": "de269d466a5c6da57e919e5db75860f91d27fe7a87f1f1c99e4804da78573fc0",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/nw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/s-normal": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-s-normal-1x.png",
+        "sha256": "52538ce4ff9c2280d93ae080417dff211548d95967a1acb832aac5ce8fd202e9",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/s-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-s-normal-2x.png",
+        "sha256": "421a53d9db63cbc133bf9084ee3c0bb2a3f6a0f631dc8e3a2610e310b972fefe",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/s-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-s-normal-4x.png",
+        "sha256": "75a6bd389dd55ea29d023fdb2e158bd47a512abbd66d04fd782675eb40032caa",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/s-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-s-normal-game.png",
+        "sha256": "e28fa51e3e089d8d34819930167dacfce36669eaccbfc7e3082a4f816fc113d0",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/s-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/s-spent": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-s-spent-1x.png",
+        "sha256": "31c70d4a546def8b88c10f2f989fbc5a3bcbb79e815e3808df4f66be97d5d3bf",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/s-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-s-spent-2x.png",
+        "sha256": "de47db6646aa90de357f89c9d01e6c2a66eac8392cf2fcfd109418d103478dd6",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/s-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-s-spent-4x.png",
+        "sha256": "ea7d401ffded70b7ea49e1ec17ccdbefc4e481853c029a653be4d211facaae94",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/s-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-s-spent-game.png",
+        "sha256": "2d6dddc679b75ec1e4a8e3a828f985f76cd493188960567663dea9e1a3382c18",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/s-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/se-normal": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-se-normal-1x.png",
+        "sha256": "dab53838dd5c385b71da9ec0d8451acda7bdc59980fdb098aa1c91ff6b753890",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/se-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-se-normal-2x.png",
+        "sha256": "05d88f31d9b095ae82107a99467ae842e191024089c067ec08ae14518e42a9c0",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/se-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-se-normal-4x.png",
+        "sha256": "71de5cfa7a5ceda2c96bb5dcb014bb6daea9b5edeeacca09406be72e287b0eac",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/se-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-se-normal-game.png",
+        "sha256": "b3205e5ac00ddc35abbfe12c57a84d96d550d98e20120059aa9ac5f46d650a67",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/se-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/se-spent": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-se-spent-1x.png",
+        "sha256": "f9c98ca396a94b4aff2a49139222bf5ac42707b6d762f24ec1dbcef2d97f68c5",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/se-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-se-spent-2x.png",
+        "sha256": "f0a4309b8a59b81e79ad0417e7af0464f2c33e0a77d9f61b806971f6457ab9f4",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/se-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-se-spent-4x.png",
+        "sha256": "feef3044f9180a179050c0e4bf2f862a1678629404a278e8782c6a3454fc620d",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/se-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-se-spent-game.png",
+        "sha256": "aecf3ecd7ed7e553bec8fce04edafa284a2e4d2d3380dbf8b146653669c82466",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/se-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/sw-normal": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-sw-normal-1x.png",
+        "sha256": "175c1d21b449c2ae208b317ff6bba99abb2917c2afb49500e2156129e2dd4a28",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/sw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-sw-normal-2x.png",
+        "sha256": "224b95e890efbe47c14754f65a63d4056eb647029dfedc65f20b840fee1dcb13",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/sw-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-sw-normal-4x.png",
+        "sha256": "97eb0b68105f94b52ef3cdbf6ffc3a31630b6e207a2d41130aea65e02a95e4c6",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/sw-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-sw-normal-game.png",
+        "sha256": "e9ed3e395e6cee8670bd3a75f43c0eb3513b6ed5663fd9658baa5793baee7d31",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/sw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/sw-spent": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-sw-spent-1x.png",
+        "sha256": "2060bc7e85054672d8c71926b6f1d46249e6fc2bafd3160cb19d909799c795c4",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/sw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-sw-spent-2x.png",
+        "sha256": "98cc7035ea669fa68f08cdc635e7a0c3b194917fcaffdce38dc60647644fec3a",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/sw-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-sw-spent-4x.png",
+        "sha256": "b9b9a32fd0e64f4d0e077750e30594af2eac30d39d7e9d685ffecf661df2886d",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/sw-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/cp-sw-spent-game.png",
+        "sha256": "0bf19b7b3b6629e1ce555ba78ab44383dea2053935dac505aaaf43f41f5ac8e2",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/cp/sw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/n-normal": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-n-normal-1x.png",
+        "sha256": "3ae919c6f8270a4dafbdc6742b51c109976397f153c38c188c6b43b5e6577055",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/n-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-n-normal-2x.png",
+        "sha256": "d0104740212b47d7eb8fe3fb0a00e1b3462bff260fc3e44b60700d0dab3b04d6",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/n-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-n-normal-4x.png",
+        "sha256": "56815d4ee9472adfb9878358b43a40a4927a4def77a54366f688cae32be44a95",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/n-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-n-normal-game.png",
+        "sha256": "d3863a9e5318ac55b121e4f6209dd164e7419bd3bc0a098d4795e8c43b724c21",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/n-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/n-spent": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-n-spent-1x.png",
+        "sha256": "057b54dbb83fd5266eec342b2e4739ee7758000ed26a2ae9f91d018b3c28efe9",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/n-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-n-spent-2x.png",
+        "sha256": "94f73c0f44e58019ea0d0ba19769a0b89692bde80e0bb46f2fe0603103d82f68",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/n-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-n-spent-4x.png",
+        "sha256": "9526283ad7b492dce6ab8f876219ef8e6b6e010f3ef4bbb45ee913cd549112de",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/n-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-n-spent-game.png",
+        "sha256": "92cc192ff28802e612b380591dd1ae5b8515ea1aac6c9f1338282b17def07dc8",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/n-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/ne-normal": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-ne-normal-1x.png",
+        "sha256": "486c0cd70514d9662252a688679c8f677629d74f808643a69c6a323c866c6c44",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/ne-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-ne-normal-2x.png",
+        "sha256": "92de1f19ae972276b59f6aef4573a01043bad1e4daac57bc4d0f89e2b9f246f6",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/ne-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-ne-normal-4x.png",
+        "sha256": "c1d63e5c6eb046a71e8077d0bd54a205ab287f3b33c4ce78ad293e5e52eefb1f",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/ne-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-ne-normal-game.png",
+        "sha256": "7efe20b922d2821d7ad34f779fece34c7d72be3f06694e3c83f5204b99cee4a1",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/ne-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/ne-spent": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-ne-spent-1x.png",
+        "sha256": "e12b9805d7776c61ebe0557cb15ec6b189312e5bb1fb27f0380017cfdfa6ee6a",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/ne-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-ne-spent-2x.png",
+        "sha256": "913e8ebf4fa1dcd13868014a5b6dcc5d0371f116b90696e178559110247aecb8",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/ne-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-ne-spent-4x.png",
+        "sha256": "d3eea82aa7a916de07f136334f8a42f26fb706699422f227e664ea9391027a95",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/ne-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-ne-spent-game.png",
+        "sha256": "666c71b66097c630840dc1346ec4857ff1253218c6e08412da1631e7a001d372",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/ne-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/nw-normal": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-nw-normal-1x.png",
+        "sha256": "73e08a2f5925c2f3ee437a1ca4353016cea6a4cc2d393aa84bda3ea85ab8c5c9",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/nw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-nw-normal-2x.png",
+        "sha256": "135fcbcadabbafbf2b9c47006eb6cde3141bd056c7604efda5dcf5ec137221f9",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/nw-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-nw-normal-4x.png",
+        "sha256": "c8dcde3535509eb46008657376a7efc30997a8e0670313abd9e106fa1b378bca",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/nw-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-nw-normal-game.png",
+        "sha256": "0a0e45ee4813ccdca4e7f148d41deb1795ec7b8d2db439f49d72954c427edaad",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/nw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/nw-spent": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-nw-spent-1x.png",
+        "sha256": "c6981db5ccb0d5707a979adb2d91144898f40fd2e7cb8535ba5884d74c390dc1",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/nw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-nw-spent-2x.png",
+        "sha256": "1c8b188f280ecc7c2c1ba5499e8e4636f4fd9ede9561cd6dea1daa5784c30afc",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/nw-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-nw-spent-4x.png",
+        "sha256": "3d53d1215d8caa5bd4cdb65f35716e7b3eac14dbc640f40549875ccf8aa98d92",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/nw-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-nw-spent-game.png",
+        "sha256": "440778b09f50e620134ede7708021583016d19176d8e86a170c1eddf930f147f",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/nw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/s-normal": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-s-normal-1x.png",
+        "sha256": "0618279e72b586b4910ac5ae728464942ca7da9cbcf1fb3dcb81cb502e8aadb3",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/s-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-s-normal-2x.png",
+        "sha256": "984133eeb3f652c6fd3c558be8cff27869cfbbd7e11e6554ef0d35496aa9b998",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/s-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-s-normal-4x.png",
+        "sha256": "398b7637f0e6782eccc934b5eea36991a8625e8f0e108267151b42a6a3a235e3",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/s-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-s-normal-game.png",
+        "sha256": "ed28aa48e3b894653cfe5756f260b280cd37fb189105710511b68d86a44bab13",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/s-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/s-spent": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-s-spent-1x.png",
+        "sha256": "0f2c8ffddf75d6a58aeaf4355912cacc0183a1a3c58258fed495f2287a503cf2",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/s-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-s-spent-2x.png",
+        "sha256": "0ce3134b80a882a995b8d8632e34b05a6523891d3a63ae913d851256173252c4",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/s-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-s-spent-4x.png",
+        "sha256": "d61b2e6d589d5db688b7d7d62395da225ee42b8554a23e3f3676b9a8b8d5f10f",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/s-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-s-spent-game.png",
+        "sha256": "5c393962609ecfb77b0fc74ffe18a98534e370610394e20b4fcc943057a777d3",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/s-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/se-normal": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-se-normal-1x.png",
+        "sha256": "39c995c6e5e344c156dadcafe57104c722ec70ffbd48f58c32b084ebdcb0cee5",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/se-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-se-normal-2x.png",
+        "sha256": "d1dbdd2333635bdcf015cc810170ef0259e335a60a53e03c5c7873dabbe81144",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/se-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-se-normal-4x.png",
+        "sha256": "6db25cc3bb266304b18c4bfeed032b583d6eb7477c39ef7d8f4846100ce43d45",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/se-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-se-normal-game.png",
+        "sha256": "43e811b60df5ab9037e6936f7c0f31e88a2891bd1150eb3888a4ab63c08670e5",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/se-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/se-spent": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-se-spent-1x.png",
+        "sha256": "3ae021d64649e0b7bfc1d6ba3b27de584549774c23096216e1dfb23ff17400d3",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/se-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-se-spent-2x.png",
+        "sha256": "2d0deed5ab25d14c355dd194d2c2a9702cbf76abb73c0e2263891c133d9149fd",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/se-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-se-spent-4x.png",
+        "sha256": "e88120f4701560b6d49ea3bbd5625d2f7704ee50f6a67e5107f5e69bb5ff9d52",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/se-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-se-spent-game.png",
+        "sha256": "7249b19b462b417ced61b080f8610ff73bad702b4ca95ef76dc90c684ea45880",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/se-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/sw-normal": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-sw-normal-1x.png",
+        "sha256": "d8b6e684ec9147bf34726e8166dd163de184ee312b2b549b89448389ad95e52f",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/sw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-sw-normal-2x.png",
+        "sha256": "173632ee6429e3220f5ba3246ac1f5b8f908b32581577f49754940f4678d260e",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/sw-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-sw-normal-4x.png",
+        "sha256": "816e5931bf6f47456e3b643ebb5a457c2b0eb36db385d1955a4a5c2f0c4a8736",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/sw-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-sw-normal-game.png",
+        "sha256": "68141ab51629302aa5a45abac38696d969e7c6f37968b897694af1e5c56bb089",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/sw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/sw-spent": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-sw-spent-1x.png",
+        "sha256": "b5e7327f8cc3cfd8c346cfae3944b8ec44392328451b3f53a61a8930715a7cb6",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/sw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-sw-spent-2x.png",
+        "sha256": "9c2f777546197ded743fd0f6f9a902e12bafbf6aeeb9cc1b53b047ee60f26b31",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/sw-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-sw-spent-4x.png",
+        "sha256": "b657d7f09628001d3cc662f70bab1aa9880c797690ca7c2e9ef673a58a8cdf65",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/sw-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/ec-sw-spent-game.png",
+        "sha256": "3d4fa31ed22f5638c044c671f50c564234db43d4e28ae201152015f59c0ba885",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/ec/sw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/n-normal": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-n-normal-1x.png",
+        "sha256": "846cda6a424849f2eb7ae3396673c67bb918228fced666dbbbe881d468fc6abe",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/n-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-n-normal-2x.png",
+        "sha256": "a69a3eb45234a24fdb9cd8b69a5303281927df02b0aef12fd55ffc6b27af1b4d",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/n-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-n-normal-4x.png",
+        "sha256": "0aea6fde0e508027fb8d1af05317c19bc1678a7abc854ae90ff979d5a08f3b17",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/n-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-n-normal-game.png",
+        "sha256": "c9ea94d2c9080b93b1f7b7370a2e6d4d707a2b2fa35c579223c8b93ba0ad6780",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/n-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/n-spent": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-n-spent-1x.png",
+        "sha256": "25af0173b87ab25a08748c197ca753ca30a583854225754d3149176ba81bbf7e",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/n-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-n-spent-2x.png",
+        "sha256": "948bcab5457c98980eca2722eb121ea6323c0123dba7c849df8d246767a3bc7f",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/n-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-n-spent-4x.png",
+        "sha256": "88a9e29387466539938042bfa6c5550b85af35a0bb85f365e92dcf77135725ea",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/n-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-n-spent-game.png",
+        "sha256": "e3837ac0988a57044e4e308ccd4598b3e55872303878cc9dade8ff508cbceb2b",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/n-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/ne-normal": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-ne-normal-1x.png",
+        "sha256": "86713004ca92ea54547a5ff473f9caa9a1aa1787ee0e4b082ac9d8c27f5f2d5a",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/ne-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-ne-normal-2x.png",
+        "sha256": "3aac837b032adb48d7309a926617929d7b9dfed89c99bb166d9efc7d569c9ebe",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/ne-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-ne-normal-4x.png",
+        "sha256": "e121084241522ed5350f1acdf16b58899c8fcdc23e53e6db8a0b85c409606534",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/ne-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-ne-normal-game.png",
+        "sha256": "fab152b7f6b1dcda78f822939b253a20369e33786492d72bc4befa0c71d2627f",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/ne-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/ne-spent": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-ne-spent-1x.png",
+        "sha256": "ca16f24278dd22fcf824e0dc64ab79fda7cf09835225ff9c65808dd2a7be8edf",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/ne-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-ne-spent-2x.png",
+        "sha256": "721c91505864a5cb526d76f750a3d2fdfd3e4012c298682d74006b67189ae4d1",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/ne-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-ne-spent-4x.png",
+        "sha256": "a2cbcfcd30f390d4887722ddafa169068faa533119dc56863e82256d66e6231d",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/ne-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-ne-spent-game.png",
+        "sha256": "fd25c75837d50cfe29c19f2e4f5800a3f78cfe24077448ed8a5ed35690462068",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/ne-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/nw-normal": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-nw-normal-1x.png",
+        "sha256": "d2609cd83f5cd87323709eae7330de81037071b4513cc177edd352ebf8381e3e",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/nw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-nw-normal-2x.png",
+        "sha256": "7f71852b58f0dbfd21d6680f37af6686e83251eed6e7f34a42c224e44e9e5f53",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/nw-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-nw-normal-4x.png",
+        "sha256": "77511033d335d9475cb48dbc54f09ed9dd100e46d360e7ca67c62068f272d319",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/nw-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-nw-normal-game.png",
+        "sha256": "7d26ae67af393ccbea29e83b78543422d119a91ab96ba3be3b9323f1c989c91d",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/nw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/nw-spent": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-nw-spent-1x.png",
+        "sha256": "ac25fca2d26a288317226be7fc2cfd3f8c9d389cc3988526ae541d510ce199c7",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/nw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-nw-spent-2x.png",
+        "sha256": "ac91ecc31ca15bc70c143240bd7eb08a88b2492946ece513b34c246490bbce84",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/nw-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-nw-spent-4x.png",
+        "sha256": "7a0da457cca052c3b0b8257d692b05dc3d76190c61d301eaa3fd9d9446ca4056",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/nw-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-nw-spent-game.png",
+        "sha256": "f150930b5b489536d878f6e4f02e07ec9c6fb36985ba0f62c48e4f4fc4fbb254",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/nw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/s-normal": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-s-normal-1x.png",
+        "sha256": "94076a1d7f1ca369bc17ab0fbbc805eafd48f0f4ee15b23ec9754f3eada5d962",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/s-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-s-normal-2x.png",
+        "sha256": "554c55531cdd00f80bb47911e88371975c5946f391bfa1fd6f7e3a29eaf45523",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/s-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-s-normal-4x.png",
+        "sha256": "291fae28646e4bc6f021b96149d30daaf0bd5ccc8400c5d5f86e93cb951aec1a",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/s-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-s-normal-game.png",
+        "sha256": "0ca17d26f293e61df83ca9131d96cd01d93881c6e799db646781841223d15ee0",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/s-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/s-spent": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-s-spent-1x.png",
+        "sha256": "7ce00f1891f255d507217452c90bda7795fd654fbe0832e3e63f3431212dbe35",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/s-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-s-spent-2x.png",
+        "sha256": "1715916036101a953a641a7e18e5e35204b1966628cd61eb36a47e922d041d57",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/s-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-s-spent-4x.png",
+        "sha256": "37da02845fe0efdf1604b633ea6ac430844d48370782b5725379c4a4daa00b6b",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/s-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-s-spent-game.png",
+        "sha256": "c4c663a50abaf78827484966e205d1a87e1cfbb3f2ea7f94889f5ff0a1c90edc",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/s-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/se-normal": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-se-normal-1x.png",
+        "sha256": "136a22a0fdb0f24b8c720aa245650b2ebdfd02db6b76fc04c05d635215f84c82",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/se-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-se-normal-2x.png",
+        "sha256": "18f02a222e6f1b3faad02f241531c6351512b4ca6e235bbc19792e7e4bba6a4d",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/se-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-se-normal-4x.png",
+        "sha256": "12638365e0c37d9f0c20caf7f2e1ed113f34aad0bb3101e8c7165e9fd873f151",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/se-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-se-normal-game.png",
+        "sha256": "c4f3b415690078bf4ff39a5fbbd36d832a1e031b3ec408d3e47413a719230753",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/se-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/se-spent": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-se-spent-1x.png",
+        "sha256": "df72b53713eedc3f65219aae0c3250e94a7123fd87ebdb07628f669de1dce53c",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/se-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-se-spent-2x.png",
+        "sha256": "addcbfdd26adf13160c1cd208d4b2a0ec4e423bd32a630b6010de66712452a19",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/se-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-se-spent-4x.png",
+        "sha256": "9869258d0434b9ecb9f2f50d4f68d87cacf4525e5db9db261b0f9ccf81f394f2",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/se-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-se-spent-game.png",
+        "sha256": "10929e079443add627b2663e8bb7e094769787228f34579d992be4799b490501",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/se-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/sw-normal": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-sw-normal-1x.png",
+        "sha256": "79768cc634b3a22d97048ecfa1a0c79fb026f5023025526f018d5427f827a3e6",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/sw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-sw-normal-2x.png",
+        "sha256": "0a5fd8d00f278c0f69b244b9580e47ea2e98ee30901f6b06c3d9ef32ddfb43e4",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/sw-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-sw-normal-4x.png",
+        "sha256": "eb07d0f1d6c85979ee4f192622723f8484e26c07ca75f4da919705c395594cc1",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/sw-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-sw-normal-game.png",
+        "sha256": "010b3ab046a75d862c2506af88f3e0077c4ea6a5b81ed34a0e8143804b35fd3c",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/sw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/sw-spent": {
+      "1": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-sw-spent-1x.png",
+        "sha256": "7e9545266e6adfac478bec44b4166c8c2c0d7ac30adb707a437aeb2172d94534",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/sw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-sw-spent-2x.png",
+        "sha256": "3bebcfcc63bdcb7bb91b3e3a5f68a309c1ee72e9df9ce91ac51c8aca2e15eb9c",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/sw-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-sw-spent-4x.png",
+        "sha256": "9f35aae9167816e68158a5ad0508fba1bac9324a3e806c45055673bfb9f8f906",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/sw-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/eliteInfantry/sprite-eliteInfantry/neutral-sw-spent-game.png",
+        "sha256": "dd8190633bea200ed14688bd9d02d01c4ca32d254579f60ca6c48ce8a7891863",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-elite-infantry-v1/sprites/eliteInfantry/neutral/sw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "id": "screens-v1/layout/save",
+  "name": "save",
+  "category": "Screens",
+  "family": "screens-v1",
+  "note": "Current screen layout with example labels and values. The composed image is a review fixture; the game will draw text and controls separately. No matching reference capture is mapped. Navigation and runtime integration remain open.",
+  "recipes": [
+    "art/recipes/screens/v1/western-front.json"
+  ],
+  "prompts": [
+    "prompts/screens/v1/western-front.md"
+  ],
+  "width": 640,
+  "height": 400,
+  "variants": [
+    {
+      "id": "layout",
+      "label": "Composed layout",
+      "images": {
+        "1": {
+          "url": "screens/screens-v1/screens-v1-layout-save/1x.png",
+          "source": "art/exports/screens-v1/fixtures/save-2x.png",
+          "sha256": "3e9a2437bd6ba5053d489bffc13a304155293d56a859febd3b3d70b4a854af77",
+          "width": 640,
+          "height": 400,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "screens/screens-v1/screens-v1-layout-save/2x.png",
+          "source": "art/exports/screens-v1/fixtures/save-2x.png",
+          "sha256": "05e93a2b013a6ed669429c7395cbf3cff6719d3e4586a6551dac09f9af86671d",
+          "width": 1280,
+          "height": 800,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "layout": {
+      "1": {
+        "path": "screens/screens-v1/screens-v1-layout-save/1x.png",
+        "sha256": "3e9a2437bd6ba5053d489bffc13a304155293d56a859febd3b3d70b4a854af77",
+        "width": 640,
+        "height": 400,
+        "source": "art/exports/screens-v1/fixtures/save-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "screens/screens-v1/screens-v1-layout-save/2x.png",
+        "sha256": "05e93a2b013a6ed669429c7395cbf3cff6719d3e4586a6551dac09f9af86671d",
+        "width": 1280,
+        "height": 800,
+        "source": "art/exports/screens-v1/fixtures/save-2x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

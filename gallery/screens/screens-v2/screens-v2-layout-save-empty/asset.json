@@ -1,0 +1,59 @@
+{
+  "id": "screens-v2/layout/save-empty",
+  "name": "save-empty",
+  "category": "Screens",
+  "family": "screens-v2",
+  "note": "Current screen layout with example labels and values. The composed image is a review fixture; the game will draw text and controls separately. No matching reference capture is mapped. Navigation and runtime integration remain open.",
+  "recipes": [
+    "art/recipes/screens/v1/western-front.json"
+  ],
+  "prompts": [
+    "prompts/screens/v1/western-front.md"
+  ],
+  "width": 640,
+  "height": 400,
+  "variants": [
+    {
+      "id": "layout",
+      "label": "Composed layout",
+      "images": {
+        "1": {
+          "url": "screens/screens-v2/screens-v2-layout-save-empty/1x.png",
+          "source": "art/exports/screens-v2/fixtures/save-empty-2x.png",
+          "sha256": "073bb531f53fca591a9256f16fefffc92f8ed9b82816e55cb3e66e5db347d78c",
+          "width": 640,
+          "height": 400,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "screens/screens-v2/screens-v2-layout-save-empty/2x.png",
+          "source": "art/exports/screens-v2/fixtures/save-empty-2x.png",
+          "sha256": "6b2c4c173ed83324e128267c66b5f17a224d51646e8ae6b41a40c8fdbe0bb520",
+          "width": 1280,
+          "height": 800,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "layout": {
+      "1": {
+        "path": "screens/screens-v2/screens-v2-layout-save-empty/1x.png",
+        "sha256": "073bb531f53fca591a9256f16fefffc92f8ed9b82816e55cb3e66e5db347d78c",
+        "width": 640,
+        "height": 400,
+        "source": "art/exports/screens-v2/fixtures/save-empty-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "screens/screens-v2/screens-v2-layout-save-empty/2x.png",
+        "sha256": "6b2c4c173ed83324e128267c66b5f17a224d51646e8ae6b41a40c8fdbe0bb520",
+        "width": 1280,
+        "height": 800,
+        "source": "art/exports/screens-v2/fixtures/save-empty-2x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

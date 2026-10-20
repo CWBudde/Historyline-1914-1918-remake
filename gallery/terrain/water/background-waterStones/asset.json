@@ -1,0 +1,78 @@
+{
+  "id": "background/waterStones",
+  "name": "waterStones",
+  "category": "Terrain",
+  "family": "water",
+  "season": "shared",
+  "note": "Current enabled background binding. This single-asset view uses its default context export; the PULSE study resolves available neighbor contexts through the shared compositor. Final runtime acceptance remains open.",
+  "recipes": [
+    "art/recipes/compound/distinct-v1/water-stones-01.json",
+    "art/recipes/terrain/shore-reference-v2/water.json"
+  ],
+  "prompts": [
+    "prompts/compound/distinct-v1/water-stones-01.md",
+    "prompts/terrain/shore-reference-v2/water.md"
+  ],
+  "width": 96,
+  "height": 80,
+  "variants": [
+    {
+      "id": "default",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "terrain/water/background-waterStones/1x.png",
+          "source": "art/exports/compound-v1/waterStones-2x.png",
+          "sha256": "252613923365bf2f11ac8fa2782c4ee6ebfe76003c38e755c1018efc0144e86e",
+          "width": 96,
+          "height": 80,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "terrain/water/background-waterStones/2x.png",
+          "source": "art/exports/compound-v1/waterStones-2x.png",
+          "sha256": "9842e06a964c51b6738ca04a53a281687315c4dbddc02375623807dd83fb7fe8",
+          "width": 192,
+          "height": 160,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "terrain/water/background-waterStones/4x.png",
+          "source": "art/exports/compound-v1/waterStones-4x.png",
+          "sha256": "de15663607420e390f4a129305eb3d530925bc4f3d6276719dd07d66e3fdd21f",
+          "width": 384,
+          "height": 320,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "default": {
+      "1": {
+        "path": "terrain/water/background-waterStones/1x.png",
+        "sha256": "252613923365bf2f11ac8fa2782c4ee6ebfe76003c38e755c1018efc0144e86e",
+        "width": 96,
+        "height": 80,
+        "source": "art/exports/compound-v1/waterStones-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "terrain/water/background-waterStones/2x.png",
+        "sha256": "9842e06a964c51b6738ca04a53a281687315c4dbddc02375623807dd83fb7fe8",
+        "width": 192,
+        "height": 160,
+        "source": "art/exports/compound-v1/waterStones-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "terrain/water/background-waterStones/4x.png",
+        "sha256": "de15663607420e390f4a129305eb3d530925bc4f3d6276719dd07d66e3fdd21f",
+        "width": 384,
+        "height": 320,
+        "source": "art/exports/compound-v1/waterStones-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

@@ -1,0 +1,2620 @@
+{
+  "id": "sprite/charron",
+  "name": "charron",
+  "category": "Sprites",
+  "family": "charron",
+  "bindings": [
+    "EC_charron"
+  ],
+  "note": "Reference is the unchanged 48×48 source pose and palette. Current authored sprites are reduced to that size with Lanczos3 for comparison; 2× zoom gives the 96×96 game footprint. Other facings/owners/spent states have no matching raw reference variant; no reference rotations or faction swaps are invented.",
+  "recipes": [
+    "art/recipes/units/reference-v1/charron-atlas-01.json",
+    "art/recipes/terrain/reference-v2/meadow-03.json",
+    "art/recipes/units/reference-v2/charron.json",
+    "art/recipes/units/reference-v2/charron-wide.json"
+  ],
+  "prompts": [
+    "prompts/units/reference-v1/charron-atlas-01.md",
+    "prompts/terrain/reference-v2/meadow-03.md",
+    "prompts/units/reference-v2/charron.md",
+    "prompts/units/reference-v2/charron-wide.md"
+  ],
+  "width": 48,
+  "height": 48,
+  "variants": [
+    {
+      "id": "cp/n-normal",
+      "label": "cp · n-normal",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/cp-n-normal-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/n-normal-2x.png",
+          "sha256": "5383036eaae6bd33f848dc2627076d66f8705695cf83d4993aa80d780be7d6d3",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/cp-n-normal-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/n-normal-2x.png",
+          "sha256": "e18ada54dce17f3a4923321d3c2fef750ce355f3a9e77a4e7f63c1ef88d69df1",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/cp-n-normal-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/n-normal-4x.png",
+          "sha256": "6ef8a31229ce83b9abf78e10b338aecfb0ce058db5afee127bbd22bfcc0e43a2",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/cp-n-normal-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/n-normal-2x.png",
+          "sha256": "b98e21040278e65b0136fd7f48d2c9c804865d1bf848a0973ad807fcfe7c62df",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/n-spent",
+      "label": "cp · n-spent",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/cp-n-spent-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/n-spent-2x.png",
+          "sha256": "f26c74e872925981b365e46ff44b5244c97bae4cb8e9974b3e3bd26423c71051",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/cp-n-spent-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/n-spent-2x.png",
+          "sha256": "fe593fe405b8f5260020475af9143aa85d28cbd23bb6661ed9b1ade97d434ac4",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/cp-n-spent-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/n-spent-4x.png",
+          "sha256": "f15152963f21d91ef0b592d9bf54c71ee1a6a7f7a463aae844feb6ffd8c6225a",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/cp-n-spent-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/n-spent-2x.png",
+          "sha256": "8e82f5210a3822983c341dea85a570300c74287df5d231041ea52b6d4e5832d2",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/ne-normal",
+      "label": "cp · ne-normal",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/cp-ne-normal-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/ne-normal-2x.png",
+          "sha256": "cca60952e18011dcc62dafd384ec76e0a2418986391b5c20e473af03f9fe4f55",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/cp-ne-normal-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/ne-normal-2x.png",
+          "sha256": "d2fea375b8d7fac41886833d6847c0f8862e25f958ab7a53ff70091b8bc797a9",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/cp-ne-normal-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/ne-normal-4x.png",
+          "sha256": "83a24ebeaff4c9afff850bef28bd39a77a0e296cee95c049fef66cd9a5470e63",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/cp-ne-normal-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/ne-normal-2x.png",
+          "sha256": "2fa878af02eb7287474f550288b6f46386114907a417de3c8c64987e7048c890",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/ne-spent",
+      "label": "cp · ne-spent",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/cp-ne-spent-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/ne-spent-2x.png",
+          "sha256": "40dd7ff0eb1bedaa84a0036330b98c229c685ae5661a0de10a7f45c72bae9845",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/cp-ne-spent-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/ne-spent-2x.png",
+          "sha256": "fb4abcfaed6b74318285ee36346011a04ccac26609f0ae12c2fff2e0b287c7c9",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/cp-ne-spent-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/ne-spent-4x.png",
+          "sha256": "04184b1bfccdf7608e04c19b611fc9e9eb2ff85d71e376852a53836f4c6c9d87",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/cp-ne-spent-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/ne-spent-2x.png",
+          "sha256": "172d6c811b7702e62670e82c6f53ff62420cad7422a1a76071cb59a2e51a556c",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/nw-normal",
+      "label": "cp · nw-normal",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/cp-nw-normal-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/nw-normal-2x.png",
+          "sha256": "bc1fa1ab80436422ab363386a9568196a6c167fdc198f6b08432ca7e10dbf10a",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/cp-nw-normal-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/nw-normal-2x.png",
+          "sha256": "63950e22c803fa3d85781c937baadcb883cbe5e40e56dccfd9280142ad941560",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/cp-nw-normal-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/nw-normal-4x.png",
+          "sha256": "314b462987547bcd9f15f7bcfd0e01d64f52668f169b883c4ea3c4378b4fe5bb",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/cp-nw-normal-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/nw-normal-2x.png",
+          "sha256": "89fcedf1f64d98b1a1075ff3923530a972fb53dd1d81ee5828f1eadc810e5ac2",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/nw-spent",
+      "label": "cp · nw-spent",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/cp-nw-spent-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/nw-spent-2x.png",
+          "sha256": "98ed9178ef50a30d54a03ff91d3b80ed6bde4b69a62dd43e82b5f734cdabee94",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/cp-nw-spent-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/nw-spent-2x.png",
+          "sha256": "b7d4bf94967b995ba2c3a57b195701b2db15c1f35014dea6b3ad05261a7194d1",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/cp-nw-spent-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/nw-spent-4x.png",
+          "sha256": "22c31611dc74aa3db6210593c278e3245ea3d68a62a050a5aa90dde4bc7eaa1f",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/cp-nw-spent-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/nw-spent-2x.png",
+          "sha256": "54488fe0b44797fc72dfd0d6bdb6e262d34659b7379a69b6cc7588f0a0b21cad",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/s-normal",
+      "label": "cp · s-normal",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/cp-s-normal-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/s-normal-2x.png",
+          "sha256": "07d73404415af89e859a63aeaf0fb7eedecdd0c01e9513e4698c61afaead1a02",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/cp-s-normal-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/s-normal-2x.png",
+          "sha256": "fcb504ae9a1509d6a3b140fe16778741c09c141f5bb66043b1341604c16e0c37",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/cp-s-normal-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/s-normal-4x.png",
+          "sha256": "34b809114c2354af3723ebf2cdb0fcf40b1d640b71452289f04ea2f007d95633",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/cp-s-normal-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/s-normal-2x.png",
+          "sha256": "ed04eda236b845ed0b74f178768a5c7af92b4caa07bc353682da37663b0133d2",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/s-spent",
+      "label": "cp · s-spent",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/cp-s-spent-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/s-spent-2x.png",
+          "sha256": "76c02b72e51d04fac7e8611e54259f36d58c1fa41d8f6b433f31b151d4beafe0",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/cp-s-spent-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/s-spent-2x.png",
+          "sha256": "03a93b1f8b018e23c08d1253da646012a88ebaf7ab7027a57a41eaacc6f40d45",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/cp-s-spent-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/s-spent-4x.png",
+          "sha256": "db0247f48ca94a7e0a09dffc590c486828cb734be1425dd130cbd7fe0ef4abdc",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/cp-s-spent-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/s-spent-2x.png",
+          "sha256": "69203eb99c7dc5de2320c928a95a5b678cba9b7d7233a4779b95c0604431b734",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/se-normal",
+      "label": "cp · se-normal",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/cp-se-normal-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/se-normal-2x.png",
+          "sha256": "31d2242273161db194bb12995581397f06eaf93c65a8ca348c046841beeabfd2",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/cp-se-normal-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/se-normal-2x.png",
+          "sha256": "7aa1368b31532b2b4b146a6b8fbce918c57088698fe2f323672709ecd73f70db",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/cp-se-normal-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/se-normal-4x.png",
+          "sha256": "ba6c2b0a50f5cfaa5be7f1dcd019402416d671c8b4ac6447b3b241b12784a6dd",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/cp-se-normal-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/se-normal-2x.png",
+          "sha256": "cd70764c3bd909dbc26e81ae9057b7e59b54ca34df5a79e02ac0a95712fc8236",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/se-spent",
+      "label": "cp · se-spent",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/cp-se-spent-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/se-spent-2x.png",
+          "sha256": "d33f246c1fc79072f3d035e0249e5f69bc43c1d4d2666e3cceef9774055ead87",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/cp-se-spent-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/se-spent-2x.png",
+          "sha256": "14cbc63cdf241dd22ca42d4b40204d770c6f1e13836c22c981c907c4f5c631c8",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/cp-se-spent-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/se-spent-4x.png",
+          "sha256": "85cf53cb6eee4e7bc8679c4a1158d1a1971c1d29f89d9196899352e16ecc5439",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/cp-se-spent-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/se-spent-2x.png",
+          "sha256": "b81c290b183a3fb1e4401ac02d3afb0b6c7de5204097bbfdca59aabdfa08a280",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/sw-normal",
+      "label": "cp · sw-normal",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/cp-sw-normal-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/sw-normal-2x.png",
+          "sha256": "fd7a88dc21b479385e76df7afe48721ddaf64024dfea13113a76393b6bc70234",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/cp-sw-normal-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/sw-normal-2x.png",
+          "sha256": "5ebaa8ca061478159c1010a0effe45dbac01d7667c3b812fe7e15a8762f98dbd",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/cp-sw-normal-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/sw-normal-4x.png",
+          "sha256": "844f90bf5ee60e7c8c56558d125e704379e158de57d3db60a7f6a355033579b2",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/cp-sw-normal-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/sw-normal-2x.png",
+          "sha256": "c29af03410a4d4b8883822d4b9fdedf45bae552f2cb63e308468adc18710979d",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/sw-spent",
+      "label": "cp · sw-spent",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/cp-sw-spent-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/sw-spent-2x.png",
+          "sha256": "7672e862e5ece44255ff0bea2f536119355b703ee1cac450e44661cd8b441fef",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/cp-sw-spent-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/sw-spent-2x.png",
+          "sha256": "3e71085079d67a23eda314923339b749ceeaea63662ec465457e584f95f4cc13",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/cp-sw-spent-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/sw-spent-4x.png",
+          "sha256": "9baaf4a9bf2b2c4a3d63bd2e4c9eb79bbcf0e526a480fae8e5dd689e0861ffb9",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/cp-sw-spent-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/cp/sw-spent-2x.png",
+          "sha256": "1a5bf07d8ca46369d7b8af1733c0593de1324156906df04dd7458aa8eda0040c",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/n-normal",
+      "label": "ec · n-normal",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/ec-n-normal-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/n-normal-2x.png",
+          "sha256": "592d1f7f2a71db908eb5a0da845b999f611a3d2e0fedbd22f39efac1bbce345f",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/ec-n-normal-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/n-normal-2x.png",
+          "sha256": "a962752a55ba49f077c768109e979da23fd5bacd621780bc7b7e1e7d760c56ea",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/ec-n-normal-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/n-normal-4x.png",
+          "sha256": "c1df6e1e6a00cba9df70c4bcdd4bf3fabf673c558252f72397e64c12868f89f8",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/ec-n-normal-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/n-normal-2x.png",
+          "sha256": "c447cb8031ce046340d1157112a66c9c109e1726bc1eff9580ff1d8c99bf0d14",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/n-spent",
+      "label": "ec · n-spent",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/ec-n-spent-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/n-spent-2x.png",
+          "sha256": "9a3ff2e8aa06a9077b94e49096c210dcb05120ee2a003c7af4d2233ae69f7ffb",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/ec-n-spent-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/n-spent-2x.png",
+          "sha256": "0b772bb95366605451567532ce97cee29b6ad55a1d7d959e6a22a91110a91702",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/ec-n-spent-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/n-spent-4x.png",
+          "sha256": "c768094c9fca47e3e3c470ac50ca08c92c43d5d2a4cbb596f51457ecf5cdbecb",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/ec-n-spent-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/n-spent-2x.png",
+          "sha256": "4aea1af0f9d5550b0558bbba6c9c5d40b0f9611f0e9455d7b8d9f484c9bc3fad",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/ne-normal",
+      "label": "ec · ne-normal",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/ec-ne-normal-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/ne-normal-2x.png",
+          "sha256": "ead586b62836ce38413b5b7cba1850938bc713b67242e9de84e3d6f728078775",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/ec-ne-normal-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/ne-normal-2x.png",
+          "sha256": "a981190281b54a3c6779d8b0494958a3c14577ce884bee5af6d701fab5443888",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/ec-ne-normal-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/ne-normal-4x.png",
+          "sha256": "b8385a1de7d880269450635e115dda0b38bbaa594ff40153f6d6c0b888e0cd7d",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/ec-ne-normal-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/ne-normal-2x.png",
+          "sha256": "f0ce66f39ecfc94d4bdc74dcf45b3075f2eda422bf8c948818a0edebc177bfcf",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/ne-spent",
+      "label": "ec · ne-spent",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/ec-ne-spent-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/ne-spent-2x.png",
+          "sha256": "a153e1599230bc31da2617b11a115ac23d738e0039a0a5a79a36abce6184de5a",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/ec-ne-spent-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/ne-spent-2x.png",
+          "sha256": "0210263ff2f5434500556ec507922e44f030640536528185f9e04d3a3baa2ce5",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/ec-ne-spent-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/ne-spent-4x.png",
+          "sha256": "d5d13b68b3b2c47617d867d10390b41aaf6c8a74a372deda539e1840e31639ab",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/ec-ne-spent-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/ne-spent-2x.png",
+          "sha256": "081f6eeca4e9907ce17ae670df452a2f9ae80a401962522954e6f75b7128b935",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/nw-normal",
+      "label": "ec · nw-normal",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/ec-nw-normal-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/nw-normal-2x.png",
+          "sha256": "1d8b8f2a7dfb9c62df8aa288b6121dfe60256aeebd028a23d1f3bfbab2d89634",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/ec-nw-normal-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/nw-normal-2x.png",
+          "sha256": "ea8cb566fe4758a86e3b331ae7ba1eca47bb37ac078f5f5ac431c48afdf4708e",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/ec-nw-normal-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/nw-normal-4x.png",
+          "sha256": "066533ad26c1d4a66fa4965b57b45368a4e26a335e2828aa1f1d4bdbcc5bb1a2",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/ec-nw-normal-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/nw-normal-2x.png",
+          "sha256": "008085c6024b10daf45d6747540deaeabaa12c9ff6a8af2eeeb8b3636eeca016",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/nw-spent",
+      "label": "ec · nw-spent",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/ec-nw-spent-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/nw-spent-2x.png",
+          "sha256": "4dd6bb322b1542c883229fa247ec5f5a1a61a0b5bd8cb1da7e1c5127941172e7",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/ec-nw-spent-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/nw-spent-2x.png",
+          "sha256": "b7494195e1776f49b9f46cc02569fd7a968990867b7fedb29f1ce51263aa068c",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/ec-nw-spent-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/nw-spent-4x.png",
+          "sha256": "47a90a3f6d3efd27af712e8951a9559355d49a9ad09519eaf8c7281b2dfa5948",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/ec-nw-spent-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/nw-spent-2x.png",
+          "sha256": "364bb8f71d0a07b29f35e3f5099403a028275bd7cf13a8f199d805e02d7a1050",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/s-normal",
+      "label": "ec · s-normal",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/ec-s-normal-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/s-normal-2x.png",
+          "sha256": "290a4197427b7899a0c94c5db8aa36464433dbd0347cddce340a235351077a4c",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/ec-s-normal-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/s-normal-2x.png",
+          "sha256": "d069b1f183f3aba6f655b2426e3eb4128838189c281b6e6350733163eccb5c52",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/ec-s-normal-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/s-normal-4x.png",
+          "sha256": "ab7b0468179d975324603d6eeee35ea47877877db246bdb19861c817b500e11d",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/ec-s-normal-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/s-normal-2x.png",
+          "sha256": "d0609be6a1275b221ac33e7c1881f34629324c78a179ce6031f83765bed279b4",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/s-spent",
+      "label": "ec · s-spent",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/ec-s-spent-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/s-spent-2x.png",
+          "sha256": "4dbb30a19e5d894e07f0542806b413b815a08f6e16792c553cbdc32f54a932e0",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/ec-s-spent-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/s-spent-2x.png",
+          "sha256": "09b8843a0ff46e154291cf7f3d184640be866e25c02b15ef5c626d56dd7c11e0",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/ec-s-spent-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/s-spent-4x.png",
+          "sha256": "45ae8fabacc94e167acd3e5037ed91ae95e379d09b81b789a43e23ee41016372",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/ec-s-spent-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/s-spent-2x.png",
+          "sha256": "60676f525f4122d4abc54adc9745129134d6df7cee11fffb4c78dad326a030ac",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/se-normal",
+      "label": "ec · se-normal",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/ec-se-normal-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/se-normal-2x.png",
+          "sha256": "e01622bb531758a1b5996b192d655883d9bfd646683da45018770dc89aa28ad6",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/ec-se-normal-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/se-normal-2x.png",
+          "sha256": "b3e99ff9324bbf05b5d31ceb2b18ff60f74b2b7e18c96c3fd69e40faa77b44bc",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/ec-se-normal-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/se-normal-4x.png",
+          "sha256": "d8a394dacf11e88957bae3ce0a29f2f1949bec83475e916d213e680052e5de2a",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/ec-se-normal-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/se-normal-2x.png",
+          "sha256": "f31b55f790213c47fe8b6b69699ae1564b41a3214f76c628da83c76bdf9158ac",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/se-spent",
+      "label": "ec · se-spent",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/ec-se-spent-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/se-spent-2x.png",
+          "sha256": "b2d9fba99262e3695b1722b4c201344e8c29b33cede7412013587d5ac7d91f1f",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/ec-se-spent-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/se-spent-2x.png",
+          "sha256": "70403830bbf36c9235e8fdee9bcc7ebc0f2229c4b2d73c9983d438b5a6937c0b",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/ec-se-spent-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/se-spent-4x.png",
+          "sha256": "d35b83c71e2f9f43bed7df81a2a9ea717ed721bb0ac6be33aa2278bccf8e7c9c",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/ec-se-spent-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/se-spent-2x.png",
+          "sha256": "32fc3c762522110f1afa43c877a776bc7c6e15738b132ec915d4798bec35c6c2",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/sw-normal",
+      "label": "ec · sw-normal",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/ec-sw-normal-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/sw-normal-2x.png",
+          "sha256": "93a1c8984e6882e3576962697de8b4dfb8b581daeed6c5c87eeb189f6a3c2d25",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/ec-sw-normal-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/sw-normal-2x.png",
+          "sha256": "6adbe602c43e2c583271077d9cf64ada31696baea8e7b8d9e95aae9c28df911f",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/ec-sw-normal-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/sw-normal-4x.png",
+          "sha256": "19fd5f4b5beb9347065cd844e0c6e5e5e02a9839c36f83de5418725a7fa31f8c",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/ec-sw-normal-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/sw-normal-2x.png",
+          "sha256": "2b1117e8f63840eab685428307d29d5ffca8d34070a01f4c2995093183c4167d",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/sw-spent",
+      "label": "ec · sw-spent",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/ec-sw-spent-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/sw-spent-2x.png",
+          "sha256": "6252ab1fed8c8a48196caf924806c7bd8bc0762279c3ed03182014369e4f3c95",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/ec-sw-spent-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/sw-spent-2x.png",
+          "sha256": "3ffd59e73eb5da122d4fac51cba0dc1408a49ff1089d4e885beef395b403c28d",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/ec-sw-spent-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/sw-spent-4x.png",
+          "sha256": "a656cf2fca2d578adee443512e11f1bf5e4e67e584847b7d8fa58851025dc560",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/ec-sw-spent-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/ec/sw-spent-2x.png",
+          "sha256": "2f81ce9cdcbf1cbd957e04a9056a9461d73bb105b86a1491458159971cae38d0",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/n-normal",
+      "label": "neutral · n-normal",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/neutral-n-normal-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/n-normal-2x.png",
+          "sha256": "a18f5f0b74e33390428f871aea3d4b89929886573bf4c5a295883388755aa214",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/neutral-n-normal-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/n-normal-2x.png",
+          "sha256": "1df0fd80a77a71f10b47ee03fb7595c75bce4d729cff031b63ff7a91512d2fdf",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/neutral-n-normal-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/n-normal-4x.png",
+          "sha256": "2b509d115f427d896816dc67c04670cc210a2fe6d414b92bd189125f0c09a038",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/neutral-n-normal-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/n-normal-2x.png",
+          "sha256": "1a44c8376c9d0fdbbbdb3b9a6d7849fd99de3c2b21ae3cc5a20eff082139d02c",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/n-spent",
+      "label": "neutral · n-spent",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/neutral-n-spent-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/n-spent-2x.png",
+          "sha256": "429967d4f127eb1ed446ecdf537932733f7cd16acbdba406940c91059f51ec57",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/neutral-n-spent-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/n-spent-2x.png",
+          "sha256": "a2ebb68d79fdd6831745bc25b4d279220705aed6a0aa59d6794618f55b36c881",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/neutral-n-spent-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/n-spent-4x.png",
+          "sha256": "0dff76f1a9d04cf8728938e8f9aa25721c912142dd93910081a8655e403f7be4",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/neutral-n-spent-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/n-spent-2x.png",
+          "sha256": "2160d1e7e5699394f29fd0aced599881a79819b981ff45931e4724e703c41bb3",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/ne-normal",
+      "label": "neutral · ne-normal",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/neutral-ne-normal-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/ne-normal-2x.png",
+          "sha256": "fe484f03c4972964844e461f9d97fac91d114bbcd526c07dad5c2680bb76a10b",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/neutral-ne-normal-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/ne-normal-2x.png",
+          "sha256": "7a254bc4fe7f5115237bedf5ac11a835c380ef274b5afc1aaf7dc114eec917d8",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/neutral-ne-normal-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/ne-normal-4x.png",
+          "sha256": "204efb8056ac8e9fdab8741ea6893ca8d6d393b78358a576574ee2e2e64e339a",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/neutral-ne-normal-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/ne-normal-2x.png",
+          "sha256": "d70801f2a39e30264716e6502a4ebe8bbac9ebb28329df704141a478e86018f1",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/ne-spent",
+      "label": "neutral · ne-spent",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/neutral-ne-spent-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/ne-spent-2x.png",
+          "sha256": "7cbda0efef7683f831ef4fd73241f81c2f1918f16d210455f4cabe6094ec5c14",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/neutral-ne-spent-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/ne-spent-2x.png",
+          "sha256": "6dd17b898c62a9fdc90eb2cc695a8d0d09701406b20ecb5ba611c2fcccc27ddd",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/neutral-ne-spent-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/ne-spent-4x.png",
+          "sha256": "6312db852bb3e46930ada4718a8283fd5009d97fb1707b7f437abf601b7cc558",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/neutral-ne-spent-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/ne-spent-2x.png",
+          "sha256": "412d07fea238936e03b3079d8c9245b81058991715336c2c2cba231ace77ccbd",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/nw-normal",
+      "label": "neutral · nw-normal",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/neutral-nw-normal-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/nw-normal-2x.png",
+          "sha256": "22fb29c911dc8b8ae6f9d14ffb534ad31956fbe2a4c1e8503379a75a381f5638",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/neutral-nw-normal-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/nw-normal-2x.png",
+          "sha256": "b6b290db0704a85244a2c63baeb1d6acc6a7d513650a454b7afb07ae27e2140f",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/neutral-nw-normal-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/nw-normal-4x.png",
+          "sha256": "3b0b4cb7597d6d57b13eb8582032b0904ff8a32f415783c5ac8c018ba0b88cf2",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/neutral-nw-normal-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/nw-normal-2x.png",
+          "sha256": "b95634195179fb65ce3a466ca9a0a9f2f0bf7b1992b8d389acc6579d7b6e4d3a",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/nw-spent",
+      "label": "neutral · nw-spent",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/neutral-nw-spent-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/nw-spent-2x.png",
+          "sha256": "638e9f91a002eff9022081b02f187e1e4b9676bcc22913e5af21a64b7e3bdf84",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/neutral-nw-spent-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/nw-spent-2x.png",
+          "sha256": "26f530d4f1fafaa15cf5ffb9d432d39609ef4ca12924f582f52204d828376d98",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/neutral-nw-spent-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/nw-spent-4x.png",
+          "sha256": "9ea96869c136ff9a11cc950047a1770a11c9b277c64db03703eed8ec93cc364f",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/neutral-nw-spent-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/nw-spent-2x.png",
+          "sha256": "79115b1a5dce222e59d3a7b3774a6081d010a025505313b2ccff29df7e9f6837",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/s-normal",
+      "label": "neutral · s-normal",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/neutral-s-normal-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/s-normal-2x.png",
+          "sha256": "928029e20abedbe3256b08600c5bf8360e761c8acf7ee40ee316fbeb32fcf293",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/neutral-s-normal-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/s-normal-2x.png",
+          "sha256": "a04b94a192c4e46c92eea24201f89a7541ac337e442470a30d64efc8d5464de7",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/neutral-s-normal-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/s-normal-4x.png",
+          "sha256": "e08da2fdd328cdaf1d2b1879a3eb432000efc3b5d24e1490ec5c519910597d64",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/neutral-s-normal-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/s-normal-2x.png",
+          "sha256": "7a3a664465d3156c852a2c0b39f48543b3e9e694ca7063fbd3afe1463e0965f2",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/s-spent",
+      "label": "neutral · s-spent",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/neutral-s-spent-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/s-spent-2x.png",
+          "sha256": "6b3adff6945ec4fa52273503496ef15caf34072e14d0b450e2024d1700a3b7c3",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/neutral-s-spent-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/s-spent-2x.png",
+          "sha256": "f97164593e946be6731eb76b4d15ffb29f7e32b34101e1760b82b3e86f5ef3f8",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/neutral-s-spent-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/s-spent-4x.png",
+          "sha256": "5de33ac707bdbe69b733fb90e7a75f88eccc7f8a4486f6b11c4fdec2551b2cbc",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/neutral-s-spent-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/s-spent-2x.png",
+          "sha256": "7e4d6bc380b2c21ccc1fe7e794dc54c28217bedd20a992d102a0188da86b4765",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/se-normal",
+      "label": "neutral · se-normal",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/neutral-se-normal-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/se-normal-2x.png",
+          "sha256": "d453318fc9ea66bcbbd520feaaf0fe1a15231431894cea51282940836c38c0b3",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/neutral-se-normal-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/se-normal-2x.png",
+          "sha256": "06ffb7edb185079552752da753865f3b6ea83355eb13cfcb6977cc6218bc2aa4",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/neutral-se-normal-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/se-normal-4x.png",
+          "sha256": "519234ae4191c3839866fc22d167e008a6cd95d7cd18cd7326003229e8486064",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/neutral-se-normal-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/se-normal-2x.png",
+          "sha256": "fc760f72df539a40704c9927b1f571d640f6027594d784553bda754ff2f71891",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/se-spent",
+      "label": "neutral · se-spent",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/neutral-se-spent-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/se-spent-2x.png",
+          "sha256": "3e998be7dd5b7910017ae3c9efa8f270dc273b15e340b4fbf3b968a95c22cae2",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/neutral-se-spent-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/se-spent-2x.png",
+          "sha256": "8433d766c3693c51993a638ca447dd78df1923a50dbaf499629eb7a4fd16282b",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/neutral-se-spent-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/se-spent-4x.png",
+          "sha256": "b72cae10101228dfea4577bc7e1918cf6e06ed6998881dab210e9dbaa5e2a873",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/neutral-se-spent-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/se-spent-2x.png",
+          "sha256": "5f8b5353432cb50c761bdd238b786c108355eb29d49f8ea1dd89d6017c2ceea5",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/sw-normal",
+      "label": "neutral · sw-normal",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/neutral-sw-normal-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/sw-normal-2x.png",
+          "sha256": "6ddc3fb981e6771cc34a8e48ab12173b40a44e6351357aa7b51cbd11ed3b87e8",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/neutral-sw-normal-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/sw-normal-2x.png",
+          "sha256": "69d0818f39cc30b397a2d5f55a51bb8747b513dd192cee2e706a717205e58a8c",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/neutral-sw-normal-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/sw-normal-4x.png",
+          "sha256": "83b671bda267bc9aed2a4f51626dc60125f34d310ae76d6a83f8e1d690f03ab7",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/neutral-sw-normal-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/sw-normal-2x.png",
+          "sha256": "438e6ea1b0d1de0799c57ca3a74a13efb3ba24ed0c59c62f49bf1b26ba0dd9b0",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/sw-spent",
+      "label": "neutral · sw-spent",
+      "images": {
+        "1": {
+          "url": "sprites/charron/sprite-charron/neutral-sw-spent-1x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/sw-spent-2x.png",
+          "sha256": "4c3b18b905d64e31b2704a6e43c02a7b4f4e9d6f45403dfc8722627788b1af33",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/charron/sprite-charron/neutral-sw-spent-2x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/sw-spent-2x.png",
+          "sha256": "63bca877b5e8d408ea819e129b29f78216a214a5e5e0082e98f7ef785af80eef",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/charron/sprite-charron/neutral-sw-spent-4x.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/sw-spent-4x.png",
+          "sha256": "5ae46c9c75482449258a678e5de3d88f915aabea8f2edbbc5fa363857387cc37",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/charron/sprite-charron/neutral-sw-spent-game.png",
+          "source": "art/exports/unit-charron-v1/sprites/charron/neutral/sw-spent-2x.png",
+          "sha256": "c6343e71d019a5a25cf45e3a739e83ece088ab147b551cab60aaee7b27fa907e",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    }
+  ],
+  "files": {
+    "cp/n-normal": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/cp-n-normal-1x.png",
+        "sha256": "5383036eaae6bd33f848dc2627076d66f8705695cf83d4993aa80d780be7d6d3",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/n-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/cp-n-normal-2x.png",
+        "sha256": "e18ada54dce17f3a4923321d3c2fef750ce355f3a9e77a4e7f63c1ef88d69df1",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/n-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/cp-n-normal-4x.png",
+        "sha256": "6ef8a31229ce83b9abf78e10b338aecfb0ce058db5afee127bbd22bfcc0e43a2",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/n-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/cp-n-normal-game.png",
+        "sha256": "b98e21040278e65b0136fd7f48d2c9c804865d1bf848a0973ad807fcfe7c62df",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/n-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/n-spent": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/cp-n-spent-1x.png",
+        "sha256": "f26c74e872925981b365e46ff44b5244c97bae4cb8e9974b3e3bd26423c71051",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/n-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/cp-n-spent-2x.png",
+        "sha256": "fe593fe405b8f5260020475af9143aa85d28cbd23bb6661ed9b1ade97d434ac4",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/n-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/cp-n-spent-4x.png",
+        "sha256": "f15152963f21d91ef0b592d9bf54c71ee1a6a7f7a463aae844feb6ffd8c6225a",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/n-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/cp-n-spent-game.png",
+        "sha256": "8e82f5210a3822983c341dea85a570300c74287df5d231041ea52b6d4e5832d2",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/n-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/ne-normal": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/cp-ne-normal-1x.png",
+        "sha256": "cca60952e18011dcc62dafd384ec76e0a2418986391b5c20e473af03f9fe4f55",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/ne-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/cp-ne-normal-2x.png",
+        "sha256": "d2fea375b8d7fac41886833d6847c0f8862e25f958ab7a53ff70091b8bc797a9",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/ne-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/cp-ne-normal-4x.png",
+        "sha256": "83a24ebeaff4c9afff850bef28bd39a77a0e296cee95c049fef66cd9a5470e63",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/ne-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/cp-ne-normal-game.png",
+        "sha256": "2fa878af02eb7287474f550288b6f46386114907a417de3c8c64987e7048c890",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/ne-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/ne-spent": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/cp-ne-spent-1x.png",
+        "sha256": "40dd7ff0eb1bedaa84a0036330b98c229c685ae5661a0de10a7f45c72bae9845",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/ne-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/cp-ne-spent-2x.png",
+        "sha256": "fb4abcfaed6b74318285ee36346011a04ccac26609f0ae12c2fff2e0b287c7c9",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/ne-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/cp-ne-spent-4x.png",
+        "sha256": "04184b1bfccdf7608e04c19b611fc9e9eb2ff85d71e376852a53836f4c6c9d87",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/ne-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/cp-ne-spent-game.png",
+        "sha256": "172d6c811b7702e62670e82c6f53ff62420cad7422a1a76071cb59a2e51a556c",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/ne-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/nw-normal": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/cp-nw-normal-1x.png",
+        "sha256": "bc1fa1ab80436422ab363386a9568196a6c167fdc198f6b08432ca7e10dbf10a",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/nw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/cp-nw-normal-2x.png",
+        "sha256": "63950e22c803fa3d85781c937baadcb883cbe5e40e56dccfd9280142ad941560",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/nw-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/cp-nw-normal-4x.png",
+        "sha256": "314b462987547bcd9f15f7bcfd0e01d64f52668f169b883c4ea3c4378b4fe5bb",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/nw-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/cp-nw-normal-game.png",
+        "sha256": "89fcedf1f64d98b1a1075ff3923530a972fb53dd1d81ee5828f1eadc810e5ac2",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/nw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/nw-spent": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/cp-nw-spent-1x.png",
+        "sha256": "98ed9178ef50a30d54a03ff91d3b80ed6bde4b69a62dd43e82b5f734cdabee94",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/nw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/cp-nw-spent-2x.png",
+        "sha256": "b7d4bf94967b995ba2c3a57b195701b2db15c1f35014dea6b3ad05261a7194d1",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/nw-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/cp-nw-spent-4x.png",
+        "sha256": "22c31611dc74aa3db6210593c278e3245ea3d68a62a050a5aa90dde4bc7eaa1f",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/nw-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/cp-nw-spent-game.png",
+        "sha256": "54488fe0b44797fc72dfd0d6bdb6e262d34659b7379a69b6cc7588f0a0b21cad",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/nw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/s-normal": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/cp-s-normal-1x.png",
+        "sha256": "07d73404415af89e859a63aeaf0fb7eedecdd0c01e9513e4698c61afaead1a02",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/s-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/cp-s-normal-2x.png",
+        "sha256": "fcb504ae9a1509d6a3b140fe16778741c09c141f5bb66043b1341604c16e0c37",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/s-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/cp-s-normal-4x.png",
+        "sha256": "34b809114c2354af3723ebf2cdb0fcf40b1d640b71452289f04ea2f007d95633",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/s-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/cp-s-normal-game.png",
+        "sha256": "ed04eda236b845ed0b74f178768a5c7af92b4caa07bc353682da37663b0133d2",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/s-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/s-spent": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/cp-s-spent-1x.png",
+        "sha256": "76c02b72e51d04fac7e8611e54259f36d58c1fa41d8f6b433f31b151d4beafe0",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/s-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/cp-s-spent-2x.png",
+        "sha256": "03a93b1f8b018e23c08d1253da646012a88ebaf7ab7027a57a41eaacc6f40d45",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/s-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/cp-s-spent-4x.png",
+        "sha256": "db0247f48ca94a7e0a09dffc590c486828cb734be1425dd130cbd7fe0ef4abdc",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/s-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/cp-s-spent-game.png",
+        "sha256": "69203eb99c7dc5de2320c928a95a5b678cba9b7d7233a4779b95c0604431b734",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/s-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/se-normal": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/cp-se-normal-1x.png",
+        "sha256": "31d2242273161db194bb12995581397f06eaf93c65a8ca348c046841beeabfd2",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/se-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/cp-se-normal-2x.png",
+        "sha256": "7aa1368b31532b2b4b146a6b8fbce918c57088698fe2f323672709ecd73f70db",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/se-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/cp-se-normal-4x.png",
+        "sha256": "ba6c2b0a50f5cfaa5be7f1dcd019402416d671c8b4ac6447b3b241b12784a6dd",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/se-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/cp-se-normal-game.png",
+        "sha256": "cd70764c3bd909dbc26e81ae9057b7e59b54ca34df5a79e02ac0a95712fc8236",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/se-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/se-spent": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/cp-se-spent-1x.png",
+        "sha256": "d33f246c1fc79072f3d035e0249e5f69bc43c1d4d2666e3cceef9774055ead87",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/se-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/cp-se-spent-2x.png",
+        "sha256": "14cbc63cdf241dd22ca42d4b40204d770c6f1e13836c22c981c907c4f5c631c8",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/se-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/cp-se-spent-4x.png",
+        "sha256": "85cf53cb6eee4e7bc8679c4a1158d1a1971c1d29f89d9196899352e16ecc5439",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/se-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/cp-se-spent-game.png",
+        "sha256": "b81c290b183a3fb1e4401ac02d3afb0b6c7de5204097bbfdca59aabdfa08a280",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/se-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/sw-normal": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/cp-sw-normal-1x.png",
+        "sha256": "fd7a88dc21b479385e76df7afe48721ddaf64024dfea13113a76393b6bc70234",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/sw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/cp-sw-normal-2x.png",
+        "sha256": "5ebaa8ca061478159c1010a0effe45dbac01d7667c3b812fe7e15a8762f98dbd",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/sw-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/cp-sw-normal-4x.png",
+        "sha256": "844f90bf5ee60e7c8c56558d125e704379e158de57d3db60a7f6a355033579b2",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/sw-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/cp-sw-normal-game.png",
+        "sha256": "c29af03410a4d4b8883822d4b9fdedf45bae552f2cb63e308468adc18710979d",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/sw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/sw-spent": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/cp-sw-spent-1x.png",
+        "sha256": "7672e862e5ece44255ff0bea2f536119355b703ee1cac450e44661cd8b441fef",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/sw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/cp-sw-spent-2x.png",
+        "sha256": "3e71085079d67a23eda314923339b749ceeaea63662ec465457e584f95f4cc13",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/sw-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/cp-sw-spent-4x.png",
+        "sha256": "9baaf4a9bf2b2c4a3d63bd2e4c9eb79bbcf0e526a480fae8e5dd689e0861ffb9",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/sw-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/cp-sw-spent-game.png",
+        "sha256": "1a5bf07d8ca46369d7b8af1733c0593de1324156906df04dd7458aa8eda0040c",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/cp/sw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/n-normal": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/ec-n-normal-1x.png",
+        "sha256": "592d1f7f2a71db908eb5a0da845b999f611a3d2e0fedbd22f39efac1bbce345f",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/n-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/ec-n-normal-2x.png",
+        "sha256": "a962752a55ba49f077c768109e979da23fd5bacd621780bc7b7e1e7d760c56ea",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/n-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/ec-n-normal-4x.png",
+        "sha256": "c1df6e1e6a00cba9df70c4bcdd4bf3fabf673c558252f72397e64c12868f89f8",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/n-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/ec-n-normal-game.png",
+        "sha256": "c447cb8031ce046340d1157112a66c9c109e1726bc1eff9580ff1d8c99bf0d14",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/n-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/n-spent": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/ec-n-spent-1x.png",
+        "sha256": "9a3ff2e8aa06a9077b94e49096c210dcb05120ee2a003c7af4d2233ae69f7ffb",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/n-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/ec-n-spent-2x.png",
+        "sha256": "0b772bb95366605451567532ce97cee29b6ad55a1d7d959e6a22a91110a91702",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/n-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/ec-n-spent-4x.png",
+        "sha256": "c768094c9fca47e3e3c470ac50ca08c92c43d5d2a4cbb596f51457ecf5cdbecb",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/n-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/ec-n-spent-game.png",
+        "sha256": "4aea1af0f9d5550b0558bbba6c9c5d40b0f9611f0e9455d7b8d9f484c9bc3fad",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/n-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/ne-normal": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/ec-ne-normal-1x.png",
+        "sha256": "ead586b62836ce38413b5b7cba1850938bc713b67242e9de84e3d6f728078775",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/ne-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/ec-ne-normal-2x.png",
+        "sha256": "a981190281b54a3c6779d8b0494958a3c14577ce884bee5af6d701fab5443888",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/ne-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/ec-ne-normal-4x.png",
+        "sha256": "b8385a1de7d880269450635e115dda0b38bbaa594ff40153f6d6c0b888e0cd7d",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/ne-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/ec-ne-normal-game.png",
+        "sha256": "f0ce66f39ecfc94d4bdc74dcf45b3075f2eda422bf8c948818a0edebc177bfcf",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/ne-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/ne-spent": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/ec-ne-spent-1x.png",
+        "sha256": "a153e1599230bc31da2617b11a115ac23d738e0039a0a5a79a36abce6184de5a",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/ne-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/ec-ne-spent-2x.png",
+        "sha256": "0210263ff2f5434500556ec507922e44f030640536528185f9e04d3a3baa2ce5",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/ne-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/ec-ne-spent-4x.png",
+        "sha256": "d5d13b68b3b2c47617d867d10390b41aaf6c8a74a372deda539e1840e31639ab",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/ne-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/ec-ne-spent-game.png",
+        "sha256": "081f6eeca4e9907ce17ae670df452a2f9ae80a401962522954e6f75b7128b935",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/ne-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/nw-normal": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/ec-nw-normal-1x.png",
+        "sha256": "1d8b8f2a7dfb9c62df8aa288b6121dfe60256aeebd028a23d1f3bfbab2d89634",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/nw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/ec-nw-normal-2x.png",
+        "sha256": "ea8cb566fe4758a86e3b331ae7ba1eca47bb37ac078f5f5ac431c48afdf4708e",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/nw-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/ec-nw-normal-4x.png",
+        "sha256": "066533ad26c1d4a66fa4965b57b45368a4e26a335e2828aa1f1d4bdbcc5bb1a2",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/nw-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/ec-nw-normal-game.png",
+        "sha256": "008085c6024b10daf45d6747540deaeabaa12c9ff6a8af2eeeb8b3636eeca016",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/nw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/nw-spent": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/ec-nw-spent-1x.png",
+        "sha256": "4dd6bb322b1542c883229fa247ec5f5a1a61a0b5bd8cb1da7e1c5127941172e7",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/nw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/ec-nw-spent-2x.png",
+        "sha256": "b7494195e1776f49b9f46cc02569fd7a968990867b7fedb29f1ce51263aa068c",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/nw-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/ec-nw-spent-4x.png",
+        "sha256": "47a90a3f6d3efd27af712e8951a9559355d49a9ad09519eaf8c7281b2dfa5948",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/nw-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/ec-nw-spent-game.png",
+        "sha256": "364bb8f71d0a07b29f35e3f5099403a028275bd7cf13a8f199d805e02d7a1050",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/nw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/s-normal": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/ec-s-normal-1x.png",
+        "sha256": "290a4197427b7899a0c94c5db8aa36464433dbd0347cddce340a235351077a4c",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/s-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/ec-s-normal-2x.png",
+        "sha256": "d069b1f183f3aba6f655b2426e3eb4128838189c281b6e6350733163eccb5c52",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/s-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/ec-s-normal-4x.png",
+        "sha256": "ab7b0468179d975324603d6eeee35ea47877877db246bdb19861c817b500e11d",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/s-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/ec-s-normal-game.png",
+        "sha256": "d0609be6a1275b221ac33e7c1881f34629324c78a179ce6031f83765bed279b4",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/s-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/s-spent": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/ec-s-spent-1x.png",
+        "sha256": "4dbb30a19e5d894e07f0542806b413b815a08f6e16792c553cbdc32f54a932e0",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/s-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/ec-s-spent-2x.png",
+        "sha256": "09b8843a0ff46e154291cf7f3d184640be866e25c02b15ef5c626d56dd7c11e0",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/s-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/ec-s-spent-4x.png",
+        "sha256": "45ae8fabacc94e167acd3e5037ed91ae95e379d09b81b789a43e23ee41016372",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/s-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/ec-s-spent-game.png",
+        "sha256": "60676f525f4122d4abc54adc9745129134d6df7cee11fffb4c78dad326a030ac",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/s-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/se-normal": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/ec-se-normal-1x.png",
+        "sha256": "e01622bb531758a1b5996b192d655883d9bfd646683da45018770dc89aa28ad6",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/se-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/ec-se-normal-2x.png",
+        "sha256": "b3e99ff9324bbf05b5d31ceb2b18ff60f74b2b7e18c96c3fd69e40faa77b44bc",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/se-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/ec-se-normal-4x.png",
+        "sha256": "d8a394dacf11e88957bae3ce0a29f2f1949bec83475e916d213e680052e5de2a",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/se-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/ec-se-normal-game.png",
+        "sha256": "f31b55f790213c47fe8b6b69699ae1564b41a3214f76c628da83c76bdf9158ac",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/se-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/se-spent": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/ec-se-spent-1x.png",
+        "sha256": "b2d9fba99262e3695b1722b4c201344e8c29b33cede7412013587d5ac7d91f1f",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/se-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/ec-se-spent-2x.png",
+        "sha256": "70403830bbf36c9235e8fdee9bcc7ebc0f2229c4b2d73c9983d438b5a6937c0b",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/se-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/ec-se-spent-4x.png",
+        "sha256": "d35b83c71e2f9f43bed7df81a2a9ea717ed721bb0ac6be33aa2278bccf8e7c9c",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/se-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/ec-se-spent-game.png",
+        "sha256": "32fc3c762522110f1afa43c877a776bc7c6e15738b132ec915d4798bec35c6c2",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/se-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/sw-normal": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/ec-sw-normal-1x.png",
+        "sha256": "93a1c8984e6882e3576962697de8b4dfb8b581daeed6c5c87eeb189f6a3c2d25",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/sw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/ec-sw-normal-2x.png",
+        "sha256": "6adbe602c43e2c583271077d9cf64ada31696baea8e7b8d9e95aae9c28df911f",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/sw-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/ec-sw-normal-4x.png",
+        "sha256": "19fd5f4b5beb9347065cd844e0c6e5e5e02a9839c36f83de5418725a7fa31f8c",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/sw-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/ec-sw-normal-game.png",
+        "sha256": "2b1117e8f63840eab685428307d29d5ffca8d34070a01f4c2995093183c4167d",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/sw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/sw-spent": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/ec-sw-spent-1x.png",
+        "sha256": "6252ab1fed8c8a48196caf924806c7bd8bc0762279c3ed03182014369e4f3c95",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/sw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/ec-sw-spent-2x.png",
+        "sha256": "3ffd59e73eb5da122d4fac51cba0dc1408a49ff1089d4e885beef395b403c28d",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/sw-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/ec-sw-spent-4x.png",
+        "sha256": "a656cf2fca2d578adee443512e11f1bf5e4e67e584847b7d8fa58851025dc560",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/sw-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/ec-sw-spent-game.png",
+        "sha256": "2f81ce9cdcbf1cbd957e04a9056a9461d73bb105b86a1491458159971cae38d0",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/ec/sw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/n-normal": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/neutral-n-normal-1x.png",
+        "sha256": "a18f5f0b74e33390428f871aea3d4b89929886573bf4c5a295883388755aa214",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/n-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/neutral-n-normal-2x.png",
+        "sha256": "1df0fd80a77a71f10b47ee03fb7595c75bce4d729cff031b63ff7a91512d2fdf",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/n-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/neutral-n-normal-4x.png",
+        "sha256": "2b509d115f427d896816dc67c04670cc210a2fe6d414b92bd189125f0c09a038",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/n-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/neutral-n-normal-game.png",
+        "sha256": "1a44c8376c9d0fdbbbdb3b9a6d7849fd99de3c2b21ae3cc5a20eff082139d02c",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/n-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/n-spent": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/neutral-n-spent-1x.png",
+        "sha256": "429967d4f127eb1ed446ecdf537932733f7cd16acbdba406940c91059f51ec57",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/n-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/neutral-n-spent-2x.png",
+        "sha256": "a2ebb68d79fdd6831745bc25b4d279220705aed6a0aa59d6794618f55b36c881",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/n-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/neutral-n-spent-4x.png",
+        "sha256": "0dff76f1a9d04cf8728938e8f9aa25721c912142dd93910081a8655e403f7be4",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/n-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/neutral-n-spent-game.png",
+        "sha256": "2160d1e7e5699394f29fd0aced599881a79819b981ff45931e4724e703c41bb3",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/n-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/ne-normal": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/neutral-ne-normal-1x.png",
+        "sha256": "fe484f03c4972964844e461f9d97fac91d114bbcd526c07dad5c2680bb76a10b",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/ne-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/neutral-ne-normal-2x.png",
+        "sha256": "7a254bc4fe7f5115237bedf5ac11a835c380ef274b5afc1aaf7dc114eec917d8",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/ne-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/neutral-ne-normal-4x.png",
+        "sha256": "204efb8056ac8e9fdab8741ea6893ca8d6d393b78358a576574ee2e2e64e339a",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/ne-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/neutral-ne-normal-game.png",
+        "sha256": "d70801f2a39e30264716e6502a4ebe8bbac9ebb28329df704141a478e86018f1",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/ne-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/ne-spent": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/neutral-ne-spent-1x.png",
+        "sha256": "7cbda0efef7683f831ef4fd73241f81c2f1918f16d210455f4cabe6094ec5c14",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/ne-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/neutral-ne-spent-2x.png",
+        "sha256": "6dd17b898c62a9fdc90eb2cc695a8d0d09701406b20ecb5ba611c2fcccc27ddd",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/ne-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/neutral-ne-spent-4x.png",
+        "sha256": "6312db852bb3e46930ada4718a8283fd5009d97fb1707b7f437abf601b7cc558",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/ne-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/neutral-ne-spent-game.png",
+        "sha256": "412d07fea238936e03b3079d8c9245b81058991715336c2c2cba231ace77ccbd",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/ne-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/nw-normal": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/neutral-nw-normal-1x.png",
+        "sha256": "22fb29c911dc8b8ae6f9d14ffb534ad31956fbe2a4c1e8503379a75a381f5638",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/nw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/neutral-nw-normal-2x.png",
+        "sha256": "b6b290db0704a85244a2c63baeb1d6acc6a7d513650a454b7afb07ae27e2140f",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/nw-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/neutral-nw-normal-4x.png",
+        "sha256": "3b0b4cb7597d6d57b13eb8582032b0904ff8a32f415783c5ac8c018ba0b88cf2",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/nw-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/neutral-nw-normal-game.png",
+        "sha256": "b95634195179fb65ce3a466ca9a0a9f2f0bf7b1992b8d389acc6579d7b6e4d3a",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/nw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/nw-spent": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/neutral-nw-spent-1x.png",
+        "sha256": "638e9f91a002eff9022081b02f187e1e4b9676bcc22913e5af21a64b7e3bdf84",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/nw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/neutral-nw-spent-2x.png",
+        "sha256": "26f530d4f1fafaa15cf5ffb9d432d39609ef4ca12924f582f52204d828376d98",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/nw-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/neutral-nw-spent-4x.png",
+        "sha256": "9ea96869c136ff9a11cc950047a1770a11c9b277c64db03703eed8ec93cc364f",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/nw-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/neutral-nw-spent-game.png",
+        "sha256": "79115b1a5dce222e59d3a7b3774a6081d010a025505313b2ccff29df7e9f6837",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/nw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/s-normal": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/neutral-s-normal-1x.png",
+        "sha256": "928029e20abedbe3256b08600c5bf8360e761c8acf7ee40ee316fbeb32fcf293",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/s-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/neutral-s-normal-2x.png",
+        "sha256": "a04b94a192c4e46c92eea24201f89a7541ac337e442470a30d64efc8d5464de7",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/s-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/neutral-s-normal-4x.png",
+        "sha256": "e08da2fdd328cdaf1d2b1879a3eb432000efc3b5d24e1490ec5c519910597d64",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/s-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/neutral-s-normal-game.png",
+        "sha256": "7a3a664465d3156c852a2c0b39f48543b3e9e694ca7063fbd3afe1463e0965f2",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/s-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/s-spent": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/neutral-s-spent-1x.png",
+        "sha256": "6b3adff6945ec4fa52273503496ef15caf34072e14d0b450e2024d1700a3b7c3",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/s-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/neutral-s-spent-2x.png",
+        "sha256": "f97164593e946be6731eb76b4d15ffb29f7e32b34101e1760b82b3e86f5ef3f8",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/s-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/neutral-s-spent-4x.png",
+        "sha256": "5de33ac707bdbe69b733fb90e7a75f88eccc7f8a4486f6b11c4fdec2551b2cbc",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/s-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/neutral-s-spent-game.png",
+        "sha256": "7e4d6bc380b2c21ccc1fe7e794dc54c28217bedd20a992d102a0188da86b4765",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/s-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/se-normal": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/neutral-se-normal-1x.png",
+        "sha256": "d453318fc9ea66bcbbd520feaaf0fe1a15231431894cea51282940836c38c0b3",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/se-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/neutral-se-normal-2x.png",
+        "sha256": "06ffb7edb185079552752da753865f3b6ea83355eb13cfcb6977cc6218bc2aa4",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/se-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/neutral-se-normal-4x.png",
+        "sha256": "519234ae4191c3839866fc22d167e008a6cd95d7cd18cd7326003229e8486064",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/se-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/neutral-se-normal-game.png",
+        "sha256": "fc760f72df539a40704c9927b1f571d640f6027594d784553bda754ff2f71891",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/se-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/se-spent": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/neutral-se-spent-1x.png",
+        "sha256": "3e998be7dd5b7910017ae3c9efa8f270dc273b15e340b4fbf3b968a95c22cae2",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/se-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/neutral-se-spent-2x.png",
+        "sha256": "8433d766c3693c51993a638ca447dd78df1923a50dbaf499629eb7a4fd16282b",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/se-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/neutral-se-spent-4x.png",
+        "sha256": "b72cae10101228dfea4577bc7e1918cf6e06ed6998881dab210e9dbaa5e2a873",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/se-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/neutral-se-spent-game.png",
+        "sha256": "5f8b5353432cb50c761bdd238b786c108355eb29d49f8ea1dd89d6017c2ceea5",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/se-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/sw-normal": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/neutral-sw-normal-1x.png",
+        "sha256": "6ddc3fb981e6771cc34a8e48ab12173b40a44e6351357aa7b51cbd11ed3b87e8",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/sw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/neutral-sw-normal-2x.png",
+        "sha256": "69d0818f39cc30b397a2d5f55a51bb8747b513dd192cee2e706a717205e58a8c",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/sw-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/neutral-sw-normal-4x.png",
+        "sha256": "83b671bda267bc9aed2a4f51626dc60125f34d310ae76d6a83f8e1d690f03ab7",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/sw-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/neutral-sw-normal-game.png",
+        "sha256": "438e6ea1b0d1de0799c57ca3a74a13efb3ba24ed0c59c62f49bf1b26ba0dd9b0",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/sw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/sw-spent": {
+      "1": {
+        "path": "sprites/charron/sprite-charron/neutral-sw-spent-1x.png",
+        "sha256": "4c3b18b905d64e31b2704a6e43c02a7b4f4e9d6f45403dfc8722627788b1af33",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/sw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/charron/sprite-charron/neutral-sw-spent-2x.png",
+        "sha256": "63bca877b5e8d408ea819e129b29f78216a214a5e5e0082e98f7ef785af80eef",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/sw-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/charron/sprite-charron/neutral-sw-spent-4x.png",
+        "sha256": "5ae46c9c75482449258a678e5de3d88f915aabea8f2edbbc5fa363857387cc37",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/sw-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/charron/sprite-charron/neutral-sw-spent-game.png",
+        "sha256": "c6343e71d019a5a25cf45e3a739e83ece088ab147b551cab60aaee7b27fa907e",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-charron-v1/sprites/charron/neutral/sw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    }
+  }
+}

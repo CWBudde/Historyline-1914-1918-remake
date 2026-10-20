@@ -1,0 +1,75 @@
+{
+  "id": "screens-v2/progress/fill",
+  "name": "progress/fill",
+  "category": "Screen components",
+  "family": "screen-component",
+  "note": "Current screen component, shared across layouts. No direct reference mapping. Painted backdrop has no authored 4× export.",
+  "recipes": [
+    "art/recipes/screens/v1/western-front.json"
+  ],
+  "prompts": [
+    "prompts/screens/v1/western-front.md"
+  ],
+  "width": 280,
+  "height": 16,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "screen-components/screen-component/screens-v2-progress-fill/1x.png",
+          "source": "art/exports/screens-v2/progress/fill-1x.png",
+          "sha256": "cd5d7fddb87b564da7ecf792213a97760226ac0e34181d6199d0177062477172",
+          "width": 280,
+          "height": 16,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "screen-components/screen-component/screens-v2-progress-fill/2x.png",
+          "source": "art/exports/screens-v2/progress/fill-2x.png",
+          "sha256": "ee033912714a604e6896bd1e56e19675d836eeaab61a2b695b4cd050e311a9ea",
+          "width": 560,
+          "height": 32,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "screen-components/screen-component/screens-v2-progress-fill/4x.png",
+          "source": "art/exports/screens-v2/progress/fill-4x.png",
+          "sha256": "cf0a7c389731844ce134716467e18994bb3f035cd98b44fa6592dafbd8e2b94a",
+          "width": 1120,
+          "height": 64,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "screen-components/screen-component/screens-v2-progress-fill/1x.png",
+        "sha256": "cd5d7fddb87b564da7ecf792213a97760226ac0e34181d6199d0177062477172",
+        "width": 280,
+        "height": 16,
+        "source": "art/exports/screens-v2/progress/fill-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "screen-components/screen-component/screens-v2-progress-fill/2x.png",
+        "sha256": "ee033912714a604e6896bd1e56e19675d836eeaab61a2b695b4cd050e311a9ea",
+        "width": 560,
+        "height": 32,
+        "source": "art/exports/screens-v2/progress/fill-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "screen-components/screen-component/screens-v2-progress-fill/4x.png",
+        "sha256": "cf0a7c389731844ce134716467e18994bb3f035cd98b44fa6592dafbd8e2b94a",
+        "width": 1120,
+        "height": 64,
+        "source": "art/exports/screens-v2/progress/fill-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

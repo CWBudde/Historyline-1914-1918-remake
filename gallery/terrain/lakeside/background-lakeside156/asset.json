@@ -1,0 +1,86 @@
+{
+  "id": "background/lakeside156",
+  "name": "lakeside156",
+  "category": "Terrain",
+  "family": "lakeside",
+  "season": "summer",
+  "note": "Current enabled background binding. This single-asset view uses its default context export; the PULSE study resolves available neighbor contexts through the shared compositor. Final runtime acceptance remains open.",
+  "recipes": [
+    "art/recipes/terrain/distinct-v1/meadow.json",
+    "art/recipes/terrain/distinct-v1/water-open.json",
+    "art/recipes/terrain/distinct-v1/earth-bare.json",
+    "art/recipes/terrain/reference-v2/meadow-03.json",
+    "art/recipes/terrain/shore-reference-v2/bank.json",
+    "art/recipes/terrain/shore-reference-v2/water.json"
+  ],
+  "prompts": [
+    "prompts/terrain/distinct-v1/meadow.md",
+    "prompts/terrain/distinct-v1/water-open.md",
+    "prompts/terrain/distinct-v1/earth-bare.md",
+    "prompts/terrain/reference-v2/meadow-03.md",
+    "prompts/terrain/shore-reference-v2/bank.md",
+    "prompts/terrain/shore-reference-v2/water.md"
+  ],
+  "width": 96,
+  "height": 80,
+  "variants": [
+    {
+      "id": "default",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "terrain/lakeside/background-lakeside156/1x.png",
+          "source": "art/exports/shore-v1/lakeside156-2x.png",
+          "sha256": "f0fc721760f8272b25fc4917031aaa34f07144e0e2fd667dc5b85887ed2a8cd8",
+          "width": 96,
+          "height": 80,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "terrain/lakeside/background-lakeside156/2x.png",
+          "source": "art/exports/shore-v1/lakeside156-2x.png",
+          "sha256": "6a7316950a711d7698650cd3cd875ec980caf320058a7efac2317a28a7aab068",
+          "width": 192,
+          "height": 160,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "terrain/lakeside/background-lakeside156/4x.png",
+          "source": "art/exports/shore-v1/lakeside156-4x.png",
+          "sha256": "2cfba0d760be690c5cfc4073445205a8d452136cea8cddbf697bbf6441b8ab97",
+          "width": 384,
+          "height": 320,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "default": {
+      "1": {
+        "path": "terrain/lakeside/background-lakeside156/1x.png",
+        "sha256": "f0fc721760f8272b25fc4917031aaa34f07144e0e2fd667dc5b85887ed2a8cd8",
+        "width": 96,
+        "height": 80,
+        "source": "art/exports/shore-v1/lakeside156-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "terrain/lakeside/background-lakeside156/2x.png",
+        "sha256": "6a7316950a711d7698650cd3cd875ec980caf320058a7efac2317a28a7aab068",
+        "width": 192,
+        "height": 160,
+        "source": "art/exports/shore-v1/lakeside156-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "terrain/lakeside/background-lakeside156/4x.png",
+        "sha256": "2cfba0d760be690c5cfc4073445205a8d452136cea8cddbf697bbf6441b8ab97",
+        "width": 384,
+        "height": 320,
+        "source": "art/exports/shore-v1/lakeside156-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

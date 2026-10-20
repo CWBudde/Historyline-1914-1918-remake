@@ -1,0 +1,69 @@
+{
+  "id": "interface/rank/09",
+  "name": "rank/09",
+  "category": "Interface",
+  "family": "information",
+  "note": "Current text-free game component. Labels and game values are drawn separately; runtime acceptance pending. Exact 88×88 reference rank cell; the candidate rank number is live text.",
+  "width": 88,
+  "height": 88,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "interface/information/interface-rank-09/1x.png",
+          "source": "art/exports/interface-v1/rank/09-1x.png",
+          "sha256": "095614dcc4594b186c3dfeb0e24886a2ea91b23e353efbd38e0c570722f87d1c",
+          "width": 88,
+          "height": 88,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "interface/information/interface-rank-09/2x.png",
+          "source": "art/exports/interface-v1/rank/09-2x.png",
+          "sha256": "ddbfa89b79d2018001166bfb4c3e6daddc0db780d21d26cfa7726358a446ba84",
+          "width": 176,
+          "height": 176,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "interface/information/interface-rank-09/4x.png",
+          "source": "art/exports/interface-v1/rank/09-4x.png",
+          "sha256": "8e2f0fae07a3a48118d99c0b425697782377df82bcca3dea80c5bed742f51f8f",
+          "width": 352,
+          "height": 352,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "interface/information/interface-rank-09/1x.png",
+        "sha256": "095614dcc4594b186c3dfeb0e24886a2ea91b23e353efbd38e0c570722f87d1c",
+        "width": 88,
+        "height": 88,
+        "source": "art/exports/interface-v1/rank/09-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "interface/information/interface-rank-09/2x.png",
+        "sha256": "ddbfa89b79d2018001166bfb4c3e6daddc0db780d21d26cfa7726358a446ba84",
+        "width": 176,
+        "height": 176,
+        "source": "art/exports/interface-v1/rank/09-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "interface/information/interface-rank-09/4x.png",
+        "sha256": "8e2f0fae07a3a48118d99c0b425697782377df82bcca3dea80c5bed742f51f8f",
+        "width": 352,
+        "height": 352,
+        "source": "art/exports/interface-v1/rank/09-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "id": "screens-v1/layout/side-selection",
+  "name": "side-selection",
+  "category": "Screens",
+  "family": "screens-v1",
+  "note": "Current screen layout with example labels and values. The composed image is a review fixture; the game will draw text and controls separately. No matching reference capture is mapped. Navigation and runtime integration remain open.",
+  "recipes": [
+    "art/recipes/screens/v1/western-front.json"
+  ],
+  "prompts": [
+    "prompts/screens/v1/western-front.md"
+  ],
+  "width": 640,
+  "height": 400,
+  "variants": [
+    {
+      "id": "layout",
+      "label": "Composed layout",
+      "images": {
+        "1": {
+          "url": "screens/screens-v1/screens-v1-layout-side-selection/1x.png",
+          "source": "art/exports/screens-v1/fixtures/side-selection-2x.png",
+          "sha256": "4b79878b5061c6608dcf6865db85c1e9f1c18ae7bed2f80a1c672ba57604a846",
+          "width": 640,
+          "height": 400,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "screens/screens-v1/screens-v1-layout-side-selection/2x.png",
+          "source": "art/exports/screens-v1/fixtures/side-selection-2x.png",
+          "sha256": "9dd50cb594b2adb49ced781a4afec233d138c4aea080bc307f143ae9790022a1",
+          "width": 1280,
+          "height": 800,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "layout": {
+      "1": {
+        "path": "screens/screens-v1/screens-v1-layout-side-selection/1x.png",
+        "sha256": "4b79878b5061c6608dcf6865db85c1e9f1c18ae7bed2f80a1c672ba57604a846",
+        "width": 640,
+        "height": 400,
+        "source": "art/exports/screens-v1/fixtures/side-selection-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "screens/screens-v1/screens-v1-layout-side-selection/2x.png",
+        "sha256": "9dd50cb594b2adb49ced781a4afec233d138c4aea080bc307f143ae9790022a1",
+        "width": 1280,
+        "height": 800,
+        "source": "art/exports/screens-v1/fixtures/side-selection-2x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

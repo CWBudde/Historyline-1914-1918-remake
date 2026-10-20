@@ -1,0 +1,90 @@
+{
+  "id": "infrastructure/trench12",
+  "name": "trench12",
+  "category": "Terrain",
+  "family": "trench",
+  "season": "shared",
+  "note": "Current enabled infrastructure binding. This single-asset view uses its default context export; the PULSE study resolves available neighbor contexts through the shared compositor. Final runtime acceptance remains open.",
+  "recipes": [
+    "art/recipes/terrain/distinct-v1/earth-bare.json",
+    "art/recipes/terrain/distinct-v1/road-gravel.json",
+    "art/recipes/terrain/distinct-v1/timber-weathered.json",
+    "art/recipes/terrain/distinct-v1/trench-earth.json",
+    "art/recipes/terrain/distinct-v1/water-open.json",
+    "art/recipes/terrain/reference-v2/meadow-03.json",
+    "art/recipes/terrain/reference-v2/road-paved.json",
+    "art/recipes/terrain/shore-reference-v2/water.json"
+  ],
+  "prompts": [
+    "prompts/terrain/distinct-v1/earth-bare.md",
+    "prompts/terrain/distinct-v1/road-gravel.md",
+    "prompts/terrain/distinct-v1/timber-weathered.md",
+    "prompts/terrain/distinct-v1/trench-earth.md",
+    "prompts/terrain/distinct-v1/water-open.md",
+    "prompts/terrain/reference-v2/meadow-03.md",
+    "prompts/terrain/reference-v2/road-paved.md",
+    "prompts/terrain/shore-reference-v2/water.md"
+  ],
+  "width": 96,
+  "height": 80,
+  "variants": [
+    {
+      "id": "default",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "terrain/trench/infrastructure-trench12/1x.png",
+          "source": "art/exports/trench-v1/trench12-2x.png",
+          "sha256": "9b348f1d687e8e2cbcc10c791139185089358721f4a833f355cf3106e7c5750e",
+          "width": 96,
+          "height": 80,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "terrain/trench/infrastructure-trench12/2x.png",
+          "source": "art/exports/trench-v1/trench12-2x.png",
+          "sha256": "5cdfceb9cc429792d5cc1862656c5c6b22ebb9c5ed4405d1490c2f20a506af14",
+          "width": 192,
+          "height": 160,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "terrain/trench/infrastructure-trench12/4x.png",
+          "source": "art/exports/trench-v1/trench12-4x.png",
+          "sha256": "cdea337a6905b2ea07cfd6625fcc961e4b8a33477b6379699da33d5e52dc5c77",
+          "width": 384,
+          "height": 320,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "default": {
+      "1": {
+        "path": "terrain/trench/infrastructure-trench12/1x.png",
+        "sha256": "9b348f1d687e8e2cbcc10c791139185089358721f4a833f355cf3106e7c5750e",
+        "width": 96,
+        "height": 80,
+        "source": "art/exports/trench-v1/trench12-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "terrain/trench/infrastructure-trench12/2x.png",
+        "sha256": "5cdfceb9cc429792d5cc1862656c5c6b22ebb9c5ed4405d1490c2f20a506af14",
+        "width": 192,
+        "height": 160,
+        "source": "art/exports/trench-v1/trench12-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "terrain/trench/infrastructure-trench12/4x.png",
+        "sha256": "cdea337a6905b2ea07cfd6625fcc961e4b8a33477b6379699da33d5e52dc5c77",
+        "width": 384,
+        "height": 320,
+        "source": "art/exports/trench-v1/trench12-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

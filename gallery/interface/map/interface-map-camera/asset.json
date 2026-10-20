@@ -1,0 +1,69 @@
+{
+  "id": "interface/map/camera",
+  "name": "map/camera",
+  "category": "Interface",
+  "family": "map",
+  "note": "Current text-free game component. Labels and game values are drawn separately; runtime acceptance pending. No direct reference image is mapped for this component.",
+  "width": 120,
+  "height": 100,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "interface/map/interface-map-camera/1x.png",
+          "source": "art/exports/interface-v1/map/camera-1x.png",
+          "sha256": "1f49a755f09915a3531d916b44fc18c19815dcde76f30e13fa52a5289f05d3f3",
+          "width": 120,
+          "height": 100,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "interface/map/interface-map-camera/2x.png",
+          "source": "art/exports/interface-v1/map/camera-2x.png",
+          "sha256": "5555681499e23635779adef06ef36dc9417de456cc76729649b10bba995fba80",
+          "width": 240,
+          "height": 200,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "interface/map/interface-map-camera/4x.png",
+          "source": "art/exports/interface-v1/map/camera-4x.png",
+          "sha256": "ea86ce4209c8b2dbc6f2e55f792365c97ccea413ba970c5171e8be92114ea6fd",
+          "width": 480,
+          "height": 400,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "interface/map/interface-map-camera/1x.png",
+        "sha256": "1f49a755f09915a3531d916b44fc18c19815dcde76f30e13fa52a5289f05d3f3",
+        "width": 120,
+        "height": 100,
+        "source": "art/exports/interface-v1/map/camera-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "interface/map/interface-map-camera/2x.png",
+        "sha256": "5555681499e23635779adef06ef36dc9417de456cc76729649b10bba995fba80",
+        "width": 240,
+        "height": 200,
+        "source": "art/exports/interface-v1/map/camera-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "interface/map/interface-map-camera/4x.png",
+        "sha256": "ea86ce4209c8b2dbc6f2e55f792365c97ccea413ba970c5171e8be92114ea6fd",
+        "width": 480,
+        "height": 400,
+        "source": "art/exports/interface-v1/map/camera-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

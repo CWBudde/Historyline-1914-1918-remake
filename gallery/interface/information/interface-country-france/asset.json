@@ -1,0 +1,69 @@
+{
+  "id": "interface/country/france",
+  "name": "country/france",
+  "category": "Interface",
+  "family": "information",
+  "note": "Current text-free game component. Labels and game values are drawn separately; runtime acceptance pending.",
+  "width": 88,
+  "height": 88,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "interface/information/interface-country-france/1x.png",
+          "source": "art/exports/interface-v1/country/france-1x.png",
+          "sha256": "98d53d61a0a3cff538d9919181af97fcc6dceabd4fecbb232c9bd4d644cb8faa",
+          "width": 88,
+          "height": 88,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "interface/information/interface-country-france/2x.png",
+          "source": "art/exports/interface-v1/country/france-2x.png",
+          "sha256": "c4b0fcd5b0af076a2f3a652bfb5418e7599aef6c53f72852fd409a90f786ac5f",
+          "width": 176,
+          "height": 176,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "interface/information/interface-country-france/4x.png",
+          "source": "art/exports/interface-v1/country/france-4x.png",
+          "sha256": "0fb1076191a681dad90df2dc6642593ce00dd5676dc0065d2d58b4d11ac82130",
+          "width": 352,
+          "height": 352,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "interface/information/interface-country-france/1x.png",
+        "sha256": "98d53d61a0a3cff538d9919181af97fcc6dceabd4fecbb232c9bd4d644cb8faa",
+        "width": 88,
+        "height": 88,
+        "source": "art/exports/interface-v1/country/france-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "interface/information/interface-country-france/2x.png",
+        "sha256": "c4b0fcd5b0af076a2f3a652bfb5418e7599aef6c53f72852fd409a90f786ac5f",
+        "width": 176,
+        "height": 176,
+        "source": "art/exports/interface-v1/country/france-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "interface/information/interface-country-france/4x.png",
+        "sha256": "0fb1076191a681dad90df2dc6642593ce00dd5676dc0065d2d58b4d11ac82130",
+        "width": 352,
+        "height": 352,
+        "source": "art/exports/interface-v1/country/france-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

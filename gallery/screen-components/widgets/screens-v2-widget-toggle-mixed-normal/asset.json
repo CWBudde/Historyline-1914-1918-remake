@@ -1,0 +1,75 @@
+{
+  "id": "screens-v2/widget/toggle/mixed/normal",
+  "name": "widget/toggle/mixed/normal",
+  "category": "Screen components",
+  "family": "widgets",
+  "note": "Current screen component, shared across layouts. No direct reference mapping. Painted backdrop has no authored 4× export.",
+  "recipes": [
+    "art/recipes/screens/v1/western-front.json"
+  ],
+  "prompts": [
+    "prompts/screens/v1/western-front.md"
+  ],
+  "width": 40,
+  "height": 40,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "screen-components/widgets/screens-v2-widget-toggle-mixed-normal/1x.png",
+          "source": "art/exports/screens-v2/widget/toggle/mixed/normal-1x.png",
+          "sha256": "48aa0d4c5c54cf22905546f6801853942dbbcfea71ac7f69e28fb5716cd9ad69",
+          "width": 40,
+          "height": 40,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "screen-components/widgets/screens-v2-widget-toggle-mixed-normal/2x.png",
+          "source": "art/exports/screens-v2/widget/toggle/mixed/normal-2x.png",
+          "sha256": "134772f6219be378caccbe7ba904ec85cf664cb313990b4c808d76a92f822872",
+          "width": 80,
+          "height": 80,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "screen-components/widgets/screens-v2-widget-toggle-mixed-normal/4x.png",
+          "source": "art/exports/screens-v2/widget/toggle/mixed/normal-4x.png",
+          "sha256": "dbf01d8745e3b4fdd102be5714763dea1f6816a462422f380e3ac315b09c43ec",
+          "width": 160,
+          "height": 160,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "screen-components/widgets/screens-v2-widget-toggle-mixed-normal/1x.png",
+        "sha256": "48aa0d4c5c54cf22905546f6801853942dbbcfea71ac7f69e28fb5716cd9ad69",
+        "width": 40,
+        "height": 40,
+        "source": "art/exports/screens-v2/widget/toggle/mixed/normal-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "screen-components/widgets/screens-v2-widget-toggle-mixed-normal/2x.png",
+        "sha256": "134772f6219be378caccbe7ba904ec85cf664cb313990b4c808d76a92f822872",
+        "width": 80,
+        "height": 80,
+        "source": "art/exports/screens-v2/widget/toggle/mixed/normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "screen-components/widgets/screens-v2-widget-toggle-mixed-normal/4x.png",
+        "sha256": "dbf01d8745e3b4fdd102be5714763dea1f6816a462422f380e3ac315b09c43ec",
+        "width": 160,
+        "height": 160,
+        "source": "art/exports/screens-v2/widget/toggle/mixed/normal-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

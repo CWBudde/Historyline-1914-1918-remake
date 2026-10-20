@@ -1,0 +1,94 @@
+{
+  "id": "background/hqSE_w",
+  "name": "hqSE_w",
+  "category": "Terrain",
+  "family": "hq",
+  "season": "winter",
+  "note": "Current enabled background binding. This single-asset view uses its default context export; the PULSE study resolves available neighbor contexts through the shared compositor. Final runtime acceptance remains open.",
+  "recipes": [
+    "art/recipes/compound/distinct-v1/hq-layout-guide.json",
+    "art/recipes/compound/distinct-v1/hq-summer-01.json",
+    "art/recipes/compound/distinct-v1/hq-winter-01.json",
+    "art/recipes/compound/reference-v2/hq-summer.json",
+    "art/recipes/compound/reference-v2/hq-winter.json",
+    "art/recipes/terrain/distinct-v1/snow-ground.json",
+    "art/recipes/terrain/reference-v2/meadow-03.json",
+    "art/recipes/compound/reference-v2/hq-summer-natural.json",
+    "art/recipes/compound/reference-v2/hq-winter-natural.json",
+    "art/recipes/compound/reference-v2/hq-winter-street.json"
+  ],
+  "prompts": [
+    "prompts/compound/distinct-v1/hq-layout-guide.md",
+    "prompts/compound/distinct-v1/hq-summer-01.md",
+    "prompts/compound/distinct-v1/hq-winter-01.md",
+    "prompts/compound/reference-v2/hq-summer.md",
+    "prompts/compound/reference-v2/hq-winter.md",
+    "prompts/terrain/distinct-v1/snow-ground.md",
+    "prompts/terrain/reference-v2/meadow-03.md",
+    "prompts/compound/reference-v2/hq-summer-natural.md",
+    "prompts/compound/reference-v2/hq-winter-natural.md",
+    "prompts/compound/reference-v2/hq-winter-street.md"
+  ],
+  "width": 96,
+  "height": 80,
+  "variants": [
+    {
+      "id": "default",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "terrain/hq/background-hqSE_w/1x.png",
+          "source": "art/exports/compound-v1/hqSE_w-2x.png",
+          "sha256": "4c94d76a61348e9a4b18ee832053fa5179af4ddbfb9c3f2891706ee106ad4750",
+          "width": 96,
+          "height": 80,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "terrain/hq/background-hqSE_w/2x.png",
+          "source": "art/exports/compound-v1/hqSE_w-2x.png",
+          "sha256": "b1575d2add50d55e619c949da81c42c003f68967f46b6a3b9bf8bb628c411da6",
+          "width": 192,
+          "height": 160,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "terrain/hq/background-hqSE_w/4x.png",
+          "source": "art/exports/compound-v1/hqSE_w-4x.png",
+          "sha256": "a548d491ed59f777b25cd03cd14e47c60329c25fe96507c4cb3cfae692c565d9",
+          "width": 384,
+          "height": 320,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "default": {
+      "1": {
+        "path": "terrain/hq/background-hqSE_w/1x.png",
+        "sha256": "4c94d76a61348e9a4b18ee832053fa5179af4ddbfb9c3f2891706ee106ad4750",
+        "width": 96,
+        "height": 80,
+        "source": "art/exports/compound-v1/hqSE_w-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "terrain/hq/background-hqSE_w/2x.png",
+        "sha256": "b1575d2add50d55e619c949da81c42c003f68967f46b6a3b9bf8bb628c411da6",
+        "width": 192,
+        "height": 160,
+        "source": "art/exports/compound-v1/hqSE_w-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "terrain/hq/background-hqSE_w/4x.png",
+        "sha256": "a548d491ed59f777b25cd03cd14e47c60329c25fe96507c4cb3cfae692c565d9",
+        "width": 384,
+        "height": 320,
+        "source": "art/exports/compound-v1/hqSE_w-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

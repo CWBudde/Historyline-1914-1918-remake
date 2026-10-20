@@ -1,0 +1,59 @@
+{
+  "id": "screens-v1/layout/victory",
+  "name": "victory",
+  "category": "Screens",
+  "family": "screens-v1",
+  "note": "Current screen layout with example labels and values. The composed image is a review fixture; the game will draw text and controls separately. No matching reference capture is mapped. Navigation and runtime integration remain open.",
+  "recipes": [
+    "art/recipes/screens/v1/western-front.json"
+  ],
+  "prompts": [
+    "prompts/screens/v1/western-front.md"
+  ],
+  "width": 640,
+  "height": 400,
+  "variants": [
+    {
+      "id": "layout",
+      "label": "Composed layout",
+      "images": {
+        "1": {
+          "url": "screens/screens-v1/screens-v1-layout-victory/1x.png",
+          "source": "art/exports/screens-v1/fixtures/victory-2x.png",
+          "sha256": "7c30d5884f9da6ef76f6d6a82a172aa9c2a1a2a9f05396638a43bd568b13fac1",
+          "width": 640,
+          "height": 400,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "screens/screens-v1/screens-v1-layout-victory/2x.png",
+          "source": "art/exports/screens-v1/fixtures/victory-2x.png",
+          "sha256": "157e8ed1fbe47ce64f6ce3e9bd1f1adf7785da5a6d8c16c5b1fa8488f45207b2",
+          "width": 1280,
+          "height": 800,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "layout": {
+      "1": {
+        "path": "screens/screens-v1/screens-v1-layout-victory/1x.png",
+        "sha256": "7c30d5884f9da6ef76f6d6a82a172aa9c2a1a2a9f05396638a43bd568b13fac1",
+        "width": 640,
+        "height": 400,
+        "source": "art/exports/screens-v1/fixtures/victory-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "screens/screens-v1/screens-v1-layout-victory/2x.png",
+        "sha256": "157e8ed1fbe47ce64f6ce3e9bd1f1adf7785da5a6d8c16c5b1fa8488f45207b2",
+        "width": 1280,
+        "height": 800,
+        "source": "art/exports/screens-v1/fixtures/victory-2x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

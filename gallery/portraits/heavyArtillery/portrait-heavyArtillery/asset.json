@@ -1,0 +1,79 @@
+{
+  "id": "portrait/heavyArtillery",
+  "name": "heavyArtillery",
+  "category": "Portraits",
+  "family": "heavyArtillery",
+  "bindings": [
+    "CP_hArtillery",
+    "EC_hArtillery"
+  ],
+  "note": "Current family candidate. Visual approval and runtime acceptance pending.",
+  "recipes": [
+    "art/recipes/portraits/reference-v1/heavy-artillery-01.json"
+  ],
+  "prompts": [
+    "prompts/portraits/reference-v1/heavy-artillery-01.md"
+  ],
+  "width": 210,
+  "height": 188,
+  "variants": [
+    {
+      "id": "portrait",
+      "label": "portrait",
+      "images": {
+        "1": {
+          "url": "portraits/heavyArtillery/portrait-heavyArtillery/1x.png",
+          "source": "art/exports/portrait-heavy-artillery-v1/heavyArtillery-1x.png",
+          "sha256": "f25de6769cad17ba00b696754ef9b2c55fd5ac98360792c02e85bbb762a0c141",
+          "width": 210,
+          "height": 188,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "portraits/heavyArtillery/portrait-heavyArtillery/2x.png",
+          "source": "art/exports/portrait-heavy-artillery-v1/heavyArtillery-2x.png",
+          "sha256": "027216042aa1370486eb563ec8f2e76965bb258973ac7773cc16fb7cd5fb89a2",
+          "width": 420,
+          "height": 376,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "portraits/heavyArtillery/portrait-heavyArtillery/4x.png",
+          "source": "art/exports/portrait-heavy-artillery-v1/heavyArtillery-4x.png",
+          "sha256": "0a1a5c6e594ff74badd2f5de6b41457568b5e574dcca1a5c0b9a8f0eb8c5064e",
+          "width": 840,
+          "height": 752,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "portrait": {
+      "1": {
+        "path": "portraits/heavyArtillery/portrait-heavyArtillery/1x.png",
+        "sha256": "f25de6769cad17ba00b696754ef9b2c55fd5ac98360792c02e85bbb762a0c141",
+        "width": 210,
+        "height": 188,
+        "source": "art/exports/portrait-heavy-artillery-v1/heavyArtillery-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "portraits/heavyArtillery/portrait-heavyArtillery/2x.png",
+        "sha256": "027216042aa1370486eb563ec8f2e76965bb258973ac7773cc16fb7cd5fb89a2",
+        "width": 420,
+        "height": 376,
+        "source": "art/exports/portrait-heavy-artillery-v1/heavyArtillery-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "portraits/heavyArtillery/portrait-heavyArtillery/4x.png",
+        "sha256": "0a1a5c6e594ff74badd2f5de6b41457568b5e574dcca1a5c0b9a8f0eb8c5064e",
+        "width": 840,
+        "height": 752,
+        "source": "art/exports/portrait-heavy-artillery-v1/heavyArtillery-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

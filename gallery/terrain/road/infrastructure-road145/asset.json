@@ -1,0 +1,86 @@
+{
+  "id": "infrastructure/road145",
+  "name": "road145",
+  "category": "Terrain",
+  "family": "road",
+  "season": "shared",
+  "note": "Current enabled infrastructure binding. This single-asset view uses its default context export; the PULSE study resolves available neighbor contexts through the shared compositor. Final runtime acceptance remains open.",
+  "recipes": [
+    "art/recipes/terrain/distinct-v1/earth-bare.json",
+    "art/recipes/terrain/distinct-v1/road-gravel.json",
+    "art/recipes/terrain/distinct-v1/water-open.json",
+    "art/recipes/terrain/reference-v2/meadow-03.json",
+    "art/recipes/terrain/reference-v2/road-paved.json",
+    "art/recipes/terrain/shore-reference-v2/water.json"
+  ],
+  "prompts": [
+    "prompts/terrain/distinct-v1/earth-bare.md",
+    "prompts/terrain/distinct-v1/road-gravel.md",
+    "prompts/terrain/distinct-v1/water-open.md",
+    "prompts/terrain/reference-v2/meadow-03.md",
+    "prompts/terrain/reference-v2/road-paved.md",
+    "prompts/terrain/shore-reference-v2/water.md"
+  ],
+  "width": 96,
+  "height": 80,
+  "variants": [
+    {
+      "id": "default",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "terrain/road/infrastructure-road145/1x.png",
+          "source": "art/exports/connected-v1/road145-2x.png",
+          "sha256": "130e87d048806362fbd649930bcffca501ee975c9e88f2b1bbaf499ebb6925e9",
+          "width": 96,
+          "height": 80,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "terrain/road/infrastructure-road145/2x.png",
+          "source": "art/exports/connected-v1/road145-2x.png",
+          "sha256": "d555e29203f8b9591eb5d780cfea5fc9ede447d59deb2d282563c55d932b519a",
+          "width": 192,
+          "height": 160,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "terrain/road/infrastructure-road145/4x.png",
+          "source": "art/exports/connected-v1/road145-4x.png",
+          "sha256": "31d42cca113771173b94f6fbe2551b50f54753de0fee0d1d0b22c7417f943dd0",
+          "width": 384,
+          "height": 320,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "default": {
+      "1": {
+        "path": "terrain/road/infrastructure-road145/1x.png",
+        "sha256": "130e87d048806362fbd649930bcffca501ee975c9e88f2b1bbaf499ebb6925e9",
+        "width": 96,
+        "height": 80,
+        "source": "art/exports/connected-v1/road145-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "terrain/road/infrastructure-road145/2x.png",
+        "sha256": "d555e29203f8b9591eb5d780cfea5fc9ede447d59deb2d282563c55d932b519a",
+        "width": 192,
+        "height": 160,
+        "source": "art/exports/connected-v1/road145-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "terrain/road/infrastructure-road145/4x.png",
+        "sha256": "31d42cca113771173b94f6fbe2551b50f54753de0fee0d1d0b22c7417f943dd0",
+        "width": 384,
+        "height": 320,
+        "source": "art/exports/connected-v1/road145-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

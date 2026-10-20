@@ -1,0 +1,75 @@
+{
+  "id": "screens-v2/widget/dropdown-list",
+  "name": "widget/dropdown-list",
+  "category": "Screen components",
+  "family": "widgets",
+  "note": "Current screen component, shared across layouts. No direct reference mapping. Painted backdrop has no authored 4× export.",
+  "recipes": [
+    "art/recipes/screens/v1/western-front.json"
+  ],
+  "prompts": [
+    "prompts/screens/v1/western-front.md"
+  ],
+  "width": 240,
+  "height": 130,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "screen-components/widgets/screens-v2-widget-dropdown-list/1x.png",
+          "source": "art/exports/screens-v2/widget/dropdown-list-1x.png",
+          "sha256": "b08947bd234046c56525197d5b66506c173f5a236245855f9682e5eb6c896f80",
+          "width": 240,
+          "height": 130,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "screen-components/widgets/screens-v2-widget-dropdown-list/2x.png",
+          "source": "art/exports/screens-v2/widget/dropdown-list-2x.png",
+          "sha256": "ee031fbd6b5bdd0af3f7aceba77ea32f727a5f9cb929e20d7a593cbbe0cb66e1",
+          "width": 480,
+          "height": 260,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "screen-components/widgets/screens-v2-widget-dropdown-list/4x.png",
+          "source": "art/exports/screens-v2/widget/dropdown-list-4x.png",
+          "sha256": "08081dffae18ce6549e71f4c7d1461981b66949f67040109ebcbf8d7547a9996",
+          "width": 960,
+          "height": 520,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "screen-components/widgets/screens-v2-widget-dropdown-list/1x.png",
+        "sha256": "b08947bd234046c56525197d5b66506c173f5a236245855f9682e5eb6c896f80",
+        "width": 240,
+        "height": 130,
+        "source": "art/exports/screens-v2/widget/dropdown-list-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "screen-components/widgets/screens-v2-widget-dropdown-list/2x.png",
+        "sha256": "ee031fbd6b5bdd0af3f7aceba77ea32f727a5f9cb929e20d7a593cbbe0cb66e1",
+        "width": 480,
+        "height": 260,
+        "source": "art/exports/screens-v2/widget/dropdown-list-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "screen-components/widgets/screens-v2-widget-dropdown-list/4x.png",
+        "sha256": "08081dffae18ce6549e71f4c7d1461981b66949f67040109ebcbf8d7547a9996",
+        "width": 960,
+        "height": 520,
+        "source": "art/exports/screens-v2/widget/dropdown-list-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

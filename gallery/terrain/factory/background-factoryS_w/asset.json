@@ -1,0 +1,82 @@
+{
+  "id": "background/factoryS_w",
+  "name": "factoryS_w",
+  "category": "Terrain",
+  "family": "factory",
+  "season": "winter",
+  "note": "Current enabled background binding. This single-asset view uses its default context export; the PULSE study resolves available neighbor contexts through the shared compositor. Final runtime acceptance remains open.",
+  "recipes": [
+    "art/recipes/compound/distinct-v1/factory-layout-guide.json",
+    "art/recipes/compound/distinct-v1/factory-winter-01.json",
+    "art/recipes/compound/reference-v2/factory-winter.json",
+    "art/recipes/terrain/distinct-v1/snow-ground.json"
+  ],
+  "prompts": [
+    "prompts/compound/distinct-v1/factory-layout-guide.md",
+    "prompts/compound/distinct-v1/factory-winter-01.md",
+    "prompts/compound/reference-v2/factory-winter.md",
+    "prompts/terrain/distinct-v1/snow-ground.md"
+  ],
+  "width": 96,
+  "height": 80,
+  "variants": [
+    {
+      "id": "default",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "terrain/factory/background-factoryS_w/1x.png",
+          "source": "art/exports/compound-v1/factoryS_w-2x.png",
+          "sha256": "41dba37ab0d5e224a6e76dd4522fd0f189a0cd179bf677fc6039a336c9a34395",
+          "width": 96,
+          "height": 80,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "terrain/factory/background-factoryS_w/2x.png",
+          "source": "art/exports/compound-v1/factoryS_w-2x.png",
+          "sha256": "cd7ffe8f5a5af07bddfd19889a77c5f214d0f3baf084692b1cdb881d4a453c12",
+          "width": 192,
+          "height": 160,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "terrain/factory/background-factoryS_w/4x.png",
+          "source": "art/exports/compound-v1/factoryS_w-4x.png",
+          "sha256": "732badc7f310e67267250b4c8de8e4f8df91d256be4524299d23f126f135f617",
+          "width": 384,
+          "height": 320,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "default": {
+      "1": {
+        "path": "terrain/factory/background-factoryS_w/1x.png",
+        "sha256": "41dba37ab0d5e224a6e76dd4522fd0f189a0cd179bf677fc6039a336c9a34395",
+        "width": 96,
+        "height": 80,
+        "source": "art/exports/compound-v1/factoryS_w-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "terrain/factory/background-factoryS_w/2x.png",
+        "sha256": "cd7ffe8f5a5af07bddfd19889a77c5f214d0f3baf084692b1cdb881d4a453c12",
+        "width": 192,
+        "height": 160,
+        "source": "art/exports/compound-v1/factoryS_w-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "terrain/factory/background-factoryS_w/4x.png",
+        "sha256": "732badc7f310e67267250b4c8de8e4f8df91d256be4524299d23f126f135f617",
+        "width": 384,
+        "height": 320,
+        "source": "art/exports/compound-v1/factoryS_w-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

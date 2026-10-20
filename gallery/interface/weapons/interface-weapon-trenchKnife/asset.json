@@ -1,0 +1,75 @@
+{
+  "id": "interface/weapon/trenchKnife",
+  "name": "weapon/trenchKnife",
+  "category": "Interface",
+  "family": "weapons",
+  "note": "Current text-free game component. Labels and game values are drawn separately; runtime acceptance pending. Reference is the complete old weapon row, including its labels. Images retain their own dimensions on a common canvas; the row is not stretched into the new art region.",
+  "recipes": [
+    "art/recipes/interface/v1/trenchKnife.json"
+  ],
+  "prompts": [
+    "prompts/interface/v1/trenchKnife.md"
+  ],
+  "width": 252,
+  "height": 50,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "interface/weapons/interface-weapon-trenchKnife/1x.png",
+          "source": "art/exports/interface-v1/weapon/trenchKnife-1x.png",
+          "sha256": "9cc703c947f447ad1f4c244fb7cb22c4c1de3847aa7e7f47a91b497ebc218fbc",
+          "width": 252,
+          "height": 50,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "interface/weapons/interface-weapon-trenchKnife/2x.png",
+          "source": "art/exports/interface-v1/weapon/trenchKnife-2x.png",
+          "sha256": "112caa1c08726d6c91e39b4240fb93f119042bff20d4a1ddd1594d64ba2a7ce2",
+          "width": 504,
+          "height": 100,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "interface/weapons/interface-weapon-trenchKnife/4x.png",
+          "source": "art/exports/interface-v1/weapon/trenchKnife-4x.png",
+          "sha256": "efbdbbdcb1a4a64f3b588e643b2cddf07c132da040366ab65fd1e63617152e86",
+          "width": 1008,
+          "height": 200,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "interface/weapons/interface-weapon-trenchKnife/1x.png",
+        "sha256": "9cc703c947f447ad1f4c244fb7cb22c4c1de3847aa7e7f47a91b497ebc218fbc",
+        "width": 252,
+        "height": 50,
+        "source": "art/exports/interface-v1/weapon/trenchKnife-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "interface/weapons/interface-weapon-trenchKnife/2x.png",
+        "sha256": "112caa1c08726d6c91e39b4240fb93f119042bff20d4a1ddd1594d64ba2a7ce2",
+        "width": 504,
+        "height": 100,
+        "source": "art/exports/interface-v1/weapon/trenchKnife-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "interface/weapons/interface-weapon-trenchKnife/4x.png",
+        "sha256": "efbdbbdcb1a4a64f3b588e643b2cddf07c132da040366ab65fd1e63617152e86",
+        "width": 1008,
+        "height": 200,
+        "source": "art/exports/interface-v1/weapon/trenchKnife-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

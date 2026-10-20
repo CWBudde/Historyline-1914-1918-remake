@@ -1,0 +1,94 @@
+{
+  "id": "background/shelled_w",
+  "name": "shelled_w",
+  "category": "Terrain",
+  "family": "earth-stone",
+  "season": "winter",
+  "note": "Current enabled background binding. This single-asset view uses its default context export; the PULSE study resolves available neighbor contexts through the shared compositor. Final runtime acceptance remains open.",
+  "recipes": [
+    "art/recipes/terrain/distinct-v1/meadow.json",
+    "art/recipes/terrain/distinct-v1/snow-ground.json",
+    "art/recipes/terrain/distinct-v1/mud-wet.json",
+    "art/recipes/terrain/distinct-v1/ground-rocky.json",
+    "art/recipes/terrain/distinct-v1/rough-winter.json",
+    "art/recipes/terrain/distinct-v1/stone-winter.json",
+    "art/recipes/terrain/distinct-v1/shelled-winter.json",
+    "art/recipes/ground/distinct-v1/shelled-winter-01.json",
+    "art/recipes/ground/distinct-v1/shelled-winter-02.json",
+    "art/recipes/terrain/reference-v2/meadow-03.json"
+  ],
+  "prompts": [
+    "prompts/terrain/distinct-v1/meadow.md",
+    "prompts/terrain/distinct-v1/snow-ground.md",
+    "prompts/terrain/distinct-v1/mud-wet.md",
+    "prompts/terrain/distinct-v1/ground-rocky.md",
+    "prompts/terrain/distinct-v1/rough-winter.md",
+    "prompts/terrain/distinct-v1/stone-winter.md",
+    "prompts/terrain/distinct-v1/shelled-winter.md",
+    "prompts/ground/distinct-v1/shelled-winter-01.md",
+    "prompts/ground/distinct-v1/shelled-winter-02.md",
+    "prompts/terrain/reference-v2/meadow-03.md"
+  ],
+  "width": 96,
+  "height": 80,
+  "variants": [
+    {
+      "id": "default",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "terrain/earth-stone/background-shelled_w/1x.png",
+          "source": "art/exports/ground-v1/shelled_w-2x.png",
+          "sha256": "529123f83c79f0f4c8a4cf634135eef04c1e3c07450e8052ac554d7ff95e137c",
+          "width": 96,
+          "height": 80,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "terrain/earth-stone/background-shelled_w/2x.png",
+          "source": "art/exports/ground-v1/shelled_w-2x.png",
+          "sha256": "8127c10ef065f2afafd6f22efba95a0945eb7c5e6245232e08be244e60256ff2",
+          "width": 192,
+          "height": 160,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "terrain/earth-stone/background-shelled_w/4x.png",
+          "source": "art/exports/ground-v1/shelled_w-4x.png",
+          "sha256": "b89d0505612e64d36c016c56b7fc48dd1e01d962ec2f094517de4dc9f671479e",
+          "width": 384,
+          "height": 320,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "default": {
+      "1": {
+        "path": "terrain/earth-stone/background-shelled_w/1x.png",
+        "sha256": "529123f83c79f0f4c8a4cf634135eef04c1e3c07450e8052ac554d7ff95e137c",
+        "width": 96,
+        "height": 80,
+        "source": "art/exports/ground-v1/shelled_w-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "terrain/earth-stone/background-shelled_w/2x.png",
+        "sha256": "8127c10ef065f2afafd6f22efba95a0945eb7c5e6245232e08be244e60256ff2",
+        "width": 192,
+        "height": 160,
+        "source": "art/exports/ground-v1/shelled_w-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "terrain/earth-stone/background-shelled_w/4x.png",
+        "sha256": "b89d0505612e64d36c016c56b7fc48dd1e01d962ec2f094517de4dc9f671479e",
+        "width": 384,
+        "height": 320,
+        "source": "art/exports/ground-v1/shelled_w-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

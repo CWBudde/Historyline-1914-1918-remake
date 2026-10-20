@@ -1,0 +1,69 @@
+{
+  "id": "interface/action/attack-normal",
+  "name": "action/attack-normal",
+  "category": "Interface",
+  "family": "controls",
+  "note": "Current text-free game component. Labels and game values are drawn separately; runtime acceptance pending. Reference is the original base action, unchanged for the new interaction states.",
+  "width": 62,
+  "height": 52,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "interface/controls/interface-action-attack-normal/1x.png",
+          "source": "art/exports/interface-v1/action/attack-normal-1x.png",
+          "sha256": "c4058a2d1e2a883d444f57026b4192068298aef7513273d1b378764db10d90b6",
+          "width": 62,
+          "height": 52,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "interface/controls/interface-action-attack-normal/2x.png",
+          "source": "art/exports/interface-v1/action/attack-normal-2x.png",
+          "sha256": "27a431af31fbe6f0728b10f2000b7eb466c6e27debcf02e3707857f2ebc633f8",
+          "width": 124,
+          "height": 104,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "interface/controls/interface-action-attack-normal/4x.png",
+          "source": "art/exports/interface-v1/action/attack-normal-4x.png",
+          "sha256": "fbc4eb552089abd724070769c9b89f5879b50b1b918859260c38b0f59828a404",
+          "width": 248,
+          "height": 208,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "interface/controls/interface-action-attack-normal/1x.png",
+        "sha256": "c4058a2d1e2a883d444f57026b4192068298aef7513273d1b378764db10d90b6",
+        "width": 62,
+        "height": 52,
+        "source": "art/exports/interface-v1/action/attack-normal-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "interface/controls/interface-action-attack-normal/2x.png",
+        "sha256": "27a431af31fbe6f0728b10f2000b7eb466c6e27debcf02e3707857f2ebc633f8",
+        "width": 124,
+        "height": 104,
+        "source": "art/exports/interface-v1/action/attack-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "interface/controls/interface-action-attack-normal/4x.png",
+        "sha256": "fbc4eb552089abd724070769c9b89f5879b50b1b918859260c38b0f59828a404",
+        "width": 248,
+        "height": 208,
+        "source": "art/exports/interface-v1/action/attack-normal-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

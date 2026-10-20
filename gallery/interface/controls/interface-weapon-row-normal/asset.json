@@ -1,0 +1,69 @@
+{
+  "id": "interface/weapon-row/normal",
+  "name": "weapon-row/normal",
+  "category": "Interface",
+  "family": "controls",
+  "note": "Current text-free game component. Labels and game values are drawn separately; runtime acceptance pending. No direct reference image is mapped for this component.",
+  "width": 654,
+  "height": 50,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "interface/controls/interface-weapon-row-normal/1x.png",
+          "source": "art/exports/interface-v1/weapon-row/normal-1x.png",
+          "sha256": "3bb893a252f1cef2d8fc828ae02d7f721bb99c2af321bd34e51518834a9d57bf",
+          "width": 654,
+          "height": 50,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "interface/controls/interface-weapon-row-normal/2x.png",
+          "source": "art/exports/interface-v1/weapon-row/normal-2x.png",
+          "sha256": "216d12cb9d96a3b8a2646c0343964cd20bde743b200071e90c214e28972948d3",
+          "width": 1308,
+          "height": 100,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "interface/controls/interface-weapon-row-normal/4x.png",
+          "source": "art/exports/interface-v1/weapon-row/normal-4x.png",
+          "sha256": "88e03d70e429f6f3e23c0944cc18a7453fb43ca5a9d072226e6a4cdbf04ad0af",
+          "width": 2616,
+          "height": 200,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "interface/controls/interface-weapon-row-normal/1x.png",
+        "sha256": "3bb893a252f1cef2d8fc828ae02d7f721bb99c2af321bd34e51518834a9d57bf",
+        "width": 654,
+        "height": 50,
+        "source": "art/exports/interface-v1/weapon-row/normal-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "interface/controls/interface-weapon-row-normal/2x.png",
+        "sha256": "216d12cb9d96a3b8a2646c0343964cd20bde743b200071e90c214e28972948d3",
+        "width": 1308,
+        "height": 100,
+        "source": "art/exports/interface-v1/weapon-row/normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "interface/controls/interface-weapon-row-normal/4x.png",
+        "sha256": "88e03d70e429f6f3e23c0944cc18a7453fb43ca5a9d072226e6a4cdbf04ad0af",
+        "width": 2616,
+        "height": 200,
+        "source": "art/exports/interface-v1/weapon-row/normal-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

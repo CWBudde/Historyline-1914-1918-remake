@@ -1,0 +1,76 @@
+{
+  "id": "infrastructure/cross1",
+  "name": "cross1",
+  "category": "Terrain",
+  "family": "cross",
+  "season": "shared",
+  "note": "Current enabled infrastructure binding. This single-asset view uses its default context export; the PULSE study resolves available neighbor contexts through the shared compositor. Final runtime acceptance remains open.",
+  "recipes": [
+    "art/recipes/terrain/reference-v2/meadow-03.json"
+  ],
+  "prompts": [
+    "prompts/terrain/reference-v2/meadow-03.md"
+  ],
+  "width": 96,
+  "height": 80,
+  "variants": [
+    {
+      "id": "default",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "terrain/cross/infrastructure-cross1/1x.png",
+          "source": "art/exports/mixed-v1/cross1-2x.png",
+          "sha256": "f14579a9c060f573bc302823588218f57b05ac97c4db135ad4d2cc0e5886933c",
+          "width": 96,
+          "height": 80,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "terrain/cross/infrastructure-cross1/2x.png",
+          "source": "art/exports/mixed-v1/cross1-2x.png",
+          "sha256": "f8f379a2f41f8b1f997c935ade37bf355771f23818f368397f37e2e76cfd9c10",
+          "width": 192,
+          "height": 160,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "terrain/cross/infrastructure-cross1/4x.png",
+          "source": "art/exports/mixed-v1/cross1-4x.png",
+          "sha256": "72ffc8cb4f87e102bebe422a2fb11642baffcb4f1025803ecb48801998992349",
+          "width": 384,
+          "height": 320,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "default": {
+      "1": {
+        "path": "terrain/cross/infrastructure-cross1/1x.png",
+        "sha256": "f14579a9c060f573bc302823588218f57b05ac97c4db135ad4d2cc0e5886933c",
+        "width": 96,
+        "height": 80,
+        "source": "art/exports/mixed-v1/cross1-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "terrain/cross/infrastructure-cross1/2x.png",
+        "sha256": "f8f379a2f41f8b1f997c935ade37bf355771f23818f368397f37e2e76cfd9c10",
+        "width": 192,
+        "height": 160,
+        "source": "art/exports/mixed-v1/cross1-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "terrain/cross/infrastructure-cross1/4x.png",
+        "sha256": "72ffc8cb4f87e102bebe422a2fb11642baffcb4f1025803ecb48801998992349",
+        "width": 384,
+        "height": 320,
+        "source": "art/exports/mixed-v1/cross1-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

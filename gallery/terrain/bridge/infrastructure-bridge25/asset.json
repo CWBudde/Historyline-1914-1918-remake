@@ -1,0 +1,76 @@
+{
+  "id": "infrastructure/bridge25",
+  "name": "bridge25",
+  "category": "Terrain",
+  "family": "bridge",
+  "season": "shared",
+  "note": "Current enabled infrastructure binding. This single-asset view uses its default context export; the PULSE study resolves available neighbor contexts through the shared compositor. Final runtime acceptance remains open.",
+  "recipes": [
+    "art/recipes/terrain/reference-v2/meadow-03.json"
+  ],
+  "prompts": [
+    "prompts/terrain/reference-v2/meadow-03.md"
+  ],
+  "width": 96,
+  "height": 80,
+  "variants": [
+    {
+      "id": "default",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "terrain/bridge/infrastructure-bridge25/1x.png",
+          "source": "art/exports/mixed-v1/bridge25-2x.png",
+          "sha256": "30e7005d9fa3e55ae9bd98eb96ea9a3c7a413e70889d5de58b8b6ce315654e68",
+          "width": 96,
+          "height": 80,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "terrain/bridge/infrastructure-bridge25/2x.png",
+          "source": "art/exports/mixed-v1/bridge25-2x.png",
+          "sha256": "34dab6240abc7270db7755220b9b450811649e0142266cd2b592e51ba9d2457e",
+          "width": 192,
+          "height": 160,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "terrain/bridge/infrastructure-bridge25/4x.png",
+          "source": "art/exports/mixed-v1/bridge25-4x.png",
+          "sha256": "a8568f44c3afab409488de69ce2647d5fd5a4c9163aa75bc070089bc6aa5fc10",
+          "width": 384,
+          "height": 320,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "default": {
+      "1": {
+        "path": "terrain/bridge/infrastructure-bridge25/1x.png",
+        "sha256": "30e7005d9fa3e55ae9bd98eb96ea9a3c7a413e70889d5de58b8b6ce315654e68",
+        "width": 96,
+        "height": 80,
+        "source": "art/exports/mixed-v1/bridge25-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "terrain/bridge/infrastructure-bridge25/2x.png",
+        "sha256": "34dab6240abc7270db7755220b9b450811649e0142266cd2b592e51ba9d2457e",
+        "width": 192,
+        "height": 160,
+        "source": "art/exports/mixed-v1/bridge25-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "terrain/bridge/infrastructure-bridge25/4x.png",
+        "sha256": "a8568f44c3afab409488de69ce2647d5fd5a4c9163aa75bc070089bc6aa5fc10",
+        "width": 384,
+        "height": 320,
+        "source": "art/exports/mixed-v1/bridge25-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

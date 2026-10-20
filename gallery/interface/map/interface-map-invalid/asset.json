@@ -1,0 +1,69 @@
+{
+  "id": "interface/map/invalid",
+  "name": "map/invalid",
+  "category": "Interface",
+  "family": "map",
+  "note": "Current text-free game component. Labels and game values are drawn separately; runtime acceptance pending. No direct reference image is mapped for this component.",
+  "width": 120,
+  "height": 100,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "interface/map/interface-map-invalid/1x.png",
+          "source": "art/exports/interface-v1/map/invalid-1x.png",
+          "sha256": "93ebc5dc2425c8e4f435476e8a71e96d459b1ca8d5d113b3f27fd52591cadfcc",
+          "width": 120,
+          "height": 100,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "interface/map/interface-map-invalid/2x.png",
+          "source": "art/exports/interface-v1/map/invalid-2x.png",
+          "sha256": "34746a3de716e3813f33654d42b3911e686cd3324461d78b03941cf4bda72d61",
+          "width": 240,
+          "height": 200,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "interface/map/interface-map-invalid/4x.png",
+          "source": "art/exports/interface-v1/map/invalid-4x.png",
+          "sha256": "40086b1faf77b09a8702d1484f39f75f8d247c2fac3aa149a2578bad803b5085",
+          "width": 480,
+          "height": 400,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "interface/map/interface-map-invalid/1x.png",
+        "sha256": "93ebc5dc2425c8e4f435476e8a71e96d459b1ca8d5d113b3f27fd52591cadfcc",
+        "width": 120,
+        "height": 100,
+        "source": "art/exports/interface-v1/map/invalid-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "interface/map/interface-map-invalid/2x.png",
+        "sha256": "34746a3de716e3813f33654d42b3911e686cd3324461d78b03941cf4bda72d61",
+        "width": 240,
+        "height": 200,
+        "source": "art/exports/interface-v1/map/invalid-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "interface/map/interface-map-invalid/4x.png",
+        "sha256": "40086b1faf77b09a8702d1484f39f75f8d247c2fac3aa149a2578bad803b5085",
+        "width": 480,
+        "height": 400,
+        "source": "art/exports/interface-v1/map/invalid-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

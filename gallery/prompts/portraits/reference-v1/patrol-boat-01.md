@@ -1,0 +1,28 @@
+# portrait-patrol-boat-01
+
+Recipe: `art/recipes/portraits/reference-v1/patrol-boat-01.json`
+
+- **acceptance**: Approximately 90% resemblance is a visual review target, not a measured score. Direction, physical pivot, native correspondence and runtime acceptance remain review gates.
+- **art_direction**: reference-faithful-continuous-painted-v1
+- **cleanup**: Unchanged generated PNG. Existing Go Lanczos3 exporter only; no pixel repair, alpha removal, rotations or original-pixel compositing.
+- **date**: 2026-10-15
+- **id**: portrait-patrol-boat-01
+- **schema_version**: 1
+- **source**: art/source/portraits/reference-v1/patrol-boat-01.png
+- **source_sha256**: 2758204a06c7ca517f5a5287b2e657dc52f4fecbccc446d3f498a39425691f50
+- **status**: candidate-source
+- **tool**: built-in image_gen.imagegen
+- **transparent_background**: false
+
+## generation_inputs
+
+| path | role | sha256 |
+|---|---|---|
+| `legacy/python/gfx/units/pictures/patrolBoat.png` | <nil> | `3d174221c50b688ed4fb669305be6f9b51fb9367c7861beb72fbb255618f7287` |
+| `art/exports/portrait-infantry-v1/infantry-2x.png` | <nil> | `3503be46728754bebc3fb829716ec6aac3e2ddb587a62206d92486278df0852b` |
+
+## Prompt
+
+```text
+Use case: style-transfer. Asset: Patrol boat owner-neutral WWI strategy unit portrait. Image1 is the repository original: preserve its precise composition, subject placement, occlusions, camera, subdued ochre/sepia values and broad silhouettes. Image2 supplies continuous painted medium ONLY. Target approximately90% visual resemblance when Lanczos3 reduced to210x188. Scene: a small armoured patrol boat in left-to-right side three-quarter view on rippling water; low bow left, boxy wheelhouse right of centre, crew silhouette on left deck; boat lies in lower half, broad pale ochre cloudy sky. Paint refined wool/leather/wood/metal and natural surfaces with restrained connected brushwork. Do not redesign, add subjects, or introduce new scenery. Fully opaque full-bleed illustration105:94 aspect at least1260x1128, preferably1680x1504. Omit old UI bevel/frame; extend natural scene to edges. Essential subjects safe inside centred105:94 crop. No text, labels, flags, logos, ownership colours, watermark or UI.
+```

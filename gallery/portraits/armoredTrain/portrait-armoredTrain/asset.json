@@ -1,0 +1,79 @@
+{
+  "id": "portrait/armoredTrain",
+  "name": "armoredTrain",
+  "category": "Portraits",
+  "family": "armoredTrain",
+  "bindings": [
+    "CP_armTrain",
+    "EC_armTrain"
+  ],
+  "note": "Current family candidate. Visual approval and runtime acceptance pending.",
+  "recipes": [
+    "art/recipes/portraits/reference-v1/armored-train-01.json"
+  ],
+  "prompts": [
+    "prompts/portraits/reference-v1/armored-train-01.md"
+  ],
+  "width": 210,
+  "height": 188,
+  "variants": [
+    {
+      "id": "portrait",
+      "label": "portrait",
+      "images": {
+        "1": {
+          "url": "portraits/armoredTrain/portrait-armoredTrain/1x.png",
+          "source": "art/exports/portrait-armored-train-v1/armoredTrain-1x.png",
+          "sha256": "48ac07fbd5e610dac947883a3568c7a923600580a7bf281a14ac31fdb0766048",
+          "width": 210,
+          "height": 188,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "portraits/armoredTrain/portrait-armoredTrain/2x.png",
+          "source": "art/exports/portrait-armored-train-v1/armoredTrain-2x.png",
+          "sha256": "4e1397d09c95bbe7e580a0a0fbc5d87bcdc512bfa10c4f94ffcffe17edc5386e",
+          "width": 420,
+          "height": 376,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "portraits/armoredTrain/portrait-armoredTrain/4x.png",
+          "source": "art/exports/portrait-armored-train-v1/armoredTrain-4x.png",
+          "sha256": "2f105aa3bdeea3e1f3831c3950d61307b8011ef96cc7076abc86789a6e68e01b",
+          "width": 840,
+          "height": 752,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "portrait": {
+      "1": {
+        "path": "portraits/armoredTrain/portrait-armoredTrain/1x.png",
+        "sha256": "48ac07fbd5e610dac947883a3568c7a923600580a7bf281a14ac31fdb0766048",
+        "width": 210,
+        "height": 188,
+        "source": "art/exports/portrait-armored-train-v1/armoredTrain-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "portraits/armoredTrain/portrait-armoredTrain/2x.png",
+        "sha256": "4e1397d09c95bbe7e580a0a0fbc5d87bcdc512bfa10c4f94ffcffe17edc5386e",
+        "width": 420,
+        "height": 376,
+        "source": "art/exports/portrait-armored-train-v1/armoredTrain-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "portraits/armoredTrain/portrait-armoredTrain/4x.png",
+        "sha256": "2f105aa3bdeea3e1f3831c3950d61307b8011ef96cc7076abc86789a6e68e01b",
+        "width": 840,
+        "height": 752,
+        "source": "art/exports/portrait-armored-train-v1/armoredTrain-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "id": "interface/weapon/feldkanone16",
+  "name": "weapon/feldkanone16",
+  "category": "Interface",
+  "family": "weapons",
+  "note": "Current text-free game component. Labels and game values are drawn separately; runtime acceptance pending. Reference is the complete old weapon row, including its labels. Images retain their own dimensions on a common canvas; the row is not stretched into the new art region.",
+  "recipes": [
+    "art/recipes/interface/v1/feldkanone16.json"
+  ],
+  "prompts": [
+    "prompts/interface/v1/feldkanone16.md"
+  ],
+  "width": 252,
+  "height": 50,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "interface/weapons/interface-weapon-feldkanone16/1x.png",
+          "source": "art/exports/interface-v1/weapon/feldkanone16-1x.png",
+          "sha256": "16565815f431a9d7e6e00b0744f0f08922d4456ee1817f6f5204c2e35fa518ac",
+          "width": 252,
+          "height": 50,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "interface/weapons/interface-weapon-feldkanone16/2x.png",
+          "source": "art/exports/interface-v1/weapon/feldkanone16-2x.png",
+          "sha256": "e9f003591e4833ad9ca57218057b1376aa1ac0dc6d00da3850d216aab35e1506",
+          "width": 504,
+          "height": 100,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "interface/weapons/interface-weapon-feldkanone16/4x.png",
+          "source": "art/exports/interface-v1/weapon/feldkanone16-4x.png",
+          "sha256": "14d84dfa17d44d13ccd45f4682fbf82ee2ce97040856655ea769251123c45dc7",
+          "width": 1008,
+          "height": 200,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "interface/weapons/interface-weapon-feldkanone16/1x.png",
+        "sha256": "16565815f431a9d7e6e00b0744f0f08922d4456ee1817f6f5204c2e35fa518ac",
+        "width": 252,
+        "height": 50,
+        "source": "art/exports/interface-v1/weapon/feldkanone16-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "interface/weapons/interface-weapon-feldkanone16/2x.png",
+        "sha256": "e9f003591e4833ad9ca57218057b1376aa1ac0dc6d00da3850d216aab35e1506",
+        "width": 504,
+        "height": 100,
+        "source": "art/exports/interface-v1/weapon/feldkanone16-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "interface/weapons/interface-weapon-feldkanone16/4x.png",
+        "sha256": "14d84dfa17d44d13ccd45f4682fbf82ee2ce97040856655ea769251123c45dc7",
+        "width": 1008,
+        "height": 200,
+        "source": "art/exports/interface-v1/weapon/feldkanone16-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

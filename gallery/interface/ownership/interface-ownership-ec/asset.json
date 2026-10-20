@@ -1,0 +1,69 @@
+{
+  "id": "interface/ownership/ec",
+  "name": "ownership/ec",
+  "category": "Interface",
+  "family": "ownership",
+  "note": "Current text-free game component. Labels and game values are drawn separately; runtime acceptance pending. No direct reference image is mapped for this component.",
+  "width": 35,
+  "height": 6,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "interface/ownership/interface-ownership-ec/1x.png",
+          "source": "art/exports/interface-v1/ownership/ec-1x.png",
+          "sha256": "bf0819e321db16415cb47cf02b1090e32374952429aad5f2c2326b50c7efe825",
+          "width": 35,
+          "height": 6,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "interface/ownership/interface-ownership-ec/2x.png",
+          "source": "art/exports/interface-v1/ownership/ec-2x.png",
+          "sha256": "4ba7efd429cf5df87838e4a242bd9e8320b6f26f7031c47d36775a63e18bb3c5",
+          "width": 70,
+          "height": 12,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "interface/ownership/interface-ownership-ec/4x.png",
+          "source": "art/exports/interface-v1/ownership/ec-4x.png",
+          "sha256": "a2bb3f74a457a8a8d6165e5ab57aa0b3afccf2fc79ada55bce30d1a61a36e7f6",
+          "width": 140,
+          "height": 24,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "interface/ownership/interface-ownership-ec/1x.png",
+        "sha256": "bf0819e321db16415cb47cf02b1090e32374952429aad5f2c2326b50c7efe825",
+        "width": 35,
+        "height": 6,
+        "source": "art/exports/interface-v1/ownership/ec-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "interface/ownership/interface-ownership-ec/2x.png",
+        "sha256": "4ba7efd429cf5df87838e4a242bd9e8320b6f26f7031c47d36775a63e18bb3c5",
+        "width": 70,
+        "height": 12,
+        "source": "art/exports/interface-v1/ownership/ec-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "interface/ownership/interface-ownership-ec/4x.png",
+        "sha256": "a2bb3f74a457a8a8d6165e5ab57aa0b3afccf2fc79ada55bce30d1a61a36e7f6",
+        "width": 140,
+        "height": 24,
+        "source": "art/exports/interface-v1/ownership/ec-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

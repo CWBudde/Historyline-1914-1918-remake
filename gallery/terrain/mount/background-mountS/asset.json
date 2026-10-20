@@ -1,0 +1,84 @@
+{
+  "id": "background/mountS",
+  "name": "mountS",
+  "category": "Terrain",
+  "family": "mount",
+  "season": "summer",
+  "note": "Current enabled background binding. This single-asset view uses its default context export; the PULSE study resolves available neighbor contexts through the shared compositor. Final runtime acceptance remains open.",
+  "recipes": [
+    "art/recipes/compound/distinct-v1/mountain-layout-guide.json",
+    "art/recipes/compound/distinct-v1/mountain-summer-03.json",
+    "art/recipes/compound/distinct-v1/mountain-winter-01.json",
+    "art/recipes/terrain/distinct-v1/snow-ground.json",
+    "art/recipes/terrain/reference-v2/meadow-03.json"
+  ],
+  "prompts": [
+    "prompts/compound/distinct-v1/mountain-layout-guide.md",
+    "prompts/compound/distinct-v1/mountain-summer-03.md",
+    "prompts/compound/distinct-v1/mountain-winter-01.md",
+    "prompts/terrain/distinct-v1/snow-ground.md",
+    "prompts/terrain/reference-v2/meadow-03.md"
+  ],
+  "width": 96,
+  "height": 80,
+  "variants": [
+    {
+      "id": "default",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "terrain/mount/background-mountS/1x.png",
+          "source": "art/exports/compound-v1/mountS-2x.png",
+          "sha256": "24f8fe487662d3d7f064a354b276d7e923d4b3e52bf484e0c18637750082b337",
+          "width": 96,
+          "height": 80,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "terrain/mount/background-mountS/2x.png",
+          "source": "art/exports/compound-v1/mountS-2x.png",
+          "sha256": "904a093fbec3da14f5dc15e4ed48fe49e3e8c1d06a799c14bbbf58c178024572",
+          "width": 192,
+          "height": 160,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "terrain/mount/background-mountS/4x.png",
+          "source": "art/exports/compound-v1/mountS-4x.png",
+          "sha256": "f4a28bc03dcf1d69954cb681694366e4e113294f03b42bfb0b93e578572630a0",
+          "width": 384,
+          "height": 320,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "default": {
+      "1": {
+        "path": "terrain/mount/background-mountS/1x.png",
+        "sha256": "24f8fe487662d3d7f064a354b276d7e923d4b3e52bf484e0c18637750082b337",
+        "width": 96,
+        "height": 80,
+        "source": "art/exports/compound-v1/mountS-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "terrain/mount/background-mountS/2x.png",
+        "sha256": "904a093fbec3da14f5dc15e4ed48fe49e3e8c1d06a799c14bbbf58c178024572",
+        "width": 192,
+        "height": 160,
+        "source": "art/exports/compound-v1/mountS-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "terrain/mount/background-mountS/4x.png",
+        "sha256": "f4a28bc03dcf1d69954cb681694366e4e113294f03b42bfb0b93e578572630a0",
+        "width": 384,
+        "height": 320,
+        "source": "art/exports/compound-v1/mountS-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

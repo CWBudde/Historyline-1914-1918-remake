@@ -1,0 +1,69 @@
+{
+  "id": "interface/map/reachable",
+  "name": "map/reachable",
+  "category": "Interface",
+  "family": "map",
+  "note": "Current text-free game component. Labels and game values are drawn separately; runtime acceptance pending. No direct reference image is mapped for this component.",
+  "width": 120,
+  "height": 100,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "interface/map/interface-map-reachable/1x.png",
+          "source": "art/exports/interface-v1/map/reachable-1x.png",
+          "sha256": "7a83384fa9be71e399e0319cb4af2f249ff54b5a56ec166f53b8813db41cf024",
+          "width": 120,
+          "height": 100,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "interface/map/interface-map-reachable/2x.png",
+          "source": "art/exports/interface-v1/map/reachable-2x.png",
+          "sha256": "0d2951f558a16c1ad02b4181f30c29b1bed83fd2d3f8dccd2fc8a96cfe3a68b4",
+          "width": 240,
+          "height": 200,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "interface/map/interface-map-reachable/4x.png",
+          "source": "art/exports/interface-v1/map/reachable-4x.png",
+          "sha256": "8b3db4754b4aa4b3ec7b857179a15bc104c61dc3896e42efa3224c90be356aeb",
+          "width": 480,
+          "height": 400,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "interface/map/interface-map-reachable/1x.png",
+        "sha256": "7a83384fa9be71e399e0319cb4af2f249ff54b5a56ec166f53b8813db41cf024",
+        "width": 120,
+        "height": 100,
+        "source": "art/exports/interface-v1/map/reachable-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "interface/map/interface-map-reachable/2x.png",
+        "sha256": "0d2951f558a16c1ad02b4181f30c29b1bed83fd2d3f8dccd2fc8a96cfe3a68b4",
+        "width": 240,
+        "height": 200,
+        "source": "art/exports/interface-v1/map/reachable-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "interface/map/interface-map-reachable/4x.png",
+        "sha256": "8b3db4754b4aa4b3ec7b857179a15bc104c61dc3896e42efa3224c90be356aeb",
+        "width": 480,
+        "height": 400,
+        "source": "art/exports/interface-v1/map/reachable-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

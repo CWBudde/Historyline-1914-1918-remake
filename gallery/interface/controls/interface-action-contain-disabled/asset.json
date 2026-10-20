@@ -1,0 +1,69 @@
+{
+  "id": "interface/action/contain-disabled",
+  "name": "action/contain-disabled",
+  "category": "Interface",
+  "family": "controls",
+  "note": "Current text-free game component. Labels and game values are drawn separately; runtime acceptance pending. Reference is the original base action, unchanged for the new interaction states.",
+  "width": 62,
+  "height": 52,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "interface/controls/interface-action-contain-disabled/1x.png",
+          "source": "art/exports/interface-v1/action/contain-disabled-1x.png",
+          "sha256": "af54e1aedcc73af9f442f851438c06d8403962779577b09865a24a77cbd10bf2",
+          "width": 62,
+          "height": 52,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "interface/controls/interface-action-contain-disabled/2x.png",
+          "source": "art/exports/interface-v1/action/contain-disabled-2x.png",
+          "sha256": "d4a071ef0ce40db416b965a187b2bc0a504c549ecfad1017e83d21f9a043230e",
+          "width": 124,
+          "height": 104,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "interface/controls/interface-action-contain-disabled/4x.png",
+          "source": "art/exports/interface-v1/action/contain-disabled-4x.png",
+          "sha256": "190cfb0575227a317553a00062b995f6dda0e340bc374e9a33e4a11cfa9a49ab",
+          "width": 248,
+          "height": 208,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "interface/controls/interface-action-contain-disabled/1x.png",
+        "sha256": "af54e1aedcc73af9f442f851438c06d8403962779577b09865a24a77cbd10bf2",
+        "width": 62,
+        "height": 52,
+        "source": "art/exports/interface-v1/action/contain-disabled-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "interface/controls/interface-action-contain-disabled/2x.png",
+        "sha256": "d4a071ef0ce40db416b965a187b2bc0a504c549ecfad1017e83d21f9a043230e",
+        "width": 124,
+        "height": 104,
+        "source": "art/exports/interface-v1/action/contain-disabled-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "interface/controls/interface-action-contain-disabled/4x.png",
+        "sha256": "190cfb0575227a317553a00062b995f6dda0e340bc374e9a33e4a11cfa9a49ab",
+        "width": 248,
+        "height": 208,
+        "source": "art/exports/interface-v1/action/contain-disabled-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

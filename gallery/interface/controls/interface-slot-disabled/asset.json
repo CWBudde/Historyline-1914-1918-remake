@@ -1,0 +1,69 @@
+{
+  "id": "interface/slot/disabled",
+  "name": "slot/disabled",
+  "category": "Interface",
+  "family": "controls",
+  "note": "Current text-free game component. Labels and game values are drawn separately; runtime acceptance pending. No direct reference image is mapped for this component.",
+  "width": 52,
+  "height": 52,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "interface/controls/interface-slot-disabled/1x.png",
+          "source": "art/exports/interface-v1/slot/disabled-1x.png",
+          "sha256": "01151c0999994e53b0112cde1a477855a01cc60e543d604f239c70fda8a8dbb2",
+          "width": 52,
+          "height": 52,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "interface/controls/interface-slot-disabled/2x.png",
+          "source": "art/exports/interface-v1/slot/disabled-2x.png",
+          "sha256": "342fb54971e8ca00b9aae2033b21bbadf7228e172555e22ef4c47fca2f6533e7",
+          "width": 104,
+          "height": 104,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "interface/controls/interface-slot-disabled/4x.png",
+          "source": "art/exports/interface-v1/slot/disabled-4x.png",
+          "sha256": "b2b86067114c58f8814cfccc42eb5f2495f346b8d1660fe2200cb0433b94593b",
+          "width": 208,
+          "height": 208,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "interface/controls/interface-slot-disabled/1x.png",
+        "sha256": "01151c0999994e53b0112cde1a477855a01cc60e543d604f239c70fda8a8dbb2",
+        "width": 52,
+        "height": 52,
+        "source": "art/exports/interface-v1/slot/disabled-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "interface/controls/interface-slot-disabled/2x.png",
+        "sha256": "342fb54971e8ca00b9aae2033b21bbadf7228e172555e22ef4c47fca2f6533e7",
+        "width": 104,
+        "height": 104,
+        "source": "art/exports/interface-v1/slot/disabled-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "interface/controls/interface-slot-disabled/4x.png",
+        "sha256": "b2b86067114c58f8814cfccc42eb5f2495f346b8d1660fe2200cb0433b94593b",
+        "width": 208,
+        "height": 208,
+        "source": "art/exports/interface-v1/slot/disabled-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

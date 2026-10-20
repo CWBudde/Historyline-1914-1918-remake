@@ -1,0 +1,79 @@
+{
+  "id": "portrait/eliteInfantry",
+  "name": "eliteInfantry",
+  "category": "Portraits",
+  "family": "eliteInfantry",
+  "bindings": [
+    "CP_eliteInf",
+    "EC_eliteInf"
+  ],
+  "note": "Current family candidate. Visual approval and runtime acceptance pending.",
+  "recipes": [
+    "art/recipes/portraits/reference-v1/elite-infantry-01.json"
+  ],
+  "prompts": [
+    "prompts/portraits/reference-v1/elite-infantry-01.md"
+  ],
+  "width": 210,
+  "height": 188,
+  "variants": [
+    {
+      "id": "portrait",
+      "label": "portrait",
+      "images": {
+        "1": {
+          "url": "portraits/eliteInfantry/portrait-eliteInfantry/1x.png",
+          "source": "art/exports/portrait-elite-infantry-v1/eliteInfantry-1x.png",
+          "sha256": "b0aaf397965fc8563c582d238343218611707bdc10069fca115780739379c421",
+          "width": 210,
+          "height": 188,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "portraits/eliteInfantry/portrait-eliteInfantry/2x.png",
+          "source": "art/exports/portrait-elite-infantry-v1/eliteInfantry-2x.png",
+          "sha256": "913acc3afff4fe805d7a88c5cfeb8dcbbabdfdad54073528c632cc6cba2811f0",
+          "width": 420,
+          "height": 376,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "portraits/eliteInfantry/portrait-eliteInfantry/4x.png",
+          "source": "art/exports/portrait-elite-infantry-v1/eliteInfantry-4x.png",
+          "sha256": "899b7c5fb102461864689bc45360bbbdb5a7d7f6c5dd35f97f798de2d86a557a",
+          "width": 840,
+          "height": 752,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "portrait": {
+      "1": {
+        "path": "portraits/eliteInfantry/portrait-eliteInfantry/1x.png",
+        "sha256": "b0aaf397965fc8563c582d238343218611707bdc10069fca115780739379c421",
+        "width": 210,
+        "height": 188,
+        "source": "art/exports/portrait-elite-infantry-v1/eliteInfantry-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "portraits/eliteInfantry/portrait-eliteInfantry/2x.png",
+        "sha256": "913acc3afff4fe805d7a88c5cfeb8dcbbabdfdad54073528c632cc6cba2811f0",
+        "width": 420,
+        "height": 376,
+        "source": "art/exports/portrait-elite-infantry-v1/eliteInfantry-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "portraits/eliteInfantry/portrait-eliteInfantry/4x.png",
+        "sha256": "899b7c5fb102461864689bc45360bbbdb5a7d7f6c5dd35f97f798de2d86a557a",
+        "width": 840,
+        "height": 752,
+        "source": "art/exports/portrait-elite-infantry-v1/eliteInfantry-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "id": "screens-v2/widget/slider/track/disabled",
+  "name": "widget/slider/track/disabled",
+  "category": "Screen components",
+  "family": "widgets",
+  "note": "Current screen component, shared across layouts. No direct reference mapping. Painted backdrop has no authored 4× export.",
+  "recipes": [
+    "art/recipes/screens/v1/western-front.json"
+  ],
+  "prompts": [
+    "prompts/screens/v1/western-front.md"
+  ],
+  "width": 220,
+  "height": 32,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "screen-components/widgets/screens-v2-widget-slider-track-disabled/1x.png",
+          "source": "art/exports/screens-v2/widget/slider/track/disabled-1x.png",
+          "sha256": "01d255aa7be57547f078104a05f3f71b9b5e82df7a8a114e85402ed14409d097",
+          "width": 220,
+          "height": 32,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "screen-components/widgets/screens-v2-widget-slider-track-disabled/2x.png",
+          "source": "art/exports/screens-v2/widget/slider/track/disabled-2x.png",
+          "sha256": "728e35b1a9feec0aa18711e71068f1bb982fb0ac03ee29b1bc80e1e0274f149c",
+          "width": 440,
+          "height": 64,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "screen-components/widgets/screens-v2-widget-slider-track-disabled/4x.png",
+          "source": "art/exports/screens-v2/widget/slider/track/disabled-4x.png",
+          "sha256": "c8dd7bc289d4e2ac33c2ff76f50491bbe772e026e6b636d9616805e7bd878599",
+          "width": 880,
+          "height": 128,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "screen-components/widgets/screens-v2-widget-slider-track-disabled/1x.png",
+        "sha256": "01d255aa7be57547f078104a05f3f71b9b5e82df7a8a114e85402ed14409d097",
+        "width": 220,
+        "height": 32,
+        "source": "art/exports/screens-v2/widget/slider/track/disabled-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "screen-components/widgets/screens-v2-widget-slider-track-disabled/2x.png",
+        "sha256": "728e35b1a9feec0aa18711e71068f1bb982fb0ac03ee29b1bc80e1e0274f149c",
+        "width": 440,
+        "height": 64,
+        "source": "art/exports/screens-v2/widget/slider/track/disabled-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "screen-components/widgets/screens-v2-widget-slider-track-disabled/4x.png",
+        "sha256": "c8dd7bc289d4e2ac33c2ff76f50491bbe772e026e6b636d9616805e7bd878599",
+        "width": 880,
+        "height": 128,
+        "source": "art/exports/screens-v2/widget/slider/track/disabled-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

@@ -1,0 +1,2617 @@
+{
+  "id": "sprite/armoredTrain",
+  "name": "armoredTrain",
+  "category": "Sprites",
+  "family": "armoredTrain",
+  "bindings": [
+    "CP_armTrain",
+    "EC_armTrain"
+  ],
+  "note": "Reference is the unchanged 48×48 source pose and palette. Current authored sprites are reduced to that size with Lanczos3 for comparison; 2× zoom gives the 96×96 game footprint. Other facings/owners/spent states have no matching raw reference variant; no reference rotations or faction swaps are invented.",
+  "recipes": [
+    "art/recipes/units/reference-v1/armored-train-atlas-01.json",
+    "art/recipes/terrain/reference-v2/meadow-03.json"
+  ],
+  "prompts": [
+    "prompts/units/reference-v1/armored-train-atlas-01.md",
+    "prompts/terrain/reference-v2/meadow-03.md"
+  ],
+  "width": 48,
+  "height": 48,
+  "variants": [
+    {
+      "id": "cp/n-normal",
+      "label": "cp · n-normal",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-n-normal-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/n-normal-2x.png",
+          "sha256": "2aac7793ddccb89a40b0288d434067cdd378cb16f491e0b76f0d3aa799b288aa",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-n-normal-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/n-normal-2x.png",
+          "sha256": "4d28977445f8e89c6a5c9ea0d2c2820be0d84135dc316ea86ee5dff6fc3fbf82",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-n-normal-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/n-normal-4x.png",
+          "sha256": "7d17016d1158250c7586756c41bcf17f0db20ac97a585600920b52cf5428f5d5",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-n-normal-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/n-normal-2x.png",
+          "sha256": "796dac1966eca69b9990b7c5b62814ddbab5a30dcaf3dd54467144f585e6c42b",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/n-spent",
+      "label": "cp · n-spent",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-n-spent-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/n-spent-2x.png",
+          "sha256": "8bf6735ad9e3360017cbf5215100beb391cfd0a157183705cbcec47557f3e0ff",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-n-spent-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/n-spent-2x.png",
+          "sha256": "9d6b98c53a2d0a3b420f28bcb9f2d737ffb0141e578a38bbbfa519f088070a57",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-n-spent-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/n-spent-4x.png",
+          "sha256": "1f9cc4dece77d6c7d1dd67edf49f6d32d2dfaade85564b4c2b9c8b7be7ad1d65",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-n-spent-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/n-spent-2x.png",
+          "sha256": "40b116b25a3bd9c8658bf7fb64cfbd7f8ad0b093f4b4ae4ce6189a77cfbf6163",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/ne-normal",
+      "label": "cp · ne-normal",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-ne-normal-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/ne-normal-2x.png",
+          "sha256": "92db8b0b57aa23c652ac2e46fb1a53f9f4ed6618585db04027b07b44144303ea",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-ne-normal-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/ne-normal-2x.png",
+          "sha256": "6d9040feedbe6dfbabbff6a12b5ef4ef1ac2a0a555688bd0ac4330be30385090",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-ne-normal-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/ne-normal-4x.png",
+          "sha256": "a2ae000a658dfe29aa51f92433adbc2fd7efc1bd84f1fd66b15bf78e3ed4cc29",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-ne-normal-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/ne-normal-2x.png",
+          "sha256": "84558e21ee2c4bab99484aa7e415e3aa8a1b3782408bac8b4f12080e61392246",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/ne-spent",
+      "label": "cp · ne-spent",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-ne-spent-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/ne-spent-2x.png",
+          "sha256": "84786ad0e0bf5452cc4cc5c01696e6bb2c945c9cf6c60a688ffbd088cdd4cb27",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-ne-spent-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/ne-spent-2x.png",
+          "sha256": "57b71fc751e6ea61b423757d5991666f559822b09bb14fe4e7164c3bfb446ec9",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-ne-spent-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/ne-spent-4x.png",
+          "sha256": "2ab4ff2bf1112e6fec01fbf16fc169b9554359b1630a16886894801fe290ff2d",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-ne-spent-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/ne-spent-2x.png",
+          "sha256": "f4a061e9b4c3125e9e784288ddc1d5de984bf6cdae1efb6d26886b357ee48ffb",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/nw-normal",
+      "label": "cp · nw-normal",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-nw-normal-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/nw-normal-2x.png",
+          "sha256": "346764ce4ac642b007d9fc0d624e7a1e5aa69f7ce0a40b8f1610e39b5471d8c5",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-nw-normal-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/nw-normal-2x.png",
+          "sha256": "7e3eca17cc736bd0096ccf059b98810164a90e8c08801d3a7e7387d9d1c461ce",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-nw-normal-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/nw-normal-4x.png",
+          "sha256": "2bcae760349efc302244c6241b4b4b288b32578ad9cb11b699dd0be376f7c4d3",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-nw-normal-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/nw-normal-2x.png",
+          "sha256": "fad1289ca2da3202d5d3d0bab5d2233cac4ba465c286d7a4ba869d83a18fec55",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/nw-spent",
+      "label": "cp · nw-spent",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-nw-spent-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/nw-spent-2x.png",
+          "sha256": "6cf1d79d2fbe9018896543300162e00c14d55ed67a0c5e3a371676dda8a05502",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-nw-spent-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/nw-spent-2x.png",
+          "sha256": "b05f035ccbb93920b1eef540cc285da34388a72960f8e6a035e5ec7b7c4cff3e",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-nw-spent-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/nw-spent-4x.png",
+          "sha256": "cb5b414b7c6d55eb52b9e44767dbd87c15c7ace1c4770a8e62c21680be81ea4b",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-nw-spent-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/nw-spent-2x.png",
+          "sha256": "265bea1ff5219cb1540f35b8eff325295bb6919dbfa1f7bbd9da983be87085d5",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/s-normal",
+      "label": "cp · s-normal",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-s-normal-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/s-normal-2x.png",
+          "sha256": "a8af7e4d6acce77e993a0c269acca72f23f86a945ba531c50e91eaf6aa67e6c7",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-s-normal-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/s-normal-2x.png",
+          "sha256": "43c6cc262f4bdd769f4f908bdc33614c091b9ceb7636010f1f54c63193fa86c3",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-s-normal-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/s-normal-4x.png",
+          "sha256": "72b61ec53b79c553e8acd56fb7bfeffae733a3e52f50d81d1928bcf64d20ccf6",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-s-normal-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/s-normal-2x.png",
+          "sha256": "552d548d1e701caf389a7ffb5bb28e7939d66e526c484bc1ba8625d8aab77962",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/s-spent",
+      "label": "cp · s-spent",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-s-spent-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/s-spent-2x.png",
+          "sha256": "e57937009b9a339e89a26a7cedbeb8bda8c5a53eadabf0c237c8af26838c9de9",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-s-spent-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/s-spent-2x.png",
+          "sha256": "dbb77b83004538d836c0d4f6d96a4ab02d8aca71a4c22c15781f1007da7e14e1",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-s-spent-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/s-spent-4x.png",
+          "sha256": "42d7a887ce4af58100348f5fcecff1b346fd83fdc77a0e638cb9eb88a5d8098e",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-s-spent-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/s-spent-2x.png",
+          "sha256": "73f3a2a942019eaae6f7f1ba264cdeba4c3688c4bece403b562594f2b5f7a131",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/se-normal",
+      "label": "cp · se-normal",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-se-normal-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/se-normal-2x.png",
+          "sha256": "ac8b9e9ad6eae728a518761513308dbb7e54fa645115d62a8fec5ab0aea698a3",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-se-normal-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/se-normal-2x.png",
+          "sha256": "0a903490bfdee75a766447cf4bae8740330bf767d7abdc928d2fd8a3d63c1678",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-se-normal-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/se-normal-4x.png",
+          "sha256": "c0aa60027a54210cc23f573575bb7251e4aa8d1a58e7771b6c64eb992b995121",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-se-normal-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/se-normal-2x.png",
+          "sha256": "d0c44c25c0cfb81f03b7139f1f0a22d85f6ebf74b8f81912a5c36be895b01d33",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/se-spent",
+      "label": "cp · se-spent",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-se-spent-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/se-spent-2x.png",
+          "sha256": "5f44a6aad6744978d831e660ed2ecad52bbe048a133ed316800661b13ab40ff2",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-se-spent-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/se-spent-2x.png",
+          "sha256": "28e1924ca8127e2e637650078c7b57f5309fe59d92b7fe45290d328592ae5f2a",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-se-spent-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/se-spent-4x.png",
+          "sha256": "99fe62181fce9c97113fd37b0d522ff4764696d809e43f053884e5ae2bd78cc8",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-se-spent-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/se-spent-2x.png",
+          "sha256": "864f73cc62aff195fdd8913ea713cf8a9c63b3f3df9f66082fa7d9dd5983da75",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/sw-normal",
+      "label": "cp · sw-normal",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-sw-normal-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/sw-normal-2x.png",
+          "sha256": "574c47bda4129126307b4520cac564a2560fafca724ef44c973736d3b91c6c92",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-sw-normal-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/sw-normal-2x.png",
+          "sha256": "dd0335b62c65ab23c5ad60461ed551c9c7df96b6b0cfd60a206d5c552604a0e1",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-sw-normal-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/sw-normal-4x.png",
+          "sha256": "6365d91fc8950dcf0e6d052f6ee262bf8c61367bc4ea5ac947f5a07ff60afb19",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-sw-normal-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/sw-normal-2x.png",
+          "sha256": "21e9c37e30fda0316480bb84c69f8f75553fe0d9cfeb5e7d2f45e327c0b820e7",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/sw-spent",
+      "label": "cp · sw-spent",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-sw-spent-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/sw-spent-2x.png",
+          "sha256": "5685706e9ce3b452ebfb7ab6926cc872187fcf3cffb0b1a20db070d6862764cc",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-sw-spent-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/sw-spent-2x.png",
+          "sha256": "c71ed7d0f257d7c39154e8baaae2e4fd801b242523201e7e7f4166684d02b3e0",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-sw-spent-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/sw-spent-4x.png",
+          "sha256": "375e1da2536b1b14c97bb805cfa4eb25ee073dacbeb40cf58201716e2cd51034",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/cp-sw-spent-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/sw-spent-2x.png",
+          "sha256": "32557b7ec6c53412cabacd47996f3d08f246eb00a7536b78c43143e530e5b95d",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/n-normal",
+      "label": "ec · n-normal",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-n-normal-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/n-normal-2x.png",
+          "sha256": "53dd2da1960eaaeac5e3f2d21b4cfd05cdf108a8d93926de7869cceb708db912",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-n-normal-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/n-normal-2x.png",
+          "sha256": "81b7354a913000b317e9da4acdec0c054f21968921f45f50db4640a8e7d6164e",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-n-normal-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/n-normal-4x.png",
+          "sha256": "cb85bd58f940ceb56d117d25d5e03c20b9ec87683b040a24ef9ad007b888f72e",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-n-normal-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/n-normal-2x.png",
+          "sha256": "1d14e694c809c84bdf7afb1c807b97f2251ae876196baf0fbc46be463ff87178",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/n-spent",
+      "label": "ec · n-spent",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-n-spent-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/n-spent-2x.png",
+          "sha256": "23a3753df9434054b0b61eeb1854a0a599bc83025dc9d1dc3f2655f22f5d0d4c",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-n-spent-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/n-spent-2x.png",
+          "sha256": "4fc9b2818dcec01d856b5ae400e8581c1580354dcf450a3483faac5ef0886be8",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-n-spent-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/n-spent-4x.png",
+          "sha256": "44872ff71da8bdbb3281366b997d36b022e37319eaf1d2fb23ab99ec55a9118f",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-n-spent-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/n-spent-2x.png",
+          "sha256": "7a96a16440211b79ff9e73a08fe6b3489215135f836103dc74ca28f2637cedca",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/ne-normal",
+      "label": "ec · ne-normal",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-ne-normal-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/ne-normal-2x.png",
+          "sha256": "349226f13b4267ba29e3ce2c92d3367fd4ae9572561993ee3a2c98e5b8f8b0f9",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-ne-normal-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/ne-normal-2x.png",
+          "sha256": "c1f031610639c60441130f2617a7875e6f2c379188008166cbad068e0032f97f",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-ne-normal-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/ne-normal-4x.png",
+          "sha256": "49f4818c230aaaf0a90df8c2ac9e6af48f30c50551a41fbc3a2d39f12ed6fd1d",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-ne-normal-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/ne-normal-2x.png",
+          "sha256": "bee8244885ecbc42cbfe1270978d0529a9bc63626fac1ae9328d004f7e249e3a",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/ne-spent",
+      "label": "ec · ne-spent",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-ne-spent-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/ne-spent-2x.png",
+          "sha256": "f2efff30418c50c2a503c1bcd5072492f0cd102dd544c1ca6b04c817993b7c06",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-ne-spent-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/ne-spent-2x.png",
+          "sha256": "6bf5445e6427f26039dcaf708d241be99625516eecded4b4132301c02cdc9f9e",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-ne-spent-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/ne-spent-4x.png",
+          "sha256": "4c13004478d34db7907a5e75a2d106dbd62177ccdeff85e3ef18ef4f1976022b",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-ne-spent-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/ne-spent-2x.png",
+          "sha256": "90135c88ac48fa4b504de3dfe74e40e6e03d444675593c4fb59c46f02af6f436",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/nw-normal",
+      "label": "ec · nw-normal",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-nw-normal-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/nw-normal-2x.png",
+          "sha256": "58e9af82be35d906ac60c2f2c521ee3060bfb0220bd0f0fa9ae7dbf624190813",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-nw-normal-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/nw-normal-2x.png",
+          "sha256": "bff95eb9a95b851981843c7688fc537aad98ceed5bdccc0d73b060fbbb2d012c",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-nw-normal-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/nw-normal-4x.png",
+          "sha256": "e98b35a56b4b21179918a633884f906b8157190ac843a68c130719df2c45e875",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-nw-normal-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/nw-normal-2x.png",
+          "sha256": "84da21dc1d67c117c667d6464e7ee60f8816cb298d28ec196050a4bf7916ebe3",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/nw-spent",
+      "label": "ec · nw-spent",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-nw-spent-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/nw-spent-2x.png",
+          "sha256": "665c5799766e02415e031099cd49f3aaa1038e13aef99af5b946917652acc66f",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-nw-spent-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/nw-spent-2x.png",
+          "sha256": "0d7f49b64aa2db804a6419d461f1ae838de86bc7fd32d1af01db9d8e5890f634",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-nw-spent-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/nw-spent-4x.png",
+          "sha256": "f174fef4d1c559e13556e46640096c0fbbe288129709b6ca4a979fe5d8591019",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-nw-spent-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/nw-spent-2x.png",
+          "sha256": "74aae6b85a18aaf0fc0d28cf966b3c4b54227715ec0c3a8241bc2f6a418b4a55",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/s-normal",
+      "label": "ec · s-normal",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-s-normal-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/s-normal-2x.png",
+          "sha256": "6c6cfce49bc93c3d7b63079676d563dd1c91cc854f2813e8c7aa1356c4f1e420",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-s-normal-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/s-normal-2x.png",
+          "sha256": "bb41eddf2650dacc34b8b9214f3b00001af14bdbde0eefc08a466f28f849e457",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-s-normal-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/s-normal-4x.png",
+          "sha256": "0b5d7b2041838fccdebac7ac8df2c9993d2170d1efa7064903aab5f3184bc1fe",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-s-normal-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/s-normal-2x.png",
+          "sha256": "cd805bb4b4c78ef33715f8444d86a0f54397f66e27a94b2f7279dc4d68e2d4dd",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/s-spent",
+      "label": "ec · s-spent",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-s-spent-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/s-spent-2x.png",
+          "sha256": "d179033ed481a45d83c3160cd251660d707acc4c7a4fb1461732d7b062696ed5",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-s-spent-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/s-spent-2x.png",
+          "sha256": "87e92c46ff081e75aef1bd044ee1b1f449f377dd5474cae2df8a405823269ab8",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-s-spent-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/s-spent-4x.png",
+          "sha256": "60e32d1a33881ff7139708bf3d667ab70fabe1ae11b7b175ccac58d3fd2a9dfe",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-s-spent-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/s-spent-2x.png",
+          "sha256": "021aca8363cb1019550fe521442959f1845b7a3135aa9dc7b71f699bf262ce4c",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/se-normal",
+      "label": "ec · se-normal",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-se-normal-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/se-normal-2x.png",
+          "sha256": "b9b63ac528f7ae4576668ec291806d7f66e6c5680bc57c73474ff87e39923e82",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-se-normal-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/se-normal-2x.png",
+          "sha256": "5d19e9d629fb281d30e58b238901b8657b987a17a4e88e0c299ef6539ae7d28e",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-se-normal-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/se-normal-4x.png",
+          "sha256": "0fea8f13f6419984b50419b26a7c25a223bae3c5878c320e5b065b5fc3f07d98",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-se-normal-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/se-normal-2x.png",
+          "sha256": "fdfa057be1a8068fc562e9288b38c418df1a775580b850b17af2fb45f05a35e5",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/se-spent",
+      "label": "ec · se-spent",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-se-spent-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/se-spent-2x.png",
+          "sha256": "c92225395681e45cb17ba94b56ad7f12339f1d77e18771fe239c6f3b428f2acf",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-se-spent-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/se-spent-2x.png",
+          "sha256": "4fc245915dc84559734f7d79f7803fd1e3ec0be5ff06c0f6886d39c59b2daca1",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-se-spent-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/se-spent-4x.png",
+          "sha256": "1f0228b64979381715cf1b89715e63b0b1e3ddbf10300c304b36105157e4a492",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-se-spent-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/se-spent-2x.png",
+          "sha256": "f825736aa20f44d589f5ad111bc3870a19084e88fe222e4cdf38c9674101dd5b",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/sw-normal",
+      "label": "ec · sw-normal",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-sw-normal-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/sw-normal-2x.png",
+          "sha256": "9b6c122f116b1eb4044019c852f641b1b4bb3c1c0b510b1cda4c1714372dd39a",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-sw-normal-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/sw-normal-2x.png",
+          "sha256": "89e34368c733d3a33807b369f2e03af98c4ae6a0e58c19a3563b99b180ad0f97",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-sw-normal-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/sw-normal-4x.png",
+          "sha256": "0506077c665e1b7af8c6a786dc6fae888ce1fa5a6414ba84021d56ba9c3d8498",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-sw-normal-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/sw-normal-2x.png",
+          "sha256": "4d750754015c0c9aea9845a20d0efd65429c96956eed8cafa3a391c05e1975f1",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/sw-spent",
+      "label": "ec · sw-spent",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-sw-spent-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/sw-spent-2x.png",
+          "sha256": "06060931155282e8829d43fe7f6557f1f1ff0bff900e981c8fb3985015ba35cd",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-sw-spent-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/sw-spent-2x.png",
+          "sha256": "e9bee78268a953684d0c721e6e5b0724218bf35b5fb8b2e27cf8206cab07a01a",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-sw-spent-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/sw-spent-4x.png",
+          "sha256": "19c2065cc3af6487e4e035a41799b890c323a9e64f487eaa4b75e7a440a329ae",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/ec-sw-spent-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/sw-spent-2x.png",
+          "sha256": "f9d29c5effe96f77c4a590b8d8bf039d9caf7391b9ba4167d92bc568e7008747",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/n-normal",
+      "label": "neutral · n-normal",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-n-normal-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/n-normal-2x.png",
+          "sha256": "6f57dd36f820d7478cb68cd1170c35ea80aa75d70bf651900ddfb139521e34bb",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-n-normal-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/n-normal-2x.png",
+          "sha256": "d40556c505567f9799db6cf8d3710cfcb4f6c86798ccb9e452ae9ee119c7c430",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-n-normal-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/n-normal-4x.png",
+          "sha256": "b3d071f457e462c3f4d9c50d4a26a3af65548e4b14175e2ab6cd5fda3adf47c4",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-n-normal-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/n-normal-2x.png",
+          "sha256": "9ee548f50c358775ae22a2217fddd5fd9ae930aa5e526bc4d1b5d931ec1d86d6",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/n-spent",
+      "label": "neutral · n-spent",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-n-spent-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/n-spent-2x.png",
+          "sha256": "c385434fd8d1da8baad4949c53ab871a362a7a387f35e0dca18424c4e56f17e7",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-n-spent-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/n-spent-2x.png",
+          "sha256": "9ffa292d57d0f8bb7e396ffea9aedd56a9685be04b4411e977946c700839afc5",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-n-spent-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/n-spent-4x.png",
+          "sha256": "4f626d261c351b995cb8ba4aeed951442fc43e786587c3682542d18edde32c3b",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-n-spent-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/n-spent-2x.png",
+          "sha256": "0c151bbb9fb13bb9fed69171fde40fc5f2cd796246b0941455c70448d12e1770",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/ne-normal",
+      "label": "neutral · ne-normal",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-ne-normal-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/ne-normal-2x.png",
+          "sha256": "ce04ee50b222883daff00a236dd2020467b98c593f39194c81879a4a4e5b9ab2",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-ne-normal-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/ne-normal-2x.png",
+          "sha256": "6ca60ef1b6490aba60887bbef64a0036db8238134450b83abd79ea210d558fc0",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-ne-normal-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/ne-normal-4x.png",
+          "sha256": "6f1dff3ad8eb9ce7ccc8707d17b318fe3f75ee50b48fdde9d8c0e26c3476be9c",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-ne-normal-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/ne-normal-2x.png",
+          "sha256": "c5adf339ec5f7c281230f841a95a4435d4f7983dabcc458001e21b6a80367bfd",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/ne-spent",
+      "label": "neutral · ne-spent",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-ne-spent-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/ne-spent-2x.png",
+          "sha256": "63fece0091fd184b3070531e1bea1efb1a80a446ec321fe6159a8b571932e593",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-ne-spent-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/ne-spent-2x.png",
+          "sha256": "3aad662b253df2057e9947df06c05092b977e1812d6f99d1c07de43e607527f8",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-ne-spent-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/ne-spent-4x.png",
+          "sha256": "5237b70e7982241158d52da9831a8184efa8dfb49ca6a5dbc76f64d503b2c595",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-ne-spent-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/ne-spent-2x.png",
+          "sha256": "77ce4469d6fcc05e6ef2d98807f66d64ca8538ec5de4b61db6fb6cb5ed22923d",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/nw-normal",
+      "label": "neutral · nw-normal",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-nw-normal-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/nw-normal-2x.png",
+          "sha256": "8d3374a4d2a75d79a3992e1936ab9c38e99ca562d4003b4e9ef59ab26a4be08a",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-nw-normal-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/nw-normal-2x.png",
+          "sha256": "d7963152d511d0b1f5accd99743bae876c5f5ba693936d0146f69365fca756e1",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-nw-normal-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/nw-normal-4x.png",
+          "sha256": "33b0fd2eb4711b28f82f527abca88adeb1cfbd5b69f29ec8df518a594f8c371f",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-nw-normal-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/nw-normal-2x.png",
+          "sha256": "9dbefaf2d9b90fd9fb9ced4a97a63d099442cf1364fcc3e1c4e1e6d33c75dc09",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/nw-spent",
+      "label": "neutral · nw-spent",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-nw-spent-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/nw-spent-2x.png",
+          "sha256": "90c65f31950fe78021817f9b4a76ca4187ad86820e05e03ce03cfb3f88648a3c",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-nw-spent-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/nw-spent-2x.png",
+          "sha256": "25b632f163729e36826f195a47b58bc612c2d606856c32a74d946ad54bcbb9ad",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-nw-spent-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/nw-spent-4x.png",
+          "sha256": "e2285eb6d88eba794a2d1ed5eb321f176ed0336e3f094dd41a413d32a2b2962b",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-nw-spent-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/nw-spent-2x.png",
+          "sha256": "7d9795402ee92dd771010997f886298470ed615351fc47d0bb358911d24346ca",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/s-normal",
+      "label": "neutral · s-normal",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-s-normal-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/s-normal-2x.png",
+          "sha256": "5b91125e3e033aac7d76e44dc2826a4cc01f77ae66e08f459575c751794a93db",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-s-normal-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/s-normal-2x.png",
+          "sha256": "47bd5a8c48850a9a08034fd8b0d10273bf39588b6dfeaab4ae0b27d4796831c5",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-s-normal-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/s-normal-4x.png",
+          "sha256": "457469c9872b86b8676811ce53e6fdb9183c2eaf9a06435e5f99676de1c5bde6",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-s-normal-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/s-normal-2x.png",
+          "sha256": "557b0f539213c5086569cf963862d70491de5434e65f4db845ee5a6056584537",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/s-spent",
+      "label": "neutral · s-spent",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-s-spent-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/s-spent-2x.png",
+          "sha256": "cd37d2bc9fd487fc1ecdd06876f9939d8b7d7a5792cc3e4f0813fba7fe3c0865",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-s-spent-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/s-spent-2x.png",
+          "sha256": "f0a5b1ed2a5ee1be0bb30b6d1c3336815f9054345be8b74ef0cf36aea9d91967",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-s-spent-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/s-spent-4x.png",
+          "sha256": "24a3ffb3045a6477065037ec31e9d8bb33c60d85b10e77dd11574389d3c01af4",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-s-spent-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/s-spent-2x.png",
+          "sha256": "4b6c205c89c6b881641b2b383e6b4ec0f0d116d390a39bbbbaceae3b910a929a",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/se-normal",
+      "label": "neutral · se-normal",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-se-normal-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/se-normal-2x.png",
+          "sha256": "edc677178e0ce6927ebc80264f5f73e36162111cde70b42b3c69efba29b1d4f6",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-se-normal-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/se-normal-2x.png",
+          "sha256": "b7cd116d932cc683360d9a4b72c906abeb04e03632f372cbcdae712a029d3632",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-se-normal-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/se-normal-4x.png",
+          "sha256": "0d9677c914d3de00d447534d972587acbc0744e449049742bae7824c3192353e",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-se-normal-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/se-normal-2x.png",
+          "sha256": "fa3da5b1a05afc69e3ca0147f9fe368959b939c0c20a1024cee217892cde27a6",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/se-spent",
+      "label": "neutral · se-spent",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-se-spent-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/se-spent-2x.png",
+          "sha256": "f4365ec3f396bc4f7351ffd384b71e3341ae0ef321e2da6a82026dc1f2ffb265",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-se-spent-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/se-spent-2x.png",
+          "sha256": "db3dadf49884d692abae6355cbf67a9b3f5aadd06a1ec885f6f9f3bcf478e781",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-se-spent-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/se-spent-4x.png",
+          "sha256": "9efd0b54922f1389fc4fabf98b9d4fc9da10984be6e139984a2d99379c952901",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-se-spent-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/se-spent-2x.png",
+          "sha256": "764e1ff5219f811acf9995c19ee32aa9f5292834f099f21ba9e22c35ff855e28",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/sw-normal",
+      "label": "neutral · sw-normal",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-sw-normal-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/sw-normal-2x.png",
+          "sha256": "2911b6d2491a116fd23facea2751dcd3e0448c225842c2458acb451b69ac74e7",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-sw-normal-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/sw-normal-2x.png",
+          "sha256": "207062edff87d7020e34d169c56cdf2a27f637a8dacecbf9c1a6d83d57792417",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-sw-normal-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/sw-normal-4x.png",
+          "sha256": "16d1dd58b964d5b354c6de51d53aa857413f5faba28bd41d67214ae9e3a743dc",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-sw-normal-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/sw-normal-2x.png",
+          "sha256": "28deb83bc13ab3d081a3bd34bf6590e5fe955a02f0f9ca9580a940e8ddaa4b71",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/sw-spent",
+      "label": "neutral · sw-spent",
+      "images": {
+        "1": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-sw-spent-1x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/sw-spent-2x.png",
+          "sha256": "9c820cd47c582d0d45e7aeef6ac333a3651432abcee3b72e83a28b122a169dd6",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-sw-spent-2x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/sw-spent-2x.png",
+          "sha256": "2a457fff42aca1b7e9a561bdcc0f0da57332b465cd91b6aadedc2d8d8b91d360",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-sw-spent-4x.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/sw-spent-4x.png",
+          "sha256": "86d64ac493e4678849956eb202912af4d64e17460090fe9addb958de7558b44b",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/armoredTrain/sprite-armoredTrain/neutral-sw-spent-game.png",
+          "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/sw-spent-2x.png",
+          "sha256": "de8569822ea2c0927d2d54671945d8f1bdd3783bcf7c321697dcbbc1be261478",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    }
+  ],
+  "files": {
+    "cp/n-normal": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-n-normal-1x.png",
+        "sha256": "2aac7793ddccb89a40b0288d434067cdd378cb16f491e0b76f0d3aa799b288aa",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/n-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-n-normal-2x.png",
+        "sha256": "4d28977445f8e89c6a5c9ea0d2c2820be0d84135dc316ea86ee5dff6fc3fbf82",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/n-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-n-normal-4x.png",
+        "sha256": "7d17016d1158250c7586756c41bcf17f0db20ac97a585600920b52cf5428f5d5",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/n-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-n-normal-game.png",
+        "sha256": "796dac1966eca69b9990b7c5b62814ddbab5a30dcaf3dd54467144f585e6c42b",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/n-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/n-spent": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-n-spent-1x.png",
+        "sha256": "8bf6735ad9e3360017cbf5215100beb391cfd0a157183705cbcec47557f3e0ff",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/n-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-n-spent-2x.png",
+        "sha256": "9d6b98c53a2d0a3b420f28bcb9f2d737ffb0141e578a38bbbfa519f088070a57",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/n-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-n-spent-4x.png",
+        "sha256": "1f9cc4dece77d6c7d1dd67edf49f6d32d2dfaade85564b4c2b9c8b7be7ad1d65",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/n-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-n-spent-game.png",
+        "sha256": "40b116b25a3bd9c8658bf7fb64cfbd7f8ad0b093f4b4ae4ce6189a77cfbf6163",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/n-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/ne-normal": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-ne-normal-1x.png",
+        "sha256": "92db8b0b57aa23c652ac2e46fb1a53f9f4ed6618585db04027b07b44144303ea",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/ne-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-ne-normal-2x.png",
+        "sha256": "6d9040feedbe6dfbabbff6a12b5ef4ef1ac2a0a555688bd0ac4330be30385090",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/ne-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-ne-normal-4x.png",
+        "sha256": "a2ae000a658dfe29aa51f92433adbc2fd7efc1bd84f1fd66b15bf78e3ed4cc29",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/ne-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-ne-normal-game.png",
+        "sha256": "84558e21ee2c4bab99484aa7e415e3aa8a1b3782408bac8b4f12080e61392246",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/ne-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/ne-spent": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-ne-spent-1x.png",
+        "sha256": "84786ad0e0bf5452cc4cc5c01696e6bb2c945c9cf6c60a688ffbd088cdd4cb27",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/ne-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-ne-spent-2x.png",
+        "sha256": "57b71fc751e6ea61b423757d5991666f559822b09bb14fe4e7164c3bfb446ec9",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/ne-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-ne-spent-4x.png",
+        "sha256": "2ab4ff2bf1112e6fec01fbf16fc169b9554359b1630a16886894801fe290ff2d",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/ne-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-ne-spent-game.png",
+        "sha256": "f4a061e9b4c3125e9e784288ddc1d5de984bf6cdae1efb6d26886b357ee48ffb",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/ne-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/nw-normal": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-nw-normal-1x.png",
+        "sha256": "346764ce4ac642b007d9fc0d624e7a1e5aa69f7ce0a40b8f1610e39b5471d8c5",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/nw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-nw-normal-2x.png",
+        "sha256": "7e3eca17cc736bd0096ccf059b98810164a90e8c08801d3a7e7387d9d1c461ce",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/nw-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-nw-normal-4x.png",
+        "sha256": "2bcae760349efc302244c6241b4b4b288b32578ad9cb11b699dd0be376f7c4d3",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/nw-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-nw-normal-game.png",
+        "sha256": "fad1289ca2da3202d5d3d0bab5d2233cac4ba465c286d7a4ba869d83a18fec55",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/nw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/nw-spent": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-nw-spent-1x.png",
+        "sha256": "6cf1d79d2fbe9018896543300162e00c14d55ed67a0c5e3a371676dda8a05502",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/nw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-nw-spent-2x.png",
+        "sha256": "b05f035ccbb93920b1eef540cc285da34388a72960f8e6a035e5ec7b7c4cff3e",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/nw-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-nw-spent-4x.png",
+        "sha256": "cb5b414b7c6d55eb52b9e44767dbd87c15c7ace1c4770a8e62c21680be81ea4b",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/nw-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-nw-spent-game.png",
+        "sha256": "265bea1ff5219cb1540f35b8eff325295bb6919dbfa1f7bbd9da983be87085d5",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/nw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/s-normal": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-s-normal-1x.png",
+        "sha256": "a8af7e4d6acce77e993a0c269acca72f23f86a945ba531c50e91eaf6aa67e6c7",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/s-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-s-normal-2x.png",
+        "sha256": "43c6cc262f4bdd769f4f908bdc33614c091b9ceb7636010f1f54c63193fa86c3",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/s-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-s-normal-4x.png",
+        "sha256": "72b61ec53b79c553e8acd56fb7bfeffae733a3e52f50d81d1928bcf64d20ccf6",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/s-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-s-normal-game.png",
+        "sha256": "552d548d1e701caf389a7ffb5bb28e7939d66e526c484bc1ba8625d8aab77962",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/s-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/s-spent": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-s-spent-1x.png",
+        "sha256": "e57937009b9a339e89a26a7cedbeb8bda8c5a53eadabf0c237c8af26838c9de9",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/s-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-s-spent-2x.png",
+        "sha256": "dbb77b83004538d836c0d4f6d96a4ab02d8aca71a4c22c15781f1007da7e14e1",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/s-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-s-spent-4x.png",
+        "sha256": "42d7a887ce4af58100348f5fcecff1b346fd83fdc77a0e638cb9eb88a5d8098e",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/s-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-s-spent-game.png",
+        "sha256": "73f3a2a942019eaae6f7f1ba264cdeba4c3688c4bece403b562594f2b5f7a131",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/s-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/se-normal": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-se-normal-1x.png",
+        "sha256": "ac8b9e9ad6eae728a518761513308dbb7e54fa645115d62a8fec5ab0aea698a3",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/se-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-se-normal-2x.png",
+        "sha256": "0a903490bfdee75a766447cf4bae8740330bf767d7abdc928d2fd8a3d63c1678",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/se-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-se-normal-4x.png",
+        "sha256": "c0aa60027a54210cc23f573575bb7251e4aa8d1a58e7771b6c64eb992b995121",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/se-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-se-normal-game.png",
+        "sha256": "d0c44c25c0cfb81f03b7139f1f0a22d85f6ebf74b8f81912a5c36be895b01d33",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/se-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/se-spent": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-se-spent-1x.png",
+        "sha256": "5f44a6aad6744978d831e660ed2ecad52bbe048a133ed316800661b13ab40ff2",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/se-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-se-spent-2x.png",
+        "sha256": "28e1924ca8127e2e637650078c7b57f5309fe59d92b7fe45290d328592ae5f2a",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/se-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-se-spent-4x.png",
+        "sha256": "99fe62181fce9c97113fd37b0d522ff4764696d809e43f053884e5ae2bd78cc8",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/se-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-se-spent-game.png",
+        "sha256": "864f73cc62aff195fdd8913ea713cf8a9c63b3f3df9f66082fa7d9dd5983da75",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/se-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/sw-normal": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-sw-normal-1x.png",
+        "sha256": "574c47bda4129126307b4520cac564a2560fafca724ef44c973736d3b91c6c92",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/sw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-sw-normal-2x.png",
+        "sha256": "dd0335b62c65ab23c5ad60461ed551c9c7df96b6b0cfd60a206d5c552604a0e1",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/sw-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-sw-normal-4x.png",
+        "sha256": "6365d91fc8950dcf0e6d052f6ee262bf8c61367bc4ea5ac947f5a07ff60afb19",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/sw-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-sw-normal-game.png",
+        "sha256": "21e9c37e30fda0316480bb84c69f8f75553fe0d9cfeb5e7d2f45e327c0b820e7",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/sw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/sw-spent": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-sw-spent-1x.png",
+        "sha256": "5685706e9ce3b452ebfb7ab6926cc872187fcf3cffb0b1a20db070d6862764cc",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/sw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-sw-spent-2x.png",
+        "sha256": "c71ed7d0f257d7c39154e8baaae2e4fd801b242523201e7e7f4166684d02b3e0",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/sw-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-sw-spent-4x.png",
+        "sha256": "375e1da2536b1b14c97bb805cfa4eb25ee073dacbeb40cf58201716e2cd51034",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/sw-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/cp-sw-spent-game.png",
+        "sha256": "32557b7ec6c53412cabacd47996f3d08f246eb00a7536b78c43143e530e5b95d",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/cp/sw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/n-normal": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-n-normal-1x.png",
+        "sha256": "53dd2da1960eaaeac5e3f2d21b4cfd05cdf108a8d93926de7869cceb708db912",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/n-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-n-normal-2x.png",
+        "sha256": "81b7354a913000b317e9da4acdec0c054f21968921f45f50db4640a8e7d6164e",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/n-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-n-normal-4x.png",
+        "sha256": "cb85bd58f940ceb56d117d25d5e03c20b9ec87683b040a24ef9ad007b888f72e",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/n-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-n-normal-game.png",
+        "sha256": "1d14e694c809c84bdf7afb1c807b97f2251ae876196baf0fbc46be463ff87178",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/n-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/n-spent": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-n-spent-1x.png",
+        "sha256": "23a3753df9434054b0b61eeb1854a0a599bc83025dc9d1dc3f2655f22f5d0d4c",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/n-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-n-spent-2x.png",
+        "sha256": "4fc9b2818dcec01d856b5ae400e8581c1580354dcf450a3483faac5ef0886be8",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/n-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-n-spent-4x.png",
+        "sha256": "44872ff71da8bdbb3281366b997d36b022e37319eaf1d2fb23ab99ec55a9118f",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/n-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-n-spent-game.png",
+        "sha256": "7a96a16440211b79ff9e73a08fe6b3489215135f836103dc74ca28f2637cedca",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/n-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/ne-normal": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-ne-normal-1x.png",
+        "sha256": "349226f13b4267ba29e3ce2c92d3367fd4ae9572561993ee3a2c98e5b8f8b0f9",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/ne-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-ne-normal-2x.png",
+        "sha256": "c1f031610639c60441130f2617a7875e6f2c379188008166cbad068e0032f97f",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/ne-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-ne-normal-4x.png",
+        "sha256": "49f4818c230aaaf0a90df8c2ac9e6af48f30c50551a41fbc3a2d39f12ed6fd1d",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/ne-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-ne-normal-game.png",
+        "sha256": "bee8244885ecbc42cbfe1270978d0529a9bc63626fac1ae9328d004f7e249e3a",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/ne-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/ne-spent": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-ne-spent-1x.png",
+        "sha256": "f2efff30418c50c2a503c1bcd5072492f0cd102dd544c1ca6b04c817993b7c06",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/ne-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-ne-spent-2x.png",
+        "sha256": "6bf5445e6427f26039dcaf708d241be99625516eecded4b4132301c02cdc9f9e",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/ne-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-ne-spent-4x.png",
+        "sha256": "4c13004478d34db7907a5e75a2d106dbd62177ccdeff85e3ef18ef4f1976022b",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/ne-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-ne-spent-game.png",
+        "sha256": "90135c88ac48fa4b504de3dfe74e40e6e03d444675593c4fb59c46f02af6f436",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/ne-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/nw-normal": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-nw-normal-1x.png",
+        "sha256": "58e9af82be35d906ac60c2f2c521ee3060bfb0220bd0f0fa9ae7dbf624190813",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/nw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-nw-normal-2x.png",
+        "sha256": "bff95eb9a95b851981843c7688fc537aad98ceed5bdccc0d73b060fbbb2d012c",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/nw-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-nw-normal-4x.png",
+        "sha256": "e98b35a56b4b21179918a633884f906b8157190ac843a68c130719df2c45e875",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/nw-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-nw-normal-game.png",
+        "sha256": "84da21dc1d67c117c667d6464e7ee60f8816cb298d28ec196050a4bf7916ebe3",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/nw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/nw-spent": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-nw-spent-1x.png",
+        "sha256": "665c5799766e02415e031099cd49f3aaa1038e13aef99af5b946917652acc66f",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/nw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-nw-spent-2x.png",
+        "sha256": "0d7f49b64aa2db804a6419d461f1ae838de86bc7fd32d1af01db9d8e5890f634",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/nw-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-nw-spent-4x.png",
+        "sha256": "f174fef4d1c559e13556e46640096c0fbbe288129709b6ca4a979fe5d8591019",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/nw-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-nw-spent-game.png",
+        "sha256": "74aae6b85a18aaf0fc0d28cf966b3c4b54227715ec0c3a8241bc2f6a418b4a55",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/nw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/s-normal": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-s-normal-1x.png",
+        "sha256": "6c6cfce49bc93c3d7b63079676d563dd1c91cc854f2813e8c7aa1356c4f1e420",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/s-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-s-normal-2x.png",
+        "sha256": "bb41eddf2650dacc34b8b9214f3b00001af14bdbde0eefc08a466f28f849e457",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/s-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-s-normal-4x.png",
+        "sha256": "0b5d7b2041838fccdebac7ac8df2c9993d2170d1efa7064903aab5f3184bc1fe",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/s-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-s-normal-game.png",
+        "sha256": "cd805bb4b4c78ef33715f8444d86a0f54397f66e27a94b2f7279dc4d68e2d4dd",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/s-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/s-spent": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-s-spent-1x.png",
+        "sha256": "d179033ed481a45d83c3160cd251660d707acc4c7a4fb1461732d7b062696ed5",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/s-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-s-spent-2x.png",
+        "sha256": "87e92c46ff081e75aef1bd044ee1b1f449f377dd5474cae2df8a405823269ab8",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/s-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-s-spent-4x.png",
+        "sha256": "60e32d1a33881ff7139708bf3d667ab70fabe1ae11b7b175ccac58d3fd2a9dfe",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/s-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-s-spent-game.png",
+        "sha256": "021aca8363cb1019550fe521442959f1845b7a3135aa9dc7b71f699bf262ce4c",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/s-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/se-normal": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-se-normal-1x.png",
+        "sha256": "b9b63ac528f7ae4576668ec291806d7f66e6c5680bc57c73474ff87e39923e82",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/se-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-se-normal-2x.png",
+        "sha256": "5d19e9d629fb281d30e58b238901b8657b987a17a4e88e0c299ef6539ae7d28e",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/se-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-se-normal-4x.png",
+        "sha256": "0fea8f13f6419984b50419b26a7c25a223bae3c5878c320e5b065b5fc3f07d98",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/se-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-se-normal-game.png",
+        "sha256": "fdfa057be1a8068fc562e9288b38c418df1a775580b850b17af2fb45f05a35e5",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/se-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/se-spent": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-se-spent-1x.png",
+        "sha256": "c92225395681e45cb17ba94b56ad7f12339f1d77e18771fe239c6f3b428f2acf",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/se-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-se-spent-2x.png",
+        "sha256": "4fc245915dc84559734f7d79f7803fd1e3ec0be5ff06c0f6886d39c59b2daca1",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/se-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-se-spent-4x.png",
+        "sha256": "1f0228b64979381715cf1b89715e63b0b1e3ddbf10300c304b36105157e4a492",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/se-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-se-spent-game.png",
+        "sha256": "f825736aa20f44d589f5ad111bc3870a19084e88fe222e4cdf38c9674101dd5b",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/se-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/sw-normal": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-sw-normal-1x.png",
+        "sha256": "9b6c122f116b1eb4044019c852f641b1b4bb3c1c0b510b1cda4c1714372dd39a",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/sw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-sw-normal-2x.png",
+        "sha256": "89e34368c733d3a33807b369f2e03af98c4ae6a0e58c19a3563b99b180ad0f97",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/sw-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-sw-normal-4x.png",
+        "sha256": "0506077c665e1b7af8c6a786dc6fae888ce1fa5a6414ba84021d56ba9c3d8498",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/sw-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-sw-normal-game.png",
+        "sha256": "4d750754015c0c9aea9845a20d0efd65429c96956eed8cafa3a391c05e1975f1",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/sw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/sw-spent": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-sw-spent-1x.png",
+        "sha256": "06060931155282e8829d43fe7f6557f1f1ff0bff900e981c8fb3985015ba35cd",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/sw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-sw-spent-2x.png",
+        "sha256": "e9bee78268a953684d0c721e6e5b0724218bf35b5fb8b2e27cf8206cab07a01a",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/sw-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-sw-spent-4x.png",
+        "sha256": "19c2065cc3af6487e4e035a41799b890c323a9e64f487eaa4b75e7a440a329ae",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/sw-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/ec-sw-spent-game.png",
+        "sha256": "f9d29c5effe96f77c4a590b8d8bf039d9caf7391b9ba4167d92bc568e7008747",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/ec/sw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/n-normal": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-n-normal-1x.png",
+        "sha256": "6f57dd36f820d7478cb68cd1170c35ea80aa75d70bf651900ddfb139521e34bb",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/n-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-n-normal-2x.png",
+        "sha256": "d40556c505567f9799db6cf8d3710cfcb4f6c86798ccb9e452ae9ee119c7c430",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/n-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-n-normal-4x.png",
+        "sha256": "b3d071f457e462c3f4d9c50d4a26a3af65548e4b14175e2ab6cd5fda3adf47c4",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/n-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-n-normal-game.png",
+        "sha256": "9ee548f50c358775ae22a2217fddd5fd9ae930aa5e526bc4d1b5d931ec1d86d6",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/n-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/n-spent": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-n-spent-1x.png",
+        "sha256": "c385434fd8d1da8baad4949c53ab871a362a7a387f35e0dca18424c4e56f17e7",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/n-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-n-spent-2x.png",
+        "sha256": "9ffa292d57d0f8bb7e396ffea9aedd56a9685be04b4411e977946c700839afc5",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/n-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-n-spent-4x.png",
+        "sha256": "4f626d261c351b995cb8ba4aeed951442fc43e786587c3682542d18edde32c3b",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/n-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-n-spent-game.png",
+        "sha256": "0c151bbb9fb13bb9fed69171fde40fc5f2cd796246b0941455c70448d12e1770",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/n-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/ne-normal": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-ne-normal-1x.png",
+        "sha256": "ce04ee50b222883daff00a236dd2020467b98c593f39194c81879a4a4e5b9ab2",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/ne-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-ne-normal-2x.png",
+        "sha256": "6ca60ef1b6490aba60887bbef64a0036db8238134450b83abd79ea210d558fc0",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/ne-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-ne-normal-4x.png",
+        "sha256": "6f1dff3ad8eb9ce7ccc8707d17b318fe3f75ee50b48fdde9d8c0e26c3476be9c",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/ne-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-ne-normal-game.png",
+        "sha256": "c5adf339ec5f7c281230f841a95a4435d4f7983dabcc458001e21b6a80367bfd",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/ne-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/ne-spent": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-ne-spent-1x.png",
+        "sha256": "63fece0091fd184b3070531e1bea1efb1a80a446ec321fe6159a8b571932e593",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/ne-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-ne-spent-2x.png",
+        "sha256": "3aad662b253df2057e9947df06c05092b977e1812d6f99d1c07de43e607527f8",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/ne-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-ne-spent-4x.png",
+        "sha256": "5237b70e7982241158d52da9831a8184efa8dfb49ca6a5dbc76f64d503b2c595",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/ne-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-ne-spent-game.png",
+        "sha256": "77ce4469d6fcc05e6ef2d98807f66d64ca8538ec5de4b61db6fb6cb5ed22923d",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/ne-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/nw-normal": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-nw-normal-1x.png",
+        "sha256": "8d3374a4d2a75d79a3992e1936ab9c38e99ca562d4003b4e9ef59ab26a4be08a",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/nw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-nw-normal-2x.png",
+        "sha256": "d7963152d511d0b1f5accd99743bae876c5f5ba693936d0146f69365fca756e1",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/nw-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-nw-normal-4x.png",
+        "sha256": "33b0fd2eb4711b28f82f527abca88adeb1cfbd5b69f29ec8df518a594f8c371f",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/nw-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-nw-normal-game.png",
+        "sha256": "9dbefaf2d9b90fd9fb9ced4a97a63d099442cf1364fcc3e1c4e1e6d33c75dc09",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/nw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/nw-spent": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-nw-spent-1x.png",
+        "sha256": "90c65f31950fe78021817f9b4a76ca4187ad86820e05e03ce03cfb3f88648a3c",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/nw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-nw-spent-2x.png",
+        "sha256": "25b632f163729e36826f195a47b58bc612c2d606856c32a74d946ad54bcbb9ad",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/nw-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-nw-spent-4x.png",
+        "sha256": "e2285eb6d88eba794a2d1ed5eb321f176ed0336e3f094dd41a413d32a2b2962b",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/nw-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-nw-spent-game.png",
+        "sha256": "7d9795402ee92dd771010997f886298470ed615351fc47d0bb358911d24346ca",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/nw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/s-normal": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-s-normal-1x.png",
+        "sha256": "5b91125e3e033aac7d76e44dc2826a4cc01f77ae66e08f459575c751794a93db",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/s-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-s-normal-2x.png",
+        "sha256": "47bd5a8c48850a9a08034fd8b0d10273bf39588b6dfeaab4ae0b27d4796831c5",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/s-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-s-normal-4x.png",
+        "sha256": "457469c9872b86b8676811ce53e6fdb9183c2eaf9a06435e5f99676de1c5bde6",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/s-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-s-normal-game.png",
+        "sha256": "557b0f539213c5086569cf963862d70491de5434e65f4db845ee5a6056584537",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/s-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/s-spent": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-s-spent-1x.png",
+        "sha256": "cd37d2bc9fd487fc1ecdd06876f9939d8b7d7a5792cc3e4f0813fba7fe3c0865",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/s-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-s-spent-2x.png",
+        "sha256": "f0a5b1ed2a5ee1be0bb30b6d1c3336815f9054345be8b74ef0cf36aea9d91967",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/s-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-s-spent-4x.png",
+        "sha256": "24a3ffb3045a6477065037ec31e9d8bb33c60d85b10e77dd11574389d3c01af4",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/s-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-s-spent-game.png",
+        "sha256": "4b6c205c89c6b881641b2b383e6b4ec0f0d116d390a39bbbbaceae3b910a929a",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/s-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/se-normal": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-se-normal-1x.png",
+        "sha256": "edc677178e0ce6927ebc80264f5f73e36162111cde70b42b3c69efba29b1d4f6",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/se-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-se-normal-2x.png",
+        "sha256": "b7cd116d932cc683360d9a4b72c906abeb04e03632f372cbcdae712a029d3632",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/se-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-se-normal-4x.png",
+        "sha256": "0d9677c914d3de00d447534d972587acbc0744e449049742bae7824c3192353e",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/se-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-se-normal-game.png",
+        "sha256": "fa3da5b1a05afc69e3ca0147f9fe368959b939c0c20a1024cee217892cde27a6",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/se-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/se-spent": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-se-spent-1x.png",
+        "sha256": "f4365ec3f396bc4f7351ffd384b71e3341ae0ef321e2da6a82026dc1f2ffb265",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/se-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-se-spent-2x.png",
+        "sha256": "db3dadf49884d692abae6355cbf67a9b3f5aadd06a1ec885f6f9f3bcf478e781",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/se-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-se-spent-4x.png",
+        "sha256": "9efd0b54922f1389fc4fabf98b9d4fc9da10984be6e139984a2d99379c952901",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/se-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-se-spent-game.png",
+        "sha256": "764e1ff5219f811acf9995c19ee32aa9f5292834f099f21ba9e22c35ff855e28",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/se-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/sw-normal": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-sw-normal-1x.png",
+        "sha256": "2911b6d2491a116fd23facea2751dcd3e0448c225842c2458acb451b69ac74e7",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/sw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-sw-normal-2x.png",
+        "sha256": "207062edff87d7020e34d169c56cdf2a27f637a8dacecbf9c1a6d83d57792417",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/sw-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-sw-normal-4x.png",
+        "sha256": "16d1dd58b964d5b354c6de51d53aa857413f5faba28bd41d67214ae9e3a743dc",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/sw-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-sw-normal-game.png",
+        "sha256": "28deb83bc13ab3d081a3bd34bf6590e5fe955a02f0f9ca9580a940e8ddaa4b71",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/sw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/sw-spent": {
+      "1": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-sw-spent-1x.png",
+        "sha256": "9c820cd47c582d0d45e7aeef6ac333a3651432abcee3b72e83a28b122a169dd6",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/sw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-sw-spent-2x.png",
+        "sha256": "2a457fff42aca1b7e9a561bdcc0f0da57332b465cd91b6aadedc2d8d8b91d360",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/sw-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-sw-spent-4x.png",
+        "sha256": "86d64ac493e4678849956eb202912af4d64e17460090fe9addb958de7558b44b",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/sw-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/armoredTrain/sprite-armoredTrain/neutral-sw-spent-game.png",
+        "sha256": "de8569822ea2c0927d2d54671945d8f1bdd3783bcf7c321697dcbbc1be261478",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-armored-train-v1/sprites/armoredTrain/neutral/sw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    }
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "id": "screens-v2/widget/toggle/on/disabled",
+  "name": "widget/toggle/on/disabled",
+  "category": "Screen components",
+  "family": "widgets",
+  "note": "Current screen component, shared across layouts. No direct reference mapping. Painted backdrop has no authored 4× export.",
+  "recipes": [
+    "art/recipes/screens/v1/western-front.json"
+  ],
+  "prompts": [
+    "prompts/screens/v1/western-front.md"
+  ],
+  "width": 40,
+  "height": 40,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "screen-components/widgets/screens-v2-widget-toggle-on-disabled/1x.png",
+          "source": "art/exports/screens-v2/widget/toggle/on/disabled-1x.png",
+          "sha256": "b7cf44d3979724eefb45f55b55096e33ac063170df4b1f3657ac9df4c2008361",
+          "width": 40,
+          "height": 40,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "screen-components/widgets/screens-v2-widget-toggle-on-disabled/2x.png",
+          "source": "art/exports/screens-v2/widget/toggle/on/disabled-2x.png",
+          "sha256": "fd50d5ff827dce5ff7941b5d2bb6b9b64a958f2c0099bfbe23a022ae2549970f",
+          "width": 80,
+          "height": 80,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "screen-components/widgets/screens-v2-widget-toggle-on-disabled/4x.png",
+          "source": "art/exports/screens-v2/widget/toggle/on/disabled-4x.png",
+          "sha256": "7d372e81ab100262986319fde0f632aa73cea88a5325ec86e232aed4d9680ebc",
+          "width": 160,
+          "height": 160,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "screen-components/widgets/screens-v2-widget-toggle-on-disabled/1x.png",
+        "sha256": "b7cf44d3979724eefb45f55b55096e33ac063170df4b1f3657ac9df4c2008361",
+        "width": 40,
+        "height": 40,
+        "source": "art/exports/screens-v2/widget/toggle/on/disabled-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "screen-components/widgets/screens-v2-widget-toggle-on-disabled/2x.png",
+        "sha256": "fd50d5ff827dce5ff7941b5d2bb6b9b64a958f2c0099bfbe23a022ae2549970f",
+        "width": 80,
+        "height": 80,
+        "source": "art/exports/screens-v2/widget/toggle/on/disabled-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "screen-components/widgets/screens-v2-widget-toggle-on-disabled/4x.png",
+        "sha256": "7d372e81ab100262986319fde0f632aa73cea88a5325ec86e232aed4d9680ebc",
+        "width": 160,
+        "height": 160,
+        "source": "art/exports/screens-v2/widget/toggle/on/disabled-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

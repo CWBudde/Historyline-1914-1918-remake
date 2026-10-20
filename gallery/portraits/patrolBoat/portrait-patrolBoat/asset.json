@@ -1,0 +1,79 @@
+{
+  "id": "portrait/patrolBoat",
+  "name": "patrolBoat",
+  "category": "Portraits",
+  "family": "patrolBoat",
+  "bindings": [
+    "CP_patrolBoat",
+    "EC_patrolBoat"
+  ],
+  "note": "Current family candidate. Visual approval and runtime acceptance pending.",
+  "recipes": [
+    "art/recipes/portraits/reference-v1/patrol-boat-01.json"
+  ],
+  "prompts": [
+    "prompts/portraits/reference-v1/patrol-boat-01.md"
+  ],
+  "width": 210,
+  "height": 188,
+  "variants": [
+    {
+      "id": "portrait",
+      "label": "portrait",
+      "images": {
+        "1": {
+          "url": "portraits/patrolBoat/portrait-patrolBoat/1x.png",
+          "source": "art/exports/portrait-patrol-boat-v1/patrolBoat-1x.png",
+          "sha256": "26ef4fe2645c9583d5bd54791bb54246d5c2b9337b791ae9bf888d62090f75bb",
+          "width": 210,
+          "height": 188,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "portraits/patrolBoat/portrait-patrolBoat/2x.png",
+          "source": "art/exports/portrait-patrol-boat-v1/patrolBoat-2x.png",
+          "sha256": "2c83539d2ef75f7486a47a79c1ab51e4e59422f8acb7b5bcbceef1b78beca97f",
+          "width": 420,
+          "height": 376,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "portraits/patrolBoat/portrait-patrolBoat/4x.png",
+          "source": "art/exports/portrait-patrol-boat-v1/patrolBoat-4x.png",
+          "sha256": "ed547f5d68fb7e68a4a910051af2bd472607e48cf406dd53bdc2905a85fcf97c",
+          "width": 840,
+          "height": 752,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "portrait": {
+      "1": {
+        "path": "portraits/patrolBoat/portrait-patrolBoat/1x.png",
+        "sha256": "26ef4fe2645c9583d5bd54791bb54246d5c2b9337b791ae9bf888d62090f75bb",
+        "width": 210,
+        "height": 188,
+        "source": "art/exports/portrait-patrol-boat-v1/patrolBoat-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "portraits/patrolBoat/portrait-patrolBoat/2x.png",
+        "sha256": "2c83539d2ef75f7486a47a79c1ab51e4e59422f8acb7b5bcbceef1b78beca97f",
+        "width": 420,
+        "height": 376,
+        "source": "art/exports/portrait-patrol-boat-v1/patrolBoat-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "portraits/patrolBoat/portrait-patrolBoat/4x.png",
+        "sha256": "ed547f5d68fb7e68a4a910051af2bd472607e48cf406dd53bdc2905a85fcf97c",
+        "width": 840,
+        "height": 752,
+        "source": "art/exports/portrait-patrol-boat-v1/patrolBoat-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

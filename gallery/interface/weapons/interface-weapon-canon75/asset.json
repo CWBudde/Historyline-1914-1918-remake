@@ -1,0 +1,75 @@
+{
+  "id": "interface/weapon/canon75",
+  "name": "weapon/canon75",
+  "category": "Interface",
+  "family": "weapons",
+  "note": "Current text-free game component. Labels and game values are drawn separately; runtime acceptance pending. Reference is the complete old weapon row, including its labels. Images retain their own dimensions on a common canvas; the row is not stretched into the new art region.",
+  "recipes": [
+    "art/recipes/interface/v1/canon75.json"
+  ],
+  "prompts": [
+    "prompts/interface/v1/canon75.md"
+  ],
+  "width": 252,
+  "height": 50,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "interface/weapons/interface-weapon-canon75/1x.png",
+          "source": "art/exports/interface-v1/weapon/canon75-1x.png",
+          "sha256": "3d4ea43a12246015183d69cf125db1fa1528c31bc277dfc880763c4cb9a71684",
+          "width": 252,
+          "height": 50,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "interface/weapons/interface-weapon-canon75/2x.png",
+          "source": "art/exports/interface-v1/weapon/canon75-2x.png",
+          "sha256": "0dbcf2c1d59a438a3c2f98d5edf7ea268f3cadee73c99da1307190e1a7541114",
+          "width": 504,
+          "height": 100,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "interface/weapons/interface-weapon-canon75/4x.png",
+          "source": "art/exports/interface-v1/weapon/canon75-4x.png",
+          "sha256": "d7bc0289f5399d4bcc51fbfc73fb1cbc9233bfa3aaa23ba9e81369c469b5998b",
+          "width": 1008,
+          "height": 200,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "interface/weapons/interface-weapon-canon75/1x.png",
+        "sha256": "3d4ea43a12246015183d69cf125db1fa1528c31bc277dfc880763c4cb9a71684",
+        "width": 252,
+        "height": 50,
+        "source": "art/exports/interface-v1/weapon/canon75-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "interface/weapons/interface-weapon-canon75/2x.png",
+        "sha256": "0dbcf2c1d59a438a3c2f98d5edf7ea268f3cadee73c99da1307190e1a7541114",
+        "width": 504,
+        "height": 100,
+        "source": "art/exports/interface-v1/weapon/canon75-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "interface/weapons/interface-weapon-canon75/4x.png",
+        "sha256": "d7bc0289f5399d4bcc51fbfc73fb1cbc9233bfa3aaa23ba9e81369c469b5998b",
+        "width": 1008,
+        "height": 200,
+        "source": "art/exports/interface-v1/weapon/canon75-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

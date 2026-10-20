@@ -1,0 +1,69 @@
+{
+  "id": "interface/weapon-row/pressed",
+  "name": "weapon-row/pressed",
+  "category": "Interface",
+  "family": "controls",
+  "note": "Current text-free game component. Labels and game values are drawn separately; runtime acceptance pending. No direct reference image is mapped for this component.",
+  "width": 654,
+  "height": 50,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "interface/controls/interface-weapon-row-pressed/1x.png",
+          "source": "art/exports/interface-v1/weapon-row/pressed-1x.png",
+          "sha256": "91d4f63f5b4f663638bdc541f913d7ea4cb2e31a26e948c40d940a24d76d9908",
+          "width": 654,
+          "height": 50,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "interface/controls/interface-weapon-row-pressed/2x.png",
+          "source": "art/exports/interface-v1/weapon-row/pressed-2x.png",
+          "sha256": "ab1af05cca8894eb58f709f6cfa2e8fe1ace45c7eba258664dc2a2425f9ea578",
+          "width": 1308,
+          "height": 100,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "interface/controls/interface-weapon-row-pressed/4x.png",
+          "source": "art/exports/interface-v1/weapon-row/pressed-4x.png",
+          "sha256": "41853dc3cd479f0471329a10c28e7e6cee75762e275b228e58a3f57972cc486b",
+          "width": 2616,
+          "height": 200,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "interface/controls/interface-weapon-row-pressed/1x.png",
+        "sha256": "91d4f63f5b4f663638bdc541f913d7ea4cb2e31a26e948c40d940a24d76d9908",
+        "width": 654,
+        "height": 50,
+        "source": "art/exports/interface-v1/weapon-row/pressed-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "interface/controls/interface-weapon-row-pressed/2x.png",
+        "sha256": "ab1af05cca8894eb58f709f6cfa2e8fe1ace45c7eba258664dc2a2425f9ea578",
+        "width": 1308,
+        "height": 100,
+        "source": "art/exports/interface-v1/weapon-row/pressed-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "interface/controls/interface-weapon-row-pressed/4x.png",
+        "sha256": "41853dc3cd479f0471329a10c28e7e6cee75762e275b228e58a3f57972cc486b",
+        "width": 2616,
+        "height": 200,
+        "source": "art/exports/interface-v1/weapon-row/pressed-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

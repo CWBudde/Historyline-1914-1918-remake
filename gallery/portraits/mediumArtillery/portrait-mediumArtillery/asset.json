@@ -1,0 +1,79 @@
+{
+  "id": "portrait/mediumArtillery",
+  "name": "mediumArtillery",
+  "category": "Portraits",
+  "family": "mediumArtillery",
+  "bindings": [
+    "CP_mArtillery",
+    "EC_mArtillery"
+  ],
+  "note": "Current family candidate. Visual approval and runtime acceptance pending.",
+  "recipes": [
+    "art/recipes/portraits/reference-v1/medium-artillery-01.json"
+  ],
+  "prompts": [
+    "prompts/portraits/reference-v1/medium-artillery-01.md"
+  ],
+  "width": 210,
+  "height": 188,
+  "variants": [
+    {
+      "id": "portrait",
+      "label": "portrait",
+      "images": {
+        "1": {
+          "url": "portraits/mediumArtillery/portrait-mediumArtillery/1x.png",
+          "source": "art/exports/portrait-medium-artillery-v1/mediumArtillery-1x.png",
+          "sha256": "86a2e76d69c28a36017cc788d953a04cb19a450113243000877b10395d1a3f72",
+          "width": 210,
+          "height": 188,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "portraits/mediumArtillery/portrait-mediumArtillery/2x.png",
+          "source": "art/exports/portrait-medium-artillery-v1/mediumArtillery-2x.png",
+          "sha256": "a6b5d8997e8aea13c3801247d4a8aab1b2f7900443eacc09af10210483e1773d",
+          "width": 420,
+          "height": 376,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "portraits/mediumArtillery/portrait-mediumArtillery/4x.png",
+          "source": "art/exports/portrait-medium-artillery-v1/mediumArtillery-4x.png",
+          "sha256": "c04ff6034c19d50be1ef8ef0cbba9db93027eb2ac31b96b58c8cd13cede7e5e7",
+          "width": 840,
+          "height": 752,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "portrait": {
+      "1": {
+        "path": "portraits/mediumArtillery/portrait-mediumArtillery/1x.png",
+        "sha256": "86a2e76d69c28a36017cc788d953a04cb19a450113243000877b10395d1a3f72",
+        "width": 210,
+        "height": 188,
+        "source": "art/exports/portrait-medium-artillery-v1/mediumArtillery-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "portraits/mediumArtillery/portrait-mediumArtillery/2x.png",
+        "sha256": "a6b5d8997e8aea13c3801247d4a8aab1b2f7900443eacc09af10210483e1773d",
+        "width": 420,
+        "height": 376,
+        "source": "art/exports/portrait-medium-artillery-v1/mediumArtillery-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "portraits/mediumArtillery/portrait-mediumArtillery/4x.png",
+        "sha256": "c04ff6034c19d50be1ef8ef0cbba9db93027eb2ac31b96b58c8cd13cede7e5e7",
+        "width": 840,
+        "height": 752,
+        "source": "art/exports/portrait-medium-artillery-v1/mediumArtillery-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

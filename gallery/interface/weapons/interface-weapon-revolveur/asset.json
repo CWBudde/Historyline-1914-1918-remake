@@ -1,0 +1,75 @@
+{
+  "id": "interface/weapon/revolveur",
+  "name": "weapon/revolveur",
+  "category": "Interface",
+  "family": "weapons",
+  "note": "Current text-free game component. Labels and game values are drawn separately; runtime acceptance pending. Reference is the complete old weapon row, including its labels. Images retain their own dimensions on a common canvas; the row is not stretched into the new art region.",
+  "recipes": [
+    "art/recipes/interface/v1/revolveur.json"
+  ],
+  "prompts": [
+    "prompts/interface/v1/revolveur.md"
+  ],
+  "width": 252,
+  "height": 50,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "interface/weapons/interface-weapon-revolveur/1x.png",
+          "source": "art/exports/interface-v1/weapon/revolveur-1x.png",
+          "sha256": "8aff0b41c1552fe3a9718ef69e45f6b6189a6f8506b610d5855817219f9085e4",
+          "width": 252,
+          "height": 50,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "interface/weapons/interface-weapon-revolveur/2x.png",
+          "source": "art/exports/interface-v1/weapon/revolveur-2x.png",
+          "sha256": "2300016e69542a777e5ba1b47d8310527fb4b471154becb6f18cd50192fa7d17",
+          "width": 504,
+          "height": 100,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "interface/weapons/interface-weapon-revolveur/4x.png",
+          "source": "art/exports/interface-v1/weapon/revolveur-4x.png",
+          "sha256": "0dc3fa94ccbad04b86310b350384d5a2216db48106b147de06d6110a51d5bd27",
+          "width": 1008,
+          "height": 200,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "interface/weapons/interface-weapon-revolveur/1x.png",
+        "sha256": "8aff0b41c1552fe3a9718ef69e45f6b6189a6f8506b610d5855817219f9085e4",
+        "width": 252,
+        "height": 50,
+        "source": "art/exports/interface-v1/weapon/revolveur-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "interface/weapons/interface-weapon-revolveur/2x.png",
+        "sha256": "2300016e69542a777e5ba1b47d8310527fb4b471154becb6f18cd50192fa7d17",
+        "width": 504,
+        "height": 100,
+        "source": "art/exports/interface-v1/weapon/revolveur-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "interface/weapons/interface-weapon-revolveur/4x.png",
+        "sha256": "0dc3fa94ccbad04b86310b350384d5a2216db48106b147de06d6110a51d5bd27",
+        "width": 1008,
+        "height": 200,
+        "source": "art/exports/interface-v1/weapon/revolveur-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

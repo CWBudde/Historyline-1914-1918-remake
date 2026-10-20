@@ -1,0 +1,69 @@
+{
+  "id": "interface/bar/unavailable",
+  "name": "bar/unavailable",
+  "category": "Interface",
+  "family": "information",
+  "note": "Current text-free game component. Labels and game values are drawn separately; runtime acceptance pending. No direct reference image is mapped for this component.",
+  "width": 24,
+  "height": 24,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "interface/information/interface-bar-unavailable/1x.png",
+          "source": "art/exports/interface-v1/bar/unavailable-1x.png",
+          "sha256": "bef27ec64dc1faa032232e6a1d70e266bbb00a0f64c32394d10207a6a7e9df55",
+          "width": 24,
+          "height": 24,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "interface/information/interface-bar-unavailable/2x.png",
+          "source": "art/exports/interface-v1/bar/unavailable-2x.png",
+          "sha256": "72917fee5170edd9be9b6b3c5f0630e188b64598d78bba0014a5b5224c82a225",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "interface/information/interface-bar-unavailable/4x.png",
+          "source": "art/exports/interface-v1/bar/unavailable-4x.png",
+          "sha256": "76c43ef5e15b84ac6e88b1dc4d2b9efdec74b35a4bfdedf28fe94485f40e6b16",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "interface/information/interface-bar-unavailable/1x.png",
+        "sha256": "bef27ec64dc1faa032232e6a1d70e266bbb00a0f64c32394d10207a6a7e9df55",
+        "width": 24,
+        "height": 24,
+        "source": "art/exports/interface-v1/bar/unavailable-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "interface/information/interface-bar-unavailable/2x.png",
+        "sha256": "72917fee5170edd9be9b6b3c5f0630e188b64598d78bba0014a5b5224c82a225",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/interface-v1/bar/unavailable-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "interface/information/interface-bar-unavailable/4x.png",
+        "sha256": "76c43ef5e15b84ac6e88b1dc4d2b9efdec74b35a4bfdedf28fe94485f40e6b16",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/interface-v1/bar/unavailable-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

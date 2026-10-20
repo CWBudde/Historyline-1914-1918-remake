@@ -1,0 +1,28 @@
+# hamlet-winter-01
+
+Recipe: `art/recipes/compound/distinct-v1/hamlet-winter-01.json`
+
+- **date**: 2026-10-15
+- **id**: hamlet-winter-01
+- **output_manifest**: art/compound-hamlet-v1.json
+- **schema_version**: 1
+- **source**: art/source/compound/distinct-v1/studies/hamlet-winter-01.png
+- **source_sha256**: 35ca12846c88d40ac1cdd091d3c9f469698a2cfc7663dfa84f3929f0e2803bac
+- **status**: rejected-native-cyan-fringe-retained-only-as-cleanup-input
+- **tool**: built-in image_gen.imagegen
+- **transparent_background**: true
+- **use_case**: lighting-weather
+
+## generation_inputs
+
+| path | role | sha256 |
+|---|---|---|
+| `art/source/compound/distinct-v1/hamlet-summer.png` | selected-new-summer-edit-target | `02a8bb2d90cb78ca1d8c37c35ccb071f4cc1a44cde3956fd879d3de1c7f98b7d` |
+| `art/source/terrain/distinct-v1/hamlet-winter.png` | new-winter-palette-reference | `ad974e3d68a990cf8505278d1aa067db8b85eaf7a5f1a711c2adf501d9181896` |
+
+## Prompt
+
+```text
+Use case: lighting-weather. Asset type: transparent matching WINTER whole-hamlet master. Image1 is the selected NEW overhead summer hamlet to edit; Image2 is its NEW winter material reference. Change season ONLY on Image1. Preserve EXACTLY all three roof silhouettes/positions/orientations, cottage footprints/chimney positions, well position, courtyard layout, garden fences, low walls and overall transparent silhouette, canvas dimensions, overhead camera and scale. Keep genuine transparent background and all existing transparent outer margin. Snow dusts the roof planes unevenly, muted original terracotta/slate remains along some eaves/ridges. Light blue-grey soft short shadows. Courtyard remains irregular grey-brown trampled earth with small snowy patches. Garden plants dormant with light snow on beds and fence tops. Replace green tree foliage with delicate bare deciduous crowns contained within existing tree footprint (no outward enlargement), snow resting on low shrubs/walls; narrow local ground fringe pale snow instead of lush grass. Source1 has continuous fine illustrated material, keep that and roof-dominant TRUE VERTICAL orthographic map view, no tall front/side walls. No added architecture, structures, objects, connecting roads, text, hex/grid, opaque outer snowfield, drop-shadow backing or checkerboard pixels. Actual alpha transparency around the entire coherent settlement, no opaque rectangular/oval background. Keep architecture geometry exactly from Image1.
+
+```

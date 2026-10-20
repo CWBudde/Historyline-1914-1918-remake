@@ -1,0 +1,75 @@
+{
+  "id": "interface/weapon/m1902",
+  "name": "weapon/m1902",
+  "category": "Interface",
+  "family": "weapons",
+  "note": "Current text-free game component. Labels and game values are drawn separately; runtime acceptance pending. Reference is the complete old weapon row, including its labels. Images retain their own dimensions on a common canvas; the row is not stretched into the new art region.",
+  "recipes": [
+    "art/recipes/interface/v1/m1902.json"
+  ],
+  "prompts": [
+    "prompts/interface/v1/m1902.md"
+  ],
+  "width": 252,
+  "height": 50,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "interface/weapons/interface-weapon-m1902/1x.png",
+          "source": "art/exports/interface-v1/weapon/m1902-1x.png",
+          "sha256": "3a256d34262661b66e9dac74a9c6821d8cd70bb5797fb534547fe82e07a52881",
+          "width": 252,
+          "height": 50,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "interface/weapons/interface-weapon-m1902/2x.png",
+          "source": "art/exports/interface-v1/weapon/m1902-2x.png",
+          "sha256": "be10afab31dcb1f2b7b1d3bb3cf177156c0503bbefa28606083e48e4ab2ba0a3",
+          "width": 504,
+          "height": 100,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "interface/weapons/interface-weapon-m1902/4x.png",
+          "source": "art/exports/interface-v1/weapon/m1902-4x.png",
+          "sha256": "206b4cd3a0f39c88c5bbb54a9cd67f700a43bc15739454d0d54cef3205eaf245",
+          "width": 1008,
+          "height": 200,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "interface/weapons/interface-weapon-m1902/1x.png",
+        "sha256": "3a256d34262661b66e9dac74a9c6821d8cd70bb5797fb534547fe82e07a52881",
+        "width": 252,
+        "height": 50,
+        "source": "art/exports/interface-v1/weapon/m1902-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "interface/weapons/interface-weapon-m1902/2x.png",
+        "sha256": "be10afab31dcb1f2b7b1d3bb3cf177156c0503bbefa28606083e48e4ab2ba0a3",
+        "width": 504,
+        "height": 100,
+        "source": "art/exports/interface-v1/weapon/m1902-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "interface/weapons/interface-weapon-m1902/4x.png",
+        "sha256": "206b4cd3a0f39c88c5bbb54a9cd67f700a43bc15739454d0d54cef3205eaf245",
+        "width": 1008,
+        "height": 200,
+        "source": "art/exports/interface-v1/weapon/m1902-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

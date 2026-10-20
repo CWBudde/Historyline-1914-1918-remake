@@ -1,0 +1,59 @@
+{
+  "id": "screens-v2/layout/code-invalid",
+  "name": "code-invalid",
+  "category": "Screens",
+  "family": "screens-v2",
+  "note": "Current screen layout with example labels and values. The composed image is a review fixture; the game will draw text and controls separately. No matching reference capture is mapped. Navigation and runtime integration remain open.",
+  "recipes": [
+    "art/recipes/screens/v1/western-front.json"
+  ],
+  "prompts": [
+    "prompts/screens/v1/western-front.md"
+  ],
+  "width": 640,
+  "height": 400,
+  "variants": [
+    {
+      "id": "layout",
+      "label": "Composed layout",
+      "images": {
+        "1": {
+          "url": "screens/screens-v2/screens-v2-layout-code-invalid/1x.png",
+          "source": "art/exports/screens-v2/fixtures/code-invalid-2x.png",
+          "sha256": "a0b370f6300e3d20289820be6332b455e9fcab2d76f0ba755deefb6cd1db7754",
+          "width": 640,
+          "height": 400,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "screens/screens-v2/screens-v2-layout-code-invalid/2x.png",
+          "source": "art/exports/screens-v2/fixtures/code-invalid-2x.png",
+          "sha256": "f2ce19edaf9ffaa248ae324078a561e2a4807d844910d14365c675e6e92f9b0c",
+          "width": 1280,
+          "height": 800,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "layout": {
+      "1": {
+        "path": "screens/screens-v2/screens-v2-layout-code-invalid/1x.png",
+        "sha256": "a0b370f6300e3d20289820be6332b455e9fcab2d76f0ba755deefb6cd1db7754",
+        "width": 640,
+        "height": 400,
+        "source": "art/exports/screens-v2/fixtures/code-invalid-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "screens/screens-v2/screens-v2-layout-code-invalid/2x.png",
+        "sha256": "f2ce19edaf9ffaa248ae324078a561e2a4807d844910d14365c675e6e92f9b0c",
+        "width": 1280,
+        "height": 800,
+        "source": "art/exports/screens-v2/fixtures/code-invalid-2x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

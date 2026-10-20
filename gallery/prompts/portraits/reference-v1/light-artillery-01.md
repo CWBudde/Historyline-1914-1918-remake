@@ -1,0 +1,35 @@
+# portrait-light-artillery-01
+
+Recipe: `art/recipes/portraits/reference-v1/light-artillery-01.json`
+
+- **acceptance**: Latest user instruction reinstates approximately90% visual resemblance for this portrait at repository-reference210x188 size using Lanczos. Visual target only, no computed score or native96x77 association claim.
+- **art_direction**: reference-faithful-continuous-painted-v1
+- **cleanup**: Unchanged generated PNG retained. Existing exact105:94 centred crop and byte-RGB Lanczos3 chain produce 4x/2x/1x; no retouch, stretching, palette correction or original-pixel compositing.
+- **date**: 2026-10-15
+- **id**: portrait-light-artillery-01
+- **schema_version**: 1
+- **source**: art/source/portraits/reference-v1/light-artillery-01.png
+- **source_sha256**: 2c69d08e8fdc9ba667607a6e477908fc19794c3e9cd540879d70c11f09ba7cab
+- **status**: candidate-source
+- **tool**: built-in image_gen.imagegen
+- **transparent_background**: false
+
+## generation_inputs
+
+| path | role | sha256 |
+|---|---|---|
+| `legacy/python/gfx/units/pictures/lightArtillery.png` | composition and sepia colour reference; original UI frame excluded | `3dda3c45d633c18dc62cbfa3e3f4bd0c92387bd60c7d9a8c8ee24df78212f4cb` |
+| `art/exports/portrait-infantry-v1/infantry-2x.png` | painted illustration style only | `3503be46728754bebc3fb829716ec6aac3e2ddb587a62206d92486278df0852b` |
+
+## Prompt
+
+```text
+Use case: style-transfer.
+Asset type: Historyline 1914–1918 light-artillery unit portrait, shared owner-neutral illustration for CP_lArtillery and EC_lArtillery.
+Input images: Image 1 (legacy/python/gfx/units/pictures/lightArtillery.png) is the composition and colour reference. Image 2 (painted infantry portrait) is the painting-style reference ONLY. Do not use the tactical artillery atlas as a composition or palette reference.
+Primary request: newly paint a high-resolution version of the reference field-gun scene, retaining approximately 90% visual resemblance when Lanczos3 reduced to 210x188. Keep exact large forms, camera, object placement, sepia values and quiet background; add refined painted detail inside existing shapes. This request supersedes the older distinct-composition brief for this one asset.
+Scene/composition: low side view across a field. Main large wooden spoked artillery wheel centred at roughly x=37%, y=70%, extending nearly to bottom. Dark iron hub, pale worn wood spokes and iron tyre. Dark breech/shield machinery above the wheel at x=42%, y=37%. Long straight horizontal field-gun barrel runs from just right of wheel across the lower-middle right, pointing RIGHT, ending about x=94%, y=66%. Dark carriage under barrel on lower right. An anonymous crewman in muted khaki/grey uniform and period cap stands partly cropped on far LEFT, beside/behind wheel, head at x=10%, y=46%, torso extending to bottom-left. Retain small quiet secondary crew/equipment shapes behind wheel only as in reference, do not invent prominent figures. Low dark hedge/tree band spans background around y=25%–43%; pale ochre sky above with small cream cloud/smoke masses. Low pale grassy field visible behind barrel. Keep the gun's recognizable wheel/breech/barrel silhouette, scale, occlusions and horizontal orientation. NO modern vehicles, muzzle flash or action spectacle.
+Style/medium: match Image 2's clearly painted modern historical strategy-game illustration: restrained broad digital brushwork, connected natural contours, selective finely drawn mechanical detail, softly painted light and shadow, convincing wood/metal/cloth. NOT a photograph, photobash, pixel enlargement, flat vector or cartoon. Original sepia/ochre/olive-brown value distribution governs; no bright national colours or magenta, no automatic faction tint. Details must average back toward reference values at logical size.
+Canvas: fully opaque landscape image at exact 105:94 aspect ratio, ideally 1680x1504 pixels. Fill the entire canvas with the scene. If square output is required, place the exact composition in the centre 105:94 rectangle with overscan above/below; keep wheel, man's head and gun muzzle safe inside it. Repaint only illustration content: REMOVE original UI frame/bevel and extend background naturally to all edges. No border, frame, labels, text, flags, insignia, icons, logo or watermark. All UI remains separate.
+Output exactly one finished illustration.
+```

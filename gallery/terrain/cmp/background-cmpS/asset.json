@@ -1,0 +1,90 @@
+{
+  "id": "background/cmpS",
+  "name": "cmpS",
+  "category": "Terrain",
+  "family": "cmp",
+  "season": "summer",
+  "note": "Current enabled background binding. This single-asset view uses its default context export; the PULSE study resolves available neighbor contexts through the shared compositor. Final runtime acceptance remains open.",
+  "recipes": [
+    "art/recipes/compound/distinct-v1/depot-summer-01.json",
+    "art/recipes/compound/distinct-v1/depot-layout-guide.json",
+    "art/recipes/compound/distinct-v1/depot-summer-02.json",
+    "art/recipes/compound/distinct-v1/depot-winter-02.json",
+    "art/recipes/compound/reference-v2/depot-summer.json",
+    "art/recipes/compound/reference-v2/depot-winter.json",
+    "art/recipes/terrain/distinct-v1/snow-ground.json",
+    "art/recipes/terrain/reference-v2/meadow-03.json"
+  ],
+  "prompts": [
+    "prompts/compound/distinct-v1/depot-summer-01.md",
+    "prompts/compound/distinct-v1/depot-layout-guide.md",
+    "prompts/compound/distinct-v1/depot-summer-02.md",
+    "prompts/compound/distinct-v1/depot-winter-02.md",
+    "prompts/compound/reference-v2/depot-summer.md",
+    "prompts/compound/reference-v2/depot-winter.md",
+    "prompts/terrain/distinct-v1/snow-ground.md",
+    "prompts/terrain/reference-v2/meadow-03.md"
+  ],
+  "width": 96,
+  "height": 80,
+  "variants": [
+    {
+      "id": "default",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "terrain/cmp/background-cmpS/1x.png",
+          "source": "art/exports/compound-v1/cmpS-2x.png",
+          "sha256": "76cfb339fc512e3d9fe793931b49f0757789f1c173603ec0a38a7a2fb050dea0",
+          "width": 96,
+          "height": 80,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "terrain/cmp/background-cmpS/2x.png",
+          "source": "art/exports/compound-v1/cmpS-2x.png",
+          "sha256": "a220a02160ea7be3af62c9afb0c7b8a62ab88c227f19829eb62d7121a7c1a459",
+          "width": 192,
+          "height": 160,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "terrain/cmp/background-cmpS/4x.png",
+          "source": "art/exports/compound-v1/cmpS-4x.png",
+          "sha256": "bd91ee5dafb0a81f1ebbadad8887ee48efe60cc657abcc6ad63a2aebd07f52bc",
+          "width": 384,
+          "height": 320,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "default": {
+      "1": {
+        "path": "terrain/cmp/background-cmpS/1x.png",
+        "sha256": "76cfb339fc512e3d9fe793931b49f0757789f1c173603ec0a38a7a2fb050dea0",
+        "width": 96,
+        "height": 80,
+        "source": "art/exports/compound-v1/cmpS-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "terrain/cmp/background-cmpS/2x.png",
+        "sha256": "a220a02160ea7be3af62c9afb0c7b8a62ab88c227f19829eb62d7121a7c1a459",
+        "width": 192,
+        "height": 160,
+        "source": "art/exports/compound-v1/cmpS-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "terrain/cmp/background-cmpS/4x.png",
+        "sha256": "bd91ee5dafb0a81f1ebbadad8887ee48efe60cc657abcc6ad63a2aebd07f52bc",
+        "width": 384,
+        "height": 320,
+        "source": "art/exports/compound-v1/cmpS-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

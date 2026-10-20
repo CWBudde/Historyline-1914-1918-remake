@@ -1,0 +1,86 @@
+{
+  "id": "infrastructure/stream135",
+  "name": "stream135",
+  "category": "Terrain",
+  "family": "stream",
+  "season": "shared",
+  "note": "Current enabled infrastructure binding. This single-asset view uses its default context export; the PULSE study resolves available neighbor contexts through the shared compositor. Final runtime acceptance remains open.",
+  "recipes": [
+    "art/recipes/terrain/distinct-v1/earth-bare.json",
+    "art/recipes/terrain/distinct-v1/road-gravel.json",
+    "art/recipes/terrain/distinct-v1/water-open.json",
+    "art/recipes/terrain/reference-v2/meadow-03.json",
+    "art/recipes/terrain/reference-v2/road-paved.json",
+    "art/recipes/terrain/shore-reference-v2/water.json"
+  ],
+  "prompts": [
+    "prompts/terrain/distinct-v1/earth-bare.md",
+    "prompts/terrain/distinct-v1/road-gravel.md",
+    "prompts/terrain/distinct-v1/water-open.md",
+    "prompts/terrain/reference-v2/meadow-03.md",
+    "prompts/terrain/reference-v2/road-paved.md",
+    "prompts/terrain/shore-reference-v2/water.md"
+  ],
+  "width": 96,
+  "height": 80,
+  "variants": [
+    {
+      "id": "default",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "terrain/stream/infrastructure-stream135/1x.png",
+          "source": "art/exports/connected-v1/stream135-2x.png",
+          "sha256": "a070084487732c5f42652c36a2fa45f1e0c053f80cd6c9842853c076ee1f562b",
+          "width": 96,
+          "height": 80,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "terrain/stream/infrastructure-stream135/2x.png",
+          "source": "art/exports/connected-v1/stream135-2x.png",
+          "sha256": "1807b6b6ff5969872d5d8e08e4e29dda89996e6976af719f801682fd6bdf6ad9",
+          "width": 192,
+          "height": 160,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "terrain/stream/infrastructure-stream135/4x.png",
+          "source": "art/exports/connected-v1/stream135-4x.png",
+          "sha256": "5ae25e0eeed739a1b861e18dab53ef0eb6643e76fdd99dd0a568fbcf211fae87",
+          "width": 384,
+          "height": 320,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "default": {
+      "1": {
+        "path": "terrain/stream/infrastructure-stream135/1x.png",
+        "sha256": "a070084487732c5f42652c36a2fa45f1e0c053f80cd6c9842853c076ee1f562b",
+        "width": 96,
+        "height": 80,
+        "source": "art/exports/connected-v1/stream135-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "terrain/stream/infrastructure-stream135/2x.png",
+        "sha256": "1807b6b6ff5969872d5d8e08e4e29dda89996e6976af719f801682fd6bdf6ad9",
+        "width": 192,
+        "height": 160,
+        "source": "art/exports/connected-v1/stream135-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "terrain/stream/infrastructure-stream135/4x.png",
+        "sha256": "5ae25e0eeed739a1b861e18dab53ef0eb6643e76fdd99dd0a568fbcf211fae87",
+        "width": 384,
+        "height": 320,
+        "source": "art/exports/connected-v1/stream135-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

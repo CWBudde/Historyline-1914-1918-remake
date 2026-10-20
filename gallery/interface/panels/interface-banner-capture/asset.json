@@ -1,0 +1,69 @@
+{
+  "id": "interface/banner/capture",
+  "name": "banner/capture",
+  "category": "Interface",
+  "family": "panels",
+  "note": "Current text-free game component. Labels and game values are drawn separately; runtime acceptance pending. No direct reference image is mapped for this component.",
+  "width": 480,
+  "height": 112,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "interface/panels/interface-banner-capture/1x.png",
+          "source": "art/exports/interface-v1/banner/capture-1x.png",
+          "sha256": "8d123a9aeb9881a2050ac29b30c38ef2a14fdf3a964e50fbc80fa11b2461fd2a",
+          "width": 480,
+          "height": 112,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "interface/panels/interface-banner-capture/2x.png",
+          "source": "art/exports/interface-v1/banner/capture-2x.png",
+          "sha256": "90f76b99b1e22632f3980c102183f159d76bfeb2b900e302cc8034fed584b23e",
+          "width": 960,
+          "height": 224,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "interface/panels/interface-banner-capture/4x.png",
+          "source": "art/exports/interface-v1/banner/capture-4x.png",
+          "sha256": "0d71b349fed7d91756434c3e0b2396813be000bf4ecebfdda723ce73cfa8302d",
+          "width": 1920,
+          "height": 448,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "interface/panels/interface-banner-capture/1x.png",
+        "sha256": "8d123a9aeb9881a2050ac29b30c38ef2a14fdf3a964e50fbc80fa11b2461fd2a",
+        "width": 480,
+        "height": 112,
+        "source": "art/exports/interface-v1/banner/capture-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "interface/panels/interface-banner-capture/2x.png",
+        "sha256": "90f76b99b1e22632f3980c102183f159d76bfeb2b900e302cc8034fed584b23e",
+        "width": 960,
+        "height": 224,
+        "source": "art/exports/interface-v1/banner/capture-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "interface/panels/interface-banner-capture/4x.png",
+        "sha256": "0d71b349fed7d91756434c3e0b2396813be000bf4ecebfdda723ce73cfa8302d",
+        "width": 1920,
+        "height": 448,
+        "source": "art/exports/interface-v1/banner/capture-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

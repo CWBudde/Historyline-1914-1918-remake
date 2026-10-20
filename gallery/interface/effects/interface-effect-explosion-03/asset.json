@@ -1,0 +1,75 @@
+{
+  "id": "interface/effect/explosion-03",
+  "name": "effect/explosion-03",
+  "category": "Interface",
+  "family": "effects",
+  "note": "Current text-free game component. Labels and game values are drawn separately; runtime acceptance pending. Exact reference atlas frame.",
+  "recipes": [
+    "art/recipes/interface/v1/explosion.json"
+  ],
+  "prompts": [
+    "prompts/interface/v1/explosion.md"
+  ],
+  "width": 96,
+  "height": 96,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "interface/effects/interface-effect-explosion-03/1x.png",
+          "source": "art/exports/interface-v1/effect/explosion-03-1x.png",
+          "sha256": "570c3dec5de19b3f9386b01e7c1cf07e2193b3cc5b635a7dc7222d365f603ef7",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "interface/effects/interface-effect-explosion-03/2x.png",
+          "source": "art/exports/interface-v1/effect/explosion-03-2x.png",
+          "sha256": "2c3469af2f4b42e9ef5ff13da42041f8e0df09e64395f2162d1be4a2202a8ab6",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "interface/effects/interface-effect-explosion-03/4x.png",
+          "source": "art/exports/interface-v1/effect/explosion-03-4x.png",
+          "sha256": "568d59c7caf3d9c350c4d13fb6d74413f9ec4d6300b813046ea7188d9a09d199",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "interface/effects/interface-effect-explosion-03/1x.png",
+        "sha256": "570c3dec5de19b3f9386b01e7c1cf07e2193b3cc5b635a7dc7222d365f603ef7",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/interface-v1/effect/explosion-03-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "interface/effects/interface-effect-explosion-03/2x.png",
+        "sha256": "2c3469af2f4b42e9ef5ff13da42041f8e0df09e64395f2162d1be4a2202a8ab6",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/interface-v1/effect/explosion-03-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "interface/effects/interface-effect-explosion-03/4x.png",
+        "sha256": "568d59c7caf3d9c350c4d13fb6d74413f9ec4d6300b813046ea7188d9a09d199",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/interface-v1/effect/explosion-03-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

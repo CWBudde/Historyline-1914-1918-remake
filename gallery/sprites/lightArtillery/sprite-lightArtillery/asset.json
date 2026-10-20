@@ -1,0 +1,2619 @@
+{
+  "id": "sprite/lightArtillery",
+  "name": "lightArtillery",
+  "category": "Sprites",
+  "family": "lightArtillery",
+  "bindings": [
+    "CP_lArtillery",
+    "EC_lArtillery"
+  ],
+  "note": "Reference is the unchanged 48×48 source pose and palette. Current authored sprites are reduced to that size with Lanczos3 for comparison; 2× zoom gives the 96×96 game footprint. Other facings/owners/spent states have no matching raw reference variant; no reference rotations or faction swaps are invented.",
+  "recipes": [
+    "art/recipes/units/distinct-v1/light-artillery-atlas-01.json",
+    "art/recipes/units/distinct-v1/light-artillery-atlas-02.json",
+    "art/recipes/terrain/reference-v2/meadow-03.json"
+  ],
+  "prompts": [
+    "prompts/units/distinct-v1/light-artillery-atlas-01.md",
+    "prompts/units/distinct-v1/light-artillery-atlas-02.md",
+    "prompts/terrain/reference-v2/meadow-03.md"
+  ],
+  "width": 48,
+  "height": 48,
+  "variants": [
+    {
+      "id": "cp/n-normal",
+      "label": "cp · n-normal",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-n-normal-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/n-normal-2x.png",
+          "sha256": "05d45a754dab0d51ba2a1f65cbf332485548da89fa9e83b03d1e56deccf157cc",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-n-normal-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/n-normal-2x.png",
+          "sha256": "395581011d37d8867a39f4a84f5156945e34c12c4e33b1f94a639b9ea3e7c251",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-n-normal-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/n-normal-4x.png",
+          "sha256": "3c8047955ad276ca378186a528b4c6da7b3c2d5b33d554bbb184744046dec23b",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-n-normal-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/n-normal-2x.png",
+          "sha256": "c9f9b3f69826f19242f38bfa5ae22a6a1032f7fc6c28c8d2982517695cd27d1e",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/n-spent",
+      "label": "cp · n-spent",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-n-spent-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/n-spent-2x.png",
+          "sha256": "84bfc065b415da3b33feedfe9b741fa0f147c074ffa2945a4febb0b9d701c38d",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-n-spent-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/n-spent-2x.png",
+          "sha256": "efadc0c954e89f533a67b903503d44cdd837d16a7c02781bb05e471922f509db",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-n-spent-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/n-spent-4x.png",
+          "sha256": "8791b9cabaa17c8b0bdb302c2ef889a1d873588c2d1dc07cb1d07c7077c8d3c7",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-n-spent-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/n-spent-2x.png",
+          "sha256": "9e3fa1a978ff29835f24f42d185b795e9a4b9749a21dcc6d305b89a9278299eb",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/ne-normal",
+      "label": "cp · ne-normal",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-ne-normal-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/ne-normal-2x.png",
+          "sha256": "a4d96b8674f2289cb9a5ed355f3ec5fc80474cf43a0dd61c9f3635757fbac46f",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-ne-normal-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/ne-normal-2x.png",
+          "sha256": "95d99591b0d650fa76160d460f0ee5e2eef7e1b38fce1a9beb22acb3dfb3dc50",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-ne-normal-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/ne-normal-4x.png",
+          "sha256": "f5390b2bf534181ec373747d9afafb88795b81c76767a53f298229fe268eba59",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-ne-normal-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/ne-normal-2x.png",
+          "sha256": "8ada37e581f7736d791bd9275dd1f448c16853238512d2916576605bc9db8c09",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/ne-spent",
+      "label": "cp · ne-spent",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-ne-spent-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/ne-spent-2x.png",
+          "sha256": "0c339a0f6e0e8d1db67e9f5fa68bd2bc78e0139459bb1ee9fb8e22dbdc439852",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-ne-spent-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/ne-spent-2x.png",
+          "sha256": "d83450d83b1770ce10f26cee97423efc5df1905d432aaa9f6dc4787e461028b4",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-ne-spent-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/ne-spent-4x.png",
+          "sha256": "79398c83bcf6376f49b7ff5e412fb9919f54a43f86f91dda049cdb30d6cd704b",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-ne-spent-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/ne-spent-2x.png",
+          "sha256": "68478dec65f74c3f2d6e961816fcdd3e39313d8eea1eb29019f766ec5b314bcb",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/nw-normal",
+      "label": "cp · nw-normal",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-nw-normal-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/nw-normal-2x.png",
+          "sha256": "d5353dc70ab8f24e4f93ed7d087de79ae1498747845bc836e6226616d2c28e04",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-nw-normal-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/nw-normal-2x.png",
+          "sha256": "ddcfdd81cd44428e3f599298eb27a5f93d28b773f734ce1d8d27b1f9da6c15d0",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-nw-normal-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/nw-normal-4x.png",
+          "sha256": "c70d06e96a2a48c63b8655f22466133141cea1cdf38dd8818fb8adbfa43b0053",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-nw-normal-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/nw-normal-2x.png",
+          "sha256": "5ca1bd6b1317367956de1ebbd317de2f2c6d54fadb6bf07369e86aabe90bab8e",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/nw-spent",
+      "label": "cp · nw-spent",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-nw-spent-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/nw-spent-2x.png",
+          "sha256": "921b3da1d82085905c54c4a13c37b66118543ec9a0f3385de1fe4f9c9c876dac",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-nw-spent-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/nw-spent-2x.png",
+          "sha256": "ffb3948f0044be6db486ee50cad1950a385e50380ec0e1679628c288de7c44b3",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-nw-spent-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/nw-spent-4x.png",
+          "sha256": "92f0e85a183da2cd69184a2f48412ff01c2f5c71551906f826e5b9e382d52ffc",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-nw-spent-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/nw-spent-2x.png",
+          "sha256": "ff574951823108636ebfc695993e136e068f103183e9b973b0369b6625f40458",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/s-normal",
+      "label": "cp · s-normal",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-s-normal-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/s-normal-2x.png",
+          "sha256": "fd13d3b2abe78f4262adce9cd217dd751241f72c112bc72b204aaed7533e0154",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-s-normal-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/s-normal-2x.png",
+          "sha256": "52075ba2da82d40a3a25b2161586b7ef78a8f976e1030a6c31f1412206e40143",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-s-normal-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/s-normal-4x.png",
+          "sha256": "0f2aa930231690791e91e2867c22be469a7673091a095853873cd8f5a094a7e4",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-s-normal-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/s-normal-2x.png",
+          "sha256": "d531ee45e03997859d726d328778fb644ddbbb037aa6236a07b3eaa9b759eff1",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/s-spent",
+      "label": "cp · s-spent",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-s-spent-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/s-spent-2x.png",
+          "sha256": "ddc983f4857f17f00b983cbe4ef1b514751b183ae49f0d25895c8f0a4f25e8a0",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-s-spent-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/s-spent-2x.png",
+          "sha256": "89b1f37e60aa979aa44d223c8bbb2c2ab45c8b2f451dee0243e3d55920d8a586",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-s-spent-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/s-spent-4x.png",
+          "sha256": "6a1ae9c4a56f2fb0690f8831c62a2b4785be0c66ff82168bdbdaa78019594a3d",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-s-spent-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/s-spent-2x.png",
+          "sha256": "1bfeddd7d49ab1087b31f317c7555ecfdc969ca573522846c05c8c794267409f",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/se-normal",
+      "label": "cp · se-normal",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-se-normal-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/se-normal-2x.png",
+          "sha256": "873de0466f30c420f4eac8a54442de27e298bfb9d0a591afbf94fbef19f297db",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-se-normal-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/se-normal-2x.png",
+          "sha256": "cd51deb0dd9d8dbf1ec63eee5ba4b89a1754bd5e2b6af023ab29f03af8d01b97",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-se-normal-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/se-normal-4x.png",
+          "sha256": "e1e80a1ffdc86775934c13718dfc322458bd75ac42b3d8acaf878240e7d0585c",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-se-normal-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/se-normal-2x.png",
+          "sha256": "6454a0dc9c619e22658bc887c609b2b6186c60e61d88bea9f8e083f6b20f151f",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/se-spent",
+      "label": "cp · se-spent",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-se-spent-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/se-spent-2x.png",
+          "sha256": "a2208318b56c519607defc838892dc162def0ecd2ffaba0d8e5e4472edf34698",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-se-spent-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/se-spent-2x.png",
+          "sha256": "49814c9c734a94283fa1880b604ff303e31b96fbdda000a56e853bbb9bca56a7",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-se-spent-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/se-spent-4x.png",
+          "sha256": "138bf18a3f3e97f1a685bf1564700a5f22553bb003c0557035da2d022c3c0909",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-se-spent-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/se-spent-2x.png",
+          "sha256": "4a7d0da36e259903eb262bcf20714b70cfd517589e5e5bea5c00574d6b02c8df",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/sw-normal",
+      "label": "cp · sw-normal",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-sw-normal-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/sw-normal-2x.png",
+          "sha256": "3202d99fc3c4ae7ce35dc7458071bea4157a4aa36dda417f4d3dff9c97247141",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-sw-normal-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/sw-normal-2x.png",
+          "sha256": "754ba7d14ae83ef1f5cd5bf253ff606dd9acc48e677adca7ae7c7e1a4c63ad34",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-sw-normal-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/sw-normal-4x.png",
+          "sha256": "32e920e4f6ffb730082cc1050ecd3d191a41c3690027a95a7da563c278d2053d",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-sw-normal-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/sw-normal-2x.png",
+          "sha256": "8b714950fb0ff3fda7a3d8da4c4939fbc19952048a55a4a3e12466f7e3887ce4",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/sw-spent",
+      "label": "cp · sw-spent",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-sw-spent-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/sw-spent-2x.png",
+          "sha256": "9d4a0abd2ea3edb755154402ec45f71b98f1920b0f3bfc6c991725cee39cd674",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-sw-spent-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/sw-spent-2x.png",
+          "sha256": "05316909fd69f8e4027687ce340a46654caf3c7d2ffdcb606f527255b9d4c67f",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-sw-spent-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/sw-spent-4x.png",
+          "sha256": "ad4f84c8de14b96e93c5a9454d58131f076fe92577e6d2983c395578dbc5005a",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/cp-sw-spent-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/sw-spent-2x.png",
+          "sha256": "397135a138a7ac49687a5c5e12151e8065ee344f1939fc3d753f035435265ad0",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/n-normal",
+      "label": "ec · n-normal",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-n-normal-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/n-normal-2x.png",
+          "sha256": "b2b4c099efbb90075f4c59f157a18552d65b84bbea3081913406191f174a7bef",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-n-normal-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/n-normal-2x.png",
+          "sha256": "a3385160ff30d9ddac797eebeac3b097ce1eda79dd17b66939f1d4d90684f14b",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-n-normal-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/n-normal-4x.png",
+          "sha256": "290ccb711b97c569f99aba27afbcce61d3952bd1d0ffc0d1f1444263af618eef",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-n-normal-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/n-normal-2x.png",
+          "sha256": "e1270670235294e5b0765521e29483fbf9b1e4df2ec83f67613bcd079ef890dc",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/n-spent",
+      "label": "ec · n-spent",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-n-spent-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/n-spent-2x.png",
+          "sha256": "31f3ed7aa63d6ec569f3514a9770633f05e0eb2d1beb2be6233e83bb6b8b59b3",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-n-spent-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/n-spent-2x.png",
+          "sha256": "1e1a86beb15ec7f8ae88eff0e2bea064f1cc701a64cefdeb68338356508fe3e4",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-n-spent-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/n-spent-4x.png",
+          "sha256": "ec2ddc14aed6a82ac52c67e40ef83f69a1910ef11eb7fb3ea5584f66dd00d0c6",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-n-spent-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/n-spent-2x.png",
+          "sha256": "1b11e0b5ed455baea7fa325f295edc346b18bf71f87fab93944b0f8b5f5df2e4",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/ne-normal",
+      "label": "ec · ne-normal",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-ne-normal-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/ne-normal-2x.png",
+          "sha256": "ee6d543610a0a39914785bdefa2ec9d516d9c2325e90187f7da609eddf3bf4c8",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-ne-normal-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/ne-normal-2x.png",
+          "sha256": "e578e329eac4a3506ba7a184f2fb135435b2e3bd89d8a440e7dac084be3de603",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-ne-normal-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/ne-normal-4x.png",
+          "sha256": "6b488717d051b3ecb20f9472f1fe735dd7bf6b707ecd051148eb2b97e8ca6b4b",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-ne-normal-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/ne-normal-2x.png",
+          "sha256": "c39340c3477f417dfa59188c02353596ebec3d05c1e944fc983a71781a97c86b",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/ne-spent",
+      "label": "ec · ne-spent",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-ne-spent-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/ne-spent-2x.png",
+          "sha256": "6e9c0299875dce9e1561dff2f97f9beb709f04337e6a5a583d68ab4b03d05de5",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-ne-spent-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/ne-spent-2x.png",
+          "sha256": "d46b98dc6b768d7e752ce1f3b5078909edd2c523f49c3ae3d79e9ffc8f676c55",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-ne-spent-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/ne-spent-4x.png",
+          "sha256": "edc6d7e1517cd319ce4c1eae1fda9f1538d0e5ae5d35ab361558180f688f8d07",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-ne-spent-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/ne-spent-2x.png",
+          "sha256": "22a09bcb4412acb6b1c2040c59007b6c731870108f81b00c81d78ee18fb92b27",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/nw-normal",
+      "label": "ec · nw-normal",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-nw-normal-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/nw-normal-2x.png",
+          "sha256": "ced217344af9899ecbafc017bacba1672901d246dfd7cdd19ac26dbf7bc87b09",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-nw-normal-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/nw-normal-2x.png",
+          "sha256": "86ff3dbdd3fff38c24f109e86684ea87fcbb852ce908c8d93fb66abafd6914ef",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-nw-normal-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/nw-normal-4x.png",
+          "sha256": "edb0564fc0781021c0207433566b070913374bc32237bf1bf7ec2e7a16d79eb5",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-nw-normal-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/nw-normal-2x.png",
+          "sha256": "8f631263d73ecd60e828a48e2defab74bfe3a1ecf1a524f63174b5dda4a0e299",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/nw-spent",
+      "label": "ec · nw-spent",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-nw-spent-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/nw-spent-2x.png",
+          "sha256": "c29172de547431cc56c1a07b40c182de36e19da4bd1dd89ccf41605b6c6d0b8e",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-nw-spent-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/nw-spent-2x.png",
+          "sha256": "63df098b358b44082a3d4a217bd335b1deceb1b9569c1b2ac4b506b6e843b838",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-nw-spent-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/nw-spent-4x.png",
+          "sha256": "2008cf265f3dc18fa215d6f67be23e94c74a3e2484a3fdfbb3db3a3c65bc62be",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-nw-spent-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/nw-spent-2x.png",
+          "sha256": "dbd193011efff7cc1d64280d27000b090c62a27547d9b8e279af43a5e83961dd",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/s-normal",
+      "label": "ec · s-normal",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-s-normal-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/s-normal-2x.png",
+          "sha256": "b47de46a73565f8176594f5d221fc54ef78b0bc8ebd0853f7125f4641c0dfd6f",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-s-normal-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/s-normal-2x.png",
+          "sha256": "8175cfc79f06bee428b8d484795048e045a6c5d8e3b6ff3a61fc1030a3da5454",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-s-normal-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/s-normal-4x.png",
+          "sha256": "75beba4a2f5c56c9464fd1a0883831868674939402f940f0dd8a833cadfa9f28",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-s-normal-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/s-normal-2x.png",
+          "sha256": "d3c83c16e9ed14e5bb52d661165d2532084c2792c6c299b72a438ec7c394a0d0",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/s-spent",
+      "label": "ec · s-spent",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-s-spent-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/s-spent-2x.png",
+          "sha256": "4c90e0c6fae361c38db9e5d8629e205cb4a86ca5a0b7d643532f9c5facd5ba30",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-s-spent-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/s-spent-2x.png",
+          "sha256": "056c418870c2322d841d9877f89bfa4ff6f135dd935313278c989ed2252d2ee1",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-s-spent-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/s-spent-4x.png",
+          "sha256": "071a535cf91618743b0e6034c80455837a1a6d437abfdde70d236ff3d8586c08",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-s-spent-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/s-spent-2x.png",
+          "sha256": "5fec7d97e31fc1c711df80ac8137ba1988a0937924a22f56d5448fdad25dc223",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/se-normal",
+      "label": "ec · se-normal",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-se-normal-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/se-normal-2x.png",
+          "sha256": "18a320c5c0edf14acdc09e3d0c98b5a46217b3ad2f115a4dd1b4ec4b36ab6016",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-se-normal-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/se-normal-2x.png",
+          "sha256": "3f93e4f6f10d62dfb1b56a5eb28f89ef8f5f701615dcba06242bf1e46ab46912",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-se-normal-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/se-normal-4x.png",
+          "sha256": "71d587825a30cb964b42b4507d8488d248cab10de650ea0dde0cf072b4a63ab5",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-se-normal-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/se-normal-2x.png",
+          "sha256": "16773e9938f8f30f1bf13d52d879f00f0bf5b3e67147df3cc398ff9870f05014",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/se-spent",
+      "label": "ec · se-spent",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-se-spent-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/se-spent-2x.png",
+          "sha256": "06bbe89fca99f12f67a97f71404d8267e88c623743f8adf10460c25172c54016",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-se-spent-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/se-spent-2x.png",
+          "sha256": "aa7c0b794370801032c94ce11e73fe5c3a616193ec4f66f4e21fb8bf9074dc7d",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-se-spent-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/se-spent-4x.png",
+          "sha256": "69a1ed5803ed5cf0845ced4b20ea36a2b128556fd852b2b2b27eea7df07f9773",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-se-spent-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/se-spent-2x.png",
+          "sha256": "0c2d6ffa808a4bae0083897377e408d02c4450195bab4b28fd0f9e9423dd73ec",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/sw-normal",
+      "label": "ec · sw-normal",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-sw-normal-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/sw-normal-2x.png",
+          "sha256": "2d2f4894d396efdf6df99f817dca85c3378876b22b225991d64b8e9be9c05331",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-sw-normal-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/sw-normal-2x.png",
+          "sha256": "d80249ff991de363c9fcff35551ce9fee3039d03a3723662ef4da06b71a6583b",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-sw-normal-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/sw-normal-4x.png",
+          "sha256": "75d96f1a02d464241f2122ac0562b483e7118cef1e0471268dbf0fa8ac7e244c",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-sw-normal-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/sw-normal-2x.png",
+          "sha256": "9fc1e09dfcc0722b3f7a98f2295e7102ac60b5600e2c0a099d611d60438db860",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/sw-spent",
+      "label": "ec · sw-spent",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-sw-spent-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/sw-spent-2x.png",
+          "sha256": "6cd8adf7cf4839a18d1e17077aa33e7231e667ee77f0303d41d8b83cea301d4a",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-sw-spent-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/sw-spent-2x.png",
+          "sha256": "9c7e019ae76fa1e5f2b7ae11f3649f370364de1bcf41c5b5a4c0729d89f5cf16",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-sw-spent-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/sw-spent-4x.png",
+          "sha256": "90daaa7f90ebd5dda982d15254d8e531dc864e9a9274c8bf1234ea2eb7ab44f8",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/ec-sw-spent-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/sw-spent-2x.png",
+          "sha256": "66861a1bd4d45a8cd36fffe90861b7df0a65ea1933c3b40e8e757f1e68e71c49",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/n-normal",
+      "label": "neutral · n-normal",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-n-normal-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/n-normal-2x.png",
+          "sha256": "8e044713df187fe46b90780f474d4db579963bf57664020cb1e26f3f4ff415d0",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-n-normal-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/n-normal-2x.png",
+          "sha256": "6ad409780218f286c6e2decaa7e9cf952c974d3d2cbf94a31a72cdfbd5f2e9b4",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-n-normal-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/n-normal-4x.png",
+          "sha256": "7fe7225e419e2ae28cd446554393f039d95f15f97cca63fd49ed1b3d51e05837",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-n-normal-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/n-normal-2x.png",
+          "sha256": "fc57407aa399dba0ee3b465b9f4aaf402ee4b8e700534e9d8a280f061c4744d1",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/n-spent",
+      "label": "neutral · n-spent",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-n-spent-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/n-spent-2x.png",
+          "sha256": "7c8118ce4d1ea9e111cb9fa62bc805df872d7f54c9bf6cfffcbcf147bb926ce9",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-n-spent-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/n-spent-2x.png",
+          "sha256": "3a6b72edc2f9f7e59e559f7a295c2da8807cf98a5feb375181a458919594e808",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-n-spent-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/n-spent-4x.png",
+          "sha256": "bff8029325365f649c00debf15e78c8194d161d6acc2de57c69387c4170bd1f6",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-n-spent-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/n-spent-2x.png",
+          "sha256": "b04fbf455f1b27b94b0debe31c56824498f6e9b135bbddf4a2a4a1f4f67c608a",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/ne-normal",
+      "label": "neutral · ne-normal",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-ne-normal-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/ne-normal-2x.png",
+          "sha256": "ab561dc7cf403e98a14a5d50a7f493966a86f139c32ecea061f5de67e060e691",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-ne-normal-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/ne-normal-2x.png",
+          "sha256": "e38ca3dbd47686a623212cd801edf2fd7316f0c005e925db3f99bc96a5bff443",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-ne-normal-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/ne-normal-4x.png",
+          "sha256": "49a5fad4d84d2789f6bc7158835687fa02d502748c2ab4b7ebaac20fe1baec0a",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-ne-normal-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/ne-normal-2x.png",
+          "sha256": "5e142c0983917f53c3f3dd14a99766ebd6e54481139dd96c32f00162af21f0d5",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/ne-spent",
+      "label": "neutral · ne-spent",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-ne-spent-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/ne-spent-2x.png",
+          "sha256": "7d088226ab172c4818a9cb68359e3d9c62f5f8bc82e9cdd549ff2ad11df14698",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-ne-spent-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/ne-spent-2x.png",
+          "sha256": "aa28f4050633026c230babef6bf260bbde0fdee3ac5a13e231c890b2f4b7942f",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-ne-spent-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/ne-spent-4x.png",
+          "sha256": "f256e4361ec2a1083f2aca1544bc2fcbe17e95c4b27114a1b74455ee0bf5e66d",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-ne-spent-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/ne-spent-2x.png",
+          "sha256": "a77160ebffd75d72989f0f760275c71a6c2893bcec320573c72082f11b7b0994",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/nw-normal",
+      "label": "neutral · nw-normal",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-nw-normal-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/nw-normal-2x.png",
+          "sha256": "9d1a74cef1f4edabb6798fc96a6e6ef9c2c2c3a44738b63f881ac564e5347406",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-nw-normal-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/nw-normal-2x.png",
+          "sha256": "a0cc14c93eedeb55b729946db961bdbdbf261006b0c80fe5cb527cd7ef8bdb8e",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-nw-normal-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/nw-normal-4x.png",
+          "sha256": "badb60bfe0a0f6dd53da0093ca2113e9182bde68dc8aadf23a0172a49f8ba261",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-nw-normal-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/nw-normal-2x.png",
+          "sha256": "b74e34c71ace60d95956458bd2064e27b35dce19983ce8ef1e1a726a2747cedb",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/nw-spent",
+      "label": "neutral · nw-spent",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-nw-spent-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/nw-spent-2x.png",
+          "sha256": "8bfaa931ce884acb5a58749a7f13e4441818c931cbebd3692a444a0cba0d7b2f",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-nw-spent-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/nw-spent-2x.png",
+          "sha256": "9026e0165634ece57164472df9817aa59547a4c3b6ed14086bbada45b3b7c89c",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-nw-spent-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/nw-spent-4x.png",
+          "sha256": "d2eebb926d4d9d824dd8ea51923a4726990cf45ccc99fcc4047f7951f0309931",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-nw-spent-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/nw-spent-2x.png",
+          "sha256": "151e0fd73cd13f72b4eab42889f5e6341dd9688cfed6d1efdf64854f9437f85e",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/s-normal",
+      "label": "neutral · s-normal",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-s-normal-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/s-normal-2x.png",
+          "sha256": "8125de7af1835ebd14da8762816da54aa39b35ddfef2c24c52e546006f3a98de",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-s-normal-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/s-normal-2x.png",
+          "sha256": "44e1500a7f762d48e4f4d302a9fb9818be7ea8345dade44a4696cdbdf59f7a61",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-s-normal-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/s-normal-4x.png",
+          "sha256": "bcfce49beb455e4c9e0c23e9ebd11858fb87639d061fa64e43982db19ff20663",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-s-normal-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/s-normal-2x.png",
+          "sha256": "541f67fc180df0f20a69f8da11fdac021c13172951c26bd44fbc655ae295772c",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/s-spent",
+      "label": "neutral · s-spent",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-s-spent-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/s-spent-2x.png",
+          "sha256": "dfe3678acab8dd122619e777a23db1543ff2d3609e9ab830585df713bd63586e",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-s-spent-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/s-spent-2x.png",
+          "sha256": "468ffc620848c8f9935bc724d10d5d4597077eb4fa3678eea5c60a335c514652",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-s-spent-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/s-spent-4x.png",
+          "sha256": "dc91b58f41dfca61f9d9fedec0ebf8cb55e3764ec9fc61d8acd2e716c835fcff",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-s-spent-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/s-spent-2x.png",
+          "sha256": "246300b0aae8f1dcb114827382ed02719e4de4e65d5db2efb1256103880ade6f",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/se-normal",
+      "label": "neutral · se-normal",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-se-normal-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/se-normal-2x.png",
+          "sha256": "cba5d0e0969df6a52e9420f1cc9d04396f5c18e01184cc8e27b48d1f0db90f0c",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-se-normal-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/se-normal-2x.png",
+          "sha256": "6ae6c158039c6eb529da9cd6973c421ad47198851422627a112c745b79072744",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-se-normal-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/se-normal-4x.png",
+          "sha256": "3f7959bc0f71a89b33ff4f148a805b10cd8143038a6e318a1f3847be425b95dd",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-se-normal-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/se-normal-2x.png",
+          "sha256": "cdd4cc63a2a24112cae5d18c8ae97b09e75ff0cb03f7d3e338535b650b13f80b",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/se-spent",
+      "label": "neutral · se-spent",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-se-spent-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/se-spent-2x.png",
+          "sha256": "e3ab761f1805b3bd3bee68d5fe46af48e2b5d0862b315eb8db6b5f3ab91231e7",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-se-spent-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/se-spent-2x.png",
+          "sha256": "6894b22f38c11d05e75e305cbfaa5472506b7873c6399fd18f14dcba1f825fb4",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-se-spent-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/se-spent-4x.png",
+          "sha256": "514ec27905cf1ddfaea9c49ecf1dd8d4b7b41823f227a48e941c537dd4dc6c37",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-se-spent-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/se-spent-2x.png",
+          "sha256": "84356c32c382cca04530bf3930c638836700a323c5017d084b07b3061dc552df",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/sw-normal",
+      "label": "neutral · sw-normal",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-sw-normal-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/sw-normal-2x.png",
+          "sha256": "742373e194abd613ea256b46c146f6ec4bcf1c4bb10c97aacf48e4c713eb480f",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-sw-normal-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/sw-normal-2x.png",
+          "sha256": "81edfcab9462c41cd136bc3fd3f4fda4a6e9b63d7773993aac9763eebbdcb927",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-sw-normal-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/sw-normal-4x.png",
+          "sha256": "ef6a7ea7abee506eb705b0401ce3b7f9fbe69b99244faf648ee3e01f2f1ec462",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-sw-normal-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/sw-normal-2x.png",
+          "sha256": "5acd6a2e3162ac5acf689e5f3b99cfc822123d6a4d1061e035fecfab488d7bdd",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/sw-spent",
+      "label": "neutral · sw-spent",
+      "images": {
+        "1": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-sw-spent-1x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/sw-spent-2x.png",
+          "sha256": "56ed8d20bc536e9a80b341a2f45a6319c02046c59ad52e79053fb3fd5ddb8b13",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-sw-spent-2x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/sw-spent-2x.png",
+          "sha256": "5c0cb99e5d51228a3755e5f43060be04fdb3b5d508d4c641aa3d583eead4acf4",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-sw-spent-4x.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/sw-spent-4x.png",
+          "sha256": "323184ab1e2a7f7a8114a96af3e9e38601b566d98be8676b26a53ee5ee1e3fd0",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/lightArtillery/sprite-lightArtillery/neutral-sw-spent-game.png",
+          "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/sw-spent-2x.png",
+          "sha256": "01688e30d01e67965147ac372215d3cd415b2d330185a2db276da5cc84ec10fb",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    }
+  ],
+  "files": {
+    "cp/n-normal": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-n-normal-1x.png",
+        "sha256": "05d45a754dab0d51ba2a1f65cbf332485548da89fa9e83b03d1e56deccf157cc",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/n-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-n-normal-2x.png",
+        "sha256": "395581011d37d8867a39f4a84f5156945e34c12c4e33b1f94a639b9ea3e7c251",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/n-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-n-normal-4x.png",
+        "sha256": "3c8047955ad276ca378186a528b4c6da7b3c2d5b33d554bbb184744046dec23b",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/n-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-n-normal-game.png",
+        "sha256": "c9f9b3f69826f19242f38bfa5ae22a6a1032f7fc6c28c8d2982517695cd27d1e",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/n-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/n-spent": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-n-spent-1x.png",
+        "sha256": "84bfc065b415da3b33feedfe9b741fa0f147c074ffa2945a4febb0b9d701c38d",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/n-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-n-spent-2x.png",
+        "sha256": "efadc0c954e89f533a67b903503d44cdd837d16a7c02781bb05e471922f509db",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/n-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-n-spent-4x.png",
+        "sha256": "8791b9cabaa17c8b0bdb302c2ef889a1d873588c2d1dc07cb1d07c7077c8d3c7",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/n-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-n-spent-game.png",
+        "sha256": "9e3fa1a978ff29835f24f42d185b795e9a4b9749a21dcc6d305b89a9278299eb",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/n-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/ne-normal": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-ne-normal-1x.png",
+        "sha256": "a4d96b8674f2289cb9a5ed355f3ec5fc80474cf43a0dd61c9f3635757fbac46f",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/ne-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-ne-normal-2x.png",
+        "sha256": "95d99591b0d650fa76160d460f0ee5e2eef7e1b38fce1a9beb22acb3dfb3dc50",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/ne-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-ne-normal-4x.png",
+        "sha256": "f5390b2bf534181ec373747d9afafb88795b81c76767a53f298229fe268eba59",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/ne-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-ne-normal-game.png",
+        "sha256": "8ada37e581f7736d791bd9275dd1f448c16853238512d2916576605bc9db8c09",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/ne-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/ne-spent": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-ne-spent-1x.png",
+        "sha256": "0c339a0f6e0e8d1db67e9f5fa68bd2bc78e0139459bb1ee9fb8e22dbdc439852",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/ne-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-ne-spent-2x.png",
+        "sha256": "d83450d83b1770ce10f26cee97423efc5df1905d432aaa9f6dc4787e461028b4",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/ne-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-ne-spent-4x.png",
+        "sha256": "79398c83bcf6376f49b7ff5e412fb9919f54a43f86f91dda049cdb30d6cd704b",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/ne-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-ne-spent-game.png",
+        "sha256": "68478dec65f74c3f2d6e961816fcdd3e39313d8eea1eb29019f766ec5b314bcb",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/ne-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/nw-normal": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-nw-normal-1x.png",
+        "sha256": "d5353dc70ab8f24e4f93ed7d087de79ae1498747845bc836e6226616d2c28e04",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/nw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-nw-normal-2x.png",
+        "sha256": "ddcfdd81cd44428e3f599298eb27a5f93d28b773f734ce1d8d27b1f9da6c15d0",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/nw-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-nw-normal-4x.png",
+        "sha256": "c70d06e96a2a48c63b8655f22466133141cea1cdf38dd8818fb8adbfa43b0053",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/nw-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-nw-normal-game.png",
+        "sha256": "5ca1bd6b1317367956de1ebbd317de2f2c6d54fadb6bf07369e86aabe90bab8e",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/nw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/nw-spent": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-nw-spent-1x.png",
+        "sha256": "921b3da1d82085905c54c4a13c37b66118543ec9a0f3385de1fe4f9c9c876dac",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/nw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-nw-spent-2x.png",
+        "sha256": "ffb3948f0044be6db486ee50cad1950a385e50380ec0e1679628c288de7c44b3",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/nw-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-nw-spent-4x.png",
+        "sha256": "92f0e85a183da2cd69184a2f48412ff01c2f5c71551906f826e5b9e382d52ffc",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/nw-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-nw-spent-game.png",
+        "sha256": "ff574951823108636ebfc695993e136e068f103183e9b973b0369b6625f40458",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/nw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/s-normal": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-s-normal-1x.png",
+        "sha256": "fd13d3b2abe78f4262adce9cd217dd751241f72c112bc72b204aaed7533e0154",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/s-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-s-normal-2x.png",
+        "sha256": "52075ba2da82d40a3a25b2161586b7ef78a8f976e1030a6c31f1412206e40143",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/s-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-s-normal-4x.png",
+        "sha256": "0f2aa930231690791e91e2867c22be469a7673091a095853873cd8f5a094a7e4",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/s-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-s-normal-game.png",
+        "sha256": "d531ee45e03997859d726d328778fb644ddbbb037aa6236a07b3eaa9b759eff1",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/s-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/s-spent": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-s-spent-1x.png",
+        "sha256": "ddc983f4857f17f00b983cbe4ef1b514751b183ae49f0d25895c8f0a4f25e8a0",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/s-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-s-spent-2x.png",
+        "sha256": "89b1f37e60aa979aa44d223c8bbb2c2ab45c8b2f451dee0243e3d55920d8a586",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/s-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-s-spent-4x.png",
+        "sha256": "6a1ae9c4a56f2fb0690f8831c62a2b4785be0c66ff82168bdbdaa78019594a3d",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/s-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-s-spent-game.png",
+        "sha256": "1bfeddd7d49ab1087b31f317c7555ecfdc969ca573522846c05c8c794267409f",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/s-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/se-normal": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-se-normal-1x.png",
+        "sha256": "873de0466f30c420f4eac8a54442de27e298bfb9d0a591afbf94fbef19f297db",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/se-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-se-normal-2x.png",
+        "sha256": "cd51deb0dd9d8dbf1ec63eee5ba4b89a1754bd5e2b6af023ab29f03af8d01b97",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/se-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-se-normal-4x.png",
+        "sha256": "e1e80a1ffdc86775934c13718dfc322458bd75ac42b3d8acaf878240e7d0585c",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/se-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-se-normal-game.png",
+        "sha256": "6454a0dc9c619e22658bc887c609b2b6186c60e61d88bea9f8e083f6b20f151f",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/se-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/se-spent": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-se-spent-1x.png",
+        "sha256": "a2208318b56c519607defc838892dc162def0ecd2ffaba0d8e5e4472edf34698",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/se-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-se-spent-2x.png",
+        "sha256": "49814c9c734a94283fa1880b604ff303e31b96fbdda000a56e853bbb9bca56a7",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/se-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-se-spent-4x.png",
+        "sha256": "138bf18a3f3e97f1a685bf1564700a5f22553bb003c0557035da2d022c3c0909",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/se-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-se-spent-game.png",
+        "sha256": "4a7d0da36e259903eb262bcf20714b70cfd517589e5e5bea5c00574d6b02c8df",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/se-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/sw-normal": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-sw-normal-1x.png",
+        "sha256": "3202d99fc3c4ae7ce35dc7458071bea4157a4aa36dda417f4d3dff9c97247141",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/sw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-sw-normal-2x.png",
+        "sha256": "754ba7d14ae83ef1f5cd5bf253ff606dd9acc48e677adca7ae7c7e1a4c63ad34",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/sw-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-sw-normal-4x.png",
+        "sha256": "32e920e4f6ffb730082cc1050ecd3d191a41c3690027a95a7da563c278d2053d",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/sw-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-sw-normal-game.png",
+        "sha256": "8b714950fb0ff3fda7a3d8da4c4939fbc19952048a55a4a3e12466f7e3887ce4",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/sw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/sw-spent": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-sw-spent-1x.png",
+        "sha256": "9d4a0abd2ea3edb755154402ec45f71b98f1920b0f3bfc6c991725cee39cd674",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/sw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-sw-spent-2x.png",
+        "sha256": "05316909fd69f8e4027687ce340a46654caf3c7d2ffdcb606f527255b9d4c67f",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/sw-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-sw-spent-4x.png",
+        "sha256": "ad4f84c8de14b96e93c5a9454d58131f076fe92577e6d2983c395578dbc5005a",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/sw-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/cp-sw-spent-game.png",
+        "sha256": "397135a138a7ac49687a5c5e12151e8065ee344f1939fc3d753f035435265ad0",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/cp/sw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/n-normal": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-n-normal-1x.png",
+        "sha256": "b2b4c099efbb90075f4c59f157a18552d65b84bbea3081913406191f174a7bef",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/n-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-n-normal-2x.png",
+        "sha256": "a3385160ff30d9ddac797eebeac3b097ce1eda79dd17b66939f1d4d90684f14b",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/n-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-n-normal-4x.png",
+        "sha256": "290ccb711b97c569f99aba27afbcce61d3952bd1d0ffc0d1f1444263af618eef",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/n-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-n-normal-game.png",
+        "sha256": "e1270670235294e5b0765521e29483fbf9b1e4df2ec83f67613bcd079ef890dc",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/n-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/n-spent": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-n-spent-1x.png",
+        "sha256": "31f3ed7aa63d6ec569f3514a9770633f05e0eb2d1beb2be6233e83bb6b8b59b3",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/n-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-n-spent-2x.png",
+        "sha256": "1e1a86beb15ec7f8ae88eff0e2bea064f1cc701a64cefdeb68338356508fe3e4",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/n-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-n-spent-4x.png",
+        "sha256": "ec2ddc14aed6a82ac52c67e40ef83f69a1910ef11eb7fb3ea5584f66dd00d0c6",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/n-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-n-spent-game.png",
+        "sha256": "1b11e0b5ed455baea7fa325f295edc346b18bf71f87fab93944b0f8b5f5df2e4",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/n-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/ne-normal": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-ne-normal-1x.png",
+        "sha256": "ee6d543610a0a39914785bdefa2ec9d516d9c2325e90187f7da609eddf3bf4c8",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/ne-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-ne-normal-2x.png",
+        "sha256": "e578e329eac4a3506ba7a184f2fb135435b2e3bd89d8a440e7dac084be3de603",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/ne-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-ne-normal-4x.png",
+        "sha256": "6b488717d051b3ecb20f9472f1fe735dd7bf6b707ecd051148eb2b97e8ca6b4b",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/ne-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-ne-normal-game.png",
+        "sha256": "c39340c3477f417dfa59188c02353596ebec3d05c1e944fc983a71781a97c86b",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/ne-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/ne-spent": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-ne-spent-1x.png",
+        "sha256": "6e9c0299875dce9e1561dff2f97f9beb709f04337e6a5a583d68ab4b03d05de5",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/ne-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-ne-spent-2x.png",
+        "sha256": "d46b98dc6b768d7e752ce1f3b5078909edd2c523f49c3ae3d79e9ffc8f676c55",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/ne-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-ne-spent-4x.png",
+        "sha256": "edc6d7e1517cd319ce4c1eae1fda9f1538d0e5ae5d35ab361558180f688f8d07",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/ne-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-ne-spent-game.png",
+        "sha256": "22a09bcb4412acb6b1c2040c59007b6c731870108f81b00c81d78ee18fb92b27",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/ne-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/nw-normal": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-nw-normal-1x.png",
+        "sha256": "ced217344af9899ecbafc017bacba1672901d246dfd7cdd19ac26dbf7bc87b09",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/nw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-nw-normal-2x.png",
+        "sha256": "86ff3dbdd3fff38c24f109e86684ea87fcbb852ce908c8d93fb66abafd6914ef",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/nw-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-nw-normal-4x.png",
+        "sha256": "edb0564fc0781021c0207433566b070913374bc32237bf1bf7ec2e7a16d79eb5",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/nw-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-nw-normal-game.png",
+        "sha256": "8f631263d73ecd60e828a48e2defab74bfe3a1ecf1a524f63174b5dda4a0e299",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/nw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/nw-spent": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-nw-spent-1x.png",
+        "sha256": "c29172de547431cc56c1a07b40c182de36e19da4bd1dd89ccf41605b6c6d0b8e",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/nw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-nw-spent-2x.png",
+        "sha256": "63df098b358b44082a3d4a217bd335b1deceb1b9569c1b2ac4b506b6e843b838",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/nw-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-nw-spent-4x.png",
+        "sha256": "2008cf265f3dc18fa215d6f67be23e94c74a3e2484a3fdfbb3db3a3c65bc62be",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/nw-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-nw-spent-game.png",
+        "sha256": "dbd193011efff7cc1d64280d27000b090c62a27547d9b8e279af43a5e83961dd",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/nw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/s-normal": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-s-normal-1x.png",
+        "sha256": "b47de46a73565f8176594f5d221fc54ef78b0bc8ebd0853f7125f4641c0dfd6f",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/s-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-s-normal-2x.png",
+        "sha256": "8175cfc79f06bee428b8d484795048e045a6c5d8e3b6ff3a61fc1030a3da5454",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/s-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-s-normal-4x.png",
+        "sha256": "75beba4a2f5c56c9464fd1a0883831868674939402f940f0dd8a833cadfa9f28",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/s-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-s-normal-game.png",
+        "sha256": "d3c83c16e9ed14e5bb52d661165d2532084c2792c6c299b72a438ec7c394a0d0",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/s-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/s-spent": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-s-spent-1x.png",
+        "sha256": "4c90e0c6fae361c38db9e5d8629e205cb4a86ca5a0b7d643532f9c5facd5ba30",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/s-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-s-spent-2x.png",
+        "sha256": "056c418870c2322d841d9877f89bfa4ff6f135dd935313278c989ed2252d2ee1",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/s-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-s-spent-4x.png",
+        "sha256": "071a535cf91618743b0e6034c80455837a1a6d437abfdde70d236ff3d8586c08",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/s-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-s-spent-game.png",
+        "sha256": "5fec7d97e31fc1c711df80ac8137ba1988a0937924a22f56d5448fdad25dc223",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/s-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/se-normal": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-se-normal-1x.png",
+        "sha256": "18a320c5c0edf14acdc09e3d0c98b5a46217b3ad2f115a4dd1b4ec4b36ab6016",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/se-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-se-normal-2x.png",
+        "sha256": "3f93e4f6f10d62dfb1b56a5eb28f89ef8f5f701615dcba06242bf1e46ab46912",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/se-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-se-normal-4x.png",
+        "sha256": "71d587825a30cb964b42b4507d8488d248cab10de650ea0dde0cf072b4a63ab5",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/se-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-se-normal-game.png",
+        "sha256": "16773e9938f8f30f1bf13d52d879f00f0bf5b3e67147df3cc398ff9870f05014",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/se-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/se-spent": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-se-spent-1x.png",
+        "sha256": "06bbe89fca99f12f67a97f71404d8267e88c623743f8adf10460c25172c54016",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/se-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-se-spent-2x.png",
+        "sha256": "aa7c0b794370801032c94ce11e73fe5c3a616193ec4f66f4e21fb8bf9074dc7d",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/se-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-se-spent-4x.png",
+        "sha256": "69a1ed5803ed5cf0845ced4b20ea36a2b128556fd852b2b2b27eea7df07f9773",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/se-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-se-spent-game.png",
+        "sha256": "0c2d6ffa808a4bae0083897377e408d02c4450195bab4b28fd0f9e9423dd73ec",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/se-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/sw-normal": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-sw-normal-1x.png",
+        "sha256": "2d2f4894d396efdf6df99f817dca85c3378876b22b225991d64b8e9be9c05331",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/sw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-sw-normal-2x.png",
+        "sha256": "d80249ff991de363c9fcff35551ce9fee3039d03a3723662ef4da06b71a6583b",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/sw-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-sw-normal-4x.png",
+        "sha256": "75d96f1a02d464241f2122ac0562b483e7118cef1e0471268dbf0fa8ac7e244c",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/sw-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-sw-normal-game.png",
+        "sha256": "9fc1e09dfcc0722b3f7a98f2295e7102ac60b5600e2c0a099d611d60438db860",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/sw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/sw-spent": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-sw-spent-1x.png",
+        "sha256": "6cd8adf7cf4839a18d1e17077aa33e7231e667ee77f0303d41d8b83cea301d4a",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/sw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-sw-spent-2x.png",
+        "sha256": "9c7e019ae76fa1e5f2b7ae11f3649f370364de1bcf41c5b5a4c0729d89f5cf16",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/sw-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-sw-spent-4x.png",
+        "sha256": "90daaa7f90ebd5dda982d15254d8e531dc864e9a9274c8bf1234ea2eb7ab44f8",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/sw-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/ec-sw-spent-game.png",
+        "sha256": "66861a1bd4d45a8cd36fffe90861b7df0a65ea1933c3b40e8e757f1e68e71c49",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/ec/sw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/n-normal": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-n-normal-1x.png",
+        "sha256": "8e044713df187fe46b90780f474d4db579963bf57664020cb1e26f3f4ff415d0",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/n-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-n-normal-2x.png",
+        "sha256": "6ad409780218f286c6e2decaa7e9cf952c974d3d2cbf94a31a72cdfbd5f2e9b4",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/n-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-n-normal-4x.png",
+        "sha256": "7fe7225e419e2ae28cd446554393f039d95f15f97cca63fd49ed1b3d51e05837",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/n-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-n-normal-game.png",
+        "sha256": "fc57407aa399dba0ee3b465b9f4aaf402ee4b8e700534e9d8a280f061c4744d1",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/n-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/n-spent": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-n-spent-1x.png",
+        "sha256": "7c8118ce4d1ea9e111cb9fa62bc805df872d7f54c9bf6cfffcbcf147bb926ce9",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/n-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-n-spent-2x.png",
+        "sha256": "3a6b72edc2f9f7e59e559f7a295c2da8807cf98a5feb375181a458919594e808",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/n-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-n-spent-4x.png",
+        "sha256": "bff8029325365f649c00debf15e78c8194d161d6acc2de57c69387c4170bd1f6",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/n-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-n-spent-game.png",
+        "sha256": "b04fbf455f1b27b94b0debe31c56824498f6e9b135bbddf4a2a4a1f4f67c608a",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/n-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/ne-normal": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-ne-normal-1x.png",
+        "sha256": "ab561dc7cf403e98a14a5d50a7f493966a86f139c32ecea061f5de67e060e691",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/ne-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-ne-normal-2x.png",
+        "sha256": "e38ca3dbd47686a623212cd801edf2fd7316f0c005e925db3f99bc96a5bff443",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/ne-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-ne-normal-4x.png",
+        "sha256": "49a5fad4d84d2789f6bc7158835687fa02d502748c2ab4b7ebaac20fe1baec0a",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/ne-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-ne-normal-game.png",
+        "sha256": "5e142c0983917f53c3f3dd14a99766ebd6e54481139dd96c32f00162af21f0d5",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/ne-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/ne-spent": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-ne-spent-1x.png",
+        "sha256": "7d088226ab172c4818a9cb68359e3d9c62f5f8bc82e9cdd549ff2ad11df14698",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/ne-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-ne-spent-2x.png",
+        "sha256": "aa28f4050633026c230babef6bf260bbde0fdee3ac5a13e231c890b2f4b7942f",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/ne-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-ne-spent-4x.png",
+        "sha256": "f256e4361ec2a1083f2aca1544bc2fcbe17e95c4b27114a1b74455ee0bf5e66d",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/ne-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-ne-spent-game.png",
+        "sha256": "a77160ebffd75d72989f0f760275c71a6c2893bcec320573c72082f11b7b0994",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/ne-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/nw-normal": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-nw-normal-1x.png",
+        "sha256": "9d1a74cef1f4edabb6798fc96a6e6ef9c2c2c3a44738b63f881ac564e5347406",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/nw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-nw-normal-2x.png",
+        "sha256": "a0cc14c93eedeb55b729946db961bdbdbf261006b0c80fe5cb527cd7ef8bdb8e",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/nw-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-nw-normal-4x.png",
+        "sha256": "badb60bfe0a0f6dd53da0093ca2113e9182bde68dc8aadf23a0172a49f8ba261",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/nw-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-nw-normal-game.png",
+        "sha256": "b74e34c71ace60d95956458bd2064e27b35dce19983ce8ef1e1a726a2747cedb",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/nw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/nw-spent": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-nw-spent-1x.png",
+        "sha256": "8bfaa931ce884acb5a58749a7f13e4441818c931cbebd3692a444a0cba0d7b2f",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/nw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-nw-spent-2x.png",
+        "sha256": "9026e0165634ece57164472df9817aa59547a4c3b6ed14086bbada45b3b7c89c",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/nw-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-nw-spent-4x.png",
+        "sha256": "d2eebb926d4d9d824dd8ea51923a4726990cf45ccc99fcc4047f7951f0309931",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/nw-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-nw-spent-game.png",
+        "sha256": "151e0fd73cd13f72b4eab42889f5e6341dd9688cfed6d1efdf64854f9437f85e",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/nw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/s-normal": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-s-normal-1x.png",
+        "sha256": "8125de7af1835ebd14da8762816da54aa39b35ddfef2c24c52e546006f3a98de",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/s-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-s-normal-2x.png",
+        "sha256": "44e1500a7f762d48e4f4d302a9fb9818be7ea8345dade44a4696cdbdf59f7a61",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/s-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-s-normal-4x.png",
+        "sha256": "bcfce49beb455e4c9e0c23e9ebd11858fb87639d061fa64e43982db19ff20663",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/s-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-s-normal-game.png",
+        "sha256": "541f67fc180df0f20a69f8da11fdac021c13172951c26bd44fbc655ae295772c",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/s-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/s-spent": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-s-spent-1x.png",
+        "sha256": "dfe3678acab8dd122619e777a23db1543ff2d3609e9ab830585df713bd63586e",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/s-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-s-spent-2x.png",
+        "sha256": "468ffc620848c8f9935bc724d10d5d4597077eb4fa3678eea5c60a335c514652",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/s-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-s-spent-4x.png",
+        "sha256": "dc91b58f41dfca61f9d9fedec0ebf8cb55e3764ec9fc61d8acd2e716c835fcff",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/s-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-s-spent-game.png",
+        "sha256": "246300b0aae8f1dcb114827382ed02719e4de4e65d5db2efb1256103880ade6f",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/s-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/se-normal": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-se-normal-1x.png",
+        "sha256": "cba5d0e0969df6a52e9420f1cc9d04396f5c18e01184cc8e27b48d1f0db90f0c",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/se-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-se-normal-2x.png",
+        "sha256": "6ae6c158039c6eb529da9cd6973c421ad47198851422627a112c745b79072744",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/se-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-se-normal-4x.png",
+        "sha256": "3f7959bc0f71a89b33ff4f148a805b10cd8143038a6e318a1f3847be425b95dd",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/se-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-se-normal-game.png",
+        "sha256": "cdd4cc63a2a24112cae5d18c8ae97b09e75ff0cb03f7d3e338535b650b13f80b",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/se-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/se-spent": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-se-spent-1x.png",
+        "sha256": "e3ab761f1805b3bd3bee68d5fe46af48e2b5d0862b315eb8db6b5f3ab91231e7",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/se-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-se-spent-2x.png",
+        "sha256": "6894b22f38c11d05e75e305cbfaa5472506b7873c6399fd18f14dcba1f825fb4",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/se-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-se-spent-4x.png",
+        "sha256": "514ec27905cf1ddfaea9c49ecf1dd8d4b7b41823f227a48e941c537dd4dc6c37",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/se-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-se-spent-game.png",
+        "sha256": "84356c32c382cca04530bf3930c638836700a323c5017d084b07b3061dc552df",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/se-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/sw-normal": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-sw-normal-1x.png",
+        "sha256": "742373e194abd613ea256b46c146f6ec4bcf1c4bb10c97aacf48e4c713eb480f",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/sw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-sw-normal-2x.png",
+        "sha256": "81edfcab9462c41cd136bc3fd3f4fda4a6e9b63d7773993aac9763eebbdcb927",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/sw-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-sw-normal-4x.png",
+        "sha256": "ef6a7ea7abee506eb705b0401ce3b7f9fbe69b99244faf648ee3e01f2f1ec462",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/sw-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-sw-normal-game.png",
+        "sha256": "5acd6a2e3162ac5acf689e5f3b99cfc822123d6a4d1061e035fecfab488d7bdd",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/sw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/sw-spent": {
+      "1": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-sw-spent-1x.png",
+        "sha256": "56ed8d20bc536e9a80b341a2f45a6319c02046c59ad52e79053fb3fd5ddb8b13",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/sw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-sw-spent-2x.png",
+        "sha256": "5c0cb99e5d51228a3755e5f43060be04fdb3b5d508d4c641aa3d583eead4acf4",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/sw-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-sw-spent-4x.png",
+        "sha256": "323184ab1e2a7f7a8114a96af3e9e38601b566d98be8676b26a53ee5ee1e3fd0",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/sw-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/lightArtillery/sprite-lightArtillery/neutral-sw-spent-game.png",
+        "sha256": "01688e30d01e67965147ac372215d3cd415b2d330185a2db276da5cc84ec10fb",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-light-artillery-v1/sprites/lightArtillery/neutral/sw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    }
+  }
+}

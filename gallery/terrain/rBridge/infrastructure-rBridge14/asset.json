@@ -1,0 +1,76 @@
+{
+  "id": "infrastructure/rBridge14",
+  "name": "rBridge14",
+  "category": "Terrain",
+  "family": "rBridge",
+  "season": "shared",
+  "note": "Current enabled infrastructure binding. This single-asset view uses its default context export; the PULSE study resolves available neighbor contexts through the shared compositor. Final runtime acceptance remains open.",
+  "recipes": [
+    "art/recipes/terrain/reference-v2/meadow-03.json"
+  ],
+  "prompts": [
+    "prompts/terrain/reference-v2/meadow-03.md"
+  ],
+  "width": 96,
+  "height": 80,
+  "variants": [
+    {
+      "id": "default",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "terrain/rBridge/infrastructure-rBridge14/1x.png",
+          "source": "art/exports/mixed-v1/rbridge14-2x.png",
+          "sha256": "4ae5737d2c7118b2921b60a16ebffa5a8929722dca9d770e69ae0ec9ab2cb8cb",
+          "width": 96,
+          "height": 80,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "terrain/rBridge/infrastructure-rBridge14/2x.png",
+          "source": "art/exports/mixed-v1/rbridge14-2x.png",
+          "sha256": "448655966d65021d4d770d48023916a070fcf0e9fd40526075369a7c5962dc8d",
+          "width": 192,
+          "height": 160,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "terrain/rBridge/infrastructure-rBridge14/4x.png",
+          "source": "art/exports/mixed-v1/rbridge14-4x.png",
+          "sha256": "23da4a5c799cedf48fe3096c4c32a7bfc9e40a23d9dfca5ba27ad5225a852bce",
+          "width": 384,
+          "height": 320,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "default": {
+      "1": {
+        "path": "terrain/rBridge/infrastructure-rBridge14/1x.png",
+        "sha256": "4ae5737d2c7118b2921b60a16ebffa5a8929722dca9d770e69ae0ec9ab2cb8cb",
+        "width": 96,
+        "height": 80,
+        "source": "art/exports/mixed-v1/rbridge14-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "terrain/rBridge/infrastructure-rBridge14/2x.png",
+        "sha256": "448655966d65021d4d770d48023916a070fcf0e9fd40526075369a7c5962dc8d",
+        "width": 192,
+        "height": 160,
+        "source": "art/exports/mixed-v1/rbridge14-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "terrain/rBridge/infrastructure-rBridge14/4x.png",
+        "sha256": "23da4a5c799cedf48fe3096c4c32a7bfc9e40a23d9dfca5ba27ad5225a852bce",
+        "width": 384,
+        "height": 320,
+        "source": "art/exports/mixed-v1/rbridge14-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

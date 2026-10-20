@@ -1,0 +1,69 @@
+{
+  "id": "interface/panel/content",
+  "name": "panel/content",
+  "category": "Interface",
+  "family": "panels",
+  "note": "Current text-free game component. Labels and game values are drawn separately; runtime acceptance pending.",
+  "width": 527,
+  "height": 670,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "interface/panels/interface-panel-content/1x.png",
+          "source": "art/exports/interface-v1/panel/content-1x.png",
+          "sha256": "576dff8f37784add71874ca60b0c9e9231a43ccd7b9441a5da23c3fbdda9709a",
+          "width": 527,
+          "height": 670,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "interface/panels/interface-panel-content/2x.png",
+          "source": "art/exports/interface-v1/panel/content-2x.png",
+          "sha256": "a1fce41180de25ed95a45a91fa2db93967aff162101bb43ff547f0bc63847aeb",
+          "width": 1054,
+          "height": 1340,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "interface/panels/interface-panel-content/4x.png",
+          "source": "art/exports/interface-v1/panel/content-4x.png",
+          "sha256": "8859def2901405b9eea2d37b63a21b736efa07709d429e3d6bc477b8774a0c9f",
+          "width": 2108,
+          "height": 2680,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "interface/panels/interface-panel-content/1x.png",
+        "sha256": "576dff8f37784add71874ca60b0c9e9231a43ccd7b9441a5da23c3fbdda9709a",
+        "width": 527,
+        "height": 670,
+        "source": "art/exports/interface-v1/panel/content-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "interface/panels/interface-panel-content/2x.png",
+        "sha256": "a1fce41180de25ed95a45a91fa2db93967aff162101bb43ff547f0bc63847aeb",
+        "width": 1054,
+        "height": 1340,
+        "source": "art/exports/interface-v1/panel/content-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "interface/panels/interface-panel-content/4x.png",
+        "sha256": "8859def2901405b9eea2d37b63a21b736efa07709d429e3d6bc477b8774a0c9f",
+        "width": 2108,
+        "height": 2680,
+        "source": "art/exports/interface-v1/panel/content-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

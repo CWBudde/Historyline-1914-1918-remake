@@ -1,0 +1,59 @@
+{
+  "id": "screens-v2/layout/credits-long",
+  "name": "credits-long",
+  "category": "Screens",
+  "family": "screens-v2",
+  "note": "Current screen layout with example labels and values. The composed image is a review fixture; the game will draw text and controls separately. No matching reference capture is mapped. Navigation and runtime integration remain open.",
+  "recipes": [
+    "art/recipes/screens/v1/western-front.json"
+  ],
+  "prompts": [
+    "prompts/screens/v1/western-front.md"
+  ],
+  "width": 640,
+  "height": 400,
+  "variants": [
+    {
+      "id": "layout",
+      "label": "Composed layout",
+      "images": {
+        "1": {
+          "url": "screens/screens-v2/screens-v2-layout-credits-long/1x.png",
+          "source": "art/exports/screens-v2/fixtures/credits-long-2x.png",
+          "sha256": "71fdc3ac193ba72e1e8391d7dd7db5e5a909a1c38ece71604f9c326760059668",
+          "width": 640,
+          "height": 400,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "screens/screens-v2/screens-v2-layout-credits-long/2x.png",
+          "source": "art/exports/screens-v2/fixtures/credits-long-2x.png",
+          "sha256": "8f2cd4d282b793f046c32ef2d21ccced013ae6343164facdb5804bec7c3e5c67",
+          "width": 1280,
+          "height": 800,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "layout": {
+      "1": {
+        "path": "screens/screens-v2/screens-v2-layout-credits-long/1x.png",
+        "sha256": "71fdc3ac193ba72e1e8391d7dd7db5e5a909a1c38ece71604f9c326760059668",
+        "width": 640,
+        "height": 400,
+        "source": "art/exports/screens-v2/fixtures/credits-long-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "screens/screens-v2/screens-v2-layout-credits-long/2x.png",
+        "sha256": "8f2cd4d282b793f046c32ef2d21ccced013ae6343164facdb5804bec7c3e5c67",
+        "width": 1280,
+        "height": 800,
+        "source": "art/exports/screens-v2/fixtures/credits-long-2x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

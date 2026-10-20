@@ -1,0 +1,75 @@
+{
+  "id": "screens-v2/button/disabled",
+  "name": "button/disabled",
+  "category": "Screen components",
+  "family": "controls",
+  "note": "Current screen component, shared across layouts. No direct reference mapping. Painted backdrop has no authored 4× export.",
+  "recipes": [
+    "art/recipes/screens/v1/western-front.json"
+  ],
+  "prompts": [
+    "prompts/screens/v1/western-front.md"
+  ],
+  "width": 160,
+  "height": 40,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "screen-components/controls/screens-v2-button-disabled/1x.png",
+          "source": "art/exports/screens-v2/button/disabled-1x.png",
+          "sha256": "65d95e1cbd25774f5a0f79aadfdcf9afe920ba02f382adf28e0e0f0376338e91",
+          "width": 160,
+          "height": 40,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "screen-components/controls/screens-v2-button-disabled/2x.png",
+          "source": "art/exports/screens-v2/button/disabled-2x.png",
+          "sha256": "99571533a5af6040d3ceaff79f102a1daec3f521585308b3badf3300aaf5cf6a",
+          "width": 320,
+          "height": 80,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "screen-components/controls/screens-v2-button-disabled/4x.png",
+          "source": "art/exports/screens-v2/button/disabled-4x.png",
+          "sha256": "de7a1acc69583706bfde54a28058f4e26cc72d8fd48877bf67641d9c76f2d194",
+          "width": 640,
+          "height": 160,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "screen-components/controls/screens-v2-button-disabled/1x.png",
+        "sha256": "65d95e1cbd25774f5a0f79aadfdcf9afe920ba02f382adf28e0e0f0376338e91",
+        "width": 160,
+        "height": 40,
+        "source": "art/exports/screens-v2/button/disabled-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "screen-components/controls/screens-v2-button-disabled/2x.png",
+        "sha256": "99571533a5af6040d3ceaff79f102a1daec3f521585308b3badf3300aaf5cf6a",
+        "width": 320,
+        "height": 80,
+        "source": "art/exports/screens-v2/button/disabled-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "screen-components/controls/screens-v2-button-disabled/4x.png",
+        "sha256": "de7a1acc69583706bfde54a28058f4e26cc72d8fd48877bf67641d9c76f2d194",
+        "width": 640,
+        "height": 160,
+        "source": "art/exports/screens-v2/button/disabled-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

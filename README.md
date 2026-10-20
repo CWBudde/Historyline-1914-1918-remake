@@ -86,7 +86,7 @@ just gfx-references \
   -out build/native-reference
 ```
 
-For the graphics intended for game integration, run `go run ./cmd/hlgfxreview`
+The committed [art gallery](gallery/README.md) (`just gallery`) lists every game-bound image with its prompts. For the graphics intended for game integration, run `go run ./cmd/hlgallery -private`
 (or `just gfx-game-review`) and open `build/gfx-review/index.html`. The
 [comparison desk](docs/gfx-review.md) selects current ledger/report exports rather
 than historical art studies, with unit variants, equal-scale comparison, density

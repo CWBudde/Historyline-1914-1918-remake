@@ -1,0 +1,69 @@
+{
+  "id": "interface/action/exit-pressed",
+  "name": "action/exit-pressed",
+  "category": "Interface",
+  "family": "controls",
+  "note": "Current text-free game component. Labels and game values are drawn separately; runtime acceptance pending. Reference is the original base action, unchanged for the new interaction states.",
+  "width": 62,
+  "height": 52,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "interface/controls/interface-action-exit-pressed/1x.png",
+          "source": "art/exports/interface-v1/action/exit-pressed-1x.png",
+          "sha256": "bb5b7b012282d5409611aee0dbab396923a2c7b56e1fa6d8d5b83889f23afda9",
+          "width": 62,
+          "height": 52,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "interface/controls/interface-action-exit-pressed/2x.png",
+          "source": "art/exports/interface-v1/action/exit-pressed-2x.png",
+          "sha256": "4339ad07a435fce1a5d67a3f3ceca3aa86405a2ff5b49d322096569b5771362c",
+          "width": 124,
+          "height": 104,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "interface/controls/interface-action-exit-pressed/4x.png",
+          "source": "art/exports/interface-v1/action/exit-pressed-4x.png",
+          "sha256": "975d27d4b4bcd8408d5f1ae4ad129209d855cf45db55196571232ca243291ba0",
+          "width": 248,
+          "height": 208,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "interface/controls/interface-action-exit-pressed/1x.png",
+        "sha256": "bb5b7b012282d5409611aee0dbab396923a2c7b56e1fa6d8d5b83889f23afda9",
+        "width": 62,
+        "height": 52,
+        "source": "art/exports/interface-v1/action/exit-pressed-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "interface/controls/interface-action-exit-pressed/2x.png",
+        "sha256": "4339ad07a435fce1a5d67a3f3ceca3aa86405a2ff5b49d322096569b5771362c",
+        "width": 124,
+        "height": 104,
+        "source": "art/exports/interface-v1/action/exit-pressed-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "interface/controls/interface-action-exit-pressed/4x.png",
+        "sha256": "975d27d4b4bcd8408d5f1ae4ad129209d855cf45db55196571232ca243291ba0",
+        "width": 248,
+        "height": 208,
+        "source": "art/exports/interface-v1/action/exit-pressed-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

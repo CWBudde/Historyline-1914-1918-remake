@@ -1,0 +1,69 @@
+{
+  "id": "interface/action/attack-hover",
+  "name": "action/attack-hover",
+  "category": "Interface",
+  "family": "controls",
+  "note": "Current text-free game component. Labels and game values are drawn separately; runtime acceptance pending. Reference is the original base action, unchanged for the new interaction states.",
+  "width": 62,
+  "height": 52,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "interface/controls/interface-action-attack-hover/1x.png",
+          "source": "art/exports/interface-v1/action/attack-hover-1x.png",
+          "sha256": "c676bd5abf1efee7646263da578c58f4ab722764e06f299830499f1b96f2d317",
+          "width": 62,
+          "height": 52,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "interface/controls/interface-action-attack-hover/2x.png",
+          "source": "art/exports/interface-v1/action/attack-hover-2x.png",
+          "sha256": "3d32a814c3eedd9131311d5815c695a04989bd66aca839485438a38358c04da2",
+          "width": 124,
+          "height": 104,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "interface/controls/interface-action-attack-hover/4x.png",
+          "source": "art/exports/interface-v1/action/attack-hover-4x.png",
+          "sha256": "ea6f52c51c2cc1712adb7b6406bec34034c8a0aac908f29a6d103658d8af7b6b",
+          "width": 248,
+          "height": 208,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "interface/controls/interface-action-attack-hover/1x.png",
+        "sha256": "c676bd5abf1efee7646263da578c58f4ab722764e06f299830499f1b96f2d317",
+        "width": 62,
+        "height": 52,
+        "source": "art/exports/interface-v1/action/attack-hover-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "interface/controls/interface-action-attack-hover/2x.png",
+        "sha256": "3d32a814c3eedd9131311d5815c695a04989bd66aca839485438a38358c04da2",
+        "width": 124,
+        "height": 104,
+        "source": "art/exports/interface-v1/action/attack-hover-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "interface/controls/interface-action-attack-hover/4x.png",
+        "sha256": "ea6f52c51c2cc1712adb7b6406bec34034c8a0aac908f29a6d103658d8af7b6b",
+        "width": 248,
+        "height": 208,
+        "source": "art/exports/interface-v1/action/attack-hover-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

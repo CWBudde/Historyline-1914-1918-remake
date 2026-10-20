@@ -1,0 +1,59 @@
+{
+  "id": "screens-v2/backdrop/western-front",
+  "name": "backdrop/western-front",
+  "category": "Screen components",
+  "family": "backdrop",
+  "note": "Current screen component, shared across layouts. No direct reference mapping. Painted backdrop has no authored 4× export.",
+  "recipes": [
+    "art/recipes/screens/v1/western-front.json"
+  ],
+  "prompts": [
+    "prompts/screens/v1/western-front.md"
+  ],
+  "width": 640,
+  "height": 400,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "screen-components/backdrop/screens-v2-backdrop-western-front/1x.png",
+          "source": "art/exports/screens-v2/backdrop/western-front-1x.png",
+          "sha256": "9601823856ac69668f8d0cf5eb20801bc967e2307f9acfb8489e7f37da79684f",
+          "width": 640,
+          "height": 400,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "screen-components/backdrop/screens-v2-backdrop-western-front/2x.png",
+          "source": "art/exports/screens-v2/backdrop/western-front-2x.png",
+          "sha256": "12532a9c38af6d305ab0a8c2d6d61017b093d4c250ffae3e639dc55d297e23f0",
+          "width": 1280,
+          "height": 800,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "screen-components/backdrop/screens-v2-backdrop-western-front/1x.png",
+        "sha256": "9601823856ac69668f8d0cf5eb20801bc967e2307f9acfb8489e7f37da79684f",
+        "width": 640,
+        "height": 400,
+        "source": "art/exports/screens-v2/backdrop/western-front-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "screen-components/backdrop/screens-v2-backdrop-western-front/2x.png",
+        "sha256": "12532a9c38af6d305ab0a8c2d6d61017b093d4c250ffae3e639dc55d297e23f0",
+        "width": 1280,
+        "height": 800,
+        "source": "art/exports/screens-v2/backdrop/western-front-2x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

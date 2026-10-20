@@ -1,0 +1,69 @@
+{
+  "id": "interface/panel/terrain",
+  "name": "panel/terrain",
+  "category": "Interface",
+  "family": "panels",
+  "note": "Current text-free game component. Labels and game values are drawn separately; runtime acceptance pending.",
+  "width": 654,
+  "height": 110,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "interface/panels/interface-panel-terrain/1x.png",
+          "source": "art/exports/interface-v1/panel/terrain-1x.png",
+          "sha256": "e02e1c7ac582abea8d3c369905522a6c7acebb60760c38a43dbdde58b9650f88",
+          "width": 654,
+          "height": 110,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "interface/panels/interface-panel-terrain/2x.png",
+          "source": "art/exports/interface-v1/panel/terrain-2x.png",
+          "sha256": "f0b2c57f102fcd0936db22fb449c77c3143716060b661215f671f45b8a1f8cfb",
+          "width": 1308,
+          "height": 220,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "interface/panels/interface-panel-terrain/4x.png",
+          "source": "art/exports/interface-v1/panel/terrain-4x.png",
+          "sha256": "97cae383ad9ffc7a2546421f7ccd32fed90afb5d66aa2de686224112b0561544",
+          "width": 2616,
+          "height": 440,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "interface/panels/interface-panel-terrain/1x.png",
+        "sha256": "e02e1c7ac582abea8d3c369905522a6c7acebb60760c38a43dbdde58b9650f88",
+        "width": 654,
+        "height": 110,
+        "source": "art/exports/interface-v1/panel/terrain-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "interface/panels/interface-panel-terrain/2x.png",
+        "sha256": "f0b2c57f102fcd0936db22fb449c77c3143716060b661215f671f45b8a1f8cfb",
+        "width": 1308,
+        "height": 220,
+        "source": "art/exports/interface-v1/panel/terrain-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "interface/panels/interface-panel-terrain/4x.png",
+        "sha256": "97cae383ad9ffc7a2546421f7ccd32fed90afb5d66aa2de686224112b0561544",
+        "width": 2616,
+        "height": 440,
+        "source": "art/exports/interface-v1/panel/terrain-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

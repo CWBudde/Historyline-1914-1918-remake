@@ -1,0 +1,75 @@
+{
+  "id": "screens-v2/widget/dropdown/open/hover",
+  "name": "widget/dropdown/open/hover",
+  "category": "Screen components",
+  "family": "widgets",
+  "note": "Current screen component, shared across layouts. No direct reference mapping. Painted backdrop has no authored 4× export.",
+  "recipes": [
+    "art/recipes/screens/v1/western-front.json"
+  ],
+  "prompts": [
+    "prompts/screens/v1/western-front.md"
+  ],
+  "width": 240,
+  "height": 40,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "screen-components/widgets/screens-v2-widget-dropdown-open-hover/1x.png",
+          "source": "art/exports/screens-v2/widget/dropdown/open/hover-1x.png",
+          "sha256": "3cb95b3eb6aaf3f78a3a0c80255c000acf4b1dad8aab04d5dda4a8490ecd1bb0",
+          "width": 240,
+          "height": 40,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "screen-components/widgets/screens-v2-widget-dropdown-open-hover/2x.png",
+          "source": "art/exports/screens-v2/widget/dropdown/open/hover-2x.png",
+          "sha256": "af053c3b203f771a0effff765d3e35bf69bc171fbcbad3fe96e74393b51cb125",
+          "width": 480,
+          "height": 80,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "screen-components/widgets/screens-v2-widget-dropdown-open-hover/4x.png",
+          "source": "art/exports/screens-v2/widget/dropdown/open/hover-4x.png",
+          "sha256": "1a7ff9ca31a5e12b46c1d7c6046d684caa637ba0af85096a09d8e7fe446ffdb6",
+          "width": 960,
+          "height": 160,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "screen-components/widgets/screens-v2-widget-dropdown-open-hover/1x.png",
+        "sha256": "3cb95b3eb6aaf3f78a3a0c80255c000acf4b1dad8aab04d5dda4a8490ecd1bb0",
+        "width": 240,
+        "height": 40,
+        "source": "art/exports/screens-v2/widget/dropdown/open/hover-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "screen-components/widgets/screens-v2-widget-dropdown-open-hover/2x.png",
+        "sha256": "af053c3b203f771a0effff765d3e35bf69bc171fbcbad3fe96e74393b51cb125",
+        "width": 480,
+        "height": 80,
+        "source": "art/exports/screens-v2/widget/dropdown/open/hover-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "screen-components/widgets/screens-v2-widget-dropdown-open-hover/4x.png",
+        "sha256": "1a7ff9ca31a5e12b46c1d7c6046d684caa637ba0af85096a09d8e7fe446ffdb6",
+        "width": 960,
+        "height": 160,
+        "source": "art/exports/screens-v2/widget/dropdown/open/hover-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

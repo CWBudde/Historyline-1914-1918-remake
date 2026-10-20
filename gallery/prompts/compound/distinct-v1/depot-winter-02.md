@@ -1,0 +1,26 @@
+# depot-winter-02
+
+Recipe: `art/recipes/compound/distinct-v1/depot-winter-02.json`
+
+- **date**: 2026-10-15
+- **geometry_reference**: docs/art/compound-building-geometry.md
+- **id**: depot-winter-02
+- **output_manifest**: art/compound-depot-v1.json
+- **schema_version**: 1
+- **source**: art/source/compound/distinct-v1/depot-winter.png
+- **source_sha256**: 3f8eff50d7fa03d505fffc024d619f1398c60742768452208ebce7671a82525b
+- **status**: reviewed-source-for-provisional-compound-exports
+- **tool**: built-in image_gen.imagegen
+- **transparent_background**: true
+
+## generation_inputs
+
+| path | role | sha256 |
+|---|---|---|
+| `art/source/compound/distinct-v1/depot-summer.png` | newly-authored-edit-target | `e1f78ec16fc736ae4bc0974b0a7ccc56b2d672ef98584def69572c410ce3e91a` |
+
+## Prompt
+
+```text
+Edit target: Image 1, the NEWLY AUTHORED summer depot. Produce its winter counterpart by adding snow ONLY. Preserve the exact1536x1024 canvas, exact camera, EXACT SCALE and every building's existing pixel placement. Do not reframe, zoom, enlarge or rearrange the compound. Keep every roof silhouette, chimney, canopy, crate, barrel and cart in its original position. In particular north roof must stay within x555..975,y122..292; west roof x299..500,y292..700; east roof x1035..1238,y292..700; south roof x553..982,y688..884. These are coordinate constraints, not graphics to draw. Keep the same width of transparent padding on all sides. Change only the weather surfaces: thin irregular white snow patches on the existing red tiles, cold muted light, a lightly compacted snowy courtyard with the original cart tracks faintly visible. Leave plenty of red roof tile exposed. Snow must follow EXISTING roofs; never expand a roof or move an eave. Subdued hand-painted continuous high-resolution detail, strict near-nadir orthographic view, quiet upper-left lighting. Retain REAL transparent alpha around the compound and close shadows. Do not add buildings, trees, people, vehicles, text, flags, borders, hexes, opaque background or pixel art. Output transparent PNG. The goal is matching summer/winter game tiles of the SAME fixed scene; geometric preservation takes priority over creating a new composition.
+```

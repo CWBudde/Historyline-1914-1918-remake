@@ -1,0 +1,69 @@
+{
+  "id": "interface/bar/positive",
+  "name": "bar/positive",
+  "category": "Interface",
+  "family": "information",
+  "note": "Current text-free game component. Labels and game values are drawn separately; runtime acceptance pending. No direct reference image is mapped for this component.",
+  "width": 15,
+  "height": 26,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "interface/information/interface-bar-positive/1x.png",
+          "source": "art/exports/interface-v1/bar/positive-1x.png",
+          "sha256": "8e9561bc0495329058806c2cde176344b1ddd96d03096ee0ca4f92bb9ac5480a",
+          "width": 15,
+          "height": 26,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "interface/information/interface-bar-positive/2x.png",
+          "source": "art/exports/interface-v1/bar/positive-2x.png",
+          "sha256": "af856feba49e65be2a0e0aecf7ad83755d47967bce3ce72956a869107f0cd9fd",
+          "width": 30,
+          "height": 52,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "interface/information/interface-bar-positive/4x.png",
+          "source": "art/exports/interface-v1/bar/positive-4x.png",
+          "sha256": "4611cddb1d23f3b80d76f6d0d0de3b716728e6f4b481aba199b8f57e78a9669a",
+          "width": 60,
+          "height": 104,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "interface/information/interface-bar-positive/1x.png",
+        "sha256": "8e9561bc0495329058806c2cde176344b1ddd96d03096ee0ca4f92bb9ac5480a",
+        "width": 15,
+        "height": 26,
+        "source": "art/exports/interface-v1/bar/positive-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "interface/information/interface-bar-positive/2x.png",
+        "sha256": "af856feba49e65be2a0e0aecf7ad83755d47967bce3ce72956a869107f0cd9fd",
+        "width": 30,
+        "height": 52,
+        "source": "art/exports/interface-v1/bar/positive-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "interface/information/interface-bar-positive/4x.png",
+        "sha256": "4611cddb1d23f3b80d76f6d0d0de3b716728e6f4b481aba199b8f57e78a9669a",
+        "width": 60,
+        "height": 104,
+        "source": "art/exports/interface-v1/bar/positive-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

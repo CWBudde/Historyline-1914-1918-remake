@@ -52,7 +52,7 @@ web port="":
 ci: lint test build wasm gfx-check
 
 # Check the graphics inventory and offline tooling (no original data required)
-gfx-check:
+gfx-check: gallery-check
     python3 -m unittest discover -s tools/art-inventory -v
     python3 tools/art-inventory/inventory.py --check
     go test ./tools/...
@@ -62,10 +62,21 @@ gfx-check:
 gfx-review *args:
     go run ./tools/art-review "$@"
 
-# Compare current game-bound candidates; open build/gfx-review/index.html
+# Regenerate the committed art gallery (gallery/index.html): final art, prompts, catalogue
+gallery:
+    go run ./cmd/hlgallery
+
+# Fail if the committed gallery/ differs from a fresh generation
+gallery-check:
+    rm -rf build/gallery-check
+    go run ./cmd/hlgallery -out build/gallery-check
+    diff -r -x README.md gallery build/gallery-check
+    @echo "gallery/ is up to date"
+
+# Local comparison desk against legacy references (private, under build/gfx-review/index.html)
 [positional-arguments]
 gfx-game-review *args:
-    go run ./cmd/hlgfxreview "$@"
+    go run ./cmd/hlgallery -private "$@"
 
 # Refresh PULSE maps and nine actual game captures; open build/gfx-review/pulse.html.
 # On headless Linux: EGL_PLATFORM=x11 xvfb-run -a just gfx-study
@@ -88,7 +99,7 @@ gfx-study *args:
         go run ./tools/native-reference -platform dos -data "$dos_data" -libraries PARTS -map 00 -out "$study_dir/dos"
         set -- -dos-map "$study_dir/dos" "$@"
     fi
-    go run ./cmd/hlgfxreview -captures "$study_dir/captures" "$@"
+    go run ./cmd/hlgallery -private -captures "$study_dir/captures" "$@"
 
 # Decode private original libraries; add -platform dos for DOS ground
 [positional-arguments]

@@ -1,0 +1,28 @@
+# portrait-sappers-01
+
+Recipe: `art/recipes/portraits/reference-v1/sappers-01.json`
+
+- **acceptance**: Approximately 90% resemblance is a visual review target, not a measured score. Direction, physical pivot, native correspondence and runtime acceptance remain review gates.
+- **art_direction**: reference-faithful-continuous-painted-v1
+- **cleanup**: Unchanged generated PNG. Existing Go Lanczos3 exporter only; no pixel repair, alpha removal, rotations or original-pixel compositing.
+- **date**: 2026-10-15
+- **id**: portrait-sappers-01
+- **schema_version**: 1
+- **source**: art/source/portraits/reference-v1/sappers-01.png
+- **source_sha256**: e319c953be15f557a3c38bd0b61fa3d69892fd21bcb817152bdbee836a08ddd7
+- **status**: candidate-source
+- **tool**: built-in image_gen.imagegen
+- **transparent_background**: false
+
+## generation_inputs
+
+| path | role | sha256 |
+|---|---|---|
+| `legacy/python/gfx/units/pictures/sappers.png` | <nil> | `fb7fe4493f71745ed9f85bcbb34012d10b0204ec1581154f73be4570daa2c7b3` |
+| `art/exports/portrait-infantry-v1/infantry-2x.png` | <nil> | `3503be46728754bebc3fb829716ec6aac3e2ddb587a62206d92486278df0852b` |
+
+## Prompt
+
+```text
+Use case: style-transfer. Asset: Sappers owner-neutral WWI strategy unit portrait. Image1 is the repository original: preserve its precise composition, subject placement, occlusions, camera, subdued ochre/sepia values and broad silhouettes. Image2 supplies continuous painted medium ONLY. Target approximately90% visual resemblance when Lanczos3 reduced to210x188. Scene: a crowded WWI engineering worksite: three foreground workmen in pale shirts and caps, central worker leaning over a long tool, many standing workmen receding into background right; same composition as the supplied sappers reference. Paint refined wool/leather/wood/metal and natural surfaces with restrained connected brushwork. Do not redesign, add subjects, or introduce new scenery. Fully opaque full-bleed illustration105:94 aspect at least1260x1128, preferably1680x1504. Omit old UI bevel/frame; extend natural scene to edges. Essential subjects safe inside centred105:94 crop. No text, labels, flags, logos, ownership colours, watermark or UI.
+```

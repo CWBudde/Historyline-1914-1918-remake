@@ -1,0 +1,75 @@
+{
+  "id": "screens-v2/widget/toggle/mixed/pressed",
+  "name": "widget/toggle/mixed/pressed",
+  "category": "Screen components",
+  "family": "widgets",
+  "note": "Current screen component, shared across layouts. No direct reference mapping. Painted backdrop has no authored 4× export.",
+  "recipes": [
+    "art/recipes/screens/v1/western-front.json"
+  ],
+  "prompts": [
+    "prompts/screens/v1/western-front.md"
+  ],
+  "width": 40,
+  "height": 40,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "screen-components/widgets/screens-v2-widget-toggle-mixed-pressed/1x.png",
+          "source": "art/exports/screens-v2/widget/toggle/mixed/pressed-1x.png",
+          "sha256": "6adedc9363633f6d36c9e5902350e3eee28e189127b6f42f26d2833c29ea67cd",
+          "width": 40,
+          "height": 40,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "screen-components/widgets/screens-v2-widget-toggle-mixed-pressed/2x.png",
+          "source": "art/exports/screens-v2/widget/toggle/mixed/pressed-2x.png",
+          "sha256": "597750f2c7b45ee4356f116de21821c4d7f548e55d619f6784b3d6900ab14807",
+          "width": 80,
+          "height": 80,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "screen-components/widgets/screens-v2-widget-toggle-mixed-pressed/4x.png",
+          "source": "art/exports/screens-v2/widget/toggle/mixed/pressed-4x.png",
+          "sha256": "8ed91f41dcc9101bf818b15836b6d41d70b3bc19a5890f39b32795c1ac848863",
+          "width": 160,
+          "height": 160,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "screen-components/widgets/screens-v2-widget-toggle-mixed-pressed/1x.png",
+        "sha256": "6adedc9363633f6d36c9e5902350e3eee28e189127b6f42f26d2833c29ea67cd",
+        "width": 40,
+        "height": 40,
+        "source": "art/exports/screens-v2/widget/toggle/mixed/pressed-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "screen-components/widgets/screens-v2-widget-toggle-mixed-pressed/2x.png",
+        "sha256": "597750f2c7b45ee4356f116de21821c4d7f548e55d619f6784b3d6900ab14807",
+        "width": 80,
+        "height": 80,
+        "source": "art/exports/screens-v2/widget/toggle/mixed/pressed-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "screen-components/widgets/screens-v2-widget-toggle-mixed-pressed/4x.png",
+        "sha256": "8ed91f41dcc9101bf818b15836b6d41d70b3bc19a5890f39b32795c1ac848863",
+        "width": 160,
+        "height": 160,
+        "source": "art/exports/screens-v2/widget/toggle/mixed/pressed-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

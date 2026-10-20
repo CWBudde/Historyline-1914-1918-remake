@@ -1,0 +1,2616 @@
+{
+  "id": "sprite/transportTrain",
+  "name": "transportTrain",
+  "category": "Sprites",
+  "family": "transportTrain",
+  "bindings": [
+    "CP_transTrain"
+  ],
+  "note": "Reference is the unchanged 48×48 source pose and palette. Current authored sprites are reduced to that size with Lanczos3 for comparison; 2× zoom gives the 96×96 game footprint. Other facings/owners/spent states have no matching raw reference variant; no reference rotations or faction swaps are invented.",
+  "recipes": [
+    "art/recipes/units/reference-v1/transport-train-atlas-01.json",
+    "art/recipes/terrain/reference-v2/meadow-03.json"
+  ],
+  "prompts": [
+    "prompts/units/reference-v1/transport-train-atlas-01.md",
+    "prompts/terrain/reference-v2/meadow-03.md"
+  ],
+  "width": 48,
+  "height": 48,
+  "variants": [
+    {
+      "id": "cp/n-normal",
+      "label": "cp · n-normal",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-n-normal-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/n-normal-2x.png",
+          "sha256": "83365893de0f25896c1911cc7c6e9f797226877f0006246f2dcf26efd2ead362",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-n-normal-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/n-normal-2x.png",
+          "sha256": "2d94ea7e6ab96f1fd5ce4a3944021dc0a3d77c16a12ebeaeee8b45771999c2f7",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-n-normal-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/n-normal-4x.png",
+          "sha256": "ec2d8dc06cc01c930415acddcc6fe746c9aa5b2204540b8fc78472279b47ab2f",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-n-normal-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/n-normal-2x.png",
+          "sha256": "01b666f50634cb67e7d1ae3cac61d65226640de2913f5bd7aad821a0cd7dd2e9",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/n-spent",
+      "label": "cp · n-spent",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-n-spent-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/n-spent-2x.png",
+          "sha256": "b3433a992452fffef96faf10924177781e5c4e3a41b3f2ac2b72fc3eb55b9f14",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-n-spent-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/n-spent-2x.png",
+          "sha256": "779484af014c671c0da113691129ae7d331eecfa0a663a6e76edb9c0c011a344",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-n-spent-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/n-spent-4x.png",
+          "sha256": "b3659b61f8718997d7f29f1be3ecaf1f17da26f616ef8902434d9a7e10663551",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-n-spent-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/n-spent-2x.png",
+          "sha256": "3aeb65c093764fe00d01f1d3f7d84645df606c6c06353165abaa87fbeaa20923",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/ne-normal",
+      "label": "cp · ne-normal",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-ne-normal-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/ne-normal-2x.png",
+          "sha256": "908566b7b5b7b50928b26ded6376bd734eae6c49dfd54dc968d977dfebce6b08",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-ne-normal-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/ne-normal-2x.png",
+          "sha256": "2c37b88cb84b10ddd3939b16620ea74405f516c7243c0105fc88b4789c2b6f4b",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-ne-normal-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/ne-normal-4x.png",
+          "sha256": "3facfffdc2cb44d1523a5963d99c87d61c8246b698ff9ee9155768fc59573013",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-ne-normal-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/ne-normal-2x.png",
+          "sha256": "5a41e6407cd8df2b86277139875ea359f2699e9463d72a0075ac852797cf82c9",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/ne-spent",
+      "label": "cp · ne-spent",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-ne-spent-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/ne-spent-2x.png",
+          "sha256": "997ec9915a303a900d9cf4e8009066b5f73f198a4c4567d7b78fc29eecc97dba",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-ne-spent-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/ne-spent-2x.png",
+          "sha256": "b9f71dedcd7d0394070aa48616a360042b8180186cc90d50e69c43eda4876ca6",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-ne-spent-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/ne-spent-4x.png",
+          "sha256": "ad2027c2637cb1afe4333d801fbe28f74206fa61268010d2552a58d98f573c7e",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-ne-spent-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/ne-spent-2x.png",
+          "sha256": "4f6edc9a7b06d6e1f666074be2999d872c451e3013ef1ef779eb25b589bf65c6",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/nw-normal",
+      "label": "cp · nw-normal",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-nw-normal-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/nw-normal-2x.png",
+          "sha256": "e04e012ad018c367b62be912ea97aff1b49fe5bb7b3dee28c2acde9f5f196703",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-nw-normal-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/nw-normal-2x.png",
+          "sha256": "486b5685461c29b7ad64625073d020949e45efac24590539d4922608f3a081bd",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-nw-normal-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/nw-normal-4x.png",
+          "sha256": "e372a09f295e8ce6728b8882fed843ba05fb158ac0f551d0833941c0ac862804",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-nw-normal-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/nw-normal-2x.png",
+          "sha256": "5b3c07cae50550bc1d8d616edb4216769d6c913f02c21af78debadea1e118b1e",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/nw-spent",
+      "label": "cp · nw-spent",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-nw-spent-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/nw-spent-2x.png",
+          "sha256": "255b339e9aa57e7638f1e2db93b45a152fdaee595ed3ac9345f88edcb28e4791",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-nw-spent-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/nw-spent-2x.png",
+          "sha256": "14cf24e5eb5097fcfa25e2271842d308fa3fb41b25ac5c9fa87276e8376b3d01",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-nw-spent-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/nw-spent-4x.png",
+          "sha256": "9062ee5f1fe83b3bf1924e019442a17cfc8de3b838158f297f97b124ac9ddcd1",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-nw-spent-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/nw-spent-2x.png",
+          "sha256": "1a64b3d97c27e0644910a9887994209e85c8a46588d916495dceb9edaa89269c",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/s-normal",
+      "label": "cp · s-normal",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-s-normal-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/s-normal-2x.png",
+          "sha256": "1e4f993a80c9f8743f4c5e653aa05446cd20716bebabf5ef4dde905dd767fcfd",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-s-normal-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/s-normal-2x.png",
+          "sha256": "f610b51e985af19e64b6e1d02fa96bf225a6c7046db6a31bfc4547a003daab4b",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-s-normal-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/s-normal-4x.png",
+          "sha256": "c38876399f27ffc328fa4b485a51ee25dc3c58abd55616d1b37b62be6a8e24dc",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-s-normal-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/s-normal-2x.png",
+          "sha256": "8417e069b5de5929a63a44d0cc91055952f13198cbc3fe3ae47b9ef748ff9f80",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/s-spent",
+      "label": "cp · s-spent",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-s-spent-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/s-spent-2x.png",
+          "sha256": "21539df3c12f19865c2c81787dfe8a24a99e0cb9cde4b884e16a7e086f143c61",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-s-spent-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/s-spent-2x.png",
+          "sha256": "3c32540019d464c84110081d264502e76fcd426ebca86d2fde8a764c3f0894f8",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-s-spent-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/s-spent-4x.png",
+          "sha256": "5446045b6db0019f4fb711e05efd358deda919419be9cdc1ac3908b67534cb6e",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-s-spent-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/s-spent-2x.png",
+          "sha256": "3036a1a42723394d8b6eb3e28b3e620aadaa8887d36ac4423b84027e96731de1",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/se-normal",
+      "label": "cp · se-normal",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-se-normal-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/se-normal-2x.png",
+          "sha256": "3e45feac0811a28d8c5e434e5afe19392259e8344cf733eb7c5fd579a2ccff78",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-se-normal-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/se-normal-2x.png",
+          "sha256": "db11b9562c8529f30ef8b76dcea7b49ac0cb07e8f8260841b0c99be9c5db3225",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-se-normal-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/se-normal-4x.png",
+          "sha256": "8740d89bb03f1efef42c96332a3c0d2673fb3bc77c93e7689bcaf5b642992179",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-se-normal-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/se-normal-2x.png",
+          "sha256": "20025837f8810f03ec266402ac4c701ca50d3ebb06de84a7e81220ab7f2f97ec",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/se-spent",
+      "label": "cp · se-spent",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-se-spent-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/se-spent-2x.png",
+          "sha256": "278d0047b2d2728fb5f7071034e132de2b87b8ff7a26789fe57b5f00583a6f9c",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-se-spent-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/se-spent-2x.png",
+          "sha256": "85fb445b80ccc42ab06eabe1ca691f8ea2c82d0a9e4dcb83dabd4a599d08edab",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-se-spent-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/se-spent-4x.png",
+          "sha256": "304fd918dacec44a42b15c8d06fc1a1ac7a4ddcf633ad287fbad67dbdf09c9ca",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-se-spent-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/se-spent-2x.png",
+          "sha256": "ab136a16658383279f232d42937a34cab6a7064b4f32fc05ac38bff2e0486668",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/sw-normal",
+      "label": "cp · sw-normal",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-sw-normal-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/sw-normal-2x.png",
+          "sha256": "c2dd075bc6c96f20b2135beb8c3bf2a8aa50baec30cba1a9d1fc66398aca23b0",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-sw-normal-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/sw-normal-2x.png",
+          "sha256": "286223a385450569fc833fc6f60f375eee7042a79f9f5acefd7a278c78d8bb34",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-sw-normal-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/sw-normal-4x.png",
+          "sha256": "a66dfd7f8f6e26cc995317556aad7c8cf395c7f4c39c512a9302176f67aee425",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-sw-normal-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/sw-normal-2x.png",
+          "sha256": "9210df58fcecb7ee203f0be9e0339a09ed00a4f7fe75d452569a3e5c5ff17174",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "cp/sw-spent",
+      "label": "cp · sw-spent",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-sw-spent-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/sw-spent-2x.png",
+          "sha256": "8171f46873716c44be58acfd7f98401d06b4a8f2ec8db23ec49e1f9556d2b953",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-sw-spent-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/sw-spent-2x.png",
+          "sha256": "f357de524cf2cccbdf3caf418bb2e7f2b4c27fc239882f78ccfd9477cafda634",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-sw-spent-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/sw-spent-4x.png",
+          "sha256": "eca630ef2936da5919dde5c923798c67a76c9490ec4cd7fb04dcd54c36dcbc35",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/cp-sw-spent-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/sw-spent-2x.png",
+          "sha256": "76eeb7724d0fadadc635ec5b5b180ebaf0efb54b1fdbb3a7a90f592016ffa699",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/n-normal",
+      "label": "ec · n-normal",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-n-normal-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/n-normal-2x.png",
+          "sha256": "4608cc99338da8eebc05060d5162ce4b498ee4b1c9235f832063c29bb9194965",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-n-normal-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/n-normal-2x.png",
+          "sha256": "100c481898f7591595fb9aaa37b387256b174cd20f57a52eae9b09ad06e39236",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-n-normal-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/n-normal-4x.png",
+          "sha256": "d7f18cdc1344fb1ceceeda370e47948b132166d2caac027effcff0cb1468268b",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-n-normal-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/n-normal-2x.png",
+          "sha256": "1c9b0132f86e3a0370d9d3ef0e449dfaad76a4c9b00d6883e789e0a8be967522",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/n-spent",
+      "label": "ec · n-spent",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-n-spent-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/n-spent-2x.png",
+          "sha256": "d3435084b27ffc16913e7d5116a1f0d8993a14574c5d71fefd9c643fb2ca1e2d",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-n-spent-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/n-spent-2x.png",
+          "sha256": "ea18b80d2edfa62fa31aead54d2ffa4bc69fe9b089d711635a47209c662b6860",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-n-spent-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/n-spent-4x.png",
+          "sha256": "62ec8c012ab6aef412d8fa01cc2ec92234b2650fb43b165c01cc865129462588",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-n-spent-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/n-spent-2x.png",
+          "sha256": "273cd4578e45fd5aad7bbbd06e23494d6b5c0646361a702a1cd1403b81131dc1",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/ne-normal",
+      "label": "ec · ne-normal",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-ne-normal-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/ne-normal-2x.png",
+          "sha256": "d744942517f9ac069c65463a5834efbbd6ecec567e42ba727b13d36b12a69b70",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-ne-normal-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/ne-normal-2x.png",
+          "sha256": "d4ecc3930bc52431dc31a711e1220e204ec7d2708e09f46177334e5dc17fd540",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-ne-normal-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/ne-normal-4x.png",
+          "sha256": "5f7a77fea4c7728131f32052f7e64ba5d8d9b3d16a80b305aeb9abc4399c63a1",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-ne-normal-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/ne-normal-2x.png",
+          "sha256": "f3fc4b53432161be560bddfdbc9e5c7bd95b56bad4d96209c3126da78af5e460",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/ne-spent",
+      "label": "ec · ne-spent",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-ne-spent-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/ne-spent-2x.png",
+          "sha256": "65fc6f87dfd1adf978fcd97db955801d18d2dbfb86c66adc3ac5ae8e539fb441",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-ne-spent-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/ne-spent-2x.png",
+          "sha256": "99fe51f01a28bb01e5b409ec0620d63a34fe5388fa5cedf9601a1d3276bd1c19",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-ne-spent-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/ne-spent-4x.png",
+          "sha256": "67f38470bdd5872e3eb7860f4cbcd246f103a627648ff800c3aa0858a7a80d66",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-ne-spent-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/ne-spent-2x.png",
+          "sha256": "31fda83b251eca9e03b24a2515436d6934c89ba4cc158e20f5f9a06d452afcea",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/nw-normal",
+      "label": "ec · nw-normal",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-nw-normal-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/nw-normal-2x.png",
+          "sha256": "f21b8863ed4229d61535192bab5ef7652928d28ea467fd885f858738a63ee0e7",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-nw-normal-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/nw-normal-2x.png",
+          "sha256": "a727f2b48f86043c216df076f46d0c9f2879a62cefd222f75db4be9a617e1491",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-nw-normal-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/nw-normal-4x.png",
+          "sha256": "6784f8b83d80ab9cffb2baa6c6361765561e0034a4c8a32ea4b9c892174a5b88",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-nw-normal-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/nw-normal-2x.png",
+          "sha256": "e27da9504a6807b07a68fe38b1c0010d392701a6c80adda5d591eb5723c200e7",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/nw-spent",
+      "label": "ec · nw-spent",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-nw-spent-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/nw-spent-2x.png",
+          "sha256": "96e3a3263c6e53141521488b95a56f586dd8968e8462902f1a5d4f8018d26750",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-nw-spent-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/nw-spent-2x.png",
+          "sha256": "92e2db2cbec4ef4a50717685c169943274ffa89214f03f6181f8b38cd7c3de42",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-nw-spent-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/nw-spent-4x.png",
+          "sha256": "b11da0f9531641dff5b5553e36dd1ba246c56cf12145a836c266a2cff96b4d75",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-nw-spent-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/nw-spent-2x.png",
+          "sha256": "4403aca0389fd28c6c9e993def67ce54d06d1a5961673cb17f370394283b5579",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/s-normal",
+      "label": "ec · s-normal",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-s-normal-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/s-normal-2x.png",
+          "sha256": "d7c8d6e29f886cabbe4994432844be6614a9a61d8a24c7b754d6b8f5806cce98",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-s-normal-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/s-normal-2x.png",
+          "sha256": "350985c8b7ab8954ec40b731cd53ce1fafeda59fd38d84efc783a337a13d28d6",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-s-normal-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/s-normal-4x.png",
+          "sha256": "85eaf4cea0e960952952876d852fffb1ebc9f88553f9896d0c46e8e326c380fd",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-s-normal-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/s-normal-2x.png",
+          "sha256": "bbb6c6a6852b74a387c45182c0ff222122ed8b6e9b6cfed263904572e0b43491",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/s-spent",
+      "label": "ec · s-spent",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-s-spent-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/s-spent-2x.png",
+          "sha256": "57615356f2115f167f08013cada449aa67aea92e002acbe5b1c803470684f75b",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-s-spent-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/s-spent-2x.png",
+          "sha256": "16dc0dc57527fd53dda21e9ece4478f2ae2f669aa3d50ca50de13811cafdfd47",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-s-spent-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/s-spent-4x.png",
+          "sha256": "00794ae126bfac46aa128e07e5ca6755071e9884c1323508cb96955568b22d10",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-s-spent-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/s-spent-2x.png",
+          "sha256": "bc732b388b9c95a3191f4d3a2281c08885c3079069fc9c795ecf87cbac3687dd",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/se-normal",
+      "label": "ec · se-normal",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-se-normal-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/se-normal-2x.png",
+          "sha256": "33ae3a4ac73ba0a9c4f71f618ea7295fb61e619b4b6127519f5bdc06a7f289de",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-se-normal-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/se-normal-2x.png",
+          "sha256": "3099feda6ccbae3b5aa41c2bea5909809153548c94a12a1c269e452adbda54ca",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-se-normal-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/se-normal-4x.png",
+          "sha256": "3da07df6fd73c97af4df75d901babc8c0b81759e1d95e385d79897140fac39de",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-se-normal-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/se-normal-2x.png",
+          "sha256": "f60dbe1bbabcecbe3fa1cbc336281d6271b781a0c56b0addd3905bc3c73af1e3",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/se-spent",
+      "label": "ec · se-spent",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-se-spent-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/se-spent-2x.png",
+          "sha256": "2fe358dd5000f658abd2e6fd8b72f7c91c0f79e5681e4ceeeb49ff8b12a0ae5c",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-se-spent-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/se-spent-2x.png",
+          "sha256": "9b67be688788a693228b79d6aa3b8c154fe2f47d1467dc816881c18f855d18f1",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-se-spent-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/se-spent-4x.png",
+          "sha256": "3dee8ccca13ca4b5c6d08eb2bb50e72cf34d410a44b9e99b3319a35f3897fcb2",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-se-spent-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/se-spent-2x.png",
+          "sha256": "f85aec767812857e449dc90c1c9deaa32f59911e578ca175ef0cffbf907b9774",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/sw-normal",
+      "label": "ec · sw-normal",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-sw-normal-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/sw-normal-2x.png",
+          "sha256": "9540b3bbade0a091f1d00d63e4923fdf79f6c3f4185410cd444e35668dae1ccd",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-sw-normal-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/sw-normal-2x.png",
+          "sha256": "de2ab85d7e0da734c96a8b45f3be427cc14c7dc713104cee344c2576e42bb97d",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-sw-normal-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/sw-normal-4x.png",
+          "sha256": "74179cd821f53cf74a2287cf19f2c45ae34b5e63a7643cc72465aa76e9b53f06",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-sw-normal-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/sw-normal-2x.png",
+          "sha256": "3a1cc0c78022c0e5a5ad960cc52382c559374abcbd8bb8b8376ec990c0f5fe92",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "ec/sw-spent",
+      "label": "ec · sw-spent",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-sw-spent-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/sw-spent-2x.png",
+          "sha256": "10852dea048c3124a7fc673be4ed8a159db204351bd665aa0489c00becff5041",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-sw-spent-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/sw-spent-2x.png",
+          "sha256": "0fdd80a8f0cdd15b6e48b9ab5be745e3ac498fb172dfc4d0d09236bd89982c4c",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-sw-spent-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/sw-spent-4x.png",
+          "sha256": "9da2164853ab1c891ec20a3e780b2fef071a96f41ecc9eb6bebff33b8cf5dee8",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/ec-sw-spent-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/sw-spent-2x.png",
+          "sha256": "2f66622215b5dcf6dc0b68988a8936ee5016290264a06a497d3df60c85ecc8f2",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/n-normal",
+      "label": "neutral · n-normal",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-n-normal-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/n-normal-2x.png",
+          "sha256": "ec6c1f5009b1e56af577ad3368740fba832fb6c7f649019c5e9e8b878aa8c11b",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-n-normal-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/n-normal-2x.png",
+          "sha256": "f1c1129db7501a23e60db12361acf67305ebe15f62f7f0ec2b60bd2f9c03a692",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-n-normal-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/n-normal-4x.png",
+          "sha256": "b1c2be187e524f50f06a40465029668f75c282a74984fa5c96d4367bd0eff751",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-n-normal-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/n-normal-2x.png",
+          "sha256": "234bca833bd05fbb438286ea270271e90a3c1cc0abee05819371e05bacec43d1",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/n-spent",
+      "label": "neutral · n-spent",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-n-spent-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/n-spent-2x.png",
+          "sha256": "ae5ec147d73076622ccfee54cb157577cefa02b25cddb53cbaa1febd8f32f1c2",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-n-spent-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/n-spent-2x.png",
+          "sha256": "52fc4f7b28074ddc52fd64e49b827be59c9819c6823594f66439350ca5cd7e5d",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-n-spent-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/n-spent-4x.png",
+          "sha256": "6aedcf2c8067f4fbf4bb4ae48be58147bb2303ce305ac30649db5a8402df7152",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-n-spent-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/n-spent-2x.png",
+          "sha256": "03574d87e4ae66fec0fba2f51a1c3687172d7d6a31e22f61640471c3bd017d3c",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/ne-normal",
+      "label": "neutral · ne-normal",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-ne-normal-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/ne-normal-2x.png",
+          "sha256": "f05dbc7d1a240edde055665aa4c284aba42f48e3f8a3137dce4e48e1272a42f2",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-ne-normal-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/ne-normal-2x.png",
+          "sha256": "44b91d71074fc5a391de2b066e544efcdc650c3994fd48c31ad951db83831dee",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-ne-normal-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/ne-normal-4x.png",
+          "sha256": "a10ef60f91f22ee1f284a4c965b33f7396e0cd08d7f49f69b0563370c0e12f22",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-ne-normal-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/ne-normal-2x.png",
+          "sha256": "d0cddffa08e599311d36152b95d6b54de4499aca72d092bcd4e0390de71aba82",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/ne-spent",
+      "label": "neutral · ne-spent",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-ne-spent-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/ne-spent-2x.png",
+          "sha256": "4d9b77bee20a19b006b1a29887667fd08464015ce7ec8591104fd6c463c27cf9",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-ne-spent-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/ne-spent-2x.png",
+          "sha256": "d062fe82c1c409d6d5c75d63211ff45b16f2e85cb945618fbd253086c32f0ca6",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-ne-spent-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/ne-spent-4x.png",
+          "sha256": "f5dce3a408d7b76a51ce8bd40496fe861b8a1df5c95d65961fc3ce37a722c898",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-ne-spent-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/ne-spent-2x.png",
+          "sha256": "f5d1816a87764b96d08ee99f6a33ea4d7db9d2b8206196b5f7994d727655d93d",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/nw-normal",
+      "label": "neutral · nw-normal",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-nw-normal-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/nw-normal-2x.png",
+          "sha256": "fd0020a6b4b8bcbd48eb6445bb06459dcd6021c72c855728393b8cffbd5e4832",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-nw-normal-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/nw-normal-2x.png",
+          "sha256": "96de1b26d40c27d7074257005bd53be590e00788ebed2f2ab92f7696df3a8d25",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-nw-normal-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/nw-normal-4x.png",
+          "sha256": "e11f73d744ff00d62c742bdb191b21c992e112b2f2c2385db6653d9e4c448992",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-nw-normal-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/nw-normal-2x.png",
+          "sha256": "4e724c1449ecc92edfce58326cff21234a44d080ba3cf7201ef27a8ac1403fd9",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/nw-spent",
+      "label": "neutral · nw-spent",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-nw-spent-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/nw-spent-2x.png",
+          "sha256": "6f340f24161683c6a30b6123cae31bc848b5cbfbce3c0e0ea225940face62ded",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-nw-spent-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/nw-spent-2x.png",
+          "sha256": "4c33d52c48a67f8de26e83aff26802dcc2c181ad7569c9c5d4c1217dc35f551e",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-nw-spent-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/nw-spent-4x.png",
+          "sha256": "862337919faecdc38c80bf61d336377f3dccc1422b86a15452eb66e9337ccf0d",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-nw-spent-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/nw-spent-2x.png",
+          "sha256": "4a5cdab812a7e9aff4454fe47a9c4cd500c5d6d8563204fe0b5bfabc501f8626",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/s-normal",
+      "label": "neutral · s-normal",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-s-normal-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/s-normal-2x.png",
+          "sha256": "e8f94e0705462652ca78b6e5f2a7894bc76ca5ed32b8277a3afb230d509e1324",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-s-normal-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/s-normal-2x.png",
+          "sha256": "236339068d6f85f51947c7464919bfa8b0e0e8333f24de03d06fffb810277c17",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-s-normal-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/s-normal-4x.png",
+          "sha256": "ec28af9b5bf108eae4178600b7486342710aa21a463490b081877ac70eab7020",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-s-normal-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/s-normal-2x.png",
+          "sha256": "989e7601630b4c80d2d5f109cc4c40230f152d74b2ea0377b4bdc7d7deb79e1d",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/s-spent",
+      "label": "neutral · s-spent",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-s-spent-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/s-spent-2x.png",
+          "sha256": "2daa10c2a52360140e9d5d9ba572a3dc021ea9c3b912e253777e58187340ce70",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-s-spent-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/s-spent-2x.png",
+          "sha256": "8fd97a370818e78aabf1b03b2ac971a669289ff1ea71a0b2ea0ec6bf58ec087b",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-s-spent-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/s-spent-4x.png",
+          "sha256": "af68b8d3d69998dd38a4b1026c4c4a2def4ea61133af75da687c6d8599fb5efb",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-s-spent-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/s-spent-2x.png",
+          "sha256": "ae3c3824cad9ea078f9a24a5856a58731c2b33c8bfa423a5e883b3e8d8dbcc14",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/se-normal",
+      "label": "neutral · se-normal",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-se-normal-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/se-normal-2x.png",
+          "sha256": "5b5bdd39b37ca6ad3df49d0a8dfb1c7d978ba7ce1c7fbef3879218b65c9e4b61",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-se-normal-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/se-normal-2x.png",
+          "sha256": "b72ac0c6004c98b89fda0f183bce39305dd800b3c7651b03318cefb9b45b8113",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-se-normal-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/se-normal-4x.png",
+          "sha256": "adb9c393032cb83c1b1ed51f963da69463e0e70d845f176f92feabf273c1218d",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-se-normal-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/se-normal-2x.png",
+          "sha256": "80ba4d6d055e55d94fe05c2f3a93f5c0abbc4dedaf64e80e8f7393af98caefd3",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/se-spent",
+      "label": "neutral · se-spent",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-se-spent-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/se-spent-2x.png",
+          "sha256": "0d6db776546ba2948db727708487e7587a9c2afd1f5658d68acb402f7b42fbf2",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-se-spent-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/se-spent-2x.png",
+          "sha256": "823b2696efb47867576113edc4ee43d3f4efdca5f09741d33ca94680f590924b",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-se-spent-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/se-spent-4x.png",
+          "sha256": "154b77f3374f29c606ec5ff1e0d2586201ca292c8826a0227394e557101bd213",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-se-spent-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/se-spent-2x.png",
+          "sha256": "03fe5df1a00d00704cfe5da707e0143136cd0b0c14bc72d776a73ab7b5ba1342",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/sw-normal",
+      "label": "neutral · sw-normal",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-sw-normal-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/sw-normal-2x.png",
+          "sha256": "fe2d128b416339532d8356b1fa0da2ca7f657aedc7012c18dab504a3f39b90d5",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-sw-normal-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/sw-normal-2x.png",
+          "sha256": "3342cc8185c166cc4de4ed1f9e66efa27140af52853bc422cf280ad804559df0",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-sw-normal-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/sw-normal-4x.png",
+          "sha256": "e6cf3e2072795f377a81328d08c3cce9c26dcc2b25c6e84af98e5cbe83e5ea6b",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-sw-normal-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/sw-normal-2x.png",
+          "sha256": "6f16f8cbfc413914928ddcdea3b99089b7d71c5ec91543a928b70b0ea0793d40",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    },
+    {
+      "id": "neutral/sw-spent",
+      "label": "neutral · sw-spent",
+      "images": {
+        "1": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-sw-spent-1x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/sw-spent-2x.png",
+          "sha256": "35104f74f1538264ba47d10619561d6ad57d11e94404abaacc1bae0258294ac6",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-sw-spent-2x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/sw-spent-2x.png",
+          "sha256": "bfb4a3467876bd229634f34aa93a90b4d979b5a245106012a6e4a16bceefb4f3",
+          "width": 192,
+          "height": 192,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-sw-spent-4x.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/sw-spent-4x.png",
+          "sha256": "9f96a81879052e87323f1b2fc7c08d73c1e5d8dbeb88234c33578e23d5506e98",
+          "width": 384,
+          "height": 384,
+          "method": "Exact PNG export"
+        },
+        "game": {
+          "url": "sprites/transportTrain/sprite-transportTrain/neutral-sw-spent-game.png",
+          "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/sw-spent-2x.png",
+          "sha256": "f3e3982e78744fd63c90117339f915b9e049b3bc8170afbcc1b2e2248d061433",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        }
+      }
+    }
+  ],
+  "files": {
+    "cp/n-normal": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-n-normal-1x.png",
+        "sha256": "83365893de0f25896c1911cc7c6e9f797226877f0006246f2dcf26efd2ead362",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/n-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-n-normal-2x.png",
+        "sha256": "2d94ea7e6ab96f1fd5ce4a3944021dc0a3d77c16a12ebeaeee8b45771999c2f7",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/n-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-n-normal-4x.png",
+        "sha256": "ec2d8dc06cc01c930415acddcc6fe746c9aa5b2204540b8fc78472279b47ab2f",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/n-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-n-normal-game.png",
+        "sha256": "01b666f50634cb67e7d1ae3cac61d65226640de2913f5bd7aad821a0cd7dd2e9",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/n-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/n-spent": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-n-spent-1x.png",
+        "sha256": "b3433a992452fffef96faf10924177781e5c4e3a41b3f2ac2b72fc3eb55b9f14",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/n-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-n-spent-2x.png",
+        "sha256": "779484af014c671c0da113691129ae7d331eecfa0a663a6e76edb9c0c011a344",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/n-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-n-spent-4x.png",
+        "sha256": "b3659b61f8718997d7f29f1be3ecaf1f17da26f616ef8902434d9a7e10663551",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/n-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-n-spent-game.png",
+        "sha256": "3aeb65c093764fe00d01f1d3f7d84645df606c6c06353165abaa87fbeaa20923",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/n-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/ne-normal": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-ne-normal-1x.png",
+        "sha256": "908566b7b5b7b50928b26ded6376bd734eae6c49dfd54dc968d977dfebce6b08",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/ne-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-ne-normal-2x.png",
+        "sha256": "2c37b88cb84b10ddd3939b16620ea74405f516c7243c0105fc88b4789c2b6f4b",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/ne-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-ne-normal-4x.png",
+        "sha256": "3facfffdc2cb44d1523a5963d99c87d61c8246b698ff9ee9155768fc59573013",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/ne-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-ne-normal-game.png",
+        "sha256": "5a41e6407cd8df2b86277139875ea359f2699e9463d72a0075ac852797cf82c9",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/ne-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/ne-spent": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-ne-spent-1x.png",
+        "sha256": "997ec9915a303a900d9cf4e8009066b5f73f198a4c4567d7b78fc29eecc97dba",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/ne-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-ne-spent-2x.png",
+        "sha256": "b9f71dedcd7d0394070aa48616a360042b8180186cc90d50e69c43eda4876ca6",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/ne-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-ne-spent-4x.png",
+        "sha256": "ad2027c2637cb1afe4333d801fbe28f74206fa61268010d2552a58d98f573c7e",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/ne-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-ne-spent-game.png",
+        "sha256": "4f6edc9a7b06d6e1f666074be2999d872c451e3013ef1ef779eb25b589bf65c6",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/ne-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/nw-normal": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-nw-normal-1x.png",
+        "sha256": "e04e012ad018c367b62be912ea97aff1b49fe5bb7b3dee28c2acde9f5f196703",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/nw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-nw-normal-2x.png",
+        "sha256": "486b5685461c29b7ad64625073d020949e45efac24590539d4922608f3a081bd",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/nw-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-nw-normal-4x.png",
+        "sha256": "e372a09f295e8ce6728b8882fed843ba05fb158ac0f551d0833941c0ac862804",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/nw-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-nw-normal-game.png",
+        "sha256": "5b3c07cae50550bc1d8d616edb4216769d6c913f02c21af78debadea1e118b1e",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/nw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/nw-spent": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-nw-spent-1x.png",
+        "sha256": "255b339e9aa57e7638f1e2db93b45a152fdaee595ed3ac9345f88edcb28e4791",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/nw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-nw-spent-2x.png",
+        "sha256": "14cf24e5eb5097fcfa25e2271842d308fa3fb41b25ac5c9fa87276e8376b3d01",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/nw-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-nw-spent-4x.png",
+        "sha256": "9062ee5f1fe83b3bf1924e019442a17cfc8de3b838158f297f97b124ac9ddcd1",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/nw-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-nw-spent-game.png",
+        "sha256": "1a64b3d97c27e0644910a9887994209e85c8a46588d916495dceb9edaa89269c",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/nw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/s-normal": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-s-normal-1x.png",
+        "sha256": "1e4f993a80c9f8743f4c5e653aa05446cd20716bebabf5ef4dde905dd767fcfd",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/s-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-s-normal-2x.png",
+        "sha256": "f610b51e985af19e64b6e1d02fa96bf225a6c7046db6a31bfc4547a003daab4b",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/s-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-s-normal-4x.png",
+        "sha256": "c38876399f27ffc328fa4b485a51ee25dc3c58abd55616d1b37b62be6a8e24dc",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/s-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-s-normal-game.png",
+        "sha256": "8417e069b5de5929a63a44d0cc91055952f13198cbc3fe3ae47b9ef748ff9f80",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/s-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/s-spent": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-s-spent-1x.png",
+        "sha256": "21539df3c12f19865c2c81787dfe8a24a99e0cb9cde4b884e16a7e086f143c61",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/s-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-s-spent-2x.png",
+        "sha256": "3c32540019d464c84110081d264502e76fcd426ebca86d2fde8a764c3f0894f8",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/s-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-s-spent-4x.png",
+        "sha256": "5446045b6db0019f4fb711e05efd358deda919419be9cdc1ac3908b67534cb6e",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/s-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-s-spent-game.png",
+        "sha256": "3036a1a42723394d8b6eb3e28b3e620aadaa8887d36ac4423b84027e96731de1",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/s-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/se-normal": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-se-normal-1x.png",
+        "sha256": "3e45feac0811a28d8c5e434e5afe19392259e8344cf733eb7c5fd579a2ccff78",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/se-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-se-normal-2x.png",
+        "sha256": "db11b9562c8529f30ef8b76dcea7b49ac0cb07e8f8260841b0c99be9c5db3225",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/se-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-se-normal-4x.png",
+        "sha256": "8740d89bb03f1efef42c96332a3c0d2673fb3bc77c93e7689bcaf5b642992179",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/se-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-se-normal-game.png",
+        "sha256": "20025837f8810f03ec266402ac4c701ca50d3ebb06de84a7e81220ab7f2f97ec",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/se-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/se-spent": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-se-spent-1x.png",
+        "sha256": "278d0047b2d2728fb5f7071034e132de2b87b8ff7a26789fe57b5f00583a6f9c",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/se-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-se-spent-2x.png",
+        "sha256": "85fb445b80ccc42ab06eabe1ca691f8ea2c82d0a9e4dcb83dabd4a599d08edab",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/se-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-se-spent-4x.png",
+        "sha256": "304fd918dacec44a42b15c8d06fc1a1ac7a4ddcf633ad287fbad67dbdf09c9ca",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/se-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-se-spent-game.png",
+        "sha256": "ab136a16658383279f232d42937a34cab6a7064b4f32fc05ac38bff2e0486668",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/se-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/sw-normal": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-sw-normal-1x.png",
+        "sha256": "c2dd075bc6c96f20b2135beb8c3bf2a8aa50baec30cba1a9d1fc66398aca23b0",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/sw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-sw-normal-2x.png",
+        "sha256": "286223a385450569fc833fc6f60f375eee7042a79f9f5acefd7a278c78d8bb34",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/sw-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-sw-normal-4x.png",
+        "sha256": "a66dfd7f8f6e26cc995317556aad7c8cf395c7f4c39c512a9302176f67aee425",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/sw-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-sw-normal-game.png",
+        "sha256": "9210df58fcecb7ee203f0be9e0339a09ed00a4f7fe75d452569a3e5c5ff17174",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/sw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "cp/sw-spent": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-sw-spent-1x.png",
+        "sha256": "8171f46873716c44be58acfd7f98401d06b4a8f2ec8db23ec49e1f9556d2b953",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/sw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-sw-spent-2x.png",
+        "sha256": "f357de524cf2cccbdf3caf418bb2e7f2b4c27fc239882f78ccfd9477cafda634",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/sw-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-sw-spent-4x.png",
+        "sha256": "eca630ef2936da5919dde5c923798c67a76c9490ec4cd7fb04dcd54c36dcbc35",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/sw-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/cp-sw-spent-game.png",
+        "sha256": "76eeb7724d0fadadc635ec5b5b180ebaf0efb54b1fdbb3a7a90f592016ffa699",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/cp/sw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/n-normal": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-n-normal-1x.png",
+        "sha256": "4608cc99338da8eebc05060d5162ce4b498ee4b1c9235f832063c29bb9194965",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/n-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-n-normal-2x.png",
+        "sha256": "100c481898f7591595fb9aaa37b387256b174cd20f57a52eae9b09ad06e39236",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/n-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-n-normal-4x.png",
+        "sha256": "d7f18cdc1344fb1ceceeda370e47948b132166d2caac027effcff0cb1468268b",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/n-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-n-normal-game.png",
+        "sha256": "1c9b0132f86e3a0370d9d3ef0e449dfaad76a4c9b00d6883e789e0a8be967522",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/n-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/n-spent": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-n-spent-1x.png",
+        "sha256": "d3435084b27ffc16913e7d5116a1f0d8993a14574c5d71fefd9c643fb2ca1e2d",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/n-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-n-spent-2x.png",
+        "sha256": "ea18b80d2edfa62fa31aead54d2ffa4bc69fe9b089d711635a47209c662b6860",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/n-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-n-spent-4x.png",
+        "sha256": "62ec8c012ab6aef412d8fa01cc2ec92234b2650fb43b165c01cc865129462588",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/n-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-n-spent-game.png",
+        "sha256": "273cd4578e45fd5aad7bbbd06e23494d6b5c0646361a702a1cd1403b81131dc1",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/n-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/ne-normal": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-ne-normal-1x.png",
+        "sha256": "d744942517f9ac069c65463a5834efbbd6ecec567e42ba727b13d36b12a69b70",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/ne-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-ne-normal-2x.png",
+        "sha256": "d4ecc3930bc52431dc31a711e1220e204ec7d2708e09f46177334e5dc17fd540",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/ne-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-ne-normal-4x.png",
+        "sha256": "5f7a77fea4c7728131f32052f7e64ba5d8d9b3d16a80b305aeb9abc4399c63a1",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/ne-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-ne-normal-game.png",
+        "sha256": "f3fc4b53432161be560bddfdbc9e5c7bd95b56bad4d96209c3126da78af5e460",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/ne-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/ne-spent": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-ne-spent-1x.png",
+        "sha256": "65fc6f87dfd1adf978fcd97db955801d18d2dbfb86c66adc3ac5ae8e539fb441",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/ne-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-ne-spent-2x.png",
+        "sha256": "99fe51f01a28bb01e5b409ec0620d63a34fe5388fa5cedf9601a1d3276bd1c19",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/ne-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-ne-spent-4x.png",
+        "sha256": "67f38470bdd5872e3eb7860f4cbcd246f103a627648ff800c3aa0858a7a80d66",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/ne-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-ne-spent-game.png",
+        "sha256": "31fda83b251eca9e03b24a2515436d6934c89ba4cc158e20f5f9a06d452afcea",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/ne-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/nw-normal": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-nw-normal-1x.png",
+        "sha256": "f21b8863ed4229d61535192bab5ef7652928d28ea467fd885f858738a63ee0e7",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/nw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-nw-normal-2x.png",
+        "sha256": "a727f2b48f86043c216df076f46d0c9f2879a62cefd222f75db4be9a617e1491",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/nw-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-nw-normal-4x.png",
+        "sha256": "6784f8b83d80ab9cffb2baa6c6361765561e0034a4c8a32ea4b9c892174a5b88",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/nw-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-nw-normal-game.png",
+        "sha256": "e27da9504a6807b07a68fe38b1c0010d392701a6c80adda5d591eb5723c200e7",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/nw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/nw-spent": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-nw-spent-1x.png",
+        "sha256": "96e3a3263c6e53141521488b95a56f586dd8968e8462902f1a5d4f8018d26750",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/nw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-nw-spent-2x.png",
+        "sha256": "92e2db2cbec4ef4a50717685c169943274ffa89214f03f6181f8b38cd7c3de42",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/nw-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-nw-spent-4x.png",
+        "sha256": "b11da0f9531641dff5b5553e36dd1ba246c56cf12145a836c266a2cff96b4d75",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/nw-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-nw-spent-game.png",
+        "sha256": "4403aca0389fd28c6c9e993def67ce54d06d1a5961673cb17f370394283b5579",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/nw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/s-normal": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-s-normal-1x.png",
+        "sha256": "d7c8d6e29f886cabbe4994432844be6614a9a61d8a24c7b754d6b8f5806cce98",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/s-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-s-normal-2x.png",
+        "sha256": "350985c8b7ab8954ec40b731cd53ce1fafeda59fd38d84efc783a337a13d28d6",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/s-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-s-normal-4x.png",
+        "sha256": "85eaf4cea0e960952952876d852fffb1ebc9f88553f9896d0c46e8e326c380fd",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/s-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-s-normal-game.png",
+        "sha256": "bbb6c6a6852b74a387c45182c0ff222122ed8b6e9b6cfed263904572e0b43491",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/s-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/s-spent": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-s-spent-1x.png",
+        "sha256": "57615356f2115f167f08013cada449aa67aea92e002acbe5b1c803470684f75b",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/s-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-s-spent-2x.png",
+        "sha256": "16dc0dc57527fd53dda21e9ece4478f2ae2f669aa3d50ca50de13811cafdfd47",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/s-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-s-spent-4x.png",
+        "sha256": "00794ae126bfac46aa128e07e5ca6755071e9884c1323508cb96955568b22d10",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/s-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-s-spent-game.png",
+        "sha256": "bc732b388b9c95a3191f4d3a2281c08885c3079069fc9c795ecf87cbac3687dd",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/s-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/se-normal": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-se-normal-1x.png",
+        "sha256": "33ae3a4ac73ba0a9c4f71f618ea7295fb61e619b4b6127519f5bdc06a7f289de",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/se-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-se-normal-2x.png",
+        "sha256": "3099feda6ccbae3b5aa41c2bea5909809153548c94a12a1c269e452adbda54ca",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/se-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-se-normal-4x.png",
+        "sha256": "3da07df6fd73c97af4df75d901babc8c0b81759e1d95e385d79897140fac39de",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/se-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-se-normal-game.png",
+        "sha256": "f60dbe1bbabcecbe3fa1cbc336281d6271b781a0c56b0addd3905bc3c73af1e3",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/se-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/se-spent": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-se-spent-1x.png",
+        "sha256": "2fe358dd5000f658abd2e6fd8b72f7c91c0f79e5681e4ceeeb49ff8b12a0ae5c",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/se-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-se-spent-2x.png",
+        "sha256": "9b67be688788a693228b79d6aa3b8c154fe2f47d1467dc816881c18f855d18f1",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/se-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-se-spent-4x.png",
+        "sha256": "3dee8ccca13ca4b5c6d08eb2bb50e72cf34d410a44b9e99b3319a35f3897fcb2",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/se-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-se-spent-game.png",
+        "sha256": "f85aec767812857e449dc90c1c9deaa32f59911e578ca175ef0cffbf907b9774",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/se-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/sw-normal": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-sw-normal-1x.png",
+        "sha256": "9540b3bbade0a091f1d00d63e4923fdf79f6c3f4185410cd444e35668dae1ccd",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/sw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-sw-normal-2x.png",
+        "sha256": "de2ab85d7e0da734c96a8b45f3be427cc14c7dc713104cee344c2576e42bb97d",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/sw-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-sw-normal-4x.png",
+        "sha256": "74179cd821f53cf74a2287cf19f2c45ae34b5e63a7643cc72465aa76e9b53f06",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/sw-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-sw-normal-game.png",
+        "sha256": "3a1cc0c78022c0e5a5ad960cc52382c559374abcbd8bb8b8376ec990c0f5fe92",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/sw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "ec/sw-spent": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-sw-spent-1x.png",
+        "sha256": "10852dea048c3124a7fc673be4ed8a159db204351bd665aa0489c00becff5041",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/sw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-sw-spent-2x.png",
+        "sha256": "0fdd80a8f0cdd15b6e48b9ab5be745e3ac498fb172dfc4d0d09236bd89982c4c",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/sw-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-sw-spent-4x.png",
+        "sha256": "9da2164853ab1c891ec20a3e780b2fef071a96f41ecc9eb6bebff33b8cf5dee8",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/sw-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/ec-sw-spent-game.png",
+        "sha256": "2f66622215b5dcf6dc0b68988a8936ee5016290264a06a497d3df60c85ecc8f2",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/ec/sw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/n-normal": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-n-normal-1x.png",
+        "sha256": "ec6c1f5009b1e56af577ad3368740fba832fb6c7f649019c5e9e8b878aa8c11b",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/n-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-n-normal-2x.png",
+        "sha256": "f1c1129db7501a23e60db12361acf67305ebe15f62f7f0ec2b60bd2f9c03a692",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/n-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-n-normal-4x.png",
+        "sha256": "b1c2be187e524f50f06a40465029668f75c282a74984fa5c96d4367bd0eff751",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/n-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-n-normal-game.png",
+        "sha256": "234bca833bd05fbb438286ea270271e90a3c1cc0abee05819371e05bacec43d1",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/n-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/n-spent": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-n-spent-1x.png",
+        "sha256": "ae5ec147d73076622ccfee54cb157577cefa02b25cddb53cbaa1febd8f32f1c2",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/n-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-n-spent-2x.png",
+        "sha256": "52fc4f7b28074ddc52fd64e49b827be59c9819c6823594f66439350ca5cd7e5d",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/n-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-n-spent-4x.png",
+        "sha256": "6aedcf2c8067f4fbf4bb4ae48be58147bb2303ce305ac30649db5a8402df7152",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/n-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-n-spent-game.png",
+        "sha256": "03574d87e4ae66fec0fba2f51a1c3687172d7d6a31e22f61640471c3bd017d3c",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/n-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/ne-normal": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-ne-normal-1x.png",
+        "sha256": "f05dbc7d1a240edde055665aa4c284aba42f48e3f8a3137dce4e48e1272a42f2",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/ne-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-ne-normal-2x.png",
+        "sha256": "44b91d71074fc5a391de2b066e544efcdc650c3994fd48c31ad951db83831dee",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/ne-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-ne-normal-4x.png",
+        "sha256": "a10ef60f91f22ee1f284a4c965b33f7396e0cd08d7f49f69b0563370c0e12f22",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/ne-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-ne-normal-game.png",
+        "sha256": "d0cddffa08e599311d36152b95d6b54de4499aca72d092bcd4e0390de71aba82",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/ne-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/ne-spent": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-ne-spent-1x.png",
+        "sha256": "4d9b77bee20a19b006b1a29887667fd08464015ce7ec8591104fd6c463c27cf9",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/ne-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-ne-spent-2x.png",
+        "sha256": "d062fe82c1c409d6d5c75d63211ff45b16f2e85cb945618fbd253086c32f0ca6",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/ne-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-ne-spent-4x.png",
+        "sha256": "f5dce3a408d7b76a51ce8bd40496fe861b8a1df5c95d65961fc3ce37a722c898",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/ne-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-ne-spent-game.png",
+        "sha256": "f5d1816a87764b96d08ee99f6a33ea4d7db9d2b8206196b5f7994d727655d93d",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/ne-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/nw-normal": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-nw-normal-1x.png",
+        "sha256": "fd0020a6b4b8bcbd48eb6445bb06459dcd6021c72c855728393b8cffbd5e4832",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/nw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-nw-normal-2x.png",
+        "sha256": "96de1b26d40c27d7074257005bd53be590e00788ebed2f2ab92f7696df3a8d25",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/nw-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-nw-normal-4x.png",
+        "sha256": "e11f73d744ff00d62c742bdb191b21c992e112b2f2c2385db6653d9e4c448992",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/nw-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-nw-normal-game.png",
+        "sha256": "4e724c1449ecc92edfce58326cff21234a44d080ba3cf7201ef27a8ac1403fd9",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/nw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/nw-spent": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-nw-spent-1x.png",
+        "sha256": "6f340f24161683c6a30b6123cae31bc848b5cbfbce3c0e0ea225940face62ded",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/nw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-nw-spent-2x.png",
+        "sha256": "4c33d52c48a67f8de26e83aff26802dcc2c181ad7569c9c5d4c1217dc35f551e",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/nw-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-nw-spent-4x.png",
+        "sha256": "862337919faecdc38c80bf61d336377f3dccc1422b86a15452eb66e9337ccf0d",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/nw-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-nw-spent-game.png",
+        "sha256": "4a5cdab812a7e9aff4454fe47a9c4cd500c5d6d8563204fe0b5bfabc501f8626",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/nw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/s-normal": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-s-normal-1x.png",
+        "sha256": "e8f94e0705462652ca78b6e5f2a7894bc76ca5ed32b8277a3afb230d509e1324",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/s-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-s-normal-2x.png",
+        "sha256": "236339068d6f85f51947c7464919bfa8b0e0e8333f24de03d06fffb810277c17",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/s-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-s-normal-4x.png",
+        "sha256": "ec28af9b5bf108eae4178600b7486342710aa21a463490b081877ac70eab7020",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/s-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-s-normal-game.png",
+        "sha256": "989e7601630b4c80d2d5f109cc4c40230f152d74b2ea0377b4bdc7d7deb79e1d",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/s-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/s-spent": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-s-spent-1x.png",
+        "sha256": "2daa10c2a52360140e9d5d9ba572a3dc021ea9c3b912e253777e58187340ce70",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/s-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-s-spent-2x.png",
+        "sha256": "8fd97a370818e78aabf1b03b2ac971a669289ff1ea71a0b2ea0ec6bf58ec087b",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/s-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-s-spent-4x.png",
+        "sha256": "af68b8d3d69998dd38a4b1026c4c4a2def4ea61133af75da687c6d8599fb5efb",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/s-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-s-spent-game.png",
+        "sha256": "ae3c3824cad9ea078f9a24a5856a58731c2b33c8bfa423a5e883b3e8d8dbcc14",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/s-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/se-normal": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-se-normal-1x.png",
+        "sha256": "5b5bdd39b37ca6ad3df49d0a8dfb1c7d978ba7ce1c7fbef3879218b65c9e4b61",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/se-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-se-normal-2x.png",
+        "sha256": "b72ac0c6004c98b89fda0f183bce39305dd800b3c7651b03318cefb9b45b8113",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/se-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-se-normal-4x.png",
+        "sha256": "adb9c393032cb83c1b1ed51f963da69463e0e70d845f176f92feabf273c1218d",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/se-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-se-normal-game.png",
+        "sha256": "80ba4d6d055e55d94fe05c2f3a93f5c0abbc4dedaf64e80e8f7393af98caefd3",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/se-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/se-spent": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-se-spent-1x.png",
+        "sha256": "0d6db776546ba2948db727708487e7587a9c2afd1f5658d68acb402f7b42fbf2",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/se-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-se-spent-2x.png",
+        "sha256": "823b2696efb47867576113edc4ee43d3f4efdca5f09741d33ca94680f590924b",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/se-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-se-spent-4x.png",
+        "sha256": "154b77f3374f29c606ec5ff1e0d2586201ca292c8826a0227394e557101bd213",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/se-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-se-spent-game.png",
+        "sha256": "03fe5df1a00d00704cfe5da707e0143136cd0b0c14bc72d776a73ab7b5ba1342",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/se-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/sw-normal": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-sw-normal-1x.png",
+        "sha256": "fe2d128b416339532d8356b1fa0da2ca7f657aedc7012c18dab504a3f39b90d5",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/sw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-sw-normal-2x.png",
+        "sha256": "3342cc8185c166cc4de4ed1f9e66efa27140af52853bc422cf280ad804559df0",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/sw-normal-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-sw-normal-4x.png",
+        "sha256": "e6cf3e2072795f377a81328d08c3cce9c26dcc2b25c6e84af98e5cbe83e5ea6b",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/sw-normal-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-sw-normal-game.png",
+        "sha256": "6f16f8cbfc413914928ddcdea3b99089b7d71c5ec91543a928b70b0ea0793d40",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/sw-normal-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    },
+    "neutral/sw-spent": {
+      "1": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-sw-spent-1x.png",
+        "sha256": "35104f74f1538264ba47d10619561d6ad57d11e94404abaacc1bae0258294ac6",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/sw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-sw-spent-2x.png",
+        "sha256": "bfb4a3467876bd229634f34aa93a90b4d979b5a245106012a6e4a16bceefb4f3",
+        "width": 192,
+        "height": 192,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/sw-spent-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-sw-spent-4x.png",
+        "sha256": "9f96a81879052e87323f1b2fc7c08d73c1e5d8dbeb88234c33578e23d5506e98",
+        "width": 384,
+        "height": 384,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/sw-spent-4x.png",
+        "method": "Exact PNG export"
+      },
+      "game": {
+        "path": "sprites/transportTrain/sprite-transportTrain/neutral-sw-spent-game.png",
+        "sha256": "f3e3982e78744fd63c90117339f915b9e049b3bc8170afbcc1b2e2248d061433",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/unit-transport-train-v1/sprites/transportTrain/neutral/sw-spent-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      }
+    }
+  }
+}

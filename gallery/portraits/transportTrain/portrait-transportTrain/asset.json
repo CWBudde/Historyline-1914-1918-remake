@@ -1,0 +1,78 @@
+{
+  "id": "portrait/transportTrain",
+  "name": "transportTrain",
+  "category": "Portraits",
+  "family": "transportTrain",
+  "bindings": [
+    "CP_transTrain"
+  ],
+  "note": "Current family candidate. Visual approval and runtime acceptance pending.",
+  "recipes": [
+    "art/recipes/portraits/reference-v1/transport-train-01.json"
+  ],
+  "prompts": [
+    "prompts/portraits/reference-v1/transport-train-01.md"
+  ],
+  "width": 210,
+  "height": 188,
+  "variants": [
+    {
+      "id": "portrait",
+      "label": "portrait",
+      "images": {
+        "1": {
+          "url": "portraits/transportTrain/portrait-transportTrain/1x.png",
+          "source": "art/exports/portrait-transport-train-v1/transportTrain-1x.png",
+          "sha256": "c50120e12be1f6866be5983fa7dc4437559f414fec6dfa59dd4054d85c570b53",
+          "width": 210,
+          "height": 188,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "portraits/transportTrain/portrait-transportTrain/2x.png",
+          "source": "art/exports/portrait-transport-train-v1/transportTrain-2x.png",
+          "sha256": "69499f0a273e54e1030202e291656619f101ccd3bd9caf4c7cea4f6e608d2a55",
+          "width": 420,
+          "height": 376,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "portraits/transportTrain/portrait-transportTrain/4x.png",
+          "source": "art/exports/portrait-transport-train-v1/transportTrain-4x.png",
+          "sha256": "c48fd64ce1ef9f0cb238679db8adc3b561aabe382ccba949b0a006c4f1d79ef3",
+          "width": 840,
+          "height": 752,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "portrait": {
+      "1": {
+        "path": "portraits/transportTrain/portrait-transportTrain/1x.png",
+        "sha256": "c50120e12be1f6866be5983fa7dc4437559f414fec6dfa59dd4054d85c570b53",
+        "width": 210,
+        "height": 188,
+        "source": "art/exports/portrait-transport-train-v1/transportTrain-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "portraits/transportTrain/portrait-transportTrain/2x.png",
+        "sha256": "69499f0a273e54e1030202e291656619f101ccd3bd9caf4c7cea4f6e608d2a55",
+        "width": 420,
+        "height": 376,
+        "source": "art/exports/portrait-transport-train-v1/transportTrain-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "portraits/transportTrain/portrait-transportTrain/4x.png",
+        "sha256": "c48fd64ce1ef9f0cb238679db8adc3b561aabe382ccba949b0a006c4f1d79ef3",
+        "width": 840,
+        "height": 752,
+        "source": "art/exports/portrait-transport-train-v1/transportTrain-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

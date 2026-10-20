@@ -1,9 +1,12 @@
 # Current game graphics comparison
 
-From the repository root:
+The committed art gallery lives in [`gallery/`](../gallery/README.md) (`just gallery`,
+`just gallery-check`): final art, prompts and an offline browser, without reference
+images. The comparison desk below is the **private** variant, which adds the legacy
+and original references. From the repository root:
 
 ```sh
-go run ./cmd/hlgfxreview
+go run ./cmd/hlgallery -private
 # or: just gfx-game-review
 ```
 
@@ -85,7 +88,7 @@ exports are used unchanged. Pinned recipe/report inputs are checked before
 snapshotting, and PNG streams are fully decoded. Terrain ledger exports do not
 provide output hash pins; their snapshot hashes record the bytes reviewed.
 
-Run `go test ./cmd/hlgfxreview` for real-catalog coverage, all snapshot hashes and
+Run `go test ./cmd/hlgallery` for real-catalog coverage, all snapshot hashes and
 dimensions, malformed-input/path/crop rejection and alpha-aware filtering checks.
 For desktop/mobile interaction checks, set `HL_GFX_REVIEW_BROWSER` to an installed
 Chromium executable and run the same test. It launches isolated headless profiles
@@ -203,7 +206,7 @@ go run ./tools/native-reference -data /path/to/Amiga/data \
   -libraries PARTS -map 00 -out build/my-study/amiga
 go run ./tools/native-reference -platform dos -data /path/to/DOS/installation \
   -libraries PARTS -map 00 -out build/my-study/dos
-go run ./cmd/hlgfxreview -native-map build/my-study/amiga \
+go run ./cmd/hlgallery -private -native-map build/my-study/amiga \
   -dos-map build/my-study/dos -captures build/my-study/captures
 ```
 

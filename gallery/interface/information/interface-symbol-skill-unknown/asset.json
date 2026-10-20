@@ -1,0 +1,69 @@
+{
+  "id": "interface/symbol/skill-unknown",
+  "name": "symbol/skill-unknown",
+  "category": "Interface",
+  "family": "information",
+  "note": "Current text-free game component. Labels and game values are drawn separately; runtime acceptance pending. No direct reference image is mapped for this component.",
+  "width": 24,
+  "height": 24,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "interface/information/interface-symbol-skill-unknown/1x.png",
+          "source": "art/exports/interface-v1/symbol/skill-unknown-1x.png",
+          "sha256": "2f87473a3bcc270e16484f44aefd6435ee98c413cf9094e79ad3408a87b4ded0",
+          "width": 24,
+          "height": 24,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "interface/information/interface-symbol-skill-unknown/2x.png",
+          "source": "art/exports/interface-v1/symbol/skill-unknown-2x.png",
+          "sha256": "da2e5b16ed2f1401e83c14ad91085d22c0686352f8e68087ec8b5cbe9220e6e4",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "interface/information/interface-symbol-skill-unknown/4x.png",
+          "source": "art/exports/interface-v1/symbol/skill-unknown-4x.png",
+          "sha256": "11655bc3acc4a8b43b2e2d7b09f09a33ab7bc3219ecfbffe5513acbac4c28ca8",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "interface/information/interface-symbol-skill-unknown/1x.png",
+        "sha256": "2f87473a3bcc270e16484f44aefd6435ee98c413cf9094e79ad3408a87b4ded0",
+        "width": 24,
+        "height": 24,
+        "source": "art/exports/interface-v1/symbol/skill-unknown-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "interface/information/interface-symbol-skill-unknown/2x.png",
+        "sha256": "da2e5b16ed2f1401e83c14ad91085d22c0686352f8e68087ec8b5cbe9220e6e4",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/interface-v1/symbol/skill-unknown-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "interface/information/interface-symbol-skill-unknown/4x.png",
+        "sha256": "11655bc3acc4a8b43b2e2d7b09f09a33ab7bc3219ecfbffe5513acbac4c28ca8",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/interface-v1/symbol/skill-unknown-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

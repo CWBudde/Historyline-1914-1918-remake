@@ -1,0 +1,69 @@
+{
+  "id": "interface/effect/hit",
+  "name": "effect/hit",
+  "category": "Interface",
+  "family": "effects",
+  "note": "Current text-free game component. Labels and game values are drawn separately; runtime acceptance pending. No direct reference image is mapped for this component.",
+  "width": 72,
+  "height": 72,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "interface/effects/interface-effect-hit/1x.png",
+          "source": "art/exports/interface-v1/effect/hit-1x.png",
+          "sha256": "eafe091cebe0e9d3dfca77b96839ecfadca2636e8ccaa929c79acef13fc11f14",
+          "width": 72,
+          "height": 72,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "interface/effects/interface-effect-hit/2x.png",
+          "source": "art/exports/interface-v1/effect/hit-2x.png",
+          "sha256": "36166456d250a5e1d6789b040a268078cd621c195e5d90d4b7bbf88326bf5267",
+          "width": 144,
+          "height": 144,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "interface/effects/interface-effect-hit/4x.png",
+          "source": "art/exports/interface-v1/effect/hit-4x.png",
+          "sha256": "ab15c8183a6bbcf380854fc971336eab47bb4740a9c7c7810a26a457bf40eeaf",
+          "width": 288,
+          "height": 288,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "interface/effects/interface-effect-hit/1x.png",
+        "sha256": "eafe091cebe0e9d3dfca77b96839ecfadca2636e8ccaa929c79acef13fc11f14",
+        "width": 72,
+        "height": 72,
+        "source": "art/exports/interface-v1/effect/hit-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "interface/effects/interface-effect-hit/2x.png",
+        "sha256": "36166456d250a5e1d6789b040a268078cd621c195e5d90d4b7bbf88326bf5267",
+        "width": 144,
+        "height": 144,
+        "source": "art/exports/interface-v1/effect/hit-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "interface/effects/interface-effect-hit/4x.png",
+        "sha256": "ab15c8183a6bbcf380854fc971336eab47bb4740a9c7c7810a26a457bf40eeaf",
+        "width": 288,
+        "height": 288,
+        "source": "art/exports/interface-v1/effect/hit-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

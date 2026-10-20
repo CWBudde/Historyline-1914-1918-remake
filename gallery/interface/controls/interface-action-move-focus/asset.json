@@ -1,0 +1,69 @@
+{
+  "id": "interface/action/move-focus",
+  "name": "action/move-focus",
+  "category": "Interface",
+  "family": "controls",
+  "note": "Current text-free game component. Labels and game values are drawn separately; runtime acceptance pending. Reference is the original base action, unchanged for the new interaction states.",
+  "width": 62,
+  "height": 52,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "interface/controls/interface-action-move-focus/1x.png",
+          "source": "art/exports/interface-v1/action/move-focus-1x.png",
+          "sha256": "8940330d1c5faadc6f6d6d46eb4b46d481466c512c965cfb4fc304f511cb6ce1",
+          "width": 62,
+          "height": 52,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "interface/controls/interface-action-move-focus/2x.png",
+          "source": "art/exports/interface-v1/action/move-focus-2x.png",
+          "sha256": "80a37afe5058035e3211c2665ebb04cbd22669f42130278d7173b8096aa3bfc0",
+          "width": 124,
+          "height": 104,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "interface/controls/interface-action-move-focus/4x.png",
+          "source": "art/exports/interface-v1/action/move-focus-4x.png",
+          "sha256": "809ce39e5c147f5fe3facabbb54cfa7459fa77fd5bdb8936382b05b9ae20ea36",
+          "width": 248,
+          "height": 208,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "interface/controls/interface-action-move-focus/1x.png",
+        "sha256": "8940330d1c5faadc6f6d6d46eb4b46d481466c512c965cfb4fc304f511cb6ce1",
+        "width": 62,
+        "height": 52,
+        "source": "art/exports/interface-v1/action/move-focus-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "interface/controls/interface-action-move-focus/2x.png",
+        "sha256": "80a37afe5058035e3211c2665ebb04cbd22669f42130278d7173b8096aa3bfc0",
+        "width": 124,
+        "height": 104,
+        "source": "art/exports/interface-v1/action/move-focus-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "interface/controls/interface-action-move-focus/4x.png",
+        "sha256": "809ce39e5c147f5fe3facabbb54cfa7459fa77fd5bdb8936382b05b9ae20ea36",
+        "width": 248,
+        "height": 208,
+        "source": "art/exports/interface-v1/action/move-focus-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

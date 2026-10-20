@@ -1,0 +1,84 @@
+{
+  "id": "background/house_w",
+  "name": "house_w",
+  "category": "Terrain",
+  "family": "house",
+  "season": "winter",
+  "note": "Current enabled background binding. This single-asset view uses its default context export; the PULSE study resolves available neighbor contexts through the shared compositor. Final runtime acceptance remains open.",
+  "recipes": [
+    "art/recipes/compound/distinct-v1/hamlet-summer-01.json",
+    "art/recipes/compound/distinct-v1/hamlet-winter-01.json",
+    "art/recipes/compound/distinct-v1/hamlet-winter-02.json",
+    "art/recipes/terrain/distinct-v1/snow-ground.json",
+    "art/recipes/terrain/reference-v2/meadow-03.json"
+  ],
+  "prompts": [
+    "prompts/compound/distinct-v1/hamlet-summer-01.md",
+    "prompts/compound/distinct-v1/hamlet-winter-01.md",
+    "prompts/compound/distinct-v1/hamlet-winter-02.md",
+    "prompts/terrain/distinct-v1/snow-ground.md",
+    "prompts/terrain/reference-v2/meadow-03.md"
+  ],
+  "width": 96,
+  "height": 80,
+  "variants": [
+    {
+      "id": "default",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "terrain/house/background-house_w/1x.png",
+          "source": "art/exports/compound-v1/house_w-2x.png",
+          "sha256": "65dfca5056b05f70430005a6827d9c020dc7111bdf527bb47407a63d54e96f9b",
+          "width": 96,
+          "height": 80,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "terrain/house/background-house_w/2x.png",
+          "source": "art/exports/compound-v1/house_w-2x.png",
+          "sha256": "3cc3aefdc6d96939949f34d67ed20af75e136505530dd768cb26eeaf192a118b",
+          "width": 192,
+          "height": 160,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "terrain/house/background-house_w/4x.png",
+          "source": "art/exports/compound-v1/house_w-4x.png",
+          "sha256": "49ad22f62f42cafd2f99b689cb4060f11a7e96ead9f6c96c4b539a25181c9a0f",
+          "width": 384,
+          "height": 320,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "default": {
+      "1": {
+        "path": "terrain/house/background-house_w/1x.png",
+        "sha256": "65dfca5056b05f70430005a6827d9c020dc7111bdf527bb47407a63d54e96f9b",
+        "width": 96,
+        "height": 80,
+        "source": "art/exports/compound-v1/house_w-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "terrain/house/background-house_w/2x.png",
+        "sha256": "3cc3aefdc6d96939949f34d67ed20af75e136505530dd768cb26eeaf192a118b",
+        "width": 192,
+        "height": 160,
+        "source": "art/exports/compound-v1/house_w-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "terrain/house/background-house_w/4x.png",
+        "sha256": "49ad22f62f42cafd2f99b689cb4060f11a7e96ead9f6c96c4b539a25181c9a0f",
+        "width": 384,
+        "height": 320,
+        "source": "art/exports/compound-v1/house_w-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

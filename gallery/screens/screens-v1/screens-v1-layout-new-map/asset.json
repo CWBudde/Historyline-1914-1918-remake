@@ -1,0 +1,59 @@
+{
+  "id": "screens-v1/layout/new-map",
+  "name": "new-map",
+  "category": "Screens",
+  "family": "screens-v1",
+  "note": "Current screen layout with example labels and values. The composed image is a review fixture; the game will draw text and controls separately. No matching reference capture is mapped. Navigation and runtime integration remain open.",
+  "recipes": [
+    "art/recipes/screens/v1/western-front.json"
+  ],
+  "prompts": [
+    "prompts/screens/v1/western-front.md"
+  ],
+  "width": 640,
+  "height": 400,
+  "variants": [
+    {
+      "id": "layout",
+      "label": "Composed layout",
+      "images": {
+        "1": {
+          "url": "screens/screens-v1/screens-v1-layout-new-map/1x.png",
+          "source": "art/exports/screens-v1/fixtures/new-map-2x.png",
+          "sha256": "c9a03f5c67bf920ab40ff9e1732e0aa69add245c80c062e6eeb17dcd42ca8bff",
+          "width": 640,
+          "height": 400,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "screens/screens-v1/screens-v1-layout-new-map/2x.png",
+          "source": "art/exports/screens-v1/fixtures/new-map-2x.png",
+          "sha256": "4007e0d98c296be5f0180c7bde681b67455e069c8b210d20eac0814f861c262b",
+          "width": 1280,
+          "height": 800,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "layout": {
+      "1": {
+        "path": "screens/screens-v1/screens-v1-layout-new-map/1x.png",
+        "sha256": "c9a03f5c67bf920ab40ff9e1732e0aa69add245c80c062e6eeb17dcd42ca8bff",
+        "width": 640,
+        "height": 400,
+        "source": "art/exports/screens-v1/fixtures/new-map-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "screens/screens-v1/screens-v1-layout-new-map/2x.png",
+        "sha256": "4007e0d98c296be5f0180c7bde681b67455e069c8b210d20eac0814f861c262b",
+        "width": 1280,
+        "height": 800,
+        "source": "art/exports/screens-v1/fixtures/new-map-2x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

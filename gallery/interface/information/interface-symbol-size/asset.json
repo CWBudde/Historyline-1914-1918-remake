@@ -1,0 +1,69 @@
+{
+  "id": "interface/symbol/size",
+  "name": "symbol/size",
+  "category": "Interface",
+  "family": "information",
+  "note": "Current text-free game component. Labels and game values are drawn separately; runtime acceptance pending. No direct reference image is mapped for this component.",
+  "width": 24,
+  "height": 24,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "interface/information/interface-symbol-size/1x.png",
+          "source": "art/exports/interface-v1/symbol/size-1x.png",
+          "sha256": "ec337f74ffae74806372e79bc534624e00a44b63994c74d1e285357e88ad5d0d",
+          "width": 24,
+          "height": 24,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "interface/information/interface-symbol-size/2x.png",
+          "source": "art/exports/interface-v1/symbol/size-2x.png",
+          "sha256": "351128025fc70d96538659ca6cccb485766dc5d6aa47db53f8195a7f3937c42a",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "interface/information/interface-symbol-size/4x.png",
+          "source": "art/exports/interface-v1/symbol/size-4x.png",
+          "sha256": "3f336065c74279f0d54e1e6ca33d1f16a18f04cc5401f56919e8a97ff4a95ca7",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "interface/information/interface-symbol-size/1x.png",
+        "sha256": "ec337f74ffae74806372e79bc534624e00a44b63994c74d1e285357e88ad5d0d",
+        "width": 24,
+        "height": 24,
+        "source": "art/exports/interface-v1/symbol/size-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "interface/information/interface-symbol-size/2x.png",
+        "sha256": "351128025fc70d96538659ca6cccb485766dc5d6aa47db53f8195a7f3937c42a",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/interface-v1/symbol/size-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "interface/information/interface-symbol-size/4x.png",
+        "sha256": "3f336065c74279f0d54e1e6ca33d1f16a18f04cc5401f56919e8a97ff4a95ca7",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/interface-v1/symbol/size-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

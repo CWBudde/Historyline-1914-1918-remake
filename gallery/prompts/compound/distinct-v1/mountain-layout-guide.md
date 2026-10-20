@@ -1,0 +1,13 @@
+# mountain-layout-guide
+
+Recipe: `art/recipes/compound/distinct-v1/mountain-layout-guide.json`
+
+- **date**: 2026-10-15
+- **geometry_reference**: docs/art/mountain-tile-geometry.md
+- **id**: mountain-layout-guide
+- **method**: Numeric quad238x160, four hex union at scale6 offset54,32 on1536x1024; tan foothill ellipse center119,80 radii76,37; blue117,78 radii45,28; green67,84 radii21,23; orange174,83 radii22,22. Newly authored geometry only. This guide informed rejected private01/02; selected03 uses only new rocky material and fresh planimetric composition.
+- **schema_version**: 1
+- **source**: art/source/compound/distinct-v1/guides/mountain-layout-guide.png
+- **source_sha256**: 2cf7f8b4a7c2f812b6f56d81ef56526391da4a2890bea9b45c112ec2d44b5483
+- **status**: retained-generation-input
+- **tool**: Go numeric geometry authoring guide

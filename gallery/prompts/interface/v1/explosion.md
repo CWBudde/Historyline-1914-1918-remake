@@ -1,0 +1,19 @@
+# effect/explosion-atlas
+
+Recipe: `art/recipes/interface/v1/explosion.json`
+
+- **acceptance**: Approximately 90% reference resemblance is a visual review target, not a computed score; native mapping and runtime approval remain open.
+- **cleanup**: Untouched generated master. Weapon crops use alpha>8 subject bounds plus8 source pixels; very faint generated alpha outside crop is discarded, no threshold applied inside. Proportional fit into1008x200 with no stretching/upscaling, then4x->2x->1x premultiplied Lanczos3. Explosion uses nine complete418x418 cells ->384/192/96, without recentering.
+- **id**: effect/explosion-atlas
+- **schema_version**: 1
+- **source**: art/source/interface/v1/explosion.png
+- **source_sha256**: 70fabb31646620fdf18316f1388ee376d0eb48a50111c7b68ba1d753b0fb7015
+- **status**: offline-candidate
+- **tool**: built-in image_gen.imagegen
+- **transparent_background**: true
+
+## Prompt
+
+```text
+Use case: stylized-concept. Asset type: game explosion animation atlas on transparent background. Create exactly one 1536x1536 PNG organized as a precise three-column, three-row grid of nine 512x512 cells with no grid lines or text. Frames read row major: 1 tiny bright ignition; 2 small expanding star of yellow orange flame; 3 larger flash with curling orange tongues; 4 peak warm cream flash orange lobes; 5 fading hollow fireball with smoky brown rim; 6 expanding gray brown smoke ring; 7 loose smoke and ember fragments; 8 faint drifting smoke motes; 9 last tiny residual smoke specks. Established Historyline remake illustration style: polished continuous hand painted detail, realistic miniature military game visual, soft shaded smoke, not pixel art or flat vector. Stable registration: each frame centers on (256,256) within its own cell; no motion of center, no background, no ground disk, no shadow. All visible matter must fit within centered 420x420 square in each cell, leaving at least46px transparent padding around each. Identical camera and scale progression. Individual frames entirely separate, no spill into neighbors. Output real alpha transparency with clean antialiased smoke. No labels, no text, no checkerboard painted in. Keep familiar orange-yellow-to-gray nine-frame death explosion progression; visual size at logical96px. Reference semantics only, newly painted.
+```

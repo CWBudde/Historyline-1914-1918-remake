@@ -1,0 +1,59 @@
+{
+  "id": "screens-v1/layout/defeat",
+  "name": "defeat",
+  "category": "Screens",
+  "family": "screens-v1",
+  "note": "Current screen layout with example labels and values. The composed image is a review fixture; the game will draw text and controls separately. No matching reference capture is mapped. Navigation and runtime integration remain open.",
+  "recipes": [
+    "art/recipes/screens/v1/western-front.json"
+  ],
+  "prompts": [
+    "prompts/screens/v1/western-front.md"
+  ],
+  "width": 640,
+  "height": 400,
+  "variants": [
+    {
+      "id": "layout",
+      "label": "Composed layout",
+      "images": {
+        "1": {
+          "url": "screens/screens-v1/screens-v1-layout-defeat/1x.png",
+          "source": "art/exports/screens-v1/fixtures/defeat-2x.png",
+          "sha256": "83225da27533b22e3bd51bb39458c622f0b949ba414a58786ed04e419c7beaba",
+          "width": 640,
+          "height": 400,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "screens/screens-v1/screens-v1-layout-defeat/2x.png",
+          "source": "art/exports/screens-v1/fixtures/defeat-2x.png",
+          "sha256": "b7cf943985846ffb22e4c2fdcb6a68f6ad7e0cc6ec4542adc31cdb3bb5b2461b",
+          "width": 1280,
+          "height": 800,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "layout": {
+      "1": {
+        "path": "screens/screens-v1/screens-v1-layout-defeat/1x.png",
+        "sha256": "83225da27533b22e3bd51bb39458c622f0b949ba414a58786ed04e419c7beaba",
+        "width": 640,
+        "height": 400,
+        "source": "art/exports/screens-v1/fixtures/defeat-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "screens/screens-v1/screens-v1-layout-defeat/2x.png",
+        "sha256": "b7cf943985846ffb22e4c2fdcb6a68f6ad7e0cc6ec4542adc31cdb3bb5b2461b",
+        "width": 1280,
+        "height": 800,
+        "source": "art/exports/screens-v1/fixtures/defeat-2x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

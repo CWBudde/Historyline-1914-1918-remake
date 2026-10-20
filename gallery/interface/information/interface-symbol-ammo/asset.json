@@ -1,0 +1,69 @@
+{
+  "id": "interface/symbol/ammo",
+  "name": "symbol/ammo",
+  "category": "Interface",
+  "family": "information",
+  "note": "Current text-free game component. Labels and game values are drawn separately; runtime acceptance pending. No direct reference image is mapped for this component.",
+  "width": 24,
+  "height": 24,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "interface/information/interface-symbol-ammo/1x.png",
+          "source": "art/exports/interface-v1/symbol/ammo-1x.png",
+          "sha256": "77bdb7cf8f19fa20cdc81caf34abe91fe48772675a554b00c62f820a575f8b5e",
+          "width": 24,
+          "height": 24,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "interface/information/interface-symbol-ammo/2x.png",
+          "source": "art/exports/interface-v1/symbol/ammo-2x.png",
+          "sha256": "b8920a935a241736365304e1d157150813ae9320c181ebe0607b46f6bec01554",
+          "width": 48,
+          "height": 48,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "interface/information/interface-symbol-ammo/4x.png",
+          "source": "art/exports/interface-v1/symbol/ammo-4x.png",
+          "sha256": "b77dc142678accc4ff596d9b24a257b021db604b1fdc32befd3c4e6ac6b938d8",
+          "width": 96,
+          "height": 96,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "interface/information/interface-symbol-ammo/1x.png",
+        "sha256": "77bdb7cf8f19fa20cdc81caf34abe91fe48772675a554b00c62f820a575f8b5e",
+        "width": 24,
+        "height": 24,
+        "source": "art/exports/interface-v1/symbol/ammo-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "interface/information/interface-symbol-ammo/2x.png",
+        "sha256": "b8920a935a241736365304e1d157150813ae9320c181ebe0607b46f6bec01554",
+        "width": 48,
+        "height": 48,
+        "source": "art/exports/interface-v1/symbol/ammo-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "interface/information/interface-symbol-ammo/4x.png",
+        "sha256": "b77dc142678accc4ff596d9b24a257b021db604b1fdc32befd3c4e6ac6b938d8",
+        "width": 96,
+        "height": 96,
+        "source": "art/exports/interface-v1/symbol/ammo-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

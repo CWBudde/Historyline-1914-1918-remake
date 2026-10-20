@@ -1,0 +1,75 @@
+{
+  "id": "screens-v2/scrollbar/thumb",
+  "name": "scrollbar/thumb",
+  "category": "Screen components",
+  "family": "screen-component",
+  "note": "Current screen component, shared across layouts. No direct reference mapping. Painted backdrop has no authored 4× export.",
+  "recipes": [
+    "art/recipes/screens/v1/western-front.json"
+  ],
+  "prompts": [
+    "prompts/screens/v1/western-front.md"
+  ],
+  "width": 14,
+  "height": 64,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "screen-components/screen-component/screens-v2-scrollbar-thumb/1x.png",
+          "source": "art/exports/screens-v2/scrollbar/thumb-1x.png",
+          "sha256": "a24195531e8dfc2bde93cb03f6dab843f0bc16ef398bb116aaf3b492a7c0dcf2",
+          "width": 14,
+          "height": 64,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "screen-components/screen-component/screens-v2-scrollbar-thumb/2x.png",
+          "source": "art/exports/screens-v2/scrollbar/thumb-2x.png",
+          "sha256": "5f2dea07a61f2cba9e627b309f6985389e9e55e3d84fca6ba6f1df4e05f47a73",
+          "width": 28,
+          "height": 128,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "screen-components/screen-component/screens-v2-scrollbar-thumb/4x.png",
+          "source": "art/exports/screens-v2/scrollbar/thumb-4x.png",
+          "sha256": "5cfc142d1ff840530452098a96ad235c42f713cdacc17af62782d802ede38169",
+          "width": 56,
+          "height": 256,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "screen-components/screen-component/screens-v2-scrollbar-thumb/1x.png",
+        "sha256": "a24195531e8dfc2bde93cb03f6dab843f0bc16ef398bb116aaf3b492a7c0dcf2",
+        "width": 14,
+        "height": 64,
+        "source": "art/exports/screens-v2/scrollbar/thumb-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "screen-components/screen-component/screens-v2-scrollbar-thumb/2x.png",
+        "sha256": "5f2dea07a61f2cba9e627b309f6985389e9e55e3d84fca6ba6f1df4e05f47a73",
+        "width": 28,
+        "height": 128,
+        "source": "art/exports/screens-v2/scrollbar/thumb-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "screen-components/screen-component/screens-v2-scrollbar-thumb/4x.png",
+        "sha256": "5cfc142d1ff840530452098a96ad235c42f713cdacc17af62782d802ede38169",
+        "width": 56,
+        "height": 256,
+        "source": "art/exports/screens-v2/scrollbar/thumb-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

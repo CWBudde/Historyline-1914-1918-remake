@@ -1,0 +1,75 @@
+{
+  "id": "screens-v2/scrollbar/track",
+  "name": "scrollbar/track",
+  "category": "Screen components",
+  "family": "screen-component",
+  "note": "Current screen component, shared across layouts. No direct reference mapping. Painted backdrop has no authored 4× export.",
+  "recipes": [
+    "art/recipes/screens/v1/western-front.json"
+  ],
+  "prompts": [
+    "prompts/screens/v1/western-front.md"
+  ],
+  "width": 14,
+  "height": 210,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "screen-components/screen-component/screens-v2-scrollbar-track/1x.png",
+          "source": "art/exports/screens-v2/scrollbar/track-1x.png",
+          "sha256": "b89cbfa65415c962f96ad078a18150ec82171598fc25aa545f2f74c9d1c0a1bd",
+          "width": 14,
+          "height": 210,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "screen-components/screen-component/screens-v2-scrollbar-track/2x.png",
+          "source": "art/exports/screens-v2/scrollbar/track-2x.png",
+          "sha256": "3900e594a916eef1112475046fb2690cd0a9d15066ca60b10a46cf8b45eaab53",
+          "width": 28,
+          "height": 420,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "screen-components/screen-component/screens-v2-scrollbar-track/4x.png",
+          "source": "art/exports/screens-v2/scrollbar/track-4x.png",
+          "sha256": "2f1684411f516382c64e6dba729d0a9c8292f46baee6e7520a7ebcf098aaa483",
+          "width": 56,
+          "height": 840,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "screen-components/screen-component/screens-v2-scrollbar-track/1x.png",
+        "sha256": "b89cbfa65415c962f96ad078a18150ec82171598fc25aa545f2f74c9d1c0a1bd",
+        "width": 14,
+        "height": 210,
+        "source": "art/exports/screens-v2/scrollbar/track-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "screen-components/screen-component/screens-v2-scrollbar-track/2x.png",
+        "sha256": "3900e594a916eef1112475046fb2690cd0a9d15066ca60b10a46cf8b45eaab53",
+        "width": 28,
+        "height": 420,
+        "source": "art/exports/screens-v2/scrollbar/track-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "screen-components/screen-component/screens-v2-scrollbar-track/4x.png",
+        "sha256": "2f1684411f516382c64e6dba729d0a9c8292f46baee6e7520a7ebcf098aaa483",
+        "width": 56,
+        "height": 840,
+        "source": "art/exports/screens-v2/scrollbar/track-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

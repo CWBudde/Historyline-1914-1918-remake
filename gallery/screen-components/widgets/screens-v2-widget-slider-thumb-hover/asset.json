@@ -1,0 +1,75 @@
+{
+  "id": "screens-v2/widget/slider/thumb/hover",
+  "name": "widget/slider/thumb/hover",
+  "category": "Screen components",
+  "family": "widgets",
+  "note": "Current screen component, shared across layouts. No direct reference mapping. Painted backdrop has no authored 4× export.",
+  "recipes": [
+    "art/recipes/screens/v1/western-front.json"
+  ],
+  "prompts": [
+    "prompts/screens/v1/western-front.md"
+  ],
+  "width": 24,
+  "height": 32,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "screen-components/widgets/screens-v2-widget-slider-thumb-hover/1x.png",
+          "source": "art/exports/screens-v2/widget/slider/thumb/hover-1x.png",
+          "sha256": "dd51882543e3b7aa25c448a6c7fa9313b61838ae86bb35c23e4d5bf720e93f23",
+          "width": 24,
+          "height": 32,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "screen-components/widgets/screens-v2-widget-slider-thumb-hover/2x.png",
+          "source": "art/exports/screens-v2/widget/slider/thumb/hover-2x.png",
+          "sha256": "418cc062bba0bd819069f36478e3fc8c314c57541e27f4fd42e81fa6dd54efd2",
+          "width": 48,
+          "height": 64,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "screen-components/widgets/screens-v2-widget-slider-thumb-hover/4x.png",
+          "source": "art/exports/screens-v2/widget/slider/thumb/hover-4x.png",
+          "sha256": "965a589b64cbed8e19185b4740efbc53ff402046b2d0937520ca2c756a2e2a5b",
+          "width": 96,
+          "height": 128,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "screen-components/widgets/screens-v2-widget-slider-thumb-hover/1x.png",
+        "sha256": "dd51882543e3b7aa25c448a6c7fa9313b61838ae86bb35c23e4d5bf720e93f23",
+        "width": 24,
+        "height": 32,
+        "source": "art/exports/screens-v2/widget/slider/thumb/hover-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "screen-components/widgets/screens-v2-widget-slider-thumb-hover/2x.png",
+        "sha256": "418cc062bba0bd819069f36478e3fc8c314c57541e27f4fd42e81fa6dd54efd2",
+        "width": 48,
+        "height": 64,
+        "source": "art/exports/screens-v2/widget/slider/thumb/hover-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "screen-components/widgets/screens-v2-widget-slider-thumb-hover/4x.png",
+        "sha256": "965a589b64cbed8e19185b4740efbc53ff402046b2d0937520ca2c756a2e2a5b",
+        "width": 96,
+        "height": 128,
+        "source": "art/exports/screens-v2/widget/slider/thumb/hover-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

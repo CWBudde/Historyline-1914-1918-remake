@@ -1,0 +1,78 @@
+{
+  "id": "portrait/charron",
+  "name": "charron",
+  "category": "Portraits",
+  "family": "charron",
+  "bindings": [
+    "EC_charron"
+  ],
+  "note": "Current family candidate. Visual approval and runtime acceptance pending.",
+  "recipes": [
+    "art/recipes/portraits/reference-v1/charron-01.json"
+  ],
+  "prompts": [
+    "prompts/portraits/reference-v1/charron-01.md"
+  ],
+  "width": 210,
+  "height": 188,
+  "variants": [
+    {
+      "id": "portrait",
+      "label": "portrait",
+      "images": {
+        "1": {
+          "url": "portraits/charron/portrait-charron/1x.png",
+          "source": "art/exports/portrait-charron-v1/charron-1x.png",
+          "sha256": "1ca4794c73a4acfa7218d6be47fc98b20d44d9ec14451064c2d3d6d51cb6a661",
+          "width": 210,
+          "height": 188,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "portraits/charron/portrait-charron/2x.png",
+          "source": "art/exports/portrait-charron-v1/charron-2x.png",
+          "sha256": "b8d8772905053bde520bca7fce00227b60cc2cb113f096c572fc085daecf74bb",
+          "width": 420,
+          "height": 376,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "portraits/charron/portrait-charron/4x.png",
+          "source": "art/exports/portrait-charron-v1/charron-4x.png",
+          "sha256": "5ece80cbf7569dc234248f08fe2a4924bffc138d9e76e9de8da605ce461125eb",
+          "width": 840,
+          "height": 752,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "portrait": {
+      "1": {
+        "path": "portraits/charron/portrait-charron/1x.png",
+        "sha256": "1ca4794c73a4acfa7218d6be47fc98b20d44d9ec14451064c2d3d6d51cb6a661",
+        "width": 210,
+        "height": 188,
+        "source": "art/exports/portrait-charron-v1/charron-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "portraits/charron/portrait-charron/2x.png",
+        "sha256": "b8d8772905053bde520bca7fce00227b60cc2cb113f096c572fc085daecf74bb",
+        "width": 420,
+        "height": 376,
+        "source": "art/exports/portrait-charron-v1/charron-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "portraits/charron/portrait-charron/4x.png",
+        "sha256": "5ece80cbf7569dc234248f08fe2a4924bffc138d9e76e9de8da605ce461125eb",
+        "width": 840,
+        "height": 752,
+        "source": "art/exports/portrait-charron-v1/charron-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

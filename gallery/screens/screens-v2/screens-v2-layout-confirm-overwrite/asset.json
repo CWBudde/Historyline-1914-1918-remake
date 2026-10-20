@@ -1,0 +1,59 @@
+{
+  "id": "screens-v2/layout/confirm-overwrite",
+  "name": "confirm-overwrite",
+  "category": "Screens",
+  "family": "screens-v2",
+  "note": "Current screen layout with example labels and values. The composed image is a review fixture; the game will draw text and controls separately. No matching reference capture is mapped. Navigation and runtime integration remain open.",
+  "recipes": [
+    "art/recipes/screens/v1/western-front.json"
+  ],
+  "prompts": [
+    "prompts/screens/v1/western-front.md"
+  ],
+  "width": 640,
+  "height": 400,
+  "variants": [
+    {
+      "id": "layout",
+      "label": "Composed layout",
+      "images": {
+        "1": {
+          "url": "screens/screens-v2/screens-v2-layout-confirm-overwrite/1x.png",
+          "source": "art/exports/screens-v2/fixtures/confirm-overwrite-2x.png",
+          "sha256": "11ecadd7e8fa70bd097b2133472f6461001d49109e0ec86e31d8716f4c0853b1",
+          "width": 640,
+          "height": 400,
+          "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+        },
+        "2": {
+          "url": "screens/screens-v2/screens-v2-layout-confirm-overwrite/2x.png",
+          "source": "art/exports/screens-v2/fixtures/confirm-overwrite-2x.png",
+          "sha256": "89ba7e79892f6ec1024f91d2c95d1bd8b58ec5872a2496ef865f98c18dd3c805",
+          "width": 1280,
+          "height": 800,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "layout": {
+      "1": {
+        "path": "screens/screens-v2/screens-v2-layout-confirm-overwrite/1x.png",
+        "sha256": "11ecadd7e8fa70bd097b2133472f6461001d49109e0ec86e31d8716f4c0853b1",
+        "width": 640,
+        "height": 400,
+        "source": "art/exports/screens-v2/fixtures/confirm-overwrite-2x.png",
+        "method": "Exact PNG export; premultiplied Lanczos3 reduction"
+      },
+      "2": {
+        "path": "screens/screens-v2/screens-v2-layout-confirm-overwrite/2x.png",
+        "sha256": "89ba7e79892f6ec1024f91d2c95d1bd8b58ec5872a2496ef865f98c18dd3c805",
+        "width": 1280,
+        "height": 800,
+        "source": "art/exports/screens-v2/fixtures/confirm-overwrite-2x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

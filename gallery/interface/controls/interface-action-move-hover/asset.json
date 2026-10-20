@@ -1,0 +1,69 @@
+{
+  "id": "interface/action/move-hover",
+  "name": "action/move-hover",
+  "category": "Interface",
+  "family": "controls",
+  "note": "Current text-free game component. Labels and game values are drawn separately; runtime acceptance pending. Reference is the original base action, unchanged for the new interaction states.",
+  "width": 62,
+  "height": 52,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "interface/controls/interface-action-move-hover/1x.png",
+          "source": "art/exports/interface-v1/action/move-hover-1x.png",
+          "sha256": "bbdc667a24b6ff6fb8e05d641cf61986ec66d73ea0b9e3abe8620c647fa00c83",
+          "width": 62,
+          "height": 52,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "interface/controls/interface-action-move-hover/2x.png",
+          "source": "art/exports/interface-v1/action/move-hover-2x.png",
+          "sha256": "155023389b803a4ad6bdaa57b63e78ea9935f85fd7da9750add1de698aeded78",
+          "width": 124,
+          "height": 104,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "interface/controls/interface-action-move-hover/4x.png",
+          "source": "art/exports/interface-v1/action/move-hover-4x.png",
+          "sha256": "c509528e9800aea98196caf62df5ba92d1c603161de593347ca9514452b33220",
+          "width": 248,
+          "height": 208,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "interface/controls/interface-action-move-hover/1x.png",
+        "sha256": "bbdc667a24b6ff6fb8e05d641cf61986ec66d73ea0b9e3abe8620c647fa00c83",
+        "width": 62,
+        "height": 52,
+        "source": "art/exports/interface-v1/action/move-hover-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "interface/controls/interface-action-move-hover/2x.png",
+        "sha256": "155023389b803a4ad6bdaa57b63e78ea9935f85fd7da9750add1de698aeded78",
+        "width": 124,
+        "height": 104,
+        "source": "art/exports/interface-v1/action/move-hover-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "interface/controls/interface-action-move-hover/4x.png",
+        "sha256": "c509528e9800aea98196caf62df5ba92d1c603161de593347ca9514452b33220",
+        "width": 248,
+        "height": 208,
+        "source": "art/exports/interface-v1/action/move-hover-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

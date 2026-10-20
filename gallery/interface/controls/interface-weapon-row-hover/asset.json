@@ -1,0 +1,69 @@
+{
+  "id": "interface/weapon-row/hover",
+  "name": "weapon-row/hover",
+  "category": "Interface",
+  "family": "controls",
+  "note": "Current text-free game component. Labels and game values are drawn separately; runtime acceptance pending. No direct reference image is mapped for this component.",
+  "width": 654,
+  "height": 50,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "interface/controls/interface-weapon-row-hover/1x.png",
+          "source": "art/exports/interface-v1/weapon-row/hover-1x.png",
+          "sha256": "35995f891a23f825ad259eef9e9c737fa1b904528cd08b283903c0f035dcf1e8",
+          "width": 654,
+          "height": 50,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "interface/controls/interface-weapon-row-hover/2x.png",
+          "source": "art/exports/interface-v1/weapon-row/hover-2x.png",
+          "sha256": "1b55000e80d9b0e181ef3aacd5752efa9d6282215088d870546d92b9396b23b5",
+          "width": 1308,
+          "height": 100,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "interface/controls/interface-weapon-row-hover/4x.png",
+          "source": "art/exports/interface-v1/weapon-row/hover-4x.png",
+          "sha256": "124c697e8d981e94b36fd7cf13a103d33005f059cc73b1f9a7c42d38348fbfac",
+          "width": 2616,
+          "height": 200,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "interface/controls/interface-weapon-row-hover/1x.png",
+        "sha256": "35995f891a23f825ad259eef9e9c737fa1b904528cd08b283903c0f035dcf1e8",
+        "width": 654,
+        "height": 50,
+        "source": "art/exports/interface-v1/weapon-row/hover-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "interface/controls/interface-weapon-row-hover/2x.png",
+        "sha256": "1b55000e80d9b0e181ef3aacd5752efa9d6282215088d870546d92b9396b23b5",
+        "width": 1308,
+        "height": 100,
+        "source": "art/exports/interface-v1/weapon-row/hover-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "interface/controls/interface-weapon-row-hover/4x.png",
+        "sha256": "124c697e8d981e94b36fd7cf13a103d33005f059cc73b1f9a7c42d38348fbfac",
+        "width": 2616,
+        "height": 200,
+        "source": "art/exports/interface-v1/weapon-row/hover-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}

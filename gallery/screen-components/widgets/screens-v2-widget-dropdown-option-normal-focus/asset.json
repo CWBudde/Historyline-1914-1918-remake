@@ -1,0 +1,75 @@
+{
+  "id": "screens-v2/widget/dropdown-option/normal/focus",
+  "name": "widget/dropdown-option/normal/focus",
+  "category": "Screen components",
+  "family": "widgets",
+  "note": "Current screen component, shared across layouts. No direct reference mapping. Painted backdrop has no authored 4× export.",
+  "recipes": [
+    "art/recipes/screens/v1/western-front.json"
+  ],
+  "prompts": [
+    "prompts/screens/v1/western-front.md"
+  ],
+  "width": 238,
+  "height": 32,
+  "variants": [
+    {
+      "id": "current",
+      "label": "Current export",
+      "images": {
+        "1": {
+          "url": "screen-components/widgets/screens-v2-widget-dropdown-option-normal-focus/1x.png",
+          "source": "art/exports/screens-v2/widget/dropdown-option/normal/focus-1x.png",
+          "sha256": "5d8496a39e5b99933d2a31f15665539b334cd656f53ecd3898206019ee7b48da",
+          "width": 238,
+          "height": 32,
+          "method": "Exact PNG export"
+        },
+        "2": {
+          "url": "screen-components/widgets/screens-v2-widget-dropdown-option-normal-focus/2x.png",
+          "source": "art/exports/screens-v2/widget/dropdown-option/normal/focus-2x.png",
+          "sha256": "780926481e02f295057525c866fa5bfac202ba249995f89e36e1edb9a7a98401",
+          "width": 476,
+          "height": 64,
+          "method": "Exact PNG export"
+        },
+        "4": {
+          "url": "screen-components/widgets/screens-v2-widget-dropdown-option-normal-focus/4x.png",
+          "source": "art/exports/screens-v2/widget/dropdown-option/normal/focus-4x.png",
+          "sha256": "8db5d804969f43a4f178486f6fb26f774300d28ac88b8bcd715d0c9c3908d4b9",
+          "width": 952,
+          "height": 128,
+          "method": "Exact PNG export"
+        }
+      }
+    }
+  ],
+  "files": {
+    "current": {
+      "1": {
+        "path": "screen-components/widgets/screens-v2-widget-dropdown-option-normal-focus/1x.png",
+        "sha256": "5d8496a39e5b99933d2a31f15665539b334cd656f53ecd3898206019ee7b48da",
+        "width": 238,
+        "height": 32,
+        "source": "art/exports/screens-v2/widget/dropdown-option/normal/focus-1x.png",
+        "method": "Exact PNG export"
+      },
+      "2": {
+        "path": "screen-components/widgets/screens-v2-widget-dropdown-option-normal-focus/2x.png",
+        "sha256": "780926481e02f295057525c866fa5bfac202ba249995f89e36e1edb9a7a98401",
+        "width": 476,
+        "height": 64,
+        "source": "art/exports/screens-v2/widget/dropdown-option/normal/focus-2x.png",
+        "method": "Exact PNG export"
+      },
+      "4": {
+        "path": "screen-components/widgets/screens-v2-widget-dropdown-option-normal-focus/4x.png",
+        "sha256": "8db5d804969f43a4f178486f6fb26f774300d28ac88b8bcd715d0c9c3908d4b9",
+        "width": 952,
+        "height": 128,
+        "source": "art/exports/screens-v2/widget/dropdown-option/normal/focus-4x.png",
+        "method": "Exact PNG export"
+      }
+    }
+  }
+}
