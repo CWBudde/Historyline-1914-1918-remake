@@ -65,6 +65,8 @@ references retain their complete old rows, including old labels. Components with
 no direct mapped reference show the candidate alone and disable overlay modes.
 Current reference action icons stay unchanged when reviewing new interaction
 states. No native DOS/Amiga correspondence is inferred.
+This describes the single-asset desk. The PULSE study below uses original DOS
+ground directly, with no Python-reference map fallback.
 
 The raw unit reference is 48×48; the current 96×96 logical sprite is reduced to
 48×48 for original-size comparison. A 2× display zoom gives the 96×96 game
@@ -154,36 +156,41 @@ EGL_PLATFORM=x11 xvfb-run -a just gfx-study
 Open `build/gfx-review/pulse.html`. This refreshes the graphics desk and adds:
 
 - Whole-map and matching northern/central/southern crops of PULSE, with side-by-side
-  and wipe comparisons of Python-reference artwork and current candidates.
+  and wipe comparisons of **original DOS ground** and current candidates. DOS roads,
+  paths and bridges come from their original terrain tiles, with no Python overlays.
 - Authored 2× and 4× map compositions selected through `internal/mapcompose`;
   1× is a Lanczos reduction of the complete 2× map. Display zoom is independent.
 - Nine actual Go framebuffers: revealed overview, revealed HQ close-up and real
   starting-player fog at 1280×720, 1920×1080 and 3840×2160. Effective camera zoom
   scales with framebuffer height to keep the inspected world area consistent;
   each capture records camera zoom, independent UI scale and drawn asset density.
-- Original Amiga MAP/00 ground when the local installation is available at the
-  repository's documented path. The exporter retains its native geometry, palette
-  00 and original forbidden border. Seven northern HQ landmarks identify the
-  correspondence to PULSE under `line=2*row+column%2, col=column/2`.
+- DOS MAP/00 ground decoded from the locally supplied `original/extracted/dos-full`.
+  The default native panel shows the original 24×24 terrain pixels; its menu also
+  offers the optional Amiga reconstruction. Both use explicit palette 00. Seven
+  northern HQ landmarks identify PULSE under `line=2*row+column%2, col=column/2`.
 
 Each run builds fresh candidate packs under a new ignored
 `build/pulse-study/run-*/` directory. It regenerates the native export when the
-Amiga installation is present; otherwise the page explicitly states that no
-native reference was selected. All displayed images are copied to the desk's
+DOS and/or Amiga installations are present; unavailable references are explicitly
+stated, without substituting Python artwork. All displayed images are copied to the desk's
 content-addressed `media/` directory, so the page works offline without a server.
 Neither this command nor the review tool edits the parallel graphics track.
 
-The native view is a static ground reconstruction, without units, UI, animations
-or physical aspect correction. Its geometry differs from the remake, so it has
-no pixel-aligned wipe. The Python-reference map is assembled in Go from the
-retained terrain/infrastructure and raw unit poses at the old 96×96 footprint and
-`y=-9` placement. It omits Python faction recolouring, rotations and ownership
-strips; it is not a Python screenshot. Current offline maps omit ownership bars
-and UI. The actual Go captures include the current HUD and ownership rendering.
+The DOS views are static ground reconstructions without units, UI, ownership or
+runtime palette changes. The native view uses the 24×24 hex-mask lattice; the
+aligned view rescales the complete original lattice with nearest neighbour
+sampling to align cell centres, so its pixel aspect changes for comparison.
+Original hex outlines still differ from the remake's. The native view remains
+available to inspect the original proportions. The aligned view omits
+cells outside the remake grid and clips its outer edge; remaining original forbidden
+border cells stay visible, including the lower boundary changed in the remake.
+Neither view is an executed DOS game screenshot. Current terrain/infrastructure is
+selected by default; current units can be enabled separately. Current offline maps
+omit ownership bars and UI. Actual Go captures include the current HUD and owners.
 The older screen designs remain labeled as design fixtures rather than current
 game screenshots; the study links them through the regenerated comparison desk.
 
-For separate generation or a different local Amiga installation:
+For separate generation or another local DOS/Amiga installation:
 
 ```sh
 mkdir -p build/my-study
@@ -194,14 +201,19 @@ go run ./cmd/historyline -level level1_cp \
   -allow-candidates -capture build/my-study/captures
 go run ./tools/native-reference -data /path/to/Amiga/data \
   -libraries PARTS -map 00 -out build/my-study/amiga
+go run ./tools/native-reference -platform dos -data /path/to/DOS/installation \
+  -libraries PARTS -map 00 -out build/my-study/dos
 go run ./cmd/hlgfxreview -native-map build/my-study/amiga \
-  -captures build/my-study/captures
+  -dos-map build/my-study/dos -captures build/my-study/captures
 ```
 
-Pack/native output directories must be fresh. Omit `-native-map` or `-captures`
+Pack/native output directories must be fresh. Omit `-dos-map`, `-native-map` or `-captures`
 when unavailable; plain `just gfx-game-review` still generates the PULSE map
 compositions and explicitly empty optional panels. Capture manifests pin the
 canonical level hash and require all nine unique resolution/view combinations,
 so a changed level or incomplete collection must be recaptured. `pulse.json`
 records the current level hash, map snapshot hashes and all reported context or
 compound gaps. No visual acceptance or roadmap completion is inferred.
+The DOS export's `reference.json` pins both map PNGs, the cell CSV and all four original input
+files (palette, terrain archive, terrain index and FIN); the study verifies those
+image pins and PULSE landmarks before copying the snapshots.

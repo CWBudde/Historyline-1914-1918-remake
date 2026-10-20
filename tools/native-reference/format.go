@@ -96,12 +96,16 @@ func parseLibrary(input []byte) ([]resource, error) {
 	if used != len(input) {
 		return nil, errors.New("trailing bytes after whole-library TPWM stream")
 	}
+	return parseLibraryData(b, binary.BigEndian)
+}
+
+func parseLibraryData(b []byte, order binary.ByteOrder) ([]resource, error) {
 	if len(b) < 4 || len(b) > maxRawBytes {
 		return nil, errors.New("invalid native library size")
 	}
-	fat := uint64(binary.BigEndian.Uint32(b[:4]))
+	fat := uint64(order.Uint32(b[:4]))
 	if fat < 4 || fat >= uint64(len(b)) || (uint64(len(b))-fat)%12 != 0 {
-		return nil, errors.New("invalid big-endian library FAT")
+		return nil, errors.New("invalid library FAT")
 	}
 	count := (len(b) - int(fat)) / 12
 	if count > 10000 {
@@ -121,7 +125,7 @@ func parseLibrary(input []byte) ([]resource, error) {
 			}
 		}
 		names[name] = true
-		off := uint64(binary.BigEndian.Uint32(b[pos+8 : pos+12]))
+		off := uint64(order.Uint32(b[pos+8 : pos+12]))
 		if off < 4 || off >= fat {
 			return nil, fmt.Errorf("resource %s offset outside data section", name)
 		}

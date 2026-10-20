@@ -3,12 +3,14 @@ package main
 import (
 	"bytes"
 	"crypto/sha256"
+	"encoding/csv"
 	"encoding/json"
 	"fmt"
 	"image"
 	"image/color"
 	"image/png"
 	"os"
+	"strings"
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
@@ -30,6 +32,78 @@ func TestPulsePlacement(t *testing.T) {
 		if got := dst.NRGBAAt(119*density, 71*density); got.R != 255 {
 			t.Errorf("%dx unit anchor: %+v", density, got)
 		}
+	}
+}
+
+func TestPulseDOSRequiresPinnedDOSMap(t *testing.T) {
+	for _, tc := range []struct {
+		name               string
+		platform           string
+		badCells, badImage bool
+		wantErr            bool
+	}{
+		{"valid", "dos", false, false, false}, {"wrong platform", "amiga", false, false, true}, {"changed landmarks", "dos", true, false, true}, {"changed image", "dos", false, true, true},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			r, err := os.OpenRoot(t.TempDir())
+			if err != nil {
+				t.Fatal(err)
+			}
+			defer func() { _ = r.Close() }()
+			for _, dir := range []string{"media", "build/dos/maps"} {
+				if err := r.MkdirAll(dir, 0755); err != nil {
+					t.Fatal(err)
+				}
+			}
+			var cells bytes.Buffer
+			rows := [][]string{{"column", "row", "offset", "index", "resource", "second", "x", "y"}, {"1", "2", "0", "1", "SYNTH000", "255", "0", "0"}, {"0", "3", "0", "5", "SYNTH000", "255", "0", "0"}, {"2", "3", "0", "7", "SYNTH000", "255", "0", "0"}, {"1", "3", "0", "3", "SYNTH000", "255", "0", "0"}, {"0", "4", "0", "6", "SYNTH000", "255", "0", "0"}, {"2", "4", "0", "8", "SYNTH000", "255", "0", "0"}, {"1", "4", "0", "4", "SYNTH000", "255", "0", "0"}}
+			if err := csv.NewWriter(&cells).WriteAll(rows); err != nil {
+				t.Fatal(err)
+			}
+			if err := r.WriteFile("build/dos/maps/00-PARTS-cells.csv", cells.Bytes(), 0644); err != nil {
+				t.Fatal(err)
+			}
+			pictures := []map[string]any{}
+			for i, size := range [][2]int{{264, 588}, {1090, 1920}} {
+				var buf bytes.Buffer
+				if err := png.Encode(&buf, image.NewNRGBA(image.Rect(0, 0, size[0], size[1]))); err != nil {
+					t.Fatal(err)
+				}
+				name := fmt.Sprintf("maps/picture-%d.png", i)
+				if err := r.WriteFile("build/dos/"+name, buf.Bytes(), 0644); err != nil {
+					t.Fatal(err)
+				}
+				pin := fmt.Sprintf("%x", sha256.Sum256(buf.Bytes()))
+				if tc.badImage && i == 0 {
+					pin = strings.Repeat("f", 64)
+				}
+				pictures = append(pictures, map[string]any{"path": name, "sha256": pin, "width": size[0], "height": size[1]})
+			}
+			cellPin := fmt.Sprintf("%x", sha256.Sum256(cells.Bytes()))
+			if tc.badCells {
+				cellPin = strings.Repeat("f", 64)
+			}
+			sources := map[string]string{}
+			for _, name := range []string{"00.PAL", "LIB/PARTS.LIB", "LIB/PARTS.DAT", "MAP/00.FIN"} {
+				sources[name] = strings.Repeat("0", 64)
+			}
+			data, err := json.Marshal(map[string]any{"schema": 1, "platform": tc.platform, "map": "00", "library": "PARTS", "palette": "00", "columns": 16, "rows": 24, "native": pictures[0], "aligned": pictures[1], "sources": sources, "cells_sha256": cellPin})
+			if err != nil {
+				t.Fatal(err)
+			}
+			if err := r.WriteFile("build/dos/reference.json", data, 0644); err != nil {
+				t.Fatal(err)
+			}
+			c := collector{root: r, out: r, seen: map[string]picture{}}
+			study := pulseStudy{Width: 1090, Height: 1920}
+			err = c.pulseDOS(&study, "build/dos")
+			if (err != nil) != tc.wantErr {
+				t.Fatalf("DOS ingestion error=%v wantErr=%v", err, tc.wantErr)
+			}
+			if !tc.wantErr && (study.DOS == nil || study.DOSNative == nil || study.DOS.Width != 1090 || study.DOSNative.Width != 264) {
+				t.Fatal("missing verified DOS snapshots")
+			}
+		})
 	}
 }
 
@@ -90,11 +164,10 @@ const change=(id,value)=>{document.getElementById(id).value=value;document.getEl
 try{
 change('native','hide');assert(document.querySelectorAll('#map-stage figure').length===2,'side by side');
 change('region','north');assert(document.querySelector('#map-stage .crop').style.height==='320px','matched northern crop');
-change('density','4');change('mode','wipe');assert(document.querySelectorAll('#map-stage figure').length===1,'wipe plane');
-assert(!document.getElementById('wipe-label').hidden,'wipe control');
-document.getElementById('wipe').value='27';document.getElementById('wipe').dispatchEvent(new Event('input'));
-assert(document.querySelector('.divider').style.left==='27%','wipe position');
+assert(document.querySelector('#mode [value="wipe"]').disabled,'no invented DOS reference');
+change('density','4');change('mode','current');assert(document.querySelectorAll('#map-stage figure').length===1,'current plane');
 assert(document.querySelector('#map-stage img').style.top==='-40px','crop alignment');
+change('layers','units');assert(document.querySelector('#map-stage figcaption').textContent.includes('with current units'),'unit layers');
 change('density','1');change('mode','current');
 await Promise.all(Array.from(document.querySelectorAll('#map-stage img')).map(im=>im.decode()));
 assert(document.querySelector('#map-stage img').naturalWidth===1090,'reduced map');

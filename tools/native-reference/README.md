@@ -1,4 +1,49 @@
-# Private native Amiga reference exporter
+# Private original graphics reference exporter
+
+Amiga remains the default mode. Use explicit `-platform dos` for original DOS
+ground; the DOS and Amiga formats are decoded separately.
+
+## Original DOS ground
+
+```sh
+go run ./tools/native-reference -platform dos \
+  -data original/extracted/dos-full -libraries PARTS -map 00 \
+  -out build/dos-reference
+```
+
+DOS mode requires `-map` and exactly its selected `-map-library` in `-libraries`
+(`PARTS` by default; `PARTW` for explicit winter inspection). It exports the 175
+original terrain tiles, a native ground-lattice reconstruction, a version aligned
+to the remake geometry, an offline gallery, resource/cell metadata and input/image
+SHA-256 pins in `reference.json`. No Python art or separately redrawn road/path
+overlays are used. Packed unit sprites, state/ownership, runtime palette changes,
+screens and briefings are outside this ground-only mode.
+
+DOS TPWM sizes and the library FAT are little-endian. FIN dimension words remain
+big-endian. Palettes unpack to 256 RGB byte triples and are preserved without
+expansion. The supported ground record has an 18-byte header, `INFOILBM` signature,
+colour-key byte at 8, encoding byte `0x55` at 9, and LE16 width/height at 14/16.
+The payload contains four x-mod-4 VGA lanes: byte index
+`18 + (x%4)*(width/4)*height + y*(width/4) + x/4` selects the palette colour.
+Transparency uses each record's colour key, preserving opaque black and every
+source edge pixel. The DOS unit `0x50` encoding is rejected.
+
+The native reconstruction uses the terrain mask's 24×24 lattice at
+`x=16*column, y=24*row+12*(column%2)`. This static reconstruction is not an executed
+game capture or physical-display verification. The aligned view uses
+`line=2*row+column%2, col=column/2` and nearest-neighbour rescales the complete
+lattice by 71/16 horizontally and 80/24 vertically, with a −5.25px horizontal
+offset to align cell centres. Scaling the joined lattice preserves mask adjacency;
+its original hex outlines still differ from the remake's. It is explicitly
+geometry-normalized; the native PNG retains original proportions.
+The final original column and unused odd half-row lie outside the remake grid;
+other original forbidden boundary tiles are retained. The comparison canvas clips
+the outer edge. General aligned exports
+require an even FIN width and stay within the image budgets.
+
+The same fresh-output/private-directory restrictions below apply to DOS mode.
+
+## Amiga mode
 
 Run from the repository with your locally supplied **Amiga** data directory:
 
@@ -141,7 +186,7 @@ unpacked length exactly.
 Palette files are **raw 64-byte** arrays of 32 big-endian `0RGB` words. Each
 four-bit component is scaled to the full eight-bit range by multiplication by
 17. DOS TPWM lengths are little-endian, and DOS palette/graphic records differ;
-**DOS files are unsupported and must not be decoded with this tool.**
+**use explicit `-platform dos` for DOS ground; the default Amiga decoder rejects it.**
 
 `HEXMSK00.DAT` and `HEXMSK20.DAT` must unpack to complementary 96-byte planes.
 The supported hex mask spans 24×24 pixels, with four stored bytes per row and

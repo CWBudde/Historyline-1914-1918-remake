@@ -79,6 +79,7 @@ func run(args []string, stdout io.Writer) error {
 	root := f.String("root", ".", "repository root")
 	out := f.String("out", "build/gfx-review", "output directory under build/ (contains private reference snapshots)")
 	nativeMap := f.String("native-map", "", "optional private native-reference MAP/00 export directory under build/")
+	dosMap := f.String("dos-map", "", "optional private original DOS MAP/00 export from native-reference -platform dos")
 	captures := f.String("captures", "", "optional historyline -capture output under build/; absent captures are shown explicitly")
 	if err := f.Parse(args); err != nil {
 		return err
@@ -145,7 +146,7 @@ func run(args []string, stdout io.Writer) error {
 	if err := w.WriteFile("road-units.html", []byte(strings.Replace(roadUnitComparisonTemplate(), "/*CATALOG*/null", string(data), 1)), 0644); err != nil {
 		return err
 	}
-	if err := c.pulse(*nativeMap, *captures); err != nil {
+	if err := c.pulse(*nativeMap, *captures, *dosMap); err != nil {
 		return err
 	}
 	_, err = fmt.Fprintf(stdout, "%d game-candidate entries, %d image variants. Open %s/index.html\n", len(c.items), len(c.seen), *out)

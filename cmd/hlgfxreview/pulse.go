@@ -5,6 +5,7 @@ import (
 	"crypto/sha256"
 	_ "embed"
 	"encoding/csv"
+	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -24,7 +25,6 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
-	xdraw "golang.org/x/image/draw"
 )
 
 //go:embed pulse.html
@@ -40,6 +40,11 @@ type pulseStudy struct {
 	Gaps        []mapcompose.Gap   `json:"gaps"`
 	Issues      []mapcompose.Issue `json:"issues"`
 	Maps        map[string]picture `json:"maps"`
+	GroundMaps  map[string]picture `json:"ground_maps"`
+	DOS         *picture           `json:"dos,omitempty"`
+	DOSNative   *picture           `json:"dos_native,omitempty"`
+	DOSNote     string             `json:"dos_note"`
+	DOSSources  map[string]string  `json:"dos_sources,omitempty"`
 	Native      *picture           `json:"native,omitempty"`
 	NativeNote  string             `json:"native_note"`
 	CaptureNote string             `json:"capture_note"`
@@ -118,7 +123,7 @@ func (c *collector) pulseContexts() (map[string]map[string]picture, error) {
 	return result, nil
 }
 
-func (c *collector) pulse(native, captures string) error {
+func (c *collector) pulse(native, captures, dos string) error {
 	raw, err := c.read("levels/level1_cp.json")
 	if err != nil {
 		return err
@@ -131,7 +136,7 @@ func (c *collector) pulse(native, captures string) error {
 		return fmt.Errorf("PULSE study requires the Pulse level")
 	}
 	grid := lvl.Grid()
-	s := pulseStudy{Generated: time.Now().UTC().Format(time.RFC3339), LevelHash: fmt.Sprintf("%x", sha256.Sum256(raw)), Width: (grid.Width-1)*142 + 96, Height: (grid.Lines-1)*40 + 80, Hexes: grid.Size(), Maps: map[string]picture{}}
+	s := pulseStudy{Generated: time.Now().UTC().Format(time.RFC3339), LevelHash: fmt.Sprintf("%x", sha256.Sum256(raw)), Width: (grid.Width-1)*142 + 96, Height: (grid.Lines-1)*40 + 80, Hexes: grid.Size(), Maps: map[string]picture{}, GroundMaps: map[string]picture{}}
 	contexts, err := c.pulseContexts()
 	if err != nil {
 		return err
@@ -159,6 +164,13 @@ func (c *collector) pulse(native, captures string) error {
 	if err != nil {
 		return err
 	}
+	for _, line := range lvl.Lines {
+		for _, h := range line {
+			if h.Unit != "" {
+				s.Units++
+			}
+		}
+	}
 	cache := map[string]image.Image{}
 	decode := func(p picture) (image.Image, error) {
 		if im := cache[p.URL]; im != nil {
@@ -176,10 +188,15 @@ func (c *collector) pulse(native, captures string) error {
 	}
 	// Background, infrastructure and units are separate full-map passes, exactly
 	// as in the game. All fog is lifted for the offline art comparison.
-	for _, density := range []int{0, 2, 4} {
-		d := max(1, density)
+	for _, density := range []int{2, 4} {
+		d := density
 		dst := image.NewNRGBA(image.Rect(0, 0, s.Width*d, s.Height*d))
 		for pass := range 3 {
+			if pass == 2 {
+				if err := c.pulseDensity(s.GroundMaps, dst, density, "Shared compositor terrain and infrastructure; no units, owner bars or UI"); err != nil {
+					return err
+				}
+			}
 			for line, hs := range lvl.Lines {
 				for col, h := range hs {
 					at := hexgrid.Coord{Line: line, Col: col}
@@ -198,9 +215,6 @@ func (c *collector) pulse(native, captures string) error {
 								return fmt.Errorf("missing unit family %s", h.Unit)
 							}
 							ids = []string{it.ID}
-							if density == 0 {
-								s.Units++
-							}
 						}
 					}
 					for _, id := range ids {
@@ -210,12 +224,7 @@ func (c *collector) pulse(native, captures string) error {
 						}
 						anchor := [2]float64{48, 40}
 						var p picture
-						if density == 0 {
-							if it.Reference == nil {
-								return fmt.Errorf("missing Python reference %s", id)
-							}
-							p = *it.Reference
-						} else {
+						{
 							v := it.Variants[0]
 							if pass == 2 {
 								pal := unitsprite.PaletteOf(st.At(at).Unit.Owner)
@@ -252,43 +261,19 @@ func (c *collector) pulse(native, captures string) error {
 						if e != nil {
 							return e
 						}
-						if density == 0 && pass == 2 {
-							// Raw Python pose; no invented palette/rotations. This keeps
-							// the old 96x96 footprint while stating the reference limit.
-							unit := image.NewNRGBA(image.Rect(0, 0, 96, 96))
-							xdraw.NearestNeighbor.Scale(unit, unit.Bounds(), im, im.Bounds(), draw.Src, nil)
-							im = unit
-							anchor = [2]float64{48, 49}
-						}
 						placePulse(dst, im, at, d, anchor)
 					}
 				}
 			}
 		}
-		key := strconv.Itoa(density)
-		method := "Shared mapcompose tile selection; full-map layer passes; authored " + key + "x PNGs; owner bars/UI omitted"
-		if density == 0 {
-			key = "python"
-			method = "Go composition of Python terrain/infrastructure and raw unit poses; 96x96 unit footprint; no Python faction recolouring/rotation or ownership strips; not a Python capture"
-		}
-		p, e := c.pulseImage(dst, "levels/level1_cp.json + current coverage/recipes", method)
-		if e != nil {
-			return e
-		}
-		s.Maps[key] = p
-		if density == 2 {
-			reduced, e := resizeLanczos(dst, s.Width, s.Height)
-			if e != nil {
-				return e
-			}
-			p, e := c.pulseImage(reduced, p.Source, "Full 2x composition reduced with premultiplied Lanczos3; no authored 1x map pack")
-			if e != nil {
-				return e
-			}
-			s.Maps["1"] = p
+		if err := c.pulseDensity(s.Maps, dst, density, "Shared compositor terrain, infrastructure and authored units; owner bars/UI omitted"); err != nil {
+			return err
 		}
 	}
 	if err := c.pulseNative(&s, native); err != nil {
+		return err
+	}
+	if err := c.pulseDOS(&s, dos); err != nil {
 		return err
 	}
 	if err := c.pulseCaptures(&s, captures, lvl); err != nil {
@@ -304,6 +289,106 @@ func (c *collector) pulse(native, captures string) error {
 	return c.out.WriteFile("pulse.html", []byte(strings.Replace(pulsePage, "/*STUDY*/null", string(b), 1)), 0644)
 }
 
+func (c *collector) pulseDensity(images map[string]picture, im *image.NRGBA, density int, method string) error {
+	p, err := c.pulseImage(im, "levels/level1_cp.json + current coverage/recipes", fmt.Sprintf("%s; authored %dx exports", method, density))
+	if err != nil {
+		return err
+	}
+	images[strconv.Itoa(density)] = p
+	if density == 2 {
+		reduced, err := resizeLanczos(im, im.Bounds().Dx()/2, im.Bounds().Dy()/2)
+		if err != nil {
+			return err
+		}
+		p, err = c.pulseImage(reduced, p.Source, method+"; full 2x composition reduced with premultiplied Lanczos3; no authored 1x pack")
+		if err != nil {
+			return err
+		}
+		images["1"] = p
+	}
+	return nil
+}
+
+func (c *collector) pulseDOS(s *pulseStudy, dir string) error {
+	s.DOSNote = "No original DOS export selected. Run just gfx-study with the locally supplied DOS installation, or pass -dos-map DIR. No Python artwork is substituted."
+	if dir == "" {
+		return nil
+	}
+	if !local(dir) || !strings.HasPrefix(dir, "build/") {
+		return fmt.Errorf("DOS reference must be under build/")
+	}
+	type sourcePicture struct {
+		Path   string `json:"path"`
+		SHA    string `json:"sha256"`
+		Width  int    `json:"width"`
+		Height int    `json:"height"`
+	}
+	var ref struct {
+		Schema   int               `json:"schema"`
+		Platform string            `json:"platform"`
+		Map      string            `json:"map"`
+		Library  string            `json:"library"`
+		Palette  string            `json:"palette"`
+		Columns  int               `json:"columns"`
+		Rows     int               `json:"rows"`
+		Native   sourcePicture     `json:"native"`
+		Aligned  sourcePicture     `json:"aligned"`
+		Sources  map[string]string `json:"sources"`
+		CellsSHA string            `json:"cells_sha256"`
+		Note     string            `json:"note"`
+	}
+	if err := c.json(path.Join(dir, "reference.json"), &ref); err != nil {
+		return err
+	}
+	if ref.Schema != 1 || ref.Platform != "dos" || ref.Map != "00" || ref.Library != "PARTS" || ref.Palette != "00" || ref.Columns != 16 || ref.Rows != 24 {
+		return fmt.Errorf("expected DOS PULSE MAP/00, PARTS, palette 00 export")
+	}
+	cells, err := c.read(path.Join(dir, "maps/00-PARTS-cells.csv"))
+	if err != nil {
+		return err
+	}
+	if fmt.Sprintf("%x", sha256.Sum256(cells)) != ref.CellsSHA {
+		return fmt.Errorf("DOS reference cell metadata hash mismatch")
+	}
+	if err := c.pulseLandmarks(dir); err != nil {
+		return err
+	}
+	for _, name := range []string{"00.PAL", "LIB/PARTS.LIB", "LIB/PARTS.DAT", "MAP/00.FIN"} {
+		hash, e := hex.DecodeString(ref.Sources[name])
+		if e != nil || len(hash) != 32 {
+			return fmt.Errorf("DOS reference source hash missing: %s", name)
+		}
+	}
+	for i, p := range []sourcePicture{ref.Native, ref.Aligned} {
+		if !local(p.Path) || !strings.HasPrefix(p.Path, "maps/") || len(p.SHA) != 64 {
+			return fmt.Errorf("invalid DOS reference image")
+		}
+		snap, err := c.snapshot(path.Join(dir, p.Path), p.SHA, image.Rectangle{}, 0, 0)
+		if err != nil {
+			return err
+		}
+		if snap.Width != p.Width || snap.Height != p.Height {
+			return fmt.Errorf("DOS reference image dimensions disagree")
+		}
+		if i == 0 {
+			if snap.Width != 264 || snap.Height != 588 {
+				return fmt.Errorf("unexpected native DOS map dimensions")
+			}
+			snap.Method = "Original DOS ground at intrinsic tile resolution; static reconstruction, no units/UI"
+			s.DOSNative = &snap
+		} else {
+			if snap.Width != s.Width || snap.Height != s.Height {
+				return fmt.Errorf("DOS reference does not match remake comparison geometry")
+			}
+			snap.Method = "Original DOS ground lattice nearest-neighbour rescaled to align cell centres; original hex outlines differ from remake geometry; original FIN terrain, no units/UI"
+			s.DOS = &snap
+		}
+	}
+	s.DOSNote = ref.Note
+	s.DOSSources = ref.Sources
+	return nil
+}
+
 func (c *collector) pulseNative(s *pulseStudy, dir string) error {
 	s.NativeNote = "No original export selected. Regenerate with -native-map DIR after running tools/native-reference for MAP/00.FIN."
 	if dir == "" {
@@ -312,6 +397,19 @@ func (c *collector) pulseNative(s *pulseStudy, dir string) error {
 	if !local(dir) || !strings.HasPrefix(dir, "build/") {
 		return fmt.Errorf("native map must be under build/")
 	}
+	if err := c.pulseLandmarks(dir); err != nil {
+		return err
+	}
+	p, err := c.snapshot(path.Join(dir, "maps/00-PARTS.png"), "", image.Rectangle{}, 0, 0)
+	if err != nil {
+		return err
+	}
+	s.Native = &p
+	s.NativeNote = "Amiga MAP/00.FIN: seven northern HQ pieces match PULSE under line=2*row+column%2, col=column/2. Native 24x24 ground, PARTS / palette 00; original forbidden border retained. Static ground reconstruction: units, UI and state omitted; physical pixel aspect uncorrected. Different geometry: no pixel-aligned wipe against the remake."
+	return nil
+}
+
+func (c *collector) pulseLandmarks(dir string) error {
 	b, err := c.read(path.Join(dir, "maps/00-PARTS-cells.csv"))
 	if err != nil {
 		return err
@@ -354,12 +452,6 @@ func (c *collector) pulseNative(s *pulseStudy, dir string) error {
 	if matched != 7 {
 		return fmt.Errorf("native map missing PULSE HQ landmarks")
 	}
-	p, err := c.snapshot(path.Join(dir, "maps/00-PARTS.png"), "", image.Rectangle{}, 0, 0)
-	if err != nil {
-		return err
-	}
-	s.Native = &p
-	s.NativeNote = "Amiga MAP/00.FIN: seven northern HQ pieces match PULSE under line=2*row+column%2, col=column/2. Native 24x24 ground, PARTS / palette 00; original forbidden border retained. Static ground reconstruction: units, UI and state omitted; physical pixel aspect uncorrected. Different geometry: no pixel-aligned wipe against the remake."
 	return nil
 }
 

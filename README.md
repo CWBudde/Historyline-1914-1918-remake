@@ -96,10 +96,12 @@ The linked `build/gfx-review/compose.html` lets you join HQ/depot/factory pieces
 and build your own saved scenes with terrain, roads, units and markers, including
 reference comparisons and JSON collection import/export.
 The updated `build/gfx-review/pulse.html` study adds the full PULSE map and matched
-neighbourhoods using Python-reference artwork and current 1×/2×/4× compositions.
+neighbourhoods using original DOS terrain and current 1×/2×/4× compositions.
 `just gfx-study` rebuilds fresh candidate packs and nine actual Go framebuffers
 (overview, close-up and starting fog at 720p, 1080p and 4K), and includes the
-original Amiga ground reconstruction when the local installation is present.
+original DOS ground reference when the local installation is present, with an
+optional native Amiga ground view. DOS pixels are shown at native resolution and
+in a clearly labeled geometry-normalized comparison; current units can be toggled.
 The page distinguishes current game output from the retained screen design fixtures.
 See [regeneration and reference limits](docs/gfx-review.md#pulse-map-and-game-study).
 The [reference-led redraw](docs/art/reference-redraw-v2.md) records the current

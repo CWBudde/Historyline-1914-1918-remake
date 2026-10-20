@@ -107,7 +107,7 @@ func TestCurrentGameSelection(t *testing.T) {
 	t.Logf("%d current entries, %d complete image snapshots, 27 bindings, 540 authored sprite variants", len(c.items), len(checked))
 	// Exercise the actual PULSE bindings: a unit family's ledger name can differ
 	// from its runtime pack slug, so source-file placement tests alone miss it.
-	if err := c.pulse("", ""); err != nil {
+	if err := c.pulse("", "", ""); err != nil {
 		t.Fatal(err)
 	}
 	studyBytes, err := w.ReadFile("pulse.json")
@@ -118,21 +118,23 @@ func TestCurrentGameSelection(t *testing.T) {
 	if err := json.Unmarshal(studyBytes, &study); err != nil {
 		t.Fatal(err)
 	}
-	if study.Hexes != 353 || study.Width != 1090 || study.Height != 1920 || len(study.Maps) != 4 {
+	if study.Hexes != 353 || study.Width != 1090 || study.Height != 1920 || len(study.Maps) != 3 || len(study.GroundMaps) != 3 {
 		t.Fatalf("invalid PULSE study geometry: %+v", study)
 	}
-	for key, p := range study.Maps {
-		b, err := w.ReadFile(p.URL)
-		if err != nil {
-			t.Fatal(err)
-		}
-		cfg, err := png.DecodeConfig(bytes.NewReader(b))
-		if err != nil {
-			t.Fatal(err)
-		}
-		d := map[string]int{"python": 1, "1": 1, "2": 2, "4": 4}[key]
-		if cfg.Width != 1090*d || cfg.Height != 1920*d || p.SHA != fmt.Sprintf("%x", sha256.Sum256(b)) {
-			t.Fatalf("invalid PULSE map %s", key)
+	for _, maps := range []map[string]picture{study.Maps, study.GroundMaps} {
+		for key, p := range maps {
+			b, err := w.ReadFile(p.URL)
+			if err != nil {
+				t.Fatal(err)
+			}
+			cfg, err := png.DecodeConfig(bytes.NewReader(b))
+			if err != nil {
+				t.Fatal(err)
+			}
+			d := map[string]int{"1": 1, "2": 2, "4": 4}[key]
+			if cfg.Width != 1090*d || cfg.Height != 1920*d || p.SHA != fmt.Sprintf("%x", sha256.Sum256(b)) {
+				t.Fatalf("invalid PULSE map %s", key)
+			}
 		}
 	}
 	pulseHTML, err := w.ReadFile("pulse.html")

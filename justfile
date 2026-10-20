@@ -83,9 +83,14 @@ gfx-study *args:
         go run ./tools/native-reference -data "$amiga_data" -libraries PARTS -map 00 -out "$study_dir/amiga"
         set -- -native-map "$study_dir/amiga" "$@"
     fi
+    dos_data='original/extracted/dos-full'
+    if [ -d "$dos_data" ]; then
+        go run ./tools/native-reference -platform dos -data "$dos_data" -libraries PARTS -map 00 -out "$study_dir/dos"
+        set -- -dos-map "$study_dir/dos" "$@"
+    fi
     go run ./cmd/hlgfxreview -captures "$study_dir/captures" "$@"
 
-# Decode privately supplied Amiga libraries; pass -data and an ignored -out
+# Decode private original libraries; add -platform dos for DOS ground
 [positional-arguments]
 gfx-references *args:
     go run ./tools/native-reference "$@"

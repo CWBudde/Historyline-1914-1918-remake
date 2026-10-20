@@ -1,5 +1,5 @@
 // Command native-reference exports private visual references from local Amiga
-// Historyline data. It does not distribute, modify, or interpret resource art.
+// or DOS Historyline data. Original inputs are never modified or embedded.
 package main
 
 import (
@@ -37,7 +37,7 @@ type artifact struct {
 func run(args []string, log io.Writer) error {
 	fs := flag.NewFlagSet("native-reference", flag.ContinueOnError)
 	fs.SetOutput(log)
-	data := fs.String("data", "", "local Amiga data folder containing LIB/, 00.PAL and HEXMSK*.DAT")
+	data := fs.String("data", "", "local original game data folder (Amiga by default; DOS ground with -platform dos)")
 	out := fs.String("out", "build/native-reference", "fresh output subdirectory inside this repository's ignored build/ or original/")
 	paletteName := fs.String("palette", "00", "native palette: 00, 01, or 02")
 	libraryNames := fs.String("libraries", "PARTS,PARTW,UNIT,BIGUNIT", "comma-separated native graphics libraries")
@@ -45,6 +45,7 @@ func run(args []string, log io.Writer) error {
 	briefings := fs.Bool("briefings", false, "opt-in fixed Amiga campaign image corpus TXT/H00.LBM through TXT/H45.LBM")
 	mapName := fs.String("map", "", "opt-in ground reconstruction from MAP/00.FIN through MAP/71.FIN")
 	mapLibrary := fs.String("map-library", "PARTS", "explicit ground library for -map: PARTS or PARTW; no season inference")
+	platform := fs.String("platform", "amiga", "source platform: amiga, or dos (ground-only, requires -map and -libraries matching -map-library)")
 	if err := fs.Parse(args); err != nil {
 		if errors.Is(err, flag.ErrHelp) {
 			return nil
@@ -52,7 +53,7 @@ func run(args []string, log io.Writer) error {
 		return err
 	}
 	if *data == "" || fs.NArg() != 0 {
-		return errors.New("required: -data local-Amiga-data-folder; no positional arguments")
+		return errors.New("required: -data local-data-folder; no positional arguments")
 	}
 	if *paletteName != "00" && *paletteName != "01" && *paletteName != "02" {
 		return errors.New("palette must be 00, 01, or 02")
@@ -62,6 +63,15 @@ func run(args []string, log io.Writer) error {
 	}
 	if (*mapName != "" && (len(*mapName) != 2 || *mapName < "00" || *mapName > "71" || (*mapName)[0] < '0' || (*mapName)[0] > '9' || (*mapName)[1] < '0' || (*mapName)[1] > '9')) || (*mapLibrary != "PARTS" && *mapLibrary != "PARTW") {
 		return errors.New("map must be 00 through 71; map-library must be PARTS or PARTW")
+	}
+	if *platform == "dos" {
+		if *screenName != "" || *briefings || *mapName == "" || *libraryNames != *mapLibrary {
+			return errors.New("DOS export supports ground only: requires -map and -libraries matching -map-library; no screen/briefing export")
+		}
+		return exportDOSGround(*data, *out, *paletteName, *mapName, *mapLibrary, log)
+	}
+	if *platform != "amiga" {
+		return errors.New("platform must be amiga or dos")
 	}
 	root, err := repositoryRoot()
 	if err != nil {
