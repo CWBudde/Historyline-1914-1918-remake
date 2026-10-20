@@ -949,6 +949,8 @@ The completed compatibility work below remains useful and stays completed.
       called with (column, row), as the movement code does, and gives the layout distance,
       `TestDistanceSwitch`); Standard keeps the layout distance. Also decided: the demo's
       `HL14-18.EXE` is the build of record until the full `HL.EXE` is supplied.
+      (2026-10-20) — by decision the full `HL.EXE` is now the build of record (`dosrules.Full`);
+      `dosrules.Demo` keeps the demo's tables, with the same switch values.
 - [x] Implement a pure Go DOS resolver only after the comparison fixtures agree. The traced
       casualty routine seeds the RNG but makes no random draw; do not add Python's damage
       roll. Verify any randomness in scheduling or presentation separately. Preserve Python
@@ -968,9 +970,29 @@ The completed compatibility work below remains useful and stays completed.
       same outcomes (`TestEngagementNoRandom`). Draws in scheduling (R3) and in the hooked
       battle screen remain unverified. `internal/game`'s Classic roll injection and its Python
       oracle are untouched.
-- [ ] Re-run the R1 oracle, fixtures and gate on the full `HL.EXE` once it is supplied:
+- [x] Re-run the R1 oracle, fixtures and gate on the full `HL.EXE` once it is supplied:
       export it, locate its order handler (`Build.Handler`), record its fixtures beside the
       demo's and turn every difference from the demo into a `dosrules.Profile` field.
+      (2026-10-20) — the full `HL.EXE` had been in `original/extracted/dos-full/` since
+      2026-10-14; `go run ./cmd/dosexport` exported it. By decision the re-run also covers R2's
+      movement, containers and visibility. The handler, movement, exit and phase-change addresses
+      (`dosoracle.Full`) come from aligning the two builds' instruction streams segment by
+      segment, and every far-call target is in the full build's relocation table. All 20 oracle
+      tests now run on both exports, with none skipped, and agree. The full build's fixtures
+      (`internal/dosrules/testdata/full/`, `full.json`) equal the demo's case for case, so no rule
+      needed a `Profile` field:
+      - `TestTables` requires both builds' tables and switches to be equal apart from the winter
+        table;
+      - `TestGate` and every replay run on both corpora in CI.
+
+      The data agree too: `UNIT.DAT` differs only in the unit names, and the summer terrain table
+      is identical. One outcome differs, and only inside undefined behaviour: a path search that
+      runs dry reads past the reach-bit array. The demo's image then refuses with 0x48, while the
+      full build's walks, so `TestStepCoverage` no longer requires 0x48.
+      Each of these mutations fails the replays:
+      - a hand-changed cell in `testdata/full/steps.json`;
+      - a winter cost in `full.json`;
+      - a `Season` that ignores winter.
 - [x] **Gate:** both sides' losses and experience transitions match the original fixtures;
       repeated identical battle states give identical casualty results, and every known
       arithmetic/manual discrepancy has an observed result or remains explicitly gated off.
@@ -1008,6 +1030,13 @@ The completed compatibility work below remains useful and stays completed.
       (2026-10-19) — note from the ammo census: type bytes 19–20 are a transporter's cargo
       classes (`159e:055f`), 21–24 and 66–68 are constant, 26 is the record index, and live
       `+9` is the per-side serial (`docs/research/original-dos-rules.md`).
+      (2026-10-20) — progress: the winter table of the full build is recorded as
+      `move.winter` in `internal/dosrules/full.json`. It differs from summer only in the
+      movement cost, in 119 of 175 records. `dosrules.MoveTables.Season` and `Profile.Season`
+      select it. The executed reach search agrees on 429 winter cases (113 reach differently
+      than in summer), and 143 of them are `winter/` fixtures (`TestWinterFixtures`). Which season
+      a map uses is open (loader). Remaining: the naming, alternate strength and terrain record
+      names.
 - [x] Trace movement routines in `0b06` and `10d2`; capture fixtures for road/rail/water
       transitions, impassable terrain, occupied/hidden destinations, friendly passage, enemy
       adjacency/zone of control, first steps and remaining budgets. Establish whether enemy

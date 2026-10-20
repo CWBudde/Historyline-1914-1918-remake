@@ -63,12 +63,14 @@ transcriptions of the same code:
   screen, casualty routine and experience window, and stops after the first battle. Only
   drawing, scrolling, sound and the routines named above are hooked; the seed callback is the
   game's own and the RNG draw fails if called. `Engage` composes the transcriptions in the
-  handler's order. The handler is located in the demo only (`Build.Handler`); the engagement
-  tests skip a build without it.
+  handler's order. The handler (`Build.Handler`) and the movement code (`Build.Move`) are
+  located in both builds; a build without them skips those tests.
 
 `internal/dosrules` is the pure Go resolver of profile `dos-0.1`, written apart from the
-transcriptions and free of the emulator. `dosrules.Demo` binds it to the demo's tables
-(`internal/dosrules/demo.json`, numbers only); `Profile.TransposedDistance` switches the battle
+transcriptions and free of the emulator. `dosrules.Full` binds it to the full build's tables
+(`internal/dosrules/full.json`, numbers only, the build of record) and `dosrules.Demo` to the
+demo's (`demo.json`); the two differ only in the full build's winter table, and their fixtures
+(`testdata/full/`, `testdata/demo/`) agree case for case; `Profile.TransposedDistance` switches the battle
 distance between the executed (row, column) call and the layout distance. The engagement and
 coverage tests compare it with the emulator on every case, and its own tests compare it with
 fixtures recorded from the emulator, so CI checks it without the original files. To re-record
@@ -111,14 +113,17 @@ return fire, and kills and losses with and without the no-award bit.
 
 ## Movement harness
 
-`Export.RunMovement` runs the demo's movement queries (`Build.Move`), and
+`Export.RunMovement` runs the movement queries (`Build.Move`; demo addresses here, the full
+build's in the research notes), and
 `internal/dosrules/move.go` is their transcription:
 - the reach search `0b06:0331` with its cost routine `0b06:09c1`;
 - the destination list `0b06:1383` with the end-cell check `10cc:0f74`;
 - the path search `0b06:0e12`.
 
 The queries run on synthetic maps that hold the build's own type and terrain records
-(`WW1GNDS.DAT.bin`), in the order the game calls them. Only the stack check is hooked. The
+(`WW1GNDS.DAT.bin`), in the order the game calls them. Where the export has the winter table
+(`WW1GNDW.DAT.bin`, the full build), the terrain cases run on it too (`Export.Winter`,
+`MoveTables.Season`) and are recorded as `winter/` movement fixtures. Only the stack check is hooked. The
 runner fails if a query writes past the cost buffer, and if a path search changes the reach
 bits.
 
@@ -134,7 +139,7 @@ bits.
 
 It also checks the rules these cases show on the executed outputs. The fixture recorder
 writes the type and terrain fields the queries read into the profile's tables (`move` in
-`internal/dosrules/demo.json`) and the cases into `movements.json` (schema
+`internal/dosrules/<build>.json`) and the cases into `movements.json` (schema
 `docs/research/movement-fixture.schema.json`) beside the other dosrules fixtures.
 `dosrules.TestMovementFixtures` replays them without the original files.
 

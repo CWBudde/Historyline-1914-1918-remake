@@ -169,16 +169,43 @@ them. The rest moved; each address was located by instruction structure:
 | `32f7:1854` / `1855` | `32e2:1842` / `1843` | pincer / blocking result |
 | `32e2` | `32cd` | data segment of `02dc` |
 | `0b06:0157`, `0ca6:020a` | `0b06:0122`, `0ca0:020c` | neighbour routine, side test |
-| not located | `02dc:0004` | order handler (battles at `0117–0abf`) |
-| not located | `32e2:1812` | battle context (`3aae:0045` points to it) |
-| not located | `1307:178f`, `242a:000f` | battle screen, animated battle (both call the casualty routine) |
-| not located | `32e2:09bb`, `32e2:05a1` | type records (69 bytes), terrain records (6 bytes) |
-| `0000:07ab` (draw and state not checked) | `0000:07ab`, `0000:07c3`, `3cc5:11f6` | RNG seed, draw, 32-bit state |
+| `02dc:0004` (stop `0abf`, done `0d58`) | `02dc:0004` | order handler (battles at `0117–0abf`) |
+| `32f7:1824` | `32e2:1812` | battle context (`3aae:0045` points to it) |
+| `130d:1792`, `2453:0009` | `1307:178f`, `242a:000f` | battle screen, animated battle (both call the casualty routine) |
+| `37d8:010d` | `37c1:011b` | battle-animation switch |
+| `32f7:09c5`, `32f7:05ab` | `32e2:09bb`, `32e2:05a1` | type records (69 bytes), terrain records (6 bytes) |
+| `32f7:4db0`, `4d4c`, `17ba`/`17be`, `4cac`, `015b` | `32e2:4d9e`, `4d3a`, `17a8`/`17ac`, `4c9a`, `0151` | side selector, order lists, map pointers, flag word, tile table |
+| `0000:07ab`, `0000:07c3`, `3cd8:11f6` | `0000:07ab`, `0000:07c3`, `3cc5:11f6` | RNG seed, draw, 32-bit state |
+| `0b06:0366`, `13e1`, `0e47`; `10d2:0f77` | `0b06:0331`, `1383`, `0e12`; `10cc:0f74` | reach search, destinations, path search; end-cell check |
+| `10d2:02e0`, `05c6`, `0721`, `0ae5` | `10cc:02dd`, `05c3`, `071e`, `0ae2` | order code, move start, step, arrival |
+| `0660:2f11–3105` | `0661:2f0a–30fe` | main loop's exit branch |
+| `32f7:3b62`, `17fb`, `1817`, `17b6`, `4d48`, `4cb0`, `1819`, `311e` | `32e2:3b50`, `17e9`, `1805`, `17a4`, `4d36`, `4c9e`, `1807`, `310c` | reach bits, result count, action record, current map, side records, animation flags, saved occupants, container records |
+| `32f7:38c6`, `38fe`, `3a16` | `32e2:38b4`, `38ec`, `3a04` | building tables (terrain flags 0x40, 0x100, 0x400) |
+| `02dc:1a09–1cc6`, `0e47:1d90`, `0ca6:020a` | `02dc:1a09–1cc6`, `0e40:1d9d`, `0ca0:020c` | phase change, map copy, side test |
+| `32f7:4d9a`, `4ca6`, `4cbd` | `32e2:4d88`, `4c94`, `4cab` | per-side records, map size, turn counter |
 
-Executed on the demo build, the three routines agree with the transcriptions on every
-enumerated case (see the specification), so the demo is a usable stand-in where the full
-build's export is missing. Whether the full and demo routines are byte-identical apart from
-relocations is not established yet; the same tests decide it once both exports exist.
+(2026-10-20) The full build's handler, movement and phase-change addresses were located by
+aligning the two builds' instruction streams segment by segment: the 123 segments correspond
+one to one, and a longest-common-subsequence match of mnemonics and operand shapes pairs each
+demo instruction with its full counterpart, whose operands give the data offsets (mostly
+`+0x12` in `32f7`, the type and terrain records and the tile table `+0x0a`). Every far-call
+target above occurs in the full build's relocation table with the demo's call count. With these
+addresses every oracle test runs on both exports (20 each, none skipped), and the full build
+agrees with the transcriptions wherever the demo does. Recorded the same way, its fixtures
+(`internal/dosrules/testdata/full/`) equal the demo's in every case. The data agree too: the
+full build's `UNIT.DAT` differs from the demo's only in the name bytes 27–62 (English instead
+of German), and its summer terrain table is byte-identical. What only the full build has is
+the winter table `WW1GNDW.DAT`. It differs from the summer table in byte 3, the movement
+cost, of 119 of the 175 records. With it loaded, the executed reach search agrees with the
+transcription on 429 cases (113 reach differently than in summer), recorded as 143 `winter/`
+movement fixtures. The full build is the build of record (`dosrules.Full`), and the demo
+(`dosrules.Demo`) differs from it in no rule switch.
+
+One outcome differs, and only where both builds read memory that is not theirs. A path
+search that runs dry reads the data behind the reach-bit array (`ErrUndefined` in the
+transcription). For the stale-reach-bit order, the demo's image then refuses with message
+0x48, while the full build's walks to the goal. A refusal with 0x48 is therefore not a rule
+either build guarantees.
 
 For terrain, bytes 0–1 are flags, byte 2 is a movement mask, byte 3 is a movement
 cost, byte 4 remains unnamed, and byte 5 selects a combat modifier pair. The mask
@@ -308,7 +335,8 @@ The player's move runs in three routines of `10cc`, after a fresh reach search
   - the destination is the unit's own cell;
   - an air unit is sent onto terrain flag 0x4000;
   - the end-cell check is not 0 (its code is shown);
-  - the path search finds no route (message 0x48).
+  - the path search finds no route (message 0x48). A search that runs dry reads past the
+    reach-bit array, so this was seen only with the demo's image (see the build table).
 
   Otherwise it clears the side's reach bits everywhere, sets them again on the route's cells
   and stores the destination in live `+0x11`. A two-cell ship adds 8 to the result.
@@ -746,18 +774,18 @@ screen's drawing, animations or order scheduling, has not been excluded.
    writebacks against a transcription across terrain classes, ranks and ranges.
 2. Controlled battles through the order handler now cover blocking, pincer, ranged
    eligibility, kill experience and swapped roles on the demo build (see *Battle callers*).
-   Still open: the full build's handler addresses, inputs from a real level, the map-edge
-   ranged case and whether the transposed battle distance is visible in a real DOSBox
-   battle. The pure Go resolver `internal/dosrules` reproduces the demo's results from
-   recorded fixtures; once the full `HL.EXE` is supplied, its export is recorded the same
-   way (`go test ./internal/dosoracle -run TestFixtures -update`) and compared with the demo's
-   tables and fixtures. A difference becomes a profile field, not a hidden constant.
+   Still open: inputs from a real level, the map-edge ranged case and whether the
+   transposed battle distance is visible in a real DOSBox battle. The pure Go resolver
+   `internal/dosrules` reproduces both builds' results from recorded fixtures
+   (`go test ./internal/dosoracle -run TestFixtures -update`); the full build's equal the
+   demo's, so no rule needed a profile field.
 3. Movement costs, destination restrictions and the move execution are executed on the
    demo (see *Movement*, *Move execution* and *Containers*), and so is the phase change
    that brings the other side's view up to date (*Visibility*). A write census over all of
    them finds no ammo and no fuel (*Ammo, fuel and resupply*). A transporter's record gets its
-   classes from type bytes 19–20 when the constructor allocates it (`159e:055f`). Still open: who
-   fills the building records, a cancelled exit, and the full build's addresses.
+   classes from type bytes 19–20 when the constructor allocates it (`159e:055f`). Both builds
+   execute them alike, the full build on its winter table too. Still open: who fills the
+   building records, a cancelled exit, and which season a map is played in.
 4. Finish the order scheduler and capture/production/construction paths. Establish
    cycle ordering, simultaneous-order conflicts, energy credit timing, repair timing,
    ownership transfer, map availability and victory checks.

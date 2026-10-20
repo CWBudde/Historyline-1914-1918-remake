@@ -53,7 +53,8 @@ Run Python tests with `-I` and from the repo root. After a same-size `sed` edit 
   (`internal/dosexe` parses the MZ image and records); the 8086 interpreter is `internal/dos8086`, and `internal/dosoracle` holds the runners and the
   independent transcriptions that are compared against executed code. Two builds are identified by
   hash (`dosoracle.Builds`): the full `HL.EXE` and the free demo's `HL14-18.EXE`, each with its own
-  addresses; the tests run on every export present under `build/original-rules/`. Findings live in
+  addresses; the full build is the build of record. The tests run on every export present under
+  `build/original-rules/`. Findings live in
   `docs/research/original-dos-rule-spec.md` (profile `dos-0.1`) with an evidence status per rule.
   `internal/dosrules` is the pure Go resolver of that profile (combat, movement, containers and the
   phase change; no emulator, not wired into `game` yet); its fixtures are recorded by
