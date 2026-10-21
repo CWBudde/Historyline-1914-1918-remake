@@ -4,9 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Historyline 1914-1918</title>
+  <link rel="icon" href="data:,">
   <style>
     html, body { margin: 0; height: 100%; background: #000; color: #ccc; font-family: sans-serif; }
-    #status { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
+    #status { position: fixed; inset: 0; z-index: 1; display: flex; align-items: center; justify-content: center; background: #000; }
   </style>
 </head>
 <body>
@@ -15,10 +16,24 @@
   <script>
     const go = new Go();
     const status = document.getElementById("status");
-    WebAssembly.instantiateStreaming(fetch("historyline.wasm"), go.importObject)
+    // just web serves the art packs under packs/<catalog>/, each with a files.txt listing.
+    const catalogs = ["units", "terrain", "screens"];
+    Promise.all(catalogs.map((c) => fetch(`packs/${c}/files.txt`, { method: "HEAD" }).then((r) => r.ok, () => false)))
+      .then((served) => {
+        catalogs.forEach((c, i) => {
+          if (served[i]) go.argv.push(`-${c}`, new URL(`packs/${c}/`, location.href).href);
+        });
+        if (served.some(Boolean)) go.argv.push("-allow-candidates");
+        return WebAssembly.instantiateStreaming(fetch("historyline.wasm"), go.importObject);
+      })
       .then((result) => {
-        status.remove();
-        go.run(result.instance);
+        status.textContent = "Loading the art…";
+        // The game removes the notice once it runs.
+        return go.run(result.instance);
+      })
+      .then(() => {
+        document.body.append(status);
+        status.textContent = "The game has ended (errors are in the browser console). Reload to play again.";
       })
       .catch((err) => {
         status.textContent = "Failed to load the game: " + err;

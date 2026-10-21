@@ -4,7 +4,6 @@ import (
 	"cmp"
 	"fmt"
 	"io/fs"
-	"os"
 	"path"
 	"slices"
 
@@ -113,12 +112,12 @@ func openTerrainArt(fsys fs.FS, opt assets.Options, lvl *level.Level) (*terrainA
 
 // loadTerrainArt opens the terrain catalog in dir for lvl.
 func loadTerrainArt(dir string, allowCandidates bool, lvl *level.Level) (*terrainArt, error) {
-	r, err := os.OpenRoot(dir)
+	fsys, done, err := openArtDir(dir)
 	if err != nil {
 		return nil, err
 	}
-	defer func() { _ = r.Close() }()
-	return openTerrainArt(r.FS(), assets.Options{AllowCandidates: allowCandidates}, lvl)
+	defer done()
+	return openTerrainArt(fsys, assets.Options{AllowCandidates: allowCandidates}, lvl)
 }
 
 // terrainLayers returns the tiles drawn on hex c of scene s given the player's

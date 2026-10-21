@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"io/fs"
-	"os"
 
 	"github.com/hajimehoshi/ebiten/v2"
 
@@ -48,12 +47,12 @@ func openScreenArt(fsys fs.FS, opt assets.Options) (*screenArt, error) {
 
 // loadScreenArt opens the screen catalog in dir.
 func loadScreenArt(dir string, allowCandidates bool) (*screenArt, error) {
-	r, err := os.OpenRoot(dir)
+	fsys, done, err := openArtDir(dir)
 	if err != nil {
 		return nil, err
 	}
-	defer func() { _ = r.Close() }()
-	return openScreenArt(r.FS(), assets.Options{AllowCandidates: allowCandidates})
+	defer done()
+	return openScreenArt(fsys, assets.Options{AllowCandidates: allowCandidates})
 }
 
 // image returns the texture of id at density d, nil when the catalog is
