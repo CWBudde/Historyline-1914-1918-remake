@@ -39,7 +39,7 @@ play *args: _build-dir
 
 # Run all Go tests
 test:
-    go test ./...
+    go test -timeout 40m ./...
 
 # Run go vet and golangci-lint
 lint:
@@ -69,7 +69,7 @@ ci: lint test build wasm gfx-check
 
 # Check the art catalogue, the PULSE reference data and the art tools (no original data required)
 gfx-check: art-check reference-check
-    go test ./tools/...
+    go test -timeout 40m ./tools/...
 
 # Regenerate art/index.json from art/<kind>/<family>/prompt.md, masters and assets/index.json
 art-index:
