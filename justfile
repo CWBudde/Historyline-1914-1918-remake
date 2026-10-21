@@ -81,6 +81,11 @@ art-index:
 art-check:
     go run ./cmd/hlart check
 
+# Import the original full game's maps (local original/) into levels/original
+levels-import:
+    rm -rf levels/original
+    go run ./cmd/finextract -build full -out levels/original
+
 # Build the art book from art/index.json into build/artbook/Historyline_Art.pdf
 artbook: _build-dir
     #!/usr/bin/env sh
