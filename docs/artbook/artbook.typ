@@ -269,8 +269,9 @@ source describe the image in this PDF. PULSE uses the 4× runtime artwork; compa
   ]
   note[
     This is a candidate comparison. The map layout follows PULSE, while visual acceptance remains open.
-    Compare canopy repetition and edge density, scattered meadow details, rocky bank silhouettes,
-    the lake outlet, road and path edges, and the southern pair of craters. Higher pixel resolution
+    The PULSE lake now uses one painting across its hex cluster, restoring its northern basin,
+    larger boulder banks and connected outlet. Compare its remaining width and shoreline vegetation,
+    canopy repetition, scattered meadow details, road and path edges, and the southern pair of craters. Higher pixel resolution
     preserves the authored detail; these composition differences still need review.
   ]
   table(

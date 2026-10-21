@@ -222,7 +222,8 @@ combination, and so that the painting can cross hex borders. Picking, fog and ru
       [docs/runtime-assets.md](docs/runtime-assets.md); `hlasset terrain-gaps` lists the unstamped clusters.
       PULSE needs: `crater` `4_-1.1_1.1_0.2` (both craters), `lake` (one 11-hex lake), `boulders` and
       `knoll` singles and small groups. Candidate stamps now cover every PULSE crater, boulder and knoll
-      cluster shape. The lake and winter stamps remain open; the southern crater still needs its paired art.
+      cluster shape, including the PULSE lake. Winter stamps remain open; the southern crater still needs
+      its paired art.
 - [x] Pinned stamp/standing exporter (`tools/terrain-stamps`): alpha-preserving 2×/4× exports with source
       hashes, canvas and anchors; rejects enlargement. Exporter tests and `hlart check` pass. (2026-10-21)
 - [ ] Compound groups (`hq`, `cmp`, `factory`, `mount`) use the same mechanism: one painting per group instead
@@ -323,6 +324,11 @@ Needs 1.2, 1.4 and 1.5.
 
 - [ ] Clear blue water material with sparkle and depth falloff towards the shore. Exemplars `r29c7`, `r30c7`.
 - [ ] `waterStones`: rock cluster rising from the water (standing layer).
+- [x] PULSE lake candidate: one native RGBA painting across its 11-hex cluster, with a broader basin,
+      irregular boulder shore, larger water glints and central rocks, and an open neck meeting the outlet.
+      Pinned 2×/4× exports preserve native detail without enlargement. Composed reference crops were
+      reviewed and lake registration checks pass; basin width and surrounding vegetation remain open.
+      (2026-10-21)
 
 ###### 4.2 Shore (`lakeside12`, `lakeside123`, `lakeside126`, `lakeside156`, `lakeside16`, `lakeside23`, `lakeside34`, `lakeside3456`, `lakeside56`)
 

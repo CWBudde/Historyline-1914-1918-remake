@@ -6070,7 +6070,7 @@
       "id": "terrain/lakeside",
       "title": "Lake shore",
       "kind": "terrain",
-      "status": "candidate",
+      "status": "revised",
       "runtime_ids": [
         "lakeside12",
         "lakeside123",
@@ -6087,6 +6087,12 @@
       "prompt": "art/terrain/lakeside/prompt.md",
       "masters": [
         {
+          "path": "art/terrain/lakeside/lakeside-lake-summer-v3.png",
+          "sha256": "4a9525d4f4baef40aded8251608a8e4712688e23d08b99c228962b48495906f8",
+          "width": 1339,
+          "height": 1174
+        },
+        {
           "path": "art/terrain/lakeside/lakeside-bank-shared-v2.png",
           "sha256": "f8f7adb6436071ab7210480a8c63446b6d0bcf21c7bfa6c21c33662f31d616a4",
           "width": 1254,
@@ -6099,7 +6105,7 @@
           "height": 1254
         }
       ],
-      "look": "Shore between lake and meadow with rounded warm grey and brown-grey boulders, damp dark crevices\nand olive moss. Selected master `lakeside-bank-shared-v2.png` is a native 1254×1254 opaque built-in image-tool output;\nthe request for 1536×1536 did not determine the delivered dimensions.",
+      "look": "Shore between lake and meadow with rounded warm grey and brown-grey boulders, damp dark crevices\nand olive moss. PULSE uses the whole-lake painting `lakeside-lake-summer-v3.png`, a native 1339×1174 RGBA\nbuilt-in image-tool output redrawn against the local RefDesign2 lake crop. It preserves a broad northern\nbasin, larger central rocks, irregular boulder banks and a connected southern neck. The hex grid and\nbridge remain separate. The basin is still slightly narrower than the reference; nearby vegetation\nremains sparser. Other lake shapes retain the nine per-hex shores.\n\nSelected bank material `lakeside-bank-shared-v2.png` is a native 1254×1254 opaque built-in image-tool output;\nthe request for 1536×1536 did not determine the delivered dimensions.",
       "base_prompt": "Use case: stylized-concept. Generate a NEW opaque square 1536x1536 material swatch for rural European stony lake shores in a WWI tactical game. The attached PULSE painting is a style/color reference, the attached crater painting is a reference for native detailed painted material finish only; do not copy either subject or scene. Strict vertical nadir, no tilt. The entire canvas is irregular naturally rounded and flattened boulders, cobbles and pebbles in weathered warm grey, earthy brown-grey and muted beige, with darker charcoal wet crevices, damp brown soil, olive moss in gaps and occasional small grains. Medium sized rounded rocks occupy about 6 to 12 percent of the canvas width each, with smaller companion stones, many irregular shapes, varied orientation. Enough rounded sculptural boulders to read clearly when this swatch becomes a narrow bank on a small map. Fine cracks, tiny mica and moss detail, restrained upper-left highlights, short soft lower-right shade. Natural continuous hand-painted digital game illustration, crisp antialiased edges and fine brushwork like the crater reference. Uniform brightness and density right to every edge. This is one continuous opaque material, no framing. Avoid white chalk/gravel dominance, flat white fringe, regular cobblestone paving, all-white stones, crystal forms, cartoony blobs, visible repeating pattern, grid, text, hex outlines, water, grass fields, horizon, gradient, vignette, pixel art, photoreal photo, 3D render. 1536x1536 square.",
       "variants": [
         {
@@ -6167,7 +6173,7 @@
         }
       ],
       "edges": "Land and water are defined on the shared hex vertices, so neighbouring shore, water and meadow tiles\nagree at every edge and three-tile corner; the stone bank follows the boundary through the tile.",
-      "post": "`art-review -shore art/pipeline/shore-terrain-v2.json` composes meadow, water and this bank material per\nvariant from the explicit land vertices. Summer only. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.\n\nThe selected manifest opts into `authored-rocks-v1`: one uniformly cropped authored bank sample at\n35.5×20 logical-pixel periods, with 8 percent seam overlap and no mirrored coset average. Rounded\nrock faces remain about 2–5 logical pixels; the bank extends landward before blending into meadow.\nWater uses the matching 71×40-period authored sampler. Existing corner masks remain unchanged.",
+      "post": "`tools/terrain-stamps -manifest art/pipeline/feature-stamps-v1.json` exports the PULSE lake at 2× and 4×.\nThe selected crop is 1336×1172 native pixels, registered on a 334×293 logical canvas with anchor (169,50)\non the northernmost lake hex. The export reduces or preserves source pixels; it never enlarges them.\nIts transparent shoreline blends over the existing meadow; stream and bridge overlays remain above it.\n\n`art-review -shore art/pipeline/shore-terrain-v2.json` composes meadow, water and this bank material per\nvariant from the explicit land vertices. Summer only. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.\n\nThe selected manifest opts into `authored-rocks-v1`: one uniformly cropped authored bank sample at\n35.5×20 logical-pixel periods, with 8 percent seam overlap and no mirrored coset average. Rounded\nrock faces remain about 2–5 logical pixels; the bank extends landward before blending into meadow.\nWater uses the matching 71×40-period authored sampler. Existing corner masks remain unchanged.\n\n**Whole-lake prompt.**\nBuilt-in imagegen, style-transfer from the local RefDesign2 lake crop: redraw only the blue lake and\nrocky shoreline at higher native detail, preserving its asymmetrical silhouette, dark teal-blue water,\nloose broken cyan/white ripple cells, three large central rocks and one smaller companion. Rounded\nwarm grey and beige bank boulders, dark damp crevices, olive moss and a narrow grass fringe. Upper-left\nlighting, overhead view, transparent exterior. No hex lines, bridges, surrounding fields or mountains.\nThe requested 2048×1792 size was not delivered; native dimensions above describe the actual file.\n\nOutlet edit: preserve the upper basin; shorten the southwest tail and move its terminal opening right\ntoward 61 percent of the canvas width, leaving open blue water between the two banks for the creek join.\nReduce star-shaped sparkles to wandering broken ripple lines. Preserve alpha, palette and lighting.\n\nFinal outlet edit: narrow the last 15 percent of the channel and bend it southwest, targeting source\ncentres (820,1040), (750,1100), (670,1168), with an open terminal water width of about 70 source pixels.\nPreserve the upper basin and replace the previous wide right-hand toe with transparency.",
       "avoid": [
         "visible tiling or repeated rounded \"pillow\" patterns",
         "perspective, horizon or tilted camera",
@@ -6177,7 +6183,7 @@
         "surf or foam lines"
       ],
       "runtime": {
-        "count": 18,
+        "count": 20,
         "densities": [
           2,
           4

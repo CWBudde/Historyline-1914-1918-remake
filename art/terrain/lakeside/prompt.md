@@ -2,14 +2,20 @@
 id: terrain/lakeside
 title: Lake shore
 kind: terrain
-status: candidate
+status: revised
 runtime_ids: lakeside12, lakeside123, lakeside126, lakeside156, lakeside16, lakeside23, lakeside34, lakeside3456, lakeside56
-masters: lakeside-bank-shared-v2.png, lakeside-bank-shared-v1.png
+masters: lakeside-lake-summer-v3.png, lakeside-bank-shared-v2.png, lakeside-bank-shared-v1.png
 ---
 
 ## Look
 Shore between lake and meadow with rounded warm grey and brown-grey boulders, damp dark crevices
-and olive moss. Selected master `lakeside-bank-shared-v2.png` is a native 1254×1254 opaque built-in image-tool output;
+and olive moss. PULSE uses the whole-lake painting `lakeside-lake-summer-v3.png`, a native 1339×1174 RGBA
+built-in image-tool output redrawn against the local RefDesign2 lake crop. It preserves a broad northern
+basin, larger central rocks, irregular boulder banks and a connected southern neck. The hex grid and
+bridge remain separate. The basin is still slightly narrower than the reference; nearby vegetation
+remains sparser. Other lake shapes retain the nine per-hex shores.
+
+Selected bank material `lakeside-bank-shared-v2.png` is a native 1254×1254 opaque built-in image-tool output;
 the request for 1536×1536 did not determine the delivered dimensions.
 
 ## Base prompt
@@ -33,6 +39,11 @@ Land and water are defined on the shared hex vertices, so neighbouring shore, wa
 agree at every edge and three-tile corner; the stone bank follows the boundary through the tile.
 
 ## Post
+`tools/terrain-stamps -manifest art/pipeline/feature-stamps-v1.json` exports the PULSE lake at 2× and 4×.
+The selected crop is 1336×1172 native pixels, registered on a 334×293 logical canvas with anchor (169,50)
+on the northernmost lake hex. The export reduces or preserves source pixels; it never enlarges them.
+Its transparent shoreline blends over the existing meadow; stream and bridge overlays remain above it.
+
 `art-review -shore art/pipeline/shore-terrain-v2.json` composes meadow, water and this bank material per
 variant from the explicit land vertices. Summer only. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
 
@@ -40,6 +51,22 @@ The selected manifest opts into `authored-rocks-v1`: one uniformly cropped autho
 35.5×20 logical-pixel periods, with 8 percent seam overlap and no mirrored coset average. Rounded
 rock faces remain about 2–5 logical pixels; the bank extends landward before blending into meadow.
 Water uses the matching 71×40-period authored sampler. Existing corner masks remain unchanged.
+
+**Whole-lake prompt.**
+Built-in imagegen, style-transfer from the local RefDesign2 lake crop: redraw only the blue lake and
+rocky shoreline at higher native detail, preserving its asymmetrical silhouette, dark teal-blue water,
+loose broken cyan/white ripple cells, three large central rocks and one smaller companion. Rounded
+warm grey and beige bank boulders, dark damp crevices, olive moss and a narrow grass fringe. Upper-left
+lighting, overhead view, transparent exterior. No hex lines, bridges, surrounding fields or mountains.
+The requested 2048×1792 size was not delivered; native dimensions above describe the actual file.
+
+Outlet edit: preserve the upper basin; shorten the southwest tail and move its terminal opening right
+toward 61 percent of the canvas width, leaving open blue water between the two banks for the creek join.
+Reduce star-shaped sparkles to wandering broken ripple lines. Preserve alpha, palette and lighting.
+
+Final outlet edit: narrow the last 15 percent of the channel and bend it southwest, targeting source
+centres (820,1040), (750,1100), (670,1168), with an open terminal water width of about 70 source pixels.
+Preserve the upper basin and replace the previous wide right-hand toe with transparency.
 
 ## Avoid
 - visible tiling or repeated rounded "pillow" patterns

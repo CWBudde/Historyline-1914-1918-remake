@@ -2,6 +2,17 @@
   "schema_version": 1,
   "assets": [
     {
+      "id": "stamp/lake/11_-1.1_1.1_-2.2_0.2_2.2_-1.3_1.3_0.4_2.4_1.5/1",
+      "source": "art/terrain/lakeside/lakeside-lake-summer-v3.png",
+      "source_sha256": "4a9525d4f4baef40aded8251608a8e4712688e23d08b99c228962b48495906f8",
+      "crop": [0, 0, 1336, 1172],
+      "canvas": [334, 293],
+      "logical_anchor": [169, 50],
+      "layer": "ground",
+      "art": "terrain/lakeside",
+      "path": "terrain/lakeside/lake-stamp"
+    },
+    {
       "id": "stamp/crater/4_-1.1_1.1_0.2/1",
       "source": "art/terrain/ground/ground-crater-summer-v1.png",
       "source_sha256": "018177c37527691b1365cc6f59d9a60cbf3084d982475844a7fe93ea0e521a69",
