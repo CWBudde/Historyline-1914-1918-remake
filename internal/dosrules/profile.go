@@ -13,7 +13,7 @@ import (
 	"encoding/json"
 )
 
-// Type is the part of a UNIT.DAT type record that combat reads.
+// Type is the part of a UNIT.DAT type record that combat and production read.
 type Type struct {
 	Armour        int `json:"armour"`        // +2
 	Group         int `json:"group"`         // +3, full group strength
@@ -25,6 +25,7 @@ type Type struct {
 	WaterPower    int `json:"waterPower"`    // +12
 	AttackMask    int `json:"attackMask"`    // +0x0d word: target classes it attacks
 	StrengthFlags int `json:"strengthFlags"` // +0x0f word: bit 4 counts the alternate strength
+	Cost          int `json:"cost"`          // +0x3f, the production price; 255: never sold
 }
 
 // alternate reports whether the unit's strength is its alternate byte.
@@ -68,6 +69,12 @@ type Profile struct {
 	// the distance is called with (column, row), as the movement code does,
 	// and is the layout distance.
 	TransposedDistance bool
+	// Builders are the construction units, whose live +0x0a holds the
+	// builder charges. A repair costs Repair energy, BuilderRepair for a
+	// construction unit.
+	Builders      []int
+	Repair        int
+	BuilderRepair int
 }
 
 //go:embed full.json
@@ -86,12 +93,14 @@ var DemoTables = mustTables(demoJSON)
 
 // Full is profile dos-0.1 on the full build, as executed: the build of
 // record.
-var Full = Profile{Name: "dos-0.1", Tables: FullTables, TransposedDistance: true}
+var Full = Profile{Name: "dos-0.1", Tables: FullTables, TransposedDistance: true,
+	Builders: []int{16}, Repair: 15, BuilderRepair: 50}
 
 // Demo is profile dos-0.1 on the demo build, as executed. Every recorded
 // case gives what the full build gives; a rule found to differ becomes a
 // Profile field set here.
-var Demo = Profile{Name: "dos-0.1", Tables: DemoTables, TransposedDistance: true}
+var Demo = Profile{Name: "dos-0.1", Tables: DemoTables, TransposedDistance: true,
+	Builders: []int{16}, Repair: 15, BuilderRepair: 50}
 
 // Profiles are the profiles of the identified builds by build name (the
 // directories under testdata/).

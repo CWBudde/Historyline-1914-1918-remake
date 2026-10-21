@@ -47,8 +47,9 @@ type Player struct {
 // empty), the live records of the placed units and the container records,
 // the players, the turn counter (32e2:4cab), the move limit (the option
 // 1653:253c: 4, 8 or 16 orders per side and phase; 0 none), the option
-// "with concealed inventories", which counts for the score, and the battle's
-// end once a resolution has decided it (nil while it is open).
+// "with concealed inventories", which counts for the score, the battle's end
+// once a resolution has decided it (nil while it is open), each side's energy
+// account and the scenario's buildings by container record (Energy).
 type Game struct {
 	Profile   Profile
 	Width     int
@@ -61,6 +62,8 @@ type Game struct {
 	Limit     int
 	Concealed bool
 	Ended     *End
+	Energy    [2]int
+	Buildings map[int]Building
 }
 
 // Placement is a unit as a scenario places it: its type, owner (0 or 1, 2
@@ -123,6 +126,8 @@ const (
 	CmdMove   CommandKind = "move"   // Unit to Cell
 	CmdExit   CommandKind = "exit"   // the unit in Slot of Hold to Cell
 	CmdAttack CommandKind = "attack" // Unit against Cell
+	CmdRepair CommandKind = "repair" // the unit in Slot of building Hold
+	CmdBuild  CommandKind = "build"  // a unit of Type in building Hold
 )
 
 // Command is an order of Side.
@@ -133,6 +138,7 @@ type Command struct {
 	Hold int         `json:"hold,omitempty"`
 	Slot int         `json:"slot,omitempty"`
 	Cell int         `json:"cell"`
+	Type int         `json:"type,omitempty"`
 }
 
 // Refusal is a command the cycle does not take. Code is the status message
@@ -162,15 +168,18 @@ type EventKind string
 
 // The events of the cycle.
 const (
-	EvMoved   EventKind = "moved"   // a move or an exit ran: Route
-	EvRefused EventKind = "refused" // the order code or the move start refused it: Messages
-	EvAttack  EventKind = "attack"  // an attack order entered the list
-	EvReady   EventKind = "ready"
-	EvUnready EventKind = "unready"
-	EvBattle  EventKind = "battle"  // an attack order resolved: Outcome
-	EvSkipped EventKind = "skipped" // an attack order whose cell held no unit
-	EvPhase   EventKind = "phase"   // the phase change: Phase, Turn
-	EvEnd     EventKind = "end"     // the battle ended: Side is the winner (-1 a draw), End
+	EvMoved    EventKind = "moved"   // a move or an exit ran: Route
+	EvRefused  EventKind = "refused" // the order code or the move start refused it: Messages
+	EvAttack   EventKind = "attack"  // an attack order entered the list
+	EvReady    EventKind = "ready"
+	EvUnready  EventKind = "unready"
+	EvBattle   EventKind = "battle"   // an attack order resolved: Outcome
+	EvSkipped  EventKind = "skipped"  // an attack order whose cell held no unit
+	EvPhase    EventKind = "phase"    // the phase change: Phase, Turn
+	EvEnd      EventKind = "end"      // the battle ended: Side is the winner (-1 a draw), End
+	EvRepaired EventKind = "repaired" // a unit repaired: Energy left
+	EvBuilt    EventKind = "built"    // a unit built: Unit, the building's Cell, Energy left
+	EvCredit   EventKind = "credit"   // a side credited after the phase change: Energy
 )
 
 // Event is one thing that happened, in order.
@@ -185,6 +194,7 @@ type Event struct {
 	Messages []Message `json:"messages,omitempty"`
 	Phase    [2]int    `json:"phase"`
 	Turn     int       `json:"turn"`
+	Energy   int       `json:"energy,omitempty"`
 }
 
 // unitOf is the unit a command orders.
@@ -215,6 +225,8 @@ func (g *Game) unitOf(c Command) (int, error) {
 //     0661:3349, message 0x53); a computer side has none.
 //   - An attack needs a unit in the target cell of the side's map (0ad1:000c,
 //     message 0x45) that is a target of the unit (Target).
+//   - A repair or a build needs an own building, the movement phase and the
+//     energy (energy.go).
 //
 // The move order code refuses a destination itself (EvRefused), as it does
 // in the game.
@@ -228,6 +240,9 @@ func (g *Game) Check(c Command) error {
 	}
 	if p.Ready {
 		return refuse(0, "the side has confirmed its orders")
+	}
+	if c.Kind == CmdRepair || c.Kind == CmdBuild {
+		return g.checkBuilding(c)
 	}
 	idx, err := g.unitOf(c)
 	if err != nil {
@@ -309,11 +324,19 @@ func (g *Game) occupant(side, cell int) int {
 //     +4 0x200), +0x11 to the target, +0x13 = 9 and +0x14 = 2, and appends the
 //     unit to the list (message 0x49).
 //
+// A repair or a build is carried out at once (energy.go).
+//
 // Nothing withdraws an order once given: the cancel (10cc:0001) only clears
 // the reach and selection marks and undoes an exit in progress.
 func (g *Game) Apply(c Command) ([]Event, error) {
 	if err := g.Check(c); err != nil {
 		return nil, err
+	}
+	switch c.Kind {
+	case CmdRepair:
+		return g.repair(c), nil
+	case CmdBuild:
+		return g.build(c), nil
 	}
 	if c.Kind == CmdAttack {
 		u := g.Units[c.Unit]
@@ -482,6 +505,7 @@ func (g *Game) Battlefield(side int) (*Battlefield, error) {
 // phase change (ChangePhase) brings both maps into line, marks the
 // destroyed units 0x8000, swaps the phases, clears both lists and the
 // confirmations and counts the turn. It also clears every unit's moved flag.
+// Each side is then credited its buildings' energy (EvCredit).
 // A destroyed attacker cannot have a later order: it is listed once, and
 // only return fire in its own battle destroys it. When the battle has ended
 // (End), an EvEnd event follows the phase change and no further command or
@@ -506,6 +530,7 @@ func (g *Game) Resolve() ([]Event, error) {
 	if err != nil {
 		return evs, err
 	}
+	evs = append(evs, g.credit(ev[0])...)
 	if e := g.end(); e.Over {
 		g.Ended = &e
 		evs = append(evs, Event{Kind: EvEnd, Side: e.Winner, End: &e, Phase: ev[0].Phase, Turn: g.Turn})

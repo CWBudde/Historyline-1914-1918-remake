@@ -99,7 +99,7 @@ func TestLoadGameRefuses(t *testing.T) {
 		t.Fatal(err)
 	}
 	for what, edit := range map[string]func(m map[string]any){
-		"another schema":     func(m map[string]any) { m["schema"] = 2 },
+		"another schema":     func(m map[string]any) { m["schema"] = 1 },
 		"an unknown build":   func(m map[string]any) { m["build"] = "00000000" },
 		"a truncated map":    func(m map[string]any) { mp := m["maps"].([]any); mp[1] = mp[1].([]any)[:10] },
 		"an unknown type":    func(m map[string]any) { m["units"].(map[string]any)["0"].(map[string]any)["type"] = 99 },

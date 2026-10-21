@@ -11,7 +11,8 @@
       "groundPower": 35,
       "waterPower": 35,
       "attackMask": 4,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 55
     },
     {
       "armour": 55,
@@ -23,7 +24,8 @@
       "groundPower": 60,
       "waterPower": 60,
       "attackMask": 4,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 90
     },
     {
       "armour": 25,
@@ -35,7 +37,8 @@
       "groundPower": 55,
       "waterPower": 65,
       "attackMask": 16,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 100
     },
     {
       "armour": 30,
@@ -47,7 +50,8 @@
       "groundPower": 65,
       "waterPower": 75,
       "attackMask": 16,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 115
     },
     {
       "armour": 30,
@@ -59,7 +63,8 @@
       "groundPower": 55,
       "waterPower": 65,
       "attackMask": 16,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 90
     },
     {
       "armour": 15,
@@ -71,7 +76,8 @@
       "groundPower": 11,
       "waterPower": 13,
       "attackMask": 16,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 80
     },
     {
       "armour": 15,
@@ -83,7 +89,8 @@
       "groundPower": 15,
       "waterPower": 17,
       "attackMask": 16,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 85
     },
     {
       "armour": 20,
@@ -95,7 +102,8 @@
       "groundPower": 16,
       "waterPower": 18,
       "attackMask": 16,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 90
     },
     {
       "armour": 20,
@@ -107,7 +115,8 @@
       "groundPower": 19,
       "waterPower": 22,
       "attackMask": 16,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 92
     },
     {
       "armour": 25,
@@ -119,7 +128,8 @@
       "groundPower": 20,
       "waterPower": 25,
       "attackMask": 16,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 95
     },
     {
       "armour": 25,
@@ -131,7 +141,8 @@
       "groundPower": 45,
       "waterPower": 45,
       "attackMask": 4,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 55
     },
     {
       "armour": 27,
@@ -143,7 +154,8 @@
       "groundPower": 55,
       "waterPower": 55,
       "attackMask": 4,
-      "strengthFlags": 1
+      "strengthFlags": 1,
+      "cost": 70
     },
     {
       "armour": 25,
@@ -155,7 +167,8 @@
       "groundPower": 70,
       "waterPower": 70,
       "attackMask": 4,
-      "strengthFlags": 1
+      "strengthFlags": 1,
+      "cost": 85
     },
     {
       "armour": 85,
@@ -167,7 +180,8 @@
       "groundPower": 60,
       "waterPower": 60,
       "attackMask": 4,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 255
     },
     {
       "armour": 25,
@@ -179,7 +193,8 @@
       "groundPower": 40,
       "waterPower": 40,
       "attackMask": 4,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 62
     },
     {
       "armour": 25,
@@ -191,7 +206,8 @@
       "groundPower": 25,
       "waterPower": 25,
       "attackMask": 4,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 50
     },
     {
       "armour": 20,
@@ -203,7 +219,8 @@
       "groundPower": 0,
       "waterPower": 0,
       "attackMask": 4,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 105
     },
     {
       "armour": 25,
@@ -215,7 +232,8 @@
       "groundPower": 43,
       "waterPower": 43,
       "attackMask": 4,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 50
     },
     {
       "armour": 20,
@@ -227,7 +245,8 @@
       "groundPower": 30,
       "waterPower": 30,
       "attackMask": 4,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 35
     },
     {
       "armour": 25,
@@ -239,7 +258,8 @@
       "groundPower": 50,
       "waterPower": 50,
       "attackMask": 4,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 53
     },
     {
       "armour": 20,
@@ -251,7 +271,8 @@
       "groundPower": 25,
       "waterPower": 25,
       "attackMask": 4,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 45
     },
     {
       "armour": 20,
@@ -263,7 +284,8 @@
       "groundPower": 33,
       "waterPower": 0,
       "attackMask": 4,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 50
     },
     {
       "armour": 20,
@@ -275,7 +297,8 @@
       "groundPower": 0,
       "waterPower": 0,
       "attackMask": 4100,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 45
     },
     {
       "armour": 15,
@@ -287,7 +310,8 @@
       "groundPower": 0,
       "waterPower": 0,
       "attackMask": 16,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 30
     },
     {
       "armour": 40,
@@ -299,7 +323,8 @@
       "groundPower": 90,
       "waterPower": 90,
       "attackMask": 4,
-      "strengthFlags": 1
+      "strengthFlags": 1,
+      "cost": 125
     },
     {
       "armour": 60,
@@ -311,7 +336,8 @@
       "groundPower": 60,
       "waterPower": 60,
       "attackMask": 4,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 100
     },
     {
       "armour": 25,
@@ -323,7 +349,8 @@
       "groundPower": 0,
       "waterPower": 0,
       "attackMask": 4100,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 90
     },
     {
       "armour": 40,
@@ -335,7 +362,8 @@
       "groundPower": 40,
       "waterPower": 45,
       "attackMask": 8,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 255
     },
     {
       "armour": 60,
@@ -347,7 +375,8 @@
       "groundPower": 40,
       "waterPower": 65,
       "attackMask": 8,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 255
     },
     {
       "armour": 75,
@@ -359,7 +388,8 @@
       "groundPower": 0,
       "waterPower": 80,
       "attackMask": 200,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 255
     },
     {
       "armour": 75,
@@ -371,7 +401,8 @@
       "groundPower": 0,
       "waterPower": 80,
       "attackMask": 72,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 255
     },
     {
       "armour": 65,
@@ -383,7 +414,8 @@
       "groundPower": 0,
       "waterPower": 0,
       "attackMask": 4104,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 255
     },
     {
       "armour": 70,
@@ -395,7 +427,8 @@
       "groundPower": 50,
       "waterPower": 70,
       "attackMask": 200,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 255
     },
     {
       "armour": 70,
@@ -407,7 +440,8 @@
       "groundPower": 50,
       "waterPower": 70,
       "attackMask": 72,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 255
     },
     {
       "armour": 80,
@@ -419,7 +453,8 @@
       "groundPower": 70,
       "waterPower": 95,
       "attackMask": 200,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 255
     },
     {
       "armour": 80,
@@ -431,7 +466,8 @@
       "groundPower": 70,
       "waterPower": 95,
       "attackMask": 72,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 255
     },
     {
       "armour": 15,
@@ -443,7 +479,8 @@
       "groundPower": 45,
       "waterPower": 55,
       "attackMask": 16,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 85
     },
     {
       "armour": 30,
@@ -455,7 +492,8 @@
       "groundPower": 65,
       "waterPower": 75,
       "attackMask": 16,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 115
     },
     {
       "armour": 25,
@@ -467,7 +505,8 @@
       "groundPower": 55,
       "waterPower": 65,
       "attackMask": 16,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 90
     },
     {
       "armour": 15,
@@ -479,7 +518,8 @@
       "groundPower": 10,
       "waterPower": 11,
       "attackMask": 16,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 80
     },
     {
       "armour": 15,
@@ -491,7 +531,8 @@
       "groundPower": 11,
       "waterPower": 13,
       "attackMask": 16,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 85
     },
     {
       "armour": 15,
@@ -503,7 +544,8 @@
       "groundPower": 12,
       "waterPower": 14,
       "attackMask": 16,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 85
     },
     {
       "armour": 20,
@@ -515,7 +557,8 @@
       "groundPower": 12,
       "waterPower": 15,
       "attackMask": 16,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 90
     },
     {
       "armour": 20,
@@ -527,7 +570,8 @@
       "groundPower": 14,
       "waterPower": 20,
       "attackMask": 16,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 91
     },
     {
       "armour": 20,
@@ -539,7 +583,8 @@
       "groundPower": 19,
       "waterPower": 24,
       "attackMask": 16,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 92
     },
     {
       "armour": 20,
@@ -551,7 +596,8 @@
       "groundPower": 20,
       "waterPower": 25,
       "attackMask": 16,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 95
     },
     {
       "armour": 30,
@@ -563,7 +609,8 @@
       "groundPower": 35,
       "waterPower": 35,
       "attackMask": 4,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 56
     },
     {
       "armour": 35,
@@ -575,7 +622,8 @@
       "groundPower": 40,
       "waterPower": 40,
       "attackMask": 4,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 51
     },
     {
       "armour": 40,
@@ -587,7 +635,8 @@
       "groundPower": 50,
       "waterPower": 50,
       "attackMask": 4,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 85
     },
     {
       "armour": 40,
@@ -599,7 +648,8 @@
       "groundPower": 60,
       "waterPower": 55,
       "attackMask": 4,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 90
     },
     {
       "armour": 45,
@@ -611,7 +661,8 @@
       "groundPower": 55,
       "waterPower": 55,
       "attackMask": 4,
-      "strengthFlags": 0
+      "strengthFlags": 0,
+      "cost": 95
     }
   ],
   "terms": [
