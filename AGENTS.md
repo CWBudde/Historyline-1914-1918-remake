@@ -33,7 +33,8 @@ just run         # play; just play uses the candidate art; just build -> bin/; j
   the original unit table (`testdata/unitdat.json`, numbers only). The weapon catalogue is bound to the
   weapon art, so change attack values in a unit's slot, never in `weapons.json`.
 - `internal/dosrules`: pure Go resolver of the original rules profile (combat, movement, containers,
-  phase change), pinned by fixtures under `testdata/`; not wired into `game` yet.
+  phase change, the command cycle `Game` with save/resume), pinned by fixtures under `testdata/`; not wired
+  into `game` yet.
 - `internal/hexgrid`: hex layout (even lines `Width` hexes, odd lines `Width-1`, half-shifted).
 - `internal/level`: `levels/*.json` read/write. `internal/tpwm`: Turbo Packer unpacker.
 - `internal/assets`, `internal/mapcompose`, `internal/unitsprite`, `cmd/hlasset`: runtime art packs and

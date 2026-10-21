@@ -27,7 +27,8 @@ Tick a box only with evidence you ran. Record decisions here, not their history.
 - **AI** (`internal/ai`): greedy prototype through game commands and its own vision; plays all shipped levels.
 - **Original rules** (`internal/dosrules`): combat (casualties, support, distance, experience, order handler),
   movement queries and routes, loading/unloading/exits, visibility and the phase change, with fixtures for the
-  full game and the demo.
+  full game and the demo; the command cycle state `Game` (validation, queued attacks, resolution with ordered
+  events, save/resume).
 - **Art**: candidates for every enabled ID (134 tiles, 15 unit families with portraits, interface, screens);
   browse them in `gallery/`. Nothing is approved yet.
 
@@ -82,9 +83,12 @@ Tick a box only with evidence you ran. Record decisions here, not their history.
       limits, conflicting destinations and swaps, targets destroyed before their order executes.
       Known so far: only the acting side's attack list resolves, in order, without an alive check; a
       destroyed unit leaves the map at once; a surviving target is fought again; a cancelled exit returns
-      the unit to its slot.
-- [ ] Engine state for profile, cycle, readiness, pending orders; validation separate from execution; ordered
-      events for UI, AI and replays. Save/resume of unconfirmed and confirmed orders.
+      the unit to its slot. Assumed, not verified: an attack target is an opposing unit the side's map shows,
+      of a class the attacker's target flags cover, within the weapon's range for that class.
+- [x] Engine state for profile, cycle, readiness, pending orders; validation separate from execution; ordered
+      events for UI, AI and replays. Save/resume of unconfirmed and confirmed orders. (2026-10-21) —
+      `dosrules.Game` with Check/Apply/Confirm/Unconfirm/Resolve and ordered events; `Game.Save`/`LoadGame`
+      (schema 1).
 - [ ] Energy and buildings: credits per building, repair (15 energy, 50 for construction units; restores
       group size, keeps experience, resets construction charges to 2), factory build lists and prices,
       capture of buildings and their stored units, depot construction, sapper trenches, barbed wire.
