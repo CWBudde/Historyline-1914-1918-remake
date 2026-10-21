@@ -35,6 +35,13 @@ just ci         # everything CI runs
 just clean      # delete all generated output under build/
 ```
 
+`-rules` picks the rule set (pass it after `just run` or `just play`): `standard` (default), `classic` (the
+Python version's rules) or `dos`, the original order cycle. There both sides give their orders at the same
+time: in the movement phase click an own unit and a blue hex, in the action phase an own unit and a red hex
+(a queued attack), click an own building for its contents, F1 confirms (again: reopens); once both sides
+have confirmed the resolution plays back and the phases swap. `-player central|entente` picks the side,
+`-opponent ai|pass` the other side's player.
+
 ## Art
 
 All shipped art is newly authored; see the [art guide](art/README.md). The art in `legacy/python/gfx/`

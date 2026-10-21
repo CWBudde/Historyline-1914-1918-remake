@@ -22,6 +22,8 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/ai"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/camera"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosbind"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
@@ -64,6 +66,7 @@ type game struct {
 	hudImg         *ebiten.Image // logical HUD canvas, magnified onto the screen
 	terrainFill    map[string]color.RGBA
 	ctl            *control
+	dos            *dosControl // set on the original rules (-rules dos); ctl and state are nil then
 	art            *artPacks   // unit sprite packs (-units); nil draws placeholder dots
 	artErr         string      // last sprite failure, shown in the status line
 	terrain        *terrainArt // composed terrain tiles (-terrain); nil draws coloured hexes
@@ -71,16 +74,22 @@ type game struct {
 }
 
 func newGame(lvl *level.Level, st *state.State, player state.Player, reveal bool) *game {
+	gm := newMapGame(lvl, reveal)
+	gm.state, gm.player, gm.ctl = st, player, &control{st: st, player: player}
+	return gm
+}
+
+// newMapGame is the map view of lvl without a rules engine.
+func newMapGame(lvl *level.Level, reveal bool) *game {
 	g := lvl.Grid()
 	world := camera.Size{
 		W: float64(g.Width*hexgrid.ColPitch + hexgrid.HalfPitch),
 		H: float64((g.Lines-1)*hexgrid.LinePitch + hexgrid.HexHeight),
 	}
 	gm := &game{
-		lvl: lvl, state: st, player: player, reveal: reveal, grid: g,
+		lvl: lvl, reveal: reveal, grid: g,
 		cam:         camera.New(world, camera.Size{W: startWidth, H: startHeight}),
 		terrainFill: map[string]color.RGBA{},
-		ctl:         &control{st: st, player: player},
 		menuPress:   newMenuPress(),
 	}
 	gm.applyLayout(startWidth, startHeight, 1)
@@ -119,7 +128,7 @@ func (g *game) layoutMinimap() {
 
 // fogOf is what the shown player knows about c; everything is visible in reveal mode.
 func (g *game) fogOf(c hexgrid.Coord) state.Fog {
-	if g.reveal {
+	if g.reveal || g.dos != nil {
 		return state.Visible
 	}
 	return g.state.Fog(g.player, c)
@@ -141,6 +150,9 @@ func fogShade(f state.Fog, c color.RGBA) color.RGBA {
 // walking reports whether the unit standing on at is still being animated
 // there. A building or carrier the unit walks into stays drawn.
 func (g *game) walking(at hexgrid.Coord) bool {
+	if g.dos != nil {
+		return g.dosWalking(at)
+	}
 	w := g.drv().ui().walk
 	return !w.Done() && w.path[len(w.path)-1] == at && g.state.At(at).Unit == w.unit
 }
@@ -153,6 +165,10 @@ func showsUnit(f state.Fog) bool { return f == state.Visible }
 // Visible hexes; remembered own units are skipped because the player always
 // knows where those are.
 func (g *game) unitShown(c hexgrid.Coord) (shown, remembered bool) {
+	if g.dos != nil {
+		_, ok := g.dos.units(g.reveal)[c]
+		return ok && !g.walking(c), false
+	}
 	f := g.fogOf(c)
 	if showsUnit(f) {
 		return g.state.At(c).Unit != nil && !g.walking(c), false
@@ -167,6 +183,10 @@ func (g *game) unitShown(c hexgrid.Coord) (shown, remembered bool) {
 // drawUnit draws the unit shown on c at screen point (sx, sy): the live unit, or
 // the player's last-seen snapshot greyed. Without unit packs it is a dot.
 func (g *game) drawUnit(dst *ebiten.Image, c hexgrid.Coord, sx, sy float64, remembered bool) {
+	if g.dos != nil {
+		g.drawDosUnit(dst, c, sx, sy)
+		return
+	}
 	col := color.RGBA{230, 230, 230, 255}
 	if remembered {
 		col = rememberedUnit
@@ -183,6 +203,9 @@ func (g *game) drawUnit(dst *ebiten.Image, c hexgrid.Coord, sx, sy float64, reme
 // ownerShown is the building owner the player knows for c: live when Visible,
 // last seen when Seen, None when Unseen or not a building.
 func (g *game) ownerShown(c hexgrid.Coord) state.Player {
+	if g.dos != nil {
+		return g.dos.buildings()[c].Owner // None when no building
+	}
 	if g.fogOf(c) == state.Visible {
 		if h := g.state.At(c); h.Container != nil {
 			return h.Owner
@@ -414,13 +437,13 @@ func (g *game) Draw(screen *ebiten.Image) {
 	if w := g.drv().ui().walk; !w.Done() && g.fogOf(w.Hex()) == state.Visible {
 		wx, wy := w.Pos()
 		sx, sy := g.cam.WorldToScreen(wx, wy)
-		u, _ := w.unit.(*state.Unit)
 		face, _ := unitsprite.Toward(w.Heading())
-		if u == nil || !g.drawUnitSprite(screen, sx, sy, u.Type, u.Owner, unitSpent(u), false, face) {
+		if !g.drawWalker(screen, w.unit, sx, sy, face) {
 			vector.FillCircle(screen, float32(sx), float32(sy), float32(14*g.cam.Effective()), color.RGBA{230, 230, 230, 255}, true)
 		}
 	}
 	g.drawOverlays(screen)
+	g.drawOrders(screen)
 	if g.hoverOnMap {
 		cx, cy := hexgrid.Center(g.hover)
 		sx, sy := g.cam.WorldToScreen(cx, cy)
@@ -437,6 +460,7 @@ func (g *game) Draw(screen *ebiten.Image) {
 	if g.hexNumbers && g.cam.Zoom >= minNumberZoom {
 		g.drawHexNumbers(hud, vx, vy, vw, vh)
 	}
+	g.drawOrderNumbers(hud)
 	g.drawMinimap(hud)
 	g.drawMenu(hud)
 	g.drawReport(hud)
@@ -457,6 +481,9 @@ func (g *game) drawStatus(dst *ebiten.Image) { ebitenutil.DebugPrint(dst, g.stat
 // statusText is the status and help text. It names nothing of the hovered hex:
 // the info box shows that, fog-safe.
 func (g *game) statusText() string {
+	if g.dos != nil {
+		return g.dosStatusText()
+	}
 	msg := fmt.Sprintf("%s  round %d, %v to move  zoom %.2f (%dx assets)\narrows/WASD scroll, wheel zoom, click unit for its menu or click a blue/red hex (1-9 picks menu row; click own building for contents; click skips a walk), F1 end turn, F11 fullscreen, Esc/right-click cancel",
 		g.lvl.MapName, g.state.Round, g.state.Turn, g.cam.Zoom, g.drawnDensity())
 	if g.state.Winner != state.None {
@@ -537,8 +564,14 @@ func (g *game) drawOverlays(dst *ebiten.Image) {
 		sx, sy := g.cam.WorldToScreen(cx, cy)
 		g.drawHex(dst, float32(sx), float32(sy), col, false)
 	}
-	for at := range g.ctl.moves {
-		tint(at, color.RGBA{60, 120, 255, 90})
+	if g.dos != nil {
+		for at := range g.dos.moves {
+			tint(at, color.RGBA{60, 120, 255, 90})
+		}
+	} else {
+		for at := range g.ctl.moves {
+			tint(at, color.RGBA{60, 120, 255, 90})
+		}
 	}
 	for at := range ui.targets {
 		tint(at, color.RGBA{255, 50, 40, 130})
@@ -627,13 +660,14 @@ func loadLevel(dir, name string) (*level.Level, error) {
 func main() {
 	name := flag.String("level", "level1_cp", "shipped level to load from levels/ (name without .json)")
 	dir := flag.String("levels", "levels", "directory with the level files")
-	side := flag.String("player", "", "side whose fog of war is shown: central, entente (default: the level's side)")
-	reveal := flag.Bool("reveal", false, "dev: show the whole map, ignoring fog of war")
+	side := flag.String("player", "", "side the player plays and whose view is shown: central, entente (default: the level's side)")
+	rules := flag.String("rules", "standard", "rule set: dos (the original order cycle), standard or classic")
+	reveal := flag.Bool("reveal", false, "dev: show the whole map, ignoring fog of war (dos: every unit where its own side sees it)")
 	hexNumbers := flag.Bool("hexnumbers", false, "dev: print line,col on every hex")
 	reduced := flag.Bool("reduced-motion", false, "walk instantly and show short static effects (toggle in game with M)")
 	units := flag.String("units", "", "unit sprite catalog built by hlasset build-units (default: placeholder dots)")
 	terrain := flag.String("terrain", "", "terrain tile catalog built by hlasset build-terrain (default: coloured hexes)")
-	opponent := flag.String("opponent", "ai", "who plays the other side: ai (simple computer opponent) or pass (passes every turn, as in Python)")
+	opponent := flag.String("opponent", "ai", "who plays the other side: ai (computer opponent) or pass (passes every turn, as in Python)")
 	candidates := flag.Bool("allow-candidates", false, "allow unit and terrain packs that are review candidates, not approved art")
 	capture := flag.String("capture", "", "dev: render nine 720p/1080p/4K review frames to a directory under build/ and exit (requires -units and -terrain)")
 	flag.Parse()
@@ -646,11 +680,10 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	st, err := state.New(lvl, set)
+	player, err := state.PlayerByName(lvl.Player)
 	if err != nil {
 		log.Fatal(err)
 	}
-	player := st.Human
 	switch *side {
 	case "":
 	case "central":
@@ -660,19 +693,44 @@ func main() {
 	default:
 		log.Fatalf("unknown -player %q (want central or entente)", *side)
 	}
+	if *opponent != "ai" && *opponent != "pass" {
+		log.Fatalf("unknown -opponent %q (want ai or pass)", *opponent)
+	}
 	ebiten.SetWindowSize(startWidth, startHeight)
 	ebiten.SetWindowResizingMode(ebiten.WindowResizingModeEnabled)
 	ebiten.SetWindowTitle("Historyline 1914-1918")
-	gm := newGame(lvl, st, player, *reveal)
+	var gm *game
+	switch *rules {
+	case "dos":
+		var o dosplay.Options
+		var planner dosPlanner = passPlanner{}
+		if *opponent == "ai" {
+			o.Computer[1-dosbind.Side(player)] = true
+			planner = computerPlanner()
+		}
+		s, err := dosplay.New(lvl, set, o)
+		if err != nil {
+			log.Fatal(err)
+		}
+		gm = newDosGame(lvl, s, s.SideOf(player), planner, *reveal)
+	case "standard", "classic":
+		r := state.Standard
+		if *rules == "classic" {
+			r = state.Classic
+		}
+		st, err := state.NewWithRules(lvl, set, r)
+		if err != nil {
+			log.Fatal(err)
+		}
+		gm = newGame(lvl, st, player, *reveal)
+		if *opponent == "ai" {
+			gm.ctl.ai = &ai.Planner{}
+		}
+	default:
+		log.Fatalf("unknown -rules %q (want dos, standard or classic)", *rules)
+	}
 	gm.hexNumbers = *hexNumbers
 	gm.drv().SetReducedMotion(*reduced)
-	switch *opponent {
-	case "ai":
-		gm.ctl.ai = &ai.Planner{}
-	case "pass":
-	default:
-		log.Fatalf("unknown -opponent %q (want ai or pass)", *opponent)
-	}
 	if *units != "" {
 		if gm.art, err = loadUnitArt(*units, *candidates); err != nil {
 			log.Fatal(err)

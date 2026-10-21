@@ -76,6 +76,9 @@ func memoryInfo(m *state.UnitMemory) []string {
 // infoLines is the info box text: the selected unit, then the hovered hex and
 // the unit the player sees on it.
 func (g *game) infoLines() []string {
+	if g.dos != nil {
+		return g.dosInfoLines()
+	}
 	var out []string
 	if g.ctl.selected && g.ctl.unit != nil {
 		out = append(out, "selected:")

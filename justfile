@@ -122,7 +122,7 @@ gfx-study *args: _build-dir
     study_dir=$(mktemp -d build/review/pulse-study/run-XXXXXX)
     go run ./cmd/hlasset build-terrain -out "$study_dir/terrain"
     go run ./cmd/hlasset build-units -out "$study_dir/units"
-    go run ./cmd/historyline -level level1_cp -units "$study_dir/units" -terrain "$study_dir/terrain" -allow-candidates -capture "$study_dir/captures"
+    go run ./cmd/historyline -level level1_cp -rules standard -units "$study_dir/units" -terrain "$study_dir/terrain" -allow-candidates -capture "$study_dir/captures"
     go run ./cmd/hlgallery -captures "$study_dir/captures" "$@"
 
 manual_pdf := "original/extracted/manual/Historyline_1914-1918.pdf"

@@ -45,7 +45,12 @@ type driver interface {
 var _ driver = (*control)(nil)
 
 // drv is the controller of the running engine.
-func (g *game) drv() driver { return g.ctl }
+func (g *game) drv() driver {
+	if g.dos != nil {
+		return g.dos
+	}
+	return g.ctl
+}
 
 func (p *presentation) ui() *presentation { return p }
 
