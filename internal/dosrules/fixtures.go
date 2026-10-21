@@ -8,10 +8,7 @@ import (
 	"slices"
 )
 
-// Fixtures record executed results as numbers only. A casualty fixture
-// follows docs/research/battle-fixture.schema.json, an engagement fixture
-// docs/research/engagement-fixture.schema.json; internal/dosoracle writes
-// both from the emulated routines.
+// Fixtures record expected results as numbers only (testdata/).
 
 // Source says how a fixture's expectation was obtained.
 type Source struct {

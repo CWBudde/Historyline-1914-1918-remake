@@ -686,10 +686,6 @@ func (a *auditor) nativeAndFuture() {
 		_, mod := set.Terrain[id]
 		a.r.FutureGaps = append(a.r.FutureGaps, futureGap{ID: id, Background: bg[id] != "", Infrastructure: infra[id] != "", Modifier: mod, Decision: "confirm original/content requirement and define integration before authoring or enabling"})
 	}
-	for _, path := range []string{"docs/art/native-coverage.md", "docs/art/inventory-notes.md", "docs/art/original-placement.md"} {
-		a.exists(path)
-		a.r.Evidence = append(a.r.Evidence, path)
-	}
 }
 
 func writeReport(root, out string, r auditReport) (resultErr error) {

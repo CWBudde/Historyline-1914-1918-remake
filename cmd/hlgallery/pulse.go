@@ -4,8 +4,6 @@ import (
 	"bytes"
 	"crypto/sha256"
 	_ "embed"
-	"encoding/csv"
-	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -41,12 +39,6 @@ type pulseStudy struct {
 	Issues      []mapcompose.Issue `json:"issues"`
 	Maps        map[string]picture `json:"maps"`
 	GroundMaps  map[string]picture `json:"ground_maps"`
-	DOS         *picture           `json:"dos,omitempty"`
-	DOSNative   *picture           `json:"dos_native,omitempty"`
-	DOSNote     string             `json:"dos_note"`
-	DOSSources  map[string]string  `json:"dos_sources,omitempty"`
-	Native      *picture           `json:"native,omitempty"`
-	NativeNote  string             `json:"native_note"`
 	CaptureNote string             `json:"capture_note"`
 	Captures    []pulseCapture     `json:"captures"`
 }
@@ -126,7 +118,7 @@ func (c *collector) pulseContexts() (map[string]map[string]picture, error) {
 	return result, nil
 }
 
-func (c *collector) pulse(native, captures, dos string) error {
+func (c *collector) pulse(captures string) error {
 	raw, err := c.read("levels/level1_cp.json")
 	if err != nil {
 		return err
@@ -273,12 +265,6 @@ func (c *collector) pulse(native, captures, dos string) error {
 			return err
 		}
 	}
-	if err := c.pulseNative(&s, native); err != nil {
-		return err
-	}
-	if err := c.pulseDOS(&s, dos); err != nil {
-		return err
-	}
 	if err := c.pulseCaptures(&s, captures, lvl); err != nil {
 		return err
 	}
@@ -308,152 +294,6 @@ func (c *collector) pulseDensity(images map[string]picture, im *image.NRGBA, den
 			return err
 		}
 		images["1"] = p
-	}
-	return nil
-}
-
-func (c *collector) pulseDOS(s *pulseStudy, dir string) error {
-	s.DOSNote = "No original DOS export selected. Run just gfx-study with the locally supplied DOS installation, or pass -dos-map DIR. No Python artwork is substituted."
-	if dir == "" {
-		return nil
-	}
-	if !local(dir) || !strings.HasPrefix(dir, "build/") {
-		return fmt.Errorf("DOS reference must be under build/")
-	}
-	type sourcePicture struct {
-		Path   string `json:"path"`
-		SHA    string `json:"sha256"`
-		Width  int    `json:"width"`
-		Height int    `json:"height"`
-	}
-	var ref struct {
-		Schema   int               `json:"schema"`
-		Platform string            `json:"platform"`
-		Map      string            `json:"map"`
-		Library  string            `json:"library"`
-		Palette  string            `json:"palette"`
-		Columns  int               `json:"columns"`
-		Rows     int               `json:"rows"`
-		Native   sourcePicture     `json:"native"`
-		Aligned  sourcePicture     `json:"aligned"`
-		Sources  map[string]string `json:"sources"`
-		CellsSHA string            `json:"cells_sha256"`
-		Note     string            `json:"note"`
-	}
-	if err := c.json(path.Join(dir, "reference.json"), &ref); err != nil {
-		return err
-	}
-	if ref.Schema != 1 || ref.Platform != "dos" || ref.Map != "00" || ref.Library != "PARTS" || ref.Palette != "00" || ref.Columns != 16 || ref.Rows != 24 {
-		return fmt.Errorf("expected DOS PULSE MAP/00, PARTS, palette 00 export")
-	}
-	cells, err := c.read(path.Join(dir, "maps/00-PARTS-cells.csv"))
-	if err != nil {
-		return err
-	}
-	if fmt.Sprintf("%x", sha256.Sum256(cells)) != ref.CellsSHA {
-		return fmt.Errorf("DOS reference cell metadata hash mismatch")
-	}
-	if err := c.pulseLandmarks(dir); err != nil {
-		return err
-	}
-	for _, name := range []string{"00.PAL", "LIB/PARTS.LIB", "LIB/PARTS.DAT", "MAP/00.FIN"} {
-		hash, e := hex.DecodeString(ref.Sources[name])
-		if e != nil || len(hash) != 32 {
-			return fmt.Errorf("DOS reference source hash missing: %s", name)
-		}
-	}
-	for i, p := range []sourcePicture{ref.Native, ref.Aligned} {
-		if !local(p.Path) || !strings.HasPrefix(p.Path, "maps/") || len(p.SHA) != 64 {
-			return fmt.Errorf("invalid DOS reference image")
-		}
-		snap, err := c.snapshot(path.Join(dir, p.Path), p.SHA, image.Rectangle{}, 0, 0)
-		if err != nil {
-			return err
-		}
-		if snap.Width != p.Width || snap.Height != p.Height {
-			return fmt.Errorf("DOS reference image dimensions disagree")
-		}
-		if i == 0 {
-			if snap.Width != 264 || snap.Height != 588 {
-				return fmt.Errorf("unexpected native DOS map dimensions")
-			}
-			snap.Method = "Original DOS ground at intrinsic tile resolution; static reconstruction, no units/UI"
-			s.DOSNative = &snap
-		} else {
-			if snap.Width != s.Width || snap.Height != s.Height {
-				return fmt.Errorf("DOS reference does not match remake comparison geometry")
-			}
-			snap.Method = "Original DOS ground lattice nearest-neighbour rescaled uniformly at the original 24×20 hex aspect (cell centres drift from the remake's); original hex outlines differ from remake geometry; original FIN terrain, no units/UI"
-			s.DOS = &snap
-		}
-	}
-	s.DOSNote = ref.Note
-	s.DOSSources = ref.Sources
-	return nil
-}
-
-func (c *collector) pulseNative(s *pulseStudy, dir string) error {
-	s.NativeNote = "No original export selected. Regenerate with -native-map DIR after running tools/native-reference for MAP/00.FIN."
-	if dir == "" {
-		return nil
-	}
-	if !local(dir) || !strings.HasPrefix(dir, "build/") {
-		return fmt.Errorf("native map must be under build/")
-	}
-	if err := c.pulseLandmarks(dir); err != nil {
-		return err
-	}
-	p, err := c.snapshot(path.Join(dir, "maps/00-PARTS.png"), "", image.Rectangle{}, 0, 0)
-	if err != nil {
-		return err
-	}
-	s.Native = &p
-	s.NativeNote = "Amiga MAP/00.FIN: seven northern HQ pieces match PULSE under line=2*row+column%2, col=column/2. Native 24x24 ground, PARTS / palette 00; original forbidden border retained. Static ground reconstruction: units, UI and state omitted; shown with the 24×20 hex aspect (height × 5/6) in the page; PNG pixels unchanged. Different geometry: no pixel-aligned wipe against the remake."
-	return nil
-}
-
-func (c *collector) pulseLandmarks(dir string) error {
-	b, err := c.read(path.Join(dir, "maps/00-PARTS-cells.csv"))
-	if err != nil {
-		return err
-	}
-	rows, err := csv.NewReader(bytes.NewReader(b)).ReadAll()
-	if err != nil {
-		return err
-	}
-	if len(rows) < 2 {
-		return fmt.Errorf("native map cell CSV is empty")
-	}
-	// Numeric landmarks identify the northern PULSE HQ after removing the
-	// original forbidden right/bottom border. Native col/row -> remake line/col:
-	// line=2*row+col%2, column=col/2. No geometry or pixel aspect is transformed.
-	want := map[[2]int]int{{1, 2}: 1, {0, 3}: 5, {2, 3}: 7, {1, 3}: 3, {0, 4}: 6, {2, 4}: 8, {1, 4}: 4}
-	matched := 0
-	for _, r := range rows[1:] {
-		if len(r) != 8 {
-			return fmt.Errorf("invalid native map cell row")
-		}
-		x, e := strconv.Atoi(r[0])
-		if e != nil {
-			return e
-		}
-		y, e := strconv.Atoi(r[1])
-		if e != nil {
-			return e
-		}
-		id, e := strconv.Atoi(r[3])
-		if e != nil {
-			return e
-		}
-		if v, ok := want[[2]int{x, y}]; ok {
-			if id != v {
-				return fmt.Errorf("native map does not match PULSE HQ landmark at %d,%d", x, y)
-			}
-			matched++
-		}
-	}
-	if matched != 7 {
-		return fmt.Errorf("native map missing PULSE HQ landmarks")
 	}
 	return nil
 }

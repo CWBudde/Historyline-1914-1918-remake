@@ -13,7 +13,7 @@ import (
 )
 
 // TestMovementGate is the R2 gate on each recorded build. Like the R1 gate
-// (TestGate) every clause reads the expectations recorded from the emulator,
+// (TestGate) every clause reads the recorded expectations,
 // never the resolver's own results, and checks them against the rule the
 // spec states; the replays show that the resolver reproduces them. The
 // inputs are the fixtures' own set-up and the profile's tables.

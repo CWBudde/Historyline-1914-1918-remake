@@ -1,11 +1,9 @@
 package dosrules
 
-// The movement, route, container and visibility rules work on the original
-// records, as the routines of the identified builds do: 26-byte live unit
-// records, maps of two bytes per cell, the 0x1104-byte cost and reach-bit
-// arrays and 0x1c-byte container records. The record-level functions return
-// them so that internal/dosoracle can compare them byte for byte with the
-// executed routines; board.go reads them into typed values.
+// The movement, route, container and visibility rules work on compact
+// records: 26-byte live unit records, maps of two bytes per cell, the
+// 0x1104-byte cost and reach-bit arrays and 0x1c-byte container records.
+// board.go reads them into typed values.
 
 // ContainerLen is the size of a container or building record.
 const ContainerLen = 0x1c

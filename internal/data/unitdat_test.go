@@ -1,27 +1,15 @@
 package data
 
 import (
-	"encoding/binary"
 	"encoding/json"
-	"flag"
 	"os"
 	"path/filepath"
 	"reflect"
 	"testing"
-
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosexe"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/tpwm"
 )
 
-var update = flag.Bool("update", false, "rewrite testdata/unitdat.json from the DOS demo's UNIT.DAT")
-
-// unitDatSource is UNIT.DAT of the freely available DOS demo (hl-dem.zip, see
-// docs/research/original-dos-rules.md), unpacked into the ignored original/.
-var unitDatSource = filepath.Join("..", "..", "original", "demo", "HL", "UNIT.DAT")
-
-// record is the numeric part of a UNIT.DAT record; names and raw bytes stay
-// out of the repository. Ranges are stored encoded, as the original shows one
-// less.
+// record is one unit type of testdata/unitdat.json, the original unit table
+// (numbers only). Ranges are stored encoded, one more than shown.
 type record struct {
 	Index        int `json:"index"`
 	Budget       int `json:"budget"`
@@ -40,25 +28,6 @@ type record struct {
 	Weight       int `json:"weight"`
 }
 
-func decodeUnitDat(t *testing.T, packed []byte) []record {
-	t.Helper()
-	raw, err := tpwm.Unpack(packed, binary.LittleEndian)
-	if err != nil {
-		t.Fatal(err)
-	}
-	us, err := dosexe.Units(raw)
-	if err != nil {
-		t.Fatal(err)
-	}
-	out := make([]record, len(us))
-	for i, u := range us {
-		out[i] = record{u.Index, u.MovementBudgetRaw, u.DisplayedSpeed, u.Armour, u.MaxGroup, u.MovementMaskRaw,
-			u.TargetFlagsRaw, u.AirRangeEncoded, u.SurfaceRangeEncoded, u.AirPower, u.GroundPower, u.WaterPower,
-			u.CostRaw, u.CapacityRaw, u.WeightRaw}
-	}
-	return out
-}
-
 func loadUnitDat(t *testing.T) []record {
 	t.Helper()
 	b, err := os.ReadFile(filepath.Join("testdata", "unitdat.json"))
@@ -72,42 +41,17 @@ func loadUnitDat(t *testing.T) []record {
 	return rs
 }
 
-// TestUnitDatFixtureMatchesDemo checks testdata/unitdat.json against the demo's
-// UNIT.DAT when it is present, and rewrites it with -update.
-func TestUnitDatFixtureMatchesDemo(t *testing.T) {
-	packed, err := os.ReadFile(unitDatSource)
-	if os.IsNotExist(err) {
-		t.Skipf("%s not present", unitDatSource)
-	}
-	if err != nil {
-		t.Fatal(err)
-	}
-	got := decodeUnitDat(t, packed)
-	if *update {
-		b, err := json.MarshalIndent(got, "", "  ")
-		if err != nil {
-			t.Fatal(err)
-		}
-		if err := os.WriteFile(filepath.Join("testdata", "unitdat.json"), append(b, '\n'), 0o644); err != nil {
-			t.Fatal(err)
-		}
-	}
-	if want := loadUnitDat(t); !reflect.DeepEqual(got, want) {
-		t.Error("testdata/unitdat.json differs from UNIT.DAT; rerun with -update")
-	}
-}
-
 // strike is an attack against one target class: power and maximum range.
 type strike struct{ power, rangeMax int }
 
-// TestUnitsFollowUnitDat checks every unit type against its UNIT.DAT record:
+// TestUnitsFollowUnitDat checks every unit type against its record in the unit table:
 // the stats, and that the attack slots reproduce the per-class powers and
 // ranges with nothing extra. Bit 0x40 of the target flags (medium, heavy and
 // train artillery) is a minimum range of 2.
 func TestUnitsFollowUnitDat(t *testing.T) {
 	recs, s := loadUnitDat(t), loadSet(t)
-	if len(recs) != dosexe.UnitCount {
-		t.Fatalf("fixture has %d records, want %d", len(recs), dosexe.UnitCount)
+	if len(recs) != 51 {
+		t.Fatalf("fixture has %d records, want %d", len(recs), 51)
 	}
 	for id, u := range s.Units {
 		r := recs[u.Dos]

@@ -7,11 +7,9 @@ import (
 	"slices"
 )
 
-// The movement, step, container and visibility fixtures
-// (docs/research/{movement,step,container,visibility}-fixture.schema.json)
-// are recorded by internal/dosoracle from the executed routines, numbers
-// only; they use the movement tables of the build's profile
-// (Tables.Move). The tests of this package replay them.
+// The movement, step, container and visibility fixtures (testdata/, numbers
+// only) use the movement tables of the build's profile (Tables.Move). The
+// tests of this package replay them.
 
 // FixturePiece is a live unit of a movement fixture.
 type FixturePiece struct {

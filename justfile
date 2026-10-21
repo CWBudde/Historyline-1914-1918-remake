@@ -1,4 +1,4 @@
-# Go version of Historyline 1914-1918. The Python reference runs via `python3 main.py`.
+# Historyline 1914-1918 remake (Go/Ebitengine).
 
 binary := "historyline"
 
@@ -6,7 +6,7 @@ binary := "historyline"
 default:
     @just --list
 
-# Run the Python reference (from legacy/python, which holds the code and gfx/)
+# Run the legacy Python remake (test reference only)
 py *args:
     cd legacy/python && python3 main.py {{args}}
 
@@ -73,7 +73,7 @@ gallery-check:
     diff -r -x README.md gallery build/gallery-check
     @echo "gallery/ is up to date"
 
-# Local comparison desk against legacy references (private, under build/gfx-review/index.html)
+# Local comparison desk, composer and PULSE study (under build/gfx-review/)
 [positional-arguments]
 gfx-game-review *args:
     go run ./cmd/hlgallery -private "$@"
@@ -89,22 +89,7 @@ gfx-study *args:
     go run ./cmd/hlasset build-terrain -out "$study_dir/terrain"
     go run ./cmd/hlasset build-units -out "$study_dir/units"
     go run ./cmd/historyline -level level1_cp -units "$study_dir/units" -terrain "$study_dir/terrain" -allow-candidates -capture "$study_dir/captures"
-    amiga_data='original/extracted/amiga/HistorylineDe/fsuae/Hard Drives/data'
-    if [ -d "$amiga_data" ]; then
-        go run ./tools/native-reference -data "$amiga_data" -libraries PARTS -map 00 -out "$study_dir/amiga"
-        set -- -native-map "$study_dir/amiga" "$@"
-    fi
-    dos_data='original/extracted/dos-full'
-    if [ -d "$dos_data" ]; then
-        go run ./tools/native-reference -platform dos -data "$dos_data" -libraries PARTS -map 00 -out "$study_dir/dos"
-        set -- -dos-map "$study_dir/dos" "$@"
-    fi
     go run ./cmd/hlgallery -private -captures "$study_dir/captures" "$@"
-
-# Decode private original libraries; add -platform dos for DOS ground
-[positional-arguments]
-gfx-references *args:
-    go run ./tools/native-reference "$@"
 
 manual_pdf := "original/extracted/manual/Historyline_1914-1918.pdf"
 manual_typst := "typst compile --root . --font-path docs/manual/fonts"

@@ -3,11 +3,9 @@
 // the battle distance, the experience awards and the order handler that
 // composes them; the movement queries, the move order and its steps, loading,
 // unloading and exits, and the phase change that brings both sides' views
-// into line, as executed in the identified builds: the full HL.EXE (Full,
-// the build of record) and the free demo (Demo). It holds no original
-// bytes, only the numeric fields the rules read. The research oracle
-// internal/dosoracle checks it against the executed routines and records the
-// fixtures under testdata/.
+// into line, for two rule tables: Full (the full game, the build of record)
+// and Demo. It holds only the numeric fields the rules read; the fixtures
+// under testdata/ pin its results.
 package dosrules
 
 import (
@@ -78,7 +76,7 @@ var fullJSON []byte
 //go:embed demo.json
 var demoJSON []byte
 
-// FullTables are the tables of the full game's HL.EXE, the build of record.
+// FullTables are the tables of the full game, the build of record.
 // They add the winter terrain table (MoveTables.Winter).
 var FullTables = mustTables(fullJSON)
 

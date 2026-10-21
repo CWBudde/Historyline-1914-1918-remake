@@ -87,8 +87,6 @@ func run(args []string, stdout io.Writer) error {
 	root := f.String("root", ".", "repository root")
 	private := f.Bool("private", false, "write the local comparison desk, composer and PULSE study (private references) under build/ instead of the public gallery")
 	out := f.String("out", "", "output directory (default gallery; with -private build/gfx-review, which must be under build/)")
-	nativeMap := f.String("native-map", "", "optional private native-reference MAP/00 export directory under build/")
-	dosMap := f.String("dos-map", "", "optional private original DOS MAP/00 export from native-reference -platform dos")
 	captures := f.String("captures", "", "optional historyline -capture output under build/; absent captures are shown explicitly")
 	if err := f.Parse(args); err != nil {
 		return err
@@ -106,8 +104,8 @@ func run(args []string, stdout io.Writer) error {
 	if !local(*out) || (!strings.HasPrefix(*out, "build/") && (*private || (*out != "gallery" && !strings.HasPrefix(*out, "gallery/")))) {
 		return fmt.Errorf("output must be gallery/ (build/ with -private) or a directory under build/")
 	}
-	if !*private && (*nativeMap != "" || *dosMap != "" || *captures != "") {
-		return fmt.Errorf("-native-map, -dos-map and -captures need -private (they contain private reference images)")
+	if !*private && *captures != "" {
+		return fmt.Errorf("-captures needs -private")
 	}
 	r, err := os.OpenRoot(*root)
 	if err != nil {
@@ -175,7 +173,7 @@ func run(args []string, stdout io.Writer) error {
 	if err := w.WriteFile("road-units.html", []byte(strings.Replace(roadUnitComparisonTemplate(), "/*CATALOG*/null", string(data), 1)), 0644); err != nil {
 		return err
 	}
-	if err := c.pulse(*nativeMap, *captures, *dosMap); err != nil {
+	if err := c.pulse(*captures); err != nil {
 		return err
 	}
 	_, err = fmt.Fprintf(stdout, "%d game-candidate entries, %d image variants. Open %s/index.html\n", len(c.items), len(c.seen), *out)

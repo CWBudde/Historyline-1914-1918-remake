@@ -107,7 +107,7 @@ func TestCurrentGameSelection(t *testing.T) {
 	t.Logf("%d current entries, %d complete image snapshots, 27 bindings, 540 authored sprite variants", len(c.items), len(checked))
 	// Exercise the actual PULSE bindings: a unit family's ledger name can differ
 	// from its runtime pack slug, so source-file placement tests alone miss it.
-	if err := c.pulse("", "", ""); err != nil {
+	if err := c.pulse(""); err != nil {
 		t.Fatal(err)
 	}
 	studyBytes, err := w.ReadFile("pulse.json")

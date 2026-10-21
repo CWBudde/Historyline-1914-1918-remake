@@ -7,7 +7,7 @@ import (
 )
 
 // TestGate is the R1 gate on each recorded build: every clause reads the
-// expectations recorded from the emulator, never the resolver's own
+// recorded expectations, never the resolver's own
 // results (TestEngagementFixtures and TestCasualtyFixtures show the
 // resolver reproduces them). Each subtest is one gate clause or one combat
 // row of the spec's discrepancy table.
