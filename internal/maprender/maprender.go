@@ -1,7 +1,7 @@
 // Package maprender draws a whole level with the runtime art of assets/index.json,
-// layered as in the game: backgrounds (context tiles chosen by mapcompose), then
-// infrastructure, then standing items, then units facing north in their owner's
-// colours. Fog, owner bars and UI are left out.
+// layered as in the game: backgrounds (context tiles chosen by mapcompose), cluster
+// stamps, infrastructure, standing items, then units facing north in their
+// owner's colours. Fog, owner bars and UI are left out.
 package maprender
 
 import (
@@ -46,7 +46,7 @@ type Map struct {
 type Renderer struct {
 	assets fs.FS
 	files  map[string]Entry // terrain and unit IDs per density, keyed "density/id"
-	has    map[string]bool  // context, grass-detail and standing IDs present at every density
+	has    map[string]bool  // context, grass-detail, standing and stamp IDs present at every density
 	cache  map[string]image.Image
 	set    *data.Set
 }
@@ -78,7 +78,7 @@ func New(assets fs.FS) (*Renderer, error) {
 			continue
 		}
 		r.files[fmt.Sprintf("%d/%s", e.Density, e.ID)] = e
-		if strings.HasPrefix(e.ID, "context/") || strings.HasPrefix(e.ID, "tile/grass-detail-") || strings.HasPrefix(e.ID, "standing/") {
+		if strings.HasPrefix(e.ID, "context/") || strings.HasPrefix(e.ID, "tile/grass-detail-") || strings.HasPrefix(e.ID, "standing/") || strings.HasPrefix(e.ID, "stamp/") {
 			densities[e.ID]++
 		}
 	}
@@ -108,14 +108,20 @@ func (r *Renderer) Render(lvl *level.Level, density int, units bool) (Map, error
 	}, func(id string) bool { return r.has[id] })
 	w, h := Size(grid)
 	m := Map{Image: image.NewNRGBA(image.Rect(0, 0, w*density, h*density)), Gaps: scene.Gaps, Issues: scene.Issues}
-	// Background, infrastructure and standing items are separate full-map passes,
-	// as in the game.
-	for pass := range 3 {
+	// Backgrounds, cluster stamps, infrastructure and standing items are separate
+	// full-map passes, as in the game.
+	all := func(*mapcompose.Cluster) bool { return true }
+	for pass := range 4 {
 		for line, cells := range scene.Cells {
-			for col, cell := range cells {
-				ids := [3][]string{{cell.Background}, cell.Overlays, cell.Standing}[pass]
+			for col := range cells {
+				at := hexgrid.Coord{Line: line, Col: col}
+				bg, stamp, overlays, standing := scene.Layers(at, all)
+				ids := [4][]string{{bg}, {stamp}, overlays, standing}[pass]
 				for _, id := range ids {
-					if err := r.draw(m.Image, id, hexgrid.Coord{Line: line, Col: col}, density); err != nil {
+					if id == "" {
+						continue
+					}
+					if err := r.draw(m.Image, id, at, density); err != nil {
 						return Map{}, err
 					}
 				}

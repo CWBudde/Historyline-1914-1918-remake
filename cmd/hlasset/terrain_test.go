@@ -239,7 +239,7 @@ func TestTerrainPlanStandingLayer(t *testing.T) {
 		{"overhang beyond half a hex", func(es []indexEntry) []indexEntry {
 			last(es).Anchor = &[2]float64{120, 60}
 			return es
-		}, "within the overhang"},
+		}, "more than half a hex"},
 		{"one density only", func(es []indexEntry) []indexEntry { return es[:len(es)-1] }, "at 1 of 2 densities"},
 		{"ground layer in the standing pack", func(es []indexEntry) []indexEntry {
 			last(es).Layer = ""
@@ -259,5 +259,35 @@ func TestTerrainPlanStandingLayer(t *testing.T) {
 		if _, err := planTerrain(c.damage(withStanding(retainedIndex(t)))); err == nil || !strings.Contains(err.Error(), c.want) {
 			t.Errorf("%s: err = %v, want it to mention %q", c.name, err, c.want)
 		}
+	}
+}
+
+func TestTerrainPlanStamps(t *testing.T) {
+	es := retainedIndex(t)
+	for _, d := range terrainDensities {
+		for _, e := range []indexEntry{
+			{ID: "stamp/crater/4_-1.1_1.1_0.2/1", Pack: fmt.Sprintf("terrain-stamps-%dx", d), Width: 300 * d, Height: 160 * d, Anchor: &[2]float64{140, 40}},
+			// A stamp's standing part spans the cluster, beyond a single hex's overhang.
+			{ID: "standing/stamp/crater/4_-1.1_1.1_0.2/1", Pack: fmt.Sprintf("terrain-standing-%dx", d), Layer: "standing", Width: 300 * d, Height: 160 * d, Anchor: &[2]float64{140, 40}},
+		} {
+			e.Density, e.SHA256, e.Art = d, strings.Repeat("0", 64), "terrain/mud"
+			e.Path = fmt.Sprintf("terrain/mud/%s-%d-%dx.png", strings.ReplaceAll(e.ID, "/", "-"), len(es), d)
+			es = append(es, e)
+		}
+	}
+	packs, err := planTerrain(es)
+	if err != nil {
+		t.Fatal(err)
+	}
+	groups := map[string]int{}
+	for _, p := range packs {
+		groups[p.Group] += len(p.Manifest.Entries)
+	}
+	if groups[stampGroup] != 2 || groups[standingGroup] != 2 {
+		t.Errorf("packs %v, want a stamp and its standing part per density", groups)
+	}
+	es[len(es)-2].ID = "tile/crater"
+	if _, err := planTerrain(es); err == nil || !strings.Contains(err.Error(), "is not a stamp/") {
+		t.Errorf("tile in the stamp pack: %v", err)
 	}
 }

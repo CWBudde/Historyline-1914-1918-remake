@@ -81,10 +81,18 @@ func (o overlay) Open(name string) (fs.File, error) {
 	return o.base.Open(name)
 }
 
-// A standing item overhangs its hex over the ground of its neighbours, and is
-// clipped at the map edge.
-func TestStandingOverhang(t *testing.T) {
-	red := color.NRGBA{R: 255, A: 255}
+var red = color.NRGBA{R: 255, A: 255}
+
+// extra is a solid red asset of w×h logical pixels added to the index.
+type extra struct {
+	id, pack string // pack without its -<d>x suffix
+	w, h     int
+	anchor   [2]float64
+}
+
+// withAssets is the repository's assets tree plus the extras at 2x and 4x.
+func withAssets(t *testing.T, extras ...extra) fs.FS {
+	t.Helper()
 	base := os.DirFS("../../assets")
 	raw, err := fs.ReadFile(base, "index.json")
 	if err != nil {
@@ -95,25 +103,32 @@ func TestStandingOverhang(t *testing.T) {
 		t.Fatal(err)
 	}
 	over := fstest.MapFS{}
-	for _, d := range []int{2, 4} {
-		im := image.NewNRGBA(image.Rect(0, 0, 144*d, 120*d))
-		draw.Draw(im, im.Bounds(), image.NewUniform(red), image.Point{}, draw.Src)
-		var b bytes.Buffer
-		if err := png.Encode(&b, im); err != nil {
-			t.Fatal(err)
+	for i, x := range extras {
+		for _, d := range []int{2, 4} {
+			im := image.NewNRGBA(image.Rect(0, 0, x.w*d, x.h*d))
+			draw.Draw(im, im.Bounds(), image.NewUniform(red), image.Point{}, draw.Src)
+			var b bytes.Buffer
+			if err := png.Encode(&b, im); err != nil {
+				t.Fatal(err)
+			}
+			p := fmt.Sprintf("test/%d-%dx.png", i, d)
+			over[p] = &fstest.MapFile{Data: b.Bytes()}
+			index["assets"] = append(index["assets"].([]any), map[string]any{
+				"id": x.id, "pack": fmt.Sprintf("%s-%dx", x.pack, d), "density": d, "path": p,
+				"sha256": fmt.Sprintf("%x", sha256.Sum256(b.Bytes())), "logical_anchor": x.anchor,
+			})
 		}
-		p := fmt.Sprintf("terrain/house/standing-%dx.png", d)
-		over[p] = &fstest.MapFile{Data: b.Bytes()}
-		index["assets"] = append(index["assets"].([]any), map[string]any{
-			"id": "standing/house", "pack": fmt.Sprintf("terrain-standing-%dx", d), "density": d, "path": p,
-			"sha256": fmt.Sprintf("%x", sha256.Sum256(b.Bytes())), "logical_anchor": []float64{72, 60},
-		})
 	}
 	if raw, err = json.Marshal(index); err != nil {
 		t.Fatal(err)
 	}
 	over["index.json"] = &fstest.MapFile{Data: raw}
-	r, err := New(overlay{over, base})
+	return overlay{over, base}
+}
+
+func renderPulse(t *testing.T, assets fs.FS) (*level.Level, Map) {
+	t.Helper()
+	r, err := New(assets)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -125,6 +140,13 @@ func TestStandingOverhang(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	return lvl, m
+}
+
+// A standing item overhangs its hex over the ground of its neighbours, and is
+// clipped at the map edge.
+func TestStandingOverhang(t *testing.T) {
+	lvl, m := renderPulse(t, withAssets(t, extra{"standing/house", "terrain-standing", 144, 120, [2]float64{72, 60}}))
 	houses := 0
 	for line, hs := range lvl.Lines {
 		for col, h := range hs {
@@ -149,5 +171,27 @@ func TestStandingOverhang(t *testing.T) {
 	Place(dst, src, hexgrid.Coord{}, 1, [2]float64{72, 60})
 	if dst.NRGBAAt(0, 0) != red || dst.NRGBAAt(48+72-1, 40+60-1) != red || dst.NRGBAAt(48+72, 40) == red {
 		t.Error("overhang at the map edge drawn wrongly")
+	}
+}
+
+// A cluster with a stamp is drawn as the stamp, anchored on its first hex.
+func TestClusterStamp(t *testing.T) {
+	const shape = "4_-1.1_1.1_0.2" // PULSE's two craters
+	lvl, m := renderPulse(t, withAssets(t, extra{"stamp/crater/" + shape + "/1", "terrain-stamps", 8, 8, [2]float64{4, 4}}))
+	stamped := 0
+	for line, hs := range lvl.Lines {
+		for col, h := range hs {
+			if h.Terrain != "mud" {
+				continue
+			}
+			x, y := hexgrid.Center(hexgrid.Coord{Line: line, Col: col})
+			if m.Image.NRGBAAt(int(x)*2, int(y)*2) == red {
+				stamped++
+			}
+		}
+	}
+	// One stamp per crater, on its first (northernmost) hex.
+	if stamped != 2 {
+		t.Errorf("%d crater hexes carry the stamp, want 2", stamped)
 	}
 }

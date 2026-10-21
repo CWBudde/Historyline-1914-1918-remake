@@ -22,6 +22,10 @@ type Cell struct {
 	Overlays   []string // asset IDs
 	Standing   []string // asset IDs
 	Context    Family   // set when Background is a context tile
+	// Cluster is the 1-based index of the hex's cluster in Scene.Clusters, 0 for
+	// none; Under is the base tile drawn instead of Background under its stamp.
+	Cluster int
+	Under   string
 }
 
 // Reason says why a context tile could not be selected.
@@ -56,10 +60,11 @@ type Issue struct {
 
 // Scene is a composed map: Cells[line][col].
 type Scene struct {
-	Grid   hexgrid.Grid
-	Cells  [][]Cell
-	Gaps   []Gap
-	Issues []Issue
+	Grid     hexgrid.Grid
+	Cells    [][]Cell
+	Gaps     []Gap
+	Issues   []Issue
+	Clusters []Cluster
 }
 
 // Compose selects the tiles of every hex of g. at returns a hex's terrain; has
@@ -76,12 +81,7 @@ func Compose(g hexgrid.Grid, at func(hexgrid.Coord) Hex, has func(id string) boo
 			c := hexgrid.Coord{Line: l, Col: col}
 			h := at(c)
 			cell := &s.Cells[l][col]
-			cell.Background = TileID(h.Terrain)
-			if h.Terrain == "grass" {
-				if id := GrassVariationID(l, col); has(id) {
-					cell.Background = id
-				}
-			}
+			cell.Background = baseTile(h.Terrain, l, col, has)
 			for _, id := range h.Infra {
 				cell.Overlays = append(cell.Overlays, TileID(id))
 			}
@@ -96,7 +96,19 @@ func Compose(g hexgrid.Grid, at func(hexgrid.Coord) Hex, has func(id string) boo
 		}
 	}
 	s.registerCompounds(at, has)
+	s.registerClusters(at, has)
 	return s
+}
+
+// baseTile is the default tile of terrain on hex (line, col): a grass variation
+// where the catalog has one.
+func baseTile(terrain string, line, col int, has func(string) bool) string {
+	if terrain == "grass" {
+		if id := GrassVariationID(line, col); has(id) {
+			return id
+		}
+	}
+	return TileID(terrain)
 }
 
 func selectContext(g hexgrid.Grid, at func(hexgrid.Coord) Hex, c hexgrid.Coord, f Family, centre string, has func(string) bool) (string, *Gap) {

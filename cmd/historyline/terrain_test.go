@@ -137,15 +137,37 @@ func TestOpenTerrainArtRefusesCandidatesAndGaps(t *testing.T) {
 }
 
 func TestTerrainLayersFollowFog(t *testing.T) {
-	c := mapcompose.Cell{Background: "tile/grass", Overlays: []string{"tile/road14"}, Standing: []string{"standing/house"}}
-	if bg, ov, st, dim := terrainLayers(c, state.Unseen); bg != "tile/unseen" || ov != nil || st != nil || dim {
-		t.Errorf("unseen: %s %v %v %v", bg, ov, st, dim)
+	rows := [][]string{{"house", "mud", "grass"}, {"mud", "grass"}, {"grass", "grass", "grass"}}
+	stamp := mapcompose.StampID("crater", "2_-1.1", 1)
+	have := map[string]bool{"standing/house": true, stamp: true}
+	s := mapcompose.Compose(hexgrid.Grid{Width: 3, Lines: 3}, func(c hexgrid.Coord) mapcompose.Hex {
+		return mapcompose.Hex{Terrain: rows[c.Line][c.Col]}
+	}, func(id string) bool { return have[id] })
+	house, crater, rim := hexgrid.Coord{Line: 0, Col: 0}, hexgrid.Coord{Line: 0, Col: 1}, hexgrid.Coord{Line: 1, Col: 0}
+	fog := map[hexgrid.Coord]state.Fog{house: state.Seen, rim: state.Unseen}
+	fogOf := func(c hexgrid.Coord) state.Fog {
+		if f, ok := fog[c]; ok {
+			return f
+		}
+		return state.Visible
 	}
-	if bg, ov, st, dim := terrainLayers(c, state.Seen); bg != "tile/grass" || len(ov) != 1 || len(st) != 1 || !dim {
-		t.Errorf("seen: %s %v %v %v", bg, ov, st, dim)
+	if bg, _, _, st, dim := terrainLayers(&s, house, fogOf); bg != "tile/house" || !slices.Equal(st, []string{"standing/house"}) || !dim {
+		t.Errorf("seen: %s %v %v", bg, st, dim)
 	}
-	if bg, ov, st, dim := terrainLayers(c, state.Visible); bg != "tile/grass" || len(ov) != 1 || len(st) != 1 || dim {
-		t.Errorf("visible: %s %v %v %v", bg, ov, st, dim)
+	if bg, stamp, ov, st, dim := terrainLayers(&s, rim, fogOf); bg != "tile/unseen" || stamp != "" || ov != nil || st != nil || dim {
+		t.Errorf("unseen: %s %s %v %v %v", bg, stamp, ov, st, dim)
+	}
+	// Part of the crater is unseen: its known hex keeps the per-hex art.
+	if bg, stamp, _, _, dim := terrainLayers(&s, crater, fogOf); bg != "tile/mud" || stamp != "" || dim {
+		t.Errorf("partly known crater: %s %s %v", bg, stamp, dim)
+	}
+	fog[rim] = state.Visible
+	if bg, got, _, _, _ := terrainLayers(&s, crater, fogOf); bg != "tile/grass" || got != stamp {
+		t.Errorf("known crater: %s %s", bg, got)
+	}
+	// A stamp anchored outside the view is still drawn when the crater reaches in.
+	if got := withClusterAnchors(&s, []hexgrid.Coord{house, rim}); !slices.Equal(got, []hexgrid.Coord{house, crater, rim}) {
+		t.Errorf("cells drawn %v", got)
 	}
 }
 

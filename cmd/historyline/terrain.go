@@ -1,6 +1,7 @@
 package main
 
 import (
+	"cmp"
 	"fmt"
 	"io/fs"
 	"os"
@@ -24,11 +25,14 @@ import (
 // overlap instead; overlays keep a transparent border.
 const tilePad = 3
 
-// terrainGroups are the pack groups hlasset build-terrain writes;
-// standingGroup is written only when the catalog has standing items.
-var terrainGroups = []string{"backgrounds", "infrastructure", "context-ground", "context-forest", "context-hills"}
+// terrainGroups are the pack groups hlasset build-terrain writes; the optional
+// groups only when the catalog has standing items or cluster stamps.
+var (
+	terrainGroups  = []string{"backgrounds", "infrastructure", "context-ground", "context-forest", "context-hills"}
+	optionalGroups = []string{standingGroup, stampGroup}
+)
 
-const standingGroup = "standing"
+const standingGroup, stampGroup = "standing", "stamps"
 
 // terrainArt is the runtime terrain catalog and the level composed from it.
 type terrainArt struct {
@@ -51,8 +55,10 @@ func levelHex(l *level.Level) func(hexgrid.Coord) mapcompose.Hex {
 // a missing tile.
 func openTerrainArt(fsys fs.FS, opt assets.Options, lvl *level.Level) (*terrainArt, error) {
 	groups := terrainGroups
-	if _, err := fs.Stat(fsys, path.Join(fmt.Sprintf("%dx", spriteDensities[0]), standingGroup, "manifest.json")); err == nil {
-		groups = append(slices.Clip(groups), standingGroup)
+	for _, g := range optionalGroups {
+		if _, err := fs.Stat(fsys, path.Join(fmt.Sprintf("%dx", spriteDensities[0]), g, "manifest.json")); err == nil {
+			groups = append(slices.Clip(groups), g)
+		}
 	}
 	packs, err := openPacks(fsys, opt, groups, spriteDensities)
 	if err != nil {
@@ -61,7 +67,7 @@ func openTerrainArt(fsys fs.FS, opt assets.Options, lvl *level.Level) (*terrainA
 	packs.pad = tilePad
 	packs.bleed = map[string]bool{}
 	for _, g := range groups {
-		packs.bleed[g] = g != "infrastructure" && g != standingGroup
+		packs.bleed[g] = g != "infrastructure" && !slices.Contains(optionalGroups, g)
 	}
 	a := &terrainArt{artPacks: packs, group: map[string]string{}}
 	for _, g := range groups {
@@ -85,13 +91,21 @@ func openTerrainArt(fsys fs.FS, opt assets.Options, lvl *level.Level) (*terrainA
 	if err := present(mapcompose.TileID("unseen")); err != nil {
 		return nil, err
 	}
+	var ids []string
 	for _, line := range a.scene.Cells {
 		for _, c := range line {
-			for _, id := range slices.Concat([]string{c.Background}, c.Overlays, c.Standing) {
-				if err := present(id); err != nil {
-					return nil, err
-				}
-			}
+			ids = slices.Concat(ids, []string{c.Background, c.Under}, c.Overlays, c.Standing)
+		}
+	}
+	for _, cl := range a.scene.Clusters {
+		ids = append(ids, cl.Stamp, cl.Standing)
+	}
+	for _, id := range ids {
+		if id == "" {
+			continue
+		}
+		if err := present(id); err != nil {
+			return nil, err
 		}
 	}
 	return a, nil
@@ -107,15 +121,22 @@ func loadTerrainArt(dir string, allowCandidates bool, lvl *level.Level) (*terrai
 	return openTerrainArt(r.FS(), assets.Options{AllowCandidates: allowCandidates}, lvl)
 }
 
-// terrainLayers returns the tiles drawn on a hex the player knows as f: nothing
-// of an unseen hex but the fog tile (its standing items would give its terrain
-// away), and the remembered terrain of a seen hex dimmed to grey. Standing items
-// of a known hex may overhang an unseen neighbour.
-func terrainLayers(c mapcompose.Cell, f state.Fog) (bg string, overlays, standing []string, dim bool) {
+// terrainLayers returns the tiles drawn on hex c of scene s given the player's
+// fog: nothing of an unseen hex but the fog tile (its standing items would give
+// its terrain away), and the remembered terrain of a seen hex dimmed to grey.
+// Standing items of a known hex may overhang an unseen neighbour. A cluster is
+// drawn as its stamp only while all its hexes are known; otherwise its known
+// hexes keep their per-hex art.
+func terrainLayers(s *mapcompose.Scene, c hexgrid.Coord, fog func(hexgrid.Coord) state.Fog) (bg, stamp string, overlays, standing []string, dim bool) {
+	f := fog(c)
 	if f == state.Unseen {
-		return mapcompose.TileID("unseen"), nil, nil, false
+		return mapcompose.TileID("unseen"), "", nil, nil, false
 	}
-	return c.Background, c.Overlays, c.Standing, f == state.Seen
+	known := func(cl *mapcompose.Cluster) bool {
+		return !slices.ContainsFunc(cl.Cells, func(x hexgrid.Coord) bool { return fog(x) == state.Unseen })
+	}
+	bg, stamp, overlays, standing = s.Layers(c, known)
+	return bg, stamp, overlays, standing, f == state.Seen
 }
 
 // remembered is the grey, darkened look of a seen but not visible hex.
@@ -144,17 +165,42 @@ func (g *game) drawTile(dst *ebiten.Image, id string, sx, sy float64, dim bool) 
 }
 
 // drawTerrain draws the composed terrain of the hexes in view (in line, then
-// column order): every background first, then the infrastructure, then the
-// standing items, so neither is covered by a later hex's ground.
+// column order): every background first, then the cluster stamps, the
+// infrastructure and the standing items, so none is covered by a later hex's
+// ground.
 func (g *game) drawTerrain(dst *ebiten.Image, inView []hexgrid.Coord) {
-	for pass := range 3 {
-		for _, c := range inView {
-			bg, overlays, standing, dim := terrainLayers(g.terrain.scene.Cells[c.Line][c.Col], g.fogOf(c))
+	s := &g.terrain.scene
+	cells := withClusterAnchors(s, inView)
+	for pass := range 4 {
+		for _, c := range cells {
+			bg, stamp, overlays, standing, dim := terrainLayers(s, c, g.fogOf)
 			sx, sy := g.cam.WorldToScreen(hexgrid.Center(c))
-			ids := [3][]string{{bg}, overlays, standing}[pass]
-			for _, id := range ids {
-				g.drawTile(dst, id, sx, sy, dim)
+			for _, id := range [4][]string{{bg}, {stamp}, overlays, standing}[pass] {
+				if id != "" {
+					g.drawTile(dst, id, sx, sy, dim)
+				}
 			}
 		}
 	}
+}
+
+// withClusterAnchors adds to the hexes in view the anchor hex of every stamped
+// cluster reaching into the view, since a stamp may span more than the view's
+// margin, and keeps line, then column order.
+func withClusterAnchors(s *mapcompose.Scene, inView []hexgrid.Coord) []hexgrid.Coord {
+	in := map[hexgrid.Coord]bool{}
+	for _, c := range inView {
+		in[c] = true
+	}
+	out := inView
+	for _, cl := range s.Clusters {
+		if cl.Stamp != "" && !in[cl.Cells[0]] && slices.ContainsFunc(cl.Cells, func(c hexgrid.Coord) bool { return in[c] }) {
+			out = append(slices.Clip(out), cl.Cells[0])
+			in[cl.Cells[0]] = true
+		}
+	}
+	if len(out) > len(inView) {
+		slices.SortFunc(out, func(a, b hexgrid.Coord) int { return cmp.Or(cmp.Compare(a.Line, b.Line), cmp.Compare(a.Col, b.Col)) })
+	}
+	return out
 }

@@ -194,11 +194,15 @@ combination, and so that the painting can cross hex borders. Picking, fog and ru
 
 ###### 1.4 Feature stamps for multi-hex clusters
 
-- [ ] Find connected clusters of the same terrain: `mud` (craters), `stone` (boulder fields), `mountain`
-      (knolls), `water` with `lakeside*` (lakes).
-- [ ] Choose a stamp by cluster size and shape class (for example crater: single, pair, three or four hexes),
+- [x] Find connected clusters of the same terrain: `mud` (craters), `stone` (boulder fields), `mountain`
+      (knolls), `water` with `lakeside*` (lakes). (2026-10-21) — `mapcompose.Scene.Clusters`, winter kinds
+      separate.
+- [x] Choose a stamp by cluster size and shape class (for example crater: single, pair, three or four hexes),
       seeded by the cluster's first cell, and draw it across the cluster in the ground and standing layers; fall
-      back to per-hex art for unknown shapes and report them like gaps.
+      back to per-hex art for unknown shapes and report them like gaps. (2026-10-21) — shape keys and IDs in
+      [docs/runtime-assets.md](docs/runtime-assets.md); `hlasset terrain-gaps` lists the unstamped clusters.
+      PULSE needs: `crater` `4_-1.1_1.1_0.2` (both craters), `lake` (one 11-hex lake), `boulders` and
+      `knoll` singles and small groups. No stamp art exists yet.
 - [ ] Compound groups (`hq`, `cmp`, `factory`, `mount`) use the same mechanism: one painting per group instead
       of seven or four separate pieces, cut by the pack build.
 

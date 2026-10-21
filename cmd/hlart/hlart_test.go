@@ -135,6 +135,9 @@ func TestCheckFindsProblems(t *testing.T) {
 			replace(t, root, "assets/index.json", `{"id":"tile/road14","pack":"p-2x","density":2,"path":"terrain/road/road14-2x.png","sha256":"96ed1291de2b253b33b93ba7b23820a6694f6230b401f178584c37a17d7b45c2","width":8,"height":6,"logical_anchor":[4,3]`,
 				`{"id":"standing/road14","pack":"terrain-standing-2x","layer":"standing","density":2,"path":"terrain/road/road14-2x.png","sha256":"96ed1291de2b253b33b93ba7b23820a6694f6230b401f178584c37a17d7b45c2","width":8,"height":6,"logical_anchor":[100,3]`)
 		}},
+		{"stamp outside the stamp pack", "cluster stamps have IDs stamp/", func(t *testing.T, root string) {
+			replace(t, root, "assets/index.json", `{"id":"tile/road14","pack":"p-2x"`, `{"id":"stamp/crater/1/1","pack":"p-2x"`)
+		}},
 		{"wrong kind", `kind "interface", want "unit"`, func(t *testing.T, root string) {
 			replace(t, root, "art/units/infantry/prompt.md", "kind: unit", "kind: interface")
 		}},

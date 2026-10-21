@@ -124,8 +124,10 @@ func check(root string) ([]string, error) {
 
 // layerProblem says why a runtime entry's layer or terrain geometry is wrong, or
 // "" when it is right. Standing items (standing/<id>, layer standing, pack
-// terrain-standing-*) may overhang their hex; terrain ground tiles fill exactly
-// one hex registered on its centre.
+// terrain-standing-*) may overhang their hex by half a hex; cluster stamps
+// (stamp/<kind>/<shape>/<variant>, pack terrain-stamps-*) and their standing
+// parts span their cluster; terrain ground tiles fill exactly one hex registered
+// on its centre.
 func layerProblem(e runtimeEntry) string {
 	layer := cmp.Or(e.Layer, "ground")
 	if layer != "ground" && layer != "standing" {
@@ -134,7 +136,10 @@ func layerProblem(e runtimeEntry) string {
 	if standing := strings.HasPrefix(e.ID, "standing/"); standing != (layer == "standing") || standing != strings.HasPrefix(e.Pack, "terrain-standing-") {
 		return "standing items have IDs standing/<id>, layer standing and a terrain-standing pack"
 	}
-	if !strings.HasPrefix(e.Pack, "terrain-") || e.Density == 0 {
+	if stamp := strings.HasPrefix(e.ID, "stamp/"); stamp != strings.HasPrefix(e.Pack, "terrain-stamps-") {
+		return "cluster stamps have IDs stamp/<kind>/<shape>/<variant> and a terrain-stamps pack"
+	}
+	if !strings.HasPrefix(e.Pack, "terrain-") || e.Density == 0 || strings.HasPrefix(e.ID, "stamp/") || strings.HasPrefix(e.ID, "standing/stamp/") {
 		return ""
 	}
 	w, h := float64(e.Width)/float64(e.Density), float64(e.Height)/float64(e.Density)

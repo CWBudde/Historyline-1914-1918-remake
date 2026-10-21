@@ -26,13 +26,16 @@ var (
 	terrainDensities = []int{2, 4}
 	terrainAnchor    = [2]float64{48, 40}
 	terrainGroups    = []string{"backgrounds", "infrastructure", "context-ground", "context-forest", "context-hills"}
-	// standingGroup is built only when the index has standing items.
-	standingGroup = "standing"
+	// optionalGroups are built only when the index has standing items or cluster
+	// stamps.
+	optionalGroups = []string{standingGroup, stampGroup}
 )
+
+const standingGroup, stampGroup = "standing", "stamps"
 
 // terrainPack is one built terrain group at one density.
 type terrainPack struct {
-	Group    string // backgrounds, infrastructure, context-<family> or standing
+	Group    string // backgrounds, infrastructure, context-<family>, standing or stamps
 	Density  int
 	Manifest assets.Manifest
 }
@@ -41,8 +44,8 @@ func terrainDir(d int, group string) string { return path.Join(fmt.Sprintf("%dx"
 
 // planTerrain returns the terrain packs of the index, every group at every
 // density, before any image is read. Tiles are registered on the hex centre;
-// context tiles carry the family of their group. The standing group is optional:
-// its items may overhang their hex (mapcompose.StandingFits).
+// context tiles carry the family of their group. The standing and stamp groups
+// are optional (optionalProblem).
 func planTerrain(entries []indexEntry) ([]terrainPack, error) {
 	for _, e := range entries {
 		if !strings.HasPrefix(e.Pack, "terrain-") {
@@ -81,30 +84,55 @@ func planTerrain(entries []indexEntry) ([]terrainPack, error) {
 			packs = append(packs, terrainPack{Group: group, Density: d, Manifest: m})
 		}
 	}
-	var standing []terrainPack
-	for _, d := range terrainDensities {
-		id := fmt.Sprintf("terrain-%s-%dx", standingGroup, d)
-		m, ok := byID[id]
-		if !ok {
-			continue
-		}
-		delete(byID, id)
-		for _, e := range m.Entries {
-			w, h := float64(e.Width)/float64(d), float64(e.Height)/float64(d)
-			if !strings.HasPrefix(e.ID, "standing/") || e.Density != d || !mapcompose.StandingFits(w, h, e.Anchor) {
-				return nil, fmt.Errorf("%s: %s is not a standing %dx item within the overhang (%dx%d, anchor %v)", id, e.ID, d, e.Width, e.Height, e.Anchor)
+	for _, group := range optionalGroups {
+		var built []terrainPack
+		for _, d := range terrainDensities {
+			id := fmt.Sprintf("terrain-%s-%dx", group, d)
+			m, ok := byID[id]
+			if !ok {
+				continue
 			}
+			delete(byID, id)
+			for _, e := range m.Entries {
+				if msg := optionalProblem(group, e, d); msg != "" {
+					return nil, fmt.Errorf("%s: %s %s (%dx%d, anchor %v)", id, e.ID, msg, e.Width, e.Height, e.Anchor)
+				}
+			}
+			built = append(built, terrainPack{Group: group, Density: d, Manifest: m})
 		}
-		standing = append(standing, terrainPack{Group: standingGroup, Density: d, Manifest: m})
+		if len(built) != 0 && len(built) != len(terrainDensities) {
+			return nil, fmt.Errorf("index has the %s pack at %d of %d densities", group, len(built), len(terrainDensities))
+		}
+		packs = append(packs, built...)
 	}
-	if len(standing) != 0 && len(standing) != len(terrainDensities) {
-		return nil, fmt.Errorf("index has the %s pack at %d of %d densities", standingGroup, len(standing), len(terrainDensities))
-	}
-	packs = append(packs, standing...)
 	for id := range byID {
 		return nil, fmt.Errorf("index has unknown terrain pack %s", id)
 	}
 	return packs, nil
+}
+
+// optionalProblem says why entry e cannot be in the optional group at density d,
+// or "" when it can. Standing items stay within the overhang
+// (mapcompose.StandingFits) unless they belong to a cluster stamp; stamps span
+// their cluster from the anchor on its first hex.
+func optionalProblem(group string, e assets.Entry, d int) string {
+	if e.Density != d {
+		return fmt.Sprintf("is not a %dx file", d)
+	}
+	if group == stampGroup {
+		if !strings.HasPrefix(e.ID, "stamp/") {
+			return "is not a stamp/<kind>/<shape>/<variant>"
+		}
+		return ""
+	}
+	if !strings.HasPrefix(e.ID, "standing/") {
+		return "is not a standing/<id>"
+	}
+	w, h := float64(e.Width)/float64(d), float64(e.Height)/float64(d)
+	if !strings.HasPrefix(e.ID, "standing/stamp/") && !mapcompose.StandingFits(w, h, e.Anchor) {
+		return "overhangs its hex by more than half a hex"
+	}
+	return ""
 }
 
 // buildTerrain builds the terrain catalog: out/<d>x/<group>/ holds one pack per
@@ -139,8 +167,15 @@ func buildTerrain(assetsDir, out string) ([]terrainPack, error) {
 // context, plus stray compound pieces, for the art track.
 func terrainGaps(dir string, w io.Writer) error {
 	have := map[string]bool{}
+	var groups []string
 	for _, f := range mapcompose.Families {
-		r, err := os.OpenRoot(filepath.Join(dir, terrainDir(terrainDensities[0], "context-"+string(f))))
+		groups = append(groups, "context-"+string(f))
+	}
+	if _, err := os.Stat(filepath.Join(dir, terrainDir(terrainDensities[0], stampGroup))); err == nil {
+		groups = append(groups, stampGroup)
+	}
+	for _, g := range groups {
+		r, err := os.OpenRoot(filepath.Join(dir, terrainDir(terrainDensities[0], g)))
 		if err != nil {
 			return err
 		}
@@ -196,6 +231,16 @@ func terrainGaps(dir string, w io.Writer) error {
 		}
 		for _, is := range s.Issues {
 			if _, err := fmt.Fprintf(w, "  compound (line %d, col %d): %s\n", is.At.Line, is.At.Col, is.Detail); err != nil {
+				return err
+			}
+		}
+		// Clusters drawn per hex because their shape has no stamp yet.
+		for _, cl := range s.Clusters {
+			if cl.Stamp != "" {
+				continue
+			}
+			c := cl.Cells[0]
+			if _, err := fmt.Fprintf(w, "  unstamped %s %s (line %d, col %d): %s\n", cl.Kind, cl.Shape, c.Line, c.Col, mapcompose.StampID(cl.Kind, cl.Shape, 1)); err != nil {
 				return err
 			}
 		}

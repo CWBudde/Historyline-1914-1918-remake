@@ -43,7 +43,17 @@ Groups per density:
 `context-hills`. IDs `tile/<runtime id>` and `context/<family>/<key>`; 96×80 logical, anchor (48,40).
 The optional group `standing` holds standing items `standing/<runtime id>` (layer `standing` in
 `assets/index.json`; tree crowns, rocks, buildings, bridges): any canvas with the anchor on the hex centre
-that overhangs the hex by at most half a hex on each side.
+that overhangs the hex by at most half a hex on each side. The optional group `stamps` holds cluster stamps
+`stamp/<kind>/<shape>/<variant>` (variants 1 to 8, numbered without gaps), anchored on the centre of the
+cluster's first hex; a stamp's standing part is `standing/stamp/<kind>/<shape>/<variant>` and may span the
+cluster.
+
+Clusters are connected hexes of one kind: `crater` (`mud`), `boulders` (`stone`), `knoll` (`mountain`),
+`lake` (`water`, `waterStones`, `lakeside*`); the winter kinds (`shelled_w`, `stoney_w`, `mountain_w`) end
+in `_w`. The shape is the hex count, then each further hex's offset from the first (line, then column order)
+in half-hex columns and lines: `1`, `2_0.2` (one above the other), `4_-1.1_1.1_0.2` (a diamond). With a stamp
+for the shape the cluster's hexes get the base material (grass) and the stamp; the variant is seeded by the
+first hex. `hlasset terrain-gaps` lists the clusters still drawn per hex.
 
 `internal/mapcompose` turns a level into per-hex draws: background, stored overlays in order, then the
 standing items of the terrain and overlays that the catalog has. Ground materials, forest and hills pick a
@@ -53,10 +63,11 @@ outside the map the centre continues. Without a context tile the default tile is
 (`missing` or `undefined`). The three shipped levels have no gaps. Compounds must form complete groups; stray
 pieces are reported, never completed.
 
-Drawing order: all backgrounds, overlays, standing items (line, then column), owner bars, units. Unseen
-hexes show `unseen` and none of their standing items; remembered hexes are greyed, standing items too. Draw
-density is the effective zoom's asset density, at least 2×. Background textures get a 3-texel grown border so
-filtered quads at fractional zoom overlap without seams.
+Drawing order: all backgrounds, cluster stamps, overlays, standing items (line, then column), owner bars,
+units. Unseen hexes show `unseen` and none of their standing items; remembered hexes are greyed, standing
+items too. A cluster is stamped only while all its hexes are known; otherwise its hexes keep the per-hex art.
+Draw density is the effective zoom's asset density, at least 2×. Background textures get a 3-texel grown
+border so filtered quads at fractional zoom overlap without seams.
 
 ## Open
 
