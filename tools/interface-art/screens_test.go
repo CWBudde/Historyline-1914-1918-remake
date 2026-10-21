@@ -118,6 +118,81 @@ func TestScreenStrictInputsAndCrop(t *testing.T) {
 	}
 }
 
+// A native-resolution export must retain details that a 2x image cannot hold;
+// a larger canvas alone must not permit upscaling a smaller selected crop.
+func TestScreenBackdropNative4xRequiresSufficientCrop(t *testing.T) {
+	_, raw, loaded := screenTestInputs(t)
+	var manifest ScreenManifest
+	if err := json.Unmarshal(raw, &manifest); err != nil {
+		t.Fatal(err)
+	}
+	dir := t.TempDir()
+	for i, in := range loaded[1:] {
+		name := filepath.Base(in.Spec.Source)
+		if err := os.WriteFile(filepath.Join(dir, name), in.Bytes, 0644); err != nil {
+			t.Fatal(err)
+		}
+		manifest.Fonts[i].Source = name
+	}
+	source := image.NewNRGBA(image.Rect(0, 0, 2560, 1600))
+	for y := 0; y < 1600; y++ {
+		for x := 0; x < 2560; x++ {
+			source.SetNRGBA(x, y, color.NRGBA{R: uint8((x % 2) * 255), G: uint8((y % 2) * 255), B: 75, A: 255})
+		}
+	}
+	var encoded bytes.Buffer
+	if err := png.Encode(&encoded, source); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(dir, "backdrop.png"), encoded.Bytes(), 0644); err != nil {
+		t.Fatal(err)
+	}
+	manifest.Backdrop.Source = "backdrop.png"
+	manifest.Backdrop.SHA256 = hash(encoded.Bytes())
+	for _, tc := range []struct {
+		name string
+		crop [4]int
+		four bool
+	}{
+		{"native", [4]int{0, 0, 2560, 1600}, true},
+		{"small-crop-large-canvas", [4]int{0, 0, 1280, 800}, false},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			manifest.Backdrop.Crop = tc.crop
+			path := filepath.Join(dir, tc.name+".json")
+			if err := os.WriteFile(path, writeJSON(manifest), 0644); err != nil {
+				t.Fatal(err)
+			}
+			out := filepath.Join(dir, tc.name)
+			if err := export(path, out); err != nil {
+				t.Fatal(err)
+			}
+			four, err := os.ReadFile(filepath.Join(out, "backdrop", "western-front-4x.png"))
+			if !tc.four {
+				if !os.IsNotExist(err) {
+					t.Fatalf("small crop must not produce a 4x export: %v", err)
+				}
+				return
+			}
+			if err != nil {
+				t.Fatalf("native 4x backdrop missing: %v", err)
+			}
+			im, err := png.Decode(bytes.NewReader(four))
+			if err != nil {
+				t.Fatal(err)
+			}
+			if im.Bounds() != image.Rect(0, 0, 2560, 1600) {
+				t.Fatalf("native 4x dimensions: %v", im.Bounds())
+			}
+			for _, p := range []image.Point{{0, 0}, {1, 0}, {0, 1}, {123, 456}, {2559, 1599}} {
+				if got := color.NRGBAModel.Convert(im.At(p.X, p.Y)); got != source.NRGBAAt(p.X, p.Y) {
+					t.Fatalf("native detail changed at %v: %v", p, got)
+				}
+			}
+		})
+	}
+}
+
 func TestRetainedScreensRepeatAndGallery(t *testing.T) {
 	root := freshExport(t, "screens-v1")
 	raw, e := os.ReadFile(filepath.Join(root, "report.json"))

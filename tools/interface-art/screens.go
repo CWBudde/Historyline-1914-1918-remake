@@ -108,6 +108,18 @@ func exportScreens(manifestPath, out string, raw []byte) error {
 		}
 	}()
 	b := Builder{Dir: stage, Report: Report{SchemaVersion: 1, Profile: m.Profile, ManifestSHA256: hash(raw), Acceptance: "offline artwork and layout fixtures; gameplay flows, original correspondence and runtime acceptance pending", Filter: "native 4x vectors -> 2x -> 1x signed premultiplied byte-RGB Lanczos3; painted backdrop 2x/1x only, no upscaling"}}
+	if c := inputs[0].Spec.Crop; c[2] >= 2560 && c[3] >= 1600 {
+		// Sample the retained master directly; the existing 2x/1x path stays unchanged.
+		r := image.Rect(c[0], c[1], c[0]+c[2], c[1]+c[3])
+		four, err := resizeLanczos(inputs[0].Image.SubImage(r).(*image.NRGBA), 2560, 1600)
+		if err != nil {
+			return err
+		}
+		if e = b.png("backdrop/western-front-4x.png", four, Output{ID: m.Backdrop.ID, Family: "backdrop", Density: 4}); e != nil {
+			return e
+		}
+		b.Report.Filter = "native 4x vectors -> 2x -> 1x signed premultiplied byte-RGB Lanczos3; painted backdrop master -> 4x/2x -> 1x, no upscaling"
+	}
 	if e = b.save("manifest.json", raw, Output{ID: "manifest", Family: "metadata"}); e != nil {
 		return e
 	}
@@ -176,6 +188,9 @@ func exportScreens(manifestPath, out string, raw []byte) error {
 	gallery := screenGallery(screens)
 	if m.Profile == "screens-v2" {
 		gallery = screenStateGallery(screens, arts)
+	}
+	if inputs[0].Spec.Crop[2] >= 2560 && inputs[0].Spec.Crop[3] >= 1600 {
+		gallery = strings.Replace(gallery, "The painted backdrop is retained at 1×/2× only: its source cannot support a true 4× export.", `The painted backdrop is available at 1×/2×/4× from its retained native-resolution source. <a href="backdrop/western-front-4x.png">4× backdrop PNG</a>.`, 1)
 	}
 	if e = b.save("index.html", []byte(gallery), Output{ID: "gallery", Family: "review"}); e != nil {
 		return e
