@@ -3,7 +3,7 @@
 // Build with `just artbook` (build/artbook/Historyline_Art.pdf).
 //
 // Inputs: base (the art tree, default the repository root), thumbs (directory of the
-// master and sample thumbnails written by `hlart thumbs`; default: the files themselves), pulse
+// optional master and sample thumbnails written by `hlart thumbs`; the normal book embeds native files), pulse
 // (directory of the PULSE map written by `hlart pulse`; default: no map chapter), compare
 // (directory written by `reference-design -compare`; default: no comparison), style=false
 // skips art/style.md, reference=false skips the PULSE reference chapter.
@@ -125,6 +125,18 @@
 
 // Style guide
 = Style
+#heading(level: 3)[Reading the artwork pages]
+*Candidate* means generated artwork awaiting visual review. *Revised* means reworked against the
+reference design. *Approved* means accepted. These are review states; each image keeps its own pixel
+dimensions at every state.
+
+*Source paintings* are the full-resolution master images. The primary master leads each family;
+additional sources can be other materials, seasons or retained earlier drafts. *Game exports* are
+the cut, scaled and composed images used by the renderer, shown at their highest available resolution.
+*Appearance variants* describe terrain shapes, seasons, facings and other visual differences.
+
+This edition embeds native source PNGs and game exports. The pixel dimensions printed with each
+source describe the image in this PDF. PULSE uses the 4× runtime artwork; comparison images use PNG.
 #if with-style {
   let src = read("/art/style.md")
   md(src)
@@ -146,12 +158,13 @@
       #if a.runtime.densities.len() > 0 [· densities #a.runtime.densities.map(d => str(d) + "×").join(", ")]]
   ]
 
-  // The first master beside the look and the repository paths, further masters below.
+  // The first source painting beside the look and paths, further sources below.
   let master(m, height) = figure(
     box(fill: paper-tint, inset: 3pt, picture(file(m.path), height: height)),
     caption: small[#raw(m.path.split("/").last()) · #m.width × #m.height],
     supplement: none, numbering: none,
   )
+  heading(level: 4, outlined: false)[Source paintings]
   grid(
     columns: (55%, 1fr),
     column-gutter: 1.2em,
@@ -172,12 +185,12 @@
     },
   )
   if a.masters.len() > 1 {
-    heading(level: 4, outlined: false)[More masters]
+    heading(level: 4, outlined: false)[Additional master sources]
     grid(columns: (1fr,) * 5, gutter: 0.5em, ..a.masters.slice(1).map(m => master(m, 2.4cm)))
   }
 
   if a.runtime.samples.len() > 0 {
-    heading(level: 4, outlined: false)[Runtime samples]
+    heading(level: 4, outlined: false)[Game exports (highest available resolution)]
     let cols = calc.min(4, a.runtime.samples.len())
     grid(
       columns: (1fr,) * cols,
@@ -195,7 +208,7 @@
     text(size: 8.5pt, raw(reflow(a.base_prompt), block: true)))
 
   if a.variants.len() > 0 {
-    heading(level: 4, outlined: false)[Variants]
+    heading(level: 4, outlined: false)[Appearance variants]
     table(
       columns: (auto, auto, 1fr),
       fill: (_, y) => if y == 0 { paper-tint },
@@ -234,8 +247,8 @@
   heading(level: 1)[PULSE map]
   [
     Level #blob(info.level) drawn with the current runtime art at #(info.density)× (#(info.width * info.density) ×
-    #(info.height * info.density) pixels, #info.hexes hexes), layered as in the game: context backgrounds,
-    infrastructure, then the #info.units starting units facing north in their owner's colours. Fog, owner
+    #(info.height * info.density) pixels, #info.hexes hexes), layered as in the game: ground and cluster
+    paintings, infrastructure, overhanging objects, then the #info.units starting units facing north in their owner's colours. Fog, owner
     bars and interface are left out. Compositor gaps: #info.gaps, issues: #info.issues.
     Compare with the target look in the PULSE reference chapter.
   ]

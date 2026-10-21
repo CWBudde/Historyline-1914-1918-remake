@@ -57,7 +57,7 @@ func TestIndexContent(t *testing.T) {
 		t.Errorf("road avoid %v variants %+v", road.Avoid, road.Variants)
 	}
 	if road.Runtime.Count != 4 || !slices.Equal(road.Runtime.Densities, []int{2, 4}) ||
-		!slices.Equal(road.Runtime.Samples, []string{"assets/terrain/road/road14-2x.png", "assets/terrain/road/road25-2x.png"}) {
+		!slices.Equal(road.Runtime.Samples, []string{"assets/terrain/road/road14-4x.png", "assets/terrain/road/road25-4x.png"}) {
 		t.Errorf("road runtime %+v", road.Runtime)
 	}
 	units := idx.Assets[2].Runtime.Samples
@@ -66,6 +66,41 @@ func TestIndexContent(t *testing.T) {
 	}
 	if s := idx.Assets[0].Runtime.Samples; s[0] != "assets/interface/action/attack-normal-2x.png" {
 		t.Errorf("interface samples %v, want the normal state first", s)
+	}
+}
+
+func TestRuntimeSamplesUseHighestDensityPerID(t *testing.T) {
+	entries := []runtimeEntry{
+		{ID: "tile/road14", Density: 4, Path: "terrain/road/road14-4x.png", Width: 16},
+		{ID: "tile/road14", Density: 2, Path: "terrain/road/road14-2x.png", Width: 8},
+		{ID: "tile/road25", Density: 2, Path: "terrain/road/road25-2x.png", Width: 8},
+		{ID: "tile/road25", Density: 4, Path: "terrain/road/road25-4x.png", Width: 16},
+		{ID: "tile/road14", Density: 8, Path: "terrain/road/palette.json"},
+		{ID: "tile/road26", Density: 1, Path: "terrain/road/road26-1x.png", Width: 4},
+	}
+	for _, tc := range []struct {
+		name    string
+		entries []runtimeEntry
+		want    []string
+	}{
+		{
+			name:    "highest density regardless of entry order",
+			entries: entries[:4],
+			want:    []string{"assets/terrain/road/road25-4x.png", "assets/terrain/road/road14-4x.png"},
+		},
+		{
+			name:    "mixed densities retain every representative and skip non-images",
+			entries: append(slices.Clone(entries[:3]), entries[4:]...),
+			want:    []string{"assets/terrain/road/road25-2x.png", "assets/terrain/road/road14-4x.png", "assets/terrain/road/road26-1x.png"},
+		},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			p := &prompt{RuntimeIDs: []string{"road25", "road14", "road26"}}
+			got := summarise("terrain/road", p, tc.entries)
+			if !slices.Equal(got.Samples, tc.want) {
+				t.Errorf("samples %v, want %v", got.Samples, tc.want)
+			}
+		})
 	}
 }
 

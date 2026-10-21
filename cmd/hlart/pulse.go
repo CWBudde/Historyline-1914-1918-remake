@@ -25,7 +25,7 @@ type pulseMap struct {
 	Issues  int    `json:"issues"`
 }
 
-// pulse renders the PULSE level with the runtime art at 2x into out/pulse-ground.png
+// pulse renders the PULSE level with the runtime art at 4x into out/pulse-ground.png
 // (terrain and infrastructure) and out/pulse-units.png (with the starting units).
 func pulse(root, out string) error {
 	lvl, err := level.Load(filepath.Join(root, filepath.FromSlash(pulseLevel)))
@@ -39,7 +39,7 @@ func pulse(root, out string) error {
 	if err := os.MkdirAll(out, 0o755); err != nil {
 		return err
 	}
-	const density = 2
+	const density = 4
 	w, h := maprender.Size(lvl.Grid())
 	info := pulseMap{Level: pulseLevel, Density: density, Width: w, Height: h, Hexes: lvl.Grid().Size()}
 	for _, units := range []bool{false, true} {

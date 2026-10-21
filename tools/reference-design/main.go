@@ -15,6 +15,7 @@ import (
 
 type options struct {
 	root, ref, out, compare string
+	compareFormat           string
 	check, dump, drift      bool
 }
 
@@ -27,6 +28,7 @@ func main() {
 	flag.BoolVar(&o.drift, "drift", false, "with -check: print the render's metrics against the targets per family")
 	flag.StringVar(&o.out, "out", "", "render tiles, the comparison and index.html into this directory and measure targets.json")
 	flag.StringVar(&o.compare, "compare", "", "write only the comparison (bands, crops, compare.json) into this directory; skipped without the image")
+	flag.StringVar(&o.compareFormat, "compare-format", "jpg", "comparison image format: png or jpg")
 	flag.Parse()
 	if err := run(o); err != nil {
 		fmt.Fprintln(os.Stderr, "reference-design:", err)
@@ -35,6 +37,14 @@ func main() {
 }
 
 func run(o options) error {
+	format := imageFormat(o.compareFormat)
+	switch format {
+	case "":
+		format = formatJPEG
+	case formatPNG, formatJPEG:
+	default:
+		return fmt.Errorf("invalid -compare-format %q: want png or jpg", o.compareFormat)
+	}
 	refPath := o.ref
 	if !filepath.IsAbs(refPath) {
 		refPath = filepath.Join(o.root, refPath)
@@ -67,7 +77,7 @@ func run(o options) error {
 			fmt.Printf("reference image %s not present, no comparison written\n", p.ref.Image.Path)
 			return os.RemoveAll(o.compare)
 		}
-		if _, err := p.compare(src, o.compare, formatJPEG); err != nil {
+		if _, err := p.compare(src, o.compare, format); err != nil {
 			return err
 		}
 		fmt.Printf("wrote %s/compare.json\n", o.compare)

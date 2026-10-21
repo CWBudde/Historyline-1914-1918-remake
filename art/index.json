@@ -192,14 +192,14 @@
           4
         ],
         "samples": [
-          "assets/interface/action/attack-disabled-2x.png",
-          "assets/interface/action/attack-focus-2x.png",
-          "assets/interface/action/attack-hover-2x.png",
-          "assets/interface/action/attack-normal-2x.png",
-          "assets/interface/action/attack-pressed-2x.png",
-          "assets/interface/action/contain-disabled-2x.png",
-          "assets/interface/action/contain-focus-2x.png",
-          "assets/interface/action/contain-hover-2x.png"
+          "assets/interface/action/attack-disabled-4x.png",
+          "assets/interface/action/attack-focus-4x.png",
+          "assets/interface/action/attack-hover-4x.png",
+          "assets/interface/action/attack-normal-4x.png",
+          "assets/interface/action/attack-pressed-4x.png",
+          "assets/interface/action/contain-disabled-4x.png",
+          "assets/interface/action/contain-focus-4x.png",
+          "assets/interface/action/contain-hover-4x.png"
         ]
       }
     },
@@ -250,8 +250,8 @@
           4
         ],
         "samples": [
-          "assets/interface/banner/capture-2x.png",
-          "assets/interface/banner/round-2x.png"
+          "assets/interface/banner/capture-4x.png",
+          "assets/interface/banner/round-4x.png"
         ]
       }
     },
@@ -326,11 +326,11 @@
           4
         ],
         "samples": [
-          "assets/interface/bar/negative-2x.png",
-          "assets/interface/bar/neutral-2x.png",
-          "assets/interface/bar/positive-2x.png",
-          "assets/interface/bar/track-2x.png",
-          "assets/interface/bar/unavailable-2x.png"
+          "assets/interface/bar/negative-4x.png",
+          "assets/interface/bar/neutral-4x.png",
+          "assets/interface/bar/positive-4x.png",
+          "assets/interface/bar/track-4x.png",
+          "assets/interface/bar/unavailable-4x.png"
         ]
       }
     },
@@ -404,11 +404,11 @@
           4
         ],
         "samples": [
-          "assets/interface/button/disabled-2x.png",
-          "assets/interface/button/focus-2x.png",
-          "assets/interface/button/hover-2x.png",
-          "assets/interface/button/normal-2x.png",
-          "assets/interface/button/pressed-2x.png"
+          "assets/interface/button/disabled-4x.png",
+          "assets/interface/button/focus-4x.png",
+          "assets/interface/button/hover-4x.png",
+          "assets/interface/button/normal-4x.png",
+          "assets/interface/button/pressed-4x.png"
         ]
       }
     },
@@ -459,8 +459,8 @@
           4
         ],
         "samples": [
-          "assets/interface/country/france-2x.png",
-          "assets/interface/country/germany-2x.png"
+          "assets/interface/country/france-4x.png",
+          "assets/interface/country/germany-4x.png"
         ]
       }
     },
@@ -592,14 +592,14 @@
           4
         ],
         "samples": [
-          "assets/interface/effect/explosion-00-2x.png",
-          "assets/interface/effect/explosion-01-2x.png",
-          "assets/interface/effect/explosion-02-2x.png",
-          "assets/interface/effect/explosion-03-2x.png",
-          "assets/interface/effect/explosion-04-2x.png",
-          "assets/interface/effect/explosion-05-2x.png",
-          "assets/interface/effect/explosion-06-2x.png",
-          "assets/interface/effect/explosion-07-2x.png"
+          "assets/interface/effect/explosion-00-4x.png",
+          "assets/interface/effect/explosion-01-4x.png",
+          "assets/interface/effect/explosion-02-4x.png",
+          "assets/interface/effect/explosion-03-4x.png",
+          "assets/interface/effect/explosion-04-4x.png",
+          "assets/interface/effect/explosion-05-4x.png",
+          "assets/interface/effect/explosion-06-4x.png",
+          "assets/interface/effect/explosion-07-4x.png"
         ]
       }
     },
@@ -714,14 +714,14 @@
           4
         ],
         "samples": [
-          "assets/interface/map/attack-2x.png",
-          "assets/interface/map/attackable-2x.png",
-          "assets/interface/map/camera-2x.png",
-          "assets/interface/map/cursor-2x.png",
-          "assets/interface/map/editor-2x.png",
-          "assets/interface/map/from-2x.png",
-          "assets/interface/map/invalid-2x.png",
-          "assets/interface/map/path-2x.png"
+          "assets/interface/map/attack-4x.png",
+          "assets/interface/map/attackable-4x.png",
+          "assets/interface/map/camera-4x.png",
+          "assets/interface/map/cursor-4x.png",
+          "assets/interface/map/editor-4x.png",
+          "assets/interface/map/from-4x.png",
+          "assets/interface/map/invalid-4x.png",
+          "assets/interface/map/path-4x.png"
         ]
       }
     },
@@ -812,13 +812,13 @@
           4
         ],
         "samples": [
-          "assets/interface/ownership/cp-2x.png",
-          "assets/interface/ownership/cp-factory-2x.png",
-          "assets/interface/ownership/depotOwnership-2x.png",
-          "assets/interface/ownership/ec-2x.png",
-          "assets/interface/ownership/ec-factory-2x.png",
-          "assets/interface/ownership/neutral-2x.png",
-          "assets/interface/ownership/neutral-factory-2x.png"
+          "assets/interface/ownership/cp-4x.png",
+          "assets/interface/ownership/cp-factory-4x.png",
+          "assets/interface/ownership/depotOwnership-4x.png",
+          "assets/interface/ownership/ec-4x.png",
+          "assets/interface/ownership/ec-factory-4x.png",
+          "assets/interface/ownership/neutral-4x.png",
+          "assets/interface/ownership/neutral-factory-4x.png"
         ]
       }
     },
@@ -885,10 +885,10 @@
           4
         ],
         "samples": [
-          "assets/interface/panel/battle-2x.png",
-          "assets/interface/panel/content-2x.png",
-          "assets/interface/panel/terrain-2x.png",
-          "assets/interface/panel/weapon-2x.png"
+          "assets/interface/panel/battle-4x.png",
+          "assets/interface/panel/content-4x.png",
+          "assets/interface/panel/terrain-4x.png",
+          "assets/interface/panel/weapon-4x.png"
         ]
       }
     },
@@ -1011,14 +1011,14 @@
           4
         ],
         "samples": [
-          "assets/interface/rank/00-2x.png",
-          "assets/interface/rank/01-2x.png",
-          "assets/interface/rank/02-2x.png",
-          "assets/interface/rank/03-2x.png",
-          "assets/interface/rank/04-2x.png",
-          "assets/interface/rank/05-2x.png",
-          "assets/interface/rank/06-2x.png",
-          "assets/interface/rank/07-2x.png"
+          "assets/interface/rank/00-4x.png",
+          "assets/interface/rank/01-4x.png",
+          "assets/interface/rank/02-4x.png",
+          "assets/interface/rank/03-4x.png",
+          "assets/interface/rank/04-4x.png",
+          "assets/interface/rank/05-4x.png",
+          "assets/interface/rank/06-4x.png",
+          "assets/interface/rank/07-4x.png"
         ]
       }
     },
@@ -1092,11 +1092,11 @@
           4
         ],
         "samples": [
-          "assets/interface/slot/disabled-2x.png",
-          "assets/interface/slot/focus-2x.png",
-          "assets/interface/slot/hover-2x.png",
-          "assets/interface/slot/normal-2x.png",
-          "assets/interface/slot/pressed-2x.png"
+          "assets/interface/slot/disabled-4x.png",
+          "assets/interface/slot/focus-4x.png",
+          "assets/interface/slot/hover-4x.png",
+          "assets/interface/slot/normal-4x.png",
+          "assets/interface/slot/pressed-4x.png"
         ]
       }
     },
@@ -1251,14 +1251,14 @@
           4
         ],
         "samples": [
-          "assets/interface/symbol/air-2x.png",
-          "assets/interface/symbol/ammo-2x.png",
-          "assets/interface/symbol/armour-2x.png",
-          "assets/interface/symbol/capture-2x.png",
-          "assets/interface/symbol/empty-2x.png",
-          "assets/interface/symbol/fuel-2x.png",
-          "assets/interface/symbol/ground-2x.png",
-          "assets/interface/symbol/infinity-2x.png"
+          "assets/interface/symbol/air-4x.png",
+          "assets/interface/symbol/ammo-4x.png",
+          "assets/interface/symbol/armour-4x.png",
+          "assets/interface/symbol/capture-4x.png",
+          "assets/interface/symbol/empty-4x.png",
+          "assets/interface/symbol/fuel-4x.png",
+          "assets/interface/symbol/ground-4x.png",
+          "assets/interface/symbol/infinity-4x.png"
         ]
       }
     },
@@ -1506,14 +1506,14 @@
           4
         ],
         "samples": [
-          "assets/interface/weapon/bayonet-2x.png",
-          "assets/interface/weapon/canon155-2x.png",
-          "assets/interface/weapon/canon75-2x.png",
-          "assets/interface/weapon/feldkanone16-2x.png",
-          "assets/interface/weapon/gewehr98-2x.png",
-          "assets/interface/weapon/leeEnfield-2x.png",
-          "assets/interface/weapon/lefh-2x.png",
-          "assets/interface/weapon/lugerp08-2x.png"
+          "assets/interface/weapon/bayonet-4x.png",
+          "assets/interface/weapon/canon155-4x.png",
+          "assets/interface/weapon/canon75-4x.png",
+          "assets/interface/weapon/feldkanone16-4x.png",
+          "assets/interface/weapon/gewehr98-4x.png",
+          "assets/interface/weapon/leeEnfield-4x.png",
+          "assets/interface/weapon/lefh-4x.png",
+          "assets/interface/weapon/lugerp08-4x.png"
         ]
       }
     },
@@ -1587,11 +1587,11 @@
           4
         ],
         "samples": [
-          "assets/interface/weapon-row/disabled-2x.png",
-          "assets/interface/weapon-row/focus-2x.png",
-          "assets/interface/weapon-row/hover-2x.png",
-          "assets/interface/weapon-row/normal-2x.png",
-          "assets/interface/weapon-row/pressed-2x.png"
+          "assets/interface/weapon-row/disabled-4x.png",
+          "assets/interface/weapon-row/focus-4x.png",
+          "assets/interface/weapon-row/hover-4x.png",
+          "assets/interface/weapon-row/normal-4x.png",
+          "assets/interface/weapon-row/pressed-4x.png"
         ]
       }
     },
@@ -1641,7 +1641,7 @@
           4
         ],
         "samples": [
-          "assets/portraits/armored-car/portrait-2x.png"
+          "assets/portraits/armored-car/portrait-4x.png"
         ]
       }
     },
@@ -1693,7 +1693,7 @@
           4
         ],
         "samples": [
-          "assets/portraits/armored-train/portrait-2x.png"
+          "assets/portraits/armored-train/portrait-4x.png"
         ]
       }
     },
@@ -1745,7 +1745,7 @@
           4
         ],
         "samples": [
-          "assets/portraits/bunker/portrait-2x.png"
+          "assets/portraits/bunker/portrait-4x.png"
         ]
       }
     },
@@ -1797,7 +1797,7 @@
           4
         ],
         "samples": [
-          "assets/portraits/cavalry/portrait-2x.png"
+          "assets/portraits/cavalry/portrait-4x.png"
         ]
       }
     },
@@ -1847,7 +1847,7 @@
           4
         ],
         "samples": [
-          "assets/portraits/charron/portrait-2x.png"
+          "assets/portraits/charron/portrait-4x.png"
         ]
       }
     },
@@ -1899,7 +1899,7 @@
           4
         ],
         "samples": [
-          "assets/portraits/elite-infantry/portrait-2x.png"
+          "assets/portraits/elite-infantry/portrait-4x.png"
         ]
       }
     },
@@ -1951,7 +1951,7 @@
           4
         ],
         "samples": [
-          "assets/portraits/heavy-artillery/portrait-2x.png"
+          "assets/portraits/heavy-artillery/portrait-4x.png"
         ]
       }
     },
@@ -2003,7 +2003,7 @@
           4
         ],
         "samples": [
-          "assets/portraits/infantry/portrait-2x.png"
+          "assets/portraits/infantry/portrait-4x.png"
         ]
       }
     },
@@ -2055,7 +2055,7 @@
           4
         ],
         "samples": [
-          "assets/portraits/light-artillery/portrait-2x.png"
+          "assets/portraits/light-artillery/portrait-4x.png"
         ]
       }
     },
@@ -2107,7 +2107,7 @@
           4
         ],
         "samples": [
-          "assets/portraits/medium-artillery/portrait-2x.png"
+          "assets/portraits/medium-artillery/portrait-4x.png"
         ]
       }
     },
@@ -2159,7 +2159,7 @@
           4
         ],
         "samples": [
-          "assets/portraits/patrol-boat/portrait-2x.png"
+          "assets/portraits/patrol-boat/portrait-4x.png"
         ]
       }
     },
@@ -2211,7 +2211,7 @@
           4
         ],
         "samples": [
-          "assets/portraits/sappers/portrait-2x.png"
+          "assets/portraits/sappers/portrait-4x.png"
         ]
       }
     },
@@ -2263,7 +2263,7 @@
           4
         ],
         "samples": [
-          "assets/portraits/supply-car/portrait-2x.png"
+          "assets/portraits/supply-car/portrait-4x.png"
         ]
       }
     },
@@ -2315,7 +2315,7 @@
           4
         ],
         "samples": [
-          "assets/portraits/train-artillery/portrait-2x.png"
+          "assets/portraits/train-artillery/portrait-4x.png"
         ]
       }
     },
@@ -2365,7 +2365,7 @@
           4
         ],
         "samples": [
-          "assets/portraits/transport-train/portrait-2x.png"
+          "assets/portraits/transport-train/portrait-4x.png"
         ]
       }
     },
@@ -2456,7 +2456,7 @@
           4
         ],
         "samples": [
-          "assets/screens/briefing/briefing-2x.png"
+          "assets/screens/briefing/briefing-4x.png"
         ]
       }
     },
@@ -2499,7 +2499,7 @@
           4
         ],
         "samples": [
-          "assets/screens/briefing-long/briefing-long-2x.png"
+          "assets/screens/briefing-long/briefing-long-4x.png"
         ]
       }
     },
@@ -2573,11 +2573,11 @@
           4
         ],
         "samples": [
-          "assets/screens/button/disabled-2x.png",
-          "assets/screens/button/focus-2x.png",
-          "assets/screens/button/hover-2x.png",
-          "assets/screens/button/normal-2x.png",
-          "assets/screens/button/pressed-2x.png"
+          "assets/screens/button/disabled-4x.png",
+          "assets/screens/button/focus-4x.png",
+          "assets/screens/button/hover-4x.png",
+          "assets/screens/button/normal-4x.png",
+          "assets/screens/button/pressed-4x.png"
         ]
       }
     },
@@ -2632,7 +2632,7 @@
           4
         ],
         "samples": [
-          "assets/screens/campaign/campaign-2x.png"
+          "assets/screens/campaign/campaign-4x.png"
         ]
       }
     },
@@ -2675,7 +2675,7 @@
           4
         ],
         "samples": [
-          "assets/screens/code-invalid/code-invalid-2x.png"
+          "assets/screens/code-invalid/code-invalid-4x.png"
         ]
       }
     },
@@ -2718,7 +2718,7 @@
           4
         ],
         "samples": [
-          "assets/screens/confirm-delete/confirm-delete-2x.png"
+          "assets/screens/confirm-delete/confirm-delete-4x.png"
         ]
       }
     },
@@ -2761,7 +2761,7 @@
           4
         ],
         "samples": [
-          "assets/screens/confirm-exit/confirm-exit-2x.png"
+          "assets/screens/confirm-exit/confirm-exit-4x.png"
         ]
       }
     },
@@ -2804,7 +2804,7 @@
           4
         ],
         "samples": [
-          "assets/screens/confirm-overwrite/confirm-overwrite-2x.png"
+          "assets/screens/confirm-overwrite/confirm-overwrite-4x.png"
         ]
       }
     },
@@ -2847,7 +2847,7 @@
           4
         ],
         "samples": [
-          "assets/screens/confirm-restart/confirm-restart-2x.png"
+          "assets/screens/confirm-restart/confirm-restart-4x.png"
         ]
       }
     },
@@ -2898,8 +2898,8 @@
           4
         ],
         "samples": [
-          "assets/screens/country/france-2x.png",
-          "assets/screens/country/germany-2x.png"
+          "assets/screens/country/france-4x.png",
+          "assets/screens/country/germany-4x.png"
         ]
       }
     },
@@ -2942,7 +2942,7 @@
           4
         ],
         "samples": [
-          "assets/screens/credits/credits-2x.png"
+          "assets/screens/credits/credits-4x.png"
         ]
       }
     },
@@ -2985,7 +2985,7 @@
           4
         ],
         "samples": [
-          "assets/screens/credits-long/credits-long-2x.png"
+          "assets/screens/credits-long/credits-long-4x.png"
         ]
       }
     },
@@ -3028,7 +3028,7 @@
           4
         ],
         "samples": [
-          "assets/screens/defeat/defeat-2x.png"
+          "assets/screens/defeat/defeat-4x.png"
         ]
       }
     },
@@ -3071,7 +3071,7 @@
           4
         ],
         "samples": [
-          "assets/screens/dropdown-open/dropdown-open-2x.png"
+          "assets/screens/dropdown-open/dropdown-open-4x.png"
         ]
       }
     },
@@ -3126,7 +3126,7 @@
           4
         ],
         "samples": [
-          "assets/screens/editor/editor-2x.png"
+          "assets/screens/editor/editor-4x.png"
         ]
       }
     },
@@ -3169,7 +3169,7 @@
           4
         ],
         "samples": [
-          "assets/screens/handover/handover-2x.png"
+          "assets/screens/handover/handover-4x.png"
         ]
       }
     },
@@ -3212,7 +3212,7 @@
           4
         ],
         "samples": [
-          "assets/screens/help/help-2x.png"
+          "assets/screens/help/help-4x.png"
         ]
       }
     },
@@ -3255,7 +3255,7 @@
           4
         ],
         "samples": [
-          "assets/screens/help-long/help-long-2x.png"
+          "assets/screens/help-long/help-long-4x.png"
         ]
       }
     },
@@ -3337,7 +3337,7 @@
           4
         ],
         "samples": [
-          "assets/screens/load/load-2x.png"
+          "assets/screens/load/load-4x.png"
         ]
       }
     },
@@ -3380,7 +3380,7 @@
           4
         ],
         "samples": [
-          "assets/screens/load-corrupt/load-corrupt-2x.png"
+          "assets/screens/load-corrupt/load-corrupt-4x.png"
         ]
       }
     },
@@ -3423,7 +3423,7 @@
           4
         ],
         "samples": [
-          "assets/screens/loading-000/loading-000-2x.png"
+          "assets/screens/loading-000/loading-000-4x.png"
         ]
       }
     },
@@ -3466,7 +3466,7 @@
           4
         ],
         "samples": [
-          "assets/screens/loading-050/loading-050-2x.png"
+          "assets/screens/loading-050/loading-050-4x.png"
         ]
       }
     },
@@ -3509,7 +3509,7 @@
           4
         ],
         "samples": [
-          "assets/screens/loading-100/loading-100-2x.png"
+          "assets/screens/loading-100/loading-100-4x.png"
         ]
       }
     },
@@ -3552,7 +3552,7 @@
           4
         ],
         "samples": [
-          "assets/screens/mission-error/mission-error-2x.png"
+          "assets/screens/mission-error/mission-error-4x.png"
         ]
       }
     },
@@ -3595,7 +3595,7 @@
           4
         ],
         "samples": [
-          "assets/screens/mission-selection/mission-selection-2x.png"
+          "assets/screens/mission-selection/mission-selection-4x.png"
         ]
       }
     },
@@ -3638,7 +3638,7 @@
           4
         ],
         "samples": [
-          "assets/screens/name-overflow/name-overflow-2x.png"
+          "assets/screens/name-overflow/name-overflow-4x.png"
         ]
       }
     },
@@ -3681,7 +3681,7 @@
           4
         ],
         "samples": [
-          "assets/screens/new-map/new-map-2x.png"
+          "assets/screens/new-map/new-map-4x.png"
         ]
       }
     },
@@ -3724,7 +3724,7 @@
           4
         ],
         "samples": [
-          "assets/screens/new-map-invalid/new-map-invalid-2x.png"
+          "assets/screens/new-map-invalid/new-map-invalid-4x.png"
         ]
       }
     },
@@ -3767,7 +3767,7 @@
           4
         ],
         "samples": [
-          "assets/screens/options/options-2x.png"
+          "assets/screens/options/options-4x.png"
         ]
       }
     },
@@ -3810,7 +3810,7 @@
           4
         ],
         "samples": [
-          "assets/screens/pause/pause-2x.png"
+          "assets/screens/pause/pause-4x.png"
         ]
       }
     },
@@ -3899,8 +3899,8 @@
           4
         ],
         "samples": [
-          "assets/screens/progress/fill-2x.png",
-          "assets/screens/progress/track-2x.png"
+          "assets/screens/progress/fill-4x.png",
+          "assets/screens/progress/track-4x.png"
         ]
       }
     },
@@ -3943,7 +3943,7 @@
           4
         ],
         "samples": [
-          "assets/screens/save/save-2x.png"
+          "assets/screens/save/save-4x.png"
         ]
       }
     },
@@ -3986,7 +3986,7 @@
           4
         ],
         "samples": [
-          "assets/screens/save-empty/save-empty-2x.png"
+          "assets/screens/save-empty/save-empty-4x.png"
         ]
       }
     },
@@ -4029,7 +4029,7 @@
           4
         ],
         "samples": [
-          "assets/screens/save-error/save-error-2x.png"
+          "assets/screens/save-error/save-error-4x.png"
         ]
       }
     },
@@ -4072,7 +4072,7 @@
           4
         ],
         "samples": [
-          "assets/screens/save-progress/save-progress-2x.png"
+          "assets/screens/save-progress/save-progress-4x.png"
         ]
       }
     },
@@ -4122,8 +4122,8 @@
           4
         ],
         "samples": [
-          "assets/screens/scrollbar/thumb-2x.png",
-          "assets/screens/scrollbar/track-2x.png"
+          "assets/screens/scrollbar/thumb-4x.png",
+          "assets/screens/scrollbar/track-4x.png"
         ]
       }
     },
@@ -4166,7 +4166,7 @@
           4
         ],
         "samples": [
-          "assets/screens/settings-controls/settings-controls-2x.png"
+          "assets/screens/settings-controls/settings-controls-4x.png"
         ]
       }
     },
@@ -4209,7 +4209,7 @@
           4
         ],
         "samples": [
-          "assets/screens/side-selection/side-selection-2x.png"
+          "assets/screens/side-selection/side-selection-4x.png"
         ]
       }
     },
@@ -4252,7 +4252,7 @@
           4
         ],
         "samples": [
-          "assets/screens/title/title-2x.png"
+          "assets/screens/title/title-4x.png"
         ]
       }
     },
@@ -4295,7 +4295,7 @@
           4
         ],
         "samples": [
-          "assets/screens/victory/victory-2x.png"
+          "assets/screens/victory/victory-4x.png"
         ]
       }
     },
@@ -4817,14 +4817,14 @@
           4
         ],
         "samples": [
-          "assets/screens/widget/dropdown-list-2x.png",
-          "assets/screens/widget/dropdown-option-normal-disabled-2x.png",
-          "assets/screens/widget/dropdown-option-normal-focus-2x.png",
-          "assets/screens/widget/dropdown-option-normal-hover-2x.png",
-          "assets/screens/widget/dropdown-option-normal-normal-2x.png",
-          "assets/screens/widget/dropdown-option-normal-pressed-2x.png",
-          "assets/screens/widget/dropdown-option-selected-disabled-2x.png",
-          "assets/screens/widget/dropdown-option-selected-focus-2x.png"
+          "assets/screens/widget/dropdown-list-4x.png",
+          "assets/screens/widget/dropdown-option-normal-disabled-4x.png",
+          "assets/screens/widget/dropdown-option-normal-focus-4x.png",
+          "assets/screens/widget/dropdown-option-normal-hover-4x.png",
+          "assets/screens/widget/dropdown-option-normal-normal-4x.png",
+          "assets/screens/widget/dropdown-option-normal-pressed-4x.png",
+          "assets/screens/widget/dropdown-option-selected-disabled-4x.png",
+          "assets/screens/widget/dropdown-option-selected-focus-4x.png"
         ]
       }
     },
@@ -4876,8 +4876,8 @@
           4
         ],
         "samples": [
-          "assets/terrain/bridge/bridge25-2x.png",
-          "assets/terrain/bridge/bridge36-2x.png"
+          "assets/terrain/bridge/bridge25-4x.png",
+          "assets/terrain/bridge/bridge36-4x.png"
         ]
       }
     },
@@ -4976,14 +4976,14 @@
           4
         ],
         "samples": [
-          "assets/terrain/cmp/cmpE-2x.png",
-          "assets/terrain/cmp/cmpE_w-2x.png",
-          "assets/terrain/cmp/cmpN-2x.png",
-          "assets/terrain/cmp/cmpN_w-2x.png",
-          "assets/terrain/cmp/cmpS-2x.png",
-          "assets/terrain/cmp/cmpS_w-2x.png",
-          "assets/terrain/cmp/cmpW-2x.png",
-          "assets/terrain/cmp/cmpW_w-2x.png"
+          "assets/terrain/cmp/cmpE-4x.png",
+          "assets/terrain/cmp/cmpE_w-4x.png",
+          "assets/terrain/cmp/cmpN-4x.png",
+          "assets/terrain/cmp/cmpN_w-4x.png",
+          "assets/terrain/cmp/cmpS-4x.png",
+          "assets/terrain/cmp/cmpS_w-4x.png",
+          "assets/terrain/cmp/cmpW-4x.png",
+          "assets/terrain/cmp/cmpW_w-4x.png"
         ]
       }
     },
@@ -5050,10 +5050,10 @@
           4
         ],
         "samples": [
-          "assets/terrain/cross/cross1-2x.png",
-          "assets/terrain/cross/cross2-2x.png",
-          "assets/terrain/cross/cross3-2x.png",
-          "assets/terrain/cross/cross4-2x.png"
+          "assets/terrain/cross/cross1-4x.png",
+          "assets/terrain/cross/cross2-4x.png",
+          "assets/terrain/cross/cross3-4x.png",
+          "assets/terrain/cross/cross4-4x.png"
         ]
       }
     },
@@ -5128,10 +5128,10 @@
           4
         ],
         "samples": [
-          "assets/terrain/factory/factoryE_w-2x.png",
-          "assets/terrain/factory/factoryN_w-2x.png",
-          "assets/terrain/factory/factoryS_w-2x.png",
-          "assets/terrain/factory/factoryW_w-2x.png"
+          "assets/terrain/factory/factoryE_w-4x.png",
+          "assets/terrain/factory/factoryN_w-4x.png",
+          "assets/terrain/factory/factoryS_w-4x.png",
+          "assets/terrain/factory/factoryW_w-4x.png"
         ]
       }
     },
@@ -5182,7 +5182,7 @@
           4
         ],
         "samples": [
-          "assets/terrain/fog/unseen-2x.png"
+          "assets/terrain/fog/unseen-4x.png"
         ]
       }
     },
@@ -5248,14 +5248,14 @@
           4
         ],
         "samples": [
-          "assets/terrain/forest/forest-2x.png",
-          "assets/terrain/forest/forest_w-2x.png",
-          "assets/terrain/forest/context/00a9e239b6489744181afd691e29b1b7f85e0e73fc998139afef25259bc92a63-2x.png",
-          "assets/terrain/forest/context/017b55c63066ffeac50428804d759d8c891862a9ca6d605e2bde88a817d94cde-2x.png",
-          "assets/terrain/forest/context/01f95c161ba24fd6ff7080d5216ea423e7a51f95af1f3badd248beebfebdc8c3-2x.png",
-          "assets/terrain/forest/context/06e7993a4cf4c3d1763c20e0dc7e062d32598a7c8df309ad30e0092218825a02-2x.png",
-          "assets/terrain/forest/context/0c258a479335287ec16118c7f7a27b3b047c75af9e2393a35446e20074b7c6bf-2x.png",
-          "assets/terrain/forest/context/0ce5cec51eb5bef775716e139e2ec735d412a2bb8e3d81b999395fa5821779c5-2x.png"
+          "assets/terrain/forest/forest-4x.png",
+          "assets/terrain/forest/forest_w-4x.png",
+          "assets/terrain/forest/context/00a9e239b6489744181afd691e29b1b7f85e0e73fc998139afef25259bc92a63-4x.png",
+          "assets/terrain/forest/context/017b55c63066ffeac50428804d759d8c891862a9ca6d605e2bde88a817d94cde-4x.png",
+          "assets/terrain/forest/context/01f95c161ba24fd6ff7080d5216ea423e7a51f95af1f3badd248beebfebdc8c3-4x.png",
+          "assets/terrain/forest/context/06e7993a4cf4c3d1763c20e0dc7e062d32598a7c8df309ad30e0092218825a02-4x.png",
+          "assets/terrain/forest/context/0c258a479335287ec16118c7f7a27b3b047c75af9e2393a35446e20074b7c6bf-4x.png",
+          "assets/terrain/forest/context/0ce5cec51eb5bef775716e139e2ec735d412a2bb8e3d81b999395fa5821779c5-4x.png"
         ]
       }
     },
@@ -5400,14 +5400,14 @@
           4
         ],
         "samples": [
-          "assets/terrain/grass/grass-2x.png",
-          "assets/terrain/grass/grass_w-2x.png",
-          "assets/terrain/grass/grass-detail-00-2x.png",
-          "assets/terrain/grass/grass-detail-01-2x.png",
-          "assets/terrain/grass/grass-detail-02-2x.png",
-          "assets/terrain/grass/grass-detail-03-2x.png",
-          "assets/terrain/grass/grass-detail-04-2x.png",
-          "assets/terrain/grass/grass-detail-05-2x.png"
+          "assets/terrain/grass/grass-4x.png",
+          "assets/terrain/grass/grass_w-4x.png",
+          "assets/terrain/grass/grass-detail-00-4x.png",
+          "assets/terrain/grass/grass-detail-01-4x.png",
+          "assets/terrain/grass/grass-detail-02-4x.png",
+          "assets/terrain/grass/grass-detail-03-4x.png",
+          "assets/terrain/grass/grass-detail-04-4x.png",
+          "assets/terrain/grass/grass-detail-05-4x.png"
         ]
       }
     },
@@ -5582,14 +5582,14 @@
           4
         ],
         "samples": [
-          "assets/terrain/ground/mud-2x.png",
-          "assets/terrain/ground/rough_w-2x.png",
-          "assets/terrain/ground/shelled_w-2x.png",
-          "assets/terrain/ground/stone-2x.png",
-          "assets/terrain/ground/stoney_w-2x.png",
-          "assets/terrain/ground/crater-stamp-2x.png",
-          "assets/terrain/ground/boulders-single-2x.png",
-          "assets/terrain/ground/boulders-four-2x.png"
+          "assets/terrain/ground/mud-4x.png",
+          "assets/terrain/ground/rough_w-4x.png",
+          "assets/terrain/ground/shelled_w-4x.png",
+          "assets/terrain/ground/stone-4x.png",
+          "assets/terrain/ground/stoney_w-4x.png",
+          "assets/terrain/ground/crater-stamp-4x.png",
+          "assets/terrain/ground/boulders-single-4x.png",
+          "assets/terrain/ground/boulders-four-4x.png"
         ]
       }
     },
@@ -5640,14 +5640,14 @@
           4
         ],
         "samples": [
-          "assets/terrain/hills/hills-2x.png",
-          "assets/terrain/hills/context/007a0c57751720f037628ebd75ab56d7ef5380cc111b24db31786667172f0ed1-2x.png",
-          "assets/terrain/hills/context/02233fd352987bf996c32adeafc07bd12ce15157bd42649bc6972e0dedb1102e-2x.png",
-          "assets/terrain/hills/context/025b921ef2363bcf9fa4ed12b22b34d2cc819efa43e9fa5a63aded8492659fa3-2x.png",
-          "assets/terrain/hills/context/068078041a1f5fa5c0c7e7d5e954c8a5d6dad0a20cadbec7cbb7e014223a7a6c-2x.png",
-          "assets/terrain/hills/context/087ff2d06a9a0103c33f275a99998a484a1b286f372f1059b7a9de176d81a845-2x.png",
-          "assets/terrain/hills/context/090f9b855e32afd788200ac9f950e7ea71f70ee80a4b50f076b86eed2a10f3ed-2x.png",
-          "assets/terrain/hills/context/0a1e6ad640fbfe5059a017849caae5e4fdf22a7d024068190f49b076f21674b8-2x.png"
+          "assets/terrain/hills/hills-4x.png",
+          "assets/terrain/hills/context/007a0c57751720f037628ebd75ab56d7ef5380cc111b24db31786667172f0ed1-4x.png",
+          "assets/terrain/hills/context/02233fd352987bf996c32adeafc07bd12ce15157bd42649bc6972e0dedb1102e-4x.png",
+          "assets/terrain/hills/context/025b921ef2363bcf9fa4ed12b22b34d2cc819efa43e9fa5a63aded8492659fa3-4x.png",
+          "assets/terrain/hills/context/068078041a1f5fa5c0c7e7d5e954c8a5d6dad0a20cadbec7cbb7e014223a7a6c-4x.png",
+          "assets/terrain/hills/context/087ff2d06a9a0103c33f275a99998a484a1b286f372f1059b7a9de176d81a845-4x.png",
+          "assets/terrain/hills/context/090f9b855e32afd788200ac9f950e7ea71f70ee80a4b50f076b86eed2a10f3ed-4x.png",
+          "assets/terrain/hills/context/0a1e6ad640fbfe5059a017849caae5e4fdf22a7d024068190f49b076f21674b8-4x.png"
         ]
       }
     },
@@ -5724,8 +5724,8 @@
           4
         ],
         "samples": [
-          "assets/terrain/house/house-2x.png",
-          "assets/terrain/house/house_w-2x.png"
+          "assets/terrain/house/house-4x.png",
+          "assets/terrain/house/house_w-4x.png"
         ]
       }
     },
@@ -5857,14 +5857,14 @@
           4
         ],
         "samples": [
-          "assets/terrain/hq/hqC-2x.png",
-          "assets/terrain/hq/hqC_w-2x.png",
-          "assets/terrain/hq/hqN-2x.png",
-          "assets/terrain/hq/hqN_w-2x.png",
-          "assets/terrain/hq/hqNE-2x.png",
-          "assets/terrain/hq/hqNE_w-2x.png",
-          "assets/terrain/hq/hqNW-2x.png",
-          "assets/terrain/hq/hqNW_w-2x.png"
+          "assets/terrain/hq/hqC-4x.png",
+          "assets/terrain/hq/hqC_w-4x.png",
+          "assets/terrain/hq/hqN-4x.png",
+          "assets/terrain/hq/hqN_w-4x.png",
+          "assets/terrain/hq/hqNE-4x.png",
+          "assets/terrain/hq/hqNE_w-4x.png",
+          "assets/terrain/hq/hqNW-4x.png",
+          "assets/terrain/hq/hqNW_w-4x.png"
         ]
       }
     },
@@ -5979,14 +5979,14 @@
           4
         ],
         "samples": [
-          "assets/terrain/lakeside/lakeside12-2x.png",
-          "assets/terrain/lakeside/lakeside123-2x.png",
-          "assets/terrain/lakeside/lakeside126-2x.png",
-          "assets/terrain/lakeside/lakeside156-2x.png",
-          "assets/terrain/lakeside/lakeside16-2x.png",
-          "assets/terrain/lakeside/lakeside23-2x.png",
-          "assets/terrain/lakeside/lakeside34-2x.png",
-          "assets/terrain/lakeside/lakeside3456-2x.png"
+          "assets/terrain/lakeside/lakeside12-4x.png",
+          "assets/terrain/lakeside/lakeside123-4x.png",
+          "assets/terrain/lakeside/lakeside126-4x.png",
+          "assets/terrain/lakeside/lakeside156-4x.png",
+          "assets/terrain/lakeside/lakeside16-4x.png",
+          "assets/terrain/lakeside/lakeside23-4x.png",
+          "assets/terrain/lakeside/lakeside34-4x.png",
+          "assets/terrain/lakeside/lakeside3456-4x.png"
         ]
       }
     },
@@ -6085,14 +6085,14 @@
           4
         ],
         "samples": [
-          "assets/terrain/mount/mountE-2x.png",
-          "assets/terrain/mount/mountE_w-2x.png",
-          "assets/terrain/mount/mountN-2x.png",
-          "assets/terrain/mount/mountN_w-2x.png",
-          "assets/terrain/mount/mountS-2x.png",
-          "assets/terrain/mount/mountS_w-2x.png",
-          "assets/terrain/mount/mountW-2x.png",
-          "assets/terrain/mount/mountW_w-2x.png"
+          "assets/terrain/mount/mountE-4x.png",
+          "assets/terrain/mount/mountE_w-4x.png",
+          "assets/terrain/mount/mountN-4x.png",
+          "assets/terrain/mount/mountN_w-4x.png",
+          "assets/terrain/mount/mountS-4x.png",
+          "assets/terrain/mount/mountS_w-4x.png",
+          "assets/terrain/mount/mountW-4x.png",
+          "assets/terrain/mount/mountW_w-4x.png"
         ]
       }
     },
@@ -6177,12 +6177,12 @@
           4
         ],
         "samples": [
-          "assets/terrain/mountain/mountain-2x.png",
-          "assets/terrain/mountain/mountain_w-2x.png",
-          "assets/terrain/mountain/knoll-ground-2x.png",
-          "assets/terrain/mountain/knoll-standing-2x.png",
-          "assets/terrain/mountain/knoll-group-ground-2x.png",
-          "assets/terrain/mountain/knoll-group-standing-2x.png"
+          "assets/terrain/mountain/mountain-4x.png",
+          "assets/terrain/mountain/mountain_w-4x.png",
+          "assets/terrain/mountain/knoll-ground-4x.png",
+          "assets/terrain/mountain/knoll-standing-4x.png",
+          "assets/terrain/mountain/knoll-group-ground-4x.png",
+          "assets/terrain/mountain/knoll-group-standing-4x.png"
         ]
       }
     },
@@ -6336,14 +6336,14 @@
           4
         ],
         "samples": [
-          "assets/terrain/path/path125-2x.png",
-          "assets/terrain/path/path13-2x.png",
-          "assets/terrain/path/path135-2x.png",
-          "assets/terrain/path/path136-2x.png",
-          "assets/terrain/path/path14-2x.png",
-          "assets/terrain/path/path15-2x.png",
-          "assets/terrain/path/path24-2x.png",
-          "assets/terrain/path/path25-2x.png"
+          "assets/terrain/path/path125-4x.png",
+          "assets/terrain/path/path13-4x.png",
+          "assets/terrain/path/path135-4x.png",
+          "assets/terrain/path/path136-4x.png",
+          "assets/terrain/path/path14-4x.png",
+          "assets/terrain/path/path15-4x.png",
+          "assets/terrain/path/path24-4x.png",
+          "assets/terrain/path/path25-4x.png"
         ]
       }
     },
@@ -6402,9 +6402,9 @@
           4
         ],
         "samples": [
-          "assets/terrain/rBridge/rBridge14-2x.png",
-          "assets/terrain/rBridge/rBridge25-2x.png",
-          "assets/terrain/rBridge/rBridge36-2x.png"
+          "assets/terrain/rBridge/rBridge14-4x.png",
+          "assets/terrain/rBridge/rBridge25-4x.png",
+          "assets/terrain/rBridge/rBridge36-4x.png"
         ]
       }
     },
@@ -6549,14 +6549,14 @@
           4
         ],
         "samples": [
-          "assets/terrain/rail/rail13-2x.png",
-          "assets/terrain/rail/rail14-2x.png",
-          "assets/terrain/rail/rail15-2x.png",
-          "assets/terrain/rail/rail236-2x.png",
-          "assets/terrain/rail/rail24-2x.png",
-          "assets/terrain/rail/rail25-2x.png",
-          "assets/terrain/rail/rail26-2x.png",
-          "assets/terrain/rail/rail346-2x.png"
+          "assets/terrain/rail/rail13-4x.png",
+          "assets/terrain/rail/rail14-4x.png",
+          "assets/terrain/rail/rail15-4x.png",
+          "assets/terrain/rail/rail236-4x.png",
+          "assets/terrain/rail/rail24-4x.png",
+          "assets/terrain/rail/rail25-4x.png",
+          "assets/terrain/rail/rail26-4x.png",
+          "assets/terrain/rail/rail346-4x.png"
         ]
       }
     },
@@ -6728,14 +6728,14 @@
           4
         ],
         "samples": [
-          "assets/terrain/road/road124-2x.png",
-          "assets/terrain/road/road125-2x.png",
-          "assets/terrain/road/road13-2x.png",
-          "assets/terrain/road/road135-2x.png",
-          "assets/terrain/road/road14-2x.png",
-          "assets/terrain/road/road145-2x.png",
-          "assets/terrain/road/road15-2x.png",
-          "assets/terrain/road/road236-2x.png"
+          "assets/terrain/road/road124-4x.png",
+          "assets/terrain/road/road125-4x.png",
+          "assets/terrain/road/road13-4x.png",
+          "assets/terrain/road/road135-4x.png",
+          "assets/terrain/road/road14-4x.png",
+          "assets/terrain/road/road145-4x.png",
+          "assets/terrain/road/road15-4x.png",
+          "assets/terrain/road/road236-4x.png"
         ]
       }
     },
@@ -6866,14 +6866,14 @@
           4
         ],
         "samples": [
-          "assets/terrain/stream/stream13-2x.png",
-          "assets/terrain/stream/stream135-2x.png",
-          "assets/terrain/stream/stream14-2x.png",
-          "assets/terrain/stream/stream15-2x.png",
-          "assets/terrain/stream/stream24-2x.png",
-          "assets/terrain/stream/stream246-2x.png",
-          "assets/terrain/stream/stream25-2x.png",
-          "assets/terrain/stream/stream26-2x.png"
+          "assets/terrain/stream/stream13-4x.png",
+          "assets/terrain/stream/stream135-4x.png",
+          "assets/terrain/stream/stream14-4x.png",
+          "assets/terrain/stream/stream15-4x.png",
+          "assets/terrain/stream/stream24-4x.png",
+          "assets/terrain/stream/stream246-4x.png",
+          "assets/terrain/stream/stream25-4x.png",
+          "assets/terrain/stream/stream26-4x.png"
         ]
       }
     },
@@ -7018,14 +7018,14 @@
           4
         ],
         "samples": [
-          "assets/terrain/trench/trench0-2x.png",
-          "assets/terrain/trench/trench1-2x.png",
-          "assets/terrain/trench/trench12-2x.png",
-          "assets/terrain/trench/trench124-2x.png",
-          "assets/terrain/trench/trench125-2x.png",
-          "assets/terrain/trench/trench14-2x.png",
-          "assets/terrain/trench/trench15-2x.png",
-          "assets/terrain/trench/trench24-2x.png"
+          "assets/terrain/trench/trench0-4x.png",
+          "assets/terrain/trench/trench1-4x.png",
+          "assets/terrain/trench/trench12-4x.png",
+          "assets/terrain/trench/trench124-4x.png",
+          "assets/terrain/trench/trench125-4x.png",
+          "assets/terrain/trench/trench14-4x.png",
+          "assets/terrain/trench/trench15-4x.png",
+          "assets/terrain/trench/trench24-4x.png"
         ]
       }
     },
@@ -7091,8 +7091,8 @@
           4
         ],
         "samples": [
-          "assets/terrain/water/water-2x.png",
-          "assets/terrain/water/waterStones-2x.png"
+          "assets/terrain/water/water-4x.png",
+          "assets/terrain/water/waterStones-4x.png"
         ]
       }
     },
@@ -7166,14 +7166,14 @@
           4
         ],
         "samples": [
-          "assets/units/armored-car/cp/n-normal-2x.png",
-          "assets/units/armored-car/cp/nw-normal-2x.png",
-          "assets/units/armored-car/cp/sw-normal-2x.png",
-          "assets/units/armored-car/cp/s-normal-2x.png",
-          "assets/units/armored-car/cp/se-normal-2x.png",
-          "assets/units/armored-car/cp/ne-normal-2x.png",
-          "assets/units/armored-car/ec/n-normal-2x.png",
-          "assets/units/armored-car/neutral/n-normal-2x.png"
+          "assets/units/armored-car/cp/n-normal-4x.png",
+          "assets/units/armored-car/cp/nw-normal-4x.png",
+          "assets/units/armored-car/cp/sw-normal-4x.png",
+          "assets/units/armored-car/cp/s-normal-4x.png",
+          "assets/units/armored-car/cp/se-normal-4x.png",
+          "assets/units/armored-car/cp/ne-normal-4x.png",
+          "assets/units/armored-car/ec/n-normal-4x.png",
+          "assets/units/armored-car/neutral/n-normal-4x.png"
         ]
       }
     },
@@ -7248,14 +7248,14 @@
           4
         ],
         "samples": [
-          "assets/units/armored-train/cp/n-normal-2x.png",
-          "assets/units/armored-train/cp/nw-normal-2x.png",
-          "assets/units/armored-train/cp/sw-normal-2x.png",
-          "assets/units/armored-train/cp/s-normal-2x.png",
-          "assets/units/armored-train/cp/se-normal-2x.png",
-          "assets/units/armored-train/cp/ne-normal-2x.png",
-          "assets/units/armored-train/ec/n-normal-2x.png",
-          "assets/units/armored-train/neutral/n-normal-2x.png"
+          "assets/units/armored-train/cp/n-normal-4x.png",
+          "assets/units/armored-train/cp/nw-normal-4x.png",
+          "assets/units/armored-train/cp/sw-normal-4x.png",
+          "assets/units/armored-train/cp/s-normal-4x.png",
+          "assets/units/armored-train/cp/se-normal-4x.png",
+          "assets/units/armored-train/cp/ne-normal-4x.png",
+          "assets/units/armored-train/ec/n-normal-4x.png",
+          "assets/units/armored-train/neutral/n-normal-4x.png"
         ]
       }
     },
@@ -7330,14 +7330,14 @@
           4
         ],
         "samples": [
-          "assets/units/bunker/cp/n-normal-2x.png",
-          "assets/units/bunker/cp/nw-normal-2x.png",
-          "assets/units/bunker/cp/sw-normal-2x.png",
-          "assets/units/bunker/cp/s-normal-2x.png",
-          "assets/units/bunker/cp/se-normal-2x.png",
-          "assets/units/bunker/cp/ne-normal-2x.png",
-          "assets/units/bunker/ec/n-normal-2x.png",
-          "assets/units/bunker/neutral/n-normal-2x.png"
+          "assets/units/bunker/cp/n-normal-4x.png",
+          "assets/units/bunker/cp/nw-normal-4x.png",
+          "assets/units/bunker/cp/sw-normal-4x.png",
+          "assets/units/bunker/cp/s-normal-4x.png",
+          "assets/units/bunker/cp/se-normal-4x.png",
+          "assets/units/bunker/cp/ne-normal-4x.png",
+          "assets/units/bunker/ec/n-normal-4x.png",
+          "assets/units/bunker/neutral/n-normal-4x.png"
         ]
       }
     },
@@ -7412,14 +7412,14 @@
           4
         ],
         "samples": [
-          "assets/units/cavalry/cp/n-normal-2x.png",
-          "assets/units/cavalry/cp/nw-normal-2x.png",
-          "assets/units/cavalry/cp/sw-normal-2x.png",
-          "assets/units/cavalry/cp/s-normal-2x.png",
-          "assets/units/cavalry/cp/se-normal-2x.png",
-          "assets/units/cavalry/cp/ne-normal-2x.png",
-          "assets/units/cavalry/ec/n-normal-2x.png",
-          "assets/units/cavalry/neutral/n-normal-2x.png"
+          "assets/units/cavalry/cp/n-normal-4x.png",
+          "assets/units/cavalry/cp/nw-normal-4x.png",
+          "assets/units/cavalry/cp/sw-normal-4x.png",
+          "assets/units/cavalry/cp/s-normal-4x.png",
+          "assets/units/cavalry/cp/se-normal-4x.png",
+          "assets/units/cavalry/cp/ne-normal-4x.png",
+          "assets/units/cavalry/ec/n-normal-4x.png",
+          "assets/units/cavalry/neutral/n-normal-4x.png"
         ]
       }
     },
@@ -7493,14 +7493,14 @@
           4
         ],
         "samples": [
-          "assets/units/charron/cp/n-normal-2x.png",
-          "assets/units/charron/cp/nw-normal-2x.png",
-          "assets/units/charron/cp/sw-normal-2x.png",
-          "assets/units/charron/cp/s-normal-2x.png",
-          "assets/units/charron/cp/se-normal-2x.png",
-          "assets/units/charron/cp/ne-normal-2x.png",
-          "assets/units/charron/ec/n-normal-2x.png",
-          "assets/units/charron/neutral/n-normal-2x.png"
+          "assets/units/charron/cp/n-normal-4x.png",
+          "assets/units/charron/cp/nw-normal-4x.png",
+          "assets/units/charron/cp/sw-normal-4x.png",
+          "assets/units/charron/cp/s-normal-4x.png",
+          "assets/units/charron/cp/se-normal-4x.png",
+          "assets/units/charron/cp/ne-normal-4x.png",
+          "assets/units/charron/ec/n-normal-4x.png",
+          "assets/units/charron/neutral/n-normal-4x.png"
         ]
       }
     },
@@ -7574,14 +7574,14 @@
           4
         ],
         "samples": [
-          "assets/units/elite-infantry/cp/n-normal-2x.png",
-          "assets/units/elite-infantry/cp/nw-normal-2x.png",
-          "assets/units/elite-infantry/cp/sw-normal-2x.png",
-          "assets/units/elite-infantry/cp/s-normal-2x.png",
-          "assets/units/elite-infantry/cp/se-normal-2x.png",
-          "assets/units/elite-infantry/cp/ne-normal-2x.png",
-          "assets/units/elite-infantry/ec/n-normal-2x.png",
-          "assets/units/elite-infantry/neutral/n-normal-2x.png"
+          "assets/units/elite-infantry/cp/n-normal-4x.png",
+          "assets/units/elite-infantry/cp/nw-normal-4x.png",
+          "assets/units/elite-infantry/cp/sw-normal-4x.png",
+          "assets/units/elite-infantry/cp/s-normal-4x.png",
+          "assets/units/elite-infantry/cp/se-normal-4x.png",
+          "assets/units/elite-infantry/cp/ne-normal-4x.png",
+          "assets/units/elite-infantry/ec/n-normal-4x.png",
+          "assets/units/elite-infantry/neutral/n-normal-4x.png"
         ]
       }
     },
@@ -7656,14 +7656,14 @@
           4
         ],
         "samples": [
-          "assets/units/heavy-artillery/cp/n-normal-2x.png",
-          "assets/units/heavy-artillery/cp/nw-normal-2x.png",
-          "assets/units/heavy-artillery/cp/sw-normal-2x.png",
-          "assets/units/heavy-artillery/cp/s-normal-2x.png",
-          "assets/units/heavy-artillery/cp/se-normal-2x.png",
-          "assets/units/heavy-artillery/cp/ne-normal-2x.png",
-          "assets/units/heavy-artillery/ec/n-normal-2x.png",
-          "assets/units/heavy-artillery/neutral/n-normal-2x.png"
+          "assets/units/heavy-artillery/cp/n-normal-4x.png",
+          "assets/units/heavy-artillery/cp/nw-normal-4x.png",
+          "assets/units/heavy-artillery/cp/sw-normal-4x.png",
+          "assets/units/heavy-artillery/cp/s-normal-4x.png",
+          "assets/units/heavy-artillery/cp/se-normal-4x.png",
+          "assets/units/heavy-artillery/cp/ne-normal-4x.png",
+          "assets/units/heavy-artillery/ec/n-normal-4x.png",
+          "assets/units/heavy-artillery/neutral/n-normal-4x.png"
         ]
       }
     },
@@ -7738,14 +7738,14 @@
           4
         ],
         "samples": [
-          "assets/units/infantry/cp/n-normal-2x.png",
-          "assets/units/infantry/cp/nw-normal-2x.png",
-          "assets/units/infantry/cp/sw-normal-2x.png",
-          "assets/units/infantry/cp/s-normal-2x.png",
-          "assets/units/infantry/cp/se-normal-2x.png",
-          "assets/units/infantry/cp/ne-normal-2x.png",
-          "assets/units/infantry/ec/n-normal-2x.png",
-          "assets/units/infantry/neutral/n-normal-2x.png"
+          "assets/units/infantry/cp/n-normal-4x.png",
+          "assets/units/infantry/cp/nw-normal-4x.png",
+          "assets/units/infantry/cp/sw-normal-4x.png",
+          "assets/units/infantry/cp/s-normal-4x.png",
+          "assets/units/infantry/cp/se-normal-4x.png",
+          "assets/units/infantry/cp/ne-normal-4x.png",
+          "assets/units/infantry/ec/n-normal-4x.png",
+          "assets/units/infantry/neutral/n-normal-4x.png"
         ]
       }
     },
@@ -7820,14 +7820,14 @@
           4
         ],
         "samples": [
-          "assets/units/light-artillery/cp/n-normal-2x.png",
-          "assets/units/light-artillery/cp/nw-normal-2x.png",
-          "assets/units/light-artillery/cp/sw-normal-2x.png",
-          "assets/units/light-artillery/cp/s-normal-2x.png",
-          "assets/units/light-artillery/cp/se-normal-2x.png",
-          "assets/units/light-artillery/cp/ne-normal-2x.png",
-          "assets/units/light-artillery/ec/n-normal-2x.png",
-          "assets/units/light-artillery/neutral/n-normal-2x.png"
+          "assets/units/light-artillery/cp/n-normal-4x.png",
+          "assets/units/light-artillery/cp/nw-normal-4x.png",
+          "assets/units/light-artillery/cp/sw-normal-4x.png",
+          "assets/units/light-artillery/cp/s-normal-4x.png",
+          "assets/units/light-artillery/cp/se-normal-4x.png",
+          "assets/units/light-artillery/cp/ne-normal-4x.png",
+          "assets/units/light-artillery/ec/n-normal-4x.png",
+          "assets/units/light-artillery/neutral/n-normal-4x.png"
         ]
       }
     },
@@ -7901,14 +7901,14 @@
           4
         ],
         "samples": [
-          "assets/units/medium-artillery/cp/n-normal-2x.png",
-          "assets/units/medium-artillery/cp/nw-normal-2x.png",
-          "assets/units/medium-artillery/cp/sw-normal-2x.png",
-          "assets/units/medium-artillery/cp/s-normal-2x.png",
-          "assets/units/medium-artillery/cp/se-normal-2x.png",
-          "assets/units/medium-artillery/cp/ne-normal-2x.png",
-          "assets/units/medium-artillery/ec/n-normal-2x.png",
-          "assets/units/medium-artillery/neutral/n-normal-2x.png"
+          "assets/units/medium-artillery/cp/n-normal-4x.png",
+          "assets/units/medium-artillery/cp/nw-normal-4x.png",
+          "assets/units/medium-artillery/cp/sw-normal-4x.png",
+          "assets/units/medium-artillery/cp/s-normal-4x.png",
+          "assets/units/medium-artillery/cp/se-normal-4x.png",
+          "assets/units/medium-artillery/cp/ne-normal-4x.png",
+          "assets/units/medium-artillery/ec/n-normal-4x.png",
+          "assets/units/medium-artillery/neutral/n-normal-4x.png"
         ]
       }
     },
@@ -7982,14 +7982,14 @@
           4
         ],
         "samples": [
-          "assets/units/patrol-boat/cp/n-normal-2x.png",
-          "assets/units/patrol-boat/cp/nw-normal-2x.png",
-          "assets/units/patrol-boat/cp/sw-normal-2x.png",
-          "assets/units/patrol-boat/cp/s-normal-2x.png",
-          "assets/units/patrol-boat/cp/se-normal-2x.png",
-          "assets/units/patrol-boat/cp/ne-normal-2x.png",
-          "assets/units/patrol-boat/ec/n-normal-2x.png",
-          "assets/units/patrol-boat/neutral/n-normal-2x.png"
+          "assets/units/patrol-boat/cp/n-normal-4x.png",
+          "assets/units/patrol-boat/cp/nw-normal-4x.png",
+          "assets/units/patrol-boat/cp/sw-normal-4x.png",
+          "assets/units/patrol-boat/cp/s-normal-4x.png",
+          "assets/units/patrol-boat/cp/se-normal-4x.png",
+          "assets/units/patrol-boat/cp/ne-normal-4x.png",
+          "assets/units/patrol-boat/ec/n-normal-4x.png",
+          "assets/units/patrol-boat/neutral/n-normal-4x.png"
         ]
       }
     },
@@ -8063,14 +8063,14 @@
           4
         ],
         "samples": [
-          "assets/units/sappers/cp/n-normal-2x.png",
-          "assets/units/sappers/cp/nw-normal-2x.png",
-          "assets/units/sappers/cp/sw-normal-2x.png",
-          "assets/units/sappers/cp/s-normal-2x.png",
-          "assets/units/sappers/cp/se-normal-2x.png",
-          "assets/units/sappers/cp/ne-normal-2x.png",
-          "assets/units/sappers/ec/n-normal-2x.png",
-          "assets/units/sappers/neutral/n-normal-2x.png"
+          "assets/units/sappers/cp/n-normal-4x.png",
+          "assets/units/sappers/cp/nw-normal-4x.png",
+          "assets/units/sappers/cp/sw-normal-4x.png",
+          "assets/units/sappers/cp/s-normal-4x.png",
+          "assets/units/sappers/cp/se-normal-4x.png",
+          "assets/units/sappers/cp/ne-normal-4x.png",
+          "assets/units/sappers/ec/n-normal-4x.png",
+          "assets/units/sappers/neutral/n-normal-4x.png"
         ]
       }
     },
@@ -8145,14 +8145,14 @@
           4
         ],
         "samples": [
-          "assets/units/supply-car/cp/n-normal-2x.png",
-          "assets/units/supply-car/cp/nw-normal-2x.png",
-          "assets/units/supply-car/cp/sw-normal-2x.png",
-          "assets/units/supply-car/cp/s-normal-2x.png",
-          "assets/units/supply-car/cp/se-normal-2x.png",
-          "assets/units/supply-car/cp/ne-normal-2x.png",
-          "assets/units/supply-car/ec/n-normal-2x.png",
-          "assets/units/supply-car/neutral/n-normal-2x.png"
+          "assets/units/supply-car/cp/n-normal-4x.png",
+          "assets/units/supply-car/cp/nw-normal-4x.png",
+          "assets/units/supply-car/cp/sw-normal-4x.png",
+          "assets/units/supply-car/cp/s-normal-4x.png",
+          "assets/units/supply-car/cp/se-normal-4x.png",
+          "assets/units/supply-car/cp/ne-normal-4x.png",
+          "assets/units/supply-car/ec/n-normal-4x.png",
+          "assets/units/supply-car/neutral/n-normal-4x.png"
         ]
       }
     },
@@ -8227,14 +8227,14 @@
           4
         ],
         "samples": [
-          "assets/units/train-artillery/cp/n-normal-2x.png",
-          "assets/units/train-artillery/cp/nw-normal-2x.png",
-          "assets/units/train-artillery/cp/sw-normal-2x.png",
-          "assets/units/train-artillery/cp/s-normal-2x.png",
-          "assets/units/train-artillery/cp/se-normal-2x.png",
-          "assets/units/train-artillery/cp/ne-normal-2x.png",
-          "assets/units/train-artillery/ec/n-normal-2x.png",
-          "assets/units/train-artillery/neutral/n-normal-2x.png"
+          "assets/units/train-artillery/cp/n-normal-4x.png",
+          "assets/units/train-artillery/cp/nw-normal-4x.png",
+          "assets/units/train-artillery/cp/sw-normal-4x.png",
+          "assets/units/train-artillery/cp/s-normal-4x.png",
+          "assets/units/train-artillery/cp/se-normal-4x.png",
+          "assets/units/train-artillery/cp/ne-normal-4x.png",
+          "assets/units/train-artillery/ec/n-normal-4x.png",
+          "assets/units/train-artillery/neutral/n-normal-4x.png"
         ]
       }
     },
@@ -8308,14 +8308,14 @@
           4
         ],
         "samples": [
-          "assets/units/transport-train/cp/n-normal-2x.png",
-          "assets/units/transport-train/cp/nw-normal-2x.png",
-          "assets/units/transport-train/cp/sw-normal-2x.png",
-          "assets/units/transport-train/cp/s-normal-2x.png",
-          "assets/units/transport-train/cp/se-normal-2x.png",
-          "assets/units/transport-train/cp/ne-normal-2x.png",
-          "assets/units/transport-train/ec/n-normal-2x.png",
-          "assets/units/transport-train/neutral/n-normal-2x.png"
+          "assets/units/transport-train/cp/n-normal-4x.png",
+          "assets/units/transport-train/cp/nw-normal-4x.png",
+          "assets/units/transport-train/cp/sw-normal-4x.png",
+          "assets/units/transport-train/cp/s-normal-4x.png",
+          "assets/units/transport-train/cp/se-normal-4x.png",
+          "assets/units/transport-train/cp/ne-normal-4x.png",
+          "assets/units/transport-train/ec/n-normal-4x.png",
+          "assets/units/transport-train/neutral/n-normal-4x.png"
         ]
       }
     }

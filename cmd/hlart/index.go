@@ -23,9 +23,6 @@ import (
 // maxSamples is how many runtime images an index entry names for the art book.
 const maxSamples = 8
 
-// sampleDensity is the density the samples are taken from when it exists.
-const sampleDensity = 2
-
 // Index is art/index.json: every art family with its prompt and runtime output.
 type Index struct {
 	SchemaVersion int     `json:"schema_version"`
@@ -225,18 +222,20 @@ func summarise(key string, p *prompt, entries []runtimeEntry) Runtime {
 	if len(r.Densities) == 0 {
 		return r
 	}
-	density := r.Densities[len(r.Densities)-1]
-	for _, d := range r.Densities {
-		if d >= sampleDensity {
-			density = d
-			break
-		}
-	}
+	// Use each runtime ID's highest image density, retaining representatives
+	// that are only available at a lower density.
 	byID := map[string]runtimeEntry{}
 	var ids []string
 	for _, e := range entries {
-		if e.Density == density && e.Width > 0 {
-			byID[e.ID] = e
+		if e.Density <= 0 || e.Width <= 0 {
+			continue
+		}
+		previous, exists := byID[e.ID]
+		if exists && previous.Density > e.Density {
+			continue
+		}
+		byID[e.ID] = e
+		if !exists {
 			ids = append(ids, e.ID)
 		}
 	}

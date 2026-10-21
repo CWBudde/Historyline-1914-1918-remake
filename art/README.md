@@ -87,6 +87,9 @@ the master changed, then run `go run ./cmd/hlart index` and `go run ./cmd/hlart 
 
 Use `just artbook` to rebuild the primary review artifact, `build/artbook/Historyline_Art.pdf`.
 It includes the indexed masters, runtime samples, current PULSE maps and reference comparisons.
+The PDF embeds native master PNGs, the highest available game-export density and a 4× PULSE render;
+comparison plates use lossless PNG. Review status (`candidate`, `revised`, `approved`) records visual
+acceptance independently of resolution. Appearance variants describe materials, seasons and geometry.
 List the selected master first in `prompt.md` so it leads the family's page.
 
 Show updated artwork directly in chat with a full image path. The full PULSE images are
