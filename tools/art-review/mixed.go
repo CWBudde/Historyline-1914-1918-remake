@@ -151,7 +151,7 @@ func loadMixedInputs(path string) (mixedInputs, error) {
 		if ref.Source == "" || filepath.IsAbs(ref.Source) {
 			return in, errors.New("mixed manifest references must be relative")
 		}
-		p := filepath.Join(filepath.Dir(path), ref.Source)
+		p := filepath.Join(sourceBase(path), ref.Source)
 		resolved, err := filepath.EvalSymlinks(p)
 		if err != nil {
 			return in, err

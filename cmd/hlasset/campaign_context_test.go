@@ -2,7 +2,6 @@ package main
 
 import (
 	"io/fs"
-	"path/filepath"
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
@@ -11,11 +10,10 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
 
-// Removing a campaign context from the retained recipes must fail even when
+// Removing a campaign context from the retained index must fail even when
 // all default terrain IDs still have artwork. Boundary transitions must also have an export.
 func TestCampaignContextExportsPresent(t *testing.T) {
-	root := filepath.Join("..", "..")
-	packs, err := planTerrain(filepath.Join(root, "docs/art/runtime-tile-coverage.csv"), filepath.Join(root, "art/recipes"))
+	packs, err := planTerrain(retainedIndex(t))
 	if err != nil {
 		t.Fatal(err)
 	}

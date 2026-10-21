@@ -14,7 +14,7 @@ import (
 )
 
 func TestStrictInputsAndCLI(t *testing.T) {
-	path := "../../art/unit-panel-v1.json"
+	path := "../../art/pipeline/unit-panel-v1.json"
 	in, err := loadInputs(path)
 	if err != nil {
 		t.Fatal(err)
@@ -31,7 +31,7 @@ func TestStrictInputsAndCLI(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	base := filepath.Dir(path)
+	base := sourceBase(path)
 	tests := []struct {
 		name string
 		mut  func([]byte) []byte
@@ -49,13 +49,13 @@ func TestStrictInputsAndCLI(t *testing.T) {
 			return bytes.Replace(b, []byte("c18494baa7ea35b8dbfac3861787d360b9c0ab91232562371a09e6fbf09aaa40"), []byte(strings.Repeat("0", 64)), 1)
 		}},
 		{"escape", func(b []byte) []byte {
-			return bytes.Replace(b, []byte("source/fonts/go-fonts/Go-Bold.ttf"), []byte("../Go-Bold.ttf"), 1)
+			return bytes.Replace(b, []byte("art/fonts/Go-Bold.ttf"), []byte("../Go-Bold.ttf"), 1)
 		}},
 		{"absolute", func(b []byte) []byte {
-			return bytes.Replace(b, []byte("source/fonts/go-fonts/Go-Bold.ttf"), []byte("/tmp/Go-Bold.ttf"), 1)
+			return bytes.Replace(b, []byte("art/fonts/Go-Bold.ttf"), []byte("/tmp/Go-Bold.ttf"), 1)
 		}},
 		{"legacy", func(b []byte) []byte {
-			return bytes.Replace(b, []byte("source/fonts/go-fonts/Go-Bold.ttf"), []byte("original/Go-Bold.ttf"), 1)
+			return bytes.Replace(b, []byte("art/fonts/Go-Bold.ttf"), []byte("original/Go-Bold.ttf"), 1)
 		}},
 	}
 	// Parse altered documents directly; no source directory needs to be writable.
@@ -68,7 +68,7 @@ func TestStrictInputsAndCLI(t *testing.T) {
 	}
 }
 func TestBundleDeterministicAndSafe(t *testing.T) {
-	in, err := loadInputs("../../art/unit-panel-v1.json")
+	in, err := loadInputs("../../art/pipeline/unit-panel-v1.json")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -152,7 +152,7 @@ func TestBundleDeterministicAndSafe(t *testing.T) {
 	}
 }
 func TestUnicodeFitAndVectorGrammar(t *testing.T) {
-	in, err := loadInputs("../../art/unit-panel-v1.json")
+	in, err := loadInputs("../../art/pipeline/unit-panel-v1.json")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -243,7 +243,7 @@ func TestRollbackKeepsReplacement(t *testing.T) {
 }
 
 func TestWrongDimensionsFontsAndSymlink(t *testing.T) {
-	in, e := loadInputs("../../art/unit-panel-v1.json")
+	in, e := loadInputs("../../art/pipeline/unit-panel-v1.json")
 	if e != nil {
 		t.Fatal(e)
 	}
@@ -273,7 +273,7 @@ func TestWrongDimensionsFontsAndSymlink(t *testing.T) {
 			if tc.font {
 				r = &m.Fonts.Regular
 			}
-			r.Source = "exports/invalid-" + tc.name
+			r.Source = "assets/invalid-" + tc.name
 			r.SHA256 = pin(tc.content)
 			p := filepath.Join(root, r.Source)
 			if tc.link {
@@ -322,7 +322,7 @@ func TestWrongDimensionsFontsAndSymlink(t *testing.T) {
 }
 
 func TestVectorDrawInputsResolve(t *testing.T) {
-	in, e := loadInputs("../../art/unit-panel-v1.json")
+	in, e := loadInputs("../../art/pipeline/unit-panel-v1.json")
 	if e != nil {
 		t.Fatal(e)
 	}

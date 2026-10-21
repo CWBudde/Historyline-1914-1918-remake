@@ -241,9 +241,9 @@ func loadConnectionInputs(path string) (connectionInputs, error) {
 			return in, fmt.Errorf("material %s requires SHA256", id)
 		}
 		if material.Source == "" || filepath.IsAbs(material.Source) {
-			return in, fmt.Errorf("material %s source must be relative to manifest", id)
+			return in, fmt.Errorf("material %s source must be relative to the source root", id)
 		}
-		source := filepath.Join(filepath.Dir(path), material.Source)
+		source := filepath.Join(sourceBase(path), material.Source)
 		resolved, err := filepath.EvalSymlinks(source)
 		if err != nil {
 			return in, err

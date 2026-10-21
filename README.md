@@ -10,8 +10,8 @@ newly painted art. The roadmap is [PLAN.md](PLAN.md).
 | `cmd/historyline` | The game |
 | `internal/` | Rules engine, data tables, level I/O, hex grid, asset packs, map compositor, AI |
 | `levels/` | Level files |
-| `art/` | Art sources, recipes (prompts) and exports; see [docs/art](docs/art/README.md) |
-| `gallery/` | Generated browser of all game art with its prompts (`just gallery`) |
+| `art/` | Art masters per runtime family, recipes (prompts) and bundle manifests; see [docs/art](docs/art/README.md) |
+| `assets/` | Runtime art the game packs are built from, listed in `assets/index.json` |
 | `tools/` | Offline art tooling |
 | `docs/` | Art guide, runtime asset packs, reconstructed manual |
 | `legacy/` | The upstream Python remake, kept as a test reference only |
@@ -40,8 +40,7 @@ All shipped art is newly authored; see the [art guide](docs/art/README.md). The 
 has unclear rights (two files are Battle Isle 3 screenshots) and is never redistributed.
 
 ```sh
-just gallery           # regenerate gallery/
-just gfx-check         # inventory, gallery and art tool checks
+just gfx-check         # art tool tests
 just gfx-game-review   # local comparison desk under build/review/gfx/
 just gfx-study         # PULSE map study with real game captures at 720p/1080p/4K
 ```

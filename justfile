@@ -14,7 +14,7 @@ py *args:
 run *args:
     go run ./cmd/historyline {{args}}
 
-# Generated output lives in ignored build/: packs/<name>, web, manual, gallery-check,
+# Generated output lives in ignored build/: packs/<name>, web, manual,
 # review/<name>/ (studies and desks) and scratch/ (disposable). build/go.mod keeps stray
 # Go files there out of ./...
 
@@ -67,10 +67,8 @@ web port="": _build-dir
 # Everything CI checks
 ci: lint test build wasm gfx-check
 
-# Check the graphics inventory and offline tooling (no original data required)
-gfx-check: gallery-check
-    python3 -m unittest discover -s tools/art-inventory -v
-    python3 tools/art-inventory/inventory.py --check
+# Test the offline art tooling (no original data required)
+gfx-check:
     go test ./tools/...
 
 # Create fidelity sheets; pass -reference, -candidate and -out
@@ -78,21 +76,10 @@ gfx-check: gallery-check
 gfx-review *args:
     go run ./tools/art-review "$@"
 
-# Regenerate the committed art gallery (gallery/index.html): final art, prompts, catalogue
-gallery:
-    go run ./cmd/hlgallery
-
-# Fail if the committed gallery/ differs from a fresh generation
-gallery-check: _build-dir
-    rm -rf build/gallery-check
-    go run ./cmd/hlgallery -out build/gallery-check
-    diff -r -x README.md gallery build/gallery-check
-    @echo "gallery/ is up to date"
-
 # Local comparison desk, composer and PULSE study (under build/review/gfx/)
 [positional-arguments]
 gfx-game-review *args: _build-dir
-    go run ./cmd/hlgallery -private "$@"
+    go run ./cmd/hlgallery "$@"
 
 # Refresh PULSE maps and nine actual game captures; open build/review/gfx/pulse.html.
 # On headless Linux: EGL_PLATFORM=x11 xvfb-run -a just gfx-study
@@ -105,7 +92,7 @@ gfx-study *args: _build-dir
     go run ./cmd/hlasset build-terrain -out "$study_dir/terrain"
     go run ./cmd/hlasset build-units -out "$study_dir/units"
     go run ./cmd/historyline -level level1_cp -units "$study_dir/units" -terrain "$study_dir/terrain" -allow-candidates -capture "$study_dir/captures"
-    go run ./cmd/hlgallery -private -captures "$study_dir/captures" "$@"
+    go run ./cmd/hlgallery -captures "$study_dir/captures" "$@"
 
 manual_pdf := "original/extracted/manual/Historyline_1914-1918.pdf"
 manual_typst := "typst compile --root . --font-path docs/manual/fonts"

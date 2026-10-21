@@ -1,0 +1,97 @@
+{
+  "materials": {
+    "bank": {
+      "source": "art/terrain/lakeside/bank.png",
+      "source_sha256": "d43b40a2ed64e95cbb6afdacca4a384a39ec59c8a54d05bdcbe77a60e6aa6613"
+    },
+    "grass": {
+      "source": "art/terrain/grass/grass.png",
+      "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
+    },
+    "water": {
+      "source": "art/terrain/water/water.png",
+      "source_sha256": "007b9babe0e69db5e628352a38dae0f1502ac42513bbf4018ad3df82f76c4c31"
+    }
+  },
+  "schema_version": 1,
+  "variants": [
+    {
+      "id": "lakeside12",
+      "land_vertices": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "id": "lakeside16",
+      "land_vertices": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "id": "lakeside23",
+      "land_vertices": [
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "id": "lakeside34",
+      "land_vertices": [
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "id": "lakeside56",
+      "land_vertices": [
+        0,
+        1,
+        5
+      ]
+    },
+    {
+      "id": "lakeside123",
+      "land_vertices": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "id": "lakeside126",
+      "land_vertices": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "id": "lakeside156",
+      "land_vertices": [
+        0,
+        1,
+        2,
+        5
+      ]
+    },
+    {
+      "id": "lakeside3456",
+      "land_vertices": [
+        0,
+        1,
+        3,
+        4,
+        5
+      ]
+    }
+  ]
+}

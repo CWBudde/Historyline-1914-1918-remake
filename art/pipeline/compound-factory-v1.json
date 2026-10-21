@@ -1,0 +1,20 @@
+{
+  "grounds": {
+    "winter": {
+      "source": "art/terrain/grass/grass_w.png",
+      "source_sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3"
+    }
+  },
+  "scenes": [
+    {
+      "artwork": {
+        "source": "art/terrain/factory/factory_w.png",
+        "source_sha256": "8168ea4623b2e3e9547db268c79690cfba5633c5bc469a97f1b701312f44428f"
+      },
+      "framing": "reference-layout",
+      "id": "factory-winter",
+      "inset": 1
+    }
+  ],
+  "schema_version": 1
+}

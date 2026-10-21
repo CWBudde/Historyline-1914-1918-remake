@@ -1,0 +1,8 @@
+{
+  "family": "transportTrain",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/transport-train/portrait.png",
+    "source_sha256": "8d2cb7b032a92374ce301ce2bc08011ab4f50218ff3eff5629b12031812d98ca"
+  }
+}

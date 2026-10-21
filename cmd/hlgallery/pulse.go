@@ -70,50 +70,28 @@ func (c *collector) pulseImage(im image.Image, source, method string) (picture, 
 	return p, c.out.WriteFile(p.URL, b.Bytes(), 0644)
 }
 
-// pulseContexts uses the same descriptor/key contract as hlasset and Compose.
-// Only selected images are snapshotted; source recipes and the art track are read-only.
+// pulseContexts returns the pinned 2x and 4x context tiles and grass details of
+// the runtime index, keyed by ID. Only tiles actually drawn are snapshotted.
 func (c *collector) pulseContexts() (map[string]map[string]picture, error) {
-	result := map[string]map[string]picture{}
-	for _, family := range mapcompose.Families {
-		var recipe struct {
-			Profiles []struct {
-				RuntimeID  string    `json:"runtime_id"`
-				Neighbors  [6]string `json:"neighbor_ids"`
-				Phase      *[2]int   `json:"phase"`
-				Descriptor string    `json:"descriptor"`
-				Key        string    `json:"context_key"`
-				Outputs    []struct {
-					Path string `json:"path"`
-					SHA  string `json:"sha256"`
-				} `json:"outputs"`
-			} `json:"profiles"`
-		}
-		if err := c.json("art/recipes/"+string(family)+"-terrain-v1.json", &recipe); err != nil {
-			return nil, err
-		}
-		for _, p := range recipe.Profiles {
-			phase := [2]int{}
-			if p.Phase != nil {
-				phase = *p.Phase
-			}
-			d, ok := mapcompose.Descriptor(family, p.RuntimeID, p.Neighbors, phase)
-			if !ok || d != p.Descriptor || mapcompose.Key(d) != p.Key {
-				return nil, fmt.Errorf("invalid %s context %s", family, p.Key)
-			}
-			id := mapcompose.ContextID(family, p.Key)
-			result[id] = map[string]picture{}
-			for _, o := range p.Outputs {
-				for _, density := range []string{"2", "4"} {
-					if strings.HasSuffix(o.Path, "-"+density+"x.png") {
-						// Store the verified pin until this context is actually used.
-						result[id][density] = picture{Source: o.Path, SHA: o.SHA}
-					}
-				}
-			}
-		}
-	}
-	if err := c.pulseGrassVariations(result); err != nil {
+	entries, err := c.assets()
+	if err != nil {
 		return nil, err
+	}
+	result := map[string]map[string]picture{}
+	for _, e := range entries {
+		if !strings.HasPrefix(e.Pack, "terrain-") || (!strings.HasPrefix(e.ID, "context/") && !strings.HasPrefix(e.ID, "tile/grass-detail-")) {
+			continue
+		}
+		if result[e.ID] == nil {
+			result[e.ID] = map[string]picture{}
+		}
+		// Store the verified pin until this context is actually used.
+		result[e.ID][strconv.Itoa(e.Density)] = picture{Source: "assets/" + e.Path, SHA: e.SHA}
+	}
+	for id, ps := range result {
+		if len(ps) != 2 {
+			return nil, fmt.Errorf("%s lacks a 2x or 4x tile", id)
+		}
 	}
 	return result, nil
 }
@@ -279,7 +257,7 @@ func (c *collector) pulse(captures string) error {
 }
 
 func (c *collector) pulseDensity(images map[string]picture, im *image.NRGBA, density int, method string) error {
-	p, err := c.pulseImage(im, "levels/level1_cp.json + current coverage/recipes", fmt.Sprintf("%s; authored %dx exports", method, density))
+	p, err := c.pulseImage(im, "levels/level1_cp.json + assets/index.json", fmt.Sprintf("%s; authored %dx exports", method, density))
 	if err != nil {
 		return err
 	}

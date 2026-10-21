@@ -8,7 +8,6 @@ import (
 	"fmt"
 	"image"
 	"os"
-	"path/filepath"
 )
 
 type forestManifest struct {
@@ -111,11 +110,11 @@ func loadForestInputs(path string) (forestInputs, error) {
 		return in, fmt.Errorf("forest manifest: %w", err)
 	}
 	for _, season := range []string{"summer", "winter"} {
-		ground, err := compoundReadSource(filepath.Dir(path), in.Manifest.Grounds[season], true)
+		ground, err := compoundReadSource(sourceBase(path), in.Manifest.Grounds[season], true)
 		if err != nil {
 			return in, fmt.Errorf("forest ground %s: %w", season, err)
 		}
-		atlas, err := compoundReadSource(filepath.Dir(path), in.Manifest.Atlases[season], false)
+		atlas, err := compoundReadSource(sourceBase(path), in.Manifest.Atlases[season], false)
 		if err != nil {
 			return in, fmt.Errorf("forest atlas %s: %w", season, err)
 		}

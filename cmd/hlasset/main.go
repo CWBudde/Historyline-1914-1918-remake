@@ -1,4 +1,5 @@
-// Command hlasset builds and validates local runtime candidate packs.
+// Command hlasset builds and validates local runtime candidate packs from the
+// runtime art in assets/ (assets/index.json).
 package main
 
 import (
@@ -11,7 +12,6 @@ import (
 	"path"
 	"path/filepath"
 	"slices"
-	"strings"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
 )
@@ -29,7 +29,7 @@ func run(args []string, stdout io.Writer) error {
 	switch args[0] {
 	case "build":
 		flags := flag.NewFlagSet("build", flag.ContinueOnError)
-		source := flags.String("source", "art/exports/interface-v1", "interface-v1 export directory")
+		dir := flags.String("assets", "assets", "runtime asset directory with index.json")
 		out := flags.String("out", "", "new output directory (required)")
 		density := flags.Int("density", 2, "exact asset density: 1, 2 or 4")
 		if err := flags.Parse(args[1:]); err != nil {
@@ -38,7 +38,7 @@ func run(args []string, stdout io.Writer) error {
 		if flags.NArg() != 0 || *out == "" {
 			return fmt.Errorf("build requires -out NEW_DIRECTORY and no positional arguments")
 		}
-		p, err := build(*source, *out, *density)
+		p, err := build(*dir, *out, *density)
 		if err != nil {
 			return err
 		}
@@ -46,8 +46,7 @@ func run(args []string, stdout io.Writer) error {
 		return err
 	case "build-units":
 		flags := flag.NewFlagSet("build-units", flag.ContinueOnError)
-		recipes := flags.String("recipes", "art/recipes", "directory with the unit-*-v1.json recipes")
-		exports := flags.String("exports", "art/exports", "directory with the unit-*-v1 export directories")
+		dir := flags.String("assets", "assets", "runtime asset directory with index.json")
 		out := flags.String("out", "", "new output directory (required)")
 		if err := flags.Parse(args[1:]); err != nil {
 			return err
@@ -55,7 +54,7 @@ func run(args []string, stdout io.Writer) error {
 		if flags.NArg() != 0 || *out == "" {
 			return fmt.Errorf("build-units requires -out NEW_DIRECTORY and no positional arguments")
 		}
-		packs, err := buildUnits(*recipes, *exports, *out)
+		packs, err := buildUnits(*dir, *out)
 		if err != nil {
 			return err
 		}
@@ -69,9 +68,7 @@ func run(args []string, stdout io.Writer) error {
 		return err
 	case "build-terrain":
 		flags := flag.NewFlagSet("build-terrain", flag.ContinueOnError)
-		coverage := flags.String("coverage", "docs/art/runtime-tile-coverage.csv", "runtime tile coverage ledger")
-		recipes := flags.String("recipes", "art/recipes", "directory with the terrain recipes")
-		root := flags.String("root", ".", "repository root the export paths are relative to")
+		dir := flags.String("assets", "assets", "runtime asset directory with index.json")
 		out := flags.String("out", "", "new output directory (required)")
 		if err := flags.Parse(args[1:]); err != nil {
 			return err
@@ -79,7 +76,7 @@ func run(args []string, stdout io.Writer) error {
 		if flags.NArg() != 0 || *out == "" {
 			return fmt.Errorf("build-terrain requires -out NEW_DIRECTORY and no positional arguments")
 		}
-		packs, err := buildTerrain(*coverage, *recipes, *root, *out)
+		packs, err := buildTerrain(*dir, *out)
 		if err != nil {
 			return err
 		}
@@ -130,95 +127,52 @@ func run(args []string, stdout io.Writer) error {
 	}
 }
 
-// The first adapter deliberately supports only the interface-v1 export report.
-// Screen reviews, contact sheets and context-dependent terrain are not runtime art.
-func importInterface(b []byte, density int) (assets.Manifest, error) {
+// interfacePack selects the interface pack of one density from the index. Every
+// interface ID must exist at that density.
+func interfacePack(entries []indexEntry, density int) (assets.Manifest, error) {
 	if density != 1 && density != 2 && density != 4 {
 		return assets.Manifest{}, fmt.Errorf("density must be 1, 2 or 4")
 	}
-	var report struct {
-		Schema  int    `json:"schema_version"`
-		Profile string `json:"profile"`
-		Files   []struct {
-			ID      string     `json:"id"`
-			Path    string     `json:"path"`
-			SHA256  string     `json:"sha256"`
-			Width   int        `json:"width"`
-			Height  int        `json:"height"`
-			Density int        `json:"density"`
-			Anchor  [2]float64 `json:"logical_anchor"`
-		} `json:"files"`
+	id := fmt.Sprintf("interface-v1-%dx", density)
+	packs := indexPacks(entries, "interface-v1-")
+	i := slices.IndexFunc(packs, func(m assets.Manifest) bool { return m.ID == id })
+	if i < 0 {
+		return assets.Manifest{}, fmt.Errorf("index has no %s pack", id)
 	}
-	if len(b) > 2<<20 {
-		return assets.Manifest{}, fmt.Errorf("export report too large")
-	}
-	if err := json.Unmarshal(b, &report); err != nil {
-		return assets.Manifest{}, err
-	}
-	if report.Schema != 1 || report.Profile != "interface-v1" {
-		return assets.Manifest{}, fmt.Errorf("build currently requires an interface-v1 schema-1 report")
-	}
-	m := assets.Manifest{Schema: 1, ID: fmt.Sprintf("interface-v1-%dx", density), Status: "candidate"}
-	allIDs := make(map[string]bool)
-	selected := make(map[string]bool)
-	for _, f := range report.Files {
-		if !strings.HasSuffix(f.Path, ".png") || f.Density == 0 {
-			continue
+	m := packs[i]
+	have := map[string]bool{}
+	for _, e := range m.Entries {
+		if e.Density != density {
+			return assets.Manifest{}, fmt.Errorf("%s: %s has density %dx", id, e.ID, e.Density)
 		}
-		allIDs[f.ID] = true
-		if f.Density == density {
-			m.Entries = append(m.Entries, assets.Entry{ID: f.ID, Path: f.Path, SHA256: f.SHA256, Width: f.Width, Height: f.Height, Density: f.Density, Anchor: f.Anchor})
-			selected[f.ID] = true
-		}
+		have[e.ID] = true
 	}
-	// Follow report order so missing-ID diagnostics are deterministic too.
-	for _, f := range report.Files {
-		if allIDs[f.ID] && !selected[f.ID] {
-			return assets.Manifest{}, fmt.Errorf("asset %q missing requested density %dx", f.ID, density)
+	// Follow index order so missing-ID diagnostics are deterministic.
+	for _, p := range packs {
+		for _, e := range p.Entries {
+			if !have[e.ID] {
+				return assets.Manifest{}, fmt.Errorf("asset %q missing requested density %dx", e.ID, density)
+			}
 		}
 	}
 	return m, nil
 }
 
-func build(source, out string, density int) (assets.Manifest, error) {
-	r, err := os.OpenRoot(source)
+// build writes the interface pack of one density to the new directory out.
+func build(assetsDir, out string, density int) (assets.Manifest, error) {
+	entries, err := readIndex(assetsDir)
 	if err != nil {
 		return assets.Manifest{}, err
 	}
-	defer func() { _ = r.Close() }()
-	f, err := r.Open("report.json")
+	m, err := interfacePack(entries, density)
 	if err != nil {
 		return assets.Manifest{}, err
 	}
-	b, err := io.ReadAll(io.LimitReader(f, (2<<20)+1))
-	closeErr := f.Close()
+	written, err := writePacks(assetsDir, out, []assets.Manifest{m}, func(int) string { return "." })
 	if err != nil {
 		return assets.Manifest{}, err
 	}
-	if closeErr != nil {
-		return assets.Manifest{}, closeErr
-	}
-	m, err := importInterface(b, density)
-	if err != nil {
-		return assets.Manifest{}, err
-	}
-	p, err := assets.Load(r.FS(), m, assets.Options{AllowCandidates: true})
-	if err != nil {
-		return assets.Manifest{}, err
-	}
-	if err := p.Validate(); err != nil {
-		return assets.Manifest{}, err
-	}
-	o, err := newOutput(out)
-	if err != nil {
-		return assets.Manifest{}, err
-	}
-	defer o.close()
-	if m, err = o.writePack(".", p, m); err != nil {
-		return assets.Manifest{}, err
-	}
-	o.done()
-	return m, nil
+	return written[0], nil
 }
 
 // output is a build directory reserved exclusively. Until done is called, close

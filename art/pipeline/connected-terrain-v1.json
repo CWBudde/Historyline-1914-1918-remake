@@ -1,0 +1,326 @@
+{
+  "families": [
+    {
+      "border": 2,
+      "border_material": "earth",
+      "id": "road",
+      "markings": "dashed",
+      "material": "road",
+      "variants": [
+        {
+          "id": "road13",
+          "ports": [
+            1,
+            3
+          ]
+        },
+        {
+          "id": "road14",
+          "ports": [
+            1,
+            4
+          ]
+        },
+        {
+          "id": "road15",
+          "ports": [
+            1,
+            5
+          ]
+        },
+        {
+          "id": "road25",
+          "ports": [
+            2,
+            5
+          ]
+        },
+        {
+          "id": "road35",
+          "ports": [
+            3,
+            5
+          ]
+        },
+        {
+          "id": "road36",
+          "ports": [
+            3,
+            6
+          ]
+        },
+        {
+          "id": "road46",
+          "ports": [
+            4,
+            6
+          ]
+        },
+        {
+          "id": "road26",
+          "ports": [
+            2,
+            6
+          ]
+        },
+        {
+          "id": "road125",
+          "ports": [
+            1,
+            2,
+            5
+          ]
+        },
+        {
+          "id": "road124",
+          "ports": [
+            1,
+            2,
+            4
+          ]
+        },
+        {
+          "id": "road145",
+          "ports": [
+            1,
+            4,
+            5
+          ]
+        },
+        {
+          "id": "road236",
+          "ports": [
+            2,
+            3,
+            6
+          ]
+        },
+        {
+          "id": "road346",
+          "ports": [
+            3,
+            4,
+            6
+          ]
+        },
+        {
+          "id": "road356",
+          "ports": [
+            3,
+            5,
+            6
+          ]
+        },
+        {
+          "id": "road135",
+          "ports": [
+            1,
+            3,
+            5
+          ]
+        },
+        {
+          "id": "road24",
+          "ports": [
+            2,
+            4
+          ]
+        }
+      ],
+      "width": 22
+    },
+    {
+      "border": 3.5,
+      "border_material": "bank",
+      "id": "stream",
+      "material": "water",
+      "variants": [
+        {
+          "id": "stream13",
+          "ports": [
+            1,
+            3
+          ]
+        },
+        {
+          "id": "stream135",
+          "ports": [
+            1,
+            3,
+            5
+          ]
+        },
+        {
+          "id": "stream14",
+          "ports": [
+            1,
+            4
+          ]
+        },
+        {
+          "id": "stream15",
+          "ports": [
+            1,
+            5
+          ]
+        },
+        {
+          "id": "stream24",
+          "ports": [
+            2,
+            4
+          ]
+        },
+        {
+          "id": "stream246",
+          "ports": [
+            2,
+            4,
+            6
+          ]
+        },
+        {
+          "id": "stream25",
+          "ports": [
+            2,
+            5
+          ]
+        },
+        {
+          "id": "stream26",
+          "ports": [
+            2,
+            6
+          ]
+        },
+        {
+          "id": "stream35",
+          "ports": [
+            3,
+            5
+          ]
+        },
+        {
+          "id": "stream36",
+          "ports": [
+            3,
+            6
+          ]
+        },
+        {
+          "id": "stream46",
+          "ports": [
+            4,
+            6
+          ]
+        }
+      ],
+      "width": 18
+    }
+  ],
+  "geometry": {
+    "height": 80,
+    "neighbors": [
+      [
+        71,
+        -40
+      ],
+      [
+        71,
+        40
+      ],
+      [
+        0,
+        80
+      ],
+      [
+        -71,
+        40
+      ],
+      [
+        -71,
+        -40
+      ],
+      [
+        0,
+        -80
+      ]
+    ],
+    "polygon": [
+      [
+        25,
+        0
+      ],
+      [
+        71,
+        0
+      ],
+      [
+        96,
+        40
+      ],
+      [
+        71,
+        80
+      ],
+      [
+        25,
+        80
+      ],
+      [
+        0,
+        40
+      ]
+    ],
+    "ports": [
+      [
+        83.5,
+        20
+      ],
+      [
+        83.5,
+        60
+      ],
+      [
+        48,
+        80
+      ],
+      [
+        12.5,
+        60
+      ],
+      [
+        12.5,
+        20
+      ],
+      [
+        48,
+        0
+      ]
+    ],
+    "width": 96
+  },
+  "materials": {
+    "bank": {
+      "source": "art/terrain/stream/bank.png",
+      "source_sha256": "bec7afdd82d829aa9f3ae08f8e5e06eb8e1b3d1dbec3d8f36c19edfbc99ba0f0"
+    },
+    "earth": {
+      "source": "art/terrain/ground/earth-bank.png",
+      "source_sha256": "6df0ffb17725f7c7ef81bbafd1c8537ad2a30b62beac21a4ce6ce8a4c522086d"
+    },
+    "grass": {
+      "source": "art/terrain/grass/grass.png",
+      "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
+    },
+    "road": {
+      "source": "art/terrain/road/asphalt.png",
+      "source_sha256": "a86aa33d3261283f885228a404a4b31ee337c132728f55038c5714a2e46aec44"
+    },
+    "water": {
+      "source": "art/terrain/water/water.png",
+      "source_sha256": "007b9babe0e69db5e628352a38dae0f1502ac42513bbf4018ad3df82f76c4c31"
+    }
+  },
+  "schema_version": 1
+}

@@ -10,12 +10,15 @@ import (
 	"image/png"
 	"io"
 	"os"
+	"path"
 	"path/filepath"
+	"slices"
 	"sort"
 	"strings"
 
 	runtimeassets "github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/presentation"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
 )
 
 type assets struct {
@@ -25,41 +28,28 @@ type assets struct {
 	family     string
 }
 
-// Slugs identify delivered packs; IDs identify compatibility bindings in them.
-// This closed list prevents untrusted paths from being interpolated below.
-var families = []struct{ slug, id string }{
-	{"infantry", "infantry"}, {"elite-infantry", "eliteInfantry"},
-	{"cavalry", "cavalry"}, {"sappers", "sappers"},
-	{"light-artillery", "lightArtillery"}, {"medium-artillery", "mediumArtillery"},
-	{"heavy-artillery", "heavyArtillery"}, {"supply-car", "supplyCar"},
-	{"bunker", "bunker"}, {"armored-car", "armoredCar"}, {"charron", "charron"},
-	{"patrol-boat", "patrolBoat"}, {"transport-train", "transportTrain"},
-	{"armored-train", "armoredTrain"}, {"train-artillery", "trainArtillery"},
-}
-
-type fileEntry struct {
+// indexEntry is one runtime file of assets/index.json; Path is relative to assets/.
+type indexEntry struct {
 	ID      string     `json:"id"`
+	Pack    string     `json:"pack"`
 	Path    string     `json:"path"`
 	SHA     string     `json:"sha256"`
 	Width   int        `json:"width"`
 	Height  int        `json:"height"`
 	Density int        `json:"density"`
 	Anchor  [2]float64 `json:"logical_anchor"`
+	Art     string     `json:"art"`
 }
 
 func loadAssets(repo string) (*assets, error) {
 	return loadFamilyAssets(repo, "infantry")
 }
 
+// loadFamilyAssets reads the interface frames, one unit family and the grass
+// tile from the runtime assets of repo, each checked against assets/index.json.
+// Family slugs come from the closed unitsprite table, never from paths.
 func loadFamilyAssets(repo, family string) (*assets, error) {
-	unitID := ""
-	for _, f := range families {
-		if f.slug == family {
-			unitID = f.id
-			break
-		}
-	}
-	if unitID == "" {
+	if !slices.Contains(unitsprite.Families(), family) {
 		return nil, fmt.Errorf("unknown unit family %q", family)
 	}
 	r, err := os.OpenRoot(repo)
@@ -89,39 +79,44 @@ func loadFamilyAssets(repo, family string) (*assets, error) {
 		a.hashes[filepath.ToSlash(path)] = actual
 		return b, nil
 	}
-	base := "art/exports/interface-v1/"
-	b, err := read(base+"report.json", "")
+	const base = "assets/"
+	b, err := read(base+"index.json", "")
 	if err != nil {
 		return nil, err
 	}
-	var report struct {
-		Schema  int         `json:"schema_version"`
-		Profile string      `json:"profile"`
-		Files   []fileEntry `json:"files"`
+	var index struct {
+		Schema int          `json:"schema_version"`
+		Assets []indexEntry `json:"assets"`
 	}
-	if err := json.Unmarshal(b, &report); err != nil {
+	if err := json.Unmarshal(b, &index); err != nil {
 		return nil, err
 	}
-	if report.Schema != 1 || report.Profile != "interface-v1" {
-		return nil, fmt.Errorf("unsupported interface report")
+	if index.Schema != 1 {
+		return nil, fmt.Errorf("unsupported asset index")
 	}
-	entries := make(map[string]fileEntry)
-	paths := make(map[string]bool)
-	for _, f := range report.Files {
-		if !filepath.IsLocal(f.Path) || len(f.SHA) != 64 || paths[f.Path] {
-			return nil, fmt.Errorf("invalid or duplicate interface path %q", f.Path)
+	// Interface frames at 1x plus the animation metadata, unit sprites and tiles
+	// at 2x; the index never lists a path twice for one key.
+	entries := make(map[string]indexEntry)
+	for _, f := range index.Assets {
+		if !filepath.IsLocal(f.Path) || len(f.SHA) != 64 {
+			return nil, fmt.Errorf("invalid asset path %q", f.Path)
 		}
-		paths[f.Path] = true
-		if f.Density != 1 && f.Path != "animations.json" && f.Path != "bindings.json" {
+		var key string
+		switch {
+		case f.Pack == "interface-v1-1x", f.Art == "interface" && (f.ID == "animations" || f.ID == "bindings"):
+			key = f.ID
+		case f.Pack == fmt.Sprintf("unit-%s-2x", family), f.Pack == "terrain-backgrounds-2x":
+			key = f.ID
+		default:
 			continue
 		}
-		if _, ok := entries[f.ID]; ok {
-			return nil, fmt.Errorf("duplicate asset ID %q", f.ID)
+		if _, ok := entries[key]; ok {
+			return nil, fmt.Errorf("duplicate asset ID %q", key)
 		}
-		entries[f.ID] = f
+		entries[key] = f
 	}
 	animationEntry, ok := entries["animations"]
-	if !ok || animationEntry.Path != "animations.json" {
+	if !ok || path.Base(animationEntry.Path) != "animations.json" {
 		return nil, fmt.Errorf("missing pinned animations")
 	}
 	b, err = read(base+animationEntry.Path, animationEntry.SHA)
@@ -140,7 +135,7 @@ func loadFamilyAssets(repo, family string) (*assets, error) {
 		return nil, err
 	}
 	bindingsEntry, ok := entries["bindings"]
-	if !ok || bindingsEntry.Path != "bindings.json" {
+	if !ok || path.Base(bindingsEntry.Path) != "bindings.json" {
 		return nil, fmt.Errorf("missing pinned bindings")
 	}
 	b, err = read(base+bindingsEntry.Path, bindingsEntry.SHA)
@@ -172,8 +167,8 @@ func loadFamilyAssets(repo, family string) (*assets, error) {
 			wanted[frame] = true
 		}
 	}
-	decode := func(id, path, hash string, w, h int) error {
-		b, err := read(path, hash)
+	decode := func(id string, f indexEntry, w, h int) error {
+		b, err := read(base+f.Path, f.SHA)
 		if err != nil {
 			return err
 		}
@@ -216,35 +211,25 @@ func loadFamilyAssets(repo, family string) (*assets, error) {
 		a.images[entry.ID] = im
 		a.hashes[entry.Path] = entry.SHA256
 	}
-	// Existing unit bundles have no exported-output hash report. Their dimensions
-	// are validated and exact bytes are fingerprinted in the smoke-test evidence.
 	for _, facing := range bindings.Motion.Facings {
-		if err := decode("unit/"+facing, "art/exports/unit-"+family+"-v1/sprites/"+unitID+"/cp/"+facing+"-normal-2x.png", "", 192, 192); err != nil {
+		face, ok := unitsprite.ParseFacing(facing)
+		if !ok {
+			return nil, fmt.Errorf("unknown facing %q", facing)
+		}
+		id := unitsprite.ID(family, unitsprite.CP, face, unitsprite.Normal)
+		f, ok := entries[id]
+		if !ok {
+			return nil, fmt.Errorf("missing unit sprite %s", id)
+		}
+		if err := decode("unit/"+facing, f, 192, 192); err != nil {
 			return nil, err
 		}
 	}
-	b, err = read("art/unit-"+family+"-v1.json", "")
-	if err != nil {
-		return nil, err
-	}
-	var unit struct {
-		Family  string `json:"family"`
-		Grounds map[string]map[string]struct {
-			Source string `json:"source"`
-			SHA    string `json:"source_sha256"`
-		} `json:"grounds"`
-	}
-	if err := json.Unmarshal(b, &unit); err != nil {
-		return nil, err
-	}
-	if unit.Family != unitID {
-		return nil, fmt.Errorf("unit family manifest disagrees with selected binding")
-	}
-	grass, ok := unit.Grounds["grass"]["2x"]
-	if !ok || len(grass.SHA) != 64 {
+	grass, ok := entries["tile/grass"]
+	if !ok {
 		return nil, fmt.Errorf("missing pinned grass fixture")
 	}
-	if err := decode("terrain", "art/"+grass.Source, grass.SHA, 192, 160); err != nil {
+	if err := decode("terrain", grass, 192, 160); err != nil {
 		return nil, err
 	}
 	return a, nil

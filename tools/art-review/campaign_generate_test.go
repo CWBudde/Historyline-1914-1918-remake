@@ -72,7 +72,7 @@ func TestGenerateCampaignContexts(t *testing.T) {
 			}
 		}
 	}
-	gi, err := loadGroundInputs(filepath.Join(root, "art/ground-terrain-v1.json"))
+	gi, err := loadGroundInputs(filepath.Join(root, "art/pipeline/ground-terrain-v1.json"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -82,7 +82,7 @@ func TestGenerateCampaignContexts(t *testing.T) {
 	}
 	ground := newGroundRenderer(materials)
 	ground.mudFeature = gi.Manifest.MudFeature
-	fi, err := loadForestInputs(filepath.Join(root, "art/forest-terrain-v1.json"))
+	fi, err := loadForestInputs(filepath.Join(root, "art/pipeline/forest-terrain-v1.json"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -97,7 +97,7 @@ func TestGenerateCampaignContexts(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	hi, err := loadHillsInputs(filepath.Join(root, "art/hills-terrain-v1.json"))
+	hi, err := loadHillsInputs(filepath.Join(root, "art/pipeline/hills-terrain-v1.json"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -161,7 +161,7 @@ func TestGenerateCampaignContexts(t *testing.T) {
 		}
 		var outputs []any
 		for _, d := range []int{2, 4} {
-			path := fmt.Sprintf("art/exports/%s-v1/profiles/%s-%dx.png", g.Family, key, d)
+			path := fmt.Sprintf("assets/terrain/%s/context/%s-%dx.png", g.Family, key, d)
 			var expected string
 			if old := known[key]; old != nil {
 				for _, o := range old["outputs"].([]any) {

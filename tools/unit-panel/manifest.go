@@ -60,7 +60,7 @@ func loadInputs(path string) (*Inputs, error) {
 	if e != nil {
 		return nil, e
 	}
-	return parseInputs(filepath.Dir(path), raw)
+	return parseInputs(sourceBase(path), raw)
 }
 
 // checkJSON rejects duplicate keys as well as trailing documents before typed decoding.
@@ -153,8 +153,8 @@ func parseInputs(base string, raw []byte) (*Inputs, error) {
 				return fmt.Errorf("%s: forbidden source", key)
 			}
 		}
-		if !strings.HasPrefix(r.Source, "exports/") && !strings.HasPrefix(r.Source, "source/fonts/") {
-			return fmt.Errorf("%s: source outside authored exports/fonts", key)
+		if !strings.HasPrefix(r.Source, "assets/") && !strings.HasPrefix(r.Source, "art/fonts/") {
+			return fmt.Errorf("%s: source outside authored assets/fonts", key)
 		}
 		path, e := filepath.EvalSymlinks(filepath.Join(root, filepath.FromSlash(r.Source)))
 		if e != nil {
@@ -162,7 +162,7 @@ func parseInputs(base string, raw []byte) (*Inputs, error) {
 		}
 		rel, e := filepath.Rel(root, path)
 		if e != nil || rel == ".." || strings.HasPrefix(rel, ".."+string(filepath.Separator)) {
-			return fmt.Errorf("source escapes manifest directory")
+			return fmt.Errorf("source escapes the source root")
 		}
 		for _, part := range strings.Split(strings.ToLower(filepath.ToSlash(rel)), "/") {
 			if part == "original" || part == "gfx" || strings.Contains(part, "legacy") {

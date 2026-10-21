@@ -216,7 +216,7 @@ func (g *preview) capture(screen *ebiten.Image, s presentation.State) {
 		g.writeErr = err
 		return
 	}
-	e := evidence{Status: "native-renderer-smoke-only", Mode: g.mode, Family: g.assets.family, Inputs: g.assets.hashes, Captures: g.captures, Final: s, Ticks: g.tick, Notes: []string{"No gameplay state is present or mutated; translating a family does not imply legal movement or legal grass terrain.", "Unit PNGs lack an exported-output pin report: dimensions checked, exact bytes fingerprinted here.", "Screenshots prove bounded candidate playback, not full-map readability, runtime-pack acceptance or source likeness.", "Logical unit anchor (48,49), tile center (48,40); six independently authored facings, no image rotation."}}
+	e := evidence{Status: "native-renderer-smoke-only", Mode: g.mode, Family: g.assets.family, Inputs: g.assets.hashes, Captures: g.captures, Final: s, Ticks: g.tick, Notes: []string{"No gameplay state is present or mutated; translating a family does not imply legal movement or legal grass terrain.", "Interface, unit and grass PNGs are pinned by assets/index.json; exact bytes fingerprinted here.", "Screenshots prove bounded candidate playback, not full-map readability, runtime-pack acceptance or source likeness.", "Logical unit anchor (48,49), tile center (48,40); six independently authored facings, no image rotation."}}
 	b, err := json.MarshalIndent(e, "", "  ")
 	if err == nil {
 		err = os.WriteFile(filepath.Join(g.output, "evidence.json"), append(b, '\n'), 0o600)

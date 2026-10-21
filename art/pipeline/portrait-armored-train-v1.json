@@ -1,0 +1,8 @@
+{
+  "family": "armoredTrain",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/armored-train/portrait.png",
+    "source_sha256": "981341e9860855e9e9e8b86eed0737b61c16454df435c0916ab20a394cf4f981"
+  }
+}

@@ -7,7 +7,6 @@ import (
 	"errors"
 	"fmt"
 	"os"
-	"path/filepath"
 )
 
 var groundMaterialIDs = [...]string{"grass", "grass_w", "mud", "stone", "rough_w", "stoney_w", "shelled_w"}
@@ -92,7 +91,7 @@ func loadGroundInputs(path string) (groundInputs, error) {
 	}
 	for _, id := range groundMaterialIDs {
 		// The loader reads each file once; its exact pinned bytes also supply decoding and snapshots.
-		source, err := compoundReadSource(filepath.Dir(path), in.Manifest.Materials[id], true)
+		source, err := compoundReadSource(sourceBase(path), in.Manifest.Materials[id], true)
 		if err != nil {
 			return in, fmt.Errorf("ground material %s: %w", id, err)
 		}

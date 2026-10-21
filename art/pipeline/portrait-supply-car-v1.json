@@ -1,0 +1,8 @@
+{
+  "family": "supplyCar",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/supply-car/portrait.png",
+    "source_sha256": "4a962b9cc6edae30f3c0fc0c84c86e08be57a94c44851a81cabc9d9a3d335968"
+  }
+}

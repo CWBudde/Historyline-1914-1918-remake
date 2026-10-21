@@ -7,7 +7,6 @@ import (
 	"errors"
 	"fmt"
 	"os"
-	"path/filepath"
 )
 
 type fogManifest struct {
@@ -83,7 +82,7 @@ func loadFogInputs(path string) (fogInputs, error) {
 	for _, id := range []string{"unseen", "summer", "winter"} {
 		// All three materials obey the established pinned opaque ground-source
 		// loader, including minimum dimensions and resolved path safeguards.
-		source, err := compoundReadSource(filepath.Dir(path), in.Manifest.Materials[id], true)
+		source, err := compoundReadSource(sourceBase(path), in.Manifest.Materials[id], true)
 		if err != nil {
 			return in, fmt.Errorf("fog material %s: %w", id, err)
 		}

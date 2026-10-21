@@ -1,7 +1,9 @@
 # Runtime asset packs
 
-`internal/assets` loads versioned PNG packs; `cmd/hlasset` builds and checks them. Packs live in ignored
-`build/packs/` until art is approved; only approved exports will be embedded (`assets/assets.go`).
+`internal/assets` loads versioned PNG packs; `cmd/hlasset` builds and checks them from the runtime art in
+`assets/`. `assets/index.json` lists every runtime file (ID, pack, density, path below `assets/`, SHA-256,
+size, anchor, art key such as `terrain/road`); packed entries are in pack order. Packs live in ignored
+`build/packs/` until art is approved; only approved art will be embedded (`assets/assets.go`).
 
 ```sh
 go run ./cmd/hlasset build -density 2 -out build/packs/interface-2x        # interface (1, 2 or 4)
@@ -36,7 +38,7 @@ the opponent).
 
 ## Terrain
 
-The builder reads `docs/art/runtime-tile-coverage.csv` and the recipe pins. Groups per density:
+Groups per density:
 `backgrounds` (60, incl. fog tile `unseen`), `infrastructure` (74), `context-ground`, `context-forest`,
 `context-hills`. IDs `tile/<runtime id>` and `context/<family>/<key>`; 96×80 logical, anchor (48,40).
 
@@ -53,5 +55,6 @@ are greyed. Draw density is the effective zoom's asset density, at least 2×. Ba
 
 ## Open
 
-Portraits, screens, fonts and animation metadata in runtime catalogs; ownership strips; contexts for
-imported maps and mixed seasons; live pack switching; browser loading; art approval and embedding.
+Packs for portraits, screens, animation metadata (all listed in `assets/index.json`) and fonts;
+ownership strips; contexts for imported maps and mixed seasons; live pack switching; browser loading;
+art approval and embedding.

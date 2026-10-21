@@ -184,7 +184,7 @@ func export(manifestPath, out string) error {
 	if m.SchemaVersion != 1 || m.Profile != "interface-v1" {
 		return errors.New("requires schema 1 interface-v1")
 	}
-	root, e := os.OpenRoot(filepath.Dir(manifestPath))
+	root, e := os.OpenRoot(sourceBase(manifestPath))
 	if e != nil {
 		return e
 	}

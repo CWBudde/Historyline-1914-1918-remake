@@ -1,0 +1,31 @@
+{
+  "grounds": {
+    "summer": {
+      "source": "art/terrain/grass/grass.png",
+      "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
+    },
+    "winter": {
+      "source": "art/terrain/grass/grass_w.png",
+      "source_sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3"
+    }
+  },
+  "scenes": [
+    {
+      "artwork": {
+        "source": "art/terrain/house/hamlet.png",
+        "source_sha256": "4e20895a10f9563d9429cda3cbe8825a8525c37cab0b2e5be78c9254b6d216d4"
+      },
+      "id": "hamlet-summer",
+      "inset": 0.75
+    },
+    {
+      "artwork": {
+        "source": "art/terrain/house/hamlet_w.png",
+        "source_sha256": "7096508ef69bfd4bccf6105a275c1598e9b51a0b88f9a02ae06c16838fe9f762"
+      },
+      "id": "hamlet-winter",
+      "inset": 0.75
+    }
+  ],
+  "schema_version": 1
+}

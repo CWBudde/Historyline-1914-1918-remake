@@ -8,7 +8,6 @@ import (
 	"errors"
 	"fmt"
 	"os"
-	"path/filepath"
 	"slices"
 )
 
@@ -120,7 +119,7 @@ func loadShoreInputs(path string) (shoreInputs, error) {
 		seen[v.ID] = true
 	}
 	for _, name := range []string{"grass", "water", "bank"} {
-		src, e := compoundReadSource(filepath.Dir(path), in.Manifest.Materials[name], true)
+		src, e := compoundReadSource(sourceBase(path), in.Manifest.Materials[name], true)
 		if e != nil {
 			return in, fmt.Errorf("shore %s: %w", name, e)
 		}

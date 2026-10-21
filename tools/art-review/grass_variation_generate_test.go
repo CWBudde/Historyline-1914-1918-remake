@@ -18,7 +18,7 @@ import (
 
 func TestGenerateGrassVariations(t *testing.T) {
 	root := filepath.Join("..", "..")
-	canonical := filepath.Join(root, "art/source/terrain/refdesign-v1/grass-base-01.png")
+	canonical := filepath.Join(root, "art/terrain/grass/grass.png")
 	before, err := os.ReadFile(canonical)
 	if err != nil {
 		t.Fatal(err)
@@ -50,7 +50,7 @@ func TestGenerateGrassVariations(t *testing.T) {
 			t.Fatal("every grass variant requires two densities")
 		}
 		for _, pin := range variant.Outputs {
-			if !filepath.IsLocal(pin.Path) || !strings.HasPrefix(pin.Path, "art/exports/grass-refdesign-v1/") || seen[pin.Path] {
+			if !filepath.IsLocal(pin.Path) || !strings.HasPrefix(pin.Path, "assets/terrain/grass/") || seen[pin.Path] {
 				t.Fatalf("invalid selected grass export %s", pin.Path)
 			}
 			seen[pin.Path] = true

@@ -35,7 +35,7 @@ close reconstructions of them.
   HQ is a seven-cell rosette (238×240 world px), depot/factory a four-cell diamond (238×160). Roofs, yards
   and shadows stay inside the union outline. Seasons share exact placements.
 - Shores: land/water state lives on the shared polygon vertices; each `lakeside*` ID lists its land
-  vertices explicitly in `art/shore-terrain-v1.json`.
+  vertices explicitly in `art/pipeline/shore-terrain-v1.json`.
 - Hills select a context by neighbours *and* absolute lattice phase; use the matching context rather than
   repeating the isolated default.
 - Terrain sources are 1374×1145 (exact 6:5). Exports are fixed Lanczos3 at 2× (192×160) and 4× (384×320);
@@ -46,16 +46,12 @@ close reconstructions of them.
 | Step | Where |
 | --- | --- |
 | Prompt, inputs and output pins per asset | `art/recipes/**.json` |
-| Untouched generated masters | `art/source/` |
-| Bundle manifests (one per family) | `art/*-v1.json` |
-| Exports (2×/4×, interface also 1×) | `art/exports/`, built by `tools/art-review`, `tools/interface-art`, `tools/unit-panel` |
-| Runtime ledgers: every ID → export, status | `runtime-{tile,unit,interface,screen}-coverage.csv` (here) |
+| Selected masters per runtime family | `art/{terrain,units,portraits,interface,screens}/<family>/`, `art/fonts/` |
+| Bundle manifests (one per family; repo-relative paths) | `art/pipeline/*.json` |
+| Exports (2×/4×, interface also 1×) | `tools/art-review`, `tools/interface-art`, `tools/unit-panel` into a fresh `-out` |
+| Runtime art: every ID → file, density, hash, anchor | `assets/index.json`, files in `assets/<kind>/<family>/` |
 | Runtime packs | `go run ./cmd/hlasset build-terrain\|build-units\|build -density N -out build/packs/…` (see `internal/assets`) |
-| Browsable gallery with prompts | `gallery/` (`just gallery`) |
 | Private comparison desk, composer, PULSE study | `just gfx-game-review`, `just gfx-study` → `build/review/gfx/` |
-
-`asset-inventory.csv` records the legacy assets and `terrain-production.csv` the original terrain resources
-still to be covered (both are read by `tools/art-inventory` and `tools/phase2-audit`).
 
 Review real neighbours through the compositor (`internal/mapcompose`), including three-tile vertices:
 matching style in isolation does not prove a seamless join. Keep masters, prompts and hashes; export

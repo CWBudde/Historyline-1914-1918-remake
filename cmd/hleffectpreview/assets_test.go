@@ -8,6 +8,8 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
+
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
 )
 
 func TestCandidateBundleAndTamperRejection(t *testing.T) {
@@ -37,7 +39,7 @@ func TestCandidateBundleAndTamperRejection(t *testing.T) {
 	if _, err := loadAssets(root); err != nil {
 		t.Fatal(err)
 	}
-	frame := filepath.Join(root, "art/exports/interface-v1/effect/hit-1x.png")
+	frame := filepath.Join(root, "assets/interface/effect/hit-1x.png")
 	original, err := os.ReadFile(frame)
 	if err != nil {
 		t.Fatal(err)
@@ -55,47 +57,47 @@ func TestCandidateBundleAndTamperRejection(t *testing.T) {
 	if err := png.Encode(&tiny, image.NewNRGBA(image.Rect(0, 0, 1, 1))); err != nil {
 		t.Fatal(err)
 	}
-	unit := filepath.Join(root, "art/exports/unit-infantry-v1/sprites/infantry/cp/n-normal-2x.png")
+	unit := filepath.Join(root, "assets/units/infantry/cp/n-normal-2x.png")
 	if err := os.WriteFile(unit, tiny.Bytes(), 0o600); err != nil {
 		t.Fatal(err)
 	}
-	if _, err := loadAssets(root); err == nil || !strings.Contains(err.Error(), "bad dimensions") {
-		t.Fatalf("bad unit dimensions accepted: %v", err)
+	if _, err := loadAssets(root); err == nil || !strings.Contains(err.Error(), "hash mismatch") {
+		t.Fatalf("tampered unit sprite accepted: %v", err)
 	}
 }
 
 func TestRejectEscapingCandidatePaths(t *testing.T) {
 	root := t.TempDir()
-	dest := filepath.Join(root, "art/exports/interface-v1")
+	dest := filepath.Join(root, "assets")
 	if err := os.MkdirAll(dest, 0o700); err != nil {
 		t.Fatal(err)
 	}
-	b, err := os.ReadFile("../../art/exports/interface-v1/report.json")
+	b, err := os.ReadFile("../../assets/index.json")
 	if err != nil {
 		t.Fatal(err)
 	}
-	b = bytes.Replace(b, []byte(`"path": "action/attack-disabled-1x.png"`), []byte(`"path": "../legacy/forbidden.png"`), 1)
-	if err := os.WriteFile(filepath.Join(dest, "report.json"), b, 0o600); err != nil {
+	b = bytes.Replace(b, []byte(`"path":"interface/action/attack-disabled-1x.png"`), []byte(`"path":"../legacy/forbidden.png"`), 1)
+	if err := os.WriteFile(filepath.Join(dest, "index.json"), b, 0o600); err != nil {
 		t.Fatal(err)
 	}
-	if _, err := loadAssets(root); err == nil || !strings.Contains(err.Error(), "invalid or duplicate interface path") {
+	if _, err := loadAssets(root); err == nil || !strings.Contains(err.Error(), "invalid asset path") {
 		t.Fatalf("escaping path accepted: %v", err)
 	}
 }
 
 func TestAllDeliveredFamiliesShareSupportedGeometry(t *testing.T) {
 	seen := make(map[string]bool)
-	for _, family := range families {
-		t.Run(family.slug, func(t *testing.T) {
-			if seen[family.slug] {
+	for _, family := range unitsprite.Families() {
+		t.Run(family, func(t *testing.T) {
+			if seen[family] {
 				t.Fatal("duplicate family slug")
 			}
-			seen[family.slug] = true
-			a, err := loadFamilyAssets(filepath.Join("..", ".."), family.slug)
+			seen[family] = true
+			a, err := loadFamilyAssets(filepath.Join("..", ".."), family)
 			if err != nil {
 				t.Fatal(err)
 			}
-			if a.family != family.slug {
+			if a.family != family {
 				t.Fatal("family omitted from evidence inputs")
 			}
 			for _, facing := range []string{"n", "nw", "sw", "s", "se", "ne"} {

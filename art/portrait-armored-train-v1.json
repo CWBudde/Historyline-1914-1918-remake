@@ -1,8 +1,0 @@
-{
-  "family": "armoredTrain",
-  "schema_version": 1,
-  "source": {
-    "source": "source/portraits/reference-v1/armored-train-01.png",
-    "source_sha256": "981341e9860855e9e9e8b86eed0737b61c16454df435c0916ab20a394cf4f981"
-  }
-}

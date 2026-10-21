@@ -1,0 +1,100 @@
+{
+  "manifests": [
+    {
+      "source": "art/pipeline/connected-terrain-v1.json",
+      "source_sha256": "ca36432903f7d3dd28377c64eb5aaa5eba63dd7f21fd5d91c011e9c932c83413"
+    },
+    {
+      "source": "art/pipeline/connected-paths-v1.json",
+      "source_sha256": "1193a0cc9bc4782d52230c6525dae59e3f27b7e53e812c5a3864aaa46a72c162"
+    },
+    {
+      "source": "art/pipeline/connected-rail-v1.json",
+      "source_sha256": "8f3990ff95ceaed2b80c15b89f39663466665c3b0170ef215731e284235eab05"
+    }
+  ],
+  "schema_version": 1,
+  "variants": [
+    {
+      "id": "bridge25",
+      "kind": "footbridge",
+      "ports": [
+        2,
+        5
+      ],
+      "runtime_id": "bridge25"
+    },
+    {
+      "id": "bridge36",
+      "kind": "footbridge",
+      "ports": [
+        3,
+        6
+      ],
+      "runtime_id": "bridge36"
+    },
+    {
+      "id": "rbridge14",
+      "kind": "road-bridge",
+      "ports": [
+        1,
+        4
+      ],
+      "runtime_id": "rBridge14"
+    },
+    {
+      "id": "rbridge25",
+      "kind": "road-bridge",
+      "ports": [
+        2,
+        5
+      ],
+      "runtime_id": "rBridge25"
+    },
+    {
+      "id": "rbridge36",
+      "kind": "road-bridge",
+      "ports": [
+        3,
+        6
+      ],
+      "runtime_id": "rBridge36"
+    },
+    {
+      "id": "cross1",
+      "kind": "crossing",
+      "layers": [
+        "path14",
+        "rail36"
+      ],
+      "runtime_id": "cross1"
+    },
+    {
+      "id": "cross2",
+      "kind": "crossing",
+      "layers": [
+        "road14",
+        "rail36"
+      ],
+      "runtime_id": "cross2"
+    },
+    {
+      "id": "cross3",
+      "kind": "crossing",
+      "layers": [
+        "road25",
+        "rail36"
+      ],
+      "runtime_id": "cross3"
+    },
+    {
+      "id": "cross4",
+      "kind": "crossing",
+      "layers": [
+        "path36",
+        "rail14"
+      ],
+      "runtime_id": "cross4"
+    }
+  ]
+}

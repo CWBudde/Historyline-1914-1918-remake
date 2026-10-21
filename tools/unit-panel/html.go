@@ -14,10 +14,10 @@ func productHTML(draws []Draw) string {
 		switch r.Kind {
 		case "image":
 			alt := ""
-			if strings.HasPrefix(r.Input, "exports/portrait") {
+			if strings.HasPrefix(r.Input, "assets/portraits") {
 				alt = "Infantry portrait"
 			}
-			if strings.HasPrefix(r.Input, "exports/unit") {
+			if strings.HasPrefix(r.Input, "assets/units") {
 				alt = "Tactical ownership thumbnail"
 			}
 			srcset := ""

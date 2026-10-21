@@ -17,7 +17,7 @@ import (
 
 func screenTestInputs(t *testing.T) (string, []byte, []Loaded) {
 	t.Helper()
-	p := filepath.Join("..", "..", "art", "screens-v1.json")
+	p := pipelineManifest("screens-v1")
 	raw, e := os.ReadFile(p)
 	if e != nil {
 		t.Fatal(e)
@@ -119,7 +119,7 @@ func TestScreenStrictInputsAndCrop(t *testing.T) {
 }
 
 func TestRetainedScreensRepeatAndGallery(t *testing.T) {
-	root := filepath.Join("..", "..", "art", "exports", "screens-v1")
+	root := freshExport(t, "screens-v1")
 	raw, e := os.ReadFile(filepath.Join(root, "report.json"))
 	if e != nil {
 		t.Fatal(e)
@@ -177,6 +177,12 @@ func TestRetainedScreensRepeatAndGallery(t *testing.T) {
 	}
 	if frames != 48 || controls != 15 || backdrops != 2 || previews != 16 || svgs != 23 || flags != 6 || len(report.Files) != 118 {
 		t.Fatalf("coverage: %d frames %d controls %d backdrops %d previews %d SVG %d flags %d files", frames, controls, backdrops, previews, svgs, flags, len(report.Files))
+	}
+	// The sixteen screen frames in assets/ are this export, byte for byte.
+	if n := checkRuntimePins(t, "screens", report.Files, func(f Output) bool {
+		return f.Family == "screen-frame" && f.Density > 0 && strings.HasSuffix(f.Path, ".png")
+	}); n != 48 {
+		t.Fatalf("compared %d runtime frames, want 48", n)
 	}
 	h, e := os.ReadFile(filepath.Join(root, "index.html"))
 	if e != nil {

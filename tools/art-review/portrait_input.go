@@ -8,7 +8,6 @@ import (
 	"image"
 	"image/png"
 	"os"
-	"path/filepath"
 )
 
 type portraitManifest struct {
@@ -67,7 +66,7 @@ func loadPortraitInputs(path string) (portraitInputs, error) {
 	// The unchanged reader's opaque branch validates the entire decoded image,
 	// including overscan later discarded by the portrait crop. Its minimum
 	// ground size is weaker than the exact portrait crop minimum below.
-	in.Source, err = compoundReadSource(filepath.Dir(path), in.Manifest.Source, true)
+	in.Source, err = compoundReadSource(sourceBase(path), in.Manifest.Source, true)
 	if err != nil {
 		return in, err
 	}

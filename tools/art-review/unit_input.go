@@ -12,7 +12,6 @@ import (
 	"image/draw"
 	"image/png"
 	"os"
-	"path/filepath"
 )
 
 // Configurable choices are the explicit family, source pins, owner colours and
@@ -179,7 +178,7 @@ func loadUnitInputs(path string) (unitInputs, error) {
 	if err = decodeUnitManifest(in.Bytes, &in.Manifest); err != nil {
 		return in, err
 	}
-	in.Atlas, err = compoundReadSource(filepath.Dir(path), in.Manifest.Atlas, false)
+	in.Atlas, err = compoundReadSource(sourceBase(path), in.Manifest.Atlas, false)
 	if err != nil {
 		return in, fmt.Errorf("unit atlas: %w", err)
 	}
@@ -189,7 +188,7 @@ func loadUnitInputs(path string) (unitInputs, error) {
 	for _, name := range []string{"grass", "grass_w", "mud"} {
 		in.Grounds[name] = map[int]compoundSource{}
 		for _, density := range []int{2, 4} {
-			src, e := compoundReadSource(filepath.Dir(path), in.Manifest.Grounds[name][fmt.Sprintf("%dx", density)], false)
+			src, e := compoundReadSource(sourceBase(path), in.Manifest.Grounds[name][fmt.Sprintf("%dx", density)], false)
 			if e != nil {
 				return in, fmt.Errorf("unit ground %s %dx: %w", name, density, e)
 			}

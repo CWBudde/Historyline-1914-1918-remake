@@ -1,8 +1,0 @@
-{
-  "family": "bunker",
-  "schema_version": 1,
-  "source": {
-    "source": "source/portraits/reference-v1/bunker-01.png",
-    "source_sha256": "c8315b3ef25f7ea7924e3f9af29d9861bb3a441db466715b5a2cdbc3a51f72ec"
-  }
-}

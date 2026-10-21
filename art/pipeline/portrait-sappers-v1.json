@@ -1,0 +1,8 @@
+{
+  "family": "sappers",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/sappers/portrait.png",
+    "source_sha256": "e319c953be15f557a3c38bd0b61fa3d69892fd21bcb817152bdbee836a08ddd7"
+  }
+}

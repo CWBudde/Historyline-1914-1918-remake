@@ -6,7 +6,7 @@ package main
 // bundle; it never promotes or modifies active art or a retained recipe.
 //
 // From repository root:
-// go test -tags retainedgfx ./tools/art-review -run '^TestGenerateRetainedContextBundle$' -count=1 -args -context-family ground -context-manifest art/ground-terrain-v1.json -context-recipe art/recipes/ground-terrain-v1.json -context-bundle build/review/fresh-ground
+// go test -tags retainedgfx ./tools/art-review -run '^TestGenerateRetainedContextBundle$' -count=1 -args -context-family ground -context-manifest art/pipeline/ground-terrain-v1.json -context-recipe art/recipes/ground-terrain-v1.json -context-bundle build/review/fresh-ground
 import (
 	"bytes"
 	"crypto/rand"
@@ -133,7 +133,7 @@ func augmentRetainedContextBundle(family, manifest, recipe, bundle string) error
 	if !inside(filepath.Join(root, "build"), bundle) && !inside(temporary, bundle) {
 		return fmt.Errorf("context bundle must be ignored build output or a temporary directory")
 	}
-	if inside(filepath.Join(root, "art"), bundle) {
+	if inside(filepath.Join(root, "art"), bundle) || inside(filepath.Join(root, "assets"), bundle) {
 		return fmt.Errorf("active art is not a context bundle")
 	}
 	bundleRoot, err := os.OpenRoot(bundle)

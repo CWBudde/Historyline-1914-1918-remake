@@ -19,9 +19,6 @@ jobs:
   test-lint:
     uses: ./.github/workflows/test-lint.yaml
 
-  test-gfx:
-    uses: ./.github/workflows/test-gfx.yaml
-
   test-can-build:
     uses: ./.github/workflows/test-can-build.yaml
 

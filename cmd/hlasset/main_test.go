@@ -12,7 +12,7 @@ import (
 )
 
 func TestRetainedInterfaceBuildValidateAndRepeat(t *testing.T) {
-	source := filepath.Join("..", "..", "art", "exports", "interface-v1")
+	source := assetsRoot
 	root := t.TempDir()
 	a, b := filepath.Join(root, "a"), filepath.Join(root, "b")
 	m, err := build(source, a, 2)
@@ -91,13 +91,13 @@ func TestRetainedInterfaceBuildValidateAndRepeat(t *testing.T) {
 }
 
 func TestEveryDensityPreservesStableIDsAndSourceBytes(t *testing.T) {
-	source := filepath.Join("..", "..", "art", "exports", "interface-v1")
-	report, err := os.ReadFile(filepath.Join(source, "report.json"))
+	source := assetsRoot
+	index, err := readIndex(source)
 	if err != nil {
 		t.Fatal(err)
 	}
 	for _, density := range []int{1, 2, 4} {
-		original, err := importInterface(report, density)
+		original, err := interfacePack(index, density)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -133,12 +133,14 @@ func TestBuildFailureLeavesNoOutput(t *testing.T) {
 		t.Fatal(err)
 	}
 	out := filepath.Join(root, "pack")
-	for _, report := range []string{
-		`{"schema_version":1,"profile":"screens-v1","files":[]}`,
-		`{"schema_version":1,"profile":"interface-v1","files":[]}`,
-		`{"schema_version":1,"profile":"interface-v1","files":[{"id":"bad","path":"../escape.png","density":1}]}`,
+	pin := strings.Repeat("0", 64)
+	for _, index := range []string{
+		`{"schema_version":2,"assets":[]}`,
+		`{"schema_version":1,"assets":[]}`,
+		`{"schema_version":1,"assets":[{"id":"bad","pack":"interface-v1-2x","density":2,"path":"../escape-2x.png","sha256":"` + pin + `","width":2,"height":2,"logical_anchor":[0,0],"art":"interface/bad"}]}`,
+		`{"schema_version":1,"assets":[{"id":"bad","pack":"interface-v1-2x","density":2,"path":"bad-2x.png","sha256":"` + pin + `","width":2,"height":2,"logical_anchor":[0,0],"art":"interface/bad"}]}`,
 	} {
-		if err := os.WriteFile(filepath.Join(source, "report.json"), []byte(report), 0o600); err != nil {
+		if err := os.WriteFile(filepath.Join(source, "index.json"), []byte(index), 0o600); err != nil {
 			t.Fatal(err)
 		}
 		if _, err := build(source, out, 2); err == nil {
@@ -156,13 +158,18 @@ func TestCommandErrors(t *testing.T) {
 			t.Fatal("invalid command succeeded", args)
 		}
 	}
-	if _, err := importInterface([]byte("null"), 2); err == nil {
-		t.Fatal("null report accepted")
+	if _, err := interfacePack(nil, 2); err == nil {
+		t.Fatal("empty index accepted")
 	}
-	if _, err := importInterface(nil, 3); err == nil {
+	if _, err := interfacePack(nil, 3); err == nil {
 		t.Fatal("unsupported density accepted")
 	}
-	if _, err := importInterface([]byte(`{"schema_version":1,"profile":"interface-v1","files":[{"id":"missing","path":"a-1x.png","density":1}]}`), 2); err == nil || !strings.Contains(err.Error(), "missing requested density") {
+	anchor := [2]float64{}
+	partial := []indexEntry{
+		{ID: "kept", Pack: "interface-v1-2x", Density: 2, Path: "kept-2x.png", Anchor: &anchor},
+		{ID: "missing", Pack: "interface-v1-1x", Density: 1, Path: "missing-1x.png", Anchor: &anchor},
+	}
+	if _, err := interfacePack(partial, 2); err == nil || !strings.Contains(err.Error(), "missing requested density") {
 		t.Fatal("missing density silently omitted", err)
 	}
 	// The runtime manifest is a separate format; exporter metadata is not accepted.

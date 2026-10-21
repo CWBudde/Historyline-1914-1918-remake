@@ -8,7 +8,6 @@ import (
 	"fmt"
 	"image"
 	"os"
-	"path/filepath"
 )
 
 type hillsManifest struct {
@@ -77,7 +76,7 @@ func loadHillsInputs(path string) (hillsInputs, error) {
 		return in, fmt.Errorf("hills manifest: %w", err)
 	}
 	for _, id := range []string{"grass", "height"} {
-		source, err := compoundReadSource(filepath.Dir(path), in.Manifest.Materials[id], true)
+		source, err := compoundReadSource(sourceBase(path), in.Manifest.Materials[id], true)
 		if err != nil {
 			return in, fmt.Errorf("hills %s: %w", id, err)
 		}

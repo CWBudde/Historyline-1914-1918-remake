@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="220" height="32" viewBox="0 0 220 32">
-<path fill="#c4a773" fill-opacity="1.00000000" d="M 5 0L 215 0Q 220 0 220 5L 220 27Q 220 32 215 32L 5 32Q 0 32 0 27L 0 5Q 0 0 5 0Z"/>
-<path fill="#0d1b24" fill-opacity="1.00000000" d="M 5 1L 215 1Q 219 1 219 5L 219 27Q 219 31 215 31L 5 31Q 1 31 1 27L 1 5Q 1 1 5 1Z"/>
-<path fill="#080e13" fill-opacity="1.00000000" d="M 3 3L 217 3L 217 5L 3 5Z"/>
-<path fill="#070f15" fill-opacity="1.00000000" d="M 16 12L 204 12Q 208 12 208 16L 208 16Q 208 20 204 20L 16 20Q 12 20 12 16L 12 16Q 12 12 16 12Z"/>
-<path fill="#6e8088" fill-opacity="1.00000000" d="M 12 15L 13 15L 13 17L 12 17Z"/>
-<path fill="#6e8088" fill-opacity="1.00000000" d="M 207 15L 208 15L 208 17L 207 17Z"/>
-</svg>

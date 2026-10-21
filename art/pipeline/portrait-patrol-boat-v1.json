@@ -1,0 +1,8 @@
+{
+  "family": "patrolBoat",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/patrol-boat/portrait.png",
+    "source_sha256": "2758204a06c7ca517f5a5287b2e657dc52f4fecbccc446d3f498a39425691f50"
+  }
+}

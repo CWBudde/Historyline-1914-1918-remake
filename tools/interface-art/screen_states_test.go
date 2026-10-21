@@ -125,7 +125,7 @@ func TestScreenSliderFillClipsWithoutScalingOrCoveringThumb(t *testing.T) {
 }
 
 func TestRetainedScreenStatesRepeatPinsAndLinks(t *testing.T) {
-	root := filepath.Join("..", "..", "art", "exports", "screens-v2")
+	root := freshExport(t, "screens-v2")
 	raw, e := os.ReadFile(filepath.Join(root, "report.json"))
 	if e != nil {
 		t.Fatal(e)
@@ -180,6 +180,12 @@ func TestRetainedScreenStatesRepeatPinsAndLinks(t *testing.T) {
 			t.Fatalf("missing density: %s", id)
 		}
 	}
+	// The runtime copies in assets/ are this export, byte for byte.
+	if n := checkRuntimePins(t, "screens", r.Files, func(f Output) bool {
+		return f.Family != "review" && f.Density > 0 && strings.HasSuffix(f.Path, ".png")
+	}); n != 278 {
+		t.Fatalf("compared %d runtime files, want 278", n)
+	}
 	h, e := os.ReadFile(filepath.Join(root, "index.html"))
 	if e != nil {
 		t.Fatal(e)
@@ -200,7 +206,7 @@ func TestRetainedScreenStatesRepeatPinsAndLinks(t *testing.T) {
 		t.Fatal("review keyboard/chevron contract missing")
 	}
 	out := filepath.Join(t.TempDir(), "repeat")
-	if e = export(filepath.Join("..", "..", "art", "screens-v2.json"), out); e != nil {
+	if e = export(pipelineManifest("screens-v2"), out); e != nil {
 		t.Fatal(e)
 	}
 	n := 0

@@ -1,0 +1,8 @@
+{
+  "family": "mediumArtillery",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/medium-artillery/portrait.png",
+    "source_sha256": "ad46caac028c00486179a4d12b0168d8eca5a93dd83dc57dd177091374f73322"
+  }
+}

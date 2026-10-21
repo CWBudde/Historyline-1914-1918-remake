@@ -111,12 +111,14 @@ func run(args []string, log io.Writer) error {
 	candidatePath := fs.String("candidate", "", "candidate PNG, at least 4x reference dimensions and aspect within 1%")
 	resampling := fs.String("resampling", "area", "single-sprite reduction: area, bilinear (antialiased tent), or lanczos (antialiased Lanczos3); excluded by -neighborhood")
 	out := fs.String("out", "", "output directory (existing artifact names are rejected)")
+	root := fs.String("root", "", "directory manifest source paths are relative to (default: the repository root above the manifest)")
 	if err := fs.Parse(args); err != nil {
 		if errors.Is(err, flag.ErrHelp) {
 			return nil
 		}
 		return err
 	}
+	sourceRoot = *root
 	portraitProvided := false
 	fs.Visit(func(f *flag.Flag) {
 		if f.Name == "portrait" {
@@ -126,7 +128,7 @@ func run(args []string, log io.Writer) error {
 	if portraitProvided {
 		conflict := false
 		fs.Visit(func(f *flag.Flag) {
-			if f.Name != "portrait" && f.Name != "out" {
+			if f.Name != "portrait" && f.Name != "out" && f.Name != "root" {
 				conflict = true
 			}
 		})
@@ -144,7 +146,7 @@ func run(args []string, log io.Writer) error {
 	if unitProvided {
 		conflict := false
 		fs.Visit(func(f *flag.Flag) {
-			if f.Name != "unit" && f.Name != "out" {
+			if f.Name != "unit" && f.Name != "out" && f.Name != "root" {
 				conflict = true
 			}
 		})
@@ -162,7 +164,7 @@ func run(args []string, log io.Writer) error {
 	if hillsProvided {
 		conflict := false
 		fs.Visit(func(f *flag.Flag) {
-			if f.Name != "hills" && f.Name != "out" {
+			if f.Name != "hills" && f.Name != "out" && f.Name != "root" {
 				conflict = true
 			}
 		})
@@ -180,7 +182,7 @@ func run(args []string, log io.Writer) error {
 	if forestProvided {
 		conflict := false
 		fs.Visit(func(f *flag.Flag) {
-			if f.Name != "forest" && f.Name != "out" {
+			if f.Name != "forest" && f.Name != "out" && f.Name != "root" {
 				conflict = true
 			}
 		})
@@ -198,7 +200,7 @@ func run(args []string, log io.Writer) error {
 	if groundProvided {
 		conflict := false
 		fs.Visit(func(f *flag.Flag) {
-			if f.Name != "ground" && f.Name != "out" {
+			if f.Name != "ground" && f.Name != "out" && f.Name != "root" {
 				conflict = true
 			}
 		})
@@ -216,7 +218,7 @@ func run(args []string, log io.Writer) error {
 	if fogProvided {
 		conflict := false
 		fs.Visit(func(f *flag.Flag) {
-			if f.Name != "fog" && f.Name != "out" {
+			if f.Name != "fog" && f.Name != "out" && f.Name != "root" {
 				conflict = true
 			}
 		})
@@ -234,7 +236,7 @@ func run(args []string, log io.Writer) error {
 	if shoreProvided {
 		conflict := false
 		fs.Visit(func(f *flag.Flag) {
-			if f.Name != "shore" && f.Name != "out" {
+			if f.Name != "shore" && f.Name != "out" && f.Name != "root" {
 				conflict = true
 			}
 		})
@@ -252,7 +254,7 @@ func run(args []string, log io.Writer) error {
 	if compoundProvided {
 		conflict := false
 		fs.Visit(func(f *flag.Flag) {
-			if f.Name != "compound" && f.Name != "out" {
+			if f.Name != "compound" && f.Name != "out" && f.Name != "root" {
 				conflict = true
 			}
 		})
@@ -270,7 +272,7 @@ func run(args []string, log io.Writer) error {
 	if mixedProvided {
 		conflict := false
 		fs.Visit(func(f *flag.Flag) {
-			if f.Name != "mixed" && f.Name != "out" {
+			if f.Name != "mixed" && f.Name != "out" && f.Name != "root" {
 				conflict = true
 			}
 		})
@@ -288,7 +290,7 @@ func run(args []string, log io.Writer) error {
 	if connectedProvided {
 		conflict := false
 		fs.Visit(func(f *flag.Flag) {
-			if f.Name != "connected" && f.Name != "out" {
+			if f.Name != "connected" && f.Name != "out" && f.Name != "root" {
 				conflict = true
 			}
 		})
@@ -306,7 +308,7 @@ func run(args []string, log io.Writer) error {
 	if packProvided {
 		conflict := false
 		fs.Visit(func(f *flag.Flag) {
-			if f.Name != "pack" && f.Name != "out" {
+			if f.Name != "pack" && f.Name != "out" && f.Name != "root" {
 				conflict = true
 			}
 		})

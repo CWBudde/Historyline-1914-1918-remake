@@ -291,7 +291,7 @@ const browserSmoke = `
   assert(document.querySelectorAll('#comparison figure').length===1,'unpaired candidate view');
   change('search','');change('category','Screens');change('search','options');
   assert(document.getElementById('title').textContent==='options','intended screen layout');
-  assert(document.getElementById('density').options[2].disabled,'no invented fixture 4x');
+  assert(!document.getElementById('density').options[2].disabled,'authored 4x frame');
   change('search','no-such-asset-xyz');assert(document.getElementById('title').textContent==='No matching assets','empty search');
   change('search','');change('category','Portraits');change('search','infantry');
   document.querySelector('[data-id="portrait/infantry"]').click();

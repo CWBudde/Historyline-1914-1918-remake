@@ -2,7 +2,6 @@ package main
 
 import (
 	"bytes"
-	"encoding/json"
 	"io/fs"
 	"os"
 	"path/filepath"
@@ -13,11 +12,6 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
-)
-
-var (
-	repoRoot        = filepath.Join("..", "..")
-	terrainCoverage = filepath.Join(repoRoot, "docs", "art", "runtime-tile-coverage.csv")
 )
 
 func openTerrainPack(t *testing.T, out string, d int, group string) *assets.Pack {
@@ -36,7 +30,7 @@ func openTerrainPack(t *testing.T, out string, d int, group string) *assets.Pack
 
 func TestRetainedTerrainCatalogBuilds(t *testing.T) {
 	out := filepath.Join(t.TempDir(), "terrain")
-	packs, err := buildTerrain(terrainCoverage, unitRecipes, repoRoot, out)
+	packs, err := buildTerrain(assetsRoot, out)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -83,7 +77,7 @@ func TestRetainedTerrainCatalogBuilds(t *testing.T) {
 		}
 	}
 	// Bytes are copied, not re-encoded.
-	src, err := os.ReadFile(filepath.Join(repoRoot, "art", "exports", "compound-v1", "hqN-4x.png"))
+	src, err := os.ReadFile(filepath.Join(assetsRoot, "terrain", "hq", "hqN-4x.png"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -94,100 +88,98 @@ func TestRetainedTerrainCatalogBuilds(t *testing.T) {
 	if !bytes.Equal(got.Bytes(), src) {
 		t.Fatal("runtime build changed the source PNG bytes")
 	}
-	if _, err := buildTerrain(terrainCoverage, unitRecipes, repoRoot, out); err == nil {
+	if _, err := buildTerrain(assetsRoot, out); err == nil {
 		t.Fatal("existing output directory reused")
 	}
 }
 
-// copyTerrainInputs copies the coverage ledger and the terrain recipes to a
-// temporary directory, applying edit to the named file.
-func copyTerrainInputs(t *testing.T, file string, edit func(string) string) (coverage, recipes string) {
-	t.Helper()
-	dir := t.TempDir()
-	recipes = filepath.Join(dir, "recipes")
-	if err := os.Mkdir(recipes, 0o755); err != nil {
+func TestTerrainPlanIncludesGrassVariations(t *testing.T) {
+	packs, err := planTerrain(retainedIndex(t))
+	if err != nil {
 		t.Fatal(err)
 	}
-	copyFile := func(src, dst string) {
-		b, err := os.ReadFile(src)
-		if err != nil {
-			t.Fatal(err)
-		}
-		s := string(b)
-		if filepath.Base(src) == file {
-			if s2 := edit(s); s2 != s {
-				s = s2
-			} else {
-				t.Fatalf("edit of %s changed nothing", file)
+	counts := map[int]int{}
+	for _, p := range packs {
+		for _, e := range p.Manifest.Entries {
+			if strings.HasPrefix(e.ID, "tile/grass-detail-") {
+				if p.Group != "backgrounds" {
+					t.Errorf("grass detail outside the background pack: %+v", e)
+				}
+				counts[p.Density]++
 			}
 		}
-		if err := os.WriteFile(dst, []byte(s), 0o644); err != nil {
-			t.Fatal(err)
-		}
 	}
-	paths, _ := filepath.Glob(filepath.Join(unitRecipes, "*-v1.json"))
-	for _, p := range paths {
-		if !strings.HasPrefix(filepath.Base(p), "unit-") && !strings.HasPrefix(filepath.Base(p), "portrait-") {
-			copyFile(p, filepath.Join(recipes, filepath.Base(p)))
-		}
+	if counts[2] != 16 || counts[4] != 16 {
+		t.Fatalf("terrain catalog has grass details %v, want sixteen per density", counts)
 	}
-	coverage = filepath.Join(dir, "coverage.csv")
-	copyFile(terrainCoverage, coverage)
-	return coverage, recipes
 }
 
 func TestTerrainBuildRefusesBadInputs(t *testing.T) {
+	entry := func(es []indexEntry, pack, id string) *indexEntry {
+		for i := range es {
+			if es[i].Pack == pack && es[i].ID == id {
+				return &es[i]
+			}
+		}
+		t.Fatalf("no %s in %s", id, pack)
+		return nil
+	}
 	cases := []struct {
-		name, file string
-		edit       func(string) string
-		want       string
+		name   string
+		damage func([]indexEntry) []indexEntry
+		want   string
 	}{
-		{"tampered hash", "compound-hq-v1.json", func(s string) string {
-			var recipe struct {
-				Exports []struct{ Path, SHA256 string }
-			}
-			if err := json.Unmarshal([]byte(s), &recipe); err != nil {
-				t.Fatal(err)
-			}
-			for _, output := range recipe.Exports {
-				if output.Path == "art/exports/compound-v1/hqN-2x.png" {
-					return strings.ReplaceAll(s, `"sha256": "`+output.SHA256+`"`,
-						`"sha256": "`+strings.Repeat("0", 64)+`"`)
+		{"wrong registration", func(es []indexEntry) []indexEntry {
+			entry(es, "terrain-backgrounds-2x", "tile/hqN").Anchor = &[2]float64{0, 0}
+			return es
+		}, "tile/hqN"},
+		{"wrong size", func(es []indexEntry) []indexEntry {
+			entry(es, "terrain-backgrounds-4x", "tile/hqN").Height = 160
+			return es
+		}, "tile/hqN"},
+		{"wrong group", func(es []indexEntry) []indexEntry {
+			entry(es, "terrain-infrastructure-2x", "tile/road124").Pack = "terrain-context-hills-2x"
+			return es
+		}, "tile/road124"},
+		{"missing pack", func(es []indexEntry) []indexEntry {
+			var kept []indexEntry
+			for _, e := range es {
+				if e.Pack != "terrain-context-forest-4x" {
+					kept = append(kept, e)
 				}
 			}
-			t.Fatal("recipe lacks the HQ north export to tamper")
-			return s
-		}, "tile/hqN"},
-		{"unpinned export", "runtime-tile-coverage.csv", func(s string) string {
-			return strings.Replace(s, "art/exports/compound-v1/hqN-2x.png", "art/exports/compound-v1/hqN-copy-2x.png", 1)
-		}, "no pin"},
-		{"missing density", "runtime-tile-coverage.csv", func(s string) string {
-			return strings.Replace(s, ",art/exports/compound-v1/hqN-4x.png,", ",,", 1)
-		}, "hqN"},
-		{"context key", "hills-terrain-v1.json", func(s string) string {
-			return strings.Replace(s, `"context_key": "e26f98f07c675934102b2039d788895d492df0a98dcbbdcf1762136b1ffe100f"`,
-				`"context_key": "`+strings.Repeat("1", 64)+`"`, 1)
-		}, "context key"},
+			return kept
+		}, "terrain-context-forest-4x"},
+		{"unknown pack", func(es []indexEntry) []indexEntry {
+			entry(es, "terrain-backgrounds-2x", "tile/hqN").Pack = "terrain-roofs-2x"
+			return es
+		}, "terrain-roofs-2x"},
 	}
 	for _, c := range cases {
-		t.Run(c.name, func(t *testing.T) {
-			coverage, recipes := copyTerrainInputs(t, c.file, c.edit)
-			out := filepath.Join(t.TempDir(), "terrain")
-			_, err := buildTerrain(coverage, recipes, repoRoot, out)
-			if err == nil || !strings.Contains(err.Error(), c.want) {
-				t.Fatalf("err = %v, want it to mention %q", err, c.want)
-			}
-			if _, statErr := os.Stat(out); !os.IsNotExist(statErr) {
-				t.Fatal("failed build left its output directory")
-			}
-		})
+		if _, err := planTerrain(c.damage(retainedIndex(t))); err == nil || !strings.Contains(err.Error(), c.want) {
+			t.Errorf("%s: err = %v, want it to mention %q", c.name, err, c.want)
+		}
+	}
+	// A tampered pin fails validation before the output directory exists.
+	packs, err := planTerrain(retainedIndex(t))
+	if err != nil {
+		t.Fatal(err)
+	}
+	m := packs[0].Manifest
+	m.Entries[0].SHA256 = strings.Repeat("0", 64)
+	out := filepath.Join(t.TempDir(), "terrain")
+	if _, err := writePacks(assetsRoot, out, []assets.Manifest{m}, func(int) string { return "." }); err == nil || !strings.Contains(err.Error(), "hash mismatch") {
+		t.Fatal("tampered pin accepted", err)
+	}
+	if _, err := os.Stat(out); !os.IsNotExist(err) {
+		t.Fatal("failed build left its output directory")
 	}
 }
 
 func TestTerrainGapsReport(t *testing.T) {
 	out := filepath.Join(t.TempDir(), "terrain")
 	var b bytes.Buffer
-	if err := run([]string{"build-terrain", "-coverage", terrainCoverage, "-recipes", unitRecipes, "-root", repoRoot, "-out", out}, &b); err != nil {
+	if err := run([]string{"build-terrain", "-assets", assetsRoot, "-out", out}, &b); err != nil {
 		t.Fatal(err)
 	}
 	if !strings.Contains(b.String(), "built 10 terrain packs") {

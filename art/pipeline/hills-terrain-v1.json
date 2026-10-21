@@ -1,0 +1,13 @@
+{
+  "materials": {
+    "grass": {
+      "source": "art/terrain/grass/grass.png",
+      "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
+    },
+    "height": {
+      "source": "art/terrain/hills/height.png",
+      "source_sha256": "31b342bb5d98f26b59d5015c371c6f88327ec9cfd9caed38ef177bc48cbeb102"
+    }
+  },
+  "schema_version": 1
+}

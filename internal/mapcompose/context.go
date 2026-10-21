@@ -4,9 +4,9 @@
 // every tile it cannot select exactly, so gaps stay visible instead of invented.
 //
 // The context contract is a port of the offline exporters' descriptors
-// (docs/art/{ground,forest,hills}-material-contexts.md): the key of a tile is the
-// SHA-256 of its descriptor, and TestDescriptorMatchesRecipeProfiles pins it to
-// every profile in art/recipes.
+// (tools/art-review): the key of a tile is the SHA-256 of its descriptor and its
+// runtime art is context/<family>/<key> in assets/index.json.
+// TestDescriptorMatchesRecipeProfiles pins the key to the exporters' profiles.
 package mapcompose
 
 import (

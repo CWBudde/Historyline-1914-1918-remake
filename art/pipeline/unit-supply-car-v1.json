@@ -1,0 +1,57 @@
+{
+  "atlas": {
+    "source": "art/units/supply-car/atlas.png",
+    "source_sha256": "2ae3fba131b601178a17d4c944030e3a1393f111ad669098b46fda8ce6378518"
+  },
+  "family": "supplyCar",
+  "grounds": {
+    "grass": {
+      "2x": {
+        "source": "assets/terrain/grass/grass-2x.png",
+        "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
+      },
+      "4x": {
+        "source": "assets/terrain/grass/grass-4x.png",
+        "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
+      }
+    },
+    "grass_w": {
+      "2x": {
+        "source": "assets/terrain/grass/grass_w-2x.png",
+        "source_sha256": "d2db0b7ce97f3145abcd651b0042654433dd7f36875de7b88438688c0716d947"
+      },
+      "4x": {
+        "source": "assets/terrain/grass/grass_w-4x.png",
+        "source_sha256": "7ac55b80d4106a18504a9529f04905a4164755363175a15a65948adb52e95cd3"
+      }
+    },
+    "mud": {
+      "2x": {
+        "source": "assets/terrain/ground/mud-2x.png",
+        "source_sha256": "62c43c93760f9076af2e302a51aa5de39a52913538a7a555ccda3f6bd5358a07"
+      },
+      "4x": {
+        "source": "assets/terrain/ground/mud-4x.png",
+        "source_sha256": "e1c7567308d2537d6ecf553132358d65a338f1220f9bddce21a3948c728beba5"
+      }
+    }
+  },
+  "palettes": {
+    "cp": [
+      205,
+      190,
+      159
+    ],
+    "ec": [
+      138,
+      164,
+      186
+    ],
+    "neutral": [
+      174,
+      174,
+      164
+    ]
+  },
+  "schema_version": 1
+}

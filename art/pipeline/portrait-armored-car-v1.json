@@ -1,0 +1,8 @@
+{
+  "family": "armoredCar",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/armored-car/portrait.png",
+    "source_sha256": "e8752ec6ed3886c26b7a7d650924e59728c7489754227e26aa54533e1458f0ff"
+  }
+}

@@ -1,6 +1,4 @@
-# Preserve byte-pinned screen exports across Windows and Unix checkouts.
-/art/exports/screens-v1/** -text
-/art/exports/screens-v2/** -text
-/art/screens-v1.json text eol=lf
-/art/screens-v2.json text eol=lf
-/art/source/fonts/go-fonts/LICENSE.txt text eol=lf
+# Preserve byte-pinned art across Windows and Unix checkouts.
+/assets/** -text
+/art/pipeline/*.json text eol=lf
+/art/fonts/LICENSE.txt text eol=lf

@@ -42,7 +42,7 @@ func screenInputs(manifestPath string, raw []byte) (ScreenManifest, []Loaded, er
 		}
 		seen[f.ID] = true
 	}
-	root, e := os.OpenRoot(filepath.Dir(manifestPath))
+	root, e := os.OpenRoot(sourceBase(manifestPath))
 	if e != nil {
 		return m, nil, e
 	}

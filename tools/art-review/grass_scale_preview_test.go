@@ -15,7 +15,7 @@ import (
 // writes ignored build artifacts and never updates a selected source or export.
 func TestGenerateGrassScaleProof(t *testing.T) {
 	root := filepath.Join("..", "..")
-	master, err := loadPNG(filepath.Join(root, "art/source/terrain/refdesign-v1/grass-meadow-01.png"))
+	master, err := loadPNG(filepath.Join(root, "art/terrain/grass/meadow-master.png"))
 	if err != nil {
 		t.Fatal(err)
 	}

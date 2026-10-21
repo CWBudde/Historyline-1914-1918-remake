@@ -2,13 +2,14 @@
 
 Builds the interface, marker, weapon, effect and screen bundles from a schema-1 manifest. Vectors come
 from the Go catalogue (one path model → SVG and 4× raster); PNGs are reduced 4× → 2× → 1× with Lanczos3.
-Art never contains labels or values. The output directory must not exist yet.
+Art never contains labels or values. Manifest source paths are relative to the repository root. The
+output directory must not exist yet; the runtime copies live in `assets/interface/` and `assets/screens/`.
 
 ```sh
 mkdir -p build/review/interface build/review/screen
-go run ./tools/interface-art -manifest art/interface-v1.json -out build/review/interface/new
-go run ./tools/interface-art -manifest art/screens-v1.json   -out build/review/screen/new
-go run ./tools/interface-art -manifest art/screens-v2.json   -out build/review/screen/states
+go run ./tools/interface-art -manifest art/pipeline/interface-v1.json -out build/review/interface/new
+go run ./tools/interface-art -manifest art/pipeline/screens-v1.json   -out build/review/screen/new
+go run ./tools/interface-art -manifest art/pipeline/screens-v2.json   -out build/review/screen/states
 go test ./tools/interface-art
 ```
 

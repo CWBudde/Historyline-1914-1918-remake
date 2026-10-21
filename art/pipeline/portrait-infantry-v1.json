@@ -1,0 +1,8 @@
+{
+  "family": "infantry",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/infantry/portrait.png",
+    "source_sha256": "e050a41dab4016c39d29a605e173e9199dfc919bfc2197295f2d43cd3c96f7bd"
+  }
+}

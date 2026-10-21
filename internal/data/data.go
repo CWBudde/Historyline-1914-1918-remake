@@ -68,7 +68,7 @@ type Attack struct {
 }
 
 // Weapon is a weaponsParameters entry without its graphics. The catalogue is
-// bound to the weapon art (art/interface-v1.json); units use it through Slot.
+// bound to the weapon art (art/pipeline/interface-v1.json); units use it through Slot.
 type Weapon struct {
 	Name     string `json:"name"`
 	RangeMin int    `json:"rangeMin"`

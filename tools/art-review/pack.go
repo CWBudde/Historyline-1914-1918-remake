@@ -119,7 +119,7 @@ func runPack(manifestPath, out string, log io.Writer) (resultErr error) {
 		}
 		sourcePath := asset.Source
 		if !filepath.IsAbs(sourcePath) {
-			sourcePath = filepath.Join(filepath.Dir(manifestPath), sourcePath)
+			sourcePath = filepath.Join(sourceBase(manifestPath), sourcePath)
 		}
 		resolved, err := filepath.EvalSymlinks(sourcePath)
 		if err != nil {

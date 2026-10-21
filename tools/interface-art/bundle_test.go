@@ -12,7 +12,7 @@ import (
 )
 
 func TestRetainedBundlePinsGeometryAndRepeat(t *testing.T) {
-	root := filepath.Join("..", "..", "art", "exports", "interface-v1")
+	root := freshExport(t, "interface-v1")
 	raw, e := os.ReadFile(filepath.Join(root, "report.json"))
 	if e != nil {
 		t.Fatal(e)
@@ -70,8 +70,14 @@ func TestRetainedBundlePinsGeometryAndRepeat(t *testing.T) {
 			t.Fatalf("incomplete densities for %s", id)
 		}
 	}
+	// The runtime copies in assets/ are this export, byte for byte.
+	if n := checkRuntimePins(t, "interface", report.Files, func(f Output) bool {
+		return (f.Density > 0 && strings.HasSuffix(f.Path, ".png")) || f.ID == "animations" || f.ID == "bindings"
+	}); n != 353 {
+		t.Fatalf("compared %d runtime files, want 353", n)
+	}
 	out := filepath.Join(t.TempDir(), "repeat")
-	if e = export(filepath.Join("..", "..", "art", "interface-v1.json"), out); e != nil {
+	if e = export(pipelineManifest("interface-v1"), out); e != nil {
 		t.Fatal(e)
 	}
 	count := 0
@@ -105,7 +111,7 @@ func TestRetainedBundlePinsGeometryAndRepeat(t *testing.T) {
 	if count != len(report.Files)+1 {
 		t.Fatalf("unexpected unpinned files: %d", count)
 	}
-	if e = export(filepath.Join("..", "..", "art", "interface-v1.json"), out); e == nil {
+	if e = export(pipelineManifest("interface-v1"), out); e == nil {
 		t.Fatal("accepted existing output")
 	}
 	unchanged, e := os.ReadFile(filepath.Join(out, "report.json"))
@@ -117,7 +123,7 @@ func TestRetainedBundlePinsGeometryAndRepeat(t *testing.T) {
 
 func TestGalleryLocalReferencesExist(t *testing.T) {
 	// Check the actual emitted static element links.
-	root := filepath.Join("..", "..", "art", "exports", "interface-v1")
+	root := freshExport(t, "interface-v1")
 	raw, e := os.ReadFile(filepath.Join(root, "index.html"))
 	if e != nil {
 		t.Fatal(e)

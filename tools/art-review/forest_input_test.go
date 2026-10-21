@@ -192,7 +192,7 @@ func TestForestLoadedBytesSnapshotAndResolvedSourceIdentity(t *testing.T) {
 	}
 	groundTestWrite(t, path, data)
 	if _, err := loadForestInputs(path); err == nil {
-		t.Fatal("accepted symlink outside manifest directory")
+		t.Fatal("accepted symlink outside the source root")
 	}
 }
 

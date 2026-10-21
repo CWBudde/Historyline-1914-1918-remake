@@ -2,7 +2,6 @@ package main
 
 import (
 	"bytes"
-	"encoding/json"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -13,14 +12,11 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
 )
 
-var (
-	unitRecipes = filepath.Join("..", "..", "art", "recipes")
-	unitExports = filepath.Join("..", "..", "art", "exports")
-)
+var assetsRoot = filepath.Join("..", "..", "assets")
 
 func TestRetainedUnitCatalogBuildsEveryFamilyAndDensity(t *testing.T) {
 	out := filepath.Join(t.TempDir(), "units")
-	packs, err := buildUnits(unitRecipes, unitExports, out)
+	packs, err := buildUnits(assetsRoot, out)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -56,8 +52,8 @@ func TestRetainedUnitCatalogBuildsEveryFamilyAndDensity(t *testing.T) {
 			}
 		}
 	}
-	// Bytes are copied, not re-encoded: compare one sprite per pack with its export.
-	src, err := os.ReadFile(filepath.Join(unitExports, "unit-light-artillery-v1", "sprites", "lightArtillery", "ec", "nw-spent-4x.png"))
+	// Bytes are copied, not re-encoded.
+	src, err := os.ReadFile(filepath.Join(assetsRoot, "units", "light-artillery", "ec", "nw-spent-4x.png"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -88,7 +84,7 @@ func TestRetainedUnitCatalogBuildsEveryFamilyAndDensity(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if _, err := buildUnits(unitRecipes, unitExports, out); err == nil {
+	if _, err := buildUnits(assetsRoot, out); err == nil {
 		t.Fatal("existing unit catalog overwritten")
 	}
 	after, err := os.ReadFile(filepath.Join(out, "2x", "infantry", "manifest.json"))
@@ -100,7 +96,7 @@ func TestRetainedUnitCatalogBuildsEveryFamilyAndDensity(t *testing.T) {
 func TestBuildUnitsCommand(t *testing.T) {
 	out := filepath.Join(t.TempDir(), "units")
 	var output bytes.Buffer
-	if err := run([]string{"build-units", "-recipes", unitRecipes, "-exports", unitExports, "-out", out}, &output); err != nil {
+	if err := run([]string{"build-units", "-assets", assetsRoot, "-out", out}, &output); err != nil {
 		t.Fatal(err)
 	}
 	if !strings.Contains(output.String(), "built 30 unit packs (15 families × 2 densities, 1080 PNG variants; candidate") {
@@ -111,95 +107,92 @@ func TestBuildUnitsCommand(t *testing.T) {
 	}
 }
 
-// unitRecipe loads a real recipe so a test can damage one detail of it.
-func unitRecipe(t *testing.T, name string) map[string]any {
+// retainedIndex reads the real index so a test can damage one detail of it.
+func retainedIndex(t *testing.T) []indexEntry {
 	t.Helper()
-	b, err := os.ReadFile(filepath.Join(unitRecipes, name))
+	entries, err := readIndex(assetsRoot)
 	if err != nil {
 		t.Fatal(err)
 	}
-	var r map[string]any
-	if err := json.Unmarshal(b, &r); err != nil {
-		t.Fatal(err)
-	}
-	return r
+	return entries
 }
 
-func TestImportUnitsRejectsDamagedRecipes(t *testing.T) {
-	variant := func(r map[string]any, i int) map[string]any {
-		return r["bundle_report"].(map[string]any)["variants"].([]any)[i].(map[string]any)
+func TestPlanUnitsRejectsDamagedIndex(t *testing.T) {
+	first := func(entries []indexEntry, pack string) *indexEntry {
+		for i := range entries {
+			if entries[i].Pack == pack {
+				return &entries[i]
+			}
+		}
+		t.Fatalf("no %s entry", pack)
+		return nil
 	}
 	cases := []struct {
 		name   string
-		damage func(map[string]any)
+		damage func([]indexEntry) []indexEntry
 		want   string
 	}{
-		{"unknown family", func(r map[string]any) { r["id"] = "unit-zeppelin-v1" }, "no sprite family"},
-		{"class drift", func(r map[string]any) {
-			r["bundle_report"].(map[string]any)["class_ids"] = []any{"CP_cavalry"}
-		}, "class IDs"},
-		{"unknown palette", func(r map[string]any) { variant(r, 0)["palette"] = "red" }, "palette"},
-		{"unknown state", func(r map[string]any) { variant(r, 0)["state"] = "dead" }, "state"},
-		{"unknown facing", func(r map[string]any) { variant(r, 0)["facing_label"] = "e" }, "facing"},
-		{"duplicate variant", func(r map[string]any) {
-			v := r["bundle_report"].(map[string]any)["variants"].([]any)
-			v[1] = v[0]
-		}, "duplicate"},
-		{"missing density", func(r map[string]any) {
-			v := variant(r, 3)
-			v["outputs"] = v["outputs"].([]any)[:1]
-		}, "density"},
-		{"density from size", func(r map[string]any) {
-			o := variant(r, 0)["outputs"].([]any)[0].(map[string]any)
-			o["dimensions"] = map[string]any{"width": 100, "height": 100}
+		{"unknown family", func(es []indexEntry) []indexEntry {
+			first(es, "unit-cavalry-2x").Pack = "unit-zeppelin-2x"
+			return es
+		}, "no sprite family"},
+		{"unknown variant", func(es []indexEntry) []indexEntry {
+			first(es, "unit-cavalry-2x").ID = "unit/cavalry/red/n-normal"
+			return es
+		}, "unknown or duplicate"},
+		{"wrong size", func(es []indexEntry) []indexEntry {
+			first(es, "unit-cavalry-2x").Width = 100
+			return es
 		}, "96"},
+		{"missing variant", func(es []indexEntry) []indexEntry {
+			e := first(es, "unit-cavalry-4x")
+			e.Pack = ""
+			return es
+		}, "35 sprite variants"},
+		{"missing family", func(es []indexEntry) []indexEntry {
+			var kept []indexEntry
+			for _, e := range es {
+				if !strings.HasPrefix(e.Pack, "unit-sappers-") {
+					kept = append(kept, e)
+				}
+			}
+			return kept
+		}, "sappers"},
+		{"missing density", func(es []indexEntry) []indexEntry {
+			var kept []indexEntry
+			for _, e := range es {
+				if e.Pack != "unit-bunker-4x" {
+					kept = append(kept, e)
+				}
+			}
+			return kept
+		}, "densities"},
 	}
 	for _, c := range cases {
-		r := unitRecipe(t, "unit-cavalry-v1.json")
-		c.damage(r)
-		b, err := json.Marshal(r)
-		if err != nil {
-			t.Fatal(err)
-		}
-		if _, err := importUnits(b); err == nil || !strings.Contains(err.Error(), c.want) {
+		if _, err := planUnits(c.damage(retainedIndex(t))); err == nil || !strings.Contains(err.Error(), c.want) {
 			t.Errorf("%s: err = %v, want %q", c.name, err, c.want)
 		}
 	}
 }
 
-// A sprite whose bytes do not match the recipe pin fails before any output exists.
+// A sprite whose bytes do not match its index pin fails before any output exists.
 func TestBuildUnitsLeavesNoOutputOnHashMismatch(t *testing.T) {
-	root := t.TempDir()
-	recipes := filepath.Join(root, "recipes")
-	if err := os.Mkdir(recipes, 0o700); err != nil {
+	packs, err := planUnits(retainedIndex(t))
+	if err != nil {
 		t.Fatal(err)
 	}
-	for _, fam := range unitsprite.Families() {
-		r := unitRecipe(t, "unit-"+fam+"-v1.json")
-		if fam == "sappers" {
-			o := r["bundle_report"].(map[string]any)["variants"].([]any)[5].(map[string]any)["outputs"].([]any)[1].(map[string]any)
-			o["sha256"] = strings.Repeat("0", 64)
+	var manifests []assets.Manifest
+	for _, p := range packs {
+		if p.Family == "sappers" {
+			p.Manifest.Entries[5].SHA256 = strings.Repeat("0", 64)
 		}
-		b, err := json.Marshal(r)
-		if err != nil {
-			t.Fatal(err)
-		}
-		if err := os.WriteFile(filepath.Join(recipes, "unit-"+fam+"-v1.json"), b, 0o600); err != nil {
-			t.Fatal(err)
-		}
+		manifests = append(manifests, p.Manifest)
 	}
-	out := filepath.Join(root, "units")
-	if _, err := buildUnits(recipes, unitExports, out); err == nil || !strings.Contains(err.Error(), "hash mismatch") {
+	out := filepath.Join(t.TempDir(), "units")
+	if _, err := writePacks(assetsRoot, out, manifests, func(i int) string { return fmt.Sprint(i) }); err == nil || !strings.Contains(err.Error(), "hash mismatch") {
 		t.Fatal("tampered pin accepted", err)
 	}
 	if _, err := os.Stat(out); !os.IsNotExist(err) {
 		t.Fatal("failed build left output", err)
-	}
-	// A catalog missing a family is incomplete and refused too.
-	if err := os.Remove(filepath.Join(recipes, "unit-sappers-v1.json")); err != nil {
-		t.Fatal(err)
-	}
-	if _, err := buildUnits(recipes, unitExports, out); err == nil || !strings.Contains(err.Error(), "sappers") {
-		t.Fatal("incomplete catalog accepted", err)
 	}
 }

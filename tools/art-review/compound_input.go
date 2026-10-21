@@ -160,7 +160,7 @@ func compoundReadSource(base string, ref connectionMaterial, ground bool) (compo
 	}
 	rel, err := filepath.Rel(baseResolved, absolute)
 	if err != nil || rel == ".." || strings.HasPrefix(rel, ".."+string(filepath.Separator)) {
-		return out, errors.New("compound symlink escapes manifest directory")
+		return out, errors.New("compound symlink escapes the source root")
 	}
 	out.Bytes, err = os.ReadFile(absolute)
 	if err != nil {
@@ -241,7 +241,7 @@ func loadCompoundInputs(path string) (compoundInputs, error) {
 		if math.IsNaN(s.Inset) || math.IsInf(s.Inset, 0) || s.Inset < .5 || s.Inset > 1 {
 			return in, errors.New("compound inset must be finite in [0.5,1]")
 		}
-		src, e := compoundReadSource(filepath.Dir(path), s.Artwork, false)
+		src, e := compoundReadSource(sourceBase(path), s.Artwork, false)
 		if e != nil {
 			return in, fmt.Errorf("%s: %w", s.ID, e)
 		}
@@ -258,7 +258,7 @@ func loadCompoundInputs(path string) (compoundInputs, error) {
 		if !ok {
 			return in, errors.New("missing seasonal ground")
 		}
-		src, e := compoundReadSource(filepath.Dir(path), ref, true)
+		src, e := compoundReadSource(sourceBase(path), ref, true)
 		if e != nil {
 			return in, e
 		}

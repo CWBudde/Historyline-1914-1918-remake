@@ -1,8 +1,0 @@
-{
-  "schema_version": 1,
-  "family": "lightArtillery",
-  "source": {
-    "source": "source/portraits/reference-v1/light-artillery-01.png",
-    "source_sha256": "2c69d08e8fdc9ba667607a6e477908fc19794c3e9cd540879d70c11f09ba7cab"
-  }
-}

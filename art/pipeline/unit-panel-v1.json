@@ -1,0 +1,60 @@
+{
+  "fonts": {
+    "bold": {
+      "source": "art/fonts/Go-Bold.ttf",
+      "source_sha256": "c18494baa7ea35b8dbfac3861787d360b9c0ab91232562371a09e6fbf09aaa40"
+    },
+    "license": {
+      "source": "art/fonts/LICENSE.txt",
+      "source_sha256": "dc588a7ba9130043b67c2380cc03cc6644ed3557f6d5e8589b96acba1c64e343"
+    },
+    "regular": {
+      "source": "art/fonts/Go-Regular.ttf",
+      "source_sha256": "197d9f3703b4c00af609178876a8d73e396f64fe438b2c871778566632374be3"
+    }
+  },
+  "portrait": {
+    "2x": {
+      "source": "assets/portraits/infantry/portrait-2x.png",
+      "source_sha256": "3503be46728754bebc3fb829716ec6aac3e2ddb587a62206d92486278df0852b"
+    },
+    "4x": {
+      "source": "assets/portraits/infantry/portrait-4x.png",
+      "source_sha256": "8d84a8b9977c2e513b100e153964c7a48dc8670f03f3b2da011c2da2bfc4d4dd"
+    }
+  },
+  "profile": "unit-panel-v1",
+  "schema_version": 1,
+  "units": {
+    "cp": {
+      "2x": {
+        "source": "assets/units/infantry/cp/n-normal-2x.png",
+        "source_sha256": "5d6be54245affd08b07a7b10568baf133da402b5f54f19540413c6d15d3801d1"
+      },
+      "4x": {
+        "source": "assets/units/infantry/cp/n-normal-4x.png",
+        "source_sha256": "f1d9015aadbbba9b4db3dc8df289d40a5532a71e68bc6b158fcc5a170cb7f1d9"
+      }
+    },
+    "ec": {
+      "2x": {
+        "source": "assets/units/infantry/ec/n-normal-2x.png",
+        "source_sha256": "e4ef25a5ca40c81384305fc7fc14faa69a8203e137cac66cef188d8ffadcdb9d"
+      },
+      "4x": {
+        "source": "assets/units/infantry/ec/n-normal-4x.png",
+        "source_sha256": "67ddf5986751e2a20a67ade32495e8972e45058649a5108d46e0b1887950ccc1"
+      }
+    },
+    "neutral": {
+      "2x": {
+        "source": "assets/units/infantry/neutral/n-normal-2x.png",
+        "source_sha256": "95122814f21ba4da9324d2bddd6834525f1e0d93e7e48f984e493c65bcff76d5"
+      },
+      "4x": {
+        "source": "assets/units/infantry/neutral/n-normal-4x.png",
+        "source_sha256": "aebff1307d8f127bafcec8e56ac88d09cddc95542dcebc5db0625e1bdc0a7b1a"
+      }
+    }
+  }
+}

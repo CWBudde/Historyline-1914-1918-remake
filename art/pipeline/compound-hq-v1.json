@@ -1,0 +1,33 @@
+{
+  "grounds": {
+    "summer": {
+      "source": "art/terrain/grass/grass.png",
+      "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
+    },
+    "winter": {
+      "source": "art/terrain/grass/grass_w.png",
+      "source_sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3"
+    }
+  },
+  "scenes": [
+    {
+      "artwork": {
+        "source": "art/terrain/hq/hq.png",
+        "source_sha256": "e1969c97d59312aee5bd43fcebd332357fd787344afaf6d05e29e36c1b53e4a9"
+      },
+      "framing": "reference-layout",
+      "id": "hq-summer",
+      "inset": 1
+    },
+    {
+      "artwork": {
+        "source": "art/terrain/hq/hq_w.png",
+        "source_sha256": "1fb27001f23797ac98f36b95baf9cc5b6f1f5459df32a18e980b485f1cc96204"
+      },
+      "framing": "reference-layout",
+      "id": "hq-winter",
+      "inset": 1
+    }
+  ],
+  "schema_version": 1
+}

@@ -20,10 +20,10 @@ import (
 )
 
 func TestGenerateRiverBankGravelCrop(t *testing.T) {
-	const parent = "art/source/terrain/shore-reference-v2/bank.png"
+	const parent = "art/terrain/lakeside/bank.png"
 	const parentPin = "d43b40a2ed64e95cbb6afdacca4a384a39ec59c8a54d05bdcbe77a60e6aa6613"
 	const parentRecipe = "art/recipes/terrain/shore-reference-v2/bank.json"
-	const source = "art/source/terrain/refdesign-v1/river-bank-gravel.png"
+	const source = "art/terrain/stream/bank.png"
 	const recipe = "art/recipes/terrain/refdesign-v1/river-bank-gravel.json"
 	read := func(path string) []byte {
 		t.Helper()
