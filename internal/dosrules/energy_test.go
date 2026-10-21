@@ -12,25 +12,32 @@ import (
 
 const cBuilder = 16 // the construction unit
 
-// depotRec is a building record of terrain flag 0x100 that the scenes use.
-const depotRec = HoldFlag100
+// depotRec is a building record of terrain flag 0x100 that the scenes use,
+// covering cell depot.
+const depotRec, depot = HoldFlag100, 76
+
+// inSlot is a unit placed in a slot of side's part of a record.
+type inSlot struct{ rec, side, slot, unit int }
 
 // energyCycle is hqCycle with side 0's HQ record covering hq0, a depot
-// record of side 1, the HQ crediting 20 and building infantry and panzers,
-// the depot crediting 7, a neutral record crediting 99, and the units of
-// units.
-func energyCycle(t *testing.T, p Profile, units map[int]Placement) *Game {
+// record of side 1 covering depot, the HQ crediting 20 and building
+// infantry and panzers, the depot crediting 7, a neutral record crediting
+// 99, the units of units and the slots of slots.
+func energyCycle(t *testing.T, p Profile, units map[int]Placement, slots ...inSlot) *Game {
 	t.Helper()
-	g := hqCycle(t, p, units)
-	h := g.Holds[HoldFlag40]
+	h := EmptyHold()
 	h.Cells[0] = 2 * hq0
-	g.Holds[HoldFlag40] = h
 	d := EmptyHold()
-	d.Flags = 1
-	g.Holds[depotRec] = d
+	d.Flags, d.Cells[0] = 1, 2*depot
 	n := EmptyHold()
 	n.Flags = 2
-	g.Holds[depotRec+1] = n
+	holds := map[int]Hold{HoldFlag40: h, depotRec: d, depotRec + 1: n}
+	for _, s := range slots {
+		r := holds[s.rec]
+		r.Slots[7*s.side+s.slot] = s.unit
+		holds[s.rec] = r
+	}
+	g := hqCycleHolds(t, p, units, holds)
 	g.Buildings = map[int]Building{
 		HoldFlag40: {Credits: 20, Builds: []int{cInfantry, cPanzer, cBuilder, 13}},
 		depotRec:   {Credits: 7}, depotRec + 1: {Credits: 99},
@@ -87,13 +94,14 @@ func TestEnergyRepair(t *testing.T) {
 	for build, p := range profiles {
 		t.Run(build, func(t *testing.T) {
 			g := energyCycle(t, p, map[int]Placement{
-				0: {Type: cInfantry, Owner: 0, Cell: 40, Size: 2, Exp: 4}, 1: {Type: cInfantry, Owner: 1, Cell: 44},
-				2: {Type: cBuilder, Owner: 0, Cell: 41, Size: 1}, 3: {Type: cInfantry, Owner: 0, Cell: 42, Size: 1},
-			})
-			held(g, HoldFlag40, 0, 0, 0)
-			held(g, HoldFlag40, 0, 1, 2)
+				0: {Type: cInfantry, Owner: 0, Size: 2, Exp: 4}, 1: {Type: cInfantry, Owner: 1, Cell: 44},
+				2: {Type: cBuilder, Owner: 0, Size: 1}, 3: {Type: cInfantry, Owner: 0, Cell: 42, Size: 1},
+			}, inSlot{HoldFlag40, 0, 0, 0}, inSlot{HoldFlag40, 0, 1, 2})
 			g.Energy[0] = 65
 			b := g.Units[2]
+			if b.Hold != 2 {
+				t.Errorf("a new construction unit has %d charges, want 2", b.Hold)
+			}
 			b.Hold = 0
 			g.Units[2] = b
 
@@ -126,12 +134,9 @@ func TestEnergyRepairRefused(t *testing.T) {
 	for build, p := range profiles {
 		t.Run(build, func(t *testing.T) {
 			g := energyCycle(t, p, map[int]Placement{
-				0: {Type: cInfantry, Owner: 0, Cell: 40, Size: 2}, 1: {Type: cInfantry, Owner: 1, Cell: 44, Size: 2},
-				2: {Type: cBuilder, Owner: 0, Cell: 41, Size: 1},
-			})
-			held(g, HoldFlag40, 0, 0, 0)
-			held(g, depotRec, 1, 0, 1)
-			held(g, HoldFlag40, 0, 1, 2)
+				0: {Type: cInfantry, Owner: 0, Size: 2}, 1: {Type: cInfantry, Owner: 1, Size: 2},
+				2: {Type: cBuilder, Owner: 0, Size: 1},
+			}, inSlot{HoldFlag40, 0, 0, 0}, inSlot{depotRec, 1, 0, 1}, inSlot{HoldFlag40, 0, 1, 2})
 			g.Energy = [2]int{49, 100}
 			refusal(t, "a builder without 50", g.Check(Command{Kind: CmdRepair, Side: 0, Hold: HoldFlag40, Slot: 1}), 0)
 			refusal(t, "the action phase", g.Check(Command{Kind: CmdRepair, Side: 1, Hold: depotRec, Slot: 0}), 0)

@@ -75,6 +75,7 @@ type Profile struct {
 	Builders      []int
 	Repair        int
 	BuilderRepair int
+	winter        bool // Season(true) chose the winter terrain records
 }
 
 //go:embed full.json

@@ -5,11 +5,12 @@ import (
 	"fmt"
 )
 
-// SaveSchema is the version of the saved command-cycle state.
-const SaveSchema = 2
+// SaveSchema is the version of the saved command-cycle state. LoadGame also
+// reads schema 2, which had no season (summer).
+const SaveSchema = 3
 
 // A saved game is the whole state of the cycle as JSON: the profile by its
-// tables' build, both maps, the live and container records, each side's
+// tables' build and the season, both maps, the live and container records, each side's
 // phase, confirmation and order list, the turn, the game options, the energy
 // accounts and the buildings. Orders given but not confirmed and confirmed
 // orders waiting for the other side are both part of that state (the order
@@ -18,6 +19,7 @@ const SaveSchema = 2
 type savedGame struct {
 	Schema    int               `json:"schema"`
 	Build     string            `json:"build"`
+	Winter    bool              `json:"winter,omitempty"`
 	Width     int               `json:"width"`
 	Height    int               `json:"height"`
 	Maps      [2][]int          `json:"maps"`
@@ -60,7 +62,7 @@ func (g *Game) Save() ([]byte, error) {
 	if g.Profile.Tables == nil {
 		return nil, fmt.Errorf("dosrules: save: no tables")
 	}
-	s := savedGame{Schema: SaveSchema, Build: g.Profile.Tables.Build, Width: g.Width, Height: g.Height,
+	s := savedGame{Schema: SaveSchema, Build: g.Profile.Tables.Build, Winter: g.Profile.Winter(), Width: g.Width, Height: g.Height,
 		Maps: g.Maps, Units: map[int]savedUnit{}, Holds: g.Holds, Turn: g.Turn, Limit: g.Limit, Concealed: g.Concealed, Ended: g.Ended,
 		Energy: g.Energy, Buildings: g.Buildings}
 	for i, u := range g.Units {
@@ -73,14 +75,15 @@ func (g *Game) Save() ([]byte, error) {
 }
 
 // LoadGame reads a game saved by Save. It refuses a save of another schema,
-// of tables it does not know, or whose maps, units, order lists and phases
-// do not fit together.
+// of tables it does not know or a season they lack, or whose maps, units,
+// order lists and phases do not fit together. A map's occupant byte is a
+// unit (up to SlotFree) or a marker above it, such as InBuilding.
 func LoadGame(data []byte) (*Game, error) {
 	var s savedGame
 	if err := json.Unmarshal(data, &s); err != nil {
 		return nil, fmt.Errorf("dosrules: load: %w", err)
 	}
-	if s.Schema != SaveSchema {
+	if s.Schema != SaveSchema && s.Schema != 2 {
 		return nil, fmt.Errorf("dosrules: load: schema %d, want %d", s.Schema, SaveSchema)
 	}
 	var p Profile
@@ -91,6 +94,9 @@ func LoadGame(data []byte) (*Game, error) {
 	}
 	if p.Tables == nil {
 		return nil, fmt.Errorf("dosrules: load: unknown tables %q", s.Build)
+	}
+	if p = p.Season(s.Winter); p.Tables.Move == nil {
+		return nil, fmt.Errorf("dosrules: load: tables %q have no winter terrain", s.Build)
 	}
 	g := &Game{Profile: p, Width: s.Width, Height: s.Height, Maps: s.Maps, Units: map[int]Live{},
 		Holds: map[int]Hold{}, Turn: s.Turn, Limit: s.Limit, Concealed: s.Concealed, Ended: s.Ended,
@@ -112,10 +118,9 @@ func LoadGame(data []byte) (*Game, error) {
 			return nil, fmt.Errorf("dosrules: load: map %d has %d entries for %d cells", k, len(m), s.Width*s.Height)
 		}
 		for c := range s.Width * s.Height {
-			if occ := m[2*c+1]; occ != 0xFF {
-				if _, ok := g.Units[occ]; !ok {
-					return nil, fmt.Errorf("dosrules: load: map %d shows unit %d at %d", k, occ, c)
-				}
+			occ := m[2*c+1]
+			if _, ok := g.Units[occ]; occ < 0 || occ > 0xFF || occ <= SlotFree && !ok {
+				return nil, fmt.Errorf("dosrules: load: map %d shows unit %d at %d", k, occ, c)
 			}
 		}
 	}

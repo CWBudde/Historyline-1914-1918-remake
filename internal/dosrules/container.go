@@ -299,6 +299,51 @@ func (t *MoveTables) Exit(g *Movement, o ExitOrder) (ExitRun, error) {
 	return t.exit(newMoveState(t, g), o)
 }
 
+// exitQuery is the movement query of the exit from slot of the container
+// record h on the query g of the side: the unit in the slot, held at the
+// record's first cell (one less for a transporter, flag 0x20), budget 4 for
+// live +6 bit 0x10 and 8 otherwise, the flag mask 3 (6 for live +4 bit 1),
+// with 0x18 for live +6 bit 4. live gives the unit's live record. It also
+// returns the unit and the start offset; an empty slot and an odd start
+// offset or one past the map are undefined.
+func exitQuery(g *Movement, h []byte, slot int, live func(int) []byte) (moved *Movement, u, start int, err error) {
+	u = int(h[7*g.Side+slot])
+	start = word(h, 0x0E)
+	if word(h, 0x19)&0x20 != 0 {
+		start--
+	}
+	if u > SlotFree || start&1 != 0 || start/2 >= g.Width*g.Height {
+		return nil, u, start, ErrUndefined
+	}
+	m := *g
+	m.Unit, m.Budget, m.Block = u, 8, 3
+	l := live(u)
+	if word(l, 6)&0x10 != 0 {
+		m.Budget = 4
+	}
+	if word(l, 4)&1 != 0 {
+		m.Block = 6
+	}
+	if word(l, 6)&4 != 0 {
+		m.Block |= 0x18
+	}
+	p := g.PieceAt(u)
+	p.Cell = start / 2
+	m.Held = map[int]Piece{u: p}
+	for idx, q := range g.Held {
+		if idx != u {
+			m.Held[idx] = q
+		}
+	}
+	m.Units = map[int]Piece{}
+	for idx, q := range g.Units {
+		if idx != u {
+			m.Units[idx] = q
+		}
+	}
+	return &m, u, start, nil
+}
+
 // exit is Exit on the memory s.
 func (t *MoveTables) exit(s *moveState, o ExitOrder) (ExitRun, error) {
 	g := s.g
@@ -307,50 +352,18 @@ func (t *MoveTables) exit(s *moveState, o ExitOrder) (ExitRun, error) {
 	if err != nil {
 		return ExitRun{}, err
 	}
-	u := int(h[7*side+o.Slot])
-	start := word(h, 0x0E)
-	if word(h, 0x19)&0x20 != 0 {
-		start--
-	}
-	if u > SlotFree || start&1 != 0 || start/2 >= g.Width*g.Height {
-		return ExitRun{}, ErrUndefined
+	moved, u, start, err := exitQuery(g, h, o.Slot, s.rec)
+	if err != nil {
+		return ExitRun{}, err
 	}
 	if u != g.Unit {
 		return ExitRun{}, fmt.Errorf("exit: slot %d holds unit %d, not Movement.Unit %d", o.Slot, u, g.Unit)
 	}
 	h[7*side+o.Slot] = 0xFF
 	s.setPos(u, start+1)
+	s.g = moved
 
-	moved := *g
-	moved.Budget, moved.Block = 8, 3
-	l := s.rec(u)
-	if word(l, 6)&0x10 != 0 {
-		moved.Budget = 4
-	}
-	if word(l, 4)&1 != 0 {
-		moved.Block = 6
-	}
-	if word(l, 6)&4 != 0 {
-		moved.Block |= 0x18
-	}
-	p := moved.PieceAt(u)
-	p.Cell = start / 2
-	moved.Held = map[int]Piece{u: p}
-	for idx, q := range g.Held {
-		if idx != u {
-			moved.Held[idx] = q
-		}
-	}
-	units := map[int]Piece{}
-	for idx, q := range g.Units {
-		if idx != u {
-			units[idx] = q
-		}
-	}
-	moved.Units = units
-	s.g = &moved
-
-	buf, bits, _ := t.Reach(&moved)
+	buf, bits, _ := t.Reach(moved)
 	s.maps[0][start+1] = byte(u)
 	s.setFlags(u, s.flags(u)|0x100)
 	bits[s.bitIndex(start/2)] |= byte(0x40 << side)

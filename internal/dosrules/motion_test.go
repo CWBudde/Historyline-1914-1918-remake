@@ -31,7 +31,7 @@ func fieldDiff(got, want any) error {
 	return nil
 }
 
-func moveTables(t *testing.T, p Profile) *MoveTables {
+func moveTables(t testing.TB, p Profile) *MoveTables {
 	t.Helper()
 	if p.Tables.Move == nil || len(p.Tables.Move.Types) != 51 || len(p.Tables.Move.Terrains) == 0 {
 		t.Fatalf("%s: no movement tables", p.Tables.Build)

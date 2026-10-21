@@ -3,6 +3,7 @@ package dosrules
 import (
 	"errors"
 	"fmt"
+	"maps"
 	"slices"
 )
 
@@ -79,6 +80,17 @@ type Placement struct {
 // (159e:0006) is known to copy: the budget (type byte 0), the class word
 // (+0x0d) with the owner's bit into +4 and the flags word (+0x11) into +6;
 // its hold is 0xff.
+//
+// The container state follows from holds, as an arrival leaves it:
+//   - A unit in a slot of a record is held (+4 0x4000), its position on both
+//     sides is the record's first cell and no map shows it; its Cell is read
+//     only to find a transporter's own record. A building record (HoldFlag40 and up) with a unit in a side's
+//     slots shows InBuilding on that side's map at its first cell where no
+//     unit stands.
+//   - A transporter (+4 0x1000) gets as +0x0a the lowest record of flag
+//     0x20 whose first cell is its own (2*Cell+1) that no transporter of a
+//     lower index took; without one NewGame fails.
+//   - A construction unit (Profile.Builders) starts with 2 charges in +0x0a.
 func NewGame(p Profile, width, height int, terrain []int, units map[int]Placement, holds map[int]Hold) (*Game, error) {
 	t, err := p.moveTables()
 	if err != nil {
@@ -94,8 +106,33 @@ func NewGame(p Profile, width, height int, terrain []int, units map[int]Placemen
 			g.Maps[k][2*c], g.Maps[k][2*c+1] = tr, 0xFF
 		}
 	}
-	for i, u := range units {
-		if i > SlotFree || u.Cell < 0 || u.Cell >= width*height || u.Type < 0 || u.Type >= len(t.Types) {
+	recs := slices.Sorted(maps.Keys(holds))
+	in := map[int]int{} // held unit -> its record
+	for _, r := range recs {
+		h := holds[r]
+		if r < 0 || r >= HoldRecords {
+			return nil, fmt.Errorf("dosrules: container record %d", r)
+		}
+		for _, u := range h.Slots {
+			if u > SlotFree {
+				continue
+			}
+			if _, ok := units[u]; !ok {
+				return nil, fmt.Errorf("dosrules: container record %d holds unit %d, which is not placed", r, u)
+			}
+			if o, ok := in[u]; ok && o != r {
+				return nil, fmt.Errorf("dosrules: unit %d is held in records %d and %d", u, o, r)
+			}
+			in[u] = r
+		}
+		g.Holds[r] = h
+	}
+	taken := map[int]bool{}
+	for _, i := range slices.Sorted(maps.Keys(units)) {
+		u := units[i]
+		r, held := in[i]
+		if i < 0 || i > SlotFree || !held && (u.Cell < 0 || u.Cell >= width*height) || u.Type < 0 || u.Type >= len(t.Types) ||
+			u.Owner < 0 || u.Owner > 2 {
 			return nil, fmt.Errorf("dosrules: unit %d: %+v", i, u)
 		}
 		typ := t.Types[u.Type]
@@ -105,14 +142,45 @@ func NewGame(p Profile, width, height int, terrain []int, units map[int]Placemen
 		}
 		l := Live{Budget: typ.Budget, Exp: u.Exp, Size: size, Alt: u.Alt, Flags4: typ.Class | [3]int{0, 1, 2}[u.Owner],
 			Flags6: typ.Flags, Type: u.Type, Hold: 0xFF}
+		if p.builder(u.Type) {
+			l.Hold = builderCharges
+		}
+		if l.Flags4&0x1000 != 0 {
+			l.Hold = -1
+			for _, k := range recs {
+				if h := holds[k]; !taken[k] && h.Flags&0x20 != 0 && h.Cells[0] == 2*u.Cell+1 {
+					l.Hold, taken[k] = k, true
+					break
+				}
+			}
+			if l.Hold < 0 {
+				return nil, fmt.Errorf("dosrules: transporter %d at cell %d has no container record", i, u.Cell)
+			}
+		}
 		for k := range 2 {
+			if held {
+				l.Pos[k] = holds[r].Cells[0]
+				continue
+			}
 			l.Pos[k] = 2*u.Cell + 1
 			g.Maps[k][2*u.Cell+1] = i
 		}
+		if held {
+			l.Flags4 |= 0x4000
+		}
 		g.Units[i] = l
 	}
-	for i, h := range holds {
-		g.Holds[i] = h
+	for _, r := range recs {
+		h := holds[r]
+		at := h.Cells[0] + 1
+		if r < HoldFlag40 || at < 1 || at >= 2*width*height {
+			continue
+		}
+		for k := range 2 {
+			if slices.ContainsFunc(h.Slots[7*k:7*k+7], func(u int) bool { return u <= SlotFree }) && g.Maps[k][at] == 0xFF {
+				g.Maps[k][at] = InBuilding
+			}
+		}
 	}
 	g.Players[0].Phase, g.Players[1].Phase = PhaseMovement, PhaseAction
 	return g, nil
@@ -224,7 +292,9 @@ func (g *Game) unitOf(c Command) (int, error) {
 //   - A human side's list must be shorter than the move limit (0ca0:1757,
 //     0661:3349, message 0x53); a computer side has none.
 //   - An attack needs a unit in the target cell of the side's map (0ad1:000c,
-//     message 0x45) that is a target of the unit (Target).
+//     message 0x45) that is a target of the unit (Target). Assumed, not
+//     verified: as for a move, the attacker must be on the side's map, not
+//     held in a container and the occupant of its cell.
 //   - A repair or a build needs an own building, the movement phase and the
 //     energy (energy.go).
 //
@@ -269,6 +339,9 @@ func (g *Game) Check(c Command) error {
 		if p.Phase != PhaseAction {
 			return refuse(0, "attacks are given in the action phase")
 		}
+		if u.Flags4&0x4000 != 0 || g.occupant(c.Side, u.Cell(c.Side)) != idx {
+			return refuse(0, "the unit is not on the map")
+		}
 	default:
 		return fmt.Errorf("dosrules: command %q", c.Kind)
 	}
@@ -302,8 +375,17 @@ func (g *Game) Target(side int, a, v Live) bool {
 		return false
 	}
 	_, rng := weapon(t, v.Flags4)
-	d := g.Profile.layoutDistance(g.Width, a.Cell(side), v.Cell(side))
+	d := g.Profile.LayoutDistance(g.Width, a.Cell(side), v.Cell(side))
 	return d >= 1 && int64(d) < rng
+}
+
+// WeaponAgainst is the weapon of type typ against a unit with the live word
+// flags4: the air power and range against aircraft, the water power and
+// the surface range against ships, the ground power and the surface range
+// otherwise (a range is encoded, one more than the distance it reaches).
+func (p Profile) WeaponAgainst(typ, flags4 int) (power, rng int) {
+	pw, r := weapon(p.Tables.Types[typ], flags4)
+	return int(pw), int(r)
 }
 
 // occupant is the occupant byte of a cell of side's map.
@@ -352,11 +434,11 @@ func (g *Game) Apply(c Command) ([]Event, error) {
 	return g.move(c)
 }
 
-// movement is the movement query of unit for side on the game's state: the
+// Movement is the movement query of unit for side on the game's state: the
 // side's map with its units, the units held in containers, the budget of
 // live byte 0 and the flag mask the player's order code passes (0xffff for
 // live +6 bit 1, else 6 for a side-1 unit and 3 for others).
-func (g *Game) movement(side, unit int) *Movement {
+func (g *Game) Movement(side, unit int) *Movement {
 	m := &Movement{Width: g.Width, Height: g.Height, Terrain: make([]int, g.Width*g.Height),
 		Units: map[int]Piece{}, Held: map[int]Piece{}, Holds: g.Holds, Unit: unit, Side: side}
 	piece := func(u Live, cell int) Piece {
@@ -386,6 +468,66 @@ func (g *Game) movement(side, unit int) *Movement {
 	return m
 }
 
+// ExitMovement is the movement query of the exit from slot of side's part
+// of container record hold, as the exit runs its reach search (Exit): the
+// unit in the slot at the record's first cell (one less for a transporter,
+// flag 0x20), budget 8 (4 for live +6 bit 0x10) and the flag mask 3 (6 for
+// live +4 bit 1, with 0x18 for live +6 bit 4). The unit is not on the
+// side's map yet; its start cell is among the reached cells, and the order
+// code refuses it as a destination.
+func (g *Game) ExitMovement(side, hold, slot int) (*Movement, error) {
+	h, ok := g.Holds[hold]
+	if side != 0 && side != 1 || !ok || slot < 0 || slot >= 7 {
+		return nil, fmt.Errorf("dosrules: no slot %d of side %d in container record %d", slot, side, hold)
+	}
+	u := h.Slots[7*side+slot]
+	if u > SlotFree {
+		return nil, refuse(0, "the slot is empty")
+	}
+	m, _, _, err := exitQuery(g.Movement(side, u), h.Bytes(), slot, func(i int) []byte { return g.Units[i].Bytes() })
+	return m, err
+}
+
+// HoldAt is the container record of a cell of side's map: the occupant's
+// +0x0a where it is a transporter (+4 0x1000), else the building record of
+// the cell's terrain flag as the end-cell check finds it (0x400 and 0x100
+// by the cells the records list, 0x40 by flag bit 1). It reports false for
+// a cell without one.
+func (g *Game) HoldAt(side, cell int) (int, bool) {
+	t, err := g.Profile.moveTables()
+	if err != nil || side != 0 && side != 1 || cell < 0 || cell >= g.Width*g.Height {
+		return 0, false
+	}
+	if u, ok := g.Units[g.occupant(side, cell)]; ok && u.Flags4&0x1000 != 0 {
+		return u.Hold, u.Hold >= 0 && u.Hold < HoldRecords
+	}
+	tr := g.Maps[side][2*cell]
+	if tr < 0 || tr >= len(t.Terrains) {
+		return 0, false
+	}
+	find := func(base int) (int, bool) {
+		for i := range holdTable {
+			h, ok := g.Holds[base+i]
+			if !ok {
+				h = EmptyHold()
+			}
+			if slices.Contains(h.Cells[:], 2*cell) {
+				return base + i, true
+			}
+		}
+		return 0, false
+	}
+	switch f := t.Terrains[tr].Flags; {
+	case f&0x400 != 0:
+		return find(HoldFlag400)
+	case f&0x100 != 0:
+		return find(HoldFlag100)
+	case f&0x40 != 0:
+		return HoldFlag40 + f&1, true
+	}
+	return 0, false
+}
+
 func bytesOf(v []int) []byte {
 	b := make([]byte, len(v))
 	for i, x := range v {
@@ -410,7 +552,7 @@ func (g *Game) move(c Command) ([]Event, error) {
 	for i, u := range g.Units {
 		live[i] = u.Bytes()
 	}
-	s := moveStateOn(t, g.movement(c.Side, unit), live,
+	s := moveStateOn(t, g.Movement(c.Side, unit), live,
 		[2][]byte{bytesOf(g.Maps[c.Side]), bytesOf(g.Maps[1-c.Side])}, ContainerRecords(g.Holds))
 	o := MoveOrder{Goal: c.Cell, Retarget: -1}
 	var r StepRun

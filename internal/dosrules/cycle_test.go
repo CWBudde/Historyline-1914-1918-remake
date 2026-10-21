@@ -21,7 +21,7 @@ const (
 
 // openTerrain is the cheapest terrain record without blocking or building
 // flags that the scene's types may enter.
-func openTerrain(t *testing.T, p Profile) int {
+func openTerrain(t testing.TB, p Profile) int {
 	t.Helper()
 	m := moveTables(t, p)
 	best := -1
@@ -42,12 +42,18 @@ func openTerrain(t *testing.T, p Profile) int {
 
 func newCycle(t *testing.T, p Profile, units map[int]Placement) *Game {
 	t.Helper()
+	return newCycleHolds(t, p, units, nil)
+}
+
+// newCycleHolds is newCycle with container records.
+func newCycleHolds(t *testing.T, p Profile, units map[int]Placement, holds map[int]Hold) *Game {
+	t.Helper()
 	tr := openTerrain(t, p)
 	terrain := make([]int, cycleW*cycleH)
 	for i := range terrain {
 		terrain[i] = tr
 	}
-	g, err := NewGame(p, cycleW, cycleH, terrain, units, nil)
+	g, err := NewGame(p, cycleW, cycleH, terrain, units, holds)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -182,13 +188,13 @@ func TestCycleTargets(t *testing.T) {
 				12: {Type: cArtillery, Owner: 1, Cell: 0}, 13: {Type: cAircraft, Owner: 1, Cell: n[2]},
 				14: {Type: cGround, Owner: 1, Cell: 71}, 15: {Type: cInfantry, Owner: 1, Cell: 62},
 			})
-			if p.layoutDistance(cycleW, 70, 71) != 1 || p.layoutDistance(cycleW, 71, 80) != 1 || p.layoutDistance(cycleW, 71, 62) != 1 {
+			if p.LayoutDistance(cycleW, 70, 71) != 1 || p.LayoutDistance(cycleW, 71, 80) != 1 || p.LayoutDistance(cycleW, 71, 62) != 1 {
 				t.Fatal("cell 71 is not next to 62, 70 and 80")
 			}
-			if d := p.layoutDistance(cycleW, 40, far); d != 2 {
+			if d := p.LayoutDistance(cycleW, 40, far); d != 2 {
 				t.Fatalf("distance 40-%d is %d", far, d)
 			}
-			if d := p.layoutDistance(cycleW, 0, 80); d <= 7 {
+			if d := p.LayoutDistance(cycleW, 0, 80); d <= 7 {
 				t.Fatalf("distance 0-80 is %d, want beyond the artillery's range", d)
 			}
 			for _, c := range []struct {
@@ -230,7 +236,7 @@ func TestCycleRound(t *testing.T) {
 			g := newCycle(t, p, map[int]Placement{
 				0: {Type: cInfantry, Owner: 0, Cell: 40}, 1: {Type: cPanzer, Owner: 1, Cell: n[0]},
 			})
-			dests, err := p.Destinations(g.movement(0, 0))
+			dests, err := p.Destinations(g.Movement(0, 0))
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -337,24 +343,25 @@ func TestCycleDestroyedTarget(t *testing.T) {
 	}
 }
 
+// transportHold is the container record of transporter unit at cell of
+// side, taking every class, with the units of cargo in the side's slots.
+func transportHold(cell, side, unit int, cargo ...int) Hold {
+	h := EmptyHold()
+	h.Cells[0], h.Flags, h.Occupant = 2*cell+1, 0x20|0xFC0|side, unit
+	for k, u := range cargo {
+		h.Slots[7*side+k] = u
+	}
+	return h
+}
+
 // TestCycleExit takes a unit out of a transporter during the movement phase.
 func TestCycleExit(t *testing.T) {
 	for build, p := range profiles {
 		t.Run(build, func(t *testing.T) {
 			n := neighbours(40, cycleW, cycleH)
-			g := newCycle(t, p, map[int]Placement{
-				1: {Type: cSupply, Owner: 0, Cell: 40}, 10: {Type: cInfantry, Owner: 0, Cell: 40},
-			})
-			h := EmptyHold()
-			h.Cells[0], h.Flags, h.Occupant, h.Slots[0] = 2*40+1, 0x20|0xFC0, 1, 10
-			g.Holds[cTransportRec] = h
-			tr, cargo := g.Units[1], g.Units[10]
-			tr.Hold = cTransportRec
-			cargo.Flags4 |= 0x4000
-			g.Units[1], g.Units[10] = tr, cargo
-			for k := range 2 {
-				g.Maps[k][2*40+1] = 1
-			}
+			g := newCycleHolds(t, p, map[int]Placement{
+				1: {Type: cSupply, Owner: 0, Cell: 40}, 10: {Type: cInfantry, Owner: 0},
+			}, map[int]Hold{cTransportRec: transportHold(40, 0, 1, 10)})
 			refusal(t, "a held unit's move", g.Check(Command{Kind: CmdMove, Side: 0, Unit: 10, Cell: n[0]}), 0)
 
 			evs := apply(t, g, Command{Kind: CmdExit, Side: 0, Hold: cTransportRec, Slot: 0, Cell: n[0]})
@@ -450,4 +457,30 @@ func ordersGame(p Profile, f *OrdersFixture) *Game {
 		g.Players[f.Side].Orders = append(g.Players[f.Side].Orders, o.Attacker)
 	}
 	return g
+}
+
+// BenchmarkDestinations is the destination query of a fast unit on an open
+// 40×30 map with units around it.
+func BenchmarkDestinations(b *testing.B) {
+	const w, h = 40, 30
+	tr := openTerrain(b, Full)
+	terrain := make([]int, w*h)
+	for i := range terrain {
+		terrain[i] = tr
+	}
+	units := map[int]Placement{0: {Type: cPanzer, Owner: 0, Cell: 15*w + 20}}
+	for i := 1; i < 20; i++ {
+		units[i] = Placement{Type: cInfantry, Owner: i % 2, Cell: (3 + i) * w / 2 * 3 % (w * h)}
+	}
+	g, err := NewGame(Full, w, h, terrain, units, nil)
+	if err != nil {
+		b.Fatal(err)
+	}
+	m := g.Movement(0, 0)
+	b.ResetTimer()
+	for b.Loop() {
+		if _, err := Full.Destinations(m); err != nil {
+			b.Fatal(err)
+		}
+	}
 }

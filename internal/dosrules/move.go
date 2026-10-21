@@ -344,19 +344,21 @@ func (t *MoveTables) EndCode(g *Movement, cell int) (int, error) {
 }
 
 // Destinations is 0b06:1383 after Reach: the cells with the side's reach bit,
-// column by column, whose end code is 0 (at most 790).
+// column by column, whose end code is 0 (at most 790). The end-cell check
+// only reads the memory, so all cells are checked on one.
 func (t *MoveTables) Destinations(g *Movement, bits []byte) ([]int, error) {
 	bit := byte(1)
 	if g.Side != 0 {
 		bit = 2
 	}
+	s := newMoveState(t, g)
 	var out []int
 	for col := range g.Width {
 		for row := range g.Height {
 			if bits[row*64+col]&bit == 0 {
 				continue
 			}
-			code, err := t.EndCode(g, row*g.Width+col)
+			code, _, err := s.endCheck(row*g.Width + col)
 			if err != nil {
 				return nil, err
 			}

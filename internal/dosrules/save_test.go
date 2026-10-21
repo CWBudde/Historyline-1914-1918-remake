@@ -18,7 +18,7 @@ func midRound(t *testing.T, p Profile) *Game {
 		2: {Type: cInfantry, Owner: 0, Cell: 70}, 3: {Type: cInfantry, Owner: 1, Cell: 10, Exp: 3},
 	})
 	g.Limit, g.Concealed = 8, true
-	dests, err := p.Destinations(g.movement(0, 0))
+	dests, err := p.Destinations(g.Movement(0, 0))
 	if err != nil {
 		t.Fatal(err)
 	}

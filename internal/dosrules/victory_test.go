@@ -2,6 +2,7 @@ package dosrules
 
 import (
 	"errors"
+	"maps"
 	"reflect"
 	"slices"
 	"testing"
@@ -13,6 +14,13 @@ const hq0, hq1 = 10, 70 // the HQ entrance cells of side 0 and side 1
 
 // hqCycle is newCycle with side 0's HQ entrance at hq0 and side 1's at hq1.
 func hqCycle(t *testing.T, p Profile, units map[int]Placement) *Game {
+	t.Helper()
+	return hqCycleHolds(t, p, units, nil)
+}
+
+// hqCycleHolds is hqCycle with further container records; the HQ records
+// are given where holds has none.
+func hqCycleHolds(t *testing.T, p Profile, units map[int]Placement, holds map[int]Hold) *Game {
 	t.Helper()
 	m := moveTables(t, p)
 	terrain := make([]int, cycleW*cycleH)
@@ -27,9 +35,12 @@ func hqCycle(t *testing.T, p Profile, units map[int]Placement) *Game {
 	if m.Terrains[terrain[hq0]].Flags&0x40 == 0 || m.Terrains[terrain[hq1]].Flags&0x40 == 0 {
 		t.Fatal("no HQ terrain")
 	}
-	h0, h1 := EmptyHold(), EmptyHold()
+	all := map[int]Hold{HoldFlag40: EmptyHold(), HoldFlag40 + 1: EmptyHold()}
+	h1 := all[HoldFlag40+1]
 	h1.Flags = 1
-	g, err := NewGame(p, cycleW, cycleH, terrain, units, map[int]Hold{HoldFlag40: h0, HoldFlag40 + 1: h1})
+	all[HoldFlag40+1] = h1
+	maps.Copy(all, holds)
+	g, err := NewGame(p, cycleW, cycleH, terrain, units, all)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -62,10 +73,10 @@ func endOf(t *testing.T, evs []Event) *End {
 func TestVictoryOpen(t *testing.T) {
 	for build, p := range profiles {
 		t.Run(build, func(t *testing.T) {
-			g := hqCycle(t, p, map[int]Placement{
+			g := hqCycleHolds(t, p, map[int]Placement{
 				0: {Type: cInfantry, Owner: 0, Cell: hq0}, 1: {Type: cPanzer, Owner: 1, Cell: hq1},
 				2: {Type: cSupply, Owner: 2, Cell: 40},
-			})
+			}, map[int]Hold{0: transportHold(40, 2, 2)})
 			if r := g.end(); r.Over || r.Winner != -1 || r.Score != 0 || g.Ended != nil {
 				t.Errorf("result %+v", r)
 			}
