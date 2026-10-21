@@ -661,7 +661,7 @@ func main() {
 	name := flag.String("level", "level1_cp", "shipped level to load from levels/ (name without .json)")
 	dir := flag.String("levels", "levels", "directory with the level files")
 	side := flag.String("player", "", "side the player plays and whose view is shown: central, entente (default: the level's side)")
-	rules := flag.String("rules", "standard", "rule set: dos (the original order cycle), standard or classic")
+	rules := flag.String("rules", "dos", "rule set: dos (the original order cycle), standard or classic")
 	reveal := flag.Bool("reveal", false, "dev: show the whole map, ignoring fog of war (dos: every unit where its own side sees it)")
 	hexNumbers := flag.Bool("hexnumbers", false, "dev: print line,col on every hex")
 	reduced := flag.Bool("reduced-motion", false, "walk instantly and show short static effects (toggle in game with M)")

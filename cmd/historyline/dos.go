@@ -6,6 +6,7 @@ import (
 	"maps"
 	"strings"
 
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosai"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
@@ -32,7 +33,7 @@ func (passPlanner) Plan(s *dosplay.Session, side int) ([]dosplay.Event, error) {
 }
 
 // computerPlanner is the computer side of -opponent ai.
-func computerPlanner() dosPlanner { return passPlanner{} }
+func computerPlanner() dosPlanner { return &dosai.Planner{} }
 
 // dosControl turns clicks into orders of the human side of a session and
 // plays the resolution back. Every order goes through the session, so a

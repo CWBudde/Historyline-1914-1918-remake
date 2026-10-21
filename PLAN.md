@@ -487,7 +487,8 @@ own and leaves the game playable.
        unrevealed moves or orders; the slowest `Plan` takes about 12 ms. Side 1 is the stronger side on
        Civil and Mouse.
 5. [ ] Default `-rules dos` for `just play`, `just run` and the web build; hand-test all three levels from
-       both sides.
+       both sides. (2026-10-21) — partial: `-rules dos` is the default, `-opponent ai` plays
+       `dosai.Planner`. Remains: the hand test.
 6. [ ] Energy controls: energy display, repair and production in buildings (`CmdRepair`, `CmdBuild`).
 
 ### 4. Computer opponent
