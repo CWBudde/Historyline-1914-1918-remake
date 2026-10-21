@@ -463,9 +463,13 @@ own and leaves the game playable.
        `TestBindMatchesOriginalMaps` pins where the levels differ from the original maps (16 terrain cells,
        7 unit cells, 3 building contents, 2 units on a factory wall). Assumed: credits and build lists from
        the scenario, building cells and numbering, transporter classes (`dosbind.go`).
-2. [ ] Session: a `dosrules.Game` built from a level, with the queries the UI needs (a side's view of
+2. [x] Session: a `dosrules.Game` built from a level, with the queries the UI needs (a side's view of
        units and fog, destinations and routes, attack targets, unit details), the commands, and events in
        UI terms (move with route, battle with losses, destroyed units, phase change, end).
+       (2026-10-21) — `dosplay.Session`: views of each side's map (no fog: every hex is visible),
+       moves, exits, attacks, repair and build, `Revealed` routes after the phase change, save/load;
+       `TestSmoke` plays 40 resolutions per level headless without an engine error, a policy that
+       approaches the enemy ends all three levels by annihilation within 23–28 resolutions.
 3. [ ] Front end: the order cycle in `cmd/historyline`: phase display (movement/action), moves and attack
        orders, markers on queued attacks, confirm (double arrow) and unconfirm, resolution with the battle
        panel and banners, the side's own map for fog; flag `-rules dos|standard|classic`.
