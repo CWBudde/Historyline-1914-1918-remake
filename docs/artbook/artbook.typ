@@ -21,6 +21,7 @@
 #let with-style = sys.inputs.at("style", default: "true") == "true"
 #let with-reference = sys.inputs.at("reference", default: "true") == "true"
 #let pulse = sys.inputs.at("pulse", default: "")
+#let shore = sys.inputs.at("shore", default: "")
 #let compare = sys.inputs.at("compare", default: "")
 
 #let kinds = (
@@ -245,6 +246,29 @@ source describe the image in this PDF. PULSE uses the 4× runtime artwork; compa
   plate("pulse-ground.png")[Terrain and infrastructure only]
 }
 
+#if shore != "" {
+  heading(level: 1)[Reusable shoreline tiles]
+  [
+    Nine shore tiles above, six different compatible arrangements below. Every panel uses the same
+    exported tile PNGs at their native 4× resolution. The six assemblies reuse the same central tile
+    with different neighbours; land and water agree on shared edges and at three-tile corners.
+    These are reusable terrain pieces. PULSE uses them too, without a lake-shaped painting.
+  ]
+  figure(image(shore + "/shore-catalogue-4x.png", height: 21cm),
+    caption: [All nine shores and six assemblies. Native PNG: 3144 × 3728 pixels.],
+    supplement: none, numbering: none)
+  pagebreak(weak: true)
+  heading(level: 2)[Reusable river mouths]
+  [
+    A stream meeting a land edge opens a channel through the bank using a reusable mouth variant.
+    Selection depends on the neighbouring stream's port, and the ordinary shore tile remains in use
+    elsewhere. The supported set covers every fully-land edge of the nine shore shapes.
+  ]
+  figure(image(shore + "/shore-mouths-4x.png", width: 100%, height: 20cm),
+    caption: [River-mouth pieces composed from the shared water, rock and meadow materials.],
+    supplement: none, numbering: none)
+}
+
 // The reference painting beside the render (`reference-design -compare`, only with the local image).
 #let art-status = (:)
 #for a in index.assets { art-status.insert(a.id, a.status) }
@@ -269,8 +293,8 @@ source describe the image in this PDF. PULSE uses the 4× runtime artwork; compa
   ]
   note[
     This is a candidate comparison. The map layout follows PULSE, while visual acceptance remains open.
-    The PULSE lake now uses one painting across its hex cluster, restoring its northern basin,
-    larger boulder banks and connected outlet. Compare its remaining width and shoreline vegetation,
+    The PULSE lake uses reusable shore, water and water-stone tiles with shared materials.
+    Compare its bank silhouettes, outlet and shoreline vegetation,
     canopy repetition, scattered meadow details, road and path edges, and the southern pair of craters. Higher pixel resolution
     preserves the authored detail; these composition differences still need review.
   ]

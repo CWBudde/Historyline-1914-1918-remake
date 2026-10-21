@@ -59,6 +59,10 @@ and the feature binding is not yet defined. Keep each painting and its prompt in
   exact placements.
 - Shores keep land/water on the shared polygon vertices; each `lakeside*` ID lists its land vertices in
   `art/pipeline/shore-terrain-v2.json`.
+  All nine shapes share the bank and water materials. Compatible edge states must match in other
+  arrangements as well as PULSE; a complete lake painting is a look reference, not runtime terrain.
+  Single river mouths are derived as `tile/<shore>-outlet<port>` for the 24 fully-land edges, selected
+  from a neighbouring stream pointing at that edge. The canonical shore is retained elsewhere.
 - Ground, forest and hills pick a context by neighbours (hills also by lattice phase) from
   `art/pipeline/contexts/`.
 - Terrain sources are 6:5; exports are fixed Lanczos3 at 2× (192×160) and 4× (384×320). Portraits are 105:94
@@ -94,6 +98,8 @@ the master changed, then run `go run ./cmd/hlart index` and `go run ./cmd/hlart 
 
 Use `just artbook` to rebuild the primary review artifact, `build/artbook/Historyline_Art.pdf`.
 It includes the indexed masters, runtime samples, current PULSE maps and reference comparisons.
+The reusable shoreline catalogue shows all nine tiles and six different compatible assemblies using
+the exact exported PNGs (`build/artbook/shore/shore-catalogue-4x.png`).
 The PDF embeds native master PNGs, the highest available game-export density and a 4× PULSE render;
 comparison plates use lossless PNG. Review status (`candidate`, `revised`, `approved`) records visual
 acceptance independently of resolution. Appearance variants describe materials, seasons and geometry.

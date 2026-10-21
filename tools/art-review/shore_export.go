@@ -63,6 +63,10 @@ type shoreReport struct {
 	Materials        map[string]connectionMaterialReport `json:"materials"`
 	Variants         []shoreVariantReport                `json:"variants"`
 	Scenes           []shoreScene                        `json:"scenes"`
+	ReuseScenes      []shoreScene                        `json:"reuse_scenes"`
+	ReuseCatalogues  []packOutput                        `json:"reuse_catalogues"`
+	Mouths           []shoreMouthReport                  `json:"mouths"`
+	MouthProofs      []packOutput                        `json:"mouth_proofs"`
 	Exports          []packOutput                        `json:"exports"`
 }
 type shoreBundle struct {
@@ -242,6 +246,12 @@ func buildShoreBundle(in shoreInputs) (shoreBundle, error) {
 		}
 	}
 	if _, err := b.addPNG("contact-sheet.png", connectionContactSheet(panels)); err != nil {
+		return b, err
+	}
+	if err := b.addReuseProof(); err != nil {
+		return b, err
+	}
+	if err := b.addMouths(in); err != nil {
 		return b, err
 	}
 	report, err := json.MarshalIndent(b.report, "", "  ")

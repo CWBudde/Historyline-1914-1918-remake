@@ -145,8 +145,8 @@ func TestShoreCLIActualPNGFamily(t *testing.T) {
 			}
 		}
 	}
-	if len(report.Exports) != 63 {
-		t.Fatalf("expected 22 tiles +40 scenes +1 sheet, got %d", len(report.Exports))
+	if len(report.Exports) != 133 {
+		t.Fatalf("expected 22 tiles +40 scenes +1 sheet +14 reuse proofs +56 mouth exports, got %d", len(report.Exports))
 	}
 	// PNG hashes and dimensions are checked against bytes actually saved to disk.
 	for _, e := range report.Exports {
@@ -229,7 +229,7 @@ func TestShoreCLIActualPNGFamily(t *testing.T) {
 		t.Fatal(err)
 	}
 	// Generated PNGs, three retained sources, manifest, report, gallery.
-	if firstFiles != 69 {
+	if firstFiles != 139 {
 		t.Fatalf("unexpected file list: %d", firstFiles)
 	}
 }

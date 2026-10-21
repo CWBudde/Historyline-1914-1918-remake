@@ -6219,10 +6219,10 @@
       "prompt": "art/terrain/lakeside/prompt.md",
       "masters": [
         {
-          "path": "art/terrain/lakeside/lakeside-lake-summer-v3.png",
-          "sha256": "4a9525d4f4baef40aded8251608a8e4712688e23d08b99c228962b48495906f8",
-          "width": 1339,
-          "height": 1174
+          "path": "art/terrain/lakeside/lakeside-bank-shared-v3.png",
+          "sha256": "525ebf846c41646fa0d85bceed30665016ab72be769da62c4a2d7a3e9aee8c91",
+          "width": 1254,
+          "height": 1254
         },
         {
           "path": "art/terrain/lakeside/lakeside-bank-shared-v2.png",
@@ -6235,10 +6235,16 @@
           "sha256": "d43b40a2ed64e95cbb6afdacca4a384a39ec59c8a54d05bdcbe77a60e6aa6613",
           "width": 1254,
           "height": 1254
+        },
+        {
+          "path": "art/terrain/lakeside/lakeside-lake-summer-v3.png",
+          "sha256": "4a9525d4f4baef40aded8251608a8e4712688e23d08b99c228962b48495906f8",
+          "width": 1339,
+          "height": 1174
         }
       ],
-      "look": "Shore between lake and meadow with rounded warm grey and brown-grey boulders, damp dark crevices\nand olive moss. PULSE uses the whole-lake painting `lakeside-lake-summer-v3.png`, a native 1339×1174 RGBA\nbuilt-in image-tool output redrawn against the local RefDesign2 lake crop. It preserves a broad northern\nbasin, larger central rocks, irregular boulder banks and a connected southern neck. The hex grid and\nbridge remain separate. The basin is still slightly narrower than the reference; nearby vegetation\nremains sparser. Other lake shapes retain the nine per-hex shores.\n\nSelected bank material `lakeside-bank-shared-v2.png` is a native 1254×1254 opaque built-in image-tool output;\nthe request for 1536×1536 did not determine the delivered dimensions.",
-      "base_prompt": "Use case: stylized-concept. Generate a NEW opaque square 1536x1536 material swatch for rural European stony lake shores in a WWI tactical game. The attached PULSE painting is a style/color reference, the attached crater painting is a reference for native detailed painted material finish only; do not copy either subject or scene. Strict vertical nadir, no tilt. The entire canvas is irregular naturally rounded and flattened boulders, cobbles and pebbles in weathered warm grey, earthy brown-grey and muted beige, with darker charcoal wet crevices, damp brown soil, olive moss in gaps and occasional small grains. Medium sized rounded rocks occupy about 6 to 12 percent of the canvas width each, with smaller companion stones, many irregular shapes, varied orientation. Enough rounded sculptural boulders to read clearly when this swatch becomes a narrow bank on a small map. Fine cracks, tiny mica and moss detail, restrained upper-left highlights, short soft lower-right shade. Natural continuous hand-painted digital game illustration, crisp antialiased edges and fine brushwork like the crater reference. Uniform brightness and density right to every edge. This is one continuous opaque material, no framing. Avoid white chalk/gravel dominance, flat white fringe, regular cobblestone paving, all-white stones, crystal forms, cartoony blobs, visible repeating pattern, grid, text, hex outlines, water, grass fields, horizon, gradient, vignette, pixel art, photoreal photo, 3D render. 1536x1536 square.",
+      "look": "Reusable shore between lake and meadow with rounded warm grey and brown-grey boulders, damp dark\ncrevices, olive moss and small grass tufts. All nine shore shapes use the same bank, water and meadow\nmaterials, including on PULSE. Selected `lakeside-bank-shared-v3.png` is a native 1254×1254 opaque\nbuilt-in imagegen output with larger rock faces and more vegetation between them. Requested 1536×1536\nwas not the delivered size. The whole-lake painting `lakeside-lake-summer-v3.png` is retained only as\na look reference; it is absent from the active recipe and runtime catalogue.",
+      "base_prompt": "Use case: stylized-concept. Asset type: GENERIC REUSABLE tactical game material, opaque seamless surface swatch, NOT a map scene. Reference image attached is ONLY the visual style/material reference for the pale rounded rocks lining the lake: do not copy lake silhouette, layout, water, bridges, or any landmark. Generate a new native high-resolution square 1536x1536 top-down orthographic material of mixed-size natural shoreline boulders: large smooth weathered flattened grey-beige and warm brown-grey rocks with dark damp mossy earth and small pebbles between. Roughly 5 to 7 major boulders across canvas width, varied sizes, natural incomplete distribution, some moss and tiny tufts of olive grass in crevices, shallow cracks, short soft shadows bottom-right, light upper-left. Rich painted microdetail at native resolution like the attached art. Boulders need distinct readable curved silhouettes, pale top faces and dark crevices; not a dense carpet of tiny gravel, not geometric cobblestone pavement. Entire canvas filled with generic rock/earth surface at consistent scale, density and lighting right to edges. Repeating swatch to be sampled into arbitrary shoreline curves, no bank direction, no focal point, no framing, no gradient, no water or lake, no complete coastline, no hex tile or grid, no text. Opaque full-bleed square. Newly authored hand-painted game art.",
       "variants": [
         {
           "variant": "lakeside12",
@@ -6302,10 +6308,15 @@
             "lakeside56"
           ],
           "delta": "Land at hex vertices (25,0), (71,0), (0,40); water elsewhere, stony bank along the boundary."
+        },
+        {
+          "variant": "stream mouths",
+          "runtime_ids": [],
+          "delta": "Derived outlet variants open a stream-width channel through a fully-land edge; the same bank and water materials serve every eligible shore and direction."
         }
       ],
-      "edges": "Land and water are defined on the shared hex vertices, so neighbouring shore, water and meadow tiles\nagree at every edge and three-tile corner; the stone bank follows the boundary through the tile.",
-      "post": "`tools/terrain-stamps -manifest art/pipeline/feature-stamps-v1.json` exports the PULSE lake at 2× and 4×.\nThe selected crop is 1336×1172 native pixels, registered on a 334×293 logical canvas with anchor (169,50)\non the northernmost lake hex. The export reduces or preserves source pixels; it never enlarges them.\nIts transparent shoreline blends over the existing meadow; stream and bridge overlays remain above it.\n\n`art-review -shore art/pipeline/shore-terrain-v2.json` composes meadow, water and this bank material per\nvariant from the explicit land vertices. Summer only. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.\n\nThe selected manifest opts into `authored-rocks-v1`: one uniformly cropped authored bank sample at\n35.5×20 logical-pixel periods, with 8 percent seam overlap and no mirrored coset average. Rounded\nrock faces remain about 2–5 logical pixels; the bank extends landward before blending into meadow.\nWater uses the matching 71×40-period authored sampler. Existing corner masks remain unchanged.\n\n**Whole-lake prompt.**\nBuilt-in imagegen, style-transfer from the local RefDesign2 lake crop: redraw only the blue lake and\nrocky shoreline at higher native detail, preserving its asymmetrical silhouette, dark teal-blue water,\nloose broken cyan/white ripple cells, three large central rocks and one smaller companion. Rounded\nwarm grey and beige bank boulders, dark damp crevices, olive moss and a narrow grass fringe. Upper-left\nlighting, overhead view, transparent exterior. No hex lines, bridges, surrounding fields or mountains.\nThe requested 2048×1792 size was not delivered; native dimensions above describe the actual file.\n\nOutlet edit: preserve the upper basin; shorten the southwest tail and move its terminal opening right\ntoward 61 percent of the canvas width, leaving open blue water between the two banks for the creek join.\nReduce star-shaped sparkles to wandering broken ripple lines. Preserve alpha, palette and lighting.\n\nFinal outlet edit: narrow the last 15 percent of the channel and bend it southwest, targeting source\ncentres (820,1040), (750,1100), (670,1168), with an open terminal water width of about 70 source pixels.\nPreserve the upper basin and replace the previous wide right-hand toe with transparency.",
+      "edges": "Land and water are defined on the shared hex vertices, so neighbouring shore, water and meadow tiles\nagree at every edge and three-tile corner; the stone bank follows the boundary through the tile.\nWhen one neighbouring stream points into a fully-land edge, the compositor selects the corresponding\n`tile/<shore>-outlet<port>` variant. The channel meets the stream at its declared width, leaving the\nedge's land corners and all other edge guards intact. The same variant works at any map position.",
+      "post": "`art-review -shore art/pipeline/shore-terrain-v2.json` composes meadow, water and this bank material per\nvariant from the explicit land vertices. Summer only. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.\n\nThe selected manifest opts into `authored-rocks-v1`: one uniformly cropped authored bank sample at\n35.5×20 logical-pixel periods, with 8 percent seam overlap and no mirrored coset average. The larger\nauthored rocks retain their scale across the nine masks; the bank extends landward before blending into meadow.\nWater uses the matching 71×40-period authored sampler. Existing corner masks remain unchanged.\n\nThe exporter includes all nine tile PNGs and six different compatible assemblies in\n`shore-catalogue-2x.png` and `shore-catalogue-4x.png`, using the actual decoded exports without resizing.\nThe artbook embeds the 4× catalogue. All 234 compatible ordered tile pairs retain matching edge colours.\nReference: local RefDesign2 lake crop, used only for materials and lighting. Native generation used the\nbuilt-in image tool; no source pixels were enlarged. Universal bank silhouettes and vegetation remain\nvisual acceptance tasks.\nThe 24 single-mouth variants cover every fully-land edge of the nine supported masks. Missing art,\nmixed/water edges and multiple facing streams retain the canonical tile; multi-mouth geometry and\nwinter acceptance remain open. `shore-mouths-4x.png` presents the reusable mouth exports in the artbook.",
       "avoid": [
         "visible tiling or repeated rounded \"pillow\" patterns",
         "perspective, horizon or tilted camera",
@@ -6315,7 +6326,7 @@
         "surf or foam lines"
       ],
       "runtime": {
-        "count": 20,
+        "count": 66,
         "densities": [
           2,
           4
@@ -7186,7 +7197,7 @@
       "id": "terrain/stream",
       "title": "Stream",
       "kind": "terrain",
-      "status": "candidate",
+      "status": "revised",
       "runtime_ids": [
         "stream13",
         "stream135",
@@ -7205,6 +7216,12 @@
       "prompt": "art/terrain/stream/prompt.md",
       "masters": [
         {
+          "path": "art/terrain/stream/stream-bank-shared-v3.png",
+          "sha256": "525ebf846c41646fa0d85bceed30665016ab72be769da62c4a2d7a3e9aee8c91",
+          "width": 1254,
+          "height": 1254
+        },
+        {
           "path": "art/terrain/stream/stream-bank-shared-v2.png",
           "sha256": "f8f7adb6436071ab7210480a8c63446b6d0bcf21c7bfa6c21c33662f31d616a4",
           "width": 1254,
@@ -7217,7 +7234,7 @@
           "height": 320
         }
       ],
-      "look": "Winding blue-teal creek with broken white ripples, rounded brown-grey stony banks and dark wet lips.\nSelected `stream-bank-shared-v2.png` is a byte-identical copy of the new native 1254×1254 lakeside bank master.",
+      "look": "Winding blue-teal creek with broken white ripples, rounded brown-grey stony banks and dark wet lips.\nSelected `stream-bank-shared-v3.png` is a byte-identical copy of the native 1254×1254 lakeside bank master.\nAll stream port sets share that material and `water-shared-v3.png` with the reusable shore tiles.",
       "base_prompt": "Use the exact built-in generation prompt recorded in `art/terrain/lakeside/prompt.md`: the selected\nstream bank shares that opaque rounded-rock material without cropping, rescaling or a separate\ngeneration. The matching water material and its exact prompt are in `art/terrain/water/prompt.md`.",
       "variants": [
         {
@@ -7299,7 +7316,7 @@
         }
       ],
       "edges": "The water channel is 18 world pixels wide with a 3.5-pixel stony bank, centred on the shared port\ncentres and continuing through each port, so creeks join each other, bridges and the lake shore.",
-      "post": "The bank material retains the entire native lakeside master without enlargement.\n`art-review -connected art/pipeline/connected-stream-v2.json` draws the water (shared water material) and banks\nalong each port set over meadow. Season-neutral. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.\n\nThe selected `authored-rocks-v1` bank profile retains individual painted stone faces at about 2–5\nlogical pixels, adds two logical pixels to the landward bank, and samples the authored water glints\nwithout the old mirrored coset average or continuous generated foam line. Core ports stay unchanged.",
+      "post": "The bank material retains the entire native lakeside master without enlargement.\n`art-review -connected art/pipeline/connected-stream-v2.json` draws the water (shared water material) and banks\nalong each port set over meadow. Season-neutral. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.\n\nThe selected `authored-rocks-v1` bank profile retains individual painted stone faces,\nadds two logical pixels to the landward bank, and samples the authored water glints\nwithout the old mirrored coset average or continuous generated foam line. Core ports stay unchanged.",
       "avoid": [
         "visible tiling or repeated rounded \"pillow\" patterns",
         "perspective, horizon or tilted camera",
@@ -7501,7 +7518,7 @@
       "id": "terrain/water",
       "title": "Water",
       "kind": "terrain",
-      "status": "candidate",
+      "status": "revised",
       "runtime_ids": [
         "water",
         "waterStones"
@@ -7511,8 +7528,8 @@
       "prompt": "art/terrain/water/prompt.md",
       "masters": [
         {
-          "path": "art/terrain/water/water-shared-v2.png",
-          "sha256": "75e798f351616594e8e6d534087f2c7c3bf78b91fea7be3ea0135ae5f7e563a5",
+          "path": "art/terrain/water/water-shared-v3.png",
+          "sha256": "69f7526af3efea9ef6c5f8542ed4170e25a46e032b93e4d3160c403831cff9cf",
           "width": 1254,
           "height": 1254
         },
@@ -7521,6 +7538,12 @@
           "sha256": "753151971ea378e314149cc3790aa00d7bc82dbf6c896092dbecbb2ce394b018",
           "width": 1374,
           "height": 1145
+        },
+        {
+          "path": "art/terrain/water/water-shared-v2.png",
+          "sha256": "75e798f351616594e8e6d534087f2c7c3bf78b91fea7be3ea0135ae5f7e563a5",
+          "width": 1254,
+          "height": 1254
         },
         {
           "path": "art/terrain/water/water-shared-v1.png",
@@ -7535,8 +7558,8 @@
           "height": 1145
         }
       ],
-      "look": "Open saturated blue-teal water with fine broken sun glints. Three isolated clusters of rounded,\nweathered grey-brown rocks rise from it. Selected native masters: `water-shared-v2.png` (1254×1254 opaque)\nand `water-rocks-shared-v2.png` (1374×1145 RGBA), generated with the built-in image tool. The requested\n1536-pixel dimensions were not returned; the retained files are the actual native outputs.",
-      "base_prompt": "Use case: stylized-concept. Generate a NEW opaque square 1536x1536 master material texture for a hand-painted World War I tactical game, not an edit. Reference images attached by local path are STYLE AND QUALITY REFERENCES only: image 1 PULSE painting defines blue water color and natural aerial map style; image 2 crater defines fine native brush detail, never copy its crater subject. Strict vertical nadir orthographic surface of open rural European lake water filling the entire canvas with no shore or objects. Saturated clear deep blue/teal water close to RGB(25,90,117), darker blue troughs, fine irregular interconnected sun ripples, tiny broken white glints. Finely painted smooth natural curves and antialiased microdetail at native resolution, comparable finish to the crater reference. Very small low waves, calm readable surface, even detail distribution and brightness all the way to every edge, no large gradients. Diffuse upper-left daylight. Newly authored continuous painterly illustration, natural volume, no photographic noise, no pixel art, no enlarged pixels, no vector graphics, no grid or hex outline, no text, no boats, no islands, no underwater rocks, no landscape horizon, no foam lines, no tropical cyan, no checkerboard. Opaque full bleed square.\n\nWater stones prompt (separate built-in call, transparent background):\n\nUse case: stylized-concept. NEW transparent terrain object sprite, native high detail, wide 1536x1280 canvas intended for 6:5 crop. Reference 1 PULSE painting gives natural aerial map look and blue lake water; reference 2 crater is fine painted finish quality ONLY. Strict vertical top-down nadir orthographic, no perspective tilt. Three small separated clusters of low rounded warm grey-brown boulders emerging from water: one cluster at x38% y38%, one at x64% y40%, one at x52% y63%. In each cluster one or two substantial rounded boulders with a few smaller companions, subtle cracked weathered rock faces, tiny olive moss stains, damp dark bases. Natural varied shapes and gently domed flat tops, pale upper-left faces, short soft lower-right shadows. Only an extremely narrow broken translucent pale-blue ripple immediately hugging each boulder. All else completely alpha zero, including between the clusters, no opaque water areas, no ground, no grass, no haze. Objects together occupy central 50 percent canvas width and central 45 percent height leaving generous empty transparent margins. Continuous hand-painted tactical game illustration, same polished native stone microdetail as crater reference; antialiased natural edges, not pixel art, no enlarged pixels, no white foam rings, no checkerboard painted in, no text, no outlines, no square background. Genuine transparent background.",
+      "look": "Open saturated blue-teal water with broader wandering broken ripple lines. Three isolated clusters of rounded,\nweathered grey-brown rocks rise from it. Selected native masters: `water-shared-v3.png` (1254×1254 opaque)\nand `water-rocks-shared-v2.png` (1374×1145 RGBA), generated with the built-in image tool. The requested\n1536-pixel dimensions were not returned; the retained files are the actual native outputs.",
+      "base_prompt": "Use case: stylized-concept. Asset type: GENERIC REUSABLE tactical game WATER SURFACE MATERIAL, opaque seamless square swatch, NOT a map scene. Reference image attached is a visual style and water color/ripple scale reference only. Do NOT reproduce its coastline, lake silhouette, rock positions or bridges. Create native high-resolution 1536x1536 painted open lake surface, calm deep teal-blue water around RGB(25,88,112), subtle darker troughs and blue-green translucency, broad wandering curved interrupted pale-blue ripple streaks with occasional short white glints. Ripples loosely interconnect organically, irregular shapes and spacing, roughly 9 to 12 ripple cells across the width, readable soft rounded shapes rather than tiny uniform mesh or star-shaped glitter. Water only, even lighting and density right to every edge, no gradient, no vignette, no focal point. Crisp painted native detail, natural aerial game illustration, strictly vertical orthographic surface. No foam sheets, no shiny star pinpoints, no rocks, land, shore, islands, plants, structures, objects, grids, hex shapes, labels, text or border. Opaque full bleed square surface reusable in ANY water tile shape.\n\nWater stones prompt (separate built-in call, transparent background):\n\nUse case: stylized-concept. NEW transparent terrain object sprite, native high detail, wide 1536x1280 canvas intended for 6:5 crop. Reference 1 PULSE painting gives natural aerial map look and blue lake water; reference 2 crater is fine painted finish quality ONLY. Strict vertical top-down nadir orthographic, no perspective tilt. Three small separated clusters of low rounded warm grey-brown boulders emerging from water: one cluster at x38% y38%, one at x64% y40%, one at x52% y63%. In each cluster one or two substantial rounded boulders with a few smaller companions, subtle cracked weathered rock faces, tiny olive moss stains, damp dark bases. Natural varied shapes and gently domed flat tops, pale upper-left faces, short soft lower-right shadows. Only an extremely narrow broken translucent pale-blue ripple immediately hugging each boulder. All else completely alpha zero, including between the clusters, no opaque water areas, no ground, no grass, no haze. Objects together occupy central 50 percent canvas width and central 45 percent height leaving generous empty transparent margins. Continuous hand-painted tactical game illustration, same polished native stone microdetail as crater reference; antialiased natural edges, not pixel art, no enlarged pixels, no white foam rings, no checkerboard painted in, no text, no outlines, no square background. Genuine transparent background.",
       "variants": [
         {
           "variant": "water",
@@ -7554,7 +7577,7 @@
         }
       ],
       "edges": "The water material is periodic on the world lattice, so lake hexes form one continuous surface; shore\nand stream tiles use the same material, so water matches across all of them.",
-      "post": "`art-review -shore art/pipeline/shore-terrain-v2.json` samples the water material for `water`;\n`art-review -compound art/pipeline/compound-water-stones-v2.json` places the rock cut-out over it for\n`waterStones`. Summer only. Both referenced images were style references, not edit targets.\n\nThe selected v2 shore and water-stones manifests use the same `authored-rocks-v1` water profile:\nuniform centre crop, 71×40 logical-pixel periods, 8 percent opposing-edge overlap, no mirrored coset\naverage. Open water, shores, streams and the water-stones base retain the same painted glint scale.\nExports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.",
+      "post": "`art-review -shore art/pipeline/shore-terrain-v2.json` samples the water material for `water`;\n`art-review -compound art/pipeline/compound-water-stones-v2.json` places the rock cut-out over it for\n`waterStones`. Summer only. Both referenced images were style references, not edit targets.\n\nThe selected shore and water-stones manifests use the same `authored-rocks-v1` water profile:\nuniform centre crop, 71×40 logical-pixel periods, 8 percent opposing-edge overlap, no mirrored coset\naverage. Open water, shores, streams and the water-stones base retain the same painted glint scale.\nExports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.\nThe v3 built-in generation used the local RefDesign2 lake crop only as a material reference. PULSE and\nother constellations share the same tile surface; no lake silhouette is baked into this material.",
       "avoid": [
         "visible tiling or repeated rounded \"pillow\" patterns",
         "perspective, horizon or tilted camera",

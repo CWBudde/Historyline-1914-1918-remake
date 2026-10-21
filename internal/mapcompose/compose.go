@@ -93,6 +93,9 @@ func Compose(g hexgrid.Grid, at func(hexgrid.Coord) Hex, has func(id string) boo
 					cell.Background, cell.Context = id, f
 				}
 			}
+			if id := selectShoreOutlet(g, at, c, h.Terrain, has); id != "" {
+				cell.Background = id
+			}
 		}
 	}
 	s.registerCompounds(at, has)

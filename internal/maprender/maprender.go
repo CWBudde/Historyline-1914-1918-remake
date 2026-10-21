@@ -46,7 +46,7 @@ type Map struct {
 type Renderer struct {
 	assets fs.FS
 	files  map[string]Entry // terrain and unit IDs per density, keyed "density/id"
-	has    map[string]bool  // context, grass-detail, standing and stamp IDs present at every density
+	has    map[string]bool  // tile, context, standing and stamp IDs present at every density
 	cache  map[string]image.Image
 	set    *data.Set
 }
@@ -78,7 +78,7 @@ func New(assets fs.FS) (*Renderer, error) {
 			continue
 		}
 		r.files[fmt.Sprintf("%d/%s", e.Density, e.ID)] = e
-		if strings.HasPrefix(e.ID, "context/") || strings.HasPrefix(e.ID, "tile/grass-detail-") || strings.HasPrefix(e.ID, "standing/") || strings.HasPrefix(e.ID, "stamp/") {
+		if strings.HasPrefix(e.ID, "context/") || strings.HasPrefix(e.ID, "tile/") || strings.HasPrefix(e.ID, "standing/") || strings.HasPrefix(e.ID, "stamp/") {
 			densities[e.ID]++
 		}
 	}

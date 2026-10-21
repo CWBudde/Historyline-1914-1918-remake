@@ -7,6 +7,8 @@ recreated UI and an optional original-rules profile.
 original's gameplay IDs, map placement, connection topology and information layouts; never ship original art
 or close reconstructions. Unit sprites and portraits follow their reference closely in composition at the
 original size, in the painted style.
+Terrain must remain reusable in different compatible tile arrangements. Match the reference's materials,
+scale and lighting; do not achieve PULSE resemblance by substituting a painting of its exact lake outline.
 
 **Rule sets:** `Classic` (the inherited Python behaviour), `Standard` (Classic with fixes), and the original
 profile in `internal/dosrules` (not wired into the game yet). Keep them separate; never mix their mechanics.
@@ -223,9 +225,9 @@ combination, and so that the painting can cross hex borders. Picking, fog and ru
       seeded by the cluster's first cell, and draw it across the cluster in the ground and standing layers; fall
       back to per-hex art for unknown shapes and report them like gaps. (2026-10-21) — shape keys and IDs in
       [docs/runtime-assets.md](docs/runtime-assets.md); `hlasset terrain-gaps` lists the unstamped clusters.
-      PULSE needs: `crater` `4_-1.1_1.1_0.2` (both craters), `lake` (one 11-hex lake), `boulders` and
+      PULSE uses: `crater` `4_-1.1_1.1_0.2` (both craters), `boulders` and
       `knoll` singles and small groups. Candidate stamps now cover every PULSE crater, boulder and knoll
-      cluster shape, including the PULSE lake. Winter stamps remain open; the southern crater still needs
+      cluster shape. Lakes use reusable water and shore tiles. Winter stamps remain open; the southern crater still needs
       its paired art.
 - [x] Pinned stamp/standing exporter (`tools/terrain-stamps`): alpha-preserving 2×/4× exports with source
       hashes, canvas and anchors; rejects enlargement. Exporter tests and `hlart check` pass. (2026-10-21)
@@ -321,17 +323,19 @@ Needs 1.1 and 1.4.
 
 ##### Phase 4: Water (art)
 
-Needs 1.2, 1.4 and 1.5.
+Needs 1.2 and 1.5. Lake silhouettes are composed from reusable terrain tiles.
 
 ###### 4.1 Lake (`water`, `waterStones`)
 
 - [ ] Clear blue water material with sparkle and depth falloff towards the shore. Exemplars `r29c7`, `r30c7`.
 - [ ] `waterStones`: rock cluster rising from the water (standing layer).
-- [x] PULSE lake candidate: one native RGBA painting across its 11-hex cluster, with a broader basin,
-      irregular boulder shore, larger water glints and central rocks, and an open neck meeting the outlet.
-      Pinned 2×/4× exports preserve native detail without enlargement. Composed reference crops were
-      reviewed and lake registration checks pass; basin width and surrounding vegetation remain open.
-      (2026-10-21)
+- [x] Reusable lake candidate: all nine shore shapes share native bank/water materials and retain their
+      edge masks. PULSE and other compatible constellations use the same tiles; the whole-lake painting
+      is a look reference only. The 24 single-mouth variants join facing streams without changing other
+      edge guards. Compatible-pair and mouth connectivity tests pass at 2×/4×; 1,076 runtime exports
+      build with zero context gaps on all three levels. `just artbook` embeds all nine tiles, six alternate
+      assemblies and mouth examples at native 4×. Bank naturalness and full reference acceptance remain
+      open. (2026-10-21)
 
 ###### 4.2 Shore (`lakeside12`, `lakeside123`, `lakeside126`, `lakeside156`, `lakeside16`, `lakeside23`, `lakeside34`, `lakeside3456`, `lakeside56`)
 

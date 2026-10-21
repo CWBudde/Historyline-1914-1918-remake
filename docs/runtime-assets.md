@@ -39,7 +39,7 @@ the opponent).
 ## Terrain
 
 Groups per density:
-`backgrounds` (60, incl. fog tile `unseen`), `infrastructure` (74), `context-ground`, `context-forest`,
+`backgrounds` (including fog tile `unseen`), `infrastructure`, `context-ground`, `context-forest`,
 `context-hills`. IDs `tile/<runtime id>` and `context/<family>/<key>`; 96×80 logical, anchor (48,40).
 The optional group `standing` holds standing items `standing/<runtime id>` (layer `standing` in
 `assets/index.json`; tree crowns, rocks, buildings, bridges): any canvas with the anchor on the hex centre
@@ -62,6 +62,12 @@ origin mod 568×320 for hills). Neighbours from another family count as the seas
 outside the map the centre continues. Without a context tile the default tile is drawn and a gap is recorded
 (`missing` or `undefined`). The three shipped levels have no gaps. Compounds must form complete groups; stray
 pieces are reported, never completed.
+
+Lakes use reusable shore, water and water-stone tiles; the current catalogue has no whole-lake stamp.
+For one adjacent stream facing a fully-land shore edge, the compositor selects
+`tile/<shore>-outlet<port>`. The 24 single-mouth variants share the ordinary bank and water materials,
+retain the corner states and meet the stream's port profile. Missing variants or several facing streams
+keep the canonical shore; multi-mouth and mixed-edge contexts remain open.
 
 Drawing order: all backgrounds, cluster stamps, overlays, standing items (line, then column), owner bars,
 units. Unseen hexes show `unseen` and none of their standing items; remembered hexes are greyed, standing

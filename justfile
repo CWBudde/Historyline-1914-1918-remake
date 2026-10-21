@@ -85,13 +85,15 @@ artbook: _build-dir
     #!/usr/bin/env sh
     set -eu
     mkdir -p build/artbook
+    rm -rf build/artbook/shore
+    go run ./tools/art-review -shore art/pipeline/shore-terrain-v2.json -out build/artbook/shore
     go run ./cmd/hlart pulse -out build/artbook/pulse
     go run ./tools/reference-design -compare build/artbook/compare -compare-format png
     compare=""
     if [ -f build/artbook/compare/compare.json ]; then compare=/build/artbook/compare; fi
     style=false
     if [ -f art/style.md ]; then style=true; fi
-    {{manual_typst}} --input pulse=/build/artbook/pulse --input compare=$compare --input style=$style docs/artbook/artbook.typ build/artbook/Historyline_Art.pdf
+    {{manual_typst}} --input pulse=/build/artbook/pulse --input shore=/build/artbook/shore --input compare=$compare --input style=$style docs/artbook/artbook.typ build/artbook/Historyline_Art.pdf
     echo build/artbook/Historyline_Art.pdf
 
 # Render the PULSE reference design review (needs the local RefDesign2.png) into build/review/reference

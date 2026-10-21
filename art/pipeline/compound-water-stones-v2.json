@@ -2,8 +2,8 @@
   "water_profile": "authored-rocks-v1",
   "grounds": {
     "shared": {
-      "source": "art/terrain/water/water-shared-v2.png",
-      "source_sha256": "75e798f351616594e8e6d534087f2c7c3bf78b91fea7be3ea0135ae5f7e563a5"
+      "source": "art/terrain/water/water-shared-v3.png",
+      "source_sha256": "69f7526af3efea9ef6c5f8542ed4170e25a46e032b93e4d3160c403831cff9cf"
     }
   },
   "scenes": [

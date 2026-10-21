@@ -107,7 +107,14 @@ func withAssets(t *testing.T, extras ...extra) fs.FS {
 	for _, item := range index["assets"].([]any) {
 		entry := item.(map[string]any)
 		pack, _ := entry["pack"].(string)
-		if !strings.HasPrefix(pack, "terrain-standing-") && !strings.HasPrefix(pack, "terrain-stamps-") {
+		replaced := false
+		for _, x := range extras {
+			if entry["id"] == x.id {
+				replaced = true
+				break
+			}
+		}
+		if !replaced && !strings.HasPrefix(pack, "terrain-standing-") && !strings.HasPrefix(pack, "terrain-stamps-") {
 			retained = append(retained, item)
 		}
 	}
@@ -151,6 +158,16 @@ func renderPulse(t *testing.T, assets fs.FS) (*level.Level, Map) {
 		t.Fatal(err)
 	}
 	return lvl, m
+}
+
+// A context-selected tile must reach the renderer's composition catalog, not
+// just its PNG lookup table. Otherwise the map silently draws the closed shore.
+func TestRenderShoreOutlet(t *testing.T) {
+	_, m := renderPulse(t, withAssets(t, extra{"tile/lakeside23-outlet4", "terrain-base", 96, 80, [2]float64{48, 40}}))
+	x, y := hexgrid.Center(hexgrid.Coord{Line: 31, Col: 6})
+	if got := m.Image.NRGBAAt(int(x)*2, int(y)*2); got != red {
+		t.Errorf("PULSE outlet pixel %+v, want selected mouth artwork %+v", got, red)
+	}
 }
 
 // A standing item overhangs its hex over the ground of its neighbours, and is

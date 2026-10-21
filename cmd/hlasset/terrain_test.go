@@ -35,7 +35,7 @@ func TestRetainedTerrainCatalogBuilds(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	want := map[string]int{"backgrounds": 76, "infrastructure": 74, "context-ground": 110, "context-forest": 82, "context-hills": 159}
+	want := map[string]int{"backgrounds": 100, "infrastructure": 74, "context-ground": 110, "context-forest": 82, "context-hills": 159}
 	for _, e := range retainedIndex(t) {
 		if e.Density == 2 {
 			if strings.HasPrefix(e.Pack, "terrain-standing-") {
@@ -226,6 +226,12 @@ func TestTerrainGapsReport(t *testing.T) {
 		t.Fatal(err)
 	}
 	s := b.String()
+	if strings.Contains(s, "  unstamped lake ") {
+		t.Error("reusable lake tiles reported as a missing whole-lake painting")
+	}
+	if !strings.Contains(s, "  unstamped crater_w ") {
+		t.Error("missing winter crater stamps disappeared from the report")
+	}
 	for _, want := range []string{
 		"level1_cp: 156 context tiles selected, 0 missing, 0 undefined, 0 compound issues",
 		"level2_cp: 233 context tiles selected, 0 missing, 0 undefined",

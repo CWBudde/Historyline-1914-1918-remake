@@ -1,11 +1,69 @@
 package mapcompose
 
 import (
+	"encoding/json"
+	"os"
 	"slices"
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 )
+
+// A painting fitted to PULSE's whole lake must not replace the reusable water
+// and shoreline tiles in the candidate catalog used by the game.
+func TestPULSELakeUsesReusableTerrainTiles(t *testing.T) {
+	raw, err := os.ReadFile("../../assets/index.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	var index struct {
+		Assets []struct {
+			ID      string `json:"id"`
+			Density int    `json:"density"`
+		} `json:"assets"`
+	}
+	if err := json.Unmarshal(raw, &index); err != nil {
+		t.Fatal(err)
+	}
+	have := map[string]bool{}
+	for _, entry := range index.Assets {
+		if entry.Density == 4 {
+			have[entry.ID] = true
+		}
+	}
+	g, at := loadLevel(t, "level1_cp")
+	s := Compose(g, at, func(id string) bool { return have[id] })
+	for _, cell := range []struct {
+		line, col  int
+		background string
+	}{
+		{26, 6, "tile/lakeside156"},
+		{27, 5, "tile/lakeside56"},
+		{27, 6, "tile/lakeside16"},
+		{28, 5, "tile/lakeside3456"},
+		{28, 6, "tile/waterStones"},
+		{28, 7, "tile/lakeside126"},
+		{29, 5, "tile/lakeside34"},
+		{29, 6, "tile/water"},
+		{30, 6, "tile/lakeside34"},
+		{30, 7, "tile/lakeside123"},
+		{31, 6, "tile/lakeside23-outlet4"},
+	} {
+		c := hexgrid.Coord{Line: cell.line, Col: cell.col}
+		bg, stamp, _, _ := s.Layers(c, func(*Cluster) bool { return true })
+		if bg != cell.background || stamp != "" {
+			t.Errorf("lake at %+v draws %s and stamp %q, want %s without a whole-lake painting", c, bg, stamp, cell.background)
+		}
+		if !have[cell.background] {
+			t.Errorf("candidate catalog lacks %s", cell.background)
+		}
+	}
+	outlet := hexgrid.Coord{Line: 32, Col: 6}
+	_, _, overlays, standing := s.Layers(outlet, func(*Cluster) bool { return true })
+	if !slices.Equal(overlays, []string{"tile/stream14", "tile/bridge25"}) || !slices.Contains(standing, "standing/bridge25") {
+		t.Errorf("lake outlet lost its stream or bridge: overlays %v, standing %v", overlays, standing)
+	}
+}
 
 func TestClusters(t *testing.T) {
 	g, at := grid(

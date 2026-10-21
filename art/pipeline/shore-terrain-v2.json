@@ -2,16 +2,16 @@
   "bank_profile": "authored-rocks-v1",
   "materials": {
     "bank": {
-      "source": "art/terrain/lakeside/lakeside-bank-shared-v2.png",
-      "source_sha256": "f8f7adb6436071ab7210480a8c63446b6d0bcf21c7bfa6c21c33662f31d616a4"
+      "source": "art/terrain/lakeside/lakeside-bank-shared-v3.png",
+      "source_sha256": "525ebf846c41646fa0d85bceed30665016ab72be769da62c4a2d7a3e9aee8c91"
     },
     "grass": {
       "source": "art/terrain/grass/grass-summer-v1.png",
       "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
     },
     "water": {
-      "source": "art/terrain/water/water-shared-v2.png",
-      "source_sha256": "75e798f351616594e8e6d534087f2c7c3bf78b91fea7be3ea0135ae5f7e563a5"
+      "source": "art/terrain/water/water-shared-v3.png",
+      "source_sha256": "69f7526af3efea9ef6c5f8542ed4170e25a46e032b93e4d3160c403831cff9cf"
     }
   },
   "schema_version": 1,

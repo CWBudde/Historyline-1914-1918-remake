@@ -167,7 +167,7 @@ func buildTerrain(assetsDir, out string) ([]terrainPack, error) {
 // context, plus stray compound pieces, for the art track.
 func terrainGaps(dir string, w io.Writer) error {
 	have := map[string]bool{}
-	var groups []string
+	groups := []string{"backgrounds"}
 	for _, f := range mapcompose.Families {
 		groups = append(groups, "context-"+string(f))
 	}
@@ -234,9 +234,10 @@ func terrainGaps(dir string, w io.Writer) error {
 				return err
 			}
 		}
-		// Clusters drawn per hex because their shape has no stamp yet.
+		// Lakes use reusable shoreline tiles. Other feature clusters can still
+		// request a stamp when their shape has no painting yet.
 		for _, cl := range s.Clusters {
-			if cl.Stamp != "" {
+			if cl.Stamp != "" || cl.Kind == "lake" {
 				continue
 			}
 			c := cl.Cells[0]
