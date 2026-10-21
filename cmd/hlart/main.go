@@ -6,6 +6,7 @@
 //	hlart check               fail on any prompt, master, runtime or index problem
 //	hlart thumbs -out DIR     write downscaled master thumbnails for the art book
 //	hlart pulse -out DIR      render the PULSE level with the runtime art for the art book
+//	hlart map -level FILE -out DIR  render another level and a native detail crop
 package main
 
 import (
@@ -25,12 +26,13 @@ func main() {
 
 func run(args []string, stdout, stderr io.Writer) error {
 	if len(args) == 0 {
-		return fmt.Errorf("usage: hlart index|check|thumbs|pulse [-root DIR]")
+		return fmt.Errorf("usage: hlart index|check|thumbs|pulse|map [-root DIR]")
 	}
 	fl := flag.NewFlagSet("hlart "+args[0], flag.ContinueOnError)
 	fl.SetOutput(stderr)
 	root := fl.String("root", ".", "repository root")
-	out := fl.String("out", "", "thumbs, pulse: output directory")
+	out := fl.String("out", "", "thumbs, pulse, map: output directory")
+	levelPath := fl.String("level", "", "map: level JSON path relative to repository root")
 	limit := fl.Int("max", 640, "thumbs: longest side in pixels")
 	if err := fl.Parse(args[1:]); err != nil {
 		return err
@@ -89,8 +91,17 @@ func run(args []string, stdout, stderr io.Writer) error {
 		}
 		say(stdout, "%s: PULSE map rendered\n", *out)
 		return nil
+	case "map":
+		if *out == "" || *levelPath == "" {
+			return fmt.Errorf("map needs -level and -out")
+		}
+		if err := renderLevel(*root, *out, *levelPath, "map", true); err != nil {
+			return err
+		}
+		say(stdout, "%s: %s rendered\n", *out, *levelPath)
+		return nil
 	}
-	return fmt.Errorf("unknown command %q, want index, check, thumbs or pulse", args[0])
+	return fmt.Errorf("unknown command %q, want index, check, thumbs, pulse or map", args[0])
 }
 
 func say(w io.Writer, format string, args ...any) {

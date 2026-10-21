@@ -4,8 +4,9 @@
 //
 // Inputs: base (the art tree, default the repository root), thumbs (directory of the
 // optional master and sample thumbnails written by `hlart thumbs`; the normal book embeds native files), pulse
-// (directory of the PULSE map written by `hlart pulse`; default: no map chapter), compare
-// (directory written by `reference-design -compare`; default: no comparison), style=false
+// (directory of the PULSE map written by `hlart pulse`; default: no map chapter),
+// winter (directory of a winter level written by `hlart map`; default: no winter chapter),
+// compare (directory written by `reference-design -compare`; default: no comparison), style=false
 // skips art/style.md, reference=false skips the PULSE reference chapter.
 
 #import "/docs/manual/template.typ": accent, ink, muted, paper-tint, rule-colour, serif, sans, blackletter, ornament, note
@@ -21,6 +22,7 @@
 #let with-style = sys.inputs.at("style", default: "true") == "true"
 #let with-reference = sys.inputs.at("reference", default: "true") == "true"
 #let pulse = sys.inputs.at("pulse", default: "")
+#let winter = sys.inputs.at("winter", default: "")
 #let shore = sys.inputs.at("shore", default: "")
 #let compare = sys.inputs.at("compare", default: "")
 
@@ -244,6 +246,34 @@ source describe the image in this PDF. PULSE uses the 4× runtime artwork; compa
   plate("pulse-units.png")[With the starting units]
   pagebreak()
   plate("pulse-ground.png")[Terrain and infrastructure only]
+}
+
+#if winter != "" {
+  let info = json(winter + "/map.json")
+  let plate(file, caption) = {
+    block(height: 1fr, width: 100%, below: 0.5em, align(center, image(winter + "/" + file, height: 100%, fit: "contain")))
+    align(center, small(caption))
+  }
+  heading(level: 1)[Winter map — #info.name]
+  [
+    Level #blob(info.level) with its winter terrain and current shared infrastructure and units,
+    drawn by the same compositor as PULSE at #(info.density)×
+    (#(info.width * info.density) × #(info.height * info.density) pixels, #info.hexes hexes).
+    The #info.units on-map starting units face north in their owner's colours.
+    Compositor gaps: #info.gaps, issues: #info.issues. These are current candidate assets;
+    winter artwork and seasonal infrastructure remain under review.
+  ]
+  plate("map-units.png")[#info.name — with the starting units]
+  pagebreak()
+  plate("map-ground.png")[#info.name — terrain and infrastructure only]
+  pagebreak()
+  heading(level: 2)[Winter terrain detail]
+  [
+    A central crop of the terrain rendering, with no resampling:
+    #(info.detail.at(2) * info.density) × #(info.detail.at(3) * info.density) pixels.
+    Snow, craters, roads, rail, trenches and the depot use the same exported tiles as the full map.
+  ]
+  plate("map-detail.png")[Native 4× detail — open the PNG to inspect individual tiles.]
 }
 
 #if shore != "" {
