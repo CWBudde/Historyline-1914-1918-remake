@@ -8,21 +8,16 @@ import (
 	"errors"
 	"fmt"
 	"image"
-	"image/draw"
 	"image/png"
 	"io/fs"
-	"math"
 	"path"
 	"strconv"
 	"strings"
 	"time"
 
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/maprender"
 )
 
 //go:embed pulse.html
@@ -54,12 +49,6 @@ type pulseCapture struct {
 	Picture picture `json:"picture"`
 }
 
-func placePulse(dst draw.Image, src image.Image, at hexgrid.Coord, density int, anchor [2]float64) {
-	x, y := hexgrid.Center(at)
-	p := image.Pt(int(math.Round((x-anchor[0])*float64(density))), int(math.Round((y-anchor[1])*float64(density))))
-	draw.Draw(dst, src.Bounds().Sub(src.Bounds().Min).Add(p), src, src.Bounds().Min, draw.Over)
-}
-
 func (c *collector) pulseImage(im image.Image, source, method string) (picture, error) {
 	var b bytes.Buffer
 	if err := png.Encode(&b, im); err != nil {
@@ -68,32 +57,6 @@ func (c *collector) pulseImage(im image.Image, source, method string) (picture, 
 	hash := fmt.Sprintf("%x", sha256.Sum256(b.Bytes()))
 	p := picture{URL: "media/" + hash + ".png", Source: source, SHA: hash, Width: im.Bounds().Dx(), Height: im.Bounds().Dy(), Method: method}
 	return p, c.out.WriteFile(p.URL, b.Bytes(), 0644)
-}
-
-// pulseContexts returns the pinned 2x and 4x context tiles and grass details of
-// the runtime index, keyed by ID. Only tiles actually drawn are snapshotted.
-func (c *collector) pulseContexts() (map[string]map[string]picture, error) {
-	entries, err := c.assets()
-	if err != nil {
-		return nil, err
-	}
-	result := map[string]map[string]picture{}
-	for _, e := range entries {
-		if !strings.HasPrefix(e.Pack, "terrain-") || (!strings.HasPrefix(e.ID, "context/") && !strings.HasPrefix(e.ID, "tile/grass-detail-")) {
-			continue
-		}
-		if result[e.ID] == nil {
-			result[e.ID] = map[string]picture{}
-		}
-		// Store the verified pin until this context is actually used.
-		result[e.ID][strconv.Itoa(e.Density)] = picture{Source: "assets/" + e.Path, SHA: e.SHA}
-	}
-	for id, ps := range result {
-		if len(ps) != 2 {
-			return nil, fmt.Errorf("%s lacks a 2x or 4x tile", id)
-		}
-	}
-	return result, nil
 }
 
 func (c *collector) pulse(captures string) error {
@@ -109,137 +72,32 @@ func (c *collector) pulse(captures string) error {
 		return fmt.Errorf("PULSE study requires the Pulse level")
 	}
 	grid := lvl.Grid()
-	s := pulseStudy{Generated: time.Now().UTC().Format(time.RFC3339), LevelHash: fmt.Sprintf("%x", sha256.Sum256(raw)), Width: (grid.Width-1)*142 + 96, Height: (grid.Lines-1)*40 + 80, Hexes: grid.Size(), Maps: map[string]picture{}, GroundMaps: map[string]picture{}}
-	contexts, err := c.pulseContexts()
+	w, h := maprender.Size(grid)
+	s := pulseStudy{Generated: time.Now().UTC().Format(time.RFC3339), LevelHash: fmt.Sprintf("%x", sha256.Sum256(raw)), Width: w, Height: h, Hexes: grid.Size(), Maps: map[string]picture{}, GroundMaps: map[string]picture{}}
+	assets, err := fs.Sub(c.root.FS(), "assets")
 	if err != nil {
 		return err
 	}
-	scene := mapcompose.Compose(grid, func(at hexgrid.Coord) mapcompose.Hex {
-		h := lvl.Lines[at.Line][at.Col]
-		return mapcompose.Hex{Terrain: h.Terrain, Infra: h.Infra.IDs}
-	}, func(id string) bool { return len(contexts[id]) == 2 })
-	s.Gaps, s.Issues = scene.Gaps, scene.Issues
-	byID := map[string]item{}
-	sprites := map[string]item{}
-	for _, it := range c.items {
-		byID[it.ID] = it
-		if it.Category == "Sprites" {
-			for _, id := range it.Bindings {
-				sprites[id] = it
-			}
-		}
-	}
-	set, err := data.Load()
+	r, err := maprender.New(assets)
 	if err != nil {
 		return err
 	}
-	st, err := game.New(lvl, set)
-	if err != nil {
-		return err
-	}
-	for _, line := range lvl.Lines {
-		for _, h := range line {
-			if h.Unit != "" {
-				s.Units++
-			}
-		}
-	}
-	cache := map[string]image.Image{}
-	decode := func(p picture) (image.Image, error) {
-		if im := cache[p.URL]; im != nil {
-			return im, nil
-		}
-		b, e := c.out.ReadFile(p.URL)
-		if e != nil {
-			return nil, e
-		}
-		im, e := png.Decode(bytes.NewReader(b))
-		if e == nil {
-			cache[p.URL] = im
-		}
-		return im, e
-	}
-	// Background, infrastructure and units are separate full-map passes, exactly
-	// as in the game. All fog is lifted for the offline art comparison.
+	// All fog is lifted for the offline art comparison.
 	for _, density := range []int{2, 4} {
-		d := density
-		dst := image.NewNRGBA(image.Rect(0, 0, s.Width*d, s.Height*d))
-		for pass := range 3 {
-			if pass == 2 {
-				if err := c.pulseDensity(s.GroundMaps, dst, density, "Shared compositor terrain and infrastructure; no units, owner bars or UI"); err != nil {
-					return err
-				}
-			}
-			for line, hs := range lvl.Lines {
-				for col, h := range hs {
-					at := hexgrid.Coord{Line: line, Col: col}
-					var ids []string
-					switch pass {
-					case 0:
-						ids = []string{"background/" + h.Terrain}
-					case 1:
-						for _, id := range h.Infra.IDs {
-							ids = append(ids, "infrastructure/"+id)
-						}
-					case 2:
-						if h.Unit != "" {
-							it, ok := sprites[h.Unit]
-							if !ok {
-								return fmt.Errorf("missing unit family %s", h.Unit)
-							}
-							ids = []string{it.ID}
-						}
-					}
-					for _, id := range ids {
-						it, ok := byID[id]
-						if !ok {
-							return fmt.Errorf("missing PULSE asset %s", id)
-						}
-						anchor := [2]float64{48, 40}
-						var p picture
-						{
-							v := it.Variants[0]
-							if pass == 2 {
-								pal := unitsprite.PaletteOf(st.At(at).Unit.Owner)
-								key := string(pal) + "/n-normal"
-								found := false
-								for _, candidate := range it.Variants {
-									if candidate.ID == key {
-										v = candidate
-										found = true
-										break
-									}
-								}
-								if !found {
-									return fmt.Errorf("missing PULSE sprite variant %s/%s", id, key)
-								}
-								anchor = [2]float64{48, 49}
-							}
-							p = v.Images[strconv.Itoa(d)]
-							if pass == 0 {
-								contextID := scene.Cells[line][col].Background
-								if paths := contexts[contextID]; paths != nil {
-									pin := paths[strconv.Itoa(d)]
-									p, err = c.snapshot(pin.Source, pin.SHA, image.Rectangle{}, 0, 0)
-									if err != nil {
-										return err
-									}
-									if p.Width != 96*d || p.Height != 80*d {
-										return fmt.Errorf("context geometry %s", contextID)
-									}
-								}
-							}
-						}
-						im, e := decode(p)
-						if e != nil {
-							return e
-						}
-						placePulse(dst, im, at, d, anchor)
-					}
-				}
-			}
+		ground, err := r.Render(lvl, density, false)
+		if err != nil {
+			return err
 		}
-		if err := c.pulseDensity(s.Maps, dst, density, "Shared compositor terrain, infrastructure and authored units; owner bars/UI omitted"); err != nil {
+		s.Gaps, s.Issues = ground.Gaps, ground.Issues
+		if err := c.pulseDensity(s.GroundMaps, ground.Image, density, "Shared compositor terrain and infrastructure; no units, owner bars or UI"); err != nil {
+			return err
+		}
+		full, err := r.Render(lvl, density, true)
+		if err != nil {
+			return err
+		}
+		s.Units = full.Units
+		if err := c.pulseDensity(s.Maps, full.Image, density, "Shared compositor terrain, infrastructure and authored units; owner bars/UI omitted"); err != nil {
 			return err
 		}
 	}

@@ -3,8 +3,9 @@
 // Build with `just artbook` (build/artbook/Historyline_Art.pdf).
 //
 // Inputs: base (the art tree, default the repository root), thumbs (directory of the
-// master and sample thumbnails written by `hlart thumbs`; default: the files themselves), style=false
-// skips art/style.md, reference=false skips the PULSE chapter.
+// master and sample thumbnails written by `hlart thumbs`; default: the files themselves), pulse
+// (directory of the PULSE map written by `hlart pulse`; default: no map chapter), style=false
+// skips art/style.md, reference=false skips the PULSE reference chapter.
 
 #import "/docs/manual/template.typ": accent, ink, muted, paper-tint, rule-colour, serif, sans, blackletter, ornament, note
 #import "markdown.typ": md, reflow, inline
@@ -18,6 +19,7 @@
 #let thumbs = sys.inputs.at("thumbs", default: "")
 #let with-style = sys.inputs.at("style", default: "true") == "true"
 #let with-reference = sys.inputs.at("reference", default: "true") == "true"
+#let pulse = sys.inputs.at("pulse", default: "")
 
 #let kinds = (
   ("terrain", "Terrain"),
@@ -218,6 +220,27 @@
 #if index.assets.len() == 0 {
   heading(level: 1)[Families]
   note[No art family has a #raw("prompt.md") yet; run #raw("just art-index") once they exist.]
+}
+
+// The PULSE level drawn with the runtime art (`hlart pulse`).
+#if pulse != "" {
+  let info = json(pulse + "/pulse.json")
+  // A fractional height only resolves in the page flow, not inside a figure.
+  let plate(file, caption) = {
+    block(height: 1fr, width: 100%, below: 0.5em, align(center, image(pulse + "/" + file, height: 100%, fit: "contain")))
+    align(center, small(caption))
+  }
+  heading(level: 1)[PULSE map]
+  [
+    Level #blob(info.level) drawn with the current runtime art at #(info.density)× (#(info.width * info.density) ×
+    #(info.height * info.density) pixels, #info.hexes hexes), layered as in the game: context backgrounds,
+    infrastructure, then the #info.units starting units facing north in their owner's colours. Fog, owner
+    bars and interface are left out. Compositor gaps: #info.gaps, issues: #info.issues.
+    Compare with the target look in the PULSE reference chapter.
+  ]
+  plate("pulse-units.png")[With the starting units]
+  pagebreak()
+  plate("pulse-ground.png")[Terrain and infrastructure only]
 }
 
 // PULSE reference design

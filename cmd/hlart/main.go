@@ -5,6 +5,7 @@
 //	hlart index               write art/index.json (families without prompt.md are skipped)
 //	hlart check               fail on any prompt, master, runtime or index problem
 //	hlart thumbs -out DIR     write downscaled master thumbnails for the art book
+//	hlart pulse -out DIR      render the PULSE level with the runtime art for the art book
 package main
 
 import (
@@ -24,12 +25,12 @@ func main() {
 
 func run(args []string, stdout, stderr io.Writer) error {
 	if len(args) == 0 {
-		return fmt.Errorf("usage: hlart index|check|thumbs [-root DIR]")
+		return fmt.Errorf("usage: hlart index|check|thumbs|pulse [-root DIR]")
 	}
 	fl := flag.NewFlagSet("hlart "+args[0], flag.ContinueOnError)
 	fl.SetOutput(stderr)
 	root := fl.String("root", ".", "repository root")
-	out := fl.String("out", "", "thumbs: output directory")
+	out := fl.String("out", "", "thumbs, pulse: output directory")
 	limit := fl.Int("max", 640, "thumbs: longest side in pixels")
 	if err := fl.Parse(args[1:]); err != nil {
 		return err
@@ -79,8 +80,17 @@ func run(args []string, stdout, stderr io.Writer) error {
 		}
 		say(stdout, "%s: %d thumbnails written\n", *out, n)
 		return nil
+	case "pulse":
+		if *out == "" {
+			return fmt.Errorf("pulse needs -out")
+		}
+		if err := pulse(*root, *out); err != nil {
+			return err
+		}
+		say(stdout, "%s: PULSE map rendered\n", *out)
+		return nil
 	}
-	return fmt.Errorf("unknown command %q, want index, check or thumbs", args[0])
+	return fmt.Errorf("unknown command %q, want index, check, thumbs or pulse", args[0])
 }
 
 func say(w io.Writer, format string, args ...any) {

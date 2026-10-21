@@ -42,7 +42,7 @@ has unclear rights (two files are Battle Isle 3 screenshots) and is never redist
 
 ```sh
 just art-index         # regenerate art/index.json from the prompts, masters and assets/index.json
-just artbook           # art book with every family's prompt, masters and runtime samples (needs Typst)
+just artbook           # art book: every family's prompt, masters and runtime samples, the rendered PULSE map (needs Typst)
 just gfx-check         # art catalogue, PULSE reference data and art tool tests
 just reference         # PULSE reference design review (needs the local RefDesign2.png)
 just gfx-game-review   # local comparison desk under build/review/gfx/

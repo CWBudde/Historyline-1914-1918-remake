@@ -6,32 +6,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"image"
-	"image/color"
 	"image/png"
 	"os"
 	"testing"
 
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 )
-
-// Catch odd-line shifts and anchors drifting between authored densities.
-func TestPulsePlacement(t *testing.T) {
-	for _, density := range []int{1, 2, 4} {
-		src := image.NewNRGBA(image.Rect(0, 0, 96*density, 80*density))
-		src.SetNRGBA(48*density, 40*density, color.NRGBA{R: 255, A: 255})
-		dst := image.NewNRGBA(image.Rect(0, 0, 300*density, 200*density))
-		placePulse(dst, src, hexgrid.Coord{Line: 1, Col: 0}, density, [2]float64{48, 40})
-		if got := dst.NRGBAAt(119*density, 80*density); got.R != 255 {
-			t.Errorf("%dx odd-line anchor: %+v", density, got)
-		}
-		clear(dst.Pix)
-		placePulse(dst, src, hexgrid.Coord{Line: 1, Col: 0}, density, [2]float64{48, 49})
-		if got := dst.NRGBAAt(119*density, 71*density); got.R != 255 {
-			t.Errorf("%dx unit anchor: %+v", density, got)
-		}
-	}
-}
 
 func TestPulseRejectsInvalidCaptureCollection(t *testing.T) {
 	lvl, err := level.Load("../../levels/level1_cp.json")
