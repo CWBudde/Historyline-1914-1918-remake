@@ -141,7 +141,7 @@ func fogShade(f state.Fog, c color.RGBA) color.RGBA {
 // walking reports whether the unit standing on at is still being animated
 // there. A building or carrier the unit walks into stays drawn.
 func (g *game) walking(at hexgrid.Coord) bool {
-	w := g.ctl.walk
+	w := g.drv().ui().walk
 	return !w.Done() && w.path[len(w.path)-1] == at && g.state.At(at).Unit == w.unit
 }
 
@@ -174,7 +174,7 @@ func (g *game) drawUnit(dst *ebiten.Image, c hexgrid.Coord, sx, sy float64, reme
 			g.drawUnitSprite(dst, sx, sy, m.Unit.Type, m.Unit.Owner, false, true, unitsprite.N) {
 			return
 		}
-	} else if u := g.state.At(c).Unit; g.drawUnitSprite(dst, sx, sy, u.Type, u.Owner, unitSpent(u), false, g.ctl.Facing(u)) {
+	} else if u := g.state.At(c).Unit; g.drawUnitSprite(dst, sx, sy, u.Type, u.Owner, unitSpent(u), false, g.drv().ui().Facing(u)) {
 		return
 	}
 	vector.FillCircle(dst, float32(sx), float32(sy), float32(14*g.cam.Effective()), col, true)
@@ -231,15 +231,10 @@ func (g *game) Update() error {
 		dy += scrollSpeed
 	}
 	g.cam.Scroll(dx*float64(g.view.UI), dy*float64(g.view.UI))
-	if g.ctl.walk != nil {
-		g.ctl.walk.Tick()
+	if ui := g.drv().ui(); ui.report.Active() && (len(inpututil.AppendJustPressedKeys(nil)) > 0 || inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft)) {
+		ui.DismissReport()
 	}
-	if g.ctl.report.Active() && (len(inpututil.AppendJustPressedKeys(nil)) > 0 || inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft)) {
-		g.ctl.DismissReport()
-	}
-	g.ctl.report.Tick()
-	g.ctl.fx.Tick()
-	g.ctl.StepAI()
+	g.drv().Tick()
 	for _, a := range actionsFor(inpututil.IsKeyJustPressed) {
 		if !g.applyAction(a) {
 			return ebiten.Termination
@@ -267,10 +262,10 @@ func (g *game) Update() error {
 	wx, wy := g.cam.ScreenToWorld(float64(mx), float64(my))
 	g.hover, g.hoverOnMap = g.grid.PixelToHex(wx, wy)
 	if g.hoverOnMap && inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
-		g.ctl.Click(g.hover)
+		g.drv().Click(g.hover)
 	}
 	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonRight) {
-		g.ctl.clear()
+		g.drv().Clear()
 	}
 	return nil
 }
@@ -278,8 +273,9 @@ func (g *game) Update() error {
 // menuRow is the HUD rectangle of menu row i: beside the selected unit for
 // the action menu, at the bottom left for the weapon and contents menus.
 func (g *game) menuRow(i int) (x, y, w, h int) {
-	if g.ctl.menuKind != menuActions {
-		r := g.hud.menuRowRect(i, len(g.ctl.menu))
+	ui := g.drv().ui()
+	if ui.menuKind != menuActions {
+		r := g.hud.menuRowRect(i, len(ui.menu))
 		return r.X, r.Y, r.W, r.H
 	}
 	r := g.actionMenu()
@@ -288,63 +284,66 @@ func (g *game) menuRow(i int) (x, y, w, h int) {
 
 // actionMenu is the HUD rectangle of the action menu beside the selected unit.
 func (g *game) actionMenu() rect {
+	ui := g.drv().ui()
 	mw := 0
-	for i, o := range g.ctl.menu {
+	for i, o := range ui.menu {
 		mw = max(mw, textWidth(menuLabel(i, o))+8)
 	}
-	px, py := g.cam.WorldToScreen(hexgrid.Center(g.ctl.from))
+	px, py := g.cam.WorldToScreen(hexgrid.Center(ui.from))
 	cx, cy := g.view.toHUD(int(px), int(py))
 	half := int(float64(hexgrid.HexWidth) / 2 * g.cam.Effective() / float64(max(g.view.UI, 1)))
-	return actionMenuRect(cx, cy, half, mw, len(g.ctl.menu), g.w, g.h)
+	return actionMenuRect(cx, cy, half, mw, len(ui.menu), g.w, g.h)
 }
 
 // updateMenu handles the open menu (arrow keys, Enter or Space, number keys, or
 // a press and release on a row) and reports whether it consumed this frame's
 // input.
 func (g *game) updateMenu() bool {
-	if !g.ctl.MenuOpen() {
+	ui := g.drv().ui()
+	if !ui.MenuOpen() {
 		g.menuFocus = menuNone
 		g.menuPress = newMenuPress()
 		return false
 	}
-	g.menuFocus = menuFocusValid(g.menuFocus, g.ctl.menu)
+	g.menuFocus = menuFocusValid(g.menuFocus, ui.menu)
 	_, _, mx, my := g.cursor()
 	if mx != g.menuMX || my != g.menuMY {
 		g.menuMX, g.menuMY = mx, my
-		if h := menuHit(mx, my, len(g.ctl.menu), g.menuRow); h != menuNone {
+		if h := menuHit(mx, my, len(ui.menu), g.menuRow); h != menuNone {
 			g.menuFocus = h
 		}
 	}
 	switch {
 	case inpututil.IsKeyJustPressed(ebiten.KeyArrowDown):
-		g.menuFocus = menuStep(g.menuFocus, 1, g.ctl.menu)
+		g.menuFocus = menuStep(g.menuFocus, 1, ui.menu)
 	case inpututil.IsKeyJustPressed(ebiten.KeyArrowUp):
-		g.menuFocus = menuStep(g.menuFocus, -1, g.ctl.menu)
+		g.menuFocus = menuStep(g.menuFocus, -1, ui.menu)
 	case inpututil.IsKeyJustPressed(ebiten.KeyEnter), inpututil.IsKeyJustPressed(ebiten.KeyNumpadEnter),
 		inpututil.IsKeyJustPressed(ebiten.KeySpace):
 		if g.menuFocus != menuNone {
-			g.ctl.ChooseMenu(g.menuFocus)
+			g.drv().ChooseMenu(g.menuFocus)
 			return true
 		}
 	}
 	for i, k := range []ebiten.Key{ebiten.Key1, ebiten.Key2, ebiten.Key3, ebiten.Key4, ebiten.Key5, ebiten.Key6, ebiten.Key7, ebiten.Key8, ebiten.Key9} {
-		if inpututil.IsKeyJustPressed(k) && i < len(g.ctl.menu) {
-			g.ctl.ChooseMenu(i)
+		if inpututil.IsKeyJustPressed(k) && i < len(ui.menu) {
+			g.drv().ChooseMenu(i)
 			return true
 		}
 	}
 	row, used := g.menuPress.update(inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft),
 		inpututil.IsMouseButtonJustReleased(ebiten.MouseButtonLeft),
 		ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft),
-		menuHit(mx, my, len(g.ctl.menu), g.menuRow))
+		menuHit(mx, my, len(ui.menu), g.menuRow))
 	if row != menuNone {
-		g.ctl.ChooseMenu(row)
+		g.drv().ChooseMenu(row)
 	}
 	return used
 }
 
 func (g *game) drawMenu(dst *ebiten.Image) {
-	for i, o := range g.ctl.menu {
+	ui := g.drv().ui()
+	for i, o := range ui.menu {
 		x, y, w, h := g.menuRow(i)
 		bg := color.RGBA{30, 60, 30, 230}
 		if !o.Usable {
@@ -356,7 +355,7 @@ func (g *game) drawMenu(dst *ebiten.Image) {
 				bg = color.RGBA{100, 50, 50, 245}
 			}
 		}
-		pressed := i == g.menuPress.Row() && menuHit(g.menuMX, g.menuMY, len(g.ctl.menu), g.menuRow) == i
+		pressed := i == g.menuPress.Row() && menuHit(g.menuMX, g.menuMY, len(ui.menu), g.menuRow) == i
 		if pressed {
 			bg = color.RGBA{bg.R / 2, bg.G / 2, bg.B / 2, 250}
 		}
@@ -412,10 +411,10 @@ func (g *game) Draw(screen *ebiten.Image) {
 			g.drawUnit(screen, coord, sx, sy, remembered)
 		}
 	}
-	if w := g.ctl.walk; !w.Done() && g.fogOf(w.Hex()) == state.Visible {
+	if w := g.drv().ui().walk; !w.Done() && g.fogOf(w.Hex()) == state.Visible {
 		wx, wy := w.Pos()
 		sx, sy := g.cam.WorldToScreen(wx, wy)
-		u := w.unit
+		u, _ := w.unit.(*state.Unit)
 		face, _ := unitsprite.Toward(w.Heading())
 		if u == nil || !g.drawUnitSprite(screen, sx, sy, u.Type, u.Owner, unitSpent(u), false, face) {
 			vector.FillCircle(screen, float32(sx), float32(sy), float32(14*g.cam.Effective()), color.RGBA{230, 230, 230, 255}, true)
@@ -463,8 +462,8 @@ func (g *game) statusText() string {
 	if g.state.Winner != state.None {
 		msg += fmt.Sprintf("\n%v has won", g.state.Winner)
 	}
-	if g.ctl.Message != "" {
-		msg += "\n" + g.ctl.Message
+	if m := g.drv().ui().Message; m != "" {
+		msg += "\n" + m
 	}
 	if g.artErr != "" {
 		msg += "\nunit sprites: " + g.artErr
@@ -529,8 +528,8 @@ func (g *game) drawHexNumbers(dst *ebiten.Image, vx, vy, vw, vh float64) {
 // drawOverlays tints the hexes the selected unit may reach (blue) or attack
 // (red) and outlines the selection, all taken from the rules engine's queries.
 func (g *game) drawOverlays(dst *ebiten.Image) {
-	c := g.ctl
-	if !c.selected {
+	ui := g.drv().ui()
+	if !ui.selected {
 		return
 	}
 	tint := func(at hexgrid.Coord, col color.RGBA) {
@@ -538,13 +537,13 @@ func (g *game) drawOverlays(dst *ebiten.Image) {
 		sx, sy := g.cam.WorldToScreen(cx, cy)
 		g.drawHex(dst, float32(sx), float32(sy), col, false)
 	}
-	for at := range c.moves {
+	for at := range g.ctl.moves {
 		tint(at, color.RGBA{60, 120, 255, 90})
 	}
-	for at := range c.targets {
+	for at := range ui.targets {
 		tint(at, color.RGBA{255, 50, 40, 130})
 	}
-	cx, cy := hexgrid.Center(c.from)
+	cx, cy := hexgrid.Center(ui.from)
 	sx, sy := g.cam.WorldToScreen(cx, cy)
 	g.drawHex(dst, float32(sx), float32(sy), color.RGBA{}, true)
 }
@@ -666,7 +665,7 @@ func main() {
 	ebiten.SetWindowTitle("Historyline 1914-1918")
 	gm := newGame(lvl, st, player, *reveal)
 	gm.hexNumbers = *hexNumbers
-	gm.ctl.SetReducedMotion(*reduced)
+	gm.drv().SetReducedMotion(*reduced)
 	switch *opponent {
 	case "ai":
 		gm.ctl.ai = &ai.Planner{}
@@ -700,7 +699,7 @@ func main() {
 
 // drawReport shows the battle panel at the top centre while it is active.
 func (g *game) drawReport(dst *ebiten.Image) {
-	r := g.ctl.report
+	r := g.drv().ui().report
 	if !r.Active() {
 		return
 	}

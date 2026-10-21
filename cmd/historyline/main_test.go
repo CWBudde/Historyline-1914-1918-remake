@@ -187,7 +187,7 @@ func TestWeaponMenu(t *testing.T) {
 }
 
 func TestWeaponMenuRejectsUnusable(t *testing.T) {
-	c := &control{menu: []WeaponOption{{Slot: 0, Label: "gun: no ammo"}}}
+	c := &control{presentation: presentation{menu: []WeaponOption{{Slot: 0, Label: "gun: no ammo"}}}}
 	c.ChooseWeapon(0)
 	if !c.MenuOpen() || c.Message != "gun: no ammo" {
 		t.Errorf("menu %v message %q", c.menu, c.Message)

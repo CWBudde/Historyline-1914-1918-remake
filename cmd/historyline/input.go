@@ -53,27 +53,27 @@ func actionsFor(pressed func(ebiten.Key) bool) (out []action) {
 // applyAction performs a on the game. It reports false when the game should quit.
 // While the weapon menu is open only end turn, cancel and quit apply.
 func (g *game) applyAction(a action) (keepRunning bool) {
-	if g.ctl.MenuOpen() && (a == actSelectHex || a == actViewTop || a == actViewBottom) {
+	d := g.drv()
+	ui := d.ui()
+	if ui.MenuOpen() && (a == actSelectHex || a == actViewTop || a == actViewBottom) {
 		return true
 	}
 	switch a {
 	case actEndTurn:
-		g.ctl.EndTurn()
+		d.EndTurn()
 	case actCancel:
-		if !g.ctl.SkipWalk() {
-			g.ctl.clear()
-		}
+		d.Cancel()
 	case actSelectHex:
 		if g.hoverOnMap {
-			g.ctl.Click(g.hover)
+			d.Click(g.hover)
 		}
 	case actViewTop:
 		g.cam.CenterOn(g.cam.World.W/2, 0)
 	case actViewBottom:
 		g.cam.CenterOn(g.cam.World.W/2, g.cam.World.H)
 	case actToggleMotion:
-		g.ctl.SetReducedMotion(!g.ctl.reduced)
-		g.ctl.Message = "reduced motion " + map[bool]string{true: "on", false: "off"}[g.ctl.reduced]
+		d.SetReducedMotion(!ui.reduced)
+		ui.Message = "reduced motion " + map[bool]string{true: "on", false: "off"}[ui.reduced]
 	case actFullscreen:
 		ebiten.SetFullscreen(!ebiten.IsFullscreen())
 	case actNone:

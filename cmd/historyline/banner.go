@@ -75,17 +75,27 @@ func (e *effects) frames(n int) int {
 	return n
 }
 
-// Capture shows the capture-in-progress banner for a depot entered by a unit.
-func (e *effects) Capture(unit string) {
+// Show puts text up as the banner for frames frames (fewer with reduced
+// motion); it replaces the banner shown.
+func (e *effects) Show(text string, frames int) {
 	if e == nil {
 		return
 	}
-	e.banner = &banner{Text: "CAPTURING DEPOT - " + unit, Frames: e.frames(captureFrames)}
+	e.banner = &banner{Text: text, Frames: e.frames(frames)}
 }
+
+// Capture shows the capture-in-progress banner for a depot entered by a unit.
+func (e *effects) Capture(unit string) { e.Show("CAPTURING DEPOT - "+unit, captureFrames) }
 
 // AddBattle marks the defender and, when it fired back or died, the attacker,
 // from the engine's Battle result.
 func (e *effects) AddBattle(from, to hexgrid.Coord, b state.Battle) {
+	e.AddHits(from, to, b.Damage > 0, b.DefenderDestroyed, b.CounterDamage > 0, b.AttackerDestroyed)
+}
+
+// AddHits marks the defender at to when it was hit or destroyed, and the
+// attacker at from when the reply hit or destroyed it.
+func (e *effects) AddHits(from, to hexgrid.Coord, defHit, defDead, atkHit, atkDead bool) {
 	if e == nil {
 		return
 	}
@@ -96,28 +106,25 @@ func (e *effects) AddBattle(from, to hexgrid.Coord, b state.Battle) {
 		}
 		e.marks = append(e.marks, mark{At: at, Kind: k, Frames: n, Total: n})
 	}
-	if b.Damage > 0 || b.DefenderDestroyed {
-		add(to, b.DefenderDestroyed)
+	if defHit || defDead {
+		add(to, defDead)
 	}
-	if b.CounterDamage > 0 || b.AttackerDestroyed {
-		add(from, b.AttackerDestroyed)
+	if atkHit || atkDead {
+		add(from, atkDead)
 	}
 }
 
 // Round shows the round banner after a turn ended.
 func (e *effects) Round(round int, turn state.Player) {
-	if e == nil {
-		return
-	}
-	e.banner = &banner{Text: fmt.Sprintf("ROUND %d - %v to move", round, turn), Frames: e.frames(roundFrames)}
+	e.Show(fmt.Sprintf("ROUND %d - %v to move", round, turn), roundFrames)
 }
 
 // Victory shows the HQ-capture banner; it replaces a round banner.
 func (e *effects) Victory(winner state.Player) {
-	if e == nil || winner == state.None {
+	if winner == state.None {
 		return
 	}
-	e.banner = &banner{Text: fmt.Sprintf("%v captured the HQ and wins", winner), Frames: e.frames(victoryFrames)}
+	e.Show(fmt.Sprintf("%v captured the HQ and wins", winner), victoryFrames)
 }
 
 // Tick counts every effect down and drops finished ones.
@@ -164,7 +171,7 @@ func (e *effects) Marks() []mark {
 
 // drawMarks paints hit and death marks over their hexes (map layer, device pixels).
 func (g *game) drawMarks(dst *ebiten.Image) {
-	fx := &g.ctl.fx
+	fx := &g.drv().ui().fx
 	for _, m := range fx.Marks() {
 		if g.fogOf(m.At) != state.Visible {
 			continue // no hint of what the player cannot see
@@ -192,7 +199,7 @@ func (g *game) drawMarks(dst *ebiten.Image) {
 
 // drawBanner paints the active banner across the HUD.
 func (g *game) drawBanner(dst *ebiten.Image) {
-	if b := g.ctl.fx.Banner(); b != nil {
+	if b := g.drv().ui().fx.Banner(); b != nil {
 		h := g.hud.Banner.H
 		y := float32(g.hud.Banner.Y)
 		vector.FillRect(dst, 0, y, float32(g.hud.Banner.W), float32(h), color.RGBA{20, 20, 40, 220}, false)

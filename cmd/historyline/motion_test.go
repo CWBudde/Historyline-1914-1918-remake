@@ -21,7 +21,7 @@ func TestReportDismiss(t *testing.T) {
 	}
 	var nilReport *report
 	nilReport.Dismiss() // must not panic
-	c := &control{report: &report{frames: 5}}
+	c := &control{presentation: presentation{report: &report{frames: 5}}}
 	c.DismissReport()
 	if c.report.Active() {
 		t.Error("control.DismissReport left the panel up")

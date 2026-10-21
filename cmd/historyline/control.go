@@ -8,95 +8,49 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/ai"
 	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
 )
 
 // control turns hex clicks into rules commands for one player. It holds only the
 // selection and its overlays; all game state stays in state.State, and every
 // action goes through the command API so rejected actions come back as messages.
+// The engine-neutral UI state lives in the embedded presentation.
 type control struct {
+	presentation
+
 	st     *state.State
 	player state.Player
 
-	selected bool
-	from     hexgrid.Coord
-	unit     *state.Unit
-	moves    map[hexgrid.Coord]state.Route
-	targets  map[hexgrid.Coord]bool
-
-	menu       []WeaponOption // open menu, nil when closed
-	menuKind   menuKind       // which menu menu is
-	menuTarget hexgrid.Coord
-	stored     []*Unit // set while the menu lists container contents; row i is stored[i]
-
-	walk   *walk   // movement being animated; input waits until it is done
-	report *report // battle panel of the last shot
-	fx     effects // hit marks and banners
-
-	reduced bool // reduced motion: instant walk, short static effects
-
-	facing map[*state.Unit]unitsprite.Facing // presentation only: where each unit looks
+	unit   *state.Unit
+	moves  map[hexgrid.Coord]state.Route
+	stored []*Unit // set while the menu lists container contents; row i is stored[i]
 
 	ai                 *ai.Planner // computer opponent; nil passes every turn
 	aiMoves, aiAttacks int         // orders of the computer's current turn
-
-	Message string // result of the last action, shown to the player
 }
 
 // roll is random.randint(-5, 5) of the Python reference.
 func roll() int { return rand.IntN(11) - 5 }
 
-// SetReducedMotion switches reduced motion on or off. Turning it on ends any
-// walk and banner in progress.
-func (c *control) SetReducedMotion(on bool) {
-	c.reduced, c.fx.Reduced = on, on
-	if on {
-		c.walk = nil
-		c.fx.Dismiss()
-	}
-}
-
-// SkipWalk finishes the walk in progress at once and reports whether there
-// was one. The rules engine has already placed the unit, so only the drawing
-// changes.
-func (c *control) SkipWalk() bool {
-	if c.walk.Done() {
-		return false
-	}
-	c.walk = nil
-	return true
-}
-
-// DismissReport hides the battle panel (map click or key press).
-func (c *control) DismissReport() { c.report.Dismiss() }
-
-func (c *control) reportTime() int {
-	if c.reduced {
-		return reportFramesReduced
-	}
-	return reportFrames
-}
-
 func (c *control) clear() {
-	c.selected, c.unit, c.moves, c.targets, c.menu, c.stored = false, nil, nil, nil, nil, nil
+	c.clearSelection()
+	c.unit, c.moves, c.stored = nil, nil, nil
 }
 
-// Facing is the authored direction u is drawn in; units start facing north.
-// It is presentation state and never reaches the rules.
-func (c *control) Facing(u *state.Unit) unitsprite.Facing { return c.facing[u] }
+// Clear drops the selection (right click).
+func (c *control) Clear() { c.clear() }
 
-// turn makes u face from hex from towards hex to.
-func (c *control) turn(u *state.Unit, from, to hexgrid.Coord) {
-	x0, y0 := hexgrid.Center(from)
-	x1, y1 := hexgrid.Center(to)
-	f, ok := unitsprite.Toward(x1-x0, y1-y0)
-	if !ok {
-		return
+// Cancel finishes the walk in progress, or else drops the selection (Esc).
+func (c *control) Cancel() {
+	if !c.SkipWalk() {
+		c.clear()
 	}
-	if c.facing == nil {
-		c.facing = map[*state.Unit]unitsprite.Facing{}
-	}
-	c.facing[u] = f
+}
+
+// Tick advances the presentation by one frame and lets the computer side play
+// its next order.
+func (c *control) Tick() {
+	c.tick()
+	c.StepAI()
 }
 
 // mine reports whether it is the controlled player's turn.
@@ -289,9 +243,6 @@ func (c *control) weaponOptions(to hexgrid.Coord) []WeaponOption {
 func (c *control) OpenWeaponMenu(to hexgrid.Coord) {
 	c.menuKind, c.menuTarget, c.menu = menuWeapons, to, c.weaponOptions(to)
 }
-
-// MenuOpen reports whether the weapon menu waits for a choice.
-func (c *control) MenuOpen() bool { return len(c.menu) > 0 }
 
 // ChooseWeapon fires menu row i and closes the menu; an unusable row only
 // reports why it is unavailable and keeps the menu open.
