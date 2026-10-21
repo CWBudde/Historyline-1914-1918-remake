@@ -161,6 +161,65 @@ func TestCycleValidation(t *testing.T) {
 	}
 }
 
+// TestCycleTargets checks the assumed target rule: an attack needs an
+// opposing unit of a class the attacker's target flags cover, within the
+// range of the weapon for that class.
+func TestCycleTargets(t *testing.T) {
+	const (
+		cAircraft  = 2  // air range 1, attacks air, ground and water
+		cArtillery = 24 // surface range 7, attacks ground and water
+		cGround    = 21 // surface range 1, attacks ground only
+		cBoat      = 29 // a water unit
+	)
+	for build, p := range profiles {
+		t.Run(build, func(t *testing.T) {
+			n := neighbours(40, cycleW, cycleH)
+			far := 40 - 2*cycleW // two rows up: distance 2
+			g := newCycle(t, p, map[int]Placement{
+				0: {Type: cInfantry, Owner: 0, Cell: 40}, 1: {Type: cAircraft, Owner: 0, Cell: n[3]},
+				2: {Type: cInfantry, Owner: 0, Cell: 80}, 3: {Type: cBoat, Owner: 0, Cell: 70},
+				10: {Type: cInfantry, Owner: 1, Cell: n[0]}, 11: {Type: cInfantry, Owner: 1, Cell: far},
+				12: {Type: cArtillery, Owner: 1, Cell: 0}, 13: {Type: cAircraft, Owner: 1, Cell: n[2]},
+				14: {Type: cGround, Owner: 1, Cell: 71}, 15: {Type: cInfantry, Owner: 1, Cell: 62},
+			})
+			if p.layoutDistance(cycleW, 70, 71) != 1 || p.layoutDistance(cycleW, 71, 80) != 1 || p.layoutDistance(cycleW, 71, 62) != 1 {
+				t.Fatal("cell 71 is not next to 62, 70 and 80")
+			}
+			if d := p.layoutDistance(cycleW, 40, far); d != 2 {
+				t.Fatalf("distance 40-%d is %d", far, d)
+			}
+			if d := p.layoutDistance(cycleW, 0, 80); d <= 7 {
+				t.Fatalf("distance 0-80 is %d, want beyond the artillery's range", d)
+			}
+			for _, c := range []struct {
+				what string
+				cmd  Command
+				ok   bool
+			}{
+				{"infantry next to its target", Command{Kind: CmdAttack, Side: 1, Unit: 10, Cell: 40}, true},
+				{"infantry two cells away", Command{Kind: CmdAttack, Side: 1, Unit: 11, Cell: 40}, false},
+				{"infantry against an aircraft", Command{Kind: CmdAttack, Side: 1, Unit: 10, Cell: n[3]}, false},
+				{"aircraft against an aircraft", Command{Kind: CmdAttack, Side: 1, Unit: 13, Cell: n[3]}, true},
+				{"aircraft against infantry", Command{Kind: CmdAttack, Side: 1, Unit: 13, Cell: 40}, true},
+				{"artillery in range", Command{Kind: CmdAttack, Side: 1, Unit: 12, Cell: 40}, true},
+				{"artillery out of range", Command{Kind: CmdAttack, Side: 1, Unit: 12, Cell: 80}, false},
+				{"artillery against an aircraft", Command{Kind: CmdAttack, Side: 1, Unit: 12, Cell: n[3]}, false},
+				{"a ground-only unit against a boat in range", Command{Kind: CmdAttack, Side: 1, Unit: 14, Cell: 70}, false},
+				{"a ground-only unit against infantry in range", Command{Kind: CmdAttack, Side: 1, Unit: 14, Cell: 80}, true},
+				{"a unit of its own side next to it", Command{Kind: CmdAttack, Side: 1, Unit: 14, Cell: 62}, false},
+			} {
+				err := g.Check(c.cmd)
+				if c.ok && err != nil {
+					t.Errorf("%s: %v", c.what, err)
+				}
+				if !c.ok {
+					refusal(t, c.what, err, MsgNoTarget)
+				}
+			}
+		})
+	}
+}
+
 // TestCycleRound plays a round: side 0 moves its unit away while side 1
 // attacks it where side 1's map still shows it; both confirm, the attack is
 // fought at the old cell, and the phase change brings the maps into line.

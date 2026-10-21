@@ -25,3 +25,9 @@ func (p Profile) Distance(width, a, b int) int {
 	}
 	return hexDistance(a%width, a/width, b%width, b/width)
 }
+
+// layoutDistance is the hex distance between two cells of a map of the given
+// width on the map's own layout, whatever the profile's battle distance.
+func (Profile) layoutDistance(width, a, b int) int {
+	return hexDistance(a%width, a/width, b%width, b/width)
+}

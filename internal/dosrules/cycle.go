@@ -205,7 +205,7 @@ func (g *Game) unitOf(c Command) (int, error) {
 //   - A human side's list must be shorter than the move limit (0ca0:1757,
 //     0661:3349, message 0x53); a computer side has none.
 //   - An attack needs a unit in the target cell of the side's map (0ad1:000c,
-//     message 0x45) that the side does not own.
+//     message 0x45) that is a target of the unit (Target).
 //
 // The move order code refuses a destination itself (EvRefused), as it does
 // in the game.
@@ -253,11 +253,30 @@ func (g *Game) Check(c Command) error {
 	}
 	if c.Kind == CmdAttack {
 		t := g.occupant(c.Side, c.Cell)
-		if v, ok := g.Units[t]; t > SlotFree || !ok || Owns(v.Flags4, c.Side) {
+		if v, ok := g.Units[t]; t > SlotFree || !ok || !g.Target(c.Side, u, v) {
 			return refuse(MsgNoTarget, "no target in the cell")
 		}
 	}
 	return nil
+}
+
+// Target reports whether the unit a of side may attack the unit v where the
+// side's map shows them. This is an assumed rule, not a verified one: v is
+// not the side's, a's target flags cover a class of v's live word, and v lies
+// within the range of a's weapon against that class (the air range against
+// aircraft, the surface range otherwise; a range byte is one more than the
+// distance it reaches, so 1 reaches nothing).
+func (g *Game) Target(side int, a, v Live) bool {
+	if Owns(v.Flags4, side) {
+		return false
+	}
+	t := g.Profile.Tables.Types[a.Type]
+	if t.TargetFlags&v.Flags4&classBits == 0 {
+		return false
+	}
+	_, rng := weapon(t, v.Flags4)
+	d := g.Profile.layoutDistance(g.Width, a.Cell(side), v.Cell(side))
+	return d >= 1 && int64(d) < rng
 }
 
 // occupant is the occupant byte of a cell of side's map.
