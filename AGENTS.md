@@ -34,8 +34,8 @@ just artbook     # build/artbook/Historyline_Art.pdf (needs typst)
   the original unit table (`testdata/unitdat.json`, numbers only). The weapon catalogue is bound to the
   weapon art, so change attack values in a unit's slot, never in `weapons.json`.
 - `internal/dosrules`: pure Go resolver of the original rules profile (combat, movement, containers,
-  phase change, the command cycle `Game` with save/resume, victory and score), pinned by fixtures under
-  `testdata/`; not wired into `game` yet.
+  phase change, the command cycle `Game` with save/resume, victory and score, energy, repair and
+  production), pinned by fixtures under `testdata/`; not wired into `game` yet.
 - `internal/hexgrid`: hex layout (even lines `Width` hexes, odd lines `Width-1`, half-shifted).
 - `internal/level`: `levels/*.json` read/write. `internal/tpwm`: Turbo Packer unpacker.
 - `art/<kind>/<family>/`: selected masters plus `prompt.md` (front matter, look, prompts, variants);
