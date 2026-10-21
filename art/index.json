@@ -2386,65 +2386,21 @@
           "sha256": "d6ff552f10738fb8c09eee553860fc0ce8baa753da5442627f92b528be71bdf5",
           "width": 1672,
           "height": 941
-        },
-        {
-          "path": "art/screens/backdrop/campaign.png",
-          "sha256": "435faa5262ad23d7812d9d0a26e605c7c07a479b15d45481a210c52df169f14c",
-          "width": 1586,
-          "height": 992
-        },
-        {
-          "path": "art/screens/backdrop/intermission.png",
-          "sha256": "0e26c64538912ffd9174bb3884d006acee3d96706410bd5bc0bc0e32216e94b9",
-          "width": 1586,
-          "height": 992
-        },
-        {
-          "path": "art/screens/backdrop/production-repair.png",
-          "sha256": "7c457b6a15d203fd47d935f370bbbf435a488ece0b076659209289aae3752031",
-          "width": 1586,
-          "height": 992
-        },
-        {
-          "path": "art/screens/backdrop/editor.png",
-          "sha256": "72ca12e9509a4c84f58aacdf0d549fbb2ff28641e879755a07ee261ec4ac2a28",
-          "width": 1586,
-          "height": 992
         }
       ],
-      "look": "Painted Western Front scenes for menus and feature illustrations. Cool slate, moss and earth, quiet on\nthe left for live panels, with the main subjects to the right and in the lower third. Only the shared\nWestern Front backdrop has a runtime binding; the four feature paintings are candidate sources.",
-      "base_prompt": "Text-free World War I strategy-game backdrop, one continuous hand-painted digital illustration, opaque,\n16:10, target native 2560x1600 for 4x at 640x400 logical. Rural Europe, 1914–1918, with believable wood,\ncanvas, steel, grass and earth, connected painterly detail and soft diffuse light from the upper left.\nPalette: cool slate #162630, muted blue-grey, moss and earth, restrained warm brass #c4a773 highlights\nand cream mist. Keep the left 40 percent dark, calm and low-detail for live panels; concentrate subjects\non the right and lower third, with the horizon below the middle. Quiet activity, no fighting or\ncasualties. No text, controls, frames, symbols, national insignia or modern equipment.",
+      "look": "Painted backdrop behind every menu screen: a quiet Western Front landscape after rain, dark and calm on\nthe left where the menu panels sit, with interest to the right and lower third.",
+      "base_prompt": "Text-free title and menu backdrop, one continuous painted illustration, wide 16:9, ideally 2560x1440.\nScene: Western Front countryside after rain, seen from a low rise: grassy earth and a timber-lined trench\nin the lower foreground, a winding narrow road leading to a small distant village, low wooded hills fading\ninto mist. No fighting or casualties. Quiet, dark, cool sky and low-detail terrain on the left 45 percent;\nhorizon below the middle. Palette: cool slate #162630, muted blue-grey, moss and earth, restrained warm\nbrass #c4a773 highlights and cream mist. Opaque.",
       "variants": [
         {
           "variant": "western-front",
           "runtime_ids": [
             "backdrop/western-front"
           ],
-          "delta": "Countryside after rain, seen from a low rise: grassy earth and a timber-lined trench in the foreground, a winding narrow road to a small distant village, low wooded hills fading into mist."
-        },
-        {
-          "variant": "campaign",
-          "runtime_ids": [],
-          "delta": "Quiet command tent, with a field table on the right holding an unlabelled geographic map, brass dividers, a compass, binoculars and rolled paper. Canvas, timber and soft daylight; keep the left 40 percent dark and low-detail. No people, readable writing or route markings."
-        },
-        {
-          "variant": "intermission",
-          "runtime_ids": [],
-          "delta": "Old stone farmhouse and open barn on the right, with a horse-drawn supply wagon beneath a tree, crates, folded canvas and a wet lane. A restrained warm window glows against the cool countryside; keep the left 40 percent dark and quiet. No people."
-        },
-        {
-          "variant": "production-repair",
-          "runtime_ids": [],
-          "delta": "Barn workshop interior, with a World War I field gun on the right: wooden-spoked wheels, a long barrel and protective shield. A workbench, tool chest, spanners and spare wheel surround it; an open door looks into the countryside. Keep the left 40 percent dark and quiet. No people."
-        },
-        {
-          "variant": "editor",
-          "runtime_ids": [],
-          "delta": "Mapmaker's survey table beneath an open canvas shelter on the right: an almost blank paper sheet with faint unlabelled contours, brass dividers, a straightedge, compass and rolled maps. A brass survey instrument on a tripod overlooks fields, a stream, a village and wooded hills. Keep the left 40 percent dark and quiet. No people, grid or interface."
+          "delta": "The scene above."
         }
       ],
       "edges": "",
-      "post": "`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>` crops the master by the\nmanifest rectangle and reduces it with Lanczos3 to 2x (1280x800) and 1x (640x400). Promote into\n`assets/screens/backdrop/` and re-index.\nIt also exports 4x (2560x1600) when the selected crop contains at least that many native pixels.\n\nThe other four masters are candidate paintings without runtime IDs or manifest bindings. Their current\n1586x992 source size supports 2x; the native 2560x1600 target is not met. Exact-size API generation is\npending. Do not upscale them and label the result native 4x.",
+      "post": "`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>` crops the master by the\nmanifest rectangle and reduces it with Lanczos3 to 2x (1280x800) and 1x (640x400). Promote into\n`assets/screens/backdrop/` and re-index. The exporter also emits 4x (2560x1600) when the selected crop\ncontains at least that many native pixels.",
       "avoid": [
         "words, logos, maps with labels or UI",
         "modern equipment",
@@ -2636,9 +2592,16 @@
       "dir": "art/screens/campaign",
       "assets_dir": "assets/screens/campaign",
       "prompt": "art/screens/campaign/prompt.md",
-      "masters": [],
-      "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: one wide progression panel. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
-      "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and one wide progression panel as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
+      "masters": [
+        {
+          "path": "art/screens/campaign/illustration.png",
+          "sha256": "435faa5262ad23d7812d9d0a26e605c7c07a479b15d45481a210c52df169f14c",
+          "width": 1586,
+          "height": 992
+        }
+      ],
+      "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: one wide progression panel. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.\n\nThe separate painted illustration is a quiet command tent with a map table overlooking the Western Front.\nIt is a candidate source awaiting a feature binding; the existing frame stays vector art.",
+      "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and one wide progression panel as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.\n\nFor the illustration variant, replace the frame instructions with: one opaque, text-free 16:10 World War I\npainting, rural Europe 1914–1918, target native 2560x1600. Continuous hand-painted digital illustration\nwith believable canvas, paper, timber and brass. Inside an open-sided command tent, a field table on the\nright holds an unlabelled geographic map, dividers, a compass, binoculars and rolled papers. An empty camp\nchair and misty village beyond. Cool slate, moss and earth, restrained warm brass daylight. Keep the left\n40 percent calm and dark for live overlays. No people, writing, marked routes, insignia, frames or controls.",
       "variants": [
         {
           "variant": "frame",
@@ -2646,15 +2609,20 @@
             "screen/campaign"
           ],
           "delta": "The layout above."
+        },
+        {
+          "variant": "illustration",
+          "runtime_ids": [],
+          "delta": "The command-tent painting described above; a separate scene behind live controls."
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/campaign/` and re-index.",
+      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/campaign/`.\n\nThe separate `illustration.png` is a candidate source without a runtime or manifest binding. Its\n1586x992 pixels support a 2x (1280x800) crop; the native 4x (2560x1600) target remains open.\nDo not enlarge it and claim native 4x detail.",
       "avoid": [
         "baked text, numbers or values",
-        "gradients, glows or glossy bevels",
+        "gradients, glows or glossy bevels in vector frames",
         "photographic or 3D-rendered surfaces",
-        "painted scenery inside panels"
+        "scenery baked into vector panels"
       ],
       "runtime": {
         "count": 3,
@@ -3118,9 +3086,16 @@
       "dir": "art/screens/editor",
       "assets_dir": "assets/screens/editor",
       "prompt": "art/screens/editor/prompt.md",
-      "masters": [],
-      "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a narrow palette panel on the left and a wide workspace panel. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
-      "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and a narrow palette panel on the left and a wide workspace panel as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
+      "masters": [
+        {
+          "path": "art/screens/editor/illustration.png",
+          "sha256": "72ca12e9509a4c84f58aacdf0d549fbb2ff28641e879755a07ee261ec4ac2a28",
+          "width": 1586,
+          "height": 992
+        }
+      ],
+      "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a narrow palette panel on the left and a wide workspace panel. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.\n\nThe separate painted illustration is a mapmaker's survey station overlooking the countryside. It is a\ncandidate source awaiting a feature binding; the existing frame stays vector art.",
+      "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and a narrow palette panel on the left and a wide workspace panel as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.\n\nFor the illustration variant, replace the frame instructions with: one opaque, text-free 16:10 World War I\npainting, rural Europe 1914–1918, target native 2560x1600. Continuous hand-painted digital illustration\nwith believable canvas, paper, timber and brass. On the right, a survey table under an open canvas shelter\nholds an almost blank cream sheet with faint unlabelled contours, dividers, a straightedge, compass and\nrolled maps. A brass survey instrument on a wooden tripod overlooks fields, a stream, a village and wooded\nhills. Cool slate, moss and earth with soft daylight. Keep the left 40 percent calm and dark for live\noverlays. No people, writing, grid, insignia, frames or controls.",
       "variants": [
         {
           "variant": "frame",
@@ -3128,15 +3103,20 @@
             "screen/editor"
           ],
           "delta": "The layout above."
+        },
+        {
+          "variant": "illustration",
+          "runtime_ids": [],
+          "delta": "The survey-station painting described above; a separate scene behind live controls."
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/editor/` and re-index.",
+      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/editor/`.\n\nThe separate `illustration.png` is a candidate source without a runtime or manifest binding. Its\n1586x992 pixels support a 2x (1280x800) crop; the native 4x (2560x1600) target remains open.\nDo not enlarge it and claim native 4x detail.",
       "avoid": [
         "baked text, numbers or values",
-        "gradients, glows or glossy bevels",
+        "gradients, glows or glossy bevels in vector frames",
         "photographic or 3D-rendered surfaces",
-        "painted scenery inside panels"
+        "scenery baked into vector panels"
       ],
       "runtime": {
         "count": 3,
@@ -3277,6 +3257,45 @@
         "samples": [
           "assets/screens/help-long/help-long-2x.png"
         ]
+      }
+    },
+    {
+      "id": "screens/intermission",
+      "title": "Intermission",
+      "kind": "screen",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/screens/intermission",
+      "assets_dir": "assets/screens/intermission",
+      "prompt": "art/screens/intermission/prompt.md",
+      "masters": [
+        {
+          "path": "art/screens/intermission/illustration.png",
+          "sha256": "0e26c64538912ffd9174bb3884d006acee3d96706410bd5bc0bc0e32216e94b9",
+          "width": 1586,
+          "height": 992
+        }
+      ],
+      "look": "A quiet roadside billet between missions: a stone farmhouse, open barn and supply wagon after rain.\nThe painting leaves calm space on the left for live text and controls.",
+      "base_prompt": "One opaque, text-free 16:10 World War I screen painting, rural Europe 1914–1918, target native 2560x1600.\nContinuous hand-painted digital illustration with fine believable stone, timber, canvas, grass and mud.\nAn old pale stone farmhouse and open wooden barn stand on the right, with a horse-drawn supply wagon\nbeneath a tree, wooden crates and folded canvas under the eaves. A wet lane winds toward fields and low\nwooded hills. A restrained warm window glows against blue-grey mist and olive grass. Cool slate, moss,\nearth and muted brass palette. Keep the left 40 percent dark and low-detail for live overlays. Restful\natmosphere, no people, fighting, casualties, text, insignia, frames or controls.",
+      "variants": [
+        {
+          "variant": "illustration",
+          "runtime_ids": [],
+          "delta": "The roadside billet scene above."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source only; no runtime or manifest binding yet. `illustration.png` is 1586x992 and supports a\n2x (1280x800) crop. The native 4x (2560x1600) target remains open; do not enlarge it and claim native 4x.",
+      "avoid": [
+        "baked text, controls, labels, logos or borders",
+        "modern equipment, national insignia or people",
+        "bright competing detail in the left overlay area"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
       }
     },
     {
@@ -3793,6 +3812,45 @@
         "samples": [
           "assets/screens/pause/pause-2x.png"
         ]
+      }
+    },
+    {
+      "id": "screens/production-repair",
+      "title": "Production and repair",
+      "kind": "screen",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/screens/production-repair",
+      "assets_dir": "assets/screens/production-repair",
+      "prompt": "art/screens/production-repair/prompt.md",
+      "masters": [
+        {
+          "path": "art/screens/production-repair/illustration.png",
+          "sha256": "7c457b6a15d203fd47d935f370bbbf435a488ece0b076659209289aae3752031",
+          "width": 1586,
+          "height": 992
+        }
+      ],
+      "look": "A field maintenance workshop inside a rural stone barn, with a period artillery gun and hand tools.\nThe painted scene stays separate from production lists, repair values and controls.",
+      "base_prompt": "One opaque, text-free 16:10 World War I screen painting, rural Europe 1914–1918, target native 2560x1600.\nContinuous hand-painted digital illustration with fine believable wood, stone, canvas and steel. On the\nright, a small period field gun with wooden-spoked wheels, a long barrel and simple steel shield stands\non barn floor planks. Behind it, a rough workbench holds an open tool chest, spanners and small mechanical\ncomponents. A spare wooden wheel, canvas roll and crates fill the workshop. A doorway reveals wet olive\ncountryside. Cool slate shadows, moss and earth, restrained warm brass daylight from the upper left.\nKeep the left 40 percent calm and low-detail for live overlays. No workers, sparks, ammunition display,\ntext, insignia, frames or controls.",
+      "variants": [
+        {
+          "variant": "illustration",
+          "runtime_ids": [],
+          "delta": "The barn maintenance workshop above."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source only; no runtime or manifest binding yet. `illustration.png` is 1586x992 and supports a\n2x (1280x800) crop. The native 4x (2560x1600) target remains open; do not enlarge it and claim native 4x.",
+      "avoid": [
+        "baked text, controls, labels, logos or borders",
+        "modern equipment, national insignia or people",
+        "photographic or 3D-rendered surfaces"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
       }
     },
     {

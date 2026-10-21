@@ -33,6 +33,9 @@ order: `## Look`, `## Base prompt`, `## Variants` (table `| Variant | Runtime ID
 To generate: paste the `art/style.md` preamble and the section for the kind, then the base prompt and
 one variant's delta. `go run ./cmd/hlart check` validates every prompt, master and runtime ID.
 
+Screen families with painted masters may leave `runtime_ids` empty while their status is `candidate`
+and the feature binding is not yet defined. Keep each painting and its prompt in its own screen family.
+
 ## Geometry
 
 - Logical terrain tile 96×80 at `x = 142*column + 71*(line%2)`, `y = 40*line` (even lines `Width` hexes,

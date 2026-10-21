@@ -204,6 +204,44 @@ func TestFrontMatterTolerates(t *testing.T) {
 	}
 }
 
+func TestSourceOnlyScreenCandidateRequiresMaster(t *testing.T) {
+	for _, tc := range []struct {
+		name, kind, status, masters string
+		wantValid                   bool
+	}{
+		{"painted screen candidate", "screen", "candidate", "illustration.png", true},
+		{"masterless screen candidate", "screen", "candidate", "", false},
+		{"placeholder master", "screen", "candidate", "—", false},
+		{"revised screen", "screen", "revised", "illustration.png", false},
+		{"approved screen", "screen", "approved", "illustration.png", false},
+		{"terrain candidate", "terrain", "candidate", "illustration.png", false},
+		{"unit candidate", "unit", "candidate", "illustration.png", false},
+		{"portrait candidate", "portrait", "candidate", "illustration.png", false},
+		{"interface candidate", "interface", "candidate", "illustration.png", false},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			src := "---\nid: screens/intermission\ntitle: Intermission\nkind: " + tc.kind +
+				"\nstatus: " + tc.status + "\nruntime_ids:\nmasters: " + tc.masters +
+				"\n---\n## Look\nQuiet rest stop.\n## Base prompt\nPaint an empty farmyard.\n## Variants\n"
+			if tc.kind == "terrain" {
+				src += "## Edges & joins\nContinuous meadow.\n"
+			}
+			src += "## Post\nCandidate master only.\n## Avoid\n- text\n"
+			p, errs := parsePrompt(src)
+			if tc.wantValid {
+				if len(errs) != 0 {
+					t.Fatalf("source-only screen candidate rejected: %v", errs)
+				}
+				if len(p.RuntimeIDs) != 0 || !slices.Equal(p.Masters, []string{"illustration.png"}) {
+					t.Fatalf("candidate source metadata: %+v", p)
+				}
+			} else if !slices.Contains(errs, "runtime_ids is empty") {
+				t.Fatalf("missing runtime IDs accepted: %v", errs)
+			}
+		})
+	}
+}
+
 func TestShrink(t *testing.T) {
 	img := image.NewRGBA(image.Rect(0, 0, 40, 10))
 	for x := range 20 {

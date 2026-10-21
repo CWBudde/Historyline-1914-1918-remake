@@ -68,7 +68,7 @@ Tick a box only with evidence you ran. Record decisions here, not their history.
 - [ ] Confirm whether summer factories, barbed wire, background `trenches` and summer rough/shelled/stony
       ground are needed, then author them.
 - [ ] Campaign, intermission, production/repair and editor illustrations once those features exist.
-      Candidate paintings are in `art/screens/backdrop/`; native 4× masters and feature bindings remain open.
+      Candidate paintings are in their `art/screens/<family>/` folders; native 4× masters and feature bindings remain open.
 - [ ] In-engine art preview (`cmd/hlartpreview`): seven-hex patches, random fixtures, shipped maps; switch
       family, season, facing and state; grid/port overlays; reload exports; screenshots.
 - [ ] Broken-join fixtures for the compositor (wrong ports, shifted anchors, missing corners, double edges).
