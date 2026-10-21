@@ -44,7 +44,7 @@ has unclear rights (two files are Battle Isle 3 screenshots) and is never redist
 just art-index         # regenerate art/index.json from the prompts, masters and assets/index.json
 just artbook           # art book: every family's prompt, masters and runtime samples, the rendered PULSE map (needs Typst)
 just gfx-check         # art catalogue, PULSE reference data and art tool tests
-just reference         # PULSE reference design review (needs the local RefDesign2.png)
+just reference         # PULSE reference review and reference/render comparison (needs RefDesign2.png)
 just gfx-game-review   # local comparison desk under build/review/gfx/
 just gfx-study         # PULSE map study with real game captures at 720p/1080p/4K
 ```

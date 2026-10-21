@@ -8,6 +8,7 @@ import (
 	"errors"
 	"fmt"
 	"image/png"
+	"io/fs"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -46,6 +47,7 @@ type reference struct {
 	Level        string       `json:"level"`
 	Registration registration `json:"registration"`
 	ExcludedRows []int        `json:"excluded_rows"`
+	Tolerance    tolerance    `json:"tolerance"`
 	Families     []family     `json:"families"`
 	Features     []feature    `json:"features"`
 }
@@ -70,10 +72,12 @@ func parseCell(s string) (cell, error) {
 
 // project is a reference with its level, resolved against the repository root.
 type project struct {
-	root     string
-	ref      reference
-	level    *level.Level
-	excluded map[int]bool
+	root        string
+	assets      fs.FS  // the runtime art the level is rendered with
+	targetsPath string // targets.json next to reference.json
+	ref         reference
+	level       *level.Level
+	excluded    map[int]bool
 }
 
 func load(root, refPath string) (*project, error) {
@@ -83,7 +87,7 @@ func load(root, refPath string) (*project, error) {
 	}
 	dec := json.NewDecoder(bytes.NewReader(raw))
 	dec.DisallowUnknownFields()
-	p := &project{root: root, excluded: map[int]bool{}}
+	p := &project{root: root, excluded: map[int]bool{}, assets: os.DirFS(filepath.Join(root, "assets")), targetsPath: filepath.Join(filepath.Dir(refPath), "targets.json")}
 	if err := dec.Decode(&p.ref); err != nil {
 		return nil, fmt.Errorf("%s: %w", refPath, err)
 	}
@@ -178,6 +182,9 @@ func (p *project) validate() []error {
 	}
 	if r.Registration.ScaleX[1] == 0 || r.Registration.ScaleY[1] == 0 || r.Registration.ScaleX[0] <= 0 || r.Registration.ScaleY[0] <= 0 {
 		fail("registration: scales need a positive numerator and a non-zero denominator")
+	}
+	if !r.Tolerance.valid() {
+		fail("tolerance: delta_e, contrast, chroma and edges must be positive")
 	}
 
 	checkCell := func(owner, s string) (cell, level.Hex, bool) {

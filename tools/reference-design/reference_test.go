@@ -21,6 +21,8 @@ func loadFixture(t *testing.T) *project {
 	if err != nil {
 		t.Fatal(err)
 	}
+	p.assets = os.DirFS("../../assets")
+	p.targetsPath = filepath.Join(t.TempDir(), "targets.json")
 	return p
 }
 
@@ -249,7 +251,7 @@ func TestRender(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	for _, want := range []string{`id="meadow"`, `id="feature-crossing"`, "A road meets a stream.", `src="tiles/r02c01.png"`, "All occurrences (5)", "art/terrain/bridge/prompt.md", `src="reference.png"`} {
+	for _, want := range []string{`id="meadow"`, `id="feature-crossing"`, "A road meets a stream.", `src="tiles/r02c01.png"`, "All occurrences (5)", `id="comparison"`, `src="compare/band-1.png"`, `src="compare/feature-crossing.png"`, "art/terrain/bridge/prompt.md", `src="reference.png"`} {
 		if !bytes.Contains(html, []byte(want)) {
 			t.Errorf("index.html lacks %q", want)
 		}

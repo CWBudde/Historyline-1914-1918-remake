@@ -3,6 +3,7 @@
   "level": "level.json",
   "registration": {"world_anchor": [48, 0], "source_anchor": [42, 0], "scale_x": [123, 142], "scale_y": [35, 40]},
   "excluded_rows": [4],
+  "tolerance": {"delta_e": 8, "contrast": 0.3, "chroma": 0.3, "edges": 0.3},
   "families": [
     {"id": "meadow", "kind": "terrain", "runtime_ids": ["grass"], "art": "art/terrain/meadow", "exemplars": ["r1c3", "r3c1", "r2c1"]},
     {"id": "forest", "kind": "terrain", "runtime_ids": ["forest"], "art": "art/terrain/forest", "exemplars": ["r1c2", "r3c3"]},

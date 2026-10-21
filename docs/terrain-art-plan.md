@@ -47,20 +47,25 @@ repainting twice.
 
 ## Phase 0: Measure against the reference (local tooling)
 
-The reference image is local only (git-ignored), so this loop runs on the artist's machine, not in CI.
+The reference image is local only (git-ignored), so the comparison runs on the artist's machine; the drift
+check runs everywhere. Details in [tools/reference-design](../tools/reference-design/README.md).
 
-- [ ] **0.1 Side-by-side view.** `just reference` also writes the reference and the current render, registered
-      with `registration` from `reference.json`, as full-map bands and as one crop per family exemplar and
-      per feature (ref | render at 2×) into `build/review/reference/`.
-- [ ] **0.2 Family metrics.** For each family, from its exemplar cells in the reference and the render:
-      mean colour (Lab), luminance contrast, saturation and edge density. Show the values beside the crops.
-- [ ] **0.3 Targets in `reference.json`.** Store the measured reference values per family (numbers only) so
-      `reference-design -check` can later warn when a rendered family drifts outside a tolerance, without the
-      image.
-- [ ] **0.4 Art book.** When the reference image is present, add the comparison bands to the "PULSE map" chapter
-      (optional input, like `pulse`).
-- [ ] **0.5 Status in `prompt.md`.** Use `candidate`, `revised` and `approved`; the art book shows the status
-      per family, so progress is visible in one place.
+- [x] **0.1 Side-by-side view.** `just reference` writes the reference and the current render, registered onto
+      the grid, as full-map bands (1×) and one crop per family exemplar and per feature (2×, hex outlined)
+      into `build/review/reference/compare/`, shown on the review page.
+- [x] **0.2 Family metrics.** Mean CIELAB colour, contrast (σ of L\*), chroma and edge density per family over
+      its exemplar hexes, for reference and render, beside the crops.
+- [x] **0.3 Targets.** `art/reference/pulse/targets.json` (written by `just reference`, numbers only) holds the
+      reference values; `tolerance` in `reference.json` sets the allowed drift. `just reference-check` reports
+      how many families lie outside (`-drift` for the table) and fails when targets are stale.
+- [x] **0.4 Art book.** With the image present, `just artbook` adds the chapter "Reference and render": metrics
+      table, bands, one crop per family and per feature.
+- [x] **0.5 Status in `prompt.md`.** `candidate`, `revised`, `approved`; the art book shows the status per
+      family on its page, in the reference table and in the comparison table.
+
+Baseline: 15 of 16 families lie outside their targets. The render has about half the reference's contrast in every
+ground family and a seventh to a third of its edge density (grass 0.05 against 0.37); colour is close for grass, hills
+and ground (ΔE < 4) and far off for lakeside, stream, bridges, water, mountain and hq (ΔE 11–27).
 
 ## Phase 1: Compositor foundations (code)
 

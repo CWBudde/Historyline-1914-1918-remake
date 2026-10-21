@@ -38,6 +38,13 @@ summary { cursor: pointer; color: var(--muted); }
 .assembly { position: relative; flex: none; }
 .assembly img { position: absolute; width: 144px; height: 120px; }
 .feature { display: flex; gap: 20px; flex-wrap: wrap; align-items: flex-start; }
+.pair { max-width: 100%; height: auto; display: block; margin: 0 0 8px; border-radius: 4px; }
+.pairs figcaption { max-width: none; }
+table { border-collapse: collapse; font: 13px ui-monospace, monospace; width: 100%; }
+th, td { text-align: right; padding: 3px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th:first-child, td:first-child, td:last-child { text-align: left; }
+.scroll { overflow-x: auto; }
+.off { color: var(--accent); font-weight: 600; }
 @media print {
   :root { --bg: #fff; --fg: #000; --card: #fff; --line: #ccc; --muted: #555; }
   nav, details { display: none; }
@@ -58,6 +65,20 @@ summary { cursor: pointer; color: var(--muted); }
 </div>
 </header>
 
+{{with .Compare}}
+<section id="comparison">
+<h2>Reference and render</h2>
+<p class="muted">Left the painting registered onto the grid, right <code>{{.Level}}</code> drawn with the current runtime art; bands at 1×, crops at {{.Density}}×. Metrics are measured at 1× over each family's exemplar hexes: mean CIELAB colour, contrast (standard deviation of L*), chroma (mean C*) and edges (share of pixels with a strong L* gradient). The reference values are the targets in <code>targets.json</code>; flagged metrics lie outside the tolerance in <code>reference.json</code>.</p>
+<div class="scroll"><table>
+<tr><th>family</th><th>ΔE</th><th>L* a* b* reference</th><th>L* a* b* render</th><th>contrast</th><th>chroma</th><th>edges</th><th>outside</th></tr>
+{{range .Families}}<tr><td><a href="#{{.ID}}">{{.ID}}</a></td><td>{{printf "%.1f" .DeltaE}}</td><td>{{printf "%.1f %.1f %.1f" .Reference.L .Reference.A .Reference.B}}</td><td>{{printf "%.1f %.1f %.1f" .Render.L .Render.A .Render.B}}</td><td>{{printf "%.1f → %.1f" .Reference.Contrast .Render.Contrast}}</td><td>{{printf "%.1f → %.1f" .Reference.Chroma .Render.Chroma}}</td><td>{{printf "%.2f → %.2f" .Reference.Edges .Render.Edges}}</td><td class="off">{{range $i, $o := .Outside}}{{if $i}}, {{end}}{{$o}}{{end}}</td></tr>
+{{end}}</table></div>
+<details><summary>Full map in {{len .Bands}} bands</summary>
+{{range .Bands}}<img class="pair" src="compare/{{.}}" alt="Reference and render band" loading="lazy">{{end}}
+</details>
+</section>
+{{end}}
+
 {{range .Families}}
 <section id="{{.ID}}">
 <div class="top">
@@ -67,6 +88,8 @@ summary { cursor: pointer; color: var(--muted); }
 {{with .Notes}}<p>{{.}}</p>{{end}}
 <h3>Exemplars</h3>
 <div class="tiles big">{{range .Exemplars}}<figure><img src="{{.File}}" alt="{{.ID}}"><figcaption>{{.ID}} {{.Info}}</figcaption></figure>{{end}}</div>
+{{with .Compare}}<h3>Reference | render{{if .Outside}} · <span class="off">outside: {{range $i, $o := .Outside}}{{if $i}}, {{end}}{{$o}}{{end}}</span>{{end}}</h3>
+<div class="pairs">{{$ex := .Exemplars}}{{range $i, $c := .Crops}}<figure><img class="pair" src="compare/{{$c}}" alt="{{index $ex $i}}" loading="lazy"><figcaption>{{index $ex $i}}</figcaption></figure>{{end}}</div>{{end}}
 </div>
 {{.Map}}
 </div>
@@ -84,6 +107,7 @@ summary { cursor: pointer; color: var(--muted); }
 <div class="assembly" style="width:{{.Width}}px;height:{{.Height}}px">{{range .Tiles}}<img src="{{.File}}" alt="{{.ID}}" title="{{.ID}} {{.Info}}" style="left:{{.Left}}px;top:{{.Top}}px">{{end}}</div>
 {{.Map}}
 </div>
+{{with .Crop}}<h3>Reference | render</h3><img class="pair" src="compare/{{.}}" alt="Reference and render" loading="lazy">{{end}}
 <p class="muted"><code>{{range $i, $t := .Tiles}}{{if $i}}, {{end}}{{$t.ID}}{{end}}</code></p>
 </section>
 {{end}}

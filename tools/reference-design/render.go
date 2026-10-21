@@ -25,6 +25,7 @@ const (
 	tileDensity = 2
 	thumbName   = "reference.png"
 	thumbScale  = 2 // the thumbnail is the reference at half size
+	compareDir  = "compare"
 )
 
 type tileView struct {
@@ -36,13 +37,14 @@ type familyView struct {
 	ID, Kind, Keys, ArtLink, Art, Notes string
 	Exemplars, All                      []tileView
 	Map                                 template.HTML
+	Compare                             familyCompare
 }
 
 type featureView struct {
-	ID, Title, Notes string
-	Tiles            []tileView
-	Width, Height    int
-	Map              template.HTML
+	ID, Title, Notes, Crop string
+	Tiles                  []tileView
+	Width, Height          int
+	Map                    template.HTML
 }
 
 type pageView struct {
@@ -53,22 +55,18 @@ type pageView struct {
 	Cells, Excluded int
 	Families        []familyView
 	Features        []featureView
+	Compare         *comparison
 }
 
 // render writes the tiles, a reference thumbnail and index.html into out.
 func (p *project) render(out string) error {
-	raw, present, err := p.checkImage()
+	src, present, err := p.source()
 	if err != nil {
 		return err
 	}
 	if !present {
 		return fmt.Errorf("reference image %s is missing: place the local copy at the repository root (sha256 %s)", p.ref.Image.Path, p.ref.Image.SHA256)
 	}
-	decoded, err := png.Decode(bytes.NewReader(raw))
-	if err != nil {
-		return err
-	}
-	src := prepareSource(decoded)
 
 	if err := os.RemoveAll(filepath.Join(out, "tiles")); err != nil {
 		return err
@@ -90,9 +88,9 @@ func (p *project) render(out string) error {
 		}
 	}
 
-	b := decoded.Bounds()
+	b := src.Bounds()
 	thumb := image.NewNRGBA(image.Rect(0, 0, (b.Dx()+thumbScale-1)/thumbScale, (b.Dy()+thumbScale-1)/thumbScale))
-	xdraw.CatmullRom.Scale(thumb, thumb.Bounds(), decoded, b, xdraw.Src, nil)
+	xdraw.CatmullRom.Scale(thumb, thumb.Bounds(), src, b, xdraw.Src, nil)
 	if err := writePNG(filepath.Join(out, thumbName), thumb); err != nil {
 		return err
 	}
@@ -102,8 +100,16 @@ func (p *project) render(out string) error {
 	if err != nil {
 		return err
 	}
-	for _, f := range p.ref.Families {
-		fv := familyView{ID: f.ID, Kind: f.Kind, Art: f.Art, Notes: f.Notes, ArtLink: rootRel + "/" + f.Art + "/prompt.md"}
+	cmp, err := p.compare(src, filepath.Join(out, compareDir), formatPNG)
+	if err != nil {
+		return err
+	}
+	if err := p.writeTargets(cmp); err != nil {
+		return err
+	}
+	view.Compare = cmp
+	for i, f := range p.ref.Families {
+		fv := familyView{ID: f.ID, Kind: f.Kind, Art: f.Art, Notes: f.Notes, ArtLink: rootRel + "/" + f.Art + "/prompt.md", Compare: cmp.Families[i]}
 		if f.Kind == "terrain" {
 			fv.Keys = strings.Join(f.RuntimeIDs, ", ")
 		} else {
@@ -122,8 +128,10 @@ func (p *project) render(out string) error {
 		fv.Map = p.overlay(occ, exemplars)
 		view.Families = append(view.Families, fv)
 	}
-	for _, ft := range p.ref.Features {
-		view.Features = append(view.Features, p.featureView(ft))
+	for i, ft := range p.ref.Features {
+		fv := p.featureView(ft)
+		fv.Crop = cmp.Features[i].Crop
+		view.Features = append(view.Features, fv)
 	}
 
 	var html bytes.Buffer
@@ -216,4 +224,18 @@ func relPath(from, target string) (string, error) {
 		return "", err
 	}
 	return filepath.ToSlash(r), nil
+}
+
+// source decodes the verified reference image without its exterior black canvas;
+// present is false when the local image does not exist.
+func (p *project) source() (*image.NRGBA, bool, error) {
+	raw, present, err := p.checkImage()
+	if err != nil || !present {
+		return nil, present, err
+	}
+	decoded, err := png.Decode(bytes.NewReader(raw))
+	if err != nil {
+		return nil, true, err
+	}
+	return prepareSource(decoded), true, nil
 }

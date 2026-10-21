@@ -1,0 +1,21 @@
+{
+  "image_sha256": "b3182d5d39243717283d8684787281fff13f4f9f331c4ded3180c4e4cc7625dd",
+  "families": [
+    {"id":"grass","exemplars":["r7c5","r8c4","r16c4","r19c4","r23c5"],"l":45.39,"a":-13.9,"b":38.92,"contrast":9.84,"chroma":41.56,"edges":0.37},
+    {"id":"forest","exemplars":["r2c4","r3c5","r19c2","r21c2","r43c3"],"l":28.02,"a":-12.69,"b":24.18,"contrast":18.09,"chroma":27.99,"edges":0.52},
+    {"id":"hills","exemplars":["r6c5","r16c7","r21c7","r23c6"],"l":43.82,"a":-12.61,"b":36.95,"contrast":11.11,"chroma":39.32,"edges":0.32},
+    {"id":"ground","exemplars":["r12c3","r13c4","r14c3","r17c7","r39c3","r40c3"],"l":43.41,"a":-6.73,"b":29.83,"contrast":11.62,"chroma":31.2,"edges":0.39},
+    {"id":"mountain","exemplars":["r18c7","r29c3","r46c4"],"l":34.79,"a":-10.56,"b":26.38,"contrast":16.62,"chroma":29.25,"edges":0.37},
+    {"id":"mount","exemplars":["r30c3","r31c3","r32c3","r31c6","r32c5","r44c1"],"l":39.46,"a":-9.79,"b":28.32,"contrast":16.2,"chroma":30.67,"edges":0.35},
+    {"id":"house","exemplars":["r2c6","r22c5","r39c2"],"l":40.87,"a":-8.03,"b":28.26,"contrast":14.27,"chroma":30.18,"edges":0.33},
+    {"id":"hq","exemplars":["r6c1","r7c1","r8c1","r9c2","r10c1"],"l":38.35,"a":-1.64,"b":15.1,"contrast":21.6,"chroma":20.01,"edges":0.49},
+    {"id":"cmp","exemplars":["r19c6","r20c5","r20c6","r21c6"],"l":43.63,"a":-3.31,"b":19.61,"contrast":18.11,"chroma":22.33,"edges":0.43},
+    {"id":"lakeside","exemplars":["r29c6","r30c6","r31c7","r32c7"],"l":40.99,"a":-6.95,"b":-4.93,"contrast":15.66,"chroma":19.56,"edges":0.46},
+    {"id":"water","exemplars":["r29c7","r30c7"],"l":35.18,"a":-10.1,"b":-15.09,"contrast":13.18,"chroma":19.97,"edges":0.33},
+    {"id":"road","exemplars":["r7c3","r3c2","r36c4","r15c6","r9c3","r31c2"],"l":49.2,"a":-2.92,"b":21.9,"contrast":10.56,"chroma":23.44,"edges":0.3},
+    {"id":"path","exemplars":["r19c5","r20c4","r22c3","r24c3","r28c2"],"l":47.16,"a":-7.62,"b":34.85,"contrast":13.24,"chroma":36.65,"edges":0.38},
+    {"id":"bridge","exemplars":["r33c7","r37c7"],"l":44.5,"a":-3.49,"b":10.44,"contrast":18.86,"chroma":20.72,"edges":0.48},
+    {"id":"rBridge","exemplars":["r4c1"],"l":44.31,"a":-1.92,"b":4.33,"contrast":19.88,"chroma":12.92,"edges":0.43},
+    {"id":"stream","exemplars":["r8c2","r10c2","r12c1","r34c6","r36c6"],"l":40.08,"a":-7.65,"b":7.52,"contrast":16.49,"chroma":23.48,"edges":0.53}
+  ]
+}

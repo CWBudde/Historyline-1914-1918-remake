@@ -86,9 +86,12 @@ artbook: _build-dir
     mkdir -p build/artbook
     go run ./cmd/hlart thumbs -out build/artbook/thumbs
     go run ./cmd/hlart pulse -out build/artbook/pulse
+    go run ./tools/reference-design -compare build/artbook/compare
+    compare=""
+    if [ -f build/artbook/compare/compare.json ]; then compare=/build/artbook/compare; fi
     style=false
     if [ -f art/style.md ]; then style=true; fi
-    {{manual_typst}} --input thumbs=/build/artbook/thumbs --input pulse=/build/artbook/pulse --input style=$style docs/artbook/artbook.typ build/artbook/Historyline_Art.pdf
+    {{manual_typst}} --input thumbs=/build/artbook/thumbs --input pulse=/build/artbook/pulse --input compare=$compare --input style=$style docs/artbook/artbook.typ build/artbook/Historyline_Art.pdf
     echo build/artbook/Historyline_Art.pdf
 
 # Render the PULSE reference design review (needs the local RefDesign2.png) into build/review/reference

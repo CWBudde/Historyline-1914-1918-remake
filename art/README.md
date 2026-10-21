@@ -24,9 +24,10 @@ without masters (derived or vector art) still have a folder with `prompt.md`.
 ## prompt.md
 
 Front matter `id` (the art key), `title`, `kind` (`terrain | unit | portrait | interface | screen`),
-`status` (`candidate | final`), `runtime_ids` (terrain/infra IDs, unit types, or interface/screen IDs from
-`assets/index.json`) and `masters` (file names in the folder; empty when derived). Then the sections, in
-this order: `## Look`, `## Base prompt`, `## Variants` (table `| Variant | Runtime IDs | Prompt delta |`,
+`status` (`candidate`: generated, not reviewed yet; `revised`: reworked against the PULSE reference;
+`approved`: accepted), `runtime_ids` (terrain/infra IDs, unit types, or interface/screen IDs from
+`assets/index.json`) and `masters` (file names in the folder; empty when derived). Then the sections, in this
+order: `## Look`, `## Base prompt`, `## Variants` (table `| Variant | Runtime IDs | Prompt delta |`,
 `—` for rows without their own ID), `## Edges & joins` (terrain only), `## Post`, `## Avoid`.
 
 To generate: paste the `art/style.md` preamble and the section for the kind, then the base prompt and

@@ -4,7 +4,8 @@
 //
 // Inputs: base (the art tree, default the repository root), thumbs (directory of the
 // master and sample thumbnails written by `hlart thumbs`; default: the files themselves), pulse
-// (directory of the PULSE map written by `hlart pulse`; default: no map chapter), style=false
+// (directory of the PULSE map written by `hlart pulse`; default: no map chapter), compare
+// (directory written by `reference-design -compare`; default: no comparison), style=false
 // skips art/style.md, reference=false skips the PULSE reference chapter.
 
 #import "/docs/manual/template.typ": accent, ink, muted, paper-tint, rule-colour, serif, sans, blackletter, ornament, note
@@ -20,6 +21,7 @@
 #let with-style = sys.inputs.at("style", default: "true") == "true"
 #let with-reference = sys.inputs.at("reference", default: "true") == "true"
 #let pulse = sys.inputs.at("pulse", default: "")
+#let compare = sys.inputs.at("compare", default: "")
 
 #let kinds = (
   ("terrain", "Terrain"),
@@ -81,7 +83,7 @@
   inset: (x: 0.4em, y: 0.15em), radius: 2pt, fill: fill,
   text(font: sans, size: 7pt, fill: white, weight: "bold", upper(body)),
 )
-#let status-tag(s) = tag(s, fill: if s == "final" { accent } else { muted })
+#let status-tag(s) = tag(s, fill: if s == "approved" { accent } else if s == "revised" { ink } else { muted })
 #let small(body) = text(size: 7.5pt, fill: muted, body)
 #let ids(xs) = if xs.len() == 0 { small[—] } else { xs.map(x => raw(x)).join(", ") }
 
@@ -105,8 +107,7 @@
   #set text(size: 8.5pt, fill: muted)
   #let n(kind) = index.assets.filter(a => a.kind == kind).len()
   #kinds.map(((k, t)) => [#n(k) #lower(t)]).join[ · ] \
-  #index.assets.filter(a => a.status == "final").len() final,
-  #index.assets.filter(a => a.status == "candidate").len() candidate \
+  #("approved", "revised", "candidate").map(s => [#index.assets.filter(a => a.status == s).len() #s]).join[, ] \
   Generated from #raw("art/index.json") · #link(repo)[#repo.trim("/", at: end).split("//").last()]
 ]
 
@@ -243,6 +244,64 @@
   plate("pulse-ground.png")[Terrain and infrastructure only]
 }
 
+// The reference painting beside the render (`reference-design -compare`, only with the local image).
+#let art-status = (:)
+#for a in index.assets { art-status.insert(a.id, a.status) }
+#let family-art = (:)
+#for f in json("/art/reference/pulse/reference.json").families { family-art.insert(f.id, f.art.trim("art/", at: start)) }
+#let family-status(id) = {
+  let key = family-art.at(id, default: "")
+  if key in art-status { status-tag(art-status.at(key)) } else { small[no prompt] }
+}
+
+#if compare != "" {
+  let cmp = json(compare + "/compare.json")
+  let n(x, d: 1) = str(calc.round(x, digits: d))
+  let outside(f) = if f.outside.len() == 0 { small[within] } else { text(fill: accent, weight: "bold", f.outside.join(", ")) }
+  heading(level: 1)[Reference and render]
+  [
+    Left the reference painting registered onto the game grid, right #blob(cmp.level) drawn with the current
+    runtime art. Metrics are measured at 1× over each family's exemplar hexes: mean CIELAB colour, contrast
+    (standard deviation of L\*), chroma (mean C\*) and edges (share of pixels with a strong L\* gradient). The
+    reference values are the targets in #blob("art/reference/pulse/targets.json"); the tolerance is in
+    #blob("art/reference/pulse/reference.json").
+  ]
+  table(
+    columns: 8,
+    align: (left, right, right, right, right, right, right, left),
+    fill: (_, y) => if y == 0 { paper-tint },
+    table.header[*Family*][*Status*][*ΔE*][*L\* a\* b\**][*Contrast*][*Chroma*][*Edges*][*Outside*],
+    ..cmp.families.map(f => (
+      text(size: 8pt, strong(f.id)),
+      family-status(f.id),
+      text(size: 8pt, n(f.delta_e)),
+      text(size: 7pt)[#n(f.reference.l) #n(f.reference.a) #n(f.reference.b) \ #n(f.render.l) #n(f.render.a) #n(f.render.b)],
+      text(size: 8pt)[#n(f.reference.contrast) → #n(f.render.contrast)],
+      text(size: 8pt)[#n(f.reference.chroma) → #n(f.render.chroma)],
+      text(size: 8pt)[#n(f.reference.edges, d: 2) → #n(f.render.edges, d: 2)],
+      text(size: 8pt, outside(f)),
+    )).flatten(),
+  )
+  heading(level: 3)[Full map]
+  for b in cmp.bands {
+    block(breakable: false, below: 0.6em, image(compare + "/" + b, width: 100%))
+  }
+  heading(level: 3)[Families]
+  for f in cmp.families {
+    block(breakable: false, below: 0.9em)[
+      *#f.id* #h(0.4em) #family-status(f.id) #h(0.4em) #small[#f.exemplars.at(0), ΔE #n(f.delta_e)] #h(1fr) #outside(f)
+      #image(compare + "/" + f.crops.at(0), width: 100%)
+    ]
+  }
+  heading(level: 3)[Features]
+  for ft in cmp.features {
+    block(breakable: false, below: 0.9em)[
+      *#ft.title* #h(0.3em) #small(raw(ft.id))
+      #image(compare + "/" + ft.crop, width: 100%)
+    ]
+  }
+}
+
 // PULSE reference design
 #if with-reference {
   let ref = json("/art/reference/pulse/reference.json")
@@ -263,7 +322,7 @@
       let key = f.art.trim("art/", at: start)
       let runtime = if f.kind == "infra" { f.infra_prefixes.map(p => p + "*") } else { f.runtime_ids }
       (
-        [*#f.id* #small(f.kind) \ #text(size: 7pt, if key in known { link(art-label(key), raw(key)) } else { tree(f.art) })],
+        [*#f.id* #small(f.kind) #family-status(f.id) \ #text(size: 7pt, if key in known { link(art-label(key), raw(key)) } else { tree(f.art) })],
         text(size: 7.5pt, ids(runtime)),
         [#text(size: 7.5pt, f.exemplars.map(raw).join(", ")) #if "notes" in f [\ #text(size: 8pt, f.notes)]],
       )

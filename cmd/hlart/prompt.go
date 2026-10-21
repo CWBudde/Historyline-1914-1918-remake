@@ -16,7 +16,7 @@ var kindDirs = map[string]string{
 	"screens":   "screen",
 }
 
-var statuses = []string{"candidate", "final"}
+var statuses = []string{"candidate", "revised", "approved"}
 
 var frontMatterKeys = []string{"id", "title", "kind", "status", "runtime_ids", "masters"}
 

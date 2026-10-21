@@ -1,5 +1,6 @@
 // Command reference-design checks the reference design data and renders its
-// review page: the reference painting cut into game hexes, grouped by art family.
+// review page: the reference painting cut into game hexes, grouped by art family,
+// and compared with the level drawn in the runtime art.
 package main
 
 import (
@@ -12,48 +13,108 @@ import (
 	"slices"
 )
 
+type options struct {
+	root, ref, out, compare string
+	check, dump, drift      bool
+}
+
 func main() {
-	root := flag.String("root", ".", "repository root that reference paths resolve against")
-	ref := flag.String("ref", "art/reference/pulse/reference.json", "reference data, relative to -root")
-	check := flag.Bool("check", false, "validate the reference data (default when -out is not given)")
-	dump := flag.Bool("dump-cells", false, "print the terrain and infrastructure of every cell")
-	out := flag.String("out", "", "render tiles and index.html into this directory")
+	var o options
+	flag.StringVar(&o.root, "root", ".", "repository root that reference paths resolve against")
+	flag.StringVar(&o.ref, "ref", "art/reference/pulse/reference.json", "reference data, relative to -root")
+	flag.BoolVar(&o.check, "check", false, "validate the reference data and targets (default when neither -out nor -compare is given)")
+	flag.BoolVar(&o.dump, "dump-cells", false, "print the terrain and infrastructure of every cell")
+	flag.BoolVar(&o.drift, "drift", false, "with -check: print the render's metrics against the targets per family")
+	flag.StringVar(&o.out, "out", "", "render tiles, the comparison and index.html into this directory and measure targets.json")
+	flag.StringVar(&o.compare, "compare", "", "write only the comparison (bands, crops, compare.json) into this directory; skipped without the image")
 	flag.Parse()
-	if err := run(*root, *ref, *out, *check, *dump); err != nil {
+	if err := run(o); err != nil {
 		fmt.Fprintln(os.Stderr, "reference-design:", err)
 		os.Exit(1)
 	}
 }
 
-func run(root, refPath, out string, check, dump bool) error {
+func run(o options) error {
+	refPath := o.ref
 	if !filepath.IsAbs(refPath) {
-		refPath = filepath.Join(root, refPath)
+		refPath = filepath.Join(o.root, refPath)
 	}
-	p, err := load(root, refPath)
+	p, err := load(o.root, refPath)
 	if err != nil {
 		return err
 	}
-	if dump {
+	if o.dump {
 		fmt.Print(p.dump())
 		return nil
 	}
 	if errs := p.validate(); len(errs) > 0 {
 		return errors.Join(errs...)
 	}
-	if out != "" && !check {
-		if err := p.render(out); err != nil {
+	switch {
+	case o.check:
+	case o.out != "":
+		if err := p.render(o.out); err != nil {
 			return err
 		}
-		fmt.Printf("wrote %s/index.html\n", out)
+		fmt.Printf("wrote %s/index.html and %s\n", o.out, p.targetsPath)
+		return nil
+	case o.compare != "":
+		src, present, err := p.source()
+		if err != nil {
+			return err
+		}
+		if !present {
+			fmt.Printf("reference image %s not present, no comparison written\n", p.ref.Image.Path)
+			return os.RemoveAll(o.compare)
+		}
+		if _, err := p.compare(src, o.compare, formatJPEG); err != nil {
+			return err
+		}
+		fmt.Printf("wrote %s/compare.json\n", o.compare)
 		return nil
 	}
-	if _, present, err := p.checkImage(); err != nil {
+	return p.check(o.drift)
+}
+
+func (p *project) check(table bool) error {
+	_, present, err := p.checkImage()
+	if err != nil {
 		return err
-	} else if !present {
+	}
+	if present {
+		fmt.Println("reference data and image ok")
+	} else {
 		fmt.Printf("reference data ok (image %s not present, sha not checked)\n", p.ref.Image.Path)
+	}
+	t, err := p.loadTargets()
+	if err != nil {
+		return err
+	}
+	if t == nil {
+		fmt.Printf("no %s yet: measure with just reference\n", p.targetsPath)
 		return nil
 	}
-	fmt.Println("reference data and image ok")
+	if errs := p.checkTargets(t); len(errs) > 0 {
+		return errors.Join(errs...)
+	}
+	rows, err := p.drift(t)
+	if err != nil {
+		return err
+	}
+	if table {
+		fmt.Print(driftTable(rows))
+	}
+	n := 0
+	for _, d := range rows {
+		if len(d.Outside) > 0 {
+			n++
+		}
+	}
+	fmt.Printf("render drift: %d of %d families outside their targets", n, len(rows))
+	if n > 0 && !table {
+		fmt.Print(" (details with -drift)")
+	}
+	fmt.Println()
 	return nil
 }
 

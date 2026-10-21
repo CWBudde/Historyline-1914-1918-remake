@@ -179,7 +179,7 @@ func TestParsePromptProblems(t *testing.T) {
 }
 
 func TestFrontMatterTolerates(t *testing.T) {
-	p, errs := parsePrompt("---\r\nid: terrain/road  # the road\r\ntitle: Road\r\nkind: unit\r\nstatus: final\r\nruntime_ids: `a`,  b ,\r\nmasters:\r\n---\r\n# Road\r\n## Look\r\nx\r\n## Base prompt\r\ny\r\n## Variants\r\n## Post\r\n## Avoid\r\n")
+	p, errs := parsePrompt("---\r\nid: terrain/road  # the road\r\ntitle: Road\r\nkind: unit\r\nstatus: approved\r\nruntime_ids: `a`,  b ,\r\nmasters:\r\n---\r\n# Road\r\n## Look\r\nx\r\n## Base prompt\r\ny\r\n## Variants\r\n## Post\r\n## Avoid\r\n")
 	if len(errs) != 0 {
 		t.Fatal(errs)
 	}
