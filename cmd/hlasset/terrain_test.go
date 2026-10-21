@@ -36,6 +36,16 @@ func TestRetainedTerrainCatalogBuilds(t *testing.T) {
 		t.Fatal(err)
 	}
 	want := map[string]int{"backgrounds": 76, "infrastructure": 74, "context-ground": 110, "context-forest": 82, "context-hills": 159}
+	for _, e := range retainedIndex(t) {
+		if e.Density == 2 {
+			if strings.HasPrefix(e.Pack, "terrain-standing-") {
+				want[standingGroup]++
+			}
+			if strings.HasPrefix(e.Pack, "terrain-stamps-") {
+				want[stampGroup]++
+			}
+		}
+	}
 	if len(packs) != len(want)*2 {
 		t.Fatalf("built %d packs, want %d", len(packs), len(want)*2)
 	}
@@ -49,6 +59,23 @@ func TestRetainedTerrainCatalogBuilds(t *testing.T) {
 	for _, d := range terrainDensities {
 		bg := openTerrainPack(t, out, d, "backgrounds")
 		inf := openTerrainPack(t, out, d, "infrastructure")
+		for _, feature := range []struct {
+			group, id string
+			w, h      int
+			anchor    [2]float64
+		}{
+			{stampGroup, "stamp/crater/4_-1.1_1.1_0.2/1", 180, 120, [2]float64{90, 60}},
+			{stampGroup, "stamp/knoll/1/1", 144, 120, [2]float64{72, 60}},
+			{standingGroup, "standing/stamp/knoll/1/1", 144, 120, [2]float64{72, 60}},
+		} {
+			e, err := openTerrainPack(t, out, d, feature.group).Entry(feature.id, d)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if e.Width != feature.w*d || e.Height != feature.h*d || e.Anchor != feature.anchor {
+				t.Errorf("retained feature geometry: %+v", e)
+			}
+		}
 		names, err := fs.Glob(levels.FS, "*.json")
 		if err != nil {
 			t.Fatal(err)
@@ -183,7 +210,15 @@ func TestTerrainGapsReport(t *testing.T) {
 	if err := run([]string{"build-terrain", "-assets", assetsRoot, "-out", out}, &b); err != nil {
 		t.Fatal(err)
 	}
-	if !strings.Contains(b.String(), "built 10 terrain packs") {
+	packIDs := map[string]bool{}
+	variants := 0
+	for _, e := range retainedIndex(t) {
+		if strings.HasPrefix(e.Pack, "terrain-") {
+			packIDs[e.Pack] = true
+			variants++
+		}
+	}
+	if !strings.Contains(b.String(), fmt.Sprintf("built %d terrain packs (%d PNG variants", len(packIDs), variants)) {
 		t.Errorf("build output %q", b.String())
 	}
 	b.Reset()
@@ -213,8 +248,20 @@ func withStanding(es []indexEntry) []indexEntry {
 	return es
 }
 
+// Synthetic optional-pack fixtures start without retained standing or stamp
+// entries, so their missing-density and uniqueness cases stay isolated.
+func withoutOptionalTerrain(es []indexEntry) []indexEntry {
+	var kept []indexEntry
+	for _, e := range es {
+		if !strings.HasPrefix(e.Pack, "terrain-standing-") && !strings.HasPrefix(e.Pack, "terrain-stamps-") {
+			kept = append(kept, e)
+		}
+	}
+	return kept
+}
+
 func TestTerrainPlanStandingLayer(t *testing.T) {
-	packs, err := planTerrain(withStanding(retainedIndex(t)))
+	packs, err := planTerrain(withStanding(withoutOptionalTerrain(retainedIndex(t))))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -256,14 +303,14 @@ func TestTerrainPlanStandingLayer(t *testing.T) {
 		}, "want ground"},
 	}
 	for _, c := range cases {
-		if _, err := planTerrain(c.damage(withStanding(retainedIndex(t)))); err == nil || !strings.Contains(err.Error(), c.want) {
+		if _, err := planTerrain(c.damage(withStanding(withoutOptionalTerrain(retainedIndex(t))))); err == nil || !strings.Contains(err.Error(), c.want) {
 			t.Errorf("%s: err = %v, want it to mention %q", c.name, err, c.want)
 		}
 	}
 }
 
 func TestTerrainPlanStamps(t *testing.T) {
-	es := retainedIndex(t)
+	es := withoutOptionalTerrain(retainedIndex(t))
 	for _, d := range terrainDensities {
 		for _, e := range []indexEntry{
 			{ID: "stamp/crater/4_-1.1_1.1_0.2/1", Pack: fmt.Sprintf("terrain-stamps-%dx", d), Width: 300 * d, Height: 160 * d, Anchor: &[2]float64{140, 40}},

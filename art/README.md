@@ -65,6 +65,7 @@ and the feature binding is not yet defined. Keep each painting and its prompt in
 ```sh
 go run ./tools/art-review -connected art/pipeline/connected-terrain-v1.json -out build/review/road
 go run ./tools/art-review -unit art/pipeline/unit-infantry-v1.json -out build/review/infantry
+go run ./tools/terrain-stamps -manifest art/pipeline/feature-stamps-v1.json -out build/review/feature-stamps
 ```
 
 Modes: `-connected` (road, stream, path, rail, trench), `-mixed` (bridges, crossings), `-shore`, `-compound`,

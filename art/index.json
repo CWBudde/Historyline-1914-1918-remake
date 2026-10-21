@@ -5421,7 +5421,11 @@
         "rough_w",
         "shelled_w",
         "stone",
-        "stoney_w"
+        "stoney_w",
+        "stamp/crater/4_-1.1_1.1_0.2/1",
+        "stamp/boulders/1/1",
+        "stamp/boulders/4_2.0_1.1_0.2/1",
+        "stamp/boulders/5_-1.1_0.2_-1.3_1.3/1"
       ],
       "dir": "art/terrain/ground",
       "assets_dir": "assets/terrain/ground",
@@ -5462,10 +5466,34 @@
           "sha256": "82f9d966c6327c9a05f3a6bfbff9451b2e51daea3968f3af095265af0e83de7c",
           "width": 1374,
           "height": 1145
+        },
+        {
+          "path": "art/terrain/ground/crater-stamp.png",
+          "sha256": "018177c37527691b1365cc6f59d9a60cbf3084d982475844a7fe93ea0e521a69",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/terrain/ground/boulders-single.png",
+          "sha256": "14f2c664d9ace3ee0f7ceb6a964fcca8c73cfb9242dce4e91b32be2dbb5ed523",
+          "width": 1374,
+          "height": 1145
+        },
+        {
+          "path": "art/terrain/ground/boulders-four.png",
+          "sha256": "ceedb4bcf1a03ce5a778f07e88eea4366923174c32c97768cd61e6f894653ffa",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/terrain/ground/boulders-five.png",
+          "sha256": "3959914db1d1ff3926aba54d8eae8e5ed7c271271f99aeb6255b2ee28b898c4a",
+          "width": 1374,
+          "height": 1145
         }
       ],
-      "look": "Rough ground variants of open land. In the reference, mud is a round shell crater with a raised,\ncracked tan earth rim on churned stony ground, and stone is meadow strewn with rounded grey and\ngrey-brown boulders, pebble clusters and small bright shrubs. Winter variants are their snow-covered\ncounterparts. All stay meadow-coloured at the edges so they blend into surrounding grass.",
-      "base_prompt": "Opaque top-down terrain illustration, landscape 6:5 canvas filled edge to edge, strict nadir view.\nThe ground between features is the same warm olive meadow as the grass terrain (average about RGB\n105,113,38) and continues to every edge. Features are painted at aerial map scale with fine natural\ndetail: rounded grey-beige boulders with soft lower-right shadows, small pebble clusters, tan and umber\nearth, small bright green shrubs. Readable as distinct terrain at 192x160, finely detailed at full size.",
+      "look": "Rough ground variants of open land. In the reference, mud is a round shell crater with a raised,\ncracked tan earth rim on churned stony ground, and stone is meadow strewn with rounded grey and\ngrey-brown boulders, pebble clusters and small bright shrubs. Winter variants are their snow-covered\ncounterparts. All stay meadow-coloured at the edges so they blend into surrounding grass.\nThe summer four-hex crater stamp is one round basin with a hand-painted cracked-earth rim and a low\nolive floor, with transparent meadow edges.\nSummer boulder stamps scatter rounded warm grey and beige stones, pebble clusters, sparse olive grass\ntufts and moss over transparent ground; the shared meadow shows between the stones.",
+      "base_prompt": "Opaque top-down terrain illustration, landscape 6:5 canvas filled edge to edge, strict nadir view.\nThe ground between features is the same warm olive meadow as the grass terrain (average about RGB\n105,113,38) and continues to every edge. Features are painted at aerial map scale with fine natural\ndetail: rounded grey-beige boulders with soft lower-right shadows, small pebble clusters, tan and umber\nearth, small bright green shrubs. Readable as distinct terrain at 192x160, finely detailed at full size.\n\nFor the crater stamp, replace the opaque tile instructions with: one transparent landscape terrain\ncut-out, strict nadir view, of a single circular shell crater with a raised scalloped rim of cracked tan\nand umber earth, a dark inner cut bank, radial fissures and a shallow olive grassy floor. Warm grey\nstones and clods form a sparse apron with irregular transparent margins. Continuous hand-painted\nmaterial detail, diffuse upper-left light and short soft lower-right shadows; no road, text, grid,\nhex outline, people, checkerboard, photographic texture or 3D rendering.\n\nFor the boulder stamps, replace the opaque tile instructions with: one transparent landscape terrain\ncut-out, strict nadir view, of scattered rounded warm grey and beige boulders of varied sizes and small\npebble clusters, covering about 18–20 percent of the scene. Sparse olive grass tufts and moss soften\nthe stones; real alpha transparency remains between them and around the irregular outer fringe.\nContinuous hand-painted natural material detail, diffuse upper-left light and short soft lower-right\nshadows. Keep a loose uneven scatter across the full scene, with no flat grey plate, paving, text,\ngrid, hex outline, people, checkerboard, photographic texture or 3D rendering.",
       "variants": [
         {
           "variant": "mud",
@@ -5506,10 +5534,38 @@
           "variant": "earth bank",
           "runtime_ids": [],
           "delta": "Shared border material of road, path, rail and trench. Close material swatch, square and opaque: rough dug tan-brown earth with small clods, shale crumbs, tiny roots and sparse grey gravel."
+        },
+        {
+          "variant": "crater stamp",
+          "runtime_ids": [
+            "stamp/crater/4_-1.1_1.1_0.2/1"
+          ],
+          "delta": "One continuous round crater across a four-hex summer cluster, with a cracked earth rim, olive floor and transparent outer fringe."
+        },
+        {
+          "variant": "single boulder stamp",
+          "runtime_ids": [
+            "stamp/boulders/1/1"
+          ],
+          "delta": "The transparent boulder scatter above in a 6:5 scene for one summer hex."
+        },
+        {
+          "variant": "four-cell boulder stamp",
+          "runtime_ids": [
+            "stamp/boulders/4_2.0_1.1_0.2/1"
+          ],
+          "delta": "One continuous 3:2 summer scatter for the four-cell cluster; no cell boundaries or repeated tile motifs."
+        },
+        {
+          "variant": "five-cell boulder stamp",
+          "runtime_ids": [
+            "stamp/boulders/5_-1.1_0.2_-1.3_1.3/1"
+          ],
+          "delta": "One continuous 6:5 summer scatter for the five-cell cluster; no cell boundaries or repeated tile motifs."
         }
       ],
-      "edges": "Ground tiles are chosen by context: the renderer blends the material towards the seasonal meadow on\nevery side whose neighbour is not the same material, so a crater or stone patch never ends in a hard\nedge. Features stay inside the hex; only meadow and fine scatter reach the border.",
-      "post": "`art-review -ground art/pipeline/ground-terrain-v1.json` projects the five materials into context tiles\nkeyed by season, centre and the six neighbours (`context/ground/<key>`); the crater is placed as a\ncentred feature. Winter variants come from their own masters. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.",
+      "edges": "Ground tiles are chosen by context: the renderer blends the material towards the seasonal meadow on\nevery side whose neighbour is not the same material, so a crater or stone patch never ends in a hard\nedge. Context-tile features stay inside the hex; only meadow and fine scatter reach the border. The\nsummer crater stamp spans its four-cell cluster as one continuous scene, with transparent edges over\nthe shared meadow. Both summer four-hex clusters use it; the southern crater pair remains open.\nSummer boulder stamps replace per-hex stone art across their complete clusters, preserving transparent\ngaps over the shared meadow; winter stone art retains its context tiles.",
+      "post": "`art-review -ground art/pipeline/ground-terrain-v1.json` projects the five materials into context tiles\nkeyed by season, centre and the six neighbours (`context/ground/<key>`); the crater is placed as a\ncentred feature. Winter variants come from their own masters. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.\n\n`tools/terrain-stamps` exports `crater-stamp.png` (native 1536x1024) through\n`art/pipeline/feature-stamps-v1.json`. The full source preserves its aspect at 180x120 logical, anchor\n`[90,60]`, centred on the cluster's northernmost hex: 2x 360x240 and 4x 720x480 under\n`assets/terrain/ground/`. Still a candidate.\nGenerated with built-in imagegen; the local PULSE `RefDesign2.png` informed the style, without editing\nthe reference painting.\n\nThe same stamp manifest exports three summer boulder ground candidates from their full sources,\npreserving aspect and alpha. `boulders-single.png` (native 1374x1145) uses 96x80 logical, anchor\n`[48,40]`, exporting 2x 192x160 and 4x 384x320. `boulders-four.png` (native 1536x1024) uses 240x160\nlogical, anchor `[49,40]`, exporting 2x 480x320 and 4x 960x640. `boulders-five.png` (native 1374x1145)\nuses 240x200 logical, anchor `[120,40]`, exporting 2x 480x400 and 4x 960x800. All exports live under\n`assets/terrain/ground/`; anchors register each scene on its cluster's first cell. These masters were\ngenerated with built-in imagegen using the local PULSE reference for style only and remain candidates.",
       "avoid": [
         "visible tiling or repeated rounded \"pillow\" patterns",
         "perspective, horizon or tilted camera",
@@ -5520,7 +5576,7 @@
         "more than one crater per tile"
       ],
       "runtime": {
-        "count": 226,
+        "count": 234,
         "densities": [
           2,
           4
@@ -5531,9 +5587,9 @@
           "assets/terrain/ground/shelled_w-2x.png",
           "assets/terrain/ground/stone-2x.png",
           "assets/terrain/ground/stoney_w-2x.png",
-          "assets/terrain/ground/context/02d10ab52944525e934029b07a6f9c5fce0d4e734fb92b4e9b0cbd9c7a826ac9-2x.png",
-          "assets/terrain/ground/context/055818bb47841989ad16fd0996c2894519f2bf4d41c8354a9604eef6cda0705e-2x.png",
-          "assets/terrain/ground/context/12438bff848bb56c38e182737e1dbb81b25bf4433abf91dbcef08b5c25413340-2x.png"
+          "assets/terrain/ground/crater-stamp-2x.png",
+          "assets/terrain/ground/boulders-single-2x.png",
+          "assets/terrain/ground/boulders-four-2x.png"
         ]
       }
     },
@@ -5619,10 +5675,22 @@
           "sha256": "7096508ef69bfd4bccf6105a275c1598e9b51a0b88f9a02ae06c16838fe9f762",
           "width": 1448,
           "height": 1086
+        },
+        {
+          "path": "art/terrain/house/hamlet-v2.png",
+          "sha256": "4442dda756feefb70e0633e8a502e6afccdc7c0f90bb098c8f6152c5156f93de",
+          "width": 1315,
+          "height": 1197
+        },
+        {
+          "path": "art/terrain/house/hamlet_w-v2.png",
+          "sha256": "d3928cec757f0588b44d056b409f3ee522f89b37a20eede466b6e7fd005c93be",
+          "width": 1315,
+          "height": 1197
         }
       ],
-      "look": "A single rural building in open meadow. In the reference, houses are square buildings with a grey-brown\nhipped roof of weathered shingles, each with a smaller shed beside it and a bush or small tree nearby,\nabout a quarter of a hex across.",
-      "base_prompt": "Transparent single-building cut-out, square RGBA canvas, strict nadir view: one compact rural house\nwith a square footprint and a weathered grey-brown shingle hipped roof (four sloped planes meeting at a\nshort ridge), a small chimney, a thin shadow-side eave, a smaller lean-to shed beside it, a few threshold\nstones and a narrow grass fringe at the base. Centred, about half the canvas wide, generous transparent\nmargin. Soft grounded shadow to the lower right.",
+      "look": "A single rural building in open meadow. In the reference, houses are square buildings with a grey-brown\nhipped roof of weathered shingles, each with a smaller shed beside it and a bush or small tree nearby,\nabout a quarter of a hex across.\nThe selected summer and winter candidates are `hamlet-v2.png` and `hamlet_w-v2.png`: one square\nhouse with a hipped shingle roof and an adjacent woodshed; winter preserves the building geometry.",
+      "base_prompt": "Transparent single-building cut-out, strict nadir view: one compact square timber hut with a weathered\ngrey-brown shingle hipped roof, four sloped planes meeting at a very short ridge, a small chimney and a\nthin shadow-side eave. A smaller woodshed stands adjacent on the lower right; a few threshold stones\nand a minimal mossy fringe ground the buildings. Continuous hand-painted material detail, diffuse\nupper-left light and short soft lower-right shadows, with generous transparent margins. No text,\ngrid, hex outline, people, checkerboard, photographic texture or 3D rendering.\n\nFor the winter edit, preserve the selected summer painting's camera, canvas dimensions, house\nfootprint, woodshed placement and roof geometry. Add thin patchy ivory snow on the four roof planes\nand sheltered ground, keeping shingles visible along the ridge and eaves; mute vegetation to dormant\ntones and cool the shadows. Retain the same hand-painted treatment, upper-left light, transparent\nmargins and exclusions.",
       "variants": [
         {
           "variant": "house",
@@ -5640,7 +5708,7 @@
         }
       ],
       "edges": "The building sits inside the hex with meadow around it; only the shared seasonal meadow reaches the\nhex edges.",
-      "post": "`art-review -compound art/pipeline/compound-hamlet-v1.json` places the cut-out on the seasonal meadow at a\nfixed inset. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.",
+      "post": "`art-review -compound art/pipeline/compound-hamlet-v1.json` places the cut-out on the seasonal meadow at a\nfixed inset. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.\nThe manifest selects `hamlet-v2.png` and `hamlet_w-v2.png`, each native 1315x1197, at inset 0.75.\nThe earlier `hamlet.png` and `hamlet_w.png` masters are retained. Both selected seasons remain candidates.\nGenerated with built-in imagegen, with winter edited from the selected summer painting. The local\nPULSE `RefDesign2.png` informed the style; the reference painting itself was not edited.",
       "avoid": [
         "visible tiling or repeated rounded \"pillow\" patterns",
         "perspective, horizon or tilted camera",
@@ -6035,14 +6103,31 @@
       "status": "candidate",
       "runtime_ids": [
         "mountain",
-        "mountain_w"
+        "mountain_w",
+        "stamp/knoll/1/1",
+        "standing/stamp/knoll/1/1",
+        "stamp/knoll/3_-1.1_-2.2/1",
+        "standing/stamp/knoll/3_-1.1_-2.2/1"
       ],
       "dir": "art/terrain/mountain",
       "assets_dir": "assets/terrain/mountain",
       "prompt": "art/terrain/mountain/prompt.md",
-      "masters": [],
-      "look": "A single small rocky knoll. In the reference it is a compact outcrop of cracked grey-beige rock with\ngrassy slopes, dark scrub and a few yellow flowers around it (average about RGB 80,87,38).",
-      "base_prompt": "Transparent terrain cut-out, square, strict nadir view: one low, compact, asymmetric knot of weathered\nwarm grey-beige rock with four or five broad cracked slabs, olive moss and small dark-green scrub in the\ncrevices, a short grassy apron fading out. About 60 percent of the canvas, generous transparent margin,\nsoft shadow to the lower right.",
+      "masters": [
+        {
+          "path": "art/terrain/mountain/knoll-standing.png",
+          "sha256": "fe04cbef45e855f903979631d6abc5684a159c78076db5086e1d8ed378bd6c8f",
+          "width": 1374,
+          "height": 1145
+        },
+        {
+          "path": "art/terrain/mountain/knoll-group.png",
+          "sha256": "0a33540188bc0f1860d4d99bbbe6164572add8529bf15749738c4f6c42c3940a",
+          "width": 1536,
+          "height": 1024
+        }
+      ],
+      "look": "A single small rocky knoll. In the reference it is a compact outcrop of cracked grey-beige rock with\ngrassy slopes, dark scrub and a few yellow flowers around it (average about RGB 80,87,38).\nThe selected summer single-knoll cut-out has a grassy skirt extending beyond the hex.",
+      "base_prompt": "Transparent terrain cut-out, strict nadir view: one low asymmetric grassy mound with broad warm olive\nslopes and connected fractured grey-beige slabs covering about 35 percent of the feature. Olive moss,\nsmall dark scrub and tiny yellow flowers occupy the cracks; an irregular grassy skirt fades into\ntransparent margins. Continuous hand-painted material detail, diffuse upper-left light and a short\nsoft lower-right shadow. No tall peaks, isolated island base, text, grid, hex outline, people,\ncheckerboard, photographic texture or 3D rendering.\n\nFor the eastern group, paint two distinct low grassy rocky knolls on one transparent 3:2 canvas,\none in the upper right and one in the lower left, connected loosely by scrub, meadow fringe and\nsmall stones. Keep the same camera, light and rock scale; leave clear space at the other corners.",
       "variants": [
         {
           "variant": "mountain",
@@ -6057,27 +6142,47 @@
             "mountain_w"
           ],
           "delta": "Same outcrop with thin settled snow on flat stone and in sheltered cracks; scrub muted and lightly snowy."
+        },
+        {
+          "variant": "summer single-knoll stamp",
+          "runtime_ids": [
+            "stamp/knoll/1/1",
+            "standing/stamp/knoll/1/1"
+          ],
+          "delta": "Transparent ground plus the selected rocky standing cut-out and its irregular grassy skirt."
+        },
+        {
+          "variant": "eastern knoll group",
+          "runtime_ids": [
+            "stamp/knoll/3_-1.1_-2.2/1",
+            "standing/stamp/knoll/3_-1.1_-2.2/1"
+          ],
+          "delta": "Two rocky crests across the three-cell group, with a connected grassy apron."
         }
       ],
-      "edges": "The knoll sits inside the hex on the seasonal meadow; only meadow reaches the hex edges.",
-      "post": "Derived from the mount masters (`art/terrain/mount/`): `art-review -compound\nart/pipeline/compound-mountain-v1.json` places the single-cell scene for both seasons. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.",
+      "edges": "The summer single-knoll standing cut-out extends across hex edges with an irregular grassy skirt and\ntransparent margins over the shared meadow. The eastern group uses its own continuous standing\npainting. Both ground stamp layers are transparent. Winter knolls retain the compound exports below.",
+      "post": "Derived from the mount masters (`art/terrain/mount/`): `art-review -compound\nart/pipeline/compound-mountain-v1.json` places the single-cell scene for both seasons. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.\n\nFor summer single knolls, `tools/terrain-stamps` exports the full native 1374x1145\n`knoll-standing.png` through `art/pipeline/feature-stamps-v1.json`, preserving aspect at 144x120 logical\nand anchor `[72,60]`. Both the transparent ground and standing layers have 2x 288x240 and 4x 576x480\nexports under `assets/terrain/mountain/`. The new source remains a candidate.\nThe eastern group uses native 1536x1024 `knoll-group.png`, canvas 240x160 logical and anchor `[191,40]`;\nground and standing exports are 480x320 at 2x and 960x640 at 4x. The anchor registers its upper-right\nknoll to the group's first cell. This is also candidate art.\nGenerated with built-in imagegen; the local PULSE `RefDesign2.png` informed the style, without editing\nthe reference painting.",
       "avoid": [
         "visible tiling or repeated rounded \"pillow\" patterns",
         "perspective, horizon or tilted camera",
         "hex outlines, grid lines, labels or text",
         "pixel-art edges or nearest-neighbour enlargement",
         "tall peaks or radial ridges",
-        "grass islands or dirt bases"
+        "hard-edged grass islands or dirt bases"
       ],
       "runtime": {
-        "count": 4,
+        "count": 12,
         "densities": [
           2,
           4
         ],
         "samples": [
           "assets/terrain/mountain/mountain-2x.png",
-          "assets/terrain/mountain/mountain_w-2x.png"
+          "assets/terrain/mountain/mountain_w-2x.png",
+          "assets/terrain/mountain/knoll-ground-2x.png",
+          "assets/terrain/mountain/knoll-standing-2x.png",
+          "assets/terrain/mountain/knoll-group-ground-2x.png",
+          "assets/terrain/mountain/knoll-group-standing-2x.png"
         ]
       }
     },

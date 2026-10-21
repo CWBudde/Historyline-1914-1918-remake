@@ -12,16 +12,16 @@
   "scenes": [
     {
       "artwork": {
-        "source": "art/terrain/house/hamlet.png",
-        "source_sha256": "4e20895a10f9563d9429cda3cbe8825a8525c37cab0b2e5be78c9254b6d216d4"
+        "source": "art/terrain/house/hamlet-v2.png",
+        "source_sha256": "4442dda756feefb70e0633e8a502e6afccdc7c0f90bb098c8f6152c5156f93de"
       },
       "id": "hamlet-summer",
       "inset": 0.75
     },
     {
       "artwork": {
-        "source": "art/terrain/house/hamlet_w.png",
-        "source_sha256": "7096508ef69bfd4bccf6105a275c1598e9b51a0b88f9a02ae06c16838fe9f762"
+        "source": "art/terrain/house/hamlet_w-v2.png",
+        "source_sha256": "d3928cec757f0588b44d056b409f3ee522f89b37a20eede466b6e7fd005c93be"
       },
       "id": "hamlet-winter",
       "inset": 0.75

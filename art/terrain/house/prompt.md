@@ -4,20 +4,29 @@ title: House
 kind: terrain
 status: candidate
 runtime_ids: house, house_w
-masters: hamlet.png, hamlet_w.png
+masters: hamlet.png, hamlet_w.png, hamlet-v2.png, hamlet_w-v2.png
 ---
 
 ## Look
 A single rural building in open meadow. In the reference, houses are square buildings with a grey-brown
 hipped roof of weathered shingles, each with a smaller shed beside it and a bush or small tree nearby,
 about a quarter of a hex across.
+The selected summer and winter candidates are `hamlet-v2.png` and `hamlet_w-v2.png`: one square
+house with a hipped shingle roof and an adjacent woodshed; winter preserves the building geometry.
 
 ## Base prompt
-Transparent single-building cut-out, square RGBA canvas, strict nadir view: one compact rural house
-with a square footprint and a weathered grey-brown shingle hipped roof (four sloped planes meeting at a
-short ridge), a small chimney, a thin shadow-side eave, a smaller lean-to shed beside it, a few threshold
-stones and a narrow grass fringe at the base. Centred, about half the canvas wide, generous transparent
-margin. Soft grounded shadow to the lower right.
+Transparent single-building cut-out, strict nadir view: one compact square timber hut with a weathered
+grey-brown shingle hipped roof, four sloped planes meeting at a very short ridge, a small chimney and a
+thin shadow-side eave. A smaller woodshed stands adjacent on the lower right; a few threshold stones
+and a minimal mossy fringe ground the buildings. Continuous hand-painted material detail, diffuse
+upper-left light and short soft lower-right shadows, with generous transparent margins. No text,
+grid, hex outline, people, checkerboard, photographic texture or 3D rendering.
+
+For the winter edit, preserve the selected summer painting's camera, canvas dimensions, house
+footprint, woodshed placement and roof geometry. Add thin patchy ivory snow on the four roof planes
+and sheltered ground, keeping shingles visible along the ridge and eaves; mute vegetation to dormant
+tones and cool the shadows. Retain the same hand-painted treatment, upper-left light, transparent
+margins and exclusions.
 
 ## Variants
 | Variant | Runtime IDs | Prompt delta |
@@ -32,6 +41,10 @@ hex edges.
 ## Post
 `art-review -compound art/pipeline/compound-hamlet-v1.json` places the cut-out on the seasonal meadow at a
 fixed inset. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
+The manifest selects `hamlet-v2.png` and `hamlet_w-v2.png`, each native 1315x1197, at inset 0.75.
+The earlier `hamlet.png` and `hamlet_w.png` masters are retained. Both selected seasons remain candidates.
+Generated with built-in imagegen, with winter edited from the selected summer painting. The local
+PULSE `RefDesign2.png` informed the style; the reference painting itself was not edited.
 
 ## Avoid
 - visible tiling or repeated rounded "pillow" patterns

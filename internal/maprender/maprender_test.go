@@ -90,7 +90,8 @@ type extra struct {
 	anchor   [2]float64
 }
 
-// withAssets is the repository's assets tree plus the extras at 2x and 4x.
+// withAssets keeps the repository's required art, replaces optional standing and
+// stamp art with the extras, and supplies both densities for every extra.
 func withAssets(t *testing.T, extras ...extra) fs.FS {
 	t.Helper()
 	base := os.DirFS("../../assets")
@@ -102,6 +103,15 @@ func withAssets(t *testing.T, extras ...extra) fs.FS {
 	if err := json.Unmarshal(raw, &index); err != nil {
 		t.Fatal(err)
 	}
+	var retained []any
+	for _, item := range index["assets"].([]any) {
+		entry := item.(map[string]any)
+		pack, _ := entry["pack"].(string)
+		if !strings.HasPrefix(pack, "terrain-standing-") && !strings.HasPrefix(pack, "terrain-stamps-") {
+			retained = append(retained, item)
+		}
+	}
+	index["assets"] = retained
 	over := fstest.MapFS{}
 	for i, x := range extras {
 		for _, d := range []int{2, 4} {
