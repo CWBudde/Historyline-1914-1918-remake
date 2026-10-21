@@ -83,6 +83,15 @@ generator rerun gives the same image, so keep the selected masters.
 Copy the reviewed export files into `assets/<kind>/<family>/`, update the master's pin in the manifest when
 the master changed, then run `go run ./cmd/hlart index` and `go run ./cmd/hlart check`.
 
+## Review
+
+Use `just artbook` to rebuild the primary review artifact, `build/artbook/Historyline_Art.pdf`.
+It includes the indexed masters, runtime samples, current PULSE maps and reference comparisons.
+List the selected master first in `prompt.md` so it leads the family's page.
+
+Show updated artwork directly in chat with a full image path. The full PULSE images are
+`build/artbook/pulse/pulse-ground.png` (terrain) and `build/artbook/pulse/pulse-units.png` (with units).
+
 ## Reference design
 
 `art/reference/pulse/reference.json` registers the PULSE reference painting (`RefDesign2.png`, local only)

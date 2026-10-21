@@ -5432,6 +5432,30 @@
       "prompt": "art/terrain/ground/prompt.md",
       "masters": [
         {
+          "path": "art/terrain/ground/crater-stamp.png",
+          "sha256": "018177c37527691b1365cc6f59d9a60cbf3084d982475844a7fe93ea0e521a69",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/terrain/ground/boulders-single.png",
+          "sha256": "14f2c664d9ace3ee0f7ceb6a964fcca8c73cfb9242dce4e91b32be2dbb5ed523",
+          "width": 1374,
+          "height": 1145
+        },
+        {
+          "path": "art/terrain/ground/boulders-four.png",
+          "sha256": "ceedb4bcf1a03ce5a778f07e88eea4366923174c32c97768cd61e6f894653ffa",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/terrain/ground/boulders-five.png",
+          "sha256": "3959914db1d1ff3926aba54d8eae8e5ed7c271271f99aeb6255b2ee28b898c4a",
+          "width": 1374,
+          "height": 1145
+        },
+        {
           "path": "art/terrain/ground/earth-bank.png",
           "sha256": "6df0ffb17725f7c7ef81bbafd1c8537ad2a30b62beac21a4ce6ce8a4c522086d",
           "width": 1254,
@@ -5464,30 +5488,6 @@
         {
           "path": "art/terrain/ground/stoney_w.png",
           "sha256": "82f9d966c6327c9a05f3a6bfbff9451b2e51daea3968f3af095265af0e83de7c",
-          "width": 1374,
-          "height": 1145
-        },
-        {
-          "path": "art/terrain/ground/crater-stamp.png",
-          "sha256": "018177c37527691b1365cc6f59d9a60cbf3084d982475844a7fe93ea0e521a69",
-          "width": 1536,
-          "height": 1024
-        },
-        {
-          "path": "art/terrain/ground/boulders-single.png",
-          "sha256": "14f2c664d9ace3ee0f7ceb6a964fcca8c73cfb9242dce4e91b32be2dbb5ed523",
-          "width": 1374,
-          "height": 1145
-        },
-        {
-          "path": "art/terrain/ground/boulders-four.png",
-          "sha256": "ceedb4bcf1a03ce5a778f07e88eea4366923174c32c97768cd61e6f894653ffa",
-          "width": 1536,
-          "height": 1024
-        },
-        {
-          "path": "art/terrain/ground/boulders-five.png",
-          "sha256": "3959914db1d1ff3926aba54d8eae8e5ed7c271271f99aeb6255b2ee28b898c4a",
           "width": 1374,
           "height": 1145
         }
@@ -5665,18 +5665,6 @@
       "prompt": "art/terrain/house/prompt.md",
       "masters": [
         {
-          "path": "art/terrain/house/hamlet.png",
-          "sha256": "4e20895a10f9563d9429cda3cbe8825a8525c37cab0b2e5be78c9254b6d216d4",
-          "width": 1448,
-          "height": 1086
-        },
-        {
-          "path": "art/terrain/house/hamlet_w.png",
-          "sha256": "7096508ef69bfd4bccf6105a275c1598e9b51a0b88f9a02ae06c16838fe9f762",
-          "width": 1448,
-          "height": 1086
-        },
-        {
           "path": "art/terrain/house/hamlet-v2.png",
           "sha256": "4442dda756feefb70e0633e8a502e6afccdc7c0f90bb098c8f6152c5156f93de",
           "width": 1315,
@@ -5687,6 +5675,18 @@
           "sha256": "d3928cec757f0588b44d056b409f3ee522f89b37a20eede466b6e7fd005c93be",
           "width": 1315,
           "height": 1197
+        },
+        {
+          "path": "art/terrain/house/hamlet.png",
+          "sha256": "4e20895a10f9563d9429cda3cbe8825a8525c37cab0b2e5be78c9254b6d216d4",
+          "width": 1448,
+          "height": 1086
+        },
+        {
+          "path": "art/terrain/house/hamlet_w.png",
+          "sha256": "7096508ef69bfd4bccf6105a275c1598e9b51a0b88f9a02ae06c16838fe9f762",
+          "width": 1448,
+          "height": 1086
         }
       ],
       "look": "A single rural building in open meadow. In the reference, houses are square buildings with a grey-brown\nhipped roof of weathered shingles, each with a smaller shed beside it and a bush or small tree nearby,\nabout a quarter of a hex across.\nThe selected summer and winter candidates are `hamlet-v2.png` and `hamlet_w-v2.png`: one square\nhouse with a hipped shingle roof and an adjacent woodshed; winter preserves the building geometry.",

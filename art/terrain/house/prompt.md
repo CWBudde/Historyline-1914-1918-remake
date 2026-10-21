@@ -4,7 +4,7 @@ title: House
 kind: terrain
 status: candidate
 runtime_ids: house, house_w
-masters: hamlet.png, hamlet_w.png, hamlet-v2.png, hamlet_w-v2.png
+masters: hamlet-v2.png, hamlet_w-v2.png, hamlet.png, hamlet_w.png
 ---
 
 ## Look

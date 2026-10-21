@@ -4,7 +4,7 @@ title: Ground
 kind: terrain
 status: candidate
 runtime_ids: mud, rough_w, shelled_w, stone, stoney_w, stamp/crater/4_-1.1_1.1_0.2/1, stamp/boulders/1/1, stamp/boulders/4_2.0_1.1_0.2/1, stamp/boulders/5_-1.1_0.2_-1.3_1.3/1
-masters: earth-bank.png, mud.png, rough_w.png, shelled_w.png, stone.png, stoney_w.png, crater-stamp.png, boulders-single.png, boulders-four.png, boulders-five.png
+masters: crater-stamp.png, boulders-single.png, boulders-four.png, boulders-five.png, earth-bank.png, mud.png, rough_w.png, shelled_w.png, stone.png, stoney_w.png
 ---
 
 ## Look
