@@ -21,6 +21,12 @@ The art key is the same path in both trees: `assets/index.json` entries with `"a
 come from `art/terrain/road/`. Kinds: `terrain`, `units`, `portraits`, `interface`, `screens`. Families
 without masters (derived or vector art) still have a folder with `prompt.md`.
 
+Terrain source PNGs use `<family>[-<variant>]-<summer|winter|shared>-v<N>.png`, all lowercase.
+For example, `grass-winter-v1.png` is the winter base and `grass-meadow-winter-v2.png` is the
+new meadow variation. `shared` means the source serves both seasons. Derived source preparations
+include their role, such as `forest-crowns-inset-summer-v2.png`; the prompt records the selected native
+painting and its export preparation. Stable runtime IDs and runtime filenames retain their existing names.
+
 ## prompt.md
 
 Front matter `id` (the art key), `title`, `kind` (`terrain | unit | portrait | interface | screen`),
@@ -52,7 +58,7 @@ and the feature binding is not yet defined. Keep each painting and its prompt in
   seven-cell rosette (238×240 world px), depot/factory/massif a four-cell diamond (238×160). Seasons share
   exact placements.
 - Shores keep land/water on the shared polygon vertices; each `lakeside*` ID lists its land vertices in
-  `art/pipeline/shore-terrain-v1.json`.
+  `art/pipeline/shore-terrain-v2.json`.
 - Ground, forest and hills pick a context by neighbours (hills also by lattice phase) from
   `art/pipeline/contexts/`.
 - Terrain sources are 6:5; exports are fixed Lanczos3 at 2× (192×160) and 4× (384×320). Portraits are 105:94
@@ -63,7 +69,7 @@ and the feature binding is not yet defined. Keep each painting and its prompt in
 `tools/art-review` builds a fresh bundle from a manifest; the output directory must not exist:
 
 ```sh
-go run ./tools/art-review -connected art/pipeline/connected-terrain-v1.json -out build/review/road
+go run ./tools/art-review -connected art/pipeline/connected-terrain-v2.json -out build/review/road
 go run ./tools/art-review -unit art/pipeline/unit-infantry-v1.json -out build/review/infantry
 go run ./tools/terrain-stamps -manifest art/pipeline/feature-stamps-v1.json -out build/review/feature-stamps
 ```
@@ -73,6 +79,7 @@ Modes: `-connected` (road, stream, path, rail, trench), `-mixed` (bridges, cross
 from `tools/interface-art` (see its README); the unit panel preview from `tools/unit-panel`. Tagged
 generators in `tools/art-review` (`campaigngfx`, `grassgfx`, `riverbankgfx`, `retainedgfx`) rebuild derived
 sources and missing contexts. `just gfx-check` runs the art checks.
+Use the selected manifest named in each family's `prompt.md`; earlier manifests retain their draft sources.
 
 Review real neighbours through the compositor (`internal/mapcompose`), including three-tile vertices:
 matching style in isolation does not prove a seamless join. Export reproducibility does not mean a

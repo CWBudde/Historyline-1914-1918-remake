@@ -208,6 +208,12 @@ func connectionFeature(in connectionInputs, f connectionFamily, route connection
 		coreDistance, outerDistance, opacity := connectionStreamProfile(in.manifest.Geometry, f, route, local, world)
 		if f.BorderMaterial == "bank" {
 			coreDistance, outerDistance, opacity = connectionGravelStreamProfile(in.manifest.Geometry, f, route, local, world)
+			if f.BankProfile == authoredBankProfile {
+				rock := sampleAuthoredBank(in.materials["bank"], world)
+				envelope := connectionVergeEnvelope(in.manifest.Geometry, local)
+				outerDistance -= envelope * (2 + .9*authoredRockOffset(rock))
+				opacity += envelope * (1 - opacity)
+			}
 		}
 		streamCoreDistance = coreDistance
 		outer, core, bankOpacity = connectionRamp(-outerDistance, aa), connectionRamp(-coreDistance, aa), opacity
@@ -236,6 +242,9 @@ func connectionFeature(in connectionInputs, f connectionFamily, route connection
 	}
 	if f.ID == "stream" && f.BorderMaterial == "bank" {
 		bank = connectionGravelStreamColor(in, f, world, streamCoreDistance)
+		if f.BankProfile == authoredBankProfile {
+			bank = authoredStreamColor(in, f, world, streamCoreDistance)
+		}
 	}
 	if route.road != nil && core > 0 {
 		paint := connectionRoadPaintAt(*route.road, local, aa)

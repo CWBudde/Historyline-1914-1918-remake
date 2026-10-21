@@ -143,6 +143,9 @@ func shoreColorWithCurve(in shoreInputs, v shoreVariant, p connectionPoint, curv
 // samples, so neighboring variants paint identical crossing profiles. Geometry
 // keeps the established land/water endpoints, including the lakeside23 mask.
 func shoreMaterialColor(in shoreInputs, p connectionPoint, d float64) color.NRGBA {
+	if in.Manifest.BankProfile == authoredBankProfile {
+		return authoredShoreColor(in, p, d)
+	}
 	grass := sampleGrassMaterial(in.Materials["grass"].Image, p)
 	water := sampleConnectionMaterial(in.Materials["water"].Image, p)
 	if d >= 8 {
@@ -180,7 +183,7 @@ func exportShoreTiles(in shoreInputs, v shoreVariant) (map[int]*image.NRGBA, err
 	if v.ID == "grass" {
 		return exportGrassBaseTiles(in.Materials[v.ID].Image)
 	}
-	if v.ID == "water" {
+	if v.ID == "water" && in.Manifest.BankProfile == "" {
 		return exportConnectionTiles(connectionInputs{manifest: connectionManifest{Geometry: sharedConnectionGeometry()}, materials: map[string]*image.NRGBA{"grass": in.Materials[v.ID].Image}}, nil, nil)
 	}
 	raw4 := renderShoreRaw(in, v)

@@ -22,9 +22,9 @@ import (
 )
 
 func TestGenerateRiverBankGravelCrop(t *testing.T) {
-	const parent = "art/terrain/lakeside/bank.png"
+	const parent = "art/terrain/lakeside/lakeside-bank-shared-v1.png"
 	const parentPin = "d43b40a2ed64e95cbb6afdacca4a384a39ec59c8a54d05bdcbe77a60e6aa6613"
-	const source = "art/terrain/stream/bank.png"
+	const source = "art/terrain/stream/stream-bank-shared-v1.png"
 	read := func(path string) []byte {
 		t.Helper()
 		b, err := os.ReadFile(filepath.Join("..", "..", path))

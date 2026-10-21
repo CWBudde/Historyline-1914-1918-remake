@@ -55,6 +55,7 @@ type connectionVariant struct {
 	DugoutDirection int    `json:"dugout_direction,omitempty"`
 }
 type connectionFamily struct {
+	BankProfile    string              `json:"bank_profile,omitempty"`
 	ID             string              `json:"id"`
 	Width          float64             `json:"width"`
 	Border         float64             `json:"border"`
@@ -297,6 +298,9 @@ func loadConnectionInputs(path string) (connectionInputs, error) {
 	count := 0
 	for _, f := range m.Families {
 		expected := f.ID
+		if f.BankProfile != "" && (f.BankProfile != authoredBankProfile || f.ID != "stream" || f.BorderMaterial != "bank") {
+			return in, errors.New("bank_profile requires stream with bank border and authored-rocks-v1")
+		}
 		if f.ID == "stream" {
 			expected = "water"
 		}
@@ -373,6 +377,12 @@ func runConnected(path, out string, log io.Writer) (resultErr error) {
 	report.Method += " Marked-road verge only: add 0.65*E*(0.65*sin(3A+2B)+0.35*sin(7A-5B)) world pixels to the configured shoulder, where E=S((minimum polygon edge distance-8)/8), A=2pi(x/142+y/80), B=2pi(x/142-y/80). Pavement width and road markings are unchanged; the first eight world pixels at every port retain fixed shoulder width."
 	if in.materials["bank"] != nil {
 		report.StreamInterior += " Opt-in stream border_material=bank overrides the earth-bank treatment: pinned bank material is retained independently of earth. Keep the same organic core geometry and protected port width; border=max(0,border+1.1*E*sin(3A+2B)), bank opacity=1-0.2*E*pocket, giving a 2.4..4.6 world-pixel interior bank for configured border3.5. Legacy earth-stream border2.5 remains a separate unchanged profile; optional bank-stream border2.5 remains supported. The river-bank material may use an unchanged-pixel crop of its parent master to make loose stones larger; other lakeside variants retain their full master. Water color blends toward RGB(84,135,139) at weight0.24 near the bank. Dark wet lip is bank blended toward RGB(35,50,43) at weight0.72 over signed core distance -0.45..1.05. Water-side current flecks and broken foam use only lattice-periodic A/B, a narrow Gaussian centered1.2 world pixels inside water (width0.45), crest=S((sin(6A+4B+0.8sin(3B))-0.15)/0.6), and foam RGB(215,231,226) at maximumweight0.72. Full pale bank replaces the wet lip by distance1.05 outside water. Signed color distance rounds1e-9 for reciprocal stability; no baked grass, no lakeside mask changes."
+	}
+	for _, f := range in.manifest.Families {
+		if f.BankProfile == authoredBankProfile {
+			report.StreamInterior += authoredBankDescription
+			report.TextureMethod += authoredBankDescription
+		}
 	}
 	var artifacts []connectionArtifact
 	exports := map[string]map[int]*image.NRGBA{}

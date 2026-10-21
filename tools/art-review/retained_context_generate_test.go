@@ -188,6 +188,7 @@ func augmentRetainedContextBundle(family, manifest, profilesFile, bundle string)
 		}
 		r := newGroundRenderer(materials)
 		r.mudFeature = in.Manifest.MudFeature
+		r.shelledFeature = in.Manifest.ShelledFeature
 		e = retainedAppendProfiles(profileBytes, &b.report.Profiles, func(p groundProfileReport) string { return p.ContextKey }, func(p groundProfileReport) (groundProfileReport, error) {
 			c, e := newGroundContext(p.RuntimeID, p.NeighborIDs[:])
 			if e != nil {
@@ -259,6 +260,9 @@ func augmentRetainedContextBundle(family, manifest, profilesFile, bundle string)
 			return e
 		}
 		r := newHillsRenderer(in.Sources["grass"].Image, in.Sources["height"].Image)
+		if source, ok := in.Sources["scrub"]; ok {
+			r.scrub = source.Image
+		}
 		e = retainedAppendProfiles(profileBytes, &b.report.Profiles, func(p hillsProfileReport) string { return p.ContextKey }, func(p hillsProfileReport) (hillsProfileReport, error) {
 			c, e := newHillsContext(p.RuntimeID, p.NeighborIDs[:], p.Phase)
 			if e != nil {

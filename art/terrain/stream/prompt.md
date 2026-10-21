@@ -4,18 +4,17 @@ title: Stream
 kind: terrain
 status: candidate
 runtime_ids: stream13, stream135, stream14, stream15, stream24, stream246, stream25, stream26, stream35, stream36, stream46
-masters: bank.png
+masters: stream-bank-shared-v2.png, stream-bank-shared-v1.png
 ---
 
 ## Look
-Winding creek. In the reference it is clear blue-teal water with a bright network of white ripples,
-lined by banks of rounded pale stones and pebbles, with grass and dark green bushes right beside it.
+Winding blue-teal creek with broken white ripples, rounded brown-grey stony banks and dark wet lips.
+Selected `stream-bank-shared-v2.png` is a byte-identical copy of the new native 1254×1254 lakeside bank master.
 
 ## Base prompt
-Opaque square material swatch of a stony stream bank seen from above: tightly packed small and
-medium rounded pale stones and pebbles in warm grey, cream and light sand, a few larger flat stones,
-olive-grey dirt and moss in the gaps, darker wet crevices. Even scale and brightness to all edges; no
-water, grass, boulders, paving or tessellation.
+Use the exact built-in generation prompt recorded in `art/terrain/lakeside/prompt.md`: the selected
+stream bank shares that opaque rounded-rock material without cropping, rescaling or a separate
+generation. The matching water material and its exact prompt are in `art/terrain/water/prompt.md`.
 
 ## Variants
 | Variant | Runtime IDs | Prompt delta |
@@ -37,9 +36,13 @@ The water channel is 18 world pixels wide with a 3.5-pixel stony bank, centred o
 centres and continuing through each port, so creeks join each other, bridges and the lake shore.
 
 ## Post
-The bank material is an unchanged crop of the lakeside bank master (`riverbankgfx` generator).
-`art-review -connected art/pipeline/connected-terrain-v1.json` draws the water (shared water material) and banks
+The bank material retains the entire native lakeside master without enlargement.
+`art-review -connected art/pipeline/connected-stream-v2.json` draws the water (shared water material) and banks
 along each port set over meadow. Season-neutral. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
+
+The selected `authored-rocks-v1` bank profile retains individual painted stone faces at about 2–5
+logical pixels, adds two logical pixels to the landward bank, and samples the authored water glints
+without the old mirrored coset average or continuous generated foam line. Core ports stay unchanged.
 
 ## Avoid
 - visible tiling or repeated rounded "pillow" patterns

@@ -32,11 +32,19 @@ func decodeHillsManifest(data []byte, m *hillsManifest) error {
 	if string(root["schema_version"]) != "1" {
 		return errors.New("hills requires integer schema_version 1")
 	}
-	refs, err := groundObject(root["materials"], "grass", "height")
+	ids := []string{"grass", "height"}
+	var materialKeys map[string]json.RawMessage
+	if err := json.Unmarshal(root["materials"], &materialKeys); err != nil {
+		return err
+	}
+	if _, ok := materialKeys["scrub"]; ok {
+		ids = append(ids, "scrub")
+	}
+	refs, err := groundObject(root["materials"], ids...)
 	if err != nil {
 		return err
 	}
-	for _, id := range []string{"grass", "height"} {
+	for _, id := range ids {
 		ref, err := groundObject(refs[id], "source", "source_sha256")
 		if err != nil {
 			return err
@@ -75,7 +83,11 @@ func loadHillsInputs(path string) (hillsInputs, error) {
 	if err = decodeHillsManifest(in.Bytes, &in.Manifest); err != nil {
 		return in, fmt.Errorf("hills manifest: %w", err)
 	}
-	for _, id := range []string{"grass", "height"} {
+	ids := []string{"grass", "height"}
+	if _, ok := in.Manifest.Materials["scrub"]; ok {
+		ids = append(ids, "scrub")
+	}
+	for _, id := range ids {
 		source, err := compoundReadSource(sourceBase(path), in.Manifest.Materials[id], true)
 		if err != nil {
 			return in, fmt.Errorf("hills %s: %w", id, err)

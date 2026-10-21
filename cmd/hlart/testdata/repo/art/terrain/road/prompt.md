@@ -4,7 +4,7 @@ title: Road
 kind: terrain
 status: candidate
 runtime_ids: road14, road25
-masters: road.png
+masters: road-summer-v1.png
 ---
 
 ## Look

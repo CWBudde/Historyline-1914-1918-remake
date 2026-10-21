@@ -1,0 +1,33 @@
+{
+  "grounds": {
+    "summer": {
+      "source": "art/terrain/grass/grass-summer-v1.png",
+      "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
+    },
+    "winter": {
+      "source": "art/terrain/grass/grass-winter-v1.png",
+      "source_sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3"
+    }
+  },
+  "scenes": [
+    {
+      "artwork": {
+        "source": "art/terrain/cmp/cmp-summer-v2.png",
+        "source_sha256": "5f23f55d1c2f4503cabd2e09c1899b3878e8fcefe168f52fe015d7f5e39a8869"
+      },
+      "framing": "reference-layout",
+      "id": "depot-summer",
+      "inset": 1
+    },
+    {
+      "artwork": {
+        "source": "art/terrain/cmp/cmp-winter-v2.png",
+        "source_sha256": "4a81ea1eaa82043076ada179816e14bc45a0bb6af97d4c56ce892868f970b0ae"
+      },
+      "framing": "reference-layout",
+      "id": "depot-winter",
+      "inset": 1
+    }
+  ],
+  "schema_version": 1
+}

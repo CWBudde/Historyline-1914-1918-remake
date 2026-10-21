@@ -132,6 +132,7 @@ type hillsRawSample struct {
 }
 type hillsRenderer struct {
 	grass, height *image.NRGBA
+	scrub         *image.NRGBA
 	samples       []hillsRawSample
 	// At most the 32 validated lattice phases; no cache of all 32*64 rendered contexts.
 	normals map[connectionPoint][]connectionPoint
@@ -155,6 +156,9 @@ func newHillsRenderer(grass, height *image.NRGBA) *hillsRenderer {
 	return r
 }
 func (r *hillsRenderer) cueFor(c hillsContext) hillsCue {
+	if r.scrub != nil {
+		return hillsCue{}
+	}
 	if !hillsIsolated(c) {
 		return hillsCue{}
 	}
@@ -181,7 +185,10 @@ func (r *hillsRenderer) normalsFor(phase connectionPoint) []connectionPoint {
 }
 func (r *hillsRenderer) raw(c hillsContext) *image.NRGBA {
 	im := image.NewNRGBA(image.Rect(0, 0, 416, 352))
-	normals := r.normalsFor(c.Phase)
+	var normals []connectionPoint
+	if r.scrub == nil {
+		normals = r.normalsFor(c.Phase)
+	}
 	cue := r.cueFor(c)
 	sin, cos := math.Sincos(cue.Theta)
 	ids := [7]string{c.RuntimeID}
@@ -197,6 +204,14 @@ func (r *hillsRenderer) raw(c hillsContext) *image.NRGBA {
 				}
 			}
 			pixel := s.grass
+			if r.scrub != nil {
+				if gate != 0 {
+					p := c.Phase.add(connectionPoint{(float64(x)+.5)/4 - 4, (float64(y)+.5)/4 - 4})
+					pixel = connectionBlend(pixel, sampleGrassMaterial(r.scrub, p), gate)
+				}
+				im.SetNRGBA(x, y, pixel)
+				continue
+			}
 			if gate != 0 {
 				g := normals[i]
 				if cue.Enabled && cue.A != 0 {

@@ -16,6 +16,7 @@ type shoreVariant struct {
 	LandVertices []int  `json:"land_vertices"`
 }
 type shoreManifest struct {
+	BankProfile   string                        `json:"bank_profile,omitempty"`
 	SchemaVersion int                           `json:"schema_version"`
 	Materials     map[string]connectionMaterial `json:"materials"`
 	Variants      []shoreVariant                `json:"variants"`
@@ -59,7 +60,15 @@ func decodeShoreManifest(b []byte, m *shoreManifest) error {
 	if err := decodeConnectionJSON(b, m); err != nil {
 		return err
 	}
-	root, err := shoreObject(b, "schema_version", "materials", "variants")
+	fields := []string{"schema_version", "materials", "variants"}
+	var optional map[string]json.RawMessage
+	if err := json.Unmarshal(b, &optional); err != nil {
+		return err
+	}
+	if _, ok := optional["bank_profile"]; ok {
+		fields = append(fields, "bank_profile")
+	}
+	root, err := shoreObject(b, fields...)
 	if err != nil {
 		return err
 	}
@@ -105,6 +114,9 @@ func loadShoreInputs(path string) (shoreInputs, error) {
 	}
 	if in.Manifest.SchemaVersion != 1 || len(in.Manifest.Variants) != 9 {
 		return in, errors.New("shore requires schema_version 1 and exactly the nine known variants")
+	}
+	if in.Manifest.BankProfile != "" && in.Manifest.BankProfile != authoredBankProfile {
+		return in, errors.New("shore bank_profile must be authored-rocks-v1 when set")
 	}
 	expected := map[string][]int{}
 	for _, v := range shoreRoster() {

@@ -20,7 +20,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
 )
 
-// maxSamples is how many runtime images an index entry names for the art book.
+// maxSamples is the default runtime sample count; terrain includes every declared variant.
 const maxSamples = 8
 
 // Index is art/index.json: every art family with its prompt and runtime output.
@@ -199,6 +199,9 @@ func asset(root, key string, p *prompt, entries []runtimeEntry) (Asset, []string
 			errs = append(errs, fmt.Sprintf("master %q must be a file name in %s/", m, dir))
 			continue
 		}
+		if msg := terrainMasterNameProblem(key, m); msg != "" {
+			errs = append(errs, msg)
+		}
 		mp := path.Join(dir, m)
 		info, err := describe(filepath.Join(root, filepath.FromSlash(mp)))
 		if err != nil {
@@ -213,6 +216,10 @@ func asset(root, key string, p *prompt, entries []runtimeEntry) (Asset, []string
 
 func summarise(key string, p *prompt, entries []runtimeEntry) Runtime {
 	r := Runtime{Count: len(entries), Densities: []int{}, Samples: []string{}}
+	limit := maxSamples
+	if strings.HasPrefix(key, "terrain/") {
+		limit = max(limit, len(p.RuntimeIDs))
+	}
 	for _, e := range entries {
 		if e.Density > 0 && !slices.Contains(r.Densities, e.Density) {
 			r.Densities = append(r.Densities, e.Density)
@@ -269,7 +276,7 @@ func summarise(key string, p *prompt, entries []runtimeEntry) Runtime {
 		if !slices.Contains(r.Samples, s) {
 			r.Samples = append(r.Samples, s)
 		}
-		if len(r.Samples) == maxSamples {
+		if len(r.Samples) == limit {
 			break
 		}
 	}

@@ -4,14 +4,14 @@ title: House
 kind: terrain
 status: candidate
 runtime_ids: house, house_w
-masters: hamlet-v2.png, hamlet_w-v2.png, hamlet.png, hamlet_w.png
+masters: house-summer-v2.png, house-winter-v2.png, house-summer-v1.png, house-winter-v1.png
 ---
 
 ## Look
 A single rural building in open meadow. In the reference, houses are square buildings with a grey-brown
 hipped roof of weathered shingles, each with a smaller shed beside it and a bush or small tree nearby,
 about a quarter of a hex across.
-The selected summer and winter candidates are `hamlet-v2.png` and `hamlet_w-v2.png`: one square
+The selected summer and winter candidates are `house-summer-v2.png` and `house-winter-v2.png`: one square
 house with a hipped shingle roof and an adjacent woodshed; winter preserves the building geometry.
 
 ## Base prompt
@@ -41,8 +41,8 @@ hex edges.
 ## Post
 `art-review -compound art/pipeline/compound-hamlet-v1.json` places the cut-out on the seasonal meadow at a
 fixed inset. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
-The manifest selects `hamlet-v2.png` and `hamlet_w-v2.png`, each native 1315x1197, at inset 0.75.
-The earlier `hamlet.png` and `hamlet_w.png` masters are retained. Both selected seasons remain candidates.
+The manifest selects `house-summer-v2.png` and `house-winter-v2.png`, each native 1315x1197, at inset 0.75.
+The earlier `house-summer-v1.png` and `house-winter-v1.png` masters are retained. Both selected seasons remain candidates.
 Generated with built-in imagegen, with winter edited from the selected summer painting. The local
 PULSE `RefDesign2.png` informed the style; the reference painting itself was not edited.
 

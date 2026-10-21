@@ -205,6 +205,10 @@ func buildCompoundBundle(in compoundInputs) (compoundBundle, error) {
 		// The existing opaque-base primitive calls its material slot grass;
 		// runtime IDs, source provenance, and reports retain the actual ground.
 		tiles, err := exportConnectionTiles(connectionInputs{manifest: connectionManifest{Geometry: sharedConnectionGeometry()}, materials: map[string]*image.NRGBA{"grass": src.Image}, grassSampling: season == "summer"}, nil, nil)
+		if season == "shared" && in.Manifest.WaterProfile == authoredBankProfile {
+			tiles, err = exportShoreTiles(shoreInputs{Manifest: shoreManifest{BankProfile: authoredBankProfile}, Materials: map[string]compoundSource{"water": src}}, shoreVariant{ID: "water"})
+			b.report.Profile += authoredBankDescription
+		}
 		if err != nil {
 			return b, err
 		}
@@ -236,6 +240,9 @@ func buildCompoundBundle(in compoundInputs) (compoundBundle, error) {
 			return b, err
 		}
 		profile := compoundProfileForSeason(layout.Season)
+		if layout.Season == "shared" && in.Manifest.WaterProfile == authoredBankProfile {
+			profile += authoredBankDescription
+		}
 		if s.Framing == "reference-layout" {
 			profile = strings.Replace(profile, "reject any sampled alpha >=250 at signed distance <=8 world pixels before guard; alpha zero through 4 world pixels then smoothstep 4..8. Guard full unmasked 4x artwork, then existing resizeLanczos to whole-scene 2x", "explicit reference-layout framing: preserve full affine source at the requested inset; report the eight-world-pixel boundary band diagnostically without rejection or fade. Existing resizeLanczos filters full unmasked 4x artwork to whole-scene 2x before final union clipping", 1)
 			b.report.Profile = "Per-scene profiles; explicit reference-layout scenes retain edge roads and fences without the default eight-world-pixel guard. See each scene's profile and framing."

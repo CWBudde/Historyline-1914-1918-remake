@@ -47,7 +47,7 @@
       "prompt": "art/terrain/road/prompt.md",
       "masters": [
         {
-          "path": "art/terrain/road/road.png",
+          "path": "art/terrain/road/road-summer-v1.png",
           "sha256": "7f3bea9d87ecaedcc62f265c87d6b6afe64e812f6b76ebb8c523e7262bd7cb1a",
           "width": 16,
           "height": 12

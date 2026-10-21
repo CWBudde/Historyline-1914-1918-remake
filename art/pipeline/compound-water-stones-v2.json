@@ -1,0 +1,20 @@
+{
+  "water_profile": "authored-rocks-v1",
+  "grounds": {
+    "shared": {
+      "source": "art/terrain/water/water-shared-v2.png",
+      "source_sha256": "75e798f351616594e8e6d534087f2c7c3bf78b91fea7be3ea0135ae5f7e563a5"
+    }
+  },
+  "scenes": [
+    {
+      "artwork": {
+        "source": "art/terrain/water/water-rocks-shared-v2.png",
+        "source_sha256": "753151971ea378e314149cc3790aa00d7bc82dbf6c896092dbecbb2ce394b018"
+      },
+      "id": "water-stones",
+      "inset": 0.85
+    }
+  ],
+  "schema_version": 1
+}

@@ -1,31 +1,31 @@
 {
   "materials": {
     "grass": {
-      "source": "art/terrain/grass/grass.png",
+      "source": "art/terrain/grass/grass-summer-v1.png",
       "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
     },
     "grass_w": {
-      "source": "art/terrain/grass/grass_w.png",
+      "source": "art/terrain/grass/grass-winter-v1.png",
       "source_sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3"
     },
     "mud": {
-      "source": "art/terrain/ground/mud.png",
+      "source": "art/terrain/ground/ground-mud-summer-v1.png",
       "source_sha256": "4efb92fa6a89b1816063095a02621908814e9e3bae8a998cf24395465e6a0b02"
     },
     "rough_w": {
-      "source": "art/terrain/ground/rough_w.png",
+      "source": "art/terrain/ground/ground-rough-winter-v1.png",
       "source_sha256": "c8b39bd445f98d584a91e645369c7fcde30f6c35aca03413a2f763c8c3cbdbb8"
     },
     "shelled_w": {
-      "source": "art/terrain/ground/shelled_w.png",
+      "source": "art/terrain/ground/ground-shelled-winter-v1.png",
       "source_sha256": "e9e46116c647bf09218f29bc190ab383baa09257b461fbd4d9f9edc3f93e911b"
     },
     "stone": {
-      "source": "art/terrain/ground/stone.png",
+      "source": "art/terrain/ground/ground-stone-summer-v1.png",
       "source_sha256": "f59005d7033d85c7f22e2195a169114ea930a4646384847d2194408d102974bd"
     },
     "stoney_w": {
-      "source": "art/terrain/ground/stoney_w.png",
+      "source": "art/terrain/ground/ground-stony-winter-v1.png",
       "source_sha256": "82f9d966c6327c9a05f3a6bfbff9451b2e51daea3968f3af095265af0e83de7c"
     }
   },

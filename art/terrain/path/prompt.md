@@ -4,7 +4,7 @@ title: Path
 kind: terrain
 status: candidate
 runtime_ids: path125, path13, path135, path136, path14, path15, path24, path25, path26, path346, path35, path356, path36, path46
-masters: earth.png
+masters: path-earth-shared-v2.png, path-earth-shared-v1.png
 ---
 
 ## Look
@@ -12,7 +12,7 @@ Narrow earth track. In the reference it is a pale tan dirt track with two faint 
 darker edge, meadow growing right up to it.
 
 ## Base prompt
-Opaque 6:5 material canvas, filled edge to edge with warm muted tan compacted fine earth: tiny sandy
+Opaque square material canvas, filled edge to edge with warm muted tan compacted fine earth: tiny sandy
 grains, very occasional minute rounded pebbles, quiet low-contrast variation; dusty ochre-greige,
 lighter and warmer than mud, distinct from grey asphalt. Do not draw a path silhouette, verges, ruts,
 grass or objects: the renderer cuts the track.
@@ -40,8 +40,11 @@ The path is 7 world pixels wide with a 0.75-pixel earth border, centred on the s
 continuing through each port.
 
 ## Post
-`art-review -connected art/pipeline/connected-paths-v1.json` cuts the earth material to each port set over
+`art-review -connected art/pipeline/connected-paths-v2.json` cuts the earth material to each port set over
 meadow. Season-neutral. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
+
+The selected built-in imagegen master is native 1254×1254 RGB, with irregular fine grains and subdued
+wear. The former earth source remains a retained draft. The path footprint and ports are unchanged.
 
 ## Avoid
 - visible tiling or repeated rounded "pillow" patterns

@@ -1,15 +1,15 @@
 {
   "materials": {
     "summer": {
-      "source": "art/terrain/grass/grass.png",
+      "source": "art/terrain/grass/grass-summer-v1.png",
       "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
     },
     "unseen": {
-      "source": "art/terrain/fog/unseen.png",
+      "source": "art/terrain/fog/fog-unseen-shared-v1.png",
       "source_sha256": "4724facc952e2b8cb526deec05cb758270bce24b3bebd8f9a61be3fc465d06f5"
     },
     "winter": {
-      "source": "art/terrain/grass/grass_w.png",
+      "source": "art/terrain/grass/grass-winter-v1.png",
       "source_sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3"
     }
   },

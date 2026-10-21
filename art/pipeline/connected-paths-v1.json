@@ -197,23 +197,23 @@
   },
   "materials": {
     "earth": {
-      "source": "art/terrain/ground/earth-bank.png",
+      "source": "art/terrain/ground/ground-earth-bank-shared-v1.png",
       "source_sha256": "6df0ffb17725f7c7ef81bbafd1c8537ad2a30b62beac21a4ce6ce8a4c522086d"
     },
     "grass": {
-      "source": "art/terrain/grass/grass.png",
+      "source": "art/terrain/grass/grass-summer-v1.png",
       "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
     },
     "path": {
-      "source": "art/terrain/path/earth.png",
+      "source": "art/terrain/path/path-earth-shared-v1.png",
       "source_sha256": "eaae81c8dfea2ad506a02b80005d4ba94784b3827fa0ac6ee50d99e48519f04b"
     },
     "road": {
-      "source": "art/terrain/road/asphalt.png",
+      "source": "art/terrain/road/road-asphalt-shared-v1.png",
       "source_sha256": "a86aa33d3261283f885228a404a4b31ee337c132728f55038c5714a2e46aec44"
     },
     "water": {
-      "source": "art/terrain/water/water.png",
+      "source": "art/terrain/water/water-shared-v1.png",
       "source_sha256": "007b9babe0e69db5e628352a38dae0f1502ac42513bbf4018ad3df82f76c4c31"
     }
   },

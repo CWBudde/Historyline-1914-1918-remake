@@ -18,7 +18,7 @@ import (
 
 func TestGenerateGrassVariations(t *testing.T) {
 	root := filepath.Join("..", "..")
-	canonical := filepath.Join(root, "art/terrain/grass/grass.png")
+	canonical := filepath.Join(root, "art/terrain/grass/grass-summer-v1.png")
 	before, err := os.ReadFile(canonical)
 	if err != nil {
 		t.Fatal(err)

@@ -4,7 +4,7 @@ title: Headquarters
 kind: terrain
 status: candidate
 runtime_ids: hqC, hqC_w, hqN, hqN_w, hqNE, hqNE_w, hqNW, hqNW_w, hqS, hqS_w, hqSE, hqSE_w, hqSW, hqSW_w
-masters: hq.png, hq_w.png
+masters: hq-summer-v2.png, hq-winter-v2.png, hq-summer-v1.png, hq-winter-v1.png
 ---
 
 ## Look
@@ -13,7 +13,7 @@ towers, pale stone curtain walls, an inner hall and a red-roofed gatehouse in th
 enters through the north gate over a bridge.
 
 ## Base prompt
-Transparent whole-scene cut-out, about 1243x1265, strict nadir roof plan: a compact walled fortress with
+Transparent square whole-scene cut-out, strict nadir roof plan: a compact walled fortress with
 four round pale-grey stone corner towers with dark conical slate tops, straight curtain walls with
 walkways, a red tiled gatehouse centred in the north wall, a tan earth courtyard with an inner hall, a
 narrow moat and bridge on the north side, and two small irregular bushes behind the south wall. The
@@ -37,7 +37,15 @@ The scene is sliced into seven hex crops with shared placements, so pieces join 
 road meets the regular road tile at the north port with the same width and colour.
 
 ## Post
-`art-review -compound art/pipeline/compound-hq-v1.json` places the summer and winter scenes on the seasonal
+Selected sources are the native 1254x1254 `hq-summer-v2.png` and `hq-winter-v2.png`, generated with built-in
+imagegen and true alpha. The summer prompt requests four round drum towers with low slate roofs,
+red terracotta north gate and south inner hall, a textured dirt courtyard, narrow northern moat and
+bridge, and a centred grey entrance road. PULSE is the layout/style reference; `ground-crater-summer-v1.png`
+is the material-detail reference. The winter edit requests only patchy settled snow and dormant
+vegetation, preserving every building, road, prop and silhouette. The current candidate has visible
+short wall faces; the requested camera remains nadir.
+
+`art-review -compound art/pipeline/compound-hq-v2.json` places the summer and winter scenes on the seasonal
 meadow and slices the seven cells; both seasons share exact placement. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
 
 ## Avoid

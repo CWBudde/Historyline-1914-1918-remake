@@ -23,6 +23,7 @@ type compoundSceneInput struct {
 	Framing string             `json:"framing,omitempty"`
 }
 type compoundManifest struct {
+	WaterProfile  string                        `json:"water_profile,omitempty"`
 	SchemaVersion int                           `json:"schema_version"`
 	Grounds       map[string]connectionMaterial `json:"grounds"`
 	Scenes        []compoundSceneInput          `json:"scenes"`
@@ -67,7 +68,7 @@ func decodeCompoundManifest(b []byte, m *compoundManifest) error {
 	if root == nil {
 		return errors.New("compound manifest requires an object")
 	}
-	if err := keys(root, "schema_version", "grounds", "scenes"); err != nil {
+	if err := keys(root, "schema_version", "grounds", "scenes", "water_profile"); err != nil {
 		return err
 	}
 	var grounds map[string]json.RawMessage
@@ -222,6 +223,9 @@ func loadCompoundInputs(path string) (compoundInputs, error) {
 	m := in.Manifest
 	if m.SchemaVersion != 1 || len(m.Scenes) < 1 || len(m.Scenes) > 12 {
 		return in, errors.New("compound requires schema_version 1 and one to twelve scenes")
+	}
+	if m.WaterProfile != "" && (m.WaterProfile != authoredBankProfile || len(m.Scenes) != 1 || m.Scenes[0].ID != "water-stones") {
+		return in, errors.New("water_profile requires authored-rocks-v1 and water-stones only")
 	}
 	used := map[string]bool{}
 	seen := map[string]bool{}

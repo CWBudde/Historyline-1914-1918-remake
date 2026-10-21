@@ -1,0 +1,24 @@
+{
+  "atlases": {
+    "summer": {
+      "source": "art/terrain/forest/forest-crowns-inset-summer-v3.png",
+      "source_sha256": "db2172d6a5e3ca9292b472bbcccc34de2ee344c78b5946d298f5a714e3bb1328"
+    },
+    "winter": {
+      "source": "art/terrain/forest/forest-crowns-inset-winter-v3.png",
+      "source_sha256": "43b9ec15e7d63fb8f7a5ca4c671443dee3ea9515b55e32c4535886ff3630b202"
+    }
+  },
+  "grounds": {
+    "summer": {
+      "source": "art/terrain/grass/grass-summer-v1.png",
+      "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
+    },
+    "winter": {
+      "source": "art/terrain/grass/grass-winter-v1.png",
+      "source_sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3"
+    }
+  },
+  "schema_version": 1,
+  "summer_profile": "canopy-26.5-30-v1"
+}

@@ -82,36 +82,10 @@ func TestGenerateCampaignContexts(t *testing.T) {
 			}
 		}
 	}
-	gi, err := loadGroundInputs(filepath.Join(root, "art/pipeline/ground-terrain-v1.json"))
+	ground, forest, hills, err := loadCampaignRenderers(root)
 	if err != nil {
 		t.Fatal(err)
 	}
-	materials := map[string]*image.NRGBA{}
-	for id, s := range gi.Sources {
-		materials[id] = s.Image
-	}
-	ground := newGroundRenderer(materials)
-	ground.mudFeature = gi.Manifest.MudFeature
-	fi, err := loadForestInputs(filepath.Join(root, "art/pipeline/forest-terrain-v1.json"))
-	if err != nil {
-		t.Fatal(err)
-	}
-	grounds, atlases := map[string]*image.NRGBA{}, map[string]*image.NRGBA{}
-	for id, s := range fi.Grounds {
-		grounds[id] = s.Image
-	}
-	for id, s := range fi.Atlases {
-		atlases[id] = s.Image
-	}
-	forest, err := newForestRenderer(grounds, atlases, fi.Manifest.SummerProfile)
-	if err != nil {
-		t.Fatal(err)
-	}
-	hi, err := loadHillsInputs(filepath.Join(root, "art/pipeline/hills-terrain-v1.json"))
-	if err != nil {
-		t.Fatal(err)
-	}
-	hills := newHillsRenderer(hi.Sources["grass"].Image, hi.Sources["height"].Image)
 	keys := make([]string, 0, len(contexts))
 	for key := range contexts {
 		keys = append(keys, key)
@@ -227,4 +201,42 @@ func TestGenerateCampaignContexts(t *testing.T) {
 		}
 	}
 	t.Logf("defined campaign profiles: %d; newly exported by family: %v", len(keys), added)
+}
+
+func loadCampaignRenderers(root string) (*groundRenderer, *forestRenderer, *hillsRenderer, error) {
+	gi, err := loadGroundInputs(filepath.Join(root, "art/pipeline/ground-terrain-v2.json"))
+	if err != nil {
+		return nil, nil, nil, err
+	}
+	materials := map[string]*image.NRGBA{}
+	for id, s := range gi.Sources {
+		materials[id] = s.Image
+	}
+	ground := newGroundRenderer(materials)
+	ground.mudFeature = gi.Manifest.MudFeature
+	ground.shelledFeature = gi.Manifest.ShelledFeature
+	fi, err := loadForestInputs(filepath.Join(root, "art/pipeline/forest-terrain-v3.json"))
+	if err != nil {
+		return nil, nil, nil, err
+	}
+	grounds, atlases := map[string]*image.NRGBA{}, map[string]*image.NRGBA{}
+	for id, s := range fi.Grounds {
+		grounds[id] = s.Image
+	}
+	for id, s := range fi.Atlases {
+		atlases[id] = s.Image
+	}
+	forest, err := newForestRenderer(grounds, atlases, fi.Manifest.SummerProfile)
+	if err != nil {
+		return nil, nil, nil, err
+	}
+	hi, err := loadHillsInputs(filepath.Join(root, "art/pipeline/hills-terrain-v2.json"))
+	if err != nil {
+		return nil, nil, nil, err
+	}
+	hills := newHillsRenderer(hi.Sources["grass"].Image, hi.Sources["height"].Image)
+	if source, ok := hi.Sources["scrub"]; ok {
+		hills.scrub = source.Image
+	}
+	return ground, forest, hills, nil
 }

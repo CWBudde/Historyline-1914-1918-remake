@@ -204,6 +204,10 @@ func buildGroundBundle(in groundInputs) (groundBundle, error) {
 		b.report.Profile += " Optional mud_feature=circular-earthwork: mud samples in the shared context field use grass; each mud center receives one complete pinned mud source composed directly, without mirror sampling or coset averaging, in an ellipse centered (48,40) with radii (34,28). Source UV=(p-center)/radii/2+0.5 with bilinear sampling. Opacity is 1-S((normalized elliptical radius-0.88)/0.12); outside the footprint is the shared field. Feature is wholly inside the hex filter guard. Existing 4x overscan, Lanczos 2x reduction and final ownership follow composition."
 		b.report.ResamplingChain[0] = "pinned opaque sources -> shared context field with grass at mud sites -> one direct bilinear full-source earthwork per mud center inside compact elliptical opacity -> fully opaque unmasked 4x overscan 416x352 at p=(pixel+0.5)/4-4"
 	}
+	if in.Manifest.ShelledFeature == "circular-earthwork" {
+		b.report.Profile += " Optional shelled_feature=circular-earthwork: shelled_w sites use winter grass_w in the shared context field; each shelled_w center receives one complete pinned winter crater source using the same direct bilinear compact ellipse as the summer earthwork. No mirrored or coset-averaged crater composition. Winter grass-facing filter guards remain unchanged."
+		b.report.ResamplingChain[0] += "; shelled_w sites use winter grass_w with one direct full-source compact winter earthwork per shelled_w center"
+	}
 	b.artifacts = append(b.artifacts, connectionArtifact{"manifest.json", in.Bytes})
 	materials := map[string]*image.NRGBA{}
 	for _, id := range groundMaterialIDs {
@@ -215,6 +219,7 @@ func buildGroundBundle(in groundInputs) (groundBundle, error) {
 	}
 	renderer := newGroundRenderer(materials)
 	renderer.mudFeature = in.Manifest.MudFeature
+	renderer.shelledFeature = in.Manifest.ShelledFeature
 	tiles := map[string]map[int]*image.NRGBA{}
 	addProfile := func(c groundContext) error {
 		c = c.effective()

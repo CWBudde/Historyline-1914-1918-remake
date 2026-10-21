@@ -4,7 +4,7 @@ title: Factory
 kind: terrain
 status: candidate
 runtime_ids: factoryE_w, factoryN_w, factoryS_w, factoryW_w
-masters: factory_w.png
+masters: factory-winter-v2.png, factory-winter-v1.png
 ---
 
 ## Look
@@ -34,7 +34,13 @@ Sliced into four hex crops with shared placements; the east street meets the reg
 its port.
 
 ## Post
-`art-review -compound art/pipeline/compound-factory-v1.json` places the scene on winter meadow and slices
+Selected source is native 1536x1024 `factory-winter-v2.png`, generated with built-in imagegen and true
+alpha. The edit prompt preserves the prior winter factory's complete layout, road widths and building
+positions while repainting fine corrugated metal, masonry, piping, turquoise tanks, basin and patchy
+snow with the material precision of `ground-crater-summer-v1.png`. Open ground stays transparent for the seasonal
+meadow. No summer factory runtime ID is enabled.
+
+`art-review -compound art/pipeline/compound-factory-v2.json` places the scene on winter meadow and slices
 the four cells. Winter only. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
 
 ## Avoid

@@ -4835,32 +4835,61 @@
       "status": "candidate",
       "runtime_ids": [
         "bridge25",
-        "bridge36"
+        "bridge36",
+        "standing/bridge25",
+        "standing/bridge36"
       ],
       "dir": "art/terrain/bridge",
       "assets_dir": "assets/terrain/bridge",
       "prompt": "art/terrain/bridge/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/terrain/bridge/bridge-25-shared-v1.png",
+          "sha256": "50d0815c1f8acfc00ef0596cdd9577ac8ed3191fca7ffde4afd4997279083d94",
+          "width": 1374,
+          "height": 1145
+        },
+        {
+          "path": "art/terrain/bridge/bridge-36-shared-v1.png",
+          "sha256": "d7f03256f80189f027eb78e22c168ecad59d60661df71e6183b0c95764b4e80b",
+          "width": 1374,
+          "height": 1145
+        },
+        {
+          "path": "art/terrain/bridge/bridge-25-export-shared-v1.png",
+          "sha256": "7170e0031cb1cbfa4433037cbc2c6f26ecf3d9b865afafb5cb89b49f01bc866f",
+          "width": 1152,
+          "height": 960
+        },
+        {
+          "path": "art/terrain/bridge/bridge-36-export-shared-v1.png",
+          "sha256": "c751f4df33e401ff70e8eb3b6643bc9a7fddfc8a6b4380427d95faf6bdd4c82b",
+          "width": 1152,
+          "height": 960
+        }
+      ],
       "look": "Narrow plank footbridge over a stream. In the reference it is a weathered grey timber deck with thin\nside rails, crossing the blue creek between stony banks.",
-      "base_prompt": "Transparent cut-out of a narrow timber plank footbridge seen straight from above: weathered grey-brown\nboards laid across the span, thin wooden side rails, short abutments of pale stone at both ends, soft\nshadow on the water side to the lower right. The deck runs straight across the canvas; nothing else.",
+      "base_prompt": "Transparent cut-out of a narrow timber plank footbridge seen straight from above: weathered grey-brown\nboards laid across the span with fine grain, nailheads and dark seams, thin wooden side rails and\nposts, short abutments of pale stone at both ends. Strict nadir deck plan, soft upper-left light and\nshort lower-right shadow. The deck runs straight along its declared axis; no water, ground,\napproach path, letters, flags or other objects.",
       "variants": [
         {
           "variant": "bridge25",
           "runtime_ids": [
-            "bridge25"
+            "bridge25",
+            "standing/bridge25"
           ],
-          "delta": "Footbridge straight run between ports 2 SE, 5 NW, across the stream."
+          "delta": "Separately painted SE/NW bridge, axis +29.396 degrees from horizontal."
         },
         {
           "variant": "bridge36",
           "runtime_ids": [
-            "bridge36"
+            "bridge36",
+            "standing/bridge36"
           ],
-          "delta": "Footbridge straight run between ports 3 S, 6 N, across the stream."
+          "delta": "Separately painted vertical N/S bridge."
         }
       ],
-      "edges": "The deck runs straight between the two ports, centred on the port centres, and sits over a stream\nthat continues through the other ports of the crossing; the path continues beyond each end.",
-      "post": "Derived only: `art-review -mixed art/pipeline/connected-mixed-v1.json` builds footbridges from the timber,\nwater, bank and meadow materials of the connected manifests. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.",
+      "edges": "The finite timber deck is registered to 48 logical pixels along its port axis and 12 pixels across,\ncentred on `(48,40)` within a 96x80 canvas. Thin rails, posts and stone abutments extend beyond the deck.\nThe path continues beyond each deck end and the stream passes underneath.",
+      "post": "Built-in imagegen produced both independent true-alpha paintings at native 1374x1145. The previous\ntiles supplied axis references and the selected crater supplied fine material detail. A follow-up\nprompt corrected the narrow deck proportions; neither orientation is a rotated copy of the other.\n\nThe `-export-` masters apply bounded affine registration and transparent padding at 1152x960\n(12 source pixels per logical pixel). `bridge-registration-v1.json` records native hashes, dimensions,\nreviewed deck landmarks and every matrix. Native sampling density exceeds 16 pixels per logical pixel\non both axes, so no enlargement is needed. Small axis corrections retain the painted upper-left light.\n\n`terrain-stamps -manifest art/pipeline/bridge-standing-v1.json` exports the prepared sources as\n`standing/bridge*`, with 2x 192x160 and 4x 384x320 PNGs and anchor `(48,40)`. The v2 mixed manifest's\n`bridge_artwork: standing` keeps only the original path approaches beyond the deck ends, removing old\nfinite timber, rails and earth abutments before density filtering. The default v1 mixed export\nremains available with its derived bridge artwork.",
       "avoid": [
         "visible tiling or repeated rounded \"pillow\" patterns",
         "perspective, horizon or tilted camera",
@@ -4870,14 +4899,16 @@
         "masonry viaducts"
       ],
       "runtime": {
-        "count": 4,
+        "count": 8,
         "densities": [
           2,
           4
         ],
         "samples": [
           "assets/terrain/bridge/bridge25-4x.png",
-          "assets/terrain/bridge/bridge36-4x.png"
+          "assets/terrain/bridge/bridge36-4x.png",
+          "assets/terrain/bridge/bridge25-standing-4x.png",
+          "assets/terrain/bridge/bridge36-standing-4x.png"
         ]
       }
     },
@@ -4901,20 +4932,32 @@
       "prompt": "art/terrain/cmp/prompt.md",
       "masters": [
         {
-          "path": "art/terrain/cmp/depot.png",
+          "path": "art/terrain/cmp/cmp-summer-v2.png",
+          "sha256": "5f23f55d1c2f4503cabd2e09c1899b3878e8fcefe168f52fe015d7f5e39a8869",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/terrain/cmp/cmp-winter-v2.png",
+          "sha256": "4a81ea1eaa82043076ada179816e14bc45a0bb6af97d4c56ce892868f970b0ae",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/terrain/cmp/cmp-summer-v1.png",
           "sha256": "71c8e02269ed8b66f0c903abd541ee5ddab8a0c176f4b9afae8a9eb2affd56c5",
           "width": 1536,
           "height": 1024
         },
         {
-          "path": "art/terrain/cmp/depot_w.png",
+          "path": "art/terrain/cmp/cmp-winter-v1.png",
           "sha256": "0d1071c7ae1b2d47e4220528edbabb212b5f0636cc90b2b34053d0fa0ff8faea",
           "width": 1536,
           "height": 1024
         }
       ],
       "look": "A fenced supply depot over a four-hex diamond. In the reference it sits at the end of the road: a\nbarrier gate in the north, sheds and red vehicles to the west, white tents to the east and a large hall\nto the south.",
-      "base_prompt": "Transparent whole-scene cut-out, 3:2, strict nadir roof plan: a low wide fenced military depot. A grey\nroad enters from the top centre through a pale barrier gate and runs down the middle. West: a squat\nolive-brown barracks with a pale roof patch and two small red vehicles. East: three white canvas tents\nin a column. South: one larger hall with a dark roof. A low weathered timber-and-stone fence around the\nyard; most of the yard floor transparent so meadow shows. Everything inside the four-hex diamond\noutline (238x160 world pixels).",
+      "base_prompt": "Transparent whole-scene cut-out, 3:2, strict nadir roof plan: a low wide fenced military depot. A grey\nroad enters from the top centre through a pale barrier gate and runs down the middle. West: a squat\nolive-brown barracks with a pale roof patch and two small red vehicles. East: three white canvas tents\nin a column. South: one larger hall with a dark roof and a blank pale circular marker pad without a letter.\nA low weathered timber-and-stone fence around the\nyard; most of the yard floor transparent so meadow shows. Everything inside the four-hex diamond\noutline (238x160 world pixels).",
       "variants": [
         {
           "variant": "cell N",
@@ -4960,7 +5003,7 @@
         }
       ],
       "edges": "The scene is sliced into four hex crops with shared placements; the entrance road meets the regular\nroad tile at the north port.",
-      "post": "`art-review -compound art/pipeline/compound-depot-v1.json` places both seasons on the seasonal meadow and\nslices the four cells. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.",
+      "post": "Selected sources are native 1536x1024 `cmp-summer-v2.png` and `cmp-winter-v2.png`, generated with built-in\nimagegen and true alpha. The summer prompt requests fine timber, corrugated roof, canvas, stone and\ncrate detail, a north barrier road, olive sheds and two red period supply trucks west, three white\ntents east and the south hall. PULSE supplies the layout/style; `ground-crater-summer-v1.png` supplies the\nmaterial-detail reference. The winter edit changes only snow and dormant vegetation and preserves\nthe summer arrangement and transparent gaps.\n\n`art-review -compound art/pipeline/compound-depot-v2.json` places both seasons on the seasonal meadow and\nslices the four cells. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.",
       "avoid": [
         "visible tiling or repeated rounded \"pillow\" patterns",
         "perspective, horizon or tilted camera",
@@ -5073,7 +5116,13 @@
       "prompt": "art/terrain/factory/prompt.md",
       "masters": [
         {
-          "path": "art/terrain/factory/factory_w.png",
+          "path": "art/terrain/factory/factory-winter-v2.png",
+          "sha256": "f6437d5990586b930c9e163a0208e2a042eb50ae614f33847efb2b6d2d9655bd",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/terrain/factory/factory-winter-v1.png",
           "sha256": "8168ea4623b2e3e9547db268c79690cfba5633c5bc469a97f1b701312f44428f",
           "width": 1536,
           "height": 1024
@@ -5112,7 +5161,7 @@
         }
       ],
       "edges": "Sliced into four hex crops with shared placements; the east street meets the regular road tile at\nits port.",
-      "post": "`art-review -compound art/pipeline/compound-factory-v1.json` places the scene on winter meadow and slices\nthe four cells. Winter only. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.",
+      "post": "Selected source is native 1536x1024 `factory-winter-v2.png`, generated with built-in imagegen and true\nalpha. The edit prompt preserves the prior winter factory's complete layout, road widths and building\npositions while repainting fine corrugated metal, masonry, piping, turquoise tanks, basin and patchy\nsnow with the material precision of `ground-crater-summer-v1.png`. Open ground stays transparent for the seasonal\nmeadow. No summer factory runtime ID is enabled.\n\n`art-review -compound art/pipeline/compound-factory-v2.json` places the scene on winter meadow and slices\nthe four cells. Winter only. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.",
       "avoid": [
         "visible tiling or repeated rounded \"pillow\" patterns",
         "perspective, horizon or tilted camera",
@@ -5148,7 +5197,7 @@
       "prompt": "art/terrain/fog/prompt.md",
       "masters": [
         {
-          "path": "art/terrain/fog/unseen.png",
+          "path": "art/terrain/fog/fog-unseen-shared-v1.png",
           "sha256": "4724facc952e2b8cb526deec05cb758270bce24b3bebd8f9a61be3fc465d06f5",
           "width": 1254,
           "height": 1254
@@ -5200,38 +5249,104 @@
       "prompt": "art/terrain/forest/prompt.md",
       "masters": [
         {
-          "path": "art/terrain/forest/crowns.png",
+          "path": "art/terrain/forest/forest-crowns-summer-v3.png",
+          "sha256": "7a393cd481f2e77c9cbde6227459d1ddc95c1c167c6b2b2b9fd731ff97ec58e6",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/terrain/forest/forest-crowns-winter-v3.png",
+          "sha256": "9f52676d7000bfd8cf0bc97c18f7e621a72258d8be0037cd3d369572ec1314eb",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/terrain/forest/forest-crowns-inset-summer-v3.png",
+          "sha256": "db2172d6a5e3ca9292b472bbcccc34de2ee344c78b5946d298f5a714e3bb1328",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/terrain/forest/forest-crowns-inset-winter-v3.png",
+          "sha256": "43b9ec15e7d63fb8f7a5ca4c671443dee3ea9515b55e32c4535886ff3630b202",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/terrain/forest/forest-crowns-summer-v2.png",
+          "sha256": "fad58bedd8eeb614c8d2cd43d54ec27686bda1c857b92fbe2a83666ee734a3fa",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/terrain/forest/forest-crowns-winter-v2.png",
+          "sha256": "573be9a42a3fe24eaa1f62ba18d5ddab05207b1af45dc9cd817e2909acc335d9",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/terrain/forest/forest-crowns-inset-summer-v2.png",
+          "sha256": "7d59257696de8113a99314bc985ed079d5fb18d2796a31f660b8d7043468cdc6",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/terrain/forest/forest-crowns-inset-winter-v2.png",
+          "sha256": "785d8255beaac7beeb402c6035285259218a5cf920bdc218cef3df68099097fb",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/terrain/forest/forest-crowns-spaced-summer-v2.png",
+          "sha256": "5dddf6d5b58d34f043529e9fccb1180120ad7af9b1cdb34df9979da1e442b39f",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/terrain/forest/forest-crowns-initial-winter-v2.png",
+          "sha256": "2629d39ce23763d1c8da2f538d47db45ab6203ae6c7288954124094cd8af301f",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/terrain/forest/forest-crowns-initial-summer-v2.png",
+          "sha256": "c8a2fc66ba3c0c884e261b701d260915006cf652277ea44bbbc98ef406210c93",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/terrain/forest/forest-crowns-summer-v1.png",
           "sha256": "7a5fe25d5d41ad067e463f1938fac0dd280ed706022ce3f6433a10096f3732e5",
           "width": 1254,
           "height": 1254
         },
         {
-          "path": "art/terrain/forest/crowns_w.png",
+          "path": "art/terrain/forest/forest-crowns-winter-v1.png",
           "sha256": "ce32d9e4f30f2a983a7bd575de06580dbe82abb59920fc44b58afc03114ad5fe",
           "width": 1254,
           "height": 1254
         }
       ],
-      "look": "Dense woodland seen from above. In the reference, forest hexes are packed with rounded broadleaf and\nconifer crowns in deep moss to dark teal green (average about RGB 59,72,25) with yellow-green sunlit\ntops and soft shadows to the lower right; meadow shows only in small gaps. A single crown is about a\nfifth of a hex across. Winter forest has bare grey-brown branch networks and snow-dusted conifers.",
-      "base_prompt": "Transparent RGBA atlas, square 1254x1254, 2x2 panels of 627x627, one complete isolated tree crown per\npanel seen straight from above: top-left and top-right two different broadleaf crowns, bottom-left and\nbottom-right two different conifers. Rounded, lumpy crowns built from many leaf clusters, deep moss and\ndark teal green with warm yellow-green sunlit tops on the upper left and darker undersides to the lower\nright. Each crown about 500 pixels across, centred, fully inside its panel with at least 50 pixels of\ntrue alpha-zero margin. No trunks, ground, shadow mats, background or coloured alpha fringe.",
+      "look": "Dense woodland seen from above. Selected v3 crowns are four irregular rounded deciduous canopies in\ndark olive and deep moss green, with small leaf masses, muted upper-left highlights and deep internal\nshade. A crown is about a fifth of a hex across. Winter keeps the crown arrangement as dense grey-brown\nbranch networks with thin settled snow. Earlier mixed broadleaf/conifer atlases remain as drafts.",
+      "base_prompt": "Transparent RGBA atlas, square 1254x1254, 2x2 panels of 627x627. Four distinct compact rounded oak/beech\ncrowns, strict nadir, built from small irregular leaf masses in dark olive/moss green with deep shade\nand modest muted ochre upper-left highlights. No starburst needles, rosettes or oversized leaves.\nKeep crowns isolated with transparent gutters. No trunks, ground or shadow mats. The exact native v3\ngeneration prompts and deterministic runtime inset are recorded under Post.",
       "variants": [
         {
           "variant": "forest",
           "runtime_ids": [
             "forest"
           ],
-          "delta": "Summer crown atlas as above."
+          "delta": "Four dark rounded deciduous summer crowns."
         },
         {
           "variant": "forest_w",
           "runtime_ids": [
             "forest_w"
           ],
-          "delta": "Same four crowns, same centres and footprints: broadleaf crowns become leafless radial grey-brown branch networks with a little snow; conifers keep their shape with patchy off-white snow on dark blue-green needles."
+          "delta": "Same four crown centres and footprints: dense bare grey-brown branch networks with thin ivory snow."
         }
       ],
       "edges": "The renderer scatters whole crowns over the seasonal meadow per context; crowns may overhang hex\nedges into neighbouring forest, and towards non-forest neighbours the canopy thins so meadow shows at\nthe border. Scale and light must match the house, hq and mountain art.",
-      "post": "`art-review -forest art/pipeline/forest-terrain-v1.json` places crowns by a fixed canopy profile into\ncontext tiles keyed by season and neighbours (`context/forest/<key>`); winter uses the winter atlas\nand `grass_w`. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.",
+      "post": "`art-review -forest art/pipeline/forest-terrain-v3.json` places crowns by a fixed canopy profile into\ncontext tiles keyed by season and neighbours (`context/forest/<key>`); winter uses the winter atlas\nand `grass_w`. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.\n\n\n### Native v3 generation\n\nThe selected native summer and winter atlases are 1254×1254 RGBA, generated with the built-in imagegen\ntool. RefDesign2 was the summer style reference; winter edits the summer arrangement. Runtime inset\natlases use the same deterministic alpha-aware Lanczos3 preparation as v2: every 627×627 cell becomes\n547×547, centred with 40 extra transparent pixels per side in the original canvas. No artwork is repainted\nby that export preparation. Runtime scatter, neighbour contexts and grass guards are unchanged.\n\n#### Summer: forest-crowns-summer-v3.png\n\n```text\nUse case: stylized-concept. Asset type: transparent RGBA forest tree-crown atlas for the rural European World War I strategy map. Supplied RefDesign2 aerial map is a STYLE reference only: match its small dark olive rounded tree crowns with dense connected leaf masses and deep moss shadows. Create one square 1254x1254 atlas containing exactly four isolated crowns in an invisible 2x2 layout of 627x627 cells. Each crown is centred in its cell, round but asymmetrical, about 470 pixels across, fully inside its cell with at least 65 pixels clear alpha-zero margin on ALL sides. FOUR DIFFERENT dense DECIDUOUS European broadleaf crowns seen strictly vertically from above, no visible trunks. Build each crown from many SMALL irregular rounded masses of tiny leaves, full and bushy like compact oak/beech woodland. Overall canopy must be DARK olive/moss green, deep internal shade, modest muted ochre-green highlights on only the upper-left small leaf masses; never pale yellow-green speckling everywhere. Dense opaque interiors, natural dark irregular edges with a few small transparent notches. Fine believable hand-painted digital illustration, soft upper-left diffuse daylight and short interior shadows. The silhouette should read as a dense rounded forest tree at twenty world pixels, not a sprig, flower or fern. No conifer starburst, radial needles, rosette, oversized individual leaves, flat leafy discs, plastic 3D, photograph, pixel art, bright lime, ground, visible cast-shadow mat, haze, background color, checkerboard, panels, text or outlines. Genuine transparency outside all four crowns.\n```\n\n#### Winter: forest-crowns-winter-v3.png\n\n```text\nUse case: lighting-weather. Edit target is the supplied native1254x1254 transparent atlas of four dense rounded deciduous tree crowns in a2x2layout. Preserve exact canvas, four crown centres, full individual footprints, tree-scale, branch-mass arrangement and all transparent spaces between cells. Change only season: the four broadleaf crowns become four different dense grey-brown radial networks of bare small branches and fine twigs, viewed strictly vertically from above. Thin settled ivory snow rests selectively on upper branches, with cool dark internal shadows and sparse muted brown retained leaves. The compact rounded canopy silhouettes and small branch-mass structure must remain recognizable from summer, no new conifers or different trees. Keep the finely hand-painted aerial-map style, diffuse upper-left light, fine believable wood/snow detail. No ground, trunks seen from side, cast-shadow mats, haze, glow, frame, panels, checkerboard or text. Genuine alpha transparency outside every crown and between fine bare branches.\n```\n\n\n### Earlier v2 generation\n\nEarlier outputs are native 1254×1254 RGBA. The final size correction and winter edit prompts were:\n\n```text\nUse case: precise-object-edit. Edit supplied four-tree atlas to correct tree size for game export. Preserve square canvas, 2x2 atlas geometry, same four crown centres, tree identities, foliage materials and upper-left lighting. Enlarge every crown by precisely about 25 percent of its current diameter. Final crown diameter about 75 percent of its own panel width, leaving at least 10 percent panel-width true alpha-zero empty guard on every side. No crown may enter that guard or touch another. Keep complete crowns and natural irregular outlines, no cropping. Strict nadir. Preserve fine hand-painted leaf/needle detail, genuine transparent background and gaps, no ground/shadows/text.\n```\n\n```text\nUse case: lighting-weather. Edit target is supplied square four-tree atlas. Preserve exact1254x1254canvas, four crowncentres, strictnadir camera, crownscale and footprints, 2x2panel arrangement, alltransparentgutters. Changeonlyseason: top two broadleafcrowns become finelypainted leaflessgrey-brown radialbranchandtwig networks withdelicate settledivorysnow, transparentgaps. Bottomtwo conifers keepidentical radialbranchandneedlestructure withpatchy settledivorysnow ondarkcoolblue-greenneedles. Softupperleftlight andshortinternalshadow. Keep allbrancheswithinoriginalfootprints and at least8percentofeachpanel astransparentemptyguard. No ground, shadowmat, trunksvisible, glow, borders, checkerboard or text. Genuinealpha background.\n```\n\nEarlier native v2 atlases are `forest-crowns-summer-v2.png` and `forest-crowns-winter-v2.png`.\nRuntime inputs `forest-crowns-inset-summer-v2.png` and `forest-crowns-inset-winter-v2.png` deterministically normalize each\n627×627 panel to 547×547 with the existing alpha-aware Lanczos3 resampler, centred with 40 transparent\npixels of extra padding per side inside the unchanged 1254×1254 atlas. This satisfies the exporter's\n8 percent alpha guard without painting or clipping crowns. Other v2 atlases are earlier spacing candidates.\n\nGenerated with the built-in imagegen tool. Dimensions below describe the actual output.\n\n#### Summer master (1254×1254 RGBA)\n\n```text\nUse case: stylized-concept. Asset type: transparent RGBA tree-crown atlas for strict nadir European World War I tactical map. Create square 1536x1536 with exactly 2x2 invisible equal panels of 768x768 pixels. One separate complete isolated tree crown centered in each panel at (384,384),(1152,384),(384,1152),(1152,1152). Each crown 520 pixels in diameter maximum; fully inside its own panel leaving at least 110 pixels genuine alpha-zero transparent guard on all sides. Top two crowns: two differently shaped dense oak/beech broadleaf crowns with irregular leafy clustered outlines. Bottom two: two distinct spruce/fir conifer crowns from directly vertically above, layered radial branches, no visible trunk or side view. Finely detailed hand-painted digital illustration, realistic small leaf masses and needle sprays, rich deep moss and dark teal greens with warm olive yellow-green sunlit tops, light upper left and short soft interior shade lower right. Reference painting quality, lush natural aerial-map trees. No ground, tree shadows on ground, shadow mat, fog, glow, visible checkerboard, background, text, panels or outlines. Alpha transparent outside and between branches. No pixel art, vector, cartoon, photograph or plastic 3D rendering.\n```\n\n#### Summer gutter correction (1254×1254 RGBA)\n\n```text\nUse case: precise-object-edit. Edit the supplied tree-crown atlas only to add much larger transparent gutters. Keep square canvas, same 2x2 layout and same four tree identities, colors, light and camera. Shrink each crown to 62 percent of its existing diameter WITHOUT changing its centre within its own quarter of the image. Every crown must be fully isolated and surrounded by at least 18 percent of its panel width of true alpha-zero empty transparent margin on ALL FOUR sides, including near the centre cross of the full atlas. No crown touches another or a panel edge. Preserve the crisp hand-painted leaf and needle detail; transparent background, no shadows on ground, no panel lines or labels.\n```\n\n#### Winter master (1254×1254 RGBA)\n\n```text\nUse case: lighting-weather. Edit target: supplied square transparent four-tree atlas. Change season ONLY. Preserve exact canvas dimensions, 2x2 panel arrangement, four crown centres, crown scale, branch arrangement, maximum footprints and all transparent empty gutters. Top two broadleaf trees: replace leaves with finely detailed bare radial grey-brown twigs/branch networks seen strictly from above, with delicate settled ivory snow on upper branches, transparent visible gaps between branches. Bottom two conifers retain exact needle and radial branch structures, dark cool moss/blue-green needles with patchy settled ivory snow on upper-left-facing branches. Same top-down nadir camera and soft upper-left light, hand-painted aerial map material quality. Every tree remains completely inside its current footprint with at least 18 percent panel empty alpha-zero margin. No trunks visible, ground, shadow mat, text, framing or background. Genuine alpha transparency outside crowns and between bare twigs.\n```",
       "avoid": [
         "visible tiling or repeated rounded \"pillow\" patterns",
         "perspective, horizon or tilted camera",
@@ -5289,43 +5404,55 @@
       "prompt": "art/terrain/grass/prompt.md",
       "masters": [
         {
-          "path": "art/terrain/grass/detail-flowers-master.png",
+          "path": "art/terrain/grass/grass-meadow-summer-v2.png",
+          "sha256": "ba0b3e6645be263586ed217caa462568dbf188f3518d7db9b9f8c85e7e58914a",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/terrain/grass/grass-meadow-winter-v2.png",
+          "sha256": "2f64ae04414704de8dbec51af8e19bd8f2ec6e5b5c162ae76dc643f1995a83f6",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/terrain/grass/grass-flowers-painting-summer-v1.png",
           "sha256": "368607bd87ee0b7ecbe39fc87b970982b001d6d3eeaabc3d9ee4f36e811cac89",
           "width": 1586,
           "height": 992
         },
         {
-          "path": "art/terrain/grass/detail-flowers.png",
+          "path": "art/terrain/grass/grass-flowers-material-summer-v1.png",
           "sha256": "c7654af4c1ddc8dffdac194f83ddb5926a5f4d285b17571153cea2c43697d62d",
           "width": 768,
           "height": 480
         },
         {
-          "path": "art/terrain/grass/detail-worn-master.png",
+          "path": "art/terrain/grass/grass-worn-painting-summer-v1.png",
           "sha256": "d0a4b7a2eec6551a246581d961f139f434ad9f3f9694d8a54fdbec5a48b77078",
           "width": 1586,
           "height": 992
         },
         {
-          "path": "art/terrain/grass/detail-worn.png",
+          "path": "art/terrain/grass/grass-worn-material-summer-v1.png",
           "sha256": "6b376ea6dc5374f90b099841ab7a5dc204375cb597ca3a9aa57860c3470b93c8",
           "width": 768,
           "height": 480
         },
         {
-          "path": "art/terrain/grass/grass.png",
+          "path": "art/terrain/grass/grass-summer-v1.png",
           "sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b",
           "width": 768,
           "height": 480
         },
         {
-          "path": "art/terrain/grass/grass_w.png",
+          "path": "art/terrain/grass/grass-winter-v1.png",
           "sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3",
           "width": 1374,
           "height": 1145
         },
         {
-          "path": "art/terrain/grass/meadow-master.png",
+          "path": "art/terrain/grass/grass-meadow-summer-v1.png",
           "sha256": "d8e2f74e2a36cad07a0dc9b251a5bd3bcbbd9dae4d73341af72a7fb5349ecd60",
           "width": 1536,
           "height": 1024
@@ -5384,7 +5511,7 @@
         }
       ],
       "edges": "The meadow is a periodic material sampled on the world lattice, so neighbouring grass tiles share one\ncontinuous field. Detail variants keep the canonical meadow unchanged within 8 world pixels of every\nedge (smoothstep to the interior over 8..18), so any variant meets any other and every overlay tile.\nSeams to forest, ground and hills are handled by those families' contexts, which use this meadow as\ntheir base.",
-      "post": "`art-review -ground`, `-forest`, `-hills`, `-shore`, `-fog` and the connected and compound manifests all\nsample `grass.png` / `grass_w.png` as their base. The 16 detail variants are made by the `grassgfx`\ngenerator (65 percent detail master, 35 percent phased base, edge guard). Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.",
+      "post": "`art-review -ground`, `-forest`, `-hills`, `-shore`, `-fog` and the connected and compound manifests all\nsample `grass-summer-v1.png` / `grass-winter-v1.png` as their base. The 16 detail variants are made by the `grassgfx`\ngenerator (65 percent detail master, 35 percent phased base, edge guard). Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.\n\n\n### Native v2 generation\nThe native v2 summer and winter meadow masters are comparison candidates. Runtime `grass-summer-v1.png`, `grass-winter-v1.png` and the existing detail materials remain selected so neighbouring terrain keeps its established material and palette.\n\nGenerated with the built-in imagegen tool. Dimensions below describe the actual output.\n\n#### Summer comparison candidate (1536×1024 RGB)\n\n```text\nUse case: stylized-concept. Asset type: opaque seamless terrain material master, landscape 1536x1024. Create newly authored very detailed hand-painted digital illustration for a World War I rural European tactical map. Strict top-down orthographic nadir view. Fill the entire image edge to edge with open summer meadow, no objects or terrain features: rich short grass formed of tiny individually painted fine blades and small natural irregular moss-green tufts, olive yellow-green sunlit tips, tiny straw scratches, rare small pale wildflower/seed-head dots, pinhead brown soil flecks and very sparse tiny grey pebbles. Fine believable material detail like the grass fringe in the supplied crater style reference, and the reference aerial map. Average warm olive around RGB 100,109,36; restrained natural palette with enough fine local contrast to read at 4x game zoom, but calm overall values for units. Soft diffuse light from upper left, tiny short soft shadows. Avoid uniform noise, repeated cushions, round large tufts, dark big blobs, beige bare islands, paths, tracks, trees, bushes, craters, holes, mountains, water, buildings, text, outlines, hex geometry, frame, vignette, pixels, vector art, 3D or photographic rendering. This is a material sheet only, not a map composition.\n```\n\n#### Winter comparison candidate (1536×1024 RGB)\n\n```text\nUse case: lighting-weather. Asset type: opaque 1536x1024 winter meadow material. Edit target is supplied summer meadow. Preserve exactly its nadir camera, texture scale, canvas and spatial arrangement, changing only season. Cover the meadow with settled cool ivory-white fine-grained snow, minute wind-scoured surface texture, subtle blue-grey creases corresponding to existing shallow grass texture. A few straw tips poke through in under 3 percent of surface. Retain the detailed hand-painted strategy-map material style. Calm fairly uniform overall values, no large drifts, no footprints or tracks, no new rocks/trees/objects, no crater holes, no vignette or text. Full opaque bleed, no borders.\n```",
       "avoid": [
         "visible tiling or repeated rounded \"pillow\" patterns",
         "perspective, horizon or tilted camera",
@@ -5407,7 +5534,17 @@
           "assets/terrain/grass/grass-detail-02-4x.png",
           "assets/terrain/grass/grass-detail-03-4x.png",
           "assets/terrain/grass/grass-detail-04-4x.png",
-          "assets/terrain/grass/grass-detail-05-4x.png"
+          "assets/terrain/grass/grass-detail-05-4x.png",
+          "assets/terrain/grass/grass-detail-06-4x.png",
+          "assets/terrain/grass/grass-detail-07-4x.png",
+          "assets/terrain/grass/grass-detail-08-4x.png",
+          "assets/terrain/grass/grass-detail-09-4x.png",
+          "assets/terrain/grass/grass-detail-10-4x.png",
+          "assets/terrain/grass/grass-detail-11-4x.png",
+          "assets/terrain/grass/grass-detail-12-4x.png",
+          "assets/terrain/grass/grass-detail-13-4x.png",
+          "assets/terrain/grass/grass-detail-14-4x.png",
+          "assets/terrain/grass/grass-detail-15-4x.png"
         ]
       }
     },
@@ -5432,61 +5569,97 @@
       "prompt": "art/terrain/ground/prompt.md",
       "masters": [
         {
-          "path": "art/terrain/ground/crater-stamp.png",
+          "path": "art/terrain/ground/ground-crater-summer-v1.png",
           "sha256": "018177c37527691b1365cc6f59d9a60cbf3084d982475844a7fe93ea0e521a69",
           "width": 1536,
           "height": 1024
         },
         {
-          "path": "art/terrain/ground/boulders-single.png",
+          "path": "art/terrain/ground/ground-boulders-single-summer-v1.png",
           "sha256": "14f2c664d9ace3ee0f7ceb6a964fcca8c73cfb9242dce4e91b32be2dbb5ed523",
           "width": 1374,
           "height": 1145
         },
         {
-          "path": "art/terrain/ground/boulders-four.png",
+          "path": "art/terrain/ground/ground-boulders-four-summer-v1.png",
           "sha256": "ceedb4bcf1a03ce5a778f07e88eea4366923174c32c97768cd61e6f894653ffa",
           "width": 1536,
           "height": 1024
         },
         {
-          "path": "art/terrain/ground/boulders-five.png",
+          "path": "art/terrain/ground/ground-boulders-five-summer-v1.png",
           "sha256": "3959914db1d1ff3926aba54d8eae8e5ed7c271271f99aeb6255b2ee28b898c4a",
           "width": 1374,
           "height": 1145
         },
         {
-          "path": "art/terrain/ground/earth-bank.png",
+          "path": "art/terrain/ground/ground-mud-summer-v2.png",
+          "sha256": "08f77e30e23d37d22f61fa2d43f3778dbfffebf3077824feee43839291f94211",
+          "width": 1374,
+          "height": 1145
+        },
+        {
+          "path": "art/terrain/ground/ground-stone-summer-v2.png",
+          "sha256": "64bad22bafe6702ff9aa89177fd9a063ad9847764c57c76871f2d68f348a1191",
+          "width": 1374,
+          "height": 1145
+        },
+        {
+          "path": "art/terrain/ground/ground-rough-winter-v2.png",
+          "sha256": "fafb2e261c9782666fd4cd645c203632ab09846e1f959b6d60a15390b6398aba",
+          "width": 1374,
+          "height": 1145
+        },
+        {
+          "path": "art/terrain/ground/ground-shelled-winter-v2.png",
+          "sha256": "803c15c31f66cd1f1e85efa197ebe337ef71b427fe4a5a303e084e155276e1a2",
+          "width": 1374,
+          "height": 1145
+        },
+        {
+          "path": "art/terrain/ground/ground-stony-winter-v2.png",
+          "sha256": "5182d81cd10e5e06d5a7451291902e8e2410796ae9a27899fa39436e3bbed19a",
+          "width": 1374,
+          "height": 1145
+        },
+        {
+          "path": "art/terrain/ground/ground-earth-bank-shared-v2.png",
+          "sha256": "8399070818d73a849b7bf40fa3059311122e6b8ff3fd2ce1773a271ff664023e",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/terrain/ground/ground-earth-bank-shared-v1.png",
           "sha256": "6df0ffb17725f7c7ef81bbafd1c8537ad2a30b62beac21a4ce6ce8a4c522086d",
           "width": 1254,
           "height": 1254
         },
         {
-          "path": "art/terrain/ground/mud.png",
+          "path": "art/terrain/ground/ground-mud-summer-v1.png",
           "sha256": "4efb92fa6a89b1816063095a02621908814e9e3bae8a998cf24395465e6a0b02",
           "width": 1254,
           "height": 1254
         },
         {
-          "path": "art/terrain/ground/rough_w.png",
+          "path": "art/terrain/ground/ground-rough-winter-v1.png",
           "sha256": "c8b39bd445f98d584a91e645369c7fcde30f6c35aca03413a2f763c8c3cbdbb8",
           "width": 1374,
           "height": 1145
         },
         {
-          "path": "art/terrain/ground/shelled_w.png",
+          "path": "art/terrain/ground/ground-shelled-winter-v1.png",
           "sha256": "e9e46116c647bf09218f29bc190ab383baa09257b461fbd4d9f9edc3f93e911b",
           "width": 1374,
           "height": 1145
         },
         {
-          "path": "art/terrain/ground/stone.png",
+          "path": "art/terrain/ground/ground-stone-summer-v1.png",
           "sha256": "f59005d7033d85c7f22e2195a169114ea930a4646384847d2194408d102974bd",
           "width": 1374,
           "height": 1145
         },
         {
-          "path": "art/terrain/ground/stoney_w.png",
+          "path": "art/terrain/ground/ground-stony-winter-v1.png",
           "sha256": "82f9d966c6327c9a05f3a6bfbff9451b2e51daea3968f3af095265af0e83de7c",
           "width": 1374,
           "height": 1145
@@ -5521,7 +5694,7 @@
           "runtime_ids": [
             "stoney_w"
           ],
-          "delta": "Winter stony ground: low grey stone slabs and rubble aprons interleaved with settled ivory snow, roughly half and half; snow fills hollows."
+          "delta": "Winter edit of summer rounded boulders: preserve every stone and gap, with settled ivory snow between clusters and thin caps on some upper surfaces; no slabs or paving."
         },
         {
           "variant": "shelled_w",
@@ -5565,7 +5738,7 @@
         }
       ],
       "edges": "Ground tiles are chosen by context: the renderer blends the material towards the seasonal meadow on\nevery side whose neighbour is not the same material, so a crater or stone patch never ends in a hard\nedge. Context-tile features stay inside the hex; only meadow and fine scatter reach the border. The\nsummer crater stamp spans its four-cell cluster as one continuous scene, with transparent edges over\nthe shared meadow. Both summer four-hex clusters use it; the southern crater pair remains open.\nSummer boulder stamps replace per-hex stone art across their complete clusters, preserving transparent\ngaps over the shared meadow; winter stone art retains its context tiles.",
-      "post": "`art-review -ground art/pipeline/ground-terrain-v1.json` projects the five materials into context tiles\nkeyed by season, centre and the six neighbours (`context/ground/<key>`); the crater is placed as a\ncentred feature. Winter variants come from their own masters. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.\n\n`tools/terrain-stamps` exports `crater-stamp.png` (native 1536x1024) through\n`art/pipeline/feature-stamps-v1.json`. The full source preserves its aspect at 180x120 logical, anchor\n`[90,60]`, centred on the cluster's northernmost hex: 2x 360x240 and 4x 720x480 under\n`assets/terrain/ground/`. Still a candidate.\nGenerated with built-in imagegen; the local PULSE `RefDesign2.png` informed the style, without editing\nthe reference painting.\n\nThe same stamp manifest exports three summer boulder ground candidates from their full sources,\npreserving aspect and alpha. `boulders-single.png` (native 1374x1145) uses 96x80 logical, anchor\n`[48,40]`, exporting 2x 192x160 and 4x 384x320. `boulders-four.png` (native 1536x1024) uses 240x160\nlogical, anchor `[49,40]`, exporting 2x 480x320 and 4x 960x640. `boulders-five.png` (native 1374x1145)\nuses 240x200 logical, anchor `[120,40]`, exporting 2x 480x400 and 4x 960x800. All exports live under\n`assets/terrain/ground/`; anchors register each scene on its cluster's first cell. These masters were\ngenerated with built-in imagegen using the local PULSE reference for style only and remain candidates.",
+      "post": "`art-review -ground art/pipeline/ground-terrain-v2.json` projects the five materials into context tiles\nkeyed by season, centre and the six neighbours (`context/ground/<key>`); the crater is placed as a\ncentred feature. `mud_feature` and `shelled_feature` select direct full-source compact earthworks over\ntheir seasonal meadow, preserving one complete crater without mirrored sampling. Rough and stone\nmaterials retain the periodic mirrored two-coset field sampler: their runtime fields preserve the\nmaterial vocabulary, rather than each source boulder's exact composition. Summer PULSE boulder clusters\nuse the separate approved transparent stamps. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320)\nwith complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.\n\n`tools/terrain-stamps` exports `ground-crater-summer-v1.png` (native 1536x1024) through\n`art/pipeline/feature-stamps-v1.json`. The full source preserves its aspect at 180x120 logical, anchor\n`[90,60]`, centred on the cluster's northernmost hex: 2x 360x240 and 4x 720x480 under\n`assets/terrain/ground/`. Still a candidate.\nGenerated with built-in imagegen; the local PULSE `RefDesign2.png` informed the style, without editing\nthe reference painting.\n\nThe same stamp manifest exports three summer boulder ground candidates from their full sources,\npreserving aspect and alpha. `ground-boulders-single-summer-v1.png` (native 1374x1145) uses 96x80 logical, anchor\n`[48,40]`, exporting 2x 192x160 and 4x 384x320. `ground-boulders-four-summer-v1.png` (native 1536x1024) uses 240x160\nlogical, anchor `[49,40]`, exporting 2x 480x320 and 4x 960x640. `ground-boulders-five-summer-v1.png` (native 1374x1145)\nuses 240x200 logical, anchor `[120,40]`, exporting 2x 480x400 and 4x 960x800. All exports live under\n`assets/terrain/ground/`; anchors register each scene on its cluster's first cell. These masters were\ngenerated with built-in imagegen using the local PULSE reference for style only and remain candidates.\n\n\n### Native v2 materials\n\nThe five selected opaque fields were generated with the built-in imagegen tool at native 1374×1145 RGB\n(6:5). Summer mud follows the approved crater material. Summer stone follows the approved rounded-boulder\nscatter. Winter shelled and stony fields edit their respective summer geometry; rough winter is a new field.\nCanonical seasonal meadow and the approved transparent crater and boulder stamps remain unchanged.\nThe shared earth-bank master is native 1254×1254 RGB and is pinned by the connected infrastructure manifests.\n\n#### ground-mud-summer-v2.png\n\n```text\nUse case: stylized-concept. Newly authored continuous hand-painted digital illustration for a rural European WWI strategy map, 1914–1918. Fine believable earth, grass and stone material detail, like the supplied reference. Strict top-down orthographic nadir camera; no tilted perspective or horizon. Soft diffuse upper-left daylight, short soft lower-right shadows. Restrained natural palette, crisp antialiased details, no pixels, vector shapes, photograph or 3D rendering. No text, labels, borders, grid, hex outline, vignettes, weapons, buildings or people. Opaque full-bleed landscape 6:5 material field, ideally 1536×1280. Reference image is the approved crater cutout: follow its fine cracked-earth material, rounded stones, radial fissures and warm olive floor, creating a new opaque full terrain field. One centred round shell crater/earthwork occupies 70 percent of the canvas width, complete inside the frame: low raised scalloped tan and umber rim, deeply articulated cracked clods, dark inner cut bank, shallow olive grassy floor. Tiny gravel apron and scattered olive grass tufts. Warm olive meadow with fine grass blades, straw scratches and sparse pale seed specks continues to every canvas edge, average around RGB105,113,38. Keep the crater complete, one ring only, no multiple impacts. No black abyss, tunnels, dramatic cliff or outer shadow mat.\n```\n\n#### ground-stone-summer-v2.png\n\n```text\nUse case: stylized-concept. Newly authored continuous hand-painted digital illustration for a rural European WWI strategy map, 1914–1918. Fine believable earth, grass and stone material detail, like the supplied reference. Strict top-down orthographic nadir camera; no tilted perspective or horizon. Soft diffuse upper-left daylight, short soft lower-right shadows. Restrained natural palette, crisp antialiased details, no pixels, vector shapes, photograph or 3D rendering. No text, labels, borders, grid, hex outline, vignettes, weapons, buildings or people. Opaque full-bleed landscape 6:5 material field, ideally 1536×1280. Reference image is the approved rounded-boulder scatter: preserve its natural rounded grey-beige stone forms, moss and fine painted detail, creating a new opaque full terrain field. Warm olive meadow covers the entire canvas edge to edge, average ground about RGB105,113,38, with fine grass blades, straw scratches and sparse pale seed-head specks. Uneven natural scatter of about 25 rounded grey and warm grey-beige boulders in several loose irregular clusters, varied sizes plus small pebble clusters, subtle olive moss, grass tufts and very small low shrubs around some stones. Stones occupy 20–25 percent of the field. Grass remains fully visible between every cluster. Each boulder reads as a small raised rounded rock with irregular natural surface, soft highlights and short soft shadow. No flat grey plate, slabs, paving, flagstones, cobbles, continuous stone surface, quarry, mountain, paths or crater.\n```\n\n#### ground-rough-winter-v2.png\n\n```text\nUse case: stylized-concept. Newly authored continuous hand-painted digital illustration for a rural European WWI strategy map, 1914–1918. Fine believable earth, grass and stone material detail, like the supplied reference. Strict top-down orthographic nadir camera; no tilted perspective or horizon. Soft diffuse upper-left daylight, short soft lower-right shadows. Restrained natural palette, crisp antialiased details, no pixels, vector shapes, photograph or 3D rendering. No text, labels, borders, grid, hex outline, vignettes, weapons, buildings or people. Opaque full-bleed landscape 6:5 material field, ideally 1536×1280. Frozen winter rough ground, churned irregular brown and grey-brown clods, exposed crumbly earth, dry dead straw and flattened low brush. About 45 percent settled ivory-white snow between clods and over small upper surfaces, 35 percent brown clods, 18 percent faded straw and brush, rare tiny grey pebble. Fine cracks and tiny roots show in exposed earth. Cool restrained snow shadows and warm muted earth, calm overall values. Natural uneven material field, no single central feature, no large drift, crater, ring, deep holes, footprints, tracks, flagstones, patterned circles or rounded repeated pillows.\n```\n\n#### ground-shelled-winter-v2.png\n\n```text\nUse case: lighting-weather. Edit target is supplied full opaque 6:5 summer crater field. Preserve exact canvas, strict nadir camera, crater centre, footprint, cracked radial rim geometry, cut bank, floor and every stone location. Change season to winter only: thin settled ivory snow coats about one third of the surface, resting on raised cracked tan rim clods and filling some fissures, leaving broad exposed brown-earth floor and broken cut bank visible. Olive grass becomes faded straw poking through sparse snow outside the crater. A broad broken shell crater remains the single complete central feature, with partially collapsed cracked rim, no additional craters or neat geometric new ring. Finely hand-painted believable WWI aerial-map material detail, diffuse upper-left light and short soft lower-right shadows. Snow is thin and settled, not deep rounded drifts. No footprints, tracks, objects, black abyss, text, border, vignette, grid, pixel art, photograph or 3D look. Fully opaque, edge-to-edge field.\n```\n\n#### ground-stony-winter-v2.png\n\n```text\nUse case: lighting-weather. Edit target is supplied full opaque 6:5 summer boulder meadow. Preserve exact canvas, strict nadir camera, every boulder/pebble location, rounded rock size, silhouette, moss and surface cracks, and all gaps between the clusters. Change season to winter only: cool ivory-white settled snow covers the meadow between the rounded grey-beige boulders, with thin snow caps on some upper surfaces, muted moss and a few faded straw tips. Rounded rock sides remain clearly exposed; about half scene snow and half rock/exposed ground. Keep the same detailed hand-painted WWI aerial-map style, diffuse upper-left lighting and short soft blue-grey lower-right shadows. No flat stone plate, flagstones, slabs, paving, cobbles, new boulders, moved objects, deep drift, footprints, tracks, text, grid, outlines, vignette, pixel art, photograph or 3D look. Fully opaque edge-to-edge field.\n```",
       "avoid": [
         "visible tiling or repeated rounded \"pillow\" patterns",
         "perspective, horizon or tilted camera",
@@ -5589,7 +5762,8 @@
           "assets/terrain/ground/stoney_w-4x.png",
           "assets/terrain/ground/crater-stamp-4x.png",
           "assets/terrain/ground/boulders-single-4x.png",
-          "assets/terrain/ground/boulders-four-4x.png"
+          "assets/terrain/ground/boulders-four-4x.png",
+          "assets/terrain/ground/boulders-five-4x.png"
         ]
       }
     },
@@ -5606,25 +5780,31 @@
       "prompt": "art/terrain/hills/prompt.md",
       "masters": [
         {
-          "path": "art/terrain/hills/height.png",
+          "path": "art/terrain/hills/hills-scrub-summer-v2.png",
+          "sha256": "ed9909f7f7cadcfa744f31c215505008596b123fb1b439ac01820af1bf305747",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/terrain/hills/hills-height-shared-v1.png",
           "sha256": "31b342bb5d98f26b59d5015c371c6f88327ec9cfd9caed38ef177bc48cbeb102",
           "width": 1254,
           "height": 1254
         }
       ],
       "look": "Rolling hill country. The reference paints hills as meadow (average about RGB 103,109,39) with darker\nscrub clumps, small bushes and only gentle, barely visible relief; rocky rises belong to mountain and\nmount. The tile must read as hills through soft modelling and scrub, not through peaks.",
-      "base_prompt": "Opaque square grayscale height-control image for continuous rolling terrain, not a lit artwork.\nStrict vertical plan view. Values encode elevation only: dark low valleys, mid-grey slopes, pale high\nridges. Two broad asymmetric, gently winding, interconnected ridges separated by a shallow saddle; the\nmain ridge sweeps from upper left through the upper middle towards lower right, a smaller branch flows\nto the lower left. Exceptionally smooth, broad, organic gradients, most values between 20 and 85\npercent grey. No lighting, shadows, contour bands, noise, texture, objects or isolated cones.",
+      "base_prompt": "Opaque full-bleed scrub meadow, strict vertical plan view. Warm olive fine grass with many irregular\nsmall dark moss-green bramble bushes, coarse weeds, dry twig flecks and scattered tiny pebbles.\nKeep open meadow between scrub clumps and barely perceptible relief. No craters, holes, rings, bowls,\nisolated mounds, mountain peaks, cliffs or bare rock faces. The exact native generation prompt follows below.",
       "variants": [
         {
           "variant": "hills",
           "runtime_ids": [
             "hills"
           ],
-          "delta": "The height map above; the meadow, scrub and shading come from the renderer."
+          "delta": "Painted scrub meadow; the renderer blends into canonical meadow at grass-facing edges."
         }
       ],
-      "edges": "The height field is sampled on the absolute map lattice (phase 568x320), so relief continues across\nneighbouring hills hexes and fades to flat meadow at edges shared with other terrain.",
-      "post": "`art-review -hills art/pipeline/hills-terrain-v1.json` lights the meadow with the height map into context\ntiles keyed by neighbours and lattice phase (`context/hills/<key>`). Summer only. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.",
+      "edges": "The painted material uses the absolute grass lattice and blends through a 7..19 world-pixel distance\ngate at grass-facing edges. The final four-world-pixel border exactly matches canonical meadow.",
+      "post": "`art-review -hills art/pipeline/hills-terrain-v2.json` exports painted meadow into context tiles keyed by\nneighbours and lattice phase (`context/hills/<key>`). Painted mode applies no height lighting or isolated\nbump. Summer only. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open\nhex ownership. The v1 manifest retains the older optional height workflow.\n\n\n### Native v2 generation\nThe selected v2 master is painted scrub meadow. Height mode remains available through the v1 manifest; the v2 manifest blends the painted material into canonical grass, with no height-derived lighting or isolated bump.\n\nGenerated with the built-in imagegen tool. Dimensions below describe the actual output.\n\n#### Painted scrub master (1536×1024 RGB)\n\n```text\nUse case: precise-object-edit. Asset type: opaque full-bleed 1536x1024 painted scrub-meadow material for gently rolling hill country. Edit the supplied summer meadow material, preserving its warm olive grass palette, nadir camera and fine blade scale. Add many irregular small clumps of dense low wild scrub, bramble bushes and coarse dark moss-green weeds covering about 25 percent of the canvas, distributed naturally with asymmetric gaps. Scrub is low, not tree crowns: fine leaves, little pale dry twig flecks, short soft lower-right shadows and modest upper-left olive highlights. Leave open meadow between them, tiny grey-beige pebbles and scattered fine straw. Very gentle terrain shape, barely perceptible relief. Finely hand-painted natural aerial map art matching the supplied meadow, no visible tiling. Absolutely no craters, holes, bowls, depressions, rings, isolated mounds, mountain peaks, cliffs, bare rock faces, paths, trees, buildings, water or text. No vignettes or grid.\n```",
       "avoid": [
         "visible tiling or repeated rounded \"pillow\" patterns",
         "perspective, horizon or tilted camera",
@@ -5665,31 +5845,31 @@
       "prompt": "art/terrain/house/prompt.md",
       "masters": [
         {
-          "path": "art/terrain/house/hamlet-v2.png",
+          "path": "art/terrain/house/house-summer-v2.png",
           "sha256": "4442dda756feefb70e0633e8a502e6afccdc7c0f90bb098c8f6152c5156f93de",
           "width": 1315,
           "height": 1197
         },
         {
-          "path": "art/terrain/house/hamlet_w-v2.png",
+          "path": "art/terrain/house/house-winter-v2.png",
           "sha256": "d3928cec757f0588b44d056b409f3ee522f89b37a20eede466b6e7fd005c93be",
           "width": 1315,
           "height": 1197
         },
         {
-          "path": "art/terrain/house/hamlet.png",
+          "path": "art/terrain/house/house-summer-v1.png",
           "sha256": "4e20895a10f9563d9429cda3cbe8825a8525c37cab0b2e5be78c9254b6d216d4",
           "width": 1448,
           "height": 1086
         },
         {
-          "path": "art/terrain/house/hamlet_w.png",
+          "path": "art/terrain/house/house-winter-v1.png",
           "sha256": "7096508ef69bfd4bccf6105a275c1598e9b51a0b88f9a02ae06c16838fe9f762",
           "width": 1448,
           "height": 1086
         }
       ],
-      "look": "A single rural building in open meadow. In the reference, houses are square buildings with a grey-brown\nhipped roof of weathered shingles, each with a smaller shed beside it and a bush or small tree nearby,\nabout a quarter of a hex across.\nThe selected summer and winter candidates are `hamlet-v2.png` and `hamlet_w-v2.png`: one square\nhouse with a hipped shingle roof and an adjacent woodshed; winter preserves the building geometry.",
+      "look": "A single rural building in open meadow. In the reference, houses are square buildings with a grey-brown\nhipped roof of weathered shingles, each with a smaller shed beside it and a bush or small tree nearby,\nabout a quarter of a hex across.\nThe selected summer and winter candidates are `house-summer-v2.png` and `house-winter-v2.png`: one square\nhouse with a hipped shingle roof and an adjacent woodshed; winter preserves the building geometry.",
       "base_prompt": "Transparent single-building cut-out, strict nadir view: one compact square timber hut with a weathered\ngrey-brown shingle hipped roof, four sloped planes meeting at a very short ridge, a small chimney and a\nthin shadow-side eave. A smaller woodshed stands adjacent on the lower right; a few threshold stones\nand a minimal mossy fringe ground the buildings. Continuous hand-painted material detail, diffuse\nupper-left light and short soft lower-right shadows, with generous transparent margins. No text,\ngrid, hex outline, people, checkerboard, photographic texture or 3D rendering.\n\nFor the winter edit, preserve the selected summer painting's camera, canvas dimensions, house\nfootprint, woodshed placement and roof geometry. Add thin patchy ivory snow on the four roof planes\nand sheltered ground, keeping shingles visible along the ridge and eaves; mute vegetation to dormant\ntones and cool the shadows. Retain the same hand-painted treatment, upper-left light, transparent\nmargins and exclusions.",
       "variants": [
         {
@@ -5708,7 +5888,7 @@
         }
       ],
       "edges": "The building sits inside the hex with meadow around it; only the shared seasonal meadow reaches the\nhex edges.",
-      "post": "`art-review -compound art/pipeline/compound-hamlet-v1.json` places the cut-out on the seasonal meadow at a\nfixed inset. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.\nThe manifest selects `hamlet-v2.png` and `hamlet_w-v2.png`, each native 1315x1197, at inset 0.75.\nThe earlier `hamlet.png` and `hamlet_w.png` masters are retained. Both selected seasons remain candidates.\nGenerated with built-in imagegen, with winter edited from the selected summer painting. The local\nPULSE `RefDesign2.png` informed the style; the reference painting itself was not edited.",
+      "post": "`art-review -compound art/pipeline/compound-hamlet-v1.json` places the cut-out on the seasonal meadow at a\nfixed inset. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.\nThe manifest selects `house-summer-v2.png` and `house-winter-v2.png`, each native 1315x1197, at inset 0.75.\nThe earlier `house-summer-v1.png` and `house-winter-v1.png` masters are retained. Both selected seasons remain candidates.\nGenerated with built-in imagegen, with winter edited from the selected summer painting. The local\nPULSE `RefDesign2.png` informed the style; the reference painting itself was not edited.",
       "avoid": [
         "visible tiling or repeated rounded \"pillow\" patterns",
         "perspective, horizon or tilted camera",
@@ -5755,20 +5935,32 @@
       "prompt": "art/terrain/hq/prompt.md",
       "masters": [
         {
-          "path": "art/terrain/hq/hq.png",
+          "path": "art/terrain/hq/hq-summer-v2.png",
+          "sha256": "89197d76ed6b1eb232678745b77741b02990992f6a62151765bdd78509f2c164",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/terrain/hq/hq-winter-v2.png",
+          "sha256": "4b3d4ec218af63e0ee07ea20918703f2a2043c2fd9e7768d5f53a6ebac81ae7d",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/terrain/hq/hq-summer-v1.png",
           "sha256": "e1969c97d59312aee5bd43fcebd332357fd787344afaf6d05e29e36c1b53e4a9",
           "width": 1243,
           "height": 1265
         },
         {
-          "path": "art/terrain/hq/hq_w.png",
+          "path": "art/terrain/hq/hq-winter-v1.png",
           "sha256": "1fb27001f23797ac98f36b95baf9cc5b6f1f5459df32a18e980b485f1cc96204",
           "width": 1243,
           "height": 1265
         }
       ],
       "look": "A walled fortress filling a seven-hex rosette. In the reference it has four round white-grey corner\ntowers, pale stone curtain walls, an inner hall and a red-roofed gatehouse in the north wall; the road\nenters through the north gate over a bridge.",
-      "base_prompt": "Transparent whole-scene cut-out, about 1243x1265, strict nadir roof plan: a compact walled fortress with\nfour round pale-grey stone corner towers with dark conical slate tops, straight curtain walls with\nwalkways, a red tiled gatehouse centred in the north wall, a tan earth courtyard with an inner hall, a\nnarrow moat and bridge on the north side, and two small irregular bushes behind the south wall. The\nnorth entrance road is a grey asphalt carriageway centred on the canvas and touching the top edge.\nEverything stays inside the seven-hex rosette outline (238x240 world pixels); outside is alpha zero.",
+      "base_prompt": "Transparent square whole-scene cut-out, strict nadir roof plan: a compact walled fortress with\nfour round pale-grey stone corner towers with dark conical slate tops, straight curtain walls with\nwalkways, a red tiled gatehouse centred in the north wall, a tan earth courtyard with an inner hall, a\nnarrow moat and bridge on the north side, and two small irregular bushes behind the south wall. The\nnorth entrance road is a grey asphalt carriageway centred on the canvas and touching the top edge.\nEverything stays inside the seven-hex rosette outline (238x240 world pixels); outside is alpha zero.",
       "variants": [
         {
           "variant": "cell N",
@@ -5841,7 +6033,7 @@
         }
       ],
       "edges": "The scene is sliced into seven hex crops with shared placements, so pieces join exactly; the north\nroad meets the regular road tile at the north port with the same width and colour.",
-      "post": "`art-review -compound art/pipeline/compound-hq-v1.json` places the summer and winter scenes on the seasonal\nmeadow and slices the seven cells; both seasons share exact placement. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.",
+      "post": "Selected sources are the native 1254x1254 `hq-summer-v2.png` and `hq-winter-v2.png`, generated with built-in\nimagegen and true alpha. The summer prompt requests four round drum towers with low slate roofs,\nred terracotta north gate and south inner hall, a textured dirt courtyard, narrow northern moat and\nbridge, and a centred grey entrance road. PULSE is the layout/style reference; `ground-crater-summer-v1.png`\nis the material-detail reference. The winter edit requests only patchy settled snow and dormant\nvegetation, preserving every building, road, prop and silhouette. The current candidate has visible\nshort wall faces; the requested camera remains nadir.\n\n`art-review -compound art/pipeline/compound-hq-v2.json` places the summer and winter scenes on the seasonal\nmeadow and slices the seven cells; both seasons share exact placement. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.",
       "avoid": [
         "visible tiling or repeated rounded \"pillow\" patterns",
         "perspective, horizon or tilted camera",
@@ -5864,7 +6056,13 @@
           "assets/terrain/hq/hqNE-4x.png",
           "assets/terrain/hq/hqNE_w-4x.png",
           "assets/terrain/hq/hqNW-4x.png",
-          "assets/terrain/hq/hqNW_w-4x.png"
+          "assets/terrain/hq/hqNW_w-4x.png",
+          "assets/terrain/hq/hqS-4x.png",
+          "assets/terrain/hq/hqS_w-4x.png",
+          "assets/terrain/hq/hqSE-4x.png",
+          "assets/terrain/hq/hqSE_w-4x.png",
+          "assets/terrain/hq/hqSW-4x.png",
+          "assets/terrain/hq/hqSW_w-4x.png"
         ]
       }
     },
@@ -5889,14 +6087,20 @@
       "prompt": "art/terrain/lakeside/prompt.md",
       "masters": [
         {
-          "path": "art/terrain/lakeside/bank.png",
+          "path": "art/terrain/lakeside/lakeside-bank-shared-v2.png",
+          "sha256": "f8f7adb6436071ab7210480a8c63446b6d0bcf21c7bfa6c21c33662f31d616a4",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/terrain/lakeside/lakeside-bank-shared-v1.png",
           "sha256": "d43b40a2ed64e95cbb6afdacca4a384a39ec59c8a54d05bdcbe77a60e6aa6613",
           "width": 1254,
           "height": 1254
         }
       ],
-      "look": "Shore between lake and meadow. In the reference a band of rounded pale boulders and stones (cream,\nwarm grey, sand) separates clear blue-teal water from grass, with small shrubs on the land side.",
-      "base_prompt": "Opaque square material swatch of a stony lake shore seen from above: tightly packed rounded and\nflattened pale stones and pebbles in cream, warm grey and light sand, a few larger smooth boulders,\nolive-grey dirt and moss between them, darker wet crevices; even scale and brightness to every edge.\nNo water, grass, horizon, paving or regular tessellation.",
+      "look": "Shore between lake and meadow with rounded warm grey and brown-grey boulders, damp dark crevices\nand olive moss. Selected master `lakeside-bank-shared-v2.png` is a native 1254×1254 opaque built-in image-tool output;\nthe request for 1536×1536 did not determine the delivered dimensions.",
+      "base_prompt": "Use case: stylized-concept. Generate a NEW opaque square 1536x1536 material swatch for rural European stony lake shores in a WWI tactical game. The attached PULSE painting is a style/color reference, the attached crater painting is a reference for native detailed painted material finish only; do not copy either subject or scene. Strict vertical nadir, no tilt. The entire canvas is irregular naturally rounded and flattened boulders, cobbles and pebbles in weathered warm grey, earthy brown-grey and muted beige, with darker charcoal wet crevices, damp brown soil, olive moss in gaps and occasional small grains. Medium sized rounded rocks occupy about 6 to 12 percent of the canvas width each, with smaller companion stones, many irregular shapes, varied orientation. Enough rounded sculptural boulders to read clearly when this swatch becomes a narrow bank on a small map. Fine cracks, tiny mica and moss detail, restrained upper-left highlights, short soft lower-right shade. Natural continuous hand-painted digital game illustration, crisp antialiased edges and fine brushwork like the crater reference. Uniform brightness and density right to every edge. This is one continuous opaque material, no framing. Avoid white chalk/gravel dominance, flat white fringe, regular cobblestone paving, all-white stones, crystal forms, cartoony blobs, visible repeating pattern, grid, text, hex outlines, water, grass fields, horizon, gradient, vignette, pixel art, photoreal photo, 3D render. 1536x1536 square.",
       "variants": [
         {
           "variant": "lakeside12",
@@ -5963,7 +6167,7 @@
         }
       ],
       "edges": "Land and water are defined on the shared hex vertices, so neighbouring shore, water and meadow tiles\nagree at every edge and three-tile corner; the stone bank follows the boundary through the tile.",
-      "post": "`art-review -shore art/pipeline/shore-terrain-v1.json` composes meadow, water and this bank material per\nvariant from the explicit land vertices. Summer only. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.",
+      "post": "`art-review -shore art/pipeline/shore-terrain-v2.json` composes meadow, water and this bank material per\nvariant from the explicit land vertices. Summer only. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.\n\nThe selected manifest opts into `authored-rocks-v1`: one uniformly cropped authored bank sample at\n35.5×20 logical-pixel periods, with 8 percent seam overlap and no mirrored coset average. Rounded\nrock faces remain about 2–5 logical pixels; the bank extends landward before blending into meadow.\nWater uses the matching 71×40-period authored sampler. Existing corner masks remain unchanged.",
       "avoid": [
         "visible tiling or repeated rounded \"pillow\" patterns",
         "perspective, horizon or tilted camera",
@@ -5986,7 +6190,8 @@
           "assets/terrain/lakeside/lakeside16-4x.png",
           "assets/terrain/lakeside/lakeside23-4x.png",
           "assets/terrain/lakeside/lakeside34-4x.png",
-          "assets/terrain/lakeside/lakeside3456-4x.png"
+          "assets/terrain/lakeside/lakeside3456-4x.png",
+          "assets/terrain/lakeside/lakeside56-4x.png"
         ]
       }
     },
@@ -6010,20 +6215,32 @@
       "prompt": "art/terrain/mount/prompt.md",
       "masters": [
         {
-          "path": "art/terrain/mount/mountain.png",
+          "path": "art/terrain/mount/mount-summer-v2.png",
+          "sha256": "3a61b2700d4570871df5f3a02c13de6947934411c362982ada86c63e7a2d3324",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/terrain/mount/mount-winter-v2.png",
+          "sha256": "04f1172494c9114eec8f11b7eb9da071f65c65f017bb4d8ee9a83639cfd0e26b",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/terrain/mount/mount-summer-v1.png",
           "sha256": "3b9e7f1b6183845f5eacf621a12af48adb0e3dd071363a948838906143ba932f",
           "width": 1254,
           "height": 1254
         },
         {
-          "path": "art/terrain/mount/mountain_w.png",
+          "path": "art/terrain/mount/mount-winter-v1.png",
           "sha256": "d1e08f8261aaba528bd4e2db1003af357fbe720888b0725cfc475de43cb7fe76",
           "width": 1254,
           "height": 1254
         }
       ],
       "look": "A grassy massif over a four-hex diamond. In the reference it is a broad ridge of long grassy slopes\nwith bands of dark scrub and bare grey-beige rock along the crest (average about RGB 94,98,45).",
-      "base_prompt": "Transparent terrain cut-out, square, strict nadir view: a broad, low, grassy massif with long rounded\nslopes of olive meadow, darker green scrub bands in the folds and a crest of weathered warm grey-beige\nrock slabs with olive moss in the cracks. Soft relief modelled by the upper-left light, short soft\nshadows to the lower right. Irregular outline, generous transparent margin. No summit cone, snow,\ntrees, paths or buildings.",
+      "base_prompt": "Transparent terrain cut-out, 3:2, strict nadir view: a broad, low, grassy massif with long rounded\nslopes of olive meadow, darker green scrub bands in the folds and a crest of weathered warm grey-beige\nrock slabs with olive moss in the cracks. Soft relief modelled by the upper-left light, short soft\nshadows to the lower right. Irregular outline, generous transparent margin. No summit cone, snow,\ntrees, paths or buildings.",
       "variants": [
         {
           "variant": "cell N",
@@ -6069,7 +6286,7 @@
         }
       ],
       "edges": "Sliced into four hex crops with shared placements; slopes fade into the seasonal meadow before the\nouter edges of the diamond.",
-      "post": "`art-review -compound art/pipeline/compound-mountain-v1.json` scales the mountain master into the four-cell\nscene for both seasons and slices it. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.",
+      "post": "Selected sources are native 1536x1024 `mount-summer-v2.png` and `mount-winter-v2.png`, generated with built-in\nimagegen and true alpha. The summer prompt requests a low broad grass-dominant ridge, long rounded\nfolds, darker scrub bands and a broken warm grey-beige rocky crest, with irregular alpha margins.\nPULSE supplies the grass-covered relief/style reference and `ground-crater-summer-v1.png` the fine material\ndetail. The winter edit changes only thin settled snow and dormant vegetation, preserving the\ncrest, every slab and grassy fold. Single-cell fallback tiles use the same sources; the independently\nselected summer knoll standing stamps remain separate.\n\n`art-review -compound art/pipeline/compound-mountain-v2.json` scales the mountain master into the four-cell\nscene for both seasons and slices it. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.",
       "avoid": [
         "visible tiling or repeated rounded \"pillow\" patterns",
         "perspective, horizon or tilted camera",
@@ -6114,13 +6331,13 @@
       "prompt": "art/terrain/mountain/prompt.md",
       "masters": [
         {
-          "path": "art/terrain/mountain/knoll-standing.png",
+          "path": "art/terrain/mountain/mountain-knoll-single-summer-v1.png",
           "sha256": "fe04cbef45e855f903979631d6abc5684a159c78076db5086e1d8ed378bd6c8f",
           "width": 1374,
           "height": 1145
         },
         {
-          "path": "art/terrain/mountain/knoll-group.png",
+          "path": "art/terrain/mountain/mountain-knoll-group-summer-v1.png",
           "sha256": "0a33540188bc0f1860d4d99bbbe6164572add8529bf15749738c4f6c42c3940a",
           "width": 1536,
           "height": 1024
@@ -6161,7 +6378,7 @@
         }
       ],
       "edges": "The summer single-knoll standing cut-out extends across hex edges with an irregular grassy skirt and\ntransparent margins over the shared meadow. The eastern group uses its own continuous standing\npainting. Both ground stamp layers are transparent. Winter knolls retain the compound exports below.",
-      "post": "Derived from the mount masters (`art/terrain/mount/`): `art-review -compound\nart/pipeline/compound-mountain-v1.json` places the single-cell scene for both seasons. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.\n\nFor summer single knolls, `tools/terrain-stamps` exports the full native 1374x1145\n`knoll-standing.png` through `art/pipeline/feature-stamps-v1.json`, preserving aspect at 144x120 logical\nand anchor `[72,60]`. Both the transparent ground and standing layers have 2x 288x240 and 4x 576x480\nexports under `assets/terrain/mountain/`. The new source remains a candidate.\nThe eastern group uses native 1536x1024 `knoll-group.png`, canvas 240x160 logical and anchor `[191,40]`;\nground and standing exports are 480x320 at 2x and 960x640 at 4x. The anchor registers its upper-right\nknoll to the group's first cell. This is also candidate art.\nGenerated with built-in imagegen; the local PULSE `RefDesign2.png` informed the style, without editing\nthe reference painting.",
+      "post": "Derived from the mount masters (`art/terrain/mount/`): `art-review -compound\nart/pipeline/compound-mountain-v1.json` places the single-cell scene for both seasons. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.\n\nFor summer single knolls, `tools/terrain-stamps` exports the full native 1374x1145\n`mountain-knoll-single-summer-v1.png` through `art/pipeline/feature-stamps-v1.json`, preserving aspect at 144x120 logical\nand anchor `[72,60]`. Both the transparent ground and standing layers have 2x 288x240 and 4x 576x480\nexports under `assets/terrain/mountain/`. The new source remains a candidate.\nThe eastern group uses native 1536x1024 `mountain-knoll-group-summer-v1.png`, canvas 240x160 logical and anchor `[191,40]`;\nground and standing exports are 480x320 at 2x and 960x640 at 4x. The anchor registers its upper-right\nknoll to the group's first cell. This is also candidate art.\nGenerated with built-in imagegen; the local PULSE `RefDesign2.png` informed the style, without editing\nthe reference painting.",
       "avoid": [
         "visible tiling or repeated rounded \"pillow\" patterns",
         "perspective, horizon or tilted camera",
@@ -6212,14 +6429,20 @@
       "prompt": "art/terrain/path/prompt.md",
       "masters": [
         {
-          "path": "art/terrain/path/earth.png",
+          "path": "art/terrain/path/path-earth-shared-v2.png",
+          "sha256": "74c7da959f97e5c1432e97c223c6553432badd2b86978464d52ff76c9940b572",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/terrain/path/path-earth-shared-v1.png",
           "sha256": "eaae81c8dfea2ad506a02b80005d4ba94784b3827fa0ac6ee50d99e48519f04b",
           "width": 1374,
           "height": 1145
         }
       ],
       "look": "Narrow earth track. In the reference it is a pale tan dirt track with two faint wheel ruts and a thin\ndarker edge, meadow growing right up to it.",
-      "base_prompt": "Opaque 6:5 material canvas, filled edge to edge with warm muted tan compacted fine earth: tiny sandy\ngrains, very occasional minute rounded pebbles, quiet low-contrast variation; dusty ochre-greige,\nlighter and warmer than mud, distinct from grey asphalt. Do not draw a path silhouette, verges, ruts,\ngrass or objects: the renderer cuts the track.",
+      "base_prompt": "Opaque square material canvas, filled edge to edge with warm muted tan compacted fine earth: tiny sandy\ngrains, very occasional minute rounded pebbles, quiet low-contrast variation; dusty ochre-greige,\nlighter and warmer than mud, distinct from grey asphalt. Do not draw a path silhouette, verges, ruts,\ngrass or objects: the renderer cuts the track.",
       "variants": [
         {
           "variant": "path125",
@@ -6321,7 +6544,7 @@
         }
       ],
       "edges": "The path is 7 world pixels wide with a 0.75-pixel earth border, centred on the shared port centres and\ncontinuing through each port.",
-      "post": "`art-review -connected art/pipeline/connected-paths-v1.json` cuts the earth material to each port set over\nmeadow. Season-neutral. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.",
+      "post": "`art-review -connected art/pipeline/connected-paths-v2.json` cuts the earth material to each port set over\nmeadow. Season-neutral. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.\n\nThe selected built-in imagegen master is native 1254×1254 RGB, with irregular fine grains and subdued\nwear. The former earth source remains a retained draft. The path footprint and ports are unchanged.",
       "avoid": [
         "visible tiling or repeated rounded \"pillow\" patterns",
         "perspective, horizon or tilted camera",
@@ -6343,7 +6566,13 @@
           "assets/terrain/path/path14-4x.png",
           "assets/terrain/path/path15-4x.png",
           "assets/terrain/path/path24-4x.png",
-          "assets/terrain/path/path25-4x.png"
+          "assets/terrain/path/path25-4x.png",
+          "assets/terrain/path/path26-4x.png",
+          "assets/terrain/path/path346-4x.png",
+          "assets/terrain/path/path35-4x.png",
+          "assets/terrain/path/path356-4x.png",
+          "assets/terrain/path/path36-4x.png",
+          "assets/terrain/path/path46-4x.png"
         ]
       }
     },
@@ -6355,39 +6584,82 @@
       "runtime_ids": [
         "rBridge14",
         "rBridge25",
-        "rBridge36"
+        "rBridge36",
+        "standing/rBridge14",
+        "standing/rBridge25",
+        "standing/rBridge36"
       ],
       "dir": "art/terrain/rBridge",
       "assets_dir": "assets/terrain/rBridge",
       "prompt": "art/terrain/rBridge/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/terrain/rBridge/rbridge-14-shared-v1.png",
+          "sha256": "d4078476dd06c5a51645ef0e3b03593a5fcfe23751e280086b18854d0e5549aa",
+          "width": 1486,
+          "height": 1058
+        },
+        {
+          "path": "art/terrain/rBridge/rbridge-25-shared-v1.png",
+          "sha256": "518d114ecdd329ed486e9bfc2fa7eef0a164df5b2f31e9afec02754fc5809b54",
+          "width": 1497,
+          "height": 1051
+        },
+        {
+          "path": "art/terrain/rBridge/rbridge-36-shared-v1.png",
+          "sha256": "1bd48d85e1dbbbc7c24686cbed7021d4bd7a6f1894019ed92aaee7b16fe095c5",
+          "width": 1374,
+          "height": 1145
+        },
+        {
+          "path": "art/terrain/rBridge/rbridge-14-export-shared-v1.png",
+          "sha256": "838ae688c330d8f992d7239fb0701a7b9b8f8a31c51954795b68d2daf1c5acbb",
+          "width": 1152,
+          "height": 960
+        },
+        {
+          "path": "art/terrain/rBridge/rbridge-25-export-shared-v1.png",
+          "sha256": "14602bb852419c378a73219b6fc1e986675e3a51f7d99e3ad52172374f1a5b5b",
+          "width": 1152,
+          "height": 960
+        },
+        {
+          "path": "art/terrain/rBridge/rbridge-36-export-shared-v1.png",
+          "sha256": "72fd6948611535d9c083631ed836f1f2085654ffeedd093ef0b71b3f3d2b2476",
+          "width": 1152,
+          "height": 960
+        }
+      ],
       "look": "Road bridge over a stream. In the reference the asphalt road with its dashed centre line crosses on a\nconcrete deck with low pale parapets, the creek passing underneath between stony banks.",
-      "base_prompt": "Transparent cut-out of a short concrete road bridge seen straight from above: grey asphalt carriageway\nwith off-white edge lines, low pale concrete parapets on both sides, small abutments, soft shadow to the\nlower right. The deck runs straight across the canvas; nothing else.",
+      "base_prompt": "Transparent cut-out of a short concrete road bridge seen straight from above: grey asphalt carriageway\nwith three restrained off-white centre dashes, low pale concrete parapets on both sides, small stone\nabutments, finely cracked and patched tarmac, masonry seams and sparse moss. Strict nadir deck plan,\nsoft upper-left light and short lower-right shadow. The deck runs straight along its declared axis;\nno water, ground, approach road, text, letters, flags or other objects.",
       "variants": [
         {
           "variant": "rBridge14",
           "runtime_ids": [
-            "rBridge14"
+            "rBridge14",
+            "standing/rBridge14"
           ],
-          "delta": "Road bridge straight run between ports 1 NE, 4 SW, over the stream."
+          "delta": "Separately painted NE/SW bridge, axis -29.396 degrees from horizontal."
         },
         {
           "variant": "rBridge25",
           "runtime_ids": [
-            "rBridge25"
+            "rBridge25",
+            "standing/rBridge25"
           ],
-          "delta": "Road bridge straight run between ports 2 SE, 5 NW, over the stream."
+          "delta": "Separately painted SE/NW bridge, axis +29.396 degrees from horizontal."
         },
         {
           "variant": "rBridge36",
           "runtime_ids": [
-            "rBridge36"
+            "rBridge36",
+            "standing/rBridge36"
           ],
-          "delta": "Road bridge straight run between ports 3 S, 6 N, over the stream."
+          "delta": "Separately painted vertical N/S bridge."
         }
       ],
-      "edges": "Carriageway width and centre match the road family exactly, so the road continues through both ports;\nthe stream continues under the bridge through its own ports.",
-      "post": "Derived only: `art-review -mixed art/pipeline/connected-mixed-v1.json` builds road bridges from the road and\nstream materials. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.",
+      "edges": "The finite asphalt deck is registered to 48 logical pixels along its port axis and 22 pixels across,\ncentred on `(48,40)` within a 96x80 canvas. Parapets, posts, stone abutments and a short shadow extend\nbeyond the deck; parapets are irregular and slightly wider than the nominal three pixels per side.\nAn independent road layer provides the approaches and the stream passes underneath.",
+      "post": "Built-in imagegen produced three independent true-alpha paintings: native 1486x1058 (14),\n1497x1051 (25) and 1374x1145 (36). The previous tiles supplied axis references and the selected crater\nsupplied fine material detail. Follow-up prompts widened the asphalt and restored the two diagonals;\nno orientation is a rotated copy of another painting.\n\nThe `-export-` masters apply bounded affine registration and transparent padding at 1152x960\n(12 source pixels per logical pixel). `rbridge-registration-v1.json` records native hashes, dimensions,\nreviewed deck landmarks and every matrix. The smallest native sampling density is 15.09 pixels per\nlogical pixel, so both axes reduce. Small axis corrections retain the painted upper-left light.\n\n`terrain-stamps -manifest art/pipeline/bridge-standing-v1.json` exports the prepared sources as\n`standing/rBridge*`, with 2x 192x160 and 4x 384x320 PNGs and anchor `(48,40)`. The v2 mixed manifest's\n`bridge_artwork: standing` emits transparent road-bridge tile overlays, avoiding the old timber\nunderpainting. The default v1 mixed export remains available with its derived bridge artwork.",
       "avoid": [
         "visible tiling or repeated rounded \"pillow\" patterns",
         "perspective, horizon or tilted camera",
@@ -6396,7 +6668,7 @@
         "arches, towers or perspective"
       ],
       "runtime": {
-        "count": 6,
+        "count": 12,
         "densities": [
           2,
           4
@@ -6404,7 +6676,10 @@
         "samples": [
           "assets/terrain/rBridge/rBridge14-4x.png",
           "assets/terrain/rBridge/rBridge25-4x.png",
-          "assets/terrain/rBridge/rBridge36-4x.png"
+          "assets/terrain/rBridge/rBridge36-4x.png",
+          "assets/terrain/rBridge/rBridge14-standing-4x.png",
+          "assets/terrain/rBridge/rBridge25-standing-4x.png",
+          "assets/terrain/rBridge/rBridge36-standing-4x.png"
         ]
       }
     },
@@ -6432,13 +6707,25 @@
       "prompt": "art/terrain/rail/prompt.md",
       "masters": [
         {
-          "path": "art/terrain/rail/ballast.png",
+          "path": "art/terrain/rail/rail-ballast-shared-v2.png",
+          "sha256": "2c86080514ffdb06553c119e6d628d6a0ba6d491314a3f3e1c01b9ba15bdd0dd",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "art/terrain/rail/rail-steel-shared-v2.png",
+          "sha256": "53c691a6fd802397bc79177ba1c060d4123460dd2efc50aad207cd429876acbb",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/terrain/rail/rail-ballast-shared-v1.png",
           "sha256": "9464088e4a0ec25942b87eda3d229a07f3538d5ad575ef663848ba99fcb0a385",
           "width": 1374,
           "height": 1145
         },
         {
-          "path": "art/terrain/rail/steel.png",
+          "path": "art/terrain/rail/rail-steel-shared-v1.png",
           "sha256": "a8cea787aeb3a319241245e2d439af4b536733b20634f713044ec36897e00551",
           "width": 1374,
           "height": 1145
@@ -6533,7 +6820,7 @@
         }
       ],
       "edges": "The ballast bed is 11 world pixels wide with a 1-pixel earth border, centred on the shared port centres\nand continuing through each port; rails and sleepers run on the same centre line, so track joins\nexactly and crossings line up.",
-      "post": "`art-review -connected art/pipeline/connected-rail-v1.json` cuts the ballast, lays timber sleepers (trench\ntimber material) and steel rails (steel material) along each port set. Season-neutral. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.",
+      "post": "`art-review -connected art/pipeline/connected-rail-v2.json` cuts the ballast, lays timber sleepers (trench\ntimber material) and steel rails (steel material) along each port set. Season-neutral. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.\n\nSelected built-in imagegen masters: ballast is native 1536×1024 RGB; steel is native 1254×1254 RGB.\nThe steel prompt specifies matte weathered dark grey steel, fine scratches, slight oxide and diffuse\nhighlights; no chrome, rail silhouettes or objects. The former material sources remain retained drafts.\nThe ballast footprint, rails and registered ports are unchanged.",
       "avoid": [
         "visible tiling or repeated rounded \"pillow\" patterns",
         "perspective, horizon or tilted camera",
@@ -6556,7 +6843,11 @@
           "assets/terrain/rail/rail24-4x.png",
           "assets/terrain/rail/rail25-4x.png",
           "assets/terrain/rail/rail26-4x.png",
-          "assets/terrain/rail/rail346-4x.png"
+          "assets/terrain/rail/rail346-4x.png",
+          "assets/terrain/rail/rail35-4x.png",
+          "assets/terrain/rail/rail356-4x.png",
+          "assets/terrain/rail/rail36-4x.png",
+          "assets/terrain/rail/rail46-4x.png"
         ]
       }
     },
@@ -6588,7 +6879,13 @@
       "prompt": "art/terrain/road/prompt.md",
       "masters": [
         {
-          "path": "art/terrain/road/asphalt.png",
+          "path": "art/terrain/road/road-asphalt-shared-v2.png",
+          "sha256": "d7cb7df3725dbbb6c874bd53ded8525809718aed4f76945f4d0878dca73a1df6",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/terrain/road/road-asphalt-shared-v1.png",
           "sha256": "a86aa33d3261283f885228a404a4b31ee337c132728f55038c5714a2e46aec44",
           "width": 1254,
           "height": 1254
@@ -6711,7 +7008,7 @@
         }
       ],
       "edges": "The road is 22 world pixels wide with a 2-pixel earth shoulder, centred on the shared port centres and\ncontinuing straight through each port, so it joins the next road tile, bridges and compounds exactly.\nCentre dashes are drawn by the renderer along the centre line.",
-      "post": "`art-review -connected art/pipeline/connected-terrain-v1.json` cuts the asphalt to each port set, adds dashed\nmarkings and earth shoulders (earth bank material) over meadow. Season-neutral. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.",
+      "post": "`art-review -connected art/pipeline/connected-terrain-v2.json` cuts the asphalt to each port set, adds dashed\nmarkings and earth shoulders (earth bank material) over meadow. Season-neutral. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.\n\nThe selected built-in imagegen master is native 1254×1254 RGB. It uses the base prompt above with\nfine irregular aggregate and restrained wear. The former asphalt source remains a retained draft.\nRoad width, ports and markings retain their registered geometry.",
       "avoid": [
         "visible tiling or repeated rounded \"pillow\" patterns",
         "perspective, horizon or tilted camera",
@@ -6735,7 +7032,15 @@
           "assets/terrain/road/road14-4x.png",
           "assets/terrain/road/road145-4x.png",
           "assets/terrain/road/road15-4x.png",
-          "assets/terrain/road/road236-4x.png"
+          "assets/terrain/road/road236-4x.png",
+          "assets/terrain/road/road24-4x.png",
+          "assets/terrain/road/road25-4x.png",
+          "assets/terrain/road/road26-4x.png",
+          "assets/terrain/road/road346-4x.png",
+          "assets/terrain/road/road35-4x.png",
+          "assets/terrain/road/road356-4x.png",
+          "assets/terrain/road/road36-4x.png",
+          "assets/terrain/road/road46-4x.png"
         ]
       }
     },
@@ -6762,14 +7067,20 @@
       "prompt": "art/terrain/stream/prompt.md",
       "masters": [
         {
-          "path": "art/terrain/stream/bank.png",
+          "path": "art/terrain/stream/stream-bank-shared-v2.png",
+          "sha256": "f8f7adb6436071ab7210480a8c63446b6d0bcf21c7bfa6c21c33662f31d616a4",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/terrain/stream/stream-bank-shared-v1.png",
           "sha256": "bec7afdd82d829aa9f3ae08f8e5e06eb8e1b3d1dbec3d8f36c19edfbc99ba0f0",
           "width": 384,
           "height": 320
         }
       ],
-      "look": "Winding creek. In the reference it is clear blue-teal water with a bright network of white ripples,\nlined by banks of rounded pale stones and pebbles, with grass and dark green bushes right beside it.",
-      "base_prompt": "Opaque square material swatch of a stony stream bank seen from above: tightly packed small and\nmedium rounded pale stones and pebbles in warm grey, cream and light sand, a few larger flat stones,\nolive-grey dirt and moss in the gaps, darker wet crevices. Even scale and brightness to all edges; no\nwater, grass, boulders, paving or tessellation.",
+      "look": "Winding blue-teal creek with broken white ripples, rounded brown-grey stony banks and dark wet lips.\nSelected `stream-bank-shared-v2.png` is a byte-identical copy of the new native 1254×1254 lakeside bank master.",
+      "base_prompt": "Use the exact built-in generation prompt recorded in `art/terrain/lakeside/prompt.md`: the selected\nstream bank shares that opaque rounded-rock material without cropping, rescaling or a separate\ngeneration. The matching water material and its exact prompt are in `art/terrain/water/prompt.md`.",
       "variants": [
         {
           "variant": "stream13",
@@ -6850,7 +7161,7 @@
         }
       ],
       "edges": "The water channel is 18 world pixels wide with a 3.5-pixel stony bank, centred on the shared port\ncentres and continuing through each port, so creeks join each other, bridges and the lake shore.",
-      "post": "The bank material is an unchanged crop of the lakeside bank master (`riverbankgfx` generator).\n`art-review -connected art/pipeline/connected-terrain-v1.json` draws the water (shared water material) and banks\nalong each port set over meadow. Season-neutral. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.",
+      "post": "The bank material retains the entire native lakeside master without enlargement.\n`art-review -connected art/pipeline/connected-stream-v2.json` draws the water (shared water material) and banks\nalong each port set over meadow. Season-neutral. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.\n\nThe selected `authored-rocks-v1` bank profile retains individual painted stone faces at about 2–5\nlogical pixels, adds two logical pixels to the landward bank, and samples the authored water glints\nwithout the old mirrored coset average or continuous generated foam line. Core ports stay unchanged.",
       "avoid": [
         "visible tiling or repeated rounded \"pillow\" patterns",
         "perspective, horizon or tilted camera",
@@ -6873,7 +7184,10 @@
           "assets/terrain/stream/stream24-4x.png",
           "assets/terrain/stream/stream246-4x.png",
           "assets/terrain/stream/stream25-4x.png",
-          "assets/terrain/stream/stream26-4x.png"
+          "assets/terrain/stream/stream26-4x.png",
+          "assets/terrain/stream/stream35-4x.png",
+          "assets/terrain/stream/stream36-4x.png",
+          "assets/terrain/stream/stream46-4x.png"
         ]
       }
     },
@@ -6901,13 +7215,25 @@
       "prompt": "art/terrain/trench/prompt.md",
       "masters": [
         {
-          "path": "art/terrain/trench/floor.png",
+          "path": "art/terrain/trench/trench-floor-shared-v2.png",
+          "sha256": "81e2e4a469dace45f1d6a9d4095a90081c239135507becc46b3b34b70d5f4d33",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/terrain/trench/trench-timber-shared-v2.png",
+          "sha256": "30af1ff162eef34687ef60d2034daa176421b84fdd6f7bbf5c1a8e6c4dcd603b",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/terrain/trench/trench-floor-shared-v1.png",
           "sha256": "118093f94da2873b4a66970a0864cd62ab10fd9af0c751c52b90e63f5a872062",
           "width": 1254,
           "height": 1254
         },
         {
-          "path": "art/terrain/trench/timber.png",
+          "path": "art/terrain/trench/trench-timber-shared-v1.png",
           "sha256": "2f74c059d43a9105e1827c8d368416340ce3312e058fd3a84b572735a86c12ed",
           "width": 1254,
           "height": 1254
@@ -7002,7 +7328,7 @@
         }
       ],
       "edges": "The trench is 6 world pixels wide with a 3-pixel earth bank, centred on the shared port centres and\ncontinuing through each port, so trench lines join across hexes.",
-      "post": "`art-review -connected art/pipeline/connected-trench-v1.json` cuts floor, timber and earth bank (ground earth\nbank material) along each port set over meadow. Season-neutral. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.",
+      "post": "`art-review -connected art/pipeline/connected-trench-v2.json` cuts floor, timber and earth bank (ground earth\nbank material) along each port set over meadow. Season-neutral. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.\n\nThe selected built-in imagegen floor and timber masters are each native 1254×1254 RGB. Fine clods,\nroots and worn timber grain replace the simpler material fields. The former sources remain retained\ndrafts. Trench width, joins and spoil-bank geometry are unchanged.",
       "avoid": [
         "visible tiling or repeated rounded \"pillow\" patterns",
         "perspective, horizon or tilted camera",
@@ -7025,7 +7351,11 @@
           "assets/terrain/trench/trench125-4x.png",
           "assets/terrain/trench/trench14-4x.png",
           "assets/terrain/trench/trench15-4x.png",
-          "assets/terrain/trench/trench24-4x.png"
+          "assets/terrain/trench/trench24-4x.png",
+          "assets/terrain/trench/trench25-4x.png",
+          "assets/terrain/trench/trench4-4x.png",
+          "assets/terrain/trench/trench5-4x.png",
+          "assets/terrain/trench/trench5a-4x.png"
         ]
       }
     },
@@ -7043,20 +7373,32 @@
       "prompt": "art/terrain/water/prompt.md",
       "masters": [
         {
-          "path": "art/terrain/water/water.png",
+          "path": "art/terrain/water/water-shared-v2.png",
+          "sha256": "75e798f351616594e8e6d534087f2c7c3bf78b91fea7be3ea0135ae5f7e563a5",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/terrain/water/water-rocks-shared-v2.png",
+          "sha256": "753151971ea378e314149cc3790aa00d7bc82dbf6c896092dbecbb2ce394b018",
+          "width": 1374,
+          "height": 1145
+        },
+        {
+          "path": "art/terrain/water/water-shared-v1.png",
           "sha256": "007b9babe0e69db5e628352a38dae0f1502ac42513bbf4018ad3df82f76c4c31",
           "width": 1254,
           "height": 1254
         },
         {
-          "path": "art/terrain/water/waterStones.png",
+          "path": "art/terrain/water/water-rocks-shared-v1.png",
           "sha256": "877ff2eceb8644bfe89eecc64994cebfe9335641c640459afa63f3faca39490b",
           "width": 1374,
           "height": 1145
         }
       ],
-      "look": "Open lake water. In the reference it is a clear, fairly saturated blue-teal (average about RGB\n32,89,107) with darker deep tones and small scattered white glints; waterStones shows a cluster of\nthree rounded tan-grey rocks rising from the water with pale ripple rings.",
-      "base_prompt": "Opaque square material of open lake water seen straight from above: clear blue-teal with darker deep\nblue troughs and short broken pale ripple marks and small white glints scattered unevenly; average\nclose to RGB 32,89,107. Flat orthographic surface, diffuse light, even detail to all four edges for\nperiodic sampling. No shore, stones, reflections, gradients or foam.",
+      "look": "Open saturated blue-teal water with fine broken sun glints. Three isolated clusters of rounded,\nweathered grey-brown rocks rise from it. Selected native masters: `water-shared-v2.png` (1254×1254 opaque)\nand `water-rocks-shared-v2.png` (1374×1145 RGBA), generated with the built-in image tool. The requested\n1536-pixel dimensions were not returned; the retained files are the actual native outputs.",
+      "base_prompt": "Use case: stylized-concept. Generate a NEW opaque square 1536x1536 master material texture for a hand-painted World War I tactical game, not an edit. Reference images attached by local path are STYLE AND QUALITY REFERENCES only: image 1 PULSE painting defines blue water color and natural aerial map style; image 2 crater defines fine native brush detail, never copy its crater subject. Strict vertical nadir orthographic surface of open rural European lake water filling the entire canvas with no shore or objects. Saturated clear deep blue/teal water close to RGB(25,90,117), darker blue troughs, fine irregular interconnected sun ripples, tiny broken white glints. Finely painted smooth natural curves and antialiased microdetail at native resolution, comparable finish to the crater reference. Very small low waves, calm readable surface, even detail distribution and brightness all the way to every edge, no large gradients. Diffuse upper-left daylight. Newly authored continuous painterly illustration, natural volume, no photographic noise, no pixel art, no enlarged pixels, no vector graphics, no grid or hex outline, no text, no boats, no islands, no underwater rocks, no landscape horizon, no foam lines, no tropical cyan, no checkerboard. Opaque full bleed square.\n\nWater stones prompt (separate built-in call, transparent background):\n\nUse case: stylized-concept. NEW transparent terrain object sprite, native high detail, wide 1536x1280 canvas intended for 6:5 crop. Reference 1 PULSE painting gives natural aerial map look and blue lake water; reference 2 crater is fine painted finish quality ONLY. Strict vertical top-down nadir orthographic, no perspective tilt. Three small separated clusters of low rounded warm grey-brown boulders emerging from water: one cluster at x38% y38%, one at x64% y40%, one at x52% y63%. In each cluster one or two substantial rounded boulders with a few smaller companions, subtle cracked weathered rock faces, tiny olive moss stains, damp dark bases. Natural varied shapes and gently domed flat tops, pale upper-left faces, short soft lower-right shadows. Only an extremely narrow broken translucent pale-blue ripple immediately hugging each boulder. All else completely alpha zero, including between the clusters, no opaque water areas, no ground, no grass, no haze. Objects together occupy central 50 percent canvas width and central 45 percent height leaving generous empty transparent margins. Continuous hand-painted tactical game illustration, same polished native stone microdetail as crater reference; antialiased natural edges, not pixel art, no enlarged pixels, no white foam rings, no checkerboard painted in, no text, no outlines, no square background. Genuine transparent background.",
       "variants": [
         {
           "variant": "water",
@@ -7074,7 +7416,7 @@
         }
       ],
       "edges": "The water material is periodic on the world lattice, so lake hexes form one continuous surface; shore\nand stream tiles use the same material, so water matches across all of them.",
-      "post": "`art-review -shore` samples the water material for `water`; `art-review -compound\nart/pipeline/compound-water-stones-v1.json` places the rock cut-out over it for `waterStones`. Summer only.\nExports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.",
+      "post": "`art-review -shore art/pipeline/shore-terrain-v2.json` samples the water material for `water`;\n`art-review -compound art/pipeline/compound-water-stones-v2.json` places the rock cut-out over it for\n`waterStones`. Summer only. Both referenced images were style references, not edit targets.\n\nThe selected v2 shore and water-stones manifests use the same `authored-rocks-v1` water profile:\nuniform centre crop, 71×40 logical-pixel periods, 8 percent opposing-edge overlap, no mirrored coset\naverage. Open water, shores, streams and the water-stones base retain the same painted glint scale.\nExports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.",
       "avoid": [
         "visible tiling or repeated rounded \"pillow\" patterns",
         "perspective, horizon or tilted camera",

@@ -224,18 +224,6 @@ source describe the image in this PDF. PULSE uses the 4× runtime artwork; compa
   }
 }
 
-#for (kind, title) in kinds {
-  let assets = index.assets.filter(a => a.kind == kind)
-  if assets.len() > 0 {
-    heading(level: 1, title)
-    for (i, a) in assets.enumerate() { asset-page(a, first: i == 0) }
-  }
-}
-#if index.assets.len() == 0 {
-  heading(level: 1)[Families]
-  note[No art family has a #raw("prompt.md") yet; run #raw("just art-index") once they exist.]
-}
-
 // The PULSE level drawn with the runtime art (`hlart pulse`).
 #if pulse != "" {
   let info = json(pulse + "/pulse.json")
@@ -278,6 +266,12 @@ source describe the image in this PDF. PULSE uses the 4× runtime artwork; compa
     (standard deviation of L\*), chroma (mean C\*) and edges (share of pixels with a strong L\* gradient). The
     reference values are the targets in #blob("art/reference/pulse/targets.json"); the tolerance is in
     #blob("art/reference/pulse/reference.json").
+  ]
+  note[
+    This is a candidate comparison. The map layout follows PULSE, while visual acceptance remains open.
+    Compare canopy repetition and edge density, scattered meadow details, rocky bank silhouettes,
+    the lake outlet, road and path edges, and the southern pair of craters. Higher pixel resolution
+    preserves the authored detail; these composition differences still need review.
   ]
   table(
     columns: 8,
@@ -349,4 +343,17 @@ source describe the image in this PDF. PULSE uses the 4× runtime artwork; compa
       #feat.notes
     ]
   }
+}
+
+// Source catalogue follows the map comparison.
+#for (kind, title) in kinds {
+  let assets = index.assets.filter(a => a.kind == kind)
+  if assets.len() > 0 {
+    heading(level: 1, title)
+    for (i, a) in assets.enumerate() { asset-page(a, first: i == 0) }
+  }
+}
+#if index.assets.len() == 0 {
+  heading(level: 1)[Families]
+  note[No art family has a #raw("prompt.md") yet; run #raw("just art-index") once they exist.]
 }

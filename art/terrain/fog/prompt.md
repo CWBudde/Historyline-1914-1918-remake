@@ -4,7 +4,7 @@ title: Unexplored
 kind: terrain
 status: candidate
 runtime_ids: unseen
-masters: unseen.png
+masters: fog-unseen-shared-v1.png
 ---
 
 ## Look

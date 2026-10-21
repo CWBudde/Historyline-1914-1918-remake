@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"flag"
+	"fmt"
 	"image"
 	"image/color"
 	"io/fs"
@@ -47,7 +48,7 @@ func TestIndexContent(t *testing.T) {
 		t.Fatalf("ids %v, want %v", ids, want)
 	}
 	road := idx.Assets[1]
-	if road.Masters[0].Path != "art/terrain/road/road.png" || road.Masters[0].Width != 16 || road.Masters[0].Height != 12 {
+	if road.Masters[0].Path != "art/terrain/road/road-summer-v1.png" || road.Masters[0].Width != 16 || road.Masters[0].Height != 12 {
 		t.Errorf("road master %+v", road.Masters[0])
 	}
 	if road.BasePrompt != "Top-down painted road on meadow, flat-topped hex." {
@@ -104,6 +105,26 @@ func TestRuntimeSamplesUseHighestDensityPerID(t *testing.T) {
 	}
 }
 
+func TestTerrainSamplesIncludeEveryDeclaredVariant(t *testing.T) {
+	p := &prompt{RuntimeIDs: []string{"lakeside12", "lakeside123", "lakeside126", "lakeside156", "lakeside16", "lakeside23", "lakeside34", "lakeside3456", "lakeside56"}}
+	var entries []runtimeEntry
+	for _, id := range p.RuntimeIDs {
+		for _, density := range []int{2, 4} {
+			entries = append(entries, runtimeEntry{ID: "tile/" + id, Density: density, Path: fmt.Sprintf("terrain/lakeside/%s-%dx.png", id, density), Width: 96 * density})
+		}
+	}
+	got := summarise("terrain/lakeside", p, entries)
+	if len(got.Samples) != len(p.RuntimeIDs) {
+		t.Fatalf("shore catalogue has %d samples, want all %d", len(got.Samples), len(p.RuntimeIDs))
+	}
+	for i, id := range p.RuntimeIDs {
+		want := "assets/terrain/lakeside/" + id + "-4x.png"
+		if got.Samples[i] != want {
+			t.Errorf("variant %s: got %s, want %s", id, got.Samples[i], want)
+		}
+	}
+}
+
 func TestCheckFindsProblems(t *testing.T) {
 	absent := map[string]string{"terrain type": "runtime ID grass"} // problems a case must not report
 	for _, tc := range []struct {
@@ -122,10 +143,10 @@ func TestCheckFindsProblems(t *testing.T) {
 			}
 		}},
 		{"changed master", "art/index.json is stale", func(t *testing.T, root string) {
-			appendTo(t, root, "art/terrain/road/road.png", "x")
+			appendTo(t, root, "art/terrain/road/road-summer-v1.png", "x")
 		}},
 		{"missing master", "master gone.png", func(t *testing.T, root string) {
-			replace(t, root, "art/terrain/road/prompt.md", "masters: road.png", "masters: road.png, gone.png")
+			replace(t, root, "art/terrain/road/prompt.md", "masters: road-summer-v1.png", "masters: road-summer-v1.png, gone.png")
 		}},
 		{"unlisted master", "art/terrain/road/extra.png: image not listed in masters", func(t *testing.T, root string) {
 			appendTo(t, root, "art/terrain/road/extra.png", "")

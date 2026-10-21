@@ -29,6 +29,7 @@ type hillsProfileReport struct {
 }
 type hillsReport struct {
 	SchemaVersion    int                                 `json:"schema_version"`
+	RenderMode       string                              `json:"render_mode,omitempty"`
 	ManifestSHA256   string                              `json:"manifest_sha256"`
 	ManifestSnapshot string                              `json:"manifest_snapshot"`
 	Materials        map[string]connectionMaterialReport `json:"materials"`
@@ -73,13 +74,23 @@ func buildHillsBundle(in hillsInputs) (hillsBundle, error) {
 		Acceptance:      "Provisional bounded hills candidates: all 64 neighbor masks at phase 0, all 32 isolated phases, plus actual fixed fixture contexts. Runtime context selection, arbitrary maps, other terrain, zoom and visual/native-size acceptance remain OPEN.",
 	}}
 	b.artifacts = append(b.artifacts, connectionArtifact{"manifest.json", in.Bytes})
-	for _, id := range []string{"grass", "height"} {
+	ids := []string{"grass", "height"}
+	if _, ok := in.Sources["scrub"]; ok {
+		ids = append(ids, "scrub")
+		b.report.RenderMode = "painted-scrub"
+		b.report.Profile = "Authored opaque scrub meadow sampled on the same unmirrored world lattice as grass. Blend from canonical grass by the existing per-grass polygon distance quintic gates [7,19]; preserve the final four-world-pixel grass quiet band exactly. No height lighting or isolated relief cue is applied. Height input and numeric relief parameters are retained only for the backward-compatible height mode and are inactive in this painted mode. " + grassSamplingProfile
+		b.report.ResamplingChain[0] = "authored painted scrub and canonical grass blended by grass-facing distance gates on opaque 416x352 4x overscan; no height shading"
+	}
+	for _, id := range ids {
 		s := in.Sources[id]
 		retained := "sources/" + id + ".png"
 		b.artifacts = append(b.artifacts, connectionArtifact{retained, s.Bytes})
 		b.report.Materials[id] = connectionMaterialReport{s.Ref, dimensions{s.Image.Bounds().Dx(), s.Image.Bounds().Dy()}, retained}
 	}
 	renderer := newHillsRenderer(in.Sources["grass"].Image, in.Sources["height"].Image)
+	if source, ok := in.Sources["scrub"]; ok {
+		renderer.scrub = source.Image
+	}
 	tiles := map[string]map[int]*image.NRGBA{}
 	addProfile := func(c hillsContext) error {
 		c = c.effective()

@@ -95,6 +95,27 @@ func renderMixedRaw(in mixedInputs, v mixedVariant) *image.NRGBA {
 	default:
 		base = image.NewNRGBA(image.Rect(0, 0, 416, 352))
 	}
+	if in.manifest.BridgeArtwork == "standing" && v.Kind != "crossing" {
+		if v.Kind == "footbridge" {
+			axis := connectionRailUnit(g.Neighbors[v.Ports[0]-1])
+			// Keep the original path outside the painted deck. Removing the span
+			// before density filtering preserves approaches without old timber,
+			// rails or earth abutments beneath the separate standing painting.
+			for y := range base.Bounds().Dy() {
+				for x := range base.Bounds().Dx() {
+					q := connectionPoint{(float64(x)+.5)/4 - 52, (float64(y)+.5)/4 - 44}
+					along := q[0]*axis[0] + q[1]*axis[1]
+					c := base.NRGBAAt(x, y)
+					c.A = uint8(math.Floor(float64(c.A)*connectionRamp(math.Abs(along)-24, .25) + .5))
+					if c.A == 0 {
+						c = color.NRGBA{}
+					}
+					base.SetNRGBA(x, y, c)
+				}
+			}
+		}
+		return base
+	}
 	for y := 0; y < 352; y++ {
 		for x := 0; x < 416; x++ {
 			p := connectionPoint{(float64(x)+.5)/4 - 4, (float64(y)+.5)/4 - 4}

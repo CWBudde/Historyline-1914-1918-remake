@@ -1,0 +1,35 @@
+{
+  "materials": {
+    "grass": {
+      "source": "art/terrain/grass/grass-summer-v1.png",
+      "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
+    },
+    "grass_w": {
+      "source": "art/terrain/grass/grass-winter-v1.png",
+      "source_sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3"
+    },
+    "mud": {
+      "source": "art/terrain/ground/ground-mud-summer-v2.png",
+      "source_sha256": "08f77e30e23d37d22f61fa2d43f3778dbfffebf3077824feee43839291f94211"
+    },
+    "rough_w": {
+      "source": "art/terrain/ground/ground-rough-winter-v2.png",
+      "source_sha256": "fafb2e261c9782666fd4cd645c203632ab09846e1f959b6d60a15390b6398aba"
+    },
+    "shelled_w": {
+      "source": "art/terrain/ground/ground-shelled-winter-v2.png",
+      "source_sha256": "803c15c31f66cd1f1e85efa197ebe337ef71b427fe4a5a303e084e155276e1a2"
+    },
+    "stone": {
+      "source": "art/terrain/ground/ground-stone-summer-v2.png",
+      "source_sha256": "64bad22bafe6702ff9aa89177fd9a063ad9847764c57c76871f2d68f348a1191"
+    },
+    "stoney_w": {
+      "source": "art/terrain/ground/ground-stony-winter-v2.png",
+      "source_sha256": "5182d81cd10e5e06d5a7451291902e8e2410796ae9a27899fa39436e3bbed19a"
+    }
+  },
+  "mud_feature": "circular-earthwork",
+  "shelled_feature": "circular-earthwork",
+  "schema_version": 1
+}

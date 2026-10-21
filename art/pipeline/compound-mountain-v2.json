@@ -1,0 +1,47 @@
+{
+  "grounds": {
+    "summer": {
+      "source": "art/terrain/grass/grass-summer-v1.png",
+      "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
+    },
+    "winter": {
+      "source": "art/terrain/grass/grass-winter-v1.png",
+      "source_sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3"
+    }
+  },
+  "scenes": [
+    {
+      "artwork": {
+        "source": "art/terrain/mount/mount-summer-v2.png",
+        "source_sha256": "3a61b2700d4570871df5f3a02c13de6947934411c362982ada86c63e7a2d3324"
+      },
+      "id": "mountain-summer",
+      "inset": 0.65
+    },
+    {
+      "artwork": {
+        "source": "art/terrain/mount/mount-winter-v2.png",
+        "source_sha256": "04f1172494c9114eec8f11b7eb9da071f65c65f017bb4d8ee9a83639cfd0e26b"
+      },
+      "id": "mountain-winter",
+      "inset": 0.65
+    },
+    {
+      "artwork": {
+        "source": "art/terrain/mount/mount-summer-v2.png",
+        "source_sha256": "3a61b2700d4570871df5f3a02c13de6947934411c362982ada86c63e7a2d3324"
+      },
+      "id": "mountain-single-summer",
+      "inset": 0.55
+    },
+    {
+      "artwork": {
+        "source": "art/terrain/mount/mount-winter-v2.png",
+        "source_sha256": "04f1172494c9114eec8f11b7eb9da071f65c65f017bb4d8ee9a83639cfd0e26b"
+      },
+      "id": "mountain-single-winter",
+      "inset": 0.55
+    }
+  ],
+  "schema_version": 1
+}

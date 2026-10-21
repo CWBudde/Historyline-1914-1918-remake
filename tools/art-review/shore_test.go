@@ -626,10 +626,42 @@ func shoreTestAssertPNGGuards(t *testing.T, path, out string) {
 }
 
 func TestShoreEveryCompatiblePairReciprocalAndInteriorSmooth(t *testing.T) {
-	path, _ := shoreTestFixture(t)
-	in, err := loadShoreInputs(path)
-	if err != nil {
-		t.Fatal(err)
+	for _, profile := range []string{"", authoredBankProfile} {
+		t.Run(profile, func(t *testing.T) {
+			path, m := shoreTestFixture(t)
+			if profile != "" {
+				m["bank_profile"] = profile
+				shoreTestWrite(t, path, m)
+			}
+			in, err := loadShoreInputs(path)
+			if err != nil {
+				t.Fatal(err)
+			}
+			checkShoreCompatiblePairs(t, in)
+		})
+	}
+}
+
+func checkShoreCompatiblePairs(t *testing.T, in shoreInputs) {
+	t.Helper()
+	for _, v := range shoreVariants() {
+		for i, p := range sharedConnectionGeometry().Polygon {
+			land := false
+			for _, vertex := range v.LandVertices {
+				land = land || vertex == i
+			}
+			var want color.NRGBA
+			if land {
+				want = sampleGrassMaterial(in.Materials["grass"].Image, p)
+			} else if in.Manifest.BankProfile == authoredBankProfile {
+				want = sampleAuthoredWater(in.Materials["water"].Image, p)
+			} else {
+				want = sampleConnectionMaterial(in.Materials["water"].Image, p)
+			}
+			if got := shoreColor(in, v, p); got != want {
+				t.Fatalf("three-tile corner material %s vertex%d: %v != %v", v.ID, i, got, want)
+			}
+		}
 	}
 	profiles := shoreTestProfiles()
 	profiles["grass"] = []int{0, 1, 2, 3, 4, 5}

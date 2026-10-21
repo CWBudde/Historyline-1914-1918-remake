@@ -59,18 +59,18 @@ func TestGenerateGrassDetailCandidate(t *testing.T) {
 		h := sha256.Sum256(b.Bytes())
 		return packOutput{path, hex.EncodeToString(h[:]), dimensions{im.Bounds().Dx(), im.Bounds().Dy()}}
 	}
-	basePath := "art/terrain/grass/grass.png"
+	basePath := "art/terrain/grass/grass-summer-v1.png"
 	base, baseHash := read(basePath, "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b")
 	materials := map[string]*image.NRGBA{"base": base}
 	materialPins := map[string]any{"base": map[string]any{"source": basePath, "source_sha256": baseHash, "source_dimensions": []int{768, 480}}}
 	for _, spec := range []struct{ id, hash string }{{"flowers", "368607bd87ee0b7ecbe39fc87b970982b001d6d3eeaabc3d9ee4f36e811cac89"}, {"worn", "d0a4b7a2eec6551a246581d961f139f434ad9f3f9694d8a54fdbec5a48b77078"}} {
-		masterPath := "art/terrain/grass/detail-" + spec.id + "-master.png"
+		masterPath := "art/terrain/grass/grass-" + spec.id + "-painting-summer-v1.png"
 		master, _ := read(masterPath, spec.hash)
 		material, err := resizeLanczos(master, 768, 480)
 		if err != nil {
 			t.Fatal(err)
 		}
-		path := "art/terrain/grass/detail-" + spec.id + ".png"
+		path := "art/terrain/grass/grass-" + spec.id + "-material-summer-v1.png"
 		pin := write(filepath.Join(root, path), material)
 		pin.Path = path
 		materials[spec.id] = material

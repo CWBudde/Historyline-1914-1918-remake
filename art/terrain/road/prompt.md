@@ -4,7 +4,7 @@ title: Road
 kind: terrain
 status: candidate
 runtime_ids: road124, road125, road13, road135, road14, road145, road15, road236, road24, road25, road26, road346, road35, road356, road36, road46
-masters: asphalt.png
+masters: road-asphalt-shared-v2.png, road-asphalt-shared-v1.png
 ---
 
 ## Look
@@ -45,8 +45,12 @@ continuing straight through each port, so it joins the next road tile, bridges a
 Centre dashes are drawn by the renderer along the centre line.
 
 ## Post
-`art-review -connected art/pipeline/connected-terrain-v1.json` cuts the asphalt to each port set, adds dashed
+`art-review -connected art/pipeline/connected-terrain-v2.json` cuts the asphalt to each port set, adds dashed
 markings and earth shoulders (earth bank material) over meadow. Season-neutral. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
+
+The selected built-in imagegen master is native 1254×1254 RGB. It uses the base prompt above with
+fine irregular aggregate and restrained wear. The former asphalt source remains a retained draft.
+Road width, ports and markings retain their registered geometry.
 
 ## Avoid
 - visible tiling or repeated rounded "pillow" patterns

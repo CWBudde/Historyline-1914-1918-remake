@@ -3,7 +3,7 @@
   "assets": [
     {
       "id": "stamp/crater/4_-1.1_1.1_0.2/1",
-      "source": "art/terrain/ground/crater-stamp.png",
+      "source": "art/terrain/ground/ground-crater-summer-v1.png",
       "source_sha256": "018177c37527691b1365cc6f59d9a60cbf3084d982475844a7fe93ea0e521a69",
       "crop": [0, 0, 1536, 1024],
       "canvas": [180, 120],
@@ -23,7 +23,7 @@
     },
     {
       "id": "standing/stamp/knoll/1/1",
-      "source": "art/terrain/mountain/knoll-standing.png",
+      "source": "art/terrain/mountain/mountain-knoll-single-summer-v1.png",
       "source_sha256": "fe04cbef45e855f903979631d6abc5684a159c78076db5086e1d8ed378bd6c8f",
       "crop": [0, 0, 1374, 1145],
       "canvas": [144, 120],
@@ -34,7 +34,7 @@
     },
     {
       "id": "stamp/boulders/1/1",
-      "source": "art/terrain/ground/boulders-single.png",
+      "source": "art/terrain/ground/ground-boulders-single-summer-v1.png",
       "source_sha256": "14f2c664d9ace3ee0f7ceb6a964fcca8c73cfb9242dce4e91b32be2dbb5ed523",
       "crop": [0, 0, 1374, 1145],
       "canvas": [96, 80],
@@ -45,7 +45,7 @@
     },
     {
       "id": "stamp/boulders/4_2.0_1.1_0.2/1",
-      "source": "art/terrain/ground/boulders-four.png",
+      "source": "art/terrain/ground/ground-boulders-four-summer-v1.png",
       "source_sha256": "ceedb4bcf1a03ce5a778f07e88eea4366923174c32c97768cd61e6f894653ffa",
       "crop": [0, 0, 1536, 1024],
       "canvas": [240, 160],
@@ -56,7 +56,7 @@
     },
     {
       "id": "stamp/boulders/5_-1.1_0.2_-1.3_1.3/1",
-      "source": "art/terrain/ground/boulders-five.png",
+      "source": "art/terrain/ground/ground-boulders-five-summer-v1.png",
       "source_sha256": "3959914db1d1ff3926aba54d8eae8e5ed7c271271f99aeb6255b2ee28b898c4a",
       "crop": [0, 0, 1374, 1145],
       "canvas": [240, 200],
@@ -76,7 +76,7 @@
     },
     {
       "id": "standing/stamp/knoll/3_-1.1_-2.2/1",
-      "source": "art/terrain/mountain/knoll-group.png",
+      "source": "art/terrain/mountain/mountain-knoll-group-summer-v1.png",
       "source_sha256": "0a33540188bc0f1860d4d99bbbe6164572add8529bf15749738c4f6c42c3940a",
       "crop": [0, 0, 1536, 1024],
       "canvas": [240, 160],

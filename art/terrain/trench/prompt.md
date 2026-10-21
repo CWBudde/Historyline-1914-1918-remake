@@ -4,7 +4,7 @@ title: Trench
 kind: terrain
 status: candidate
 runtime_ids: trench0, trench1, trench12, trench124, trench125, trench14, trench15, trench24, trench25, trench4, trench5, trench5a
-masters: floor.png, timber.png
+masters: trench-floor-shared-v2.png, trench-timber-shared-v2.png, trench-floor-shared-v1.png, trench-timber-shared-v1.png
 ---
 
 ## Look
@@ -39,8 +39,12 @@ The trench is 6 world pixels wide with a 3-pixel earth bank, centred on the shar
 continuing through each port, so trench lines join across hexes.
 
 ## Post
-`art-review -connected art/pipeline/connected-trench-v1.json` cuts floor, timber and earth bank (ground earth
+`art-review -connected art/pipeline/connected-trench-v2.json` cuts floor, timber and earth bank (ground earth
 bank material) along each port set over meadow. Season-neutral. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
+
+The selected built-in imagegen floor and timber masters are each native 1254×1254 RGB. Fine clods,
+roots and worn timber grain replace the simpler material fields. The former sources remain retained
+drafts. Trench width, joins and spoil-bank geometry are unchanged.
 
 ## Avoid
 - visible tiling or repeated rounded "pillow" patterns

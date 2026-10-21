@@ -1,0 +1,115 @@
+{
+  "assets": [
+    {
+      "art": "terrain/rBridge",
+      "canvas": [
+        96,
+        80
+      ],
+      "crop": [
+        0,
+        0,
+        1152,
+        960
+      ],
+      "id": "standing/rBridge14",
+      "layer": "standing",
+      "logical_anchor": [
+        48,
+        40
+      ],
+      "path": "terrain/rBridge/rBridge14-standing",
+      "source": "art/terrain/rBridge/rbridge-14-export-shared-v1.png",
+      "source_sha256": "838ae688c330d8f992d7239fb0701a7b9b8f8a31c51954795b68d2daf1c5acbb"
+    },
+    {
+      "art": "terrain/rBridge",
+      "canvas": [
+        96,
+        80
+      ],
+      "crop": [
+        0,
+        0,
+        1152,
+        960
+      ],
+      "id": "standing/rBridge25",
+      "layer": "standing",
+      "logical_anchor": [
+        48,
+        40
+      ],
+      "path": "terrain/rBridge/rBridge25-standing",
+      "source": "art/terrain/rBridge/rbridge-25-export-shared-v1.png",
+      "source_sha256": "14602bb852419c378a73219b6fc1e986675e3a51f7d99e3ad52172374f1a5b5b"
+    },
+    {
+      "art": "terrain/rBridge",
+      "canvas": [
+        96,
+        80
+      ],
+      "crop": [
+        0,
+        0,
+        1152,
+        960
+      ],
+      "id": "standing/rBridge36",
+      "layer": "standing",
+      "logical_anchor": [
+        48,
+        40
+      ],
+      "path": "terrain/rBridge/rBridge36-standing",
+      "source": "art/terrain/rBridge/rbridge-36-export-shared-v1.png",
+      "source_sha256": "72fd6948611535d9c083631ed836f1f2085654ffeedd093ef0b71b3f3d2b2476"
+    },
+    {
+      "art": "terrain/bridge",
+      "canvas": [
+        96,
+        80
+      ],
+      "crop": [
+        0,
+        0,
+        1152,
+        960
+      ],
+      "id": "standing/bridge25",
+      "layer": "standing",
+      "logical_anchor": [
+        48,
+        40
+      ],
+      "path": "terrain/bridge/bridge25-standing",
+      "source": "art/terrain/bridge/bridge-25-export-shared-v1.png",
+      "source_sha256": "7170e0031cb1cbfa4433037cbc2c6f26ecf3d9b865afafb5cb89b49f01bc866f"
+    },
+    {
+      "art": "terrain/bridge",
+      "canvas": [
+        96,
+        80
+      ],
+      "crop": [
+        0,
+        0,
+        1152,
+        960
+      ],
+      "id": "standing/bridge36",
+      "layer": "standing",
+      "logical_anchor": [
+        48,
+        40
+      ],
+      "path": "terrain/bridge/bridge36-standing",
+      "source": "art/terrain/bridge/bridge-36-export-shared-v1.png",
+      "source_sha256": "c751f4df33e401ff70e8eb3b6643bc9a7fddfc8a6b4380427d95faf6bdd4c82b"
+    }
+  ],
+  "schema_version": 1
+}

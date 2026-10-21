@@ -190,6 +190,9 @@ func (b *shoreBundle) addPNG(name string, im *image.NRGBA) (packOutput, error) {
 }
 func buildShoreBundle(in shoreInputs) (shoreBundle, error) {
 	b := shoreBundle{pixels: map[string]*image.NRGBA{}, report: shoreReport{SchemaVersion: 1, ManifestSHA256: in.Hash, ManifestSnapshot: "manifest.json", Geometry: sharedConnectionGeometry(), Profile: shoreProfile, Acceptance: "Candidate; pixel-aligned 2x/4x authoring/export previews only. No whole-map, runtime or user approval claim. Topology: 100 directed campaign endpoint checks verified separately; lakeside12 unplaced and four lakeside123/126 boundary corners inferred, without acceptance claim.", Materials: map[string]connectionMaterialReport{}}}
+	if in.Manifest.BankProfile == authoredBankProfile {
+		b.report.Profile += authoredBankDescription
+	}
 	b.artifacts = append(b.artifacts, connectionArtifact{"manifest.json", in.Bytes})
 	for _, name := range []string{"grass", "water", "bank"} {
 		src := in.Materials[name]

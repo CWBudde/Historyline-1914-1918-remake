@@ -65,6 +65,19 @@ Tick a box only with evidence you ran. Record decisions here, not their history.
       (see "Terrain: PULSE to the reference design" below).
 - [ ] Approve terrain: grass and context transitions, full-map repetition, seasons, seams at three-tile
       vertices.
+- [x] Standardize terrain source names as `<family>[-<variant>]-<season>-v<N>.png`; preserve runtime IDs
+      and asset filenames. All 65 renamed PNGs retain their hashes; `hlart check` validates the catalogue.
+      (2026-10-21)
+- [x] Refresh candidate sources and 2×/4× exports for remaining ground, scrub, seasonal forest,
+      HQ/depot, winter factory, seasonal massifs, water, all nine shores, streams and infrastructure.
+      Painted bridges use a standing layer with path approaches retained below. Terrain packs build
+      with 1,028 entries; all three levels report zero missing contexts or compound issues. Canonical
+      meadow is retained; new seasonal meadow paintings remain comparison candidates. (2026-10-21)
+- [x] Rebuild the art book with PULSE and reference comparisons before the source catalogue.
+      `just artbook` and PDF inspection confirm native 4,360×7,680 PULSE images; every declared terrain
+      variant is included, including all nine shores.
+      Full-map resemblance remains an acceptance task, especially meadow detail, irregular banks,
+      the lake outlet and southern crater pair. (2026-10-21)
 - [ ] Approve units: silhouettes and colour separation at the original size, mechanical/camera consistency,
       physical contact, all owners and states.
 - [ ] Art for the 33 original unit types without art yet (construction unit, AA, anti-tank guns, five tanks,

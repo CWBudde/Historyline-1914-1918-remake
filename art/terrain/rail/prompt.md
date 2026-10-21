@@ -4,7 +4,7 @@ title: Railway
 kind: terrain
 status: candidate
 runtime_ids: rail13, rail14, rail15, rail236, rail24, rail25, rail26, rail346, rail35, rail356, rail36, rail46
-masters: ballast.png, steel.png
+masters: rail-ballast-shared-v2.png, rail-steel-shared-v2.png, rail-ballast-shared-v1.png, rail-steel-shared-v1.png
 ---
 
 ## Look
@@ -38,8 +38,13 @@ and continuing through each port; rails and sleepers run on the same centre line
 exactly and crossings line up.
 
 ## Post
-`art-review -connected art/pipeline/connected-rail-v1.json` cuts the ballast, lays timber sleepers (trench
+`art-review -connected art/pipeline/connected-rail-v2.json` cuts the ballast, lays timber sleepers (trench
 timber material) and steel rails (steel material) along each port set. Season-neutral. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
+
+Selected built-in imagegen masters: ballast is native 1536×1024 RGB; steel is native 1254×1254 RGB.
+The steel prompt specifies matte weathered dark grey steel, fine scratches, slight oxide and diffuse
+highlights; no chrome, rail silhouettes or objects. The former material sources remain retained drafts.
+The ballast footprint, rails and registered ports are unchanged.
 
 ## Avoid
 - visible tiling or repeated rounded "pillow" patterns

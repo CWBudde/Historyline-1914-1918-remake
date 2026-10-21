@@ -91,7 +91,7 @@ func TestConnectedMarkedRoadVergeVariesInsideFixedGuard(t *testing.T) {
 func TestConnectedRefdesignEdgesMatchEveryReciprocalPort(t *testing.T) {
 	in := gravelStreamInputs(t)
 	g := in.manifest.Geometry
-	for _, f := range []connectionFamily{{ID: "stream", Width: 18, Border: 2.5, Material: "water", BorderMaterial: "bank"}, {ID: "stream", Width: 18, Border: 3.5, Material: "water", BorderMaterial: "bank"}, {ID: "road", Width: 22, Border: 2, Material: "road", BorderMaterial: "earth", Markings: "dashed"}} {
+	for _, f := range []connectionFamily{{ID: "stream", Width: 18, Border: 2.5, Material: "water", BorderMaterial: "bank"}, {ID: "stream", Width: 18, Border: 3.5, Material: "water", BorderMaterial: "bank"}, {ID: "stream", Width: 18, Border: 3.5, Material: "water", BorderMaterial: "bank", BankProfile: authoredBankProfile}, {ID: "road", Width: 22, Border: 2, Material: "road", BorderMaterial: "earth", Markings: "dashed"}} {
 		for port := 1; port <= 6; port++ {
 			opp := (port+2)%6 + 1
 			a := connectionRoutes(g, f, connectionVariant{Ports: []int{port, opp}})

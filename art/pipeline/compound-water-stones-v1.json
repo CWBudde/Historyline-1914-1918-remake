@@ -1,14 +1,14 @@
 {
   "grounds": {
     "shared": {
-      "source": "art/terrain/water/water.png",
+      "source": "art/terrain/water/water-shared-v1.png",
       "source_sha256": "007b9babe0e69db5e628352a38dae0f1502ac42513bbf4018ad3df82f76c4c31"
     }
   },
   "scenes": [
     {
       "artwork": {
-        "source": "art/terrain/water/waterStones.png",
+        "source": "art/terrain/water/water-rocks-shared-v1.png",
         "source_sha256": "877ff2eceb8644bfe89eecc64994cebfe9335641c640459afa63f3faca39490b"
       },
       "id": "water-stones",

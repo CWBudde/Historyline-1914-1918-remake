@@ -4,7 +4,7 @@ title: Rocky knoll
 kind: terrain
 status: candidate
 runtime_ids: mountain, mountain_w, stamp/knoll/1/1, standing/stamp/knoll/1/1, stamp/knoll/3_-1.1_-2.2/1, standing/stamp/knoll/3_-1.1_-2.2/1
-masters: knoll-standing.png, knoll-group.png
+masters: mountain-knoll-single-summer-v1.png, mountain-knoll-group-summer-v1.png
 ---
 
 ## Look
@@ -42,10 +42,10 @@ Derived from the mount masters (`art/terrain/mount/`): `art-review -compound
 art/pipeline/compound-mountain-v1.json` places the single-cell scene for both seasons. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
 
 For summer single knolls, `tools/terrain-stamps` exports the full native 1374x1145
-`knoll-standing.png` through `art/pipeline/feature-stamps-v1.json`, preserving aspect at 144x120 logical
+`mountain-knoll-single-summer-v1.png` through `art/pipeline/feature-stamps-v1.json`, preserving aspect at 144x120 logical
 and anchor `[72,60]`. Both the transparent ground and standing layers have 2x 288x240 and 4x 576x480
 exports under `assets/terrain/mountain/`. The new source remains a candidate.
-The eastern group uses native 1536x1024 `knoll-group.png`, canvas 240x160 logical and anchor `[191,40]`;
+The eastern group uses native 1536x1024 `mountain-knoll-group-summer-v1.png`, canvas 240x160 logical and anchor `[191,40]`;
 ground and standing exports are 480x320 at 2x and 960x640 at 4x. The anchor registers its upper-right
 knoll to the group's first cell. This is also candidate art.
 Generated with built-in imagegen; the local PULSE `RefDesign2.png` informed the style, without editing

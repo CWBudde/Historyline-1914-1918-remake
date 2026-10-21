@@ -175,9 +175,10 @@ type groundRawSample struct {
 	materials [7]color.NRGBA
 }
 type groundRenderer struct {
-	materials  map[string]*image.NRGBA
-	samples    []groundRawSample
-	mudFeature string
+	materials      map[string]*image.NRGBA
+	samples        []groundRawSample
+	mudFeature     string
+	shelledFeature string
 }
 
 func newGroundRenderer(materials map[string]*image.NRGBA) *groundRenderer {
@@ -216,10 +217,17 @@ func (r *groundRenderer) tiles(c groundContext) (map[int]*image.NRGBA, error) {
 				// same continuous context field for neighboring stone and grass.
 				s.materials[groundMaterialIndex("mud")] = s.materials[groundMaterialIndex("grass")]
 			}
+			if r.shelledFeature == "circular-earthwork" {
+				s.materials[groundMaterialIndex("shelled_w")] = s.materials[groundMaterialIndex("grass_w")]
+			}
 			paint := groundRounded(groundMix(c, s.geometry, s.materials))
 			if c.RuntimeID == "mud" && r.mudFeature == "circular-earthwork" {
 				p := connectionPoint{(float64(x)+.5)/4 - 4, (float64(y)+.5)/4 - 4}
 				paint = groundEarthwork(r.materials["mud"], p, paint)
+			}
+			if c.RuntimeID == "shelled_w" && r.shelledFeature == "circular-earthwork" {
+				p := connectionPoint{(float64(x)+.5)/4 - 4, (float64(y)+.5)/4 - 4}
+				paint = groundEarthwork(r.materials["shelled_w"], p, paint)
 			}
 			raw4.SetNRGBA(x, y, paint)
 		}

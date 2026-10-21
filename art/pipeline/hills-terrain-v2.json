@@ -1,0 +1,17 @@
+{
+  "materials": {
+    "grass": {
+      "source": "art/terrain/grass/grass-summer-v1.png",
+      "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
+    },
+    "height": {
+      "source": "art/terrain/hills/hills-height-shared-v1.png",
+      "source_sha256": "31b342bb5d98f26b59d5015c371c6f88327ec9cfd9caed38ef177bc48cbeb102"
+    },
+    "scrub": {
+      "source": "art/terrain/hills/hills-scrub-summer-v2.png",
+      "source_sha256": "ed9909f7f7cadcfa744f31c215505008596b123fb1b439ac01820af1bf305747"
+    }
+  },
+  "schema_version": 1
+}

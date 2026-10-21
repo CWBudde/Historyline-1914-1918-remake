@@ -1,0 +1,80 @@
+[
+  {
+    "minimum_native_pixels_per_logical": 17.0625,
+    "native_dimensions": [
+      1374,
+      1145
+    ],
+    "policy": "Manually reviewed asphalt/timber interior landmarks. Deterministic affine registration of native painting, no mirroring; upper-left lighting retained with small axis correction. CatmullRom at 12 pixels per logical pixel, all source-axis reductions; final terrain-stamps Lanczos3 at4x then2x. Stone abutments, parapets and shadow extend outside the48px deck. Fixed canvas96x80 anchor48,40.",
+    "prepared_dimensions": [
+      1152,
+      960
+    ],
+    "prepared_pixels_per_logical": 12,
+    "prepared_sha256": "7170e0031cb1cbfa4433037cbc2c6f26ecf3d9b865afafb5cb89b49f01bc866f",
+    "prepared_source": "art/terrain/bridge/bridge-25-export-shared-v1.png",
+    "source": "art/terrain/bridge/bridge-25-shared-v1.png",
+    "source_deck_landmarks_local_uv": [
+      -405,
+      414,
+      -104,
+      104
+    ],
+    "source_sha256": "50d0815c1f8acfc00ef0596cdd9577ac8ed3191fca7ffde4afd4997279083d94",
+    "source_solid_covariance_angle_degrees": 32.006409853332315,
+    "source_solid_covariance_center": [
+      680.3353477926748,
+      607.04527310846
+    ],
+    "source_to_prepared_affine": [
+      0.6997080934757571,
+      0.036604595100168336,
+      74.98584931264887,
+      -0.026956204441635365,
+      0.6944481580943159,
+      75.22434742432465
+    ],
+    "target_angle_degrees": 29.39605285494326,
+    "target_core_logical_width": 12,
+    "target_deck_logical_span": 48
+  },
+  {
+    "minimum_native_pixels_per_logical": 16.041666666666668,
+    "native_dimensions": [
+      1374,
+      1145
+    ],
+    "policy": "Manually reviewed asphalt/timber interior landmarks. Deterministic affine registration of native painting, no mirroring; upper-left lighting retained with small axis correction. CatmullRom at 12 pixels per logical pixel, all source-axis reductions; final terrain-stamps Lanczos3 at4x then2x. Stone abutments, parapets and shadow extend outside the48px deck. Fixed canvas96x80 anchor48,40.",
+    "prepared_dimensions": [
+      1152,
+      960
+    ],
+    "prepared_pixels_per_logical": 12,
+    "prepared_sha256": "c751f4df33e401ff70e8eb3b6643bc9a7fddfc8a6b4380427d95faf6bdd4c82b",
+    "prepared_source": "art/terrain/bridge/bridge-36-export-shared-v1.png",
+    "source": "art/terrain/bridge/bridge-36-shared-v1.png",
+    "source_deck_landmarks_local_uv": [
+      -385,
+      385,
+      -120,
+      120
+    ],
+    "source_sha256": "d7f03256f80189f027eb78e22c168ecad59d60661df71e6183b0c95764b4e80b",
+    "source_solid_covariance_angle_degrees": 89.96959374157836,
+    "source_solid_covariance_center": [
+      688.6636178362314,
+      583.267115881769
+    ],
+    "source_to_prepared_affine": [
+      0.5999999155106548,
+      -0.00031841357865611134,
+      162.98760765267963,
+      0.00039698316299984746,
+      0.7480518427145826,
+      43.412571308571216
+    ],
+    "target_angle_degrees": 90,
+    "target_core_logical_width": 12,
+    "target_deck_logical_span": 48
+  }
+]

@@ -1,0 +1,119 @@
+[
+  {
+    "minimum_native_pixels_per_logical": 16.818181818181817,
+    "native_dimensions": [
+      1486,
+      1058
+    ],
+    "policy": "Manually reviewed asphalt/timber interior landmarks. Deterministic affine registration of native painting, no mirroring; upper-left lighting retained with small axis correction. CatmullRom at 12 pixels per logical pixel, all source-axis reductions; final terrain-stamps Lanczos3 at4x then2x. Stone abutments, parapets and shadow extend outside the48px deck. Fixed canvas96x80 anchor48,40.",
+    "prepared_dimensions": [
+      1152,
+      960
+    ],
+    "prepared_pixels_per_logical": 12,
+    "prepared_sha256": "838ae688c330d8f992d7239fb0701a7b9b8f8a31c51954795b68d2daf1c5acbb",
+    "prepared_source": "art/terrain/rBridge/rbridge-14-export-shared-v1.png",
+    "source": "art/terrain/rBridge/rbridge-14-shared-v1.png",
+    "source_deck_landmarks_local_uv": [
+      -590,
+      595,
+      -180,
+      190
+    ],
+    "source_sha256": "d4078476dd06c5a51645ef0e3b03593a5fcfe23751e280086b18854d0e5549aa",
+    "source_solid_covariance_angle_degrees": -25.122311085992614,
+    "source_solid_covariance_center": [
+      748.5995274882899,
+      545.4438876931866
+    ],
+    "source_to_prepared_affine": [
+      0.5321197803345866,
+      0.1372991188880267,
+      99.95656921079585,
+      0.04790365312293288,
+      0.664134093287068,
+      79.37969966997429
+    ],
+    "target_angle_degrees": -29.39605285494326,
+    "target_core_logical_width": 22,
+    "target_deck_logical_span": 48
+  },
+  {
+    "minimum_native_pixels_per_logical": 15.09090909090909,
+    "native_dimensions": [
+      1497,
+      1051
+    ],
+    "policy": "Manually reviewed asphalt/timber interior landmarks. Deterministic affine registration of native painting, no mirroring; upper-left lighting retained with small axis correction. CatmullRom at 12 pixels per logical pixel, all source-axis reductions; final terrain-stamps Lanczos3 at4x then2x. Stone abutments, parapets and shadow extend outside the48px deck. Fixed canvas96x80 anchor48,40.",
+    "prepared_dimensions": [
+      1152,
+      960
+    ],
+    "prepared_pixels_per_logical": 12,
+    "prepared_sha256": "14602bb852419c378a73219b6fc1e986675e3a51f7d99e3ad52172374f1a5b5b",
+    "prepared_source": "art/terrain/rBridge/rbridge-25-export-shared-v1.png",
+    "source": "art/terrain/rBridge/rbridge-25-shared-v1.png",
+    "source_deck_landmarks_local_uv": [
+      -550,
+      595,
+      -165,
+      167
+    ],
+    "source_sha256": "518d114ecdd329ed486e9bfc2fa7eef0a164df5b2f31e9afec02754fc5809b54",
+    "source_solid_covariance_angle_degrees": 29.25754166756288,
+    "source_solid_covariance_center": [
+      732.8208849551708,
+      543.9486327810577
+    ],
+    "source_to_prepared_affine": [
+      0.5731338029249109,
+      -0.12631167386894115,
+      215.23149325819372,
+      -0.12317321859666916,
+      0.7250998949531864,
+      169.5982603369335
+    ],
+    "target_angle_degrees": 29.39605285494326,
+    "target_core_logical_width": 22,
+    "target_deck_logical_span": 48
+  },
+  {
+    "minimum_native_pixels_per_logical": 15.312499999999998,
+    "native_dimensions": [
+      1374,
+      1145
+    ],
+    "policy": "Manually reviewed asphalt/timber interior landmarks. Deterministic affine registration of native painting, no mirroring; upper-left lighting retained with small axis correction. CatmullRom at 12 pixels per logical pixel, all source-axis reductions; final terrain-stamps Lanczos3 at4x then2x. Stone abutments, parapets and shadow extend outside the48px deck. Fixed canvas96x80 anchor48,40.",
+    "prepared_dimensions": [
+      1152,
+      960
+    ],
+    "prepared_pixels_per_logical": 12,
+    "prepared_sha256": "72fd6948611535d9c083631ed836f1f2085654ffeedd093ef0b71b3f3d2b2476",
+    "prepared_source": "art/terrain/rBridge/rbridge-36-export-shared-v1.png",
+    "source": "art/terrain/rBridge/rbridge-36-shared-v1.png",
+    "source_deck_landmarks_local_uv": [
+      -365,
+      370,
+      -215,
+      230
+    ],
+    "source_sha256": "1bd48d85e1dbbbc7c24686cbed7021d4bd7a6f1894019ed92aaee7b16fe095c5",
+    "source_solid_covariance_angle_degrees": 90.01067831423649,
+    "source_solid_covariance_center": [
+      687.187158664172,
+      582.1486238514718
+    ],
+    "source_to_prepared_affine": [
+      0.5932584166630466,
+      0.0001105666058434206,
+      172.70550630452706,
+      -0.00014605458879499232,
+      0.7836734557775311,
+      21.926759334597484
+    ],
+    "target_angle_degrees": 90,
+    "target_core_logical_width": 22,
+    "target_deck_logical_span": 48
+  }
+]

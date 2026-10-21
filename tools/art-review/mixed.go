@@ -23,6 +23,7 @@ type mixedVariant struct {
 }
 type mixedManifest struct {
 	SchemaVersion int                  `json:"schema_version"`
+	BridgeArtwork string               `json:"bridge_artwork,omitempty"`
 	Manifests     []connectionMaterial `json:"manifests"`
 	Variants      []mixedVariant       `json:"variants"`
 }
@@ -52,9 +53,12 @@ func decodeMixedManifest(b []byte) (mixedManifest, error) {
 		return m, err
 	}
 	for k := range raw {
-		if k != "schema_version" && k != "manifests" && k != "variants" {
+		if k != "schema_version" && k != "bridge_artwork" && k != "manifests" && k != "variants" {
 			return m, fmt.Errorf("noncanonical mixed field %q", k)
 		}
+	}
+	if _, present := raw["bridge_artwork"]; present && m.BridgeArtwork != "standing" {
+		return m, errors.New("bridge_artwork must be standing when specified")
 	}
 	var vs []map[string]json.RawMessage
 	if err := json.Unmarshal(raw["variants"], &vs); err != nil {
