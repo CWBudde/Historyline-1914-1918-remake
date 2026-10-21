@@ -28,7 +28,7 @@ Tick a box only with evidence you ran. Record decisions here, not their history.
 - **Original rules** (`internal/dosrules`): combat (casualties, support, distance, experience, order handler),
   movement queries and routes, loading/unloading/exits, visibility and the phase change, with fixtures for the
   full game and the demo; the command cycle state `Game` (validation, queued attacks, resolution with ordered
-  events, save/resume).
+  events, save/resume, victory and score).
 - **Art**: candidates for every enabled ID (134 tiles, 15 unit families with portraits, interface, screens);
   browse them in `gallery/`. Nothing is approved yet.
 
@@ -386,8 +386,13 @@ Needs Phases 1 to 6 for the matching summer family; mostly a material swap plus 
 - [ ] Energy and buildings: credits per building, repair (15 energy, 50 for construction units; restores
       group size, keeps experience, resets construction charges to 2), factory build lists and prices,
       capture of buildings and their stored units, depot construction, sapper trenches, barbed wire.
-- [ ] Victory and score: annihilation, ties, capture timing; +100 for hidden inventories, ×4/×3/×2 for
-      4/8/16 move limits, cap 32,500.
+- [x] Victory and score: annihilation, ties, capture timing; +500 for annihilation, +100 for hidden
+      inventories, ×4/×3/×2 for 4/8/16 move limits, cap 32,500. (2026-10-21) — `Game.Score`, the end
+      decided in `Resolve` (`Game.Ended`, `EvEnd`, `ErrOver` afterwards), `Game.Concealed`, final score.
+      Assumed, not verified: defence value = type armour, counted over every unit not destroyed; the HQ is
+      held when the side's map shows its unit on a 0x40 cell whose record the other side owns; a side is
+      annihilated with no unit left; the end is decided after a resolution, both sides winning is a draw
+      without score; bonuses come before the factor.
 - [ ] Wire the profile into the game and UI (phase display, pending orders, energy/repair/production
       controls); one integrated scenario covering both cycles, combat, transport, capture, repair and
       production; both factions and seasons; deterministic replay. Classic/Standard stay green.
