@@ -16,7 +16,8 @@ import (
 	"testing"
 )
 
-// This private candidate leaves all active grass exports and their recipe intact.
+// This private candidate leaves all active grass exports intact; its report goes to
+// build/review/grass-refdesign-detail-v1/grass-variations.json.
 // go test -tags grassgfx ./tools/art-review -run TestGenerateGrassDetailCandidate -count=1 -v
 func TestGenerateGrassDetailCandidate(t *testing.T) {
 	root := filepath.Join("..", "..")
@@ -73,7 +74,7 @@ func TestGenerateGrassDetailCandidate(t *testing.T) {
 		pin := write(filepath.Join(root, path), material)
 		pin.Path = path
 		materials[spec.id] = material
-		materialPins[spec.id] = map[string]any{"source": path, "source_sha256": pin.SHA256, "source_dimensions": []int{768, 480}, "master_source": masterPath, "master_sha256": spec.hash, "master_dimensions": []int{master.Bounds().Dx(), master.Bounds().Dy()}, "projection": "Whole source alpha-aware antialiased Lanczos3 to768x480, preserving the edited canonical grass composition and relative feature scale.", "generation_recipe": "art/recipes/terrain/refdesign-v1/grass-detail-" + spec.id + "-master-02.json"}
+		materialPins[spec.id] = map[string]any{"source": path, "source_sha256": pin.SHA256, "source_dimensions": []int{768, 480}, "master_source": masterPath, "master_sha256": spec.hash, "master_dimensions": []int{master.Bounds().Dx(), master.Bounds().Dy()}, "projection": "Whole source alpha-aware antialiased Lanczos3 to768x480, preserving the edited canonical grass composition and relative feature scale."}
 	}
 	selection := [16]string{"base", "flowers", "worn", "flowers", "worn", "base", "flowers", "worn", "flowers", "worn", "base", "flowers", "worn", "flowers", "worn", "base"}
 	patchBounds := image.Rect(0, 0, (4*142+96)*2, (8*40+80)*2)
@@ -123,14 +124,7 @@ func TestGenerateGrassDetailCandidate(t *testing.T) {
 	draw.Draw(comparison, gameBefore.Bounds(), gameBefore, image.Point{}, draw.Src)
 	draw.Draw(comparison, gameAfter.Bounds().Add(image.Pt(gameBefore.Bounds().Dx(), 0)), gameAfter, image.Point{}, draw.Src)
 	write(filepath.Join(directory, "comparison-game1.5.png"), comparison)
-	previous, err := os.ReadFile(filepath.Join(root, "art/recipes/terrain/refdesign-v1/grass-variations.json"))
-	if err != nil {
-		t.Fatal(err)
-	}
-	var recipe map[string]any
-	if err := json.Unmarshal(previous, &recipe); err != nil {
-		t.Fatal(err)
-	}
+	recipe := map[string]any{"schema_version": 1, "id": "grass-variations"}
 	recipe["detail_materials"] = materialPins
 	recipe["variants"] = variants
 	recipe["generation_command"] = "go test -tags grassgfx ./tools/art-review -run TestGenerateGrassDetailCandidate -count=1 -v"

@@ -1,9 +1,0 @@
-{
-  "schema_version": 1,
-  "status": "intermediate framing revision; entrance edge continuation follows",
-  "date": "2026-10-16",
-  "tool": "built-in image_gen",
-  "edit_target": "art/source/compound/reference-v2/hq-summer-01.png",
-  "output": "art/source/compound/reference-v2/hq-summer-02.png",
-  "prompt": "Use case: precise-object-edit. Edit target image1 is the new painted fortress HQ master. It already has the correct fortress architecture; KEEP all four gray-white crenellated stone corner towers, connecting stone walls, open transparent square courtyard, small north red-roof gatehouse, bridge and turquoise moat in exactly the same positions, materials and painting style. ONLY make these two framing corrections for the tile exporter: (1) The vertical road currently touches/crops at the top canvas edge. Shorten the road at its NORTH end so the highest opaque pixel starts at y=6% of the whole canvas, leaving a truly transparent top margin above it. Keep road and bridge alignment and white crossbar; move that crossbar down only if needed, do not shift the fortress. (2) The TWO round bushes below the back wall are oversized; make each leafy crown about 30% smaller while keeping their two centers in place around x44%,55%, y89%. Preserve them as two separate recognizable green bushes. Keep all other pixels/features/composition unchanged as closely as possible. Real transparent background and transparent courtyard opening, no grass/dirt fill, no text, no tile outlines, no frame. The road connector to outer map tiles is added by the exporter. Keep same square high-resolution canvas."
-}

@@ -24,3 +24,6 @@ jobs:
 
   test-wasm:
     uses: ./.github/workflows/test-wasm.yaml
+
+  test-art:
+    uses: ./.github/workflows/test-art.yaml

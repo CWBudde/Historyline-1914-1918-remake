@@ -8,13 +8,12 @@ import (
 	"fmt"
 	"math"
 	"slices"
-	"strings"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 )
 
 // families maps every unit type of internal/data to its sprite family. A family
-// slug is the art recipe ID without "unit-" and "-v1" (unit-light-artillery-v1);
+// slug names the art folders art/units/<family>/ and art/portraits/<family>/;
 // both sides of a class share one family and differ only by owner palette.
 var families = map[string]string{
 	"CP_infantry": "infantry", "EC_infantry": "infantry",
@@ -62,16 +61,6 @@ func ClassIDs(family string) []string {
 	}
 	slices.Sort(out)
 	return out
-}
-
-// SlugOfRecipe turns an art recipe ID (unit-light-artillery-v1) into its family slug.
-func SlugOfRecipe(recipeID string) (string, bool) {
-	s, ok := strings.CutPrefix(recipeID, "unit-")
-	if !ok {
-		return "", false
-	}
-	s, ok = strings.CutSuffix(s, "-v1")
-	return s, ok && s != ""
 }
 
 // Palette is the owner colouring of a sprite. It follows the current owner, never

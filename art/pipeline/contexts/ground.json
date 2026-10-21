@@ -1,0 +1,1656 @@
+{
+  "family": "ground",
+  "profiles": [
+    {
+      "canonical": true,
+      "context_key": "dd5413df8d19db19720c5f4b9aca086f4cac5b0efac7056c84f506725375fd6b",
+      "descriptor": "ground-v1\nseason=summer\ncenter=grass\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "runtime_id": "grass",
+      "season": "summer"
+    },
+    {
+      "canonical": true,
+      "context_key": "157bb491331e86eba9a601987a68e794b95a59c859ea6e71a09c846369e132f5",
+      "descriptor": "ground-v1\nseason=winter\ncenter=grass_w\nNE=grass_w\nSE=grass_w\nS=grass_w\nSW=grass_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "grass_w",
+      "season": "winter"
+    },
+    {
+      "canonical": true,
+      "context_key": "baa33e512f7783896b45f58ba7c59de7543962e889808e93bff6144b12706868",
+      "descriptor": "ground-v1\nseason=summer\ncenter=mud\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "runtime_id": "mud",
+      "season": "summer"
+    },
+    {
+      "canonical": true,
+      "context_key": "98e059fdd32201cbb3b8f3d87669fa9a6f51fdf8925c3846b4d4916cb436bc7a",
+      "descriptor": "ground-v1\nseason=summer\ncenter=stone\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "runtime_id": "stone",
+      "season": "summer"
+    },
+    {
+      "canonical": true,
+      "context_key": "0fd13accbc88539657581b7ddb82d05494356c16179a016453fc4530099e7af2",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=grass_w\nS=grass_w\nSW=grass_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": true,
+      "context_key": "07f3b9c5554aeb9a3bed8215f0f2ec67f279b742d9f52864a42f92a5652f6b77",
+      "descriptor": "ground-v1\nseason=winter\ncenter=stoney_w\nNE=grass_w\nSE=grass_w\nS=grass_w\nSW=grass_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "stoney_w",
+      "season": "winter"
+    },
+    {
+      "canonical": true,
+      "context_key": "dd31e0e5f5af30beee130e8a09bc7efb34c33c86586243b451ee6f26f3af3e4b",
+      "descriptor": "ground-v1\nseason=winter\ncenter=shelled_w\nNE=grass_w\nSE=grass_w\nS=grass_w\nSW=grass_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "shelled_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "a81ed13ba57425943ba036e4ad0cad40b028f4a4ed2b7eca0814d988f72837c3",
+      "descriptor": "ground-v1\nseason=summer\ncenter=mud\nNE=mud\nSE=mud\nS=mud\nSW=mud\nNW=mud\nN=mud\n",
+      "neighbor_ids": [
+        "mud",
+        "mud",
+        "mud",
+        "mud",
+        "mud",
+        "mud"
+      ],
+      "runtime_id": "mud",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "438279796f8f76f4dd925728d836eb2859e7360f9f5859c601fbbccc50b68770",
+      "descriptor": "ground-v1\nseason=summer\ncenter=stone\nNE=stone\nSE=stone\nS=stone\nSW=stone\nNW=stone\nN=stone\n",
+      "neighbor_ids": [
+        "stone",
+        "stone",
+        "stone",
+        "stone",
+        "stone",
+        "stone"
+      ],
+      "runtime_id": "stone",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "4ada7f472cc3a209dde0a1a50de3a170524897edce4387e4fc8ae7a2d9b6faf3",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=rough_w\nSE=rough_w\nS=rough_w\nSW=rough_w\nNW=rough_w\nN=rough_w\n",
+      "neighbor_ids": [
+        "rough_w",
+        "rough_w",
+        "rough_w",
+        "rough_w",
+        "rough_w",
+        "rough_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "32e805fd7aeb8e5d4297b546e3869d5a4046672a2fca76beb9d938b8f7863835",
+      "descriptor": "ground-v1\nseason=winter\ncenter=stoney_w\nNE=stoney_w\nSE=stoney_w\nS=stoney_w\nSW=stoney_w\nNW=stoney_w\nN=stoney_w\n",
+      "neighbor_ids": [
+        "stoney_w",
+        "stoney_w",
+        "stoney_w",
+        "stoney_w",
+        "stoney_w",
+        "stoney_w"
+      ],
+      "runtime_id": "stoney_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "02d10ab52944525e934029b07a6f9c5fce0d4e734fb92b4e9b0cbd9c7a826ac9",
+      "descriptor": "ground-v1\nseason=winter\ncenter=shelled_w\nNE=shelled_w\nSE=shelled_w\nS=shelled_w\nSW=shelled_w\nNW=shelled_w\nN=shelled_w\n",
+      "neighbor_ids": [
+        "shelled_w",
+        "shelled_w",
+        "shelled_w",
+        "shelled_w",
+        "shelled_w",
+        "shelled_w"
+      ],
+      "runtime_id": "shelled_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "d703493171ab7649d915a04fefe14eee8047955fd16e3977e4215f7ae9587d70",
+      "descriptor": "ground-v1\nseason=summer\ncenter=mud\nNE=stone\nSE=grass\nS=mud\nSW=stone\nNW=grass\nN=mud\n",
+      "neighbor_ids": [
+        "stone",
+        "grass",
+        "mud",
+        "stone",
+        "grass",
+        "mud"
+      ],
+      "runtime_id": "mud",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "efaddf8f0bd3f3159f6b633d0f36914e44d380e0bbb2dd25727f1d407daf8776",
+      "descriptor": "ground-v1\nseason=summer\ncenter=stone\nNE=grass\nSE=grass\nS=grass\nSW=mud\nNW=mud\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "mud",
+        "mud",
+        "grass"
+      ],
+      "runtime_id": "stone",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "ca0c45dcf234ccc5b2e0f20bd35cc885fa1f859cea60040eb6bb7959a98b862d",
+      "descriptor": "ground-v1\nseason=summer\ncenter=mud\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=stone\nN=mud\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "stone",
+        "mud"
+      ],
+      "runtime_id": "mud",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "2e5f8122f9cd0c801a46eb45538d8e3c5b3dd5551c6fad5d8a4ac0dd1f4309b4",
+      "descriptor": "ground-v1\nseason=summer\ncenter=stone\nNE=mud\nSE=mud\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "mud",
+        "mud",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "runtime_id": "stone",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "ecad61bcf661b95debd02e01adbb8e1ae733b23975cc72150320587bfa86468e",
+      "descriptor": "ground-v1\nseason=summer\ncenter=mud\nNE=grass\nSE=stone\nS=mud\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "stone",
+        "mud",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "runtime_id": "mud",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "639bd5ed69257ecda6b85827d6542b8e42d255271ba32659a356dcadb97c8bec",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=stoney_w\nSE=shelled_w\nS=grass_w\nSW=rough_w\nNW=stoney_w\nN=shelled_w\n",
+      "neighbor_ids": [
+        "stoney_w",
+        "shelled_w",
+        "grass_w",
+        "rough_w",
+        "stoney_w",
+        "shelled_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "fbc8b0602628f5a5c8cbac716abb469a0100c854aee5364877685e2fbc3a53b1",
+      "descriptor": "ground-v1\nseason=winter\ncenter=stoney_w\nNE=grass_w\nSE=grass_w\nS=shelled_w\nSW=rough_w\nNW=shelled_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "shelled_w",
+        "rough_w",
+        "shelled_w",
+        "grass_w"
+      ],
+      "runtime_id": "stoney_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "eadc07cdbfd402261dfe244114ef4994b8fa05a0672a670bfcb8df468507bcb0",
+      "descriptor": "ground-v1\nseason=winter\ncenter=shelled_w\nNE=grass_w\nSE=grass_w\nS=grass_w\nSW=grass_w\nNW=rough_w\nN=stoney_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "rough_w",
+        "stoney_w"
+      ],
+      "runtime_id": "shelled_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "310e3fe0fbba7e48364373dd833ae52956284383e662229c55aff9322babdf84",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=rough_w\nSE=grass_w\nS=grass_w\nSW=grass_w\nNW=grass_w\nN=stoney_w\n",
+      "neighbor_ids": [
+        "rough_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "stoney_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "70481f7da521902c6d2778c053cfa2c95e0fa7ba8ff1f4a3764f587a394a0ecf",
+      "descriptor": "ground-v1\nseason=winter\ncenter=stoney_w\nNE=shelled_w\nSE=rough_w\nS=rough_w\nSW=grass_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "shelled_w",
+        "rough_w",
+        "rough_w",
+        "grass_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "stoney_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "d51fa2ef6cd38342587be968f00366b5339d0ed542147d9b1b27663b37156d83",
+      "descriptor": "ground-v1\nseason=winter\ncenter=shelled_w\nNE=grass_w\nSE=stoney_w\nS=rough_w\nSW=stoney_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "stoney_w",
+        "rough_w",
+        "stoney_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "shelled_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "1661d3f8f60dbf8e45f5f21c2099ab3649c3f87f5db36c16d177a9b3b724ef47",
+      "descriptor": "ground-v1\nseason=winter\ncenter=shelled_w\nNE=grass_w\nSE=stoney_w\nS=grass_w\nSW=rough_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "stoney_w",
+        "grass_w",
+        "rough_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "shelled_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "197599e6f51119757a8a2d0e6a332bfe84022faa8d95be6c3145151f078f1c34",
+      "descriptor": "ground-v1\nseason=winter\ncenter=stoney_w\nNE=grass_w\nSE=shelled_w\nS=rough_w\nSW=grass_w\nNW=shelled_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "shelled_w",
+        "rough_w",
+        "grass_w",
+        "shelled_w",
+        "grass_w"
+      ],
+      "runtime_id": "stoney_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "20728cabd6ebe2a0b6d30e88e9c95ab6ab478d25069ba3f22457b34477f60168",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=grass_w\nS=rough_w\nSW=rough_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "rough_w",
+        "rough_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "26528b803ea46ea457fa18c664864adefa139c788ebb2eff65f560c09d32272b",
+      "descriptor": "ground-v1\nseason=summer\ncenter=mud\nNE=mud\nSE=grass\nS=grass\nSW=grass\nNW=mud\nN=mud\n",
+      "neighbor_ids": [
+        "mud",
+        "grass",
+        "grass",
+        "grass",
+        "mud",
+        "mud"
+      ],
+      "runtime_id": "mud",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "289db9bff3a3c035089a36b99e6da95f5ad6a524d43c5fc0423608ef2611dfd4",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=rough_w\nSE=rough_w\nS=grass_w\nSW=grass_w\nNW=grass_w\nN=rough_w\n",
+      "neighbor_ids": [
+        "rough_w",
+        "rough_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "rough_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "3197813da48193074c7d036342601bdf25a061342d8a2b1424220705188ac163",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=grass_w\nS=grass_w\nSW=rough_w\nNW=grass_w\nN=stoney_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "rough_w",
+        "grass_w",
+        "stoney_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "4030a5bd3f7c041edb7a491ae485a94d955a0df3c6799b9e8887da3fb1519f99",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=rough_w\nSE=grass_w\nS=rough_w\nSW=rough_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "rough_w",
+        "grass_w",
+        "rough_w",
+        "rough_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "45955a43e1ee9540cd13c467c858b58a33df30289c6f64bfb836203a1a7e7349",
+      "descriptor": "ground-v1\nseason=winter\ncenter=shelled_w\nNE=stoney_w\nSE=grass_w\nS=grass_w\nSW=grass_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "stoney_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "shelled_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "531b3219f099c7f9430b1b05c18e03d3267c00c5cf999e4215cb2322e6ed6d09",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=rough_w\nSE=grass_w\nS=grass_w\nSW=grass_w\nNW=rough_w\nN=rough_w\n",
+      "neighbor_ids": [
+        "rough_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "rough_w",
+        "rough_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "5a3ddbe400b8d60df4ec3efa6db82b406c3f225f10f47c8e5f3daaca6e7cc0a4",
+      "descriptor": "ground-v1\nseason=summer\ncenter=mud\nNE=mud\nSE=mud\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "mud",
+        "mud",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "runtime_id": "mud",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "5dc57783e519d6cc8a1092ba79f8ee301973d8cd6a6fbd77057e73de8a78a29a",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=rough_w\nS=grass_w\nSW=grass_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "rough_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "64ab9ffe686d48cb4b404f061d49fd786bc97e82af4ebee9e65afb934f631c78",
+      "descriptor": "ground-v1\nseason=summer\ncenter=mud\nNE=grass\nSE=mud\nS=mud\nSW=mud\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "mud",
+        "mud",
+        "mud",
+        "grass",
+        "grass"
+      ],
+      "runtime_id": "mud",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "6d59d951b25e8ffd1916ec1b259fedc0a6aa39737c1d1eba3e6152cae6477781",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=rough_w\nSE=rough_w\nS=rough_w\nSW=grass_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "rough_w",
+        "rough_w",
+        "rough_w",
+        "grass_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "722ac426efef1096cbce6811c04b8dd9cb8c6226eb290a17c80df4e01457ed2c",
+      "descriptor": "ground-v1\nseason=winter\ncenter=stoney_w\nNE=grass_w\nSE=grass_w\nS=grass_w\nSW=shelled_w\nNW=grass_w\nN=rough_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "shelled_w",
+        "grass_w",
+        "rough_w"
+      ],
+      "runtime_id": "stoney_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "7678ba4bc27e719b6d1dd79789ae07af8b2d719bcde342c844dc9993f163bfb9",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=rough_w\nSE=grass_w\nS=grass_w\nSW=grass_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "rough_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "77d6ee6ee31ba2d3b7525ba4123c94baea322ff4654c2f4390e54d52cb072f2f",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=rough_w\nSE=shelled_w\nS=rough_w\nSW=rough_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "rough_w",
+        "shelled_w",
+        "rough_w",
+        "rough_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "7cfbc151b8d394e0aa21ea50ae218c75ccd3ba246f1c686873a6fc71e5ae0bfa",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=grass_w\nS=grass_w\nSW=rough_w\nNW=rough_w\nN=rough_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "rough_w",
+        "rough_w",
+        "rough_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "7fdb9e52687953a344816992df79a235a6d0f58b6c381f24fbd290f88450dc4f",
+      "descriptor": "ground-v1\nseason=winter\ncenter=shelled_w\nNE=grass_w\nSE=grass_w\nS=grass_w\nSW=grass_w\nNW=shelled_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "shelled_w",
+        "grass_w"
+      ],
+      "runtime_id": "shelled_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "86750a8ca7bcd9a4666bd078f3d844af54ce4341d8118c5f9800e3ba6a96b03a",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=grass_w\nS=rough_w\nSW=grass_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "rough_w",
+        "grass_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "89696eea8b3278b3645278d06a6242acdbba165c77fffccfc767ec2c73ac8941",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=rough_w\nSE=grass_w\nS=grass_w\nSW=grass_w\nNW=grass_w\nN=rough_w\n",
+      "neighbor_ids": [
+        "rough_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "rough_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "94e87cecbbacba8c3dbacbc444aaa60b2b68686c82c42d3a65b994531dc67e70",
+      "descriptor": "ground-v1\nseason=winter\ncenter=shelled_w\nNE=grass_w\nSE=shelled_w\nS=grass_w\nSW=grass_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "shelled_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "shelled_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "962d5a72910d189cb868ff3bb59e664fa1ce376e9de70094d69dc05ab1d2ad79",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=shelled_w\nSE=grass_w\nS=grass_w\nSW=rough_w\nNW=rough_w\nN=rough_w\n",
+      "neighbor_ids": [
+        "shelled_w",
+        "grass_w",
+        "grass_w",
+        "rough_w",
+        "rough_w",
+        "rough_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "967900cd73d50b495ed4817ecdbc542dbc32ff157887688dd2ef9978f72963ac",
+      "descriptor": "ground-v1\nseason=winter\ncenter=shelled_w\nNE=shelled_w\nSE=grass_w\nS=shelled_w\nSW=shelled_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "shelled_w",
+        "grass_w",
+        "shelled_w",
+        "shelled_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "shelled_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "a1599c620b63662f5aefe467f79f2e00d6bd287b7702184d21d292c17f505f83",
+      "descriptor": "ground-v1\nseason=winter\ncenter=shelled_w\nNE=grass_w\nSE=grass_w\nS=grass_w\nSW=shelled_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "shelled_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "shelled_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "a8c5ff28b7806359e2c6281a15d1e8c59c610d74c541fc6e6c6c81e66fe5cb12",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=shelled_w\nSE=grass_w\nS=grass_w\nSW=grass_w\nNW=rough_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "shelled_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "rough_w",
+        "grass_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "ab3686490888fd1c9c728ce9e7d4816379730fc3f89e9f8a67f1210e2c229c63",
+      "descriptor": "ground-v1\nseason=winter\ncenter=stoney_w\nNE=rough_w\nSE=grass_w\nS=rough_w\nSW=grass_w\nNW=grass_w\nN=stoney_w\n",
+      "neighbor_ids": [
+        "rough_w",
+        "grass_w",
+        "rough_w",
+        "grass_w",
+        "grass_w",
+        "stoney_w"
+      ],
+      "runtime_id": "stoney_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "c8ee99f4ca117cd514896622d0a9ab9e7f40cb5d3fac782bfa3d05afc16871c5",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=grass_w\nS=grass_w\nSW=rough_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "rough_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "f6138c0b7726b88a5b146ef1f9581d9889de67739725aab2100d864d493356bb",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=grass_w\nS=stoney_w\nSW=grass_w\nNW=grass_w\nN=rough_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "stoney_w",
+        "grass_w",
+        "grass_w",
+        "rough_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "055818bb47841989ad16fd0996c2894519f2bf4d41c8354a9604eef6cda0705e",
+      "descriptor": "ground-v1\nseason=winter\ncenter=shelled_w\nNE=shelled_w\nSE=shelled_w\nS=grass_w\nSW=shelled_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "shelled_w",
+        "shelled_w",
+        "grass_w",
+        "shelled_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "shelled_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "12438bff848bb56c38e182737e1dbb81b25bf4433abf91dbcef08b5c25413340",
+      "descriptor": "ground-v1\nseason=summer\ncenter=stone\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=stone\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "stone",
+        "grass"
+      ],
+      "runtime_id": "stone",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "1a0733233908b9e60bbfb03064453577fbba515ded16a84148e58e11dc0245b3",
+      "descriptor": "ground-v1\nseason=summer\ncenter=stone\nNE=grass\nSE=stone\nS=grass\nSW=stone\nNW=stone\nN=stone\n",
+      "neighbor_ids": [
+        "grass",
+        "stone",
+        "grass",
+        "stone",
+        "stone",
+        "stone"
+      ],
+      "runtime_id": "stone",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "1a8ee121e001941a0153019675fb554d86d9e618ee1430f508949f999b830ed3",
+      "descriptor": "ground-v1\nseason=winter\ncenter=shelled_w\nNE=grass_w\nSE=shelled_w\nS=grass_w\nSW=rough_w\nNW=stoney_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "shelled_w",
+        "grass_w",
+        "rough_w",
+        "stoney_w",
+        "grass_w"
+      ],
+      "runtime_id": "shelled_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "1c01dbda2dc835b6efec28837efed99e6bbc693cc92b1c275af6a336703c71ee",
+      "descriptor": "ground-v1\nseason=winter\ncenter=shelled_w\nNE=shelled_w\nSE=shelled_w\nS=grass_w\nSW=grass_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "shelled_w",
+        "shelled_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "shelled_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "2338f5a633871bdf4f2a5bddbcfad4d9cbe36ee92729fd600a6c1b420d1e8a61",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=rough_w\nS=rough_w\nSW=grass_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "rough_w",
+        "rough_w",
+        "grass_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "25c37bad632413412d61587b075f83a11ff81c219d06d69236eb93de9b8f1a1f",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=rough_w\nS=stoney_w\nSW=grass_w\nNW=grass_w\nN=rough_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "rough_w",
+        "stoney_w",
+        "grass_w",
+        "grass_w",
+        "rough_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "2b362cd114e6b661e82d9262c4fbd8c52bf85d788158230b987b430a3af2d39d",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=rough_w\nS=rough_w\nSW=rough_w\nNW=rough_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "rough_w",
+        "rough_w",
+        "rough_w",
+        "rough_w",
+        "grass_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "2c8070d0071353731b800c5cf2ec1ff68c53bdd67dba37f0467471b880d33ec5",
+      "descriptor": "ground-v1\nseason=summer\ncenter=stone\nNE=stone\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=stone\n",
+      "neighbor_ids": [
+        "stone",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "stone"
+      ],
+      "runtime_id": "stone",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "2d2ded2a907ee9be67e31cad395f0279118f54172bb06bf43c7d7a164f64de5c",
+      "descriptor": "ground-v1\nseason=winter\ncenter=stoney_w\nNE=grass_w\nSE=grass_w\nS=grass_w\nSW=stoney_w\nNW=grass_w\nN=rough_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "stoney_w",
+        "grass_w",
+        "rough_w"
+      ],
+      "runtime_id": "stoney_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "37a45b9800badb8289c175c2f302458a55531fe48067127f3f42b6fb9c7c3610",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=shelled_w\nS=grass_w\nSW=grass_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "shelled_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "3bbdb892c7a85029286d082ab62ba9a1833c20b55bed75558f2e536322387574",
+      "descriptor": "ground-v1\nseason=winter\ncenter=stoney_w\nNE=grass_w\nSE=rough_w\nS=grass_w\nSW=grass_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "rough_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "stoney_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "3d1777d49509810d5417995d9c0b548f3d87b6d80543d205740c139e01ea6a2a",
+      "descriptor": "ground-v1\nseason=winter\ncenter=shelled_w\nNE=shelled_w\nSE=grass_w\nS=shelled_w\nSW=grass_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "shelled_w",
+        "grass_w",
+        "shelled_w",
+        "grass_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "shelled_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "40061f1a79c7743b329080d63a216d42b2c271eebd57b449d8a32f86af9de962",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=rough_w\nS=grass_w\nSW=grass_w\nNW=grass_w\nN=rough_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "rough_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "rough_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "48517b8de5d29a16befa4d522af01bd14719f1b91dfda0c04bdd3d8e59a3f4bf",
+      "descriptor": "ground-v1\nseason=winter\ncenter=stoney_w\nNE=grass_w\nSE=grass_w\nS=grass_w\nSW=rough_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "rough_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "stoney_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "491e203ed62bcbba48f7d39b652e0abaee3f411b641ae9562b86c7491937e755",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=rough_w\nS=rough_w\nSW=rough_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "rough_w",
+        "rough_w",
+        "rough_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "4b2d496702d3772a361ab6dce68d0be97732b67f854271daa637d73a5fc83fc0",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=grass_w\nS=grass_w\nSW=grass_w\nNW=rough_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "rough_w",
+        "grass_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "4ca5d116afbb59e92b07e8ed53c65d4ed699906b20e605826cb6603c86a11f82",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=stoney_w\nSE=grass_w\nS=grass_w\nSW=rough_w\nNW=rough_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "stoney_w",
+        "grass_w",
+        "grass_w",
+        "rough_w",
+        "rough_w",
+        "grass_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "4f00e8f2750725cb85449cdef4f4cdf3a2c1b889930006c15f3d3a84136e7db9",
+      "descriptor": "ground-v1\nseason=winter\ncenter=shelled_w\nNE=shelled_w\nSE=shelled_w\nS=shelled_w\nSW=shelled_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "shelled_w",
+        "shelled_w",
+        "shelled_w",
+        "shelled_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "shelled_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "54bb168f7c332923709d416c66ab1757dfc94105e7b4be9fe5ba4c3cfc951407",
+      "descriptor": "ground-v1\nseason=winter\ncenter=shelled_w\nNE=grass_w\nSE=grass_w\nS=grass_w\nSW=grass_w\nNW=rough_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "rough_w",
+        "grass_w"
+      ],
+      "runtime_id": "shelled_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "57daffc0724e66a21931cf18eba2232108dcdfbb6008eb5929ae1d16b07b9ce2",
+      "descriptor": "ground-v1\nseason=winter\ncenter=shelled_w\nNE=shelled_w\nSE=grass_w\nS=grass_w\nSW=grass_w\nNW=shelled_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "shelled_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "shelled_w",
+        "grass_w"
+      ],
+      "runtime_id": "shelled_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "62a6cbf84c6de107aa44d5d228daebd27e793b07e6d57f1dc37389c5d1ae5686",
+      "descriptor": "ground-v1\nseason=winter\ncenter=stoney_w\nNE=rough_w\nSE=grass_w\nS=grass_w\nSW=rough_w\nNW=grass_w\nN=rough_w\n",
+      "neighbor_ids": [
+        "rough_w",
+        "grass_w",
+        "grass_w",
+        "rough_w",
+        "grass_w",
+        "rough_w"
+      ],
+      "runtime_id": "stoney_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "6d0d980712a8b03f574c9dc2ea3f1a54f5246c196a20168dd0fdf4a84ea4b058",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=rough_w\nSE=rough_w\nS=rough_w\nSW=rough_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "rough_w",
+        "rough_w",
+        "rough_w",
+        "rough_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "6e9da179e662bf9b48259f1f26d8ce59349bb1ea5c7ab97b79cab1300f747735",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=rough_w\nS=grass_w\nSW=rough_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "rough_w",
+        "grass_w",
+        "rough_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "71a40071ddd2017ec98226024f635ece5f4d922dcde961cd6a12ebf1670ca4a8",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=grass_w\nS=rough_w\nSW=grass_w\nNW=rough_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "rough_w",
+        "grass_w",
+        "rough_w",
+        "grass_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "809842928b4d6da0017544b11d0e0d06369804b3a2646867d5eb6762c61fe9ea",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=grass_w\nS=grass_w\nSW=grass_w\nNW=rough_w\nN=rough_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "rough_w",
+        "rough_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "864eb309f4bb20cbc7b59e637c0cdb7d1697c7ed0f56194e41a572b25a4624ac",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=shelled_w\nSE=grass_w\nS=grass_w\nSW=grass_w\nNW=grass_w\nN=stoney_w\n",
+      "neighbor_ids": [
+        "shelled_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "stoney_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "8d632d63eedc10313dd77863f2e0d2c00f3dfd50a2ce5b9010f83e4fca75a5e9",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=grass_w\nS=grass_w\nSW=grass_w\nNW=grass_w\nN=rough_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "rough_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "8df6d99030a907b5eef089e29653b516fd79433da40a317a0e2497885aba2e32",
+      "descriptor": "ground-v1\nseason=winter\ncenter=stoney_w\nNE=grass_w\nSE=rough_w\nS=stoney_w\nSW=grass_w\nNW=rough_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "rough_w",
+        "stoney_w",
+        "grass_w",
+        "rough_w",
+        "grass_w"
+      ],
+      "runtime_id": "stoney_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "a1794ce0c07da0456e981e583bb0816afc66b2d80fcd3143e009a6315a51bec7",
+      "descriptor": "ground-v1\nseason=summer\ncenter=mud\nNE=grass\nSE=grass\nS=grass\nSW=mud\nNW=mud\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "mud",
+        "mud",
+        "grass"
+      ],
+      "runtime_id": "mud",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "a90474fd0344b015753bb0654017309290141793cfbf8252ecb3bfdabf0e1f83",
+      "descriptor": "ground-v1\nseason=summer\ncenter=stone\nNE=stone\nSE=stone\nS=stone\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "stone",
+        "stone",
+        "stone",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "runtime_id": "stone",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "a9cd31b100033abd823917d6d69c1806c926ac29af5a6a7e3ca7e70a9afce392",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=rough_w\nS=grass_w\nSW=rough_w\nNW=rough_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "rough_w",
+        "grass_w",
+        "rough_w",
+        "rough_w",
+        "grass_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "b1b3ed8c599499d8b8ffc8d3ed747af8b99a23928f04f159a7d2b681ec46c7c1",
+      "descriptor": "ground-v1\nseason=summer\ncenter=stone\nNE=stone\nSE=stone\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "stone",
+        "stone",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "runtime_id": "stone",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "b1eeb5d9789a8ef1ae058a0f1062247f657a7125b0a347d87ec293e4bbb9c174",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=rough_w\nSE=grass_w\nS=grass_w\nSW=grass_w\nNW=rough_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "rough_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "rough_w",
+        "grass_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "b561b0d813da23ddbac662141662ab0051ce83a4748b08a07ac8459b705be143",
+      "descriptor": "ground-v1\nseason=winter\ncenter=shelled_w\nNE=grass_w\nSE=grass_w\nS=grass_w\nSW=grass_w\nNW=shelled_w\nN=shelled_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "shelled_w",
+        "shelled_w"
+      ],
+      "runtime_id": "shelled_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "ba5641435fad995e769584b1af8eb05fe0fa28e9c2a16cca35e01d249809690a",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=rough_w\nS=rough_w\nSW=rough_w\nNW=rough_w\nN=rough_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "rough_w",
+        "rough_w",
+        "rough_w",
+        "rough_w",
+        "rough_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "bc866d392c7e32e3f2d109cc14d540d9f3892a382571ba508d8a669b60e044a4",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=stoney_w\nS=grass_w\nSW=grass_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "stoney_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "c2925ac23cbc8cec7747de2b0437c4b7460bceca6222e9ade5f0797a5261a661",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=rough_w\nSE=grass_w\nS=stoney_w\nSW=grass_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "rough_w",
+        "grass_w",
+        "stoney_w",
+        "grass_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "c2a9deca6a5d3b9c144a22dae22f35866e01c1118f8195457392ee5dc914e58f",
+      "descriptor": "ground-v1\nseason=summer\ncenter=stone\nNE=grass\nSE=grass\nS=grass\nSW=stone\nNW=stone\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "stone",
+        "stone",
+        "grass"
+      ],
+      "runtime_id": "stone",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "c51d3103c6664f63bb91744566b5bc2f6ab934f5027550aaef908678c13d26f1",
+      "descriptor": "ground-v1\nseason=winter\ncenter=shelled_w\nNE=grass_w\nSE=grass_w\nS=shelled_w\nSW=shelled_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "shelled_w",
+        "shelled_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "shelled_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "c6c269bc0136e05dd6c457fd026a59e831735483f5284df0e2e0939dddbebe9b",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=grass_w\nS=grass_w\nSW=rough_w\nNW=grass_w\nN=rough_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "rough_w",
+        "grass_w",
+        "rough_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "c82a837a3400db94a0b93e274880c931a12fec01040f3c3e51c2a546c8358876",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=rough_w\nSE=rough_w\nS=rough_w\nSW=grass_w\nNW=stoney_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "rough_w",
+        "rough_w",
+        "rough_w",
+        "grass_w",
+        "stoney_w",
+        "grass_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "c886902228a0e4e5bd7ac668569dfa81a2cfd185fa4ed4d93231c05a3bcb93a0",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=rough_w\nSE=grass_w\nS=grass_w\nSW=stoney_w\nNW=stoney_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "rough_w",
+        "grass_w",
+        "grass_w",
+        "stoney_w",
+        "stoney_w",
+        "grass_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "d25347fa3faa76904568a5a7744744284fba56ae8bbc006e3400c3421b0a48d0",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=rough_w\nSE=grass_w\nS=grass_w\nSW=stoney_w\nNW=rough_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "rough_w",
+        "grass_w",
+        "grass_w",
+        "stoney_w",
+        "rough_w",
+        "grass_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "dae05f2ece22d83846e07886282bd908d08a8ce70a0002ac652c05af5fdec20d",
+      "descriptor": "ground-v1\nseason=summer\ncenter=stone\nNE=grass\nSE=grass\nS=stone\nSW=stone\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "stone",
+        "stone",
+        "grass",
+        "grass"
+      ],
+      "runtime_id": "stone",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "db4624eb14906885d2f9f6f6b357859e4217397aa309c6d825dc2f7a0204544f",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=rough_w\nSE=rough_w\nS=grass_w\nSW=grass_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "rough_w",
+        "rough_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "dd51c4938cb9f12f11a3ba90a6bc2553f7a35dc1c1087f84b578c8daf2a9bc0c",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=rough_w\nSE=rough_w\nS=rough_w\nSW=grass_w\nNW=rough_w\nN=rough_w\n",
+      "neighbor_ids": [
+        "rough_w",
+        "rough_w",
+        "rough_w",
+        "grass_w",
+        "rough_w",
+        "rough_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "e1e717480e6a7ee65a0f4d811ef49e55f45ad443ee3b69def0b1c628415a14b1",
+      "descriptor": "ground-v1\nseason=winter\ncenter=shelled_w\nNE=shelled_w\nSE=shelled_w\nS=grass_w\nSW=rough_w\nNW=rough_w\nN=rough_w\n",
+      "neighbor_ids": [
+        "shelled_w",
+        "shelled_w",
+        "grass_w",
+        "rough_w",
+        "rough_w",
+        "rough_w"
+      ],
+      "runtime_id": "shelled_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "e4fed1b6b191ca0cab328cfd6b07f7893ea9f938881e08f5ab0ee22bcf5ef426",
+      "descriptor": "ground-v1\nseason=summer\ncenter=stone\nNE=grass\nSE=stone\nS=stone\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "stone",
+        "stone",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "runtime_id": "stone",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "e6b45be00282d80689365b7ca65f14a9bd50f670394e26b03b9ca9f8616faab7",
+      "descriptor": "ground-v1\nseason=winter\ncenter=stoney_w\nNE=stoney_w\nSE=grass_w\nS=grass_w\nSW=stoney_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "stoney_w",
+        "grass_w",
+        "grass_w",
+        "stoney_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "stoney_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "e7b263f90e856896262de4c8d186b65749cd4c8ef8f2c749dccc054b25d90323",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=stoney_w\nSE=grass_w\nS=rough_w\nSW=grass_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "stoney_w",
+        "grass_w",
+        "rough_w",
+        "grass_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "e8f848ad3569a28b26f0b3fbaf18f0dfe62f7f8fcbcbdc11758c0b6a0feb6447",
+      "descriptor": "ground-v1\nseason=winter\ncenter=stoney_w\nNE=stoney_w\nSE=grass_w\nS=grass_w\nSW=grass_w\nNW=rough_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "stoney_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "rough_w",
+        "grass_w"
+      ],
+      "runtime_id": "stoney_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "ea90a8745631cc7021ef3de19d8923966d89b59f3203e451d6c77ead717b820c",
+      "descriptor": "ground-v1\nseason=winter\ncenter=shelled_w\nNE=shelled_w\nSE=grass_w\nS=grass_w\nSW=grass_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "shelled_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "shelled_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "ecd8e023947c29bdd5adc53bdf669aa306e9280f20b2cd68e3b9791f58f01072",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=stoney_w\nSE=grass_w\nS=grass_w\nSW=rough_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "stoney_w",
+        "grass_w",
+        "grass_w",
+        "rough_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "ee44fed14cb2842e4f98db19a1b32e5008ea8028dc35fe55c0a6010cbed7348d",
+      "descriptor": "ground-v1\nseason=summer\ncenter=stone\nNE=stone\nSE=grass\nS=grass\nSW=stone\nNW=stone\nN=grass\n",
+      "neighbor_ids": [
+        "stone",
+        "grass",
+        "grass",
+        "stone",
+        "stone",
+        "grass"
+      ],
+      "runtime_id": "stone",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "f0eb31ae429562c581b3f4f065bf13ef28e8be2c940bfa378f08f979be52b559",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=rough_w\nS=rough_w\nSW=rough_w\nNW=grass_w\nN=rough_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "rough_w",
+        "rough_w",
+        "rough_w",
+        "grass_w",
+        "rough_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "f59cf79496197c40e944ea11cce0df4d27f37b41b5954a78cca0a9a91e5c0333",
+      "descriptor": "ground-v1\nseason=summer\ncenter=stone\nNE=grass\nSE=grass\nS=grass\nSW=stone\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "stone",
+        "grass",
+        "grass"
+      ],
+      "runtime_id": "stone",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "f6888e5443c4242a1917781c060f541f9879bbfd1db035229d25a50fe47648ea",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=grass_w\nSE=grass_w\nS=rough_w\nSW=grass_w\nNW=grass_w\nN=rough_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "rough_w",
+        "grass_w",
+        "grass_w",
+        "rough_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "fb658a129e4fe5c732507ae3840e96a0567d8ee3ea5c238419f413357d61d835",
+      "descriptor": "ground-v1\nseason=winter\ncenter=rough_w\nNE=rough_w\nSE=rough_w\nS=shelled_w\nSW=rough_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "rough_w",
+        "rough_w",
+        "shelled_w",
+        "rough_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "rough_w",
+      "season": "winter"
+    }
+  ],
+  "schema_version": 1
+}

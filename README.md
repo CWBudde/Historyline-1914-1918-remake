@@ -10,10 +10,11 @@ newly painted art. The roadmap is [PLAN.md](PLAN.md).
 | `cmd/historyline` | The game |
 | `internal/` | Rules engine, data tables, level I/O, hex grid, asset packs, map compositor, AI |
 | `levels/` | Level files |
-| `art/` | Art masters per runtime family, recipes (prompts) and bundle manifests; see [docs/art](docs/art/README.md) |
+| `art/` | Art masters and `prompt.md` per runtime family, style guide, PULSE reference; see the [art guide](art/README.md) |
 | `assets/` | Runtime art the game packs are built from, listed in `assets/index.json` |
-| `tools/` | Offline art tooling |
-| `docs/` | Art guide, runtime asset packs, reconstructed manual |
+| `cmd/hlart` | Generates and checks `art/index.json`, the catalogue of all art families |
+| `tools/` | Offline art tooling and the PULSE reference design |
+| `docs/` | Art book, runtime asset packs, reconstructed manual |
 | `legacy/` | The upstream Python remake, kept as a test reference only |
 
 ## Running
@@ -36,11 +37,14 @@ just clean      # delete all generated output under build/
 
 ## Art
 
-All shipped art is newly authored; see the [art guide](docs/art/README.md). The art in `legacy/python/gfx/`
+All shipped art is newly authored; see the [art guide](art/README.md). The art in `legacy/python/gfx/`
 has unclear rights (two files are Battle Isle 3 screenshots) and is never redistributed.
 
 ```sh
-just gfx-check         # art tool tests
+just art-index         # regenerate art/index.json from the prompts, masters and assets/index.json
+just artbook           # art book with every family's prompt, masters and runtime samples (needs Typst)
+just gfx-check         # art catalogue, PULSE reference data and art tool tests
+just reference         # PULSE reference design review (needs the local RefDesign2.png)
 just gfx-game-review   # local comparison desk under build/review/gfx/
 just gfx-study         # PULSE map study with real game captures at 720p/1080p/4K
 ```

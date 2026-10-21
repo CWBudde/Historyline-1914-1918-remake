@@ -1,7 +1,6 @@
 package unitsprite
 
 import (
-	"encoding/json"
 	"os"
 	"path/filepath"
 	"slices"
@@ -30,44 +29,57 @@ func TestEveryUnitTypeHasAFamily(t *testing.T) {
 	}
 }
 
-// The art recipes are the other half of the contract: each family slug is the
-// recipe ID without "unit-" and "-v1", and lists exactly the class IDs mapped here.
-func TestFamiliesMatchArtRecipes(t *testing.T) {
-	paths, err := filepath.Glob(filepath.Join("..", "..", "art", "recipes", "unit-*-v1.json"))
+// The art folders are the other half of the contract: every unit pipeline
+// manifest unit-<family>-v1.json names a family of this table, and its prompt.md lists
+// exactly the class IDs mapped here as its runtime_ids.
+func TestFamiliesMatchArt(t *testing.T) {
+	paths, err := filepath.Glob(filepath.Join("..", "..", "art", "pipeline", "unit-*-v1.json"))
 	if err != nil {
 		t.Fatal(err)
 	}
 	var seen []string
 	for _, p := range paths {
-		b, err := os.ReadFile(p)
-		if err != nil {
-			t.Fatal(err)
+		family := strings.TrimSuffix(strings.TrimPrefix(filepath.Base(p), "unit-"), "-v1.json")
+		if family == "panel" {
+			continue // the unit panel manifest
 		}
-		var r struct {
-			ID     string `json:"id"`
-			Report struct {
-				ClassIDs []string `json:"class_ids"`
-			} `json:"bundle_report"`
-		}
-		if err := json.Unmarshal(b, &r); err != nil {
-			t.Fatal(p, err)
-		}
-		slug, ok := SlugOfRecipe(r.ID)
-		if !ok {
-			t.Fatalf("%s: recipe ID %q is not unit-<family>-v1", p, r.ID)
-		}
-		seen = append(seen, slug)
-		got := ClassIDs(slug)
-		want := slices.Clone(r.Report.ClassIDs)
-		slices.Sort(want)
+		seen = append(seen, family)
+		got := ClassIDs(family)
+		want := promptRuntimeIDs(t, family)
 		if !slices.Equal(got, want) {
-			t.Errorf("%s: class IDs %v, recipe has %v", slug, got, want)
+			t.Errorf("%s: class IDs %v, prompt.md has %v", family, got, want)
 		}
 	}
 	slices.Sort(seen)
 	if !slices.Equal(seen, Families()) {
-		t.Errorf("recipe families %v, table %v", seen, Families())
+		t.Errorf("pipeline families %v, table %v", seen, Families())
 	}
+}
+
+// promptRuntimeIDs reads the sorted runtime_ids of art/units/<family>/prompt.md.
+func promptRuntimeIDs(t *testing.T, family string) []string {
+	t.Helper()
+	b, err := os.ReadFile(filepath.Join("..", "..", "art", "units", family, "prompt.md"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	for line := range strings.Lines(string(b)) {
+		v, ok := strings.CutPrefix(line, "runtime_ids:")
+		if !ok {
+			continue
+		}
+		v, _, _ = strings.Cut(v, "#")
+		var ids []string
+		for id := range strings.SplitSeq(v, ",") {
+			if id = strings.TrimSpace(id); id != "" {
+				ids = append(ids, id)
+			}
+		}
+		slices.Sort(ids)
+		return ids
+	}
+	t.Fatalf("%s: prompt.md has no runtime_ids", family)
+	return nil
 }
 
 func TestIDNamesFamilyOwnerFacingAndState(t *testing.T) {

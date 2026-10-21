@@ -67,9 +67,36 @@ web port="": _build-dir
 # Everything CI checks
 ci: lint test build wasm gfx-check
 
-# Test the offline art tooling (no original data required)
-gfx-check:
+# Check the art catalogue, the PULSE reference data and the art tools (no original data required)
+gfx-check: art-check reference-check
     go test ./tools/...
+
+# Regenerate art/index.json from art/<kind>/<family>/prompt.md, masters and assets/index.json
+art-index:
+    go run ./cmd/hlart index
+
+# Check prompts, masters, runtime files, runtime IDs and that art/index.json is current
+art-check:
+    go run ./cmd/hlart check
+
+# Build the art book from art/index.json into build/artbook/Historyline_Art.pdf
+artbook: _build-dir
+    #!/usr/bin/env sh
+    set -eu
+    mkdir -p build/artbook
+    go run ./cmd/hlart thumbs -out build/artbook/thumbs
+    style=false
+    if [ -f art/style.md ]; then style=true; fi
+    {{manual_typst}} --input thumbs=/build/artbook/thumbs --input style=$style docs/artbook/artbook.typ build/artbook/Historyline_Art.pdf
+    echo build/artbook/Historyline_Art.pdf
+
+# Render the PULSE reference design review (needs the local RefDesign2.png) into build/review/reference
+reference: _build-dir
+    go run ./tools/reference-design -out build/review/reference
+
+# Check art/reference/pulse/reference.json against the level and the art families
+reference-check:
+    go run ./tools/reference-design -check
 
 # Create fidelity sheets; pass -reference, -candidate and -out
 [positional-arguments]

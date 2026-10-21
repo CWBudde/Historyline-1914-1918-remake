@@ -2,8 +2,10 @@
 
 package main
 
-// Explicit offline recipe: go test -tags campaigngfx ./tools/art-review -run TestGenerateCampaignContexts -count=1 -v
-// Normal tests never write artwork. Existing images are checked byte for byte.
+// Explicit offline generator: go test -tags campaigngfx ./tools/art-review -run TestGenerateCampaignContexts -count=1 -v
+// Normal tests never write artwork. Existing images are checked byte for byte
+// against assets/index.json. New contexts are written to assets/terrain/<family>/context/
+// and appended to art/pipeline/contexts/<family>.json; run `go run ./cmd/hlart index` afterwards.
 import (
 	"bytes"
 	"crypto/sha256"
@@ -38,14 +40,22 @@ func TestGenerateCampaignContexts(t *testing.T) {
 		}
 		return v
 	}
-	recipes := map[mapcompose.Family]map[string]any{}
-	known := map[string]map[string]any{}
+	profiles := map[mapcompose.Family]map[string]any{}
+	known := map[string]bool{}
 	for _, f := range mapcompose.Families {
-		r := read("art/recipes/" + string(f) + "-terrain-v1.json")
-		recipes[f] = r
+		r := read("art/pipeline/contexts/" + string(f) + ".json")
+		profiles[f] = r
 		for _, p := range r["profiles"].([]any) {
-			profile := p.(map[string]any)
-			known[profile["context_key"].(string)] = profile
+			known[p.(map[string]any)["context_key"].(string)] = true
+		}
+	}
+	// Exported context tiles by ID and density: path below the repository root and hash.
+	type pin struct{ path, sha256 string }
+	exported := map[string]pin{}
+	for _, e := range read("assets/index.json")["assets"].([]any) {
+		entry := e.(map[string]any)
+		if id := entry["id"].(string); strings.HasPrefix(id, "context/") {
+			exported[fmt.Sprintf("%s@%v", id, entry["density"])] = pin{"assets/" + entry["path"].(string), entry["sha256"].(string)}
 		}
 	}
 	contexts := map[string]mapcompose.Gap{}
@@ -142,7 +152,6 @@ func TestGenerateCampaignContexts(t *testing.T) {
 				t.Fatal("forest key mismatch")
 			}
 			tiles, err = forest.tiles(c)
-			p["instances"] = forest.instances(c)
 		case mapcompose.Hills:
 			origin := connectionPoint{float64(142*g.At.Col + 71*(g.At.Line%2)), float64(40 * g.At.Line)}
 			c, e := newHillsContext(g.Terrain, ns[:], origin)
@@ -154,26 +163,19 @@ func TestGenerateCampaignContexts(t *testing.T) {
 			}
 			tiles, err = hills.tiles(c)
 			p["phase"] = c.Phase
-			p["isolated_cue"] = hills.cueFor(c)
 		}
 		if err != nil {
 			t.Fatal(err)
 		}
-		var outputs []any
 		for _, d := range []int{2, 4} {
 			path := fmt.Sprintf("assets/terrain/%s/context/%s-%dx.png", g.Family, key, d)
 			var expected string
-			if old := known[key]; old != nil {
-				for _, o := range old["outputs"].([]any) {
-					out := o.(map[string]any)
-					if int(out["dimensions"].(map[string]any)["width"].(float64)) == 96*d {
-						path = out["path"].(string)
-						expected = out["sha256"].(string)
-					}
+			if known[key] {
+				old, ok := exported[fmt.Sprintf("context/%s/%s@%d", g.Family, key, d)]
+				if !ok {
+					t.Fatalf("existing profile %s lacks a %dx export", key, d)
 				}
-				if expected == "" {
-					t.Fatal("existing profile lacks density")
-				}
+				path, expected = old.path, old.sha256
 			}
 			var b bytes.Buffer
 			if err := png.Encode(&b, tiles[d]); err != nil {
@@ -204,34 +206,23 @@ func TestGenerateCampaignContexts(t *testing.T) {
 			if expected != "" && hash != expected {
 				t.Fatalf("regenerated hash differs: %s", path)
 			}
-			outputs = append(outputs, map[string]any{"path": path, "sha256": hash, "dimensions": dimensions{96 * d, 80 * d}})
 		}
-		if known[key] != nil {
+		if known[key] {
 			continue
 		}
-		p["outputs"] = outputs
-		r := recipes[g.Family]
+		r := profiles[g.Family]
 		r["profiles"] = append(r["profiles"].([]any), p)
-		field := "context_exports"
-		if g.Family == mapcompose.Ground {
-			field = "exports"
-		}
-		for _, o := range outputs {
-			r[field] = append(r[field].([]any), o)
-		}
 		added[g.Family]++
 	}
 	for _, f := range mapcompose.Families {
 		if added[f] == 0 {
 			continue
 		}
-		r := recipes[f]
-		r["campaign_context_generation"] = "go test -tags campaigngfx ./tools/art-review -run TestGenerateCampaignContexts -count=1 -v"
-		b, err := json.MarshalIndent(r, "", "  ")
+		b, err := json.MarshalIndent(profiles[f], "", "  ")
 		if err != nil {
 			t.Fatal(err)
 		}
-		if err := os.WriteFile(filepath.Join(root, "art/recipes/"+string(f)+"-terrain-v1.json"), append(b, '\n'), 0644); err != nil {
+		if err := os.WriteFile(filepath.Join(root, "art/pipeline/contexts/"+string(f)+".json"), append(b, '\n'), 0644); err != nil {
 			t.Fatal(err)
 		}
 	}

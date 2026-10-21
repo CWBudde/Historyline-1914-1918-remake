@@ -29,10 +29,6 @@ func TestGenerateGrassVariations(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	var recipe map[string]any
-	if err := json.Unmarshal(data, &recipe); err != nil {
-		t.Fatal(err)
-	}
 	var pins struct {
 		Variants []struct {
 			Outputs []packOutput `json:"outputs"`
@@ -66,21 +62,6 @@ func TestGenerateGrassVariations(t *testing.T) {
 				t.Fatal(err)
 			}
 		}
-	}
-	recipe["candidate_generation_command"] = recipe["generation_command"]
-	recipe["generation_command"] = "go test -tags grassgfx ./tools/art-review -run TestGenerateGrassVariations -count=1 -v"
-	recipe["material_mix"] = map[string]any{
-		"base_indices": []int{0, 5, 10, 15}, "flowers_indices": []int{1, 3, 6, 8, 11, 13}, "worn_indices": []int{2, 4, 7, 9, 12, 14},
-		"authored_detail_strength": .65, "phased_canonical_strength": .35,
-		"description": "Four variants retain the unchanged phased canonical meadow. For the other twelve, interior paint is65percent the selected authored material plus35percent the same phased canonical meadow. The8worldpixel canonical guard and smoothstep8..18 boundary envelope remain unchanged.",
-	}
-	recipe["promotion_scope"] = "Only these32 grass-detail PNGs and this recipe. Canonical grass source and all other terrain-family exports stay byte-identical."
-	data, err = json.MarshalIndent(recipe, "", "  ")
-	if err != nil {
-		t.Fatal(err)
-	}
-	if err := os.WriteFile(filepath.Join(root, "art/recipes/terrain/refdesign-v1/grass-variations.json"), append(data, '\n'), 0644); err != nil {
-		t.Fatal(err)
 	}
 	after, err := os.ReadFile(canonical)
 	if err != nil || !bytes.Equal(before, after) {

@@ -3,7 +3,7 @@
 **Goal:** a complete, playable remake in Go/Ebitengine with newly authored art (2×, optional 4×), a fully
 recreated UI and an optional original-rules profile.
 
-**Art direction:** continuous painted illustration (see [docs/art/README.md](docs/art/README.md)). Keep the
+**Art direction:** continuous painted illustration (see [art/README.md](art/README.md)). Keep the
 original's gameplay IDs, map placement, connection topology and information layouts; never ship original art
 or close reconstructions. Unit sprites and portraits follow their reference closely in composition at the
 original size, in the painted style.

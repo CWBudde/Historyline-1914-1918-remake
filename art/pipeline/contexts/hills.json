@@ -1,0 +1,3027 @@
+{
+  "family": "hills",
+  "profiles": [
+    {
+      "canonical": true,
+      "context_key": "4853583c2857809960a5b41732515c6c012b9366d7537c66240452a7eba506ed",
+      "descriptor": "hills-v1\nseason=summer\ncenter=grass\nphase=0,0\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "grass",
+      "season": "summer"
+    },
+    {
+      "canonical": true,
+      "context_key": "9e932d4eacc9342acb3c0105da9713793eb34664034e769dbe8bfdca0844eb90",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "9297a8ee8a670b8cd560172e822f6a31ab25949dbadefea5a600fa1e65307ae4",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=hills\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "6b660bbae8210beec5f2cfdf1e4276a8cb66981c4dbae1def42a97392ce3937f",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=grass\nSE=hills\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "ae935ca200f0d5f2aefaa2011601686341b420b413e8e726565420f1b6b517da",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=hills\nSE=hills\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "a01cbb4377b75325dcb29536ecc58ae3e75258cf0f82555f1628f9894a70919e",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=grass\nSE=grass\nS=hills\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "hills",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "51a4f0501864ff3a30fae2fd81d4bebd5ff587a265129872275d7eb8ca63f87c",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=hills\nSE=grass\nS=hills\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "grass",
+        "hills",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "14b90cd2016ed17b0c259c02ce7e9ef6ee98734b9ffb79f52b44a42d76c6e2b6",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=grass\nSE=hills\nS=hills\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "hills",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "434e15d81018cd4f6cb2a991d08c4b11801920be034500483cb17b8e03edf25c",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=hills\nSE=hills\nS=hills\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "1b1d9fbbed24c322badd3178f295f6626687d7064a53d75cc8e26f05999d51f0",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=grass\nSE=grass\nS=grass\nSW=hills\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "hills",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "ac94ed393a58bf689f74556eb4e35372952afe80650bf3df27ab519a5cf64b74",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=hills\nSE=grass\nS=grass\nSW=hills\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "grass",
+        "grass",
+        "hills",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "8b53e7fc902624eada586bb99d428323e0cf2d617e04f651bd8336ad1cd566ca",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=grass\nSE=hills\nS=grass\nSW=hills\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "grass",
+        "hills",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "10a2954c828ec6cda2462ab3175e83e5e0f2263956b66ff7fb5667dcb69ad646",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=hills\nSE=hills\nS=grass\nSW=hills\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "grass",
+        "hills",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "923fb743d7d47aae6586556fc9927096573f08ed93d331be9d12d85241bc038c",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=grass\nSE=grass\nS=hills\nSW=hills\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "hills",
+        "hills",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "1e17c2010a7eff9de6427311c0a7755fa80cf609f4a1f60e7a289050c98015dc",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=hills\nSE=grass\nS=hills\nSW=hills\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "grass",
+        "hills",
+        "hills",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "3250633d35c4457e63e8460f7c17ecb3848500939d30acf96553fb41f34198dd",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=grass\nSE=hills\nS=hills\nSW=hills\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "hills",
+        "hills",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "6245eee8c7b91ce8426c71c1292ebabfb526f83d2f942afaa7e0a9f70c2de1d0",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=hills\nSE=hills\nS=hills\nSW=hills\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "2a67c177c643e6541790611f3d0c42494eae88eadab83317af8aa31dfb507e80",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=hills\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "hills",
+        "grass"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "3c187fc2693d6a6929c00af9c3c87b40bf24924b81b0e4b354c6f90ef43b678d",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=hills\nSE=grass\nS=grass\nSW=grass\nNW=hills\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "hills",
+        "grass"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "34141a9a4a6c2246b28a7d68b338b1bae0f61346bdfbbc6e761d6c0b4c77188a",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=grass\nSE=hills\nS=grass\nSW=grass\nNW=hills\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "grass",
+        "grass",
+        "hills",
+        "grass"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "748545375c20a39baea878047ea3b0c8531c05c30f156b780d0f9f072a1b1251",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=hills\nSE=hills\nS=grass\nSW=grass\nNW=hills\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "grass",
+        "grass",
+        "hills",
+        "grass"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "7f962ed9b3e48cedb0b9597364291cb35ce6a2d167fbe2690d1d3afb3b6b03fb",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=grass\nSE=grass\nS=hills\nSW=grass\nNW=hills\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "hills",
+        "grass",
+        "hills",
+        "grass"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "068078041a1f5fa5c0c7e7d5e954c8a5d6dad0a20cadbec7cbb7e014223a7a6c",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=hills\nSE=grass\nS=hills\nSW=grass\nNW=hills\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "grass",
+        "hills",
+        "grass",
+        "hills",
+        "grass"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "5f30a64448536e63e8293a5fe29a78ceac1b0f6e110404be342a98578aa71486",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=grass\nSE=hills\nS=hills\nSW=grass\nNW=hills\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "hills",
+        "grass",
+        "hills",
+        "grass"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "389194f63dd3b2481d04321f70be4578965b617862da53f0cf109fd5d78d9dcd",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=hills\nSE=hills\nS=hills\nSW=grass\nNW=hills\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "grass",
+        "hills",
+        "grass"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "ce5b6d57b341d2a9b8b34d57659d0b0ff6d4cc8ec726add08c77cb75d3701b07",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=grass\nSE=grass\nS=grass\nSW=hills\nNW=hills\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "hills",
+        "hills",
+        "grass"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "b99f8b613cb7b9f29e8398b26d5c9f6efa33ac2c4924a74b7a63cd208aa8daec",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=hills\nSE=grass\nS=grass\nSW=hills\nNW=hills\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "grass",
+        "grass",
+        "hills",
+        "hills",
+        "grass"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "f1569e7516e7ebc84f138a95bab937a9f6aa83649eed7261cc0eaa5829f1135a",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=grass\nSE=hills\nS=grass\nSW=hills\nNW=hills\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "grass",
+        "hills",
+        "hills",
+        "grass"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "c3ed186773f74479778de04bbab06ed80179ed7d98db1b9892ddd92fb0309a21",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=hills\nSE=hills\nS=grass\nSW=hills\nNW=hills\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "grass",
+        "hills",
+        "hills",
+        "grass"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "f4454293165ee704166c982d83b8b87914eac8c6dddbb08a6b3e027db171b4fa",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=grass\nSE=grass\nS=hills\nSW=hills\nNW=hills\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "hills",
+        "hills",
+        "hills",
+        "grass"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "e619e7ca31595dd365f0bfe5d066afea05f15b0dba523958a25e32e1593b58c8",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=hills\nSE=grass\nS=hills\nSW=hills\nNW=hills\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "grass",
+        "hills",
+        "hills",
+        "hills",
+        "grass"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "45463672c3a9c8efb129cfc5b53b716dfff6bff127dd7fdfe04fce00786b071b",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=grass\nSE=hills\nS=hills\nSW=hills\nNW=hills\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "grass"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "db2dc550154e4403e912b1f184b340f694a1ccb17cbd94ec6ccbd2f68021bac3",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=hills\nSE=hills\nS=hills\nSW=hills\nNW=hills\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "grass"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "e38fdbec76706cd083ecf7ed52485989bdd8bc9a097fa8c450cc6f671eef9fff",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=hills\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "hills"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "f58cae3bd4e801a50d9f96876595806bccde4644793ad007b23ae7ce5fb67db4",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=hills\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "hills"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "7d51f514ecafdff4e20e2d742d0c370c0e6bcb4be99a0394eb50361de840411c",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=grass\nSE=hills\nS=grass\nSW=grass\nNW=grass\nN=hills\n",
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "hills"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "131220725620b3d7b3825b28ee0d33d56d28e28e05594fd01cc411c0c50468af",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=hills\nSE=hills\nS=grass\nSW=grass\nNW=grass\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "hills"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "1e9fa01f903dc76adf3add378e323a34743c7d7871910c35cf4165f73ff69548",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=grass\nSE=grass\nS=hills\nSW=grass\nNW=grass\nN=hills\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "hills",
+        "grass",
+        "grass",
+        "hills"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "7d3c9c25605ed2f3d7195f5cd57957cbbe7f5f2c5515ebe36207c765c2f4733a",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=hills\nSE=grass\nS=hills\nSW=grass\nNW=grass\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "grass",
+        "hills",
+        "grass",
+        "grass",
+        "hills"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "1e87d8729def7adb96c021f0f0ba961916d620dbd10502831eae8118f6b49c38",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=grass\nSE=hills\nS=hills\nSW=grass\nNW=grass\nN=hills\n",
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "hills",
+        "grass",
+        "grass",
+        "hills"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "0e79b7942d7a9da7f89bd644c6ad013ca4f6cb753130dfbdfcd224224c19e2c1",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=hills\nSE=hills\nS=hills\nSW=grass\nNW=grass\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "grass",
+        "grass",
+        "hills"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "93290f2620b7d7ca7e4be34908e58362cc802a17ffe9934aa5623cd2ae489a94",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=grass\nSE=grass\nS=grass\nSW=hills\nNW=grass\nN=hills\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "hills",
+        "grass",
+        "hills"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "b3fb97485d34d1074033a836786899ca464dd149dab5d6d0bc8a09f176295307",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=hills\nSE=grass\nS=grass\nSW=hills\nNW=grass\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "grass",
+        "grass",
+        "hills",
+        "grass",
+        "hills"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "46cb24a607fc303a20b69466edd783f693de05a75b4863635a74787c73b956c2",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=grass\nSE=hills\nS=grass\nSW=hills\nNW=grass\nN=hills\n",
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "grass",
+        "hills",
+        "grass",
+        "hills"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "576e94c0f88c25b57044e5009c3800be25d30c3e1163c1fcff59f40cc23ed6f4",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=hills\nSE=hills\nS=grass\nSW=hills\nNW=grass\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "grass",
+        "hills",
+        "grass",
+        "hills"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "f0bda8e833c1c57638adbd3b11975ce420237bff429d9dc740c30c2db02561da",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=grass\nSE=grass\nS=hills\nSW=hills\nNW=grass\nN=hills\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "hills",
+        "hills",
+        "grass",
+        "hills"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "40bf274fd660fa7b14ca7485a55d17b661b8536f574a12f5d642c76e530c1482",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=hills\nSE=grass\nS=hills\nSW=hills\nNW=grass\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "grass",
+        "hills",
+        "hills",
+        "grass",
+        "hills"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "86babd17c8a72c19ea886ecc00d1db03a640dbedf3eeb6415d5b28e4d4dba9df",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=grass\nSE=hills\nS=hills\nSW=hills\nNW=grass\nN=hills\n",
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "hills",
+        "hills",
+        "grass",
+        "hills"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "160fb3312ae6504a2c79270318ea86231ea723e0596ec6a72a9380ae5499ddd9",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=hills\nSE=hills\nS=hills\nSW=hills\nNW=grass\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "grass",
+        "hills"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "94d19d8d64421ac518a1a4aa697056aca082e81b5b2e16298f517afb919a9030",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "bbc58329c4d62182d276e61bf67066cf5194c4fb3080db149d96ed6316f20184",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=hills\nSE=grass\nS=grass\nSW=grass\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "734b8fa1211b773c6468c32e3c6eb2f71b60cdd91810ad3cfd2709dc82c375cc",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=grass\nSE=hills\nS=grass\nSW=grass\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "grass",
+        "grass",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "3d3459a382ce82ca48e6709c9335203b1954aa1e5a9eae18b2daeaf210d18b27",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=hills\nSE=hills\nS=grass\nSW=grass\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "grass",
+        "grass",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "9b4b79ee8ad77240585747989dc6b3d997771523b09256880ea5ec712aa2fbfc",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=grass\nSE=grass\nS=hills\nSW=grass\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "hills",
+        "grass",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "0bf6ab70fc5490b2b3585d74959893594228041290955e9d44e3a16cda1bf860",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=hills\nSE=grass\nS=hills\nSW=grass\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "grass",
+        "hills",
+        "grass",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "ad7e2d174774618d82cd3b8b48b0b9806a082c58f5eef79ab75ab0f1ed7bd53f",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=grass\nSE=hills\nS=hills\nSW=grass\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "hills",
+        "grass",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "931ec58129e7dad700d1fd250c194802134fca1926d2faafb14411c270ea4409",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=hills\nSE=hills\nS=hills\nSW=grass\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "grass",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "eeacf939775302b4828f4d200ad72dd049ec13ac92605fcf83a4a27d8251a1b8",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=grass\nSE=grass\nS=grass\nSW=hills\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "hills",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "9f73efefe151bcca19ce919f22d6d273a5e24c46661b19637ebc91a8288c044f",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=hills\nSE=grass\nS=grass\nSW=hills\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "grass",
+        "grass",
+        "hills",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "b44344cb5b6814712bbaf98f532d06c06c9839419cf0844540beaf7840ab3216",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=grass\nSE=hills\nS=grass\nSW=hills\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "grass",
+        "hills",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "563af08f02b0b744c7098b514f5c0edaa838bc198046dfad8af85b4a2c2c6ebb",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=hills\nSE=hills\nS=grass\nSW=hills\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "grass",
+        "hills",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "41e2d124fa030bf5375dcae7b1c04b586948d68c9ae60fb748047cc41f7f9fb1",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=grass\nSE=grass\nS=hills\nSW=hills\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "hills",
+        "hills",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "fff5619bee987ab19a51b2e536595bb0a993950deb6e799e0ae42bb25a5a5760",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=hills\nSE=grass\nS=hills\nSW=hills\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "grass",
+        "hills",
+        "hills",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "6e41078410bf124a5ab2e65bb34766ed0d6d8abc2782854c653af4593eb5924a",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=grass\nSE=hills\nS=hills\nSW=hills\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "c119927060db94d56ddd7e22d91ce57ed849929c59c45a88a4316f8ac3fe0636",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,0\nNE=hills\nSE=hills\nS=hills\nSW=hills\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        0,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "e26f98f07c675934102b2039d788895d492df0a98dcbbdcf1762136b1ffe100f",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=142,0\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        142,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "a96c3e004e7507e1271afb85720501451f975d2e2463a0ef3acc0b3d928eaba8",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=284,0\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        284,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "894ec3183186ca270beb75c82e6fe76021002cceec710428da474f909ed24082",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=426,0\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        426,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "e1bf2df15f5ae9f5351df55cafa32676ef0f3d13683cbebcfd322c106ff0f7da",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=71,40\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        71,
+        40
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "b0ab5a4c270da4ca35e4e31d6c9b0bf62ea18ee714d94e1fbea38f17a6a37239",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=213,40\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        213,
+        40
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "901a8b02829458afb3dc76f6686d2bb823b07b945b60697cfd2e9cd8f9e2e509",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=355,40\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        355,
+        40
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "2aef6987a63b127be1b2491250447f84bd44769caeaecca29816f7fdfc08e4cb",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=497,40\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        497,
+        40
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "cc48fce9603746d64a3b48ba5776cfa7536a3a61de1292b13bb8c15893559332",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,80\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        0,
+        80
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "378e3fe4eddbf2541e78cc80c7d27880fb6132487ad6847e5df2117440b41630",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=142,80\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        142,
+        80
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "2ed901b1ed1473d1e3a7d469f91acced8bf6d8fd63dcff063609612ab81d536c",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=284,80\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        284,
+        80
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "f961b90626183973c80f9d81a2c2ef4bf097cb259d0d0530a6d34861cdb3d626",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=426,80\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        426,
+        80
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "54a7c4bdbb922cabeb5200abb0917fede087dddbce471af13641302070e315f9",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=71,120\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        71,
+        120
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "bff2b9d170ce8b08cf01f3738b396f688ae9c1e761c3846ab8c63e73b7b9ac9c",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=213,120\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        213,
+        120
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "7eaff45ea63c03455b8805a18a770eca1e3b05b0952fe59afcfa93333982bb54",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=355,120\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        355,
+        120
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "39c0eb97d5fb5398736f190594cf7bc9853ffc95deeeefb04321377f3fe4be90",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=497,120\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        497,
+        120
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "090f9b855e32afd788200ac9f950e7ea71f70ee80a4b50f076b86eed2a10f3ed",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,160\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        0,
+        160
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "92dbe507039c40c64a4f861fcf91dbd5ac9cb113d00e24918f9378a6aa5fdce6",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=142,160\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        142,
+        160
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "30391a452e3885dda1c42931ef946a204da5d572759632808a9bbca8c6c7cefc",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=284,160\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        284,
+        160
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "30ce60f9acbf3e006cc8dd9ecc0c57f61efcc728eefad8753d20ea0a8498963d",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=426,160\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        426,
+        160
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "3d403a47d8cfd8d6bbbdb4c3a42dfbea414be73e1489e54302c8a73462e7d376",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=71,200\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        71,
+        200
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "2eac587a263b8a8e80018dd6a86f91fc18ccbebbedbd41bff393b01dc3bda548",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=213,200\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        213,
+        200
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "bb95d51ac8d6e983bdd52414d48865d9ed5c75f146c70028500c98c9e304931c",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=355,200\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        355,
+        200
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "be233b7c13476f72a07c5ebddc5a0c80afc2c56171755d6a484b64c10f11db02",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=497,200\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        497,
+        200
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "cb2bace41f45954cd534c8e9f932fa07276c5637dfdc3601f02ef37a2bdd279e",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,240\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        0,
+        240
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "ec2486e4861a05a72899dd3d88fa919e99ab54eef853f7203eca2f4994c63f70",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=142,240\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        142,
+        240
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "be8dce1e1a1b27af20413e9384ca871935c42a68fffcd36e1afe96593000bc6c",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=284,240\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        284,
+        240
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "a7d401f7203f02a96c1ca974cda1c2a0af80b961bb8eaa504f54a486eec67bca",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=426,240\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        426,
+        240
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "007a0c57751720f037628ebd75ab56d7ef5380cc111b24db31786667172f0ed1",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=71,280\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        71,
+        280
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "f8a5844c984a2fbf67a1b7a3ec1b22a91371cc76b3b9bf56bfade8de94163356",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=213,280\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        213,
+        280
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "ebb9c5abffa707e54be21d57a9863e71006441679e894dab9c42a503463614e6",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=355,280\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        355,
+        280
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "0f2c9d958fc58b1bb0fc7d83f6b10e98bb5103d1a377fbd4900b6b7dad726bff",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=497,280\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        497,
+        280
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "ce1ac2f36cfe8cbe25af62962679c437d3a39e10c65af262136412f7199dd938",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=71,280\nNE=hills\nSE=hills\nS=hills\nSW=hills\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        71,
+        280
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "5845f3dffcd5d7bd94a70a11be35a27bab0f67c86ba9e6dce697f72d87ac8d91",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=71,40\nNE=hills\nSE=hills\nS=hills\nSW=hills\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        71,
+        40
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "15fec53cd3b2c7b1f476d642cccbe9a567108805e717a2dd9f53f484600663e0",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,80\nNE=hills\nSE=hills\nS=hills\nSW=hills\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        0,
+        80
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "5a24f16d4635132860ed15b9ead37340a502be1cca5d06f12357710bca877df3",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=497,40\nNE=hills\nSE=hills\nS=hills\nSW=hills\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        497,
+        40
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "b3dc97f69c5388b3df49537aafff39fd42adf29e2802c2fa9e3946f2f28fe4bc",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=497,280\nNE=hills\nSE=hills\nS=hills\nSW=hills\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        497,
+        280
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "63a8a71a714d6688666869a21660db3b180a7f316740e21ade1c13c2525e347a",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,240\nNE=hills\nSE=hills\nS=hills\nSW=hills\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        0,
+        240
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "6e8e5112bf8dd13294b899a2a769399718ceec2aaac4cde7c3775e4eaa62c8a0",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=142,0\nNE=hills\nSE=hills\nS=hills\nSW=hills\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        142,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "70197de22800501993b555c7ce7589c5822599be6adc740dffac6ce0d879b476",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=142,80\nNE=hills\nSE=hills\nS=hills\nSW=hills\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        142,
+        80
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "108d84b4814b1782a1056adeafa932c5371c26407222ea66ea23e39b2cd01587",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=71,120\nNE=hills\nSE=hills\nS=hills\nSW=hills\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        71,
+        120
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "f92bdd9af9a918347486a9c4aa2a1b2635c284e151924cc577799df85f50312b",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,80\nNE=hills\nSE=hills\nS=hills\nSW=grass\nNW=grass\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "grass",
+        "grass",
+        "hills"
+      ],
+      "phase": [
+        0,
+        80
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "e9c72ee6d8ba74114da968e8c58ddb34ec9e03f0e4327e0bbceb0876ddde6f1a",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,240\nNE=hills\nSE=hills\nS=hills\nSW=grass\nNW=grass\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "grass",
+        "grass",
+        "hills"
+      ],
+      "phase": [
+        0,
+        240
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "3886bf4f6406d3093bfff1211831bf1964f2c89be26ac0cd5d26479a90b988b3",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=71,40\nNE=hills\nSE=hills\nS=hills\nSW=grass\nNW=grass\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "grass",
+        "grass",
+        "hills"
+      ],
+      "phase": [
+        71,
+        40
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "e022507c62a2787f7211b8d236c532f9b20bb482d558eb4e6dad7f34c9bee787",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=71,120\nNE=hills\nSE=hills\nS=hills\nSW=grass\nNW=grass\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "grass",
+        "grass",
+        "hills"
+      ],
+      "phase": [
+        71,
+        120
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "916f866a1b481b6427a1939e57010b8e8fd126084f4aef52242755da4febdf49",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=71,280\nNE=hills\nSE=hills\nS=hills\nSW=grass\nNW=grass\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "grass",
+        "grass",
+        "hills"
+      ],
+      "phase": [
+        71,
+        280
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "3d4603c24316fb14784688feb9345570f039bc9a31b689923d7f9ef623a5e83b",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=71,280\nNE=hills\nSE=hills\nS=hills\nSW=grass\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "grass",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        71,
+        280
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "cbf3687265a86a6ba5cec613fa19838a817cd98c59db22e23bb89345899facc2",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=71,40\nNE=hills\nSE=hills\nS=hills\nSW=hills\nNW=grass\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "grass",
+        "hills"
+      ],
+      "phase": [
+        71,
+        40
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "aa97c53dbf8581c6d0c78f8e130073ee51e1a2b11416fce311bdfce8bc47d941",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,80\nNE=hills\nSE=hills\nS=hills\nSW=hills\nNW=hills\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "grass"
+      ],
+      "phase": [
+        0,
+        80
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "195b3fd31dc2e0ac7fe71df2e8aaf8020fbdb929f76accb5ac492ade5bffe207",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=497,40\nNE=grass\nSE=hills\nS=hills\nSW=hills\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        497,
+        40
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "84fa054ca3b667163e7d03c11382d62b3999c159c0c30f3829e74eb35e892505",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=497,280\nNE=hills\nSE=grass\nS=hills\nSW=hills\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "grass",
+        "hills",
+        "hills",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        497,
+        280
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "e3b9519e5764042b828cf64a107935858c128e986cce35ace3296ad0c8dcbda6",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,240\nNE=hills\nSE=hills\nS=grass\nSW=hills\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "grass",
+        "hills",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        0,
+        240
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "9f468e3270064ebb3491520ba46b642908592129d4b5f0252c725fcfaf972d20",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=142,0\nNE=hills\nSE=hills\nS=hills\nSW=grass\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "grass",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        142,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "48c474e8c45178dd2a76faa5a95dbdf744d734f1848cebe1e7bd64088b0e0a63",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=142,80\nNE=hills\nSE=hills\nS=hills\nSW=hills\nNW=grass\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "grass",
+        "hills"
+      ],
+      "phase": [
+        142,
+        80
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "76e996730b714c7d0eca1ada19cfb87877b0e51cc0f93a5ba20b69683481567b",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=71,120\nNE=hills\nSE=hills\nS=hills\nSW=hills\nNW=hills\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "grass"
+      ],
+      "phase": [
+        71,
+        120
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "b970ad13595ef2a8181946c215a8a395b8ca67e789d9784f17a75961071b03af",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,80\nNE=grass\nSE=hills\nS=hills\nSW=hills\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        0,
+        80
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "4ab481d641ef3d12dbaec8933040a7fcce7f461507c357d04635bf877134786e",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=71,280\nNE=hills\nSE=hills\nS=grass\nSW=hills\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "grass",
+        "hills",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        71,
+        280
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "379e7a9cbda5d37babcf3ccd9fe270656642143df8596e8c8a14f7a233921f2f",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,240\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=hills\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "hills",
+        "grass"
+      ],
+      "phase": [
+        0,
+        240
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "02233fd352987bf996c32adeafc07bd12ce15157bd42649bc6972e0dedb1102e",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=497,200\nNE=grass\nSE=hills\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        497,
+        200
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "025b921ef2363bcf9fa4ed12b22b34d2cc819efa43e9fa5a63aded8492659fa3",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=355,120\nNE=hills\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        355,
+        120
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "087ff2d06a9a0103c33f275a99998a484a1b286f372f1059b7a9de176d81a845",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=213,280\nNE=grass\nSE=grass\nS=grass\nSW=hills\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "hills",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        213,
+        280
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "0a1e6ad640fbfe5059a017849caae5e4fdf22a7d024068190f49b076f21674b8",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=426,240\nNE=hills\nSE=hills\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        426,
+        240
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "1141ef8a588eeb2ad5f374a9eeb33773eb78b52ac63cfaa02bf2256c183871bd",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=284,80\nNE=grass\nSE=hills\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        284,
+        80
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "11b9cc99ed13290033ee54aba77e373f8bd341b93c14b677d9c1baf88ddfa007",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=497,120\nNE=grass\nSE=hills\nS=grass\nSW=grass\nNW=hills\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "grass",
+        "grass",
+        "hills",
+        "grass"
+      ],
+      "phase": [
+        497,
+        120
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "1678cc9268a59935fac5e84fb2ffc2ad8ea91b47e27338dd96ac0d4bb768d574",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,160\nNE=grass\nSE=hills\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        0,
+        160
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "255c23ce94c8a74a7b873bc8f0aa7ebdc93353a52d9c6b6357b2ad236141c9ae",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=497,120\nNE=hills\nSE=hills\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        497,
+        120
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "34f3ae7413ea84ba2e99bd57308637dca672d0317c9f47462ff600a8c984a368",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,160\nNE=grass\nSE=grass\nS=grass\nSW=hills\nNW=hills\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "hills",
+        "hills",
+        "grass"
+      ],
+      "phase": [
+        0,
+        160
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "44d769a4ba230402d2c35914f812507443a2e4bc3d629f464304d408a23a2b40",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,80\nNE=grass\nSE=hills\nS=hills\nSW=hills\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "hills",
+        "hills",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        0,
+        80
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "4d8e70a3c20a2c3ce39434f9afcfff105f135fff314deb1a71403b5f3683486a",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=71,120\nNE=grass\nSE=grass\nS=hills\nSW=hills\nNW=hills\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "hills",
+        "hills",
+        "hills",
+        "grass"
+      ],
+      "phase": [
+        71,
+        120
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "573fa4dda4f461ef8926ee9b2cd8a3218ab70923ac42a3d76f4896d2c9cdde2d",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=426,80\nNE=hills\nSE=hills\nS=grass\nSW=hills\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "grass",
+        "hills",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        426,
+        80
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "5787f9b33bc4b4c3f85d17578454552c2c10a219c8814de5ed86ca4ffa50876b",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=284,160\nNE=hills\nSE=grass\nS=grass\nSW=grass\nNW=hills\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "hills",
+        "grass"
+      ],
+      "phase": [
+        284,
+        160
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "591bbc83e54c3fc80497f8b309db62b62037f1c6552b200397047992613ff1c3",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=355,120\nNE=grass\nSE=hills\nS=grass\nSW=hills\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "grass",
+        "hills",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        355,
+        120
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "5c3f89303b4c1f31e2b2293088167d1931c8b29f0ad5551b9cc53b88f9742a77",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=284,240\nNE=hills\nSE=hills\nS=hills\nSW=hills\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        284,
+        240
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "6ba07631a5c5c66125b50a1b66dd6a65793978029aaf71e0a802a0605265468c",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,240\nNE=grass\nSE=grass\nS=grass\nSW=hills\nNW=hills\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "hills",
+        "hills",
+        "grass"
+      ],
+      "phase": [
+        0,
+        240
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "6c0056f064da2e321193122936a4a550c0ed82229d9d58f0839f1241a4279087",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=71,120\nNE=grass\nSE=grass\nS=grass\nSW=hills\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "hills",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        71,
+        120
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "7a47c5ac8a7e6957b3c5c2dd4b809609a3b33472cfc7aa6331a8483976bfef41",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=426,80\nNE=grass\nSE=hills\nS=grass\nSW=hills\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "grass",
+        "hills",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        426,
+        80
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "7d190c0b26e1d05e452715e02760f55452a2bf815f708397b3b15a3994a7eb44",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=355,40\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=hills\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "hills"
+      ],
+      "phase": [
+        355,
+        40
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "7faece425150795d8681f35f305aa87174871210bee8ead183bb55446972fca5",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=426,160\nNE=hills\nSE=hills\nS=hills\nSW=hills\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        426,
+        160
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "907f2ca1940a6a1808555888314c2cb90ed20ccbdb6f16a1a63127860a0bd530",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=71,200\nNE=grass\nSE=hills\nS=grass\nSW=grass\nNW=hills\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "grass",
+        "grass",
+        "hills",
+        "grass"
+      ],
+      "phase": [
+        71,
+        200
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "91e2ac8b1fb61307df51af9a431f32ecd78d6a01fe61b27a71e6a815ecd7aed2",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=426,80\nNE=hills\nSE=hills\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        426,
+        80
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "98c17608418438bbbbabe9627b5a2ed4473ae1fdf2805002f0d2c9913e721077",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=213,120\nNE=grass\nSE=hills\nS=grass\nSW=hills\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "hills",
+        "grass",
+        "hills",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        213,
+        120
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "a9ea8d6484a94033b5ff2015a2cc49e78f3509948a3ccad494383ed0d1c75f01",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=284,160\nNE=hills\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        284,
+        160
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "ab1ee9cbb62e7dbe896ab262db3784a35f5a925a56bda79f7f1d125ab2a88938",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=142,0\nNE=hills\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        142,
+        0
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "ad124f6098acce8eeadf91486aec20e84ed5f5169a88070503b175131902933d",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=142,240\nNE=grass\nSE=grass\nS=grass\nSW=grass\nNW=hills\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "hills",
+        "grass"
+      ],
+      "phase": [
+        142,
+        240
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "b1d99ff94abfd67caace8e148db46cbb8eb03d5744eccd09ec344ded5b7e060a",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,160\nNE=hills\nSE=hills\nS=grass\nSW=grass\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "grass",
+        "grass",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        0,
+        160
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "bc688ed70f50ce24c2a30d14fb5f5a3c0b2aa95c9a568e93f41c41780ae2077c",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=355,280\nNE=hills\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        355,
+        280
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "bf1b3db10f41088a814949fc9691f156bec481428c505bda5f7f18d12b894b4e",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=355,200\nNE=hills\nSE=hills\nS=hills\nSW=hills\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        355,
+        200
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "c78be5277f22d679fb6dc3ef82b723f4106d1beddb2ba2561663884d4f5ea955",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=426,240\nNE=hills\nSE=hills\nS=grass\nSW=hills\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "grass",
+        "hills",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        426,
+        240
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "c7bbba9cc242b2f561d0a35faaaf60d610b6e56984f3267118afdb7a14bef421",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=71,200\nNE=grass\nSE=grass\nS=hills\nSW=grass\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "hills",
+        "grass",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        71,
+        200
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "cae159fffa1dccd646b22fc4c68a9e5ae96723539a65d3d613a866812cc56949",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=426,240\nNE=hills\nSE=hills\nS=hills\nSW=hills\nNW=hills\nN=hills\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "hills",
+        "hills"
+      ],
+      "phase": [
+        426,
+        240
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "cb0cd1fa78d4c6315574ab708f60f265f1f745e06088f54da33779b1b1b59173",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=355,120\nNE=grass\nSE=grass\nS=grass\nSW=hills\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "grass",
+        "grass",
+        "grass",
+        "hills",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        355,
+        120
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "d01369da55eceb156f8d8ee1951d181e0ab5ddb1baaceb20c383fab6a03cd7e6",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=426,160\nNE=hills\nSE=hills\nS=grass\nSW=grass\nNW=hills\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "hills",
+        "grass",
+        "grass",
+        "hills",
+        "grass"
+      ],
+      "phase": [
+        426,
+        160
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "d82342587d4904dd0bf74ab41e43443d9f92c15bc0c320d8de93ae396ff74a8e",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=355,120\nNE=hills\nSE=grass\nS=grass\nSW=grass\nNW=hills\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "hills",
+        "grass"
+      ],
+      "phase": [
+        355,
+        120
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "dc0d575c5a844bf4cd8d9bc3f68c5940791a253c3ff4918cd5a370c57c5b76ed",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=0,160\nNE=hills\nSE=grass\nS=grass\nSW=grass\nNW=hills\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "hills",
+        "grass"
+      ],
+      "phase": [
+        0,
+        160
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "ee92f488a15a4406f05d113f22fc0ea5242b562b6698e5f9a13b406c2a67a58a",
+      "descriptor": "hills-v1\nseason=summer\ncenter=hills\nphase=142,160\nNE=hills\nSE=grass\nS=grass\nSW=grass\nNW=grass\nN=grass\n",
+      "neighbor_ids": [
+        "hills",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ],
+      "phase": [
+        142,
+        160
+      ],
+      "runtime_id": "hills",
+      "season": "summer"
+    }
+  ],
+  "schema_version": 1
+}

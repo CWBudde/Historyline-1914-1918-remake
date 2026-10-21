@@ -4,11 +4,11 @@
   "registration": {"world_anchor": [48, 0], "source_anchor": [42, 0], "scale_x": [123, 142], "scale_y": [35, 40]},
   "excluded_rows": [47],
   "families": [
-    {"id": "meadow", "kind": "terrain", "runtime_ids": ["grass"], "art": "art/terrain/meadow", "exemplars": ["r7c5", "r8c4", "r16c4", "r19c4", "r23c5"]},
+    {"id": "grass", "kind": "terrain", "runtime_ids": ["grass"], "art": "art/terrain/grass", "exemplars": ["r7c5", "r8c4", "r16c4", "r19c4", "r23c5"]},
     {"id": "forest", "kind": "terrain", "runtime_ids": ["forest"], "art": "art/terrain/forest", "exemplars": ["r2c4", "r3c5", "r19c2", "r21c2", "r43c3"]},
     {"id": "hills", "kind": "terrain", "runtime_ids": ["hills"], "art": "art/terrain/hills", "exemplars": ["r6c5", "r16c7", "r21c7", "r23c6"],
      "notes": "The painting shows hills as meadow with scrub and no visible relief; the rocky rises belong to mountain and mount."},
-    {"id": "earth-stone", "kind": "terrain", "runtime_ids": ["mud", "stone"], "art": "art/terrain/earth-stone", "exemplars": ["r12c3", "r13c4", "r14c3", "r17c7", "r39c3", "r40c3"],
+    {"id": "ground", "kind": "terrain", "runtime_ids": ["mud", "stone"], "art": "art/terrain/ground", "exemplars": ["r12c3", "r13c4", "r14c3", "r17c7", "r39c3", "r40c3"],
      "notes": "Mud is painted as crater rims and churned, stony ground; stone as meadow strewn with grey boulders."},
     {"id": "mountain", "kind": "terrain", "runtime_ids": ["mountain"], "art": "art/terrain/mountain", "exemplars": ["r18c7", "r29c3", "r46c4"],
      "notes": "Single small rocky knolls with grassy slopes."},

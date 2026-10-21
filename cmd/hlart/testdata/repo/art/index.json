@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "assets": [
+    {
+      "id": "interface/action",
+      "title": "Action buttons",
+      "kind": "interface",
+      "status": "candidate",
+      "runtime_ids": [
+        "action/attack"
+      ],
+      "dir": "art/interface/action",
+      "assets_dir": "assets/interface/action",
+      "prompt": "art/interface/action/prompt.md",
+      "masters": [],
+      "look": "Brass command buttons.",
+      "base_prompt": "An embossed brass button with a crossed-swords glyph.",
+      "variants": [],
+      "edges": "",
+      "post": "States normal, hover.",
+      "avoid": [
+        "Text on the button."
+      ],
+      "runtime": {
+        "count": 4,
+        "densities": [
+          1,
+          2
+        ],
+        "samples": [
+          "assets/interface/action/attack-normal-2x.png",
+          "assets/interface/action/attack-hover-2x.png"
+        ]
+      }
+    },
+    {
+      "id": "terrain/road",
+      "title": "Road",
+      "kind": "terrain",
+      "status": "candidate",
+      "runtime_ids": [
+        "road14",
+        "road25"
+      ],
+      "dir": "art/terrain/road",
+      "assets_dir": "assets/terrain/road",
+      "prompt": "art/terrain/road/prompt.md",
+      "masters": [
+        {
+          "path": "art/terrain/road/road.png",
+          "sha256": "7f3bea9d87ecaedcc62f265c87d6b6afe64e812f6b76ebb8c523e7262bd7cb1a",
+          "width": 16,
+          "height": 12
+        }
+      ],
+      "look": "Grey asphalt with gravel shoulders.\n\nA dashed centre line.",
+      "base_prompt": "Top-down painted road on meadow, flat-topped hex.",
+      "variants": [
+        {
+          "variant": "Straight",
+          "runtime_ids": [
+            "road14"
+          ],
+          "delta": "Runs north to south."
+        },
+        {
+          "variant": "Bend",
+          "runtime_ids": [
+            "road25"
+          ],
+          "delta": "Turns through 120 degrees."
+        }
+      ],
+      "edges": "Ends meet the hex edge midpoints.",
+      "post": "Mask to the hex and export 2x and 4x.",
+      "avoid": [
+        "Lane markings in yellow",
+        "Kerbs"
+      ],
+      "runtime": {
+        "count": 4,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/terrain/road/road14-2x.png",
+          "assets/terrain/road/road25-2x.png"
+        ]
+      }
+    },
+    {
+      "id": "units/infantry",
+      "title": "Infantry",
+      "kind": "unit",
+      "status": "final",
+      "runtime_ids": [
+        "CP_infantry",
+        "EC_infantry"
+      ],
+      "dir": "art/units/infantry",
+      "assets_dir": "assets/units/infantry",
+      "prompt": "art/units/infantry/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/infantry/atlas.png",
+          "sha256": "8644db104047083a53bef999d41e7402c13ccd9c7eaccd1b298730af9f9f455d",
+          "width": 12,
+          "height": 8
+        }
+      ],
+      "look": "A squad of riflemen.",
+      "base_prompt": "Three soldiers in field grey, seen from above at 30 degrees.",
+      "variants": [
+        {
+          "variant": "Central Powers",
+          "runtime_ids": [
+            "CP_infantry"
+          ],
+          "delta": "Field grey."
+        },
+        {
+          "variant": "Entente",
+          "runtime_ids": [
+            "EC_infantry"
+          ],
+          "delta": "Horizon blue."
+        }
+      ],
+      "edges": "",
+      "post": "Six facings, owner palettes.",
+      "avoid": [
+        "Modern helmets"
+      ],
+      "runtime": {
+        "count": 24,
+        "densities": [
+          2
+        ],
+        "samples": [
+          "assets/units/infantry/cp/n-normal-2x.png",
+          "assets/units/infantry/cp/nw-normal-2x.png",
+          "assets/units/infantry/cp/sw-normal-2x.png",
+          "assets/units/infantry/cp/s-normal-2x.png",
+          "assets/units/infantry/cp/se-normal-2x.png",
+          "assets/units/infantry/cp/ne-normal-2x.png",
+          "assets/units/infantry/ec/n-normal-2x.png",
+          "assets/units/infantry/ec/ne-normal-2x.png"
+        ]
+      }
+    }
+  ]
+}

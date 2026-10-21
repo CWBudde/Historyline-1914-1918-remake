@@ -20,6 +20,8 @@ just test        # go test ./...
 go test ./internal/game -run TestName   # single test
 just lint        # go vet + golangci-lint v2 (.golangci.yml)
 just run         # play; just play uses the candidate art; just build -> bin/; just web 8080
+just art-index   # regenerate art/index.json after changing prompts or art; just art-check validates
+just artbook     # build/artbook/Historyline_Art.pdf (needs typst)
 ```
 
 ## Architecture
@@ -36,12 +38,17 @@ just run         # play; just play uses the candidate art; just build -> bin/; j
   into `game` yet.
 - `internal/hexgrid`: hex layout (even lines `Width` hexes, odd lines `Width-1`, half-shifted).
 - `internal/level`: `levels/*.json` read/write. `internal/tpwm`: Turbo Packer unpacker.
-- `art/`: selected masters per runtime family (`art/<kind>/<family>/`), bundle manifests in `art/pipeline/`.
-  `assets/`: runtime art only, every file listed in `assets/index.json`.
+- `art/<kind>/<family>/`: selected masters plus `prompt.md` (front matter, look, prompts, variants);
+  `art/style.md`, bundle manifests in `art/pipeline/`, the PULSE reference in `art/reference/pulse/`.
+  Art guide: `art/README.md`. `assets/<kind>/<family>/`: runtime art only, every file listed in
+  `assets/index.json` with its art key.
+- `cmd/hlart`: writes and checks the generated `art/index.json` (prompts, masters, runtime files and IDs);
+  `docs/artbook/` renders it with Typst as the art book.
 - `internal/assets`, `internal/mapcompose`, `internal/unitsprite`, `cmd/hlasset`: runtime art packs built
   from `assets/index.json` and map composition (`docs/runtime-assets.md`).
-- `tools/art-review`, `tools/interface-art`, `tools/unit-panel`: art export (`just gfx-check`). Art guide:
-  `docs/art/README.md`. `cmd/hlgallery` is the local comparison desk (`just gfx-game-review`).
+- `tools/art-review`, `tools/interface-art`, `tools/unit-panel`: art export. `tools/reference-design`: the
+  PULSE reference design (`just reference`). `just gfx-check` runs `art-check`, `reference-check` and the
+  tool tests. `cmd/hlgallery` is the local comparison desk (`just gfx-game-review`).
 
 ## Repo rules
 
@@ -51,11 +58,11 @@ just run         # play; just play uses the candidate art; just build -> bin/; j
   `-R CWBudde/Historyline-1914-1918-remake` to `gh`.
 - `original/` (local original game files) and `build/` are git-ignored. Never commit original bytes,
   listings or strings; fixtures hold numbers only. Do not document reverse-engineering methods in the repo.
-- Generated output goes under `build/packs/<name>`, `build/web`, `build/manual`, `build/review/<name>/` or
-  `build/scratch/`, never loose files at the `build/` top level; `just clean` wipes it.
+- Generated output goes under `build/packs/<name>`, `build/web`, `build/manual`, `build/artbook`,
+  `build/review/<name>/` or `build/scratch/`, never loose files at the `build/` top level; `just clean` wipes it.
 - Keep docs short and current: describe what is, not how it came to be.
 - `docs/manual/` is the user's reconstruction of the original manual: leave it alone.
 - The graphics track runs in parallel by the user: do not edit `art/`, `assets/` or
-  `tools/art-review/` unless asked.
+  `tools/art-review/` unless asked. `art/index.json` is generated (`just art-index`); never edit it by hand.
 - `PLAN.md` may have uncommitted user edits: stage only your own hunks.
 - Never touch the `Large` drive (`/run/media/christian/Large`).

@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-type recipeProfile struct {
+type contextProfile struct {
 	RuntimeID  string    `json:"runtime_id"`
 	Season     string    `json:"season"`
 	Neighbors  [6]string `json:"neighbor_ids"`
@@ -16,14 +16,14 @@ type recipeProfile struct {
 	Key        string    `json:"context_key"`
 }
 
-func readProfiles(t *testing.T, f Family) []recipeProfile {
+func readProfiles(t *testing.T, f Family) []contextProfile {
 	t.Helper()
-	b, err := os.ReadFile(filepath.Join("..", "..", "art", "recipes", string(f)+"-terrain-v1.json"))
+	b, err := os.ReadFile(filepath.Join("..", "..", "art", "pipeline", "contexts", string(f)+".json"))
 	if err != nil {
 		t.Fatal(err)
 	}
 	var r struct {
-		Profiles []recipeProfile `json:"profiles"`
+		Profiles []contextProfile `json:"profiles"`
 	}
 	if err := json.Unmarshal(b, &r); err != nil {
 		t.Fatal(err)
@@ -36,7 +36,7 @@ func readProfiles(t *testing.T, f Family) []recipeProfile {
 
 // The port of the offline context contract must reproduce every exported
 // profile's descriptor and key from its centre, neighbours and phase.
-func TestDescriptorMatchesRecipeProfiles(t *testing.T) {
+func TestDescriptorMatchesContextProfiles(t *testing.T) {
 	n := 0
 	for _, f := range Families {
 		for _, p := range readProfiles(t, f) {

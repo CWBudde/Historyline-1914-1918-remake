@@ -3,10 +3,10 @@
 package main
 
 // Opt-in offline authoring hook. It supplements a freshly generated ignored
-// bundle; it never promotes or modifies active art or a retained recipe.
+// bundle; it never promotes or modifies active art or the context profiles.
 //
 // From repository root:
-// go test -tags retainedgfx ./tools/art-review -run '^TestGenerateRetainedContextBundle$' -count=1 -args -context-family ground -context-manifest art/pipeline/ground-terrain-v1.json -context-recipe art/recipes/ground-terrain-v1.json -context-bundle build/review/fresh-ground
+// go test -tags retainedgfx ./tools/art-review -run '^TestGenerateRetainedContextBundle$' -count=1 -args -context-family ground -context-manifest art/pipeline/ground-terrain-v1.json -context-profiles art/pipeline/contexts/ground.json -context-bundle build/review/fresh-ground
 import (
 	"bytes"
 	"crypto/rand"
@@ -24,14 +24,14 @@ import (
 
 var retainedContextFamily = flag.String("context-family", "", "ground, forest, or hills")
 var retainedContextManifest = flag.String("context-manifest", "", "current pinned input manifest; absolute or repository-relative")
-var retainedContextRecipe = flag.String("context-recipe", "", "retained recipe with required profiles; absolute or repository-relative")
+var retainedContextProfiles = flag.String("context-profiles", "", "context profiles file (art/pipeline/contexts/<family>.json); absolute or repository-relative")
 var retainedContextBundle = flag.String("context-bundle", "", "fresh ignored CLI bundle to supplement; absolute or repository-relative")
 
 func TestGenerateRetainedContextBundle(t *testing.T) {
-	if *retainedContextFamily == "" && *retainedContextManifest == "" && *retainedContextRecipe == "" && *retainedContextBundle == "" {
+	if *retainedContextFamily == "" && *retainedContextManifest == "" && *retainedContextProfiles == "" && *retainedContextBundle == "" {
 		t.Skip("explicit context flags required")
 	}
-	if err := augmentRetainedContextBundle(*retainedContextFamily, *retainedContextManifest, *retainedContextRecipe, *retainedContextBundle); err != nil {
+	if err := augmentRetainedContextBundle(*retainedContextFamily, *retainedContextManifest, *retainedContextProfiles, *retainedContextBundle); err != nil {
 		t.Fatal(err)
 	}
 }
@@ -47,16 +47,16 @@ func retainedContextPath(path string) (string, error) {
 }
 
 // Append only absent identities; rendering replaces stale PNG metadata from
-// the retained recipe. Re-running the helper leaves existing profiles intact.
-func retainedAppendProfiles[P any](recipe []byte, profiles *[]P, key func(P) string, render func(P) (P, error)) error {
+// the profiles file. Re-running the helper leaves existing profiles intact.
+func retainedAppendProfiles[P any](profilesFile []byte, profiles *[]P, key func(P) string, render func(P) (P, error)) error {
 	var retained struct {
 		Profiles []P `json:"profiles"`
 	}
-	if err := json.Unmarshal(recipe, &retained); err != nil {
+	if err := json.Unmarshal(profilesFile, &retained); err != nil {
 		return err
 	}
 	if retained.Profiles == nil {
-		return fmt.Errorf("retained recipe requires profiles")
+		return fmt.Errorf("context profiles file requires profiles")
 	}
 	known := map[string]bool{}
 	for _, p := range *profiles {
@@ -91,7 +91,7 @@ func retainedContextOutputs(key string, tiles map[int]*image.NRGBA, add func(str
 	return outputs, nil
 }
 
-func augmentRetainedContextBundle(family, manifest, recipe, bundle string) error {
+func augmentRetainedContextBundle(family, manifest, profilesFile, bundle string) error {
 	if family != "ground" && family != "forest" && family != "hills" {
 		return fmt.Errorf("context-family requires ground, forest, or hills")
 	}
@@ -100,7 +100,7 @@ func augmentRetainedContextBundle(family, manifest, recipe, bundle string) error
 	if err != nil {
 		return err
 	}
-	recipe, err = retainedContextPath(recipe)
+	profilesFile, err = retainedContextPath(profilesFile)
 	if err != nil {
 		return err
 	}
@@ -166,7 +166,7 @@ func augmentRetainedContextBundle(family, manifest, recipe, bundle string) error
 	if header.ManifestSHA256 != hex.EncodeToString(sum[:]) {
 		return fmt.Errorf("fresh bundle report manifest hash mismatch")
 	}
-	recipeBytes, err := os.ReadFile(recipe)
+	profileBytes, err := os.ReadFile(profilesFile)
 	if err != nil {
 		return err
 	}
@@ -188,7 +188,7 @@ func augmentRetainedContextBundle(family, manifest, recipe, bundle string) error
 		}
 		r := newGroundRenderer(materials)
 		r.mudFeature = in.Manifest.MudFeature
-		e = retainedAppendProfiles(recipeBytes, &b.report.Profiles, func(p groundProfileReport) string { return p.ContextKey }, func(p groundProfileReport) (groundProfileReport, error) {
+		e = retainedAppendProfiles(profileBytes, &b.report.Profiles, func(p groundProfileReport) string { return p.ContextKey }, func(p groundProfileReport) (groundProfileReport, error) {
 			c, e := newGroundContext(p.RuntimeID, p.NeighborIDs[:])
 			if e != nil {
 				return p, e
@@ -228,7 +228,7 @@ func augmentRetainedContextBundle(family, manifest, recipe, bundle string) error
 		if e != nil {
 			return e
 		}
-		e = retainedAppendProfiles(recipeBytes, &b.report.Profiles, func(p forestProfileReport) string { return p.ContextKey }, func(p forestProfileReport) (forestProfileReport, error) {
+		e = retainedAppendProfiles(profileBytes, &b.report.Profiles, func(p forestProfileReport) string { return p.ContextKey }, func(p forestProfileReport) (forestProfileReport, error) {
 			c, e := newForestContext(p.RuntimeID, p.NeighborIDs[:])
 			if e != nil {
 				return p, e
@@ -259,7 +259,7 @@ func augmentRetainedContextBundle(family, manifest, recipe, bundle string) error
 			return e
 		}
 		r := newHillsRenderer(in.Sources["grass"].Image, in.Sources["height"].Image)
-		e = retainedAppendProfiles(recipeBytes, &b.report.Profiles, func(p hillsProfileReport) string { return p.ContextKey }, func(p hillsProfileReport) (hillsProfileReport, error) {
+		e = retainedAppendProfiles(profileBytes, &b.report.Profiles, func(p hillsProfileReport) string { return p.ContextKey }, func(p hillsProfileReport) (hillsProfileReport, error) {
 			c, e := newHillsContext(p.RuntimeID, p.NeighborIDs[:], p.Phase)
 			if e != nil {
 				return p, e
