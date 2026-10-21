@@ -156,13 +156,17 @@ combination, and so that the painting can cross hex borders. Picking, fog and ru
 
 - [ ] Split terrain art into a **ground** part (clipped to the hex, blends with neighbours) and a **standing**
       part (tree crowns, rocks, crests, buildings, bridges) on a larger canvas that may overhang up to half a
-      hex on every side.
-- [ ] `assets/index.json`: a `layer` field (`ground`, `standing`) and per-file canvas and anchor; `hlart check`
-      validates both.
-- [ ] `internal/mapcompose` returns standing items with a sort key (line, then column); `internal/maprender` and
-      the game renderer draw all ground first, then standing items in order, then units.
-- [ ] Fog: standing items of hidden hexes are drawn in the fog style or not at all; decide and test.
-- [ ] Tests: draw order, overhang at the map edge, picking unchanged.
+      hex on every side. The code is ready: a terrain or infrastructure ID gets a standing item as soon as
+      `assets/index.json` lists `standing/<id>` in the packs `terrain-standing-2x`/`-4x`
+      ([docs/runtime-assets.md](docs/runtime-assets.md)); none exists yet.
+- [x] `assets/index.json`: a `layer` field (`ground`, `standing`) and per-file canvas and anchor; `hlart check`
+      validates both. (2026-10-21)
+- [x] `internal/mapcompose` returns standing items in drawing order (line, then column); `internal/maprender`
+      and the game renderer draw all ground first, then standing items in order, then units. (2026-10-21)
+- [x] Fog: standing items of unseen hexes are not drawn (they would give the terrain away); those of
+      remembered hexes are greyed; a known hex's item may overhang an unseen neighbour. (2026-10-21)
+- [x] Tests: draw order and overhang over neighbours (`TestStandingOverhang`), overhang at the map edge,
+      standing selection and fog; picking is per hex and unchanged. (2026-10-21)
 
 ###### 1.2 Mask-based transitions
 

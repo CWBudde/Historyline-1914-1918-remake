@@ -41,17 +41,22 @@ the opponent).
 Groups per density:
 `backgrounds` (60, incl. fog tile `unseen`), `infrastructure` (74), `context-ground`, `context-forest`,
 `context-hills`. IDs `tile/<runtime id>` and `context/<family>/<key>`; 96×80 logical, anchor (48,40).
+The optional group `standing` holds standing items `standing/<runtime id>` (layer `standing` in
+`assets/index.json`; tree crowns, rocks, buildings, bridges): any canvas with the anchor on the hex centre
+that overhangs the hex by at most half a hex on each side.
 
-`internal/mapcompose` turns a level into per-hex draws: background, then stored overlays in order. Ground
-materials, forest and hills pick a context tile whose key is the SHA-256 of a descriptor (season, centre,
-neighbours NE SE S SW NW N, plus tile origin mod 568×320 for hills). Neighbours from another family count as
-the seasonal base (`grass`/`grass_w`); outside the map the centre continues. Without a context tile the
-default tile is drawn and a gap is recorded (`missing` or `undefined`). The three shipped levels have no gaps.
-Compounds must form complete groups; stray pieces are reported, never completed.
+`internal/mapcompose` turns a level into per-hex draws: background, stored overlays in order, then the
+standing items of the terrain and overlays that the catalog has. Ground materials, forest and hills pick a
+context tile whose key is the SHA-256 of a descriptor (season, centre, neighbours NE SE S SW NW N, plus tile
+origin mod 568×320 for hills). Neighbours from another family count as the seasonal base (`grass`/`grass_w`);
+outside the map the centre continues. Without a context tile the default tile is drawn and a gap is recorded
+(`missing` or `undefined`). The three shipped levels have no gaps. Compounds must form complete groups; stray
+pieces are reported, never completed.
 
-Drawing order: all backgrounds, overlays, owner bars, units. Unseen hexes show `unseen`, remembered hexes
-are greyed. Draw density is the effective zoom's asset density, at least 2×. Background textures get a
-3-texel grown border so filtered quads at fractional zoom overlap without seams.
+Drawing order: all backgrounds, overlays, standing items (line, then column), owner bars, units. Unseen
+hexes show `unseen` and none of their standing items; remembered hexes are greyed, standing items too. Draw
+density is the effective zoom's asset density, at least 2×. Background textures get a 3-texel grown border so
+filtered quads at fractional zoom overlap without seams.
 
 ## Open
 

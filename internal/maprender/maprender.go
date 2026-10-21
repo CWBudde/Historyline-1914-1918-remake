@@ -1,7 +1,7 @@
 // Package maprender draws a whole level with the runtime art of assets/index.json,
 // layered as in the game: backgrounds (context tiles chosen by mapcompose), then
-// infrastructure, then units facing north in their owner's colours. Fog, owner bars
-// and UI are left out.
+// infrastructure, then standing items, then units facing north in their owner's
+// colours. Fog, owner bars and UI are left out.
 package maprender
 
 import (
@@ -26,11 +26,12 @@ import (
 
 // Entry is one runtime file of assets/index.json; Path is relative to assets/.
 type Entry struct {
-	ID      string `json:"id"`
-	Pack    string `json:"pack"`
-	Density int    `json:"density"`
-	Path    string `json:"path"`
-	SHA     string `json:"sha256"`
+	ID      string     `json:"id"`
+	Pack    string     `json:"pack"`
+	Density int        `json:"density"`
+	Path    string     `json:"path"`
+	SHA     string     `json:"sha256"`
+	Anchor  [2]float64 `json:"logical_anchor"`
 }
 
 // Map is a rendered level.
@@ -45,7 +46,7 @@ type Map struct {
 type Renderer struct {
 	assets fs.FS
 	files  map[string]Entry // terrain and unit IDs per density, keyed "density/id"
-	has    map[string]bool  // context and grass-detail IDs present at every density
+	has    map[string]bool  // context, grass-detail and standing IDs present at every density
 	cache  map[string]image.Image
 	set    *data.Set
 }
@@ -77,7 +78,7 @@ func New(assets fs.FS) (*Renderer, error) {
 			continue
 		}
 		r.files[fmt.Sprintf("%d/%s", e.Density, e.ID)] = e
-		if strings.HasPrefix(e.ID, "context/") || strings.HasPrefix(e.ID, "tile/grass-detail-") {
+		if strings.HasPrefix(e.ID, "context/") || strings.HasPrefix(e.ID, "tile/grass-detail-") || strings.HasPrefix(e.ID, "standing/") {
 			densities[e.ID]++
 		}
 	}
@@ -107,17 +108,14 @@ func (r *Renderer) Render(lvl *level.Level, density int, units bool) (Map, error
 	}, func(id string) bool { return r.has[id] })
 	w, h := Size(grid)
 	m := Map{Image: image.NewNRGBA(image.Rect(0, 0, w*density, h*density)), Gaps: scene.Gaps, Issues: scene.Issues}
-	// Background and infrastructure are separate full-map passes, as in the game.
-	tile := [2]float64{48, 40}
-	for pass := range 2 {
+	// Background, infrastructure and standing items are separate full-map passes,
+	// as in the game.
+	for pass := range 3 {
 		for line, cells := range scene.Cells {
 			for col, cell := range cells {
-				ids := []string{cell.Background}
-				if pass == 1 {
-					ids = cell.Overlays
-				}
+				ids := [3][]string{{cell.Background}, cell.Overlays, cell.Standing}[pass]
 				for _, id := range ids {
-					if err := r.draw(m.Image, id, hexgrid.Coord{Line: line, Col: col}, density, tile); err != nil {
+					if err := r.draw(m.Image, id, hexgrid.Coord{Line: line, Col: col}, density); err != nil {
 						return Map{}, err
 					}
 				}
@@ -142,7 +140,7 @@ func (r *Renderer) Render(lvl *level.Level, density int, units bool) (Map, error
 				return Map{}, fmt.Errorf("missing unit family %s", hx.Unit)
 			}
 			id := fmt.Sprintf("unit/%s/%s/n-normal", family, unitsprite.PaletteOf(st.At(at).Unit.Owner))
-			if err := r.draw(m.Image, id, at, density, [2]float64{48, 49}); err != nil {
+			if err := r.draw(m.Image, id, at, density); err != nil {
 				return Map{}, err
 			}
 			m.Units++
@@ -151,7 +149,7 @@ func (r *Renderer) Render(lvl *level.Level, density int, units bool) (Map, error
 	return m, nil
 }
 
-func (r *Renderer) draw(dst draw.Image, id string, at hexgrid.Coord, density int, anchor [2]float64) error {
+func (r *Renderer) draw(dst draw.Image, id string, at hexgrid.Coord, density int) error {
 	e, ok := r.files[fmt.Sprintf("%d/%s", density, id)]
 	if !ok {
 		return fmt.Errorf("missing %dx asset %s", density, id)
@@ -170,7 +168,7 @@ func (r *Renderer) draw(dst draw.Image, id string, at hexgrid.Coord, density int
 		}
 		r.cache[e.Path] = im
 	}
-	Place(dst, im, at, density, anchor)
+	Place(dst, im, at, density, e.Anchor)
 	return nil
 }
 

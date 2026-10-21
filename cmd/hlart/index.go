@@ -69,14 +69,16 @@ type Runtime struct {
 
 // runtimeEntry is an assets/index.json entry.
 type runtimeEntry struct {
-	ID      string `json:"id"`
-	Pack    string `json:"pack"`
-	Density int    `json:"density"`
-	Path    string `json:"path"`
-	SHA256  string `json:"sha256"`
-	Width   int    `json:"width"`
-	Height  int    `json:"height"`
-	Art     string `json:"art"`
+	ID      string     `json:"id"`
+	Pack    string     `json:"pack"`
+	Density int        `json:"density"`
+	Path    string     `json:"path"`
+	SHA256  string     `json:"sha256"`
+	Width   int        `json:"width"`
+	Height  int        `json:"height"`
+	Anchor  [2]float64 `json:"logical_anchor"`
+	Layer   string     `json:"layer"`
+	Art     string     `json:"art"`
 }
 
 type runtimeIndex struct {

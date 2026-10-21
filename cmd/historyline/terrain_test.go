@@ -31,7 +31,7 @@ func testLevel(t *testing.T) *level.Level {
 }
 
 // terrainCatalog is a terrain catalog of transparent tiles holding every tile
-// level l draws, minus skip, plus the context IDs in contexts.
+// level l draws, minus skip, plus the context and standing IDs in contexts.
 func terrainCatalog(t *testing.T, l *level.Level, skip string, contexts ...string) fstest.MapFS {
 	t.Helper()
 	s := mapcompose.Compose(l.Grid(), levelHex(l), func(string) bool { return false })
@@ -49,6 +49,10 @@ func terrainCatalog(t *testing.T, l *level.Level, skip string, contexts ...strin
 		contexts = append(contexts, mapcompose.ContextID(f, "unused"))
 	}
 	for _, id := range contexts {
+		if strings.HasPrefix(id, "standing/") {
+			ids[id] = standingGroup
+			continue
+		}
 		ids[id] = "context-" + strings.Split(id, "/")[1]
 	}
 	delete(ids, skip)
@@ -70,6 +74,10 @@ func terrainCatalog(t *testing.T, l *level.Level, skip string, contexts ...strin
 		slices.Sort(sorted)
 		for _, id := range sorted {
 			m := packs[ids[id]]
+			if m == nil {
+				m = &assets.Manifest{Schema: 1, ID: fmt.Sprintf("terrain-%s-%dx", ids[id], d), Status: "candidate"}
+				packs[ids[id]] = m
+			}
 			p := fmt.Sprintf("images/%04d.png", len(m.Entries))
 			fsys[path.Join(fmt.Sprintf("%dx", d), ids[id], p)] = &fstest.MapFile{Data: buf.Bytes()}
 			m.Entries = append(m.Entries, assets.Entry{ID: id, Path: p, SHA256: hex.EncodeToString(sum[:]),
@@ -129,15 +137,15 @@ func TestOpenTerrainArtRefusesCandidatesAndGaps(t *testing.T) {
 }
 
 func TestTerrainLayersFollowFog(t *testing.T) {
-	c := mapcompose.Cell{Background: "tile/grass", Overlays: []string{"tile/road14"}}
-	if bg, ov, dim := terrainLayers(c, state.Unseen); bg != "tile/unseen" || ov != nil || dim {
-		t.Errorf("unseen: %s %v %v", bg, ov, dim)
+	c := mapcompose.Cell{Background: "tile/grass", Overlays: []string{"tile/road14"}, Standing: []string{"standing/house"}}
+	if bg, ov, st, dim := terrainLayers(c, state.Unseen); bg != "tile/unseen" || ov != nil || st != nil || dim {
+		t.Errorf("unseen: %s %v %v %v", bg, ov, st, dim)
 	}
-	if bg, ov, dim := terrainLayers(c, state.Seen); bg != "tile/grass" || len(ov) != 1 || !dim {
-		t.Errorf("seen: %s %v %v", bg, ov, dim)
+	if bg, ov, st, dim := terrainLayers(c, state.Seen); bg != "tile/grass" || len(ov) != 1 || len(st) != 1 || !dim {
+		t.Errorf("seen: %s %v %v %v", bg, ov, st, dim)
 	}
-	if bg, ov, dim := terrainLayers(c, state.Visible); bg != "tile/grass" || len(ov) != 1 || dim {
-		t.Errorf("visible: %s %v %v", bg, ov, dim)
+	if bg, ov, st, dim := terrainLayers(c, state.Visible); bg != "tile/grass" || len(ov) != 1 || len(st) != 1 || dim {
+		t.Errorf("visible: %s %v %v %v", bg, ov, st, dim)
 	}
 }
 
@@ -215,5 +223,33 @@ func TestPaddedBleedGrowsOpaqueEdge(t *testing.T) {
 	}
 	if at(5, 2)[3] != 0 || at(6, 2)[3] != 0 {
 		t.Error("bleed went beyond the border width")
+	}
+}
+
+func TestOpenTerrainArtAddsStandingItems(t *testing.T) {
+	l := testLevel(t)
+	a, err := openTerrainArt(terrainCatalog(t, l, "", mapcompose.StandingID("house")), assets.Options{AllowCandidates: true}, l)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if a.bleed[standingGroup] {
+		t.Error("standing items bleed into their border")
+	}
+	houses := 0
+	for li, line := range l.Lines {
+		for c, h := range line {
+			st := a.scene.Cells[li][c].Standing
+			if h.Terrain == "house" {
+				houses++
+				if !slices.Equal(st, []string{"standing/house"}) {
+					t.Errorf("house at (%d,%d) has standing %v", li, c, st)
+				}
+			} else if st != nil {
+				t.Errorf("(%d,%d) %s has standing %v", li, c, h.Terrain, st)
+			}
+		}
+	}
+	if houses == 0 {
+		t.Fatal("level has no house")
 	}
 }

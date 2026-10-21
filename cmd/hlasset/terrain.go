@@ -1,6 +1,7 @@
 package main
 
 import (
+	"cmp"
 	"fmt"
 	"io"
 	"io/fs"
@@ -25,11 +26,13 @@ var (
 	terrainDensities = []int{2, 4}
 	terrainAnchor    = [2]float64{48, 40}
 	terrainGroups    = []string{"backgrounds", "infrastructure", "context-ground", "context-forest", "context-hills"}
+	// standingGroup is built only when the index has standing items.
+	standingGroup = "standing"
 )
 
 // terrainPack is one built terrain group at one density.
 type terrainPack struct {
-	Group    string // backgrounds, infrastructure or context-<family>
+	Group    string // backgrounds, infrastructure, context-<family> or standing
 	Density  int
 	Manifest assets.Manifest
 }
@@ -38,8 +41,21 @@ func terrainDir(d int, group string) string { return path.Join(fmt.Sprintf("%dx"
 
 // planTerrain returns the terrain packs of the index, every group at every
 // density, before any image is read. Tiles are registered on the hex centre;
-// context tiles carry the family of their group.
+// context tiles carry the family of their group. The standing group is optional:
+// its items may overhang their hex (mapcompose.StandingFits).
 func planTerrain(entries []indexEntry) ([]terrainPack, error) {
+	for _, e := range entries {
+		if !strings.HasPrefix(e.Pack, "terrain-") {
+			continue
+		}
+		want := "ground"
+		if strings.HasPrefix(e.Pack, "terrain-standing-") {
+			want = "standing"
+		}
+		if layer := cmp.Or(e.Layer, "ground"); layer != want {
+			return nil, fmt.Errorf("%s: %s has layer %s, want %s", e.Pack, e.ID, layer, want)
+		}
+	}
 	byID := map[string]assets.Manifest{}
 	for _, m := range indexPacks(entries, "terrain-") {
 		byID[m.ID] = m
@@ -65,6 +81,26 @@ func planTerrain(entries []indexEntry) ([]terrainPack, error) {
 			packs = append(packs, terrainPack{Group: group, Density: d, Manifest: m})
 		}
 	}
+	var standing []terrainPack
+	for _, d := range terrainDensities {
+		id := fmt.Sprintf("terrain-%s-%dx", standingGroup, d)
+		m, ok := byID[id]
+		if !ok {
+			continue
+		}
+		delete(byID, id)
+		for _, e := range m.Entries {
+			w, h := float64(e.Width)/float64(d), float64(e.Height)/float64(d)
+			if !strings.HasPrefix(e.ID, "standing/") || e.Density != d || !mapcompose.StandingFits(w, h, e.Anchor) {
+				return nil, fmt.Errorf("%s: %s is not a standing %dx item within the overhang (%dx%d, anchor %v)", id, e.ID, d, e.Width, e.Height, e.Anchor)
+			}
+		}
+		standing = append(standing, terrainPack{Group: standingGroup, Density: d, Manifest: m})
+	}
+	if len(standing) != 0 && len(standing) != len(terrainDensities) {
+		return nil, fmt.Errorf("index has the %s pack at %d of %d densities", standingGroup, len(standing), len(terrainDensities))
+	}
+	packs = append(packs, standing...)
 	for id := range byID {
 		return nil, fmt.Errorf("index has unknown terrain pack %s", id)
 	}

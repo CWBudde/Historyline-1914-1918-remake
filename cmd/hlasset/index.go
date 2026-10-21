@@ -25,6 +25,7 @@ type indexEntry struct {
 	Width   int         `json:"width,omitempty"`
 	Height  int         `json:"height,omitempty"`
 	Anchor  *[2]float64 `json:"logical_anchor,omitempty"`
+	Layer   string      `json:"layer,omitempty"` // terrain only: ground (the default) or standing
 	Art     string      `json:"art"`
 }
 

@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"cmp"
 	"errors"
 	"fmt"
 	"io/fs"
@@ -12,6 +13,8 @@ import (
 	"strings"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
 )
 
@@ -51,6 +54,9 @@ func check(root string) ([]string, error) {
 		}
 		if e.Width > 0 && e.SHA256 == "" {
 			fail("assets/index.json %s: image without sha256", e.ID)
+		}
+		if msg := layerProblem(e); msg != "" {
+			fail("assets/index.json %s (%s): %s", e.ID, e.Pack, msg)
 		}
 	}
 
@@ -114,6 +120,34 @@ func check(root string) ([]string, error) {
 		fail("art/index.json is stale; run `just art-index`")
 	}
 	return problems, nil
+}
+
+// layerProblem says why a runtime entry's layer or terrain geometry is wrong, or
+// "" when it is right. Standing items (standing/<id>, layer standing, pack
+// terrain-standing-*) may overhang their hex; terrain ground tiles fill exactly
+// one hex registered on its centre.
+func layerProblem(e runtimeEntry) string {
+	layer := cmp.Or(e.Layer, "ground")
+	if layer != "ground" && layer != "standing" {
+		return fmt.Sprintf("layer %q, want ground or standing", e.Layer)
+	}
+	if standing := strings.HasPrefix(e.ID, "standing/"); standing != (layer == "standing") || standing != strings.HasPrefix(e.Pack, "terrain-standing-") {
+		return "standing items have IDs standing/<id>, layer standing and a terrain-standing pack"
+	}
+	if !strings.HasPrefix(e.Pack, "terrain-") || e.Density == 0 {
+		return ""
+	}
+	w, h := float64(e.Width)/float64(e.Density), float64(e.Height)/float64(e.Density)
+	if layer == "standing" {
+		if !mapcompose.StandingFits(w, h, e.Anchor) {
+			return fmt.Sprintf("%vx%v anchor %v overhangs by more than half a hex", w, h, e.Anchor)
+		}
+		return ""
+	}
+	if w != hexgrid.HexWidth || h != hexgrid.HexHeight || e.Anchor != [2]float64{hexgrid.HexWidth / 2, hexgrid.HexHeight / 2} {
+		return fmt.Sprintf("ground tile %vx%v anchor %v, want one hex on its centre", w, h, e.Anchor)
+	}
+	return ""
 }
 
 // runtimeIDProblem says why id is not a runtime ID of asset a, or "" when it is.

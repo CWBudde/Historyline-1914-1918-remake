@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"fmt"
 	"io/fs"
 	"os"
 	"path/filepath"
@@ -197,6 +198,66 @@ func TestTerrainGapsReport(t *testing.T) {
 	} {
 		if !strings.Contains(s, want) {
 			t.Errorf("report lacks %q", want)
+		}
+	}
+}
+
+// withStanding adds a standing item at both densities: a 144×120 canvas that
+// overhangs its hex by a quarter hex on every side.
+func withStanding(es []indexEntry) []indexEntry {
+	for _, d := range terrainDensities {
+		es = append(es, indexEntry{ID: "standing/forest", Pack: fmt.Sprintf("terrain-standing-%dx", d), Density: d,
+			Path: fmt.Sprintf("terrain/forest/standing-%dx.png", d), SHA256: strings.Repeat("0", 64),
+			Width: 144 * d, Height: 120 * d, Anchor: &[2]float64{72, 60}, Layer: "standing", Art: "terrain/forest"})
+	}
+	return es
+}
+
+func TestTerrainPlanStandingLayer(t *testing.T) {
+	packs, err := planTerrain(withStanding(retainedIndex(t)))
+	if err != nil {
+		t.Fatal(err)
+	}
+	n := 0
+	for _, p := range packs {
+		if p.Group == standingGroup {
+			n++
+			if len(p.Manifest.Entries) != 1 || p.Manifest.Entries[0].ID != "standing/forest" {
+				t.Errorf("%s: %+v", p.Manifest.ID, p.Manifest.Entries)
+			}
+		}
+	}
+	if n != len(terrainDensities) {
+		t.Errorf("%d standing packs, want one per density", n)
+	}
+	last := func(es []indexEntry) *indexEntry { return &es[len(es)-1] }
+	cases := []struct {
+		name   string
+		damage func([]indexEntry) []indexEntry
+		want   string
+	}{
+		{"overhang beyond half a hex", func(es []indexEntry) []indexEntry {
+			last(es).Anchor = &[2]float64{120, 60}
+			return es
+		}, "within the overhang"},
+		{"one density only", func(es []indexEntry) []indexEntry { return es[:len(es)-1] }, "at 1 of 2 densities"},
+		{"ground layer in the standing pack", func(es []indexEntry) []indexEntry {
+			last(es).Layer = ""
+			return es
+		}, "layer ground, want standing"},
+		{"standing layer in a ground pack", func(es []indexEntry) []indexEntry {
+			for i := range es {
+				if es[i].Pack == "terrain-backgrounds-2x" {
+					es[i].Layer = "standing"
+					break
+				}
+			}
+			return es
+		}, "want ground"},
+	}
+	for _, c := range cases {
+		if _, err := planTerrain(c.damage(withStanding(retainedIndex(t)))); err == nil || !strings.Contains(err.Error(), c.want) {
+			t.Errorf("%s: err = %v, want it to mention %q", c.name, err, c.want)
 		}
 	}
 }

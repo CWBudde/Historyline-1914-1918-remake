@@ -25,6 +25,7 @@ import (
 	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/minimap"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
 	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
@@ -374,12 +375,14 @@ func (g *game) drawMenu(dst *ebiten.Image) {
 func (g *game) Draw(screen *ebiten.Image) {
 	screen.Fill(color.RGBA{20, 20, 24, 255})
 	vx, vy, vw, vh := g.cam.Visible()
+	// A hex just outside the view counts while its standing items may reach in.
+	const mx, my = hexgrid.HexWidth/2 + mapcompose.OverhangX, hexgrid.HexHeight/2 + mapcompose.OverhangY
 	var inView []hexgrid.Coord
 	for l, line := range g.lvl.Lines {
 		for c := range line {
 			coord := hexgrid.Coord{Line: l, Col: c}
 			cx, cy := hexgrid.Center(coord)
-			if cx+48 < vx || cx-48 > vx+vw || cy+40 < vy || cy-40 > vy+vh {
+			if cx+mx < vx || cx-mx > vx+vw || cy+my < vy || cy-my > vy+vh {
 				continue
 			}
 			inView = append(inView, coord)

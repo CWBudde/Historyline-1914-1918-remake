@@ -122,6 +122,19 @@ func TestCheckFindsProblems(t *testing.T) {
 		{"wrong id", `id "terrain/street", want "terrain/road"`, func(t *testing.T, root string) {
 			replace(t, root, "art/terrain/road/prompt.md", "id: terrain/road", "id: terrain/street")
 		}},
+		{"unknown layer", `layer "roof", want ground or standing`, func(t *testing.T, root string) {
+			replace(t, root, "assets/index.json", `"art":"terrain/road"}`, `"layer":"roof","art":"terrain/road"}`)
+		}},
+		{"standing layer on a tile", "standing items have IDs standing/<id>", func(t *testing.T, root string) {
+			replace(t, root, "assets/index.json", `"art":"terrain/road"}`, `"layer":"standing","art":"terrain/road"}`)
+		}},
+		{"ground tile off the hex", "want one hex on its centre", func(t *testing.T, root string) {
+			replace(t, root, "assets/index.json", `"pack":"p-2x"`, `"pack":"terrain-backgrounds-2x"`)
+		}},
+		{"standing overhang", "overhangs by more than half a hex", func(t *testing.T, root string) {
+			replace(t, root, "assets/index.json", `{"id":"tile/road14","pack":"p-2x","density":2,"path":"terrain/road/road14-2x.png","sha256":"96ed1291de2b253b33b93ba7b23820a6694f6230b401f178584c37a17d7b45c2","width":8,"height":6,"logical_anchor":[4,3]`,
+				`{"id":"standing/road14","pack":"terrain-standing-2x","layer":"standing","density":2,"path":"terrain/road/road14-2x.png","sha256":"96ed1291de2b253b33b93ba7b23820a6694f6230b401f178584c37a17d7b45c2","width":8,"height":6,"logical_anchor":[100,3]`)
+		}},
 		{"wrong kind", `kind "interface", want "unit"`, func(t *testing.T, root string) {
 			replace(t, root, "art/units/infantry/prompt.md", "kind: unit", "kind: interface")
 		}},

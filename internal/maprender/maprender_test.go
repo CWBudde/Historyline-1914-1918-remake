@@ -1,11 +1,19 @@
 package maprender
 
 import (
+	"bytes"
+	"crypto/sha256"
+	"encoding/json"
+	"fmt"
 	"image"
 	"image/color"
+	"image/draw"
+	"image/png"
+	"io/fs"
 	"os"
 	"strings"
 	"testing"
+	"testing/fstest"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
@@ -57,5 +65,89 @@ func TestRenderPulse(t *testing.T) {
 	}
 	if m.Units == 0 {
 		t.Error("no units drawn")
+	}
+}
+
+// overlay serves files from over before base.
+type overlay struct {
+	over fstest.MapFS
+	base fs.FS
+}
+
+func (o overlay) Open(name string) (fs.File, error) {
+	if _, ok := o.over[name]; ok {
+		return o.over.Open(name)
+	}
+	return o.base.Open(name)
+}
+
+// A standing item overhangs its hex over the ground of its neighbours, and is
+// clipped at the map edge.
+func TestStandingOverhang(t *testing.T) {
+	red := color.NRGBA{R: 255, A: 255}
+	base := os.DirFS("../../assets")
+	raw, err := fs.ReadFile(base, "index.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	var index map[string]any
+	if err := json.Unmarshal(raw, &index); err != nil {
+		t.Fatal(err)
+	}
+	over := fstest.MapFS{}
+	for _, d := range []int{2, 4} {
+		im := image.NewNRGBA(image.Rect(0, 0, 144*d, 120*d))
+		draw.Draw(im, im.Bounds(), image.NewUniform(red), image.Point{}, draw.Src)
+		var b bytes.Buffer
+		if err := png.Encode(&b, im); err != nil {
+			t.Fatal(err)
+		}
+		p := fmt.Sprintf("terrain/house/standing-%dx.png", d)
+		over[p] = &fstest.MapFile{Data: b.Bytes()}
+		index["assets"] = append(index["assets"].([]any), map[string]any{
+			"id": "standing/house", "pack": fmt.Sprintf("terrain-standing-%dx", d), "density": d, "path": p,
+			"sha256": fmt.Sprintf("%x", sha256.Sum256(b.Bytes())), "logical_anchor": []float64{72, 60},
+		})
+	}
+	if raw, err = json.Marshal(index); err != nil {
+		t.Fatal(err)
+	}
+	over["index.json"] = &fstest.MapFile{Data: raw}
+	r, err := New(overlay{over, base})
+	if err != nil {
+		t.Fatal(err)
+	}
+	lvl, err := level.Load("../../levels/level1_cp.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	m, err := r.Render(lvl, 2, false)
+	if err != nil {
+		t.Fatal(err)
+	}
+	houses := 0
+	for line, hs := range lvl.Lines {
+		for col, h := range hs {
+			if h.Terrain != "house" {
+				continue
+			}
+			houses++
+			x, y := hexgrid.Center(hexgrid.Coord{Line: line, Col: col})
+			// 60 logical pixels west of the centre lies in a neighbour's ground.
+			if got := m.Image.NRGBAAt(int(x-60)*2, int(y)*2); got != red {
+				t.Errorf("house (%d,%d): overhang %+v, want it over the neighbour", line, col, got)
+			}
+		}
+	}
+	if houses == 0 {
+		t.Fatal("level has no house")
+	}
+	// At the map edge the overhang is clipped.
+	src := image.NewNRGBA(image.Rect(0, 0, 144, 120))
+	draw.Draw(src, src.Bounds(), image.NewUniform(red), image.Point{}, draw.Src)
+	dst := image.NewNRGBA(image.Rect(0, 0, 200, 200))
+	Place(dst, src, hexgrid.Coord{}, 1, [2]float64{72, 60})
+	if dst.NRGBAAt(0, 0) != red || dst.NRGBAAt(48+72-1, 40+60-1) != red || dst.NRGBAAt(48+72, 40) == red {
+		t.Error("overhang at the map edge drawn wrongly")
 	}
 }

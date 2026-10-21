@@ -15,10 +15,12 @@ type Hex struct {
 }
 
 // Cell is what the map view draws on one hex: a background tile, then the
-// infrastructure overlays in order.
+// infrastructure overlays in order, then (after every hex's ground) its standing
+// items.
 type Cell struct {
 	Background string   // asset ID
 	Overlays   []string // asset IDs
+	Standing   []string // asset IDs
 	Context    Family   // set when Background is a context tile
 }
 
@@ -83,6 +85,7 @@ func Compose(g hexgrid.Grid, at func(hexgrid.Coord) Hex, has func(id string) boo
 			for _, id := range h.Infra {
 				cell.Overlays = append(cell.Overlays, TileID(id))
 			}
+			cell.Standing = standing(h.Terrain, h.Infra, has)
 			if f, ok := FamilyOf(h.Terrain); ok {
 				if id, gap := selectContext(g, at, c, f, h.Terrain, has); gap != nil {
 					s.Gaps = append(s.Gaps, *gap)
@@ -92,7 +95,7 @@ func Compose(g hexgrid.Grid, at func(hexgrid.Coord) Hex, has func(id string) boo
 			}
 		}
 	}
-	s.registerCompounds(at)
+	s.registerCompounds(at, has)
 	return s
 }
 
@@ -170,7 +173,7 @@ func piece(id string) (cp *compound, name, suffix string) {
 // registerCompounds checks that every compound piece belongs to a complete group
 // of the same season. A mountain quarter outside a group is shown as a whole
 // mountain (display only); any other stray piece is an Issue.
-func (s *Scene) registerCompounds(at func(hexgrid.Coord) Hex) {
+func (s *Scene) registerCompounds(at func(hexgrid.Coord) Hex, has func(string) bool) {
 	g := s.Grid
 	claimed := map[hexgrid.Coord]bool{}
 	for l := range s.Cells {
@@ -210,6 +213,7 @@ func (s *Scene) registerCompounds(at func(hexgrid.Coord) Hex) {
 			}
 			if cp.prefix == "mount" {
 				s.Cells[l][col].Background = TileID("mountain" + sfx)
+				s.Cells[l][col].Standing = standing("mountain"+sfx, at(c).Infra, has)
 				continue
 			}
 			s.Issues = append(s.Issues, Issue{At: c, Detail: fmt.Sprintf("%s outside a complete %s group", t, cp.prefix)})
