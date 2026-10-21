@@ -4,7 +4,7 @@ title: Ranks
 kind: interface
 status: candidate
 runtime_ids: rank/00, rank/01, rank/02, rank/03, rank/04, rank/05, rank/06, rank/07, rank/08, rank/09, rank/10
-masters: 
+masters: 00.png, 01.png, 02.png, 03.png, 04.png, 05.png, 06.png, 07.png, 08.png, 09.png, 10.png
 ---
 
 ## Look
@@ -32,6 +32,11 @@ ring of short brass laurel dashes.
 
 ## Post
 Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/interface-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/interface/rank/` and re-index.
+
+The declared interface PNG masters are separate imagegen candidates made directly from the Base
+prompt and each variant delta, using the corresponding `assets/interface/rank/` render as a
+layout reference. The generated catalogue records their native dimensions. These candidate sources
+await visual acceptance and export bindings; the current runtime vector exports remain separate.
 
 ## Avoid
 - baked text, numbers or values

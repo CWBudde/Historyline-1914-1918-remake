@@ -4,7 +4,7 @@ title: Effects
 kind: interface
 status: candidate
 runtime_ids: effect/explosion-00, effect/explosion-01, effect/explosion-02, effect/explosion-03, effect/explosion-04, effect/explosion-05, effect/explosion-06, effect/explosion-07, effect/explosion-08, effect/hit, effect/hit-reduced
-masters: explosion.png
+masters: explosion.png, hit.png, hit-reduced.png
 ---
 
 ## Look
@@ -39,6 +39,11 @@ square, same camera and scale progression, soft painted smoke with clean antiali
 418-pixel cells of the explosion master and reduces them with Lanczos3 to 4x, 2x and 1x (96x96 logical);
 `hit` and `hit-reduced` are vectors from the catalogue. Frame timing and anchors are in
 `interface/animations.json`. Promote into `assets/interface/effect/` and re-index.
+
+The existing `explosion.png` atlas supplies the nine explosion frames. The new
+`hit.png` and `hit-reduced.png` masters are imagegen candidates from their variant prompts,
+using the corresponding runtime glyphs as layout references. Native dimensions are catalogued;
+these candidates await visual acceptance and export bindings.
 
 ## Avoid
 - baked text, numbers or values

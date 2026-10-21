@@ -94,6 +94,9 @@ Tick a box only with evidence you ran. Record decisions here, not their history.
 - [x] Generate all 108 frame/control variants directly from the screen prompts with imagegen, including
       buttons and all widget states. All 44 screen families have PNG masters; full PNG decoding and
       `just art-check` pass. Visual acceptance and runtime export bindings remain open. (2026-10-21)
+- [x] Fill all 93 missing interface variants: 86 imagegen sources and seven shared button/country
+      masters from screens. All 14 interface families have PNGs (109 masters total); full decoding
+      and `just art-check` pass. Candidate cleanup and runtime exports remain open. (2026-10-22)
 - [ ] In-engine art preview (`cmd/hlartpreview`): seven-hex patches, random fixtures, shipped maps; switch
       family, season, facing and state; grid/port overlays; reload exports; screenshots.
 - [ ] Broken-join fixtures for the compositor (wrong ports, shifted anchors, missing corners, double edges).

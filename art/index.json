@@ -31,7 +31,128 @@
       "dir": "art/interface/action",
       "assets_dir": "assets/interface/action",
       "prompt": "art/interface/action/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/interface/action/attack-normal.png",
+          "sha256": "12208e5a8a2ca8382a7e749a831cdcb75f453c8295cd5e1eba72737c17bcc7ba",
+          "width": 1369,
+          "height": 1149
+        },
+        {
+          "path": "art/interface/action/attack-hover.png",
+          "sha256": "7dfbe2016f3d25db5f45eeaf20f7c87126bdad1be11ac2d8c610d64a8c44a55a",
+          "width": 1369,
+          "height": 1149
+        },
+        {
+          "path": "art/interface/action/attack-focus.png",
+          "sha256": "bbd8c79024c4f7317284b97b24a2e6d0a2950fb36d2571abb7f44e6c710a72ac",
+          "width": 1369,
+          "height": 1149
+        },
+        {
+          "path": "art/interface/action/attack-pressed.png",
+          "sha256": "d4187d4b4374bac90601520c06a636634dcbedadfafb6aea47aef2220693b5fa",
+          "width": 1369,
+          "height": 1149
+        },
+        {
+          "path": "art/interface/action/attack-disabled.png",
+          "sha256": "dbc75b1a203e69d60768be62d431f6eb4ea624b964bcd50a296c227a8187cd3b",
+          "width": 1369,
+          "height": 1149
+        },
+        {
+          "path": "art/interface/action/contain-normal.png",
+          "sha256": "a317d78a37667b0794b66084fc2bf8944344285eca229df0af6f727970b925b5",
+          "width": 1369,
+          "height": 1149
+        },
+        {
+          "path": "art/interface/action/contain-hover.png",
+          "sha256": "d91ec521f0b56b1fd9ce8fa8e3e97f600dd3720fa921ad9ab8a6d179a8e9a1d8",
+          "width": 1369,
+          "height": 1149
+        },
+        {
+          "path": "art/interface/action/contain-focus.png",
+          "sha256": "859c74b4eefd8c24c4a103ffd1432360b1c675f5166b848ccfbc75983a3863db",
+          "width": 1369,
+          "height": 1149
+        },
+        {
+          "path": "art/interface/action/contain-pressed.png",
+          "sha256": "22f69280cb6cdbd01a61504e1dfd6f9e7a54446119377293a81720df8ba2d09d",
+          "width": 1369,
+          "height": 1149
+        },
+        {
+          "path": "art/interface/action/contain-disabled.png",
+          "sha256": "856a4212eb59ef2e28938719e9f113462385852cf13ba04af615456e883b7db3",
+          "width": 1369,
+          "height": 1149
+        },
+        {
+          "path": "art/interface/action/exit-normal.png",
+          "sha256": "decb9d3f5f0022f5053a7467962a2cd5ebd876f32236444f47ecf589b978264d",
+          "width": 1369,
+          "height": 1149
+        },
+        {
+          "path": "art/interface/action/exit-hover.png",
+          "sha256": "8aeb80f0356408564f95a253d30b79fa6558fae1d43d4537916bbba7561277c9",
+          "width": 1369,
+          "height": 1149
+        },
+        {
+          "path": "art/interface/action/exit-focus.png",
+          "sha256": "af2bb591e6d2a0375e021350cdb05b769a818b844e37db6b2c32a133928553ce",
+          "width": 1369,
+          "height": 1149
+        },
+        {
+          "path": "art/interface/action/exit-pressed.png",
+          "sha256": "814e32bc73bba1635d1b95de4fd6b0aa4a6ae42f6e04b266400a8faacb035e36",
+          "width": 1369,
+          "height": 1149
+        },
+        {
+          "path": "art/interface/action/exit-disabled.png",
+          "sha256": "ee16f1649021b819c5d575962b6b855f559189c807cdca54042af4c7acf1f74b",
+          "width": 1369,
+          "height": 1149
+        },
+        {
+          "path": "art/interface/action/move-normal.png",
+          "sha256": "d84918924f9918d294f642dc3ebdb3b344373116135f4762c7b5e1d7aa5c4140",
+          "width": 1369,
+          "height": 1149
+        },
+        {
+          "path": "art/interface/action/move-hover.png",
+          "sha256": "9dcd0ad4c1c41dbd231b0f48077d9985048776b0af09badd575a303c0faa4d9a",
+          "width": 1369,
+          "height": 1149
+        },
+        {
+          "path": "art/interface/action/move-focus.png",
+          "sha256": "1372a2fd2518fcc2bd1515262eb1e4c7f9035babf1d28e768e78ec6e3a319de9",
+          "width": 1369,
+          "height": 1149
+        },
+        {
+          "path": "art/interface/action/move-pressed.png",
+          "sha256": "ff1c3e7ea099ecb30805e82804b878b2a93179fa83ba2506724c1297a642c268",
+          "width": 1369,
+          "height": 1149
+        },
+        {
+          "path": "art/interface/action/move-disabled.png",
+          "sha256": "12edc1b5a3fe6c307ded7593bdea3668724459eb4ced2a94f60918072c055930",
+          "width": 1369,
+          "height": 1149
+        }
+      ],
       "look": "Square command buttons in the unit panel: a dark slate tile with rounded corners and one simple brass\nglyph per action, readable at 62x52.",
       "base_prompt": "Flat square interface button, 62x52 logical, dark slate fill with small rounded corners and a thin\nblue-grey edge, one bold simple brass glyph centred, no text.",
       "variants": [
@@ -177,7 +298,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/interface-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/interface/action/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/interface-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/interface/action/` and re-index.\n\nThe declared interface PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/interface/action/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.\nThe slate backings are solid and opaque. Rounded-corner masks remain part of runtime export\npreparation; background removal must preserve the slate areas around each glyph.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -215,7 +336,20 @@
       "dir": "art/interface/banner",
       "assets_dir": "assets/interface/banner",
       "prompt": "art/interface/banner/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/interface/banner/capture.png",
+          "sha256": "332da22eb17abdb3cdbb744a6406d3f7bbc01007ae2c51838675296d84a2dfd8",
+          "width": 2172,
+          "height": 724
+        },
+        {
+          "path": "art/interface/banner/round.png",
+          "sha256": "e947d5172ed63aef1766c716205489cfdcdfe1786b35d83f6a7b3aa42c1d6ec4",
+          "width": 2172,
+          "height": 724
+        }
+      ],
       "look": "Wide slate notice strips that announce a capture or a new round; a brass icon at the left, a thin\ndivider, and room for live text.",
       "base_prompt": "Wide flat slate banner strip with small rounded corners, a brass icon at the left end, a thin\nvertical brass divider after it and an empty area for live text.",
       "variants": [
@@ -235,7 +369,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/interface-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/interface/banner/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/interface-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/interface/banner/` and re-index.\n\nThe declared interface PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/interface/banner/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -270,7 +404,38 @@
       "dir": "art/interface/bar",
       "assets_dir": "assets/interface/bar",
       "prompt": "art/interface/bar/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/interface/bar/positive.png",
+          "sha256": "1267ec2286de24a5f8dd000fb682480446b812f393194c981ed889d7c8e9338d",
+          "width": 953,
+          "height": 1651
+        },
+        {
+          "path": "art/interface/bar/neutral.png",
+          "sha256": "94d58fd0fdbeca630d04ce90436209f97461564d5393f903beedcb69399e7aab",
+          "width": 952,
+          "height": 1652
+        },
+        {
+          "path": "art/interface/bar/negative.png",
+          "sha256": "b51a10f5f5b46af5ab7b950b29cf4296727311cc90f5bb92f3f0cef35d989d0d",
+          "width": 953,
+          "height": 1651
+        },
+        {
+          "path": "art/interface/bar/track.png",
+          "sha256": "2209f7d7d783d1b9dee3f95b33eb35adf2491aea68560d47ed8fbdd5daf17f64",
+          "width": 2172,
+          "height": 724
+        },
+        {
+          "path": "art/interface/bar/unavailable.png",
+          "sha256": "fc001e61f39c3c1b5190a5bff0c1676f29b0443c58e7cc1dc5a9486c40d8850c",
+          "width": 1254,
+          "height": 1254
+        }
+      ],
       "look": "Small pips and tracks for unit values in the panel: green for good, brass for neutral, red for bad.",
       "base_prompt": "Tiny flat vertical pip with a thin dark outline, filled with one muted signal colour; and a long dark\nslate track it sits in.",
       "variants": [
@@ -311,7 +476,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/interface-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/interface/bar/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/interface-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/interface/bar/` and re-index.\n\nThe declared interface PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/interface/bar/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -349,7 +514,38 @@
       "dir": "art/interface/button",
       "assets_dir": "assets/interface/button",
       "prompt": "art/interface/button/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/interface/button/normal.png",
+          "sha256": "28a5f92603f428f379e580444f407f6f657868625df26307b2cf562101a540c3",
+          "width": 1983,
+          "height": 793
+        },
+        {
+          "path": "art/interface/button/hover.png",
+          "sha256": "8bb04c17f1e07a880ba57992b061e2dfdcc6751714d86cb9615fb714f2ffcf1f",
+          "width": 1983,
+          "height": 793
+        },
+        {
+          "path": "art/interface/button/focus.png",
+          "sha256": "f47f3edfcddf3d160461751f9b250285ef48129dccabbb44da6acdc3da3c79ba",
+          "width": 1983,
+          "height": 793
+        },
+        {
+          "path": "art/interface/button/pressed.png",
+          "sha256": "e9cd31af05f9a86f69a71320b3e6f69789e33376792c02bf6d3d13dd42ee2fc4",
+          "width": 1983,
+          "height": 793
+        },
+        {
+          "path": "art/interface/button/disabled.png",
+          "sha256": "e6a9d3824b898a29b994c8e5de52bddde5f2ebde20dcbd7cf3126d91e3191ecf",
+          "width": 1983,
+          "height": 793
+        }
+      ],
       "look": "Generic rectangular panel button; live label drawn on top.",
       "base_prompt": "Flat rectangular interface button, dark slate fill, small rounded corners, thin edge; empty face for a\nlive label.",
       "variants": [
@@ -390,7 +586,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/interface-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/interface/button/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/interface-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/interface/button/` and re-index.\n\nThe declared interface PNG masters reuse the matching imagegen candidates in\n`art/screens/button/`. These shared controls use the same design and variant prompts.\nThe catalogue records their native dimensions; candidate acceptance and runtime export bindings remain open.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -424,7 +620,20 @@
       "dir": "art/interface/country",
       "assets_dir": "assets/interface/country",
       "prompt": "art/interface/country/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/interface/country/france.png",
+          "sha256": "7c50a888179b2bdef870834eb9d34287a62883be124c9aae54c8395f3296f669",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/interface/country/germany.png",
+          "sha256": "49f542866784ba4793f0cdf29fa72f24aeb5c811ff1ceb4af4e44e37e3f69c0c",
+          "width": 1254,
+          "height": 1254
+        }
+      ],
       "look": "Small square country swatches used beside player names.",
       "base_prompt": "Small flat rectangular national colour swatch with three bands and no emblem.",
       "variants": [
@@ -444,7 +653,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/interface-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/interface/country/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/interface-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/interface/country/` and re-index.\n\nThe declared interface PNG masters reuse the matching imagegen candidates in\n`art/screens/country/`. These shared controls use the same design and variant prompts.\nThe catalogue records their native dimensions; candidate acceptance and runtime export bindings remain open.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -489,6 +698,18 @@
         {
           "path": "art/interface/effect/explosion.png",
           "sha256": "70fabb31646620fdf18316f1388ee376d0eb48a50111c7b68ba1d753b0fb7015",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/interface/effect/hit.png",
+          "sha256": "1a6f75ca24eef472cbe7165c0ef325291e69e768f77b82e3dd906cc283b78484",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/interface/effect/hit-reduced.png",
+          "sha256": "0201735d8dcdcb92d0cfd85e7f0c23aeaafb5bdc6e05d7035a0489e4635a0c0f",
           "width": 1254,
           "height": 1254
         }
@@ -575,7 +796,7 @@
         }
       ],
       "edges": "",
-      "post": "`go run ./tools/interface-art -manifest art/pipeline/interface-v1.json -out <fresh dir>` cuts the nine\n418-pixel cells of the explosion master and reduces them with Lanczos3 to 4x, 2x and 1x (96x96 logical);\n`hit` and `hit-reduced` are vectors from the catalogue. Frame timing and anchors are in\n`interface/animations.json`. Promote into `assets/interface/effect/` and re-index.",
+      "post": "`go run ./tools/interface-art -manifest art/pipeline/interface-v1.json -out <fresh dir>` cuts the nine\n418-pixel cells of the explosion master and reduces them with Lanczos3 to 4x, 2x and 1x (96x96 logical);\n`hit` and `hit-reduced` are vectors from the catalogue. Frame timing and anchors are in\n`interface/animations.json`. Promote into `assets/interface/effect/` and re-index.\n\nThe existing `explosion.png` atlas supplies the nine explosion frames. The new\n`hit.png` and `hit-reduced.png` masters are imagegen candidates from their variant prompts,\nusing the corresponding runtime glyphs as layout references. Native dimensions are catalogued;\nthese candidates await visual acceptance and export bindings.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -623,7 +844,68 @@
       "dir": "art/interface/map",
       "assets_dir": "assets/interface/map",
       "prompt": "art/interface/map/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/interface/map/attack.png",
+          "sha256": "32f07f3a4eae9826636027926eca504e65a06e80b7b5339f4a356b1838c3ebcc",
+          "width": 1374,
+          "height": 1145
+        },
+        {
+          "path": "art/interface/map/attackable.png",
+          "sha256": "a57e0bf09380408a405d500ad21f2ef53cee73cef4d12714c870501361f1192c",
+          "width": 1374,
+          "height": 1145
+        },
+        {
+          "path": "art/interface/map/camera.png",
+          "sha256": "419e2663b01d3cf2dbb4e7687ef9160ee93fed3e350caee4e9c7292fc47aafa7",
+          "width": 1374,
+          "height": 1145
+        },
+        {
+          "path": "art/interface/map/cursor.png",
+          "sha256": "46c377ba6b41569de2de00a21e79e3b333c336617808022f5382627fb202f44d",
+          "width": 1374,
+          "height": 1145
+        },
+        {
+          "path": "art/interface/map/editor.png",
+          "sha256": "e5a941dca8e3aceb16a1bf87de146ca8fc0f7a4a4e4aba89a64fae263e067018",
+          "width": 1374,
+          "height": 1145
+        },
+        {
+          "path": "art/interface/map/from.png",
+          "sha256": "deff15ec161338d010ae6f2a5e6449f315dbdf3fadcaa7b44e96a7e2c65f6f76",
+          "width": 1374,
+          "height": 1145
+        },
+        {
+          "path": "art/interface/map/invalid.png",
+          "sha256": "c5429b5f50383ab777c24e25205b3a688953066dd1b56d740c8070ee8652fbcf",
+          "width": 1374,
+          "height": 1145
+        },
+        {
+          "path": "art/interface/map/path.png",
+          "sha256": "336dd468e31a17ce69aec4801de43a882b02b34f8bd951d9b0f22854fcc0f9c0",
+          "width": 1374,
+          "height": 1145
+        },
+        {
+          "path": "art/interface/map/reachable.png",
+          "sha256": "2a6f5061e9204bd4d37a3c7a9dd8f0e5d22ac3b0667c0ae40771c8a85d337845",
+          "width": 1374,
+          "height": 1145
+        },
+        {
+          "path": "art/interface/map/selected.png",
+          "sha256": "daf4fa7dfb42fff0230f48f82d4397effe309b52e73277ec62f41881e92d2d41",
+          "width": 1374,
+          "height": 1145
+        }
+      ],
       "look": "Hex-shaped overlays on the map: double hex outlines in signal colours, some with a simple glyph,\ndrawn over terrain and units without hiding them.",
       "base_prompt": "Flat double hex outline (96x80 logical) with a transparent interior, thin lines in one muted signal\ncolour, an optional small simple glyph in the centre.",
       "variants": [
@@ -699,7 +981,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/interface-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/interface/map/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/interface-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/interface/map/` and re-index.\n\nThe declared interface PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/interface/map/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -742,7 +1024,50 @@
       "dir": "art/interface/ownership",
       "assets_dir": "assets/interface/ownership",
       "prompt": "art/interface/ownership/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/interface/ownership/cp.png",
+          "sha256": "a2b6d85b50d8e91fb1b733a3e03ea8ce0ad1f0263da8ef8c4157c3e117ae8e8d",
+          "width": 2164,
+          "height": 727
+        },
+        {
+          "path": "art/interface/ownership/ec.png",
+          "sha256": "6e622c9154ea43db20a589fe6e648f3ce65f280536a84179ef71f01092093f06",
+          "width": 2164,
+          "height": 727
+        },
+        {
+          "path": "art/interface/ownership/neutral.png",
+          "sha256": "80d0ee8545bdec2dac6d5ba94a63027c5d07e07363faf76662ae94b4959ea4f6",
+          "width": 2164,
+          "height": 727
+        },
+        {
+          "path": "art/interface/ownership/cp-factory.png",
+          "sha256": "3e57da386a5958fbf181d244bc3afb0451ad731503214e22980dc422c1e210da",
+          "width": 1055,
+          "height": 1491
+        },
+        {
+          "path": "art/interface/ownership/ec-factory.png",
+          "sha256": "db080d208f0b056682624fef9ddc2d8e5d01ead82213a89054841944e1cec8b7",
+          "width": 1054,
+          "height": 1493
+        },
+        {
+          "path": "art/interface/ownership/neutral-factory.png",
+          "sha256": "4fb52dd4e8d901413d932f99a71fcdb6334a1f88c1f36ff3cf34c92b47f1af7f",
+          "width": 1054,
+          "height": 1493
+        },
+        {
+          "path": "art/interface/ownership/depot-atlas.png",
+          "sha256": "ffa83a2fa3065d894930e4286e20887920d4755b1f9c9b64e7abf9c118822013",
+          "width": 1748,
+          "height": 899
+        }
+      ],
       "look": "Small owner strips on captured buildings and depots: the owner colour as a short bar.",
       "base_prompt": "Small flat owner strip with fine diagonal hatching in the owner colour, thin dark outline.",
       "variants": [
@@ -797,7 +1122,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/interface-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/interface/ownership/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/interface-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/interface/ownership/` and re-index.\n\nThe declared interface PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/interface/ownership/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -836,7 +1161,32 @@
       "dir": "art/interface/panel",
       "assets_dir": "assets/interface/panel",
       "prompt": "art/interface/panel/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/interface/panel/battle.png",
+          "sha256": "2e848fa005805ff8669c8d50e94e138b1f82af48cac6632614348da42640a409",
+          "width": 2172,
+          "height": 724
+        },
+        {
+          "path": "art/interface/panel/content.png",
+          "sha256": "603141decef8eae5e135cb2e500689feea3f54997073083bdd89425bbcd52cd4",
+          "width": 1112,
+          "height": 1414
+        },
+        {
+          "path": "art/interface/panel/terrain.png",
+          "sha256": "10826490e3933eaf7ee5c82fa449925cb266e72c5936b5b8a86deb2caf35b74c",
+          "width": 2004,
+          "height": 785
+        },
+        {
+          "path": "art/interface/panel/weapon.png",
+          "sha256": "7404a6f3cb89b1a0e223d189644eaef714aa2c9217f8f8be3a98e0d883f1291f",
+          "width": 1918,
+          "height": 820
+        }
+      ],
       "look": "Background panels of the battle and unit screens: dark slate surfaces with recessed slots and thin\nbrass dividers, empty of text.",
       "base_prompt": "Flat dark slate interface panel with small rounded corners, a thin blue-grey edge, recessed darker\nslots for portraits, values and weapon rows, thin brass divider lines; no text.",
       "variants": [
@@ -870,7 +1220,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/interface-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/interface/panel/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/interface-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/interface/panel/` and re-index.\n\nThe declared interface PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/interface/panel/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.\nThe content candidate uses an opaque full canvas to preserve the complete slate backing.\nThe terrain candidate has empty value slots and no baked pictograms.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -913,7 +1263,74 @@
       "dir": "art/interface/rank",
       "assets_dir": "assets/interface/rank",
       "prompt": "art/interface/rank/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/interface/rank/00.png",
+          "sha256": "3acc377379ea328b9f44964823788daa31210f22cee17c3278955c0992b6795b",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/interface/rank/01.png",
+          "sha256": "a042cadfea2fa52d9962fb77553d74d354ee7ee44b6a460d4126a37dc79186ac",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/interface/rank/02.png",
+          "sha256": "1539ffa3decb731b45e5a8828eaea0b925bef7c8ec8412a707a31fcae7970109",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/interface/rank/03.png",
+          "sha256": "b7d246cdd6d561b729f480e1ebdee8f16688e03dbe36827b5bfc9b024f14d340",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/interface/rank/04.png",
+          "sha256": "184e0934d185796574ff39fb2f23023043323948263e3ff812fe55bcd292d76b",
+          "width": 1774,
+          "height": 887
+        },
+        {
+          "path": "art/interface/rank/05.png",
+          "sha256": "5bee405f86fb6542fdbd9308590abad1be61cb129497007b02e6ebf19dcaba51",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/interface/rank/06.png",
+          "sha256": "0efdf2160cd066a58bde3f7a13b444d9b05b96ad66dcc938201461c85d854517",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/interface/rank/07.png",
+          "sha256": "e86880a49598d59afd16e645436314d8f01647eacee8deb8c29f25ff5a2ae6c0",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/interface/rank/08.png",
+          "sha256": "89f60db075ffd2292dbbf77fa723b343fa5cdf8670f84fbb5f60ae57b1215b3f",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/interface/rank/09.png",
+          "sha256": "17a486b1daaeef00a76c422b61c8b8a573eeda5179e7c8b031b63695c7d11095",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/interface/rank/10.png",
+          "sha256": "057e1854ecd1d4160f8ad35eaf8bf7d132fc66820eeb3407afb4c200ace9a7b9",
+          "width": 1254,
+          "height": 1254
+        }
+      ],
       "look": "Experience ranks: zero to four brass stars, then the same inside a ring of brass laurel dashes, up to\none large star in a double ring.",
       "base_prompt": "Small flat brass rank emblem on transparency, 88x88 logical, simple five-pointed stars, optional\nring of short brass laurel dashes.",
       "variants": [
@@ -996,7 +1413,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/interface-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/interface/rank/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/interface-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/interface/rank/` and re-index.\n\nThe declared interface PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/interface/rank/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -1037,7 +1454,38 @@
       "dir": "art/interface/slot",
       "assets_dir": "assets/interface/slot",
       "prompt": "art/interface/slot/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/interface/slot/normal.png",
+          "sha256": "7d3a460675a0fecba6128069d6f197abdc7692c04f908a75a45e5ad99a90f770",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/interface/slot/hover.png",
+          "sha256": "7f039347bc798d9777bc81a9a767ace13a72c6e4579c65ddfb61645f127760d6",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/interface/slot/focus.png",
+          "sha256": "c7cd9d93ba73eff099e4c792691702f3c06c6f9884bef4f345df077409348008",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/interface/slot/pressed.png",
+          "sha256": "16e0158d1f78836803950ff8258fb89d89582cbf17cf3574f73437363a35551b",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/interface/slot/disabled.png",
+          "sha256": "427bd15aeaf87dc3acab0ea896589e136a8dacb13c6f1d373d828b7d29e27dcf",
+          "width": 1254,
+          "height": 1254
+        }
+      ],
       "look": "Square container and inventory slots: thin brass square frames.",
       "base_prompt": "Flat square slot frame with a thin brass outline and a transparent or very dark centre.",
       "variants": [
@@ -1078,7 +1526,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/interface-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/interface/slot/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/interface-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/interface/slot/` and re-index.\n\nThe declared interface PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/interface/slot/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.\nThe pressed and disabled candidates use the opaque dark-centre option. Normal and focus retain\ntransparent centres; final state alignment and corner masks remain export work.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -1125,7 +1573,98 @@
       "dir": "art/interface/symbol",
       "assets_dir": "assets/interface/symbol",
       "prompt": "art/interface/symbol/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/interface/symbol/air.png",
+          "sha256": "64c4cfdf65d8de48e0142ad71f53c868f873e9e9d99faaf80a203c85bc32962e",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/interface/symbol/ammo.png",
+          "sha256": "c001488d7f6090fc8c401bbaca846e3b2e8017e82375798cab4ebcbda38419bd",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/interface/symbol/armour.png",
+          "sha256": "2226081de20ba871046532343d5c177ace5671deec7d0624ab2f8b872d61e195",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/interface/symbol/capture.png",
+          "sha256": "02664cb5da2bfc612691542fe9e0504c87b200851b02729908f058e91e8ea385",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/interface/symbol/empty.png",
+          "sha256": "1f55de71ad0c86a4510ceca1c4a274364ce7835f296180c96a7151d7673772cb",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/interface/symbol/fuel.png",
+          "sha256": "e4540c6a2198e9127039108f1427b5445a68c5c0b2a68cf6881ea87b1c2f271e",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/interface/symbol/ground.png",
+          "sha256": "984dd329b58be819e23aef5f5aeee80d96191eaaf8d6757d9118c0f38ef9b595",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/interface/symbol/infinity.png",
+          "sha256": "9fd2bceaadce2ff0320cd9d15116fb4a28c4211fcf3f2dcf1ae4a1696ddbf68c",
+          "width": 1262,
+          "height": 1246
+        },
+        {
+          "path": "art/interface/symbol/repair.png",
+          "sha256": "9b823d975bbfcad2362a70213af3136e5da35342e7e8e40da14a8787de7ccef7",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/interface/symbol/sight.png",
+          "sha256": "8665025b66ac0de018a259a8831412ad32533217788e362bd04755c06009058e",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/interface/symbol/size.png",
+          "sha256": "1a11c1a3fb5945c80c6258478740e98c547194c179246ab28785c1904efb8592",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/interface/symbol/skill-unknown.png",
+          "sha256": "25ec0ec52b42ee26b8870380860b4cc09372daca759bea0f3ef5d5742426d293",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/interface/symbol/turn.png",
+          "sha256": "4b1f33c48759832c453f8b220069a917129e48a861addd23e9206279ef99162f",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/interface/symbol/water.png",
+          "sha256": "bde84652d782d0d0cfca8dbc6f06202fd462d11747e93d7f1a08c8e1d57ef155",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/interface/symbol/weight.png",
+          "sha256": "ad45fb8d0d3c551794dfd969f41831c44f8f28b900fd39a31511d44027ac9b3f",
+          "width": 1254,
+          "height": 1254
+        }
+      ],
       "look": "Small brass glyphs for unit values and terrain properties in the panel.",
       "base_prompt": "Tiny flat solid brass glyph on transparency, simple silhouette, readable at 16 pixels.",
       "variants": [
@@ -1236,7 +1775,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/interface-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/interface/symbol/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/interface-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/interface/symbol/` and re-index.\n\nThe declared interface PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/interface/symbol/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -1532,7 +2071,38 @@
       "dir": "art/interface/weapon-row",
       "assets_dir": "assets/interface/weapon-row",
       "prompt": "art/interface/weapon-row/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/interface/weapon-row/normal.png",
+          "sha256": "8d004be18df0f6039eea20a02538df08e5a425ff2b1254a6d5d35fe6f573b6bc",
+          "width": 2004,
+          "height": 785
+        },
+        {
+          "path": "art/interface/weapon-row/hover.png",
+          "sha256": "cd1bf8df28a2bfd5709af95ea9243af119a8eb03810563a4684959d4e22261a7",
+          "width": 2004,
+          "height": 785
+        },
+        {
+          "path": "art/interface/weapon-row/focus.png",
+          "sha256": "04619f82bb28155f20772157ff441130594ac85e551efe6cf382f43be3b37467",
+          "width": 2004,
+          "height": 785
+        },
+        {
+          "path": "art/interface/weapon-row/pressed.png",
+          "sha256": "99ab487d7556e3c5a9fa1a368bffd81fe1ec6e2c05c3e1c0e199e718931aa99b",
+          "width": 2004,
+          "height": 785
+        },
+        {
+          "path": "art/interface/weapon-row/disabled.png",
+          "sha256": "34c33a340582d0ee1ac7685d2667504bee77d39947ead355f0eab53307173ed6",
+          "width": 2004,
+          "height": 785
+        }
+      ],
       "look": "Row frame behind a weapon picture and its live values in the weapon panel.",
       "base_prompt": "Long flat slate row frame, 654x50 logical, thin edge, slightly recessed picture area at the left and an\nempty area for live values.",
       "variants": [
@@ -1573,7 +2143,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/interface-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/interface/weapon-row/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/interface-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/interface/weapon-row/` and re-index.\n\nThe declared interface PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/interface/weapon-row/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",

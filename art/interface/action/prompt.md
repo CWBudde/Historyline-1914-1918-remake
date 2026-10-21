@@ -4,7 +4,7 @@ title: Action buttons
 kind: interface
 status: candidate
 runtime_ids: action/attack-disabled, action/attack-focus, action/attack-hover, action/attack-normal, action/attack-pressed, action/contain-disabled, action/contain-focus, action/contain-hover, action/contain-normal, action/contain-pressed, action/exit-disabled, action/exit-focus, action/exit-hover, action/exit-normal, action/exit-pressed, action/move-disabled, action/move-focus, action/move-hover, action/move-normal, action/move-pressed
-masters: 
+masters: attack-normal.png, attack-hover.png, attack-focus.png, attack-pressed.png, attack-disabled.png, contain-normal.png, contain-hover.png, contain-focus.png, contain-pressed.png, contain-disabled.png, exit-normal.png, exit-hover.png, exit-focus.png, exit-pressed.png, exit-disabled.png, move-normal.png, move-hover.png, move-focus.png, move-pressed.png, move-disabled.png
 ---
 
 ## Look
@@ -41,6 +41,13 @@ blue-grey edge, one bold simple brass glyph centred, no text.
 
 ## Post
 Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/interface-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/interface/action/` and re-index.
+
+The declared interface PNG masters are separate imagegen candidates made directly from the Base
+prompt and each variant delta, using the corresponding `assets/interface/action/` render as a
+layout reference. The generated catalogue records their native dimensions. These candidate sources
+await visual acceptance and export bindings; the current runtime vector exports remain separate.
+The slate backings are solid and opaque. Rounded-corner masks remain part of runtime export
+preparation; background removal must preserve the slate areas around each glyph.
 
 ## Avoid
 - baked text, numbers or values
