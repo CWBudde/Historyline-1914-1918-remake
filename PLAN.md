@@ -56,6 +56,9 @@ Tick a box only with evidence you ran. Record decisions here, not their history.
 
 ### 2. Art completion and acceptance
 
+- [ ] Bring the rendered PULSE map to the reference design: measurement loop, compositor foundations
+      (overhang, mask transitions, props, cluster stamps, stroked infrastructure), then the repaint per family
+      ([docs/terrain-art-plan.md](docs/terrain-art-plan.md)).
 - [ ] Approve terrain: grass and context transitions, full-map repetition, seasons, seams at three-tile
       vertices.
 - [ ] Approve units: silhouettes and colour separation at the original size, mechanical/camera consistency,
