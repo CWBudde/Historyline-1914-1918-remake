@@ -253,6 +253,8 @@ source describe the image in this PDF. PULSE uses the 4× runtime artwork; compa
     exported tile PNGs at their native 4× resolution. The six assemblies reuse the same central tile
     with different neighbours; land and water agree on shared edges and at three-tile corners.
     These are reusable terrain pieces. PULSE uses them too, without a lake-shaped painting.
+    Shared borders retain their matching profile, while the interiors have asymmetric bends and
+    rocky banks that widen and narrow.
   ]
   figure(image(shore + "/shore-catalogue-4x.png", height: 21cm),
     caption: [All nine shores and six assemblies. Native PNG: 3144 × 3728 pixels.],

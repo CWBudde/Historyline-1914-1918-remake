@@ -39,6 +39,8 @@ Terrain must form a reusable tile set. Use the reference for materials, scale an
 surfaces and reusable props, then compose them through the declared edge masks. A lake must work in
 different compatible shoreline arrangements. Do not replace it with a painting selected for one map's
 exact outline. Review individual tiles, several rearrangements and the composed map together.
+Only the joins need the shared edge profile. Inside a tile, use irregular curves, asymmetric coves,
+rock shelves of varying width and narrow stony stretches; avoid straight, uniformly thick ribbons.
 
 ## Units
 

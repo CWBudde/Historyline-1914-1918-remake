@@ -45,6 +45,24 @@ func shoreCurveFor(v shoreVariant) shoreCurve {
 	handle := .24 * chord.length()
 	controls := [6]connectionPoint{a, a.add(normals[0].mul(handle)), a.add(normals[0].mul(2 * handle)), b.add(normals[1].mul(2 * handle)), b.add(normals[1].mul(handle)), b}
 	normal := connectionPoint{-chord[1], chord[0]}.mul(1 / chord.length())
+	mask := 0
+	for _, vertex := range v.LandVertices {
+		mask |= 1 << vertex
+	}
+	// Opposing approaches have room for a broad bow. Existing turning profiles
+	// already carry their large-scale bend in the Bezier and need less offset.
+	opposition := -(normals[0][0]*normals[1][0] + normals[0][1]*normals[1][1])
+	straight := connectionSmoothStep((opposition - .6) / .4)
+	amplitude := 6 + .5*float64((mask*7)%5)
+	if mask%4 < 2 {
+		amplitude = -amplitude
+	}
+	skew := 5 + .75*float64((mask*11)%5)
+	if chord[0] >= 0 || chord[1] < 0 {
+		skew = -skew
+	}
+	amplitude = landSign + straight*(amplitude-landSign)
+	skew *= straight
 	add := func(a, b connectionPoint) {
 		delta := b.sub(a)
 		curve.segments = append(curve.segments, shoreSegment{a, delta, 1 / (delta[0]*delta[0] + delta[1]*delta[1])})
@@ -60,9 +78,16 @@ func shoreCurveFor(v shoreVariant) shoreCurve {
 		for i, w := range weights {
 			p = p.add(controls[i].mul(w))
 		}
-		// Value, tangent and curvature of this broad subpixel variation vanish
-		// at each anchor, preserving the protected straight approaches.
-		organic := .7 * 64 * t * t * t * u * u * u * math.Sin(2*math.Pi*t+.4)
+		// A single asymmetric polynomial bow gives the tile an irregular coast,
+		// rather than a repeating wiggle. Its first two endpoint derivatives vanish.
+		envelope := 64 * t * t * t * u * u * u
+		broad := envelope * (amplitude + skew*(2*t-1))
+		// Retain the established approach beyond the 8px guard and Lanczos halo.
+		// The quintic handover is C2, like the endpoints themselves.
+		blend := math.Max(0, math.Min(1, (math.Min(t, u)-.08)/.12))
+		blend = blend * blend * blend * (10 + blend*(-15+6*blend))
+		old := .7 * envelope * math.Sin(2*math.Pi*t+.4)
+		organic := old + blend*(broad-old)
 		p = p.add(normal.mul(organic))
 		add(previous, p)
 		previous = p

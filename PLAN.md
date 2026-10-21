@@ -342,6 +342,12 @@ Needs 1.2 and 1.5. Lake silhouettes are composed from reusable terrain tiles.
 
 ###### 4.2 Shore (`lakeside12`, `lakeside123`, `lakeside126`, `lakeside156`, `lakeside16`, `lakeside23`, `lakeside34`, `lakeside3456`, `lakeside56`)
 
+- [x] Organic tile interiors: broad asymmetric bends on long coasts and variable-width rocky shelves
+      across all nine shores and 24 single-mouth variants. All 66 native 2×/4× PNGs retain their alpha
+      masks and every border pixel in the eight-pixel join guard (1,335,840 pixels checked); all 234
+      compatible ordered pairs remain valid. Source paintings are unchanged, exports persist in
+      `assets/terrain/lakeside/`, and `just artbook` shows the updated tiles and PULSE. Full reference
+      acceptance remains open. (2026-10-22)
 - [ ] Shore as a mask edge between water and grass, lined with rounded boulders placed along the shoreline
       (props), so any port set works. Exemplars `r29c6`, `r30c6`, `r31c7`, `r32c7`.
 - [ ] Decide the four inferred lakeside corners (open item in section 1).

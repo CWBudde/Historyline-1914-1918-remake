@@ -14,6 +14,8 @@ materials, including on PULSE. Selected `lakeside-bank-shared-v3.png` is a nativ
 built-in imagegen output with larger rock faces and more vegetation between them. Requested 1536×1536
 was not the delivered size. The whole-lake painting `lakeside-lake-summer-v3.png` is retained only as
 a look reference; it is absent from the active recipe and runtime catalogue.
+Inside each tile the coast bows asymmetrically and the rocky bank varies from a small lip to a broader
+shelf. The shared crossing profile is confined to the border and its filter margin.
 
 ## Base prompt
 Use case: stylized-concept. Asset type: GENERIC REUSABLE tactical game material, opaque seamless surface swatch, NOT a map scene. Reference image attached is ONLY the visual style/material reference for the pale rounded rocks lining the lake: do not copy lake silhouette, layout, water, bridges, or any landmark. Generate a new native high-resolution square 1536x1536 top-down orthographic material of mixed-size natural shoreline boulders: large smooth weathered flattened grey-beige and warm brown-grey rocks with dark damp mossy earth and small pebbles between. Roughly 5 to 7 major boulders across canvas width, varied sizes, natural incomplete distribution, some moss and tiny tufts of olive grass in crevices, shallow cracks, short soft shadows bottom-right, light upper-left. Rich painted microdetail at native resolution like the attached art. Boulders need distinct readable curved silhouettes, pale top faces and dark crevices; not a dense carpet of tiny gravel, not geometric cobblestone pavement. Entire canvas filled with generic rock/earth surface at consistent scale, density and lighting right to edges. Repeating swatch to be sampled into arbitrary shoreline curves, no bank direction, no focal point, no framing, no gradient, no water or lake, no complete coastline, no hex tile or grid, no text. Opaque full-bleed square. Newly authored hand-painted game art.
@@ -47,6 +49,10 @@ The selected manifest opts into `authored-rocks-v1`: one uniformly cropped autho
 35.5×20 logical-pixel periods, with 8 percent seam overlap and no mirrored coset average. The larger
 authored rocks retain their scale across the nine masks; the bank extends landward before blending into meadow.
 Water uses the matching 71×40-period authored sampler. Existing corner masks remain unchanged.
+The coast's broad asymmetric interior bows preserve the original approach at each border. Inland
+rock coverage varies through broad patches, with a 2.2–11.5 logical-pixel full-rock reach and a soft
+irregular meadow fringe. Bank variation fades out through the filter margin, leaving the existing
+eight-pixel join guards unchanged. The source paintings are retained without retouching or enlargement.
 
 The exporter includes all nine tile PNGs and six different compatible assemblies in
 `shore-catalogue-2x.png` and `shore-catalogue-4x.png`, using the actual decoded exports without resizing.

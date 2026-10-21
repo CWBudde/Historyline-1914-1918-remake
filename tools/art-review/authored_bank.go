@@ -7,7 +7,9 @@ import (
 )
 
 const authoredBankProfile = "authored-rocks-v1"
-const authoredBankDescription = " Authored-rocks-v1 override: single unmirrored authored sample, no coset average. Centre-crop to71:40, bilinear sample with8percent opposing-edge overlap only; bank periods35.5x20worldpx, water71x40. Each period divides every lattice translation exactly. Native1254px bank boulders remain about2..5logicalpx. Shore full rock band extends landward to5.2px then blends through8.4px; stream adds2px landward bank, modulated by authored rock brightness, through the existing8..16world-pixel interior envelope. Stream outer footprint and bank opacity retain the legacy profile throughout every8world-pixel port guard. Water core/ports/shore vertex topology unchanged; no synthesized stones or continuous foam line. Legacy profiles unchanged."
+const authoredBankDescription = " Authored-rocks-v1 materials: single unmirrored authored sample, no coset average. Centre-crop to71:40, bilinear sample with8percent opposing-edge overlap only; bank periods35.5x20worldpx, water71x40. Each period divides every lattice translation exactly. " +
+	"Shore interiors: E=smoothstep((nearestEdge-10)/10), P=.7*sin(.065*x+.105*y+.8)+.3*sin(.14*x-.075*y+1.3), R=meanRockRGB/255-.45. Coastoffset(1.4+1.8*E)*R, rockreach=clamp(5.2+E*(.6+5.2*P+1.2*R),2.2,11.5), feather=3.2+E*(.3-.7*P). Border profile remains5.2px rockreach and3.2px feather through10worldpx, including Lanczos halo. " +
+	"Streams retain their existing bank: add2px landward, modulated by authored rock brightness, through the8..16worldpx interior envelope. Stream outer footprint and bank opacity retain the legacy profile throughout every8worldpx port guard. Water core/ports/shore vertex topology unchanged; no synthesized stones or continuous foam line."
 
 // The smaller rectangular period is already invariant under all six hex-lattice
 // translations. Unlike coset averaging, it does not merge unrelated rock faces.
@@ -80,21 +82,40 @@ func sampleAuthoredWater(src *image.NRGBA, p connectionPoint) color.NRGBA {
 func authoredRockOffset(rock color.NRGBA) float64 {
 	return (float64(rock.R)+float64(rock.G)+float64(rock.B))/765 - .45
 }
+
+// Leave the eight-pixel shared edge profile and its Lanczos filter support
+// untouched. Only the tile interior grows broader rock shelves and narrows
+// back to small stony lips; the material and world scale remain shared.
+func authoredShoreVariation(p connectionPoint) (envelope, patch float64) {
+	edge := math.Inf(1)
+	for i := range 6 {
+		edge = min(edge, shoreMouthEdgeDistance(p, i))
+	}
+	envelope = connectionSmoothStep((edge - 10) / 10)
+	patch = .7*math.Sin(.065*p[0]+.105*p[1]+.8) + .3*math.Sin(.14*p[0]-.075*p[1]+1.3)
+	return envelope, patch
+}
+
 func authoredShoreColor(in shoreInputs, p connectionPoint, d float64) color.NRGBA {
 	water := sampleAuthoredWater(in.Materials["water"].Image, p)
 	if d <= -7 {
 		return water
 	}
 	grass := sampleGrassMaterial(in.Materials["grass"].Image, p)
-	if d >= 10 {
+	if d >= 18 {
 		return grass
 	}
 	rock := sampleAuthoredBank(in.Materials["bank"].Image, p)
-	d += 1.4 * authoredRockOffset(rock)
+	envelope, patch := authoredShoreVariation(p)
+	stone := authoredRockOffset(rock)
+	d += (1.4 + 1.8*envelope) * stone
+	width := 5.2 + envelope*(.6+5.2*patch+1.2*stone)
+	width = max(2.2, min(11.5, width))
+	feather := 3.2 + envelope*(.3-.7*patch)
 	wet := connectionBlend(rock, color.NRGBA{34, 52, 47, 255}, .56)
 	c := connectionBlend(water, wet, connectionSmoothStep((d+1.1)/1.1))
 	c = connectionBlend(c, rock, connectionSmoothStep((d-.1)/.8))
-	return connectionBlend(c, grass, connectionSmoothStep((d-5.2)/3.2))
+	return connectionBlend(c, grass, connectionSmoothStep((d-width)/feather))
 }
 func authoredStreamColor(in connectionInputs, f connectionFamily, p connectionPoint, d float64) color.NRGBA {
 	water := sampleAuthoredWater(in.materials[f.Material], p)

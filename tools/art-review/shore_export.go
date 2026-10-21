@@ -18,10 +18,10 @@ import (
 	"sort"
 )
 
-const shoreProfile = "shore-reference-v2 candidate: DOS-inspired stony banks and blue-teal water; no original outlines measured. " +
+const shoreProfile = "shore-reference-v3 candidate: reusable irregular stony banks and blue-teal water; no original outlines measured. " +
 	"Explicit corner land profiles, lakeside23 effective land-side mask234. Guard through8worldpx and exterior/filtermargin: nearest edge LL+32, WW-32, mixed signed midpoint projection toward land. " +
 	"Two mixed edges per shore, one contiguous land arc. Inward unit edge normals for8worldpx; quintic Bezier anchors A,B, h=.24*|B-A|, controls A,A+h*nA,A+2h*nA,B+2h*nB,B+h*nB,B. " +
-	"Chord-normal displacement .7*64*t^3*(1-t)^3*sin(2*pi*t+.4) vanishes with first two derivatives at anchors. Flatten256 steps, signed nearest segment distance,160worldpx exterior extensions. " +
+	"Chord-normal asymmetric polynomial bow64*t^3*(1-t)^3*(amplitude+skew*(2*t-1)); mask-derived6..8px amplitude on opposing approaches, gentler turning profiles. Preserve the oldsubpixelcoast through first/last8percent ofcurve, quinticC2handover through20percent. Endpoint value/tangent/curvature preserved. Flatten256 steps, signed nearest segment distance,160worldpx exterior extensions. " +
 	"Grass uses unmirrored lattice-periodic sampleGrassMaterial; water and bank retain mirror-periodic sampleConnectionMaterial. Pure grass field>=8 and water<=-7. Otherwise u=2*pi*x/71,v=2*pi*y/40; d=field+.65*sin(3*u+2*v)+.35*sin(7*u-5*v)+.65*((bank.R+bank.G+bank.B)/765-.5). " +
 	"With S=clamped smoothstep: shallow=blend(water,RGB(97,159,152),.28), wet=blend(bank,RGB(38,65,58),.62); blend water->shallow S((d+5.5)/2.5), ->wet S((d+2.2)/.9), ->bank S((d+.9)/1.4), ->grass S((d-3.8)/2.4). " +
 	"Lattice-periodic broken bank outline preserves reciprocal joins; pale gravel band has dark wet lip and blue-green submerged shelf. Byte-rounded RGB blends. " +
