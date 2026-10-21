@@ -91,6 +91,9 @@ Tick a box only with evidence you ran. Record decisions here, not their history.
 - [x] Add 11 matching main-screen candidate paintings and document scene reuse for related dialogs.
       `just art-check`, `just artbook` and visual review pass; sources are native 1586×992.
       Runtime bindings, native 4× and user acceptance remain open. (2026-10-21)
+- [x] Generate all 108 frame/control variants directly from the screen prompts with imagegen, including
+      buttons and all widget states. All 44 screen families have PNG masters; full PNG decoding and
+      `just art-check` pass. Visual acceptance and runtime export bindings remain open. (2026-10-21)
 - [ ] In-engine art preview (`cmd/hlartpreview`): seven-hex patches, random fixtures, shipped maps; switch
       family, season, facing and state; grid/port overlays; reload exports; screenshots.
 - [ ] Broken-join fixtures for the compositor (wrong ports, shifted anchors, missing corners, double edges).

@@ -4,7 +4,7 @@ title: Handover
 kind: screen
 status: candidate
 runtime_ids: screen/handover
-masters: illustration.png
+masters: illustration.png, frame.png
 ---
 
 ## Look
@@ -56,6 +56,11 @@ above. For a 2x export, trim one pixel from each edge of the native 1586x992 sou
 then downsample to 1280x800, preserving the composition. It is a candidate source without a runtime
 or manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.
 The current runtime handover frame remains opaque and samples no backdrop or previous gameplay image.
+
+The declared frame/control PNG masters are separate imagegen candidates made directly from the Base
+prompt and each variant delta, using the corresponding `assets/screens/handover/` render as a
+layout reference. The generated catalogue records their native dimensions. These candidate sources
+await visual acceptance and export bindings; the current runtime vector exports remain separate.
 
 ## Avoid
 - baked text, numbers or values

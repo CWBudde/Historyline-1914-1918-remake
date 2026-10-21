@@ -4,7 +4,7 @@ title: Widgets
 kind: screen
 status: candidate
 runtime_ids: widget/dropdown-list, widget/dropdown-option/normal/disabled, widget/dropdown-option/normal/focus, widget/dropdown-option/normal/hover, widget/dropdown-option/normal/normal, widget/dropdown-option/normal/pressed, widget/dropdown-option/selected/disabled, widget/dropdown-option/selected/focus, widget/dropdown-option/selected/hover, widget/dropdown-option/selected/normal, widget/dropdown-option/selected/pressed, widget/dropdown/closed/disabled, widget/dropdown/closed/focus, widget/dropdown/closed/hover, widget/dropdown/closed/normal, widget/dropdown/closed/pressed, widget/dropdown/open/disabled, widget/dropdown/open/focus, widget/dropdown/open/hover, widget/dropdown/open/normal, widget/dropdown/open/pressed, widget/input/disabled, widget/input/focus, widget/input/hover, widget/input/invalid/disabled, widget/input/invalid/focus, widget/input/invalid/hover, widget/input/invalid/normal, widget/input/invalid/pressed, widget/input/normal, widget/input/pressed, widget/slider/fill/disabled, widget/slider/fill/focus, widget/slider/fill/hover, widget/slider/fill/normal, widget/slider/fill/pressed, widget/slider/thumb/disabled, widget/slider/thumb/focus, widget/slider/thumb/hover, widget/slider/thumb/normal, widget/slider/thumb/pressed, widget/slider/track/disabled, widget/slider/track/focus, widget/slider/track/hover, widget/slider/track/normal, widget/slider/track/pressed, widget/toggle/mixed/disabled, widget/toggle/mixed/focus, widget/toggle/mixed/hover, widget/toggle/mixed/normal, widget/toggle/mixed/pressed, widget/toggle/off/disabled, widget/toggle/off/focus, widget/toggle/off/hover, widget/toggle/off/normal, widget/toggle/off/pressed, widget/toggle/on/disabled, widget/toggle/on/focus, widget/toggle/on/hover, widget/toggle/on/normal, widget/toggle/on/pressed
-masters: 
+masters: dropdown-list.png, dropdown-option-normal-normal.png, dropdown-option-normal-hover.png, dropdown-option-normal-focus.png, dropdown-option-normal-pressed.png, dropdown-option-normal-disabled.png, dropdown-option-selected-normal.png, dropdown-option-selected-hover.png, dropdown-option-selected-focus.png, dropdown-option-selected-pressed.png, dropdown-option-selected-disabled.png, dropdown-closed-normal.png, dropdown-closed-hover.png, dropdown-closed-focus.png, dropdown-closed-pressed.png, dropdown-closed-disabled.png, dropdown-open-normal.png, dropdown-open-hover.png, dropdown-open-focus.png, dropdown-open-pressed.png, dropdown-open-disabled.png, input-normal.png, input-hover.png, input-focus.png, input-pressed.png, input-disabled.png, input-invalid-normal.png, input-invalid-hover.png, input-invalid-focus.png, input-invalid-pressed.png, input-invalid-disabled.png, slider-track-normal.png, slider-track-hover.png, slider-track-focus.png, slider-track-pressed.png, slider-track-disabled.png, slider-fill-normal.png, slider-fill-hover.png, slider-fill-focus.png, slider-fill-pressed.png, slider-fill-disabled.png, slider-thumb-normal.png, slider-thumb-hover.png, slider-thumb-focus.png, slider-thumb-pressed.png, slider-thumb-disabled.png, toggle-on-normal.png, toggle-on-hover.png, toggle-on-focus.png, toggle-on-pressed.png, toggle-on-disabled.png, toggle-off-normal.png, toggle-off-hover.png, toggle-off-focus.png, toggle-off-pressed.png, toggle-off-disabled.png, toggle-mixed-normal.png, toggle-mixed-hover.png, toggle-mixed-focus.png, toggle-mixed-pressed.png, toggle-mixed-disabled.png
 ---
 
 ## Look
@@ -82,6 +82,14 @@ thin blue-grey edge and brass accents; empty of text.
 
 ## Post
 Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/widget/` and re-index.
+
+The declared frame/control PNG masters are separate imagegen candidates made directly from the Base
+prompt and each variant delta, using the corresponding `assets/screens/widget/` render as a
+layout reference. The generated catalogue records their native dimensions. These candidate sources
+await visual acceptance and export bindings; the current runtime vector exports remain separate.
+
+`toggle-off-focus.png` retains a nearly transparent central spot; acceptance includes its interior
+opacity and consistent margins across states.
 
 ## Avoid
 - baked text, numbers or values

@@ -2434,6 +2434,12 @@
           "sha256": "a3ed8c3d700c86144a0b6a650d3cf6de08cfc76531427931d6e9d559231ee4e2",
           "width": 1586,
           "height": 992
+        },
+        {
+          "path": "art/screens/briefing/frame.png",
+          "sha256": "fbfe38e9e1e025b48fd090611f3f995ee01d43320a727c5f09295813c9bb1310",
+          "width": 1586,
+          "height": 992
         }
       ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a wide narrative panel and a narrower objectives panel. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.\n\nThe separate painted illustration: An officer's map table with unlabelled contours, brass dividers,\nbinoculars and a lantern inside a field tent. It matches the existing screen paintings' slate,\nolive, earth and restrained brass palette, with quiet dark space on the left for live overlays. It\nis a candidate source awaiting a feature binding; the frame remains vector art.",
@@ -2453,7 +2459,7 @@
         }
       ],
       "edges": "",
-      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/briefing/`.\n\nThe separate `illustration.png` was generated with the built-in image tool and the two style references\nabove. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,\nthen downsample to 1280x800, preserving the composition. It is a candidate source without a runtime\nor manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.",
+      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/briefing/`.\n\nThe separate `illustration.png` was generated with the built-in image tool and the two style references\nabove. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,\nthen downsample to 1280x800, preserving the composition. It is a candidate source without a runtime\nor manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/briefing/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -2483,7 +2489,14 @@
       "dir": "art/screens/briefing-long",
       "assets_dir": "assets/screens/briefing-long",
       "prompt": "art/screens/briefing-long/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/screens/briefing-long/frame.png",
+          "sha256": "1363fc7ac8d9b83ee873d33e90eac58070da18f383c5416d1569b034e45c64ee",
+          "width": 1586,
+          "height": 992
+        }
+      ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: one wide scrollable text panel for a long briefing. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
       "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and one wide scrollable text panel for a long briefing as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
       "variants": [
@@ -2496,7 +2509,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/briefing-long/` and re-index.\n\nThe shared painted candidate is `art/screens/briefing/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/briefing-long/` and re-index.\n\nThe shared painted candidate is `art/screens/briefing/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/briefing-long/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -2530,7 +2543,38 @@
       "dir": "art/screens/button",
       "assets_dir": "assets/screens/button",
       "prompt": "art/screens/button/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/screens/button/normal.png",
+          "sha256": "28a5f92603f428f379e580444f407f6f657868625df26307b2cf562101a540c3",
+          "width": 1983,
+          "height": 793
+        },
+        {
+          "path": "art/screens/button/hover.png",
+          "sha256": "8bb04c17f1e07a880ba57992b061e2dfdcc6751714d86cb9615fb714f2ffcf1f",
+          "width": 1983,
+          "height": 793
+        },
+        {
+          "path": "art/screens/button/focus.png",
+          "sha256": "f47f3edfcddf3d160461751f9b250285ef48129dccabbb44da6acdc3da3c79ba",
+          "width": 1983,
+          "height": 793
+        },
+        {
+          "path": "art/screens/button/pressed.png",
+          "sha256": "e9cd31af05f9a86f69a71320b3e6f69789e33376792c02bf6d3d13dd42ee2fc4",
+          "width": 1983,
+          "height": 793
+        },
+        {
+          "path": "art/screens/button/disabled.png",
+          "sha256": "e6a9d3824b898a29b994c8e5de52bddde5f2ebde20dcbd7cf3126d91e3191ecf",
+          "width": 1983,
+          "height": 793
+        }
+      ],
       "look": "Menu button of the full-screen frames; live label on top.",
       "base_prompt": "Flat rectangular menu button, dark slate fill, small rounded corners, thin edge; empty face.",
       "variants": [
@@ -2571,7 +2615,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/button/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/button/` and re-index.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/button/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -2610,6 +2654,12 @@
           "sha256": "435faa5262ad23d7812d9d0a26e605c7c07a479b15d45481a210c52df169f14c",
           "width": 1586,
           "height": 992
+        },
+        {
+          "path": "art/screens/campaign/frame.png",
+          "sha256": "26cf449377c6eaac49eabb5927347954a6c6bd0c10e99d9f2fe1afa1c42fc73e",
+          "width": 1586,
+          "height": 992
         }
       ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: one wide progression panel. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.\n\nThe separate painted illustration is a quiet command tent with a map table overlooking the Western Front.\nIt is a candidate source awaiting a feature binding; the existing frame stays vector art.",
@@ -2629,7 +2679,7 @@
         }
       ],
       "edges": "",
-      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/campaign/`.\n\nThe separate `illustration.png` is a candidate source without a runtime or manifest binding. Its\n1586x992 pixels support a 2x (1280x800) crop; the native 4x (2560x1600) target remains open.\nDo not enlarge it and claim native 4x detail.",
+      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/campaign/`.\n\nThe separate `illustration.png` is a candidate source without a runtime or manifest binding. Its\n1586x992 pixels support a 2x (1280x800) crop; the native 4x (2560x1600) target remains open.\nDo not enlarge it and claim native 4x detail.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/campaign/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels in vector frames",
@@ -2659,7 +2709,14 @@
       "dir": "art/screens/code-invalid",
       "assets_dir": "assets/screens/code-invalid",
       "prompt": "art/screens/code-invalid/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/screens/code-invalid/frame.png",
+          "sha256": "ea1e1bdf687deb366049b15d9edf7ac854ab8c4c513c8f37503f2de21ea3d93a",
+          "width": 1586,
+          "height": 992
+        }
+      ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a centred body panel with a code input in its invalid state. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
       "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and a centred body panel with a code input in its invalid state as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
       "variants": [
@@ -2672,7 +2729,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/code-invalid/` and re-index.\n\nThe shared painted candidate is `art/screens/mission-selection/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/code-invalid/` and re-index.\n\nThe shared painted candidate is `art/screens/mission-selection/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/code-invalid/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -2702,7 +2759,14 @@
       "dir": "art/screens/confirm-delete",
       "assets_dir": "assets/screens/confirm-delete",
       "prompt": "art/screens/confirm-delete/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/screens/confirm-delete/frame.png",
+          "sha256": "f802d460e6f85a105bac7a108ede24af57b4e206b9b73341ec268b4c494defa9",
+          "width": 1586,
+          "height": 992
+        }
+      ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a centred modal confirmation panel. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
       "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and a centred modal confirmation panel as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
       "variants": [
@@ -2715,7 +2779,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/confirm-delete/` and re-index.\n\nThe shared painted candidate is `art/screens/save/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/confirm-delete/` and re-index.\n\nThe shared painted candidate is `art/screens/save/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/confirm-delete/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -2745,7 +2809,14 @@
       "dir": "art/screens/confirm-exit",
       "assets_dir": "assets/screens/confirm-exit",
       "prompt": "art/screens/confirm-exit/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/screens/confirm-exit/frame.png",
+          "sha256": "77ba50270fdc609130c81479e2d071020893935c126f718bcedc5e3b6ea9cae5",
+          "width": 1586,
+          "height": 992
+        }
+      ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a centred modal confirmation panel. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
       "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and a centred modal confirmation panel as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
       "variants": [
@@ -2758,7 +2829,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/confirm-exit/` and re-index.\n\nThe shared painted candidate is `art/screens/pause/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/confirm-exit/` and re-index.\n\nThe shared painted candidate is `art/screens/pause/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/confirm-exit/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -2788,7 +2859,14 @@
       "dir": "art/screens/confirm-overwrite",
       "assets_dir": "assets/screens/confirm-overwrite",
       "prompt": "art/screens/confirm-overwrite/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/screens/confirm-overwrite/frame.png",
+          "sha256": "264af9eebe78a6d36aed45de2d9c24558053256827ff0afc91ecd1ba0c612e4f",
+          "width": 1586,
+          "height": 992
+        }
+      ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a centred modal confirmation panel. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
       "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and a centred modal confirmation panel as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
       "variants": [
@@ -2801,7 +2879,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/confirm-overwrite/` and re-index.\n\nThe shared painted candidate is `art/screens/save/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/confirm-overwrite/` and re-index.\n\nThe shared painted candidate is `art/screens/save/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/confirm-overwrite/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -2831,7 +2909,14 @@
       "dir": "art/screens/confirm-restart",
       "assets_dir": "assets/screens/confirm-restart",
       "prompt": "art/screens/confirm-restart/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/screens/confirm-restart/frame.png",
+          "sha256": "817167d0c3ff705beb2a21448a90c4b61db158221d6cee48af5ddc0d4df7adb1",
+          "width": 1586,
+          "height": 992
+        }
+      ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a centred modal confirmation panel. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
       "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and a centred modal confirmation panel as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
       "variants": [
@@ -2844,7 +2929,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/confirm-restart/` and re-index.\n\nThe shared painted candidate is `art/screens/pause/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/confirm-restart/` and re-index.\n\nThe shared painted candidate is `art/screens/pause/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/confirm-restart/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -2875,7 +2960,20 @@
       "dir": "art/screens/country",
       "assets_dir": "assets/screens/country",
       "prompt": "art/screens/country/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/screens/country/france.png",
+          "sha256": "7c50a888179b2bdef870834eb9d34287a62883be124c9aae54c8395f3296f669",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/screens/country/germany.png",
+          "sha256": "49f542866784ba4793f0cdf29fa72f24aeb5c811ff1ceb4af4e44e37e3f69c0c",
+          "width": 1254,
+          "height": 1254
+        }
+      ],
       "look": "Country swatches on the side-selection cards.",
       "base_prompt": "Flat rectangular national colour swatch with three bands and no emblem, 88x88 logical canvas.",
       "variants": [
@@ -2895,7 +2993,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/country/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/country/` and re-index.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/country/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -2932,6 +3030,12 @@
           "sha256": "94d89bb4445945369ebedc849dfe7ed838e0bbe7f34accdf6b6eb2e499938194",
           "width": 1586,
           "height": 992
+        },
+        {
+          "path": "art/screens/credits/frame.png",
+          "sha256": "f37784dcc2834418b2b7ee1e3a264a7edf71a5aa7db905342dc4088a89563661",
+          "width": 1586,
+          "height": 992
         }
       ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: one wide attribution panel. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.\n\nThe separate painted illustration: An author's desk with a blank manuscript, plain closed books,\nperiod pen and warm oil lamp. It matches the existing screen paintings' slate, olive, earth and\nrestrained brass palette, with quiet dark space on the left for live overlays. It is a candidate\nsource awaiting a feature binding; the frame remains vector art.",
@@ -2951,7 +3055,7 @@
         }
       ],
       "edges": "",
-      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/credits/`.\n\nThe separate `illustration.png` was generated with the built-in image tool and the two style references\nabove. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,\nthen downsample to 1280x800, preserving the composition. It is a candidate source without a runtime\nor manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.",
+      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/credits/`.\n\nThe separate `illustration.png` was generated with the built-in image tool and the two style references\nabove. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,\nthen downsample to 1280x800, preserving the composition. It is a candidate source without a runtime\nor manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/credits/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -2981,7 +3085,14 @@
       "dir": "art/screens/credits-long",
       "assets_dir": "assets/screens/credits-long",
       "prompt": "art/screens/credits-long/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/screens/credits-long/frame.png",
+          "sha256": "2aa1126916d824e9568cd5a2215708ef917a03e944dff39f278057874bc1661c",
+          "width": 1586,
+          "height": 992
+        }
+      ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: one wide scrollable text panel. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
       "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and one wide scrollable text panel as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
       "variants": [
@@ -2994,7 +3105,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/credits-long/` and re-index.\n\nThe shared painted candidate is `art/screens/credits/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/credits-long/` and re-index.\n\nThe shared painted candidate is `art/screens/credits/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/credits-long/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3030,6 +3141,12 @@
           "sha256": "2061d1405bf82eabd99b8fbb23899cee4f1df37e1b766d055a1c0ff5723f071d",
           "width": 1586,
           "height": 992
+        },
+        {
+          "path": "art/screens/defeat/frame.png",
+          "sha256": "1b416bc9028cced7a6a1f6d5d72cf7b166f242111620c3ae0ea4f601b957aca7",
+          "width": 1586,
+          "height": 992
         }
       ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a centred outcome panel. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.\n\nThe separate painted illustration: An evacuated field position with an empty dugout, abandoned wagon\nwheel and distant damaged barn in cool mist. It matches the existing screen paintings' slate, olive,\nearth and restrained brass palette, with quiet dark space on the left for live overlays. It is a\ncandidate source awaiting a feature binding; the frame remains vector art.",
@@ -3049,7 +3166,7 @@
         }
       ],
       "edges": "",
-      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/defeat/`.\n\nThe separate `illustration.png` was generated with the built-in image tool and the two style references\nabove. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,\nthen downsample to 1280x800, preserving the composition. It is a candidate source without a runtime\nor manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.",
+      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/defeat/`.\n\nThe separate `illustration.png` was generated with the built-in image tool and the two style references\nabove. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,\nthen downsample to 1280x800, preserving the composition. It is a candidate source without a runtime\nor manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/defeat/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3079,7 +3196,14 @@
       "dir": "art/screens/dropdown-open",
       "assets_dir": "assets/screens/dropdown-open",
       "prompt": "art/screens/dropdown-open/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/screens/dropdown-open/frame.png",
+          "sha256": "c15e0db071fdcc930d7c00e5c654431a1f481123b1bfb0855f56e5e33feaa5f0",
+          "width": 1586,
+          "height": 992
+        }
+      ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a settings panel with an open dropdown list. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
       "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and a settings panel with an open dropdown list as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
       "variants": [
@@ -3092,7 +3216,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/dropdown-open/` and re-index.\n\nThe shared painted candidate is `art/screens/options/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/dropdown-open/` and re-index.\n\nThe shared painted candidate is `art/screens/options/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/dropdown-open/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3128,6 +3252,12 @@
           "sha256": "72ca12e9509a4c84f58aacdf0d549fbb2ff28641e879755a07ee261ec4ac2a28",
           "width": 1586,
           "height": 992
+        },
+        {
+          "path": "art/screens/editor/frame.png",
+          "sha256": "2ff6d0390006a7865db8e6ab65766717f4b7ac27ce3fb0c0670775a81ac6b1ef",
+          "width": 1586,
+          "height": 992
         }
       ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a narrow palette panel on the left and a wide workspace panel. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.\n\nThe separate painted illustration is a mapmaker's survey station overlooking the countryside. It is a\ncandidate source awaiting a feature binding; the existing frame stays vector art.",
@@ -3147,7 +3277,7 @@
         }
       ],
       "edges": "",
-      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/editor/`.\n\nThe separate `illustration.png` is a candidate source without a runtime or manifest binding. Its\n1586x992 pixels support a 2x (1280x800) crop; the native 4x (2560x1600) target remains open.\nDo not enlarge it and claim native 4x detail.",
+      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/editor/`.\n\nThe separate `illustration.png` is a candidate source without a runtime or manifest binding. Its\n1586x992 pixels support a 2x (1280x800) crop; the native 4x (2560x1600) target remains open.\nDo not enlarge it and claim native 4x detail.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/editor/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels in vector frames",
@@ -3183,6 +3313,12 @@
           "sha256": "8661313ebe4f27e3c115fe97aa6e41f53500d7653a7df10920090bf95b061204",
           "width": 1586,
           "height": 992
+        },
+        {
+          "path": "art/screens/handover/frame.png",
+          "sha256": "18bb438d8c28917673ebcb58dc69889c0554f1dacdd5fff40607c17076bfd084",
+          "width": 1586,
+          "height": 992
         }
       ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: an opaque privacy screen with one centred panel, hiding the map between hot-seat players. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.\n\nThe separate painted illustration: A closed opaque command-tent partition with a dispatch satchel\nand lantern at the far right; no landscape or tactical information. It matches the existing screen\npaintings' slate, olive, earth and restrained brass palette, with quiet dark space on the left for\nlive overlays. It is a candidate source awaiting a feature binding; the frame remains vector art.",
@@ -3202,7 +3338,7 @@
         }
       ],
       "edges": "",
-      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/handover/`.\n\nThe separate `illustration.png` was generated with the built-in image tool and the two style references\nabove. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,\nthen downsample to 1280x800, preserving the composition. It is a candidate source without a runtime\nor manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.\nThe current runtime handover frame remains opaque and samples no backdrop or previous gameplay image.",
+      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/handover/`.\n\nThe separate `illustration.png` was generated with the built-in image tool and the two style references\nabove. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,\nthen downsample to 1280x800, preserving the composition. It is a candidate source without a runtime\nor manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.\nThe current runtime handover frame remains opaque and samples no backdrop or previous gameplay image.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/handover/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3238,6 +3374,12 @@
           "sha256": "212ac1a346bdfb35bfd51846227896b51409c377486dbdb41b7284262e518ee5",
           "width": 1586,
           "height": 992
+        },
+        {
+          "path": "art/screens/help/frame.png",
+          "sha256": "3ff872342dcd6c71ff805a8e3e833c0fa0c93c547c8ccda58bdcf6b5692be8b8",
+          "width": 1586,
+          "height": 992
         }
       ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: one wide help panel. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.\n\nThe separate painted illustration: A training desk with a blank notebook, brass compass, binoculars\nand leather kit beside an empty practice field. It matches the existing screen paintings' slate,\nolive, earth and restrained brass palette, with quiet dark space on the left for live overlays. It\nis a candidate source awaiting a feature binding; the frame remains vector art.",
@@ -3257,7 +3399,7 @@
         }
       ],
       "edges": "",
-      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/help/`.\n\nThe separate `illustration.png` was generated with the built-in image tool and the two style references\nabove. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,\nthen downsample to 1280x800, preserving the composition. It is a candidate source without a runtime\nor manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.",
+      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/help/`.\n\nThe separate `illustration.png` was generated with the built-in image tool and the two style references\nabove. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,\nthen downsample to 1280x800, preserving the composition. It is a candidate source without a runtime\nor manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/help/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3287,7 +3429,14 @@
       "dir": "art/screens/help-long",
       "assets_dir": "assets/screens/help-long",
       "prompt": "art/screens/help-long/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/screens/help-long/frame.png",
+          "sha256": "f1dd154a32b9a43d014c2197681a6cf4b99db7834234715cd1b4a2050af08eb5",
+          "width": 1586,
+          "height": 992
+        }
+      ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: one wide scrollable text panel. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
       "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and one wide scrollable text panel as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
       "variants": [
@@ -3300,7 +3449,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/help-long/` and re-index.\n\nThe shared painted candidate is `art/screens/help/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/help-long/` and re-index.\n\nThe shared painted candidate is `art/screens/help/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/help-long/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3369,7 +3518,14 @@
       "dir": "art/screens/load",
       "assets_dir": "assets/screens/load",
       "prompt": "art/screens/load/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/screens/load/frame.png",
+          "sha256": "db364a73898fcef10dfe74133d93dd61f6ece87658e3ec2aa9a04c5e65173fdb",
+          "width": 1586,
+          "height": 992
+        }
+      ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a slot list on the left and a metadata panel on the right. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
       "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and a slot list on the left and a metadata panel on the right as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
       "variants": [
@@ -3382,7 +3538,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/load/` and re-index.\n\nThe shared painted candidate is `art/screens/save/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/load/` and re-index.\n\nThe shared painted candidate is `art/screens/save/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/load/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3412,7 +3568,14 @@
       "dir": "art/screens/load-corrupt",
       "assets_dir": "assets/screens/load-corrupt",
       "prompt": "art/screens/load-corrupt/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/screens/load-corrupt/frame.png",
+          "sha256": "28ca040eb2fb8bfabe672e20f9774336f5029ab84b886a7b1e5ac0d71672ae0d",
+          "width": 1586,
+          "height": 992
+        }
+      ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a centred body panel for an error message. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
       "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and a centred body panel for an error message as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
       "variants": [
@@ -3425,7 +3588,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/load-corrupt/` and re-index.\n\nThe shared painted candidate is `art/screens/save/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/load-corrupt/` and re-index.\n\nThe shared painted candidate is `art/screens/save/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/load-corrupt/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3455,7 +3618,14 @@
       "dir": "art/screens/loading-000",
       "assets_dir": "assets/screens/loading-000",
       "prompt": "art/screens/loading-000/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/screens/loading-000/frame.png",
+          "sha256": "8c7cc1b0568cf2f67db0cb7b01efef9a9da3aa99e043e5f7e410d13ed98ca515",
+          "width": 1586,
+          "height": 992
+        }
+      ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a centred body panel with an empty progress bar. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
       "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and a centred body panel with an empty progress bar as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
       "variants": [
@@ -3468,7 +3638,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/loading-000/` and re-index.\n\nThe shared painted candidate is `art/screens/mission-selection/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/loading-000/` and re-index.\n\nThe shared painted candidate is `art/screens/mission-selection/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/loading-000/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3498,7 +3668,14 @@
       "dir": "art/screens/loading-050",
       "assets_dir": "assets/screens/loading-050",
       "prompt": "art/screens/loading-050/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/screens/loading-050/frame.png",
+          "sha256": "bf1cce50817ef3cfd8a620e63f4dc676a83a1efae037ed4d447f20edb77e43dc",
+          "width": 1586,
+          "height": 992
+        }
+      ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a centred body panel with a half-filled progress bar. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
       "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and a centred body panel with a half-filled progress bar as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
       "variants": [
@@ -3511,7 +3688,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/loading-050/` and re-index.\n\nThe shared painted candidate is `art/screens/mission-selection/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/loading-050/` and re-index.\n\nThe shared painted candidate is `art/screens/mission-selection/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/loading-050/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3541,7 +3718,14 @@
       "dir": "art/screens/loading-100",
       "assets_dir": "assets/screens/loading-100",
       "prompt": "art/screens/loading-100/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/screens/loading-100/frame.png",
+          "sha256": "dc8b4900613e2ab793cac535a981704b442a4ddefe4233470f73365a798dd46f",
+          "width": 1586,
+          "height": 992
+        }
+      ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a centred body panel with a full progress bar. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
       "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and a centred body panel with a full progress bar as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
       "variants": [
@@ -3554,7 +3738,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/loading-100/` and re-index.\n\nThe shared painted candidate is `art/screens/mission-selection/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/loading-100/` and re-index.\n\nThe shared painted candidate is `art/screens/mission-selection/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/loading-100/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3584,7 +3768,14 @@
       "dir": "art/screens/mission-error",
       "assets_dir": "assets/screens/mission-error",
       "prompt": "art/screens/mission-error/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/screens/mission-error/frame.png",
+          "sha256": "174b011d90ead86f7e69f156e5f4e005b9aa48d5eb4eee98665c0b9110e7d3dd",
+          "width": 1586,
+          "height": 992
+        }
+      ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a centred body panel for an error message. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
       "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and a centred body panel for an error message as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
       "variants": [
@@ -3597,7 +3788,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/mission-error/` and re-index.\n\nThe shared painted candidate is `art/screens/mission-selection/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/mission-error/` and re-index.\n\nThe shared painted candidate is `art/screens/mission-selection/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/mission-error/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3633,6 +3824,12 @@
           "sha256": "03c2073088f5f08538e4171e7a44c4404168afe8508a92a360049eb5259e7302",
           "width": 1586,
           "height": 992
+        },
+        {
+          "path": "art/screens/mission-selection/frame.png",
+          "sha256": "2bbe7186d2dd9cf425d99e80caa9679cd51aba4c84eb37e85c14c25020307629",
+          "width": 1586,
+          "height": 992
         }
       ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a mission list on the left and a details panel on the right. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.\n\nThe separate painted illustration: A field dispatch table with folded geographic maps and a leather\nsatchel above a misty country road. It matches the existing screen paintings' slate, olive, earth\nand restrained brass palette, with quiet dark space on the left for live overlays. It is a candidate\nsource awaiting a feature binding; the frame remains vector art.",
@@ -3652,7 +3849,7 @@
         }
       ],
       "edges": "",
-      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/mission-selection/`.\n\nThe separate `illustration.png` was generated with the built-in image tool and the two style references\nabove. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,\nthen downsample to 1280x800, preserving the composition. It is a candidate source without a runtime\nor manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.",
+      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/mission-selection/`.\n\nThe separate `illustration.png` was generated with the built-in image tool and the two style references\nabove. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,\nthen downsample to 1280x800, preserving the composition. It is a candidate source without a runtime\nor manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/mission-selection/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3682,7 +3879,14 @@
       "dir": "art/screens/name-overflow",
       "assets_dir": "assets/screens/name-overflow",
       "prompt": "art/screens/name-overflow/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/screens/name-overflow/frame.png",
+          "sha256": "13631d2c52f15a240647d0af60ea7f5393617c962667274bc064070357c43a29",
+          "width": 1586,
+          "height": 992
+        }
+      ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a centred body panel with a name input field. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
       "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and a centred body panel with a name input field as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
       "variants": [
@@ -3695,7 +3899,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/name-overflow/` and re-index.\n\nThe shared painted candidate is `art/screens/save/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/name-overflow/` and re-index.\n\nThe shared painted candidate is `art/screens/save/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/name-overflow/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3725,7 +3929,14 @@
       "dir": "art/screens/new-map",
       "assets_dir": "assets/screens/new-map",
       "prompt": "art/screens/new-map/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/screens/new-map/frame.png",
+          "sha256": "6b3d234a040f77063bf5a0609cb2e9813ab49bf4102863ce08f7969d3c8c36ec",
+          "width": 1586,
+          "height": 992
+        }
+      ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: one wide form panel. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
       "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and one wide form panel as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
       "variants": [
@@ -3738,7 +3949,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/new-map/` and re-index.\n\nThe shared painted candidate is `art/screens/editor/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/new-map/` and re-index.\n\nThe shared painted candidate is `art/screens/editor/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/new-map/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3768,7 +3979,14 @@
       "dir": "art/screens/new-map-invalid",
       "assets_dir": "assets/screens/new-map-invalid",
       "prompt": "art/screens/new-map-invalid/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/screens/new-map-invalid/frame.png",
+          "sha256": "74a1795300aaf1606a17d224e3158f89cd49aafc20a6e73c5aa9d1e3aa7c4ca3",
+          "width": 1586,
+          "height": 992
+        }
+      ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: one wide form panel with an invalid field. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
       "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and one wide form panel with an invalid field as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
       "variants": [
@@ -3781,7 +3999,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/new-map-invalid/` and re-index.\n\nThe shared painted candidate is `art/screens/editor/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/new-map-invalid/` and re-index.\n\nThe shared painted candidate is `art/screens/editor/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/new-map-invalid/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3817,6 +4035,12 @@
           "sha256": "0a40dad69747d3a479155817d32f2a5e91817b1b6a45c699881613f1735e7c44",
           "width": 1586,
           "height": 992
+        },
+        {
+          "path": "art/screens/options/frame.png",
+          "sha256": "eb828db2c94f136854f725ff20c92fee94ba7e957939c907d10e666c9c6cf523",
+          "width": 1586,
+          "height": 992
         }
       ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: one wide settings panel. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.\n\nThe separate painted illustration: An early field telephone, cable reel and hand tools on a timber\nsignals workbench. It matches the existing screen paintings' slate, olive, earth and restrained\nbrass palette, with quiet dark space on the left for live overlays. It is a candidate source\nawaiting a feature binding; the frame remains vector art.",
@@ -3836,7 +4060,7 @@
         }
       ],
       "edges": "",
-      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/options/`.\n\nThe separate `illustration.png` was generated with the built-in image tool and the two style references\nabove. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,\nthen downsample to 1280x800, preserving the composition. It is a candidate source without a runtime\nor manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.",
+      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/options/`.\n\nThe separate `illustration.png` was generated with the built-in image tool and the two style references\nabove. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,\nthen downsample to 1280x800, preserving the composition. It is a candidate source without a runtime\nor manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/options/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3872,6 +4096,12 @@
           "sha256": "26985c8c8fbdb11d69d16483dae43aa4263056979cd3d39debf8fe396694631a",
           "width": 1586,
           "height": 992
+        },
+        {
+          "path": "art/screens/pause/frame.png",
+          "sha256": "cada973d29ad58e3b733521a475cb39ef8640c536f7e15052423c685fc368985",
+          "width": 1586,
+          "height": 992
         }
       ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a centred modal panel for the pause menu. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.\n\nThe separate painted illustration: A resting field shelter with an empty chair, folded greatcoat and\nenamel mug above wet countryside. It matches the existing screen paintings' slate, olive, earth and\nrestrained brass palette, with quiet dark space on the left for live overlays. It is a candidate\nsource awaiting a feature binding; the frame remains vector art.",
@@ -3891,7 +4121,7 @@
         }
       ],
       "edges": "",
-      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/pause/`.\n\nThe separate `illustration.png` was generated with the built-in image tool and the two style references\nabove. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,\nthen downsample to 1280x800, preserving the composition. It is a candidate source without a runtime\nor manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.",
+      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/pause/`.\n\nThe separate `illustration.png` was generated with the built-in image tool and the two style references\nabove. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,\nthen downsample to 1280x800, preserving the composition. It is a candidate source without a runtime\nor manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/pause/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3961,7 +4191,20 @@
       "dir": "art/screens/progress",
       "assets_dir": "assets/screens/progress",
       "prompt": "art/screens/progress/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/screens/progress/track.png",
+          "sha256": "4fe1f5124e8c342d4fa07ddbd2cc8cfbfc1b458e92f151f0931c5dabf3e76939",
+          "width": 2098,
+          "height": 750
+        },
+        {
+          "path": "art/screens/progress/fill.png",
+          "sha256": "ece7c8e9c879be647811a4401835c25cfe19ad7e1b99225cbe02baddd781c6b1",
+          "width": 2073,
+          "height": 758
+        }
+      ],
       "look": "Loading and saving progress bar.",
       "base_prompt": "Flat long progress bar: a dark recessed slate track and a brass fill segment.",
       "variants": [
@@ -3981,7 +4224,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/progress/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/progress/` and re-index.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/progress/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -4017,6 +4260,12 @@
           "sha256": "c8e73c43a0b512173fa5ae26f487ba836c3b3a06d716d0f794a6f981f2610237",
           "width": 1586,
           "height": 992
+        },
+        {
+          "path": "art/screens/save/frame.png",
+          "sha256": "c47c604b2504e54e0eda7d245eb6eb7dd618b9b8b5ca0ace7776993998b91569",
+          "width": 1587,
+          "height": 991
         }
       ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a slot list on the left and a metadata panel on the right. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.\n\nThe separate painted illustration: A sheltered records archive with unmarked folios, wooden file\nboxes, a dispatch case and brass lantern. It matches the existing screen paintings' slate, olive,\nearth and restrained brass palette, with quiet dark space on the left for live overlays. It is a\ncandidate source awaiting a feature binding; the frame remains vector art.",
@@ -4036,7 +4285,7 @@
         }
       ],
       "edges": "",
-      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/save/`.\n\nThe separate `illustration.png` was generated with the built-in image tool and the two style references\nabove. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,\nthen downsample to 1280x800, preserving the composition. It is a candidate source without a runtime\nor manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.",
+      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/save/`.\n\nThe separate `illustration.png` was generated with the built-in image tool and the two style references\nabove. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,\nthen downsample to 1280x800, preserving the composition. It is a candidate source without a runtime\nor manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/save/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -4066,7 +4315,14 @@
       "dir": "art/screens/save-empty",
       "assets_dir": "assets/screens/save-empty",
       "prompt": "art/screens/save-empty/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/screens/save-empty/frame.png",
+          "sha256": "2fecf4dc0d06ee327ffd0440c80d78ec5ba52992e190438456b4dd3d4c9e2a53",
+          "width": 1586,
+          "height": 992
+        }
+      ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a centred body panel for an empty-state message. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
       "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and a centred body panel for an empty-state message as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
       "variants": [
@@ -4079,7 +4335,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/save-empty/` and re-index.\n\nThe shared painted candidate is `art/screens/save/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/save-empty/` and re-index.\n\nThe shared painted candidate is `art/screens/save/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/save-empty/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -4109,7 +4365,14 @@
       "dir": "art/screens/save-error",
       "assets_dir": "assets/screens/save-error",
       "prompt": "art/screens/save-error/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/screens/save-error/frame.png",
+          "sha256": "22f6ef78d2ae5b1e4ff5b4451dd6dd5034a9911640969fdd4bbdff0ad4551ae7",
+          "width": 1586,
+          "height": 992
+        }
+      ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a centred body panel for an error message. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
       "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and a centred body panel for an error message as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
       "variants": [
@@ -4122,7 +4385,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/save-error/` and re-index.\n\nThe shared painted candidate is `art/screens/save/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/save-error/` and re-index.\n\nThe shared painted candidate is `art/screens/save/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/save-error/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -4152,7 +4415,14 @@
       "dir": "art/screens/save-progress",
       "assets_dir": "assets/screens/save-progress",
       "prompt": "art/screens/save-progress/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/screens/save-progress/frame.png",
+          "sha256": "200fd9e745b88af64b190b05c34408bf207f6955028e475630b09ef9c5a56d5c",
+          "width": 1586,
+          "height": 992
+        }
+      ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a centred body panel with a progress bar. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
       "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and a centred body panel with a progress bar as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
       "variants": [
@@ -4165,7 +4435,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/save-progress/` and re-index.\n\nThe shared painted candidate is `art/screens/save/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/save-progress/` and re-index.\n\nThe shared painted candidate is `art/screens/save/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/save-progress/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -4196,7 +4466,20 @@
       "dir": "art/screens/scrollbar",
       "assets_dir": "assets/screens/scrollbar",
       "prompt": "art/screens/scrollbar/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/screens/scrollbar/track.png",
+          "sha256": "b12e21572e884bba55574c6e44d6cf64bd7d3b7e987b4816e868366f8ebce20c",
+          "width": 1024,
+          "height": 1536
+        },
+        {
+          "path": "art/screens/scrollbar/thumb.png",
+          "sha256": "abd622cd0472a913977b8df9700870b00b9587823e3c8356bb1657248c0852f8",
+          "width": 793,
+          "height": 1983
+        }
+      ],
       "look": "Scrollbar of long text panels.",
       "base_prompt": "Flat narrow vertical scrollbar: a dark slate track and a brass-edged thumb.",
       "variants": [
@@ -4216,7 +4499,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/scrollbar/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/scrollbar/` and re-index.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/scrollbar/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.\n\nThe generated track retains a soft halo; edge cleanup remains part of acceptance before export.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -4246,7 +4529,14 @@
       "dir": "art/screens/settings-controls",
       "assets_dir": "assets/screens/settings-controls",
       "prompt": "art/screens/settings-controls/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/screens/settings-controls/frame.png",
+          "sha256": "bdf97c1e40a0353793df75d0e0e679b7ddcfd5569cf19d38aa836ea1716843fd",
+          "width": 1586,
+          "height": 992
+        }
+      ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: one wide settings panel holding sliders, toggles and a dropdown. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
       "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and one wide settings panel holding sliders, toggles and a dropdown as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
       "variants": [
@@ -4259,7 +4549,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/settings-controls/` and re-index.\n\nThe shared painted candidate is `art/screens/options/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/settings-controls/` and re-index.\n\nThe shared painted candidate is `art/screens/options/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/settings-controls/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -4295,6 +4585,12 @@
           "sha256": "432a5d097af3c31d13b4ef0a6bfb1254eafc21e4cd89db124a0c71b6d00d9a2d",
           "width": 1586,
           "height": 992
+        },
+        {
+          "path": "art/screens/side-selection/frame.png",
+          "sha256": "83c66ad66508bd7a71a7886bbfc28ea69d71ace1462d0d54e5ddc2a5d6bf901f",
+          "width": 1586,
+          "height": 992
         }
       ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: two equal side cards next to each other. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.\n\nThe separate painted illustration: A neutral quartermaster staging area with two empty camp chairs\nand orderly wool and canvas kit. It matches the existing screen paintings' slate, olive, earth and\nrestrained brass palette, with quiet dark space on the left for live overlays. It is a candidate\nsource awaiting a feature binding; the frame remains vector art.",
@@ -4314,7 +4610,7 @@
         }
       ],
       "edges": "",
-      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/side-selection/`.\n\nThe separate `illustration.png` was generated with the built-in image tool and the two style references\nabove. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,\nthen downsample to 1280x800, preserving the composition. It is a candidate source without a runtime\nor manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.",
+      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/side-selection/`.\n\nThe separate `illustration.png` was generated with the built-in image tool and the two style references\nabove. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,\nthen downsample to 1280x800, preserving the composition. It is a candidate source without a runtime\nor manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/side-selection/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -4344,7 +4640,14 @@
       "dir": "art/screens/title",
       "assets_dir": "assets/screens/title",
       "prompt": "art/screens/title/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/screens/title/frame.png",
+          "sha256": "71593e0886dacfeea8f33920085890ad158ecedb2ccee785f518b60074b40540",
+          "width": 1586,
+          "height": 992
+        }
+      ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: title screen: a menu panel on the left for four buttons, free space on the right for the backdrop. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
       "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and title screen: a menu panel on the left for four buttons, free space on the right for the backdrop as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
       "variants": [
@@ -4357,7 +4660,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/title/` and re-index.\n\nThe shared painting is `art/screens/backdrop/western-front.png`, already consumed by the screen exporter\nbehind this frame. No separate title painting is needed.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/title/` and re-index.\n\nThe shared painting is `art/screens/backdrop/western-front.png`, already consumed by the screen exporter\nbehind this frame. No separate title painting is needed.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/title/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -4393,6 +4696,12 @@
           "sha256": "7349206f09bdb6b27860f70d4687f956f1890b401d1c6c19b38bb4436ebc437e",
           "width": 1586,
           "height": 992
+        },
+        {
+          "path": "art/screens/victory/frame.png",
+          "sha256": "16dc1ac3814757a35aab873b96967be4e1f5111556774ff83b958ded2ef63878",
+          "width": 1586,
+          "height": 992
         }
       ],
       "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a centred outcome panel. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.\n\nThe separate painted illustration: A quiet village gateway and intact stone bridge under hopeful\nclearing light after rain. It matches the existing screen paintings' slate, olive, earth and\nrestrained brass palette, with quiet dark space on the left for live overlays. It is a candidate\nsource awaiting a feature binding; the frame remains vector art.",
@@ -4412,7 +4721,7 @@
         }
       ],
       "edges": "",
-      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/victory/`.\n\nThe separate `illustration.png` was generated with the built-in image tool and the two style references\nabove. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,\nthen downsample to 1280x800, preserving the composition. It is a candidate source without a runtime\nor manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.",
+      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/victory/`.\n\nThe separate `illustration.png` was generated with the built-in image tool and the two style references\nabove. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,\nthen downsample to 1280x800, preserving the composition. It is a candidate source without a runtime\nor manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/victory/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -4502,7 +4811,374 @@
       "dir": "art/screens/widget",
       "assets_dir": "assets/screens/widget",
       "prompt": "art/screens/widget/prompt.md",
-      "masters": [],
+      "masters": [
+        {
+          "path": "art/screens/widget/dropdown-list.png",
+          "sha256": "78fdff72a001640de00e33704bf84b61038d71a65ec0696ad2620630354c49d2",
+          "width": 1704,
+          "height": 923
+        },
+        {
+          "path": "art/screens/widget/dropdown-option-normal-normal.png",
+          "sha256": "54b0fb5ed4ceb11fda6b3cb305efc41cc49d3ae80707c324cda000eb40861285",
+          "width": 2170,
+          "height": 725
+        },
+        {
+          "path": "art/screens/widget/dropdown-option-normal-hover.png",
+          "sha256": "00e84e94a0f05139bb016383fe799ae74c2d6c9cac0d979054a38200f5a342e4",
+          "width": 2170,
+          "height": 725
+        },
+        {
+          "path": "art/screens/widget/dropdown-option-normal-focus.png",
+          "sha256": "7d9234550847923c2a4ac5efd684c44d8d05bb78e62c1406799964f6c3ecb918",
+          "width": 2170,
+          "height": 725
+        },
+        {
+          "path": "art/screens/widget/dropdown-option-normal-pressed.png",
+          "sha256": "844eb67f507aab955523385cd23f052e783fb4827477db0775ef627815ea4132",
+          "width": 2170,
+          "height": 725
+        },
+        {
+          "path": "art/screens/widget/dropdown-option-normal-disabled.png",
+          "sha256": "c02cabdc0bff1477bb512d7b1e9758ae93853fbbaadaf44825afa90f3fd377c2",
+          "width": 2163,
+          "height": 727
+        },
+        {
+          "path": "art/screens/widget/dropdown-option-selected-normal.png",
+          "sha256": "2e09072d7b740b3996d224bf15e4ba9fdf6706cf0078b9e231fd4e7a9e0235f3",
+          "width": 2170,
+          "height": 725
+        },
+        {
+          "path": "art/screens/widget/dropdown-option-selected-hover.png",
+          "sha256": "6dac63e3af51818f753324df0c6a181b9e4985ba142add8224a483f9dfbd7584",
+          "width": 2163,
+          "height": 727
+        },
+        {
+          "path": "art/screens/widget/dropdown-option-selected-focus.png",
+          "sha256": "e3c44cea1493568723a920881e1ebd6ca674e79f44065896abd374f91a1eb4c2",
+          "width": 2170,
+          "height": 725
+        },
+        {
+          "path": "art/screens/widget/dropdown-option-selected-pressed.png",
+          "sha256": "eee7f2cb3c2b5a84e468a95977d984dc0e91ba7ea20c5649ae349d6df8b021ed",
+          "width": 2170,
+          "height": 725
+        },
+        {
+          "path": "art/screens/widget/dropdown-option-selected-disabled.png",
+          "sha256": "0c48df25b5b808c3936ee012e725724ba2156477fde8b97d96211ba8cd0b8ece",
+          "width": 2169,
+          "height": 725
+        },
+        {
+          "path": "art/screens/widget/dropdown-closed-normal.png",
+          "sha256": "9ed8f8c24f2a74613ce5884b83e91907595d48bad4a529d2d8c0c3fe3c8a2fc6",
+          "width": 2170,
+          "height": 725
+        },
+        {
+          "path": "art/screens/widget/dropdown-closed-hover.png",
+          "sha256": "60451a1015636a08682e6c5a9448682fea221ab5e7d35b8370816a462eec5509",
+          "width": 2170,
+          "height": 725
+        },
+        {
+          "path": "art/screens/widget/dropdown-closed-focus.png",
+          "sha256": "557bc05ea2764b277f2fda73ca84a657bd70f89f91f98e30df4b331e06bfd5f5",
+          "width": 2172,
+          "height": 724
+        },
+        {
+          "path": "art/screens/widget/dropdown-closed-pressed.png",
+          "sha256": "fd93ce66b212d8ead85d37c564509d75df53b1a3cb2ba8f55a547bffd9ba993d",
+          "width": 2170,
+          "height": 725
+        },
+        {
+          "path": "art/screens/widget/dropdown-closed-disabled.png",
+          "sha256": "483670633eb44e51dd8353744d56a3761fad495646140a30ab02798e6891c60c",
+          "width": 2169,
+          "height": 725
+        },
+        {
+          "path": "art/screens/widget/dropdown-open-normal.png",
+          "sha256": "078a6435d686c0a25f488ed52412952a784a1415d25dcbb2cf8c6b7d16a58ec0",
+          "width": 2170,
+          "height": 725
+        },
+        {
+          "path": "art/screens/widget/dropdown-open-hover.png",
+          "sha256": "6b48e9148e34b696335e7414803529bfc16ec0d2e81e76100fbe2d85941db1a9",
+          "width": 2169,
+          "height": 725
+        },
+        {
+          "path": "art/screens/widget/dropdown-open-focus.png",
+          "sha256": "d2984e2e08b6497d9d2bb6501b1d0deff08fe25cdb3db07796810beef8735663",
+          "width": 2169,
+          "height": 725
+        },
+        {
+          "path": "art/screens/widget/dropdown-open-pressed.png",
+          "sha256": "914b3caf8cff09302b22a8c0713a28ad8ab45177f03fe3fe1c8e680615ebbfb6",
+          "width": 2170,
+          "height": 725
+        },
+        {
+          "path": "art/screens/widget/dropdown-open-disabled.png",
+          "sha256": "c807534beca65e4da96a04c9de3826dd3588ea4e7e7543f176c0cd37a4014e8c",
+          "width": 2170,
+          "height": 725
+        },
+        {
+          "path": "art/screens/widget/input-normal.png",
+          "sha256": "a46342b9e83c2c9f8a2cb668cc687724006371f8647084064eb50a7ec2d7e757",
+          "width": 2170,
+          "height": 725
+        },
+        {
+          "path": "art/screens/widget/input-hover.png",
+          "sha256": "ea74db22e6882531c3b9ac60d5d79ab66c955bd8f893b05c8bb61a9ea3ab043e",
+          "width": 2172,
+          "height": 724
+        },
+        {
+          "path": "art/screens/widget/input-focus.png",
+          "sha256": "399ae733c30fda5a1cb2917912c22f7a75783698418e42d85368157af4aa2f56",
+          "width": 2167,
+          "height": 725
+        },
+        {
+          "path": "art/screens/widget/input-pressed.png",
+          "sha256": "a5bcc08ef7f9967f4c236c05214df2b3b2652379312e5ce53009316ae5b34610",
+          "width": 2170,
+          "height": 725
+        },
+        {
+          "path": "art/screens/widget/input-disabled.png",
+          "sha256": "0ec52b84d092993e9be5429ed0ed3b2218e3cdffaa0fe58e9b1cca9a74a1df58",
+          "width": 2170,
+          "height": 725
+        },
+        {
+          "path": "art/screens/widget/input-invalid-normal.png",
+          "sha256": "6c68c5207595467dbcd8466f0e4f3523bef7299c39e84b42f60bbcfb7302dbe4",
+          "width": 2170,
+          "height": 725
+        },
+        {
+          "path": "art/screens/widget/input-invalid-hover.png",
+          "sha256": "77db663adda19d45068491eb6a27cfd29be02928e8b836001b4b5bf840c6f33c",
+          "width": 2170,
+          "height": 725
+        },
+        {
+          "path": "art/screens/widget/input-invalid-focus.png",
+          "sha256": "1d6bb52da45288280e8f79a2012924694e1949d31cfb87c3dc093835dfeb3bbb",
+          "width": 2170,
+          "height": 725
+        },
+        {
+          "path": "art/screens/widget/input-invalid-pressed.png",
+          "sha256": "e1f22d0001f99ef4053e5c652125460bf0413533258afceec8f456007ed5f0d7",
+          "width": 2171,
+          "height": 724
+        },
+        {
+          "path": "art/screens/widget/input-invalid-disabled.png",
+          "sha256": "b9d4416e7753b6225455ed7ce4274bbc813502cb07ea32a2a4ce6cac76c642c5",
+          "width": 2172,
+          "height": 724
+        },
+        {
+          "path": "art/screens/widget/slider-track-normal.png",
+          "sha256": "d1af1ab1045486b63d55ff99f1a53c53dde5cce91924f959f44faccc3e52440c",
+          "width": 2171,
+          "height": 724
+        },
+        {
+          "path": "art/screens/widget/slider-track-hover.png",
+          "sha256": "667e758781ae728f9a294bc6222d82a546ad40228d74205987916e8d4b3b4fc0",
+          "width": 2170,
+          "height": 725
+        },
+        {
+          "path": "art/screens/widget/slider-track-focus.png",
+          "sha256": "8ed1677fa535c9697d217380f87b1aaa8a31dbad62695ec20b60c51c98422c77",
+          "width": 2170,
+          "height": 725
+        },
+        {
+          "path": "art/screens/widget/slider-track-pressed.png",
+          "sha256": "6a9bca634e05f1eded0d0ab02d4ca080d9586d1b315f33bd18bff0a41c2991ee",
+          "width": 2170,
+          "height": 725
+        },
+        {
+          "path": "art/screens/widget/slider-track-disabled.png",
+          "sha256": "c16eca496e8aa84cbab1e9ac4a02aa83e44e53e76dfc21b65e532d68838f86c2",
+          "width": 2170,
+          "height": 725
+        },
+        {
+          "path": "art/screens/widget/slider-fill-normal.png",
+          "sha256": "c99bf899a4d39dafe6865694f778e142b4b2c85a9beb1edde2132ff2a38a27a7",
+          "width": 2170,
+          "height": 725
+        },
+        {
+          "path": "art/screens/widget/slider-fill-hover.png",
+          "sha256": "906265cfefc6ab38ea04d979ff921f8a9906020a09facc65b5189c9fdd02c662",
+          "width": 2170,
+          "height": 725
+        },
+        {
+          "path": "art/screens/widget/slider-fill-focus.png",
+          "sha256": "446fcfac9d4653c105f5a3e41865008104b3467055c8da85f9ef747c94a74907",
+          "width": 2170,
+          "height": 725
+        },
+        {
+          "path": "art/screens/widget/slider-fill-pressed.png",
+          "sha256": "9cd9f40411862f70033bac8d1b82ff2ce3cbb690d0626398c5726e754f7daa13",
+          "width": 2170,
+          "height": 725
+        },
+        {
+          "path": "art/screens/widget/slider-fill-disabled.png",
+          "sha256": "6b79651ec2eb116e05588bd30f29188418a4fde2d0329c141a6b7eaf6ee27d99",
+          "width": 2176,
+          "height": 723
+        },
+        {
+          "path": "art/screens/widget/slider-thumb-normal.png",
+          "sha256": "7a57b597d891611576c8bb65b2adfa252afc8e055b4afd6276c7774dc9ce70f5",
+          "width": 1086,
+          "height": 1448
+        },
+        {
+          "path": "art/screens/widget/slider-thumb-hover.png",
+          "sha256": "66b2170d5c2fece3008101861769aa6660e76adf28745a6e44917cc0150f1469",
+          "width": 1086,
+          "height": 1448
+        },
+        {
+          "path": "art/screens/widget/slider-thumb-focus.png",
+          "sha256": "c1a1f757f371918fe5ec21bfb8736542150253ca2c3158cffa78216dec65178f",
+          "width": 1086,
+          "height": 1448
+        },
+        {
+          "path": "art/screens/widget/slider-thumb-pressed.png",
+          "sha256": "9d19cd0e8dbe40e5d8c6f763082d9fb8e897d344868eb10d38fc54ea933bd6f6",
+          "width": 1086,
+          "height": 1448
+        },
+        {
+          "path": "art/screens/widget/slider-thumb-disabled.png",
+          "sha256": "b9040f4d3a5504c0bf377708cae73de9b8517c86374d390b175ebf0d2b48a97d",
+          "width": 1086,
+          "height": 1448
+        },
+        {
+          "path": "art/screens/widget/toggle-on-normal.png",
+          "sha256": "02c2d2ab6391f7dbc6bdece0e94e2f05cab2cab542d320a3f0d16dcc1cad7618",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/screens/widget/toggle-on-hover.png",
+          "sha256": "1a579637a32e8bb5fe20d7e8e97e154b43a149261dbd6d22125da86214e33ce3",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/screens/widget/toggle-on-focus.png",
+          "sha256": "06937b3d4c231e999885d215ef618c56dde19a694bd5ab158843e6c7753b5052",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/screens/widget/toggle-on-pressed.png",
+          "sha256": "58fb6a56bdfacce33bffa1fcaeb10cd74f901bbb9ce1967403dbf8ba5808ff32",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/screens/widget/toggle-on-disabled.png",
+          "sha256": "1d882e2ddaa15cb269568da92696e16492dc14d574694e3c39cdf52264f4f650",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/screens/widget/toggle-off-normal.png",
+          "sha256": "837b66dda81262dff124a9aa69b40d89d263c318bc275e1aa5da78c5b4c68c75",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/screens/widget/toggle-off-hover.png",
+          "sha256": "eb5a13aa50726ab63e3081f399360bf0698012e2da4336673dd894218b93282e",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/screens/widget/toggle-off-focus.png",
+          "sha256": "1591eb9fa04d69045657dd7c7b4e0bf9de91b405dae6f57356fd889a35a647ff",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/screens/widget/toggle-off-pressed.png",
+          "sha256": "fbf01093ead0c7c3c1dda6b335933fd68113179095b9698114deed25d3841826",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/screens/widget/toggle-off-disabled.png",
+          "sha256": "adae942b6e75dc67eab8940975baaa797c2be1d17447f07cf915b79738cbd2c4",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/screens/widget/toggle-mixed-normal.png",
+          "sha256": "246c01632e3b15f210b5f4ef192073b303afd774c9aaf91c2bfc4d0012011e27",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/screens/widget/toggle-mixed-hover.png",
+          "sha256": "344c4d81dd605c8a93c293ffffedb99cd80299ad77b7999e61940edfbaeff744",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/screens/widget/toggle-mixed-focus.png",
+          "sha256": "5648f9592354f113f96e6e3ee6e85b7d0f981999795dc708cd4c795ac33078b2",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/screens/widget/toggle-mixed-pressed.png",
+          "sha256": "4de45f6d68fc4f675ee31afa113e18e9a29f32d45c7966900c583ed83cdbe57a",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/screens/widget/toggle-mixed-disabled.png",
+          "sha256": "f8b5f45e91ff9f490f12a3d48f59358e0a6a47c03bf9f08fdc373ae0e5230c71",
+          "width": 1254,
+          "height": 1254
+        }
+      ],
       "look": "Form widgets of the settings, save and editor screens: dropdowns, inputs, sliders and toggles in the\nslate and brass style, each in five interaction states.",
       "base_prompt": "Flat form widget for a slate and brass menu: dark recessed slate field with small rounded corners,\nthin blue-grey edge and brass accents; empty of text.",
       "variants": [
@@ -4935,7 +5611,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/widget/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/widget/` and re-index.\n\nThe declared frame/control PNG masters are separate imagegen candidates made directly from the Base\nprompt and each variant delta, using the corresponding `assets/screens/widget/` render as a\nlayout reference. The generated catalogue records their native dimensions. These candidate sources\nawait visual acceptance and export bindings; the current runtime vector exports remain separate.\n\n`toggle-off-focus.png` retains a nearly transparent central spot; acceptance includes its interior\nopacity and consistent margins across states.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",

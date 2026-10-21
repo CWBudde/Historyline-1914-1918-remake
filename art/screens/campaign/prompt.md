@@ -4,7 +4,7 @@ title: Campaign
 kind: screen
 status: candidate
 runtime_ids: screen/campaign
-masters: illustration.png
+masters: illustration.png, frame.png
 ---
 
 ## Look
@@ -41,6 +41,11 @@ Runtime frame exports live in `assets/screens/campaign/`.
 The separate `illustration.png` is a candidate source without a runtime or manifest binding. Its
 1586x992 pixels support a 2x (1280x800) crop; the native 4x (2560x1600) target remains open.
 Do not enlarge it and claim native 4x detail.
+
+The declared frame/control PNG masters are separate imagegen candidates made directly from the Base
+prompt and each variant delta, using the corresponding `assets/screens/campaign/` render as a
+layout reference. The generated catalogue records their native dimensions. These candidate sources
+await visual acceptance and export bindings; the current runtime vector exports remain separate.
 
 ## Avoid
 - baked text, numbers or values

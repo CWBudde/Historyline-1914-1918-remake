@@ -4,7 +4,7 @@ title: Mission selection
 kind: screen
 status: candidate
 runtime_ids: screen/mission-selection
-masters: illustration.png
+masters: illustration.png, frame.png
 ---
 
 ## Look
@@ -57,6 +57,11 @@ The separate `illustration.png` was generated with the built-in image tool and t
 above. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,
 then downsample to 1280x800, preserving the composition. It is a candidate source without a runtime
 or manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.
+
+The declared frame/control PNG masters are separate imagegen candidates made directly from the Base
+prompt and each variant delta, using the corresponding `assets/screens/mission-selection/` render as a
+layout reference. The generated catalogue records their native dimensions. These candidate sources
+await visual acceptance and export bindings; the current runtime vector exports remain separate.
 
 ## Avoid
 - baked text, numbers or values

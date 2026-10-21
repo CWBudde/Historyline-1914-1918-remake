@@ -1,4 +1,19 @@
-# Screen paintings
+# Screen art
+
+Each family holds its `prompt.md` and imagegen source PNGs. Full-screen interface sources are
+`frame.png`; control filenames use the variant name with slashes and spaces replaced by hyphens.
+For example, the button states are `button/normal.png`, `hover.png`, `focus.png`, `pressed.png` and
+`disabled.png`; an invalid focused input is `widget/input-invalid-focus.png`.
+
+There are 108 frame/control source variants: 36 frames, five buttons, two country swatches, two progress
+parts, two scrollbar parts and 61 widget states. These are native imagegen candidates, separate from
+the existing runtime renders in `assets/screens/`. Their dimensions are recorded in `art/index.json`.
+Visual acceptance and export bindings remain open.
+
+Button sources: [normal](button/normal.png), [hover](button/hover.png), [focus](button/focus.png),
+[pressed](button/pressed.png), [disabled](button/disabled.png).
+
+## Scene paintings
 
 Opaque, text-free candidate scenes in the existing slate, olive, earth and brass style. Each painting's
 family `prompt.md` records its prompt, style references and native dimensions. Generated interface
@@ -26,7 +41,7 @@ frames and live text remain separate. These scene assignments await runtime feat
 Related states reuse their main scene: loading, mission errors and invalid mission codes use mission
 selection; save/load errors, progress, names and file confirmations use save; exit/restart confirmations
 use pause; settings/dropdowns use options; long text uses its briefing/help/credits scene; invalid
-new-map input uses editor. Buttons, widgets, country marks, progress bars and scrollbars remain vectors.
+new-map input uses editor. Runtime controls retain their vector exports alongside the imagegen sources.
 
 Handover's painting is a closed canvas partition containing no map or player information. Its current
 runtime frame remains opaque and never samples a previous gameplay image.

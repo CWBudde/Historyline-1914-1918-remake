@@ -4,7 +4,7 @@ title: Title
 kind: screen
 status: candidate
 runtime_ids: screen/title
-masters: 
+masters: frame.png
 ---
 
 ## Look
@@ -27,6 +27,11 @@ Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model 
 
 The shared painting is `art/screens/backdrop/western-front.png`, already consumed by the screen exporter
 behind this frame. No separate title painting is needed.
+
+The declared frame/control PNG masters are separate imagegen candidates made directly from the Base
+prompt and each variant delta, using the corresponding `assets/screens/title/` render as a
+layout reference. The generated catalogue records their native dimensions. These candidate sources
+await visual acceptance and export bindings; the current runtime vector exports remain separate.
 
 ## Avoid
 - baked text, numbers or values

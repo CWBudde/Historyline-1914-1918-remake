@@ -4,7 +4,7 @@ title: Unreadable save
 kind: screen
 status: candidate
 runtime_ids: screen/load-corrupt
-masters: 
+masters: frame.png
 ---
 
 ## Look
@@ -27,6 +27,11 @@ Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model 
 
 The shared painted candidate is `art/screens/save/illustration.png`; reuse it behind this frame
 when a feature binding is added. It is not consumed by the current vector exporter.
+
+The declared frame/control PNG masters are separate imagegen candidates made directly from the Base
+prompt and each variant delta, using the corresponding `assets/screens/load-corrupt/` render as a
+layout reference. The generated catalogue records their native dimensions. These candidate sources
+await visual acceptance and export bindings; the current runtime vector exports remain separate.
 
 ## Avoid
 - baked text, numbers or values
