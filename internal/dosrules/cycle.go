@@ -45,18 +45,22 @@ type Player struct {
 // Game is the state of a battle the command cycle works on: both sides'
 // maps (two numbers per cell, the terrain record and the occupant, 0xff
 // empty), the live records of the placed units and the container records,
-// the players, the turn counter (32e2:4cab) and the move limit (the option
-// 1653:253c: 4, 8 or 16 orders per side and phase; 0 none).
+// the players, the turn counter (32e2:4cab), the move limit (the option
+// 1653:253c: 4, 8 or 16 orders per side and phase; 0 none), the option
+// "with concealed inventories", which counts for the score, and the battle's
+// end once a resolution has decided it (nil while it is open).
 type Game struct {
-	Profile Profile
-	Width   int
-	Height  int
-	Maps    [2][]int
-	Units   map[int]Live
-	Holds   map[int]Hold
-	Players [2]Player
-	Turn    int
-	Limit   int
+	Profile   Profile
+	Width     int
+	Height    int
+	Maps      [2][]int
+	Units     map[int]Live
+	Holds     map[int]Hold
+	Players   [2]Player
+	Turn      int
+	Limit     int
+	Concealed bool
+	Ended     *End
 }
 
 // Placement is a unit as a scenario places it: its type, owner (0 or 1, 2
@@ -150,6 +154,9 @@ func refuse(code int, reason string) error { return &Refusal{code, reason} }
 // ErrNotReady is returned by Resolve while a side has not confirmed.
 var ErrNotReady = errors.New("dosrules: both sides must confirm before the orders resolve")
 
+// ErrOver is returned by Resolve once the battle has ended.
+var ErrOver = errors.New("dosrules: the battle is over")
+
 // EventKind names an event.
 type EventKind string
 
@@ -163,6 +170,7 @@ const (
 	EvBattle  EventKind = "battle"  // an attack order resolved: Outcome
 	EvSkipped EventKind = "skipped" // an attack order whose cell held no unit
 	EvPhase   EventKind = "phase"   // the phase change: Phase, Turn
+	EvEnd     EventKind = "end"     // the battle ended: Side is the winner (-1 a draw), End
 )
 
 // Event is one thing that happened, in order.
@@ -173,6 +181,7 @@ type Event struct {
 	Cell     int       `json:"cell"`
 	Route    []int     `json:"route,omitempty"`
 	Outcome  *Outcome  `json:"outcome,omitempty"`
+	End      *End      `json:"end,omitempty"`
 	Messages []Message `json:"messages,omitempty"`
 	Phase    [2]int    `json:"phase"`
 	Turn     int       `json:"turn"`
@@ -214,6 +223,9 @@ func (g *Game) Check(c Command) error {
 		return fmt.Errorf("dosrules: side %d", c.Side)
 	}
 	p := &g.Players[c.Side]
+	if g.Ended != nil {
+		return refuse(0, "the battle is over")
+	}
 	if p.Ready {
 		return refuse(0, "the side has confirmed its orders")
 	}
@@ -471,8 +483,13 @@ func (g *Game) Battlefield(side int) (*Battlefield, error) {
 // destroyed units 0x8000, swaps the phases, clears both lists and the
 // confirmations and counts the turn. It also clears every unit's moved flag.
 // A destroyed attacker cannot have a later order: it is listed once, and
-// only return fire in its own battle destroys it.
+// only return fire in its own battle destroys it. When the battle has ended
+// (End), an EvEnd event follows the phase change and no further command or
+// resolution is taken.
 func (g *Game) Resolve() ([]Event, error) {
+	if g.Ended != nil {
+		return nil, ErrOver
+	}
 	if !g.Players[0].Ready || !g.Players[1].Ready {
 		return nil, ErrNotReady
 	}
@@ -485,7 +502,15 @@ func (g *Game) Resolve() ([]Event, error) {
 		return evs, err
 	}
 	ev, err := g.changePhase(a)
-	return append(evs, ev...), err
+	evs = append(evs, ev...)
+	if err != nil {
+		return evs, err
+	}
+	if e := g.end(); e.Over {
+		g.Ended = &e
+		evs = append(evs, Event{Kind: EvEnd, Side: e.Winner, End: &e, Phase: ev[0].Phase, Turn: g.Turn})
+	}
+	return evs, nil
 }
 
 // attack resolves side a's list on its map.

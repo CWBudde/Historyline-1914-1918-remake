@@ -10,21 +10,23 @@ const SaveSchema = 1
 
 // A saved game is the whole state of the cycle as JSON: the profile by its
 // tables' build, both maps, the live and container records, each side's
-// phase, confirmation and order list, the turn and the move limit. Orders
+// phase, confirmation and order list, the turn and the game options. Orders
 // given but not confirmed and confirmed orders waiting for the other side
 // are both part of that state (the order lists, the units' moved flags and
 // targets), so a loaded game resolves exactly as the saved one would have.
 type savedGame struct {
-	Schema  int               `json:"schema"`
-	Build   string            `json:"build"`
-	Width   int               `json:"width"`
-	Height  int               `json:"height"`
-	Maps    [2][]int          `json:"maps"`
-	Units   map[int]savedUnit `json:"units"`
-	Holds   map[int]Hold      `json:"holds"`
-	Players [2]savedPlayer    `json:"players"`
-	Turn    int               `json:"turn"`
-	Limit   int               `json:"limit"`
+	Schema    int               `json:"schema"`
+	Build     string            `json:"build"`
+	Width     int               `json:"width"`
+	Height    int               `json:"height"`
+	Maps      [2][]int          `json:"maps"`
+	Units     map[int]savedUnit `json:"units"`
+	Holds     map[int]Hold      `json:"holds"`
+	Players   [2]savedPlayer    `json:"players"`
+	Turn      int               `json:"turn"`
+	Limit     int               `json:"limit"`
+	Concealed bool              `json:"concealed,omitempty"`
+	Ended     *End              `json:"ended,omitempty"`
 }
 
 type savedPlayer struct {
@@ -56,7 +58,7 @@ func (g *Game) Save() ([]byte, error) {
 		return nil, fmt.Errorf("dosrules: save: no tables")
 	}
 	s := savedGame{Schema: SaveSchema, Build: g.Profile.Tables.Build, Width: g.Width, Height: g.Height,
-		Maps: g.Maps, Units: map[int]savedUnit{}, Holds: g.Holds, Turn: g.Turn, Limit: g.Limit}
+		Maps: g.Maps, Units: map[int]savedUnit{}, Holds: g.Holds, Turn: g.Turn, Limit: g.Limit, Concealed: g.Concealed, Ended: g.Ended}
 	for i, u := range g.Units {
 		s.Units[i] = savedUnit(u)
 	}
@@ -87,7 +89,7 @@ func LoadGame(data []byte) (*Game, error) {
 		return nil, fmt.Errorf("dosrules: load: unknown tables %q", s.Build)
 	}
 	g := &Game{Profile: p, Width: s.Width, Height: s.Height, Maps: s.Maps, Units: map[int]Live{},
-		Holds: map[int]Hold{}, Turn: s.Turn, Limit: s.Limit}
+		Holds: map[int]Hold{}, Turn: s.Turn, Limit: s.Limit, Concealed: s.Concealed, Ended: s.Ended}
 	if s.Width < 1 || s.Height < 1 {
 		return nil, fmt.Errorf("dosrules: load: %d×%d map", s.Width, s.Height)
 	}
