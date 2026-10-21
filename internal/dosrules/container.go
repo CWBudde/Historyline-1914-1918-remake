@@ -296,8 +296,13 @@ type ExitRun struct {
 // as the occupant the cell gets back. Undefined: an empty slot and an odd
 // start offset (the map write would hit a terrain byte).
 func (t *MoveTables) Exit(g *Movement, o ExitOrder) (ExitRun, error) {
+	return t.exit(newMoveState(t, g), o)
+}
+
+// exit is Exit on the memory s.
+func (t *MoveTables) exit(s *moveState, o ExitOrder) (ExitRun, error) {
+	g := s.g
 	side := g.Side
-	s := newMoveState(t, g)
 	h, err := s.hold(o.Hold)
 	if err != nil {
 		return ExitRun{}, err

@@ -25,6 +25,14 @@ func newMoveState(t *MoveTables, g *Movement) *moveState {
 	return s
 }
 
+// moveStateOn is the memory of a whole game for a movement of g: the live
+// records, both maps (the side's first) and the container records as they
+// are, in place of the ones Movement would set up. g must give the side's
+// map's units, as Game.movement projects them.
+func moveStateOn(t *MoveTables, g *Movement, live map[int][]byte, maps [2][]byte, holds map[int][]byte) *moveState {
+	return &moveState{t: t, g: g, live: live, maps: maps, holds: holds}
+}
+
 // rec is a live record; one never placed reads as zeros, as in the game's
 // array.
 func (s *moveState) rec(idx int) []byte {
@@ -48,7 +56,12 @@ func (s *moveState) bitIndex(cell int) int { return cell/s.g.Width*64 + cell%s.g
 // 10cc:02dd, the move start 10cc:05c3 and the step 10cc:071e until it
 // arrives (10cc:0ae2). It returns ErrUndefined where Path or EndCheck do.
 func (t *MoveTables) Execute(g *Movement, o MoveOrder) (StepRun, error) {
-	s := newMoveState(t, g)
+	return t.execute(newMoveState(t, g), o)
+}
+
+// execute is Execute on the memory s.
+func (t *MoveTables) execute(s *moveState, o MoveOrder) (StepRun, error) {
+	g := s.g
 	buf, bits, _ := t.Reach(g)
 	for _, c := range o.Stale {
 		bits[s.bitIndex(c)] |= byte(1 + g.Side)
