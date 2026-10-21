@@ -500,17 +500,26 @@ func (d *dosControl) endText() string {
 	if e == nil {
 		return ""
 	}
-	if e.Winner != 0 && e.Winner != 1 {
+	switch {
+	case e.Winner != 0 && e.Winner != 1:
 		return "The battle ends in a draw"
+	case e.Winner == d.side:
+		return fmt.Sprintf("VICTORY - %s (score %d)", d.endReason(), e.Score)
+	}
+	return "DEFEAT - " + d.endReason()
+}
+
+// endReason says who won and how, "" while the battle is open or after a draw.
+func (d *dosControl) endReason() string {
+	e := d.s.Ended()
+	if e == nil || e.Winner != 0 && e.Winner != 1 {
+		return ""
 	}
 	how := "destroyed every enemy unit"
 	if e.Won[e.Winner] == dosrules.EndHQ {
 		how = "hold the enemy HQ"
 	}
-	if e.Winner == d.side {
-		return fmt.Sprintf("VICTORY - %v %s (score %d)", d.s.Faction(e.Winner), how, e.Score)
-	}
-	return fmt.Sprintf("DEFEAT - %v %s", d.s.Faction(e.Winner), how)
+	return fmt.Sprintf("%v %s", d.s.Faction(e.Winner), how)
 }
 
 // units are the units drawn, by hex: the frozen view while a resolution

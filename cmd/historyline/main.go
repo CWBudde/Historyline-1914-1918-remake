@@ -36,7 +36,7 @@ import (
 const (
 	startWidth  = 1800
 	startHeight = 1000
-	scrollSpeed = 12 // screen pixels per frame
+	scrollSpeed = 12 // default map scroll speed, screen pixels per frame
 )
 
 // Pixel outline of a hex around its centre (flat top, 96×80).
@@ -71,6 +71,7 @@ type game struct {
 	artErr         string      // last sprite failure, shown in the status line
 	terrain        *terrainArt // composed terrain tiles (-terrain); nil draws coloured hexes
 	terrainErr     string      // last terrain tile failure, shown in the status line
+	scroll         float64     // map scroll speed, screen pixels per frame
 }
 
 func newGame(lvl *level.Level, st *state.State, player state.Player, reveal bool) *game {
@@ -90,6 +91,7 @@ func newMapGame(lvl *level.Level, reveal bool) *game {
 		lvl: lvl, reveal: reveal, grid: g,
 		cam:         camera.New(world, camera.Size{W: startWidth, H: startHeight}),
 		terrainFill: map[string]color.RGBA{},
+		scroll:      scrollSpeed,
 		menuPress:   newMenuPress(),
 	}
 	gm.applyLayout(startWidth, startHeight, 1)
@@ -242,16 +244,16 @@ func (g *game) fill(terrain string) color.RGBA {
 func (g *game) Update() error {
 	dx, dy := 0.0, 0.0
 	if ebiten.IsKeyPressed(ebiten.KeyArrowLeft) || ebiten.IsKeyPressed(ebiten.KeyA) {
-		dx -= scrollSpeed
+		dx -= g.scroll
 	}
 	if ebiten.IsKeyPressed(ebiten.KeyArrowRight) || ebiten.IsKeyPressed(ebiten.KeyD) {
-		dx += scrollSpeed
+		dx += g.scroll
 	}
 	if ebiten.IsKeyPressed(ebiten.KeyArrowUp) || ebiten.IsKeyPressed(ebiten.KeyW) {
-		dy -= scrollSpeed
+		dy -= g.scroll
 	}
 	if ebiten.IsKeyPressed(ebiten.KeyArrowDown) || ebiten.IsKeyPressed(ebiten.KeyS) {
-		dy += scrollSpeed
+		dy += g.scroll
 	}
 	g.cam.Scroll(dx*float64(g.view.UI), dy*float64(g.view.UI))
 	if ui := g.drv().ui(); ui.report.Active() && (len(inpututil.AppendJustPressedKeys(nil)) > 0 || inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft)) {
@@ -657,89 +659,145 @@ func loadLevel(dir, name string) (*level.Level, error) {
 	return level.Parse(raw)
 }
 
+// matchConfig is everything a battle is started from: by the menu, or directly
+// by -level or -player.
+type matchConfig struct {
+	lvl        *level.Level
+	set        *data.Set
+	player     state.Player // the human side, whose view is shown
+	rules      string       // dos, standard or classic
+	opponent   string       // ai or pass
+	limit      int          // dos: orders per phase, 0 for no limit
+	reveal     bool
+	hexNumbers bool
+	reduced    bool
+	scroll     float64   // map scroll speed, screen pixels per frame
+	units      *artPacks // shared by every battle; nil draws placeholder dots
+	terrain    string    // terrain catalog directory, composed per level; "" draws coloured hexes
+	candidates bool      // allow candidate terrain packs
+}
+
+// newMatch starts the battle of c.
+func newMatch(c matchConfig) (*game, error) {
+	var gm *game
+	switch c.rules {
+	case "dos":
+		o := dosplay.Options{Limit: c.limit}
+		var planner dosPlanner = passPlanner{}
+		if c.opponent == "ai" {
+			o.Computer[1-dosbind.Side(c.player)] = true
+			planner = computerPlanner()
+		}
+		s, err := dosplay.New(c.lvl, c.set, o)
+		if err != nil {
+			return nil, err
+		}
+		gm = newDosGame(c.lvl, s, s.SideOf(c.player), planner, c.reveal)
+	case "standard", "classic":
+		r := state.Standard
+		if c.rules == "classic" {
+			r = state.Classic
+		}
+		st, err := state.NewWithRules(c.lvl, c.set, r)
+		if err != nil {
+			return nil, err
+		}
+		gm = newGame(c.lvl, st, c.player, c.reveal)
+		if c.opponent == "ai" {
+			gm.ctl.ai = &ai.Planner{}
+		}
+	default:
+		return nil, fmt.Errorf("unknown -rules %q (want dos, standard or classic)", c.rules)
+	}
+	gm.hexNumbers = c.hexNumbers
+	gm.drv().SetReducedMotion(c.reduced)
+	if c.scroll > 0 {
+		gm.scroll = c.scroll
+	}
+	gm.art = c.units
+	if c.terrain != "" {
+		var err error
+		if gm.terrain, err = loadTerrainArt(c.terrain, c.candidates, c.lvl); err != nil {
+			return nil, err
+		}
+	}
+	return gm, nil
+}
+
 func main() {
-	name := flag.String("level", "level1_cp", "shipped level to load from levels/ (name without .json)")
+	name := flag.String("level", "level1_cp", "shipped level to load from levels/ (name without .json); skips the menu")
 	dir := flag.String("levels", "levels", "directory with the level files")
-	side := flag.String("player", "", "side the player plays and whose view is shown: central, entente (default: the level's side)")
+	side := flag.String("player", "", "side the player plays and whose view is shown: central, entente (default: the level's side); skips the menu")
 	rules := flag.String("rules", "dos", "rule set: dos (the original order cycle), standard or classic")
 	reveal := flag.Bool("reveal", false, "dev: show the whole map, ignoring fog of war (dos: every unit where its own side sees it)")
 	hexNumbers := flag.Bool("hexnumbers", false, "dev: print line,col on every hex")
 	reduced := flag.Bool("reduced-motion", false, "walk instantly and show short static effects (toggle in game with M)")
 	units := flag.String("units", "", "unit sprite catalog built by hlasset build-units (default: placeholder dots)")
 	terrain := flag.String("terrain", "", "terrain tile catalog built by hlasset build-terrain (default: coloured hexes)")
+	screens := flag.String("screens", "", "screen catalog built by hlasset build-screens (default: plain menu panels)")
 	opponent := flag.String("opponent", "ai", "who plays the other side: ai (computer opponent) or pass (passes every turn, as in Python)")
-	candidates := flag.Bool("allow-candidates", false, "allow unit and terrain packs that are review candidates, not approved art")
+	candidates := flag.Bool("allow-candidates", false, "allow unit, terrain and screen packs that are review candidates, not approved art")
 	capture := flag.String("capture", "", "dev: render nine 720p/1080p/4K review frames to a directory under build/ and exit (requires -units and -terrain)")
 	flag.Parse()
+	direct := *capture != ""
+	flag.Visit(func(f *flag.Flag) { direct = direct || f.Name == "level" || f.Name == "player" })
 
-	lvl, err := loadLevel(*dir, *name)
-	if err != nil {
-		log.Fatal(err)
-	}
 	set, err := data.Load()
 	if err != nil {
 		log.Fatal(err)
 	}
-	player, err := state.PlayerByName(lvl.Player)
-	if err != nil {
+	if *opponent != "ai" && *opponent != "pass" {
+		log.Fatalf("unknown -opponent %q (want ai or pass)", *opponent)
+	}
+	if *rules != "dos" && *rules != "standard" && *rules != "classic" {
+		log.Fatalf("unknown -rules %q (want dos, standard or classic)", *rules)
+	}
+	c := matchConfig{set: set, rules: *rules, opponent: *opponent, reveal: *reveal, hexNumbers: *hexNumbers,
+		reduced: *reduced, terrain: *terrain, candidates: *candidates}
+	if *units != "" {
+		if c.units, err = loadUnitArt(*units, *candidates); err != nil {
+			log.Fatal(err)
+		}
+	}
+	ebiten.SetWindowSize(startWidth, startHeight)
+	ebiten.SetWindowResizingMode(ebiten.WindowResizingModeEnabled)
+	ebiten.SetWindowTitle("Historyline 1914-1918")
+
+	if !direct {
+		campaign, err := loadCampaign(*dir)
+		if err != nil {
+			log.Fatal(err)
+		}
+		var art *screenArt
+		if *screens != "" {
+			if art, err = loadScreenArt(*screens, *candidates); err != nil {
+				log.Fatal(err)
+			}
+		}
+		if err := ebiten.RunGame(newApp(c, campaign, art)); err != nil {
+			log.Fatal(err)
+		}
+		return
+	}
+
+	if c.lvl, err = loadLevel(*dir, *name); err != nil {
+		log.Fatal(err)
+	}
+	if c.player, err = state.PlayerByName(c.lvl.Player); err != nil {
 		log.Fatal(err)
 	}
 	switch *side {
 	case "":
 	case "central":
-		player = state.CentralPowers
+		c.player = state.CentralPowers
 	case "entente":
-		player = state.Entente
+		c.player = state.Entente
 	default:
 		log.Fatalf("unknown -player %q (want central or entente)", *side)
 	}
-	if *opponent != "ai" && *opponent != "pass" {
-		log.Fatalf("unknown -opponent %q (want ai or pass)", *opponent)
-	}
-	ebiten.SetWindowSize(startWidth, startHeight)
-	ebiten.SetWindowResizingMode(ebiten.WindowResizingModeEnabled)
-	ebiten.SetWindowTitle("Historyline 1914-1918")
-	var gm *game
-	switch *rules {
-	case "dos":
-		var o dosplay.Options
-		var planner dosPlanner = passPlanner{}
-		if *opponent == "ai" {
-			o.Computer[1-dosbind.Side(player)] = true
-			planner = computerPlanner()
-		}
-		s, err := dosplay.New(lvl, set, o)
-		if err != nil {
-			log.Fatal(err)
-		}
-		gm = newDosGame(lvl, s, s.SideOf(player), planner, *reveal)
-	case "standard", "classic":
-		r := state.Standard
-		if *rules == "classic" {
-			r = state.Classic
-		}
-		st, err := state.NewWithRules(lvl, set, r)
-		if err != nil {
-			log.Fatal(err)
-		}
-		gm = newGame(lvl, st, player, *reveal)
-		if *opponent == "ai" {
-			gm.ctl.ai = &ai.Planner{}
-		}
-	default:
-		log.Fatalf("unknown -rules %q (want dos, standard or classic)", *rules)
-	}
-	gm.hexNumbers = *hexNumbers
-	gm.drv().SetReducedMotion(*reduced)
-	if *units != "" {
-		if gm.art, err = loadUnitArt(*units, *candidates); err != nil {
-			log.Fatal(err)
-		}
-	}
-	if *terrain != "" {
-		if gm.terrain, err = loadTerrainArt(*terrain, *candidates, lvl); err != nil {
-			log.Fatal(err)
-		}
+	gm, err := newMatch(c)
+	if err != nil {
+		log.Fatal(err)
 	}
 	if *capture != "" {
 		if gm.art == nil || gm.terrain == nil {

@@ -530,6 +530,10 @@ own and leaves the game playable.
 
 - [ ] Screens: title, side/mission selection, briefing/campaign, options, pause, save/load, handover,
       victory/defeat, credits, with hover/focus/pressed/disabled states and keyboard navigation.
+      (2026-10-22) — partial: the original's main menu (start, map code, game values, control, extras), country
+      selection, loading, victory/defeat and leave-battle pages: runtime frames and button states over the scene
+      paintings (`hlasset build-screens`, `-screens`), keyboard and mouse. Remain: briefing/campaign, save/load,
+      handover, credits/help, score list.
 - [ ] Sound and music (`ebiten/audio`).
 - [ ] Map editor (`-edit` or `cmd/hlmapedit`) with tile/infra/unit/container palettes and a new-map wizard.
 - [ ] WASM build on GitHub Pages; release binaries via GoReleaser.

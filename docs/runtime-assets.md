@@ -9,9 +9,10 @@ size, anchor, art key such as `terrain/road`); packed entries are in pack order.
 go run ./cmd/hlasset build -density 2 -out build/packs/interface-2x        # interface (1, 2 or 4)
 go run ./cmd/hlasset build-units   -out build/packs/units                  # 15 unit families
 go run ./cmd/hlasset build-terrain -out build/packs/terrain                # tiles, overlays, contexts
+go run ./cmd/hlasset build-screens -out build/packs/screens                # menu frames, controls, paintings
 go run ./cmd/hlasset validate -root <pack> -allow-candidates
 go run ./cmd/hlasset terrain-gaps -terrain build/packs/terrain
-just play                                                                  # game with both catalogs
+just play                                                                  # game with all three catalogs
 ```
 
 ## Pack format
@@ -75,8 +76,16 @@ items too. A cluster is stamped only while all its hexes are known; otherwise it
 Draw density is the effective zoom's asset density, at least 2×. Background textures get a 3-texel grown
 border so filtered quads at fractional zoom overlap without seams.
 
+## Screens
+
+`build-screens` writes one pack per screen family and density (1× and 2×) into `<d>x/<family>/`: the
+unpacked `screens/` files of the index (frames, buttons, country swatches, widgets, the backdrop) and, as
+`scene/<family>`, each `art/screens/<family>/illustration.png` painting trimmed by one pixel per edge and
+scaled to 640×400 logical pixels (never enlarged). The game's menus (`-screens`) draw a painting, the frame
+over it, live text in the Go fonts and the button states; without the catalog they draw plain panels.
+
 ## Open
 
-Packs for portraits, screens, animation metadata (all listed in `assets/index.json`) and fonts;
+Packs for portraits, animation metadata (all listed in `assets/index.json`) and fonts;
 ownership strips; contexts for imported maps and mixed seasons; live pack switching; browser loading;
 art approval and embedding.

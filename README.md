@@ -26,7 +26,7 @@ needs [golangci-lint](https://golangci-lint.run) v2:
 
 ```sh
 just run        # play with placeholder graphics
-just play       # play with the candidate art (builds the packs into build/packs/ on first run)
+just play       # play with the candidate art and menu screens (builds the packs into build/packs/ on first run)
 just test       # go test ./...
 just lint       # go vet + golangci-lint
 just build      # bin/historyline
@@ -34,6 +34,12 @@ just web 8080   # web build into build/web, served on :8080
 just ci         # everything CI runs
 just clean      # delete all generated output under build/
 ```
+
+The game opens with a main menu laid out like the original's: start (country selection, then the battle),
+the map code (PULSE, CIVIL, MOUSE; a victory sets the next one), game values (full or short battles, the
+computer or a passive opponent, a move limit), control (fullscreen, scrolling) and extras (not available
+yet). In battle, Q asks whether to leave it; after its end Enter shows the outcome. `-level` or `-player`
+skip the menu and start that battle directly.
 
 `-rules` picks the rule set (pass it after `just run` or `just play`): `dos` (default), the original order
 cycle, `standard` or `classic` (the Python version's rules). In `dos` both sides give their orders at the same

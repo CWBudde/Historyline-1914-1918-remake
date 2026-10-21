@@ -30,13 +30,14 @@ _build-dir:
     mkdir -p build
     [ -f build/go.mod ] || printf 'module scratch\n\ngo %s\n' "$(awk '/^go /{print $2}' go.mod)" > build/go.mod
 
-# Packs are built only when missing; delete build/packs/units or build/packs/terrain to rebuild.
-# Play with the candidate unit and terrain art
+# Packs are built only when missing; delete build/packs/units, terrain or screens to rebuild.
+# Play with the candidate unit, terrain and screen art
 play *args: _build-dir
     mkdir -p build/packs
     [ -d build/packs/units ] || go run ./cmd/hlasset build-units -out build/packs/units
     [ -d build/packs/terrain ] || go run ./cmd/hlasset build-terrain -out build/packs/terrain
-    go run ./cmd/historyline -units build/packs/units -terrain build/packs/terrain -allow-candidates {{args}}
+    [ -d build/packs/screens ] || go run ./cmd/hlasset build-screens -out build/packs/screens
+    go run ./cmd/historyline -units build/packs/units -terrain build/packs/terrain -screens build/packs/screens -allow-candidates {{args}}
 
 # Run all Go tests
 test:

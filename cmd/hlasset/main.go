@@ -24,7 +24,7 @@ func main() {
 
 func run(args []string, stdout io.Writer) error {
 	if len(args) == 0 {
-		return fmt.Errorf("usage: hlasset build|build-units|build-terrain|terrain-gaps|validate [flags]")
+		return fmt.Errorf("usage: hlasset build|build-units|build-terrain|build-screens|terrain-gaps|validate [flags]")
 	}
 	switch args[0] {
 	case "build":
@@ -86,6 +86,27 @@ func run(args []string, stdout io.Writer) error {
 		}
 		_, err = fmt.Fprintf(stdout, "built %d terrain packs (%d PNG variants; candidate, not runtime approved)\n", len(packs), tiles)
 		return err
+	case "build-screens":
+		flags := flag.NewFlagSet("build-screens", flag.ContinueOnError)
+		dir := flags.String("assets", "assets", "runtime asset directory with index.json")
+		art := flags.String("art", "art", "art directory with the scene paintings (screens/<family>/illustration.png)")
+		out := flags.String("out", "", "new output directory (required)")
+		if err := flags.Parse(args[1:]); err != nil {
+			return err
+		}
+		if flags.NArg() != 0 || *out == "" {
+			return fmt.Errorf("build-screens requires -out NEW_DIRECTORY and no positional arguments")
+		}
+		packs, err := buildScreens(*dir, *art, *out)
+		if err != nil {
+			return err
+		}
+		variants := 0
+		for _, p := range packs {
+			variants += len(p.Entries)
+		}
+		_, err = fmt.Fprintf(stdout, "built %d screen packs (%d PNG variants; candidate, not runtime approved)\n", len(packs), variants)
+		return err
 	case "terrain-gaps":
 		flags := flag.NewFlagSet("terrain-gaps", flag.ContinueOnError)
 		dir := flags.String("terrain", "", "terrain catalog built by build-terrain (required)")
@@ -123,7 +144,7 @@ func run(args []string, stdout io.Writer) error {
 		_, err = fmt.Fprintf(stdout, "validated %s: %d PNG variants; status=%s\n", m.ID, len(m.Entries), m.Status)
 		return err
 	default:
-		return fmt.Errorf("unknown command %q; use build, build-units, build-terrain, terrain-gaps or validate", args[0])
+		return fmt.Errorf("unknown command %q; use build, build-units, build-terrain, build-screens, terrain-gaps or validate", args[0])
 	}
 }
 

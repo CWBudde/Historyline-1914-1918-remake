@@ -26,7 +26,8 @@ just artbook     # build/artbook/Historyline_Art.pdf (needs typst)
 
 ## Architecture
 
-- `cmd/historyline`: the Ebitengine front end.
+- `cmd/historyline`: the Ebitengine front end; `shell.go` holds the menus around a battle, `app.go` runs
+  and draws them.
 - `internal/game`: rules engine with **no rendering**; UI and AI drive it through commands
   (`commands.go`). Rule sets `Classic` (inherited behaviour) and `Standard` (fixed). Classic behaviour is
   pinned by `testdata/python.json`.
@@ -53,8 +54,9 @@ just artbook     # build/artbook/Historyline_Art.pdf (needs typst)
 - `cmd/hlart`: writes and checks the generated `art/index.json` (prompts, masters, runtime files and IDs);
   `docs/artbook/` renders it with Typst as the art book.
 - `internal/assets`, `internal/mapcompose`, `internal/unitsprite`, `cmd/hlasset`: runtime art packs built
-  from `assets/index.json` and map composition (`docs/runtime-assets.md`). `internal/maprender` draws a whole
-  level with the runtime art (the art book's PULSE map, `hlgallery`'s PULSE study).
+  from `assets/index.json` (screen packs add the `art/screens` paintings) and map composition
+  (`docs/runtime-assets.md`). `internal/maprender` draws a whole level with the runtime art (the art book's
+  PULSE map, `hlgallery`'s PULSE study).
 - `tools/art-review`, `tools/interface-art`, `tools/unit-panel`: art export. `tools/reference-design`: the
   PULSE reference design (`just reference`). `just gfx-check` runs `art-check`, `reference-check` and the
   tool tests. `cmd/hlgallery` is the local comparison desk (`just gfx-game-review`).
