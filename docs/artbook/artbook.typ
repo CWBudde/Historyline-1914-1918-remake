@@ -255,6 +255,7 @@ source describe the image in this PDF. PULSE uses the 4× runtime artwork; compa
     These are reusable terrain pieces. PULSE uses them too, without a lake-shaped painting.
     Shared borders retain their matching profile, while the interiors have asymmetric bends and
     rocky banks that widen and narrow.
+    Submerged stones soften the water edge; moss and grass enter rock crevices along the meadow edge.
   ]
   figure(image(shore + "/shore-catalogue-4x.png", height: 21cm),
     caption: [All nine shores and six assemblies. Native PNG: 3144 × 3728 pixels.],

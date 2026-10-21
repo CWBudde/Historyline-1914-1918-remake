@@ -16,6 +16,8 @@ was not the delivered size. The whole-lake painting `lakeside-lake-summer-v3.png
 a look reference; it is absent from the active recipe and runtime catalogue.
 Inside each tile the coast bows asymmetrically and the rocky bank varies from a small lip to a broader
 shelf. The shared crossing profile is confined to the border and its filter margin.
+The water edge grades through partly submerged stones and damp blue-grey rock. On the land side,
+olive moss and meadow colours enter painted crevices before the stones disappear into grass.
 
 ## Base prompt
 Use case: stylized-concept. Asset type: GENERIC REUSABLE tactical game material, opaque seamless surface swatch, NOT a map scene. Reference image attached is ONLY the visual style/material reference for the pale rounded rocks lining the lake: do not copy lake silhouette, layout, water, bridges, or any landmark. Generate a new native high-resolution square 1536x1536 top-down orthographic material of mixed-size natural shoreline boulders: large smooth weathered flattened grey-beige and warm brown-grey rocks with dark damp mossy earth and small pebbles between. Roughly 5 to 7 major boulders across canvas width, varied sizes, natural incomplete distribution, some moss and tiny tufts of olive grass in crevices, shallow cracks, short soft shadows bottom-right, light upper-left. Rich painted microdetail at native resolution like the attached art. Boulders need distinct readable curved silhouettes, pale top faces and dark crevices; not a dense carpet of tiny gravel, not geometric cobblestone pavement. Entire canvas filled with generic rock/earth surface at consistent scale, density and lighting right to edges. Repeating swatch to be sampled into arbitrary shoreline curves, no bank direction, no focal point, no framing, no gradient, no water or lake, no complete coastline, no hex tile or grid, no text. Opaque full-bleed square. Newly authored hand-painted game art.
@@ -52,7 +54,13 @@ Water uses the matching 71×40-period authored sampler. Existing corner masks re
 The coast's broad asymmetric interior bows preserve the original approach at each border. Inland
 rock coverage varies through broad patches, with a 2.2–11.5 logical-pixel full-rock reach and a soft
 irregular meadow fringe. Bank variation fades out through the filter margin, leaving the existing
-eight-pixel join guards unchanged. The source paintings are retained without retouching or enlargement.
+eight-pixel geometry guards unchanged. The source paintings are retained without retouching or enlargement.
+
+Material transitions follow the local RefDesign2 lake crop: water remains visible through a shallow
+stone shelf, then wet faces become dry rock through wider colour ramps. The meadow fringe widens
+around the same boundary, using painted dark crevices and grass marks for moss penetration. Stone
+faces retain their native texture; no blur is applied. Shared border colours soften consistently
+across compatible neighbours; shore curves, width fields, port states and alpha masks are retained.
 
 The exporter includes all nine tile PNGs and six different compatible assemblies in
 `shore-catalogue-2x.png` and `shore-catalogue-4x.png`, using the actual decoded exports without resizing.

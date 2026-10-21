@@ -18,7 +18,7 @@ import (
 	"sort"
 )
 
-const shoreProfile = "shore-reference-v3 candidate: reusable irregular stony banks and blue-teal water; no original outlines measured. " +
+const shoreProfile = "shore-reference-v4 candidate: reusable irregular banks with soft wet-stone and meadow transitions; no original outlines measured. " +
 	"Explicit corner land profiles, lakeside23 effective land-side mask234. Guard through8worldpx and exterior/filtermargin: nearest edge LL+32, WW-32, mixed signed midpoint projection toward land. " +
 	"Two mixed edges per shore, one contiguous land arc. Inward unit edge normals for8worldpx; quintic Bezier anchors A,B, h=.24*|B-A|, controls A,A+h*nA,A+2h*nA,B+2h*nB,B+h*nB,B. " +
 	"Chord-normal asymmetric polynomial bow64*t^3*(1-t)^3*(amplitude+skew*(2*t-1)); mask-derived6..8px amplitude on opposing approaches, gentler turning profiles. Preserve the oldsubpixelcoast through first/last8percent ofcurve, quinticC2handover through20percent. Endpoint value/tangent/curvature preserved. Flatten256 steps, signed nearest segment distance,160worldpx exterior extensions. " +

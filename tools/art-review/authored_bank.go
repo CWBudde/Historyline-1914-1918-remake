@@ -8,7 +8,8 @@ import (
 
 const authoredBankProfile = "authored-rocks-v1"
 const authoredBankDescription = " Authored-rocks-v1 materials: single unmirrored authored sample, no coset average. Centre-crop to71:40, bilinear sample with8percent opposing-edge overlap only; bank periods35.5x20worldpx, water71x40. Each period divides every lattice translation exactly. " +
-	"Shore interiors: E=smoothstep((nearestEdge-10)/10), P=.7*sin(.065*x+.105*y+.8)+.3*sin(.14*x-.075*y+1.3), R=meanRockRGB/255-.45. Coastoffset(1.4+1.8*E)*R, rockreach=clamp(5.2+E*(.6+5.2*P+1.2*R),2.2,11.5), feather=3.2+E*(.3-.7*P). Border profile remains5.2px rockreach and3.2px feather through10worldpx, including Lanczos halo. " +
+	"Shore interiors: E=smoothstep((nearestEdge-10)/10), P=.7*sin(.065*x+.105*y+.8)+.3*sin(.14*x-.075*y+1.3), R=meanRockRGB/255-.45. Coastoffset(1.4+1.8*E)*R, rockreach=clamp(5.2+E*(.6+5.2*P+1.2*R),2.2,11.5), basefeather=3.2+E*(.3-.7*P). Width fields retain5.2px rockreach and3.2px basefeather through10worldpx. " +
+	"Soft shore materials: water shows through submerged rocks fromd=-4.8; wetbluegrey faces blend to dryrock over2.5px without a continuous darkoutline. Meadowspan=basefeather+3.6 centred on the accepted outerboundary, with paintedrockcrevices and grassmarks controlling localmosspenetration. Sharedcoastprofiles soften consistently at every reciprocal edge. No blur; sourcepixels, coasts and widthfields unchanged. " +
 	"Streams retain their existing bank: add2px landward, modulated by authored rock brightness, through the8..16worldpx interior envelope. Stream outer footprint and bank opacity retain the legacy profile throughout every8worldpx port guard. Water core/ports/shore vertex topology unchanged; no synthesized stones or continuous foam line."
 
 // The smaller rectangular period is already invariant under all six hex-lattice
@@ -112,10 +113,23 @@ func authoredShoreColor(in shoreInputs, p connectionPoint, d float64) color.NRGB
 	width := 5.2 + envelope*(.6+5.2*patch+1.2*stone)
 	width = max(2.2, min(11.5, width))
 	feather := 3.2 + envelope*(.3-.7*patch)
-	wet := connectionBlend(rock, color.NRGBA{34, 52, 47, 255}, .56)
-	c := connectionBlend(water, wet, connectionSmoothStep((d+1.1)/1.1))
-	c = connectionBlend(c, rock, connectionSmoothStep((d-.1)/.8))
-	return connectionBlend(c, grass, connectionSmoothStep((d-width)/feather))
+	// Water still shows through the submerged stones before the wet faces
+	// become dry rock. Broader colour ramps avoid a dark cut-out outline;
+	// the authored surfaces themselves remain sharp and unfiltered.
+	submerged := connectionBlend(water, rock, .24)
+	wet := connectionBlend(connectionBlend(rock, water, .52), color.NRGBA{34, 52, 47, 255}, .16)
+	c := connectionBlend(water, submerged, connectionSmoothStep((d+4.8)/3.6))
+	c = connectionBlend(c, wet, connectionSmoothStep((d+2.2)/2.6))
+	c = connectionBlend(c, rock, connectionSmoothStep((d+.1)/2.5))
+	// Centre the wider fringe on the accepted rock/grass boundary. Existing
+	// painted crevices and meadow marks let vegetation enter between stones,
+	// instead of fading every rock through an identical parallel band.
+	crevice := 1 - connectionSmoothStep((stone+.22)/.42)
+	grassMark := max(0, min(1, (float64(grass.G)-float64(grass.R))/96))
+	fringe := connectionSmoothStep((d - width + 1.8 + .6*(crevice-.5) + .25*(grassMark-.5)) / (feather + 3.6))
+	rooted := .8*crevice + .2*grassMark
+	c = connectionBlend(c, grass, .3*rooted*4*fringe*(1-fringe))
+	return connectionBlend(c, grass, fringe)
 }
 func authoredStreamColor(in connectionInputs, f connectionFamily, p connectionPoint, d float64) color.NRGBA {
 	water := sampleAuthoredWater(in.materials[f.Material], p)
