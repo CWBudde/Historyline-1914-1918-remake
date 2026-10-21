@@ -1,0 +1,18 @@
+{
+  "image": {"path": "missing.png", "sha256": "0000000000000000000000000000000000000000000000000000000000000000", "width": 100, "height": 80},
+  "level": "level.json",
+  "registration": {"world_anchor": [48, 0], "source_anchor": [42, 0], "scale_x": [123, 142], "scale_y": [35, 40]},
+  "excluded_rows": [4],
+  "families": [
+    {"id": "meadow", "kind": "terrain", "runtime_ids": ["grass"], "art": "art/terrain/meadow", "exemplars": ["r1c3", "r3c1", "r2c1"]},
+    {"id": "forest", "kind": "terrain", "runtime_ids": ["forest"], "art": "art/terrain/forest", "exemplars": ["r1c2", "r3c3"]},
+    {"id": "hills", "kind": "terrain", "runtime_ids": ["hills"], "art": "art/terrain/hills", "exemplars": ["r2c2"]},
+    {"id": "road", "kind": "infra", "infra_prefixes": ["road"], "art": "art/terrain/road", "exemplars": ["r1c1"]},
+    {"id": "path", "kind": "infra", "infra_prefixes": ["path"], "art": "art/terrain/path", "exemplars": ["r3c2"]},
+    {"id": "bridge", "kind": "infra", "infra_prefixes": ["bridge"], "art": "art/terrain/bridge", "exemplars": ["r2c1"]},
+    {"id": "stream", "kind": "infra", "infra_prefixes": ["stream"], "art": "art/terrain/stream", "exemplars": ["r2c1"]}
+  ],
+  "features": [
+    {"id": "crossing", "title": "Crossing", "cells": ["r1c1", "r2c1", "r3c2"], "notes": "A road meets a stream."}
+  ]
+}

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reference design</title>
+<style>
+:root { --bg: #f6f4ef; --fg: #24221e; --muted: #6b665c; --card: #fffdf8; --line: #d9d3c6; --accent: #b4441c; color-scheme: light dark; }
+@media (prefers-color-scheme: dark) { :root { --bg: #1b1a18; --fg: #ece8df; --muted: #a39d90; --card: #252320; --line: #3b3833; --accent: #f08a5d; } }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.45 system-ui, sans-serif; }
+main { max-width: 1180px; margin: 0 auto; padding: 24px 16px 64px; }
+h1 { margin: 0 0 4px; font-size: 26px; }
+h2 { margin: 0; font-size: 20px; }
+h3 { margin: 16px 0 8px; font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+a { color: var(--accent); }
+code { font: 13px ui-monospace, monospace; }
+.muted { color: var(--muted); }
+header { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; margin-bottom: 24px; }
+header img { width: 240px; height: auto; border: 1px solid var(--line); border-radius: 6px; }
+nav { display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 12px; }
+section { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px; margin: 16px 0; break-inside: avoid; }
+.top { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 20px; }
+@media (max-width: 640px) { .top { grid-template-columns: 1fr; } }
+header > div { flex: 1; min-width: 260px; }
+.map { width: 150px; height: auto; display: block; border-radius: 4px; flex: none; }
+.map .hit { fill: rgba(255, 220, 60, .35); stroke: #ffd400; stroke-width: 4; }
+.map .strong { fill: rgba(230, 40, 20, .6); stroke: #ff3010; }
+.tiles { display: flex; flex-wrap: wrap; gap: 12px; }
+figure { margin: 0; }
+figcaption { font: 12px ui-monospace, monospace; color: var(--muted); max-width: 192px; }
+.big img { width: 192px; height: 160px; display: block; }
+.small { gap: 6px; }
+.small img { width: 96px; height: 80px; display: block; }
+.small figcaption { max-width: 96px; font-size: 11px; }
+details { margin-top: 12px; }
+summary { cursor: pointer; color: var(--muted); }
+.assembly { position: relative; flex: none; }
+.assembly img { position: absolute; width: 144px; height: 120px; }
+.feature { display: flex; gap: 20px; flex-wrap: wrap; align-items: flex-start; }
+@media print {
+  :root { --bg: #fff; --fg: #000; --card: #fff; --line: #ccc; --muted: #555; }
+  nav, details { display: none; }
+  main { max-width: none; padding: 0; }
+  section { border: 0; border-top: 1px solid var(--line); border-radius: 0; padding: 12px 0; }
+}
+</style>
+</head>
+<body>
+<main>
+<header>
+<img src="{{.Thumb}}" width="{{.ThumbW}}" height="{{.ThumbH}}" alt="Reference painting">
+<div>
+<h1>Reference design</h1>
+<p class="muted">Painting <code>{{.Image}}</code> ({{.Width}}×{{.Height}}) registered onto <code>{{.Level}}</code>: {{.Cells}} hexes, {{.Excluded}} excluded. Tiles are cut along the game hex grid at 2×.</p>
+<nav>{{range .Families}}<a href="#{{.ID}}">{{.ID}}</a>{{end}}</nav>
+<nav>{{range .Features}}<a href="#feature-{{.ID}}">{{.Title}}</a>{{end}}</nav>
+</div>
+</header>
+
+{{range .Families}}
+<section id="{{.ID}}">
+<div class="top">
+<div>
+<h2>{{.ID}}</h2>
+<p class="muted">{{.Kind}} · <code>{{.Keys}}</code> · art <a href="{{.ArtLink}}"><code>{{.Art}}</code></a> · {{len .All}} {{if eq (len .All) 1}}hex{{else}}hexes{{end}}</p>
+{{with .Notes}}<p>{{.}}</p>{{end}}
+<h3>Exemplars</h3>
+<div class="tiles big">{{range .Exemplars}}<figure><img src="{{.File}}" alt="{{.ID}}"><figcaption>{{.ID}} {{.Info}}</figcaption></figure>{{end}}</div>
+</div>
+{{.Map}}
+</div>
+<details><summary>All occurrences ({{len .All}})</summary>
+<div class="tiles small">{{range .All}}<figure><img src="{{.File}}" alt="{{.ID}}" title="{{.Info}}" loading="lazy"><figcaption>{{.ID}}</figcaption></figure>{{end}}</div>
+</details>
+</section>
+{{end}}
+
+{{range .Features}}
+<section id="feature-{{.ID}}">
+<h2>{{.Title}}</h2>
+<p>{{.Notes}}</p>
+<div class="feature">
+<div class="assembly" style="width:{{.Width}}px;height:{{.Height}}px">{{range .Tiles}}<img src="{{.File}}" alt="{{.ID}}" title="{{.ID}} {{.Info}}" style="left:{{.Left}}px;top:{{.Top}}px">{{end}}</div>
+{{.Map}}
+</div>
+<p class="muted"><code>{{range $i, $t := .Tiles}}{{if $i}}, {{end}}{{$t.ID}}{{end}}</code></p>
+</section>
+{{end}}
+</main>
+</body>
+</html>

@@ -19,6 +19,8 @@ func testTileOwned(x, y, density int) bool {
 		40*xx-25*yy >= -1000*d
 }
 
+var pulseRegistration = registration{WorldAnchor: [2]float64{48, 0}, SourceAnchor: [2]float64{42, 0}, ScaleX: [2]float64{123, 142}, ScaleY: [2]float64{35, 40}}
+
 func TestInsideTileMatchesGamePolygon(t *testing.T) {
 	for _, tc := range []struct {
 		density, pixels int
@@ -185,7 +187,7 @@ func TestSampleSourcePreservesColorAtTransparentFringe(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			// Invert the declared source registration to address source pixel centers.
 			wx := (tc.sx - 42 + 48.0*123/142) * 142 / 123
-			got := sampleSource(src, wx, 40.0/35)
+			got := sampleSource(src, pulseRegistration, wx, 40.0/35)
 			if tc.transparent {
 				if got != (color.NRGBA{}) {
 					t.Fatalf("transparent sample = %v, want zero RGBA", got)
@@ -209,7 +211,7 @@ func TestRenderTileUsesOpaqueInteriorAndZeroOutsidePolygon(t *testing.T) {
 	draw.Draw(src, src.Bounds(), image.NewUniform(paint), image.Point{}, draw.Src)
 	for _, density := range []int{1, 2, 4} {
 		t.Run(fmt.Sprintf("%dx", density), func(t *testing.T) {
-			got, missing := renderTile(src, 71, 40, density)
+			got, missing := renderTile(src, pulseRegistration, 71, 40, density)
 			if missing != 0 {
 				t.Fatalf("fully painted tile reports %d missing pixels", missing)
 			}

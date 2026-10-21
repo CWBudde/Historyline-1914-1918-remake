@@ -1,0 +1,11 @@
+{
+	"mapName" :	"Fixture",
+	"mapNo" :	1,
+	"player" :	"Central Powers",
+	"tiles" :	{
+				"line1" :	[["grass", "road25", ""], ["forest", "", ""], ["grass", "", ""]],
+				"line2" :	[["grass", ["stream14", "bridge25"], ""], ["hills", "", ""]],
+				"line3" :	[["grass", "", ""], ["grass", "path14", ""], ["forest", "", ""]],
+				"line4" :	[["water", "", ""], ["forest", "", ""]]
+	}
+}

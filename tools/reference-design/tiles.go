@@ -1,16 +1,31 @@
 package main
 
 import (
-	"fmt"
 	"image"
 	"image/color"
 	"image/draw"
 	"math"
+
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 )
 
 var hexPolygon = [6][2]float64{{25, 0}, {71, 0}, {96, 40}, {71, 80}, {25, 80}, {0, 40}}
 
-// Remove only the exterior black canvas, never globally key dark scenery.
+// registration maps game world pixels onto the reference image:
+// source = source_anchor + (world - world_anchor) * num/den, per axis.
+type registration struct {
+	WorldAnchor  [2]float64 `json:"world_anchor"`
+	SourceAnchor [2]float64 `json:"source_anchor"`
+	ScaleX       [2]float64 `json:"scale_x"`
+	ScaleY       [2]float64 `json:"scale_y"`
+}
+
+func (r registration) sourcePoint(wx, wy float64) (float64, float64) {
+	return r.SourceAnchor[0] + (wx-r.WorldAnchor[0])*r.ScaleX[0]/r.ScaleX[1],
+		r.SourceAnchor[1] + (wy-r.WorldAnchor[1])*r.ScaleY[0]/r.ScaleY[1]
+}
+
+// prepareSource removes only the exterior black canvas, never dark scenery.
 func prepareSource(src image.Image) *image.NRGBA {
 	im := image.NewNRGBA(src.Bounds())
 	draw.Draw(im, im.Bounds(), src, src.Bounds().Min, draw.Src)
@@ -44,12 +59,14 @@ func prepareSource(src image.Image) *image.NRGBA {
 	return im
 }
 
+// tileOrigin is the top-left world pixel of the hex at zero-based row and column.
 func tileOrigin(row, col int) (int, int) {
-	return 142*col + 71*(row%2), 40 * row
+	x, y := hexgrid.Center(hexgrid.Coord{Line: row, Col: col})
+	return int(x) - hexgrid.HexWidth/2, int(y) - hexgrid.HexHeight/2
 }
 
-// Final-pixel ownership is identical to the authored ground/connection exports.
-// The reversed shared edge therefore belongs to exactly one adjoining PNG.
+// insideTile uses the same complementary edge ownership as the terrain exports,
+// so a shared edge belongs to exactly one of two adjoining hexes.
 func insideTile(x, y, density int) bool {
 	px, py := (float64(x)+.5)/float64(density), (float64(y)+.5)/float64(density)
 	for i, a := range hexPolygon {
@@ -63,13 +80,9 @@ func insideTile(x, y, density int) bool {
 	return true
 }
 
-// Edge coordinates, rather than pixel indices: all tiles share this one affine.
-func sourcePoint(wx, wy float64) (float64, float64) {
-	return wx*123/142 + 42 - 48.0*123/142, wy * 35 / 40
-}
-
-func sampleSource(src image.Image, wx, wy float64) color.NRGBA {
-	sx, sy := sourcePoint(wx, wy)
+// sampleSource reads the source at a world point with premultiplied bilinear filtering.
+func sampleSource(src image.Image, reg registration, wx, wy float64) color.NRGBA {
+	sx, sy := reg.sourcePoint(wx, wy)
 	b := src.Bounds()
 	if sx < float64(b.Min.X) || sy < float64(b.Min.Y) || sx >= float64(b.Max.X) || sy >= float64(b.Max.Y) {
 		return color.NRGBA{}
@@ -98,15 +111,16 @@ func sampleSource(src image.Image, wx, wy float64) color.NRGBA {
 	return color.NRGBA{R: channel(channels[0]), G: channel(channels[1]), B: channel(channels[2]), A: a}
 }
 
-func renderTile(src image.Image, ox, oy, density int) (*image.NRGBA, int) {
-	im := image.NewNRGBA(image.Rect(0, 0, 96*density, 80*density))
+// renderTile cuts one hex at the given density; pixels outside the hex are zero RGBA.
+func renderTile(src image.Image, reg registration, ox, oy, density int) (*image.NRGBA, int) {
+	im := image.NewNRGBA(image.Rect(0, 0, hexgrid.HexWidth*density, hexgrid.HexHeight*density))
 	missing := 0
 	for y := range im.Bounds().Dy() {
 		for x := range im.Bounds().Dx() {
 			if !insideTile(x, y, density) {
 				continue
 			}
-			c := sampleSource(src, float64(ox)+(float64(x)+.5)/float64(density), float64(oy)+(float64(y)+.5)/float64(density))
+			c := sampleSource(src, reg, float64(ox)+(float64(x)+.5)/float64(density), float64(oy)+(float64(y)+.5)/float64(density))
 			if c.A < 255 {
 				missing++
 			}
@@ -114,40 +128,4 @@ func renderTile(src image.Image, ox, oy, density int) (*image.NRGBA, int) {
 		}
 	}
 	return im, missing
-}
-
-func verifyAssembly(src image.Image, assembled *image.NRGBA, density int) error {
-	bounds := assembled.Bounds()
-	owners := make([]uint8, bounds.Dx()*bounds.Dy())
-	for row := range 47 {
-		for col := range 8 - row%2 {
-			ox, oy := tileOrigin(row, col)
-			for y := range 80 * density {
-				for x := range 96 * density {
-					if !insideTile(x, y, density) {
-						continue
-					}
-					xx, yy := ox*density+x, oy*density+y
-					i := yy*bounds.Dx() + xx
-					owners[i]++
-					if owners[i] != 1 {
-						return fmt.Errorf("%dx assembly: overlapping hex ownership at %d,%d", density, xx, yy)
-					}
-				}
-			}
-		}
-	}
-	for y := range bounds.Dy() {
-		for x := range bounds.Dx() {
-			want := color.NRGBA{}
-			if owners[y*bounds.Dx()+x] != 0 {
-				want = sampleSource(src, (float64(x)+.5)/float64(density), (float64(y)+.5)/float64(density))
-			}
-			if got := assembled.NRGBAAt(x, y); got != want {
-				return fmt.Errorf("%dx decoded-PNG assembly differs from registered source at %d,%d: %v != %v", density, x, y, got, want)
-			}
-		}
-	}
-	fmt.Printf("%dx decoded-PNG assembly: no overlaps, missing cuts or changed source-field samples\n", density)
-	return nil
 }
