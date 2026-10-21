@@ -33,6 +33,7 @@ _build-dir:
 # Packs are built only when missing; delete build/packs/units or build/packs/terrain to rebuild.
 # Play with the candidate unit and terrain art
 play *args: _build-dir
+    mkdir -p build/packs
     [ -d build/packs/units ] || go run ./cmd/hlasset build-units -out build/packs/units
     [ -d build/packs/terrain ] || go run ./cmd/hlasset build-terrain -out build/packs/terrain
     go run ./cmd/historyline -units build/packs/units -terrain build/packs/terrain -allow-candidates {{args}}
