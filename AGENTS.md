@@ -36,6 +36,9 @@ just artbook     # build/artbook/Historyline_Art.pdf (needs typst)
 - `internal/dosrules`: pure Go resolver of the original rules profile (combat, movement, containers,
   phase change, the command cycle `Game` with save/resume, victory and score, energy, repair and
   production), pinned by fixtures under `testdata/`; not wired into `game` yet.
+- `internal/dosbind`: binds a shipped level to `dosrules` records (cells, terrain records from the
+  numbers-only `records.json`, units, container records, building energy); checked against the local
+  original maps.
 - `internal/hexgrid`: hex layout (even lines `Width` hexes, odd lines `Width-1`, half-shifted).
 - `internal/level`: `levels/*.json` read/write. `internal/tpwm`: Turbo Packer unpacker.
 - `art/<kind>/<family>/`: selected masters plus `prompt.md` (front matter, look, prompts, variants);

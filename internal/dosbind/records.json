@@ -1,0 +1,58 @@
+{
+  "edge": 174,
+  "terrain": {
+    "cmpE": 20, "cmpE@-": 24, "cmpN@-": 21, "cmpN@0": 16, "cmpN@1": 17, "cmpN@2": 15,
+    "cmpS": 18, "cmpS@-": 22, "cmpW": 19, "cmpW@-": 23,
+    "factoryE@-": 12, "factoryE@0": 13, "factoryE@1": 14, "factoryE@2": 12,
+    "factoryN": 9, "factoryS": 10, "factoryW": 11,
+    "forest": 57, "forest+path46": 152,
+    "grass": 0,
+    "grass+cross1": 100, "grass+cross2": 104, "grass+cross3": 101, "grass+cross4": 99,
+    "grass+path13": 149, "grass+path136": 158, "grass+path14": 147, "grass+path15": 153,
+    "grass+path24": 154, "grass+path25": 148, "grass+path26": 150, "grass+path346": 155,
+    "grass+path35": 151, "grass+path356": 156, "grass+path36": 146, "grass+path36+cross4": 99,
+    "grass+path46": 152,
+    "grass+rail13": 90, "grass+rail14": 87, "grass+rail14+cross4": 99, "grass+rail15": 92,
+    "grass+rail236": 95, "grass+rail24": 93, "grass+rail25": 86, "grass+rail26": 91,
+    "grass+rail346": 94, "grass+rail35": 89, "grass+rail356": 96, "grass+rail36": 85,
+    "grass+rail46": 88,
+    "grass+road124": 138, "grass+road125": 137, "grass+road13": 130, "grass+road135": 145,
+    "grass+road14": 128, "grass+road145": 136, "grass+road15": 134, "grass+road236": 142,
+    "grass+road24": 135, "grass+road25": 129, "grass+road26": 131, "grass+road346": 140,
+    "grass+road35": 132, "grass+road356": 141, "grass+road36": 127, "grass+road36+road236": 142,
+    "grass+road36+road346": 140, "grass+road46": 133,
+    "grass+stream13": 41, "grass+stream135": 45, "grass+stream14": 37,
+    "grass+stream14+bridge25": 58, "grass+stream14+rBridge36+path36": 121,
+    "grass+stream14+rBridge36+rail36": 98, "grass+stream14+rBridge36+road36": 117,
+    "grass+stream15": 44, "grass+stream24": 43, "grass+stream246": 46, "grass+stream25": 36,
+    "grass+stream25+bridge36": 122, "grass+stream25+rBridge36+path36": 122,
+    "grass+stream25+rBridge36+road36": 116, "grass+stream26": 42, "grass+stream35": 40,
+    "grass+stream36": 38, "grass+stream36+rBridge25+road25": 118, "grass+stream46": 39,
+    "grass+trench0": 167, "grass+trench1": 167, "grass+trench12": 169, "grass+trench124": 169,
+    "grass+trench14": 169, "grass+trench15": 173, "grass+trench24": 172, "grass+trench25": 171,
+    "grass+trench4": 167, "grass+trench5": 171, "grass+trench5a": 167,
+    "hills": 80, "house": 50,
+    "hqC": 3, "hqN@0": 1, "hqN@1": 2, "hqNE": 7, "hqNW": 5, "hqS": 4, "hqSE": 8, "hqSW": 6,
+    "lakeside123": 33, "lakeside126": 33, "lakeside156": 31, "lakeside16": 29,
+    "lakeside23": 26, "lakeside34": 28, "lakeside3456": 32, "lakeside56": 27,
+    "mountE": 70, "mountN": 67, "mountS": 68, "mountW": 69, "mountain": 64,
+    "mud": 81, "rough": 80, "shelled": 81, "stone": 78, "stoney": 79,
+    "water": 25, "waterStones": 60
+  },
+  "carries": {"22": 64, "26": 256, "31": 512},
+  "maps": {
+    "1": {
+      "credits": {"70": 5, "71": 5, "72": 15, "73": 15},
+      "builds": [0, 5, 10, 11, 12, 16, 17, 18, 21, 22, 36, 39, 46]
+    },
+    "2": {
+      "terrain": {"mountE": 74, "mountN": 71, "mountS": 72, "mountW": 73, "mountain": 76},
+      "credits": {"70": 5, "71": 5, "72": 10, "73": 2, "82": 10, "83": 15, "84": 5, "85": 10, "86": 5, "87": 15},
+      "builds": [0, 10, 11, 12, 16, 17, 18, 21, 22, 36, 46]
+    },
+    "3": {
+      "credits": {"70": 4, "71": 5, "72": 6, "82": 9, "83": 14, "84": 15},
+      "builds": [0, 10, 11, 12, 16, 17, 18, 20, 21, 22, 25, 26, 46]
+    }
+  }
+}

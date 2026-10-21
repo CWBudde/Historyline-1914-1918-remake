@@ -451,11 +451,15 @@ Decision (2026-10-21): the original profile becomes the default rule set of the 
 `Classic` and `Standard` stay selectable with `-rules` and keep their tests. Each step is committed on its
 own and leaves the game playable.
 
-1. [ ] Level binding (`internal/dosbind`): every hex of the shipped levels (terrain plus overlays) → an
+1. [x] Level binding (`internal/dosbind`): every hex of the shipped levels (terrain plus overlays) → an
        original terrain record (numbers-only table, summer and winter); cell index ↔ `hexgrid.Coord`
        (original width × height, odd columns half a cell lower) including the cells the levels leave out;
        every unit → UNIT.DAT type and owner; containers and their contents → hold records; buildings →
        `Game.Buildings`. Checked against the local original maps when present, skipped otherwise.
+       (2026-10-21) — `dosbind.Bind`, `Board.Game`; levels 1–3 are maps 00–02, side 0 the Central Powers;
+       `TestBindMatchesOriginalMaps` pins where the levels differ from the original maps (16 terrain cells,
+       7 unit cells, 3 building contents, 2 units on a factory wall). Assumed: credits and build lists from
+       the scenario, building cells and numbering, transporter classes (`dosbind.go`).
 2. [ ] Session: a `dosrules.Game` built from a level, with the queries the UI needs (a side's view of
        units and fog, destinations and routes, attack targets, unit details), the commands, and events in
        UI terms (move with route, battle with losses, destroyed units, phase change, end).
