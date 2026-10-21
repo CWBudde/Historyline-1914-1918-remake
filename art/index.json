@@ -2428,9 +2428,16 @@
       "dir": "art/screens/briefing",
       "assets_dir": "assets/screens/briefing",
       "prompt": "art/screens/briefing/prompt.md",
-      "masters": [],
-      "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a wide narrative panel and a narrower objectives panel. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
-      "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and a wide narrative panel and a narrower objectives panel as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
+      "masters": [
+        {
+          "path": "art/screens/briefing/illustration.png",
+          "sha256": "a3ed8c3d700c86144a0b6a650d3cf6de08cfc76531427931d6e9d559231ee4e2",
+          "width": 1586,
+          "height": 992
+        }
+      ],
+      "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a wide narrative panel and a narrower objectives panel. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.\n\nThe separate painted illustration: An officer's map table with unlabelled contours, brass dividers,\nbinoculars and a lantern inside a field tent. It matches the existing screen paintings' slate,\nolive, earth and restrained brass palette, with quiet dark space on the left for live overlays. It\nis a candidate source awaiting a feature binding; the frame remains vector art.",
+      "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and a wide narrative panel and a narrower objectives panel as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.\n\nFor the separate illustration variant, use the following prompt with\n`art/screens/editor/illustration.png` and `art/screens/intermission/illustration.png` as style references:\n\nUse case: historical-scene. Asset type: opaque painted background for the mission briefing main\nscreen of a World War I strategy game. Generate ONE NEW continuous landscape illustration, 16:10,\nrequest native 2560x1600 pixels. Input image 1 (editor) and input image 2 (intermission) are\nSTYLE-ONLY references, not edit targets: match their cinematic painterly realism, finely tactile\nmaterials, misty countryside, restrained cool slate/olive/earth/brass palette, cool diffuse daylight\nwith small warm cloud breaks, natural proportions and atmosphere. New scene: a close officer's map\ntable inside an open canvas field tent in rural Europe, 1914–1918. The substantial weathered\nwooden table occupies the RIGHT foreground, with a large unlabelled cream topographic map, open\nbrass dividers, period binoculars and a small warm brass lantern. Map contours must remain purely\ngeographic and abstract, with no readable marks, numbers, writing, symbols or arrows. Through the\nopen tent beyond the right-hand table, glimpse a quiet misty valley of wet fields, wooded hills and\ndistant stone roofs. Keep the left 40 percent as dark quiet tent fabric and subdued landscape,\nwithout focal objects or bright details, for live narrative controls. Full-bleed opaque painting,\nbelievable timber grain, folded paper, aged brass, leather and stitched canvas, subtle brushwork and\nselective fine detail, same visual family as the references. No people, flags, faction symbols,\nnational insignia, writing, readable letters or digits, labels, logos, watermark, marked map routes,\narrows, grid, borders, UI or frames; no modern equipment, no fighting or casualties. Output only the\nsingle new image.",
       "variants": [
         {
           "variant": "frame",
@@ -2438,10 +2445,15 @@
             "screen/briefing"
           ],
           "delta": "The layout above."
+        },
+        {
+          "variant": "illustration",
+          "runtime_ids": [],
+          "delta": "An officer's map table with unlabelled contours, brass dividers, binoculars and a lantern inside a field tent. Separate painting behind live controls."
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/briefing/` and re-index.",
+      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/briefing/`.\n\nThe separate `illustration.png` was generated with the built-in image tool and the two style references\nabove. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,\nthen downsample to 1280x800, preserving the composition. It is a candidate source without a runtime\nor manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -2484,7 +2496,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/briefing-long/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/briefing-long/` and re-index.\n\nThe shared painted candidate is `art/screens/briefing/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -2660,7 +2672,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/code-invalid/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/code-invalid/` and re-index.\n\nThe shared painted candidate is `art/screens/mission-selection/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -2703,7 +2715,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/confirm-delete/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/confirm-delete/` and re-index.\n\nThe shared painted candidate is `art/screens/save/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -2746,7 +2758,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/confirm-exit/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/confirm-exit/` and re-index.\n\nThe shared painted candidate is `art/screens/pause/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -2789,7 +2801,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/confirm-overwrite/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/confirm-overwrite/` and re-index.\n\nThe shared painted candidate is `art/screens/save/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -2832,7 +2844,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/confirm-restart/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/confirm-restart/` and re-index.\n\nThe shared painted candidate is `art/screens/pause/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -2914,9 +2926,16 @@
       "dir": "art/screens/credits",
       "assets_dir": "assets/screens/credits",
       "prompt": "art/screens/credits/prompt.md",
-      "masters": [],
-      "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: one wide attribution panel. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
-      "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and one wide attribution panel as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
+      "masters": [
+        {
+          "path": "art/screens/credits/illustration.png",
+          "sha256": "94d89bb4445945369ebedc849dfe7ed838e0bbe7f34accdf6b6eb2e499938194",
+          "width": 1586,
+          "height": 992
+        }
+      ],
+      "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: one wide attribution panel. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.\n\nThe separate painted illustration: An author's desk with a blank manuscript, plain closed books,\nperiod pen and warm oil lamp. It matches the existing screen paintings' slate, olive, earth and\nrestrained brass palette, with quiet dark space on the left for live overlays. It is a candidate\nsource awaiting a feature binding; the frame remains vector art.",
+      "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and one wide attribution panel as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.\n\nFor the separate illustration variant, use the following prompt with\n`art/screens/editor/illustration.png` and `art/screens/intermission/illustration.png` as style references:\n\nUse case: historical-scene. Asset type: newly authored painted backdrop for a World War I strategy\ngame menu. Input images: image 1 (editor) and image 2 (intermission) are STYLE-ONLY REFERENCES, not\nedit targets. Create an entirely new scene, matching their cinematic continuous hand-painted digital\nrealism, restrained palette, fine believable tactile materials and quiet rural European atmosphere,\n1914–1918. Format/composition: one opaque, full-bleed 16:10 landscape illustration, request native\n2560x1600. Human-height perspective. Keep the left 40 percent dark, calm and low-detail for live\noverlays, with no bright highlights there; concentrate the distinctive objects on the right half. No\npanels or controls. Lighting/palette: cool diffuse daylight after rain, slate blue-grey shadows,\nmuted olive and moss countryside, earth-brown timber and leather, cream paper, restrained warm\naged-brass highlights. Fine natural detail and misty spatial depth like the references, no\nexaggerated brush strokes. Constraints: no people, faces, fighting, casualties, writing, letters,\nreadable numbers, labels, national marks, flags, insignia, UI, frames, borders, watermarks or modern\nequipment. Any paper and book covers must be unmarked. Not pixel art, not flat vector, not cartoon,\nnot a photograph or 3D render. Scene: a quiet author's desk in a rural European farmhouse room,\n1914–1918. Place the old wooden desk on the right, with a completely blank cream manuscript sheet,\na period dip pen and inkwell, a few closed plain unmarked books, and a small warm brass oil lamp. A\nwindow behind the desk looks onto a quiet rain-wet village, olive fields and misty wooded hills. The\nleft 40 percent is calm dark plaster wall and deep room shadow, mostly empty and low-detail,\nsuitable for overlaid live credits. Believable worn wood, cream paper, glass, brass and a restful\nreflective atmosphere. Absolutely no writing anywhere, especially manuscript and book spines.",
       "variants": [
         {
           "variant": "frame",
@@ -2924,10 +2943,15 @@
             "screen/credits"
           ],
           "delta": "The layout above."
+        },
+        {
+          "variant": "illustration",
+          "runtime_ids": [],
+          "delta": "An author's desk with a blank manuscript, plain closed books, period pen and warm oil lamp. Separate painting behind live controls."
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/credits/` and re-index.",
+      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/credits/`.\n\nThe separate `illustration.png` was generated with the built-in image tool and the two style references\nabove. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,\nthen downsample to 1280x800, preserving the composition. It is a candidate source without a runtime\nor manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -2970,7 +2994,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/credits-long/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/credits-long/` and re-index.\n\nThe shared painted candidate is `art/screens/credits/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3000,9 +3024,16 @@
       "dir": "art/screens/defeat",
       "assets_dir": "assets/screens/defeat",
       "prompt": "art/screens/defeat/prompt.md",
-      "masters": [],
-      "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a centred outcome panel. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
-      "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and a centred outcome panel as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
+      "masters": [
+        {
+          "path": "art/screens/defeat/illustration.png",
+          "sha256": "2061d1405bf82eabd99b8fbb23899cee4f1df37e1b766d055a1c0ff5723f071d",
+          "width": 1586,
+          "height": 992
+        }
+      ],
+      "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a centred outcome panel. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.\n\nThe separate painted illustration: An evacuated field position with an empty dugout, abandoned wagon\nwheel and distant damaged barn in cool mist. It matches the existing screen paintings' slate, olive,\nearth and restrained brass palette, with quiet dark space on the left for live overlays. It is a\ncandidate source awaiting a feature binding; the frame remains vector art.",
+      "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and a centred outcome panel as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.\n\nFor the separate illustration variant, use the following prompt with\n`art/screens/editor/illustration.png` and `art/screens/intermission/illustration.png` as style references:\n\nUse case: historical-scene. Asset type: World War I strategy-game defeat screen background. Generate\nONE NEW opaque full-bleed landscape 16:10 painting, ideally native 2560x1600 pixels. Input images\nare STYLE REFERENCES ONLY: match editor survey-station and intermission farmhouse paintings' fine\ncontinuous cinematic painterly realism, cool slate blue-grey, restrained olive, earth brown, cream\nmist and aged timber. New scene: a silent evacuated roadside field position after rain, rural\nWestern Front 1914-1918. On the RIGHT an empty timber-lined dugout entrance, a weathered abandoned\nwooden wagon wheel leaning against a low broken stone wall, folded canvas and closed unmarked supply\ncrates beneath a bare tree; a muddy lane recedes into low fog toward a distant damaged barn.\nOvercast cold slate sky with a very faint pale light behind clouds, somber and dignified. No bodies,\nblood, casualties, fighting, fires, weapons display or people. Left 40 percent dark, calm low-detail\nmisty field for live controls; middle also quiet to permit centered outcome panel. Believable\nrain-wet earth and stone, fine tactile painted material detail, soft atmospheric distance. Match\nreference style rather than adding rough expressive brushwork. No text, letters, numbers, labels,\nlogos, watermarks, national insignia, flags, modern equipment, UI, frames, borders, vignettes, pixel\nart, vector shapes or glossy 3D aesthetic.",
       "variants": [
         {
           "variant": "frame",
@@ -3010,10 +3041,15 @@
             "screen/defeat"
           ],
           "delta": "The layout above."
+        },
+        {
+          "variant": "illustration",
+          "runtime_ids": [],
+          "delta": "An evacuated field position with an empty dugout, abandoned wagon wheel and distant damaged barn in cool mist. Separate painting behind live controls."
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/defeat/` and re-index.",
+      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/defeat/`.\n\nThe separate `illustration.png` was generated with the built-in image tool and the two style references\nabove. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,\nthen downsample to 1280x800, preserving the composition. It is a candidate source without a runtime\nor manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3056,7 +3092,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/dropdown-open/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/dropdown-open/` and re-index.\n\nThe shared painted candidate is `art/screens/options/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3141,9 +3177,16 @@
       "dir": "art/screens/handover",
       "assets_dir": "assets/screens/handover",
       "prompt": "art/screens/handover/prompt.md",
-      "masters": [],
-      "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: an opaque privacy screen with one centred panel, hiding the map between hot-seat players. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
-      "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and an opaque privacy screen with one centred panel, hiding the map between hot-seat players as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
+      "masters": [
+        {
+          "path": "art/screens/handover/illustration.png",
+          "sha256": "8661313ebe4f27e3c115fe97aa6e41f53500d7653a7df10920090bf95b061204",
+          "width": 1586,
+          "height": 992
+        }
+      ],
+      "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: an opaque privacy screen with one centred panel, hiding the map between hot-seat players. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.\n\nThe separate painted illustration: A closed opaque command-tent partition with a dispatch satchel\nand lantern at the far right; no landscape or tactical information. It matches the existing screen\npaintings' slate, olive, earth and restrained brass palette, with quiet dark space on the left for\nlive overlays. It is a candidate source awaiting a feature binding; the frame remains vector art.",
+      "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and an opaque privacy screen with one centred panel, hiding the map between hot-seat players as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.\n\nFor the separate illustration variant, use the following prompt with\n`art/screens/editor/illustration.png` and `art/screens/intermission/illustration.png` as style references:\n\nUse case: historical-scene. Asset type: World War I strategy-game hot-seat handover privacy screen\nbackground. Generate ONE NEW opaque full-bleed landscape 16:10 painting, ideally native 2560x1600\npixels. Input images are STYLE REFERENCES ONLY: match the fine continuous cinematic painterly\nrealism, tactile worn canvas and timber, deep slate shadows, earth browns and restrained aged-brass\nhighlights of the editor and intermission paintings. New scene is a CLOSED command-tent canvas\npartition viewed from inside, rural Europe 1914-1918: heavy opaque dark olive canvas curtain spans\nthe entire background with subtle believable natural folds; RIGHT edge has a timber post, a simple\nunmarked closed leather dispatch satchel hanging from a peg and a small brass oil lantern on a plain\nwooden crate. Diffuse cool ambient illumination with very restrained lantern warmth on the far\nright. Keep left 40 percent and central area dark, calm and low-detail for live handover\ninstructions. Strict visual privacy: no opening in canvas, no landscape, no maps, no tactical or\nplayer information of any kind. This is a quiet static scene, no people. Opaque edge to edge with no\ntransparency. No text, letters, digits, labels, insignia, flags, logos, watermarks, modern\nequipment, UI, frames, borders, vignettes, pixel art, vector shapes or glossy 3D aesthetic.",
       "variants": [
         {
           "variant": "frame",
@@ -3151,10 +3194,15 @@
             "screen/handover"
           ],
           "delta": "The layout above."
+        },
+        {
+          "variant": "illustration",
+          "runtime_ids": [],
+          "delta": "A closed opaque command-tent partition with a dispatch satchel and lantern at the far right; no landscape or tactical information. Separate painting behind live controls."
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/handover/` and re-index.",
+      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/handover/`.\n\nThe separate `illustration.png` was generated with the built-in image tool and the two style references\nabove. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,\nthen downsample to 1280x800, preserving the composition. It is a candidate source without a runtime\nor manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.\nThe current runtime handover frame remains opaque and samples no backdrop or previous gameplay image.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3184,9 +3232,16 @@
       "dir": "art/screens/help",
       "assets_dir": "assets/screens/help",
       "prompt": "art/screens/help/prompt.md",
-      "masters": [],
-      "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: one wide help panel. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
-      "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and one wide help panel as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
+      "masters": [
+        {
+          "path": "art/screens/help/illustration.png",
+          "sha256": "212ac1a346bdfb35bfd51846227896b51409c377486dbdb41b7284262e518ee5",
+          "width": 1586,
+          "height": 992
+        }
+      ],
+      "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: one wide help panel. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.\n\nThe separate painted illustration: A training desk with a blank notebook, brass compass, binoculars\nand leather kit beside an empty practice field. It matches the existing screen paintings' slate,\nolive, earth and restrained brass palette, with quiet dark space on the left for live overlays. It\nis a candidate source awaiting a feature binding; the frame remains vector art.",
+      "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and one wide help panel as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.\n\nFor the separate illustration variant, use the following prompt with\n`art/screens/editor/illustration.png` and `art/screens/intermission/illustration.png` as style references:\n\nUse case: historical-scene. Asset type: newly authored painted backdrop for a World War I strategy\ngame menu. Input images: image 1 (editor) and image 2 (intermission) are STYLE-ONLY REFERENCES, not\nedit targets. Create an entirely new scene, matching their cinematic continuous hand-painted digital\nrealism, restrained palette, fine believable tactile materials and quiet rural European atmosphere,\n1914–1918. Format/composition: one opaque, full-bleed 16:10 landscape illustration, request native\n2560x1600. Human-height perspective. Keep the left 40 percent dark, calm and low-detail for live\noverlays, with no bright highlights there; concentrate the distinctive objects on the right half. No\npanels or controls. Lighting/palette: cool diffuse daylight after rain, slate blue-grey shadows,\nmuted olive and moss countryside, earth-brown timber and leather, cream paper, restrained warm\naged-brass highlights. Fine natural detail and misty spatial depth like the references, no\nexaggerated brush strokes. Constraints: no people, faces, fighting, casualties, writing, letters,\nreadable numbers, labels, national marks, flags, insignia, UI, frames, borders, watermarks or modern\nequipment. Any paper and book covers must be unmarked. Not pixel art, not flat vector, not cartoon,\nnot a photograph or 3D render. Scene: a training and instruction desk under an open canvas shelter\nat a quiet rural practice field in Europe, 1914–1918. On the right, a worn timber desk carries a\nplain open notebook with entirely blank cream pages, a small aged brass compass with no readable\nnumbers or letters, period binoculars and a neatly arranged simple leather field kit. Beyond the\ndesk are an empty damp grass practice field, low timber fence, rural buildings and misty wooded\nhills. No targets, signage, troops or weapons. The left 40 percent is dark, quiet low-detail field\nand cloudy sky for live help overlays. Fine believable leather straps, timber grain, damp canvas,\nbrass and paper; a calm instructional mood.",
       "variants": [
         {
           "variant": "frame",
@@ -3194,10 +3249,15 @@
             "screen/help"
           ],
           "delta": "The layout above."
+        },
+        {
+          "variant": "illustration",
+          "runtime_ids": [],
+          "delta": "A training desk with a blank notebook, brass compass, binoculars and leather kit beside an empty practice field. Separate painting behind live controls."
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/help/` and re-index.",
+      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/help/`.\n\nThe separate `illustration.png` was generated with the built-in image tool and the two style references\nabove. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,\nthen downsample to 1280x800, preserving the composition. It is a candidate source without a runtime\nor manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3240,7 +3300,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/help-long/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/help-long/` and re-index.\n\nThe shared painted candidate is `art/screens/help/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3322,7 +3382,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/load/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/load/` and re-index.\n\nThe shared painted candidate is `art/screens/save/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3365,7 +3425,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/load-corrupt/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/load-corrupt/` and re-index.\n\nThe shared painted candidate is `art/screens/save/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3408,7 +3468,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/loading-000/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/loading-000/` and re-index.\n\nThe shared painted candidate is `art/screens/mission-selection/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3451,7 +3511,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/loading-050/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/loading-050/` and re-index.\n\nThe shared painted candidate is `art/screens/mission-selection/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3494,7 +3554,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/loading-100/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/loading-100/` and re-index.\n\nThe shared painted candidate is `art/screens/mission-selection/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3537,7 +3597,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/mission-error/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/mission-error/` and re-index.\n\nThe shared painted candidate is `art/screens/mission-selection/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3567,9 +3627,16 @@
       "dir": "art/screens/mission-selection",
       "assets_dir": "assets/screens/mission-selection",
       "prompt": "art/screens/mission-selection/prompt.md",
-      "masters": [],
-      "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a mission list on the left and a details panel on the right. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
-      "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and a mission list on the left and a details panel on the right as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
+      "masters": [
+        {
+          "path": "art/screens/mission-selection/illustration.png",
+          "sha256": "03c2073088f5f08538e4171e7a44c4404168afe8508a92a360049eb5259e7302",
+          "width": 1586,
+          "height": 992
+        }
+      ],
+      "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a mission list on the left and a details panel on the right. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.\n\nThe separate painted illustration: A field dispatch table with folded geographic maps and a leather\nsatchel above a misty country road. It matches the existing screen paintings' slate, olive, earth\nand restrained brass palette, with quiet dark space on the left for live overlays. It is a candidate\nsource awaiting a feature binding; the frame remains vector art.",
+      "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and a mission list on the left and a details panel on the right as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.\n\nFor the separate illustration variant, use the following prompt with\n`art/screens/editor/illustration.png` and `art/screens/intermission/illustration.png` as style references:\n\nUse case: historical-scene. Asset type: opaque painted background for the mission-selection main\nscreen of a World War I strategy game. Generate ONE NEW continuous landscape illustration, 16:10,\nrequest native 2560x1600 pixels. Input image 1 (editor) and input image 2 (intermission) are\nSTYLE-ONLY references, not edit targets: match their cinematic painterly realism, finely tactile\nmaterials, misty countryside, restrained cool slate/olive/earth/brass palette, cool diffuse daylight\nwith small warm cloud breaks, natural proportions and atmosphere. New scene: a quiet field dispatch\nstation in rural Europe, 1914–1918. A rough wooden table occupies the RIGHT foreground beneath an\nopen canvas shelter; on it lie an open aged leather dispatch satchel and several folded cream paper\nmaps with faint natural geographic contours but absolutely no writing or symbols. A wet winding\ncountry road leads from the station into a misty rural valley with fields, trees and a small distant\nstone village. Compose all focal equipment in the right 60 percent; leave the left 40 percent dark,\nquiet and low-detail for live controls. Full-bleed opaque painting, believable timber, cream paper,\ncanvas, leather, grass and damp earth, subtle brushwork and selective fine detail, same visual\nfamily as the references. No people, flags, faction symbols, national insignia, writing, readable\nletters or digits, labels, logos, watermark, marked map routes, arrows, grid, borders, UI or frames;\nno modern equipment, no fighting or casualties. Output only the single new image.",
       "variants": [
         {
           "variant": "frame",
@@ -3577,10 +3644,15 @@
             "screen/mission-selection"
           ],
           "delta": "The layout above."
+        },
+        {
+          "variant": "illustration",
+          "runtime_ids": [],
+          "delta": "A field dispatch table with folded geographic maps and a leather satchel above a misty country road. Separate painting behind live controls."
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/mission-selection/` and re-index.",
+      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/mission-selection/`.\n\nThe separate `illustration.png` was generated with the built-in image tool and the two style references\nabove. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,\nthen downsample to 1280x800, preserving the composition. It is a candidate source without a runtime\nor manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3623,7 +3695,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/name-overflow/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/name-overflow/` and re-index.\n\nThe shared painted candidate is `art/screens/save/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3666,7 +3738,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/new-map/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/new-map/` and re-index.\n\nThe shared painted candidate is `art/screens/editor/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3709,7 +3781,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/new-map-invalid/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/new-map-invalid/` and re-index.\n\nThe shared painted candidate is `art/screens/editor/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3739,9 +3811,16 @@
       "dir": "art/screens/options",
       "assets_dir": "assets/screens/options",
       "prompt": "art/screens/options/prompt.md",
-      "masters": [],
-      "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: one wide settings panel. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
-      "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and one wide settings panel as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
+      "masters": [
+        {
+          "path": "art/screens/options/illustration.png",
+          "sha256": "0a40dad69747d3a479155817d32f2a5e91817b1b6a45c699881613f1735e7c44",
+          "width": 1586,
+          "height": 992
+        }
+      ],
+      "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: one wide settings panel. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.\n\nThe separate painted illustration: An early field telephone, cable reel and hand tools on a timber\nsignals workbench. It matches the existing screen paintings' slate, olive, earth and restrained\nbrass palette, with quiet dark space on the left for live overlays. It is a candidate source\nawaiting a feature binding; the frame remains vector art.",
+      "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and one wide settings panel as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.\n\nFor the separate illustration variant, use the following prompt with\n`art/screens/editor/illustration.png` and `art/screens/intermission/illustration.png` as style references:\n\nUse case: historical-scene. Asset type: opaque painted background for the options/settings main\nscreen of a World War I strategy game. Generate ONE NEW continuous landscape illustration, 16:10,\nrequest native 2560x1600 pixels. Input image 1 (editor) and input image 2 (intermission) are\nSTYLE-ONLY references, not edit targets: match their cinematic painterly realism, finely tactile\nmaterials, misty countryside, restrained cool slate/olive/earth/brass palette, cool diffuse daylight\nwith small warm cloud breaks, natural proportions and atmosphere. New scene: a quiet period signals\nworkbench station inside an open timber-and-canvas shelter in rural Europe, 1914–1918. On the\nRIGHT foreground weathered wooden workbench place an unmarked simple wooden early field telephone\nwith separate black earpiece, plain metal fittings and cloth-covered cords, a manual wooden cable\nreel wound with dark wire, period earphones and a small open wooden tool chest. These are entirely\nmechanical early-twentieth-century objects, without display screens, labelled dials or modern\nplastic. Beyond the open shelter, wet olive fields, a winding lane and wooded hills recede into cool\nmist. Compose all focal equipment in the right 60 percent; leave the left 40 percent dark, quiet and\nlow-detail for live controls. Full-bleed opaque painting, believable timber grain, aged brass and\nsteel, canvas, leather and cloth-wrapped cable, subtle brushwork and selective fine detail, same\nvisual family as the references. No people, flags, faction symbols, national insignia, writing,\nreadable letters or digits, labels, logos, watermark, arrows, grid, borders, UI or frames; no modern\nequipment, no fighting or casualties. Output only the single new image.",
       "variants": [
         {
           "variant": "frame",
@@ -3749,10 +3828,15 @@
             "screen/options"
           ],
           "delta": "The layout above."
+        },
+        {
+          "variant": "illustration",
+          "runtime_ids": [],
+          "delta": "An early field telephone, cable reel and hand tools on a timber signals workbench. Separate painting behind live controls."
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/options/` and re-index.",
+      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/options/`.\n\nThe separate `illustration.png` was generated with the built-in image tool and the two style references\nabove. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,\nthen downsample to 1280x800, preserving the composition. It is a candidate source without a runtime\nor manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3782,9 +3866,16 @@
       "dir": "art/screens/pause",
       "assets_dir": "assets/screens/pause",
       "prompt": "art/screens/pause/prompt.md",
-      "masters": [],
-      "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a centred modal panel for the pause menu. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
-      "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and a centred modal panel for the pause menu as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
+      "masters": [
+        {
+          "path": "art/screens/pause/illustration.png",
+          "sha256": "26985c8c8fbdb11d69d16483dae43aa4263056979cd3d39debf8fe396694631a",
+          "width": 1586,
+          "height": 992
+        }
+      ],
+      "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a centred modal panel for the pause menu. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.\n\nThe separate painted illustration: A resting field shelter with an empty chair, folded greatcoat and\nenamel mug above wet countryside. It matches the existing screen paintings' slate, olive, earth and\nrestrained brass palette, with quiet dark space on the left for live overlays. It is a candidate\nsource awaiting a feature binding; the frame remains vector art.",
+      "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and a centred modal panel for the pause menu as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.\n\nFor the separate illustration variant, use the following prompt with\n`art/screens/editor/illustration.png` and `art/screens/intermission/illustration.png` as style references:\n\nUse case: historical-scene. Asset type: newly authored painted backdrop for a World War I strategy\ngame menu. Input images: image 1 (editor) and image 2 (intermission) are STYLE-ONLY REFERENCES, not\nedit targets. Create an entirely new scene, matching their cinematic continuous hand-painted digital\nrealism, restrained palette, fine believable tactile materials and quiet rural European atmosphere,\n1914–1918. Format/composition: one opaque, full-bleed 16:10 landscape illustration, request native\n2560x1600. Human-height perspective. Keep the left 40 percent dark, calm and low-detail for live\noverlays, with no bright highlights there; concentrate the distinctive objects on the right half. No\npanels or controls. Lighting/palette: cool diffuse daylight after rain, slate blue-grey shadows,\nmuted olive and moss countryside, earth-brown timber and leather, cream paper, restrained warm\naged-brass highlights. Fine natural detail and misty spatial depth like the references, no\nexaggerated brush strokes. Constraints: no people, faces, fighting, casualties, writing, letters,\nreadable numbers, labels, national marks, flags, insignia, UI, frames, borders, watermarks or modern\nequipment. Any paper and book covers must be unmarked. Not pixel art, not flat vector, not cartoon,\nnot a photograph or 3D render. Scene: a resting field camp veranda beside a timber-lined dugout\nentrance, in rural Europe during 1914–1918. On the right, an empty period wooden camp chair holds\na neatly folded wool greatcoat; beside it a small rough timber table holds a plain enamel mug.\nShelter timbers and damp canvas provide tactile foreground detail, opening onto rain-wet grass, a\nquiet lane and tranquil misty countryside with low wooded hills. The left half is mostly dark muted\ncountryside beneath a cloudy sky. Peaceful interval between duties, no active military action.",
       "variants": [
         {
           "variant": "frame",
@@ -3792,10 +3883,15 @@
             "screen/pause"
           ],
           "delta": "The layout above."
+        },
+        {
+          "variant": "illustration",
+          "runtime_ids": [],
+          "delta": "A resting field shelter with an empty chair, folded greatcoat and enamel mug above wet countryside. Separate painting behind live controls."
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/pause/` and re-index.",
+      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/pause/`.\n\nThe separate `illustration.png` was generated with the built-in image tool and the two style references\nabove. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,\nthen downsample to 1280x800, preserving the composition. It is a candidate source without a runtime\nor manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3915,9 +4011,16 @@
       "dir": "art/screens/save",
       "assets_dir": "assets/screens/save",
       "prompt": "art/screens/save/prompt.md",
-      "masters": [],
-      "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a slot list on the left and a metadata panel on the right. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
-      "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and a slot list on the left and a metadata panel on the right as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
+      "masters": [
+        {
+          "path": "art/screens/save/illustration.png",
+          "sha256": "c8e73c43a0b512173fa5ae26f487ba836c3b3a06d716d0f794a6f981f2610237",
+          "width": 1586,
+          "height": 992
+        }
+      ],
+      "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a slot list on the left and a metadata panel on the right. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.\n\nThe separate painted illustration: A sheltered records archive with unmarked folios, wooden file\nboxes, a dispatch case and brass lantern. It matches the existing screen paintings' slate, olive,\nearth and restrained brass palette, with quiet dark space on the left for live overlays. It is a\ncandidate source awaiting a feature binding; the frame remains vector art.",
+      "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and a slot list on the left and a metadata panel on the right as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.\n\nFor the separate illustration variant, use the following prompt with\n`art/screens/editor/illustration.png` and `art/screens/intermission/illustration.png` as style references:\n\nUse case: historical-scene. Asset type: newly authored painted backdrop for a World War I strategy\ngame menu. Input images: image 1 (editor) and image 2 (intermission) are STYLE-ONLY REFERENCES, not\nedit targets. Create an entirely new scene, matching their cinematic continuous hand-painted digital\nrealism, restrained palette, fine believable tactile materials and quiet rural European atmosphere,\n1914–1918. Format/composition: one opaque, full-bleed 16:10 landscape illustration, request native\n2560x1600. Human-height perspective. Keep the left 40 percent dark, calm and low-detail for live\noverlays, with no bright highlights there; concentrate the distinctive objects on the right half. No\npanels or controls. Lighting/palette: cool diffuse daylight after rain, slate blue-grey shadows,\nmuted olive and moss countryside, earth-brown timber and leather, cream paper, restrained warm\naged-brass highlights. Fine natural detail and misty spatial depth like the references, no\nexaggerated brush strokes. Constraints: no people, faces, fighting, casualties, writing, letters,\nreadable numbers, labels, national marks, flags, insignia, UI, frames, borders, watermarks or modern\nequipment. Any paper and book covers must be unmarked. Not pixel art, not flat vector, not cartoon,\nnot a photograph or 3D render. Scene: a field records archive inside a rural timber shelter in\nEurope, 1914–1918. The right-hand side contains a rough wooden records desk and shelves with\nclosed plain unmarked folios, simple wooden file boxes without labels, a worn leather dispatch case,\nand a brass oil lantern with a small restrained warm light. The timber wall and desk have believable\nworn grain, papers have no writing, and all book covers and box fronts are completely blank. An\nopening beyond the right-hand desk reveals rain-wet olive fields and misty wooded countryside. Leave\nthe left 40 percent as quiet dark timber and shadow with very little detail. Orderly, calm archival\natmosphere, not a modern office.",
       "variants": [
         {
           "variant": "frame",
@@ -3925,10 +4028,15 @@
             "screen/save"
           ],
           "delta": "The layout above."
+        },
+        {
+          "variant": "illustration",
+          "runtime_ids": [],
+          "delta": "A sheltered records archive with unmarked folios, wooden file boxes, a dispatch case and brass lantern. Separate painting behind live controls."
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/save/` and re-index.",
+      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/save/`.\n\nThe separate `illustration.png` was generated with the built-in image tool and the two style references\nabove. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,\nthen downsample to 1280x800, preserving the composition. It is a candidate source without a runtime\nor manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -3971,7 +4079,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/save-empty/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/save-empty/` and re-index.\n\nThe shared painted candidate is `art/screens/save/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -4014,7 +4122,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/save-error/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/save-error/` and re-index.\n\nThe shared painted candidate is `art/screens/save/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -4057,7 +4165,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/save-progress/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/save-progress/` and re-index.\n\nThe shared painted candidate is `art/screens/save/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -4151,7 +4259,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/settings-controls/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v2.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/settings-controls/` and re-index.\n\nThe shared painted candidate is `art/screens/options/illustration.png`; reuse it behind this frame\nwhen a feature binding is added. It is not consumed by the current vector exporter.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -4181,9 +4289,16 @@
       "dir": "art/screens/side-selection",
       "assets_dir": "assets/screens/side-selection",
       "prompt": "art/screens/side-selection/prompt.md",
-      "masters": [],
-      "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: two equal side cards next to each other. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
-      "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and two equal side cards next to each other as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
+      "masters": [
+        {
+          "path": "art/screens/side-selection/illustration.png",
+          "sha256": "432a5d097af3c31d13b4ef0a6bfb1254eafc21e4cd89db124a0c71b6d00d9a2d",
+          "width": 1586,
+          "height": 992
+        }
+      ],
+      "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: two equal side cards next to each other. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.\n\nThe separate painted illustration: A neutral quartermaster staging area with two empty camp chairs\nand orderly wool and canvas kit. It matches the existing screen paintings' slate, olive, earth and\nrestrained brass palette, with quiet dark space on the left for live overlays. It is a candidate\nsource awaiting a feature binding; the frame remains vector art.",
+      "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and two equal side cards next to each other as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.\n\nFor the separate illustration variant, use the following prompt with\n`art/screens/editor/illustration.png` and `art/screens/intermission/illustration.png` as style references:\n\nUse case: historical-scene. Asset type: opaque painted background for the side-selection main screen\nof a World War I strategy game. Generate ONE NEW continuous landscape illustration, 16:10, request\nnative 2560x1600 pixels. Input image 1 (editor) and input image 2 (intermission) are STYLE-ONLY\nreferences, not edit targets: match their cinematic painterly realism, finely tactile materials,\nmisty countryside, restrained cool slate/olive/earth/brass palette, cool diffuse daylight with small\nwarm cloud breaks, natural proportions and atmosphere. New scene: a neutral quartermaster staging\narea in rural Europe, 1914–1918. Place TWO empty period folding camp chairs on the RIGHT beside\norderly folded wool blankets, canvas kit rolls and wooden supply crates under a modest open canvas\nawning; beyond them, quiet wet fields and a misty rural valley. Neither chair signifies a faction;\nboth are unmarked natural wood and khaki canvas. Compose all focal equipment in the right 60\npercent; leave the left 40 percent dark, quiet and low-detail for live controls. Full-bleed opaque\npainting, believable timber, wool, canvas, leather, grass and damp earth, subtle brushwork and\nselective fine detail, same visual family as the references. No people, flags, faction symbols,\nnational insignia, writing, readable letters or digits, labels, logos, watermark, arrows, grid,\nborders, UI or frames; no modern equipment, no fighting or casualties. Output only the single new\nimage.",
       "variants": [
         {
           "variant": "frame",
@@ -4191,10 +4306,15 @@
             "screen/side-selection"
           ],
           "delta": "The layout above."
+        },
+        {
+          "variant": "illustration",
+          "runtime_ids": [],
+          "delta": "A neutral quartermaster staging area with two empty camp chairs and orderly wool and canvas kit. Separate painting behind live controls."
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/side-selection/` and re-index.",
+      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/side-selection/`.\n\nThe separate `illustration.png` was generated with the built-in image tool and the two style references\nabove. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,\nthen downsample to 1280x800, preserving the composition. It is a candidate source without a runtime\nor manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -4237,7 +4357,7 @@
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/title/` and re-index.",
+      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/title/` and re-index.\n\nThe shared painting is `art/screens/backdrop/western-front.png`, already consumed by the screen exporter\nbehind this frame. No separate title painting is needed.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",
@@ -4267,9 +4387,16 @@
       "dir": "art/screens/victory",
       "assets_dir": "assets/screens/victory",
       "prompt": "art/screens/victory/prompt.md",
-      "masters": [],
-      "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a centred outcome panel. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.",
-      "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and a centred outcome panel as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.",
+      "masters": [
+        {
+          "path": "art/screens/victory/illustration.png",
+          "sha256": "7349206f09bdb6b27860f70d4687f956f1890b401d1c6c19b38bb4436ebc437e",
+          "width": 1586,
+          "height": 992
+        }
+      ],
+      "look": "Full-screen frame, 640x400 logical, drawn over the menu backdrop: a centred outcome panel. Translucent slate\nsurfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.\n\nThe separate painted illustration: A quiet village gateway and intact stone bridge under hopeful\nclearing light after rain. It matches the existing screen paintings' slate, olive, earth and\nrestrained brass palette, with quiet dark space on the left for live overlays. It is a candidate\nsource awaiting a feature binding; the frame remains vector art.",
+      "base_prompt": "Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8\npixels, a dark slate title bar across the top with a brass rule under it, and a centred outcome panel as\ndark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short\nbrass tick at each panel's top-left corner. All panels empty; no text or controls.\n\nFor the separate illustration variant, use the following prompt with\n`art/screens/editor/illustration.png` and `art/screens/intermission/illustration.png` as style references:\n\nUse case: historical-scene. Asset type: World War I strategy-game victory screen background.\nGenerate ONE NEW opaque full-bleed landscape 16:10 painting, ideally native 2560x1600 pixels. Input\nimages are STYLE REFERENCES ONLY: match the editor survey-station and intermission farmhouse images'\nfine continuous cinematic painterly realism, restrained slate-blue clouds, olive/moss fields,\nweathered stone and timber, earth, cream mist and aged-brass warm light. New scene: a quiet Western\nFront village after a successful mission, rural Europe 1914-1918. On the RIGHT a sheltered stone\ngateway and an intact little rural bridge, empty wooden supply cart beneath an old tree, wet road\nleading toward village rooftops and church spire; subtle hopeful warm sunlight breaks through\nreceding rain clouds over the right-hand fields. No celebration props, no people or fighting. Left\n40 percent deliberately dark, calm and low-detail meadow and slate sky for live UI; keep middle\nvalues quiet too for centered outcome overlay. Atmospheric layered mist, believable wet mud and\nmoss, delicate natural material texture. Match references closely in lighting, palette, fine painted\ndetail and peaceful mood; do not reproduce their survey equipment or farmhouse composition. No text,\nletters, numbers, labels, logos, watermarks, national insignia, flags, emblems, modern equipment,\nUI, frames, borders, vignettes, pixel art, vector shapes or glossy 3D aesthetic.",
       "variants": [
         {
           "variant": "frame",
@@ -4277,10 +4404,15 @@
             "screen/victory"
           ],
           "delta": "The layout above."
+        },
+        {
+          "variant": "illustration",
+          "runtime_ids": [],
+          "delta": "A quiet village gateway and intact stone bridge under hopeful clearing light after rain. Separate painting behind live controls."
         }
       ],
       "edges": "",
-      "post": "Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/victory/` and re-index.",
+      "post": "The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:\n`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.\nRuntime frame exports live in `assets/screens/victory/`.\n\nThe separate `illustration.png` was generated with the built-in image tool and the two style references\nabove. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,\nthen downsample to 1280x800, preserving the composition. It is a candidate source without a runtime\nor manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.",
       "avoid": [
         "baked text, numbers or values",
         "gradients, glows or glossy bevels",

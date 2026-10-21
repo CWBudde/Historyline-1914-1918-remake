@@ -4,12 +4,17 @@ title: Mission selection
 kind: screen
 status: candidate
 runtime_ids: screen/mission-selection
-masters: 
+masters: illustration.png
 ---
 
 ## Look
 Full-screen frame, 640x400 logical, drawn over the menu backdrop: a mission list on the left and a details panel on the right. Translucent slate
 surfaces with thin brass hairlines; titles, labels and controls are live and drawn on top.
+
+The separate painted illustration: A field dispatch table with folded geographic maps and a leather
+satchel above a misty country road. It matches the existing screen paintings' slate, olive, earth
+and restrained brass palette, with quiet dark space on the left for live overlays. It is a candidate
+source awaiting a feature binding; the frame remains vector art.
 
 ## Base prompt
 Flat full-screen interface frame, 640x400, for a WWI strategy game menu: a thin brass border inset 8
@@ -17,13 +22,41 @@ pixels, a dark slate title bar across the top with a brass rule under it, and a 
 dark, slightly translucent slate panels with small rounded corners, thin blue-grey edges and a short
 brass tick at each panel's top-left corner. All panels empty; no text or controls.
 
+For the separate illustration variant, use the following prompt with
+`art/screens/editor/illustration.png` and `art/screens/intermission/illustration.png` as style references:
+
+Use case: historical-scene. Asset type: opaque painted background for the mission-selection main
+screen of a World War I strategy game. Generate ONE NEW continuous landscape illustration, 16:10,
+request native 2560x1600 pixels. Input image 1 (editor) and input image 2 (intermission) are
+STYLE-ONLY references, not edit targets: match their cinematic painterly realism, finely tactile
+materials, misty countryside, restrained cool slate/olive/earth/brass palette, cool diffuse daylight
+with small warm cloud breaks, natural proportions and atmosphere. New scene: a quiet field dispatch
+station in rural Europe, 1914–1918. A rough wooden table occupies the RIGHT foreground beneath an
+open canvas shelter; on it lie an open aged leather dispatch satchel and several folded cream paper
+maps with faint natural geographic contours but absolutely no writing or symbols. A wet winding
+country road leads from the station into a misty rural valley with fields, trees and a small distant
+stone village. Compose all focal equipment in the right 60 percent; leave the left 40 percent dark,
+quiet and low-detail for live controls. Full-bleed opaque painting, believable timber, cream paper,
+canvas, leather, grass and damp earth, subtle brushwork and selective fine detail, same visual
+family as the references. No people, flags, faction symbols, national insignia, writing, readable
+letters or digits, labels, logos, watermark, marked map routes, arrows, grid, borders, UI or frames;
+no modern equipment, no fighting or casualties. Output only the single new image.
+
 ## Variants
 | Variant | Runtime IDs | Prompt delta |
 | --- | --- | --- |
 | frame | screen/mission-selection | The layout above. |
+| illustration | — | A field dispatch table with folded geographic maps and a leather satchel above a misty country road. Separate painting behind live controls. |
 
 ## Post
-Drawn as vectors by `tools/interface-art` from its Go catalogue (one path model to SVG and a 4x raster, reduced 4x to 2x to 1x with Lanczos3): `go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`. A painted replacement would be exported the same way at 1x, 2x and 4x; promote into `assets/screens/mission-selection/` and re-index.
+The frame is drawn by `tools/interface-art` as SVG and 4x raster, reduced to 2x and 1x with Lanczos3:
+`go run ./tools/interface-art -manifest art/pipeline/screens-v1.json -out <fresh dir>`.
+Runtime frame exports live in `assets/screens/mission-selection/`.
+
+The separate `illustration.png` was generated with the built-in image tool and the two style references
+above. For a 2x export, trim one pixel from each edge of the native 1586x992 source to 1584x990,
+then downsample to 1280x800, preserving the composition. It is a candidate source without a runtime
+or manifest binding. Native 4x (2560x1600) remains open; do not enlarge and claim 4x detail.
 
 ## Avoid
 - baked text, numbers or values

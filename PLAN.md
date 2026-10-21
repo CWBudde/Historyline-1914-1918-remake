@@ -86,6 +86,9 @@ Tick a box only with evidence you ran. Record decisions here, not their history.
       ground are needed, then author them.
 - [ ] Campaign, intermission, production/repair and editor illustrations once those features exist.
       Candidate paintings are in their `art/screens/<family>/` folders; native 4× masters and feature bindings remain open.
+- [x] Add 11 matching main-screen candidate paintings and document scene reuse for related dialogs.
+      `just art-check`, `just artbook` and visual review pass; sources are native 1586×992.
+      Runtime bindings, native 4× and user acceptance remain open. (2026-10-21)
 - [ ] In-engine art preview (`cmd/hlartpreview`): seven-hex patches, random fixtures, shipped maps; switch
       family, season, facing and state; grid/port overlays; reload exports; screenshots.
 - [ ] Broken-join fixtures for the compositor (wrong ports, shifted anchors, missing corners, double edges).
