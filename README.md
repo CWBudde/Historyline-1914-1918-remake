@@ -25,12 +25,13 @@ needs [golangci-lint](https://golangci-lint.run) v2:
 
 ```sh
 just run        # play with placeholder graphics
-just play       # play with the candidate art (builds the packs into build/ on first run)
+just play       # play with the candidate art (builds the packs into build/packs/ on first run)
 just test       # go test ./...
 just lint       # go vet + golangci-lint
 just build      # bin/historyline
 just web 8080   # web build into build/web, served on :8080
 just ci         # everything CI runs
+just clean      # delete all generated output under build/
 ```
 
 ## Art
@@ -41,7 +42,7 @@ has unclear rights (two files are Battle Isle 3 screenshots) and is never redist
 ```sh
 just gallery           # regenerate gallery/
 just gfx-check         # inventory, gallery and art tool checks
-just gfx-game-review   # local comparison desk under build/gfx-review/
+just gfx-game-review   # local comparison desk under build/review/gfx/
 just gfx-study         # PULSE map study with real game captures at 720p/1080p/4K
 ```
 

@@ -1,7 +1,7 @@
 // hlgallery builds the offline art gallery of the current game candidates.
 //
 // Default: the committed, reference-free gallery/ tree (final art, prompts, index.html).
-// With -private: the local comparison desk, composer and PULSE study under build/.
+// With -private: the local comparison desk, composer and PULSE study under build/review/gfx.
 package main
 
 import (
@@ -86,7 +86,7 @@ func run(args []string, stdout io.Writer) error {
 	f := flag.NewFlagSet("hlgallery", flag.ContinueOnError)
 	root := f.String("root", ".", "repository root")
 	private := f.Bool("private", false, "write the local comparison desk, composer and PULSE study (private references) under build/ instead of the public gallery")
-	out := f.String("out", "", "output directory (default gallery; with -private build/gfx-review, which must be under build/)")
+	out := f.String("out", "", "output directory (default gallery; with -private build/review/gfx, which must be under build/)")
 	captures := f.String("captures", "", "optional historyline -capture output under build/; absent captures are shown explicitly")
 	if err := f.Parse(args); err != nil {
 		return err
@@ -97,7 +97,7 @@ func run(args []string, stdout io.Writer) error {
 	if *out == "" {
 		*out = "gallery"
 		if *private {
-			*out = "build/gfx-review"
+			*out = "build/review/gfx"
 		}
 	}
 	// The public output directory is wiped and regenerated, so it is confined to gallery/ or build/.

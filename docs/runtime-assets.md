@@ -1,14 +1,14 @@
 # Runtime asset packs
 
 `internal/assets` loads versioned PNG packs; `cmd/hlasset` builds and checks them. Packs live in ignored
-`build/` until art is approved; only approved exports will be embedded (`assets/assets.go`).
+`build/packs/` until art is approved; only approved exports will be embedded (`assets/assets.go`).
 
 ```sh
-go run ./cmd/hlasset build -density 2 -out build/interface-runtime-2x      # interface (1, 2 or 4)
-go run ./cmd/hlasset build-units   -out build/runtime-units                # 15 unit families
-go run ./cmd/hlasset build-terrain -out build/runtime-terrain              # tiles, overlays, contexts
+go run ./cmd/hlasset build -density 2 -out build/packs/interface-2x        # interface (1, 2 or 4)
+go run ./cmd/hlasset build-units   -out build/packs/units                  # 15 unit families
+go run ./cmd/hlasset build-terrain -out build/packs/terrain                # tiles, overlays, contexts
 go run ./cmd/hlasset validate -root <pack> -allow-candidates
-go run ./cmd/hlasset terrain-gaps -terrain build/runtime-terrain
+go run ./cmd/hlasset terrain-gaps -terrain build/packs/terrain
 just play                                                                  # game with both catalogs
 ```
 

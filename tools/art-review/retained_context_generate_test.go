@@ -6,7 +6,7 @@ package main
 // bundle; it never promotes or modifies active art or a retained recipe.
 //
 // From repository root:
-// go test -tags retainedgfx ./tools/art-review -run '^TestGenerateRetainedContextBundle$' -count=1 -args -context-family ground -context-manifest art/ground-terrain-v1.json -context-recipe art/recipes/ground-terrain-v1.json -context-bundle build/fresh-ground
+// go test -tags retainedgfx ./tools/art-review -run '^TestGenerateRetainedContextBundle$' -count=1 -args -context-family ground -context-manifest art/ground-terrain-v1.json -context-recipe art/recipes/ground-terrain-v1.json -context-bundle build/review/fresh-ground
 import (
 	"bytes"
 	"crypto/rand"

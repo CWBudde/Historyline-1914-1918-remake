@@ -20,14 +20,15 @@ func TestPublicGallery(t *testing.T) {
 		t.Fatal(err)
 	}
 	defer func() { _ = root.Close() }()
-	if err := root.MkdirAll("build/gallery-test", 0755); err != nil {
+	if err := root.MkdirAll("build/scratch/gallery-test", 0755); err != nil {
 		t.Fatal(err)
 	}
-	t.Cleanup(func() { _ = root.RemoveAll("build/gallery-test") })
-	if err := run([]string{"-root", "../..", "-out", "build/gallery-test"}, &bytes.Buffer{}); err != nil {
+	dir := filepath.Join("../..", "build/scratch/gallery-test")
+	// t.Cleanup runs after the deferred root.Close, so remove through the plain path.
+	t.Cleanup(func() { _ = os.RemoveAll(dir) })
+	if err := run([]string{"-root", "../..", "-out", "build/scratch/gallery-test"}, &bytes.Buffer{}); err != nil {
 		t.Fatal(err)
 	}
-	dir := filepath.Join("../..", "build/gallery-test")
 	raw, err := os.ReadFile(filepath.Join(dir, "catalog.json"))
 	if err != nil {
 		t.Fatal(err)

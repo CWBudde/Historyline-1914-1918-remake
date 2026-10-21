@@ -45,7 +45,7 @@ func TestGenerateGrassScaleProof(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		out, err := os.Create(filepath.Join(root, "build/grass-refdesign-v1/scale-"+spec.id+"-game1.5.png"))
+		out, err := os.Create(filepath.Join(root, "build/review/grass-refdesign-v1/scale-"+spec.id+"-game1.5.png"))
 		if err != nil {
 			t.Fatal(err)
 		}

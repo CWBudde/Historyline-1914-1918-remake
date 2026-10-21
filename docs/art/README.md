@@ -50,9 +50,9 @@ close reconstructions of them.
 | Bundle manifests (one per family) | `art/*-v1.json` |
 | Exports (2×/4×, interface also 1×) | `art/exports/`, built by `tools/art-review`, `tools/interface-art`, `tools/unit-panel` |
 | Runtime ledgers: every ID → export, status | `runtime-{tile,unit,interface,screen}-coverage.csv` (here) |
-| Runtime packs | `go run ./cmd/hlasset build-terrain\|build-units\|build -density N -out build/…` (see `internal/assets`) |
+| Runtime packs | `go run ./cmd/hlasset build-terrain\|build-units\|build -density N -out build/packs/…` (see `internal/assets`) |
 | Browsable gallery with prompts | `gallery/` (`just gallery`) |
-| Private comparison desk, composer, PULSE study | `just gfx-game-review`, `just gfx-study` → `build/gfx-review/` |
+| Private comparison desk, composer, PULSE study | `just gfx-game-review`, `just gfx-study` → `build/review/gfx/` |
 
 `asset-inventory.csv` records the legacy assets and `terrain-production.csv` the original terrain resources
 still to be covered (both are read by `tools/art-inventory` and `tools/phase2-audit`).

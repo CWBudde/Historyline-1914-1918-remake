@@ -7,7 +7,7 @@ load through `internal/assets` (candidates opt-in).
 ```sh
 go run ./cmd/hleffectpreview -family infantry      # any unit family slug, e.g. armored-train
 go test ./internal/presentation ./cmd/hleffectpreview
-go run ./cmd/hleffectpreview -self-check -mode normal|reduced|skip -out build/effects-normal
+go run ./cmd/hleffectpreview -self-check -mode normal|reduced|skip -out build/review/effect-preview-normal
 ```
 
 Keys: Space skips the step, R toggles reduced motion, Enter restarts, P pauses, Escape quits. `-self-check`

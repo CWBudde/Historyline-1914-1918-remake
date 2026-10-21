@@ -150,3 +150,6 @@ dmypy.json
 /.claude/
 /.codex/
 /.superpowers/
+
+# Local reference paintings (kept out of git).
+/RefDesign*.png

@@ -5,9 +5,10 @@ from the Go catalogue (one path model → SVG and 4× raster); PNGs are reduced 
 Art never contains labels or values. The output directory must not exist yet.
 
 ```sh
-go run ./tools/interface-art -manifest art/interface-v1.json -out build/interface-review/new
-go run ./tools/interface-art -manifest art/screens-v1.json   -out build/screen-review/new
-go run ./tools/interface-art -manifest art/screens-v2.json   -out build/screen-review/states
+mkdir -p build/review/interface build/review/screen
+go run ./tools/interface-art -manifest art/interface-v1.json -out build/review/interface/new
+go run ./tools/interface-art -manifest art/screens-v1.json   -out build/review/screen/new
+go run ./tools/interface-art -manifest art/screens-v2.json   -out build/review/screen/states
 go test ./tools/interface-art
 ```
 

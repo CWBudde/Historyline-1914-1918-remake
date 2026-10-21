@@ -20,7 +20,7 @@ import (
 // go test -tags grassgfx ./tools/art-review -run TestGenerateGrassDetailCandidate -count=1 -v
 func TestGenerateGrassDetailCandidate(t *testing.T) {
 	root := filepath.Join("..", "..")
-	directory := filepath.Join(root, "build/grass-refdesign-detail-v1")
+	directory := filepath.Join(root, "build/review/grass-refdesign-detail-v1")
 	if err := os.MkdirAll(filepath.Join(directory, "exports"), 0755); err != nil {
 		t.Fatal(err)
 	}

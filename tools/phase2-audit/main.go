@@ -68,7 +68,7 @@ type auditor struct {
 
 func main() {
 	root := flag.String("root", ".", "repository root")
-	out := flag.String("out", "build/phase2-audit", "report directory, relative to repository root")
+	out := flag.String("out", "build/review/phase2-audit", "report directory, relative to repository root")
 	flag.Parse()
 	if flag.NArg() != 0 {
 		fmt.Fprintln(os.Stderr, "phase2-audit: unexpected positional arguments")

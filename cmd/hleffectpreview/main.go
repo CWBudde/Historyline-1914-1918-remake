@@ -279,7 +279,7 @@ func main() {
 	self := flag.Bool("self-check", false, "save bounded native screenshots and evidence, then exit")
 	mode := flag.String("mode", "normal", "normal, reduced or skip")
 	family := flag.String("family", "infantry", "delivered unit-family slug (see README)")
-	out := flag.String("out", "build/effect-preview", "fresh output directory for self-check evidence")
+	out := flag.String("out", "build/review/effect-preview", "fresh output directory for self-check evidence")
 	flag.Parse()
 	if flag.NArg() != 0 || (*mode != "normal" && *mode != "reduced" && *mode != "skip") {
 		log.Fatal("usage: hleffectpreview [-repo path] [-family slug] [-self-check -mode normal|reduced|skip -out fresh-directory]")
@@ -289,8 +289,11 @@ func main() {
 		log.Fatal(err)
 	}
 	if *self {
+		if err := os.MkdirAll(filepath.Dir(*out), 0o755); err != nil {
+			log.Fatal(err)
+		}
 		if err := os.Mkdir(*out, 0o700); err != nil {
-			log.Fatal("output must be a fresh directory under an existing parent: ", err)
+			log.Fatal("output must be a fresh directory: ", err)
 		}
 	}
 	g := &preview{assets: a, textures: make(map[string]*ebiten.Image), self: *self, mode: *mode, output: *out, reduced: *mode == "reduced"}

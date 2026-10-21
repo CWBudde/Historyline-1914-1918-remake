@@ -24,7 +24,7 @@ func TestGenerateGrassVariations(t *testing.T) {
 		t.Fatal(err)
 	}
 	TestGenerateGrassDetailCandidate(t)
-	directory := filepath.Join(root, "build/grass-refdesign-detail-v1")
+	directory := filepath.Join(root, "build/review/grass-refdesign-detail-v1")
 	data, err := os.ReadFile(filepath.Join(directory, "grass-variations.json"))
 	if err != nil {
 		t.Fatal(err)

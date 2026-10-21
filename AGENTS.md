@@ -51,6 +51,8 @@ just run         # play; just play uses the candidate art; just build -> bin/; j
   `-R CWBudde/Historyline-1914-1918-remake` to `gh`.
 - `original/` (local original game files) and `build/` are git-ignored. Never commit original bytes,
   listings or strings; fixtures hold numbers only. Do not document reverse-engineering methods in the repo.
+- Generated output goes under `build/packs/<name>`, `build/web`, `build/manual`, `build/review/<name>/` or
+  `build/scratch/`, never loose files at the `build/` top level; `just clean` wipes it.
 - Keep docs short and current: describe what is, not how it came to be.
 - `docs/manual/` is the user's reconstruction of the original manual: leave it alone.
 - The graphics track runs in parallel by the user: do not edit `art/` or `tools/art-review/` unless asked.

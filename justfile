@@ -14,12 +14,28 @@ py *args:
 run *args:
     go run ./cmd/historyline {{args}}
 
-# Packs are built only when missing; delete build/runtime-units or build/runtime-terrain to rebuild.
+# Generated output lives in ignored build/: packs/<name>, web, manual, gallery-check,
+# review/<name>/ (studies and desks) and scratch/ (disposable). build/go.mod keeps stray
+# Go files there out of ./...
+
+# Delete all generated output under build/ and recreate the empty layout
+clean:
+    rm -rf build
+    @just _build-dir
+
+[private]
+_build-dir:
+    #!/usr/bin/env sh
+    set -eu
+    mkdir -p build
+    [ -f build/go.mod ] || printf 'module scratch\n\ngo %s\n' "$(awk '/^go /{print $2}' go.mod)" > build/go.mod
+
+# Packs are built only when missing; delete build/packs/units or build/packs/terrain to rebuild.
 # Play with the candidate unit and terrain art
-play *args:
-    [ -d build/runtime-units ] || go run ./cmd/hlasset build-units -out build/runtime-units
-    [ -d build/runtime-terrain ] || go run ./cmd/hlasset build-terrain -out build/runtime-terrain
-    go run ./cmd/historyline -units build/runtime-units -terrain build/runtime-terrain -allow-candidates {{args}}
+play *args: _build-dir
+    [ -d build/packs/units ] || go run ./cmd/hlasset build-units -out build/packs/units
+    [ -d build/packs/terrain ] || go run ./cmd/hlasset build-terrain -out build/packs/terrain
+    go run ./cmd/historyline -units build/packs/units -terrain build/packs/terrain -allow-candidates {{args}}
 
 # Run all Go tests
 test:
@@ -42,7 +58,7 @@ wasm:
     cp "$(go env GOROOT)/lib/wasm/wasm_exec.js" bin/
 
 # Build the web demo (index.html, wasm and loader) into build/web; pass a port to serve it
-web port="":
+web port="": _build-dir
     mkdir -p build/web
     GOOS=js GOARCH=wasm go build -o build/web/{{binary}}.wasm ./cmd/historyline
     cp "$(go env GOROOT)/lib/wasm/wasm_exec.js" web/index.html build/web/
@@ -67,25 +83,25 @@ gallery:
     go run ./cmd/hlgallery
 
 # Fail if the committed gallery/ differs from a fresh generation
-gallery-check:
+gallery-check: _build-dir
     rm -rf build/gallery-check
     go run ./cmd/hlgallery -out build/gallery-check
     diff -r -x README.md gallery build/gallery-check
     @echo "gallery/ is up to date"
 
-# Local comparison desk, composer and PULSE study (under build/gfx-review/)
+# Local comparison desk, composer and PULSE study (under build/review/gfx/)
 [positional-arguments]
-gfx-game-review *args:
+gfx-game-review *args: _build-dir
     go run ./cmd/hlgallery -private "$@"
 
-# Refresh PULSE maps and nine actual game captures; open build/gfx-review/pulse.html.
+# Refresh PULSE maps and nine actual game captures; open build/review/gfx/pulse.html.
 # On headless Linux: EGL_PLATFORM=x11 xvfb-run -a just gfx-study
 [positional-arguments]
-gfx-study *args:
+gfx-study *args: _build-dir
     #!/usr/bin/env sh
     set -eu
-    mkdir -p build/pulse-study
-    study_dir=$(mktemp -d build/pulse-study/run-XXXXXX)
+    mkdir -p build/review/pulse-study
+    study_dir=$(mktemp -d build/review/pulse-study/run-XXXXXX)
     go run ./cmd/hlasset build-terrain -out "$study_dir/terrain"
     go run ./cmd/hlasset build-units -out "$study_dir/units"
     go run ./cmd/historyline -level level1_cp -units "$study_dir/units" -terrain "$study_dir/terrain" -allow-candidates -capture "$study_dir/captures"
@@ -95,12 +111,12 @@ manual_pdf := "original/extracted/manual/Historyline_1914-1918.pdf"
 manual_typst := "typst compile --root . --font-path docs/manual/fonts"
 
 # Extract the original manual's pictures into the ignored build/manual/img/
-manual-images:
+manual-images: _build-dir
     mkdir -p build/manual/img
     pdfimages -all -p {{manual_pdf}} build/manual/img/img
 
 # Build the reconstructed manual (with pictures when the original PDF is present)
-manual:
+manual: _build-dir
     #!/usr/bin/env sh
     set -eu
     mkdir -p build/manual
