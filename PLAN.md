@@ -437,6 +437,30 @@ Needs Phases 1 to 6 for the matching summer family; mostly a material swap plus 
 - [ ] Wire the profile into the game and UI (phase display, pending orders, energy/repair/production
       controls); one integrated scenario covering both cycles, combat, transport, capture, repair and
       production; both factions and seasons; deterministic replay. Classic/Standard stay green.
+      Steps in 3.1.
+
+#### 3.1 Original rules as the game's default
+
+Decision (2026-10-21): the original profile becomes the default rule set of the game (`-rules dos`);
+`Classic` and `Standard` stay selectable with `-rules` and keep their tests. Each step is committed on its
+own and leaves the game playable.
+
+1. [ ] Level binding (`internal/dosbind`): every hex of the shipped levels (terrain plus overlays) → an
+       original terrain record (numbers-only table, summer and winter); cell index ↔ `hexgrid.Coord`
+       (original width × height, odd columns half a cell lower) including the cells the levels leave out;
+       every unit → UNIT.DAT type and owner; containers and their contents → hold records; buildings →
+       `Game.Buildings`. Checked against the local original maps when present, skipped otherwise.
+2. [ ] Session: a `dosrules.Game` built from a level, with the queries the UI needs (a side's view of
+       units and fog, destinations and routes, attack targets, unit details), the commands, and events in
+       UI terms (move with route, battle with losses, destroyed units, phase change, end).
+3. [ ] Front end: the order cycle in `cmd/historyline`: phase display (movement/action), moves and attack
+       orders, markers on queued attacks, confirm (double arrow) and unconfirm, resolution with the battle
+       panel and banners, the side's own map for fog; flag `-rules dos|standard|classic`.
+4. [ ] Computer side on the order cycle: moves towards targets, attack orders on targets in range,
+       confirm; plays every shipped level to its end headless.
+5. [ ] Default `-rules dos` for `just play`, `just run` and the web build; hand-test all three levels from
+       both sides.
+6. [ ] Energy controls: energy display, repair and production in buildings (`CmdRepair`, `CmdBuild`).
 
 ### 4. Computer opponent
 
