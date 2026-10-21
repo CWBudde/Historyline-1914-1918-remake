@@ -144,3 +144,8 @@ dmypy.json
 
 # Local StrategyWiki extract (third-party CC BY-SA text, reference only).
 /docs/strategywiki/
+
+# Local AI agent state (Claude Code, Codex, ...).
+/.agents/
+/.claude/
+/.codex/
