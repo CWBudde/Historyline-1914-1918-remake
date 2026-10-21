@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"maps"
 	"slices"
 )
 
@@ -223,4 +224,84 @@ func UnmarshalFixtures[T any](b []byte) ([]T, error) {
 		return nil, fmt.Errorf("fixtures: %w", err)
 	}
 	return fs, nil
+}
+
+// OrdersExpected is the state the order handler left after a whole attack
+// list, or the error that stopped it: each order's outcome in list order,
+// every unit afterwards, the units the destroy helper took off the map and
+// [cell, unit] for every occupied cell of the attacking side's map.
+type OrdersExpected struct {
+	Error     string               `json:"error,omitempty"`
+	Orders    []EngagementExpected `json:"orders"`
+	Units     []FixtureUnit        `json:"units"`
+	Gone      []int                `json:"gone"`
+	Occupants [][2]int             `json:"occupants"`
+}
+
+// OrdersFixture is one recorded run of the order handler over an attack
+// list. The battlefield is the attacking side's (Side) view; Seen gives
+// [unit, cell] for the units the other side sees elsewhere, and Idle is the
+// other side's list, which the handler leaves alone.
+type OrdersFixture struct {
+	Schema   int              `json:"schema"`
+	Profile  string           `json:"profile"`
+	ID       string           `json:"id"`
+	Source   Source           `json:"source"`
+	Width    int              `json:"width"`
+	Height   int              `json:"height"`
+	Side     int              `json:"side"`
+	MapByte0 int              `json:"mapByte0"`
+	Units    []FixtureUnit    `json:"units"`
+	Terrain  []FixtureTerrain `json:"terrain"`
+	Orders   [][2]int         `json:"orders"` // [attacker, target cell] in list order
+	Seen     [][2]int         `json:"seen"`
+	Idle     []int            `json:"idle"`
+	Expected OrdersExpected   `json:"expected"`
+}
+
+// OrdersInput returns a fixture of a battlefield and an attack list, with
+// nothing expected yet.
+func OrdersInput(b *Battlefield, orders []Order, side int) OrdersFixture {
+	e := Engagement(b, 0, 0, side)
+	f := OrdersFixture{Schema: 1, Width: b.Width, Height: b.Height, Side: side, MapByte0: b.MapByte0,
+		Units: e.Units, Terrain: e.Terrain, Orders: [][2]int{}, Seen: [][2]int{}, Idle: []int{}}
+	for _, o := range orders {
+		f.Orders = append(f.Orders, [2]int{o.Attacker, o.Target})
+	}
+	return f
+}
+
+// Battlefield returns the fixture's map as the attacking side sees it.
+func (f *OrdersFixture) Battlefield() *Battlefield {
+	e := EngagementFixture{Width: f.Width, Height: f.Height, MapByte0: f.MapByte0, Units: f.Units, Terrain: f.Terrain}
+	return e.Battlefield()
+}
+
+// List returns the fixture's attack list.
+func (f *OrdersFixture) List() []Order {
+	var os []Order
+	for _, o := range f.Orders {
+		os = append(os, Order{o[0], o[1]})
+	}
+	return os
+}
+
+// OrdersResult is the fixture form of a ResolveOrders result.
+func OrdersResult(r Resolution, err error) OrdersExpected {
+	x := OrdersExpected{Orders: []EngagementExpected{}, Units: []FixtureUnit{}, Gone: append([]int{}, r.Gone...),
+		Occupants: [][2]int{}}
+	if err != nil {
+		x.Error = errorName(err)
+	}
+	for _, o := range r.Orders {
+		x.Orders = append(x.Orders, EngagementResult(o, nil))
+	}
+	for _, i := range slices.Sorted(maps.Keys(r.Units)) {
+		u := r.Units[i]
+		x.Units = append(x.Units, FixtureUnit{i, u.Type, u.Cell, u.Size, u.Alt, u.Exp, u.Flags4, u.Flags6})
+	}
+	for _, c := range slices.Sorted(maps.Keys(r.Cells)) {
+		x.Occupants = append(x.Occupants, [2]int{c, r.Cells[c]})
+	}
+	return x
 }

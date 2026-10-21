@@ -41,6 +41,7 @@ type MoveTerrain struct {
 	Mask    int `json:"mask"`    // byte 2
 	Cost    int `json:"cost"`    // byte 3
 	AirCost int `json:"airCost"` // byte 4, the cost for units with live +4 bit 0x10
+	Class   int `json:"class"`   // byte 5, the combat class the order handler reads (Battlefield.Terrain)
 }
 
 // MoveTables are a build's type and terrain records.

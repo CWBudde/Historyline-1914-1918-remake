@@ -1221,1051 +1221,1226 @@
         "flags": 32776,
         "mask": 16,
         "cost": 6,
-        "airCost": 2
+        "airCost": 2,
+        "class": 8
       },
       {
         "flags": 108,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 8
       },
       {
         "flags": 105,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 8
       },
       {
         "flags": 16424,
         "mask": 128,
         "cost": 255,
-        "airCost": 2
+        "airCost": 2,
+        "class": 8
       },
       {
         "flags": 16424,
         "mask": 128,
         "cost": 255,
-        "airCost": 2
+        "airCost": 2,
+        "class": 8
       },
       {
         "flags": 16424,
         "mask": 128,
         "cost": 255,
-        "airCost": 2
+        "airCost": 2,
+        "class": 8
       },
       {
         "flags": 16424,
         "mask": 128,
         "cost": 255,
-        "airCost": 2
+        "airCost": 2,
+        "class": 8
       },
       {
         "flags": 16424,
         "mask": 128,
         "cost": 255,
-        "airCost": 2
+        "airCost": 2,
+        "class": 8
       },
       {
         "flags": 16424,
         "mask": 128,
         "cost": 255,
-        "airCost": 2
+        "airCost": 2,
+        "class": 8
       },
       {
         "flags": 18952,
         "mask": 128,
         "cost": 255,
-        "airCost": 2
+        "airCost": 2,
+        "class": 8
       },
       {
         "flags": 18952,
         "mask": 128,
         "cost": 255,
-        "airCost": 2
+        "airCost": 2,
+        "class": 8
       },
       {
         "flags": 18952,
         "mask": 128,
         "cost": 255,
-        "airCost": 2
+        "airCost": 2,
+        "class": 8
       },
       {
         "flags": 3594,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 8
       },
       {
         "flags": 3596,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 8
       },
       {
         "flags": 3593,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 8
       },
       {
         "flags": 2442,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 8
       },
       {
         "flags": 2444,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 8
       },
       {
         "flags": 2441,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 8
       },
       {
         "flags": 18568,
         "mask": 128,
         "cost": 255,
-        "airCost": 2
+        "airCost": 2,
+        "class": 8
       },
       {
         "flags": 18568,
         "mask": 128,
         "cost": 255,
-        "airCost": 2
+        "airCost": 2,
+        "class": 8
       },
       {
         "flags": 18568,
         "mask": 128,
         "cost": 255,
-        "airCost": 2
+        "airCost": 2,
+        "class": 8
       },
       {
         "flags": 16392,
         "mask": 128,
         "cost": 255,
-        "airCost": 2
+        "airCost": 2,
+        "class": 8
       },
       {
         "flags": 16392,
         "mask": 128,
         "cost": 255,
-        "airCost": 2
+        "airCost": 2,
+        "class": 8
       },
       {
         "flags": 16392,
         "mask": 128,
         "cost": 255,
-        "airCost": 2
+        "airCost": 2,
+        "class": 8
       },
       {
         "flags": 16392,
         "mask": 128,
         "cost": 255,
-        "airCost": 2
+        "airCost": 2,
+        "class": 8
       },
       {
         "flags": 16,
         "mask": 4,
         "cost": 8,
-        "airCost": 2
+        "airCost": 2,
+        "class": 7
       },
       {
         "flags": 16,
         "mask": 4,
         "cost": 8,
-        "airCost": 2
+        "airCost": 2,
+        "class": 7
       },
       {
         "flags": 16,
         "mask": 4,
         "cost": 8,
-        "airCost": 2
+        "airCost": 2,
+        "class": 7
       },
       {
         "flags": 16,
         "mask": 4,
         "cost": 8,
-        "airCost": 2
+        "airCost": 2,
+        "class": 7
       },
       {
         "flags": 16,
         "mask": 4,
         "cost": 8,
-        "airCost": 2
+        "airCost": 2,
+        "class": 7
       },
       {
         "flags": 16,
         "mask": 4,
         "cost": 8,
-        "airCost": 2
+        "airCost": 2,
+        "class": 7
       },
       {
         "flags": 16,
         "mask": 4,
         "cost": 8,
-        "airCost": 2
+        "airCost": 2,
+        "class": 7
       },
       {
         "flags": 16,
         "mask": 4,
         "cost": 8,
-        "airCost": 2
+        "airCost": 2,
+        "class": 7
       },
       {
         "flags": 16,
         "mask": 4,
         "cost": 8,
-        "airCost": 2
+        "airCost": 2,
+        "class": 7
       },
       {
         "flags": 16,
         "mask": 4,
         "cost": 10,
-        "airCost": 2
+        "airCost": 2,
+        "class": 7
       },
       {
         "flags": 16,
         "mask": 4,
         "cost": 10,
-        "airCost": 2
+        "airCost": 2,
+        "class": 7
       },
       {
         "flags": 16,
         "mask": 4,
         "cost": 10,
-        "airCost": 2
+        "airCost": 2,
+        "class": 7
       },
       {
         "flags": 16,
         "mask": 4,
         "cost": 10,
-        "airCost": 2
+        "airCost": 2,
+        "class": 7
       },
       {
         "flags": 16,
         "mask": 4,
         "cost": 10,
-        "airCost": 2
+        "airCost": 2,
+        "class": 7
       },
       {
         "flags": 16,
         "mask": 4,
         "cost": 10,
-        "airCost": 2
+        "airCost": 2,
+        "class": 7
       },
       {
         "flags": 16,
         "mask": 4,
         "cost": 10,
-        "airCost": 2
+        "airCost": 2,
+        "class": 7
       },
       {
         "flags": 16,
         "mask": 4,
         "cost": 10,
-        "airCost": 2
+        "airCost": 2,
+        "class": 7
       },
       {
         "flags": 16,
         "mask": 4,
         "cost": 10,
-        "airCost": 2
+        "airCost": 2,
+        "class": 7
       },
       {
         "flags": 16,
         "mask": 4,
         "cost": 10,
-        "airCost": 2
+        "airCost": 2,
+        "class": 7
       },
       {
         "flags": 16,
         "mask": 4,
         "cost": 10,
-        "airCost": 2
+        "airCost": 2,
+        "class": 7
       },
       {
         "flags": 16,
         "mask": 4,
         "cost": 10,
-        "airCost": 2
+        "airCost": 2,
+        "class": 7
       },
       {
         "flags": 16,
         "mask": 4,
         "cost": 10,
-        "airCost": 2
+        "airCost": 2,
+        "class": 7
       },
       {
         "flags": 16,
         "mask": 4,
         "cost": 6,
-        "airCost": 2
+        "airCost": 2,
+        "class": 7
       },
       {
         "flags": 16,
         "mask": 1,
         "cost": 6,
-        "airCost": 2
+        "airCost": 2,
+        "class": 7
       },
       {
         "flags": 8,
         "mask": 32,
         "cost": 7,
-        "airCost": 2
+        "airCost": 2,
+        "class": 2
       },
       {
         "flags": 8,
         "mask": 32,
         "cost": 7,
-        "airCost": 2
+        "airCost": 2,
+        "class": 2
       },
       {
         "flags": 8,
         "mask": 32,
         "cost": 7,
-        "airCost": 2
+        "airCost": 2,
+        "class": 2
       },
       {
         "flags": 8,
         "mask": 32,
         "cost": 7,
-        "airCost": 2
+        "airCost": 2,
+        "class": 2
       },
       {
         "flags": 8,
         "mask": 32,
         "cost": 7,
-        "airCost": 2
+        "airCost": 2,
+        "class": 2
       },
       {
         "flags": 8,
         "mask": 32,
         "cost": 7,
-        "airCost": 2
+        "airCost": 2,
+        "class": 1
       },
       {
         "flags": 8,
         "mask": 32,
         "cost": 7,
-        "airCost": 2
+        "airCost": 2,
+        "class": 1
       },
       {
         "flags": 8,
         "mask": 32,
         "cost": 7,
-        "airCost": 2
+        "airCost": 2,
+        "class": 1
       },
       {
         "flags": 8,
         "mask": 32,
         "cost": 7,
-        "airCost": 2
+        "airCost": 2,
+        "class": 1
       },
       {
         "flags": 8,
         "mask": 64,
         "cost": 6,
-        "airCost": 2
+        "airCost": 2,
+        "class": 3
       },
       {
         "flags": 8,
         "mask": 64,
         "cost": 6,
-        "airCost": 2
+        "airCost": 2,
+        "class": 3
       },
       {
         "flags": 8,
         "mask": 64,
         "cost": 8,
-        "airCost": 4
+        "airCost": 4,
+        "class": 7
       },
       {
         "flags": 8,
         "mask": 64,
         "cost": 8,
-        "airCost": 4
+        "airCost": 4,
+        "class": 7
       },
       {
         "flags": 8,
         "mask": 64,
         "cost": 8,
-        "airCost": 4
+        "airCost": 4,
+        "class": 7
       },
       {
         "flags": 8,
         "mask": 65,
         "cost": 8,
-        "airCost": 2
+        "airCost": 2,
+        "class": 8
       },
       {
         "flags": 8,
         "mask": 64,
         "cost": 8,
-        "airCost": 4
+        "airCost": 4,
+        "class": 0
       },
       {
         "flags": 8,
         "mask": 64,
         "cost": 8,
-        "airCost": 4
+        "airCost": 4,
+        "class": 0
       },
       {
         "flags": 8,
         "mask": 64,
         "cost": 8,
-        "airCost": 4
+        "airCost": 4,
+        "class": 0
       },
       {
         "flags": 8,
         "mask": 64,
         "cost": 9,
-        "airCost": 6
+        "airCost": 6,
+        "class": 0
       },
       {
         "flags": 8,
         "mask": 64,
         "cost": 9,
-        "airCost": 6
+        "airCost": 6,
+        "class": 0
       },
       {
         "flags": 8,
         "mask": 64,
         "cost": 9,
-        "airCost": 6
+        "airCost": 6,
+        "class": 0
       },
       {
         "flags": 8,
         "mask": 64,
         "cost": 9,
-        "airCost": 6
+        "airCost": 6,
+        "class": 0
       },
       {
         "flags": 8,
         "mask": 64,
         "cost": 9,
-        "airCost": 9
+        "airCost": 9,
+        "class": 0
       },
       {
         "flags": 8,
         "mask": 64,
         "cost": 9,
-        "airCost": 9
+        "airCost": 9,
+        "class": 0
       },
       {
         "flags": 8,
         "mask": 64,
         "cost": 9,
-        "airCost": 9
+        "airCost": 9,
+        "class": 0
       },
       {
         "flags": 8,
         "mask": 64,
         "cost": 9,
-        "airCost": 9
+        "airCost": 9,
+        "class": 0
       },
       {
         "flags": 8,
         "mask": 64,
         "cost": 9,
-        "airCost": 9
+        "airCost": 9,
+        "class": 0
       },
       {
         "flags": 8,
         "mask": 64,
         "cost": 9,
-        "airCost": 9
+        "airCost": 9,
+        "class": 0
       },
       {
         "flags": 8,
         "mask": 64,
         "cost": 9,
-        "airCost": 9
+        "airCost": 9,
+        "class": 0
       },
       {
         "flags": 32776,
         "mask": 16,
         "cost": 6,
-        "airCost": 2
+        "airCost": 2,
+        "class": 8
       },
       {
         "flags": 32776,
         "mask": 16,
         "cost": 6,
-        "airCost": 2
+        "airCost": 2,
+        "class": 8
       },
       {
         "flags": 32776,
         "mask": 16,
         "cost": 6,
-        "airCost": 2
+        "airCost": 2,
+        "class": 8
       },
       {
         "flags": 32776,
         "mask": 16,
         "cost": 6,
-        "airCost": 2
+        "airCost": 2,
+        "class": 8
       },
       {
         "flags": 32776,
         "mask": 16,
         "cost": 6,
-        "airCost": 2
+        "airCost": 2,
+        "class": 8
       },
       {
         "flags": 32776,
         "mask": 16,
         "cost": 8,
-        "airCost": 2
+        "airCost": 2,
+        "class": 8
       },
       {
         "flags": 32776,
         "mask": 16,
         "cost": 8,
-        "airCost": 2
+        "airCost": 2,
+        "class": 8
       },
       {
         "flags": 8,
         "mask": 2,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 5
       },
       {
         "flags": 8,
         "mask": 2,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 5
       },
       {
         "flags": 8,
         "mask": 2,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 5
       },
       {
         "flags": 8,
         "mask": 2,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 5
       },
       {
         "flags": 8,
         "mask": 2,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 5
       },
       {
         "flags": 8,
         "mask": 2,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 5
       },
       {
         "flags": 8,
         "mask": 2,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 5
       },
       {
         "flags": 8,
         "mask": 2,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 5
       },
       {
         "flags": 8,
         "mask": 2,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 5
       },
       {
         "flags": 8,
         "mask": 2,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 5
       },
       {
         "flags": 8,
         "mask": 2,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 5
       },
       {
         "flags": 8,
         "mask": 2,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 5
       },
       {
         "flags": 8,
         "mask": 2,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 5
       },
       {
         "flags": 8,
         "mask": 2,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 5
       },
       {
         "flags": 8,
         "mask": 2,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 5
       },
       {
         "flags": 8,
         "mask": 2,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 5
       },
       {
         "flags": 8,
         "mask": 2,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 5
       },
       {
         "flags": 8,
         "mask": 2,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 5
       },
       {
         "flags": 8,
         "mask": 2,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 5
       },
       {
         "flags": 8,
         "mask": 2,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 5
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 3
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 3
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 3
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 3
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 3
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 3
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 3
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 3
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 3
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 3
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 3
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 3
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 3
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 2
       },
       {
         "flags": 8,
         "mask": 16,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 3
       },
       {
         "flags": 8,
         "mask": 16,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 3
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 3
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 3
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 3
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 3
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8200,
         "mask": 16,
         "cost": 4,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8,
         "mask": 16,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8,
         "mask": 16,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8,
         "mask": 16,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8,
         "mask": 16,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8,
         "mask": 16,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8,
         "mask": 16,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8,
         "mask": 16,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8,
         "mask": 16,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8,
         "mask": 16,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8,
         "mask": 16,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8,
         "mask": 16,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8,
         "mask": 16,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8,
         "mask": 16,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8,
         "mask": 16,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8,
         "mask": 16,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8,
         "mask": 16,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8,
         "mask": 16,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8,
         "mask": 16,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 8,
         "mask": 16,
         "cost": 5,
-        "airCost": 2
+        "airCost": 2,
+        "class": 4
       },
       {
         "flags": 34824,
         "mask": 8,
         "cost": 11,
-        "airCost": 2
+        "airCost": 2,
+        "class": 6
       },
       {
         "flags": 34824,
         "mask": 8,
         "cost": 11,
-        "airCost": 2
+        "airCost": 2,
+        "class": 6
       },
       {
         "flags": 34824,
         "mask": 8,
         "cost": 11,
-        "airCost": 2
+        "airCost": 2,
+        "class": 6
       },
       {
         "flags": 34824,
         "mask": 8,
         "cost": 11,
-        "airCost": 2
+        "airCost": 2,
+        "class": 6
       },
       {
         "flags": 34824,
         "mask": 8,
         "cost": 11,
-        "airCost": 2
+        "airCost": 2,
+        "class": 6
       },
       {
         "flags": 34824,
         "mask": 8,
         "cost": 11,
-        "airCost": 2
+        "airCost": 2,
+        "class": 6
       },
       {
         "flags": 34824,
         "mask": 8,
         "cost": 11,
-        "airCost": 2
+        "airCost": 2,
+        "class": 6
       },
       {
         "flags": 34824,
         "mask": 8,
         "cost": 11,
-        "airCost": 2
+        "airCost": 2,
+        "class": 6
       },
       {
         "flags": 34824,
         "mask": 8,
         "cost": 11,
-        "airCost": 2
+        "airCost": 2,
+        "class": 6
       },
       {
         "flags": 0,
         "mask": 128,
         "cost": 255,
-        "airCost": 255
+        "airCost": 255,
+        "class": 6
       }
     ]
   }
