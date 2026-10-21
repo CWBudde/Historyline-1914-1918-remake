@@ -1,57 +1,77 @@
-# RefDesign2: desired PULSE terrain catalogue
+# RefDesign2 hex tile catalogue
 
-This study dissects the user-supplied `RefDesign2.png` into **48 annotated
-specimens** and **353 spatially indexed reference windows**. It records the
-desired look before another production-art refresh. Repeated forests, hills,
-craters and compounds remain separate examples.
+This exports the desired PULSE design as **actual game-grid hex PNGs**, rather
+than rectangular feature crops. There are **345 landscape tiles and 8 partial
+boundary-symbol tiles**, with repeated examples retained. Twenty selected
+arrangements show complete features using those same exported tiles.
 
 From the repository root:
 
 ```sh
 go run ./tools/reference-catalogue
 go run ./tools/reference-catalogue -check
+go test ./tools/reference-catalogue
 ```
 
-Open [the generated catalogue](../../build/refdesign2-catalogue/index.html).
-The HTML works directly from disk without a server or network connection.
-Use family filters, search, the map navigator and the specimen inspector.
-Inspection at 2×/4× enlarges the reference pixels; it does not create more detail.
-“Print catalogue” prints the current view and filters.
+Open [the tile catalogue](../../build/refdesign2-catalogue/index.html), or download
+[all tile PNGs](../../build/refdesign2-catalogue/hex-tiles.zip). The HTML works
+from disk, using local PNGs and embedded metadata. The default view is individual
+hex tiles. Each has a stable row/column ID, visible-content family, source
+location and separate 1×/2×/4× downloads. The source image remains a local user
+file at `RefDesign2.png`.
 
-`selections.json` holds the curated source rectangles, expressed as
-`[left, top, width, height]`. Each output PNG copies its rectangle without
-resampling, masking, recoloring, reconstruction or deduplication.
-`catalogue.json` records the source and crop hashes, coordinates and notes.
-`-check` verifies those files, regenerates the expected manifest/HTML in memory
-and compares every decoded crop pixel with the original image.
-
-The additional cell index uses an **inferred reference-image grid**:
+The PNGs use the canonical game contract:
 
 ```text
-zero-based row = 0…46; column = 0…7 or 0…6 on alternate rows
-centre x = 42 + 123*column + 61.5*(row%2)
-centre y = 35 + 35*row
-nominal rectangle = 84 × 70 pixels
-left/top round down; right/bottom round up; clip at the image edge
+1×: 96×80     2×: 192×160     4×: 384×320
+polygon: (25,0),(71,0),(96,40),(71,80),(25,80),(0,40)
+origin: (142*column+71*(row%2), 40*row), zero-based
 ```
 
-Odd-row rectangles are 85 pixels wide because their centres lie on half-pixels.
-The bottom row is clipped from 70 to 54 pixels high and contains red boundary
-symbols. Perimeter deviations of about 1–3 pixels make this an indexing aid,
-not recovered original tile boundaries. Catalogue row/column labels are
-one-based. They are **not verified PULSE level coordinates or terrain IDs**.
-The optional hex viewing guide only changes browser presentation; exported
-PNGs remain rectangular. Larger curated crops preserve features that cross
-cell boundaries.
+Every pixel outside its hex is zero RGBA in the PNG itself. Final pixel centres
+use the same complementary top/left ownership as the authored terrain exports.
+The browser does not substitute CSS clipping. Tile atlases include spaced hexes
+with IDs; the map views assemble the decoded exported PNGs at their canonical
+origins. Complete headquarters, bases, craters and other features are arrangements
+of their constituent tiles, preserving their original relative placement.
 
-The visible earthworks are circular craters; the brown routes read as dirt
-tracks. A continuous trench network is not clearly present. Cross-road white
-bars and some compound equipment have deliberately tentative labels.
-Interface markers and the red lower boundary are catalogued separately.
+All tile samples use one global registration from game world edge coordinates
+to the inferred reference lattice:
 
-The source image stays at the repository root as a user file, pinned to
-SHA-256 `b3182d5d39243717283d8684787281fff13f4f9f331c4ded3180c4e4cc7625dd`.
-The image, copied reference and extracted pixels are local study output under
-ignored `build/`. The committed files are the catalogue recipe, generator,
-page template and these instructions. Production artwork and map rendering
-are unchanged by this study.
+```text
+source_x = world_x*123/142 + 42 - 48*123/142
+source_y = world_y*35/40
+```
+
+This aligns the reference centres with the game grid and normalizes its inferred
+84×70 footprint to 96×80. Premultiplied bilinear interpolation precedes the final hard
+hex mask. The 2×/4× files enlarge the supplied reference; they contain no newly
+generated painted detail. Individual features are not independently fitted,
+rotated or redrawn. Their boundaries can cross hexes naturally.
+
+The source is a flattened painting, so the lattice registration is inferred;
+local painted details can drift from it. `labels.json` classifies the most
+salient visible feature in each mixed hex, independently of PULSE terrain IDs.
+`groups.json` lists the real tile IDs in the twenty complete-feature studies.
+Catalogue IDs and source polygons are recorded in `catalogue.json`.
+
+Exact-black background connected to the source canvas perimeter is made
+transparent with a four-connected flood fill. Enclosed black details and all
+nonblack paint remain intact. Perimeter tiles can therefore be clipped by the
+source painting's irregular outline. The source also ends at height 1664, while
+the full inferred lattice needs 1680 source pixels. Missing areas remain
+transparent, and each output records its `missing_pixels` count (owned pixels
+with alpha below 255). The page marks these tiles “Source edge clipped”. The
+red boundary-symbol cells remain separate from the 345 landscape cells. No
+missing artwork is invented.
+
+`-check` reconstructs all expected exports and checks their hashes and bytes. It
+also compares each pixel in all three assembled maps against the global source
+field and checks for overlapping ownership. Tests independently pin the polygon,
+owned-pixel counts (5680/22720/90880), origins and gap-free packing across both
+row parities, exterior-background removal and sampling across alpha fringes.
+Generated atlases, assembled maps, the zip and HTML are local
+study outputs under ignored `build/`; no runtime artwork is replaced.
+
+The reviewed source SHA-256 is
+`b3182d5d39243717283d8684787281fff13f4f9f331c4ded3180c4e4cc7625dd`.
