@@ -473,8 +473,13 @@ own and leaves the game playable.
 3. [ ] Front end: the order cycle in `cmd/historyline`: phase display (movement/action), moves and attack
        orders, markers on queued attacks, confirm (double arrow) and unconfirm, resolution with the battle
        panel and banners, the side's own map for fog; flag `-rules dos|standard|classic`.
-4. [ ] Computer side on the order cycle: moves towards targets, attack orders on targets in range,
+4. [x] Computer side on the order cycle: moves towards targets, attack orders on targets in range,
        confirm; plays every shipped level to its end headless.
+       (2026-10-21) — `dosai.Planner`, `PlayOut`, `Session.Costs`: computer against computer ends Pulse in
+       12 turns (side 1, HQ), Civil in 10 and Mouse in 16 (side 1, annihilation); against a passing side it
+       wins every level from both sides; plans are deterministic and do not depend on the other side's
+       unrevealed moves or orders; the slowest `Plan` takes about 12 ms. Side 1 is the stronger side on
+       Civil and Mouse.
 5. [ ] Default `-rules dos` for `just play`, `just run` and the web build; hand-test all three levels from
        both sides.
 6. [ ] Energy controls: energy display, repair and production in buildings (`CmdRepair`, `CmdBuild`).

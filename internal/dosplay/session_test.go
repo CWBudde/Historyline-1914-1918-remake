@@ -712,3 +712,53 @@ func TestRepairAndBuild(t *testing.T) {
 		t.Errorf("repaired %v, built %v", repaired, built)
 	}
 }
+
+func TestCosts(t *testing.T) {
+	for _, lv := range shipped(t) {
+		s := session(t, lv, Options{})
+		hexes := 0
+		for _, line := range lv.Lines {
+			hexes += len(line)
+		}
+		closed, held := false, false
+		for _, i := range own(s, 0) {
+			costs, err := s.Costs(0, i)
+			if err != nil {
+				t.Fatalf("%s: Costs(0, %d): %v", lv.MapName, i, err)
+			}
+			for p, c := range costs {
+				if _, ok := s.Board.Cell(p); !ok || c <= 0 {
+					t.Fatalf("%s: unit %d: cost %d at %v", lv.MapName, i, c, p)
+				}
+			}
+			closed = closed || len(costs) < hexes
+			u := s.Unit(i)
+			if u.Held {
+				held = true
+				continue
+			}
+			d, err := s.Destinations(0, i)
+			if err != nil {
+				t.Fatal(err)
+			}
+			for p := range d {
+				if _, ok := costs[p]; !ok {
+					t.Errorf("%s: unit %d reaches %v, which Costs closes", lv.MapName, i, p)
+				}
+			}
+		}
+		if !closed {
+			t.Errorf("%s: no unit has a closed hex", lv.MapName)
+		}
+		if lv.MapName == "Civil" && !held {
+			t.Errorf("%s: no held unit checked", lv.MapName)
+		}
+	}
+	s := session(t, shipped(t)[0], Options{})
+	if _, err := s.Costs(2, 0); err == nil {
+		t.Error("Costs for side 2")
+	}
+	if _, err := s.Costs(0, 999); err == nil {
+		t.Error("Costs for no unit")
+	}
+}

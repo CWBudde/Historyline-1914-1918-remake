@@ -311,6 +311,41 @@ func (s *Session) Route(side, unit int, to hexgrid.Coord) ([]hexgrid.Coord, erro
 	return out, nil
 }
 
+// Costs are the entry costs of the level's hexes for unit of side on the
+// terrain alone, as the reach search counts them without any unit on the
+// map; a hex the unit cannot enter is missing. A computer side plans routes
+// beyond one move with them. The unit may be held.
+func (s *Session) Costs(side, unit int) (map[hexgrid.Coord]int, error) {
+	if side != 0 && side != 1 {
+		return nil, fmt.Errorf("dosplay: side %d", side)
+	}
+	u, ok := s.Game.Units[unit]
+	if !ok || u.Destroyed() {
+		return nil, refusal("no such unit")
+	}
+	t := s.Game.Profile.Tables.Move
+	if t == nil {
+		return nil, dosrules.ErrNoMovement
+	}
+	m := s.Game.Movement(side, unit)
+	p := m.PieceAt(unit)
+	m.Units = map[int]dosrules.Piece{}
+	if u.Flags4&0x4000 == 0 {
+		m.Units[unit] = p
+	}
+	buf := t.Costs(m)
+	out := map[hexgrid.Coord]int{}
+	for c := range s.Game.Width * s.Game.Height {
+		// A cost is stored negated; -80 marks a closed cell.
+		if v := int(buf[c/s.Game.Width*64+c%s.Game.Width]); v < 0 && v > -80 {
+			if p, ok := s.Board.Coord(c); ok {
+				out[p] = -v
+			}
+		}
+	}
+	return out, nil
+}
+
 // ExitDestinations are the hexes the unit in slot of side's part of
 // container record hold may leave it for.
 func (s *Session) ExitDestinations(side, hold, slot int) (map[hexgrid.Coord]bool, error) {
