@@ -146,10 +146,10 @@ dmypy.json
 /docs/strategywiki/
 
 # Local AI agent state (Claude Code, Codex, ...).
-/.agents/
-/.claude/
-/.codex/
-/.superpowers/
+.agents
+.claude
+.codex
+.superpowers
 
 # Local reference paintings (kept out of git).
 /RefDesign*.png
