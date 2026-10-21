@@ -32,10 +32,11 @@ The native reconstruction uses the terrain mask's 24×24 lattice at
 `x=16*column, y=24*row+12*(column%2)`. This static reconstruction is not an executed
 game capture or physical-display verification. The aligned view uses
 `line=2*row+column%2, col=column/2` and nearest-neighbour rescales the complete
-lattice by 71/16 horizontally and 80/24 vertically, with a −5.25px horizontal
-offset to align cell centres. Scaling the joined lattice preserves mask adjacency;
-its original hex outlines still differ from the remake's. It is explicitly
-geometry-normalized; the native PNG retains original proportions.
+lattice uniformly in the original 24×20 hex aspect (×4 horizontally, ×10/3
+vertically). The art is not stretched; cell centres drift from the remake's (column
+pitch 64 vs 71 px), so wipe/difference against the remake is approximate. Scaling the
+joined lattice preserves mask adjacency; original hex outlines still differ from the
+remake's. The native PNG keeps its stored pixels.
 The final original column and unused odd half-row lie outside the remake grid;
 other original forbidden boundary tiles are retained. The comparison canvas clips
 the outer edge. General aligned exports

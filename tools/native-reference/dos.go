@@ -156,7 +156,7 @@ func exportDOSGround(input, out, paletteName, mapName, library string, log io.Wr
 		return err
 	}
 	ref := dosReference{Schema: 1, Platform: "dos", Map: mapName, Library: library, Palette: paletteName, Columns: cols, Rows: rows, Sources: sources,
-		Note: "Original DOS ground pixels and FIN terrain indices, without Python artwork or separate road/path overlays. Native view uses the 24x24 hex-mask lattice (16px columns, 24px rows, odd columns +12px), not an executed game capture; the review page displays it at 24×20 hex aspect (height × 5/6) without changing pixels. Aligned view maps FIN row/column to remake line=2*row+column%2, col=column/2, then nearest-neighbour rescales the complete ground lattice by 71/16 horizontally and 80/24 vertically, with x offset -5.25px to align cell centres. Original hex outlines differ from the remake's; no individual tile masks are reshaped. Cells outside the remake grid are omitted and the comparison canvas clips the outer edge; remaining original forbidden border cells stay unchanged. Units, ownership, UI and runtime palette changes are omitted; palette selection is explicit."}
+		Note: "Original DOS ground pixels and FIN terrain indices, without Python artwork or separate road/path overlays. Native view uses the 24x24 hex-mask lattice (16px columns, 24px rows, odd columns +12px), not an executed game capture; the review page displays it at 24×20 hex aspect (height × 5/6) without changing pixels. Aligned view maps FIN row/column to remake line=2*row+column%2, col=column/2, then nearest-neighbour rescales the complete ground lattice uniformly in the original 24x20 hex aspect (x4, y10/3), so the art is not stretched but cell centres drift from the remake's. Original hex outlines differ from the remake's; no individual tile masks are reshaped. Cells outside the remake grid are omitted and the comparison canvas clips the outer edge; remaining original forbidden border cells stay unchanged. Units, ownership, UI and runtime palette changes are omitted; palette selection is explicit."}
 	var pending = map[string][]byte{}
 	encode := func(name string, im image.Image) (dosPicture, error) {
 		b, e := encodePNG(im)
@@ -304,9 +304,14 @@ func composeDOSGround(fin []byte, tiles [175]*image.NRGBA, names []byte) (*image
 		}
 	}
 	// Scale the complete lattice, not each mask to the remake tile bounds:
-	// native columns advance 16px, while remake centres advance 71px.
-	// Independent 96x80 resizes break native mask adjacency and leave seams.
-	sx, sy := float64(hexgrid.HalfPitch)/16, float64(2*hexgrid.LinePitch)/24
-	xdraw.NearestNeighbor.Transform(aligned, f64.Aff3{sx, 0, float64(hexgrid.HexWidth)/2 - 12*sx, 0, sy, 0}, comparison, comparison.Bounds(), draw.Src, nil)
+	// independent 96x80 resizes break native mask adjacency and leave seams.
+	// The scale is uniform in the original 24x20 hex aspect (sx=4, sy=4*5/6):
+	// the art is not stretched, so cell centres drift from the remake's by the
+	// difference between the 64px and 71px column pitch.
+	sx := float64(hexgrid.HexHeight) / 20
+	sy := sx * 20 / 24
+	// Centre the map on the comparison canvas; the final original column lies outside the remake grid and is omitted.
+	tx := (float64(aw) - float64(16*(w-2)+24)*sx) / 2
+	xdraw.NearestNeighbor.Transform(aligned, f64.Aff3{sx, 0, tx, 0, sy, 0}, comparison, comparison.Bounds(), draw.Src, nil)
 	return native, aligned, cells, w, h, nil
 }

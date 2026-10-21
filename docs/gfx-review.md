@@ -182,7 +182,8 @@ Neither this command nor the review tool edits the parallel graphics track.
 The DOS views are static ground reconstructions without units, UI, ownership or
 runtime palette changes. The native view uses the 24×24 hex-mask lattice; the
 aligned view rescales the complete original lattice with nearest neighbour
-sampling to align cell centres, so its pixel aspect changes for comparison.
+sampling at the original 24×20 hex aspect (uniform, not stretched). Cell centres
+therefore drift from the remake's, and wipe/difference is approximate.
 Original hex outlines still differ from the remake's. The native view is displayed with the original 24×20 hex aspect (height × 5/6,
 display only; PNG pixels are unchanged). The aligned view omits
 cells outside the remake grid and clips its outer edge; remaining original forbidden

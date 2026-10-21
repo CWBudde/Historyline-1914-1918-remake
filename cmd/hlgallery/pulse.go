@@ -383,7 +383,7 @@ func (c *collector) pulseDOS(s *pulseStudy, dir string) error {
 			if snap.Width != s.Width || snap.Height != s.Height {
 				return fmt.Errorf("DOS reference does not match remake comparison geometry")
 			}
-			snap.Method = "Original DOS ground lattice nearest-neighbour rescaled to align cell centres; original hex outlines differ from remake geometry; original FIN terrain, no units/UI"
+			snap.Method = "Original DOS ground lattice nearest-neighbour rescaled uniformly at the original 24×20 hex aspect (cell centres drift from the remake's); original hex outlines differ from remake geometry; original FIN terrain, no units/UI"
 			s.DOS = &snap
 		}
 	}
