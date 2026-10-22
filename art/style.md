@@ -18,22 +18,28 @@ vignettes or checkerboard patterns. Do not copy or trace any existing game's gra
 ## Terrain
 
 The target look is the PULSE reference painting (`art/reference/pulse/`): a lush, sunlit aerial map.
+Where it hurts legibility, the original game's reading wins. Scale and value targets and the prompt kit
+are in [direction.md](direction.md).
 
 ```text
-Strict top-down orthographic (nadir) view, no horizon and no perspective tilt. World scale: one map hex
-is about 50 metres across; a single tree crown is about a fifth of a hex, a hut about a quarter. Ground
-is a warm olive to yellow-green meadow (average close to RGB 96,104,31) with fine blade texture, tiny
-straw scratches, small soil flecks and sparse pale seed heads; never neon lime, never a flat fill.
-Trees are dense rounded broadleaf and conifer crowns in deep moss to dark teal green with yellow-green
-sunlit tops. Water is a clear, saturated blue-teal with small white glints. Paved roads are medium grey
-asphalt with dashed off-white centre lines and sandy gravel shoulders; tracks are pale tan earth.
-Rocks are warm grey-beige with olive moss. Materials and features fill the canvas edge to edge, or
-sit on true alpha transparency for cut-out objects, as each asset states.
+Strict top-down orthographic (nadir) view, no horizon, no perspective tilt and no visible wall faces.
+World scale: one map hex is about 50 metres across; a single tree crown is a fifth to a quarter of a hex,
+a farmhouse about a third. Ground is a warm olive to yellow-green meadow (average close to RGB 100,107,40)
+with gentle mottling, grass clumps, fine blade texture, tiny straw scratches, small soil flecks and
+sparse pale seed heads; never neon lime, never a flat fill. Trees are dense rounded broadleaf and conifer
+crowns in deep moss to dark olive green with muted yellow-green sunlit tops and near-black gaps. Water is
+a deep teal-blue, darker away from the shore, lighter and greener over shallow beds and shaded under its
+banks, with sparse small glints; never pool blue. Roads are pale grey-ochre water-bound macadam with two
+darker worn wheel tracks, a lighter crown and sandy verges, never painted lines; tracks are tan earth
+with two ruts and a grassy median. Rocks are warm grey-beige with olive moss. Hills and relief are darker
+than the meadow, never lighter. Materials and features fill the canvas edge to edge, or sit on true
+alpha transparency for cut-out objects, as each asset states.
 ```
 
-Rules: same world scale on every tile; no visible tiling, rounded "pillow" repeats or big light/dark
-blobs; roads, streams and banks continue straight through their declared ports; winter versions keep
-the summer geometry and only change season (settled snow, bare deciduous trees, cool shadows).
+Rules: same world scale on every tile; no visible tiling, rounded "pillow" repeats or light/dark blobs
+larger than half a hex; roads, streams and banks continue straight through their declared ports; winter
+versions keep the summer geometry and only change season (settled snow, bare deciduous trees, cool
+shadows). Code draws cast shadows, so cut-outs carry form shading only.
 
 Terrain must form a reusable tile set. Use the reference for materials, scale and lighting; paint shared
 surfaces and reusable props, then compose them through the declared edge masks. A lake must work in

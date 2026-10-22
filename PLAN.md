@@ -202,9 +202,9 @@ New families, newly painted in the remake's style with 2×/4× exports:
 
 ### 2. Art completion and acceptance
 
-- [ ] Bring the rendered PULSE map to the reference design: measurement loop, compositor foundations
-      (overhang, mask transitions, props, cluster stamps, stroked infrastructure), then the repaint per family
-      (see "Terrain: PULSE to the reference design" below).
+- [ ] Bring the terrain to the target look in the order of "Terrain look: order of work" below: sampling
+      and grade fixes first, then forest and meadow, water, lines, buildings, relief, winter and the campaign
+      subjects. Direction, targets and prompts: [art/direction.md](art/direction.md).
 - [ ] Approve terrain: grass and context transitions, full-map repetition, seasons, seams at three-tile
       vertices.
 - [x] Standardize terrain source names as `<family>[-<variant>]-<season>-v<N>.png`; preserve runtime IDs
@@ -307,6 +307,181 @@ New families, newly painted in the remake's style with 2×/4× exports:
       100–150 %, zoom 0.75–2; check halos, bleed, repetition, cracks, picking, text.
 - [ ] Performance: name baseline hardware; 60 FPS (p95 ≤ 16.7 ms) on the stress map; startup time, download
       size and texture memory. Ship 4× only if it passes the same review.
+
+#### Terrain look: order of work
+
+**Decision (2026-10-22):** the terrain does not yet reach the target look. The direction, the measured
+verdict, the world-scale and value targets and the prompts are in [art/direction.md](art/direction.md);
+the evidence is local in `build/review/look-audit/`. This section sets the order. The per-family lists in
+"Terrain: PULSE to the reference design" below stay the inventory, and their items are ticked as these
+phases deliver them.
+
+Most of the flatness comes from the pack build, not from the paintings, so code comes first:
+- Sources are squeezed into one 142×80 lattice cell, sampled bilinearly without a prefilter and averaged
+  over two cosets.
+- Every family bakes the canonical meadow into its tiles.
+- Forest crowns use one fixed template per hex.
+
+Stop adding enumerated baked contexts. Each one fixes the old sampling in place, and Look 1 replaces them.
+
+**Where the earlier candidates live:**
+- The other machine's Codex image outputs: 617 PNGs, of which 372 are installed masters.
+- Their prompts are in its Codex session logs.
+- A catalogue with contact sheets and the full prompts is local under
+  `build/review/look-audit/agent-inventory/`.
+- Worth keeping, not installed: meadow `exec-c8db8578`, the dark crown atlas `exec-6d6092dc`, the
+  footbridges `exec-62ac6b08` and `exec-3b558b9a`, the road bridge `exec-07b389c2`, the hamlet
+  `exec-5a089717`, the winter brick works `exec-60b7ad4f` and the château HQ `exec-50b981b9`. None of
+  them is a usable reusable water material.
+
+##### Look 0: Gates
+
+- [ ] Extend `tools/reference-design` with the metrics of the direction's acceptance table, each with
+      targets for render, reference and original and a `reference-check` gate:
+      - band energy per scale;
+      - lattice autocorrelation (repetition);
+      - woodland-edge distance to hex edges;
+      - light skew;
+      - water depth gradient, bank width and stream width with their variation;
+      - unit edge contrast;
+      - the 5–95 % value range.
+- [ ] Review views at the real size: 1× and an effective zoom of 1.6 (the planned split screen), plus
+      in-game captures at 1080p and 4K. A headless capture path in `cmd/historyline` replaces the patched
+      copy used for the audit.
+
+##### Look 1: Sampling, grade and legibility (code, no new art)
+
+- [ ] Sample every material at its native aspect with a world period instead of one lattice cell. Use a
+      prefilter (box or Lanczos to the export density), no mirror wrap and no coset averaging.
+      This applies to `tools/art-review` `grass_sampling.go`, `authored_bank.go`, `connected_render.go`,
+      `hills_render.go` and `ground_render.go`.
+      Meadow and hills get a 568×400 world period, selected as phases like `mapcompose.Phase`; water
+      gets 284×160.
+      Done when the installed meadow and scrub masters reach grass σL\* ≥ 10 at 1× and the lattice
+      autocorrelation is < 0.15.
+- [ ] No baked meadow in other families. Hills, mud, stone, forest floor, roads, paths, streams, shores and
+      compounds export colour with an alpha falloff over the meadow underlay. Their 8-px canonical edge
+      guard goes away.
+- [ ] Grade pass per family and season in `hlasset build-terrain`, to the value targets in the direction:
+      - lightness range 5–95 % about 8–64;
+      - b\* 4–5 lower on land;
+      - relief darker than grass;
+      - buildings b\* about 16.
+- [ ] One light and shadow model:
+      - azimuth 315°;
+      - shadow colour about RGB 18,26,16;
+      - length 0.25 × object diameter;
+      - opacity: crowns 0.6, rocks 0.45, buildings 0.35.
+      Cast shadows of standing items come from code.
+- [ ] Units:
+      - a soft contact shadow (ellipse about 0.6×0.25 hex, about 45 % black);
+      - a dark 1-world-px rim, for a unit edge ΔL\* ≥ 30 on grass, forest, road and water;
+      - props kept 0.3 hex away from the foot point.
+- [ ] Default zoom at 1080p so a hex covers about 7 % of the screen width, as in the original and at 4K.
+- [ ] Winter cells pick seasonal infrastructure and water IDs. Rail bridges draw a rail deck, not a road
+      deck: the standing item is chosen by the crossing family, in `mapcompose/standing.go`.
+
+##### Look 2: Forest and meadow
+
+- [ ] Forest crowns become scatter instances placed by a world density field instead of baked standing
+      contexts:
+      - sizes 16/22/28 world px;
+      - 9–13 crowns per interior hex;
+      - cover ≥ 85 % in forest cells and 4–8 % in open cells;
+      - the woodland edge wanders −14..+10 px around the hex edge;
+      - stands of species chosen by low-frequency noise.
+      Interim art: `forest-crowns-summer-v3.png` (crowns fill 75 % of the panel); then generate the F2
+      crown sheet and the F1 floor.
+- [ ] Meadow: generate G1 (macro material, 568×400 world period) and G2 (prop sheet); scatter layer
+      (§1.3) with a density table per family and Poisson-disc placement seeded by world position.
+- [ ] Hills: generate G3 (hummock and scrub overlay), 4–6 L\* darker than grass, with 6–10 scrub props per
+      hex. Done when 18 of 20 random hills hexes are named correctly at 1×.
+- [ ] Done when the PULSE forest, grass and hills meet their rows in the acceptance table and no hex
+      staircase shows at 1× or 2×.
+
+##### Look 3: Water
+
+The HQ moat is the bar: teal, darker under its banks, lighter and greener in the shallows, with reeds and
+stones.
+
+- [ ] Exporter profile `depth-v1` for open water, shores, mouths and streams, computed from the masks:
+      - coast distance;
+      - depth;
+      - a bank shadow cast toward the lower right;
+      - layers from the bottom: bed, deep water by depth, shadow, a broken lap line, damp fringe, then
+        painted bank props placed along the coast with seeds keyed to the edge, so both tiles of a pair
+        agree.
+      Keep the 234 shore pairs, the 24 mouths and the vertex tests green.
+- [ ] Streams: 22 world px at the ports, meander 3–7 px, width 16–30 inside a tile with pools at bends and
+      riffles on straights; three meander alternates per port set.
+- [ ] Generate W1 (deep water), W2 (shallow bed), W3 (bank boulders), W4 (pebbles, reeds, tufts) and W6 (lake
+      rocks); W5 (riffles) only if the computed lap line is not enough.
+- [ ] Bridges: register the longer earlier footbridges and road bridge first, then generate B1–B5. The road
+      bridge's carriageway continues the macadam road with no deck plate.
+- [ ] Done when the water rows of the acceptance table hold and the moat test passes: lake and moat side by
+      side at 4× read as one material.
+
+##### Look 4: Roads, paths, rail and trenches
+
+- [ ] Stroke renderer in the pack build:
+      - spline centrelines through the ports, held straight for 6 px at each port;
+      - deterministic meander: roads ±2, paths ±4;
+      - the brush strip sampled by arc length and signed distance;
+      - noisy alpha falloff (road 6, path 4, rail 3, trench 4 world px);
+      - smooth-min junctions with fillets ≥ 8 px;
+      - kit decals at junctions, mouths and gates.
+      Export to the existing tile IDs; the painted port tiles stay as fallback.
+- [ ] Generate R1–R4 (road, path, rail and trench strips, summer and winter), the R5 kit sheets and R6
+      (barbed wire, three variants).
+      Widths: road 22 (footprint about 38), path 11, rail ballast 16, trench footprint 18–22.
+- [ ] Done when no carriageway pixel is paint-white, every road–path meeting has a mouth (`r17c6`/`r18c5`),
+      and rail, crossings and trenches meet their rows in the table.
+
+##### Look 5: Buildings
+
+- [ ] Buildings move to the standing layer: one whole-scene painting each, overhang up to 24 world px, a
+      code-made cast shadow, and a ground part derived from the painting over the real meadow.
+- [ ] Each ownable building keeps a flat marker zone: HQ in C, depot in S, factory in E. The HQ entrance
+      cell is N. This answers the open item in §1.
+- [ ] Generate:
+      - H1, the HQ as a bastioned fort that keeps the moat;
+      - H2, the depot as a supply dump;
+      - H3, the factory as a brick works;
+      - H4–H6, three house variants chosen by seed.
+      Each also gets its winter edit.
+- [ ] Done when no wall face is taller than 2 world px, the house body is 34–40 world px, and the HQ and
+      depot meet their rows in the table.
+
+##### Look 6: Relief and broken ground
+
+- [ ] Mud and stone cells get their own overlay (G4, G5) under the stamps instead of plain meadow. Craters
+      become shallow rings (G6); boulders and scrub come from the props (G7).
+- [ ] Knolls (G8, three variants) and massifs (G9, one per reference feature) carry no grass of their own.
+      Each is a semi-transparent shade layer over the meadow plus a standing crest. The massif inset goes
+      from 0.65 to 1.0 with 12 px overhang. Relief stays 6–10 L\* darker than grass.
+
+##### Look 7: Winter
+
+- [ ] The F3 winter crowns are placed like summer, so the brown hexagons go.
+- [ ] Winter edits of G1, G4, G6, G7, G8 and G9.
+- [ ] Winter water: I1 shore ice and an I2 grade or edit, with ice where the depth is low.
+- [ ] Winter strips and kits (R1–R5), and the I3 edits of rocks and bridges.
+- [ ] Done when no summer water, shore, road or path shows on a winter cell of Civil, Mouse or a winter
+      campaign map.
+
+##### Look 8: Campaign subjects
+
+Replaces the stand-ins in Phase 9.3:
+- [ ] sea (C1 with the depth exporter; C2 surf, shoals and skerries);
+- [ ] shell-hole fields as a field material (C3) instead of the crater-ring lattice;
+- [ ] harbour (C4), quays (C5) and town streets (C6);
+- [ ] mountain ranges at their footprint.
+
+##### Look 9: Acceptance
+
+- [ ] Every family within its acceptance row; side-by-side crops reviewed by hand.
+- [ ] The game window at zoom 0.75, 1 and 2, at 1080p and 4K, on PULSE, Civil, Mouse and four campaign maps.
+- [ ] `prompt.md` status `approved` per family, and Phase 8 below ticked.
 
 #### Terrain: PULSE to the reference design
 
@@ -481,8 +656,9 @@ Needs 1.2 and 1.3. Every material is authored at 4× and exported to 2× and 1×
 
 ###### 2.2 Hills (`hills`)
 
-- [ ] Meadow with dense scrub and low bushes, no relief (the reference shows no rises). Exemplars `r6c5`,
-      `r16c7`, `r21c7`, `r23c6`.
+- [ ] Meadow with dense scrub and low, lumpy hummocks lit from the north-west, 4–6 L\* darker than grass,
+      so hills read at 1× (the reference's near-flat hills do not). Exemplars `r6c5`, `r16c7`, `r21c7`,
+      `r23c6`.
 - [ ] Material plus edge masks; the dark smears disappear.
 
 ###### 2.3 Stone (`stone`)
@@ -596,8 +772,9 @@ Needs 1.5.
 
 ###### 5.1 Road (`road124`, `road125`, `road13`, `road135`, `road14`, `road145`, `road15`, `road236`, `road24`, `road25`, `road26`, `road346`, `road35`, `road356`, `road36`, `road46`)
 
-- [ ] Brush: grey asphalt, dashed centre line, gravel shoulders, slight wear; curves and junctions as in the
-      features "Northern road junction" and "Western road junction". Exemplars `r7c3`, `r3c2`, `r36c4`, `r15c6`,
+- [ ] Brush: water-bound macadam with two worn wheel tracks, sandy verges and a ditch, no paint (period
+      fit overrules the reference's lane markings); curves and junctions as in the features "Northern road
+      junction" and "Western road junction". Exemplars `r7c3`, `r3c2`, `r36c4`, `r15c6`,
       `r9c3`, `r31c2`.
 - [ ] Road ends at gates (HQ north gate, depot barrier) and into paths; the `road346` junction at `r17c6`
       must hand over to the path from `r18c5` instead of ending in a stub.
