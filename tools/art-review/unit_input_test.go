@@ -48,6 +48,75 @@ func unitTestFixture(t *testing.T) (string, []byte) {
 	t.Helper()
 	return unitTestFamilyFixture(t, "infantry")
 }
+
+func TestUnitAtlasRejectsBackgroundMatte(t *testing.T) {
+	const cell = 384
+	atlas := image.NewNRGBA(image.Rect(0, 0, cell*2, cell*3))
+	for face := range 6 {
+		ox, oy := face%2*cell, face/2*cell
+		for y := range cell {
+			for x := range cell {
+				p := color.NRGBA{180, 0, 180, 1} // faint whole-cell matte
+				if x < 8 && y < 8 {
+					p = color.NRGBA{} // the old 64-pixel minimum was insufficient
+				} else if x >= 140 && x < 240 && y >= 140 && y < 240 {
+					p = color.NRGBA{200, 0, 200, 255}
+				}
+				atlas.SetNRGBA(ox+x, oy+y, p)
+			}
+		}
+	}
+	if err := unitValidateAtlas(atlas); err == nil {
+		t.Fatal("accepted a broad alpha-one background matte")
+	}
+	// Removing the matte, while retaining the authored object, is sufficient.
+	for y := range atlas.Bounds().Dy() {
+		for x := range atlas.Bounds().Dx() {
+			if atlas.NRGBAAt(x, y).A == 1 {
+				atlas.SetNRGBA(x, y, color.NRGBA{})
+			}
+		}
+	}
+	if err := unitValidateAtlas(atlas); err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestUnitAtlasRejectsArtworkCrossingCellEdge(t *testing.T) {
+	path, _ := unitTestFixture(t)
+	in, err := loadUnitInputs(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	// A wing extending across an atlas seam is clipped in one view and becomes
+	// a detached fragment of the next. Output padding cannot repair that source.
+	cell := in.Atlas.Image.Bounds().Dx() / 2
+	in.Atlas.Image.SetNRGBA(cell-1, cell/2, color.NRGBA{200, 0, 200, 255})
+	in.Atlas.Image.SetNRGBA(cell, cell/2, color.NRGBA{200, 0, 200, 255})
+	if err := unitValidateAtlas(in.Atlas.Image); err == nil {
+		t.Fatal("accepted opaque artwork crossing an atlas cell edge")
+	}
+}
+
+func TestRetainedUnitAtlasInputs(t *testing.T) {
+	paths, err := filepath.Glob(filepath.Join("..", "..", "art", "pipeline", "unit-*-v1.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(paths) == 0 {
+		t.Fatal("no retained unit manifests")
+	}
+	for _, path := range paths {
+		if filepath.Base(path) == "unit-panel-v1.json" {
+			continue
+		}
+		t.Run(filepath.Base(path), func(t *testing.T) {
+			if _, err := loadUnitInputs(path); err != nil {
+				t.Fatal(err)
+			}
+		})
+	}
+}
 func unitTestFamilyFixture(t *testing.T, family string) (string, []byte) {
 	t.Helper()
 	dir := t.TempDir()

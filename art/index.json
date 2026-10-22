@@ -10597,6 +10597,83 @@
       }
     },
     {
+      "id": "units/albatros-d-iii",
+      "title": "Albatros D.III",
+      "kind": "unit",
+      "status": "revised",
+      "runtime_ids": [
+        "unit/albatros-d-iii"
+      ],
+      "dir": "art/units/albatros-d-iii",
+      "assets_dir": "assets/units/albatros-d-iii",
+      "prompt": "art/units/albatros-d-iii/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/albatros-d-iii/atlas.png",
+          "sha256": "992525156c3c972c95f14b4571a273266cbb4ba4ad82b7f20a5df1ae0a9148ae",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI Albatros D.III. A distinct period silhouette,\nfixed upper-left lighting and technical magenta owner paint; other materials stay natural.",
+      "base_prompt": "Use case: historical-scene. Produce ONE production transparent WWI tactical aircraft sprite ATLAS. Exact canvas 1024x1536 RGBA pixels. Invisible TWO columns by THREE rows of 512x512 square cells. Six SMALL, isolated independently painted views of the SAME Albatros D.III, one aircraft per cell. No duplicated plane or fragments within a cell.\nLAYOUT: fuselage centre pivot at each cell's (256,261). ENTIRE aircraft including wingtips, propeller, tail, wheels and wires fits inside the central 320x320 box of each512px cell. At least80px fully clear alpha margins on ALL four edges; wings NEVER cross a cell boundary. Same object scale throughout.\nHEADING ORDER, row-major: top LEFT N = propeller/nose UP away from viewer and TAIL down nearest viewer; top RIGHT NW = NOSE upper LEFT, TAIL lower RIGHT; middle LEFT SW = NOSE lower LEFT, TAIL upper RIGHT; middle RIGHT S = NOSE DOWN towards viewer, TAIL UP; bottom LEFT SE = NOSE lower RIGHT, TAIL upper LEFT; bottom RIGHT NE = NOSE upper RIGHT, TAIL lower LEFT. Front is always the PROPELLER end. Draw six genuinely different 3D orientations, never rotate or mirror a finished image.\nSubject: An Albatros D.III single-seat WWI sesquiplane fighter: exactly TWO stacked wing levels, a broad straight UPPER wing and clearly NARROWER lower wing, one V-shaped interplane strut on each side, smooth streamlined natural varnished PLYWOOD fuselage, a pointed nose spinner with TWO natural wood propeller blades at the FRONT, visible inline engine cylinder tops, ONE open cockpit behind the upper wing, rounded fin and fixed two-wheel landing gear. Wings and tail fabric use shaded technical MAGENTA; plywood fuselage is warm natural brown, metal/struts/tyres natural. No third wing and no circular rotary-engine cowling.\nCamera: fixed elevated overhead strategy camera, aircraft level and wings horizontal, visible top surfaces with just enough side height to distinguish wing levels. Light always from SCREEN upper LEFT, soft and diffuse. Newly authored finely hand-painted digital game illustration, crisp clean material edges and strong readable silhouette at48px; same painterly WWI tactical sprite vocabulary as existing units. Not pixel art, not photo, not a3D render. All six views have identical wing count, equipment and structural design. No pilot protruding above fuselage.\nTRUE ALPHA transparency outside each aircraft and through open structural gaps. NO ground, sky, backdrop, clouds, shadows, haze, glow, checkerboard, propeller blur, smoke, reflections, labels, insignia, crosses, flags, letters, numbers, grid or frame. Exactly SIX complete aircraft, one per cell.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera, scale and lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-albatros-d-iii-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/albatros-d-iii/`; gameplay class binding remains open.",
+      "avoid": [
+        "water, wakes, reflections, ground shadows, backdrop or detached fragments",
+        "labels, national insignia, clipped extremities or inconsistent equipment between views"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/albatros-d-iii/cp/n-normal-4x.png",
+          "assets/units/albatros-d-iii/cp/nw-normal-4x.png",
+          "assets/units/albatros-d-iii/cp/sw-normal-4x.png",
+          "assets/units/albatros-d-iii/cp/s-normal-4x.png",
+          "assets/units/albatros-d-iii/cp/se-normal-4x.png",
+          "assets/units/albatros-d-iii/cp/ne-normal-4x.png",
+          "assets/units/albatros-d-iii/ec/n-normal-4x.png",
+          "assets/units/albatros-d-iii/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
       "id": "units/armored-car",
       "title": "Armoured car",
       "kind": "unit",
@@ -11240,6 +11317,314 @@
       }
     },
     {
+      "id": "units/fokker-d-vii",
+      "title": "Fokker D.VII",
+      "kind": "unit",
+      "status": "revised",
+      "runtime_ids": [
+        "unit/fokker-d-vii"
+      ],
+      "dir": "art/units/fokker-d-vii",
+      "assets_dir": "assets/units/fokker-d-vii",
+      "prompt": "art/units/fokker-d-vii/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/fokker-d-vii/atlas.png",
+          "sha256": "5b62588c2ff69e012c4d5e042c4764b6a2521be5b5fbb848c1d2b8d5cfe9c205",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI Fokker D.VII. A distinct period silhouette,\nfixed upper-left lighting and technical magenta owner paint; other materials stay natural.",
+      "base_prompt": "Use case: historical-scene. Produce ONE production transparent WWI tactical aircraft sprite ATLAS. Exact canvas 1024x1536 RGBA pixels. Invisible TWO columns by THREE rows of 512x512 square cells. Six SMALL, isolated independently painted views of the SAME Fokker D.VII, one aircraft per cell. No duplicated plane or fragments within a cell.\nLAYOUT: fuselage centre pivot at each cell's (256,261). ENTIRE aircraft including wingtips, propeller, tail, wheels and wires fits inside the central 320x320 box of each512px cell. At least80px fully clear alpha margins on ALL four edges; wings NEVER cross a cell boundary. Same object scale throughout.\nHEADING ORDER, row-major: top LEFT N = propeller/nose UP away from viewer and TAIL down nearest viewer; top RIGHT NW = NOSE upper LEFT, TAIL lower RIGHT; middle LEFT SW = NOSE lower LEFT, TAIL upper RIGHT; middle RIGHT S = NOSE DOWN towards viewer, TAIL UP; bottom LEFT SE = NOSE lower RIGHT, TAIL upper LEFT; bottom RIGHT NE = NOSE upper RIGHT, TAIL lower LEFT. Front is always the PROPELLER end. Draw six genuinely different 3D orientations, never rotate or mirror a finished image.\nSubject: A Fokker D.VII WWI BIPLANE fighter, exactly TWO main wing levels: broad thick nearly straight upper wing and smaller lower wing, joined by N-shaped interplane struts. Short boxy fabric fuselage with rectangular inline-engine nose and top radiator, ONE small open cockpit aft of the top wing, two forward guns, broad rounded rudder, fixed two-wheel undercarriage with axle airfoil, ONE two-bladed natural wooden tractor propeller at the FRONT. Shaded technical magenta wings, fuselage and tail, natural steel engine panels, wooden propeller and black tyres. NO circular rotary cowling, no third main wing and no modern canopy.\nCamera: fixed elevated overhead strategy camera, aircraft level and wings horizontal, visible top surfaces with just enough side height to distinguish wing levels. Light always from SCREEN upper LEFT, soft and diffuse. Newly authored finely hand-painted digital game illustration, crisp clean material edges and strong readable silhouette at48px; same painterly WWI tactical sprite vocabulary as existing units. Not pixel art, not photo, not a3D render. All six views have identical wing count, equipment and structural design. No pilot protruding above fuselage.\nTRUE ALPHA transparency outside each aircraft and through open structural gaps. NO ground, sky, backdrop, clouds, shadows, haze, glow, checkerboard, propeller blur, smoke, reflections, labels, insignia, crosses, flags, letters, numbers, grid or frame. Exactly SIX complete aircraft, one per cell.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera, scale and lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-fokker-d-vii-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/fokker-d-vii/`; gameplay class binding remains open.",
+      "avoid": [
+        "water, wakes, reflections, ground shadows, backdrop or detached fragments",
+        "labels, national insignia, clipped extremities or inconsistent equipment between views"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/fokker-d-vii/cp/n-normal-4x.png",
+          "assets/units/fokker-d-vii/cp/nw-normal-4x.png",
+          "assets/units/fokker-d-vii/cp/sw-normal-4x.png",
+          "assets/units/fokker-d-vii/cp/s-normal-4x.png",
+          "assets/units/fokker-d-vii/cp/se-normal-4x.png",
+          "assets/units/fokker-d-vii/cp/ne-normal-4x.png",
+          "assets/units/fokker-d-vii/ec/n-normal-4x.png",
+          "assets/units/fokker-d-vii/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "units/fokker-dr-i",
+      "title": "Fokker Dr.I",
+      "kind": "unit",
+      "status": "revised",
+      "runtime_ids": [
+        "unit/fokker-dr-i"
+      ],
+      "dir": "art/units/fokker-dr-i",
+      "assets_dir": "assets/units/fokker-dr-i",
+      "prompt": "art/units/fokker-dr-i/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/fokker-dr-i/atlas.png",
+          "sha256": "e97dcf1706ee51837dc8b603559d9d81ab972d0293a78e39cf99f11038a093d3",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI Fokker Dr.I. A distinct period silhouette,\nfixed upper-left lighting and technical magenta owner paint; other materials stay natural.",
+      "base_prompt": "Use case: historical-scene. Produce ONE production transparent WWI tactical aircraft sprite ATLAS. Exact canvas 1024x1536 RGBA pixels. Invisible TWO columns by THREE rows of 512x512 square cells. Six SMALL, isolated independently painted views of the SAME Fokker Dr.I, one aircraft per cell. No duplicated plane or fragments within a cell.\nLAYOUT: fuselage centre pivot at each cell's (256,261). ENTIRE aircraft including wingtips, propeller, tail, wheels and wires fits inside the central 320x320 box of each512px cell. At least80px fully clear alpha margins on ALL four edges; wings NEVER cross a cell boundary. Same object scale throughout.\nHEADING ORDER, row-major: top LEFT N = propeller/nose UP away from viewer and TAIL down nearest viewer; top RIGHT NW = NOSE upper LEFT, TAIL lower RIGHT; middle LEFT SW = NOSE lower LEFT, TAIL upper RIGHT; middle RIGHT S = NOSE DOWN towards viewer, TAIL UP; bottom LEFT SE = NOSE lower RIGHT, TAIL upper LEFT; bottom RIGHT NE = NOSE upper RIGHT, TAIL lower LEFT. Front is always the PROPELLER end. Draw six genuinely different 3D orientations, never rotate or mirror a finished image.\nSubject: A compact Fokker Dr.I WWI TRIPLANE fighter. Exactly THREE stacked main wing levels, all three must be visible in every view: broad TOP wing, MIDDLE wing and LOWER wing, each continuous across the fuselage, visibly vertically separated on both sides. A single I-shaped interplane strut joins all three wings on each side. Short compact boxy fabric fuselage, circular natural steel rotary-engine cowling, ONE open cockpit behind wing stack, TWO forward guns, rounded rudder, fixed landing wheels and a small airfoil on their axle (the axle airfoil is NOT a main wing). ONE two-bladed natural wooden tractor propeller at the FRONT. Technical magenta fabric on wings, fuselage and tail, natural steel cowling, wooden propeller and dark tyres. No red livery, no fourth main wing and no biplane.\nCamera: fixed elevated overhead strategy camera, aircraft level and wings horizontal, visible top surfaces with just enough side height to distinguish wing levels. Light always from SCREEN upper LEFT, soft and diffuse. Newly authored finely hand-painted digital game illustration, crisp clean material edges and strong readable silhouette at48px; same painterly WWI tactical sprite vocabulary as existing units. Not pixel art, not photo, not a3D render. All six views have identical wing count, equipment and structural design. No pilot protruding above fuselage.\nTRUE ALPHA transparency outside each aircraft and through open structural gaps. NO ground, sky, backdrop, clouds, shadows, haze, glow, checkerboard, propeller blur, smoke, reflections, labels, insignia, crosses, flags, letters, numbers, grid or frame. Exactly SIX complete aircraft, one per cell.\nFor the triplane use enough view elevation and wing stagger that THREE distinct main wing leading edges are visible in every cell; never merge them into two. Each remains a small complete isolated plane centred in its cell.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera, scale and lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-fokker-dr-i-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/fokker-dr-i/`; gameplay class binding remains open.",
+      "avoid": [
+        "water, wakes, reflections, ground shadows, backdrop or detached fragments",
+        "labels, national insignia, clipped extremities or inconsistent equipment between views"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/fokker-dr-i/cp/n-normal-4x.png",
+          "assets/units/fokker-dr-i/cp/nw-normal-4x.png",
+          "assets/units/fokker-dr-i/cp/sw-normal-4x.png",
+          "assets/units/fokker-dr-i/cp/s-normal-4x.png",
+          "assets/units/fokker-dr-i/cp/se-normal-4x.png",
+          "assets/units/fokker-dr-i/cp/ne-normal-4x.png",
+          "assets/units/fokker-dr-i/ec/n-normal-4x.png",
+          "assets/units/fokker-dr-i/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "units/fokker-e-i",
+      "title": "Fokker E.I",
+      "kind": "unit",
+      "status": "revised",
+      "runtime_ids": [
+        "unit/fokker-e-i"
+      ],
+      "dir": "art/units/fokker-e-i",
+      "assets_dir": "assets/units/fokker-e-i",
+      "prompt": "art/units/fokker-e-i/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/fokker-e-i/atlas.png",
+          "sha256": "7b86e28be79c5dfcb576cadb28596b314cd0a08d6eeecd6ed6b939c715d7b861",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI Fokker E.I. A distinct period silhouette,\nfixed upper-left lighting and technical magenta owner paint; other materials stay natural.",
+      "base_prompt": "Use case: historical-scene. Produce ONE production transparent WWI tactical aircraft sprite ATLAS. Exact canvas 1024x1536 RGBA pixels. Invisible TWO columns by THREE rows of 512x512 square cells. Six SMALL, isolated independently painted views of the SAME Fokker E.I, one aircraft per cell. No duplicated plane or fragments within a cell.\nLAYOUT: fuselage centre pivot at each cell's (256,261). ENTIRE aircraft including wingtips, propeller, tail, wheels and wires fits inside the central 320x320 box of each512px cell. At least80px fully clear alpha margins on ALL four edges; wings NEVER cross a cell boundary. Same object scale throughout.\nHEADING ORDER, row-major: top LEFT N = propeller/nose UP away from viewer and TAIL down nearest viewer; top RIGHT NW = NOSE upper LEFT, TAIL lower RIGHT; middle LEFT SW = NOSE lower LEFT, TAIL upper RIGHT; middle RIGHT S = NOSE DOWN towards viewer, TAIL UP; bottom LEFT SE = NOSE lower RIGHT, TAIL upper LEFT; bottom RIGHT NE = NOSE upper RIGHT, TAIL lower LEFT. Front is always the PROPELLER end. Draw six genuinely different 3D orientations, never rotate or mirror a finished image.\nSubject: A Fokker E.I early WWI single-seat shoulder-wing MONOPLANE: exactly ONE wing level, straight short narrow untapered fabric wings, compact slim fabric fuselage, circular natural-steel rotary engine cowling, ONE small open cockpit, one slim forward gun, small comma-shaped rudder, small flat tailplane, spoked fixed landing wheels and ONE two-bladed natural wooden tractor propeller at the FRONT. Fine wing-warping bracing wires. Technical magenta only on fabric wings, fuselage and tail; steel cowling, wood propeller and black tyres stay natural. Smaller and shorter than the later E.III; no second wing and no modern cockpit canopy.\nCamera: fixed elevated overhead strategy camera, aircraft level and wings horizontal, visible top surfaces with just enough side height to distinguish wing levels. Light always from SCREEN upper LEFT, soft and diffuse. Newly authored finely hand-painted digital game illustration, crisp clean material edges and strong readable silhouette at48px; same painterly WWI tactical sprite vocabulary as existing units. Not pixel art, not photo, not a3D render. All six views have identical wing count, equipment and structural design. No pilot protruding above fuselage.\nTRUE ALPHA transparency outside each aircraft and through open structural gaps. NO ground, sky, backdrop, clouds, shadows, haze, glow, checkerboard, propeller blur, smoke, reflections, labels, insignia, crosses, flags, letters, numbers, grid or frame. Exactly SIX complete aircraft, one per cell.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera, scale and lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-fokker-e-i-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/fokker-e-i/`; gameplay class binding remains open.",
+      "avoid": [
+        "water, wakes, reflections, ground shadows, backdrop or detached fragments",
+        "labels, national insignia, clipped extremities or inconsistent equipment between views"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/fokker-e-i/cp/n-normal-4x.png",
+          "assets/units/fokker-e-i/cp/nw-normal-4x.png",
+          "assets/units/fokker-e-i/cp/sw-normal-4x.png",
+          "assets/units/fokker-e-i/cp/s-normal-4x.png",
+          "assets/units/fokker-e-i/cp/se-normal-4x.png",
+          "assets/units/fokker-e-i/cp/ne-normal-4x.png",
+          "assets/units/fokker-e-i/ec/n-normal-4x.png",
+          "assets/units/fokker-e-i/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "units/fokker-e-iii",
+      "title": "Fokker E.III",
+      "kind": "unit",
+      "status": "revised",
+      "runtime_ids": [
+        "unit/fokker-e-iii"
+      ],
+      "dir": "art/units/fokker-e-iii",
+      "assets_dir": "assets/units/fokker-e-iii",
+      "prompt": "art/units/fokker-e-iii/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/fokker-e-iii/atlas.png",
+          "sha256": "aa9ba7f3c689df3126553b8481276a71e750e1b5b6ce40aa0aec22580e2eb383",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI Fokker E.III. A distinct period silhouette,\nfixed upper-left lighting and technical magenta owner paint; other materials stay natural.",
+      "base_prompt": "Use case: historical-scene. Produce ONE production transparent WWI tactical aircraft sprite ATLAS. Exact canvas 1024x1536 RGBA pixels. Invisible TWO columns by THREE rows of 512x512 square cells. Six SMALL, isolated independently painted views of the SAME Fokker E.III, one aircraft per cell. No duplicated plane or fragments within a cell.\nLAYOUT: fuselage centre pivot at each cell's (256,261). ENTIRE aircraft including wingtips, propeller, tail, wheels and wires fits inside the central 320x320 box of each512px cell. At least80px fully clear alpha margins on ALL four edges; wings NEVER cross a cell boundary. Same object scale throughout.\nHEADING ORDER, row-major: top LEFT N = propeller/nose UP away from viewer and TAIL down nearest viewer; top RIGHT NW = NOSE upper LEFT, TAIL lower RIGHT; middle LEFT SW = NOSE lower LEFT, TAIL upper RIGHT; middle RIGHT S = NOSE DOWN towards viewer, TAIL UP; bottom LEFT SE = NOSE lower RIGHT, TAIL upper LEFT; bottom RIGHT NE = NOSE upper RIGHT, TAIL lower LEFT. Front is always the PROPELLER end. Draw six genuinely different 3D orientations, never rotate or mirror a finished image.\nSubject: A Fokker E.III early WWI single-seat shoulder-wing MONOPLANE: exactly ONE wing level, broad straight fabric wings, long slim fabric fuselage, circular natural-steel rotary engine cowling, ONE small open cockpit, ONE forward machine gun, small comma-shaped rudder, flat tailplane, spoked fixed landing wheels and ONE two-bladed natural wooden tractor propeller at the FRONT. Fine bracing wires. Technical magenta fabric wings, fuselage and tail; steel cowling, wood propeller and black tyres stay natural. Longer fuselage and broader wings than the E.I; no second wing and no modern canopy.\nCamera: fixed elevated overhead strategy camera, aircraft level and wings horizontal, visible top surfaces with just enough side height to distinguish wing levels. Light always from SCREEN upper LEFT, soft and diffuse. Newly authored finely hand-painted digital game illustration, crisp clean material edges and strong readable silhouette at48px; same painterly WWI tactical sprite vocabulary as existing units. Not pixel art, not photo, not a3D render. All six views have identical wing count, equipment and structural design. No pilot protruding above fuselage.\nTRUE ALPHA transparency outside each aircraft and through open structural gaps. NO ground, sky, backdrop, clouds, shadows, haze, glow, checkerboard, propeller blur, smoke, reflections, labels, insignia, crosses, flags, letters, numbers, grid or frame. Exactly SIX complete aircraft, one per cell.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera, scale and lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-fokker-e-iii-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/fokker-e-iii/`; gameplay class binding remains open.",
+      "avoid": [
+        "water, wakes, reflections, ground shadows, backdrop or detached fragments",
+        "labels, national insignia, clipped extremities or inconsistent equipment between views"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/fokker-e-iii/cp/n-normal-4x.png",
+          "assets/units/fokker-e-iii/cp/nw-normal-4x.png",
+          "assets/units/fokker-e-iii/cp/sw-normal-4x.png",
+          "assets/units/fokker-e-iii/cp/s-normal-4x.png",
+          "assets/units/fokker-e-iii/cp/se-normal-4x.png",
+          "assets/units/fokker-e-iii/cp/ne-normal-4x.png",
+          "assets/units/fokker-e-iii/ec/n-normal-4x.png",
+          "assets/units/fokker-e-iii/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
       "id": "units/heavy-artillery",
       "title": "Heavy artillery",
       "kind": "unit",
@@ -11400,6 +11785,83 @@
           "assets/units/infantry/cp/ne-normal-4x.png",
           "assets/units/infantry/ec/n-normal-4x.png",
           "assets/units/infantry/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "units/junkers-j4",
+      "title": "Junkers J4",
+      "kind": "unit",
+      "status": "revised",
+      "runtime_ids": [
+        "unit/junkers-j4"
+      ],
+      "dir": "art/units/junkers-j4",
+      "assets_dir": "assets/units/junkers-j4",
+      "prompt": "art/units/junkers-j4/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/junkers-j4/atlas.png",
+          "sha256": "c9f3ccdede4400d00a37f376351a236660872b45061696a12f79fe300f8f1ee1",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI Junkers J4. A distinct period silhouette,\nfixed upper-left lighting and technical magenta owner paint; other materials stay natural.",
+      "base_prompt": "Use case: historical-scene. Produce ONE production transparent WWI tactical aircraft sprite ATLAS. Exact canvas 1024x1536 RGBA pixels. Invisible TWO columns by THREE rows of 512x512 square cells. Six SMALL, isolated independently painted views of the SAME Junkers J4, one aircraft per cell. No duplicated plane or fragments within a cell.\nLAYOUT: fuselage centre pivot at each cell's (256,261). ENTIRE aircraft including wingtips, propeller, tail, wheels and wires fits inside the central 320x320 box of each512px cell. At least80px fully clear alpha margins on ALL four edges; wings NEVER cross a cell boundary. Same object scale throughout.\nHEADING ORDER, row-major: top LEFT N = propeller/nose UP away from viewer and TAIL down nearest viewer; top RIGHT NW = NOSE upper LEFT, TAIL lower RIGHT; middle LEFT SW = NOSE lower LEFT, TAIL upper RIGHT; middle RIGHT S = NOSE DOWN towards viewer, TAIL UP; bottom LEFT SE = NOSE lower RIGHT, TAIL upper LEFT; bottom RIGHT NE = NOSE upper RIGHT, TAIL lower LEFT. Front is always the PROPELLER end. Draw six genuinely different 3D orientations, never rotate or mirror a finished image.\nSubject: A Junkers J.I (factory J4) WWI armoured two-seat SESQUIPLANE, exactly TWO main wing levels: broad thick corrugated metal upper wing and short clearly smaller lower wing, robust central struts without a forest of bracing wires, long chunky armoured forward fuselage, TWO small OPEN crew positions in tandem behind the upper wing, long conventional tail and fixed two-wheel undercarriage. ONE two-bladed natural wooden tractor propeller at the FRONT, ONE rear observer machine gun. Corrugated metal texture on wings and tail. Shaded technical magenta wings and armoured fuselage, natural dark steel machinery and gun, natural wood propeller and black tyres. No monoplane, no third wing, no enclosed cockpit.\nCamera: fixed elevated overhead strategy camera, aircraft level and wings horizontal, visible top surfaces with just enough side height to distinguish wing levels. Light always from SCREEN upper LEFT, soft and diffuse. Newly authored finely hand-painted digital game illustration, crisp clean material edges and strong readable silhouette at48px; same painterly WWI tactical sprite vocabulary as existing units. Not pixel art, not photo, not a3D render. All six views have identical wing count, equipment and structural design. No pilot protruding above fuselage.\nTRUE ALPHA transparency outside each aircraft and through open structural gaps. NO ground, sky, backdrop, clouds, shadows, haze, glow, checkerboard, propeller blur, smoke, reflections, labels, insignia, crosses, flags, letters, numbers, grid or frame. Exactly SIX complete aircraft, one per cell.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera, scale and lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-junkers-j4-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/junkers-j4/`; gameplay class binding remains open.",
+      "avoid": [
+        "water, wakes, reflections, ground shadows, backdrop or detached fragments",
+        "labels, national insignia, clipped extremities or inconsistent equipment between views"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/junkers-j4/cp/n-normal-4x.png",
+          "assets/units/junkers-j4/cp/nw-normal-4x.png",
+          "assets/units/junkers-j4/cp/sw-normal-4x.png",
+          "assets/units/junkers-j4/cp/s-normal-4x.png",
+          "assets/units/junkers-j4/cp/se-normal-4x.png",
+          "assets/units/junkers-j4/cp/ne-normal-4x.png",
+          "assets/units/junkers-j4/ec/n-normal-4x.png",
+          "assets/units/junkers-j4/neutral/n-normal-4x.png"
         ]
       }
     },

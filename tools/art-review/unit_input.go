@@ -139,6 +139,9 @@ func unitValidateAtlas(im *image.NRGBA) error {
 					clear++
 				}
 				if p.A >= 250 {
+					if x == 0 || y == 0 || x == cell-1 || y == cell-1 {
+						return fmt.Errorf("unit panel %d: opaque artwork reaches a source cell edge", face)
+					}
 					opaque++
 				}
 				if p.A > 0 && unitKey(p) > .5 {
@@ -148,6 +151,9 @@ func unitValidateAtlas(im *image.NRGBA) error {
 		}
 		if opaque < 64 || clear < 64 || key < 64 {
 			return fmt.Errorf("unit panel %d requires substantial opaque art, transparent region and magenta key cloth (64 pixels each)", face)
+		}
+		if clear < cell*cell/4 {
+			return fmt.Errorf("unit panel %d requires fully transparent background covering at least 25%% of its cell; got %d clear pixels", face, clear)
 		}
 	}
 	return nil

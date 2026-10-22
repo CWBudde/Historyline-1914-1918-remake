@@ -96,7 +96,7 @@ generator rerun gives the same image, so keep the selected masters.
 
 Selected art may precede a gameplay-table binding: use `unit/<family>` or `portrait/<family>` as
 the runtime prefix once exports are installed in `assets/index.json`. Keep the exporter's class list
-empty until a real gameplay class exists. Added tank/naval sprites and portrait families follow this
+empty until a real gameplay class exists. Added sprite and portrait families follow this
 contract; their appearance and export completeness are separate from panel/gameplay binding.
 
 Copy the reviewed export files into `assets/<kind>/<family>/`, update the master's pin in the manifest when

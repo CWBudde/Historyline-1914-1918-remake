@@ -7,7 +7,7 @@ size, anchor, art key such as `terrain/road`); packed entries are in pack order.
 
 ```sh
 go run ./cmd/hlasset build -density 2 -out build/packs/interface-2x        # interface (1, 2 or 4)
-go run ./cmd/hlasset build-units   -out build/packs/units                  # 25 unit families
+go run ./cmd/hlasset build-units   -out build/packs/units                  # 31 unit families
 go run ./cmd/hlasset build-terrain -out build/packs/terrain                # tiles, overlays, contexts
 go run ./cmd/hlasset build-screens -out build/packs/screens                # menu frames, controls, paintings
 go run ./cmd/hlasset validate -root <pack> -allow-candidates
