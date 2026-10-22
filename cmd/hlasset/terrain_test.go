@@ -240,6 +240,40 @@ func TestTerrainGapsReport(t *testing.T) {
 	if !strings.Contains(b.String(), fmt.Sprintf("built %d terrain packs (%d PNG variants", len(packIDs), variants)) {
 		t.Errorf("build output %q", b.String())
 	}
+	// Move an existing context into a paired second part: the report must still
+	// select it, rather than silently reporting its hexes as missing.
+	for _, d := range terrainDensities {
+		base := filepath.Join(out, terrainDir(d, "context-ground"))
+		part := filepath.Join(out, terrainDir(d, "context-ground-2"))
+		raw, err := os.ReadFile(filepath.Join(base, "manifest.json"))
+		if err != nil {
+			t.Fatal(err)
+		}
+		m, err := assets.ParseManifest(raw)
+		if err != nil {
+			t.Fatal(err)
+		}
+		extra := m
+		extra.ID = fmt.Sprintf("terrain-context-ground-2-%dx", d)
+		extra.Entries = append([]assets.Entry(nil), m.Entries[:1]...)
+		m.Entries = m.Entries[1:]
+		imagePath := filepath.Join(part, extra.Entries[0].Path)
+		if err := os.MkdirAll(filepath.Dir(imagePath), 0755); err != nil {
+			t.Fatal(err)
+		}
+		if err := os.Rename(filepath.Join(base, extra.Entries[0].Path), imagePath); err != nil {
+			t.Fatal(err)
+		}
+		for dir, manifest := range map[string]assets.Manifest{base: m, part: extra} {
+			data, err := json.Marshal(manifest)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if err := os.WriteFile(filepath.Join(dir, "manifest.json"), data, 0644); err != nil {
+				t.Fatal(err)
+			}
+		}
+	}
 	b.Reset()
 	if err := run([]string{"terrain-gaps", "-terrain", out}, &b); err != nil {
 		t.Fatal(err)

@@ -52,6 +52,12 @@ cluster. Standing cluster scenes use the optional `standing-stamps` group, separ
 standing tiles so each pack stays within the decoded-image budget. Older catalogs with these scenes
 in `standing` still load. Runtime IDs, anchors and drawing order are shared by both layouts.
 
+Larger groups split into numbered directories (`context-ground`, `context-ground-2`, ...), with identical
+ID assignments at 2× and 4×. The builder sorts IDs and splits at the entry/decoded-image limits; it copies
+PNG bytes unchanged. Loaders discover contiguous parts from directory listings (also through HTTP's
+`files.txt`) and reject incomplete densities or duplicate IDs across parts. All background and context
+parts retain the same opaque texture borders.
+
 Clusters are connected hexes of one kind: `crater` (`mud`), `boulders` (`stone`), `knoll` (`mountain`),
 `lake` (`water`, `waterStones`, `lakeside*`); the winter kinds (`shelled_w`, `stoney_w`, `mountain_w`) end
 in `_w`. The shape is the hex count, then each further hex's offset from the first (line, then column order)

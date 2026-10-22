@@ -118,7 +118,7 @@ func TestRejectMalformedCatalog(t *testing.T) {
 	}{
 		{"schema", func(m *Manifest) { m.Schema = 2 }, "schema"},
 		{"empty", func(m *Manifest) { m.Entries = nil }, "entries"},
-		{"too-many", func(m *Manifest) { m.Entries = make([]Entry, maxEntries+1) }, "entries"},
+		{"too-many", func(m *Manifest) { m.Entries = make([]Entry, MaxEntriesPerPack+1) }, "entries"},
 		{"status", func(m *Manifest) { m.Status = "accepted-ish" }, "status"},
 		{"candidate", func(m *Manifest) { m.Status = "candidate" }, "opt-in"},
 		{"duplicate", func(m *Manifest) { m.Entries = append(m.Entries, m.Entries[0]) }, "duplicate asset"},

@@ -4,8 +4,8 @@ import (
 	"cmp"
 	"fmt"
 	"io/fs"
-	"path"
 	"slices"
+	"strings"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/colorm"
@@ -53,11 +53,9 @@ func levelHex(l *level.Level) func(hexgrid.Coord) mapcompose.Hex {
 // the level draws, and the unseen tile, must be present, so drawing never meets
 // a missing tile.
 func openTerrainArt(fsys fs.FS, opt assets.Options, lvl *level.Level) (*terrainArt, error) {
-	groups := terrainGroups
-	for _, g := range optionalGroups {
-		if _, err := fs.Stat(fsys, path.Join(fmt.Sprintf("%dx", spriteDensities[0]), g, "manifest.json")); err == nil {
-			groups = append(slices.Clip(groups), g)
-		}
+	groups, err := assets.PackGroups(fsys, terrainGroups, optionalGroups, spriteDensities)
+	if err != nil {
+		return nil, fmt.Errorf("terrain %w", err)
 	}
 	packs, err := openPacks(fsys, opt, groups, spriteDensities)
 	if err != nil {
@@ -66,13 +64,20 @@ func openTerrainArt(fsys fs.FS, opt assets.Options, lvl *level.Level) (*terrainA
 	packs.pad = tilePad
 	packs.bleed = map[string]bool{}
 	for _, g := range groups {
-		packs.bleed[g] = g != "infrastructure" && !slices.Contains(optionalGroups, g)
+		packs.bleed[g] = g == "backgrounds" || strings.HasPrefix(g, "backgrounds-") || strings.HasPrefix(g, "context-")
 	}
 	a := &terrainArt{artPacks: packs, group: map[string]string{}}
+	manifests := map[string][]assets.Manifest{}
 	for _, g := range groups {
+		for _, d := range spriteDensities {
+			manifests[g] = append(manifests[g], packs.packs[packKey{g, d}].Manifest())
+		}
 		for _, e := range packs.packs[packKey{g, spriteDensities[0]}].Manifest().Entries {
 			a.group[e.ID] = g
 		}
+	}
+	if err := assets.CheckGroupDensities(manifests, spriteDensities); err != nil {
+		return nil, err
 	}
 	present := func(id string) error {
 		g, ok := a.group[id]

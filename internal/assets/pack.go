@@ -21,9 +21,13 @@ const (
 	maxManifest = 2 << 20
 	maxFile     = 32 << 20
 	maxEncoded  = 128 << 20
-	maxDecoded  = 256 << 20
-	maxEntries  = 4096
 )
+
+// MaxDecodedBytes bounds each pack's decoded images at eight bytes per pixel.
+const MaxDecodedBytes = 256 << 20
+
+// MaxEntriesPerPack bounds the number of exact ID/density entries in one pack.
+const MaxEntriesPerPack = 4096
 
 // Manifest is versioned independently of authoring recipes and export reports.
 // Paths are relative to the supplied filesystem root, not the manifest directory.
@@ -128,8 +132,8 @@ func Load(fsys fs.FS, m Manifest, options Options) (*Pack, error) {
 	if m.Status == "candidate" && !options.AllowCandidates {
 		return nil, fmt.Errorf("pack %q: candidate requires explicit opt-in", m.ID)
 	}
-	if len(m.Entries) == 0 || len(m.Entries) > maxEntries {
-		return nil, fmt.Errorf("pack %q: need 1..%d entries", m.ID, maxEntries)
+	if len(m.Entries) == 0 || len(m.Entries) > MaxEntriesPerPack {
+		return nil, fmt.Errorf("pack %q: need 1..%d entries", m.ID, MaxEntriesPerPack)
 	}
 	p := &Pack{manifest: m, sprites: make(map[key]*sprite)}
 	p.manifest.Entries = append([]Entry(nil), m.Entries...)
@@ -170,8 +174,8 @@ func Load(fsys fs.FS, m Manifest, options Options) (*Pack, error) {
 		}
 		// PNG decoding uses at most eight bytes per pixel for 16-bit RGBA.
 		decoded += int64(e.Width) * int64(e.Height) * 8
-		if decoded > maxDecoded {
-			return nil, fmt.Errorf("pack %q: decoded budget exceeds %d bytes", m.ID, maxDecoded)
+		if decoded > MaxDecodedBytes {
+			return nil, fmt.Errorf("pack %q: decoded budget exceeds %d bytes", m.ID, MaxDecodedBytes)
 		}
 		p.sprites[k] = &sprite{entry: e}
 	}

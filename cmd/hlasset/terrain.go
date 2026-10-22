@@ -7,7 +7,6 @@ import (
 	"io/fs"
 	"os"
 	"path"
-	"path/filepath"
 	"strings"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
@@ -108,7 +107,7 @@ func planTerrain(entries []indexEntry) ([]terrainPack, error) {
 	for id := range byID {
 		return nil, fmt.Errorf("index has unknown terrain pack %s", id)
 	}
-	return packs, nil
+	return splitTerrain(packs)
 }
 
 // optionalProblem says why entry e cannot be in the optional group at density d,
@@ -170,24 +169,34 @@ func buildTerrain(assetsDir, out string) ([]terrainPack, error) {
 // context, plus stray compound pieces, for the art track.
 func terrainGaps(dir string, w io.Writer) error {
 	have := map[string]bool{}
-	groups := []string{"backgrounds"}
-	for _, f := range mapcompose.Families {
-		groups = append(groups, "context-"+string(f))
+	root, err := os.OpenRoot(dir)
+	if err != nil {
+		return err
 	}
-	if _, err := os.Stat(filepath.Join(dir, terrainDir(terrainDensities[0], stampGroup))); err == nil {
-		groups = append(groups, stampGroup)
+	defer func() { _ = root.Close() }()
+	groups, err := assets.PackGroups(root.FS(), terrainGroups, optionalGroups, terrainDensities)
+	if err != nil {
+		return err
 	}
+	manifests := map[string][]assets.Manifest{}
 	for _, g := range groups {
-		r, err := os.OpenRoot(filepath.Join(dir, terrainDir(terrainDensities[0], g)))
-		if err != nil {
-			return err
+		for _, d := range terrainDensities {
+			fsys, err := fs.Sub(root.FS(), terrainDir(d, g))
+			if err != nil {
+				return err
+			}
+			p, err := assets.Open(fsys, "manifest.json", assets.Options{AllowCandidates: true})
+			if err != nil {
+				return err
+			}
+			manifests[g] = append(manifests[g], p.Manifest())
 		}
-		p, err := assets.Open(r.FS(), "manifest.json", assets.Options{AllowCandidates: true})
-		_ = r.Close()
-		if err != nil {
-			return err
-		}
-		for _, e := range p.Manifest().Entries {
+	}
+	if err := assets.CheckGroupDensities(manifests, terrainDensities); err != nil {
+		return err
+	}
+	for _, ms := range manifests {
+		for _, e := range ms[0].Entries {
 			have[e.ID] = true
 		}
 	}

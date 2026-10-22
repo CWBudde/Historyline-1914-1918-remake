@@ -679,10 +679,16 @@ Phase 7. Context counts are from 2026-10-22 (`origview` `TestCommittedMaps` log)
 
 ###### 9.2 Contexts
 
+- [x] Prepare shared winter shore boundaries and paired terrain pack parts without raising the
+      256 MiB decoded-image limit. Builders split deterministically; local/HTTP loaders and gap reports
+      reject incomplete densities, mismatched geometry and duplicate IDs. All 1452 retained terrain
+      PNGs, IDs, anchors and dimensions remain unchanged; regression tests, retained pack validation,
+      lint, desktop/WASM builds and nine map 23 game captures pass. Evidence:
+      `build/review/campaign-contexts/`. Portrait recheck: all 48 families and 144 exports pass. (2026-10-22)
 - [ ] Let the campaign context generator (`tools/art-review` `campaign_generate_test.go`) read
-      `levels/campaign` as well as `levels.FS`, and fill the transitions the original maps need: 7270
-      missing (1725 distinct: ground 895, hills 811, forest 19) and 499 undefined (ground 269, forest 230)
-      context tiles over all 72 maps; the shipped levels have none.
+      `levels/campaign` as well as `levels.FS`, and fill the transitions the original maps need:
+      7365 missing and zero undefined context tiles over all 72 maps after the shared-shore fix;
+      the three shipped levels have none. Preserve the selected layered summer forest exports.
 - [ ] Done when `TestCommittedMaps` turns the gap log into an error (STATMAP excepted) and stays green.
 
 ###### 9.3 Subjects the stand-in looks replace
