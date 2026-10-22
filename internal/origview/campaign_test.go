@@ -10,7 +10,9 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/finmap"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
 
@@ -155,5 +157,37 @@ func TestCommittedCampaign(t *testing.T) {
 				t.Errorf("%s: %v", stem, err)
 			}
 		}
+	}
+}
+
+// Check the actual committed gameplay levels as well as views reconstructed
+// from original map records. New campaign transitions must ship with their art.
+func TestCommittedCampaignArt(t *testing.T) {
+	names, err := fs.Glob(levels.Campaign, "campaign/*.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(names) != 72 {
+		t.Fatalf("%d campaign levels, want 72", len(names))
+	}
+	has := terrainCatalog(t)
+	for _, name := range names {
+		t.Run(strings.TrimSuffix(path.Base(name), ".json"), func(t *testing.T) {
+			b, err := fs.ReadFile(levels.Campaign, name)
+			if err != nil {
+				t.Fatal(err)
+			}
+			l, err := level.Parse(b)
+			if err != nil {
+				t.Fatal(err)
+			}
+			s := mapcompose.Compose(l.Grid(), func(c hexgrid.Coord) mapcompose.Hex {
+				h := l.Lines[c.Line][c.Col]
+				return mapcompose.Hex{Terrain: h.Terrain, Infra: h.Infra.IDs}
+			}, has)
+			if len(s.Gaps) != 0 || len(s.Issues) != 0 {
+				t.Errorf("%d context gaps and %d compound issues", len(s.Gaps), len(s.Issues))
+			}
+		})
 	}
 }

@@ -308,7 +308,11 @@ func TestCommittedMaps(t *testing.T) {
 			}
 		}
 		if m+u > 0 {
-			t.Logf("%s: %d missing and %d undefined context tiles", stem, m, u)
+			if stem == "STATMAP" {
+				t.Logf("%s: %d missing and %d undefined context tiles", stem, m, u)
+			} else {
+				t.Errorf("%s: %d missing and %d undefined context tiles", stem, m, u)
+			}
 		}
 		missing += m
 		undefined += u

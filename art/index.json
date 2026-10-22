@@ -8510,7 +8510,7 @@
         "crowns larger than about a fifth of a hex"
       ],
       "runtime": {
-        "count": 498,
+        "count": 536,
         "densities": [
           2,
           4
@@ -9014,7 +9014,7 @@
         "more than one crater per tile"
       ],
       "runtime": {
-        "count": 250,
+        "count": 2064,
         "densities": [
           2,
           4
@@ -9087,20 +9087,20 @@
         "directional lighting baked into the height map"
       ],
       "runtime": {
-        "count": 318,
+        "count": 1940,
         "densities": [
           2,
           4
         ],
         "samples": [
           "assets/terrain/hills/hills-4x.png",
+          "assets/terrain/hills/context/00704554f8de88db16a25253566c9ebfbc9a1d1441922675c8043030266af2f9-4x.png",
           "assets/terrain/hills/context/007a0c57751720f037628ebd75ab56d7ef5380cc111b24db31786667172f0ed1-4x.png",
-          "assets/terrain/hills/context/02233fd352987bf996c32adeafc07bd12ce15157bd42649bc6972e0dedb1102e-4x.png",
-          "assets/terrain/hills/context/025b921ef2363bcf9fa4ed12b22b34d2cc819efa43e9fa5a63aded8492659fa3-4x.png",
-          "assets/terrain/hills/context/068078041a1f5fa5c0c7e7d5e954c8a5d6dad0a20cadbec7cbb7e014223a7a6c-4x.png",
-          "assets/terrain/hills/context/087ff2d06a9a0103c33f275a99998a484a1b286f372f1059b7a9de176d81a845-4x.png",
-          "assets/terrain/hills/context/090f9b855e32afd788200ac9f950e7ea71f70ee80a4b50f076b86eed2a10f3ed-4x.png",
-          "assets/terrain/hills/context/0a1e6ad640fbfe5059a017849caae5e4fdf22a7d024068190f49b076f21674b8-4x.png"
+          "assets/terrain/hills/context/009ad6fc3a6a71963680bd39125e860f64ffa1292b31355c785fef5759dc66e2-4x.png",
+          "assets/terrain/hills/context/00c3f3fa49190a1142aa7b64d673fbe5ae9202d372411607a439d9702c7996f7-4x.png",
+          "assets/terrain/hills/context/00ef5ac56ac1b323afb20cf929809699c1416c5de713ddd1db1b62f9e6dd5bcf-4x.png",
+          "assets/terrain/hills/context/0110a5708651bce5aa41ebd62097789e733961ab1628e1745cd877f3070947b1-4x.png",
+          "assets/terrain/hills/context/013f3c9e64de2047cfed37ca866790ca99b4b7a61f9615860c22374b5780f7dd-4x.png"
         ]
       }
     },

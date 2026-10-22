@@ -46,8 +46,9 @@ Tick a box only with evidence you ran. Record decisions here, not their history.
 
 - [ ] Ownership strips on units and buildings; check the composed map by hand in the window, including
       fractional zoom and 4K/HiDPI.
-- [ ] Context rules for mixed-family neighbours (forest next to hills, mud, mountain, buildings) and the
-      map edge; contexts for mixed seasons (the imported maps: §2 Phase 9).
+- [x] Context rules for mixed-family neighbours (forest next to hills, mud, mountain, buildings) and the
+      map edge; all three shipped and 72 campaign levels compose without gaps (§2 Phase 9.2).
+- [ ] Contexts for summer and winter materials mixed inside one map.
 - [ ] Decide the open art ambiguities: HQ entrance cell (N or C), the `trench5a` port, four inferred
       lakeside corners.
 - [ ] Runtime catalogs for portraits, screens, fonts and animation metadata; live pack switching; embed
@@ -663,9 +664,9 @@ Needs Phases 1 to 6 for the matching summer family; mostly a material swap plus 
 
 ##### Phase 9: The original maps (`levels/campaign`)
 
-The 72 campaign levels (§5) draw with the shipped levels' art and all unit families are bound. Remaining
-work, in order: the contexts need the generator, the stand-in looks need new subjects, winter water needs
-Phase 7. Context counts are from 2026-10-22 (`origview` `TestCommittedMaps` log).
+The 72 campaign levels (§5) draw with the shipped levels' art, all unit families are bound, and their
+contexts are complete. Remaining work: the stand-in looks need new subjects and winter water needs
+Phase 7, followed by final acceptance after those replacements.
 
 ###### 9.1 Unit bindings
 
@@ -673,8 +674,8 @@ Phase 7. Context counts are from 2026-10-22 (`origview` `TestCommittedMaps` log)
       `EC_armCar`, `EC_transTrain` and captured tanks (`CP_ft17`, `CP_markI`, `CP_markIV`). The pending
       registry/guard is removed; prompts, exporter reports and gallery bindings agree. Roster and
       captured-subject tests pass. Map 23 shows sprites under original and Standard rules in 18 actual
-      game captures at 720p/1080p/4K; the 358-page artbook includes the aliases. Evidence:
-      `build/review/campaign-unit-bindings/`. Its 289 terrain context gaps remain Phase 9.2 work;
+      game captures at 720p/1080p/4K; the artbook includes the aliases. Evidence:
+      `build/review/campaign-unit-bindings/`. Its terrain contexts are covered by Phase 9.2;
       portrait-panel acceptance remains open. (2026-10-22)
 
 ###### 9.2 Contexts
@@ -685,11 +686,15 @@ Phase 7. Context counts are from 2026-10-22 (`origview` `TestCommittedMaps` log)
       PNGs, IDs, anchors and dimensions remain unchanged; regression tests, retained pack validation,
       lint, desktop/WASM builds and nine map 23 game captures pass. Evidence:
       `build/review/campaign-contexts/`. Portrait recheck: all 48 families and 144 exports pass. (2026-10-22)
-- [ ] Let the campaign context generator (`tools/art-review` `campaign_generate_test.go`) read
-      `levels/campaign` as well as `levels.FS`, and fill the transitions the original maps need:
-      7365 missing and zero undefined context tiles over all 72 maps after the shared-shore fix;
-      the three shipped levels have none. Preserve the selected layered summer forest exports.
-- [ ] Done when `TestCommittedMaps` turns the gap log into an error (STATMAP excepted) and stays green.
+- [x] Extend the campaign context generator (`tools/art-review` `campaign_generate_test.go`) to
+      `levels/campaign` as well as `levels.FS`. Add 1737 paired transition IDs (907 ground, 811 hills,
+      19 winter forest; 3474 PNGs) from the pinned materials. Retain all 1452 existing terrain PNGs and
+      metadata, including the layered summer forest. The 7365 missing campaign cells now select exports;
+      a rerun adds nothing and leaves metadata hashes unchanged. The 28 validated runtime packs hold
+      4926 PNGs. Evidence: `build/review/campaign-contexts/exports/`. (2026-10-22)
+- [x] Enforce zero gaps in `TestCommittedMaps` (STATMAP excepted) and all 72 committed campaign levels
+      in `TestCommittedCampaignArt`. Both pass; all 72 maps also fully render with units at 2× with zero
+      gaps/issues. The 366-page artbook includes four campaign overview/detail pairs. (2026-10-22)
 
 ###### 9.3 Subjects the stand-in looks replace
 
@@ -715,6 +720,11 @@ its tiles in `assets/index.json`, and its records' look in `looks.json` (`TestLo
       maps contain them and show summer water today. Goes with Phase 7's materials.
 
 ###### 9.5 Acceptance
+
+Current catalogue evidence: all 72 maps fully rendered at 2×; summer, winter-shore, sea and harbour
+overview/detail plates reviewed in the 366-page artbook. Maps 00/13/24/37 checked in 36 actual-game
+captures (720p/1080p/4K, both densities), covering summer/winter in both campaigns. Repeat these checks
+after the subject and winter-water replacements above; the stand-in art remains visible.
 
 - [ ] Every campaign level renders with zero gaps and compound issues (STATMAP excepted); a sample of
       summer, winter, sea and harbour maps in the art book or under `build/review/`, checked by hand.

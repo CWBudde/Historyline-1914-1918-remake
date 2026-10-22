@@ -6,6 +6,7 @@
 // optional master and sample thumbnails written by `hlart thumbs`; the normal book embeds native files), pulse
 // (directory of the PULSE map written by `hlart pulse`; default: no map chapter),
 // winter, winter3 (directories of winter levels written by `hlart map`; default: no winter chapters),
+// campaign (directory with summer/winter/sea/harbour map renders; default: no campaign chapters),
 // compare (directory written by `reference-design -compare`; default: no comparison), style=false
 // skips art/style.md, reference=false skips the PULSE reference chapter.
 
@@ -24,6 +25,7 @@
 #let pulse = sys.inputs.at("pulse", default: "")
 #let winter = sys.inputs.at("winter", default: "")
 #let winter3 = sys.inputs.at("winter3", default: "")
+#let campaign = sys.inputs.at("campaign", default: "")
 #let shore = sys.inputs.at("shore", default: "")
 #let compare = sys.inputs.at("compare", default: "")
 
@@ -275,6 +277,30 @@ source describe the image in this PDF. PULSE uses the 4× runtime artwork; compa
     Snow, craters, roads, rail, trenches and the depot use the same exported tiles as the full map.
   ]
   plate("map-detail.png")[Native 4× detail — open the PNG to inspect individual tiles.]
+}
+
+#if campaign != "" {
+  for (dir, title) in (("summer", "Summer"), ("winter", "Winter shores"), ("sea", "Sea"), ("harbour", "Harbour")) {
+    let root = campaign + "/" + dir
+    let info = json(root + "/map.json")
+    let plate(file, caption) = {
+      block(height: 1fr, width: 100%, below: 0.5em, align(center, image(root + "/" + file, height: 100%, fit: "contain")))
+      align(center, small(caption))
+    }
+    heading(level: 1)[Campaign — #title]
+    [
+      Level #blob(info.level), #info.hexes hexes and #info.units starting units, rendered with the
+      current tiles at #(info.density)×. Compositor gaps: #info.gaps, issues: #info.issues.
+      Ground, hill and winter-forest transitions use the same materials and edge geometry as the
+      shipped levels. Sea, harbour subjects and winter water still use the shared stand-in art
+      listed in PLAN.md; a complete tile catalogue does not close those subject tasks.
+    ]
+    plate("map-units.png")[#title — with the starting units]
+    pagebreak()
+    heading(level: 2)[Campaign detail — #title]
+    [A central native 4× crop, without resampling.]
+    plate("map-detail.png")[#title — terrain detail]
+  }
 }
 
 #if shore != "" {

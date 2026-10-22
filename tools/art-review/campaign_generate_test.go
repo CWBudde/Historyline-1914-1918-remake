@@ -3,9 +3,9 @@
 package main
 
 // Explicit offline generator: go test -tags campaigngfx ./tools/art-review -run TestGenerateCampaignContexts -count=1 -v
-// Normal tests never write artwork. Existing images are checked byte for byte
-// against assets/index.json. New contexts are written to assets/terrain/<family>/context/
-// and appended to art/pipeline/contexts/<family>.json; run `go run ./cmd/hlart index` afterwards.
+// Normal tests never write artwork. Existing context exports are hash-checked
+// and retained. Absent contexts are exported and added to their profiles and
+// assets/index.json; run `go run ./cmd/hlart index` afterwards.
 import (
 	"bytes"
 	"crypto/sha256"
@@ -14,17 +14,13 @@ import (
 	"fmt"
 	"image"
 	"image/png"
-	"io/fs"
 	"os"
 	"path/filepath"
 	"sort"
 	"strings"
 	"testing"
 
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
-	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
 
 func TestGenerateCampaignContexts(t *testing.T) {
@@ -41,47 +37,59 @@ func TestGenerateCampaignContexts(t *testing.T) {
 		return v
 	}
 	profiles := map[mapcompose.Family]map[string]any{}
+	profileBefore := map[mapcompose.Family][]byte{}
 	known := map[string]bool{}
 	for _, f := range mapcompose.Families {
+		b, err := os.ReadFile(filepath.Join(root, "art/pipeline/contexts/"+string(f)+".json"))
+		if err != nil {
+			t.Fatal(err)
+		}
+		profileBefore[f] = b
 		r := read("art/pipeline/contexts/" + string(f) + ".json")
 		profiles[f] = r
 		for _, p := range r["profiles"].([]any) {
 			known[p.(map[string]any)["context_key"].(string)] = true
 		}
 	}
-	// Exported context tiles by ID and density: path below the repository root and hash.
-	type pin struct{ path, sha256 string }
-	exported := map[string]pin{}
-	for _, e := range read("assets/index.json")["assets"].([]any) {
-		entry := e.(map[string]any)
-		if id := entry["id"].(string); strings.HasPrefix(id, "context/") {
-			exported[fmt.Sprintf("%s@%v", id, entry["density"])] = pin{"assets/" + entry["path"].(string), entry["sha256"].(string)}
-		}
-	}
-	contexts := map[string]mapcompose.Gap{}
-	names, err := fs.Glob(levels.FS, "*.json")
+	indexBefore, err := os.ReadFile(filepath.Join(root, "assets/index.json"))
 	if err != nil {
 		t.Fatal(err)
 	}
-	for _, name := range names {
-		b, err := fs.ReadFile(levels.FS, name)
-		if err != nil {
-			t.Fatal(err)
+	entries, exported, err := readCampaignIndex(root)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, e := range exported {
+		if !strings.HasPrefix(e.ID, "context/") {
+			continue
 		}
-		l, err := level.Parse(b)
-		if err != nil {
-			t.Fatal(err)
-		}
-		s := mapcompose.Compose(l.Grid(), func(c hexgrid.Coord) mapcompose.Hex {
-			h := l.Lines[c.Line][c.Col]
-			return mapcompose.Hex{Terrain: h.Terrain, Infra: h.Infra.IDs}
-		}, func(string) bool { return false })
-		for _, g := range s.Gaps {
-			if g.Reason == mapcompose.Missing {
-				contexts[mapcompose.Key(g.Descriptor)] = g
+		for _, d := range []int{2, 4} {
+			if _, ok := exported[campaignExportKey(e.ID, d)]; !ok {
+				t.Fatalf("partial retained context %s", e.ID)
 			}
 		}
+		b, err := os.ReadFile(filepath.Join(root, "assets", e.Path))
+		if err != nil {
+			t.Fatal(err)
+		}
+		if fmt.Sprintf("%x", sha256.Sum256(b)) != e.SHA256 {
+			t.Fatalf("retained export hash differs: %s", e.Path)
+		}
 	}
+	has := func(id string) bool {
+		_, a := exported[campaignExportKey(id, 2)]
+		_, b := exported[campaignExportKey(id, 4)]
+		return a && b
+	}
+	contexts, err := campaignContexts(has)
+	if err != nil {
+		t.Fatal(err)
+	}
+	counts := map[mapcompose.Family]int{}
+	for _, g := range contexts {
+		counts[g.Family]++
+	}
+	t.Logf("absent exact-density contexts: %d, by family: %v", len(contexts), counts)
 	ground, forest, hills, err := loadCampaignRenderers(root)
 	if err != nil {
 		t.Fatal(err)
@@ -92,6 +100,8 @@ func TestGenerateCampaignContexts(t *testing.T) {
 	}
 	sort.Strings(keys)
 	added := map[mapcompose.Family]int{}
+	generated := 0
+	newExports := 0
 	for _, key := range keys {
 		g := contexts[key]
 		fields := map[string]string{}
@@ -118,6 +128,11 @@ func TestGenerateCampaignContexts(t *testing.T) {
 			}
 			tiles, err = ground.tiles(c)
 		case mapcompose.Forest:
+			// Summer's complete 64-mask catalogue uses layered floors/crowns/shadows.
+			// The baked renderer below is used only for missing winter masks.
+			if fields["season"] != "winter" {
+				t.Fatalf("layered summer forest export missing: %s", key)
+			}
 			c, e := newForestContext(g.Terrain, ns[:])
 			if e != nil {
 				t.Fatal(e)
@@ -143,14 +158,6 @@ func TestGenerateCampaignContexts(t *testing.T) {
 		}
 		for _, d := range []int{2, 4} {
 			path := fmt.Sprintf("assets/terrain/%s/context/%s-%dx.png", g.Family, key, d)
-			var expected string
-			if known[key] {
-				old, ok := exported[fmt.Sprintf("context/%s/%s@%d", g.Family, key, d)]
-				if !ok {
-					t.Fatalf("existing profile %s lacks a %dx export", key, d)
-				}
-				path, expected = old.path, old.sha256
-			}
 			var b bytes.Buffer
 			if err := png.Encode(&b, tiles[d]); err != nil {
 				t.Fatal(err)
@@ -177,9 +184,17 @@ func TestGenerateCampaignContexts(t *testing.T) {
 			}
 			sum := sha256.Sum256(b.Bytes())
 			hash := hex.EncodeToString(sum[:])
-			if expected != "" && hash != expected {
-				t.Fatalf("regenerated hash differs: %s", path)
+			e := campaignEntry{ID: mapcompose.ContextID(g.Family, key), Pack: fmt.Sprintf("terrain-context-%s-%dx", g.Family, d), Density: d, Path: strings.TrimPrefix(path, "assets/"), SHA256: hash, Width: tiles[d].Bounds().Dx(), Height: tiles[d].Bounds().Dy(), Anchor: [2]float64{48, 40}, Art: "terrain/" + string(g.Family)}
+			raw, err := json.Marshal(e)
+			if err != nil {
+				t.Fatal(err)
 			}
+			entries = append(entries, raw)
+			newExports++
+		}
+		generated++
+		if generated%50 == 0 {
+			t.Logf("exported %d/%d context pairs", generated, len(keys))
 		}
 		if known[key] {
 			continue
@@ -196,11 +211,43 @@ func TestGenerateCampaignContexts(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		if err := os.WriteFile(filepath.Join(root, "art/pipeline/contexts/"+string(f)+".json"), append(b, '\n'), 0644); err != nil {
+		name := filepath.Join(root, "art/pipeline/contexts/"+string(f)+".json")
+		current, err := os.ReadFile(name)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if !bytes.Equal(current, profileBefore[f]) {
+			t.Fatalf("profile changed during export: %s", name)
+		}
+		if err := os.WriteFile(name, append(b, '\n'), 0644); err != nil {
 			t.Fatal(err)
 		}
 	}
-	t.Logf("defined campaign profiles: %d; newly exported by family: %v", len(keys), added)
+	if newExports > 0 {
+		name := filepath.Join(root, "assets/index.json")
+		current, err := os.ReadFile(name)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if !bytes.Equal(current, indexBefore) {
+			t.Fatal("runtime index changed during export")
+		}
+		var out bytes.Buffer
+		out.WriteString("{\n  \"schema_version\": 1,\n  \"assets\": [\n")
+		for i, e := range entries {
+			out.WriteString("    ")
+			out.Write(e)
+			if i+1 < len(entries) {
+				out.WriteByte(',')
+			}
+			out.WriteByte('\n')
+		}
+		out.WriteString("  ]\n}\n")
+		if err := os.WriteFile(name, out.Bytes(), 0644); err != nil {
+			t.Fatal(err)
+		}
+	}
+	t.Logf("newly exported context pairs: %d; new profiles by family: %v", generated, added)
 }
 
 func loadCampaignRenderers(root string) (*groundRenderer, *forestRenderer, *hillsRenderer, error) {

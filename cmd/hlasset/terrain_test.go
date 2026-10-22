@@ -36,7 +36,10 @@ func TestRetainedTerrainCatalogBuilds(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	want := map[string]int{"backgrounds": 104, "infrastructure": 75, "context-ground": 110, "context-forest": 111, "context-hills": 159}
+	want := map[string]int{"backgrounds": 104, "infrastructure": 75,
+		"context-ground": 273, "context-ground-2": 273, "context-ground-3": 273, "context-ground-4": 198,
+		"context-forest": 130,
+		"context-hills":  273, "context-hills-2": 273, "context-hills-3": 273, "context-hills-4": 151}
 	for _, e := range retainedIndex(t) {
 		if e.Density == 2 {
 			if strings.HasPrefix(e.Pack, "terrain-standing-stamps-") {
@@ -229,22 +232,31 @@ func TestTerrainGapsReport(t *testing.T) {
 	if err := run([]string{"build-terrain", "-assets", assetsRoot, "-out", out}, &b); err != nil {
 		t.Fatal(err)
 	}
-	packIDs := map[string]bool{}
+	planned, err := planTerrain(retainedIndex(t))
+	if err != nil {
+		t.Fatal(err)
+	}
+	groundParts := 0
+	for _, p := range planned {
+		if p.Density == 2 && strings.HasPrefix(p.Group, "context-ground") {
+			groundParts++
+		}
+	}
+	partName := fmt.Sprintf("context-ground-%d", groundParts+1)
 	variants := 0
 	for _, e := range retainedIndex(t) {
 		if strings.HasPrefix(e.Pack, "terrain-") {
-			packIDs[e.Pack] = true
 			variants++
 		}
 	}
-	if !strings.Contains(b.String(), fmt.Sprintf("built %d terrain packs (%d PNG variants", len(packIDs), variants)) {
+	if !strings.Contains(b.String(), fmt.Sprintf("built %d terrain packs (%d PNG variants", len(planned), variants)) {
 		t.Errorf("build output %q", b.String())
 	}
-	// Move an existing context into a paired second part: the report must still
+	// Move an existing context into an additional paired part: the report must still
 	// select it, rather than silently reporting its hexes as missing.
 	for _, d := range terrainDensities {
 		base := filepath.Join(out, terrainDir(d, "context-ground"))
-		part := filepath.Join(out, terrainDir(d, "context-ground-2"))
+		part := filepath.Join(out, terrainDir(d, partName))
 		raw, err := os.ReadFile(filepath.Join(base, "manifest.json"))
 		if err != nil {
 			t.Fatal(err)
@@ -254,7 +266,7 @@ func TestTerrainGapsReport(t *testing.T) {
 			t.Fatal(err)
 		}
 		extra := m
-		extra.ID = fmt.Sprintf("terrain-context-ground-2-%dx", d)
+		extra.ID = fmt.Sprintf("terrain-%s-%dx", partName, d)
 		extra.Entries = append([]assets.Entry(nil), m.Entries[:1]...)
 		m.Entries = m.Entries[1:]
 		imagePath := filepath.Join(part, extra.Entries[0].Path)

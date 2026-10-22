@@ -115,12 +115,16 @@ artbook: _build-dir
     go run ./cmd/hlart pulse -out build/artbook/pulse
     go run ./cmd/hlart map -level levels/level2_cp.json -out build/artbook/winter
     go run ./cmd/hlart map -level levels/level3_cp.json -out build/artbook/winter3
+    go run ./cmd/hlart map -level levels/campaign/level1_cp.json -out build/artbook/campaign/summer
+    go run ./cmd/hlart map -level levels/campaign/level14_cp.json -out build/artbook/campaign/winter
+    go run ./cmd/hlart map -level levels/campaign/level12_ec.json -out build/artbook/campaign/sea
+    go run ./cmd/hlart map -level levels/campaign/level11_2p.json -out build/artbook/campaign/harbour
     go run ./tools/reference-design -compare build/artbook/compare -compare-format png
     compare=""
     if [ -f build/artbook/compare/compare.json ]; then compare=/build/artbook/compare; fi
     style=false
     if [ -f art/style.md ]; then style=true; fi
-    {{manual_typst}} --input pulse=/build/artbook/pulse --input winter=/build/artbook/winter --input winter3=/build/artbook/winter3 --input shore=/build/artbook/shore --input compare=$compare --input style=$style docs/artbook/artbook.typ build/artbook/Historyline_Art.pdf
+    {{manual_typst}} --input pulse=/build/artbook/pulse --input winter=/build/artbook/winter --input winter3=/build/artbook/winter3 --input campaign=/build/artbook/campaign --input shore=/build/artbook/shore --input compare=$compare --input style=$style docs/artbook/artbook.typ build/artbook/Historyline_Art.pdf
     echo build/artbook/Historyline_Art.pdf
 
 # Render the PULSE reference design review (needs the local RefDesign2.png) into build/review/reference

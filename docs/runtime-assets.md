@@ -73,8 +73,8 @@ standing items of the terrain and overlays that the catalog has. Ground material
 context tile whose key is the SHA-256 of a descriptor (season, centre, neighbours NE SE S SW NW N, plus tile
 origin mod 568×320 for hills). Neighbours from another family count as the seasonal base (`grass`/`grass_w`);
 outside the map the centre continues. Without a context tile the default tile is drawn and a gap is recorded
-(`missing` or `undefined`). The three shipped levels have no gaps. Compounds must form complete groups; stray
-pieces are reported, never completed.
+(`missing` or `undefined`). The three shipped levels and all 72 campaign levels have no gaps.
+Compounds must form complete groups; stray pieces are reported, never completed.
 
 Factory compounds have matching summer and winter four-cell exports. `tile/barbedWire` is a contained
 transparent infrastructure patch for either seasonal ground; sapper placement and removal are not bound yet.
@@ -127,5 +127,5 @@ page shows the terrain download the same way.
 ## Open
 
 Packs for portraits, animation metadata (all listed in `assets/index.json`) and fonts;
-ownership strips; contexts for imported maps and mixed seasons; live pack switching;
+ownership strips; contexts for summer/winter mixtures inside one map; live pack switching;
 art approval and embedding.

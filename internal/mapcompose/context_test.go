@@ -55,8 +55,8 @@ func TestDescriptorMatchesContextProfiles(t *testing.T) {
 			n++
 		}
 	}
-	if n != 110+82+159 {
-		t.Errorf("checked %d profiles, want 351", n)
+	if n != 1017+101+970 {
+		t.Errorf("checked %d profiles, want 2088", n)
 	}
 }
 

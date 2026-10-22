@@ -12,14 +12,14 @@ import (
 
 func oversizedTerrainIndex(t *testing.T) []indexEntry {
 	t.Helper()
-	es := retainedIndex(t)
-	n := 0
-	for _, e := range es {
-		if e.Pack == "terrain-context-ground-4x" {
-			n++
+	// Keep the fixture at exactly 274 entries as the retained campaign grows.
+	var es []indexEntry
+	for _, e := range retainedIndex(t) {
+		if !strings.HasPrefix(e.Pack, "terrain-context-ground-") {
+			es = append(es, e)
 		}
 	}
-	for i := n; i < 274; i++ {
+	for i := 0; i < 274; i++ {
 		for _, d := range terrainDensities {
 			es = append(es, indexEntry{ID: fmt.Sprintf("context/ground/campaign-%04d", i),
 				Pack: fmt.Sprintf("terrain-context-ground-%dx", d), Density: d,

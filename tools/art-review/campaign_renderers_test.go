@@ -12,14 +12,16 @@ import (
 	"testing"
 )
 
-// Loading retired manifests or dropping an optional mode must not silently regenerate stale terrain.
+// The renderers used for new campaign exports must match the selected terrain.
+// Summer forest is already fully exported as separate layers, checked by
+// TestCampaignPreservesLayeredSummerForest; its baked renderer is not used.
 func TestCampaignRenderersMatchSelectedTerrain(t *testing.T) {
 	root := filepath.Join("..", "..")
 	ground, forest, hills, err := loadCampaignRenderers(root)
 	if err != nil {
 		t.Fatal(err)
 	}
-	for _, tc := range []struct{ family, id string }{{"ground", "mud"}, {"ground", "shelled_w"}, {"forest", "forest"}, {"forest", "forest_w"}, {"hills", "hills"}} {
+	for _, tc := range []struct{ family, id string }{{"ground", "mud"}, {"ground", "shelled_w"}, {"forest", "forest_w"}, {"hills", "hills"}} {
 		t.Run(tc.id, func(t *testing.T) {
 			base := "grass"
 			if tc.id == "shelled_w" || tc.id == "forest_w" {

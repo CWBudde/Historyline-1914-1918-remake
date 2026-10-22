@@ -1230,6 +1230,291 @@
       ],
       "runtime_id": "forest",
       "season": "summer"
+    },
+    {
+      "canonical": false,
+      "context_key": "1ea97096b1dc75e5aedaf7d2c5f2376ba48f3863dba83342b5874ffea5c4f963",
+      "descriptor": "forest-v1\nseason=winter\ncenter=forest_w\nNE=forest_w\nSE=grass_w\nS=grass_w\nSW=forest_w\nNW=grass_w\nN=forest_w\n",
+      "neighbor_ids": [
+        "forest_w",
+        "grass_w",
+        "grass_w",
+        "forest_w",
+        "grass_w",
+        "forest_w"
+      ],
+      "runtime_id": "forest_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "30a0e74f2bb4af42b9a47f5db0c1cbb40dca4ed11982d5f5aeb3694b8cde879a",
+      "descriptor": "forest-v1\nseason=winter\ncenter=forest_w\nNE=forest_w\nSE=forest_w\nS=grass_w\nSW=forest_w\nNW=forest_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "forest_w",
+        "forest_w",
+        "grass_w",
+        "forest_w",
+        "forest_w",
+        "grass_w"
+      ],
+      "runtime_id": "forest_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "48347d7083543819cd9f290ddfb6bbe40d485b1ebcd9f08bea3b217202ec0fef",
+      "descriptor": "forest-v1\nseason=winter\ncenter=forest_w\nNE=grass_w\nSE=grass_w\nS=forest_w\nSW=grass_w\nNW=grass_w\nN=forest_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "forest_w",
+        "grass_w",
+        "grass_w",
+        "forest_w"
+      ],
+      "runtime_id": "forest_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "65920bb3ad6ed5b241bd9c91f5aff57b9c4b70d94e9736e2477e3dd385b536e7",
+      "descriptor": "forest-v1\nseason=winter\ncenter=forest_w\nNE=grass_w\nSE=forest_w\nS=forest_w\nSW=grass_w\nNW=grass_w\nN=forest_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "forest_w",
+        "forest_w",
+        "grass_w",
+        "grass_w",
+        "forest_w"
+      ],
+      "runtime_id": "forest_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "72a16ec05b35acb8ff40a11b3ddb72bb10cf672f2d1b172c50d062adb5bc88f8",
+      "descriptor": "forest-v1\nseason=winter\ncenter=forest_w\nNE=grass_w\nSE=forest_w\nS=grass_w\nSW=grass_w\nNW=forest_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "forest_w",
+        "grass_w",
+        "grass_w",
+        "forest_w",
+        "grass_w"
+      ],
+      "runtime_id": "forest_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "94bd23505302f4d864a6304f15bac09f35760f71bdd74993de00500a8ad1794a",
+      "descriptor": "forest-v1\nseason=winter\ncenter=forest_w\nNE=grass_w\nSE=forest_w\nS=grass_w\nSW=forest_w\nNW=forest_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "forest_w",
+        "grass_w",
+        "forest_w",
+        "forest_w",
+        "grass_w"
+      ],
+      "runtime_id": "forest_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "a85b803aa18adf785366fd1a7467cce830ca0c2184a1c2c7aeeaf426713de599",
+      "descriptor": "forest-v1\nseason=winter\ncenter=forest_w\nNE=forest_w\nSE=forest_w\nS=forest_w\nSW=grass_w\nNW=forest_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "forest_w",
+        "forest_w",
+        "forest_w",
+        "grass_w",
+        "forest_w",
+        "grass_w"
+      ],
+      "runtime_id": "forest_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "ada002b1673c3897f4be8edb9fa384728298bc43a466bfab9c225eff86683457",
+      "descriptor": "forest-v1\nseason=winter\ncenter=forest_w\nNE=grass_w\nSE=grass_w\nS=forest_w\nSW=forest_w\nNW=grass_w\nN=forest_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "forest_w",
+        "forest_w",
+        "grass_w",
+        "forest_w"
+      ],
+      "runtime_id": "forest_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "c03baf2e15023d3194612998058d021dffcdc60a398ca45c63c1e67f7c8e3030",
+      "descriptor": "forest-v1\nseason=winter\ncenter=forest_w\nNE=grass_w\nSE=grass_w\nS=forest_w\nSW=grass_w\nNW=forest_w\nN=forest_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "forest_w",
+        "grass_w",
+        "forest_w",
+        "forest_w"
+      ],
+      "runtime_id": "forest_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "c08ccd40f0eb1a8a0f40b49da8f011aa592066f09f606fa06190cda7c9a7667c",
+      "descriptor": "forest-v1\nseason=winter\ncenter=forest_w\nNE=forest_w\nSE=grass_w\nS=forest_w\nSW=grass_w\nNW=grass_w\nN=forest_w\n",
+      "neighbor_ids": [
+        "forest_w",
+        "grass_w",
+        "forest_w",
+        "grass_w",
+        "grass_w",
+        "forest_w"
+      ],
+      "runtime_id": "forest_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "cb7272c2900f2be9ca8b760bb96916cc016a188e75b9df372170b5b7a2c5f8d4",
+      "descriptor": "forest-v1\nseason=winter\ncenter=forest_w\nNE=grass_w\nSE=forest_w\nS=forest_w\nSW=grass_w\nNW=forest_w\nN=forest_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "forest_w",
+        "forest_w",
+        "grass_w",
+        "forest_w",
+        "forest_w"
+      ],
+      "runtime_id": "forest_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "ceed6fedc3dc59b0b3f220ea702ca523ca4c5bc4eb1401362f3c9aba14a804a4",
+      "descriptor": "forest-v1\nseason=winter\ncenter=forest_w\nNE=forest_w\nSE=forest_w\nS=grass_w\nSW=forest_w\nNW=grass_w\nN=forest_w\n",
+      "neighbor_ids": [
+        "forest_w",
+        "forest_w",
+        "grass_w",
+        "forest_w",
+        "grass_w",
+        "forest_w"
+      ],
+      "runtime_id": "forest_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "d11c76e2f3c28b3b640748eaa0869249a73c9c815811722cc44577ac770e0128",
+      "descriptor": "forest-v1\nseason=winter\ncenter=forest_w\nNE=forest_w\nSE=grass_w\nS=forest_w\nSW=forest_w\nNW=grass_w\nN=forest_w\n",
+      "neighbor_ids": [
+        "forest_w",
+        "grass_w",
+        "forest_w",
+        "forest_w",
+        "grass_w",
+        "forest_w"
+      ],
+      "runtime_id": "forest_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "d5ae87eae842e58537a836c8effa80582a82544146537cb5106b3b988eacc4b0",
+      "descriptor": "forest-v1\nseason=winter\ncenter=forest_w\nNE=forest_w\nSE=grass_w\nS=forest_w\nSW=grass_w\nNW=forest_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "forest_w",
+        "grass_w",
+        "forest_w",
+        "grass_w",
+        "forest_w",
+        "grass_w"
+      ],
+      "runtime_id": "forest_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "e2d70b104109e3cf82e4c3a579d7701fe88ef98f7bac6a9548bfcdc2c058e6cf",
+      "descriptor": "forest-v1\nseason=winter\ncenter=forest_w\nNE=forest_w\nSE=forest_w\nS=grass_w\nSW=forest_w\nNW=grass_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "forest_w",
+        "forest_w",
+        "grass_w",
+        "forest_w",
+        "grass_w",
+        "grass_w"
+      ],
+      "runtime_id": "forest_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "e7e3a62d3a426274c1ce9c925f7fe758917645f96df881da0ceb35bc27eebae4",
+      "descriptor": "forest-v1\nseason=winter\ncenter=forest_w\nNE=grass_w\nSE=forest_w\nS=grass_w\nSW=forest_w\nNW=grass_w\nN=forest_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "forest_w",
+        "grass_w",
+        "forest_w",
+        "grass_w",
+        "forest_w"
+      ],
+      "runtime_id": "forest_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "f1f02990401a5822008675c112b7f4021e229ebe6ddde20a048cc4e420e07d4f",
+      "descriptor": "forest-v1\nseason=winter\ncenter=forest_w\nNE=grass_w\nSE=grass_w\nS=forest_w\nSW=grass_w\nNW=forest_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "grass_w",
+        "forest_w",
+        "grass_w",
+        "forest_w",
+        "grass_w"
+      ],
+      "runtime_id": "forest_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "f95842fc3cad3468b276b9e465d4e4aae1df470bacdb9703ff4d59dfc862b9db",
+      "descriptor": "forest-v1\nseason=winter\ncenter=forest_w\nNE=forest_w\nSE=forest_w\nS=grass_w\nSW=grass_w\nNW=forest_w\nN=grass_w\n",
+      "neighbor_ids": [
+        "forest_w",
+        "forest_w",
+        "grass_w",
+        "grass_w",
+        "forest_w",
+        "grass_w"
+      ],
+      "runtime_id": "forest_w",
+      "season": "winter"
+    },
+    {
+      "canonical": false,
+      "context_key": "fda5eeccdfb121a9c47b0434006a0382ed60b4e2f6a92bb004253fdfe027a2f3",
+      "descriptor": "forest-v1\nseason=winter\ncenter=forest_w\nNE=grass_w\nSE=forest_w\nS=grass_w\nSW=grass_w\nNW=forest_w\nN=forest_w\n",
+      "neighbor_ids": [
+        "grass_w",
+        "forest_w",
+        "grass_w",
+        "grass_w",
+        "forest_w",
+        "forest_w"
+      ],
+      "runtime_id": "forest_w",
+      "season": "winter"
     }
   ],
   "schema_version": 1
