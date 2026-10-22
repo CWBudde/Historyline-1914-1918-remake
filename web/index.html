@@ -46,7 +46,9 @@
     const note = loading.querySelector(".note");
     // just web serves the art packs under packs/<catalog>/, each with a files.txt listing ("<size> <path>"
     // per line), and writes build.json: the build's content hash, which every other URL carries so a cached
-    // file of an older build is never used, and the size of historyline.wasm.
+    // file of an older build is never used, and the size of historyline.wasm. packs/<catalog>-lite/ holds
+    // the same art compressed: the game boots from it and, on a fast connection, loads the full catalog
+    // in the background.
     const catalogs = ["units", "terrain", "screens"];
     // The game opens these before its menu shows; the terrain follows with the first battle.
     const atStart = ["units", "screens"];
@@ -77,16 +79,23 @@
       try {
         const info = await fetch("build.json", { cache: "no-cache" }).then((r) => (r.ok ? r.json() : {}), () => ({}));
         const v = info.version ? "?v=" + encodeURIComponent(info.version) : "";
-        const listings = await Promise.all(catalogs.map((c) =>
-          fetch(`packs/${c}/files.txt${v}`).then((r) => (r.ok ? r.text() : null), () => null)));
-        const backdrop = listings[catalogs.indexOf("screens")]?.match(/^\d+ (2x\/backdrop\/images\/\S+\.png)$/m);
-        if (backdrop) stage.style.backgroundImage = `url("packs/screens/${backdrop[1]}${v}")`;
+        const listing = (dir) => fetch(`packs/${dir}/files.txt${v}`).then((r) => (r.ok ? r.text() : null), () => null);
+        const [full, lite] = await Promise.all([catalogs.map(listing), catalogs.map((c) => listing(c + "-lite"))]
+          .map((all) => Promise.all(all)));
+        // What the game boots from: the compressed catalog where there is one.
+        const boot = catalogs.map((c, i) => (lite[i] !== null ? c + "-lite" : full[i] !== null ? c : null));
+        const listings = boot.map((dir, i) => (dir === null ? null : lite[i] ?? full[i]));
+        const screens = catalogs.indexOf("screens");
+        const backdrop = listings[screens]?.match(/^\d+ (2x\/backdrop\/images\/\S+\.(?:png|jpg|webp))$/m);
+        if (backdrop) stage.style.backgroundImage = `url("packs/${boot[screens]}/${backdrop[1]}${v}")`;
         total = (info.wasm || 0) + atStart.reduce((sum, c) => sum + bytes(listings[catalogs.indexOf(c)] ?? ""), 0);
         show();
         await script("wasm_exec.js" + v);
         const go = new Go();
+        const url = (dir) => new URL(`packs/${dir}/${v}`, location.href).href;
         catalogs.forEach((c, i) => {
-          if (listings[i] !== null) go.argv.push(`-${c}`, new URL(`packs/${c}/${v}`, location.href).href);
+          if (boot[i] !== null) go.argv.push(`-${c}`, url(boot[i]));
+          if (lite[i] !== null && full[i] !== null) go.argv.push(`-${c}-hd`, url(c));
         });
         if (listings.some((l) => l !== null)) go.argv.push("-allow-candidates");
         let wasm = await fetch("historyline.wasm" + v);

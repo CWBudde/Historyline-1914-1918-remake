@@ -1,6 +1,6 @@
 # Runtime asset packs
 
-`internal/assets` loads versioned PNG packs; `cmd/hlasset` builds and checks them from the runtime art in
+`internal/assets` loads versioned image packs (PNG; JPEG and WebP in the web build's compressed copies); `cmd/hlasset` builds and checks them from the runtime art in
 `assets/`. `assets/index.json` lists every runtime file (ID, pack, density, path below `assets/`, SHA-256,
 size, anchor, art key such as `terrain/road`); packed entries are in pack order. Packs live in ignored
 `build/packs/` until art is approved; only approved art will be embedded (`assets/assets.go`).
@@ -10,6 +10,7 @@ go run ./cmd/hlasset build -density 2 -out build/packs/interface-2x        # int
 go run ./cmd/hlasset build-units   -out build/packs/units                  # 48 unit families
 go run ./cmd/hlasset build-terrain -out build/packs/terrain                # tiles, overlays, contexts
 go run ./cmd/hlasset build-screens -out build/packs/screens                # menu frames, controls, paintings
+go run ./cmd/hlasset lite -in build/packs/units -out <dir>                # compressed copy for the web
 go run ./cmd/hlasset validate -root <pack> -allow-candidates
 go run ./cmd/hlasset terrain-gaps -terrain build/packs/terrain
 just play                                                                  # game with all three catalogs
@@ -20,7 +21,7 @@ just web 8080                                                              # web
 
 `manifest.json` (`schema_version` 1, `id`, `status`, `entries[]`); each entry has `id`, `path`, `sha256`,
 `width`, `height`, `density` and `logical_anchor`. `Load` checks paths (local, unique, no `legacy`/`original`
-components), hashes, PNG headers and exact dimensions before use; all densities of an ID share logical size
+components), hashes, image headers (`.png`, `.jpg`, `.webp`) and exact dimensions before use; all densities of an ID share logical size
 and anchor. Limits: 4,096 entries, 2 MiB manifest, 32 MiB per PNG, 128 MiB encoded, 256 MiB decoded
 (8 bytes/pixel estimate), so each density and family is its own pack.
 
@@ -110,10 +111,14 @@ over it, live text in the Go fonts and the button states; without the catalog th
 
 ## Web
 
-`just web` hard-links the 2× unit and terrain packs and both screen densities into `build/web/packs/<catalog>/`
-and lists each catalog in `files.txt` (`<size> <path>` per line), since HTTP cannot list directories.
-`index.html` passes the catalogs it finds to the game as URLs; the game fetches a whole catalog when opening
-it and loads no 4× packs in the browser. `build.json` holds a hash of the whole build and the size of the
+`just web` hard-links the 2× unit and terrain packs and both screen densities into `build/web/packs/<catalog>/`,
+writes their compressed copies to `build/web/packs/<catalog>-lite/` (`hlasset lite`: an opaque image as JPEG,
+any other as lossy WebP, a PNG where that is smaller; about a fifth of the bytes) and lists each catalog in
+`files.txt` (`<size> <path>` per line), since HTTP cannot list directories. `index.html` passes the catalogs it
+finds to the game as URLs, the compressed ones as `-units`, `-terrain`, `-screens` and the full ones as
+`-units-hd`, `-terrain-hd`, `-screens-hd`; the game fetches a whole catalog when opening it and loads no 4×
+packs in the browser. It boots from the compressed catalogs; when they arrived at 4 MiB/s or faster it loads
+the full unit and screen catalogs in the background and swaps them in, and each battle's full terrain likewise. `build.json` holds a hash of the whole build and the size of the
 wasm; the page adds the hash to every URL as `?v=`, so a browser never combines cached files of an older build
 with a newer one. Until the menu runs, the page shows a title card over the menu painting with a progress bar
 over the wasm and the unit and screen catalogs (the game reports each fetched file); the battle's loading
