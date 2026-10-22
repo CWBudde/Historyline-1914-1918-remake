@@ -47,7 +47,7 @@ Tick a box only with evidence you ran. Record decisions here, not their history.
 - [ ] Ownership strips on units and buildings; check the composed map by hand in the window, including
       fractional zoom and 4K/HiDPI.
 - [ ] Context rules for mixed-family neighbours (forest next to hills, mud, mountain, buildings) and the
-      map edge; contexts for imported maps and mixed seasons.
+      map edge; contexts for mixed seasons (the imported maps: §2 Phase 9).
 - [ ] Decide the open art ambiguities: HQ entrance cell (N or C), the `trench5a` port, four inferred
       lakeside corners.
 - [ ] Runtime catalogs for portraits, screens, fonts and animation metadata; live pack switching; embed
@@ -511,10 +511,59 @@ Needs Phases 1 to 6 for the matching summer family; mostly a material swap plus 
 - [ ] Checked in the game window at zoom 0.75–2, 4K and HiDPI (`just play`).
 - [ ] `prompt.md` status `approved` for each family; the matching items above ticked.
 
+##### Phase 9: The original maps (`levels/campaign`)
+
+The 72 campaign levels (§5) draw with the shipped levels' art. What they still lack, in order: the
+bindings need nothing new, the contexts need the generator, the stand-in looks need new subjects, winter
+water needs Phase 7. Counts are from 2026-10-22 (`origview` `TestCommittedMaps` log).
+
+###### 9.1 Unit bindings
+
+- [ ] Bind the 33 exported but unbound families (5 tanks, 5 ships, 18 aircraft, construction unit, static
+      and mobile AA, anti-tank gun, balloon) to their unit ids: the ids into each `prompt.md`'s runtime
+      IDs, `unitsprite.families` instead of `pending`/`unboundFamilies`, `TestArtFamiliesWithoutGameplayAliases`
+      and the `cmd/hlgallery` binding count updated. `EC_armCar` and `EC_transTrain` join `armored-car` and
+      `transport-train`; captured tanks (`CP_ft17`, `CP_markI`, `CP_markIV`) take their Entente family.
+      Done when `unitsprite.Pending` is empty and a capture of map 23 (`-level original/23`) shows no dots.
+
+###### 9.2 Contexts
+
+- [ ] Let the campaign context generator (`tools/art-review` `campaign_generate_test.go`) read
+      `levels/campaign` as well as `levels.FS`, and fill the transitions the original maps need: 7270
+      missing (1725 distinct: ground 895, hills 811, forest 19) and 499 undefined (ground 269, forest 230)
+      context tiles over all 72 maps; the shipped levels have none.
+- [ ] Done when `TestCommittedMaps` turns the gap log into an error (STATMAP excepted) and stays green.
+
+###### 9.3 Subjects the stand-in looks replace
+
+`origview/looks.json` shows these records with other art; each new subject gets its terrain or overlay,
+its tiles in `assets/index.json`, and its records' look in `looks.json` (`TestLooksHaveTiles`,
+`TestLooksAgreeWithRecords`), then `just levels-campaign`.
+
+- [ ] Sea and open water distinct from ponds (records 25, 34, 47, 48 all show `water`).
+- [ ] Harbour buildings and their yard (houses and a road today); town streets (a road).
+- [ ] Quays and piers (a road bridge on water today, records 107–126).
+- [ ] Summer shell-hole fields (`mud` today, records 63 and 81–84; winter shows `shelled_w`).
+- [ ] Junctions and level crossings without a tile of their own (two overlays today); forest and
+      mountain variants that show plain forest and mountain.
+
+###### 9.4 Winter water
+
+- [ ] Winter forms of `water`, `waterStones` and the `lakeside*` shores (ice edges): 18 of the 24 winter
+      maps contain them and show summer water today. Goes with Phase 7's materials.
+
+###### 9.5 Acceptance
+
+- [ ] Every campaign level renders with zero gaps and compound issues (STATMAP excepted); a sample of
+      summer, winter, sea and harbour maps in the art book or under `build/review/`, checked by hand.
+- [ ] Checked in the game window on a summer and a winter map from both campaigns.
+
 ### 3. Original rules profile
 
 - [ ] Data: name the 36 unit records without a Go type and decide which share a family; alternate group
-      strength; terrain record names; which season a map uses.
+      strength; terrain record names; which season a map uses. (2026-10-22) — partial: every unit record
+      has a remake unit (`units.json`), each its own art family; a map's season is its mission's
+      (`finmap`). Remain: alternate group strength, terrain record names.
 - [ ] Order cycle: movement/action phases, both players' confirmations, cancellation, eligibility, move
       limits, conflicting destinations and swaps, targets destroyed before their order executes.
       Known so far: only the acting side's attack list resolves, in order, without an alive check; a
