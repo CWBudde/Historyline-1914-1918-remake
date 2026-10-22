@@ -38,6 +38,7 @@ type lookSource struct {
 	Families     []lookFamily `json:"families,omitempty"`
 	Canopy       *lookCanopy  `json:"canopy"`
 	Units        *lookUnits   `json:"unit_edge_contrast"`
+	Water        *lookWater   `json:"water"`
 }
 
 type lookFamily struct {
@@ -134,11 +135,18 @@ func (p *project) writeLookReport(out string) error {
 		"original screenshot registration and private numbers-only baseline measurements",
 		"woodland-edge distance and independently annotated reference/original canopy coverage",
 		"light skew and cast-shadow direction",
-		"water depth gradient and bank/stream width variation",
+		"water sampling across other features, independently identifiable shallow/shadow regions, original baselines and width acceptance",
 		"unit contrast acceptance aggregation, additional facings/states and reference/original unit baselines",
 		"resolve exact material period versus low full-period autocorrelation requirement",
 	}}
-	renderSource := p.measureLookSource("render", halve(render))
+	render1x := halve(render)
+	renderSource := p.measureLookSource("render", render1x)
+	water, err := p.measureWater("render", render1x, out)
+	if err != nil {
+		return err
+	}
+	renderSource.Water = &water
+	report.Definitions["water"] = water.Definition
 	renderer, err := maprender.New(p.assets)
 	if err != nil {
 		return err
@@ -161,7 +169,13 @@ func (p *project) writeLookReport(out string) error {
 		return err
 	}
 	if present {
-		source := p.measureLookSource("reference", p.registered(src, 1))
+		reference1x := p.registered(src, 1)
+		source := p.measureLookSource("reference", reference1x)
+		water, err := p.measureWater("reference", reference1x, out)
+		if err != nil {
+			return err
+		}
+		source.Water = &water
 		source.Canopy = &lookCanopy{Reason: "independent reference canopy annotations unavailable"}
 		source.Units = &lookUnits{Reason: "independent reference unit baseline unavailable"}
 		source.FileSHA256 = p.ref.Image.SHA256
@@ -181,6 +195,9 @@ func (p *project) writeLookReport(out string) error {
 	}
 	report.Sources[0].Units = &units
 	for i := range report.Sources {
+		if report.Sources[i].Water == nil {
+			report.Sources[i].Water = &lookWater{Reason: "source_unavailable"}
+		}
 		if report.Sources[i].Units == nil {
 			report.Sources[i].Units = &lookUnits{Reason: "source_unavailable"}
 		}

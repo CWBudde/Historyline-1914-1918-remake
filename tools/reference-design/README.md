@@ -65,6 +65,15 @@ cases records quantiles and the fraction of edges reaching 30 L*, with source an
 `units/` contains 20 native 2× previews. Other poses, independent reference/original baselines and a
 formal passing aggregation remain open.
 
+The `water` section uses independent visual estimates in `water_annotations.json`, next to
+`reference.json`. It pins the level, registration and each 1× image; stale pins yield no measurements,
+and malformed annotations fail. The initial sample covers five stream sections in `r8c2` and two lake
+banks per image. Widths retain boundary uncertainty; population CV groups banks by feature and stream
+widths by feature/cell. Opaque pixel-centre strips report median L* and chroma from the actual image.
+Near-bank minus interior L* is only a depth-appearance proxy. Missing separable near-bank/shadow regions
+stay null; these annotations do not establish physical depth or a gate pass. The two
+`water-*-annotations.png` overlays mark water widths in cyan, banks orange and interior samples green.
+
 For real game views at exact effective 1×/1.6×, add `-capture-look` to the game's `-capture DIR`
 command. It writes revealed/fogged views at 1080p and 4K and records `effective_zoom` alongside camera
 zoom and UI scale. Capture outputs stay under `build/`.

@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "canonical_level_sha256": "358c5b22110029af7056ce22da44c3adddaa934cbfc6b69c1796ae5840b84ef6",
+  "registration_sha256": "c300530262d85a711cf1fbb4a6b2b5f49bfb304d1739e31636cb9c1013bc1ffb",
+  "coordinates": "Continuous world pixels on the pinned 1x registered image; x right, y down; pixel centres x+0.5,y+0.5. Span/region distances run from 'from' toward 'to'. Independent visual estimates, not semantic ground truth. Boundary uncertainty conservatively includes rocks interleaving with meadow. Only two lake-bank aspects and five sections of one stream cell are sampled; variation is descriptive. No physical shallow-water or clean cast-shadow band is independently distinguishable here.",
+  "sources": [
+    {
+      "id": "render", "width": 1090, "height": 1920,
+      "rgba_pixels_sha256": "e90497dbbd89125abbefc387730ed5343ca04faf209958bbc129d2464a54ce08",
+      "review_status": "visually_reviewed_estimate",
+      "transects": [
+        {"id":"stream-296","feature":"stream-north","cell":"r8c2","kind":"stream","from":[230,296],"to":[292,296],"boundary_uncertainty_world_px":3,
+         "spans":[{"name":"left-bank","role":"bank_width","start":19,"end":21},{"name":"water","role":"stream_width","start":21,"end":42},{"name":"right-bank","role":"bank_width","start":42,"end":46}],"regions":[]},
+        {"id":"stream-308","feature":"stream-north","cell":"r8c2","kind":"stream","from":[230,308],"to":[292,308],"boundary_uncertainty_world_px":3,
+         "spans":[{"name":"left-bank","role":"bank_width","start":19,"end":22},{"name":"water","role":"stream_width","start":22,"end":41},{"name":"right-bank","role":"bank_width","start":41,"end":45}],"regions":[]},
+        {"id":"stream-320","feature":"stream-north","cell":"r8c2","kind":"stream","from":[230,320],"to":[292,320],"boundary_uncertainty_world_px":3,
+         "spans":[{"name":"left-bank","role":"bank_width","start":19,"end":23},{"name":"water","role":"stream_width","start":23,"end":42},{"name":"right-bank","role":"bank_width","start":42,"end":45}],"regions":[]},
+        {"id":"stream-332","feature":"stream-north","cell":"r8c2","kind":"stream","from":[230,332],"to":[292,332],"boundary_uncertainty_world_px":3,
+         "spans":[{"name":"left-bank","role":"bank_width","start":19,"end":22},{"name":"water","role":"stream_width","start":22,"end":40},{"name":"right-bank","role":"bank_width","start":40,"end":44}],"regions":[]},
+        {"id":"stream-344","feature":"stream-north","cell":"r8c2","kind":"stream","from":[230,344],"to":[292,344],"boundary_uncertainty_world_px":3,
+         "spans":[{"name":"left-bank","role":"bank_width","start":17,"end":20},{"name":"water","role":"stream_width","start":20,"end":39},{"name":"right-bank","role":"bank_width","start":39,"end":43}],"regions":[]},
+        {"id":"lake-north","feature":"lake","kind":"bank","from":[900,1120],"to":[900,1010],"boundary_uncertainty_world_px":3,
+         "spans":[{"name":"north-bank","role":"bank_width","start":39,"end":47}],
+         "regions":[{"role":"interior_water","start":0,"end":18,"half_width":1.5}],
+         "notes":"Waterline y1081; outer bank y1073. The isolated rock at y1090-1096 is outside the sampling strip. No distinct shallow-water or bank-shadow interval."},
+        {"id":"lake-south","feature":"lake","kind":"bank","from":[940,1210],"to":[940,1335],"boundary_uncertainty_world_px":3,
+         "spans":[{"name":"south-bank","role":"bank_width","start":56,"end":62}],
+         "regions":[{"role":"interior_water","start":2,"end":42,"half_width":1.5}],
+         "notes":"FIRST lake exit only: waterline y1266; outer bank y1272. The line re-enters the curved outlet farther south; those crossings are excluded. No distinct shallow-water or bank-shadow interval."}
+      ]
+    },
+    {
+      "id": "reference", "width": 1090, "height": 1920,
+      "rgba_pixels_sha256": "ff3763cfd5e7db7c98e6f2898911222e79ed2ce55183ff372956dae35c8d0535",
+      "review_status": "visually_reviewed_estimate",
+      "transects": [
+        {"id":"stream-296","feature":"stream-north","cell":"r8c2","kind":"stream","from":[230,296],"to":[292,296],"boundary_uncertainty_world_px":3,
+         "spans":[{"name":"left-bank","role":"bank_width","start":4,"end":12},{"name":"water","role":"stream_width","start":12,"end":49},{"name":"right-bank","role":"bank_width","start":49,"end":56}],"regions":[]},
+        {"id":"stream-308","feature":"stream-north","cell":"r8c2","kind":"stream","from":[230,308],"to":[292,308],"boundary_uncertainty_world_px":3,
+         "spans":[{"name":"left-bank","role":"bank_width","start":3,"end":12},{"name":"water","role":"stream_width","start":12,"end":48},{"name":"right-bank","role":"bank_width","start":48,"end":56}],"regions":[]},
+        {"id":"stream-320","feature":"stream-north","cell":"r8c2","kind":"stream","from":[230,320],"to":[292,320],"boundary_uncertainty_world_px":3,
+         "spans":[{"name":"left-bank","role":"bank_width","start":4,"end":13},{"name":"water","role":"stream_width","start":13,"end":48},{"name":"right-bank","role":"bank_width","start":48,"end":56}],"regions":[]},
+        {"id":"stream-332","feature":"stream-north","cell":"r8c2","kind":"stream","from":[230,332],"to":[292,332],"boundary_uncertainty_world_px":3,
+         "spans":[{"name":"left-bank","role":"bank_width","start":5,"end":14},{"name":"water","role":"stream_width","start":14,"end":47},{"name":"right-bank","role":"bank_width","start":47,"end":56}],"regions":[]},
+        {"id":"stream-344","feature":"stream-north","cell":"r8c2","kind":"stream","from":[230,344],"to":[292,344],"boundary_uncertainty_world_px":3,
+         "spans":[{"name":"left-bank","role":"bank_width","start":6,"end":15},{"name":"water","role":"stream_width","start":15,"end":46},{"name":"right-bank","role":"bank_width","start":46,"end":54}],"regions":[]},
+        {"id":"lake-north","feature":"lake","kind":"bank","from":[900,1120],"to":[900,1010],"boundary_uncertainty_world_px":3,
+         "spans":[{"name":"north-bank","role":"bank_width","start":77,"end":89}],
+         "regions":[{"role":"interior_water","start":5,"end":22,"half_width":1.5}],
+         "notes":"Waterline y1043; outer bank y1031. Dark water beside the bank counts as water, not land. Bright ripples and foam do not independently establish shallows or a cast-shadow band."},
+        {"id":"lake-south","feature":"lake","kind":"bank","from":[940,1210],"to":[940,1335],"boundary_uncertainty_world_px":4,
+         "spans":[{"name":"south-bank","role":"bank_width","start":102,"end":114}],
+         "regions":[{"role":"interior_water","start":10,"end":30,"half_width":1.5}],
+         "notes":"Waterline y1312; outer bank y1324. This oblique, boulder-interrupted shore has higher uncertainty. No independently identifiable shallow-water or bank-shadow interval."}
+      ]
+    }
+  ]
+}

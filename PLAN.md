@@ -355,7 +355,7 @@ Stop adding enumerated baked contexts. Each one fixes the old sampling in place,
       63.72% coverage (target ≥85%); 2×/4× total coverage agrees within 0.05%. Source/render hashes,
       mask inspection and tests pass under `build/review/look-canopy/`. Reference canopy annotations
       and woodland-perimeter metrics remain open. (2026-10-22)
-      The 368-page art book includes the current measurements and crown-coverage plate; both new
+      The 368-page art book includes the value measurements and crown-coverage plate; both new
       pages are rasterized and reviewed. `just artbook` and the final Typst compilation pass.
       Unit-edge measurements cover 144 north-facing normal-state sprites (48 families × 3 palettes)
       over composed grass, forest, road and water: 576 cases, with 20 validated preview fixtures.
@@ -363,6 +363,11 @@ Stop adding enumerated baked contexts. Each one fixes the old sampling in place,
       placement and composition-before-reduction checks pass under `build/review/look-units/`.
       Other facings/states, reference/original unit baselines and acceptance aggregation remain open.
       (2026-10-22)
+      Water annotations independently pin seven transects per image: five sections of `r8c2` and
+      two lake banks. Estimated stream medians are 19 world px (render) and 35 (reference); lake-bank
+      medians are 7/12. Width uncertainty is explicit (±6–8 px worst case). Strip geometry, source-pin
+      rejection and actual-image sampling pass under `build/review/look-water/`; both overlays reviewed.
+      Distinct shallows/shadows, other water features and width acceptance remain open. (2026-10-22)
 - [ ] Review views at the real size: 1× and an effective zoom of 1.6 (the planned split screen), plus
       in-game captures at 1080p and 4K. A headless capture path in `cmd/historyline` replaces the patched
       copy used for the audit.
