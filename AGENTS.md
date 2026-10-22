@@ -64,7 +64,9 @@ just artbook     # build/artbook/Historyline_Art.pdf (needs typst)
   PULSE map, `hlgallery`'s PULSE study).
 - `tools/art-review`, `tools/interface-art`, `tools/unit-panel`: art export. `tools/reference-design`: the
   PULSE reference design (`just reference`). `just gfx-check` runs `art-check`, `reference-check` and the
-  tool tests. `cmd/hlgallery` is the local comparison desk (`just gfx-game-review`).
+  tool tests. `cmd/hlgallery` is the local comparison desk (`just gfx-game-review`). `tools/candidate-review`
+  renders unused imagegen candidates in game context (units on the map, portraits in the panel) for a
+  keep/delete decision page under `build/review/candidates/site`.
 
 ## Repo rules
 

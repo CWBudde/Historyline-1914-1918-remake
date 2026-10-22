@@ -1,0 +1,241 @@
+<title>Candidate Desk</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:wght@500;700&family=Barlow+Semi+Condensed:wght@400;500;600&family=IBM+Plex+Mono:wght@400&display=swap">
+<style>
+/* Layout: a sticky ledger bar (kind tabs, counts, scale) over family sections; each family
+   is a row of cards, installed art first, candidates after, decisions as three stamps. */
+:root {
+  --bg: #f1ece1; --panel: #fbf8f1; --ink: #1d2a31; --muted: #5d6b70; --line: #cfc6b4;
+  --brass: #8a6a2c; --brass-soft: #e8dcc2;
+  --del: #a8432f; --del-soft: #f3dcd4; --keep: #3c6b45; --keep-soft: #d9e8d9; --pref: #8a6a2c; --pref-soft: #efe2c4;
+  --shot: #20323b;
+  --display: "Alegreya Sans SC", "Alegreya Sans", Georgia, serif;
+  --body: "Barlow Semi Condensed", "Arial Narrow", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #12202a; --panel: #182a35; --ink: #eee5d2; --muted: #9fb0b5; --line: #2f4552;
+  --brass: #c4a773; --brass-soft: #3a3526;
+  --del: #e08a74; --del-soft: #3e2723; --keep: #8cc49a; --keep-soft: #1f3527; --pref: #d8bb80; --pref-soft: #3a3324;
+  --shot: #0b151b; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #12202a; --panel: #182a35; --ink: #eee5d2; --muted: #9fb0b5; --line: #2f4552;
+  --brass: #c4a773; --brass-soft: #3a3526;
+  --del: #e08a74; --del-soft: #3e2723; --keep: #8cc49a; --keep-soft: #1f3527; --pref: #d8bb80; --pref-soft: #3a3324;
+  --shot: #0b151b; color-scheme: dark }
+* { box-sizing: border-box }
+body { background: var(--bg); color: var(--ink); font: 400 15px/1.45 var(--body); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--panel) }
+.wrap { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); max-width: 1600px; margin: 0 auto }
+header.top { padding-block: 22px 8px }
+h1 { font: 700 30px/1.1 var(--display); letter-spacing: .02em; margin: 0; text-wrap: balance }
+.lede { color: var(--muted); max-width: 70ch; margin: 6px 0 0 }
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--panel); border-bottom: 1px solid var(--line) }
+.bar .wrap { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; padding-block: 10px }
+.tabs { display: flex; flex-wrap: wrap; gap: 6px }
+.tab { font: 600 14px var(--body); border: 1px solid var(--line); background: transparent; color: var(--ink); padding: 5px 11px; border-radius: 3px; cursor: pointer }
+.tab[aria-pressed="true"] { background: var(--ink); color: var(--panel); border-color: var(--ink) }
+.tab .n { font: 400 12px var(--mono); opacity: .75; margin-left: 4px }
+.opts { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-left: auto; color: var(--muted); font-size: 14px }
+.opts label { display: inline-flex; gap: 5px; align-items: center; cursor: pointer }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 3px; overflow: hidden }
+.seg button { font: 500 13px var(--mono); background: transparent; color: var(--ink); border: 0; padding: 4px 9px; cursor: pointer }
+.seg button[aria-pressed="true"] { background: var(--brass); color: var(--panel) }
+.tally { display: flex; flex-wrap: wrap; gap: 6px 14px; font: 400 13px var(--mono); color: var(--muted); padding-block: 0 4px }
+.tally b { color: var(--ink); font-weight: 400 }
+.status { font: 400 13px var(--mono); color: var(--muted) }
+.status.warn { color: var(--del) }
+main.wrap { padding-block: 10px 60px; display: grid; gap: 34px }
+section.fam { display: grid; gap: 10px; min-width: 0 }
+.famhead { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; border-bottom: 1px solid var(--line); padding-bottom: 4px }
+.famhead h2 { font: 700 21px/1.2 var(--display); letter-spacing: .03em; margin: 0 }
+.famhead .kind { font: 400 12px var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: .08em }
+.famhead .bulk { margin-left: auto; font: 500 13px var(--body); background: transparent; border: 1px dashed var(--line); color: var(--muted); padding: 3px 9px; border-radius: 3px; cursor: pointer }
+.cards { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-start }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; display: grid; gap: 8px; padding: 10px; min-width: 0; max-width: 100%; border-top: 4px solid var(--line) }
+.card.installed { border-top-color: var(--ink) }
+.card[data-state="delete"] { border-top-color: var(--del) }
+.card[data-state="keep"] { border-top-color: var(--keep) }
+.card[data-state="prefer"] { border-top-color: var(--pref) }
+.card[data-state="delete"] .shot { opacity: .55 }
+.shot { background: var(--shot); border-radius: 2px; overflow-x: auto; max-width: 100% }
+.shot img { display: block; max-width: none; height: auto; image-rendering: auto }
+.fitbox .shot img { max-width: 100% }
+.vtabs { display: flex; gap: 4px }
+.vtabs button { font: 500 12px var(--body); border: 1px solid var(--line); background: transparent; color: var(--muted); padding: 2px 8px; border-radius: 3px; cursor: pointer }
+.vtabs button[aria-pressed="true"] { color: var(--ink); border-color: var(--ink) }
+.meta { display: flex; flex-wrap: wrap; gap: 4px 10px; font: 400 12px var(--mono); color: var(--muted); align-items: baseline }
+.label { font: 700 14px var(--display); letter-spacing: .06em; color: var(--ink) }
+.reason { font-size: 13.5px; color: var(--muted); max-width: 62ch }
+.reason b { font-weight: 600; color: var(--ink) }
+.verdict { font: 400 12px var(--mono); color: var(--del); max-width: 62ch; overflow-wrap: anywhere }
+details.prompt { font-size: 13px; color: var(--muted); max-width: 62ch }
+details.prompt summary { cursor: pointer; font-size: 12.5px }
+.stamps { display: flex; flex-wrap: wrap; gap: 6px }
+.stamp { font: 600 13.5px var(--body); border: 1.5px solid var(--line); background: transparent; color: var(--ink); padding: 5px 12px; border-radius: 3px; cursor: pointer; letter-spacing: .02em }
+.stamp:hover { border-color: var(--ink) }
+.stamp.del[aria-pressed="true"] { background: var(--del-soft); border-color: var(--del); color: var(--del) }
+.stamp.keep[aria-pressed="true"] { background: var(--keep-soft); border-color: var(--keep); color: var(--keep) }
+.stamp.pref[aria-pressed="true"] { background: var(--pref-soft); border-color: var(--pref); color: var(--pref) }
+.stamp:disabled { opacity: .45; cursor: default }
+.chip { font: 500 11.5px var(--mono); padding: 1px 6px; border-radius: 2px; border: 1px solid currentColor }
+.chip.default { color: var(--muted) }
+.chip.mine { color: var(--brass) }
+button:focus-visible, summary:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px }
+.empty { color: var(--muted); padding: 30px 0 }
+@media (max-width: 600px) { h1 { font-size: 25px } .opts { margin-left: 0 } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important } }
+</style>
+
+<header class="top wrap">
+  <h1>Candidate Desk</h1>
+  <p class="lede">Unused imagegen candidates from the gfx machine, rendered where the game shows them: units on the PULSE map next to installed units, portraits in the unit panel, interface items at runtime size beside the installed item. Mark each card <b>Delete</b>, <b>Keep</b> (archived as an alternative) or <b>Prefer</b> (replace the installed art in a later round). Pre-marked cards keep their default until you change them. Terrain is decided by Claude; use <b>Veto</b> to overturn a single call.</p>
+</header>
+<div class="bar"><div class="wrap">
+  <div class="tabs" id="tabs" role="group" aria-label="Kind"></div>
+  <div class="opts">
+    <label><input type="checkbox" id="undecided"> Only undecided</label>
+    <span>Scale <span class="seg" id="scale"><button type="button" data-s="1" aria-pressed="true">1×</button><button type="button" data-s="2" aria-pressed="false">2×</button><button type="button" data-s="fit" aria-pressed="false">fit</button></span></span>
+    <span class="status" id="status">Loading…</span>
+  </div>
+  <div class="tally" id="tally" style="flex-basis:100%"></div>
+</div></div>
+<main class="wrap" id="main"><p class="empty">Loading the candidates…</p></main>
+
+<script>
+const KINDS = [["unit","Units"],["portrait","Portraits"],["screen","Screens"],["interface","Interface"],["terrain","Terrain"],["other","Other"]];
+const state = { site: null, kind: "unit", only: false, scale: "1", saved: {}, db: null };
+const $ = (s, el = document) => el.querySelector(s);
+const h = (tag, attrs = {}, ...kids) => { const e = document.createElement(tag); for (const [k, v] of Object.entries(attrs)) { if (k === "class") e.className = v; else if (k.startsWith("on")) e.addEventListener(k.slice(2), v); else if (v !== undefined && v !== null) e.setAttribute(k, v); } for (const k of kids.flat()) if (k !== null && k !== undefined) e.append(k.nodeType ? k : document.createTextNode(k)); return e; };
+
+try { const v = JSON.parse(localStorage.getItem("cdesk") || "{}"); Object.assign(state, { kind: v.kind || "unit", only: !!v.only, scale: v.scale || "1" }); } catch (e) {}
+function remember() { try { localStorage.setItem("cdesk", JSON.stringify({ kind: state.kind, only: state.only, scale: state.scale })); } catch (e) {} }
+
+// Effective decision: a saved one wins over the default. Terrain stores "veto" to flip Claude's call.
+function decision(c) {
+  const s = state.saved[c.exec];
+  if (c.locked) { const veto = s === "veto"; return { value: veto ? (c.default === "keep" ? "delete" : "keep") : c.default, veto, mine: veto }; }
+  if (s) return { value: s, mine: true };
+  return { value: c.default || "", mine: false };
+}
+const all = () => state.site.groups.flatMap(g => g.candidates);
+
+async function setDecision(c, value) {
+  const prev = state.saved[c.exec];
+  if (value === null) delete state.saved[c.exec]; else state.saved[c.exec] = value;
+  render();
+  if (!state.db) { status("Not saved: sign in to claude.ai to record decisions.", true); return; }
+  try {
+    const ref = state.db.collection("decisions").doc(c.exec);
+    if (value === null) await ref.delete();
+    else await ref.set({ decision: value, kind: c.kind, group: c.group, at: new Date().toISOString() });
+    status("Saved");
+  } catch (e) {
+    if (prev === undefined) delete state.saved[c.exec]; else state.saved[c.exec] = prev;
+    render();
+    status("Not saved: " + (e && e.message ? e.message : "the store refused the change") + ". Try again.", true);
+  }
+}
+function status(text, warn) { const s = $("#status"); s.textContent = text; s.className = "status" + (warn ? " warn" : ""); }
+
+function img(src, natural) {
+  const i = h("img", { src, alt: "", loading: "lazy", decoding: "async" });
+  i.addEventListener("load", () => { if (state.scale === "1" && natural) i.style.width = (i.naturalWidth / 2) + "px"; else if (state.scale === "2") i.style.width = i.naturalWidth + "px"; else i.style.width = ""; });
+  return i;
+}
+// Context media are 2x renders; at 1x they are shown at half their pixel width, like the game's 1x view.
+function shot(media, key, natural) { return h("div", { class: "shot" }, img(media[key], natural)); }
+
+function viewBlock(views, kind) {
+  if (!views || !views.length) return null;
+  const v = views[0];
+  const keys = Object.keys(v.Media || v.media || {});
+  const media = v.media || v.Media;
+  const natural = kind === "unit" || kind === "portrait" || kind === "interface" || kind === "screen";
+  const box = h("div", { style: "display:grid;gap:6px;min-width:0" });
+  let cur = keys.includes("map") ? "map" : keys[0];
+  const pane = h("div");
+  const show = () => { pane.replaceChildren(shot(media, cur, natural)); tabs && tabs.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", b.dataset.k === cur)); };
+  const names = { map: "on the map", ring: "six views", img: v.label || "image", "loading-050": "loading screen", "confirm-exit": "dialog" };
+  const tabs = keys.length > 1 ? h("div", { class: "vtabs" }, keys.map(k => h("button", { type: "button", "data-k": k, onclick: () => { cur = k; show(); } }, names[k] || k))) : null;
+  show();
+  box.append(...[tabs, pane, keys.length === 1 && v.label ? h("div", { class: "meta" }, v.label) : null].filter(Boolean));
+  return box;
+}
+
+function card(c) {
+  const d = decision(c);
+  const el = h("article", { class: "card", "data-state": d.value || "open" });
+  const mb = c.bytes ? (c.bytes / 1048576).toFixed(1) + " MB" : "";
+  el.append(viewBlock(c.views, c.kind) || h("div", { class: "meta" }, "no preview"));
+  el.append(h("div", { class: "meta" }, h("span", { class: "label" }, c.exec.slice(5, 13)), c.date, c.size, mb,
+    d.mine ? h("span", { class: "chip mine" }, c.locked ? "vetoed" : "your call") : (d.value ? h("span", { class: "chip default" }, c.locked ? "Claude's call" : "pre-marked") : null)));
+  if (c.reason) el.append(h("div", { class: "reason" }, h("b", {}, d.value === "keep" ? "Keep: " : d.value === "delete" ? "Delete: " : "Note: "), c.reason));
+  if (c.exporter) el.append(h("div", { class: "verdict" }, "Exporter: " + c.exporter));
+  if (c.prompt) el.append(h("details", { class: "prompt" }, h("summary", {}, "Prompt"), c.prompt + "…"));
+  if (c.locked) {
+    el.append(h("div", { class: "stamps" }, h("button", { type: "button", class: "stamp " + (d.value === "keep" ? "keep" : "del"), "aria-pressed": "true", disabled: "" }, d.value === "keep" ? "Kept" : "Deleted"),
+      h("button", { type: "button", class: "stamp", "aria-pressed": String(d.veto), onclick: () => setDecision(c, d.veto ? null : "veto") }, d.veto ? "Undo veto" : "Veto")));
+  } else {
+    const stamp = (cls, value, text) => h("button", { type: "button", class: "stamp " + cls, "aria-pressed": String(d.value === value), onclick: () => setDecision(c, d.mine && d.value === value ? null : value) }, text);
+    el.append(h("div", { class: "stamps" }, stamp("del", "delete", "Delete"), stamp("keep", "keep", "Keep"), stamp("pref", "prefer", "Prefer")));
+  }
+  return el;
+}
+
+function installedCard(g) {
+  if (!g.installed) return null;
+  const el = h("article", { class: "card installed" });
+  el.append(viewBlock([g.installed], g.kind), h("div", { class: "meta" }, h("span", { class: "label" }, "Installed"), "current runtime art"));
+  return el;
+}
+
+function render() {
+  const site = state.site; if (!site) return;
+  // tabs
+  const tabs = $("#tabs"); tabs.replaceChildren();
+  for (const [k, name] of KINDS) {
+    const cs = all().filter(c => c.kind === k); if (!cs.length) continue;
+    const open = cs.filter(c => !decision(c).value).length;
+    tabs.append(h("button", { type: "button", class: "tab", "aria-pressed": String(state.kind === k), onclick: () => { state.kind = k; remember(); render(); window.scrollTo(0, 0); } }, name, h("span", { class: "n" }, open ? open + " open" : String(cs.length))));
+  }
+  // tally
+  const cs = all(); const count = v => cs.filter(c => decision(c).value === v);
+  const sum = list => (list.reduce((a, c) => a + (c.bytes || 0), 0) / 1048576).toFixed(0);
+  $("#tally").replaceChildren(h("span", {}, h("b", {}, String(cs.length)), " candidates"), h("span", {}, h("b", {}, String(count("delete").length)), " delete (" + sum(count("delete")) + " MB)"),
+    h("span", {}, h("b", {}, String(count("keep").length)), " keep"), h("span", {}, h("b", {}, String(count("prefer").length)), " prefer"), h("span", {}, h("b", {}, String(count("").length)), " undecided"));
+  $("#undecided").checked = state.only;
+  document.querySelectorAll("#scale button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.s === state.scale)));
+  document.body.classList.toggle("fitbox", state.scale === "fit");
+  // sections
+  const main = $("#main"); main.replaceChildren();
+  for (const g of site.groups.filter(g => g.kind === state.kind)) {
+    const list = g.candidates.filter(c => !state.only || !decision(c).value);
+    if (!list.length) continue;
+    const open = g.candidates.filter(c => !decision(c).value && !c.locked);
+    const bulk = open.length > 1 ? h("button", { type: "button", class: "bulk", onclick: async () => { for (const c of open) await setDecision(c, "delete"); } }, "Delete the " + open.length + " undecided") : null;
+    main.append(h("section", { class: "fam", id: (g.kind + "-" + g.family).replace(/[^a-z0-9-]+/gi, "-") },
+      h("div", { class: "famhead" }, h("h2", {}, g.family), h("span", { class: "kind" }, g.candidates.length + " candidate" + (g.candidates.length > 1 ? "s" : "")), bulk),
+      h("div", { class: "cards" }, installedCard(g), list.map(card))));
+  }
+  if (!main.children.length) main.append(h("p", { class: "empty" }, state.only ? "Everything here is decided. Untick “Only undecided” to review your calls." : "No candidates of this kind."));
+}
+
+$("#undecided").addEventListener("change", e => { state.only = e.target.checked; remember(); render(); });
+document.querySelectorAll("#scale button").forEach(b => b.addEventListener("click", () => { state.scale = b.dataset.s; remember(); render(); }));
+
+(async () => {
+  try {
+    const r = await fetch("candidates.json"); state.site = await r.json();
+  } catch (e) { $("#main").replaceChildren(h("p", { class: "empty" }, "The candidate list did not load. Reload the page.")); return; }
+  render(); status("Connecting…");
+  const db = window.claude && window.claude.use ? await window.claude.use("db") : null;
+  if (!db) { status("Read-only: sign in to claude.ai to record decisions.", true); return; }
+  state.db = db;
+  db.collection("decisions").onSnapshot(snap => {
+    const saved = {}; snap.docs.forEach(d => { const v = d.data(); if (v && v.decision) saved[d.id] = v.decision; });
+    state.saved = saved; status(snap.size ? snap.size + " decisions saved" : "Ready"); render();
+  }, e => status("Live updates stopped: " + e.message, true));
+})();
+</script>
