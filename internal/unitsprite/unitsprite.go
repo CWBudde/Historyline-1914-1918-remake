@@ -44,6 +44,7 @@ var unboundFamilies = []string{
 	"a7v", "mark-i", "mark-iv", "renault-ft17", "st-chamond",
 	"torpedo-boat", "destroyer", "battleship", "transport-ship", "submarine",
 	"fokker-e-i", "fokker-e-iii", "albatros-d-iii", "fokker-dr-i", "fokker-d-vii", "junkers-j4",
+	"morane-saulnier-n", "nieuport-xvii", "spad-vii", "spad-xiii", "se5a", "sopwith-camel",
 }
 
 // Families returns every exported family slug, sorted, including unbound art.

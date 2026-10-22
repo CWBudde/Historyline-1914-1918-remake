@@ -3949,13 +3949,13 @@
       "masters": [
         {
           "path": "art/portraits/spad-vii/portrait.png",
-          "sha256": "5afe875ee4f6e3ccd473227c1b4e16d2efe9d816b829046829b6616ac69edbe8",
-          "width": 1326,
-          "height": 1187
+          "sha256": "3c545f551b28765d846b4d3d32eb2e2408a286658d607b80894b7500bb55c101",
+          "width": 1672,
+          "height": 940
         }
       ],
       "look": "Owner-neutral spad vii in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
-      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A SPAD VII single-seat biplane with a compact sturdy fuselage, blunt round radiator nose, straight staggered wings, paired interplane struts and one forward machine gun. Single complete aircraft parked on a grassy airfield, nose to the left, low eye-level three-quarter side view, full wings and tail within canvas, natural unmarked khaki fabric and metal; no duplicate aircraft.",
+      "base_prompt": "Use case: precise-object-edit. Correct only the engine-front detail and safe framing in this SPAD VII WWI unit portrait. Keep SAME airplane, exactlyTWO wing levels, ONE open cockpit, wood propeller, ONE fuselage machine gun, struts, tail, wheels, pale cloudy sky and grassy airfield, natural unmarked tan/khaki fabric and sepia/ochre hand-painted brushwork. The FRONT engine opening directly BEHIND THE PROPELLER must be a dark ROUND HONEYCOMB WATER RADIATOR grille around a simple central propeller hub, clearly fine dense mesh texture. Remove exposed radial/rotary cylinder shapes from that front opening; the water-cooled V8 is enclosed inside natural metal cowling, with short side exhausts. Do not change open cockpit into a radiator. Pull camera back about15% and extend the SAME sky and grass naturally so ALL wingtips, propeller and tail fit within central85% width, safe for centred exact105:94 crop. Full-bleed OPAQUE landscape105:94, ideally1680x1504. No markings, letters, numbers, flags, crosses, labels, frame, UI, watermark, photograph or3Drender.\nSafe framing: aircraft wingspan stays less than image height and within centred exact105:94 crop.",
       "variants": [
         {
           "variant": "portrait",
@@ -3999,13 +3999,13 @@
       "masters": [
         {
           "path": "art/portraits/spad-xiii/portrait.png",
-          "sha256": "fb72c8948163e3e0753b8986340912c538bed80ad44aa71559195d33f7ddb385",
-          "width": 1326,
-          "height": 1187
+          "sha256": "9c7402a646e56ceb7e5c98dc20c70b6789e99cc2c518d9d761d4d1b51d87cbed",
+          "width": 1324,
+          "height": 1188
         }
       ],
       "look": "Owner-neutral spad xiii in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
-      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A SPAD XIII sturdy single-seat biplane with rounded radiator nose and spinner, two forward machine guns, strong straight staggered wings and paired interplane struts. Single complete aircraft parked on a grassy airfield, nose to the left, low eye-level three-quarter side view, full wings and tail within canvas, natural unmarked khaki fabric and metal; no duplicate aircraft.",
+      "base_prompt": "Use case: precise-object-edit. Correct only the engine-front detail and safe framing in this SPAD XIII WWI unit portrait. Keep SAME airplane, exactlyTWO wing levels, ONE open cockpit, wood propeller, TWO parallel fuselage machine guns, struts, tail, wheels, pale cloudy sky and grassy airfield, natural unmarked tan/khaki fabric and sepia/ochre hand-painted brushwork. The FRONT engine opening directly BEHIND THE PROPELLER must be a dark ROUND HONEYCOMB WATER RADIATOR grille around a simple central propeller hub and small spinner, clearly fine dense mesh texture. Remove exposed radial/rotary cylinder shapes from that front opening; the water-cooled V8 is enclosed inside natural metal cowling, with short side exhausts. Do not change open cockpit into a radiator. Pull camera back about15% and extend the SAME sky and grass naturally so ALL wingtips, propeller and tail fit within central85% width, safe for centred exact105:94 crop. Full-bleed OPAQUE landscape105:94, ideally1680x1504. No markings, letters, numbers, flags, crosses, labels, frame, UI, watermark, photograph or3Drender.\nSafe framing: aircraft wingspan stays less than image height and within centred exact105:94 crop.",
       "variants": [
         {
           "variant": "portrait",
@@ -12183,6 +12183,160 @@
       }
     },
     {
+      "id": "units/morane-saulnier-n",
+      "title": "Morane-Saulnier N",
+      "kind": "unit",
+      "status": "revised",
+      "runtime_ids": [
+        "unit/morane-saulnier-n"
+      ],
+      "dir": "art/units/morane-saulnier-n",
+      "assets_dir": "assets/units/morane-saulnier-n",
+      "prompt": "art/units/morane-saulnier-n/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/morane-saulnier-n/atlas.png",
+          "sha256": "44f487ff34483289e81e2827578abf2ebadae9eceee302709db3e0d0100e04b1",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI Morane-Saulnier N. A distinct period silhouette,\nfixed upper-left lighting and technical magenta owner paint; other materials stay natural.",
+      "base_prompt": "Use case: historical-scene. Create ONE newly authored transparent tactical SPRITE ATLAS of the SAME Morane-Saulnier N. Exact canvas1024x1536 RGBA, TWO columns by THREE rows of512x512 cells. SIX complete small isolated aircraft, one percell. Whole aircraft including wingtips, propeller and tail must fit inside central300x300box of each512pxcell, centred at(256,261), leaving at least90px genuinely alpha-zero padding on all sides. Do not fill cells or let wings cross cell boundaries. Same scale across six views.\nHEADINGS row-major: TOPLEFT N = propeller/nose UP, tail DOWN; TOPRIGHT NW = propeller/nose UPPERLEFT, tail LOWERRIGHT; MIDDLELEFT SW = propeller/nose LOWERLEFT, tail UPPERRIGHT; MIDDLERIGHT S = propeller/nose DOWN, tail UP; BOTTOMLEFT SE = propeller/nose LOWERRIGHT, tail UPPERLEFT; BOTTOMRIGHT NE = propeller/nose UPPERRIGHT, tail LOWERLEFT. Aircraft FRONT is its PROPELLER end, never the tail. Six different independently painted 3Dorientations, never rotate or mirror a finished image.\nSubject: Morane-Saulnier Type N single-seat shoulder-wing MONOPLANE. Exactly ONE main wing level, straight shoulder-mounted wings with rounded tips, compact smoothly rounded tapered fabric fuselage, a very large blunt bullet-shaped natural metal nose SPINNER covering most of rotary engine, TWO natural wood propeller blades at FRONT, ONE small open cockpit, small rounded rudder, spoked fixed two-wheel gear, short tailskid, thin kingpost above wings and fine wing-warping bracing wires. Technical shaded magenta fabric wings/fuselage/tail, natural silver nose spinner and brown wood propeller. No second main wing, no interplane struts, no engine sticking out of the nose.\nFixed elevated overhead strategy camera looking mostly down, top surfaces visible with enough side height to distinguish each wing level, aircraft level. Same soft diffuse light from SCREENupperLEFT in every cell. Finely hand-painted WWI game illustration with strong readable48px silhouette, crisp natural antialiased edges and believable fabric, wood and metal. Same wing count, equipment, proportions, object and crew count in every view. No pilot protruding from cockpit. TECHNICALMAGENTA owner-painted fabric retains natural shaded values; all metal, wood and tyres stay natural. TRUE alpha transparency outside aircraft and through open gaps. NO ground, sky, backdrop, haze, glow, shadows, checkerboard, vignette, propeller blur, smoke, clouds, text, letters, numbers, labels, crosses, national insignia, flags, grid or frame. Transparent padding is RGBA(0,0,0,0). Exactly six complete planes and NO detached fragments.\nCRITICAL: natural silver ROUND rotary-engine cowling with NO long exposed inline cylinder bank on top. Exactly ONE main wing at shoulder height. Bracing consists of FINE WIRES ONLY and one short kingpost over fuselage; NO rigid V-shaped interplane struts dangling under wings. The big blunt bullet SPINNER encloses the front of the engine.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera, scale and lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-morane-saulnier-n-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/morane-saulnier-n/`; gameplay class binding remains open.",
+      "avoid": [
+        "water, wakes, reflections, ground shadows, backdrop or detached fragments",
+        "labels, national insignia, clipped extremities or inconsistent equipment between views"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/morane-saulnier-n/cp/n-normal-4x.png",
+          "assets/units/morane-saulnier-n/cp/nw-normal-4x.png",
+          "assets/units/morane-saulnier-n/cp/sw-normal-4x.png",
+          "assets/units/morane-saulnier-n/cp/s-normal-4x.png",
+          "assets/units/morane-saulnier-n/cp/se-normal-4x.png",
+          "assets/units/morane-saulnier-n/cp/ne-normal-4x.png",
+          "assets/units/morane-saulnier-n/ec/n-normal-4x.png",
+          "assets/units/morane-saulnier-n/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "units/nieuport-xvii",
+      "title": "Nieuport XVII",
+      "kind": "unit",
+      "status": "revised",
+      "runtime_ids": [
+        "unit/nieuport-xvii"
+      ],
+      "dir": "art/units/nieuport-xvii",
+      "assets_dir": "assets/units/nieuport-xvii",
+      "prompt": "art/units/nieuport-xvii/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/nieuport-xvii/atlas.png",
+          "sha256": "41c4f6c1bcf3558f69ace16fa18aef59867cb9fd1782f676edc963dc782fb185",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI Nieuport XVII. A distinct period silhouette,\nfixed upper-left lighting and technical magenta owner paint; other materials stay natural.",
+      "base_prompt": "Use case: historical-scene. Create ONE newly authored transparent tactical SPRITE ATLAS of the SAME Nieuport XVII. Exact canvas1024x1536 RGBA, TWO columns by THREE rows of512x512 cells. SIX complete small isolated aircraft, one percell. Whole aircraft including wingtips, propeller and tail must fit inside central300x300box of each512pxcell, centred at(256,261), leaving at least90px genuinely alpha-zero padding on all sides. Do not fill cells or let wings cross cell boundaries. Same scale across six views.\nHEADINGS row-major: TOPLEFT N = propeller/nose UP, tail DOWN; TOPRIGHT NW = propeller/nose UPPERLEFT, tail LOWERRIGHT; MIDDLELEFT SW = propeller/nose LOWERLEFT, tail UPPERRIGHT; MIDDLERIGHT S = propeller/nose DOWN, tail UP; BOTTOMLEFT SE = propeller/nose LOWERRIGHT, tail UPPERLEFT; BOTTOMRIGHT NE = propeller/nose UPPERRIGHT, tail LOWERLEFT. Aircraft FRONT is its PROPELLER end, never the tail. Six different independently painted 3Dorientations, never rotate or mirror a finished image.\nSubject: Nieuport 17 single-seat SESQUIPLANE fighter. Exactly TWO main wing levels: a BROAD top wing and a MUCH NARROWER lower wing. One V-shaped interplane strut on each side between wing levels, short compact tapered fabric fuselage, round natural silver rotary-engine cowling, TWO natural wood propeller blades at FRONT, ONE small open cockpit, ONE forward machine gun mounted on fuselage, rounded upright rudder and fixed spoked two-wheel landing gear. Technical shaded magenta fabric wings/fuselage/tail, natural silver cowling, brown wood propeller and black tyres. No third wing, no large lower wing matching upper span/chord.\nFixed elevated overhead strategy camera looking mostly down, top surfaces visible with enough side height to distinguish each wing level, aircraft level. Same soft diffuse light from SCREENupperLEFT in every cell. Finely hand-painted WWI game illustration with strong readable48px silhouette, crisp natural antialiased edges and believable fabric, wood and metal. Same wing count, equipment, proportions, object and crew count in every view. No pilot protruding from cockpit. TECHNICALMAGENTA owner-painted fabric retains natural shaded values; all metal, wood and tyres stay natural. TRUE alpha transparency outside aircraft and through open gaps. NO ground, sky, backdrop, haze, glow, shadows, checkerboard, vignette, propeller blur, smoke, clouds, text, letters, numbers, labels, crosses, national insignia, flags, grid or frame. Transparent padding is RGBA(0,0,0,0). Exactly six complete planes and NO detached fragments.\nCRITICAL: natural silver ROUND rotary-engine cowling with NO long exposed inline cylinder bank on top. The lower main wing has LESS THAN HALF the chord/width of the upper main wing; keep that narrow lower wing visible, and V struts, and a SHORT circular engine nose.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera, scale and lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-nieuport-xvii-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/nieuport-xvii/`; gameplay class binding remains open.",
+      "avoid": [
+        "water, wakes, reflections, ground shadows, backdrop or detached fragments",
+        "labels, national insignia, clipped extremities or inconsistent equipment between views"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/nieuport-xvii/cp/n-normal-4x.png",
+          "assets/units/nieuport-xvii/cp/nw-normal-4x.png",
+          "assets/units/nieuport-xvii/cp/sw-normal-4x.png",
+          "assets/units/nieuport-xvii/cp/s-normal-4x.png",
+          "assets/units/nieuport-xvii/cp/se-normal-4x.png",
+          "assets/units/nieuport-xvii/cp/ne-normal-4x.png",
+          "assets/units/nieuport-xvii/ec/n-normal-4x.png",
+          "assets/units/nieuport-xvii/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
       "id": "units/patrol-boat",
       "title": "Patrol boat",
       "kind": "unit",
@@ -12418,6 +12572,314 @@
           "assets/units/sappers/cp/ne-normal-4x.png",
           "assets/units/sappers/ec/n-normal-4x.png",
           "assets/units/sappers/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "units/se5a",
+      "title": "S.E.5a",
+      "kind": "unit",
+      "status": "revised",
+      "runtime_ids": [
+        "unit/se5a"
+      ],
+      "dir": "art/units/se5a",
+      "assets_dir": "assets/units/se5a",
+      "prompt": "art/units/se5a/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/se5a/atlas.png",
+          "sha256": "2bad1657d4324f24b2ac88542d193b0571482396ca7e9cdc907a36fb1ba0d961",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI S.E.5a. A distinct period silhouette,\nfixed upper-left lighting and technical magenta owner paint; other materials stay natural.",
+      "base_prompt": "Use case: historical-scene. Create ONE newly authored transparent tactical SPRITE ATLAS of the SAME S.E.5a. Exact canvas1024x1536 RGBA, TWO columns by THREE rows of512x512 cells. SIX complete small isolated aircraft, one percell. Whole aircraft including wingtips, propeller and tail must fit inside central300x300box of each512pxcell, centred at(256,261), leaving at least90px genuinely alpha-zero padding on all sides. Do not fill cells or let wings cross cell boundaries. Same scale across six views.\nHEADINGS row-major: TOPLEFT N = propeller/nose UP, tail DOWN; TOPRIGHT NW = propeller/nose UPPERLEFT, tail LOWERRIGHT; MIDDLELEFT SW = propeller/nose LOWERLEFT, tail UPPERRIGHT; MIDDLERIGHT S = propeller/nose DOWN, tail UP; BOTTOMLEFT SE = propeller/nose LOWERRIGHT, tail UPPERLEFT; BOTTOMRIGHT NE = propeller/nose UPPERRIGHT, tail LOWERLEFT. Aircraft FRONT is its PROPELLER end, never the tail. Six different independently painted 3Dorientations, never rotate or mirror a finished image.\nSubject: Royal Aircraft Factory S.E.5a single-seat BIPLANE fighter. Exactly TWO main wing levels, straight staggered wings with squared clipped tips, long angular fabric fuselage, squared rectangular inline-engine nose with dark radiator grille, ONE open cockpit aft of wing with small headrest and tiny windscreen, ONE conspicuous Lewis gun with pan magazine above the upper wing on central curved Foster mounting, plus ONE small fuselage Vickers gun, long dark exhaust pipes on engine sides. ONE two-bladed natural wood propeller at FRONT, fixed two-wheel landing gear, angular fin. Shaded technical magenta fabric wings/fuselage/tail, natural grey metal nose, wooden propeller and struts, black tyres. No circular rotary cowling, no third wing, no enclosed canopy.\nFixed elevated overhead strategy camera looking mostly down, top surfaces visible with enough side height to distinguish each wing level, aircraft level. Same soft diffuse light from SCREENupperLEFT in every cell. Finely hand-painted WWI game illustration with strong readable48px silhouette, crisp natural antialiased edges and believable fabric, wood and metal. Same wing count, equipment, proportions, object and crew count in every view. No pilot protruding from cockpit. TECHNICALMAGENTA owner-painted fabric retains natural shaded values; all metal, wood and tyres stay natural. TRUE alpha transparency outside aircraft and through open gaps. NO ground, sky, backdrop, haze, glow, shadows, checkerboard, vignette, propeller blur, smoke, clouds, text, letters, numbers, labels, crosses, national insignia, flags, grid or frame. Transparent padding is RGBA(0,0,0,0). Exactly six complete planes and NO detached fragments.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera, scale and lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-se5a-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/se5a/`; gameplay class binding remains open.",
+      "avoid": [
+        "water, wakes, reflections, ground shadows, backdrop or detached fragments",
+        "labels, national insignia, clipped extremities or inconsistent equipment between views"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/se5a/cp/n-normal-4x.png",
+          "assets/units/se5a/cp/nw-normal-4x.png",
+          "assets/units/se5a/cp/sw-normal-4x.png",
+          "assets/units/se5a/cp/s-normal-4x.png",
+          "assets/units/se5a/cp/se-normal-4x.png",
+          "assets/units/se5a/cp/ne-normal-4x.png",
+          "assets/units/se5a/ec/n-normal-4x.png",
+          "assets/units/se5a/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "units/sopwith-camel",
+      "title": "Sopwith Camel",
+      "kind": "unit",
+      "status": "revised",
+      "runtime_ids": [
+        "unit/sopwith-camel"
+      ],
+      "dir": "art/units/sopwith-camel",
+      "assets_dir": "assets/units/sopwith-camel",
+      "prompt": "art/units/sopwith-camel/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/sopwith-camel/atlas.png",
+          "sha256": "d8a64f59dce9d5f19eeea9f45f4039d107ae901fbf5a03c7a92d8b374868afef",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI Sopwith Camel. A distinct period silhouette,\nfixed upper-left lighting and technical magenta owner paint; other materials stay natural.",
+      "base_prompt": "Use case: historical-scene. Create ONE newly authored transparent tactical SPRITE ATLAS of the SAME Sopwith Camel. Exact canvas1024x1536 RGBA, TWO columns by THREE rows of512x512 cells. SIX complete small isolated aircraft, one percell. Whole aircraft including wingtips, propeller and tail must fit inside central300x300box of each512pxcell, centred at(256,261), leaving at least90px genuinely alpha-zero padding on all sides. Do not fill cells or let wings cross cell boundaries. Same scale across six views.\nHEADINGS row-major: TOPLEFT N = propeller/nose UP, tail DOWN; TOPRIGHT NW = propeller/nose UPPERLEFT, tail LOWERRIGHT; MIDDLELEFT SW = propeller/nose LOWERLEFT, tail UPPERRIGHT; MIDDLERIGHT S = propeller/nose DOWN, tail UP; BOTTOMLEFT SE = propeller/nose LOWERRIGHT, tail UPPERLEFT; BOTTOMRIGHT NE = propeller/nose UPPERRIGHT, tail LOWERLEFT. Aircraft FRONT is its PROPELLER end, never the tail. Six different independently painted 3Dorientations, never rotate or mirror a finished image.\nSubject: Sopwith Camel compact single-seat BIPLANE fighter. Exactly TWO main wing levels: broad nearly straight top wing and smaller lower wing with slight upward dihedral, paired interplane struts, short stout tapered fabric fuselage, round natural silver rotary-engine cowling, TWO parallel small forward machine guns beneath a distinctive raised HUMP immediately ahead of ONE open cockpit. ONE two-bladed natural wood propeller at FRONT, rounded triangular fin, fixed spoked two-wheel landing gear. Shaded technical magenta fabric wings/fuselage/tail, natural silver cowling, natural wood propeller/struts and black tyres. Compact hump must be readable in every view. No third wing and no elongated inline-engine nose.\nFixed elevated overhead strategy camera looking mostly down, top surfaces visible with enough side height to distinguish each wing level, aircraft level. Same soft diffuse light from SCREENupperLEFT in every cell. Finely hand-painted WWI game illustration with strong readable48px silhouette, crisp natural antialiased edges and believable fabric, wood and metal. Same wing count, equipment, proportions, object and crew count in every view. No pilot protruding from cockpit. TECHNICALMAGENTA owner-painted fabric retains natural shaded values; all metal, wood and tyres stay natural. TRUE alpha transparency outside aircraft and through open gaps. NO ground, sky, backdrop, haze, glow, shadows, checkerboard, vignette, propeller blur, smoke, clouds, text, letters, numbers, labels, crosses, national insignia, flags, grid or frame. Transparent padding is RGBA(0,0,0,0). Exactly six complete planes and NO detached fragments.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera, scale and lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-sopwith-camel-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/sopwith-camel/`; gameplay class binding remains open.",
+      "avoid": [
+        "water, wakes, reflections, ground shadows, backdrop or detached fragments",
+        "labels, national insignia, clipped extremities or inconsistent equipment between views"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/sopwith-camel/cp/n-normal-4x.png",
+          "assets/units/sopwith-camel/cp/nw-normal-4x.png",
+          "assets/units/sopwith-camel/cp/sw-normal-4x.png",
+          "assets/units/sopwith-camel/cp/s-normal-4x.png",
+          "assets/units/sopwith-camel/cp/se-normal-4x.png",
+          "assets/units/sopwith-camel/cp/ne-normal-4x.png",
+          "assets/units/sopwith-camel/ec/n-normal-4x.png",
+          "assets/units/sopwith-camel/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "units/spad-vii",
+      "title": "SPAD VII",
+      "kind": "unit",
+      "status": "revised",
+      "runtime_ids": [
+        "unit/spad-vii"
+      ],
+      "dir": "art/units/spad-vii",
+      "assets_dir": "assets/units/spad-vii",
+      "prompt": "art/units/spad-vii/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/spad-vii/atlas.png",
+          "sha256": "a98ecc7f8e298d3228fe4de5058d9d4aa3eab605c2d5a4f300f6cd44cecded34",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI SPAD VII. A distinct period silhouette,\nfixed upper-left lighting and technical magenta owner paint; other materials stay natural.",
+      "base_prompt": "Use case: historical-scene. Create ONE newly authored transparent tactical SPRITE ATLAS of the SAME SPAD VII. Exact canvas1024x1536 RGBA, TWO columns by THREE rows of512x512 cells. SIX complete small isolated aircraft, one percell. Whole aircraft including wingtips, propeller and tail must fit inside central300x300box of each512pxcell, centred at(256,261), leaving at least90px genuinely alpha-zero padding on all sides. Do not fill cells or let wings cross cell boundaries. Same scale across six views.\nHEADINGS row-major: TOPLEFT N = propeller/nose UP, tail DOWN; TOPRIGHT NW = propeller/nose UPPERLEFT, tail LOWERRIGHT; MIDDLELEFT SW = propeller/nose LOWERLEFT, tail UPPERRIGHT; MIDDLERIGHT S = propeller/nose DOWN, tail UP; BOTTOMLEFT SE = propeller/nose LOWERRIGHT, tail UPPERLEFT; BOTTOMRIGHT NE = propeller/nose UPPERRIGHT, tail LOWERLEFT. Aircraft FRONT is its PROPELLER end, never the tail. Six different independently painted 3Dorientations, never rotate or mirror a finished image.\nSubject: SPAD VII single-seat BIPLANE fighter. Exactly TWO main wing levels, broad straight staggered wings with rounded end corners, paired wooden interplane struts, sturdy short boxy tapered fabric fuselage, ROUND honeycomb radiator face with a simple central propeller hub at the FRONT of a natural metal nose, TWO wood propeller blades, ONE open cockpit aft of wing, ONE forward machine gun, fixed spoked two-wheel undercarriage. Water-cooled V8 engine is concealed inside cowling; NO exposed radial or rotary cylinder ring, NO bullet spinner. Short external exhaust pipes along fuselage sides. Shaded technical magenta fabric wings/fuselage/tail, natural wood struts/propeller, dull metal radiator/nose, black tyres. Distinct small broad rounded tail surfaces. No third main wing.\nFixed elevated overhead strategy camera looking mostly down, top surfaces visible with enough side height to distinguish each wing level, aircraft level. Same soft diffuse light from SCREENupperLEFT in every cell. Finely hand-painted WWI game illustration with strong readable48px silhouette, crisp natural antialiased edges and believable fabric, wood and metal. Same wing count, equipment, proportions, object and crew count in every view. No pilot protruding from cockpit. TECHNICALMAGENTA owner-painted fabric retains natural shaded values; all metal, wood and tyres stay natural. TRUE alpha transparency outside aircraft and through open gaps. NO ground, sky, backdrop, haze, glow, shadows, checkerboard, vignette, propeller blur, smoke, clouds, text, letters, numbers, labels, crosses, national insignia, flags, grid or frame. Transparent padding is RGBA(0,0,0,0). Exactly six complete planes and NO detached fragments.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera, scale and lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-spad-vii-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/spad-vii/`; gameplay class binding remains open.",
+      "avoid": [
+        "water, wakes, reflections, ground shadows, backdrop or detached fragments",
+        "labels, national insignia, clipped extremities or inconsistent equipment between views"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/spad-vii/cp/n-normal-4x.png",
+          "assets/units/spad-vii/cp/nw-normal-4x.png",
+          "assets/units/spad-vii/cp/sw-normal-4x.png",
+          "assets/units/spad-vii/cp/s-normal-4x.png",
+          "assets/units/spad-vii/cp/se-normal-4x.png",
+          "assets/units/spad-vii/cp/ne-normal-4x.png",
+          "assets/units/spad-vii/ec/n-normal-4x.png",
+          "assets/units/spad-vii/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "units/spad-xiii",
+      "title": "SPAD XIII",
+      "kind": "unit",
+      "status": "revised",
+      "runtime_ids": [
+        "unit/spad-xiii"
+      ],
+      "dir": "art/units/spad-xiii",
+      "assets_dir": "assets/units/spad-xiii",
+      "prompt": "art/units/spad-xiii/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/spad-xiii/atlas.png",
+          "sha256": "1f31af3f748e87093a52ec41f90a9844e93926effb5aef6f8bbd615c4f6a6637",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI SPAD XIII. A distinct period silhouette,\nfixed upper-left lighting and technical magenta owner paint; other materials stay natural.",
+      "base_prompt": "Use case: historical-scene. Create ONE newly authored transparent tactical SPRITE ATLAS of the SAME SPAD XIII. Exact canvas1024x1536 RGBA, TWO columns by THREE rows of512x512 cells. SIX complete small isolated aircraft, one percell. Whole aircraft including wingtips, propeller and tail must fit inside central300x300box of each512pxcell, centred at(256,261), leaving at least90px genuinely alpha-zero padding on all sides. Do not fill cells or let wings cross cell boundaries. Same scale across six views.\nHEADINGS row-major: TOPLEFT N = propeller/nose UP, tail DOWN; TOPRIGHT NW = propeller/nose UPPERLEFT, tail LOWERRIGHT; MIDDLELEFT SW = propeller/nose LOWERLEFT, tail UPPERRIGHT; MIDDLERIGHT S = propeller/nose DOWN, tail UP; BOTTOMLEFT SE = propeller/nose LOWERRIGHT, tail UPPERLEFT; BOTTOMRIGHT NE = propeller/nose UPPERRIGHT, tail LOWERLEFT. Aircraft FRONT is its PROPELLER end, never the tail. Six different independently painted 3Dorientations, never rotate or mirror a finished image.\nSubject: SPAD XIII single-seat BIPLANE fighter. Exactly TWO main wing levels, broad strong straight staggered wings and paired wooden interplane struts. Slightly larger and longer than SPADVII, sturdy tapered fuselage, ROUND honeycomb radiator face at FRONT with small conical central spinner/hub and TWO wood propeller blades, TWO parallel forward machine guns on the top of nose, ONE open cockpit aft of wing, long natural dark exhaust pipes along both sides of engine cowling, rounded tail fin and fixed spoked two-wheel gear. Water-cooled V8 engine enclosed INSIDE cowling; NO exposed radial/rotary cylinder ring. Shaded technical magenta wings/fuselage/tail, natural dull metal nose, natural wood propeller/struts and black tyres. No third wing, no second cockpit.\nFixed elevated overhead strategy camera looking mostly down, top surfaces visible with enough side height to distinguish each wing level, aircraft level. Same soft diffuse light from SCREENupperLEFT in every cell. Finely hand-painted WWI game illustration with strong readable48px silhouette, crisp natural antialiased edges and believable fabric, wood and metal. Same wing count, equipment, proportions, object and crew count in every view. No pilot protruding from cockpit. TECHNICALMAGENTA owner-painted fabric retains natural shaded values; all metal, wood and tyres stay natural. TRUE alpha transparency outside aircraft and through open gaps. NO ground, sky, backdrop, haze, glow, shadows, checkerboard, vignette, propeller blur, smoke, clouds, text, letters, numbers, labels, crosses, national insignia, flags, grid or frame. Transparent padding is RGBA(0,0,0,0). Exactly six complete planes and NO detached fragments.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera, scale and lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-spad-xiii-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/spad-xiii/`; gameplay class binding remains open.",
+      "avoid": [
+        "water, wakes, reflections, ground shadows, backdrop or detached fragments",
+        "labels, national insignia, clipped extremities or inconsistent equipment between views"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/spad-xiii/cp/n-normal-4x.png",
+          "assets/units/spad-xiii/cp/nw-normal-4x.png",
+          "assets/units/spad-xiii/cp/sw-normal-4x.png",
+          "assets/units/spad-xiii/cp/s-normal-4x.png",
+          "assets/units/spad-xiii/cp/se-normal-4x.png",
+          "assets/units/spad-xiii/cp/ne-normal-4x.png",
+          "assets/units/spad-xiii/ec/n-normal-4x.png",
+          "assets/units/spad-xiii/neutral/n-normal-4x.png"
         ]
       }
     },
