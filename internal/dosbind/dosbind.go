@@ -83,10 +83,10 @@ func mustRecords(b []byte) *Records {
 // Board is a level bound to the original records.
 type Board struct {
 	Width, Height int
-	Winter        bool                       // the level's terrain is the winter set (names ending in _w)
+	Winter        bool                       // the winter season: winter terrain (names ending in _w), an original map's mission
 	Terrain       []int                      // the terrain record of every cell
 	Units         map[int]dosrules.Placement // every unit by live record; a held unit's Cell is its container's
-	IDs           map[int]string             // the level's unit id of every unit
+	IDs           map[int]string             // the remake unit id of every unit (FromOriginal: where the remake has one)
 	Holds         map[int]dosrules.Hold      // the container records of the buildings and transporters
 	Buildings     map[int]dosrules.Building  // the energy of every building record
 	// Dropped is the level content the original has no container for (a
@@ -357,12 +357,16 @@ func unitType(set *data.Set, id string) (int, int, error) {
 	return u.Dos, Side(game.FactionOf(u.Country)), nil
 }
 
+// add places the next unit; an empty id names none.
 func (b *Board) add(id string, p dosrules.Placement) (int, error) {
 	i := len(b.Units)
 	if i >= dosrules.SlotFree {
 		return 0, fmt.Errorf("more than %d units", dosrules.SlotFree)
 	}
-	b.Units[i], b.IDs[i] = p, id
+	b.Units[i] = p
+	if id != "" {
+		b.IDs[i] = id
+	}
 	return i, nil
 }
 
@@ -436,19 +440,13 @@ func (b *Board) bindBuildings(set *data.Set, at map[hexgrid.Coord]*building, mr 
 			return fmt.Errorf("dosbind: line%d[%d]: a second building for record %d", bd.entrance.Line+1, bd.entrance.Col, idx)
 		}
 		side := owner(f)
-		h := dosrules.EmptyHold()
-		h.Flags, h.Occupant = side, dosrules.InBuilding
-		h.Cells[0] = 2 * entrance
 		var rest []int
 		for _, p := range bd.cells {
 			if c, _ := b.Cell(p); c != entrance {
 				rest = append(rest, c)
 			}
 		}
-		slices.Sort(rest)
-		for k := 1; k < len(h.Cells) && k-1 < len(rest); k++ {
-			h.Cells[k] = 2 * rest[k-1]
-		}
+		h := buildingHold(side, entrance, rest)
 		if bd.content != nil {
 			if len(bd.content.Units) > 7 {
 				return fmt.Errorf("dosbind: line%d[%d]: %d units in a building of 7 slots", bd.entrance.Line+1, bd.entrance.Col, len(bd.content.Units))
@@ -465,7 +463,7 @@ func (b *Board) bindBuildings(set *data.Set, at map[hexgrid.Coord]*building, mr 
 				if err != nil {
 					return fmt.Errorf("dosbind: line%d[%d]: %w", bd.entrance.Line+1, bd.entrance.Col, err)
 				}
-				h.Slots[k], h.Slots[7+k] = u, u
+				hold(&h, k, u)
 			}
 		}
 		b.Holds[idx] = h
@@ -495,19 +493,47 @@ func (b *Board) bindTransporters() error {
 		if types[u.Type].Class&transporter == 0 {
 			continue
 		}
-		classes, ok := Table.Carries[strconv.Itoa(u.Type)]
+		h, ok := carrierHold(u, i)
 		if !ok {
 			return fmt.Errorf("dosbind: unit %d (%s): no classes for transporter type %d", i, b.IDs[i], u.Type)
 		}
 		if next == dosrules.HoldFlag40 {
 			return fmt.Errorf("dosbind: more than %d transporters", dosrules.HoldFlag40)
 		}
-		h := dosrules.EmptyHold()
-		h.Cells[0] = 2*u.Cell + 1
-		h.Flags = carrier | classes | u.Owner&3
-		h.Occupant = i
 		b.Holds[next] = h
 		next++
 	}
 	return nil
 }
+
+// buildingHold is the container record of a building of side: its entrance
+// first, then its other cells in cell order, at most four; its occupant
+// byte is dosrules.InBuilding.
+func buildingHold(side, entrance int, rest []int) dosrules.Hold {
+	h := dosrules.EmptyHold()
+	h.Flags, h.Occupant = side, dosrules.InBuilding
+	h.Cells[0] = 2 * entrance
+	rest = slices.Sorted(slices.Values(rest))
+	for k := 1; k < len(h.Cells) && k-1 < len(rest); k++ {
+		h.Cells[k] = 2 * rest[k-1]
+	}
+	return h
+}
+
+// carrierHold is the container record of transporter unit i: its position
+// first, the classes of Carries and its side; false for a type without
+// classes.
+func carrierHold(u dosrules.Placement, i int) (dosrules.Hold, bool) {
+	classes, ok := Table.Carries[strconv.Itoa(u.Type)]
+	if !ok {
+		return dosrules.Hold{}, false
+	}
+	h := dosrules.EmptyHold()
+	h.Cells[0] = 2*u.Cell + 1
+	h.Flags = carrier | classes | u.Owner&3
+	h.Occupant = i
+	return h, true
+}
+
+// hold lists unit u in slot k of both sides of h.
+func hold(h *dosrules.Hold, k, u int) { h.Slots[k], h.Slots[7+k] = u, u }
