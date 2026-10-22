@@ -49,6 +49,9 @@ Tick a box only with evidence you ran. Record decisions here, not their history.
 - [x] Context rules for mixed-family neighbours (forest next to hills, mud, mountain, buildings) and the
       map edge; all three shipped and 72 campaign levels compose without gaps (§2 Phase 9.2).
 - [ ] Contexts for summer and winter materials mixed inside one map.
+- [x] Minimap: cells tile exactly at minimap scale (`minimap.Raster`), units in side colours, the walker
+      shown, only a press that starts on it moves the camera; the world is the map's true bounds
+      (`hexgrid.Grid.Bounds`). (2026-10-22)
 - [ ] Decide the open art ambiguities: HQ entrance cell (N or C), the `trench5a` port, four inferred
       lakeside corners.
 - [ ] Runtime catalogs for portraits, screens, fonts and animation metadata; live pack switching; embed
@@ -105,12 +108,13 @@ scales them with its art (2×, optional 4×).
     computer analyses the position, with a thin progress bar along the bottom of the well.
 - **Cursor:** a hex ring of the same steel around the cell. While fire is held, the ring becomes a solid
   hex plate that shows one action icon (cancel first). Pushing a direction while holding picks an action;
-  releasing runs it. After an order, the plate shows a hatched pattern.
+  releasing runs it. After an order the plain ring returns; the moved unit is drawn greyed (no hatched
+  plate).
 - **Action icons:** hex steel plates with an embossed glyph: cancel (X), move (four arrows), attack (fist),
   mode change (double arrow), open (box), strategic map (D on a scroll), info (?). Around the centre:
   move and attack above, mode change and open to the left, map to the right, info below. In a container:
   move (out) above, produce (hammer) to the left, cancel to the right, repair (wrench) below.
-- **Move range:** every cell out of reach (terrain and units) is darkened to about half brightness;
+- **Move range:** every cell out of reach (terrain and units) is darkened to about 0.62 brightness;
   reachable cells keep full colour. Attack targets: check against further battle frames.
 - **Unit info** (info on a unit): the map gives way to a steel inner plate with a sepia photo (top left,
   about 100×84), the unit's sprite on a small hex plate beside it, a brown name plate with brass rivets
@@ -174,7 +178,7 @@ New families, newly painted in the remake's style with 2×/4× exports:
 - `interface/frame`: tileable steel plate, rivet, bolt, divider post, status-bar well; light from the top
   left.
 - `interface/gesture`: hex steel action plates (cancel, move, attack, mode change, open, map, info,
-  produce, repair) with pressed and disabled states, the cursor ring and the hatched plate.
+  produce, repair) with pressed and disabled states and the cursor ring.
 - Status-bar flags: the `interface/country` swatches (Germany, France) at status-bar size.
 - A capitals pixel font in two sizes (status bar, overlays).
 - `screens/battle-<domain>`: sepia battle vignettes with a few animation frames each.
@@ -183,16 +187,23 @@ New families, newly painted in the remake's style with 2×/4× exports:
 
 ##### Steps
 
-1. [ ] Split layout maths with tests (panel, divider and status-bar rects, cell scale, columns per window
-       size, 720p–4K, UI scales 100–200 %).
-2. [ ] Frame renderer on a placeholder steel texture: cell mask, bevel, lip, rivets, divider, wells;
-       teeth meet cell edges at every zoom (test on the mask).
-3. [ ] Two panels with per-side views and cameras that snap to whole cells; the computer's panel follows
-       its moves.
+1. [x] Split layout maths with tests (panel, divider and status-bar rects, cell scale, columns per window
+       size, 720p–4K, UI scales 100–200 %). (2026-10-22) — `internal/dosscreen` `Layout`, `MinWindow`.
+2. [x] Frame renderer on a placeholder steel texture: cell mask, bevel, lip, rivets, divider, wells;
+       teeth meet cell edges at every zoom (test on the mask). (2026-10-22) — `dosscreen.Frame`, cached.
+3. [x] Two panels with per-side views and cameras that snap to whole cells; the computer's panel follows
+       its moves. (2026-10-22) — `cmd/historyline/split.go`; the status wells show each side's state as
+       a stopgap until step 4.
 4. [ ] Status bars: unit line, all state messages, progress bar.
-5. [ ] Cursor plate and gesture actions for mouse and key set A, the icon ring; move range darkening and
-       attack targets.
+5. [x] Cursor plate and gesture actions for mouse and key set A, the icon ring; move range darkening and
+       attack targets. (2026-10-22) — `internal/gesture` (placeholder plates), `cmd/historyline/cursor.go`;
+       the OS pointer hides over the human side's map (hand test in a window still open).
 6. [ ] Overlays: unit info, game info, strategic map, contents with repair and production.
+       (2026-10-22) — partial: the strategic map opens in the panel (`minimap.Strategic`); the session
+       exposes the data (`dosplay` `TypeInfo`, `Stats`, `BuildingView.Kind`, `CanRepair`/`CanBuild`,
+       `Buildable`; `dosai.Planner.Progress`), and the game info numbers match the original's PULSE start.
+       Remain: the unit-info and game-info plates (info shows text lines for now), contents with a slot
+       cursor (move out, produce, repair gestures), the best score, the code-word level name.
 7. [ ] Phase-change sequence and the computer's analysis progress.
 8. [ ] Battle vignettes (placeholders first), F9 toggle.
 9. [ ] Two humans on one screen (key set B, both confirmations).
