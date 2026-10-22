@@ -26,9 +26,9 @@ type Rules struct {
 	// AmmoPerShot spends one round of the weapon per shot (the counter fire
 	// too) and disables a weapon without ammo for attacks and targeting.
 	AmmoPerShot bool
-	// TargetFlags enforces the weapons' ground and water flags: a weapon hits
-	// a boat when it has Water, any other unit when it has Ground.
-	// (No unit flies yet, so the Air flag has no target.)
+	// TargetFlags enforces the weapons' air, ground and water flags: a weapon
+	// hits an aircraft when it has Air, a boat when it has Water, any other
+	// unit when it has Ground.
 	TargetFlags bool
 	// NoCounterNoDamage spares the attacker when the defender has no weapon to
 	// fire back with; Python then still runs the formula with the attacker's

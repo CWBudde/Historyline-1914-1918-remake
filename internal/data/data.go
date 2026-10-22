@@ -26,11 +26,15 @@ const (
 	MoveNormal = 0
 	MoveTracks = 1 // trains: only on rail
 	MoveWater  = 2 // boats: only on water
+	MoveAir    = 3 // aircraft: flies over every terrain
 )
 
 // Unit is a unit type. Armour, speed (the speed the original shows), weight,
 // storageMax, group, cost and the slot attacks are the UNIT.DAT record Dos;
 // sight, fuel, exp, skills and movementType are hlrData.py's unitsParameters.
+// Types hlrData.py lacks follow its closest unit: tanks the armoured car, guns
+// the light artillery, the construction unit the sappers, ships the patrol boat,
+// carriers the supply train; aircraft and the balloon see 8 hexes. None captures.
 type Unit struct {
 	Name         string   `json:"name"`
 	Country      string   `json:"country"`

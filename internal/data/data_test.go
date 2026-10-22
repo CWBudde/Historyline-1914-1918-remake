@@ -135,10 +135,11 @@ func TestTerrainUnitsWeaponsMatchPython(t *testing.T) {
 		}
 	}
 
-	if len(s.Units) != 27 || len(p.Units) != 27 {
-		t.Errorf("units: Go has %d, Python has %d, want 27", len(s.Units), len(p.Units))
+	if len(p.Units) != 27 {
+		t.Errorf("units: Python has %d, want 27", len(p.Units))
 	}
-	// Stats and attacks come from UNIT.DAT (TestUnitsFollowUnitDat); the rest is Python's.
+	// Stats and attacks come from UNIT.DAT (TestUnitsFollowUnitDat); the rest is
+	// Python's for the units it has. The others are in TestRosterCoversUnitDat.
 	for id, want := range p.Units {
 		got, ok := s.Units[id]
 		if !ok {

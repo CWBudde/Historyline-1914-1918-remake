@@ -39,6 +39,25 @@ func Family(unitType string) (string, bool) {
 	return f, ok
 }
 
+// pending lists the unit types without a sprite family yet, sorted.
+var pending = []string{
+	"CP_a7v", "CP_albatrosDIII", "CP_antiTank", "CP_balloon", "CP_battleship", "CP_construction",
+	"CP_destroyer", "CP_fokkerDVII", "CP_fokkerDrI", "CP_fokkerEI", "CP_fokkerEIII", "CP_ft17",
+	"CP_gothaGV", "CP_junkersJI", "CP_markI", "CP_markIV", "CP_mobileAA", "CP_staaken", "CP_staticAA",
+	"CP_submarine", "CP_torpedoBoat", "CP_transShip",
+	"EC_antiTank", "EC_armCar", "EC_balloon", "EC_battleship", "EC_camel", "EC_construction", "EC_destroyer",
+	"EC_dh2", "EC_dh4", "EC_ft17", "EC_handleyPage", "EC_markI", "EC_markIV", "EC_mobileAA",
+	"EC_moraneN", "EC_nieuport17", "EC_se5a", "EC_spad13", "EC_spad7", "EC_stChamond", "EC_staticAA",
+	"EC_submarine", "EC_torpedoBoat", "EC_transShip", "EC_transTrain", "EC_voisin",
+}
+
+// Pending reports whether a unit type has no sprite family yet: the unit is
+// drawn as a placeholder until the art track binds a family to it.
+func Pending(unitType string) bool {
+	_, ok := slices.BinarySearch(pending, unitType)
+	return ok
+}
+
 // Unbound art families have complete exports but no gameplay-table alias yet.
 var unboundFamilies = []string{
 	"a7v", "mark-i", "mark-iv", "renault-ft17", "st-chamond",

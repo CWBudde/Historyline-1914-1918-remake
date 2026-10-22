@@ -18,8 +18,20 @@ func TestEveryUnitTypeHasAFamily(t *testing.T) {
 		t.Fatal(err)
 	}
 	for id := range set.Units {
-		if _, ok := Family(id); !ok {
-			t.Errorf("unit type %s has no sprite family", id)
+		_, ok := Family(id)
+		switch {
+		case ok && Pending(id):
+			t.Errorf("unit type %s has a sprite family and is pending", id)
+		case !ok && !Pending(id):
+			t.Errorf("unit type %s has no sprite family and is not pending", id)
+		}
+	}
+	if !slices.IsSorted(pending) {
+		t.Error("the pending list is not sorted")
+	}
+	for _, id := range pending {
+		if _, ok := set.Units[id]; !ok {
+			t.Errorf("pending list names unknown unit type %s", id)
 		}
 	}
 	for id := range families {

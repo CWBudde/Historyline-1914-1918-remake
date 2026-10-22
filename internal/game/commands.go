@@ -103,6 +103,10 @@ func (s *State) movableSquares(from hexgrid.Coord, m *Unit) map[hexgrid.Coord]bo
 	for c := range count {
 		h := s.At(c)
 		switch {
+		case flies(m): // any terrain, but no building
+			if s.Fog(s.Turn, c) == Unseen || h.Container != nil {
+				obstructed[c]++
+			}
 		case m.Def.MovementType != data.MoveNormal:
 			if !slices.Contains(h.Mods.MovementAllowed, m.Def.MovementType) {
 				obstructed[c]++
@@ -114,7 +118,7 @@ func (s *State) movableSquares(from hexgrid.Coord, m *Unit) map[hexgrid.Coord]bo
 			switch {
 			case m.Owner != s.Turn: // Python tests the mover here, not the occupant
 				obstructed[c]++
-			case o.Content == nil:
+			case o.Content == nil, flies(m): // an aircraft boards no carrier
 				obstructed[c]++
 			case !o.Content.Fits(m):
 				obstructed[c]++
@@ -122,7 +126,7 @@ func (s *State) movableSquares(from hexgrid.Coord, m *Unit) map[hexgrid.Coord]bo
 				obstructed[c]++
 			}
 		}
-		if h.Container != nil && (h.Owner == s.Turn || slices.Contains(m.Def.Skills, skillCapture)) {
+		if h.Container != nil && !flies(m) && (h.Owner == s.Turn || slices.Contains(m.Def.Skills, skillCapture)) {
 			buildings = append(buildings, c)
 		}
 	}
@@ -266,13 +270,28 @@ func (s *State) usable(a *Unit, slot int, target *Unit) bool {
 }
 
 // canHit reports whether w can damage target: as in the original, a weapon
-// needs power against the target's class, Water for boats and Ground for every
-// other unit.
+// needs power against the target's class, Air for aircraft, Water for boats
+// and Ground for every other unit.
 func canHit(w *data.Weapon, target *Unit) bool {
-	if target.Def.MovementType == data.MoveWater {
+	switch target.Def.MovementType {
+	case data.MoveAir:
+		return w.Air
+	case data.MoveWater:
 		return w.Water
 	}
 	return w.Ground
+}
+
+// battleMod is the battle modifier of the hex of the unit on h, false where
+// the hex has none. An aircraft takes no cover from the ground below it.
+func battleMod(h *Hex) (int, bool) {
+	switch {
+	case h.Unit != nil && flies(h.Unit):
+		return 0, true
+	case h.Mods.Battle == nil:
+		return 0, false
+	}
+	return *h.Mods.Battle, true
 }
 
 // inRange reports whether some usable weapon of a reaches target at steps. As
@@ -301,11 +320,12 @@ type Battle struct {
 	DefenderDestroyed bool
 }
 
-// battle is a validated attack: the attacker's and the defender's hex and
-// the step distance between them.
+// battle is a validated attack: the attacker's and the defender's hex, their
+// battle modifiers and the step distance between them.
 type battle struct {
-	fh, th *Hex
-	steps  int
+	fh, th           *Hex
+	aBattle, dBattle int
+	steps            int
 }
 
 // checkAttack validates an attack with weapon slot of the map unit at `from`
@@ -335,10 +355,12 @@ func (s *State) checkAttack(from, to hexgrid.Coord, slot int) (battle, error) {
 	if steps > a.Weapons[slot].RangeMax {
 		return battle{}, fmt.Errorf("%v is out of range of %s", to, a.Weapons[slot].Name)
 	}
-	if fh.Mods.Battle == nil || th.Mods.Battle == nil {
+	aBattle, okA := battleMod(fh)
+	dBattle, okD := battleMod(th)
+	if !okA || !okD {
 		return battle{}, errors.New("a battle hex has no battle modifier")
 	}
-	return battle{fh: fh, th: th, steps: steps}, nil
+	return battle{fh: fh, th: th, aBattle: aBattle, dBattle: dBattle, steps: steps}, nil
 }
 
 // outcome resolves v with roll and fills in which side is destroyed; it
@@ -346,7 +368,7 @@ func (s *State) checkAttack(from, to hexgrid.Coord, slot int) (battle, error) {
 func (s *State) outcome(v battle, slot int, roll func() int) Battle {
 	a, d := v.fh.Unit, v.th.Unit
 	b := Battle{}
-	b.Counter, b.Damage, b.CounterDamage = resolve(s.Rules, a, d, slot, v.steps, *v.fh.Mods.Battle, *v.th.Mods.Battle, roll)
+	b.Counter, b.Damage, b.CounterDamage = resolve(s.Rules, a, d, slot, v.steps, v.aBattle, v.dBattle, roll)
 	b.DefenderDestroyed = d.Size-b.Damage < 1
 	b.AttackerDestroyed = a.Size-b.CounterDamage < 1
 	return b
