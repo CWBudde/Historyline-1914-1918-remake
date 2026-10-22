@@ -1,0 +1,44 @@
+{
+	"mapName" :	"68",
+	"mapNo" :	69,
+	"player" :	"Central Powers",
+	"tiles" :	{
+				"line1" :	[["forest_w", "", ""], ["forest_w", "", ""], ["forest_w", "", ""], ["forest_w", "", ""], ["forest_w", "", ""], ["forest_w", "", ""], ["forest_w", "", ""], ["grass_w", "path14", ""]],
+				"line2" :	[["forest_w", "", ""], ["forest_w", "", ""], ["forest_w", "", ""], ["grass_w", "stream26", ""], ["forest_w", "", ""], ["forest_w", "", ""], ["grass_w", "path13", ""]],
+				"line3" :	[["forest_w", "", ""], ["grass_w", "road24", ""], ["forest_w", "", ""], ["forest_w", "", ""], ["grass_w", "stream25", ""], ["forest_w", "", ""], ["grass_w", "stream24", ""], ["rough_w", "", ""]],
+				"line4" :	[["grass_w", "road13", "CP_eliteInf"], ["grass_w", "road25", "CP_fokkerDVII"], ["forest_w", "", ""], ["forest_w", "", ""], ["grass_w", "stream25", ""], ["grass_w", "stream14", ""], ["grass_w", ["stream25", "bridge36"], ""]],
+				"line5" :	[["rough_w", "", "CP_infantry"], ["grass_w", "", "CP_infantry"], ["grass_w", "road25", "CP_fokkerDVII"], ["stoney_w", "", ""], ["forest_w", "", ""], ["grass_w", "stream15", ""], ["house_w", "", ""], ["grass_w", "stream25", ""]],
+				"line6" :	[["hqN_w", "", "", [1]], ["grass_w", "", "CP_a7v"], ["grass_w", "road25", ""], ["rough_w", "", "CP_supplyCar"], ["rough_w", "", ""], ["grass_w", "", "CP_cavalry"], ["grass_w", "path46", ""]],
+				"line7" :	[["hqNW_w", "", ""], ["hqNE_w", "", ""], ["stoney_w", "", "CP_a7v"], ["grass_w", "road25", "CP_hArtillery"], ["stoney_w", "", ""], ["grass_w", "path24", ""], ["grass_w", "path14", "CP_mArtillery"], ["shelled_w", "", "CP_bunker"]],
+				"line8" :	[["hqC_w", "", ""], ["rough_w", "", "CP_infantry"], ["rough_w", "", "CP_a7v"], ["grass_w", "path25", ""], ["grass_w", "path14", ""], ["grass_w", "path15", ""], ["shelled_w", "", "CP_infantry"]],
+				"line9" :	[["hqSW_w", "", ""], ["hqSE_w", "", ""], ["grass_w", "", "CP_infantry"], ["grass_w", "", "CP_a7v"], ["grass_w", "path135", ""], ["stoney_w", "", ""], ["shelled_w", "", "CP_sappers"], ["grass_w", "trench24", "CP_eliteInf"]],
+				"line10" :	[["hqS_w", "", ""], ["rough_w", "", ""], ["grass_w", "", "CP_infantry"], ["stoney_w", "", "CP_lArtillery"], ["shelled_w", "", "CP_lArtillery"], ["shelled_w", "", "CP_staticAA"], ["grass_w", "trench14", "CP_antiTank"]],
+				"line11" :	[["stoney_w", "", ""], ["stoney_w", "", "CP_mArtillery"], ["forest_w", "", ""], ["shelled_w", "", "CP_infantry"], ["grass_w", "path36", "CP_armCar"], ["shelled_w", "", "CP_bunker"], ["grass_w", "trench14", "CP_infantry"], ["shelled_w", "", ""]],
+				"line12" :	[["shelled_w", "", ""], ["shelled_w", "", "CP_sappers"], ["shelled_w", "", ""], ["shelled_w", "", "CP_bunker"], ["grass_w", "trench24", "CP_infantry"], ["grass_w", "trench14", "CP_infantry"], ["shelled_w", "", ""]],
+				"line13" :	[["shelled_w", "", ""], ["shelled_w", "", "CP_bunker"], ["shelled_w", "", ""], ["grass_w", "trench24", "CP_infantry"], ["grass_w", "path36", "CP_infantry"], ["grass_w", "trench125", "CP_eliteInf"], ["shelled_w", "", ""], ["shelled_w", "", ""]],
+				"line14" :	[["shelled_w", "", "CP_staticAA"], ["shelled_w", "", "CP_infantry"], ["grass_w", "trench124", "CP_eliteInf"], ["grass_w", "trench125", "CP_antiTank"], ["shelled_w", "", ""], ["grass_w", "trench0", "CP_antiTank"], ["shelled_w", "", ""]],
+				"line15" :	[["shelled_w", "", "CP_infantry"], ["grass_w", "trench24", "CP_infantry"], ["grass_w", "trench124", "CP_infantry"], ["shelled_w", "", ""], ["grass_w", "path36", ""], ["shelled_w", "", ""], ["shelled_w", "", ""], ["shelled_w", "", ""]],
+				"line16" :	[["grass_w", "trench14", "CP_infantry"], ["grass_w", "trench125", "CP_antiTank"], ["shelled_w", "", ""], ["shelled_w", "", ""], ["shelled_w", "", ""], ["shelled_w", "", ""], ["shelled_w", "", ""]],
+				"line17" :	[["grass_w", "trench14", "CP_eliteInf"], ["shelled_w", "", ""], ["grass_w", "trench15", ""], ["shelled_w", "", ""], ["grass_w", "path36", ""], ["shelled_w", "", ""], ["shelled_w", "", ""], ["grass_w", "trench14", "EC_infantry"]],
+				"line18" :	[["shelled_w", "", ""], ["shelled_w", "", ""], ["shelled_w", "", ""], ["shelled_w", "", ""], ["shelled_w", "", ""], ["shelled_w", "", ""], ["grass_w", "trench14", "EC_infantry"]],
+				"line19" :	[["shelled_w", "", ""], ["shelled_w", "", ""], ["shelled_w", "", ""], ["shelled_w", "", ""], ["grass_w", "path26", ""], ["shelled_w", "", ""], ["grass_w", "trench14", "EC_ft17"], ["shelled_w", "", "EC_bunker"]],
+				"line20" :	[["shelled_w", "", ""], ["shelled_w", "", ""], ["shelled_w", "", ""], ["grass_w", "trench124", "EC_ft17"], ["grass_w", "path25", ""], ["grass_w", "trench0", "EC_eliteInf"], ["shelled_w", "", "EC_markIV"]],
+				"line21" :	[["shelled_w", "", ""], ["shelled_w", "", ""], ["shelled_w", "", ""], ["grass_w", "trench14", "EC_eliteInf"], ["grass_w", "trench25", "EC_infantry"], ["grass_w", "road25", "EC_charron"], ["shelled_w", "", "EC_markIV"], ["grass_w", "trench124", ""]],
+				"line22" :	[["shelled_w", "", ""], ["shelled_w", "", ""], ["grass_w", "trench124", "EC_infantry"], ["grass_w", "trench0", "EC_lArtillery"], ["grass_w", "trench25", "EC_infantry"], ["grass_w", "road25", "EC_lArtillery"], ["shelled_w", "", "EC_sappers"]],
+				"line23" :	[["shelled_w", "", ""], ["grass_w", "trench0", "EC_eliteInf"], ["grass_w", "trench14", "EC_infantry"], ["grass_w", "trench15", ""], ["shelled_w", "", "EC_staticAA"], ["shelled_w", "", "EC_bunker"], ["grass_w", ["road25", "road24"], ""], ["stoney_w", "", "EC_supplyCar"]],
+				"line24" :	[["grass_w", "trench14", "EC_infantry"], ["grass_w", "trench125", "EC_infantry"], ["grass_w", "trench24", ""], ["shelled_w", "", ""], ["shelled_w", "", ""], ["grass_w", "path14", ""], ["grass_w", "road35", "EC_mArtillery"]],
+				"line25" :	[["grass_w", "trench14", "EC_infantry"], ["shelled_w", "", "EC_staticAA"], ["grass_w", "trench125", "EC_ft17"], ["grass_w", "trench0", "EC_antiTank"], ["shelled_w", "", ""], ["grass_w", "path14", "EC_markI"], ["grass_w", "", ""], ["rough_w", "", ""]],
+				"line26" :	[["shelled_w", "", "EC_bunker"], ["shelled_w", "", "EC_markIV"], ["grass_w", "trench15", ""], ["shelled_w", "", ""], ["grass_w", "path14", ""], ["grass_w", "", ""], ["hqN_w", "", "", [2]]],
+				"line27" :	[["shelled_w", "", ""], ["shelled_w", "", "EC_markIV"], ["shelled_w", "", "EC_mArtillery"], ["shelled_w", "", ""], ["grass_w", "path14", "EC_hArtillery"], ["stoney_w", "", ""], ["hqNW_w", "", ""], ["hqNE_w", "", ""]],
+				"line28" :	[["shelled_w", "", ""], ["stoney_w", "", "EC_sappers"], ["shelled_w", "", ""], ["grass_w", "path14", "EC_markI"], ["mountain_w", "", ""], ["house_w", "", ""], ["hqC_w", "", ""]],
+				"line29" :	[["stoney_w", "", ""], ["mountain_w", "", ""], ["grass_w", "", ""], ["grass_w", "path14", "EC_camel"], ["house_w", "", ""], ["mountain_w", "", ""], ["hqSW_w", "", ""], ["hqSE_w", "", ""]],
+				"line30" :	[["rough_w", "", ""], ["grass_w", "", ""], ["grass_w", "path14", "EC_camel"], ["rough_w", "", "EC_dh4"], ["stoney_w", "", ""], ["mountain_w", "", ""], ["hqS_w", "", ""]],
+				"line31" :	[["stoney_w", "", ""], ["mountain_w", "", ""], ["grass_w", "", ""], ["grass_w", "path14", ""], ["house_w", "", ""], ["mountain_w", "", ""], ["mountain_w", "", ""], ["grass_w", "", ""]]
+				}
+}
+
+
+
+
+
+

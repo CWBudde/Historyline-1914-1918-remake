@@ -8,8 +8,8 @@
 // and the odd cells of the last row. The map edge cells it keeps (record
 // Edge, the even cells of the last row) take the look of a neighbour inside
 // the map. A winter map shows each look's winter terrain (Look.Ground).
-// Building entrances carry the owner as content; units are left out (no Unit,
-// no content units), the session draws them.
+// Building entrances carry the owner as content; Level leaves units out (no
+// Unit, no content units), the session draws them, and Campaign adds them.
 //
 // Several looks stand in for original terrain the remake has no art for:
 // ponds, open water and sea show water, harbour buildings and their yard show
@@ -106,9 +106,10 @@ func (k Look) Hex(winter bool) level.Hex {
 var owners = [3]game.Player{game.CentralPowers, game.Entente, game.None}
 
 // Level is the view of an imported map. MapName is the map's file stem
-// ("05", "STATMAP"), MapNo its number (-1 when the stem is none), Player the
-// first human side (Central Powers without a mission). An unknown terrain
-// record, building owner or human side is an error.
+// ("05", "STATMAP"), MapNo its number plus one (-1 when the stem is none),
+// as the shipped levels count (level1_cp is map 00), Player the first human
+// side (Central Powers without a mission). An unknown terrain record,
+// building owner or human side is an error.
 func Level(l *finmap.Level) (*level.Level, error) {
 	g := hexgrid.Grid{Width: l.Width / 2, Lines: 2*l.Height - 1}
 	if l.Width < 4 || l.Width%2 != 0 || l.Height < 2 || len(l.Terrain) != l.Height {
@@ -128,7 +129,7 @@ func Level(l *finmap.Level) (*level.Level, error) {
 	winter := l.Mission != nil && l.Mission.Winter
 	lv := &level.Level{MapName: l.Source.Map, MapNo: -1, Player: game.CentralPowers.String(), Lines: make([][]level.Hex, g.Lines)}
 	if n, err := strconv.Atoi(l.Source.Map); err == nil {
-		lv.MapNo = n
+		lv.MapNo = n + 1
 	}
 	if m := l.Mission; m != nil && len(m.HumanSides) > 0 {
 		s := m.HumanSides[0]

@@ -14,3 +14,9 @@ var FS embed.FS
 //
 //go:embed original/index.json original/full/*.json
 var Original embed.FS
+
+// Campaign holds the remake levels of the imported maps (cmd/hlcampaign),
+// named like "campaign/level4_cp.json".
+//
+//go:embed campaign/*.json
+var Campaign embed.FS

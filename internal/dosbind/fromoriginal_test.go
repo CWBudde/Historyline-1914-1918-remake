@@ -150,7 +150,7 @@ func TestFromOriginalImportedMaps(t *testing.T) {
 			}
 		}
 
-		ids := remakeIDs(set)
+		ids := RemakeIDs(set)
 		for i, p := range b.Units {
 			want := ids[[2]int{p.Type, p.Owner}]
 			if id := b.IDs[i]; id != want {

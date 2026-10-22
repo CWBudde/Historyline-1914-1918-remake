@@ -92,10 +92,15 @@ art-index:
 art-check:
     go run ./cmd/hlart check
 
-# Import the original full game's maps (local original/) into levels/original
+# Import the original full game's maps (local original/) into levels/original, then levels/campaign
 levels-import:
     rm -rf levels/original
     go run ./cmd/finextract -build full -out levels/original
+    @just levels-campaign
+
+# Write the remake levels of the imported maps (levels/original) to levels/campaign
+levels-campaign:
+    go run ./cmd/hlcampaign -out levels/campaign
 
 # Build the art book from art/index.json into build/artbook/Historyline_Art.pdf
 artbook: _build-dir

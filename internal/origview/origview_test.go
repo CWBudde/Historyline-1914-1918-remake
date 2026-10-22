@@ -184,7 +184,7 @@ func TestLevel(t *testing.T) {
 	}
 	hq := hex("hqN_w")
 	hq.Content = &level.Content{Owner: int(game.Entente)}
-	want := &level.Level{MapName: "07", MapNo: 7, Player: game.Entente.String(), Lines: [][]level.Hex{
+	want := &level.Level{MapName: "07", MapNo: 8, Player: game.Entente.String(), Lines: [][]level.Hex{
 		{hq, hex("grass_w", "stream25")},
 		{hex("forest_w")},
 		{hex("water"), hex("grass_w")},
@@ -321,7 +321,7 @@ func checkShape(t *testing.T, stem string, src *finmap.Level, lv *level.Level) {
 	if lv.MapName != stem {
 		t.Errorf("%s: MapName %q", stem, lv.MapName)
 	}
-	if no, err := strconv.Atoi(stem); err == nil && lv.MapNo != no || err != nil && lv.MapNo != -1 {
+	if no, err := strconv.Atoi(stem); err == nil && lv.MapNo != no+1 || err != nil && lv.MapNo != -1 {
 		t.Errorf("%s: MapNo %d", stem, lv.MapNo)
 	}
 	player := game.CentralPowers

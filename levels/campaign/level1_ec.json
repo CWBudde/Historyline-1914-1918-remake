@@ -1,0 +1,60 @@
+{
+	"mapName" :	"24",
+	"mapNo" :	25,
+	"player" :	"Entente Cordial",
+	"tiles" :	{
+				"line1" :	[["hills", "", ""], ["forest", "", ""], ["forest", "", ""], ["forest", "", ""], ["forest", "", ""], ["forest", "", ""], ["hills", "", ""], ["forest", "", ""]],
+				"line2" :	[["grass", "road236", "CP_infantry"], ["grass", "", ""], ["forest", "", ""], ["forest", "", ""], ["forest", "", ""], ["house", "", ""], ["hills", "", ""]],
+				"line3" :	[["grass", "stream24", ""], ["grass", "road25", ""], ["forest", "", ""], ["forest", "", ""], ["forest", "", ""], ["forest", "", ""], ["stone", "", ""], ["forest", "", ""]],
+				"line4" :	[["grass", ["stream25", "rBridge36", "road36"], ""], ["grass", "road25", ""], ["grass", "", ""], ["forest", "", ""], ["forest", "", ""], ["house", "", ""], ["grass", "", ""]],
+				"line5" :	[["forest", "", ""], ["grass", "stream25", ""], ["grass", "road35", ""], ["forest", "", ""], ["hills", "", ""], ["grass", "", ""], ["stone", "", ""], ["forest", "", ""]],
+				"line6" :	[["hqN", "", "", [1]], ["grass", "stream35", ""], ["grass", "", ""], ["grass", "", ""], ["grass", "", ""], ["forest", "", ""], ["hills", "", ""]],
+				"line7" :	[["hqNW", "", ""], ["hqNE", "", ""], ["grass", "road36", ""], ["stone", "", ""], ["grass", "", ""], ["hills", "", ""], ["stone", "", ""], ["forest", "", ""]],
+				"line8" :	[["hqC", "", ""], ["grass", "stream36", ""], ["grass", "", ""], ["stone", "", ""], ["forest", "", ""], ["grass", "", ""], ["forest", "", ""]],
+				"line9" :	[["hqSW", "", ""], ["hqSE", "", ""], ["grass", "road236", "CP_mArtillery"], ["grass", "", ""], ["grass", "", ""], ["grass", "", ""], ["grass", "", ""], ["forest", "", ""]],
+				"line10" :	[["hqS", "", ""], ["grass", "stream46", ""], ["grass", "road25", "CP_infantry"], ["grass", "", ""], ["grass", "", ""], ["grass", "", ""], ["hills", "", ""]],
+				"line11" :	[["grass", "stream25", ""], ["grass", "stream14", ""], ["grass", "road46", "CP_eliteInf"], ["grass", "road25", "CP_infantry"], ["grass", "", ""], ["grass", "", ""], ["grass", "", ""], ["forest", "", ""]],
+				"line12" :	[["grass", "stream15", ""], ["grass", "road14", "CP_infantry"], ["grass", "trench0", "CP_lArtillery"], ["grass", "road25", "CP_mArtillery"], ["hills", "", ""], ["stone", "", ""], ["grass", "", ""]],
+				"line13" :	[["grass", "road25", ""], ["grass", "road14", "CP_infantry"], ["mud", "", ""], ["mud", "", "CP_eliteInf"], ["grass", "road25", ""], ["grass", "", ""], ["grass", "", ""], ["grass", "", ""]],
+				"line14" :	[["grass", "road15", ""], ["forest", "", ""], ["mud", "", ""], ["hills", "", ""], ["grass", "road25", ""], ["grass", "", ""], ["grass", "", ""]],
+				"line15" :	[["hills", "", ""], ["grass", "", ""], ["grass", "", ""], ["grass", "", ""], ["hills", "", ""], ["grass", "road35", ""], ["grass", "", ""], ["hills", "", ""]],
+				"line16" :	[["forest", "", ""], ["grass", "", ""], ["grass", "", ""], ["grass", "", ""], ["mountain", "", ""], ["grass", "", ""], ["hills", "", ""]],
+				"line17" :	[["forest", "", ""], ["forest", "", ""], ["forest", "", "CP_cavalry"], ["stone", "", ""], ["grass", "", ""], ["grass", "road346", ""], ["stone", "", ""], ["mountain", "", ""]],
+				"line18" :	[["forest", "", ""], ["forest", "", "CP_cavalry"], ["grass", "", ""], ["grass", "", "CP_bunker"], ["grass", "path14", ""], ["grass", "", ""], ["mountain", "", ""]],
+				"line19" :	[["forest", "", ""], ["forest", "", "CP_cavalry"], ["forest", "", ""], ["grass", "", ""], ["grass", "path14", ""], ["cmpN", "", "", [0, ["EC_infantry", "EC_infantry", "EC_eliteInf"]]], ["mountain", "", ""], ["forest", "", ""]],
+				"line20" :	[["forest", "", ""], ["hills", "", ""], ["grass", "", ""], ["grass", "path14", ""], ["cmpW", "", ""], ["cmpE", "", ""], ["hills", "", ""]],
+				"line21" :	[["forest", "", ""], ["forest", "", ""], ["grass", "", ""], ["grass", "path14", ""], ["grass", "", ""], ["cmpS", "", ""], ["hills", "", ""], ["hills", "", ""]],
+				"line22" :	[["forest", "", ""], ["forest", "", ""], ["grass", "path13", ""], ["stone", "", ""], ["house", "", ""], ["forest", "", ""], ["grass", "", ""]],
+				"line23" :	[["forest", "", ""], ["forest", "", ""], ["grass", "", ""], ["hills", "", ""], ["grass", "", ""], ["hills", "", ""], ["grass", "", ""], ["stone", "", ""]],
+				"line24" :	[["forest", "", ""], ["hills", "", ""], ["grass", "path36", ""], ["grass", "", ""], ["grass", "", ""], ["grass", "", ""], ["grass", "", ""]],
+				"line25" :	[["forest", "", ""], ["hills", "", ""], ["grass", "", ""], ["forest", "", ""], ["grass", "", ""], ["stone", "", ""], ["stone", "", ""], ["grass", "", ""]],
+				"line26" :	[["forest", "", ""], ["grass", "", ""], ["grass", "path46", ""], ["grass", "", ""], ["grass", "", ""], ["stone", "", ""], ["forest", "", ""]],
+				"line27" :	[["forest", "", ""], ["stone", "", ""], ["grass", "path14", ""], ["hills", "", ""], ["grass", "", ""], ["stone", "", ""], ["lakeside156", "", ""], ["hills", "", ""]],
+				"line28" :	[["hills", "", ""], ["grass", "path13", ""], ["hills", "", ""], ["hills", "", ""], ["hills", "", ""], ["lakeside56", "", ""], ["lakeside16", "", ""]],
+				"line29" :	[["forest", "", ""], ["grass", "", "EC_bunker"], ["mountain", "", ""], ["forest", "", ""], ["hills", "", ""], ["lakeside3456", "", ""], ["waterStones", "", ""], ["lakeside123", "", ""]],
+				"line30" :	[["grass", "", ""], ["grass", "path46", ""], ["mountN", "", ""], ["forest", "", ""], ["forest", "", ""], ["lakeside34", "", ""], ["water", "", ""]],
+				"line31" :	[["forest", "", ""], ["grass", "road124", ""], ["mountW", "", ""], ["mountE", "", ""], ["forest", "", ""], ["mountN", "", ""], ["lakeside34", "", ""], ["lakeside123", "", ""]],
+				"line32" :	[["grass", "road13", ""], ["grass", "road25", ""], ["mountS", "", ""], ["forest", "", ""], ["mountW", "", ""], ["mountE", "", ""], ["lakeside23", "", ""]],
+				"line33" :	[["stone", "", ""], ["grass", "", ""], ["grass", ["road25", "road24"], ""], ["forest", "", ""], ["forest", "", ""], ["mountS", "", ""], ["grass", ["stream14", "bridge25"], ""], ["forest", "", ""]],
+				"line34" :	[["cmpN", "", "", [0, ["EC_lArtillery", "EC_infantry", "EC_infantry"]]], ["grass", "path13", ""], ["grass", "road25", ""], ["grass", "", "EC_bunker"], ["hills", "", ""], ["grass", "stream13", ""], ["forest", "", "EC_infantry"]],
+				"line35" :	[["cmpW", "", ""], ["cmpE", "", ""], ["stone", "", ""], ["grass", "road25", ""], ["stone", "", ""], ["forest", "", ""], ["hills", "", ""], ["hills", "", ""]],
+				"line36" :	[["cmpS", "", ""], ["grass", "path36", ""], ["hills", "", ""], ["grass", "road25", ""], ["grass", "", ""], ["grass", "stream26", ""], ["hills", "", ""]],
+				"line37" :	[["hills", "", ""], ["hills", "", ""], ["hills", "", ""], ["grass", "", ""], ["grass", "road25", "EC_cavalry"], ["grass", "", ""], ["grass", ["stream25", "bridge36"], ""], ["grass", "stream24", ""]],
+				"line38" :	[["forest", "", ""], ["grass", "path46", ""], ["stone", "", ""], ["grass", "", ""], ["grass", "road25", ""], ["grass", "", "EC_eliteInf"], ["grass", "stream15", ""]],
+				"line39" :	[["forest", "", ""], ["house", "", ""], ["stone", "", ""], ["hills", "", ""], ["hills", "", ""], ["grass", "road25", "EC_eliteInf"], ["grass", "", "EC_mArtillery"], ["hills", "", "EC_lArtillery"]],
+				"line40" :	[["hills", "", ""], ["hills", "", ""], ["stone", "", ""], ["grass", "", ""], ["mud", "", "EC_bunker"], ["grass", "road35", ""], ["stone", "", ""]],
+				"line41" :	[["forest", "", ""], ["stone", "", ""], ["stone", "", ""], ["stone", "", ""], ["grass", "trench0", "EC_hArtillery"], ["grass", "trench124", "EC_infantry"], ["grass", "", ""], ["grass", "", "EC_supplyCar"]],
+				"line42" :	[["forest", "", ""], ["forest", "", ""], ["grass", "", ""], ["grass", "", ""], ["grass", "trench125", "EC_infantry"], ["hqN", "", "", [2]], ["grass", "", ""]],
+				"line43" :	[["mountain", "", ""], ["forest", "", ""], ["forest", "", ""], ["grass", "", ""], ["hills", "", ""], ["hqNW", "", ""], ["hqNE", "", ""], ["grass", "", ""]],
+				"line44" :	[["mountN", "", ""], ["forest", "", ""], ["hills", "", "EC_cavalry"], ["hills", "", ""], ["hills", "", ""], ["hqC", "", ""], ["house", "", ""]],
+				"line45" :	[["mountW", "", ""], ["mountE", "", ""], ["forest", "", ""], ["forest", "", ""], ["hills", "", ""], ["hqSW", "", ""], ["hqSE", "", ""], ["hills", "", ""]],
+				"line46" :	[["mountS", "", ""], ["forest", "", ""], ["forest", "", ""], ["mountain", "", ""], ["hills", "", ""], ["hqS", "", ""], ["hills", "", ""]],
+				"line47" :	[["mountW", "", ""], ["mountE", "", ""], ["forest", "", ""], ["forest", "", ""], ["hills", "", ""], ["hills", "", ""], ["hills", "", ""], ["hills", "", ""]]
+				}
+}
+
+
+
+
+
+

@@ -62,7 +62,7 @@ func FromOriginal(l *finmap.Level, set *data.Set) (*Board, error) {
 		}
 		b.Terrain = append(b.Terrain, line...)
 	}
-	ids := remakeIDs(set)
+	ids := RemakeIDs(set)
 	place := func(typ, side, cell int) (int, error) {
 		if typ < 0 || typ >= len(dosrules.Full.Tables.Move.Types) || side < 0 || side > 2 || cell < 0 || cell >= len(b.Terrain) {
 			return 0, fmt.Errorf("type %d of side %d at cell %d", typ, side, cell)
@@ -215,9 +215,9 @@ func (b *Board) originalBuildings(l *finmap.Level) error {
 	return nil
 }
 
-// remakeIDs are the remake's unit ids by UNIT.DAT type and side, the first
+// RemakeIDs are the remake's unit ids by UNIT.DAT type and side, the first
 // in id order where several share both.
-func remakeIDs(set *data.Set) map[[2]int]string {
+func RemakeIDs(set *data.Set) map[[2]int]string {
 	out := map[[2]int]string{}
 	for _, id := range slices.Sorted(maps.Keys(set.Units)) {
 		u := set.Units[id]
