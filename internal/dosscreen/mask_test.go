@@ -114,46 +114,56 @@ func TestTeethMeetCellEdges(t *testing.T) {
 	g := hexgrid.Grid{Width: 40, Lines: 40}
 	for _, s := range zooms {
 		for _, o := range [][2]int{{2, 3}, {-1, 0}} {
-			v := testView(s, o[0], o[1])
-			m := Mask(v, g)
-			var polys [][6][2]float64
-			for _, c := range v.Cells() {
-				if g.Contains(c) {
-					polys = append(polys, screenCorners(v, c))
-				}
-			}
-			name := fmt.Sprintf("scale %.4f origin %v", s, o)
-			for y := m.Rect.Min.Y; y < m.Rect.Max.Y; y++ {
-				checkCrossings(t, fmt.Sprintf("%s row %d", name, y), rowTransitions(m, y), crossings(polys, 1, float64(y)+0.5))
-			}
-			for x := m.Rect.Min.X; x < m.Rect.Max.X; x++ {
-				checkCrossings(t, fmt.Sprintf("%s column %d", name, x), colTransitions(m, x), crossings(polys, 0, float64(x)+0.5))
-			}
+			checkTeeth(t, fmt.Sprintf("scale %.4f origin %v", s, o), testView(s, o[0], o[1]), g)
 		}
-		v := testView(s, 2, 3)
-		m := Mask(v, g)
-		_, by := v.Offset()
-		var corners []float64
-		for j := 0; j < v.Cols; j += 2 {
-			p := screenCorners(v, v.Cell(j, 0))
-			corners = append(corners, p[1][0], p[2][0])
+	}
+}
+
+// checkTeeth checks the mask of v against its cells' polygons along every pixel
+// row and column, and the top row's openings against the even columns' top edges
+// when the first row is on the map.
+func checkTeeth(t *testing.T, name string, v View, g hexgrid.Grid) {
+	t.Helper()
+	m := Mask(v, g)
+	var polys [][6][2]float64
+	for _, c := range v.Cells() {
+		if g.Contains(c) {
+			polys = append(polys, screenCorners(v, c))
 		}
-		got := rowTransitions(m, by)
-		if len(got) != len(corners) {
-			t.Errorf("scale %.4f: top transitions %v, want the corners %v", s, got, corners)
-			continue
+	}
+	for y := m.Rect.Min.Y; y < m.Rect.Max.Y; y++ {
+		checkCrossings(t, fmt.Sprintf("%s row %d", name, y), rowTransitions(m, y), crossings(polys, 1, float64(y)+0.5), m.Rect.Min.X, m.Rect.Max.X)
+	}
+	for x := m.Rect.Min.X; x < m.Rect.Max.X; x++ {
+		checkCrossings(t, fmt.Sprintf("%s column %d", name, x), colTransitions(m, x), crossings(polys, 0, float64(x)+0.5), m.Rect.Min.Y, m.Rect.Max.Y)
+	}
+	var corners []float64
+	for j := 0; j < v.Cols; j += 2 {
+		c := v.Cell(j, 0)
+		if !g.Contains(c) {
+			return
 		}
-		for k, x := range got {
-			if math.Abs(float64(x)-corners[k]) > 1 {
-				t.Errorf("scale %.4f: top transition %d at %d, corner at %.2f", s, k, x, corners[k])
-			}
+		p := screenCorners(v, c)
+		corners = append(corners, p[1][0], p[2][0])
+	}
+	_, by := v.Offset()
+	got := rowTransitions(m, by)
+	if len(got) != len(corners) {
+		t.Errorf("%s: top transitions %v, want the corners %v", name, got, corners)
+		return
+	}
+	for k, x := range got {
+		if math.Abs(float64(x)-corners[k]) > 1 {
+			t.Errorf("%s: top transition %d at %d, corner at %.2f", name, k, x, corners[k])
 		}
 	}
 }
 
 // checkCrossings matches the mask transitions of a scan line against its
-// openings, the [lo, hi] intervals where it crosses the visible cells.
-func checkCrossings(t *testing.T, name string, trans []int, spans [][2]float64) {
+// openings, the [lo, hi] intervals where it crosses the visible cells. The line
+// runs from pixel from to pixel to; an edge within a pixel of its ends has no
+// pixel beyond it to switch.
+func checkCrossings(t *testing.T, name string, trans []int, spans [][2]float64, from, to int) {
 	t.Helper()
 	for _, x := range trans {
 		ok := false
@@ -171,6 +181,9 @@ func checkCrossings(t *testing.T, name string, trans []int, spans [][2]float64) 
 		for side, e := range sp {
 			// A steel sliver under two pixels wide (a tooth tip) may fall between pixels.
 			if side == 0 && k > 0 && e-spans[k-1][1] < 2 || side == 1 && k+1 < len(spans) && spans[k+1][0]-e < 2 {
+				continue
+			}
+			if e <= float64(from)+1 || e >= float64(to)-1 {
 				continue
 			}
 			if !nearAny(e, ints(trans), 1) {

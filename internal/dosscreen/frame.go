@@ -13,12 +13,13 @@ import (
 const maxCached = 6
 
 // Frame draws the steel frame over both panels' maps and caches what it painted:
-// the chrome per Screen, a panel frame per panel rect, cell scale and pattern of
-// on-map cells. Inside the map that pattern does not change with the origin, so
-// scrolling repaints only when a view reaches the map edge. The zero Frame is
+// the chrome per window size and UI scale, a panel frame per panel rect, cell
+// scale and pattern of on-map cells. Inside the map that pattern does not change
+// with the origin, so scrolling repaints only when a view reaches the map edge,
+// and zooming repaints the panel frames but not the chrome. The zero Frame is
 // ready to use.
 type Frame struct {
-	screen  Screen
+	screen  Screen // the chrome's key
 	chrome  *ebiten.Image
 	panels  []cachedPanel // least recently used first
 	painted int           // images painted so far, for tests
@@ -39,12 +40,12 @@ type panelKey struct {
 // Draw draws the frame of s with the panels' views on dst, over the maps already
 // drawn there through each view's WorldToScreen.
 func (f *Frame) Draw(dst *ebiten.Image, s Screen, views [2]View, g hexgrid.Grid) {
-	if f.chrome == nil || f.screen != s {
+	if key := s.chromeKey(); f.chrome == nil || f.screen != key {
 		if f.chrome != nil {
 			f.chrome.Deallocate()
 		}
 		f.chrome = ebiten.NewImageFromImage(PaintChrome(s))
-		f.screen = s
+		f.screen = key
 		f.painted++
 	}
 	for _, v := range views {
@@ -92,4 +93,11 @@ func (f *Frame) panel(v View, g hexgrid.Grid) *ebiten.Image {
 	f.painted++
 	f.panels = append(f.panels, cachedPanel{key, img})
 	return img
+}
+
+// chromeKey is s without the cell scale and zoom, which the chrome does not
+// depend on.
+func (s Screen) chromeKey() Screen {
+	s.CellScale, s.FitScale, s.Cols, s.Rows, s.Zoom = 0, 0, 0, 0, 0
+	return s
 }

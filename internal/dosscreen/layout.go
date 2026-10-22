@@ -77,13 +77,16 @@ type Screen struct {
 	CellScale float64 // device pixels per world pixel
 	Cols      int     // columns per panel
 	Rows      int     // cells per column (the panel shows Rows+½ rows)
+	Zoom      int     // the index in Zooms of CellScale
+	FitScale  float64 // the cell scale Layout fitted, at DefaultZoom
 }
 
 // Layout splits a physW × physH window at UI scale ui (1 = 100 %; ≤ 0 counts as
 // 1). The panels, the divider and the status band fill the window; the panel
 // height sets the cell scale for 7½ rows, extra width shows more columns, and a
 // window too narrow for MinCols columns at that scale shrinks the cells to keep
-// them (showing more rows). The scale never drops below MinScale × ui.
+// them (showing more rows). The scale never drops below MinScale × ui. The
+// screen starts at DefaultZoom; Zoomed picks another level.
 func Layout(physW, physH int, ui float64) Screen {
 	if ui <= 0 {
 		ui = 1
@@ -104,6 +107,7 @@ func Layout(physW, physH int, ui float64) Screen {
 	tw, th := BlockSize(MinCols, TargetRows)
 	scale := min(float64(panelH)/th, float64(panelW)/tw)
 	s.CellScale = max(scale, MinScale*ui)
+	s.FitScale, s.Zoom = s.CellScale, DefaultZoom
 	s.Cols, s.Rows = Fit(s.Panels[0], s.CellScale)
 	return s
 }
