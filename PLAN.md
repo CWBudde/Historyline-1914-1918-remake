@@ -559,6 +559,11 @@ its tiles in `assets/index.json`, and its records' look in `looks.json` (`TestLo
 - [ ] Summer shell-hole fields (`mud` today, records 63 and 81–84; winter shows `shelled_w`).
 - [ ] Junctions and level crossings without a tile of their own (two overlays today); forest and
       mountain variants that show plain forest and mountain.
+- [ ] Crater stamps for the original maps' shell-hole fields: 360 summer clusters in 115 shapes without a
+      stamp (only the diamond `4_-1.1_1.1_0.2` exists, no single), 50 winter clusters in 37 shapes. Crater
+      fields are not tiled from smaller stamps (crowded, mismatched scale), so each needs its own shape or a
+      single-hex stamp that reads well when repeated. Knolls and boulders
+      are tiled from the existing stamps and need none; whole-shape paintings would still read better.
 
 ###### 9.4 Winter water
 
