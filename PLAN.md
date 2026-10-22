@@ -610,11 +610,23 @@ own and leaves the game playable.
       the imported records exactly (ships with their rears, container contents, credits, producible types),
       `internal/origview` draws them through a look per terrain record; `TestPlayOriginalMaps` plays every map
       40 resolutions computer against computer. The menu offers them after the shipped levels (code = map
-      number) and a victory leads to the mission's next map, Mouse on to map 03. Open: 36 unit types
-      have no remake unit (dots, "Type N"); stand-in looks for sea, harbours, piers, shell holes, summer
-      factories and junctions without a tile (`origview` doc); `Bind` numbers depots and factories by the
-      buildings' first cells where the game takes entrances in cell order (Mouse's factories swap).
-- [ ] Complete unit roster with domain-specific firepower (aircraft, armour, trains, ships).
+      number) and a victory leads to the mission's next map, Mouse on to map 03. `levels/campaign/` holds
+      their remake levels (`just levels-campaign`, `origview.Campaign`: level1_cp…level24_cp,
+      level1_ec…level24_ec, level1_2p…level24_2p, every unit and building content by remake id), which
+      the menu draws and Classic/Standard play; `TestPlaysCampaignLevels` plays all 72 six rounds under
+      both rule sets with the remake AI on both sides. Open: transporter cargo, ship rears, terrain records
+      that share a look and credits are not in the level format (the original rules keep the exact
+      binding); stand-in looks for sea, harbours, piers, shell holes and junctions
+      without a tile (`origview` doc); `Bind` numbers depots and factories by the buildings' first cells
+      where the game takes entrances in cell order (Mouse's factories swap).
+- [x] Complete unit roster with domain-specific firepower (aircraft, armour, trains, ships).
+      (2026-10-22) — `units.json` has a remake unit for every UNIT.DAT type (ship rears excepted) and side
+      the maps field, 75 in all, stats and slot attacks from the unit table (`TestRosterCoversUnitDat`,
+      `TestUnitsFollowUnitDat`); aircraft move over every terrain at 1 point per hex, never enter
+      buildings or carriers, take no ground cover and are hit only by air weapons under Standard
+      (`internal/game/air_test.go`). Open: weapon slots use stand-ins from the existing catalogue; deep
+      and shallow water are one; 48 units are drawn as dots (`unitsprite.Pending`) until the art track
+      binds the exported tank, ship, aircraft and support families to them.
 - [ ] Briefings, campaign progression, level codes.
 
 ### 6. Polish and distribution
