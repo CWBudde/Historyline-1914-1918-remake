@@ -187,3 +187,34 @@ func TestLookUnavailableValuesRemainNull(t *testing.T) {
 	lookTestValue(t, single.P05, 12)
 	lookTestValue(t, single.P95, 12)
 }
+
+func TestLookMeanUsesFiniteOpaqueMaskedSamples(t *testing.T) {
+	p := lookTestPlane(4, 1, func(x, _ int) float64 { return []float64{10, 20, 100, 40}[x] })
+	p.ok[2] = false
+	got := measureLook(p, []bool{true, true, true, false})
+	lookTestValue(t, got.MeanL, 15)
+	if got.MeanL.Samples != 2 {
+		t.Fatalf("mean count %+v", got.MeanL)
+	}
+	p.l[0] = math.NaN()
+	got = measureLook(p, []bool{true, false, false, false})
+	if got.MeanL.Value != nil || got.MeanL.Reason != "insufficient_samples" {
+		t.Fatalf("missing mean fabricated: %+v", got.MeanL)
+	}
+}
+
+func TestLookRawSigmaAndEdgesKeepUnroundedValues(t *testing.T) {
+	p := lookTestPlane(5, 5, func(x, _ int) float64 { return float64(x) * 20 })
+	got := measureLook(p, nil)
+	lookTestValue(t, got.SigmaL, math.Sqrt(800))
+	lookTestValue(t, got.EdgeDensity, 1)
+	if got.EdgeDensity.Samples != 9 {
+		t.Fatalf("Sobel support count %+v", got.EdgeDensity)
+	}
+	p = lookTestPlane(3, 3, func(x, y int) float64 { return float64(y*3 + x) })
+	got = measureLook(p, nil)
+	lookTestValue(t, got.SigmaL, math.Sqrt(60.0/9))
+	if *got.SigmaL.Value == math.Round(*got.SigmaL.Value*100)/100 {
+		t.Fatal("gate inputs rounded to two decimals")
+	}
+}

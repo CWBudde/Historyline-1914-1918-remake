@@ -25,6 +25,9 @@ type lookLag struct {
 
 type lookMetrics struct {
 	Samples         int        `json:"samples"`
+	MeanL           lookValue  `json:"mean_l_star"`
+	SigmaL          lookValue  `json:"sigma_l_star"`
+	EdgeDensity     lookValue  `json:"sobel_edge_density"`
 	P05             lookValue  `json:"p05_l_star"`
 	P95             lookValue  `json:"p95_l_star"`
 	Bands           []lookBand `json:"bands"`
@@ -53,6 +56,7 @@ func measureLook(p *labPlane, mask []bool) lookMetrics {
 		},
 	}
 	unavailable := func(reason string) lookMetrics {
+		m.MeanL.Reason, m.SigmaL.Reason, m.EdgeDensity.Reason = reason, reason, reason
 		m.P05.Reason, m.P95.Reason = reason, reason
 		for i := range m.Bands {
 			m.Bands[i].RMS.Reason = reason
@@ -83,6 +87,34 @@ func measureLook(p *labPlane, mask []bool) lookMetrics {
 	m.Samples = len(values)
 	if m.Samples == 0 {
 		return unavailable("insufficient_samples")
+	}
+	mean := 0.0
+	for _, value := range values {
+		mean += value
+	}
+	mean /= float64(len(values))
+	variance := 0.0
+	for _, value := range values {
+		variance += (value - mean) * (value - mean)
+	}
+	m.MeanL = lookMeasured(mean, len(values))
+	m.SigmaL = lookMeasured(math.Sqrt(variance/float64(len(values))), len(values))
+	edges, edgeSamples := 0, 0
+	for i, eligible := range clean {
+		if !eligible {
+			continue
+		}
+		if g, ok := p.gradient(i%p.w, i/p.w); ok && !math.IsNaN(g) && !math.IsInf(g, 0) {
+			edgeSamples++
+			if g > edgeThreshold {
+				edges++
+			}
+		}
+	}
+	if edgeSamples > 0 {
+		m.EdgeDensity = lookMeasured(float64(edges)/float64(edgeSamples), edgeSamples)
+	} else {
+		m.EdgeDensity.Reason = "insufficient_samples"
 	}
 	slices.Sort(values)
 	percentile := func(fraction float64) lookValue {

@@ -136,6 +136,10 @@ reference: _build-dir
 reference-check:
     go run ./tools/reference-design -check
 
+# Strict look acceptance; retains the report and fails for missing evidence or unmet targets
+look-check: _build-dir
+    go run ./tools/reference-design -look-out build/review/look-check/pulse -look-check
+
 # Create fidelity sheets; pass -reference, -candidate and -out
 [positional-arguments]
 gfx-review *args:

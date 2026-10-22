@@ -13,6 +13,7 @@ go run ./tools/reference-design -check        # validate reference.json and targ
 go run ./tools/reference-design -check -drift # plus the render's metrics against the targets per family
 go run ./tools/reference-design -dump-cells   # every cell: "r12c3 terrain=mud"
 go run ./tools/reference-design -look-out build/review/look-foundation/pulse # partial Look 0 report
+just look-check                              # strict acceptance; retains report and fails while unmet/incomplete
 go run ./tools/reference-design -out build/review/reference      # review page, comparison, targets.json
 go run ./tools/reference-design -compare build/artbook/compare   # comparison only (JPEG), for the art book
 ```
@@ -47,8 +48,14 @@ only exemplars: value percentiles, box-band RMS and six lattice Pearson correlat
 records its formulas, selected cells, sample counts, level/catalogue/image hashes and missing sources.
 Band RMS is the difference between square box means at radii 1/3 and 3/10 world pixels, with entirely
 clean support; correlations need 64 paired samples. Missing measurements are null with reasons.
-This is partial Look 0 evidence: `accepted` remains false, and the feature metrics, original baseline
-and strict acceptance gate remain open. The existing `-check` behaviour is unchanged.
+The report also includes unrounded mean L*, population sigma and Sobel edge density (gradient >6,
+opaque finite 3×3 support). `acceptance_gate` evaluates exact remake targets as PASS/FAIL/INCOMPLETE;
+missing sources, policies, estimator calibration and complete feature populations remain incomplete.
+All six literal signed correlation tests retain full-period lags; the conflicting period policy has
+its own incomplete rule. Reference/original baselines do not inherit remake targets.
+Add `-look-check` with `-look-out` to return an error unless every required rule passes. The report is
+retained on failure. `accepted` remains false while anything fails or is incomplete. Existing `-check`
+and CI behaviour are unchanged; strict CI enforcement remains open.
 
 The render's `canopy` section measures the alpha contribution of selected crown layers after later
 standing objects occlude them. Separate shadows are excluded. Coverage is pooled and listed per clean
@@ -81,6 +88,13 @@ fraction within 6 px are weighted by visible arc length; grass gaps between frag
 Bounds on that fraction assume each annotation's declared positional uncertainty. The initial sample
 has three arcs per image in `r8c5`, with `whole_forest_perimeter: false`. The 3× diagnostic PNGs show
 the fragments in cyan, vertices red and hex edges yellow. Whole-forest and original coverage remain open.
+
+`cast_shadow_direction` follows actual selected crown/shadow pairs. Full source alpha centroids use
+runtime anchors and placement rounding; displacement runs from crown to shadow, with compass north=0°
+and east=90°. Empty, clipped, missing or zero-offset pairs have null measurements. Both instance and
+unique SHA/anchor-pair summaries expose repeated contexts; excluded rows and clean cells are counted.
+This measures unoccluded source displacement, not physical shadow length. Painted/global lighting,
+other standing families and reference/original light baselines remain unavailable.
 
 For real game views at exact effective 1×/1.6×, add `-capture-look` to the game's `-capture DIR`
 command. It writes revealed/fogged views at 1080p and 4K and records `effective_zoom` alongside camera

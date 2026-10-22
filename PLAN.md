@@ -372,6 +372,13 @@ Stop adding enumerated baked contexts. Each one fixes the old sampling in place,
       arc-length weights, source pins and positional uncertainty. On this sample, 72%/9% of the
       render/reference arcs lie within 6 px of a hex edge. Tests and both overlays are reviewed under
       `build/review/look-woodland/`; complete woodland-boundary coverage remains open. (2026-10-22)
+      Separate crown/shadow alpha directions now cover all 76 nonexcluded PULSE instances (74 clean,
+      20 unique source pairs): mean bearing 143.25°, all within 135° ±10°. Density 2×/4× agrees within
+      0.5°/0.05 world px; global painted light and other families remain unmeasured.
+      `just look-check` retains a strict PASS/FAIL/INCOMPLETE report and exits nonzero unless all rules
+      pass. Current PULSE: 11/38/40; unresolved periods, estimators and populations stay incomplete.
+      Exact targets use unrounded mean, sigma and edge density. Tests/review and existing checks pass
+      under `build/review/look-light/`; strict CI binding and full art acceptance remain open. (2026-10-22)
 - [ ] Review views at the real size: 1× and an effective zoom of 1.6 (the planned split screen), plus
       in-game captures at 1080p and 4K. A headless capture path in `cmd/historyline` replaces the patched
       copy used for the audit.

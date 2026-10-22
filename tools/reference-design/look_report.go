@@ -18,6 +18,7 @@ import (
 type lookReport struct {
 	Schema       int               `json:"schema_version"`
 	Accepted     bool              `json:"accepted"`
+	Gate         *lookGate         `json:"acceptance_gate"`
 	Definitions  map[string]string `json:"definitions"`
 	Level        string            `json:"level"`
 	LevelSHA256  string            `json:"canonical_level_sha256"`
@@ -40,6 +41,7 @@ type lookSource struct {
 	Units        *lookUnits    `json:"unit_edge_contrast"`
 	Water        *lookWater    `json:"water"`
 	Woodland     *lookWoodland `json:"woodland_edge"`
+	Light        *lookLight    `json:"cast_shadow_direction"`
 }
 
 type lookFamily struct {
@@ -130,12 +132,12 @@ func (p *project) writeLookReport(out string) error {
 		"percentiles":     "linear interpolation on sorted opaque masked CIELAB D65 L* values at p*(n-1), p=.05/.95",
 		"bands":           "RMS difference between square box means at radii 1 and 3, and 3 and 10 world pixels; every pixel of the larger window must be opaque and within the mask; these definitions are new, not imported from the absent look-audit evidence",
 		"autocorrelation": "Pearson coefficient over paired opaque masked L* endpoints at each specified world lag; at least 64 pairs; unavailable for zero variance; no full-period exemptions",
-		"acceptance":      "descriptive foundation only; targets and remaining feature metrics are not evaluated; accepted remains false",
+		"acceptance":      "exact render targets use unrounded measurements; missing policies, estimator calibration, populations and coverage are INCOMPLETE; no period exemptions or substitute baselines; -look-check exits nonzero unless every required rule passes",
 	}, Remaining: []string{
-		"explicit render/reference/original target ranges and strict reference-check acceptance gate",
+		"complete target/baseline policies and strict reference-check CI binding",
 		"original screenshot registration and private numbers-only baseline measurements",
 		"complete woodland-boundary coverage and independently annotated reference/original canopy coverage",
-		"light skew and cast-shadow direction",
+		"global painted light skew, non-crown cast shadows and reference/original light baselines",
 		"water sampling across other features, independently identifiable shallow/shadow regions, original baselines and width acceptance",
 		"unit contrast acceptance aggregation, additional facings/states and reference/original unit baselines",
 		"resolve exact material period versus low full-period autocorrelation requirement",
@@ -158,6 +160,12 @@ func (p *project) writeLookReport(out string) error {
 	if err != nil {
 		return err
 	}
+	light, err := p.measureLight(renderer, compareDensity)
+	if err != nil {
+		return err
+	}
+	renderSource.Light = &light
+	report.Definitions["cast_shadow_direction"] = light.Definition
 	crowns, err := renderer.VisibleCanopy(p.level, compareDensity)
 	if err != nil {
 		return err
@@ -190,6 +198,7 @@ func (p *project) writeLookReport(out string) error {
 		source.Woodland = &woodland
 		source.Canopy = &lookCanopy{Reason: "independent reference canopy annotations unavailable"}
 		source.Units = &lookUnits{Reason: "independent reference unit baseline unavailable"}
+		source.Light = &lookLight{Reason: "independent reference object/shadow correspondences unavailable", GlobalReason: "independent reference light annotations unavailable"}
 		source.FileSHA256 = p.ref.Image.SHA256
 		report.Sources = append(report.Sources, source)
 	} else {
@@ -207,6 +216,9 @@ func (p *project) writeLookReport(out string) error {
 	}
 	report.Sources[0].Units = &units
 	for i := range report.Sources {
+		if report.Sources[i].Light == nil {
+			report.Sources[i].Light = &lookLight{Reason: "source_unavailable", GlobalReason: "source_unavailable"}
+		}
 		if report.Sources[i].Woodland == nil {
 			report.Sources[i].Woodland = &lookWoodland{Reason: "source_unavailable"}
 		}
@@ -218,6 +230,8 @@ func (p *project) writeLookReport(out string) error {
 		}
 	}
 	report.Definitions["unit_edge_contrast"] = units.Definition
+	gate := evaluateLookGate(report)
+	report.Gate, report.Accepted = &gate, gate.Accepted
 	raw, err := json.MarshalIndent(report, "", "  ")
 	if err != nil {
 		return err

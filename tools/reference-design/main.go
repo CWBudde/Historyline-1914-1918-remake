@@ -16,6 +16,7 @@ import (
 type options struct {
 	root, ref, out, compare string
 	lookOut                 string
+	lookCheck               bool
 	compareFormat           string
 	check, dump, drift      bool
 }
@@ -29,6 +30,7 @@ func main() {
 	flag.BoolVar(&o.drift, "drift", false, "with -check: print the render's metrics against the targets per family")
 	flag.StringVar(&o.out, "out", "", "render tiles, the comparison and index.html into this directory and measure targets.json")
 	flag.StringVar(&o.lookOut, "look-out", "", "write partial Look 0 measurements and provenance to DIR/look.json (no acceptance claim)")
+	flag.BoolVar(&o.lookCheck, "look-check", false, "with -look-out: fail unless every required Look 0 acceptance rule passes")
 	flag.StringVar(&o.compare, "compare", "", "write only the comparison (bands, crops, compare.json) into this directory; skipped without the image")
 	flag.StringVar(&o.compareFormat, "compare-format", "jpg", "comparison image format: png or jpg")
 	flag.Parse()
@@ -39,6 +41,9 @@ func main() {
 }
 
 func run(o options) error {
+	if o.lookCheck && (o.lookOut == "" || o.dump || o.check || o.out != "" || o.compare != "") {
+		return fmt.Errorf("-look-check requires -look-out and cannot be combined with other output/check modes")
+	}
 	format := imageFormat(o.compareFormat)
 	switch format {
 	case "":
@@ -64,7 +69,13 @@ func run(o options) error {
 	}
 	switch {
 	case o.lookOut != "":
-		return p.writeLookReport(o.lookOut)
+		if err := p.writeLookReport(o.lookOut); err != nil {
+			return err
+		}
+		if o.lookCheck {
+			return checkWrittenLookGate(o.lookOut)
+		}
+		return nil
 	case o.check:
 	case o.out != "":
 		if err := p.render(o.out); err != nil {
