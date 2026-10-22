@@ -66,12 +66,14 @@ type game struct {
 	hudImg         *ebiten.Image // logical HUD canvas, magnified onto the screen
 	terrainFill    map[string]color.RGBA
 	ctl            *control
-	dos            *dosControl // set on the original rules (-rules dos); ctl and state are nil then
-	art            *artPacks   // unit sprite packs (-units); nil draws placeholder dots
-	artErr         string      // last sprite failure, shown in the status line
-	terrain        *terrainArt // composed terrain tiles (-terrain); nil draws coloured hexes
-	terrainErr     string      // last terrain tile failure, shown in the status line
-	scroll         float64     // map scroll speed, screen pixels per frame
+	dos            *dosControl        // set on the original rules (-rules dos); ctl and state are nil then
+	art            *artPacks          // unit sprite packs (-units); nil draws placeholder dots
+	artErr         string             // last sprite failure, shown in the status line
+	terrain        *terrainArt        // composed terrain tiles (-terrain); nil draws coloured hexes
+	terrainErr     string             // last terrain tile failure, shown in the status line
+	hdUnits        <-chan *artPacks   // full-quality unit art while it loads (-units-hd, without the menus)
+	hdTerrain      <-chan *terrainArt // full-quality terrain while it loads (-terrain-hd)
+	scroll         float64            // map scroll speed, screen pixels per frame
 }
 
 func newGame(lvl *level.Level, st *state.State, player state.Player, reveal bool) *game {
@@ -242,6 +244,14 @@ func (g *game) fill(terrain string) color.RGBA {
 }
 
 func (g *game) Update() error {
+	if u, ok := arrived(&g.hdUnits); ok {
+		g.art.release()
+		g.art = u
+	}
+	if t, ok := arrived(&g.hdTerrain); ok {
+		g.terrain.release()
+		g.terrain = t
+	}
 	dx, dy := 0.0, 0.0
 	if ebiten.IsKeyPressed(ebiten.KeyArrowLeft) || ebiten.IsKeyPressed(ebiten.KeyA) {
 		dx -= g.scroll
@@ -675,6 +685,7 @@ type matchConfig struct {
 	scroll     float64   // map scroll speed, screen pixels per frame
 	units      *artPacks // shared by every battle; nil draws placeholder dots
 	terrain    string    // terrain catalog directory, composed per level; "" draws coloured hexes
+	terrainHD  string    // full-quality terrain catalog loaded in the background of a battle; "" for none
 	candidates bool      // allow candidate terrain packs
 }
 
@@ -727,6 +738,11 @@ func newMatch(c matchConfig, m *meter) (*game, error) {
 		if gm.terrain, err = loadTerrainArt(c.terrain, c.candidates, c.lvl, m); err != nil {
 			return nil, err
 		}
+		if c.terrainHD != "" {
+			gm.hdTerrain = background("full-quality terrain", func() (*terrainArt, error) {
+				return loadTerrainArt(c.terrainHD, c.candidates, c.lvl, &meter{pause: pagePauser()})
+			})
+		}
 	}
 	return gm, nil
 }
@@ -743,6 +759,9 @@ func main() {
 	terrain := flag.String("terrain", "", "terrain tile catalog built by hlasset build-terrain (default: coloured hexes)")
 	screens := flag.String("screens", "", "screen catalog built by hlasset build-screens (default: plain menu panels)")
 	opponent := flag.String("opponent", "ai", "who plays the other side: ai (computer opponent) or pass (passes every turn, as in Python)")
+	unitsHD := flag.String("units-hd", "", "web: full-quality unit catalog, loaded in the background when the -units catalog downloaded fast")
+	terrainHD := flag.String("terrain-hd", "", "web: full-quality terrain catalog, loaded in the background of a battle when the -units catalog downloaded fast")
+	screensHD := flag.String("screens-hd", "", "web: full-quality screen catalog, loaded in the background when the -units catalog downloaded fast")
 	candidates := flag.Bool("allow-candidates", false, "allow unit, terrain and screen packs that are review candidates, not approved art")
 	capture := flag.String("capture", "", "dev: render nine 720p/1080p/4K review frames to a directory under build/ and exit (requires -units and -terrain)")
 	flag.Parse()
@@ -768,6 +787,12 @@ func main() {
 			log.Fatal(err)
 		}
 	}
+	// Only a fast connection loads the full-quality art as well.
+	hd := hdDirs{units: *unitsHD, screens: *screensHD, terrain: *terrainHD}
+	if !boot.fast() {
+		hd = hdDirs{}
+	}
+	c.terrainHD = hd.terrain
 	ebiten.SetWindowSize(startWidth, startHeight)
 	ebiten.SetWindowResizingMode(ebiten.WindowResizingModeEnabled)
 	ebiten.SetWindowTitle("Historyline 1914-1918")
@@ -784,7 +809,9 @@ func main() {
 			}
 		}
 		pageReady()
-		if err := ebiten.RunGame(newApp(c, campaign, art)); err != nil {
+		a := newApp(c, campaign, art)
+		a.hd = loadHDArt(hd, *candidates)
+		if err := ebiten.RunGame(a); err != nil {
 			log.Fatal(err)
 		}
 		return
@@ -817,6 +844,11 @@ func main() {
 			log.Fatal(err)
 		}
 		return
+	}
+	if hd.units != "" {
+		gm.hdUnits = background("full-quality units", func() (*artPacks, error) {
+			return loadUnitArt(hd.units, *candidates, &meter{pause: pagePauser()})
+		})
 	}
 	pageReady()
 	if err := ebiten.RunGame(gm); err != nil {

@@ -31,9 +31,10 @@ var (
 // app runs the menus and the battle they start.
 type app struct {
 	shell  *shell
-	base   matchConfig // the command line's settings; the menus fill in the rest
-	art    *screenArt  // nil draws plain panels
-	battle *game       // nil outside a battle
+	base   matchConfig  // the command line's settings; the menus fill in the rest
+	art    *screenArt   // nil draws plain panels
+	battle *game        // nil outside a battle
+	hd     <-chan hdArt // the full-quality art while it loads; nil when none is wanted
 
 	view    view
 	canvas  *ebiten.Image // one page at the canvas density
@@ -73,8 +74,29 @@ func newApp(base matchConfig, maps []mapLevel, art *screenArt) *app {
 	return &app{shell: s, base: base, art: art, press: -1}
 }
 
+// upgrade swaps in the full-quality art hd, in the menus and a running battle.
+func (a *app) upgrade(hd hdArt) {
+	if hd.units != nil {
+		old := a.base.units
+		a.base.units = hd.units
+		if a.battle != nil {
+			a.battle.art = hd.units
+		}
+		old.release()
+	}
+	if hd.screens != nil {
+		if a.art != nil {
+			a.art.packs.release()
+		}
+		a.art = hd.screens
+	}
+}
+
 func (a *app) Update() error {
 	s := a.shell
+	if hd, ok := arrived(&a.hd); ok {
+		a.upgrade(hd)
+	}
 	if s.quit {
 		return ebiten.Termination
 	}
@@ -96,6 +118,10 @@ func (a *app) Update() error {
 			return nil
 		}
 		a.battle, a.ended = r.gm, false
+		if a.base.units != nil {
+			// The full-quality units may have arrived while the battle loaded.
+			a.battle.art = a.base.units
+		}
 		s.page = pageBattle
 		return nil
 	case pageBattle:

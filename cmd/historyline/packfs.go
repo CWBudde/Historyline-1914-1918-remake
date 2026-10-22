@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"io/fs"
+	"log"
 	"net/http"
 	"net/url"
 	"os"
@@ -36,11 +37,16 @@ func openArtDir(dir string, m *meter) (fsys fs.FS, done func(), err error) {
 }
 
 // meter counts the bytes a load fetches over HTTP for a progress bar: total
-// grows as each catalog's listing arrives, done as its files do. A nil meter
-// counts nothing; a catalog on disk fetches nothing.
+// grows as each catalog's listing arrives, done as its files do, and took by
+// the time spent fetching. A nil meter counts nothing; a catalog on disk
+// fetches nothing.
 type meter struct {
 	done, total atomic.Int64
+	took        atomic.Int64  // nanoseconds
 	fetched     func(n int64) // also told of each fetched file, from the fetching goroutine; may be nil
+	// pause is called before each file a catalog fetched over HTTP is read, so
+	// that a background load lets the page draw (pagePauser); may be nil.
+	pause func()
 }
 
 func (m *meter) expect(n int64) {
@@ -59,6 +65,13 @@ func (m *meter) add(n int64) {
 	}
 }
 
+// fast reports whether the catalogs arrived at hdRate or faster, as catalogs
+// on disk do.
+func (m *meter) fast() bool {
+	t := time.Duration(m.took.Load())
+	return t == 0 || float64(m.done.Load())/t.Seconds() >= hdRate
+}
+
 // fraction is the share of the expected bytes fetched; ok is false while none
 // are expected.
 func (m *meter) fraction() (f float64, ok bool) {
@@ -73,8 +86,9 @@ func (m *meter) fraction() (f float64, ok bool) {
 // catalog: one "<size> <path>" line per file, since HTTP cannot list directories.
 const httpListing = "files.txt"
 
-// httpFetches is how many files an httpFS fetches at a time.
-const httpFetches = 16
+// httpFetches is how many files an httpFS fetches at a time, and httpTries
+// how often it asks for a file before giving up.
+const httpFetches, httpTries = 16, 3
 
 // httpFS is a pack catalog served over HTTP. Opening it fetches every listed
 // file, several at a time, since the packs read them all anyway and one request
@@ -82,6 +96,7 @@ const httpFetches = 16
 // listing.
 type httpFS struct {
 	base  *url.URL                   // catalog URL; its query, such as a build version, goes on every file
+	pause func()                     // the meter's pause; may be nil
 	size  map[string]int64           // file -> size
 	data  map[string][]byte          // file -> contents
 	child map[string]map[string]bool // directory -> entry name -> is a directory
@@ -93,6 +108,10 @@ func openHTTPFS(base string, m *meter) (*httpFS, error) {
 		return nil, err
 	}
 	h := &httpFS{base: u, size: map[string]int64{}, child: map[string]map[string]bool{".": {}}}
+	if m != nil {
+		h.pause = m.pause
+	}
+	start := time.Now()
 	b, err := httpGet(h.url(httpListing))
 	if err != nil {
 		return nil, err
@@ -137,6 +156,9 @@ func openHTTPFS(base string, m *meter) (*httpFS, error) {
 	if err := g.Wait(); err != nil {
 		return nil, err
 	}
+	if m != nil {
+		m.took.Add(int64(time.Since(start)))
+	}
 	return h, nil
 }
 
@@ -168,6 +190,9 @@ func (h *httpFS) Open(name string) (fs.File, error) {
 		entries, _ := h.ReadDir(name)
 		return &httpDir{info: fi.(httpInfo), entries: entries}, nil
 	}
+	if h.pause != nil {
+		h.pause()
+	}
 	return &httpFile{info: fi.(httpInfo), Reader: bytes.NewReader(h.data[name])}, nil
 }
 
@@ -176,6 +201,9 @@ func (h *httpFS) ReadFile(name string) ([]byte, error) {
 	if !ok {
 		return nil, &fs.PathError{Op: "read", Path: name, Err: fs.ErrNotExist}
 	}
+	if h.pause != nil {
+		h.pause()
+	}
 	return slices.Clone(b), nil
 }
 
@@ -183,6 +211,11 @@ func (h *httpFS) ReadFile(name string) ([]byte, error) {
 func (h *httpFS) fetch(name string) ([]byte, error) {
 	n := h.size[name]
 	b, err := httpGet(h.url(name))
+	for try := 1; err != nil && try < httpTries; try++ {
+		log.Printf("%s: %v; trying again", name, err)
+		time.Sleep(time.Duration(try) * 100 * time.Millisecond)
+		b, err = httpGet(h.url(name))
+	}
 	if err != nil {
 		return nil, &fs.PathError{Op: "read", Path: name, Err: err}
 	}
