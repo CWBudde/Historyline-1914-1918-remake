@@ -28,10 +28,10 @@ const tilePad = 3
 // groups only when the catalog has standing items or cluster stamps.
 var (
 	terrainGroups  = []string{"backgrounds", "infrastructure", "context-ground", "context-forest", "context-hills"}
-	optionalGroups = []string{standingGroup, stampGroup}
+	optionalGroups = []string{standingGroup, standingStampGroup, stampGroup}
 )
 
-const standingGroup, stampGroup = "standing", "stamps"
+const standingGroup, standingStampGroup, stampGroup = "standing", "standing-stamps", "stamps"
 
 // terrainArt is the runtime terrain catalog and the level composed from it.
 type terrainArt struct {

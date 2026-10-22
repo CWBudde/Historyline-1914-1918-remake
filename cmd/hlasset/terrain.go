@@ -28,14 +28,14 @@ var (
 	terrainGroups    = []string{"backgrounds", "infrastructure", "context-ground", "context-forest", "context-hills"}
 	// optionalGroups are built only when the index has standing items or cluster
 	// stamps.
-	optionalGroups = []string{standingGroup, stampGroup}
+	optionalGroups = []string{standingGroup, standingStampGroup, stampGroup}
 )
 
-const standingGroup, stampGroup = "standing", "stamps"
+const standingGroup, standingStampGroup, stampGroup = "standing", "standing-stamps", "stamps"
 
 // terrainPack is one built terrain group at one density.
 type terrainPack struct {
-	Group    string // backgrounds, infrastructure, context-<family>, standing or stamps
+	Group    string // backgrounds, infrastructure, context-<family>, standing, standing-stamps or stamps
 	Density  int
 	Manifest assets.Manifest
 }
@@ -124,6 +124,9 @@ func optionalProblem(group string, e assets.Entry, d int) string {
 			return "is not a stamp/<kind>/<shape>/<variant>"
 		}
 		return ""
+	}
+	if group == standingStampGroup && !strings.HasPrefix(e.ID, "standing/stamp/") {
+		return "is not a standing/stamp/<kind>/<shape>/<variant>"
 	}
 	if !strings.HasPrefix(e.ID, "standing/") {
 		return "is not a standing/<id>"

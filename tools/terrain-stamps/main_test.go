@@ -98,6 +98,26 @@ func TestInvalidInputDoesNotPublish(t *testing.T) {
 	}
 }
 
+func TestClusterStandingUsesSeparatePack(t *testing.T) {
+	root, m := fixture(t)
+	m.Assets[0].ID = "standing/stamp/knoll_w/1/1"
+	out := filepath.Join(root, "out")
+	if err := run([]string{"-manifest", writeManifest(t, root, m), "-out", out}, io.Discard); err != nil {
+		t.Fatal(err)
+	}
+	var entries []indexEntry
+	readJSON(t, filepath.Join(out, "index-entries.json"), &entries)
+	if len(entries) != 2 {
+		t.Fatalf("got %d entries, want both densities", len(entries))
+	}
+	for _, e := range entries {
+		want := "terrain-standing-stamps-" + string(rune('0'+e.Density)) + "x"
+		if e.Pack != want || e.Layer != "standing" {
+			t.Fatalf("cluster standing output: %+v, want %s", e, want)
+		}
+	}
+}
+
 func TestClusterCanvasAndAlphaReduction(t *testing.T) {
 	root, m := fixture(t)
 	// A half-transparent silhouette beside fully transparent magenta catches

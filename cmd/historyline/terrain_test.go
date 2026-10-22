@@ -49,8 +49,16 @@ func terrainCatalog(t *testing.T, l *level.Level, skip string, contexts ...strin
 		contexts = append(contexts, mapcompose.ContextID(f, "unused"))
 	}
 	for _, id := range contexts {
+		if strings.HasPrefix(id, "standing/stamp/") {
+			ids[id] = "standing-stamps"
+			continue
+		}
 		if strings.HasPrefix(id, "standing/") {
 			ids[id] = standingGroup
+			continue
+		}
+		if strings.HasPrefix(id, "stamp/") {
+			ids[id] = stampGroup
 			continue
 		}
 		ids[id] = "context-" + strings.Split(id, "/")[1]
@@ -287,5 +295,35 @@ func TestOpenTerrainArtAddsStandingItems(t *testing.T) {
 	}
 	if houses == 0 {
 		t.Fatal("level has no house")
+	}
+}
+
+func TestOpenTerrainArtAddsSeparateClusterStandingPack(t *testing.T) {
+	l := testLevel(t)
+	stamp := mapcompose.StampID("knoll", "1", 1)
+	standing := mapcompose.StandingID(stamp)
+	fsys := terrainCatalog(t, l, "", stamp, standing)
+	a, err := openTerrainArt(fsys, assets.Options{AllowCandidates: true}, l)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if a.group[standing] != "standing-stamps" || a.bleed["standing-stamps"] {
+		t.Fatalf("standing stamp group=%s, bleed=%v", a.group[standing], a.bleed["standing-stamps"])
+	}
+	selected := 0
+	for _, cl := range a.scene.Clusters {
+		if cl.Stamp == stamp {
+			selected++
+			if cl.Standing != standing {
+				t.Errorf("selected cluster has standing %q", cl.Standing)
+			}
+		}
+	}
+	if selected == 0 {
+		t.Fatal("fixture did not exercise a stamped cluster")
+	}
+	delete(fsys, "4x/standing-stamps/manifest.json")
+	if _, err := openTerrainArt(fsys, assets.Options{AllowCandidates: true}, l); err == nil {
+		t.Fatal("accepted cluster standing pack with a missing density")
 	}
 }

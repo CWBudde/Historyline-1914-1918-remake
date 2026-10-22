@@ -1,0 +1,219 @@
+{
+  "assets": [
+    {
+      "art": "terrain/ground",
+      "canvas": [
+        96,
+        80
+      ],
+      "crop": [
+        0,
+        0,
+        1374,
+        1145
+      ],
+      "id": "stamp/boulders_w/1/1",
+      "layer": "ground",
+      "logical_anchor": [
+        48,
+        40
+      ],
+      "path": "terrain/ground/boulders-single-winter",
+      "source": "art/terrain/ground/ground-boulders-single-winter-v1.png",
+      "source_sha256": "96ed46ae27431d9df5aca2c02e87eb7afbc87b68064bb0d23eac8bab730b44f0"
+    },
+    {
+      "art": "terrain/ground",
+      "canvas": [
+        240,
+        160
+      ],
+      "crop": [
+        0,
+        0,
+        1536,
+        1024
+      ],
+      "id": "stamp/boulders_w/3_-1.1_-2.2/1",
+      "layer": "ground",
+      "logical_anchor": [
+        191,
+        40
+      ],
+      "path": "terrain/ground/boulders-sw-three-winter",
+      "source": "art/terrain/ground/ground-boulders-sw-three-winter-v1.png",
+      "source_sha256": "6f9e1925c488e63f007517f7f23c32267c1f9cfbb9c36ca826f5a049ae86671b"
+    },
+    {
+      "art": "terrain/ground",
+      "canvas": [
+        128,
+        192
+      ],
+      "crop": [
+        0,
+        0,
+        1024,
+        1536
+      ],
+      "id": "stamp/boulders_w/2_0.2/1",
+      "layer": "ground",
+      "logical_anchor": [
+        64,
+        56
+      ],
+      "path": "terrain/ground/boulders-vertical-two-winter",
+      "source": "art/terrain/ground/ground-boulders-vertical-two-winter-v1.png",
+      "source_sha256": "a6a3e08e97b9c5b824de751afacc3ef2c313c65f633d54444006597a124f736d"
+    },
+    {
+      "art": "terrain/mountain",
+      "canvas": [
+        144,
+        120
+      ],
+      "id": "stamp/knoll_w/1/1",
+      "layer": "ground",
+      "logical_anchor": [
+        72,
+        60
+      ],
+      "path": "terrain/mountain/knoll-single-winter-ground",
+      "transparent": true
+    },
+    {
+      "art": "terrain/mountain",
+      "canvas": [
+        144,
+        120
+      ],
+      "crop": [
+        0,
+        0,
+        1374,
+        1145
+      ],
+      "id": "standing/stamp/knoll_w/1/1",
+      "layer": "standing",
+      "logical_anchor": [
+        72,
+        60
+      ],
+      "path": "terrain/mountain/knoll-single-winter-standing",
+      "source": "art/terrain/mountain/mountain-knoll-single-winter-v1.png",
+      "source_sha256": "e4bcd420db79cd9d15e9dfcd52409634a3beed0c66db973748ae0b98701d07f4"
+    },
+    {
+      "art": "terrain/mountain",
+      "canvas": [
+        240,
+        160
+      ],
+      "id": "stamp/knoll_w/3_-1.1_-2.2/1",
+      "layer": "ground",
+      "logical_anchor": [
+        191,
+        40
+      ],
+      "path": "terrain/mountain/knoll-group-sw-three-winter-ground",
+      "transparent": true
+    },
+    {
+      "art": "terrain/mountain",
+      "canvas": [
+        240,
+        160
+      ],
+      "crop": [
+        0,
+        0,
+        1536,
+        1024
+      ],
+      "id": "standing/stamp/knoll_w/3_-1.1_-2.2/1",
+      "layer": "standing",
+      "logical_anchor": [
+        191,
+        40
+      ],
+      "path": "terrain/mountain/knoll-group-sw-three-winter-standing",
+      "source": "art/terrain/mountain/mountain-knoll-group-sw-three-winter-v1.png",
+      "source_sha256": "92be1b17d71025ccc17aa587fbeecaa45c509d91377318727095a32f8da86c96"
+    },
+    {
+      "art": "terrain/mountain",
+      "canvas": [
+        240,
+        160
+      ],
+      "id": "stamp/knoll_w/3_2.0_1.1/1",
+      "layer": "ground",
+      "logical_anchor": [
+        48,
+        40
+      ],
+      "path": "terrain/mountain/knoll-group-triangle-three-winter-ground",
+      "transparent": true
+    },
+    {
+      "art": "terrain/mountain",
+      "canvas": [
+        240,
+        160
+      ],
+      "crop": [
+        0,
+        0,
+        1536,
+        1024
+      ],
+      "id": "standing/stamp/knoll_w/3_2.0_1.1/1",
+      "layer": "standing",
+      "logical_anchor": [
+        48,
+        40
+      ],
+      "path": "terrain/mountain/knoll-group-triangle-three-winter-standing",
+      "source": "art/terrain/mountain/mountain-knoll-group-triangle-three-winter-v1.png",
+      "source_sha256": "524783c25c897e65694284f0ed13bc7e8115a7591b19a54140a500aa2ab7a9ac"
+    },
+    {
+      "art": "terrain/mountain",
+      "canvas": [
+        192,
+        288
+      ],
+      "id": "stamp/knoll_w/4_1.1_0.2_0.4/1",
+      "layer": "ground",
+      "logical_anchor": [
+        96,
+        48
+      ],
+      "path": "terrain/mountain/knoll-group-vertical-four-winter-ground",
+      "transparent": true
+    },
+    {
+      "art": "terrain/mountain",
+      "canvas": [
+        192,
+        288
+      ],
+      "crop": [
+        0,
+        0,
+        1024,
+        1536
+      ],
+      "id": "standing/stamp/knoll_w/4_1.1_0.2_0.4/1",
+      "layer": "standing",
+      "logical_anchor": [
+        96,
+        48
+      ],
+      "path": "terrain/mountain/knoll-group-vertical-four-winter-standing",
+      "source": "art/terrain/mountain/mountain-knoll-group-vertical-four-winter-v1.png",
+      "source_sha256": "e74e05f3798fb00cdf35cc1ca0b64b7d37b169bd803e042bcce1c53b4b50c1ca"
+    }
+  ],
+  "schema_version": 1
+}

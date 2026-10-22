@@ -3,8 +3,8 @@ id: terrain/ground
 title: Ground
 kind: terrain
 status: candidate
-runtime_ids: mud, rough_w, shelled_w, stone, stoney_w, stamp/crater/4_-1.1_1.1_0.2/1, stamp/crater/4_-1.1_1.1_0.2/2, stamp/boulders/1/1, stamp/boulders/4_2.0_1.1_0.2/1, stamp/boulders/5_-1.1_0.2_-1.3_1.3/1, stamp/crater_w/1/1, stamp/crater_w/2_1.1/1, stamp/crater_w/2_-1.1/1, stamp/crater_w/6_-1.1_-4.2_-2.2_-3.3_-1.3/1
-masters: ground-crater-summer-v1.png, ground-crater-pair-summer-v1.png, ground-boulders-single-summer-v1.png, ground-boulders-four-summer-v1.png, ground-boulders-five-summer-v1.png, ground-mud-summer-v2.png, ground-stone-summer-v2.png, ground-rough-winter-v2.png, ground-shelled-winter-v2.png, ground-stony-winter-v2.png, ground-earth-bank-shared-v2.png, ground-earth-bank-shared-v1.png, ground-mud-summer-v1.png, ground-rough-winter-v1.png, ground-shelled-winter-v1.png, ground-stone-summer-v1.png, ground-stony-winter-v1.png, ground-crater-single-winter-v1.png, ground-crater-pair-se-winter-v1.png, ground-crater-pair-sw-winter-v1.png, ground-crater-field-six-winter-v1.png
+runtime_ids: mud, rough_w, shelled_w, stone, stoney_w, stamp/crater/4_-1.1_1.1_0.2/1, stamp/crater/4_-1.1_1.1_0.2/2, stamp/boulders/1/1, stamp/boulders/4_2.0_1.1_0.2/1, stamp/boulders/5_-1.1_0.2_-1.3_1.3/1, stamp/crater_w/1/1, stamp/crater_w/2_1.1/1, stamp/crater_w/2_-1.1/1, stamp/crater_w/6_-1.1_-4.2_-2.2_-3.3_-1.3/1, stamp/boulders_w/1/1, stamp/boulders_w/3_-1.1_-2.2/1, stamp/boulders_w/2_0.2/1
+masters: ground-crater-summer-v1.png, ground-crater-pair-summer-v1.png, ground-boulders-single-summer-v1.png, ground-boulders-four-summer-v1.png, ground-boulders-five-summer-v1.png, ground-mud-summer-v2.png, ground-stone-summer-v2.png, ground-rough-winter-v2.png, ground-shelled-winter-v2.png, ground-stony-winter-v2.png, ground-earth-bank-shared-v2.png, ground-earth-bank-shared-v1.png, ground-mud-summer-v1.png, ground-rough-winter-v1.png, ground-shelled-winter-v1.png, ground-stone-summer-v1.png, ground-stony-winter-v1.png, ground-crater-single-winter-v1.png, ground-crater-pair-se-winter-v1.png, ground-crater-pair-sw-winter-v1.png, ground-crater-field-six-winter-v1.png, ground-boulders-single-winter-v1.png, ground-boulders-sw-three-winter-v1.png, ground-boulders-vertical-two-winter-v1.png
 ---
 
 ## Look
@@ -21,6 +21,9 @@ tufts and moss over transparent ground; the shared meadow shows between the ston
 Winter crater stamps use the same cracked earth with settled ivory snow, exposed grey-brown basins
 and sparse straw tips. Single, both diagonal pairs and the six-cell field retain transparent margins
 over the selected winter meadow.
+
+Winter boulder stamps retain rounded snow-capped rocks and transparent gaps over the selected snow.
+Single, vertical-pair and southwest three-cell scatters use their own continuous paintings.
 
 ## Base prompt
 Opaque top-down terrain illustration, landscape 6:5 canvas filled edge to edge, strict nadir view.
@@ -65,6 +68,10 @@ grid, hex outline, people, checkerboard, photographic texture or 3D rendering.
 | winter se stamp | stamp/crater_w/2_1.1/1 | Snow-capped cracked earth; canvas 192×128, anchor (60,44); alpha over winter meadow. |
 | winter sw stamp | stamp/crater_w/2_-1.1/1 | Snow-capped cracked earth; canvas 192×128, anchor (132,44); alpha over winter meadow. |
 | winter six stamp | stamp/crater_w/6_-1.1_-4.2_-2.2_-3.3_-1.3/1 | Snow-capped cracked earth; canvas 384×256, anchor (330,64); alpha over winter meadow. |
+
+| winter boulders-single | stamp/boulders_w/1/1 | Snow-covered boulders_w; canvas 96×80, anchor (48,40), transparent margins. |
+| winter boulders-sw-three | stamp/boulders_w/3_-1.1_-2.2/1 | Snow-covered boulders_w; canvas 240×160, anchor (191,40), transparent margins. |
+| winter boulders-vertical-two | stamp/boulders_w/2_0.2/1 | Snow-covered boulders_w; canvas 128×192, anchor (64,56), transparent margins. |
 
 ## Edges & joins
 Ground tiles are chosen by context: the renderer blends the material towards the seasonal meadow on
@@ -180,6 +187,44 @@ shallower, with clear snow between the impacts instead of a broad connected dirt
 
 ```text
 Edit this terrain stamp to reduce the size and depth of EACH of its three craters, individually, while KEEPING THEIR CENTRE POSITIONS and the1536x1024 canvas. Each crater must be about HALF ITS CURRENT DIAMETER: much smaller, with large transparent snowy gaps between the three features. Do not shrink the whole group together; preserve its broad spread. Positions fixed: one basin upper-right near77%width33%height, another lower-left near21%width64%height, third lower-middle near58%width64%height. Target each outer cracked rim about20%of totalcanvaswidth and25%ofheight. Three small low shallow shell impacts with a narrow broken tan/grey-brown rim, subtly depressed cracked-earth floor, thin cool ivory snow on rim clods and patches of floor. FLATTEN the cut banks dramatically: no deep quarry walls, tall cliffs, black holes or bucket shape. Fine hand-painted aerial tactical-game style, strict topdown nadir and restrained upper-left diffuse light. Loose very sparse pebbles/straw provide a slight irregular scatter between craters, most gaps EMPTY TRUE ALPHA so existing snow shows through. Keep no broad brown earth plate or brown haze, no rectangular snowy background, no shadows outside earth. Preserve3craters EXACTLY, all rims safely in frame and clearly separated. Alpha-zero margins and gaps, no text/grid/roads/buildings.
+
+```
+
+### Winter relief stamps
+`tools/terrain-stamps -manifest art/pipeline/winter-relief-stamps-v1.json` exports the selected winter
+relief paintings at 2×/4×. Sources, crop rectangles and hashes are pinned; aspect is preserved without
+enlargement. Cluster anchors are relative to the first cell, independent of map coordinates. Boulder
+scatters use the ground layer; knolls use a transparent ground stamp and an overhanging standing scene.
+
+#### ground-boulders-single-winter-v1.png
+Native selected source, crop `[0 0 1374 1145]`; fixed 2×/4× export without enlargement.
+
+```text
+Use case: lighting-weather. Edit the FIRST reference from summer to WINTER ONLY. The SECOND reference is the selected snow material, colour only. Preserve the exact nadir camera, full composition, sizes, positions, silhouette and fine hand-painted tactical-map style. Thin settled ivory-white snow with subdued blue-grey creases rests on upward rock faces and among tufts, leaving warm grey/brown rock sides exposed. Summer grass becomes sparse pale straw; shrubs stay small and muted with light snow dusting. Soft diffuse upper-left light and short shadows. Keep original alpha-zero gaps and outer margins, genuine RGBA transparency; do not add a rectangular ground plate, haze, glow, broad drop shadow, solid white background or black mat. Keep all objects entirely in frame with clear padding. No extra objects, craters, roads, text, grid, footprints, photographic or3D style. Rounded boulders remain isolated small rocks in the exact same scatter with transparent snow-ground gaps between every cluster. Snow caps cover about one third of their upper surfaces. Preserve original6:5 canvas at native1374x1145, no crop or stretching.
+```
+
+#### ground-boulders-sw-three-winter-v1.png
+Native selected source, crop `[0 0 1536 1024]`; fixed 2×/4× export without enlargement.
+
+```text
+Use case: stylized-concept. Newly authored WINTER terrain cutout in the exact fine hand-painted tactical-map material style of the supplied winter feature. Strict top-down orthographic nadir camera. Diffuse upper-left daylight, subtle short lower-right shadows. Thin cool ivory settled snow, subdued blue-grey snow creases, exposed warm grey-beige rock, sparse faded straw and tiny snow-dusted low shrubs. Genuine RGBA alpha-zero outside the irregular feature and in internal gaps, no rectangular snow mat, no brown or grey blurry backdrop, no glow or external shadow. Features entirely inside the image with clear outer margins. No text, hexes, borders, grids, buildings, roads, craters, people, footprints, photograph, pixels or3D look. A loose scatter of40–50 SMALL rounded boulders and tiny pebbles across a long diagonal strip from UPPER-RIGHT to LOWER-LEFT, three loose groups connected only by sparse little stones, lots of transparent gaps. One groupcentre80%width25%height, another50%width50%height, third20%width75%height. Every boulder remains small like reference; NONE wider than4%of fullcanvaswidth (at240x160 game footprint, about6–10worldpixels). Preserve fine natural detail and snow caps, no slabs or cliffs, no large central boulder. Native landscape1536x1024 (3:2), overall scatter inside central90%canvas.
+```
+
+#### ground-boulders-vertical-two-winter-v1.png
+Native 1024×1536 RGBA cut-out, full-source crop `[0 0 1024 1536]`, canvas128×192 and anchor(64,56).
+Two sparse rock groups leave the selected snow visible between all objects.
+
+Base generation:
+
+```text
+Create a NEW clean transparent winter boulder scatter using this reference for the PAINTED ROCK MATERIAL ONLY. New arrangement is TWO separated small groups on a vertical axis, not the reference's diagonal three groups. PORTRAIT2:3 canvas1024x1536. Group centres50%width29%height and50%width71%height. About10small rounded grey-beige boulders per group plus tiny pebbles, sizevarying naturally; largestboulder no wider than7%canvaswidth. At128x192 logical game footprint the stones are6–9pixels wide, same scale asreference. Thin cool ivory snow ONLY ON rock tops, a few tiny faded straw tufts; exposed warmgrey rocksides and short subtle upper-left lighting. Draw ONLY the individual rocks/pebbles/tufts on clear alpha, with empty transparent gaps everywhere between objects. NO connected ground patch, white snowy floor mat, background surface, blurry halo, glow or drop shadow. Entire background alpha0. Clean sharp natural antialiased silhouettes with neutral snowy/stone colours, absolutely NO red/yellow/cyan/blue edge pixels or bright coloured outline. All rocks completely in frame with generous clear margins. Strict TOPDOWN orthographic nadir, detailed handpainted tactical-game material. No craters, slabs, cliffs, objects, text, labels, grids, photo or3D.
+
+```
+
+Scale refinement:
+
+```text
+Keep this1024x1536 transparent winter boulder scatter canvas and the exact locations of both groups. SHRINK EACH INDIVIDUAL BOULDER around its own current centre to ONE THIRD of its current diameter. Do not move the centres, do not scale the whole painting together, do not crop or zoom. The biggest rock now occupies about230pixels width; make it about70pixels width. All smallerrocks similarly reduce, leaving far MORE EMPTY TRANSPARENT SPACE between them. Two groups still spread across the same upper and lower regions; add a few tiny pebbles if helpful. Individual rock scale must be small: largestrock only6–7percent of totalcanvaswidth. Keep the same fine painted grey-beige stone material, thin ivory snow caps, subdued natural shadows confined to rocks and sparse faded straw tufts, same strict nadir camera. No ground patch, snowy mat, haze, glow or external shadow. Genuine alpha0 between every object and around all edges. Preserve clean natural neutral antialiasing: no red/yellow/cyan/blue outline or fringe. No other changes.
 
 ```
 

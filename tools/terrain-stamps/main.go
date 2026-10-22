@@ -121,6 +121,9 @@ func run(args []string, log io.Writer) (resultErr error) {
 		group := "stamps"
 		if a.Layer == "standing" {
 			group = "standing"
+			if strings.HasPrefix(a.ID, "standing/stamp/") {
+				group = "standing-stamps"
+			}
 		}
 		for _, v := range []struct {
 			density int

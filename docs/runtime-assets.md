@@ -48,7 +48,9 @@ The optional group `standing` holds standing items `standing/<runtime id>` (laye
 that overhangs the hex by at most half a hex on each side. The optional group `stamps` holds cluster stamps
 `stamp/<kind>/<shape>/<variant>` (variants 1 to 8, numbered without gaps), anchored on the centre of the
 cluster's first hex; a stamp's standing part is `standing/stamp/<kind>/<shape>/<variant>` and may span the
-cluster.
+cluster. Standing cluster scenes use the optional `standing-stamps` group, separate from ordinary
+standing tiles so each pack stays within the decoded-image budget. Older catalogs with these scenes
+in `standing` still load. Runtime IDs, anchors and drawing order are shared by both layouts.
 
 Clusters are connected hexes of one kind: `crater` (`mud`), `boulders` (`stone`), `knoll` (`mountain`),
 `lake` (`water`, `waterStones`, `lakeside*`); the winter kinds (`shelled_w`, `stoney_w`, `mountain_w`) end

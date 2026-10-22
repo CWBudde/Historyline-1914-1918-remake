@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"io/fs"
 	"os"
@@ -38,7 +39,9 @@ func TestRetainedTerrainCatalogBuilds(t *testing.T) {
 	want := map[string]int{"backgrounds": 104, "infrastructure": 75, "context-ground": 110, "context-forest": 111, "context-hills": 159}
 	for _, e := range retainedIndex(t) {
 		if e.Density == 2 {
-			if strings.HasPrefix(e.Pack, "terrain-standing-") {
+			if strings.HasPrefix(e.Pack, "terrain-standing-stamps-") {
+				want[standingStampGroup]++
+			} else if strings.HasPrefix(e.Pack, "terrain-standing-") {
 				want[standingGroup]++
 			}
 			if strings.HasPrefix(e.Pack, "terrain-stamps-") {
@@ -70,8 +73,19 @@ func TestRetainedTerrainCatalogBuilds(t *testing.T) {
 			{stampGroup, "stamp/crater_w/2_1.1/1", 192, 128, [2]float64{60, 44}},
 			{stampGroup, "stamp/crater_w/2_-1.1/1", 192, 128, [2]float64{132, 44}},
 			{stampGroup, "stamp/crater_w/6_-1.1_-4.2_-2.2_-3.3_-1.3/1", 384, 256, [2]float64{330, 64}},
+			{stampGroup, "stamp/boulders_w/1/1", 96, 80, [2]float64{48, 40}},
+			{stampGroup, "stamp/boulders_w/3_-1.1_-2.2/1", 240, 160, [2]float64{191, 40}},
+			{stampGroup, "stamp/boulders_w/2_0.2/1", 128, 192, [2]float64{64, 56}},
+			{stampGroup, "stamp/knoll_w/1/1", 144, 120, [2]float64{72, 60}},
+			{standingStampGroup, "standing/stamp/knoll_w/1/1", 144, 120, [2]float64{72, 60}},
+			{stampGroup, "stamp/knoll_w/3_-1.1_-2.2/1", 240, 160, [2]float64{191, 40}},
+			{standingStampGroup, "standing/stamp/knoll_w/3_-1.1_-2.2/1", 240, 160, [2]float64{191, 40}},
+			{stampGroup, "stamp/knoll_w/3_2.0_1.1/1", 240, 160, [2]float64{48, 40}},
+			{standingStampGroup, "standing/stamp/knoll_w/3_2.0_1.1/1", 240, 160, [2]float64{48, 40}},
+			{stampGroup, "stamp/knoll_w/4_1.1_0.2_0.4/1", 192, 288, [2]float64{96, 48}},
+			{standingStampGroup, "standing/stamp/knoll_w/4_1.1_0.2_0.4/1", 192, 288, [2]float64{96, 48}},
 			{stampGroup, "stamp/knoll/1/1", 144, 120, [2]float64{72, 60}},
-			{standingGroup, "standing/stamp/knoll/1/1", 144, 120, [2]float64{72, 60}},
+			{standingStampGroup, "standing/stamp/knoll/1/1", 144, 120, [2]float64{72, 60}},
 		} {
 			e, err := openTerrainPack(t, out, d, feature.group).Entry(feature.id, d)
 			if err != nil {
@@ -234,11 +248,8 @@ func TestTerrainGapsReport(t *testing.T) {
 	if strings.Contains(s, "  unstamped lake ") {
 		t.Error("reusable lake tiles reported as a missing whole-lake painting")
 	}
-	if strings.Contains(s, "  unstamped crater_w ") {
-		t.Error("shipped winter crater shape has no installed stamp")
-	}
-	if !strings.Contains(s, "  unstamped boulders_w ") {
-		t.Error("missing winter boulder stamps disappeared from the report")
+	if strings.Contains(s, "  unstamped ") {
+		t.Errorf("shipped terrain cluster has no installed stamp:\n%s", s)
 	}
 	for _, want := range []string{
 		"level1_cp: 156 context tiles selected, 0 missing, 0 undefined, 0 compound issues",
@@ -248,6 +259,45 @@ func TestTerrainGapsReport(t *testing.T) {
 		if !strings.Contains(s, want) {
 			t.Errorf("report lacks %q", want)
 		}
+	}
+	// A catalog with an omitted optional stamp must still report the fallback.
+	// Remove the same known crater shape at both densities, leaving other art intact.
+	for _, d := range terrainDensities {
+		p := filepath.Join(out, terrainDir(d, stampGroup), "manifest.json")
+		raw, err := os.ReadFile(p)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var m assets.Manifest
+		if err := json.Unmarshal(raw, &m); err != nil {
+			t.Fatal(err)
+		}
+		kept, removed := m.Entries[:0], false
+		for _, e := range m.Entries {
+			if e.ID == "stamp/crater_w/1/1" {
+				removed = true
+			} else {
+				kept = append(kept, e)
+			}
+		}
+		if !removed {
+			t.Fatal("missing retained single-crater stamp")
+		}
+		m.Entries = kept
+		raw, err = json.MarshalIndent(m, "", "  ")
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err := os.WriteFile(p, append(raw, '\n'), 0o644); err != nil {
+			t.Fatal(err)
+		}
+	}
+	b.Reset()
+	if err := run([]string{"terrain-gaps", "-terrain", out}, &b); err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(b.String(), "  unstamped crater_w 1 ") {
+		t.Error("omitted winter crater stamp disappeared from the report")
 	}
 }
 
@@ -350,5 +400,37 @@ func TestTerrainPlanStamps(t *testing.T) {
 	es[len(es)-2].ID = "tile/crater"
 	if _, err := planTerrain(es); err == nil || !strings.Contains(err.Error(), "is not a stamp/") {
 		t.Errorf("tile in the stamp pack: %v", err)
+	}
+}
+
+func TestTerrainPlanSeparateStandingStamps(t *testing.T) {
+	es := withoutOptionalTerrain(retainedIndex(t))
+	for _, d := range terrainDensities {
+		es = append(es, indexEntry{ID: "standing/stamp/knoll_w/1/1", Pack: fmt.Sprintf("terrain-standing-stamps-%dx", d),
+			Density: d, Path: fmt.Sprintf("terrain/mountain/knoll-winter-%dx.png", d), SHA256: strings.Repeat("0", 64),
+			Width: 300 * d, Height: 160 * d, Anchor: &[2]float64{140, 40}, Layer: "standing", Art: "terrain/mountain"})
+	}
+	packs, err := planTerrain(es)
+	if err != nil {
+		t.Fatal(err)
+	}
+	n := 0
+	for _, p := range packs {
+		if p.Group == "standing-stamps" {
+			n++
+			if len(p.Manifest.Entries) != 1 || p.Manifest.Entries[0].ID != "standing/stamp/knoll_w/1/1" {
+				t.Fatalf("cluster pack entries: %+v", p.Manifest)
+			}
+		}
+	}
+	if n != 2 {
+		t.Fatalf("got %d cluster-standing packs, want both densities", n)
+	}
+	if _, err := planTerrain(es[:len(es)-1]); err == nil || !strings.Contains(err.Error(), "at 1 of 2 densities") {
+		t.Errorf("missing density: %v", err)
+	}
+	es[len(es)-1].ID = "standing/forest"
+	if _, err := planTerrain(es); err == nil || !strings.Contains(err.Error(), "standing/stamp/") {
+		t.Errorf("non-cluster standing item: %v", err)
 	}
 }
