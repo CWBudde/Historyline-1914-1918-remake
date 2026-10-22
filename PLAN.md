@@ -440,6 +440,10 @@ Stop adding enumerated baked contexts. Each one fixes the old sampling in place,
       - stands of species chosen by low-frequency noise.
       Interim art: `forest-crowns-summer-v3.png` (crowns fill 75 % of the panel); then generate the F2
       crown sheet and the F1 floor.
+      F1 comparison source `forest-floor-summer-v5.png` is retained with its exact prompt; darker than
+      v4, but fern scale, colour, periodic seams and composed-map acceptance remain open. F2 crown
+      trials fail measured size/gutter requirements; G1 meadow trials retain oversized foliage. Both
+      stay unselected under `build/review/look2-art/`. No runtime promotion. (2026-10-22)
 - [ ] Meadow: generate G1 (macro material, 568×400 world period) and G2 (prop sheet); scatter layer
       (§1.3) with a density table per family and Poisson-disc placement seeded by world position.
 - [ ] Hills: generate G3 (hummock and scrub overlay), 4–6 L\* darker than grass, with 6–10 scrub props per

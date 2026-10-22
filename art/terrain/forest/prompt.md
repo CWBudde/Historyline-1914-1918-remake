@@ -4,7 +4,7 @@ title: Forest
 kind: terrain
 status: candidate
 runtime_ids: forest, forest_w
-masters: forest-floor-summer-v4.png, forest-oak-summer-v4.png, forest-beech-summer-v4.png, forest-birch-summer-v4.png, forest-crowns-summer-v3.png, forest-crowns-winter-v3.png, forest-crowns-inset-summer-v3.png, forest-crowns-inset-winter-v3.png, forest-crowns-summer-v2.png, forest-crowns-winter-v2.png, forest-crowns-inset-summer-v2.png, forest-crowns-inset-winter-v2.png, forest-crowns-spaced-summer-v2.png, forest-crowns-initial-winter-v2.png, forest-crowns-initial-summer-v2.png, forest-crowns-summer-v1.png, forest-crowns-winter-v1.png
+masters: forest-floor-summer-v4.png, forest-oak-summer-v4.png, forest-beech-summer-v4.png, forest-birch-summer-v4.png, forest-crowns-summer-v3.png, forest-crowns-winter-v3.png, forest-crowns-inset-summer-v3.png, forest-crowns-inset-winter-v3.png, forest-crowns-summer-v2.png, forest-crowns-winter-v2.png, forest-crowns-inset-summer-v2.png, forest-crowns-inset-winter-v2.png, forest-crowns-spaced-summer-v2.png, forest-crowns-initial-winter-v2.png, forest-crowns-initial-summer-v2.png, forest-crowns-summer-v1.png, forest-crowns-winter-v1.png, forest-floor-summer-v5.png
 ---
 
 ## Look
@@ -32,6 +32,25 @@ edges into neighbouring forest, and towards non-forest neighbours the canopy thi
 the border. Scale and light must match the house, hq and mountain art.
 
 ## Post
+
+### Look 2 F1 comparison candidate
+
+`forest-floor-summer-v5.png` is an unpromoted F1 comparison candidate from the built-in imagegen
+workflow. It is native 1496×1051 RGB, copied unchanged; the request was 1536×1024. The dark floor
+improves the woodland-shadow read over v4. Approximate area-reduced RGB is (39,45,15), versus F1's
+(34,40,22). Fern clusters remain oversized, and native-scale detail, periodic seams and composed-map
+acceptance are unverified. The v4 source and runtime selections remain selected.
+
+References: PULSE crops `r02c04` and `r03c05` under `build/review/reference/tiles/`, plus the first
+G1 trial under `build/review/look2-art/g1/` as a style/scale reference only. No original game art
+was supplied. The exact generation prompt was:
+
+```text
+Newly authored artwork for a turn-based World War I hex strategy game set in rural Europe,1914-1918. Continuous hand-painted digital illustration, fine believable natural material detail. Strict top-down orthographic nadir, no horizon or perspective. Upper-left diffuse daylight; no ground cast shadows. No text, labels, logo, watermark, grid, hex outlines, frame, border, vignette. Not pixel art, photograph,3D render, cartoon or vector.
+Use case: stylized-concept. Asset type: opaque seamless terrain material,1536x1024 landscape, strict top-down nadir; the canvas covers568x400 world pixels, about300m by200m; one50m hex is about250painting pixels across. Deep-shade woodland floor as seen through gaps in a closed canopy: very dark moss green and umber, average about RGB34,40,22, muted leaf litter, fallen twigs, small ferns5-15painting pixels, moss cushions, a few dark roots; low contrast, no bright spots. Even density, tileable left-right and top-bottom. Mostly hidden under crowns; it must read as shadow. Full opaque rectangular edge-to-edge material.
+References: PULSE forest hex crops specify only woodland floor darkness/finish in gaps; ignore their crowns and hex shape. Supplied new meadow swatch is scale/style reference only; forest floor must be MUCH darker and lower contrast, not green meadow. Generate new artwork, not edit reference.
+Avoid: bright leaves, brown carpet, orange/tan litter, paths, logs, trunks, crowns, flowers, rocks, water, large patches, vignette, photograph,3D render,perspective,text,grid.
+```
 
 ### Layered summer v4
 
