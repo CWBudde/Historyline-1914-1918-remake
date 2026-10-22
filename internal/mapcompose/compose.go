@@ -21,6 +21,7 @@ type Cell struct {
 	Background string   // asset ID
 	Overlays   []string // asset IDs
 	Standing   []string // asset IDs
+	Shadows    []string // cast shadows, drawn before all standing items
 	Context    Family   // set when Background is a context tile
 	// Cluster is the 1-based index of the hex's cluster in Scene.Clusters, 0 for
 	// none; Under is the base tile drawn instead of Background under its stamp.
@@ -91,6 +92,14 @@ func Compose(g hexgrid.Grid, at func(hexgrid.Coord) Hex, has func(id string) boo
 					s.Gaps = append(s.Gaps, *gap)
 				} else {
 					cell.Background, cell.Context = id, f
+					if crown := StandingID(id); f == Forest && has(crown) {
+						cell.Standing = standing(id, h.Infra, has)
+					}
+				}
+			}
+			if h.Terrain == "grass" && h.Infra == nil && treePropNeighboursClear(g, at, c) {
+				if prop := TreePropID(l, col); prop != "" && has(prop) {
+					cell.Standing = append(cell.Standing, prop)
 				}
 			}
 			if id := selectShoreOutlet(g, at, c, h.Terrain, has); id != "" {
@@ -100,6 +109,16 @@ func Compose(g hexgrid.Grid, at func(hexgrid.Coord) Hex, has func(id string) boo
 	}
 	s.registerCompounds(at, has)
 	s.registerClusters(at, has)
+	for l := range s.Cells {
+		for col := range s.Cells[l] {
+			cell := &s.Cells[l][col]
+			for _, crown := range cell.Standing {
+				if shadow := ShadowID(crown); has(shadow) {
+					cell.Shadows = append(cell.Shadows, shadow)
+				}
+			}
+		}
+	}
 	return s
 }
 

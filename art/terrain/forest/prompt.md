@@ -4,26 +4,26 @@ title: Forest
 kind: terrain
 status: candidate
 runtime_ids: forest, forest_w
-masters: forest-crowns-summer-v3.png, forest-crowns-winter-v3.png, forest-crowns-inset-summer-v3.png, forest-crowns-inset-winter-v3.png, forest-crowns-summer-v2.png, forest-crowns-winter-v2.png, forest-crowns-inset-summer-v2.png, forest-crowns-inset-winter-v2.png, forest-crowns-spaced-summer-v2.png, forest-crowns-initial-winter-v2.png, forest-crowns-initial-summer-v2.png, forest-crowns-summer-v1.png, forest-crowns-winter-v1.png
+masters: forest-floor-summer-v4.png, forest-oak-summer-v4.png, forest-beech-summer-v4.png, forest-birch-summer-v4.png, forest-crowns-summer-v3.png, forest-crowns-winter-v3.png, forest-crowns-inset-summer-v3.png, forest-crowns-inset-winter-v3.png, forest-crowns-summer-v2.png, forest-crowns-winter-v2.png, forest-crowns-inset-summer-v2.png, forest-crowns-inset-winter-v2.png, forest-crowns-spaced-summer-v2.png, forest-crowns-initial-winter-v2.png, forest-crowns-initial-summer-v2.png, forest-crowns-summer-v1.png, forest-crowns-winter-v1.png
 ---
 
 ## Look
-Dense woodland seen from above. Selected v3 crowns are four irregular rounded deciduous canopies in
-dark olive and deep moss green, with small leaf masses, muted upper-left highlights and deep internal
-shade. A crown is about a fifth of a hex across. Winter keeps the crown arrangement as dense grey-brown
-branch networks with thin settled snow. Earlier mixed broadleaf/conifer atlases remain as drafts.
+Summer woodland uses a dark mossy floor and twelve whole oak, beech and birch crowns in three native
+2×2 atlases. Small connected leaf masses, olive/moss values, restrained warm upper-left light and
+irregular silhouettes match the existing painted terrain. Crowns thin at woodland edges and overhang
+their owning hex. Singles and small copses reuse these crowns in meadow, with clear unit foot points.
+Winter retains the four-crown v3 atlas and its existing exports; winter layering belongs to Phase 7.
 
 ## Base prompt
-Transparent RGBA atlas, square 1254x1254, 2x2 panels of 627x627. Four distinct compact rounded oak/beech
-crowns, strict nadir, built from small irregular leaf masses in dark olive/moss green with deep shade
-and modest muted ochre upper-left highlights. No starburst needles, rosettes or oversized leaves.
-Keep crowns isolated with transparent gutters. No trunks, ground or shadow mats. The exact native v3
-generation prompts and deterministic runtime inset are recorded under Post.
+Strict nadir hand-painted European woodland. Opaque dark mossy forest-floor material with fine leaf
+litter; separate transparent 2×2 crown atlases, four distinct oak, beech or birch crowns per sheet,
+small connected leaf masses in olive/moss green with muted warm upper-left highlights. Isolate every
+crown with transparent gutters. No ground or shadow mats in crown atlases. Exact v4 prompts are under Post.
 
 ## Variants
 | Variant | Runtime IDs | Prompt delta |
 | --- | --- | --- |
-| forest | forest | Four dark rounded deciduous summer crowns. |
+| forest | forest | Mossy floor, twelve summer crowns in three species, separate cast shadows and meadow props. |
 | forest_w | forest_w | Same four crown centres and footprints: dense bare grey-brown branch networks with thin ivory snow. |
 
 ## Edges & joins
@@ -32,6 +32,113 @@ edges into neighbouring forest, and towards non-forest neighbours the canopy thi
 the border. Scale and light must match the house, hq and mountain art.
 
 ## Post
+
+### Layered summer v4
+
+`art/pipeline/forest-layered-v4.json` pins the meadow, forest floor and three native 1254×1254
+RGBA crown atlases. Export with:
+
+```sh
+go run ./tools/art-review -forest-layered art/pipeline/forest-layered-v4.json -out build/review/forest-25-export
+```
+
+The exporter writes all 64 summer neighbour contexts: ground `context/forest/<key>`, whole crowns
+`standing/context/forest/<key>` and matching `standing/shadow/context/forest/<key>`. Each crown
+belongs to its centre cell only. Twelve whole panels reduce with alpha-aware Lanczos3 to 84–108
+pixels at 4×, preserving north-west light; no crown rotation, mirroring or hex clipping. Interior
+density is 36 centres per hex, thinning in the outer 22 world pixels. Ground uses six irregular
+12-pixel edge masks with shared vertex blends; the unmasked overscan is filtered before final
+half-open hex ownership. Standings use 128×112 logical canvases, anchor [64,56], with 16-pixel overhang.
+
+Shadows derive from crown alpha, offset [3,4] world pixels to the south-east, softened by a seven-pixel
+4× alpha kernel, colour RGB [24,29,22], maximum opacity 82/255. They draw after infrastructure and
+before every crown. Runtime exports are 2×/4×; 1× review exports and the six masks remain in the bundle.
+The four `standing/props/trees/1..4` layouts contain one to four trees. A coordinate hash selects
+about one in seven plain summer meadow cells; infrastructure and adjacent buildings/water/roads
+exclude them. Crowns leave the central eight-world-pixel square clear for units. General prop
+densities, level seeds, arbitrary materials and winter scatter remain Phase 1.3/7 work.
+
+All sources remain candidates. Native imagegen alpha contains faint fringe speckles; opaque canopy
+stays outside the atlas's 8% guard. User visual acceptance, broader scale/performance acceptance and
+winter layering remain open. Review actual exports and mixed fixtures in
+`build/review/forest-25/index.html`.
+
+#### Forest-floor generation
+
+Built-in imagegen; supplied meadow was a style/scale reference. Native 1254×1254 opaque output:
+
+```text
+Use case: stylized-concept. Asset type: seamless forest-floor material for a strict top-down hand-painted European World War I strategy map. Generate a full-bleed square, ideally 1536x1536, of dark mossy woodland ground, no trees or crowns. Fine short deep olive moss, muted brown leaf litter, tiny grey-brown twigs, sparse earthy bare flecks and small pebbles. Dense believable tiny material detail, calm continuous texture with even spatial density, dark olive and moss green matching the supplied game's olive meadow style reference but darker under woodland. Soft diffuse northwest daylight, no large cast shadows. Seamless-looking tileable surface, no focal point or large patches, motifs small enough for one map hex to span about 50 metres. Fine digital hand-painted illustration, neither photograph nor flat vector. Fully opaque edge to edge. No tree canopy, trunks, bushes, ferns, large leaves, mushrooms, paths, buildings, horizon, vignettes, hexagons, grid, text, border or frame. The supplied grass image is a STYLE AND SCALE reference, not an edit target; generate new forest floor.
+```
+
+#### oak crown generation
+
+Built-in imagegen, transparent background; initial style reference: summer v3.
+Final imagegen edit preserves that generated atlas's four crowns and changes spacing only.
+
+```text
+Use case: stylized-concept.
+Asset type: transparent painted tree-crown atlas for a World War I hex strategy game set in rural Europe, 1914–1918.
+Input image: STYLE-ONLY reference for painted material, foliage scale, dark olive/moss palette and upper-left light. Create new distinct tree crowns; do not edit or reproduce the supplied four crowns.
+Format: ONE square RGBA atlas, requested native 2048x2048, exactly 2 columns by 2 rows of equal square cells, four crowns total, ONE independent crown centred in each cell. No visible grid. Each crown occupies only about 62–70 percent of its cell width and height; keep AT LEAST 12 percent of every cell entirely empty/transparent on ALL FOUR SIDES. The centre horizontal and vertical dividing bands are broad clean alpha transparency. Never overlap or crop crowns. Each cell must have different size and asymmetric organic outline.
+Camera: strict vertical top-down orthographic NADIR, looking exactly straight down onto the upper canopy, no horizon, no perspective tilt, no visible side of trunk. One mature broadleaf tree crown in each cell.
+Style/colour: continuous hand-painted digital illustration matching reference, believable tiny connected leaf masses and fine leaves; dense dark moss and muted olive green with restrained yellow-green sunlit tips. Soft diffuse light consistently from image upper left; shaded canopy recesses at lower right, rich deep natural shadow WITHIN foliage only. Varied irregular branching canopy lobes merging into one tree, fine natural edges, small gaps at the outer leaf fringe.
+Transparency constraints: genuinely transparent alpha outside each tree and in empty gaps. No ground, grass, earth, roots, trunk below canopy, cast shadow mat, oval shadow, halo, glow, mist, black backing, checkerboard or background. Canopy self-shadow only; alpha must end at leaves. No text, labels, numbers, national marks, borders, frames or grid. Not pixel art, not vector, not cartoon, not photograph, not 3D render. Avoid round rosettes, flower forms, radial symmetry, evenly spaced pom-pom balls, broccoli florets, repeated circular clumps and copied rotations.
+Species: summer oak. Four distinct mature oak crowns: broad irregular spreading canopy, sturdy asymmetric lateral lobes, dense small oak-leaf texture. Cell 1: broad slightly squarish crown with a deep notch on lower left, 68% cell width. Cell 2: smaller uneven oval oak, 62% width. Cell 3: asymmetrical spreading oak with one short lobe to upper right, 70% width. Cell 4: compact irregular oak with shallow gaps between connected canopy branches, 65% width. Keep the same overhead camera, scale of fine leaves and upper-left illumination across all cells.
+```
+
+Spacing edit:
+
+```text
+Edit the reference atlas composition only. Preserve the exact four separately painted overhead oak crowns, their individual leaf detail, original shapes, colours and upper-left light. Make EVERY tree crown substantially smaller: scale each complete crown down to TWO THIRDS its current width AND height, keep each centred in its original quarter. Result remains a 2 by 2 transparent atlas. Every quarter must now have at least 15 percent perfectly transparent empty space on ALL FOUR sides; clear wide vertical and horizontal transparent corridors between the four crowns. No crown may cross a cell centre boundary. The total image must be predominantly empty alpha transparency. Preserve every leaf, canopy texture, and species character, but shrink the four entire trees into their cells. Do not add anything, ground, shadow, glow or background. Requested native square2048x2048; true RGBA transparency.
+```
+
+#### beech crown generation
+
+Built-in imagegen, transparent background; initial style reference: summer v3.
+Final imagegen edit preserves that generated atlas's four crowns and changes spacing only.
+
+```text
+Use case: stylized-concept.
+Asset type: transparent painted tree-crown atlas for a World War I hex strategy game set in rural Europe, 1914–1918.
+Input image: STYLE-ONLY reference for painted material, foliage scale, dark olive/moss palette and upper-left light. Create new distinct tree crowns; do not edit or reproduce the supplied four crowns.
+Format: ONE square RGBA atlas, requested native 2048x2048, exactly 2 columns by 2 rows of equal square cells, four crowns total, ONE independent crown centred in each cell. No visible grid. Each crown occupies only about 62–70 percent of its cell width and height; keep AT LEAST 12 percent of every cell entirely empty/transparent on ALL FOUR SIDES. The centre horizontal and vertical dividing bands are broad clean alpha transparency. Never overlap or crop crowns. Each cell must have different size and asymmetric organic outline.
+Camera: strict vertical top-down orthographic NADIR, looking exactly straight down onto the upper canopy, no horizon, no perspective tilt, no visible side of trunk. One mature broadleaf tree crown in each cell.
+Style/colour: continuous hand-painted digital illustration matching reference, believable tiny connected leaf masses and fine leaves; dense dark moss and muted olive green with restrained yellow-green sunlit tips. Soft diffuse light consistently from image upper left; shaded canopy recesses at lower right, rich deep natural shadow WITHIN foliage only. Varied irregular branching canopy lobes merging into one tree, fine natural edges, small gaps at the outer leaf fringe.
+Transparency constraints: genuinely transparent alpha outside each tree and in empty gaps. No ground, grass, earth, roots, trunk below canopy, cast shadow mat, oval shadow, halo, glow, mist, black backing, checkerboard or background. Canopy self-shadow only; alpha must end at leaves. No text, labels, numbers, national marks, borders, frames or grid. Not pixel art, not vector, not cartoon, not photograph, not 3D render. Avoid round rosettes, flower forms, radial symmetry, evenly spaced pom-pom balls, broccoli florets, repeated circular clumps and copied rotations.
+Species: summer European beech. Four distinct mature beech crowns: dense connected smooth-edged small leaf masses, layered fine oval leaves, more continuous canopy than oak but still irregular and asymmetric, deep moss green and subdued olive highlights. Cell 1: elongated uneven oval crown, 66% cell width. Cell 2: smaller off-round crown with a shallow notch on upper right, 62% width. Cell 3: broader irregular beech with a subtle diagonal growth axis, 70% width. Cell 4: compact lopsided mature crown, 65% width. No circular radial pattern; natural connected branch growth seen strictly from above.
+```
+
+Spacing edit:
+
+```text
+Edit the reference atlas composition only. Preserve the exact four separately painted overhead beech crowns, their individual leaf detail, original shapes, colours and upper-left light. Make EVERY tree crown substantially smaller: scale each complete crown down to TWO THIRDS its current width AND height, keep each centred in its original quarter. Result remains a 2 by 2 transparent atlas. Every quarter must now have at least 15 percent perfectly transparent empty space on ALL FOUR sides; clear wide vertical and horizontal transparent corridors between the four crowns. No crown may cross a cell centre boundary. The total image must be predominantly empty alpha transparency. Preserve every leaf, canopy texture, and species character, but shrink the four entire trees into their cells. Do not add anything, ground, shadow, glow or background. Requested native square2048x2048; true RGBA transparency.
+```
+
+#### birch crown generation
+
+Built-in imagegen, transparent background; initial style reference: summer v3.
+Final imagegen edit preserves that generated atlas's four crowns and changes spacing only.
+
+```text
+Use case: stylized-concept.
+Asset type: transparent painted tree-crown atlas for a World War I hex strategy game set in rural Europe, 1914–1918.
+Input image: STYLE-ONLY reference for painted material, foliage scale, dark olive/moss palette and upper-left light. Create new distinct tree crowns; do not edit or reproduce the supplied four crowns.
+Format: ONE square RGBA atlas, requested native 2048x2048, exactly 2 columns by 2 rows of equal square cells, four crowns total, ONE independent crown centred in each cell. No visible grid. Each crown is SMALL: at most 50 percent of its cell width and height, one quarter of the full canvas width. Keep AT LEAST 20 percent of every cell entirely empty/transparent on ALL FOUR SIDES. Most of the entire atlas is empty alpha transparency; no large crowns. The centre horizontal and vertical dividing bands are broad clean alpha transparency. Never overlap or crop crowns. Each cell must have different size and asymmetric organic outline.
+Camera: strict vertical top-down orthographic NADIR, looking exactly straight down onto the upper canopy, no horizon, no perspective tilt, no visible side of trunk. One mature broadleaf tree crown in each cell.
+Style/colour: continuous hand-painted digital illustration matching reference, believable tiny connected leaf masses and fine leaves; dense dark moss and muted olive green with restrained yellow-green sunlit tips. Soft diffuse light consistently from image upper left; shaded canopy recesses at lower right, rich deep natural shadow WITHIN foliage only. Varied irregular branching canopy lobes merging into one tree, fine natural edges, small gaps at the outer leaf fringe.
+Transparency constraints: genuinely transparent alpha outside each tree and in empty gaps. No ground, grass, earth, roots, trunk below canopy, cast shadow mat, oval shadow, halo, glow, mist, black backing, checkerboard or background. Canopy self-shadow only; alpha must end at leaves. No text, labels, numbers, national marks, borders, frames or grid. Not pixel art, not vector, not cartoon, not photograph, not 3D render. Avoid round rosettes, flower forms, radial symmetry, evenly spaced pom-pom balls, broccoli florets, repeated circular clumps and copied rotations.
+Species: summer birch. Four distinct birch crowns viewed strictly from above: finer and airier small triangular-leaf texture, uneven connected canopy with delicate irregular peripheral twigs and modest transparent notches; muted olive/moss green rather than bright lime. No visible standing trunk or pale white line below canopy. Cell 1: asymmetric narrow oval crown, 50% cell width. Cell 2: small loose irregular crown, 50% width. Cell 3: broader uneven birch crown with one short connected side lobe, 50% width. Cell 4: compact tilted oval crown with different outline, 50% width. Dense enough for strategy-map readability; one connected tree crown per cell, not separate scattered leaf clouds.
+```
+
+Spacing edit:
+
+```text
+Edit composition only: make each of these four birch crowns exactly TWO THIRDS its current width and height and recenter it in its own original quarter. Keep the painting, birch species fine-leaf character, unique outline, colours and upper-left lighting unchanged. A 2x2 atlas of FOUR SMALL crowns, each occupying at most60% of its quarter. At least18% of each cell must be truly empty alpha on ALL FOUR sides. Broad clean transparent central horizontal and vertical corridors; no contact or crossing between cells. Preserve all leaves, no clipping. No added ground, shadow mat, halo, glow or backdrop. True alpha transparency, native square RGBA atlas.
+```
+
+### Earlier baked seasonal exports
+
 `art-review -forest art/pipeline/forest-terrain-v3.json` places crowns by a fixed canopy profile into
 context tiles keyed by season and neighbours (`context/forest/<key>`); winter uses the winter atlas
 and `grass_w`. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.

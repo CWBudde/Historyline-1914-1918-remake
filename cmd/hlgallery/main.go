@@ -364,6 +364,10 @@ func legacyTile(kind, id string) string {
 		return "legacy/python/gfx/infrastructure/" + name + ".png"
 	}
 	name := id
+	// New outlet variants share their base shoreline's legacy reference.
+	if strings.HasPrefix(name, "lakeside") {
+		name, _, _ = strings.Cut(name, "-outlet")
+	}
 	if rest, ok := strings.CutPrefix(name, "cmp"); ok {
 		name = "camp" + rest
 	} else if rest, ok := strings.CutPrefix(name, "mount"); ok && !strings.HasPrefix(rest, "ain") {
@@ -415,8 +419,12 @@ func (c *collector) tiles() error {
 		if err != nil {
 			return err
 		}
+		note := "Current enabled " + kind + " binding. This single-asset view uses its default context export; the PULSE study resolves available neighbor contexts through the shared compositor. Final runtime acceptance remains open."
+		if strings.HasPrefix(name, "lakeside") && strings.Contains(name, "-outlet") {
+			note += " The reference is the base shoreline; the new outlet has no separate legacy tile."
+		}
 		c.items = append(c.items, item{ID: kind + "/" + name, Name: name, Category: "Terrain", Family: artFamily(e), Season: season, Reference: ref, Width: 96, Height: 80,
-			Note: "Current enabled " + kind + " binding. This single-asset view uses its default context export; the PULSE study resolves available neighbor contexts through the shared compositor. Final runtime acceptance remains open.", Variants: []variant{{ID: "default", Label: "Current export", Images: imgs}}})
+			Note: note, Variants: []variant{{ID: "default", Label: "Current export", Images: imgs}}})
 	}
 	return nil
 }

@@ -1,6 +1,12 @@
 package mapcompose
 
-import "github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+import (
+	"fmt"
+	"slices"
+	"strings"
+
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+)
 
 // The standing layer holds what rises above the ground of a hex: tree crowns,
 // rocks, crests, buildings, bridges. Its art may overhang the hex by up to half a
@@ -14,6 +20,58 @@ const OverhangX, OverhangY = hexgrid.HexWidth / 2, hexgrid.HexHeight / 2
 // StandingID is the runtime asset ID of the standing part of a terrain or
 // infrastructure tile.
 func StandingID(runtimeID string) string { return "standing/" + runtimeID }
+
+// ShadowID identifies a standing item's separately painted cast shadow. Both
+// live in the standing pack and share its overhang limits.
+func ShadowID(standingID string) string {
+	return "standing/shadow/" + strings.TrimPrefix(standingID, "standing/")
+}
+
+// ShadowsAt returns the cast shadows paired with the selected standing items.
+func (s *Scene) ShadowsAt(c hexgrid.Coord, stamped func(*Cluster) bool) []string {
+	if len(s.Cells[c.Line][c.Col].Shadows) == 0 {
+		return nil
+	}
+	_, _, _, standing := s.Layers(c, stamped)
+	var out []string
+	for _, id := range standing {
+		if shadow := ShadowID(id); slices.Contains(s.Cells[c.Line][c.Col].Shadows, shadow) {
+			out = append(out, shadow)
+		}
+	}
+	return out
+}
+
+// TreePropID selects sparse meadow props without consuming random state. The
+// coordinate hash selects about one in seven hexes and one of four authored
+// layouts; the layouts keep the hex centre clear for units. An empty ID means
+// no prop. Selection is independent of traversal order and visible bounds.
+func TreePropID(line, col int) string {
+	x := uint64(uint32(line))<<32 | uint64(uint32(col))
+	x += 0x9e3779b97f4a7c15
+	x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9
+	x = (x ^ (x >> 27)) * 0x94d049bb133111eb
+	x ^= x >> 31
+	if x%7 != 0 {
+		return ""
+	}
+	return fmt.Sprintf("standing/props/trees/%d", (x/7)%4+1)
+}
+
+// A prop can overhang its own meadow. Keep it away from buildings, water and
+// infrastructure on neighbouring cells; forest edges may retain scattered trees.
+func treePropNeighboursClear(g hexgrid.Grid, at func(hexgrid.Coord) Hex, c hexgrid.Coord) bool {
+	for _, n := range hexgrid.Around(c) {
+		if !g.Contains(n) {
+			continue
+		}
+		h := at(n)
+		if h.Infra != nil || (h.Terrain != "grass" && h.Terrain != "forest") {
+			return false
+		}
+	}
+	return true
+}
 
 // StandingFits reports whether a standing canvas of w×h logical pixels with its
 // anchor on the hex centre stays within the allowed overhang.

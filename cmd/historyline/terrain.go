@@ -93,7 +93,7 @@ func openTerrainArt(fsys fs.FS, opt assets.Options, lvl *level.Level) (*terrainA
 	var ids []string
 	for _, line := range a.scene.Cells {
 		for _, c := range line {
-			ids = slices.Concat(ids, []string{c.Background, c.Under}, c.Overlays, c.Standing)
+			ids = slices.Concat(ids, []string{c.Background, c.Under}, c.Overlays, c.Shadows, c.Standing)
 		}
 	}
 	for _, cl := range a.scene.Clusters {
@@ -145,6 +145,19 @@ var remembered = func() colorm.ColorM {
 	return m
 }()
 
+// terrainShadows shares standing items' fog rules, including suppression under
+// a known cluster stamp and dimming of remembered terrain.
+func terrainShadows(s *mapcompose.Scene, c hexgrid.Coord, fog func(hexgrid.Coord) state.Fog) ([]string, bool) {
+	f := fog(c)
+	if f == state.Unseen {
+		return nil, false
+	}
+	known := func(cl *mapcompose.Cluster) bool {
+		return !slices.ContainsFunc(cl.Cells, func(x hexgrid.Coord) bool { return fog(x) == state.Unseen })
+	}
+	return s.ShadowsAt(c, known), f == state.Seen
+}
+
 // drawTile draws terrain tile id with its anchor on screen point (sx, sy).
 func (g *game) drawTile(dst *ebiten.Image, id string, sx, sy float64, dim bool) {
 	d := spriteDensity(g.cam.Effective())
@@ -165,16 +178,20 @@ func (g *game) drawTile(dst *ebiten.Image, id string, sx, sy float64, dim bool) 
 
 // drawTerrain draws the composed terrain of the hexes in view (in line, then
 // column order): every background first, then the cluster stamps, the
-// infrastructure and the standing items, so none is covered by a later hex's
-// ground.
+// infrastructure, cast shadows and standing items. Every shadow is drawn before
+// every crown, so a later hex's shadow cannot cover an earlier crown.
 func (g *game) drawTerrain(dst *ebiten.Image, inView []hexgrid.Coord) {
 	s := &g.terrain.scene
 	cells := withClusterAnchors(s, inView)
-	for pass := range 4 {
+	for pass := range 5 {
 		for _, c := range cells {
 			bg, stamp, overlays, standing, dim := terrainLayers(s, c, g.fogOf)
+			var shadows []string
+			if pass == 3 {
+				shadows, _ = terrainShadows(s, c, g.fogOf)
+			}
 			sx, sy := g.cam.WorldToScreen(hexgrid.Center(c))
-			for _, id := range [4][]string{{bg}, {stamp}, overlays, standing}[pass] {
+			for _, id := range [5][]string{{bg}, {stamp}, overlays, shadows, standing}[pass] {
 				if id != "" {
 					g.drawTile(dst, id, sx, sy, dim)
 				}

@@ -302,11 +302,19 @@ Needs 1.2 and 1.3. Every material is authored at 4× and exported to 2× and 1×
 
 ###### 2.5 Forest (`forest`)
 
-- [ ] Forest floor material (dark, mossy) with edge masks.
-- [ ] Tree crown sprites: at least 12 crowns in two or three species and sizes, with separate cast shadows,
+- [x] Forest floor material (dark, mossy) with edge masks. (2026-10-22) — native imagegen material,
+      six irregular masks and vertex blends; all 64 summer ground contexts at 2×/4×, 1× review exports.
+- [x] Tree crown sprites: at least 12 crowns in two or three species and sizes, with separate cast shadows,
       placed densely in forest hexes and overhanging their edges (standing layer); density falls off towards
       the forest edge. Exemplars `r2c4`, `r3c5`, `r19c2`, `r21c2`, `r43c3`.
-- [ ] Single trees and small copses as grass props.
+      (2026-10-22) — twelve imagegen oak/beech/birch crowns, whole standing contexts and a separate
+      shadow pass in the game and map renderer; deterministic thinning at woodland edges. PULSE and
+      isolated/frontier/clearing/interior fixtures render without missing contexts or compound issues.
+- [x] Single trees and small copses as grass props. (2026-10-22) — four deterministic meadow layouts,
+      with infrastructure/neighbour exclusions and an eight-pixel clear unit foot area in every export.
+      Both density packs fully decode; `hlasset terrain-gaps` reports zero missing/undefined contexts
+      and compound issues on all three levels. Sources remain candidates; winter and final scale,
+      performance and visual acceptance stay in Phases 7/8. Review: `build/review/forest-25/index.html`.
 
 ##### Phase 3: Relief (art)
 

@@ -17,6 +17,23 @@ import (
 	"time"
 )
 
+func TestLegacyTileShoreOutletReference(t *testing.T) {
+	for _, tt := range []struct{ id, want string }{
+		{"lakeside12-outlet1", "legacy/python/gfx/hexTypes/hex_lakeside12.png"},
+		{"lakeside16-outlet6", "legacy/python/gfx/hexTypes/hex_lakeside16.png"},
+		{"lakeside23-outlet4", "legacy/python/gfx/hexTypes/hex_lakeside23.png"},
+		{"lakeside3456-outlet6", "legacy/python/gfx/hexTypes/hex_lakeside3456.png"},
+		{"lakeside23", "legacy/python/gfx/hexTypes/hex_lakeside23.png"},
+		{"lakeside23_w", "legacy/python/gfx/hexTypes/hex_lakeside23_winter.png"},
+	} {
+		t.Run(tt.id, func(t *testing.T) {
+			if got := legacyTile("background", tt.id); got != tt.want {
+				t.Fatalf("legacy reference for %s = %s, want %s", tt.id, got, tt.want)
+			}
+		})
+	}
+}
+
 func TestCurrentGameSelection(t *testing.T) {
 	r, err := os.OpenRoot("../..")
 	if err != nil {
@@ -73,7 +90,7 @@ func TestCurrentGameSelection(t *testing.T) {
 			}
 		}
 	}
-	want := map[string]int{"Terrain": 134, "Sprites": 15, "Portraits": 15, "Interface": 117, "Screens": 36, "Screen components": 73}
+	want := map[string]int{"Terrain": 158, "Sprites": 15, "Portraits": 15, "Interface": 117, "Screens": 36, "Screen components": 73}
 	for k, n := range want {
 		if counts[k] != n {
 			t.Errorf("%s: got %d, want %d", k, counts[k], n)
@@ -270,7 +287,7 @@ const browserSmoke = `
  const assert=(x,m)=>{if(!x)throw Error(m)};
  const change=(id,value)=>{const el=document.getElementById(id);el.value=value;el.dispatchEvent(new Event(id==='search'||id==='slider'?'input':'change',{bubbles:true}));};
  try {
-  assert(document.querySelectorAll('.entry').length===390,'initial selection');
+  assert(document.querySelectorAll('.entry').length===414,'initial selection');
   change('category','Sprites');change('search','infantry');
   document.querySelector('[data-id="sprite/infantry"]').click();
   assert(document.getElementById('variant').options.length===36,'sprite variants');

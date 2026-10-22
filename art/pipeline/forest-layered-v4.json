@@ -1,0 +1,25 @@
+{
+  "atlases": [
+    {
+      "source": "art/terrain/forest/forest-oak-summer-v4.png",
+      "source_sha256": "4e54957a3130e22ea6c9cea6dd82635c0b4e7ca8732cbb7e9383a46df60b0643"
+    },
+    {
+      "source": "art/terrain/forest/forest-beech-summer-v4.png",
+      "source_sha256": "fd5b8603108317919fe56df870e012eae767d64e55566b05561ff3e244927147"
+    },
+    {
+      "source": "art/terrain/forest/forest-birch-summer-v4.png",
+      "source_sha256": "e64f6327e54a6d57c938386eb9f31eb91533c2c8aa958b3f03f09c7c51f91912"
+    }
+  ],
+  "floor": {
+    "source": "art/terrain/forest/forest-floor-summer-v4.png",
+    "source_sha256": "2afbce40d0946572534ac3362851992e472072256e69cce89c1baa9f5c017a44"
+  },
+  "ground": {
+    "source": "art/terrain/grass/grass-summer-v1.png",
+    "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
+  },
+  "schema_version": 1
+}

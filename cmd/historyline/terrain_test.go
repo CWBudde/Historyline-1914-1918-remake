@@ -171,6 +171,20 @@ func TestTerrainLayersFollowFog(t *testing.T) {
 	}
 }
 
+func TestTerrainShadowsFollowFog(t *testing.T) {
+	s := mapcompose.Scene{Cells: [][]mapcompose.Cell{{{Standing: []string{"standing/forest"}, Shadows: []string{"standing/shadow/forest"}}}}}
+	for _, f := range []state.Fog{state.Unseen, state.Seen, state.Visible} {
+		got, dim := terrainShadows(&s, hexgrid.Coord{}, func(hexgrid.Coord) state.Fog { return f })
+		if f == state.Unseen {
+			if len(got) != 0 || dim {
+				t.Errorf("unseen shadows %v dim %v", got, dim)
+			}
+		} else if !slices.Equal(got, []string{"standing/shadow/forest"}) || dim != (f == state.Seen) {
+			t.Errorf("fog %v shadows %v dim %v", f, got, dim)
+		}
+	}
+}
+
 func TestTerrainDevIndicators(t *testing.T) {
 	g := &game{}
 	g.terrain = &terrainArt{artPacks: &artPacks{candidate: true},

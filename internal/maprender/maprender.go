@@ -1,6 +1,6 @@
 // Package maprender draws a whole level with the runtime art of assets/index.json,
 // layered as in the game: backgrounds (context tiles chosen by mapcompose), cluster
-// stamps, infrastructure, standing items, then units facing north in their
+// stamps, infrastructure, cast shadows, standing items, then units facing north in their
 // owner's colours. Fog, owner bars and UI are left out.
 package maprender
 
@@ -108,15 +108,19 @@ func (r *Renderer) Render(lvl *level.Level, density int, units bool) (Map, error
 	}, func(id string) bool { return r.has[id] })
 	w, h := Size(grid)
 	m := Map{Image: image.NewNRGBA(image.Rect(0, 0, w*density, h*density)), Gaps: scene.Gaps, Issues: scene.Issues}
-	// Backgrounds, cluster stamps, infrastructure and standing items are separate
+	// Backgrounds, cluster stamps, infrastructure, shadows and standing are separate
 	// full-map passes, as in the game.
 	all := func(*mapcompose.Cluster) bool { return true }
-	for pass := range 4 {
+	for pass := range 5 {
 		for line, cells := range scene.Cells {
 			for col := range cells {
 				at := hexgrid.Coord{Line: line, Col: col}
 				bg, stamp, overlays, standing := scene.Layers(at, all)
-				ids := [4][]string{{bg}, {stamp}, overlays, standing}[pass]
+				var shadows []string
+				if pass == 3 {
+					shadows = scene.ShadowsAt(at, all)
+				}
+				ids := [5][]string{{bg}, {stamp}, overlays, shadows, standing}[pass]
 				for _, id := range ids {
 					if id == "" {
 						continue

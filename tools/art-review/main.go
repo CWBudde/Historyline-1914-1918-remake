@@ -103,6 +103,7 @@ func run(args []string, log io.Writer) error {
 	fogPath := fs.String("fog", "", "bounded opaque unseen candidate manifest; requires fresh -out")
 	groundPath := fs.String("ground", "", "bounded context-aware ground material manifest; requires fresh -out")
 	forestPath := fs.String("forest", "", "bounded whole-crown seasonal forest manifest; requires fresh -out")
+	layeredForestPath := fs.String("forest-layered", "", "layered summer forest floor, crowns, shadows and meadow props; requires fresh -out")
 	hillsPath := fs.String("hills", "", "bounded summer height-derived hills manifest; requires fresh -out")
 	shorePath := fs.String("shore", "", "bounded new-material summer shoreline manifest; requires fresh -out")
 	unitPath := fs.String("unit", "", "six-facing canonical runtime unit family manifest; requires fresh -out")
@@ -172,6 +173,18 @@ func run(args []string, log io.Writer) error {
 			return errors.New("-hills requires -out and excludes all other flags and positional arguments")
 		}
 		return runHills(*hillsPath, *out, log)
+	}
+	if *layeredForestPath != "" {
+		conflict := false
+		fs.Visit(func(f *flag.Flag) {
+			if f.Name != "forest-layered" && f.Name != "out" && f.Name != "root" {
+				conflict = true
+			}
+		})
+		if conflict || *out == "" || fs.NArg() != 0 {
+			return errors.New("-forest-layered requires -out and excludes other flags and positional arguments")
+		}
+		return runLayeredForest(*layeredForestPath, *out, log)
 	}
 	forestProvided := false
 	fs.Visit(func(f *flag.Flag) {

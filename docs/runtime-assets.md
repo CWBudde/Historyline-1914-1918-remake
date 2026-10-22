@@ -71,11 +71,21 @@ For one adjacent stream facing a fully-land shore edge, the compositor selects
 retain the corner states and meet the stream's port profile. Missing variants or several facing streams
 keep the canonical shore; multi-mouth and mixed-edge contexts remain open.
 
-Drawing order: all backgrounds, cluster stamps, overlays, standing items (line, then column), owner bars,
+Drawing order: all backgrounds, cluster stamps, overlays, cast shadows, standing items (line, then column), owner bars,
 units. Unseen hexes show `unseen` and none of their standing items; remembered hexes are greyed, standing
 items too. A cluster is stamped only while all its hexes are known; otherwise its hexes keep the per-hex art.
 Draw density is the effective zoom's asset density, at least 2×. Background textures get a 3-texel grown
 border so filtered quads at fractional zoom overlap without seams.
+
+Summer forest splits each of its 64 ground contexts into mossy floor, whole crowns
+(`standing/context/forest/<key>`) and cast shadow (`standing/shadow/context/forest/<key>`).
+Shadows draw after all infrastructure and before all standing items, with the same fog rules.
+The 12 oak/beech/birch crowns thin towards woodland edges; 128×112 logical standing canvases
+(anchor [64,56]) retain whole crowns across hex borders. Winter keeps its existing baked contexts.
+Four `standing/props/trees/1..4` layouts add single trees and copses to sparse summer meadow cells,
+selected by coordinate hash. Infrastructure and adjacent buildings, water or roads exclude props;
+their layouts leave the unit foot point clear. Rebuild with the pinned
+`art/pipeline/forest-layered-v4.json` and `art-review -forest-layered` into a fresh output directory.
 
 ## Screens
 
