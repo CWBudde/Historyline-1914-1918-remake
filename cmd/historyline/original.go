@@ -1,9 +1,7 @@
 package main
 
 import (
-	"errors"
 	"fmt"
-	"io/fs"
 	"os"
 	"path/filepath"
 	"strings"
@@ -39,9 +37,13 @@ func loadMap(dir, name string, set *data.Set) (*level.Level, *dosbind.Board, err
 func loadOriginal(dir, stem string, set *data.Set) (*finmap.Level, *level.Level, *dosbind.Board, error) {
 	name := originalPrefix + stem
 	file := "original/full/" + stem + ".json"
+	// Fall back on the embedded maps for any error: the web build has no file
+	// system and fails with "not implemented", not fs.ErrNotExist.
 	raw, err := os.ReadFile(filepath.Join(dir, filepath.FromSlash(file)))
-	if errors.Is(err, fs.ErrNotExist) {
-		raw, err = levels.Original.ReadFile(file)
+	if err != nil {
+		if b, embErr := levels.Original.ReadFile(file); embErr == nil {
+			raw, err = b, nil
+		}
 	}
 	if err != nil {
 		return nil, nil, nil, fmt.Errorf("%s: %w", name, err)
