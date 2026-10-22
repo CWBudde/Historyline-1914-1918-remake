@@ -2,6 +2,8 @@ package mapcompose
 
 import (
 	"encoding/json"
+	"fmt"
+	"maps"
 	"os"
 	"reflect"
 	"slices"
@@ -223,4 +225,129 @@ func TestShapeKey(t *testing.T) {
 			t.Errorf("%v: %s, want %s", c.cells, got, c.want)
 		}
 	}
+}
+
+// A knoll or boulder group whose shape has no stamp is tiled with the stamps the
+// catalog has: the largest shape first, from the first uncovered cell; cells no
+// stamp fits keep their per-hex art as unstamped clusters. Lakes and crater
+// fields stay whole.
+func TestTile(t *testing.T) {
+	g, at := grid(
+		"stone grass grass water",
+		"stone grass water",
+		"stone grass grass water",
+		"stone grass mud",
+		"stone grass mud grass",
+	)
+	have := map[string]bool{
+		StampID("boulders", "2_0.2", 1): true, // two hexes one above the other
+		StampID("boulders", "1", 1):     true,
+		StampID("lake", "1", 1):         true,
+		StampID("crater", "1", 1):       true,
+	}
+	s := Compose(g, at, func(id string) bool { return have[id] })
+	type want struct {
+		kind, shape, stamp string
+		cells              []hexgrid.Coord
+	}
+	var got []want
+	for _, cl := range s.Clusters {
+		got = append(got, want{cl.Kind, cl.Shape, cl.Stamp, cl.Cells})
+	}
+	c := func(line, col int) hexgrid.Coord { return hexgrid.Coord{Line: line, Col: col} }
+	exp := []want{
+		// The five stones zig-zag down lines 0 to 4: two pairs one above the
+		// other, then a single.
+		{"boulders", "2_0.2", StampID("boulders", "2_0.2", 1), []hexgrid.Coord{c(0, 0), c(2, 0)}},
+		{"boulders", "2_0.2", StampID("boulders", "2_0.2", 1), []hexgrid.Coord{c(1, 0), c(3, 0)}},
+		{"boulders", "1", StampID("boulders", "1", 1), []hexgrid.Coord{c(4, 0)}},
+		// The lake has no stamp for its shape and is not tiled.
+		{"lake", "3_-1.1_0.2", "", []hexgrid.Coord{c(0, 3), c(1, 2), c(2, 3)}},
+		// Crater fields are not tiled, though a single crater has a stamp.
+		{"crater", "2_-1.1", "", []hexgrid.Coord{c(3, 2), c(4, 2)}},
+	}
+	if !slices.EqualFunc(got, exp, func(a, b want) bool {
+		return a.kind == b.kind && a.shape == b.shape && a.stamp == b.stamp && slices.Equal(a.cells, b.cells)
+	}) {
+		t.Fatalf("clusters\n%+v\nwant\n%+v", got, exp)
+	}
+	yes := func(*Cluster) bool { return true }
+	for _, x := range []struct {
+		at    hexgrid.Coord
+		stamp string
+	}{{c(0, 0), exp[0].stamp}, {c(2, 0), ""}, {c(1, 0), exp[1].stamp}, {c(4, 0), exp[2].stamp}} {
+		if bg, stamp, _, _ := s.Layers(x.at, yes); bg != "tile/grass" || stamp != x.stamp {
+			t.Errorf("%v draws %s and stamp %q, want the grass base and %q", x.at, bg, stamp, x.stamp)
+		}
+	}
+	if bg, stamp, _, _ := s.Layers(c(3, 2), yes); bg != "tile/mud" || stamp != "" {
+		t.Errorf("an untiled crater draws %s and stamp %q", bg, stamp)
+	}
+
+	// A remainder no stamp fits stays unstamped and connected.
+	delete(have, StampID("boulders", "1", 1))
+	s = Compose(g, at, func(id string) bool { return have[id] })
+	if cl := s.Clusters[2]; cl.Stamp != "" || !slices.Equal(cl.Cells, []hexgrid.Coord{c(4, 0)}) {
+		t.Errorf("remainder %+v", cl)
+	}
+}
+
+// connectedSets lists each connected set through the anchor once, and no set
+// with a cell before the anchor: the same sets a brute force over all subsets
+// finds.
+func TestConnectedSets(t *testing.T) {
+	g := hexgrid.Grid{Width: 4, Lines: 5}
+	free := map[hexgrid.Coord]bool{}
+	var all []hexgrid.Coord
+	for line := range g.Lines {
+		for col := range g.Width - line%2 {
+			c := hexgrid.Coord{Line: line, Col: col}
+			free[c], all = true, append(all, c)
+		}
+	}
+	free[hexgrid.Coord{Line: 2, Col: 2}] = false
+	anchor := hexgrid.Coord{Line: 1, Col: 1}
+	const limit = 4
+	got := map[string]bool{}
+	for _, set := range connectedSets(g, anchor, free, limit) {
+		k := fmt.Sprint(set)
+		if got[k] {
+			t.Errorf("%s listed twice", k)
+		}
+		got[k] = true
+	}
+	want := map[string]bool{}
+	for mask := 1; mask < 1<<len(all); mask++ {
+		var set []hexgrid.Coord
+		for i, c := range all {
+			if mask&(1<<i) != 0 {
+				set = append(set, c)
+			}
+		}
+		if len(set) > limit || !slices.Contains(set, anchor) || slices.ContainsFunc(set, func(c hexgrid.Coord) bool {
+			return !free[c] || byLineCol(c, anchor) < 0
+		}) || !connected(g, set) {
+			continue
+		}
+		want[fmt.Sprint(set)] = true
+	}
+	if !maps.Equal(got, want) {
+		t.Errorf("%d sets, want %d", len(got), len(want))
+	}
+}
+
+func connected(g hexgrid.Grid, set []hexgrid.Coord) bool {
+	seen := map[hexgrid.Coord]bool{set[0]: true}
+	queue := []hexgrid.Coord{set[0]}
+	for len(queue) > 0 {
+		c := queue[0]
+		queue = queue[1:]
+		for _, n := range g.Neighbors(c) {
+			if slices.Contains(set, n) && !seen[n] {
+				seen[n] = true
+				queue = append(queue, n)
+			}
+		}
+	}
+	return len(seen) == len(set)
 }

@@ -57,7 +57,9 @@ Clusters are connected hexes of one kind: `crater` (`mud`), `boulders` (`stone`)
 in `_w`. The shape is the hex count, then each further hex's offset from the first (line, then column order)
 in half-hex columns and lines: `1`, `2_0.2` (one above the other), `4_-1.1_1.1_0.2` (a diamond). With a stamp
 for the shape the cluster's hexes get the base material (grass) and the stamp; the variant is seeded by the
-first hex. `hlasset terrain-gaps` lists the clusters still drawn per hex.
+first hex. A knoll or boulder cluster whose shape has no stamp is covered with the largest stamped shapes
+that fit (`mapcompose.Tile`), each piece its own cluster; hexes no stamp fits keep the per-hex art. Crater
+fields and lakes are not tiled. `hlasset terrain-gaps` lists the clusters still drawn per hex.
 
 `internal/mapcompose` turns a level into per-hex draws: background, stored overlays in order, then the
 standing items of the terrain and overlays that the catalog has. Ground materials, forest and hills pick a

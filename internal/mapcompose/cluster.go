@@ -13,8 +13,15 @@ import (
 // crater over several mud hexes, a lake over water and its shore. When the
 // catalog has a stamp for the cluster's kind and shape, the stamp is drawn
 // across the whole cluster on the base material instead of the per-hex art.
+//
+// A knoll or boulder group whose shape has no stamp is tiled with the smaller
+// stamps the catalog has (Tile): each piece is a cluster of its own, and the
+// hexes no stamp fits form unstamped clusters that keep their per-hex art.
+// Crater fields are not tiled (a crater stamp is larger than a pit, so a field
+// of them crowds), nor are lakes (their shore tiles join up across the water).
 
-// Cluster is a connected group of hexes of one kind.
+// Cluster is a connected group of hexes of one kind: a whole group of the map,
+// or a piece of a group that the catalog has no stamp for.
 type Cluster struct {
 	Kind  string          // crater, boulders, knoll or lake; winter kinds end in _w
 	Cells []hexgrid.Coord // in line, then column order; the stamp is anchored on Cells[0]
@@ -71,9 +78,9 @@ func StampID(kind, shape string, v int) string {
 	return fmt.Sprintf("stamp/%s/%s/%d", kind, shape, v)
 }
 
-// registerClusters finds the clusters of the scene and selects their stamps.
-// The variant is chosen from the variants the catalog has, seeded by the
-// cluster's first cell.
+// registerClusters finds the clusters of the scene and selects their stamps,
+// tiling a group without one (Tile). The variant is chosen from the variants
+// the catalog has, seeded by the cluster's first cell.
 func (s *Scene) registerClusters(at func(hexgrid.Coord) Hex, has func(string) bool) {
 	g := s.Grid
 	seen := map[hexgrid.Coord]bool{}
@@ -98,32 +105,156 @@ func (s *Scene) registerClusters(at func(hexgrid.Coord) Hex, has func(string) bo
 					}
 				}
 			}
-			slices.SortFunc(cl.Cells, func(a, b hexgrid.Coord) int {
-				return cmp.Or(cmp.Compare(a.Line, b.Line), cmp.Compare(a.Col, b.Col))
-			})
-			cl.Shape = ShapeKey(cl.Cells)
-			variants := 0
-			for variants < MaxStampVariants && has(StampID(kind, cl.Shape, variants+1)) {
-				variants++
+			slices.SortFunc(cl.Cells, byLineCol)
+			parts := []Cluster{cl}
+			if !stamp(&parts[0], has) && tiled[kind] {
+				parts = Tile(g, kind, cl.Cells, has)
 			}
-			if variants > 0 {
-				first := cl.Cells[0]
-				variant := int((coordinateHash(first.Line, first.Col)>>32)%uint64(variants)) + 1
-				cl.Stamp = StampID(kind, cl.Shape, variant)
-				if id := StandingID(cl.Stamp); has(id) {
-					cl.Standing = id
-				}
-			}
-			s.Clusters = append(s.Clusters, cl)
-			for _, c := range cl.Cells {
-				cell := &s.Cells[c.Line][c.Col]
-				cell.Cluster = len(s.Clusters)
-				if cl.Stamp != "" {
-					cell.Under = baseTile(base, c.Line, c.Col, has)
+			for _, p := range parts {
+				s.Clusters = append(s.Clusters, p)
+				for _, c := range p.Cells {
+					cell := &s.Cells[c.Line][c.Col]
+					cell.Cluster = len(s.Clusters)
+					if p.Stamp != "" {
+						cell.Under = baseTile(base, c.Line, c.Col, has)
+					}
 				}
 			}
 		}
 	}
+}
+
+func byLineCol(a, b hexgrid.Coord) int {
+	return cmp.Or(cmp.Compare(a.Line, b.Line), cmp.Compare(a.Col, b.Col))
+}
+
+// stamp sets the shape of cl (cells in line, then column order) and, when the
+// catalog has a stamp for it, the stamp and its standing item, and reports
+// whether it has. The variant is seeded by the first cell.
+func stamp(cl *Cluster, has func(string) bool) bool {
+	cl.Shape = ShapeKey(cl.Cells)
+	variants := 0
+	for variants < MaxStampVariants && has(StampID(cl.Kind, cl.Shape, variants+1)) {
+		variants++
+	}
+	if variants == 0 {
+		return false
+	}
+	first := cl.Cells[0]
+	variant := int((coordinateHash(first.Line, first.Col)>>32)%uint64(variants)) + 1
+	cl.Stamp = StampID(cl.Kind, cl.Shape, variant)
+	if id := StandingID(cl.Stamp); has(id) {
+		cl.Standing = id
+	}
+	return true
+}
+
+// tiled are the cluster kinds a group without a stamp is tiled for.
+var tiled = map[string]bool{"knoll": true, "knoll_w": true, "boulders": true, "boulders_w": true}
+
+// MaxPieceCells bounds the pieces Tile tries.
+const MaxPieceCells = 6
+
+// Tile covers a group of kind (cells in line, then column order) with the
+// catalog's stamps for smaller shapes. Going through the cells in order, the
+// first cell no piece covers yet anchors the largest stamped shape of at most
+// MaxPieceCells uncovered cells (the smaller shape key among equals); a cell no
+// stamp fits stays uncovered. The pieces come first, in anchor order, then the
+// uncovered cells as connected unstamped clusters.
+func Tile(g hexgrid.Grid, kind string, cells []hexgrid.Coord, has func(string) bool) []Cluster {
+	free := map[hexgrid.Coord]bool{}
+	for _, c := range cells {
+		free[c] = true
+	}
+	stamped := map[string]bool{} // shape -> the catalog has a stamp for it
+	var pieces []Cluster
+	for _, c := range cells {
+		if !free[c] {
+			continue
+		}
+		var best []hexgrid.Coord
+		bestShape := ""
+		for _, sub := range connectedSets(g, c, free, MaxPieceCells) {
+			if len(sub) < len(best) {
+				continue
+			}
+			shape := ShapeKey(sub)
+			ok, known := stamped[shape]
+			if !known {
+				ok = has(StampID(kind, shape, 1))
+				stamped[shape] = ok
+			}
+			if ok && (len(sub) > len(best) || shape < bestShape) {
+				best, bestShape = sub, shape
+			}
+		}
+		if best == nil {
+			continue
+		}
+		for _, x := range best {
+			free[x] = false
+		}
+		piece := Cluster{Kind: kind, Cells: best}
+		stamp(&piece, has)
+		pieces = append(pieces, piece)
+	}
+	seen := map[hexgrid.Coord]bool{}
+	for _, c := range cells {
+		if !free[c] || seen[c] {
+			continue
+		}
+		rest := Cluster{Kind: kind}
+		queue := []hexgrid.Coord{c}
+		seen[c] = true
+		for len(queue) > 0 {
+			x := queue[0]
+			queue = queue[1:]
+			rest.Cells = append(rest.Cells, x)
+			for _, n := range g.Neighbors(x) {
+				if free[n] && !seen[n] {
+					seen[n] = true
+					queue = append(queue, n)
+				}
+			}
+		}
+		slices.SortFunc(rest.Cells, byLineCol)
+		rest.Shape = ShapeKey(rest.Cells)
+		pieces = append(pieces, rest)
+	}
+	return pieces
+}
+
+// connectedSets returns every connected set of at most limit cells of free that
+// contains anchor and no cell before it in line, then column order, each sorted
+// and each once (Redelmeier's enumeration).
+func connectedSets(g hexgrid.Grid, anchor hexgrid.Coord, free map[hexgrid.Coord]bool, limit int) [][]hexgrid.Coord {
+	marked := map[hexgrid.Coord]bool{anchor: true}
+	var out [][]hexgrid.Coord
+	var grow func(set, untried []hexgrid.Coord)
+	grow = func(set, untried []hexgrid.Coord) {
+		for len(untried) > 0 {
+			c := untried[len(untried)-1]
+			untried = untried[:len(untried)-1]
+			next := append(slices.Clip(set), c)
+			out = append(out, slices.SortedFunc(slices.Values(next), byLineCol))
+			if len(next) == limit {
+				continue
+			}
+			var added []hexgrid.Coord
+			for _, n := range g.Neighbors(c) {
+				if free[n] && byLineCol(n, anchor) > 0 && !marked[n] {
+					marked[n] = true
+					added = append(added, n)
+				}
+			}
+			grow(next, append(slices.Clip(untried), added...))
+			for _, n := range added {
+				delete(marked, n)
+			}
+		}
+	}
+	grow(nil, []hexgrid.Coord{anchor})
+	return out
 }
 
 // Layers returns what to draw on hex c in each pass: the background, a stamp
