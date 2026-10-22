@@ -71,6 +71,18 @@ func (p *Planner) Plan(s *dosplay.Session, side int) ([]dosplay.Event, error) {
 	return append(evs, s.Confirm(side)...), nil
 }
 
+// Commands plans as Plan does and returns the commands given, confirmation
+// last, for dosplay.Session.Replay. To plan off the main thread, run it on
+// a Clone of the session in a goroutine and replay the commands onto the
+// session.
+func (p *Planner) Commands(s *dosplay.Session, side int) ([]dosrules.Command, error) {
+	mark := s.Mark()
+	if _, err := p.Plan(s, side); err != nil {
+		return nil, err
+	}
+	return s.CommandsSince(mark), nil
+}
+
 // PlayOut plays both sides until the battle ends or after maxTurns
 // resolutions: each side plans (a nil planner only confirms), then the
 // orders resolve. It returns the end, nil while the battle is open.

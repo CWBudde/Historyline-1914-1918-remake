@@ -8,6 +8,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosbind"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/finmap"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/origview"
 	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
@@ -57,7 +58,7 @@ func TestTypeInfo(t *testing.T) {
 	s := session(t, shipped(t)[0], Options{})
 	got, ok := s.TypeInfo(0, 10)
 	want := TypeView{Type: 10, ID: "CP_lArtillery", Name: "Light Artillery", Air: Weapon{0, 0}, Ground: Weapon{45, 3},
-		Water: Weapon{45, 3}, Armour: 25, Speed: 2, Weight: 3, Group: 6, Cost: 55}
+		Water: Weapon{45, 3}, Armour: 25, Speed: 2, Weight: 3, Group: 6, Cost: 55, Domain: Artillery}
 	if !ok || got != want {
 		t.Errorf("TypeInfo(0, 10) = %+v, %v\nwant %+v", got, ok, want)
 	}
@@ -271,5 +272,68 @@ func TestCanRepairAndBuild(t *testing.T) {
 	}
 	if len(s.Buildable(0, -1)) != 0 || len(s.Buildable(0, 0)) != 0 || len(s.Buildable(2, 82)) != 0 {
 		t.Error("Buildable of a record that is no building")
+	}
+}
+
+// ContentSlots lists all of a side's slots of its buildings and
+// transporters, empty ones too, and agrees with Contents.
+func TestContentSlots(t *testing.T) {
+	s := civil(t)
+	empty, held, carriers := 0, 0, 0
+	v := s.TrueView()
+	hexes := Coords(toSet(v.Buildings))
+	for _, p := range Coords(toSet(v.Units)) {
+		if v.Units[p].Carrier {
+			hexes = append(hexes, p)
+		}
+	}
+	for _, p := range hexes {
+		for side := range 3 {
+			hold, slots, ok := s.ContentSlots(side, p)
+			ch, units, cok := s.Contents(side, p)
+			if ok != cok || hold != ch {
+				t.Fatalf("%v, side %d: ContentSlots %d, %v; Contents %d, %v", p, side, hold, ok, ch, cok)
+			}
+			if !ok {
+				continue
+			}
+			if b, isB := v.Buildings[p]; !isB {
+				carriers++
+			} else if s.SideOf(b.Owner) != side {
+				t.Errorf("%v: side %d sees the slots of a building of %v", p, side, b.Owner)
+			}
+			if len(slots) != Slots {
+				t.Fatalf("%v: %d slots", p, len(slots))
+			}
+			var occupied []UnitView
+			for k, sv := range slots {
+				u := s.Game.Holds[hold].Slots[7*side+k]
+				switch {
+				case sv.Slot != k:
+					t.Errorf("%v: slot %d has index %d", p, k, sv.Slot)
+				case sv.Unit == nil:
+					empty++
+					if u <= dosrules.SlotFree {
+						t.Errorf("%v: slot %d holds unit %d, shown empty", p, k, u)
+					}
+				default:
+					held++
+					occupied = append(occupied, *sv.Unit)
+					if sv.Unit.Index != u || sv.Unit.Slot != k || sv.Unit.In != hold || !sv.Unit.Held {
+						t.Errorf("%v: slot %d: %+v", p, k, *sv.Unit)
+					}
+				}
+			}
+			if !slices.EqualFunc(occupied, units, func(a, b UnitView) bool { return a == b }) {
+				t.Errorf("%v: the occupied slots %v differ from Contents %v", p, occupied, units)
+			}
+		}
+	}
+	if empty == 0 || held == 0 {
+		t.Errorf("%d empty and %d occupied slots checked", empty, held)
+	}
+	t.Logf("%d empty and %d occupied slots, %d transporters", empty, held, carriers)
+	if _, _, ok := s.ContentSlots(0, hexgrid.Coord{Line: 999}); ok {
+		t.Error("ContentSlots off the level")
 	}
 }

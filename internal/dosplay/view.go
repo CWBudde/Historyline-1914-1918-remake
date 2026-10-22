@@ -13,12 +13,13 @@ import (
 
 // UnitView is a unit as a side sees it.
 type UnitView struct {
-	Index int    // live record
-	Type  int    // UNIT.DAT type
-	ID    string // unit id of data.Set.Units
-	Name  string
-	Side  int // 0, 1, 2 neutral
-	Owner game.Player
+	Index  int    // live record
+	Type   int    // UNIT.DAT type
+	ID     string // unit id of data.Set.Units
+	Name   string
+	Domain Domain // the battle vignette's
+	Side   int    // 0, 1, 2 neutral
+	Owner  game.Player
 	// At is the hex the unit stands on, for a held unit its container's.
 	At                                   hexgrid.Coord
 	Size, Full, Alt, Exp, Budget, Armour int
@@ -127,7 +128,7 @@ func (s *Session) unitView(idx, side int) UnitView {
 		At: s.coord(u.Pos[side] / 2), Size: u.Size, Full: t.Group, Alt: u.Alt, Exp: u.Exp, Budget: u.Budget, Armour: t.Armour,
 		Moved: u.Flags4&0x200 != 0, Held: u.Flags4&0x4000 != 0, Carrier: u.Flags4&0x1000 != 0, Destroyed: u.Destroyed(),
 		Hold: -1, In: -1, Slot: -1}
-	v.Owner = s.Faction(v.Side)
+	v.Owner, v.Domain = s.Faction(v.Side), TypeDomain(s.Game.Profile.Tables, u.Type)
 	if v.Carrier {
 		v.Hold = u.Hold
 	}
@@ -222,19 +223,41 @@ func (s *Session) buildings(side int) map[hexgrid.Coord]BuildingView {
 	return out
 }
 
-// slots are the units of side's slots of container record hold, in slot
-// order.
-func (s *Session) slots(hold, side int) []UnitView {
+// Slots is the number of slots a side has in a container record.
+const Slots = 7
+
+// SlotView is one of a side's slots of a container record: its index and
+// the unit in it, nil for an empty slot.
+type SlotView struct {
+	Slot int
+	Unit *UnitView
+}
+
+// slotViews are side's slots of container record hold, in slot order.
+func (s *Session) slotViews(hold, side int) []SlotView {
 	h := s.Game.Holds[hold]
-	var out []UnitView
-	for k := range 7 {
-		u := h.Slots[7*side+k]
+	out := make([]SlotView, Slots)
+	for k := range Slots {
+		out[k].Slot = k
+		u := h.Slots[Slots*side+k]
 		if _, ok := s.Game.Units[u]; u > dosrules.SlotFree || !ok {
 			continue
 		}
 		v := s.unitView(u, side)
 		v.At, v.Held, v.In, v.Slot = s.coord(startCell(h)), true, hold, k
-		out = append(out, v)
+		out[k].Unit = &v
+	}
+	return out
+}
+
+// slots are the units of side's slots of container record hold, in slot
+// order.
+func (s *Session) slots(hold, side int) []UnitView {
+	var out []UnitView
+	for _, v := range s.slotViews(hold, side) {
+		if v.Unit != nil {
+			out = append(out, *v.Unit)
+		}
 	}
 	return out
 }
@@ -242,26 +265,44 @@ func (s *Session) slots(hold, side int) []UnitView {
 // Contents is the container record and the occupied slots of side's own
 // building or own transporter on a hex.
 func (s *Session) Contents(side int, c hexgrid.Coord) (hold int, slots []UnitView, ok bool) {
-	cell, in := s.Board.Cell(c)
-	if !in || side != 0 && side != 1 {
+	if hold, ok = s.holdOf(side, c); !ok {
 		return 0, nil, false
 	}
-	hold, ok = s.Game.HoldAt(side, cell)
-	if !ok {
+	return hold, s.slots(hold, side), true
+}
+
+// ContentSlots is Contents with all of the side's slots, the empty ones
+// too.
+func (s *Session) ContentSlots(side int, c hexgrid.Coord) (hold int, slots []SlotView, ok bool) {
+	if hold, ok = s.holdOf(side, c); !ok {
 		return 0, nil, false
+	}
+	return hold, s.slotViews(hold, side), true
+}
+
+// holdOf is the container record of side's own building or own transporter
+// on a hex.
+func (s *Session) holdOf(side int, c hexgrid.Coord) (int, bool) {
+	cell, in := s.Board.Cell(c)
+	if !in || side != 0 && side != 1 {
+		return 0, false
+	}
+	hold, ok := s.Game.HoldAt(side, cell)
+	if !ok {
+		return 0, false
 	}
 	h, ok := s.Game.Holds[hold]
 	if !ok {
-		return 0, nil, false
+		return 0, false
 	}
 	if hold < dosrules.HoldFlag40 {
 		// HoldAt found the transporter as the cell's occupant.
 		u := s.Game.Units[s.Game.Maps[side][2*cell+1]]
 		if sideOf(u.Flags4) != side {
-			return 0, nil, false
+			return 0, false
 		}
 	} else if sideOf(h.Flags) != side {
-		return 0, nil, false
+		return 0, false
 	}
-	return hold, s.slots(hold, side), true
+	return hold, true
 }

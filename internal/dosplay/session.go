@@ -55,6 +55,8 @@ type Session struct {
 	// (Moved events), revealed to the other side after it.
 	routes [2][]Event
 	ids    map[int]string // unit ids of built units
+	// log are the commands that changed the state, in order (Replay).
+	log []dosrules.Command
 }
 
 // New binds a level and starts a battle on it: side 0 (the Central Powers)
@@ -427,6 +429,7 @@ func (s *Session) apply(c dosrules.Command, start int) ([]Event, error) {
 		return nil, wrap(err)
 	}
 	s.version++
+	s.log = append(s.log, c)
 	evs := make([]Event, 0, len(raw))
 	for _, r := range raw {
 		var ev Event
@@ -497,6 +500,7 @@ func (s *Session) Build(side, hold, typ int) ([]Event, error) {
 // Confirm completes side's orders.
 func (s *Session) Confirm(side int) []Event {
 	s.version++
+	s.log = append(s.log, dosrules.Command{Kind: CmdConfirm, Side: side})
 	return s.events(s.Game.Confirm(side))
 }
 
@@ -505,6 +509,7 @@ func (s *Session) Unconfirm(side int) []Event {
 	raw := s.Game.Unconfirm(side)
 	if len(raw) > 0 {
 		s.version++
+		s.log = append(s.log, dosrules.Command{Kind: CmdUnconfirm, Side: side})
 	}
 	return s.events(raw)
 }
@@ -536,6 +541,7 @@ func (s *Session) Resolve() ([]Event, error) {
 	raw, err := s.Game.Resolve()
 	if len(raw) > 0 {
 		s.version++
+		s.log = append(s.log, dosrules.Command{Kind: CmdResolve})
 	}
 	var out []Event
 	for _, r := range raw {

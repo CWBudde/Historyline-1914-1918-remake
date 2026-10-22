@@ -18,11 +18,12 @@ type Weapon struct{ Power, Range int }
 // the side's unit of the type, the weapon against air, ground and water
 // targets (the original has one surface range, so ground and water reach
 // alike), armour, speed, weight, the full group and the production price
-// (-1 when never sold).
+// (-1 when never sold) and its battle domain.
 type TypeView struct {
 	Type                         int
 	ID                           string
 	Name                         string
+	Domain                       Domain
 	Air, Ground, Water           Weapon
 	Armour, Speed, Weight, Group int
 	Cost                         int
@@ -38,7 +39,7 @@ func (s *Session) TypeInfo(side, typ int) (TypeView, bool) {
 	t := types[typ]
 	v := TypeView{Type: typ, ID: s.typeID(typ, side), Air: Weapon{t.AirPower, t.AirRange - 1},
 		Ground: Weapon{t.GroundPower, t.SurfaceRange - 1}, Water: Weapon{t.WaterPower, t.SurfaceRange - 1},
-		Armour: t.Armour, Group: t.Group, Cost: t.Cost}
+		Armour: t.Armour, Group: t.Group, Cost: t.Cost, Domain: TypeDomain(s.Game.Profile.Tables, typ)}
 	v.Name = s.typeName(v.ID, typ)
 	if m := s.Game.Profile.Tables.Move; m != nil && typ < len(m.Types) {
 		v.Speed, v.Weight = m.Types[typ].Speed, m.Types[typ].Weight
