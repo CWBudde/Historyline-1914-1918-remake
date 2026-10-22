@@ -104,3 +104,38 @@ func edgeMargin(g Grid, x, y float64) float64 {
 	}
 	return (second - best) / 2
 }
+
+func TestCornersAndBounds(t *testing.T) {
+	g := Grid{Width: 8, Lines: 23}
+	var maxX, maxY float64
+	for line := 0; line < g.Lines; line++ {
+		for col := 0; col < g.Width; col++ {
+			c := Coord{line, col}
+			if !g.Contains(c) {
+				continue
+			}
+			for _, p := range Corners(c) {
+				maxX, maxY = math.Max(maxX, p[0]), math.Max(maxY, p[1])
+			}
+		}
+	}
+	if w, h := g.Bounds(); w != maxX || h != maxY {
+		t.Fatalf("Bounds() = %v×%v, corners reach %v×%v", w, h, maxX, maxY)
+	}
+	// Hex (0, 0) touches the origin: left vertex at x 0, top edge at y 0.
+	cs := Corners(Coord{})
+	if cs[0] != [2]float64{0, 40} || cs[1] != [2]float64{25, 0} || cs[3] != [2]float64{96, 40} {
+		t.Fatalf("corners of hex 0,0: %v", cs)
+	}
+	// Neighbours tile without gaps: the top-right corner of a hex is the left
+	// vertex of its NE neighbour, its right vertex the neighbour's bottom-left corner.
+	c := Coord{4, 3}
+	ne := Corners(Around(c)[0])
+	own := Corners(c)
+	if own[2] != ne[0] || own[3] != ne[5] {
+		t.Fatalf("NE edge %v-%v, neighbour %v-%v", own[2], own[3], ne[0], ne[5])
+	}
+	if w, h := (Grid{}).Bounds(); w != 0 || h != 0 {
+		t.Fatalf("empty grid bounds %v×%v", w, h)
+	}
+}

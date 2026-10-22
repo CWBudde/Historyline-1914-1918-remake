@@ -120,3 +120,28 @@ func (g Grid) PixelToHex(x, y float64) (Coord, bool) {
 	}
 	return best, g.Contains(best)
 }
+
+// Corners returns the six corners of hex c in map pixels, clockwise from the
+// left vertex: left, top left, top right, right, bottom right, bottom left.
+func Corners(c Coord) [6][2]float64 {
+	x, y := Center(c)
+	const q = HexWidth - HalfPitch // run of a slanted edge, so that neighbours share edges exactly
+	return [6][2]float64{
+		{x - centerX, y}, {x - centerX + q, y - centerY}, {x + centerX - q, y - centerY},
+		{x + centerX, y}, {x + centerX - q, y + centerY}, {x - centerX + q, y + centerY},
+	}
+}
+
+// Bounds returns the size of the map in pixels: the bounding box of all its hexes,
+// with (0, 0) at the top-left corner of hex (0, 0). The widest line decides the
+// width, so a one-line map is as wide as its Width hexes.
+func (g Grid) Bounds() (w, h float64) {
+	if g.Width <= 0 || g.Lines <= 0 {
+		return 0, 0
+	}
+	w = float64((g.Width-1)*ColPitch + HexWidth)
+	if g.Lines > 1 && g.Width > 1 {
+		w = max(w, float64((g.Width-2)*ColPitch+HalfPitch+HexWidth))
+	}
+	return w, float64((g.Lines-1)*LinePitch + HexHeight)
+}
