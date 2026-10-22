@@ -26,10 +26,11 @@ const (
 	Repaired                      // a unit was repaired: Unit, To the building, Energy left
 	Built                         // a unit was built: Unit, To the building, Energy left
 	Ended                         // the battle ended: Side the winner (-1 a draw), End
+	Captured                      // Side took a building with Unit: To the building, Hold its record, Text
 )
 
 var kindNames = [...]string{"moved", "refused", "ordered", "confirmed", "unconfirmed", "battle", "skipped",
-	"revealed", "phase", "credited", "repaired", "built", "ended"}
+	"revealed", "phase", "credited", "repaired", "built", "ended", "captured"}
 
 func (k EventKind) String() string {
 	if k >= 0 && int(k) < len(kindNames) {
@@ -71,6 +72,7 @@ type Event struct {
 	Turn     int
 	Energy   int
 	End      *dosrules.End
+	Hold     int // Captured: the building's container record
 	Text     string
 	Raw      dosrules.Event
 }
@@ -189,10 +191,26 @@ func (s *Session) event(r dosrules.Event, b *battles) Event {
 		ev.Kind, ev.To = Built, s.coord(r.Cell)
 	case dosrules.EvEnd:
 		ev.Kind = Ended
+	case dosrules.EvCaptured:
+		ev.Kind, ev.To, ev.Hold = Captured, s.coord(r.Cell), r.Hold
+		ev.Text = captureText(kindOf(r.Hold), len(s.slots(r.Hold, r.Side))-1)
 	case dosrules.EvMoved, dosrules.EvRefused:
 		return s.moved(r, -1)
 	}
 	return ev
+}
+
+// captureText is the wording of a capture of a building of kind k in which
+// found units changed sides.
+func captureText(k BuildingKind, found int) string {
+	t := [...]string{"HQ captured", "Depot captured", "Factory captured"}[k]
+	switch {
+	case found == 1:
+		return t + ", 1 unit found."
+	case found > 1:
+		return fmt.Sprintf("%s, %d units found.", t, found)
+	}
+	return t + "."
 }
 
 // moved turns a move or an exit that started on cell start. The rules

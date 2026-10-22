@@ -2,7 +2,8 @@
 // (internal/dosplay): a greedy planner that gives all orders of a side's
 // phase through the session and confirms them. In the movement phase it
 // moves each unit along the cheapest terrain route towards the enemy HQ
-// and the enemy units it sees; in the
+// and the enemy units it sees, and takes the enemy HQ or another side's or
+// a neutral building where a unit reaches its entrance; in the
 // action phase it queues the attacks whose exact outcome (dosrules.Engage on
 // the side's map as the earlier orders leave it) gains most.
 //
@@ -33,6 +34,7 @@ const (
 	hqRadius       = 3 // targets this close to an own HQ count hqFactor times
 	hqFactor       = 3
 	longRangeFlag  = 0x40 // Type.TargetFlags: long range
+	captureFlag    = 0x01 // MoveType.Flags (+6): enters foreign buildings, so captures
 )
 
 // Planner plans a side's orders. The zero Planner is ready to use.
@@ -131,6 +133,7 @@ type plan struct {
 	enemies []hexgrid.Coord               // the other side's units in the view, sorted
 	hqs     []hexgrid.Coord               // the other side's HQ entrances, sorted
 	ownHQs  []hexgrid.Coord               // the side's HQ entrances, sorted
+	prizes  []hexgrid.Coord               // the other side's and neutral depots and factories, sorted
 	fields  map[int]map[hexgrid.Coord]int // by unit type
 
 	progress func(done, total int) // Planner.Progress
@@ -158,6 +161,9 @@ func newPlan(s *dosplay.Session, side int) (*plan, error) {
 	for _, c := range sorted(pl.view.Buildings) {
 		switch b := pl.view.Buildings[c]; {
 		case !b.HQ:
+			if b.Owner != s.Faction(side) {
+				pl.prizes = append(pl.prizes, c)
+			}
 		case b.Owner == s.Faction(1-side):
 			pl.hqs = append(pl.hqs, c)
 		case b.Owner == s.Faction(side):
@@ -287,7 +293,12 @@ func (pl *plan) moveUnit(m mover) ([]dosplay.Event, error) {
 }
 
 // choose is the destination of a unit standing at from: an enemy HQ
-// entrance if it reaches one, else the best scoring hex if it beats from.
+// entrance if it reaches one, else a building to capture on the way (its
+// route cost to the goal no higher than from's), else the best scoring hex
+// if it beats from. Only a unit that may capture reaches a
+// foreign building's entrance. A held unit does not defend the building's
+// hex, so its terrain does not count for staying in an own building or
+// going into one.
 func (pl *plan) choose(u dosplay.UnitView, from hexgrid.Coord, dests []hexgrid.Coord) (hexgrid.Coord, bool) {
 	for _, c := range dests {
 		if slices.Contains(pl.hqs, c) {
@@ -298,27 +309,48 @@ func (pl *plan) choose(u dosplay.UnitView, from hexgrid.Coord, dests []hexgrid.C
 	if err != nil {
 		return from, false
 	}
-	best, bestScore := from, pl.score(u, f, from)
 	for _, c := range dests {
-		if _, ok := pl.view.Buildings[c]; ok {
-			continue // loading, or a building the rules do not capture
+		if cost, ok := f[c]; ok && slices.Contains(pl.prizes, c) && cost <= f[from] {
+			return c, true
 		}
+	}
+	best, bestScore := from, pl.score(u, f, from)
+	if u.Held {
+		bestScore -= pl.defence(from)
+	}
+	for _, c := range dests {
 		if _, ok := pl.view.Units[c]; ok {
-			continue
+			continue // loading into a transporter
 		}
-		if sc := pl.score(u, f, c); sc > bestScore {
+		sc := pl.score(u, f, c)
+		if _, ok := pl.view.Buildings[c]; ok {
+			sc -= pl.defence(c) // into an own building, on the way
+		}
+		if sc > bestScore || sc == bestScore && hasLower(f, c, best) {
 			best, bestScore = c, sc
 		}
 	}
 	return best, best != from
 }
 
+// hasLower reports whether field f has a lower route cost at c than at b:
+// between equal scores the unit moves on along its route.
+func hasLower(f map[hexgrid.Coord]int, c, b hexgrid.Coord) bool {
+	fc, ok := f[c]
+	fb, okb := f[b]
+	return ok && (!okb || fc < fb)
+}
+
 // score rates hex c for unit u: a lower route cost to the nearest place to
 // fight from (field) is better, a long-range unit wants its weapon's full
-// reach to the nearest enemy unit and no enemy next to it, and the
+// reach to the nearest enemy unit and no enemy next to it, a unit that
+// cannot capture keeps off the hexes next to an enemy HQ entrance, and the
 // terrain's defence term counts.
 func (pl *plan) score(u dosplay.UnitView, f map[hexgrid.Coord]int, c hexgrid.Coord) int {
 	sc := pl.defence(c)
+	if pl.profile.Tables.Move.Types[u.Type].Flags&captureFlag == 0 && nearest(c, pl.hqs) == 1 {
+		sc -= adjacentCost
+	}
 	if cost, ok := f[c]; ok {
 		sc -= costPenalty * cost
 	} else {

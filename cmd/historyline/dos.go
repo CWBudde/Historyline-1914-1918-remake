@@ -462,6 +462,8 @@ func (d *dosControl) step() {
 				d.lookAt(ev.Side, ev.Path[len(ev.Path)-1])
 			}
 		}
+	case dosplay.Captured:
+		d.captured(ev)
 	case dosplay.Ended:
 		d.over = true
 		d.Message = d.endText()
@@ -487,6 +489,24 @@ func (d *dosControl) playBattle(ev dosplay.Event) {
 			d.Message += "; " + f.Unit.Name + " destroyed"
 		}
 	}
+}
+
+// captured reports a building taken at the phase change: the session's
+// wording for the human side's capture, a warning for the other side's.
+func (d *dosControl) captured(ev dosplay.Event) {
+	text := ev.Text
+	if ev.Side != d.side {
+		kind := "a building"
+		if b, ok := d.s.TrueView().Buildings[ev.To]; ok {
+			kind = "a " + b.Kind.String()
+			if b.HQ {
+				kind = "our HQ"
+			}
+		}
+		text = "The enemy captured " + kind + "."
+	}
+	d.Message = text
+	d.fx.Show(strings.ToUpper(strings.TrimSuffix(text, ".")), captureFrames)
 }
 
 // hit reports whether a fighter lost strength.

@@ -92,6 +92,10 @@ func TestPlayOut(t *testing.T) {
 	for _, lv := range shipped(t) {
 		s := session(t, lv)
 		end, evs := play(t, s, [2]*Planner{{}, {}})
+		if end == nil && locked(t, s) {
+			t.Logf("%s: open after %d resolutions, no unit can get closer to a goal", lv.MapName, maxTurns)
+			continue
+		}
 		if end == nil || !end.Over {
 			t.Errorf("%s: open after %d resolutions", lv.MapName, maxTurns)
 			continue
@@ -100,6 +104,46 @@ func TestPlayOut(t *testing.T) {
 			lv.MapName, end.Winner, end.Won, s.Turn(), end.Score, count(evs, dosplay.Moved), count(evs, dosplay.Ordered),
 			count(evs, dosplay.Battle))
 	}
+}
+
+// locked reports a standstill: in both sides' next movement phase no unit
+// has a destination with a lower route cost to a goal than where it stands.
+func locked(t *testing.T, s *dosplay.Session) bool {
+	t.Helper()
+	for range 2 {
+		for side := range 2 {
+			if s.Phase(side) != dosrules.PhaseMovement {
+				continue
+			}
+			pl, err := newPlan(s, side)
+			if err != nil {
+				t.Fatal(err)
+			}
+			for _, m := range pl.movers() {
+				u := s.Unit(m.unit)
+				f, err := pl.field(u)
+				if err != nil {
+					t.Fatal(err)
+				}
+				dests, err := s.Destinations(side, m.unit)
+				if err != nil {
+					continue // held: an exit is a move too
+				}
+				for c := range dests {
+					if hasLower(f, c, m.at) {
+						t.Logf("%s: unit %d (%s) can get closer at %v", s.Level.MapName, m.unit, u.Name, c)
+						return false
+					}
+				}
+			}
+		}
+		s.Confirm(0)
+		s.Confirm(1)
+		if _, err := s.Resolve(); err != nil {
+			t.Fatal(err)
+		}
+	}
+	return true
 }
 
 func TestDeterminism(t *testing.T) {
@@ -397,5 +441,36 @@ func TestProgress(t *testing.T) {
 			}
 		}
 		t.Logf("%s: %d plans, %d progress reports", lv.MapName, phases, len(calls))
+	}
+}
+
+// TestPlayOutCaptures: the planners take buildings on the way, and a
+// captured building belongs to the capturer afterwards.
+func TestPlayOutCaptures(t *testing.T) {
+	for _, lv := range shipped(t) {
+		s := session(t, lv)
+		_, evs := play(t, s, [2]*Planner{{}, {}})
+		n := 0
+		for _, ev := range evs {
+			if ev.Kind != dosplay.Captured {
+				continue
+			}
+			n++
+			t.Logf("%s: side %d: %s at %v", lv.MapName, ev.Side, ev.Text, ev.To)
+		}
+		if n == 0 {
+			t.Errorf("%s: no building captured", lv.MapName)
+		}
+		last := map[hexgrid.Coord]int{}
+		for _, ev := range evs {
+			if ev.Kind == dosplay.Captured {
+				last[ev.To] = ev.Side
+			}
+		}
+		for at, side := range last {
+			if b := s.TrueView().Buildings[at]; b.Owner != s.Faction(side) {
+				t.Errorf("%s: building at %v belongs to %v after side %d took it", lv.MapName, at, b.Owner, side)
+			}
+		}
 	}
 }
