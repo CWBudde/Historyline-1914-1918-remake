@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "canonical_level_sha256": "358c5b22110029af7056ce22da44c3adddaa934cbfc6b69c1796ae5840b84ef6",
+  "registration_sha256": "c300530262d85a711cf1fbb4a6b2b5f49bfb304d1739e31636cb9c1013bc1ffb",
+  "coordinates": "Continuous world pixels, x right/y down on each pinned 1x image. Independent visually reviewed estimates of outer visible foliage, excluding cast shadows. Open fragments retain grass gaps; never join endpoints or close them. Declared uncertainty is an approximate positional displacement radius, not calibrated statistical confidence. The r8c5 sample is incomplete and cannot pass the whole-forest woodland-edge gate.",
+  "sources": [
+    {
+      "id": "render", "width": 1090, "height": 1920,
+      "rgba_pixels_sha256": "e90497dbbd89125abbefc387730ed5343ca04faf209958bbc129d2464a54ce08",
+      "review_status": "visually_reviewed_estimate",
+      "scope": "Three short outer-crown arcs in the isolated forest cell r8c5. Sparse disconnected crowns do not establish a closed woodland outline; lower shadow-adjacent boundaries and meadow props are omitted.",
+      "fragments": [
+        {"id":"r8c5-northwest","position_uncertainty_world_px":3,
+         "points":[[644,304],[644,301],[646,298],[649,296],[652,297],[655,300]],
+         "notes":"Upper/left foliage arc, stopping before the dark southeast shadow fringe."},
+        {"id":"r8c5-north","position_uncertainty_world_px":3,
+         "points":[[676,291],[679,287],[682,285],[685,286],[687,289],[688,293]],
+         "notes":"Northernmost crown upper arc; disconnected grass gap to either neighbouring fragment is excluded."},
+        {"id":"r8c5-northeast","position_uncertainty_world_px":3,
+         "points":[[713,298],[714,295],[717,292],[720,292],[723,294],[725,297],[726,300]],
+         "notes":"Upper/right foliage arc; no inferred lower silhouette under the cast shadow."}
+      ]
+    },
+    {
+      "id": "reference", "width": 1090, "height": 1920,
+      "rgba_pixels_sha256": "ff3763cfd5e7db7c98e6f2898911222e79ed2ce55183ff372956dae35c8d0535",
+      "review_status": "visually_reviewed_estimate",
+      "scope": "Three outer visible crown fragments in r8c5, independently traced on the painting. The eastern shadow-adjacent margin, open gaps and separate meadow trees are omitted; no whole stand outline is asserted.",
+      "fragments": [
+        {"id":"r8c5-west","position_uncertainty_world_px":3,
+         "points":[[660,336],[655,333],[652,327],[653,322],[655,318],[658,316],[659,311],[664,309],[669,307],[674,309],[678,313]],
+         "notes":"Recognizable outer leafy silhouettes along the western cluster, excluding the southeast ground shadow."},
+        {"id":"r8c5-north","position_uncertainty_world_px":3,
+         "points":[[689,311],[691,306],[695,303],[698,301],[699,296],[702,292],[706,293],[709,297],[714,297],[719,301],[721,306]],
+         "notes":"Upper exterior of the northern crowns; endpoints stop at ambiguous overlap and grass gaps."},
+        {"id":"r8c5-south","position_uncertainty_world_px":4,
+         "points":[[674,337],[674,342],[678,346],[683,348],[689,348],[695,346],[699,344]],
+         "notes":"Blue-green crown margin above the darker shadow; higher uncertainty because foliage overlaps shade. The separate tree near 635,375 is excluded."}
+      ]
+    }
+  ]
+}

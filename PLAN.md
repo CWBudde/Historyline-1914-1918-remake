@@ -368,6 +368,10 @@ Stop adding enumerated baked contexts. Each one fixes the old sampling in place,
       medians are 7/12. Width uncertainty is explicit (±6–8 px worst case). Strip geometry, source-pin
       rejection and actual-image sampling pass under `build/review/look-water/`; both overlays reviewed.
       Distinct shallows/shadows, other water features and width acceptance remain open. (2026-10-22)
+      Woodland-edge distances now cover six independently reviewed open crown arcs in `r8c5`, with
+      arc-length weights, source pins and positional uncertainty. On this sample, 72%/9% of the
+      render/reference arcs lie within 6 px of a hex edge. Tests and both overlays are reviewed under
+      `build/review/look-woodland/`; complete woodland-boundary coverage remains open. (2026-10-22)
 - [ ] Review views at the real size: 1× and an effective zoom of 1.6 (the planned split screen), plus
       in-game captures at 1080p and 4K. A headless capture path in `cmd/historyline` replaces the patched
       copy used for the audit.

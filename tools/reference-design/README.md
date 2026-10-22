@@ -74,6 +74,14 @@ Near-bank minus interior L* is only a depth-appearance proxy. Missing separable 
 stay null; these annotations do not establish physical depth or a gate pass. The two
 `water-*-annotations.png` overlays mark water widths in cyan, banks orange and interior samples green.
 
+The `woodland_edge` section uses independently pinned open foliage-boundary fragments in
+`woodland_annotations.json`. It samples each segment at equal-piece midpoints with a maximum 1-world-px
+step, then measures the nearest finite edge of the actual nonexcluded hex polygons. Distances and the
+fraction within 6 px are weighted by visible arc length; grass gaps between fragments are excluded.
+Bounds on that fraction assume each annotation's declared positional uncertainty. The initial sample
+has three arcs per image in `r8c5`, with `whole_forest_perimeter: false`. The 3× diagnostic PNGs show
+the fragments in cyan, vertices red and hex edges yellow. Whole-forest and original coverage remain open.
+
 For real game views at exact effective 1×/1.6×, add `-capture-look` to the game's `-capture DIR`
 command. It writes revealed/fogged views at 1080p and 4K and records `effective_zoom` alongside camera
 zoom and UI scale. Capture outputs stay under `build/`.

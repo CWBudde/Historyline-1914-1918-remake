@@ -86,6 +86,9 @@ func TestLookReportRecordsMeasurementProvenanceWithoutAcceptanceClaim(t *testing
 		t.Fatalf("%d sources, want render/reference/original", len(report.Sources))
 	}
 	for _, source := range report.Sources {
+		if source.Woodland == nil || source.Woodland.Available || source.Woodland.Complete || source.Woodland.Reason == "" {
+			t.Fatalf("missing independent woodland annotations must remain unavailable: %+v", source.Woodland)
+		}
 		if source.ID == "original" {
 			if source.Available || source.Reason == "" {
 				t.Fatalf("original measurements fabricated: %+v", source)

@@ -27,18 +27,19 @@ type lookReport struct {
 }
 
 type lookSource struct {
-	ID           string       `json:"id"`
-	Available    bool         `json:"available"`
-	Reason       string       `json:"reason,omitempty"`
-	Width        int          `json:"width,omitempty"`
-	Height       int          `json:"height,omitempty"`
-	PixelsSHA256 string       `json:"rgba_pixels_sha256,omitempty"`
-	FileSHA256   string       `json:"source_file_sha256,omitempty"`
-	Whole        *lookMetrics `json:"whole_map,omitempty"`
-	Families     []lookFamily `json:"families,omitempty"`
-	Canopy       *lookCanopy  `json:"canopy"`
-	Units        *lookUnits   `json:"unit_edge_contrast"`
-	Water        *lookWater   `json:"water"`
+	ID           string        `json:"id"`
+	Available    bool          `json:"available"`
+	Reason       string        `json:"reason,omitempty"`
+	Width        int           `json:"width,omitempty"`
+	Height       int           `json:"height,omitempty"`
+	PixelsSHA256 string        `json:"rgba_pixels_sha256,omitempty"`
+	FileSHA256   string        `json:"source_file_sha256,omitempty"`
+	Whole        *lookMetrics  `json:"whole_map,omitempty"`
+	Families     []lookFamily  `json:"families,omitempty"`
+	Canopy       *lookCanopy   `json:"canopy"`
+	Units        *lookUnits    `json:"unit_edge_contrast"`
+	Water        *lookWater    `json:"water"`
+	Woodland     *lookWoodland `json:"woodland_edge"`
 }
 
 type lookFamily struct {
@@ -133,7 +134,7 @@ func (p *project) writeLookReport(out string) error {
 	}, Remaining: []string{
 		"explicit render/reference/original target ranges and strict reference-check acceptance gate",
 		"original screenshot registration and private numbers-only baseline measurements",
-		"woodland-edge distance and independently annotated reference/original canopy coverage",
+		"complete woodland-boundary coverage and independently annotated reference/original canopy coverage",
 		"light skew and cast-shadow direction",
 		"water sampling across other features, independently identifiable shallow/shadow regions, original baselines and width acceptance",
 		"unit contrast acceptance aggregation, additional facings/states and reference/original unit baselines",
@@ -147,6 +148,12 @@ func (p *project) writeLookReport(out string) error {
 	}
 	renderSource.Water = &water
 	report.Definitions["water"] = water.Definition
+	woodland, err := p.measureWoodland("render", render1x, out)
+	if err != nil {
+		return err
+	}
+	renderSource.Woodland = &woodland
+	report.Definitions["woodland_edge"] = woodland.Definition
 	renderer, err := maprender.New(p.assets)
 	if err != nil {
 		return err
@@ -176,6 +183,11 @@ func (p *project) writeLookReport(out string) error {
 			return err
 		}
 		source.Water = &water
+		woodland, err := p.measureWoodland("reference", reference1x, out)
+		if err != nil {
+			return err
+		}
+		source.Woodland = &woodland
 		source.Canopy = &lookCanopy{Reason: "independent reference canopy annotations unavailable"}
 		source.Units = &lookUnits{Reason: "independent reference unit baseline unavailable"}
 		source.FileSHA256 = p.ref.Image.SHA256
@@ -195,6 +207,9 @@ func (p *project) writeLookReport(out string) error {
 	}
 	report.Sources[0].Units = &units
 	for i := range report.Sources {
+		if report.Sources[i].Woodland == nil {
+			report.Sources[i].Woodland = &lookWoodland{Reason: "source_unavailable"}
+		}
 		if report.Sources[i].Water == nil {
 			report.Sources[i].Water = &lookWater{Reason: "source_unavailable"}
 		}
