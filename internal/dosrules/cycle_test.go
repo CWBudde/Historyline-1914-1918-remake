@@ -328,8 +328,10 @@ func TestCycleDestroyedTarget(t *testing.T) {
 				if evs[1].Kind != EvSkipped {
 					t.Errorf("size %d: the second order on a destroyed target: %+v", size, evs[1])
 				}
+				// The phase change marks it 0x8000 and clears the action
+				// bytes, the battle's bit 4 of +0x14 too.
 				u := g.Units[0]
-				if u.Flags4&0x8000 == 0 || u.Action[1]&4 == 0 || g.occupant(0, 40) != 0xFF || g.occupant(1, 40) != 0xFF {
+				if u.Flags4&0x8000 == 0 || u.Action != [7]int{} || g.occupant(0, 40) != 0xFF || g.occupant(1, 40) != 0xFF {
 					t.Errorf("size %d: destroyed unit %+v, maps %d/%d", size, u, g.occupant(0, 40), g.occupant(1, 40))
 				}
 				if !slices.Equal(g.Destroyed(), []int{0}) {

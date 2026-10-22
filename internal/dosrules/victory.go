@@ -1,7 +1,8 @@
 package dosrules
 
-// The end of a battle and its score. A side wins by holding the other
-// side's HQ entrance or by destroying all of its units; the score starts as
+// The end of a battle and its score. A side wins by capturing the other
+// side's HQ (capture.go) or by destroying all of its units; the capture
+// wins over an annihilation in the same resolution (0661:3d03); the score starts as
 // the defence values of all units and falls as units disappear. The winner's
 // final score adds 500 for annihilation and 100 for concealed inventories,
 // multiplies by 4, 3 or 2 for a move limit of 4, 8 or 16 and is capped at
@@ -10,12 +11,8 @@ package dosrules
 // Assumed, not verified:
 //   - A unit's defence value is its type's armour; the score counts every
 //     unit not destroyed, of either side or neutral, in containers too.
-//   - A side holds the other's HQ when its own map shows one of its units on
-//     a cell of terrain flag 0x40 whose building record (HoldFlag40 +
-//     flag bit 1) the other side owns.
 //   - A side is annihilated when none of its units is left.
-//   - The end is decided after a resolution, so a unit that reaches the HQ
-//     must survive it; both sides winning at once is a draw without a score.
+//   - Both sides annihilated at once is a draw without a score.
 //   - The bonuses are added before the limit's factor.
 
 // MaxScore caps the final score.
@@ -51,16 +48,18 @@ func (g *Game) Score() int {
 	return s
 }
 
-// end is the battle's end as the state stands; Resolve decides it.
-func (g *Game) end() End {
+// end is the battle's end as the state stands; Resolve decides it, with hq
+// the side that captured an HQ in the resolution (-1 none).
+func (g *Game) end(hq int) End {
 	r := End{Winner: -1}
 	for k := range 2 {
-		switch {
-		case g.annihilated(1 - k):
+		if g.annihilated(1 - k) {
 			r.Won[k] = EndAnnihilation
-		case g.holdsHQ(k):
-			r.Won[k] = EndHQ
 		}
+	}
+	if hq >= 0 {
+		r.Won = [2]EndReason{}
+		r.Won[hq] = EndHQ
 	}
 	switch {
 	case r.Won[0] != "" && r.Won[1] != "":
@@ -83,33 +82,6 @@ func (g *Game) annihilated(side int) bool {
 		}
 	}
 	return true
-}
-
-// holdsHQ reports whether side's map shows one of its units on the other
-// side's HQ entrance.
-func (g *Game) holdsHQ(side int) bool {
-	t, err := g.Profile.moveTables()
-	if err != nil {
-		return false
-	}
-	m := g.Maps[side]
-	for c := range g.Width * g.Height {
-		f := t.Terrains[m[2*c]].Flags
-		if f&0x40 == 0 {
-			continue
-		}
-		h, ok := g.Holds[HoldFlag40+(f&1)]
-		if !ok {
-			h = EmptyHold()
-		}
-		if h.Flags&2 != 0 || Owns(h.Flags, side) {
-			continue
-		}
-		if u, ok := g.Units[m[2*c+1]]; ok && Owns(u.Flags4, side) && !u.Destroyed() {
-			return true
-		}
-	}
-	return false
 }
 
 // finalScore is the winner's score from the current one.

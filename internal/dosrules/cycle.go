@@ -182,6 +182,7 @@ func NewGame(p Profile, width, height int, terrain []int, units map[int]Placemen
 			}
 		}
 	}
+	g.markKinds()
 	g.Players[0].Phase, g.Players[1].Phase = PhaseMovement, PhaseAction
 	return g, nil
 }
@@ -248,6 +249,7 @@ const (
 	EvRepaired EventKind = "repaired" // a unit repaired: Energy left
 	EvBuilt    EventKind = "built"    // a unit built: Unit, the building's Cell, Energy left
 	EvCredit   EventKind = "credit"   // a side credited after the phase change: Energy
+	EvCaptured EventKind = "captured" // Side took building record Hold at Cell with Unit (capture.go)
 )
 
 // Event is one thing that happened, in order.
@@ -263,6 +265,7 @@ type Event struct {
 	Phase    [2]int    `json:"phase"`
 	Turn     int       `json:"turn"`
 	Energy   int       `json:"energy,omitempty"`
+	Hold     int       `json:"hold,omitempty"`
 }
 
 // unitOf is the unit a command orders.
@@ -647,10 +650,13 @@ func (g *Game) Battlefield(side int) (*Battlefield, error) {
 // computer sides, 0661:3cfb). The action side's list resolves on its map, in
 // list order (ResolveOrders): each attack against the cell in the unit's
 // +0x11, with the strengths and experience it leaves, and every destroyed
-// unit taken off that map with bit 4 of its +0x14 set (02dc:2083). Then the
-// phase change (ChangePhase) brings both maps into line, marks the
-// destroyed units 0x8000, swaps the phases, clears both lists and the
-// confirmations and counts the turn. It also clears every unit's moved flag.
+// unit taken off that map with bit 4 of its +0x14 set (02dc:2083). The
+// action pass then hands the buildings the movement side's units entered to
+// that side (capture, EvCaptured). Then the phase change (ChangePhase)
+// brings both maps into line, marks the destroyed units 0x8000, swaps the
+// phases, clears both lists and the confirmations and counts the turn. It
+// also clears every unit's +4 bits 0x0f00 (moved among them), its order cell
+// +0x11 and its action bytes +0x13 to +0x16 (02dc:1cf0, 1ebc).
 // Each side is then credited its buildings' energy (EvCredit).
 // A destroyed attacker cannot have a later order: it is listed once, and
 // only return fire in its own battle destroys it. When the battle has ended
@@ -671,13 +677,15 @@ func (g *Game) Resolve() ([]Event, error) {
 	if err != nil {
 		return evs, err
 	}
+	caps, hq := g.capture(a)
+	evs = append(evs, caps...)
 	ev, err := g.changePhase(a)
 	evs = append(evs, ev...)
 	if err != nil {
 		return evs, err
 	}
 	evs = append(evs, g.credit(ev[0])...)
-	if e := g.end(); e.Over {
+	if e := g.end(hq); e.Over {
 		g.Ended = &e
 		evs = append(evs, Event{Kind: EvEnd, Side: e.Winner, End: &e, Phase: ev[0].Phase, Turn: g.Turn})
 	}
@@ -738,7 +746,8 @@ func (g *Game) changePhase(a int) ([]Event, error) {
 	for i := range g.Units {
 		d := DecodeLive(pr.Live[i])
 		l := g.Units[i]
-		l.Flags4, l.Size, l.Pos, l.Facing = d.Flags4&^0x200, d.Size, d.Pos, d.Facing
+		l.Flags4, l.Size, l.Pos, l.Facing = d.Flags4&0xF0FF, d.Size, d.Pos, d.Facing
+		l.Target, l.Action[0], l.Action[1], l.Action[2], l.Action[3] = 0, 0, 0, 0, 0
 		g.Units[i] = l
 	}
 	for k := range 2 {

@@ -35,10 +35,10 @@ func hqCycleHolds(t *testing.T, p Profile, units map[int]Placement, holds map[in
 	if m.Terrains[terrain[hq0]].Flags&0x40 == 0 || m.Terrains[terrain[hq1]].Flags&0x40 == 0 {
 		t.Fatal("no HQ terrain")
 	}
-	all := map[int]Hold{HoldFlag40: EmptyHold(), HoldFlag40 + 1: EmptyHold()}
-	h1 := all[HoldFlag40+1]
-	h1.Flags = 1
-	all[HoldFlag40+1] = h1
+	h0, h1 := EmptyHold(), EmptyHold()
+	h0.Cells[0] = 2 * hq0
+	h1.Flags, h1.Cells[0] = 1, 2*hq1
+	all := map[int]Hold{HoldFlag40: h0, HoldFlag40 + 1: h1}
 	maps.Copy(all, holds)
 	g, err := NewGame(p, cycleW, cycleH, terrain, units, all)
 	if err != nil {
@@ -77,7 +77,7 @@ func TestVictoryOpen(t *testing.T) {
 				0: {Type: cInfantry, Owner: 0, Cell: hq0}, 1: {Type: cPanzer, Owner: 1, Cell: hq1},
 				2: {Type: cSupply, Owner: 2, Cell: 40},
 			}, map[int]Hold{0: transportHold(40, 2, 2)})
-			if r := g.end(); r.Over || r.Winner != -1 || r.Score != 0 || g.Ended != nil {
+			if r := g.end(-1); r.Over || r.Winner != -1 || r.Score != 0 || g.Ended != nil {
 				t.Errorf("result %+v", r)
 			}
 			want := 0
@@ -144,19 +144,38 @@ func TestVictoryAnnihilation(t *testing.T) {
 	}
 }
 
+// TestVictoryHQ captures the opposing HQ: the final score counts the
+// concealed inventory and the move limit.
 func TestVictoryHQ(t *testing.T) {
 	for build, p := range profiles {
 		t.Run(build, func(t *testing.T) {
+			n := neighbours(hq1, cycleW, cycleH)
 			g := hqCycle(t, p, map[int]Placement{
-				0: {Type: cInfantry, Owner: 0, Cell: hq1}, 1: {Type: cPanzer, Owner: 1, Cell: 40},
+				0: {Type: cInfantry, Owner: 0, Cell: n[0]}, 1: {Type: cPanzer, Owner: 1, Cell: 40},
 			})
 			g.Limit, g.Concealed = 8, true
+			apply(t, g, Command{Kind: CmdMove, Side: 0, Unit: 0, Cell: hq1})
 			r := endOf(t, resolve(t, g))
 			if !r.Over || r.Winner != 0 || r.Won != [2]EndReason{EndHQ, ""} {
 				t.Errorf("result %+v", r)
 			}
 			if want := (armour(g) + 100) * 3; r.Score != want {
 				t.Errorf("score %d, want %d", r.Score, want)
+			}
+		})
+	}
+}
+
+// TestVictoryHQStanding: a unit placed on the opposing HQ has not entered
+// it and does not win.
+func TestVictoryHQStanding(t *testing.T) {
+	for build, p := range profiles {
+		t.Run(build, func(t *testing.T) {
+			g := hqCycle(t, p, map[int]Placement{
+				0: {Type: cInfantry, Owner: 0, Cell: hq1}, 1: {Type: cPanzer, Owner: 1, Cell: 40},
+			})
+			if evs := resolve(t, g); evs[len(evs)-1].Kind == EvEnd || g.Ended != nil {
+				t.Errorf("the battle ends: %+v", g.Ended)
 			}
 		})
 	}
@@ -195,15 +214,17 @@ func TestVictoryOwnHQ(t *testing.T) {
 	}
 }
 
-func TestVictoryDraw(t *testing.T) {
+// TestVictoryHQOverAnnihilation: the HQ captured wins as such, without the
+// annihilation bonus, even where the other side has no unit left.
+func TestVictoryHQOverAnnihilation(t *testing.T) {
 	for build, p := range profiles {
 		t.Run(build, func(t *testing.T) {
-			g := hqCycle(t, p, map[int]Placement{
-				0: {Type: cInfantry, Owner: 0, Cell: hq1}, 1: {Type: cPanzer, Owner: 1, Cell: hq0},
-			})
+			n := neighbours(hq1, cycleW, cycleH)
+			g := hqCycle(t, p, map[int]Placement{0: {Type: cInfantry, Owner: 0, Cell: n[0]}})
+			apply(t, g, Command{Kind: CmdMove, Side: 0, Unit: 0, Cell: hq1})
 			r := endOf(t, resolve(t, g))
-			if !r.Over || r.Winner != -1 || r.Won != [2]EndReason{EndHQ, EndHQ} || r.Score != 0 {
-				t.Errorf("result %+v", r)
+			if !r.Over || r.Winner != 0 || r.Won != [2]EndReason{EndHQ, ""} || r.Score != armour(g) {
+				t.Errorf("result %+v, want the HQ won at score %d", r, armour(g))
 			}
 		})
 	}

@@ -135,5 +135,6 @@ func LoadGame(data []byte) (*Game, error) {
 	if _, err := g.Action(); err != nil {
 		return nil, fmt.Errorf("dosrules: load: %w", err)
 	}
+	g.markKinds()
 	return g, nil
 }
