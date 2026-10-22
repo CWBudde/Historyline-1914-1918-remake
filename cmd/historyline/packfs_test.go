@@ -10,7 +10,8 @@ import (
 	"testing/fstest"
 )
 
-// serveCatalog serves files with the listing the web build writes.
+// serveCatalog serves files with the listing the web build writes and returns
+// the catalog URL.
 func serveCatalog(t *testing.T, files fstest.MapFS) string {
 	t.Helper()
 	var list strings.Builder
@@ -21,9 +22,17 @@ func serveCatalog(t *testing.T, files fstest.MapFS) string {
 	for name, f := range files {
 		all[name] = f
 	}
-	srv := httptest.NewServer(http.FileServerFS(all))
+	// Like the web page, ask with a build version; every file must carry it.
+	serve := http.StripPrefix("/catalog", http.FileServerFS(all))
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Query().Get("v") != "1" {
+			http.Error(w, "unversioned", http.StatusBadRequest)
+			return
+		}
+		serve.ServeHTTP(w, r)
+	}))
 	t.Cleanup(srv.Close)
-	return srv.URL + "/"
+	return srv.URL + "/catalog/?v=1"
 }
 
 func TestHTTPCatalogIsAFileSystem(t *testing.T) {

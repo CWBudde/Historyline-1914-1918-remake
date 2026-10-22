@@ -90,7 +90,8 @@ over it, live text in the Go fonts and the button states; without the catalog th
 `just web` hard-links the 2× unit and terrain packs and both screen densities into `build/web/packs/<catalog>/`
 and lists each catalog in `files.txt` (`<size> <path>` per line), since HTTP cannot list directories.
 `index.html` passes the catalogs it finds to the game as URLs; the game fetches a whole catalog when opening
-it and loads no 4× packs in the browser.
+it and loads no 4× packs in the browser. `version.txt` holds a hash of the whole build; the page adds it to
+every URL as `?v=`, so a browser never combines cached files of an older build with a newer one.
 
 ## Open
 

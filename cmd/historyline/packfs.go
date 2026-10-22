@@ -6,6 +6,7 @@ import (
 	"io"
 	"io/fs"
 	"net/http"
+	"net/url"
 	"os"
 	"path"
 	"slices"
@@ -44,24 +45,27 @@ const httpFetches = 16
 // after the other is slow in the browser; directories and sizes come from the
 // listing.
 type httpFS struct {
-	base  string                     // catalog URL, ending in /
+	base  *url.URL                   // catalog URL; its query, such as a build version, goes on every file
 	size  map[string]int64           // file -> size
 	data  map[string][]byte          // file -> contents
 	child map[string]map[string]bool // directory -> entry name -> is a directory
 }
 
 func openHTTPFS(base string) (*httpFS, error) {
-	base = strings.TrimSuffix(base, "/") + "/"
-	b, err := httpGet(base + httpListing)
+	u, err := url.Parse(base)
 	if err != nil {
 		return nil, err
 	}
-	h := &httpFS{base: base, size: map[string]int64{}, child: map[string]map[string]bool{".": {}}}
+	h := &httpFS{base: u, size: map[string]int64{}, child: map[string]map[string]bool{".": {}}}
+	b, err := httpGet(h.url(httpListing))
+	if err != nil {
+		return nil, err
+	}
 	for i, line := range strings.Split(strings.TrimSpace(string(b)), "\n") {
 		sz, name, ok := strings.Cut(line, " ")
 		n, err := strconv.ParseInt(sz, 10, 64)
 		if !ok || err != nil || n < 0 || name == "." || !fs.ValidPath(name) {
-			return nil, fmt.Errorf("%s%s line %d: want \"<size> <path>\"", base, httpListing, i+1)
+			return nil, fmt.Errorf("%s line %d: want \"<size> <path>\"", h.url(httpListing), i+1)
 		}
 		h.size[name] = n
 		for dir := false; name != "."; name, dir = path.Dir(name), true {
@@ -91,14 +95,21 @@ func openHTTPFS(base string) (*httpFS, error) {
 	return h, nil
 }
 
-func httpGet(url string) ([]byte, error) {
-	resp, err := http.Get(url)
+// url is the address of file name in the catalog.
+func (h *httpFS) url(name string) string {
+	u := *h.base
+	u.Path = path.Join(u.Path, name)
+	return u.String()
+}
+
+func httpGet(addr string) ([]byte, error) {
+	resp, err := http.Get(addr)
 	if err != nil {
 		return nil, err
 	}
 	defer func() { _ = resp.Body.Close() }()
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("%s: %s", url, resp.Status)
+		return nil, fmt.Errorf("%s: %s", addr, resp.Status)
 	}
 	return io.ReadAll(resp.Body)
 }
@@ -126,7 +137,7 @@ func (h *httpFS) ReadFile(name string) ([]byte, error) {
 // fetch downloads a listed file and checks its size against the listing.
 func (h *httpFS) fetch(name string) ([]byte, error) {
 	n := h.size[name]
-	b, err := httpGet(h.base + name)
+	b, err := httpGet(h.url(name))
 	if err != nil {
 		return nil, &fs.PathError{Op: "read", Path: name, Err: err}
 	}

@@ -63,6 +63,7 @@ wasm:
     cp "$(go env GOROOT)/lib/wasm/wasm_exec.js" bin/
 
 # Build the web demo (index.html, wasm, loader and the 2x art packs) into build/web; pass a port to serve it
+# version.txt holds a content hash the page adds to every URL, so a cached old file never meets a new one.
 web port="": _packs
     mkdir -p build/web
     GOOS=js GOARCH=wasm go build -o build/web/{{binary}}.wasm ./cmd/historyline
@@ -72,6 +73,7 @@ web port="": _packs
     cp -al build/packs/terrain/2x build/web/packs/terrain/
     cp -al build/packs/screens/1x build/packs/screens/2x build/web/packs/screens/
     for c in units terrain screens; do (cd build/web/packs/$c && find . -type f ! -name files.txt -printf '%s %P\n' | sort -k2 > files.txt); done
+    cd build/web && find historyline.wasm wasm_exec.js packs -type f -print0 | sort -z | xargs -0 sha256sum | sha256sum | cut -c1-16 > version.txt
     if [ -n "{{port}}" ]; then go run ./cmd/serve -dir build/web -addr localhost:{{port}}; fi
 
 # Everything CI checks

@@ -12,19 +12,34 @@
 </head>
 <body>
   <div id="status">Loading…</div>
-  <script src="wasm_exec.js"></script>
   <script>
-    const go = new Go();
     const status = document.getElementById("status");
-    // just web serves the art packs under packs/<catalog>/, each with a files.txt listing.
+    // just web serves the art packs under packs/<catalog>/, each with a files.txt listing, and writes the build's
+    // content hash to version.txt. Every other URL carries it, so a cached file of an older build is never used.
     const catalogs = ["units", "terrain", "screens"];
-    Promise.all(catalogs.map((c) => fetch(`packs/${c}/files.txt`, { method: "HEAD" }).then((r) => r.ok, () => false)))
+    const script = (src) => new Promise((resolve, reject) => {
+      const s = document.createElement("script");
+      s.src = src;
+      s.onload = resolve;
+      s.onerror = () => reject(new Error("cannot load " + src));
+      document.head.append(s);
+    });
+    let v = "";
+    let go;
+    fetch("version.txt", { cache: "no-cache" })
+      .then((r) => (r.ok ? r.text() : ""), () => "")
+      .then((text) => {
+        v = text.trim() ? "?v=" + encodeURIComponent(text.trim()) : "";
+        return script("wasm_exec.js" + v);
+      })
+      .then(() => Promise.all(catalogs.map((c) => fetch(`packs/${c}/files.txt${v}`, { method: "HEAD" }).then((r) => r.ok, () => false))))
       .then((served) => {
+        go = new Go();
         catalogs.forEach((c, i) => {
-          if (served[i]) go.argv.push(`-${c}`, new URL(`packs/${c}/`, location.href).href);
+          if (served[i]) go.argv.push(`-${c}`, new URL(`packs/${c}/${v}`, location.href).href);
         });
         if (served.some(Boolean)) go.argv.push("-allow-candidates");
-        return WebAssembly.instantiateStreaming(fetch("historyline.wasm"), go.importObject);
+        return WebAssembly.instantiateStreaming(fetch("historyline.wasm" + v), go.importObject);
       })
       .then((result) => {
         status.textContent = "Loading the art…";
