@@ -12,8 +12,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/camera"
 	"github.com/hajimehoshi/ebiten/v2"
+
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/camera"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/gesture"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 )
 
 // captureGame drives the real Draw method at explicit framebuffer sizes. It
@@ -72,13 +76,61 @@ func reviewFramePlan(look bool) []reviewFrame {
 
 // splitFramePlan is the capture of the split screen of -rules dos at its fixed
 // cell scale: the opening position, each side's own view and the true view, at
-// 4:3 and the 720p/1080p/4K sizes.
+// 4:3 and the 720p/1080p/4K sizes, and at 1080p the cursor states staged by
+// stageCapture.
 func splitFramePlan() []reviewFrame {
 	var frames []reviewFrame
 	for _, size := range [][2]int{{1024, 768}, {1280, 720}, {1920, 1080}, {3840, 2160}} {
 		frames = append(frames, reviewFrame{size[0], size[1], "split", false, 0}, reviewFrame{size[0], size[1], "split-revealed", true, 0})
 	}
+	for _, view := range []string{"split-cursor", "split-move", "split-ring", "split-strategic"} {
+		frames = append(frames, reviewFrame{1920, 1080, view, false, 0})
+	}
 	return frames
+}
+
+// stageCapture sets the human side's panel up for a split capture view: the
+// cursor ring on an own unit (split-cursor), its move aimed with fire held on
+// a destination over the darkened range (split-move), the ring of actions on
+// it (split-ring) or the strategic map (split-strategic); any other view is
+// the opening with the cursor on the HQ.
+func (g *game) stageCapture(view string) {
+	s, d := g.split, g.dos
+	s.track.Update(gesture.Input{}) // release whatever the last view held
+	s.track.Reset()
+	d.clear()
+	d.Message = ""
+	s.mode, s.info, s.dir = [2]panelMode{}, false, gesture.Centre
+	for side := range 2 {
+		pair, row := centreView(g.grid, s.screen.Cols, s.screen.Rows, g.startHex(side))
+		s.cams[side].moveTo(pair, row, true)
+	}
+	g.syncSplitCam()
+	g.setCursor(g.startHex(d.side))
+	at, ok := g.orderableInView()
+	switch {
+	case view == "split-strategic":
+		g.openStrategic(d.side)
+	case !ok:
+	case view == "split-cursor":
+		g.setCursor(at)
+	case view == "split-move":
+		d.selectAt(at)
+		v, best := g.splitView(d.side), -1
+		for _, c := range dosplay.Coords(d.moves) {
+			if dist := hexgrid.Distance(c, at); viewShows(v, g.grid, c) && dist > best {
+				best = dist
+				g.setCursor(c)
+			}
+		}
+		s.track.Update(gesture.Input{Keys: gesture.Keys{Fire: true}})
+	case view == "split-ring":
+		x, y := g.cam.WorldToScreen(hexgrid.Center(at))
+		p := gesture.Pointer{X: x, Y: y, Active: true}
+		g.feedGesture(gesture.Input{Pointer: p}, false)
+		p.RightPressed = true
+		g.feedGesture(gesture.Input{Pointer: p}, false)
+	}
 }
 
 func (f reviewFrame) filename() string {
@@ -120,7 +172,9 @@ func (c *captureGame) Draw(screen *ebiten.Image) {
 	g := c.game
 	g.applyLayout(w, h, 1)
 	g.reveal = frame.reveal
-	if g.split == nil {
+	if g.split != nil {
+		g.stageCapture(frame.view)
+	} else {
 		g.cam.Zoom = frame.cameraZoom(g.cam.World, g.view.UI)
 		cx, cy := g.cam.World.W/2, g.cam.World.H/2
 		if frame.view != "overview" {

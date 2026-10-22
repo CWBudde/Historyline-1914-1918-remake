@@ -122,8 +122,9 @@ func dosUnitInfo(u dosplay.UnitView, own bool) []string {
 	return out
 }
 
-// dosInfoLines is the info box of the order cycle: the selected unit, then
-// the hovered hex with its building and the unit on it.
+// dosInfoLines is the info box of the order cycle: the selected unit, the
+// hovered hex with its building and the unit on it, then what the info
+// gesture asked for there (the game info on the own HQ, a unit's type).
 func (g *game) dosInfoLines() []string {
 	d := g.dos
 	var out []string
@@ -158,6 +159,9 @@ func (g *game) dosInfoLines() []string {
 	}
 	if u, ok := d.units(g.reveal)[c]; ok && !g.dosWalking(c) && (!d.selected || u.Index != d.unit) {
 		out = append(out, dosUnitInfo(u, u.Side == d.side)...)
+	}
+	if info := g.pinnedInfo(); len(info) > 0 {
+		out = append(append(out, ""), info...)
 	}
 	return out
 }

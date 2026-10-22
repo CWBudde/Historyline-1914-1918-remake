@@ -100,6 +100,9 @@ func (a *app) Update() error {
 	if s.quit {
 		return ebiten.Termination
 	}
+	if s.page != pageBattle {
+		showPointer(true) // the battle hides it over its map (-rules dos)
+	}
 	switch s.page {
 	case pageLoading:
 		if a.load == nil {

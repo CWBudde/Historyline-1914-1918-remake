@@ -5,7 +5,6 @@ import (
 	"image/color"
 	"maps"
 	"math"
-	"slices"
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/camera"
@@ -178,18 +177,6 @@ func TestPanelCameraMatchesView(t *testing.T) {
 		if math.Abs(gx-(wx+142*v.Scale)) > 1e-9 || math.Abs(gy-(wy-80*v.Scale)) > 1e-9 {
 			t.Errorf("side %d: slid origin at %v,%v, rest %v,%v", side, gx, gy, wx, wy)
 		}
-	}
-}
-
-func TestKeyRepeat(t *testing.T) {
-	var steps []int
-	for d := range 40 {
-		if keyRepeat(d) {
-			steps = append(steps, d)
-		}
-	}
-	if want := []int{1, 24, 30, 36}; !slices.Equal(steps, want) {
-		t.Errorf("steps %v, want %v", steps, want)
 	}
 }
 

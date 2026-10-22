@@ -58,6 +58,12 @@ func (g *game) applyAction(a action) (keepRunning bool) {
 	if ui.MenuOpen() && (a == actSelectHex || a == actViewTop || a == actViewBottom) {
 		return true
 	}
+	if g.split != nil && (a == actCancel || a == actSelectHex) && g.closeGestures() {
+		return true // Esc or Enter closed the strategic map, the ring or a hold
+	}
+	if g.split != nil && a == actCancel {
+		g.split.info = false
+	}
 	switch a {
 	case actEndTurn:
 		d.EndTurn()

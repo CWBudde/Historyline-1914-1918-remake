@@ -48,7 +48,7 @@ type dosControl struct {
 
 	unit       int                    // live record of the selected unit, -1 none
 	hold, slot int                    // container record and slot of a unit picked to leave it, hold -1 otherwise
-	moves      map[hexgrid.Coord]bool // blue hexes of the selected unit
+	moves      map[hexgrid.Coord]bool // destinations of the selected unit (the cells in reach stay lit)
 	stored     []dosplay.UnitView     // contents menu rows
 	storedHold int                    // their container record
 
@@ -190,7 +190,7 @@ func reason(err error) string {
 }
 
 // Click handles a left click on a map hex: select an own unit, building or
-// carrier, move to a blue hex or order an attack on a red one. A click during
+// carrier, move to a destination or order an attack on a target. A click during
 // a walk only finishes the walk.
 func (d *dosControl) Click(at hexgrid.Coord) {
 	if d.SkipWalk() {
@@ -234,21 +234,21 @@ func (d *dosControl) selectAt(at hexgrid.Coord) {
 	}
 }
 
-// selectUnit selects u on at with its blue hexes in the movement phase or its
-// red hexes in the action phase. A carrier also lists its contents.
+// selectUnit selects u on at with its destinations in the movement phase or its
+// targets in the action phase. A carrier also lists its contents.
 func (d *dosControl) selectUnit(at hexgrid.Coord, u dosplay.UnitView) {
 	err := d.s.CanOrder(d.side, u.Index)
 	if err == nil {
 		d.selected, d.from, d.unit = true, at, u.Index
 		if d.s.Phase(d.side) == dosrules.PhaseAction {
 			d.targets = d.s.Targets(d.side, u.Index)
-			d.Message = u.Name + ": pick a red hex to attack"
+			d.Message = u.Name + ": pick a target"
 			if len(d.targets) == 0 {
 				d.Message = u.Name + ": no target in range"
 			}
 		} else {
 			d.moves, err = d.s.Destinations(d.side, u.Index)
-			d.Message = u.Name + ": pick a blue hex to move to"
+			d.Message = u.Name + ": pick where to move"
 			if err == nil && len(d.moves) == 0 {
 				d.Message = u.Name + ": nowhere to go"
 			}
@@ -304,7 +304,7 @@ func (d *dosControl) cannotLeave(hold int, u dosplay.UnitView) string {
 	return ""
 }
 
-// ChooseMenu picks contents row i: its unit leaves, to a blue hex.
+// ChooseMenu picks contents row i: its unit leaves, to a destination.
 func (d *dosControl) ChooseMenu(i int) {
 	if d.menuKind != menuContents || i < 0 || i >= len(d.menu) || i >= len(d.stored) {
 		return
@@ -322,7 +322,7 @@ func (d *dosControl) ChooseMenu(i int) {
 	d.clear()
 	d.selected, d.from, d.unit, d.hold, d.slot, d.moves = true, at, u.Index, hold, u.Slot, dests
 	d.targets = map[hexgrid.Coord]bool{}
-	d.Message = u.Name + " leaves: pick a blue hex"
+	d.Message = u.Name + " leaves: pick where to go"
 }
 
 // move orders the selected unit to to: a move on the map, or the exit from

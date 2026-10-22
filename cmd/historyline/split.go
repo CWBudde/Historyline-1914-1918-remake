@@ -8,11 +8,11 @@ import (
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
-	"github.com/hajimehoshi/ebiten/v2/inpututil"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/camera"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosscreen"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/gesture"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 )
 
@@ -132,13 +132,6 @@ func panelCamera(v dosscreen.View, slideX, slideY float64, world, screen camera.
 	}
 }
 
-// keyRepeat reports whether a key held for d frames steps once more: on the
-// first frame, then every few frames after a delay.
-func keyRepeat(d int) bool {
-	const delay, every = 18, 6
-	return d == 1 || d > delay && (d-delay)%every == 0
-}
-
 // fitWell is the text of a status well that holds chars characters: the state
 // and the message when both fit, else the message alone, shortened if needed.
 func fitWell(state, msg string, chars int) string {
@@ -165,6 +158,17 @@ type split struct {
 	frame  dosscreen.Frame
 	sel    hexgrid.Coord // the selection last followed
 	selOn  bool
+
+	track  *gesture.Tracker // the human side's gestures (cursor.go)
+	dir    gesture.Dir      // the direction its hold picks
+	mode   [2]panelMode     // what each panel shows
+	strat  [2]strategicPic  // each panel's strategic map
+	info   bool             // the info gesture ran on infoAt
+	infoAt hexgrid.Coord
+
+	placement gesture.Placement // on the cursor cell (cursorPlacement)
+	placeKey  placeKey
+	placed    bool
 }
 
 // layoutSplit lays the split screen out for the current window and keeps each
@@ -174,10 +178,11 @@ func (g *game) layoutSplit() {
 		return
 	}
 	if g.split == nil {
-		g.split = &split{}
+		g.split = &split{track: newTracker()}
 	}
 	s := g.split
 	s.screen = dosscreen.Layout(g.view.PhysW, g.view.PhysH, float64(g.view.UI))
+	s.track.Threshold = gestureThreshold(s.screen.CellScale)
 	for side := range 2 {
 		c := &s.cams[side]
 		pair, row := c.pair, c.row
@@ -186,6 +191,9 @@ func (g *game) layoutSplit() {
 		}
 		pair, row = clampView(g.grid, s.screen.Cols, s.screen.Rows, pair, row)
 		c.moveTo(pair, row, true)
+	}
+	if !g.hoverOnMap {
+		g.setCursor(g.startHex(g.dos.side))
 	}
 	g.syncSplitCam()
 }
@@ -250,24 +258,12 @@ func (g *game) stepView(side, dp, dr int) {
 	s.cams[side].moveTo(pair, row, g.dos.reduced)
 }
 
-// updateSplit runs one frame of the cameras: arrow keys step the human side's
-// panel, each panel looks where the session asks (the computer's moves and
-// battles), the human side's panel follows its walker and a new selection when
-// they are out of view, and the slides advance.
+// updateSplit runs one frame of the cameras: each panel looks where the
+// session asks (the computer's moves and battles), the human side's panel
+// follows its walker and a new selection when they are out of view (and its
+// cursor, see showCursor), and the slides advance.
 func (g *game) updateSplit() {
-	d, s := g.dos, g.split
-	dp, dr := 0, 0
-	for _, k := range []struct {
-		key    ebiten.Key
-		dp, dr int
-	}{{ebiten.KeyArrowLeft, -1, 0}, {ebiten.KeyArrowRight, 1, 0}, {ebiten.KeyArrowUp, 0, -1}, {ebiten.KeyArrowDown, 0, 1}} {
-		if keyRepeat(inpututil.KeyPressDuration(k.key)) {
-			dp, dr = dp+k.dp, dr+k.dr
-		}
-	}
-	if (dp != 0 || dr != 0) && !d.MenuOpen() {
-		g.stepView(d.side, dp, dr)
-	}
+	s := g.split
 	g.followSplit()
 	for side := range 2 {
 		s.cams[side].tick()
@@ -307,8 +303,9 @@ func (g *game) pickSplit(mx, my int) (hexgrid.Coord, bool) {
 	return c, ok && viewShows(v, g.grid, c)
 }
 
-// drawSplit draws both panels' maps, each through its own camera into its
-// panel, and the steel frame over them.
+// drawSplit draws both panels' maps (or strategic maps), each through its own
+// camera into its panel, the steel frame over them and the human side's
+// cursor.
 func (g *game) drawSplit(screen *ebiten.Image) {
 	s := g.split
 	human := *g.cam
@@ -316,6 +313,10 @@ func (g *game) drawSplit(screen *ebiten.Image) {
 	var views [2]dosscreen.View
 	for side := range 2 {
 		views[side] = g.splitView(side)
+		if s.mode[side] == panelStrategic {
+			g.drawStrategic(screen, side)
+			continue
+		}
 		p := views[side].Panel
 		*g.cam = g.splitCamera(side)
 		g.drawing, g.drawSide = true, side
@@ -326,6 +327,7 @@ func (g *game) drawSplit(screen *ebiten.Image) {
 	}
 	*g.cam, g.drawing = human, false
 	s.frame.Draw(screen, s.screen, views, g.grid)
+	g.drawCursor(screen)
 }
 
 // shownSide is the side whose map is drawn: the panel being drawn, else the

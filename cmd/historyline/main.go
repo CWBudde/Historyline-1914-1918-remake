@@ -262,41 +262,50 @@ func (g *game) Update() error {
 	if g.split != nil {
 		g.updateSplit()
 	}
-	for _, a := range actionsFor(inpututil.IsKeyJustPressed) {
+	pressed := inpututil.IsKeyJustPressed
+	if g.split != nil {
+		// Space is the fire key of the cursor (key set A).
+		pressed = func(k ebiten.Key) bool { return k != ebiten.KeySpace && inpututil.IsKeyJustPressed(k) }
+	}
+	for _, a := range actionsFor(pressed) {
 		if !g.applyAction(a) {
 			return ebiten.Termination
 		}
 	}
+	if g.split != nil {
+		// Under -rules dos the layout sets the scale (no wheel zoom) and the
+		// cursor takes the mouse and the keys; the menu keeps the keys while
+		// it is open.
+		menu := g.dos.MenuOpen()
+		g.updateMenu()
+		g.updateCursor(menu || g.dos.MenuOpen())
+		return nil
+	}
+	showPointer(true)
 	mx, my, hx, hy := g.cursor()
 	// The press rule sees every frame, so a press that starts under a menu or
 	// on the map never drives the minimap.
-	onMini := g.split == nil && g.mini.Contains(float64(hx), float64(hy))
-	drive := g.split == nil && g.miniMap.press.Update(ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft), onMini)
+	onMini := g.mini.Contains(float64(hx), float64(hy))
+	drive := g.miniMap.press.Update(ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft), onMini)
 	if g.updateMenu() {
 		return nil
 	}
-
-	if g.split != nil {
-		// Under -rules dos the layout sets the scale: no wheel zoom.
-		g.hover, g.hoverOnMap = g.pickSplit(mx, my)
-	} else {
-		if _, wheel := ebiten.Wheel(); wheel != 0 {
-			factor := 1.1
-			if wheel < 0 {
-				factor = 1 / 1.1
-			}
-			g.cam.ZoomAt(factor, float64(mx), float64(my))
+	if _, wheel := ebiten.Wheel(); wheel != 0 {
+		factor := 1.1
+		if wheel < 0 {
+			factor = 1 / 1.1
 		}
-		if drive {
-			g.cam.CenterOn(g.mini.ToWorld(g.mini.Clamp(float64(hx), float64(hy))))
-		}
-		if onMini || g.miniMap.press.Captured() {
-			g.hoverOnMap = false
-			return nil
-		}
-		wx, wy := g.cam.ScreenToWorld(float64(mx), float64(my))
-		g.hover, g.hoverOnMap = g.grid.PixelToHex(wx, wy)
+		g.cam.ZoomAt(factor, float64(mx), float64(my))
 	}
+	if drive {
+		g.cam.CenterOn(g.mini.ToWorld(g.mini.Clamp(float64(hx), float64(hy))))
+	}
+	if onMini || g.miniMap.press.Captured() {
+		g.hoverOnMap = false
+		return nil
+	}
+	wx, wy := g.cam.ScreenToWorld(float64(mx), float64(my))
+	g.hover, g.hoverOnMap = g.grid.PixelToHex(wx, wy)
 	if g.hoverOnMap && inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
 		g.drv().Click(g.hover)
 	}
@@ -516,9 +525,13 @@ func (g *game) drawMapLayer(dst *ebiten.Image, vx, vy, vw, vh float64, human boo
 				vector.FillCircle(dst, float32(sx), float32(sy), float32(14*g.cam.Effective()), color.RGBA{230, 230, 230, 255}, true)
 			}
 		}
-		g.drawOverlays(dst)
+		if g.dos != nil {
+			g.darken(dst, inView) // the cursor is drawn over the frame (drawCursor)
+		} else {
+			g.drawOverlays(dst)
+		}
 		g.drawOrders(dst)
-		if g.hoverOnMap {
+		if g.hoverOnMap && g.dos == nil {
 			cx, cy := hexgrid.Center(g.hover)
 			sx, sy := g.cam.WorldToScreen(cx, cy)
 			g.drawHex(dst, float32(sx), float32(sy), color.RGBA{}, true)
@@ -607,7 +620,8 @@ func (g *game) drawHexNumbers(dst *ebiten.Image, vx, vy, vw, vh float64) {
 }
 
 // drawOverlays tints the hexes the selected unit may reach (blue) or attack
-// (red) and outlines the selection, all taken from the rules engine's queries.
+// (red) and outlines the selection, all taken from the rules engine's queries
+// (Classic, Standard; -rules dos darkens what is out of reach instead).
 func (g *game) drawOverlays(dst *ebiten.Image) {
 	ui := g.drv().ui()
 	if !ui.selected {
@@ -618,14 +632,8 @@ func (g *game) drawOverlays(dst *ebiten.Image) {
 		sx, sy := g.cam.WorldToScreen(cx, cy)
 		g.drawHex(dst, float32(sx), float32(sy), col, false)
 	}
-	if g.dos != nil {
-		for at := range g.dos.moves {
-			tint(at, color.RGBA{60, 120, 255, 90})
-		}
-	} else {
-		for at := range g.ctl.moves {
-			tint(at, color.RGBA{60, 120, 255, 90})
-		}
+	for at := range g.ctl.moves {
+		tint(at, color.RGBA{60, 120, 255, 90})
 	}
 	for at := range ui.targets {
 		tint(at, color.RGBA{255, 50, 40, 130})
