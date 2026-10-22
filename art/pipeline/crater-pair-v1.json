@@ -1,0 +1,27 @@
+{
+  "assets": [
+    {
+      "art": "terrain/ground",
+      "canvas": [
+        192,
+        160
+      ],
+      "crop": [
+        0,
+        0,
+        1374,
+        1145
+      ],
+      "id": "stamp/crater/4_-1.1_1.1_0.2/2",
+      "layer": "ground",
+      "logical_anchor": [
+        122,
+        51
+      ],
+      "path": "terrain/ground/crater-pair-stamp",
+      "source": "art/terrain/ground/ground-crater-pair-summer-v1.png",
+      "source_sha256": "50d14895af45a4e8eec0a60326963ce823e8aab983dceaca2fc9de28e7213c2f"
+    }
+  ],
+  "schema_version": 1
+}

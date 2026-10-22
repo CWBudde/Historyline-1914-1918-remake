@@ -65,6 +65,7 @@ func TestRetainedTerrainCatalogBuilds(t *testing.T) {
 			anchor    [2]float64
 		}{
 			{stampGroup, "stamp/crater/4_-1.1_1.1_0.2/1", 180, 120, [2]float64{90, 60}},
+			{stampGroup, "stamp/crater/4_-1.1_1.1_0.2/2", 192, 160, [2]float64{122, 51}},
 			{stampGroup, "stamp/knoll/1/1", 144, 120, [2]float64{72, 60}},
 			{standingGroup, "standing/stamp/knoll/1/1", 144, 120, [2]float64{72, 60}},
 		} {

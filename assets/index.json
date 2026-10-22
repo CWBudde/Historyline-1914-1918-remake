@@ -5699,6 +5699,8 @@
     {"art":"terrain/factory","density":4,"height":320,"id":"tile/factoryE","logical_anchor":[48,40],"pack":"terrain-backgrounds-4x","path":"terrain/factory/factoryE-4x.png","sha256":"bf31dbbf5cee114c6bf9c2c836e9aa88d94dab01932c64fffb9a11f21ac647e7","width":384},
     {"art":"terrain/factory","density":4,"height":320,"id":"tile/factoryS","logical_anchor":[48,40],"pack":"terrain-backgrounds-4x","path":"terrain/factory/factoryS-4x.png","sha256":"75f68d4d04018d0503ff9012558ccb92232ad17b158814a7021a8edf56ad2e6d","width":384},
     {"art":"terrain/factory","density":4,"height":320,"id":"tile/factoryW","logical_anchor":[48,40],"pack":"terrain-backgrounds-4x","path":"terrain/factory/factoryW-4x.png","sha256":"379871a07fa106a0860f3c4eceba80c4f7d7d4d3da0167377b3b0a3488bd1cd7","width":384},
-    {"art":"terrain/barbed-wire","density":4,"height":320,"id":"tile/barbedWire","logical_anchor":[48,40],"pack":"terrain-infrastructure-4x","path":"terrain/barbed-wire/barbedWire-4x.png","sha256":"4715011677e58045a1ea8ba801cff227ab987651a1376585a4549b5ef0938f38","width":384}
+    {"art":"terrain/barbed-wire","density":4,"height":320,"id":"tile/barbedWire","logical_anchor":[48,40],"pack":"terrain-infrastructure-4x","path":"terrain/barbed-wire/barbedWire-4x.png","sha256":"4715011677e58045a1ea8ba801cff227ab987651a1376585a4549b5ef0938f38","width":384},
+    {"art":"terrain/ground","density":2,"height":320,"id":"stamp/crater/4_-1.1_1.1_0.2/2","layer":"ground","logical_anchor":[122,51],"pack":"terrain-stamps-2x","path":"terrain/ground/crater-pair-stamp-2x.png","sha256":"6f9da67e0f2d29aa0f80e626f77d6033de9c0fea154f0f04561e330c7c9a629c","width":384},
+    {"art":"terrain/ground","density":4,"height":640,"id":"stamp/crater/4_-1.1_1.1_0.2/2","layer":"ground","logical_anchor":[122,51],"pack":"terrain-stamps-4x","path":"terrain/ground/crater-pair-stamp-4x.png","sha256":"5547366cc0bef3e1c2fff754f3c91e932f42e1f54345af1caad51b595b179d66","width":768}
   ]
 }

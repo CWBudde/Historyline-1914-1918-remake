@@ -47,15 +47,21 @@ func (s *Scene) ShadowsAt(c hexgrid.Coord, stamped func(*Cluster) bool) []string
 // layouts; the layouts keep the hex centre clear for units. An empty ID means
 // no prop. Selection is independent of traversal order and visible bounds.
 func TreePropID(line, col int) string {
+	x := coordinateHash(line, col)
+	if x%7 != 0 {
+		return ""
+	}
+	return fmt.Sprintf("standing/props/trees/%d", (x/7)%4+1)
+}
+
+// coordinateHash mixes both coordinates with SplitMix64 without random state.
+func coordinateHash(line, col int) uint64 {
 	x := uint64(uint32(line))<<32 | uint64(uint32(col))
 	x += 0x9e3779b97f4a7c15
 	x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9
 	x = (x ^ (x >> 27)) * 0x94d049bb133111eb
 	x ^= x >> 31
-	if x%7 != 0 {
-		return ""
-	}
-	return fmt.Sprintf("standing/props/trees/%d", (x/7)%4+1)
+	return x
 }
 
 // A prop can overhang its own meadow. Keep it away from buildings, water and

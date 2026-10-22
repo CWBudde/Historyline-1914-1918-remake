@@ -3,8 +3,8 @@ id: terrain/ground
 title: Ground
 kind: terrain
 status: candidate
-runtime_ids: mud, rough_w, shelled_w, stone, stoney_w, stamp/crater/4_-1.1_1.1_0.2/1, stamp/boulders/1/1, stamp/boulders/4_2.0_1.1_0.2/1, stamp/boulders/5_-1.1_0.2_-1.3_1.3/1
-masters: ground-crater-summer-v1.png, ground-boulders-single-summer-v1.png, ground-boulders-four-summer-v1.png, ground-boulders-five-summer-v1.png, ground-mud-summer-v2.png, ground-stone-summer-v2.png, ground-rough-winter-v2.png, ground-shelled-winter-v2.png, ground-stony-winter-v2.png, ground-earth-bank-shared-v2.png, ground-earth-bank-shared-v1.png, ground-mud-summer-v1.png, ground-rough-winter-v1.png, ground-shelled-winter-v1.png, ground-stone-summer-v1.png, ground-stony-winter-v1.png
+runtime_ids: mud, rough_w, shelled_w, stone, stoney_w, stamp/crater/4_-1.1_1.1_0.2/1, stamp/crater/4_-1.1_1.1_0.2/2, stamp/boulders/1/1, stamp/boulders/4_2.0_1.1_0.2/1, stamp/boulders/5_-1.1_0.2_-1.3_1.3/1
+masters: ground-crater-summer-v1.png, ground-crater-pair-summer-v1.png, ground-boulders-single-summer-v1.png, ground-boulders-four-summer-v1.png, ground-boulders-five-summer-v1.png, ground-mud-summer-v2.png, ground-stone-summer-v2.png, ground-rough-winter-v2.png, ground-shelled-winter-v2.png, ground-stony-winter-v2.png, ground-earth-bank-shared-v2.png, ground-earth-bank-shared-v1.png, ground-mud-summer-v1.png, ground-rough-winter-v1.png, ground-shelled-winter-v1.png, ground-stone-summer-v1.png, ground-stony-winter-v1.png
 ---
 
 ## Look
@@ -13,7 +13,8 @@ cracked tan earth rim on churned stony ground, and stone is meadow strewn with r
 grey-brown boulders, pebble clusters and small bright shrubs. Winter variants are their snow-covered
 counterparts. All stay meadow-coloured at the edges so they blend into surrounding grass.
 The summer four-hex crater stamp is one round basin with a hand-painted cracked-earth rim and a low
-olive floor, with transparent meadow edges.
+olive floor, with transparent meadow edges. The paired variant has two distinct nearby basins with
+a shared churned apron, extending west of its anchor onto the surrounding meadow.
 Summer boulder stamps scatter rounded warm grey and beige stones, pebble clusters, sparse olive grass
 tufts and moss over transparent ground; the shared meadow shows between the stones.
 
@@ -30,6 +31,8 @@ and umber earth, a dark inner cut bank, radial fissures and a shallow olive gras
 stones and clods form a sparse apron with irregular transparent margins. Continuous hand-painted
 material detail, diffuse upper-left light and short soft lower-right shadows; no road, text, grid,
 hex outline, people, checkerboard, photographic texture or 3D rendering.
+
+Paired crater prompt: Create ONE newly authored transparent terrain feature painting of TWO nearby WWI shell craters in the SAME painted earth/material style as this single-crater reference. Use reference for materials and light ONLY; new subject is TWO separate shallow impact basins, not one. Strict TOPDOWN ORTHOGRAPHIC NADIR, no horizon/tilt. Broad near6:5 canvas, fullscene centered and generously padded. Layout: larger crater centre at34%canvaswidth,28%height, diameter42%canvaswidth and40%height; slightlysmaller crater centre at61%width,59%height, diameter37%width and36%height. Thus first is upperLEFT,second lowerRIGHT. Their irregular cracked tan/umber raised rims almost touch, connected by a narrow apron of churned earth and little stones, with TWO distinct olive shallow floors and TWO complete discernible crater rings. Low height, believable smallscale earth, radial fissures, darkinnercutbanks, finegreybeigepebbles, sparseolivegrasstufts. Upperleftsoftdaylight, shortsubtlelowerightshadows containedwithinearthfeature. Crispfinelyhandpainted tacticalgameart, readableatnative240x200. GenuineRGBAalphaZERO all around and between isolated outerstones/tufts; NO grassbackgroundmat, NO haze/glow/groundshadow, NO full rectangular dirtpatch. Entirefeature includingstonefringe remainsinsidecentral85%canvas; especially keep generous cleanalpha around all4edges. No other craters, map, road, buildings, trees, people, text, grids, labels, borders, checkerboard, photo or3Drender. Transparentlandscape1536x1280ideal; allsubjectsafe insidecentred6:5crop.
 
 For the boulder stamps, replace the opaque tile instructions with: one transparent landscape terrain
 cut-out, strict nadir view, of scattered rounded warm grey and beige boulders of varied sizes and small
@@ -49,6 +52,7 @@ grid, hex outline, people, checkerboard, photographic texture or 3D rendering.
 | shelled_w | shelled_w | Winter shell-damaged ground: a broad, broken, partly collapsed crater basin with overlapping partial impacts, churned dark earth reaching the edges and snow in irregular patches over about a third; no neat rings. |
 | earth bank | — | Shared border material of road, path, rail and trench. Close material swatch, square and opaque: rough dug tan-brown earth with small clods, shale crumbs, tiny roots and sparse grey gravel. |
 | crater stamp | stamp/crater/4_-1.1_1.1_0.2/1 | One continuous round crater across a four-hex summer cluster, with a cracked earth rim, olive floor and transparent outer fringe. |
+| paired crater stamp | stamp/crater/4_-1.1_1.1_0.2/2 | Two distinct basins, connected cracked-earth apron, alpha gaps; canvas 192×160, anchor (122,51). |
 | single boulder stamp | stamp/boulders/1/1 | The transparent boulder scatter above in a 6:5 scene for one summer hex. |
 | four-cell boulder stamp | stamp/boulders/4_2.0_1.1_0.2/1 | One continuous 3:2 summer scatter for the four-cell cluster; no cell boundaries or repeated tile motifs. |
 | five-cell boulder stamp | stamp/boulders/5_-1.1_0.2_-1.3_1.3/1 | One continuous 6:5 summer scatter for the five-cell cluster; no cell boundaries or repeated tile motifs. |
@@ -58,7 +62,8 @@ Ground tiles are chosen by context: the renderer blends the material towards the
 every side whose neighbour is not the same material, so a crater or stone patch never ends in a hard
 edge. Context-tile features stay inside the hex; only meadow and fine scatter reach the border. The
 summer crater stamp spans its four-cell cluster as one continuous scene, with transparent edges over
-the shared meadow. Both summer four-hex clusters use it; the southern crater pair remains open.
+the shared meadow. Single and paired paintings share the four-hex shape; a mixed coordinate hash
+selects a stable variant, giving PULSE one northern basin and the southern pair.
 Summer boulder stamps replace per-hex stone art across their complete clusters, preserving transparent
 gaps over the shared meadow; winter stone art retains its context tiles.
 
@@ -79,7 +84,12 @@ with complementary half-open hex ownership; promote into `assets/terrain/<family
 Generated with built-in imagegen; the local PULSE `RefDesign2.png` informed the style, without editing
 the reference painting.
 
-The same stamp manifest exports three summer boulder ground candidates from their full sources,
+### Paired summer crater export
+`terrain-stamps -manifest art/pipeline/crater-pair-v1.json` exports the selected paired cut-out at 2×/4×.
+Single and paired stamps use the same cluster shape with deterministic coordinate selection.
+The anchor allows the western rim to overhang the first hex; other ground remains visible through alpha.
+
+`art/pipeline/feature-stamps-v1.json` also exports three summer boulder ground candidates from their full sources,
 preserving aspect and alpha. `ground-boulders-single-summer-v1.png` (native 1374x1145) uses 96x80 logical, anchor
 `[48,40]`, exporting 2x 192x160 and 4x 384x320. `ground-boulders-four-summer-v1.png` (native 1536x1024) uses 240x160
 logical, anchor `[49,40]`, exporting 2x 480x320 and 4x 960x640. `ground-boulders-five-summer-v1.png` (native 1374x1145)

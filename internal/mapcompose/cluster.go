@@ -108,7 +108,8 @@ func (s *Scene) registerClusters(at func(hexgrid.Coord) Hex, has func(string) bo
 			}
 			if variants > 0 {
 				first := cl.Cells[0]
-				cl.Stamp = StampID(kind, cl.Shape, (first.Line*31+first.Col)%variants+1)
+				variant := int((coordinateHash(first.Line, first.Col)>>32)%uint64(variants)) + 1
+				cl.Stamp = StampID(kind, cl.Shape, variant)
 				if id := StandingID(cl.Stamp); has(id) {
 					cl.Standing = id
 				}

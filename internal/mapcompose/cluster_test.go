@@ -3,6 +3,7 @@ package mapcompose
 import (
 	"encoding/json"
 	"os"
+	"reflect"
 	"slices"
 	"testing"
 
@@ -103,6 +104,67 @@ func TestClusters(t *testing.T) {
 	}
 }
 
+func TestStampVariantsMixEvenCoordinatesAndRemainStable(t *testing.T) {
+	g := hexgrid.Grid{Width: 14, Lines: 16}
+	mud := map[hexgrid.Coord]bool{}
+	for _, line := range []int{0, 6, 12} {
+		for _, col := range []int{2, 6, 10} {
+			for _, c := range []hexgrid.Coord{{Line: line, Col: col}, {Line: line + 1, Col: col - 1}, {Line: line + 1, Col: col}, {Line: line + 2, Col: col}} {
+				mud[c] = true
+			}
+		}
+	}
+	at := func(c hexgrid.Coord) Hex {
+		if mud[c] {
+			return Hex{Terrain: "mud"}
+		}
+		return Hex{Terrain: "grass"}
+	}
+	const shape = "4_-1.1_1.1_0.2"
+	one, two := StampID("crater", shape, 1), StampID("crater", shape, 2)
+	has := func(id string) bool { return id == one || id == two }
+	a, b := Compose(g, at, has), Compose(g, at, has)
+	if !reflect.DeepEqual(a.Clusters, b.Clusters) {
+		t.Fatal("stamp selection changed on recomposition")
+	}
+	if len(a.Clusters) != 9 {
+		t.Fatalf("got %d clusters, want nine isolated diamonds", len(a.Clusters))
+	}
+	selected := map[string]bool{}
+	for _, cl := range a.Clusters {
+		if cl.Shape != shape || cl.Cells[0].Line%2 != 0 || cl.Cells[0].Col%2 != 0 || !has(cl.Stamp) {
+			t.Fatalf("unexpected cluster: %+v", cl)
+		}
+		selected[cl.Stamp] = true
+	}
+	if !selected[one] || !selected[two] {
+		t.Fatalf("even-coordinate clusters selected %v, want both available variants", selected)
+	}
+}
+
+func TestPULSENorthAndSouthCraterVariants(t *testing.T) {
+	g, at := loadLevel(t, "level1_cp")
+	const shape = "4_-1.1_1.1_0.2"
+	one, two := StampID("crater", shape, 1), StampID("crater", shape, 2)
+	s := Compose(g, at, func(id string) bool { return id == one || id == two })
+	for _, tc := range []struct {
+		at    hexgrid.Coord
+		stamp string
+	}{
+		{hexgrid.Coord{Line: 11, Col: 2}, one},
+		{hexgrid.Coord{Line: 39, Col: 4}, two},
+	} {
+		cell := s.Cells[tc.at.Line][tc.at.Col]
+		if cell.Cluster == 0 {
+			t.Fatalf("crater at %+v has no cluster", tc.at)
+		}
+		cl := s.Clusters[cell.Cluster-1]
+		if cl.Cells[0] != tc.at || cl.Shape != shape || cl.Stamp != tc.stamp {
+			t.Errorf("crater at %+v: %+v, want %s", tc.at, cl, tc.stamp)
+		}
+	}
+}
+
 func TestStampedClusterLayers(t *testing.T) {
 	g, at := grid(
 		"grass mud grass",
@@ -126,9 +188,9 @@ func TestStampedClusterLayers(t *testing.T) {
 	if len(s.Clusters) != 1 || s.Clusters[0].Shape != shape {
 		t.Fatalf("clusters %+v", s.Clusters)
 	}
-	// The variant is seeded by the first cell (0,1): 31*0+1 = 1 mod 2 → variant 2.
+	// The first cell's mixed coordinate hash selects variant 1 at (0,1).
 	cl := s.Clusters[0]
-	if cl.Stamp != StampID("crater", shape, 2) || cl.Standing != StandingID(cl.Stamp) {
+	if cl.Stamp != StampID("crater", shape, 1) || cl.Standing != StandingID(cl.Stamp) {
 		t.Errorf("stamp %s, standing %s", cl.Stamp, cl.Standing)
 	}
 	first, second := hexgrid.Coord{Line: 0, Col: 1}, hexgrid.Coord{Line: 1, Col: 0}
