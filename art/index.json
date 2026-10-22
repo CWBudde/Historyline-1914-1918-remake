@@ -2319,7 +2319,7 @@
       "id": "portraits/armored-car",
       "title": "Armoured car",
       "kind": "portrait",
-      "status": "candidate",
+      "status": "revised",
       "runtime_ids": [
         "CP_armCar"
       ],
@@ -2329,13 +2329,13 @@
       "masters": [
         {
           "path": "art/portraits/armored-car/portrait.png",
-          "sha256": "e8752ec6ed3886c26b7a7d650924e59728c7489754227e26aa54533e1458f0ff",
+          "sha256": "72c1d9597683f851ded5779ed165e51e02c44344a34eae7af6b6c78ee16c6386",
           "width": 1326,
-          "height": 1187
+          "height": 1186
         }
       ],
-      "look": "Owner-neutral picture of the unit shown in the unit panel at 210x188: a riveted armoured car with a small turret,\nin a quiet period scene with subdued ochre and sepia values under a pale cloudy sky.",
-      "base_prompt": "Asset: owner-neutral WWI strategy unit portrait. Scene: a tall, narrow WWI armoured car seen nearly head-on from slightly front-left: dark bonnet low in the centre, a riveted tall turret upper right, a spoked wheel on the right; broad, pale, cloudy\nochre sky. Paint wool, leather, wood, metal and natural surfaces with restrained connected brushwork\nand selective detail. Fully opaque full-bleed landscape illustration at 105:94, at least 1260x1128,\npreferably 1680x1504, the essential subject safe inside the centred 105:94 crop; extend the scene\nnaturally to all edges.",
+      "look": "Owner-neutral picture of the unit shown in the unit panel at 210x188: a low riveted armoured car with a small round turret,\nin a quiet period scene with subdued ochre and sepia values under a pale cloudy sky.",
+      "base_prompt": "Use case: historical-scene. Create ONE newly authored opaque full-bleed WWI strategy game UNIT PORTRAIT, landscape aspect105:94, ideally1680x1504 or larger. Same restrained ochre, sepia, khaki, olive and sage palette and continuous hand-painted digital brushwork as reference portrait. Pale cloudy sky, diffuse light from upper left, quiet period scene, crisp readable subject at210x188 with selective mechanical detail. Complete principal subject fits inside safe centred105:94 crop. Reference atlas is EQUIPMENT/IDENTITY reference only: replace its technical magenta with natural unmarked khaki/grey paint and use a normal low three-quarter scene camera, NOT the six-view layout. No text, numbers, letters, flags, crosses, insignia, emblems, national colours, faction tint, frames, UI, watermarks, photo, pixel art or3D render. Exactly one complete main vehicle. Subject: the WWI armoured car matching reference atlas: ONE low compact riveted rectangular armoured body with sloping long bonnet at FRONT, square radiator grille and TWO round brass headlights, FOUR narrow exposed spoked wheels TOTAL (two per side), ONE small LOW circular cylindrical turret near rear half with ONE short dark machine gun, rectangular rear compartment and riveted access door. No tall tower, stacked turret or high armoured lorry cab. Natural subdued khaki/olive armour, dark tyres, brass hardware. All panels entirely plain and unmarked; ABSOLUTELY NO crosses, flags, symbols, decals, badges, logos, letters or numbers anywhere. Parked on quiet rural dirt lane, low front-left three-quarter view, front pointing LEFT, complete vehicle visible including all visible wheels and gun, distant trees and pale cloudy sky.",
       "variants": [
         {
           "variant": "portrait",
@@ -2346,7 +2346,7 @@
         }
       ],
       "edges": "",
-      "post": "`art-review -portrait art/pipeline/portrait-armored-car-v1.json` takes the largest exact centred 105:94\ncrop and reduces it with Lanczos3 to 4x (840x752), 2x (420x376) and 1x (210x188) as\n`portrait/armored-car`. Promote into `assets/portraits/armored-car/` and re-index.",
+      "post": "`art-review -portrait art/pipeline/portrait-armored-car-v1.json` takes the largest exact centred 105:94\ncrop and reduces it with Lanczos3 to 4x (840x752), 2x (420x376) and 1x (210x188) as\n`portrait/armored-car`. Selected exports are installed under `assets/portraits/armored-car/`.\nGameplay binding remains `CP_armCar`; in-engine panel acceptance is open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels or UI",
@@ -2431,13 +2431,13 @@
       "masters": [
         {
           "path": "art/portraits/battleship/portrait.png",
-          "sha256": "b8d073b4b511ddfc86933f2335195864a15899b6a0af6419f2e6978adc0d4187",
-          "width": 1326,
-          "height": 1186
+          "sha256": "ae406e1ea7730e358709c352370ce4bc901ad2a1222d6a7627af248890b7d293",
+          "width": 1329,
+          "height": 1183
         }
       ],
-      "look": "Owner-neutral battleship in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
-      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A large early dreadnought battleship with heavy paired-gun turrets, two funnels and a tall mast, bow to the left, complete ship in three-quarter side view on quiet coastal water.",
+      "look": "Owner-neutral battleship with two twin-gun turrets, two funnels and one mast, matching the\nselected tactical sprite in a quiet coastal scene with subdued ochre and sepia brushwork.",
+      "base_prompt": "Use case: historical-scene. Create ONE newly authored opaque full-bleed WWI strategy game UNIT PORTRAIT, landscape aspect105:94, ideally1680x1504 or larger. Same restrained ochre, sepia, khaki, olive and sage palette and continuous hand-painted digital brushwork as reference portrait. Pale cloudy sky, diffuse light from upper left, quiet period scene, crisp readable subject at210x188 with selective mechanical detail. Complete principal subject fits inside safe centred105:94 crop. Reference atlas is EQUIPMENT/IDENTITY reference only: replace its technical magenta with natural unmarked khaki/grey paint and use a normal low three-quarter scene camera, NOT the six-view layout. No text, numbers, letters, flags, crosses, insignia, emblems, national colours, faction tint, frames, UI, watermarks, photo, pixel art or3D render. Exactly one complete main vehicle. Subject: early WWI battleship matching the reference sprite: broad armoured hull with pointed bow to LEFT, rounded stern to RIGHT, warm teak deck, exactly TWO main twin-gun turrets TOTAL: ONE low twin turret forward of bridge, ONE low twin turret aft of both funnels. Exactly FOUR large barrels TOTAL. No superimposed turrets, no extra turret behind the forward turret, no wing turrets. One compact forward bridge, exactly TWO thick black funnels in centre line behind bridge, and ONE simple short mast. Low three-quarter broadside view from off the port bow, entire ship including bow/stern and mast inside canvas on quiet coastal water. Quiet muted neutral grey/khaki hull, small restrained ripple, distant low rural coast. Preserve two-turret arrangement so both turrets are clearly visible.",
       "variants": [
         {
           "variant": "portrait",
@@ -3087,13 +3087,13 @@
       "masters": [
         {
           "path": "art/portraits/gotha-g-vb/portrait.png",
-          "sha256": "4b7e5f035befc04c69d1bce8c5b0c0a2a1d4c34c6b588df10c1146bd2bea1f24",
+          "sha256": "77667ac02476896b007c18bccfd1a3406a3ca8984af3b047c5647cc901c47389",
           "width": 1326,
           "height": 1186
         }
       ],
       "look": "Owner-neutral gotha g vb in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
-      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A Gotha G.Vb twin-engine biplane bomber, long narrow fuselage with an open nose gun position, two pusher engines between the wings, paired rearward-facing propellers, fixed landing gear. Single complete aircraft parked on a grassy airfield, nose to the left, low eye-level three-quarter side view, full wings and tail within canvas, natural unmarked khaki fabric and metal; no duplicate aircraft.",
+      "base_prompt": "Use case: historical-scene. Create ONE newly authored opaque full-bleed WWI strategy game unit portrait, landscape105:94 ideally1680x1504. Input painting is a STYLE AND COMPOSITION reference only: preserve its connected hand-painted brushwork, subdued ochre/sepia/khaki palette, pale cloudy sky, quiet grassy airfield and low three-quarter side view with nose LEFT. Correct the aircraft's propulsion. Subject: ONE complete Gotha G.Vb heavy BIPLANE bomber, TWO main wing levels, long narrow central fuselage with open nose gun station and two crew positions aft, broad multi-bay straight wings, a nacelle between the wings on EACH side of fuselage. Exactly TWO inline engines TOTAL, one per nacelle. Each nacelle has ONE wooden PUSHER propeller at its REAR trailing end (toward RIGHT/tail), giving exactly TWO propellers TOTAL. The FORWARD/LEFT end of each engine nacelle is a plain radiator nose with NO front propeller, NO front propeller blades, NO spinner. Make BOTH rear pusher propellers visibly readable behind engines. No push-pull configuration, no four propellers, no engine in central fuselage. Dark natural steel engines, tan unmarked fabric wings and fuselage, two small vertical tail fins, spoked fixed landing gear and rear skid. Entire aircraft including wingtips, tail and propellers safely inside centred105:94 crop. Strong readable silhouette at210x188, natural materials, selective fine detail and soft upper-left daylight. No lettering, numbers, flags, crosses, insignia, markings, faction tint, borders, UI, watermark, photo, pixel art or3D render.",
       "variants": [
         {
           "variant": "portrait",
@@ -3595,13 +3595,13 @@
       "masters": [
         {
           "path": "art/portraits/morane-saulnier-n/portrait.png",
-          "sha256": "7eea671c39ec3e992cd371e49e29933c2494cb5d931cdd9d4e441a9adc80173d",
+          "sha256": "caa6c0b6e51b01d67a5ba314dcd6fed8b8555164e410a7c6ed262431ae30d5bd",
           "width": 1326,
-          "height": 1187
+          "height": 1186
         }
       ],
       "look": "Owner-neutral morane-saulnier n in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
-      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A Morane-Saulnier Type N shoulder-wing monoplane with wire bracing, rounded short fuselage and distinctive large blunt bullet spinner, open cockpit and fixed spoked wheels. Single complete aircraft parked on a grassy airfield, nose to the left, low eye-level three-quarter side view, full wings and tail within canvas, natural unmarked khaki fabric and metal; no duplicate aircraft.",
+      "base_prompt": "Use case: historical-scene. Create ONE newly authored opaque full-bleed WWI strategy game UNIT PORTRAIT, landscape aspect105:94, ideally1680x1504 or larger. Same restrained ochre, sepia, khaki, olive and sage palette and continuous hand-painted digital brushwork as reference portrait. Pale cloudy sky, diffuse light from upper left, quiet period scene, crisp readable subject at210x188 with selective mechanical detail. Complete principal subject fits inside safe centred105:94 crop. Reference painting is STYLE only; its incorrect biplane structure must NOT be copied. No text, numbers, letters, flags, crosses, insignia, emblems, national colours, faction tint, frames, UI, watermarks, photo, pixel art or3D render. Exactly one complete main vehicle. Subject: a Morane-Saulnier Type N single-seat MONOPLANE fighter parked on grassy WWI airfield, nose LEFT, low front-left three-quarter side view. Exactly ONE pair of shoulder-mounted MAIN WINGS, one left and one right at the SAME single height, each joining the upper sides of rounded fuselage. NO upper/lower stacked wings and NO interplane struts or second wing under fuselage. Fine wire bracing from a small kingpost above fuselage to the single wings, and from undercarriage to wings. Compact rounded tapered fuselage, distinctive LARGE blunt bullet-shaped nose spinner covering most rotary engine, TWO natural wooden propeller blades at the FRONT, ONE open cockpit aft of wing, small round fin, two spoked fixed wheels, low tail skid. Natural unmarked tan/khaki fabric and metal. Wings, propeller, wheels and tail complete inside canvas. Tiny rear tailplane is distinct from the sole main wing; no second main wing.\nFraming: aircraft occupies no more than75% of canvas width; generous grassy/sky margins around every extremity, safe inside centred105:94 crop.",
       "variants": [
         {
           "variant": "portrait",
@@ -4443,7 +4443,7 @@
       "id": "portraits/transport-train",
       "title": "Transport train",
       "kind": "portrait",
-      "status": "candidate",
+      "status": "revised",
       "runtime_ids": [
         "CP_transTrain"
       ],
@@ -4453,13 +4453,13 @@
       "masters": [
         {
           "path": "art/portraits/transport-train/portrait.png",
-          "sha256": "8d2cb7b032a92374ce301ce2bc08011ab4f50218ff3eff5629b12031812d98ca",
-          "width": 1326,
-          "height": 1187
+          "sha256": "67c17ae3b2b727595e7f8594c7912ad635804c96ed3f7c386f282a3a00977004",
+          "width": 1328,
+          "height": 1184
         }
       ],
       "look": "Owner-neutral picture of the unit shown in the unit panel at 210x188: a single compact steam locomotive,\nin a quiet period scene with subdued ochre and sepia values under a pale cloudy sky.",
-      "base_prompt": "Asset: owner-neutral WWI strategy unit portrait. Scene: a railway platform worksite: three foreground workmen in pale shirts and caps, the central one leaning over a long tool, more workmen receding to the right; broad, pale, cloudy\nochre sky. Paint wool, leather, wood, metal and natural surfaces with restrained connected brushwork\nand selective detail. Fully opaque full-bleed landscape illustration at 105:94, at least 1260x1128,\npreferably 1680x1504, the essential subject safe inside the centred 105:94 crop; extend the scene\nnaturally to all edges.",
+      "base_prompt": "Use case: historical-scene. Create ONE newly authored opaque full-bleed WWI strategy game UNIT PORTRAIT, landscape aspect105:94, ideally1680x1504 or larger. Same restrained ochre, sepia, khaki, olive and sage palette and continuous hand-painted digital brushwork as reference portrait. Pale cloudy sky, diffuse light from upper left, quiet period scene, crisp readable subject at210x188 with selective mechanical detail. Complete principal subject fits inside safe centred105:94 crop. Reference atlas is EQUIPMENT/IDENTITY reference only: replace its technical magenta with natural unmarked khaki/grey paint and use a normal low three-quarter scene camera, NOT the six-view layout. No text, numbers, letters, flags, crosses, insignia, emblems, national colours, faction tint, frames, UI, watermarks, photo, pixel art or3D render. Exactly one complete main vehicle. Subject: the compact WWI transport STEAM LOCOMOTIVE from reference atlas. A single short black riveted steam tank locomotive, round horizontal boiler at FRONT, ONE tall narrow cylindrical chimney, ONE steam dome, a compact boxy enclosed rear cab with curved roof, coal bunker immediately behind cab, SIX large driving wheels TOTAL (three per side), connecting rods, buffer beams with two round buffers and hook coupling. Natural blackened steel boiler, muted olive/brown cab, brass valves; sacks and wooden crates beside track. Complete locomotive on rural European standard-gauge track, its front to LEFT, low three-quarter front-left view, grassy railway verge, distant small station under cloudy sky. Engine is entire main subject centred and fills lower two-thirds. No passenger coaches or people dominating foreground; not a workmen portrait. No locomotive cropped or hidden.",
       "variants": [
         {
           "variant": "portrait",
@@ -4470,7 +4470,7 @@
         }
       ],
       "edges": "",
-      "post": "`art-review -portrait art/pipeline/portrait-transport-train-v1.json` takes the largest exact centred 105:94\ncrop and reduces it with Lanczos3 to 4x (840x752), 2x (420x376) and 1x (210x188) as\n`portrait/transport-train`. Promote into `assets/portraits/transport-train/` and re-index.",
+      "post": "`art-review -portrait art/pipeline/portrait-transport-train-v1.json` takes the largest exact centred 105:94\ncrop and reduces it with Lanczos3 to 4x (840x752), 2x (420x376) and 1x (210x188) as\n`portrait/transport-train`. Selected exports are installed under `assets/portraits/transport-train/`.\nGameplay binding remains `CP_transTrain`; in-engine panel acceptance is open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels or UI",

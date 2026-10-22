@@ -8,11 +8,11 @@ masters: portrait.png
 ---
 
 ## Look
-Owner-neutral battleship in a quiet period scene, matching the existing portrait
-paintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.
+Owner-neutral battleship with two twin-gun turrets, two funnels and one mast, matching the
+selected tactical sprite in a quiet coastal scene with subdued ochre and sepia brushwork.
 
 ## Base prompt
-Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A large early dreadnought battleship with heavy paired-gun turrets, two funnels and a tall mast, bow to the left, complete ship in three-quarter side view on quiet coastal water.
+Use case: historical-scene. Create ONE newly authored opaque full-bleed WWI strategy game UNIT PORTRAIT, landscape aspect105:94, ideally1680x1504 or larger. Same restrained ochre, sepia, khaki, olive and sage palette and continuous hand-painted digital brushwork as reference portrait. Pale cloudy sky, diffuse light from upper left, quiet period scene, crisp readable subject at210x188 with selective mechanical detail. Complete principal subject fits inside safe centred105:94 crop. Reference atlas is EQUIPMENT/IDENTITY reference only: replace its technical magenta with natural unmarked khaki/grey paint and use a normal low three-quarter scene camera, NOT the six-view layout. No text, numbers, letters, flags, crosses, insignia, emblems, national colours, faction tint, frames, UI, watermarks, photo, pixel art or3D render. Exactly one complete main vehicle. Subject: early WWI battleship matching the reference sprite: broad armoured hull with pointed bow to LEFT, rounded stern to RIGHT, warm teak deck, exactly TWO main twin-gun turrets TOTAL: ONE low twin turret forward of bridge, ONE low twin turret aft of both funnels. Exactly FOUR large barrels TOTAL. No superimposed turrets, no extra turret behind the forward turret, no wing turrets. One compact forward bridge, exactly TWO thick black funnels in centre line behind bridge, and ONE simple short mast. Low three-quarter broadside view from off the port bow, entire ship including bow/stern and mast inside canvas on quiet coastal water. Quiet muted neutral grey/khaki hull, small restrained ripple, distant low rural coast. Preserve two-turret arrangement so both turrets are clearly visible.
 
 ## Variants
 | Variant | Runtime IDs | Prompt delta |
