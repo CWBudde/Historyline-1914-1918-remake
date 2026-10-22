@@ -5,7 +5,7 @@
 // Inputs: base (the art tree, default the repository root), thumbs (directory of the
 // optional master and sample thumbnails written by `hlart thumbs`; the normal book embeds native files), pulse
 // (directory of the PULSE map written by `hlart pulse`; default: no map chapter),
-// winter (directory of a winter level written by `hlart map`; default: no winter chapter),
+// winter, winter3 (directories of winter levels written by `hlart map`; default: no winter chapters),
 // compare (directory written by `reference-design -compare`; default: no comparison), style=false
 // skips art/style.md, reference=false skips the PULSE reference chapter.
 
@@ -23,6 +23,7 @@
 #let with-reference = sys.inputs.at("reference", default: "true") == "true"
 #let pulse = sys.inputs.at("pulse", default: "")
 #let winter = sys.inputs.at("winter", default: "")
+#let winter3 = sys.inputs.at("winter3", default: "")
 #let shore = sys.inputs.at("shore", default: "")
 #let compare = sys.inputs.at("compare", default: "")
 
@@ -248,10 +249,10 @@ source describe the image in this PDF. PULSE uses the 4× runtime artwork; compa
   plate("pulse-ground.png")[Terrain and infrastructure only]
 }
 
-#if winter != "" {
-  let info = json(winter + "/map.json")
+#for winter-dir in (winter, winter3).filter(dir => dir != "") {
+  let info = json(winter-dir + "/map.json")
   let plate(file, caption) = {
-    block(height: 1fr, width: 100%, below: 0.5em, align(center, image(winter + "/" + file, height: 100%, fit: "contain")))
+    block(height: 1fr, width: 100%, below: 0.5em, align(center, image(winter-dir + "/" + file, height: 100%, fit: "contain")))
     align(center, small(caption))
   }
   heading(level: 1)[Winter map — #info.name]

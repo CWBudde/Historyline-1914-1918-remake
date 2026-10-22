@@ -66,6 +66,10 @@ func TestRetainedTerrainCatalogBuilds(t *testing.T) {
 		}{
 			{stampGroup, "stamp/crater/4_-1.1_1.1_0.2/1", 180, 120, [2]float64{90, 60}},
 			{stampGroup, "stamp/crater/4_-1.1_1.1_0.2/2", 192, 160, [2]float64{122, 51}},
+			{stampGroup, "stamp/crater_w/1/1", 120, 80, [2]float64{60, 40}},
+			{stampGroup, "stamp/crater_w/2_1.1/1", 192, 128, [2]float64{60, 44}},
+			{stampGroup, "stamp/crater_w/2_-1.1/1", 192, 128, [2]float64{132, 44}},
+			{stampGroup, "stamp/crater_w/6_-1.1_-4.2_-2.2_-3.3_-1.3/1", 384, 256, [2]float64{330, 64}},
 			{stampGroup, "stamp/knoll/1/1", 144, 120, [2]float64{72, 60}},
 			{standingGroup, "standing/stamp/knoll/1/1", 144, 120, [2]float64{72, 60}},
 		} {
@@ -230,8 +234,11 @@ func TestTerrainGapsReport(t *testing.T) {
 	if strings.Contains(s, "  unstamped lake ") {
 		t.Error("reusable lake tiles reported as a missing whole-lake painting")
 	}
-	if !strings.Contains(s, "  unstamped crater_w ") {
-		t.Error("missing winter crater stamps disappeared from the report")
+	if strings.Contains(s, "  unstamped crater_w ") {
+		t.Error("shipped winter crater shape has no installed stamp")
+	}
+	if !strings.Contains(s, "  unstamped boulders_w ") {
+		t.Error("missing winter boulder stamps disappeared from the report")
 	}
 	for _, want := range []string{
 		"level1_cp: 156 context tiles selected, 0 missing, 0 undefined, 0 compound issues",

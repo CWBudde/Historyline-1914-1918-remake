@@ -1,0 +1,93 @@
+{
+  "assets": [
+    {
+      "art": "terrain/ground",
+      "canvas": [
+        120,
+        80
+      ],
+      "crop": [
+        0,
+        0,
+        1536,
+        1024
+      ],
+      "id": "stamp/crater_w/1/1",
+      "layer": "ground",
+      "logical_anchor": [
+        60,
+        40
+      ],
+      "path": "terrain/ground/crater-single-winter",
+      "source": "art/terrain/ground/ground-crater-single-winter-v1.png",
+      "source_sha256": "750d8239ee54a217402a2c6f2cff9f5acc2180944864f920564930548ec91a52"
+    },
+    {
+      "art": "terrain/ground",
+      "canvas": [
+        192,
+        128
+      ],
+      "crop": [
+        0,
+        0,
+        1536,
+        1024
+      ],
+      "id": "stamp/crater_w/2_1.1/1",
+      "layer": "ground",
+      "logical_anchor": [
+        60,
+        44
+      ],
+      "path": "terrain/ground/crater-pair-se-winter",
+      "source": "art/terrain/ground/ground-crater-pair-se-winter-v1.png",
+      "source_sha256": "c39afa4b413c10b16d577dad2ab28b739d43a12c630c7511b847600f904054e0"
+    },
+    {
+      "art": "terrain/ground",
+      "canvas": [
+        192,
+        128
+      ],
+      "crop": [
+        0,
+        0,
+        1536,
+        1024
+      ],
+      "id": "stamp/crater_w/2_-1.1/1",
+      "layer": "ground",
+      "logical_anchor": [
+        132,
+        44
+      ],
+      "path": "terrain/ground/crater-pair-sw-winter",
+      "source": "art/terrain/ground/ground-crater-pair-sw-winter-v1.png",
+      "source_sha256": "eed38f36bb1fd977447be902cdfd8119ad4ae8f53f6f25636758a6fc0a509542"
+    },
+    {
+      "art": "terrain/ground",
+      "canvas": [
+        384,
+        256
+      ],
+      "crop": [
+        0,
+        0,
+        1536,
+        1024
+      ],
+      "id": "stamp/crater_w/6_-1.1_-4.2_-2.2_-3.3_-1.3/1",
+      "layer": "ground",
+      "logical_anchor": [
+        330,
+        64
+      ],
+      "path": "terrain/ground/crater-field-six-winter",
+      "source": "art/terrain/ground/ground-crater-field-six-winter-v1.png",
+      "source_sha256": "53426d7272bab100f9b16282f399126031b0fe4ca482b289b170b4aa08442bfd"
+    }
+  ],
+  "schema_version": 1
+}

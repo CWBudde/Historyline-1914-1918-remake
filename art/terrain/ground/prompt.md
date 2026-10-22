@@ -3,8 +3,8 @@ id: terrain/ground
 title: Ground
 kind: terrain
 status: candidate
-runtime_ids: mud, rough_w, shelled_w, stone, stoney_w, stamp/crater/4_-1.1_1.1_0.2/1, stamp/crater/4_-1.1_1.1_0.2/2, stamp/boulders/1/1, stamp/boulders/4_2.0_1.1_0.2/1, stamp/boulders/5_-1.1_0.2_-1.3_1.3/1
-masters: ground-crater-summer-v1.png, ground-crater-pair-summer-v1.png, ground-boulders-single-summer-v1.png, ground-boulders-four-summer-v1.png, ground-boulders-five-summer-v1.png, ground-mud-summer-v2.png, ground-stone-summer-v2.png, ground-rough-winter-v2.png, ground-shelled-winter-v2.png, ground-stony-winter-v2.png, ground-earth-bank-shared-v2.png, ground-earth-bank-shared-v1.png, ground-mud-summer-v1.png, ground-rough-winter-v1.png, ground-shelled-winter-v1.png, ground-stone-summer-v1.png, ground-stony-winter-v1.png
+runtime_ids: mud, rough_w, shelled_w, stone, stoney_w, stamp/crater/4_-1.1_1.1_0.2/1, stamp/crater/4_-1.1_1.1_0.2/2, stamp/boulders/1/1, stamp/boulders/4_2.0_1.1_0.2/1, stamp/boulders/5_-1.1_0.2_-1.3_1.3/1, stamp/crater_w/1/1, stamp/crater_w/2_1.1/1, stamp/crater_w/2_-1.1/1, stamp/crater_w/6_-1.1_-4.2_-2.2_-3.3_-1.3/1
+masters: ground-crater-summer-v1.png, ground-crater-pair-summer-v1.png, ground-boulders-single-summer-v1.png, ground-boulders-four-summer-v1.png, ground-boulders-five-summer-v1.png, ground-mud-summer-v2.png, ground-stone-summer-v2.png, ground-rough-winter-v2.png, ground-shelled-winter-v2.png, ground-stony-winter-v2.png, ground-earth-bank-shared-v2.png, ground-earth-bank-shared-v1.png, ground-mud-summer-v1.png, ground-rough-winter-v1.png, ground-shelled-winter-v1.png, ground-stone-summer-v1.png, ground-stony-winter-v1.png, ground-crater-single-winter-v1.png, ground-crater-pair-se-winter-v1.png, ground-crater-pair-sw-winter-v1.png, ground-crater-field-six-winter-v1.png
 ---
 
 ## Look
@@ -17,6 +17,10 @@ olive floor, with transparent meadow edges. The paired variant has two distinct 
 a shared churned apron, extending west of its anchor onto the surrounding meadow.
 Summer boulder stamps scatter rounded warm grey and beige stones, pebble clusters, sparse olive grass
 tufts and moss over transparent ground; the shared meadow shows between the stones.
+
+Winter crater stamps use the same cracked earth with settled ivory snow, exposed grey-brown basins
+and sparse straw tips. Single, both diagonal pairs and the six-cell field retain transparent margins
+over the selected winter meadow.
 
 ## Base prompt
 Opaque top-down terrain illustration, landscape 6:5 canvas filled edge to edge, strict nadir view.
@@ -56,6 +60,11 @@ grid, hex outline, people, checkerboard, photographic texture or 3D rendering.
 | single boulder stamp | stamp/boulders/1/1 | The transparent boulder scatter above in a 6:5 scene for one summer hex. |
 | four-cell boulder stamp | stamp/boulders/4_2.0_1.1_0.2/1 | One continuous 3:2 summer scatter for the four-cell cluster; no cell boundaries or repeated tile motifs. |
 | five-cell boulder stamp | stamp/boulders/5_-1.1_0.2_-1.3_1.3/1 | One continuous 6:5 summer scatter for the five-cell cluster; no cell boundaries or repeated tile motifs. |
+
+| winter single stamp | stamp/crater_w/1/1 | Snow-capped cracked earth; canvas 120×80, anchor (60,40); alpha over winter meadow. |
+| winter se stamp | stamp/crater_w/2_1.1/1 | Snow-capped cracked earth; canvas 192×128, anchor (60,44); alpha over winter meadow. |
+| winter sw stamp | stamp/crater_w/2_-1.1/1 | Snow-capped cracked earth; canvas 192×128, anchor (132,44); alpha over winter meadow. |
+| winter six stamp | stamp/crater_w/6_-1.1_-4.2_-2.2_-3.3_-1.3/1 | Snow-capped cracked earth; canvas 384×256, anchor (330,64); alpha over winter meadow. |
 
 ## Edges & joins
 Ground tiles are chosen by context: the renderer blends the material towards the seasonal meadow on
@@ -134,6 +143,44 @@ Use case: lighting-weather. Edit target is supplied full opaque 6:5 summer crate
 
 ```text
 Use case: lighting-weather. Edit target is supplied full opaque 6:5 summer boulder meadow. Preserve exact canvas, strict nadir camera, every boulder/pebble location, rounded rock size, silhouette, moss and surface cracks, and all gaps between the clusters. Change season to winter only: cool ivory-white settled snow covers the meadow between the rounded grey-beige boulders, with thin snow caps on some upper surfaces, muted moss and a few faded straw tips. Rounded rock sides remain clearly exposed; about half scene snow and half rock/exposed ground. Keep the same detailed hand-painted WWI aerial-map style, diffuse upper-left lighting and short soft blue-grey lower-right shadows. No flat stone plate, flagstones, slabs, paving, cobbles, new boulders, moved objects, deep drift, footprints, tracks, text, grid, outlines, vignette, pixel art, photograph or 3D look. Fully opaque edge-to-edge field.
+```
+
+### Winter crater stamps
+`tools/terrain-stamps -manifest art/pipeline/winter-crater-stamps-v1.json` exports four native
+1536×1024 RGBA paintings at 2×/4×, without enlargement. Shapes match the shipped winter maps;
+registration uses each cluster's first cell and preserves the selected snow beneath transparent margins.
+Unknown shapes retain the existing context fallback.
+
+#### ground-crater-single-winter-v1.png
+
+```text
+Use case: lighting-weather. Edit target: FIRST supplied image, the transparent single shell-crater cutout. SECOND image is a material reference only: snowy earth, NOT a replacement layout. THIRD image is the selected snow ground reference, colour only. Make the first crater a winter version in exactly the same finely hand-painted tactical-map style. Preserve its nadir orthographic camera, single complete low circular raised cracked-earth rim, basin, radial fissures, pebbles and irregular silhouette. Snow settles thinly on upward-facing tan/umber clods, in crevices and across about one third of the shallow basin floor. The remaining exposed earth stays warm grey-brown; grass tufts become sparse faded straw. Snow is cool ivory-white with restrained blue-grey shadows matching reference3, no bright blue. Keep the ring readable and natural, no deep abyss, ice lake, footprints or extra crater. Soft diffuse upper-left light and short subtle shadows contained on the feature. Genuine RGBA background alpha ZERO, absolutely NO shadow matte, haze, vignette, grassy or snowy rectangular ground patch. Remove any translucent halo around the original; preserve only the crater, sparse small stones and a few straw tips, with real clear gaps between fringe elements. Full feature including all stones safely inside the central90percent with at least5percent clean alpha at every edge. Broad landscape3:2 canvas ideally1536x1024. Topdown aerial game feature readable when reduced to120x80. No text, grids, outlines, roads, buildings, people, pixels, vector art, photo or3D look.
+```
+
+#### ground-crater-pair-se-winter-v1.png
+
+```text
+Use case: stylized-concept. Newly authored transparent WINTER WWI shell-crater terrain feature in the same fine handpainted tactical-map style as the supplied winter crater. Strict orthographic TOPDOWN nadir, upper-left soft diffuse light. Warm grey-brown cracked raised earth rims, shallow frozen-earth basins, thin settled ivory-white snow on raised clods and in cracks, about one third of basin snow, sparse tiny grey pebbles and dry straw. Keep the subject small-scale earthworks with low cut banks, never tall cliffs or black holes. Surrounding apron is a THIN irregular snowy earth fringe, with genuine alpha-zero beyond it and between loose outer stones. Match cool ivory selected snow, not beige or brown haze. No drop shadow, glow, vignette, rectangular snow/earth mat or blurry oval backdrop. The complete subject fits safely with clean alpha padding on all edges. Continuous painting with connected earth apron, not tile outlines. No grids, words, roads, units, buildings, footprints, vegetation masses, photo, pixels, vector or3D. EXACTLY TWO nearby crater basins, upper-left and lower-right. Broad3:2 canvas1536x1024. At export192x128, basin centres should be about(60,44) and(131,84), each outer rim about76x64. Thus centres at31%width34%height and68%width66%height; each basin about40%canvaswidth by50%height. Two distinct complete rings almost touch; keep quiet snow gaps elsewhere. Do not add a third crater.
+```
+
+#### ground-crater-pair-sw-winter-v1.png
+
+```text
+Use case: stylized-concept. Newly authored transparent WINTER WWI shell-crater terrain feature in the same fine handpainted tactical-map style as the supplied winter crater. Strict orthographic TOPDOWN nadir, upper-left soft diffuse light. Warm grey-brown cracked raised earth rims, shallow frozen-earth basins, thin settled ivory-white snow on raised clods and in cracks, about one third of basin snow, sparse tiny grey pebbles and dry straw. Keep the subject small-scale earthworks with low cut banks, never tall cliffs or black holes. Surrounding apron is a THIN irregular snowy earth fringe, with genuine alpha-zero beyond it and between loose outer stones. Match cool ivory selected snow, not beige or brown haze. No drop shadow, glow, vignette, rectangular snow/earth mat or blurry oval backdrop. The complete subject fits safely with clean alpha padding on all edges. Continuous painting with connected earth apron, not tile outlines. No grids, words, roads, units, buildings, footprints, vegetation masses, photo, pixels, vector or3D. EXACTLY TWO nearby crater basins, upper-right and lower-left. Broad3:2 canvas1536x1024. At export192x128, basin centres should be about(132,44) and(61,84), each outer rim about76x64. Thus centres at69%width34%height and32%width66%height; each basin about40%canvaswidth by50%height. UpperRIGHT to lowerLEFT diagonal is essential. Two distinct complete rings almost touch; keep quiet snow gaps elsewhere. Do not add a third crater.
+```
+
+#### ground-crater-field-six-winter-v1.png
+
+```text
+Use case: stylized-concept. Newly authored transparent WINTER WWI shell-crater terrain feature in the same fine handpainted tactical-map style as the supplied winter crater. Strict orthographic TOPDOWN nadir, upper-left soft diffuse light. Warm grey-brown cracked raised earth rims, shallow frozen-earth basins, thin settled ivory-white snow on raised clods and in cracks, about one third of basin snow, sparse tiny grey pebbles and dry straw. Keep the subject small-scale earthworks with low cut banks, never tall cliffs or black holes. Surrounding apron is a THIN irregular snowy earth fringe, with genuine alpha-zero beyond it and between loose outer stones. Match cool ivory selected snow, not beige or brown haze. No drop shadow, glow, vignette, rectangular snow/earth mat or blurry oval backdrop. The complete subject fits safely with clean alpha padding on all edges. Continuous painting with connected earth apron, not tile outlines. No grids, words, roads, units, buildings, footprints, vegetation masses, photo, pixels, vector or3D. EXACTLY THREE craters as ONE reusable broad connected shell-damaged field, NOT a single crater. Broad3:2 canvas1536x1024. Layout: craterA centre77%width33%height, craterB centre21%width64%height, craterC centre58%width64%height. All basins about31%canvaswidth by36%canvasheight, complete inside the frame. This makes ONE upperRIGHT basin and TWO lower basins, lower-left and lower-middle. A/C rims meet; B/C linked only by a narrow churned snowy earth apron and small stones. Preserve large transparent upper-left corner and snow visible in gaps. Native canvas must be at least1536x1024; no cropping or cut-off stones. Fine coherent painted detail across the whole field.
+```
+
+The six-cell field was revised after the full-map review: each basin is individually smaller and
+shallower, with clear snow between the impacts instead of a broad connected dirt plate.
+
+```text
+Edit this terrain stamp to reduce the size and depth of EACH of its three craters, individually, while KEEPING THEIR CENTRE POSITIONS and the1536x1024 canvas. Each crater must be about HALF ITS CURRENT DIAMETER: much smaller, with large transparent snowy gaps between the three features. Do not shrink the whole group together; preserve its broad spread. Positions fixed: one basin upper-right near77%width33%height, another lower-left near21%width64%height, third lower-middle near58%width64%height. Target each outer cracked rim about20%of totalcanvaswidth and25%ofheight. Three small low shallow shell impacts with a narrow broken tan/grey-brown rim, subtly depressed cracked-earth floor, thin cool ivory snow on rim clods and patches of floor. FLATTEN the cut banks dramatically: no deep quarry walls, tall cliffs, black holes or bucket shape. Fine hand-painted aerial tactical-game style, strict topdown nadir and restrained upper-left diffuse light. Loose very sparse pebbles/straw provide a slight irregular scatter between craters, most gaps EMPTY TRUE ALPHA so existing snow shows through. Keep no broad brown earth plate or brown haze, no rectangular snowy background, no shadows outside earth. Preserve3craters EXACTLY, all rims safely in frame and clearly separated. Alpha-zero margins and gaps, no text/grid/roads/buildings.
+
 ```
 
 ## Avoid
