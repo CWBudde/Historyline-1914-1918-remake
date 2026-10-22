@@ -40,13 +40,15 @@ type screenFile struct {
 }
 
 // planScreens returns the files of the screen catalog at density d: every
-// unpacked runtime file under screens/ at d, and scene/<family> for each
+// unpacked runtime file under screens/ at d, the unit portraits at d in one
+// family "portraits", and scene/<family> for each
 // art/screens/<family>/illustration.png.
 func planScreens(entries []indexEntry, assetsDir, artDir string, d int) ([]screenFile, error) {
 	var files []screenFile
 	seen := map[string]bool{}
 	for _, e := range entries {
-		if e.Pack != "" || !strings.HasPrefix(e.Art, "screens/") || e.Density != d {
+		portrait := strings.HasPrefix(e.Art, "portraits/")
+		if e.Pack != "" || !strings.HasPrefix(e.Art, "screens/") && !portrait || e.Density != d {
 			continue
 		}
 		if seen[e.ID] {
@@ -58,7 +60,11 @@ func planScreens(entries []indexEntry, assetsDir, artDir string, d int) ([]scree
 		if e.Anchor != nil {
 			anchor = *e.Anchor
 		}
-		files = append(files, screenFile{Family: strings.TrimPrefix(e.Art, "screens/"), ID: e.ID, Density: d, Width: e.Width, Height: e.Height, Anchor: anchor,
+		family := strings.TrimPrefix(e.Art, "screens/")
+		if portrait {
+			family = "portraits"
+		}
+		files = append(files, screenFile{Family: family, ID: e.ID, Density: d, Width: e.Width, Height: e.Height, Anchor: anchor,
 			read: func() ([]byte, error) { return os.ReadFile(name) }})
 	}
 	if !seen["backdrop/western-front"] {

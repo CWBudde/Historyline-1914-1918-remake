@@ -32,6 +32,7 @@ func TestRetainedScreenCatalogBuilds(t *testing.T) {
 			"backdrop":       {"backdrop/western-front"},
 			"button":         {"button/normal", "button/focus", "button/pressed", "button/disabled"},
 			"country":        {"country/france", "country/germany"},
+			"portraits":      {"portrait/armored-car", "portrait/light-artillery"},
 		} {
 			r, err := os.OpenRoot(filepath.Join(out, fmt.Sprintf("%dx", d), family))
 			if err != nil {
@@ -47,7 +48,7 @@ func TestRetainedScreenCatalogBuilds(t *testing.T) {
 				if err != nil {
 					t.Fatal(err)
 				}
-				full := !strings.HasPrefix(id, "button/") && !strings.HasPrefix(id, "country/")
+				full := !strings.HasPrefix(id, "button/") && !strings.HasPrefix(id, "country/") && !strings.HasPrefix(id, "portrait/")
 				if full && (e.Width != screenW*d || e.Height != screenH*d) {
 					t.Errorf("%s at %dx is %dx%d", id, d, e.Width, e.Height)
 				}

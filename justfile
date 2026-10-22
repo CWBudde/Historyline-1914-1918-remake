@@ -30,13 +30,14 @@ _build-dir:
     mkdir -p build
     [ -f build/go.mod ] || printf 'module scratch\n\ngo %s\n' "$(awk '/^go /{print $2}' go.mod)" > build/go.mod
 
-# Packs are built only when missing; delete build/packs/units, terrain or screens to rebuild.
+# Packs are built only when missing (a screen catalog without the portraits is
+# rebuilt); delete build/packs/units, terrain or screens to rebuild.
 [private]
 _packs: _build-dir
     mkdir -p build/packs
     [ -d build/packs/units ] || go run ./cmd/hlasset build-units -out build/packs/units
     [ -d build/packs/terrain ] || go run ./cmd/hlasset build-terrain -out build/packs/terrain
-    [ -d build/packs/screens ] || go run ./cmd/hlasset build-screens -out build/packs/screens
+    [ -d build/packs/screens/1x/portraits ] || { rm -rf build/packs/screens; go run ./cmd/hlasset build-screens -out build/packs/screens; }
 
 # Play with the candidate unit, terrain and screen art
 play *args: _packs
