@@ -40,7 +40,10 @@ func Family(unitType string) (string, bool) {
 }
 
 // Unbound art families have complete exports but no gameplay-table alias yet.
-var unboundFamilies = []string{"a7v", "mark-i", "mark-iv", "renault-ft17", "st-chamond"}
+var unboundFamilies = []string{
+	"a7v", "mark-i", "mark-iv", "renault-ft17", "st-chamond",
+	"torpedo-boat", "destroyer", "battleship", "transport-ship", "submarine",
+}
 
 // Families returns every exported family slug, sorted, including unbound art.
 func Families() []string {

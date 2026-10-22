@@ -10760,6 +10760,83 @@
       }
     },
     {
+      "id": "units/battleship",
+      "title": "Battleship",
+      "kind": "unit",
+      "status": "revised",
+      "runtime_ids": [
+        "unit/battleship"
+      ],
+      "dir": "art/units/battleship",
+      "assets_dir": "assets/units/battleship",
+      "prompt": "art/units/battleship/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/battleship/atlas.png",
+          "sha256": "3cc9308a140e700514f7f025afb47ea884f7aaf5464cdf8b80ac45ceaa0de68d",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI Battleship. A distinct period silhouette,\nfixed upper-left lighting and technical magenta owner paint; other materials stay natural.",
+      "base_prompt": "Use case: historical-scene. Create one game-ready transparent tactical SPRITE ATLAS, showing the SAME early Battleship in SIX independently painted directions. Exact canvas 1024x1536 pixels, RGBA. TWO columns and THREE rows of invisible 512x512 square cells. Six small isolated ship icons, ONE per cell, absolutely no extra ship, fragment or diagram.\nStrict layout: the entire ship including guns, mast and rigging fits within a 320x320 box centred at (256,261) of its cell, leaving AT LEAST 80px of genuinely clear alpha on ALL four sides. Do not enlarge the ships to fill their cells! Keep each silhouette away from the cell boundary. Same common scale within all views, no crop, no cutoff.\nORDER: TOP LEFT N = pointed BOW UP away from viewer, show STERN nearest viewer. TOP RIGHT NW = BOW UPPER LEFT away, show STERN right quarter nearest viewer. MIDDLE LEFT SW = BOW LOWER LEFT towards viewer, show FRONT left quarter. MIDDLE RIGHT S = BOW DOWN towards viewer, show FRONT nearest viewer. BOTTOM LEFT SE = BOW LOWER RIGHT towards viewer, show FRONT right quarter. BOTTOM RIGHT NE = BOW UPPER RIGHT away, show STERN left quarter nearest viewer. Bow and stern must not be confused. Rearrange the actual 3D ship orientation for each independently painted view, never rotate or mirror a finished image.\nSubject: One early WWI BATTLESHIP with broad armoured hull, clearly pointed BOW and rounded flat STERN. Exactly TWO large paired-gun turrets TOTAL: ONE twin-gun turret at the FRONT bow end, ONE twin-gun turret at the REAR stern end. The bow turret points forward and the stern turret points backwards. Between these two turrets: one compact armoured bridge nearer the bow, exactly TWO thick short black funnels in a row behind the bridge, and one short simple mast. Two large grey steel gun barrels on EACH turret. NO other large turrets or extra guns. Magenta hull sides, bridge and both turret roofs; warm natural teak deck and dark steel gun barrels. Thick broad hull is wider than a destroyer, with rounded end corners aft.\nCamera is elevated three-quarter overhead strategy view, looking mostly down, roofs and deck clearly visible, shallow side walls, NO underside or keel. Same camera and short diffuse daylight from screen upper LEFT in ALL six views. Newly authored finely painted digital illustration matching existing WWI tactical sprites, crisp natural antialiased edges, strong readable silhouette at 48px, neither pixel art, photograph nor 3D render. No tiny distracting excessive rigging.\nTRUE alpha TRANSPARENCY outside the ship and through gaps. Waterline cutout only: no surrounding water, wake, foam, reflection, waves, ground, shadow, background, haze, glow, checkerboard or vignette. No words, letters, numbers, labels, flags, national insignia, grid, arrows or frame. Technical magenta is ONLY for owner-painted parts and preserves natural shading; other materials remain natural. No black background.\nIMPORTANT SIMPLIFICATION: this selected battleship has exactly TWO primary turrets, not four. In EVERY cell, the entire ship and each of its TWO turret roofs must be clearly visible; no turret may be hidden, added or removed. Keep the ship small and centred: silhouette maximum 320px across with at least80px empty margin per512px cell. SIX distinct headings: N, NW, SW, S, SE, NE in reading order. BOW has forward-facing BRIDGE windows just behind the FORWARD turret, and a pointed front hull; STERN has rounded hull and no bridge. Do not confuse bow and stern.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera, scale and lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-battleship-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/battleship/`; gameplay class binding remains open.",
+      "avoid": [
+        "water, wakes, reflections, ground shadows, backdrop or detached fragments",
+        "labels, national insignia, clipped extremities or inconsistent equipment between views"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/battleship/cp/n-normal-4x.png",
+          "assets/units/battleship/cp/nw-normal-4x.png",
+          "assets/units/battleship/cp/sw-normal-4x.png",
+          "assets/units/battleship/cp/s-normal-4x.png",
+          "assets/units/battleship/cp/se-normal-4x.png",
+          "assets/units/battleship/cp/ne-normal-4x.png",
+          "assets/units/battleship/ec/n-normal-4x.png",
+          "assets/units/battleship/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
       "id": "units/bunker",
       "title": "Bunker",
       "kind": "unit",
@@ -11001,6 +11078,83 @@
           "assets/units/charron/cp/ne-normal-4x.png",
           "assets/units/charron/ec/n-normal-4x.png",
           "assets/units/charron/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "units/destroyer",
+      "title": "Destroyer",
+      "kind": "unit",
+      "status": "revised",
+      "runtime_ids": [
+        "unit/destroyer"
+      ],
+      "dir": "art/units/destroyer",
+      "assets_dir": "assets/units/destroyer",
+      "prompt": "art/units/destroyer/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/destroyer/atlas.png",
+          "sha256": "10ada74df427f8791960bf686201b127144866b11681c2ae91802f67c52207b8",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI Destroyer. A distinct period silhouette,\nfixed upper-left lighting and technical magenta owner paint; other materials stay natural.",
+      "base_prompt": "Use case: historical-scene. Create one game-ready transparent tactical SPRITE ATLAS, showing the SAME Destroyer in SIX independently painted directions. Exact canvas 1024x1536 pixels, RGBA. TWO columns and THREE rows of invisible 512x512 square cells. Six small isolated ship icons, ONE per cell, absolutely no extra ship, fragment or diagram.\nStrict layout: the entire ship including guns, mast and rigging fits within a 320x320 box centred at (256,261) of its cell, leaving AT LEAST 80px of genuinely clear alpha on ALL four sides. Do not enlarge the ships to fill their cells! Keep each silhouette away from the cell boundary. Same common scale within all views, no crop, no cutoff.\nORDER: TOP LEFT N = pointed BOW UP away from viewer, show STERN nearest viewer. TOP RIGHT NW = BOW UPPER LEFT away, show STERN right quarter nearest viewer. MIDDLE LEFT SW = BOW LOWER LEFT towards viewer, show FRONT left quarter. MIDDLE RIGHT S = BOW DOWN towards viewer, show FRONT nearest viewer. BOTTOM LEFT SE = BOW LOWER RIGHT towards viewer, show FRONT right quarter. BOTTOM RIGHT NE = BOW UPPER RIGHT away, show STERN left quarter nearest viewer. Bow and stern must not be confused. Rearrange the actual 3D ship orientation for each independently painted view, never rotate or mirror a finished image.\nSubject: One early WWI destroyer with long narrow pointed bow, raised forecastle deck at the FRONT, small forward bridge, exactly THREE slim funnels in a row amidships, two light deck guns (fore and aft) and low torpedo tubes on the aft deck. Small mast, simple low railings. No heavy turrets. Magenta hull and bridge; grey/wood deck, dark natural steel funnels and guns. Match a coherent single ship design in all six cells.\nCamera is elevated three-quarter overhead strategy view, looking mostly down, roofs and deck clearly visible, shallow side walls, NO underside or keel. Same camera and short diffuse daylight from screen upper LEFT in ALL six views. Newly authored finely painted digital illustration matching existing WWI tactical sprites, crisp natural antialiased edges, strong readable silhouette at 48px, neither pixel art, photograph nor 3D render. No tiny distracting excessive rigging.\nTRUE alpha TRANSPARENCY outside the ship and through gaps. Waterline cutout only: no surrounding water, wake, foam, reflection, waves, ground, shadow, background, haze, glow, checkerboard or vignette. No words, letters, numbers, labels, flags, national insignia, grid, arrows or frame. Technical magenta is ONLY for owner-painted parts and preserves natural shading; other materials remain natural. No black background.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera, scale and lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-destroyer-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/destroyer/`; gameplay class binding remains open.",
+      "avoid": [
+        "water, wakes, reflections, ground shadows, backdrop or detached fragments",
+        "labels, national insignia, clipped extremities or inconsistent equipment between views"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/destroyer/cp/n-normal-4x.png",
+          "assets/units/destroyer/cp/nw-normal-4x.png",
+          "assets/units/destroyer/cp/sw-normal-4x.png",
+          "assets/units/destroyer/cp/s-normal-4x.png",
+          "assets/units/destroyer/cp/se-normal-4x.png",
+          "assets/units/destroyer/cp/ne-normal-4x.png",
+          "assets/units/destroyer/ec/n-normal-4x.png",
+          "assets/units/destroyer/neutral/n-normal-4x.png"
         ]
       }
     },
@@ -11883,6 +12037,83 @@
       }
     },
     {
+      "id": "units/submarine",
+      "title": "Submarine",
+      "kind": "unit",
+      "status": "revised",
+      "runtime_ids": [
+        "unit/submarine"
+      ],
+      "dir": "art/units/submarine",
+      "assets_dir": "assets/units/submarine",
+      "prompt": "art/units/submarine/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/submarine/atlas.png",
+          "sha256": "d787760a1385ba1acab8638de204ad5c40213db55c82ed39b6a055e943d8b833",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI Submarine. A distinct period silhouette,\nfixed upper-left lighting and technical magenta owner paint; other materials stay natural.",
+      "base_prompt": "Use case: historical-scene. Create one game-ready transparent tactical SPRITE ATLAS, showing the SAME Submarine in SIX independently painted directions. Exact canvas 1024x1536 pixels, RGBA. TWO columns and THREE rows of invisible 512x512 square cells. Six small isolated ship icons, ONE per cell, absolutely no extra ship, fragment or diagram.\nStrict layout: the entire ship including guns, mast and rigging fits within a 320x320 box centred at (256,261) of its cell, leaving AT LEAST 80px of genuinely clear alpha on ALL four sides. Do not enlarge the ships to fill their cells! Keep each silhouette away from the cell boundary. Same common scale within all views, no crop, no cutoff.\nORDER: TOP LEFT N = pointed BOW UP away from viewer, show STERN nearest viewer. TOP RIGHT NW = BOW UPPER LEFT away, show STERN right quarter nearest viewer. MIDDLE LEFT SW = BOW LOWER LEFT towards viewer, show FRONT left quarter. MIDDLE RIGHT S = BOW DOWN towards viewer, show FRONT nearest viewer. BOTTOM LEFT SE = BOW LOWER RIGHT towards viewer, show FRONT right quarter. BOTTOM RIGHT NE = BOW UPPER RIGHT away, show STERN left quarter nearest viewer. Bow and stern must not be confused. Rearrange the actual 3D ship orientation for each independently painted view, never rotate or mirror a finished image.\nSubject: One surfaced WWI coastal submarine, narrow cigar-shaped hull, rounded sharp BOW and tapering stern, long flat slatted foredeck, small central conning tower with ONE slim periscope, ONE short small deck gun FORWARD of the tower pointing to the BOW. Aft deck has no gun. Short stern horizontal fins. Visible ABOVE-WATER hull only, no exposed propeller or keel. Magenta hull top and tower; natural dark steel gun and periscope, weathered grey slatted deck. NO funnels, no sails, no missile hatches.\nCamera is elevated three-quarter overhead strategy view, looking mostly down, roofs and deck clearly visible, shallow side walls, NO underside or keel. Same camera and short diffuse daylight from screen upper LEFT in ALL six views. Newly authored finely painted digital illustration matching existing WWI tactical sprites, crisp natural antialiased edges, strong readable silhouette at 48px, neither pixel art, photograph nor 3D render. No tiny distracting excessive rigging.\nTRUE alpha TRANSPARENCY outside the ship and through gaps. Waterline cutout only: no surrounding water, wake, foam, reflection, waves, ground, shadow, background, haze, glow, checkerboard or vignette. No words, letters, numbers, labels, flags, national insignia, grid, arrows or frame. Technical magenta is ONLY for owner-painted parts and preserves natural shading; other materials remain natural. No black background.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera, scale and lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-submarine-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/submarine/`; gameplay class binding remains open.",
+      "avoid": [
+        "water, wakes, reflections, ground shadows, backdrop or detached fragments",
+        "labels, national insignia, clipped extremities or inconsistent equipment between views"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/submarine/cp/n-normal-4x.png",
+          "assets/units/submarine/cp/nw-normal-4x.png",
+          "assets/units/submarine/cp/sw-normal-4x.png",
+          "assets/units/submarine/cp/s-normal-4x.png",
+          "assets/units/submarine/cp/se-normal-4x.png",
+          "assets/units/submarine/cp/ne-normal-4x.png",
+          "assets/units/submarine/ec/n-normal-4x.png",
+          "assets/units/submarine/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
       "id": "units/supply-car",
       "title": "Supply car",
       "kind": "unit",
@@ -11965,6 +12196,83 @@
       }
     },
     {
+      "id": "units/torpedo-boat",
+      "title": "Torpedo boat",
+      "kind": "unit",
+      "status": "revised",
+      "runtime_ids": [
+        "unit/torpedo-boat"
+      ],
+      "dir": "art/units/torpedo-boat",
+      "assets_dir": "assets/units/torpedo-boat",
+      "prompt": "art/units/torpedo-boat/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/torpedo-boat/atlas.png",
+          "sha256": "adc846e9048c8aac05e52fdada044f7cfee5575b6e0f18978ac3d209a786bbda",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI Torpedo boat. A distinct period silhouette,\nfixed upper-left lighting and technical magenta owner paint; other materials stay natural.",
+      "base_prompt": "Use case: historical-scene. Create one game-ready transparent tactical SPRITE ATLAS, showing the SAME Torpedo boat in SIX independently painted directions. Exact canvas 1024x1536 pixels, RGBA. TWO columns and THREE rows of invisible 512x512 square cells. Six small isolated ship icons, ONE per cell, absolutely no extra ship, fragment or diagram.\nStrict layout: the entire ship including guns, mast and rigging fits within a 320x320 box centred at (256,261) of its cell, leaving AT LEAST 80px of genuinely clear alpha on ALL four sides. Do not enlarge the ships to fill their cells! Keep each silhouette away from the cell boundary. Same common scale within all views, no crop, no cutoff.\nORDER: TOP LEFT N = pointed BOW UP away from viewer, show STERN nearest viewer. TOP RIGHT NW = BOW UPPER LEFT away, show STERN right quarter nearest viewer. MIDDLE LEFT SW = BOW LOWER LEFT towards viewer, show FRONT left quarter. MIDDLE RIGHT S = BOW DOWN towards viewer, show FRONT nearest viewer. BOTTOM LEFT SE = BOW LOWER RIGHT towards viewer, show FRONT right quarter. BOTTOM RIGHT NE = BOW UPPER RIGHT away, show STERN left quarter nearest viewer. Bow and stern must not be confused. Rearrange the actual 3D ship orientation for each independently painted view, never rotate or mirror a finished image.\nSubject: One slender low WWI torpedo boat with a very narrow pointed bow and rounded flat stern; two small slim funnels, a tiny raised forward wheelhouse, ONE light gun at the bow and two clearly visible deck torpedo tubes behind the funnels. No large turrets. Low freeboard and a long thin hull. Magenta hull sides and wheelhouse; muted natural wood/grey deck, dark steel funnels, tubes and gun.\nCamera is elevated three-quarter overhead strategy view, looking mostly down, roofs and deck clearly visible, shallow side walls, NO underside or keel. Same camera and short diffuse daylight from screen upper LEFT in ALL six views. Newly authored finely painted digital illustration matching existing WWI tactical sprites, crisp natural antialiased edges, strong readable silhouette at 48px, neither pixel art, photograph nor 3D render. No tiny distracting excessive rigging.\nTRUE alpha TRANSPARENCY outside the ship and through gaps. Waterline cutout only: no surrounding water, wake, foam, reflection, waves, ground, shadow, background, haze, glow, checkerboard or vignette. No words, letters, numbers, labels, flags, national insignia, grid, arrows or frame. Technical magenta is ONLY for owner-painted parts and preserves natural shading; other materials remain natural. No black background.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera, scale and lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-torpedo-boat-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/torpedo-boat/`; gameplay class binding remains open.",
+      "avoid": [
+        "water, wakes, reflections, ground shadows, backdrop or detached fragments",
+        "labels, national insignia, clipped extremities or inconsistent equipment between views"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/torpedo-boat/cp/n-normal-4x.png",
+          "assets/units/torpedo-boat/cp/nw-normal-4x.png",
+          "assets/units/torpedo-boat/cp/sw-normal-4x.png",
+          "assets/units/torpedo-boat/cp/s-normal-4x.png",
+          "assets/units/torpedo-boat/cp/se-normal-4x.png",
+          "assets/units/torpedo-boat/cp/ne-normal-4x.png",
+          "assets/units/torpedo-boat/ec/n-normal-4x.png",
+          "assets/units/torpedo-boat/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
       "id": "units/train-artillery",
       "title": "Artillery train",
       "kind": "unit",
@@ -12043,6 +12351,83 @@
           "assets/units/train-artillery/cp/ne-normal-4x.png",
           "assets/units/train-artillery/ec/n-normal-4x.png",
           "assets/units/train-artillery/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "units/transport-ship",
+      "title": "Transport ship",
+      "kind": "unit",
+      "status": "revised",
+      "runtime_ids": [
+        "unit/transport-ship"
+      ],
+      "dir": "art/units/transport-ship",
+      "assets_dir": "assets/units/transport-ship",
+      "prompt": "art/units/transport-ship/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/transport-ship/atlas.png",
+          "sha256": "81058d0652992f0bb418964a564de59927e75a78a20def4f55531e19b595f9b4",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI Transport ship. A distinct period silhouette,\nfixed upper-left lighting and technical magenta owner paint; other materials stay natural.",
+      "base_prompt": "Use case: historical-scene. Create one game-ready transparent tactical SPRITE ATLAS, showing the SAME Transport ship in SIX independently painted directions. Exact canvas 1024x1536 pixels, RGBA. TWO columns and THREE rows of invisible 512x512 square cells. Six small isolated ship icons, ONE per cell, absolutely no extra ship, fragment or diagram.\nStrict layout: the entire ship including guns, mast and rigging fits within a 320x320 box centred at (256,261) of its cell, leaving AT LEAST 80px of genuinely clear alpha on ALL four sides. Do not enlarge the ships to fill their cells! Keep each silhouette away from the cell boundary. Same common scale within all views, no crop, no cutoff.\nORDER: TOP LEFT N = pointed BOW UP away from viewer, show STERN nearest viewer. TOP RIGHT NW = BOW UPPER LEFT away, show STERN right quarter nearest viewer. MIDDLE LEFT SW = BOW LOWER LEFT towards viewer, show FRONT left quarter. MIDDLE RIGHT S = BOW DOWN towards viewer, show FRONT nearest viewer. BOTTOM LEFT SE = BOW LOWER RIGHT towards viewer, show FRONT right quarter. BOTTOM RIGHT NE = BOW UPPER RIGHT away, show STERN left quarter nearest viewer. Bow and stern must not be confused. Rearrange the actual 3D ship orientation for each independently painted view, never rotate or mirror a finished image.\nSubject: One unarmed WWI steam cargo transport. Broad deep hull with pointed BOW, rounded stern; ONE black central funnel, a small amidships bridge, two modest cargo masts (one forward and one aft) with simple loading booms, exactly two broad rectangular hatch covers fore and aft. Plain weathered wood deck, canvas-covered cargo hatches, a few small lifeboats. Magenta hull sides and bridge; natural wood, canvas and dark steel. NO guns, no turrets, no cargo containers, no sails.\nCamera is elevated three-quarter overhead strategy view, looking mostly down, roofs and deck clearly visible, shallow side walls, NO underside or keel. Same camera and short diffuse daylight from screen upper LEFT in ALL six views. Newly authored finely painted digital illustration matching existing WWI tactical sprites, crisp natural antialiased edges, strong readable silhouette at 48px, neither pixel art, photograph nor 3D render. No tiny distracting excessive rigging.\nTRUE alpha TRANSPARENCY outside the ship and through gaps. Waterline cutout only: no surrounding water, wake, foam, reflection, waves, ground, shadow, background, haze, glow, checkerboard or vignette. No words, letters, numbers, labels, flags, national insignia, grid, arrows or frame. Technical magenta is ONLY for owner-painted parts and preserves natural shading; other materials remain natural. No black background.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera, scale and lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-transport-ship-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/transport-ship/`; gameplay class binding remains open.",
+      "avoid": [
+        "water, wakes, reflections, ground shadows, backdrop or detached fragments",
+        "labels, national insignia, clipped extremities or inconsistent equipment between views"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/transport-ship/cp/n-normal-4x.png",
+          "assets/units/transport-ship/cp/nw-normal-4x.png",
+          "assets/units/transport-ship/cp/sw-normal-4x.png",
+          "assets/units/transport-ship/cp/s-normal-4x.png",
+          "assets/units/transport-ship/cp/se-normal-4x.png",
+          "assets/units/transport-ship/cp/ne-normal-4x.png",
+          "assets/units/transport-ship/ec/n-normal-4x.png",
+          "assets/units/transport-ship/neutral/n-normal-4x.png"
         ]
       }
     },

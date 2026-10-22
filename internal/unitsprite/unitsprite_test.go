@@ -29,8 +29,9 @@ func TestEveryUnitTypeHasAFamily(t *testing.T) {
 	}
 }
 
-func TestTankArtFamiliesWithoutGameplayAliases(t *testing.T) {
-	for _, family := range []string{"a7v", "st-chamond", "renault-ft17", "mark-i", "mark-iv"} {
+func TestArtFamiliesWithoutGameplayAliases(t *testing.T) {
+	for _, family := range []string{"a7v", "st-chamond", "renault-ft17", "mark-i", "mark-iv",
+		"torpedo-boat", "destroyer", "battleship", "transport-ship", "submarine"} {
 		if !slices.Contains(Families(), family) || len(ClassIDs(family)) != 0 {
 			t.Errorf("%s must have an export family without invented gameplay classes", family)
 		}
