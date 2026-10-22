@@ -3,7 +3,6 @@ package main
 import (
 	"image"
 	"slices"
-	"strings"
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
@@ -116,7 +115,7 @@ func TestDosPlacement(t *testing.T) {
 		}},
 		{"empty hex", nil, empty, []want{{gesture.Up, gesture.Move, false}, {gesture.Left, gesture.ModeChange, true}, {gesture.Right, gesture.Map, true}}},
 		{"own HQ", nil, ownHQ(t, d), []want{{gesture.Left, gesture.Open, len(d.own().Buildings[ownHQ(t, d)].Units) > 0}, {gesture.Down, gesture.Info, true}}},
-		{"confirmed", func() { d.EndTurn() }, at, []want{{gesture.Up, gesture.Move, false}, {gesture.Left, gesture.ModeChange, true}}},
+		{"confirmed", func() { d.EndTurn(); d.EndTurn() }, at, []want{{gesture.Up, gesture.Move, false}, {gesture.Left, gesture.ModeChange, true}}},
 		{"aiming", func() { d.Click(at) }, at, []want{{gesture.Up, gesture.Cancel, true}, {gesture.Right, gesture.Cancel, true}}},
 	}
 	for _, tt := range tests {
@@ -183,11 +182,11 @@ func TestDosGestures(t *testing.T) {
 				t.Error("a cancelled gesture selected the unit")
 			}
 		}},
-		{"dragging left confirms the mode change", func(g *game, _ *dosControl, at hexgrid.Coord) []gesture.Input {
+		{"dragging left asks for the mode change", func(g *game, _ *dosControl, at hexgrid.Coord) []gesture.Input {
 			return dragFrom(g, at, -1, 0)
 		}, func(t *testing.T, _ *game, d *dosControl, _ hexgrid.Coord) {
-			if !d.s.Ready(d.side) {
-				t.Errorf("not confirmed: %q", d.Message)
+			if !d.prompt || d.s.Ready(d.side) {
+				t.Errorf("no prompt: %v, ready %v, %q", d.prompt, d.s.Ready(d.side), d.Message)
 			}
 		}},
 		{"dragging right opens the strategic map", func(g *game, _ *dosControl, at hexgrid.Coord) []gesture.Input {
@@ -200,16 +199,15 @@ func TestDosGestures(t *testing.T) {
 		{"dragging down on the own HQ shows the game info", func(g *game, d *dosControl, _ hexgrid.Coord) []gesture.Input {
 			return dragFrom(g, ownHQ(t, d), 0, 1)
 		}, func(t *testing.T, g *game, d *dosControl, _ hexgrid.Coord) {
-			lines := strings.Join(g.infoLines(), "\n")
-			if !strings.Contains(lines, "game info") || !strings.Contains(lines, "score") {
-				t.Errorf("info box %q", lines)
+			if g.split.mode[d.side] != panelGameInfo {
+				t.Errorf("panel mode %v", g.split.mode[d.side])
 			}
 		}},
 		{"dragging down on a unit shows its type", func(g *game, _ *dosControl, at hexgrid.Coord) []gesture.Input {
 			return dragFrom(g, at, 0, 1)
-		}, func(t *testing.T, g *game, _ *dosControl, _ hexgrid.Coord) {
-			if lines := strings.Join(g.infoLines(), "\n"); !strings.Contains(lines, "armour") {
-				t.Errorf("info box %q", lines)
+		}, func(t *testing.T, g *game, d *dosControl, at hexgrid.Coord) {
+			if g.split.mode[d.side] != panelUnitInfo || g.split.infoUnit.Index != d.own().Units[at].Index {
+				t.Errorf("panel mode %v, unit %+v", g.split.mode[d.side], g.split.infoUnit)
 			}
 		}},
 		{"arrows step the cursor", func(g *game, _ *dosControl, at hexgrid.Coord) []gesture.Input {
@@ -458,16 +456,6 @@ func TestHidePointer(t *testing.T) {
 	}
 }
 
-func TestGameInfoLines(t *testing.T) {
-	d := newDosTest(t, "level1_cp", passPlanner{})
-	lines := strings.Join(d.gameInfoLines(), "\n")
-	for _, want := range []string{"round 1", d.s.Faction(0).String(), d.s.Faction(1).String(), "units", "depots", "energy", "income", "score", "moves 0"} {
-		if !strings.Contains(lines, want) {
-			t.Errorf("game info lacks %q:\n%s", want, lines)
-		}
-	}
-}
-
 func TestSplitStrategicLayoutSize(t *testing.T) {
 	g, d, _ := newCursorTest(t)
 	p, r, ui := g.split.screen.Panels[d.side], g.strategicRect(d.side), g.view.UI
@@ -506,5 +494,90 @@ func TestFitRing(t *testing.T) {
 		if at == [2]float64{500, 500} && (r.X != 500 || r.Y != 500) {
 			t.Errorf("a ring that fits moved to %v,%v", r.X, r.Y)
 		}
+	}
+}
+
+func TestEdgeDir(t *testing.T) {
+	v := dosscreen.NewView(dosscreen.Rect{X: 0, Y: 0, W: 700, H: 700}, 1, 0, 0)
+	bx, by := v.Offset()
+	bw, bh := dosscreen.BlockSize(v.Cols, v.Rows)
+	x0, y0, x1, y1 := float64(bx), float64(by), float64(bx)+bw, float64(by)+bh
+	mx, my := (x0+x1)/2, (y0+y1)/2
+	tests := []struct {
+		name   string
+		x, y   float64
+		dp, dr int
+	}{
+		{"middle", mx, my, 0, 0},
+		{"left edge cell", x0 + 10, my, -1, 0},
+		{"inner half of the left cells", x0 + hexgrid.HexWidth/2 + 2, my, 0, 0},
+		{"right edge cell", x1 - 10, my, 1, 0},
+		{"top", mx, y0 + 5, 0, -1},
+		{"bottom", mx, y1 - 5, 0, 1},
+		{"past the block on the steel", x1 + 5, y1 + 5, 1, 1},
+		{"top-left corner", x0 - 5, y0 - 5, -1, -1},
+	}
+	for _, tt := range tests {
+		if dp, dr := edgeDir(v, tt.x, tt.y); dp != tt.dp || dr != tt.dr {
+			t.Errorf("%s: %d,%d, want %d,%d", tt.name, dp, dr, tt.dp, tt.dr)
+		}
+	}
+}
+
+func TestEdgeScroll(t *testing.T) {
+	g, d, _ := newCursorTest(t)
+	s := g.split
+	run := func(x, y, frames int, active bool) {
+		for range frames {
+			g.edgeScroll(x, y, active)
+			g.updateSplit()
+		}
+	}
+	v := g.splitView(d.side)
+	bx, by := v.Offset()
+	bw, bh := dosscreen.BlockSize(v.Cols, v.Rows)
+	right := bx + int(bw*v.Scale) - 2
+	midY := by + int(bh*v.Scale)/2
+	start := s.cams[d.side]
+
+	// Resting in the middle, or inactive on the edge, never scrolls.
+	run(bx+int(bw*v.Scale)/2, midY, 100, true)
+	run(right, midY, 100, false)
+	if got := s.cams[d.side]; got.pair != start.pair || got.row != start.row {
+		t.Fatalf("scrolled to %d,%d without an edge", got.pair, got.row)
+	}
+	// The other panel's side of the window does not scroll the human panel.
+	other := s.screen.Panels[1-d.side]
+	run(other.X+other.W/2, midY, 100, true)
+	if got := s.cams[d.side]; got.pair != start.pair {
+		t.Fatalf("the other panel scrolled the human panel to %d", got.pair)
+	}
+
+	// Not before edgeFirst frames, then step by step up to the map's edge.
+	run(right, midY, edgeFirst, true)
+	if got := s.cams[d.side].pair; got != start.pair {
+		t.Fatalf("stepped after %d frames", edgeFirst)
+	}
+	_, hi := pairRange(g.grid, s.screen.Cols)
+	run(right, midY, 2, true)
+	if got := s.cams[d.side].pair; got != start.pair+1 {
+		t.Fatalf("pair %d after the first step, want %d", got, start.pair+1)
+	}
+	if c, ok := g.pickSplit(right, midY); !ok || g.hover != c {
+		t.Errorf("cursor %v after a step, under the pointer %v (%v)", g.hover, c, ok)
+	}
+	run(right, midY, 400, true)
+	if got := s.cams[d.side].pair; got != hi {
+		t.Fatalf("pair %d at the right edge, want the map's last %d", got, hi)
+	}
+	// The cursor is the cell under the pointer (when it is a map cell; the
+	// odd lines end a cell early at the right edge).
+	if c, ok := g.pickSplit(right, midY); ok && (!g.hoverOnMap || g.hover != c) {
+		t.Errorf("cursor %v (%v), under the pointer %v (%v)", g.hover, g.hoverOnMap, c, ok)
+	}
+	// Up and left back to the corner.
+	run(bx+2, by+2, 800, true)
+	if got := s.cams[d.side]; got.pair != 0 || got.row != 0 {
+		t.Errorf("corner at %d,%d, want 0,0", got.pair, got.row)
 	}
 }

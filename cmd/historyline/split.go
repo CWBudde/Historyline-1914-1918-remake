@@ -132,25 +132,6 @@ func panelCamera(v dosscreen.View, slideX, slideY float64, world, screen camera.
 	}
 }
 
-// fitWell is the text of a status well that holds chars characters: the state
-// and the message when both fit, else the message alone, shortened if needed.
-func fitWell(state, msg string, chars int) string {
-	chars = max(chars, 4)
-	short := func(s string) string {
-		if len(s) <= chars {
-			return s
-		}
-		return s[:chars-3] + "..."
-	}
-	if msg == "" {
-		return short(state)
-	}
-	if full := state + " - " + msg; len(full) <= chars {
-		return full
-	}
-	return short(msg)
-}
-
 // split is the state of the split screen.
 type split struct {
 	screen dosscreen.Screen
@@ -159,16 +140,23 @@ type split struct {
 	sel    hexgrid.Coord // the selection last followed
 	selOn  bool
 
-	track  *gesture.Tracker // the human side's gestures (cursor.go)
-	dir    gesture.Dir      // the direction its hold picks
-	mode   [2]panelMode     // what each panel shows
-	strat  [2]strategicPic  // each panel's strategic map
-	info   bool             // the info gesture ran on infoAt
-	infoAt hexgrid.Coord
+	track    *gesture.Tracker // the human side's gestures (cursor.go)
+	dir      gesture.Dir      // the direction its hold picks
+	mode     [2]panelMode     // what each panel shows
+	strat    [2]strategicPic  // each panel's strategic map
+	grey     [2]*ebiten.Image // each panel drawn offscreen for the greyscale (phase.go)
+	infoUnit dosplay.UnitView // the unit whose type the unit info shows
 
 	placement gesture.Placement // on the cursor cell (cursorPlacement)
 	placeKey  placeKey
 	placed    bool
+
+	edgeOn   bool    // the pointer rests on an edge (edgeScroll)
+	edgeWait int     // frames until its next step
+	zoom     int     // the zoom level asked for (dosscreen.Zooms), kept over resizes
+	wheel    float64 // wheel turns not yet stepped (touchpads turn in fractions)
+	lastMsg  string  // the human side.s message, aged by tickWells
+	msgAge   int
 }
 
 // layoutSplit lays the split screen out for the current window and keeps each
@@ -178,10 +166,10 @@ func (g *game) layoutSplit() {
 		return
 	}
 	if g.split == nil {
-		g.split = &split{track: newTracker()}
+		g.split = &split{track: newTracker(), zoom: dosscreen.DefaultZoom}
 	}
 	s := g.split
-	s.screen = dosscreen.Layout(g.view.PhysW, g.view.PhysH, float64(g.view.UI))
+	s.screen = dosscreen.Layout(g.view.PhysW, g.view.PhysH, float64(g.view.UI)).Zoomed(s.zoom)
 	s.track.Threshold = gestureThreshold(s.screen.CellScale)
 	for side := range 2 {
 		c := &s.cams[side]
@@ -264,7 +252,13 @@ func (g *game) stepView(side, dp, dr int) {
 // cursor, see showCursor), and the slides advance.
 func (g *game) updateSplit() {
 	s := g.split
+	if g.dos.locked() {
+		s.mode = [2]panelMode{} // the phase change closes the strategic maps and plates
+		g.dos.box = nil
+	}
+	g.syncContents()
 	g.followSplit()
+	g.tickWells()
 	for side := range 2 {
 		s.cams[side].tick()
 	}
@@ -304,30 +298,74 @@ func (g *game) pickSplit(mx, my int) (hexgrid.Coord, bool) {
 }
 
 // drawSplit draws both panels' maps (or strategic maps), each through its own
-// camera into its panel, the steel frame over them and the human side's
-// cursor.
+// camera into its panel and in the look the phase change asks for (phase.go),
+// the steel frame over them and the human side's cursor.
 func (g *game) drawSplit(screen *ebiten.Image) {
 	s := g.split
 	human := *g.cam
 	defer func() { *g.cam, g.drawing = human, false }()
 	var views [2]dosscreen.View
+	looks := g.dos.panelLooks()
 	for side := range 2 {
 		views[side] = g.splitView(side)
-		if s.mode[side] == panelStrategic {
-			g.drawStrategic(screen, side)
-			continue
-		}
-		p := views[side].Panel
-		*g.cam = g.splitCamera(side)
-		g.drawing, g.drawSide = true, side
-		dst := screen.SubImage(image.Rect(p.X, p.Y, p.Right(), p.Bottom())).(*ebiten.Image)
-		x0, y0 := g.cam.ScreenToWorld(float64(p.X), float64(p.Y))
-		x1, y1 := g.cam.ScreenToWorld(float64(p.Right()), float64(p.Bottom()))
-		g.drawMapLayer(dst, x0, y0, x1-x0, y1-y0, side == g.dos.side)
+		g.drawPanelLook(screen, side, looks[side], func(dst *ebiten.Image, dx, dy float64) {
+			g.drawPanel(dst, side, views[side].Panel, dx, dy)
+		})
 	}
 	*g.cam, g.drawing = human, false
+	for side := range 2 {
+		if s.mode[side] != panelMap && s.mode[side] != panelGameInfo {
+			views[side] = g.plateView(side)
+		}
+	}
 	s.frame.Draw(screen, s.screen, views, g.grid)
-	g.drawCursor(screen)
+	if g.dos.prompt || g.dos.stage == stageBlack {
+		g.cursorPlates(screen)
+		return
+	}
+	if !g.dos.sequence() || g.dos.stage == stageNewMode {
+		g.drawCursor(screen)
+	}
+}
+
+// plateView is the view whose frame side's panel has while a plate covers
+// its map: one resting on the map's first cells, so the frame does not close
+// in where the map ends (unless the map is smaller than the view).
+func (g *game) plateView(side int) dosscreen.View {
+	s := g.split
+	pair, row := clampView(g.grid, s.screen.Cols, s.screen.Rows, 0, 0)
+	return s.screen.View(side, pair, row)
+}
+
+// drawPanel draws side's map (or the view open there) in panel p onto dst,
+// whose origin lies (dx, dy) device pixels from the screen's. The phase change
+// closes the views (updateSplit), so they are drawn unshifted.
+func (g *game) drawPanel(dst *ebiten.Image, side int, p dosscreen.Rect, dx, dy float64) {
+	mode := g.split.mode[side]
+	if dx != 0 || dy != 0 {
+		mode = panelMap
+	}
+	switch mode {
+	case panelStrategic:
+		g.drawStrategic(dst, side)
+		return
+	case panelUnitInfo, panelContents:
+		g.drawOverlay(dst, side, g.panelRect(side))
+		return
+	case panelMap, panelGameInfo:
+	}
+	*g.cam = g.splitCamera(side)
+	g.drawing, g.drawSide = true, side
+	x0, y0 := g.cam.ScreenToWorld(float64(p.X), float64(p.Y))
+	x1, y1 := g.cam.ScreenToWorld(float64(p.Right()), float64(p.Bottom()))
+	e := g.cam.Effective()
+	g.cam.Origin.X -= dx / e
+	g.cam.Origin.Y -= dy / e
+	r := image.Rect(p.X, p.Y, p.Right(), p.Bottom()).Add(image.Pt(int(dx), int(dy)))
+	g.drawMapLayer(dst.SubImage(r).(*ebiten.Image), x0, y0, x1-x0, y1-y0, side == g.dos.side)
+	if mode == panelGameInfo {
+		g.drawOverlay(dst, side, g.panelRect(side))
+	}
 }
 
 // shownSide is the side whose map is drawn: the panel being drawn, else the
@@ -353,37 +391,6 @@ func (g *game) drawSplitHexNumbers(dst *ebiten.Image) {
 			hx, hy := g.view.toHUD(int(sx), int(sy+22*cam.Effective()))
 			ebitenutil.DebugPrintAt(dst, fmt.Sprintf("%d,%d", c.Line, c.Col), hx-14, hy-8)
 		}
-	}
-}
-
-// wellText is side's status well: the turn, its phase and its orders or
-// readiness, and for the human side the last message.
-func (g *game) wellText(side int) (state, msg string) {
-	d, s := g.dos, g.dos.s
-	state = fmt.Sprintf("TURN %d  %v: %s PHASE", s.Turn()+1, s.Faction(side), phaseName(s.Phase(side)))
-	switch {
-	case s.Ready(side):
-		state += ", READY"
-	case side == d.side && s.Game.Limit > 0:
-		state += fmt.Sprintf(", %d OF %d ORDERS", len(s.Game.Players[side].Orders), s.Game.Limit)
-	case side == d.side:
-		state += ", " + count(len(s.Game.Players[side].Orders), "order")
-	}
-	if side == d.side {
-		msg = d.Message
-	}
-	return strings.ToUpper(state), strings.ToUpper(msg)
-}
-
-// drawWells prints each side's status line centred in its well (HUD).
-func (g *game) drawWells(dst *ebiten.Image) {
-	ui := max(g.view.UI, 1)
-	for side := range 2 {
-		r := g.split.screen.Status[side]
-		x, y, w, h := r.X/ui, r.Y/ui, r.W/ui, r.H/ui
-		state, msg := g.wellText(side)
-		text := fitWell(state, msg, (w-8)/glyphW)
-		ebitenutil.DebugPrintAt(dst, text, x+(w-textWidth(text))/2, y+(h-16)/2)
 	}
 }
 
@@ -419,4 +426,53 @@ func splitMinWindow(dpi float64) (w, h int) {
 	dpi = max(dpi, 1e-3)
 	pw, ph := dosscreen.MinWindow(float64(max(int(dpi+0.5), 1)))
 	return int(math.Ceil(float64(pw) / dpi)), int(math.Ceil(float64(ph) / dpi))
+}
+
+// zoomSplit steps both panels' zoom level by step (the mouse wheel), keeping
+// the human side's cursor cell, or else the middle of each view, in the
+// middle; the levels end where the window has no more (dosscreen.ZoomLevels).
+func (g *game) zoomSplit(step int) {
+	s := g.split
+	base := dosscreen.Layout(g.view.PhysW, g.view.PhysH, float64(g.view.UI))
+	z := base.ClampZoom(s.screen.Zoom + step)
+	if z == s.screen.Zoom {
+		return
+	}
+	var keep [2]hexgrid.Coord
+	for side := range 2 {
+		v := g.splitView(side)
+		keep[side] = v.Cell(v.Cols/2, v.Rows/2)
+	}
+	if g.hoverOnMap {
+		keep[g.dos.side] = g.hover
+	}
+	s.zoom = z
+	s.screen = base.Zoomed(z)
+	s.track.Threshold = gestureThreshold(s.screen.CellScale)
+	for side := range 2 {
+		pair, row := centreView(g.grid, s.screen.Cols, s.screen.Rows, keep[side])
+		s.cams[side].moveTo(pair, row, true)
+		s.strat[side] = strategicPic{}
+	}
+	g.syncSplitCam()
+}
+
+// wheelSplit adds a wheel turn of dy with the pointer at (mx, my): over the
+// human side's half of the window each whole turn steps the zoom, up zooming
+// in.
+func (g *game) wheelSplit(dy float64, mx, my int) {
+	s := g.split
+	if !g.edgeZone(mx, my) || s.mode[g.dos.side] != panelMap || g.dos.locked() {
+		s.wheel = 0
+		return
+	}
+	s.wheel += dy
+	for s.wheel >= 1 {
+		s.wheel--
+		g.zoomSplit(1)
+	}
+	for s.wheel <= -1 {
+		s.wheel++
+		g.zoomSplit(-1)
+	}
 }

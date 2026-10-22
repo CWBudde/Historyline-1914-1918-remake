@@ -16,6 +16,7 @@ import (
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/camera"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosscreen"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/gesture"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 )
@@ -83,7 +84,9 @@ func splitFramePlan() []reviewFrame {
 	for _, size := range [][2]int{{1024, 768}, {1280, 720}, {1920, 1080}, {3840, 2160}} {
 		frames = append(frames, reviewFrame{size[0], size[1], "split", false, 0}, reviewFrame{size[0], size[1], "split-revealed", true, 0})
 	}
-	for _, view := range []string{"split-cursor", "split-move", "split-ring", "split-strategic"} {
+	for _, view := range []string{"split-cursor", "split-move", "split-ring", "split-strategic", "split-zoom-out", "split-zoom-in",
+		"split-prompt", "split-black", "split-battle-grey", "split-battle", "split-newmode",
+		"split-unitinfo", "split-gameinfo", "split-contents"} {
 		frames = append(frames, reviewFrame{1920, 1080, view, false, 0})
 	}
 	return frames
@@ -92,15 +95,21 @@ func splitFramePlan() []reviewFrame {
 // stageCapture sets the human side's panel up for a split capture view: the
 // cursor ring on an own unit (split-cursor), its move aimed with fire held on
 // a destination over the darkened range (split-move), the ring of actions on
-// it (split-ring) or the strategic map (split-strategic); any other view is
-// the opening with the cursor on the HQ.
+// it (split-ring), the strategic map (split-strategic), the view two zoom
+// levels out or in (split-zoom-out, split-zoom-in), the unit info of that
+// unit (split-unitinfo), the game info (split-gameinfo) or the contents of
+// an own container (split-contents); any other view is the opening with the
+// cursor on the HQ.
 func (g *game) stageCapture(view string) {
 	s, d := g.split, g.dos
 	s.track.Update(gesture.Input{}) // release whatever the last view held
 	s.track.Reset()
 	d.clear()
 	d.Message = ""
-	s.mode, s.info, s.dir = [2]panelMode{}, false, gesture.Centre
+	d.prompt, d.fx.marks = false, nil
+	d.endStage()
+	s.mode, s.dir = [2]panelMode{}, gesture.Centre
+	g.zoomSplit(dosscreen.DefaultZoom - s.screen.Zoom)
 	for side := range 2 {
 		pair, row := centreView(g.grid, s.screen.Cols, s.screen.Rows, g.startHex(side))
 		s.cams[side].moveTo(pair, row, true)
@@ -111,6 +120,14 @@ func (g *game) stageCapture(view string) {
 	switch {
 	case view == "split-strategic":
 		g.openStrategic(d.side)
+	case view == "split-zoom-out":
+		g.zoomSplit(-2)
+	case view == "split-zoom-in":
+		g.zoomSplit(2)
+	case view == "split-gameinfo":
+		g.openInfo(g.startHex(d.side))
+	case view == "split-contents":
+		g.stageContents()
 	case !ok:
 	case view == "split-cursor":
 		g.setCursor(at)
@@ -130,7 +147,95 @@ func (g *game) stageCapture(view string) {
 		g.feedGesture(gesture.Input{Pointer: p}, false)
 		p.RightPressed = true
 		g.feedGesture(gesture.Input{Pointer: p}, false)
+	case view == "split-prompt":
+		g.setCursor(at)
+		d.openPrompt()
+	case view == "split-black":
+		g.setCursor(at)
+		d.startStage(stageBlack, blackFrames)
+	case view == "split-newmode":
+		next := [2]int{d.s.Phase(1), d.s.Phase(0)} // the phases swap
+		d.startNewMode(dosplay.Event{Kind: dosplay.PhaseChanged, Phase: next, Turn: d.s.Turn() + 1})
+	case view == "split-battle-grey" || view == "split-battle":
+		g.stageBattle(at, view == "split-battle")
+	case view == "split-unitinfo":
+		g.setCursor(at)
+		g.openInfo(at)
 	}
+}
+
+// stageContents opens the contents of the human side's first container with
+// units (a factory first), else of its HQ with the empty slots, with the
+// cursor on the first unit and its panel looking there.
+func (g *game) stageContents() {
+	d := g.dos
+	bs := d.own().Buildings
+	at, best := hexgrid.Coord{}, -1
+	for _, c := range dosplay.Coords(toSet(bs)) {
+		b := bs[c]
+		if b.Owner != d.s.Faction(d.side) {
+			continue
+		}
+		rank := 0
+		if len(b.Units) > 0 {
+			rank = 1
+			if b.Kind == dosplay.Factory {
+				rank = 2
+			}
+		}
+		if rank > best {
+			at, best = c, rank
+		}
+	}
+	if best < 0 {
+		return
+	}
+	g.lookAt(d.side, at)
+	g.split.cams[d.side].moveTo(g.split.cams[d.side].pair, g.split.cams[d.side].row, true) // no slide in a still
+	g.syncSplitCam()
+	g.setCursor(at)
+	d.openContents(at)
+	if d.box == nil {
+		hold, _, _ := d.s.Contents(d.side, at)
+		d.box, d.Message = &contents{at: at, hold: hold}, ""
+	}
+	g.syncContents()
+}
+
+// stageBattle stages a battle of the own unit on at against the nearest enemy
+// unit the true view shows, grey at the site or (fought) with the site in
+// colour and the vignette, the human panel looking at it.
+func (g *game) stageBattle(at hexgrid.Coord, fought bool) {
+	d := g.dos
+	u := d.own().Units[at]
+	var to hexgrid.Coord
+	best := -1
+	tv := d.s.TrueView()
+	for _, c := range dosplay.Coords(toSet(tv.Units)) {
+		if e := tv.Units[c]; e.Side != d.side && (best < 0 || hexgrid.Distance(at, c) < best) {
+			to, best = c, hexgrid.Distance(at, c)
+		}
+	}
+	if best < 0 {
+		return
+	}
+	e := tv.Units[to]
+	b := &dosplay.BattleInfo{
+		Attacker: dosplay.Fighter{Unit: u, Before: u.Size, After: max(u.Size-1, 1)},
+		Defender: dosplay.Fighter{Unit: e, Before: e.Size, After: max(e.Size-3, 1)},
+	}
+	d.startBattle(dosplay.Event{Kind: dosplay.Battle, From: at, To: to, Battle: b})
+	if fought {
+		for d.stageAt < d.fight.grey+12 {
+			d.tickStage()
+		}
+	}
+	g.followSplit()
+	for side := range 2 {
+		c := &g.split.cams[side]
+		c.moveTo(c.pair, c.row, true) // no slide in a still
+	}
+	g.syncSplitCam()
 }
 
 func (f reviewFrame) filename() string {

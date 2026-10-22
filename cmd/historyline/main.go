@@ -29,6 +29,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/minimap"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scores"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
 	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
@@ -69,6 +70,8 @@ type game struct {
 	ctl            *control
 	dos            *dosControl        // set on the original rules (-rules dos); ctl and state are nil then
 	art            *artPacks          // unit sprite packs (-units); nil draws placeholder dots
+	screens        *screenArt         // the screen catalog (-screens) for the portraits; nil shows blank photos
+	scores         *scores.Store      // the best scores; nil keeps none
 	artErr         string             // last sprite failure, shown in the status line
 	terrain        *terrainArt        // composed terrain tiles (-terrain); nil draws coloured hexes
 	terrainErr     string             // last terrain tile failure, shown in the status line
@@ -255,8 +258,12 @@ func (g *game) Update() error {
 	if g.split == nil {
 		g.scrollKeys()
 	}
-	if ui := g.drv().ui(); ui.report.Active() && (len(inpututil.AppendJustPressedKeys(nil)) > 0 || inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft)) {
+	anyInput := len(inpututil.AppendJustPressedKeys(nil)) > 0 || inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft)
+	if ui := g.drv().ui(); ui.report.Active() && anyInput {
 		ui.DismissReport()
+	}
+	if g.dos != nil && g.dos.stage == stageBattle && anyInput {
+		g.dos.SkipBattle() // as the battle panel, any key or click skips the battle
 	}
 	g.drv().Tick()
 	if g.split != nil {
@@ -273,10 +280,14 @@ func (g *game) Update() error {
 		}
 	}
 	if g.split != nil {
-		// Under -rules dos the layout sets the scale (no wheel zoom) and the
-		// cursor takes the mouse and the keys; the menu keeps the keys while
-		// it is open.
+		// Under -rules dos the wheel steps the zoom levels and the cursor
+		// takes the mouse and the keys; the menu keeps the keys while it is
+		// open.
 		menu := g.dos.MenuOpen()
+		if _, wheel := ebiten.Wheel(); !menu {
+			mx, my := ebiten.CursorPosition()
+			g.wheelSplit(wheel, mx, my)
+		}
 		g.updateMenu()
 		g.updateCursor(menu || g.dos.MenuOpen())
 		return nil
@@ -439,6 +450,7 @@ func (g *game) Draw(screen *ebiten.Image) {
 	vx, vy, vw, vh := g.cam.Visible()
 	if g.split != nil {
 		g.drawSplit(screen)
+		g.drawWells(screen)
 	} else {
 		g.drawMapLayer(screen, vx, vy, vw, vh, true)
 	}
@@ -465,9 +477,6 @@ func (g *game) Draw(screen *ebiten.Image) {
 	g.drawInfo(hud)
 	if dev := g.devIndicators(); dev != "" {
 		ebitenutil.DebugPrintAt(hud, dev, g.hud.DevRight-textWidth(dev), 0)
-	}
-	if g.split != nil {
-		g.drawWells(hud)
 	}
 	g.drawStatus(hud)
 	var op ebiten.DrawImageOptions
@@ -711,11 +720,13 @@ type matchConfig struct {
 	reveal     bool
 	hexNumbers bool
 	reduced    bool
-	scroll     float64   // map scroll speed, screen pixels per frame
-	units      *artPacks // shared by every battle; nil draws placeholder dots
-	terrain    string    // terrain catalog directory, composed per level; "" draws coloured hexes
-	terrainHD  string    // full-quality terrain catalog loaded in the background of a battle; "" for none
-	candidates bool      // allow candidate terrain packs
+	scroll     float64       // map scroll speed, screen pixels per frame
+	units      *artPacks     // shared by every battle; nil draws placeholder dots
+	screens    *screenArt    // the screen catalog for the portraits; nil shows blank photos
+	scores     *scores.Store // the best scores, opened once; nil keeps none
+	terrain    string        // terrain catalog directory, composed per level; "" draws coloured hexes
+	terrainHD  string        // full-quality terrain catalog loaded in the background of a battle; "" for none
+	candidates bool          // allow candidate terrain packs
 }
 
 // newMatch starts the battle of c, counting the art it fetches in m.
@@ -761,7 +772,7 @@ func newMatch(c matchConfig, m *meter) (*game, error) {
 	if c.scroll > 0 {
 		gm.scroll = c.scroll
 	}
-	gm.art = c.units
+	gm.art, gm.screens, gm.scores = c.units, c.screens, c.scores
 	if c.terrain != "" {
 		var err error
 		if gm.terrain, err = loadTerrainArt(c.terrain, c.candidates, c.lvl, m); err != nil {
@@ -812,7 +823,7 @@ func main() {
 		log.Fatalf("unknown -rules %q (want dos, standard or classic)", *rules)
 	}
 	c := matchConfig{set: set, rules: *rules, opponent: *opponent, reveal: *reveal, hexNumbers: *hexNumbers,
-		reduced: *reduced, terrain: *terrain, candidates: *candidates}
+		reduced: *reduced, terrain: *terrain, candidates: *candidates, scores: scores.Open()}
 	// The web page shows how much of the art has arrived until the game starts.
 	boot := &meter{fetched: pageFetched}
 	if *units != "" {
@@ -829,20 +840,19 @@ func main() {
 	ebiten.SetWindowSize(startWidth, startHeight)
 	ebiten.SetWindowResizingMode(ebiten.WindowResizingModeEnabled)
 	ebiten.SetWindowTitle("Historyline 1914-1918")
+	if *screens != "" {
+		if c.screens, err = loadScreenArt(*screens, *candidates, boot); err != nil {
+			log.Fatal(err)
+		}
+	}
 
 	if !direct {
 		campaign, err := loadCampaign(*dir, set)
 		if err != nil {
 			log.Fatal(err)
 		}
-		var art *screenArt
-		if *screens != "" {
-			if art, err = loadScreenArt(*screens, *candidates, boot); err != nil {
-				log.Fatal(err)
-			}
-		}
 		pageReady()
-		a := newApp(c, campaign, art)
+		a := newApp(c, campaign, c.screens)
 		a.hd = loadHDArt(hd, *candidates)
 		if err := ebiten.RunGame(a); err != nil {
 			log.Fatal(err)

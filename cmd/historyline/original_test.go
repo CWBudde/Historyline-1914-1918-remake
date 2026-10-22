@@ -42,7 +42,7 @@ func TestOriginalMap(t *testing.T) {
 		if u.ID != "" {
 			continue
 		}
-		gm.hover, gm.hoverOnMap = at, true
+		gm.hover, gm.hoverOnMap, gm.hexNumbers = at, true, true // the dev info box
 		if lines := strings.Join(gm.infoLines(), "\n"); !strings.Contains(lines, fmt.Sprintf("Type %d", u.Type)) {
 			t.Errorf("unit of type %d without a remake unit: %q", u.Type, lines)
 		}

@@ -180,24 +180,6 @@ func TestPanelCameraMatchesView(t *testing.T) {
 	}
 }
 
-func TestFitWell(t *testing.T) {
-	for _, tc := range []struct {
-		state, msg string
-		chars      int
-		want       string
-	}{
-		{"TURN 1", "", 20, "TURN 1"},
-		{"TURN 1", "MOVED", 20, "TURN 1 - MOVED"},
-		{"TURN 1  CENTRAL POWERS", "INFANTRY MOVED", 20, "INFANTRY MOVED"},
-		{"TURN 1", "A VERY LONG MESSAGE INDEED", 10, "A VERY ..."},
-		{"A STATE TOO LONG", "", 10, "A STATE..."},
-	} {
-		if got := fitWell(tc.state, tc.msg, tc.chars); got != tc.want {
-			t.Errorf("fitWell(%q, %q, %d) = %q, want %q", tc.state, tc.msg, tc.chars, got, tc.want)
-		}
-	}
-}
-
 // newSplitTest is the game of a dos session against planner in a window of
 // w × h.
 func newSplitTest(t *testing.T, planner dosPlanner, w, h int) (*game, *dosControl) {
@@ -323,8 +305,7 @@ func TestSplitFollowsTheComputer(t *testing.T) {
 	// The resolution freezes the computer's view while the human side sees
 	// its moves walk; the human panel follows the walker and the computer's
 	// panel looks at each move.
-	d.fx.Dismiss()
-	d.EndTurn()
+	confirmOrders(t, d)
 	d.Tick()
 	if d.otherFrozen == nil || !maps.Equal(d.unitsOf(1, false), d.otherFrozen.Units) {
 		t.Fatal("the computer's view is not frozen during the resolution")
@@ -455,5 +436,69 @@ func TestSplitCapturePlan(t *testing.T) {
 		if !seen[name] {
 			t.Errorf("missing %s", name)
 		}
+	}
+}
+
+func TestSplitZoom(t *testing.T) {
+	g, d := newSplitTest(t, passPlanner{}, 1920, 1080)
+	s := g.split
+	levels := s.screen.ZoomLevels()
+	if len(levels) < 3 || s.screen.Zoom != dosscreen.DefaultZoom {
+		t.Fatalf("zoom %d of levels %v", s.screen.Zoom, levels)
+	}
+	at := g.startHex(d.side)
+	g.setCursor(at)
+	fitted := s.screen.CellScale
+	// The wheel over the human half steps one level per whole turn, touchpad
+	// fractions add up, and the other half does nothing.
+	other := s.screen.Panels[1-d.side]
+	g.wheelSplit(1, other.X+other.W/2, other.Y+other.H/2)
+	if s.screen.Zoom != dosscreen.DefaultZoom {
+		t.Fatalf("the other half zoomed to %d", s.screen.Zoom)
+	}
+	p := s.screen.Panels[d.side]
+	mx, my := p.X+p.W/2, p.Y+p.H/2
+	g.wheelSplit(0.5, mx, my)
+	if s.screen.Zoom != dosscreen.DefaultZoom {
+		t.Fatal("half a turn zoomed")
+	}
+	g.wheelSplit(0.5, mx, my)
+	if s.screen.Zoom != dosscreen.DefaultZoom+1 || s.screen.CellScale <= fitted {
+		t.Fatalf("zoom %d scale %v after a turn in", s.screen.Zoom, s.screen.CellScale)
+	}
+	// Every level keeps the cursor cell in view, the cameras on the map and the
+	// human camera on its view; the ends hold.
+	for range 10 {
+		g.wheelSplit(1, mx, my)
+	}
+	if hi := levels[len(levels)-1]; s.screen.Zoom != hi {
+		t.Errorf("zoomed in to %d, want the last level %d", s.screen.Zoom, hi)
+	}
+	for range 20 {
+		g.wheelSplit(-1, mx, my)
+		for side := range 2 {
+			c := s.cams[side]
+			if pp, rr := clampView(g.grid, s.screen.Cols, s.screen.Rows, c.pair, c.row); pp != c.pair || rr != c.row {
+				t.Fatalf("zoom %d: camera %d off the map at %d,%d", s.screen.Zoom, side, c.pair, c.row)
+			}
+		}
+		if !viewShows(g.splitView(d.side), g.grid, at) {
+			t.Fatalf("zoom %d hides the cursor cell %v", s.screen.Zoom, at)
+		}
+		sx, sy := g.splitView(d.side).WorldToScreen(hexgrid.Center(at))
+		if c, ok := g.pickSplit(int(sx), int(sy)); !ok || c != at {
+			t.Fatalf("zoom %d: the camera does not pick %v at its centre", s.screen.Zoom, at)
+		}
+	}
+	if lo := levels[0]; s.screen.Zoom != lo || s.screen.CellScale >= fitted {
+		t.Errorf("zoomed out to %d (scale %v), want level %d", s.screen.Zoom, s.screen.CellScale, lo)
+	}
+	// A new window keeps the level asked for where it is usable.
+	g.wheelSplit(1, mx, my)
+	want := s.screen.Zoom
+	g.applyLayout(1280, 720, 1)
+	g.layoutSplit()
+	if s.screen.Zoom != want {
+		t.Errorf("resize moved the zoom from %d to %d", want, s.screen.Zoom)
 	}
 }

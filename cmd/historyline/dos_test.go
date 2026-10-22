@@ -11,6 +11,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
 	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/gesture"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 )
 
@@ -101,8 +102,8 @@ func attackAll(t *testing.T, d *dosControl) int {
 // played is one event of a resolution and what the playback showed.
 type played struct {
 	ev     dosplay.Event
-	report *report
-	frozen map[hexgrid.Coord]dosplay.UnitView
+	fight  *fight
+	frozen map[hexgrid.Coord]dosplay.UnitView // the frozen view once the event has played
 }
 
 // finish confirms, resolves and plays the resolution back to the next phase,
@@ -112,11 +113,13 @@ func finish(t *testing.T, d *dosControl) []played {
 	t.Helper()
 	if !d.s.Ready(d.side) {
 		d.EndTurn()
+		d.EndTurn() // the prompt confirms
 	}
 	var out []played
+	playing := -1 // the event in out still playing
 	for range 10000 {
 		var next *dosplay.Event
-		if d.busy() && len(d.queue) > 0 && d.walk.Done() && !d.report.Active() {
+		if d.busy() && len(d.queue) > 0 && d.walk.Done() && !d.sequence() {
 			next = &d.queue[0]
 		}
 		var ev dosplay.Event
@@ -125,14 +128,16 @@ func finish(t *testing.T, d *dosControl) []played {
 		}
 		d.Tick()
 		if next != nil {
-			p := played{ev: ev, report: d.report}
+			out = append(out, played{ev: ev, fight: d.fight})
+			playing = len(out) - 1
+		}
+		if playing >= 0 && d.stage != stageBattle {
 			if d.frozen != nil {
-				p.frozen = maps.Clone(d.frozen.Units)
+				out[playing].frozen = maps.Clone(d.frozen.Units)
 			}
-			out = append(out, p)
+			playing = -1
 		}
 		d.SkipWalk()
-		d.DismissReport()
 		if d.over || !d.busy() && !d.s.Ready(d.side) && d.s.Ready(1-d.side) {
 			return out
 		}
@@ -180,8 +185,12 @@ func TestDosSelectMoveConfirm(t *testing.T) {
 		t.Error("Esc did not finish the walk")
 	}
 	d.EndTurn()
+	if d.s.Ready(0) || !d.prompt {
+		t.Fatalf("F1 asks first: ready %v, prompt %v", d.s.Ready(0), d.prompt)
+	}
+	d.EndTurn()
 	if !d.s.Ready(0) || !strings.Contains(d.Message, "confirmed") {
-		t.Fatalf("F1: ready %v, %q", d.s.Ready(0), d.Message)
+		t.Fatalf("F1 again: ready %v, %q", d.s.Ready(0), d.Message)
 	}
 	d.Click(ownUnits(d)[0])
 	if d.selected || !strings.Contains(d.Message, "F1") {
@@ -192,17 +201,21 @@ func TestDosSelectMoveConfirm(t *testing.T) {
 	if d.frozen == nil || d.s.Phase(0) != dosrules.PhaseAction || d.s.Phase(1) != dosrules.PhaseMovement {
 		t.Fatalf("no resolution: frozen %v, phases %d %d", d.frozen != nil, d.s.Phase(0), d.s.Phase(1))
 	}
-	for range 100 {
+	newMode := -1
+	for range 1000 {
 		if !d.busy() {
 			break
+		}
+		if d.stage == stageNewMode {
+			newMode = d.newMode.Phase[0]
 		}
 		d.Tick()
 	}
 	if d.busy() || d.frozen != nil {
 		t.Fatal("the playback did not end")
 	}
-	if b := d.fx.Banner(); b == nil || !strings.Contains(b.Text, "action phase") {
-		t.Errorf("phase banner %+v", b)
+	if newMode != dosrules.PhaseAction || d.fx.Banner() != nil {
+		t.Errorf("new mode %d, banner %+v", newMode, d.fx.Banner())
 	}
 	d.Tick() // the computer confirms its movement phase
 	if d.s.Ready(0) || !d.s.Ready(1) || d.s.Turn() != turn {
@@ -214,8 +227,9 @@ func TestDosConfirmAndReopen(t *testing.T) {
 	d := newDosTest(t, "level1_cp", passPlanner{})
 	d.EndTurn()
 	d.EndTurn()
+	d.EndTurn()
 	if d.s.Ready(0) || !strings.Contains(d.Message, "open again") {
-		t.Errorf("second F1: ready %v, %q", d.s.Ready(0), d.Message)
+		t.Errorf("third F1: ready %v, %q", d.s.Ready(0), d.Message)
 	}
 	d.Tick()
 	if d.busy() {
@@ -224,7 +238,7 @@ func TestDosConfirmAndReopen(t *testing.T) {
 }
 
 // TestDosBattles plays the level against a side that never moves: attack
-// orders by clicks get markers, the battles show the panel and take the
+// orders by clicks get markers, the battles show the battle stage and take the
 // destroyed units off the frozen view, and the end blocks input.
 func TestDosBattles(t *testing.T) {
 	d := newDosTest(t, "level1_cp", passPlanner{})
@@ -255,9 +269,8 @@ func TestDosBattles(t *testing.T) {
 			}
 			battles++
 			b := p.ev.Battle
-			if p.report == nil || p.report.Attacker.Name != b.Attacker.Unit.Name || p.report.Defender.Name != b.Defender.Unit.Name ||
-				p.report.Defender.Before != b.Defender.Before || p.report.Defender.After != b.Defender.After || p.report.Defender.Max != b.Defender.Unit.Full {
-				t.Fatalf("battle panel %+v for %+v", p.report, b)
+			if p.fight == nil || p.fight.ev.Battle != b || p.fight.domain.String() != b.Attacker.Unit.Domain.String() || d.report.Active() {
+				t.Fatalf("battle stage %+v for %+v", p.fight, b)
 			}
 			for _, f := range []dosplay.Fighter{b.Attacker, b.Defender} {
 				if !f.Destroyed {
@@ -318,17 +331,24 @@ func TestDosExitThroughContents(t *testing.T) {
 	}
 	finish(t, d)
 	d.Click(building)
-	if d.menuKind != menuContents || len(d.menu) == 0 || d.menu[0].Usable {
-		t.Fatalf("contents in the action phase: %v %q", d.menuKind, rows(d.menu))
+	if d.box == nil || d.box.at != building {
+		t.Fatalf("no contents in the action phase: %q", d.Message)
+	}
+	if _, ok := d.contentsPlacement().At(gesture.Up); ok {
+		t.Fatalf("a unit leaves in the action phase: %q", d.boxDetails())
 	}
 	finish(t, d)
 	d.Click(building)
-	row := slices.IndexFunc(d.stored, func(u dosplay.UnitView) bool { return u.Index == unit })
-	if d.menuKind != menuContents || row < 0 || !d.menu[row].Usable {
-		t.Fatalf("contents: %v %q", d.menuKind, rows(d.menu))
+	slot := slices.IndexFunc(d.boxSlots(), func(s dosplay.SlotView) bool { return s.Unit != nil && s.Unit.Index == unit })
+	if d.box == nil || slot < 0 {
+		t.Fatalf("contents %+v without the unit (%q)", d.box, d.Message)
 	}
-	d.ChooseMenu(row)
-	if !d.selected || d.hold < 0 || len(d.moves) == 0 || d.MenuOpen() {
+	d.box.sel = slot
+	if _, ok := d.contentsPlacement().At(gesture.Up); !ok {
+		t.Fatalf("the unit cannot leave: %q", d.boxDetails())
+	}
+	d.runBox(gesture.MoveOut)
+	if !d.selected || d.hold < 0 || len(d.moves) == 0 || d.box != nil || d.MenuOpen() {
 		t.Fatalf("exit choice: selected %v hold %d, %d blue hexes, %q", d.selected, d.hold, len(d.moves), d.Message)
 	}
 	to := dosplay.Coords(d.moves)[0]
@@ -348,7 +368,7 @@ func TestDosInfoAndStatus(t *testing.T) {
 	g.dos = d
 	at := ownUnits(d)[0]
 	u := d.own().Units[at]
-	g.hover, g.hoverOnMap = at, true
+	g.hover, g.hoverOnMap, g.hexNumbers = at, true, true
 	lines := strings.Join(g.infoLines(), "\n")
 	if !strings.Contains(lines, u.Name) || !strings.Contains(lines, fmt.Sprintf("size %d/%d", u.Size, u.Full)) {
 		t.Errorf("info box for %s: %q", u.Name, lines)
@@ -362,11 +382,6 @@ func TestDosInfoAndStatus(t *testing.T) {
 			t.Errorf("building at %v: %q", p, lines)
 		}
 		break
-	}
-	mine, msg := g.wellText(0)
-	other, none := g.wellText(1)
-	if !strings.Contains(mine, "TURN 1 ") || !strings.Contains(mine, "MOVEMENT PHASE, 0 ORDERS") || !strings.Contains(other, "ACTION PHASE") || none != "" {
-		t.Errorf("status wells %q (%q), %q (%q)", mine, msg, other, none)
 	}
 	if g.artErr = "broken"; !strings.Contains(g.statusText(), "unit sprites: broken") {
 		t.Errorf("art failure not shown: %q", g.statusText())
@@ -424,22 +439,21 @@ func TestDosRevealedWalks(t *testing.T) {
 			before[u.Index] = p
 		}
 	}
-	d.fx.Dismiss() // the banner of the last phase change
-	d.EndTurn()
+	confirmOrders(t, d)
 	d.Tick()
-	walks, banner := 0, false
+	walks, newMode := 0, false // the walks follow the new mode
 	for range 10000 {
 		if !d.busy() {
 			break
 		}
 		if !d.walk.Done() {
 			w := d.walk
-			if d.frozen != nil || banner || w.path[0] != before[w.unit.(int)] {
+			if d.frozen != nil || !newMode || w.path[0] != before[w.unit.(int)] {
 				var ks []string
 				for _, ev := range d.queue {
 					ks = append(ks, ev.Kind.String()+fmt.Sprint(ev.Side, ev.Path))
 				}
-				t.Fatalf("walk %v of unit %v (%d before): frozen %v, banner %v %+v, stood on %v; queue %v", w.path, w.unit, walks, d.frozen != nil, banner, d.fx.Banner(), before[w.unit.(int)], ks)
+				t.Fatalf("walk %v of unit %v (%d before): frozen %v, new mode %v, stood on %v; queue %v", w.path, w.unit, walks, d.frozen != nil, newMode, before[w.unit.(int)], ks)
 			}
 			// Units whose move is still to come stand where they stood.
 			for _, ev := range d.queue {
@@ -454,14 +468,13 @@ func TestDosRevealedWalks(t *testing.T) {
 				d.Tick()
 			}
 		}
-		d.DismissReport()
 		d.Tick()
-		if d.fx.Banner() != nil {
-			banner = true
+		if d.stage == stageNewMode {
+			newMode = true
 		}
 	}
-	if walks == 0 || !banner {
-		t.Errorf("%d revealed walks, banner %v", walks, banner)
+	if walks == 0 || !newMode {
+		t.Errorf("%d revealed walks, new mode %v", walks, newMode)
 	}
 	for idx, p := range before {
 		if u := d.s.Unit(idx); !u.Destroyed && !u.Held && d.own().Units[u.At].Index != idx {

@@ -68,6 +68,7 @@ func startLoad(c matchConfig) *matchLoad {
 }
 
 func newApp(base matchConfig, maps []mapLevel, art *screenArt) *app {
+	base.screens = art
 	s := newShell(maps, base)
 	s.setFullscreen, s.isFullscreen = ebiten.SetFullscreen, ebiten.IsFullscreen
 	s.open(pageMain)
@@ -85,10 +86,14 @@ func (a *app) upgrade(hd hdArt) {
 		old.release()
 	}
 	if hd.screens != nil {
-		if a.art != nil {
-			a.art.packs.release()
+		old := a.art
+		a.art, a.base.screens = hd.screens, hd.screens
+		if a.battle != nil {
+			a.battle.screens = hd.screens
 		}
-		a.art = hd.screens
+		if old != nil {
+			old.packs.release()
+		}
 	}
 }
 
@@ -125,6 +130,7 @@ func (a *app) Update() error {
 			// The full-quality units may have arrived while the battle loaded.
 			a.battle.art = a.base.units
 		}
+		a.battle.screens = a.art
 		s.page = pageBattle
 		return nil
 	case pageBattle:
@@ -158,6 +164,7 @@ func (a *app) checkEnd() {
 	if !a.ended {
 		a.ended = true
 		d.Message = d.endText() + " - press Enter"
+		a.recordScore()
 	}
 	if !inpututil.IsKeyJustPressed(ebiten.KeyEnter) && !inpututil.IsKeyJustPressed(ebiten.KeySpace) &&
 		!inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
@@ -170,6 +177,19 @@ func (a *app) checkEnd() {
 	}
 	o.won = !o.draw && e.Winner == d.side
 	a.shell.finish(o)
+}
+
+// recordScore keeps the score of a won original-rules battle as its level's
+// best; a failed write is shown in the well.
+func (a *app) recordScore() {
+	g := a.battle
+	e := g.dos.s.Ended()
+	if e == nil || e.Winner != g.dos.side {
+		return
+	}
+	if _, err := a.base.scores.Record(levelKey(g.lvl), e.Score); err != nil {
+		g.dos.Message = "the best score was not kept: " + err.Error()
+	}
 }
 
 // menuKeys maps keys to menu keys.

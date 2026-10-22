@@ -18,6 +18,7 @@ const (
 	actQuit                // Python: Q
 	actToggleMotion        // new: reduced-motion toggle
 	actFullscreen          // new: F11 toggles fullscreen
+	actVignettes           // new: F9 turns the battle vignettes of -rules dos off or on
 )
 
 type keyBinding struct {
@@ -38,6 +39,7 @@ var keyBindings = []keyBinding{
 	{ebiten.KeyQ, actQuit},
 	{ebiten.KeyM, actToggleMotion},
 	{ebiten.KeyF11, actFullscreen},
+	{ebiten.KeyF9, actVignettes},
 }
 
 // actionsFor returns the actions of all keys for which pressed reports true.
@@ -60,9 +62,6 @@ func (g *game) applyAction(a action) (keepRunning bool) {
 	}
 	if g.split != nil && (a == actCancel || a == actSelectHex) && g.closeGestures() {
 		return true // Esc or Enter closed the strategic map, the ring or a hold
-	}
-	if g.split != nil && a == actCancel {
-		g.split.info = false
 	}
 	switch a {
 	case actEndTurn:
@@ -90,6 +89,10 @@ func (g *game) applyAction(a action) (keepRunning bool) {
 		ui.Message = "reduced motion " + map[bool]string{true: "on", false: "off"}[ui.reduced]
 	case actFullscreen:
 		ebiten.SetFullscreen(!ebiten.IsFullscreen())
+	case actVignettes:
+		if g.dos != nil {
+			g.dos.ToggleVignettes()
+		}
 	case actNone:
 	case actQuit:
 		return false

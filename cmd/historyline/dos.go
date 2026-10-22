@@ -49,14 +49,22 @@ type dosControl struct {
 	unit       int                    // live record of the selected unit, -1 none
 	hold, slot int                    // container record and slot of a unit picked to leave it, hold -1 otherwise
 	moves      map[hexgrid.Coord]bool // destinations of the selected unit (the cells in reach stay lit)
-	stored     []dosplay.UnitView     // contents menu rows
-	storedHold int                    // their container record
+	box        *contents              // the open contents of an own container, nil none (contents.go)
 
 	queue       []dosplay.Event // resolution events still to play
 	frozen      *dosplay.View   // the side's view from before the resolution while its battles play
 	otherFrozen *dosplay.View   // the other side's view, frozen alike
-	banner      string          // phase banner, shown once the revealed moves have played
 	over        bool            // the end of the battle has played
+
+	prompt      bool          // F1 asked for the phase end: F1 confirms, fire goes back (phase.go)
+	stage       stage         // the stage of the phase change playing, stageNone otherwise
+	stageAt     int           // its frames played
+	stageLen    int           // its length in frames
+	fight       *fight        // the battle of stageBattle
+	newMode     dosplay.Event // the phase change of stageNewMode
+	noVignettes bool          // F9: battles without the vignettes
+
+	run *planRun // the computer planning off the frame, nil otherwise (plan.go)
 
 	views  [2]sideCache      // each side's map, by side
 	follow [2]*hexgrid.Coord // where each side's panel should look next; the front end takes it
@@ -89,19 +97,21 @@ func newDosControl(s *dosplay.Session, side int, planner dosPlanner, reveal bool
 
 func (d *dosControl) clear() {
 	d.clearSelection()
-	d.unit, d.hold, d.slot, d.moves, d.stored = -1, -1, -1, nil, nil
+	d.unit, d.hold, d.slot, d.moves, d.box = -1, -1, -1, nil, nil
 }
 
 // Clear drops the selection (right click).
 func (d *dosControl) Clear() { d.clear() }
 
-// Cancel finishes the walk in progress, else closes the battle panel, else
-// drops the selection (Esc).
+// Cancel finishes the walk in progress, else leaves the prompt, else skips
+// the battle playing, else drops the selection (Esc).
 func (d *dosControl) Cancel() {
 	switch {
 	case d.SkipWalk():
-	case d.report.Active():
-		d.DismissReport()
+	case d.prompt:
+		d.closePrompt()
+	case d.stage == stageBattle:
+		d.SkipBattle()
 	default:
 		d.clear()
 	}
@@ -165,15 +175,7 @@ func planFocus(evs []dosplay.Event) (hexgrid.Coord, bool) {
 }
 
 // busy reports whether a resolution is being played back.
-func (d *dosControl) busy() bool { return len(d.queue) > 0 || d.frozen != nil || d.banner != "" }
-
-// phaseName names a phase.
-func phaseName(p int) string {
-	if p == dosrules.PhaseAction {
-		return "action"
-	}
-	return "movement"
-}
+func (d *dosControl) busy() bool { return len(d.queue) > 0 || d.frozen != nil || d.sequence() }
 
 // reason is the text of a refused order, as a clause.
 func reason(err error) string {
@@ -191,9 +193,17 @@ func reason(err error) string {
 
 // Click handles a left click on a map hex: select an own unit, building or
 // carrier, move to a destination or order an attack on a target. A click during
-// a walk only finishes the walk.
+// a walk only finishes the walk, in the prompt it goes back to the orders and
+// during a battle it skips the battle.
 func (d *dosControl) Click(at hexgrid.Coord) {
-	if d.SkipWalk() {
+	switch {
+	case d.SkipWalk():
+		return
+	case d.prompt:
+		d.closePrompt()
+		return
+	case d.stage == stageBattle:
+		d.SkipBattle()
 		return
 	}
 	d.Message = ""
@@ -235,7 +245,8 @@ func (d *dosControl) selectAt(at hexgrid.Coord) {
 }
 
 // selectUnit selects u on at with its destinations in the movement phase or its
-// targets in the action phase. A carrier also lists its contents.
+// targets in the action phase. A carrier's contents open with the open
+// gesture.
 func (d *dosControl) selectUnit(at hexgrid.Coord, u dosplay.UnitView) {
 	err := d.s.CanOrder(d.side, u.Index)
 	if err == nil {
@@ -257,35 +268,6 @@ func (d *dosControl) selectUnit(at hexgrid.Coord, u dosplay.UnitView) {
 	if err != nil {
 		d.Message = u.Name + ": " + reason(err)
 	}
-	if u.Carrier && d.s.Phase(d.side) == dosrules.PhaseMovement {
-		d.openContents(at)
-	}
-}
-
-// openContents lists the units of the own building or carrier on at; a row
-// is usable when its unit may leave now.
-func (d *dosControl) openContents(at hexgrid.Coord) {
-	hold, units, ok := d.s.Contents(d.side, at)
-	if !ok {
-		return
-	}
-	if len(units) == 0 {
-		if !d.selected {
-			d.Message = "nothing stored here"
-		}
-		return
-	}
-	d.menuKind, d.menuTarget, d.storedHold, d.stored, d.menu = menuContents, at, hold, units, nil
-	for i, u := range units {
-		o := WeaponOption{Slot: i, Usable: true, Label: fmt.Sprintf("%s (size %d/%d)", u.Name, u.Size, u.Full)}
-		if why := d.cannotLeave(hold, u); why != "" {
-			o.Label, o.Usable = o.Label+": "+why, false
-		}
-		d.menu = append(d.menu, o)
-	}
-	if !d.selected {
-		d.Message = fmt.Sprintf("contents: %d units", len(units))
-	}
 }
 
 // cannotLeave is why the held unit u cannot leave container record hold now,
@@ -304,16 +286,13 @@ func (d *dosControl) cannotLeave(hold int, u dosplay.UnitView) string {
 	return ""
 }
 
-// ChooseMenu picks contents row i: its unit leaves, to a destination.
-func (d *dosControl) ChooseMenu(i int) {
-	if d.menuKind != menuContents || i < 0 || i >= len(d.menu) || i >= len(d.stored) {
-		return
-	}
-	if o := d.menu[i]; !o.Usable {
-		d.Message = o.Label
-		return
-	}
-	u, at, hold := d.stored[i], d.menuTarget, d.storedHold
+// ChooseMenu does nothing: the order cycle has no HUD menus, its contents
+// open in the panel (contents.go).
+func (d *dosControl) ChooseMenu(int) {}
+
+// aimExit aims the exit of the held unit u from container record hold on at:
+// its destinations light up.
+func (d *dosControl) aimExit(at hexgrid.Coord, hold int, u dosplay.UnitView) {
 	dests, err := d.s.ExitDestinations(d.side, hold, u.Slot)
 	if err != nil {
 		d.Message = u.Name + ": " + reason(err)
@@ -377,8 +356,8 @@ func (d *dosControl) attack(to hexgrid.Coord) {
 	}
 }
 
-// EndTurn (F1) confirms the side's orders, or opens them again while the
-// other side has not confirmed yet.
+// EndTurn (F1) asks to end the phase, confirms the side's orders in that
+// prompt, or opens them again while the other side has not confirmed yet.
 func (d *dosControl) EndTurn() {
 	d.clear()
 	switch {
@@ -386,7 +365,10 @@ func (d *dosControl) EndTurn() {
 		d.Message = d.endText()
 	case d.busy():
 		d.Message = "the orders are being carried out"
+	case !d.s.Ready(d.side) && !d.prompt:
+		d.openPrompt()
 	case !d.s.Ready(d.side):
+		d.prompt = false
 		d.s.Confirm(d.side)
 		d.Message = "orders confirmed - waiting for the opponent"
 	default:
@@ -409,7 +391,7 @@ func (d *dosControl) Tick() {
 		d.Message = d.endText()
 	default:
 		if opp := 1 - d.side; !d.s.Ready(opp) {
-			d.plan(opp)
+			d.planStep(opp)
 		}
 		if d.s.Ready(0) && d.s.Ready(1) {
 			d.resolve()
@@ -433,9 +415,10 @@ func (d *dosControl) plan(side int) {
 }
 
 // resolve freezes both sides' views and resolves the orders; the events wait
-// in the queue.
+// in the queue behind the black stage.
 func (d *dosControl) resolve() {
 	d.clear()
+	d.prompt = false
 	v, o := d.s.View(d.side), d.s.View(1-d.side)
 	if d.reveal {
 		v, o = d.s.TrueView(), d.s.TrueView()
@@ -445,19 +428,18 @@ func (d *dosControl) resolve() {
 		d.Message = "resolution: " + err.Error()
 	}
 	d.frozen, d.otherFrozen, d.queue = &v, &o, evs
+	d.startStage(stageBlack, d.frames(blackFrames, blackFramesReduced))
 }
 
-// step plays the next event once the last one has played out on screen
-// (walk finished, battle panel closed).
+// step plays the stage of the phase change, else the next event once the
+// last one has played out on screen (walk finished).
 func (d *dosControl) step() {
-	if !d.walk.Done() || d.report.Active() {
+	if d.sequence() {
+		d.tickStage()
 		return
 	}
-	if d.banner != "" && (len(d.queue) == 0 || d.queue[0].Kind != dosplay.Revealed) {
-		if !d.endQueued() {
-			d.fx.Show(d.banner, roundFrames)
-		}
-		d.banner = ""
+	if !d.walk.Done() {
+		return
 	}
 	if len(d.queue) == 0 {
 		d.unfreeze()
@@ -472,7 +454,7 @@ func (d *dosControl) step() {
 		d.Message = fmt.Sprintf("an attack order on hex %d,%d found no unit", ev.To.Line, ev.To.Col)
 	case dosplay.PhaseChanged:
 		d.unfreeze()
-		d.banner = fmt.Sprintf("TURN %d - %v: %s phase", ev.Turn+1, d.s.Faction(d.side), phaseName(ev.Phase[d.side]))
+		d.startNewMode(ev)
 	case dosplay.Revealed:
 		if ev.Side != d.side {
 			d.walkAlong(ev)
@@ -488,60 +470,27 @@ func (d *dosControl) step() {
 	}
 }
 
-// endQueued reports whether the end of the battle waits in the queue.
-func (d *dosControl) endQueued() bool {
-	for _, ev := range d.queue {
-		if ev.Kind == dosplay.Ended {
-			return true
-		}
-	}
-	return false
-}
-
-// playBattle shows a fought attack order: the battle panel, hit marks at the
-// fighters' hexes in the frozen view, facings, and the destroyed units leave
-// the frozen view.
+// playBattle shows a fought attack order (phase.go): the site in the human
+// side's panel, the vignette in the other, the hit marks at the fighters'
+// hexes in the frozen view and the facings; the destroyed units leave the
+// frozen view.
 func (d *dosControl) playBattle(ev dosplay.Event) {
 	b := ev.Battle
 	if b == nil {
 		return
 	}
 	atk, def := b.Attacker, b.Defender
-	from, to := d.frozenAt(atk.Unit.Index, ev.From), d.frozenAt(def.Unit.Index, ev.To)
-	reply := ""
-	if b.ReturnFire {
-		reply = "fires back"
-	}
-	d.report = &report{frames: d.reportTime(), Attacker: fighterSide(atk, "attacks"), Defender: fighterSide(def, reply)}
-	d.fx.AddHits(from, to, hit(def), def.Destroyed, hit(atk), atk.Destroyed)
-	d.turn(atk.Unit.Index, from, to)
-	d.turn(def.Unit.Index, to, from)
-	other := 1 - d.side
-	switch other {
-	case atk.Unit.Side:
-		d.lookAt(other, from)
-	case def.Unit.Side:
-		d.lookAt(other, to)
-	}
+	d.startBattle(ev)
 	d.Message = fmt.Sprintf("%s attacked %s: %d -> %d", atk.Unit.Name, def.Unit.Name, def.Before, def.After)
 	for _, f := range []dosplay.Fighter{def, atk} {
 		if f.Destroyed {
 			d.Message += "; " + f.Unit.Name + " destroyed"
-			d.drop(f.Unit.Index)
 		}
 	}
 }
 
 // hit reports whether a fighter lost strength.
 func hit(f dosplay.Fighter) bool { return f.After < f.Before || f.AltAfter < f.AltBefore }
-
-// fighterSide is a fighter in the battle panel; action is what it did.
-func fighterSide(f dosplay.Fighter, action string) side {
-	if action != "" && f.ExpAfter != f.ExpBefore {
-		action += fmt.Sprintf(", exp %d -> %d", f.ExpBefore, f.ExpAfter)
-	}
-	return side{Name: f.Unit.Name, Weapon: action, Rank: f.ExpBefore, Before: f.Before, After: f.After, Max: f.Unit.Full}
-}
 
 // frozenAt is the hex unit stands on in the frozen view, else at.
 func (d *dosControl) frozenAt(unit int, at hexgrid.Coord) hexgrid.Coord {

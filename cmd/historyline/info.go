@@ -74,9 +74,13 @@ func memoryInfo(m *state.UnitMemory) []string {
 }
 
 // infoLines is the info box text: the selected unit, then the hovered hex and
-// the unit the player sees on it.
+// the unit the player sees on it. Under -rules dos it is a dev aid shown with
+// the hex numbers only.
 func (g *game) infoLines() []string {
 	if g.dos != nil {
+		if !g.hexNumbers {
+			return nil // the battle screen has its plates and wells instead
+		}
 		return g.dosInfoLines()
 	}
 	var out []string

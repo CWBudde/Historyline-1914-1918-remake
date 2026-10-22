@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"image"
 	"image/color"
 	"math"
@@ -27,8 +26,9 @@ import (
 // opens the ring of every possible action. While a move or an attack is aimed,
 // every cell out of reach is darkened and the plate with the order follows
 // the cursor over the cells in reach. The map gesture opens the strategic map
-// in the side's panel. The OS pointer is hidden over the map cells: the ring
-// is the pointer there.
+// in the side's panel, the info gesture the unit or game info (overlay.go)
+// and the open gesture the contents (contents.go). The OS pointer is hidden
+// over the map cells: the ring is the pointer there.
 
 // Cursor tuning: the arrow repeat (as the view keys had) and the share of
 // brightness an out-of-reach cell keeps.
@@ -44,6 +44,9 @@ type panelMode int
 const (
 	panelMap       panelMode = iota // the side's map
 	panelStrategic                  // the whole map at a glance
+	panelUnitInfo                   // the unit info of a type (overlay.go)
+	panelGameInfo                   // the game info over the darkened map
+	panelContents                   // a container's slots (contents.go)
 )
 
 // newTracker is the gesture tracker of the human side's panel; layoutSplit
@@ -101,8 +104,9 @@ func (d *dosControl) ownContainer(c hexgrid.Coord) bool {
 }
 
 // can reports whether action a is possible on c. The map and the info always
-// are; orders wait while the resolution plays and after the end, and move
-// and attack need an own unit that may act and has somewhere to go or shoot.
+// are; orders wait while the resolution plays and after the end, open needs
+// an own container with units or something to build, and move and attack
+// need an own unit that may act and has somewhere to go or shoot.
 func (d *dosControl) can(a gesture.Action, c hexgrid.Coord) bool {
 	switch a {
 	case gesture.Map, gesture.Info:
@@ -117,8 +121,8 @@ func (d *dosControl) can(a gesture.Action, c hexgrid.Coord) bool {
 	case gesture.ModeChange:
 		return true
 	case gesture.Open:
-		_, units, ok := d.s.Contents(d.side, c)
-		return ok && len(units) > 0
+		hold, units, ok := d.s.Contents(d.side, c)
+		return ok && (len(units) > 0 || len(d.s.Buildable(d.side, hold)) > 0)
 	case gesture.Move, gesture.Attack:
 		u, ok := d.own().Units[c]
 		if !ok || u.Side != d.side || d.s.Ready(d.side) || d.s.CanOrder(d.side, u.Index) != nil {
@@ -167,7 +171,7 @@ func (d *dosControl) placement(c hexgrid.Coord) gesture.Placement {
 
 // order runs the session's part of a gesture on c: move and attack select the
 // unit there to aim its order, mode change confirms (or opens the orders
-// again, as F1), open lists the contents. A gesture during a walk only
+// again, as F1), open opens the contents. A gesture during a walk only
 // finishes the walk.
 func (d *dosControl) order(a gesture.Action, c hexgrid.Coord) {
 	if d.SkipWalk() {
@@ -186,69 +190,6 @@ func (d *dosControl) order(a gesture.Action, c hexgrid.Coord) {
 		d.openContents(c)
 	default:
 	}
-}
-
-// gameInfoLines are the game info of the HQ: round, level, each side's mode,
-// the score, the holdings, energy and income of both sides and the whole
-// map, and the side's moves against the limit.
-func (d *dosControl) gameInfoLines() []string {
-	st := d.s.Stats()
-	a, b := d.s.Faction(0).String(), d.s.Faction(1).String()
-	row := func(name, x, y, z string) string { return fmt.Sprintf("%-10s%16s%16s%6s", name, x, y, z) }
-	num := func(n int) string { return fmt.Sprint(n) }
-	holdings := func(name string, f func(dosplay.Holdings) int) string {
-		return row(name, num(f(st.Sides[0])), num(f(st.Sides[1])), num(f(st.Map)))
-	}
-	moves := fmt.Sprintf("moves %d", st.Orders[d.side])
-	if st.Limit > 0 {
-		moves += fmt.Sprintf(" of %d", st.Limit)
-	}
-	return []string{
-		"game info:",
-		fmt.Sprintf("round %d  level %d %s", st.Round+1, st.LevelNo, st.Level),
-		fmt.Sprintf("mode: %s %s, %s %s", a, phaseName(st.Mode[0]), b, phaseName(st.Mode[1])),
-		fmt.Sprintf("score %d", st.Score),
-		row("", a, b, "map"),
-		holdings("units", func(h dosplay.Holdings) int { return h.Units }),
-		holdings("depots", func(h dosplay.Holdings) int { return h.Depots }),
-		holdings("factories", func(h dosplay.Holdings) int { return h.Factories }),
-		row("energy", num(st.Energy[0]), num(st.Energy[1]), ""),
-		row("income", num(st.Income[0]), num(st.Income[1]), ""),
-		moves,
-	}
-}
-
-// typeLines are the unit info of u's type: weapon power and range against
-// air, ground and water, armour, speed, weight and group size.
-func (d *dosControl) typeLines(u dosplay.UnitView) []string {
-	side := u.Side
-	if side != 0 && side != 1 {
-		side = d.side
-	}
-	tv, ok := d.s.TypeInfo(side, u.Type)
-	if !ok {
-		return nil
-	}
-	return []string{
-		fmt.Sprintf("air %d/%d  ground %d/%d  water %d/%d", tv.Air.Power, tv.Air.Range, tv.Ground.Power, tv.Ground.Range, tv.Water.Power, tv.Water.Range),
-		fmt.Sprintf("armour %d  speed %d  weight %d  group %d", tv.Armour, tv.Speed, tv.Weight, tv.Group),
-	}
-}
-
-// pinnedInfo is what the info gesture added to the info box on the cursor
-// cell: the game info on the own HQ, the type of a unit, else nothing.
-func (g *game) pinnedInfo() []string {
-	s, d := g.split, g.dos
-	if s == nil || !s.info || s.infoAt != g.hover || !g.hoverOnMap {
-		return nil
-	}
-	if b, ok := d.buildings()[g.hover]; ok && b.HQ && b.Owner == d.s.Faction(d.side) {
-		return d.gameInfoLines()
-	}
-	if u, ok := d.units(g.reveal)[g.hover]; ok {
-		return d.typeLines(u)
-	}
-	return nil
 }
 
 // setCursor puts the cursor on c.
@@ -287,7 +228,7 @@ func (g *game) gestureInput() gesture.Input {
 
 // pointerActive reports whether the tracker takes the mouse at (mx, my): over
 // the human side's panel away from a menu row, anywhere while a gesture is
-// held or the ring or the strategic map is open.
+// held or the ring or a view other than the map is open.
 func (g *game) pointerActive(mx, my int) bool {
 	s := g.split
 	if _, ok := s.track.Ring(); ok || s.mode[g.dos.side] != panelMap {
@@ -312,7 +253,7 @@ func (g *game) overMenu(mx, my int) bool {
 
 // hidePointer reports whether the OS pointer is hidden at (mx, my): only under
 // -rules dos while the battle runs, over a cell of the human side's map (not
-// on a menu row, the ring or the strategic map) or while the mouse holds a
+// on a menu row, the ring or another view) or while the mouse holds a
 // gesture.
 func (g *game) hidePointer(mx, my int, down bool) bool {
 	if g.split == nil || g.dos == nil || g.dos.over {
@@ -353,6 +294,7 @@ func showPointer(visible bool) {
 func (g *game) updateCursor(menu bool) {
 	g.feedGesture(g.gestureInput(), menu)
 	mx, my := ebiten.CursorPosition()
+	g.edgeScroll(mx, my, g.edgeActive(menu))
 	showPointer(!g.hidePointer(mx, my, ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft)))
 }
 
@@ -364,7 +306,7 @@ func (g *game) feedGesture(in gesture.Input, menu bool) {
 	if menu {
 		in.Keys = gesture.Keys{Fire: in.Keys.Fire}
 	}
-	t.Placement = g.cursorPlacement()
+	t.Placement = g.panelPlacement()
 	for _, ev := range t.Update(in) {
 		if menu && !ev.Mouse {
 			if ev.Kind == gesture.Press {
@@ -373,16 +315,43 @@ func (g *game) feedGesture(in gesture.Input, menu bool) {
 			continue
 		}
 		g.onGesture(ev)
+		g.syncContents()
+		t.Placement = g.panelPlacement()
 	}
+}
+
+// panelPlacement is the gesture placement of the human side's panel: on the
+// cursor cell of the map, on the contents cursor, cancel on every other view.
+func (g *game) panelPlacement() gesture.Placement {
+	switch g.split.mode[g.dos.side] {
+	case panelMap:
+		return g.cursorPlacement()
+	case panelContents:
+		return g.dos.contentsPlacement()
+	default:
+	}
+	return gesture.Placement{}
 }
 
 // onGesture runs one recognized event on the human side's panel.
 func (g *game) onGesture(ev gesture.Event) {
 	s, d := g.split, g.dos
 	t := s.track
-	if s.mode[d.side] == panelStrategic {
+	if d.locked() {
+		g.lockedGesture(ev)
+		return
+	}
+	switch s.mode[d.side] {
+	case panelStrategic:
 		g.strategicGesture(ev)
 		return
+	case panelUnitInfo, panelGameInfo:
+		g.infoGesture(ev)
+		return
+	case panelContents:
+		g.contentsGesture(ev)
+		return
+	case panelMap:
 	}
 	switch ev.Kind {
 	case gesture.Hover:
@@ -409,7 +378,6 @@ func (g *game) onGesture(ev gesture.Event) {
 		s.dir = ev.Dir
 	case gesture.Click:
 		if g.hoverOnMap {
-			s.info = false
 			d.Click(g.hover)
 		}
 	case gesture.Run:
@@ -423,18 +391,31 @@ func (g *game) onGesture(ev gesture.Event) {
 	}
 }
 
+// lockedGesture handles the human side's input in the prompt and while the
+// phase change plays: fire (a click or a run) goes back from the prompt; the
+// cursor stays and no ring opens. A press skips a battle in Update.
+func (g *game) lockedGesture(ev gesture.Event) {
+	switch ev.Kind {
+	case gesture.Click, gesture.Run:
+		if g.dos.prompt {
+			g.dos.closePrompt()
+		}
+	case gesture.RingOpen:
+		g.split.track.Reset()
+	default:
+	}
+}
+
 // runGesture runs action a on c: the map and info on the panel, the orders
 // through the session.
 func (g *game) runGesture(a gesture.Action, c hexgrid.Coord) {
-	s, d := g.split, g.dos
-	s.info = false
 	switch a {
 	case gesture.Map:
-		g.openStrategic(d.side)
+		g.openStrategic(g.dos.side)
 	case gesture.Info:
-		s.info, s.infoAt = true, c
+		g.openInfo(c)
 	default:
-		d.order(a, c)
+		g.dos.order(a, c)
 	}
 }
 
@@ -485,12 +466,18 @@ func shiftInto(lo, hi, a, b float64) float64 {
 	return 0
 }
 
-// closeGestures closes the strategic map, the ring or a held gesture of the
-// human side's panel (Esc) and reports whether there was one.
+// closeGestures closes the view of the human side's panel (the production
+// list goes back to the slots), the ring or a held gesture (Esc) and reports
+// whether there was one.
 func (g *game) closeGestures() bool {
-	s, side := g.split, g.dos.side
-	if s.mode[side] != panelMap {
-		s.mode[side] = panelMap
+	s, d := g.split, g.dos
+	if s.mode[d.side] != panelMap {
+		s.track.Reset()
+		if b := d.box; b != nil && b.build {
+			b.build = false
+			return true
+		}
+		s.mode[d.side], d.box = panelMap, nil
 		return true
 	}
 	_, ring := s.track.Ring()
@@ -526,9 +513,12 @@ func cursorPlate(pick gesture.Action, onTarget, held, centre bool, a gesture.Act
 }
 
 // drawCursor draws the human side's cursor over its panel: the ring, the
-// plate, or the open ring menu.
+// plate, or the open ring menu; in the contents the plate on the slot.
 func (g *game) drawCursor(dst *ebiten.Image) {
 	s, d := g.split, g.dos
+	if s.mode[d.side] == panelContents {
+		g.drawContentsPlate(dst)
+	}
 	if s.mode[d.side] != panelMap {
 		return
 	}
@@ -742,4 +732,96 @@ func (g *game) orderableInView() (hexgrid.Coord, bool) {
 		}
 	}
 	return hexgrid.Coord{}, false
+}
+
+// Edge scroll: the pointer resting on the outer half of the human panel's
+// outermost cells, or past them on the steel, the status bar or the window
+// edge on the panel's side, steps the panel one column pair or row that way,
+// first after edgeFirst frames and then every edgeEvery frames once the slide
+// has ended. The cursor stays on the cell under the pointer.
+const (
+	edgeFirst = 12
+	edgeEvery = 8
+)
+
+// edgeDir is the way a pointer at device pixel (mx, my) pushes view v: -1, 0
+// or +1 per axis (column pairs, rows).
+func edgeDir(v dosscreen.View, mx, my float64) (dp, dr int) {
+	wx, wy := v.ScreenToWorld(mx, my)
+	ox, oy := v.Origin()
+	rx, ry := wx-ox, wy-oy
+	bw, bh := dosscreen.BlockSize(v.Cols, v.Rows)
+	const bx, by = hexgrid.HexWidth / 2, hexgrid.HexHeight / 2
+	switch {
+	case rx < bx:
+		dp = -1
+	case rx >= bw-bx:
+		dp = 1
+	}
+	switch {
+	case ry < by:
+		dr = -1
+	case ry >= bh-by:
+		dr = 1
+	}
+	return dp, dr
+}
+
+// edgeZone reports whether device pixel (mx, my) lies where the pointer
+// scrolls the human panel: inside the window, from the panel's outer window
+// edge to the middle of the divider, at any height.
+func (g *game) edgeZone(mx, my int) bool {
+	s := g.split
+	if mx < 0 || my < 0 || mx >= s.screen.W || my >= s.screen.H {
+		return false
+	}
+	mid := s.screen.Divider.X + s.screen.Divider.W/2
+	if g.dos.side == 0 {
+		return mx < mid
+	}
+	return mx >= mid
+}
+
+// edgeScroll runs one frame of the edge scroll for a pointer at (mx, my);
+// active tells that the pointer may scroll now (focused window, map mode, no
+// menu, ring or held gesture).
+func (g *game) edgeScroll(mx, my int, active bool) {
+	s, side := g.split, g.dos.side
+	dp, dr := 0, 0
+	if active && g.edgeZone(mx, my) {
+		dp, dr = edgeDir(g.splitView(side), float64(mx), float64(my))
+	}
+	if dp == 0 && dr == 0 {
+		s.edgeOn = false
+		return
+	}
+	if !s.edgeOn {
+		s.edgeOn, s.edgeWait = true, edgeFirst
+	}
+	if s.edgeWait > 0 {
+		s.edgeWait--
+		return
+	}
+	if s.cams[side].left > 0 {
+		return
+	}
+	s.edgeWait = edgeEvery
+	g.stepView(side, dp, dr)
+	g.syncSplitCam()
+	if c, ok := g.pickSplit(mx, my); ok {
+		g.setCursor(c)
+	}
+}
+
+// edgeActive reports whether the pointer may edge-scroll the human panel now.
+func (g *game) edgeActive(menu bool) bool {
+	s := g.split
+	if menu || g.dos.over || g.dos.locked() || !ebiten.IsFocused() || s.mode[g.dos.side] != panelMap {
+		return false
+	}
+	if _, ok := s.track.Ring(); ok {
+		return false
+	}
+	_, _, held := s.track.Plate()
+	return !held
 }
