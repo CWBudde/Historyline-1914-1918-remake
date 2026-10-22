@@ -135,7 +135,7 @@ func newShell(maps []mapLevel, c matchConfig) *shell {
 // and game values.
 func (s *shell) config(base matchConfig) matchConfig {
 	c := base
-	c.lvl = s.maps[s.code].lvl
+	c.lvl, c.board = s.maps[s.code].lvl, nil
 	c.player = s.side
 	c.opponent = "ai"
 	if !s.computer {
