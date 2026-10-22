@@ -64,6 +64,15 @@ func New(lvl *level.Level, set *data.Set, o Options) (*Session, error) {
 	if err != nil {
 		return nil, err
 	}
+	return NewBoard(b, lvl, set, o)
+}
+
+// NewBoard starts a battle on a bound board, such as an original map
+// (dosbind.FromOriginal); lvl is the level the front end draws.
+func NewBoard(b *dosbind.Board, lvl *level.Level, set *data.Set, o Options) (*Session, error) {
+	if err := fits(b, lvl); err != nil {
+		return nil, err
+	}
 	p := dosrules.Full
 	if o.Profile != nil {
 		p = *o.Profile
@@ -87,6 +96,14 @@ func Load(lvl *level.Level, set *data.Set, saved []byte) (*Session, error) {
 	if err != nil {
 		return nil, err
 	}
+	return LoadBoard(b, lvl, set, saved)
+}
+
+// LoadBoard resumes a battle saved by Save on its bound board.
+func LoadBoard(b *dosbind.Board, lvl *level.Level, set *data.Set, saved []byte) (*Session, error) {
+	if err := fits(b, lvl); err != nil {
+		return nil, err
+	}
 	g, err := dosrules.LoadGame(saved)
 	if err != nil {
 		return nil, err
@@ -96,6 +113,14 @@ func Load(lvl *level.Level, set *data.Set, saved []byte) (*Session, error) {
 			g.Width, g.Height, g.Profile.Winter(), b.Width, b.Height, b.Winter)
 	}
 	return &Session{Game: g, Board: b, Level: lvl, set: set, ids: map[int]string{}}, nil
+}
+
+// fits checks that lvl has the hex layout of board b.
+func fits(b *dosbind.Board, lvl *level.Level) error {
+	if g := lvl.Grid(); 2*g.Width != b.Width || g.Lines != 2*b.Height-1 {
+		return fmt.Errorf("dosplay: a level of %d lines of %d hexes for a %d×%d board", g.Lines, g.Width, b.Width, b.Height)
+	}
+	return nil
 }
 
 // Save is the battle's state (dosrules.Game.Save).

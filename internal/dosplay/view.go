@@ -1,6 +1,7 @@
 package dosplay
 
 import (
+	"fmt"
 	"maps"
 	"slices"
 
@@ -98,6 +99,7 @@ func (s *Session) unitID(idx int) string {
 			return id
 		}
 	}
+	s.ids[idx] = ""
 	return ""
 }
 
@@ -107,7 +109,12 @@ func (s *Session) unitView(idx, side int) UnitView {
 	u := s.Game.Units[idx]
 	id := s.unitID(idx)
 	t := s.Game.Profile.Tables.Types[u.Type]
-	v := UnitView{Index: idx, Type: u.Type, ID: id, Name: s.set.Units[id].Name, Side: sideOf(u.Flags4),
+	name := s.set.Units[id].Name
+	if id == "" {
+		// A type the remake has no unit for yet.
+		name = fmt.Sprintf("Type %d", u.Type)
+	}
+	v := UnitView{Index: idx, Type: u.Type, ID: id, Name: name, Side: sideOf(u.Flags4),
 		At: s.coord(u.Pos[side] / 2), Size: u.Size, Full: t.Group, Alt: u.Alt, Exp: u.Exp, Budget: u.Budget, Armour: t.Armour,
 		Moved: u.Flags4&0x200 != 0, Held: u.Flags4&0x4000 != 0, Carrier: u.Flags4&0x1000 != 0, Destroyed: u.Destroyed(),
 		Hold: -1, In: -1, Slot: -1}
