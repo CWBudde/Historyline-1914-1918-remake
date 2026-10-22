@@ -12,6 +12,7 @@ Cells are one-based, `r<row>c<column>`, on the level's lines.
 go run ./tools/reference-design -check        # validate reference.json and targets.json (image optional)
 go run ./tools/reference-design -check -drift # plus the render's metrics against the targets per family
 go run ./tools/reference-design -dump-cells   # every cell: "r12c3 terrain=mud"
+go run ./tools/reference-design -look-out build/review/look-foundation/pulse # partial Look 0 report
 go run ./tools/reference-design -out build/review/reference      # review page, comparison, targets.json
 go run ./tools/reference-design -compare build/artbook/compare   # comparison only (JPEG), for the art book
 ```
@@ -40,6 +41,18 @@ on the reference registered onto the grid and on the 2× render averaged down:
 family's exemplars; when either changes in `reference.json`, `-check` fails until the
 targets are measured again. `tolerance` in `reference.json` sets the allowed ΔE and the
 relative deviation of contrast, chroma and edges.
+
+`-look-out DIR` writes `look.json` with 1× measurements over every clean terrain cell, rather than
+only exemplars: value percentiles, box-band RMS and six lattice Pearson correlations. The report
+records its formulas, selected cells, sample counts, level/catalogue/image hashes and missing sources.
+Band RMS is the difference between square box means at radii 1/3 and 3/10 world pixels, with entirely
+clean support; correlations need 64 paired samples. Missing measurements are null with reasons.
+This is partial Look 0 evidence: `accepted` remains false, and the feature metrics, original baseline
+and strict acceptance gate remain open. The existing `-check` behaviour is unchanged.
+
+For real game views at exact effective 1×/1.6×, add `-capture-look` to the game's `-capture DIR`
+command. It writes revealed/fogged views at 1080p and 4K and records `effective_zoom` alongside camera
+zoom and UI scale. Capture outputs stay under `build/`.
 
 ## Output
 

@@ -345,9 +345,17 @@ Stop adding enumerated baked contexts. Each one fixes the old sampling in place,
       - water depth gradient, bank width and stream width with their variation;
       - unit edge contrast;
       - the 5–95 % value range.
+      Partial evidence: `-look-out` reports value percentiles, box-band RMS and all six lattice
+      correlations over every clean terrain cell, with source hashes and unavailable values explicit.
+      PULSE grass σL* is 5.12 in the render versus 12.78 in the reference (88 clean cells).
+      Feature metrics, original baselines and the strict acceptance gate remain open.
+      Report and tests: `build/review/look-foundation/`. (2026-10-22)
 - [ ] Review views at the real size: 1× and an effective zoom of 1.6 (the planned split screen), plus
       in-game captures at 1080p and 4K. A headless capture path in `cmd/historyline` replaces the patched
       copy used for the audit.
+      `-capture-look -capture DIR` produces eight real-Draw frames: 1×/1.6× at 1080p/4K, revealed and
+      fogged. PULSE frames fully decode with exact effective zoom and zero gaps/issues; the revealed
+      1.6× view is reviewed. Other family/view acceptance remains open. (2026-10-22)
 
 ##### Look 1: Sampling, grade and legibility (code, no new art)
 

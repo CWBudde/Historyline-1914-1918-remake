@@ -15,6 +15,7 @@ import (
 
 type options struct {
 	root, ref, out, compare string
+	lookOut                 string
 	compareFormat           string
 	check, dump, drift      bool
 }
@@ -27,6 +28,7 @@ func main() {
 	flag.BoolVar(&o.dump, "dump-cells", false, "print the terrain and infrastructure of every cell")
 	flag.BoolVar(&o.drift, "drift", false, "with -check: print the render's metrics against the targets per family")
 	flag.StringVar(&o.out, "out", "", "render tiles, the comparison and index.html into this directory and measure targets.json")
+	flag.StringVar(&o.lookOut, "look-out", "", "write partial Look 0 measurements and provenance to DIR/look.json (no acceptance claim)")
 	flag.StringVar(&o.compare, "compare", "", "write only the comparison (bands, crops, compare.json) into this directory; skipped without the image")
 	flag.StringVar(&o.compareFormat, "compare-format", "jpg", "comparison image format: png or jpg")
 	flag.Parse()
@@ -61,6 +63,8 @@ func run(o options) error {
 		return errors.Join(errs...)
 	}
 	switch {
+	case o.lookOut != "":
+		return p.writeLookReport(o.lookOut)
 	case o.check:
 	case o.out != "":
 		if err := p.render(o.out); err != nil {

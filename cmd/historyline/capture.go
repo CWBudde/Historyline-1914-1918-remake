@@ -24,17 +24,64 @@ type captureGame struct {
 	index   int
 	err     error
 	records []frameCapture
+	frames  []reviewFrame
 }
 
 type frameCapture struct {
-	File    string  `json:"file"`
-	View    string  `json:"view"`
-	Width   int     `json:"width"`
-	Height  int     `json:"height"`
-	Zoom    float64 `json:"zoom"`
-	UI      int     `json:"ui_scale"`
-	Density int     `json:"asset_density"`
-	Reveal  bool    `json:"reveal"`
+	File          string  `json:"file"`
+	View          string  `json:"view"`
+	Width         int     `json:"width"`
+	Height        int     `json:"height"`
+	Zoom          float64 `json:"zoom"`
+	EffectiveZoom float64 `json:"effective_zoom"`
+	UI            int     `json:"ui_scale"`
+	Density       int     `json:"asset_density"`
+	Reveal        bool    `json:"reveal"`
+}
+
+type reviewFrame struct {
+	width, height int
+	view          string
+	reveal        bool
+	effectiveZoom float64 // zero keeps the existing overview/detail framing
+}
+
+func reviewFramePlan(look bool) []reviewFrame {
+	var frames []reviewFrame
+	if look {
+		for _, size := range [][2]int{{1920, 1080}, {3840, 2160}} {
+			for _, zoom := range []float64{1, 1.6} {
+				for _, reveal := range []bool{true, false} {
+					view := "fog"
+					if reveal {
+						view = "revealed"
+					}
+					frames = append(frames, reviewFrame{size[0], size[1], "look-" + fmt.Sprintf("%gx-", zoom) + view, reveal, zoom})
+				}
+			}
+		}
+		return frames
+	}
+	for _, size := range [][2]int{{1280, 720}, {1920, 1080}, {3840, 2160}} {
+		for _, view := range []string{"overview", "detail", "fog"} {
+			frames = append(frames, reviewFrame{size[0], size[1], view, view != "fog", 0})
+		}
+	}
+	return frames
+}
+
+func (f reviewFrame) filename() string {
+	return fmt.Sprintf("pulse-%s-%dx%d.png", f.view, f.width, f.height)
+}
+
+func (f reviewFrame) cameraZoom(world camera.Size, ui int) float64 {
+	if f.effectiveZoom > 0 {
+		return f.effectiveZoom / float64(ui)
+	}
+	if f.view == "overview" {
+		return captureZoom(world, f.width, f.height, ui)
+	}
+	return float64(f.height) / 720 / float64(ui)
 }
 
 func captureZoom(world camera.Size, w, h, ui int) float64 {
@@ -45,7 +92,7 @@ func (c *captureGame) Update() error {
 	if c.err != nil {
 		return c.err
 	}
-	if c.index == 9 {
+	if c.index == len(c.frames) {
 		return ebiten.Termination
 	}
 	return nil
@@ -54,21 +101,18 @@ func (c *captureGame) Update() error {
 func (*captureGame) Layout(int, int) (int, int) { return 1280, 720 }
 
 func (c *captureGame) Draw(screen *ebiten.Image) {
-	if c.err != nil || c.index == 9 {
+	if c.err != nil || c.index == len(c.frames) {
 		return
 	}
-	sizes := [3][2]int{{1280, 720}, {1920, 1080}, {3840, 2160}}
-	w, h := sizes[c.index/3][0], sizes[c.index/3][1]
-	view := []string{"overview", "detail", "fog"}[c.index%3]
+	frame := c.frames[c.index]
+	w, h := frame.width, frame.height
 	g := c.game
 	g.applyLayout(w, h, 1)
-	g.reveal = view != "fog"
-	g.cam.Zoom = captureZoom(g.cam.World, w, h, g.view.UI)
+	g.reveal = frame.reveal
+	g.cam.Zoom = frame.cameraZoom(g.cam.World, g.view.UI)
 	cx, cy := g.cam.World.W/2, g.cam.World.H/2
-	if view != "overview" {
-		// Same HQ/unit neighbourhood at each resolution; effective zoom scales
-		// with framebuffer size, independent of the HUD scale.
-		g.cam.Zoom = float64(h) / 720 / float64(g.view.UI)
+	if frame.view != "overview" {
+		// Same HQ/unit neighbourhood at each resolution and effective zoom.
 		cx, cy = g.cam.World.W*.42, g.cam.World.H*.22
 	}
 	g.cam.CenterOn(cx, cy)
@@ -81,7 +125,7 @@ func (c *captureGame) Draw(screen *ebiten.Image) {
 	}
 	im := image.NewRGBA(image.Rect(0, 0, w, h))
 	target.ReadPixels(im.Pix)
-	name := fmt.Sprintf("pulse-%s-%dx%d.png", view, w, h)
+	name := frame.filename()
 	file, err := os.Create(filepath.Join(c.out, name))
 	if err != nil {
 		c.err = err
@@ -97,14 +141,18 @@ func (c *captureGame) Draw(screen *ebiten.Image) {
 		c.err = closeErr
 		return
 	}
-	c.records = append(c.records, frameCapture{name, view, w, h, g.cam.Zoom, g.view.UI, g.drawnDensity(), g.reveal})
+	c.records = append(c.records, frameCapture{
+		File: name, View: frame.view, Width: w, Height: h, Zoom: g.cam.Zoom,
+		EffectiveZoom: g.cam.Zoom * float64(g.view.UI), UI: g.view.UI,
+		Density: g.drawnDensity(), Reveal: g.reveal,
+	})
 	c.index++
 	var op ebiten.DrawImageOptions
 	op.GeoM.Scale(1280/float64(w), 720/float64(h))
 	screen.DrawImage(target, &op)
 }
 
-func writeReviewFrames(g *game, out string) error {
+func writeReviewFrames(g *game, out string, look bool) error {
 	clean := filepath.ToSlash(filepath.Clean(out))
 	if !strings.HasPrefix(clean, "build/") || strings.Contains(clean, "..") {
 		return fmt.Errorf("capture output must be under ignored build/")
@@ -112,15 +160,15 @@ func writeReviewFrames(g *game, out string) error {
 	if err := os.MkdirAll(out, 0755); err != nil {
 		return err
 	}
-	c := &captureGame{game: g, out: out}
+	c := &captureGame{game: g, out: out, frames: reviewFramePlan(look)}
 	if err := ebiten.RunGame(c); err != nil {
 		return err
 	}
 	if c.err != nil {
 		return c.err
 	}
-	if len(c.records) != 9 {
-		return fmt.Errorf("capture interrupted after %d of 9 frames", len(c.records))
+	if len(c.records) != len(c.frames) {
+		return fmt.Errorf("capture interrupted after %d of %d frames", len(c.records), len(c.frames))
 	}
 	levelBytes, err := g.lvl.Marshal()
 	if err != nil {

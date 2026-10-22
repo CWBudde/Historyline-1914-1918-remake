@@ -764,7 +764,11 @@ func main() {
 	screensHD := flag.String("screens-hd", "", "web: full-quality screen catalog, loaded in the background when the -units catalog downloaded fast")
 	candidates := flag.Bool("allow-candidates", false, "allow unit, terrain and screen packs that are review candidates, not approved art")
 	capture := flag.String("capture", "", "dev: render nine 720p/1080p/4K review frames to a directory under build/ and exit (requires -units and -terrain)")
+	captureLook := flag.Bool("capture-look", false, "with -capture: render revealed/fog views at exact 1x and 1.6x effective zoom at 1080p/4K")
 	flag.Parse()
+	if *captureLook && *capture == "" {
+		log.Fatal("-capture-look requires -capture")
+	}
 	direct := *capture != ""
 	flag.Visit(func(f *flag.Flag) { direct = direct || f.Name == "level" || f.Name == "player" })
 
@@ -840,7 +844,7 @@ func main() {
 		if gm.art == nil || gm.terrain == nil {
 			log.Fatal("-capture requires both -units and -terrain")
 		}
-		if err := writeReviewFrames(gm, *capture); err != nil {
+		if err := writeReviewFrames(gm, *capture, *captureLook); err != nil {
 			log.Fatal(err)
 		}
 		return
