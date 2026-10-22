@@ -21,7 +21,9 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapmaterial"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/worldmaterial"
 )
 
 // Entry is one runtime file of assets/index.json; Path is relative to assets/.
@@ -32,6 +34,9 @@ type Entry struct {
 	Path    string     `json:"path"`
 	SHA     string     `json:"sha256"`
 	Anchor  [2]float64 `json:"logical_anchor"`
+	Width   int        `json:"width"`
+	Height  int        `json:"height"`
+	Layer   string     `json:"layer"`
 }
 
 // Map is a rendered level.
@@ -44,11 +49,12 @@ type Map struct {
 
 // Renderer draws levels from one assets tree.
 type Renderer struct {
-	assets fs.FS
-	files  map[string]Entry // terrain and unit IDs per density, keyed "density/id"
-	has    map[string]bool  // tile, context, standing and stamp IDs present at every density
-	cache  map[string]image.Image
-	set    *data.Set
+	assets    fs.FS
+	files     map[string]Entry // terrain and unit IDs per density, keyed "density/id"
+	has       map[string]bool  // tile, context, standing and stamp IDs present at every density
+	cache     map[string]image.Image
+	set       *data.Set
+	materials map[int]*worldmaterial.Sampler
 }
 
 // New reads index.json of the assets tree.
@@ -73,14 +79,29 @@ func New(assets fs.FS) (*Renderer, error) {
 	}
 	r := &Renderer{assets: assets, files: map[string]Entry{}, has: map[string]bool{}, cache: map[string]image.Image{}, set: set}
 	densities := map[string]int{}
+	pathHashes := map[string]string{}
 	for _, e := range index.Assets {
-		if !strings.HasPrefix(e.Pack, "terrain-") && !strings.HasPrefix(e.Pack, "unit-") {
+		material := strings.HasPrefix(e.ID, "material/") || strings.HasPrefix(e.Pack, "terrain-materials")
+		if !material && !strings.HasPrefix(e.Pack, "terrain-") && !strings.HasPrefix(e.Pack, "unit-") {
+			continue
+		}
+		if previous, ok := pathHashes[e.Path]; ok && previous != e.SHA {
+			return nil, fmt.Errorf("%s: conflicting sha256 pins", e.Path)
+		}
+		pathHashes[e.Path] = e.SHA
+		if material {
+			if err := r.addMaterial(e); err != nil {
+				return nil, err
+			}
 			continue
 		}
 		r.files[fmt.Sprintf("%d/%s", e.Density, e.ID)] = e
 		if strings.HasPrefix(e.ID, "context/") || strings.HasPrefix(e.ID, "tile/") || strings.HasPrefix(e.ID, "standing/") || strings.HasPrefix(e.ID, "stamp/") {
 			densities[e.ID]++
 		}
+	}
+	if err := r.loadMaterials(); err != nil {
+		return nil, err
 	}
 	for id, n := range densities {
 		if n != 2 {
@@ -102,6 +123,7 @@ func (r *Renderer) Render(lvl *level.Level, density int, units bool) (Map, error
 		return Map{}, fmt.Errorf("density %d: runtime art exists at 2x and 4x", density)
 	}
 	grid := lvl.Grid()
+	field := mapmaterial.New(lvl)
 	scene := mapcompose.Compose(grid, func(at hexgrid.Coord) mapcompose.Hex {
 		h := lvl.Lines[at.Line][at.Col]
 		return mapcompose.Hex{Terrain: h.Terrain, Infra: h.Infra.IDs}
@@ -123,6 +145,13 @@ func (r *Renderer) Render(lvl *level.Level, density int, units bool) (Map, error
 				ids := [5][]string{{bg}, {stamp}, overlays, shadows, standing}[pass]
 				for _, id := range ids {
 					if id == "" {
+						continue
+					}
+					terrain := lvl.Lines[line][col].Terrain
+					if pass == 0 && r.materials[density] != nil && (terrain == "grass" || terrain == "hills") {
+						if err := r.drawMaterial(m.Image, id, at, density, field); err != nil {
+							return Map{}, err
+						}
 						continue
 					}
 					if err := r.draw(m.Image, id, at, density); err != nil {

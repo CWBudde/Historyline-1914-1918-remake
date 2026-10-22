@@ -399,6 +399,12 @@ Stop adding enumerated baked contexts. Each one fixes the old sampling in place,
 
 ##### Look 1: Sampling, grade and legibility (code, no new art)
 
+The reusable meadow/scrub sampler, optional material-pack contract, and shared CPU/game integration
+are implemented. Analytic sampling, hill-edge/vertex and material validation checks pass. Default
+activation remains open: the PULSE review exposes oversized grass detail and hard transitions against
+other families' baked meadow (`build/review/look-native/`). Convert those families together before
+promoting the period exports; the sampling acceptance box below stays open.
+
 - [ ] Sample every material at its native aspect with a world period instead of one lattice cell. Use a
       prefilter (box or Lanczos to the export density), no mirror wrap and no coset averaging.
       This applies to `tools/art-review` `grass_sampling.go`, `authored_bank.go`, `connected_render.go`,

@@ -15,6 +15,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/worldmaterial"
 )
 
 // tilePad is the border around terrain textures, in texels. Background tiles
@@ -28,7 +29,7 @@ const tilePad = 3
 // groups only when the catalog has standing items or cluster stamps.
 var (
 	terrainGroups  = []string{"backgrounds", "infrastructure", "context-ground", "context-forest", "context-hills"}
-	optionalGroups = []string{standingGroup, standingStampGroup, stampGroup}
+	optionalGroups = []string{standingGroup, standingStampGroup, stampGroup, worldmaterial.Group}
 )
 
 const standingGroup, standingStampGroup, stampGroup = "standing", "standing-stamps", "stamps"
@@ -36,8 +37,9 @@ const standingGroup, standingStampGroup, stampGroup = "standing", "standing-stam
 // terrainArt is the runtime terrain catalog and the level composed from it.
 type terrainArt struct {
 	*artPacks
-	scene mapcompose.Scene
-	group map[string]string // asset ID → pack group
+	materials *terrainMaterials
+	scene     mapcompose.Scene
+	group     map[string]string // asset ID → pack group
 }
 
 // levelHex reads a hex's terrain from the level for the compositor.
@@ -112,6 +114,9 @@ func openTerrainArt(fsys fs.FS, opt assets.Options, lvl *level.Level) (*terrainA
 			return nil, err
 		}
 	}
+	if err := a.openMaterials(lvl); err != nil {
+		return nil, err
+	}
 	return a, nil
 }
 
@@ -163,10 +168,17 @@ func terrainShadows(s *mapcompose.Scene, c hexgrid.Coord, fog func(hexgrid.Coord
 	return s.ShadowsAt(c, known), f == state.Seen
 }
 
-// drawTile draws terrain tile id with its anchor on screen point (sx, sy).
-func (g *game) drawTile(dst *ebiten.Image, id string, sx, sy float64, dim bool) {
+// drawTerrainTile draws id with its anchor on screen point (sx, sy).
+func (g *game) drawTerrainTile(dst *ebiten.Image, id string, sx, sy float64, dim bool, at *hexgrid.Coord) {
 	d := spriteDensity(g.cam.Effective())
-	img, e, err := g.terrain.image(g.terrain.group[id], id, d)
+	var img *ebiten.Image
+	var e assets.Entry
+	var err error
+	if at != nil && g.terrain.materials.eligible(*at, id) {
+		img, e, err = g.terrain.materialImage(*at, id, d)
+	} else {
+		img, e, err = g.terrain.image(g.terrain.group[id], id, d)
+	}
 	if err != nil {
 		g.terrainErr = err.Error()
 		return
@@ -198,7 +210,11 @@ func (g *game) drawTerrain(dst *ebiten.Image, inView []hexgrid.Coord) {
 			sx, sy := g.cam.WorldToScreen(hexgrid.Center(c))
 			for _, id := range [5][]string{{bg}, {stamp}, overlays, shadows, standing}[pass] {
 				if id != "" {
-					g.drawTile(dst, id, sx, sy, dim)
+					var at *hexgrid.Coord
+					if pass == 0 && g.fogOf(c) != state.Unseen {
+						at = &c
+					}
+					g.drawTerrainTile(dst, id, sx, sy, dim, at)
 				}
 			}
 		}

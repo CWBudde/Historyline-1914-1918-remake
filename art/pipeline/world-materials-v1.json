@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "period": [568, 400],
+  "densities": [2, 4],
+  "edge_band_world_pixels": 4,
+  "materials": [
+    {"id":"material/grass/summer","art":"terrain/grass","source":"art/terrain/grass/grass-summer-v1.png","source_sha256":"8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"},
+    {"id":"material/hills/summer","art":"terrain/hills","source":"art/terrain/hills/hills-scrub-summer-v2.png","source_sha256":"ed9909f7f7cadcfa744f31c215505008596b123fb1b439ac01820af1bf305747"}
+  ]
+}

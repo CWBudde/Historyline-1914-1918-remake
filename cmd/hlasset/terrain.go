@@ -13,6 +13,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/worldmaterial"
 	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
 
@@ -25,16 +26,15 @@ var (
 	terrainDensities = []int{2, 4}
 	terrainAnchor    = [2]float64{48, 40}
 	terrainGroups    = []string{"backgrounds", "infrastructure", "context-ground", "context-forest", "context-hills"}
-	// optionalGroups are built only when the index has standing items or cluster
-	// stamps.
-	optionalGroups = []string{standingGroup, standingStampGroup, stampGroup}
+	// optionalGroups are built only when the index has their entries.
+	optionalGroups = []string{standingGroup, standingStampGroup, stampGroup, worldmaterial.Group}
 )
 
 const standingGroup, standingStampGroup, stampGroup = "standing", "standing-stamps", "stamps"
 
 // terrainPack is one built terrain group at one density.
 type terrainPack struct {
-	Group    string // backgrounds, infrastructure, context-<family>, standing, standing-stamps or stamps
+	Group    string // backgrounds, infrastructure, context-<family>, standing, standing-stamps, stamps or materials
 	Density  int
 	Manifest assets.Manifest
 }
@@ -43,8 +43,8 @@ func terrainDir(d int, group string) string { return path.Join(fmt.Sprintf("%dx"
 
 // planTerrain returns the terrain packs of the index, every group at every
 // density, before any image is read. Tiles are registered on the hex centre;
-// context tiles carry the family of their group. The standing and stamp groups
-// are optional (optionalProblem).
+// context tiles carry the family of their group. Standing, stamp and material
+// groups are optional (optionalProblem).
 func planTerrain(entries []indexEntry) ([]terrainPack, error) {
 	for _, e := range entries {
 		if !strings.HasPrefix(e.Pack, "terrain-") {
@@ -97,6 +97,15 @@ func planTerrain(entries []indexEntry) ([]terrainPack, error) {
 					return nil, fmt.Errorf("%s: %s %s (%dx%d, anchor %v)", id, e.ID, msg, e.Width, e.Height, e.Anchor)
 				}
 			}
+			if group == worldmaterial.Group {
+				ids := map[string]bool{}
+				for _, e := range m.Entries {
+					ids[e.ID] = true
+				}
+				if len(m.Entries) != 2 || !ids[worldmaterial.MeadowID] || !ids[worldmaterial.ScrubID] {
+					return nil, fmt.Errorf("%s: requires both summer grass and hills materials exactly once", id)
+				}
+			}
 			built = append(built, terrainPack{Group: group, Density: d, Manifest: m})
 		}
 		if len(built) != 0 && len(built) != len(terrainDensities) {
@@ -111,12 +120,22 @@ func planTerrain(entries []indexEntry) ([]terrainPack, error) {
 }
 
 // optionalProblem says why entry e cannot be in the optional group at density d,
-// or "" when it can. Standing items stay within the overhang
+// or "" when it can. Materials use the fixed world period and zero anchor.
+// Standing items stay within the overhang
 // (mapcompose.StandingFits) unless they belong to a cluster stamp; stamps span
 // their cluster from the anchor on its first hex.
 func optionalProblem(group string, e assets.Entry, d int) string {
 	if e.Density != d {
 		return fmt.Sprintf("is not a %dx file", d)
+	}
+	if group == worldmaterial.Group {
+		if e.ID != worldmaterial.MeadowID && e.ID != worldmaterial.ScrubID {
+			return "is not a summer grass or hills material"
+		}
+		if e.Width != worldmaterial.PeriodWidth*d || e.Height != worldmaterial.PeriodHeight*d || e.Anchor != [2]float64{} {
+			return "is not a 568x400 world material with zero anchor"
+		}
+		return ""
 	}
 	if group == stampGroup {
 		if !strings.HasPrefix(e.ID, "stamp/") {

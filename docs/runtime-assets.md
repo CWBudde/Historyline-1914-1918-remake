@@ -59,6 +59,13 @@ PNG bytes unchanged. Loaders discover contiguous parts from directory listings (
 `files.txt`) and reject incomplete densities or duplicate IDs across parts. All background and context
 parts retain the same opaque texture borders.
 
+The optional `materials` group contains `material/grass/summer` and `material/hills/summer` together at
+2× and 4×: opaque 568×400 world-pixel periods, anchor (0,0). Both renderers share the native-aspect,
+area-filtered world sampler and a continuous hills blend field. These periods stay lossless in lite
+packs. Export with `go run ./cmd/hlmaterial -out build/review/world-materials`; the pinned profile and
+report record source hashes and fractional crops. Default activation awaits the removal of baked
+meadow from adjoining families; the selected tile catalog keeps its existing rendering meanwhile.
+
 Clusters are connected hexes of one kind: `crater` (`mud`), `boulders` (`stone`), `knoll` (`mountain`),
 `lake` (`water`, `waterStones`, `lakeside*`); the winter kinds (`shelled_w`, `stoney_w`, `mountain_w`) end
 in `_w`. The shape is the hex count, then each further hex's offset from the first (line, then column order)

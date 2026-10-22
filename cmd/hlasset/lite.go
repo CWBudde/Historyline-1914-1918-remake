@@ -9,6 +9,7 @@ import (
 	"image"
 	"image/draw"
 	"image/jpeg"
+	"image/png"
 	"io"
 	"io/fs"
 	"os"
@@ -20,6 +21,7 @@ import (
 	"golang.org/x/sync/errgroup"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/worldmaterial"
 )
 
 // Qualities of the compressed catalogs.
@@ -34,7 +36,8 @@ type liteStats struct {
 // liteCatalog writes a compressed copy of the pack catalog in dir, every
 // <path>/manifest.json under it, to the new directory out, for the web build:
 // an opaque image as a JPEG, any other as a lossy WebP with its alpha, and the
-// PNG where that is smaller anyway. IDs, sizes and anchors stay.
+// PNG where that is smaller anyway. Periodic world materials always retain
+// lossless PNG pixels. IDs, sizes and anchors stay.
 func liteCatalog(dir, out string) (liteStats, error) {
 	var st liteStats
 	r, err := os.OpenRoot(dir)
@@ -97,7 +100,15 @@ func (o *output) writeLitePack(dir string, src fs.FS, p *assets.Pack, st *liteSt
 			if err != nil {
 				return err
 			}
-			ext, b, err := liteEncode(im)
+			var ext string
+			var b []byte
+			if e.ID == worldmaterial.MeadowID || e.ID == worldmaterial.ScrubID {
+				var buf bytes.Buffer
+				err = png.Encode(&buf, im)
+				ext, b = ".png", buf.Bytes()
+			} else {
+				ext, b, err = liteEncode(im)
+			}
 			if err != nil {
 				return fmt.Errorf("%s at %dx: %w", e.ID, e.Density, err)
 			}

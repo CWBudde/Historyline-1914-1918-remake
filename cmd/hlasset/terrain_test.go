@@ -50,6 +50,9 @@ func TestRetainedTerrainCatalogBuilds(t *testing.T) {
 			if strings.HasPrefix(e.Pack, "terrain-stamps-") {
 				want[stampGroup]++
 			}
+			if strings.HasPrefix(e.Pack, "terrain-materials-") {
+				want["materials"]++
+			}
 		}
 	}
 	if len(packs) != len(want)*2 {
