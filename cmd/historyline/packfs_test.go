@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"strings"
+	"sync/atomic"
 	"testing"
 	"testing/fstest"
 )
@@ -42,11 +43,17 @@ func TestHTTPCatalogIsAFileSystem(t *testing.T) {
 		"2x/title/manifest.json":      {Data: []byte(`{"id":"y"}`)},
 		"2x/backdrop/images/0000.png": {Data: []byte("bigger png")},
 	}
-	fsys, done, err := openArtDir(serveCatalog(t, files))
+	var told atomic.Int64
+	m := &meter{fetched: func(n int64) { told.Add(n) }}
+	m.expect(100) // another catalog of the same load
+	fsys, done, err := openArtDir(serveCatalog(t, files), m)
 	if err != nil {
 		t.Fatal(err)
 	}
 	defer done()
+	if got, want := m.done.Load(), int64(10+3+10+10); got != want || told.Load() != want || m.total.Load() != 100+want {
+		t.Errorf("meter counted %d of %d bytes, told %d; want %d of %d", got, m.total.Load(), told.Load(), want, 100+want)
+	}
 	if err := fstest.TestFS(fsys, "1x/title/manifest.json", "1x/title/images/0000.png", "2x/title/manifest.json", "2x/backdrop/images/0000.png"); err != nil {
 		t.Fatal(err)
 	}
@@ -68,7 +75,7 @@ func TestHTTPCatalogRefusesBadListings(t *testing.T) {
 			httpListing: {Data: []byte(list)},
 			"a.png":     {Data: []byte("png")},
 		}))
-		if _, _, err := openArtDir(srv.URL); err == nil {
+		if _, _, err := openArtDir(srv.URL, nil); err == nil {
 			t.Errorf("listing %q: opened", list)
 		}
 		srv.Close()

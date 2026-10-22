@@ -38,10 +38,32 @@ type app struct {
 	view    view
 	canvas  *ebiten.Image // one page at the canvas density
 	density int
-	shown   bool // the loading page has been drawn
-	ended   bool // the end of the battle has been announced
-	press   int  // button the mouse went down on, -1 none
-	mx, my  int  // last cursor position, logical canvas pixels
+	load    *matchLoad // the battle the loading page waits for
+	ended   bool       // the end of the battle has been announced
+	press   int        // button the mouse went down on, -1 none
+	mx, my  int        // last cursor position, logical canvas pixels
+}
+
+// matchLoad is a battle being prepared in the background, so that the loading
+// page keeps drawing its progress meanwhile.
+type matchLoad struct {
+	m    meter
+	done chan matchLoaded
+}
+
+type matchLoaded struct {
+	gm  *game
+	err error
+}
+
+// startLoad prepares the battle of c in the background.
+func startLoad(c matchConfig) *matchLoad {
+	l := &matchLoad{done: make(chan matchLoaded, 1)}
+	go func() {
+		gm, err := newMatch(c, &l.m)
+		l.done <- matchLoaded{gm, err}
+	}()
+	return l
 }
 
 func newApp(base matchConfig, maps []mapLevel, art *screenArt) *app {
@@ -58,16 +80,22 @@ func (a *app) Update() error {
 	}
 	switch s.page {
 	case pageLoading:
-		if !a.shown {
+		if a.load == nil {
+			a.load = startLoad(s.config(a.base))
+		}
+		var r matchLoaded
+		select {
+		case r = <-a.load.done:
+		default:
 			return nil
 		}
-		gm, err := newMatch(s.config(a.base))
-		if err != nil {
+		a.load = nil
+		if r.err != nil {
 			s.open(pageMain)
-			s.note = [2]string{"The battle cannot start:", err.Error()}
+			s.note = [2]string{"The battle cannot start:", r.err.Error()}
 			return nil
 		}
-		a.battle, a.ended = gm, false
+		a.battle, a.ended = r.gm, false
 		s.page = pageBattle
 		return nil
 	case pageBattle:
@@ -221,9 +249,6 @@ func (a *app) Draw(screen *ebiten.Image) {
 	op.GeoM.Scale(scale/float64(d), scale/float64(d))
 	op.GeoM.Translate(ox, oy)
 	screen.DrawImage(a.canvas, op)
-	if s.page == pageLoading {
-		a.shown = true
-	}
 }
 
 // Layout returns the screen in device pixels, like the battle's.
@@ -298,6 +323,15 @@ func (a *app) drawPage(dst *ebiten.Image, d int) {
 		m := s.maps[s.code]
 		drawText(dst, d, m.lvl.MapName, true, 16, 132, 144, cream, false)
 		drawText(dst, d, "The map is being prepared.", false, 13, 132, 216, cream, false)
+		// Only the web build fetches the terrain; on disk it opens at once.
+		if l := a.load; l != nil {
+			if f, ok := l.m.fraction(); ok {
+				a.drawProgress(dst, d, progressRect, f)
+				mb := func(n int64) float64 { return float64(n) / 1e6 }
+				drawText(dst, d, fmt.Sprintf("%.0f of %.0f MB", mb(l.m.done.Load()), mb(l.m.total.Load())),
+					false, 13, canvasW/2, 284, muted, true)
+			}
+		}
 	case pageOutcome:
 		r := s.result
 		lines := []string{r.text}
@@ -389,6 +423,29 @@ func (a *app) drawButton(dst *ebiten.Image, d int, b button, focus, pressed bool
 		return
 	}
 	drawText(dst, d, b.label, true, 14, float64(b.r.X)+float64(b.r.W)/2, y, c, true)
+}
+
+// progressRect is the loading page's progress bar, the size of the bar art.
+var progressRect = rect{180, 252, 280, 16}
+
+// drawProgress draws a progress bar over r, filled to share f.
+func (a *app) drawProgress(dst *ebiten.Image, d int, r rect, f float64) {
+	track, fill := a.art.image("progress/track", d), a.art.image("progress/fill", d)
+	if track == nil || fill == nil {
+		fillRect(dst, d, r, slate)
+		fillRect(dst, d, rect{r.X, r.Y, int(math.Round(f * float64(r.W))), r.H}, brass)
+		strokeRect(dst, d, r, muted)
+		return
+	}
+	w, h := track.Bounds().Dx(), track.Bounds().Dy()
+	op := &ebiten.DrawImageOptions{Filter: ebiten.FilterLinear}
+	op.GeoM.Scale(float64(r.W*d)/float64(w), float64(r.H*d)/float64(h))
+	op.GeoM.Translate(float64(r.X*d), float64(r.Y*d))
+	dst.DrawImage(track, op)
+	fb := fill.Bounds()
+	if fw := int(math.Round(f * float64(fb.Dx()))); fw > 0 {
+		dst.DrawImage(fill.SubImage(image.Rect(fb.Min.X, fb.Min.Y, fb.Min.X+fw, fb.Max.Y)).(*ebiten.Image), op)
+	}
 }
 
 // drawFlag draws a country swatch stretched over r.

@@ -13,17 +13,19 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"sync/atomic"
 	"time"
 
 	"golang.org/x/sync/errgroup"
 )
 
 // openArtDir opens a pack catalog: a local directory, or the URL of one served
-// over HTTP (the web build, which has no file system). done releases it; the
-// packs snapshot their bytes, so it may be called once they are open.
-func openArtDir(dir string) (fsys fs.FS, done func(), err error) {
+// over HTTP (the web build, which has no file system), whose fetches m counts.
+// done releases it; the packs snapshot their bytes, so it may be called once
+// they are open.
+func openArtDir(dir string, m *meter) (fsys fs.FS, done func(), err error) {
 	if strings.HasPrefix(dir, "http://") || strings.HasPrefix(dir, "https://") {
-		h, err := openHTTPFS(dir)
+		h, err := openHTTPFS(dir, m)
 		return h, func() {}, err
 	}
 	r, err := os.OpenRoot(dir)
@@ -31,6 +33,40 @@ func openArtDir(dir string) (fsys fs.FS, done func(), err error) {
 		return nil, nil, err
 	}
 	return r.FS(), func() { _ = r.Close() }, nil
+}
+
+// meter counts the bytes a load fetches over HTTP for a progress bar: total
+// grows as each catalog's listing arrives, done as its files do. A nil meter
+// counts nothing; a catalog on disk fetches nothing.
+type meter struct {
+	done, total atomic.Int64
+	fetched     func(n int64) // also told of each fetched file, from the fetching goroutine; may be nil
+}
+
+func (m *meter) expect(n int64) {
+	if m != nil {
+		m.total.Add(n)
+	}
+}
+
+func (m *meter) add(n int64) {
+	if m == nil {
+		return
+	}
+	m.done.Add(n)
+	if m.fetched != nil {
+		m.fetched(n)
+	}
+}
+
+// fraction is the share of the expected bytes fetched; ok is false while none
+// are expected.
+func (m *meter) fraction() (f float64, ok bool) {
+	t := m.total.Load()
+	if t == 0 {
+		return 0, false
+	}
+	return min(1, float64(m.done.Load())/float64(t)), true
 }
 
 // httpListing is the file the web build writes into the root of each served
@@ -51,7 +87,7 @@ type httpFS struct {
 	child map[string]map[string]bool // directory -> entry name -> is a directory
 }
 
-func openHTTPFS(base string) (*httpFS, error) {
+func openHTTPFS(base string, m *meter) (*httpFS, error) {
 	u, err := url.Parse(base)
 	if err != nil {
 		return nil, err
@@ -76,6 +112,11 @@ func openHTTPFS(base string) (*httpFS, error) {
 			h.child[p][path.Base(name)] = dir
 		}
 	}
+	var sum int64
+	for _, n := range h.size {
+		sum += n
+	}
+	m.expect(sum)
 	h.data = make(map[string][]byte, len(h.size))
 	var mu sync.Mutex
 	var g errgroup.Group
@@ -83,10 +124,14 @@ func openHTTPFS(base string) (*httpFS, error) {
 	for name := range h.size {
 		g.Go(func() error {
 			b, err := h.fetch(name)
+			if err != nil {
+				return err
+			}
 			mu.Lock()
 			h.data[name] = b
 			mu.Unlock()
-			return err
+			m.add(int64(len(b)))
+			return nil
 		})
 	}
 	if err := g.Wait(); err != nil {

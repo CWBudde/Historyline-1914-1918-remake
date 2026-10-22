@@ -28,7 +28,7 @@ func TestOriginalMap(t *testing.T) {
 		t.Fatal(err)
 	}
 	c := matchConfig{lvl: lvl, board: b, set: set, player: player, rules: "dos", opponent: "pass"}
-	gm, err := newMatch(c)
+	gm, err := newMatch(c, nil)
 	if err != nil || gm.dos == nil {
 		t.Fatalf("dos match: %v", err)
 	}
@@ -52,7 +52,7 @@ func TestOriginalMap(t *testing.T) {
 	}
 	for _, rules := range []string{"standard", "classic"} {
 		c.rules = rules
-		if _, err := newMatch(c); err == nil {
+		if _, err := newMatch(c, nil); err == nil {
 			t.Errorf("%s rules accepted an original map", rules)
 		}
 	}

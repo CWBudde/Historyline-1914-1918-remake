@@ -110,9 +110,9 @@ func openTerrainArt(fsys fs.FS, opt assets.Options, lvl *level.Level) (*terrainA
 	return a, nil
 }
 
-// loadTerrainArt opens the terrain catalog in dir for lvl.
-func loadTerrainArt(dir string, allowCandidates bool, lvl *level.Level) (*terrainArt, error) {
-	fsys, done, err := openArtDir(dir)
+// loadTerrainArt opens the terrain catalog in dir for lvl, counting its fetches in m.
+func loadTerrainArt(dir string, allowCandidates bool, lvl *level.Level, m *meter) (*terrainArt, error) {
+	fsys, done, err := openArtDir(dir, m)
 	if err != nil {
 		return nil, err
 	}

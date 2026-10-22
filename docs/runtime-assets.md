@@ -100,8 +100,11 @@ over it, live text in the Go fonts and the button states; without the catalog th
 `just web` hard-links the 2× unit and terrain packs and both screen densities into `build/web/packs/<catalog>/`
 and lists each catalog in `files.txt` (`<size> <path>` per line), since HTTP cannot list directories.
 `index.html` passes the catalogs it finds to the game as URLs; the game fetches a whole catalog when opening
-it and loads no 4× packs in the browser. `version.txt` holds a hash of the whole build; the page adds it to
-every URL as `?v=`, so a browser never combines cached files of an older build with a newer one.
+it and loads no 4× packs in the browser. `build.json` holds a hash of the whole build and the size of the
+wasm; the page adds the hash to every URL as `?v=`, so a browser never combines cached files of an older build
+with a newer one. Until the menu runs, the page shows a title card over the menu painting with a progress bar
+over the wasm and the unit and screen catalogs (the game reports each fetched file); the battle's loading
+page shows the terrain download the same way.
 
 ## Open
 

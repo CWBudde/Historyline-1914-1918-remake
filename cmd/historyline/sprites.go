@@ -229,10 +229,10 @@ func (g *game) drawUnitSprite(dst *ebiten.Image, sx, sy float64, typ string, own
 	return true
 }
 
-// loadUnitArt opens the unit catalog in dir. The packs snapshot their bytes, so
-// the directory is closed again at once.
-func loadUnitArt(dir string, allowCandidates bool) (*artPacks, error) {
-	fsys, done, err := openArtDir(dir)
+// loadUnitArt opens the unit catalog in dir, counting its fetches in m. The
+// packs snapshot their bytes, so the directory is closed again at once.
+func loadUnitArt(dir string, allowCandidates bool, m *meter) (*artPacks, error) {
+	fsys, done, err := openArtDir(dir, m)
 	if err != nil {
 		return nil, err
 	}

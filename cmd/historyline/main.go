@@ -678,8 +678,8 @@ type matchConfig struct {
 	candidates bool      // allow candidate terrain packs
 }
 
-// newMatch starts the battle of c.
-func newMatch(c matchConfig) (*game, error) {
+// newMatch starts the battle of c, counting the art it fetches in m.
+func newMatch(c matchConfig, m *meter) (*game, error) {
 	var gm *game
 	switch c.rules {
 	case "dos":
@@ -727,7 +727,7 @@ func newMatch(c matchConfig) (*game, error) {
 	gm.art = c.units
 	if c.terrain != "" {
 		var err error
-		if gm.terrain, err = loadTerrainArt(c.terrain, c.candidates, c.lvl); err != nil {
+		if gm.terrain, err = loadTerrainArt(c.terrain, c.candidates, c.lvl, m); err != nil {
 			return nil, err
 		}
 	}
@@ -764,8 +764,10 @@ func main() {
 	}
 	c := matchConfig{set: set, rules: *rules, opponent: *opponent, reveal: *reveal, hexNumbers: *hexNumbers,
 		reduced: *reduced, terrain: *terrain, candidates: *candidates}
+	// The web page shows how much of the art has arrived until the game starts.
+	boot := &meter{fetched: pageFetched}
 	if *units != "" {
-		if c.units, err = loadUnitArt(*units, *candidates); err != nil {
+		if c.units, err = loadUnitArt(*units, *candidates, boot); err != nil {
 			log.Fatal(err)
 		}
 	}
@@ -780,7 +782,7 @@ func main() {
 		}
 		var art *screenArt
 		if *screens != "" {
-			if art, err = loadScreenArt(*screens, *candidates); err != nil {
+			if art, err = loadScreenArt(*screens, *candidates, boot); err != nil {
 				log.Fatal(err)
 			}
 		}
@@ -806,7 +808,7 @@ func main() {
 	default:
 		log.Fatalf("unknown -player %q (want central or entente)", *side)
 	}
-	gm, err := newMatch(c)
+	gm, err := newMatch(c, boot)
 	if err != nil {
 		log.Fatal(err)
 	}
