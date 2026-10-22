@@ -543,8 +543,15 @@ own and leaves the game playable.
       human sides, winter, next map). `TestCommitted*` always run; `TestCommittedCurrent` and
       `TestOriginal*` check against the local original files. Not decoded: the computer player's
       parameters; passwords are left out.
-- [ ] Remaining campaign maps for both sides (only `*_cp` exist). (2026-10-22) — partial: all 72 maps are
-      imported to `levels/original/`; the game loads them once `dosbind` binds the imported format.
+- [x] Remaining campaign maps for both sides (only `*_cp` exist). (2026-10-22) — all 72 maps play on the
+      original rules with `-level original/NN` (embedded for the web build): `dosbind.FromOriginal` binds
+      the imported records exactly (ships with their rears, container contents, credits, producible types),
+      `internal/origview` draws them through a look per terrain record; `TestPlayOriginalMaps` plays every map
+      40 resolutions computer against computer. The menu offers them after the shipped levels (code = map
+      number) and a victory leads to the mission's next map, Mouse on to map 03. Open: 36 unit types
+      have no remake unit (dots, "Type N"); stand-in looks for sea, harbours, piers, shell holes, summer
+      factories and junctions without a tile (`origview` doc); `Bind` numbers depots and factories by the
+      buildings' first cells where the game takes entrances in cell order (Mouse's factories swap).
 - [ ] Complete unit roster with domain-specific firepower (aircraft, armour, trains, ships).
 - [ ] Briefings, campaign progression, level codes.
 

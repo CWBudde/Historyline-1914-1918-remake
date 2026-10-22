@@ -484,3 +484,23 @@ func BenchmarkDestinations(b *testing.B) {
 		}
 	}
 }
+
+// A two-cell ship's rear takes no orders: it moves and fights with its head.
+func TestCycleShipRear(t *testing.T) {
+	const cShip = 32 // a head; its rear is type 33
+	for build, p := range profiles {
+		t.Run(build, func(t *testing.T) {
+			g := newCycle(t, p, map[int]Placement{
+				0: {Type: cShip, Owner: 0, Cell: 20}, 1: {Type: cShip + 1, Owner: 0, Cell: 11},
+				2: {Type: cShip, Owner: 1, Cell: 60}, 3: {Type: cShip + 1, Owner: 1, Cell: 69},
+			})
+			refusal(t, "the rear's move", g.Check(Command{Kind: CmdMove, Side: 0, Unit: 1, Cell: 12}), 0)
+			refusal(t, "the rear's attack", g.Check(Command{Kind: CmdAttack, Side: 1, Unit: 3, Cell: 20}), 0)
+			if err := g.Check(Command{Kind: CmdMove, Side: 0, Unit: 0, Cell: 21}); err != nil {
+				t.Errorf("the head's move: %v", err)
+			}
+			// The head passes the rear check; the empty cell holds no target.
+			refusal(t, "the head's attack", g.Check(Command{Kind: CmdAttack, Side: 1, Unit: 2, Cell: 0}), MsgNoTarget)
+		})
+	}
+}

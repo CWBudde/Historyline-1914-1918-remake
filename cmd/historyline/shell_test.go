@@ -3,12 +3,27 @@ package main
 import (
 	"testing"
 
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 )
 
+var shellSet *data.Set
+
+func testSet(t *testing.T) *data.Set {
+	t.Helper()
+	if shellSet == nil {
+		set, err := data.Load()
+		if err != nil {
+			t.Fatal(err)
+		}
+		shellSet = set
+	}
+	return shellSet
+}
+
 func testShell(t *testing.T) *shell {
 	t.Helper()
-	maps, err := loadCampaign("../../levels")
+	maps, err := loadCampaign("../../levels", testSet(t))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -23,8 +38,20 @@ func TestCampaignOrderAndCodes(t *testing.T) {
 	for _, m := range s.maps {
 		codes = append(codes, m.code())
 	}
-	if len(codes) != 3 || codes[0] != "PULSE" || codes[1] != "CIVIL" || codes[2] != "MOUSE" {
+	// The shipped levels, then the original maps 00-71.
+	if len(codes) != 75 || codes[0] != "PULSE" || codes[1] != "CIVIL" || codes[2] != "MOUSE" ||
+		codes[3] != "00" || codes[74] != "71" {
 		t.Fatalf("codes %v", codes)
+	}
+	for i, m := range s.maps {
+		if (m.board != nil) != (i >= 3) {
+			t.Errorf("%s: board %v", m.name, m.board != nil)
+		}
+	}
+	// An Allies campaign map is played as the Entente.
+	s.code = 3 + 30
+	if s.levelSide() != state.Entente {
+		t.Errorf("map 30 side %v", s.levelSide())
 	}
 }
 
@@ -66,7 +93,7 @@ func TestDisabledRowsAreSkippedAndInert(t *testing.T) {
 func TestCodeEntry(t *testing.T) {
 	s := testShell(t)
 	s.activate(1)
-	for _, r := range "mo1use" {
+	for _, r := range "mo-use" {
 		s.typeRune(r)
 	}
 	if s.typed != "MOUSE" {
@@ -91,6 +118,15 @@ func TestCodeEntry(t *testing.T) {
 	if s.typing || s.buttons()[1].label != "CODE  MOUSE" {
 		t.Fatalf("escape: typing %v, %q", s.typing, s.buttons()[1].label)
 	}
+	// An original map's code is its number.
+	s.activate(1)
+	for _, r := range "05" {
+		s.typeRune(r)
+	}
+	s.key(keyEnter)
+	if s.maps[s.code].name != "original/05" {
+		t.Fatalf("05 selected %s", s.maps[s.code].name)
+	}
 }
 
 func TestGameValuesMakeTheMatch(t *testing.T) {
@@ -113,9 +149,14 @@ func TestGameValuesMakeTheMatch(t *testing.T) {
 		t.Fatalf("page %d", s.page)
 	}
 	c := s.config(matchConfig{rules: "dos"})
-	if c.lvl != s.maps[0].lvl || c.player != state.Entente || c.opponent != "pass" || c.limit != 5 ||
+	if c.lvl != s.maps[0].lvl || c.board != nil || c.player != state.Entente || c.opponent != "pass" || c.limit != 5 ||
 		!c.reduced || c.scroll != 2*scrollSpeed || c.rules != "dos" {
 		t.Fatalf("config %+v", c)
+	}
+	// An original map plays its exact board.
+	s.code = 3 + 6
+	if c := s.config(matchConfig{rules: "dos"}); c.lvl != s.maps[9].lvl || c.board == nil || c.board != s.maps[9].board {
+		t.Fatalf("original map config %+v", c)
 	}
 }
 
@@ -129,10 +170,17 @@ func TestVictorySelectsTheNextMap(t *testing.T) {
 	if s.code != 1 || s.result.next != "" {
 		t.Fatal("a defeat changed the map")
 	}
-	s.code = len(s.maps) - 1
-	s.finish(outcome{won: true})
-	if s.code != len(s.maps)-1 || s.result.next != "" {
-		t.Fatal("the last map has no next one")
+	// Mouse is original map 02: a victory leads on to map 03, and the
+	// campaigns run to their last map.
+	for _, c := range []struct {
+		from int
+		next string
+	}{{2, "03"}, {3 + 3, "04"}, {3 + 22, "23"}, {3 + 23, ""}, {3 + 24, "25"}, {3 + 47, ""}, {3 + 48, "49"}, {3 + 71, ""}} {
+		s.code = c.from
+		s.finish(outcome{won: true})
+		if s.result.next != c.next || c.next == "" && s.code != c.from {
+			t.Errorf("victory on %s: next %q, map %s", s.maps[c.from].name, s.result.next, s.maps[s.code].name)
+		}
 	}
 	s.key(keyEnter)
 	if s.page != pageMain {

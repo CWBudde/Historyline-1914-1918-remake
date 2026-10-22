@@ -663,6 +663,7 @@ func loadLevel(dir, name string) (*level.Level, error) {
 // by -level or -player.
 type matchConfig struct {
 	lvl        *level.Level
+	board      *dosbind.Board // an original map's exact binding (loadMap); nil binds lvl
 	set        *data.Set
 	player     state.Player // the human side, whose view is shown
 	rules      string       // dos, standard or classic
@@ -688,12 +689,21 @@ func newMatch(c matchConfig) (*game, error) {
 			o.Computer[1-dosbind.Side(c.player)] = true
 			planner = computerPlanner()
 		}
-		s, err := dosplay.New(c.lvl, c.set, o)
+		var s *dosplay.Session
+		var err error
+		if c.board != nil {
+			s, err = dosplay.NewBoard(c.board, c.lvl, c.set, o)
+		} else {
+			s, err = dosplay.New(c.lvl, c.set, o)
+		}
 		if err != nil {
 			return nil, err
 		}
 		gm = newDosGame(c.lvl, s, s.SideOf(c.player), planner, c.reveal)
 	case "standard", "classic":
+		if c.board != nil {
+			return nil, fmt.Errorf("original maps play on the original rules only (-rules dos), not %q", c.rules)
+		}
 		r := state.Standard
 		if c.rules == "classic" {
 			r = state.Classic
@@ -725,7 +735,7 @@ func newMatch(c matchConfig) (*game, error) {
 }
 
 func main() {
-	name := flag.String("level", "level1_cp", "shipped level to load from levels/ (name without .json); skips the menu")
+	name := flag.String("level", "level1_cp", "shipped level to load from levels/ (name without .json), or original/NN for an imported original map (original rules only); skips the menu")
 	dir := flag.String("levels", "levels", "directory with the level files")
 	side := flag.String("player", "", "side the player plays and whose view is shown: central, entente (default: the level's side); skips the menu")
 	rules := flag.String("rules", "dos", "rule set: dos (the original order cycle), standard or classic")
@@ -764,7 +774,7 @@ func main() {
 	ebiten.SetWindowTitle("Historyline 1914-1918")
 
 	if !direct {
-		campaign, err := loadCampaign(*dir)
+		campaign, err := loadCampaign(*dir, set)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -781,7 +791,7 @@ func main() {
 		return
 	}
 
-	if c.lvl, err = loadLevel(*dir, *name); err != nil {
+	if c.lvl, c.board, err = loadMap(*dir, *name, set); err != nil {
 		log.Fatal(err)
 	}
 	if c.player, err = state.PlayerByName(c.lvl.Player); err != nil {

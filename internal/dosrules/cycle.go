@@ -326,6 +326,10 @@ func (g *Game) Check(c Command) error {
 		return refuse(0, "not the side's unit")
 	case u.Flags4&0x200 != 0:
 		return refuse(0, "the unit has its order")
+	case u.Flags4&0xC0 == 0x40:
+		// A two-cell ship's rear (+4 0x40 without the head's 0x80) moves and
+		// fights with its head.
+		return refuse(0, "the ship's rear follows its head")
 	}
 	switch c.Kind {
 	case CmdMove, CmdExit:
