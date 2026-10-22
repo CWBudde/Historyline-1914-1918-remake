@@ -1,0 +1,8 @@
+{
+  "family": "static-aa",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/static-aa/portrait.png",
+    "source_sha256": "291b7b85ed95890441945172c35cea36a1283b57687a9de489f491a61550a332"
+  }
+}

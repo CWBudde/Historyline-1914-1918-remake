@@ -2169,8 +2169,10 @@
       "id": "portraits/a7v",
       "title": "A7V tank",
       "kind": "portrait",
-      "status": "candidate",
-      "runtime_ids": [],
+      "status": "revised",
+      "runtime_ids": [
+        "portrait/a7v"
+      ],
       "dir": "art/portraits/a7v",
       "assets_dir": "assets/portraits/a7v",
       "prompt": "art/portraits/a7v/prompt.md",
@@ -2187,12 +2189,14 @@
       "variants": [
         {
           "variant": "portrait",
-          "runtime_ids": [],
-          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+          "runtime_ids": [
+            "portrait/a7v"
+          ],
+          "delta": "Selected owner-neutral painting; gameplay class binding pending."
         }
       ],
       "edges": "",
-      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-a7v-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/a7v/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -2200,17 +2204,25 @@
         "action spectacle, muzzle flash or casualties"
       ],
       "runtime": {
-        "count": 0,
-        "densities": [],
-        "samples": []
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/a7v/portrait-4x.png"
+        ]
       }
     },
     {
       "id": "portraits/albatros-d-iii",
       "title": "Albatros D.III",
       "kind": "portrait",
-      "status": "candidate",
-      "runtime_ids": [],
+      "status": "revised",
+      "runtime_ids": [
+        "portrait/albatros-d-iii"
+      ],
       "dir": "art/portraits/albatros-d-iii",
       "assets_dir": "assets/portraits/albatros-d-iii",
       "prompt": "art/portraits/albatros-d-iii/prompt.md",
@@ -2227,12 +2239,14 @@
       "variants": [
         {
           "variant": "portrait",
-          "runtime_ids": [],
-          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+          "runtime_ids": [
+            "portrait/albatros-d-iii"
+          ],
+          "delta": "Selected owner-neutral painting; gameplay class binding pending."
         }
       ],
       "edges": "",
-      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-albatros-d-iii-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/albatros-d-iii/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -2240,17 +2254,25 @@
         "action spectacle, muzzle flash or casualties"
       ],
       "runtime": {
-        "count": 0,
-        "densities": [],
-        "samples": []
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/albatros-d-iii/portrait-4x.png"
+        ]
       }
     },
     {
       "id": "portraits/anti-tank",
       "title": "Anti-tank weapons",
       "kind": "portrait",
-      "status": "candidate",
-      "runtime_ids": [],
+      "status": "revised",
+      "runtime_ids": [
+        "portrait/anti-tank"
+      ],
       "dir": "art/portraits/anti-tank",
       "assets_dir": "assets/portraits/anti-tank",
       "prompt": "art/portraits/anti-tank/prompt.md",
@@ -2267,12 +2289,14 @@
       "variants": [
         {
           "variant": "portrait",
-          "runtime_ids": [],
-          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+          "runtime_ids": [
+            "portrait/anti-tank"
+          ],
+          "delta": "Selected owner-neutral painting; gameplay class binding pending."
         }
       ],
       "edges": "",
-      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-anti-tank-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/anti-tank/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -2280,9 +2304,15 @@
         "action spectacle, muzzle flash or casualties"
       ],
       "runtime": {
-        "count": 0,
-        "densities": [],
-        "samples": []
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/anti-tank/portrait-4x.png"
+        ]
       }
     },
     {
@@ -2391,8 +2421,10 @@
       "id": "portraits/battleship",
       "title": "Battleship",
       "kind": "portrait",
-      "status": "candidate",
-      "runtime_ids": [],
+      "status": "revised",
+      "runtime_ids": [
+        "portrait/battleship"
+      ],
       "dir": "art/portraits/battleship",
       "assets_dir": "assets/portraits/battleship",
       "prompt": "art/portraits/battleship/prompt.md",
@@ -2409,12 +2441,14 @@
       "variants": [
         {
           "variant": "portrait",
-          "runtime_ids": [],
-          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+          "runtime_ids": [
+            "portrait/battleship"
+          ],
+          "delta": "Selected owner-neutral painting; gameplay class binding pending."
         }
       ],
       "edges": "",
-      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-battleship-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/battleship/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -2422,9 +2456,15 @@
         "action spectacle, muzzle flash or casualties"
       ],
       "runtime": {
-        "count": 0,
-        "densities": [],
-        "samples": []
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/battleship/portrait-4x.png"
+        ]
       }
     },
     {
@@ -2585,8 +2625,10 @@
       "id": "portraits/construction-unit",
       "title": "Construction unit",
       "kind": "portrait",
-      "status": "candidate",
-      "runtime_ids": [],
+      "status": "revised",
+      "runtime_ids": [
+        "portrait/construction-unit"
+      ],
       "dir": "art/portraits/construction-unit",
       "assets_dir": "assets/portraits/construction-unit",
       "prompt": "art/portraits/construction-unit/prompt.md",
@@ -2603,12 +2645,14 @@
       "variants": [
         {
           "variant": "portrait",
-          "runtime_ids": [],
-          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+          "runtime_ids": [
+            "portrait/construction-unit"
+          ],
+          "delta": "Selected owner-neutral painting; gameplay class binding pending."
         }
       ],
       "edges": "",
-      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-construction-unit-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/construction-unit/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -2616,17 +2660,25 @@
         "action spectacle, muzzle flash or casualties"
       ],
       "runtime": {
-        "count": 0,
-        "densities": [],
-        "samples": []
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/construction-unit/portrait-4x.png"
+        ]
       }
     },
     {
       "id": "portraits/destroyer",
       "title": "Torpedo boat destroyer",
       "kind": "portrait",
-      "status": "candidate",
-      "runtime_ids": [],
+      "status": "revised",
+      "runtime_ids": [
+        "portrait/destroyer"
+      ],
       "dir": "art/portraits/destroyer",
       "assets_dir": "assets/portraits/destroyer",
       "prompt": "art/portraits/destroyer/prompt.md",
@@ -2643,12 +2695,14 @@
       "variants": [
         {
           "variant": "portrait",
-          "runtime_ids": [],
-          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+          "runtime_ids": [
+            "portrait/destroyer"
+          ],
+          "delta": "Selected owner-neutral painting; gameplay class binding pending."
         }
       ],
       "edges": "",
-      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-destroyer-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/destroyer/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -2656,17 +2710,25 @@
         "action spectacle, muzzle flash or casualties"
       ],
       "runtime": {
-        "count": 0,
-        "densities": [],
-        "samples": []
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/destroyer/portrait-4x.png"
+        ]
       }
     },
     {
       "id": "portraits/dh2",
       "title": "D.H.2 scout",
       "kind": "portrait",
-      "status": "candidate",
-      "runtime_ids": [],
+      "status": "revised",
+      "runtime_ids": [
+        "portrait/dh2"
+      ],
       "dir": "art/portraits/dh2",
       "assets_dir": "assets/portraits/dh2",
       "prompt": "art/portraits/dh2/prompt.md",
@@ -2683,12 +2745,14 @@
       "variants": [
         {
           "variant": "portrait",
-          "runtime_ids": [],
-          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+          "runtime_ids": [
+            "portrait/dh2"
+          ],
+          "delta": "Selected owner-neutral painting; gameplay class binding pending."
         }
       ],
       "edges": "",
-      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-dh2-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/dh2/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -2696,17 +2760,25 @@
         "action spectacle, muzzle flash or casualties"
       ],
       "runtime": {
-        "count": 0,
-        "densities": [],
-        "samples": []
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/dh2/portrait-4x.png"
+        ]
       }
     },
     {
       "id": "portraits/dh4",
       "title": "D.H.4",
       "kind": "portrait",
-      "status": "candidate",
-      "runtime_ids": [],
+      "status": "revised",
+      "runtime_ids": [
+        "portrait/dh4"
+      ],
       "dir": "art/portraits/dh4",
       "assets_dir": "assets/portraits/dh4",
       "prompt": "art/portraits/dh4/prompt.md",
@@ -2723,12 +2795,14 @@
       "variants": [
         {
           "variant": "portrait",
-          "runtime_ids": [],
-          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+          "runtime_ids": [
+            "portrait/dh4"
+          ],
+          "delta": "Selected owner-neutral painting; gameplay class binding pending."
         }
       ],
       "edges": "",
-      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-dh4-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/dh4/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -2736,9 +2810,15 @@
         "action spectacle, muzzle flash or casualties"
       ],
       "runtime": {
-        "count": 0,
-        "densities": [],
-        "samples": []
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/dh4/portrait-4x.png"
+        ]
       }
     },
     {
@@ -2797,8 +2877,10 @@
       "id": "portraits/fokker-d-vii",
       "title": "Fokker D.VII",
       "kind": "portrait",
-      "status": "candidate",
-      "runtime_ids": [],
+      "status": "revised",
+      "runtime_ids": [
+        "portrait/fokker-d-vii"
+      ],
       "dir": "art/portraits/fokker-d-vii",
       "assets_dir": "assets/portraits/fokker-d-vii",
       "prompt": "art/portraits/fokker-d-vii/prompt.md",
@@ -2815,12 +2897,14 @@
       "variants": [
         {
           "variant": "portrait",
-          "runtime_ids": [],
-          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+          "runtime_ids": [
+            "portrait/fokker-d-vii"
+          ],
+          "delta": "Selected owner-neutral painting; gameplay class binding pending."
         }
       ],
       "edges": "",
-      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-fokker-d-vii-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/fokker-d-vii/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -2828,17 +2912,25 @@
         "action spectacle, muzzle flash or casualties"
       ],
       "runtime": {
-        "count": 0,
-        "densities": [],
-        "samples": []
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/fokker-d-vii/portrait-4x.png"
+        ]
       }
     },
     {
       "id": "portraits/fokker-dr-i",
       "title": "Fokker Dr.I",
       "kind": "portrait",
-      "status": "candidate",
-      "runtime_ids": [],
+      "status": "revised",
+      "runtime_ids": [
+        "portrait/fokker-dr-i"
+      ],
       "dir": "art/portraits/fokker-dr-i",
       "assets_dir": "assets/portraits/fokker-dr-i",
       "prompt": "art/portraits/fokker-dr-i/prompt.md",
@@ -2855,12 +2947,14 @@
       "variants": [
         {
           "variant": "portrait",
-          "runtime_ids": [],
-          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+          "runtime_ids": [
+            "portrait/fokker-dr-i"
+          ],
+          "delta": "Selected owner-neutral painting; gameplay class binding pending."
         }
       ],
       "edges": "",
-      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-fokker-dr-i-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/fokker-dr-i/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -2868,17 +2962,25 @@
         "action spectacle, muzzle flash or casualties"
       ],
       "runtime": {
-        "count": 0,
-        "densities": [],
-        "samples": []
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/fokker-dr-i/portrait-4x.png"
+        ]
       }
     },
     {
       "id": "portraits/fokker-e-i",
       "title": "Fokker E.I",
       "kind": "portrait",
-      "status": "candidate",
-      "runtime_ids": [],
+      "status": "revised",
+      "runtime_ids": [
+        "portrait/fokker-e-i"
+      ],
       "dir": "art/portraits/fokker-e-i",
       "assets_dir": "assets/portraits/fokker-e-i",
       "prompt": "art/portraits/fokker-e-i/prompt.md",
@@ -2895,12 +2997,14 @@
       "variants": [
         {
           "variant": "portrait",
-          "runtime_ids": [],
-          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+          "runtime_ids": [
+            "portrait/fokker-e-i"
+          ],
+          "delta": "Selected owner-neutral painting; gameplay class binding pending."
         }
       ],
       "edges": "",
-      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-fokker-e-i-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/fokker-e-i/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -2908,17 +3012,25 @@
         "action spectacle, muzzle flash or casualties"
       ],
       "runtime": {
-        "count": 0,
-        "densities": [],
-        "samples": []
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/fokker-e-i/portrait-4x.png"
+        ]
       }
     },
     {
       "id": "portraits/fokker-e-iii",
       "title": "Fokker E.III",
       "kind": "portrait",
-      "status": "candidate",
-      "runtime_ids": [],
+      "status": "revised",
+      "runtime_ids": [
+        "portrait/fokker-e-iii"
+      ],
       "dir": "art/portraits/fokker-e-iii",
       "assets_dir": "assets/portraits/fokker-e-iii",
       "prompt": "art/portraits/fokker-e-iii/prompt.md",
@@ -2935,12 +3047,14 @@
       "variants": [
         {
           "variant": "portrait",
-          "runtime_ids": [],
-          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+          "runtime_ids": [
+            "portrait/fokker-e-iii"
+          ],
+          "delta": "Selected owner-neutral painting; gameplay class binding pending."
         }
       ],
       "edges": "",
-      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-fokker-e-iii-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/fokker-e-iii/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -2948,17 +3062,25 @@
         "action spectacle, muzzle flash or casualties"
       ],
       "runtime": {
-        "count": 0,
-        "densities": [],
-        "samples": []
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/fokker-e-iii/portrait-4x.png"
+        ]
       }
     },
     {
       "id": "portraits/gotha-g-vb",
       "title": "Gotha G Vb",
       "kind": "portrait",
-      "status": "candidate",
-      "runtime_ids": [],
+      "status": "revised",
+      "runtime_ids": [
+        "portrait/gotha-g-vb"
+      ],
       "dir": "art/portraits/gotha-g-vb",
       "assets_dir": "assets/portraits/gotha-g-vb",
       "prompt": "art/portraits/gotha-g-vb/prompt.md",
@@ -2975,12 +3097,14 @@
       "variants": [
         {
           "variant": "portrait",
-          "runtime_ids": [],
-          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+          "runtime_ids": [
+            "portrait/gotha-g-vb"
+          ],
+          "delta": "Selected owner-neutral painting; gameplay class binding pending."
         }
       ],
       "edges": "",
-      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-gotha-g-vb-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/gotha-g-vb/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -2988,17 +3112,25 @@
         "action spectacle, muzzle flash or casualties"
       ],
       "runtime": {
-        "count": 0,
-        "densities": [],
-        "samples": []
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/gotha-g-vb/portrait-4x.png"
+        ]
       }
     },
     {
       "id": "portraits/handley-page-0400",
       "title": "Handley Page O/400",
       "kind": "portrait",
-      "status": "candidate",
-      "runtime_ids": [],
+      "status": "revised",
+      "runtime_ids": [
+        "portrait/handley-page-0400"
+      ],
       "dir": "art/portraits/handley-page-0400",
       "assets_dir": "assets/portraits/handley-page-0400",
       "prompt": "art/portraits/handley-page-0400/prompt.md",
@@ -3015,12 +3147,14 @@
       "variants": [
         {
           "variant": "portrait",
-          "runtime_ids": [],
-          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+          "runtime_ids": [
+            "portrait/handley-page-0400"
+          ],
+          "delta": "Selected owner-neutral painting; gameplay class binding pending."
         }
       ],
       "edges": "",
-      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-handley-page-0400-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/handley-page-0400/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -3028,9 +3162,15 @@
         "action spectacle, muzzle flash or casualties"
       ],
       "runtime": {
-        "count": 0,
-        "densities": [],
-        "samples": []
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/handley-page-0400/portrait-4x.png"
+        ]
       }
     },
     {
@@ -3141,8 +3281,10 @@
       "id": "portraits/junkers-j4",
       "title": "Junkers J 4-10",
       "kind": "portrait",
-      "status": "candidate",
-      "runtime_ids": [],
+      "status": "revised",
+      "runtime_ids": [
+        "portrait/junkers-j4"
+      ],
       "dir": "art/portraits/junkers-j4",
       "assets_dir": "assets/portraits/junkers-j4",
       "prompt": "art/portraits/junkers-j4/prompt.md",
@@ -3159,12 +3301,14 @@
       "variants": [
         {
           "variant": "portrait",
-          "runtime_ids": [],
-          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+          "runtime_ids": [
+            "portrait/junkers-j4"
+          ],
+          "delta": "Selected owner-neutral painting; gameplay class binding pending."
         }
       ],
       "edges": "",
-      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-junkers-j4-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/junkers-j4/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -3172,9 +3316,15 @@
         "action spectacle, muzzle flash or casualties"
       ],
       "runtime": {
-        "count": 0,
-        "densities": [],
-        "samples": []
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/junkers-j4/portrait-4x.png"
+        ]
       }
     },
     {
@@ -3233,8 +3383,10 @@
       "id": "portraits/mark-i",
       "title": "Mark I tank",
       "kind": "portrait",
-      "status": "candidate",
-      "runtime_ids": [],
+      "status": "revised",
+      "runtime_ids": [
+        "portrait/mark-i"
+      ],
       "dir": "art/portraits/mark-i",
       "assets_dir": "assets/portraits/mark-i",
       "prompt": "art/portraits/mark-i/prompt.md",
@@ -3251,12 +3403,14 @@
       "variants": [
         {
           "variant": "portrait",
-          "runtime_ids": [],
-          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+          "runtime_ids": [
+            "portrait/mark-i"
+          ],
+          "delta": "Selected owner-neutral painting; gameplay class binding pending."
         }
       ],
       "edges": "",
-      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-mark-i-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/mark-i/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -3264,17 +3418,25 @@
         "action spectacle, muzzle flash or casualties"
       ],
       "runtime": {
-        "count": 0,
-        "densities": [],
-        "samples": []
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/mark-i/portrait-4x.png"
+        ]
       }
     },
     {
       "id": "portraits/mark-iv",
       "title": "Mark IV tank",
       "kind": "portrait",
-      "status": "candidate",
-      "runtime_ids": [],
+      "status": "revised",
+      "runtime_ids": [
+        "portrait/mark-iv"
+      ],
       "dir": "art/portraits/mark-iv",
       "assets_dir": "assets/portraits/mark-iv",
       "prompt": "art/portraits/mark-iv/prompt.md",
@@ -3291,12 +3453,14 @@
       "variants": [
         {
           "variant": "portrait",
-          "runtime_ids": [],
-          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+          "runtime_ids": [
+            "portrait/mark-iv"
+          ],
+          "delta": "Selected owner-neutral painting; gameplay class binding pending."
         }
       ],
       "edges": "",
-      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-mark-iv-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/mark-iv/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -3304,9 +3468,15 @@
         "action spectacle, muzzle flash or casualties"
       ],
       "runtime": {
-        "count": 0,
-        "densities": [],
-        "samples": []
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/mark-iv/portrait-4x.png"
+        ]
       }
     },
     {
@@ -3365,8 +3535,10 @@
       "id": "portraits/mobile-aa",
       "title": "Mobile anti-aircraft emplacement",
       "kind": "portrait",
-      "status": "candidate",
-      "runtime_ids": [],
+      "status": "revised",
+      "runtime_ids": [
+        "portrait/mobile-aa"
+      ],
       "dir": "art/portraits/mobile-aa",
       "assets_dir": "assets/portraits/mobile-aa",
       "prompt": "art/portraits/mobile-aa/prompt.md",
@@ -3383,12 +3555,14 @@
       "variants": [
         {
           "variant": "portrait",
-          "runtime_ids": [],
-          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+          "runtime_ids": [
+            "portrait/mobile-aa"
+          ],
+          "delta": "Selected owner-neutral painting; gameplay class binding pending."
         }
       ],
       "edges": "",
-      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-mobile-aa-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/mobile-aa/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -3396,17 +3570,25 @@
         "action spectacle, muzzle flash or casualties"
       ],
       "runtime": {
-        "count": 0,
-        "densities": [],
-        "samples": []
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/mobile-aa/portrait-4x.png"
+        ]
       }
     },
     {
       "id": "portraits/morane-saulnier-n",
       "title": "Morane-Saulnier N",
       "kind": "portrait",
-      "status": "candidate",
-      "runtime_ids": [],
+      "status": "revised",
+      "runtime_ids": [
+        "portrait/morane-saulnier-n"
+      ],
       "dir": "art/portraits/morane-saulnier-n",
       "assets_dir": "assets/portraits/morane-saulnier-n",
       "prompt": "art/portraits/morane-saulnier-n/prompt.md",
@@ -3423,12 +3605,14 @@
       "variants": [
         {
           "variant": "portrait",
-          "runtime_ids": [],
-          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+          "runtime_ids": [
+            "portrait/morane-saulnier-n"
+          ],
+          "delta": "Selected owner-neutral painting; gameplay class binding pending."
         }
       ],
       "edges": "",
-      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-morane-saulnier-n-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/morane-saulnier-n/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -3436,17 +3620,25 @@
         "action spectacle, muzzle flash or casualties"
       ],
       "runtime": {
-        "count": 0,
-        "densities": [],
-        "samples": []
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/morane-saulnier-n/portrait-4x.png"
+        ]
       }
     },
     {
       "id": "portraits/nieuport-xvii",
       "title": "Nieuport XVII",
       "kind": "portrait",
-      "status": "candidate",
-      "runtime_ids": [],
+      "status": "revised",
+      "runtime_ids": [
+        "portrait/nieuport-xvii"
+      ],
       "dir": "art/portraits/nieuport-xvii",
       "assets_dir": "assets/portraits/nieuport-xvii",
       "prompt": "art/portraits/nieuport-xvii/prompt.md",
@@ -3463,12 +3655,14 @@
       "variants": [
         {
           "variant": "portrait",
-          "runtime_ids": [],
-          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+          "runtime_ids": [
+            "portrait/nieuport-xvii"
+          ],
+          "delta": "Selected owner-neutral painting; gameplay class binding pending."
         }
       ],
       "edges": "",
-      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-nieuport-xvii-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/nieuport-xvii/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -3476,9 +3670,15 @@
         "action spectacle, muzzle flash or casualties"
       ],
       "runtime": {
-        "count": 0,
-        "densities": [],
-        "samples": []
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/nieuport-xvii/portrait-4x.png"
+        ]
       }
     },
     {
@@ -3537,8 +3737,10 @@
       "id": "portraits/renault-ft17",
       "title": "Renault FT 17",
       "kind": "portrait",
-      "status": "candidate",
-      "runtime_ids": [],
+      "status": "revised",
+      "runtime_ids": [
+        "portrait/renault-ft17"
+      ],
       "dir": "art/portraits/renault-ft17",
       "assets_dir": "assets/portraits/renault-ft17",
       "prompt": "art/portraits/renault-ft17/prompt.md",
@@ -3555,12 +3757,14 @@
       "variants": [
         {
           "variant": "portrait",
-          "runtime_ids": [],
-          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+          "runtime_ids": [
+            "portrait/renault-ft17"
+          ],
+          "delta": "Selected owner-neutral painting; gameplay class binding pending."
         }
       ],
       "edges": "",
-      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-renault-ft17-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/renault-ft17/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -3568,9 +3772,15 @@
         "action spectacle, muzzle flash or casualties"
       ],
       "runtime": {
-        "count": 0,
-        "densities": [],
-        "samples": []
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/renault-ft17/portrait-4x.png"
+        ]
       }
     },
     {
@@ -3629,8 +3839,10 @@
       "id": "portraits/se5a",
       "title": "S.E.5a",
       "kind": "portrait",
-      "status": "candidate",
-      "runtime_ids": [],
+      "status": "revised",
+      "runtime_ids": [
+        "portrait/se5a"
+      ],
       "dir": "art/portraits/se5a",
       "assets_dir": "assets/portraits/se5a",
       "prompt": "art/portraits/se5a/prompt.md",
@@ -3647,12 +3859,14 @@
       "variants": [
         {
           "variant": "portrait",
-          "runtime_ids": [],
-          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+          "runtime_ids": [
+            "portrait/se5a"
+          ],
+          "delta": "Selected owner-neutral painting; gameplay class binding pending."
         }
       ],
       "edges": "",
-      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-se5a-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/se5a/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -3660,17 +3874,25 @@
         "action spectacle, muzzle flash or casualties"
       ],
       "runtime": {
-        "count": 0,
-        "densities": [],
-        "samples": []
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/se5a/portrait-4x.png"
+        ]
       }
     },
     {
       "id": "portraits/sopwith-camel",
       "title": "Sopwith Camel",
       "kind": "portrait",
-      "status": "candidate",
-      "runtime_ids": [],
+      "status": "revised",
+      "runtime_ids": [
+        "portrait/sopwith-camel"
+      ],
       "dir": "art/portraits/sopwith-camel",
       "assets_dir": "assets/portraits/sopwith-camel",
       "prompt": "art/portraits/sopwith-camel/prompt.md",
@@ -3687,12 +3909,14 @@
       "variants": [
         {
           "variant": "portrait",
-          "runtime_ids": [],
-          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+          "runtime_ids": [
+            "portrait/sopwith-camel"
+          ],
+          "delta": "Selected owner-neutral painting; gameplay class binding pending."
         }
       ],
       "edges": "",
-      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-sopwith-camel-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/sopwith-camel/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -3700,17 +3924,25 @@
         "action spectacle, muzzle flash or casualties"
       ],
       "runtime": {
-        "count": 0,
-        "densities": [],
-        "samples": []
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/sopwith-camel/portrait-4x.png"
+        ]
       }
     },
     {
       "id": "portraits/spad-vii",
       "title": "SPAD VII",
       "kind": "portrait",
-      "status": "candidate",
-      "runtime_ids": [],
+      "status": "revised",
+      "runtime_ids": [
+        "portrait/spad-vii"
+      ],
       "dir": "art/portraits/spad-vii",
       "assets_dir": "assets/portraits/spad-vii",
       "prompt": "art/portraits/spad-vii/prompt.md",
@@ -3727,12 +3959,14 @@
       "variants": [
         {
           "variant": "portrait",
-          "runtime_ids": [],
-          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+          "runtime_ids": [
+            "portrait/spad-vii"
+          ],
+          "delta": "Selected owner-neutral painting; gameplay class binding pending."
         }
       ],
       "edges": "",
-      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-spad-vii-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/spad-vii/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -3740,17 +3974,25 @@
         "action spectacle, muzzle flash or casualties"
       ],
       "runtime": {
-        "count": 0,
-        "densities": [],
-        "samples": []
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/spad-vii/portrait-4x.png"
+        ]
       }
     },
     {
       "id": "portraits/spad-xiii",
       "title": "SPAD XIII",
       "kind": "portrait",
-      "status": "candidate",
-      "runtime_ids": [],
+      "status": "revised",
+      "runtime_ids": [
+        "portrait/spad-xiii"
+      ],
       "dir": "art/portraits/spad-xiii",
       "assets_dir": "assets/portraits/spad-xiii",
       "prompt": "art/portraits/spad-xiii/prompt.md",
@@ -3767,12 +4009,14 @@
       "variants": [
         {
           "variant": "portrait",
-          "runtime_ids": [],
-          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+          "runtime_ids": [
+            "portrait/spad-xiii"
+          ],
+          "delta": "Selected owner-neutral painting; gameplay class binding pending."
         }
       ],
       "edges": "",
-      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-spad-xiii-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/spad-xiii/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -3780,17 +4024,25 @@
         "action spectacle, muzzle flash or casualties"
       ],
       "runtime": {
-        "count": 0,
-        "densities": [],
-        "samples": []
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/spad-xiii/portrait-4x.png"
+        ]
       }
     },
     {
       "id": "portraits/st-chamond",
       "title": "St.-Chamond tank",
       "kind": "portrait",
-      "status": "candidate",
-      "runtime_ids": [],
+      "status": "revised",
+      "runtime_ids": [
+        "portrait/st-chamond"
+      ],
       "dir": "art/portraits/st-chamond",
       "assets_dir": "assets/portraits/st-chamond",
       "prompt": "art/portraits/st-chamond/prompt.md",
@@ -3807,12 +4059,14 @@
       "variants": [
         {
           "variant": "portrait",
-          "runtime_ids": [],
-          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+          "runtime_ids": [
+            "portrait/st-chamond"
+          ],
+          "delta": "Selected owner-neutral painting; gameplay class binding pending."
         }
       ],
       "edges": "",
-      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-st-chamond-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/st-chamond/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -3820,17 +4074,25 @@
         "action spectacle, muzzle flash or casualties"
       ],
       "runtime": {
-        "count": 0,
-        "densities": [],
-        "samples": []
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/st-chamond/portrait-4x.png"
+        ]
       }
     },
     {
       "id": "portraits/static-aa",
       "title": "Static anti-aircraft emplacement",
       "kind": "portrait",
-      "status": "candidate",
-      "runtime_ids": [],
+      "status": "revised",
+      "runtime_ids": [
+        "portrait/static-aa"
+      ],
       "dir": "art/portraits/static-aa",
       "assets_dir": "assets/portraits/static-aa",
       "prompt": "art/portraits/static-aa/prompt.md",
@@ -3847,12 +4109,14 @@
       "variants": [
         {
           "variant": "portrait",
-          "runtime_ids": [],
-          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+          "runtime_ids": [
+            "portrait/static-aa"
+          ],
+          "delta": "Selected owner-neutral painting; gameplay class binding pending."
         }
       ],
       "edges": "",
-      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-static-aa-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/static-aa/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -3860,17 +4124,25 @@
         "action spectacle, muzzle flash or casualties"
       ],
       "runtime": {
-        "count": 0,
-        "densities": [],
-        "samples": []
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/static-aa/portrait-4x.png"
+        ]
       }
     },
     {
       "id": "portraits/static-balloon",
       "title": "Static balloon",
       "kind": "portrait",
-      "status": "candidate",
-      "runtime_ids": [],
+      "status": "revised",
+      "runtime_ids": [
+        "portrait/static-balloon"
+      ],
       "dir": "art/portraits/static-balloon",
       "assets_dir": "assets/portraits/static-balloon",
       "prompt": "art/portraits/static-balloon/prompt.md",
@@ -3887,12 +4159,14 @@
       "variants": [
         {
           "variant": "portrait",
-          "runtime_ids": [],
-          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+          "runtime_ids": [
+            "portrait/static-balloon"
+          ],
+          "delta": "Selected owner-neutral painting; gameplay class binding pending."
         }
       ],
       "edges": "",
-      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-static-balloon-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/static-balloon/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -3900,17 +4174,25 @@
         "action spectacle, muzzle flash or casualties"
       ],
       "runtime": {
-        "count": 0,
-        "densities": [],
-        "samples": []
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/static-balloon/portrait-4x.png"
+        ]
       }
     },
     {
       "id": "portraits/submarine",
       "title": "Submarine",
       "kind": "portrait",
-      "status": "candidate",
-      "runtime_ids": [],
+      "status": "revised",
+      "runtime_ids": [
+        "portrait/submarine"
+      ],
       "dir": "art/portraits/submarine",
       "assets_dir": "assets/portraits/submarine",
       "prompt": "art/portraits/submarine/prompt.md",
@@ -3927,12 +4209,14 @@
       "variants": [
         {
           "variant": "portrait",
-          "runtime_ids": [],
-          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+          "runtime_ids": [
+            "portrait/submarine"
+          ],
+          "delta": "Selected owner-neutral painting; gameplay class binding pending."
         }
       ],
       "edges": "",
-      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-submarine-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/submarine/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -3940,9 +4224,15 @@
         "action spectacle, muzzle flash or casualties"
       ],
       "runtime": {
-        "count": 0,
-        "densities": [],
-        "samples": []
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/submarine/portrait-4x.png"
+        ]
       }
     },
     {
@@ -4001,8 +4291,10 @@
       "id": "portraits/torpedo-boat",
       "title": "Torpedo boat",
       "kind": "portrait",
-      "status": "candidate",
-      "runtime_ids": [],
+      "status": "revised",
+      "runtime_ids": [
+        "portrait/torpedo-boat"
+      ],
       "dir": "art/portraits/torpedo-boat",
       "assets_dir": "assets/portraits/torpedo-boat",
       "prompt": "art/portraits/torpedo-boat/prompt.md",
@@ -4019,12 +4311,14 @@
       "variants": [
         {
           "variant": "portrait",
-          "runtime_ids": [],
-          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+          "runtime_ids": [
+            "portrait/torpedo-boat"
+          ],
+          "delta": "Selected owner-neutral painting; gameplay class binding pending."
         }
       ],
       "edges": "",
-      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-torpedo-boat-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/torpedo-boat/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -4032,9 +4326,15 @@
         "action spectacle, muzzle flash or casualties"
       ],
       "runtime": {
-        "count": 0,
-        "densities": [],
-        "samples": []
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/torpedo-boat/portrait-4x.png"
+        ]
       }
     },
     {
@@ -4093,8 +4393,10 @@
       "id": "portraits/transport-ship",
       "title": "Transport ship",
       "kind": "portrait",
-      "status": "candidate",
-      "runtime_ids": [],
+      "status": "revised",
+      "runtime_ids": [
+        "portrait/transport-ship"
+      ],
       "dir": "art/portraits/transport-ship",
       "assets_dir": "assets/portraits/transport-ship",
       "prompt": "art/portraits/transport-ship/prompt.md",
@@ -4111,12 +4413,14 @@
       "variants": [
         {
           "variant": "portrait",
-          "runtime_ids": [],
-          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+          "runtime_ids": [
+            "portrait/transport-ship"
+          ],
+          "delta": "Selected owner-neutral painting; gameplay class binding pending."
         }
       ],
       "edges": "",
-      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-transport-ship-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/transport-ship/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -4124,9 +4428,15 @@
         "action spectacle, muzzle flash or casualties"
       ],
       "runtime": {
-        "count": 0,
-        "densities": [],
-        "samples": []
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/transport-ship/portrait-4x.png"
+        ]
       }
     },
     {
@@ -4183,8 +4493,10 @@
       "id": "portraits/voisin-iii",
       "title": "Voisin III (LA)",
       "kind": "portrait",
-      "status": "candidate",
-      "runtime_ids": [],
+      "status": "revised",
+      "runtime_ids": [
+        "portrait/voisin-iii"
+      ],
       "dir": "art/portraits/voisin-iii",
       "assets_dir": "assets/portraits/voisin-iii",
       "prompt": "art/portraits/voisin-iii/prompt.md",
@@ -4201,12 +4513,14 @@
       "variants": [
         {
           "variant": "portrait",
-          "runtime_ids": [],
-          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+          "runtime_ids": [
+            "portrait/voisin-iii"
+          ],
+          "delta": "Selected owner-neutral painting; gameplay class binding pending."
         }
       ],
       "edges": "",
-      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-voisin-iii-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/voisin-iii/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -4214,17 +4528,25 @@
         "action spectacle, muzzle flash or casualties"
       ],
       "runtime": {
-        "count": 0,
-        "densities": [],
-        "samples": []
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/voisin-iii/portrait-4x.png"
+        ]
       }
     },
     {
       "id": "portraits/zeppelin-staaken-r-vi",
       "title": "Zeppelin-Staaken R VI",
       "kind": "portrait",
-      "status": "candidate",
-      "runtime_ids": [],
+      "status": "revised",
+      "runtime_ids": [
+        "portrait/zeppelin-staaken-r-vi"
+      ],
       "dir": "art/portraits/zeppelin-staaken-r-vi",
       "assets_dir": "assets/portraits/zeppelin-staaken-r-vi",
       "prompt": "art/portraits/zeppelin-staaken-r-vi/prompt.md",
@@ -4241,12 +4563,14 @@
       "variants": [
         {
           "variant": "portrait",
-          "runtime_ids": [],
-          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+          "runtime_ids": [
+            "portrait/zeppelin-staaken-r-vi"
+          ],
+          "delta": "Selected owner-neutral painting; gameplay class binding pending."
         }
       ],
       "edges": "",
-      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-zeppelin-staaken-r-vi-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/zeppelin-staaken-r-vi/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -4254,9 +4578,15 @@
         "action spectacle, muzzle flash or casualties"
       ],
       "runtime": {
-        "count": 0,
-        "densities": [],
-        "samples": []
+        "count": 3,
+        "densities": [
+          1,
+          2,
+          4
+        ],
+        "samples": [
+          "assets/portraits/zeppelin-staaken-r-vi/portrait-4x.png"
+        ]
       }
     },
     {
@@ -10190,6 +10520,83 @@
       }
     },
     {
+      "id": "units/a7v",
+      "title": "A7V tank",
+      "kind": "unit",
+      "status": "revised",
+      "runtime_ids": [
+        "unit/a7v"
+      ],
+      "dir": "art/units/a7v",
+      "assets_dir": "assets/units/a7v",
+      "prompt": "art/units/a7v/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/a7v/atlas.png",
+          "sha256": "43ff88236a2ed8c91ac73baa1618d48fc1ff416ce2401af8b165cea7fa24818d",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI tank, with a distinct period silhouette.\nTechnical magenta armour is recoloured to the three owner palettes during export.",
+      "base_prompt": "Use case: historical-scene. Production WWI tactical sprite atlas. EXACT 1024x1536 transparent RGBA canvas, TWO columns THREE rows of 512px square cells, invisible grid. Six independently painted elevated overhead three-quarter views of exactly the same A7V vehicle, one per cell, identical design and scale. Soft diffuse light from screen upper LEFT in all six. Pivot at (256,261) in each cell; whole subject inside central 65% with wide fully clear margins, no cutoffs. Strong roof visibility, shallow side walls, consistent camera.\nSubject: A7V WWI tank. Tall long riveted box hull with sloping front plate, short front-mounted cannon, raised rectangular central roof cab, short low tracks tucked beneath hull. No round turret or rear tail. Front cannon opposite rear engine grille. Magenta armour, natural dark steel tracks and cannon.\nCRITICAL DIRECTION ORDER: top LEFT = NORTH, nose points UP and away, show REAR nearest viewer; top RIGHT = NORTHWEST, nose points upper LEFT and away, show REAR right quarter nearest viewer. Middle LEFT = SOUTHWEST, nose lower LEFT and towards viewer, show FRONT left quarter. Middle RIGHT = SOUTH, nose DOWN towards viewer, show FRONT nearest viewer. Bottom LEFT = SOUTHEAST, nose lower RIGHT towards viewer, show FRONT right quarter. Bottom RIGHT = NORTHEAST, nose upper RIGHT and away, show REAR left quarter nearest viewer. Draw true separate vehicle orientations, never rotated or mirrored flat images.\nPainted digital illustration with fine restrained rivet/metal detail, believable WWI silhouette legible at 48px, same style as established game sprites. Saturated naturally shaded magenta ONLY on painted armour for owner tinting. No national insignia, symbols, labels, letters, numbers or flags.\nGenuine alpha TRANSPARENCY outside objects and through gaps. Absolutely NO ground, backdrop, contact shadow, glow, vignette, haze, colour wash, checkerboard, frame or visible grid. Six isolated cut-out tanks only; game-ready assets, NOT a presentation illustration.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera and upper-left lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected six-view atlas. `art-review -unit art/pipeline/unit-a7v-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/a7v/`; gameplay class binding remains open.",
+      "avoid": [
+        "terrain, ground shadows, backdrop, baked labels or national insignia",
+        "clipped extremities, mirrored views or changed camera between facings"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/a7v/cp/n-normal-4x.png",
+          "assets/units/a7v/cp/nw-normal-4x.png",
+          "assets/units/a7v/cp/sw-normal-4x.png",
+          "assets/units/a7v/cp/s-normal-4x.png",
+          "assets/units/a7v/cp/se-normal-4x.png",
+          "assets/units/a7v/cp/ne-normal-4x.png",
+          "assets/units/a7v/ec/n-normal-4x.png",
+          "assets/units/a7v/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
       "id": "units/armored-car",
       "title": "Armoured car",
       "kind": "unit",
@@ -10925,6 +11332,160 @@
       }
     },
     {
+      "id": "units/mark-i",
+      "title": "Mark I tank",
+      "kind": "unit",
+      "status": "revised",
+      "runtime_ids": [
+        "unit/mark-i"
+      ],
+      "dir": "art/units/mark-i",
+      "assets_dir": "assets/units/mark-i",
+      "prompt": "art/units/mark-i/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/mark-i/atlas.png",
+          "sha256": "95c2db13e8a526791527a56577f1b02b3985489f8dca910cd63bae1d56081ffa",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI tank, with a distinct period silhouette.\nTechnical magenta armour is recoloured to the three owner palettes during export.",
+      "base_prompt": "Use case: historical-scene. Production WWI tactical sprite atlas. EXACT 1024x1536 transparent RGBA canvas, TWO columns THREE rows of 512px square cells, invisible grid. Six independently painted elevated overhead three-quarter views of exactly the same Mark I vehicle, one per cell, identical design and scale. Soft diffuse light from screen upper LEFT in all six. Pivot at (256,261) in each cell; whole subject inside central 65% with wide fully clear margins, no cutoffs. Strong roof visibility, shallow side walls, consistent camera.\nSubject: British Mark I male WWI tank: very long RHOMBOID wraparound tracks enclosing both hull sides, high pointed curved track nose, low central cab, two projecting side sponsons each with short gun, NO top turret, rear steering tail with a pair of small steel wheels. Wheel tail always at REAR opposite nose. Magenta hull and sponsons, natural dark steel tracks and guns.\nCRITICAL DIRECTION ORDER: top LEFT = NORTH, nose points UP and away, show REAR nearest viewer; top RIGHT = NORTHWEST, nose points upper LEFT and away, show REAR right quarter nearest viewer. Middle LEFT = SOUTHWEST, nose lower LEFT and towards viewer, show FRONT left quarter. Middle RIGHT = SOUTH, nose DOWN towards viewer, show FRONT nearest viewer. Bottom LEFT = SOUTHEAST, nose lower RIGHT towards viewer, show FRONT right quarter. Bottom RIGHT = NORTHEAST, nose upper RIGHT and away, show REAR left quarter nearest viewer. Draw true separate vehicle orientations, never rotated or mirrored flat images.\nPainted digital illustration with fine restrained rivet/metal detail, believable WWI silhouette legible at 48px, same style as established game sprites. Saturated naturally shaded magenta ONLY on painted armour for owner tinting. No national insignia, symbols, labels, letters, numbers or flags.\nGenuine alpha TRANSPARENCY outside objects and through gaps. Absolutely NO ground, backdrop, contact shadow, glow, vignette, haze, colour wash, checkerboard, frame or visible grid. Six isolated cut-out tanks only; game-ready assets, NOT a presentation illustration.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera and upper-left lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected six-view atlas. `art-review -unit art/pipeline/unit-mark-i-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/mark-i/`; gameplay class binding remains open.",
+      "avoid": [
+        "terrain, ground shadows, backdrop, baked labels or national insignia",
+        "clipped extremities, mirrored views or changed camera between facings"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/mark-i/cp/n-normal-4x.png",
+          "assets/units/mark-i/cp/nw-normal-4x.png",
+          "assets/units/mark-i/cp/sw-normal-4x.png",
+          "assets/units/mark-i/cp/s-normal-4x.png",
+          "assets/units/mark-i/cp/se-normal-4x.png",
+          "assets/units/mark-i/cp/ne-normal-4x.png",
+          "assets/units/mark-i/ec/n-normal-4x.png",
+          "assets/units/mark-i/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "units/mark-iv",
+      "title": "Mark IV tank",
+      "kind": "unit",
+      "status": "revised",
+      "runtime_ids": [
+        "unit/mark-iv"
+      ],
+      "dir": "art/units/mark-iv",
+      "assets_dir": "assets/units/mark-iv",
+      "prompt": "art/units/mark-iv/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/mark-iv/atlas.png",
+          "sha256": "b59c85ecc6bdc54f9a29be2c850b92abdbeefe5228a6d7d84d396e3ad940de73",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI tank, with a distinct period silhouette.\nTechnical magenta armour is recoloured to the three owner palettes during export.",
+      "base_prompt": "Use case: historical-scene. Production WWI tactical sprite atlas. EXACT 1024x1536 transparent RGBA canvas, TWO columns THREE rows of 512px square cells, invisible grid. Six independently painted elevated overhead three-quarter views of exactly the same Mark IV vehicle, one per cell, identical design and scale. Soft diffuse light from screen upper LEFT in all six. Pivot at (256,261) in each cell; whole subject inside central 65% with wide fully clear margins, no cutoffs. Strong roof visibility, shallow side walls, consistent camera.\nSubject: British Mark IV male WWI tank: long RHOMBOID wraparound track assemblies on both sides, high pointed curved track nose, low central roof, two angular side sponsons each with short gun, NO top turret and NO rear steering wheels. Forward raised driver cab and two frontal slit windows identify nose; engine roof grille at rear. Magenta hull and sponsons; natural dark steel tracks and guns.\nCRITICAL DIRECTION ORDER: top LEFT = NORTH, nose points UP and away, show REAR nearest viewer; top RIGHT = NORTHWEST, nose points upper LEFT and away, show REAR right quarter nearest viewer. Middle LEFT = SOUTHWEST, nose lower LEFT and towards viewer, show FRONT left quarter. Middle RIGHT = SOUTH, nose DOWN towards viewer, show FRONT nearest viewer. Bottom LEFT = SOUTHEAST, nose lower RIGHT towards viewer, show FRONT right quarter. Bottom RIGHT = NORTHEAST, nose upper RIGHT and away, show REAR left quarter nearest viewer. Draw true separate vehicle orientations, never rotated or mirrored flat images.\nPainted digital illustration with fine restrained rivet/metal detail, believable WWI silhouette legible at 48px, same style as established game sprites. Saturated naturally shaded magenta ONLY on painted armour for owner tinting. No national insignia, symbols, labels, letters, numbers or flags.\nGenuine alpha TRANSPARENCY outside objects and through gaps. Absolutely NO ground, backdrop, contact shadow, glow, vignette, haze, colour wash, checkerboard, frame or visible grid. Six isolated cut-out tanks only; game-ready assets, NOT a presentation illustration.\nLAYOUT CORRECTION TO THE PROVIDED MARK IV ATLAS: keep the exact same design, six headings and rendering, but make ALL SIX tanks uniformly 25 percent SMALLER around their cell centres. Each individual tank including every tread and cannon must fit into a maximum 320x320 box centred in its own 512x512 cell. At least 80 completely transparent pixels between ALL extremities and each cell's four edges. The SW tank in middle-left must have its entire right track inside the LEFT HALF of the canvas: its rightmost opaque pixel must be before x=430, never crossing x=512. The S tank in middle-right must be entirely isolated, with NO tiny stray track fragment on its left. Exactly six clean disconnected tank silhouettes, one per cell. No extra fragments anywhere. Strictly transparent background.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera and upper-left lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected six-view atlas. `art-review -unit art/pipeline/unit-mark-iv-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/mark-iv/`; gameplay class binding remains open.",
+      "avoid": [
+        "terrain, ground shadows, backdrop, baked labels or national insignia",
+        "clipped extremities, mirrored views or changed camera between facings"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/mark-iv/cp/n-normal-4x.png",
+          "assets/units/mark-iv/cp/nw-normal-4x.png",
+          "assets/units/mark-iv/cp/sw-normal-4x.png",
+          "assets/units/mark-iv/cp/s-normal-4x.png",
+          "assets/units/mark-iv/cp/se-normal-4x.png",
+          "assets/units/mark-iv/cp/ne-normal-4x.png",
+          "assets/units/mark-iv/ec/n-normal-4x.png",
+          "assets/units/mark-iv/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
       "id": "units/medium-artillery",
       "title": "Medium artillery",
       "kind": "unit",
@@ -11087,6 +11648,83 @@
       }
     },
     {
+      "id": "units/renault-ft17",
+      "title": "Renault FT17 tank",
+      "kind": "unit",
+      "status": "revised",
+      "runtime_ids": [
+        "unit/renault-ft17"
+      ],
+      "dir": "art/units/renault-ft17",
+      "assets_dir": "assets/units/renault-ft17",
+      "prompt": "art/units/renault-ft17/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/renault-ft17/atlas.png",
+          "sha256": "283c2a09f0a561be2c3b596ba4939c2438ec00e895c9f244892a9cce3673bc36",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI tank, with a distinct period silhouette.\nTechnical magenta armour is recoloured to the three owner palettes during export.",
+      "base_prompt": "Use case: historical-scene. Production WWI tactical sprite atlas. EXACT 1024x1536 transparent RGBA canvas, TWO columns THREE rows of 512px square cells, invisible grid. Six independently painted elevated overhead three-quarter views of exactly the same Renault FT17 vehicle, one per cell, identical design and scale. Soft diffuse light from screen upper LEFT in all six. Pivot at (256,261) in each cell; whole subject inside central 65% with wide fully clear margins, no cutoffs. Strong roof visibility, shallow side walls, consistent camera.\nSubject: Renault FT17 light tank: short narrow hull, large exposed tall triangular track assemblies along both sides, small round one-man turret near the FRONT carrying one short cannon, long spade-shaped rear trench-crossing tail. Rear tail ALWAYS opposite nose/cannon. Magenta hull and turret; natural dark steel tracks, gun and rear tail.\nCRITICAL DIRECTION ORDER: top LEFT = NORTH, nose points UP and away, show REAR nearest viewer; top RIGHT = NORTHWEST, nose points upper LEFT and away, show REAR right quarter nearest viewer. Middle LEFT = SOUTHWEST, nose lower LEFT and towards viewer, show FRONT left quarter. Middle RIGHT = SOUTH, nose DOWN towards viewer, show FRONT nearest viewer. Bottom LEFT = SOUTHEAST, nose lower RIGHT towards viewer, show FRONT right quarter. Bottom RIGHT = NORTHEAST, nose upper RIGHT and away, show REAR left quarter nearest viewer. Draw true separate vehicle orientations, never rotated or mirrored flat images.\nPainted digital illustration with fine restrained rivet/metal detail, believable WWI silhouette legible at 48px, same style as established game sprites. Saturated naturally shaded magenta ONLY on painted armour for owner tinting. No national insignia, symbols, labels, letters, numbers or flags.\nGenuine alpha TRANSPARENCY outside objects and through gaps. Absolutely NO ground, backdrop, contact shadow, glow, vignette, haze, colour wash, checkerboard, frame or visible grid. Six isolated cut-out tanks only; game-ready assets, NOT a presentation illustration.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera and upper-left lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected six-view atlas. `art-review -unit art/pipeline/unit-renault-ft17-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/renault-ft17/`; gameplay class binding remains open.",
+      "avoid": [
+        "terrain, ground shadows, backdrop, baked labels or national insignia",
+        "clipped extremities, mirrored views or changed camera between facings"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/renault-ft17/cp/n-normal-4x.png",
+          "assets/units/renault-ft17/cp/nw-normal-4x.png",
+          "assets/units/renault-ft17/cp/sw-normal-4x.png",
+          "assets/units/renault-ft17/cp/s-normal-4x.png",
+          "assets/units/renault-ft17/cp/se-normal-4x.png",
+          "assets/units/renault-ft17/cp/ne-normal-4x.png",
+          "assets/units/renault-ft17/ec/n-normal-4x.png",
+          "assets/units/renault-ft17/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
       "id": "units/sappers",
       "title": "Sappers",
       "kind": "unit",
@@ -11164,6 +11802,83 @@
           "assets/units/sappers/cp/ne-normal-4x.png",
           "assets/units/sappers/ec/n-normal-4x.png",
           "assets/units/sappers/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "units/st-chamond",
+      "title": "St-Chamond tank",
+      "kind": "unit",
+      "status": "revised",
+      "runtime_ids": [
+        "unit/st-chamond"
+      ],
+      "dir": "art/units/st-chamond",
+      "assets_dir": "assets/units/st-chamond",
+      "prompt": "art/units/st-chamond/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/st-chamond/atlas.png",
+          "sha256": "5f725505c3ade2b1ffeac036dc88b0de24f4b89cac59bb68d93026ec09009b98",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI tank, with a distinct period silhouette.\nTechnical magenta armour is recoloured to the three owner palettes during export.",
+      "base_prompt": "Use case: historical-scene. Production WWI tactical sprite atlas. EXACT 1024x1536 transparent RGBA canvas, TWO columns THREE rows of 512px square cells, invisible grid. Six independently painted elevated overhead three-quarter views of exactly the same St-Chamond vehicle, one per cell, identical design and scale. Soft diffuse light from screen upper LEFT in all six. Pivot at (256,261) in each cell; whole subject inside central 65% with wide fully clear margins, no cutoffs. Strong roof visibility, shallow side walls, consistent camera.\nSubject: French St-Chamond WWI assault tank: extremely long low rectangular riveted hull projecting far beyond SHORT narrow tracks under its middle, a blunt slightly angled tall FRONT with a forward 75mm cannon, sloping upper side plates, two low roof cupolas. NO turret, NO wraparound rhomboid tracks. Magenta hull, natural dark steel tracks and barrel.\nCRITICAL DIRECTION ORDER: top LEFT = NORTH, nose points UP and away, show REAR nearest viewer; top RIGHT = NORTHWEST, nose points upper LEFT and away, show REAR right quarter nearest viewer. Middle LEFT = SOUTHWEST, nose lower LEFT and towards viewer, show FRONT left quarter. Middle RIGHT = SOUTH, nose DOWN towards viewer, show FRONT nearest viewer. Bottom LEFT = SOUTHEAST, nose lower RIGHT towards viewer, show FRONT right quarter. Bottom RIGHT = NORTHEAST, nose upper RIGHT and away, show REAR left quarter nearest viewer. Draw true separate vehicle orientations, never rotated or mirrored flat images.\nPainted digital illustration with fine restrained rivet/metal detail, believable WWI silhouette legible at 48px, same style as established game sprites. Saturated naturally shaded magenta ONLY on painted armour for owner tinting. No national insignia, symbols, labels, letters, numbers or flags.\nGenuine alpha TRANSPARENCY outside objects and through gaps. Absolutely NO ground, backdrop, contact shadow, glow, vignette, haze, colour wash, checkerboard, frame or visible grid. Six isolated cut-out tanks only; game-ready assets, NOT a presentation illustration.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera and upper-left lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera and upper-left lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected six-view atlas. `art-review -unit art/pipeline/unit-st-chamond-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/st-chamond/`; gameplay class binding remains open.",
+      "avoid": [
+        "terrain, ground shadows, backdrop, baked labels or national insignia",
+        "clipped extremities, mirrored views or changed camera between facings"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/st-chamond/cp/n-normal-4x.png",
+          "assets/units/st-chamond/cp/nw-normal-4x.png",
+          "assets/units/st-chamond/cp/sw-normal-4x.png",
+          "assets/units/st-chamond/cp/s-normal-4x.png",
+          "assets/units/st-chamond/cp/se-normal-4x.png",
+          "assets/units/st-chamond/cp/ne-normal-4x.png",
+          "assets/units/st-chamond/ec/n-normal-4x.png",
+          "assets/units/st-chamond/neutral/n-normal-4x.png"
         ]
       }
     },

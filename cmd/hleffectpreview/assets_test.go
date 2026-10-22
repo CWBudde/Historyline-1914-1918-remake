@@ -107,8 +107,8 @@ func TestAllDeliveredFamiliesShareSupportedGeometry(t *testing.T) {
 			}
 		})
 	}
-	if len(seen) != 15 {
-		t.Fatalf("expected 15 delivered families, got %d", len(seen))
+	if len(seen) != len(unitsprite.Families()) {
+		t.Fatalf("expected %d delivered families, got %d", len(unitsprite.Families()), len(seen))
 	}
 	for _, invalid := range []string{"../infantry", "INFANTRY", "missing", ""} {
 		if _, err := loadFamilyAssets(filepath.Join("..", ".."), invalid); err == nil || !strings.Contains(err.Error(), "unknown unit family") {

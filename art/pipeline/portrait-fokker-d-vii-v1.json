@@ -1,0 +1,8 @@
+{
+  "family": "fokker-d-vii",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/fokker-d-vii/portrait.png",
+    "source_sha256": "ce3c511642f6ab78ca97bf06779e11e579e005fc7bc2f532582c99b3ae9d3c76"
+  }
+}

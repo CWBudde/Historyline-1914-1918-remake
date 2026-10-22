@@ -1,0 +1,8 @@
+{
+  "family": "spad-vii",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/spad-vii/portrait.png",
+    "source_sha256": "5afe875ee4f6e3ccd473227c1b4e16d2efe9d816b829046829b6616ac69edbe8"
+  }
+}

@@ -295,6 +295,13 @@ func (b *unitBundle) buildSheets() error {
 }
 func (b *unitBundle) buildScenes(in unitInputs) error {
 	g := sharedConnectionGeometry()
+	// Unbound catalogue families still get every visual fixture. Empty class
+	// labels explicitly leave the gameplay mapping undecided.
+	firstClass, lastClass := "", ""
+	if len(b.report.ClassIDs) > 0 {
+		firstClass = b.report.ClassIDs[0]
+		lastClass = b.report.ClassIDs[len(b.report.ClassIDs)-1]
+	}
 	labels := []string{"C", "NE", "SE", "S", "SW", "NW", "N"}
 	facings := []int{0, 5, 4, 3, 2, 1, 0}
 	for _, ground := range []string{"grass", "grass_w", "mud"} {
@@ -316,20 +323,20 @@ func (b *unitBundle) buildScenes(in unitInputs) error {
 						if ground == "mud" && i > 0 {
 							terrain = "grass"
 						}
-						palette, runtimeID := "neutral", b.report.ClassIDs[0]
+						palette, runtimeID := "neutral", firstClass
 						if i > 0 {
 							palette = "cp"
-							runtimeID = b.report.ClassIDs[0]
+							runtimeID = firstClass
 							if (i-1)%2 == 1 {
 								palette = "ec"
-								runtimeID = b.report.ClassIDs[len(b.report.ClassIDs)-1]
+								runtimeID = lastClass
 							}
 						}
 						if label == "NE" {
-							runtimeID, palette = b.report.ClassIDs[0], "ec"
+							runtimeID, palette = firstClass, "ec"
 						}
 						if label == "NW" {
-							runtimeID, palette = b.report.ClassIDs[len(b.report.ClassIDs)-1], "cp"
+							runtimeID, palette = lastClass, "cp"
 						}
 						face := facings[i]
 						src := unitSpriteName(b.report.Family, palette, unitFaces[face], state, d)

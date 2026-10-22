@@ -29,9 +29,17 @@ func TestEveryUnitTypeHasAFamily(t *testing.T) {
 	}
 }
 
+func TestTankArtFamiliesWithoutGameplayAliases(t *testing.T) {
+	for _, family := range []string{"a7v", "st-chamond", "renault-ft17", "mark-i", "mark-iv"} {
+		if !slices.Contains(Families(), family) || len(ClassIDs(family)) != 0 {
+			t.Errorf("%s must have an export family without invented gameplay classes", family)
+		}
+	}
+}
+
 // The art folders are the other half of the contract: every unit pipeline
 // manifest unit-<family>-v1.json names a family of this table, and its prompt.md lists
-// exactly the class IDs mapped here as its runtime_ids.
+// the mapped class IDs or, for unbound art, its stable unit/<family> prefix.
 func TestFamiliesMatchArt(t *testing.T) {
 	paths, err := filepath.Glob(filepath.Join("..", "..", "art", "pipeline", "unit-*-v1.json"))
 	if err != nil {
@@ -45,6 +53,9 @@ func TestFamiliesMatchArt(t *testing.T) {
 		}
 		seen = append(seen, family)
 		got := ClassIDs(family)
+		if slices.Contains(unboundFamilies, family) {
+			got = []string{"unit/" + family}
+		}
 		want := promptRuntimeIDs(t, family)
 		if !slices.Equal(got, want) {
 			t.Errorf("%s: class IDs %v, prompt.md has %v", family, got, want)

@@ -41,7 +41,7 @@ func planUnits(entries []indexEntry) ([]unitPack, error) {
 	densities := map[string][]int{}
 	for _, m := range indexPacks(entries, "unit-") {
 		family, d, ok := parsePackID(m.ID, "unit-")
-		if !ok || len(unitsprite.ClassIDs(family)) == 0 {
+		if !ok || !slices.Contains(unitsprite.Families(), family) {
 			return nil, fmt.Errorf("pack %q: no sprite family of that name", m.ID)
 		}
 		want := map[string]bool{}

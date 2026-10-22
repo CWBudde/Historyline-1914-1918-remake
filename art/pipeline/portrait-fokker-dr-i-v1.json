@@ -1,0 +1,8 @@
+{
+  "family": "fokker-dr-i",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/fokker-dr-i/portrait.png",
+    "source_sha256": "d06bfa6e23ac60b9817b22dfa77f8b90dcf5d0e210fc983e0391bbede306a5d7"
+  }
+}

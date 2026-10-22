@@ -1,0 +1,8 @@
+{
+  "family": "battleship",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/battleship/portrait.png",
+    "source_sha256": "b8d073b4b511ddfc86933f2335195864a15899b6a0af6419f2e6978adc0d4187"
+  }
+}

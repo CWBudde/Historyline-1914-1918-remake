@@ -18,6 +18,16 @@ type unitFamily struct {
 }
 
 func lookupUnitFamily(name string) (unitFamily, error) {
+	// These original unit subjects have art before their gameplay-table entries.
+	// Keep their graphics identities stable without inventing class aliases.
+	if title, ok := catalogueSubjects[name]; ok {
+		return unitFamily{
+			name: name, title: title, subject: title,
+			paletteSelector: "Owner palette is independent of class ID/country; gameplay class binding remains open.",
+			profile:         "unit-" + name + "-v1: six authored square panels row-major N,NW,SW,S,SE,NE; unbound catalogue family. " + unitAlgorithmProfile,
+			acceptance:      "Selected catalogue artwork with 2x/4x exports; gameplay class binding and in-engine acceptance remain open.",
+		}, nil
+	}
 	switch name {
 	case "infantry":
 		return unitFamily{
@@ -140,4 +150,16 @@ func lookupUnitFamily(name string) (unitFamily, error) {
 	default:
 		return unitFamily{}, fmt.Errorf("unit family %q must name a canonical runtime graphics family", name)
 	}
+}
+
+var catalogueSubjects = map[string]string{
+	"anti-tank": "Anti-tank gun", "static-aa": "Static anti-aircraft gun", "mobile-aa": "Mobile anti-aircraft gun",
+	"a7v": "A7V", "st-chamond": "St-Chamond", "renault-ft17": "Renault FT17", "mark-i": "Mark I", "mark-iv": "Mark IV",
+	"torpedo-boat": "Torpedo boat", "destroyer": "Destroyer", "battleship": "Battleship", "transport-ship": "Transport ship", "submarine": "Submarine",
+	"static-balloon": "Observation balloon", "fokker-e-i": "Fokker E.I", "fokker-e-iii": "Fokker E.III",
+	"albatros-d-iii": "Albatros D.III", "fokker-dr-i": "Fokker Dr.I", "fokker-d-vii": "Fokker D.VII", "junkers-j4": "Junkers J4",
+	"gotha-g-vb": "Gotha G.Vb", "zeppelin-staaken-r-vi": "Zeppelin-Staaken R.VI", "dh2": "DH2",
+	"morane-saulnier-n": "Morane-Saulnier N", "nieuport-xvii": "Nieuport XVII", "spad-vii": "SPAD VII",
+	"se5a": "SE5a", "spad-xiii": "SPAD XIII", "sopwith-camel": "Sopwith Camel", "voisin-iii": "Voisin III",
+	"handley-page-0400": "Handley Page 0/400", "dh4": "DH4", "construction-unit": "Construction unit",
 }

@@ -1,0 +1,8 @@
+{
+  "family": "fokker-e-i",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/fokker-e-i/portrait.png",
+    "source_sha256": "bf64f9f9728d2b2397596982185f3156b9fcd064c7020acd3882c83f78412d81"
+  }
+}

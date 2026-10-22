@@ -74,6 +74,10 @@ func buildPortraitBundle(in portraitInputs) (portraitBundle, error) {
 		acceptance = "Provisional offline candidate. Approximately 90% resemblance after Lanczos reduction to the repository reference size is a visual target, not a measured score. Native mapping, runtime integration and visual acceptance remain open."
 	}
 	binding := "bound only to"
+	if len(classes) == 0 {
+		binding = "with gameplay binding pending"
+		acceptance = "Selected catalogue painting with native 1x/2x/4x exports; gameplay class binding and in-engine acceptance remain open."
+	}
 	if family == "infantry" || family == "lightArtillery" || family == "eliteInfantry" {
 		binding = "shared only by"
 	}

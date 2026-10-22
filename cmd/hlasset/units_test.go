@@ -99,7 +99,8 @@ func TestBuildUnitsCommand(t *testing.T) {
 	if err := run([]string{"build-units", "-assets", assetsRoot, "-out", out}, &output); err != nil {
 		t.Fatal(err)
 	}
-	if !strings.Contains(output.String(), "built 30 unit packs (15 families × 2 densities, 1080 PNG variants; candidate") {
+	families := len(unitsprite.Families())
+	if !strings.Contains(output.String(), fmt.Sprintf("built %d unit packs (%d families × 2 densities, %d PNG variants; candidate", families*2, families, families*72)) {
 		t.Fatal(output.String())
 	}
 	if err := run([]string{"build-units"}, &bytes.Buffer{}); err == nil {

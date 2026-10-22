@@ -1,0 +1,8 @@
+{
+  "family": "mobile-aa",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/mobile-aa/portrait.png",
+    "source_sha256": "c0cbba6813866cb43a45f5b268128a72985b6a610c2792dd92f6233a173e8e81"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "family": "a7v",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/a7v/portrait.png",
+    "source_sha256": "e0c2300e8e0d912dc86a6a83d501b759f37866d979a35531dd9ae63245d5c4d9"
+  }
+}

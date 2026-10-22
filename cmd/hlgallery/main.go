@@ -16,6 +16,7 @@ import (
 	"io"
 	"io/fs"
 	"os"
+	"slices"
 	"sort"
 	"strings"
 
@@ -440,11 +441,25 @@ func (c *collector) units() error {
 			bindings[f] = append(bindings[f], unitType)
 		}
 	}
-	for _, family := range unitsprite.Families() {
+	families := unitsprite.Families()
+	entries, err := c.assets()
+	if err != nil {
+		return err
+	}
+	for _, e := range entries {
+		if family, ok := strings.CutPrefix(e.Art, "portraits/"); ok && !slices.Contains(families, family) {
+			families = append(families, family)
+		}
+	}
+	sort.Strings(families)
+	for _, family := range families {
 		ids := bindings[family]
 		sort.Strings(ids)
 		name := camel(family)
 		for _, kind := range []string{"sprite", "portrait"} {
+			if kind == "sprite" && !slices.Contains(unitsprite.Families(), family) {
+				continue // portrait exists before tactical sprites have been authored
+			}
 			_, byID, err := c.group(func(e indexEntry) bool {
 				if kind == "sprite" {
 					return strings.HasPrefix(e.Pack, "unit-"+family+"-")
@@ -458,6 +473,9 @@ func (c *collector) units() error {
 			if kind == "sprite" {
 				category, refpath, w, h = "Sprites", "legacy/python/gfx/units/icons/"+name+".png", 48, 48
 			}
+			if len(ids) == 0 {
+				refpath = ""
+			}
 			ref, err := c.reference(refpath, image.Rectangle{})
 			if err != nil {
 				return err
@@ -465,6 +483,9 @@ func (c *collector) units() error {
 			it := item{ID: kind + "/" + name, Name: name, Category: category, Family: name, Bindings: ids, Reference: ref, Width: w, Height: h, Note: "Current family candidate. Visual approval and runtime acceptance pending."}
 			if kind == "sprite" {
 				it.Note = "Reference is the unchanged 48×48 source pose and palette. Current authored sprites are reduced to that size with Lanczos3 for comparison; 2× zoom gives the 96×96 game footprint. Other facings/owners/spent states have no matching raw reference variant; no reference rotations or faction swaps are invented."
+			}
+			if len(ids) == 0 {
+				it.Note = "Selected catalogue artwork. No matching legacy reference is available; gameplay class binding remains open."
 			}
 			keys := make([]string, 0, len(byID))
 			for id := range byID {

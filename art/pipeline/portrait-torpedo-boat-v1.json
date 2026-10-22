@@ -1,0 +1,8 @@
+{
+  "family": "torpedo-boat",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/torpedo-boat/portrait.png",
+    "source_sha256": "0cdb3d82f1e60332d5c712e601b74cb1862b8cc1e9f9bd1d28ac6283720933c9"
+  }
+}

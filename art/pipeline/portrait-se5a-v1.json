@@ -1,0 +1,8 @@
+{
+  "family": "se5a",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/se5a/portrait.png",
+    "source_sha256": "67182cc59f6a9f93539161c09b0511e7de628a32638dbe42987bcc48119304db"
+  }
+}

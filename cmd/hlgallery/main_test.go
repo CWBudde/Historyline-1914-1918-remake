@@ -64,6 +64,11 @@ func TestCurrentGameSelection(t *testing.T) {
 		}
 		ids[it.ID] = true
 		counts[it.Category]++
+		if (it.Category == "Sprites" || it.Category == "Portraits") && len(it.Bindings) == 0 {
+			if it.Reference != nil || !strings.Contains(it.Note, "No matching legacy reference") {
+				t.Fatalf("unbound art must not invent a reference: %s", it.ID)
+			}
+		}
 		if it.Category == "Sprites" {
 			if len(it.Variants) != 36 {
 				t.Fatalf("missing variants: %s", it.ID)
@@ -90,7 +95,7 @@ func TestCurrentGameSelection(t *testing.T) {
 			}
 		}
 	}
-	want := map[string]int{"Terrain": 158, "Sprites": 15, "Portraits": 15, "Interface": 117, "Screens": 36, "Screen components": 73}
+	want := map[string]int{"Terrain": 158, "Sprites": 20, "Portraits": 48, "Interface": 117, "Screens": 36, "Screen components": 73}
 	for k, n := range want {
 		if counts[k] != n {
 			t.Errorf("%s: got %d, want %d", k, counts[k], n)

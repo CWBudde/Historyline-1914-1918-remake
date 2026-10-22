@@ -1,0 +1,8 @@
+{
+  "family": "destroyer",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/destroyer/portrait.png",
+    "source_sha256": "cb40ecff8d3768156e56338302ac270bcaa8aec1f24a181b18a6b335be596106"
+  }
+}

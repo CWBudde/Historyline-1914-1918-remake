@@ -39,9 +39,12 @@ func Family(unitType string) (string, bool) {
 	return f, ok
 }
 
-// Families returns every family slug, sorted.
+// Unbound art families have complete exports but no gameplay-table alias yet.
+var unboundFamilies = []string{"a7v", "mark-i", "mark-iv", "renault-ft17", "st-chamond"}
+
+// Families returns every exported family slug, sorted, including unbound art.
 func Families() []string {
-	var out []string
+	out := slices.Clone(unboundFamilies)
 	for _, f := range families {
 		if !slices.Contains(out, f) {
 			out = append(out, f)

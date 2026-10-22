@@ -1,0 +1,8 @@
+{
+  "family": "dh4",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/dh4/portrait.png",
+    "source_sha256": "2fcdbb364543df06d42c4f6e0bc39b4a21a832babd99199bd689994186673300"
+  }
+}

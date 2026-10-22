@@ -1,0 +1,8 @@
+{
+  "family": "sopwith-camel",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/sopwith-camel/portrait.png",
+    "source_sha256": "148d338f2dc6fc3682770cbfdbc07e9ae33c0cccfac19353612ccaa64e2d3bc3"
+  }
+}

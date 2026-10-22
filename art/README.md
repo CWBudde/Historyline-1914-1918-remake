@@ -94,6 +94,11 @@ generator rerun gives the same image, so keep the selected masters.
 
 ## Promote
 
+Selected art may precede a gameplay-table binding: use `unit/<family>` or `portrait/<family>` as
+the runtime prefix once exports are installed in `assets/index.json`. Keep the exporter's class list
+empty until a real gameplay class exists. The five tank sprite families and 33 added portrait families
+follow this contract; their appearance and export completeness are separate from panel/gameplay binding.
+
 Copy the reviewed export files into `assets/<kind>/<family>/`, update the master's pin in the manifest when
 the master changed, then run `go run ./cmd/hlart index` and `go run ./cmd/hlart check`.
 

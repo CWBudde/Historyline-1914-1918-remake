@@ -1,0 +1,8 @@
+{
+  "family": "st-chamond",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/st-chamond/portrait.png",
+    "source_sha256": "d0fb6f82ce40e6ea45504db242a7932b2949142d71cd19bd0a629b54f408c48d"
+  }
+}

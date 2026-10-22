@@ -2,8 +2,8 @@
 id: portraits/zeppelin-staaken-r-vi
 title: Zeppelin-Staaken R VI
 kind: portrait
-status: candidate
-runtime_ids:
+status: revised
+runtime_ids: portrait/zeppelin-staaken-r-vi
 masters: portrait.png
 ---
 
@@ -17,12 +17,13 @@ Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landsca
 ## Variants
 | Variant | Runtime IDs | Prompt delta |
 | --- | --- | --- |
-| portrait | — | One owner-neutral painting for the original unit type; gameplay binding pending. |
+| portrait | portrait/zeppelin-staaken-r-vi | Selected owner-neutral painting; gameplay class binding pending. |
 
 ## Post
-Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.
-Prepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the
-unit binding is defined. Runtime exports, binding and visual acceptance remain open.
+Selected source with a centred exact 105:94 crop, never stretched or enlarged.
+`art-review -portrait art/pipeline/portrait-zeppelin-staaken-r-vi-v1.json` exports 840×752 (4×),
+420×376 (2×) and 210×188 (1×) into `assets/portraits/zeppelin-staaken-r-vi/`. Gameplay class binding
+and in-engine panel acceptance remain open.
 
 ## Avoid
 - national colours, flags, insignia or faction tint

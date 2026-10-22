@@ -1,0 +1,8 @@
+{
+  "family": "anti-tank",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/anti-tank/portrait.png",
+    "source_sha256": "6560b951974a616719f5402d6782102f845df9c0b7c00f55885f1bef1e7057e7"
+  }
+}

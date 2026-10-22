@@ -1,0 +1,8 @@
+{
+  "family": "junkers-j4",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/junkers-j4/portrait.png",
+    "source_sha256": "00dba4bfb244c091e089c33ee65142f4f36139da0019a0742086d14ad720a981"
+  }
+}

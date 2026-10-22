@@ -1,0 +1,8 @@
+{
+  "family": "albatros-d-iii",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/albatros-d-iii/portrait.png",
+    "source_sha256": "f015aa84777b6d000996228c7bcb8fb8513fd2c2e2940f5bbd29ae0ec116caef"
+  }
+}

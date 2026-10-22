@@ -1,0 +1,8 @@
+{
+  "family": "mark-iv",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/mark-iv/portrait.png",
+    "source_sha256": "a18389dbb18e109abf19917a95cb766e5f2f601e6587ac971b8b1db358456ae0"
+  }
+}

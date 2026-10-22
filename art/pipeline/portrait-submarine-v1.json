@@ -1,0 +1,8 @@
+{
+  "family": "submarine",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/submarine/portrait.png",
+    "source_sha256": "ba2a61641f8e1acf2154189a5b72c8a8c96337fe3adfbfa7aa12016fba138a7a"
+  }
+}

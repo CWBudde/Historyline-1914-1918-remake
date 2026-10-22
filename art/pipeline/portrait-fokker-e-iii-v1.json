@@ -1,0 +1,8 @@
+{
+  "family": "fokker-e-iii",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/fokker-e-iii/portrait.png",
+    "source_sha256": "4769e760f7b3c12130f43ac797ae25cee4b7d50dd0d959ec361cf70c6aa33e88"
+  }
+}

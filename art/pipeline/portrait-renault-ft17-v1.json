@@ -1,0 +1,8 @@
+{
+  "family": "renault-ft17",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/renault-ft17/portrait.png",
+    "source_sha256": "cfb170777fe1c6db2640473d5f57de7dae83e39aaaeea3419a9b001a0eabfc94"
+  }
+}

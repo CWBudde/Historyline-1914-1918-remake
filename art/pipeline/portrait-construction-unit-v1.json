@@ -1,0 +1,8 @@
+{
+  "family": "construction-unit",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/construction-unit/portrait.png",
+    "source_sha256": "95e27206a503089aca835bc6a8b48c99adf1350448f20b47f6cbd0fbaa63dfe8"
+  }
+}

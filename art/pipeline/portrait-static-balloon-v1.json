@@ -1,0 +1,8 @@
+{
+  "family": "static-balloon",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/static-balloon/portrait.png",
+    "source_sha256": "56f048b5b157805fbdfdbc0be4edbbd20304776bbfbb6f078209203771ff7fe9"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "family": "voisin-iii",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/voisin-iii/portrait.png",
+    "source_sha256": "1e5790518a91fbf785d75879054a120d33d642bf81c72445c4b8b6ec646eb5e7"
+  }
+}

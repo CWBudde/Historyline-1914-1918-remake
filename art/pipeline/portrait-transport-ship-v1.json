@@ -1,0 +1,8 @@
+{
+  "family": "transport-ship",
+  "schema_version": 1,
+  "source": {
+    "source": "art/portraits/transport-ship/portrait.png",
+    "source_sha256": "25bb8bc835ca13bcfdabf616f56bfc8ab899a8ac0ad7e2742686bfe9fac18797"
+  }
+}
