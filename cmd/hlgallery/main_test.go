@@ -34,6 +34,21 @@ func TestLegacyTileShoreOutletReference(t *testing.T) {
 	}
 }
 
+func TestNewTerrainHasNoInventedLegacyReference(t *testing.T) {
+	for _, tc := range []struct{ kind, id string }{
+		{"background", "factoryN"}, {"background", "factoryE"},
+		{"background", "factoryS"}, {"background", "factoryW"},
+		{"infrastructure", "barbedWire"},
+	} {
+		if got := legacyTile(tc.kind, tc.id); got != "" {
+			t.Errorf("%s has no matching legacy source, got %s", tc.id, got)
+		}
+	}
+	if got := legacyTile("background", "factoryN_w"); got != "legacy/python/gfx/hexTypes/hex_factoryN_winter.png" {
+		t.Errorf("existing winter reference changed: %s", got)
+	}
+}
+
 func TestCurrentGameSelection(t *testing.T) {
 	r, err := os.OpenRoot("../..")
 	if err != nil {
@@ -95,7 +110,7 @@ func TestCurrentGameSelection(t *testing.T) {
 			}
 		}
 	}
-	want := map[string]int{"Terrain": 158, "Sprites": 43, "Portraits": 48, "Interface": 117, "Screens": 36, "Screen components": 73}
+	want := map[string]int{"Terrain": 163, "Sprites": 48, "Portraits": 48, "Interface": 117, "Screens": 36, "Screen components": 73}
 	for k, n := range want {
 		if counts[k] != n {
 			t.Errorf("%s: got %d, want %d", k, counts[k], n)
@@ -126,7 +141,7 @@ func TestCurrentGameSelection(t *testing.T) {
 			t.Fatalf("snapshot geometry %s", p.Source)
 		}
 	}
-	t.Logf("%d current entries, %d complete image snapshots, 27 bindings, 540 authored sprite variants", len(c.items), len(checked))
+	t.Logf("%d current entries, %d complete image snapshots, %d bindings, %d authored sprite variants", len(c.items), len(checked), len(bindings), counts["Sprites"]*36)
 	// Exercise the actual PULSE bindings: a unit family's ledger name can differ
 	// from its runtime pack slug, so source-file placement tests alone miss it.
 	if err := c.pulse(""); err != nil {
@@ -292,7 +307,7 @@ const browserSmoke = `
  const assert=(x,m)=>{if(!x)throw Error(m)};
  const change=(id,value)=>{const el=document.getElementById(id);el.value=value;el.dispatchEvent(new Event(id==='search'||id==='slider'?'input':'change',{bubbles:true}));};
  try {
-  assert(document.querySelectorAll('.entry').length===414,'initial selection');
+  assert(document.querySelectorAll('.entry').length===catalog.items.length,'initial selection');
   change('category','Sprites');change('search','infantry');
   document.querySelector('[data-id="sprite/infantry"]').click();
   assert(document.getElementById('variant').options.length===36,'sprite variants');

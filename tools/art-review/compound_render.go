@@ -32,7 +32,7 @@ func compoundLayoutFor(id string) (compoundLayout, error) {
 	case "hq-summer", "hq-winter":
 		l.Layout = "hq"
 		l.Height = 240
-	case "factory-winter":
+	case "factory-summer", "factory-winter":
 		l.Layout = "factory"
 		l.EntryCell = "E"
 	case "mountain-summer", "mountain-winter":

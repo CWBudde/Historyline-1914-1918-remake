@@ -355,6 +355,9 @@ func (c *collector) images(paths map[string]string, pins map[string]string, w, h
 // Python remake, which names some tiles differently.
 func legacyTile(kind, id string) string {
 	if kind == "infrastructure" {
+		if id == "barbedWire" {
+			return ""
+		}
 		cross := map[string]string{"cross1": "crossRail36Path14", "cross2": "crossRail36Road14", "cross3": "crossRail36Road25", "cross4": "crossRail14Path36"}
 		name := id
 		if c := cross[id]; c != "" {
@@ -365,6 +368,10 @@ func legacyTile(kind, id string) string {
 		return "legacy/python/gfx/infrastructure/" + name + ".png"
 	}
 	name := id
+	switch name {
+	case "factoryN", "factoryE", "factoryS", "factoryW":
+		return ""
+	}
 	// New outlet variants share their base shoreline's legacy reference.
 	if strings.HasPrefix(name, "lakeside") {
 		name, _, _ = strings.Cut(name, "-outlet")
@@ -421,6 +428,9 @@ func (c *collector) tiles() error {
 			return err
 		}
 		note := "Current enabled " + kind + " binding. This single-asset view uses its default context export; the PULSE study resolves available neighbor contexts through the shared compositor. Final runtime acceptance remains open."
+		if ref == nil {
+			note += " No matching legacy reference is available for this authored tile."
+		}
 		if strings.HasPrefix(name, "lakeside") && strings.Contains(name, "-outlet") {
 			note += " The reference is the base shoreline; the new outlet has no separate legacy tile."
 		}

@@ -56,6 +56,7 @@ func TestCompoundReferenceFramingManifestValidation(t *testing.T) {
 		{"hq-winter", "reference-layout", false},
 		{"depot-summer", "reference-layout", false},
 		{"depot-winter", "reference-layout", false},
+		{"factory-summer", "reference-layout", false},
 		{"factory-winter", "reference-layout", false},
 		{"depot-summer", "unknown", true},
 		{"mountain-summer", "reference-layout", true},
@@ -109,7 +110,7 @@ func TestCompoundReferenceFramingActualPNGAssembly(t *testing.T) {
 	path, m := compoundTestFixture(t)
 	m.Grounds["winter"] = m.Grounds["summer"]
 	m.Scenes = nil
-	for _, id := range []string{"hq-summer", "hq-winter", "depot-summer", "depot-winter", "factory-winter"} {
+	for _, id := range []string{"hq-summer", "hq-winter", "depot-summer", "depot-winter", "factory-summer", "factory-winter"} {
 		l, err := compoundLayoutFor(id)
 		if err != nil {
 			t.Fatal(err)

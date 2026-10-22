@@ -7,7 +7,7 @@ size, anchor, art key such as `terrain/road`); packed entries are in pack order.
 
 ```sh
 go run ./cmd/hlasset build -density 2 -out build/packs/interface-2x        # interface (1, 2 or 4)
-go run ./cmd/hlasset build-units   -out build/packs/units                  # 43 unit families
+go run ./cmd/hlasset build-units   -out build/packs/units                  # 48 unit families
 go run ./cmd/hlasset build-terrain -out build/packs/terrain                # tiles, overlays, contexts
 go run ./cmd/hlasset build-screens -out build/packs/screens                # menu frames, controls, paintings
 go run ./cmd/hlasset validate -root <pack> -allow-candidates
@@ -64,6 +64,9 @@ origin mod 568×320 for hills). Neighbours from another family count as the seas
 outside the map the centre continues. Without a context tile the default tile is drawn and a gap is recorded
 (`missing` or `undefined`). The three shipped levels have no gaps. Compounds must form complete groups; stray
 pieces are reported, never completed.
+
+Factory compounds have matching summer and winter four-cell exports. `tile/barbedWire` is a contained
+transparent infrastructure patch for either seasonal ground; sapper placement and removal are not bound yet.
 
 Lakes use reusable shore, water and water-stone tiles; the current catalogue has no whole-lake stamp.
 For one adjacent stream facing a fully-land shore edge, the compositor selects

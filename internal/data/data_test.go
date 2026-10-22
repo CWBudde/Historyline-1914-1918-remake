@@ -83,11 +83,45 @@ func show(p *int) any {
 	return *p
 }
 
+var summerFactoryAliases = map[string]string{
+	"factoryN": "factoryN_w",
+	"factoryE": "factoryE_w",
+	"factoryS": "factoryS_w",
+	"factoryW": "factoryW_w",
+}
+
+func TestSummerFactoryAliasesMatchWinterModifiers(t *testing.T) {
+	s := loadSet(t)
+	for summer, winter := range summerFactoryAliases {
+		t.Run(summer, func(t *testing.T) {
+			got, ok := s.Terrain[summer]
+			if !ok {
+				t.Fatalf("summer factory terrain %q missing", summer)
+			}
+			want, ok := s.Terrain[winter]
+			if !ok {
+				t.Fatalf("winter factory terrain %q missing", winter)
+			}
+			if !reflect.DeepEqual(got, want) {
+				t.Errorf("summer %q modifiers %+v differ from winter %q: %+v", summer, got, winter, want)
+			}
+		})
+	}
+}
+
 func TestTerrainUnitsWeaponsMatchPython(t *testing.T) {
 	p, s := loadPython(t), loadSet(t)
 
-	if len(s.Terrain) != len(p.Terrain) {
-		t.Errorf("terrain: %d ids, Python has %d", len(s.Terrain), len(p.Terrain))
+	// Summer factory art adds aliases whose modifiers are checked against the
+	// winter records separately; every original terrain value remains pinned.
+	originalTerrainIDs := 0
+	for id := range s.Terrain {
+		if _, alias := summerFactoryAliases[id]; !alias {
+			originalTerrainIDs++
+		}
+	}
+	if originalTerrainIDs != len(p.Terrain) {
+		t.Errorf("terrain: %d original ids, Python has %d", originalTerrainIDs, len(p.Terrain))
 	}
 	for id, want := range p.Terrain {
 		got, ok := s.Terrain[id]

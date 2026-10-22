@@ -30,7 +30,7 @@ const composerSmoke = `
   const n=cell(scene(),3,1).layers[0],nw=cell(scene(),4,1).layers[0],center=cell(scene(),5,1).layers[0];
   assert(n.asset==='background/hqN'&&nw.asset==='background/hqNW'&&center.asset==='background/hqC','HQ part bindings');
   const p=origin(3,1),q=origin(4,1);assert(p.x-q.x===71&&q.y-p.y===40,'compound registration');
-  for(const [template,count]of[['hq-summer',7],['hq-winter',7],['depot-summer',4],['depot-winter',4],['factory-winter',4]]){
+  for(const [template,count]of[['hq-summer',7],['hq-winter',7],['depot-summer',4],['depot-winter',4],['factory-summer',4],['factory-winter',4]]){
    const s=makeScene(template);validate({schema_version:1,name:'templates',scenes:[s]});
    assert(s.cells.filter(c=>c.layers.some(l=>l.asset.startsWith('background/')&&!l.asset.startsWith('background/grass'))).length===count,'template '+template);
    if(template.startsWith('hq-')){

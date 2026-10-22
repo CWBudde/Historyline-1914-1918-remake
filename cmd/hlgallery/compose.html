@@ -9,7 +9,7 @@
 <label>Collection name<input id="collection-name" maxlength="64"></label>
 <label>Scene<select id="scenes"></select></label>
 <label>Scene name<input id="scene-name" maxlength="64"></label>
-<label>New scene template<select id="template"><option value="blank">Empty grid</option><option value="grass">Grass field</option><option value="hq-summer" selected>HQ · summer</option><option value="hq-winter">HQ · winter</option><option value="depot-summer">Depot · summer</option><option value="depot-winter">Depot · winter</option><option value="factory-winter">Factory · winter</option><option value="road-unit">Grass + road + units</option></select></label>
+<label>New scene template<select id="template"><option value="blank">Empty grid</option><option value="grass">Grass field</option><option value="hq-summer" selected>HQ · summer</option><option value="hq-winter">HQ · winter</option><option value="depot-summer">Depot · summer</option><option value="depot-winter">Depot · winter</option><option value="factory-summer">Factory · summer</option><option value="factory-winter">Factory · winter</option><option value="road-unit">Grass + road + units</option></select></label>
 <div class="row"><button id="add-scene">Add scene</button><button id="duplicate">Duplicate</button><button id="delete-scene">Delete scene</button></div>
 <div class="row"><button id="export">Export collection</button><button id="import">Import collection</button><input id="file" type="file" accept="application/json,.json"></div>
 </div><hr><h2>Choose a piece</h2><div class="stack">
@@ -43,7 +43,7 @@ function inside(s,row,col){return Number.isInteger(row)&&Number.isInteger(col)&&
 function cell(s,row,col){return s.cells.find(c=>c.row===row&&c.col===col);}
 function layer(asset,variant){return {asset,variant:variant||assets.get(asset).variants[0].id,dx:0,dy:0,visible:true};}
 function makeScene(template){
- const names={blank:'Empty grid',grass:'Grass field','hq-summer':'HQ · summer','hq-winter':'HQ · winter','depot-summer':'Depot · summer','depot-winter':'Depot · winter','factory-winter':'Factory · winter','road-unit':'Grass + road + units'};
+ const names={blank:'Empty grid',grass:'Grass field','hq-summer':'HQ · summer','hq-winter':'HQ · winter','depot-summer':'Depot · summer','depot-winter':'Depot · winter','factory-summer':'Factory · summer','factory-winter':'Factory · winter','road-unit':'Grass + road + units'};
  if(!names[template])throw Error('Unknown template');
  const s={id:newID(),name:names[template],columns:4,rows:7,cells:[]};
  for(let row=0;row<s.rows;row++)for(let col=0;col<s.columns-row%2;col++)s.cells.push({row,col,layers:template==='blank'?[]:[layer('background/grass'+(template.endsWith('winter')?'_w':''))]});
@@ -52,7 +52,7 @@ function makeScene(template){
   for(let row=7;row<s.rows;row++)for(let col=0;col<s.columns-row%2;col++)s.cells.push({row,col,layers:[layer('background/grass'+(template.endsWith('winter')?'_w':''))]});
   cell(s,1,1).layers.push(layer('infrastructure/road36'));
   for(const [part,row,col] of [['N',3,1],['NW',4,1],['NE',4,2],['C',5,1],['SW',6,1],['SE',6,2],['S',7,1]])cell(s,row,col).layers=[layer('background/hq'+part+(template.endsWith('winter')?'_w':''))];
- }else if(template.startsWith('depot-')||template==='factory-winter'){
+ }else if(template.startsWith('depot-')||template.startsWith('factory-')){
   const prefix=template.startsWith('depot-')?'cmp':'factory',suffix=template.endsWith('winter')?'_w':'';
   for(const [part,row,col]of[['N',1,1],['W',2,1],['E',2,2],['S',3,1]])cell(s,row,col).layers=[layer('background/'+prefix+part+suffix)];
  }else if(template==='road-unit'){

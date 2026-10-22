@@ -3,12 +3,12 @@ id: terrain/factory
 title: Factory
 kind: terrain
 status: candidate
-runtime_ids: factoryE_w, factoryN_w, factoryS_w, factoryW_w
-masters: factory-winter-v2.png, factory-winter-v1.png
+runtime_ids: factoryE, factoryN, factoryS, factoryW, factoryE_w, factoryN_w, factoryS_w, factoryW_w
+masters: factory-summer-v1.png, factory-winter-v2.png, factory-winter-v1.png
 ---
 
 ## Look
-A small, humble industrial works over a four-hex diamond, shown in winter: connected olive-brown roofs,
+A small, humble industrial works over a four-hex diamond, shown in matching summer and winter variants: connected olive-brown roofs,
 a boiler house with chimney vent, a small water basin and turquoise tanks, with a street leaving to the
 east.
 
@@ -21,9 +21,12 @@ rows of short tan machinery sheds with pipes and three turquoise storage tanks. 
 building with a loading bay. Patchy snow on roofs and pads; ground between buildings transparent.
 Everything inside the four-hex diamond outline.
 
+Summer variant: Seasonal edit ONLY of this transparent factory compound. Preserve EXACT strict orthographic NADIR roof-plan camera, every building/roof/chimney/tank/basin/pipe placement and size, same FOUR-HEX diamond layout, internal northsouth/cross streets and east road exit at SAME position/width. Convert WINTER to temperate European SUMMER: remove ALL snow/ice from roofs, pads, pipes, roadside and shrubs; reveal weathered olivebrown corrugatedmetal roofs, beige brickmasonry and warmgrey concrete. Small evergreen/deciduousshrubswarmgreen. Coolturquoise waterbasin/tanks preserved. Open ground BETWEEN all buildings/pads and OUTSIDE compound genuinely alpha0, no meadowpainting or dirtmatte, so reusable runtimegrass shows through. Keep naturalpaintedmaterialdetailandupperleftdiffuselighting matchingoriginal. TrueRGBAtransparencythroughallgaps, same1536x1024canvas/framing/scale, clean crisp edges. No new structures, larger silhouette, groundshadow,haze,smoke,people,vehicles,text,insignia,frames,hexoutlines orcheckerboard. Samegeometry, summerseasononly.
+
 ## Variants
 | Variant | Runtime IDs | Prompt delta |
 | --- | --- | --- |
+| summer cells N/E/S/W | factoryN, factoryE, factoryS, factoryW | Same diamond geometry without snow; open ground uses summer meadow. |
 | cell N | factoryN_w | Slice of the winter factory scene at the N cell. |
 | cell E | factoryE_w | Slice of the winter factory scene at the E cell. |
 | cell S | factoryS_w | Slice of the winter factory scene at the S cell. |
@@ -38,10 +41,10 @@ Selected source is native 1536x1024 `factory-winter-v2.png`, generated with buil
 alpha. The edit prompt preserves the prior winter factory's complete layout, road widths and building
 positions while repainting fine corrugated metal, masonry, piping, turquoise tanks, basin and patchy
 snow with the material precision of `ground-crater-summer-v1.png`. Open ground stays transparent for the seasonal
-meadow. No summer factory runtime ID is enabled.
+meadow. Summer runtime IDs use the same four-cell diamond, east road port and reference framing.
 
 `art-review -compound art/pipeline/compound-factory-v2.json` places the scene on winter meadow and slices
-the four cells. Winter only. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
+the four winter cells. `compound-factory-summer-v1.json` exports the four matching summer cells. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
 
 ## Avoid
 - visible tiling or repeated rounded "pillow" patterns

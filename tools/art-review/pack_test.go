@@ -366,6 +366,95 @@ func TestPackCropsBeforeReductionWithoutOutsideColorBleeding(t *testing.T) {
 	}
 }
 
+func TestPackTransparentOptInPreservesPNGAlphaWithoutMatte(t *testing.T) {
+	dir, manifest, src := packFixture(t, 803, 652, false)
+	object := color.NRGBA{R: 120, G: 80, B: 40, A: 255}
+	// The centered crop is 780x650 at (11,1). Two opaque bars have a wide
+	// transparent gap; hidden white RGB must not become a resampling matte.
+	for y := range 652 {
+		for x := range 803 {
+			p := color.NRGBA{R: 255, G: 255, B: 255}
+			if y >= 131 && y < 521 && ((x >= 141 && x < 271) || (x >= 531 && x < 661)) {
+				p = object
+			}
+			src.SetNRGBA(x, y, p)
+		}
+	}
+	var encoded bytes.Buffer
+	if err := png.Encode(&encoded, src); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(dir, "source.png"), encoded.Bytes(), 0600); err != nil {
+		t.Fatal(err)
+	}
+	sum := sha256.Sum256(encoded.Bytes())
+	asset := manifest["assets"].([]any)[0].(map[string]any)
+	asset["source_sha256"] = hex.EncodeToString(sum[:])
+	opaqueOut := filepath.Join(dir, "opaque")
+	if err := runPack(writePackManifest(t, dir, manifest), opaqueOut, io.Discard); err == nil || !strings.Contains(err.Error(), "must be opaque") {
+		t.Fatalf("transparent source without opt-in: %v", err)
+	}
+	if _, err := os.Lstat(opaqueOut); !os.IsNotExist(err) {
+		t.Fatalf("rejected source created output: %v", err)
+	}
+	asset["transparent"] = true
+	out := filepath.Join(dir, "transparent")
+	if err := runPack(writePackManifest(t, dir, manifest), out, io.Discard); err != nil {
+		t.Fatal(err)
+	}
+	for _, density := range []int{2, 4} {
+		got, err := loadPNG(filepath.Join(out, fmt.Sprintf("plain-%dx.png", density)))
+		if err != nil {
+			t.Fatal(err)
+		}
+		if got.Bounds() != image.Rect(0, 0, 96*density, 80*density) {
+			t.Fatalf("%dx bounds: %v", density, got.Bounds())
+		}
+		if p := got.NRGBAAt(24*density, 40*density); p != object {
+			t.Fatalf("%dx opaque bar changed: %v", density, p)
+		}
+		if p := got.NRGBAAt(48*density, 40*density); p != (color.NRGBA{}) {
+			t.Fatalf("%dx gap filled: %v", density, p)
+		}
+		partial := 0
+		for y := range got.Bounds().Dy() {
+			for x := range got.Bounds().Dx() {
+				p := got.NRGBAAt(x, y)
+				if p.A == 0 {
+					if p != (color.NRGBA{}) {
+						t.Fatalf("%dx hidden RGB at %d,%d: %v", density, x, y, p)
+					}
+					continue
+				}
+				if p.R != object.R || p.G != object.G || p.B != object.B {
+					t.Fatalf("%dx matte at %d,%d: %v", density, x, y, p)
+				}
+				if p.A < 255 {
+					partial++
+				}
+			}
+		}
+		if partial == 0 {
+			t.Fatalf("%dx resampling lost partial alpha edges", density)
+		}
+	}
+	reportBytes, err := os.ReadFile(filepath.Join(out, "report.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var report struct {
+		Assets []struct {
+			Transparent bool `json:"transparent"`
+		} `json:"assets"`
+	}
+	if err := json.Unmarshal(reportBytes, &report); err != nil {
+		t.Fatal(err)
+	}
+	if len(report.Assets) != 1 || !report.Assets[0].Transparent {
+		t.Fatal("report omitted transparent source opt-in")
+	}
+}
+
 func TestPackDoesNotOverwriteExistingOutputFileOrSymlink(t *testing.T) {
 	for _, symlink := range []bool{false, true} {
 		t.Run(fmt.Sprintf("symlink=%t", symlink), func(t *testing.T) {

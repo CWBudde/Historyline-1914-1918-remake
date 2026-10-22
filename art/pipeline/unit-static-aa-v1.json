@@ -1,0 +1,58 @@
+{
+  "atlas": {
+    "source": "art/units/static-aa/atlas.png",
+    "source_sha256": "da956a9dd330da49447d8c9f190302bd6ff5966740b502c505d58c1d8d573700"
+  },
+  "family": "static-aa",
+  "framing_inset": 0.8,
+  "grounds": {
+    "grass": {
+      "2x": {
+        "source": "assets/terrain/grass/grass-2x.png",
+        "source_sha256": "3f8cfcdf0673eb0c1cc4095d8aa31b7e7c4276b5bfd071b4c9e57a7910ae5f28"
+      },
+      "4x": {
+        "source": "assets/terrain/grass/grass-4x.png",
+        "source_sha256": "06f7a6270ccd5fda640342eddbaf3f40b08d6e57b4cf81c406beeae54f3aa481"
+      }
+    },
+    "grass_w": {
+      "2x": {
+        "source": "assets/terrain/grass/grass_w-2x.png",
+        "source_sha256": "d2db0b7ce97f3145abcd651b0042654433dd7f36875de7b88438688c0716d947"
+      },
+      "4x": {
+        "source": "assets/terrain/grass/grass_w-4x.png",
+        "source_sha256": "7ac55b80d4106a18504a9529f04905a4164755363175a15a65948adb52e95cd3"
+      }
+    },
+    "mud": {
+      "2x": {
+        "source": "assets/terrain/ground/mud-2x.png",
+        "source_sha256": "25e14c5437b47dc5fee58b172d62596294411a1c7aa0f9d3a4fe9de65277af73"
+      },
+      "4x": {
+        "source": "assets/terrain/ground/mud-4x.png",
+        "source_sha256": "afd3cf6b4960bc089177d17ce98ea00f950adf642f32bcdc7094556b548358c9"
+      }
+    }
+  },
+  "palettes": {
+    "cp": [
+      205,
+      190,
+      159
+    ],
+    "ec": [
+      138,
+      164,
+      186
+    ],
+    "neutral": [
+      174,
+      174,
+      164
+    ]
+  },
+  "schema_version": 1
+}

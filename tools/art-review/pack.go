@@ -28,6 +28,8 @@ type packAsset struct {
 	Source       string `json:"source"`
 	SourceSHA256 string `json:"source_sha256"`
 	Description  string `json:"description"`
+	// Transparent permits source alpha; false requires the entire source to be opaque.
+	Transparent bool `json:"transparent,omitempty"`
 }
 
 type packCrop struct {
@@ -94,7 +96,7 @@ func runPack(manifestPath, out string, log io.Writer) (resultErr error) {
 		ManifestSHA256: hex.EncodeToString(manifestHash[:]),
 		SchemaVersion:  1, ArtDirection: manifest.ArtDirection, Status: "candidate", Resampling: "lanczos",
 		CropMethod:       "Largest exact 6:5 integer rectangle (6k by 5k, k=min(width/6,height/5)); centered with floor offsets, discarding an odd extra pixel at right/bottom. No stretching or upscaling.",
-		ResamplingMethod: "Existing alpha-aware antialiased Lanczos3: sinc(t)*sinc(t/3), widened support, pixel centers, clipped and renormalized edges; premultiplied byte RGB, float64 accumulation, clamp then unpremultiply, round half up once per reduction. No linear-light conversion.",
+		ResamplingMethod: "Existing alpha-aware antialiased Lanczos3: sinc(t)*sinc(t/3), widened support, pixel centers, clipped and renormalized edges; premultiplied byte RGB, float64 accumulation, clamp then unpremultiply, round half up once per reduction. No linear-light conversion. Sources must be opaque unless the asset opts in with transparent=true; opted-in alpha is preserved without a matte.",
 		ResamplingChain:  []string{"source -> centered 6:5 crop (no resampling)", "crop -> raw4x (384x320): lanczos3", "raw4x -> raw2x (192x160): lanczos3"},
 		Acceptance:       "Candidate only. Rectangle exports preserve overscan. Renderer clipping and multi-tile joins acceptance pending; no seamlessness or in-game acceptance claim.",
 	}
@@ -157,11 +159,12 @@ func runPack(manifestPath, out string, log io.Writer) (resultErr error) {
 		k := min(cfg.Width/6, cfg.Height/5)
 		crop := packCrop{(cfg.Width - 6*k) / 2, (cfg.Height - 5*k) / 2, 6 * k, 5 * k}
 		src := image.NewNRGBA(image.Rect(0, 0, crop.Width, crop.Height))
-		// Opacity applies to the entire source, including the discarded overscan.
+		// Unless transparency is opted in, opacity applies to the entire source,
+		// including the discarded overscan. Alpha uses the same crop and resampling.
 		for y := 0; y < cfg.Height; y++ {
 			for x := 0; x < cfg.Width; x++ {
 				p := decoded.At(x+decoded.Bounds().Min.X, y+decoded.Bounds().Min.Y)
-				if _, _, _, a := p.RGBA(); a != 65535 {
+				if _, _, _, a := p.RGBA(); !asset.Transparent && a != 65535 {
 					return fmt.Errorf("asset %s must be opaque (pixel %d,%d)", asset.ID, x, y)
 				}
 				if x >= crop.X && x < crop.X+crop.Width && y >= crop.Y && y < crop.Y+crop.Height {

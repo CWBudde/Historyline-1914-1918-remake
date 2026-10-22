@@ -53,6 +53,30 @@ func TestLooksAreTerrains(t *testing.T) {
 	}
 }
 
+func TestFactoryLooksUseSeasonalTiles(t *testing.T) {
+	for _, tc := range []struct {
+		record  int
+		terrain string
+	}{
+		{9, "factoryN"},
+		{10, "factoryS"},
+		{11, "factoryW"},
+		{12, "factoryE"},
+		{13, "factoryE"},
+		{14, "factoryE"},
+	} {
+		for _, winter := range []bool{false, true} {
+			want := tc.terrain
+			if winter {
+				want += "_w"
+			}
+			if got := Looks[tc.record].Hex(winter); got.Terrain != want || len(got.Infra.IDs) != 0 {
+				t.Errorf("record %d (winter %v): %+v, want terrain %s without overlays", tc.record, winter, got, want)
+			}
+		}
+	}
+}
+
 func hasTerrain(set *data.Set, name string) bool {
 	_, ok := set.Terrain[name]
 	return ok

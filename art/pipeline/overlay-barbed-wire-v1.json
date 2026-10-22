@@ -1,0 +1,13 @@
+{
+  "art_direction": "Contained reusable barbed-wire obstacle on true alpha, upper-left daylight; transparent gaps and margins preserve the map ground.",
+  "assets": [
+    {
+      "description": "Six wooden stakes with rusted barbed-wire coils; independent transparent patch.",
+      "id": "barbedWire",
+      "source": "art/terrain/barbed-wire/barbed-wire-shared-v1.png",
+      "source_sha256": "92f118ef3051346383534d01d42af3d25396edd560320a7679f6eb53abdbc1bc",
+      "transparent": true
+    }
+  ],
+  "schema_version": 1
+}

@@ -35,7 +35,7 @@ func TestRetainedTerrainCatalogBuilds(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	want := map[string]int{"backgrounds": 100, "infrastructure": 74, "context-ground": 110, "context-forest": 111, "context-hills": 159}
+	want := map[string]int{"backgrounds": 104, "infrastructure": 75, "context-ground": 110, "context-forest": 111, "context-hills": 159}
 	for _, e := range retainedIndex(t) {
 		if e.Density == 2 {
 			if strings.HasPrefix(e.Pack, "terrain-standing-") {

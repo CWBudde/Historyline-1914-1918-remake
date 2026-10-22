@@ -26,12 +26,12 @@ func TestCompoundFixedLayoutsAndOuterBoundary(t *testing.T) {
 		id                 string
 		n, h               int
 		first, last, entry string
-	}{{"depot-summer", 4, 160, "cmpN", "cmpS", "N"}, {"depot-winter", 4, 160, "cmpN_w", "cmpS_w", "N"}, {"hq-summer", 7, 240, "hqN", "hqS", "N"}, {"hq-winter", 7, 240, "hqN_w", "hqS_w", "N"}, {"factory-winter", 4, 160, "factoryN_w", "factoryS_w", "E"}} {
+	}{{"depot-summer", 4, 160, "cmpN", "cmpS", "N"}, {"depot-winter", 4, 160, "cmpN_w", "cmpS_w", "N"}, {"hq-summer", 7, 240, "hqN", "hqS", "N"}, {"hq-winter", 7, 240, "hqN_w", "hqS_w", "N"}, {"factory-summer", 4, 160, "factoryN", "factoryS", "E"}, {"factory-winter", 4, 160, "factoryN_w", "factoryS_w", "E"}} {
 		l, err := compoundLayoutFor(tc.id)
 		if err != nil {
 			t.Fatal(err)
 		}
-		if len(l.Tiles) != tc.n || l.Height != tc.h || l.Tiles[0].RuntimeID != tc.first || l.Tiles[tc.n-1].RuntimeID != tc.last || l.EntryCell != tc.entry {
+		if len(l.Tiles) != tc.n || l.Width != 238 || l.Height != tc.h || l.Tiles[0].RuntimeID != tc.first || l.Tiles[tc.n-1].RuntimeID != tc.last || l.EntryCell != tc.entry {
 			t.Fatalf("layout: %+v", l)
 		}
 		if l.Tiles[0].Origin != (connectionPoint{71, 0}) {
@@ -69,7 +69,7 @@ func TestCompoundFixedLayoutsAndOuterBoundary(t *testing.T) {
 			t.Fatalf("outer edge: %g", d)
 		}
 	}
-	if _, err := compoundLayoutFor("factory-summer"); err == nil {
+	if _, err := compoundLayoutFor("factory-autumn"); err == nil {
 		t.Fatal("unbounded layout")
 	}
 }
@@ -484,7 +484,7 @@ func TestCompoundInputRejections(t *testing.T) {
 			m.Grounds = map[string]connectionMaterial{"summer": base.Grounds["summer"], "winter": base.Grounds["summer"]}
 		}},
 		{"duplicate", func(m *compoundManifest) { m.Scenes = append(m.Scenes, m.Scenes[0]) }},
-		{"unsupported", func(m *compoundManifest) { m.Scenes[0].ID = "factory-summer" }},
+		{"unsupported", func(m *compoundManifest) { m.Scenes[0].ID = "factory-autumn" }},
 		{"inset", func(m *compoundManifest) { m.Scenes[0].Inset = .49 }},
 		{"hash", func(m *compoundManifest) { m.Scenes[0].Artwork.SourceSHA256 = strings.Repeat("0", 64) }},
 		{"traversal", func(m *compoundManifest) { m.Scenes[0].Artwork.Source = "../art.png" }},

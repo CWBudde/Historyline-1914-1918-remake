@@ -7857,6 +7857,53 @@
       }
     },
     {
+      "id": "terrain/barbed-wire",
+      "title": "Barbed wire",
+      "kind": "terrain",
+      "status": "revised",
+      "runtime_ids": [
+        "barbedWire"
+      ],
+      "dir": "art/terrain/barbed-wire",
+      "assets_dir": "assets/terrain/barbed-wire",
+      "prompt": "art/terrain/barbed-wire/prompt.md",
+      "masters": [
+        {
+          "path": "art/terrain/barbed-wire/barbed-wire-shared-v1.png",
+          "sha256": "92f118ef3051346383534d01d42af3d25396edd560320a7679f6eb53abdbc1bc",
+          "width": 1536,
+          "height": 1024
+        }
+      ],
+      "look": "A contained patch of weathered wooden stakes and rusted wire coils on true transparency.",
+      "base_prompt": "Create ONE reusable WWI BARBED WIRE OBSTACLE terrain-overlay game asset, trueRGBAtransparentbackground. Strict orthographicTOPDOWN NADIR view withNO horizon orperspectivetilt; commonwarmupperleftsoftdaylight. Subject ONE small irregular patch of two looselyparallel rusted barbedwire coils strung between six short weatheredwoodstakes, with a few crossingwires, shortshadowpaintedonlywithinmaterial thickness. No people,weapons,vehicles orscene. Naturalpaintedfinematerialdetail, restraineddarkrustgreysteel and beigeweatheredwood, crispantialiasededges readableat96x80, scaleabout50metresperhextile soentirewirepatchabout25metreswide. This is for seamless reusablehexterrain: no ground orsurfacemat anywhere, fullalpha0betweenwires/loops/stakesandoutside; all wireends finishinsidepatchratherthantileborders. Entireobjectinsidecentral65%width AND central55%height, generousalphamargins onall4sides. Singlepatch, NOTmultiplepanels orviews. Canvas1536x1280landscape6:5ideal, preserving completepatchinsidecentred6:5crop. HandpaintedillustrationmatchinglushwarmWWI strategyterrain, naturaltexturesnotphotograph/pixelart/vector/3Drender. No paintedgrass,earth,castshadow,haze,glow,checkerboard,hexoutline,borders,text,labels,insignia orwatermark.",
+      "variants": [
+        {
+          "variant": "contained obstacle",
+          "runtime_ids": [
+            "barbedWire"
+          ],
+          "delta": "Six stakes, wire loops and transparent gaps; no edge ports."
+        }
+      ],
+      "edges": "The obstacle ends inside the hex; all margins and gaps are transparent over the map's own ground.\nIt is an independent patch rather than a connected fence, reusable over summer and winter ground.",
+      "post": "`art-review -pack art/pipeline/overlay-barbed-wire-v1.json` preserves alpha through the centred 6:5 crop\nand fixed Lanczos3 2×/4× exports (192×160 and 384×320). Runtime anchor (48,40).\nSapper placement and removal remain separate gameplay work.",
+      "avoid": [
+        "ground patches, opaque mattes, painted shadows or border-crossing wire ends",
+        "text, insignia, perspective scenery or people"
+      ],
+      "runtime": {
+        "count": 2,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/terrain/barbed-wire/barbedWire-4x.png"
+        ]
+      }
+    },
+    {
       "id": "terrain/bridge",
       "title": "Footbridge",
       "kind": "terrain",
@@ -8134,6 +8181,10 @@
       "kind": "terrain",
       "status": "candidate",
       "runtime_ids": [
+        "factoryE",
+        "factoryN",
+        "factoryS",
+        "factoryW",
         "factoryE_w",
         "factoryN_w",
         "factoryS_w",
@@ -8143,6 +8194,12 @@
       "assets_dir": "assets/terrain/factory",
       "prompt": "art/terrain/factory/prompt.md",
       "masters": [
+        {
+          "path": "art/terrain/factory/factory-summer-v1.png",
+          "sha256": "5c3e71abc98e648516d85e6f79759d3144988d5ee34606d0c342a50989e566a7",
+          "width": 1536,
+          "height": 1024
+        },
         {
           "path": "art/terrain/factory/factory-winter-v2.png",
           "sha256": "f6437d5990586b930c9e163a0208e2a042eb50ae614f33847efb2b6d2d9655bd",
@@ -8156,9 +8213,19 @@
           "height": 1024
         }
       ],
-      "look": "A small, humble industrial works over a four-hex diamond, shown in winter: connected olive-brown roofs,\na boiler house with chimney vent, a small water basin and turquoise tanks, with a street leaving to the\neast.",
-      "base_prompt": "Transparent whole-scene cut-out, 3:2, strict nadir roof plan, winter: a dense humble factory compound.\nA grey internal street runs north-south through the centre with a cross street, and a branch leaves\ntowards the right (east) edge. West: twin long sheds with repeated roof bays. North: a tall narrow\nboiler house with a small square chimney vent and a small cyan water basin in a low parapet. East:\nrows of short tan machinery sheds with pipes and three turquoise storage tanks. South: a square service\nbuilding with a loading bay. Patchy snow on roofs and pads; ground between buildings transparent.\nEverything inside the four-hex diamond outline.",
+      "look": "A small, humble industrial works over a four-hex diamond, shown in matching summer and winter variants: connected olive-brown roofs,\na boiler house with chimney vent, a small water basin and turquoise tanks, with a street leaving to the\neast.",
+      "base_prompt": "Transparent whole-scene cut-out, 3:2, strict nadir roof plan, winter: a dense humble factory compound.\nA grey internal street runs north-south through the centre with a cross street, and a branch leaves\ntowards the right (east) edge. West: twin long sheds with repeated roof bays. North: a tall narrow\nboiler house with a small square chimney vent and a small cyan water basin in a low parapet. East:\nrows of short tan machinery sheds with pipes and three turquoise storage tanks. South: a square service\nbuilding with a loading bay. Patchy snow on roofs and pads; ground between buildings transparent.\nEverything inside the four-hex diamond outline.\n\nSummer variant: Seasonal edit ONLY of this transparent factory compound. Preserve EXACT strict orthographic NADIR roof-plan camera, every building/roof/chimney/tank/basin/pipe placement and size, same FOUR-HEX diamond layout, internal northsouth/cross streets and east road exit at SAME position/width. Convert WINTER to temperate European SUMMER: remove ALL snow/ice from roofs, pads, pipes, roadside and shrubs; reveal weathered olivebrown corrugatedmetal roofs, beige brickmasonry and warmgrey concrete. Small evergreen/deciduousshrubswarmgreen. Coolturquoise waterbasin/tanks preserved. Open ground BETWEEN all buildings/pads and OUTSIDE compound genuinely alpha0, no meadowpainting or dirtmatte, so reusable runtimegrass shows through. Keep naturalpaintedmaterialdetailandupperleftdiffuselighting matchingoriginal. TrueRGBAtransparencythroughallgaps, same1536x1024canvas/framing/scale, clean crisp edges. No new structures, larger silhouette, groundshadow,haze,smoke,people,vehicles,text,insignia,frames,hexoutlines orcheckerboard. Samegeometry, summerseasononly.",
       "variants": [
+        {
+          "variant": "summer cells N/E/S/W",
+          "runtime_ids": [
+            "factoryN",
+            "factoryE",
+            "factoryS",
+            "factoryW"
+          ],
+          "delta": "Same diamond geometry without snow; open ground uses summer meadow."
+        },
         {
           "variant": "cell N",
           "runtime_ids": [
@@ -8189,7 +8256,7 @@
         }
       ],
       "edges": "Sliced into four hex crops with shared placements; the east street meets the regular road tile at\nits port.",
-      "post": "Selected source is native 1536x1024 `factory-winter-v2.png`, generated with built-in imagegen and true\nalpha. The edit prompt preserves the prior winter factory's complete layout, road widths and building\npositions while repainting fine corrugated metal, masonry, piping, turquoise tanks, basin and patchy\nsnow with the material precision of `ground-crater-summer-v1.png`. Open ground stays transparent for the seasonal\nmeadow. No summer factory runtime ID is enabled.\n\n`art-review -compound art/pipeline/compound-factory-v2.json` places the scene on winter meadow and slices\nthe four cells. Winter only. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.",
+      "post": "Selected source is native 1536x1024 `factory-winter-v2.png`, generated with built-in imagegen and true\nalpha. The edit prompt preserves the prior winter factory's complete layout, road widths and building\npositions while repainting fine corrugated metal, masonry, piping, turquoise tanks, basin and patchy\nsnow with the material precision of `ground-crater-summer-v1.png`. Open ground stays transparent for the seasonal\nmeadow. Summer runtime IDs use the same four-cell diamond, east road port and reference framing.\n\n`art-review -compound art/pipeline/compound-factory-v2.json` places the scene on winter meadow and slices\nthe four winter cells. `compound-factory-summer-v1.json` exports the four matching summer cells. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.",
       "avoid": [
         "visible tiling or repeated rounded \"pillow\" patterns",
         "perspective, horizon or tilted camera",
@@ -8199,12 +8266,16 @@
         "smoke plumes, people or vehicles"
       ],
       "runtime": {
-        "count": 8,
+        "count": 16,
         "densities": [
           2,
           4
         ],
         "samples": [
+          "assets/terrain/factory/factoryE-4x.png",
+          "assets/terrain/factory/factoryN-4x.png",
+          "assets/terrain/factory/factoryS-4x.png",
+          "assets/terrain/factory/factoryW-4x.png",
           "assets/terrain/factory/factoryE_w-4x.png",
           "assets/terrain/factory/factoryN_w-4x.png",
           "assets/terrain/factory/factoryS_w-4x.png",
@@ -10674,6 +10745,83 @@
       }
     },
     {
+      "id": "units/anti-tank",
+      "title": "Anti-tank weapons",
+      "kind": "unit",
+      "status": "revised",
+      "runtime_ids": [
+        "unit/anti-tank"
+      ],
+      "dir": "art/units/anti-tank",
+      "assets_dir": "assets/units/anti-tank",
+      "prompt": "art/units/anti-tank/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/anti-tank/atlas.png",
+          "sha256": "635a34b1497d9d2d26161ee845fe64d7f766273602c5a92dcc88e515a87ad679",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI Anti-tank weapons. A distinct period silhouette,\nfixed upper-left lighting and technical magenta owner paint; other materials stay natural.",
+      "base_prompt": "Transparent WWI strategy sprite atlas,1024x1536RGBA,2columns x3rows of512pxcells. SIX independently painted views of SAME subject, elevated overhead three-quarter camera and upper-left lighting, natural hand-painted detailed game illustration, strong48pxsilhouette. Same equipment,crew,scale. Fit COMPLETE group in central300x300 of everycell with100px transparent margins. ROW-MAJOR subject FRONT/aim directions, not camera directions: cell1 FRONT UP (back of figures nearestviewer); cell2 FRONT UPPERLEFT (back/rightquarter nearestviewer); cell3 FRONT LOWERLEFT (front/rightquarter nearestviewer); cell4 FRONT DOWN (front of figures nearestviewer); cell5 FRONT LOWERRIGHT (front/leftquarter nearestviewer); cell6 FRONT UPPERRIGHT (back/leftquarter nearestviewer). No mirror/rotate of finishedviews. Ownershipcloth or envelope technicalMAGENTA, natural metal/wood/skin/leather elsewhere. True alpha-zero exterior AND gaps. No background, ground, shadows, haze, glow, writing, flags or insignia. ExactlyTWO infantry: ONE prone rifleman aiming ONE unusually long, heavy WWI BOLT-ACTION ANTI-TANK RIFLE supported on bipod; ONE crouched spotter alongside using binoculars. Both wear magenta uniforms and plain natural steel helmets. One long slim steel barrel, wooden stock and small simple muzzle block, NO cannon, shield, extra weapons or tripod. Rifle points at heading, with muzzle at FRONT of group, stock/bothmen toward REAR. Cell1 muzzleTOP,menBOTTOM; cell4 muzzleBOTTOM,menTOP. Preserve clear continuous rifle and hands contacting woodstock.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera, scale and lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-anti-tank-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/anti-tank/`; gameplay class binding remains open.",
+      "avoid": [
+        "water, wakes, reflections, ground shadows, backdrop or detached fragments",
+        "labels, national insignia, clipped extremities or inconsistent equipment between views"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/anti-tank/cp/n-normal-4x.png",
+          "assets/units/anti-tank/cp/nw-normal-4x.png",
+          "assets/units/anti-tank/cp/sw-normal-4x.png",
+          "assets/units/anti-tank/cp/s-normal-4x.png",
+          "assets/units/anti-tank/cp/se-normal-4x.png",
+          "assets/units/anti-tank/cp/ne-normal-4x.png",
+          "assets/units/anti-tank/ec/n-normal-4x.png",
+          "assets/units/anti-tank/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
       "id": "units/armored-car",
       "title": "Armoured car",
       "kind": "unit",
@@ -11155,6 +11303,83 @@
           "assets/units/charron/cp/ne-normal-4x.png",
           "assets/units/charron/ec/n-normal-4x.png",
           "assets/units/charron/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "units/construction-unit",
+      "title": "Construction unit",
+      "kind": "unit",
+      "status": "revised",
+      "runtime_ids": [
+        "unit/construction-unit"
+      ],
+      "dir": "art/units/construction-unit",
+      "assets_dir": "assets/units/construction-unit",
+      "prompt": "art/units/construction-unit/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/construction-unit/atlas.png",
+          "sha256": "33571bb01f7c0aa9e931b751e50d1ff3fd0a8022e614a0de6534d331168a6f4f",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI Construction unit. A distinct period silhouette,\nfixed upper-left lighting and technical magenta owner paint; other materials stay natural.",
+      "base_prompt": "Newly authored hand-painted WWI tactical game sprite atlas. Identity reference: supplied portrait ONLY for subject/equipment; do NOT copy background, scene or camera. Exact1024x1536RGBA, two columns x three rows of512pxcells. Six independently painted elevated overhead three-quarter views, fixed camera and upper-left lighting; row-major FRONT headings UP, UPPERLEFT, LOWERLEFT, DOWN, LOWERRIGHT, UPPERRIGHT. Same equipment, crew count, proportions and scale in all6; never rotate or mirror a finished view. Centre each complete group at cell(256,261), fit whole group within central320x320, at least80px genuinely alpha-zero cell margins. Finely painted material detail, crisp silhouette readable48px. Ownership paint/fabric/uniforms shaded technicalMAGENTA; natural wood/steel/skin/leather/rubber. True transparent background including gaps. No ground, earth slab, castshadow, backdrop, halo, haze, writing, insignia, flags, grid, panels or labels. Subject: ONE unarmed early open-cab FOUR-wheeled flatbed lorry carrying stacked timber, tool chest and shovels, plus exactlyTWO helmeted engineers standing next to it holding hammer and shovel. Straight rectangular front radiator, two headlights, long bonnet, open steering cab and rear timber bed. No shed, road or surrounding scenery. Lorry bonnet points toward the heading; engineers work beside it.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera, scale and lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-construction-unit-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/construction-unit/`; gameplay class binding remains open.",
+      "avoid": [
+        "water, wakes, reflections, ground shadows, backdrop or detached fragments",
+        "labels, national insignia, clipped extremities or inconsistent equipment between views"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/construction-unit/cp/n-normal-4x.png",
+          "assets/units/construction-unit/cp/nw-normal-4x.png",
+          "assets/units/construction-unit/cp/sw-normal-4x.png",
+          "assets/units/construction-unit/cp/s-normal-4x.png",
+          "assets/units/construction-unit/cp/se-normal-4x.png",
+          "assets/units/construction-unit/cp/ne-normal-4x.png",
+          "assets/units/construction-unit/ec/n-normal-4x.png",
+          "assets/units/construction-unit/neutral/n-normal-4x.png"
         ]
       }
     },
@@ -12491,6 +12716,83 @@
       }
     },
     {
+      "id": "units/mobile-aa",
+      "title": "Mobile anti-aircraft emplacement",
+      "kind": "unit",
+      "status": "revised",
+      "runtime_ids": [
+        "unit/mobile-aa"
+      ],
+      "dir": "art/units/mobile-aa",
+      "assets_dir": "assets/units/mobile-aa",
+      "prompt": "art/units/mobile-aa/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/mobile-aa/atlas.png",
+          "sha256": "7af95acef947949175a03a9c02078a23c85609206ae1b60458cbb9b7455a0008",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI Mobile anti-aircraft emplacement. A distinct period silhouette,\nfixed upper-left lighting and technical magenta owner paint; other materials stay natural.",
+      "base_prompt": "Newly authored hand-painted WWI tactical game sprite atlas. Identity reference: supplied portrait ONLY for subject/equipment; do NOT copy background, scene or camera. Exact1024x1536RGBA, two columns x three rows of512pxcells. Six independently painted elevated overhead three-quarter views, fixed camera and upper-left lighting; row-major FRONT headings UP, UPPERLEFT, LOWERLEFT, DOWN, LOWERRIGHT, UPPERRIGHT. Same equipment, crew count, proportions and scale in all6; never rotate or mirror a finished view. Centre each complete group at cell(256,261), fit whole group within central320x320, at least80px genuinely alpha-zero cell margins. Finely painted material detail, crisp silhouette readable48px. Ownership paint/fabric/uniforms shaded technicalMAGENTA; natural wood/steel/skin/leather/rubber. True transparent background including gaps. No ground, earth slab, castshadow, backdrop, halo, haze, writing, insignia, flags, grid, panels or labels. Subject: ONE early open-cab FOUR-wheeled lorry with single high-angle anti-aircraft CANNON mounted on pedestal on rear flatbed, exactlyTWO helmeted crew standing on rear platform beside gun controls. Long bonnet/radiator and two lamps at FRONT, open steering cab, no driver. ONE cannon with single barrel elevated10degrees toward vehicle FRONT; small gun shield. Magenta lorry paint/crewcloth, natural steel cannon/wooden bed. Whole vehicle, gun, four wheels and both crew visible.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera, scale and lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-mobile-aa-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/mobile-aa/`; gameplay class binding remains open.",
+      "avoid": [
+        "water, wakes, reflections, ground shadows, backdrop or detached fragments",
+        "labels, national insignia, clipped extremities or inconsistent equipment between views"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/mobile-aa/cp/n-normal-4x.png",
+          "assets/units/mobile-aa/cp/nw-normal-4x.png",
+          "assets/units/mobile-aa/cp/sw-normal-4x.png",
+          "assets/units/mobile-aa/cp/s-normal-4x.png",
+          "assets/units/mobile-aa/cp/se-normal-4x.png",
+          "assets/units/mobile-aa/cp/ne-normal-4x.png",
+          "assets/units/mobile-aa/ec/n-normal-4x.png",
+          "assets/units/mobile-aa/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
       "id": "units/morane-saulnier-n",
       "title": "Morane-Saulnier N",
       "kind": "unit",
@@ -13265,6 +13567,160 @@
           "assets/units/st-chamond/cp/ne-normal-4x.png",
           "assets/units/st-chamond/ec/n-normal-4x.png",
           "assets/units/st-chamond/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "units/static-aa",
+      "title": "Static anti-aircraft emplacement",
+      "kind": "unit",
+      "status": "revised",
+      "runtime_ids": [
+        "unit/static-aa"
+      ],
+      "dir": "art/units/static-aa",
+      "assets_dir": "assets/units/static-aa",
+      "prompt": "art/units/static-aa/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/static-aa/atlas.png",
+          "sha256": "da956a9dd330da49447d8c9f190302bd6ff5966740b502c505d58c1d8d573700",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI Static anti-aircraft emplacement. A distinct period silhouette,\nfixed upper-left lighting and technical magenta owner paint; other materials stay natural.",
+      "base_prompt": "Newly authored hand-painted WWI tactical game sprite atlas. Identity reference: supplied portrait ONLY for subject/equipment; do NOT copy background, scene or camera. Exact1024x1536RGBA, two columns x three rows of512pxcells. Six independently painted elevated overhead three-quarter views, fixed camera and upper-left lighting; row-major FRONT headings UP, UPPERLEFT, LOWERLEFT, DOWN, LOWERRIGHT, UPPERRIGHT. Same equipment, crew count, proportions and scale in all6; never rotate or mirror a finished view. Centre each complete group at cell(256,261), fit whole group within central320x320, at least80px genuinely alpha-zero cell margins. Finely painted material detail, crisp silhouette readable48px. Ownership paint/fabric/uniforms shaded technicalMAGENTA; natural wood/steel/skin/leather/rubber. True transparent background including gaps. No ground, earth slab, castshadow, backdrop, halo, haze, writing, insignia, flags, grid, panels or labels. Subject: ONE fixed water-cooled heavy machine gun on a tall natural wooden THREE-legged anti-aircraft tripod, barrel raised about10degrees toward heading; exactlyTWO helmeted crew, one standing gunner behind breech and one crouched loader beside ammo box with linked belt. Small freestanding sandbag crescent behind crew, no ground disc. Gun is one thin barrel with thicker ribbed cooling jacket, NOT artillery, no wheels. Hands contact controls/belt coherently.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera, scale and lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-static-aa-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/static-aa/`; gameplay class binding remains open.",
+      "avoid": [
+        "water, wakes, reflections, ground shadows, backdrop or detached fragments",
+        "labels, national insignia, clipped extremities or inconsistent equipment between views"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/static-aa/cp/n-normal-4x.png",
+          "assets/units/static-aa/cp/nw-normal-4x.png",
+          "assets/units/static-aa/cp/sw-normal-4x.png",
+          "assets/units/static-aa/cp/s-normal-4x.png",
+          "assets/units/static-aa/cp/se-normal-4x.png",
+          "assets/units/static-aa/cp/ne-normal-4x.png",
+          "assets/units/static-aa/ec/n-normal-4x.png",
+          "assets/units/static-aa/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "units/static-balloon",
+      "title": "Static balloon",
+      "kind": "unit",
+      "status": "revised",
+      "runtime_ids": [
+        "unit/static-balloon"
+      ],
+      "dir": "art/units/static-balloon",
+      "assets_dir": "assets/units/static-balloon",
+      "prompt": "art/units/static-balloon/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/static-balloon/atlas.png",
+          "sha256": "50190da70cfc1c12c483ccd6129dfd2c6d4dff67fbbacd251dd15eedd53dfbc1",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI Static balloon. A distinct period silhouette,\nfixed upper-left lighting and technical magenta owner paint; other materials stay natural.",
+      "base_prompt": "Transparent WWI strategy sprite atlas,1024x1536RGBA,2columns x3rows of512pxcells. SIX independently painted views of SAME subject, elevated overhead three-quarter camera and upper-left lighting, natural hand-painted detailed game illustration, strong48pxsilhouette. Same equipment,crew,scale. Fit COMPLETE group in central300x300 of everycell with100px transparent margins. ROW-MAJOR subject FRONT/aim directions, not camera directions: cell1 FRONT UP (back of figures nearestviewer); cell2 FRONT UPPERLEFT (back/rightquarter nearestviewer); cell3 FRONT LOWERLEFT (front/rightquarter nearestviewer); cell4 FRONT DOWN (front of figures nearestviewer); cell5 FRONT LOWERRIGHT (front/leftquarter nearestviewer); cell6 FRONT UPPERRIGHT (back/leftquarter nearestviewer). No mirror/rotate of finishedviews. Ownershipcloth or envelope technicalMAGENTA, natural metal/wood/skin/leather elsewhere. True alpha-zero exterior AND gaps. No background, ground, shadows, haze, glow, writing, flags or insignia. ONE elongated cigar-shaped tethered OBSERVATION BALLOON with rounded FRONT nose and three stabilizing fabric fins at rear, small wooden basket suspended beneath by fourriggingropes and exactlyONE observer in basket. ONE taut tether descends to ONE compact groundwinch on smalltwo-wheeled frame, exactlyTWO small groundcrew adjacent. No earthpatch. Balloon envelope magenta with seams, tailfinsmagenta, ropes/wood/naturalmetal/skin remainnatural; crewuniformsmagenta. The round NOSE points atheading and finnedTAIL opposite. Cell1 roundnoseUP, finnedtailDOWN. Cell4 roundnoseDOWN,finnedtailUP. Keep inflatedenvelope level horizontally in world,never uprightlikehotairballoon. Draw all6distinctviews, no duplicate direction.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera, scale and lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-static-balloon-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/static-balloon/`; gameplay class binding remains open.",
+      "avoid": [
+        "water, wakes, reflections, ground shadows, backdrop or detached fragments",
+        "labels, national insignia, clipped extremities or inconsistent equipment between views"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/static-balloon/cp/n-normal-4x.png",
+          "assets/units/static-balloon/cp/nw-normal-4x.png",
+          "assets/units/static-balloon/cp/sw-normal-4x.png",
+          "assets/units/static-balloon/cp/s-normal-4x.png",
+          "assets/units/static-balloon/cp/se-normal-4x.png",
+          "assets/units/static-balloon/cp/ne-normal-4x.png",
+          "assets/units/static-balloon/ec/n-normal-4x.png",
+          "assets/units/static-balloon/neutral/n-normal-4x.png"
         ]
       }
     },
