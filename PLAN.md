@@ -357,6 +357,12 @@ Stop adding enumerated baked contexts. Each one fixes the old sampling in place,
       and woodland-perimeter metrics remain open. (2026-10-22)
       The 368-page art book includes the current measurements and crown-coverage plate; both new
       pages are rasterized and reviewed. `just artbook` and the final Typst compilation pass.
+      Unit-edge measurements cover 144 north-facing normal-state sprites (48 families × 3 palettes)
+      over composed grass, forest, road and water: 576 cases, with 20 validated preview fixtures.
+      Typical median edge contrast is 12–14 L*, below the planned 30 target. Source hashes, alpha,
+      placement and composition-before-reduction checks pass under `build/review/look-units/`.
+      Other facings/states, reference/original unit baselines and acceptance aggregation remain open.
+      (2026-10-22)
 - [ ] Review views at the real size: 1× and an effective zoom of 1.6 (the planned split screen), plus
       in-game captures at 1080p and 4K. A headless capture path in `cmd/historyline` replaces the patched
       copy used for the audit.

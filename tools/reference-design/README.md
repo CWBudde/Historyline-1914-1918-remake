@@ -56,6 +56,15 @@ forest/interior, forest/frontier and grass cell; unsupported baked forest cells 
 `canopy-render.png` shows the corresponding 1× mask. Reference and original canopy coverage remain
 unavailable without independent annotations. Crown coverage is distinct from woodland-perimeter distance.
 
+The render's `unit_edge_contrast` section measures all 48 families × 3 owner palettes in the north-facing
+normal state over four deterministic runtime scenes: grass, forest, road and water. Units use their
+catalogue anchors and compose at native 2× before area reduction to 1×. The silhouette has mean alpha
+≥0.5; its four-connected boundary measures `abs(L*(composite) - L*(bare background))` at the same pixel,
+so terrain texture cannot count as unit contrast. Clipped or invalid edges are errors. Each of the 576
+cases records quantiles and the fraction of edges reaching 30 L*, with source and fixture hashes;
+`units/` contains 20 native 2× previews. Other poses, independent reference/original baselines and a
+formal passing aggregation remain open.
+
 For real game views at exact effective 1×/1.6×, add `-capture-look` to the game's `-capture DIR`
 command. It writes revealed/fogged views at 1080p and 4K and records `effective_zoom` alongside camera
 zoom and UI scale. Capture outputs stay under `build/`.

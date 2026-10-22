@@ -37,6 +37,7 @@ type lookSource struct {
 	Whole        *lookMetrics `json:"whole_map,omitempty"`
 	Families     []lookFamily `json:"families,omitempty"`
 	Canopy       *lookCanopy  `json:"canopy"`
+	Units        *lookUnits   `json:"unit_edge_contrast"`
 }
 
 type lookFamily struct {
@@ -134,7 +135,7 @@ func (p *project) writeLookReport(out string) error {
 		"woodland-edge distance and independently annotated reference/original canopy coverage",
 		"light skew and cast-shadow direction",
 		"water depth gradient and bank/stream width variation",
-		"unit edge contrast",
+		"unit contrast acceptance aggregation, additional facings/states and reference/original unit baselines",
 		"resolve exact material period versus low full-period autocorrelation requirement",
 	}}
 	renderSource := p.measureLookSource("render", halve(render))
@@ -162,6 +163,7 @@ func (p *project) writeLookReport(out string) error {
 	if present {
 		source := p.measureLookSource("reference", p.registered(src, 1))
 		source.Canopy = &lookCanopy{Reason: "independent reference canopy annotations unavailable"}
+		source.Units = &lookUnits{Reason: "independent reference unit baseline unavailable"}
 		source.FileSHA256 = p.ref.Image.SHA256
 		report.Sources = append(report.Sources, source)
 	} else {
@@ -173,6 +175,17 @@ func (p *project) writeLookReport(out string) error {
 	if err != nil {
 		return err
 	}
+	units, err := p.measureUnits(out)
+	if err != nil {
+		return err
+	}
+	report.Sources[0].Units = &units
+	for i := range report.Sources {
+		if report.Sources[i].Units == nil {
+			report.Sources[i].Units = &lookUnits{Reason: "source_unavailable"}
+		}
+	}
+	report.Definitions["unit_edge_contrast"] = units.Definition
 	raw, err := json.MarshalIndent(report, "", "  ")
 	if err != nil {
 		return err
