@@ -50,6 +50,12 @@ clean support; correlations need 64 paired samples. Missing measurements are nul
 This is partial Look 0 evidence: `accepted` remains false, and the feature metrics, original baseline
 and strict acceptance gate remain open. The existing `-check` behaviour is unchanged.
 
+The render's `canopy` section measures the alpha contribution of selected crown layers after later
+standing objects occlude them. Separate shadows are excluded. Coverage is pooled and listed per clean
+forest/interior, forest/frontier and grass cell; unsupported baked forest cells retain explicit reasons.
+`canopy-render.png` shows the corresponding 1× mask. Reference and original canopy coverage remain
+unavailable without independent annotations. Crown coverage is distinct from woodland-perimeter distance.
+
 For real game views at exact effective 1×/1.6×, add `-capture-look` to the game's `-capture DIR`
 command. It writes revealed/fogged views at 1080p and 4K and records `effective_zoom` alongside camera
 zoom and UI scale. Capture outputs stay under `build/`.

@@ -350,6 +350,13 @@ Stop adding enumerated baked contexts. Each one fixes the old sampling in place,
       PULSE grass σL* is 5.12 in the render versus 12.78 in the reference (88 clean cells).
       Feature metrics, original baselines and the strict acceptance gate remain open.
       Report and tests: `build/review/look-foundation/`. (2026-10-22)
+      Rendered canopy coverage now follows selected crown alpha and standing-object occlusion, with
+      per-cell and interior/frontier/grass groups. PULSE's three clean interior forest cells average
+      63.72% coverage (target ≥85%); 2×/4× total coverage agrees within 0.05%. Source/render hashes,
+      mask inspection and tests pass under `build/review/look-canopy/`. Reference canopy annotations
+      and woodland-perimeter metrics remain open. (2026-10-22)
+      The 368-page art book includes the current measurements and crown-coverage plate; both new
+      pages are rasterized and reviewed. `just artbook` and the final Typst compilation pass.
 - [ ] Review views at the real size: 1× and an effective zoom of 1.6 (the planned split screen), plus
       in-game captures at 1080p and 4K. A headless capture path in `cmd/historyline` replaces the patched
       copy used for the audit.

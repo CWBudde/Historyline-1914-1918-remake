@@ -159,24 +159,32 @@ func (r *Renderer) Render(lvl *level.Level, density int, units bool) (Map, error
 	return m, nil
 }
 
-func (r *Renderer) draw(dst draw.Image, id string, at hexgrid.Coord, density int) error {
+func (r *Renderer) assetImage(id string, density int) (Entry, image.Image, error) {
 	e, ok := r.files[fmt.Sprintf("%d/%s", density, id)]
 	if !ok {
-		return fmt.Errorf("missing %dx asset %s", density, id)
+		return Entry{}, nil, fmt.Errorf("missing %dx asset %s", density, id)
 	}
 	im := r.cache[e.Path]
 	if im == nil {
 		b, err := fs.ReadFile(r.assets, e.Path)
 		if err != nil {
-			return err
+			return Entry{}, nil, err
 		}
 		if sum := fmt.Sprintf("%x", sha256.Sum256(b)); sum != e.SHA {
-			return fmt.Errorf("%s: sha256 %s, index pins %s", e.Path, sum, e.SHA)
+			return Entry{}, nil, fmt.Errorf("%s: sha256 %s, index pins %s", e.Path, sum, e.SHA)
 		}
 		if im, err = png.Decode(bytes.NewReader(b)); err != nil {
-			return fmt.Errorf("%s: %w", e.Path, err)
+			return Entry{}, nil, fmt.Errorf("%s: %w", e.Path, err)
 		}
 		r.cache[e.Path] = im
+	}
+	return e, im, nil
+}
+
+func (r *Renderer) draw(dst draw.Image, id string, at hexgrid.Coord, density int) error {
+	e, im, err := r.assetImage(id, density)
+	if err != nil {
+		return err
 	}
 	Place(dst, im, at, density, e.Anchor)
 	return nil

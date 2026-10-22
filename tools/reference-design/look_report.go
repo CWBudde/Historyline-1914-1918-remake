@@ -10,6 +10,7 @@ import (
 	"path/filepath"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/maprender"
 )
 
 // This is the first Look0 measurement batch, not the full acceptance gate.
@@ -35,6 +36,7 @@ type lookSource struct {
 	FileSHA256   string       `json:"source_file_sha256,omitempty"`
 	Whole        *lookMetrics `json:"whole_map,omitempty"`
 	Families     []lookFamily `json:"families,omitempty"`
+	Canopy       *lookCanopy  `json:"canopy"`
 }
 
 type lookFamily struct {
@@ -129,25 +131,48 @@ func (p *project) writeLookReport(out string) error {
 	}, Remaining: []string{
 		"explicit render/reference/original target ranges and strict reference-check acceptance gate",
 		"original screenshot registration and private numbers-only baseline measurements",
-		"woodland-edge distance and canopy coverage",
+		"woodland-edge distance and independently annotated reference/original canopy coverage",
 		"light skew and cast-shadow direction",
 		"water depth gradient and bank/stream width variation",
 		"unit edge contrast",
 		"resolve exact material period versus low full-period autocorrelation requirement",
 	}}
-	report.Sources = append(report.Sources, p.measureLookSource("render", halve(render)))
+	renderSource := p.measureLookSource("render", halve(render))
+	renderer, err := maprender.New(p.assets)
+	if err != nil {
+		return err
+	}
+	crowns, err := renderer.VisibleCanopy(p.level, compareDensity)
+	if err != nil {
+		return err
+	}
+	coverage, err := averageCanopy(crowns.Coverage, compareDensity)
+	if err != nil {
+		return err
+	}
+	canopy := p.measureCanopy(coverage, crowns.Unsupported)
+	canopy.Gaps, canopy.Issues = len(crowns.Gaps), len(crowns.Issues)
+	renderSource.Canopy = &canopy
+	report.Definitions["canopy"] = canopy.Definition + "; diagnostic PNG rounds the exact alpha means to 8-bit grayscale"
+	report.Sources = append(report.Sources, renderSource)
 	src, present, err := p.source()
 	if err != nil {
 		return err
 	}
 	if present {
 		source := p.measureLookSource("reference", p.registered(src, 1))
+		source.Canopy = &lookCanopy{Reason: "independent reference canopy annotations unavailable"}
 		source.FileSHA256 = p.ref.Image.SHA256
 		report.Sources = append(report.Sources, source)
 	} else {
-		report.Sources = append(report.Sources, lookSource{ID: "reference", Reason: "reference image absent; no measurements substituted"})
+		report.Sources = append(report.Sources, lookSource{ID: "reference", Reason: "reference image absent; no measurements substituted", Canopy: &lookCanopy{Reason: "source_unavailable"}})
 	}
-	report.Sources = append(report.Sources, lookSource{ID: "original", Reason: "no registered original screenshot baseline supplied in this checkout"})
+	report.Sources = append(report.Sources, lookSource{ID: "original", Reason: "no registered original screenshot baseline supplied in this checkout", Canopy: &lookCanopy{Reason: "source_unavailable"}})
+	canopy.MaskFile = "canopy-render.png"
+	canopy.MaskSHA256, err = writeCanopyPlane(out, canopy.MaskFile, coverage)
+	if err != nil {
+		return err
+	}
 	raw, err := json.MarshalIndent(report, "", "  ")
 	if err != nil {
 		return err

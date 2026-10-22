@@ -7,6 +7,7 @@
 // (directory of the PULSE map written by `hlart pulse`; default: no map chapter),
 // winter, winter3 (directories of winter levels written by `hlart map`; default: no winter chapters),
 // campaign (directory with summer/winter/sea/harbour map renders; default: no campaign chapters),
+// look (directory written by reference-design -look-out; default: no measurement chapter),
 // compare (directory written by `reference-design -compare`; default: no comparison), style=false
 // skips art/style.md, reference=false skips the PULSE reference chapter.
 
@@ -28,6 +29,7 @@
 #let campaign = sys.inputs.at("campaign", default: "")
 #let shore = sys.inputs.at("shore", default: "")
 #let compare = sys.inputs.at("compare", default: "")
+#let look = sys.inputs.at("look", default: "")
 
 #let kinds = (
   ("terrain", "Terrain"),
@@ -249,6 +251,65 @@ source describe the image in this PDF. PULSE uses the 4× runtime artwork; compa
   plate("pulse-units.png")[With the starting units]
   pagebreak()
   plate("pulse-ground.png")[Terrain and infrastructure only]
+}
+
+#if look != "" {
+  let info = json(look + "/look.json")
+  let rendered = info.sources.find(s => s.id == "render")
+  let reference = info.sources.find(s => s.id == "reference")
+  let number(v) = if v == none { "unavailable" } else { str(calc.round(v, digits: 2)) }
+  let grass-contrast(source) = {
+    if source != none and source.available {
+      let grass = source.families.find(f => f.id == "grass")
+      if grass != none and grass.colour != none { grass.colour.contrast }
+    }
+  }
+  heading(level: 1)[Terrain look — measurements]
+  [
+    Current PULSE artwork at one world pixel per measured pixel. Clean terrain cells exclude
+    infrastructure and building content. These are partial measurements for Look 0 in
+    #blob("PLAN.md"), with the target direction in #blob("art/direction.md").
+    Acceptance remains open; missing feature annotations and original baselines are explicit in
+    the report. No artwork gains approval from these measurements alone.
+  ]
+  table(
+    columns: (1fr, auto, auto),
+    [*Metric*], [*Render*], [*Reference*],
+    [Grass contrast, σL\*], number(grass-contrast(rendered)), number(grass-contrast(reference)),
+    [Whole map, 5th percentile L\*], number(rendered.whole_map.p05_l_star.value),
+      if reference.available { number(reference.whole_map.p05_l_star.value) } else { [unavailable] },
+    [Whole map, 95th percentile L\*], number(rendered.whole_map.p95_l_star.value),
+      if reference.available { number(reference.whole_map.p95_l_star.value) } else { [unavailable] },
+  )
+  v(1em)
+  heading(level: 2)[Visible tree canopy]
+  [
+    Coverage follows the selected crown silhouettes and later standing-object occlusion. Cast
+    shadows and units are excluded. Fractional crown edges count by their alpha contribution.
+    The reference has no independent canopy annotations yet. These coverage numbers do not
+    measure the woodland perimeter or its distance from hex edges.
+  ]
+  table(
+    columns: (1fr, auto, auto),
+    [*Clean cells*], [*Count*], [*Canopy coverage*],
+    ..rendered.canopy.groups.map(g => (
+      g.group.replace("_", " "), str(g.cells),
+      if g.coverage_fraction.value == none { [unavailable] }
+      else { number(100 * g.coverage_fraction.value) + "%" },
+    )).flatten(),
+  )
+  [
+    The planned target is at least 85% cover in forest and 4–8% in open cells. The current
+    diagnostic defines open cells as clean grass. Sampling, tree scale, density and edge placement
+    remain work in progress.
+  ]
+  pagebreak()
+  heading(level: 2)[PULSE — selected crown coverage]
+  block(height: 1fr, width: 100%, align(center,
+    image(look + "/" + rendered.canopy.mask_file, height: 100%, fit: "contain")))
+  small[White means full visible canopy, black means none; grey retains fractional crown edges.
+    This is a diagnostic layer, with no terrain, shadows or units.]
+  pagebreak()
 }
 
 #for winter-dir in (winter, winter3).filter(dir => dir != "") {
