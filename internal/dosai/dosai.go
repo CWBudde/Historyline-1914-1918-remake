@@ -36,7 +36,13 @@ const (
 )
 
 // Planner plans a side's orders. The zero Planner is ready to use.
-type Planner struct{}
+//
+// Progress, if set, is called during each Plan with the units planned so far
+// and the units to plan in the phase: first with done 0, last with done
+// equal to total. It does not change the plan.
+type Planner struct {
+	Progress func(done, total int)
+}
 
 // Plan gives all orders of side's current phase through the session, then
 // confirms. It does nothing once the battle has ended or the side has
@@ -52,6 +58,7 @@ func (p *Planner) Plan(s *dosplay.Session, side int) ([]dosplay.Event, error) {
 	if err != nil {
 		return nil, err
 	}
+	pl.progress = p.Progress
 	var evs []dosplay.Event
 	if s.Phase(side) == dosrules.PhaseMovement {
 		evs, err = pl.move()
@@ -113,6 +120,15 @@ type plan struct {
 	hqs     []hexgrid.Coord               // the other side's HQ entrances, sorted
 	ownHQs  []hexgrid.Coord               // the side's HQ entrances, sorted
 	fields  map[int]map[hexgrid.Coord]int // by unit type
+
+	progress func(done, total int) // Planner.Progress
+}
+
+// report passes the plan's progress to the callback, if any.
+func (pl *plan) report(done, total int) {
+	if pl.progress != nil {
+		pl.progress(done, total)
+	}
 }
 
 func newPlan(s *dosplay.Session, side int) (*plan, error) {
@@ -210,20 +226,23 @@ func (pl *plan) movers() []mover {
 // move gives the movement phase's orders.
 func (pl *plan) move() ([]dosplay.Event, error) {
 	if len(pl.enemies) == 0 && len(pl.hqs) == 0 {
+		pl.report(0, 0)
 		return nil, nil
 	}
 	var evs []dosplay.Event
-	for _, m := range pl.movers() {
-		if pl.s.CanOrder(pl.side, m.unit) != nil {
-			continue
+	movers := pl.movers()
+	pl.report(0, len(movers))
+	for i, m := range movers {
+		if pl.s.CanOrder(pl.side, m.unit) == nil {
+			ev, err := pl.moveUnit(m)
+			if err != nil {
+				return evs, err
+			}
+			evs = append(evs, ev...)
+			// The side's own map changed; its view follows.
+			pl.view = pl.s.View(pl.side)
 		}
-		ev, err := pl.moveUnit(m)
-		if err != nil {
-			return evs, err
-		}
-		evs = append(evs, ev...)
-		// The side's own map changed; its view follows.
-		pl.view = pl.s.View(pl.side)
+		pl.report(i+1, len(movers))
 	}
 	return evs, nil
 }
@@ -419,6 +438,13 @@ func (pl *plan) attack() ([]dosplay.Event, error) {
 			cands = append(cands, candidate{unit: u.Index, target: t, cell: cell, near: d >= 0 && d <= hqRadius})
 		}
 	}
+	var units []int
+	for _, c := range cands {
+		if !slices.Contains(units, c.unit) {
+			units = append(units, c.unit)
+		}
+	}
+	pl.report(0, len(units))
 	var orders []dosrules.Order
 	var evs []dosplay.Event
 	for len(cands) > 0 {
@@ -443,6 +469,13 @@ func (pl *plan) attack() ([]dosplay.Event, error) {
 		evs = append(evs, ev...)
 		orders = append(orders, dosrules.Order{Attacker: c.unit, Target: c.cell})
 		cands = slices.DeleteFunc(cands, func(o candidate) bool { return o.unit == c.unit })
+		if len(orders) < len(units) {
+			pl.report(len(orders), len(units))
+		}
+	}
+	if len(units) > 0 {
+		// The units left gain nothing from an attack.
+		pl.report(len(units), len(units))
 	}
 	return evs, nil
 }

@@ -147,17 +147,24 @@ func (g *Game) build(c Command) []Event {
 	return []Event{{Kind: EvBuilt, Side: c.Side, Unit: i, Cell: h.Cells[0] / 2, Energy: g.Energy[c.Side]}}
 }
 
-// credit pays each side the credits of its buildings after the phase
-// change ph; a side credited nothing gets no event.
+// Income is the energy side's buildings pay it at a phase change: the
+// credits of every building record it owns.
+func (g *Game) Income(side int) int {
+	paid := 0
+	for i, b := range g.Buildings {
+		if h, ok := g.Holds[i]; ok && h.Flags&2 == 0 && Owns(h.Flags, side) {
+			paid += b.Credits
+		}
+	}
+	return paid
+}
+
+// credit pays each side its Income after the phase change ph; a side
+// credited nothing gets no event.
 func (g *Game) credit(ph Event) []Event {
 	var evs []Event
 	for k := range 2 {
-		paid := 0
-		for i, b := range g.Buildings {
-			if h, ok := g.Holds[i]; ok && h.Flags&2 == 0 && Owns(h.Flags, k) {
-				paid += b.Credits
-			}
-		}
+		paid := g.Income(k)
 		if paid == 0 {
 			continue
 		}

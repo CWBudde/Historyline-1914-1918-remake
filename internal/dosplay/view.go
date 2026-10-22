@@ -35,11 +35,12 @@ type UnitView struct {
 	Target *hexgrid.Coord
 }
 
-// BuildingView is a building: its container record, owner, whether it is an
-// HQ, and the units the viewing side's slots list.
+// BuildingView is a building: its container record, owner, kind, whether
+// it is an HQ, and the units the viewing side's slots list.
 type BuildingView struct {
 	Hold  int
 	Owner game.Player
+	Kind  BuildingKind
 	HQ    bool
 	Units []UnitView
 }
@@ -91,16 +92,29 @@ func (s *Session) unitID(idx int) string {
 		return id
 	}
 	u := s.Game.Units[idx]
-	side := sideOf(u.Flags4)
+	id := s.typeID(u.Type, sideOf(u.Flags4))
+	s.ids[idx] = id
+	return id
+}
+
+// typeID is the first unit id of UNIT.DAT type typ and side (any side for
+// 2), "" for a type the remake has no unit for yet.
+func (s *Session) typeID(typ, side int) string {
 	for _, id := range slices.Sorted(maps.Keys(s.set.Units)) {
 		d := s.set.Units[id]
-		if d.Dos == u.Type && (side == 2 || dosbind.Side(game.FactionOf(d.Country)) == side) {
-			s.ids[idx] = id
+		if d.Dos == typ && (side == 2 || dosbind.Side(game.FactionOf(d.Country)) == side) {
 			return id
 		}
 	}
-	s.ids[idx] = ""
 	return ""
+}
+
+// typeName is the name of unit id, for "" a placeholder naming type typ.
+func (s *Session) typeName(id string, typ int) string {
+	if id == "" {
+		return fmt.Sprintf("Type %d", typ)
+	}
+	return s.set.Units[id].Name
 }
 
 // unitView is unit idx as side (0 or 1) sees its position; Target is not
@@ -109,12 +123,7 @@ func (s *Session) unitView(idx, side int) UnitView {
 	u := s.Game.Units[idx]
 	id := s.unitID(idx)
 	t := s.Game.Profile.Tables.Types[u.Type]
-	name := s.set.Units[id].Name
-	if id == "" {
-		// A type the remake has no unit for yet.
-		name = fmt.Sprintf("Type %d", u.Type)
-	}
-	v := UnitView{Index: idx, Type: u.Type, ID: id, Name: name, Side: sideOf(u.Flags4),
+	v := UnitView{Index: idx, Type: u.Type, ID: id, Name: s.typeName(id, u.Type), Side: sideOf(u.Flags4),
 		At: s.coord(u.Pos[side] / 2), Size: u.Size, Full: t.Group, Alt: u.Alt, Exp: u.Exp, Budget: u.Budget, Armour: t.Armour,
 		Moved: u.Flags4&0x200 != 0, Held: u.Flags4&0x4000 != 0, Carrier: u.Flags4&0x1000 != 0, Destroyed: u.Destroyed(),
 		Hold: -1, In: -1, Slot: -1}
@@ -208,7 +217,7 @@ func (s *Session) buildings(side int) map[hexgrid.Coord]BuildingView {
 		if k < 0 {
 			k = owner & 1
 		}
-		out[p] = BuildingView{Hold: i, Owner: s.Faction(owner), HQ: i < dosrules.HoldFlag100, Units: s.slots(i, k)}
+		out[p] = BuildingView{Hold: i, Owner: s.Faction(owner), Kind: kindOf(i), HQ: kindOf(i) == HQ, Units: s.slots(i, k)}
 	}
 	return out
 }

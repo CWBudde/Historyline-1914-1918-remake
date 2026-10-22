@@ -362,3 +362,40 @@ func benchmarkPlan(b *testing.B, phase int) {
 func BenchmarkPlanMovement(b *testing.B) { benchmarkPlan(b, dosrules.PhaseMovement) }
 
 func BenchmarkPlanAction(b *testing.B) { benchmarkPlan(b, dosrules.PhaseAction) }
+
+// A Progress callback reports each phase's plan from 0 to its total
+// without changing the plans.
+func TestProgress(t *testing.T) {
+	for _, lv := range shipped(t) {
+		_, want := play(t, session(t, lv), [2]*Planner{{}, {}})
+		var calls [][2]int
+		phases := 0
+		report := func(done, total int) {
+			if done == 0 {
+				phases++
+			}
+			calls = append(calls, [2]int{done, total})
+		}
+		_, got := play(t, session(t, lv), [2]*Planner{{Progress: report}, {Progress: report}})
+		if !reflect.DeepEqual(got, want) {
+			t.Errorf("%s: the progress callback changed the plans", lv.MapName)
+		}
+		if phases == 0 {
+			t.Fatalf("%s: no progress reported", lv.MapName)
+		}
+		for i, c := range calls {
+			done, total := c[0], c[1]
+			switch {
+			case done < 0 || done > total:
+				t.Fatalf("%s: progress %d of %d", lv.MapName, done, total)
+			case done > 0 && (calls[i-1][1] != total || calls[i-1][0] > done):
+				t.Fatalf("%s: progress %v after %v", lv.MapName, c, calls[i-1])
+			case i+1 == len(calls) || calls[i+1][0] == 0:
+				if done != total {
+					t.Fatalf("%s: a plan ended at %d of %d", lv.MapName, done, total)
+				}
+			}
+		}
+		t.Logf("%s: %d plans, %d progress reports", lv.MapName, phases, len(calls))
+	}
+}
