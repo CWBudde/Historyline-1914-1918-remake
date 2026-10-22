@@ -4,21 +4,51 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Historyline 1914-1918</title>
+  <link rel="icon" href="data:,">
   <style>
     html, body { margin: 0; height: 100%; background: #000; color: #ccc; font-family: sans-serif; }
-    #status { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
+    #status { position: fixed; inset: 0; z-index: 1; display: flex; align-items: center; justify-content: center; background: #000; }
   </style>
 </head>
 <body>
   <div id="status">Loading…</div>
-  <script src="wasm_exec.js"></script>
   <script>
-    const go = new Go();
     const status = document.getElementById("status");
-    WebAssembly.instantiateStreaming(fetch("historyline.wasm"), go.importObject)
+    // just web serves the art packs under packs/<catalog>/, each with a files.txt listing, and writes the build's
+    // content hash to version.txt. Every other URL carries it, so a cached file of an older build is never used.
+    const catalogs = ["units", "terrain", "screens"];
+    const script = (src) => new Promise((resolve, reject) => {
+      const s = document.createElement("script");
+      s.src = src;
+      s.onload = resolve;
+      s.onerror = () => reject(new Error("cannot load " + src));
+      document.head.append(s);
+    });
+    let v = "";
+    let go;
+    fetch("version.txt", { cache: "no-cache" })
+      .then((r) => (r.ok ? r.text() : ""), () => "")
+      .then((text) => {
+        v = text.trim() ? "?v=" + encodeURIComponent(text.trim()) : "";
+        return script("wasm_exec.js" + v);
+      })
+      .then(() => Promise.all(catalogs.map((c) => fetch(`packs/${c}/files.txt${v}`, { method: "HEAD" }).then((r) => r.ok, () => false))))
+      .then((served) => {
+        go = new Go();
+        catalogs.forEach((c, i) => {
+          if (served[i]) go.argv.push(`-${c}`, new URL(`packs/${c}/${v}`, location.href).href);
+        });
+        if (served.some(Boolean)) go.argv.push("-allow-candidates");
+        return WebAssembly.instantiateStreaming(fetch("historyline.wasm" + v), go.importObject);
+      })
       .then((result) => {
-        status.remove();
-        go.run(result.instance);
+        status.textContent = "Loading the art…";
+        // The game removes the notice once it runs.
+        return go.run(result.instance);
+      })
+      .then(() => {
+        document.body.append(status);
+        status.textContent = "The game has ended (errors are in the browser console). Reload to play again.";
       })
       .catch((err) => {
         status.textContent = "Failed to load the game: " + err;

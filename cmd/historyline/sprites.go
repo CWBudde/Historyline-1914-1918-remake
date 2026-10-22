@@ -5,8 +5,8 @@ import (
 	"image"
 	"image/draw"
 	"io/fs"
-	"os"
 	"path"
+	"runtime"
 	"slices"
 
 	"github.com/hajimehoshi/ebiten/v2"
@@ -16,14 +16,22 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
 )
 
-// spriteDensities are the unit pack densities hlasset build-units writes.
-var spriteDensities = []int{2, 4}
+// spriteDensities are the unit and terrain pack densities the game loads:
+// what hlasset build-units and build-terrain write, but only 2x in the web
+// build, which downloads its packs and cannot afford the 4x ones.
+var spriteDensities = func() []int {
+	if runtime.GOOS == "js" {
+		return []int{2}
+	}
+	return []int{2, 4}
+}()
 
 // spriteDensity is the unit pack drawn at effective zoom eff: the asset density,
-// but at least 2x, since no 1x unit sprites exist. Drawing the 2x sprite smaller is
-// the renderer's choice, not a loader fallback.
+// but at least 2x, since no 1x unit sprites exist, and at most the largest
+// loaded. Drawing the 2x sprite smaller is the renderer's choice, not a loader
+// fallback.
 func spriteDensity(eff float64) int {
-	return max(2, assetDensity(eff))
+	return min(max(2, assetDensity(eff)), spriteDensities[len(spriteDensities)-1])
 }
 
 // unitSpent reports whether u has acted this turn and is drawn greyscale.
@@ -223,10 +231,10 @@ func (g *game) drawUnitSprite(dst *ebiten.Image, sx, sy float64, typ string, own
 // loadUnitArt opens the unit catalog in dir. The packs snapshot their bytes, so
 // the directory is closed again at once.
 func loadUnitArt(dir string, allowCandidates bool) (*artPacks, error) {
-	r, err := os.OpenRoot(dir)
+	fsys, done, err := openArtDir(dir)
 	if err != nil {
 		return nil, err
 	}
-	defer func() { _ = r.Close() }()
-	return openUnitArt(r.FS(), assets.Options{AllowCandidates: allowCandidates})
+	defer done()
+	return openUnitArt(fsys, assets.Options{AllowCandidates: allowCandidates})
 }

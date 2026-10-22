@@ -13,6 +13,7 @@ go run ./cmd/hlasset build-screens -out build/packs/screens                # men
 go run ./cmd/hlasset validate -root <pack> -allow-candidates
 go run ./cmd/hlasset terrain-gaps -terrain build/packs/terrain
 just play                                                                  # game with all three catalogs
+just web 8080                                                              # web build with the 2x catalogs
 ```
 
 ## Pack format
@@ -84,8 +85,16 @@ unpacked `screens/` files of the index (frames, buttons, country swatches, widge
 scaled to 640×400 logical pixels (never enlarged). The game's menus (`-screens`) draw a painting, the frame
 over it, live text in the Go fonts and the button states; without the catalog they draw plain panels.
 
+## Web
+
+`just web` hard-links the 2× unit and terrain packs and both screen densities into `build/web/packs/<catalog>/`
+and lists each catalog in `files.txt` (`<size> <path>` per line), since HTTP cannot list directories.
+`index.html` passes the catalogs it finds to the game as URLs; the game fetches a whole catalog when opening
+it and loads no 4× packs in the browser. `version.txt` holds a hash of the whole build; the page adds it to
+every URL as `?v=`, so a browser never combines cached files of an older build with a newer one.
+
 ## Open
 
 Packs for portraits, animation metadata (all listed in `assets/index.json`) and fonts;
-ownership strips; contexts for imported maps and mixed seasons; live pack switching; browser loading;
+ownership strips; contexts for imported maps and mixed seasons; live pack switching;
 art approval and embedding.

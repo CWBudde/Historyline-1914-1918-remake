@@ -31,12 +31,15 @@ _build-dir:
     [ -f build/go.mod ] || printf 'module scratch\n\ngo %s\n' "$(awk '/^go /{print $2}' go.mod)" > build/go.mod
 
 # Packs are built only when missing; delete build/packs/units, terrain or screens to rebuild.
-# Play with the candidate unit, terrain and screen art
-play *args: _build-dir
+[private]
+_packs: _build-dir
     mkdir -p build/packs
     [ -d build/packs/units ] || go run ./cmd/hlasset build-units -out build/packs/units
     [ -d build/packs/terrain ] || go run ./cmd/hlasset build-terrain -out build/packs/terrain
     [ -d build/packs/screens ] || go run ./cmd/hlasset build-screens -out build/packs/screens
+
+# Play with the candidate unit, terrain and screen art
+play *args: _packs
     go run ./cmd/historyline -units build/packs/units -terrain build/packs/terrain -screens build/packs/screens -allow-candidates {{args}}
 
 # Run all Go tests
@@ -59,11 +62,18 @@ wasm:
     GOOS=js GOARCH=wasm go build -o bin/{{binary}}.wasm ./cmd/historyline
     cp "$(go env GOROOT)/lib/wasm/wasm_exec.js" bin/
 
-# Build the web demo (index.html, wasm and loader) into build/web; pass a port to serve it
-web port="": _build-dir
+# Build the web demo (index.html, wasm, loader and the 2x art packs) into build/web; pass a port to serve it
+# version.txt holds a content hash the page adds to every URL, so a cached old file never meets a new one.
+web port="": _packs
     mkdir -p build/web
     GOOS=js GOARCH=wasm go build -o build/web/{{binary}}.wasm ./cmd/historyline
     cp "$(go env GOROOT)/lib/wasm/wasm_exec.js" web/index.html build/web/
+    rm -rf build/web/packs && mkdir -p build/web/packs/units build/web/packs/terrain build/web/packs/screens
+    cp -al build/packs/units/2x build/web/packs/units/
+    cp -al build/packs/terrain/2x build/web/packs/terrain/
+    cp -al build/packs/screens/1x build/packs/screens/2x build/web/packs/screens/
+    for c in units terrain screens; do (cd build/web/packs/$c && find . -type f ! -name files.txt -printf '%s %P\n' | sort -k2 > files.txt); done
+    cd build/web && find historyline.wasm wasm_exec.js packs -type f -print0 | sort -z | xargs -0 sha256sum | sha256sum | cut -c1-16 > version.txt
     if [ -n "{{port}}" ]; then go run ./cmd/serve -dir build/web -addr localhost:{{port}}; fi
 
 # Everything CI checks
@@ -80,6 +90,11 @@ art-index:
 # Check prompts, masters, runtime files, runtime IDs and that art/index.json is current
 art-check:
     go run ./cmd/hlart check
+
+# Import the original full game's maps (local original/) into levels/original
+levels-import:
+    rm -rf levels/original
+    go run ./cmd/finextract -build full -out levels/original
 
 # Build the art book from art/index.json into build/artbook/Historyline_Art.pdf
 artbook: _build-dir

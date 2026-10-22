@@ -527,9 +527,16 @@ own and leaves the game playable.
 
 ### 5. Content
 
-- [ ] Full map format and importer (`cmd/finextract`): header, dimensions, tiles, units, buildings,
+- [x] Full map format and importer (`cmd/finextract`): header, dimensions, tiles, units, buildings,
       inventories, energy, availability, mission metadata → versioned level JSON (the current reader stays).
-- [ ] Remaining campaign maps for both sides (only `*_cp` exist).
+      (2026-10-22) — `internal/finmap` decodes the map, container, computer and mission files;
+      `just levels-import` writes the 72 maps and STATMAP of the full game to `levels/original/` (numbers
+      only: terrain records, units, buildings, container records with energy, producible types, players,
+      human sides, winter, next map). `TestCommitted*` always run; `TestCommittedCurrent` and
+      `TestOriginal*` check against the local original files. Not decoded: the computer player's
+      parameters; passwords are left out.
+- [ ] Remaining campaign maps for both sides (only `*_cp` exist). (2026-10-22) — partial: all 72 maps are
+      imported to `levels/original/`; the game loads them once `dosbind` binds the imported format.
 - [ ] Complete unit roster with domain-specific firepower (aircraft, armour, trains, ships).
 - [ ] Briefings, campaign progression, level codes.
 
@@ -556,5 +563,7 @@ own and leaves the game playable.
 
 1. Which original quirks should `Standard` change, and which stay in the original profile?
 2. Level format successor: exact schema (rules profile, briefing, side, season, energy, availability,
-   move limits); keep mission round deadlines separate from per-cycle move limits.
+   move limits); keep mission round deadlines separate from per-cycle move limits. The imported schema
+   (`internal/finmap/level.go`) covers sides, season, energy and availability; move limits are a game
+   option and briefings are not in the map files.
 3. Is a complete 4× pack worth it after profiling? The minimum is complete 2× art.

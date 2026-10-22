@@ -774,6 +774,7 @@ func main() {
 				log.Fatal(err)
 			}
 		}
+		pageReady()
 		if err := ebiten.RunGame(newApp(c, campaign, art)); err != nil {
 			log.Fatal(err)
 		}
@@ -808,6 +809,7 @@ func main() {
 		}
 		return
 	}
+	pageReady()
 	if err := ebiten.RunGame(gm); err != nil {
 		log.Fatal(err)
 	}

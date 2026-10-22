@@ -30,7 +30,7 @@ just play       # play with the candidate art and menu screens (builds the packs
 just test       # go test ./...
 just lint       # go vet + golangci-lint
 just build      # bin/historyline
-just web 8080   # web build into build/web, served on :8080
+just web 8080   # web build with the art packs into build/web, served on :8080
 just ci         # everything CI runs
 just clean      # delete all generated output under build/
 ```
