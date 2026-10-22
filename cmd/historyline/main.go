@@ -774,7 +774,7 @@ func main() {
 	ebiten.SetWindowTitle("Historyline 1914-1918")
 
 	if !direct {
-		campaign, err := loadCampaign(*dir)
+		campaign, err := loadCampaign(*dir, set)
 		if err != nil {
 			log.Fatal(err)
 		}

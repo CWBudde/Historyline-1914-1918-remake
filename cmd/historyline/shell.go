@@ -3,10 +3,13 @@ package main
 import (
 	"fmt"
 	"io/fs"
+	"path"
 	"slices"
 	"strings"
 	"unicode"
 
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosbind"
 	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
@@ -33,33 +36,69 @@ const (
 	pageLeave // the battle is paused: leave it?
 )
 
-// mapLevel is a shipped map; its code is the map name in capitals.
+// mapLevel is a map of the menu: a shipped level, or an imported original map
+// with its exact board. Its code is the map name in capitals, an original
+// map's number ("05").
 type mapLevel struct {
-	name string // file name without .json
-	lvl  *level.Level
+	name  string // -level name: file name without .json, or original/NN
+	lvl   *level.Level
+	board *dosbind.Board // an original map's binding; nil for a shipped level
+	next  int            // the map a victory leads to, -1 for none
 }
 
 func (m mapLevel) code() string { return strings.ToUpper(m.lvl.MapName) }
 
 // loadCampaign loads the shipped maps in their order (level1_cp, level2_cp, …),
-// from dir where present, else the embedded copies.
-func loadCampaign(dir string) ([]mapLevel, error) {
+// then the imported original maps 00-71, from dir where present, else the
+// embedded copies. A shipped map leads to the next; the last one, an original
+// map transcribed (MapNo n is map n-1), leads where that map does. An
+// original map leads to its mission's next map: through each campaign, none
+// after its last map.
+func loadCampaign(dir string, set *data.Set) ([]mapLevel, error) {
 	names, err := fs.Glob(levels.FS, "level?_cp.json")
 	if err != nil {
 		return nil, err
 	}
 	slices.Sort(names)
 	var maps []mapLevel
-	for _, n := range names {
+	for i, n := range names {
 		name := strings.TrimSuffix(n, ".json")
 		lvl, err := loadLevel(dir, name)
 		if err != nil {
 			return nil, fmt.Errorf("%s: %w", name, err)
 		}
-		maps = append(maps, mapLevel{name: name, lvl: lvl})
+		maps = append(maps, mapLevel{name: name, lvl: lvl, next: i + 1})
 	}
 	if len(maps) == 0 {
 		return nil, fmt.Errorf("no shipped maps")
+	}
+	shipped := len(maps)
+	files, err := fs.Glob(levels.Original, "original/full/[0-9][0-9].json")
+	if err != nil {
+		return nil, err
+	}
+	slices.Sort(files)
+	for _, f := range files {
+		stem := strings.TrimSuffix(path.Base(f), ".json")
+		l, lvl, b, err := loadOriginal(dir, stem, set)
+		if err != nil {
+			return nil, err
+		}
+		m := mapLevel{name: originalPrefix + stem, lvl: lvl, board: b, next: -1}
+		if l.Mission != nil && l.Mission.Next != nil {
+			m.next = shipped + *l.Mission.Next
+		}
+		maps = append(maps, m)
+	}
+	last := &maps[shipped-1]
+	last.next = -1
+	if k := shipped + last.lvl.MapNo - 1; last.lvl.MapNo >= 1 && k < len(maps) {
+		last.next = maps[k].next
+	}
+	for _, m := range maps {
+		if m.next >= len(maps) {
+			return nil, fmt.Errorf("%s leads to map %d of %d", m.name, m.next, len(maps))
+		}
 	}
 	return maps, nil
 }
@@ -135,7 +174,7 @@ func newShell(maps []mapLevel, c matchConfig) *shell {
 // and game values.
 func (s *shell) config(base matchConfig) matchConfig {
 	c := base
-	c.lvl, c.board = s.maps[s.code].lvl, nil
+	c.lvl, c.board = s.maps[s.code].lvl, s.maps[s.code].board
 	c.player = s.side
 	c.opponent = "ai"
 	if !s.computer {
@@ -327,9 +366,9 @@ func (s *shell) key(k shellKey) {
 	}
 }
 
-// typeRune adds a letter to the code being typed.
+// typeRune adds a letter or digit to the code being typed.
 func (s *shell) typeRune(r rune) {
-	if s.typing && len(s.typed) < 12 && r < unicode.MaxASCII && unicode.IsLetter(r) {
+	if s.typing && len(s.typed) < 12 && r < unicode.MaxASCII && (unicode.IsLetter(r) || unicode.IsDigit(r)) {
 		s.typed += string(unicode.ToUpper(r))
 	}
 }
@@ -370,8 +409,8 @@ func (s *shell) hit(x, y int) int {
 
 // finish shows the outcome of a battle; a victory selects the next map.
 func (s *shell) finish(o outcome) {
-	if o.won && s.code+1 < len(s.maps) {
-		s.code++
+	if next := s.maps[s.code].next; o.won && next >= 0 {
+		s.code = next
 		o.next = s.maps[s.code].code()
 	}
 	s.result = o
