@@ -52,14 +52,22 @@ type dosControl struct {
 	stored     []dosplay.UnitView     // contents menu rows
 	storedHold int                    // their container record
 
-	queue  []dosplay.Event // resolution events still to play
-	frozen *dosplay.View   // the view from before the resolution while its battles play
-	banner string          // phase banner, shown once the revealed moves have played
-	over   bool            // the end of the battle has played
+	queue       []dosplay.Event // resolution events still to play
+	frozen      *dosplay.View   // the side's view from before the resolution while its battles play
+	otherFrozen *dosplay.View   // the other side's view, frozen alike
+	banner      string          // phase banner, shown once the revealed moves have played
+	over        bool            // the end of the battle has played
 
-	ownView *dosplay.View // View(side) at version ownVer
-	ownVer  int
-	shown   map[hexgrid.Coord]dosplay.UnitView // units drawn, for shownKey
+	views  [2]sideCache      // each side's map, by side
+	follow [2]*hexgrid.Coord // where each side's panel should look next; the front end takes it
+}
+
+// sideCache is a side's view at a session version and the units drawn on its
+// panel for a shownKey.
+type sideCache struct {
+	view    *dosplay.View
+	ver     int
+	shown   map[hexgrid.Coord]dosplay.UnitView
 	shownAt shownKey
 }
 
@@ -100,12 +108,60 @@ func (d *dosControl) Cancel() {
 }
 
 // own is the human side's view, recomputed when the session changes.
-func (d *dosControl) own() *dosplay.View {
-	if d.ownView == nil || d.ownVer != d.s.Version() {
-		v := d.s.View(d.side)
-		d.ownView, d.ownVer = &v, d.s.Version()
+func (d *dosControl) own() *dosplay.View { return d.viewOf(d.side) }
+
+// viewOf is side's view, recomputed when the session changes.
+func (d *dosControl) viewOf(side int) *dosplay.View {
+	c := &d.views[side]
+	if c.view == nil || c.ver != d.s.Version() {
+		v := d.s.View(side)
+		c.view, c.ver = &v, d.s.Version()
 	}
-	return d.ownView
+	return c.view
+}
+
+// frozenOf is side's frozen view while a resolution plays, else nil.
+func (d *dosControl) frozenOf(side int) *dosplay.View {
+	if side == d.side {
+		return d.frozen
+	}
+	return d.otherFrozen
+}
+
+// unfreeze drops both frozen views.
+func (d *dosControl) unfreeze() { d.frozen, d.otherFrozen = nil, nil }
+
+// lookAt asks side's panel to look at c.
+func (d *dosControl) lookAt(side int, c hexgrid.Coord) {
+	if side == 0 || side == 1 {
+		d.follow[side] = &c
+	}
+}
+
+// takeFollow returns and clears where side's panel should look next.
+func (d *dosControl) takeFollow(side int) (hexgrid.Coord, bool) {
+	c := d.follow[side]
+	d.follow[side] = nil
+	if c == nil {
+		return hexgrid.Coord{}, false
+	}
+	return *c, true
+}
+
+// planFocus is where a computer side acted in its orders: the goal of its last
+// move, else the attacker of its last attack order.
+func planFocus(evs []dosplay.Event) (hexgrid.Coord, bool) {
+	for i := len(evs) - 1; i >= 0; i-- {
+		if ev := evs[i]; ev.Kind == dosplay.Moved && len(ev.Path) > 0 {
+			return ev.Path[len(ev.Path)-1], true
+		}
+	}
+	for i := len(evs) - 1; i >= 0; i-- {
+		if ev := evs[i]; ev.Kind == dosplay.Ordered {
+			return ev.From, true
+		}
+	}
+	return hexgrid.Coord{}, false
 }
 
 // busy reports whether a resolution is being played back.
@@ -364,27 +420,31 @@ func (d *dosControl) Tick() {
 // plan lets the computer give side's orders. A side the planner leaves
 // unconfirmed (after an error) is confirmed, so the battle goes on.
 func (d *dosControl) plan(side int) {
-	if _, err := d.planner.Plan(d.s, side); err != nil {
+	evs, err := d.planner.Plan(d.s, side)
+	if err != nil {
 		d.Message = "computer side: " + err.Error()
+	}
+	if c, ok := planFocus(evs); ok {
+		d.lookAt(side, c)
 	}
 	if !d.s.Ready(side) {
 		d.s.Confirm(side)
 	}
 }
 
-// resolve freezes the side's view and resolves the orders; the events wait
+// resolve freezes both sides' views and resolves the orders; the events wait
 // in the queue.
 func (d *dosControl) resolve() {
 	d.clear()
-	v := d.s.View(d.side)
+	v, o := d.s.View(d.side), d.s.View(1-d.side)
 	if d.reveal {
-		v = d.s.TrueView()
+		v, o = d.s.TrueView(), d.s.TrueView()
 	}
 	evs, err := d.s.Resolve()
 	if err != nil {
 		d.Message = "resolution: " + err.Error()
 	}
-	d.frozen, d.queue = &v, evs
+	d.frozen, d.otherFrozen, d.queue = &v, &o, evs
 }
 
 // step plays the next event once the last one has played out on screen
@@ -400,7 +460,7 @@ func (d *dosControl) step() {
 		d.banner = ""
 	}
 	if len(d.queue) == 0 {
-		d.frozen = nil
+		d.unfreeze()
 		return
 	}
 	ev := d.queue[0]
@@ -411,11 +471,14 @@ func (d *dosControl) step() {
 	case dosplay.Skipped:
 		d.Message = fmt.Sprintf("an attack order on hex %d,%d found no unit", ev.To.Line, ev.To.Col)
 	case dosplay.PhaseChanged:
-		d.frozen = nil
+		d.unfreeze()
 		d.banner = fmt.Sprintf("TURN %d - %v: %s phase", ev.Turn+1, d.s.Faction(d.side), phaseName(ev.Phase[d.side]))
 	case dosplay.Revealed:
 		if ev.Side != d.side {
 			d.walkAlong(ev)
+			if len(ev.Path) > 0 {
+				d.lookAt(ev.Side, ev.Path[len(ev.Path)-1])
+			}
 		}
 	case dosplay.Ended:
 		d.over = true
@@ -453,6 +516,13 @@ func (d *dosControl) playBattle(ev dosplay.Event) {
 	d.fx.AddHits(from, to, hit(def), def.Destroyed, hit(atk), atk.Destroyed)
 	d.turn(atk.Unit.Index, from, to)
 	d.turn(def.Unit.Index, to, from)
+	other := 1 - d.side
+	switch other {
+	case atk.Unit.Side:
+		d.lookAt(other, from)
+	case def.Unit.Side:
+		d.lookAt(other, to)
+	}
 	d.Message = fmt.Sprintf("%s attacked %s: %d -> %d", atk.Unit.Name, def.Unit.Name, def.Before, def.After)
 	for _, f := range []dosplay.Fighter{def, atk} {
 		if f.Destroyed {
@@ -485,13 +555,14 @@ func (d *dosControl) frozenAt(unit int, at hexgrid.Coord) hexgrid.Coord {
 	return at
 }
 
-// drop takes a destroyed unit out of the frozen view.
+// drop takes a destroyed unit out of both frozen views.
 func (d *dosControl) drop(unit int) {
 	delete(d.facing, unit)
-	if d.frozen == nil {
-		return
+	for _, v := range []*dosplay.View{d.frozen, d.otherFrozen} {
+		if v != nil {
+			maps.DeleteFunc(v.Units, func(_ hexgrid.Coord, u dosplay.UnitView) bool { return u.Index == unit })
+		}
 	}
-	maps.DeleteFunc(d.frozen.Units, func(_ hexgrid.Coord, u dosplay.UnitView) bool { return u.Index == unit })
 }
 
 // endText says how the battle ended, from the human side's view.
@@ -522,24 +593,30 @@ func (d *dosControl) endReason() string {
 	return fmt.Sprintf("%v %s", d.s.Faction(e.Winner), how)
 }
 
-// units are the units drawn, by hex: the frozen view while a resolution
-// plays, else the side's view (the true view with reveal) with the other
-// side's moves still to be revealed at their start.
+// units are the units drawn on the human side's panel (see unitsOf).
 func (d *dosControl) units(reveal bool) map[hexgrid.Coord]dosplay.UnitView {
-	if d.frozen != nil {
-		return d.frozen.Units
+	return d.unitsOf(d.side, reveal)
+}
+
+// unitsOf are the units drawn on side's panel, by hex: its frozen view while
+// a resolution plays, else its view (the true view with reveal) with the other
+// side's moves still to be revealed at their start.
+func (d *dosControl) unitsOf(side int, reveal bool) map[hexgrid.Coord]dosplay.UnitView {
+	if f := d.frozenOf(side); f != nil {
+		return f.Units
 	}
 	pending := 0
 	for _, ev := range d.queue {
-		if ev.Kind == dosplay.Revealed && ev.Side != d.side {
+		if ev.Kind == dosplay.Revealed && ev.Side != side {
 			pending++
 		}
 	}
+	c := &d.views[side]
 	key := shownKey{version: d.s.Version(), pending: pending, reveal: reveal}
-	if d.shown != nil && d.shownAt == key {
-		return d.shown
+	if c.shown != nil && c.shownAt == key {
+		return c.shown
 	}
-	v := d.own()
+	v := d.viewOf(side)
 	if reveal {
 		tv := d.s.TrueView()
 		v = &tv
@@ -548,7 +625,7 @@ func (d *dosControl) units(reveal bool) map[hexgrid.Coord]dosplay.UnitView {
 	if pending > 0 {
 		units = maps.Clone(units)
 		for _, ev := range d.queue {
-			if ev.Kind != dosplay.Revealed || ev.Side == d.side || len(ev.Path) == 0 {
+			if ev.Kind != dosplay.Revealed || ev.Side == side || len(ev.Path) == 0 {
 				continue
 			}
 			u := d.s.Unit(ev.Unit)
@@ -564,14 +641,19 @@ func (d *dosControl) units(reveal bool) map[hexgrid.Coord]dosplay.UnitView {
 			}
 		}
 	}
-	d.shown, d.shownAt = units, key
+	c.shown, c.shownAt = units, key
 	return units
 }
 
-// buildings are the buildings drawn, by entrance.
+// buildings are the buildings drawn on the human side's panel, by entrance.
 func (d *dosControl) buildings() map[hexgrid.Coord]dosplay.BuildingView {
-	if d.frozen != nil {
-		return d.frozen.Buildings
+	return d.buildingsOf(d.side)
+}
+
+// buildingsOf are the buildings drawn on side's panel, by entrance.
+func (d *dosControl) buildingsOf(side int) map[hexgrid.Coord]dosplay.BuildingView {
+	if f := d.frozenOf(side); f != nil {
+		return f.Buildings
 	}
-	return d.own().Buildings
+	return d.viewOf(side).Buildings
 }

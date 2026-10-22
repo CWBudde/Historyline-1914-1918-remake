@@ -24,28 +24,30 @@ import (
 func newDosGame(lvl *level.Level, s *dosplay.Session, side int, planner dosPlanner, reveal bool) *game {
 	g := newMapGame(lvl, reveal)
 	g.dos = newDosControl(s, side, planner, reveal)
+	g.layoutSplit()
 	return g
 }
 
-// dosWalking reports whether the unit standing on at is still walking there.
+// dosWalking reports whether the unit standing on at is still walking there, on
+// the human side's map (the walker is drawn there only).
 func (g *game) dosWalking(at hexgrid.Coord) bool {
 	w := g.dos.walk
-	if w.Done() || w.path[len(w.path)-1] != at {
+	if g.shownSide() != g.dos.side || w.Done() || w.path[len(w.path)-1] != at {
 		return false
 	}
 	u, ok := g.dos.units(g.reveal)[at]
 	return ok && w.unit == u.Index
 }
 
-// dosSpent reports whether u is drawn spent: an own unit with its order.
-// The other side's orders stay hidden unless the true view is shown.
+// dosSpent reports whether u is drawn spent: a unit of the map's side with its
+// order. The other side's orders stay hidden unless the true view is shown.
 func (g *game) dosSpent(u dosplay.UnitView) bool {
-	return u.Moved && (u.Side == g.dos.side || g.reveal)
+	return u.Moved && (u.Side == g.shownSide() || g.reveal)
 }
 
 // drawDosUnit draws the unit on c at screen point (sx, sy).
 func (g *game) drawDosUnit(dst *ebiten.Image, c hexgrid.Coord, sx, sy float64) {
-	u := g.dos.units(g.reveal)[c]
+	u := g.dos.unitsOf(g.shownSide(), g.reveal)[c]
 	if g.drawUnitSprite(dst, sx, sy, u.ID, u.Owner, g.dosSpent(u), false, g.dos.Facing(u.Index)) {
 		return
 	}
@@ -102,40 +104,6 @@ func (g *game) drawOrderNumbers(dst *ebiten.Image) {
 		vector.FillRect(dst, float32(x-2), float32(y), float32(textWidth(label)+4), 16, color.RGBA{60, 20, 10, 230}, false)
 		ebitenutil.DebugPrintAt(dst, label, x, y)
 	}
-}
-
-// dosStatusText is the status and help line of the order cycle: level, turn
-// (counted from 1), the side's phase with its orders, the other side's phase.
-func (g *game) dosStatusText() string {
-	d, s := g.dos, g.dos.s
-	mine := count(len(s.Game.Players[d.side].Orders), "order")
-	if s.Game.Limit > 0 {
-		mine = fmt.Sprintf("%d of %d orders", len(s.Game.Players[d.side].Orders), s.Game.Limit)
-	}
-	if s.Ready(d.side) {
-		mine = "ready"
-	}
-	other := phaseName(s.Phase(1-d.side)) + " phase"
-	if s.Ready(1 - d.side) {
-		other += ", ready"
-	}
-	msg := fmt.Sprintf("%s  turn %d  %v: %s phase, %s  opponent: %s  zoom %.2f (%dx assets)\n"+
-		"arrows/WASD scroll, wheel zoom; movement phase: click own unit, then a blue hex; action phase: click own unit, then a red hex; "+
-		"click own building for contents (1-9 picks a row), F1 confirm orders (again: reopen), F11 fullscreen, Esc/right-click cancel",
-		g.lvl.MapName, s.Turn()+1, s.Faction(d.side), phaseName(s.Phase(d.side)), mine, other, g.cam.Zoom, g.drawnDensity())
-	if t := d.endText(); t != "" && d.over {
-		msg += "\n" + t
-	}
-	if d.Message != "" {
-		msg += "\n" + d.Message
-	}
-	if g.artErr != "" {
-		msg += "\nunit sprites: " + g.artErr
-	}
-	if g.terrainErr != "" {
-		msg += "\nterrain tiles: " + g.terrainErr
-	}
-	return msg
 }
 
 // dosUnitInfo describes a unit of the session.

@@ -68,9 +68,17 @@ func (g *game) applyAction(a action) (keepRunning bool) {
 			d.Click(g.hover)
 		}
 	case actViewTop:
-		g.cam.CenterOn(g.cam.World.W/2, 0)
+		if g.split != nil {
+			g.stepView(g.dos.side, 0, -g.grid.Lines)
+		} else {
+			g.cam.CenterOn(g.cam.World.W/2, 0)
+		}
 	case actViewBottom:
-		g.cam.CenterOn(g.cam.World.W/2, g.cam.World.H)
+		if g.split != nil {
+			g.stepView(g.dos.side, 0, g.grid.Lines)
+		} else {
+			g.cam.CenterOn(g.cam.World.W/2, g.cam.World.H)
+		}
 	case actToggleMotion:
 		d.SetReducedMotion(!ui.reduced)
 		ui.Message = "reduced motion " + map[bool]string{true: "on", false: "off"}[ui.reduced]

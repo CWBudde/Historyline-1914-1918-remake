@@ -58,6 +58,7 @@ type game struct {
 	grid           hexgrid.Grid
 	cam            *camera.Camera
 	mini           minimap.Minimap
+	miniMap        miniMap // the minimap's raster, picture and press
 	hover          hexgrid.Coord
 	hoverOnMap     bool
 	view           view // device and logical screen sizes, UI scale
@@ -74,6 +75,11 @@ type game struct {
 	hdUnits        <-chan *artPacks   // full-quality unit art while it loads (-units-hd, without the menus)
 	hdTerrain      <-chan *terrainArt // full-quality terrain while it loads (-terrain-hd)
 	scroll         float64            // map scroll speed, screen pixels per frame
+
+	split    *split // the split screen of -rules dos, nil otherwise
+	drawing  bool   // a dos panel is being drawn: drawSide's map
+	drawSide int
+	tileTint map[string]color.RGBA // average colour of a terrain tile, by asset ID
 }
 
 func newGame(lvl *level.Level, st *state.State, player state.Player, reveal bool) *game {
@@ -85,10 +91,8 @@ func newGame(lvl *level.Level, st *state.State, player state.Player, reveal bool
 // newMapGame is the map view of lvl without a rules engine.
 func newMapGame(lvl *level.Level, reveal bool) *game {
 	g := lvl.Grid()
-	world := camera.Size{
-		W: float64(g.Width*hexgrid.ColPitch + hexgrid.HalfPitch),
-		H: float64((g.Lines-1)*hexgrid.LinePitch + hexgrid.HexHeight),
-	}
+	ww, wh := g.Bounds()
+	world := camera.Size{W: ww, H: wh}
 	gm := &game{
 		lvl: lvl, reveal: reveal, grid: g,
 		cam:         camera.New(world, camera.Size{W: startWidth, H: startHeight}),
@@ -115,6 +119,7 @@ func (g *game) applyLayout(outW, outH int, dpi float64) {
 	g.cam.Resize(camera.Size{W: float64(v.PhysW), H: float64(v.PhysH)})
 	g.cam.SetScale(float64(v.UI))
 	g.layoutMinimap()
+	g.layoutSplit()
 }
 
 // cursor returns the mouse position in device pixels (map picking) and in logical
@@ -123,11 +128,6 @@ func (g *game) cursor() (px, py, hx, hy int) {
 	px, py = ebiten.CursorPosition()
 	hx, hy = g.view.toHUD(px, py)
 	return px, py, hx, hy
-}
-
-func (g *game) layoutMinimap() {
-	g.mini = minimap.Fit(g.cam.World, camera.Size{W: float64(g.hud.MinimapMax), H: float64(g.hud.MinimapMax)},
-		camera.Size{W: float64(g.w), H: float64(g.h)}, minimapMargin)
 }
 
 // fogOf is what the shown player knows about c; everything is visible in reveal mode.
@@ -170,7 +170,7 @@ func showsUnit(f state.Fog) bool { return f == state.Visible }
 // knows where those are.
 func (g *game) unitShown(c hexgrid.Coord) (shown, remembered bool) {
 	if g.dos != nil {
-		_, ok := g.dos.units(g.reveal)[c]
+		_, ok := g.dos.unitsOf(g.shownSide(), g.reveal)[c]
 		return ok && !g.walking(c), false
 	}
 	f := g.fogOf(c)
@@ -208,7 +208,7 @@ func (g *game) drawUnit(dst *ebiten.Image, c hexgrid.Coord, sx, sy float64, reme
 // last seen when Seen, None when Unseen or not a building.
 func (g *game) ownerShown(c hexgrid.Coord) state.Player {
 	if g.dos != nil {
-		return g.dos.buildings()[c].Owner // None when no building
+		return g.dos.buildingsOf(g.shownSide())[c].Owner // None when no building
 	}
 	if g.fogOf(c) == state.Visible {
 		if h := g.state.At(c); h.Container != nil {
@@ -252,6 +252,62 @@ func (g *game) Update() error {
 		g.terrain.release()
 		g.terrain = t
 	}
+	if g.split == nil {
+		g.scrollKeys()
+	}
+	if ui := g.drv().ui(); ui.report.Active() && (len(inpututil.AppendJustPressedKeys(nil)) > 0 || inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft)) {
+		ui.DismissReport()
+	}
+	g.drv().Tick()
+	if g.split != nil {
+		g.updateSplit()
+	}
+	for _, a := range actionsFor(inpututil.IsKeyJustPressed) {
+		if !g.applyAction(a) {
+			return ebiten.Termination
+		}
+	}
+	mx, my, hx, hy := g.cursor()
+	// The press rule sees every frame, so a press that starts under a menu or
+	// on the map never drives the minimap.
+	onMini := g.split == nil && g.mini.Contains(float64(hx), float64(hy))
+	drive := g.split == nil && g.miniMap.press.Update(ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft), onMini)
+	if g.updateMenu() {
+		return nil
+	}
+
+	if g.split != nil {
+		// Under -rules dos the layout sets the scale: no wheel zoom.
+		g.hover, g.hoverOnMap = g.pickSplit(mx, my)
+	} else {
+		if _, wheel := ebiten.Wheel(); wheel != 0 {
+			factor := 1.1
+			if wheel < 0 {
+				factor = 1 / 1.1
+			}
+			g.cam.ZoomAt(factor, float64(mx), float64(my))
+		}
+		if drive {
+			g.cam.CenterOn(g.mini.ToWorld(g.mini.Clamp(float64(hx), float64(hy))))
+		}
+		if onMini || g.miniMap.press.Captured() {
+			g.hoverOnMap = false
+			return nil
+		}
+		wx, wy := g.cam.ScreenToWorld(float64(mx), float64(my))
+		g.hover, g.hoverOnMap = g.grid.PixelToHex(wx, wy)
+	}
+	if g.hoverOnMap && inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
+		g.drv().Click(g.hover)
+	}
+	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonRight) {
+		g.drv().Clear()
+	}
+	return nil
+}
+
+// scrollKeys scrolls the single map with the arrow keys and WASD.
+func (g *game) scrollKeys() {
 	dx, dy := 0.0, 0.0
 	if ebiten.IsKeyPressed(ebiten.KeyArrowLeft) || ebiten.IsKeyPressed(ebiten.KeyA) {
 		dx -= g.scroll
@@ -266,43 +322,6 @@ func (g *game) Update() error {
 		dy += g.scroll
 	}
 	g.cam.Scroll(dx*float64(g.view.UI), dy*float64(g.view.UI))
-	if ui := g.drv().ui(); ui.report.Active() && (len(inpututil.AppendJustPressedKeys(nil)) > 0 || inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft)) {
-		ui.DismissReport()
-	}
-	g.drv().Tick()
-	for _, a := range actionsFor(inpututil.IsKeyJustPressed) {
-		if !g.applyAction(a) {
-			return ebiten.Termination
-		}
-	}
-	if g.updateMenu() {
-		return nil
-	}
-
-	mx, my, hx, hy := g.cursor()
-	if _, wheel := ebiten.Wheel(); wheel != 0 {
-		factor := 1.1
-		if wheel < 0 {
-			factor = 1 / 1.1
-		}
-		g.cam.ZoomAt(factor, float64(mx), float64(my))
-	}
-	if g.mini.Contains(float64(hx), float64(hy)) {
-		g.hoverOnMap = false
-		if ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft) {
-			g.cam.CenterOn(g.mini.ToWorld(float64(hx), float64(hy)))
-		}
-		return nil
-	}
-	wx, wy := g.cam.ScreenToWorld(float64(mx), float64(my))
-	g.hover, g.hoverOnMap = g.grid.PixelToHex(wx, wy)
-	if g.hoverOnMap && inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
-		g.drv().Click(g.hover)
-	}
-	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonRight) {
-		g.drv().Clear()
-	}
-	return nil
 }
 
 // menuRow is the HUD rectangle of menu row i: beside the selected unit for
@@ -409,6 +428,48 @@ func (g *game) drawMenu(dst *ebiten.Image) {
 func (g *game) Draw(screen *ebiten.Image) {
 	screen.Fill(color.RGBA{20, 20, 24, 255})
 	vx, vy, vw, vh := g.cam.Visible()
+	if g.split != nil {
+		g.drawSplit(screen)
+	} else {
+		g.drawMapLayer(screen, vx, vy, vw, vh, true)
+	}
+
+	// Everything below is HUD, drawn in logical pixels and magnified by the UI scale.
+	if g.hudImg == nil || g.hudImg.Bounds().Dx() != g.w || g.hudImg.Bounds().Dy() != g.h {
+		g.hudImg = ebiten.NewImage(g.w, g.h)
+	}
+	hud := g.hudImg
+	hud.Clear()
+	switch {
+	case g.hexNumbers && g.split != nil:
+		g.drawSplitHexNumbers(hud)
+	case g.hexNumbers && g.cam.Zoom >= minNumberZoom:
+		g.drawHexNumbers(hud, vx, vy, vw, vh)
+	}
+	g.drawOrderNumbers(hud)
+	if g.split == nil {
+		g.drawMinimap(hud)
+	}
+	g.drawMenu(hud)
+	g.drawReport(hud)
+	g.drawBanner(hud)
+	g.drawInfo(hud)
+	if dev := g.devIndicators(); dev != "" {
+		ebitenutil.DebugPrintAt(hud, dev, g.hud.DevRight-textWidth(dev), 0)
+	}
+	if g.split != nil {
+		g.drawWells(hud)
+	}
+	g.drawStatus(hud)
+	var op ebiten.DrawImageOptions
+	op.GeoM.Scale(float64(g.view.UI), float64(g.view.UI))
+	screen.DrawImage(hud, &op)
+}
+
+// drawMapLayer draws the map in the world rectangle (vx, vy, vw, vh) through
+// g.cam on dst, in device pixels. The selection, orders, walker and hover
+// outline belong to the human side's map only (human).
+func (g *game) drawMapLayer(dst *ebiten.Image, vx, vy, vw, vh float64, human bool) {
 	// A hex just outside the view counts while its standing items may reach in.
 	const mx, my = hexgrid.HexWidth/2 + mapcompose.OverhangX, hexgrid.HexHeight/2 + mapcompose.OverhangY
 	var inView []hexgrid.Coord
@@ -425,76 +486,57 @@ func (g *game) Draw(screen *ebiten.Image) {
 	// Terrain, then owner marks, then units, each in its own pass so that a later
 	// hex never covers what an earlier one drew beyond its outline.
 	if g.terrain != nil {
-		g.drawTerrain(screen, inView)
+		g.drawTerrain(dst, inView)
 	} else {
 		for _, coord := range inView {
 			sx, sy := g.cam.WorldToScreen(hexgrid.Center(coord))
 			hx := g.lvl.Lines[coord.Line][coord.Col]
-			g.drawHex(screen, float32(sx), float32(sy), fogShade(g.fogOf(coord), g.fill(hx.Terrain)), false)
+			g.drawHex(dst, float32(sx), float32(sy), fogShade(g.fogOf(coord), g.fill(hx.Terrain)), false)
 		}
 	}
 	for _, coord := range inView {
 		if owner := g.ownerShown(coord); owner != state.None {
 			sx, sy := g.cam.WorldToScreen(hexgrid.Center(coord))
 			e := float32(g.cam.Effective())
-			vector.FillRect(screen, float32(sx)-20*e, float32(sy)-34*e, 40*e, 6*e, fogShade(g.fogOf(coord), ownerColour(owner)), false)
+			vector.FillRect(dst, float32(sx)-20*e, float32(sy)-34*e, 40*e, 6*e, fogShade(g.fogOf(coord), ownerColour(owner)), false)
 		}
 	}
 	for _, coord := range inView {
 		if shown, remembered := g.unitShown(coord); shown {
 			sx, sy := g.cam.WorldToScreen(hexgrid.Center(coord))
-			g.drawUnit(screen, coord, sx, sy, remembered)
+			g.drawUnit(dst, coord, sx, sy, remembered)
 		}
 	}
-	if w := g.drv().ui().walk; !w.Done() && g.fogOf(w.Hex()) == state.Visible {
-		wx, wy := w.Pos()
-		sx, sy := g.cam.WorldToScreen(wx, wy)
-		face, _ := unitsprite.Toward(w.Heading())
-		if !g.drawWalker(screen, w.unit, sx, sy, face) {
-			vector.FillCircle(screen, float32(sx), float32(sy), float32(14*g.cam.Effective()), color.RGBA{230, 230, 230, 255}, true)
+	if human {
+		if w := g.drv().ui().walk; !w.Done() && g.fogOf(w.Hex()) == state.Visible {
+			wx, wy := w.Pos()
+			sx, sy := g.cam.WorldToScreen(wx, wy)
+			face, _ := unitsprite.Toward(w.Heading())
+			if !g.drawWalker(dst, w.unit, sx, sy, face) {
+				vector.FillCircle(dst, float32(sx), float32(sy), float32(14*g.cam.Effective()), color.RGBA{230, 230, 230, 255}, true)
+			}
+		}
+		g.drawOverlays(dst)
+		g.drawOrders(dst)
+		if g.hoverOnMap {
+			cx, cy := hexgrid.Center(g.hover)
+			sx, sy := g.cam.WorldToScreen(cx, cy)
+			g.drawHex(dst, float32(sx), float32(sy), color.RGBA{}, true)
 		}
 	}
-	g.drawOverlays(screen)
-	g.drawOrders(screen)
-	if g.hoverOnMap {
-		cx, cy := hexgrid.Center(g.hover)
-		sx, sy := g.cam.WorldToScreen(cx, cy)
-		g.drawHex(screen, float32(sx), float32(sy), color.RGBA{}, true)
-	}
-	g.drawMarks(screen)
-
-	// Everything below is HUD, drawn in logical pixels and magnified by the UI scale.
-	if g.hudImg == nil || g.hudImg.Bounds().Dx() != g.w || g.hudImg.Bounds().Dy() != g.h {
-		g.hudImg = ebiten.NewImage(g.w, g.h)
-	}
-	hud := g.hudImg
-	hud.Clear()
-	if g.hexNumbers && g.cam.Zoom >= minNumberZoom {
-		g.drawHexNumbers(hud, vx, vy, vw, vh)
-	}
-	g.drawOrderNumbers(hud)
-	g.drawMinimap(hud)
-	g.drawMenu(hud)
-	g.drawReport(hud)
-	g.drawBanner(hud)
-	g.drawInfo(hud)
-	if dev := g.devIndicators(); dev != "" {
-		ebitenutil.DebugPrintAt(hud, dev, g.hud.DevRight-textWidth(dev), 0)
-	}
-	g.drawStatus(hud)
-	var op ebiten.DrawImageOptions
-	op.GeoM.Scale(float64(g.view.UI), float64(g.view.UI))
-	screen.DrawImage(hud, &op)
+	// Hit marks show on both sides' maps: both see the battle.
+	g.drawMarks(dst)
 }
 
 // drawStatus prints the status and help text at the top left of the HUD.
 func (g *game) drawStatus(dst *ebiten.Image) { ebitenutil.DebugPrint(dst, g.statusText()) }
 
 // statusText is the status and help text. It names nothing of the hovered hex:
-// the info box shows that, fog-safe.
+// the info box shows that, fog-safe. Under -rules dos the status wells carry the
+// state and the message, and only art failures stay here.
 func (g *game) statusText() string {
 	if g.dos != nil {
-		return g.dosStatusText()
+		return g.splitErrors()
 	}
 	msg := fmt.Sprintf("%s  round %d, %v to move  zoom %.2f (%dx assets)\narrows/WASD scroll, wheel zoom, click unit for its menu or click a blue/red hex (1-9 picks menu row; click own building for contents; click skips a walk), F1 end turn, F11 fullscreen, Esc/right-click cancel",
 		g.lvl.MapName, g.state.Round, g.state.Turn, g.cam.Zoom, g.drawnDensity())
@@ -593,34 +635,6 @@ func (g *game) drawOverlays(dst *ebiten.Image) {
 	g.drawHex(dst, float32(sx), float32(sy), color.RGBA{}, true)
 }
 
-// drawMinimap draws one small cell per hex with the same fog rules as the main
-// view, so unseen terrain and hidden units never show, plus the camera rectangle.
-func (g *game) drawMinimap(dst *ebiten.Image) {
-	m := g.mini
-	s := m.Size()
-	vector.FillRect(dst, float32(m.Pos.X)-2, float32(m.Pos.Y)-2, float32(s.W)+4, float32(s.H)+4, color.RGBA{0, 0, 0, 220}, false)
-	cw := float32(hexgrid.ColPitch * m.Scale)
-	ch := float32(hexgrid.HexHeight * m.Scale)
-	for l, line := range g.lvl.Lines {
-		for c, hx := range line {
-			coord := hexgrid.Coord{Line: l, Col: c}
-			cx, cy := hexgrid.Center(coord)
-			sx, sy := m.FromWorld(cx, cy)
-			fog := g.fogOf(coord)
-			col := fogShade(fog, g.fill(hx.Terrain))
-			if shown, remembered := g.unitShown(coord); shown {
-				col = color.RGBA{240, 240, 240, 255}
-				if remembered {
-					col = rememberedUnit
-				}
-			}
-			vector.FillRect(dst, float32(sx)-cw/2, float32(sy)-ch/2, cw, ch, col, false)
-		}
-	}
-	x, y, w, h := m.ViewRect(g.cam)
-	vector.StrokeRect(dst, float32(x), float32(y), float32(w), float32(h), 1.5, color.RGBA{255, 240, 80, 255}, false)
-}
-
 func (g *game) drawHex(dst *ebiten.Image, cx, cy float32, fill color.RGBA, outline bool) {
 	z, ui := float32(g.cam.Effective()), float32(g.view.UI)
 	var p vector.Path
@@ -649,9 +663,16 @@ func pathOptions(c color.RGBA) *vector.DrawPathOptions {
 }
 
 // Layout returns the screen in device pixels, so the map is drawn at full
-// resolution; the HUD is magnified separately (see view).
+// resolution; the HUD is magnified separately (see view). The split screen of
+// -rules dos keeps the window large enough for its smallest panels.
 func (g *game) Layout(outsideW, outsideH int) (int, int) {
-	g.applyLayout(outsideW, outsideH, ebiten.Monitor().DeviceScaleFactor())
+	dpi := ebiten.Monitor().DeviceScaleFactor()
+	g.applyLayout(outsideW, outsideH, dpi)
+	if g.split != nil {
+		limitWindow(splitMinWindow(dpi))
+	} else {
+		limitWindow(0, 0)
+	}
 	return g.view.PhysW, g.view.PhysH
 }
 

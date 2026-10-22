@@ -47,14 +47,6 @@ func ownUnits(d *dosControl) []hexgrid.Coord {
 	return out
 }
 
-func toSet[V any](m map[hexgrid.Coord]V) map[hexgrid.Coord]bool {
-	out := map[hexgrid.Coord]bool{}
-	for k := range m {
-		out[k] = true
-	}
-	return out
-}
-
 // nearestEnemy is the choice closest to a unit of the other side.
 func nearestEnemy(d *dosControl, choices []hexgrid.Coord) hexgrid.Coord {
 	best, bd := choices[0], 1<<30
@@ -371,9 +363,13 @@ func TestDosInfoAndStatus(t *testing.T) {
 		}
 		break
 	}
-	status := g.statusText()
-	if !strings.Contains(status, "turn 1 ") || !strings.Contains(status, "movement phase, 0 orders") || !strings.Contains(status, "opponent: action phase") {
-		t.Errorf("status %q", status)
+	mine, msg := g.wellText(0)
+	other, none := g.wellText(1)
+	if !strings.Contains(mine, "TURN 1 ") || !strings.Contains(mine, "MOVEMENT PHASE, 0 ORDERS") || !strings.Contains(other, "ACTION PHASE") || none != "" {
+		t.Errorf("status wells %q (%q), %q (%q)", mine, msg, other, none)
+	}
+	if g.artErr = "broken"; !strings.Contains(g.statusText(), "unit sprites: broken") {
+		t.Errorf("art failure not shown: %q", g.statusText())
 	}
 	if shown, remembered := g.unitShown(at); !shown || remembered || g.fogOf(at) != state.Visible {
 		t.Errorf("unit on %v: shown %v remembered %v", at, shown, remembered)

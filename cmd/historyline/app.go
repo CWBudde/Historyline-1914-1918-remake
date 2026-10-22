@@ -284,6 +284,7 @@ func (a *app) Layout(outW, outH int) (int, int) {
 	if a.battle != nil {
 		return a.battle.Layout(outW, outH)
 	}
+	limitWindow(0, 0)
 	return a.view.PhysW, a.view.PhysH
 }
 

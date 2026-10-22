@@ -70,6 +70,17 @@ func reviewFramePlan(look bool) []reviewFrame {
 	return frames
 }
 
+// splitFramePlan is the capture of the split screen of -rules dos at its fixed
+// cell scale: the opening position, each side's own view and the true view, at
+// 4:3 and the 720p/1080p/4K sizes.
+func splitFramePlan() []reviewFrame {
+	var frames []reviewFrame
+	for _, size := range [][2]int{{1024, 768}, {1280, 720}, {1920, 1080}, {3840, 2160}} {
+		frames = append(frames, reviewFrame{size[0], size[1], "split", false, 0}, reviewFrame{size[0], size[1], "split-revealed", true, 0})
+	}
+	return frames
+}
+
 func (f reviewFrame) filename() string {
 	return fmt.Sprintf("pulse-%s-%dx%d.png", f.view, f.width, f.height)
 }
@@ -109,13 +120,15 @@ func (c *captureGame) Draw(screen *ebiten.Image) {
 	g := c.game
 	g.applyLayout(w, h, 1)
 	g.reveal = frame.reveal
-	g.cam.Zoom = frame.cameraZoom(g.cam.World, g.view.UI)
-	cx, cy := g.cam.World.W/2, g.cam.World.H/2
-	if frame.view != "overview" {
-		// Same HQ/unit neighbourhood at each resolution and effective zoom.
-		cx, cy = g.cam.World.W*.42, g.cam.World.H*.22
+	if g.split == nil {
+		g.cam.Zoom = frame.cameraZoom(g.cam.World, g.view.UI)
+		cx, cy := g.cam.World.W/2, g.cam.World.H/2
+		if frame.view != "overview" {
+			// Same HQ/unit neighbourhood at each resolution and effective zoom.
+			cx, cy = g.cam.World.W*.42, g.cam.World.H*.22
+		}
+		g.cam.CenterOn(cx, cy)
 	}
-	g.cam.CenterOn(cx, cy)
 	target := ebiten.NewImage(w, h)
 	defer target.Deallocate()
 	g.Draw(target)
@@ -160,7 +173,11 @@ func writeReviewFrames(g *game, out string, look bool) error {
 	if err := os.MkdirAll(out, 0755); err != nil {
 		return err
 	}
-	c := &captureGame{game: g, out: out, frames: reviewFramePlan(look)}
+	frames := reviewFramePlan(look)
+	if g.split != nil {
+		frames = splitFramePlan() // the panels keep the layout's scale
+	}
+	c := &captureGame{game: g, out: out, frames: frames}
 	if err := ebiten.RunGame(c); err != nil {
 		return err
 	}
