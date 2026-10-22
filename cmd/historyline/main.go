@@ -701,9 +701,6 @@ func newMatch(c matchConfig, m *meter) (*game, error) {
 		}
 		gm = newDosGame(c.lvl, s, s.SideOf(c.player), planner, c.reveal)
 	case "standard", "classic":
-		if c.board != nil {
-			return nil, fmt.Errorf("original maps play on the original rules only (-rules dos), not %q", c.rules)
-		}
 		r := state.Standard
 		if c.rules == "classic" {
 			r = state.Classic
@@ -735,7 +732,7 @@ func newMatch(c matchConfig, m *meter) (*game, error) {
 }
 
 func main() {
-	name := flag.String("level", "level1_cp", "shipped level to load from levels/ (name without .json), or original/NN for an imported original map (original rules only); skips the menu")
+	name := flag.String("level", "level1_cp", "shipped level to load from levels/ (name without .json), or original/NN for an imported original map (its campaign level); skips the menu")
 	dir := flag.String("levels", "levels", "directory with the level files")
 	side := flag.String("player", "", "side the player plays and whose view is shown: central, entente (default: the level's side); skips the menu")
 	rules := flag.String("rules", "dos", "rule set: dos (the original order cycle), standard or classic")

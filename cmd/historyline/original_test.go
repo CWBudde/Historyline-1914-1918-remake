@@ -9,8 +9,10 @@ import (
 	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 )
 
-// An imported original map loads from the embedded files, plays on the
-// original rules only, and shows units the remake has no unit for by type.
+// An imported original map loads from the embedded files with its campaign
+// level, plays its exact board on the original rules and its campaign level on
+// the remake rules, and shows units the remake has no unit for (a ship's
+// rear) by type.
 func TestOriginalMap(t *testing.T) {
 	set, err := data.Load()
 	if err != nil {
@@ -52,8 +54,12 @@ func TestOriginalMap(t *testing.T) {
 	}
 	for _, rules := range []string{"standard", "classic"} {
 		c.rules = rules
-		if _, err := newMatch(c, nil); err == nil {
-			t.Errorf("%s rules accepted an original map", rules)
+		gm, err := newMatch(c, nil)
+		if err != nil {
+			t.Fatalf("%s: %v", rules, err)
+		}
+		if gm.state == nil || gm.state.Name != "06" {
+			t.Errorf("%s: not the campaign level of map 06", rules)
 		}
 	}
 	if _, _, err := loadMap(t.TempDir(), "original/99", set); err == nil {

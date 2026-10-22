@@ -2,6 +2,7 @@ package ai
 
 import (
 	"fmt"
+	"io/fs"
 	"maps"
 	"reflect"
 	"testing"
@@ -289,4 +290,49 @@ func owned(s *game.State, p game.Player) int {
 		}
 	}
 	return n
+}
+
+// The planner plays both sides of every campaign level (levels/campaign, the
+// original maps with aircraft, ships and the whole roster) for some rounds
+// under both rule sets without an illegal order; with -short every sixth level.
+func TestPlaysCampaignLevels(t *testing.T) {
+	set := loadSet(t)
+	names, err := fs.Glob(levels.Campaign, "campaign/*.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(names) != 72 {
+		t.Fatalf("%d campaign levels", len(names))
+	}
+	for i, name := range names {
+		if testing.Short() && i%6 != 0 {
+			continue
+		}
+		for _, rules := range []game.Rules{game.Classic, game.Standard} {
+			raw, err := fs.ReadFile(levels.Campaign, name)
+			if err != nil {
+				t.Fatal(err)
+			}
+			lv, err := level.Parse(raw)
+			if err != nil {
+				t.Fatal(err)
+			}
+			s, err := game.NewWithRules(lv, set, rules)
+			if err != nil {
+				t.Fatalf("%s: %v", name, err)
+			}
+			n := 0
+			roll := func() int { n++; return n%11 - 5 }
+			var p Planner
+			for s.Round <= 6 && s.Winner == game.None {
+				turn(t, s, &p, roll)
+				if s.Winner != game.None {
+					break
+				}
+				if err := s.EndTurn(); err != nil {
+					t.Fatalf("%s: %v", name, err)
+				}
+			}
+		}
+	}
 }
