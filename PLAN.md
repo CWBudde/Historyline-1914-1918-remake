@@ -194,22 +194,36 @@ New families, newly painted in the remake's style with 2×/4× exports:
 3. [x] Two panels with per-side views and cameras that snap to whole cells; the computer's panel follows
        its moves. (2026-10-22) — `cmd/historyline/split.go`; the status wells show each side's state as
        a stopgap until step 4.
-4. [ ] Status bars: unit line, all state messages, progress bar.
+4. [x] Status bars: unit line, all state messages, progress bar. (2026-10-23) — `cmd/historyline/well.go`
+       on the placeholder capitals font `internal/pixfont` (own wording); the computer plans on a
+       `Session.Clone` off the frame and its commands replay on the main thread (`plan.go`), with its
+       progress bar in its well (`TestWell*`, `TestPlanOffTheFrame`).
 5. [x] Cursor plate and gesture actions for mouse and key set A, the icon ring; move range darkening and
        attack targets. (2026-10-22) — `internal/gesture` (placeholder plates), `cmd/historyline/cursor.go`;
        the OS pointer hides over the human side's map (hand test in a window still open).
-6. [ ] Overlays: unit info, game info, strategic map, contents with repair and production.
-       (2026-10-22) — partial: the strategic map opens in the panel (`minimap.Strategic`); the session
-       exposes the data (`dosplay` `TypeInfo`, `Stats`, `BuildingView.Kind`, `CanRepair`/`CanBuild`,
-       `Buildable`; `dosai.Planner.Progress`), and the game info numbers match the original's PULSE start.
-       Remain: the unit-info and game-info plates (info shows text lines for now), contents with a slot
-       cursor (move out, produce, repair gestures), the best score, the code-word level name.
-7. [ ] Phase-change sequence and the computer's analysis progress.
-8. [ ] Battle vignettes (placeholders first), F9 toggle.
-9. [ ] Two humans on one screen (key set B, both confirmations).
+6. [x] Overlays: unit info, game info, strategic map, contents with repair and production.
+       (2026-10-23) — procedural plates in `internal/dospanel` drawn in the panel (`overlay.go`,
+       `contents.go`): unit info with the sepia portrait, game info on the darkened map, contents with a
+       slot cursor (move out, produce, repair); RESOURCES is the building's credits, TOTAL the side's
+       account; BEST from `internal/scores` (recorded on a win). Levels show their upper-case map name,
+       original maps their number (`TestDosOverlays*`, `TestContentsCursor*`).
+7. [x] Phase-change sequence and the computer's analysis progress. (2026-10-23) — `phase.go`: F1 prompt
+       in grey, black with the cursor plates, battles (site grey to colour), the new modes in grey, colour,
+       then the computer's analysis; reduced motion shortens it (`TestPhaseSequence*`).
+8. [x] Battle vignettes (placeholders first), F9 toggle. (2026-10-23) — procedural sepia vignettes per
+       domain (`dosplay.Domain`) in the other panel, casualties in the well; F9 and reduced motion skip
+       them, a key or click skips one (`TestBattlePanel*`).
+9. [ ] Two humans on one screen (key set B, both confirmations). The panel state added in steps 4–8
+       (wells, stages, overlays) is kept per side where cheap.
 10. [ ] Art: frame, gesture plates, flags, font and vignettes promoted into `assets/` and bound.
 11. [ ] Acceptance: `-capture` frames of all three levels, both sides, next to the reference frames in
         `hlgallery` (local only, the references stay ignored); 720p–4K, UI scales; summer and winter.
+12. [x] Edge scroll: the pointer on the human panel's outer half cells or past them steps the camera,
+        repeating, with the cursor under the pointer. (2026-10-23) — `cursor.go` (`TestEdgeDir`,
+        `TestEdgeScroll`).
+13. [x] Zoom levels with the mouse wheel over the human panel, shared by both panels, keeping the hover
+        cell in view. (2026-10-23) — `dosscreen.Zooms` (½ to 2× of the fitted scale, at least 4×4 cells),
+        `zoomSplit` (`TestSplitZoom`, `go test ./internal/dosscreen -run Zoom`).
 
 ### 2. Art completion and acceptance
 
