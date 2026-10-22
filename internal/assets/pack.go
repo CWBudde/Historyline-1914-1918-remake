@@ -1,5 +1,6 @@
-// Package assets loads bounded, hash-pinned PNG packs independently of rendering.
-// Packs are immutable snapshots; callers must treat returned images as read-only.
+// Package assets loads bounded, hash-pinned image packs independently of rendering.
+// Images are PNG, or JPEG and WebP in the web build's compressed packs. Packs are
+// immutable snapshots; callers must treat returned images as read-only.
 package assets
 
 import (
@@ -9,12 +10,16 @@ import (
 	"encoding/json"
 	"fmt"
 	"image"
+	"image/jpeg"
 	"image/png"
 	"io"
 	"io/fs"
 	"math"
+	"path"
 	"strings"
 	"sync"
+
+	"golang.org/x/image/webp"
 )
 
 const (
@@ -48,6 +53,17 @@ type Entry struct {
 	Height  int        `json:"height"`
 	Density int        `json:"density"`
 	Anchor  [2]float64 `json:"logical_anchor"`
+}
+
+// formats are the image formats a pack may hold, by file extension.
+var formats = map[string]struct {
+	name   string
+	config func(io.Reader) (image.Config, error)
+	decode func(io.Reader) (image.Image, error)
+}{
+	".png":  {"PNG", png.DecodeConfig, png.Decode},
+	".jpg":  {"JPEG", jpeg.DecodeConfig, jpeg.Decode},
+	".webp": {"WebP", webp.DecodeConfig, webp.Decode},
 }
 
 type Options struct {
@@ -103,7 +119,7 @@ func ParseManifest(b []byte) (Manifest, error) {
 	return m, nil
 }
 
-// Open reads a manifest then snapshots its PNGs. Use os.Root.FS for disk packs
+// Open reads a manifest then snapshots its images. Use os.Root.FS for disk packs
 // to contain symlinks, or an embed.FS for distribution packs.
 func Open(fsys fs.FS, name string, options Options) (*Pack, error) {
 	if !safePath(name) {
@@ -120,8 +136,8 @@ func Open(fsys fs.FS, name string, options Options) (*Pack, error) {
 	return Load(fsys, m, options)
 }
 
-// Load checks the entire catalog, hashes and PNG headers before returning any
-// assets. Validate also fully decodes every PNG, including its pixel stream/CRC.
+// Load checks the entire catalog, hashes and image headers before returning any
+// assets. Validate also fully decodes every image, including a PNG's pixel stream/CRC.
 func Load(fsys fs.FS, m Manifest, options Options) (*Pack, error) {
 	if m.Schema != 1 || !safePath(m.ID) {
 		return nil, fmt.Errorf("unsupported pack schema or invalid ID %q", m.ID)
@@ -143,8 +159,8 @@ func Load(fsys fs.FS, m Manifest, options Options) (*Pack, error) {
 	// Check the complete catalog before file reads or image allocation.
 	for _, e := range m.Entries {
 		k := key{e.ID, e.Density}
-		if !safePath(e.ID) || !safePath(e.Path) || !strings.HasSuffix(e.Path, ".png") {
-			return nil, fmt.Errorf("asset %q: invalid PNG path or ID %q", e.ID, e.Path)
+		if _, ok := formats[path.Ext(e.Path)]; !ok || !safePath(e.ID) || !safePath(e.Path) {
+			return nil, fmt.Errorf("asset %q: invalid image path or ID %q (PNG, JPEG or WebP)", e.ID, e.Path)
 		}
 		if _, ok := p.sprites[k]; ok {
 			return nil, fmt.Errorf("duplicate asset %q at %dx", e.ID, e.Density)
@@ -193,9 +209,10 @@ func Load(fsys fs.FS, m Manifest, options Options) (*Pack, error) {
 		if hex.EncodeToString(sum[:]) != e.SHA256 {
 			return nil, fmt.Errorf("asset %q: hash mismatch: %s", e.ID, e.Path)
 		}
-		cfg, err := png.DecodeConfig(bytes.NewReader(b))
+		f := formats[path.Ext(e.Path)]
+		cfg, err := f.config(bytes.NewReader(b))
 		if err != nil {
-			return nil, fmt.Errorf("asset %q: PNG header: %w", e.ID, err)
+			return nil, fmt.Errorf("asset %q: %s header: %w", e.ID, f.name, err)
 		}
 		if cfg.Width != e.Width || cfg.Height != e.Height {
 			return nil, fmt.Errorf("asset %q: bad dimensions for %s: got %dx%d, want %dx%d", e.ID, e.Path, cfg.Width, cfg.Height, e.Width, e.Height)
@@ -219,11 +236,14 @@ func (p *Pack) Entry(id string, density int) (Entry, error) {
 	return s.entry, nil
 }
 
-// WritePNG writes the exact verified snapshot, without recompression.
+// WritePNG writes the exact verified snapshot of a PNG, without recompression.
 func (p *Pack) WritePNG(w io.Writer, id string, density int) error {
 	s, err := p.lookup(id, density)
 	if err != nil {
 		return err
+	}
+	if path.Ext(s.entry.Path) != ".png" {
+		return fmt.Errorf("asset %q at %dx is not a PNG", id, density)
 	}
 	_, err = io.Copy(w, bytes.NewReader(s.bytes))
 	return err
@@ -237,9 +257,10 @@ func (p *Pack) Image(id string, density int) (image.Image, error) {
 		return nil, err
 	}
 	s.once.Do(func() {
-		s.image, s.err = png.Decode(bytes.NewReader(s.bytes))
+		f := formats[path.Ext(s.entry.Path)]
+		s.image, s.err = f.decode(bytes.NewReader(s.bytes))
 		if s.err != nil {
-			s.err = fmt.Errorf("asset %q at %dx: decode PNG: %w", id, density, s.err)
+			s.err = fmt.Errorf("asset %q at %dx: decode %s: %w", id, density, f.name, s.err)
 		}
 	})
 	return s.image, s.err
@@ -253,7 +274,7 @@ func (p *Pack) lookup(id string, density int) (*sprite, error) {
 	return s, nil
 }
 
-// Validate fully decodes every declared PNG in manifest order for stable errors.
+// Validate fully decodes every declared image in manifest order for stable errors.
 func (p *Pack) Validate() error {
 	for _, e := range p.manifest.Entries {
 		if _, err := p.Image(e.ID, e.Density); err != nil {
