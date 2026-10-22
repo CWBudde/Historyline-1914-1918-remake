@@ -3,7 +3,7 @@ id: units/st-chamond
 title: St-Chamond tank
 kind: unit
 status: revised
-runtime_ids: unit/st-chamond
+runtime_ids: EC_stChamond
 masters: atlas.png
 ---
 
@@ -31,7 +31,7 @@ Genuine alpha TRANSPARENCY outside objects and through gaps. Absolutely NO groun
 ## Post
 Selected six-view atlas. `art-review -unit art/pipeline/unit-st-chamond-v1.json` produces owner cp/ec/neutral,
 normal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.
-Installed under `assets/units/st-chamond/`; gameplay class binding remains open.
+Installed under `assets/units/st-chamond/`. Bound classes are listed above; final visual acceptance remains open.
 
 ## Avoid
 - terrain, ground shadows, backdrop, baked labels or national insignia

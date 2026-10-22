@@ -116,8 +116,22 @@ func TestCurrentGameSelection(t *testing.T) {
 			t.Errorf("%s: got %d, want %d", k, counts[k], n)
 		}
 	}
-	if len(bindings) != 27 {
+	if len(bindings) != 75 {
 		t.Errorf("got %d runtime unit bindings", len(bindings))
+	}
+	for _, id := range []string{"sprite/a7v", "portrait/a7v"} {
+		found := false
+		for _, it := range c.items {
+			if it.ID == id {
+				found = true
+				if len(it.Bindings) != 1 || it.Bindings[0] != "CP_a7v" || it.Reference != nil || !strings.Contains(it.Note, "No matching legacy reference") {
+					t.Fatalf("bound artwork without a legacy reference: %+v", it)
+				}
+			}
+		}
+		if !found {
+			t.Errorf("missing bound catalogue subject %s", id)
+		}
 	}
 	// The snapshots are the actual inputs the HTML will load, not source filenames.
 	checked := map[string]bool{}

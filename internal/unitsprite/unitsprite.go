@@ -24,13 +24,35 @@ var families = map[string]string{
 	"CP_hArtillery": "heavy-artillery", "EC_hArtillery": "heavy-artillery",
 	"CP_supplyCar": "supply-car", "EC_supplyCar": "supply-car",
 	"CP_bunker": "bunker", "EC_bunker": "bunker",
-	"EC_charron":    "charron",
-	"CP_armCar":     "armored-car",
+	"EC_charron": "charron",
+	"CP_armCar":  "armored-car", "EC_armCar": "armored-car",
 	"CP_patrolBoat": "patrol-boat", "EC_patrolBoat": "patrol-boat",
-	"CP_transTrain": "transport-train",
-	"CP_armTrain":   "armored-train", "EC_armTrain": "armored-train",
+	"CP_transTrain": "transport-train", "EC_transTrain": "transport-train",
+	"CP_armTrain": "armored-train", "EC_armTrain": "armored-train",
 	"CP_trainArt": "train-artillery", "EC_trainArt": "train-artillery",
 	"CP_sappers": "sappers", "EC_sappers": "sappers",
+	"CP_a7v": "a7v", "EC_stChamond": "st-chamond",
+	"CP_ft17": "renault-ft17", "EC_ft17": "renault-ft17",
+	"CP_markI": "mark-i", "EC_markI": "mark-i",
+	"CP_markIV": "mark-iv", "EC_markIV": "mark-iv",
+	"CP_torpedoBoat": "torpedo-boat", "EC_torpedoBoat": "torpedo-boat",
+	"CP_destroyer": "destroyer", "EC_destroyer": "destroyer",
+	"CP_battleship": "battleship", "EC_battleship": "battleship",
+	"CP_transShip": "transport-ship", "EC_transShip": "transport-ship",
+	"CP_submarine": "submarine", "EC_submarine": "submarine",
+	"CP_fokkerEI": "fokker-e-i", "CP_fokkerEIII": "fokker-e-iii",
+	"CP_albatrosDIII": "albatros-d-iii", "CP_fokkerDrI": "fokker-dr-i",
+	"CP_fokkerDVII": "fokker-d-vii", "CP_junkersJI": "junkers-j4",
+	"EC_moraneN": "morane-saulnier-n", "EC_nieuport17": "nieuport-xvii",
+	"EC_spad7": "spad-vii", "EC_spad13": "spad-xiii",
+	"EC_se5a": "se5a", "EC_camel": "sopwith-camel",
+	"EC_dh2": "dh2", "EC_voisin": "voisin-iii", "EC_dh4": "dh4",
+	"CP_gothaGV": "gotha-g-vb", "EC_handleyPage": "handley-page-0400", "CP_staaken": "zeppelin-staaken-r-vi",
+	"CP_construction": "construction-unit", "EC_construction": "construction-unit",
+	"CP_staticAA": "static-aa", "EC_staticAA": "static-aa",
+	"CP_mobileAA": "mobile-aa", "EC_mobileAA": "mobile-aa",
+	"CP_antiTank": "anti-tank", "EC_antiTank": "anti-tank",
+	"CP_balloon": "static-balloon", "EC_balloon": "static-balloon",
 }
 
 // Family returns the sprite family of a unit type (a key of data.Set.Units).
@@ -39,38 +61,9 @@ func Family(unitType string) (string, bool) {
 	return f, ok
 }
 
-// pending lists the unit types without a sprite family yet, sorted.
-var pending = []string{
-	"CP_a7v", "CP_albatrosDIII", "CP_antiTank", "CP_balloon", "CP_battleship", "CP_construction",
-	"CP_destroyer", "CP_fokkerDVII", "CP_fokkerDrI", "CP_fokkerEI", "CP_fokkerEIII", "CP_ft17",
-	"CP_gothaGV", "CP_junkersJI", "CP_markI", "CP_markIV", "CP_mobileAA", "CP_staaken", "CP_staticAA",
-	"CP_submarine", "CP_torpedoBoat", "CP_transShip",
-	"EC_antiTank", "EC_armCar", "EC_balloon", "EC_battleship", "EC_camel", "EC_construction", "EC_destroyer",
-	"EC_dh2", "EC_dh4", "EC_ft17", "EC_handleyPage", "EC_markI", "EC_markIV", "EC_mobileAA",
-	"EC_moraneN", "EC_nieuport17", "EC_se5a", "EC_spad13", "EC_spad7", "EC_stChamond", "EC_staticAA",
-	"EC_submarine", "EC_torpedoBoat", "EC_transShip", "EC_transTrain", "EC_voisin",
-}
-
-// Pending reports whether a unit type has no sprite family yet: the unit is
-// drawn as a placeholder until the art track binds a family to it.
-func Pending(unitType string) bool {
-	_, ok := slices.BinarySearch(pending, unitType)
-	return ok
-}
-
-// Unbound art families have complete exports but no gameplay-table alias yet.
-var unboundFamilies = []string{
-	"a7v", "mark-i", "mark-iv", "renault-ft17", "st-chamond",
-	"torpedo-boat", "destroyer", "battleship", "transport-ship", "submarine",
-	"fokker-e-i", "fokker-e-iii", "albatros-d-iii", "fokker-dr-i", "fokker-d-vii", "junkers-j4",
-	"morane-saulnier-n", "nieuport-xvii", "spad-vii", "spad-xiii", "se5a", "sopwith-camel",
-	"dh2", "voisin-iii", "dh4", "gotha-g-vb", "handley-page-0400", "zeppelin-staaken-r-vi",
-	"construction-unit", "static-aa", "mobile-aa", "anti-tank", "static-balloon",
-}
-
-// Families returns every exported family slug, sorted, including unbound art.
+// Families returns every exported family slug, sorted.
 func Families() []string {
-	out := slices.Clone(unboundFamilies)
+	var out []string
 	for _, f := range families {
 		if !slices.Contains(out, f) {
 			out = append(out, f)

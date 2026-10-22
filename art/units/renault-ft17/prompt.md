@@ -3,7 +3,7 @@ id: units/renault-ft17
 title: Renault FT17 tank
 kind: unit
 status: revised
-runtime_ids: unit/renault-ft17
+runtime_ids: CP_ft17, EC_ft17
 masters: atlas.png
 ---
 
@@ -31,7 +31,7 @@ Genuine alpha TRANSPARENCY outside objects and through gaps. Absolutely NO groun
 ## Post
 Selected six-view atlas. `art-review -unit art/pipeline/unit-renault-ft17-v1.json` produces owner cp/ec/neutral,
 normal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.
-Installed under `assets/units/renault-ft17/`; gameplay class binding remains open.
+Installed under `assets/units/renault-ft17/`. Bound classes are listed above; final visual acceptance remains open.
 
 ## Avoid
 - terrain, ground shadows, backdrop, baked labels or national insignia

@@ -3,7 +3,7 @@ id: units/morane-saulnier-n
 title: Morane-Saulnier N
 kind: unit
 status: revised
-runtime_ids: unit/morane-saulnier-n
+runtime_ids: EC_moraneN
 masters: atlas.png
 ---
 
@@ -31,7 +31,7 @@ CRITICAL: natural silver ROUND rotary-engine cowling with NO long exposed inline
 ## Post
 Selected atlas. `art-review -unit art/pipeline/unit-morane-saulnier-n-v1.json` produces owner cp/ec/neutral,
 normal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.
-Installed under `assets/units/morane-saulnier-n/`; gameplay class binding remains open.
+Installed under `assets/units/morane-saulnier-n/`. Bound classes are listed above; final visual acceptance remains open.
 
 ## Avoid
 - water, wakes, reflections, ground shadows, backdrop or detached fragments

@@ -3,7 +3,7 @@ id: portraits/st-chamond
 title: St.-Chamond tank
 kind: portrait
 status: revised
-runtime_ids: portrait/st-chamond
+runtime_ids: EC_stChamond
 masters: portrait.png
 ---
 
@@ -17,13 +17,12 @@ Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landsca
 ## Variants
 | Variant | Runtime IDs | Prompt delta |
 | --- | --- | --- |
-| portrait | portrait/st-chamond | Selected owner-neutral painting; gameplay class binding pending. |
+| portrait | EC_stChamond | Selected owner-neutral painting; shared by the listed gameplay classes. |
 
 ## Post
 Selected source with a centred exact 105:94 crop, never stretched or enlarged.
 `art-review -portrait art/pipeline/portrait-st-chamond-v1.json` exports 840×752 (4×),
-420×376 (2×) and 210×188 (1×) into `assets/portraits/st-chamond/`. Gameplay class binding
-and in-engine panel acceptance remain open.
+420×376 (2×) and 210×188 (1×) into `assets/portraits/st-chamond/`. In-engine panel acceptance remains open.
 
 ## Avoid
 - national colours, flags, insignia or faction tint

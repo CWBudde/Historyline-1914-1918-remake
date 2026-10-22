@@ -204,9 +204,8 @@ func anchorGeoM(e assets.Entry, d, pad int, eff, sx, sy float64) ebiten.GeoM {
 // (sx, sy), the hex centre, and reports whether it could. Errors go to the status
 // line once and the caller falls back to the placeholder dot.
 func (g *game) drawUnitSprite(dst *ebiten.Image, sx, sy float64, typ string, owner state.Player, spent, remembered bool, face unitsprite.Facing) bool {
-	if g.art == nil || typ == "" || unitsprite.Pending(typ) {
-		// "": a type the remake has no unit for (a ship's rear); pending: a
-		// unit without art yet. Both are dots.
+	if g.art == nil || typ == "" {
+		// A ship's rear has no separate remake unit type.
 		return false
 	}
 	family, id, ok := unitSprite(typ, owner, spent, remembered, face)

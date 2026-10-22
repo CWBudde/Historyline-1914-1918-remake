@@ -3,7 +3,7 @@ id: portraits/transport-train
 title: Transport train
 kind: portrait
 status: revised
-runtime_ids: CP_transTrain
+runtime_ids: CP_transTrain, EC_transTrain
 masters: portrait.png
 ---
 
@@ -17,13 +17,13 @@ Use case: historical-scene. Create ONE newly authored opaque full-bleed WWI stra
 ## Variants
 | Variant | Runtime IDs | Prompt delta |
 | --- | --- | --- |
-| portrait | CP_transTrain | The scene above; one image serves both sides. |
+| portrait | CP_transTrain, EC_transTrain | The scene above; one image serves both sides. |
 
 ## Post
 `art-review -portrait art/pipeline/portrait-transport-train-v1.json` takes the largest exact centred 105:94
 crop and reduces it with Lanczos3 to 4x (840x752), 2x (420x376) and 1x (210x188) as
 `portrait/transport-train`. Selected exports are installed under `assets/portraits/transport-train/`.
-Gameplay binding remains `CP_transTrain`; in-engine panel acceptance is open.
+Gameplay classes: `CP_transTrain`, `EC_transTrain`; in-engine panel acceptance is open.
 
 ## Avoid
 - national colours, flags, insignia or faction tint

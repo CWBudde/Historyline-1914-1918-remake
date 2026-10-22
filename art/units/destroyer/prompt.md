@@ -3,7 +3,7 @@ id: units/destroyer
 title: Destroyer
 kind: unit
 status: revised
-runtime_ids: unit/destroyer
+runtime_ids: CP_destroyer, EC_destroyer
 masters: atlas.png
 ---
 
@@ -32,7 +32,7 @@ TRUE alpha TRANSPARENCY outside the ship and through gaps. Waterline cutout only
 ## Post
 Selected atlas. `art-review -unit art/pipeline/unit-destroyer-v1.json` produces owner cp/ec/neutral,
 normal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.
-Installed under `assets/units/destroyer/`; gameplay class binding remains open.
+Installed under `assets/units/destroyer/`. Bound classes are listed above; final visual acceptance remains open.
 
 ## Avoid
 - water, wakes, reflections, ground shadows, backdrop or detached fragments

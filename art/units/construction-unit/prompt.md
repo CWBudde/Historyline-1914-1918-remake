@@ -3,7 +3,7 @@ id: units/construction-unit
 title: Construction unit
 kind: unit
 status: revised
-runtime_ids: unit/construction-unit
+runtime_ids: CP_construction, EC_construction
 masters: atlas.png
 ---
 
@@ -27,7 +27,7 @@ Newly authored hand-painted WWI tactical game sprite atlas. Identity reference: 
 ## Post
 Selected atlas. `art-review -unit art/pipeline/unit-construction-unit-v1.json` produces owner cp/ec/neutral,
 normal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.
-Installed under `assets/units/construction-unit/`; gameplay class binding remains open.
+Installed under `assets/units/construction-unit/`. Bound classes are listed above; final visual acceptance remains open.
 
 ## Avoid
 - water, wakes, reflections, ground shadows, backdrop or detached fragments

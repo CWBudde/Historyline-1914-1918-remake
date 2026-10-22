@@ -3,7 +3,7 @@ id: units/spad-xiii
 title: SPAD XIII
 kind: unit
 status: revised
-runtime_ids: unit/spad-xiii
+runtime_ids: EC_spad13
 masters: atlas.png
 ---
 
@@ -30,7 +30,7 @@ Fixed elevated overhead strategy camera looking mostly down, top surfaces visibl
 ## Post
 Selected atlas. `art-review -unit art/pipeline/unit-spad-xiii-v1.json` produces owner cp/ec/neutral,
 normal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.
-Installed under `assets/units/spad-xiii/`; gameplay class binding remains open.
+Installed under `assets/units/spad-xiii/`. Bound classes are listed above; final visual acceptance remains open.
 
 ## Avoid
 - water, wakes, reflections, ground shadows, backdrop or detached fragments

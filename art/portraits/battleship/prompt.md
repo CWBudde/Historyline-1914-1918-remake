@@ -3,7 +3,7 @@ id: portraits/battleship
 title: Battleship
 kind: portrait
 status: revised
-runtime_ids: portrait/battleship
+runtime_ids: CP_battleship, EC_battleship
 masters: portrait.png
 ---
 
@@ -17,13 +17,12 @@ Use case: historical-scene. Create ONE newly authored opaque full-bleed WWI stra
 ## Variants
 | Variant | Runtime IDs | Prompt delta |
 | --- | --- | --- |
-| portrait | portrait/battleship | Selected owner-neutral painting; gameplay class binding pending. |
+| portrait | CP_battleship, EC_battleship | Selected owner-neutral painting; shared by the listed gameplay classes. |
 
 ## Post
 Selected source with a centred exact 105:94 crop, never stretched or enlarged.
 `art-review -portrait art/pipeline/portrait-battleship-v1.json` exports 840×752 (4×),
-420×376 (2×) and 210×188 (1×) into `assets/portraits/battleship/`. Gameplay class binding
-and in-engine panel acceptance remain open.
+420×376 (2×) and 210×188 (1×) into `assets/portraits/battleship/`. In-engine panel acceptance remains open.
 
 ## Avoid
 - national colours, flags, insignia or faction tint

@@ -3,7 +3,7 @@ id: units/mark-iv
 title: Mark IV tank
 kind: unit
 status: revised
-runtime_ids: unit/mark-iv
+runtime_ids: CP_markIV, EC_markIV
 masters: atlas.png
 ---
 
@@ -32,7 +32,7 @@ LAYOUT CORRECTION TO THE PROVIDED MARK IV ATLAS: keep the exact same design, six
 ## Post
 Selected six-view atlas. `art-review -unit art/pipeline/unit-mark-iv-v1.json` produces owner cp/ec/neutral,
 normal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.
-Installed under `assets/units/mark-iv/`; gameplay class binding remains open.
+Installed under `assets/units/mark-iv/`. Bound classes are listed above; final visual acceptance remains open.
 
 ## Avoid
 - terrain, ground shadows, backdrop, baked labels or national insignia

@@ -3,7 +3,7 @@ id: units/handley-page-0400
 title: Handley Page O/400
 kind: unit
 status: revised
-runtime_ids: unit/handley-page-0400
+runtime_ids: EC_handleyPage
 masters: atlas.png
 ---
 
@@ -30,7 +30,7 @@ Fixed elevated overhead strategy camera, visible top surfaces with just enough s
 ## Post
 Selected atlas. `art-review -unit art/pipeline/unit-handley-page-0400-v1.json` produces owner cp/ec/neutral,
 normal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.
-Installed under `assets/units/handley-page-0400/`; gameplay class binding remains open.
+Installed under `assets/units/handley-page-0400/`. Bound classes are listed above; final visual acceptance remains open.
 
 ## Avoid
 - water, wakes, reflections, ground shadows, backdrop or detached fragments

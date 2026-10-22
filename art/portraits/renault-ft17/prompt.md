@@ -3,7 +3,7 @@ id: portraits/renault-ft17
 title: Renault FT 17
 kind: portrait
 status: revised
-runtime_ids: portrait/renault-ft17
+runtime_ids: CP_ft17, EC_ft17
 masters: portrait.png
 ---
 
@@ -17,13 +17,12 @@ Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landsca
 ## Variants
 | Variant | Runtime IDs | Prompt delta |
 | --- | --- | --- |
-| portrait | portrait/renault-ft17 | Selected owner-neutral painting; gameplay class binding pending. |
+| portrait | CP_ft17, EC_ft17 | Selected owner-neutral painting; shared by the listed gameplay classes. |
 
 ## Post
 Selected source with a centred exact 105:94 crop, never stretched or enlarged.
 `art-review -portrait art/pipeline/portrait-renault-ft17-v1.json` exports 840×752 (4×),
-420×376 (2×) and 210×188 (1×) into `assets/portraits/renault-ft17/`. Gameplay class binding
-and in-engine panel acceptance remain open.
+420×376 (2×) and 210×188 (1×) into `assets/portraits/renault-ft17/`. In-engine panel acceptance remains open.
 
 ## Avoid
 - national colours, flags, insignia or faction tint

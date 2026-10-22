@@ -3,7 +3,7 @@ id: units/anti-tank
 title: Anti-tank weapons
 kind: unit
 status: revised
-runtime_ids: unit/anti-tank
+runtime_ids: CP_antiTank, EC_antiTank
 masters: atlas.png
 ---
 
@@ -27,7 +27,7 @@ Transparent WWI strategy sprite atlas,1024x1536RGBA,2columns x3rows of512pxcells
 ## Post
 Selected atlas. `art-review -unit art/pipeline/unit-anti-tank-v1.json` produces owner cp/ec/neutral,
 normal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.
-Installed under `assets/units/anti-tank/`; gameplay class binding remains open.
+Installed under `assets/units/anti-tank/`. Bound classes are listed above; final visual acceptance remains open.
 
 ## Avoid
 - water, wakes, reflections, ground shadows, backdrop or detached fragments

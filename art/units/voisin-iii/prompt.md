@@ -3,7 +3,7 @@ id: units/voisin-iii
 title: Voisin III
 kind: unit
 status: revised
-runtime_ids: unit/voisin-iii
+runtime_ids: EC_voisin
 masters: atlas.png
 ---
 
@@ -30,7 +30,7 @@ Fixed elevated overhead strategy camera, visible top surfaces with just enough s
 ## Post
 Selected atlas. `art-review -unit art/pipeline/unit-voisin-iii-v1.json` produces owner cp/ec/neutral,
 normal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.
-Installed under `assets/units/voisin-iii/`; gameplay class binding remains open.
+Installed under `assets/units/voisin-iii/`. Bound classes are listed above; final visual acceptance remains open.
 
 ## Avoid
 - water, wakes, reflections, ground shadows, backdrop or detached fragments

@@ -3,7 +3,7 @@ id: units/nieuport-xvii
 title: Nieuport XVII
 kind: unit
 status: revised
-runtime_ids: unit/nieuport-xvii
+runtime_ids: EC_nieuport17
 masters: atlas.png
 ---
 
@@ -31,7 +31,7 @@ CRITICAL: natural silver ROUND rotary-engine cowling with NO long exposed inline
 ## Post
 Selected atlas. `art-review -unit art/pipeline/unit-nieuport-xvii-v1.json` produces owner cp/ec/neutral,
 normal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.
-Installed under `assets/units/nieuport-xvii/`; gameplay class binding remains open.
+Installed under `assets/units/nieuport-xvii/`. Bound classes are listed above; final visual acceptance remains open.
 
 ## Avoid
 - water, wakes, reflections, ground shadows, backdrop or detached fragments

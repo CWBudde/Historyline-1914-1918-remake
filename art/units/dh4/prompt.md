@@ -3,7 +3,7 @@ id: units/dh4
 title: Airco D.H.4
 kind: unit
 status: revised
-runtime_ids: unit/dh4
+runtime_ids: EC_dh4
 masters: atlas.png
 ---
 
@@ -30,7 +30,7 @@ Fixed elevated overhead strategy camera, visible top surfaces with just enough s
 ## Post
 Selected atlas. `art-review -unit art/pipeline/unit-dh4-v1.json` produces owner cp/ec/neutral,
 normal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.
-Installed under `assets/units/dh4/`; gameplay class binding remains open.
+Installed under `assets/units/dh4/`. Bound classes are listed above; final visual acceptance remains open.
 
 ## Avoid
 - water, wakes, reflections, ground shadows, backdrop or detached fragments

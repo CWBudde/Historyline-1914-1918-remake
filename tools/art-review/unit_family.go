@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"strings"
+
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
 )
 
 // The exporter supports the explicit runtime families below. Owner palette
@@ -18,14 +20,12 @@ type unitFamily struct {
 }
 
 func lookupUnitFamily(name string) (unitFamily, error) {
-	// These original unit subjects have art before their gameplay-table entries.
-	// Keep their graphics identities stable without inventing class aliases.
 	if title, ok := catalogueSubjects[name]; ok {
 		return unitFamily{
-			name: name, title: title, subject: title,
-			paletteSelector: "Owner palette is independent of class ID/country; gameplay class binding remains open.",
-			profile:         "unit-" + name + "-v1: six authored square panels row-major N,NW,SW,S,SE,NE; unbound catalogue family. " + unitAlgorithmProfile,
-			acceptance:      "Selected catalogue artwork with 2x/4x exports; gameplay class binding and in-engine acceptance remain open.",
+			name: name, title: title, subject: title, classIDs: unitsprite.ClassIDs(name),
+			paletteSelector: "Owner palette is independent of class ID/country, including captured units.",
+			profile:         "unit-" + name + "-v1: six authored square panels row-major N,NW,SW,S,SE,NE. " + unitAlgorithmProfile,
+			acceptance:      "Selected catalogue artwork with 2x/4x exports and gameplay class bindings; final visual acceptance remains open.",
 		}, nil
 	}
 	switch name {
@@ -93,9 +93,9 @@ func lookupUnitFamily(name string) (unitFamily, error) {
 		}, nil
 	case "armoredCar":
 		return unitFamily{
-			name: name, classIDs: []string{"CP_armCar"},
+			name: name, classIDs: unitsprite.ClassIDs("armored-car"),
 			paletteSelector: "Owner palette is independent of class ID/country, including captured armoured car; no other family aliases.",
-			profile:         "unit-armored-car-v1: six authored square panels row-major N,NW,SW,S,SE,NE; class family lookup CP_armCar independently selects owner cp/ec/neutral. " + unitAlgorithmProfile,
+			profile:         "unit-armored-car-v1: six authored square panels row-major N,NW,SW,S,SE,NE; class family lookup CP_armCar and EC_armCar independently selects owner cp/ec/neutral. " + unitAlgorithmProfile,
 			acceptance:      strings.NewReplacer("PROVISIONAL infantry", "PROVISIONAL armoured car", "physical boot pivot", "physical subject pivot").Replace(unitAcceptance),
 			title:           "Armoured car", subject: "armoured car",
 		}, nil
@@ -117,9 +117,9 @@ func lookupUnitFamily(name string) (unitFamily, error) {
 		}, nil
 	case "transportTrain":
 		return unitFamily{
-			name: name, classIDs: []string{"CP_transTrain"},
+			name: name, classIDs: unitsprite.ClassIDs("transport-train"),
 			paletteSelector: "Owner palette is independent of class ID/country, including captured transport train; no other family aliases.",
-			profile:         "unit-transport-train-v1: six authored square panels row-major N,NW,SW,S,SE,NE; class family lookup CP_transTrain independently selects owner cp/ec/neutral. " + unitAlgorithmProfile,
+			profile:         "unit-transport-train-v1: six authored square panels row-major N,NW,SW,S,SE,NE; class family lookup CP_transTrain and EC_transTrain independently selects owner cp/ec/neutral. " + unitAlgorithmProfile,
 			acceptance:      strings.NewReplacer("PROVISIONAL infantry", "PROVISIONAL transport train", "physical boot pivot", "physical subject pivot").Replace(unitAcceptance),
 			title:           "Transport train", subject: "transport train",
 		}, nil

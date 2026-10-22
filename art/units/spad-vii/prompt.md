@@ -3,7 +3,7 @@ id: units/spad-vii
 title: SPAD VII
 kind: unit
 status: revised
-runtime_ids: unit/spad-vii
+runtime_ids: EC_spad7
 masters: atlas.png
 ---
 
@@ -30,7 +30,7 @@ Fixed elevated overhead strategy camera looking mostly down, top surfaces visibl
 ## Post
 Selected atlas. `art-review -unit art/pipeline/unit-spad-vii-v1.json` produces owner cp/ec/neutral,
 normal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.
-Installed under `assets/units/spad-vii/`; gameplay class binding remains open.
+Installed under `assets/units/spad-vii/`. Bound classes are listed above; final visual acceptance remains open.
 
 ## Avoid
 - water, wakes, reflections, ground shadows, backdrop or detached fragments

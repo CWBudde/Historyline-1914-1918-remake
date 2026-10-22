@@ -3,7 +3,7 @@ id: portraits/spad-xiii
 title: SPAD XIII
 kind: portrait
 status: revised
-runtime_ids: portrait/spad-xiii
+runtime_ids: EC_spad13
 masters: portrait.png
 ---
 
@@ -18,13 +18,12 @@ Safe framing: aircraft wingspan stays less than image height and within centred 
 ## Variants
 | Variant | Runtime IDs | Prompt delta |
 | --- | --- | --- |
-| portrait | portrait/spad-xiii | Selected owner-neutral painting; gameplay class binding pending. |
+| portrait | EC_spad13 | Selected owner-neutral painting; shared by the listed gameplay classes. |
 
 ## Post
 Selected source with a centred exact 105:94 crop, never stretched or enlarged.
 `art-review -portrait art/pipeline/portrait-spad-xiii-v1.json` exports 840×752 (4×),
-420×376 (2×) and 210×188 (1×) into `assets/portraits/spad-xiii/`. Gameplay class binding
-and in-engine panel acceptance remain open.
+420×376 (2×) and 210×188 (1×) into `assets/portraits/spad-xiii/`. In-engine panel acceptance remains open.
 
 ## Avoid
 - national colours, flags, insignia or faction tint

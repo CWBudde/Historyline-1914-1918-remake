@@ -3,7 +3,7 @@ id: portraits/voisin-iii
 title: Voisin III (LA)
 kind: portrait
 status: revised
-runtime_ids: portrait/voisin-iii
+runtime_ids: EC_voisin
 masters: portrait.png
 ---
 
@@ -18,13 +18,12 @@ Framing: complete aircraft's projected width at most80% of image height, centred
 ## Variants
 | Variant | Runtime IDs | Prompt delta |
 | --- | --- | --- |
-| portrait | portrait/voisin-iii | Selected owner-neutral painting; gameplay class binding pending. |
+| portrait | EC_voisin | Selected owner-neutral painting; shared by the listed gameplay classes. |
 
 ## Post
 Selected source with a centred exact 105:94 crop, never stretched or enlarged.
 `art-review -portrait art/pipeline/portrait-voisin-iii-v1.json` exports 840×752 (4×),
-420×376 (2×) and 210×188 (1×) into `assets/portraits/voisin-iii/`. Gameplay class binding
-and in-engine panel acceptance remain open.
+420×376 (2×) and 210×188 (1×) into `assets/portraits/voisin-iii/`. In-engine panel acceptance remains open.
 
 ## Avoid
 - national colours, flags, insignia or faction tint

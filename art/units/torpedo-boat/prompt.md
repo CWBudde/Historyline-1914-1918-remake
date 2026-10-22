@@ -3,7 +3,7 @@ id: units/torpedo-boat
 title: Torpedo boat
 kind: unit
 status: revised
-runtime_ids: unit/torpedo-boat
+runtime_ids: CP_torpedoBoat, EC_torpedoBoat
 masters: atlas.png
 ---
 
@@ -32,7 +32,7 @@ TRUE alpha TRANSPARENCY outside the ship and through gaps. Waterline cutout only
 ## Post
 Selected atlas. `art-review -unit art/pipeline/unit-torpedo-boat-v1.json` produces owner cp/ec/neutral,
 normal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.
-Installed under `assets/units/torpedo-boat/`; gameplay class binding remains open.
+Installed under `assets/units/torpedo-boat/`. Bound classes are listed above; final visual acceptance remains open.
 
 ## Avoid
 - water, wakes, reflections, ground shadows, backdrop or detached fragments

@@ -3,7 +3,7 @@ id: portraits/spad-vii
 title: SPAD VII
 kind: portrait
 status: revised
-runtime_ids: portrait/spad-vii
+runtime_ids: EC_spad7
 masters: portrait.png
 ---
 
@@ -18,13 +18,12 @@ Safe framing: aircraft wingspan stays less than image height and within centred 
 ## Variants
 | Variant | Runtime IDs | Prompt delta |
 | --- | --- | --- |
-| portrait | portrait/spad-vii | Selected owner-neutral painting; gameplay class binding pending. |
+| portrait | EC_spad7 | Selected owner-neutral painting; shared by the listed gameplay classes. |
 
 ## Post
 Selected source with a centred exact 105:94 crop, never stretched or enlarged.
 `art-review -portrait art/pipeline/portrait-spad-vii-v1.json` exports 840×752 (4×),
-420×376 (2×) and 210×188 (1×) into `assets/portraits/spad-vii/`. Gameplay class binding
-and in-engine panel acceptance remain open.
+420×376 (2×) and 210×188 (1×) into `assets/portraits/spad-vii/`. In-engine panel acceptance remains open.
 
 ## Avoid
 - national colours, flags, insignia or faction tint

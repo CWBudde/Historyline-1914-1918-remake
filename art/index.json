@@ -2171,7 +2171,7 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "portrait/a7v"
+        "CP_a7v"
       ],
       "dir": "art/portraits/a7v",
       "assets_dir": "assets/portraits/a7v",
@@ -2190,13 +2190,13 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "portrait/a7v"
+            "CP_a7v"
           ],
-          "delta": "Selected owner-neutral painting; gameplay class binding pending."
+          "delta": "Selected owner-neutral painting; shared by the listed gameplay classes."
         }
       ],
       "edges": "",
-      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-a7v-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/a7v/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-a7v-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/a7v/`. In-engine panel acceptance remains open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -2221,7 +2221,7 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "portrait/albatros-d-iii"
+        "CP_albatrosDIII"
       ],
       "dir": "art/portraits/albatros-d-iii",
       "assets_dir": "assets/portraits/albatros-d-iii",
@@ -2240,13 +2240,13 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "portrait/albatros-d-iii"
+            "CP_albatrosDIII"
           ],
-          "delta": "Selected owner-neutral painting; gameplay class binding pending."
+          "delta": "Selected owner-neutral painting; shared by the listed gameplay classes."
         }
       ],
       "edges": "",
-      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-albatros-d-iii-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/albatros-d-iii/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-albatros-d-iii-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/albatros-d-iii/`. In-engine panel acceptance remains open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -2271,7 +2271,8 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "portrait/anti-tank"
+        "CP_antiTank",
+        "EC_antiTank"
       ],
       "dir": "art/portraits/anti-tank",
       "assets_dir": "assets/portraits/anti-tank",
@@ -2290,13 +2291,14 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "portrait/anti-tank"
+            "CP_antiTank",
+            "EC_antiTank"
           ],
-          "delta": "Selected owner-neutral painting; gameplay class binding pending."
+          "delta": "Selected owner-neutral painting; shared by the listed gameplay classes."
         }
       ],
       "edges": "",
-      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-anti-tank-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/anti-tank/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-anti-tank-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/anti-tank/`. In-engine panel acceptance remains open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -2321,7 +2323,8 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "CP_armCar"
+        "CP_armCar",
+        "EC_armCar"
       ],
       "dir": "art/portraits/armored-car",
       "assets_dir": "assets/portraits/armored-car",
@@ -2340,13 +2343,14 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "CP_armCar"
+            "CP_armCar",
+            "EC_armCar"
           ],
           "delta": "The scene above; one image serves both sides."
         }
       ],
       "edges": "",
-      "post": "`art-review -portrait art/pipeline/portrait-armored-car-v1.json` takes the largest exact centred 105:94\ncrop and reduces it with Lanczos3 to 4x (840x752), 2x (420x376) and 1x (210x188) as\n`portrait/armored-car`. Selected exports are installed under `assets/portraits/armored-car/`.\nGameplay binding remains `CP_armCar`; in-engine panel acceptance is open.",
+      "post": "`art-review -portrait art/pipeline/portrait-armored-car-v1.json` takes the largest exact centred 105:94\ncrop and reduces it with Lanczos3 to 4x (840x752), 2x (420x376) and 1x (210x188) as\n`portrait/armored-car`. Selected exports are installed under `assets/portraits/armored-car/`.\nGameplay classes: `CP_armCar`, `EC_armCar`; in-engine panel acceptance is open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels or UI",
@@ -2423,7 +2427,8 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "portrait/battleship"
+        "CP_battleship",
+        "EC_battleship"
       ],
       "dir": "art/portraits/battleship",
       "assets_dir": "assets/portraits/battleship",
@@ -2442,13 +2447,14 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "portrait/battleship"
+            "CP_battleship",
+            "EC_battleship"
           ],
-          "delta": "Selected owner-neutral painting; gameplay class binding pending."
+          "delta": "Selected owner-neutral painting; shared by the listed gameplay classes."
         }
       ],
       "edges": "",
-      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-battleship-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/battleship/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-battleship-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/battleship/`. In-engine panel acceptance remains open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -2627,7 +2633,8 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "portrait/construction-unit"
+        "CP_construction",
+        "EC_construction"
       ],
       "dir": "art/portraits/construction-unit",
       "assets_dir": "assets/portraits/construction-unit",
@@ -2646,13 +2653,14 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "portrait/construction-unit"
+            "CP_construction",
+            "EC_construction"
           ],
-          "delta": "Selected owner-neutral painting; gameplay class binding pending."
+          "delta": "Selected owner-neutral painting; shared by the listed gameplay classes."
         }
       ],
       "edges": "",
-      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-construction-unit-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/construction-unit/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-construction-unit-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/construction-unit/`. In-engine panel acceptance remains open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -2677,7 +2685,8 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "portrait/destroyer"
+        "CP_destroyer",
+        "EC_destroyer"
       ],
       "dir": "art/portraits/destroyer",
       "assets_dir": "assets/portraits/destroyer",
@@ -2696,13 +2705,14 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "portrait/destroyer"
+            "CP_destroyer",
+            "EC_destroyer"
           ],
-          "delta": "Selected owner-neutral painting; gameplay class binding pending."
+          "delta": "Selected owner-neutral painting; shared by the listed gameplay classes."
         }
       ],
       "edges": "",
-      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-destroyer-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/destroyer/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-destroyer-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/destroyer/`. In-engine panel acceptance remains open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -2727,7 +2737,7 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "portrait/dh2"
+        "EC_dh2"
       ],
       "dir": "art/portraits/dh2",
       "assets_dir": "assets/portraits/dh2",
@@ -2746,13 +2756,13 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "portrait/dh2"
+            "EC_dh2"
           ],
-          "delta": "Selected owner-neutral painting; gameplay class binding pending."
+          "delta": "Selected owner-neutral painting; shared by the listed gameplay classes."
         }
       ],
       "edges": "",
-      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-dh2-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/dh2/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-dh2-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/dh2/`. In-engine panel acceptance remains open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -2777,7 +2787,7 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "portrait/dh4"
+        "EC_dh4"
       ],
       "dir": "art/portraits/dh4",
       "assets_dir": "assets/portraits/dh4",
@@ -2796,13 +2806,13 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "portrait/dh4"
+            "EC_dh4"
           ],
-          "delta": "Selected owner-neutral painting; gameplay class binding pending."
+          "delta": "Selected owner-neutral painting; shared by the listed gameplay classes."
         }
       ],
       "edges": "",
-      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-dh4-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/dh4/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-dh4-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/dh4/`. In-engine panel acceptance remains open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -2879,7 +2889,7 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "portrait/fokker-d-vii"
+        "CP_fokkerDVII"
       ],
       "dir": "art/portraits/fokker-d-vii",
       "assets_dir": "assets/portraits/fokker-d-vii",
@@ -2898,13 +2908,13 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "portrait/fokker-d-vii"
+            "CP_fokkerDVII"
           ],
-          "delta": "Selected owner-neutral painting; gameplay class binding pending."
+          "delta": "Selected owner-neutral painting; shared by the listed gameplay classes."
         }
       ],
       "edges": "",
-      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-fokker-d-vii-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/fokker-d-vii/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-fokker-d-vii-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/fokker-d-vii/`. In-engine panel acceptance remains open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -2929,7 +2939,7 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "portrait/fokker-dr-i"
+        "CP_fokkerDrI"
       ],
       "dir": "art/portraits/fokker-dr-i",
       "assets_dir": "assets/portraits/fokker-dr-i",
@@ -2948,13 +2958,13 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "portrait/fokker-dr-i"
+            "CP_fokkerDrI"
           ],
-          "delta": "Selected owner-neutral painting; gameplay class binding pending."
+          "delta": "Selected owner-neutral painting; shared by the listed gameplay classes."
         }
       ],
       "edges": "",
-      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-fokker-dr-i-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/fokker-dr-i/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-fokker-dr-i-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/fokker-dr-i/`. In-engine panel acceptance remains open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -2979,7 +2989,7 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "portrait/fokker-e-i"
+        "CP_fokkerEI"
       ],
       "dir": "art/portraits/fokker-e-i",
       "assets_dir": "assets/portraits/fokker-e-i",
@@ -2998,13 +3008,13 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "portrait/fokker-e-i"
+            "CP_fokkerEI"
           ],
-          "delta": "Selected owner-neutral painting; gameplay class binding pending."
+          "delta": "Selected owner-neutral painting; shared by the listed gameplay classes."
         }
       ],
       "edges": "",
-      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-fokker-e-i-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/fokker-e-i/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-fokker-e-i-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/fokker-e-i/`. In-engine panel acceptance remains open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -3029,7 +3039,7 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "portrait/fokker-e-iii"
+        "CP_fokkerEIII"
       ],
       "dir": "art/portraits/fokker-e-iii",
       "assets_dir": "assets/portraits/fokker-e-iii",
@@ -3048,13 +3058,13 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "portrait/fokker-e-iii"
+            "CP_fokkerEIII"
           ],
-          "delta": "Selected owner-neutral painting; gameplay class binding pending."
+          "delta": "Selected owner-neutral painting; shared by the listed gameplay classes."
         }
       ],
       "edges": "",
-      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-fokker-e-iii-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/fokker-e-iii/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-fokker-e-iii-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/fokker-e-iii/`. In-engine panel acceptance remains open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -3079,7 +3089,7 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "portrait/gotha-g-vb"
+        "CP_gothaGV"
       ],
       "dir": "art/portraits/gotha-g-vb",
       "assets_dir": "assets/portraits/gotha-g-vb",
@@ -3098,13 +3108,13 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "portrait/gotha-g-vb"
+            "CP_gothaGV"
           ],
-          "delta": "Selected owner-neutral painting; gameplay class binding pending."
+          "delta": "Selected owner-neutral painting; shared by the listed gameplay classes."
         }
       ],
       "edges": "",
-      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-gotha-g-vb-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/gotha-g-vb/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-gotha-g-vb-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/gotha-g-vb/`. In-engine panel acceptance remains open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -3129,7 +3139,7 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "portrait/handley-page-0400"
+        "EC_handleyPage"
       ],
       "dir": "art/portraits/handley-page-0400",
       "assets_dir": "assets/portraits/handley-page-0400",
@@ -3148,13 +3158,13 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "portrait/handley-page-0400"
+            "EC_handleyPage"
           ],
-          "delta": "Selected owner-neutral painting; gameplay class binding pending."
+          "delta": "Selected owner-neutral painting; shared by the listed gameplay classes."
         }
       ],
       "edges": "",
-      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-handley-page-0400-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/handley-page-0400/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-handley-page-0400-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/handley-page-0400/`. In-engine panel acceptance remains open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -3283,7 +3293,7 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "portrait/junkers-j4"
+        "CP_junkersJI"
       ],
       "dir": "art/portraits/junkers-j4",
       "assets_dir": "assets/portraits/junkers-j4",
@@ -3302,13 +3312,13 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "portrait/junkers-j4"
+            "CP_junkersJI"
           ],
-          "delta": "Selected owner-neutral painting; gameplay class binding pending."
+          "delta": "Selected owner-neutral painting; shared by the listed gameplay classes."
         }
       ],
       "edges": "",
-      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-junkers-j4-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/junkers-j4/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-junkers-j4-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/junkers-j4/`. In-engine panel acceptance remains open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -3385,7 +3395,8 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "portrait/mark-i"
+        "CP_markI",
+        "EC_markI"
       ],
       "dir": "art/portraits/mark-i",
       "assets_dir": "assets/portraits/mark-i",
@@ -3404,13 +3415,14 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "portrait/mark-i"
+            "CP_markI",
+            "EC_markI"
           ],
-          "delta": "Selected owner-neutral painting; gameplay class binding pending."
+          "delta": "Selected owner-neutral painting; shared by the listed gameplay classes."
         }
       ],
       "edges": "",
-      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-mark-i-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/mark-i/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-mark-i-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/mark-i/`. In-engine panel acceptance remains open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -3435,7 +3447,8 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "portrait/mark-iv"
+        "CP_markIV",
+        "EC_markIV"
       ],
       "dir": "art/portraits/mark-iv",
       "assets_dir": "assets/portraits/mark-iv",
@@ -3454,13 +3467,14 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "portrait/mark-iv"
+            "CP_markIV",
+            "EC_markIV"
           ],
-          "delta": "Selected owner-neutral painting; gameplay class binding pending."
+          "delta": "Selected owner-neutral painting; shared by the listed gameplay classes."
         }
       ],
       "edges": "",
-      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-mark-iv-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/mark-iv/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-mark-iv-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/mark-iv/`. In-engine panel acceptance remains open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -3537,7 +3551,8 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "portrait/mobile-aa"
+        "CP_mobileAA",
+        "EC_mobileAA"
       ],
       "dir": "art/portraits/mobile-aa",
       "assets_dir": "assets/portraits/mobile-aa",
@@ -3556,13 +3571,14 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "portrait/mobile-aa"
+            "CP_mobileAA",
+            "EC_mobileAA"
           ],
-          "delta": "Selected owner-neutral painting; gameplay class binding pending."
+          "delta": "Selected owner-neutral painting; shared by the listed gameplay classes."
         }
       ],
       "edges": "",
-      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-mobile-aa-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/mobile-aa/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-mobile-aa-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/mobile-aa/`. In-engine panel acceptance remains open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -3587,7 +3603,7 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "portrait/morane-saulnier-n"
+        "EC_moraneN"
       ],
       "dir": "art/portraits/morane-saulnier-n",
       "assets_dir": "assets/portraits/morane-saulnier-n",
@@ -3606,13 +3622,13 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "portrait/morane-saulnier-n"
+            "EC_moraneN"
           ],
-          "delta": "Selected owner-neutral painting; gameplay class binding pending."
+          "delta": "Selected owner-neutral painting; shared by the listed gameplay classes."
         }
       ],
       "edges": "",
-      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-morane-saulnier-n-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/morane-saulnier-n/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-morane-saulnier-n-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/morane-saulnier-n/`. In-engine panel acceptance remains open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -3637,7 +3653,7 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "portrait/nieuport-xvii"
+        "EC_nieuport17"
       ],
       "dir": "art/portraits/nieuport-xvii",
       "assets_dir": "assets/portraits/nieuport-xvii",
@@ -3656,13 +3672,13 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "portrait/nieuport-xvii"
+            "EC_nieuport17"
           ],
-          "delta": "Selected owner-neutral painting; gameplay class binding pending."
+          "delta": "Selected owner-neutral painting; shared by the listed gameplay classes."
         }
       ],
       "edges": "",
-      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-nieuport-xvii-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/nieuport-xvii/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-nieuport-xvii-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/nieuport-xvii/`. In-engine panel acceptance remains open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -3739,7 +3755,8 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "portrait/renault-ft17"
+        "CP_ft17",
+        "EC_ft17"
       ],
       "dir": "art/portraits/renault-ft17",
       "assets_dir": "assets/portraits/renault-ft17",
@@ -3758,13 +3775,14 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "portrait/renault-ft17"
+            "CP_ft17",
+            "EC_ft17"
           ],
-          "delta": "Selected owner-neutral painting; gameplay class binding pending."
+          "delta": "Selected owner-neutral painting; shared by the listed gameplay classes."
         }
       ],
       "edges": "",
-      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-renault-ft17-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/renault-ft17/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-renault-ft17-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/renault-ft17/`. In-engine panel acceptance remains open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -3841,7 +3859,7 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "portrait/se5a"
+        "EC_se5a"
       ],
       "dir": "art/portraits/se5a",
       "assets_dir": "assets/portraits/se5a",
@@ -3860,13 +3878,13 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "portrait/se5a"
+            "EC_se5a"
           ],
-          "delta": "Selected owner-neutral painting; gameplay class binding pending."
+          "delta": "Selected owner-neutral painting; shared by the listed gameplay classes."
         }
       ],
       "edges": "",
-      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-se5a-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/se5a/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-se5a-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/se5a/`. In-engine panel acceptance remains open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -3891,7 +3909,7 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "portrait/sopwith-camel"
+        "EC_camel"
       ],
       "dir": "art/portraits/sopwith-camel",
       "assets_dir": "assets/portraits/sopwith-camel",
@@ -3910,13 +3928,13 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "portrait/sopwith-camel"
+            "EC_camel"
           ],
-          "delta": "Selected owner-neutral painting; gameplay class binding pending."
+          "delta": "Selected owner-neutral painting; shared by the listed gameplay classes."
         }
       ],
       "edges": "",
-      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-sopwith-camel-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/sopwith-camel/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-sopwith-camel-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/sopwith-camel/`. In-engine panel acceptance remains open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -3941,7 +3959,7 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "portrait/spad-vii"
+        "EC_spad7"
       ],
       "dir": "art/portraits/spad-vii",
       "assets_dir": "assets/portraits/spad-vii",
@@ -3960,13 +3978,13 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "portrait/spad-vii"
+            "EC_spad7"
           ],
-          "delta": "Selected owner-neutral painting; gameplay class binding pending."
+          "delta": "Selected owner-neutral painting; shared by the listed gameplay classes."
         }
       ],
       "edges": "",
-      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-spad-vii-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/spad-vii/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-spad-vii-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/spad-vii/`. In-engine panel acceptance remains open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -3991,7 +4009,7 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "portrait/spad-xiii"
+        "EC_spad13"
       ],
       "dir": "art/portraits/spad-xiii",
       "assets_dir": "assets/portraits/spad-xiii",
@@ -4010,13 +4028,13 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "portrait/spad-xiii"
+            "EC_spad13"
           ],
-          "delta": "Selected owner-neutral painting; gameplay class binding pending."
+          "delta": "Selected owner-neutral painting; shared by the listed gameplay classes."
         }
       ],
       "edges": "",
-      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-spad-xiii-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/spad-xiii/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-spad-xiii-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/spad-xiii/`. In-engine panel acceptance remains open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -4041,7 +4059,7 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "portrait/st-chamond"
+        "EC_stChamond"
       ],
       "dir": "art/portraits/st-chamond",
       "assets_dir": "assets/portraits/st-chamond",
@@ -4060,13 +4078,13 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "portrait/st-chamond"
+            "EC_stChamond"
           ],
-          "delta": "Selected owner-neutral painting; gameplay class binding pending."
+          "delta": "Selected owner-neutral painting; shared by the listed gameplay classes."
         }
       ],
       "edges": "",
-      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-st-chamond-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/st-chamond/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-st-chamond-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/st-chamond/`. In-engine panel acceptance remains open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -4091,7 +4109,8 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "portrait/static-aa"
+        "CP_staticAA",
+        "EC_staticAA"
       ],
       "dir": "art/portraits/static-aa",
       "assets_dir": "assets/portraits/static-aa",
@@ -4110,13 +4129,14 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "portrait/static-aa"
+            "CP_staticAA",
+            "EC_staticAA"
           ],
-          "delta": "Selected owner-neutral painting; gameplay class binding pending."
+          "delta": "Selected owner-neutral painting; shared by the listed gameplay classes."
         }
       ],
       "edges": "",
-      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-static-aa-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/static-aa/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-static-aa-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/static-aa/`. In-engine panel acceptance remains open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -4141,7 +4161,8 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "portrait/static-balloon"
+        "CP_balloon",
+        "EC_balloon"
       ],
       "dir": "art/portraits/static-balloon",
       "assets_dir": "assets/portraits/static-balloon",
@@ -4160,13 +4181,14 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "portrait/static-balloon"
+            "CP_balloon",
+            "EC_balloon"
           ],
-          "delta": "Selected owner-neutral painting; gameplay class binding pending."
+          "delta": "Selected owner-neutral painting; shared by the listed gameplay classes."
         }
       ],
       "edges": "",
-      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-static-balloon-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/static-balloon/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-static-balloon-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/static-balloon/`. In-engine panel acceptance remains open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -4191,7 +4213,8 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "portrait/submarine"
+        "CP_submarine",
+        "EC_submarine"
       ],
       "dir": "art/portraits/submarine",
       "assets_dir": "assets/portraits/submarine",
@@ -4210,13 +4233,14 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "portrait/submarine"
+            "CP_submarine",
+            "EC_submarine"
           ],
-          "delta": "Selected owner-neutral painting; gameplay class binding pending."
+          "delta": "Selected owner-neutral painting; shared by the listed gameplay classes."
         }
       ],
       "edges": "",
-      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-submarine-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/submarine/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-submarine-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/submarine/`. In-engine panel acceptance remains open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -4293,7 +4317,8 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "portrait/torpedo-boat"
+        "CP_torpedoBoat",
+        "EC_torpedoBoat"
       ],
       "dir": "art/portraits/torpedo-boat",
       "assets_dir": "assets/portraits/torpedo-boat",
@@ -4312,13 +4337,14 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "portrait/torpedo-boat"
+            "CP_torpedoBoat",
+            "EC_torpedoBoat"
           ],
-          "delta": "Selected owner-neutral painting; gameplay class binding pending."
+          "delta": "Selected owner-neutral painting; shared by the listed gameplay classes."
         }
       ],
       "edges": "",
-      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-torpedo-boat-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/torpedo-boat/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-torpedo-boat-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/torpedo-boat/`. In-engine panel acceptance remains open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -4395,7 +4421,8 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "portrait/transport-ship"
+        "CP_transShip",
+        "EC_transShip"
       ],
       "dir": "art/portraits/transport-ship",
       "assets_dir": "assets/portraits/transport-ship",
@@ -4414,13 +4441,14 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "portrait/transport-ship"
+            "CP_transShip",
+            "EC_transShip"
           ],
-          "delta": "Selected owner-neutral painting; gameplay class binding pending."
+          "delta": "Selected owner-neutral painting; shared by the listed gameplay classes."
         }
       ],
       "edges": "",
-      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-transport-ship-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/transport-ship/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-transport-ship-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/transport-ship/`. In-engine panel acceptance remains open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -4445,7 +4473,8 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "CP_transTrain"
+        "CP_transTrain",
+        "EC_transTrain"
       ],
       "dir": "art/portraits/transport-train",
       "assets_dir": "assets/portraits/transport-train",
@@ -4464,13 +4493,14 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "CP_transTrain"
+            "CP_transTrain",
+            "EC_transTrain"
           ],
           "delta": "The scene above; one image serves both sides."
         }
       ],
       "edges": "",
-      "post": "`art-review -portrait art/pipeline/portrait-transport-train-v1.json` takes the largest exact centred 105:94\ncrop and reduces it with Lanczos3 to 4x (840x752), 2x (420x376) and 1x (210x188) as\n`portrait/transport-train`. Selected exports are installed under `assets/portraits/transport-train/`.\nGameplay binding remains `CP_transTrain`; in-engine panel acceptance is open.",
+      "post": "`art-review -portrait art/pipeline/portrait-transport-train-v1.json` takes the largest exact centred 105:94\ncrop and reduces it with Lanczos3 to 4x (840x752), 2x (420x376) and 1x (210x188) as\n`portrait/transport-train`. Selected exports are installed under `assets/portraits/transport-train/`.\nGameplay classes: `CP_transTrain`, `EC_transTrain`; in-engine panel acceptance is open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels or UI",
@@ -4495,7 +4525,7 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "portrait/voisin-iii"
+        "EC_voisin"
       ],
       "dir": "art/portraits/voisin-iii",
       "assets_dir": "assets/portraits/voisin-iii",
@@ -4514,13 +4544,13 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "portrait/voisin-iii"
+            "EC_voisin"
           ],
-          "delta": "Selected owner-neutral painting; gameplay class binding pending."
+          "delta": "Selected owner-neutral painting; shared by the listed gameplay classes."
         }
       ],
       "edges": "",
-      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-voisin-iii-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/voisin-iii/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-voisin-iii-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/voisin-iii/`. In-engine panel acceptance remains open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -4545,7 +4575,7 @@
       "kind": "portrait",
       "status": "revised",
       "runtime_ids": [
-        "portrait/zeppelin-staaken-r-vi"
+        "CP_staaken"
       ],
       "dir": "art/portraits/zeppelin-staaken-r-vi",
       "assets_dir": "assets/portraits/zeppelin-staaken-r-vi",
@@ -4564,13 +4594,13 @@
         {
           "variant": "portrait",
           "runtime_ids": [
-            "portrait/zeppelin-staaken-r-vi"
+            "CP_staaken"
           ],
-          "delta": "Selected owner-neutral painting; gameplay class binding pending."
+          "delta": "Selected owner-neutral painting; shared by the listed gameplay classes."
         }
       ],
       "edges": "",
-      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-zeppelin-staaken-r-vi-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/zeppelin-staaken-r-vi/`. Gameplay class binding\nand in-engine panel acceptance remain open.",
+      "post": "Selected source with a centred exact 105:94 crop, never stretched or enlarged.\n`art-review -portrait art/pipeline/portrait-zeppelin-staaken-r-vi-v1.json` exports 840×752 (4×),\n420×376 (2×) and 210×188 (1×) into `assets/portraits/zeppelin-staaken-r-vi/`. In-engine panel acceptance remains open.",
       "avoid": [
         "national colours, flags, insignia or faction tint",
         "frames, bevels, labels or UI",
@@ -10788,7 +10818,7 @@
       "kind": "unit",
       "status": "revised",
       "runtime_ids": [
-        "unit/a7v"
+        "CP_a7v"
       ],
       "dir": "art/units/a7v",
       "assets_dir": "assets/units/a7v",
@@ -10836,7 +10866,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected six-view atlas. `art-review -unit art/pipeline/unit-a7v-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/a7v/`; gameplay class binding remains open.",
+      "post": "Selected six-view atlas. `art-review -unit art/pipeline/unit-a7v-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/a7v/`. Bound classes are listed above; final visual acceptance remains open.",
       "avoid": [
         "terrain, ground shadows, backdrop, baked labels or national insignia",
         "clipped extremities, mirrored views or changed camera between facings"
@@ -10865,7 +10895,7 @@
       "kind": "unit",
       "status": "revised",
       "runtime_ids": [
-        "unit/albatros-d-iii"
+        "CP_albatrosDIII"
       ],
       "dir": "art/units/albatros-d-iii",
       "assets_dir": "assets/units/albatros-d-iii",
@@ -10913,7 +10943,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected atlas. `art-review -unit art/pipeline/unit-albatros-d-iii-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/albatros-d-iii/`; gameplay class binding remains open.",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-albatros-d-iii-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/albatros-d-iii/`. Bound classes are listed above; final visual acceptance remains open.",
       "avoid": [
         "water, wakes, reflections, ground shadows, backdrop or detached fragments",
         "labels, national insignia, clipped extremities or inconsistent equipment between views"
@@ -10942,7 +10972,8 @@
       "kind": "unit",
       "status": "revised",
       "runtime_ids": [
-        "unit/anti-tank"
+        "CP_antiTank",
+        "EC_antiTank"
       ],
       "dir": "art/units/anti-tank",
       "assets_dir": "assets/units/anti-tank",
@@ -10990,7 +11021,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected atlas. `art-review -unit art/pipeline/unit-anti-tank-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/anti-tank/`; gameplay class binding remains open.",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-anti-tank-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/anti-tank/`. Bound classes are listed above; final visual acceptance remains open.",
       "avoid": [
         "water, wakes, reflections, ground shadows, backdrop or detached fragments",
         "labels, national insignia, clipped extremities or inconsistent equipment between views"
@@ -11019,7 +11050,8 @@
       "kind": "unit",
       "status": "candidate",
       "runtime_ids": [
-        "CP_armCar"
+        "CP_armCar",
+        "EC_armCar"
       ],
       "dir": "art/units/armored-car",
       "assets_dir": "assets/units/armored-car",
@@ -11182,7 +11214,8 @@
       "kind": "unit",
       "status": "revised",
       "runtime_ids": [
-        "unit/battleship"
+        "CP_battleship",
+        "EC_battleship"
       ],
       "dir": "art/units/battleship",
       "assets_dir": "assets/units/battleship",
@@ -11230,7 +11263,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected atlas. `art-review -unit art/pipeline/unit-battleship-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/battleship/`; gameplay class binding remains open.",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-battleship-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/battleship/`. Bound classes are listed above; final visual acceptance remains open.",
       "avoid": [
         "water, wakes, reflections, ground shadows, backdrop or detached fragments",
         "labels, national insignia, clipped extremities or inconsistent equipment between views"
@@ -11504,7 +11537,8 @@
       "kind": "unit",
       "status": "revised",
       "runtime_ids": [
-        "unit/construction-unit"
+        "CP_construction",
+        "EC_construction"
       ],
       "dir": "art/units/construction-unit",
       "assets_dir": "assets/units/construction-unit",
@@ -11552,7 +11586,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected atlas. `art-review -unit art/pipeline/unit-construction-unit-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/construction-unit/`; gameplay class binding remains open.",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-construction-unit-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/construction-unit/`. Bound classes are listed above; final visual acceptance remains open.",
       "avoid": [
         "water, wakes, reflections, ground shadows, backdrop or detached fragments",
         "labels, national insignia, clipped extremities or inconsistent equipment between views"
@@ -11581,7 +11615,8 @@
       "kind": "unit",
       "status": "revised",
       "runtime_ids": [
-        "unit/destroyer"
+        "CP_destroyer",
+        "EC_destroyer"
       ],
       "dir": "art/units/destroyer",
       "assets_dir": "assets/units/destroyer",
@@ -11629,7 +11664,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected atlas. `art-review -unit art/pipeline/unit-destroyer-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/destroyer/`; gameplay class binding remains open.",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-destroyer-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/destroyer/`. Bound classes are listed above; final visual acceptance remains open.",
       "avoid": [
         "water, wakes, reflections, ground shadows, backdrop or detached fragments",
         "labels, national insignia, clipped extremities or inconsistent equipment between views"
@@ -11658,7 +11693,7 @@
       "kind": "unit",
       "status": "revised",
       "runtime_ids": [
-        "unit/dh2"
+        "EC_dh2"
       ],
       "dir": "art/units/dh2",
       "assets_dir": "assets/units/dh2",
@@ -11706,7 +11741,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected atlas. `art-review -unit art/pipeline/unit-dh2-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/dh2/`; gameplay class binding remains open.",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-dh2-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/dh2/`. Bound classes are listed above; final visual acceptance remains open.",
       "avoid": [
         "water, wakes, reflections, ground shadows, backdrop or detached fragments",
         "labels, national insignia, clipped extremities or inconsistent equipment between views"
@@ -11735,7 +11770,7 @@
       "kind": "unit",
       "status": "revised",
       "runtime_ids": [
-        "unit/dh4"
+        "EC_dh4"
       ],
       "dir": "art/units/dh4",
       "assets_dir": "assets/units/dh4",
@@ -11783,7 +11818,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected atlas. `art-review -unit art/pipeline/unit-dh4-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/dh4/`; gameplay class binding remains open.",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-dh4-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/dh4/`. Bound classes are listed above; final visual acceptance remains open.",
       "avoid": [
         "water, wakes, reflections, ground shadows, backdrop or detached fragments",
         "labels, national insignia, clipped extremities or inconsistent equipment between views"
@@ -11893,7 +11928,7 @@
       "kind": "unit",
       "status": "revised",
       "runtime_ids": [
-        "unit/fokker-d-vii"
+        "CP_fokkerDVII"
       ],
       "dir": "art/units/fokker-d-vii",
       "assets_dir": "assets/units/fokker-d-vii",
@@ -11941,7 +11976,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected atlas. `art-review -unit art/pipeline/unit-fokker-d-vii-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/fokker-d-vii/`; gameplay class binding remains open.",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-fokker-d-vii-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/fokker-d-vii/`. Bound classes are listed above; final visual acceptance remains open.",
       "avoid": [
         "water, wakes, reflections, ground shadows, backdrop or detached fragments",
         "labels, national insignia, clipped extremities or inconsistent equipment between views"
@@ -11970,7 +12005,7 @@
       "kind": "unit",
       "status": "revised",
       "runtime_ids": [
-        "unit/fokker-dr-i"
+        "CP_fokkerDrI"
       ],
       "dir": "art/units/fokker-dr-i",
       "assets_dir": "assets/units/fokker-dr-i",
@@ -12018,7 +12053,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected atlas. `art-review -unit art/pipeline/unit-fokker-dr-i-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/fokker-dr-i/`; gameplay class binding remains open.",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-fokker-dr-i-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/fokker-dr-i/`. Bound classes are listed above; final visual acceptance remains open.",
       "avoid": [
         "water, wakes, reflections, ground shadows, backdrop or detached fragments",
         "labels, national insignia, clipped extremities or inconsistent equipment between views"
@@ -12047,7 +12082,7 @@
       "kind": "unit",
       "status": "revised",
       "runtime_ids": [
-        "unit/fokker-e-i"
+        "CP_fokkerEI"
       ],
       "dir": "art/units/fokker-e-i",
       "assets_dir": "assets/units/fokker-e-i",
@@ -12095,7 +12130,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected atlas. `art-review -unit art/pipeline/unit-fokker-e-i-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/fokker-e-i/`; gameplay class binding remains open.",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-fokker-e-i-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/fokker-e-i/`. Bound classes are listed above; final visual acceptance remains open.",
       "avoid": [
         "water, wakes, reflections, ground shadows, backdrop or detached fragments",
         "labels, national insignia, clipped extremities or inconsistent equipment between views"
@@ -12124,7 +12159,7 @@
       "kind": "unit",
       "status": "revised",
       "runtime_ids": [
-        "unit/fokker-e-iii"
+        "CP_fokkerEIII"
       ],
       "dir": "art/units/fokker-e-iii",
       "assets_dir": "assets/units/fokker-e-iii",
@@ -12172,7 +12207,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected atlas. `art-review -unit art/pipeline/unit-fokker-e-iii-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/fokker-e-iii/`; gameplay class binding remains open.",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-fokker-e-iii-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/fokker-e-iii/`. Bound classes are listed above; final visual acceptance remains open.",
       "avoid": [
         "water, wakes, reflections, ground shadows, backdrop or detached fragments",
         "labels, national insignia, clipped extremities or inconsistent equipment between views"
@@ -12201,7 +12236,7 @@
       "kind": "unit",
       "status": "revised",
       "runtime_ids": [
-        "unit/gotha-g-vb"
+        "CP_gothaGV"
       ],
       "dir": "art/units/gotha-g-vb",
       "assets_dir": "assets/units/gotha-g-vb",
@@ -12249,7 +12284,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected atlas. `art-review -unit art/pipeline/unit-gotha-g-vb-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/gotha-g-vb/`; gameplay class binding remains open.",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-gotha-g-vb-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/gotha-g-vb/`. Bound classes are listed above; final visual acceptance remains open.",
       "avoid": [
         "water, wakes, reflections, ground shadows, backdrop or detached fragments",
         "labels, national insignia, clipped extremities or inconsistent equipment between views"
@@ -12278,7 +12313,7 @@
       "kind": "unit",
       "status": "revised",
       "runtime_ids": [
-        "unit/handley-page-0400"
+        "EC_handleyPage"
       ],
       "dir": "art/units/handley-page-0400",
       "assets_dir": "assets/units/handley-page-0400",
@@ -12326,7 +12361,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected atlas. `art-review -unit art/pipeline/unit-handley-page-0400-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/handley-page-0400/`; gameplay class binding remains open.",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-handley-page-0400-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/handley-page-0400/`. Bound classes are listed above; final visual acceptance remains open.",
       "avoid": [
         "water, wakes, reflections, ground shadows, backdrop or detached fragments",
         "labels, national insignia, clipped extremities or inconsistent equipment between views"
@@ -12519,7 +12554,7 @@
       "kind": "unit",
       "status": "revised",
       "runtime_ids": [
-        "unit/junkers-j4"
+        "CP_junkersJI"
       ],
       "dir": "art/units/junkers-j4",
       "assets_dir": "assets/units/junkers-j4",
@@ -12567,7 +12602,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected atlas. `art-review -unit art/pipeline/unit-junkers-j4-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/junkers-j4/`; gameplay class binding remains open.",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-junkers-j4-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/junkers-j4/`. Bound classes are listed above; final visual acceptance remains open.",
       "avoid": [
         "water, wakes, reflections, ground shadows, backdrop or detached fragments",
         "labels, national insignia, clipped extremities or inconsistent equipment between views"
@@ -12678,7 +12713,8 @@
       "kind": "unit",
       "status": "revised",
       "runtime_ids": [
-        "unit/mark-i"
+        "CP_markI",
+        "EC_markI"
       ],
       "dir": "art/units/mark-i",
       "assets_dir": "assets/units/mark-i",
@@ -12726,7 +12762,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected six-view atlas. `art-review -unit art/pipeline/unit-mark-i-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/mark-i/`; gameplay class binding remains open.",
+      "post": "Selected six-view atlas. `art-review -unit art/pipeline/unit-mark-i-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/mark-i/`. Bound classes are listed above; final visual acceptance remains open.",
       "avoid": [
         "terrain, ground shadows, backdrop, baked labels or national insignia",
         "clipped extremities, mirrored views or changed camera between facings"
@@ -12755,7 +12791,8 @@
       "kind": "unit",
       "status": "revised",
       "runtime_ids": [
-        "unit/mark-iv"
+        "CP_markIV",
+        "EC_markIV"
       ],
       "dir": "art/units/mark-iv",
       "assets_dir": "assets/units/mark-iv",
@@ -12803,7 +12840,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected six-view atlas. `art-review -unit art/pipeline/unit-mark-iv-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/mark-iv/`; gameplay class binding remains open.",
+      "post": "Selected six-view atlas. `art-review -unit art/pipeline/unit-mark-iv-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/mark-iv/`. Bound classes are listed above; final visual acceptance remains open.",
       "avoid": [
         "terrain, ground shadows, backdrop, baked labels or national insignia",
         "clipped extremities, mirrored views or changed camera between facings"
@@ -12913,7 +12950,8 @@
       "kind": "unit",
       "status": "revised",
       "runtime_ids": [
-        "unit/mobile-aa"
+        "CP_mobileAA",
+        "EC_mobileAA"
       ],
       "dir": "art/units/mobile-aa",
       "assets_dir": "assets/units/mobile-aa",
@@ -12961,7 +12999,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected atlas. `art-review -unit art/pipeline/unit-mobile-aa-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/mobile-aa/`; gameplay class binding remains open.",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-mobile-aa-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/mobile-aa/`. Bound classes are listed above; final visual acceptance remains open.",
       "avoid": [
         "water, wakes, reflections, ground shadows, backdrop or detached fragments",
         "labels, national insignia, clipped extremities or inconsistent equipment between views"
@@ -12990,7 +13028,7 @@
       "kind": "unit",
       "status": "revised",
       "runtime_ids": [
-        "unit/morane-saulnier-n"
+        "EC_moraneN"
       ],
       "dir": "art/units/morane-saulnier-n",
       "assets_dir": "assets/units/morane-saulnier-n",
@@ -13038,7 +13076,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected atlas. `art-review -unit art/pipeline/unit-morane-saulnier-n-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/morane-saulnier-n/`; gameplay class binding remains open.",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-morane-saulnier-n-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/morane-saulnier-n/`. Bound classes are listed above; final visual acceptance remains open.",
       "avoid": [
         "water, wakes, reflections, ground shadows, backdrop or detached fragments",
         "labels, national insignia, clipped extremities or inconsistent equipment between views"
@@ -13067,7 +13105,7 @@
       "kind": "unit",
       "status": "revised",
       "runtime_ids": [
-        "unit/nieuport-xvii"
+        "EC_nieuport17"
       ],
       "dir": "art/units/nieuport-xvii",
       "assets_dir": "assets/units/nieuport-xvii",
@@ -13115,7 +13153,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected atlas. `art-review -unit art/pipeline/unit-nieuport-xvii-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/nieuport-xvii/`; gameplay class binding remains open.",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-nieuport-xvii-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/nieuport-xvii/`. Bound classes are listed above; final visual acceptance remains open.",
       "avoid": [
         "water, wakes, reflections, ground shadows, backdrop or detached fragments",
         "labels, national insignia, clipped extremities or inconsistent equipment between views"
@@ -13225,7 +13263,8 @@
       "kind": "unit",
       "status": "revised",
       "runtime_ids": [
-        "unit/renault-ft17"
+        "CP_ft17",
+        "EC_ft17"
       ],
       "dir": "art/units/renault-ft17",
       "assets_dir": "assets/units/renault-ft17",
@@ -13273,7 +13312,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected six-view atlas. `art-review -unit art/pipeline/unit-renault-ft17-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/renault-ft17/`; gameplay class binding remains open.",
+      "post": "Selected six-view atlas. `art-review -unit art/pipeline/unit-renault-ft17-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/renault-ft17/`. Bound classes are listed above; final visual acceptance remains open.",
       "avoid": [
         "terrain, ground shadows, backdrop, baked labels or national insignia",
         "clipped extremities, mirrored views or changed camera between facings"
@@ -13383,7 +13422,7 @@
       "kind": "unit",
       "status": "revised",
       "runtime_ids": [
-        "unit/se5a"
+        "EC_se5a"
       ],
       "dir": "art/units/se5a",
       "assets_dir": "assets/units/se5a",
@@ -13431,7 +13470,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected atlas. `art-review -unit art/pipeline/unit-se5a-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/se5a/`; gameplay class binding remains open.",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-se5a-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/se5a/`. Bound classes are listed above; final visual acceptance remains open.",
       "avoid": [
         "water, wakes, reflections, ground shadows, backdrop or detached fragments",
         "labels, national insignia, clipped extremities or inconsistent equipment between views"
@@ -13460,7 +13499,7 @@
       "kind": "unit",
       "status": "revised",
       "runtime_ids": [
-        "unit/sopwith-camel"
+        "EC_camel"
       ],
       "dir": "art/units/sopwith-camel",
       "assets_dir": "assets/units/sopwith-camel",
@@ -13508,7 +13547,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected atlas. `art-review -unit art/pipeline/unit-sopwith-camel-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/sopwith-camel/`; gameplay class binding remains open.",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-sopwith-camel-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/sopwith-camel/`. Bound classes are listed above; final visual acceptance remains open.",
       "avoid": [
         "water, wakes, reflections, ground shadows, backdrop or detached fragments",
         "labels, national insignia, clipped extremities or inconsistent equipment between views"
@@ -13537,7 +13576,7 @@
       "kind": "unit",
       "status": "revised",
       "runtime_ids": [
-        "unit/spad-vii"
+        "EC_spad7"
       ],
       "dir": "art/units/spad-vii",
       "assets_dir": "assets/units/spad-vii",
@@ -13585,7 +13624,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected atlas. `art-review -unit art/pipeline/unit-spad-vii-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/spad-vii/`; gameplay class binding remains open.",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-spad-vii-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/spad-vii/`. Bound classes are listed above; final visual acceptance remains open.",
       "avoid": [
         "water, wakes, reflections, ground shadows, backdrop or detached fragments",
         "labels, national insignia, clipped extremities or inconsistent equipment between views"
@@ -13614,7 +13653,7 @@
       "kind": "unit",
       "status": "revised",
       "runtime_ids": [
-        "unit/spad-xiii"
+        "EC_spad13"
       ],
       "dir": "art/units/spad-xiii",
       "assets_dir": "assets/units/spad-xiii",
@@ -13662,7 +13701,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected atlas. `art-review -unit art/pipeline/unit-spad-xiii-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/spad-xiii/`; gameplay class binding remains open.",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-spad-xiii-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/spad-xiii/`. Bound classes are listed above; final visual acceptance remains open.",
       "avoid": [
         "water, wakes, reflections, ground shadows, backdrop or detached fragments",
         "labels, national insignia, clipped extremities or inconsistent equipment between views"
@@ -13691,7 +13730,7 @@
       "kind": "unit",
       "status": "revised",
       "runtime_ids": [
-        "unit/st-chamond"
+        "EC_stChamond"
       ],
       "dir": "art/units/st-chamond",
       "assets_dir": "assets/units/st-chamond",
@@ -13739,7 +13778,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected six-view atlas. `art-review -unit art/pipeline/unit-st-chamond-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/st-chamond/`; gameplay class binding remains open.",
+      "post": "Selected six-view atlas. `art-review -unit art/pipeline/unit-st-chamond-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/st-chamond/`. Bound classes are listed above; final visual acceptance remains open.",
       "avoid": [
         "terrain, ground shadows, backdrop, baked labels or national insignia",
         "clipped extremities, mirrored views or changed camera between facings"
@@ -13768,7 +13807,8 @@
       "kind": "unit",
       "status": "revised",
       "runtime_ids": [
-        "unit/static-aa"
+        "CP_staticAA",
+        "EC_staticAA"
       ],
       "dir": "art/units/static-aa",
       "assets_dir": "assets/units/static-aa",
@@ -13816,7 +13856,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected atlas. `art-review -unit art/pipeline/unit-static-aa-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/static-aa/`; gameplay class binding remains open.",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-static-aa-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/static-aa/`. Bound classes are listed above; final visual acceptance remains open.",
       "avoid": [
         "water, wakes, reflections, ground shadows, backdrop or detached fragments",
         "labels, national insignia, clipped extremities or inconsistent equipment between views"
@@ -13845,7 +13885,8 @@
       "kind": "unit",
       "status": "revised",
       "runtime_ids": [
-        "unit/static-balloon"
+        "CP_balloon",
+        "EC_balloon"
       ],
       "dir": "art/units/static-balloon",
       "assets_dir": "assets/units/static-balloon",
@@ -13893,7 +13934,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected atlas. `art-review -unit art/pipeline/unit-static-balloon-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/static-balloon/`; gameplay class binding remains open.",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-static-balloon-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/static-balloon/`. Bound classes are listed above; final visual acceptance remains open.",
       "avoid": [
         "water, wakes, reflections, ground shadows, backdrop or detached fragments",
         "labels, national insignia, clipped extremities or inconsistent equipment between views"
@@ -13922,7 +13963,8 @@
       "kind": "unit",
       "status": "revised",
       "runtime_ids": [
-        "unit/submarine"
+        "CP_submarine",
+        "EC_submarine"
       ],
       "dir": "art/units/submarine",
       "assets_dir": "assets/units/submarine",
@@ -13970,7 +14012,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected atlas. `art-review -unit art/pipeline/unit-submarine-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/submarine/`; gameplay class binding remains open.",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-submarine-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/submarine/`. Bound classes are listed above; final visual acceptance remains open.",
       "avoid": [
         "water, wakes, reflections, ground shadows, backdrop or detached fragments",
         "labels, national insignia, clipped extremities or inconsistent equipment between views"
@@ -14081,7 +14123,8 @@
       "kind": "unit",
       "status": "revised",
       "runtime_ids": [
-        "unit/torpedo-boat"
+        "CP_torpedoBoat",
+        "EC_torpedoBoat"
       ],
       "dir": "art/units/torpedo-boat",
       "assets_dir": "assets/units/torpedo-boat",
@@ -14129,7 +14172,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected atlas. `art-review -unit art/pipeline/unit-torpedo-boat-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/torpedo-boat/`; gameplay class binding remains open.",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-torpedo-boat-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/torpedo-boat/`. Bound classes are listed above; final visual acceptance remains open.",
       "avoid": [
         "water, wakes, reflections, ground shadows, backdrop or detached fragments",
         "labels, national insignia, clipped extremities or inconsistent equipment between views"
@@ -14240,7 +14283,8 @@
       "kind": "unit",
       "status": "revised",
       "runtime_ids": [
-        "unit/transport-ship"
+        "CP_transShip",
+        "EC_transShip"
       ],
       "dir": "art/units/transport-ship",
       "assets_dir": "assets/units/transport-ship",
@@ -14288,7 +14332,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected atlas. `art-review -unit art/pipeline/unit-transport-ship-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/transport-ship/`; gameplay class binding remains open.",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-transport-ship-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/transport-ship/`. Bound classes are listed above; final visual acceptance remains open.",
       "avoid": [
         "water, wakes, reflections, ground shadows, backdrop or detached fragments",
         "labels, national insignia, clipped extremities or inconsistent equipment between views"
@@ -14317,7 +14361,8 @@
       "kind": "unit",
       "status": "candidate",
       "runtime_ids": [
-        "CP_transTrain"
+        "CP_transTrain",
+        "EC_transTrain"
       ],
       "dir": "art/units/transport-train",
       "assets_dir": "assets/units/transport-train",
@@ -14398,7 +14443,7 @@
       "kind": "unit",
       "status": "revised",
       "runtime_ids": [
-        "unit/voisin-iii"
+        "EC_voisin"
       ],
       "dir": "art/units/voisin-iii",
       "assets_dir": "assets/units/voisin-iii",
@@ -14446,7 +14491,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected atlas. `art-review -unit art/pipeline/unit-voisin-iii-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/voisin-iii/`; gameplay class binding remains open.",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-voisin-iii-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/voisin-iii/`. Bound classes are listed above; final visual acceptance remains open.",
       "avoid": [
         "water, wakes, reflections, ground shadows, backdrop or detached fragments",
         "labels, national insignia, clipped extremities or inconsistent equipment between views"
@@ -14475,7 +14520,7 @@
       "kind": "unit",
       "status": "revised",
       "runtime_ids": [
-        "unit/zeppelin-staaken-r-vi"
+        "CP_staaken"
       ],
       "dir": "art/units/zeppelin-staaken-r-vi",
       "assets_dir": "assets/units/zeppelin-staaken-r-vi",
@@ -14523,7 +14568,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected atlas. `art-review -unit art/pipeline/unit-zeppelin-staaken-r-vi-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/zeppelin-staaken-r-vi/`; gameplay class binding remains open.",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-zeppelin-staaken-r-vi-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/zeppelin-staaken-r-vi/`. Bound classes are listed above; final visual acceptance remains open.",
       "avoid": [
         "water, wakes, reflections, ground shadows, backdrop or detached fragments",
         "labels, national insignia, clipped extremities or inconsistent equipment between views"

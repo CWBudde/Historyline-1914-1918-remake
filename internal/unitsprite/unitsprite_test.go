@@ -19,19 +19,8 @@ func TestEveryUnitTypeHasAFamily(t *testing.T) {
 	}
 	for id := range set.Units {
 		_, ok := Family(id)
-		switch {
-		case ok && Pending(id):
-			t.Errorf("unit type %s has a sprite family and is pending", id)
-		case !ok && !Pending(id):
-			t.Errorf("unit type %s has no sprite family and is not pending", id)
-		}
-	}
-	if !slices.IsSorted(pending) {
-		t.Error("the pending list is not sorted")
-	}
-	for _, id := range pending {
-		if _, ok := set.Units[id]; !ok {
-			t.Errorf("pending list names unknown unit type %s", id)
+		if !ok {
+			t.Errorf("unit type %s must draw authored art, not a pending dot", id)
 		}
 	}
 	for id := range families {
@@ -41,22 +30,22 @@ func TestEveryUnitTypeHasAFamily(t *testing.T) {
 	}
 }
 
-func TestArtFamiliesWithoutGameplayAliases(t *testing.T) {
-	for _, family := range []string{"a7v", "st-chamond", "renault-ft17", "mark-i", "mark-iv",
-		"torpedo-boat", "destroyer", "battleship", "transport-ship", "submarine",
-		"fokker-e-i", "fokker-e-iii", "albatros-d-iii", "fokker-dr-i", "fokker-d-vii", "junkers-j4",
-		"morane-saulnier-n", "nieuport-xvii", "spad-vii", "spad-xiii", "se5a", "sopwith-camel",
-		"dh2", "voisin-iii", "dh4", "gotha-g-vb", "handley-page-0400", "zeppelin-staaken-r-vi",
-		"construction-unit", "static-aa", "mobile-aa", "anti-tank", "static-balloon"} {
-		if !slices.Contains(Families(), family) || len(ClassIDs(family)) != 0 {
-			t.Errorf("%s must have an export family without invented gameplay classes", family)
+func TestCapturedAndSharedUnitsKeepTheirSubjects(t *testing.T) {
+	for _, tc := range []struct{ id, family string }{
+		{"CP_ft17", "renault-ft17"}, {"EC_ft17", "renault-ft17"},
+		{"CP_markI", "mark-i"}, {"CP_markIV", "mark-iv"},
+		{"EC_armCar", "armored-car"}, {"EC_transTrain", "transport-train"},
+		{"CP_junkersJI", "junkers-j4"}, {"CP_gothaGV", "gotha-g-vb"},
+	} {
+		if family, ok := Family(tc.id); !ok || family != tc.family {
+			t.Errorf("%s draws %q, want %q", tc.id, family, tc.family)
 		}
 	}
 }
 
 // The art folders are the other half of the contract: every unit pipeline
 // manifest unit-<family>-v1.json names a family of this table, and its prompt.md lists
-// the mapped class IDs or, for unbound art, its stable unit/<family> prefix.
+// the mapped class IDs.
 func TestFamiliesMatchArt(t *testing.T) {
 	paths, err := filepath.Glob(filepath.Join("..", "..", "art", "pipeline", "unit-*-v1.json"))
 	if err != nil {
@@ -70,12 +59,11 @@ func TestFamiliesMatchArt(t *testing.T) {
 		}
 		seen = append(seen, family)
 		got := ClassIDs(family)
-		if slices.Contains(unboundFamilies, family) {
-			got = []string{"unit/" + family}
-		}
-		want := promptRuntimeIDs(t, family)
-		if !slices.Equal(got, want) {
-			t.Errorf("%s: class IDs %v, prompt.md has %v", family, got, want)
+		for _, kind := range []string{"units", "portraits"} {
+			want := promptRuntimeIDs(t, kind, family)
+			if !slices.Equal(got, want) {
+				t.Errorf("%s/%s: class IDs %v, prompt.md has %v", kind, family, got, want)
+			}
 		}
 	}
 	slices.Sort(seen)
@@ -84,10 +72,10 @@ func TestFamiliesMatchArt(t *testing.T) {
 	}
 }
 
-// promptRuntimeIDs reads the sorted runtime_ids of art/units/<family>/prompt.md.
-func promptRuntimeIDs(t *testing.T, family string) []string {
+// promptRuntimeIDs reads the sorted runtime_ids of an art family's prompt.md.
+func promptRuntimeIDs(t *testing.T, kind, family string) []string {
 	t.Helper()
-	b, err := os.ReadFile(filepath.Join("..", "..", "art", "units", family, "prompt.md"))
+	b, err := os.ReadFile(filepath.Join("..", "..", "art", kind, family, "prompt.md"))
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -1,12 +1,15 @@
 package main
 
 import (
+	"slices"
 	"testing"
+
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
 )
 
-// Catalogue art can be exported before a unit has a gameplay-table binding.
-// It must retain every palette/facing/state without inventing gameplay classes.
-func TestUnboundTankBundle(t *testing.T) {
+// Every authored palette/facing/state remains available after the campaign
+// roster binds a catalogue family.
+func TestBoundTankBundle(t *testing.T) {
 	path, _ := unitTestFamilyFixture(t, "a7v")
 	in, err := loadUnitInputs(path)
 	if err != nil {
@@ -16,7 +19,7 @@ func TestUnboundTankBundle(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(b.report.ClassIDs) != 0 || len(b.report.Variants) != 36 {
+	if !slices.Equal(b.report.ClassIDs, []string{"CP_a7v"}) || len(b.report.Variants) != 36 {
 		t.Fatalf("classes=%v variants=%d", b.report.ClassIDs, len(b.report.Variants))
 	}
 	for _, palette := range []string{"cp", "ec", "neutral"} {
@@ -34,8 +37,8 @@ func TestUnboundTankBundle(t *testing.T) {
 	}
 	for _, scene := range b.report.Scenes {
 		for _, cell := range scene.Cells {
-			if cell.RuntimeID != "" {
-				t.Fatalf("invented gameplay binding %q", cell.RuntimeID)
+			if cell.RuntimeID != "CP_a7v" {
+				t.Fatalf("tank scene lost its gameplay binding: %q", cell.RuntimeID)
 			}
 		}
 	}
@@ -54,8 +57,8 @@ func TestRemainingPortraitCatalogue(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			if definition.name != name || len(definition.classIDs) != 0 {
-				t.Fatalf("unbound catalogue family: %+v", definition)
+			if definition.name != name || len(definition.classIDs) == 0 || !slices.Equal(definition.classIDs, unitsprite.ClassIDs(name)) {
+				t.Fatalf("catalogue family lacks its gameplay subjects: %+v", definition)
 			}
 		})
 	}

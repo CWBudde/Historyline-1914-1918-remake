@@ -485,6 +485,10 @@ func (c *collector) units() error {
 			}
 			if len(ids) == 0 {
 				refpath = ""
+			} else if _, err := c.root.Stat(refpath); os.IsNotExist(err) {
+				refpath = ""
+			} else if err != nil {
+				return err
 			}
 			ref, err := c.reference(refpath, image.Rectangle{})
 			if err != nil {
@@ -496,6 +500,8 @@ func (c *collector) units() error {
 			}
 			if len(ids) == 0 {
 				it.Note = "Selected catalogue artwork. No matching legacy reference is available; gameplay class binding remains open."
+			} else if ref == nil {
+				it.Note = "Selected catalogue artwork with gameplay class bindings. No matching legacy reference is available; final visual acceptance remains open."
 			}
 			keys := make([]string, 0, len(byID))
 			for id := range byID {

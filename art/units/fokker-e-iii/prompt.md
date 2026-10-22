@@ -3,7 +3,7 @@ id: units/fokker-e-iii
 title: Fokker E.III
 kind: unit
 status: revised
-runtime_ids: unit/fokker-e-iii
+runtime_ids: CP_fokkerEIII
 masters: atlas.png
 ---
 
@@ -32,7 +32,7 @@ TRUE ALPHA transparency outside each aircraft and through open structural gaps. 
 ## Post
 Selected atlas. `art-review -unit art/pipeline/unit-fokker-e-iii-v1.json` produces owner cp/ec/neutral,
 normal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.
-Installed under `assets/units/fokker-e-iii/`; gameplay class binding remains open.
+Installed under `assets/units/fokker-e-iii/`. Bound classes are listed above; final visual acceptance remains open.
 
 ## Avoid
 - water, wakes, reflections, ground shadows, backdrop or detached fragments

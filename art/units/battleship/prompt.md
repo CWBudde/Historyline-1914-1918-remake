@@ -3,7 +3,7 @@ id: units/battleship
 title: Battleship
 kind: unit
 status: revised
-runtime_ids: unit/battleship
+runtime_ids: CP_battleship, EC_battleship
 masters: atlas.png
 ---
 
@@ -33,7 +33,7 @@ IMPORTANT SIMPLIFICATION: this selected battleship has exactly TWO primary turre
 ## Post
 Selected atlas. `art-review -unit art/pipeline/unit-battleship-v1.json` produces owner cp/ec/neutral,
 normal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.
-Installed under `assets/units/battleship/`; gameplay class binding remains open.
+Installed under `assets/units/battleship/`. Bound classes are listed above; final visual acceptance remains open.
 
 ## Avoid
 - water, wakes, reflections, ground shadows, backdrop or detached fragments
