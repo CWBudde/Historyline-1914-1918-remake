@@ -35,16 +35,17 @@ just artbook     # build/artbook/Historyline_Art.pdf (needs typst)
   the original unit table (`testdata/unitdat.json`, numbers only). The weapon catalogue is bound to the
   weapon art, so change attack values in a unit's slot, never in `weapons.json`.
 - `internal/dosrules`: pure Go resolver of the original rules profile (combat, movement, containers,
-  phase change, the command cycle `Game` with save/resume, victory and score, energy, repair and
-  production), pinned by fixtures under `testdata/`; not wired into `game` yet.
+  phase change, the command cycle `Game` with save/resume, building capture, victory and score, energy,
+  repair and production), pinned by fixtures under `testdata/`; not wired into `game` yet.
 - `internal/dosbind`: binds a shipped level to `dosrules` records (cells, terrain records from the
   numbers-only `records.json`, units, container records, building energy); checked against the local
   original maps.
 - `internal/dosplay`: a `dosrules` game session on a level for the front end and the computer side: each
   side's view of its own map (no line of sight), destinations, routes, targets, the commands, and events
-  in hexes (moves with routes, battles, reveals, phase change, end).
+  in hexes (moves with routes, battles, captures, reveals, phase change, end).
 - `internal/dosai`: the computer side on the order cycle: a greedy `Planner` that moves along terrain route
-  costs towards the enemy HQ and units and queues the attacks the exact battle outcome favours; `PlayOut`.
+  costs towards the enemy HQ and units, takes buildings on its way and queues the attacks the exact battle
+  outcome favours; `PlayOut`.
 - `internal/hexgrid`: hex layout (even lines `Width` hexes, odd lines `Width-1`, half-shifted).
 - `internal/level`: `levels/*.json` read/write. `internal/tpwm`: Turbo Packer unpacker.
 - `internal/finmap`, `cmd/finextract`: the original map files → versioned level JSON. `levels/original/` is

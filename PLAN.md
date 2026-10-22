@@ -1002,15 +1002,19 @@ after the subject and winter-water replacements above; the stand-in art remains 
       capture of buildings and their stored units, depot construction, sapper trenches, barbed wire.
       (2026-10-21) — partial: `Game.Energy`, building credits after each phase change, `CmdRepair` and
       `CmdBuild` priced by UNIT.DAT +0x3f; credits and build lists are scenario inputs (`Game.Buildings`),
-      assumptions listed in `energy.go`. Remains: capture of buildings and their stored units, depot
-      construction, sapper trenches, barbed wire.
+      assumptions listed in `energy.go`. (2026-10-23) — capture: the order handler's action pass
+      (`capture.go`) hands a building entered by a foot unit, with the units in it, to the movement side
+      before the phase change, swaps the entrance terrain to the new owner's and wins on an HQ
+      (`TestCapture*`, `TestVictoryHQ*`); the computer takes buildings on its way (`TestPlayOutCaptures`).
+      Assumed: a captured unit's serial follows the side's highest. Remains: depot construction, sapper
+      trenches, barbed wire; the map art still shows a building's first owner.
 - [x] Victory and score: annihilation, ties, capture timing; +500 for annihilation, +100 for hidden
       inventories, ×4/×3/×2 for 4/8/16 move limits, cap 32,500. (2026-10-21) — `Game.Score`, the end
       decided in `Resolve` (`Game.Ended`, `EvEnd`, `ErrOver` afterwards), `Game.Concealed`, final score.
-      Assumed, not verified: defence value = type armour, counted over every unit not destroyed; the HQ is
-      held when the side's map shows its unit on a 0x40 cell whose record the other side owns; a side is
-      annihilated with no unit left; the end is decided after a resolution, both sides winning is a draw
-      without score; bonuses come before the factor.
+      Assumed, not verified: defence value = type armour, counted over every unit not destroyed; a side is
+      annihilated with no unit left; both sides annihilated at once is a draw without score; bonuses come
+      before the factor. (2026-10-23) — the HQ is won by capturing it, which beats an annihilation in the
+      same resolution, as the original's order handler returns it.
 - [ ] Wire the profile into the game and UI (phase display, pending orders, energy/repair/production
       controls); one integrated scenario covering both cycles, combat, transport, capture, repair and
       production; both factions and seasons; deterministic replay. Classic/Standard stay green.
