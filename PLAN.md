@@ -447,9 +447,11 @@ promoting the period exports; the sampling acceptance box below stays open.
       Interim art: `forest-crowns-summer-v3.png` (crowns fill 75 % of the panel); then generate the F2
       crown sheet and the F1 floor.
       F1 comparison source `forest-floor-summer-v5.png` is retained with its exact prompt; darker than
-      v4, but fern scale, colour, periodic seams and composed-map acceptance remain open. F2 crown
-      trials fail measured size/gutter requirements; G1 meadow trials retain oversized foliage. Both
-      stay unselected under `build/review/look2-art/`. No runtime promotion. (2026-10-22)
+      v4, but fern scale, colour, periodic seams and composed-map acceptance remain open. (2026-10-22)
+      F2 comparison source `forest-crowns-summer-v5.png` retains nine separate crowns with native
+      alpha and its exact prompt. Size, centre and alpha-gutter preparation plus species/form review
+      remain open; measured widths exceed 160/220/280 px. G1 meadow trials still have oversized
+      foliage under `build/review/look2-art/`. No runtime promotion or Look 2 acceptance. (2026-10-23)
 - [ ] Meadow: generate G1 (macro material, 568×400 world period) and G2 (prop sheet); scatter layer
       (§1.3) with a density table per family and Poisson-disc placement seeded by world position.
 - [ ] Hills: generate G3 (hummock and scrub overlay), 4–6 L\* darker than grass, with 6–10 scrub props per

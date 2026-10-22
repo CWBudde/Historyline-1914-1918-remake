@@ -4,7 +4,7 @@ title: Forest
 kind: terrain
 status: candidate
 runtime_ids: forest, forest_w
-masters: forest-floor-summer-v4.png, forest-oak-summer-v4.png, forest-beech-summer-v4.png, forest-birch-summer-v4.png, forest-crowns-summer-v3.png, forest-crowns-winter-v3.png, forest-crowns-inset-summer-v3.png, forest-crowns-inset-winter-v3.png, forest-crowns-summer-v2.png, forest-crowns-winter-v2.png, forest-crowns-inset-summer-v2.png, forest-crowns-inset-winter-v2.png, forest-crowns-spaced-summer-v2.png, forest-crowns-initial-winter-v2.png, forest-crowns-initial-summer-v2.png, forest-crowns-summer-v1.png, forest-crowns-winter-v1.png, forest-floor-summer-v5.png
+masters: forest-floor-summer-v4.png, forest-oak-summer-v4.png, forest-beech-summer-v4.png, forest-birch-summer-v4.png, forest-crowns-summer-v3.png, forest-crowns-winter-v3.png, forest-crowns-inset-summer-v3.png, forest-crowns-inset-winter-v3.png, forest-crowns-summer-v2.png, forest-crowns-winter-v2.png, forest-crowns-inset-summer-v2.png, forest-crowns-inset-winter-v2.png, forest-crowns-spaced-summer-v2.png, forest-crowns-initial-winter-v2.png, forest-crowns-initial-summer-v2.png, forest-crowns-summer-v1.png, forest-crowns-winter-v1.png, forest-floor-summer-v5.png, forest-crowns-summer-v5.png
 ---
 
 ## Look
@@ -32,6 +32,46 @@ edges into neighbouring forest, and towards non-forest neighbours the canopy thi
 the border. Scale and light must match the house, hq and mountain art.
 
 ## Post
+
+### Look 2 F2 comparison candidate
+
+`forest-crowns-summer-v5.png` is a native 1254×1254 RGBA source candidate from built-in imagegen,
+with nine complete, separate summer oak, beech and birch crowns. It is not selected for runtime.
+The original alpha is preserved. Preparation must correct sizes, centres and alpha-zero gutters;
+repeated bright leaf clusters and similar rounded oak/beech forms also need visual review.
+
+Widths at alpha ≥128, in source pixels (targets 160/220/280):
+
+| Species | Small | Medium | Large |
+| --- | --- | --- | --- |
+| Oak | 171 | 266 | 364 |
+| Beech | 193 | 271 | 348 |
+| Birch | 183 | 297 | 355 |
+
+Only 57.44% of the canvas is truly alpha zero. Faint alpha spreads through gutters; the solid oak
+and birch large crowns have minimum cell margins of 19 and 8 px, below the 30 px target. No F2,
+scatter-density or map acceptance is implied. Local measurements: `build/review/look2-art/f2-next/`.
+
+Style references were PULSE crops `r02c04`, `r03c05` and `r19c02`. The oversized interim atlas was
+omitted from this attempt. The exact prompt was:
+
+```text
+Use case: stylized-concept.
+Asset type: a sparse transparent RGBA tree-crown prop sheet for a hand-painted WWI European hex strategy map, exactly1254x1254pixels.
+Primary composition: NINE SMALL ISOLATED TREE CROWNS in enormous clear empty space. About75–80percent of the whole canvas must remain truly transparent alpha0. This is a sparse sprite atlas, not a densely filled forest illustration. Do not enlarge the crowns to fill the image.
+
+Layout: invisible3x3grid of418x418pixelcells. Exact crown centres: (209,209),(627,209),(1045,209); (209,627),(627,627),(1045,627); (209,1045),(627,1045),(1045,1045). One complete separate crown at each centre. Every crown in column1 is160pixels across (only38percent of its418pixelcell), every crown in column2 is220pixels across (53percent), every crown in column3 is280pixels across (67percent). The full outline, fringes and all leaf tips must fit those widths and similar heights. Plenty of alpha0 surrounds each crown on every side:129pixels of horizontal cell margin for160widecrowns,99pixels for220widecrowns,69pixels for280widecrowns. Never place leaves at or near cell boundaries. Minimum30pixels of genuinely alpha-zero space around every crown, no faint alpha noise, no translucent background.
+
+Scale stated in world units:10paintpixels per worldpixel, about20paintpixels per metre. Whole1254squarecanvas spans125.4worldpixels or62.7metres; tree crowns are16/22/28worldpixels across,8/11/14metres. All nine crowns share the SAME tiny-leaf paint scale, not the same number of giant leaf clumps. Larger trees contain more tiny leaf masses. Rows are species: top row summer OAK, middle row summer BEECH, bottom row summer BIRCH. Oak broad deeplylobed irregular edge, beech denser smoothconnected rounded crown, birch fine smallerleaves and airy asymmetricoutline with tiny internal gaps but still one connected crown.
+
+Strict vertical orthographic NADIR view looking directly down onto one mature tree's upper canopy. No trunk, no sideview, no visible ground. Connected organic rounded lobes with natural tiny leaves, asymmetric small notches and deeply shaded recesses. Broad believable form rather than broccoli florets or radial pompom rosettes. Soft light from upperleft/NW, form shading only: muted yellow-green lit tops no brighter than approximatelyRGB(120,135,45), nearblack darkolive recesses and lower-right shade approximatelyRGB(22,32,20). Overall dark moss/olive mean aroundRGB(50,62,26). Fine continuous hand-painted digital illustration, crisp antialiased natural leaf edges, calm natural palette, no photograph, no3Drender, no pixelart.
+
+Attached images1–3 are STYLE REFERENCES ONLY from the PULSE reference painting. Use their dark shaded forest colour, tiny organic foliage material, upper-left light and painted finish. Ignore their hexagons, ground, arrangement, scale and full-canvas cover. Invent nine separate individual trees in the precise sparse layout above; never reproduce a forest hex or scene.
+Only these three references are intentionally attached. The interim v3 atlas and previously rejected drafts are intentionally omitted because their oversized crown geometry biased earlier generations; do not infer or reproduce those layouts.
+
+Outside the crown leaves alpha is EXACTLYZERO, including all gutters and background. No groundplate, no castshadow (game draws it), no dark matte, no halo or glow, no checkerboard painted into image. Preserve only interior formshading.
+Avoid: oversized crowns, filling cells, overlapping crowns, leafmasses in gutters, conifers, trunks, grass, ground, castshadows, lime or pale yellow-green, uniform brightness, flat discs, pom-pom balls, broccoli florets, radial rosettes, photograph,3Drender,pixelart, text, numbers, labels, frames, gridlines, borders or watermark.
+```
 
 ### Look 2 F1 comparison candidate
 
