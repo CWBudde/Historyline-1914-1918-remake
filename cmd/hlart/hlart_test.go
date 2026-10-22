@@ -260,7 +260,7 @@ func TestFrontMatterTolerates(t *testing.T) {
 	}
 }
 
-func TestSourceOnlyScreenCandidateRequiresMaster(t *testing.T) {
+func TestSourceOnlyCandidateRequiresMaster(t *testing.T) {
 	for _, tc := range []struct {
 		name, kind, status, masters string
 		wantValid                   bool
@@ -272,7 +272,11 @@ func TestSourceOnlyScreenCandidateRequiresMaster(t *testing.T) {
 		{"approved screen", "screen", "approved", "illustration.png", false},
 		{"terrain candidate", "terrain", "candidate", "illustration.png", false},
 		{"unit candidate", "unit", "candidate", "illustration.png", false},
-		{"portrait candidate", "portrait", "candidate", "illustration.png", false},
+		{"painted portrait candidate", "portrait", "candidate", "illustration.png", true},
+		{"masterless portrait candidate", "portrait", "candidate", "", false},
+		{"portrait placeholder master", "portrait", "candidate", "—", false},
+		{"revised portrait", "portrait", "revised", "illustration.png", false},
+		{"approved portrait", "portrait", "approved", "illustration.png", false},
 		{"interface candidate", "interface", "candidate", "illustration.png", false},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
@@ -286,7 +290,7 @@ func TestSourceOnlyScreenCandidateRequiresMaster(t *testing.T) {
 			p, errs := parsePrompt(src)
 			if tc.wantValid {
 				if len(errs) != 0 {
-					t.Fatalf("source-only screen candidate rejected: %v", errs)
+					t.Fatalf("source-only candidate rejected: %v", errs)
 				}
 				if len(p.RuntimeIDs) != 0 || !slices.Equal(p.Masters, []string{"illustration.png"}) {
 					t.Fatalf("candidate source metadata: %+v", p)

@@ -39,8 +39,9 @@ order: `## Look`, `## Base prompt`, `## Variants` (table `| Variant | Runtime ID
 To generate: paste the `art/style.md` preamble and the section for the kind, then the base prompt and
 one variant's delta. `go run ./cmd/hlart check` validates every prompt, master and runtime ID.
 
-Screen families with painted masters may leave `runtime_ids` empty while their status is `candidate`
-and the feature binding is not yet defined. Keep each painting and its prompt in its own screen family.
+Screen and portrait families with painted masters may leave `runtime_ids` empty while their status is
+`candidate` and the feature or unit binding is not yet defined. Keep each painting and its prompt in
+its own family.
 
 ## Geometry
 

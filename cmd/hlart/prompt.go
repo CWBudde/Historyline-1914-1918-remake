@@ -121,8 +121,8 @@ func parsePrompt(src string) (*prompt, []string) {
 			fail("front matter key %q is empty", key)
 		}
 	}
-	sourceOnlyScreen := p.Kind == "screen" && p.Status == "candidate" && len(p.Masters) > 0
-	if seen["runtime_ids"] && len(p.RuntimeIDs) == 0 && !sourceOnlyScreen {
+	sourceOnlyCandidate := (p.Kind == "screen" || p.Kind == "portrait") && p.Status == "candidate" && len(p.Masters) > 0
+	if seen["runtime_ids"] && len(p.RuntimeIDs) == 0 && !sourceOnlyCandidate {
 		fail("runtime_ids is empty")
 	}
 	if p.Kind != "" && !slices.Contains(sortedValues(kindDirs), p.Kind) {

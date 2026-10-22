@@ -2166,6 +2166,126 @@
       }
     },
     {
+      "id": "portraits/a7v",
+      "title": "A7V tank",
+      "kind": "portrait",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/portraits/a7v",
+      "assets_dir": "assets/portraits/a7v",
+      "prompt": "art/portraits/a7v/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/a7v/portrait.png",
+          "sha256": "e0c2300e8e0d912dc86a6a83d501b759f37866d979a35531dd9ae63245d5c4d9",
+          "width": 1326,
+          "height": 1186
+        }
+      ],
+      "look": "Owner-neutral a7v tank in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A squat, tall box-shaped riveted A7V tank with a broad sloping front plate, front-mounted cannon, raised rectangular roof cab and short tracks tucked under its long hull. Left-facing three-quarter view in a muddy field.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [],
+          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels, labels or UI",
+        "photographic or 3D rendering",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
+      }
+    },
+    {
+      "id": "portraits/albatros-d-iii",
+      "title": "Albatros D.III",
+      "kind": "portrait",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/portraits/albatros-d-iii",
+      "assets_dir": "assets/portraits/albatros-d-iii",
+      "prompt": "art/portraits/albatros-d-iii/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/albatros-d-iii/portrait.png",
+          "sha256": "f015aa84777b6d000996228c7bcb8fb8513fd2c2e2940f5bbd29ae0ec116caef",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral albatros d.iii in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: An Albatros D.III sesquiplane with a streamlined varnished plywood fuselage, pointed spinner, much narrower lower wing, V-shaped interplane struts, open cockpit and fixed landing gear. Single complete aircraft parked on a grassy airfield, nose to the left, low eye-level three-quarter side view, full wings and tail within canvas, natural unmarked khaki fabric and metal; no duplicate aircraft.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [],
+          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels, labels or UI",
+        "photographic or 3D rendering",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
+      }
+    },
+    {
+      "id": "portraits/anti-tank",
+      "title": "Anti-tank weapons",
+      "kind": "portrait",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/portraits/anti-tank",
+      "assets_dir": "assets/portraits/anti-tank",
+      "prompt": "art/portraits/anti-tank/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/anti-tank/portrait.png",
+          "sha256": "6560b951974a616719f5402d6782102f845df9c0b7c00f55885f1bef1e7057e7",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral anti-tank weapons in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: Two khaki-clad infantrymen with an unusually long, heavy bolt-action anti-tank rifle on a bipod, resting at the edge of a muddy field. No artillery cannon.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [],
+          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels, labels or UI",
+        "photographic or 3D rendering",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
+      }
+    },
+    {
       "id": "portraits/armored-car",
       "title": "Armoured car",
       "kind": "portrait",
@@ -2265,6 +2385,46 @@
         "samples": [
           "assets/portraits/armored-train/portrait-4x.png"
         ]
+      }
+    },
+    {
+      "id": "portraits/battleship",
+      "title": "Battleship",
+      "kind": "portrait",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/portraits/battleship",
+      "assets_dir": "assets/portraits/battleship",
+      "prompt": "art/portraits/battleship/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/battleship/portrait.png",
+          "sha256": "b8d073b4b511ddfc86933f2335195864a15899b6a0af6419f2e6978adc0d4187",
+          "width": 1326,
+          "height": 1186
+        }
+      ],
+      "look": "Owner-neutral battleship in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A large early dreadnought battleship with heavy paired-gun turrets, two funnels and a tall mast, bow to the left, complete ship in three-quarter side view on quiet coastal water.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [],
+          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels, labels or UI",
+        "photographic or 3D rendering",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
       }
     },
     {
@@ -2422,6 +2582,166 @@
       }
     },
     {
+      "id": "portraits/construction-unit",
+      "title": "Construction unit",
+      "kind": "portrait",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/portraits/construction-unit",
+      "assets_dir": "assets/portraits/construction-unit",
+      "prompt": "art/portraits/construction-unit/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/construction-unit/portrait.png",
+          "sha256": "95e27206a503089aca835bc6a8b48c99adf1350448f20b47f6cbd0fbaa63dfe8",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral motorised depot construction unit in a quiet rural work site, matching the existing\nportraits' ochre and sepia palette, cloudy sky and connected brushwork.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A motorised military depot construction unit: an unarmed early open-cab flatbed lorry loaded with timber, crates and hand tools, two khaki-clad engineers erecting a timber supply shed beside it. The lorry is the main subject, left-facing three-quarter view, complete vehicle visible.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [],
+          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels, labels or UI",
+        "photographic or 3D rendering",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
+      }
+    },
+    {
+      "id": "portraits/destroyer",
+      "title": "Torpedo boat destroyer",
+      "kind": "portrait",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/portraits/destroyer",
+      "assets_dir": "assets/portraits/destroyer",
+      "prompt": "art/portraits/destroyer/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/destroyer/portrait.png",
+          "sha256": "cb40ecff8d3768156e56338302ac270bcaa8aec1f24a181b18a6b335be596106",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral torpedo boat destroyer in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A long early destroyer with a raised forecastle, three narrow funnels, light deck guns and torpedo launchers, bow to the left, on quiet coastal water.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [],
+          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels, labels or UI",
+        "photographic or 3D rendering",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
+      }
+    },
+    {
+      "id": "portraits/dh2",
+      "title": "D.H.2 scout",
+      "kind": "portrait",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/portraits/dh2",
+      "assets_dir": "assets/portraits/dh2",
+      "prompt": "art/portraits/dh2/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/dh2/portrait.png",
+          "sha256": "508bca2f583c8b3472949184cb99f27ad43fb051b7a3bd360b790e729d8273a5",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral d.h.2 scout in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: An Airco D.H.2 single-seat pusher biplane, short open cockpit nacelle ahead of the wings, engine and propeller behind the pilot, twin open tail booms and fixed wheels. Single complete aircraft parked on a grassy airfield, nose to the left, low eye-level three-quarter side view, full wings and tail within canvas, natural unmarked khaki fabric and metal; no duplicate aircraft.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [],
+          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels, labels or UI",
+        "photographic or 3D rendering",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
+      }
+    },
+    {
+      "id": "portraits/dh4",
+      "title": "D.H.4",
+      "kind": "portrait",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/portraits/dh4",
+      "assets_dir": "assets/portraits/dh4",
+      "prompt": "art/portraits/dh4/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/dh4/portrait.png",
+          "sha256": "2fcdbb364543df06d42c4f6e0bc39b4a21a832babd99199bd689994186673300",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral d.h.4 in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: An Airco D.H.4 two-seat tractor biplane bomber, long slim fuselage, squared inline-engine nose, separated open pilot and rear gunner cockpits, straight wings and fixed wheels. Single complete aircraft parked on a grassy airfield, nose to the left, low eye-level three-quarter side view, full wings and tail within canvas, natural unmarked khaki fabric and metal; no duplicate aircraft.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [],
+          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels, labels or UI",
+        "photographic or 3D rendering",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
+      }
+    },
+    {
       "id": "portraits/elite-infantry",
       "title": "Elite infantry",
       "kind": "portrait",
@@ -2471,6 +2791,246 @@
         "samples": [
           "assets/portraits/elite-infantry/portrait-4x.png"
         ]
+      }
+    },
+    {
+      "id": "portraits/fokker-d-vii",
+      "title": "Fokker D.VII",
+      "kind": "portrait",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/portraits/fokker-d-vii",
+      "assets_dir": "assets/portraits/fokker-d-vii",
+      "prompt": "art/portraits/fokker-d-vii/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/fokker-d-vii/portrait.png",
+          "sha256": "ce3c511642f6ab78ca97bf06779e11e579e005fc7bc2f532582c99b3ae9d3c76",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral fokker d.vii in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A Fokker D.VII biplane with thick straight upper wing, narrower lower wing, N-shaped interplane struts, boxy fabric fuselage, rectangular inline-engine nose and fixed landing gear. Single complete aircraft parked on a grassy airfield, nose to the left, low eye-level three-quarter side view, full wings and tail within canvas, natural unmarked khaki fabric and metal; no duplicate aircraft.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [],
+          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels, labels or UI",
+        "photographic or 3D rendering",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
+      }
+    },
+    {
+      "id": "portraits/fokker-dr-i",
+      "title": "Fokker Dr.I",
+      "kind": "portrait",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/portraits/fokker-dr-i",
+      "assets_dir": "assets/portraits/fokker-dr-i",
+      "prompt": "art/portraits/fokker-dr-i/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/fokker-dr-i/portrait.png",
+          "sha256": "d06bfa6e23ac60b9817b22dfa77f8b90dcf5d0e210fc983e0391bbede306a5d7",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral fokker dr.i in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A compact Fokker Dr.I triplane, exactly three stacked wings, rotary-engine round cowling, open cockpit, short fuselage and fixed landing gear with a small axle wing; muted olive, no red. Single complete aircraft parked on a grassy airfield, nose to the left, low eye-level three-quarter side view, full wings and tail within canvas, natural unmarked khaki fabric and metal; no duplicate aircraft.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [],
+          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels, labels or UI",
+        "photographic or 3D rendering",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
+      }
+    },
+    {
+      "id": "portraits/fokker-e-i",
+      "title": "Fokker E.I",
+      "kind": "portrait",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/portraits/fokker-e-i",
+      "assets_dir": "assets/portraits/fokker-e-i",
+      "prompt": "art/portraits/fokker-e-i/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/fokker-e-i/portrait.png",
+          "sha256": "bf64f9f9728d2b2397596982185f3156b9fcd064c7020acd3882c83f78412d81",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral fokker e.i in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A Fokker E.I wire-braced shoulder-wing monoplane with short straight wings, a slim fabric fuselage, rotary-engine circular cowling, two-bladed propeller and fixed spoked-wheel undercarriage. Single complete aircraft parked on a grassy airfield, nose to the left, low eye-level three-quarter side view, full wings and tail within canvas, natural unmarked khaki fabric and metal; no duplicate aircraft.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [],
+          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels, labels or UI",
+        "photographic or 3D rendering",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
+      }
+    },
+    {
+      "id": "portraits/fokker-e-iii",
+      "title": "Fokker E.III",
+      "kind": "portrait",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/portraits/fokker-e-iii",
+      "assets_dir": "assets/portraits/fokker-e-iii",
+      "prompt": "art/portraits/fokker-e-iii/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/fokker-e-iii/portrait.png",
+          "sha256": "4769e760f7b3c12130f43ac797ae25cee4b7d50dd0d959ec361cf70c6aa33e88",
+          "width": 1326,
+          "height": 1186
+        }
+      ],
+      "look": "Owner-neutral fokker e.iii in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A Fokker E.III wire-braced shoulder-wing monoplane, broad straight wings, long slim fabric-covered fuselage, round rotary-engine cowling, single forward gun and spoked-wheel undercarriage. Single complete aircraft parked on a grassy airfield, nose to the left, low eye-level three-quarter side view, full wings and tail within canvas, natural unmarked khaki fabric and metal; no duplicate aircraft.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [],
+          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels, labels or UI",
+        "photographic or 3D rendering",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
+      }
+    },
+    {
+      "id": "portraits/gotha-g-vb",
+      "title": "Gotha G Vb",
+      "kind": "portrait",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/portraits/gotha-g-vb",
+      "assets_dir": "assets/portraits/gotha-g-vb",
+      "prompt": "art/portraits/gotha-g-vb/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/gotha-g-vb/portrait.png",
+          "sha256": "4b7e5f035befc04c69d1bce8c5b0c0a2a1d4c34c6b588df10c1146bd2bea1f24",
+          "width": 1326,
+          "height": 1186
+        }
+      ],
+      "look": "Owner-neutral gotha g vb in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A Gotha G.Vb twin-engine biplane bomber, long narrow fuselage with an open nose gun position, two pusher engines between the wings, paired rearward-facing propellers, fixed landing gear. Single complete aircraft parked on a grassy airfield, nose to the left, low eye-level three-quarter side view, full wings and tail within canvas, natural unmarked khaki fabric and metal; no duplicate aircraft.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [],
+          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels, labels or UI",
+        "photographic or 3D rendering",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
+      }
+    },
+    {
+      "id": "portraits/handley-page-0400",
+      "title": "Handley Page O/400",
+      "kind": "portrait",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/portraits/handley-page-0400",
+      "assets_dir": "assets/portraits/handley-page-0400",
+      "prompt": "art/portraits/handley-page-0400/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/handley-page-0400/portrait.png",
+          "sha256": "cab754ea7475bec8d3893a56cdd88d5ae49d16ba926e5ae2b6f15fb34b4f905e",
+          "width": 1326,
+          "height": 1186
+        }
+      ],
+      "look": "Owner-neutral handley page o/400 in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A large Handley Page O/400 twin-engine biplane bomber with a broad rectangular fuselage, open nose gun station, two tractor engines in wing nacelles, broad multi-bay wings and a biplane tail. Single complete aircraft parked on a grassy airfield, nose to the left, low eye-level three-quarter side view, full wings and tail within canvas, natural unmarked khaki fabric and metal; no duplicate aircraft.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [],
+          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels, labels or UI",
+        "photographic or 3D rendering",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
       }
     },
     {
@@ -2578,6 +3138,46 @@
       }
     },
     {
+      "id": "portraits/junkers-j4",
+      "title": "Junkers J 4-10",
+      "kind": "portrait",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/portraits/junkers-j4",
+      "assets_dir": "assets/portraits/junkers-j4",
+      "prompt": "art/portraits/junkers-j4/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/junkers-j4/portrait.png",
+          "sha256": "00dba4bfb244c091e089c33ee65142f4f36139da0019a0742086d14ad720a981",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral junkers j 4-10 in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A Junkers J.I armoured two-seat sesquiplane, broad corrugated metal upper wing, short lower wing, chunky armoured front fuselage, two open crew positions, fixed wheels and conventional tail. Single complete aircraft parked on a grassy airfield, nose to the left, low eye-level three-quarter side view, full wings and tail within canvas, natural unmarked khaki fabric and metal; no duplicate aircraft.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [],
+          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels, labels or UI",
+        "photographic or 3D rendering",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
+      }
+    },
+    {
       "id": "portraits/light-artillery",
       "title": "Light artillery",
       "kind": "portrait",
@@ -2627,6 +3227,86 @@
         "samples": [
           "assets/portraits/light-artillery/portrait-4x.png"
         ]
+      }
+    },
+    {
+      "id": "portraits/mark-i",
+      "title": "Mark I tank",
+      "kind": "portrait",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/portraits/mark-i",
+      "assets_dir": "assets/portraits/mark-i",
+      "prompt": "art/portraits/mark-i/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/mark-i/portrait.png",
+          "sha256": "d02c210dd26771e01933faba519d72e8c8c742e8050fe8034d8410b6492c83e9",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral mark i tank in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A Mark I heavy tank with tall rhomboid tracks encircling both sides of its hull, side gun sponsons and a pair of trailing steering wheels. Left-facing three-quarter view, standing quietly in a muddy field.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [],
+          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels, labels or UI",
+        "photographic or 3D rendering",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
+      }
+    },
+    {
+      "id": "portraits/mark-iv",
+      "title": "Mark IV tank",
+      "kind": "portrait",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/portraits/mark-iv",
+      "assets_dir": "assets/portraits/mark-iv",
+      "prompt": "art/portraits/mark-iv/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/mark-iv/portrait.png",
+          "sha256": "a18389dbb18e109abf19917a95cb766e5f2f601e6587ac971b8b1db358456ae0",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral mark iv tank in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A Mark IV heavy tank with large rhomboid wraparound tracks, broad squat riveted hull, side gun sponsons and a roof exhaust. No trailing steering wheels. Left-facing three-quarter view in a field.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [],
+          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels, labels or UI",
+        "photographic or 3D rendering",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
       }
     },
     {
@@ -2682,6 +3362,126 @@
       }
     },
     {
+      "id": "portraits/mobile-aa",
+      "title": "Mobile anti-aircraft emplacement",
+      "kind": "portrait",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/portraits/mobile-aa",
+      "assets_dir": "assets/portraits/mobile-aa",
+      "prompt": "art/portraits/mobile-aa/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/mobile-aa/portrait.png",
+          "sha256": "c0cbba6813866cb43a45f5b268128a72985b6a610c2792dd92f6233a173e8e81",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral mobile anti-aircraft emplacement in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: An early open-cab military lorry carrying a high-angle anti-aircraft cannon on its rear flatbed, two crewmen beside it, parked on a rural track.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [],
+          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels, labels or UI",
+        "photographic or 3D rendering",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
+      }
+    },
+    {
+      "id": "portraits/morane-saulnier-n",
+      "title": "Morane-Saulnier N",
+      "kind": "portrait",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/portraits/morane-saulnier-n",
+      "assets_dir": "assets/portraits/morane-saulnier-n",
+      "prompt": "art/portraits/morane-saulnier-n/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/morane-saulnier-n/portrait.png",
+          "sha256": "7eea671c39ec3e992cd371e49e29933c2494cb5d931cdd9d4e441a9adc80173d",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral morane-saulnier n in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A Morane-Saulnier Type N shoulder-wing monoplane with wire bracing, rounded short fuselage and distinctive large blunt bullet spinner, open cockpit and fixed spoked wheels. Single complete aircraft parked on a grassy airfield, nose to the left, low eye-level three-quarter side view, full wings and tail within canvas, natural unmarked khaki fabric and metal; no duplicate aircraft.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [],
+          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels, labels or UI",
+        "photographic or 3D rendering",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
+      }
+    },
+    {
+      "id": "portraits/nieuport-xvii",
+      "title": "Nieuport XVII",
+      "kind": "portrait",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/portraits/nieuport-xvii",
+      "assets_dir": "assets/portraits/nieuport-xvii",
+      "prompt": "art/portraits/nieuport-xvii/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/nieuport-xvii/portrait.png",
+          "sha256": "0ba7a02016145958d8d3144a76e515e1169769baabd25110f2fe7c10439bac6c",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral nieuport xvii in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A Nieuport 17 compact sesquiplane, broad upper wing, very narrow lower wing, V-shaped interplane struts, round rotary-engine cowling, open cockpit and spoked wheels. Single complete aircraft parked on a grassy airfield, nose to the left, low eye-level three-quarter side view, full wings and tail within canvas, natural unmarked khaki fabric and metal; no duplicate aircraft.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [],
+          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels, labels or UI",
+        "photographic or 3D rendering",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
+      }
+    },
+    {
       "id": "portraits/patrol-boat",
       "title": "Patrol boat",
       "kind": "portrait",
@@ -2731,6 +3531,46 @@
         "samples": [
           "assets/portraits/patrol-boat/portrait-4x.png"
         ]
+      }
+    },
+    {
+      "id": "portraits/renault-ft17",
+      "title": "Renault FT 17",
+      "kind": "portrait",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/portraits/renault-ft17",
+      "assets_dir": "assets/portraits/renault-ft17",
+      "prompt": "art/portraits/renault-ft17/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/renault-ft17/portrait.png",
+          "sha256": "cfb170777fe1c6db2640473d5f57de7dae83e39aaaeea3419a9b001a0eabfc94",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral renault ft 17 in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A small Renault FT 17 light tank, compact riveted hull, one rotating polygonal turret, exposed narrow tracks and a rear trench-crossing tail. Left-facing three-quarter view on a rural track.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [],
+          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels, labels or UI",
+        "photographic or 3D rendering",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
       }
     },
     {
@@ -2786,6 +3626,326 @@
       }
     },
     {
+      "id": "portraits/se5a",
+      "title": "S.E.5a",
+      "kind": "portrait",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/portraits/se5a",
+      "assets_dir": "assets/portraits/se5a",
+      "prompt": "art/portraits/se5a/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/se5a/portrait.png",
+          "sha256": "67182cc59f6a9f93539161c09b0511e7de628a32638dbe42987bcc48119304db",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral s.e.5a in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: An S.E.5a single-seat biplane, squared inline-engine nose with radiator, long angular fuselage, staggered wings, small headrest and one gun mounted above the upper wing. Single complete aircraft parked on a grassy airfield, nose to the left, low eye-level three-quarter side view, full wings and tail within canvas, natural unmarked khaki fabric and metal; no duplicate aircraft.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [],
+          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels, labels or UI",
+        "photographic or 3D rendering",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
+      }
+    },
+    {
+      "id": "portraits/sopwith-camel",
+      "title": "Sopwith Camel",
+      "kind": "portrait",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/portraits/sopwith-camel",
+      "assets_dir": "assets/portraits/sopwith-camel",
+      "prompt": "art/portraits/sopwith-camel/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/sopwith-camel/portrait.png",
+          "sha256": "148d338f2dc6fc3682770cbfdbc07e9ae33c0cccfac19353612ccaa64e2d3bc3",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral sopwith camel in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A Sopwith Camel compact biplane with a round rotary-engine cowling, distinctive raised twin-gun hump ahead of the cockpit, short fuselage and staggered wings. Single complete aircraft parked on a grassy airfield, nose to the left, low eye-level three-quarter side view, full wings and tail within canvas, natural unmarked khaki fabric and metal; no duplicate aircraft.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [],
+          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels, labels or UI",
+        "photographic or 3D rendering",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
+      }
+    },
+    {
+      "id": "portraits/spad-vii",
+      "title": "SPAD VII",
+      "kind": "portrait",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/portraits/spad-vii",
+      "assets_dir": "assets/portraits/spad-vii",
+      "prompt": "art/portraits/spad-vii/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/spad-vii/portrait.png",
+          "sha256": "5afe875ee4f6e3ccd473227c1b4e16d2efe9d816b829046829b6616ac69edbe8",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral spad vii in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A SPAD VII single-seat biplane with a compact sturdy fuselage, blunt round radiator nose, straight staggered wings, paired interplane struts and one forward machine gun. Single complete aircraft parked on a grassy airfield, nose to the left, low eye-level three-quarter side view, full wings and tail within canvas, natural unmarked khaki fabric and metal; no duplicate aircraft.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [],
+          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels, labels or UI",
+        "photographic or 3D rendering",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
+      }
+    },
+    {
+      "id": "portraits/spad-xiii",
+      "title": "SPAD XIII",
+      "kind": "portrait",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/portraits/spad-xiii",
+      "assets_dir": "assets/portraits/spad-xiii",
+      "prompt": "art/portraits/spad-xiii/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/spad-xiii/portrait.png",
+          "sha256": "fb72c8948163e3e0753b8986340912c538bed80ad44aa71559195d33f7ddb385",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral spad xiii in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A SPAD XIII sturdy single-seat biplane with rounded radiator nose and spinner, two forward machine guns, strong straight staggered wings and paired interplane struts. Single complete aircraft parked on a grassy airfield, nose to the left, low eye-level three-quarter side view, full wings and tail within canvas, natural unmarked khaki fabric and metal; no duplicate aircraft.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [],
+          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels, labels or UI",
+        "photographic or 3D rendering",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
+      }
+    },
+    {
+      "id": "portraits/st-chamond",
+      "title": "St.-Chamond tank",
+      "kind": "portrait",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/portraits/st-chamond",
+      "assets_dir": "assets/portraits/st-chamond",
+      "prompt": "art/portraits/st-chamond/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/st-chamond/portrait.png",
+          "sha256": "d0fb6f82ce40e6ea45504db242a7932b2949142d71cd19bd0a629b54f408c48d",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral st.-chamond tank in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A long riveted St.-Chamond assault tank, distinctive very long hull overhanging short central tracks, boxy front with a long cannon, two small roof cupolas. Left-facing three-quarter view in a field.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [],
+          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels, labels or UI",
+        "photographic or 3D rendering",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
+      }
+    },
+    {
+      "id": "portraits/static-aa",
+      "title": "Static anti-aircraft emplacement",
+      "kind": "portrait",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/portraits/static-aa",
+      "assets_dir": "assets/portraits/static-aa",
+      "prompt": "art/portraits/static-aa/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/static-aa/portrait.png",
+          "sha256": "291b7b85ed95890441945172c35cea36a1283b57687a9de489f491a61550a332",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral static anti-aircraft emplacement in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A water-cooled heavy machine gun on a tall improvised wooden anti-aircraft tripod, barrel elevated, with two khaki-clad crewmen in a sandbag emplacement.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [],
+          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels, labels or UI",
+        "photographic or 3D rendering",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
+      }
+    },
+    {
+      "id": "portraits/static-balloon",
+      "title": "Static balloon",
+      "kind": "portrait",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/portraits/static-balloon",
+      "assets_dir": "assets/portraits/static-balloon",
+      "prompt": "art/portraits/static-balloon/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/static-balloon/portrait.png",
+          "sha256": "56f048b5b157805fbdfdbc0be4edbbd20304776bbfbb6f078209203771ff7fe9",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral static balloon in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: One tethered cigar-shaped observation balloon with stabilizing tail fins, a small suspended basket and taut tether descending to a ground winch; two small ground crew, broad rural landscape and pale cloudy sky.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [],
+          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels, labels or UI",
+        "photographic or 3D rendering",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
+      }
+    },
+    {
+      "id": "portraits/submarine",
+      "title": "Submarine",
+      "kind": "portrait",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/portraits/submarine",
+      "assets_dir": "assets/portraits/submarine",
+      "prompt": "art/portraits/submarine/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/submarine/portrait.png",
+          "sha256": "ba2a61641f8e1acf2154189a5b72c8a8c96337fe3adfbfa7aa12016fba138a7a",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral submarine in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A surfaced early submarine with a narrow cigar-shaped hull, small central conning tower, bow deck gun and low foredeck, bow to the left, on quiet coastal water.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [],
+          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels, labels or UI",
+        "photographic or 3D rendering",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
+      }
+    },
+    {
       "id": "portraits/supply-car",
       "title": "Supply car",
       "kind": "portrait",
@@ -2835,6 +3995,46 @@
         "samples": [
           "assets/portraits/supply-car/portrait-4x.png"
         ]
+      }
+    },
+    {
+      "id": "portraits/torpedo-boat",
+      "title": "Torpedo boat",
+      "kind": "portrait",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/portraits/torpedo-boat",
+      "assets_dir": "assets/portraits/torpedo-boat",
+      "prompt": "art/portraits/torpedo-boat/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/torpedo-boat/portrait.png",
+          "sha256": "0cdb3d82f1e60332d5c712e601b74cb1862b8cc1e9f9bd1d28ac6283720933c9",
+          "width": 1327,
+          "height": 1185
+        }
+      ],
+      "look": "Owner-neutral torpedo boat in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A slender low torpedo boat, narrow pointed bow to the left, two small funnels, small deck gun and visible deck torpedo tubes, on quiet coastal water.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [],
+          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels, labels or UI",
+        "photographic or 3D rendering",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
       }
     },
     {
@@ -2890,6 +4090,46 @@
       }
     },
     {
+      "id": "portraits/transport-ship",
+      "title": "Transport ship",
+      "kind": "portrait",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/portraits/transport-ship",
+      "assets_dir": "assets/portraits/transport-ship",
+      "prompt": "art/portraits/transport-ship/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/transport-ship/portrait.png",
+          "sha256": "25bb8bc835ca13bcfdabf616f56bfc8ab899a8ac0ad7e2742686bfe9fac18797",
+          "width": 1326,
+          "height": 1186
+        }
+      ],
+      "look": "Owner-neutral transport ship in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: An unarmed early steam cargo transport with a deep hull, a single central funnel, two cargo masts with booms and covered cargo holds, bow to the left, on quiet coastal water.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [],
+          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels, labels or UI",
+        "photographic or 3D rendering",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
+      }
+    },
+    {
       "id": "portraits/transport-train",
       "title": "Transport train",
       "kind": "portrait",
@@ -2937,6 +4177,86 @@
         "samples": [
           "assets/portraits/transport-train/portrait-4x.png"
         ]
+      }
+    },
+    {
+      "id": "portraits/voisin-iii",
+      "title": "Voisin III (LA)",
+      "kind": "portrait",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/portraits/voisin-iii",
+      "assets_dir": "assets/portraits/voisin-iii",
+      "prompt": "art/portraits/voisin-iii/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/voisin-iii/portrait.png",
+          "sha256": "1e5790518a91fbf785d75879054a120d33d642bf81c72445c4b8b6ec646eb5e7",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral voisin iii (la) in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A Voisin III two-seat pusher biplane with a short open forward crew nacelle, engine and propeller behind it, open tail booms, multi-bay wings and four-wheel landing gear. Single complete aircraft parked on a grassy airfield, nose to the left, low eye-level three-quarter side view, full wings and tail within canvas, natural unmarked khaki fabric and metal; no duplicate aircraft.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [],
+          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels, labels or UI",
+        "photographic or 3D rendering",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
+      }
+    },
+    {
+      "id": "portraits/zeppelin-staaken-r-vi",
+      "title": "Zeppelin-Staaken R VI",
+      "kind": "portrait",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/portraits/zeppelin-staaken-r-vi",
+      "assets_dir": "assets/portraits/zeppelin-staaken-r-vi",
+      "prompt": "art/portraits/zeppelin-staaken-r-vi/prompt.md",
+      "masters": [
+        {
+          "path": "art/portraits/zeppelin-staaken-r-vi/portrait.png",
+          "sha256": "96d2ae44e402f2c31d73962d705e2b3d139de89ea505bccf3258e27b48ac9709",
+          "width": 1326,
+          "height": 1187
+        }
+      ],
+      "look": "Owner-neutral zeppelin-staaken r vi in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
+      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A very large Zeppelin-Staaken R.VI biplane bomber AIRPLANE, broad multi-bay wings, two wing nacelles each carrying a front and rear propeller, enclosed central cockpit and biplane tail. No airship or balloon. Single complete aircraft parked on a grassy airfield, nose to the left, low eye-level three-quarter side view, full wings and tail within canvas, natural unmarked khaki fabric and metal; no duplicate aircraft.",
+      "variants": [
+        {
+          "variant": "portrait",
+          "runtime_ids": [],
+          "delta": "One owner-neutral painting for the original unit type; gameplay binding pending."
+        }
+      ],
+      "edges": "",
+      "post": "Candidate source master only. Match the existing portraits with a centred 105:94 crop, never stretch.\nPrepare 840×752 (4×), 420×376 (2×) and 210×188 (1×) exports with the portrait pipeline when the\nunit binding is defined. Runtime exports, binding and visual acceptance remain open.",
+      "avoid": [
+        "national colours, flags, insignia or faction tint",
+        "frames, bevels, labels or UI",
+        "photographic or 3D rendering",
+        "action spectacle, muzzle flash or casualties"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
       }
     },
     {
