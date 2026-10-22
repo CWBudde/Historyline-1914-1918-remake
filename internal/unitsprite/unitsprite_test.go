@@ -33,7 +33,8 @@ func TestArtFamiliesWithoutGameplayAliases(t *testing.T) {
 	for _, family := range []string{"a7v", "st-chamond", "renault-ft17", "mark-i", "mark-iv",
 		"torpedo-boat", "destroyer", "battleship", "transport-ship", "submarine",
 		"fokker-e-i", "fokker-e-iii", "albatros-d-iii", "fokker-dr-i", "fokker-d-vii", "junkers-j4",
-		"morane-saulnier-n", "nieuport-xvii", "spad-vii", "spad-xiii", "se5a", "sopwith-camel"} {
+		"morane-saulnier-n", "nieuport-xvii", "spad-vii", "spad-xiii", "se5a", "sopwith-camel",
+		"dh2", "voisin-iii", "dh4", "gotha-g-vb", "handley-page-0400", "zeppelin-staaken-r-vi"} {
 		if !slices.Contains(Families(), family) || len(ClassIDs(family)) != 0 {
 			t.Errorf("%s must have an export family without invented gameplay classes", family)
 		}

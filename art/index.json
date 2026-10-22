@@ -2735,13 +2735,13 @@
       "masters": [
         {
           "path": "art/portraits/dh2/portrait.png",
-          "sha256": "508bca2f583c8b3472949184cb99f27ad43fb051b7a3bd360b790e729d8273a5",
-          "width": 1326,
-          "height": 1187
+          "sha256": "baa2e3ed8c4e59a85971d7e77b2570db146cd5062f61f2080c72a29f2efa0e39",
+          "width": 1328,
+          "height": 1184
         }
       ],
       "look": "Owner-neutral d.h.2 scout in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
-      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: An Airco D.H.2 single-seat pusher biplane, short open cockpit nacelle ahead of the wings, engine and propeller behind the pilot, twin open tail booms and fixed wheels. Single complete aircraft parked on a grassy airfield, nose to the left, low eye-level three-quarter side view, full wings and tail within canvas, natural unmarked khaki fabric and metal; no duplicate aircraft.",
+      "base_prompt": "Use case: precise-object-edit. Correct this WWI dh2 unit PORTRAIT using primary period/museum tail structure. Correct ONLY rear tail: remove the currently wrong twin vertical fins/box tail and replace with exactlyONE CENTRAL vertical rudder and ONE horizontal tailplane. The DH2 rudder is a single tall OVAL surface at exact centre of open tail-boom ends. Keep one open pilot cockpit, one exposed rotary engine behind pilot, one wooden rear pusher propeller, two main wing levels, two main wheels and same short crew nacelle. Keep SAME natural tan/khaki fabric, metal/wood, unmarked owner-neutral subject, low front-left three-quarter scene, connected ochre/sepia hand-painted brushwork, pale cloudy sky and grassy airfield. Pull camera back slightly so entire aircraft including tail, wings and propeller fits inside central85%width and centred exact105:94crop. Near-square landscape105:94 ideally1680x1504, full-bleed OPAQUE painting. No words, letters, numbers, crosses, insignia, flags, labels, frames, UI or watermark. No photograph or3Drender. Do not change aircraft front/engine arrangement or add a third main wing.\nFraming: complete aircraft's projected width at most80% of image height, centred, generous painted scene margins and safe exact105:94crop.",
       "variants": [
         {
           "variant": "portrait",
@@ -3087,13 +3087,13 @@
       "masters": [
         {
           "path": "art/portraits/gotha-g-vb/portrait.png",
-          "sha256": "77667ac02476896b007c18bccfd1a3406a3ca8984af3b047c5647cc901c47389",
-          "width": 1326,
-          "height": 1186
+          "sha256": "3cee98e6b635076c67578f25aa062608b29f41e00be6708d8e654826ac02314b",
+          "width": 1491,
+          "height": 1055
         }
       ],
       "look": "Owner-neutral gotha g vb in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
-      "base_prompt": "Use case: historical-scene. Create ONE newly authored opaque full-bleed WWI strategy game unit portrait, landscape105:94 ideally1680x1504. Input painting is a STYLE AND COMPOSITION reference only: preserve its connected hand-painted brushwork, subdued ochre/sepia/khaki palette, pale cloudy sky, quiet grassy airfield and low three-quarter side view with nose LEFT. Correct the aircraft's propulsion. Subject: ONE complete Gotha G.Vb heavy BIPLANE bomber, TWO main wing levels, long narrow central fuselage with open nose gun station and two crew positions aft, broad multi-bay straight wings, a nacelle between the wings on EACH side of fuselage. Exactly TWO inline engines TOTAL, one per nacelle. Each nacelle has ONE wooden PUSHER propeller at its REAR trailing end (toward RIGHT/tail), giving exactly TWO propellers TOTAL. The FORWARD/LEFT end of each engine nacelle is a plain radiator nose with NO front propeller, NO front propeller blades, NO spinner. Make BOTH rear pusher propellers visibly readable behind engines. No push-pull configuration, no four propellers, no engine in central fuselage. Dark natural steel engines, tan unmarked fabric wings and fuselage, two small vertical tail fins, spoked fixed landing gear and rear skid. Entire aircraft including wingtips, tail and propellers safely inside centred105:94 crop. Strong readable silhouette at210x188, natural materials, selective fine detail and soft upper-left daylight. No lettering, numbers, flags, crosses, insignia, markings, faction tint, borders, UI, watermark, photo, pixel art or3D render.",
+      "base_prompt": "Use case: precise-object-edit. Correct this WWI gotha-g-vb unit PORTRAIT using primary period/museum tail structure. Correct ONLY rear tail to a G.Vb BIPLANE/BOX TAIL: exactlyTWO small HORIZONTAL tailplanes stacked one above the other, visibly separated, and exactlyTWO outboard VERTICAL rudders connecting them. Do not leave a single horizontal tailplane. Keep two engines and exactlytwo REAR PUSHER propellers (no front props), same open crew positions and all other structure. Keep SAME natural tan/khaki fabric, metal/wood, unmarked owner-neutral subject, low front-left three-quarter scene, connected ochre/sepia hand-painted brushwork, pale cloudy sky and grassy airfield. Pull camera back slightly so entire aircraft including tail, wings and propeller fits inside central85%width and centred exact105:94crop. Near-square landscape105:94 ideally1680x1504, full-bleed OPAQUE painting. No words, letters, numbers, crosses, insignia, flags, labels, frames, UI or watermark. No photograph or3Drender. Do not change aircraft front/engine arrangement or add a third main wing.\nFraming: complete aircraft's projected width at most80% of image height, centred, generous painted scene margins and safe exact105:94crop.",
       "variants": [
         {
           "variant": "portrait",
@@ -4503,13 +4503,13 @@
       "masters": [
         {
           "path": "art/portraits/voisin-iii/portrait.png",
-          "sha256": "1e5790518a91fbf785d75879054a120d33d642bf81c72445c4b8b6ec646eb5e7",
-          "width": 1326,
-          "height": 1187
+          "sha256": "2427eed56816a88e2701b77264833c7d362c701da38f250969029e9b50321ac4",
+          "width": 1328,
+          "height": 1184
         }
       ],
       "look": "Owner-neutral voisin iii (la) in a quiet period scene, matching the existing portrait\npaintings' subdued ochre and sepia palette, cloudy sky and connected brushwork.",
-      "base_prompt": "Newly authored opaque full-bleed WWI strategy-game unit portrait, 105:94 landscape aspect ideally 1680x1504 or larger. Match the reference portraits: subdued ochre, sepia, khaki, olive and sage; broad connected hand-painted digital brushwork with selective fine mechanical detail; pale cloudy sky and diffuse light from upper left. Rural Europe 1914–1918, calm period scene, owner-neutral. Central subject fully visible and readable at 210x188, safe centered crop. No text, letters, numbers, insignia, flags, faction tint, borders, frame, UI, watermark, pixel art, photograph or 3D render. Subject: A Voisin III two-seat pusher biplane with a short open forward crew nacelle, engine and propeller behind it, open tail booms, multi-bay wings and four-wheel landing gear. Single complete aircraft parked on a grassy airfield, nose to the left, low eye-level three-quarter side view, full wings and tail within canvas, natural unmarked khaki fabric and metal; no duplicate aircraft.",
+      "base_prompt": "Use case: precise-object-edit. Correct this WWI voisin-iii unit PORTRAIT using primary period/museum tail structure. Correct ONLY rear tail: remove the currently wrong twin vertical fins/box tail and replace with exactlyONE CENTRAL vertical rudder and ONE horizontal tailplane. The Voisin III/LAS rudder is a single tall RECTANGULAR surface at exact centre of open boom ends, extending above and below the horizontal tailplane. Keep two open crew positions, one rear engine with one rear pusher propeller, two main wing levels and four main wheels. No second horizontal tailplane. Keep SAME natural tan/khaki fabric, metal/wood, unmarked owner-neutral subject, low front-left three-quarter scene, connected ochre/sepia hand-painted brushwork, pale cloudy sky and grassy airfield. Pull camera back slightly so entire aircraft including tail, wings and propeller fits inside central85%width and centred exact105:94crop. Near-square landscape105:94 ideally1680x1504, full-bleed OPAQUE painting. No words, letters, numbers, crosses, insignia, flags, labels, frames, UI or watermark. No photograph or3Drender. Do not change aircraft front/engine arrangement or add a third main wing.\nFraming: complete aircraft's projected width at most80% of image height, centred, generous painted scene margins and safe exact105:94crop.",
       "variants": [
         {
           "variant": "portrait",
@@ -11236,6 +11236,160 @@
       }
     },
     {
+      "id": "units/dh2",
+      "title": "Airco D.H.2",
+      "kind": "unit",
+      "status": "revised",
+      "runtime_ids": [
+        "unit/dh2"
+      ],
+      "dir": "art/units/dh2",
+      "assets_dir": "assets/units/dh2",
+      "prompt": "art/units/dh2/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/dh2/atlas.png",
+          "sha256": "087645339db36765ff87405fb98b7757c06bff4cb8c777017e063923821b8488",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI Airco D.H.2. A distinct period silhouette,\nfixed upper-left lighting and technical magenta owner paint; other materials stay natural.",
+      "base_prompt": "Use case: historical-scene. Create ONE game-ready TRANSPARENT WWI aircraft sprite atlas of the SAME Airco D.H.2. Exact canvas1024x1536RGBA. TWO columns by THREE rows of invisible512x512square cells, one COMPLETE small plane in each cell. Entire aircraft including ALL wings, propellers, wires, tail and wheels fits in central320x320box centred at(256,261) of each cell; at least80px alpha-zero margins on ALL cell edges. Keep six planes at same scale and prevent ALL boundary crossings.\nHEADINGS row-major by AIRCRAFT FRONT NOSE direction: TOPLEFT N = NOSE UP, TAIL DOWN; TOPRIGHT NW = NOSE UPPERLEFT, TAIL LOWERRIGHT, rear quarter nearest viewer; MIDDLELEFT SW = NOSE LOWERLEFT, TAIL UPPERRIGHT, front quarter nearest viewer; MIDDLERIGHT S = NOSE DOWN, TAIL UP; BOTTOMLEFT SE = NOSE LOWERRIGHT, TAIL UPPERLEFT; BOTTOMRIGHT NE = NOSE UPPERRIGHT, TAIL LOWERLEFT, rear quarter nearest viewer. FRONT is the central crew/cockpit NOSE, NOT the rear tail. Pusher propellers sit BEHIND crew, so never define aircraft front by pusher propeller. Six genuinely different independently painted orientations, never rotate/mirror a finished image.\nSubject: Airco D.H.2 single-seat PUSHER BIPLANE fighter. Exactly TWO main wing levels with simple wooden interplane struts, a short rounded open-cockpit nacelle in FRONT of the wings, ONE front-mounted forward machine gun, ONE small open pilot seat. ONE exposed natural dark steel ROTARY engine directly BEHIND the pilot, driving ONE two-bladed wooden PUSHER propeller at REAR of nacelle BETWEEN the tail booms. Four thin open tubular tail-boom members (upper/lower pairs on both sides) extend rearward to ONE horizontal tailplane and exactly ONE central oval vertical RUDDER at the far tail. NO twin fins and no box tail. Two spoked landing wheels under nacelle, short tail skid. Magenta fabric wings, nacelle and tail; metal engine and tubes, brown wood prop and struts, black tyres stay natural. No enclosed long fuselage between crew and tail. The FRONT is the blunt crew/gun nose, OPPOSITE the tail; rear propeller is NOT the front.\nFixed elevated overhead strategy camera, visible top surfaces with just enough side height to distinguish wing/tail levels. Aircraft level, same SCREENupperLEFT soft diffuse lighting in every cell. Newly authored finely hand-painted WWI game illustration, crisp natural antialiased edges, strong light/dark silhouette readable at48px, believable fabric ribs, wood and metal, no photo, pixel art or3Drender. Same aircraft identity, EXACT same wing/propeller/crew/equipment counts in all six views. TECHNICALMAGENTA shaded owner fabric paint, natural materials elsewhere. Open cockpits empty or recessed, no protruding pilots. TRUE RGBA alpha transparency outside aircraft AND through all boom/strut gaps. Padding RGBA(0,0,0,0). NO ground, sky, background, shadows, haze, glow, checkerboard, vignette, propeller blur, smoke, text, letters, numbers, labels, flags, crosses, national insignia, grid, arrows or frame. Exactly SIX complete aircraft and NO loose fragments.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera, scale and lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-dh2-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/dh2/`; gameplay class binding remains open.",
+      "avoid": [
+        "water, wakes, reflections, ground shadows, backdrop or detached fragments",
+        "labels, national insignia, clipped extremities or inconsistent equipment between views"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/dh2/cp/n-normal-4x.png",
+          "assets/units/dh2/cp/nw-normal-4x.png",
+          "assets/units/dh2/cp/sw-normal-4x.png",
+          "assets/units/dh2/cp/s-normal-4x.png",
+          "assets/units/dh2/cp/se-normal-4x.png",
+          "assets/units/dh2/cp/ne-normal-4x.png",
+          "assets/units/dh2/ec/n-normal-4x.png",
+          "assets/units/dh2/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "units/dh4",
+      "title": "Airco D.H.4",
+      "kind": "unit",
+      "status": "revised",
+      "runtime_ids": [
+        "unit/dh4"
+      ],
+      "dir": "art/units/dh4",
+      "assets_dir": "assets/units/dh4",
+      "prompt": "art/units/dh4/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/dh4/atlas.png",
+          "sha256": "bae0fcd9ca7b9c59b5f9f338b5c88e57f6168a10881802cb48c64cdfda65f9ec",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI Airco D.H.4. A distinct period silhouette,\nfixed upper-left lighting and technical magenta owner paint; other materials stay natural.",
+      "base_prompt": "Use case: historical-scene. Create ONE game-ready TRANSPARENT WWI aircraft sprite atlas of the SAME Airco D.H.4. Exact canvas1024x1536RGBA. TWO columns by THREE rows of invisible512x512square cells, one COMPLETE small plane in each cell. Entire aircraft including ALL wings, propellers, wires, tail and wheels fits in central320x320box centred at(256,261) of each cell; at least80px alpha-zero margins on ALL cell edges. Keep six planes at same scale and prevent ALL boundary crossings.\nHEADINGS row-major by AIRCRAFT FRONT NOSE direction: TOPLEFT N = NOSE UP, TAIL DOWN; TOPRIGHT NW = NOSE UPPERLEFT, TAIL LOWERRIGHT, rear quarter nearest viewer; MIDDLELEFT SW = NOSE LOWERLEFT, TAIL UPPERRIGHT, front quarter nearest viewer; MIDDLERIGHT S = NOSE DOWN, TAIL UP; BOTTOMLEFT SE = NOSE LOWERRIGHT, TAIL UPPERLEFT; BOTTOMRIGHT NE = NOSE UPPERRIGHT, TAIL LOWERLEFT, rear quarter nearest viewer. FRONT is the central crew/cockpit NOSE, NOT the rear tail. Pusher propellers sit BEHIND crew, so never define aircraft front by pusher propeller. Six genuinely different independently painted orientations, never rotate/mirror a finished image.\nSubject: Airco D.H.4 two-seat TRACTOR BIPLANE light bomber. Exactly TWO long straight main wing levels, wooden interplane struts, a long slim tapered fabric fuselage with a squared water-cooled inline-engine NOSE, dark radiator face at FRONT and ONE two-bladed wooden TRACTOR propeller at very FRONT. TWO distinctly separated small OPEN cockpits in tandem: pilot nearer wings, observer/gunner well behind pilot, ONE rear flexible machine gun on observer ring and one small forward fuselage gun. Long dark exhaust pipes along engine sides, ONE conventional horizontal tailplane and ONE upright rounded triangular tail fin/rudder, fixed two spoked-wheel undercarriage and tailskid. Shaded technical magenta wings/fuselage/tail, natural grey metal nose and gun, wood prop/struts, black tyres. No rotary round nose, no enclosed canopy, no third main wing. FRONT is nose propeller end.\nFixed elevated overhead strategy camera, visible top surfaces with just enough side height to distinguish wing/tail levels. Aircraft level, same SCREENupperLEFT soft diffuse lighting in every cell. Newly authored finely hand-painted WWI game illustration, crisp natural antialiased edges, strong light/dark silhouette readable at48px, believable fabric ribs, wood and metal, no photo, pixel art or3Drender. Same aircraft identity, EXACT same wing/propeller/crew/equipment counts in all six views. TECHNICALMAGENTA shaded owner fabric paint, natural materials elsewhere. Open cockpits empty or recessed, no protruding pilots. TRUE RGBA alpha transparency outside aircraft AND through all boom/strut gaps. Padding RGBA(0,0,0,0). NO ground, sky, background, shadows, haze, glow, checkerboard, vignette, propeller blur, smoke, text, letters, numbers, labels, flags, crosses, national insignia, grid, arrows or frame. Exactly SIX complete aircraft and NO loose fragments.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera, scale and lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-dh4-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/dh4/`; gameplay class binding remains open.",
+      "avoid": [
+        "water, wakes, reflections, ground shadows, backdrop or detached fragments",
+        "labels, national insignia, clipped extremities or inconsistent equipment between views"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/dh4/cp/n-normal-4x.png",
+          "assets/units/dh4/cp/nw-normal-4x.png",
+          "assets/units/dh4/cp/sw-normal-4x.png",
+          "assets/units/dh4/cp/s-normal-4x.png",
+          "assets/units/dh4/cp/se-normal-4x.png",
+          "assets/units/dh4/cp/ne-normal-4x.png",
+          "assets/units/dh4/ec/n-normal-4x.png",
+          "assets/units/dh4/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
       "id": "units/elite-infantry",
       "title": "Elite infantry",
       "kind": "unit",
@@ -11621,6 +11775,160 @@
           "assets/units/fokker-e-iii/cp/ne-normal-4x.png",
           "assets/units/fokker-e-iii/ec/n-normal-4x.png",
           "assets/units/fokker-e-iii/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "units/gotha-g-vb",
+      "title": "Gotha G.Vb",
+      "kind": "unit",
+      "status": "revised",
+      "runtime_ids": [
+        "unit/gotha-g-vb"
+      ],
+      "dir": "art/units/gotha-g-vb",
+      "assets_dir": "assets/units/gotha-g-vb",
+      "prompt": "art/units/gotha-g-vb/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/gotha-g-vb/atlas.png",
+          "sha256": "91d337fd7badd8ddf127a9b3507a31b1bbd6f0ad18e085d8818bd77e327de751",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI Gotha G.Vb. A distinct period silhouette,\nfixed upper-left lighting and technical magenta owner paint; other materials stay natural.",
+      "base_prompt": "Use case: historical-scene. Create ONE game-ready TRANSPARENT WWI aircraft sprite atlas of the SAME Gotha G.Vb. Exact canvas1024x1536RGBA. TWO columns by THREE rows of invisible512x512square cells, one COMPLETE small plane in each cell. Entire aircraft including ALL wings, propellers, wires, tail and wheels fits in central320x320box centred at(256,261) of each cell; at least80px alpha-zero margins on ALL cell edges. Keep six planes at same scale and prevent ALL boundary crossings.\nHEADINGS row-major by AIRCRAFT FRONT NOSE direction: TOPLEFT N = NOSE UP, TAIL DOWN; TOPRIGHT NW = NOSE UPPERLEFT, TAIL LOWERRIGHT, rear quarter nearest viewer; MIDDLELEFT SW = NOSE LOWERLEFT, TAIL UPPERRIGHT, front quarter nearest viewer; MIDDLERIGHT S = NOSE DOWN, TAIL UP; BOTTOMLEFT SE = NOSE LOWERRIGHT, TAIL UPPERLEFT; BOTTOMRIGHT NE = NOSE UPPERRIGHT, TAIL LOWERLEFT, rear quarter nearest viewer. FRONT is the central crew/cockpit NOSE, NOT the rear tail. Pusher propellers sit BEHIND crew, so never define aircraft front by pusher propeller. Six genuinely different independently painted orientations, never rotate/mirror a finished image.\nSubject: Gotha G.Vb heavy twin-engine BIPLANE bomber. Exactly TWO broad main wing levels, long narrow central fabric fuselage with OPEN nose gun station, two small open crew positions aft, TWO separate engine nacelles between wings (one on EACH side of central fuselage). Each nacelle has ONE enclosed natural steel inline engine and ONE wooden PUSHER propeller at its REAR toward tail, giving TWO engines and exactly TWO propellers TOTAL. Forward ends of both nacelles are plain radiator housings with NO front propellers. Long multi-bay straight wings, BIPLANE/BOX TAIL with exactly TWO horizontal tailplane levels and TWO outboard vertical rudders between them, robust double main undercarriage bogies and small nose anti-tip wheels. Shaded magenta fabric wings/fuselage/tail; natural steel engine nacelles and guns, wooden rear props and struts, black tyres. No push-pull four-prop arrangement, no central nose engine or nose propeller. FRONT is central pointed crew/gun nose, OPPOSITE tail.\nFixed elevated overhead strategy camera, visible top surfaces with just enough side height to distinguish wing/tail levels. Aircraft level, same SCREENupperLEFT soft diffuse lighting in every cell. Newly authored finely hand-painted WWI game illustration, crisp natural antialiased edges, strong light/dark silhouette readable at48px, believable fabric ribs, wood and metal, no photo, pixel art or3Drender. Same aircraft identity, EXACT same wing/propeller/crew/equipment counts in all six views. TECHNICALMAGENTA shaded owner fabric paint, natural materials elsewhere. Open cockpits empty or recessed, no protruding pilots. TRUE RGBA alpha transparency outside aircraft AND through all boom/strut gaps. Padding RGBA(0,0,0,0). NO ground, sky, background, shadows, haze, glow, checkerboard, vignette, propeller blur, smoke, text, letters, numbers, labels, flags, crosses, national insignia, grid, arrows or frame. Exactly SIX complete aircraft and NO loose fragments.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera, scale and lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-gotha-g-vb-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/gotha-g-vb/`; gameplay class binding remains open.",
+      "avoid": [
+        "water, wakes, reflections, ground shadows, backdrop or detached fragments",
+        "labels, national insignia, clipped extremities or inconsistent equipment between views"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/gotha-g-vb/cp/n-normal-4x.png",
+          "assets/units/gotha-g-vb/cp/nw-normal-4x.png",
+          "assets/units/gotha-g-vb/cp/sw-normal-4x.png",
+          "assets/units/gotha-g-vb/cp/s-normal-4x.png",
+          "assets/units/gotha-g-vb/cp/se-normal-4x.png",
+          "assets/units/gotha-g-vb/cp/ne-normal-4x.png",
+          "assets/units/gotha-g-vb/ec/n-normal-4x.png",
+          "assets/units/gotha-g-vb/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "units/handley-page-0400",
+      "title": "Handley Page O/400",
+      "kind": "unit",
+      "status": "revised",
+      "runtime_ids": [
+        "unit/handley-page-0400"
+      ],
+      "dir": "art/units/handley-page-0400",
+      "assets_dir": "assets/units/handley-page-0400",
+      "prompt": "art/units/handley-page-0400/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/handley-page-0400/atlas.png",
+          "sha256": "cd2f542d7b3eeed79a623f043a99d6337fe21a5c3ba9bc6108e77282e166e629",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI Handley Page O/400. A distinct period silhouette,\nfixed upper-left lighting and technical magenta owner paint; other materials stay natural.",
+      "base_prompt": "Use case: historical-scene. Create ONE game-ready TRANSPARENT WWI aircraft sprite atlas of the SAME Handley Page O/400. Exact canvas1024x1536RGBA. TWO columns by THREE rows of invisible512x512square cells, one COMPLETE small plane in each cell. Entire aircraft including ALL wings, propellers, wires, tail and wheels fits in central320x320box centred at(256,261) of each cell; at least80px alpha-zero margins on ALL cell edges. Keep six planes at same scale and prevent ALL boundary crossings.\nHEADINGS row-major by AIRCRAFT FRONT NOSE direction: TOPLEFT N = NOSE UP, TAIL DOWN; TOPRIGHT NW = NOSE UPPERLEFT, TAIL LOWERRIGHT, rear quarter nearest viewer; MIDDLELEFT SW = NOSE LOWERLEFT, TAIL UPPERRIGHT, front quarter nearest viewer; MIDDLERIGHT S = NOSE DOWN, TAIL UP; BOTTOMLEFT SE = NOSE LOWERRIGHT, TAIL UPPERLEFT; BOTTOMRIGHT NE = NOSE UPPERRIGHT, TAIL LOWERLEFT, rear quarter nearest viewer. FRONT is the central crew/cockpit NOSE, NOT the rear tail. Pusher propellers sit BEHIND crew, so never define aircraft front by pusher propeller. Six genuinely different independently painted orientations, never rotate/mirror a finished image.\nSubject: Handley Page O/400 large twin-engine TRACTOR BIPLANE heavy bomber. Exactly TWO broad main wing levels, rectangular upper wing with extended tips, THREE strut bays per side, broad slab-sided long central fuselage with OPEN round nose gun station, pilot cockpit behind nose and aft observer gun position. Exactly TWO engine nacelles between wings, one on EACH side of fuselage; each has ONE natural grey inline engine and ONE four-bladed wooden TRACTOR propeller on its FRONT toward nose. TWO engines and TWO propeller hubs TOTAL, NO rear propellers. BIPLANE TAIL: two small horizontally stacked tailplanes, TWO outer vertical rudders between tailplanes and one small fixed central fin. Two four-wheel main bogies under inner wings, tailskid. Shaded technical magenta wings/fuselage/tail, natural grey metal nacelles and guns, wood struts/props and black tyres. Broad straight-wing silhouette larger/heavier than fighters. No closed glazed nose, no central nose propeller. FRONT is central blunt nose-gun station end.\nFixed elevated overhead strategy camera, visible top surfaces with just enough side height to distinguish wing/tail levels. Aircraft level, same SCREENupperLEFT soft diffuse lighting in every cell. Newly authored finely hand-painted WWI game illustration, crisp natural antialiased edges, strong light/dark silhouette readable at48px, believable fabric ribs, wood and metal, no photo, pixel art or3Drender. Same aircraft identity, EXACT same wing/propeller/crew/equipment counts in all six views. TECHNICALMAGENTA shaded owner fabric paint, natural materials elsewhere. Open cockpits empty or recessed, no protruding pilots. TRUE RGBA alpha transparency outside aircraft AND through all boom/strut gaps. Padding RGBA(0,0,0,0). NO ground, sky, background, shadows, haze, glow, checkerboard, vignette, propeller blur, smoke, text, letters, numbers, labels, flags, crosses, national insignia, grid, arrows or frame. Exactly SIX complete aircraft and NO loose fragments.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera, scale and lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-handley-page-0400-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/handley-page-0400/`; gameplay class binding remains open.",
+      "avoid": [
+        "water, wakes, reflections, ground shadows, backdrop or detached fragments",
+        "labels, national insignia, clipped extremities or inconsistent equipment between views"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/handley-page-0400/cp/n-normal-4x.png",
+          "assets/units/handley-page-0400/cp/nw-normal-4x.png",
+          "assets/units/handley-page-0400/cp/sw-normal-4x.png",
+          "assets/units/handley-page-0400/cp/s-normal-4x.png",
+          "assets/units/handley-page-0400/cp/se-normal-4x.png",
+          "assets/units/handley-page-0400/cp/ne-normal-4x.png",
+          "assets/units/handley-page-0400/ec/n-normal-4x.png",
+          "assets/units/handley-page-0400/neutral/n-normal-4x.png"
         ]
       }
     },
@@ -13433,6 +13741,160 @@
           "assets/units/transport-train/cp/ne-normal-4x.png",
           "assets/units/transport-train/ec/n-normal-4x.png",
           "assets/units/transport-train/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "units/voisin-iii",
+      "title": "Voisin III",
+      "kind": "unit",
+      "status": "revised",
+      "runtime_ids": [
+        "unit/voisin-iii"
+      ],
+      "dir": "art/units/voisin-iii",
+      "assets_dir": "assets/units/voisin-iii",
+      "prompt": "art/units/voisin-iii/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/voisin-iii/atlas.png",
+          "sha256": "638b75ae32506f56782e07a6197617e67cb94d3780bc6b4cc49e54bedc360017",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI Voisin III. A distinct period silhouette,\nfixed upper-left lighting and technical magenta owner paint; other materials stay natural.",
+      "base_prompt": "Use case: historical-scene. Create ONE game-ready TRANSPARENT WWI aircraft sprite atlas of the SAME Voisin III. Exact canvas1024x1536RGBA. TWO columns by THREE rows of invisible512x512square cells, one COMPLETE small plane in each cell. Entire aircraft including ALL wings, propellers, wires, tail and wheels fits in central320x320box centred at(256,261) of each cell; at least80px alpha-zero margins on ALL cell edges. Keep six planes at same scale and prevent ALL boundary crossings.\nHEADINGS row-major by AIRCRAFT FRONT NOSE direction: TOPLEFT N = NOSE UP, TAIL DOWN; TOPRIGHT NW = NOSE UPPERLEFT, TAIL LOWERRIGHT, rear quarter nearest viewer; MIDDLELEFT SW = NOSE LOWERLEFT, TAIL UPPERRIGHT, front quarter nearest viewer; MIDDLERIGHT S = NOSE DOWN, TAIL UP; BOTTOMLEFT SE = NOSE LOWERRIGHT, TAIL UPPERLEFT; BOTTOMRIGHT NE = NOSE UPPERRIGHT, TAIL LOWERLEFT, rear quarter nearest viewer. FRONT is the central crew/cockpit NOSE, NOT the rear tail. Pusher propellers sit BEHIND crew, so never define aircraft front by pusher propeller. Six genuinely different independently painted orientations, never rotate/mirror a finished image.\nSubject: Voisin III/LAS two-seat PUSHER BIPLANE. Exactly TWO broad rectangular main wing levels with multi-bay wooden struts, a short boxy forward nacelle with TWO small open crew positions in tandem, ONE nose-mounted observer machine gun, ONE dark natural steel engine mounted high BEHIND crew, driving ONE wooden PUSHER propeller at its REAR between open tail booms. Four long thin open tubular boom members extend behind the wings to ONE horizontal tailplane and ONE central vertical rudder at far tail. FOUR spoked landing wheels, two forward and two aft under crew pod. Shaded technical magenta fabric main wings, crew nacelle and tail, natural wood prop/struts, natural steel tubes/engine and black tyres. No closed full-length fuselage, no nose tractor propeller. FRONT is blunt crew/gun nose, OPPOSITE tail.\nFixed elevated overhead strategy camera, visible top surfaces with just enough side height to distinguish wing/tail levels. Aircraft level, same SCREENupperLEFT soft diffuse lighting in every cell. Newly authored finely hand-painted WWI game illustration, crisp natural antialiased edges, strong light/dark silhouette readable at48px, believable fabric ribs, wood and metal, no photo, pixel art or3Drender. Same aircraft identity, EXACT same wing/propeller/crew/equipment counts in all six views. TECHNICALMAGENTA shaded owner fabric paint, natural materials elsewhere. Open cockpits empty or recessed, no protruding pilots. TRUE RGBA alpha transparency outside aircraft AND through all boom/strut gaps. Padding RGBA(0,0,0,0). NO ground, sky, background, shadows, haze, glow, checkerboard, vignette, propeller blur, smoke, text, letters, numbers, labels, flags, crosses, national insignia, grid, arrows or frame. Exactly SIX complete aircraft and NO loose fragments.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera, scale and lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-voisin-iii-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/voisin-iii/`; gameplay class binding remains open.",
+      "avoid": [
+        "water, wakes, reflections, ground shadows, backdrop or detached fragments",
+        "labels, national insignia, clipped extremities or inconsistent equipment between views"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/voisin-iii/cp/n-normal-4x.png",
+          "assets/units/voisin-iii/cp/nw-normal-4x.png",
+          "assets/units/voisin-iii/cp/sw-normal-4x.png",
+          "assets/units/voisin-iii/cp/s-normal-4x.png",
+          "assets/units/voisin-iii/cp/se-normal-4x.png",
+          "assets/units/voisin-iii/cp/ne-normal-4x.png",
+          "assets/units/voisin-iii/ec/n-normal-4x.png",
+          "assets/units/voisin-iii/neutral/n-normal-4x.png"
+        ]
+      }
+    },
+    {
+      "id": "units/zeppelin-staaken-r-vi",
+      "title": "Zeppelin-Staaken R.VI",
+      "kind": "unit",
+      "status": "revised",
+      "runtime_ids": [
+        "unit/zeppelin-staaken-r-vi"
+      ],
+      "dir": "art/units/zeppelin-staaken-r-vi",
+      "assets_dir": "assets/units/zeppelin-staaken-r-vi",
+      "prompt": "art/units/zeppelin-staaken-r-vi/prompt.md",
+      "masters": [
+        {
+          "path": "art/units/zeppelin-staaken-r-vi/atlas.png",
+          "sha256": "6ce8ebafb64115f18015235b6679a9b78dcb43286f2831d5ee557c83f3b85847",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "look": "Six elevated overhead painted views of the same WWI Zeppelin-Staaken R.VI. A distinct period silhouette,\nfixed upper-left lighting and technical magenta owner paint; other materials stay natural.",
+      "base_prompt": "Use case: historical-scene. Create ONE game-ready TRANSPARENT WWI aircraft sprite atlas of the SAME Zeppelin-Staaken R.VI. Exact canvas1024x1536RGBA. TWO columns by THREE rows of invisible512x512square cells, one COMPLETE small plane in each cell. Entire aircraft including ALL wings, propellers, wires, tail and wheels fits in central320x320box centred at(256,261) of each cell; at least80px alpha-zero margins on ALL cell edges. Keep six planes at same scale and prevent ALL boundary crossings.\nHEADINGS row-major by AIRCRAFT FRONT NOSE direction: TOPLEFT N = NOSE UP, TAIL DOWN; TOPRIGHT NW = NOSE UPPERLEFT, TAIL LOWERRIGHT, rear quarter nearest viewer; MIDDLELEFT SW = NOSE LOWERLEFT, TAIL UPPERRIGHT, front quarter nearest viewer; MIDDLERIGHT S = NOSE DOWN, TAIL UP; BOTTOMLEFT SE = NOSE LOWERRIGHT, TAIL UPPERLEFT; BOTTOMRIGHT NE = NOSE UPPERRIGHT, TAIL LOWERLEFT, rear quarter nearest viewer. FRONT is the central crew/cockpit NOSE, NOT the rear tail. Pusher propellers sit BEHIND crew, so never define aircraft front by pusher propeller. Six genuinely different independently painted orientations, never rotate/mirror a finished image.\nSubject: Zeppelin-Staaken R.VI giant heavy bomber AIRPLANE with exactly TWO broad main wing levels and long multi-bay straight wings, a long broad central fuselage with enclosed glazed pilot cockpit near front and open nose gun station, two large engine nacelles between wings (one per side). Each nacelle carries TWO engines arranged FRONT and REAR in tandem, ONE wooden TRACTOR propeller at FRONT and ONE wooden PUSHER propeller at REAR. FOUR engines and exactly FOUR separate propeller hubs TOTAL: front-left, rear-left, front-right, rear-right. NO propeller on central nose. Selected R.25/16-style tail: exactly TWO small horizontally stacked tailplanes and TWO outboard vertical rudders between them, no third central rudder, multiple-wheel landing bogies under nacelles. Shaded magenta fabric main wings, central fuselage and tail, natural steel engine nacelles and guns, natural wood props/struts, dark tyres. This is an AIRPLANE, never a zeppelin airship or balloon. FRONT is central cockpit/nose-gun end, OPPOSITE tail.\nFixed elevated overhead strategy camera, visible top surfaces with just enough side height to distinguish wing/tail levels. Aircraft level, same SCREENupperLEFT soft diffuse lighting in every cell. Newly authored finely hand-painted WWI game illustration, crisp natural antialiased edges, strong light/dark silhouette readable at48px, believable fabric ribs, wood and metal, no photo, pixel art or3Drender. Same aircraft identity, EXACT same wing/propeller/crew/equipment counts in all six views. TECHNICALMAGENTA shaded owner fabric paint, natural materials elsewhere. Open cockpits empty or recessed, no protruding pilots. TRUE RGBA alpha transparency outside aircraft AND through all boom/strut gaps. Padding RGBA(0,0,0,0). NO ground, sky, background, shadows, haze, glow, checkerboard, vignette, propeller blur, smoke, text, letters, numbers, labels, flags, crosses, national insignia, grid, arrows or frame. Exactly SIX complete aircraft and NO loose fragments.",
+      "variants": [
+        {
+          "variant": "N",
+          "runtime_ids": [],
+          "delta": "Independently painted N view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NW",
+          "runtime_ids": [],
+          "delta": "Independently painted NW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SW",
+          "runtime_ids": [],
+          "delta": "Independently painted SW view; common camera, scale and lighting."
+        },
+        {
+          "variant": "S",
+          "runtime_ids": [],
+          "delta": "Independently painted S view; common camera, scale and lighting."
+        },
+        {
+          "variant": "SE",
+          "runtime_ids": [],
+          "delta": "Independently painted SE view; common camera, scale and lighting."
+        },
+        {
+          "variant": "NE",
+          "runtime_ids": [],
+          "delta": "Independently painted NE view; common camera, scale and lighting."
+        }
+      ],
+      "edges": "",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-zeppelin-staaken-r-vi-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/zeppelin-staaken-r-vi/`; gameplay class binding remains open.",
+      "avoid": [
+        "water, wakes, reflections, ground shadows, backdrop or detached fragments",
+        "labels, national insignia, clipped extremities or inconsistent equipment between views"
+      ],
+      "runtime": {
+        "count": 72,
+        "densities": [
+          2,
+          4
+        ],
+        "samples": [
+          "assets/units/zeppelin-staaken-r-vi/cp/n-normal-4x.png",
+          "assets/units/zeppelin-staaken-r-vi/cp/nw-normal-4x.png",
+          "assets/units/zeppelin-staaken-r-vi/cp/sw-normal-4x.png",
+          "assets/units/zeppelin-staaken-r-vi/cp/s-normal-4x.png",
+          "assets/units/zeppelin-staaken-r-vi/cp/se-normal-4x.png",
+          "assets/units/zeppelin-staaken-r-vi/cp/ne-normal-4x.png",
+          "assets/units/zeppelin-staaken-r-vi/ec/n-normal-4x.png",
+          "assets/units/zeppelin-staaken-r-vi/neutral/n-normal-4x.png"
         ]
       }
     }
