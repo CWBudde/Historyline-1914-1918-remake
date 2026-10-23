@@ -294,3 +294,64 @@ func TestCastShadowPairsFailsClosedOnDensityAnchorsAndAssets(t *testing.T) {
 		}
 	}
 }
+
+// Scattered crowns are measured one by one with their own shadows, each placed
+// at its site's offset from the hex centre.
+func TestCastShadowPairsMeasuresScatteredCrowns(t *testing.T) {
+	var assets []canopyAsset
+	for _, sp := range mapcompose.CrownSpecies {
+		for _, size := range mapcompose.CrownSizes {
+			id := mapcompose.CrownID(sp, size)
+			assets = append(assets, canopyAsset{id, 16, 16, [2]float64{8, 8}, 0}, canopyAsset{mapcompose.ShadowID(id), 16, 16, [2]float64{8, 8}, 0})
+		}
+	}
+	r, files := canopyRenderer(t, assets...)
+	for _, a := range assets {
+		for _, density := range []int{2, 4} {
+			if strings.HasPrefix(a.id, "standing/shadow/") {
+				lightSetSource(t, r, files, a.id, density, lightSource(density, 3*density, 4*density, 1))
+			} else {
+				lightSetSource(t, r, files, a.id, density, lightSource(density, 0, 0, 2))
+			}
+		}
+	}
+	lvl := lightForest()
+	scene := mapcompose.Compose(lvl.Grid(), func(hexgrid.Coord) mapcompose.Hex { return mapcompose.Hex{Terrain: "forest"} }, func(id string) bool { return r.has[id] })
+	sites := scene.ScatterAt(hexgrid.Coord{}, func(*mapcompose.Cluster) bool { return true })
+	if len(sites) == 0 {
+		t.Fatal("no scattered crowns in the test forest")
+	}
+	// A cut-out's alpha may reach its canvas edge.
+	edge := lightSource(2, 0, 0, 2)
+	edge.SetNRGBA(0, 12, color.NRGBA{A: 1})
+	lightSetSource(t, r, files, sites[0].ID, 2, edge)
+	for _, density := range []int{2, 4} {
+		got, err := r.CastShadowPairs(lvl, density)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if len(got.Pairs) != len(sites) || len(got.Unmeasured) != 0 {
+			t.Fatalf("%dx: %d pairs, %d unmeasured; want %d scattered crowns", density, len(got.Pairs), len(got.Unmeasured), len(sites))
+		}
+		for i, pair := range got.Pairs {
+			if pair.Reason != "" || pair.Standing.ID != sites[i].ID || pair.Shadow.ID != mapcompose.ShadowID(sites[i].ID) || pair.Site != [2]float64{sites[i].X, sites[i].Y} {
+				t.Fatalf("%dx pair %d = %+v; want site %+v", density, i, pair, sites[i])
+			}
+			if pair.Standing.ID == sites[0].ID && density == 2 {
+				continue // the edge texel moves its centroid
+			}
+			if pair.Offset != [2]float64{3, 4} || pair.Bearing == nil || !lightNear(*pair.Bearing, 143.13010235415598) {
+				t.Errorf("%dx pair %d offset %v", density, i, pair.Offset)
+			}
+			// The crown sits at its site with anchor (8,8), rounded to the density
+			// grid like PlaceAt; lightSource weighs its pixel centres to
+			// (2.5, 2) + 1.5/density logical px from the canvas origin.
+			x, y := hexgrid.Center(hexgrid.Coord{})
+			d := float64(density)
+			want := [2]float64{math.Round((x+sites[i].X-8)*d)/d + 2.5 + 1.5/d, math.Round((y+sites[i].Y-8)*d)/d + 2 + 1.5/d}
+			if !lightNear(pair.StandingCentroid[0], want[0]) || !lightNear(pair.StandingCentroid[1], want[1]) {
+				t.Errorf("%dx pair %d crown centroid %v, want %v", density, i, pair.StandingCentroid, want)
+			}
+		}
+	}
+}

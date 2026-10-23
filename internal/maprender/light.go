@@ -15,8 +15,10 @@ import (
 // ShadowPair measures the complete source-alpha centroids of one selected crown
 // and its selected cast shadow. Bearing is compass degrees clockwise from north.
 // Reason excludes a pair from direction measurement; its Bearing is then nil.
+// Site is a scattered crown's anchor offset from the hex centre, zero otherwise.
 type ShadowPair struct {
 	At                               hexgrid.Coord
+	Site                             [2]float64
 	Standing, Shadow                 Entry
 	StandingCentroid, ShadowCentroid [2]float64
 	Offset                           [2]float64
@@ -69,7 +71,16 @@ func (r *Renderer) CastShadowPairs(lvl *level.Level, density int) (ShadowPairs, 
 					continue
 				}
 				crownSelected = true
-				pair, err := r.castShadowPair(at, id, slices.Contains(shadows, mapcompose.ShadowID(id)), density)
+				pair, err := r.castShadowPair(at, mapcompose.Placed{ID: id}, false, slices.Contains(shadows, mapcompose.ShadowID(id)), density)
+				if err != nil {
+					return ShadowPairs{}, err
+				}
+				result.Pairs = append(result.Pairs, pair)
+			}
+			scattered := scene.ScatterShadowsAt(at, all)
+			for i, p := range scene.ScatterAt(at, all) {
+				crownSelected = true
+				pair, err := r.castShadowPair(at, p, true, scattered[i].ID == mapcompose.ShadowID(p.ID), density)
 				if err != nil {
 					return ShadowPairs{}, err
 				}
@@ -83,14 +94,18 @@ func (r *Renderer) CastShadowPairs(lvl *level.Level, density int) (ShadowPairs, 
 	return result, nil
 }
 
-func (r *Renderer) castShadowPair(at hexgrid.Coord, id string, selectedShadow bool, density int) (ShadowPair, error) {
-	pair := ShadowPair{At: at, Shadow: Entry{ID: mapcompose.ShadowID(id)}}
+// castShadowPair measures crown p and its shadow. A cut-out (a scattered crown)
+// is cropped to its alpha, which reaches the canvas edge without being cut:
+// hlkit only cuts items clear of their sheet's edge.
+func (r *Renderer) castShadowPair(at hexgrid.Coord, p mapcompose.Placed, cutout, selectedShadow bool, density int) (ShadowPair, error) {
+	id := p.ID
+	pair := ShadowPair{At: at, Site: [2]float64{p.X, p.Y}, Shadow: Entry{ID: mapcompose.ShadowID(id)}}
 	standing, src, err := r.assetImage(id, density)
 	if err != nil {
 		return ShadowPair{}, err
 	}
 	pair.Standing = standing
-	centroid, standingReason, err := shadowAlphaCentroid(src, standing, at, density, "standing")
+	centroid, standingReason, err := shadowAlphaCentroid(src, standing, at, pair.Site, density, cutout, "standing")
 	if err != nil {
 		return ShadowPair{}, err
 	}
@@ -104,7 +119,7 @@ func (r *Renderer) castShadowPair(at hexgrid.Coord, id string, selectedShadow bo
 		return ShadowPair{}, err
 	}
 	pair.Shadow = shadow
-	centroid, shadowReason, err := shadowAlphaCentroid(src, shadow, at, density, "shadow")
+	centroid, shadowReason, err := shadowAlphaCentroid(src, shadow, at, pair.Site, density, cutout, "shadow")
 	if err != nil {
 		return ShadowPair{}, err
 	}
@@ -130,10 +145,10 @@ func (r *Renderer) castShadowPair(at hexgrid.Coord, id string, selectedShadow bo
 	return pair, nil
 }
 
-func shadowAlphaCentroid(src image.Image, entry Entry, at hexgrid.Coord, density int, role string) ([2]float64, string, error) {
+func shadowAlphaCentroid(src image.Image, entry Entry, at hexgrid.Coord, site [2]float64, density int, cutout bool, role string) ([2]float64, string, error) {
 	x, y := hexgrid.Center(at)
 	origin := [2]float64{}
-	for i, center := range [2]float64{x, y} {
+	for i, center := range [2]float64{x + site[0], y + site[1]} {
 		if math.IsNaN(entry.Anchor[i]) || math.IsInf(entry.Anchor[i], 0) {
 			return [2]float64{}, "", fmt.Errorf("%s: nonfinite anchor", entry.ID)
 		}
@@ -162,7 +177,7 @@ func shadowAlphaCentroid(src image.Image, entry Entry, at hexgrid.Coord, density
 		return [2]float64{}, "empty_" + role + "_alpha", nil
 	}
 	centroid := [2]float64{origin[0] + weightedX/weight/float64(density), origin[1] + weightedY/weight/float64(density)}
-	if clipped {
+	if clipped && !cutout {
 		return centroid, "clipped_" + role + "_alpha", nil
 	}
 	return centroid, "", nil

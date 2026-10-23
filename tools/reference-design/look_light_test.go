@@ -74,10 +74,12 @@ func TestLightPulseSelectedPairsAndDensityAgreement(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			if got.AllSelected != 81 || got.Excluded != 5 || got.Instances != 76 || got.Clean != 74 || got.Gaps != 0 || got.Issues != 0 || got.GlobalAvailable || got.GlobalReason == "" {
+			if got.AllSelected != 1898 || got.Excluded != 117 || got.Instances != 1781 || got.Clean != 1779 || got.Gaps != 0 || got.Issues != 0 || got.GlobalAvailable || got.GlobalReason == "" {
 				t.Fatalf("runtime selected scope: %+v", got)
 			}
-			if len(got.Pairs) != 76 || got.UniquePairs <= 0 || got.UniquePairs >= 76 {
+			// Nine scattered crowns and the two baked contexts of forest with
+			// infrastructure.
+			if len(got.Pairs) != 1781 || got.UniquePairs != 11 {
 				t.Fatalf("duplicate context accounting: %+v", got)
 			}
 			for i, pair := range got.Pairs {
@@ -92,10 +94,23 @@ func TestLightPulseSelectedPairsAndDensityAgreement(t *testing.T) {
 					t.Fatal("unavailable pair has values")
 				}
 				if density == 4 && pair.Reason == "" && previous.Pairs[i].Reason == "" {
-					if lightAngleDifference(*pair.Bearing, *previous.Pairs[i].Bearing) > .5 || math.Hypot(pair.Offset[0]-previous.Pairs[i].Offset[0], pair.Offset[1]-previous.Pairs[i].Offset[1]) > .05 {
+					dx, dy := pair.Offset[0]-previous.Pairs[i].Offset[0], pair.Offset[1]-previous.Pairs[i].Offset[1]
+					if pair.Site != ([2]float64{}) {
+						// A scattered crown and its shadow have their own anchors, each
+						// rounded to the density grid: up to 1/density apart per axis.
+						if math.Abs(dx) > 1./2+1./4+.05 || math.Abs(dy) > 1./2+1./4+.05 {
+							t.Fatalf("density drift at %s %v: %v vs %v", pair.Cell, pair.Site, pair.Offset, previous.Pairs[i].Offset)
+						}
+					} else if lightAngleDifference(*pair.Bearing, *previous.Pairs[i].Bearing) > .5 || math.Hypot(dx, dy) > .05 {
 						t.Fatalf("density drift at %s: %v vs %v", pair.Cell, pair.Offset, previous.Pairs[i].Offset)
 					}
 				}
+			}
+			if s := got.Summary; s.Measured != 1781 || s.WithinTen != 1781 || lightAngleDifference(*s.MeanBearing, 135) > 1 {
+				t.Fatalf("crown shadows leave the 135 degree light: %+v", s)
+			}
+			if density == 4 && lightAngleDifference(*got.Summary.MeanBearing, *previous.Summary.MeanBearing) > .5 {
+				t.Fatalf("mean bearing drift: %.2f vs %.2f", *got.Summary.MeanBearing, *previous.Summary.MeanBearing)
 			}
 			previous = got
 		})

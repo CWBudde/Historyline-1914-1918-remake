@@ -32,6 +32,7 @@ type lookLight struct {
 type lookLightPair struct {
 	Cell             string          `json:"cell"`
 	Clean            bool            `json:"clean_cell"`
+	Site             [2]float64      `json:"site_offset_world"`
 	Standing         maprender.Entry `json:"standing"`
 	Shadow           maprender.Entry `json:"shadow"`
 	StandingCentroid *[2]float64     `json:"standing_centroid_world"`
@@ -102,7 +103,7 @@ func summarizeLight(pairs []lookLightPair) lookLightSummary {
 }
 
 func (p *project) lightFromPairs(raw maprender.ShadowPairs) lookLight {
-	result := lookLight{Density: raw.Density, AllSelected: len(raw.Pairs), Gaps: len(raw.Gaps), Issues: len(raw.Issues), Pairs: []lookLightPair{}, Unmeasured: []lookLightOmission{}, GlobalReason: "separate crown/cast-shadow alpha displacement only; embedded shadows, painted form shading, other families and global illumination remain unmeasured", Definition: "complete unoccluded hash-verified paired source alpha, weighted pixel-centre centroids placed with runtime density/anchors/rounding; vector is shadow minus crown; magnitude is centroid displacement, not physical shadow length; compass north=0 east=90 clockwise, bearing atan2(dx,-dy); unavailable pairs have null values; both instance and unique SHA+anchor pair summaries use unweighted circular unit-vector means; no independent evidence is inferred from repeated contexts; global light acceptance is not asserted"}
+	result := lookLight{Density: raw.Density, AllSelected: len(raw.Pairs), Gaps: len(raw.Gaps), Issues: len(raw.Issues), Pairs: []lookLightPair{}, Unmeasured: []lookLightOmission{}, GlobalReason: "separate crown/cast-shadow alpha displacement only; embedded shadows, painted form shading, other families and global illumination remain unmeasured", Definition: "every selected baked or scattered crown with its own cast shadow (a scattered crown at its site offset from the hex centre); complete unoccluded hash-verified paired source alpha, weighted pixel-centre centroids placed with runtime density/anchors/rounding; vector is shadow minus crown; magnitude is centroid displacement, not physical shadow length; compass north=0 east=90 clockwise, bearing atan2(dx,-dy); unavailable pairs have null values; both instance and unique SHA+anchor pair summaries use unweighted circular unit-vector means; no independent evidence is inferred from repeated contexts; global light acceptance is not asserted"}
 	seen, shadowHashes := map[string]bool{}, map[string]bool{}
 	var unique []lookLightPair
 	for _, pair := range raw.Pairs {
@@ -113,7 +114,7 @@ func (p *project) lightFromPairs(raw maprender.ShadowPairs) lookLight {
 		c := cell{Row: pair.At.Line + 1, Col: pair.At.Col + 1}
 		h, ok := p.hex(c)
 		clean := ok && len(h.Infra.IDs) == 0 && h.Content == nil
-		v := lookLightPair{Cell: c.String(), Clean: clean, Standing: pair.Standing, Shadow: pair.Shadow, Reason: pair.Reason}
+		v := lookLightPair{Cell: c.String(), Clean: clean, Site: pair.Site, Standing: pair.Standing, Shadow: pair.Shadow, Reason: pair.Reason}
 		if pair.Reason == "" && pair.Bearing != nil {
 			v.StandingCentroid = &pair.StandingCentroid
 			v.ShadowCentroid = &pair.ShadowCentroid

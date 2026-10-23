@@ -521,9 +521,10 @@ cross at every period corner. (2026-10-23)
       Open: open-cell trees at 4–8 % (the old tree props remain), the edge-distance measurement, the
       forest floor still clipped to the hex, and a crown on a visible meadow hex hinting at an unseen
       forest. Before/after under `build/review/crown-scatter/`.
-      The light measure still expects baked crown contexts, so `TestLightPulseSelectedPairsAndDensityAgreement`
-      in `tools/reference-design` has failed since the scatter. It must measure the scattered crown and
-      shadow pairs instead.
+      The light measure (`maprender.CastShadowPairs`) measures each scattered crown with its own shadow
+      at its site (2026-10-23): on PULSE all 1,781 crowns cast at a mean bearing of 135.0° (all within
+      ±10° of 135°), 4.0/5.5/7.0 px for the 16/22/28 px crowns; review under
+      `build/review/light-scatter/`.
 - [ ] Meadow G1 in parts (art/direction.md, G1). Each is done when its checks pass:
       - `hlmaterial` profile schema 2: G1b's high-passed L\* wrapped 3×3 over G1a, one gain, and the G1
         checks in its report (code). Done (2026-10-23); the current meadow `grass-summer-v1` fails on
