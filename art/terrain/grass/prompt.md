@@ -4,7 +4,7 @@ title: Meadow
 kind: terrain
 status: candidate
 runtime_ids: grass, grass_w, grass-detail-00, grass-detail-01, grass-detail-02, grass-detail-03, grass-detail-04, grass-detail-05, grass-detail-06, grass-detail-07, grass-detail-08, grass-detail-09, grass-detail-10, grass-detail-11, grass-detail-12, grass-detail-13, grass-detail-14, grass-detail-15
-masters: grass-meadow-summer-v2.png, grass-meadow-winter-v2.png, grass-flowers-painting-summer-v1.png, grass-flowers-material-summer-v1.png, grass-worn-painting-summer-v1.png, grass-worn-material-summer-v1.png, grass-summer-v1.png, grass-winter-v1.png, grass-meadow-summer-v1.png
+masters: grass-meadow-summer-v2.png, grass-meadow-winter-v2.png, grass-flowers-painting-summer-v1.png, grass-flowers-material-summer-v1.png, grass-worn-painting-summer-v1.png, grass-worn-material-summer-v1.png, grass-summer-v1.png, grass-winter-v1.png, grass-meadow-summer-v1.png, grass-props-summer-v1.png, grass-closeup-summer-v1.png, grass-tone-summer-v1.png
 ---
 
 ## Look
@@ -40,6 +40,67 @@ Seams to forest, ground and hills are handled by those families' contexts, which
 their base.
 
 ## Post
+
+### Look 2 G1a tone candidate (2026-10-23)
+
+`grass-tone-summer-v1.png` (`exec-2a8150c6`, native 1536×1024 RGB, unchanged) is the G1a broad
+meadow tone, in flat overcast light. Graded by `hlmaterial` (`tone_contrast` 1.42, `tone_offset`
+[−2.5, −1, −4]) under `grass-closeup-summer-v1.png`, it passes all 17 G1 checks with no period seam.
+It fails the map check: on PULSE its dark patches read as camouflage blotches. Across the 88 clean
+grass cells at 1× the cell means vary by σL\* 7.3 against 4.3 in the reference, and the fine residual
+is σL\* 8.4 against 10.0. A weaker grade (0.8) matches those numbers, but the round blotches stay
+visible and the close-up repeat check fails. The tone target in the G1 checks (σL\* of the radius-10 box
+mean 8–12) is above the reference's clean grass. Not selected; the profile keeps `grass-summer-v1.png`.
+Attached: two RefDesign2 meadow crops (r7c5–r8c4, r16c4–r19c4).
+The prompt was the `art/style.md` Preamble and Terrain text, then:
+
+```text
+Use case: stylized-concept. Asset type: opaque terrain material, landscape 1536x1024, filled edge to edge. Strict top-down orthographic nadir view of an open European summer meadow, WWI era, seen from high above. Scale: the canvas spans about 300 m by 200 m of ground; one map hex (50 m) is about 250 px across this image. Paint ONLY the broad tone of the meadow, like a soft watercolour wash: large, irregular, rounded-ragged patches 50 to 150 px across, in three tones that each cover about a third of the area: very deep moss green RGB 48,62,20, mid olive green RGB 98,108,38 and pale dry straw RGB 178,160,94. The patches interlock in a random, isotropic pattern, with soft edges about 6 px wide; each patch is roughly as wide as it is tall, never elongated or aligned in one direction, so the meadow clearly reads as dark and light patches from far away. Inside each patch the tone is almost flat: only a very soft fine grain, no leaves, no foliage texture, no plant, tuft, leaf, flower or blade. Average colour close to RGB 98,105,40. This layer has NO lighting: flat overcast light, no shading, no shadows and no light direction, whatever the style notes above say about light from the upper left. Even spatial density in every direction; no focal point.
+Avoid: any diagonal structure, patches lined up in bands or rows, argyle or checkerboard arrangement, directional brush strokes, elongated or aligned patches, military camouflage pattern, diagonal streaks, leafy or foliage texture, individual plants, tufts, leaves, flowers, blades, rosettes, trees, bushes, boulders, paths, wheel tracks, mowing stripes, rows, water, buildings, craters, round cushion-like repeats, polka dots, neon or lime green, flat single-colour fill, photograph, 3D render, pixel art, vector shapes, perspective, horizon, vignette, hex outlines, grid, text.
+
+Images 1 and 2 are crops of the reference painting: take only its meadow colours and painterly finish from them; ignore its trees, stones, roads and its fine detail.
+```
+
+### Look 2 G1b close-up candidate (2026-10-23)
+
+`grass-closeup-summer-v1.png` (`exec-86967784`, native 1536×1024 RGB, unchanged) is the G1b
+close-up texture for a 189⅓×133⅓ period, wrapped 3×3 at gain 1.67 over the G1a tone above. Detail
+checks pass (band ratio, dark components, CV). On the map it reads as soft hair-like blades, duller and
+less crisp than the reference's small tufts and straw. Not selected. Attached: an earlier G1a try, for
+its palette only. The prompt was the `art/style.md` Preamble and Terrain text, then:
+
+```text
+Use case: stylized-concept. Asset type: opaque terrain material, landscape 1536x1024, filled edge to edge. Strict top-down orthographic nadir close-up of short summer meadow turf. Scale: the canvas spans about 100 m by 70 m of ground; one map hex (50 m) would be about 740 px across, so this is a small patch of turf seen close. Paint dense, very fine short grass: the surface is dominated by countless thin blades 2 to 4 px wide and 8 to 20 px long pointing in all directions, with many tiny tufts only 10 to 25 px across, none larger than 30 px, darker moss green at their base and olive yellow-green tips; fine blades between them, tiny straw scratches, pinhead soil flecks, very sparse single pale seed heads. Uniform overall tone with no large light or dark patches: the variation comes only from the tufts and the gaps between them. Average colour close to RGB 100,107,40; tuft shadows around RGB 55,68,25. Soft diffuse daylight from the upper left; each tuft has a tiny soft shadow on its lower right, never longer than 6 px. Even density everywhere; no focal point.
+Avoid: large light or dark patches, large grass clumps, tufts wider than 30 px, blurry or smooth areas, dark shadow pools, broadleaf weeds, rosettes, flowers in clusters, long diagonal blades, bushes, stones over 20 px, bare soil patches, paths, tracks, rows, mowing stripes, neon or lime green, photograph, 3D render, pixel art, perspective, horizon, vignette, grid, text.
+
+Image 1 is the broad meadow tone this close-up texture will be laid over: take only its palette from it, not its patches, scale or layout.
+```
+
+### Look 2 G2 prop sheet candidate (2026-10-23)
+
+`grass-props-summer-v1.png` (`exec-2929f2e8`, native 1254×1254 RGBA, unchanged) is the G2 meadow
+prop sheet in a 4×4 grid. Item sizes are 0.77–1.45× the spec, every item stays in its cell, and the
+tufts read as plan-view blade stars over the meadow. Faults: soil flecks 1.45× too large, straw too warm
+(mean 164,138,80 against 178,160,94), a thin semi-solid backing under tufts and flowers, and alpha haze
+(1–31) in the gutters, so cutting needs an alpha threshold. Not selected; no scatter layer uses it yet.
+Attached: RefDesign2 meadow crops r7c5–r8c4 and r16c4–r19c4 and the G1 candidate result.
+The prompt was the `art/style.md` Preamble and Terrain text, then:
+
+```text
+Use case: stylized-concept. Asset type: transparent RGBA prop sheet, square 1254x1254, invisible 4x4 grid of equal cells, one isolated item centred per cell, clean alpha-zero gutters at least 20 px. Strict top-down orthographic nadir; painting scale 10 px per world pixel (about 20 px per metre). Matching the supplied meadow palette and fine hand-painted style: four dark moss-green grass tufts with olive tips; three small patches of yellow and white wildflowers among grass; three bare-soil flecks of crumbly brown earth with a grass fringe; three irregular dry straw patches; three clusters of two to six small grey-beige pebbles, each item sized exactly as stated below. Each item has a short soft shadow inside its own alpha toward the lower right; light from the upper left. Alpha ends at the item.
+Avoid: trees, large bushes, boulders over 40 px, rings, flowers seen from the side, saturated flowers, ground mats, halos, drop-shadow plates, text, numbers, grid lines, frames, checkerboard, photograph, 3D render, pixel art, perspective.
+
+Exact layout and sizes. Each cell is about 313 px square; cell centres are at x = 157, 470, 784, 1097 and y = 157, 470, 784, 1097. The sheet looks almost empty: sixteen tiny items on a large transparent sheet, as if seen from very high above. Each item sits at its cell centre and covers only a small part of it; at least three quarters of every cell's width stays empty. Sizes are the item's full outer width, including every blade tip, fringe and loose pebble, in pixels of this 1254 px canvas; never enlarge an item towards the size of its cell.
+Row 1: grass tufts 7 px (2 % of the cell width), 10 px (3 %), 13 px (4 %), 18 px (6 %).
+Row 2: wildflower patches 15 px (5 %), 28 px (9 %), 45 px (14 %); then the smallest bare-soil fleck 8 px (3 %).
+Row 3: bare-soil flecks 16 px (5 %) and 24 px (8 %); straw patches 28 px long (9 %) and 50 px long (16 %), about a third as wide as long.
+Row 4: straw patch 100 px long (32 %), about a third as wide as long; pebble clusters 10 px (3 %), 18 px (6 %), 28 px (9 %); each pebble is only 3 to 8 px, never a rock or boulder.
+Every plant is seen strictly from directly above like a map: a tuft is a little star of separate thin blades radiating outward from its centre, with transparent gaps between the blades; a wildflower patch is a few tiny round dots of petals seen face-up among a sparse handful of blades, never stems or side or three-quarter views. No ground disc, grass mat, turf patch or backing under any item: between a tuft's blades, between the flowers, around each pebble and between the straw stalks the alpha is 0; a bare-soil fleck is only a crumbly earth spot with a few blades on its rim, not a disc of turf. The straw is pale dry straw close to RGB 178,160,94, never orange or rust brown.
+Pure transparent background: alpha is exactly 0 everywhere outside the items, with a clean cut at each item's edge; no faint haze, glow, soft smudge, stray specks, noise or semi-transparent residue anywhere in the gutters, the empty cell area or along the canvas border. Item edges are the natural ragged edges of blades, earth and straw: no white or light outline, no crackle edge, no foam-like or frosted fringe.
+
+Image 1 and image 2 are crops of the reference map at 1/10 of this sheet's scale, showing the meadow these props are scattered on; image 3 is the meadow material at 1/5 of this sheet's scale: take the palette, value range and painting style from all three, not their layout, and do not paint any ground behind the items.
+```
+
 `art-review -ground`, `-forest`, `-hills`, `-shore`, `-fog` and the connected and compound manifests all
 sample `grass-summer-v1.png` / `grass-winter-v1.png` as their base. The 16 detail variants are made by the `grassgfx`
 generator (65 percent detail master, 35 percent phased base, edge guard). Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.

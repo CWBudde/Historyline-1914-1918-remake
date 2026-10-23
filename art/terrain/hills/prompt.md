@@ -4,7 +4,7 @@ title: Hills
 kind: terrain
 status: candidate
 runtime_ids: hills
-masters: hills-scrub-summer-v2.png, hills-height-shared-v1.png
+masters: hills-scrub-summer-v2.png, hills-height-shared-v1.png, hills-hummock-summer-v1.png
 ---
 
 ## Look
@@ -28,6 +28,23 @@ The painted material uses the absolute grass lattice and blends through a 7..19 
 gate at grass-facing edges. The final four-world-pixel border exactly matches canonical meadow.
 
 ## Post
+
+### Look 2 G3 hummock overlay candidate (2026-10-23)
+
+`hills-hummock-summer-v1.png` (`exec-ad797ade`, native 1536×1024 RGB, unchanged) is the G3 hummock
+and scrub overlay. It reads as hills at 1×: lumpy ground of lit hummock crescents, 6.3 L\* darker than
+the meadow. Faults: crescents 40–70 world px lean into loose NE–SW rows, band ratio about 1.0 (target
+≥ 1.4), and only about 4 scrub clumps per hex (target 6–10). Not selected. Attached:
+`hills-scrub-summer-v2.png`, the G1 candidate result at 2 px per world px, and RefDesign2 crop r21c7.
+The prompt was the `art/style.md` Preamble and Terrain text, then:
+
+```text
+Use case: stylized-concept. Asset type: opaque seamless terrain material, 1536x1024, continuation of the supplied meadow: same palette, grass texture and scale (one 50 m hex is about 250 px across, so the canvas is about six hexes wide and five tall). Rough hill pasture seen strictly from above, clearly bumpy all over: the ground is a dense carpet of small rounded grass tussock hummocks, each only 30 to 50 px across (about 1/40 of the canvas width), packed close with narrow darker hollows between them, varying in size and outline and placed irregularly, never in rows, lines or a grid, never joined into ridges. Each hummock is clearly modelled by its own small form shading: its upper-left half lighter olive with dry straw tips, its lower-right half and the hollow beside it darker olive shade, a clear light-dark step inside every hummock; but there is no larger light gradient, sheen or band across the ground: at the scale of 100 px and more the tone has no light direction and is even. Dense, SMALL low scrub, bramble and gorse clumps scattered in the hollows, each clump only 8 to 14 px across (about 1/150 of the canvas width, never wider than 20 px; most clumps are single small bushes, not groups), very dark moss green (about RGB 38,50,16 in their shaded parts) with fine leaves and a short lower-right shadow at most 4 px long; about 12 clumps in every 250x200 px area, about 380 clumps over the whole canvas, spaced irregularly, none touching another. A few tiny grey pebbles. Overall slightly darker than the meadow: average colour close to RGB 88,96,34 (green channel clearly above red, blue near 34), not browner, not more yellow and not darker than that; clearly rougher, but still grass, not rock. Tileable left-right and top-bottom, even density in every direction.
+Avoid: peaks, cliffs, bare rock faces, craters, rings, bowls, trees, bushes wider than 20 px, merged scrub groups, paths, contour-like stripes, ridges longer than 120 px, diagonal bands, aligned patches, parallel ridges, clumps lined up in diagonal rows, lit streaks, large pale straw patches, smooth flat lawn, regular polka-dot spacing, large dark blobs, neon green, perspective, horizon, vignette, text, grid, photograph, 3D render.
+
+Attached images, in order: image 1 is the current hills scrub material (hills-scrub-summer-v2), for subject and scrub style only (its clumps are about three times too large; paint them at the sizes given above); image 2 is the supplied meadow (the G1 result), for palette, grass texture and scale; image 3 is a small crop of the target reference map at a hills cell (r21c7), for how hills read on the map (ignore the building and trees at its edges).
+```
+
 `art-review -hills art/pipeline/hills-terrain-v2.json` exports painted meadow into context tiles keyed by
 neighbours and lattice phase (`context/hills/<key>`). Painted mode applies no height lighting or isolated
 bump. Summer only. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open

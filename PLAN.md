@@ -477,6 +477,9 @@ cross at every period corner. (2026-10-23)
       alpha and its exact prompt. Size, centre and alpha-gutter preparation plus species/form review
       remain open; measured widths exceed 160/220/280 px. G1 meadow trials still have oversized
       foliage under `build/review/look2-art/`. No runtime promotion or Look 2 acceptance. (2026-10-23)
+      Candidates v6 (2026-10-23), unpromoted, with prompts and faults in `art/terrain/forest/prompt.md`:
+      F2 `forest-crowns-summer-v6.png` at 1.05–1.12× the crown sizes (rows off-centre, gutter haze);
+      F1 `forest-floor-summer-v6.png` on scale but too dark and olive, needs a grade.
 - [ ] Meadow G1 in parts (art/direction.md, G1). Each is done when its checks pass:
       - `hlmaterial` profile schema 2: G1b's high-passed L\* wrapped 3×3 over G1a, one gain, and the G1
         checks in its report (code). Done (2026-10-23); the current meadow `grass-summer-v1` fails on
@@ -484,15 +487,24 @@ cross at every period corner. (2026-10-23)
       - G1a tone at the 568×400 period;
       - G1b close-up texture at a 189⅓×133⅓ period;
       - the result replaces `material/grass/summer` once it passes the map check.
-      Candidate (2026-10-23): tone g1a-07 graded by `tone_contrast` 1.42 and `tone_offset`
-      [−2.5, −1, −4], detail g1b-03 at gain 1.67; all 17 checks pass, no seam in a 2×2 mosaic.
-      Generated tones top out at a patch contrast of about 6.5 and drift in blue, hence the grade; the
-      style preamble's light direction made every tone diagonal until the tone prompt dropped it.
-      Profile, mosaics and every try under `build/review/gen-2026-10-23/`. Map check open.
+      Candidate `grass-tone-summer-v1.png` + `grass-closeup-summer-v1.png` (2026-10-23): graded by
+      `tone_contrast` 1.42 and `tone_offset` [−2.5, −1, −4], close-up at gain 1.67; the 17 checks of
+      the time passed, no seam in a 2×2 mosaic. The map check fails: PULSE at 1× and 1.6× shows
+      camouflage blotches; over the 88 clean grass cells the cell means vary by σL\* 7.3 (reference 4.3)
+      and the fine residual is σL\* 8.4 (reference 10.0). The tone target is now σ 4–6 of the radius-10
+      box mean (was 8–12, above the reference). At `tone_contrast` 0.8 the numbers match the reference,
+      but the round patches stay visible and the close-up repeat autocorrelation reaches 0.66, so the
+      profile keeps `grass-summer-v1`. Next: a G1a with faint, ragged, smaller patches, and a crisper
+      G1b. Renders and sheets under `build/review/gen-2026-10-23/g1-map/`.
 - [ ] Meadow G2 (prop sheet); scatter layer (§1.3) with a density table per family and Poisson-disc
       placement seeded by world position.
+      G2 candidate `grass-props-summer-v1.png` (2026-10-23): items 0.77–1.45× the spec in their cells;
+      straw too warm, gutter haze needs an alpha threshold. No scatter layer yet.
 - [ ] Hills: generate G3 (hummock and scrub overlay), 4–6 L\* darker than grass, with 6–10 scrub props per
       hex. Done when 18 of 20 random hills hexes are named correctly at 1×.
+      G3 candidate `hills-hummock-summer-v1.png` (2026-10-23): reads as hills at 1×, ΔL\* −6.3, but
+      NE–SW rows of hummocks and about 4 scrub clumps per hex; scrub should come from G7 props. The
+      naming test has not been run.
 - [ ] Done when the PULSE forest, grass and hills meet their rows in the acceptance table and no hex
       staircase shows at 1× or 2×.
 
@@ -513,6 +525,12 @@ stones.
       riffles on straights; three meander alternates per port set.
 - [ ] Generate W1 (deep water), W2 (shallow bed), W3 (bank boulders), W4 (pebbles, reeds, tufts) and W6 (lake
       rocks); W5 (riffles) only if the computed lap line is not enough.
+      Candidates (2026-10-23), unpromoted, prompts and faults in `art/terrain/water/prompt.md`; none
+      meets its spec yet: W1 `water-deep-summer-v1.png` (teal right, sparkle stars, σL\* 6.7),
+      W2 `water-bed-summer-v1.png` (colour right, photographic, stones too large), W3
+      `water-boulders-shared-v1.png` (stones 2× too large, warm), W4 `water-reeds-shared-v1.png`
+      (plants 1.3–1.5× too large) and W6 `water-rocks-shared-v3.png` (ochre, dotted foam rings).
+      Sizes, alpha haze and colour need code (downscale, alpha threshold, grade) before another round.
 - [ ] Bridges: register the longer earlier footbridges and road bridge first, then generate B1–B5. The road
       bridge's carriageway continues the macadam road with no deck plate.
 - [ ] Done when the water rows of the acceptance table hold and the moat test passes: lake and moat side by

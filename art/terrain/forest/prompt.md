@@ -4,7 +4,7 @@ title: Forest
 kind: terrain
 status: candidate
 runtime_ids: forest, forest_w
-masters: forest-floor-summer-v4.png, forest-oak-summer-v4.png, forest-beech-summer-v4.png, forest-birch-summer-v4.png, forest-crowns-summer-v3.png, forest-crowns-winter-v3.png, forest-crowns-inset-summer-v3.png, forest-crowns-inset-winter-v3.png, forest-crowns-summer-v2.png, forest-crowns-winter-v2.png, forest-crowns-inset-summer-v2.png, forest-crowns-inset-winter-v2.png, forest-crowns-spaced-summer-v2.png, forest-crowns-initial-winter-v2.png, forest-crowns-initial-summer-v2.png, forest-crowns-summer-v1.png, forest-crowns-winter-v1.png, forest-floor-summer-v5.png, forest-crowns-summer-v5.png
+masters: forest-floor-summer-v4.png, forest-oak-summer-v4.png, forest-beech-summer-v4.png, forest-birch-summer-v4.png, forest-crowns-summer-v3.png, forest-crowns-winter-v3.png, forest-crowns-inset-summer-v3.png, forest-crowns-inset-winter-v3.png, forest-crowns-summer-v2.png, forest-crowns-winter-v2.png, forest-crowns-inset-summer-v2.png, forest-crowns-inset-winter-v2.png, forest-crowns-spaced-summer-v2.png, forest-crowns-initial-winter-v2.png, forest-crowns-initial-summer-v2.png, forest-crowns-summer-v1.png, forest-crowns-winter-v1.png, forest-floor-summer-v5.png, forest-crowns-summer-v5.png, forest-floor-summer-v6.png, forest-crowns-summer-v6.png
 ---
 
 ## Look
@@ -32,6 +32,38 @@ edges into neighbouring forest, and towards non-forest neighbours the canopy thi
 the border. Scale and light must match the house, hq and mountain art.
 
 ## Post
+
+### Look 2 F2 candidate v6 (2026-10-23)
+
+`forest-crowns-summer-v6.png` (`exec-f22e7057`, native 1254×1254 RGBA, unchanged) holds nine
+crowns 1.05–1.12× the 16/22/28 world-px targets, much closer than v5. Faults: row 1 sits about 70 px
+low (the large oak reaches 10 px into row 2), columns 1 and 3 drift 22–25 px inward, faint alpha
+(1–31) fills the gutters, oak and beech are similar floret forms, and the mean (about 66,74,33) is
+lighter than 50,62,26. Not selected. Attached: RefDesign2 forest crops r2c4, r3c5 and r19c2, and two earlier crown atlases (marked as too large). The prompt was the `art/style.md` Preamble and Terrain text, then:
+
+```text
+Use case: stylized-concept. Asset type: transparent RGBA tree-crown sheet for a WWI hex strategy map, square 1254x1254, invisible 3x3 grid of 418x418 cells, one complete isolated crown centred per cell, clean alpha-zero gutters at least 30 px around every crown. Strict vertical top-down orthographic nadir view of the upper canopy; no trunk, no side view. One painting scale for all nine: 10 px per world pixel (about 20 px per metre), so leaf clusters are the same size in every cell. Rows are species, columns are sizes: row 1 summer oak, row 2 summer beech, row 3 summer birch; column 1 small crowns, column 2 medium crowns, column 3 large crowns, sized exactly as stated below. Each crown is one mature tree of several rounded, connected lobes of tiny leaf masses, asymmetric outline with small notches, clearly three-dimensional: upper-left lobes catch the light (muted yellow-green, at most about RGB 120,135,45), the lower-right half falls into deep shade (about RGB 22,32,20), dark recesses between lobes. Overall dark olive and moss green, average about RGB 50,62,26. Oak broad with a few large irregular lobes and deep notches, beech one dense smooth dome with fine even leaf texture and few lobes, birch loose and ragged with small drooping leaf sprays and tiny see-through gaps but still one connected crown. Leaf texture is fine irregular speckle, never repeated star-shaped florets. Light from the upper left. Alpha ends at the leaves; no cast shadow on the ground (the game draws it).
+Avoid: lime or pale yellow-green, uniform brightness, flat discs, pom-pom balls, broccoli florets, radial rosettes, conifers, trunks, ground, grass, shadow mat, halo, glow, checkerboard, text, numbers, frames, photograph, 3D render, pixel art.
+
+Size is the critical requirement and is measured on the alpha channel; earlier tries painted every crown 1.2 to 1.6 times larger than asked, so paint them clearly small. Crown centres sit exactly at the cell centres (209,209), (627,209), (1045,209); (209,627), (627,627), (1045,627); (209,1045), (627,1045), (1045,1045): the top row sits as high as the bottom row sits low, never shifted toward the middle. The full outline including every leaf tip: column 1 crowns only 100 px across (a quarter of the 418 px cell, about 160 px of empty space on each side), column 2 crowns 135 px across (a third of the cell), column 3 crowns 175 px across (42 % of the cell, about 120 px of empty space on each side). Even the largest crown stays more than 110 px from every cell edge. About 85 % of the canvas stays empty transparent space. Do not enlarge the crowns to fill their cells; larger crowns get more tiny leaf masses, not bigger ones. Everywhere outside the nine crowns alpha is exactly 0: no stray leaf specks, faint patches, haze, fringe noise or translucent background in the gutters.
+
+Attached images: images 1-3 are crops of the PULSE reference map (forest hexes r2c4, r3c5, r19c2) for colour, leaf scale, light and painted finish only; ignore their hexes, ground and arrangement. Images 4 and 5 are earlier 2x2 crown atlases (image 4 the summer v3 sheet, image 5 a darker atlas) for top-down crown construction and the darker colour of image 5 only; their crowns are far too large and their layout is wrong, so copy neither their size, their 2x2 layout nor the star-shaped leaf florets of image 4.
+```
+
+### Look 2 F1 candidate v6 (2026-10-23)
+
+`forest-floor-summer-v6.png` (`exec-7a153b8a`, native 1536×1024 RGB, unchanged) has F1's fine
+scale (detail 6–20 px), the lowest contrast and patchiness of the tries and no banding. Faults: olive
+and dark (L\* 13.3, a\* −4.5, too little blue), so it needs a grade of about +1.7 L\* towards blue-green;
+litter and twigs barely show; the wrap seam shows in a 2×2 tiling. Not selected. Attached: RefDesign2
+forest crops r2c4 and r3c5, and the G1 candidate result. The prompt was the `art/style.md` Preamble and Terrain text, then:
+
+```text
+Use case: stylized-concept. Asset type: opaque seamless terrain material, 1536x1024, strict top-down nadir; one 50 m hex is about 250 px across, so the canvas spans about 300 m by 200 m of ground and every detail is tiny. Deep-shade woodland floor as seen through gaps in a closed canopy: very dark moss green and umber, average about RGB 34,40,22 (shaded parts about RGB 20,24,14, the lightest moss tips about RGB 55,64,32 and nothing lighter), muted leaf litter, fallen twigs, small ferns, moss cushions, a few dark roots; low contrast, no bright spots. Sizes, much smaller than you think (earlier attempts painted every plant two to three times too large): each fern is a tiny star of a few dark strokes only 4-8 px across, about 1/250 of the canvas width, so about two hundred ferns would fit side by side across the image; individual leaflets are not distinguishable; single fallen leaves 2-3 px; twigs 1 px thick and 8-20 px long; moss cushions 8-20 px. No plant, leaf or frond may be larger than 12 px. At this scale the floor reads as a fine, even, speckled texture, not as recognisable plants. Fern fronds are dull dark green, only a little lighter than the moss, never bright or glossy. Moss cushions are flat and evenly shaded, with no lit side and no shaded side. Slightly cool, not yellow: keep the blue channel near 22, and do not go darker than the average above. Light: the floor lies in the even, flat shade under the canopy; no light direction, no sun patches, no shading gradient. Even density, tileable left-right and top-bottom. Mostly hidden under crowns; it must read as shadow.
+Avoid: large ferns, recognisable plant shapes, big leaves, lit or shaded sides on moss, bright leaves, glossy or highlighted fronds, brown carpet, orange or tan litter, yellow cast, paths, logs, trunks, crowns, flowers, rocks, water, large patches, sun flecks, diagonal bands, aligned strokes, vignette, photograph, 3D render, perspective, text, grid.
+
+Attached images: image 1 and image 2 are crops of the reference painting of a forest; use them only for the darkness, colour and painted finish of the floor seen in the small dark gaps between the tree crowns, and ignore the crowns themselves and the crop outlines. Image 3 is the meadow material at the same world scale as this floor, for scale and painting finish only; the forest floor must be much darker than it.
+```
 
 ### Look 2 F2 comparison candidate
 
