@@ -42,9 +42,16 @@ func (r *Renderer) VisibleCanopy(lvl *level.Level, density int) (CanopyMap, erro
 	for line, cells := range scene.Cells {
 		for col := range cells {
 			at := hexgrid.Coord{Line: line, Col: col}
-			_, _, _, standing := scene.Layers(at, all)
+			_, _, _, ids := scene.Layers(at, all)
+			cx, cy := hexgrid.Center(at)
+			var items []mapcompose.Placed
+			for _, id := range ids {
+				items = append(items, mapcompose.Placed{ID: id})
+			}
+			items = append(items, scene.ScatterAt(at, all)...)
 			supported := false
-			for _, id := range standing {
+			for _, it := range items {
+				id := it.ID
 				canopy := isCanopy(id)
 				supported = supported || canopy
 				e, src, err := r.assetImage(id, density)
@@ -53,11 +60,11 @@ func (r *Renderer) VisibleCanopy(lvl *level.Level, density int) (CanopyMap, erro
 				}
 				// Allocate only the placed sprite's clipped rectangle. Place remains
 				// responsible for the same anchor and rounding used by Render.
-				x, y := hexgrid.Center(at)
+				x, y := cx+it.X, cy+it.Y
 				p := image.Pt(int(math.Round((x-e.Anchor[0])*float64(density))), int(math.Round((y-e.Anchor[1])*float64(density))))
 				bounds := src.Bounds().Sub(src.Bounds().Min).Add(p).Intersect(m.Coverage.Bounds())
 				alpha := image.NewAlpha(bounds)
-				Place(alpha, src, at, density, e.Anchor)
+				PlaceAt(alpha, src, x, y, density, e.Anchor)
 				for py := bounds.Min.Y; py < bounds.Max.Y; py++ {
 					for px := bounds.Min.X; px < bounds.Max.X; px++ {
 						a := int(alpha.AlphaAt(px, py).A)
@@ -79,5 +86,6 @@ func (r *Renderer) VisibleCanopy(lvl *level.Level, density int) (CanopyMap, erro
 }
 
 func isCanopy(id string) bool {
-	return id == "standing/forest" || strings.HasPrefix(id, "standing/context/forest/") || strings.HasPrefix(id, "standing/props/trees/")
+	return id == "standing/forest" || strings.HasPrefix(id, "standing/context/forest/") || strings.HasPrefix(id, "standing/props/trees/") ||
+		strings.HasPrefix(id, "standing/scatter/crown/")
 }

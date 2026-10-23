@@ -168,6 +168,22 @@ func terrainShadows(s *mapcompose.Scene, c hexgrid.Coord, fog func(hexgrid.Coord
 	return s.ShadowsAt(c, known), f == state.Seen
 }
 
+// terrainScatter returns the scattered crowns of hex c (or their shadows) under
+// the fog rules of standing items.
+func terrainScatter(s *mapcompose.Scene, c hexgrid.Coord, fog func(hexgrid.Coord) state.Fog, shadows bool) ([]mapcompose.Placed, bool) {
+	f := fog(c)
+	if f == state.Unseen {
+		return nil, false
+	}
+	known := func(cl *mapcompose.Cluster) bool {
+		return !slices.ContainsFunc(cl.Cells, func(x hexgrid.Coord) bool { return fog(x) == state.Unseen })
+	}
+	if shadows {
+		return s.ScatterShadowsAt(c, known), f == state.Seen
+	}
+	return s.ScatterAt(c, known), f == state.Seen
+}
+
 // drawTerrainTile draws id with its anchor on screen point (sx, sy).
 func (g *game) drawTerrainTile(dst *ebiten.Image, id string, sx, sy float64, dim bool, at *hexgrid.Coord) {
 	d := spriteDensity(g.cam.Effective())
@@ -215,6 +231,14 @@ func (g *game) drawTerrain(dst *ebiten.Image, inView []hexgrid.Coord) {
 						at = &c
 					}
 					g.drawTerrainTile(dst, id, sx, sy, dim, at)
+				}
+			}
+			if pass >= 3 {
+				scattered, dim := terrainScatter(s, c, g.fogOf, pass == 3)
+				cx, cy := hexgrid.Center(c)
+				for _, p := range scattered {
+					px, py := g.cam.WorldToScreen(cx+p.X, cy+p.Y)
+					g.drawTerrainTile(dst, p.ID, px, py, dim, nil)
 				}
 			}
 		}

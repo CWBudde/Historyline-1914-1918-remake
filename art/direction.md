@@ -61,7 +61,7 @@ One hex is about 50 m and 96×80 logical px, so 1 world px ≈ 0.5 m.
 | Subject | Size (world px) | Fraction of hex width |
 | --- | --- | --- |
 | Tree crown, small / medium / large | 16 / 22 / 28 | 0.17 / 0.23 / 0.29 |
-| Crowns per interior forest hex | 9–13, canopy cover 85–92 % | — |
+| Crowns per interior forest hex | about 25, canopy cover 85–92 % (9–13 crowns of these sizes cover only about 60 %) | — |
 | Road carriageway / footprint with verges | 22 / about 38 | 0.23 / 0.40 |
 | Path core / footprint | 11 / about 19 | 0.11 / 0.20 |
 | Stream water width | 22 at the ports, 16–30 inside a tile | 0.23 |
@@ -639,7 +639,7 @@ once Look 0 in `PLAN.md` is done.
 | All | lattice autocorrelation < 0.15 at (71,40), (142,0), (0,80), (0,160), (284,0), (568,0); value targets above; one shadow azimuth 135° ± 10° |
 | Grass | σL\* 10–13; edge density 0.28–0.40; 1–3 and 3–10 px bands ≥ 3.8 each; no hex ring at 1× |
 | Hills | ΔL\* −4 to −6 against grass; 18 of 20 random hills hexes named correctly at 1× |
-| Forest | crowns 16–30 world px (median 20–24), 9–13 per interior hex; forest cells ≥ 85 % covered, open cells 4–8 %; woodland edge within 6 px of a hex edge ≤ 25 %, median distance ≥ 10 px; no two forest hexes alike |
+| Forest | crowns 16–30 world px (median 20–24), about 25 per interior hex; forest cells ≥ 85 % covered, open cells 4–8 %; woodland edge within 6 px of a hex edge ≤ 25 %, median distance ≥ 10 px; no two forest hexes alike |
 | Water | the deep-water and shallow targets above; ripple wavelength 6–10 world px; lake bank median 8–13 world px with variation ≥ 0.35; stream width median 22–28 with variation 0.10–0.20 inside a tile; all 234 shore pairs and 24 mouths join |
 | Road, path | no carriageway pixel with all channels above 215 (no paint); verge alpha falls over ≥ 6 world px (path ≥ 4); road surface L\* 52 ± 4, σ 4–9; junction fillets ≥ 8 world px; a mouth at every road–path meeting |
 | Rail, trench | sleeper/ballast ΔL\* ≥ 35; no mirror symmetry; rail bridges show rails; at least one traverse per trench hex |

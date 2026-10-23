@@ -77,8 +77,8 @@ Cut-out sheets (crowns, props, stones, wire) become world-scale sprites with
 `go run ./cmd/hlkit -out build/review/world-kits`. The pinned profile `art/pipeline/world-kits-v1.json`
 gives each sheet its grid, alpha cut, painting scale, per-cell world size and colour target. The command
 writes each item at 2× and 4× with its anchor, a contact sheet over the meadow, and `kits.json` with the
-checks; `-check` fails while any check fails. No pack carries the sprites yet: they wait for the scatter
-layers.
+checks; `-check` fails while any check fails. `-install assets` installs the cells with a `runtime` ID
+(so far the forest crowns, below); the other sheets wait for their scatter layers.
 
 Clusters are connected hexes of one kind: `crater` (`mud`), `boulders` (`stone`), `knoll` (`mountain`),
 `lake` (`water`, `waterStones`, `lakeside*`); the winter kinds (`shelled_w`, `stoney_w`, `mountain_w`) end
@@ -112,6 +112,13 @@ items too. A cluster is stamped only while all its hexes are known; otherwise it
 Draw density is the effective zoom's asset density, at least 2×. Background textures get a 3-texel grown
 border so filtered quads at fractional zoom overlap without seams.
 
+Summer forest crowns are scattered over the map (`mapcompose`, `scatter.go`) when the catalog has the nine
+`standing/scatter/crown/<oak|beech|birch>-<16|22|28>` items and their shadows, which `hlkit -install assets`
+writes from the crown sheet with code-made shadows (RGB 18,26,16 at 0.6, 0.25 × size to the lower right).
+Sites lie on a jittered 15-px grid; a site carries a crown when the hex under it, moved by up to 12 px of
+low-frequency wander, is forest without infrastructure, so the woodland edge leaves the hex edge. Species
+follow a slower noise. A crown is drawn with the standing items of the hex under its own site, at its
+offset; the scatter replaces the baked crowns and shadows of those forest hexes.
 Summer forest splits each of its 64 ground contexts into mossy floor, whole crowns
 (`standing/context/forest/<key>`) and cast shadow (`standing/shadow/context/forest/<key>`).
 Shadows draw after all infrastructure and before all standing items, with the same fog rules.

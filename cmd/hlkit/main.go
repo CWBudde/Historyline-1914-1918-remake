@@ -6,6 +6,7 @@ package main
 
 import (
 	"bytes"
+	"cmp"
 	"crypto/sha256"
 	"encoding/json"
 	"errors"
@@ -14,9 +15,11 @@ import (
 	"image"
 	"image/draw"
 	"image/png"
+	"io/fs"
 	"math"
 	"os"
 	"path/filepath"
+	"slices"
 	"strings"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/worldmaterial"
@@ -24,11 +27,22 @@ import (
 
 // cell is one sheet cell: the long side of its visible item (alpha at or
 // above the cut) in world px (0: the sheet's scale) and an optional colour
-// target of its opaque mean.
+// target of its opaque mean. runtime is the standing asset ID that -install
+// gives the item.
 type cell struct {
-	Cell  string      `json:"cell"`
-	Size  float64     `json:"size,omitempty"`
-	Grade *[3]float64 `json:"grade_rgb,omitempty"`
+	Cell    string      `json:"cell"`
+	Size    float64     `json:"size,omitempty"`
+	Grade   *[3]float64 `json:"grade_rgb,omitempty"`
+	Runtime string      `json:"runtime,omitempty"`
+}
+
+// shadow is a cast shadow made in code (art/direction.md, light): the item's
+// alpha in rgb at opacity, falling length × the item's size to the lower right,
+// away from light at azimuth 315°.
+type shadow struct {
+	RGB     [3]float64 `json:"rgb"`
+	Opacity float64    `json:"opacity"`
+	Length  float64    `json:"length"`
 }
 
 // sheet is one selected cut-out master. scale is its painting scale in
@@ -46,6 +60,7 @@ type sheet struct {
 	Scale   float64     `json:"scale"`
 	Grade   *[3]float64 `json:"grade_rgb,omitempty"`
 	Reach   float64     `json:"grade_reach,omitempty"`
+	Shadow  *shadow     `json:"shadow,omitempty"`
 	Cells   []cell      `json:"cells"`
 }
 
@@ -105,8 +120,13 @@ func main() {
 	p := flag.String("profile", "art/pipeline/world-kits-v1.json", "pinned source profile")
 	out := flag.String("out", "build/review/world-kits", "output directory")
 	strict := flag.Bool("check", false, "fail unless every kit check passes (the report is written anyway)")
+	assetsDir := flag.String("install", "", "also install the cells with a runtime ID and their shadows into this assets tree")
 	flag.Parse()
-	if err := run(*p, *out, *strict); err != nil {
+	err := run(*p, *out, *strict)
+	if *assetsDir != "" {
+		err = install(*p, *out, *assetsDir)
+	}
+	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
@@ -156,8 +176,21 @@ func validate(p profile) error {
 	if p.Schema != 1 || len(p.Densities) != 2 || p.Densities[0] != 2 || p.Densities[1] != 4 || p.Meadow.Source == "" {
 		return fmt.Errorf("unsupported world kit profile")
 	}
-	ids := map[string]bool{}
+	ids, runtime := map[string]bool{}, map[string]bool{}
 	for _, s := range p.Sheets {
+		if sh := s.Shadow; sh != nil && (!validRGB(&sh.RGB) || !(sh.Opacity > 0 && sh.Opacity <= 1) || !(sh.Length >= 0 && sh.Length <= 1)) {
+			return fmt.Errorf("%s: shadow rgb 0..255, opacity in (0, 1] and length in [0, 1]", s.ID)
+		}
+		for _, c := range s.Cells {
+			if c.Runtime == "" {
+				continue
+			}
+			name, ok := strings.CutPrefix(c.Runtime, scatterPrefix)
+			if !ok || name == "" || runtime[c.Runtime] || strings.Contains(name, "..") || strings.ContainsAny(name, `\ `) {
+				return fmt.Errorf("%s %s: runtime %q is not a unique %s<name>", s.ID, c.Cell, c.Runtime, scatterPrefix)
+			}
+			runtime[c.Runtime] = true
+		}
 		if s.ID == "" || ids[s.ID] || strings.Contains(s.ID, "..") {
 			return fmt.Errorf("missing, duplicate or unsafe kit id %q", s.ID)
 		}
@@ -233,14 +266,14 @@ func writePNG(path string, im image.Image) (string, error) {
 // prepared is one item's sprites by density.
 type prepared map[int]*image.NRGBA
 
-func prepare(s sheet, src *image.NRGBA, densities []int, outDir string) (sheetReport, []prepared, error) {
+func prepare(s sheet, src *image.NRGBA, densities []int, outDir string) (sheetReport, []prepared, map[string]prepared, error) {
 	rep := sheetReport{ID: s.ID, Art: s.Art, Source: s.Source, SourceSHA: s.SHA, Canvas: [2]int{src.Bounds().Dx(), src.Bounds().Dy()}}
 	rep.HazeFrom, rep.MeanFrom = round4(worldmaterial.Haze(src, s.Cut)), roundRGB(worldmaterial.OpaqueMean(src))
 	cut := worldmaterial.Cut(src, s.Cut)
 	if s.Grade != nil {
 		g, own, err := worldmaterial.GradeTo(cut, *s.Grade, s.Reach)
 		if err != nil {
-			return rep, nil, fmt.Errorf("%s: %w", s.ID, err)
+			return rep, nil, nil, fmt.Errorf("%s: %w", s.ID, err)
 		}
 		cut, own = g, roundRGB(own)
 		rep.Own = &own
@@ -252,7 +285,7 @@ func prepare(s sheet, src *image.NRGBA, densities []int, outDir string) (sheetRe
 	}
 	items, err := worldmaterial.Items(cut, s.Grid[0], s.Grid[1], s.MinArea)
 	if err != nil {
-		return rep, nil, fmt.Errorf("%s: %w", s.ID, err)
+		return rep, nil, nil, fmt.Errorf("%s: %w", s.ID, err)
 	}
 	byCell := map[image.Point]worldmaterial.Item{}
 	listed := map[image.Point]bool{}
@@ -260,6 +293,7 @@ func prepare(s sheet, src *image.NRGBA, densities []int, outDir string) (sheetRe
 		byCell[it.Cell] = it
 	}
 	var sprites []prepared
+	byName := map[string]prepared{}
 	for _, c := range s.Cells {
 		at, _ := parseCell(c.Cell, s.Grid)
 		listed[at] = true
@@ -275,7 +309,7 @@ func prepare(s sheet, src *image.NRGBA, densities []int, outDir string) (sheetRe
 		if c.Grade != nil {
 			var own [3]float64
 			if im, own, err = worldmaterial.GradeTo(im, *c.Grade, s.Reach); err != nil {
-				return rep, nil, fmt.Errorf("%s %s: %w", s.ID, c.Cell, err)
+				return rep, nil, nil, fmt.Errorf("%s %s: %w", s.ID, c.Cell, err)
 			}
 			own = roundRGB(own)
 			ir.Own = &own
@@ -297,17 +331,18 @@ func prepare(s sheet, src *image.NRGBA, densities []int, outDir string) (sheetRe
 		}
 		sp := prepared{}
 		for _, d := range densities {
-			k := ir.WorldPerSrc * float64(d)
-			w, h := max(1, int(math.Round(float64(it.Bounds.Dx())*k))), max(1, int(math.Round(float64(it.Bounds.Dy())*k)))
+			// Whole logical pixels, so every density shares one logical size.
+			w := d * max(1, int(math.Round(float64(it.Bounds.Dx())*ir.WorldPerSrc)))
+			h := d * max(1, int(math.Round(float64(it.Bounds.Dy())*ir.WorldPerSrc)))
 			out, err := worldmaterial.Resample(im, it.Bounds, w, h)
 			if err != nil {
-				return rep, nil, fmt.Errorf("%s %s: %w", s.ID, c.Cell, err)
+				return rep, nil, nil, fmt.Errorf("%s %s: %w", s.ID, c.Cell, err)
 			}
 			sp[d] = out
 			name := filepath.ToSlash(filepath.Join(s.ID, fmt.Sprintf("%s@%dx.png", c.Cell, d)))
 			sum, err := writePNG(filepath.Join(outDir, filepath.FromSlash(name)), out)
 			if err != nil {
-				return rep, nil, err
+				return rep, nil, nil, err
 			}
 			anchor := [2]float64{round2((it.Centroid[0] - float64(it.Bounds.Min.X)) * ir.WorldPerSrc), round2((it.Centroid[1] - float64(it.Bounds.Min.Y)) * ir.WorldPerSrc)}
 			ir.Outputs = append(ir.Outputs, output{d, name, sum, w, h, anchor})
@@ -321,6 +356,7 @@ func prepare(s sheet, src *image.NRGBA, densities []int, outDir string) (sheetRe
 			ir.Checks = append(ir.Checks, check(fmt.Sprintf("extent within %g of %g world px", round2(tol), c.Size), math.Abs(ir.Extent-c.Size), fmt.Sprintf("<= %g", round2(tol)), math.Abs(ir.Extent-c.Size) <= tol))
 		}
 		sprites = append(sprites, sp)
+		byName[c.Cell] = sp
 		rep.Items = append(rep.Items, ir)
 	}
 	for _, it := range items {
@@ -332,7 +368,7 @@ func prepare(s sheet, src *image.NRGBA, densities []int, outDir string) (sheetRe
 	for _, ir := range rep.Items {
 		rep.Pass = rep.Pass && worldmaterial.Passed(ir.Checks)
 	}
-	return rep, sprites, nil
+	return rep, sprites, byName, nil
 }
 
 // contact lays the sheet's sprites at density d out in its grid shape over
@@ -358,46 +394,56 @@ func contact(meadow *image.NRGBA, sprites []prepared, cols, d int) *image.NRGBA 
 	return out
 }
 
-func run(profilePath, outDir string, strict bool) error {
+// kit is one prepared sheet: its report and its sprites by cell name.
+type kit struct {
+	sheet   sheet
+	report  sheetReport
+	sprites map[string]prepared
+}
+
+// prepareAll prepares every sheet of the profile, writes the review output and
+// kits.json to outDir and returns the kits and the IDs of failing sheets.
+func prepareAll(profilePath, outDir string) (profile, []kit, []string, error) {
 	raw, err := os.ReadFile(profilePath)
 	if err != nil {
-		return err
+		return profile{}, nil, nil, err
 	}
 	var p profile
 	dec := json.NewDecoder(bytes.NewReader(raw))
 	dec.DisallowUnknownFields()
 	if err = dec.Decode(&p); err != nil {
-		return err
+		return p, nil, nil, err
 	}
 	if err = validate(p); err != nil {
-		return err
+		return p, nil, nil, err
 	}
 	ground, err := readSource(p.Meadow.Source, p.Meadow.SHA)
 	if err != nil {
-		return err
+		return p, nil, nil, err
 	}
 	period := image.Pt(worldmaterial.PeriodWidth, worldmaterial.PeriodHeight)
 	meadows := map[int]*image.NRGBA{}
 	for _, d := range p.Densities {
 		if meadows[d], _, err = worldmaterial.Export(ground, period, d); err != nil {
-			return fmt.Errorf("meadow: %w", err)
+			return p, nil, nil, fmt.Errorf("meadow: %w", err)
 		}
 	}
+	var kits []kit
 	var reports []sheetReport
 	var failed []string
 	for _, s := range p.Sheets {
 		src, err := readSource(s.Source, s.SHA)
 		if err != nil {
-			return err
+			return p, nil, nil, err
 		}
-		rep, sprites, err := prepare(s, src, p.Densities, outDir)
+		rep, sprites, byName, err := prepare(s, src, p.Densities, outDir)
 		if err != nil {
-			return err
+			return p, nil, nil, err
 		}
 		for _, d := range p.Densities {
 			name := filepath.ToSlash(filepath.Join(s.ID, fmt.Sprintf("contact@%dx.png", d)))
 			if _, err = writePNG(filepath.Join(outDir, filepath.FromSlash(name)), contact(meadows[d], sprites, s.Grid[0], d)); err != nil {
-				return err
+				return p, nil, nil, err
 			}
 			rep.Contact = append(rep.Contact, name)
 		}
@@ -405,6 +451,7 @@ func run(profilePath, outDir string, strict bool) error {
 			failed = append(failed, s.ID)
 		}
 		reports = append(reports, rep)
+		kits = append(kits, kit{s, rep, byName})
 	}
 	report := struct {
 		Schema    int           `json:"schema_version"`
@@ -413,16 +460,185 @@ func run(profilePath, outDir string, strict bool) error {
 	}{p.Schema, "alpha below cut cleared; sheet graded to grade_rgb by one Lab offset; 8-connected alpha components grouped by the cell of their centroid, specks under min_area dropped; cell graded to its grade_rgb; opaque long side scaled to size (or 1/scale); exact area box in premultiplied alpha per density", reports}
 	b, err := json.MarshalIndent(report, "", "  ")
 	if err != nil {
-		return err
+		return p, nil, nil, err
 	}
 	if err = os.MkdirAll(outDir, 0755); err != nil {
-		return err
+		return p, nil, nil, err
 	}
 	if err = os.WriteFile(filepath.Join(outDir, "kits.json"), append(b, '\n'), 0644); err != nil {
+		return p, nil, nil, err
+	}
+	return p, kits, failed, nil
+}
+
+func run(profilePath, outDir string, strict bool) error {
+	_, _, failed, err := prepareAll(profilePath, outDir)
+	if err != nil {
 		return err
 	}
 	if strict && len(failed) > 0 {
 		return errors.New("kit checks fail: " + strings.Join(failed, ", ") + " (see kits.json)")
 	}
 	return nil
+}
+
+// scatterPrefix is the namespace of installed items; -install owns every entry
+// in it.
+const scatterPrefix = "standing/scatter/"
+
+// assetEntry is one line of assets/index.json, in its key order.
+type assetEntry struct {
+	ID      string     `json:"id"`
+	Pack    string     `json:"pack"`
+	Density int        `json:"density"`
+	Path    string     `json:"path"`
+	SHA     string     `json:"sha256"`
+	Width   int        `json:"width"`
+	Height  int        `json:"height"`
+	Anchor  [2]float64 `json:"logical_anchor"`
+	Layer   string     `json:"layer"`
+	Art     string     `json:"art"`
+}
+
+// shadowOf is the cast shadow of sprite im: its alpha scaled by the opacity in
+// the shadow colour, on the same canvas.
+func shadowOf(im *image.NRGBA, sh shadow) *image.NRGBA {
+	out := image.NewNRGBA(im.Bounds())
+	for i := 3; i < len(im.Pix); i += 4 {
+		if a := im.Pix[i]; a != 0 {
+			out.Pix[i-3], out.Pix[i-2], out.Pix[i-1] = uint8(math.Round(sh.RGB[0])), uint8(math.Round(sh.RGB[1])), uint8(math.Round(sh.RGB[2]))
+			out.Pix[i] = uint8(math.Round(float64(a) * sh.Opacity))
+		}
+	}
+	return out
+}
+
+// install prepares the profile like run and, when every sheet with runtime
+// cells passes, writes those items and their shadows into the assets tree as
+// standing items of the terrain-standing packs and replaces the earlier
+// installed entries of assets/index.json. Nothing is written when a check fails.
+func install(profilePath, outDir, assetsDir string) error {
+	_, kits, failed, err := prepareAll(profilePath, outDir)
+	if err != nil {
+		return err
+	}
+	type file struct {
+		path string
+		im   *image.NRGBA
+	}
+	var entries []assetEntry
+	var files []file
+	for _, k := range kits {
+		for _, c := range k.sheet.Cells {
+			if c.Runtime == "" {
+				continue
+			}
+			if slices.Contains(failed, k.sheet.ID) {
+				return fmt.Errorf("%s: kit checks fail, nothing installed (see kits.json)", k.sheet.ID)
+			}
+			i := slices.IndexFunc(k.report.Items, func(ir itemReport) bool { return ir.Cell == c.Cell })
+			ir := k.report.Items[i]
+			slug := strings.ReplaceAll(strings.TrimPrefix(c.Runtime, scatterPrefix), "/", "-")
+			ids := []string{c.Runtime}
+			if k.sheet.Shadow != nil {
+				ids = append(ids, "standing/shadow/"+strings.TrimPrefix(c.Runtime, "standing/"))
+			}
+			for n, id := range ids {
+				for _, o := range ir.Outputs {
+					im, anchor, name := k.sprites[c.Cell][o.Density], o.Anchor, "scatter-"+slug
+					if n == 1 {
+						size := cmp.Or(c.Size, ir.Extent)
+						off := k.sheet.Shadow.Length * size / math.Sqrt2
+						im, anchor, name = shadowOf(im, *k.sheet.Shadow), [2]float64{round2(anchor[0] - off), round2(anchor[1] - off)}, "scatter-shadow-"+slug
+					}
+					path := filepath.ToSlash(filepath.Join(k.sheet.Art, fmt.Sprintf("%s-%dx.png", name, o.Density)))
+					var b bytes.Buffer
+					if err := png.Encode(&b, im); err != nil {
+						return err
+					}
+					entries = append(entries, assetEntry{id, fmt.Sprintf("terrain-standing-%dx", o.Density), o.Density, path,
+						fmt.Sprintf("%x", sha256.Sum256(b.Bytes())), o.Width, o.Height, anchor, "standing", k.sheet.Art})
+					files = append(files, file{path, im})
+				}
+			}
+		}
+	}
+	indexPath := filepath.Join(assetsDir, "index.json")
+	raw, err := os.ReadFile(indexPath)
+	if err != nil {
+		return err
+	}
+	index, stale, err := spliceIndex(string(raw), entries)
+	if err != nil {
+		return err
+	}
+	written := map[string]bool{}
+	for _, f := range files {
+		if _, err := writePNG(filepath.Join(assetsDir, filepath.FromSlash(f.path)), f.im); err != nil {
+			return err
+		}
+		written[f.path] = true
+	}
+	for _, path := range stale {
+		if !written[path] {
+			if err := os.Remove(filepath.Join(assetsDir, filepath.FromSlash(path))); err != nil && !errors.Is(err, fs.ErrNotExist) {
+				return err
+			}
+		}
+	}
+	return os.WriteFile(indexPath, []byte(index), 0644)
+}
+
+// spliceIndex replaces the installed (scatter) entries of an assets/index.json
+// text with entries, one per line after the last terrain-standing entry, and
+// returns the paths of the entries it removed. Other lines keep their bytes.
+func spliceIndex(text string, entries []assetEntry) (string, []string, error) {
+	lines := strings.Split(text, "\n")
+	var kept, stale []string
+	for _, l := range lines {
+		var e assetEntry
+		if strings.HasPrefix(strings.TrimSpace(l), "{\"id\":") && json.Unmarshal([]byte(strings.TrimSuffix(strings.TrimSpace(l), ",")), &e) == nil &&
+			(strings.HasPrefix(e.ID, scatterPrefix) || strings.HasPrefix(e.ID, "standing/shadow/scatter/")) {
+			stale = append(stale, e.Path)
+			continue
+		}
+		kept = append(kept, l)
+	}
+	at := -1
+	for i, l := range kept {
+		if strings.Contains(l, `"pack":"terrain-standing-`) {
+			at = i
+		}
+	}
+	if at < 0 && len(entries) > 0 {
+		return "", nil, errors.New("assets/index.json has no terrain-standing entry to install after")
+	}
+	var add []string
+	for _, e := range entries {
+		b, err := json.Marshal(e)
+		if err != nil {
+			return "", nil, err
+		}
+		add = append(add, "    "+string(b))
+	}
+	out := slices.Concat(kept[:at+1], add, kept[at+1:])
+	// Every entry line but the last ends with a comma.
+	last := -1
+	for i, l := range out {
+		if strings.HasPrefix(strings.TrimSpace(l), "{\"id\":") {
+			out[i] = strings.TrimSuffix(l, ",") + ","
+			last = i
+		}
+	}
+	if last >= 0 {
+		out[last] = strings.TrimSuffix(out[last], ",")
+	}
+	res := strings.Join(out, "\n")
+	var check struct {
+		Assets []assetEntry `json:"assets"`
+	}
+	if err := json.Unmarshal([]byte(res), &check); err != nil {
+		return "", nil, fmt.Errorf("assets/index.json after the install: %w", err)
+	}
+	return res, stale, nil
 }

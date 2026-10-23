@@ -143,6 +143,13 @@ func (r *Renderer) Render(lvl *level.Level, density int, units bool) (Map, error
 					shadows = scene.ShadowsAt(at, all)
 				}
 				ids := [5][]string{{bg}, {stamp}, overlays, shadows, standing}[pass]
+				var scattered []mapcompose.Placed
+				switch pass {
+				case 3:
+					scattered = scene.ScatterShadowsAt(at, all)
+				case 4:
+					scattered = scene.ScatterAt(at, all)
+				}
 				for _, id := range ids {
 					if id == "" {
 						continue
@@ -155,6 +162,11 @@ func (r *Renderer) Render(lvl *level.Level, density int, units bool) (Map, error
 						continue
 					}
 					if err := r.draw(m.Image, id, at, density); err != nil {
+						return Map{}, err
+					}
+				}
+				for _, p := range scattered {
+					if err := r.drawAt(m.Image, p, at, density); err != nil {
 						return Map{}, err
 					}
 				}
@@ -219,9 +231,25 @@ func (r *Renderer) draw(dst draw.Image, id string, at hexgrid.Coord, density int
 	return nil
 }
 
+// drawAt draws a scattered item with its anchor at its offset from hex at.
+func (r *Renderer) drawAt(dst draw.Image, p mapcompose.Placed, at hexgrid.Coord, density int) error {
+	e, im, err := r.assetImage(p.ID, density)
+	if err != nil {
+		return err
+	}
+	x, y := hexgrid.Center(at)
+	PlaceAt(dst, im, x+p.X, y+p.Y, density, e.Anchor)
+	return nil
+}
+
 // Place draws src with its logical anchor on the centre of hex at.
 func Place(dst draw.Image, src image.Image, at hexgrid.Coord, density int, anchor [2]float64) {
 	x, y := hexgrid.Center(at)
+	PlaceAt(dst, src, x, y, density, anchor)
+}
+
+// PlaceAt draws src with its logical anchor on map point (x, y).
+func PlaceAt(dst draw.Image, src image.Image, x, y float64, density int, anchor [2]float64) {
 	p := image.Pt(int(math.Round((x-anchor[0])*float64(density))), int(math.Round((y-anchor[1])*float64(density))))
 	draw.Draw(dst, src.Bounds().Sub(src.Bounds().Min).Add(p), src, src.Bounds().Min, draw.Over)
 }

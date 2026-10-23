@@ -491,6 +491,14 @@ cross at every period corner. (2026-10-23)
       clears the gutter haze, splits crowns that cross a row line, and scales the v6 crowns to
       16/22/28 world px, graded to RGB 50,62,26; its checks pass. Oak and beech still look alike.
       (2026-10-23)
+      Partial (2026-10-23): summer crowns are scattered in game and in the PULSE render
+      (`mapcompose/scatter.go`; `hlkit -install assets` installs the nine v6 crowns with code-made
+      shadows). On PULSE the canopy covers 90.0 % of the interior forest hexes and 82.9 % of all 81 forest
+      hexes (baked: 63.7 % interior); the woodland edge wanders up to 12 px off the hex edge, and species
+      form stands. 85 % cover takes about 25 crowns per hex, not 9–13; the direction table now says so.
+      Open: open-cell trees at 4–8 % (the old tree props remain), the edge-distance measurement, the
+      forest floor still clipped to the hex, and a crown on a visible meadow hex hinting at an unseen
+      forest. Before/after under `build/review/crown-scatter/`.
 - [ ] Meadow G1 in parts (art/direction.md, G1). Each is done when its checks pass:
       - `hlmaterial` profile schema 2: G1b's high-passed L\* wrapped 3×3 over G1a, one gain, and the G1
         checks in its report (code). Done (2026-10-23); the current meadow `grass-summer-v1` fails on
