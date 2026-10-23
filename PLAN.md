@@ -533,6 +533,12 @@ stones.
       Sizes, alpha haze and colour need code (downscale, alpha threshold, grade) before another round.
 - [ ] Bridges: register the longer earlier footbridges and road bridge first, then generate B1–B5. The road
       bridge's carriageway continues the macadam road with no deck plate.
+      Candidates (2026-10-23), unpromoted, prompts and faults in `art/terrain/bridge/prompt.md` and
+      `art/terrain/rBridge/prompt.md`: B1/B2 plank footbridges (B2 painted at 36.8°, needs a 7.4°
+      turn), B3–B5 stone road bridges carrying the R1 macadam (B4/B5 at 31.1°/29.1°, slight side faces;
+      sandy verges leave only about 14 logical px of carriageway). The earlier `exec-62ac6b08`,
+      `exec-3b558b9a` and `exec-07b389c2` are re-registered for review only
+      (`build/review/gen-2026-10-23/bridge-earlier/`); no registration manifest or export yet.
 - [ ] Done when the water rows of the acceptance table hold and the moat test passes: lake and moat side by
       side at 4× read as one material.
 
@@ -549,6 +555,11 @@ stones.
 - [ ] Generate R1–R4 (road, path, rail and trench strips, summer and winter), the R5 kit sheets and R6
       (barbed wire, three variants).
       Widths: road 22 (footprint about 38), path 11, rail ballast 16, trench footprint 18–22.
+      Candidates (2026-10-23), unpromoted, with prompts and measured faults in each family's prompt.md:
+      R1 road and R2 path (summer and winter), R3 rail (summer and winter; the sleeper gap across the
+      wrap is 74 px instead of 48), R4 trench (summer and winter; the entry's bay numbers do not fill
+      1536 px, so 6 bays of 256 px), R6 barbed wire (patches set vertically; alpha backing 1–31 needs a
+      threshold). R5 waits for the stroke renderer.
 - [ ] Done when no carriageway pixel is paint-white, every road–path meeting has a mouth (`r17c6`/`r18c5`),
       and rail, crossings and trenches meet their rows in the table.
 
