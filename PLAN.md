@@ -453,6 +453,39 @@ cross at every period corner. (2026-10-23)
       - b\* 4–5 lower on land;
       - relief darker than grass;
       - buildings b\* about 16.
+
+      Partial (2026-10-23): `internal/terraingrade` (`terraingrade-v1`) grades every terrain image as
+      `hlasset build-terrain` writes the packs and as `maprender` loads `assets/`. `assets/` is unchanged.
+      `build/packs/terrain/grade` names the grade, and `just` rebuilds older packs. The grade works by
+      pixel colour, so tiles keep meeting without a step:
+      - land follows one L\* curve and loses 4.5 b\* where it is yellow;
+      - blue water follows its own curve;
+      - L\* above 85 (snow) stays as painted;
+      - hills, mount and mountain darken, and buildings take b\* 16, both only where a pixel differs from
+        the meadow baked into its tile;
+      - crowns follow their own curve;
+      - cast shadows and fog are copied.
+
+      On PULSE (`TestTerrainGradeValueTargets`):
+
+      | | Painted | Graded |
+      | --- | --- | --- |
+      | whole map 5–95 % L\* (mean) | 15.1–53.2 (38.2) | 10.6–61.5 (40.4) |
+      | grass L\* | 41.1 | 44.8 |
+      | hills / mountain / mount, against grass | −1.7 / +1.8 / +0.9 | −4.5 / −5.7 / −3.5 |
+      | forest L\* | 25.7 | 26.7 |
+      | water L\* | 40.7 | 34.9 |
+
+      Land b\* drops by 3.75 (forest) to 5.4 (mountain), 4.6 on average. The summer building pixels
+      come to b\* 15.6–15.9 from 16.3–20.3 (`TestShippedBuildings`).
+
+      Unit edge ΔL\* medians move as follows: grass 27.4 → 30.0, road 31.0 → 35.2, forest 13.2 → 14.2,
+      and water 25.9 → 20.6, because the darker water meets the dark rim.
+
+      Open: the winter maps are not measured or tuned. Mount stays 3.5 under grass rather than the
+      6–10 of the acceptance table, because its quarters are 50–70 % baked meadow.
+
+      Review under `build/review/terrain-grade/`.
 - [ ] One light and shadow model:
       - azimuth 315°;
       - shadow colour about RGB 18,26,16;
@@ -492,6 +525,8 @@ cross at every period corner. (2026-10-23)
       (0.75: hex 6.5 %, about 10 rows).
 - [ ] Winter cells pick seasonal infrastructure and water IDs. Rail bridges draw a rail deck, not a road
       deck: the standing item is chosen by the crossing family, in `mapcompose/standing.go`.
+      Waits for art (2026-10-23): `assets/index.json` has no winter road, path, rail, trench or stream
+      IDs and no rail-deck standing item. These come from Look 7 (R1–R5 winter) and the bridge round.
 
 ##### Look 2: Forest and meadow
 
