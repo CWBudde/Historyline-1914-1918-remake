@@ -120,6 +120,17 @@ Rules:
   - prop sheets 1254×1254 or 1536×1024 RGBA in a stated grid;
   - whole scenes 1536×1536 or 1536×1024 RGBA.
 
+**Cut-out sheets are prepared in code.** `cmd/hlkit` (profile `art/pipeline/world-kits-v1.json`) does
+four things and reports their checks; the review sprites and contact sheets go to `build/review/world-kits/`:
+- it clears the alpha haze below a cut (32);
+- it splits a sheet into items by connected alpha, so an item may cross its cell line;
+- it scales each item's visible long side to its world size;
+- it grades the item's colour to the entry's RGB target. For stones only the stone moves: colours far from
+  it, such as the waterline and the shadow, keep theirs.
+
+So a sheet whose items come out up to about 2× too large, warm or hazy needs no new generation; re-prompt
+only for form (foam rings, backing discs, pebbles too large inside a cluster, species that look alike).
+
 ## Prompt kit
 
 Paste the `art/style.md` preamble and its Terrain section first. Each entry names its size, the images to

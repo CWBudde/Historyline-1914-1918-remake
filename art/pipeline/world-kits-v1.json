@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "densities": [2, 4],
+  "meadow": {"source": "art/terrain/grass/grass-summer-v1.png", "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"},
+  "sheets": [
+    {"id": "kit/forest/crowns-summer", "art": "terrain/forest", "source": "art/terrain/forest/forest-crowns-summer-v6.png", "source_sha256": "c567312323a1469b263b043d1d0c1e1339ffb38c875c7172aa561fc04bd0fe45",
+     "grid": [3, 3], "cut": 32, "min_area": 16, "scale": 10, "grade_rgb": [50, 62, 26],
+     "cells": [
+       {"cell": "r1c1", "size": 16}, {"cell": "r1c2", "size": 22}, {"cell": "r1c3", "size": 28},
+       {"cell": "r2c1", "size": 16}, {"cell": "r2c2", "size": 22}, {"cell": "r2c3", "size": 28},
+       {"cell": "r3c1", "size": 16}, {"cell": "r3c2", "size": 22}, {"cell": "r3c3", "size": 28}]},
+    {"id": "kit/grass/props-summer", "art": "terrain/grass", "source": "art/terrain/grass/grass-props-summer-v1.png", "source_sha256": "81119060870d779e9fb18ab5e9ad3de989e67f4d3aa55add2cd66fedeb5ca609",
+     "grid": [4, 4], "cut": 32, "min_area": 16, "scale": 10,
+     "cells": [
+       {"cell": "r1c1", "size": 3}, {"cell": "r1c2", "size": 4.5}, {"cell": "r1c3", "size": 6}, {"cell": "r1c4", "size": 8},
+       {"cell": "r2c1", "size": 6}, {"cell": "r2c2", "size": 10}, {"cell": "r2c3", "size": 14}, {"cell": "r2c4", "size": 4},
+       {"cell": "r3c1", "size": 7}, {"cell": "r3c2", "size": 10},
+       {"cell": "r3c3", "size": 10, "grade_rgb": [178, 160, 94]}, {"cell": "r3c4", "size": 16, "grade_rgb": [178, 160, 94]},
+       {"cell": "r4c1", "size": 22, "grade_rgb": [178, 160, 94]},
+       {"cell": "r4c2", "size": 4}, {"cell": "r4c3", "size": 7}, {"cell": "r4c4", "size": 10}]},
+    {"id": "kit/water/boulders", "art": "terrain/water", "source": "art/terrain/water/water-boulders-shared-v1.png", "source_sha256": "68281565f15d396cd2c398ddd9c776138af885d5b9a73d7fc03b1a9132560f58",
+     "grid": [4, 3], "cut": 32, "min_area": 16, "scale": 12, "grade_rgb": [140, 132, 118], "grade_reach": 20,
+     "cells": [
+       {"cell": "r1c1", "size": 4}, {"cell": "r1c2", "size": 4}, {"cell": "r1c3", "size": 6}, {"cell": "r1c4", "size": 6},
+       {"cell": "r2c1", "size": 6}, {"cell": "r2c2", "size": 8}, {"cell": "r2c3", "size": 8}, {"cell": "r2c4", "size": 14},
+       {"cell": "r3c1", "size": 8}, {"cell": "r3c2", "size": 10}, {"cell": "r3c3", "size": 10}, {"cell": "r3c4", "size": 12}]},
+    {"id": "kit/water/reeds", "art": "terrain/water", "source": "art/terrain/water/water-reeds-shared-v1.png", "source_sha256": "5317d95dc72e2248e5295c8a8149ff44257b254a8dff9ae2190b02977da66073",
+     "grid": [4, 3], "cut": 32, "min_area": 16, "scale": 12,
+     "cells": [
+       {"cell": "r1c1"}, {"cell": "r1c2"}, {"cell": "r1c3"}, {"cell": "r1c4"},
+       {"cell": "r2c1", "size": 14}, {"cell": "r2c2", "size": 16}, {"cell": "r2c3", "size": 18}, {"cell": "r2c4", "size": 20},
+       {"cell": "r3c1", "size": 10}, {"cell": "r3c2", "size": 12}, {"cell": "r3c3", "size": 16}, {"cell": "r3c4", "size": 14}]},
+    {"id": "kit/water/lake-rocks", "art": "terrain/water", "source": "art/terrain/water/water-rocks-shared-v3.png", "source_sha256": "7c6f2e7edfdd8acbdc63463fc2b6b7e5b101268e553c821424d2acb124d4489e",
+     "grid": [1, 1], "cut": 32, "min_area": 16, "scale": 14.3125, "grade_rgb": [140, 132, 118], "grade_reach": 20,
+     "cells": [{"cell": "r1c1"}]},
+    {"id": "kit/barbed-wire/belts", "art": "terrain/barbed-wire", "source": "art/terrain/barbed-wire/barbed-wire-belts-shared-v1.png", "source_sha256": "98b47d43bd07dd47d2551778513673753d7cca5c889ad8e6bbdb85101ae5aea9",
+     "grid": [3, 1], "cut": 32, "min_area": 16, "scale": 10.657,
+     "cells": [{"cell": "r1c1", "size": 70}, {"cell": "r1c2", "size": 70}, {"cell": "r1c3", "size": 70}]}
+  ]
+}

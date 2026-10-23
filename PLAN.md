@@ -480,6 +480,10 @@ cross at every period corner. (2026-10-23)
       Candidates v6 (2026-10-23), unpromoted, with prompts and faults in `art/terrain/forest/prompt.md`:
       F2 `forest-crowns-summer-v6.png` at 1.05–1.12× the crown sizes (rows off-centre, gutter haze);
       F1 `forest-floor-summer-v6.png` on scale but too dark and olive, needs a grade.
+      `cmd/hlkit` (profile `art/pipeline/world-kits-v1.json`, review under `build/review/world-kits/`)
+      clears the gutter haze, splits crowns that cross a row line, and scales the v6 crowns to
+      16/22/28 world px, graded to RGB 50,62,26; its checks pass. Oak and beech still look alike.
+      (2026-10-23)
 - [ ] Meadow G1 in parts (art/direction.md, G1). Each is done when its checks pass:
       - `hlmaterial` profile schema 2: G1b's high-passed L\* wrapped 3×3 over G1a, one gain, and the G1
         checks in its report (code). Done (2026-10-23); the current meadow `grass-summer-v1` fails on
@@ -500,6 +504,8 @@ cross at every period corner. (2026-10-23)
       placement seeded by world position.
       G2 candidate `grass-props-summer-v1.png` (2026-10-23): items 0.77–1.45× the spec in their cells;
       straw too warm, gutter haze needs an alpha threshold. No scatter layer yet.
+      `hlkit` scales each G2 item to its size, clears the haze and grades the straw to
+      178,160,94; its checks pass. The thin backing under tufts and flowers stays. (2026-10-23)
 - [ ] Hills: generate G3 (hummock and scrub overlay), 4–6 L\* darker than grass, with 6–10 scrub props per
       hex. Done when 18 of 20 random hills hexes are named correctly at 1×.
       G3 candidate `hills-hummock-summer-v1.png` (2026-10-23): reads as hills at 1×, ΔL\* −6.3, but
@@ -531,6 +537,11 @@ stones.
       `water-boulders-shared-v1.png` (stones 2× too large, warm), W4 `water-reeds-shared-v1.png`
       (plants 1.3–1.5× too large) and W6 `water-rocks-shared-v3.png` (ochre, dotted foam rings).
       Sizes, alpha haze and colour need code (downscale, alpha threshold, grade) before another round.
+      `hlkit` now does that for W3, W4 and W6, and its checks pass. W3 stones are 4–12 world px
+      (group 14) and W6 rocks are graded to 140,132,118; their waterline and shadow keep their
+      colour. W4 reeds are 14–20 and tufts 10–16 world px. Code cannot fix the W3 white crackle foam,
+      the W6 foam ring, or W4 pebbles of about 7 world px inside a cluster (spec 2–4); W1/W2 are
+      opaque materials and are not covered. (2026-10-23)
 - [ ] Bridges: register the longer earlier footbridges and road bridge first, then generate B1–B5. The road
       bridge's carriageway continues the macadam road with no deck plate.
       Candidates (2026-10-23), unpromoted, prompts and faults in `art/terrain/bridge/prompt.md` and
@@ -560,6 +571,8 @@ stones.
       wrap is 74 px instead of 48), R4 trench (summer and winter; the entry's bay numbers do not fill
       1536 px, so 6 bays of 256 px), R6 barbed wire (patches set vertically; alpha backing 1–31 needs a
       threshold). R5 waits for the stroke renderer.
+      `hlkit` clears the R6 matte (alpha below 32, 15 % of the sheet) and scales each patch to 70
+      world px long. (2026-10-23)
 - [ ] Done when no carriageway pixel is paint-white, every road–path meeting has a mouth (`r17c6`/`r18c5`),
       and rail, crossings and trenches meet their rows in the table.
 

@@ -73,6 +73,13 @@ checks, suggests a gain, and `-check` fails while any check fails. Default activ
 removal of baked meadow from adjoining families; the selected tile catalog keeps its existing
 rendering meanwhile.
 
+Cut-out sheets (crowns, props, stones, wire) become world-scale sprites with
+`go run ./cmd/hlkit -out build/review/world-kits`. The pinned profile `art/pipeline/world-kits-v1.json`
+gives each sheet its grid, alpha cut, painting scale, per-cell world size and colour target. The command
+writes each item at 2× and 4× with its anchor, a contact sheet over the meadow, and `kits.json` with the
+checks; `-check` fails while any check fails. No pack carries the sprites yet: they wait for the scatter
+layers.
+
 Clusters are connected hexes of one kind: `crater` (`mud`), `boulders` (`stone`), `knoll` (`mountain`),
 `lake` (`water`, `waterStones`, `lakeside*`); the winter kinds (`shelled_w`, `stoney_w`, `mountain_w`) end
 in `_w`. The shape is the hex count, then each further hex's offset from the first (line, then column order)
