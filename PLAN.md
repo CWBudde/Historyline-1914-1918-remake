@@ -486,6 +486,10 @@ cross at every period corner. (2026-10-23)
 
       Review under `build/review/unit-rim/`.
 - [ ] Default zoom at 1080p so a hex covers about 7 % of the screen width, as in the original and at 4K.
+      Measured (2026-10-23): the default game (`-rules dos`) fits 7½ rows per panel as the original
+      does, so a hex covers 8.3–8.9 % of the width (column step 6.1–6.6 %) at 1080p, 1440p and 4K, at
+      UI 100 % and 200 % (`TestDefaultHexShare`). Open: keep this, or start one zoom step out
+      (0.75: hex 6.5 %, about 10 rows).
 - [ ] Winter cells pick seasonal infrastructure and water IDs. Rail bridges draw a rail deck, not a road
       deck: the standing item is chosen by the crossing family, in `mapcompose/standing.go`.
 

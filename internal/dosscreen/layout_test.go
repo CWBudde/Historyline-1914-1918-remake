@@ -130,6 +130,24 @@ func TestLayoutExamples(t *testing.T) {
 	}
 }
 
+// The default zoom shows a hex at the same share of the screen at 1080p and 4K,
+// at any UI scale: 8.3–8.9 % of the width (the column step 6.1–6.6 %) and about
+// 13 % of the height per cell, from the 7½ rows fitted to the panel height.
+func TestDefaultHexShare(t *testing.T) {
+	for _, tc := range []struct {
+		w, h int
+		ui   float64
+	}{{1920, 1080, 1}, {1920, 1080, 2}, {2560, 1440, 1}, {3840, 2160, 1}, {3840, 2160, 2}} {
+		s := Layout(tc.w, tc.h, tc.ui)
+		hex := hexgrid.HexWidth * s.CellScale / float64(tc.w)
+		step := hexgrid.HalfPitch * s.CellScale / float64(tc.w)
+		cell := hexgrid.HexHeight * s.CellScale / float64(tc.h)
+		if s.Zoom != DefaultZoom || hex < .083 || hex > .089 || step < .061 || step > .066 || cell < .123 || cell > .135 {
+			t.Errorf("%dx%d@%v: hex %.2f %%, column step %.2f %% of the width, cell %.2f %% of the height", tc.w, tc.h, tc.ui, 100*hex, 100*step, 100*cell)
+		}
+	}
+}
+
 // The smallest window keeps 7×6 cells per panel at the smallest cell scale, and
 // is tight: one device pixel less in either direction loses a column or a row.
 func TestMinWindow(t *testing.T) {
