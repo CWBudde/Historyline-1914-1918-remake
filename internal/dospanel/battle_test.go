@@ -7,6 +7,8 @@ import (
 	"testing"
 
 	"github.com/hajimehoshi/ebiten/v2"
+
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 )
 
 // battleCases are scenes from both ends of the clamps: ordinary fire with
@@ -346,6 +348,10 @@ func TestBattleLayout(t *testing.T) {
 				checkInside(t, h.PhotoWell, map[string]image.Rectangle{"photo": h.Photo})
 				checkInside(t, h.Photo, map[string]image.Rectangle{"flag": h.Flag, "count": h.Count})
 				checkDisjoint(t, parts)
+				// The hex has a map hex's shape, not stretched.
+				if got, want := float64(h.Hex.Dx())/float64(h.Hex.Dy()), float64(hexgrid.HexWidth)/hexgrid.HexHeight; math.Abs(got-want) > 0.05 {
+					t.Errorf("side %d hex %v is %.2f wide per high, a map hex %.2f", s, h.Hex, got, want)
+				}
 				for i := range MaxFigures {
 					fr := h.Figure(i)
 					if fr.Empty() || !fr.Overlaps(h.Hex) {

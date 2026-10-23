@@ -32,17 +32,19 @@ type BattleRects struct {
 
 // The battle scene in reference pixels: a 152×180 block of two halves. The
 // attacker's has the photo at the left and the hex at the right; the
-// defender's is its mirror image. The hex is 60×82 and holds the ring.
+// defender's is its mirror image. The hex is 60×50, a map hex's shape,
+// padded above and below in its 60×82 slot, and holds the ring.
 const (
 	battleW, battleH = 152, 180
 	battleHalfH      = battleH / 2
-	ringHexH         = 82
-	figureHalf       = 12.5
+	ringHexW         = 60
+	figureHalf       = 10.5
 )
 
 // ring is the places of the figures around the hex's centre in reference
 // pixels: top, upper right, lower right, bottom, lower left, upper left.
-var ring = [MaxFigures][2]float64{{0, -25}, {17, -12.5}, {17, 12.5}, {0, 25}, {-17, 12.5}, {-17, -12.5}}
+// The ring is as flat as the hex, so the men stand on it.
+var ring = [MaxFigures][2]float64{{0, -13}, {17, -6.5}, {17, 6.5}, {0, 13}, {-17, 6.5}, {-17, -6.5}}
 
 // BattleLayout lays out the battle scene centred in panel at scale, or the
 // largest scale that fits when that is smaller.
@@ -62,7 +64,7 @@ func BattleLayout(panel image.Rectangle, scale float64) BattleRects {
 			PhotoWell: r(5, 5, 85, 73),
 			Photo:     r(7, 7, 83, 71),
 			Name:      r(5, 75, 85, 86),
-			Hex:       r(88, 4, 148, 86),
+			Hex:       r(88, 20, 148, 70),
 			Flag:      r(10, 10, 25, 25),
 			Badge:     r(27, 9, 44, 26),
 			Count:     r(54, 50, 80, 68),
@@ -72,7 +74,7 @@ func BattleLayout(panel image.Rectangle, scale float64) BattleRects {
 }
 
 // scale is the device pixels per reference pixel of the side's hex.
-func (r BattleSideRects) scale() float64 { return float64(r.Hex.Dy()) / ringHexH }
+func (r BattleSideRects) scale() float64 { return float64(r.Hex.Dx()) / ringHexW }
 
 // centre is the device centre of the side's hex.
 func (r BattleSideRects) centre() (x, y float64) {
