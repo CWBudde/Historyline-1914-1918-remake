@@ -10,12 +10,12 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 )
 
-// Summer forest crowns are scattered over the world instead of baked into one
+// Forest crowns are scattered over the world instead of baked into one
 // template per hex: sites on a jittered grid in map pixels, each one a crown when
-// the hex under the site, moved by a low-frequency wander, is summer forest
-// without infrastructure. The wander lets the woodland edge leave the hex edge
-// by up to edgeWander pixels either way; species follow a slower noise, so they
-// grow in stands. A crown belongs to the hex under its own site and is drawn with
+// the hex under the site, moved by a low-frequency wander, is forest without
+// infrastructure in a season whose crown set the catalog has. The wander lets the
+// woodland edge leave the hex edge by up to edgeWander pixels either way; species
+// follow a slower noise, so they grow in stands. A crown belongs to the hex under its own site and is drawn with
 // that hex's standing items. Everything is seeded by map position, so the result
 // does not depend on traversal order or the visible part of the map.
 
@@ -27,10 +27,13 @@ type Placed struct {
 }
 
 // CrownSpecies and CrownSizes name the scattered crown set (art/direction.md, F2):
-// three species, each small, medium and large, in world pixels.
+// three species, each small, medium and large, in world pixels. Winter forest
+// takes WinterCrownSpecies (F3) in their place: two conifers and a bare
+// broadleaf, so a stand keeps its place and size across the seasons.
 var (
-	CrownSpecies = []string{"oak", "beech", "birch"}
-	CrownSizes   = []int{16, 22, 28}
+	CrownSpecies       = []string{"oak", "beech", "birch"}
+	WinterCrownSpecies = []string{"spruce", "fir", "bare"}
+	CrownSizes         = []int{16, 22, 28}
 	// crownWeights pick the sizes in that order.
 	crownWeights = []float64{0.25, 0.4, 0.35}
 )
@@ -49,9 +52,21 @@ const (
 	scatterSalt     = 0x5ca77e7c0f0e57a1
 )
 
-// crownSet reports whether the catalog has every crown and its shadow.
-func crownSet(has func(string) bool) bool {
-	for _, sp := range CrownSpecies {
+// crownSeason is the forest and open terrain of one season and its species.
+// With snowFloor its scattered forest stands on the open ground's tile: bare
+// winter woods show snow between their branches, not the dark floor of the
+// baked contexts.
+type crownSeason struct {
+	forest, grass string
+	species       []string
+	snowFloor     bool
+}
+
+var crownSeasons = []crownSeason{{"forest", "grass", CrownSpecies, false}, {"forest_w", "grass_w", WinterCrownSpecies, true}}
+
+// crownSet reports whether the catalog has every crown of species and its shadow.
+func crownSet(species []string, has func(string) bool) bool {
+	for _, sp := range species {
 		for _, size := range CrownSizes {
 			if id := CrownID(sp, size); !has(id) || !has(ShadowID(id)) {
 				return false
@@ -62,21 +77,41 @@ func crownSet(has func(string) bool) bool {
 }
 
 // scatterCrowns places the crowns and drops the baked crowns and shadows of the
-// forest hexes the scatter covers. Forest with infrastructure keeps its art.
+// forest hexes the scatter covers. Forest with infrastructure keeps its art, and
+// so does the forest of a season whose crown set the catalog lacks.
 func (s *Scene) scatterCrowns(at func(hexgrid.Coord) Hex, has func(string) bool) {
-	if !crownSet(has) {
+	var seasons []crownSeason
+	for _, cs := range crownSeasons {
+		if crownSet(cs.species, has) {
+			seasons = append(seasons, cs)
+		}
+	}
+	if len(seasons) == 0 {
 		return
 	}
 	g := s.Grid
-	open := func(c hexgrid.Coord) bool {
+	// forestOf returns the season whose scattered forest c is.
+	forestOf := func(c hexgrid.Coord) (crownSeason, bool) {
 		h := at(c)
-		return len(h.Infra) == 0 && (h.Terrain == "forest" || h.Terrain == "grass")
+		for _, cs := range seasons {
+			if h.Terrain == cs.forest && len(h.Infra) == 0 {
+				return cs, true
+			}
+		}
+		return crownSeason{}, false
+	}
+	open := func(c hexgrid.Coord, cs crownSeason) bool {
+		h := at(c)
+		return len(h.Infra) == 0 && (h.Terrain == cs.forest || h.Terrain == cs.grass)
 	}
 	for l := range s.Cells {
 		for col := range s.Cells[l] {
-			if c := (hexgrid.Coord{Line: l, Col: col}); at(c).Terrain == "forest" && open(c) {
+			if cs, ok := forestOf(hexgrid.Coord{Line: l, Col: col}); ok {
 				cell := &s.Cells[l][col]
 				cell.Standing = slices.DeleteFunc(cell.Standing, func(id string) bool { return strings.HasPrefix(id, "standing/context/forest/") })
+				if floor := baseTile(cs.grass, l, col, has); cs.snowFloor && has(floor) {
+					cell.Background, cell.Context = floor, ""
+				}
 			}
 		}
 	}
@@ -91,14 +126,18 @@ func (s *Scene) scatterCrowns(at func(hexgrid.Coord) Hex, has func(string) bool)
 			wx := edgeWander * (2*valueNoise(px/edgeWavelength, py/edgeWavelength, 1) - 1)
 			wy := edgeWander * (2*valueNoise(px/edgeWavelength, py/edgeWavelength, 2) - 1)
 			src, ok := g.PixelToHex(px+wx, py+wy)
-			if !ok || at(src).Terrain != "forest" || !open(src) {
+			if !ok {
+				continue
+			}
+			cs, ok := forestOf(src)
+			if !ok {
 				continue
 			}
 			owner, ok := g.PixelToHex(px, py)
-			if !ok || !open(owner) {
+			if !ok || !open(owner, cs) {
 				continue
 			}
-			sp := CrownSpecies[min(len(CrownSpecies)-1, int(valueNoise(px/standWavelength, py/standWavelength, 3)*float64(len(CrownSpecies))))]
+			sp := cs.species[min(len(cs.species)-1, int(valueNoise(px/standWavelength, py/standWavelength, 3)*float64(len(cs.species))))]
 			x = mix(x)
 			size := CrownSizes[pick(unit(x), crownWeights)]
 			cx, cy := hexgrid.Center(owner)

@@ -21,11 +21,12 @@ func forestMap(w, l, from, to int) (hexgrid.Grid, func(hexgrid.Coord) Hex) {
 	}
 }
 
-// withCrowns reports the crown set, their shadows and every baked forest crown.
+// withCrowns reports the crown set, their shadows, every baked forest crown
+// and the snow tile.
 func withCrowns(id string) bool {
 	return strings.HasPrefix(id, "standing/scatter/crown/") || strings.HasPrefix(id, "standing/shadow/scatter/crown/") ||
 		strings.HasPrefix(id, "context/forest/") || strings.HasPrefix(id, "standing/context/forest/") ||
-		strings.HasPrefix(id, "standing/shadow/context/forest/")
+		strings.HasPrefix(id, "standing/shadow/context/forest/") || id == TileID("grass_w")
 }
 
 func TestCrownScatterFillsInteriorForest(t *testing.T) {
@@ -38,6 +39,9 @@ func TestCrownScatterFillsInteriorForest(t *testing.T) {
 			counts = append(counts, len(cell.Scatter))
 			if slices.ContainsFunc(cell.Standing, func(id string) bool { return strings.HasPrefix(id, "standing/context/forest/") }) {
 				t.Fatalf("%d,%d keeps its baked crowns %v", l, col, cell.Standing)
+			}
+			if !strings.HasPrefix(cell.Background, "context/forest/") {
+				t.Fatalf("%d,%d drops its forest floor for %s", l, col, cell.Background)
 			}
 			if len(cell.Shadows) != 0 {
 				t.Fatalf("%d,%d keeps baked shadows %v", l, col, cell.Shadows)
@@ -170,5 +174,80 @@ func TestScatterShadowsPairTheirCrowns(t *testing.T) {
 		if shadows[i].ID != ShadowID(crowns[i].ID) || shadows[i].X != crowns[i].X || shadows[i].Y != crowns[i].Y {
 			t.Fatalf("shadow %v for crown %v", shadows[i], crowns[i])
 		}
+	}
+}
+
+// winterMap is forestMap in winter.
+func winterMap(w, l, from, to int) (hexgrid.Grid, func(hexgrid.Coord) Hex) {
+	g, at := forestMap(w, l, from, to)
+	return g, func(c hexgrid.Coord) Hex {
+		h := at(c)
+		h.Terrain += "_w"
+		return h
+	}
+}
+
+func TestCrownScatterFillsWinterForestWithWinterCrowns(t *testing.T) {
+	g, at := winterMap(12, 24, 4, 20)
+	s := Compose(g, at, withCrowns)
+	sum, n := 0, 0
+	species := map[string]bool{}
+	for l := range s.Cells {
+		for col := range s.Cells[l] {
+			cell := s.Cells[l][col]
+			if l >= 8 && l < 16 && col >= 4 && col < 8 {
+				sum += len(cell.Scatter)
+				n++
+				if slices.ContainsFunc(cell.Standing, func(id string) bool { return strings.HasPrefix(id, "standing/context/forest/") }) {
+					t.Fatalf("%d,%d keeps its baked crowns %v", l, col, cell.Standing)
+				}
+				// Bare winter woods stand on snow, not on the dark floor of the
+				// baked contexts.
+				if cell.Background != TileID("grass_w") || cell.Context != "" {
+					t.Fatalf("%d,%d stands on %s (context %q), want the snow tile", l, col, cell.Background, cell.Context)
+				}
+			}
+			for _, p := range cell.Scatter {
+				species[strings.Split(strings.TrimPrefix(p.ID, "standing/scatter/crown/"), "-")[0]] = true
+			}
+		}
+	}
+	if mean := float64(sum) / float64(n); mean < 20 || mean > 30 {
+		t.Fatalf("%.1f crowns per interior winter hex, want about 25", mean)
+	}
+	for sp := range species {
+		if !slices.Contains(WinterCrownSpecies, sp) {
+			t.Fatalf("winter forest scatters %q (species %v)", sp, species)
+		}
+	}
+	if len(species) < 2 {
+		t.Fatalf("one species only: %v", species)
+	}
+}
+
+func TestCrownScatterNeedsTheSeasonsWholeSet(t *testing.T) {
+	summerOnly := func(id string) bool {
+		for _, sp := range WinterCrownSpecies {
+			if strings.Contains(id, "/scatter/crown/"+sp+"-") {
+				return false
+			}
+		}
+		return withCrowns(id)
+	}
+	g, at := winterMap(12, 24, 4, 20)
+	s := Compose(g, at, summerOnly)
+	for l := range s.Cells {
+		for col := range s.Cells[l] {
+			if len(s.Cells[l][col].Scatter) != 0 {
+				t.Fatalf("%d,%d scatters crowns in winter without the winter set", l, col)
+			}
+		}
+	}
+	if !slices.ContainsFunc(s.Cells[10][5].Standing, func(id string) bool { return strings.HasPrefix(id, "standing/context/forest/") }) {
+		t.Fatalf("the baked winter crowns went away: %v", s.Cells[10][5].Standing)
+	}
+	g, at = forestMap(12, 24, 4, 20)
+	if s := Compose(g, at, summerOnly); len(s.Cells[10][5].Scatter) == 0 {
+		t.Fatal("summer forest needs the winter set")
 	}
 }

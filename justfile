@@ -37,7 +37,7 @@ _build-dir:
 _packs: _build-dir
     mkdir -p build/packs
     [ -d build/packs/units ] || go run ./cmd/hlasset build-units -out build/packs/units
-    { grep -qs terraingrade-v3 build/packs/terrain/grade && grep -qs terrainlight-v1 build/packs/terrain/grade; } || { rm -rf build/packs/terrain; go run ./cmd/hlasset build-terrain -out build/packs/terrain; }
+    { grep -qs terraingrade-v3 build/packs/terrain/grade && grep -qs terrainlight-v1 build/packs/terrain/grade && [ build/packs/terrain/grade -nt assets/index.json ]; } || { rm -rf build/packs/terrain; go run ./cmd/hlasset build-terrain -out build/packs/terrain; }
     grep -qs surface/plate-4 build/packs/screens/1x/surface/manifest.json || { rm -rf build/packs/screens; go run ./cmd/hlasset build-screens -out build/packs/screens; }
 
 # Play with the candidate unit, terrain and screen art

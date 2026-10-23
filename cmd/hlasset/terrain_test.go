@@ -354,8 +354,8 @@ func TestTerrainGapsReport(t *testing.T) {
 	}
 	for _, want := range []string{
 		"level1_cp: 156 context tiles selected, 0 missing, 0 undefined, 0 compound issues",
-		"level2_cp: 233 context tiles selected, 0 missing, 0 undefined",
-		"level3_cp: 175 context tiles selected, 0 missing, 0 undefined",
+		"level2_cp: 59 context tiles selected, 0 missing, 0 undefined",
+		"level3_cp: 78 context tiles selected, 0 missing, 0 undefined",
 	} {
 		if !strings.Contains(s, want) {
 			t.Errorf("report lacks %q", want)

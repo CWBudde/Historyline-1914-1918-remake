@@ -3,8 +3,10 @@ package main
 import (
 	"io/fs"
 	"os"
+	"slices"
 	"testing"
 
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/maprender"
 	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
@@ -29,10 +31,19 @@ func TestTerrainGradeWinterTargets(t *testing.T) {
 			t.Fatal(err)
 		}
 		families := map[string][]cell{}
+		g := lvl.Grid()
 		for l, line := range lvl.Lines {
 			for c, h := range line {
 				if len(h.Infra.IDs) == 0 && h.Content == nil {
-					families[h.Terrain] = append(families[h.Terrain], cell{Row: l + 1, Col: c + 1})
+					f := h.Terrain
+					// Snow beside winter forest carries the crowns that the woodland
+					// edge spills over the hex edge, and their shadows: measured apart.
+					if f == "grass_w" && slices.ContainsFunc(g.Neighbors(hexgrid.Coord{Line: l, Col: c}), func(n hexgrid.Coord) bool {
+						return lvl.Lines[n.Line][n.Col].Terrain == "forest_w"
+					}) {
+						f = "grass_w by forest"
+					}
+					families[f] = append(families[f], cell{Row: l + 1, Col: c + 1})
 				}
 			}
 		}
@@ -49,7 +60,7 @@ func TestTerrainGradeWinterTargets(t *testing.T) {
 			}
 			plane := newLabPlane(halve(m.Image))
 			out := map[string]metrics{}
-			for _, f := range append([]string{"grass_w", "forest_w", "water"}, relief...) {
+			for _, f := range append([]string{"grass_w", "grass_w by forest", "forest_w", "water"}, relief...) {
 				if len(families[f]) > 0 {
 					out[f] = plane.measure(families[f])
 				}

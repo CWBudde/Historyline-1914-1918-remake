@@ -17,11 +17,11 @@ import (
 )
 
 // Every cast shadow on PULSE (scattered crowns, forest contexts beside
-// infrastructure) and on campaign map 23 (also tree props on the
-// meadow) follows the one light: it falls along 135°, 0.25 × its item's
-// diameter away. A scattered crown's diameter is its size; it and its shadow
+// infrastructure), on campaign map 23 (also tree props on the meadow) and on
+// the winter map Civil (winter crowns) follows the one light: it falls along
+// 135°, 0.25 × its item's diameter away. A scattered crown's diameter is its size; it and its shadow
 // have their own anchors, each rounded to the density grid, so the offset may
-// miss by up to 1/density world px per axis. Winter forest casts no shadow yet.
+// miss by up to 1/density world px per axis.
 func TestLightModelShadows(t *testing.T) {
 	r, err := maprender.New(os.DirFS("../../assets"))
 	if err != nil {
@@ -34,6 +34,7 @@ func TestLightModelShadows(t *testing.T) {
 	}{
 		{levels.FS, "level1_cp.json", []string{"standing/scatter/crown", "standing/context/forest"}},
 		{levels.Campaign, "campaign/level23_cp.json", []string{"standing/scatter/crown", "standing/props/trees"}},
+		{levels.FS, "level2_cp.json", []string{"standing/scatter/crown"}},
 	} {
 		raw, err := fs.ReadFile(src.fsys, src.name)
 		if err != nil {
