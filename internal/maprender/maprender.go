@@ -130,8 +130,8 @@ func (r *Renderer) Render(lvl *level.Level, density int, units bool) (Map, error
 	}, func(id string) bool { return r.has[id] })
 	w, h := Size(grid)
 	m := Map{Image: image.NewNRGBA(image.Rect(0, 0, w*density, h*density)), Gaps: scene.Gaps, Issues: scene.Issues}
-	// Backgrounds, cluster stamps, infrastructure, shadows and standing are separate
-	// full-map passes, as in the game.
+	// Backgrounds, cluster stamps with the ground props, infrastructure, shadows and
+	// standing are separate full-map passes, as in the game.
 	all := func(*mapcompose.Cluster) bool { return true }
 	for pass := range 5 {
 		for line, cells := range scene.Cells {
@@ -145,6 +145,8 @@ func (r *Renderer) Render(lvl *level.Level, density int, units bool) (Map, error
 				ids := [5][]string{{bg}, {stamp}, overlays, shadows, standing}[pass]
 				var scattered []mapcompose.Placed
 				switch pass {
+				case 1:
+					scattered = scene.GroundAt(at, all)
 				case 3:
 					scattered = scene.ScatterShadowsAt(at, all)
 				case 4:

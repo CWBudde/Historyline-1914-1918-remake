@@ -168,9 +168,17 @@ func terrainShadows(s *mapcompose.Scene, c hexgrid.Coord, fog func(hexgrid.Coord
 	return s.ShadowsAt(c, known), f == state.Seen
 }
 
-// terrainScatter returns the scattered crowns of hex c (or their shadows) under
-// the fog rules of standing items.
-func terrainScatter(s *mapcompose.Scene, c hexgrid.Coord, fog func(hexgrid.Coord) state.Fog, shadows bool) ([]mapcompose.Placed, bool) {
+// scatterLayers are the scattered items drawn after the tiles of a pass: ground
+// props after the cluster stamps, then the crowns' cast shadows, then the crowns.
+var scatterLayers = [5]func(*mapcompose.Scene, hexgrid.Coord, func(*mapcompose.Cluster) bool) []mapcompose.Placed{
+	1: (*mapcompose.Scene).GroundAt,
+	3: (*mapcompose.Scene).ScatterShadowsAt,
+	4: (*mapcompose.Scene).ScatterAt,
+}
+
+// terrainScatter returns the items of one scatter layer of hex c under the fog
+// rules of standing items.
+func terrainScatter(s *mapcompose.Scene, c hexgrid.Coord, fog func(hexgrid.Coord) state.Fog, layer func(*mapcompose.Scene, hexgrid.Coord, func(*mapcompose.Cluster) bool) []mapcompose.Placed) ([]mapcompose.Placed, bool) {
 	f := fog(c)
 	if f == state.Unseen {
 		return nil, false
@@ -178,10 +186,7 @@ func terrainScatter(s *mapcompose.Scene, c hexgrid.Coord, fog func(hexgrid.Coord
 	known := func(cl *mapcompose.Cluster) bool {
 		return !slices.ContainsFunc(cl.Cells, func(x hexgrid.Coord) bool { return fog(x) == state.Unseen })
 	}
-	if shadows {
-		return s.ScatterShadowsAt(c, known), f == state.Seen
-	}
-	return s.ScatterAt(c, known), f == state.Seen
+	return layer(s, c, known), f == state.Seen
 }
 
 // drawTerrainTile draws id with its anchor on screen point (sx, sy).
@@ -211,8 +216,9 @@ func (g *game) drawTerrainTile(dst *ebiten.Image, id string, sx, sy float64, dim
 
 // drawTerrain draws the composed terrain of the hexes in view (in line, then
 // column order): every background first, then the cluster stamps, the
-// infrastructure, cast shadows and standing items. Every shadow is drawn before
-// every crown, so a later hex's shadow cannot cover an earlier crown.
+// infrastructure, cast shadows and standing items, each pass with its scattered
+// items (ground props after the stamps). Every shadow is drawn before every crown,
+// so a later hex's shadow cannot cover an earlier crown.
 func (g *game) drawTerrain(dst *ebiten.Image, inView []hexgrid.Coord) {
 	s := &g.terrain.scene
 	cells := withClusterAnchors(s, inView)
@@ -233,8 +239,8 @@ func (g *game) drawTerrain(dst *ebiten.Image, inView []hexgrid.Coord) {
 					g.drawTerrainTile(dst, id, sx, sy, dim, at)
 				}
 			}
-			if pass >= 3 {
-				scattered, dim := terrainScatter(s, c, g.fogOf, pass == 3)
+			if layer := scatterLayers[pass]; layer != nil {
+				scattered, dim := terrainScatter(s, c, g.fogOf, layer)
 				cx, cy := hexgrid.Center(c)
 				for _, p := range scattered {
 					px, py := g.cam.WorldToScreen(cx+p.X, cy+p.Y)

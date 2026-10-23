@@ -123,7 +123,10 @@ Image 1 is the broad meadow tone this close-up texture will be laid over: take o
 prop sheet in a 4×4 grid. Item sizes are 0.77–1.45× the spec, every item stays in its cell, and the
 tufts read as plan-view blade stars over the meadow. Faults: soil flecks 1.45× too large, straw too warm
 (mean 164,138,80 against 178,160,94), a thin semi-solid backing under tufts and flowers, and alpha haze
-(1–31) in the gutters, so cutting needs an alpha threshold. Not selected; no scatter layer uses it yet.
+(1–31) in the gutters, so cutting needs an alpha threshold. Installed as the meadow props (2026-10-23): `hlkit` cuts
+the haze, scales each item to its size and grades the soil to 112,100,62 and the straw to 150,140,78; the
+largest straw patch stays out (figure-sized and too loud at 1×), and `mapcompose/props.go` scatters the
+other fifteen.
 Attached: RefDesign2 meadow crops r7c5–r8c4 and r16c4–r19c4 and the G1 candidate result.
 The prompt was the `art/style.md` Preamble and Terrain text, then:
 

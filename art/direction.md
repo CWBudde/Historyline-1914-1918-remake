@@ -146,7 +146,7 @@ parts. "The G1 result" in the prompts below means the combined material.
 | --- | --- | --- | --- | --- |
 | G1a tone | 1536×1024 opaque | 568×400 (300 × 200 m), the material period | 2.56 | colour; patches 10–40 world px |
 | G1b texture | 1536×1024 opaque | 189⅓×133⅓ (100 × 70 m), tiled 3×3 per period | 7.68 | tufts and blades, 3–10 world px |
-| G2 props | see G2 | scattered by code | 10 | single tufts, flowers, straw, soil, pebbles |
+| G2 props | see G2 | scattered by code (density table in `mapcompose/props.go`) | 10 | single tufts, flowers, straw, soil, pebbles |
 
 G1b's period is fractional on purpose: 4×4 would repeat it every 142 world px, the hex column step, and
 the detail would repeat with the lattice. Prompts do not ask for tiling; code blends the period edges

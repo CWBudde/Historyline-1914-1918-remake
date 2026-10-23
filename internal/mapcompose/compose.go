@@ -23,6 +23,7 @@ type Cell struct {
 	Standing   []string // asset IDs
 	Shadows    []string // cast shadows, drawn before all standing items
 	Scatter    []Placed // scattered crowns, drawn after Standing
+	Ground     []Placed // scattered ground props, drawn after the cluster stamps
 	Context    Family   // set when Background is a context tile
 	// Cluster is the 1-based index of the hex's cluster in Scene.Clusters, 0 for
 	// none; Under is the base tile drawn instead of Background under its stamp.
@@ -111,6 +112,7 @@ func Compose(g hexgrid.Grid, at func(hexgrid.Coord) Hex, has func(id string) boo
 	s.registerCompounds(at, has)
 	s.registerClusters(at, has)
 	s.scatterCrowns(at, has)
+	s.scatterProps(at, has)
 	for l := range s.Cells {
 		for col := range s.Cells[l] {
 			cell := &s.Cells[l][col]

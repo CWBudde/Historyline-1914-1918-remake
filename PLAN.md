@@ -527,6 +527,21 @@ cross at every period corner. (2026-10-23)
       straw too warm, gutter haze needs an alpha threshold. No scatter layer yet.
       `hlkit` scales each G2 item to its size, clears the haze and grades the straw to
       178,160,94; its checks pass. The thin backing under tufts and flowers stays. (2026-10-23)
+      Partial (2026-10-23): meadow props are scattered in game and in the PULSE render
+      (`mapcompose/props.go`). `hlkit -install assets` installs fifteen G2 items, with the soil graded to
+      112,100,62 and the straw to 150,140,78; the 22-px straw patch stays out.
+      Each class has its own Poisson-disc site set in map pixels, seeded by position. A density table
+      thins it: on grass 8 tufts, 1.2 flowers, 0.8 soil, 0.5 straw and 0.8 pebbles per hex; hills have
+      their own row, without flowers. Tests pin the class distance, the counts (within 20 % of the
+      table) and that the placement is local.
+      On PULSE: grass σL\* 5.99 → 6.18, edge density 0.056 → 0.065, and the six lattice correlations
+      drop by 0.04–0.11.
+      Open:
+      - unit edge contrast on grass falls slightly (median 12.07 → 11.87 L\*); the fix is the unit rim in
+        Look 1;
+      - grass hexes with infrastructure get no props;
+      - tufts read as dark stars at 2×.
+      Before/after under `build/review/meadow-props/`.
 - [ ] Hills: generate G3 (hummock and scrub overlay), 4–6 L\* darker than grass, with 6–10 scrub props per
       hex. Done when 18 of 20 random hills hexes are named correctly at 1×.
       G3 candidate `hills-hummock-summer-v1.png` (2026-10-23): reads as hills at 1×, ΔL\* −6.3, but

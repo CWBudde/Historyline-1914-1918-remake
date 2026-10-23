@@ -78,7 +78,7 @@ Cut-out sheets (crowns, props, stones, wire) become world-scale sprites with
 gives each sheet its grid, alpha cut, painting scale, per-cell world size and colour target. The command
 writes each item at 2× and 4× with its anchor, a contact sheet over the meadow, and `kits.json` with the
 checks; `-check` fails while any check fails. `-install assets` installs the cells with a `runtime` ID
-(so far the forest crowns, below); the other sheets wait for their scatter layers.
+(the forest crowns and the meadow props, below); the other sheets wait for their scatter layers.
 
 Clusters are connected hexes of one kind: `crater` (`mud`), `boulders` (`stone`), `knoll` (`mountain`),
 `lake` (`water`, `waterStones`, `lakeside*`); the winter kinds (`shelled_w`, `stoney_w`, `mountain_w`) end
@@ -119,6 +119,13 @@ Sites lie on a jittered 15-px grid; a site carries a crown when the hex under it
 low-frequency wander, is forest without infrastructure, so the woodland edge leaves the hex edge. Species
 follow a slower noise. A crown is drawn with the standing items of the hex under its own site, at its
 offset; the scatter replaces the baked crowns and shadows of those forest hexes.
+Meadow props (`props.go`) are the fifteen `standing/scatter/meadow/<tuft|flowers|soil|straw|pebbles>-<n>`
+items of the G2 sheet, numbered small to large, with their painted shadows only. Each class has its own
+Poisson-disc site set in map pixels (least distance its largest item), thinned by a density table per
+terrain family (grass and hills) and a slow drift noise. An item needs grass or hills without
+infrastructure under its whole footprint. Props draw after the cluster stamps and before the
+infrastructure, under every shadow and standing item, with the same fog rules; none show under a drawn
+stamp.
 Summer forest splits each of its 64 ground contexts into mossy floor, whole crowns
 (`standing/context/forest/<key>`) and cast shadow (`standing/shadow/context/forest/<key>`).
 Shadows draw after all infrastructure and before all standing items, with the same fog rules.
