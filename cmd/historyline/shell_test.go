@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+	"strings"
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
@@ -213,5 +215,54 @@ func TestHitFindsButtons(t *testing.T) {
 	}
 	if i := s.hit(600, 10); i != -1 {
 		t.Fatalf("hit %d outside", i)
+	}
+}
+
+func TestCodeEntryPasswords(t *testing.T) {
+	s := testShell(t)
+	pw := make([]string, 72)
+	for i := range pw {
+		pw[i] = fmt.Sprintf("PW%03d", i)
+	}
+	withPasswords(s.maps, pw)
+	if s.maps[0].code() != "PULSE" || s.maps[3+5].code() != "PW005" {
+		t.Fatalf("codes %q %q", s.maps[0].code(), s.maps[3+5].code())
+	}
+	enter := func(code string) {
+		s.activate(1)
+		for _, r := range code {
+			s.typeRune(r)
+		}
+		s.key(keyEnter)
+	}
+	// The password selects its map; the number still does.
+	enter("pw030")
+	if s.maps[s.code].name != "original/30" || s.buttons()[1].label != "CODE  PW030" {
+		t.Fatalf("pw030 selected %s, %q", s.maps[s.code].name, s.buttons()[1].label)
+	}
+	enter("05")
+	if s.maps[s.code].name != "original/05" {
+		t.Fatalf("05 selected %s", s.maps[s.code].name)
+	}
+	// A victory shows the next map's password.
+	next := s.maps[s.code].next
+	s.finish(outcome{won: true})
+	if next < 0 || s.result.next != s.maps[next].password {
+		t.Fatalf("next %d, shown %q", next, s.result.next)
+	}
+}
+
+func TestLocalPasswords(t *testing.T) {
+	pw := localPasswords()
+	if pw == nil {
+		t.Skip("no original files")
+	}
+	if len(pw) != 72 {
+		t.Fatalf("%d passwords", len(pw))
+	}
+	for i, p := range pw {
+		if len(p) != 5 || strings.ToUpper(p) != p {
+			t.Errorf("map %d: password of %d letters", i, len(p))
+		}
 	}
 }

@@ -38,15 +38,21 @@ const (
 
 // mapLevel is a map of the menu: a shipped level, or an imported original map
 // with its exact board. Its code is the map name in capitals, an original
-// map's number ("05").
+// map's number ("05"), or its password when the local original files give it.
 type mapLevel struct {
-	name  string // -level name: file name without .json, or original/NN
-	lvl   *level.Level
-	board *dosbind.Board // an original map's binding; nil for a shipped level
-	next  int            // the map a victory leads to, -1 for none
+	name     string // -level name: file name without .json, or original/NN
+	lvl      *level.Level
+	board    *dosbind.Board // an original map's binding; nil for a shipped level
+	next     int            // the map a victory leads to, -1 for none
+	password string         // an original map's password, "" without the local original files
 }
 
-func (m mapLevel) code() string { return strings.ToUpper(m.lvl.MapName) }
+func (m mapLevel) code() string {
+	if m.password != "" {
+		return m.password
+	}
+	return strings.ToUpper(m.lvl.MapName)
+}
 
 // loadCampaign loads the shipped maps in their order (level1_cp, level2_cp, …),
 // then the imported original maps 00-71, from dir where present, else the
@@ -377,7 +383,7 @@ func (s *shell) typeRune(r rune) {
 func (s *shell) enterCode() {
 	s.typing = false
 	for i, m := range s.maps {
-		if m.code() == s.typed {
+		if m.code() == s.typed || strings.ToUpper(m.lvl.MapName) == s.typed {
 			s.code = i
 			s.note = [2]string{"Map " + m.lvl.MapName + " selected."}
 			return
