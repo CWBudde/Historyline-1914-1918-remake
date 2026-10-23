@@ -228,12 +228,11 @@ func (g *game) ownerShown(c hexgrid.Coord) state.Player {
 	return m.Owner
 }
 
-// ownerColour marks the two sides' buildings.
+// ownerColour marks the two sides' buildings and unit plates in their
+// minimap colours, as the original does: the German side blue, the Entente
+// yellow.
 func ownerColour(p state.Player) color.RGBA {
-	if p == state.CentralPowers {
-		return color.RGBA{215, 175, 40, 255}
-	}
-	return color.RGBA{60, 130, 230, 255}
+	return sideShade(p).Lit
 }
 
 // rememberedUnit is the colour of a last-seen unit (main view and minimap).
