@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"strings"
 	"testing"
 
@@ -40,9 +39,9 @@ func TestCampaignOrderAndCodes(t *testing.T) {
 	for _, m := range s.maps {
 		codes = append(codes, m.code())
 	}
-	// The shipped levels, then the original maps 00-71.
+	// The shipped levels, then the original maps 00-71 by their passwords.
 	if len(codes) != 75 || codes[0] != "PULSE" || codes[1] != "CIVIL" || codes[2] != "MOUSE" ||
-		codes[3] != "00" || codes[74] != "71" {
+		s.maps[3].name != "original/00" || codes[3] != "PULSE" || s.maps[74].name != "original/71" {
 		t.Fatalf("codes %v", codes)
 	}
 	for i, m := range s.maps {
@@ -180,7 +179,11 @@ func TestVictorySelectsTheNextMap(t *testing.T) {
 	}{{2, "03"}, {3 + 3, "04"}, {3 + 22, "23"}, {3 + 23, ""}, {3 + 24, "25"}, {3 + 47, ""}, {3 + 48, "49"}, {3 + 71, ""}} {
 		s.code = c.from
 		s.finish(outcome{won: true})
-		if s.result.next != c.next || c.next == "" && s.code != c.from {
+		want, shown := s.maps[c.from].name, ""
+		if c.next != "" {
+			want, shown = originalPrefix+c.next, s.maps[s.code].password
+		}
+		if s.maps[s.code].name != want || s.result.next != shown {
 			t.Errorf("victory on %s: next %q, map %s", s.maps[c.from].name, s.result.next, s.maps[s.code].name)
 		}
 	}
@@ -220,13 +223,17 @@ func TestHitFindsButtons(t *testing.T) {
 
 func TestCodeEntryPasswords(t *testing.T) {
 	s := testShell(t)
-	pw := make([]string, 72)
-	for i := range pw {
-		pw[i] = fmt.Sprintf("PW%03d", i)
-	}
-	withPasswords(s.maps, pw)
-	if s.maps[0].code() != "PULSE" || s.maps[3+5].code() != "PW005" {
-		t.Fatalf("codes %q %q", s.maps[0].code(), s.maps[3+5].code())
+	// Every original map has its own five-letter password; maps 00-02 share
+	// theirs with the shipped levels transcribed from them.
+	seen := map[string]bool{}
+	for i, m := range s.maps[3:] {
+		if len(m.password) != 5 || strings.ToUpper(m.password) != m.password || seen[m.password] {
+			t.Errorf("map %02d: password %q", i, m.password)
+		}
+		seen[m.password] = true
+		if i < 3 && m.password != s.maps[i].code() {
+			t.Errorf("map %02d: password %q, shipped %q", i, m.password, s.maps[i].code())
+		}
 	}
 	enter := func(code string) {
 		s.activate(1)
@@ -236,33 +243,27 @@ func TestCodeEntryPasswords(t *testing.T) {
 		s.key(keyEnter)
 	}
 	// The password selects its map; the number still does.
-	enter("pw030")
-	if s.maps[s.code].name != "original/30" || s.buttons()[1].label != "CODE  PW030" {
-		t.Fatalf("pw030 selected %s, %q", s.maps[s.code].name, s.buttons()[1].label)
+	enter(strings.ToLower(s.maps[3+30].password))
+	if s.maps[s.code].name != "original/30" || s.buttons()[1].label != "CODE  "+s.maps[3+30].password {
+		t.Fatalf("map 30's password selected %s, %q", s.maps[s.code].name, s.buttons()[1].label)
 	}
 	enter("05")
-	if s.maps[s.code].name != "original/05" {
-		t.Fatalf("05 selected %s", s.maps[s.code].name)
+	if s.maps[s.code].name != "original/05" || s.maps[s.code].code() != "RIGHT" {
+		t.Fatalf("05 selected %s, code %q", s.maps[s.code].name, s.maps[s.code].code())
+	}
+	// The shipped level keeps its code; its original map is reached by number.
+	enter("MOUSE")
+	if s.maps[s.code].name != "level3_cp" {
+		t.Fatalf("MOUSE selected %s", s.maps[s.code].name)
+	}
+	enter("02")
+	if s.maps[s.code].name != "original/02" {
+		t.Fatalf("02 selected %s", s.maps[s.code].name)
 	}
 	// A victory shows the next map's password.
-	next := s.maps[s.code].next
+	enter("05")
 	s.finish(outcome{won: true})
-	if next < 0 || s.result.next != s.maps[next].password {
-		t.Fatalf("next %d, shown %q", next, s.result.next)
-	}
-}
-
-func TestLocalPasswords(t *testing.T) {
-	pw := localPasswords()
-	if pw == nil {
-		t.Skip("no original files")
-	}
-	if len(pw) != 72 {
-		t.Fatalf("%d passwords", len(pw))
-	}
-	for i, p := range pw {
-		if len(p) != 5 || strings.ToUpper(p) != p {
-			t.Errorf("map %d: password of %d letters", i, len(p))
-		}
+	if s.maps[s.code].name != "original/06" || s.result.next != s.maps[3+6].password {
+		t.Fatalf("after 05: %s, shown %q", s.maps[s.code].name, s.result.next)
 	}
 }

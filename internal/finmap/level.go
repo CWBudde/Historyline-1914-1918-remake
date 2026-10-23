@@ -97,9 +97,7 @@ type Source struct {
 
 // Mission is the map's CODES.DAT record and the sides it implies.
 type Mission struct {
-	// Code is the map's password and name; the level files leave it out
-	// (an original string).
-	Code    string `json:"-"`
+	Code    string `json:"code"` // the map's password, its code in the menu
 	Players int    `json:"players"`
 	// HumanSides: with one player, maps below 24 give side 1 to the
 	// computer and the others side 0; with two players both are human.

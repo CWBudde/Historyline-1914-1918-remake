@@ -50,7 +50,7 @@ func TestExtractSynthetic(t *testing.T) {
 	if err := json.Unmarshal(raw, &l); err != nil {
 		t.Fatal(err)
 	}
-	if l.Version != finmap.Version || l.Source.Map != "01" || l.Mission == nil || l.Mission.Next != nil || !l.Mission.Winter || strings.Contains(string(raw), "BBBBB") {
+	if l.Version != finmap.Version || l.Source.Map != "01" || l.Mission == nil || l.Mission.Next != nil || !l.Mission.Winter || l.Mission.Code != "BBBBB" {
 		t.Fatalf("level %s", raw)
 	}
 	if len(l.Units) != 1 || l.Units[0].Type != 18 || l.Units[0].Side != 0 || len(l.Producible) != finmap.TypeCount || !l.Computer {

@@ -1250,9 +1250,9 @@ own and leaves the game playable.
       (2026-10-22) — `internal/finmap` decodes the map, container, computer and mission files;
       `just levels-import` writes the 72 maps and STATMAP of the full game to `levels/original/` (numbers
       only: terrain records, units, buildings, container records with energy, producible types, players,
-      human sides, winter, next map). `TestCommitted*` always run; `TestCommittedCurrent` and
-      `TestOriginal*` check against the local original files. Not decoded: the computer player's
-      parameters; passwords are left out.
+      human sides, winter, next map, and the password as the map's menu code). `TestCommitted*` always
+      run; `TestCommittedCurrent` and `TestOriginal*` check against the local original files. Not
+      decoded: the computer player's parameters.
 - [x] Remaining campaign maps for both sides (only `*_cp` exist). (2026-10-22) — all 72 maps play on the
       original rules with `-level original/NN` (embedded for the web build): `dosbind.FromOriginal` binds
       the imported records exactly (ships with their rears, container contents, credits, producible types),

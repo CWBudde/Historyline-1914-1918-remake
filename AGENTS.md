@@ -77,7 +77,8 @@ just artbook     # build/artbook/Historyline_Art.pdf (needs typst)
 - `origin` is the fork CWBudde/Historyline-1914-1918-remake, `upstream` is PoulKalff; pass
   `-R CWBudde/Historyline-1914-1918-remake` to `gh`.
 - `original/` (local original game files) and `build/` are git-ignored. Never commit original bytes,
-  listings or strings; fixtures hold numbers only. Do not document reverse-engineering methods in the repo.
+  listings or strings; fixtures hold numbers only. The one exception are the maps' passwords, the menu
+  codes in `levels/original/`. Do not document reverse-engineering methods in the repo.
 - Generated output goes under `build/packs/<name>`, `build/web`, `build/manual`, `build/artbook`,
   `build/review/<name>/` or `build/scratch/`, never loose files at the `build/` top level; `just clean` wipes it.
 - Keep docs short and current: describe what is, not how it came to be.

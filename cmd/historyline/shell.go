@@ -38,13 +38,13 @@ const (
 
 // mapLevel is a map of the menu: a shipped level, or an imported original map
 // with its exact board. Its code is the map name in capitals, an original
-// map's number ("05"), or its password when the local original files give it.
+// map's password; an original map also takes its number ("05").
 type mapLevel struct {
 	name     string // -level name: file name without .json, or original/NN
 	lvl      *level.Level
 	board    *dosbind.Board // an original map's binding; nil for a shipped level
 	next     int            // the map a victory leads to, -1 for none
-	password string         // an original map's password, "" without the local original files
+	password string         // an original map's password, "" for a shipped level
 }
 
 func (m mapLevel) code() string {
@@ -91,8 +91,11 @@ func loadCampaign(dir string, set *data.Set) ([]mapLevel, error) {
 			return nil, err
 		}
 		m := mapLevel{name: originalPrefix + stem, lvl: lvl, board: b, next: -1}
-		if l.Mission != nil && l.Mission.Next != nil {
-			m.next = shipped + *l.Mission.Next
+		if l.Mission != nil {
+			m.password = l.Mission.Code
+			if l.Mission.Next != nil {
+				m.next = shipped + *l.Mission.Next
+			}
 		}
 		maps = append(maps, m)
 	}

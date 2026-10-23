@@ -860,7 +860,6 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		withPasswords(campaign, localPasswords())
 		pageReady()
 		a := newApp(c, campaign, c.screens)
 		a.hd = loadHDArt(hd, *candidates)

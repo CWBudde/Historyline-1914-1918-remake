@@ -37,10 +37,9 @@ just clean      # delete all generated output under build/
 ```
 
 The game opens with a main menu laid out like the original's: start (country selection, then the battle),
-the map code (PULSE, CIVIL, MOUSE, then the original maps 00-71, or their passwords when the local
-`original/` files are present; a victory sets the next one), game values (full or short battles, the
-computer or a passive opponent, a move limit), control (fullscreen, scrolling) and extras (not available
-yet). In battle, Q asks whether to leave it; after its end Enter shows the outcome. `-level` or `-player`
+the map code (PULSE, CIVIL, MOUSE, then the original maps by their passwords or numbers 00-71; a victory
+sets the next one), game values (full or short battles, the computer or a passive opponent, a move limit),
+control (fullscreen, scrolling) and extras (not available yet). In battle, Q asks whether to leave it; after its end Enter shows the outcome. `-level` or `-player`
 skip the menu and start that battle directly.
 
 `-rules` picks the rule set (pass it after `just run` or `just play`): `dos` (default), the original order
