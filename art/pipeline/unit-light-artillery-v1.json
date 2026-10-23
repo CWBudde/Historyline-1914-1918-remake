@@ -1,7 +1,7 @@
 {
   "atlas": {
     "source": "art/units/light-artillery/atlas.png",
-    "source_sha256": "85146d1cd1ee82daec6dc95589165f7041cfb8a0ac5b087df4f333acd92a4789"
+    "source_sha256": "cba8e50b828abcba68e26d05f544721d5c6d164bb84e003eeba2a4ca48a7d127"
   },
   "family": "lightArtillery",
   "grounds": {

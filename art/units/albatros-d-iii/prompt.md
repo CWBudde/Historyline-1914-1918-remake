@@ -34,6 +34,9 @@ Selected atlas. `art-review -unit art/pipeline/unit-albatros-d-iii-v1.json` prod
 normal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.
 Installed under `assets/units/albatros-d-iii/`. Bound classes are listed above; final visual acceptance remains open.
 
+The atlas is imagegen output `exec-609af673`, preferred on the candidate desk over the earlier
+atlas (2026-10-23).
+
 ## Avoid
 - water, wakes, reflections, ground shadows, backdrop or detached fragments
 - labels, national insignia, clipped extremities or inconsistent equipment between views

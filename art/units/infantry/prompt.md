@@ -35,6 +35,9 @@ anchor and framing inset, splits the magenta into a tint mask and recolours it t
 sprite. Exports 2x (192x192) and 4x (384x384) of the 96x96 logical sprite, anchor (48,49);
 `unit/infantry/<palette>/<facing>-<state>`. Promote into `assets/units/infantry/` and re-index.
 
+The atlas is imagegen output `exec-7390dd78`, preferred on the candidate desk over the earlier
+atlas (2026-10-23).
+
 ## Avoid
 - rotated or mirrored copies of one view
 - ground, shadows, haze or backdrop

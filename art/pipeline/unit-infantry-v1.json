@@ -1,7 +1,7 @@
 {
   "atlas": {
     "source": "art/units/infantry/atlas.png",
-    "source_sha256": "a81cbe6bc35d4e0709e9b1fdaf6690821f303e77d61b1717eb88369c333a8b80"
+    "source_sha256": "a151ab9f110782ead6eba6bc4af3b4a17eb789204c5f19e4ca2e786614912290"
   },
   "family": "infantry",
   "framing_inset": 0.95,

@@ -33,6 +33,9 @@ Selected six-view atlas. `art-review -unit art/pipeline/unit-a7v-v1.json` produc
 normal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.
 Installed under `assets/units/a7v/`. Bound classes are listed above; final visual acceptance remains open.
 
+The atlas is imagegen output `exec-7548a34e`, preferred on the candidate desk over the earlier
+atlas (2026-10-23).
+
 ## Avoid
 - terrain, ground shadows, backdrop, baked labels or national insignia
 - clipped extremities, mirrored views or changed camera between facings

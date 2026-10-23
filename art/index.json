@@ -11145,7 +11145,7 @@
       "masters": [
         {
           "path": "art/units/a7v/atlas.png",
-          "sha256": "43ff88236a2ed8c91ac73baa1618d48fc1ff416ce2401af8b165cea7fa24818d",
+          "sha256": "ee83b0d2b6d0ac96b2861c6f943116653c6788100063703860178680632d2884",
           "width": 1024,
           "height": 1536
         }
@@ -11185,7 +11185,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected six-view atlas. `art-review -unit art/pipeline/unit-a7v-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/a7v/`. Bound classes are listed above; final visual acceptance remains open.",
+      "post": "Selected six-view atlas. `art-review -unit art/pipeline/unit-a7v-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/a7v/`. Bound classes are listed above; final visual acceptance remains open.\n\nThe atlas is imagegen output `exec-7548a34e`, preferred on the candidate desk over the earlier\natlas (2026-10-23).",
       "avoid": [
         "terrain, ground shadows, backdrop, baked labels or national insignia",
         "clipped extremities, mirrored views or changed camera between facings"
@@ -11222,7 +11222,7 @@
       "masters": [
         {
           "path": "art/units/albatros-d-iii/atlas.png",
-          "sha256": "992525156c3c972c95f14b4571a273266cbb4ba4ad82b7f20a5df1ae0a9148ae",
+          "sha256": "94eea98091ea96b0987857b8191d7408a9fb20d4fbf7b3648bdfe325b162ff31",
           "width": 1024,
           "height": 1536
         }
@@ -11262,7 +11262,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected atlas. `art-review -unit art/pipeline/unit-albatros-d-iii-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/albatros-d-iii/`. Bound classes are listed above; final visual acceptance remains open.",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-albatros-d-iii-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/albatros-d-iii/`. Bound classes are listed above; final visual acceptance remains open.\n\nThe atlas is imagegen output `exec-609af673`, preferred on the candidate desk over the earlier\natlas (2026-10-23).",
       "avoid": [
         "water, wakes, reflections, ground shadows, backdrop or detached fragments",
         "labels, national insignia, clipped extremities or inconsistent equipment between views"
@@ -11865,7 +11865,7 @@
       "masters": [
         {
           "path": "art/units/construction-unit/atlas.png",
-          "sha256": "33571bb01f7c0aa9e931b751e50d1ff3fd0a8022e614a0de6534d331168a6f4f",
+          "sha256": "fd3e21f94399249155f742cddc3b3681f68d0527cc7599331674a8ab150990f2",
           "width": 1024,
           "height": 1536
         }
@@ -11905,7 +11905,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected atlas. `art-review -unit art/pipeline/unit-construction-unit-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/construction-unit/`. Bound classes are listed above; final visual acceptance remains open.",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-construction-unit-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/construction-unit/`. Bound classes are listed above; final visual acceptance remains open.\n\nThe atlas is imagegen output `exec-8cb2ca4b`, preferred on the candidate desk over the earlier\natlas (2026-10-23).",
       "avoid": [
         "water, wakes, reflections, ground shadows, backdrop or detached fragments",
         "labels, national insignia, clipped extremities or inconsistent equipment between views"
@@ -12563,7 +12563,7 @@
       "masters": [
         {
           "path": "art/units/gotha-g-vb/atlas.png",
-          "sha256": "91d337fd7badd8ddf127a9b3507a31b1bbd6f0ad18e085d8818bd77e327de751",
+          "sha256": "5078892103ff983bfcb1574f30136a10f4092aaa1bd586e7ebeabea1526d398a",
           "width": 1024,
           "height": 1536
         }
@@ -12603,7 +12603,7 @@
         }
       ],
       "edges": "",
-      "post": "Selected atlas. `art-review -unit art/pipeline/unit-gotha-g-vb-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/gotha-g-vb/`. Bound classes are listed above; final visual acceptance remains open.",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-gotha-g-vb-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/gotha-g-vb/`. Bound classes are listed above; final visual acceptance remains open.\n\nThe atlas is imagegen output `exec-cd1616ce`, preferred on the candidate desk over the earlier\natlas (2026-10-23).",
       "avoid": [
         "water, wakes, reflections, ground shadows, backdrop or detached fragments",
         "labels, national insignia, clipped extremities or inconsistent equipment between views"
@@ -12800,7 +12800,7 @@
       "masters": [
         {
           "path": "art/units/infantry/atlas.png",
-          "sha256": "a81cbe6bc35d4e0709e9b1fdaf6690821f303e77d61b1717eb88369c333a8b80",
+          "sha256": "a151ab9f110782ead6eba6bc4af3b4a17eb789204c5f19e4ca2e786614912290",
           "width": 1024,
           "height": 1536
         }
@@ -12840,7 +12840,7 @@
         }
       ],
       "edges": "",
-      "post": "`art-review -unit art/pipeline/unit-infantry-v1.json` slices the atlas into the six facings with a fixed\nanchor and framing inset, splits the magenta into a tint mask and recolours it to the owner palettes\n`cp`, `ec` and `neutral` from the manifest, and derives the `spent` state (greyscale) from each tinted\nsprite. Exports 2x (192x192) and 4x (384x384) of the 96x96 logical sprite, anchor (48,49);\n`unit/infantry/<palette>/<facing>-<state>`. Promote into `assets/units/infantry/` and re-index.",
+      "post": "`art-review -unit art/pipeline/unit-infantry-v1.json` slices the atlas into the six facings with a fixed\nanchor and framing inset, splits the magenta into a tint mask and recolours it to the owner palettes\n`cp`, `ec` and `neutral` from the manifest, and derives the `spent` state (greyscale) from each tinted\nsprite. Exports 2x (192x192) and 4x (384x384) of the 96x96 logical sprite, anchor (48,49);\n`unit/infantry/<palette>/<facing>-<state>`. Promote into `assets/units/infantry/` and re-index.\n\nThe atlas is imagegen output `exec-7390dd78`, preferred on the candidate desk over the earlier\natlas (2026-10-23).",
       "avoid": [
         "rotated or mirrored copies of one view",
         "ground, shadows, haze or backdrop",
@@ -12959,7 +12959,7 @@
       "masters": [
         {
           "path": "art/units/light-artillery/atlas.png",
-          "sha256": "85146d1cd1ee82daec6dc95589165f7041cfb8a0ac5b087df4f333acd92a4789",
+          "sha256": "cba8e50b828abcba68e26d05f544721d5c6d164bb84e003eeba2a4ca48a7d127",
           "width": 1024,
           "height": 1536
         }
@@ -12999,7 +12999,7 @@
         }
       ],
       "edges": "",
-      "post": "`art-review -unit art/pipeline/unit-light-artillery-v1.json` slices the atlas into the six facings with a fixed\nanchor and framing inset, splits the magenta into a tint mask and recolours it to the owner palettes\n`cp`, `ec` and `neutral` from the manifest, and derives the `spent` state (greyscale) from each tinted\nsprite. Exports 2x (192x192) and 4x (384x384) of the 96x96 logical sprite, anchor (48,49);\n`unit/light-artillery/<palette>/<facing>-<state>`. Promote into `assets/units/light-artillery/` and re-index.",
+      "post": "`art-review -unit art/pipeline/unit-light-artillery-v1.json` slices the atlas into the six facings with a fixed\nanchor and framing inset, splits the magenta into a tint mask and recolours it to the owner palettes\n`cp`, `ec` and `neutral` from the manifest, and derives the `spent` state (greyscale) from each tinted\nsprite. Exports 2x (192x192) and 4x (384x384) of the 96x96 logical sprite, anchor (48,49);\n`unit/light-artillery/<palette>/<facing>-<state>`. Promote into `assets/units/light-artillery/` and re-index.\n\nThe atlas is imagegen output `exec-2b7881ae`, preferred on the candidate desk over the earlier\natlas (2026-10-23).",
       "avoid": [
         "rotated or mirrored copies of one view",
         "ground, shadows, haze or backdrop",
