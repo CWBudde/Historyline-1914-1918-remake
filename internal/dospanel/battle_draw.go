@@ -110,20 +110,20 @@ var (
 // around dark sepia ground, lit in the middle.
 func (p painter) field(cx, cy, a, b float64) {
 	rim := 2 * float64(p.bw())
-	q := max(1, int(math.Round(p.k)))
 	for y := int(cy - b - 1); y <= int(cy+b+1); y++ {
 		for x := int(cx - a - 1); x <= int(cx+a+1); x++ {
 			dx, dy := float64(x)+0.5-cx, float64(y)+0.5-cy
-			n := hexNorm(dx, dy, a, b)
-			if n > 1 || !(image.Point{x, y}).In(p.img.Rect) {
+			d, light := hexEdge(dx, dy, a, b)
+			cov := math.Min(1, d+0.5) // an antialiased edge
+			if cov <= 0 || !(image.Point{x, y}).In(p.img.Rect) {
 				continue
 			}
-			if d, light := hexEdge(dx, dy, a, b); d < rim {
-				p.img.SetRGBA(x, y, ramp(p.steelAt(x, y, toneBack-bevelTone*light)))
-				continue
+			n := math.Min(1, hexNorm(dx, dy, a, b))
+			c := p.steelColour(x, y, toneBack-bevelTone*light)
+			if g := math.Max(0, math.Min(1, d-rim+0.5)); g > 0 {
+				c = lerp(c, p.groundColour(x, y, 0.12+0.5*(1-n)*(1-n)), g)
 			}
-			t := 0.12 + 0.5*(1-n)*(1-n) + 0.05*grain(x/q, y/q) + 0.03*grain(x/(4*q), y/(3*q))
-			p.img.SetRGBA(x, y, lerp(fieldDark, fieldLight, t))
+			p.blend(x, y, c, cov)
 		}
 	}
 }

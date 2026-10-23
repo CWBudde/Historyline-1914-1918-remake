@@ -61,19 +61,12 @@ func grain(x, y int) float64 {
 	return float64(h&0xFFFF)/0xFFFF - 0.5
 }
 
-// steelAt is the tone of steel at base t in device pixel (x, y): a grain in
-// reference pixels.
-func (p painter) steelAt(x, y int, t float64) float64 {
-	q := max(1, int(math.Round(p.k)))
-	return t + 0.06*grain(x/q, y/q)
-}
-
 // steel fills r with steel of tone t.
 func (p painter) steel(r image.Rectangle, t float64) {
 	r = r.Intersect(p.img.Rect)
 	for y := r.Min.Y; y < r.Max.Y; y++ {
 		for x := r.Min.X; x < r.Max.X; x++ {
-			p.img.SetRGBA(x, y, ramp(p.steelAt(x, y, t)))
+			p.img.SetRGBA(x, y, p.steelColour(x, y, t))
 		}
 	}
 }
@@ -104,7 +97,7 @@ func (p painter) bevel(r image.Rectangle, t float64, raised bool) {
 		if lit != raised {
 			d = -bevelTone
 		}
-		p.img.SetRGBA(x, y, ramp(p.steelAt(x, y, t+d)))
+		p.img.SetRGBA(x, y, p.steelColour(x, y, t+d))
 	})
 }
 
@@ -128,6 +121,10 @@ func (p painter) namePlate(r image.Rectangle) {
 	for y := r.Min.Y; y < r.Max.Y; y++ {
 		for x := r.Min.X; x < r.Max.X; x++ {
 			c := lerp(plateBrown, plateEdge, 0.12+0.24*grain(x/w, y/w))
+			if s := surfaces.steel; s != nil {
+				dr, dg, db := s.at(x, y, p.k, steelSpan)
+				c = modulate(lerp(plateBrown, plateEdge, 0.12), 1.5*steelGain, dr, dg, db)
+			}
 			p.img.SetRGBA(x, y, c)
 		}
 	}
@@ -155,15 +152,16 @@ func (p painter) rivet(cx, cy, rad float64) {
 		for x := int(cx - rad - 1); x <= int(cx+rad+1); x++ {
 			dx, dy := (float64(x)+0.5-cx)/rad, (float64(y)+0.5-cy)/rad
 			d2 := dx*dx + dy*dy
-			if d2 > 1 || !(image.Point{x, y}).In(p.img.Rect) {
+			cov := math.Min(1, (1-math.Sqrt(d2))*rad+0.5) // an antialiased rim
+			if cov <= 0 || !(image.Point{x, y}).In(p.img.Rect) {
 				continue
 			}
-			l := dx*lx + dy*ly + math.Sqrt(1-d2)*lz
+			l := dx*lx + dy*ly + math.Sqrt(math.Max(0, 1-d2))*lz
 			c := lerp(brassDark, brass, l*2)
 			if l > 0.5 {
 				c = lerp(brass, brassLight, (l-0.5)*2)
 			}
-			p.img.SetRGBA(x, y, c)
+			p.blend(x, y, c, cov)
 		}
 	}
 }
@@ -177,8 +175,8 @@ func hexNorm(dx, dy, a, b float64) float64 {
 	return math.Max(dy/b, (dx+2*a/3*dy/b)/a)
 }
 
-// hexEdge is the distance of an inside point (dx, dy) from the edge of the
-// hex and the light falling on that edge (-1 to 1, from the top left).
+// hexEdge is the distance of (dx, dy) from the edge of the hex, negative
+// outside it, and the light falling on that edge (-1 to 1, from the top left).
 func hexEdge(dx, dy, a, b float64) (d, light float64) {
 	ax, ay := math.Abs(dx), math.Abs(dy)
 	sx, sy := math.Copysign(1, dx), math.Copysign(1, dy)
@@ -204,14 +202,13 @@ func (p painter) hex(cx, cy, a, b, t float64, raised bool) {
 	for y := int(cy - b - 1); y <= int(cy+b+1); y++ {
 		for x := int(cx - a - 1); x <= int(cx+a+1); x++ {
 			dx, dy := float64(x)+0.5-cx, float64(y)+0.5-cy
-			if hexNorm(dx, dy, a, b) > 1 || !(image.Point{x, y}).In(p.img.Rect) {
+			d, l := hexEdge(dx, dy, a, b)
+			cov := math.Min(1, d+0.5) // an antialiased edge
+			if cov <= 0 || !(image.Point{x, y}).In(p.img.Rect) {
 				continue
 			}
-			tt := t
-			if d, l := hexEdge(dx, dy, a, b); d < bw {
-				tt += sign * bevelTone * l
-			}
-			p.img.SetRGBA(x, y, ramp(p.steelAt(x, y, tt)))
+			bevel := math.Max(0, math.Min(1, bw-d+0.5))
+			p.blend(x, y, p.steelColour(x, y, t+bevel*sign*bevelTone*l), cov)
 		}
 	}
 }

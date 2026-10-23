@@ -2,11 +2,14 @@ package main
 
 import (
 	"fmt"
+	"image"
 	"io/fs"
+	"slices"
 
 	"github.com/hajimehoshi/ebiten/v2"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dospanel"
 )
 
 // screenDensities are the densities of the screen catalog (hlasset
@@ -70,4 +73,27 @@ func (s *screenArt) image(id string, d int) *ebiten.Image {
 		return nil
 	}
 	return img
+}
+
+// surfaces are the panels' painted surfaces at the highest density the
+// catalog has; none without a catalog.
+func (s *screenArt) surfaces() dospanel.Surfaces {
+	if s == nil {
+		return dospanel.Surfaces{}
+	}
+	src := func(id string) image.Image {
+		f, ok := s.family[id]
+		if !ok {
+			return nil
+		}
+		for _, d := range slices.Backward(screenDensities) {
+			if p, ok := s.packs.packs[packKey{f, d}]; ok {
+				if img, err := p.Image(id, d); err == nil {
+					return img
+				}
+			}
+		}
+		return nil
+	}
+	return dospanel.Surfaces{Steel: src("surface/steel"), Ground: src("surface/ground")}
 }

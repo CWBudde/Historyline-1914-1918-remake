@@ -49,3 +49,10 @@ runtime frame remains opaque and never samples a previous gameplay image.
 The illustrations are native 1586×992. For 2×, trim one pixel from each edge to 1584×990, then downsample
 to 1280×800 to preserve the composition. The backdrop is 1672×941. Native 4× (2560×1600) sources and
 visual acceptance remain open; upscaling does not close them.
+
+## Panel surfaces
+
+`surface/steel.png` and `surface/ground.png` are seamless 1254×1254 tiles under the battle screen's
+drawn panels: the steel of the unit, contents and battle panels and the ground of the battle scene's
+hexes. `hlasset build-screens` area-averages them to 512 (1x) and 1024 (2x) as `surface/steel` and
+`surface/ground`; `internal/dospanel` uses only their texture, graded to its own palette.
