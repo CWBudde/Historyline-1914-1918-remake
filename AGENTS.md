@@ -15,7 +15,8 @@ Write code and tooling in **Go**. Python remains only in `legacy/`; do not add n
 ## Commands
 
 ```sh
-just ci          # everything CI runs: lint, test, build, wasm, gfx-check
+just ci          # everything CI runs: lint, test, build, wasm, art-check, reference-check
+just check       # ci without the tools/ tests (about 25 min, never cached): for changes outside tools/
 just test        # go test ./...
 go test ./internal/game -run TestName   # single test
 just lint        # go vet + golangci-lint v2 (.golangci.yml)

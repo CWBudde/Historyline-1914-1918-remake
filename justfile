@@ -47,6 +47,10 @@ play *args: _packs
 test:
     go test -timeout 40m ./...
 
+# Run the Go tests outside tools/: the art tools' export tests take about 25 minutes and never cache
+test-quick:
+    go test $(go list ./... | grep -v /tools/)
+
 # Run go vet and golangci-lint
 lint:
     go vet ./...
@@ -81,8 +85,11 @@ web port="": _packs
     cd build/web && rm -f version.txt && printf '{"version":"%s","wasm":%s}\n' "$(find historyline.wasm wasm_exec.js packs -type f -print0 | sort -z | xargs -0 sha256sum | sha256sum | cut -c1-16)" "$(stat -c %s historyline.wasm)" > build.json
     if [ -n "{{port}}" ]; then go run ./cmd/serve -dir build/web -addr localhost:{{port}}; fi
 
-# Everything CI checks
-ci: lint test build wasm gfx-check
+# Everything CI checks, each test once
+ci: lint test build wasm art-check reference-check
+
+# ci without the art tools' tests, for changes outside tools/ (a few minutes)
+check: lint test-quick build wasm art-check reference-check
 
 # Check the art catalogue, the PULSE reference data and the art tools (no original data required)
 gfx-check: art-check reference-check

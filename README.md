@@ -32,6 +32,7 @@ just lint       # go vet + golangci-lint
 just build      # bin/historyline
 just web 8080   # web build with the art packs into build/web, served on :8080
 just ci         # everything CI runs
+just check      # ci without the slow art tool tests
 just clean      # delete all generated output under build/
 ```
 
