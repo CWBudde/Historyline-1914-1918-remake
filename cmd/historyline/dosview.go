@@ -49,24 +49,24 @@ func (g *game) dosSpent(u dosplay.UnitView) bool {
 // drawDosUnit draws the unit on c at screen point (sx, sy).
 func (g *game) drawDosUnit(dst *ebiten.Image, c hexgrid.Coord, sx, sy float64) {
 	u := g.dos.unitsOf(g.shownSide(), g.reveal)[c]
-	if g.drawUnitSprite(dst, sx, sy, u.ID, u.Owner, g.dosSpent(u), false, g.dos.Facing(u.Index)) {
+	if g.drawUnitSprite(dst, c, sx, sy, u.ID, u.Owner, g.dosSpent(u), false, g.dos.Facing(u.Index)) {
 		return
 	}
 	vector.FillCircle(dst, float32(sx), float32(sy), float32(14*g.cam.Effective()), color.RGBA{230, 230, 230, 255}, true)
 }
 
-// drawWalker draws the walking unit u (the engine's key) and reports whether
-// a sprite was drawn.
-func (g *game) drawWalker(dst *ebiten.Image, unit any, sx, sy float64, face unitsprite.Facing) bool {
+// drawWalker draws the walking unit u (the engine's key), now on hex c, and
+// reports whether a sprite was drawn.
+func (g *game) drawWalker(dst *ebiten.Image, unit any, c hexgrid.Coord, sx, sy float64, face unitsprite.Facing) bool {
 	switch u := unit.(type) {
 	case *state.Unit:
-		return u != nil && g.drawUnitSprite(dst, sx, sy, u.Type, u.Owner, unitSpent(u), false, face)
+		return u != nil && g.drawUnitSprite(dst, c, sx, sy, u.Type, u.Owner, unitSpent(u), false, face)
 	case int:
 		if g.dos == nil {
 			return false
 		}
 		v := g.dos.s.Unit(u)
-		return g.drawUnitSprite(dst, sx, sy, v.ID, v.Owner, false, false, face)
+		return g.drawUnitSprite(dst, c, sx, sy, v.ID, v.Owner, false, false, face)
 	}
 	return false
 }

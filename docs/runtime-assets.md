@@ -37,8 +37,9 @@ IDs `unit/<family>/<palette>/<facing>-<state>` (palettes `cp`/`ec`/`neutral`, fa
 states `normal`/`spent`): 36 sprites per family, 96×96 logical, anchor (48,49). `internal/unitsprite` holds
 the unit type → family table and the ID format. The palette follows the current owner; moved/attacked units
 use `spent`; remembered enemies are dimmed. Facing is UI state (start north, turn along moves and towards
-the opponent). On the map each sprite is drawn dressed (`unitsprite.Dress`, at its first draw): a dark
-rim 1 world px wide and a soft contact shadow cast to the lower right, further off for aircraft.
+the opponent). On the map each sprite is drawn dressed (`unitsprite.Dress`, at its first draw): a rim 1.5 world px
+wide and a soft contact shadow cast to the lower right, further off for aircraft. The rim is dark, and
+muted pale on forest and open water without infrastructure (`unitsprite.RimFor`).
 
 ## Terrain
 

@@ -13,6 +13,7 @@ import (
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
 	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
 )
 
@@ -60,7 +61,8 @@ type packKey struct {
 type texKey struct {
 	id      string
 	density int
-	dressed bool // with the map rim and contact shadow
+	dressed bool           // with the map rim and contact shadow
+	rim     unitsprite.Rim // of a dressed sprite
 }
 
 // artPacks is a runtime catalog of packs laid out as <d>x/<group>/manifest.json,
@@ -134,23 +136,23 @@ func (a *artPacks) entry(group, id string, d int) (assets.Entry, error) {
 // image returns the texture of sprite id at density d, decoding and uploading it
 // on first use.
 func (a *artPacks) image(group, id string, d int) (*ebiten.Image, assets.Entry, error) {
-	return a.texture(group, id, d, false)
+	return a.texture(group, id, d, false, unitsprite.Dark)
 }
 
 // mapImage returns the texture of unit sprite id at density d as the map draws
-// it, dressed with its rim and contact shadow (unitsprite.Dress), and its border
-// in texels around the entry's canvas.
-func (a *artPacks) mapImage(group, id string, d int) (*ebiten.Image, assets.Entry, int, error) {
-	img, e, err := a.texture(group, id, d, true)
+// it, dressed with rim r and its contact shadow (unitsprite.Dress), and its
+// border in texels around the entry's canvas.
+func (a *artPacks) mapImage(group, id string, d int, r unitsprite.Rim) (*ebiten.Image, assets.Entry, int, error) {
+	img, e, err := a.texture(group, id, d, true, r)
 	return img, e, a.pad + unitsprite.DressMargin(d), err
 }
 
-func (a *artPacks) texture(group, id string, d int, dressed bool) (*ebiten.Image, assets.Entry, error) {
+func (a *artPacks) texture(group, id string, d int, dressed bool, r unitsprite.Rim) (*ebiten.Image, assets.Entry, error) {
 	e, err := a.entry(group, id, d)
 	if err != nil {
 		return nil, e, err
 	}
-	k := texKey{id, d, dressed}
+	k := texKey{id, d, dressed, r}
 	if img, ok := a.tex[k]; ok {
 		return img, e, nil
 	}
@@ -159,7 +161,7 @@ func (a *artPacks) texture(group, id string, d int, dressed bool) (*ebiten.Image
 		return nil, e, err
 	}
 	if dressed {
-		src = unitsprite.Dress(src, d, unitsprite.Flies(group))
+		src = unitsprite.Dress(src, d, unitsprite.Flies(group), r)
 	}
 	var img *ebiten.Image
 	if a.pad == 0 {
@@ -216,11 +218,20 @@ func anchorGeoM(e assets.Entry, d, pad int, eff, sx, sy float64) ebiten.GeoM {
 	return m
 }
 
-// drawUnitSprite draws a unit sprite, dressed with its rim and contact shadow,
-// with its logical anchor on screen point (sx, sy), the hex centre, and reports
-// whether it could. Errors go to the status
+// unitRim is the rim of a unit on hex c (unitsprite.RimFor).
+func (g *game) unitRim(c hexgrid.Coord) unitsprite.Rim {
+	if g.lvl == nil || !g.grid.Contains(c) {
+		return unitsprite.Dark
+	}
+	h := g.lvl.Lines[c.Line][c.Col]
+	return unitsprite.RimFor(h.Terrain, len(h.Infra.IDs) > 0)
+}
+
+// drawUnitSprite draws a unit sprite on hex c, dressed with the hex's rim and
+// its contact shadow, with its logical anchor on screen point (sx, sy), the hex
+// centre, and reports whether it could. Errors go to the status
 // line once and the caller falls back to the placeholder dot.
-func (g *game) drawUnitSprite(dst *ebiten.Image, sx, sy float64, typ string, owner state.Player, spent, remembered bool, face unitsprite.Facing) bool {
+func (g *game) drawUnitSprite(dst *ebiten.Image, c hexgrid.Coord, sx, sy float64, typ string, owner state.Player, spent, remembered bool, face unitsprite.Facing) bool {
 	if g.art == nil || typ == "" {
 		// A ship's rear has no separate remake unit type.
 		return false
@@ -231,7 +242,7 @@ func (g *game) drawUnitSprite(dst *ebiten.Image, sx, sy float64, typ string, own
 		return false
 	}
 	d := spriteDensity(g.cam.Effective())
-	img, e, border, err := g.art.mapImage(family, id, d)
+	img, e, border, err := g.art.mapImage(family, id, d, g.unitRim(c))
 	if err != nil {
 		g.artErr = err.Error()
 		return false

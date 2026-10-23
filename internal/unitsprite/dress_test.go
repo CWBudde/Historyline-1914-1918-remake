@@ -18,7 +18,7 @@ func square(d int) *image.NRGBA {
 func TestDressKeepsTheSpriteAndGrowsTheCanvas(t *testing.T) {
 	for _, d := range []int{2, 4} {
 		src := square(d)
-		out := Dress(src, d, false)
+		out := Dress(src, d, false, Dark)
 		m := DressMargin(d)
 		if m%d != 0 {
 			t.Fatalf("%dx margin %d is not whole logical pixels", d, m)
@@ -36,30 +36,41 @@ func TestDressKeepsTheSpriteAndGrowsTheCanvas(t *testing.T) {
 	}
 }
 
-func TestDressRimIsOneWorldPixel(t *testing.T) {
-	for _, d := range []int{2, 4} {
-		out, m := Dress(square(d), d, false), DressMargin(d)
-		y := 10*d + m
-		for i := 1; i <= d; i++ {
-			if got := out.NRGBAAt(5*d+m-i, y); got != rimColor {
-				t.Errorf("%dx texel %d left of the sprite is %v, want the rim", d, i, got)
+func TestDressRimIsOneAndAHalfWorldPixels(t *testing.T) {
+	for _, rim := range []Rim{Dark, Light} {
+		for _, d := range []int{2, 4} {
+			out, m := Dress(square(d), d, false, rim), DressMargin(d)
+			y, width := 10*d+m, 3*d/2
+			for i := 1; i <= width; i++ {
+				if got := out.NRGBAAt(5*d+m-i, y); got != rim.colour() {
+					t.Errorf("rim %d %dx: texel %d left of the sprite is %v, want %v", rim, d, i, got, rim.colour())
+				}
+			}
+			if got := out.NRGBAAt(5*d+m-width-1, y); got.A >= 128 {
+				t.Errorf("rim %d %dx is wider than 1.5 world px: %v", rim, d, got)
 			}
 		}
-		if got := out.NRGBAAt(5*d+m-d-1, y); got.A >= 128 {
-			t.Errorf("%dx rim is wider than one world px: %v", d, got)
-		}
+	}
+}
+
+// The light rim, for units in forest and on water, stands out against the dark
+// ground without reading as a white sticker.
+func TestLightRimIsPale(t *testing.T) {
+	l := func(c color.NRGBA) float64 { return 0.2126*float64(c.R) + 0.7152*float64(c.G) + 0.0722*float64(c.B) }
+	if dark, light := l(Dark.colour()), l(Light.colour()); dark > 30 || light < 170 || light > 235 {
+		t.Errorf("rim luma dark %.0f, light %.0f: want dark ≤ 30 and a muted pale light, 170–235", dark, light)
 	}
 }
 
 func TestDressShadowFallsToTheLowerRight(t *testing.T) {
 	for _, flying := range []bool{false, true} {
 		d := 2
-		out, m := Dress(square(d), d, flying), DressMargin(d)
+		out, m := Dress(square(d), d, flying, Dark), DressMargin(d)
 		var upperLeft, lowerRight int
 		for y := range out.Bounds().Dy() {
 			for x := range out.Bounds().Dx() {
 				lx, ly := float64(x-m)/float64(d), float64(y-m)/float64(d)
-				if lx >= 4 && lx < 16 && ly >= 4 && ly < 16 {
+				if lx >= 3 && lx < 17 && ly >= 3 && ly < 17 {
 					continue // sprite and rim
 				}
 				a := int(out.NRGBAAt(x, y).A)
@@ -83,7 +94,7 @@ func TestFlyingShadowSitsApart(t *testing.T) {
 	// The alpha-weighted centre of the bare shadow texels moves further to the
 	// lower right for a flying unit.
 	centre := func(flying bool) float64 {
-		out := Dress(square(2), 2, flying)
+		out := Dress(square(2), 2, flying, Dark)
 		var sum, weight float64
 		for y := range out.Bounds().Dy() {
 			for x := range out.Bounds().Dx() {
@@ -104,7 +115,7 @@ func TestFlyingShadowSitsApart(t *testing.T) {
 }
 
 func TestDressEmptySpriteStaysEmpty(t *testing.T) {
-	out := Dress(image.NewNRGBA(image.Rect(0, 0, 8, 8)), 2, false)
+	out := Dress(image.NewNRGBA(image.Rect(0, 0, 8, 8)), 2, false, Light)
 	for i := 3; i < len(out.Pix); i += 4 {
 		if out.Pix[i] != 0 {
 			t.Fatal("an empty sprite gained a rim or shadow")
@@ -117,6 +128,18 @@ func BenchmarkDress4x(b *testing.B) {
 	src := image.NewNRGBA(image.Rect(0, 0, 384, 384))
 	draw.Draw(src, image.Rect(96, 96, 288, 288), image.NewUniform(color.NRGBA{R: 255, A: 255}), image.Point{}, draw.Src)
 	for b.Loop() {
-		Dress(src, 4, false)
+		Dress(src, 4, false, Dark)
+	}
+}
+
+func TestRimForDarkGround(t *testing.T) {
+	for _, c := range []struct {
+		terrain string
+		infra   bool
+		want    Rim
+	}{{"forest", false, Light}, {"forest_w", false, Light}, {"water", false, Light}, {"waterStones", false, Light}, {"forest", true, Dark}, {"water", true, Dark}, {"grass", false, Dark}, {"grass_w", false, Dark}, {"lakeside12", false, Dark}} {
+		if got := RimFor(c.terrain, c.infra); got != c.want {
+			t.Errorf("RimFor(%q, %v) = %d, want %d", c.terrain, c.infra, got, c.want)
+		}
 	}
 }

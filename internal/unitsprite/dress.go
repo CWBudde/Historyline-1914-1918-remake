@@ -10,23 +10,52 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 )
 
-// A unit on the map is dressed for legibility (art/direction.md, Units): a dark
-// rim one world px wide around its silhouette, and under it a soft contact
-// shadow, the silhouette blurred and cast to the lower right, away from the
-// upper-left light. Flying units cast it further off. The shadow stays below
-// half opacity, so it never reads as part of the unit body.
+// A unit on the map is dressed for legibility (art/direction.md, Units): a rim
+// 1.5 world px wide around its silhouette, and under it a soft contact shadow,
+// the silhouette blurred and cast to the lower right, away from the upper-left
+// light. Flying units cast it further off. The shadow stays below half opacity,
+// so it never reads as part of the unit body. The rim is dark, except on the
+// dark ground of forest and open water: a dark rim has no headroom there, so a
+// muted pale one takes its place.
 
 const (
 	shadowOffset       = 2.0  // world px, toward the lower right
 	flyingShadowOffset = 6.0  // world px, for aircraft
 	shadowSigma        = 0.75 // world px of the Gaussian blur
 	shadowOpacity      = 0.45
+	rimWidth           = 1.5 // world px
 )
 
-var (
-	rimColor    = color.NRGBA{R: 16, G: 18, B: 12, A: 255}
-	shadowColor = color.NRGBA{R: 18, G: 26, B: 16, A: 255}
+var shadowColor = color.NRGBA{R: 18, G: 26, B: 16, A: 255}
+
+// Rim is the colour of a dressed unit's rim.
+type Rim int
+
+const (
+	Dark  Rim = iota // olive-black, on open ground and roads
+	Light            // muted pale, in forest and on open water
 )
+
+// RimFor is the rim of a unit on a hex of terrain, with or without
+// infrastructure: pale on forest (where the scattered crowns stand, as in
+// mapcompose) and open water without infrastructure, dark elsewhere, also on
+// bridges and forest roads.
+func RimFor(terrain string, infra bool) Rim {
+	switch terrain {
+	case "forest", "forest_w", "water", "waterStones":
+		if !infra {
+			return Light
+		}
+	}
+	return Dark
+}
+
+func (r Rim) colour() color.NRGBA {
+	if r == Light {
+		return color.NRGBA{R: 196, G: 190, B: 162, A: 255}
+	}
+	return color.NRGBA{R: 16, G: 18, B: 12, A: 255}
+}
 
 // DressMargin is the transparent border in texels that Dress adds on each side
 // of a density-d sprite: whole logical pixels, so the logical anchor moves by
@@ -52,14 +81,14 @@ var flyingFamilies = sync.OnceValue(func() map[string]bool {
 // Flies reports whether family draws aircraft.
 func Flies(family string) bool { return flyingFamilies()[family] }
 
-// Dress returns the density-d sprite src with its rim and contact shadow, on a
+// Dress returns the density-d sprite src with rim r and its contact shadow, on a
 // canvas grown by DressMargin(d) on each side.
-func Dress(src image.Image, d int, flying bool) *image.NRGBA {
+func Dress(src image.Image, d int, flying bool, r Rim) *image.NRGBA {
 	b := src.Bounds()
 	m := DressMargin(d)
 	sprite := image.NewNRGBA(image.Rect(0, 0, b.Dx()+2*m, b.Dy()+2*m))
 	draw.Draw(sprite, b.Sub(b.Min).Add(image.Pt(m, m)), src, b.Min, draw.Src)
-	// Work only around the opaque texels: the rim reaches d texels out, the
+	// Work only around the opaque texels: the rim reaches width texels out, the
 	// shadow its blur radius plus its shift.
 	used := image.Rectangle{}
 	for y := range sprite.Rect.Dy() {
@@ -78,7 +107,8 @@ func Dress(src image.Image, d int, flying bool) *image.NRGBA {
 	}
 	shift := int(math.Round(offset / math.Sqrt2 * float64(d)))
 	sigma := shadowSigma * float64(d)
-	reach := d + int(math.Ceil(3*sigma))
+	width := int(math.Round(rimWidth * float64(d)))
+	reach := width + int(math.Ceil(3*sigma))
 	area := image.Rect(used.Min.X-reach, used.Min.Y-reach, used.Max.X+reach+shift, used.Max.Y+reach+shift).Intersect(sprite.Rect)
 	w, h := area.Dx(), area.Dy()
 	alpha := make([]float64, w*h)
@@ -87,7 +117,7 @@ func Dress(src image.Image, d int, flying bool) *image.NRGBA {
 			alpha[y*w+x] = float64(sprite.Pix[sprite.PixOffset(area.Min.X+x, area.Min.Y+y)+3]) / 255
 		}
 	}
-	rim := dilate(alpha, w, h, d)
+	rim := dilate(alpha, w, h, width)
 	shadow := blur(alpha, w, h, sigma)
 
 	out := image.NewNRGBA(sprite.Rect)
@@ -100,7 +130,7 @@ func Dress(src image.Image, d int, flying bool) *image.NRGBA {
 			}
 			// Shadow, rim and sprite, bottom to top.
 			p := sprite.PixOffset(area.Min.X+x, area.Min.Y+y)
-			c := layer{}.over(shadowColor, sa).over(rimColor, rim[i]).over(color.NRGBA{sprite.Pix[p], sprite.Pix[p+1], sprite.Pix[p+2], sprite.Pix[p+3]}, alpha[i])
+			c := layer{}.over(shadowColor, sa).over(r.colour(), rim[i]).over(color.NRGBA{sprite.Pix[p], sprite.Pix[p+1], sprite.Pix[p+2], sprite.Pix[p+3]}, alpha[i])
 			out.Pix[p] = uint8(math.Round(c.r))
 			out.Pix[p+1] = uint8(math.Round(c.g))
 			out.Pix[p+2] = uint8(math.Round(c.b))

@@ -204,10 +204,10 @@ func (g *game) drawUnit(dst *ebiten.Image, c hexgrid.Coord, sx, sy float64, reme
 	if remembered {
 		col = rememberedUnit
 		if m, _ := g.state.Remembered(g.player, c); m.Unit != nil &&
-			g.drawUnitSprite(dst, sx, sy, m.Unit.Type, m.Unit.Owner, false, true, unitsprite.N) {
+			g.drawUnitSprite(dst, c, sx, sy, m.Unit.Type, m.Unit.Owner, false, true, unitsprite.N) {
 			return
 		}
-	} else if u := g.state.At(c).Unit; g.drawUnitSprite(dst, sx, sy, u.Type, u.Owner, unitSpent(u), false, g.drv().ui().Facing(u)) {
+	} else if u := g.state.At(c).Unit; g.drawUnitSprite(dst, c, sx, sy, u.Type, u.Owner, unitSpent(u), false, g.drv().ui().Facing(u)) {
 		return
 	}
 	vector.FillCircle(dst, float32(sx), float32(sy), float32(14*g.cam.Effective()), col, true)
@@ -537,7 +537,7 @@ func (g *game) drawMapLayer(dst *ebiten.Image, vx, vy, vw, vh float64, human boo
 			wx, wy := w.Pos()
 			sx, sy := g.cam.WorldToScreen(wx, wy)
 			face, _ := unitsprite.Toward(w.Heading())
-			if !g.drawWalker(dst, w.unit, sx, sy, face) {
+			if !g.drawWalker(dst, w.unit, w.Hex(), sx, sy, face) {
 				vector.FillCircle(dst, float32(sx), float32(sy), float32(14*g.cam.Effective()), color.RGBA{230, 230, 230, 255}, true)
 			}
 		}

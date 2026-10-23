@@ -16,6 +16,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
 	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
 )
 
@@ -137,9 +138,17 @@ func TestMapImageIsDressed(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		dressed, e, border, err := a.mapImage("infantry", id, d)
+		dressed, e, border, err := a.mapImage("infantry", id, d, unitsprite.Dark)
 		if err != nil {
 			t.Fatal(err)
+		}
+		light, _, _, err := a.mapImage("infantry", id, d, unitsprite.Light)
+		if err != nil {
+			t.Fatal(err)
+		}
+		// The two rims are cached apart.
+		if light == dressed || light.Bounds() != dressed.Bounds() {
+			t.Fatalf("%dx: one texture for both rims", d)
 		}
 		if border != a.pad+unitsprite.DressMargin(d) || dressed.Bounds().Dx() != 96*d+2*border || bare.Bounds().Dx() != 96*d+2*a.pad {
 			t.Fatalf("%dx: border %d, dressed %v, bare %v", d, border, dressed.Bounds(), bare.Bounds())
@@ -250,4 +259,20 @@ func TestAttackTurnsBothSides(t *testing.T) {
 		}
 	}
 	t.Skip("level1_cp has no unit with a target at the start")
+}
+
+// A unit in forest or on water gets the pale rim; on a forest road, on open
+// ground and off the map the dark one.
+func TestUnitRimFollowsTheHex(t *testing.T) {
+	lv := &level.Level{Lines: [][]level.Hex{{{Terrain: "forest"}, {Terrain: "grass"}}, {{Terrain: "forest_w"}, {Terrain: "water"}}}}
+	lv.Lines[0] = append(lv.Lines[0], level.Hex{Terrain: "forest", Infra: level.Infra{IDs: []string{"road14"}}})
+	g := &game{lvl: lv, grid: lv.Grid()}
+	for c, want := range map[hexgrid.Coord]unitsprite.Rim{
+		{Line: 0, Col: 0}: unitsprite.Light, {Line: 1, Col: 0}: unitsprite.Light, {Line: 1, Col: 1}: unitsprite.Light,
+		{Line: 0, Col: 1}: unitsprite.Dark, {Line: 0, Col: 2}: unitsprite.Dark, {Line: 5, Col: 5}: unitsprite.Dark,
+	} {
+		if got := g.unitRim(c); got != want {
+			t.Errorf("rim on %v: %d, want %d", c, got, want)
+		}
+	}
 }
