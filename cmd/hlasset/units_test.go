@@ -190,7 +190,7 @@ func TestBuildUnitsLeavesNoOutputOnHashMismatch(t *testing.T) {
 		manifests = append(manifests, p.Manifest)
 	}
 	out := filepath.Join(t.TempDir(), "units")
-	if _, err := writePacks(assetsRoot, out, manifests, func(i int) string { return fmt.Sprint(i) }); err == nil || !strings.Contains(err.Error(), "hash mismatch") {
+	if _, err := writePacks(assetsRoot, out, manifests, func(i int) string { return fmt.Sprint(i) }, nil); err == nil || !strings.Contains(err.Error(), "hash mismatch") {
 		t.Fatal("tampered pin accepted", err)
 	}
 	if _, err := os.Stat(out); !os.IsNotExist(err) {

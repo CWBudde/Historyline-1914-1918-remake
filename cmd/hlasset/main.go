@@ -3,6 +3,7 @@
 package main
 
 import (
+	"crypto/sha256"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -205,7 +206,7 @@ func build(assetsDir, out string, density int) (assets.Manifest, error) {
 	if err != nil {
 		return assets.Manifest{}, err
 	}
-	written, err := writePacks(assetsDir, out, []assets.Manifest{m}, func(int) string { return "." })
+	written, err := writePacks(assetsDir, out, []assets.Manifest{m}, func(int) string { return "." }, nil)
 	if err != nil {
 		return assets.Manifest{}, err
 	}
@@ -263,10 +264,14 @@ func (o *output) mkdirAll(dir string) error {
 	return nil
 }
 
-// writePack writes p's exact PNG snapshots and manifest m under dir. A flat
-// images/NNNN.png layout avoids collisions with metadata and source directories.
-// It returns m with the new paths.
-func (o *output) writePack(dir string, p *assets.Pack, m assets.Manifest) (assets.Manifest, error) {
+// recoder returns the PNG to write for entry e of pack p.
+type recoder func(e assets.Entry, p *assets.Pack) ([]byte, error)
+
+// writePack writes p's PNGs, as recode encodes them or else the exact
+// snapshots, and manifest m under dir. A flat images/NNNN.png layout avoids
+// collisions with metadata and source directories. It returns m with the new
+// paths and hashes.
+func (o *output) writePack(dir string, p *assets.Pack, m assets.Manifest, recode recoder) (assets.Manifest, error) {
 	m.Entries = slices.Clone(m.Entries)
 	if err := o.mkdirAll(path.Join(dir, "images")); err != nil {
 		return m, err
@@ -274,7 +279,16 @@ func (o *output) writePack(dir string, p *assets.Pack, m assets.Manifest) (asset
 	for i := range m.Entries {
 		e := &m.Entries[i]
 		name := path.Join(dir, fmt.Sprintf("images/%04d.png", i))
-		if err := o.writeNew(name, func(w io.Writer) error { return p.WritePNG(w, e.ID, e.Density) }); err != nil {
+		write := func(w io.Writer) error { return p.WritePNG(w, e.ID, e.Density) }
+		if recode != nil {
+			b, err := recode(*e, p)
+			if err != nil {
+				return m, fmt.Errorf("%s at %dx: %w", e.ID, e.Density, err)
+			}
+			e.SHA256 = fmt.Sprintf("%x", sha256.Sum256(b))
+			write = func(w io.Writer) error { _, err := w.Write(b); return err }
+		}
+		if err := o.writeNew(name, write); err != nil {
 			return m, err
 		}
 		e.Path = fmt.Sprintf("images/%04d.png", i)

@@ -100,8 +100,9 @@ func loadPack(root *os.Root, m assets.Manifest, use func(*assets.Pack) error) er
 }
 
 // writePacks validates every pack, then writes each to dirOf(pack) under the new
-// directory out. Nothing is created when a pack is invalid.
-func writePacks(assetsDir, out string, packs []assets.Manifest, dirOf func(int) string) ([]assets.Manifest, error) {
+// directory out, its images as recode encodes them (nil: as snapshotted).
+// Nothing is created when a pack is invalid.
+func writePacks(assetsDir, out string, packs []assets.Manifest, dirOf func(int) string, recode recoder) ([]assets.Manifest, error) {
 	r, err := os.OpenRoot(assetsDir)
 	if err != nil {
 		return nil, err
@@ -120,7 +121,7 @@ func writePacks(assetsDir, out string, packs []assets.Manifest, dirOf func(int) 
 	written := make([]assets.Manifest, len(packs))
 	for i, m := range packs {
 		if err := loadPack(r, m, func(p *assets.Pack) error {
-			w, err := o.writePack(dirOf(i), p, m)
+			w, err := o.writePack(dirOf(i), p, m, recode)
 			written[i] = w
 			return err
 		}); err != nil {

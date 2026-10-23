@@ -22,6 +22,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapmaterial"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/terraingrade"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/worldmaterial"
 )
@@ -37,6 +38,7 @@ type Entry struct {
 	Width   int        `json:"width"`
 	Height  int        `json:"height"`
 	Layer   string     `json:"layer"`
+	Art     string     `json:"art"`
 }
 
 // Map is a rendered level.
@@ -47,12 +49,17 @@ type Map struct {
 	Issues []mapcompose.Issue
 }
 
-// Renderer draws levels from one assets tree.
+// Renderer draws levels from one assets tree. Ungraded draws the terrain as
+// painted, without the pack build's grade, for comparisons; set it before the
+// first Render.
 type Renderer struct {
+	Ungraded bool
+
 	assets    fs.FS
-	files     map[string]Entry // terrain and unit IDs per density, keyed "density/id"
-	has       map[string]bool  // tile, context, standing and stamp IDs present at every density
-	cache     map[string]image.Image
+	files     map[string]Entry       // terrain and unit IDs per density, keyed "density/id"
+	has       map[string]bool        // tile, context, standing and stamp IDs present at every density
+	cache     map[string]image.Image // decoded files as painted, by path
+	graded    map[string]image.Image // images as drawn, keyed "density/id"
 	set       *data.Set
 	materials map[int]*worldmaterial.Sampler
 }
@@ -77,7 +84,7 @@ func New(assets fs.FS) (*Renderer, error) {
 	if err != nil {
 		return nil, err
 	}
-	r := &Renderer{assets: assets, files: map[string]Entry{}, has: map[string]bool{}, cache: map[string]image.Image{}, set: set}
+	r := &Renderer{assets: assets, files: map[string]Entry{}, has: map[string]bool{}, cache: map[string]image.Image{}, graded: map[string]image.Image{}, set: set}
 	densities := map[string]int{}
 	pathHashes := map[string]string{}
 	for _, e := range index.Assets {
@@ -202,26 +209,55 @@ func (r *Renderer) Render(lvl *level.Level, density int, units bool) (Map, error
 	return m, nil
 }
 
+// assetImage returns the entry of id at density and its image, graded as the
+// pack build grades it (terraingrade).
 func (r *Renderer) assetImage(id string, density int) (Entry, image.Image, error) {
-	e, ok := r.files[fmt.Sprintf("%d/%s", density, id)]
+	key := fmt.Sprintf("%d/%s", density, id)
+	e, ok := r.files[key]
 	if !ok {
 		return Entry{}, nil, fmt.Errorf("missing %dx asset %s", density, id)
 	}
-	im := r.cache[e.Path]
-	if im == nil {
-		b, err := fs.ReadFile(r.assets, e.Path)
-		if err != nil {
-			return Entry{}, nil, err
-		}
-		if sum := fmt.Sprintf("%x", sha256.Sum256(b)); sum != e.SHA {
-			return Entry{}, nil, fmt.Errorf("%s: sha256 %s, index pins %s", e.Path, sum, e.SHA)
-		}
-		if im, err = png.Decode(bytes.NewReader(b)); err != nil {
-			return Entry{}, nil, fmt.Errorf("%s: %w", e.Path, err)
-		}
-		r.cache[e.Path] = im
+	if im := r.graded[key]; im != nil {
+		return e, im, nil
 	}
+	im, err := r.source(e)
+	if err != nil {
+		return Entry{}, nil, err
+	}
+	if !r.Ungraded && terraingrade.Applies(e.ID, e.Art) {
+		var meadow image.Image
+		if g, ok := r.files[fmt.Sprintf("%d/tile/grass", density)]; ok {
+			if meadow, err = r.source(g); err != nil {
+				return Entry{}, nil, err
+			}
+		}
+		im = terraingrade.Grade(im, e.ID, e.Art, meadow)
+	}
+	if r.graded == nil {
+		r.graded = map[string]image.Image{}
+	}
+	r.graded[key] = im
 	return e, im, nil
+}
+
+// source decodes the file of e as painted, checked against its pin.
+func (r *Renderer) source(e Entry) (image.Image, error) {
+	if im := r.cache[e.Path]; im != nil {
+		return im, nil
+	}
+	b, err := fs.ReadFile(r.assets, e.Path)
+	if err != nil {
+		return nil, err
+	}
+	if sum := fmt.Sprintf("%x", sha256.Sum256(b)); sum != e.SHA {
+		return nil, fmt.Errorf("%s: sha256 %s, index pins %s", e.Path, sum, e.SHA)
+	}
+	im, err := png.Decode(bytes.NewReader(b))
+	if err != nil {
+		return nil, fmt.Errorf("%s: %w", e.Path, err)
+	}
+	r.cache[e.Path] = im
+	return im, nil
 }
 
 func (r *Renderer) draw(dst draw.Image, id string, at hexgrid.Coord, density int) error {

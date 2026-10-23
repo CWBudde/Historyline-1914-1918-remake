@@ -4,6 +4,9 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"image"
+	"image/draw"
+	"image/png"
 	"io/fs"
 	"os"
 	"path/filepath"
@@ -13,6 +16,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/terraingrade"
 	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
 
@@ -28,6 +32,28 @@ func openTerrainPack(t *testing.T, out string, d int, group string) *assets.Pack
 		t.Fatal(err)
 	}
 	return p
+}
+
+// sourcePNG decodes a runtime PNG of assets/.
+func sourcePNG(t *testing.T, name string) image.Image {
+	t.Helper()
+	b, err := os.ReadFile(filepath.Join(assetsRoot, filepath.FromSlash(name)))
+	if err != nil {
+		t.Fatal(err)
+	}
+	im, err := png.Decode(bytes.NewReader(b))
+	if err != nil {
+		t.Fatal(err)
+	}
+	return im
+}
+
+// pixels is im's NRGBA pixels from its top-left corner.
+func pixels(im image.Image) []byte {
+	b := im.Bounds()
+	n := image.NewNRGBA(image.Rect(0, 0, b.Dx(), b.Dy()))
+	draw.Draw(n, n.Rect, im, b.Min, draw.Src)
+	return n.Pix
 }
 
 func TestRetainedTerrainCatalogBuilds(t *testing.T) {
@@ -129,17 +155,32 @@ func TestRetainedTerrainCatalogBuilds(t *testing.T) {
 			}
 		}
 	}
-	// Bytes are copied, not re-encoded.
-	src, err := os.ReadFile(filepath.Join(assetsRoot, "terrain", "hq", "hqN-4x.png"))
+	// Terrain is graded as the map renderer grades it; cast shadows are copied.
+	meadow := sourcePNG(t, "terrain/grass/grass-4x.png")
+	got, err := openTerrainPack(t, out, 4, "backgrounds").Image("tile/hqN", 4)
 	if err != nil {
 		t.Fatal(err)
 	}
-	var got bytes.Buffer
-	if err := openTerrainPack(t, out, 4, "backgrounds").WritePNG(&got, "tile/hqN", 4); err != nil {
+	graded := terraingrade.Grade(sourcePNG(t, "terrain/hq/hqN-4x.png"), "tile/hqN", "terrain/hq", meadow)
+	if !bytes.Equal(pixels(got), graded.Pix) {
+		t.Fatal("tile/hqN is not graded as terraingrade grades it")
+	}
+	if g := pixels(got); bytes.Equal(g, pixels(sourcePNG(t, "terrain/hq/hqN-4x.png"))) {
+		t.Fatal("tile/hqN is not graded")
+	}
+	src, err := os.ReadFile(filepath.Join(assetsRoot, "terrain", "forest", "shadow-default-4x.png"))
+	if err != nil {
 		t.Fatal(err)
 	}
-	if !bytes.Equal(got.Bytes(), src) {
-		t.Fatal("runtime build changed the source PNG bytes")
+	var shadow bytes.Buffer
+	if err := openTerrainPack(t, out, 4, standingGroup).WritePNG(&shadow, "standing/shadow/forest", 4); err != nil {
+		t.Fatal(err)
+	}
+	if !bytes.Equal(shadow.Bytes(), src) {
+		t.Fatal("the build changed a cast shadow's PNG bytes")
+	}
+	if b, err := os.ReadFile(filepath.Join(out, "grade")); err != nil || string(b) != terraingrade.Version+"\n" {
+		t.Fatalf("grade stamp %q, %v", b, err)
 	}
 	if _, err := buildTerrain(assetsRoot, out); err == nil {
 		t.Fatal("existing output directory reused")
@@ -221,7 +262,7 @@ func TestTerrainBuildRefusesBadInputs(t *testing.T) {
 	m := packs[0].Manifest
 	m.Entries[0].SHA256 = strings.Repeat("0", 64)
 	out := filepath.Join(t.TempDir(), "terrain")
-	if _, err := writePacks(assetsRoot, out, []assets.Manifest{m}, func(int) string { return "." }); err == nil || !strings.Contains(err.Error(), "hash mismatch") {
+	if _, err := writePacks(assetsRoot, out, []assets.Manifest{m}, func(int) string { return "." }, nil); err == nil || !strings.Contains(err.Error(), "hash mismatch") {
 		t.Fatal("tampered pin accepted", err)
 	}
 	if _, err := os.Stat(out); !os.IsNotExist(err) {

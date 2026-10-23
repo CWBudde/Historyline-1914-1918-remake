@@ -29,7 +29,7 @@ and anchor. Limits: 4,096 entries, 2 MiB manifest, 32 MiB per PNG, 128 MiB encod
 - `candidate` packs load only with `Options{AllowCandidates: true}` / `-allow-candidates`; the game then
   shows `DEV: CANDIDATE-ART`.
 - Builders validate everything before creating the output directory, never overwrite an existing one, and
-  copy export bytes unchanged.
+  copy export bytes unchanged; only terrain is graded (below).
 
 ## Units
 
@@ -55,10 +55,17 @@ standing tiles so each pack stays within the decoded-image budget. Older catalog
 in `standing` still load. Runtime IDs, anchors and drawing order are shared by both layouts.
 
 Larger groups split into numbered directories (`context-ground`, `context-ground-2`, ...), with identical
-ID assignments at 2× and 4×. The builder sorts IDs and splits at the entry/decoded-image limits; it copies
-PNG bytes unchanged. Loaders discover contiguous parts from directory listings (also through HTTP's
-`files.txt`) and reject incomplete densities or duplicate IDs across parts. All background and context
-parts retain the same opaque texture borders.
+ID assignments at 2× and 4×. The builder sorts IDs and splits at the entry/decoded-image limits. Loaders
+discover contiguous parts from directory listings (also through HTTP's `files.txt`) and reject incomplete
+densities or duplicate IDs across parts. All background and context parts retain the same opaque texture
+borders.
+
+The builder grades every terrain image to the summer value targets of `art/direction.md`
+(`internal/terraingrade`), and `internal/maprender` grades the same way as it loads `assets/`, so the art
+book and the game agree. The grade works per pixel colour: one L\* curve and a b\* shift for land, one curve
+for open water, snow left as painted. Relief darkens and buildings take b\* 16 where they differ from the
+meadow baked into their tiles. Crowns follow their own curve. Cast shadows and fog are copied unchanged.
+`build/packs/terrain/grade` names the grade; `just` rebuilds the packs when it differs.
 
 The optional `materials` group contains `material/grass/summer` and `material/hills/summer` together at
 2× and 4×: opaque 568×400 world-pixel periods, anchor (0,0). Both renderers share the native-aspect,

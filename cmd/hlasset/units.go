@@ -103,7 +103,7 @@ func buildUnits(assetsDir, out string) ([]unitPack, error) {
 	}
 	written, err := writePacks(assetsDir, out, manifests, func(i int) string {
 		return path.Join(fmt.Sprintf("%dx", packs[i].Density), packs[i].Family)
-	})
+	}, nil)
 	if err != nil {
 		return nil, err
 	}
