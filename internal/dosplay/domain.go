@@ -6,7 +6,8 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
 )
 
-// Domain is the kind of fighting a unit stands for in a battle vignette.
+// Domain is the kind of fighting a unit stands for; a naval unit shows as one
+// ship in the battle scene.
 type Domain int
 
 // The battle domains; the zero value is Infantry.

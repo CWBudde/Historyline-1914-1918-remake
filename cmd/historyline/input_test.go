@@ -10,7 +10,7 @@ func TestKeyBindingsMatchPython(t *testing.T) {
 	want := map[ebiten.Key]action{
 		ebiten.KeyF1: actEndTurn, ebiten.KeyEscape: actCancel, ebiten.KeySpace: actSelectHex,
 		ebiten.KeyPageUp: actViewTop, ebiten.KeyPageDown: actViewBottom, ebiten.KeyQ: actQuit,
-		ebiten.KeyF11: actFullscreen, ebiten.KeyF9: actVignettes,
+		ebiten.KeyF11: actFullscreen, ebiten.KeyF9: actScenes,
 	}
 	for k, a := range want {
 		got := actionsFor(func(p ebiten.Key) bool { return p == k })

@@ -39,16 +39,22 @@ type screenFile struct {
 	read    func() ([]byte, error)
 }
 
+// interfaceFamilies are the interface art families the screen catalog also
+// carries, each in a family of its own name: the experience badges and the
+// battle effects.
+var interfaceFamilies = map[string]string{"interface/rank": "rank", "interface/effect": "effect"}
+
 // planScreens returns the files of the screen catalog at density d: every
 // unpacked runtime file under screens/ at d, the unit portraits at d in one
-// family "portraits", and scene/<family> for each
+// family "portraits", the interfaceFamilies at d, and scene/<family> for each
 // art/screens/<family>/illustration.png.
 func planScreens(entries []indexEntry, assetsDir, artDir string, d int) ([]screenFile, error) {
 	var files []screenFile
 	seen := map[string]bool{}
 	for _, e := range entries {
 		portrait := strings.HasPrefix(e.Art, "portraits/")
-		if e.Pack != "" || !strings.HasPrefix(e.Art, "screens/") && !portrait || e.Density != d {
+		iface, isIface := interfaceFamilies[e.Art]
+		if e.Density != d || !isIface && (e.Pack != "" || !strings.HasPrefix(e.Art, "screens/") && !portrait) {
 			continue
 		}
 		if seen[e.ID] {
@@ -61,8 +67,11 @@ func planScreens(entries []indexEntry, assetsDir, artDir string, d int) ([]scree
 			anchor = *e.Anchor
 		}
 		family := strings.TrimPrefix(e.Art, "screens/")
-		if portrait {
+		switch {
+		case portrait:
 			family = "portraits"
+		case isIface:
+			family = iface
 		}
 		files = append(files, screenFile{Family: family, ID: e.ID, Density: d, Width: e.Width, Height: e.Height, Anchor: anchor,
 			read: func() ([]byte, error) { return os.ReadFile(name) }})

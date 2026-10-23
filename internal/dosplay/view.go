@@ -17,7 +17,7 @@ type UnitView struct {
 	Type   int    // UNIT.DAT type
 	ID     string // unit id of data.Set.Units
 	Name   string
-	Domain Domain // the battle vignette's
+	Domain Domain // the kind of fighting
 	Side   int    // 0, 1, 2 neutral
 	Owner  game.Player
 	// At is the hex the unit stands on, for a held unit its container's.

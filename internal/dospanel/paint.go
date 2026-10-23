@@ -231,6 +231,7 @@ type plateKey struct {
 const (
 	unitInfoPlate = iota
 	contentsPlate
+	battlePlate
 )
 
 var plates = struct {

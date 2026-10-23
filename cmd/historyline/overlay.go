@@ -41,7 +41,7 @@ func (g *game) plateScale(side int, fit func(r image.Rectangle, scale float64) f
 	return fit(image.Rect(r.X, r.Y, r.Right(), r.Bottom()), panelScale(g.split.screen))
 }
 
-// The fits of the three plates.
+// The fits of the three plates and the battle scene.
 func unitInfoFit(r image.Rectangle, scale float64) float64 {
 	return dospanel.UnitInfoLayout(r, scale).Scale
 }
@@ -50,6 +50,12 @@ func gameInfoFit(r image.Rectangle, scale float64) float64 {
 }
 func contentsFit(r image.Rectangle, scale float64) float64 {
 	return dospanel.ContentsLayout(r, scale).Scale
+}
+
+// battleFit is the battle scene's: as large as fits, whatever the plates'
+// scale.
+func battleFit(r image.Rectangle, _ float64) float64 {
+	return dospanel.BattleLayout(r, math.Inf(1)).Scale
 }
 
 // textScale is the pixel font's scale on a plate laid out at scale.
@@ -145,10 +151,15 @@ func (g *game) portrait(id string) *ebiten.Image {
 // unitImage is the map sprite of unit type id owned by owner, facing north
 // at 2x, nil without the unit art.
 func (g *game) unitImage(id string, owner state.Player) *ebiten.Image {
+	return g.unitFacing(id, owner, unitsprite.N)
+}
+
+// unitFacing is that sprite facing f.
+func (g *game) unitFacing(id string, owner state.Player, f unitsprite.Facing) *ebiten.Image {
 	if g.art == nil {
 		return nil
 	}
-	family, sid, ok := unitSprite(id, owner, false, false, unitsprite.N)
+	family, sid, ok := unitSprite(id, owner, false, false, f)
 	if !ok {
 		return nil
 	}

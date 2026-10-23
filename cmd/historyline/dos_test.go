@@ -269,7 +269,7 @@ func TestDosBattles(t *testing.T) {
 			}
 			battles++
 			b := p.ev.Battle
-			if p.fight == nil || p.fight.ev.Battle != b || p.fight.domain.String() != b.Attacker.Unit.Domain.String() || d.report.Active() {
+			if p.fight == nil || p.fight.ev.Battle != b || p.fight.battle.Defender.After != b.Defender.After || d.report.Active() {
 				t.Fatalf("battle stage %+v for %+v", p.fight, b)
 			}
 			for _, f := range []dosplay.Fighter{b.Attacker, b.Defender} {

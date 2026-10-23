@@ -9,6 +9,7 @@ import (
 	"math"
 	"os"
 	"path/filepath"
+	"slices"
 	"strings"
 	"time"
 
@@ -85,7 +86,8 @@ func splitFramePlan() []reviewFrame {
 		frames = append(frames, reviewFrame{size[0], size[1], "split", false, 0}, reviewFrame{size[0], size[1], "split-revealed", true, 0})
 	}
 	for _, view := range []string{"split-cursor", "split-move", "split-ring", "split-strategic", "split-zoom-out", "split-zoom-in",
-		"split-prompt", "split-black", "split-battle-grey", "split-battle", "split-newmode",
+		"split-prompt", "split-black", "split-battle-grey", "split-battle", "split-battle-loss", "split-battle-destroyed",
+		"split-battle-hold", "split-newmode",
 		"split-unitinfo", "split-gameinfo", "split-contents"} {
 		frames = append(frames, reviewFrame{1920, 1080, view, false, 0})
 	}
@@ -106,8 +108,9 @@ func (g *game) stageCapture(view string) {
 	s.track.Reset()
 	d.clear()
 	d.Message = ""
-	d.prompt, d.fx.marks = false, nil
 	d.endStage()
+	d.unfreeze()
+	d.prompt, d.fx.marks = false, nil
 	s.mode, s.dir = [2]panelMode{}, gesture.Centre
 	g.zoomSplit(dosscreen.DefaultZoom - s.screen.Zoom)
 	for side := range 2 {
@@ -156,8 +159,8 @@ func (g *game) stageCapture(view string) {
 	case view == "split-newmode":
 		next := [2]int{d.s.Phase(1), d.s.Phase(0)} // the phases swap
 		d.startNewMode(dosplay.Event{Kind: dosplay.PhaseChanged, Phase: next, Turn: d.s.Turn() + 1})
-	case view == "split-battle-grey" || view == "split-battle":
-		g.stageBattle(at, view == "split-battle")
+	case battleViews[view] != "":
+		g.stageBattle(at, battleViews[view])
 	case view == "split-unitinfo":
 		g.setCursor(at)
 		g.openInfo(at)
@@ -202,10 +205,20 @@ func (g *game) stageContents() {
 	g.syncContents()
 }
 
+// The battle capture views and how far each plays: the site in grey, the
+// scene's build-up, its first loss with the hit on the map, a destroyed
+// defender's explosion on the map, and the scene's end held.
+var battleViews = map[string]string{
+	"split-battle-grey": "grey", "split-battle": "build", "split-battle-loss": "loss",
+	"split-battle-destroyed": "destroyed", "split-battle-hold": "hold",
+}
+
 // stageBattle stages a battle of the own unit on at against the nearest enemy
-// unit the true view shows, grey at the site or (fought) with the site in
-// colour and the vignette, the human panel looking at it.
-func (g *game) stageBattle(at hexgrid.Coord, fought bool) {
+// unit the true view shows on frozen views, as the phase change does, the
+// human panel looking at it, played as far as step (battleViews) asks: the
+// attacker loses a man and gains experience, the defender loses three men or,
+// for "destroyed", all of them.
+func (g *game) stageBattle(at hexgrid.Coord, step string) {
 	d := g.dos
 	u := d.own().Units[at]
 	var to hexgrid.Coord
@@ -220,15 +233,31 @@ func (g *game) stageBattle(at hexgrid.Coord, fought bool) {
 		return
 	}
 	e := tv.Units[to]
+	own, other := d.s.View(d.side), d.s.View(1-d.side)
+	own.Units[to] = e
+	d.frozen, d.otherFrozen = &own, &other
 	b := &dosplay.BattleInfo{
-		Attacker: dosplay.Fighter{Unit: u, Before: u.Size, After: max(u.Size-1, 1)},
-		Defender: dosplay.Fighter{Unit: e, Before: e.Size, After: max(e.Size-3, 1)},
+		Attacker: dosplay.Fighter{Unit: u, Before: u.Size, After: max(u.Size-1, 1), ExpBefore: u.Exp, ExpAfter: min(u.Exp+1, 6)},
+		Defender: dosplay.Fighter{Unit: e, Before: e.Size, After: max(e.Size-3, 1), ExpBefore: e.Exp, ExpAfter: e.Exp},
+	}
+	if step == "destroyed" {
+		b.Defender.After, b.Defender.Destroyed = 0, true
 	}
 	d.startBattle(dosplay.Event{Kind: dosplay.Battle, From: at, To: to, Battle: b})
-	if fought {
-		for d.stageAt < d.fight.grey+12 {
-			d.tickStage()
-		}
+	f := d.fight
+	until := map[string]func() bool{
+		"grey":  func() bool { return true },
+		"build": func() bool { return d.stageAt >= f.grey+40 },
+		"loss":  func() bool { return d.stageAt >= f.strikeAt+6 },
+		// the explosion of the last man two frames on, the unit still under it
+		"destroyed": func() bool {
+			return slices.ContainsFunc(d.fx.Marks(), func(m mark) bool { return m.Kind == markDeath && m.frame(false) >= 2 })
+		},
+		"hold": func() bool { return d.stageAt >= d.stageLen-20 },
+	}[step]
+	for d.stage == stageBattle && !until() {
+		d.tickStage()
+		d.fx.Tick()
 	}
 	g.followSplit()
 	for side := range 2 {

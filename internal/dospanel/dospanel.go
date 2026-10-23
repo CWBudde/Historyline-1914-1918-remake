@@ -1,16 +1,17 @@
 // Package dospanel draws the views that open inside one map panel of the
 // original's battle screen (`-rules dos`): the unit info, the game info, a
-// container's contents and the battle vignettes. They are placeholders: the
-// plates are procedural steel and brass, the vignettes procedural sepia
-// scenes; only layout, proportions and information follow the original.
+// container's contents and the battle scene: attacker above defender, each
+// with photo, flag, count and a hex holding a figure per man, the losses
+// falling one by one. The plates are procedural steel and brass; only
+// layout, proportions and information follow the original.
 //
 // Every view is laid out inside a panel rectangle in device pixels at a
 // scale in device pixels per reference pixel (the original's 320×200 screen).
 // The layout keeps the reference proportions, centred in the panel, and
-// shrinks below the scale when the panel is too small. Drawing never paints
-// outside the panel.
+// shrinks below the scale when the panel is too small; the battle scene
+// takes the largest scale that fits. Drawing never paints outside the panel.
 //
-// The views take plain data (UnitInfo, GameInfo, Contents) and draw their
+// The views take plain data (UnitInfo, GameInfo, Contents, Battle) and draw their
 // text through Text, so the caller binds the game session and the font.
 package dospanel
 

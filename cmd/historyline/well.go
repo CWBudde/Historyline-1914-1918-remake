@@ -17,9 +17,10 @@ import (
 
 // The status wells under the panels (-rules dos): one line of capitals per
 // side in the panel's colour, numbers in amber. With the cursor on an own unit
-// the human side's well shows the unit line (group size, name, the owner's
-// flag); otherwise each well says what its side is doing, and while the
-// computer plans a thin bar along the bottom shows how far it got.
+// the human side's well shows the unit line (group size, experience badge,
+// name, the owner's flag); otherwise each well says what its side is doing,
+// and while the computer plans a thin bar along the bottom shows how far it
+// got.
 
 // msgFrames is how long a fresh message beats the unit line.
 const msgFrames = 180
@@ -31,6 +32,7 @@ type well struct {
 
 	unit  bool // the unit line instead of text
 	size  int
+	exp   int
 	name  string
 	owner state.Player
 
@@ -75,7 +77,7 @@ func (g *game) wellOf(side int) well {
 		w.text = d.Message
 	default:
 		if u, ok := g.cursorUnit(); ok {
-			w.unit, w.size, w.name, w.owner = true, u.Size, u.Name, u.Owner
+			w.unit, w.size, w.exp, w.name, w.owner = true, u.Size, u.Exp, u.Name, u.Owner
 			break
 		}
 		w.text = modeWord(s.Phase(side)) + " PHASE  " + g.orderCount(side)
@@ -94,12 +96,13 @@ func (g *game) cursorUnit() (u unitLine, ok bool) {
 	if !ok || v.Side != g.dos.side {
 		return u, false
 	}
-	return unitLine{Size: v.Size, Name: v.Name, Owner: v.Owner}, true
+	return unitLine{Size: v.Size, Exp: v.Exp, Name: v.Name, Owner: v.Owner}, true
 }
 
 // unitLine is the unit line's data.
 type unitLine struct {
 	Size  int
+	Exp   int
 	Name  string
 	Owner state.Player
 }
@@ -136,12 +139,13 @@ func wellScale(sc dosscreen.Screen, side int) int {
 func (g *game) drawWells(dst *ebiten.Image) {
 	sc := g.split.screen
 	for side := range 2 {
-		drawWell(dst, sc, side, g.wellOf(side))
+		drawWell(dst, sc, side, g.wellOf(side), g.drawBadge)
 	}
 }
 
-// drawWell draws w into side's well of sc.
-func drawWell(dst *ebiten.Image, sc dosscreen.Screen, side int, w well) {
+// drawWell draws w into side's well of sc, the unit line's experience
+// through badge.
+func drawWell(dst *ebiten.Image, sc dosscreen.Screen, side int, w well, badge func(dst *ebiten.Image, exp int, cx, cy, size float64)) {
 	r := sc.WellText(side)
 	k := wellScale(sc, side)
 	f := pixfont.Small
@@ -154,6 +158,11 @@ func drawWell(dst *ebiten.Image, sc dosscreen.Screen, side int, w well) {
 		fw := fh * 8 / 5
 		f.Draw(dst, size, r.X+k, y, k, num)
 		sw, _ := f.Measure(size, k)
+		if badge != nil && w.exp > 0 {
+			bs := math.Min(float64(th)*1.8, float64(r.H))
+			badge(dst, w.exp, float64(r.X+sw+3*k)+bs/2, float64(y)+float64(th)/2, bs)
+			sw += 3*k + int(bs)
+		}
 		room := r.W - 2*max(sw+2*k, fw+2*k)
 		name := f.Fit(w.name, k, room)
 		nw, _ := f.Measure(name, k)

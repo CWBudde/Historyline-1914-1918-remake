@@ -13,9 +13,11 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dospanel"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosscreen"
+	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/gesture"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/pixfont"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
 )
 
 // The phase change of -rules dos. F1 (or the mode-change gesture) opens a
@@ -23,10 +25,11 @@ import (
 // the orders. Once both sides have confirmed the panels go black with only the
 // cursor plates left; each fought attack order then shows the battle site in
 // the human side's panel, grey and then in colour, while the other panel
-// plays the sepia vignette of the attacker's domain and the site's well counts
-// the losses. The new mode of each side follows on both maps in grey, then
+// plays the battle scene (the two groups, their men falling one by one) and
+// the site's well counts the losses; the hits land on the map with the scene's
+// first loss. The new mode of each side follows on both maps in grey, then
 // colour returns, the other side's moves walk and the computer plans. F9 turns
-// the vignettes off; reduced motion skips them and shortens every stage.
+// the scenes off; reduced motion shows only their end and shortens every stage.
 
 // stage is the step of the phase change playing.
 type stage int
@@ -42,10 +45,10 @@ const (
 type panelLook int
 
 const (
-	lookMap      panelLook = iota // the map (or strategic map) in colour
-	lookGrey                      // the map in greyscale
-	lookBlack                     // nothing but black
-	lookVignette                  // the battle vignette
+	lookMap    panelLook = iota // the map (or strategic map) in colour
+	lookGrey                    // the map in greyscale
+	lookBlack                   // nothing but black
+	lookBattle                  // the battle scene
 )
 
 // Stage times in frames (tps per second), the second of each pair with
@@ -55,62 +58,53 @@ const (
 
 	blackFrames, blackFramesReduced     = 40, 10
 	siteGreyFrames, siteGreyReduced     = 20, 6  // the battle site in grey before the fight
-	stillFrames, stillFramesReduced     = 45, 20 // a battle without its vignette
+	stillFrames, stillFramesReduced     = 45, 20 // a battle without its scene
 	newModeFrames, newModeFramesReduced = 60, 15
-
-	vignetteLoops = 3 // a vignette plays this often, about 2 s
 )
 
-// fight is the battle of stageBattle.
+// fight is the battle of stageBattle. Its fighters are in the scene's order:
+// the attacker, then the defender.
 type fight struct {
 	ev       dosplay.Event
-	at       hexgrid.Coord // the defender's hex, where the site panel looks
-	from     hexgrid.Coord // the attacker's hex
-	domain   dospanel.Domain
-	grey     int  // frames the site shows in grey
-	vignette bool // the other panel plays the vignette
-	struck   bool // the hit marks are up
+	at       hexgrid.Coord   // the defender's hex, where the site panel looks
+	from     hexgrid.Coord   // the attacker's hex
+	battle   dospanel.Battle // the scene's numbers; the art is added when it is drawn
+	grey     int             // frames the site shows in grey
+	scene    bool            // the other panel plays the battle scene
+	strikeAt int             // the stage frame of the first loss: a hit without a man lost lands then
+	struck   bool            // those hits are marked
+	landed   [2]int          // the men each fighter has lost on the map so far
+	gained   [2]bool         // each fighter's experience after the battle is on the map
+	dying    [2]bool         // the fighter's explosion is on the map
+	dropAt   [2]int          // the stage frame at which a dying fighter leaves the map
+	dropped  [2]bool         // the fighter has left the map
 }
 
-// vignetteDomain is the vignette of a unit's battle domain (the two lists
-// differ in order, so they meet by name).
-func vignetteDomain(d dosplay.Domain) dospanel.Domain {
-	for v := range dospanel.Domains {
-		if v.String() == d.String() {
-			return v
+// fighters are the fight's fighters and hexes, attacker first.
+func (f *fight) fighters() ([2]dosplay.Fighter, [2]hexgrid.Coord) {
+	return [2]dosplay.Fighter{f.ev.Battle.Attacker, f.ev.Battle.Defender}, [2]hexgrid.Coord{f.from, f.at}
+}
+
+// final is each fighter's losses and experience gain after the whole battle.
+func (f *fight) final() (lost [2]int, gained [2]bool) {
+	xs, _ := f.fighters()
+	for i, x := range xs {
+		lost[i], gained[i] = x.Before-x.After, true
+		if x.Destroyed {
+			lost[i] = x.Before
 		}
 	}
-	return dospanel.Infantry
+	return lost, gained
 }
 
-// animTicks is the length in frames of one loop of an animation whose frames
-// show frameMS milliseconds each.
-func animTicks(frameMS []int) int {
-	ms := 0
-	for _, f := range frameMS {
-		ms += f
+// battleScene is the scene of battle b without its art: the attacker on top,
+// the defender below, a ship as one picture.
+func battleScene(b *dosplay.BattleInfo) dospanel.Battle {
+	fighter := func(x dosplay.Fighter) dospanel.Fighter {
+		return dospanel.Fighter{Name: strings.ToUpper(x.Unit.Name), Before: x.Before, After: x.After, Full: x.Unit.Full,
+			ExpBefore: x.ExpBefore, ExpAfter: x.ExpAfter, Destroyed: x.Destroyed, Ship: x.Unit.Domain == dosplay.Naval}
 	}
-	return (ms*tps + 999) / 1000
-}
-
-// animFrame is the frame of such an animation ticks frames after it started,
-// looping.
-func animFrame(frameMS []int, ticks int) int {
-	ms := 0
-	for _, f := range frameMS {
-		ms += f
-	}
-	if ms <= 0 {
-		return 0
-	}
-	t := ticks * 1000 / tps % ms
-	for i, f := range frameMS {
-		if t < f {
-			return i
-		}
-		t -= f
-	}
-	return 0
+	return dospanel.Battle{Attacker: fighter(b.Attacker), Defender: fighter(b.Defender), ReturnFire: b.ReturnFire}
 }
 
 // frames is n, or reduced with reduced motion.
@@ -143,15 +137,28 @@ func (d *dosControl) locked() bool { return d.prompt || d.sequence() }
 // startStage starts st for n frames.
 func (d *dosControl) startStage(st stage, n int) { d.stage, d.stageAt, d.stageLen = st, 0, n }
 
-// endStage ends the stage playing.
-func (d *dosControl) endStage() { d.stage, d.stageAt, d.stageLen, d.fight = stageNone, 0, 0, nil }
+// endStage ends the stage playing; a battle's losses all land and its
+// destroyed fighters leave the map now.
+func (d *dosControl) endStage() {
+	if f := d.fight; f != nil {
+		d.land(f.final())
+		xs, _ := f.fighters()
+		for i, x := range xs {
+			if x.Destroyed && !f.dropped[i] {
+				f.dropped[i] = true
+				d.drop(x.Unit.Index)
+			}
+		}
+	}
+	d.stage, d.stageAt, d.stageLen, d.fight = stageNone, 0, 0, nil
+}
 
-// tickStage advances the stage by a frame: the battle's hits come up when
-// its site turns to colour, and the stage ends when its time is up.
+// tickStage advances the stage by a frame, the map following the battle
+// (playFight), and ends the stage when its time is up.
 func (d *dosControl) tickStage() {
 	d.stageAt++
-	if f := d.fight; d.stage == stageBattle && !f.struck && d.stageAt >= f.grey {
-		d.strike()
+	if d.stage == stageBattle {
+		d.playFight()
 	}
 	if d.stageAt >= d.stageLen {
 		d.endStage()
@@ -164,11 +171,13 @@ func (d *dosControl) startBattle(ev dosplay.Event) {
 	b := ev.Battle
 	atk, def := b.Attacker, b.Defender
 	f := &fight{ev: ev, from: d.frozenAt(atk.Unit.Index, ev.From), at: d.frozenAt(def.Unit.Index, ev.To),
-		domain: vignetteDomain(atk.Unit.Domain), vignette: !d.reduced && !d.noVignettes}
+		battle: battleScene(b), scene: !d.noScenes}
 	f.grey = d.frames(siteGreyFrames, siteGreyReduced)
+	f.strikeAt = f.grey
 	n := d.frames(stillFrames, stillFramesReduced)
-	if f.vignette {
-		n = f.grey + vignetteLoops*animTicks(dospanel.Vignette(f.domain).FrameMS)
+	if f.scene {
+		f.strikeAt += dospanel.FirstLoss(f.battle, d.reduced)
+		n = f.grey + dospanel.BattleTicks(f.battle, d.reduced)
 	}
 	d.turn(atk.Unit.Index, f.from, f.at)
 	d.turn(def.Unit.Index, f.at, f.from)
@@ -177,35 +186,90 @@ func (d *dosControl) startBattle(ev dosplay.Event) {
 	d.startStage(stageBattle, n)
 }
 
-// strike puts the hit marks up and takes the destroyed units off the frozen
-// views.
-func (d *dosControl) strike() {
+// losses is each fighter's losses and experience gain the battle shows now:
+// the scene's count as its men fall, without a scene all at once when the
+// site turns to colour.
+func (d *dosControl) losses() (lost [2]int, gained [2]bool) {
 	f := d.fight
-	b := f.ev.Battle
-	f.struck = true
-	d.fx.AddHits(f.from, f.at, hit(b.Defender), b.Defender.Destroyed, hit(b.Attacker), b.Attacker.Destroyed)
-	for _, x := range []dosplay.Fighter{b.Defender, b.Attacker} {
-		if x.Destroyed {
+	switch {
+	case d.stageAt < f.grey:
+		return lost, gained
+	case !f.scene:
+		return f.final()
+	}
+	st := dospanel.BattleAt(f.battle, d.sceneTick(), d.reduced)
+	for i := range 2 {
+		lost[i], gained[i] = st.Sides[i].Lost, st.Gained[i]
+	}
+	return lost, gained
+}
+
+// playFight brings the map up to the battle as it plays: the losses as the
+// panel shows them (land), a hit that cost no man with the first loss, and a
+// destroyed fighter off the map at its explosion's peak.
+func (d *dosControl) playFight() {
+	f := d.fight
+	d.land(d.losses())
+	xs, hexes := f.fighters()
+	if !f.struck && d.stageAt >= f.strikeAt {
+		f.struck = true
+		lost, _ := f.final()
+		for i, x := range xs {
+			if hit(x) && lost[i] == 0 {
+				d.fx.Mark(hexes[i], false)
+			}
+		}
+	}
+	for i, x := range xs {
+		if f.dying[i] && !f.dropped[i] && d.stageAt >= f.dropAt[i] {
+			f.dropped[i] = true
 			d.drop(x.Unit.Index)
+		}
+	}
+}
+
+// land puts each fighter's losses and gain on the map: the group size counts
+// down with a hit on its hex per step, the last man of a destroyed fighter
+// goes up in an explosion that hides the unit at its peak (the stage lasts
+// until the explosion is over), and the experience changes with the gain.
+func (d *dosControl) land(lost [2]int, gained [2]bool) {
+	f := d.fight
+	xs, hexes := f.fighters()
+	for i, x := range xs {
+		if lost[i] <= f.landed[i] && gained[i] == f.gained[i] {
+			continue
+		}
+		hits := lost[i] > f.landed[i]
+		f.landed[i], f.gained[i] = max(lost[i], f.landed[i]), gained[i]
+		exp := x.ExpBefore
+		if gained[i] {
+			exp = x.ExpAfter
+		}
+		d.strength(x.Unit.Index, x.Before-f.landed[i], exp)
+		if !hits {
+			continue
+		}
+		dead := x.Destroyed && f.landed[i] >= x.Before
+		d.fx.Mark(hexes[i], dead)
+		if dead && !f.dying[i] {
+			f.dying[i] = true
+			f.dropAt[i] = d.stageAt + d.frames(explosionPeak*explosionMS*tps/1000, 0)
+			d.stageLen = max(d.stageLen, d.stageAt+d.fx.frames(deathFrames))
 		}
 	}
 }
 
 // SkipBattle ends the battle playing at once (a click or a key).
 func (d *dosControl) SkipBattle() {
-	if d.stage != stageBattle {
-		return
+	if d.stage == stageBattle {
+		d.endStage()
 	}
-	if !d.fight.struck {
-		d.strike()
-	}
-	d.endStage()
 }
 
-// ToggleVignettes turns the battle vignettes off or on (F9).
-func (d *dosControl) ToggleVignettes() {
-	d.noVignettes = !d.noVignettes
-	d.Message = "battle scenes " + map[bool]string{true: "off", false: "on"}[d.noVignettes]
+// ToggleScenes turns the battle scenes off or on (F9).
+func (d *dosControl) ToggleScenes() {
+	d.noScenes = !d.noScenes
+	d.Message = "battle scenes " + map[bool]string{true: "off", false: "on"}[d.noScenes]
 }
 
 // startNewMode shows the new mode of each side after the phase change ev.
@@ -227,8 +291,8 @@ func (d *dosControl) panelLooks() [2]panelLook {
 		out[d.side], out[1-d.side] = lookMap, lookBlack
 		if d.stageAt < f.grey {
 			out[d.side] = lookGrey
-		} else if f.vignette {
-			out[1-d.side] = lookVignette
+		} else if f.scene {
+			out[1-d.side] = lookBattle
 		}
 		return out
 	case stageNone:
@@ -239,13 +303,12 @@ func (d *dosControl) panelLooks() [2]panelLook {
 	return [2]panelLook{}
 }
 
-// vignetteFrame is the vignette playing and its frame.
-func (d *dosControl) vignetteFrame() (dospanel.Domain, int) {
-	f := d.fight
-	if f == nil {
-		return dospanel.Infantry, 0
+// sceneTick is the frame of the battle scene playing.
+func (d *dosControl) sceneTick() int {
+	if d.fight == nil {
+		return 0
 	}
-	return f.domain, animFrame(dospanel.Vignette(f.domain).FrameMS, max(d.stageAt-f.grey, 0))
+	return max(d.stageAt-d.fight.grey, 0)
 }
 
 // stageWell is side's well in the prompt or a stage, ok false otherwise.
@@ -327,9 +390,8 @@ func (g *game) drawPanelLook(screen *ebiten.Image, side int, look panelLook, dra
 		draw(screen, 0, 0)
 	case lookBlack:
 		vector.FillRect(screen, float32(p.X), float32(p.Y), float32(p.W), float32(p.H), color.Black, false)
-	case lookVignette:
-		dom, frame := g.dos.vignetteFrame()
-		dospanel.DrawVignette(screen, r, dom, frame)
+	case lookBattle:
+		g.drawBattle(screen, side, r)
 	case lookGrey:
 		img := g.panelImage(side, p)
 		img.Clear()
@@ -338,6 +400,69 @@ func (g *game) drawPanelLook(screen *ebiten.Image, side int, look panelLook, dra
 		op.GeoM.Translate(float64(p.X), float64(p.Y))
 		colorm.DrawImage(screen, img, greyscale, &op)
 	}
+}
+
+// drawBattle draws the scene of the battle playing into side's panel r,
+// inside the frame's teeth like the plates, with the fighters' photos, their
+// sprites facing each other, flags and badges.
+func (g *game) drawBattle(dst *ebiten.Image, side int, r image.Rectangle) {
+	f := g.dos.fight
+	if f == nil {
+		return
+	}
+	b := f.battle
+	units := [2]dosplay.UnitView{f.ev.Battle.Attacker.Unit, f.ev.Battle.Defender.Unit}
+	for i, x := range [2]*dospanel.Fighter{&b.Attacker, &b.Defender} {
+		u := units[i]
+		x.Photo = g.portrait(u.ID)
+		x.Sprite = g.unitFacing(u.ID, u.Owner, [2]unitsprite.Facing{unitsprite.S, unitsprite.N}[i])
+		x.Flag = flagImage(u.Owner)
+		x.Badge = g.badgeImage
+	}
+	k := g.plateScale(side, battleFit)
+	// The text scale of the plates, smaller until both names fit theirs.
+	t := panelText{textScale(k)}
+	room := dospanel.BattleLayout(r, k).Sides[0].Name.Dx() * 9 / 10
+	for t.k > 1 {
+		wa, _ := t.Measure(b.Attacker.Name, dospanel.Small)
+		wd, _ := t.Measure(b.Defender.Name, dospanel.Small)
+		if max(wa, wd) <= room {
+			break
+		}
+		t.k--
+	}
+	dospanel.DrawBattle(dst, r, k, b, g.dos.sceneTick(), g.dos.reduced, g.battleArt(), t)
+}
+
+// battleArt is the scene's explosion, empty without all of its frames.
+func (g *game) battleArt() dospanel.BattleArt {
+	var a dospanel.BattleArt
+	for i := range explosionFrames {
+		img := g.screens.image(fmt.Sprintf("effect/explosion-%02d", i), 2)
+		if img == nil {
+			return dospanel.BattleArt{}
+		}
+		a.Explosion = append(a.Explosion, img)
+	}
+	return a
+}
+
+// flagImages holds each owner's flag as an image, painted once.
+var flagImages = map[state.Player]*ebiten.Image{}
+
+// flagImage is owner's flag in the proportions of the well's, nil for the
+// neutral side.
+func flagImage(owner state.Player) *ebiten.Image {
+	if owner == state.None {
+		return nil
+	}
+	img := flagImages[owner]
+	if img == nil {
+		img = ebiten.NewImage(48, 32)
+		drawFlag(img, owner, 0, 0, 48, 32)
+		flagImages[owner] = img
+	}
+	return img
 }
 
 // cursorPlates draws the plates of the phase change, one per panel: the human

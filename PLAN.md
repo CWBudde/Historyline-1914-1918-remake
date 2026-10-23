@@ -165,9 +165,10 @@ scales them with its art (2×, optional 4×).
   per target class, armour, speed, weight, group size), with the authored portraits through a sepia tint
   (no new portrait art); game info from the session (round, level, mode, score, units/depots/factory units
   per side, energy total and income, moves and limit); contents with repair and production (§3.1 step 6).
-- **Battle:** sepia vignettes per domain (infantry, armour, artillery, air, naval) as short frame
-  animations, with casualties in the status bar; the current battle panel is the fallback; F9 and reduced
-  motion skip them.
+- **Battle:** the scene in the other panel after the original: attacker above, defender below, each with
+  its photo, flag, badge, count and one map sprite per man on a hex ring; the men fall one by one and the
+  map follows (size, hits, the explosion of a destroyed unit), casualties in the status bar; F9 turns it
+  off, reduced motion shows its end.
 - **Phase change:** greyscale shader on both panels, fade to black with the cursor plates, the new mode of
   each side, colour back; reduced motion shortens it.
 
@@ -181,7 +182,7 @@ New families, newly painted in the remake's style with 2×/4× exports:
   produce, repair) with pressed and disabled states and the cursor ring.
 - Status-bar flags: the `interface/country` swatches (Germany, France) at status-bar size.
 - A capitals pixel font in two sizes (status bar, overlays).
-- `screens/battle-<domain>`: sepia battle vignettes with a few animation frames each.
+- A single-man figure per unit type for the battle scene's ring (the map sprites hold several men).
 - Decide whether the slate-and-brass interface candidates move to the steel look; name plates keep their
   brass rivets, which the original's plates have too.
 
@@ -210,12 +211,14 @@ New families, newly painted in the remake's style with 2×/4× exports:
 7. [x] Phase-change sequence and the computer's analysis progress. (2026-10-23) — `phase.go`: F1 prompt
        in grey, black with the cursor plates, battles (site grey to colour), the new modes in grey, colour,
        then the computer's analysis; reduced motion shortens it (`TestPhaseSequence*`).
-8. [x] Battle vignettes (placeholders first), F9 toggle. (2026-10-23) — procedural sepia vignettes per
-       domain (`dosplay.Domain`) in the other panel, casualties in the well; F9 and reduced motion skip
-       them, a key or click skips one (`TestBattlePanel*`).
+8. [x] Battle scene, F9 toggle. (2026-10-23) — `dospanel.DrawBattle`: both groups built up figure by
+       figure, each loss a muzzle flash, a blast and a wreck while the count steps down, the experience
+       gain held at the end; the map follows loss by loss (`phase.go` `land`), a destroyed unit leaves at
+       its explosion's peak; F9 turns it off, reduced motion shows its end, a key or click skips one
+       (`TestBattle*`, `TestBattlePanel*`, `go test ./internal/dospanel -run Battle`).
 9. [ ] Two humans on one screen (key set B, both confirmations). The panel state added in steps 4–8
        (wells, stages, overlays) is kept per side where cheap.
-10. [ ] Art: frame, gesture plates, flags, font and vignettes promoted into `assets/` and bound.
+10. [ ] Art: frame, gesture plates, flags, font and battle figures promoted into `assets/` and bound.
 11. [ ] Acceptance: `-capture` frames of all three levels, both sides, next to the reference frames in
         `hlgallery` (local only, the references stay ignored); 720p–4K, UI scales; summer and winter.
 12. [x] Edge scroll: the pointer on the human panel's outer half cells or past them steps the camera,
@@ -224,6 +227,12 @@ New families, newly painted in the remake's style with 2×/4× exports:
 13. [x] Zoom levels with the mouse wheel over the human panel, shared by both panels, keeping the hover
         cell in view. (2026-10-23) — `dosscreen.Zooms` (½ to 2× of the fitted scale, at least 4×4 cells),
         `zoomSplit` (`TestSplitZoom`, `go test ./internal/dosscreen -run Zoom`).
+14. [x] Unit markers on the map for both sides: the experience badge above the unit, the group size at
+        the lower right of its hex; the badge in the status line too. (2026-10-23) — `unitmarks.go`, the
+        rank art in the screen catalogue (`hlasset` families `rank`, `effect`), brass marks drawn without
+        it (`TestUnitMarks`, `TestWellBadge`).
+15. [x] Explosion art on the map: a destroyed unit plays `effect/explosion-00..08`, a hit its first
+        frames small. (2026-10-23) — `banner.go` (`TestExplosion` against `animations.json`).
 
 ### 2. Art completion and acceptance
 

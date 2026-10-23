@@ -56,13 +56,13 @@ type dosControl struct {
 	otherFrozen *dosplay.View   // the other side's view, frozen alike
 	over        bool            // the end of the battle has played
 
-	prompt      bool          // F1 asked for the phase end: F1 confirms, fire goes back (phase.go)
-	stage       stage         // the stage of the phase change playing, stageNone otherwise
-	stageAt     int           // its frames played
-	stageLen    int           // its length in frames
-	fight       *fight        // the battle of stageBattle
-	newMode     dosplay.Event // the phase change of stageNewMode
-	noVignettes bool          // F9: battles without the vignettes
+	prompt   bool          // F1 asked for the phase end: F1 confirms, fire goes back (phase.go)
+	stage    stage         // the stage of the phase change playing, stageNone otherwise
+	stageAt  int           // its frames played
+	stageLen int           // its length in frames
+	fight    *fight        // the battle of stageBattle
+	newMode  dosplay.Event // the phase change of stageNewMode
+	noScenes bool          // F9: battles without their scenes
 
 	run *planRun // the computer planning off the frame, nil otherwise (plan.go)
 
@@ -473,9 +473,8 @@ func (d *dosControl) step() {
 }
 
 // playBattle shows a fought attack order (phase.go): the site in the human
-// side's panel, the vignette in the other, the hit marks at the fighters'
-// hexes in the frozen view and the facings; the destroyed units leave the
-// frozen view.
+// side's panel, the battle scene in the other, the losses, hit marks and
+// facings on the frozen views; the destroyed units leave them.
 func (d *dosControl) playBattle(ev dosplay.Event) {
 	b := ev.Battle
 	if b == nil {
@@ -530,6 +529,22 @@ func (d *dosControl) drop(unit int) {
 	for _, v := range []*dosplay.View{d.frozen, d.otherFrozen} {
 		if v != nil {
 			maps.DeleteFunc(v.Units, func(_ hexgrid.Coord, u dosplay.UnitView) bool { return u.Index == unit })
+		}
+	}
+}
+
+// strength sets a unit's group size and experience on both frozen views, so
+// the map's markers follow its battle.
+func (d *dosControl) strength(unit, size, exp int) {
+	for _, v := range []*dosplay.View{d.frozen, d.otherFrozen} {
+		if v == nil {
+			continue
+		}
+		for c, u := range v.Units {
+			if u.Index == unit {
+				u.Size, u.Exp = size, exp
+				v.Units[c] = u
+			}
 		}
 	}
 }

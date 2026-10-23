@@ -13,7 +13,9 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dospanel"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
+	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/gesture"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 )
 
 // The tests below drive the phase change of -rules dos: the prompt, then
@@ -91,8 +93,8 @@ func stageLabel(d *dosControl) string {
 		case lookGrey:
 			return "site-grey"
 		case lookMap:
-			if l[1-d.side] == lookVignette {
-				return "vignette"
+			if l[1-d.side] == lookBattle {
+				return "scene"
 			}
 			return "still"
 		}
@@ -264,7 +266,7 @@ func TestPhaseSequenceOrder(t *testing.T) {
 	labels, frames := sequence(t, d, g)
 	got := strings.Join(slices.DeleteFunc(labels, func(l string) bool { return l == "busy" }), " ")
 	t.Logf("sequence: %s; frames %v", got, frames)
-	if !regexp.MustCompile(`^black (site-grey vignette )+newmode( reveal)* idle$`).MatchString(got) {
+	if !regexp.MustCompile(`^black (site-grey scene )+newmode( reveal)* idle$`).MatchString(got) {
 		t.Errorf("sequence %q", got)
 	}
 	if fs := frames[stageBlack]; len(fs) != 1 || fs[0] != blackFrames {
@@ -274,7 +276,7 @@ func TestPhaseSequenceOrder(t *testing.T) {
 		t.Errorf("new mode frames %v, want %d", fs, newModeFrames)
 	}
 	for _, n := range frames[stageBattle] {
-		if s := float64(n) / tps; s < 1.5 || s > 3 {
+		if s := float64(n) / tps; s < 2 || s > 8 {
 			t.Errorf("a battle ran %d frames", n)
 		}
 	}
@@ -314,7 +316,7 @@ func TestPhaseSequenceReduced(t *testing.T) {
 	toBattles(t, d)
 	labels, frames := sequence(t, d, nil)
 	got := strings.Join(labels, " ")
-	if strings.Contains(got, "vignette") || !strings.Contains(got, "still") {
+	if !strings.Contains(got, "scene") || strings.Contains(got, "still") {
 		t.Errorf("reduced motion sequence %q", got)
 	}
 	if fs := frames[stageBlack]; len(fs) != 1 || fs[0] != blackFramesReduced {
@@ -324,31 +326,31 @@ func TestPhaseSequenceReduced(t *testing.T) {
 		t.Errorf("new mode frames %v, want %d", fs, newModeFramesReduced)
 	}
 	for _, n := range frames[stageBattle] {
-		if n != stillFramesReduced {
-			t.Errorf("a battle ran %d frames, want %d", n, stillFramesReduced)
+		if want := siteGreyReduced + dospanel.BattleTicks(dospanel.Battle{}, true); n != want {
+			t.Errorf("a battle ran %d frames, want %d", n, want)
 		}
 	}
 }
 
-func TestBattlePanelVignetteToggle(t *testing.T) {
+func TestBattlePanelSceneToggle(t *testing.T) {
 	g, d := newSplitTest(t, approachPlanner{}, 1800, 1000)
-	g.applyAction(actVignettes)
-	if !d.noVignettes || !strings.Contains(d.Message, "off") {
-		t.Fatalf("F9: off %v, %q", d.noVignettes, d.Message)
+	g.applyAction(actScenes)
+	if !d.noScenes || !strings.Contains(d.Message, "off") {
+		t.Fatalf("F9: off %v, %q", d.noScenes, d.Message)
 	}
 	toBattles(t, d)
 	labels, frames := sequence(t, d, g)
-	if got := strings.Join(labels, " "); strings.Contains(got, "vignette") || !strings.Contains(got, "still") {
-		t.Errorf("sequence without vignettes %q", got)
+	if got := strings.Join(labels, " "); strings.Contains(got, "scene") || !strings.Contains(got, "still") {
+		t.Errorf("sequence without scenes %q", got)
 	}
 	for _, n := range frames[stageBattle] {
-		if n != stillFrames {
-			t.Errorf("a battle ran %d frames, want %d", n, stillFrames)
+		if n < stillFrames || n > max(stillFrames, siteGreyFrames+deathFrames) {
+			t.Errorf("a battle ran %d frames, want %d (longer only for an explosion)", n, stillFrames)
 		}
 	}
-	g.applyAction(actVignettes)
-	if d.noVignettes || !strings.Contains(d.Message, "on") {
-		t.Errorf("F9 again: off %v, %q", d.noVignettes, d.Message)
+	g.applyAction(actScenes)
+	if d.noScenes || !strings.Contains(d.Message, "on") {
+		t.Errorf("F9 again: off %v, %q", d.noScenes, d.Message)
 	}
 }
 
@@ -360,8 +362,9 @@ func TestBattlePanelStages(t *testing.T) {
 	}
 	f := d.fight
 	b := f.ev.Battle
-	if f.domain.String() != b.Attacker.Unit.Domain.String() {
-		t.Errorf("vignette %v for an attacker of domain %v", f.domain, b.Attacker.Unit.Domain)
+	if a, x := f.battle.Attacker, f.battle.Defender; a.Before != b.Attacker.Before || a.After != b.Attacker.After ||
+		x.Before != b.Defender.Before || x.After != b.Defender.After || x.Destroyed != b.Defender.Destroyed {
+		t.Errorf("scene %+v / %+v for the battle %+v", a, x, b)
 	}
 	if d.report.Active() {
 		t.Error("the HUD battle report shows under -rules dos")
@@ -370,22 +373,29 @@ func TestBattlePanelStages(t *testing.T) {
 	if c, ok := d.takeFollow(d.side); !ok || c != f.at {
 		t.Errorf("the site panel looks at %v %v, the fight is at %v", c, ok, f.at)
 	}
-	// Grey first, then colour with the vignette; its frame runs.
+	// Grey first, then colour with the scene from its start.
 	if l := d.panelLooks(); l[d.side] != lookGrey || l[1-d.side] != lookBlack {
 		t.Fatalf("battle opens with %v", l)
 	}
 	for d.panelLooks()[d.side] == lookGrey {
 		d.Tick()
 	}
-	dom, f0 := d.vignetteFrame()
-	if dom != f.domain || d.panelLooks()[1-d.side] != lookVignette {
-		t.Fatalf("vignette %v, looks %v", dom, d.panelLooks())
+	if d.panelLooks()[1-d.side] != lookBattle || d.sceneTick() != 0 {
+		t.Fatalf("looks %v at scene tick %d", d.panelLooks(), d.sceneTick())
 	}
-	for range 30 {
+	// The hits land with the scene's first loss.
+	if want := f.grey + dospanel.FirstLoss(f.battle, false); f.strikeAt != want {
+		t.Errorf("strike at %d, want %d", f.strikeAt, want)
+	}
+	for d.stageAt < f.strikeAt-1 {
 		d.Tick()
 	}
-	if _, f1 := d.vignetteFrame(); f1 == f0 {
-		t.Errorf("the vignette stays on frame %d", f0)
+	if f.struck {
+		t.Fatalf("struck at %d, before the first loss at %d", d.stageAt, f.strikeAt)
+	}
+	d.Tick()
+	if !f.struck {
+		t.Fatalf("not struck at the first loss, frame %d", d.stageAt)
 	}
 	// Drawing every look works.
 	img := ebiten.NewImage(1800, 1000)
@@ -410,16 +420,131 @@ func TestBattlePanelStages(t *testing.T) {
 	}
 }
 
-func TestBattlePanelDomains(t *testing.T) {
-	for _, d := range []dosplay.Domain{dosplay.Infantry, dosplay.Armour, dosplay.Artillery, dosplay.Naval, dosplay.Air} {
-		if got := vignetteDomain(d); got.String() != d.String() {
-			t.Errorf("%v gives vignette %v", d, got)
+func TestBattleScene(t *testing.T) {
+	ship := dosplay.UnitView{Name: "Battleship", Domain: dosplay.Naval, Full: 1}
+	inf := dosplay.UnitView{Name: "Infantry", Domain: dosplay.Infantry, Full: 6}
+	s := battleScene(&dosplay.BattleInfo{
+		Attacker:   dosplay.Fighter{Unit: inf, Before: 6, After: 5, ExpBefore: 1, ExpAfter: 2},
+		Defender:   dosplay.Fighter{Unit: ship, Before: 1, After: 0, Destroyed: true},
+		ReturnFire: true,
+	})
+	a, x := s.Attacker, s.Defender
+	if a.Name != "INFANTRY" || a.Ship || a.Before != 6 || a.After != 5 || a.Full != 6 || a.ExpBefore != 1 || a.ExpAfter != 2 {
+		t.Errorf("attacker %+v", a)
+	}
+	if !x.Ship || !x.Destroyed || x.After != 0 || !s.ReturnFire {
+		t.Errorf("defender %+v, return fire %v", x, s.ReturnFire)
+	}
+	if flagImage(state.None) != nil || flagImage(state.CentralPowers) == nil || flagImage(state.Entente) == flagImage(state.CentralPowers) {
+		t.Error("flags: none for the neutral side, one per power")
+	}
+}
+
+// battleOn starts a battle of the own unit at against the nearest enemy of
+// the frozen view, the enemy destroyed and the own unit losing a man.
+func battleOn(t *testing.T, d *dosControl) (atk, def dosplay.UnitView) {
+	t.Helper()
+	v := d.s.View(d.side)
+	d.frozen = &v
+	at := ownUnits(d)[0]
+	var to hexgrid.Coord
+	best := -1
+	for _, c := range dosplay.Coords(toSet(v.Units)) {
+		if e := v.Units[c]; e.Side != d.side && (best < 0 || hexgrid.Distance(at, c) < best) {
+			to, best = c, hexgrid.Distance(at, c)
 		}
 	}
-	a := dospanel.Vignette(dospanel.Air)
-	loop := animTicks(a.FrameMS)
-	if loop <= 0 || animFrame(a.FrameMS, 0) != 0 || animFrame(a.FrameMS, loop-1) != len(a.Frames)-1 || animFrame(a.FrameMS, loop) != 0 {
-		t.Errorf("loop %d frames: %d %d %d", loop, animFrame(a.FrameMS, 0), animFrame(a.FrameMS, loop-1), animFrame(a.FrameMS, loop))
+	if best < 0 {
+		t.Fatal("no enemy in view")
+	}
+	atk, def = v.Units[at], v.Units[to]
+	b := &dosplay.BattleInfo{
+		Attacker: dosplay.Fighter{Unit: atk, Before: atk.Size, After: atk.Size - 1, ExpBefore: atk.Exp, ExpAfter: atk.Exp + 1},
+		Defender: dosplay.Fighter{Unit: def, Before: def.Size, After: 0, Destroyed: true},
+	}
+	d.startBattle(dosplay.Event{Kind: dosplay.Battle, From: at, To: to, Battle: b})
+	return atk, def
+}
+
+// inFrozen is the unit of record index on the frozen view.
+func inFrozen(d *dosControl, index int) (dosplay.UnitView, bool) {
+	for _, u := range d.frozen.Units {
+		if u.Index == index {
+			return u, true
+		}
+	}
+	return dosplay.UnitView{}, false
+}
+
+func TestBattleDrop(t *testing.T) {
+	d := newDosTest(t, "level1_cp", passPlanner{})
+	atk, def := battleOn(t, d)
+	f := d.fight
+	if def.Size < 2 {
+		t.Fatalf("defender of size %d", def.Size)
+	}
+	// The map follows the panel man by man: the defender's size counts down
+	// one at a time with a hit each, its last man goes up in an explosion and
+	// it stays on the map until the explosion's peak.
+	sizes, hits, deaths, lastLoss := []int{def.Size}, 0, 0, -1
+	for d.stage == stageBattle && !f.dropped[1] {
+		before := len(d.fx.Marks())
+		d.tickStage()
+		for _, m := range d.fx.Marks()[min(before, len(d.fx.Marks())):] {
+			if m.At == f.at && m.Kind == markHit {
+				hits++
+			}
+			if m.At == f.at && m.Kind == markDeath {
+				deaths++
+				lastLoss = d.stageAt
+			}
+		}
+		if u, ok := inFrozen(d, def.Index); ok && u.Size != sizes[len(sizes)-1] {
+			sizes = append(sizes, u.Size)
+		}
+	}
+	for i := 1; i < len(sizes); i++ {
+		if sizes[i] != sizes[i-1]-1 {
+			t.Fatalf("defender sizes on the map %v, want one man at a time", sizes)
+		}
+	}
+	if sizes[len(sizes)-1] != 0 || hits != def.Size-1 || deaths != 1 {
+		t.Errorf("sizes %v, %d hits and %d explosions for %d men", sizes, hits, deaths, def.Size)
+	}
+	peak := explosionPeak * explosionMS * tps / 1000
+	if _, ok := inFrozen(d, def.Index); ok || d.stageAt-lastLoss != peak {
+		t.Errorf("the destroyed unit left %d frames after its last man (on the map %v), want %d", d.stageAt-lastLoss, ok, peak)
+	}
+	if d.stageLen < lastLoss+deathFrames {
+		t.Errorf("the stage ends at %d, before the explosion at %d is over", d.stageLen, lastLoss)
+	}
+	// The attacker's loss and gain land as the scene shows them.
+	for d.stage == stageBattle {
+		d.tickStage()
+	}
+	if f.landed != [2]int{1, def.Size} || f.gained != [2]bool{true, true} {
+		t.Errorf("landed %v, gained %v", f.landed, f.gained)
+	}
+
+	// Skipping the battle, or its end, lands it all and drops the destroyed
+	// unit at once.
+	d = newDosTest(t, "level1_cp", passPlanner{})
+	atk, def = battleOn(t, d)
+	d.SkipBattle()
+	if _, ok := inFrozen(d, def.Index); ok || d.stage != stageNone {
+		t.Errorf("skipped: the destroyed unit stays (%v), stage %v", ok, d.stage)
+	}
+	if u, _ := inFrozen(d, atk.Index); u.Size != atk.Size-1 || u.Exp != atk.Exp+1 {
+		t.Errorf("skipped: attacker %+v, want size %d exp %d", u, atk.Size-1, atk.Exp+1)
+	}
+	d = newDosTest(t, "level1_cp", passPlanner{})
+	_, def = battleOn(t, d)
+	for !d.fight.struck {
+		d.tickStage()
+	}
+	d.endStage()
+	if _, ok := inFrozen(d, def.Index); ok {
+		t.Error("the stage ended with the destroyed unit on the map")
 	}
 }
 
@@ -448,7 +573,7 @@ func TestPhaseSequenceDraw(t *testing.T) {
 func TestBattlePanelClassicUnaffected(t *testing.T) {
 	c := newTestControl(t)
 	g := newGame(testLevel(t), c.st, c.player, true)
-	g.applyAction(actVignettes)
+	g.applyAction(actScenes)
 	if c.Message != "" || g.dos != nil {
 		t.Errorf("F9 under Classic: %q", c.Message)
 	}
@@ -457,12 +582,15 @@ func TestBattlePanelClassicUnaffected(t *testing.T) {
 func TestPhaseSequenceCaptureViews(t *testing.T) {
 	g, d := newSplitTest(t, passPlanner{}, 1920, 1080)
 	want := map[string][2]panelLook{
-		"split-prompt":      {lookGrey, lookGrey},
-		"split-black":       {lookBlack, lookBlack},
-		"split-battle-grey": {lookGrey, lookBlack},
-		"split-battle":      {lookMap, lookVignette},
-		"split-newmode":     {lookGrey, lookGrey},
-		"split":             {lookMap, lookMap},
+		"split-prompt":           {lookGrey, lookGrey},
+		"split-black":            {lookBlack, lookBlack},
+		"split-battle-grey":      {lookGrey, lookBlack},
+		"split-battle":           {lookMap, lookBattle},
+		"split-battle-loss":      {lookMap, lookBattle},
+		"split-battle-destroyed": {lookMap, lookBattle},
+		"split-battle-hold":      {lookMap, lookBattle},
+		"split-newmode":          {lookGrey, lookGrey},
+		"split":                  {lookMap, lookMap},
 	}
 	planned := map[string]bool{}
 	for _, f := range splitFramePlan() {
@@ -480,5 +608,15 @@ func TestPhaseSequenceCaptureViews(t *testing.T) {
 	g.stageCapture("split-battle")
 	if w := g.wellOf(d.side); !strings.ContainsAny(w.text, "0123456789") {
 		t.Errorf("battle well %q", w.text)
+	}
+	// The destroyed defender stands under its explosion.
+	g.stageCapture("split-battle-destroyed")
+	def := d.fight.ev.Battle.Defender.Unit
+	if _, ok := inFrozen(d, def.Index); !ok || !slices.ContainsFunc(d.fx.Marks(), func(m mark) bool { return m.Kind == markDeath }) {
+		t.Errorf("destroyed view: defender on the map %v, marks %+v", ok, d.fx.Marks())
+	}
+	g.stageCapture("split")
+	if d.frozen != nil || d.otherFrozen != nil {
+		t.Error("a battle view leaves its frozen views behind")
 	}
 }

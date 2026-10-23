@@ -45,11 +45,6 @@ func TestDrawStaysInPanel(t *testing.T) {
 		"contents empty": func(dst *ebiten.Image, p image.Rectangle, s float64, tx Text) {
 			DrawContents(dst, p, s, Contents{Selected: -1}, tx)
 		},
-		"vignette": func(dst *ebiten.Image, p image.Rectangle, _ float64, _ Text) {
-			for d := range Domains {
-				DrawVignette(dst, p, d, 2)
-			}
-		},
 	}
 	for _, c := range panelCases {
 		dst := ebiten.NewImage(c.panel.Max.X+40, c.panel.Max.Y+40)

@@ -70,7 +70,7 @@ type game struct {
 	ctl            *control
 	dos            *dosControl        // set on the original rules (-rules dos); ctl and state are nil then
 	art            *artPacks          // unit sprite packs (-units); nil draws placeholder dots
-	screens        *screenArt         // the screen catalog (-screens) for the portraits; nil shows blank photos
+	screens        *screenArt         // the screen catalog (-screens): portraits, badges, effects; nil shows plain ones
 	scores         *scores.Store      // the best scores; nil keeps none
 	artErr         string             // last sprite failure, shown in the status line
 	terrain        *terrainArt        // composed terrain tiles (-terrain); nil draws coloured hexes
@@ -501,7 +501,7 @@ func (g *game) drawMapLayer(dst *ebiten.Image, vx, vy, vw, vh float64, human boo
 			inView = append(inView, coord)
 		}
 	}
-	// Terrain, then owner marks, then units, each in its own pass so that a later
+	// Terrain, then owner marks, then units and their markers, each in its own pass so that a later
 	// hex never covers what an earlier one drew beyond its outline.
 	if g.terrain != nil {
 		g.drawTerrain(dst, inView)
@@ -525,6 +525,7 @@ func (g *game) drawMapLayer(dst *ebiten.Image, vx, vy, vw, vh float64, human boo
 			g.drawUnit(dst, coord, sx, sy, remembered)
 		}
 	}
+	g.drawUnitMarks(dst, inView)
 	if human {
 		if w := g.drv().ui().walk; !w.Done() && g.fogOf(w.Hex()) == state.Visible {
 			wx, wy := w.Pos()

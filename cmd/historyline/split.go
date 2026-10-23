@@ -299,7 +299,8 @@ func (g *game) pickSplit(mx, my int) (hexgrid.Coord, bool) {
 
 // drawSplit draws both panels' maps (or strategic maps), each through its own
 // camera into its panel and in the look the phase change asks for (phase.go),
-// the steel frame over them and the human side's cursor.
+// the steel frame over them (resting on the map's first cells where a plate or
+// the battle scene covers the map) and the human side's cursor.
 func (g *game) drawSplit(screen *ebiten.Image) {
 	s := g.split
 	human := *g.cam
@@ -314,7 +315,7 @@ func (g *game) drawSplit(screen *ebiten.Image) {
 	}
 	*g.cam, g.drawing = human, false
 	for side := range 2 {
-		if s.mode[side] != panelMap && s.mode[side] != panelGameInfo {
+		if s.mode[side] != panelMap && s.mode[side] != panelGameInfo || looks[side] == lookBattle {
 			views[side] = g.plateView(side)
 		}
 	}
