@@ -44,6 +44,7 @@ type Outcome struct {
 	Battle           bool // false: no unit in the target cell, the order is skipped
 	Defender         int
 	ReturnFire       bool // the defender stood next to the attacker
+	Returned         bool // and fired back: its type can (firesBack)
 	Pincer, Blocking int
 	Result
 	AttackerExp, DefenderExp int
@@ -109,6 +110,7 @@ func (p Profile) Engage(b *Battlefield, attacker, target int) (Outcome, error) {
 		ATerrain: b.class(a.Cell), DTerrain: b.class(d.Cell),
 		Pincer: o.Pincer, Blocking: o.Blocking, ReturnFire: o.ReturnFire,
 	}
+	o.Returned = firesBack(ta, td, o.ReturnFire)
 	if o.Result, err = p.Casualties(
 		Fighter{ta, a.Size, a.Alt, a.Exp, a.Flags4},
 		Fighter{td, d.Size, d.Alt, d.Exp, d.Flags4}, ctx); err != nil {

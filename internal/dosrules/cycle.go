@@ -656,7 +656,10 @@ func (g *Game) Battlefield(side int) (*Battlefield, error) {
 // brings both maps into line, marks the destroyed units 0x8000, swaps the
 // phases, clears both lists and the confirmations and counts the turn. It
 // also clears every unit's +4 bits 0x0f00 (moved among them), its order cell
-// +0x11 and its action bytes +0x13 to +0x16 (02dc:1cf0, 1ebc).
+// +0x11 and its action bytes +0x13 to +0x16 (02dc:1cf0, 1ebc), except that a
+// unit that must set up (type +0x0f bit 0: medium, heavy and train artillery)
+// and arrived on the map this phase (+0x14 bit 0), not destroyed and not held,
+// keeps the moved flag: it gives no order in the next phase (02dc:1cf9-1d60).
 // Each side is then credited its buildings' energy (EvCredit).
 // A destroyed attacker cannot have a later order: it is listed once, and
 // only return fire in its own battle destroys it. When the battle has ended
@@ -747,6 +750,9 @@ func (g *Game) changePhase(a int) ([]Event, error) {
 		d := DecodeLive(pr.Live[i])
 		l := g.Units[i]
 		l.Flags4, l.Size, l.Pos, l.Facing = d.Flags4&0xF0FF, d.Size, d.Pos, d.Facing
+		if l.Flags4&0xC000 == 0 && l.Action[1]&1 != 0 && g.Profile.Tables.Types[l.Type].setsUp() {
+			l.Flags4 |= 0x200 // 02dc:1cf9-1d60
+		}
 		l.Target, l.Action[0], l.Action[1], l.Action[2], l.Action[3] = 0, 0, 0, 0, 0
 		g.Units[i] = l
 	}

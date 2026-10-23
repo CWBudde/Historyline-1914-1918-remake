@@ -506,3 +506,56 @@ func TestCycleShipRear(t *testing.T) {
 		})
 	}
 }
+
+func TestCycleSetUp(t *testing.T) {
+	const (
+		cLight  = 10 // light artillery: fires after a move
+		cMedium = 11 // medium artillery: must set up
+		cHeavy  = 12 // heavy artillery: must set up
+	)
+	for build, p := range profiles {
+		t.Run(build, func(t *testing.T) {
+			if p.Tables.Types[cLight].setsUp() || !p.Tables.Types[cMedium].setsUp() || !p.Tables.Types[cHeavy].setsUp() {
+				t.Fatal("set-up flags of the artillery types")
+			}
+			g := newCycleHolds(t, p, map[int]Placement{
+				0: {Type: cHeavy, Owner: 0, Cell: 20}, 1: {Type: cMedium, Owner: 0, Cell: 24},
+				2: {Type: cLight, Owner: 0, Cell: 60}, 3: {Type: cSupply, Owner: 0, Cell: 64}, 4: {Type: cHeavy, Owner: 0},
+				10: {Type: cInfantry, Owner: 1, Cell: 78},
+			}, map[int]Hold{cTransportRec: transportHold(64, 0, 3, 4)})
+			// The heavy and the light artillery move, the medium one stays and
+			// the second heavy one leaves its transporter.
+			for _, u := range []int{0, 2} {
+				dests, err := p.Destinations(g.Movement(0, u))
+				if err != nil {
+					t.Fatal(err)
+				}
+				i := slices.IndexFunc(dests, func(c int) bool { return c != g.Units[u].Cell(0) })
+				if i < 0 {
+					t.Fatalf("unit %d has no destination", u)
+				}
+				apply(t, g, Command{Kind: CmdMove, Side: 0, Unit: u, Cell: dests[i]})
+			}
+			apply(t, g, Command{Kind: CmdExit, Side: 0, Hold: cTransportRec, Slot: 0, Cell: 65})
+			resolve(t, g)
+			if g.Players[0].Phase != PhaseAction {
+				t.Fatalf("side 0 in phase %d after the change", g.Players[0].Phase)
+			}
+			for u, want := range map[int]bool{0: true, 1: false, 2: false, 3: false, 4: true} {
+				if got := g.Units[u].Flags4&0x200 != 0; got != want {
+					t.Errorf("unit %d (type %d) holds its fire %v, want %v", u, g.Units[u].Type, got, want)
+				}
+			}
+			refusal(t, "the moved heavy artillery's attack", g.Check(Command{Kind: CmdAttack, Side: 0, Unit: 0, Cell: 78}), 0)
+
+			// It sets up for that one phase only.
+			resolve(t, g)
+			resolve(t, g)
+			for u := range g.Units {
+				if g.Units[u].Flags4&0x200 != 0 {
+					t.Errorf("unit %d still holds its fire two changes later", u)
+				}
+			}
+		})
+	}
+}

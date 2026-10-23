@@ -52,7 +52,8 @@ type Fighter struct {
 }
 
 // BattleInfo is a fought attack order: the fighters, whether the defender
-// fired back (it stood next to the attacker) and the support terms.
+// fired back (it stood next to the attacker and its type can) and the support
+// terms.
 type BattleInfo struct {
 	Attacker, Defender Fighter
 	ReturnFire         bool
@@ -170,7 +171,7 @@ func (s *Session) event(r dosrules.Event, b *battles) Event {
 	case dosrules.EvBattle:
 		o := r.Outcome
 		ev.Kind = Battle
-		ev.Battle = &BattleInfo{ReturnFire: o.ReturnFire, Pincer: o.Pincer, Blocking: o.Blocking}
+		ev.Battle = &BattleInfo{ReturnFire: o.Returned, Pincer: o.Pincer, Blocking: o.Blocking}
 		if b != nil {
 			ev.Battle.Attacker = b.fighter(r.Unit, o.AttackerSize, o.AttackerAlt, o.AttackerExp, o.Destroyed)
 			ev.Battle.Defender = b.fighter(o.Defender, o.DefenderSize, o.DefenderAlt, o.DefenderExp, o.Destroyed)

@@ -1008,6 +1008,11 @@ after the subject and winter-water replacements above; the stand-in art remains 
       destroyed unit leaves the map at once; a surviving target is fought again; a cancelled exit returns
       the unit to its slot. Assumed, not verified: an attack target is an opposing unit the side's map shows,
       of a class the attacker's target flags cover, within the weapon's range for that class.
+      (2026-10-23) — medium, heavy and train artillery (type +0x0f bit 0) that arrived on the map in a
+      movement phase, a transporter exit included, keep the moved flag through the phase change and give no
+      order in the action phase after it (`TestCycleSetUp`); a battle reports the return fire the casualty
+      routine allows, so adjacent artillery, construction units and balloons show no reply
+      (`Outcome.Returned`, `TestEngageReturned`).
 - [x] Engine state for profile, cycle, readiness, pending orders; validation separate from execution; ordered
       events for UI, AI and replays. Save/resume of unconfirmed and confirmed orders. (2026-10-21) —
       `dosrules.Game` with Check/Apply/Confirm/Unconfirm/Resolve and ordered events; `Game.Save`/`LoadGame`

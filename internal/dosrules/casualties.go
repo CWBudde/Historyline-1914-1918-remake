@@ -80,6 +80,14 @@ func groupSize(f Fighter) int64 {
 	return int64(min(max(n, 1), 6))
 }
 
+// firesBack reports whether a defender of type d returns the fire of an
+// attacker of type a: only when the context allows it (next to the attacker),
+// its type neither never returns fire nor is long range, and the attacker's
+// classes include it (2451:0037-009e in the demo).
+func firesBack(a, d Type, returnFire bool) bool {
+	return returnFire && d.TargetFlags&(noReturn|longRange) == 0 && a.AttackMask&d.TargetFlags&classBits != 0
+}
+
 // Casualties resolves one battle as the casualty routine (2451:0004 in the
 // demo) does. The routine makes no random draw. The defender fires back
 // unless the context forbids it, its type never returns fire or is long
@@ -94,8 +102,7 @@ func (p Profile) Casualties(a, d Fighter, c Context) (res Result, err error) {
 		}
 	}()
 	terms := p.Tables.Terms
-	suppressed := !c.ReturnFire || d.Type.TargetFlags&(noReturn|longRange) != 0 ||
-		a.Type.AttackMask&d.Type.TargetFlags&classBits == 0
+	suppressed := !firesBack(a.Type, d.Type, c.ReturnFire)
 
 	sizeA, sizeD := groupSize(a), groupSize(d)
 	power, rng := weapon(a.Type, d.Flags)

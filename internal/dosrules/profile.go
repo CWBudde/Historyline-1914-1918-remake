@@ -24,12 +24,16 @@ type Type struct {
 	GroundPower   int `json:"groundPower"`   // +11
 	WaterPower    int `json:"waterPower"`    // +12
 	AttackMask    int `json:"attackMask"`    // +0x0d word: target classes it attacks
-	StrengthFlags int `json:"strengthFlags"` // +0x0f word: bit 4 counts the alternate strength
+	StrengthFlags int `json:"strengthFlags"` // +0x0f word: bit 0 holds fire after a move, bit 2 counts the alternate strength
 	Cost          int `json:"cost"`          // +0x3f, the production price; 255: never sold
 }
 
 // alternate reports whether the unit's strength is its alternate byte.
 func (t Type) alternate() bool { return t.StrengthFlags&4 != 0 }
+
+// setsUp reports whether the unit cannot attack in the action phase after it
+// moved (medium, heavy and train artillery): it must set up first.
+func (t Type) setsUp() bool { return t.StrengthFlags&1 != 0 }
 
 // Terms are the signed attack and defence terms of one terrain class.
 type Terms struct{ Attack, Defence int }
