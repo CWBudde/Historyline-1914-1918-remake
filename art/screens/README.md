@@ -54,5 +54,7 @@ visual acceptance remain open; upscaling does not close them.
 
 `surface/steel.png` and `surface/ground.png` are seamless 1254×1254 tiles under the battle screen's
 drawn panels: the steel of the unit, contents and battle panels and the ground of the battle scene's
-hexes. `hlasset build-screens` area-averages them to 512 (1x) and 1024 (2x) as `surface/steel` and
-`surface/ground`; `internal/dospanel` uses only their texture, graded to its own palette.
+hexes. `surface/rivets.png` is a 4×2 sheet of brass rivet heads for the plates' rivets.
+`hlasset build-screens` area-averages them to 512 px wide (1x) and 1024 (2x) as `surface/steel`,
+`surface/ground` and `surface/rivets`; `internal/dospanel` uses only the tiles' texture, graded to its
+own palette, and the heads in their own hue at its brass's lightness.

@@ -2,8 +2,10 @@ package main
 
 import (
 	"bytes"
+	"cmp"
 	"fmt"
 	"image"
+	"image/color"
 	"image/png"
 	"os"
 	"path/filepath"
@@ -35,7 +37,7 @@ func TestRetainedScreenCatalogBuilds(t *testing.T) {
 			"portraits":      {"portrait/armored-car", "portrait/light-artillery"},
 			"rank":           {"rank/01", "rank/10"},
 			"effect":         {"effect/explosion-00", "effect/explosion-08", "effect/hit"},
-			"surface":        {"surface/steel", "surface/ground"},
+			"surface":        {"surface/steel", "surface/ground", "surface/rivets"},
 		} {
 			r, err := os.OpenRoot(filepath.Join(out, fmt.Sprintf("%dx", d), family))
 			if err != nil {
@@ -53,7 +55,9 @@ func TestRetainedScreenCatalogBuilds(t *testing.T) {
 				}
 				full := !strings.HasPrefix(id, "button/") && !strings.HasPrefix(id, "country/") && !strings.HasPrefix(id, "portrait/") &&
 					!strings.HasPrefix(id, "rank/") && !strings.HasPrefix(id, "effect/")
-				if strings.HasPrefix(id, "surface/") && (e.Width != surfaceTile*d || e.Height != surfaceTile*d) {
+				// The tiles are square, the rivet sheet twice as wide as high.
+				if h := map[string]int{"surface/rivets": surfaceTile * d / 2}[id]; strings.HasPrefix(id, "surface/") &&
+					(e.Width != surfaceTile*d || e.Height != cmp.Or(h, surfaceTile*d)) {
 					t.Errorf("%s at %dx is %dx%d", id, d, e.Width, e.Height)
 				}
 				full = full && !strings.HasPrefix(id, "surface/")
@@ -110,10 +114,10 @@ func TestScaleTileAveragesAreas(t *testing.T) {
 	if err := os.WriteFile(name, b.Bytes(), 0o644); err != nil {
 		t.Fatal(err)
 	}
-	if _, err := scaleTile(name, 31); err == nil || !strings.Contains(err.Error(), "no upscaling") {
+	if _, err := scaleTile(name, 31, 31); err == nil || !strings.Contains(err.Error(), "no upscaling") {
 		t.Fatalf("err = %v, want no upscaling", err)
 	}
-	out, err := scaleTile(name, 10)
+	out, err := scaleTile(name, 10, 10)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -130,5 +134,28 @@ func TestScaleTileAveragesAreas(t *testing.T) {
 				t.Fatalf("(%d,%d) red %d alpha %d, want 85 and 255", x, y, r>>8, a>>8)
 			}
 		}
+	}
+
+	// A clear red texel beside an opaque white one adds coverage, not red.
+	pair := image.NewNRGBA(image.Rect(0, 0, 2, 2))
+	for y := range 2 {
+		pair.SetNRGBA(0, y, color.NRGBA{255, 255, 255, 255})
+		pair.SetNRGBA(1, y, color.NRGBA{255, 0, 0, 0})
+	}
+	b.Reset()
+	if err := png.Encode(&b, pair); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(name, b.Bytes(), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	if out, err = scaleTile(name, 1, 1); err != nil {
+		t.Fatal(err)
+	}
+	if img, err = png.Decode(bytes.NewReader(out)); err != nil {
+		t.Fatal(err)
+	}
+	if c := color.NRGBAModel.Convert(img.At(0, 0)).(color.NRGBA); c.R < 254 || c.G < 254 || c.B < 254 || c.A != 128 {
+		t.Errorf("half-clear texel %v, want white at alpha 128", c)
 	}
 }

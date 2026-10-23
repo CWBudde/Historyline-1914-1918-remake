@@ -10,6 +10,7 @@ import (
 	"image/png"
 	"io"
 	"io/fs"
+	"math"
 	"os"
 	"path"
 	"path/filepath"
@@ -89,28 +90,47 @@ func planScreens(entries []indexEntry, assetsDir, artDir string, d int) ([]scree
 		files = append(files, screenFile{Family: family, ID: "scene/" + family, Density: d, Width: screenW * d, Height: screenH * d,
 			read: func() ([]byte, error) { return scalePainting(src, screenW*d, screenH*d) }})
 	}
-	// The panels' seamless surfaces, art/screens/surface/<name>.png, in one
-	// family "surface".
+	// The panels' surfaces, art/screens/surface/<name>.png, in one family
+	// "surface": the seamless tiles and the rivet sheet.
 	tiles, err := filepath.Glob(filepath.Join(artDir, "screens", "surface", "*.png"))
 	if err != nil {
 		return nil, err
 	}
 	slices.Sort(tiles)
 	for _, src := range tiles {
-		n := surfaceTile * d
-		files = append(files, screenFile{Family: "surface", ID: "surface/" + strings.TrimSuffix(filepath.Base(src), ".png"), Density: d, Width: n, Height: n,
-			read: func() ([]byte, error) { return scaleTile(src, n) }})
+		w, h, err := surfaceSize(src, d)
+		if err != nil {
+			return nil, err
+		}
+		files = append(files, screenFile{Family: "surface", ID: "surface/" + strings.TrimSuffix(filepath.Base(src), ".png"), Density: d, Width: w, Height: h,
+			read: func() ([]byte, error) { return scaleTile(src, w, h) }})
 	}
 	return files, nil
 }
 
-// surfaceTile is the side of a surface tile at 1x.
+// surfaceTile is the width of a surface at 1x.
 const surfaceTile = 512
 
-// scaleTile scales the seamless square tile at src down to n×n. Each texel
-// is the area-weighted mean of the source it covers, which never reaches
-// across the tile's edge, so the result stays seamless.
-func scaleTile(src string, n int) ([]byte, error) {
+// surfaceSize is the size of the surface at src at density d: surfaceTile·d
+// wide and as high as the master's proportion gives.
+func surfaceSize(src string, d int) (w, h int, err error) {
+	f, err := os.Open(src)
+	if err != nil {
+		return 0, 0, err
+	}
+	defer func() { _ = f.Close() }()
+	c, err := png.DecodeConfig(f)
+	if err != nil {
+		return 0, 0, fmt.Errorf("%s: %w", src, err)
+	}
+	w = surfaceTile * d
+	return w, max(1, int(math.Round(float64(w)*float64(c.Height)/float64(c.Width)))), nil
+}
+
+// scaleTile scales the image at src down to w×h. Each texel is the
+// area-weighted mean of the source it covers, alpha premultiplied, which
+// never reaches across the image's edge, so a seamless tile stays seamless.
+func scaleTile(src string, w, h int) ([]byte, error) {
 	f, err := os.Open(src)
 	if err != nil {
 		return nil, err
@@ -121,31 +141,31 @@ func scaleTile(src string, n int) ([]byte, error) {
 		return nil, fmt.Errorf("%s: %w", src, err)
 	}
 	b := im.Bounds()
-	w, h := b.Dx(), b.Dy()
-	if w < n || h < n {
-		return nil, fmt.Errorf("%s: %dx%d is smaller than %dx%d; no upscaling", src, w, h, n, n)
+	sw, sh := b.Dx(), b.Dy()
+	if sw < w || sh < h {
+		return nil, fmt.Errorf("%s: %dx%d is smaller than %dx%d; no upscaling", src, sw, sh, w, h)
 	}
-	img := image.NewNRGBA(image.Rect(0, 0, w, h))
+	img := image.NewRGBA(image.Rect(0, 0, sw, sh))
 	draw.Draw(img, img.Bounds(), im, b.Min, draw.Src)
-	rows, tx := make([]float64, 4*n*h), taps(w, n) // shrunk along the rows
-	for y := range h {
+	rows, tx := make([]float64, 4*w*sh), taps(sw, w) // shrunk along the rows
+	for y := range sh {
 		for x, ts := range tx {
 			for _, t := range ts {
 				for c := range 4 {
-					rows[4*(y*n+x)+c] += t.w * float64(img.Pix[4*(y*w+t.i)+c])
+					rows[4*(y*w+x)+c] += t.w * float64(img.Pix[4*(y*sw+t.i)+c])
 				}
 			}
 		}
 	}
-	dst := image.NewNRGBA(image.Rect(0, 0, n, n))
-	for y, ts := range taps(h, n) {
-		for x := range n {
+	dst := image.NewRGBA(image.Rect(0, 0, w, h))
+	for y, ts := range taps(sh, h) {
+		for x := range w {
 			for c := range 4 {
 				var v float64
 				for _, t := range ts {
-					v += t.w * rows[4*(t.i*n+x)+c]
+					v += t.w * rows[4*(t.i*w+x)+c]
 				}
-				dst.Pix[4*(y*n+x)+c] = uint8(min(255, max(0, v+0.5)))
+				dst.Pix[4*(y*w+x)+c] = uint8(min(255, max(0, v+0.5)))
 			}
 		}
 	}

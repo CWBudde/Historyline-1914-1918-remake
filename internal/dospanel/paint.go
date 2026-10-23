@@ -11,12 +11,13 @@ import (
 )
 
 // The placeholder palette: olive-grey steel from dark to light (as the
-// frame's), brown name plates with brass edges.
+// frame's), brown name plates with brass edges and rivets.
 var (
 	steelDark  = color.RGBA{0x24, 0x24, 0x1C, 0xFF}
 	steelLight = color.RGBA{0xB2, 0xB2, 0xA6, 0xFF}
 	plateBrown = color.RGBA{0x42, 0x34, 0x26, 0xFF}
 	plateEdge  = color.RGBA{0x1C, 0x14, 0x0C, 0xFF}
+	brassLight = color.RGBA{0xE0, 0xBC, 0x6C, 0xFF}
 	brass      = color.RGBA{0xA8, 0x80, 0x3C, 0xFF}
 	brassDark  = color.RGBA{0x58, 0x40, 0x1C, 0xFF}
 	ringLight  = color.RGBA{0xD8, 0xD8, 0xC8, 0xFF}
@@ -112,7 +113,7 @@ func (p painter) well(r image.Rectangle) {
 	p.bevel(r, toneBack, false)
 }
 
-// namePlate is a brown plate with a dark edge, a brass line and a steel
+// namePlate is a brown plate with a dark edge, a brass line and a brass
 // rivet in each corner, one at each end on a low plate.
 func (p painter) namePlate(r image.Rectangle) {
 	r = r.Intersect(p.img.Rect)
@@ -148,11 +149,15 @@ func (p painter) namePlate(r image.Rectangle) {
 	}
 }
 
-// rivet is a steel dome of radius rad at (cx, cy), lit from the top left
-// with a soft shadow to the bottom right, as the frame's.
+// rivet is a brass head of radius rad at (cx, cy), lit from the top left
+// with a soft shadow to the bottom right: a painted head of the rivet sheet
+// picked by the place, or a drawn dome without one.
 func (p painter) rivet(cx, cy, rad float64) {
-	l := math.Sqrt(0.5 + 0.5 + 1.5*1.5)
-	lx, ly, lz := -math.Sqrt2/2/l, -math.Sqrt2/2/l, 1.5/l
+	sheet := surfaces.rivets
+	var head rivetHead
+	if sheet != nil {
+		head = sheet.heads[min(len(sheet.heads)-1, int((grain(int(cx), int(cy))+0.5)*float64(len(sheet.heads))))]
+	}
 	for y := int(cy - rad - 2); y <= int(cy+rad*1.5+2); y++ {
 		for x := int(cx - rad - 2); x <= int(cx+rad*1.5+2); x++ {
 			if !(image.Point{x, y}).In(p.img.Rect) {
@@ -163,11 +168,21 @@ func (p painter) rivet(cx, cy, rad float64) {
 			if sd := math.Hypot(dx-rad*0.4, dy-rad*0.4); sd < rad+0.5 && d >= rad {
 				p.blend(x, y, ramp(0.1), 0.5*math.Min(1, rad+0.5-sd))
 			}
-			if cov := math.Min(1, rad+0.5-d); cov > 0 { // an antialiased rim
-				nx, ny := dx/rad, dy/rad
-				nz := math.Sqrt(math.Max(0, 1-nx*nx-ny*ny))
-				p.blend(x, y, ramp(0.12+0.8*math.Max(0, nx*lx+ny*ly+nz*lz)), cov)
+			cov := math.Min(1, rad+0.5-d) // an antialiased rim
+			if cov <= 0 {
+				continue
 			}
+			if sheet != nil {
+				p.blend(x, y, sheet.at(head, dx/rad, dy/rad, 1/rad, brass), cov)
+				continue
+			}
+			nx, ny := dx/rad, dy/rad
+			l := -0.5*nx - 0.5*ny + 0.707*math.Sqrt(math.Max(0, 1-nx*nx-ny*ny))
+			c := lerp(brassDark, brass, l*2)
+			if l > 0.5 {
+				c = lerp(brass, brassLight, (l-0.5)*2)
+			}
+			p.blend(x, y, c, cov)
 		}
 	}
 }

@@ -95,5 +95,5 @@ func (s *screenArt) surfaces() dospanel.Surfaces {
 		}
 		return nil
 	}
-	return dospanel.Surfaces{Steel: src("surface/steel"), Ground: src("surface/ground")}
+	return dospanel.Surfaces{Steel: src("surface/steel"), Ground: src("surface/ground"), Rivets: src("surface/rivets")}
 }

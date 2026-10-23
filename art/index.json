@@ -6900,9 +6900,15 @@
           "sha256": "927e20aab23f79e2d13b29d905a0cde5b678f32a12ff61d4efa24cc3f28fb114",
           "width": 1254,
           "height": 1254
+        },
+        {
+          "path": "art/screens/surface/rivets.png",
+          "sha256": "218174890ba54d205a7cf9c2ee4e7113dc7e781bc018737989a047f03e5e0b3b",
+          "width": 1774,
+          "height": 887
         }
       ],
-      "look": "Seamless surfaces under the panels' drawn plates: dull brushed gunmetal for the steel of the unit,\ncontents and battle panels, trampled dark earth for the ground of the battle scene's hexes.",
+      "look": "Seamless surfaces under the panels' drawn plates: dull brushed gunmetal for the steel of the unit,\ncontents and battle panels, trampled dark earth for the ground of the battle scene's hexes, and worn\nbrass rivet heads for the plates' rivets.",
       "base_prompt": "Newly authored artwork for a turn-based World War I hex strategy game set in rural Europe, 1914-1918.\nContinuous hand-painted digital illustration with fine, believable material detail: wool, leather, wood,\nsteel, concrete, earth, grass, stone and water. Restrained, natural palette and calm values so that\nmarkers and units stay readable on top. Soft, diffuse daylight from the upper left with short, soft\nshadows to the lower right. Crisp, antialiased natural edges. Not pixel art, not a pixel enlargement,\nnot a flat vector, not a cartoon, not a photograph or 3D render. No text, letters, numbers, labels,\nlogos, watermarks, flags, national insignia, grid lines, hex outlines, frames, borders, arrows,\nvignettes or checkerboard patterns. Do not copy or trace any existing game's graphics.\n\nSlate and brass interface vocabulary: dark slate panels (#162630), muted blue-grey\nhairlines (#6e8088), aged brass accents (#c4a773) and cream highlights (#eee5d2). Flat, clean shapes with\nsmall corner radii and thin bevels; icons are simple solid glyphs in brass or slate. Painted items\n(weapons, explosions) use the painted medium above on true transparency. Art never contains labels or\nvalues; all text is drawn live.",
       "variants": [
         {
@@ -6914,14 +6920,20 @@
           "variant": "ground",
           "runtime_ids": [],
           "delta": "`bg-01` (exec-5943484e), 1254x1254 opaque: the prompt below."
+        },
+        {
+          "variant": "rivets",
+          "runtime_ids": [],
+          "delta": "`br-01` (exec-e352e306), 1774x887 RGBA, 4x2 heads of about 335 px: the prompt below."
         }
       ],
       "edges": "",
-      "post": "Masters are used unchanged. `hlasset build-screens` scales each into the screen catalog's `surface`\nfamily (`surface/steel`, `surface/ground`) at 512 px at 1x and 1024 px at 2x, wrapping so the tile\nstays seamless. `internal/dospanel` grades them to its palette: only each texel's colour relative to the\ntile's mean shows, so colour drift in a master does not matter. One steel tile spans 256 reference\npixels of a panel, one ground tile 96.",
+      "post": "Masters are used unchanged. `hlasset build-screens` scales each into the screen catalog's `surface`\nfamily: `surface/steel` and `surface/ground` at 512 px at 1x and 1024 px at 2x, wrapping so the tile\nstays seamless, and `surface/rivets` at 512x256 at 1x and 1024x512 at 2x. `internal/dospanel` grades\nthe tiles to its palette: only each texel's colour relative to the tile's mean shows, so colour drift in\na master does not matter. One steel tile spans 256 reference pixels of a panel, one ground tile 96. The\nrivet heads keep their painted hue, brightened evenly so their mean is as light as the panel's brass.\nEach head is cut out of its cell by a circle of its measured centre and radius, which drops the sheet's\nfaint alpha haze; the rivet's shadow is drawn in code.",
       "avoid": [
         "rivets, seams, plate edges or frames in the steel",
         "grass, craters, puddles, footprints or objects in the ground",
-        "a light direction or a shading gradient across the tile"
+        "a light direction or a shading gradient across the tile",
+        "slots, crosses, markings, washers or cast shadows on the rivet heads"
       ],
       "runtime": {
         "count": 0,

@@ -4,12 +4,13 @@ title: Panel surfaces
 kind: screen
 status: candidate
 runtime_ids:
-masters: steel.png, ground.png
+masters: steel.png, ground.png, rivets.png
 ---
 
 ## Look
 Seamless surfaces under the panels' drawn plates: dull brushed gunmetal for the steel of the unit,
-contents and battle panels, trampled dark earth for the ground of the battle scene's hexes.
+contents and battle panels, trampled dark earth for the ground of the battle scene's hexes, and worn
+brass rivet heads for the plates' rivets.
 
 ## Base prompt
 ```text
@@ -34,6 +35,7 @@ values; all text is drawn live.
 | --- | --- | --- |
 | steel | | `bs-01` (exec-35510f46), 1254x1254 opaque: the prompt below. |
 | ground | | `bg-01` (exec-5943484e), 1254x1254 opaque: the prompt below. |
+| rivets | | `br-01` (exec-e352e306), 1774x887 RGBA, 4x2 heads of about 335 px: the prompt below. |
 
 steel:
 
@@ -51,14 +53,26 @@ Seamless tileable ground texture, SQUARE 1024x1024, opaque, filling the whole ca
 No images are attached.
 ```
 
+rivets:
+
+```text
+Sprite sheet of eight round-head rivets, LANDSCAPE 1536x768 (2:1), true transparency: a grid of 4 columns by 2 rows of equal 384x384 cells, one rivet centred in each cell. Each rivet is seen straight from above: a low, domed round head of aged, hand-worn brass, about 200 px across (about 1/8 of the canvas width, a little over half a cell), perfectly round outline. The head is a shallow dome, flatter on top than a ball, with a slightly bevelled rim. Material: old cast brass on a First World War instrument case: the top-left of the dome rubbed brighter by handling, the lower-right darker and tarnished, fine scratches and tiny pits, a faint mottled patina, a few small dark grime specks in the rim. Every rivet differs a little in wear, tarnish and scratches; none has a slot, cross or marking. Light: soft daylight from the upper left, a broad soft highlight on the upper-left shoulder of the dome, no glossy white hotspot, no mirror reflections. Colours: mean of the head about RGB 160,122,58; lit shoulder about 220,184,110; shaded lower-right rim about 86,62,28. Calm values, not shiny gold, not copper, not chrome. Alpha zero outside each rivet head: no plate, no washer, no ground under it, no halo, no glow, no cast shadow, no checkerboard. Nothing else in the cells.
+
+No images are attached.
+```
+
 ## Post
 Masters are used unchanged. `hlasset build-screens` scales each into the screen catalog's `surface`
-family (`surface/steel`, `surface/ground`) at 512 px at 1x and 1024 px at 2x, wrapping so the tile
-stays seamless. `internal/dospanel` grades them to its palette: only each texel's colour relative to the
-tile's mean shows, so colour drift in a master does not matter. One steel tile spans 256 reference
-pixels of a panel, one ground tile 96.
+family: `surface/steel` and `surface/ground` at 512 px at 1x and 1024 px at 2x, wrapping so the tile
+stays seamless, and `surface/rivets` at 512x256 at 1x and 1024x512 at 2x. `internal/dospanel` grades
+the tiles to its palette: only each texel's colour relative to the tile's mean shows, so colour drift in
+a master does not matter. One steel tile spans 256 reference pixels of a panel, one ground tile 96. The
+rivet heads keep their painted hue, brightened evenly so their mean is as light as the panel's brass.
+Each head is cut out of its cell by a circle of its measured centre and radius, which drops the sheet's
+faint alpha haze; the rivet's shadow is drawn in code.
 
 ## Avoid
 - rivets, seams, plate edges or frames in the steel
 - grass, craters, puddles, footprints or objects in the ground
 - a light direction or a shading gradient across the tile
+- slots, crosses, markings, washers or cast shadows on the rivet heads
