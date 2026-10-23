@@ -60,6 +60,7 @@ type packKey struct {
 type texKey struct {
 	id      string
 	density int
+	dressed bool // with the map rim and contact shadow
 }
 
 // artPacks is a runtime catalog of packs laid out as <d>x/<group>/manifest.json,
@@ -133,17 +134,32 @@ func (a *artPacks) entry(group, id string, d int) (assets.Entry, error) {
 // image returns the texture of sprite id at density d, decoding and uploading it
 // on first use.
 func (a *artPacks) image(group, id string, d int) (*ebiten.Image, assets.Entry, error) {
+	return a.texture(group, id, d, false)
+}
+
+// mapImage returns the texture of unit sprite id at density d as the map draws
+// it, dressed with its rim and contact shadow (unitsprite.Dress), and its border
+// in texels around the entry's canvas.
+func (a *artPacks) mapImage(group, id string, d int) (*ebiten.Image, assets.Entry, int, error) {
+	img, e, err := a.texture(group, id, d, true)
+	return img, e, a.pad + unitsprite.DressMargin(d), err
+}
+
+func (a *artPacks) texture(group, id string, d int, dressed bool) (*ebiten.Image, assets.Entry, error) {
 	e, err := a.entry(group, id, d)
 	if err != nil {
 		return nil, e, err
 	}
-	k := texKey{id, d}
+	k := texKey{id, d, dressed}
 	if img, ok := a.tex[k]; ok {
 		return img, e, nil
 	}
 	src, err := a.packs[packKey{group, d}].Image(id, d)
 	if err != nil {
 		return nil, e, err
+	}
+	if dressed {
+		src = unitsprite.Dress(src, d, unitsprite.Flies(group))
 	}
 	var img *ebiten.Image
 	if a.pad == 0 {
@@ -200,8 +216,9 @@ func anchorGeoM(e assets.Entry, d, pad int, eff, sx, sy float64) ebiten.GeoM {
 	return m
 }
 
-// drawUnitSprite draws a unit sprite with its logical anchor on screen point
-// (sx, sy), the hex centre, and reports whether it could. Errors go to the status
+// drawUnitSprite draws a unit sprite, dressed with its rim and contact shadow,
+// with its logical anchor on screen point (sx, sy), the hex centre, and reports
+// whether it could. Errors go to the status
 // line once and the caller falls back to the placeholder dot.
 func (g *game) drawUnitSprite(dst *ebiten.Image, sx, sy float64, typ string, owner state.Player, spent, remembered bool, face unitsprite.Facing) bool {
 	if g.art == nil || typ == "" {
@@ -214,13 +231,13 @@ func (g *game) drawUnitSprite(dst *ebiten.Image, sx, sy float64, typ string, own
 		return false
 	}
 	d := spriteDensity(g.cam.Effective())
-	img, e, err := g.art.image(family, id, d)
+	img, e, border, err := g.art.mapImage(family, id, d)
 	if err != nil {
 		g.artErr = err.Error()
 		return false
 	}
 	var op ebiten.DrawImageOptions
-	op.GeoM = anchorGeoM(e, d, g.art.pad, g.cam.Effective(), sx, sy)
+	op.GeoM = anchorGeoM(e, d, border, g.cam.Effective(), sx, sy)
 	op.Filter = ebiten.FilterLinear
 	if remembered {
 		op.ColorScale.Scale(0.6, 0.6, 0.65, 1)

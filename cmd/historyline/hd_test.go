@@ -95,7 +95,9 @@ func TestBackground(t *testing.T) {
 }
 
 func TestAppUpgradeSwapsArt(t *testing.T) {
-	packs := func() *artPacks { return &artPacks{tex: map[texKey]*ebiten.Image{{"x", 2}: ebiten.NewImage(1, 1)}} }
+	packs := func() *artPacks {
+		return &artPacks{tex: map[texKey]*ebiten.Image{{id: "x", density: 2}: ebiten.NewImage(1, 1)}}
+	}
 	lite, full := packs(), packs()
 	liteScreens, fullScreens := &screenArt{packs: packs()}, &screenArt{packs: packs()}
 	a := &app{base: matchConfig{units: lite}, art: liteScreens, battle: &game{art: lite}}

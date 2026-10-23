@@ -124,6 +124,33 @@ func TestOpenUnitArt(t *testing.T) {
 	}
 }
 
+// The map draws the dressed sprite, whose wider border keeps the anchor on the
+// hex centre; panels keep the bare sprite.
+func TestMapImageIsDressed(t *testing.T) {
+	a, err := openUnitArt(testCatalog(t, "", ""), assets.Options{AllowCandidates: true})
+	if err != nil {
+		t.Fatal(err)
+	}
+	id := unitsprite.ID("infantry", unitsprite.CP, unitsprite.N, unitsprite.Normal)
+	for _, d := range spriteDensities {
+		bare, _, err := a.image("infantry", id, d)
+		if err != nil {
+			t.Fatal(err)
+		}
+		dressed, e, border, err := a.mapImage("infantry", id, d)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if border != a.pad+unitsprite.DressMargin(d) || dressed.Bounds().Dx() != 96*d+2*border || bare.Bounds().Dx() != 96*d+2*a.pad {
+			t.Fatalf("%dx: border %d, dressed %v, bare %v", d, border, dressed.Bounds(), bare.Bounds())
+		}
+		m := anchorGeoM(e, d, border, 1.5, 100, 50)
+		if x, y := m.Apply(e.Anchor[0]*float64(d)+float64(border), e.Anchor[1]*float64(d)+float64(border)); x != 100 || y != 50 {
+			t.Errorf("%dx: anchor at %v,%v", d, x, y)
+		}
+	}
+}
+
 func TestOpenUnitArtRefusesCandidatesAndGaps(t *testing.T) {
 	if _, err := openUnitArt(testCatalog(t, "", ""), assets.Options{}); err == nil || !strings.Contains(err.Error(), "opt-in") {
 		t.Errorf("candidates loaded without opt-in: %v", err)

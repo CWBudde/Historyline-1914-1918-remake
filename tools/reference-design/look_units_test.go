@@ -120,6 +120,36 @@ func TestUnitPatchRejectsClippedSpriteAndTranslucentGround(t *testing.T) {
 	}
 }
 
+// A unit painted in the ground's own colour vanishes bare; dressed, its rim
+// lifts the edge contrast past 30. A clipped source is refused before dressing.
+func TestDressedUnitRimRaisesEdgeContrast(t *testing.T) {
+	grass := color.NRGBA{98, 112, 58, 255}
+	ground := image.NewNRGBA(image.Rect(0, 0, 400, 400))
+	draw.Draw(ground, ground.Bounds(), image.NewUniform(grass), image.Point{}, draw.Src)
+	sprite := image.NewNRGBA(image.Rect(0, 0, 40, 40))
+	draw.Draw(sprite, image.Rect(10, 10, 30, 30), image.NewUniform(grass), image.Point{}, draw.Src)
+	at := hexgrid.Coord{}
+	bare, _, err := unitMeasurement(ground, sprite, at, [2]float64{10, 10})
+	if err != nil {
+		t.Fatal(err)
+	}
+	dressedSprite, anchor, err := dressed(sprite, "infantry", [2]float64{10, 10})
+	if err != nil {
+		t.Fatal(err)
+	}
+	dress, _, err := unitMeasurement(ground, dressedSprite, at, anchor)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if *bare.Median > 1 || *dress.Median < 30 {
+		t.Fatalf("median edge ΔL* bare %.1f, dressed %.1f", *bare.Median, *dress.Median)
+	}
+	sprite.SetNRGBA(0, 20, color.NRGBA{A: 255})
+	if _, _, err := dressed(sprite, "infantry", [2]float64{10, 10}); err == nil {
+		t.Fatal("clipped source dressed")
+	}
+}
+
 type unitAssetOverlay struct {
 	fs.FS
 	files map[string][]byte

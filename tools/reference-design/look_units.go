@@ -88,16 +88,8 @@ func unitPatch(background *image.NRGBA, sprite image.Image, at hexgrid.Coord, de
 	if b.Empty() {
 		return nil, nil, nil, fmt.Errorf("empty unit sprite")
 	}
-	for y := b.Min.Y; y < b.Max.Y; y++ {
-		for x := b.Min.X; x < b.Max.X; x++ {
-			if x != b.Min.X && x != b.Max.X-1 && y != b.Min.Y && y != b.Max.Y-1 {
-				continue
-			}
-			_, _, _, a := sprite.At(x, y).RGBA()
-			if a >= 32768 {
-				return nil, nil, nil, fmt.Errorf("unit silhouette clipped at source canvas")
-			}
-		}
+	if err := unclipped(sprite); err != nil {
+		return nil, nil, nil, err
 	}
 	x, y := hexgrid.Center(at)
 	origin := image.Pt(int(math.Round((x-anchor[0])*float64(density))), int(math.Round((y-anchor[1])*float64(density))))
@@ -115,6 +107,33 @@ func unitPatch(background *image.NRGBA, sprite image.Image, at hexgrid.Coord, de
 	maprender.Place(after, sprite, at, density, anchor)
 	maprender.Place(alpha, sprite, at, density, anchor)
 	return before, after, alpha, nil
+}
+
+// unclipped reports an error when the silhouette of sprite reaches its canvas edge.
+func unclipped(sprite image.Image) error {
+	b := sprite.Bounds()
+	for y := b.Min.Y; y < b.Max.Y; y++ {
+		for x := b.Min.X; x < b.Max.X; x++ {
+			if x != b.Min.X && x != b.Max.X-1 && y != b.Min.Y && y != b.Max.Y-1 {
+				continue
+			}
+			_, _, _, a := sprite.At(x, y).RGBA()
+			if a >= 32768 {
+				return fmt.Errorf("unit silhouette clipped at source canvas")
+			}
+		}
+	}
+	return nil
+}
+
+// dressed is the 2x unit sprite of family as the game's map draws it, with its
+// rim and contact shadow (unitsprite.Dress), and its logical anchor.
+func dressed(sprite image.Image, family string, anchor [2]float64) (image.Image, [2]float64, error) {
+	if err := unclipped(sprite); err != nil {
+		return nil, anchor, err
+	}
+	m := float64(unitsprite.DressMargin(2)) / 2
+	return unitsprite.Dress(sprite, 2, unitsprite.Flies(family)), [2]float64{anchor[0] + m, anchor[1] + m}, nil
 }
 
 func summarizeUnit(samples []lookmeasure.EdgeSample) unitContrastStats {
@@ -193,7 +212,7 @@ func unitFixture(id string) *level.Level {
 }
 
 func (p *project) measureUnits(out string) (lookUnits, error) {
-	result := lookUnits{Scope: "all authored families and owner palettes; north-facing normal state only; native 2x runtime art composited before 1x area reduction; four deterministic 5x7 scenes, with a continuous road through grass and homogeneous forest/water/grass elsewhere", Definition: "silhouette is mean unit alpha >= 0.5; edge pixels have a four-connected nonbody neighbour; delta = abs(L*(composite) - L*(bare background)) at the same world pixel; clipped or invalid edges are errors; no passing aggregation is asserted", Sprites: []lookUnitSprite{}, Fixtures: []lookUnitFixture{}, Cases: []lookUnitCase{}}
+	result := lookUnits{Scope: "all authored families and owner palettes; north-facing normal state only; native 2x runtime art dressed as the map draws it (dark rim and contact shadow, unitsprite.Dress) and composited before 1x area reduction; four deterministic 5x7 scenes, with a continuous road through grass and homogeneous forest/water/grass elsewhere", Definition: "silhouette is mean unit alpha >= 0.5; edge pixels have a four-connected nonbody neighbour; delta = abs(L*(composite) - L*(bare background)) at the same world pixel; clipped or invalid edges are errors; no passing aggregation is asserted", Sprites: []lookUnitSprite{}, Fixtures: []lookUnitFixture{}, Cases: []lookUnitCase{}}
 	raw, err := fs.ReadFile(p.assets, "index.json")
 	if err != nil {
 		return result, err
@@ -263,8 +282,12 @@ func (p *project) measureUnits(out string) (lookUnits, error) {
 				return result, fmt.Errorf("unit %s dimensions differ from catalogue", id)
 			}
 			result.Sprites = append(result.Sprites, lookUnitSprite{id, e.SHA, 2, e.Width, e.Height, e.Anchor})
+			sprite, anchor, err := dressed(src, family, e.Anchor)
+			if err != nil {
+				return result, fmt.Errorf("%s: %w", id, err)
+			}
 			for _, fixture := range result.Fixtures {
-				stats, composed, err := unitMeasurement(backgrounds[fixture.ID], src, hexgrid.Coord{Line: 3, Col: 2}, e.Anchor)
+				stats, composed, err := unitMeasurement(backgrounds[fixture.ID], sprite, hexgrid.Coord{Line: 3, Col: 2}, anchor)
 				if err != nil {
 					return result, fmt.Errorf("%s on %s: %w", id, fixture.ID, err)
 				}

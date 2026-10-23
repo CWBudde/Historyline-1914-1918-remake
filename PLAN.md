@@ -460,9 +460,31 @@ cross at every period corner. (2026-10-23)
       - opacity: crowns 0.6, rocks 0.45, buildings 0.35.
       Cast shadows of standing items come from code.
 - [ ] Units:
-      - a soft contact shadow (ellipse about 0.6×0.25 hex, about 45 % black);
+      - a soft contact shadow, about 45 % black: the silhouette blurred and cast to the lower right (an
+        ellipse cannot sit under loose infantry figures or a ship);
       - a dark 1-world-px rim, for a unit edge ΔL\* ≥ 30 on grass, forest, road and water;
       - props kept 0.3 hex away from the foot point.
+      Partial (2026-10-23): `unitsprite.Dress` gives every map unit a dark olive-black rim 1 world px wide
+      and a contact shadow of RGB 18,26,16 at 45 %, blurred σ 0.75 world px. The shadow is offset 2 world px
+      toward the lower right, 6 for aircraft. The game draws dressed sprites; the panels keep the bare ones.
+      `tools/reference-design` measures the dressed sprites.
+      Median unit edge ΔL\* (144 sprites):
+
+      | Terrain | Before | After |
+      | --- | --- | --- |
+      | grass | 11.9 | 27.4 |
+      | forest | 11.2 | 13.2 |
+      | road | 14.4 | 31.0 |
+      | water | 12.1 | 25.9 |
+
+      Open:
+      - **Forest:** it stays far short of 30, because a dark rim has no headroom against dark crowns. It
+        needs a lighter forest or a light inner edge.
+      - **Rim width:** a 1.5-world-px rim would give grass 31.0, road 33.9 and water 28.8 (forest 14.8).
+      - **The 0.3-hex keep-out:** not built. Units draw above every terrain pass, so no prop hides one,
+        and a hole of that radius would clear 46 % of each hex into a visible lattice.
+
+      Review under `build/review/unit-rim/`.
 - [ ] Default zoom at 1080p so a hex covers about 7 % of the screen width, as in the original and at 4K.
 - [ ] Winter cells pick seasonal infrastructure and water IDs. Rail bridges draw a rail deck, not a road
       deck: the standing item is chosen by the crossing family, in `mapcompose/standing.go`.
@@ -499,6 +521,9 @@ cross at every period corner. (2026-10-23)
       Open: open-cell trees at 4–8 % (the old tree props remain), the edge-distance measurement, the
       forest floor still clipped to the hex, and a crown on a visible meadow hex hinting at an unseen
       forest. Before/after under `build/review/crown-scatter/`.
+      The light measure still expects baked crown contexts, so `TestLightPulseSelectedPairsAndDensityAgreement`
+      in `tools/reference-design` has failed since the scatter. It must measure the scattered crown and
+      shadow pairs instead.
 - [ ] Meadow G1 in parts (art/direction.md, G1). Each is done when its checks pass:
       - `hlmaterial` profile schema 2: G1b's high-passed L\* wrapped 3×3 over G1a, one gain, and the G1
         checks in its report (code). Done (2026-10-23); the current meadow `grass-summer-v1` fails on
@@ -537,8 +562,8 @@ cross at every period corner. (2026-10-23)
       On PULSE: grass σL\* 5.99 → 6.18, edge density 0.056 → 0.065, and the six lattice correlations
       drop by 0.04–0.11.
       Open:
-      - unit edge contrast on grass falls slightly (median 12.07 → 11.87 L\*); the fix is the unit rim in
-        Look 1;
+      - unit edge contrast on grass falls slightly (median 12.07 → 11.87 L\*); with the Look 1 unit rim it
+        reaches 27.4;
       - grass hexes with infrastructure get no props;
       - tufts read as dark stars at 2×.
       Before/after under `build/review/meadow-props/`.
