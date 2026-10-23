@@ -58,3 +58,12 @@ hexes. `surface/rivets.png` is a 4×2 sheet of brass rivet heads for the plates'
 `hlasset build-screens` area-averages them to 512 px wide (1x) and 1024 (2x) as `surface/steel`,
 `surface/ground` and `surface/rivets`; `internal/dospanel` uses only the tiles' texture, graded to its
 own palette, and the heads in their own hue at its brass's lightness.
+
+## Capture scenes
+
+`capture/depot.png` and `capture/factory.png` are the staff-map room of the capture scene with a model
+of each building, `capture/hand.png` the hand that plants the flag, and `capture/hq.png` and
+`capture/hq-open.png` the headquarters of the finale, closed and open. `hlasset build-screens` scales
+the room and the hand to 512 px wide (1x) and 1024 (2x), the headquarters to 640x400 and 1280x800.
+`internal/dospanel` draws the pin, the flags and all motion; the points it needs on the masters are
+listed in `capture/prompt.md`.

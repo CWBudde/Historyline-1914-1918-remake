@@ -4949,6 +4949,89 @@
       }
     },
     {
+      "id": "screens/capture",
+      "title": "Capture scenes",
+      "kind": "screen",
+      "status": "candidate",
+      "runtime_ids": [],
+      "dir": "art/screens/capture",
+      "assets_dir": "assets/screens/capture",
+      "prompt": "art/screens/capture/prompt.md",
+      "masters": [
+        {
+          "path": "art/screens/capture/depot.png",
+          "sha256": "a831e01bfa95b4552faa77a5a0fda3c676d9fb6591ed61126cc793fc81c24138",
+          "width": 1122,
+          "height": 1402
+        },
+        {
+          "path": "art/screens/capture/factory.png",
+          "sha256": "a83c9675c45d100b6ab203442fea569bc8cf17dcabaa4e5b563b66cd1c846ded",
+          "width": 1122,
+          "height": 1402
+        },
+        {
+          "path": "art/screens/capture/hand.png",
+          "sha256": "3065850aa99826ef01c4e0befaf953c19c74c40d3274189323021d820d42fa82",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/screens/capture/hq.png",
+          "sha256": "4130d9aa811daafeb04bcc476ac673a9253f71e63949d2dc7c89452d310e8c60",
+          "width": 1586,
+          "height": 992
+        },
+        {
+          "path": "art/screens/capture/hq-open.png",
+          "sha256": "12f62e1b112dfeabfb1715d666606b9b7ded9392df6c951e5633bdcf0303f85d",
+          "width": 1584,
+          "height": 993
+        }
+      ],
+      "look": "The scenes of a captured building, after the original's: in the capturer's panel a dark map room\nlights up over a wooden scale model of the building on the staff map, a hand reaches in and plants a\npin with the capturer's flag on the model's roof, then withdraws. A battle won by taking the HQ\ncloses on a low view up at the enemy headquarters: its doors swing open on defenders who surrender,\nand the winner's flag goes up the bare pole on the gable. Warm sepia for the map room, a muted dusk\npalette for the headquarters. The pin, the flags and all motion are drawn in code.",
+      "base_prompt": "```text\nNewly authored artwork for a turn-based World War I strategy game set in rural Europe, 1914-1918.\nContinuous hand-painted digital illustration with fine, believable material detail. Not pixel art,\nnot a pixel enlargement, not a flat vector, not a cartoon, not a photograph or 3D render. No text,\nletters, numbers, labels, logos, watermarks, flags, national insignia, frames or borders. Do not copy\nor trace any existing game's graphics.\n```\n\nEach variant's prompt below opens with this text (the material list varies), then gives the scene.\nThe edits attach the master they change and keep everything outside the changed area.",
+      "variants": [
+        {
+          "variant": "depot",
+          "runtime_ids": [],
+          "delta": "`cd-01` (exec-b29ee046), 1122x1402 opaque: the prompt below."
+        },
+        {
+          "variant": "factory",
+          "runtime_ids": [],
+          "delta": "`cf-01` (exec-ec2ff3e8), 1122x1402 opaque: an edit of `depot.png`, the prompt below."
+        },
+        {
+          "variant": "hand",
+          "runtime_ids": [],
+          "delta": "`ch-01` (exec-d45fc2fd), 1254x1254 RGBA: the prompt below."
+        },
+        {
+          "variant": "hq",
+          "runtime_ids": [],
+          "delta": "`hq-01` (exec-48a6cf80), 1586x992 opaque: the prompt below."
+        },
+        {
+          "variant": "hq-open",
+          "runtime_ids": [],
+          "delta": "`hq-02` (exec-6ff83a72), 1584x993 opaque: an edit of `hq.png`, the prompt below."
+        }
+      ],
+      "edges": "",
+      "post": "Masters are used unchanged. `hlasset build-screens` scales them into the screen catalog's `capture`\nfamily: `capture/depot`, `capture/factory` and `capture/hand` 512 px wide at 1x and 1024 at 2x,\n`capture/hq` and `capture/hq-open` to the full screen, 640x400 at 1x and 1280x800 at 2x.\n`internal/dospanel` places the code-drawn parts by points measured on the masters, as fractions of\ntheir size: the pin goes into the depot's roof ridge at 0.624, 0.303 and the factory's at 0.526,\n0.300; the hand pinches at 0.184, 0.218; the HQ's flagpole stands at 0.500 from 0.199 (foot) to\n0.050 (head); the door leaves fill the arch from 0.413 to 0.586 wide, from 0.474 (crown) and 0.544\n(springing) down to 0.832. A new master must keep these points or change them in code. The map room\nis drawn at the scene's light, the hand toned to sepia; the leaves of `hq.png` swing open over\n`hq-open.png`.",
+      "avoid": [
+        "flags, pins, hands or people in the map room's paintings",
+        "a flag on the HQ's pole, insignia or a recognisable nation on the defenders",
+        "writing on the staff map"
+      ],
+      "runtime": {
+        "count": 0,
+        "densities": [],
+        "samples": []
+      }
+    },
+    {
       "id": "screens/code-invalid",
       "title": "Mission code",
       "kind": "screen",
