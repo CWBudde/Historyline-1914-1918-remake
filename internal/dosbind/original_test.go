@@ -195,18 +195,19 @@ func TestBindMatchesOriginalMaps(t *testing.T) {
 	}
 }
 
-// TestCarriesMatchUnitTable checks the classes a transporter takes against
-// UNIT.DAT word +0x13 (records of 69 bytes).
+// TestCarriesMatchUnitTable checks the classes a transporter takes in both
+// builds' tables against UNIT.DAT word +0x13 (records of 69 bytes).
 func TestCarriesMatchUnitTable(t *testing.T) {
 	u := unpack(t, "UNIT.DAT")
-	for i, typ := range dosrules.Full.Tables.Move.Types {
-		w := int(binary.LittleEndian.Uint16(u[69*i+0x13:]))
-		got, ok := Table.Carries[strconv.Itoa(i)]
-		if typ.Class&transporter != 0 && (!ok || got != w) {
-			t.Errorf("type %d: carries %d (%v), unit table %d", i, got, ok, w)
-		}
-		if typ.Class&transporter == 0 && ok {
-			t.Errorf("type %d carries but is no transporter", i)
+	for build, p := range dosrules.Profiles {
+		for i, typ := range p.Tables.Move.Types {
+			w := int(binary.LittleEndian.Uint16(u[69*i+0x13:]))
+			if typ.Class&transporter != 0 && typ.Carries != w {
+				t.Errorf("%s type %d: carries %d, unit table %d", build, i, typ.Carries, w)
+			}
+			if typ.Class&transporter == 0 && typ.Carries != 0 {
+				t.Errorf("%s type %d carries but is no transporter", build, i)
+			}
 		}
 	}
 }

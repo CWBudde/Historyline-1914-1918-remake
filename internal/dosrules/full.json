@@ -956,7 +956,8 @@
         "distanceWeight": 5,
         "costWeight": 7,
         "capacity": 9,
-        "weight": 4
+        "weight": 4,
+        "carries": 64
       },
       {
         "budget": 2,
@@ -1000,7 +1001,8 @@
         "distanceWeight": 5,
         "costWeight": 7,
         "capacity": 15,
-        "weight": 0
+        "weight": 0,
+        "carries": 256
       },
       {
         "budget": 42,
@@ -1055,7 +1057,8 @@
         "distanceWeight": 5,
         "costWeight": 7,
         "capacity": 30,
-        "weight": 0
+        "weight": 0,
+        "carries": 512
       },
       {
         "budget": 36,

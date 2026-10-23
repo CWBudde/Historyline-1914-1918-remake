@@ -1264,7 +1264,10 @@ own and leaves the game playable.
        cycle says (they were assumed for the movement phase); a new unit leaves in the next movement
        phase. `TestFactoryProductionInPlay` plays the shipped levels with no energy set by hand: on Civil
        each side builds in its factory from its second action phase (energy 60–66 against 55 for the
-       cheapest type); Mouse's factories start neutral and Pulse has none.
+       cheapest type); Mouse's factories start neutral and Pulse has none. A built transporter gets its
+       own container record with the classes of its type (`MoveType.Carries`, UNIT.DAT +0x13); without
+       one a built supply car could not leave the factory. `TestFactoryBuildsLeave` builds every type of
+       Civil's factories and takes it out.
 
 ### 4. Computer opponent
 

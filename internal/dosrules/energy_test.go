@@ -232,6 +232,37 @@ func TestEnergyBuildExit(t *testing.T) {
 	}
 }
 
+// TestEnergyBuildTransporter builds a supply car: it gets its own container
+// record, as a scenario's transporter does, and leaves the HQ in the next
+// movement phase with the record following it.
+func TestEnergyBuildTransporter(t *testing.T) {
+	for build, p := range profiles {
+		t.Run(build, func(t *testing.T) {
+			g := energyCycle(t, p, map[int]Placement{
+				0: {Type: cInfantry, Owner: 0, Cell: 40}, 1: {Type: cInfantry, Owner: 1, Cell: 44},
+			})
+			g.Buildings[HoldFlag40] = Building{Builds: []int{cSupply}}
+			g.Energy[0] = 100
+			taken := EmptyHold()
+			taken.Flags = 0x20
+			g.Holds[0] = taken
+			apply(t, g, Command{Kind: CmdBuild, Side: 0, Hold: HoldFlag40, Type: cSupply})
+			u := g.Units[2]
+			want := EmptyHold()
+			want.Cells[0], want.Flags, want.Occupant = 2*hq0+1, 0x20|moveTables(t, p).Types[cSupply].Carries, 2
+			if u.Hold != 1 || g.Holds[1] != want {
+				t.Fatalf("built supply car's record %d: %+v, want 1: %+v", u.Hold, g.Holds[u.Hold], want)
+			}
+			resolve(t, g)
+			n := neighbours(hq0, cycleW, cycleH)
+			evs := apply(t, g, Command{Kind: CmdExit, Side: 0, Hold: HoldFlag40, Slot: 0, Cell: n[0]})
+			if evs[0].Kind != EvMoved || g.occupant(0, n[0]) != 2 || g.Holds[u.Hold].Cells[0] != 2*n[0]+1 {
+				t.Errorf("exit events %+v, occupant %d, record %+v", evs, g.occupant(0, n[0]), g.Holds[u.Hold])
+			}
+		})
+	}
+}
+
 func TestEnergySave(t *testing.T) {
 	g := midRound(t, Full)
 	g.Energy = [2]int{12, 34}

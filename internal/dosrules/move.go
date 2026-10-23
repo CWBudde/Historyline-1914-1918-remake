@@ -33,6 +33,9 @@ type MoveType struct {
 	// which the end-cell check compares (UNIT.DAT bytes 64 and 65).
 	Capacity int `json:"capacity"`
 	Weight   int `json:"weight"`
+	// Carries are the classes (container flags 0xfc0) a transporter takes,
+	// word +0x13.
+	Carries int `json:"carries,omitempty"`
 }
 
 // MoveTerrain is a 6-byte terrain record as the movement queries read it.

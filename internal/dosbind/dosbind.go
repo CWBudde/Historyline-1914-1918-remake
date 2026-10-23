@@ -53,9 +53,6 @@ type Records struct {
 	Edge int `json:"edge"`
 	// Terrain maps a hex key (Key) to its terrain record.
 	Terrain map[string]int `json:"terrain"`
-	// Carries are the classes (container flags 0xfc0) a transporter type
-	// takes, by UNIT.DAT type.
-	Carries map[string]int `json:"carries"`
 	// Maps are the scenario numbers of a level, by its mapNo.
 	Maps map[string]MapRecords `json:"maps"`
 }
@@ -263,7 +260,7 @@ func owner(flags int) int {
 //     dosrules.InBuilding. Depot and factory records are numbered in the
 //     order of each building's first cell.
 //   - A transporter's record is the next free one from 0 in unit order; it
-//     takes the classes of Carries, its occupant byte is the transporter.
+//     takes the classes its type carries, its occupant byte is the transporter.
 //   - A building record's credits are the scenario's (Maps.Credits); only
 //     factories build, the scenario's types (Maps.Builds).
 func Bind(lv *level.Level, set *data.Set) (*Board, error) {
@@ -521,11 +518,11 @@ func buildingHold(side, entrance int, rest []int) dosrules.Hold {
 }
 
 // carrierHold is the container record of transporter unit i: its position
-// first, the classes of Carries and its side; false for a type without
-// classes.
+// first, the classes its type carries (dosrules.MoveType.Carries) and its
+// side; false for a type without classes.
 func carrierHold(u dosrules.Placement, i int) (dosrules.Hold, bool) {
-	classes, ok := Table.Carries[strconv.Itoa(u.Type)]
-	if !ok {
+	classes := dosrules.Full.Tables.Move.Types[u.Type].Carries
+	if classes == 0 {
 		return dosrules.Hold{}, false
 	}
 	h := dosrules.EmptyHold()

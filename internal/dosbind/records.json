@@ -39,7 +39,6 @@
     "mud": 81, "rough": 80, "shelled": 81, "stone": 78, "stoney": 79,
     "water": 25, "waterStones": 60
   },
-  "carries": {"22": 64, "26": 256, "31": 512},
   "maps": {
     "1": {
       "credits": {"70": 5, "71": 5, "72": 15, "73": 15},

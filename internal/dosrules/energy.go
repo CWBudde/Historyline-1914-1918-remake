@@ -22,7 +22,11 @@ import "slices"
 //   - A new unit takes the lowest free live record, the side's highest
 //     serial plus one, a free slot of the side and the building's first
 //     cell as its position, as an arrival into an own building leaves it;
-//     a construction unit starts with 2 charges.
+//     a construction unit starts with 2 charges. A transporter takes as
+//     +0x0a the lowest transporter record (below HoldFlag40) that none
+//     holds, as a scenario's transporter gets one: flag 0x20 with the
+//     classes its type carries and its side, the building's first cell as
+//     its position (2*cell+1) and itself as the occupant.
 
 // Building is what the scenario gives a building record: the energy it
 // credits each cycle and the types it builds (none: it only repairs).
@@ -85,6 +89,8 @@ func (g *Game) checkBuilding(c Command) error {
 		return refuse(0, "no free slot")
 	case g.freeRecord() < 0:
 		return refuse(0, "no free unit record")
+	case g.Profile.Tables.Move.Types[c.Type].Class&0x1000 != 0 && g.freeCarrier() < 0:
+		return refuse(0, "no free container record")
 	}
 	return nil
 }
@@ -103,6 +109,16 @@ func freeSlot(h Hold, side int) int {
 func (g *Game) freeRecord() int {
 	for i := range SlotFree {
 		if _, ok := g.Units[i]; !ok {
+			return i
+		}
+	}
+	return -1
+}
+
+// freeCarrier is the lowest transporter record that none holds, -1 if none.
+func (g *Game) freeCarrier() int {
+	for i := range HoldFlag40 {
+		if h, ok := g.Holds[i]; !ok || h == EmptyHold() {
 			return i
 		}
 	}
@@ -132,6 +148,12 @@ func (g *Game) build(c Command) []Event {
 		Flags6: m.Flags, Type: c.Type, Serial: g.serial(c.Side), Hold: 0xFF, Pos: [2]int{h.Cells[0], h.Cells[0]}}
 	if g.Profile.builder(c.Type) {
 		u.Hold = builderCharges
+	}
+	if m.Class&0x1000 != 0 {
+		u.Hold = g.freeCarrier()
+		r := EmptyHold()
+		r.Cells[0], r.Flags, r.Occupant = h.Cells[0]+1, 0x20|m.Carries|c.Side, i
+		g.Holds[u.Hold] = r
 	}
 	g.Units[i] = u
 	h.Slots[7*c.Side+k] = i
