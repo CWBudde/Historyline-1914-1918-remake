@@ -136,6 +136,27 @@ func TestBuildingsOwnB(t *testing.T) {
 	}
 }
 
+// A winter tile is compared with the snow meadow, so the snow baked into winter
+// relief keeps the land's grade and only the rock takes the relief row.
+func TestWinterReliefKeepsSnow(t *testing.T) {
+	if Meadow("tile/mountN_w") != "tile/grass_w" || Meadow("tile/mountN") != "tile/grass" {
+		t.Fatalf("meadow of winter and summer relief: %s, %s", Meadow("tile/mountN_w"), Meadow("tile/mountN"))
+	}
+	snow := color.NRGBA{222, 226, 230, 255}
+	meadow := flat(snow, 2, 1)
+	mount := flat(snow, 2, 1)
+	rock := color.NRGBA{110, 108, 104, 255}
+	mount.SetNRGBA(1, 0, rock)
+	got := Grade(mount, "tile/mountN_w", "terrain/mount", meadow)
+	if want := Grade(meadow, "tile/grass_w", "terrain/grass", nil); got.NRGBAAt(0, 0) != want.NRGBAAt(0, 0) {
+		t.Errorf("snow %v, want the snow meadow's %v", got.NRGBAAt(0, 0), want.NRGBAAt(0, 0))
+	}
+	l0, _, _ := lab(rock)
+	if l1, _, _ := lab(got.NRGBAAt(1, 0)); math.Abs(l1-landL.at(l0)-rows["terrain/mount"].l) > 0.8 {
+		t.Errorf("rock L* %.2f → %.2f, want %.2f", l0, l1, landL.at(l0)+rows["terrain/mount"].l)
+	}
+}
+
 // Grading is a function of the pixel alone: the same colour gives the same
 // result in every tile and at every density.
 func TestDeterministic(t *testing.T) {
@@ -198,5 +219,35 @@ func TestShippedBuildings(t *testing.T) {
 		} else {
 			t.Logf("%s: b* %.2f painted, %.2f graded", family, painted, graded)
 		}
+	}
+}
+
+// A forest image that is mostly grey (snow and bare branches) is winter
+// forest: its trees follow the darker winter curve and its snow stays as
+// painted. A green forest image keeps the summer curves.
+func TestWinterForest(t *testing.T) {
+	branch, snowy := color.NRGBA{120, 110, 112, 255}, color.NRGBA{226, 230, 236, 255}
+	winter := flat(snowy, 4, 4)
+	for y := range 2 {
+		for x := range 4 {
+			winter.SetNRGBA(x, y, branch)
+		}
+	}
+	got := Grade(winter, "context/forest/ab12", "terrain/forest", nil)
+	l0, _, _ := lab(branch)
+	if l, _, _ := lab(got.NRGBAAt(0, 0)); math.Abs(l-winterForestL.at(l0)) > 0.6 {
+		t.Errorf("winter branch L* %.2f → %.2f, want %.2f", l0, l, winterForestL.at(l0))
+	}
+	if got.NRGBAAt(0, 3) != snowy {
+		t.Errorf("snow %v → %v", snowy, got.NRGBAAt(0, 3))
+	}
+	if d := winterForestL.at(l0) - l0; d > -10 {
+		t.Errorf("winter branches darken by %.2f only", d)
+	}
+	// One grey pixel in a green tile does not make it winter.
+	summer := flat(color.NRGBA{60, 80, 30, 255}, 4, 4)
+	summer.SetNRGBA(0, 0, branch)
+	if l, _, _ := lab(Grade(summer, "context/forest/cd34", "terrain/forest", nil).NRGBAAt(0, 0)); math.Abs(l-landL.at(l0)) > 0.6 {
+		t.Errorf("a grey pixel in summer forest ground L* %.2f → %.2f, want the land curve's %.2f", l0, l, landL.at(l0))
 	}
 }

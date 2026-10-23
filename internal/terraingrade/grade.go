@@ -1,4 +1,4 @@
-// Package terraingrade grades the terrain art to the summer value targets of
+// Package terraingrade grades the terrain art to the value targets of
 // art/direction.md, as the pack build and the map renderer load it.
 //
 // The grade works on each pixel's colour, so a colour comes out the same in every
@@ -10,9 +10,12 @@
 //   - snow and highlights above L* 85 stay as painted, so winter art is kept.
 //
 // A few families grade on their own where they differ from the meadow baked
-// into their tiles: relief is darker than grass, and buildings come to b* 16
-// instead of losing the land's b*. Crowns follow their own curve, so the forest
-// stays at L* 26–31 with dark gaps. Cast shadows, fog and units are left alone.
+// into their tiles (the snow meadow in winter tiles, so their snow is kept):
+// relief is darker than grass, and buildings come to b* 16 instead of losing
+// the land's b*. Crowns follow their own curve, so the forest
+// stays at L* 26–31 with dark gaps. Winter forest (a forest image that is mostly
+// grey: snow and bare branches) follows a darker curve instead, so it sits 35
+// or more under the snow. Cast shadows, fog and units are left alone.
 // The source art in assets/ is unchanged; Version names the grade.
 package terraingrade
 
@@ -27,7 +30,7 @@ import (
 )
 
 // Version names the grade, so a pack built with an older one can be told apart.
-const Version = "terraingrade-v1"
+const Version = "terraingrade-v3"
 
 // curve maps L* through knots of increasing input; between knots it is linear.
 type curve [][2]float64
@@ -52,14 +55,24 @@ var (
 	// waterL takes open water's 5 %, mean and 95 % L* (32, 40.7, 57.3) to 25,
 	// 33.5 and 50.
 	waterL = curve{{0, 0}, {32, 25}, {40.7, 33.5}, {57.3, 50}, {75, 75}, {100, 100}}
+	// winterForestL takes the winter forest's trees (mean L* 44 under half a
+	// tile of snow) to about 24, so a winter forest cell sits 35 under the snow,
+	// and leaves the snow as painted.
+	winterForestL = curve{{0, 0}, {30, 15}, {45, 25}, {60, 38}, {75, 65}, {85, 85}, {100, 100}}
 )
+
+// winterShare is the share of grey in a forest image (opaque pixels of chroma
+// 12 or less: snow and bare branches) from which it is winter forest: the
+// summer forest art has at most 16 %, the winter art 85 % or more.
+const winterShare = 0.5
 
 // landB is the b* added to yellow land.
 const landB = -4.5
 
 // row is a family's own grade, weighted by how far a pixel differs from the
 // meadow baked into its tile (fully where there is no meadow to compare): an L*
-// offset, and for buildings the b* offset that replaces the land's.
+// offset that fades out from L* 70 to 85, so snow stays as painted, and for
+// buildings the b* offset that replaces the land's.
 type row struct {
 	l, b     float64
 	building bool
@@ -78,6 +91,16 @@ var rows = map[string]row{
 	"terrain/factory":  {b: -4.3, building: true},
 }
 
+// Meadow is the asset id of the meadow tile baked into the tile id: the snow
+// meadow for a winter tile, so its snow counts as meadow and keeps the land's
+// grade instead of its family's.
+func Meadow(id string) string {
+	if strings.HasSuffix(id, "_w") {
+		return "tile/grass_w"
+	}
+	return "tile/grass"
+}
+
 // Applies reports whether the asset id of art family art is graded.
 func Applies(id, art string) bool {
 	if !strings.HasPrefix(art, "terrain/") || art == "terrain/fog" {
@@ -87,7 +110,7 @@ func Applies(id, art string) bool {
 }
 
 // Grade returns im graded as the asset id of art family art, as a new image.
-// meadow is the canonical grass tile at the same density when im is a hex tile
+// meadow is the tile Meadow(id) names at the same density when im is a hex tile
 // of that size, else nil.
 func Grade(im image.Image, id, art string, meadow image.Image) *image.NRGBA {
 	b := im.Bounds()
@@ -97,7 +120,13 @@ func Grade(im image.Image, id, art string, meadow image.Image) *image.NRGBA {
 		return out
 	}
 	r := rows[art]
-	crown := strings.HasPrefix(id, "standing/scatter/crown/") || strings.HasPrefix(id, "standing/context/forest/") || id == "standing/forest"
+	land := landL
+	if strings.HasPrefix(id, "standing/scatter/crown/") || strings.HasPrefix(id, "standing/context/forest/") || id == "standing/forest" {
+		land = crownL
+	}
+	if art == "terrain/forest" && grey(out) >= winterShare {
+		land = winterForestL
+	}
 	var m *image.NRGBA
 	if meadow != nil && meadow.Bounds().Size() == b.Size() && r != (row{}) {
 		mb := meadow.Bounds()
@@ -111,18 +140,14 @@ func Grade(im image.Image, id, art string, meadow image.Image) *image.NRGBA {
 			if p[3] == 0 {
 				continue
 			}
-			l, a, bb := toLab(p[0], p[1], p[2])
-			land := landL
-			if crown {
-				land = crownL
-			}
-			l, db := base(land, l, bb)
+			l0, a, bb := toLab(p[0], p[1], p[2])
+			l, db := base(land, l0, bb)
 			if r != (row{}) {
 				w := 1.0
 				if m != nil {
 					w = smooth(diff(out, i, m.Pix[i:i+4:i+4]), 2, 8)
 				}
-				l += w * r.l
+				l += w * r.l * clamp((85-l0)/15)
 				if r.building {
 					db = (1-w)*db + w*r.b
 				}
@@ -140,6 +165,25 @@ func base(land curve, l, b float64) (float64, float64) {
 	water := clamp((-b-2)/8) * clamp((70-l)/15)
 	yellow := clamp(b / 8)
 	return land.at(l)*(1-water) + waterL.at(l)*water, landB * yellow * (1 - water)
+}
+
+// grey is the share of im's opaque pixels (alpha at least half) of chroma 12
+// or less.
+func grey(im *image.NRGBA) float64 {
+	var n, all int
+	for i := 0; i < len(im.Pix); i += 4 {
+		if im.Pix[i+3] < 128 {
+			continue
+		}
+		all++
+		if _, a, b := toLab(im.Pix[i], im.Pix[i+1], im.Pix[i+2]); math.Hypot(a, b) <= 12 {
+			n++
+		}
+	}
+	if all == 0 {
+		return 0
+	}
+	return float64(n) / float64(all)
 }
 
 // diff is the CIE76 distance between pixel i of im (still ungraded) and the

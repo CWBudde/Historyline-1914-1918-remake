@@ -22,6 +22,7 @@ import (
 	"slices"
 	"strings"
 
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/terrainlight"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/worldmaterial"
 )
 
@@ -180,6 +181,10 @@ func validate(p profile) error {
 	for _, s := range p.Sheets {
 		if sh := s.Shadow; sh != nil && (!validRGB(&sh.RGB) || !(sh.Opacity > 0 && sh.Opacity <= 1) || !(sh.Length >= 0 && sh.Length <= 1)) {
 			return fmt.Errorf("%s: shadow rgb 0..255, opacity in (0, 1] and length in [0, 1]", s.ID)
+		}
+		if sh := s.Shadow; sh != nil && !oneLight(*sh, s.Art) {
+			return fmt.Errorf("%s: the shadow leaves the one light (terrainlight): rgb %v, length %v and the opacity of a crown, rock or building", s.ID,
+				[3]uint8{terrainlight.Colour.R, terrainlight.Colour.G, terrainlight.Colour.B}, terrainlight.Length)
 		}
 		for _, c := range s.Cells {
 			if c.Runtime == "" {
@@ -498,6 +503,20 @@ type assetEntry struct {
 	Anchor  [2]float64 `json:"logical_anchor"`
 	Layer   string     `json:"layer"`
 	Art     string     `json:"art"`
+}
+
+// oneLight reports whether shadow sh of a sheet of art family art is the
+// map's one light: its colour and length, and the opacity of the family's kind
+// (any kind for a family terrainlight does not know).
+func oneLight(sh shadow, art string) bool {
+	c := terrainlight.Colour
+	if sh.RGB != [3]float64{float64(c.R), float64(c.G), float64(c.B)} || sh.Length != terrainlight.Length {
+		return false
+	}
+	if o, ok := terrainlight.Opacity(art); ok {
+		return sh.Opacity == o
+	}
+	return sh.Opacity == terrainlight.Crown || sh.Opacity == terrainlight.Rock || sh.Opacity == terrainlight.Building
 }
 
 // shadowOf is the cast shadow of sprite im: its alpha scaled by the opacity in

@@ -23,6 +23,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapmaterial"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/terraingrade"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/terrainlight"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/worldmaterial"
 )
@@ -210,7 +211,8 @@ func (r *Renderer) Render(lvl *level.Level, density int, units bool) (Map, error
 }
 
 // assetImage returns the entry of id at density and its image, graded as the
-// pack build grades it (terraingrade).
+// pack build grades it (terraingrade), a painted cast shadow drawn from its
+// standing item with the one light (terrainlight).
 func (r *Renderer) assetImage(id string, density int) (Entry, image.Image, error) {
 	key := fmt.Sprintf("%d/%s", density, id)
 	e, ok := r.files[key]
@@ -224,9 +226,19 @@ func (r *Renderer) assetImage(id string, density int) (Entry, image.Image, error
 	if err != nil {
 		return Entry{}, nil, err
 	}
-	if !r.Ungraded && terraingrade.Applies(e.ID, e.Art) {
+	if standing, opacity, ok := terrainlight.Recast(e.ID, e.Art); ok {
+		s, ok := r.files[fmt.Sprintf("%d/%s", density, standing)]
+		if !ok {
+			return Entry{}, nil, fmt.Errorf("the shadow %s: missing %dx asset %s", id, density, standing)
+		}
+		item, err := r.source(s)
+		if err != nil {
+			return Entry{}, nil, err
+		}
+		im = terrainlight.Cast(item, density, terrainlight.Diameter(item, density), opacity)
+	} else if !r.Ungraded && terraingrade.Applies(e.ID, e.Art) {
 		var meadow image.Image
-		if g, ok := r.files[fmt.Sprintf("%d/tile/grass", density)]; ok {
+		if g, ok := r.files[fmt.Sprintf("%d/%s", density, terraingrade.Meadow(e.ID))]; ok {
 			if meadow, err = r.source(g); err != nil {
 				return Entry{}, nil, err
 			}

@@ -18,6 +18,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/terraingrade"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/terrainlight"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/worldmaterial"
 	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
@@ -164,8 +165,9 @@ func optionalProblem(group string, e assets.Entry, d int) string {
 // buildTerrain builds the terrain catalog: out/<d>x/<group>/ holds one pack per
 // group and density, each inside the loader's decoded-image budget (all 4x
 // terrain in one pack would not be). Every pack is validated before out is
-// created; out must be new. The images are graded (terraingrade), and out/grade
-// names the grade.
+// created; out must be new. The images are graded (terraingrade), the painted
+// cast shadows drawn with the one light (terrainlight), and out/grade names
+// both.
 func buildTerrain(assetsDir, out string) ([]terrainPack, error) {
 	entries, err := readIndex(assetsDir)
 	if err != nil {
@@ -179,7 +181,7 @@ func buildTerrain(assetsDir, out string) ([]terrainPack, error) {
 	for i, p := range packs {
 		manifests[i] = p.Manifest
 	}
-	grade, err := terrainGrade(assetsDir, entries)
+	grade, err := terrainRecoder(assetsDir, entries)
 	if err != nil {
 		return nil, err
 	}
@@ -190,31 +192,40 @@ func buildTerrain(assetsDir, out string) ([]terrainPack, error) {
 	for i := range packs {
 		packs[i].Manifest = written[i]
 	}
-	if err := os.WriteFile(filepath.Join(out, "grade"), []byte(terraingrade.Version+"\n"), 0o644); err != nil {
+	if err := os.WriteFile(filepath.Join(out, "grade"), []byte(terraingrade.Version+"\n"+terrainlight.Version+"\n"), 0o644); err != nil {
 		return nil, err
 	}
 	return packs, nil
 }
 
-// terrainGrade returns the recoder that grades each terrain image by its art
-// family, against the meadow tile of its density.
-func terrainGrade(assetsDir string, entries []indexEntry) (recoder, error) {
+// terrainRecoder returns the recoder that grades each terrain image by its
+// art family, against the meadow tile of its density and season, and draws each
+// painted cast shadow from its standing item with the one light (terrainlight).
+func terrainRecoder(assetsDir string, entries []indexEntry) (recoder, error) {
 	art := map[string]string{}
-	meadow := map[int]image.Image{}
+	meadow := map[string]image.Image{}
 	for _, e := range entries {
 		art[e.ID] = e.Art
-		if e.ID == "tile/grass" {
+		if e.ID == "tile/grass" || e.ID == "tile/grass_w" {
 			b, err := os.ReadFile(filepath.Join(assetsDir, filepath.FromSlash(e.Path)))
 			if err != nil {
 				return nil, err
 			}
-			if meadow[e.Density], err = png.Decode(bytes.NewReader(b)); err != nil {
+			if meadow[fmt.Sprintf("%d/%s", e.Density, e.ID)], err = png.Decode(bytes.NewReader(b)); err != nil {
 				return nil, fmt.Errorf("%s: %w", e.Path, err)
 			}
 		}
 	}
 	return func(e assets.Entry, p *assets.Pack) ([]byte, error) {
 		var buf bytes.Buffer
+		if standing, opacity, ok := terrainlight.Recast(e.ID, art[e.ID]); ok {
+			im, err := p.Image(standing, e.Density)
+			if err != nil {
+				return nil, fmt.Errorf("the shadow %s: %w", e.ID, err)
+			}
+			err = png.Encode(&buf, terrainlight.Cast(im, e.Density, terrainlight.Diameter(im, e.Density), opacity))
+			return buf.Bytes(), err
+		}
 		if !terraingrade.Applies(e.ID, art[e.ID]) {
 			err := p.WritePNG(&buf, e.ID, e.Density)
 			return buf.Bytes(), err
@@ -223,7 +234,7 @@ func terrainGrade(assetsDir string, entries []indexEntry) (recoder, error) {
 		if err != nil {
 			return nil, err
 		}
-		err = png.Encode(&buf, terraingrade.Grade(im, e.ID, art[e.ID], meadow[e.Density]))
+		err = png.Encode(&buf, terraingrade.Grade(im, e.ID, art[e.ID], meadow[fmt.Sprintf("%d/%s", e.Density, terraingrade.Meadow(e.ID))]))
 		return buf.Bytes(), err
 	}, nil
 }

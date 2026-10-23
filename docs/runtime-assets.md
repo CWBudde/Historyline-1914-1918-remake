@@ -60,12 +60,20 @@ discover contiguous parts from directory listings (also through HTTP's `files.tx
 densities or duplicate IDs across parts. All background and context parts retain the same opaque texture
 borders.
 
-The builder grades every terrain image to the summer value targets of `art/direction.md`
+The builder grades every terrain image to the value targets of `art/direction.md`
 (`internal/terraingrade`), and `internal/maprender` grades the same way as it loads `assets/`, so the art
 book and the game agree. The grade works per pixel colour: one L\* curve and a b\* shift for land, one curve
-for open water, snow left as painted. Relief darkens and buildings take b\* 16 where they differ from the
-meadow baked into their tiles. Crowns follow their own curve. Cast shadows and fog are copied unchanged.
-`build/packs/terrain/grade` names the grade; `just` rebuilds the packs when it differs.
+for open water, snow left as painted. Relief darkens (except snow) and buildings take b\* 16 where they differ
+from the meadow baked into their tiles, the snow meadow in winter tiles. Crowns follow their own curve; a forest image that is mostly grey (winter:
+snow and bare branches) follows a darker one, so winter forest sits 35 L\* or more under the snow. Fog is
+copied unchanged.
+
+Cast shadows follow one light (`internal/terrainlight`, art/direction.md "One light"): azimuth 315°, RGB
+18,26,16, 0.25 × the item's diameter long, opacity 0.6 for crowns (0.45 rocks, 0.35 buildings). The builder
+and `internal/maprender` draw every painted `standing/shadow/…` from its standing item's alpha, its
+diameter measured from the item's blobs; `cmd/hlkit` makes the scattered items' shadows with the same model
+and refuses a profile that leaves it. `build/packs/terrain/grade` names the grade and the light; `just`
+rebuilds the packs when either differs.
 
 The optional `materials` group contains `material/grass/summer` and `material/hills/summer` together at
 2× and 4×: opaque 568×400 world-pixel periods, anchor (0,0). Both renderers share the native-aspect,

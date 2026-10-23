@@ -261,3 +261,32 @@ func TestValidateRejectsBadCells(t *testing.T) {
 		}
 	}
 }
+
+// The shipped profile's cast shadows are the one light (terrainlight); a
+// shadow that leaves it is refused.
+func TestProfileShadowsAreTheOneLight(t *testing.T) {
+	raw, err := os.ReadFile("../../art/pipeline/world-kits-v1.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	var p profile
+	if err := json.Unmarshal(raw, &p); err != nil {
+		t.Fatal(err)
+	}
+	if err := validate(p); err != nil {
+		t.Fatal(err)
+	}
+	for i, s := range p.Sheets {
+		if s.Shadow == nil {
+			continue
+		}
+		old := *s.Shadow
+		for _, sh := range []shadow{{RGB: [3]float64{24, 29, 22}, Opacity: old.Opacity, Length: old.Length}, {RGB: old.RGB, Opacity: 0.32, Length: old.Length}, {RGB: old.RGB, Opacity: old.Opacity, Length: 0.3}} {
+			*p.Sheets[i].Shadow = sh
+			if validate(p) == nil {
+				t.Errorf("%s: shadow %+v passes", s.ID, sh)
+			}
+		}
+		*p.Sheets[i].Shadow = old
+	}
+}

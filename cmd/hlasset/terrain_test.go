@@ -17,6 +17,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/terraingrade"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/terrainlight"
 	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
 
@@ -155,7 +156,8 @@ func TestRetainedTerrainCatalogBuilds(t *testing.T) {
 			}
 		}
 	}
-	// Terrain is graded as the map renderer grades it; cast shadows are copied.
+	// Terrain is graded as the map renderer grades it; painted cast shadows are
+	// drawn from their standing item with the one light, hlkit's are copied.
 	meadow := sourcePNG(t, "terrain/grass/grass-4x.png")
 	got, err := openTerrainPack(t, out, 4, "backgrounds").Image("tile/hqN", 4)
 	if err != nil {
@@ -168,18 +170,27 @@ func TestRetainedTerrainCatalogBuilds(t *testing.T) {
 	if g := pixels(got); bytes.Equal(g, pixels(sourcePNG(t, "terrain/hq/hqN-4x.png"))) {
 		t.Fatal("tile/hqN is not graded")
 	}
-	src, err := os.ReadFile(filepath.Join(assetsRoot, "terrain", "forest", "shadow-default-4x.png"))
+	standing := openTerrainPack(t, out, 4, standingGroup)
+	crowns := sourcePNG(t, "terrain/forest/crowns-default-4x.png")
+	cast, err := standing.Image("standing/shadow/forest", 4)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !bytes.Equal(pixels(cast), terrainlight.Cast(crowns, 4, terrainlight.Diameter(crowns, 4), terrainlight.Crown).Pix) {
+		t.Fatal("standing/shadow/forest is not cast as terrainlight casts it")
+	}
+	src, err := os.ReadFile(filepath.Join(assetsRoot, "terrain", "forest", "scatter-shadow-crown-oak-16-4x.png"))
 	if err != nil {
 		t.Fatal(err)
 	}
 	var shadow bytes.Buffer
-	if err := openTerrainPack(t, out, 4, standingGroup).WritePNG(&shadow, "standing/shadow/forest", 4); err != nil {
+	if err := standing.WritePNG(&shadow, "standing/shadow/scatter/crown/oak-16", 4); err != nil {
 		t.Fatal(err)
 	}
 	if !bytes.Equal(shadow.Bytes(), src) {
-		t.Fatal("the build changed a cast shadow's PNG bytes")
+		t.Fatal("the build changed a scattered crown's shadow PNG bytes")
 	}
-	if b, err := os.ReadFile(filepath.Join(out, "grade")); err != nil || string(b) != terraingrade.Version+"\n" {
+	if b, err := os.ReadFile(filepath.Join(out, "grade")); err != nil || string(b) != terraingrade.Version+"\n"+terrainlight.Version+"\n" {
 		t.Fatalf("grade stamp %q, %v", b, err)
 	}
 	if _, err := buildTerrain(assetsRoot, out); err == nil {
