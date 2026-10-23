@@ -46,20 +46,42 @@ func TestExportCropAndArea(t *testing.T) {
 		t.Fatalf("area %v %v", p, err)
 	}
 }
-func TestSeamlessEndpointsAndCentre(t *testing.T) {
-	src := solid(image.Rect(3, 4, 15, 16), color.NRGBA{20, 30, 40, 255})
-	src.SetNRGBA(3, 7, color.NRGBA{200, 80, 60, 255})
+func TestSeamlessWrapsAndKeepsCentre(t *testing.T) {
+	// A ramp jumps from its last column back to its first; the edges must take the
+	// half-shifted neighbours instead, so the image continues across the wrap.
+	src := image.NewNRGBA(image.Rect(3, 4, 15, 16))
+	for y := 4; y < 16; y++ {
+		for x := 3; x < 15; x++ {
+			src.SetNRGBA(x, y, color.NRGBA{uint8(20 * (x - 3)), uint8(20 * (y - 4)), 40, 255})
+		}
+	}
+	if h, v := continues(src, src.Bounds()); h || v {
+		t.Fatal("ramp continues", h, v)
+	}
 	out, err := Seamless(src, 2, 1)
 	if err != nil {
 		t.Fatal(err)
 	}
-	for i := 0; i < 12; i++ {
-		if out.NRGBAAt(0, i) != out.NRGBAAt(11, i) || out.NRGBAAt(i, 0) != out.NRGBAAt(i, 11) {
-			t.Fatal("edge mismatch")
-		}
+	if h, v := continues(out, out.Bounds()); !h || !v {
+		t.Fatal("wrap", h, v)
 	}
-	if out.NRGBAAt(6, 6) != src.NRGBAAt(9, 10) || src.NRGBAAt(3, 7).R != 200 {
+	if out.NRGBAAt(0, 6).R != src.NRGBAAt(3+6, 10).R || out.NRGBAAt(11, 6).R != src.NRGBAAt(3+5, 10).R {
+		t.Fatal("edges are not the half-shifted columns", out.NRGBAAt(0, 6), out.NRGBAAt(11, 6))
+	}
+	if out.NRGBAAt(6, 6) != src.NRGBAAt(9, 10) || src.NRGBAAt(3, 4).R != 0 {
 		t.Fatal("centre or source changed")
+	}
+	if _, err := New(out, out, image.Pt(12, 12), 1); err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestSpreadBlendKeepsContrast(t *testing.T) {
+	mean := [3]float64{100, 100, 100}
+	got := spreadBlend(color.NRGBA{110, 90, 100, 255}, color.NRGBA{110, 110, 100, 255}, .5, mean)
+	// Equal deviations add to √2 times one deviation; opposite ones cancel.
+	if got.R != 114 || got.G != 100 || got.B != 100 || got.A != 255 {
+		t.Fatal(got)
 	}
 }
 func TestSamplerPhaseMaskAndCoordinates(t *testing.T) {
@@ -105,7 +127,11 @@ func TestInvalidInputs(t *testing.T) {
 			t.Fatal("band", b)
 		}
 	}
-	opaque.SetNRGBA(0, 1, color.NRGBA{R: 1, A: 255})
+	for y := range 4 {
+		for x := range 4 {
+			opaque.SetNRGBA(x, y, color.NRGBA{R: uint8(50 * x), A: 255})
+		}
+	}
 	if _, err := New(opaque, opaque, image.Pt(4, 4), 1); err == nil {
 		t.Fatal("nonperiodic")
 	}

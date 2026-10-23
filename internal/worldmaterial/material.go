@@ -112,8 +112,11 @@ func blend(a, b color.NRGBA, t float64) color.NRGBA {
 }
 func finite(v float64) bool { return !math.IsNaN(v) && !math.IsInf(v, 0) }
 
-// Seamless returns a normalized copy with smooth endpoint feathering, first
-// horizontally then vertically. The source remains unchanged.
+// Seamless returns a periodic copy. Within the band of each edge it cross-fades
+// into the copy shifted by half a period, first horizontally then vertically,
+// so the shifted copy's own seam stays in the untouched centre. The blend keeps
+// each channel's spread about the image mean, so the band keeps its contrast.
+// The source remains unchanged.
 func Seamless(src *image.NRGBA, worldBand float64, density int) (*image.NRGBA, error) {
 	if src == nil {
 		return nil, fmt.Errorf("nil image")
@@ -132,31 +135,85 @@ func Seamless(src *image.NRGBA, worldBand float64, density int) (*image.NRGBA, e
 	if err = opaque(src, r); err != nil {
 		return nil, err
 	}
-	out := image.NewNRGBA(image.Rect(0, 0, r.Dx(), r.Dy()))
-	for y := 0; y < r.Dy(); y++ {
-		for x := 0; x < r.Dx(); x++ {
-			out.SetNRGBA(x, y, src.NRGBAAt(r.Min.X+x, r.Min.Y+y))
+	w, h := r.Dx(), r.Dy()
+	out := image.NewNRGBA(image.Rect(0, 0, w, h))
+	var mean [3]float64
+	for y := range h {
+		for x := range w {
+			c := src.NRGBAAt(r.Min.X+x, r.Min.Y+y)
+			out.SetNRGBA(x, y, c)
+			mean[0] += float64(c.R)
+			mean[1] += float64(c.G)
+			mean[2] += float64(c.B)
 		}
 	}
-	for y := 0; y < r.Dy(); y++ {
-		mean := blend(out.NRGBAAt(0, y), out.NRGBAAt(r.Dx()-1, y), .5)
-		for x := 0; x < r.Dx(); x++ {
-			distance := float64(min(x, r.Dx()-1-x))
-			if distance < band {
-				out.SetNRGBA(x, y, blend(mean, out.NRGBAAt(x, y), smooth(distance/band)))
-			}
-		}
+	for i := range mean {
+		mean[i] /= float64(w * h)
 	}
-	for x := 0; x < r.Dx(); x++ {
-		mean := blend(out.NRGBAAt(x, 0), out.NRGBAAt(x, r.Dy()-1), .5)
-		for y := 0; y < r.Dy(); y++ {
-			distance := float64(min(y, r.Dy()-1-y))
-			if distance < band {
-				out.SetNRGBA(x, y, blend(mean, out.NRGBAAt(x, y), smooth(distance/band)))
+	for _, horizontal := range []bool{true, false} {
+		prev := image.NewNRGBA(out.Rect)
+		copy(prev.Pix, out.Pix)
+		for y := range h {
+			for x := range w {
+				distance, sx, sy := min(x, w-1-x), (x+w/2)%w, y
+				if !horizontal {
+					distance, sx, sy = min(y, h-1-y), x, (y+h/2)%h
+				}
+				if float64(distance) < band {
+					out.SetNRGBA(x, y, spreadBlend(prev.NRGBAAt(x, y), prev.NRGBAAt(sx, sy), 1-smooth(float64(distance)/band), mean))
+				}
 			}
 		}
 	}
 	return out, nil
+}
+
+// spreadBlend mixes b into a by t and rescales the deviation from mean so that
+// two uncorrelated textures keep their spread: t=0 is a, t=1 is b.
+func spreadBlend(a, b color.NRGBA, t float64, mean [3]float64) color.NRGBA {
+	k := 1 / math.Hypot(1-t, t)
+	mix := func(i int, av, bv uint8) uint8 {
+		v := mean[i] + k*((1-t)*(float64(av)-mean[i])+t*(float64(bv)-mean[i]))
+		return rounded(math.Max(0, math.Min(255, v)))
+	}
+	return color.NRGBA{mix(0, a.R, b.R), mix(1, a.G, b.G), mix(2, a.B, b.B), a.A}
+}
+
+// continues reports whether src continues across its period edges: the mean
+// RGB step from the last column (row) to the first is no larger than the
+// largest mean step between two neighbouring columns (rows) inside it. Seamless
+// output passes exactly, because its edges are copies of a centre pair.
+func continues(src image.Image, r image.Rectangle) (horizontal, vertical bool) {
+	step := func(x0, y0, x1, y1 int) float64 {
+		a, b := rgb(src, x0, y0), rgb(src, x1, y1)
+		d := func(p, q uint8) float64 { return math.Abs(float64(p) - float64(q)) }
+		return d(a.R, b.R) + d(a.G, b.G) + d(a.B, b.B)
+	}
+	// line returns the summed step between columns (rows) i and j.
+	line := func(i, j int, columns bool) float64 {
+		s := 0.
+		if columns {
+			for y := r.Min.Y; y < r.Max.Y; y++ {
+				s += step(i, y, j, y)
+			}
+		} else {
+			for x := r.Min.X; x < r.Max.X; x++ {
+				s += step(x, i, x, j)
+			}
+		}
+		return s
+	}
+	smooth := func(lo, hi int, columns bool) bool {
+		if hi-lo < 2 {
+			return true
+		}
+		roughest := 0.
+		for i := lo; i < hi-1; i++ {
+			roughest = max(roughest, line(i, i+1, columns))
+		}
+		return line(hi-1, lo, columns) <= roughest+1e-9
+	}
+	return smooth(r.Min.X, r.Max.X, true), smooth(r.Min.Y, r.Max.Y, false)
 }
 
 // Sampler retains immutable, opaque periodic material images. Callers must not
@@ -168,7 +225,7 @@ type Sampler struct {
 	density      int
 }
 
-// New validates dimensions, opacity and matching opposite RGB endpoints once.
+// New validates dimensions, opacity and continuity across the period edges once.
 func New(grass, scrub image.Image, period image.Point, density int) (*Sampler, error) {
 	w, h, err := dimensions(period, density)
 	if err != nil {
@@ -186,15 +243,8 @@ func New(grass, scrub image.Image, period image.Point, density int) (*Sampler, e
 		if e = opaque(src, r); e != nil {
 			return nil, e
 		}
-		for y := r.Min.Y; y < r.Max.Y; y++ {
-			if rgb(src, r.Min.X, y) != rgb(src, r.Max.X-1, y) {
-				return nil, fmt.Errorf("horizontal endpoints differ")
-			}
-		}
-		for x := r.Min.X; x < r.Max.X; x++ {
-			if rgb(src, x, r.Min.Y) != rgb(src, x, r.Max.Y-1) {
-				return nil, fmt.Errorf("vertical endpoints differ")
-			}
+		if horizontal, vertical := continues(src, r); !horizontal || !vertical {
+			return nil, fmt.Errorf("material does not continue across its period edges")
 		}
 		rs[i] = r
 	}

@@ -137,8 +137,12 @@ func TestMaterialImageValidation(t *testing.T) {
 			switch name {
 			case "alpha":
 				im.SetNRGBA(5, 5, color.NRGBA{A: 128})
-			case "period":
-				im.SetNRGBA(0, 5, color.NRGBA{R: 71, A: 255})
+			case "period": // a ramp that jumps back at the wrap
+				for y := 0; y < 800; y++ {
+					for x := 0; x < 1136; x++ {
+						im.SetNRGBA(x, y, color.NRGBA{R: uint8(x * 200 / 1135), A: 255})
+					}
+				}
 			case "decoded-size":
 				im = image.NewNRGBA(image.Rect(0, 0, 1, 1))
 			}

@@ -427,6 +427,8 @@ are implemented. Analytic sampling, hill-edge/vertex and material validation che
 activation remains open: the PULSE review exposes oversized grass detail and hard transitions against
 other families' baked meadow (`build/review/look-native/`). Convert those families together before
 promoting the period exports; the sampling acceptance box below stays open.
+Period edges now cross-fade into the half-period shift; the earlier endpoint feather left a visible
+cross at every period corner. (2026-10-23)
 
 - [ ] Sample every material at its native aspect with a world period instead of one lattice cell. Use a
       prefilter (box or Lanczos to the export density), no mirror wrap and no coset averaging.
@@ -476,10 +478,11 @@ promoting the period exports; the sampling acceptance box below stays open.
       remain open; measured widths exceed 160/220/280 px. G1 meadow trials still have oversized
       foliage under `build/review/look2-art/`. No runtime promotion or Look 2 acceptance. (2026-10-23)
 - [ ] Meadow G1 in parts (art/direction.md, G1). Each is done when its checks pass:
-      - `hlmaterial` profile `world-materials-v2`: G1b's high-passed L\* tiled 4×4 over G1a, one gain,
-        and the G1 checks in its report (code; the reference values come from `tools/reference-design`);
+      - `hlmaterial` profile schema 2: G1b's high-passed L\* wrapped 3×3 over G1a, one gain, and the G1
+        checks in its report (code). Done (2026-10-23); the current meadow `grass-summer-v1` fails on
+        edge density 0.57 and the 3/10 band 4.46, which matches the oversized detail in the review;
       - G1a tone at the 568×400 period;
-      - G1b close-up texture at a 142×100 period;
+      - G1b close-up texture at a 189⅓×133⅓ period;
       - the result replaces `material/grass/summer` once it passes the map check.
 - [ ] Meadow G2 (prop sheet); scatter layer (§1.3) with a density table per family and Poisson-disc
       placement seeded by world position.

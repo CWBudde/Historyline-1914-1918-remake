@@ -63,8 +63,13 @@ The optional `materials` group contains `material/grass/summer` and `material/hi
 2× and 4×: opaque 568×400 world-pixel periods, anchor (0,0). Both renderers share the native-aspect,
 area-filtered world sampler and a continuous hills blend field. These periods stay lossless in lite
 packs. Export with `go run ./cmd/hlmaterial -out build/review/world-materials`; the pinned profile and
-report record source hashes and fractional crops. Default activation awaits the removal of baked
-meadow from adjoining families; the selected tile catalog keeps its existing rendering meanwhile.
+report record source hashes and fractional crops. Near each period edge the export cross-fades into
+its half-period shift, keeping contrast, so the material continues across the wrap. A schema-2 profile
+may give the meadow a `detail` layer (art/direction.md, G1): its high-passed L\* is wrapped
+`repeats`×`repeats` and added with `gain`. The report measures the meadow at 1× against the G1
+checks, suggests a gain, and `-check` fails while any check fails. Default activation awaits the
+removal of baked meadow from adjoining families; the selected tile catalog keeps its existing
+rendering meanwhile.
 
 Clusters are connected hexes of one kind: `crater` (`mud`), `boulders` (`stone`), `knoll` (`mountain`),
 `lake` (`water`, `waterStones`, `lakeside*`); the winter kinds (`shelled_w`, `stoney_w`, `mountain_w`) end

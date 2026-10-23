@@ -134,16 +134,18 @@ parts. "The G1 result" in the prompts below means the combined material.
 | Part | Canvas | World area (after the 1454×1024 crop) | Painting px per world px | Carries |
 | --- | --- | --- | --- | --- |
 | G1a tone | 1536×1024 opaque | 568×400 (300 × 200 m), the material period | 2.56 | colour; patches 10–40 world px |
-| G1b texture | 1536×1024 opaque | 142×100 (75 × 53 m), tiled 4×4 per period | 10.24 | tufts and blades, 3–10 world px |
+| G1b texture | 1536×1024 opaque | 189⅓×133⅓ (100 × 70 m), tiled 3×3 per period | 7.68 | tufts and blades, 3–10 world px |
 | G2 props | see G2 | scattered by code | 10 | single tufts, flowers, straw, soil, pebbles |
 
-Prompts do not ask for tiling; code blends the period edges (`worldmaterial.Seamless`). Generate up to
-four of each part and keep the best by its checks.
+G1b's period is fractional on purpose: 4×4 would repeat it every 142 world px, the hex column step, and
+the detail would repeat with the lattice. Prompts do not ask for tiling; code blends the period edges
+(`worldmaterial.Seamless`). Generate up to four of each part and keep the best by its checks.
 
-**Combining** (`cmd/hlmaterial`, profile `world-materials-v2`): crop and scale G1a to the 568×400 period
-and G1b to 142×100, and tile G1b 4×4. High-pass G1b's L\* (subtract its own blur at about 12 world px),
-multiply it by one gain and add it to G1a's L\*; a\* and b\* stay G1a's. The gain is the only tuning
-value; it is set so that the result meets the grass row.
+**Combining** (`cmd/hlmaterial`, profile schema 2, a `detail` block on the meadow): G1a is cropped and
+scaled to the 568×400 period, and G1b is made seamless and wrapped 3×3 across it. G1b's L\* is
+high-passed: three periodic box blurs of radius 4 world px, about a 12-world-px kernel, are subtracted.
+It is multiplied by one gain and added to G1a's L\*; a\* and b\* stay G1a's. The gain is the only
+tuning value; the report suggests the one that brings σL\* to 11.5 without exceeding the 3–10 band cap.
 
 **G1a tone.** Attach: ref crops r7c5–r8c4 and r16c4–r19c4.
 
@@ -155,18 +157,20 @@ Avoid: individual plants, tufts, leaves, flowers, blades, rosettes, trees, bushe
 **G1b texture.** Attach: the selected G1a, for palette only.
 
 ```text
-Use case: stylized-concept. Asset type: opaque terrain material, landscape 1536x1024, filled edge to edge. Strict top-down orthographic nadir close-up of short summer meadow turf. Scale: the canvas spans about 75 m by 53 m of ground; one map hex (50 m) would be about 980 px across, so this is a small patch of turf seen close. Paint dense short grass: evenly spread small tufts 30 to 100 px across, darker moss green at their base and olive yellow-green tips; fine blades between them, tiny straw scratches, pinhead soil flecks, very sparse single pale seed heads. Uniform overall tone with no large light or dark patches: the variation comes only from the tufts and the gaps between them. Average colour close to RGB 100,107,40; tuft shadows around RGB 55,68,25. Soft diffuse daylight from the upper left; each tuft has a small soft shadow on its lower right. Even density everywhere; no focal point.
+Use case: stylized-concept. Asset type: opaque terrain material, landscape 1536x1024, filled edge to edge. Strict top-down orthographic nadir close-up of short summer meadow turf. Scale: the canvas spans about 100 m by 70 m of ground; one map hex (50 m) would be about 740 px across, so this is a small patch of turf seen close. Paint dense short grass: evenly spread small tufts 25 to 75 px across, darker moss green at their base and olive yellow-green tips; fine blades between them, tiny straw scratches, pinhead soil flecks, very sparse single pale seed heads. Uniform overall tone with no large light or dark patches: the variation comes only from the tufts and the gaps between them. Average colour close to RGB 100,107,40; tuft shadows around RGB 55,68,25. Soft diffuse daylight from the upper left; each tuft has a small soft shadow on its lower right. Even density everywhere; no focal point.
 Avoid: large light or dark patches, broadleaf weeds, rosettes, flowers in clusters, long diagonal blades, bushes, stones over 20 px, bare soil patches, paths, tracks, rows, mowing stripes, neon or lime green, photograph, 3D render, pixel art, perspective, horizon, vignette, grid, text.
 ```
 
-**Checks**, reported by `hlmaterial` (reference values from `tools/reference-design` on the attached
-ref crops):
+**Checks**, reported by `hlmaterial` at 1× with the band and edge definitions of `tools/reference-design`
+(box radii 1/3 and 3/10 world px, Sobel L\* gradient > 6), wrapped over the period. The reference
+meadow's band ratio comes from its PULSE grass measurement (4.82 / 4.61). G1b's amplitude does not
+matter, because the gain sets it.
 
 | Stage | Check |
 | --- | --- |
-| G1a | mean within 8 of RGB 100,107,40 per channel; σL\* after a 10-world-px blur within ±20 % of the reference meadow's |
-| G1b | 3–10 world px band energy within ±20 % of the reference meadow's; no dark component (8 L\* below its local mean) wider than 12 world px; local mean L\* over 20-world-px windows varies by at most 2 |
-| Result | the grass row above; lattice autocorrelation < 0.15; autocorrelation at the 142×100 shift < 0.3 |
+| G1a | mean within 8 of RGB 100,107,40 per channel; σ of the radius-10 box mean of L\* 8–12 (leaves room for about 4 L\* of detail in each band) |
+| G1b | band ratio RMS(1/3) / RMS(3/10) 0.85–1.25 (reference 1.05); no dark component (8 L\* below its radius-10 box mean) wider than 12 world px; CV of the 3/10 band RMS over 50-world-px windows ≤ 0.25 |
+| Result | the grass row above; lattice autocorrelation < 0.15 at (71,40), (142,0), (0,80), (0,160) and (284,0); autocorrelation at the G1b repeat (189,0) and (0,133) < 0.3 |
 | On the map | PULSE at 1× and 1.6× beside the same ref crops; unit edge contrast on grass not lower than with the current meadow |
 
 **G2 Meadow prop sheet.** 1254×1254 RGBA, 4×4 grid, painting scale 10 px per world px.
