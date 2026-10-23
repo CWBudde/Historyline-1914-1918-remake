@@ -91,22 +91,35 @@ func planScreens(entries []indexEntry, assetsDir, artDir string, d int) ([]scree
 			read: func() ([]byte, error) { return scalePainting(src, screenW*d, screenH*d) }})
 	}
 	// The panels' surfaces, art/screens/surface/<name>.png, in one family
-	// "surface": the seamless tiles and the rivet sheet.
-	tiles, err := filepath.Glob(filepath.Join(artDir, "screens", "surface", "*.png"))
-	if err != nil {
-		return nil, err
-	}
-	slices.Sort(tiles)
-	for _, src := range tiles {
-		w, h, err := surfaceSize(src, d)
+	// "surface": the seamless tiles and the rivet sheet; and the capture
+	// scenes' paintings, art/screens/capture/<name>.png, in "capture", the
+	// headquarters' full-screen.
+	for _, family := range []string{"surface", "capture"} {
+		srcs, err := filepath.Glob(filepath.Join(artDir, "screens", family, "*.png"))
 		if err != nil {
 			return nil, err
 		}
-		files = append(files, screenFile{Family: "surface", ID: "surface/" + strings.TrimSuffix(filepath.Base(src), ".png"), Density: d, Width: w, Height: h,
-			read: func() ([]byte, error) { return scaleTile(src, w, h) }})
+		slices.Sort(srcs)
+		for _, src := range srcs {
+			id := family + "/" + strings.TrimSuffix(filepath.Base(src), ".png")
+			if fullCaptures[id] {
+				files = append(files, screenFile{Family: family, ID: id, Density: d, Width: screenW * d, Height: screenH * d,
+					read: func() ([]byte, error) { return scalePainting(src, screenW*d, screenH*d) }})
+				continue
+			}
+			w, h, err := surfaceSize(src, d)
+			if err != nil {
+				return nil, err
+			}
+			files = append(files, screenFile{Family: family, ID: id, Density: d, Width: w, Height: h,
+				read: func() ([]byte, error) { return scaleTile(src, w, h) }})
+		}
 	}
 	return files, nil
 }
+
+// fullCaptures are the capture paintings scaled to the full screen.
+var fullCaptures = map[string]bool{"capture/hq": true, "capture/hq-open": true}
 
 // surfaceTile is the width of a surface at 1x.
 const surfaceTile = 512

@@ -56,13 +56,16 @@ type dosControl struct {
 	otherFrozen *dosplay.View   // the other side's view, frozen alike
 	over        bool            // the end of the battle has played
 
-	prompt   bool          // F1 asked for the phase end: F1 confirms, fire goes back (phase.go)
-	stage    stage         // the stage of the phase change playing, stageNone otherwise
-	stageAt  int           // its frames played
-	stageLen int           // its length in frames
-	fight    *fight        // the battle of stageBattle
-	newMode  dosplay.Event // the phase change of stageNewMode
-	noScenes bool          // F9: battles without their scenes
+	prompt   bool            // F1 asked for the phase end: F1 confirms, fire goes back (phase.go)
+	stage    stage           // the stage of the phase change playing, stageNone otherwise
+	stageAt  int             // its frames played
+	stageLen int             // its length in frames
+	fight    *fight          // the battle of stageBattle
+	newMode  dosplay.Event   // the phase change of stageNewMode
+	noScenes bool            // F9: battles without their scenes
+	taking   *taking         // the capture of stageCaptured (taking.go)
+	ending   *dosplay.Event  // the battle's end by the HQ taken: the finale plays and holds
+	sceneArt func() sceneArt // which scene paintings the front end has, nil none
 
 	run *planRun // the computer planning off the frame, nil otherwise (plan.go)
 
@@ -110,8 +113,8 @@ func (d *dosControl) Cancel() {
 	case d.SkipWalk():
 	case d.prompt:
 		d.closePrompt()
-	case d.stage == stageBattle:
-		d.SkipBattle()
+	case d.scene():
+		d.SkipScene()
 	default:
 		d.clear()
 	}
@@ -202,8 +205,8 @@ func (d *dosControl) Click(at hexgrid.Coord) {
 	case d.prompt:
 		d.closePrompt()
 		return
-	case d.stage == stageBattle:
-		d.SkipBattle()
+	case d.scene():
+		d.SkipScene()
 		return
 	}
 	d.Message = ""
@@ -470,7 +473,11 @@ func (d *dosControl) step() {
 		d.face(ev)
 	case dosplay.Captured:
 		d.captured(ev)
+		d.startCapture(ev)
 	case dosplay.Ended:
+		if d.startFinale(ev) {
+			return
+		}
 		d.over = true
 		d.Message = d.endText()
 		d.fx.Show(d.endText(), victoryFrames)
@@ -511,7 +518,6 @@ func (d *dosControl) captured(ev dosplay.Event) {
 		text = "The enemy captured " + kind + "."
 	}
 	d.Message = text
-	d.fx.Show(strings.ToUpper(strings.TrimSuffix(text, ".")), captureFrames)
 }
 
 // hit reports whether a fighter lost strength.

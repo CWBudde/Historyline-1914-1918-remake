@@ -2,8 +2,11 @@
 // original's battle screen (`-rules dos`): the unit info, the game info, a
 // container's contents and the battle scene: attacker above defender, each
 // with photo, flag, count and a hex holding a figure per man, the losses
-// falling one by one. The plates are procedural steel and brass; only
-// layout, proportions and information follow the original.
+// falling one by one; and the capture scene, a hand planting the capturer's
+// flag on a model of the building. The plates are procedural steel and
+// brass, the capture scene painted; only layout, proportions and information
+// follow the original. The finale of a battle won by taking the HQ, drawn
+// over the whole battle screen, lives here too.
 //
 // Every view is laid out inside a panel rectangle in device pixels at a
 // scale in device pixels per reference pixel (the original's 320×200 screen).

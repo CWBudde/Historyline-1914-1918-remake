@@ -7,6 +7,7 @@ import (
 	"image"
 	"image/color"
 	"image/png"
+	"math"
 	"os"
 	"path/filepath"
 	"strings"
@@ -38,6 +39,7 @@ func TestRetainedScreenCatalogBuilds(t *testing.T) {
 			"rank":           {"rank/01", "rank/10"},
 			"effect":         {"effect/explosion-00", "effect/explosion-08", "effect/hit"},
 			"surface":        {"surface/steel", "surface/ground", "surface/rivets"},
+			"capture":        {"capture/depot", "capture/factory", "capture/hand", "capture/hq", "capture/hq-open"},
 		} {
 			r, err := os.OpenRoot(filepath.Join(out, fmt.Sprintf("%dx", d), family))
 			if err != nil {
@@ -55,12 +57,15 @@ func TestRetainedScreenCatalogBuilds(t *testing.T) {
 				}
 				full := !strings.HasPrefix(id, "button/") && !strings.HasPrefix(id, "country/") && !strings.HasPrefix(id, "portrait/") &&
 					!strings.HasPrefix(id, "rank/") && !strings.HasPrefix(id, "effect/")
-				// The tiles are square, the rivet sheet twice as wide as high.
-				if h := map[string]int{"surface/rivets": surfaceTile * d / 2}[id]; strings.HasPrefix(id, "surface/") &&
-					(e.Width != surfaceTile*d || e.Height != cmp.Or(h, surfaceTile*d)) {
+				// The tiles and the hand are square, the rivet sheet twice as
+				// wide as high, the map room as high as its masters' 1122x1402.
+				sheet := strings.HasPrefix(id, "surface/") || strings.HasPrefix(id, "capture/") && !fullCaptures[id]
+				room := int(math.Round(float64(surfaceTile*d) * 1402 / 1122))
+				h := cmp.Or(map[string]int{"surface/rivets": surfaceTile * d / 2, "capture/depot": room, "capture/factory": room}[id], surfaceTile*d)
+				if sheet && (e.Width != surfaceTile*d || e.Height != h) {
 					t.Errorf("%s at %dx is %dx%d", id, d, e.Width, e.Height)
 				}
-				full = full && !strings.HasPrefix(id, "surface/")
+				full = full && !sheet
 				if full && (e.Width != screenW*d || e.Height != screenH*d) {
 					t.Errorf("%s at %dx is %dx%d", id, d, e.Width, e.Height)
 				}

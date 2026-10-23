@@ -69,16 +69,20 @@ type game struct {
 	hudImg         *ebiten.Image // logical HUD canvas, magnified onto the screen
 	terrainFill    map[string]color.RGBA
 	ctl            *control
-	dos            *dosControl        // set on the original rules (-rules dos); ctl and state are nil then
-	art            *artPacks          // unit sprite packs (-units); nil draws placeholder dots
-	screens        *screenArt         // the screen catalog (-screens): portraits, badges, effects; nil shows plain ones
-	scores         *scores.Store      // the best scores; nil keeps none
-	artErr         string             // last sprite failure, shown in the status line
-	terrain        *terrainArt        // composed terrain tiles (-terrain); nil draws coloured hexes
-	terrainErr     string             // last terrain tile failure, shown in the status line
-	hdUnits        <-chan *artPacks   // full-quality unit art while it loads (-units-hd, without the menus)
-	hdTerrain      <-chan *terrainArt // full-quality terrain while it loads (-terrain-hd)
-	scroll         float64            // map scroll speed, screen pixels per frame
+	dos            *dosControl // set on the original rules (-rules dos); ctl and state are nil then
+	art            *artPacks   // unit sprite packs (-units); nil draws placeholder dots
+	screens        *screenArt  // the screen catalog (-screens): portraits, badges, effects; nil shows plain ones
+	finale         struct {    // the finale's art and the catalog it was cut from (taking.go)
+		from *screenArt
+		art  *dospanel.FinaleArt
+	}
+	scores     *scores.Store      // the best scores; nil keeps none
+	artErr     string             // last sprite failure, shown in the status line
+	terrain    *terrainArt        // composed terrain tiles (-terrain); nil draws coloured hexes
+	terrainErr string             // last terrain tile failure, shown in the status line
+	hdUnits    <-chan *artPacks   // full-quality unit art while it loads (-units-hd, without the menus)
+	hdTerrain  <-chan *terrainArt // full-quality terrain while it loads (-terrain-hd)
+	scroll     float64            // map scroll speed, screen pixels per frame
 
 	split    *split // the split screen of -rules dos, nil otherwise
 	drawing  bool   // a dos panel is being drawn: drawSide's map
@@ -263,8 +267,8 @@ func (g *game) Update() error {
 	if ui := g.drv().ui(); ui.report.Active() && anyInput {
 		ui.DismissReport()
 	}
-	if g.dos != nil && g.dos.stage == stageBattle && anyInput {
-		g.dos.SkipBattle() // as the battle panel, any key or click skips the battle
+	if g.dos != nil && g.dos.scene() && anyInput {
+		g.dos.SkipScene() // as the battle panel, any key or click skips a scene
 	}
 	g.drv().Tick()
 	if g.split != nil {
@@ -452,6 +456,7 @@ func (g *game) Draw(screen *ebiten.Image) {
 	if g.split != nil {
 		g.drawSplit(screen)
 		g.drawWells(screen)
+		g.drawFinale(screen)
 	} else {
 		g.drawMapLayer(screen, vx, vy, vw, vh, true)
 	}

@@ -530,7 +530,7 @@ func TestBattleDrop(t *testing.T) {
 	// unit at once.
 	d = newDosTest(t, "level1_cp", passPlanner{})
 	atk, def = battleOn(t, d)
-	d.SkipBattle()
+	d.SkipScene()
 	if _, ok := inFrozen(d, def.Index); ok || d.stage != stageNone {
 		t.Errorf("skipped: the destroyed unit stays (%v), stage %v", ok, d.stage)
 	}
@@ -581,6 +581,7 @@ func TestBattlePanelClassicUnaffected(t *testing.T) {
 
 func TestPhaseSequenceCaptureViews(t *testing.T) {
 	g, d := newSplitTest(t, passPlanner{}, 1920, 1080)
+	d.sceneArt = func() sceneArt { return sceneArt{capture: true, finale: true} }
 	want := map[string][2]panelLook{
 		"split-prompt":           {lookGrey, lookGrey},
 		"split-black":            {lookBlack, lookBlack},
@@ -589,6 +590,12 @@ func TestPhaseSequenceCaptureViews(t *testing.T) {
 		"split-battle-loss":      {lookMap, lookBattle},
 		"split-battle-destroyed": {lookMap, lookBattle},
 		"split-battle-hold":      {lookMap, lookBattle},
+		"split-taken-grey":       {lookGrey, lookBlack},
+		"split-taken":            {lookMap, lookCaptured},
+		"split-taken-plant":      {lookMap, lookCaptured},
+		"split-taken-hold":       {lookMap, lookCaptured},
+		"split-finale-doors":     {lookMap, lookMap},
+		"split-finale":           {lookMap, lookMap},
 		"split-newmode":          {lookGrey, lookGrey},
 		"split":                  {lookMap, lookMap},
 	}
@@ -615,8 +622,27 @@ func TestPhaseSequenceCaptureViews(t *testing.T) {
 	if _, ok := inFrozen(d, def.Index); !ok || !slices.ContainsFunc(d.fx.Marks(), func(m mark) bool { return m.Kind == markDeath }) {
 		t.Errorf("destroyed view: defender on the map %v, marks %+v", ok, d.fx.Marks())
 	}
+	// The building changes hands on the map as the pin goes in; the finale
+	// holds after it has played.
+	for view, mine := range map[string]bool{"split-taken": false, "split-taken-plant": true} {
+		g.stageCapture(view)
+		to := d.taking.ev.To
+		if got := d.frozen.Buildings[to].Owner == d.s.Faction(d.side); got != mine {
+			t.Errorf("%s: the building is ours %v, want %v", view, got, mine)
+		}
+		if w := g.wellOf(d.side); !strings.Contains(w.text, "CAPTURED") {
+			t.Errorf("%s: well %q", view, w.text)
+		}
+	}
+	g.stageCapture("split-finale")
+	if d.ending == nil || d.sequence() {
+		t.Errorf("finale: ending %v, stage %v", d.ending, d.stage)
+	}
 	g.stageCapture("split")
 	if d.frozen != nil || d.otherFrozen != nil {
 		t.Error("a battle view leaves its frozen views behind")
+	}
+	if d.ending != nil {
+		t.Error("the finale outlasts its view")
 	}
 }

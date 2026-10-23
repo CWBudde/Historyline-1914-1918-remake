@@ -35,20 +35,23 @@ import (
 type stage int
 
 const (
-	stageNone    stage = iota
-	stageBlack         // both panels black, the cursor plates on them
-	stageBattle        // a fought attack order
-	stageNewMode       // the new mode of each side on the grey maps
+	stageNone     stage = iota
+	stageBlack          // both panels black, the cursor plates on them
+	stageBattle         // a fought attack order
+	stageNewMode        // the new mode of each side on the grey maps
+	stageCaptured       // a building taken (taking.go)
+	stageFinale         // the HQ taken: the finale over the whole screen (taking.go)
 )
 
 // panelLook is how a panel is drawn.
 type panelLook int
 
 const (
-	lookMap    panelLook = iota // the map (or strategic map) in colour
-	lookGrey                    // the map in greyscale
-	lookBlack                   // nothing but black
-	lookBattle                  // the battle scene
+	lookMap      panelLook = iota // the map (or strategic map) in colour
+	lookGrey                      // the map in greyscale
+	lookBlack                     // nothing but black
+	lookBattle                    // the battle scene
+	lookCaptured                  // the capture scene
 )
 
 // Stage times in frames (tps per second), the second of each pair with
@@ -150,15 +153,22 @@ func (d *dosControl) endStage() {
 			}
 		}
 	}
-	d.stage, d.stageAt, d.stageLen, d.fight = stageNone, 0, 0, nil
+	if t := d.taking; t != nil && !t.planted {
+		d.handOver()
+	}
+	d.stage, d.stageAt, d.stageLen, d.fight, d.taking = stageNone, 0, 0, nil, nil
 }
 
 // tickStage advances the stage by a frame, the map following the battle
 // (playFight), and ends the stage when its time is up.
 func (d *dosControl) tickStage() {
 	d.stageAt++
-	if d.stage == stageBattle {
+	switch d.stage {
+	case stageBattle:
 		d.playFight()
+	case stageCaptured:
+		d.playCapture()
+	default:
 	}
 	if d.stageAt >= d.stageLen {
 		d.endStage()
@@ -259,9 +269,14 @@ func (d *dosControl) land(lost [2]int, gained [2]bool) {
 	}
 }
 
-// SkipBattle ends the battle playing at once (a click or a key).
-func (d *dosControl) SkipBattle() {
-	if d.stage == stageBattle {
+// scene reports whether a scene plays: a battle, a capture or the finale.
+func (d *dosControl) scene() bool {
+	return d.stage == stageBattle || d.stage == stageCaptured || d.stage == stageFinale
+}
+
+// SkipScene ends the scene playing at once (a click or a key).
+func (d *dosControl) SkipScene() {
+	if d.scene() {
 		d.endStage()
 	}
 }
@@ -295,7 +310,17 @@ func (d *dosControl) panelLooks() [2]panelLook {
 			out[1-d.side] = lookBattle
 		}
 		return out
-	case stageNone:
+	case stageCaptured:
+		var out [2]panelLook
+		t := d.taking
+		out[d.side], out[1-d.side] = lookMap, lookBlack
+		if d.stageAt < t.grey {
+			out[d.side] = lookGrey
+		} else if t.scene {
+			out[1-d.side] = lookCaptured
+		}
+		return out
+	case stageNone, stageFinale:
 	}
 	if d.prompt {
 		return [2]panelLook{lookGrey, lookGrey}
@@ -323,6 +348,10 @@ func (g *game) stageWell(side int) (w well, ok bool) {
 		}
 	case d.stage == stageBattle && side == d.side:
 		w.text = g.casualties(side, d.fight.ev.Battle)
+	case d.stage == stageCaptured && side == d.side:
+		w.text = strings.ToUpper(strings.TrimSuffix(d.taking.text, "."))
+	case d.stage == stageFinale:
+		w.text = strings.ToUpper(d.endText())
 	case d.stage == stageNewMode:
 		w.text = fmt.Sprintf("ROUND %d: %s PHASE", d.newMode.Turn+1, modeWord(d.newMode.Phase[side]))
 	case d.sequence():
@@ -392,6 +421,8 @@ func (g *game) drawPanelLook(screen *ebiten.Image, side int, look panelLook, dra
 		vector.FillRect(screen, float32(p.X), float32(p.Y), float32(p.W), float32(p.H), color.Black, false)
 	case lookBattle:
 		g.drawBattle(screen, side, r)
+	case lookCaptured:
+		g.drawCapture(screen, r)
 	case lookGrey:
 		img := g.panelImage(side, p)
 		img.Clear()

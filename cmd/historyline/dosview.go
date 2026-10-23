@@ -24,6 +24,7 @@ import (
 func newDosGame(lvl *level.Level, s *dosplay.Session, side int, planner dosPlanner, reveal bool) *game {
 	g := newMapGame(lvl, reveal)
 	g.dos = newDosControl(s, side, planner, reveal)
+	g.dos.sceneArt = g.sceneArt
 	g.layoutSplit()
 	return g
 }

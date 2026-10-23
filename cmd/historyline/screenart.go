@@ -81,19 +81,25 @@ func (s *screenArt) surfaces() dospanel.Surfaces {
 	if s == nil {
 		return dospanel.Surfaces{}
 	}
-	src := func(id string) image.Image {
-		f, ok := s.family[id]
-		if !ok {
-			return nil
-		}
-		for _, d := range slices.Backward(screenDensities) {
-			if p, ok := s.packs.packs[packKey{f, d}]; ok {
-				if img, err := p.Image(id, d); err == nil {
-					return img
-				}
-			}
-		}
+	return dospanel.Surfaces{Steel: s.decoded("surface/steel"), Ground: s.decoded("surface/ground"), Rivets: s.decoded("surface/rivets")}
+}
+
+// decoded is the decoded image of id at the highest density the catalog has,
+// nil when it has none.
+func (s *screenArt) decoded(id string) image.Image {
+	if s == nil {
 		return nil
 	}
-	return dospanel.Surfaces{Steel: src("surface/steel"), Ground: src("surface/ground"), Rivets: src("surface/rivets")}
+	f, ok := s.family[id]
+	if !ok {
+		return nil
+	}
+	for _, d := range slices.Backward(screenDensities) {
+		if p, ok := s.packs.packs[packKey{f, d}]; ok {
+			if img, err := p.Image(id, d); err == nil {
+				return img
+			}
+		}
+	}
+	return nil
 }

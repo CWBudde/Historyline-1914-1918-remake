@@ -16,7 +16,9 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/camera"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dospanel"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosscreen"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/gesture"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
@@ -87,7 +89,8 @@ func splitFramePlan() []reviewFrame {
 	}
 	for _, view := range []string{"split-cursor", "split-move", "split-ring", "split-strategic", "split-zoom-out", "split-zoom-in",
 		"split-prompt", "split-black", "split-battle-grey", "split-battle", "split-battle-loss", "split-battle-destroyed",
-		"split-battle-hold", "split-newmode",
+		"split-battle-hold", "split-taken-grey", "split-taken", "split-taken-plant", "split-taken-hold", "split-finale-doors",
+		"split-finale", "split-newmode",
 		"split-unitinfo", "split-gameinfo", "split-contents"} {
 		frames = append(frames, reviewFrame{1920, 1080, view, false, 0})
 	}
@@ -110,6 +113,8 @@ func (g *game) stageCapture(view string) {
 	d.Message = ""
 	d.endStage()
 	d.unfreeze()
+	d.ending = nil
+	d.fx.Dismiss()
 	d.prompt, d.fx.marks = false, nil
 	s.mode, s.dir = [2]panelMode{}, gesture.Centre
 	g.zoomSplit(dosscreen.DefaultZoom - s.screen.Zoom)
@@ -161,6 +166,8 @@ func (g *game) stageCapture(view string) {
 		d.startNewMode(dosplay.Event{Kind: dosplay.PhaseChanged, Phase: next, Turn: d.s.Turn() + 1})
 	case battleViews[view] != "":
 		g.stageBattle(at, battleViews[view])
+	case takenViews[view] != "":
+		g.stageTaken(takenViews[view])
 	case view == "split-unitinfo":
 		g.setCursor(at)
 		g.openInfo(at)
@@ -258,6 +265,69 @@ func (g *game) stageBattle(at hexgrid.Coord, step string) {
 	for d.stage == stageBattle && !until() {
 		d.tickStage()
 		d.fx.Tick()
+	}
+	g.followSplit()
+	for side := range 2 {
+		c := &g.split.cams[side]
+		c.moveTo(c.pair, c.row, true) // no slide in a still
+	}
+	g.syncSplitCam()
+}
+
+// The capture views and how far each plays: the site in grey, the hand
+// reaching in, the pin just in, the capture scene's end held; the finale's
+// doors half open and its end.
+var takenViews = map[string]string{
+	"split-taken-grey": "grey", "split-taken": "reach", "split-taken-plant": "plant", "split-taken-hold": "hold",
+	"split-finale-doors": "doors", "split-finale": "finale",
+}
+
+// stageTaken stages the capture of the enemy (or neutral) depot or factory
+// nearest the human side's HQ on frozen views, as the phase change does,
+// played as far as step (takenViews) asks; the finale steps play the end of a
+// battle won by the human side taking the HQ.
+func (g *game) stageTaken(step string) {
+	d := g.dos
+	if step == "doors" || step == "finale" {
+		end := dosrules.End{Over: true, Winner: d.side}
+		end.Won[d.side] = dosrules.EndHQ
+		if !d.startFinale(dosplay.Event{Kind: dosplay.Ended, Side: d.side, End: &end}) {
+			return
+		}
+		for d.stage == stageFinale && (step == "finale" || dospanel.FinaleAt(d.stageAt, d.reduced).Swing < 0.5) {
+			d.tickStage()
+		}
+		return
+	}
+	tv := d.s.TrueView()
+	hq := g.startHex(d.side)
+	var to hexgrid.Coord
+	best := -1
+	for _, c := range dosplay.Coords(toSet(tv.Buildings)) {
+		if b := tv.Buildings[c]; !b.HQ && b.Owner != d.s.Faction(d.side) && (best < 0 || hexgrid.Distance(hq, c) < best) {
+			to, best = c, hexgrid.Distance(hq, c)
+		}
+	}
+	if best < 0 {
+		return
+	}
+	own, other := d.s.View(d.side), d.s.View(1-d.side)
+	d.frozen, d.otherFrozen = &own, &other
+	ev := dosplay.Event{Kind: dosplay.Captured, Side: d.side, To: to, Text: "Depot captured."}
+	if tv.Buildings[to].Kind == dosplay.Factory {
+		ev.Text = "Factory captured."
+	}
+	d.captured(ev)
+	d.startCapture(ev)
+	t := d.taking
+	until := map[string]func() bool{
+		"grey":  func() bool { return true },
+		"reach": func() bool { return d.stageAt >= t.plantAt-40 },
+		"plant": func() bool { return d.stageAt >= t.plantAt+4 },
+		"hold":  func() bool { return d.stageAt >= d.stageLen-20 },
+	}[step]
+	for d.stage == stageCaptured && !until() {
+		d.tickStage()
 	}
 	g.followSplit()
 	for side := range 2 {

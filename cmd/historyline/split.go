@@ -315,7 +315,7 @@ func (g *game) drawSplit(screen *ebiten.Image) {
 	}
 	*g.cam, g.drawing = human, false
 	for side := range 2 {
-		if s.mode[side] != panelMap && s.mode[side] != panelGameInfo || looks[side] == lookBattle {
+		if s.mode[side] != panelMap && s.mode[side] != panelGameInfo || looks[side] == lookBattle || looks[side] == lookCaptured {
 			views[side] = g.plateView(side)
 		}
 	}

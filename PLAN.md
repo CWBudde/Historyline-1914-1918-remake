@@ -233,6 +233,13 @@ New families, newly painted in the remake's style with 2×/4× exports:
         it (`TestUnitMarks`, `TestWellBadge`).
 15. [x] Explosion art on the map: a destroyed unit plays `effect/explosion-00..08`, a hit its first
         frames small. (2026-10-23) — `banner.go` (`TestExplosion` against `animations.json`).
+16. [x] Capture scenes after the original's: a captured depot or factory shows its site while the other
+        panel plays a hand planting the capturer's flag on a model of the building on the staff map (the
+        building changes hands as the pin goes in); taking the HQ ends on the headquarters' doors opening
+        on its surrendering defenders and the winner's flag going up, held until the outcome. F9, reduced
+        motion and skipping as for battles. (2026-10-23) — `taking.go`, `dospanel.DrawCapture`,
+        `dospanel.DrawFinale`, paintings in `art/screens/capture` (`TestCaptureTimeline`,
+        `TestFinaleTimeline`, `TestCutLeaves`, `TestPhaseSequenceCaptureViews`).
 
 ### 2. Art completion and acceptance
 
