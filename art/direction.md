@@ -127,14 +127,47 @@ attach, and the prompt with its Avoid list. "Ref crop" means a crop of RefDesign
 
 ### Meadow, hills and ground
 
-**G1 Meadow macro material.** 1536×1024 opaque. The pack build crops it to 1454×1024, which is 568×400
-world px.
-Attach: ref crops r7c5–r8c4 and r16c4–r19c4; the unused meadow candidate `exec-c8db8578`.
+**G1 Meadow material, built from two paintings.** One prompt for all three detail scales fails: the
+generator paints the tufts two to four times too large. So G1 is split by scale, and code combines the
+parts. "The G1 result" in the prompts below means the combined material.
+
+| Part | Canvas | World area (after the 1454×1024 crop) | Painting px per world px | Carries |
+| --- | --- | --- | --- | --- |
+| G1a tone | 1536×1024 opaque | 568×400 (300 × 200 m), the material period | 2.56 | colour; patches 10–40 world px |
+| G1b texture | 1536×1024 opaque | 142×100 (75 × 53 m), tiled 4×4 per period | 10.24 | tufts and blades, 3–10 world px |
+| G2 props | see G2 | scattered by code | 10 | single tufts, flowers, straw, soil, pebbles |
+
+Prompts do not ask for tiling; code blends the period edges (`worldmaterial.Seamless`). Generate up to
+four of each part and keep the best by its checks.
+
+**Combining** (`cmd/hlmaterial`, profile `world-materials-v2`): crop and scale G1a to the 568×400 period
+and G1b to 142×100, and tile G1b 4×4. High-pass G1b's L\* (subtract its own blur at about 12 world px),
+multiply it by one gain and add it to G1a's L\*; a\* and b\* stay G1a's. The gain is the only tuning
+value; it is set so that the result meets the grass row.
+
+**G1a tone.** Attach: ref crops r7c5–r8c4 and r16c4–r19c4.
 
 ```text
-Use case: stylized-concept. Asset type: opaque seamless terrain material, landscape 1536x1024, filled edge to edge. Strict top-down orthographic nadir view of an open European summer meadow, WWI era. Scale: the canvas spans about 300 m by 200 m of ground; one map hex (50 m) is about 250 px across this image. Paint a continuous hand-painted meadow with three scales of detail: (1) broad, soft, irregular mottling of two greens and a pale dry-straw tone in patches 25 to 100 px across, value variation clearly visible but gentle; (2) dense small grass clumps and tufts 5 to 13 px across, darker moss green at their base, olive yellow-green tips; (3) fine blades, tiny straw scratches, pinhead soil flecks, very sparse pale seed heads and single yellow specks. Average colour close to RGB 100,107,40, darker clump shadows around RGB 55,68,25, straw patches around RGB 150,140,80. Soft diffuse daylight from the upper left; each tuft has a tiny shadow on its lower right. The texture must tile: left and right edges continue into each other, top and bottom edges continue into each other, no visible seam. Even spatial density; no focal point.
-Avoid: trees, bushes, boulders, paths, wheel tracks, mowing stripes, rows, water, buildings, craters, round cushion-like repeats, dark blobs over 120 px, neon or lime green, flat fill, blurry airbrush, photograph, 3D render, pixel art, vector shapes, perspective, horizon, vignette, hex outlines, grid, text.
+Use case: stylized-concept. Asset type: opaque terrain material, landscape 1536x1024, filled edge to edge. Strict top-down orthographic nadir view of an open European summer meadow, WWI era, seen from high above. Scale: the canvas spans about 300 m by 200 m of ground; one map hex (50 m) is about 250 px across this image. Paint ONLY the broad tone of the meadow: soft, irregular, overlapping patches of two greens and a pale dry-straw tone, 25 to 100 px across, with gentle but clearly visible value variation. A soft fine grain is allowed, but no plant, tuft, leaf, flower or blade may be readable on its own. Average colour close to RGB 100,107,40; darker patches around RGB 75,86,30; straw patches around RGB 150,140,80. Soft diffuse daylight. Even spatial density; no focal point.
+Avoid: individual plants, tufts, leaves, flowers, blades, rosettes, trees, bushes, boulders, paths, wheel tracks, mowing stripes, rows, water, buildings, craters, round cushion-like repeats, dark blobs over 120 px, neon or lime green, flat fill, photograph, 3D render, pixel art, vector shapes, perspective, horizon, vignette, hex outlines, grid, text.
 ```
+
+**G1b texture.** Attach: the selected G1a, for palette only.
+
+```text
+Use case: stylized-concept. Asset type: opaque terrain material, landscape 1536x1024, filled edge to edge. Strict top-down orthographic nadir close-up of short summer meadow turf. Scale: the canvas spans about 75 m by 53 m of ground; one map hex (50 m) would be about 980 px across, so this is a small patch of turf seen close. Paint dense short grass: evenly spread small tufts 30 to 100 px across, darker moss green at their base and olive yellow-green tips; fine blades between them, tiny straw scratches, pinhead soil flecks, very sparse single pale seed heads. Uniform overall tone with no large light or dark patches: the variation comes only from the tufts and the gaps between them. Average colour close to RGB 100,107,40; tuft shadows around RGB 55,68,25. Soft diffuse daylight from the upper left; each tuft has a small soft shadow on its lower right. Even density everywhere; no focal point.
+Avoid: large light or dark patches, broadleaf weeds, rosettes, flowers in clusters, long diagonal blades, bushes, stones over 20 px, bare soil patches, paths, tracks, rows, mowing stripes, neon or lime green, photograph, 3D render, pixel art, perspective, horizon, vignette, grid, text.
+```
+
+**Checks**, reported by `hlmaterial` (reference values from `tools/reference-design` on the attached
+ref crops):
+
+| Stage | Check |
+| --- | --- |
+| G1a | mean within 8 of RGB 100,107,40 per channel; σL\* after a 10-world-px blur within ±20 % of the reference meadow's |
+| G1b | 3–10 world px band energy within ±20 % of the reference meadow's; no dark component (8 L\* below its local mean) wider than 12 world px; local mean L\* over 20-world-px windows varies by at most 2 |
+| Result | the grass row above; lattice autocorrelation < 0.15; autocorrelation at the 142×100 shift < 0.3 |
+| On the map | PULSE at 1× and 1.6× beside the same ref crops; unit edge contrast on grass not lower than with the current meadow |
 
 **G2 Meadow prop sheet.** 1254×1254 RGBA, 4×4 grid, painting scale 10 px per world px.
 Attach: ref meadow crops; the G1 result.

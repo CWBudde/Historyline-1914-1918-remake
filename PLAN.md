@@ -475,8 +475,14 @@ promoting the period exports; the sampling acceptance box below stays open.
       alpha and its exact prompt. Size, centre and alpha-gutter preparation plus species/form review
       remain open; measured widths exceed 160/220/280 px. G1 meadow trials still have oversized
       foliage under `build/review/look2-art/`. No runtime promotion or Look 2 acceptance. (2026-10-23)
-- [ ] Meadow: generate G1 (macro material, 568×400 world period) and G2 (prop sheet); scatter layer
-      (§1.3) with a density table per family and Poisson-disc placement seeded by world position.
+- [ ] Meadow G1 in parts (art/direction.md, G1). Each is done when its checks pass:
+      - `hlmaterial` profile `world-materials-v2`: G1b's high-passed L\* tiled 4×4 over G1a, one gain,
+        and the G1 checks in its report (code; the reference values come from `tools/reference-design`);
+      - G1a tone at the 568×400 period;
+      - G1b close-up texture at a 142×100 period;
+      - the result replaces `material/grass/summer` once it passes the map check.
+- [ ] Meadow G2 (prop sheet); scatter layer (§1.3) with a density table per family and Poisson-disc
+      placement seeded by world position.
 - [ ] Hills: generate G3 (hummock and scrub overlay), 4–6 L\* darker than grass, with 6–10 scrub props per
       hex. Done when 18 of 20 random hills hexes are named correctly at 1×.
 - [ ] Done when the PULSE forest, grass and hills meet their rows in the acceptance table and no hex
