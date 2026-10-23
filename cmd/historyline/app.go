@@ -95,7 +95,7 @@ func (a *app) upgrade(hd hdArt) {
 			a.battle.screens = hd.screens
 		}
 		dospanel.SetSurfaces(hd.screens.surfaces())
-		dosscreen.SetPlate(hd.screens.decoded("surface/plate"))
+		dosscreen.SetArt(hd.screens.frameArt())
 		if old != nil {
 			old.packs.release()
 		}

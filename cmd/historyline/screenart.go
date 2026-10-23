@@ -10,6 +10,7 @@ import (
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dospanel"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosscreen"
 )
 
 // screenDensities are the densities of the screen catalog (hlasset
@@ -82,6 +83,26 @@ func (s *screenArt) surfaces() dospanel.Surfaces {
 		return dospanel.Surfaces{}
 	}
 	return dospanel.Surfaces{Steel: s.decoded("surface/steel"), Ground: s.decoded("surface/ground"), Rivets: s.decoded("surface/rivets")}
+}
+
+// frameArt is the split screen frame's paintings: the hex plates surface/plate,
+// surface/plate-2 and on, and the chrome's steel; none without a catalog.
+func (s *screenArt) frameArt() dosscreen.Art {
+	if s == nil {
+		return dosscreen.Art{}
+	}
+	a := dosscreen.Art{Steel: s.decoded("surface/steel")}
+	for i := 1; ; i++ {
+		id := "surface/plate"
+		if i > 1 {
+			id = fmt.Sprintf("surface/plate-%d", i)
+		}
+		img := s.decoded(id)
+		if img == nil {
+			return a
+		}
+		a.Plates = append(a.Plates, img)
+	}
 }
 
 // decoded is the decoded image of id at the highest density the catalog has,

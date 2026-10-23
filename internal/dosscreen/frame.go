@@ -13,13 +13,14 @@ import (
 const maxCached = 6
 
 // Frame draws the steel frame over both panels' maps and caches what it painted:
-// the chrome per window size and UI scale, a panel frame per panel rect, cell
-// scale, pattern of on-map cells and plate painting. Inside the map that pattern
-// does not change with the origin, so scrolling repaints only when a view reaches
-// the map edge, and zooming repaints the panel frames but not the chrome. The
+// the chrome per window size, UI scale and frame art, a panel frame per panel
+// rect, cell scale, pattern of on-map cells and frame art. Inside the map that
+// pattern does not change with the origin, so scrolling repaints only when a view
+// reaches the map edge, and zooming repaints the panel frames but not the chrome. The
 // zero Frame is ready to use.
 type Frame struct {
 	screen  Screen // the chrome's key
+	art     int    // the frame art's generation the chrome was painted with
 	chrome  *ebiten.Image
 	panels  []cachedPanel // least recently used first
 	painted int           // images painted so far, for tests
@@ -35,18 +36,19 @@ type panelKey struct {
 	scale      float64
 	cols, rows int
 	open       string // which of the view's cells are on the map, column by column
-	plate      int    // the plate painting's generation
+	art        int    // the frame art's generation
 }
 
 // Draw draws the frame of s with the panels' views on dst, over the maps already
 // drawn there through each view's WorldToScreen.
 func (f *Frame) Draw(dst *ebiten.Image, s Screen, views [2]View, g hexgrid.Grid) {
-	if key := s.chromeKey(); f.chrome == nil || f.screen != key {
+	_, art := currentArt()
+	if key := s.chromeKey(); f.chrome == nil || f.screen != key || f.art != art {
 		if f.chrome != nil {
 			f.chrome.Deallocate()
 		}
 		f.chrome = ebiten.NewImageFromImage(PaintChrome(s))
-		f.screen = key
+		f.screen, f.art = key, art
 		f.painted++
 	}
 	for _, v := range views {
@@ -79,8 +81,8 @@ func (f *Frame) panel(v View, g hexgrid.Grid) *ebiten.Image {
 			open.WriteByte('0')
 		}
 	}
-	_, plate := currentPlate()
-	key := panelKey{v.Panel, v.Scale, v.Cols, v.Rows, open.String(), plate}
+	_, art := currentArt()
+	key := panelKey{v.Panel, v.Scale, v.Cols, v.Rows, open.String(), art}
 	for i, p := range f.panels {
 		if p.key == key {
 			f.panels = append(append(f.panels[:i:i], f.panels[i+1:]...), p)

@@ -4,14 +4,14 @@ title: Panel surfaces
 kind: screen
 status: candidate
 runtime_ids:
-masters: steel.png, ground.png, rivets.png, plate.png
+masters: steel.png, ground.png, rivets.png, plate.png, plate-2.png, plate-3.png, plate-4.png
 ---
 
 ## Look
 Seamless surfaces under the panels' drawn plates: dull brushed gunmetal for the steel of the unit,
 contents and battle panels, trampled dark earth for the ground of the battle scene's hexes, and worn
-brass rivet heads for the plates' rivets. The split screen's frame is built of one riveted hex plate of
-olive gunmetal, drawn on every cell around the view.
+brass rivet heads for the plates' rivets. The split screen's frame is built of riveted hex plates of
+olive gunmetal, four paintings that differ only in wear, drawn on the cells around the view.
 
 ## Base prompt
 ```text
@@ -38,6 +38,9 @@ values; all text is drawn live.
 | ground | | `bg-01` (exec-5943484e), 1254x1254 opaque: the prompt below. |
 | rivets | | `br-01` (exec-e352e306), 1774x887 RGBA, 4x2 heads of about 335 px: the prompt below. |
 | plate | | `hp-02` (exec-f8640ba8), 1536x1024 RGBA, the plate filling the 1152x960 cell silhouette: the prompt below. |
+| plate-2 | | `hp-03` (exec-380a6fa6), 1536x1024 RGBA: the plate prompt, then the plate-variant text with "Paint a few more scuffed, slightly lighter worn patches, placed elsewhere than in image 2." |
+| plate-3 | | `hp-04` (exec-960786a5), 1536x1024 RGBA: as plate-2 with "Paint a little more dark grime and oil staining, gathered near the lower edges and around some rivets, placed elsewhere than in image 2." |
+| plate-4 | | `hp-05` (exec-b7361a38), 1536x1024 RGBA: as plate-2 with "Paint fine long scratches running in a different direction than in image 2 and a few small dents, placed elsewhere than in image 2." |
 
 steel:
 
@@ -78,6 +81,16 @@ Image 1 is a shape template only: take the exact outline and position of its gre
 Image 1 was the exact hex cell silhouette (96x80, slanted edges running 25) at 12 px per unit,
 1152x960 in mid grey centred on a white 1536x1024 canvas, drawn in code.
 
+plate-variant (after the plate prompt, without its last line; `<wear>` is the sentence in the table):
+
+```text
+This is a variant of the selected plate in image 2, to sit beside it in the same frame: the same outline, size and position, the same face colour, the same rim width and lighting, the same rivet size and the same rivet layout as image 2. Only the surface wear differs: different scratches, worn patches and pits in different places, so no two plates look identical. <wear> Overall mean colour and contrast as image 2.
+
+Image 1 is a shape template only: take the exact outline and position of its grey hexagon; do not copy its flat grey or its white. Image 2 is the selected plate: take its colours, rim, lighting and rivet layout; do not copy its scratches, patches or stains.
+```
+
+Image 2 was `hp-02`, the selected plate.
+
 ## Post
 Masters are used unchanged. `hlasset build-screens` scales each into the screen catalog's `surface`
 family: `surface/steel` and `surface/ground` at 512 px at 1x and 1024 px at 2x, wrapping so the tile
@@ -88,10 +101,13 @@ rivet heads keep their painted hue, brightened evenly so their mean is as light 
 Each head is cut out of its cell by a circle of its measured centre and radius, which drops the sheet's
 faint alpha haze; the rivet's shadow is drawn in code.
 
-`surface/plate` is scaled like a tile (512 px wide at 1x, 1024 px at 2x). `internal/dosscreen` takes its
-opaque box (alpha over half) as the cell's 96x80 box and draws the plate, unchanged in colour, on every
-cell of a panel frame that is not an opening, over the darkest steel, so the teeth are plates with seams
-between them; a dark lip is drawn along the openings.
+`surface/plate` and `surface/plate-2` to `-4` are scaled like a tile (512 px wide at 1x, 1024 px at 2x).
+`internal/dosscreen` takes each one's opaque box (alpha over half) as the cell's 96x80 box and draws a
+plate, unchanged in colour, on every cell of a panel frame that is not an opening, over the darkest
+steel, so the teeth are plates with seams between them; a dark lip is drawn along the openings. Each
+cell picks its plate by its place in the view. The chrome around the panels (the divider post, the
+steel strips and the bolt) takes the plates' mean colour, with `surface/steel` graded on it as on the
+panels.
 
 ## Avoid
 - rivets, seams, plate edges or frames in the steel

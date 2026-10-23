@@ -38,7 +38,7 @@ func TestRetainedScreenCatalogBuilds(t *testing.T) {
 			"portraits":      {"portrait/armored-car", "portrait/light-artillery"},
 			"rank":           {"rank/01", "rank/10"},
 			"effect":         {"effect/explosion-00", "effect/explosion-08", "effect/hit"},
-			"surface":        {"surface/steel", "surface/ground", "surface/rivets"},
+			"surface":        {"surface/steel", "surface/ground", "surface/rivets", "surface/plate", "surface/plate-4"},
 			"capture":        {"capture/depot", "capture/factory", "capture/hand", "capture/hq", "capture/hq-open"},
 		} {
 			r, err := os.OpenRoot(filepath.Join(out, fmt.Sprintf("%dx", d), family))
@@ -58,10 +58,12 @@ func TestRetainedScreenCatalogBuilds(t *testing.T) {
 				full := !strings.HasPrefix(id, "button/") && !strings.HasPrefix(id, "country/") && !strings.HasPrefix(id, "portrait/") &&
 					!strings.HasPrefix(id, "rank/") && !strings.HasPrefix(id, "effect/")
 				// The tiles and the hand are square, the rivet sheet twice as
-				// wide as high, the map room as high as its masters' 1122x1402.
+				// wide as high, the plates 3:2, the map room as high as its
+				// masters' 1122x1402.
 				sheet := strings.HasPrefix(id, "surface/") || strings.HasPrefix(id, "capture/") && !fullCaptures[id]
 				room := int(math.Round(float64(surfaceTile*d) * 1402 / 1122))
-				h := cmp.Or(map[string]int{"surface/rivets": surfaceTile * d / 2, "capture/depot": room, "capture/factory": room}[id], surfaceTile*d)
+				plate := int(math.Round(surfaceTile*2.0/3)) * d
+				h := cmp.Or(map[string]int{"surface/rivets": surfaceTile * d / 2, "surface/plate": plate, "surface/plate-4": plate, "capture/depot": room, "capture/factory": room}[id], surfaceTile*d)
 				if sheet && (e.Width != surfaceTile*d || e.Height != h) {
 					t.Errorf("%s at %dx is %dx%d", id, d, e.Width, e.Height)
 				}

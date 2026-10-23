@@ -852,7 +852,7 @@ func main() {
 			log.Fatal(err)
 		}
 		dospanel.SetSurfaces(c.screens.surfaces())
-		dosscreen.SetPlate(c.screens.decoded("surface/plate"))
+		dosscreen.SetArt(c.screens.frameArt())
 	}
 
 	if !direct {

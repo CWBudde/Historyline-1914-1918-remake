@@ -7,36 +7,72 @@ import (
 	"sync"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/texture"
 )
 
-// The frame's steel is a painting of one riveted hex plate: every cell that is
-// not an opening is drawn as that plate, clipped by the panel, so the teeth
-// are the plates of the cells around the view, as in the original. Without a
-// painting the frame is the drawn steel sheet.
+// The frame's steel is paintings of riveted hex plates: every cell that is not
+// an opening is drawn as one of them, clipped by the panel, so the teeth are
+// the plates of the cells around the view, as in the original. The chrome
+// around the panels is a steel tile in the plates' colour. Without paintings
+// the frame is the drawn steel sheet.
 
-// plateArt is the plate painting in use; gen counts changes so the Frame
-// repaints its panels.
-var plateArt struct {
+// Art is the frame's paintings: hex plates on a clear ground, one of them
+// picked per cell, and a seamless tile of steel for the chrome. Nil or empty
+// keeps the drawn steel.
+type Art struct {
+	Plates []image.Image
+	Steel  image.Image
+}
+
+// frameArt is the graded art in use; gen counts changes so the Frame repaints.
+var frameArt struct {
 	sync.RWMutex
-	tex *plateTex
+	art *plateArt
 	gen int
 }
 
-// SetPlate makes img the painting of the frame's hex plate, nil for the drawn
-// steel. Its opaque box (alpha over half) is taken as the cell's 96×80 box.
-func SetPlate(img image.Image) {
-	t := newPlateTex(img)
-	plateArt.Lock()
-	defer plateArt.Unlock()
-	plateArt.tex = t
-	plateArt.gen++
+// plateArt is the plates and the chrome's steel, graded.
+type plateArt struct {
+	plates []*plateTex
+	steel  *texture.Tile // nil: the drawn texture
+	face   color.RGBA    // the plates' mean colour, the chrome's base
 }
 
-// currentPlate is the plate painting in use and its generation.
-func currentPlate() (*plateTex, int) {
-	plateArt.RLock()
-	defer plateArt.RUnlock()
-	return plateArt.tex, plateArt.gen
+// SetArt makes a the frame's paintings. A plate's opaque box (alpha over half)
+// is taken as the cell's 96×80 box.
+func SetArt(a Art) {
+	var pa *plateArt
+	for _, img := range a.Plates {
+		if t := newPlateTex(img); t != nil {
+			if pa == nil {
+				pa = &plateArt{}
+			}
+			pa.plates = append(pa.plates, t)
+		}
+	}
+	if pa != nil {
+		pa.steel = texture.NewTile(a.Steel)
+		var sum [3]float64
+		for _, t := range pa.plates {
+			for ch, v := range t.mean() {
+				sum[ch] += v
+			}
+		}
+		n := float64(len(pa.plates))
+		pa.face = color.RGBA{uint8(math.Round(sum[0] / n)), uint8(math.Round(sum[1] / n)), uint8(math.Round(sum[2] / n)), 255}
+	}
+	frameArt.Lock()
+	defer frameArt.Unlock()
+	frameArt.art = pa
+	frameArt.gen++
+}
+
+// currentArt is the frame art in use, nil for the drawn steel, and its
+// generation.
+func currentArt() (*plateArt, int) {
+	frameArt.RLock()
+	defer frameArt.RUnlock()
+	return frameArt.art, frameArt.gen
 }
 
 // plateTex is the plate painting cropped to its cell box, premultiplied, at
@@ -91,6 +127,21 @@ func newPlateTex(img image.Image) *plateTex {
 	return t
 }
 
+// mean is the plate's mean colour in 0..255 over its covered texels.
+func (t *plateTex) mean() [3]float64 {
+	m := t.mips[0]
+	var sum [4]float64
+	for i := 0; i < len(m.d); i += 4 {
+		for ch := range 4 {
+			sum[ch] += float64(m.d[i+ch])
+		}
+	}
+	if sum[3] == 0 {
+		return [3]float64{}
+	}
+	return [3]float64{255 * sum[0] / sum[3], 255 * sum[1] / sum[3], 255 * sum[2] / sum[3]}
+}
+
 // sample is the premultiplied colour at (u, v) in 0..1 across the cell box,
 // filtered for texels per device pixel of the full size.
 func (t *plateTex) sample(u, v, texels float64) [4]float32 {
@@ -120,17 +171,57 @@ func (t *plateTex) sample(u, v, texels float64) [4]float32 {
 // through: the darkest steel.
 var seam = steelDark
 
-// plateAt is the colour of the plate under world point (wx, wy) at scale
-// device pixels per world pixel, over the seam.
-func (t *plateTex) plateAt(wx, wy, scale float64) color.RGBA {
+// plateAt is the colour of the plate under world point (wx, wy) of v, over
+// the seam. Which painting a cell shows depends on its place in the view, not
+// on the map, so the frame stays the same while the view scrolls.
+func (a *plateArt) plateAt(v View, wx, wy float64) color.RGBA {
 	cx, cy := cellCentre(wx, wy)
+	t := a.plates[0]
+	if n := len(a.plates); n > 1 {
+		ox, oy := v.Origin()
+		kx := int(math.Round((cx - ox) / hexgrid.HalfPitch))
+		ky := int(math.Round((cy - oy) / hexgrid.LinePitch))
+		t = a.plates[min(n-1, int(lattice(kx, ky, uint32(v.Panel.X))*float64(n)))]
+	}
 	u := (wx - cx + hexgrid.HexWidth/2) / hexgrid.HexWidth
-	v := (wy - cy + hexgrid.HexHeight/2) / hexgrid.HexHeight
-	p := t.sample(u, v, float64(t.mips[0].w)/hexgrid.HexWidth/scale)
+	w := (wy - cy + hexgrid.HexHeight/2) / hexgrid.HexHeight
+	p := t.sample(u, w, float64(t.mips[0].w)/hexgrid.HexWidth/v.Scale)
 	over := func(c float32, s uint8) uint8 {
 		return uint8(math.Round(float64(c*255 + float32(s)*(1-p[3]))))
 	}
 	return color.RGBA{over(p[0], seam.R), over(p[1], seam.G), over(p[2], seam.B), 255}
+}
+
+// steelSpan is the reference pixels one tile of the chrome's steel spans, and
+// steelGain how strongly its texture shows.
+const (
+	steelSpan = 256
+	steelGain = 0.6
+)
+
+// chromeSteel is the chrome's steel at screen pixel (x, y) shaded by dt along
+// the ramp (0 for a plain plate), at UI scale ui: the plates' colour with the
+// steel tile's texture, or the drawn steel.
+func (a *plateArt) chromeSteel(x, y int, dt, ui float64) color.RGBA {
+	if a == nil {
+		return ramp(steelAt(x, y) + dt)
+	}
+	c := shade(a.face, dt)
+	if a.steel == nil {
+		return shade(c, steelAt(x, y)-steelBase)
+	}
+	dr, dg, db := a.steel.At(x, y, steelSpan*artScale*ui)
+	return texture.Modulate(c, steelGain, dr, dg, db)
+}
+
+// shade is c moved along the steel ramp by dt: towards steelLight for dt > 0,
+// towards steelDark for dt < 0, as far as the ramp itself moves from a plain
+// plate.
+func shade(c color.RGBA, dt float64) color.RGBA {
+	if dt >= 0 {
+		return mixRGBA(c, steelLight, dt/(1-steelBase))
+	}
+	return mixRGBA(c, steelDark, -dt/steelBase)
 }
 
 // cellCentre is the centre of the hex polygon holding world point (wx, wy),
@@ -155,4 +246,14 @@ func cellCentre(wx, wy float64) (float64, float64) {
 		}
 	}
 	return bx, by
+}
+
+// tone is position t on the steel ramp in a's steel: the ramp itself without
+// art, else the plates' colour shaded as far as the ramp moves from a plain
+// plate.
+func (a *plateArt) tone(t float64) color.RGBA {
+	if a == nil {
+		return ramp(t)
+	}
+	return shade(a.face, t-steelBase)
 }

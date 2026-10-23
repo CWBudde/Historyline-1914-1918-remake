@@ -32,20 +32,20 @@ var lightX, lightY = -math.Sqrt2 / 2, -math.Sqrt2 / 2
 
 // PaintPanel paints the frame of one panel with the view's openings cut out
 // (transparent) and a dark lip along the outline. With a plate painting
-// (SetPlate) every other cell is that plate; without one the frame is drawn
+// (SetArt) every other cell is one of its plates; without one the frame is drawn
 // steel with a bevel lit from the top left and a rivet at every tooth vertex,
 // its texture following screen pixels so it runs on across the panels and
 // chrome. The image covers the panel's rect in screen pixels.
 func PaintPanel(v View, g hexgrid.Grid) *image.RGBA {
-	pl, _ := currentPlate()
-	return paintPanel(v, g, pl)
+	a, _ := currentArt()
+	return paintPanel(v, g, a)
 }
 
-func paintPanel(v View, g hexgrid.Grid, pl *plateTex) *image.RGBA {
+func paintPanel(v View, g hexgrid.Grid, pa *plateArt) *image.RGBA {
 	m := Mask(v, g)
 	img := image.NewRGBA(m.Rect)
 	fm := metrics(v.Scale)
-	if pl != nil {
+	if pa != nil {
 		fm.bevel = 0
 	}
 	near := newBuckets(m.Rect, Outline(v, g), fm.lip+fm.bevel+1)
@@ -56,9 +56,9 @@ func paintPanel(v View, g hexgrid.Grid, pl *plateTex) *image.RGBA {
 			if open && (!ok || d >= 0.5) {
 				continue // clear
 			}
-			if pl != nil && !open {
+			if pa != nil && !open {
 				wx, wy := v.ScreenToWorld(float64(x)+0.5, float64(y)+0.5)
-				c, a := pl.plateAt(wx, wy, v.Scale), 1.0
+				c, a := pa.plateAt(v, wx, wy), 1.0
 				if ok && d < fm.lip+0.5 {
 					// The lip, its inner edge smoothed into the plate.
 					c = mixRGBA(ramp(lipShade), c, math.Max(0, d-fm.lip+0.5))
@@ -84,9 +84,9 @@ func paintPanel(v View, g hexgrid.Grid, pl *plateTex) *image.RGBA {
 			setRamp(img, x, y, t, a)
 		}
 	}
-	if pl == nil {
+	if pa == nil {
 		for _, r := range Rivets(v, g) {
-			paintRivet(img, r, fm.rivetR)
+			paintRivet(img, r, fm.rivetR, nil)
 		}
 	}
 	return img
@@ -96,18 +96,23 @@ func paintPanel(v View, g hexgrid.Grid, pl *plateTex) *image.RGBA {
 // divider post with its highlight line, the bolt at its foot and the two recessed
 // status wells. The panels are left transparent for PaintPanel.
 func PaintChrome(s Screen) *image.RGBA {
+	a, _ := currentArt()
+	return paintChrome(s, a)
+}
+
+func paintChrome(s Screen, a *plateArt) *image.RGBA {
 	img := image.NewRGBA(image.Rect(0, 0, s.W, s.H))
 	p0, p1 := s.Panels[0].image(), s.Panels[1].image()
 	for y := range s.H {
 		for x := range s.W {
 			if pt := (image.Point{x, y}); !pt.In(p0) && !pt.In(p1) {
-				setRamp(img, x, y, steelAt(x, y), 1)
+				img.SetRGBA(x, y, a.chromeSteel(x, y, 0, s.UI))
 			}
 		}
 	}
-	paintPost(img, s.Divider, s.UI)
+	paintPost(img, s.Divider, s.UI, a)
 	b := s.Bolt
-	paintRivet(img, Point{float64(b.X) + float64(b.W)/2, float64(b.Y) + float64(b.H)/2}, float64(b.W)/2-0.5)
+	paintRivet(img, Point{float64(b.X) + float64(b.W)/2, float64(b.Y) + float64(b.H)/2}, float64(b.W)/2-0.5, a)
 	for _, w := range s.Status { // after the bolt, which casts its shadow to the right
 		paintWell(img, w, scaled(bevelNative, s.UI))
 	}
@@ -116,20 +121,20 @@ func PaintChrome(s Screen) *image.RGBA {
 
 // paintPost shades the divider as a round vertical post: dark outer edges, a body
 // that rises towards the middle and a light line on the side facing the light.
-func paintPost(img *image.RGBA, r Rect, ui float64) {
+func paintPost(img *image.RGBA, r Rect, ui float64, a *plateArt) {
 	line := max(int(math.Round(ui)), 1)
 	hx := r.X + r.W*3/10
 	for y := r.Y; y < r.Bottom(); y++ {
 		for x := r.X; x < r.Right(); x++ {
 			u := (float64(x-r.X) + 0.5) / float64(r.W)
-			t := 0.30 + 0.25*math.Sin(math.Pi*u) + 0.3*(steelAt(x, y)-steelBase)
+			t := 0.30 + 0.25*math.Sin(math.Pi*u)
 			switch {
 			case x == r.X || x == r.Right()-1:
 				t = 0.12
 			case x >= hx && x < hx+line:
 				t = 0.92
 			}
-			setRamp(img, x, y, t, 1)
+			img.SetRGBA(x, y, a.chromeSteel(x, y, t-steelBase, ui))
 		}
 	}
 }
@@ -154,8 +159,9 @@ func paintWell(img *image.RGBA, r Rect, bw int) {
 }
 
 // paintRivet draws a round rivet of radius rad at c over opaque steel: a dome lit
-// from the top left with a soft shadow to the bottom right.
-func paintRivet(img *image.RGBA, c Point, rad float64) {
+// from the top left with a soft shadow to the bottom right, in the tones of a's
+// steel.
+func paintRivet(img *image.RGBA, c Point, rad float64, a *plateArt) {
 	lz := 1.5
 	l := math.Sqrt(lightX*lightX + lightY*lightY + lz*lz)
 	lx, ly, lz := lightX/l, lightY/l, lz/l
@@ -169,12 +175,12 @@ func paintRivet(img *image.RGBA, c Point, rad float64) {
 			dx, dy := float64(x)+0.5-c.X, float64(y)+0.5-c.Y
 			d := math.Hypot(dx, dy)
 			if sd := math.Hypot(dx-rad*0.4, dy-rad*0.4); sd < rad+0.5 && d >= rad {
-				blendRamp(img, x, y, 0.1, 0.5*math.Min(1, rad+0.5-sd))
+				blend(img, x, y, a.tone(0.1), 0.5*math.Min(1, rad+0.5-sd))
 			}
 			if cover := math.Min(1, rad+0.5-d); cover > 0 {
 				nx, ny := dx/rad, dy/rad
 				nz := math.Sqrt(math.Max(0, 1-nx*nx-ny*ny))
-				blendRamp(img, x, y, 0.12+0.8*math.Max(0, nx*lx+ny*ly+nz*lz), cover)
+				blend(img, x, y, a.tone(0.12+0.8*math.Max(0, nx*lx+ny*ly+nz*lz)), cover)
 			}
 		}
 	}
@@ -196,12 +202,9 @@ func setRGBA(img *image.RGBA, x, y int, c color.RGBA, a float64) {
 	})
 }
 
-// blendRamp mixes ramp position t over the opaque pixel (x, y) by f; both ends lie
-// on the ramp, so the result does too.
-func blendRamp(img *image.RGBA, x, y int, t, f float64) {
-	o, c := img.RGBAAt(x, y), ramp(t)
-	mix := func(a, b uint8) uint8 { return uint8(math.Round(float64(a)*(1-f) + float64(b)*f)) }
-	img.SetRGBA(x, y, color.RGBA{mix(o.R, c.R), mix(o.G, c.G), mix(o.B, c.B), 255})
+// blend mixes the opaque colour c over the opaque pixel (x, y) by f.
+func blend(img *image.RGBA, x, y int, c color.RGBA, f float64) {
+	img.SetRGBA(x, y, mixRGBA(img.RGBAAt(x, y), c, f))
 }
 
 // ramp is position t (clamped to 0..1) between steelDark and steelLight.

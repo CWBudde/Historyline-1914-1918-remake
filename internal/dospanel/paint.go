@@ -8,6 +8,8 @@ import (
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/colorm"
+
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/texture"
 )
 
 // The placeholder palette: olive-grey steel from dark to light (as the
@@ -122,8 +124,8 @@ func (p painter) namePlate(r image.Rectangle) {
 		for x := r.Min.X; x < r.Max.X; x++ {
 			c := lerp(plateBrown, plateEdge, 0.12+0.24*grain(x/w, y/w))
 			if s := surfaces.steel; s != nil {
-				dr, dg, db := s.at(x, y, p.k, steelSpan)
-				c = modulate(lerp(plateBrown, plateEdge, 0.12), 1.5*steelGain, dr, dg, db)
+				dr, dg, db := s.At(x, y, p.k*steelSpan)
+				c = texture.Modulate(lerp(plateBrown, plateEdge, 0.12), 1.5*steelGain, dr, dg, db)
 			}
 			p.img.SetRGBA(x, y, c)
 		}

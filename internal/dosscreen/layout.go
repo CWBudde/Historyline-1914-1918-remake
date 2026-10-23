@@ -7,9 +7,10 @@
 // the cell scale). A View is one panel's camera: the panel, the scale and the
 // first visible column pair and row, so the view always scrolls in whole cells
 // and the frame's teeth meet the cell edges. Mask, Outline and Rivets describe
-// the frame of a View as pure geometry; PaintPanel and PaintChrome paint it on a
-// placeholder steel texture; Frame caches the painted images as Ebitengine images
-// and draws them over the maps.
+// the frame of a View as pure geometry; PaintPanel and PaintChrome paint it with
+// the frame art (SetArt: painted hex plates and steel) or a placeholder steel
+// texture; Frame caches the painted images as Ebitengine images and draws them
+// over the maps.
 //
 // A "column" is a vertical stack of hexes at one x (the even lines of one hexgrid
 // column, or the odd lines of one); every other column is shifted down by half a
