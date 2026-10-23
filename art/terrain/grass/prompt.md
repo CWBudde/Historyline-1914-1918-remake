@@ -4,7 +4,7 @@ title: Meadow
 kind: terrain
 status: candidate
 runtime_ids: grass, grass_w, grass-detail-00, grass-detail-01, grass-detail-02, grass-detail-03, grass-detail-04, grass-detail-05, grass-detail-06, grass-detail-07, grass-detail-08, grass-detail-09, grass-detail-10, grass-detail-11, grass-detail-12, grass-detail-13, grass-detail-14, grass-detail-15
-masters: grass-meadow-summer-v2.png, grass-meadow-winter-v2.png, grass-flowers-painting-summer-v1.png, grass-flowers-material-summer-v1.png, grass-worn-painting-summer-v1.png, grass-worn-material-summer-v1.png, grass-summer-v1.png, grass-winter-v1.png, grass-meadow-summer-v1.png, grass-props-summer-v1.png, grass-closeup-summer-v1.png, grass-tone-summer-v1.png
+masters: grass-meadow-summer-v2.png, grass-meadow-winter-v2.png, grass-flowers-painting-summer-v1.png, grass-flowers-material-summer-v1.png, grass-worn-painting-summer-v1.png, grass-worn-material-summer-v1.png, grass-summer-v1.png, grass-winter-v1.png, grass-meadow-summer-v1.png, grass-props-summer-v1.png, grass-closeup-summer-v1.png, grass-tone-summer-v1.png, grass-tone-summer-v2.png, grass-closeup-summer-v2.png
 ---
 
 ## Look
@@ -40,6 +40,47 @@ Seams to forest, ground and hills are handled by those families' contexts, which
 their base.
 
 ## Post
+
+### Look 2 G1b close-up candidate, second round (2026-10-23)
+
+`grass-closeup-summer-v2.png` (`exec-96d4e9ec`, native 1536×1024 RGB, unchanged) is a G1b close-up
+texture with crisp blades and lower contrast between them, for the 189⅓×133⅓ period. Detail checks:
+band ratio 1.17, widest dark component 8 world px, band CV 0.047. Over `grass-tone-summer-v2.png` at
+gain 0.5 the 3×3 repeat does not show (autocorrelation 0.08 and 0.07 at the repeat). At that gain it is
+barely visible, because the tone's mottle already uses most of the edge-density budget. Not selected.
+Attached: `grass-tone-summer-v2.png`, for its palette only.
+The prompt was the `art/style.md` Preamble and Terrain text, then:
+
+```text
+Use case: stylized-concept. Asset type: opaque terrain material, landscape 1536x1024, filled edge to edge. Strict top-down orthographic nadir close-up of short summer meadow turf. Scale: the canvas spans about 100 m by 70 m of ground; one map hex (50 m) would be about 740 px across, so this is a small patch of turf seen close. Paint dense, fine short grass: blades are clean brush strokes 3 to 5 px wide and 8 to 20 px long, pointing in all directions, gathered into many small tufts 20 to 50 px across, none larger than 60 px, each tuft a different shape, softly shaded from a darker moss green base to olive yellow-green tips; fine blades between them, tiny straw scratches, pinhead soil flecks, very sparse single pale seed heads. Clean but gentle detail: neighbouring blades differ only slightly in tone, so most of the tone variation sits in the tufts and the soft gaps between them, not in hard single-blade contrast. The previous try was too crisp: its sharp, high-contrast single blades made about twice as many hard edges as the tone variation needs; keep the blades readable but lower their contrast against each other. Uniform overall tone with no light or dark patches at any scale above 40 px: the variation comes only from the blades, tufts and the gaps between them. The previous two tries copied the soft dark tone patches of the attached image and painted dark shadowy clumps 80 to 120 px across: here no dark spot or shadow may be wider than 20 px, and any 100 px square anywhere must have the same average tone as any other. Average colour close to RGB 100,107,40; tuft shadows around RGB 55,68,25. Soft diffuse daylight from the upper left; each tuft has a tiny soft shadow on its lower right, never longer than 6 px. Even density everywhere; no focal point, no motif that repeats; no orientation, nothing lined up along a diagonal.
+Avoid: harsh high-contrast blade edges, glittering bright single blades, copying the patches or layout of the attached image, large light or dark patches, dark clumps or shadowy hollows wider than 20 px, tone drifts, large grass clumps, tufts wider than 60 px, blurry, soft or smooth areas, painterly smears, dark shadow pools, broadleaf weeds, rosettes, flowers in clusters, long diagonal blades, bushes, stones over 20 px, bare soil patches, paths, tracks, rows, mowing stripes, repeated identical tufts, neon or lime green, photograph, 3D render, pixel art, perspective, horizon, vignette, grid, text.
+
+Image 1 is the broad meadow tone this close-up texture will be laid over: take only its palette from it, not its patches, scale or layout.
+```
+
+
+### Look 2 G1a tone candidate, second round (2026-10-23)
+
+`grass-tone-summer-v2.png` (`exec-fdd184bd`, native 1536×1024 RGB, unchanged) is a G1a meadow tone
+painted as a fine, dense mottle over only faint tone drifts, so that most of the meadow's variation
+does not repeat with the close-up texture. Graded by `hlmaterial` (`tone_contrast` 1.08, `tone_offset`
+[−1.5, 0, −3]) under `grass-closeup-summer-v2.png` at gain 0.5, it passes all 20 detail and result checks,
+some only just (σL\* 10.0, edge density 0.399, autocorrelation at (284,0) 0.150). It fails the tone
+check: σL\* of the radius-10 box mean is 3.35, below 4–6. Stronger grades push the edge density over 0.40.
+On PULSE the camouflage blotches are gone, but the meadow is now a little too even: across the 88 clean
+grass cells at 1× the cell means vary by σL\* 2.4 against 4.3 in the reference, and the fine residual is
+σL\* 9.1 against 10.0. Soft dark spots of 60–120 px and a faint diagonal grain in the pale areas show
+when downscaled. Not selected; the profile keeps `grass-summer-v1.png`.
+Attached: two RefDesign2 meadow crops (r7c5–r8c4, r16c4–r19c4).
+The prompt was the `art/style.md` Preamble and Terrain text, then:
+
+```text
+Use case: stylized-concept. Asset type: opaque terrain material, landscape 1536x1024, filled edge to edge. Strict top-down orthographic nadir view of an open European summer meadow, WWI era, seen from high above. Scale: the canvas spans about 300 m by 200 m of ground; one map hex (50 m) is about 250 px across this image. Paint the meadow as a dense, even, hand-painted mottle of tiny dabs: countless small irregular roundish specks and flecks 4 to 20 px across, never larger than 25 px, never short strokes, in slightly greyish olive tones from dark moss olive RGB 55,66,24 to pale dry olive RGB 150,146,86, sharply separated from each other so the surface looks finely broken and lively at every point, like grass seen from far above. Under the mottle lie soft, ragged, broken tone drifts 50 to 200 px across, frayed and open at their edges, never round, never solid, always broken up by the specks: in the darker drifts the specks are mostly dark, so the drift averages about RGB 80,88,32; in the paler drifts the specks are mostly pale, so the drift averages about RGB 118,122,52; between them the mean tone. Darker drifts, paler drifts and mean areas each cover about a third of the meadow, scattered at random. The previous try painted these drifts far too faint: averaged over 50 px its tone varied by only 2.5 lightness steps; it must vary by about 5, twice as much, while the drifts stay frayed and ragged. Average colour close to RGB 98,105,40: a muted, slightly greyish olive, not saturated yellow-green. This layer has NO lighting: flat overcast light, no shading, no shadows and no light direction, whatever the style notes above say about light from the upper left. Even spatial density in every direction; no focal point. The last two tries showed fine streaks running from the lower left to the upper right across the whole canvas: there must be no orientation at all, neither in the specks nor in the drifts; rotated by 90 degrees the image must look the same.
+Avoid: round patches, blobs or puddles of colour, solid dark or light areas, military camouflage pattern, patches with sharp edges, three-colour patchwork, any diagonal structure, streaks or hatching, patches lined up in bands or rows, argyle or checkerboard arrangement, directional brush strokes, diagonal streaks, leafy or foliage texture, clover-like leaf shapes, individual plants with outlines, leaves, flowers, rosettes, trees, bushes, boulders, paths, wheel tracks, mowing stripes, water, buildings, craters, polka dots, repeated identical dabs, neon or lime green, flat single-colour fill, smooth airbrush gradient, photograph, 3D render, pixel art, vector shapes, perspective, horizon, vignette, hex outlines, grid, text.
+
+Images 1 and 2 are crops of the reference painting: take only its meadow colours and painterly finish from them; ignore its trees, stones, roads and its fine detail.
+```
+
 
 ### Look 2 G1a tone candidate (2026-10-23)
 

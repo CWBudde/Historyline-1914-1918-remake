@@ -500,6 +500,12 @@ cross at every period corner. (2026-10-23)
       but the round patches stay visible and the close-up repeat autocorrelation reaches 0.66, so the
       profile keeps `grass-summer-v1`. Next: a G1a with faint, ragged, smaller patches, and a crisper
       G1b. Renders and sheets under `build/review/gen-2026-10-23/g1-map/`.
+      Second round (2026-10-23), candidates `grass-tone-summer-v2.png` + `grass-closeup-summer-v2.png`:
+      a fine non-repeating mottle in G1a, so the close-up repeat stays at autocorrelation 0.08. All 20
+      detail and result checks pass at gain 0.5, but the tone check fails (σ of the box mean 3.35 for
+      4–6). On PULSE the camouflage is gone, but the meadow is slightly too even: cell means σL\* 2.4
+      against 4.3, residual 9.1 against 10.0. The profile keeps `grass-summer-v1`. Next: G1a drifts
+      of about 5 L\* without more fine contrast. Records under `build/review/gen-2026-10-23/g1-r2/`.
 - [ ] Meadow G2 (prop sheet); scatter layer (§1.3) with a density table per family and Poisson-disc
       placement seeded by world position.
       G2 candidate `grass-props-summer-v1.png` (2026-10-23): items 0.77–1.45× the spec in their cells;

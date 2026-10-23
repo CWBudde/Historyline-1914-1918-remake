@@ -160,8 +160,13 @@ gain that brings σL\* to 11.5 without exceeding the 3–10 band cap; edge densi
 more. Generated tones drift in blue and in patch contrast, so the profile grades G1a first
 (`tone_contrast`, `tone_offset`). Keep the patches faint: on the PULSE map check, a tone graded to
 σ 8.9 read as camouflage blotches (grass cell means σL\* 7.3 against 4.3 in the reference), and the
-round 20–60-world-px patches the G1a prompt asks for stay visible even when graded down; the next
-G1a should ask for faint, ragged, smaller patches. In the G1a prompt, replace the preamble's light
+round 20–60-world-px patches the G1a prompt asks for stay visible even when graded down. The close-up
+repeats 3×3, so at most about 30 % of the variance may come from it (the repeat autocorrelation is
+roughly its share), and the rest must come from G1a. A second round painted G1a as a fine dense mottle
+over faint drifts (`grass-tone-summer-v2.png`): it passes every result check, but its drifts stay too
+faint (σ of the box mean 3.35, map cell means σ 2.4 against 4.3), and the mottle alone already uses most
+of the edge-density budget. The next G1a needs drifts of about 5 L\* over 50–250 px with no more fine
+contrast than that. In the G1a prompt, replace the preamble's light
 from the upper left with flat overcast light: with it, every tone came out in diagonal bands.
 
 **G1a tone.** Attach: ref crops r7c5–r8c4 and r16c4–r19c4.
