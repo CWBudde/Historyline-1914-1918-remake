@@ -11,6 +11,11 @@ import (
 // that Combine subtracts from the detail's L*: about a 12-world-pixel kernel.
 const HighPassRadius = 4
 
+// ToneBand is the edge cross-fade, in world pixels, of a tone layer before
+// the detail is added: about its largest patches, so a patch fades into the
+// half-period shift instead of changing within the 4-pixel edge band.
+const ToneBand = 40
+
 // Tiled centre-crops src to the period aspect, makes it seamless with a
 // worldBand feather and wraps it repeats×repeats times across one period at
 // density, integrating each output pixel's source footprint with an area box.
@@ -84,6 +89,25 @@ func highPass(l []float64, w, h, radius int) []float64 {
 		out[i] = l[i] - blur[i]
 	}
 	return out
+}
+
+// Grade scales the L* of im about its mean by k and then adds offset to L*, a*
+// and b*. It grades a tone layer whose patches came out flatter, or whose
+// colour came out further from the target, than the checks allow.
+func Grade(im *image.NRGBA, k float64, offset [3]float64) (*image.NRGBA, error) {
+	if im == nil || !finite(k) || k <= 0 || !finite(offset[0]) || !finite(offset[1]) || !finite(offset[2]) {
+		return nil, fmt.Errorf("invalid tone grade %v %v", k, offset)
+	}
+	p := newPlane(im)
+	mean, _ := stats(p.l)
+	out := image.NewNRGBA(image.Rect(0, 0, p.w, p.h))
+	for y := range p.h {
+		for x := range p.w {
+			i := y*p.w + x
+			out.SetNRGBA(x, y, fromLab(mean+k*(p.l[i]-mean)+offset[0], p.a[i]+offset[1], p.b[i]+offset[2]))
+		}
+	}
+	return out, nil
 }
 
 // Combine adds the high-passed L* of detail, times gain, to the L* of tone;

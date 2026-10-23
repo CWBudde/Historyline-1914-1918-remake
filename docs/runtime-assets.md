@@ -65,8 +65,10 @@ area-filtered world sampler and a continuous hills blend field. These periods st
 packs. Export with `go run ./cmd/hlmaterial -out build/review/world-materials`; the pinned profile and
 report record source hashes and fractional crops. Near each period edge the export cross-fades into
 its half-period shift, keeping contrast, so the material continues across the wrap. A schema-2 profile
-may give the meadow a `detail` layer (art/direction.md, G1): its high-passed L\* is wrapped
-`repeats`×`repeats` and added with `gain`. The report measures the meadow at 1× against the G1
+may give the meadow a `detail` layer (art/direction.md, G1): the tone is graded (`tone_contrast`
+scales its L\* about the mean, `tone_offset` adds in Lab) and cross-faded over 40 world px, and the
+detail's high-passed L\* is wrapped `repeats`×`repeats` and added with `gain`; the sum needs no second
+cross-fade. The report measures the meadow at 1× against the G1
 checks, suggests a gain, and `-check` fails while any check fails. Default activation awaits the
 removal of baked meadow from adjoining families; the selected tile catalog keeps its existing
 rendering meanwhile.

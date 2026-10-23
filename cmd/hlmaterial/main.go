@@ -21,13 +21,26 @@ import (
 )
 
 // detail is a close-up layer whose high-passed L* is wrapped repeats×repeats
-// over the material and added with gain (profile schema 2, meadow only).
+// over the material and added with gain (profile schema 2, meadow only). The
+// tone is graded first: tone_contrast scales its L* about its mean (omitted:
+// 1), then tone_offset adds to its L*, a* and b*.
 type detail struct {
-	Source  string  `json:"source"`
-	SHA     string  `json:"source_sha256"`
-	Repeats int     `json:"repeats"`
-	Gain    float64 `json:"gain"`
+	Source       string     `json:"source"`
+	SHA          string     `json:"source_sha256"`
+	Repeats      int        `json:"repeats"`
+	Gain         float64    `json:"gain"`
+	ToneContrast float64    `json:"tone_contrast,omitempty"`
+	ToneOffset   [3]float64 `json:"tone_offset,omitzero"`
 }
+
+// toneContrast is the tone's L* factor, 1 when the profile omits it.
+func (d *detail) toneContrast() float64 {
+	if d.ToneContrast == 0 {
+		return 1
+	}
+	return d.ToneContrast
+}
+
 type material struct {
 	ID     string  `json:"id"`
 	Art    string  `json:"art"`
@@ -43,11 +56,13 @@ type profile struct {
 	Materials []material `json:"materials"`
 }
 type detailOutput struct {
-	Source    string             `json:"source"`
-	SourceSHA string             `json:"source_sha256"`
-	Crop      worldmaterial.Crop `json:"source_crop"`
-	Repeats   int                `json:"repeats"`
-	Gain      float64            `json:"gain"`
+	Source       string             `json:"source"`
+	SourceSHA    string             `json:"source_sha256"`
+	Crop         worldmaterial.Crop `json:"source_crop"`
+	Repeats      int                `json:"repeats"`
+	Gain         float64            `json:"gain"`
+	ToneContrast float64            `json:"tone_contrast"`
+	ToneOffset   [3]float64         `json:"tone_offset"`
 }
 type output struct {
 	ID        string             `json:"id"`
@@ -111,13 +126,21 @@ func (l layers) build(period image.Point, density int, band float64) (result, to
 	if tone, c, err = worldmaterial.Export(l.tone, period, density); err != nil {
 		return
 	}
+	if k := l.d.toneContrast(); k != 1 || l.d.ToneOffset != [3]float64{} {
+		if tone, err = worldmaterial.Grade(tone, k, l.d.ToneOffset); err != nil {
+			return
+		}
+	}
+	if tone, err = worldmaterial.Seamless(tone, worldmaterial.ToneBand, density); err != nil {
+		return
+	}
 	if det, dc, err = worldmaterial.Tiled(l.detail, period, density, l.d.Repeats, band); err != nil {
 		return
 	}
-	if result, err = worldmaterial.Combine(tone, det, density, l.d.Gain); err != nil {
-		return
-	}
-	result, err = worldmaterial.Seamless(result, band, density)
+	// The tone is seamless and the detail wraps a whole number of times, so the
+	// sum continues across the period; a second cross-fade would make the
+	// sparse detail denser along the edges.
+	result, err = worldmaterial.Combine(tone, det, density, l.d.Gain)
 	return
 }
 
@@ -151,6 +174,14 @@ func validate(p profile) error {
 			}
 			if d.Repeats < 2 || d.Repeats > 8 || math.IsNaN(d.Gain) || math.IsInf(d.Gain, 0) || d.Gain < 0 {
 				return fmt.Errorf("%s: detail repeats 2..8 and a finite gain >= 0", m.ID)
+			}
+			if k := d.ToneContrast; math.IsNaN(k) || k < 0 || k > 3 || (k > 0 && k < 0.25) {
+				return fmt.Errorf("%s: tone contrast 0.25..3", m.ID)
+			}
+			for _, v := range d.ToneOffset {
+				if math.IsNaN(v) || math.Abs(v) > 20 {
+					return fmt.Errorf("%s: tone offset within ±20 per Lab axis", m.ID)
+				}
 			}
 		}
 	}
@@ -204,7 +235,7 @@ func run(profilePath, outDir string, strict bool) error {
 			}
 			o := output{ID: m.ID, Pack: fmt.Sprintf("terrain-materials-%dx", d), Density: d, Path: name, SHA: fmt.Sprintf("%x", sha256.Sum256(encoded.Bytes())), Width: im.Bounds().Dx(), Height: im.Bounds().Dy(), Art: m.Art, Source: m.Source, SourceSHA: m.SHA, Crop: c}
 			if m.Detail != nil {
-				o.Detail = &detailOutput{m.Detail.Source, m.Detail.SHA, dc, m.Detail.Repeats, m.Detail.Gain}
+				o.Detail = &detailOutput{m.Detail.Source, m.Detail.SHA, dc, m.Detail.Repeats, m.Detail.Gain, m.Detail.toneContrast(), m.Detail.ToneOffset}
 			}
 			outputs = append(outputs, o)
 		}
@@ -218,7 +249,7 @@ func run(profilePath, outDir string, strict bool) error {
 	}
 	algorithm := "native aspect centre crop; exact area box; contrast-keeping cross-fade into the half-period shift at the edges"
 	if p.Schema == 2 {
-		algorithm += fmt.Sprintf("; detail: seamless centre crop wrapped repeats x repeats, L* high-pass by three periodic box blurs of radius %d world px, times gain onto the tone's L*", worldmaterial.HighPassRadius)
+		algorithm += fmt.Sprintf("; detail: tone L* scaled about its mean by tone_contrast and tone_offset added in Lab, then cross-faded over %d world px at the edges; seamless centre crop wrapped repeats x repeats, L* high-pass by three periodic box blurs of radius %d world px, times gain onto the tone's L*", worldmaterial.ToneBand, worldmaterial.HighPassRadius)
 	}
 	report := struct {
 		Schema    int      `json:"schema_version"`

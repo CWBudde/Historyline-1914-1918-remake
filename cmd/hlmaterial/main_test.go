@@ -90,7 +90,7 @@ func TestRunWithDetail(t *testing.T) {
 	if err = json.Unmarshal(raw, &report); err != nil {
 		t.Fatal(err)
 	}
-	if len(report.Outputs) != 4 || report.Outputs[0].Detail == nil || report.Outputs[0].Detail.Repeats != 3 || report.Outputs[2].Detail != nil {
+	if len(report.Outputs) != 4 || report.Outputs[0].Detail == nil || report.Outputs[0].Detail.Repeats != 3 || report.Outputs[0].Detail.ToneContrast != 1 || report.Outputs[2].Detail != nil {
 		t.Fatalf("outputs %+v", report.Outputs)
 	}
 	if len(report.Checks) != 1 || report.Checks[0].SuggestedGain == nil || len(report.Checks[0].Tone) == 0 || len(report.Checks[0].Detail) == 0 || len(report.Checks[0].Result) == 0 {
@@ -123,6 +123,24 @@ func TestRunWithDetail(t *testing.T) {
 	// Synthetic stripes are no meadow: the strict run fails after writing the report.
 	if err = run(path, out, true); err == nil || report.Checks[0].Pass {
 		t.Fatal("strict run passed")
+	}
+	for _, k := range []float64{-1, 0.1, 4, math.NaN()} {
+		p.Materials[0].Detail.ToneContrast = k
+		if validate(p) == nil {
+			t.Fatal("tone contrast", k)
+		}
+	}
+	p.Materials[0].Detail.ToneContrast = 1.3
+	if validate(p) != nil {
+		t.Fatal("tone contrast 1.3 rejected")
+	}
+	p.Materials[0].Detail.ToneOffset = [3]float64{0, 0, 25}
+	if validate(p) == nil {
+		t.Fatal("tone offset 25")
+	}
+	p.Materials[0].Detail.ToneOffset = [3]float64{0, 1, -4}
+	if validate(p) != nil {
+		t.Fatal("tone offset rejected")
 	}
 	p.Schema = 1
 	if validate(p) == nil {

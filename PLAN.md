@@ -484,6 +484,11 @@ cross at every period corner. (2026-10-23)
       - G1a tone at the 568×400 period;
       - G1b close-up texture at a 189⅓×133⅓ period;
       - the result replaces `material/grass/summer` once it passes the map check.
+      Candidate (2026-10-23): tone g1a-07 graded by `tone_contrast` 1.42 and `tone_offset`
+      [−2.5, −1, −4], detail g1b-03 at gain 1.67; all 17 checks pass, no seam in a 2×2 mosaic.
+      Generated tones top out at a patch contrast of about 6.5 and drift in blue, hence the grade; the
+      style preamble's light direction made every tone diagonal until the tone prompt dropped it.
+      Profile, mosaics and every try under `build/review/gen-2026-10-23/`. Map check open.
 - [ ] Meadow G2 (prop sheet); scatter layer (§1.3) with a density table per family and Poisson-disc
       placement seeded by world position.
 - [ ] Hills: generate G3 (hummock and scrub overlay), 4–6 L\* darker than grass, with 6–10 scrub props per

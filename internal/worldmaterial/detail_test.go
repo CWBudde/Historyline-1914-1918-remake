@@ -75,6 +75,38 @@ func TestTiledRepeats(t *testing.T) {
 	}
 }
 
+func TestGrade(t *testing.T) {
+	src := noise(40, 30, 110, 30, 9)
+	got, err := Grade(src, 1.5, [3]float64{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	m0, s0 := stats(newPlane(src).l)
+	m1, s1 := stats(newPlane(got).l)
+	if math.Abs(m1-m0) > 0.3 || math.Abs(s1/s0-1.5) > 0.02 {
+		t.Fatalf("mean %v→%v, sigma %v→%v", m0, m1, s0, s1)
+	}
+	if same, _ := Grade(src, 1, [3]float64{}); same.NRGBAAt(3, 4) != src.NRGBAAt(3, 4) {
+		t.Fatal("an empty grade changed the image")
+	}
+	// A b* offset moves the mean b* and leaves L*.
+	shifted, err := Grade(solid(image.Rect(0, 0, 4, 4), color.NRGBA{100, 107, 40, 255}), 1, [3]float64{0, 0, -5})
+	if err != nil {
+		t.Fatal(err)
+	}
+	l0, _, b0 := toLab(color.NRGBA{100, 107, 40, 255})
+	l1, _, b1 := toLab(shifted.NRGBAAt(1, 1))
+	if math.Abs(l1-l0) > 0.5 || math.Abs(b1-b0+5) > 0.5 {
+		t.Fatalf("L* %v→%v, b* %v→%v", l0, l1, b0, b1)
+	}
+	if _, err := Grade(src, 0, [3]float64{}); err == nil {
+		t.Fatal("zero factor")
+	}
+	if _, err := Grade(src, 1, [3]float64{math.NaN(), 0, 0}); err == nil {
+		t.Fatal("NaN offset")
+	}
+}
+
 func TestCombine(t *testing.T) {
 	tone := solid(image.Rect(0, 0, 40, 30), color.NRGBA{100, 107, 40, 255})
 	detail := noise(40, 30, 110, 50, 7)
