@@ -61,7 +61,7 @@ func TestLayoutFillsWindow(t *testing.T) {
 	}
 }
 
-// The panel height sets the cell scale for 7½ rows; extra width shows more
+// The panel height sets the cell scale for 8½ rows; extra width shows more
 // columns, and a narrow window keeps 7 columns and shows more rows instead.
 func TestLayoutCellScale(t *testing.T) {
 	for _, w := range windows {
@@ -80,10 +80,10 @@ func TestLayoutCellScale(t *testing.T) {
 					t.Errorf("%s: %d×%d cells at the smallest scale", name, s.Cols, s.Rows)
 				}
 			default:
-				if s.Cols < MinCols || s.Rows < TargetRows || bh < 7.5*hexgrid.HexHeight {
-					t.Errorf("%s: %d×%d cells, want at least %d columns and 7½ rows", name, s.Cols, s.Rows, MinCols)
+				if s.Cols < MinCols || s.Rows < TargetRows || bh < (TargetRows+.5)*hexgrid.HexHeight {
+					t.Errorf("%s: %d×%d cells, want at least %d columns and 8½ rows", name, s.Cols, s.Rows, MinCols)
 				}
-				// Either the height decides (exactly 7½ rows) or the width (7 columns).
+				// Either the height decides (exactly 8½ rows) or the width (7 columns).
 				heightBound := math.Abs(bh*s.CellScale-float64(p.H)) < 1e-6 && s.Rows == TargetRows
 				if !heightBound && s.Cols != MinCols {
 					t.Errorf("%s: scale %.4f set by neither height nor width (%d×%d)", name, s.CellScale, s.Cols, s.Rows)
@@ -114,11 +114,11 @@ func TestLayoutExamples(t *testing.T) {
 		cols, rows int
 		scale      float64
 	}{
-		{1280, 720, 1, Rect{0, 0, 632, 680}, 7, 7, 680.0 / 600},
-		{1920, 1080, 1, Rect{0, 0, 952, 1040}, 7, 7, 1040.0 / 600},
-		{1920, 1080, 2, Rect{0, 0, 944, 1000}, 7, 7, 1000.0 / 600},
-		{3840, 2160, 2, Rect{0, 0, 1904, 2080}, 7, 7, 2080.0 / 600},
-		{3440, 1440, 1, Rect{0, 0, 1712, 1400}, 9, 7, 1400.0 / 600},
+		{1280, 720, 1, Rect{0, 0, 632, 680}, 8, 8, 680.0 / 680},
+		{1920, 1080, 1, Rect{0, 0, 952, 1040}, 8, 8, 1040.0 / 680},
+		{1920, 1080, 2, Rect{0, 0, 944, 1000}, 8, 8, 1000.0 / 680},
+		{3840, 2160, 2, Rect{0, 0, 1904, 2080}, 8, 8, 2080.0 / 680},
+		{3440, 1440, 1, Rect{0, 0, 1712, 1400}, 11, 8, 1400.0 / 680},
 		{1024, 768, 1, Rect{0, 0, 504, 728}, 7, 8, 504.0 / 522},
 	}
 	for _, tc := range tests {
@@ -131,8 +131,9 @@ func TestLayoutExamples(t *testing.T) {
 }
 
 // The default zoom shows a hex at the same share of the screen at 1080p and 4K,
-// at any UI scale: 8.3–8.9 % of the width (the column step 6.1–6.6 %) and about
-// 13 % of the height per cell, from the 7½ rows fitted to the panel height.
+// at any UI scale: 7.3–7.9 % of the width (the column step 5.4–5.8 %), as the
+// original's 7.5 %, and about 11 % of the height per cell, from the 8½ rows
+// fitted to the panel height.
 func TestDefaultHexShare(t *testing.T) {
 	for _, tc := range []struct {
 		w, h int
@@ -142,7 +143,7 @@ func TestDefaultHexShare(t *testing.T) {
 		hex := hexgrid.HexWidth * s.CellScale / float64(tc.w)
 		step := hexgrid.HalfPitch * s.CellScale / float64(tc.w)
 		cell := hexgrid.HexHeight * s.CellScale / float64(tc.h)
-		if s.Zoom != DefaultZoom || hex < .083 || hex > .089 || step < .061 || step > .066 || cell < .123 || cell > .135 {
+		if s.Zoom != DefaultZoom || hex < .073 || hex > .079 || step < .054 || step > .058 || cell < .108 || cell > .116 {
 			t.Errorf("%dx%d@%v: hex %.2f %%, column step %.2f %% of the width, cell %.2f %% of the height", tc.w, tc.h, tc.ui, 100*hex, 100*step, 100*cell)
 		}
 	}

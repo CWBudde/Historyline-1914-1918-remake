@@ -139,7 +139,7 @@ scales them with its art (2×, optional 4×).
 ##### Remake design
 
 - **Layout** (`layout.go`, pure maths, table-tested): two equal panels, the divider and the two status
-  bars fill the window at any aspect ratio. The panel height sets the cell scale so that at least 7½ rows
+  bars fill the window at any aspect ratio. The panel height sets the cell scale so that at least 8½ rows
   fit; extra width shows more columns (no letterboxing). The UI scale works as now. The smallest window
   keeps 7×6 cells per panel.
 - **Frame** (drawn at runtime, not one painting): a tileable steel texture masked by the union of the
@@ -518,11 +518,10 @@ cross at every period corner. (2026-10-23)
         and a hole of that radius would clear 46 % of each hex into a visible lattice.
 
       Review under `build/review/unit-rim/`.
-- [ ] Default zoom at 1080p so a hex covers about 7 % of the screen width, as in the original and at 4K.
-      Measured (2026-10-23): the default game (`-rules dos`) fits 7½ rows per panel as the original
-      does, so a hex covers 8.3–8.9 % of the width (column step 6.1–6.6 %) at 1080p, 1440p and 4K, at
-      UI 100 % and 200 % (`TestDefaultHexShare`). Open: keep this, or start one zoom step out
-      (0.75: hex 6.5 %, about 10 rows).
+- [x] Default zoom at 1080p so a hex covers about 7 % of the screen width, as in the original and at 4K.
+      (2026-10-23) — the split screen fits 8½ rows per panel (`dosscreen.TargetRows` 8, was 7½), so
+      a hex covers 7.3–7.9 % of the width at 1080p, 1440p and 4K, at UI 100 % and 200 %
+      (`TestDefaultHexShare`); review under `build/review/default-zoom/`.
 - [ ] Winter cells pick seasonal infrastructure and water IDs. Rail bridges draw a rail deck, not a road
       deck: the standing item is chosen by the crossing family, in `mapcompose/standing.go`.
       Waits for art (2026-10-23): `assets/index.json` has no winter road, path, rail, trench or stream

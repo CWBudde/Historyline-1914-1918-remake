@@ -50,9 +50,9 @@ than the reference (meadow σL\* 15.3, scrub 14.4), but the render shows 4.9.
    cast shadows; paintings carry only form shading.
 6. **Do not attach the original's screenshots** to a prompt. Describe the original in words and use it for
    metrics only.
-7. **Judge at the real size.** At 1080p the default zoom shows a hex at 96×80 px, which is 5 % of the screen
-   width; the original shows a hex at 7.5 %. Review every family at 1× and at an effective zoom of 1.6, the
-   planned split screen.
+7. **Judge at the real size.** At 1080p the default split screen shows a hex at about 147×122 px, 7.6 %
+   of the screen width (an effective zoom of 1.53); the original shows a hex at 7.5 %. Review every family
+   at 1× and at an effective zoom of 1.6.
 
 ## World scale and value targets
 

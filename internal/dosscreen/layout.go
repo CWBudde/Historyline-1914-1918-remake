@@ -29,8 +29,9 @@ const (
 	// MinCols is the fewest columns a panel shows down to the smallest window.
 	MinCols = 7
 	// TargetRows is the cells per column the panel height is fitted to; with the
-	// half-cell shift of every other column that is 7½ rows, as in the original.
-	TargetRows = 7
+	// half-cell shift of every other column that is 8½ rows, so a hex covers
+	// about 7.5 % of a 16:9 screen's width, as in the original.
+	TargetRows = 8
 	// MinRows is the fewest cells per column a panel shows in the smallest window.
 	MinRows = 6
 	// MinScale is the smallest cell scale per step of UI scale (device pixels per
@@ -84,7 +85,7 @@ type Screen struct {
 
 // Layout splits a physW × physH window at UI scale ui (1 = 100 %; ≤ 0 counts as
 // 1). The panels, the divider and the status band fill the window; the panel
-// height sets the cell scale for 7½ rows, extra width shows more columns, and a
+// height sets the cell scale for 8½ rows, extra width shows more columns, and a
 // window too narrow for MinCols columns at that scale shrinks the cells to keep
 // them (showing more rows). The scale never drops below MinScale × ui. The
 // screen starts at DefaultZoom; Zoomed picks another level.
