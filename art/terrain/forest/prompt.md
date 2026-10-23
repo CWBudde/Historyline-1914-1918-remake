@@ -4,7 +4,7 @@ title: Forest
 kind: terrain
 status: candidate
 runtime_ids: forest, forest_w
-masters: forest-floor-summer-v4.png, forest-oak-summer-v4.png, forest-beech-summer-v4.png, forest-birch-summer-v4.png, forest-crowns-summer-v3.png, forest-crowns-winter-v3.png, forest-crowns-inset-summer-v3.png, forest-crowns-inset-winter-v3.png, forest-crowns-summer-v2.png, forest-crowns-winter-v2.png, forest-crowns-inset-summer-v2.png, forest-crowns-inset-winter-v2.png, forest-crowns-spaced-summer-v2.png, forest-crowns-initial-winter-v2.png, forest-crowns-initial-summer-v2.png, forest-crowns-summer-v1.png, forest-crowns-winter-v1.png, forest-floor-summer-v5.png, forest-crowns-summer-v5.png, forest-floor-summer-v6.png, forest-crowns-summer-v6.png
+masters: forest-floor-summer-v4.png, forest-oak-summer-v4.png, forest-beech-summer-v4.png, forest-birch-summer-v4.png, forest-crowns-summer-v3.png, forest-crowns-winter-v3.png, forest-crowns-inset-summer-v3.png, forest-crowns-inset-winter-v3.png, forest-crowns-summer-v2.png, forest-crowns-winter-v2.png, forest-crowns-inset-summer-v2.png, forest-crowns-inset-winter-v2.png, forest-crowns-spaced-summer-v2.png, forest-crowns-initial-winter-v2.png, forest-crowns-initial-summer-v2.png, forest-crowns-summer-v1.png, forest-crowns-winter-v1.png, forest-floor-summer-v5.png, forest-crowns-summer-v5.png, forest-floor-summer-v6.png, forest-crowns-summer-v6.png, forest-crowns-winter-v4.png
 ---
 
 ## Look
@@ -12,7 +12,9 @@ Summer woodland uses a dark mossy floor and twelve whole oak, beech and birch cr
 2×2 atlases. Small connected leaf masses, olive/moss values, restrained warm upper-left light and
 irregular silhouettes match the existing painted terrain. Crowns thin at woodland edges and overhang
 their owning hex. Singles and small copses reuse these crowns in meadow, with clear unit foot points.
-Winter retains the four-crown v3 atlas and its existing exports; winter layering belongs to Phase 7.
+Winter forest scatters the F3 sheet `forest-crowns-winter-v4.png` (spruce, fir and bare broadleaf, cut by
+`hlkit`) over the snow tile; the four-crown v3 atlas exports remain for winter forest beside
+infrastructure.
 
 ## Base prompt
 Strict nadir hand-painted European woodland. Opaque dark mossy forest-floor material with fine leaf
@@ -32,6 +34,27 @@ edges into neighbouring forest, and towards non-forest neighbours the canopy thi
 the border. Scale and light must match the house, hq and mountain art.
 
 ## Post
+
+### Look 7 F3 winter crowns v4 (2026-10-23)
+
+`forest-crowns-winter-v4.png` (`exec-0fd58d12`, native 1254×1254 RGBA, unchanged) is the F3 edit of the
+F2 v6 sheet: rows 1 and 2 are spruce and fir crowns in dark green (mean about 60,66,53, L\* 25–28) with
+sparse snow caps on the upper-left branch tips, row 3 bare broadleaf branch networks in dark wood
+(about 75,67,61). Crowns are 1.15–1.2× the v6 footprints (194–359 px); `hlkit` scales them to 16/22/28
+world px. Faults: the bare crowns' fine twigs are a semi-transparent haze (cover 7–21 % of the cell), and
+the conifers are slightly radial. Selected for the winter scatter kit (`kit/forest/crowns-winter`).
+Attached: the summer sheet `forest-crowns-summer-v6.png` as the edit target. Third of three tries
+(`build/review/gen-2026-10-23/f3/review.md`). The prompt was:
+
+```text
+Use case: lighting-weather. Edit target is the supplied 3x3 crown sheet; keep canvas, cells, crown centres and footprints. Rows 1 and 2 become winter spruce and fir crowns seen strictly from above; row 3 becomes leafless birch and oak branch networks seen from above with transparent gaps between branches. Same sizes, same upper-left light.
+Conifers (rows 1 and 2): dark green needles, not blue and not teal: overall mean about RGB 34,48,38, shade about RGB 16,26,20, lit needle tips about RGB 70,90,64. Snow only as small settled caps on the upper-left-facing branch tips: about one fifth of each crown's area is white snow, the other four fifths dark needles. The previous try painted bluish-teal needles under snow covering about half of each crown; make the needles greener and darker and the snow much sparser.
+Bare broadleaf (row 3): dark grey-brown branches and twigs, about RGB 62,54,48, with only a thin line of snow on the upper side of the larger branches; the twig network is denser toward the centre, so the opaque branches cover about a third of the crown's circle. The previous try painted pale grey-white twigs; make them dark wood.
+Avoid: brown blobs, pale grey fills, blue or teal needles, heavy snow cover, white frosted balls, ground, shadow mats, halos, side views, text.
+
+Image 1 is the selected summer crown sheet (the edit target): keep its 1254x1254 canvas, its 3x3 cells, every crown centre and outline footprint and the alpha-zero gutters; change the season only.
+```
+
 
 ### Look 2 F2 candidate v6 (2026-10-23)
 

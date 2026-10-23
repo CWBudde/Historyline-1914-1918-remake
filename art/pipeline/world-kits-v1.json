@@ -10,6 +10,13 @@
        {"cell": "r1c1", "size": 16, "runtime": "standing/scatter/crown/oak-16"}, {"cell": "r1c2", "size": 22, "runtime": "standing/scatter/crown/oak-22"}, {"cell": "r1c3", "size": 28, "runtime": "standing/scatter/crown/oak-28"},
        {"cell": "r2c1", "size": 16, "runtime": "standing/scatter/crown/beech-16"}, {"cell": "r2c2", "size": 22, "runtime": "standing/scatter/crown/beech-22"}, {"cell": "r2c3", "size": 28, "runtime": "standing/scatter/crown/beech-28"},
        {"cell": "r3c1", "size": 16, "runtime": "standing/scatter/crown/birch-16"}, {"cell": "r3c2", "size": 22, "runtime": "standing/scatter/crown/birch-22"}, {"cell": "r3c3", "size": 28, "runtime": "standing/scatter/crown/birch-28"}]},
+    {"id": "kit/forest/crowns-winter", "art": "terrain/forest", "source": "art/terrain/forest/forest-crowns-winter-v4.png", "source_sha256": "e3fb61328277a95b8bf5f51f358304405ebbca9b39479e750e31c319cb051ebf",
+     "grid": [3, 3], "cut": 32, "min_area": 16, "scale": 10,
+     "shadow": {"rgb": [18, 26, 16], "opacity": 0.6, "length": 0.25},
+     "cells": [
+       {"cell": "r1c1", "size": 16, "grade_rgb": [46, 60, 42], "runtime": "standing/scatter/crown/spruce-16"}, {"cell": "r1c2", "size": 22, "grade_rgb": [46, 60, 42], "runtime": "standing/scatter/crown/spruce-22"}, {"cell": "r1c3", "size": 28, "grade_rgb": [46, 60, 42], "runtime": "standing/scatter/crown/spruce-28"},
+       {"cell": "r2c1", "size": 16, "grade_rgb": [46, 60, 42], "runtime": "standing/scatter/crown/fir-16"}, {"cell": "r2c2", "size": 22, "grade_rgb": [46, 60, 42], "runtime": "standing/scatter/crown/fir-22"}, {"cell": "r2c3", "size": 28, "grade_rgb": [46, 60, 42], "runtime": "standing/scatter/crown/fir-28"},
+       {"cell": "r3c1", "size": 16, "runtime": "standing/scatter/crown/bare-16"}, {"cell": "r3c2", "size": 22, "runtime": "standing/scatter/crown/bare-22"}, {"cell": "r3c3", "size": 28, "runtime": "standing/scatter/crown/bare-28"}]},
     {"id": "kit/grass/props-summer", "art": "terrain/grass", "source": "art/terrain/grass/grass-props-summer-v1.png", "source_sha256": "81119060870d779e9fb18ab5e9ad3de989e67f4d3aa55add2cd66fedeb5ca609",
      "grid": [4, 4], "cut": 32, "min_area": 16, "scale": 10,
      "cells": [
