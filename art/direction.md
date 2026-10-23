@@ -146,9 +146,12 @@ scaled to the 568×400 period, and G1b is made seamless and wrapped 3×3 across 
 high-passed: three periodic box blurs of radius 4 world px, about a 12-world-px kernel, are subtracted.
 It is multiplied by one gain and added to G1a's L\*; a\* and b\* stay G1a's. The report suggests the
 gain that brings σL\* to 11.5 without exceeding the 3–10 band cap; edge density usually wants a little
-more. Generated tones stop at a patch contrast of about 6.5 and drift in blue, so the profile grades
-G1a first (`tone_contrast`, `tone_offset`). In the G1a prompt, replace the preamble's light from the
-upper left with flat overcast light: with it, every tone came out in diagonal bands.
+more. Generated tones drift in blue and in patch contrast, so the profile grades G1a first
+(`tone_contrast`, `tone_offset`). Keep the patches faint: on the PULSE map check, a tone graded to
+σ 8.9 read as camouflage blotches (grass cell means σL\* 7.3 against 4.3 in the reference), and the
+round 20–60-world-px patches the G1a prompt asks for stay visible even when graded down; the next
+G1a should ask for faint, ragged, smaller patches. In the G1a prompt, replace the preamble's light
+from the upper left with flat overcast light: with it, every tone came out in diagonal bands.
 
 **G1a tone.** Attach: ref crops r7c5–r8c4 and r16c4–r19c4.
 
@@ -171,7 +174,7 @@ matter, because the gain sets it.
 
 | Stage | Check |
 | --- | --- |
-| G1a | mean within 8 of RGB 100,107,40 per channel; σ of the radius-10 box mean of L\* 8–12 (leaves room for about 4 L\* of detail in each band) |
+| G1a | mean within 8 of RGB 100,107,40 per channel; σ of the radius-10 box mean of L\* 4–6 (PULSE clean grass: about 5; the rest of the grass σL\* is fine detail) |
 | G1b | band ratio RMS(1/3) / RMS(3/10) 0.85–1.25 (reference 1.05); no dark component (8 L\* below its radius-10 box mean) wider than 12 world px; CV of the 3/10 band RMS over 50-world-px windows ≤ 0.25 |
 | Result | the grass row above; lattice autocorrelation < 0.15 at (71,40), (142,0), (0,80), (0,160) and (284,0); autocorrelation at the G1b repeat (189,0) and (0,133) < 0.3 |
 | On the map | PULSE at 1× and 1.6× beside the same ref crops; unit edge contrast on grass not lower than with the current meadow |

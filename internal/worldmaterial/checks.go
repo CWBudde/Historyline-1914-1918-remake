@@ -200,7 +200,7 @@ func bandCV(p *plane) float64 {
 func ToneChecks(tone *image.NRGBA) []Check {
 	p := newPlane(tone)
 	_, sigma := stats(boxMean(p.l, p.w, p.h, 10))
-	return append(rgbChecks(tone), within("sigma L* of the radius-10 box mean", sigma, 8, 12))
+	return append(rgbChecks(tone), within("sigma L* of the radius-10 box mean", sigma, 4, 6))
 }
 
 // DetailChecks measures a detail layer (G1b) wrapped over the period at 1×.
