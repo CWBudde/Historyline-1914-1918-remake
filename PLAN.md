@@ -539,14 +539,25 @@ cross at every period corner. (2026-10-23)
       | road | 14.4 | 31.0 |
       | water | 12.1 | 25.9 |
 
-      Open:
-      - **Forest:** it stays far short of 30, because a dark rim has no headroom against dark crowns. It
-        needs a lighter forest or a light inner edge.
-      - **Rim width:** a 1.5-world-px rim would give grass 31.0, road 33.9 and water 28.8 (forest 14.8).
-      - **The 0.3-hex keep-out:** not built. Units draw above every terrain pass, so no prop hides one,
-        and a hole of that radius would clear 46 % of each hex into a visible lattice.
+      (2026-10-24) — the rim is 1.5 world px wide and follows the unit's hex (`unitsprite.RimFor`):
+      muted pale (RGB 196,190,162) on forest and open water without infrastructure, the dark ground
+      where a dark rim has no headroom; dark elsewhere, also on bridges and forest roads. The game caches
+      both dressings per sprite; `tools/reference-design` dresses each fixture as the game would.
+      Median unit edge ΔL\* (144 sprites, `TestUnitEdgeContrastMeetsTheTarget`):
 
-      Review under `build/review/unit-rim/`.
+      | Terrain | Dark 1 px (graded terrain) | Now |
+      | --- | --- | --- |
+      | grass | 30.0 | 33.0 |
+      | forest | 14.2 | 40.5 |
+      | road | 35.2 | 38.3 |
+      | water | 20.6 | 34.7 |
+
+      A dark 1.5-px rim alone left water at 22.9.
+      Open: **the 0.3-hex keep-out**, not built. Units draw above every terrain pass, so no prop hides
+      one, and a hole of that radius would clear 46 % of each hex into a visible lattice.
+
+      Review under `build/review/unit-rim/` and `build/review/unit-rim-forest/` (`compare-units.png`:
+      before and after on forest, water, grass and road).
 - [x] Default zoom at 1080p so a hex covers about 7 % of the screen width, as in the original and at 4K.
       (2026-10-23) — the split screen fits 8½ rows per panel (`dosscreen.TargetRows` 8, was 7½), so
       a hex covers 7.3–7.9 % of the width at 1080p, 1440p and 4K, at UI 100 % and 200 %
