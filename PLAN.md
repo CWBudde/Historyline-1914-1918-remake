@@ -517,8 +517,10 @@ cross at every period corner. (2026-10-23)
       off the model. On PULSE and campaign map 23 every clean pair lies on the
       model: within 0.05 world px for baked items, within the anchor rounding for scattered crowns
       (`TestLightModelShadows`). The legacy painted shadows (24,29,22 at 0.32, offset 3,4) are gone.
-      Open: rocks and buildings have no standing art to cast from (Look 5, the rock kits), and the
-      winter forest casts no shadow. Review under `build/review/light-model/`.
+      The winter forest casts too (2026-10-24): on Civil all 4,235 scattered winter crowns lie on the
+      model at 2× and 4× (`TestLightModelShadows`, Look 7 F3).
+      Open: rocks and buildings have no standing art to cast from (Look 5, the rock kits). Review under
+      `build/review/light-model/`.
 - [ ] Units:
       - a soft contact shadow, about 45 % black: the silhouette blurred and cast to the lower right (an
         ellipse cannot sit under loose infantry figures or a ship);
@@ -728,7 +730,20 @@ stones.
 
 ##### Look 7: Winter
 
-- [ ] The F3 winter crowns are placed like summer, so the brown hexagons go.
+- [x] The F3 winter crowns are placed like summer, so the brown hexagons go.
+      (2026-10-24) — `forest-crowns-winter-v4.png` (F3, an edit of the F2 v6 sheet, third of three tries
+      under `build/review/gen-2026-10-23/f3/`) has spruce and fir crowns in dark green with sparse snow,
+      and bare broadleaf branch networks. `hlkit` cuts it into `standing/scatter/crown/{spruce,fir,bare}-*`
+      with code-cast shadows. `mapcompose` scatters them on winter forest like the summer crowns (oak →
+      spruce, beech → fir, birch → bare), on the snow tile instead of the dark context floor
+      (`TestCrownScatterFillsWinterForestWithWinterCrowns`).
+      All 174/97/314 winter forest hexes of Civil, Mouse and campaign 15 scatter, so their context
+      tiles drop from 233 to 59 (Civil) and from 175 to 78 (Mouse).
+      `TestTerrainGradeWinterTargets`:
+      - winter forest L\* 31.5 against snow 87.9, so −56 (was −36.5; target ≤ −35);
+      - snow beside the forest, measured apart, 82.6–83.9 under the spilled crowns and shadows.
+      Open: the bare stands' soft twig shadows stack into a grey wash. Before/after under
+      `build/review/winter-crowns/`.
 - [ ] Winter edits of G1, G4, G6, G7, G8 and G9.
 - [ ] Winter water: I1 shore ice and an I2 grade or edit, with ice where the depth is low.
 - [ ] Winter strips and kits (R1–R5), and the I3 edits of rocks and bridges.
