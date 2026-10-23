@@ -302,35 +302,22 @@ func TestSplitFollowsTheComputer(t *testing.T) {
 	if want != g.startHex(1) && g.split.cams[1].left == 0 && (g.split.cams[1].pair != 0 || g.split.cams[1].row != 0) {
 		t.Error("the computer's panel jumped instead of sliding")
 	}
-	// The resolution freezes the computer's view while the human side sees
-	// its moves walk; the human panel follows the walker and the computer's
-	// panel looks at each move.
+	// The resolution freezes the computer's view; its moves are not walked
+	// again on the human panel.
 	confirmOrders(t, d)
 	d.Tick()
 	if d.otherFrozen == nil || !maps.Equal(d.unitsOf(1, false), d.otherFrozen.Units) {
 		t.Fatal("the computer's view is not frozen during the resolution")
 	}
-	walks, looked := 0, 0
 	for range 10000 {
 		if !d.busy() {
 			break
 		}
 		if !d.walk.Done() {
-			walks++
-			if d.follow[1] != nil {
-				looked++
-			}
-			g.followSplit()
-			if !viewShows(g.splitView(d.side), g.grid, d.walk.Hex()) {
-				t.Fatalf("the walker on %v is out of the human panel", d.walk.Hex())
-			}
-			d.SkipWalk()
+			t.Fatalf("the computer's move %v walks again on the human panel", d.walk.path)
 		}
 		d.DismissReport()
 		d.Tick()
-	}
-	if walks == 0 || looked != walks {
-		t.Errorf("%d revealed walks, the computer's panel looked at %d", walks, looked)
 	}
 	if d.otherFrozen != nil || d.frozen != nil {
 		t.Error("a view stays frozen")

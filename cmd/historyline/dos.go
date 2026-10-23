@@ -80,8 +80,8 @@ type sideCache struct {
 }
 
 type shownKey struct {
-	version, pending int
-	reveal           bool
+	version int
+	reveal  bool
 }
 
 var _ driver = (*dosControl)(nil)
@@ -335,6 +335,11 @@ func (d *dosControl) move(to hexgrid.Coord) {
 // way it went.
 func (d *dosControl) walkAlong(ev dosplay.Event) {
 	d.walk = newWalkMotion(ev.Path, ev.Unit, d.reduced)
+	d.face(ev)
+}
+
+// face turns the unit of a move event the way it went.
+func (d *dosControl) face(ev dosplay.Event) {
 	if n := len(ev.Path); n >= 2 {
 		d.turn(ev.Unit, ev.Path[n-2], ev.Path[n-1])
 	}
@@ -453,15 +458,16 @@ func (d *dosControl) step() {
 	case dosplay.Skipped:
 		d.Message = fmt.Sprintf("an attack order on hex %d,%d found no unit", ev.To.Line, ev.To.Col)
 	case dosplay.PhaseChanged:
+		// As in the original, the other side's moves are not played again:
+		// its units stand where they went as soon as the new mode shows.
+		for len(d.queue) > 0 && d.queue[0].Kind == dosplay.Revealed {
+			d.face(d.queue[0])
+			d.queue = d.queue[1:]
+		}
 		d.unfreeze()
 		d.startNewMode(ev)
 	case dosplay.Revealed:
-		if ev.Side != d.side {
-			d.walkAlong(ev)
-			if len(ev.Path) > 0 {
-				d.lookAt(ev.Side, ev.Path[len(ev.Path)-1])
-			}
-		}
+		d.face(ev)
 	case dosplay.Captured:
 		d.captured(ev)
 	case dosplay.Ended:
@@ -583,20 +589,13 @@ func (d *dosControl) units(reveal bool) map[hexgrid.Coord]dosplay.UnitView {
 }
 
 // unitsOf are the units drawn on side's panel, by hex: its frozen view while
-// a resolution plays, else its view (the true view with reveal) with the other
-// side's moves still to be revealed at their start.
+// a resolution plays, else its view (the true view with reveal).
 func (d *dosControl) unitsOf(side int, reveal bool) map[hexgrid.Coord]dosplay.UnitView {
 	if f := d.frozenOf(side); f != nil {
 		return f.Units
 	}
-	pending := 0
-	for _, ev := range d.queue {
-		if ev.Kind == dosplay.Revealed && ev.Side != side {
-			pending++
-		}
-	}
 	c := &d.views[side]
-	key := shownKey{version: d.s.Version(), pending: pending, reveal: reveal}
+	key := shownKey{version: d.s.Version(), reveal: reveal}
 	if c.shown != nil && c.shownAt == key {
 		return c.shown
 	}
@@ -605,28 +604,8 @@ func (d *dosControl) unitsOf(side int, reveal bool) map[hexgrid.Coord]dosplay.Un
 		tv := d.s.TrueView()
 		v = &tv
 	}
-	units := v.Units
-	if pending > 0 {
-		units = maps.Clone(units)
-		for _, ev := range d.queue {
-			if ev.Kind != dosplay.Revealed || ev.Side == side || len(ev.Path) == 0 {
-				continue
-			}
-			u := d.s.Unit(ev.Unit)
-			for p, w := range units {
-				if w.Index == ev.Unit {
-					u = w
-					delete(units, p)
-				}
-			}
-			if _, inside := v.Buildings[ev.Path[0]]; !inside {
-				u.At = ev.Path[0]
-				units[u.At] = u
-			}
-		}
-	}
-	c.shown, c.shownAt = units, key
-	return units
+	c.shown, c.shownAt = v.Units, key
+	return v.Units
 }
 
 // buildings are the buildings drawn on the human side's panel, by entrance.

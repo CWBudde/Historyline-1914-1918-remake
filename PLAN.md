@@ -1075,8 +1075,9 @@ own and leaves the game playable.
        panel and banners, the side's own map for fog; flag `-rules dos|standard|classic`.
        (2026-10-21) — `dosControl` (`dos.go`, `dosview.go`): moves, exits through the contents menu,
        attack orders with numbered markers, F1 confirms and reopens, the resolution plays back from the
-       frozen view (battle panel, hits, destroyed units leave), revealed moves walk, then the phase banner;
-       the end blocks input. The computer side plans through `dosPlanner` (a pass planner until step 4).
+       frozen view (battle panel, hits, destroyed units leave), then the phase banner with the other side's
+       moves already in place (2026-10-23: no replay, as in the original); the end blocks input. The
+       computer side plans through `dosPlanner` (a pass planner until step 4).
        `dos_test.go` plays level 1 to annihilation by clicks; `-rules dos` runs and `-capture` writes its
        frames.
 4. [x] Computer side on the order cycle: moves towards targets, attack orders on targets in range,

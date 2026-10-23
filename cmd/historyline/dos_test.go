@@ -426,7 +426,9 @@ func (approachPlanner) Plan(s *dosplay.Session, side int) ([]dosplay.Event, erro
 	return append(evs, s.Confirm(side)...), nil
 }
 
-func TestDosRevealedWalks(t *testing.T) {
+// The other side's moves are not played again at the phase change: no walk
+// plays, and as soon as the views unfreeze its units stand where they went.
+func TestDosRevealedAtOnce(t *testing.T) {
 	d := newDosTest(t, "level1_cp", approachPlanner{})
 	d.Tick()
 	finish(t, d) // the computer has planned its movement phase now
@@ -441,31 +443,25 @@ func TestDosRevealedWalks(t *testing.T) {
 	}
 	confirmOrders(t, d)
 	d.Tick()
-	walks, newMode := 0, false // the walks follow the new mode
+	moved, newMode := 0, false
 	for range 10000 {
 		if !d.busy() {
 			break
 		}
 		if !d.walk.Done() {
-			w := d.walk
-			if d.frozen != nil || !newMode || w.path[0] != before[w.unit.(int)] {
-				var ks []string
-				for _, ev := range d.queue {
-					ks = append(ks, ev.Kind.String()+fmt.Sprint(ev.Side, ev.Path))
-				}
-				t.Fatalf("walk %v of unit %v (%d before): frozen %v, new mode %v, stood on %v; queue %v", w.path, w.unit, walks, d.frozen != nil, newMode, before[w.unit.(int)], ks)
-			}
-			// Units whose move is still to come stand where they stood.
+			t.Fatalf("walk %v of unit %v at the phase change", d.walk.path, d.walk.unit)
+		}
+		if d.frozen == nil {
 			for _, ev := range d.queue {
-				if ev.Kind == dosplay.Revealed && ev.Side == 1 {
-					if u, ok := d.units(false)[ev.Path[0]]; !ok || u.Index != ev.Unit {
-						t.Errorf("unit %d waiting for its walk is not on %v", ev.Unit, ev.Path[0])
-					}
+				if ev.Kind == dosplay.Revealed {
+					t.Fatalf("revealed move of unit %d still queued after the views unfroze", ev.Unit)
 				}
 			}
-			walks++
-			for !d.walk.Done() {
-				d.Tick()
+			for idx := range before {
+				u := d.s.Unit(idx)
+				if w, ok := d.units(false)[u.At]; !u.Destroyed && !u.Held && (!ok || w.Index != idx) {
+					t.Fatalf("unit %d not shown at %v once the views unfroze", idx, u.At)
+				}
 			}
 		}
 		d.Tick()
@@ -473,12 +469,12 @@ func TestDosRevealedWalks(t *testing.T) {
 			newMode = true
 		}
 	}
-	if walks == 0 || !newMode {
-		t.Errorf("%d revealed walks, new mode %v", walks, newMode)
-	}
 	for idx, p := range before {
-		if u := d.s.Unit(idx); !u.Destroyed && !u.Held && d.own().Units[u.At].Index != idx {
-			t.Errorf("unit %d (was %v) not shown at %v after the reveal", idx, p, u.At)
+		if u := d.s.Unit(idx); !u.Destroyed && u.At != p {
+			moved++
 		}
+	}
+	if moved == 0 || !newMode {
+		t.Errorf("%d computer units moved, new mode %v", moved, newMode)
 	}
 }
