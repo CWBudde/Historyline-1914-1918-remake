@@ -11,13 +11,12 @@ import (
 )
 
 // The placeholder palette: olive-grey steel from dark to light (as the
-// frame's), brown name plates with brass edges and rivets.
+// frame's), brown name plates with brass edges.
 var (
 	steelDark  = color.RGBA{0x24, 0x24, 0x1C, 0xFF}
 	steelLight = color.RGBA{0xB2, 0xB2, 0xA6, 0xFF}
 	plateBrown = color.RGBA{0x42, 0x34, 0x26, 0xFF}
 	plateEdge  = color.RGBA{0x1C, 0x14, 0x0C, 0xFF}
-	brassLight = color.RGBA{0xE0, 0xBC, 0x6C, 0xFF}
 	brass      = color.RGBA{0xA8, 0x80, 0x3C, 0xFF}
 	brassDark  = color.RGBA{0x58, 0x40, 0x1C, 0xFF}
 	ringLight  = color.RGBA{0xD8, 0xD8, 0xC8, 0xFF}
@@ -113,8 +112,8 @@ func (p painter) well(r image.Rectangle) {
 	p.bevel(r, toneBack, false)
 }
 
-// namePlate is a brown plate with a dark edge, a brass line and a brass
-// rivet in each corner.
+// namePlate is a brown plate with a dark edge, a brass line and a steel
+// rivet in each corner, one at each end on a low plate.
 func (p painter) namePlate(r image.Rectangle) {
 	r = r.Intersect(p.img.Rect)
 	w := p.bw()
@@ -139,29 +138,36 @@ func (p painter) namePlate(r image.Rectangle) {
 	in := 3.5 * p.k
 	rad := math.Max(1.2, 1.3*p.k)
 	x0, x1 := float64(r.Min.X)+in, float64(r.Max.X)-in
-	y0, y1 := float64(r.Min.Y)+in, float64(r.Max.Y)-in
-	for _, c := range [][2]float64{{x0, y0}, {x1, y0}, {x0, y1}, {x1, y1}} {
-		p.rivet(c[0], c[1], rad)
+	ys := []float64{float64(r.Min.Y) + in, float64(r.Max.Y) - in}
+	if ys[1]-ys[0] < 4*rad { // too low for two: one at mid height
+		ys = []float64{float64(r.Min.Y+r.Max.Y) / 2}
+	}
+	for _, y := range ys {
+		p.rivet(x0, y, rad)
+		p.rivet(x1, y, rad)
 	}
 }
 
-// rivet is a brass dome of radius rad at (cx, cy), lit from the top left.
+// rivet is a steel dome of radius rad at (cx, cy), lit from the top left
+// with a soft shadow to the bottom right, as the frame's.
 func (p painter) rivet(cx, cy, rad float64) {
-	lx, ly, lz := -0.5, -0.5, 0.707
-	for y := int(cy - rad - 1); y <= int(cy+rad+1); y++ {
-		for x := int(cx - rad - 1); x <= int(cx+rad+1); x++ {
-			dx, dy := (float64(x)+0.5-cx)/rad, (float64(y)+0.5-cy)/rad
-			d2 := dx*dx + dy*dy
-			cov := math.Min(1, (1-math.Sqrt(d2))*rad+0.5) // an antialiased rim
-			if cov <= 0 || !(image.Point{x, y}).In(p.img.Rect) {
+	l := math.Sqrt(0.5 + 0.5 + 1.5*1.5)
+	lx, ly, lz := -math.Sqrt2/2/l, -math.Sqrt2/2/l, 1.5/l
+	for y := int(cy - rad - 2); y <= int(cy+rad*1.5+2); y++ {
+		for x := int(cx - rad - 2); x <= int(cx+rad*1.5+2); x++ {
+			if !(image.Point{x, y}).In(p.img.Rect) {
 				continue
 			}
-			l := dx*lx + dy*ly + math.Sqrt(math.Max(0, 1-d2))*lz
-			c := lerp(brassDark, brass, l*2)
-			if l > 0.5 {
-				c = lerp(brass, brassLight, (l-0.5)*2)
+			dx, dy := float64(x)+0.5-cx, float64(y)+0.5-cy
+			d := math.Hypot(dx, dy)
+			if sd := math.Hypot(dx-rad*0.4, dy-rad*0.4); sd < rad+0.5 && d >= rad {
+				p.blend(x, y, ramp(0.1), 0.5*math.Min(1, rad+0.5-sd))
 			}
-			p.blend(x, y, c, cov)
+			if cov := math.Min(1, rad+0.5-d); cov > 0 { // an antialiased rim
+				nx, ny := dx/rad, dy/rad
+				nz := math.Sqrt(math.Max(0, 1-nx*nx-ny*ny))
+				p.blend(x, y, ramp(0.12+0.8*math.Max(0, nx*lx+ny*ly+nz*lz)), cov)
+			}
 		}
 	}
 }
