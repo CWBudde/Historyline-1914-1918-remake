@@ -298,7 +298,7 @@ func (g *Game) unitOf(c Command) (int, error) {
 //     message 0x45) that is a target of the unit (Target). Assumed, not
 //     verified: as for a move, the attacker must be on the side's map, not
 //     held in a container and the occupant of its cell.
-//   - A repair or a build needs an own building, the movement phase and the
+//   - A repair or a build needs an own building, the action phase and the
 //     energy (energy.go).
 //
 // The move order code refuses a destination itself (EvRefused), as it does

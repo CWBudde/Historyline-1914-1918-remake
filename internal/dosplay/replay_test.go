@@ -39,7 +39,7 @@ func repairBuild(t *testing.T, s *Session) []Event {
 }
 
 // played is a session on lv after a few command cycles (a confirmation
-// withdrawn, on Civil a repair and a build) and an open move, and the
+// withdrawn, on Civil a repair and a build in side 0's first action phase) and an open move, and the
 // events of all its commands.
 func played(t *testing.T, lv *level.Level, o Options) (*Session, []Event) {
 	t.Helper()
@@ -48,10 +48,11 @@ func played(t *testing.T, lv *level.Level, o Options) (*Session, []Event) {
 	evs := s.Confirm(0)
 	evs = append(evs, s.Unconfirm(0)...)
 	evs = append(evs, s.Unconfirm(0)...) // not confirmed: no command
+	evs = append(evs, cycle(t, s, approach)...)
 	if lv.MapName == "Civil" {
 		evs = append(evs, repairBuild(t, s)...)
 	}
-	for range 3 {
+	for range 2 {
 		evs = append(evs, cycle(t, s, approach)...)
 	}
 	mv := 1 - must(s.Game.Action())

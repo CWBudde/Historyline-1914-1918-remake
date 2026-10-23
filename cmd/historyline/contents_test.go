@@ -191,9 +191,16 @@ func TestContentsCursorRestrict(t *testing.T) {
 	leaves := d.cannotLeave(d.box.hold, *u) == ""
 	check("no energy, a unit", unit, want{moveOut: leaves})
 	check("no energy, empty", empty, want{})
+	// Builds and repairs wait for the action phase (the manual's action cycle).
 	d.s.Game.Energy[d.side] = 500
-	check("energy, a unit", unit, want{moveOut: leaves, produce: true, repair: true})
-	check("energy, empty", empty, want{produce: true})
+	check("movement phase, a unit", unit, want{moveOut: leaves})
+	check("movement phase, empty", empty, want{})
+	finish(t, d)
+	g.split.mode[d.side] = panelMap
+	d.openContents(f)
+	d.s.Game.Energy[d.side] = 500
+	check("action phase, a unit", unit, want{produce: true, repair: true})
+	check("action phase, empty", empty, want{produce: true})
 	// The details name the actions with their costs.
 	d.box.sel = unit
 	details := strings.Join(g.contentsView().Details, "\n")
@@ -202,15 +209,11 @@ func TestContentsCursorRestrict(t *testing.T) {
 			t.Errorf("details lack %q: %q", w, details)
 		}
 	}
-	// In the action phase nothing leaves, is built or repaired.
-	finish(t, d)
-	g.split.mode[d.side] = panelMap
-	d.openContents(f)
-	check("action phase", unit, want{produce: false, repair: false})
 }
 
 func TestContentsCursorProduce(t *testing.T) {
 	g, d, f := newContentsTest(t)
+	finish(t, d) // builds are given in the action phase
 	openFactory(t, g, d, f)
 	d.s.Game.Energy[d.side] = 500
 	_, units, _ := d.s.Contents(d.side, f)
@@ -251,6 +254,7 @@ func TestContentsCursorProduce(t *testing.T) {
 
 func TestContentsCursorRepair(t *testing.T) {
 	g, d, f := newContentsTest(t)
+	finish(t, d) // repairs are given in the action phase
 	openFactory(t, g, d, f)
 	d.s.Game.Energy[d.side] = 100
 	idx := d.boxSlots()[d.box.sel].Unit.Index

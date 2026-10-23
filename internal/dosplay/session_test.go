@@ -678,6 +678,7 @@ func TestRepairAndBuild(t *testing.T) {
 		}
 	}
 	s := session(t, lv, Options{})
+	toAction(t, s)
 	s.Game.Energy[0] = 1000
 	repaired, built := false, false
 	for _, p := range Coords(toSet(s.View(0).Buildings)) {

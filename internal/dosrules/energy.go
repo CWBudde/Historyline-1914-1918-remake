@@ -8,14 +8,16 @@ import "slices"
 // experience and resets a construction unit's charges to 2; a factory
 // builds a unit of its build list for the type's price (UNIT.DAT +0x3f,
 // 255 never sold). What a building pays and what it builds are the
-// scenario's (Game.Buildings).
+// scenario's (Game.Buildings). Repairs and builds are given in the side's
+// action phase, as the manual's action cycle; a new unit leaves the building
+// from the next movement phase on.
 //
 // Assumed, not verified:
 //   - Each side is credited after every phase change, with the credits of
 //     every building record it owns (not neutral).
-//   - Repairs and builds are given in the side's movement phase, in an own
-//     building; they mark the unit moved (one order per unit and phase) but
-//     do not enter the order list, so the move limit does not count them.
+//   - Repairs and builds are given in an own building; they mark the unit
+//     moved (one order per unit and phase) but do not enter the order list,
+//     so the move limit does not count them.
 //   - A repair leaves the alternate strength as it is.
 //   - A new unit takes the lowest free live record, the side's highest
 //     serial plus one, a free slot of the side and the building's first
@@ -45,8 +47,8 @@ func (p Profile) repairCost(typ int) int {
 
 // checkBuilding is Check for a repair or a build.
 func (g *Game) checkBuilding(c Command) error {
-	if g.Players[c.Side].Phase != PhaseMovement {
-		return refuse(0, "repairs and builds are given in the movement phase")
+	if g.Players[c.Side].Phase != PhaseAction {
+		return refuse(0, "repairs and builds are given in the action phase")
 	}
 	b, ok := g.Buildings[c.Hold]
 	h, held := g.Holds[c.Hold]

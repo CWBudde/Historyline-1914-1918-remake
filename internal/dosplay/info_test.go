@@ -52,6 +52,17 @@ func civil(t *testing.T) *Session {
 	return session(t, lv, Options{})
 }
 
+// toAction resolves the opening phase, so side 0 is in its action phase,
+// where repairs and builds are given.
+func toAction(t *testing.T, s *Session) {
+	t.Helper()
+	s.Confirm(0)
+	s.Confirm(1)
+	if _, err := s.Resolve(); err != nil || s.Phase(0) != dosrules.PhaseAction {
+		t.Fatalf("resolve: %v, side 0 in phase %d", err, s.Phase(0))
+	}
+}
+
 // The unit info of a light artillery as the original shows it: weapon power
 // and range against air, ground and water, armour, speed, weight and group.
 func TestTypeInfo(t *testing.T) {
@@ -195,6 +206,7 @@ func TestStats(t *testing.T) {
 // Repair and Build; Buildable lists a factory's types with their prices.
 func TestCanRepairAndBuild(t *testing.T) {
 	s := civil(t)
+	toAction(t, s)
 	repaired, built := false, false
 	for _, p := range Coords(toSet(s.View(0).Buildings)) {
 		hold, slots, ok := s.Contents(0, p)

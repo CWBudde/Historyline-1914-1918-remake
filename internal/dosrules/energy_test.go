@@ -19,7 +19,8 @@ const depotRec, depot = HoldFlag100, 76
 // inSlot is a unit placed in a slot of side's part of a record.
 type inSlot struct{ rec, side, slot, unit int }
 
-// energyCycle is hqCycle with side 0's HQ record covering hq0, a depot
+// energyCycle is hqCycle in side 0's action phase (repairs and builds are
+// given there) with side 0's HQ record covering hq0, a depot
 // record of side 1 covering depot, the HQ crediting 20 and building
 // infantry and panzers, the depot crediting 7, a neutral record crediting
 // 99, the units of units and the slots of slots.
@@ -42,6 +43,7 @@ func energyCycle(t *testing.T, p Profile, units map[int]Placement, slots ...inSl
 		HoldFlag40: {Credits: 20, Builds: []int{cInfantry, cPanzer, cBuilder, 13}},
 		depotRec:   {Credits: 7}, depotRec + 1: {Credits: 99},
 	}
+	g.Players[0].Phase, g.Players[1].Phase = PhaseAction, PhaseMovement
 	return g
 }
 
@@ -139,7 +141,7 @@ func TestEnergyRepairRefused(t *testing.T) {
 			}, inSlot{HoldFlag40, 0, 0, 0}, inSlot{depotRec, 1, 0, 1}, inSlot{HoldFlag40, 0, 1, 2})
 			g.Energy = [2]int{49, 100}
 			refusal(t, "a builder without 50", g.Check(Command{Kind: CmdRepair, Side: 0, Hold: HoldFlag40, Slot: 1}), 0)
-			refusal(t, "the action phase", g.Check(Command{Kind: CmdRepair, Side: 1, Hold: depotRec, Slot: 0}), 0)
+			refusal(t, "the movement phase", g.Check(Command{Kind: CmdRepair, Side: 1, Hold: depotRec, Slot: 0}), 0)
 			g.Energy[0] = 14
 			refusal(t, "less than 15", g.Check(Command{Kind: CmdRepair, Side: 0, Hold: HoldFlag40, Slot: 0}), 0)
 
@@ -188,6 +190,9 @@ func TestEnergyBuild(t *testing.T) {
 			}
 
 			g.Energy[0] = 1000
+			g.Players[0].Phase = PhaseMovement
+			refusal(t, "the movement phase", g.Check(Command{Kind: CmdBuild, Side: 0, Hold: HoldFlag40, Type: cInfantry}), 0)
+			g.Players[0].Phase = PhaseAction
 			refusal(t, "a type the building does not build", g.Check(Command{Kind: CmdBuild, Side: 0, Hold: HoldFlag40, Type: cSupply}), 0)
 			refusal(t, "a type never sold", g.Check(Command{Kind: CmdBuild, Side: 0, Hold: HoldFlag40, Type: 13}), 0)
 			refusal(t, "no build list", g.Check(Command{Kind: CmdBuild, Side: 1, Hold: depotRec, Type: cInfantry}), 0)
@@ -203,8 +208,8 @@ func TestEnergyBuild(t *testing.T) {
 	}
 }
 
-// TestEnergyBuildExit builds a unit, waits for side 0's next movement phase
-// and takes it out of the HQ.
+// TestEnergyBuildExit builds a unit in side 0's action phase and takes it out
+// of the HQ in the next movement phase.
 func TestEnergyBuildExit(t *testing.T) {
 	for build, p := range profiles {
 		t.Run(build, func(t *testing.T) {
@@ -214,7 +219,6 @@ func TestEnergyBuildExit(t *testing.T) {
 			g.Energy[0] = 100
 			apply(t, g, Command{Kind: CmdBuild, Side: 0, Hold: HoldFlag40, Type: cInfantry})
 			refusal(t, "an exit in the phase it was built", g.Check(Command{Kind: CmdExit, Side: 0, Hold: HoldFlag40, Slot: 0, Cell: hq0 + 1}), 0)
-			resolve(t, g)
 			resolve(t, g)
 			if g.Players[0].Phase != PhaseMovement {
 				t.Fatalf("phases %+v", g.Players)
