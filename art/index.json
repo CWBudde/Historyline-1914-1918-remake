@@ -6989,9 +6989,15 @@
           "sha256": "218174890ba54d205a7cf9c2ee4e7113dc7e781bc018737989a047f03e5e0b3b",
           "width": 1774,
           "height": 887
+        },
+        {
+          "path": "art/screens/surface/plate.png",
+          "sha256": "232ae0db4670e97a592513106d511bbdab9a38d58c77f4181463365925183057",
+          "width": 1536,
+          "height": 1024
         }
       ],
-      "look": "Seamless surfaces under the panels' drawn plates: dull brushed gunmetal for the steel of the unit,\ncontents and battle panels, trampled dark earth for the ground of the battle scene's hexes, and worn\nbrass rivet heads for the plates' rivets.",
+      "look": "Seamless surfaces under the panels' drawn plates: dull brushed gunmetal for the steel of the unit,\ncontents and battle panels, trampled dark earth for the ground of the battle scene's hexes, and worn\nbrass rivet heads for the plates' rivets. The split screen's frame is built of one riveted hex plate of\nolive gunmetal, drawn on every cell around the view.",
       "base_prompt": "Newly authored artwork for a turn-based World War I hex strategy game set in rural Europe, 1914-1918.\nContinuous hand-painted digital illustration with fine, believable material detail: wool, leather, wood,\nsteel, concrete, earth, grass, stone and water. Restrained, natural palette and calm values so that\nmarkers and units stay readable on top. Soft, diffuse daylight from the upper left with short, soft\nshadows to the lower right. Crisp, antialiased natural edges. Not pixel art, not a pixel enlargement,\nnot a flat vector, not a cartoon, not a photograph or 3D render. No text, letters, numbers, labels,\nlogos, watermarks, flags, national insignia, grid lines, hex outlines, frames, borders, arrows,\nvignettes or checkerboard patterns. Do not copy or trace any existing game's graphics.\n\nSlate and brass interface vocabulary: dark slate panels (#162630), muted blue-grey\nhairlines (#6e8088), aged brass accents (#c4a773) and cream highlights (#eee5d2). Flat, clean shapes with\nsmall corner radii and thin bevels; icons are simple solid glyphs in brass or slate. Painted items\n(weapons, explosions) use the painted medium above on true transparency. Art never contains labels or\nvalues; all text is drawn live.",
       "variants": [
         {
@@ -7008,15 +7014,21 @@
           "variant": "rivets",
           "runtime_ids": [],
           "delta": "`br-01` (exec-e352e306), 1774x887 RGBA, 4x2 heads of about 335 px: the prompt below."
+        },
+        {
+          "variant": "plate",
+          "runtime_ids": [],
+          "delta": "`hp-02` (exec-f8640ba8), 1536x1024 RGBA, the plate filling the 1152x960 cell silhouette: the prompt below."
         }
       ],
       "edges": "",
-      "post": "Masters are used unchanged. `hlasset build-screens` scales each into the screen catalog's `surface`\nfamily: `surface/steel` and `surface/ground` at 512 px at 1x and 1024 px at 2x, wrapping so the tile\nstays seamless, and `surface/rivets` at 512x256 at 1x and 1024x512 at 2x. `internal/dospanel` grades\nthe tiles to its palette: only each texel's colour relative to the tile's mean shows, so colour drift in\na master does not matter. One steel tile spans 256 reference pixels of a panel, one ground tile 96. The\nrivet heads keep their painted hue, brightened evenly so their mean is as light as the panel's brass.\nEach head is cut out of its cell by a circle of its measured centre and radius, which drops the sheet's\nfaint alpha haze; the rivet's shadow is drawn in code.",
+      "post": "Masters are used unchanged. `hlasset build-screens` scales each into the screen catalog's `surface`\nfamily: `surface/steel` and `surface/ground` at 512 px at 1x and 1024 px at 2x, wrapping so the tile\nstays seamless, and `surface/rivets` at 512x256 at 1x and 1024x512 at 2x. `internal/dospanel` grades\nthe tiles to its palette: only each texel's colour relative to the tile's mean shows, so colour drift in\na master does not matter. One steel tile spans 256 reference pixels of a panel, one ground tile 96. The\nrivet heads keep their painted hue, brightened evenly so their mean is as light as the panel's brass.\nEach head is cut out of its cell by a circle of its measured centre and radius, which drops the sheet's\nfaint alpha haze; the rivet's shadow is drawn in code.\n\n`surface/plate` is scaled like a tile (512 px wide at 1x, 1024 px at 2x). `internal/dosscreen` takes its\nopaque box (alpha over half) as the cell's 96x80 box and draws the plate, unchanged in colour, on every\ncell of a panel frame that is not an opening, over the darkest steel, so the teeth are plates with seams\nbetween them; a dark lip is drawn along the openings.",
       "avoid": [
         "rivets, seams, plate edges or frames in the steel",
         "grass, craters, puddles, footprints or objects in the ground",
         "a light direction or a shading gradient across the tile",
-        "slots, crosses, markings, washers or cast shadows on the rivet heads"
+        "slots, crosses, markings, washers or cast shadows on the rivet heads",
+        "a plate outline off the cell silhouette, a centre boss, seams or welds across the plate face"
       ],
       "runtime": {
         "count": 0,

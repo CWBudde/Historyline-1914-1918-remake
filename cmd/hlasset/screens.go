@@ -125,7 +125,8 @@ var fullCaptures = map[string]bool{"capture/hq": true, "capture/hq-open": true}
 const surfaceTile = 512
 
 // surfaceSize is the size of the surface at src at density d: surfaceTile·d
-// wide and as high as the master's proportion gives.
+// wide and d times the height the master's proportion gives at 1x, so every
+// density has the same logical size.
 func surfaceSize(src string, d int) (w, h int, err error) {
 	f, err := os.Open(src)
 	if err != nil {
@@ -136,8 +137,7 @@ func surfaceSize(src string, d int) (w, h int, err error) {
 	if err != nil {
 		return 0, 0, fmt.Errorf("%s: %w", src, err)
 	}
-	w = surfaceTile * d
-	return w, max(1, int(math.Round(float64(w)*float64(c.Height)/float64(c.Width)))), nil
+	return surfaceTile * d, max(1, int(math.Round(surfaceTile*float64(c.Height)/float64(c.Width)))) * d, nil
 }
 
 // scaleTile scales the image at src down to w×h. Each texel is the

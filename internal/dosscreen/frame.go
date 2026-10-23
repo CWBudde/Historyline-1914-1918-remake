@@ -14,10 +14,10 @@ const maxCached = 6
 
 // Frame draws the steel frame over both panels' maps and caches what it painted:
 // the chrome per window size and UI scale, a panel frame per panel rect, cell
-// scale and pattern of on-map cells. Inside the map that pattern does not change
-// with the origin, so scrolling repaints only when a view reaches the map edge,
-// and zooming repaints the panel frames but not the chrome. The zero Frame is
-// ready to use.
+// scale, pattern of on-map cells and plate painting. Inside the map that pattern
+// does not change with the origin, so scrolling repaints only when a view reaches
+// the map edge, and zooming repaints the panel frames but not the chrome. The
+// zero Frame is ready to use.
 type Frame struct {
 	screen  Screen // the chrome's key
 	chrome  *ebiten.Image
@@ -35,6 +35,7 @@ type panelKey struct {
 	scale      float64
 	cols, rows int
 	open       string // which of the view's cells are on the map, column by column
+	plate      int    // the plate painting's generation
 }
 
 // Draw draws the frame of s with the panels' views on dst, over the maps already
@@ -78,7 +79,8 @@ func (f *Frame) panel(v View, g hexgrid.Grid) *ebiten.Image {
 			open.WriteByte('0')
 		}
 	}
-	key := panelKey{v.Panel, v.Scale, v.Cols, v.Rows, open.String()}
+	_, plate := currentPlate()
+	key := panelKey{v.Panel, v.Scale, v.Cols, v.Rows, open.String(), plate}
 	for i, p := range f.panels {
 		if p.key == key {
 			f.panels = append(append(f.panels[:i:i], f.panels[i+1:]...), p)

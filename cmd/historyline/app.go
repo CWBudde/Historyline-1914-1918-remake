@@ -18,6 +18,7 @@ import (
 	"golang.org/x/image/math/fixed"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dospanel"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosscreen"
 )
 
 // canvasW, canvasH is the logical size of every menu page.
@@ -94,6 +95,7 @@ func (a *app) upgrade(hd hdArt) {
 			a.battle.screens = hd.screens
 		}
 		dospanel.SetSurfaces(hd.screens.surfaces())
+		dosscreen.SetPlate(hd.screens.decoded("surface/plate"))
 		if old != nil {
 			old.packs.release()
 		}

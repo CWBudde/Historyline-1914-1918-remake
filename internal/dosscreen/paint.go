@@ -30,14 +30,24 @@ const (
 // lightX, lightY is the direction towards the light on the screen: the top left.
 var lightX, lightY = -math.Sqrt2 / 2, -math.Sqrt2 / 2
 
-// PaintPanel paints the frame of one panel: steel with the view's openings cut out
-// (transparent), a dark lip along the outline, a bevel lit from the top left and a
-// rivet at every tooth vertex. The image covers the panel's rect in screen pixels;
-// the texture follows screen pixels, so it runs on across the panels and chrome.
+// PaintPanel paints the frame of one panel with the view's openings cut out
+// (transparent) and a dark lip along the outline. With a plate painting
+// (SetPlate) every other cell is that plate; without one the frame is drawn
+// steel with a bevel lit from the top left and a rivet at every tooth vertex,
+// its texture following screen pixels so it runs on across the panels and
+// chrome. The image covers the panel's rect in screen pixels.
 func PaintPanel(v View, g hexgrid.Grid) *image.RGBA {
+	pl, _ := currentPlate()
+	return paintPanel(v, g, pl)
+}
+
+func paintPanel(v View, g hexgrid.Grid, pl *plateTex) *image.RGBA {
 	m := Mask(v, g)
 	img := image.NewRGBA(m.Rect)
 	fm := metrics(v.Scale)
+	if pl != nil {
+		fm.bevel = 0
+	}
 	near := newBuckets(m.Rect, Outline(v, g), fm.lip+fm.bevel+1)
 	for y := m.Rect.Min.Y; y < m.Rect.Max.Y; y++ {
 		for x := m.Rect.Min.X; x < m.Rect.Max.X; x++ {
@@ -45,6 +55,17 @@ func PaintPanel(v View, g hexgrid.Grid) *image.RGBA {
 			d, n, ok := near.nearest(float64(x)+0.5, float64(y)+0.5)
 			if open && (!ok || d >= 0.5) {
 				continue // clear
+			}
+			if pl != nil && !open {
+				wx, wy := v.ScreenToWorld(float64(x)+0.5, float64(y)+0.5)
+				c, a := pl.plateAt(wx, wy, v.Scale), 1.0
+				if ok && d < fm.lip+0.5 {
+					// The lip, its inner edge smoothed into the plate.
+					c = mixRGBA(ramp(lipShade), c, math.Max(0, d-fm.lip+0.5))
+					a = math.Min(1, 0.5+d)
+				}
+				setRGBA(img, x, y, c, a)
+				continue
 			}
 			t, a := steelAt(x, y), 1.0
 			if ok {
@@ -63,8 +84,10 @@ func PaintPanel(v View, g hexgrid.Grid) *image.RGBA {
 			setRamp(img, x, y, t, a)
 		}
 	}
-	for _, r := range Rivets(v, g) {
-		paintRivet(img, r, fm.rivetR)
+	if pl == nil {
+		for _, r := range Rivets(v, g) {
+			paintRivet(img, r, fm.rivetR)
+		}
 	}
 	return img
 }
@@ -158,8 +181,10 @@ func paintRivet(img *image.RGBA, c Point, rad float64) {
 }
 
 // setRamp sets (x, y) to position t on the steel ramp with coverage a.
-func setRamp(img *image.RGBA, x, y int, t, a float64) {
-	c := ramp(t)
+func setRamp(img *image.RGBA, x, y int, t, a float64) { setRGBA(img, x, y, ramp(t), a) }
+
+// setRGBA sets (x, y) to the opaque colour c with coverage a.
+func setRGBA(img *image.RGBA, x, y int, c color.RGBA, a float64) {
 	if a >= 1 {
 		img.SetRGBA(x, y, c)
 		return
@@ -296,4 +321,11 @@ func segDist2(s Segment, x, y float64) float64 {
 	f = max(0, min(1, f))
 	dx, dy := x-s.A.X-f*ex, y-s.A.Y-f*ey
 	return dx*dx + dy*dy
+}
+
+// mixRGBA is opaque a mixed towards opaque b by f.
+func mixRGBA(a, b color.RGBA, f float64) color.RGBA {
+	f = math.Max(0, math.Min(1, f))
+	mix := func(p, q uint8) uint8 { return uint8(math.Round(float64(p)*(1-f) + float64(q)*f)) }
+	return color.RGBA{mix(a.R, b.R), mix(a.G, b.G), mix(a.B, b.B), 255}
 }

@@ -4,13 +4,14 @@ title: Panel surfaces
 kind: screen
 status: candidate
 runtime_ids:
-masters: steel.png, ground.png, rivets.png
+masters: steel.png, ground.png, rivets.png, plate.png
 ---
 
 ## Look
 Seamless surfaces under the panels' drawn plates: dull brushed gunmetal for the steel of the unit,
 contents and battle panels, trampled dark earth for the ground of the battle scene's hexes, and worn
-brass rivet heads for the plates' rivets.
+brass rivet heads for the plates' rivets. The split screen's frame is built of one riveted hex plate of
+olive gunmetal, drawn on every cell around the view.
 
 ## Base prompt
 ```text
@@ -36,6 +37,7 @@ values; all text is drawn live.
 | steel | | `bs-01` (exec-35510f46), 1254x1254 opaque: the prompt below. |
 | ground | | `bg-01` (exec-5943484e), 1254x1254 opaque: the prompt below. |
 | rivets | | `br-01` (exec-e352e306), 1774x887 RGBA, 4x2 heads of about 335 px: the prompt below. |
+| plate | | `hp-02` (exec-f8640ba8), 1536x1024 RGBA, the plate filling the 1152x960 cell silhouette: the prompt below. |
 
 steel:
 
@@ -61,6 +63,21 @@ Sprite sheet of eight round-head rivets, LANDSCAPE 1536x768 (2:1), true transpar
 No images are attached.
 ```
 
+plate:
+
+```text
+Single interface piece, LANDSCAPE 1536x1024 (3:2), true transparency. Subject: one raised hexagonal armour plate of a First World War riveted steel frame, seen straight on from the front. The plate fills exactly the grey hexagon of image 1: 1152 px wide and 960 px tall, centred on the canvas, with flat horizontal top and bottom edges 552 px long and pointed corners at the left and right ends of the vertical middle. Alpha zero outside the hexagon (where image 1 is white): no ground plate, no halo, no glow, no cast shadow, no checkerboard.
+
+Plate: thick dull gunmetal steel with an olive cast. The face is very slightly domed, so its middle is a little lighter than its edges. A narrow bevelled rim about 28 px wide runs around all six edges: pale where it faces the light (top edge and upper-left edge), mid on the upper-right and lower-left edges, dark on the bottom and lower-right edges. A thin dark line about 6 px wide traces the very outer edge of the hexagon. Rivets: small round domed steel rivet heads, each about 36 px across (1/32 of the plate width), in a row about 64 px inside each of the six edges and parallel to it: one near each corner and three evenly spaced along each edge between them, 24 rivets in all; each has a small soft highlight on its upper left and a tiny shadow to its lower right. Surface: fine scratches, a few worn patches, faint mottled patina and tiny pits, evenly spread. No seams or lines across the face, no centre boss, no bolts in the middle, no markings, no welds.
+
+Colours: face mean about RGB 84,84,68 (dark olive-grey steel); the lit rim and the rivet highlights about 160,160,144; the darkest rim about 40,36,26. Matte and calm: not shiny, not chrome, not brass, not rusty orange, no blue cast. Soft daylight from the upper left.
+
+Image 1 is a shape template only: take the exact outline and position of its grey hexagon; do not copy its flat grey or its white.
+```
+
+Image 1 was the exact hex cell silhouette (96x80, slanted edges running 25) at 12 px per unit,
+1152x960 in mid grey centred on a white 1536x1024 canvas, drawn in code.
+
 ## Post
 Masters are used unchanged. `hlasset build-screens` scales each into the screen catalog's `surface`
 family: `surface/steel` and `surface/ground` at 512 px at 1x and 1024 px at 2x, wrapping so the tile
@@ -71,8 +88,14 @@ rivet heads keep their painted hue, brightened evenly so their mean is as light 
 Each head is cut out of its cell by a circle of its measured centre and radius, which drops the sheet's
 faint alpha haze; the rivet's shadow is drawn in code.
 
+`surface/plate` is scaled like a tile (512 px wide at 1x, 1024 px at 2x). `internal/dosscreen` takes its
+opaque box (alpha over half) as the cell's 96x80 box and draws the plate, unchanged in colour, on every
+cell of a panel frame that is not an opening, over the darkest steel, so the teeth are plates with seams
+between them; a dark lip is drawn along the openings.
+
 ## Avoid
 - rivets, seams, plate edges or frames in the steel
 - grass, craters, puddles, footprints or objects in the ground
 - a light direction or a shading gradient across the tile
 - slots, crosses, markings, washers or cast shadows on the rivet heads
+- a plate outline off the cell silhouette, a centre boss, seams or welds across the plate face

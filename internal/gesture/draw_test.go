@@ -115,16 +115,33 @@ func TestRingPixels(t *testing.T) {
 		want color.RGBA
 	}{
 		{"inside is transparent", 60, 50, color.RGBA{}},
-		{"inside near the band is transparent", 60, 50 - 40 + 26, color.RGBA{}},
+		{"inside near the band is transparent", 60, 50 - 40 + 15, color.RGBA{}},
 		{"outside is transparent", 2, 2, color.RGBA{}},
-		{"band at the bottom edge", 60, 50 + 40 - 10, steel},
-		{"outline at the bottom edge", 60, 50 + 40 - 2, outline},
-		{"inner outline", 60, 50 + 40 - 22, outline},
-		{"light on the top edge", 60, 50 - 40 + 5, speck},
+		{"outline at the bottom edge", 60, 50 + 40 - 1, outline},
+		{"inner line", 60, 50 + 40 - 13, outline},
 	}
 	for _, tt := range tests {
 		if got := img.RGBAAt(tt.x, tt.y); got != tt.want {
 			t.Errorf("%s: pixel (%d, %d) = %v, want %v", tt.name, tt.x, tt.y, got, tt.want)
+		}
+	}
+	// The rim is lit from the top left: the outer part of the top edge and the
+	// inner part of the bottom edge are lighter than plain steel, the outer
+	// part of the bottom edge and the inner part of the top edge darker.
+	luma := func(x, y int) int { c := img.RGBAAt(x, y); return int(c.R) + int(c.G) + int(c.B) }
+	base := int(steel.R) + int(steel.G) + int(steel.B)
+	for _, tt := range []struct {
+		name    string
+		x, y    int
+		lighter bool
+	}{
+		{"outer top rim", 60, 50 - 40 + 2, true},
+		{"inner top rim", 60, 50 - 40 + 10, false},
+		{"outer bottom rim", 60, 50 + 40 - 3, false},
+		{"inner bottom rim", 60, 50 + 40 - 11, true},
+	} {
+		if l := luma(tt.x, tt.y); (l > base) != tt.lighter || l == base {
+			t.Errorf("%s: pixel (%d, %d) = %v, lighter than steel %v", tt.name, tt.x, tt.y, img.RGBAAt(tt.x, tt.y), tt.lighter)
 		}
 	}
 }

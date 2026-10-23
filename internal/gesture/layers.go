@@ -3,6 +3,7 @@ package gesture
 import (
 	"fmt"
 	"image/color"
+	"math"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 )
@@ -50,21 +51,51 @@ type layer struct {
 	polys [][][2]float64
 }
 
-// ringLayers is the cursor: a band 5 units wide inside a 1-unit outline,
-// transparent inside, with light on the top edge and dark specks at the bends.
+// The cursor ring in units: the original's steel band 3 wide, between dark
+// lines half its 1-pixel outlines wide, so the ring stays fine at high
+// resolution; the band is shaded in ringStrips strips.
+const (
+	ringLine   = 0.5
+	ringBand   = 3
+	ringStrips = 10
+)
+
+// ringLayers is the cursor, as the original's: a steel band between dark
+// lines, transparent inside. The band is a rounded rim lit from the top left:
+// across it the slope turns from outwards to inwards, so each strip of each
+// edge is shaded by how far its slope faces the light (the outer part of the
+// top edge and the inner part of the bottom edge catch it).
 func ringLayers(cx, cy, scale float64) []layer {
 	hex := plate(cx, cy, scale)
 	u := unit * scale
-	ls := []layer{
-		{outline, [][][2]float64{hex, reversed(inset(hex, 7*u))}},
-		{steel, [][][2]float64{inset(hex, u), reversed(inset(hex, 6*u))}},
-		{speck, [][][2]float64{edgeStrip(hex, u, 2*u, 1, 2)}},
+	ls := []layer{{outline, [][][2]float64{hex, reversed(inset(hex, (2*ringLine+ringBand)*u))}}}
+	w := float64(ringBand) / ringStrips
+	for i := range hex {
+		a, b := hex[i], hex[(i+1)%len(hex)]
+		l := math.Hypot(b[0]-a[0], b[1]-a[1])
+		lit := ((b[1]-a[1])*lightDirX - (b[0]-a[0])*lightDirY) / l // outward normal · light
+		for k := range ringStrips {
+			slope := 1 - (2*float64(k)+1)/ringStrips // +1 at the outer edge, -1 at the inner
+			d := ringLine + float64(k)*w
+			ls = append(ls, layer{rimShade(lit * slope), [][][2]float64{edgeStrip(hex, d*u, (d+w)*u, i, i+1)}})
+		}
 	}
-	specks := layer{c: shadow}
-	for _, c := range inset(hex, 3.5*u) {
-		specks.polys = append(specks.polys, square(c[0], c[1], 0.75*u))
+	return ls
+}
+
+// lightDirX, lightDirY is the direction towards the light: the top left.
+var lightDirX, lightDirY = -math.Sqrt2 / 2, -math.Sqrt2 / 2
+
+// rimShade is the steel of a slope facing the light by f (-1..1): towards
+// light where it faces it, towards shadow where it faces away.
+func rimShade(f float64) color.RGBA {
+	to := light
+	if f < 0 {
+		to, f = shadow, -f
 	}
-	return append(ls, specks)
+	f = min(f, 1) * 0.8
+	mix := func(a, b uint8) uint8 { return uint8(math.Round(float64(a) + f*(float64(b)-float64(a)))) }
+	return color.RGBA{mix(steel.R, to.R), mix(steel.G, to.G), mix(steel.B, to.B), 255}
 }
 
 // plateLayers is an action plate: the cell outline filled with raised steel,
@@ -118,20 +149,18 @@ func plate(cx, cy, scale float64) [][2]float64 {
 }
 
 // edgeStrip is the band between insets d0 and d1 of hex along its corners
-// from..to.
+// from..to, wrapping past the last corner.
 func edgeStrip(hex [][2]float64, d0, d1 float64, from, to int) [][2]float64 {
 	o, i := inset(hex, d0), inset(hex, d1)
 	var out [][2]float64
 	for k := from; k <= to; k++ {
-		out = append(out, o[k])
+		out = append(out, o[k%len(o)])
 	}
 	for k := to; k >= from; k-- {
-		out = append(out, i[k])
+		out = append(out, i[k%len(i)])
 	}
 	return out
 }
-
-func square(x, y, h float64) [][2]float64 { return rect(x-h, y-h, x+h, y+h) }
 
 func reversed(p [][2]float64) [][2]float64 {
 	out := make([][2]float64, len(p))
