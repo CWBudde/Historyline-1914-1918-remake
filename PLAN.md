@@ -448,7 +448,7 @@ cross at every period corner. (2026-10-23)
 - [ ] No baked meadow in other families. Hills, mud, stone, forest floor, roads, paths, streams, shores and
       compounds export colour with an alpha falloff over the meadow underlay. Their 8-px canonical edge
       guard goes away.
-- [ ] Grade pass per family and season in `hlasset build-terrain`, to the value targets in the direction:
+- [x] Grade pass per family and season in `hlasset build-terrain`, to the value targets in the direction:
       - lightness range 5–95 % about 8–64;
       - b\* 4–5 lower on land;
       - relief darker than grass;
@@ -482,16 +482,43 @@ cross at every period corner. (2026-10-23)
       Unit edge ΔL\* medians move as follows: grass 27.4 → 30.0, road 31.0 → 35.2, forest 13.2 → 14.2,
       and water 25.9 → 20.6, because the darker water meets the dark rim.
 
-      Open: the winter maps are not measured or tuned. Mount stays 3.5 under grass rather than the
-      6–10 of the acceptance table, because its quarters are 50–70 % baked meadow.
+      Mount stays 3.5 under grass rather than the 6–10 of the acceptance table, because its quarters are
+      50–70 % baked meadow (Look 6 / Look 9).
 
       Review under `build/review/terrain-grade/`.
+
+      (2026-10-23) — the winter half, `terraingrade-v3`:
+      - a forest image that is mostly grey (chroma ≤ 12 on half its pixels: summer art ≤ 16 %, winter
+        ≥ 85 %) follows its own darker curve;
+      - winter tiles are compared with the snow meadow (`terraingrade.Meadow`);
+      - the relief row fades out from L\* 70 to 85, so snow on winter relief stays as painted (v2 had
+        greyed it to L\* 76–79).
+
+      `TestTerrainGradeWinterTargets` on Civil and campaign map 15:
+
+      | | Civil | Campaign 15 |
+      | --- | --- | --- |
+      | snow L\* | 87.9 | 87.9 |
+      | winter forest, against snow (painted −24.2) | −36.5 | −36.7 |
+      | winter relief, graded against painted | −1.2 to −2.6 | −1.2 to −2.5 |
+
+      Open winter water (L\* 34.7, chroma 25.9 against 24–32, ≤ 12) needs the winter water art and the
+      seasonal water IDs (below). Review under `build/review/winter-grade/`.
 - [ ] One light and shadow model:
       - azimuth 315°;
       - shadow colour about RGB 18,26,16;
       - length 0.25 × object diameter;
       - opacity: crowns 0.6, rocks 0.45, buildings 0.35.
       Cast shadows of standing items come from code.
+      Partial (2026-10-23): `internal/terrainlight` (`terrainlight-v1`) holds the model. `hlasset
+      build-terrain` and `maprender` draw every painted `standing/shadow/X` as the cast of `standing/X`:
+      its alpha shifted 0.25 × its diameter along 135°, softened, in RGB 18,26,16 at the class opacity.
+      The diameter is the median blob diameter at 2 px per world px. `hlkit` refuses a profile shadow
+      off the model. On PULSE and campaign map 23 every clean pair lies on the
+      model: within 0.05 world px for baked items, within the anchor rounding for scattered crowns
+      (`TestLightModelShadows`). The legacy painted shadows (24,29,22 at 0.32, offset 3,4) are gone.
+      Open: rocks and buildings have no standing art to cast from (Look 5, the rock kits), and the
+      winter forest casts no shadow. Review under `build/review/light-model/`.
 - [ ] Units:
       - a soft contact shadow, about 45 % black: the silhouette blurred and cast to the lower right (an
         ellipse cannot sit under loose infantry figures or a ship);
@@ -1233,6 +1260,11 @@ own and leaves the game playable.
        both sides. (2026-10-21) — partial: `-rules dos` is the default, `-opponent ai` plays
        `dosai.Planner`. Remains: the hand test.
 6. [ ] Energy controls: energy display, repair and production in buildings (`CmdRepair`, `CmdBuild`).
+       (2026-10-23) — repairs and builds are given in the side's action phase, as the manual's action
+       cycle says (they were assumed for the movement phase); a new unit leaves in the next movement
+       phase. `TestFactoryProductionInPlay` plays the shipped levels with no energy set by hand: on Civil
+       each side builds in its factory from its second action phase (energy 60–66 against 55 for the
+       cheapest type); Mouse's factories start neutral and Pulse has none.
 
 ### 4. Computer opponent
 
