@@ -126,14 +126,14 @@ func unclipped(sprite image.Image) error {
 	return nil
 }
 
-// dressed is the 2x unit sprite of family as the game's map draws it, with its
-// rim and contact shadow (unitsprite.Dress), and its logical anchor.
-func dressed(sprite image.Image, family string, anchor [2]float64) (image.Image, [2]float64, error) {
+// dressed is the 2x unit sprite of family as the game's map draws it, with rim r
+// and its contact shadow (unitsprite.Dress), and its logical anchor.
+func dressed(sprite image.Image, family string, anchor [2]float64, r unitsprite.Rim) (image.Image, [2]float64, error) {
 	if err := unclipped(sprite); err != nil {
 		return nil, anchor, err
 	}
 	m := float64(unitsprite.DressMargin(2)) / 2
-	return unitsprite.Dress(sprite, 2, unitsprite.Flies(family)), [2]float64{anchor[0] + m, anchor[1] + m}, nil
+	return unitsprite.Dress(sprite, 2, unitsprite.Flies(family), r), [2]float64{anchor[0] + m, anchor[1] + m}, nil
 }
 
 func summarizeUnit(samples []lookmeasure.EdgeSample) unitContrastStats {
@@ -212,7 +212,7 @@ func unitFixture(id string) *level.Level {
 }
 
 func (p *project) measureUnits(out string) (lookUnits, error) {
-	result := lookUnits{Scope: "all authored families and owner palettes; north-facing normal state only; native 2x runtime art dressed as the map draws it (dark rim and contact shadow, unitsprite.Dress) and composited before 1x area reduction; four deterministic 5x7 scenes, with a continuous road through grass and homogeneous forest/water/grass elsewhere", Definition: "silhouette is mean unit alpha >= 0.5; edge pixels have a four-connected nonbody neighbour; delta = abs(L*(composite) - L*(bare background)) at the same world pixel; clipped or invalid edges are errors; no passing aggregation is asserted", Sprites: []lookUnitSprite{}, Fixtures: []lookUnitFixture{}, Cases: []lookUnitCase{}}
+	result := lookUnits{Scope: "all authored families and owner palettes; north-facing normal state only; native 2x runtime art dressed as the map draws it (the rim of the unit's hex, pale in forest and dark elsewhere, and the contact shadow, unitsprite.Dress) and composited before 1x area reduction; four deterministic 5x7 scenes, with a continuous road through grass and homogeneous forest/water/grass elsewhere", Definition: "silhouette is mean unit alpha >= 0.5; edge pixels have a four-connected nonbody neighbour; delta = abs(L*(composite) - L*(bare background)) at the same world pixel; clipped or invalid edges are errors; no passing aggregation is asserted", Sprites: []lookUnitSprite{}, Fixtures: []lookUnitFixture{}, Cases: []lookUnitCase{}}
 	raw, err := fs.ReadFile(p.assets, "index.json")
 	if err != nil {
 		return result, err
@@ -282,12 +282,14 @@ func (p *project) measureUnits(out string) (lookUnits, error) {
 				return result, fmt.Errorf("unit %s dimensions differ from catalogue", id)
 			}
 			result.Sprites = append(result.Sprites, lookUnitSprite{id, e.SHA, 2, e.Width, e.Height, e.Anchor})
-			sprite, anchor, err := dressed(src, family, e.Anchor)
-			if err != nil {
-				return result, fmt.Errorf("%s: %w", id, err)
-			}
 			for _, fixture := range result.Fixtures {
-				stats, composed, err := unitMeasurement(backgrounds[fixture.ID], sprite, hexgrid.Coord{Line: 3, Col: 2}, anchor)
+				at := hexgrid.Coord{Line: 3, Col: 2}
+				h := unitFixture(fixture.ID).Lines[at.Line][at.Col]
+				sprite, anchor, err := dressed(src, family, e.Anchor, unitsprite.RimFor(h.Terrain, len(h.Infra.IDs) > 0))
+				if err != nil {
+					return result, fmt.Errorf("%s: %w", id, err)
+				}
+				stats, composed, err := unitMeasurement(backgrounds[fixture.ID], sprite, at, anchor)
 				if err != nil {
 					return result, fmt.Errorf("%s on %s: %w", id, fixture.ID, err)
 				}

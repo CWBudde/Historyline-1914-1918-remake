@@ -7,11 +7,13 @@ import (
 	"image/draw"
 	"io/fs"
 	"math"
+	"slices"
 	"strings"
 	"testing"
 	"testing/fstest"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
 )
 
 func TestUnitContrastComposesBeforeReduction(t *testing.T) {
@@ -120,32 +122,42 @@ func TestUnitPatchRejectsClippedSpriteAndTranslucentGround(t *testing.T) {
 	}
 }
 
-// A unit painted in the ground's own colour vanishes bare; dressed, its rim
-// lifts the edge contrast past 30. A clipped source is refused before dressing.
+// A unit painted in the ground's own colour vanishes bare; dressed, the dark rim
+// lifts its edge from grass and the pale rim from dark forest. The 1.5-px rim
+// covers the outermost 1x pixel of this aligned square only half, so its median
+// stays under the 30 that the catalogue reaches
+// (TestUnitEdgeContrastMeetsTheTarget). A clipped source is refused before
+// dressing.
 func TestDressedUnitRimRaisesEdgeContrast(t *testing.T) {
-	grass := color.NRGBA{98, 112, 58, 255}
-	ground := image.NewNRGBA(image.Rect(0, 0, 400, 400))
-	draw.Draw(ground, ground.Bounds(), image.NewUniform(grass), image.Point{}, draw.Src)
+	for _, c := range []struct {
+		ground color.NRGBA
+		rim    unitsprite.Rim
+	}{{color.NRGBA{98, 112, 58, 255}, unitsprite.Dark}, {color.NRGBA{50, 62, 26, 255}, unitsprite.Light}} {
+		ground := image.NewNRGBA(image.Rect(0, 0, 400, 400))
+		draw.Draw(ground, ground.Bounds(), image.NewUniform(c.ground), image.Point{}, draw.Src)
+		sprite := image.NewNRGBA(image.Rect(0, 0, 40, 40))
+		draw.Draw(sprite, image.Rect(10, 10, 30, 30), image.NewUniform(c.ground), image.Point{}, draw.Src)
+		at := hexgrid.Coord{}
+		bare, _, err := unitMeasurement(ground, sprite, at, [2]float64{10, 10})
+		if err != nil {
+			t.Fatal(err)
+		}
+		dressedSprite, anchor, err := dressed(sprite, "infantry", [2]float64{10, 10}, c.rim)
+		if err != nil {
+			t.Fatal(err)
+		}
+		dress, _, err := unitMeasurement(ground, dressedSprite, at, anchor)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if *bare.Median > 1 || *dress.Median < 15 {
+			t.Fatalf("rim %d: median edge ΔL* bare %.1f, dressed %.1f", c.rim, *bare.Median, *dress.Median)
+		}
+	}
 	sprite := image.NewNRGBA(image.Rect(0, 0, 40, 40))
-	draw.Draw(sprite, image.Rect(10, 10, 30, 30), image.NewUniform(grass), image.Point{}, draw.Src)
-	at := hexgrid.Coord{}
-	bare, _, err := unitMeasurement(ground, sprite, at, [2]float64{10, 10})
-	if err != nil {
-		t.Fatal(err)
-	}
-	dressedSprite, anchor, err := dressed(sprite, "infantry", [2]float64{10, 10})
-	if err != nil {
-		t.Fatal(err)
-	}
-	dress, _, err := unitMeasurement(ground, dressedSprite, at, anchor)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if *bare.Median > 1 || *dress.Median < 30 {
-		t.Fatalf("median edge ΔL* bare %.1f, dressed %.1f", *bare.Median, *dress.Median)
-	}
+	draw.Draw(sprite, image.Rect(10, 10, 30, 30), image.NewUniform(color.NRGBA{98, 112, 58, 255}), image.Point{}, draw.Src)
 	sprite.SetNRGBA(0, 20, color.NRGBA{A: 255})
-	if _, _, err := dressed(sprite, "infantry", [2]float64{10, 10}); err == nil {
+	if _, _, err := dressed(sprite, "infantry", [2]float64{10, 10}, unitsprite.Dark); err == nil {
 		t.Fatal("clipped source dressed")
 	}
 }
@@ -223,6 +235,29 @@ func TestUnitMeasurementHandlesOpaqueWhite(t *testing.T) {
 		}
 		if stats.Median == nil || math.Abs(*stats.Median-100) > 1e-9 {
 			t.Fatalf("white/black contrast %+v", stats)
+		}
+	}
+}
+
+// Dressed as the map draws them, the 144 sprites reach the direction's unit
+// edge ΔL* of 30 against grass, forest, road and water (the median of the
+// per-sprite medians).
+func TestUnitEdgeContrastMeetsTheTarget(t *testing.T) {
+	got, err := loadFixture(t).measureUnits("")
+	if err != nil {
+		t.Fatal(err)
+	}
+	medians := map[string][]float64{}
+	for _, c := range got.Cases {
+		medians[c.Fixture] = append(medians[c.Fixture], *c.Stats.Median)
+	}
+	for _, f := range []string{"grass", "forest", "road", "water"} {
+		m := medians[f]
+		slices.Sort(m)
+		mid := (m[(len(m)-1)/2] + m[len(m)/2]) / 2
+		t.Logf("%s: median edge ΔL* %.1f over %d sprites (min %.1f)", f, mid, len(m), m[0])
+		if mid < 30 {
+			t.Errorf("%s: median edge ΔL* %.1f, want ≥ 30", f, mid)
 		}
 	}
 }
