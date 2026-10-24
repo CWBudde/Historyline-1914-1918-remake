@@ -7,7 +7,7 @@ size, anchor, art key such as `terrain/road`); packed entries are in pack order.
 
 ```sh
 go run ./cmd/hlasset build -density 2 -out build/packs/interface-2x        # interface (1, 2 or 4)
-go run ./cmd/hlasset build-units   -out build/packs/units                  # 48 unit families
+go run ./cmd/hlasset build-units   -out build/packs/units                  # 48 unit families, 3 long ships
 go run ./cmd/hlasset build-terrain -out build/packs/terrain                # tiles, overlays, contexts
 go run ./cmd/hlasset build-screens -out build/packs/screens                # menu frames, controls, paintings
 go run ./cmd/hlasset lite -in build/packs/units -out <dir>                # compressed copy for the web
@@ -40,6 +40,12 @@ use `spent`; remembered enemies are dimmed. Facing is UI state (start north, tur
 the opponent). On the map each sprite is drawn dressed (`unitsprite.Dress`, at its first draw): a rim 1.5 world px
 wide and a soft contact shadow cast to the lower right, further off for aircraft. The rim is dark, and
 muted pale on forest and open water without infrastructure (`unitsprite.RimFor`).
+
+Under the original rules the battleship, the destroyer and the submarine are two-cell ships: a head and a
+rear on neighbouring hexes (`dosplay.UnitView.Rear`/`Head`). The map draws such a ship once, from its long
+family `<family>-long` (`unitsprite.Long`): the same 36 sprites on a 160×160 canvas, anchor (80,80) at the
+midpoint of the two hexes, facing from the rear to the head. Each half keeps its own markers. The remake
+rules keep a ship on one hex and draw its single-hex sprite.
 
 ## Terrain
 

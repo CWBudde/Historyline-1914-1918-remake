@@ -11,8 +11,6 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
 )
 
-const unitLogical = 96 // logical width and height of every unit sprite
-
 // unitPack is one family pack at one density.
 type unitPack struct {
 	Family   string
@@ -41,7 +39,7 @@ func planUnits(entries []indexEntry) ([]unitPack, error) {
 	densities := map[string][]int{}
 	for _, m := range indexPacks(entries, "unit-") {
 		family, d, ok := parsePackID(m.ID, "unit-")
-		if !ok || !slices.Contains(unitsprite.Families(), family) {
+		if !ok || !slices.Contains(unitsprite.AllFamilies(), family) {
 			return nil, fmt.Errorf("pack %q: no sprite family of that name", m.ID)
 		}
 		want := map[string]bool{}
@@ -58,8 +56,8 @@ func planUnits(entries []indexEntry) ([]unitPack, error) {
 				return nil, fmt.Errorf("%s: unknown or duplicate variant %s", m.ID, e.ID)
 			}
 			seen[e.ID] = true
-			if e.Density != d || e.Width != unitLogical*d || e.Height != unitLogical*d {
-				return nil, fmt.Errorf("%s: %s is %dx%d at %dx, not %d logical pixels", m.ID, e.ID, e.Width, e.Height, e.Density, unitLogical)
+			if size := unitsprite.Size(family); e.Density != d || e.Width != size*d || e.Height != size*d {
+				return nil, fmt.Errorf("%s: %s is %dx%d at %dx, not %d logical pixels", m.ID, e.ID, e.Width, e.Height, e.Density, size)
 			}
 		}
 		if len(seen) != len(want) {
@@ -69,7 +67,7 @@ func planUnits(entries []indexEntry) ([]unitPack, error) {
 		packs = append(packs, unitPack{Family: family, Density: d, Manifest: m})
 	}
 	var first []int
-	for i, f := range unitsprite.Families() {
+	for i, f := range unitsprite.AllFamilies() {
 		ds := densities[f]
 		if len(ds) == 0 {
 			return nil, fmt.Errorf("index has no pack for unit family %s", f)

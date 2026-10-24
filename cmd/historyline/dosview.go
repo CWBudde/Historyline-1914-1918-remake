@@ -30,14 +30,23 @@ func newDosGame(lvl *level.Level, s *dosplay.Session, side int, planner dosPlann
 }
 
 // dosWalking reports whether the unit standing on at is still walking there, on
-// the human side's map (the walker is drawn there only).
+// the human side's map (the walker is drawn there only), or is the rear of the
+// walking ship.
 func (g *game) dosWalking(at hexgrid.Coord) bool {
 	w := g.dos.walk
-	if g.shownSide() != g.dos.side || w.Done() || w.path[len(w.path)-1] != at {
+	if g.shownSide() != g.dos.side || w.Done() {
 		return false
 	}
 	u, ok := g.dos.units(g.reveal)[at]
-	return ok && w.unit == u.Index
+	switch {
+	case !ok:
+		return false
+	case w.path[len(w.path)-1] == at:
+		return w.unit == u.Index
+	case len(w.tail) > 0 && w.tail[len(w.tail)-1] == at:
+		return w.unit == u.Index-1
+	}
+	return false
 }
 
 // dosSpent reports whether u is drawn spent: a unit of the map's side with its
@@ -46,10 +55,26 @@ func (g *game) dosSpent(u dosplay.UnitView) bool {
 	return u.Moved && (u.Side == g.shownSide() || g.reveal)
 }
 
-// drawDosUnit draws the unit on c at screen point (sx, sy).
+// drawDosUnit draws the unit on c at screen point (sx, sy). A two-cell ship
+// is drawn once, across both its hexes.
 func (g *game) drawDosUnit(dst *ebiten.Image, c hexgrid.Coord, sx, sy float64) {
 	u := g.dos.unitsOf(g.shownSide(), g.reveal)[c]
-	if g.drawOrigUnit(dst, u, sx, sy, g.dos.Facing(u.Index), g.dosSpent(u)) || g.drawUnitSprite(dst, c, sx, sy, u.ID, u.Owner, g.dosSpent(u), false, g.dos.Facing(u.Index)) {
+	face := g.dos.Facing(u.Index)
+	head, rear, ship := shipHalves(u, c)
+	hx, hy := hexgrid.Center(head)
+	rx, ry := hexgrid.Center(rear)
+	if ship {
+		face = shipFacing(hx, hy, rx, ry)
+	}
+	if g.drawOrigUnit(dst, u, sx, sy, face, g.dosSpent(u)) {
+		return
+	}
+	if ship {
+		if !g.shipDrawnFrom(dst, c, head, rear) || g.drawShip(dst, c, u.ID, u.Owner, g.dosSpent(u), hx, hy, rx, ry) {
+			return
+		}
+		sx, sy = g.cam.WorldToScreen((hx+rx)/2, (hy+ry)/2)
+	} else if g.drawUnitSprite(dst, c, sx, sy, u.ID, u.Owner, g.dosSpent(u), false, face) {
 		return
 	}
 	vector.FillCircle(dst, float32(sx), float32(sy), float32(14*g.cam.Effective()), color.RGBA{230, 230, 230, 255}, true)
@@ -66,7 +91,15 @@ func (g *game) drawWalker(dst *ebiten.Image, unit any, c hexgrid.Coord, sx, sy f
 			return false
 		}
 		v := g.dos.s.Unit(u)
-		return g.drawOrigUnit(dst, v, sx, sy, face, false) || g.drawUnitSprite(dst, c, sx, sy, v.ID, v.Owner, false, false, face)
+		if g.drawOrigUnit(dst, v, sx, sy, face, false) {
+			return true
+		}
+		if w := g.dos.walk; w != nil && len(w.tail) > 0 {
+			hx, hy := w.Pos()
+			rx, ry := w.TailPos()
+			return g.drawShip(dst, c, v.ID, v.Owner, false, hx, hy, rx, ry)
+		}
+		return g.drawUnitSprite(dst, c, sx, sy, v.ID, v.Owner, false, false, face)
 	}
 	return false
 }

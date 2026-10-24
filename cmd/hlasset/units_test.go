@@ -20,8 +20,8 @@ func TestRetainedUnitCatalogBuildsEveryFamilyAndDensity(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(packs) != len(unitsprite.Families())*2 {
-		t.Fatalf("built %d packs, want %d", len(packs), len(unitsprite.Families())*2)
+	if len(packs) != len(unitsprite.AllFamilies())*2 {
+		t.Fatalf("built %d packs, want %d", len(packs), len(unitsprite.AllFamilies())*2)
 	}
 	for _, p := range packs {
 		m := p.Manifest
@@ -45,7 +45,12 @@ func TestRetainedUnitCatalogBuildsEveryFamilyAndDensity(t *testing.T) {
 					if err != nil {
 						t.Fatal(err)
 					}
-					if e.Anchor != [2]float64{48, 49} || e.Width != 96*p.Density || e.Height != 96*p.Density {
+					size, anchor := 96, [2]float64{48, 49}
+					if unitsprite.Size(p.Family) == unitsprite.LongSize {
+						// A long ship's anchor is the midpoint between its two hexes.
+						size, anchor = unitsprite.LongSize, [2]float64{unitsprite.LongSize / 2, unitsprite.LongSize / 2}
+					}
+					if e.Anchor != anchor || e.Width != size*p.Density || e.Height != size*p.Density {
 						t.Fatalf("%s: registration %v %dx%d", e.ID, e.Anchor, e.Width, e.Height)
 					}
 				}
@@ -99,7 +104,7 @@ func TestBuildUnitsCommand(t *testing.T) {
 	if err := run([]string{"build-units", "-assets", assetsRoot, "-out", out}, &output); err != nil {
 		t.Fatal(err)
 	}
-	families := len(unitsprite.Families())
+	families := len(unitsprite.AllFamilies())
 	if !strings.Contains(output.String(), fmt.Sprintf("built %d unit packs (%d families × 2 densities, %d PNG variants; candidate", families*2, families, families*72)) {
 		t.Fatal(output.String())
 	}

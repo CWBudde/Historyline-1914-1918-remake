@@ -124,7 +124,7 @@ func (d *dosControl) can(a gesture.Action, c hexgrid.Coord) bool {
 		hold, units, ok := d.s.Contents(d.side, c)
 		return ok && (len(units) > 0 || len(d.s.Buildable(d.side, hold)) > 0)
 	case gesture.Move, gesture.Attack:
-		u, ok := d.own().Units[c]
+		u, _, ok := shipHead(d.own().Units, c)
 		if !ok || u.Side != d.side || d.s.Ready(d.side) || d.s.CanOrder(d.side, u.Index) != nil {
 			return false
 		}

@@ -30,13 +30,13 @@ _build-dir:
     mkdir -p build
     [ -f build/go.mod ] || printf 'module scratch\n\ngo %s\n' "$(awk '/^go /{print $2}' go.mod)" > build/go.mod
 
-# Packs are built only when missing (a screen catalog without the plate variants,
-# or terrain built with another grade or light or without its 1x packs, is rebuilt);
-# delete build/packs/units, terrain or screens to rebuild.
+# Packs are built only when missing (units without the long ships, a screen catalog
+# without the plate variants, or terrain built with another grade or light or without
+# its 1x packs, is rebuilt); delete build/packs/units, terrain or screens to rebuild.
 [private]
 _packs: _build-dir
     mkdir -p build/packs
-    [ -d build/packs/units ] || go run ./cmd/hlasset build-units -out build/packs/units
+    [ -d build/packs/units/2x/battleship-long ] || { rm -rf build/packs/units; go run ./cmd/hlasset build-units -out build/packs/units; }
     { grep -qs terraingrade-v3 build/packs/terrain/grade && grep -qs terrainlight-v1 build/packs/terrain/grade && [ -d build/packs/terrain/1x ] && [ build/packs/terrain/grade -nt assets/index.json ]; } || { rm -rf build/packs/terrain; go run ./cmd/hlasset build-terrain -out build/packs/terrain; }
     grep -qs surface/plate-4 build/packs/screens/1x/surface/manifest.json || { rm -rf build/packs/screens; go run ./cmd/hlasset build-screens -out build/packs/screens; }
 

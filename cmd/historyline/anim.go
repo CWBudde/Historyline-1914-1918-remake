@@ -11,6 +11,8 @@ type walk struct {
 	path  []hexgrid.Coord
 	unit  any // the engine's key of the walking unit; the last hex may hold its building or carrier
 	frame int
+	// tail is a two-cell ship's rear path, as long as path, one step behind.
+	tail []hexgrid.Coord
 }
 
 func newWalk(path []hexgrid.Coord) *walk {
@@ -56,13 +58,18 @@ func (w *walk) Hex() hexgrid.Coord {
 }
 
 // Pos is the world position of the unit, interpolated between hex centres.
-func (w *walk) Pos() (x, y float64) {
-	last := len(w.path) - 1
+func (w *walk) Pos() (x, y float64) { return w.along(w.path) }
+
+// TailPos is the world position of a walking ship's rear (tail).
+func (w *walk) TailPos() (x, y float64) { return w.along(w.tail) }
+
+func (w *walk) along(path []hexgrid.Coord) (x, y float64) {
+	last := len(path) - 1
 	if w.Done() {
-		return hexgrid.Center(w.path[last])
+		return hexgrid.Center(path[last])
 	}
 	i, f := w.frame/stepFrames, float64(w.frame%stepFrames)/stepFrames
-	x0, y0 := hexgrid.Center(w.path[i])
-	x1, y1 := hexgrid.Center(w.path[i+1])
+	x0, y0 := hexgrid.Center(path[i])
+	x1, y1 := hexgrid.Center(path[i+1])
 	return x0 + (x1-x0)*f, y0 + (y1-y0)*f
 }

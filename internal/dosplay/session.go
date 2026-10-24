@@ -457,7 +457,17 @@ func (s *Session) Move(side, unit int, to hexgrid.Coord) ([]Event, error) {
 	if err := s.canMove(side, unit); err != nil {
 		return nil, err
 	}
-	return s.apply(dosrules.Command{Kind: dosrules.CmdMove, Side: side, Unit: unit, Cell: cell}, s.Game.Units[unit].Cell(side))
+	rear := -1
+	if s.Game.Units[unit].Flags4&0xC0 == 0xC0 {
+		rear = s.Game.Units[unit+1].Cell(side)
+	}
+	evs, err := s.apply(dosrules.Command{Kind: dosrules.CmdMove, Side: side, Unit: unit, Cell: cell}, s.Game.Units[unit].Cell(side))
+	for i, ev := range evs {
+		if rear >= 0 && ev.Kind == Moved && ev.Unit == unit {
+			evs[i].Rear = append([]hexgrid.Coord{s.coord(rear)}, ev.Path[:len(ev.Path)-1]...)
+		}
+	}
+	return evs, err
 }
 
 // Exit takes the unit in slot of side's part of container record hold out

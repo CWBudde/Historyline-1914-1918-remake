@@ -1,0 +1,5 @@
+{
+  "schema_version": 1,
+  "unit": "art/pipeline/unit-battleship-v1.json",
+  "hull_logical": 128
+}

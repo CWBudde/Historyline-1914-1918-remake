@@ -33,6 +33,10 @@ TRUE alpha TRANSPARENCY outside the ship and through gaps. Waterline cutout only
 Selected atlas. `art-review -unit art/pipeline/unit-destroyer-v1.json` produces owner cp/ec/neutral,
 normal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.
 Installed under `assets/units/destroyer/`. Bound classes are listed above; final visual acceptance remains open.
+Two-hex ships: `art/pipeline/unit-destroyer-long-v1.json` (`go test -tags campaigngfx ./tools/art-review -run
+TestGenerateLongShips`) draws the same six panels on a 160×160 canvas for the family `destroyer-long`, anchor
+(80,80) between the ship's two hexes, each panel centred on its hull and scaled to a 128 px hull. Installed
+under `assets/units/destroyer-long/`.
 
 ## Avoid
 - water, wakes, reflections, ground shadows, backdrop or detached fragments

@@ -11,8 +11,7 @@ import (
 
 // An imported original map loads from the embedded files with its campaign
 // level, plays its exact board on the original rules and its campaign level on
-// the remake rules, and shows units the remake has no unit for (a ship's
-// rear) by type.
+// the remake rules, and names every unit, a ship's rear by its ship.
 func TestOriginalMap(t *testing.T) {
 	set, err := data.Load()
 	if err != nil {
@@ -37,20 +36,23 @@ func TestOriginalMap(t *testing.T) {
 	if gm.dos.s.Board != b {
 		t.Error("the session does not play the original map's board")
 	}
-	unnamed := false
+	// A ship's rear is its head's unit: the info box names the ship.
+	rears := 0
 	for at, u := range gm.dos.own().Units {
-		if u.ID != "" {
+		if u.ID == "" {
+			t.Errorf("unit of type %d at %v without a remake unit", u.Type, at)
+		}
+		if u.Head == nil {
 			continue
 		}
+		rears++
 		gm.hover, gm.hoverOnMap, gm.hexNumbers = at, true, true // the dev info box
-		if lines := strings.Join(gm.infoLines(), "\n"); !strings.Contains(lines, fmt.Sprintf("Type %d", u.Type)) {
-			t.Errorf("unit of type %d without a remake unit: %q", u.Type, lines)
+		if lines := strings.Join(gm.infoLines(), "\n"); !strings.Contains(lines, u.Name) || strings.Contains(lines, fmt.Sprintf("Type %d", u.Type)) {
+			t.Errorf("rear of type %d: %q", u.Type, lines)
 		}
-		unnamed = true
-		break
 	}
-	if !unnamed {
-		t.Error("map 06 has no unit without a remake unit")
+	if rears == 0 {
+		t.Error("map 06 has no ship")
 	}
 	for _, rules := range []string{"standard", "classic"} {
 		c.rules = rules

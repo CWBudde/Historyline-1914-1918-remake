@@ -466,6 +466,8 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
 - [ ] 5.1 Briefings, campaign progression, level codes.
 - [ ] 5.2 The level format lacks transporter cargo, ship rears, terrain records that share a look, and
       credits (the original rules keep the exact binding through `dosbind.FromOriginal`).
+      2026-10-24: under the original rules a two-cell ship draws as one long sprite across its head and
+      rear (`<family>-long`), and either half selects it.
 - [ ] 5.3 `Bind` numbers depots and factories by the buildings' first cells where the game takes entrances
       in cell order (Mouse's factories swap).
 - [ ] 5.4 Unit roster: weapon slots use stand-ins from the existing catalogue; deep and shallow water are one.

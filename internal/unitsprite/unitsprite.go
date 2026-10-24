@@ -6,6 +6,7 @@ package unitsprite
 
 import (
 	"fmt"
+	"maps"
 	"math"
 	"slices"
 
@@ -61,7 +62,34 @@ func Family(unitType string) (string, bool) {
 	return f, ok
 }
 
-// Families returns every exported family slug, sorted.
+// longs maps the family of each two-cell ship of the original (battleship,
+// destroyer, submarine) to its long family: the same ship drawn across its
+// head's and its rear's hex, on a LongSize canvas whose anchor is the midpoint
+// between the two hex centres.
+var longs = map[string]string{"battleship": "battleship-long", "destroyer": "destroyer-long", "submarine": "submarine-long"}
+
+// LongSize is the logical width and height of a long family's sprites; every
+// other family's are 96.
+const LongSize = 160
+
+// Long returns the long family of a two-cell ship's family.
+func Long(family string) (string, bool) {
+	l, ok := longs[family]
+	return l, ok
+}
+
+// Size is the logical width and height of family's sprites.
+func Size(family string) int {
+	for _, l := range longs {
+		if l == family {
+			return LongSize
+		}
+	}
+	return 96
+}
+
+// Families returns every exported family slug, sorted; the long families are
+// LongFamilies.
 func Families() []string {
 	var out []string
 	for _, f := range families {
@@ -71,6 +99,17 @@ func Families() []string {
 	}
 	slices.Sort(out)
 	return out
+}
+
+// LongFamilies returns the long families, sorted.
+func LongFamilies() []string {
+	return slices.Sorted(maps.Values(longs))
+}
+
+// AllFamilies returns Families and LongFamilies, sorted: every family with a
+// sprite pack.
+func AllFamilies() []string {
+	return slices.Sorted(slices.Values(append(Families(), LongFamilies()...)))
 }
 
 // ClassIDs returns the unit types drawn by family, sorted.

@@ -34,6 +34,10 @@ IMPORTANT SIMPLIFICATION: this selected battleship has exactly TWO primary turre
 Selected atlas. `art-review -unit art/pipeline/unit-battleship-v1.json` produces owner cp/ec/neutral,
 normal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.
 Installed under `assets/units/battleship/`. Bound classes are listed above; final visual acceptance remains open.
+Two-hex ships: `art/pipeline/unit-battleship-long-v1.json` (`go test -tags campaigngfx ./tools/art-review -run
+TestGenerateLongShips`) draws the same six panels on a 160×160 canvas for the family `battleship-long`, anchor
+(80,80) between the ship's two hexes, each panel centred on its hull and scaled to a 128 px hull. Installed
+under `assets/units/battleship-long/`.
 
 ## Avoid
 - water, wakes, reflections, ground shadows, backdrop or detached fragments

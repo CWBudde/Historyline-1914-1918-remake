@@ -76,6 +76,9 @@ type Event struct {
 	Hold     int // Captured: the building's container record
 	Text     string
 	Raw      dosrules.Event
+	// Rear is the path of a moving two-cell ship's rear, one step behind
+	// Path: from the rear's hex to the one before the goal.
+	Rear []hexgrid.Coord
 }
 
 // The status messages of the rules engine that events carry, beyond the

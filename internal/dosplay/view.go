@@ -34,6 +34,9 @@ type UnitView struct {
 	// Target is the hex of the unit's queued attack; set for the viewing
 	// side's own units.
 	Target *hexgrid.Coord
+	// A two-cell ship is two records: Rear is set on its head, the hex of
+	// its rear, and Head on the rear, the hex of its head.
+	Rear, Head *hexgrid.Coord
 }
 
 // BuildingView is a building: its container record, owner, kind, whether
@@ -83,8 +86,8 @@ func sideOf(flags int) int {
 	return 0
 }
 
-// unitID is the unit id of a live record: the level's, or for a built unit
-// the first id of its type and side.
+// unitID is the unit id of a live record: the level's, its head's for a ship's
+// rear, or for a built unit the first id of its type and side.
 func (s *Session) unitID(idx int) string {
 	if id, ok := s.Board.IDs[idx]; ok {
 		return id
@@ -93,6 +96,10 @@ func (s *Session) unitID(idx int) string {
 		return id
 	}
 	u := s.Game.Units[idx]
+	if u.Flags4&0xC0 == 0x40 {
+		// A two-cell ship's rear is its head's unit.
+		return s.unitID(idx - 1)
+	}
 	id := s.typeID(u.Type, sideOf(u.Flags4))
 	s.ids[idx] = id
 	return id
@@ -176,6 +183,7 @@ func (s *Session) View(side int) View {
 		}
 		v.Units[p] = u
 	}
+	s.linkShips(v.Units)
 	return v
 }
 
@@ -197,6 +205,7 @@ func (s *Session) TrueView() View {
 		uv.Target = s.target(side, i)
 		v.Units[uv.At] = uv
 	}
+	s.linkShips(v.Units)
 	return v
 }
 
@@ -305,4 +314,26 @@ func (s *Session) holdOf(side int, c hexgrid.Coord) (int, bool) {
 		return 0, false
 	}
 	return hold, true
+}
+
+// linkShips sets Rear and Head on the two records of each two-cell ship in
+// units (class bit 0x40; the head, bit 0x80, is the record before its rear).
+func (s *Session) linkShips(units map[hexgrid.Coord]UnitView) {
+	at := make(map[int]hexgrid.Coord, len(units))
+	for c, u := range units {
+		at[u.Index] = c
+	}
+	for c, u := range units {
+		f := s.Game.Units[u.Index].Flags4
+		if f&0x40 == 0 || f&0x80 != 0 {
+			continue
+		}
+		h, ok := at[u.Index-1]
+		if !ok {
+			continue
+		}
+		head := units[h]
+		head.Rear, u.Head = &c, &h
+		units[h], units[c] = head, u
+	}
 }

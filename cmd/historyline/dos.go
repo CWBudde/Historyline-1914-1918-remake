@@ -238,8 +238,8 @@ func (d *dosControl) Click(at hexgrid.Coord) {
 func (d *dosControl) selectAt(at hexgrid.Coord) {
 	d.clear()
 	v := d.own()
-	if u, ok := v.Units[at]; ok && u.Side == d.side {
-		d.selectUnit(at, u)
+	if u, head, ok := shipHead(v.Units, at); ok && u.Side == d.side {
+		d.selectUnit(head, u)
 		return
 	}
 	if b, ok := v.Buildings[at]; ok && b.Owner == d.s.Faction(d.side) {
@@ -338,6 +338,9 @@ func (d *dosControl) move(to hexgrid.Coord) {
 // way it went.
 func (d *dosControl) walkAlong(ev dosplay.Event) {
 	d.walk = newWalkMotion(ev.Path, ev.Unit, d.reduced)
+	if d.walk != nil && len(ev.Rear) == len(ev.Path) {
+		d.walk.tail = ev.Rear
+	}
 	d.face(ev)
 }
 

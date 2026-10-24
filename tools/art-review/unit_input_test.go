@@ -111,6 +111,12 @@ func TestRetainedUnitAtlasInputs(t *testing.T) {
 			continue
 		}
 		t.Run(filepath.Base(path), func(t *testing.T) {
+			if strings.HasSuffix(path, "-long-v1.json") {
+				if _, err := loadShipInputs(path); err != nil {
+					t.Fatal(err)
+				}
+				return
+			}
 			if _, err := loadUnitInputs(path); err != nil {
 				t.Fatal(err)
 			}

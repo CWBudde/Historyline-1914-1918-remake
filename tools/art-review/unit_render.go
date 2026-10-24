@@ -78,11 +78,18 @@ func unitAffineInset(src *image.NRGBA, inset float64) (*image.NRGBA, error) {
 		return nil, errors.New("unit framing inset must be finite and between 0.8 and 1")
 	}
 	scale, offset := unitAffineParameters(cell, inset)
-	if err := compoundCheckTapBudget(384, 384, scale); err != nil {
+	return unitAffineTo(src, 384, scale, offset)
+}
+
+// unitAffineTo resamples the square panel src onto a size×size canvas:
+// destination = offset + scale*source, in pixel edges.
+func unitAffineTo(src *image.NRGBA, size int, scale float64, offset connectionPoint) (*image.NRGBA, error) {
+	cell := src.Bounds().Dx()
+	if err := compoundCheckTapBudget(size, size, scale); err != nil {
 		return nil, err
 	}
-	wx, wy := compoundAxis(384, cell, scale, offset[0]), compoundAxis(384, cell, scale, offset[1])
-	tmp := make([][4]float64, 384*cell)
+	wx, wy := compoundAxis(size, cell, scale, offset[0]), compoundAxis(size, cell, scale, offset[1])
+	tmp := make([][4]float64, size*cell)
 	for y := range cell {
 		for x, weights := range wx {
 			var q [4]float64
@@ -94,15 +101,15 @@ func unitAffineInset(src *image.NRGBA, inset float64) (*image.NRGBA, error) {
 				q[2] += a * float64(p.B)
 				q[3] += a
 			}
-			tmp[y*384+x] = q
+			tmp[y*size+x] = q
 		}
 	}
-	out := image.NewNRGBA(image.Rect(0, 0, 384, 384))
+	out := image.NewNRGBA(image.Rect(0, 0, size, size))
 	for y, weights := range wy {
-		for x := range 384 {
+		for x := range size {
 			var q [4]float64
 			for i, w := range weights.weights {
-				p := tmp[(weights.first+i)*384+x]
+				p := tmp[(weights.first+i)*size+x]
 				for c := range q {
 					q[c] += p[c] * w
 				}

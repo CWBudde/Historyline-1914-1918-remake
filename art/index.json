@@ -11700,13 +11700,13 @@
         }
       ],
       "edges": "",
-      "post": "Selected atlas. `art-review -unit art/pipeline/unit-battleship-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/battleship/`. Bound classes are listed above; final visual acceptance remains open.",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-battleship-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/battleship/`. Bound classes are listed above; final visual acceptance remains open.\nTwo-hex ships: `art/pipeline/unit-battleship-long-v1.json` (`go test -tags campaigngfx ./tools/art-review -run\nTestGenerateLongShips`) draws the same six panels on a 160×160 canvas for the family `battleship-long`, anchor\n(80,80) between the ship's two hexes, each panel centred on its hull and scaled to a 128 px hull. Installed\nunder `assets/units/battleship-long/`.",
       "avoid": [
         "water, wakes, reflections, ground shadows, backdrop or detached fragments",
         "labels, national insignia, clipped extremities or inconsistent equipment between views"
       ],
       "runtime": {
-        "count": 72,
+        "count": 144,
         "densities": [
           2,
           4
@@ -12101,13 +12101,13 @@
         }
       ],
       "edges": "",
-      "post": "Selected atlas. `art-review -unit art/pipeline/unit-destroyer-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/destroyer/`. Bound classes are listed above; final visual acceptance remains open.",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-destroyer-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/destroyer/`. Bound classes are listed above; final visual acceptance remains open.\nTwo-hex ships: `art/pipeline/unit-destroyer-long-v1.json` (`go test -tags campaigngfx ./tools/art-review -run\nTestGenerateLongShips`) draws the same six panels on a 160×160 canvas for the family `destroyer-long`, anchor\n(80,80) between the ship's two hexes, each panel centred on its hull and scaled to a 128 px hull. Installed\nunder `assets/units/destroyer-long/`.",
       "avoid": [
         "water, wakes, reflections, ground shadows, backdrop or detached fragments",
         "labels, national insignia, clipped extremities or inconsistent equipment between views"
       ],
       "runtime": {
-        "count": 72,
+        "count": 144,
         "densities": [
           2,
           4
@@ -14449,13 +14449,13 @@
         }
       ],
       "edges": "",
-      "post": "Selected atlas. `art-review -unit art/pipeline/unit-submarine-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/submarine/`. Bound classes are listed above; final visual acceptance remains open.",
+      "post": "Selected atlas. `art-review -unit art/pipeline/unit-submarine-v1.json` produces owner cp/ec/neutral,\nnormal/spent, and 2×/4× RGBA exports with logical anchor (48,49). No per-facing rotation, mirror or resize.\nInstalled under `assets/units/submarine/`. Bound classes are listed above; final visual acceptance remains open.\nTwo-hex ships: `art/pipeline/unit-submarine-long-v1.json` (`go test -tags campaigngfx ./tools/art-review -run\nTestGenerateLongShips`) draws the same six panels on a 160×160 canvas for the family `submarine-long`, anchor\n(80,80) between the ship's two hexes, each panel centred on its hull and scaled to a 128 px hull. Installed\nunder `assets/units/submarine-long/`.",
       "avoid": [
         "water, wakes, reflections, ground shadows, backdrop or detached fragments",
         "labels, national insignia, clipped extremities or inconsistent equipment between views"
       ],
       "runtime": {
-        "count": 72,
+        "count": 144,
         "densities": [
           2,
           4

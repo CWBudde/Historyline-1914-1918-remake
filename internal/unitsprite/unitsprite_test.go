@@ -51,11 +51,15 @@ func TestFamiliesMatchArt(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	var seen []string
+	var seen, long []string
 	for _, p := range paths {
 		family := strings.TrimSuffix(strings.TrimPrefix(filepath.Base(p), "unit-"), "-v1.json")
 		if family == "panel" {
 			continue // the unit panel manifest
+		}
+		if strings.HasSuffix(family, "-long") {
+			long = append(long, family) // drawn from its ship family's art
+			continue
 		}
 		seen = append(seen, family)
 		got := ClassIDs(family)
@@ -69,6 +73,15 @@ func TestFamiliesMatchArt(t *testing.T) {
 	slices.Sort(seen)
 	if !slices.Equal(seen, Families()) {
 		t.Errorf("pipeline families %v, table %v", seen, Families())
+	}
+	slices.Sort(long)
+	if !slices.Equal(long, LongFamilies()) {
+		t.Errorf("long pipeline families %v, table %v", long, LongFamilies())
+	}
+	for _, f := range Families() {
+		if l, ok := Long(f); ok && (Size(l) != LongSize || Size(f) != 96) {
+			t.Errorf("%s: long family %s", f, l)
+		}
 	}
 }
 

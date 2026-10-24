@@ -486,7 +486,9 @@ func (c *collector) units() error {
 			}
 			_, byID, err := c.group(func(e indexEntry) bool {
 				if kind == "sprite" {
-					return strings.HasPrefix(e.Pack, "unit-"+family+"-")
+					// unit-<family>-<d>x, not the long family's packs.
+					d, ok := strings.CutPrefix(e.Pack, "unit-"+family+"-")
+					return ok && !strings.Contains(d, "-")
 				}
 				return e.Art == "portraits/"+family
 			})

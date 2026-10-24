@@ -116,12 +116,12 @@ func openPacks(fsys fs.FS, opt assets.Options, groups []string, densities []int)
 // openUnitArt opens the whole unit catalog and checks that every family has
 // every sprite at every density, so drawing never meets a missing variant.
 func openUnitArt(fsys fs.FS, opt assets.Options) (*artPacks, error) {
-	a, err := openPacks(fsys, opt, unitsprite.Families(), spriteDensities)
+	a, err := openPacks(fsys, opt, unitsprite.AllFamilies(), spriteDensities)
 	if err != nil {
 		return nil, fmt.Errorf("unit %w", err)
 	}
 	for _, d := range spriteDensities {
-		for _, fam := range unitsprite.Families() {
+		for _, fam := range unitsprite.AllFamilies() {
 			for _, pal := range unitsprite.Palettes {
 				for f := range unitsprite.Facings {
 					for _, s := range unitsprite.States {
@@ -251,12 +251,19 @@ func (g *game) unitRim(c hexgrid.Coord) unitsprite.Rim {
 // line once and the caller falls back to the placeholder dot.
 func (g *game) drawUnitSprite(dst *ebiten.Image, c hexgrid.Coord, sx, sy float64, typ string, owner state.Player, spent, remembered bool, face unitsprite.Facing) bool {
 	if g.art == nil || typ == "" {
-		// A ship's rear has no separate remake unit type.
 		return false
 	}
 	family, id, ok := unitSprite(typ, owner, spent, remembered, face)
 	if !ok {
 		g.artErr = fmt.Sprintf("no sprite family for unit type %s", typ)
+		return false
+	}
+	return g.drawSprite(dst, c, family, id, sx, sy, remembered)
+}
+
+// drawSprite draws sprite id of family as drawUnitSprite does.
+func (g *game) drawSprite(dst *ebiten.Image, c hexgrid.Coord, family, id string, sx, sy float64, remembered bool) bool {
+	if g.art == nil {
 		return false
 	}
 	d := spriteDensity(g.cam.Effective())

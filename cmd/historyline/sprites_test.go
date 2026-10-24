@@ -76,15 +76,16 @@ func testCatalog(t *testing.T, skipFamily, skipID string) fstest.MapFS {
 	t.Helper()
 	fsys := fstest.MapFS{}
 	for _, d := range spriteDensities {
-		var buf bytes.Buffer
-		if err := png.Encode(&buf, image.NewNRGBA(image.Rect(0, 0, 96*d, 96*d))); err != nil {
-			t.Fatal(err)
-		}
-		sum := sha256.Sum256(buf.Bytes())
-		for _, fam := range unitsprite.Families() {
+		for _, fam := range unitsprite.AllFamilies() {
 			if fam == skipFamily {
 				continue
 			}
+			size := unitsprite.Size(fam)
+			var buf bytes.Buffer
+			if err := png.Encode(&buf, image.NewNRGBA(image.Rect(0, 0, size*d, size*d))); err != nil {
+				t.Fatal(err)
+			}
+			sum := sha256.Sum256(buf.Bytes())
 			dir := path.Join(fmt.Sprintf("%dx", d), fam)
 			m := assets.Manifest{Schema: 1, ID: fmt.Sprintf("unit-%s-%dx", fam, d), Status: "candidate"}
 			for _, pal := range unitsprite.Palettes {
@@ -97,7 +98,7 @@ func testCatalog(t *testing.T, skipFamily, skipID string) fstest.MapFS {
 						p := fmt.Sprintf("images/%04d.png", len(m.Entries))
 						fsys[path.Join(dir, p)] = &fstest.MapFile{Data: buf.Bytes()}
 						m.Entries = append(m.Entries, assets.Entry{ID: id, Path: p, SHA256: hex.EncodeToString(sum[:]),
-							Width: 96 * d, Height: 96 * d, Density: d, Anchor: [2]float64{48, 49}})
+							Width: size * d, Height: size * d, Density: d, Anchor: [2]float64{48, 49}})
 					}
 				}
 			}
@@ -116,7 +117,7 @@ func TestOpenUnitArt(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(a.packs) != len(unitsprite.Families())*len(spriteDensities) || !a.candidate {
+	if len(a.packs) != len(unitsprite.AllFamilies())*len(spriteDensities) || !a.candidate {
 		t.Fatalf("%d packs, candidate %v", len(a.packs), a.candidate)
 	}
 	e, err := a.entry("cavalry", unitsprite.ID("cavalry", unitsprite.EC, unitsprite.S, unitsprite.Spent), 4)
