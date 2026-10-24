@@ -188,10 +188,14 @@ oversized grass detail and hard transitions against other families' baked meadow
       pass, so no prop hides one, and a hole of that radius would clear 46 % of each hex into a visible
       lattice. (Rim and contact shadow reach edge ΔL\* ≥ 30 on grass, forest, road and water,
       `TestUnitEdgeContrastMeetsTheTarget`.)
-- [ ] L1.5 Winter cells pick seasonal infrastructure and water IDs. Rail bridges draw a rail deck, not a road
-      deck: the standing item is chosen by the crossing family, in `mapcompose/standing.go`. Waits for art:
-      `assets/index.json` has no winter road, path, rail, trench or stream IDs and no rail-deck standing
-      item. These come from Look 7 (R1–R5 winter) and the bridge round.
+- [x] L1.5 Winter cells pick seasonal infrastructure and water IDs. Rail bridges draw a rail deck, not a road
+      deck: the standing item is chosen by the crossing family, in `mapcompose/standing.go`. (2026-10-24) On a
+      winter map every overlay takes its `_w` form where the catalog has one, and standing bridge decks take
+      theirs; a road bridge carrying rail draws `standing/rBridge36-rail`, one carrying a path the footbridge
+      (`TestStandingRailDeck`: the rails run on across the deck at the level 20 and level 2 rail bridges;
+      `TestStandingWinterBridges`). `TestWinterMapsDrawNoSummerInfrastructure` finds no summer road,
+      crossing, path, rail, stream, trench, footbridge or bridge deck on the 26 winter maps; only the
+      transparent `tile/rBridge*` and the stone quays (120, no winter form) keep their one form.
 
 **Compositor (code).** Art is authored once per family instead of once per neighbour combination, and the
 painting can cross hex borders; picking, fog and rules stay per hex.
@@ -420,10 +424,18 @@ Mostly a material swap of the matching summer family plus the winter grade.
       (needs L3.1) and the winter streams (L7.4).
 - [ ] L7.4 Winter strips and kits (R1–R5) for roads, paths, rail, streams (ice edges), bridges and trenches,
       and the I3 edits of rocks and bridges.
+      (2026-10-24) partial: winter roads, paths, rails, crossings, streams with an irregular ice rim
+      (1.5–4 world px), all 54 trench shapes and the road, rail and foot bridge decks are installed, rendered
+      from the summer materials with snow, frost and slush settings (`connected-*-winter-v1.json`,
+      `TestWinterPathsAndRailsMeetCriterion`, `TestWinterStreamIceRimAndFrostedBanks`,
+      `TestWinterTrenchSnowAndSlush`). Open: the R5 kit decals (wait for the stroke renderer), the I3 rock
+      edits, a winter form of the stone quays.
 - [ ] L7.5 Winter buildings: `hq*_w`, `cmp*_w`, `factory*_w` (matching summer/winter factory exports are
       installed), `house_w`.
-- [ ] L7.6 Done when no summer water, shore, road or path shows on a winter cell of Civil, Mouse or a winter
-      campaign map.
+- [x] L7.6 Done when no summer water, shore, road or path shows on a winter cell of Civil, Mouse or a winter
+      campaign map. (2026-10-24) `TestWinterMapsDrawNoSummerInfrastructure` composes Civil, Mouse and the
+      winter campaign maps (26 files) with the shipped catalog and asserts no summer water, shore, road,
+      path, rail, stream, trench or bridge.
 
 ##### Look 8: Campaign subjects
 
