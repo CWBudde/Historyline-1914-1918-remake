@@ -226,6 +226,8 @@ painting can cross hex borders; picking, fog and rules stay per hex.
       new layers; the stress map stays at 60 FPS (standing items are batched per atlas).
       2026-10-24: terrain draws 1× packs derived from the 2× ones up to zoom 1 (a 2× tile drawn at half size
       aliased), and the bordered backgrounds go beneath bare ones, so no border streaks along hex edges.
+      Below zoom 1 terrain shrinks with mipmaps: calmer at 0.25× and 0.5×, no seams
+      (`build/review/terrain-mipmaps`).
 
 ##### Look 2: Forest and meadow
 

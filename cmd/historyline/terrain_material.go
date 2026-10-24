@@ -43,6 +43,10 @@ func (a *terrainArt) release() {
 		m.order = nil
 		m.bytes = 0
 	}
+	for _, d := range a.dim {
+		d.Deallocate()
+	}
+	a.dim = nil
 	a.artPacks.release()
 }
 
@@ -144,6 +148,7 @@ func (a *terrainArt) materialImage(c hexgrid.Coord, id string, d int, bare bool)
 		m.order = m.order[1:]
 		previous := m.tiles[old]
 		m.bytes -= previous.Bounds().Dx() * previous.Bounds().Dy() * 4
+		a.forget(previous)
 		previous.Deallocate()
 		delete(m.tiles, old)
 	}

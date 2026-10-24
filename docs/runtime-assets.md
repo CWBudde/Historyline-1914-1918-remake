@@ -157,8 +157,9 @@ keep the canonical shore; multi-mouth and mixed-edge contexts remain open.
 Drawing order: all backgrounds, cluster stamps, overlays, cast shadows, standing items (line, then column), owner bars,
 units. Unseen hexes show `unseen` and none of their standing items; remembered hexes are greyed, standing
 items too. A cluster is stamped only while all its hexes are known; otherwise its hexes keep the per-hex art.
-Terrain is drawn at the effective zoom's asset density (1× up to zoom 1), units at least at 2×. Ebitengine
-filters bilinearly without mipmaps here, so a texture drawn below half its size aliases. Background
+Terrain is drawn at the effective zoom's asset density (1× up to zoom 1), units at least at 2×. Both are
+drawn bilinearly with Ebitengine's mipmaps, so 1× terrain shrinks without aliasing below zoom 1; remembered
+terrain draws a greyed copy of its texture, since colour-matrix draws get no mipmaps. Background
 textures get a 3-texel grown border so filtered quads at fractional zoom overlap without seams; the bordered
 backgrounds are drawn beneath all backgrounds, which are drawn again bare over them, so no border covers a
 neighbour's texels.

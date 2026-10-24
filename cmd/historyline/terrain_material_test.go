@@ -36,6 +36,27 @@ func TestTerrainReleaseClearsMaterialAndLegacyTextures(t *testing.T) {
 	(&terrainArt{}).release()
 }
 
+func TestDimmedTexturesAreCachedAndReleased(t *testing.T) {
+	a := &terrainArt{artPacks: &artPacks{tex: map[texKey]*ebiten.Image{}}}
+	img, other := ebiten.NewImage(4, 3), ebiten.NewImage(2, 2)
+	d := a.dimmed(img)
+	if d == img || d.Bounds() != img.Bounds() {
+		t.Fatalf("dimmed copy %v of %v", d.Bounds(), img.Bounds())
+	}
+	if a.dimmed(img) != d {
+		t.Error("dimmed copy made again")
+	}
+	a.dimmed(other)
+	a.forget(img)
+	if _, ok := a.dim[img]; ok || len(a.dim) != 1 {
+		t.Error("forget kept the evicted texture's copy or dropped another")
+	}
+	a.release()
+	if a.dim != nil {
+		t.Error("release kept dimmed copies")
+	}
+}
+
 func TestMaterialManifestStrict(t *testing.T) {
 	entries := []assets.Entry{}
 	for _, id := range []string{worldmaterial.MeadowID, worldmaterial.ScrubID} {

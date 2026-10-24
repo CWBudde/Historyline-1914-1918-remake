@@ -40,6 +40,8 @@ type terrainArt struct {
 	materials *terrainMaterials
 	scene     mapcompose.Scene
 	group     map[string]string // asset ID → pack group
+	// dim holds the remembered look of each texture drawn dimmed so far.
+	dim map[*ebiten.Image]*ebiten.Image
 }
 
 // levelHex reads a hex's terrain from the level for the compositor.
@@ -155,6 +157,29 @@ var remembered = func() colorm.ColorM {
 	return m
 }()
 
+// dimmed is texture img in the remembered look, made on first use. Terrain is
+// drawn with DrawImage, not colorm, since only DrawImage shrinks with mipmaps.
+func (a *terrainArt) dimmed(img *ebiten.Image) *ebiten.Image {
+	if d, ok := a.dim[img]; ok {
+		return d
+	}
+	if a.dim == nil {
+		a.dim = map[*ebiten.Image]*ebiten.Image{}
+	}
+	d := ebiten.NewImage(img.Bounds().Dx(), img.Bounds().Dy())
+	colorm.DrawImage(d, img, remembered, nil)
+	a.dim[img] = d
+	return d
+}
+
+// forget releases the remembered look of texture img.
+func (a *terrainArt) forget(img *ebiten.Image) {
+	if d, ok := a.dim[img]; ok {
+		d.Deallocate()
+		delete(a.dim, img)
+	}
+}
+
 // terrainShadows shares standing items' fog rules, including suppression under
 // a known cluster stamp and dimming of remembered terrain.
 func terrainShadows(s *mapcompose.Scene, c hexgrid.Coord, fog func(hexgrid.Coord) state.Fog) ([]string, bool) {
@@ -207,14 +232,13 @@ func (g *game) drawTerrainTile(dst *ebiten.Image, id string, sx, sy float64, dim
 		g.terrainErr = err.Error()
 		return
 	}
-	var op colorm.DrawImageOptions
+	if dim {
+		img = g.terrain.dimmed(img)
+	}
+	var op ebiten.DrawImageOptions
 	op.GeoM = anchorGeoM(e, d, g.terrain.pad, g.cam.Effective(), sx, sy)
 	op.Filter = ebiten.FilterLinear
-	var cm colorm.ColorM
-	if dim {
-		cm = remembered
-	}
-	colorm.DrawImage(dst, img, cm, &op)
+	dst.DrawImage(img, &op)
 }
 
 // drawTerrain draws the composed terrain of the hexes in view (in line, then
