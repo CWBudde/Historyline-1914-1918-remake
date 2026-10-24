@@ -223,15 +223,28 @@ func mask(vertices []int) uint8 {
 // terrain where nothing needs to change), or a gap when its derived shore tile
 // is not in the catalog. On a winter coast (winterCoast, with winter the map's
 // season) it is the shore's winter form, ID suffix _w, over snow; a missing
-// winter form keeps the summer shore and reports a gap.
+// winter form keeps the summer shore and reports a gap. Open water and stones
+// in water there take water_w and waterStones_w where the catalog has them
+// (the winter water grade, terraingrade), else stay summer.
 func selectShore(g hexgrid.Grid, at func(hexgrid.Coord) Hex, c hexgrid.Coord, winter bool, has func(string) bool) (string, *Gap) {
 	terrain := at(c).Terrain
-	if terrain == "waterStones" || !wet(terrain) {
+	if !wet(terrain) {
 		return terrain, nil
+	}
+	// Open water and stones in water take their winter form where the
+	// catalog has it.
+	open := func(id string) string {
+		if winterCoast(g, at, c, winter) && has(TileID(id+"_w")) {
+			return id + "_w"
+		}
+		return id
+	}
+	if terrain == "waterStones" {
+		return open(terrain), nil
 	}
 	s := shoreShape(g, at, c)
 	if s.Land == 0 {
-		return "water", nil
+		return open("water"), nil
 	}
 	id := s.ID()
 	// The nine lakeside shores are base tiles, drawn like any terrain's.

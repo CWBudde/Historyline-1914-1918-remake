@@ -236,3 +236,31 @@ func TestWinterCoastsTakeWinterShores(t *testing.T) {
 		t.Errorf("only %d shores on level 10", shores)
 	}
 }
+
+// Open water and stones in water take their winter form on a winter coast, by
+// the vote the shores use, and stay summer without it or without the tile.
+func TestWinterWaterTakesWinterTiles(t *testing.T) {
+	all := func(string) bool { return true }
+	summer := func(id string) bool { return !strings.HasSuffix(id, "_w") }
+	open := []string{"water water water", "water water", "water water water", "water water", "water water water"}
+	for _, tt := range []struct {
+		name   string
+		rows   []string
+		winter bool
+		has    func(string) bool
+		want   string
+	}{
+		{"open water on a winter map", open, true, all, "water_w"},
+		{"open water on a summer map", open, false, all, "water"},
+		{"no winter tile", open, true, summer, "water"},
+		{"stones on a winter coast", []string{"grass_w grass_w grass_w", "grass_w grass_w", "grass_w waterStones grass_w", "grass_w grass_w", "grass_w grass_w grass_w"}, false, all, "waterStones_w"},
+		{"stones on a summer coast", []string{"grass grass grass", "grass grass", "grass waterStones grass", "grass grass", "grass grass grass"}, true, all, "waterStones"},
+	} {
+		t.Run(tt.name, func(t *testing.T) {
+			g, at := grid(tt.rows...)
+			if got, gap := selectShore(g, at, hexgrid.Coord{Line: 2, Col: 1}, tt.winter, tt.has); got != tt.want || gap != nil {
+				t.Errorf("water %s (gap %v), want %s", got, gap, tt.want)
+			}
+		})
+	}
+}

@@ -22,9 +22,6 @@ import (
 	"testing"
 )
 
-// groundManifestPath is the ground manifest the campaign exports use.
-const groundManifestPath = "art/pipeline/ground-terrain-v3.json"
-
 func TestRegenerateLatticeGroundContexts(t *testing.T) {
 	root := filepath.Join("..", "..")
 	gi, err := loadGroundInputs(filepath.Join(root, groundManifestPath))

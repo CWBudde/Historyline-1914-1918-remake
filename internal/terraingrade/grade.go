@@ -6,7 +6,8 @@
 //   - land follows one L* curve that stretches the map's 5–95 % range to about
 //     8–64 and lifts the meadow to 42–45, and loses 4.5 b* where it is yellow;
 //   - open water (blue pixels) follows its own curve to the deep-water L* 31–36
-//     and keeps its b*;
+//     and keeps its b*; in a winter tile (ID suffix _w) it follows a darker
+//     curve to L* 24–32 and turns to a cold slate teal of chroma about 8;
 //   - snow and highlights above L* 85 stay as painted, so winter art is kept.
 //
 // A few families grade on their own where they differ from the meadow baked
@@ -30,7 +31,7 @@ import (
 )
 
 // Version names the grade, so a pack built with an older one can be told apart.
-const Version = "terraingrade-v3"
+const Version = "terraingrade-v4"
 
 // curve maps L* through knots of increasing input; between knots it is linear.
 type curve [][2]float64
@@ -59,6 +60,17 @@ var (
 	// tile of snow) to about 24, so a winter forest cell sits 35 under the snow,
 	// and leaves the snow as painted.
 	winterForestL = curve{{0, 0}, {30, 15}, {45, 25}, {60, 38}, {75, 65}, {85, 85}, {100, 100}}
+	// winterWaterL takes open water's 5 %, mean and 95 % L* (32, 40.7, 57.3)
+	// to 21, 28 and 40: the direction's cold winter water at L* 24–32.
+	winterWaterL = curve{{0, 0}, {32, 21}, {40.7, 28}, {57.3, 40}, {75, 75}, {100, 100}}
+)
+
+// The winter water colour (icy): the ripples keep 0.3 of their colour around
+// a*, b* of −3, +2.8, so the painted blue (a* −11.8, b* −24.4) comes to a slate
+// teal of chroma about 8, near RGB 40,62,66.
+const (
+	winterChroma     = 0.3
+	winterA, winterB = -3.0, 2.8
 )
 
 // winterShare is the share of grey in a forest image (opaque pixels of chroma
@@ -127,6 +139,10 @@ func Grade(im image.Image, id, art string, meadow image.Image) *image.NRGBA {
 	if art == "terrain/forest" && grey(out) >= winterShare {
 		land = winterForestL
 	}
+	water, winter := waterL, strings.HasSuffix(id, "_w")
+	if winter {
+		water = winterWaterL
+	}
 	var m *image.NRGBA
 	if meadow != nil && meadow.Bounds().Size() == b.Size() && r != (row{}) {
 		mb := meadow.Bounds()
@@ -141,7 +157,10 @@ func Grade(im image.Image, id, art string, meadow image.Image) *image.NRGBA {
 				continue
 			}
 			l0, a, bb := toLab(p[0], p[1], p[2])
-			l, db := base(land, l0, bb)
+			l, db := base(land, water, l0, bb)
+			if winter {
+				a, bb = icy(a, bb, wet(l0, bb))
+			}
 			if r != (row{}) {
 				w := 1.0
 				if m != nil {
@@ -159,12 +178,23 @@ func Grade(im image.Image, id, art string, meadow image.Image) *image.NRGBA {
 	return out
 }
 
+// wet is how much a pixel of L* l and b* b is open water: blue and not light.
+func wet(l, b float64) float64 { return clamp((-b-2)/8) * clamp((70-l)/15) }
+
 // base is the grade of one pixel's L* and the b* it adds: land follows the
-// curve land, open water waterL.
-func base(land curve, l, b float64) (float64, float64) {
-	water := clamp((-b-2)/8) * clamp((70-l)/15)
+// curve land, open water the curve water.
+func base(land, water curve, l, b float64) (float64, float64) {
+	w := wet(l, b)
 	yellow := clamp(b / 8)
-	return land.at(l)*(1-water) + waterL.at(l)*water, landB * yellow * (1 - water)
+	return land.at(l)*(1-w) + water.at(l)*w, landB * yellow * (1 - w)
+}
+
+// icy is a's and b's winter water colour where the pixel is open water to the
+// share w: the ripples keep winterChroma of their colour around the cold slate
+// teal winterA, winterB.
+func icy(a, b, w float64) (float64, float64) {
+	k := 1 - w*(1-winterChroma)
+	return a*k + w*winterA, b*k + w*winterB
 }
 
 // grey is the share of im's opaque pixels (alpha at least half) of chroma 12

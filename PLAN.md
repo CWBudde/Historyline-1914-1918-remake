@@ -393,15 +393,25 @@ Mostly a material swap of the matching summer family plus the winter grade.
       stamps in snow, `stoney_w`, `mountain_w`, `mountN_w`/`mountS_w`/`mountE_w`/`mountW_w`).
       2026-10-24: `rough_w` (winter hills, record 80) is snow with soft hummocks and dry stalks
       (`ground-rough-winter-v3.png`), sampled unmirrored and lattice-periodic (`ground-terrain-v3.json`); the old
-      mirrored brown rubble is gone. `stoney_w` and `shelled_w` still go through the mirrored sampler.
-- [ ] L7.2 Winter forest: the F3 crowns scatter; the bare stands' soft twig shadows stack into a grey wash
-      (`build/review/winter-crowns/`).
+      mirrored brown rubble is gone. `stoney_w` is sampled the same way from `ground-stony-winter-v2.png` (7
+      source px per world px); its tile no longer mirrors (top-bottom correlation 1.00 → 0.19,
+      `TestLatticeGroundTilesAreNotMirrored`), but the stones come out paler than painted. `shelled_w` is the
+      circular earthwork, not mirrored. Open: `grass_w`, `mountain_w` and `mount*_w` with G1, G8 and G9.
+- [x] L7.2 Winter forest: the F3 crowns scatter. (2026-10-24) A bare stand keeps 0.45 of its sites
+      (`TestBareStandsThinOut`), so snow shows between the bare crowns instead of a grey wash. Bare-stand hexes
+      go from L\* 34.7 to 62.6 and from 4 % to 42 % snow on Civil, and from 34.9 to 59.7 on campaign 15; the
+      conifers are unchanged (`build/review/winter-crowns/after2/`).
 - [ ] L7.3 Winter water: I1 shore ice and an I2 grade or edit, with ice where the depth is low. Winter forms of
       `water`, `waterStones` and the `lakeside*` shores: 18 of the 24 winter campaign maps contain them and
       show summer water today. Open winter water is L\* 34.7, chroma 25.9 against 24–32, ≤ 12.
       2026-10-24: the meadow is fixed. A coast beside winter land draws the `_w` form of its shore and mouth
       (snow, frosted dry stones; `shore-terrain-winter-v1.json`, 60 tiles), so no winter coast shows summer
-      meadow. Still open: the water itself (I2) and the shore ice (I1).
+      meadow.
+      (2026-10-24) partial: I2 is a grade. Water in a winter tile goes to a slate teal (`terraingrade-v4`), and
+      winter maps draw `tile/water_w` and `waterStones_w` by the coasts' vote, so the sea, shores and HQ moat
+      stay one material. Campaign 15's open water now measures L\* 30.2 and chroma 8.6
+      (`TestTerrainGradeWinterTargets`; `build/review/winter-water/`). Open: the I1 shore ice (needs L3.1) and
+      the winter streams (L7.4).
 - [ ] L7.4 Winter strips and kits (R1–R5) for roads, paths, rail, streams (ice edges), bridges and trenches,
       and the I3 edits of rocks and bridges.
 - [ ] L7.5 Winter buildings: `hq*_w`, `cmp*_w`, `factory*_w` (matching summer/winter factory exports are

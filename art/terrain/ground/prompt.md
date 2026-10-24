@@ -85,6 +85,13 @@ gaps over the shared meadow; winter stone art retains its context tiles.
 
 ## Post
 
+### Look 7 winter stony ground (stoney_w) sampling (2026-10-24)
+No new painting: `ground-stony-winter-v2.png` is sampled unmirrored and lattice-periodic like `rough_w`, at 7
+source px per world px (`lattice_materials` in `art/pipeline/ground-terrain-v3.json`), so the large boulders
+come to about 19 world px. The mirrored sampler had folded it into a kaleidoscope cross (correlation with its
+top-bottom mirror 1.00, now 0.19; `TestLatticeGroundTilesAreNotMirrored`). The two-coset average leaves the
+stones paler than painted.
+
 ### Look 7 winter hills (rough_w) candidate (2026-10-24)
 `ground-rough-winter-v3.png` (exec-23420ffe), native 1536×1024 RGB: a winter edit of the summer hills
 scrub master, settled snow with soft cool hummock shading and small dry straw stalks, no mud. Mean RGB

@@ -357,8 +357,9 @@ func legacyTile(kind, id string) string {
 	if kind == "infrastructure" {
 		// Neither the barbed wire, the quays, the airfield pieces nor the
 		// neighbour-derived trenches have a Python remake tile.
+		// Nor the winter roads and crossings.
 		if id == "barbedWire" || strings.HasPrefix(id, "quay") || strings.HasPrefix(id, "runway") ||
-			strings.HasPrefix(id, "hangar") || strings.HasPrefix(id, "apron") {
+			strings.HasPrefix(id, "hangar") || strings.HasPrefix(id, "apron") || strings.HasSuffix(id, "_w") {
 			return ""
 		}
 		if rest, trench := strings.CutPrefix(id, "trench"); trench {
@@ -391,9 +392,13 @@ func legacyTile(kind, id string) string {
 		return ""
 	}
 	// New outlet and winter variants share their base shoreline's legacy
-	// reference; the Python remake has no winter shores.
+	// reference; the Python remake has no winter shores. Nor winter water: it
+	// is the summer water with the winter grade.
 	if strings.HasPrefix(name, "lakeside") {
 		name, _, _ = strings.Cut(strings.TrimSuffix(name, "_w"), "-outlet")
+	}
+	if name == "water_w" || name == "waterStones_w" {
+		name = strings.TrimSuffix(name, "_w")
 	}
 	if rest, ok := strings.CutPrefix(name, "cmp"); ok {
 		name = "camp" + rest

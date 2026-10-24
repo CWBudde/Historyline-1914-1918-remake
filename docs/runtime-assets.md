@@ -76,7 +76,8 @@ The builder grades every terrain image to the value targets of `art/direction.md
 book and the game agree. The grade works per pixel colour: one L\* curve and a b\* shift for land, one curve
 for open water, snow left as painted. Relief darkens (except snow) and buildings take b\* 16 where they differ
 from the meadow baked into their tiles, the snow meadow in winter tiles. Crowns follow their own curve; a forest image that is mostly grey (winter:
-snow and bare branches) follows a darker one, so winter forest sits 35 L\* or more under the snow. Fog is
+snow and bare branches) follows a darker one, so winter forest sits 35 L\* or more under the snow. Open water in
+a winter tile (ID suffix `_w`) follows a darker curve to a cold slate teal, L\* 24–32 at chroma about 8. Fog is
 copied unchanged.
 
 Cast shadows follow one light (`internal/terrainlight`, art/direction.md "One light"): azimuth 315°, RGB
@@ -123,7 +124,7 @@ origin mod 568×320 for hills). Neighbours from another family count as the seas
 outside the map the centre continues. Without a context tile the default tile is drawn and a gap is recorded
 (`missing` or `undefined`). The three shipped levels and all 72 campaign levels have no gaps.
 The ground contexts come from `art/pipeline/ground-terrain-v3.json`; its `lattice_materials` (`rough_w`, the
-winter hills) are sampled like the meadow, unmirrored and lattice-periodic, from a centred crop of the
+winter hills, and `stoney_w`, winter stony ground) are sampled like the meadow, unmirrored and lattice-periodic, from a centred crop of the
 painting, and `TestRegenerateLatticeGroundContexts` re-renders every context they touch.
 Compounds must form complete groups; stray pieces are reported, never completed. A depot whose entrance
 hex has no content in the level (`mapcompose.LevelHex` marks it `Vacant`) is destroyed and draws
@@ -150,7 +151,9 @@ channel through its middle. Shapes that match a `lakeside*` mask draw that tile,
 (`tools/art-review`, tag `campaigngfx`) for every shape the levels use; `waterStones` keeps its tile.
 A coast whose land neighbours are mostly winter terrain (or, with none, a coast on a mostly winter map)
 draws the winter form of its shore and mouth, ID suffix `_w`: snow instead of meadow and frosted dry stones,
-from `art/pipeline/shore-terrain-winter-v1.json`. The water itself has no winter form yet.
+from `art/pipeline/shore-terrain-winter-v1.json`. Open water and stones in water there draw `tile/water_w` and
+`tile/waterStones_w`, the summer pixels under the winter water grade (`TestGenerateWinterWater`), so the sea
+and its winter coast stay one material.
 On a water hex a road bridge with its road, the levels' stand-in for the original's quays and piers, draws
 the stone quay on its axis (`tile/quay14`, `quay25`, `quay36`, from `art/terrain/quay`, exported 36
 world px wide by `TestGenerateQuayTiles`) with the road running on over it; the rules still see the bridge

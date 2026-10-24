@@ -33,6 +33,7 @@
   "shelled_feature": "circular-earthwork",
   "schema_version": 1,
   "lattice_materials": {
-    "rough_w": 4
+    "rough_w": 4,
+    "stoney_w": 7
   }
 }

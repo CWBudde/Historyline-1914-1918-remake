@@ -3,7 +3,7 @@ id: terrain/water
 title: Water
 kind: terrain
 status: revised
-runtime_ids: water, waterStones
+runtime_ids: water, waterStones, water_w, waterStones_w
 masters: water-shared-v3.png, water-rocks-shared-v2.png, water-shared-v2.png, water-shared-v1.png, water-rocks-shared-v1.png, water-rocks-shared-v3.png, water-reeds-shared-v1.png, water-boulders-shared-v1.png, water-bed-summer-v1.png, water-deep-summer-v1.png
 ---
 
@@ -25,6 +25,7 @@ Use case: stylized-concept. NEW transparent terrain object sprite, native high d
 | --- | --- | --- |
 | water | water | The water material above. |
 | waterStones | waterStones | Transparent 6:5 cut-out: three compact groups of low rounded tan-grey rocks with flat cracked tops and a few small companions, clustered in the central 55 percent; only a very narrow translucent ripple fringe at each rock; everything else alpha zero. |
+| winter | water_w, waterStones_w | No new painting: the summer tiles' pixels (`TestGenerateWinterWater`). The pack build grades the water of every winter tile, these and the winter shores alike, to a cold slate teal at L\* 24–32 and chroma about 8 (`internal/terraingrade`). |
 
 ## Edges & joins
 The water material is periodic on the world lattice, so lake hexes form one continuous surface; shore

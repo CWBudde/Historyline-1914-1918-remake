@@ -13,8 +13,8 @@ import (
 )
 
 // The winter maps meet the direction's winter targets after the grade: snow
-// at L* 86–90 and winter forest at least 35 under it. Open winter water (L*
-// 24–32) needs winter water art; the maps still draw the summer water. Winter
+// at L* 86–90, winter forest at least 35 under it, and open water at L* 24–32
+// and chroma 12 or less (water_w, the winter water grade). Winter
 // relief keeps its snow: only the rock takes the relief row, so a relief cell
 // loses at most 4 L*.
 func TestTerrainGradeWinterTargets(t *testing.T) {
@@ -78,6 +78,9 @@ func TestTerrainGradeWinterTargets(t *testing.T) {
 		}
 		if d := forest.L - snow.L; d > -35 {
 			t.Errorf("%s: winter forest %.2f against snow, want at most −35", lvl.MapName, d)
+		}
+		if water, ok := graded["water"]; ok && (water.L < 24 || water.L > 32 || water.Chroma > 12) {
+			t.Errorf("%s: open water L* %.2f, chroma %.2f, want L* 24–32 and chroma at most 12", lvl.MapName, water.L, water.Chroma)
 		}
 		for _, f := range relief {
 			if m, ok := graded[f]; ok && m.L < painted[f].L-4 {

@@ -251,3 +251,47 @@ func TestWinterForest(t *testing.T) {
 		t.Errorf("a grey pixel in summer forest ground L* %.2f → %.2f, want the land curve's %.2f", l0, l, landL.at(l0))
 	}
 }
+
+// In a winter tile (ID suffix _w) open water follows the winter water grade:
+// the shipped water comes to the direction's L* 24–32 at chroma 12 or less and
+// keeps its ripples, while its snow stays as painted. The same water in a
+// summer tile keeps its blue.
+func TestWinterWater(t *testing.T) {
+	f, err := os.Open("../../assets/terrain/water/water-2x.png")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer func() { _ = f.Close() }()
+	src, err := png.Decode(f)
+	if err != nil {
+		t.Fatal(err)
+	}
+	stats := func(im *image.NRGBA) (l, sd, chroma float64) {
+		var n, sl, sll, sa, sb float64
+		for i := 0; i < len(im.Pix); i += 4 {
+			if im.Pix[i+3] != 255 {
+				continue
+			}
+			l, a, b := toLab(im.Pix[i], im.Pix[i+1], im.Pix[i+2])
+			n, sl, sll, sa, sb = n+1, sl+l, sll+l*l, sa+a, sb+b
+		}
+		l = sl / n
+		return l, math.Sqrt(sll/n - l*l), math.Hypot(sa/n, sb/n)
+	}
+	summerL, summerSD, summerC := stats(Grade(src, "tile/water", "terrain/water", nil))
+	l, sd, c := stats(Grade(src, "tile/water_w", "terrain/water", nil))
+	t.Logf("summer water L* %.2f σ %.2f chroma %.2f; winter L* %.2f σ %.2f chroma %.2f", summerL, summerSD, summerC, l, sd, c)
+	if l < 24 || l > 32 || c > 12 {
+		t.Errorf("winter water L* %.2f, chroma %.2f, want L* 24–32 and chroma at most 12", l, c)
+	}
+	if sd < summerSD/2 {
+		t.Errorf("winter water σL* %.2f against summer %.2f: the ripples are gone", sd, summerSD)
+	}
+	if summerC < 20 {
+		t.Errorf("summer water chroma %.2f: the summer tile lost its blue", summerC)
+	}
+	snow := color.NRGBA{226, 230, 236, 255}
+	if got := Grade(flat(snow, 2, 2), "tile/shore-3f_w", "terrain/shore", nil).NRGBAAt(0, 0); got != snow {
+		t.Errorf("snow in a winter shore %v → %v", snow, got)
+	}
+}
