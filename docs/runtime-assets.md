@@ -124,6 +124,9 @@ never meets land along a straight edge. An edge whose two land vertices still le
 channel through its middle. Shapes that match a `lakeside*` mask draw that tile, the others
 `tile/shore-<land>[-c<channels>]` (hex bit masks), exported by `TestGenerateCampaignShores`
 (`tools/art-review`, tag `campaigngfx`) for every shape the levels use; `waterStones` keeps its tile.
+On a water hex a road bridge with its road, the levels' stand-in for the original's quays and piers, draws
+the stone quay on its axis (`tile/quay14`, `quay25`, `quay36`, from `art/terrain/quay`, exported by
+`TestGenerateQuayTiles`); the rules still see the bridge and the road.
 For one adjacent stream facing a fully-land shore edge, the compositor selects
 `tile/<shore>-outlet<port>`. The 24 single-mouth variants share the ordinary bank and water materials,
 retain the corner states and meet the stream's port profile. Missing variants or several facing streams

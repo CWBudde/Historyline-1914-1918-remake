@@ -85,10 +85,14 @@ func Compose(g hexgrid.Grid, at func(hexgrid.Coord) Hex, has func(id string) boo
 			h := at(c)
 			cell := &s.Cells[l][col]
 			cell.Background = baseTile(h.Terrain, l, col, has)
-			for _, id := range h.Infra {
+			infra := h.Infra
+			if wet(h.Terrain) {
+				infra = quays(infra, has)
+			}
+			for _, id := range infra {
 				cell.Overlays = append(cell.Overlays, TileID(id))
 			}
-			cell.Standing = standing(h.Terrain, h.Infra, has)
+			cell.Standing = standing(h.Terrain, infra, has)
 			if f, ok := FamilyOf(h.Terrain); ok {
 				if id, gap := selectContext(g, at, c, f, h.Terrain, has); gap != nil {
 					s.Gaps = append(s.Gaps, *gap)
