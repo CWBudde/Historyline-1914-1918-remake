@@ -4,7 +4,7 @@ title: Headquarters
 kind: terrain
 status: candidate
 runtime_ids: hqC, hqC_w, hqN, hqN_w, hqNE, hqNE_w, hqNW, hqNW_w, hqS, hqS_w, hqSE, hqSE_w, hqSW, hqSW_w
-masters: hq-summer-v3.png, hq-winter-v3.png, hq-summer-v2.png, hq-winter-v2.png, hq-summer-v1.png, hq-winter-v1.png
+masters: hq-winter-v4.png, hq-summer-v3.png, hq-winter-v3.png, hq-summer-v2.png, hq-winter-v2.png, hq-summer-v1.png, hq-winter-v1.png
 ---
 
 ## Look
@@ -37,15 +37,15 @@ The scene is sliced into seven hex crops with shared placements, so pieces join 
 road meets the regular road tile at the north port.
 
 ## Post
-Selected sources are the native 1254x1254 `hq-summer-v3.png` and `hq-winter-v3.png`, generated with built-in
-imagegen and true alpha. They are layout edits of `hq-summer-v2.png` (four round drum towers with low slate
+Selected sources are `hq-summer-v3.png` and `hq-winter-v4.png` (1254x1254, true alpha); `hq-winter-v4.png`
+is the native imagegen `hq-winter-v3.png` with its street regraded in Go (below). They are layout edits of `hq-summer-v2.png` (four round drum towers with low slate
 roofs, red terracotta north gate and south inner hall, a textured dirt courtyard, narrow northern moat and
 bridge; PULSE was the layout/style reference, `ground-crater-summer-v1.png` the material-detail reference):
 the entrance road and the bridge deck are as wide as the road tile (22-23 world px), and in winter they
 carry packed snow with ruts instead of asphalt with white lines. The candidate has visible short wall
 faces; the requested camera remains nadir.
 
-`art-review -compound art/pipeline/compound-hq-v3.json` places the summer and winter scenes on the seasonal
+`art-review -compound art/pipeline/compound-hq-v4.json` places the summer and winter scenes on the seasonal
 meadow and slices the seven cells; both seasons share exact placement. The scene fills the 238x240 box,
 cropping the excess, and `shift` moves it 0.25 world px west so the north street lies on the port (centre within
 0.1 world px); its first 10 world px blend into the season's road tile (`entry_road`). Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
@@ -89,6 +89,21 @@ Avoid: moving, resizing or adding anything, a narrower or wider road, white line
 
 Image 1 is the selected summer fortress: change season only, preserve every outline and position. Image 2 is the installed winter fortress: take only its snow colour, frost and bare-twig look; its road still shows summer asphalt with white dashes, which must NOT be copied. Image 3 is the winter road tile of the map over snow: take only its road surface (packed grey snow, slush ruts, soft snow edges) for the entrance road and bridge deck; do not copy its width or position.
 ```
+
+### Winter street regrade (2026-10-24)
+
+`hq-winter-v4.png` is `hq-winter-v3.png` with the entrance street and bridge deck regraded in Go
+(scratch tool, not kept; no imagegen): every pixel within 11 world px of the street axis (easing out by
+smoothstep at 11.75) and less than 53 world px below the north port (easing out at 57, before the
+gatehouse roof) has its L\*a\*b\* shifted by the road tile's median across profile minus the street's
+own, both taken over depths 10–44 world px in 0.25 world px bins and smoothed by a Gaussian of 0.5 world
+px (road tile `assets/terrain/road/road36_w-4x.png`; street in the master through the scene transform,
+scale 0.19139, offset (−1.25, 0) world px). Texture stays; the snow rims along the edges and the light
+centre become the road tile's surface, and the ruts take its depth and place. In the 4x winter scene,
+street |l| ≤ 11.5 world px over depths 10–44: mean L\* 54.8 (v3 59.1; the road tile over the same mask
+54.9, its surface 53.4); ruts at −4.0 and +4.5 world px (road tile −4.0, +4.75) and 95 % and 100 % as
+deep as the road tile's below the surface mean; no paint-white pixel (L\* > 85, C\* < 8) in the middle
+8 world px; outside the street 139 of 892488 scene pixels differ, by at most 1 level (Lanczos reach).
 
 ## Avoid
 - visible tiling or repeated rounded "pillow" patterns
