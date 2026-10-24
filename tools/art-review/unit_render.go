@@ -88,7 +88,7 @@ func unitAffineTo(src *image.NRGBA, size int, scale float64, offset connectionPo
 	if err := compoundCheckTapBudget(size, size, scale); err != nil {
 		return nil, err
 	}
-	wx, wy := compoundAxis(size, cell, scale, offset[0]), compoundAxis(size, cell, scale, offset[1])
+	wx, wy := compoundAxis(size, cell, scale, offset[0], false), compoundAxis(size, cell, scale, offset[1], false)
 	tmp := make([][4]float64, size*cell)
 	for y := range cell {
 		for x, weights := range wx {

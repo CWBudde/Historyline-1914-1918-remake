@@ -57,6 +57,7 @@ type compoundSceneReport struct {
 	InputArtwork connectionMaterialReport `json:"input_artwork"`
 	Inset        float64                  `json:"inset"`
 	Framing      string                   `json:"framing,omitempty"`
+	Shift        []float64                `json:"shift,omitempty"`
 	Transform    compoundTransform        `json:"transform"`
 	Profile      string                   `json:"profile"`
 	Guard        compoundGuardReport      `json:"guard"`
@@ -227,7 +228,7 @@ func buildCompoundBundle(in compoundInputs) (compoundBundle, error) {
 		if err != nil {
 			return b, err
 		}
-		raw, tr, err := compoundAffine(in.Artwork[s.ID].Image, layout, s.Inset)
+		raw, tr, err := compoundAffine(in.Artwork[s.ID].Image, layout, s.Inset, s.fit())
 		if err != nil {
 			return b, fmt.Errorf("%s: %w", s.ID, err)
 		}
@@ -244,10 +245,10 @@ func buildCompoundBundle(in compoundInputs) (compoundBundle, error) {
 			profile += authoredBankDescription
 		}
 		if s.Framing == "reference-layout" {
-			profile = strings.Replace(profile, "reject any sampled alpha >=250 at signed distance <=8 world pixels before guard; alpha zero through 4 world pixels then smoothstep 4..8. Guard full unmasked 4x artwork, then existing resizeLanczos to whole-scene 2x", "explicit reference-layout framing: preserve full affine source at the requested inset; report the eight-world-pixel boundary band diagnostically without rejection or fade. Existing resizeLanczos filters full unmasked 4x artwork to whole-scene 2x before final union clipping", 1)
+			profile = strings.Replace(profile, "reject any sampled alpha >=250 at signed distance <=8 world pixels before guard; alpha zero through 4 world pixels then smoothstep 4..8. Guard full unmasked 4x artwork, then existing resizeLanczos to whole-scene 2x", "explicit reference-layout framing: scale the source to fill the scene box at the requested inset, crop the excess and keep opaque source edges opaque (edge taps renormalized over the source), then apply the optional world-pixel shift; report the eight-world-pixel boundary band diagnostically without rejection or fade. Existing resizeLanczos filters full unmasked 4x artwork to whole-scene 2x before final union clipping", 1)
 			b.report.Profile = "Per-scene profiles; explicit reference-layout scenes retain edge roads and fences without the default eight-world-pixel guard. See each scene's profile and framing."
 		}
-		sr := compoundSceneReport{ID: s.ID, compoundLayout: layout, InputArtwork: b.retain("sources/"+s.ID+".png", in.Artwork[s.ID]), Inset: s.Inset, Framing: s.Framing, Transform: tr, Profile: profile, Guard: guard}
+		sr := compoundSceneReport{ID: s.ID, compoundLayout: layout, InputArtwork: b.retain("sources/"+s.ID+".png", in.Artwork[s.ID]), Inset: s.Inset, Framing: s.Framing, Shift: s.Shift, Transform: tr, Profile: profile, Guard: guard}
 		for _, density := range []int{2, 4} {
 			art := art4
 			if density == 2 {

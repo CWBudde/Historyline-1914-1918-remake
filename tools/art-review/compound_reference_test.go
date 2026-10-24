@@ -10,6 +10,7 @@ import (
 	"image/color"
 	"image/draw"
 	"image/png"
+	"math"
 	"os"
 	"path/filepath"
 	"strings"
@@ -21,7 +22,10 @@ func TestCompoundReferenceFramingPreservesBoundaryArtwork(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	raw := compoundReferenceArtwork(l)
+	raw, _, err := compoundAffine(compoundReferenceArtwork(l), l, 1, compoundFit{Fill: true})
+	if err != nil {
+		t.Fatal(err)
+	}
 	if _, _, err = compoundFrame(raw, l, ""); err == nil {
 		t.Fatal("default framing accepted opaque boundary road and fence")
 	}
@@ -94,17 +98,68 @@ func TestCompoundReferenceFramingManifestValidation(t *testing.T) {
 	}
 }
 
-// A road on the north/east edge, a fence one world pixel from the indentation,
-// and an outside pixel distinguish full reference framing from a relaxed fade.
+func TestCompoundShiftManifestValidation(t *testing.T) {
+	path, base := compoundTestFixture(t)
+	for _, tc := range []struct {
+		framing string
+		shift   []float64
+		wantErr bool
+	}{
+		{"reference-layout", []float64{-0.77, 0}, false},
+		{"reference-layout", []float64{2, -2}, false},
+		{"reference-layout", []float64{2.5, 0}, true},
+		{"reference-layout", []float64{1}, true},
+		{"", []float64{0.5, 0}, true},
+	} {
+		m := base
+		m.Scenes = []compoundSceneInput{{ID: "depot-summer", Artwork: base.Scenes[0].Artwork, Inset: 1, Framing: tc.framing, Shift: tc.shift}}
+		m.Grounds = map[string]connectionMaterial{"summer": base.Grounds["summer"]}
+		compoundTestWriteManifest(t, path, m)
+		if _, err := loadCompoundInputs(path); (err != nil) != tc.wantErr {
+			t.Errorf("framing %q shift %v: error %v, want error %v", tc.framing, tc.shift, err, tc.wantErr)
+		}
+	}
+	// A shift must keep the filled artwork covering the box.
+	l, err := compoundLayoutFor("depot-summer")
+	if err != nil {
+		t.Fatal(err)
+	}
+	src := compoundReferenceArtwork(l)
+	if _, _, err := compoundAffine(src, l, 1, compoundFit{Fill: true, Shift: connectionPoint{0, 0.5}}); err == nil {
+		t.Error("a shift that uncovers the box edge was accepted")
+	}
+	if _, _, err := compoundAffine(src, l, 1, compoundFit{Shift: connectionPoint{0.5, 0}}); err == nil {
+		t.Error("a shift without fill was accepted")
+	}
+}
+
+// A road to the north/east canvas edge, a fence one world pixel from the
+// indentation, and an outside patch distinguish full reference framing from a
+// relaxed fade. Like the painted masters, the canvas has another aspect than
+// the scene box (wider for the depot, square for the HQ, narrower for the
+// factory), so letterboxing would leave a band between the road and the edge.
 func compoundReferenceArtwork(l compoundLayout) *image.NRGBA {
-	im := image.NewNRGBA(image.Rect(0, 0, l.Width*4, l.Height*4))
-	road := image.Rect(111*4, 0, 127*4, 100*4)
+	w, h := 1536, 1024
+	switch l.Layout {
+	case "hq":
+		w, h = 1254, 1254
+	case "factory":
+		w, h = 1400, 1000
+	}
+	im := image.NewNRGBA(image.Rect(0, 0, w, h))
+	// World rectangles through the fill transform the renderer uses.
+	k := max(float64(l.Width)/float64(w), float64(l.Height)/float64(h))
+	ox, oy := (float64(l.Width)-float64(w)*k)/2, (float64(l.Height)-float64(h)*k)/2
+	rect := func(x0, y0, x1, y1 float64) image.Rectangle {
+		return image.Rect(int(math.Floor((x0-ox)/k)), int(math.Floor((y0-oy)/k)), int(math.Ceil((x1-ox)/k)), int(math.Ceil((y1-oy)/k)))
+	}
+	road := rect(111, -20, 127, 100)
 	if l.Layout == "factory" {
-		road = image.Rect(100*4, 74*4, l.Width*4, 86*4)
+		road = rect(100, 74, float64(l.Width)+20, 86)
 	}
 	draw.Draw(im, road, image.NewUniform(color.NRGBA{80, 82, 83, 255}), image.Point{}, draw.Src)
-	draw.Draw(im, image.Rect(27*4, 41*4, 211*4, 43*4), image.NewUniform(color.NRGBA{190, 40, 30, 255}), image.Point{}, draw.Src)
-	im.SetNRGBA(0, 0, color.NRGBA{240, 10, 240, 255})
+	draw.Draw(im, rect(27, 40, 211, 44), image.NewUniform(color.NRGBA{190, 40, 30, 255}), image.Point{}, draw.Src)
+	draw.Draw(im, rect(0, 0, 6, 6), image.NewUniform(color.NRGBA{240, 10, 240, 255}), image.Point{}, draw.Src)
 	return im
 }
 
@@ -149,8 +204,9 @@ func TestCompoundReferenceFramingActualPNGAssembly(t *testing.T) {
 				t.Fatal("scene profile describes the strict guard")
 			}
 			art4 := b.pixels[scene.ID+"-artwork-4x.png"]
-			if !bytes.Equal(art4.Pix, in.Artwork[scene.ID].Image.Pix) {
-				t.Fatal("1:1 affine reference artwork was changed")
+			tr := scene.Transform
+			if tr.Offset[0] > 0 || tr.Offset[1] > 0 || tr.Offset[0]+float64(tr.Source.Width)*tr.Scale < float64(scene.Width)-1e-9 || tr.Offset[1]+float64(tr.Source.Height)*tr.Scale < float64(scene.Height)-1e-9 {
+				t.Fatalf("artwork does not fill the scene box: %+v", tr)
 			}
 			want2, err := resizeLanczos(art4, scene.Width*2, scene.Height*2)
 			if err != nil {
@@ -186,20 +242,25 @@ func TestCompoundReferenceFramingActualPNGAssembly(t *testing.T) {
 				if whole.NRGBAAt(0, 0).A != 0 {
 					t.Fatalf("%dx final union did not clip outside artwork", density)
 				}
-				fence := whole.NRGBAAt(40*density, 41*density)
+				fence := whole.NRGBAAt(40*density, 42*density)
 				if fence.R < 150 || fence.A != 255 {
 					t.Fatalf("%dx original boundary fence faded: %v", density, fence)
 				}
+				// The road covers the outermost pixel row (column) at the union
+				// edge across its whole width: no ground band at the gate.
+				road := func(x, y int) {
+					c := whole.NRGBAAt(x, y)
+					if c.R < 70 || c.R > 90 || c.G < 72 || c.G > 92 || c.B < 73 || c.B > 93 || c.A != 255 {
+						t.Fatalf("%dx road does not reach the union edge at (%d,%d): %v", density, x, y, c)
+					}
+				}
 				if scene.Layout != "factory" {
-					road := whole.NRGBAAt(119*density, 0)
-					if road.R < 70 || road.B < 60 || road.A != 255 {
-						t.Fatalf("%dx north road does not reach union edge: %v", density, road)
+					for x := 114 * density; x < 124*density; x++ {
+						road(x, 0)
 					}
 				} else {
-					road := whole.NRGBAAt(scene.Width*density-1, 80*density)
-					if road.R < 70 || road.B < 60 || road.A != 255 {
-						t.Fatalf("%dx east road does not reach union edge: %v", density, road)
-					}
+					// Only the vertex row reaches the last column.
+					road(scene.Width*density-1, 80*density)
 				}
 			}
 		})

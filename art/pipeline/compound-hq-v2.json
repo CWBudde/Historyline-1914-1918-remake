@@ -17,7 +17,8 @@
       },
       "framing": "reference-layout",
       "id": "hq-summer",
-      "inset": 1
+      "inset": 1,
+      "shift": [-0.77, 0]
     },
     {
       "artwork": {
@@ -26,7 +27,8 @@
       },
       "framing": "reference-layout",
       "id": "hq-winter",
-      "inset": 1
+      "inset": 1,
+      "shift": [-0.77, 0]
     }
   ],
   "schema_version": 1

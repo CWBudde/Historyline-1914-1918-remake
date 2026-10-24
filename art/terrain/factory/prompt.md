@@ -44,7 +44,10 @@ snow with the material precision of `ground-crater-summer-v1.png`. Open ground s
 meadow. Summer runtime IDs use the same four-cell diamond, east road port and reference framing.
 
 `art-review -compound art/pipeline/compound-factory-v2.json` places the scene on winter meadow and slices
-the four winter cells. `compound-factory-summer-v1.json` exports the four matching summer cells. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
+the four winter cells. `compound-factory-summer-v1.json` exports the four matching summer cells. The scene
+fills the 238x160 box and crops the excess. Open: the painted east street's centre lies about 4.8 world px
+north-west of the E cell's NE port, more than the box's 2 px crop slack can shift, so the road tile meets it
+off-centre. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
 
 ## Avoid
 - visible tiling or repeated rounded "pillow" patterns

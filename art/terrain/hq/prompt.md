@@ -34,7 +34,7 @@ Everything stays inside the seven-hex rosette outline (238x240 world pixels); ou
 
 ## Edges & joins
 The scene is sliced into seven hex crops with shared placements, so pieces join exactly; the north
-road meets the regular road tile at the north port with the same width and colour.
+road meets the regular road tile at the north port.
 
 ## Post
 Selected sources are the native 1254x1254 `hq-summer-v2.png` and `hq-winter-v2.png`, generated with built-in
@@ -46,7 +46,8 @@ vegetation, preserving every building, road, prop and silhouette. The current ca
 short wall faces; the requested camera remains nadir.
 
 `art-review -compound art/pipeline/compound-hq-v2.json` places the summer and winter scenes on the seasonal
-meadow and slices the seven cells; both seasons share exact placement. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
+meadow and slices the seven cells; both seasons share exact placement. The scene fills the 238x240 box,
+cropping the excess, and `shift` moves it 0.77 world px west so the north street lies on the port. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
 
 ## Avoid
 - visible tiling or repeated rounded "pillow" patterns

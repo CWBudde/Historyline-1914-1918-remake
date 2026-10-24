@@ -160,6 +160,11 @@ carrying `hangar`. A runway draws `tile/runway36` instead of its road; a hangar 
 its season, the apron (`tile/hangar`) and `standing/hangar` with its shadow, and the apron runs on over the
 runway hexes at its NE and SE (`tile/apron-sw`, `apron-nw`). Winter hexes draw the `_w` forms. All come from
 `art/terrain/airfield`, exported by `TestGenerateAirfieldTiles`.
+Roads and road level crossings carry no season in the level: on a mostly winter map they draw their winter
+form (`tile/road*_w`, `cross2_w`, `cross3_w`: packed snow, slush ruts, snow shoulders, no painted lines;
+`art/pipeline/connected-road-winter-v1.json`, exported by `TestGenerateWinterRoads`), also on bridges and
+quays. Compound scenes (HQ, depot, factory) fill their scene box and crop the excess, so their streets
+reach the hex edge at the gate (`TestGenerateCompoundTiles` re-exports them).
 For one adjacent stream facing a fully-land shore edge, the compositor selects
 `tile/<shore>-outlet<port>`. The 24 single-mouth variants share the ordinary bank and water materials,
 retain the corner states and meet the stream's port profile. Missing variants or several facing streams

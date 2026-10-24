@@ -85,7 +85,7 @@ func TestCompoundAffineUniformCentersAndAlpha(t *testing.T) {
 		}
 	}
 	l, _ := compoundLayoutFor("depot-summer")
-	got, tr, err := compoundAffine(src, l, .9)
+	got, tr, err := compoundAffine(src, l, .9, compoundFit{})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -113,7 +113,7 @@ func TestCompoundAffineUniformCentersAndAlpha(t *testing.T) {
 	if visible < 10000 {
 		t.Fatal("lost art")
 	}
-	if _, _, err := compoundAffine(src, l, math.NaN()); err == nil {
+	if _, _, err := compoundAffine(src, l, math.NaN(), compoundFit{}); err == nil {
 		t.Fatal("NaN inset")
 	}
 }
@@ -375,7 +375,7 @@ func TestCompoundGalleryLinksTwoToFour(t *testing.T) {
 }
 
 func TestCompoundAxisSupportSignedLobesAndFractionalCenter(t *testing.T) {
-	w := compoundAxis(30, 200, .25, 1.25)[10]
+	w := compoundAxis(30, 200, .25, 1.25, false)[10]
 	if w.first != 25 || len(w.weights) != 24 {
 		t.Fatalf("source-space radius must widen to 12: %+v", w)
 	}
@@ -390,7 +390,7 @@ func TestCompoundAxisSupportSignedLobesAndFractionalCenter(t *testing.T) {
 		t.Fatalf("signed centered kernel sum=%g center=%g negative=%v", sum, moment, negative)
 	}
 	// Transparent extension keeps missing taps in normalization, unlike edge renormalization.
-	edge := compoundAxis(1, 8, .5, .5)[0]
+	edge := compoundAxis(1, 8, .5, .5, false)[0]
 	sum = 0
 	for _, v := range edge.weights {
 		sum += v
@@ -582,12 +582,12 @@ func TestCompoundAffineTallSourceScalarReference(t *testing.T) {
 		}
 	}
 	l, _ := compoundLayoutFor("depot-summer")
-	got, tr, err := compoundAffine(src, l, .9)
+	got, tr, err := compoundAffine(src, l, .9, compoundFit{})
 	if err != nil {
 		t.Fatal(err)
 	}
-	wx := compoundAxis(952, 64, tr.Scale*4, tr.Offset[0]*4)
-	wy := compoundAxis(640, 2048, tr.Scale*4, tr.Offset[1]*4)
+	wx := compoundAxis(952, 64, tr.Scale*4, tr.Offset[0]*4, false)
+	wy := compoundAxis(640, 2048, tr.Scale*4, tr.Offset[1]*4, false)
 	for _, p := range []image.Point{{473, 40}, {477, 159}, {471, 320}, {480, 550}} {
 		var q [4]float64
 		for j, v := range wy[p.Y].weights {

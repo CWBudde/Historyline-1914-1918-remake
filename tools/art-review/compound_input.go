@@ -21,7 +21,21 @@ type compoundSceneInput struct {
 	Artwork connectionMaterial `json:"artwork"`
 	Inset   float64            `json:"inset"`
 	Framing string             `json:"framing,omitempty"`
+	// Shift moves reference-layout artwork by world pixels after it is scaled
+	// to fill the scene box, so its entry street lies on the entry port.
+	Shift []float64 `json:"shift,omitempty"`
 }
+
+// fit is how the scene's artwork maps onto its box: reference-layout scenes
+// (whose streets and fences reach the box edge) fill it.
+func (s compoundSceneInput) fit() compoundFit {
+	f := compoundFit{Fill: s.Framing == "reference-layout"}
+	if len(s.Shift) == 2 {
+		f.Shift = connectionPoint{s.Shift[0], s.Shift[1]}
+	}
+	return f
+}
+
 type compoundManifest struct {
 	WaterProfile  string                        `json:"water_profile,omitempty"`
 	SchemaVersion int                           `json:"schema_version"`
@@ -98,7 +112,7 @@ func decodeCompoundManifest(b []byte, m *compoundManifest) error {
 		}
 	}
 	for _, s := range scenes {
-		if err := keys(s, "id", "artwork", "inset", "framing"); err != nil {
+		if err := keys(s, "id", "artwork", "inset", "framing", "shift"); err != nil {
 			return err
 		}
 		if field, ok := s["framing"]; ok && bytes.Equal(bytes.TrimSpace(field), []byte("null")) {
@@ -244,6 +258,11 @@ func loadCompoundInputs(path string) (compoundInputs, error) {
 		used[l.Season] = true
 		if math.IsNaN(s.Inset) || math.IsInf(s.Inset, 0) || s.Inset < .5 || s.Inset > 1 {
 			return in, errors.New("compound inset must be finite in [0.5,1]")
+		}
+		if s.Shift != nil {
+			if s.Framing != "reference-layout" || len(s.Shift) != 2 || !(math.Abs(s.Shift[0]) <= 2) || !(math.Abs(s.Shift[1]) <= 2) {
+				return in, fmt.Errorf("%s: shift requires reference-layout framing and two world-pixel offsets within ±2", s.ID)
+			}
 		}
 		src, e := compoundReadSource(sourceBase(path), s.Artwork, false)
 		if e != nil {

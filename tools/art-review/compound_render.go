@@ -165,7 +165,10 @@ func compoundCheckTapBudget(width, height int, scale float64) error {
 	return nil
 }
 
-func compoundAxis(count, source int, scale, offset float64) []compoundWeight {
+// compoundAxis returns the Lanczos3 taps of every output sample. Out-of-source
+// taps are transparent; with clamp they are dropped and the in-source taps
+// renormalized, so an opaque source edge stays opaque in the output.
+func compoundAxis(count, source int, scale, offset float64, clamp bool) []compoundWeight {
 	out := make([]compoundWeight, count)
 	radius := max(1., 1/scale)
 	for d := range count {
@@ -189,6 +192,12 @@ func compoundAxis(count, source int, scale, offset float64) []compoundWeight {
 			continue
 		}
 		clipped := make([]float64, hi-lo)
+		if clamp {
+			sum = 0
+			for i := range clipped {
+				sum += w[lo-first+i]
+			}
+		}
 		for i := range clipped {
 			clipped[i] = w[lo-first+i] / sum
 		}
@@ -197,15 +206,37 @@ func compoundAxis(count, source int, scale, offset float64) []compoundWeight {
 	return out
 }
 
+// compoundFit says how the artwork maps onto the scene box. Fill scales it to
+// cover the box, crops the excess and keeps its opaque edges opaque, so streets
+// painted to the canvas edge reach the box edge; shift then moves it by world
+// pixels (to put a street on its port) as long as it still covers the box.
+// Without fill the artwork is centred inside the box (letterboxed).
+type compoundFit struct {
+	Fill  bool
+	Shift connectionPoint
+}
+
 // Uniform source-edge affine transform; separable float64 premultiplied Lanczos3.
 // Horizontal values remain unquantized, including signed lobes, until final output.
-func compoundAffine(src *image.NRGBA, l compoundLayout, inset float64) (*image.NRGBA, compoundTransform, error) {
+func compoundAffine(src *image.NRGBA, l compoundLayout, inset float64, fit compoundFit) (*image.NRGBA, compoundTransform, error) {
 	tr := compoundTransform{Source: dimensions{src.Bounds().Dx(), src.Bounds().Dy()}}
 	if math.IsNaN(inset) || math.IsInf(inset, 0) || inset < .5 || inset > 1 {
 		return nil, tr, errors.New("inset must be finite in [0.5,1]")
 	}
-	tr.Scale = min(float64(l.Width)/float64(tr.Source.Width), float64(l.Height)/float64(tr.Source.Height)) * inset
-	tr.Offset = connectionPoint{(float64(l.Width) - float64(tr.Source.Width)*tr.Scale) / 2, (float64(l.Height) - float64(tr.Source.Height)*tr.Scale) / 2}
+	sx, sy := float64(l.Width)/float64(tr.Source.Width), float64(l.Height)/float64(tr.Source.Height)
+	tr.Scale = min(sx, sy) * inset
+	if fit.Fill {
+		tr.Scale = max(sx, sy) * inset
+	} else if fit.Shift != (connectionPoint{}) {
+		return nil, tr, errors.New("compound shift requires fill")
+	}
+	tr.Offset = connectionPoint{(float64(l.Width)-float64(tr.Source.Width)*tr.Scale)/2 + fit.Shift[0], (float64(l.Height)-float64(tr.Source.Height)*tr.Scale)/2 + fit.Shift[1]}
+	if fit.Fill {
+		const eps = 1e-9
+		if tr.Offset[0] > eps || tr.Offset[1] > eps || tr.Offset[0]+float64(tr.Source.Width)*tr.Scale < float64(l.Width)-eps || tr.Offset[1]+float64(tr.Source.Height)*tr.Scale < float64(l.Height)-eps {
+			return nil, tr, errors.New("compound fill artwork does not cover the scene box")
+		}
+	}
 	if tr.Scale*4 > 1 {
 		return nil, tr, errors.New("compound artwork would upscale at 4x")
 	}
@@ -213,8 +244,8 @@ func compoundAffine(src *image.NRGBA, l compoundLayout, inset float64) (*image.N
 	if err := compoundCheckTapBudget(width, height, tr.Scale*4); err != nil {
 		return nil, tr, err
 	}
-	wx := compoundAxis(width, tr.Source.Width, tr.Scale*4, tr.Offset[0]*4)
-	wy := compoundAxis(height, tr.Source.Height, tr.Scale*4, tr.Offset[1]*4)
+	wx := compoundAxis(width, tr.Source.Width, tr.Scale*4, tr.Offset[0]*4, fit.Fill)
+	wy := compoundAxis(height, tr.Source.Height, tr.Scale*4, tr.Offset[1]*4, fit.Fill)
 	// Choose the smaller intermediate so a legal tall/narrow source does not
 	// multiply its long dimension by the full output width. Actual 1536x1024
 	// artwork retains horizontal-first arithmetic and byte-identical exports.
