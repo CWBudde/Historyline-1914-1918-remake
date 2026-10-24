@@ -4,7 +4,7 @@ title: Water
 kind: terrain
 status: revised
 runtime_ids: water, waterStones, water_w, waterStones_w, waterRocks, waterRocks_w, sea-00, sea-00_w, sea-02, sea-02_w, sea-20, sea-20_w, sea-22, sea-22_w, sea-11, sea-11_w, sea-13, sea-13_w, sea-31, sea-31_w, sea-33, sea-33_w, shoal1, shoal1_w, shoal2, shoal2_w, shoal3, shoal3_w, shoal4, shoal4_w, skerry1, skerry1_w, skerry2, skerry2_w, skerry3, skerry3_w, surf, surf_w
-masters: water-shared-v3.png, water-rocks-shared-v2.png, water-shared-v2.png, water-shared-v1.png, water-rocks-shared-v1.png, water-rocks-shared-v3.png, water-reeds-shared-v1.png, water-boulders-shared-v1.png, water-bed-summer-v1.png, water-deep-summer-v1.png, water-sea-shared-v1.png, water-seakit-shared-v1.png, water-surf-shared-v1.png
+masters: water-shared-v3.png, water-rocks-shared-v2.png, water-shared-v2.png, water-shared-v1.png, water-rocks-shared-v1.png, water-rocks-shared-v3.png, water-reeds-shared-v1.png, water-boulders-shared-v1.png, water-bed-summer-v1.png, water-deep-summer-v1.png, water-sea-shared-v1.png, water-seakit-shared-v1.png, water-surf-shared-v1.png, water-rocks-winter-v1.png
 ---
 
 ## Look
@@ -25,13 +25,36 @@ Use case: stylized-concept. NEW transparent terrain object sprite, native high d
 | --- | --- | --- |
 | water | water | The water material above. |
 | waterStones | waterStones | Transparent 6:5 cut-out: three compact groups of low rounded tan-grey rocks with flat cracked tops and a few small companions, clustered in the central 55 percent; only a very narrow translucent ripple fringe at each rock; everything else alpha zero. |
-| winter | water_w, waterStones_w | No new painting: the summer tiles' pixels (`TestGenerateWinterWater`). The pack build grades the water of every winter tile, these and the winter shores alike, to a cold slate teal at L\* 24–32 and chroma about 8 (`internal/terraingrade`). |
+| winter | water_w | No new painting: the summer tile's pixels (`TestGenerateWinterWater`). The pack build grades the water of every winter tile, this one, the winter stones and the winter shores alike, to a cold slate teal at L\* 24–32 and chroma about 8 (`internal/terraingrade`). |
+| winter rocks | waterStones_w, waterRocks_w | Snow-capped rocks: the paint of `water-rocks-winter-v1.png` under the summer rocks' alpha (`compound-water-stones-winter-v1.json`, `TestGenerateWaterRocks`, `TestGenerateWinterWater`), over the same water as summer. |
 
 ## Edges & joins
 The water material is periodic on the world lattice, so lake hexes form one continuous surface; shore
 and stream tiles use the same material, so water matches across all of them.
 
 ## Post
+
+### Look 7 I3 winter lake-rocks candidate (2026-10-24)
+
+`water-rocks-winter-v1.png` (`exec-36c5c0ee`, native 1374×1145 RGBA, unchanged) is the I3 winter edit
+of the W6 lake rocks: settled snow on the upper-left-lit tops of every stone (33.7 % of the rock area at
+L\* ≥ 75 and C\* ≤ 10), frosted moss with no green left, and thin pale ice lines for the blue ripple
+collars, every stone in place. Fault: the edit does not keep the summer alpha to the pixel (alpha ≥ 128
+IoU 0.90 against `water-rocks-shared-v2.png`; the two tries before filled the collars with a milky film,
+IoU 0.83 and 0.90), so the export keeps the summer rocks' alpha and takes only this paint
+(`waterRocksOutline`). It is the winter rocks `tile/waterRocks_w` and `tile/waterStones_w`. Attached:
+`water-rocks-shared-v2.png`. The prompt was:
+
+```text
+Use case: precise-object-edit. Image 1 is the summer lake rocks. Preserve every object's exact outline, position, size and lighting; change only the season: settled snow caps on the upper-left-lit tops of stones, frost on moss, thin ice collars instead of foam at the waterlines. Keep transparency exactly as in image 1.
+Avoid: changed shapes, new objects, snow outside the objects, a blue tint over everything.
+
+Output exactly the same canvas as image 1: LANDSCAPE 1374x1145 RGBA, every rock in exactly the same place and at exactly the same size, alpha zero everywhere image 1 has alpha zero; no water surface, no ground plate, no halo, no checkerboard. Snow: soft settled snow of matt cold white, lit RGB near 232,234,236 and shaded RGB near 188,196,206, covering the upper and upper-left part of every stone, the big and the small ones, about half of each stone's visible area, thinning to bare rock at the lower-right flanks and the dark wet waterline. The moss turns to grey-brown frosted patches, no green left. The pale-blue ripple ring around each stone becomes a thin broken collar of pale grey-white ice, as narrow and translucent as the summer ripple.
+
+The previous try kept every rock, its snow and the ring's extent, but still filled the ripple ring with a milky semi-opaque film: about 18000 pixels around the stones came out more than half opaque where image 1 is less than half opaque. Inside the ring image 1 is mostly clear: only its thin ripple lines carry colour, between them alpha stays under about 30 percent. Keep that exactly: recolour only the thin ripple lines to pale grey-white ice and keep everything between them as clear and transparent as in image 1. The rocks' own outlines stay exactly as in image 1.
+
+Image 1 is the selected summer lake-rock cut-out (water-rocks-shared-v2.png, 1374x1145 RGBA): change season only, preserve every outline, position and the transparency.
+```
 
 ### Look 8 C2 surf (2026-10-24)
 
