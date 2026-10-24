@@ -106,9 +106,7 @@ func (p *presentation) Facing(u any) unitsprite.Facing { return p.facing[u] }
 
 // turn makes u face from hex from towards hex to.
 func (p *presentation) turn(u any, from, to hexgrid.Coord) {
-	x0, y0 := hexgrid.Center(from)
-	x1, y1 := hexgrid.Center(to)
-	f, ok := unitsprite.Toward(x1-x0, y1-y0)
+	f, ok := toward(from, to)
 	if !ok {
 		return
 	}
@@ -116,4 +114,11 @@ func (p *presentation) turn(u any, from, to hexgrid.Coord) {
 		p.facing = map[any]unitsprite.Facing{}
 	}
 	p.facing[u] = f
+}
+
+// toward is the facing from hex from towards hex to, false for the same hex.
+func toward(from, to hexgrid.Coord) (unitsprite.Facing, bool) {
+	x0, y0 := hexgrid.Center(from)
+	x1, y1 := hexgrid.Center(to)
+	return unitsprite.Toward(x1-x0, y1-y0)
 }

@@ -189,8 +189,8 @@ func (d *dosControl) startBattle(ev dosplay.Event) {
 		f.strikeAt += dospanel.FirstLoss(f.battle, d.reduced)
 		n = f.grey + dospanel.BattleTicks(f.battle, d.reduced)
 	}
-	d.turn(atk.Unit.Index, f.from, f.at)
-	d.turn(def.Unit.Index, f.at, f.from)
+	d.turnOn(-1, atk.Unit.Index, f.from, f.at)
+	d.turnOn(-1, def.Unit.Index, f.at, f.from)
 	d.lookAt(d.side, f.at)
 	d.fight = f
 	d.startStage(stageBattle, n)

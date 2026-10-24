@@ -200,7 +200,7 @@ func (d *dosControl) actStep() {
 			if ev.Kind != dosplay.Moved {
 				continue
 			}
-			d.face(ev)
+			d.face(a.side, ev)
 			if w := newWalkMotion(ev.Path, ev.Unit, d.reduced); w != nil {
 				if len(ev.Rear) == len(ev.Path) {
 					w.tail = ev.Rear

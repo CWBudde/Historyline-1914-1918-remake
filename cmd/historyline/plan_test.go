@@ -1,11 +1,13 @@
 package main
 
 import (
+	"maps"
 	"testing"
 	"time"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosai"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
 )
 
 // tickUntil ticks d until done holds, giving the planning goroutine time.
@@ -89,13 +91,22 @@ func TestPlanInTheFrameWithoutCommands(t *testing.T) {
 
 // TestComputerMovesWalk: after planning, the computer carries out its orders
 // one by one, each move walking on its own panel in view of its camera, and
-// confirms only after the last.
+// confirms only after the last. Its units turn on its own map only until the
+// phase change reveals their moves.
 func TestComputerMovesWalk(t *testing.T) {
 	g, d := newSplitTest(t, computerPlanner(), 1800, 1000)
 	opp := 1 - d.side
+	facings := func(side int) map[int]unitsprite.Facing {
+		out := map[int]unitsprite.Facing{}
+		for _, u := range d.s.TrueView().Units {
+			out[u.Index] = d.FacingOn(side, u.Index)
+		}
+		return out
+	}
 	walks := 0
 	for turn := 0; turn < 4 && walks == 0; turn++ {
 		tickUntil(t, d, func() bool { return d.acting() || d.s.Ready(opp) })
+		before := facings(d.side)
 		var last *walk
 		for d.acting() {
 			if d.s.Ready(opp) {
@@ -129,10 +140,18 @@ func TestComputerMovesWalk(t *testing.T) {
 		if !d.s.Ready(opp) {
 			t.Fatalf("turn %d: not confirmed after its orders", turn)
 		}
+		if after := facings(d.side); !maps.Equal(before, after) {
+			t.Errorf("turn %d: the computer's moves turned units on the human's map", turn)
+		}
 		d.s.Confirm(d.side)
 		d.SetReducedMotion(true)
 		tickUntil(t, d, func() bool { return !d.busy() && !d.s.Ready(d.side) })
 		d.SetReducedMotion(false)
+		if last != nil {
+			if u, ok := last.unit.(int); ok && d.FacingOn(d.side, u) != d.FacingOn(opp, u) {
+				t.Errorf("turn %d: after the phase change unit %d faces %v on the human's map, %v on the computer's", turn, u, d.FacingOn(d.side, u), d.FacingOn(opp, u))
+			}
+		}
 		if d.s.Ended() != nil {
 			break
 		}

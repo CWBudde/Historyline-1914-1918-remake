@@ -59,7 +59,7 @@ func (g *game) dosSpent(u dosplay.UnitView) bool {
 // is drawn once, across both its hexes.
 func (g *game) drawDosUnit(dst *ebiten.Image, c hexgrid.Coord, sx, sy float64) {
 	u := g.dos.unitsOf(g.shownSide(), g.reveal)[c]
-	face := g.dos.Facing(u.Index)
+	face := g.dos.FacingOn(g.shownSide(), u.Index)
 	head, rear, ship := shipHalves(u, c)
 	hx, hy := hexgrid.Center(head)
 	rx, ry := hexgrid.Center(rear)

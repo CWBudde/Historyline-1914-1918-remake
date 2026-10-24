@@ -10,6 +10,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
 )
 
 // The original order cycle (-rules dos): both sides give their orders at the
@@ -70,6 +71,8 @@ type dosControl struct {
 
 	run *planRun      // the computer planning off the frame, nil otherwise (plan.go)
 	act *computerTurn // the computer carrying out its planned commands, nil otherwise (plan.go)
+
+	ownFacing [2]map[int]unitsprite.Facing // facings only that side's map shows: its moves and orders until the phase change reveals them
 
 	views  [2]sideCache      // each side's map, by side
 	follow [2]*hexgrid.Coord // where each side's panel should look next; the front end takes it
@@ -349,14 +352,43 @@ func (d *dosControl) walkAlong(ev dosplay.Event) {
 	if d.walk != nil && len(ev.Rear) == len(ev.Path) {
 		d.walk.tail = ev.Rear
 	}
-	d.face(ev)
+	d.face(d.side, ev)
 }
 
-// face turns the unit of a move event the way it went.
-func (d *dosControl) face(ev dosplay.Event) {
+// face turns the unit of a move event the way it went on side's map, on both
+// maps for side < 0.
+func (d *dosControl) face(side int, ev dosplay.Event) {
 	if n := len(ev.Path); n >= 2 {
-		d.turn(ev.Unit, ev.Path[n-2], ev.Path[n-1])
+		d.turnOn(side, ev.Unit, ev.Path[n-2], ev.Path[n-1])
 	}
+}
+
+// turnOn makes unit face from hex from towards hex to on side's map only, or
+// on both maps for side < 0 (a revealed move, a battle).
+func (d *dosControl) turnOn(side, unit int, from, to hexgrid.Coord) {
+	if side < 0 {
+		d.turn(unit, from, to)
+		for i := range d.ownFacing {
+			delete(d.ownFacing[i], unit)
+		}
+		return
+	}
+	f, ok := toward(from, to)
+	if !ok {
+		return
+	}
+	if d.ownFacing[side] == nil {
+		d.ownFacing[side] = map[int]unitsprite.Facing{}
+	}
+	d.ownFacing[side][unit] = f
+}
+
+// FacingOn is the direction unit is drawn in on side's map.
+func (d *dosControl) FacingOn(side, unit int) unitsprite.Facing {
+	if f, ok := d.ownFacing[side][unit]; ok {
+		return f
+	}
+	return d.Facing(unit)
 }
 
 // attack queues the attack of the selected unit on to.
@@ -370,10 +402,10 @@ func (d *dosControl) attack(to hexgrid.Coord) {
 	for _, ev := range evs {
 		switch ev.Kind {
 		case dosplay.Ordered:
-			d.turn(ev.Unit, ev.From, ev.To)
+			d.turnOn(d.side, ev.Unit, ev.From, ev.To)
 			d.Message = fmt.Sprintf("%s (order %d)", strings.TrimSuffix(ev.Text, "."), len(d.s.Orders(d.side)))
 		case dosplay.Tasked:
-			d.turn(ev.Unit, ev.From, ev.To)
+			d.turnOn(d.side, ev.Unit, ev.From, ev.To)
 			d.Message = ev.Text
 		}
 	}
@@ -479,13 +511,13 @@ func (d *dosControl) step() {
 		// As in the original, the other side's moves are not played again:
 		// its units stand where they went as soon as the new mode shows.
 		for len(d.queue) > 0 && d.queue[0].Kind == dosplay.Revealed {
-			d.face(d.queue[0])
+			d.face(-1, d.queue[0])
 			d.queue = d.queue[1:]
 		}
 		d.unfreeze()
 		d.startNewMode(ev)
 	case dosplay.Revealed:
-		d.face(ev)
+		d.face(-1, ev)
 	case dosplay.Captured:
 		d.captured(ev)
 		d.startCapture(ev)
@@ -562,6 +594,9 @@ func (d *dosControl) frozenAt(unit int, at hexgrid.Coord) hexgrid.Coord {
 // drop takes a destroyed unit out of both frozen views.
 func (d *dosControl) drop(unit int) {
 	delete(d.facing, unit)
+	for i := range d.ownFacing {
+		delete(d.ownFacing[i], unit)
+	}
 	for _, v := range []*dosplay.View{d.frozen, d.otherFrozen} {
 		if v != nil {
 			maps.DeleteFunc(v.Units, func(_ hexgrid.Coord, u dosplay.UnitView) bool { return u.Index == unit })
