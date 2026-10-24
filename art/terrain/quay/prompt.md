@@ -3,8 +3,8 @@ id: terrain/quay
 title: Quay pier
 kind: terrain
 status: candidate
-runtime_ids: quay14, quay25, quay36
-masters: quay-pier-shared-v1.png
+runtime_ids: quay14, quay14_w, quay25, quay25_w, quay36, quay36_w
+masters: quay-pier-shared-v1.png, quay-pier-winter-v1.png
 ---
 
 ## Look
@@ -20,9 +20,12 @@ worn cart tracks; alpha zero outside the pier, no water.
 ## Variants
 | Variant | Runtime IDs | Prompt delta |
 | --- | --- | --- |
-| quay14 | quay14 | The painted horizontal strip turned to the NE/SW axis, -29.396 degrees from horizontal. |
-| quay25 | quay25 | The strip turned to the SE/NW axis, +29.396 degrees from horizontal. |
-| quay36 | quay36 | The strip turned to the vertical N/S axis. |
+| quay14 | quay14, quay14_w | The painted horizontal strip turned to the NE/SW axis, -29.396 degrees from horizontal. |
+| quay25 | quay25, quay25_w | The strip turned to the SE/NW axis, +29.396 degrees from horizontal. |
+| quay36 | quay36, quay36_w | The strip turned to the vertical N/S axis. |
+
+The winter IDs (`_w`) come the same way from `quay-pier-winter-v1.png`, a seasonal edit of the summer pier
+with the same outline and cart tracks.
 
 ## Edges & joins
 One horizontal painting serves all three axes. The export makes the strip periodic over the distance
@@ -31,6 +34,29 @@ px overall (22 kerb to kerb, the road's width at the ports), turns it, adds a so
 right and clips it to the hex.
 
 ## Post
+
+### Look 8 I3 winter candidate (2026-10-24)
+`quay-pier-winter-v1.png` (exec-f751a3cf), native 1536×1024 RGBA: the I3 winter edit of
+`quay-pier-shared-v1.png`, try 4 of 4. Same outline as the summer pier (opaque rows 381–682, tracks on rows
+484–512 and 549–579); packed grey snow on the setts with the two cart tracks as darker slush ruts, snow on
+the kerb tops and bollard heads, dark wet fenders; solid 28.9 %, haze 1.4 %, mean RGB 146,143,143. Exported
+tiles (graded, 4x): alpha IoU against the summer tiles 0.998–0.9996, deck ΔE 6.9 from the winter road's
+carriageway, ruts within 1 px of the summer tracks. Faults: no visible ice collar at the fenders; the deck
+is a little lighter than the road (L* 67.6 against 60.7 graded). Selected: the export turns it to quay14_w,
+quay25_w and quay36_w. Attachment: image 1 `art/terrain/quay/quay-pier-shared-v1.png`. The prompt was:
+
+```text
+Use case: precise-object-edit. Image 1 is the selected summer stone quay pier: a transparent RGBA 1536x1024 LANDSCAPE cut-out, strict nadir, one straight horizontal pier from the left edge to the right edge, opaque only from y=381 to y=682, alpha zero above and below. Preserve the exact canvas size, the pier's outline, position and width, every kerb block, bollard, fender bolt and sett exactly where it is, and the flat lighting; change only the season to winter, overcast cold light:
+- Deck (the setts between the kerbs, y=432 to y=631): thin packed, trodden grey snow over the setts, the sett joints still faintly showing through; average near RGB 128,126,127, a neutral cold grey, not white, not blue.
+- The two worn cart tracks stay exactly where they are (y=484 to y=511 and y=549 to y=579) as darker churned grey-brown slush ruts showing wet stone, near RGB 100,97,96.
+- Granite kerb blocks (y=400 to y=431 and y=632 to y=663): settled snow caps on their tops, light grey near RGB 196,196,194, the joints between blocks still visible; the small iron bollards dark iron with a small snow cap each.
+- Timber fender lines on the outer faces (y=381 to y=399 and y=664 to y=682): dark and wet, near RGB 48,42,38, with a thin pale grey ice collar 3 to 5 px wide along their outer edge, inside the existing outline.
+The previous try placed the tracks and kerbs well but painted the upper fender line 8 px too thick: its opaque pier started at y=373 instead of y=381. Keep the upper fender exactly as thin as in image 1 (y=381 to y=399) and add nothing above it; the pier must be exactly 301 px tall, y=381 to y=682.
+Keep transparency exactly as in image 1: alpha zero everywhere it is zero in image 1, no water, no ground plate, no halo, no checkerboard, no cast shadow.
+Avoid: changed shapes, a moved, widened or tilted pier, tracks moved toward the centre, new objects, snow outside the pier, a blue tint over everything, pure white snow on the deck, green or moss, road paint, text.
+
+Image 1 is the selected summer quay pier of this game: change season only, preserve every outline and position; copy its exact canvas, alpha and layout.
+```
 
 ### Look 8 C5 candidate (2026-10-24)
 `quay-pier-shared-v1.png` (exec-52e82efe), native 1536×1024 RGBA: one straight horizontal pier at 0°, along the
