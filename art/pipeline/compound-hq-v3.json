@@ -1,0 +1,43 @@
+{
+  "grounds": {
+    "summer": {
+      "source": "art/terrain/grass/grass-summer-v1.png",
+      "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
+    },
+    "winter": {
+      "source": "art/terrain/grass/grass-winter-v1.png",
+      "source_sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3"
+    }
+  },
+  "scenes": [
+    {
+      "artwork": {
+        "source": "art/terrain/hq/hq-summer-v3.png",
+        "source_sha256": "1794dbc4c388c4fce99d8f5bae281976ef8c33e7d4310701f721e759db07841c"
+      },
+      "entry_road": {
+        "source": "art/pipeline/connected-terrain-v2.json",
+        "source_sha256": "6a101776aa908e0450ad3c602d21b639696526706244cc3bad58b63db312917d"
+      },
+      "framing": "reference-layout",
+      "id": "hq-summer",
+      "inset": 1,
+      "shift": [-0.25, 0]
+    },
+    {
+      "artwork": {
+        "source": "art/terrain/hq/hq-winter-v3.png",
+        "source_sha256": "ead33fc934d1653544adf6859231ccfa415119f0cb00206e9dd2884b484a9a0d"
+      },
+      "entry_road": {
+        "source": "art/pipeline/connected-road-winter-v1.json",
+        "source_sha256": "a5a3f8acfb1a573334436c27c6ef58f7d6e04bde817d68258af034ee73e87a53"
+      },
+      "framing": "reference-layout",
+      "id": "hq-winter",
+      "inset": 1,
+      "shift": [-0.25, 0]
+    }
+  ],
+  "schema_version": 1
+}
