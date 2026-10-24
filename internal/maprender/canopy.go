@@ -29,10 +29,7 @@ func (r *Renderer) VisibleCanopy(lvl *level.Level, density int) (CanopyMap, erro
 		return CanopyMap{}, fmt.Errorf("density %d: runtime art exists at 2x and 4x", density)
 	}
 	grid := lvl.Grid()
-	scene := mapcompose.Compose(grid, func(at hexgrid.Coord) mapcompose.Hex {
-		h := lvl.Lines[at.Line][at.Col]
-		return mapcompose.Hex{Terrain: h.Terrain, Infra: h.Infra.IDs}
-	}, func(id string) bool { return r.has[id] })
+	scene := mapcompose.Compose(grid, mapcompose.LevelHex(lvl), func(id string) bool { return r.has[id] })
 	w, h := Size(grid)
 	m := CanopyMap{
 		Coverage: image.NewAlpha(image.Rect(0, 0, w*density, h*density)),

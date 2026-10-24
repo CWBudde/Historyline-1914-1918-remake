@@ -35,7 +35,7 @@ func testLevel(t *testing.T) *level.Level {
 // level l draws, minus skip, plus the context and standing IDs in contexts.
 func terrainCatalog(t *testing.T, l *level.Level, skip string, contexts ...string) fstest.MapFS {
 	t.Helper()
-	s := mapcompose.Compose(l.Grid(), levelHex(l), func(string) bool { return false })
+	s := mapcompose.Compose(l.Grid(), mapcompose.LevelHex(l), func(string) bool { return false })
 	ids := map[string]string{mapcompose.TileID("unseen"): "backgrounds"}
 	for _, line := range s.Cells {
 		for _, c := range line {
@@ -105,7 +105,7 @@ func terrainCatalog(t *testing.T, l *level.Level, skip string, contexts ...strin
 
 func TestOpenTerrainArtSelectsAvailableContexts(t *testing.T) {
 	l := testLevel(t)
-	plain := mapcompose.Compose(l.Grid(), levelHex(l), func(string) bool { return false })
+	plain := mapcompose.Compose(l.Grid(), mapcompose.LevelHex(l), func(string) bool { return false })
 	var gap mapcompose.Gap
 	for _, x := range plain.Gaps {
 		if x.Reason == mapcompose.Missing {
@@ -210,8 +210,8 @@ func TestLevelHex(t *testing.T) {
 	l := testLevel(t)
 	for li, line := range l.Lines {
 		for c, h := range line {
-			got := levelHex(l)(hexgrid.Coord{Line: li, Col: c})
-			if got.Terrain != h.Terrain || !slices.Equal(got.Infra, h.Infra.IDs) {
+			got := mapcompose.LevelHex(l)(hexgrid.Coord{Line: li, Col: c})
+			if got.Terrain != h.Terrain || !slices.Equal(got.Infra, h.Infra.IDs) || got.Vacant != (h.Content == nil) {
 				t.Fatalf("(%d,%d) = %+v", li, c, got)
 			}
 		}

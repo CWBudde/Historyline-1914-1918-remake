@@ -114,6 +114,74 @@ func TestCompoundGroups(t *testing.T) {
 	}
 }
 
+func TestDestroyedDepotDrawsRuin(t *testing.T) {
+	ruins := func(id string) bool { return strings.HasPrefix(id, "tile/ruin") }
+	cells := map[string]hexgrid.Coord{"N": {Line: 0, Col: 1}, "W": {Line: 1, Col: 0}, "E": {Line: 1, Col: 1}, "S": {Line: 2, Col: 1}}
+	for _, sfx := range []string{"", "_w"} {
+		g, plain := grid(
+			"grass cmpN"+sfx+" grass",
+			"cmpW"+sfx+" cmpE"+sfx,
+			"grass cmpS"+sfx+" grass",
+		)
+		vacant := func(c hexgrid.Coord) Hex {
+			h := plain(c)
+			h.Vacant = c == cells["N"]
+			return h
+		}
+		for _, tc := range []struct {
+			name   string
+			at     func(hexgrid.Coord) Hex
+			has    func(string) bool
+			prefix string
+		}{
+			{"destroyed", vacant, ruins, "ruin"},
+			{"held", plain, ruins, "cmp"},
+			{"no ruin art", vacant, none, "cmp"},
+		} {
+			s := Compose(g, tc.at, tc.has)
+			if len(s.Issues) != 0 {
+				t.Errorf("%s%s: issues %v", tc.name, sfx, s.Issues)
+			}
+			for p, c := range cells {
+				if got, want := s.Cells[c.Line][c.Col].Background, TileID(tc.prefix+p+sfx); got != want {
+					t.Errorf("%s%s: %s piece drawn as %s, want %s", tc.name, sfx, p, got, want)
+				}
+			}
+		}
+	}
+}
+
+// The destroyed depot of level 10 (PARTS) at line59[11]: its entrance has no
+// content, the held depot beside it has.
+func TestLevelDestroyedDepot(t *testing.T) {
+	b, err := fs.ReadFile(levels.Campaign, "campaign/level10_cp.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	l, err := level.Parse(b)
+	if err != nil {
+		t.Fatal(err)
+	}
+	s := Compose(l.Grid(), LevelHex(l), func(id string) bool { return strings.HasPrefix(id, "tile/ruin") })
+	n := 0
+	for line, cells := range s.Cells {
+		for col, c := range cells {
+			if strings.HasPrefix(c.Background, "tile/ruin") {
+				n++
+				if !strings.HasSuffix(c.Background, "_w") {
+					t.Errorf("line%d[%d]: summer ruin %s on a winter map", line+1, col, c.Background)
+				}
+			}
+		}
+	}
+	if got := s.Cells[58][11].Background; got != "tile/ruinN_w" {
+		t.Errorf("line59[11] drawn as %s, want tile/ruinN_w", got)
+	}
+	if n != 4 {
+		t.Errorf("%d ruin pieces, want one depot of 4", n)
+	}
+}
+
 func TestIsolatedMountainQuarterShowsMountain(t *testing.T) {
 	g, at := loadLevel(t, "level3_cp")
 	s := Compose(g, at, none)

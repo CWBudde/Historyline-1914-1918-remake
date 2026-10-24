@@ -56,6 +56,8 @@ func TestCompoundReferenceFramingManifestValidation(t *testing.T) {
 		{"hq-winter", "reference-layout", false},
 		{"depot-summer", "reference-layout", false},
 		{"depot-winter", "reference-layout", false},
+		{"ruin-summer", "reference-layout", false},
+		{"ruin-winter", "reference-layout", false},
 		{"factory-summer", "reference-layout", false},
 		{"factory-winter", "reference-layout", false},
 		{"depot-summer", "unknown", true},

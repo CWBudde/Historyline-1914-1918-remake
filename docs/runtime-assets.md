@@ -122,7 +122,9 @@ context tile whose key is the SHA-256 of a descriptor (season, centre, neighbour
 origin mod 568×320 for hills). Neighbours from another family count as the seasonal base (`grass`/`grass_w`);
 outside the map the centre continues. Without a context tile the default tile is drawn and a gap is recorded
 (`missing` or `undefined`). The three shipped levels and all 72 campaign levels have no gaps.
-Compounds must form complete groups; stray pieces are reported, never completed.
+Compounds must form complete groups; stray pieces are reported, never completed. A depot whose entrance
+hex has no content in the level (`mapcompose.LevelHex` marks it `Vacant`) is destroyed and draws
+`tile/ruinN`, `ruinW`, `ruinE`, `ruinS` (and `_w`) instead, when the catalog has all four.
 
 Factory compounds have matching summer and winter four-cell exports. `tile/barbedWire` is a contained
 transparent infrastructure patch for either seasonal ground; sapper placement and removal are not bound yet.

@@ -44,14 +44,6 @@ type terrainArt struct {
 	dim map[*ebiten.Image]*ebiten.Image
 }
 
-// levelHex reads a hex's terrain from the level for the compositor.
-func levelHex(l *level.Level) func(hexgrid.Coord) mapcompose.Hex {
-	return func(c hexgrid.Coord) mapcompose.Hex {
-		h := l.Lines[c.Line][c.Col]
-		return mapcompose.Hex{Terrain: h.Terrain, Infra: h.Infra.IDs}
-	}
-}
-
 // openTerrainArt opens the terrain catalog and composes lvl with it. Context
 // tiles are used where the catalog has them at every density; every other tile
 // the level draws, and the unseen tile, must be present, so drawing never meets
@@ -95,7 +87,7 @@ func openTerrainArt(fsys fs.FS, opt assets.Options, lvl *level.Level) (*terrainA
 		}
 		return nil
 	}
-	a.scene = mapcompose.Compose(lvl.Grid(), levelHex(lvl), func(id string) bool { return present(id) == nil })
+	a.scene = mapcompose.Compose(lvl.Grid(), mapcompose.LevelHex(lvl), func(id string) bool { return present(id) == nil })
 	if err := present(mapcompose.TileID("unseen")); err != nil {
 		return nil, err
 	}

@@ -26,7 +26,7 @@ func TestCompoundFixedLayoutsAndOuterBoundary(t *testing.T) {
 		id                 string
 		n, h               int
 		first, last, entry string
-	}{{"depot-summer", 4, 160, "cmpN", "cmpS", "N"}, {"depot-winter", 4, 160, "cmpN_w", "cmpS_w", "N"}, {"hq-summer", 7, 240, "hqN", "hqS", "N"}, {"hq-winter", 7, 240, "hqN_w", "hqS_w", "N"}, {"factory-summer", 4, 160, "factoryN", "factoryS", "E"}, {"factory-winter", 4, 160, "factoryN_w", "factoryS_w", "E"}} {
+	}{{"depot-summer", 4, 160, "cmpN", "cmpS", "N"}, {"depot-winter", 4, 160, "cmpN_w", "cmpS_w", "N"}, {"ruin-summer", 4, 160, "ruinN", "ruinS", "N"}, {"ruin-winter", 4, 160, "ruinN_w", "ruinS_w", "N"}, {"hq-summer", 7, 240, "hqN", "hqS", "N"}, {"hq-winter", 7, 240, "hqN_w", "hqS_w", "N"}, {"factory-summer", 4, 160, "factoryN", "factoryS", "E"}, {"factory-winter", 4, 160, "factoryN_w", "factoryS_w", "E"}} {
 		l, err := compoundLayoutFor(tc.id)
 		if err != nil {
 			t.Fatal(err)
@@ -50,6 +50,9 @@ func TestCompoundFixedLayoutsAndOuterBoundary(t *testing.T) {
 		}
 		if strings.HasPrefix(tc.id, "factory-") {
 			prefix = "factory"
+		}
+		if strings.HasPrefix(tc.id, "ruin-") {
+			prefix = "ruin"
 		}
 		if strings.HasSuffix(tc.id, "-winter") {
 			suffix = "_w"

@@ -53,10 +53,7 @@ func (r *Renderer) CastShadowPairs(lvl *level.Level, density int) (ShadowPairs, 
 	if lvl == nil {
 		return ShadowPairs{}, fmt.Errorf("missing level")
 	}
-	scene := mapcompose.Compose(lvl.Grid(), func(at hexgrid.Coord) mapcompose.Hex {
-		h := lvl.Lines[at.Line][at.Col]
-		return mapcompose.Hex{Terrain: h.Terrain, Infra: h.Infra.IDs}
-	}, func(id string) bool { return r.has[id] })
+	scene := mapcompose.Compose(lvl.Grid(), mapcompose.LevelHex(lvl), func(id string) bool { return r.has[id] })
 	result := ShadowPairs{Density: density, Gaps: scene.Gaps, Issues: scene.Issues}
 	all := func(*mapcompose.Cluster) bool { return true }
 	for line, cells := range scene.Cells {

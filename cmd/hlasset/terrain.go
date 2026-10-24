@@ -14,7 +14,6 @@ import (
 	"strings"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/terraingrade"
@@ -294,10 +293,7 @@ func terrainGaps(dir string, w io.Writer) error {
 		if err != nil {
 			return fmt.Errorf("%s: %w", name, err)
 		}
-		s := mapcompose.Compose(l.Grid(), func(c hexgrid.Coord) mapcompose.Hex {
-			h := l.Lines[c.Line][c.Col]
-			return mapcompose.Hex{Terrain: h.Terrain, Infra: h.Infra.IDs}
-		}, func(id string) bool { return have[id] })
+		s := mapcompose.Compose(l.Grid(), mapcompose.LevelHex(l), func(id string) bool { return have[id] })
 		selected, count := 0, map[mapcompose.Reason]int{}
 		for _, line := range s.Cells {
 			for _, c := range line {

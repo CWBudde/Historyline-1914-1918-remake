@@ -19,7 +19,7 @@ import (
 func terrainPartFixture(t *testing.T) (fstest.MapFS, *level.Level, mapcompose.Gap) {
 	t.Helper()
 	l := testLevel(t)
-	s := mapcompose.Compose(l.Grid(), levelHex(l), func(string) bool { return false })
+	s := mapcompose.Compose(l.Grid(), mapcompose.LevelHex(l), func(string) bool { return false })
 	var gap mapcompose.Gap
 	for _, g := range s.Gaps {
 		if g.Family == mapcompose.Ground {

@@ -29,6 +29,8 @@ func compoundLayoutFor(id string) (compoundLayout, error) {
 	switch id {
 	case "depot-summer", "depot-winter":
 		l.Layout = "depot"
+	case "ruin-summer", "ruin-winter":
+		l.Layout = "ruin"
 	case "hq-summer", "hq-winter":
 		l.Layout = "hq"
 		l.Height = 240
@@ -289,10 +291,10 @@ func compoundValidateFraming(l compoundLayout, framing string) error {
 	case "":
 		return nil
 	case "reference-layout":
-		if l.Layout == "hq" || l.Layout == "depot" || l.Layout == "factory" {
+		if l.Layout == "hq" || l.Layout == "depot" || l.Layout == "ruin" || l.Layout == "factory" {
 			return nil
 		}
-		return errors.New("reference-layout framing is restricted to HQ, depot and factory")
+		return errors.New("reference-layout framing is restricted to HQ, depot, ruined depot and factory")
 	default:
 		return fmt.Errorf("unsupported compound framing %q", framing)
 	}

@@ -132,10 +132,7 @@ func (r *Renderer) Render(lvl *level.Level, density int, units bool) (Map, error
 	}
 	grid := lvl.Grid()
 	field := mapmaterial.New(lvl)
-	scene := mapcompose.Compose(grid, func(at hexgrid.Coord) mapcompose.Hex {
-		h := lvl.Lines[at.Line][at.Col]
-		return mapcompose.Hex{Terrain: h.Terrain, Infra: h.Infra.IDs}
-	}, func(id string) bool { return r.has[id] })
+	scene := mapcompose.Compose(grid, mapcompose.LevelHex(lvl), func(id string) bool { return r.has[id] })
 	w, h := Size(grid)
 	m := Map{Image: image.NewNRGBA(image.Rect(0, 0, w*density, h*density)), Gaps: scene.Gaps, Issues: scene.Issues}
 	// Backgrounds, cluster stamps with the ground props, infrastructure, shadows and
