@@ -433,11 +433,18 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       shallows' L\* and the middle band to 0.92–0.95, against the original tiles' 0.823 and 0.93
       (`TestSeaDepthSteps`, campaign 10 and 7; `build/review/sea-depth/`). There is no step at any hex edge or
       coast. Open: C2 surf, shoals and skerries; the ripple lattice still repeats on large seas.
-- [ ] L8.2 Shell-hole fields as a field material (C3) instead of the crater-ring lattice: summer records 63
+- [x] L8.2 Shell-hole fields as a field material (C3) instead of the crater-ring lattice: summer records 63
       and 81–84 show `mud` (winter shows `shelled_w`). 360 summer clusters in 115 shapes have no stamp
       (only the diamond `4_-1.1_1.1_0.2` exists, no single), 50 winter clusters in 37 shapes. Crater fields
       are not tiled from smaller stamps (crowded, mismatched scale), so each needs its own shape, a
       single-hex stamp that reads well when repeated, or the field material.
+      (2026-10-24) `mud` and `shelled_w` are lattice materials (5 source px per world px) sampled from the C3
+      paintings `ground-shelled-summer-v1.png` and `ground-shelled-winter-v3.png`; the one crater ring per hex
+      on meadow is gone (`TestLatticeGroundTilesAreNotMirrored` covers both: 0.04/0.07 and 0.21/0.21). The
+      PULSE diamonds and the winter stamps are unchanged (`build/review/l8-batch/shelled/`).
+- [ ] L8.2a Crater fields: the hollows repeat once per hex (one lattice period, contrast halved by the
+      two-coset average; L1.1), and a winter crater stamp inside a field leaves a white hex-shaped notch
+      (level20_cp).
 - [ ] L8.3 Harbour buildings and their yard (C4; houses and a road today), quays and piers (C5; a road
       bridge on water today, records 107–126) and town streets (C6; a road).
       (2026-10-24) partial: quays and piers draw the C5 pier `quay-pier-shared-v1.png`, turned to
@@ -446,6 +453,13 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       are open.
       2026-10-24: the quay is 36 world px wide and the road runs on over it, so a road meets its quay
       without a seam.
+      (2026-10-24) partial: the harbour group (53 warehouse, 52 customs house, 120 quay yard, always beside
+      the water, on 12 campaign maps) carries the display-only markers `harbourN`, `harbourW`, `harbourS`
+      and draws the C4 kit on one granite paving, summer and winter (`TestHarbour*`,
+      `build/review/l8-batch/harbour/`). The setts are about 6×4 world px, coarser than the quay's, and the
+      yard stops at the meadow before the bank. Open: town streets (C6), though no record calls for them
+      (only 7 road hexes in all maps touch two houses); decide whether to keep them. The 4× standing pack is
+      at 262 of 268 MB.
 - [ ] L8.4 Junctions and level crossings without a tile of their own (two overlays today); forest and
       mountain variants that show plain forest and mountain; mountain ranges at their footprint. Knolls and
       boulders are tiled from the existing stamps; whole-shape paintings would read better.

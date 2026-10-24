@@ -112,3 +112,17 @@ func TestHarbourCrop(t *testing.T) {
 		t.Errorf("the sprite's pixel moved: alpha %d", a)
 	}
 }
+
+// Each kit column has its marker, and the piece placed there stays within the
+// hex's width.
+func TestHarbourPlaces(t *testing.T) {
+	for i, want := range []string{"harbourN", "harbourS", "harbourW"} {
+		p := harbourPlaces[i]
+		if p.id != want {
+			t.Errorf("column %d places %s, want %s", i, p.id, want)
+		}
+		if half := p.place.width / 2; p.place.at[0]-half < -48 || p.place.at[0]+half > 48 {
+			t.Errorf("%s spans x %.0f..%.0f, beyond the hex", p.id, p.place.at[0]-half, p.place.at[0]+half)
+		}
+	}
+}

@@ -29,11 +29,11 @@
     "mud": {
       "2x": {
         "source": "assets/terrain/ground/mud-2x.png",
-        "source_sha256": "25e14c5437b47dc5fee58b172d62596294411a1c7aa0f9d3a4fe9de65277af73"
+        "source_sha256": "83ad6451c239cf461a6f910a414638711d55464b4cab2606a7baab8bb1865d0f"
       },
       "4x": {
         "source": "assets/terrain/ground/mud-4x.png",
-        "source_sha256": "afd3cf6b4960bc089177d17ce98ea00f950adf642f32bcdc7094556b548358c9"
+        "source_sha256": "3cf9a92544b7882bbbb551320d07756499b8041f0fb3b33f54a01d6df3e7d85f"
       }
     }
   },
