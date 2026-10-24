@@ -10,6 +10,7 @@ import (
 	"io/fs"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"testing"
 
@@ -33,6 +34,35 @@ func openTerrainPack(t *testing.T, out string, d int, group string) *assets.Pack
 		t.Fatal(err)
 	}
 	return p
+}
+
+// isStandingPart reports whether group is the standing group or one of its
+// numbered parts (standing-2, …).
+func isStandingPart(group string) bool {
+	n, ok := strings.CutPrefix(group, standingGroup+"-")
+	if !ok {
+		return group == standingGroup
+	}
+	_, err := strconv.Atoi(n)
+	return err == nil
+}
+
+// openStandingWith opens the part of the standing group at density d that
+// holds id.
+func openStandingWith(t *testing.T, out string, d int, id string) *assets.Pack {
+	t.Helper()
+	for n := 1; ; n++ {
+		group := standingGroup
+		if n > 1 {
+			group = fmt.Sprintf("%s-%d", standingGroup, n)
+		}
+		if _, err := os.Stat(filepath.Join(out, terrainDir(d, group))); err != nil {
+			t.Fatalf("%s: in no standing part at %dx", id, d)
+		}
+		if p := openTerrainPack(t, out, d, group); func() bool { _, err := p.Entry(id, d); return err == nil }() {
+			return p
+		}
+	}
 }
 
 // sourcePNG decodes a runtime PNG of assets/.
@@ -82,12 +112,29 @@ func TestRetainedTerrainCatalogBuilds(t *testing.T) {
 			}
 		}
 	}
-	if len(packs) != len(want)*3 {
-		t.Fatalf("built %d packs, want %d", len(packs), len(want)*3)
-	}
+	// The standing items may fill more than one part; count them together.
+	groups, standing := map[string]bool{}, map[int]int{}
 	for _, p := range packs {
-		if n := len(p.Manifest.Entries); n != want[p.Group] || p.Manifest.Status != "candidate" {
-			t.Errorf("%s: %d entries (want %d), status %s", p.Manifest.ID, n, want[p.Group], p.Manifest.Status)
+		n := len(p.Manifest.Entries)
+		if p.Manifest.Status != "candidate" {
+			t.Errorf("%s: status %s", p.Manifest.ID, p.Manifest.Status)
+		}
+		if isStandingPart(p.Group) {
+			groups[standingGroup] = true
+			standing[p.Density] += n
+			continue
+		}
+		groups[p.Group] = true
+		if n != want[p.Group] {
+			t.Errorf("%s: %d entries (want %d)", p.Manifest.ID, n, want[p.Group])
+		}
+	}
+	if len(groups) != len(want) || len(packs)%3 != 0 {
+		t.Fatalf("built %d packs in %d groups, want %d groups", len(packs), len(groups), len(want))
+	}
+	for d, n := range standing {
+		if n != want[standingGroup] {
+			t.Errorf("standing at %dx: %d entries (want %d)", d, n, want[standingGroup])
 		}
 	}
 	// Every terrain and infrastructure ID of the shipped levels has a tile at
@@ -184,9 +231,8 @@ func TestRetainedTerrainCatalogBuilds(t *testing.T) {
 	if g := pixels(got); bytes.Equal(g, pixels(sourcePNG(t, "terrain/hq/hqN-4x.png"))) {
 		t.Fatal("tile/hqN is not graded")
 	}
-	standing := openTerrainPack(t, out, 4, standingGroup)
 	crowns := sourcePNG(t, "terrain/forest/crowns-default-4x.png")
-	cast, err := standing.Image("standing/shadow/forest", 4)
+	cast, err := openStandingWith(t, out, 4, "standing/shadow/forest").Image("standing/shadow/forest", 4)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -198,7 +244,7 @@ func TestRetainedTerrainCatalogBuilds(t *testing.T) {
 		t.Fatal(err)
 	}
 	var shadow bytes.Buffer
-	if err := standing.WritePNG(&shadow, "standing/shadow/scatter/crown/oak-16", 4); err != nil {
+	if err := openStandingWith(t, out, 4, "standing/shadow/scatter/crown/oak-16").WritePNG(&shadow, "standing/shadow/scatter/crown/oak-16", 4); err != nil {
 		t.Fatal(err)
 	}
 	if !bytes.Equal(shadow.Bytes(), src) {

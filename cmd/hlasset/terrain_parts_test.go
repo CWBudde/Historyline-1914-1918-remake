@@ -128,3 +128,34 @@ func TestTerrainPartsEntryLimitAndGeometry(t *testing.T) {
 		t.Fatal("accepted different paired ID sets")
 	}
 }
+
+// A standing item and its cast shadow stay in one part: the pack validator
+// requires a shadow's standing item in the same pack.
+func TestTerrainPartsKeepShadowWithItsStanding(t *testing.T) {
+	var input []terrainPack
+	for _, d := range terrainDensities {
+		m := assets.Manifest{Schema: 1, Status: "candidate"}
+		for _, id := range []string{"standing/a", "standing/b", "standing/shadow/a", "standing/shadow/b"} {
+			m.Entries = append(m.Entries, assets.Entry{ID: id, Density: d, Width: 4096 * d / 4, Height: 3072 * d / 4})
+		}
+		input = append(input, terrainPack{Group: "standing", Density: d, Manifest: m})
+	}
+	parts, err := splitTerrain(input)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(parts) < 4 {
+		t.Fatalf("%d parts, want the group split", len(parts))
+	}
+	in := map[string]string{}
+	for _, p := range parts {
+		for _, e := range p.Manifest.Entries {
+			in[e.ID] = p.Group
+		}
+	}
+	for _, id := range []string{"a", "b"} {
+		if in["standing/"+id] != in["standing/shadow/"+id] {
+			t.Errorf("standing/%s in %s, its shadow in %s", id, in["standing/"+id], in["standing/shadow/"+id])
+		}
+	}
+}

@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"slices"
+	"strings"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
 )
@@ -54,8 +55,7 @@ func splitTerrain(packs []terrainPack) ([]terrainPack, error) {
 			}
 		}
 		slices.Sort(ids)
-		parts := [][]string{{}}
-		var decoded int64
+		sizes := map[string]int64{}
 		for _, id := range ids {
 			first := paired[0][id]
 			var size int64
@@ -69,13 +69,38 @@ func splitTerrain(packs []terrainPack) ([]terrainPack, error) {
 			if size > assets.MaxDecodedBytes {
 				return nil, fmt.Errorf("terrain %s exceeds the decoded pack budget", id)
 			}
+			sizes[id] = size
+		}
+		// A cast shadow must share its standing item's pack, so the two
+		// form one unit of the split.
+		var units [][]string
+		for _, id := range ids {
+			if item, shadow := strings.CutPrefix(id, "standing/shadow/"); shadow && sizes["standing/"+item] > 0 {
+				continue
+			}
+			unit := []string{id}
+			if item, ok := strings.CutPrefix(id, "standing/"); ok && sizes["standing/shadow/"+item] > 0 {
+				unit = append(unit, "standing/shadow/"+item)
+			}
+			units = append(units, unit)
+		}
+		parts := [][]string{{}}
+		var decoded int64
+		for _, unit := range units {
+			var size int64
+			for _, id := range unit {
+				size += sizes[id]
+			}
+			if size > assets.MaxDecodedBytes {
+				return nil, fmt.Errorf("terrain %s and its shadow exceed the decoded pack budget", unit[0])
+			}
 			last := len(parts) - 1
-			if len(parts[last]) == assets.MaxEntriesPerPack || decoded+size > assets.MaxDecodedBytes {
+			if len(parts[last])+len(unit) > assets.MaxEntriesPerPack || decoded+size > assets.MaxDecodedBytes {
 				parts = append(parts, nil)
 				last++
 				decoded = 0
 			}
-			parts[last] = append(parts[last], id)
+			parts[last] = append(parts[last], unit...)
 			decoded += size
 		}
 		for n, part := range parts {
