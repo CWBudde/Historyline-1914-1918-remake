@@ -199,7 +199,7 @@ func TestWinterMixedManifestRejectsDrift(t *testing.T) {
 
 // --- The winter path and rail criterion on the installed 4x tiles ---
 
-func winterLab(c color.NRGBA) [3]float64 {
+func trackLab(c color.NRGBA) [3]float64 {
 	lin := func(v uint8) float64 {
 		x := float64(v) / 255
 		if x <= .04045 {
@@ -225,7 +225,7 @@ func winterDeltaE(a, b [3]float64) float64 {
 }
 
 // summerGreen is the criterion's summer-green pixel: a* < -6 and C* > 12.
-func summerGreen(l [3]float64) bool { return l[1] < -6 && math.Hypot(l[1], l[2]) > 12 }
+func trackSummerGreen(l [3]float64) bool { return l[1] < -6 && math.Hypot(l[1], l[2]) > 12 }
 
 type winterLabMean struct {
 	sum   [3]float64
@@ -238,7 +238,7 @@ func (m *winterLabMean) add(l [3]float64) {
 		m.sum[i] += l[i]
 	}
 	m.n++
-	if summerGreen(l) {
+	if trackSummerGreen(l) {
 		m.green++
 	}
 }
@@ -325,7 +325,7 @@ func (s winterTrackScene) bands(im *image.NRGBA, f connectionFamily, v connectio
 				core = connectionRouteDistance(route, p) - f.Width/2
 				outer = core - f.Border
 			}
-			l := winterLab(im.NRGBAAt(x, y))
+			l := trackLab(im.NRGBAAt(x, y))
 			switch {
 			case core > .25 && outer < -.1:
 				verge.add(l)
@@ -349,7 +349,7 @@ func winterRoadSurface(t *testing.T, root string) [3]float64 {
 	var m winterLabMean
 	for y := 8 * 4; y < 72*4; y++ {
 		for x := (48 - 9) * 4; x < (48+9)*4; x++ {
-			m.add(winterLab(im.NRGBAAt(x, y)))
+			m.add(trackLab(im.NRGBAAt(x, y)))
 		}
 	}
 	return m.mean()
@@ -369,7 +369,7 @@ func railCentrelineDark(im *image.NRGBA, f connectionFamily, v connectionVariant
 				continue
 			}
 			n++
-			if winterLab(im.NRGBAAt(int(p[0]*4), int(p[1]*4)))[0] <= 40 {
+			if trackLab(im.NRGBAAt(int(p[0]*4), int(p[1]*4)))[0] <= 40 {
 				dark++
 			}
 		}
@@ -392,7 +392,7 @@ func railSleeperPeriod(im *image.NRGBA, v connectionVariant) (int, float64) {
 		l := 0.
 		for _, across := range []float64{-1.5, -1, -.5, 0, .5, 1, 1.5} {
 			q := p.add(n.mul(across))
-			l += winterLab(im.NRGBAAt(int(q[0]*4), int(q[1]*4)))[0] / 7
+			l += trackLab(im.NRGBAAt(int(q[0]*4), int(q[1]*4)))[0] / 7
 		}
 		xs = append(xs, l)
 	}
@@ -440,7 +440,7 @@ func winterCrossingInfill(im *image.NRGBA, rail connectionFamily, track connecti
 		for x := range 384 {
 			p := connectionPoint{(float64(x) + .5) / 4, (float64(y) + .5) / 4}
 			if mixedEdgeDistance(g, p) > 12.5 && connectionRouteDistance(route, p) < f.Width/2+.5 && connectionRouteDistance(r.ballast, p) < 4 && connectionRouteDistance(r.rails, p) > connectionRailWidth/2+.5 {
-				m.add(winterLab(im.NRGBAAt(x, y)))
+				m.add(trackLab(im.NRGBAAt(x, y)))
 			}
 		}
 	}
@@ -520,7 +520,7 @@ func TestWinterPathsAndRailsMeetCriterion(t *testing.T) {
 		for y := range 320 {
 			for x := range 384 {
 				if c := tile.NRGBAAt(x, y); c.A > 0 {
-					all.add(winterLab(c))
+					all.add(trackLab(c))
 				}
 			}
 		}

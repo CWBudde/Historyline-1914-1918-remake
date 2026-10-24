@@ -14,8 +14,13 @@ import (
 )
 
 // winterAuditDone lists the families whose summer form must not show on a
-// winter map: they have winter forms in the catalog.
-var winterAuditDone = []string{"road", "water", "waterStones", "lakeside", "standing/rBridge", "standing/bridge"}
+// winter map: they have winter forms in the catalog. Not listed: the road
+// bridge tiles (tile/rBridge*), which are transparent under their standing
+// deck, and the stone quays, which have no winter form yet.
+var winterAuditDone = []string{
+	"road", "cross", "path", "rail", "stream", "trench", "bridge",
+	"water", "waterStones", "lakeside", "standing/rBridge", "standing/bridge",
+}
 
 // auditFamily is the family of a drawn tile or standing ID: its name up to the
 // first digit, dash or underscore ("tile/road36_w" is road, "standing/rBridge36"
