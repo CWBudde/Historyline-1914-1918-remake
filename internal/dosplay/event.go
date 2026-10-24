@@ -147,6 +147,7 @@ type battles struct {
 	side  int
 	views map[int]UnitView
 	state map[int][3]int
+	half  map[int]int // a two-cell ship half: its other half, whose state it shares
 }
 
 // fighter is a unit's part in an outcome; it updates the running state.
@@ -157,6 +158,9 @@ func (b *battles) fighter(idx, size, alt, exp int, gone []int) Fighter {
 	f := Fighter{Unit: v, Before: st[0], After: size, AltBefore: st[1], AltAfter: alt, ExpBefore: st[2], ExpAfter: exp,
 		Destroyed: slices.Contains(gone, idx)}
 	b.state[idx] = [3]int{size, alt, exp}
+	if p, ok := b.half[idx]; ok {
+		b.state[p] = b.state[idx]
+	}
 	return f
 }
 

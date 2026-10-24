@@ -57,8 +57,9 @@ type unitMark struct {
 }
 
 // unitMarks are the markers of every unit of the shown side's view on a hex
-// in inView, in inView's order: none on a walking unit's hex, and none at
-// all when the hexes are too small.
+// in inView, in inView's order: none on a walking unit's hex or on a ship's
+// rear (the ship is one unit, marked on its head), and none at all when the
+// hexes are too small.
 func (g *game) unitMarks(inView []hexgrid.Coord) []unitMark {
 	eff := g.cam.Effective()
 	if g.dos == nil || !marksShown(eff) {
@@ -70,6 +71,11 @@ func (g *game) unitMarks(inView []hexgrid.Coord) []unitMark {
 		u, ok := units[c]
 		if !ok || g.walking(c) || u.Size <= 0 {
 			continue
+		}
+		if u.Head != nil {
+			if _, ok := units[*u.Head]; ok {
+				continue // a ship is one unit: its head's hex carries the marks
+			}
 		}
 		sx, sy := g.cam.WorldToScreen(hexgrid.Center(c))
 		out = append(out, unitMark{at: c, unit: u, badgeX: sx, badgeY: sy - badgeY*eff, sizeX: sx + sizeX*eff, sizeY: sy + sizeY*eff})

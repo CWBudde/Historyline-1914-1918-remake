@@ -722,6 +722,23 @@ func (g *Game) attack(a int) ([]Event, error) {
 		l.Size, l.Alt, l.Exp = u.Size, u.Alt, u.Exp
 		g.Units[i] = l
 	}
+	for i, u := range r.Units {
+		// A ship half whose other half that map does not hold: it is one unit.
+		p := i - 1
+		if u.Flags4&0x80 != 0 {
+			p = i + 1
+		}
+		if _, seen := r.Units[p]; u.Flags4&0x40 == 0 || seen {
+			continue
+		}
+		if l, ok := g.Units[p]; ok && l.Flags4&0x40 != 0 {
+			l.Size, l.Alt, l.Exp = u.Size, u.Alt, u.Exp
+			g.Units[p] = l
+			if slices.Contains(r.Gone, i) {
+				r.Gone = append(r.Gone, p)
+			}
+		}
+	}
 	for _, i := range r.Gone {
 		l := g.Units[i]
 		l.Action[1] |= 4

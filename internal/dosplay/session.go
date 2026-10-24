@@ -543,10 +543,13 @@ func (s *Session) Resolve() ([]Event, error) {
 	if err != nil {
 		return nil, err
 	}
-	b := &battles{side: a, views: map[int]UnitView{}, state: map[int][3]int{}}
+	b := &battles{side: a, views: map[int]UnitView{}, state: map[int][3]int{}, half: map[int]int{}}
 	for i, u := range s.Game.Units {
 		b.views[i] = s.unitView(i, a)
 		b.state[i] = [3]int{u.Size, u.Alt, u.Exp}
+		if u.Flags4&0xC0 == 0xC0 {
+			b.half[i], b.half[i+1] = i+1, i
+		}
 	}
 	raw, err := s.Game.Resolve()
 	if len(raw) > 0 {

@@ -24,6 +24,11 @@ type Resolution struct {
 // keeps its record (its cell and strength), and Engage still runs for an
 // order of a destroyed attacker; the attack order never lets a side target
 // its own units, so that order cannot arise in the game.
+//
+// A two-cell ship fights as one unit, unlike in the original, where each half
+// keeps its own strength: a battle that hits either half leaves the other
+// half the same strength and experience, and destroys both together
+// (Destroyed lists the other half after the one fought).
 func (p Profile) ResolveOrders(b *Battlefield, orders []Order) (Resolution, error) {
 	r := Resolution{Units: map[int]Unit{}, Cells: map[int]int{}}
 	for i, u := range b.Units {
@@ -50,6 +55,15 @@ func (p Profile) ResolveOrders(b *Battlefield, orders []Order) (Resolution, erro
 		a.Size, a.Alt, a.Exp = out.AttackerSize, out.AttackerAlt, out.AttackerExp
 		d.Size, d.Alt, d.Exp = out.DefenderSize, out.DefenderAlt, out.DefenderExp
 		r.Units[o.Attacker], r.Units[out.Defender] = a, d
+		for _, k := range []int{o.Attacker, out.Defender} {
+			if p, ok := shipPartner(r.Units, k); ok {
+				r.Units[p] = whole(r.Units[p], r.Units[k])
+				if slices.Contains(out.Destroyed, k) && !slices.Contains(out.Destroyed, p) {
+					out.Destroyed = append(out.Destroyed, p)
+				}
+			}
+		}
+		r.Orders[len(r.Orders)-1] = out
 		for _, k := range out.Destroyed {
 			gone[k] = true
 		}
@@ -63,4 +77,30 @@ func (p Profile) ResolveOrders(b *Battlefield, orders []Order) (Resolution, erro
 	}
 	slices.Sort(r.Gone)
 	return r, nil
+}
+
+// shipPartner is the other half of a two-cell ship among units: the next
+// record from the head (+4 bit 0x80), the previous one from the rear. It
+// reports false for any other unit and for a half whose partner is not there.
+func shipPartner(units map[int]Unit, i int) (int, bool) {
+	f := units[i].Flags4
+	if f&0x40 == 0 {
+		return 0, false
+	}
+	p := i - 1
+	if f&0x80 != 0 {
+		p = i + 1
+	}
+	q, ok := units[p]
+	if !ok || q.Flags4&0x40 == 0 || q.Flags4&0x80 == f&0x80 {
+		return 0, false
+	}
+	return p, true
+}
+
+// whole is half of a two-cell ship with the strength and experience of its
+// other half.
+func whole(half, other Unit) Unit {
+	half.Size, half.Alt, half.Exp = other.Size, other.Alt, other.Exp
+	return half
 }

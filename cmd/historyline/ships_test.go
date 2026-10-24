@@ -127,3 +127,32 @@ func hexCentre(c hexgrid.Coord) [2]float64 {
 	x, y := hexgrid.Center(c)
 	return [2]float64{x, y}
 }
+
+// A ship is one unit: its head carries the markers, its rear none.
+func TestShipMarkedOnce(t *testing.T) {
+	gm := shipMatch(t)
+	units := gm.dos.unitsOf(gm.shownSide(), gm.reveal)
+	var hexes []hexgrid.Coord
+	for c := range units {
+		hexes = append(hexes, c)
+	}
+	marked := map[hexgrid.Coord]bool{}
+	for _, m := range gm.unitMarks(hexes) {
+		marked[m.at] = true
+	}
+	if len(marked) == 0 {
+		t.Fatal("no markers")
+	}
+	ships := 0
+	for c, u := range units {
+		if u.Rear != nil {
+			ships++
+			if !marked[c] || marked[*u.Rear] {
+				t.Errorf("ship at %v: head marked %v, rear at %v marked %v", c, marked[c], *u.Rear, marked[*u.Rear])
+			}
+		}
+	}
+	if ships == 0 {
+		t.Error("no ships in the shown view")
+	}
+}
