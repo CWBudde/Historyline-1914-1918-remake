@@ -19,7 +19,7 @@ const (
 	actToggleMotion        // new: reduced-motion toggle
 	actFullscreen          // new: F11 toggles fullscreen
 	actScenes              // new: F9 turns the battle scenes of -rules dos off or on
-	actOrigTiles           // new: F8 swaps in the original tiles (origtiles.go; -tags origtiles only)
+	actOrigTiles           // new: F8 swaps in the original tiles and units (origtiles.go; -tags origtiles only)
 )
 
 type keyBinding struct {
@@ -96,7 +96,7 @@ func (g *game) applyAction(a action) (keepRunning bool) {
 			g.dos.ToggleScenes()
 		}
 	case actOrigTiles:
-		ui.Message = g.toggleOrigTiles()
+		ui.Message = g.toggleOrigArt()
 	case actNone:
 	case actQuit:
 		return false

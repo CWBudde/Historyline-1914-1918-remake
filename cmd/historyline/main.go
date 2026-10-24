@@ -89,7 +89,7 @@ type game struct {
 	drawing  bool   // a dos panel is being drawn: drawSide's map
 	drawSide int
 	tileTint map[string]color.RGBA // average colour of a terrain tile, by asset ID
-	orig     *origTiles            // the original tiles (F8, origtiles.go); nil until first asked for
+	orig     *origArt              // the original tiles and units (F8, origtiles.go); nil until first asked for
 }
 
 func newGame(lvl *level.Level, st *state.State, player state.Player, reveal bool) *game {

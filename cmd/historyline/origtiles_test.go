@@ -59,6 +59,48 @@ func TestOrigTiles(t *testing.T) {
 	}
 }
 
+// TestOrigUnits decodes the local original unit sprites: six visible 24×24
+// frames per unit type, for each side, moved or not. It writes a contact sheet
+// (a row per type: side 0, side 1, side 0 moved) to build/review/orig-tiles.
+func TestOrigUnits(t *testing.T) {
+	dir, err := findDosFull(".")
+	if err != nil {
+		t.Skip(err)
+	}
+	units, err := readOrigUnits(dir)
+	if err != nil {
+		t.Fatal(err)
+	}
+	sets := [][]*image.NRGBA{units[0][0], units[1][0], units[0][1]}
+	contact := image.NewNRGBA(image.Rect(0, 0, len(sets)*(6*26+8), origUnitTypes*26))
+	for s, frames := range sets {
+		if len(frames) != 6*origUnitTypes {
+			t.Fatalf("set %d: %d frames, want %d", s, len(frames), 6*origUnitTypes)
+		}
+		for k, im := range frames {
+			if im.Bounds() != image.Rect(0, 0, 24, 24) || visible(im).Empty() {
+				t.Errorf("set %d frame %d: size %v, visible %v", s, k, im.Bounds(), visible(im))
+			}
+			p := image.Pt(s*(6*26+8)+k%6*26, k/6*26)
+			draw.Draw(contact, im.Bounds().Add(p), im, image.Point{}, draw.Over)
+		}
+	}
+	out := filepath.Join("..", "..", "build", "review", "orig-tiles")
+	if err := os.MkdirAll(out, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	f, err := os.Create(filepath.Join(out, "units.png"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := png.Encode(f, contact); err != nil {
+		t.Fatal(err)
+	}
+	if err := f.Close(); err != nil {
+		t.Fatal(err)
+	}
+}
+
 // visible is the bounding box of im's opaque pixels.
 func visible(im *image.NRGBA) image.Rectangle {
 	var r image.Rectangle

@@ -49,7 +49,7 @@ func (g *game) dosSpent(u dosplay.UnitView) bool {
 // drawDosUnit draws the unit on c at screen point (sx, sy).
 func (g *game) drawDosUnit(dst *ebiten.Image, c hexgrid.Coord, sx, sy float64) {
 	u := g.dos.unitsOf(g.shownSide(), g.reveal)[c]
-	if g.drawUnitSprite(dst, c, sx, sy, u.ID, u.Owner, g.dosSpent(u), false, g.dos.Facing(u.Index)) {
+	if g.drawOrigUnit(dst, u, sx, sy, g.dos.Facing(u.Index), g.dosSpent(u)) || g.drawUnitSprite(dst, c, sx, sy, u.ID, u.Owner, g.dosSpent(u), false, g.dos.Facing(u.Index)) {
 		return
 	}
 	vector.FillCircle(dst, float32(sx), float32(sy), float32(14*g.cam.Effective()), color.RGBA{230, 230, 230, 255}, true)
@@ -66,7 +66,7 @@ func (g *game) drawWalker(dst *ebiten.Image, unit any, c hexgrid.Coord, sx, sy f
 			return false
 		}
 		v := g.dos.s.Unit(u)
-		return g.drawUnitSprite(dst, c, sx, sy, v.ID, v.Owner, false, false, face)
+		return g.drawOrigUnit(dst, v, sx, sy, face, false) || g.drawUnitSprite(dst, c, sx, sy, v.ID, v.Owner, false, false, face)
 	}
 	return false
 }

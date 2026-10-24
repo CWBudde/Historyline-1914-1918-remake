@@ -44,7 +44,7 @@ _packs: _build-dir
 play *args: _packs
     go run ./cmd/historyline -units build/packs/units -terrain build/packs/terrain -screens build/packs/screens -allow-candidates {{args}}
 
-# Play as above, with F8 switching to the original tiles from the local original/ (never shipped)
+# Play as above, with F8 switching to the original tiles and units from the local original/ (never shipped)
 play-original *args: _packs
     go run -tags origtiles ./cmd/historyline -units build/packs/units -terrain build/packs/terrain -screens build/packs/screens -allow-candidates {{args}}
 
