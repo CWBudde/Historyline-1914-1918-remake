@@ -92,7 +92,7 @@ type row struct {
 }
 
 // rows are the families with a grade of their own, by art key. Relief is darker
-// than grass. The summer buildings are painted at b* 16.3 (hq) to 20.3 (factory)
+// than grass. The summer buildings are painted at b* 17.1 (hq) to 19.8 (factory)
 // where they differ from the meadow; each is brought to the direction's 16.
 var rows = map[string]row{
 	"terrain/hills":    {l: -3.5},
@@ -101,7 +101,7 @@ var rows = map[string]row{
 	"terrain/house":    {b: -1.0, building: true},
 	"terrain/hq":       {b: -0.3, building: true},
 	"terrain/cmp":      {b: -3.3, building: true},
-	"terrain/factory":  {b: -4.3, building: true},
+	"terrain/factory":  {b: -3.5, building: true},
 }
 
 // Meadow is the asset id of the meadow tile baked into the tile id: the snow

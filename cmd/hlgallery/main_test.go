@@ -111,7 +111,7 @@ func TestCurrentGameSelection(t *testing.T) {
 			}
 		}
 	}
-	want := map[string]int{"Terrain": 416, "Sprites": 48, "Portraits": 48, "Interface": 117, "Screens": 36, "Screen components": 73}
+	want := map[string]int{"Terrain": 511, "Sprites": 48, "Portraits": 48, "Interface": 117, "Screens": 36, "Screen components": 73}
 	for k, n := range want {
 		if counts[k] != n {
 			t.Errorf("%s: got %d, want %d", k, counts[k], n)
