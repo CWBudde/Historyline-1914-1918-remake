@@ -3,7 +3,7 @@ id: terrain/trench
 title: Trench
 kind: terrain
 status: candidate
-runtime_ids: trench0, trench1, trench12, trench124, trench125, trench14, trench15, trench24, trench25, trench4, trench5, trench5a
+runtime_ids: trench0, trench1, trench12, trench124, trench125, trench14, trench15, trench24, trench25, trench4, trench5, trench5a, trench0_w, trench1_w, trench12_w, trench124_w, trench125_w, trench14_w, trench15_w, trench24_w, trench25_w, trench4_w, trench5_w, trench5a_w
 masters: trench-floor-shared-v2.png, trench-timber-shared-v2.png, trench-floor-shared-v1.png, trench-timber-shared-v1.png, trench-fire-winter-v1.png, trench-fire-summer-v1.png
 ---
 
@@ -33,6 +33,7 @@ walls, sandbags or grass.
 | trench4 | trench4 | Trench dead end opening to port 4 SW. |
 | trench5 | trench5 | Trench dead end opening to port 5 NW. |
 | trench5a | trench5a | Trench dead end opening to port 5 NW. Second variant of trench5. |
+| winter | trench0_w, trench1_w, trench12_w, trench124_w, trench125_w, trench14_w, trench15_w, trench24_w, trench25_w, trench4_w, trench5_w, trench5a_w | The same trenches in winter: snow on parapet and parados with a few dark clods, a trodden muddy lip, dark slush on the floor, timber unchanged. |
 
 ## Edges & joins
 The trench is 6 world pixels wide with a 3-pixel earth bank, centred on the shared port centres and
@@ -77,7 +78,16 @@ Attached references: image 1 (the summer trench strip to edit); copy none of the
 ```
 
 `art-review -connected art/pipeline/connected-trench-v2.json` cuts floor, timber and earth bank (ground earth
-bank material) along each port set over meadow. Season-neutral. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
+bank material) along each port set over meadow. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
+
+`connected-trench-winter-v1.json` renders the `_w` forms of the twelve pieces with the same materials
+and geometry, `season: winter` and `grass-winter-v1.png` as the ground: parapet and parados take the
+snow with part of the bank shading, dark spoil clods show through where the earth is dark, the lip
+along the revetment is trodden to mud, the floor blends toward dark slush and the timber is unchanged.
+Measured on the 4x tiles: the banks lie within ΔE 8 of the winter ground with no summer green, the
+floor at L\* 24. The tagged generator `TestGenerateWinterTrenches` (`campaigngfx`) installs the pieces
+and the winter form of every derived trench (`trenchN-sM_w`, `trench0-N_w`); winter maps draw them in
+place of the summer trenches. The strip candidate `trench-fire-winter-v1.png` is not used.
 
 The selected built-in imagegen floor and timber masters are each native 1254×1254 RGB. Fine clods,
 roots and worn timber grain replace the simpler material fields. The former sources remain retained

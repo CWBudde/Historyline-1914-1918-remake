@@ -64,6 +64,7 @@ type connectionFamily struct {
 	Variants       []connectionVariant `json:"variants"`
 	Markings       string              `json:"markings,omitempty"`
 	Verge          string              `json:"verge,omitempty"`
+	Season         string              `json:"season,omitempty"`
 }
 type connectionManifest struct {
 	SchemaVersion int                           `json:"schema_version"`
@@ -318,6 +319,9 @@ func loadConnectionInputs(path string) (connectionInputs, error) {
 		if f.ID == "trench" && (f.Width < 4 || f.Width > 10 || f.Border < 1.5 || f.Border > 5) {
 			return in, errors.New("trench profile requires width 4..10 and border 1.5..5 world px")
 		}
+		if err := validateConnectionSeason(f); err != nil {
+			return in, err
+		}
 		if len(f.Variants) == 0 {
 			return in, errors.New("family requires variants")
 		}
@@ -392,6 +396,9 @@ func runConnected(path, out string, log io.Writer) (resultErr error) {
 	}
 	if in.materials["bank"] != nil {
 		report.StreamInterior += " Opt-in stream border_material=bank overrides the earth-bank treatment: pinned bank material is retained independently of earth. Keep the same organic core geometry and protected port width; border=max(0,border+1.1*E*sin(3A+2B)), bank opacity=1-0.2*E*pocket, giving a 2.4..4.6 world-pixel interior bank for configured border3.5. Legacy earth-stream border2.5 remains a separate unchanged profile; optional bank-stream border2.5 remains supported. The river-bank material may use an unchanged-pixel crop of its parent master to make loose stones larger; other lakeside variants retain their full master. Water color blends toward RGB(84,135,139) at weight0.24 near the bank. Dark wet lip is bank blended toward RGB(35,50,43) at weight0.72 over signed core distance -0.45..1.05. Water-side current flecks and broken foam use only lattice-periodic A/B, a narrow Gaussian centered1.2 world pixels inside water (width0.45), crest=S((sin(6A+4B+0.8sin(3B))-0.15)/0.6), and foam RGB(215,231,226) at maximumweight0.72. Full pale bank replaces the wet lip by distance1.05 outside water. Signed color distance rounds1e-9 for reciprocal stability; no baked grass, no lakeside mask changes."
+	}
+	for _, f := range in.manifest.Families {
+		report.Method += connectionSeasonDescription(f)
 	}
 	for _, f := range in.manifest.Families {
 		if f.BankProfile == authoredBankProfile {

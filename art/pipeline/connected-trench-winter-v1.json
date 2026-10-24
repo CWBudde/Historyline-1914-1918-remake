@@ -1,0 +1,60 @@
+{
+  "families": [
+    {
+      "border": 3,
+      "border_material": "earth",
+      "id": "trench",
+      "material": "trench",
+      "season": "winter",
+      "variants": [
+        {"closed_ring": true, "id": "trench0_w", "ports": []},
+        {"id": "trench1_w", "ports": [1]},
+        {"dugout_direction": 5, "id": "trench12_w", "ports": [1, 2]},
+        {"dugout_direction": 5, "id": "trench124_w", "ports": [1, 2, 4]},
+        {"dugout_direction": 4, "id": "trench125_w", "ports": [1, 2, 5]},
+        {"id": "trench14_w", "ports": [1, 4]},
+        {"blind_spurs": [3], "dugout_direction": 4, "id": "trench15_w", "ports": [1, 5]},
+        {"dugout_direction": 5, "id": "trench24_w", "ports": [2, 4]},
+        {"id": "trench25_w", "ports": [2, 5]},
+        {"id": "trench4_w", "ports": [4]},
+        {"id": "trench5_w", "ports": [5]},
+        {"blind_spurs": [1, 3], "dugout_direction": 4, "id": "trench5a_w", "ports": [5]}
+      ],
+      "width": 6
+    }
+  ],
+  "geometry": {
+    "height": 80,
+    "neighbors": [[71, -40], [71, 40], [0, 80], [-71, 40], [-71, -40], [0, -80]],
+    "polygon": [[25, 0], [71, 0], [96, 40], [71, 80], [25, 80], [0, 40]],
+    "ports": [[83.5, 20], [83.5, 60], [48, 80], [12.5, 60], [12.5, 20], [48, 0]],
+    "width": 96
+  },
+  "materials": {
+    "earth": {
+      "source": "art/terrain/ground/ground-earth-bank-shared-v2.png",
+      "source_sha256": "8399070818d73a849b7bf40fa3059311122e6b8ff3fd2ce1773a271ff664023e"
+    },
+    "grass": {
+      "source": "art/terrain/grass/grass-winter-v1.png",
+      "source_sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3"
+    },
+    "road": {
+      "source": "art/terrain/road/road-asphalt-shared-v2.png",
+      "source_sha256": "d7cb7df3725dbbb6c874bd53ded8525809718aed4f76945f4d0878dca73a1df6"
+    },
+    "timber": {
+      "source": "art/terrain/trench/trench-timber-shared-v2.png",
+      "source_sha256": "30af1ff162eef34687ef60d2034daa176421b84fdd6f7bbf5c1a8e6c4dcd603b"
+    },
+    "trench": {
+      "source": "art/terrain/trench/trench-floor-shared-v2.png",
+      "source_sha256": "81e2e4a469dace45f1d6a9d4095a90081c239135507becc46b3b34b70d5f4d33"
+    },
+    "water": {
+      "source": "art/terrain/water/water-shared-v3.png",
+      "source_sha256": "69f7526af3efea9ef6c5f8542ed4170e25a46e032b93e4d3160c403831cff9cf"
+    }
+  },
+  "schema_version": 1
+}

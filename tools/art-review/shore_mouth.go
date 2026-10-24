@@ -21,7 +21,7 @@ func shoreMouthStream(in shoreInputs) (connectionInputs, connectionFamily) {
 	for _, name := range []string{"grass", "water", "bank"} {
 		c.materials[name] = in.Materials[name].Image
 	}
-	f := connectionFamily{ID: "stream", Width: 18, Border: 3.5, Material: "water", BorderMaterial: "bank", BankProfile: in.Manifest.BankProfile}
+	f := connectionFamily{ID: "stream", Width: 18, Border: 3.5, Material: "water", BorderMaterial: "bank", BankProfile: in.Manifest.BankProfile, Season: in.Manifest.Season}
 	return c, f
 }
 

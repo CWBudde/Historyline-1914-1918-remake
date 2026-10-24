@@ -146,5 +146,9 @@ func authoredStreamColor(in connectionInputs, f connectionFamily, p connectionPo
 	d = math.Round(d*1e9) / 1e9
 	wet := connectionBlend(rock, color.NRGBA{34, 52, 47, 255}, .56)
 	c := connectionBlend(water, wet, connectionSmoothStep((d+.45)/.7))
-	return connectionBlend(c, rock, connectionSmoothStep((d-.15)/.8))
+	c = connectionBlend(c, rock, connectionSmoothStep((d-.15)/.8))
+	if f.Season == "winter" {
+		return winterStreamColor(in, f, p, d, c)
+	}
+	return c
 }

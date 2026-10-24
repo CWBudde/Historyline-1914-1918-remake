@@ -199,15 +199,11 @@ func connectionTrenchRouteSample(route connectionRoute, p connectionPoint) (floa
 func connectionTrenchShade(c color.NRGBA, factor float64) color.NRGBA {
 	return color.NRGBA{uint8(math.Min(255, math.Floor(float64(c.R)*factor+.5))), uint8(math.Min(255, math.Floor(float64(c.G)*factor+.5))), uint8(math.Min(255, math.Floor(float64(c.B)*factor+.5))), 255}
 }
-func connectionTrenchFeature(in connectionInputs, f connectionFamily, r connectionTrenchGeometry, p connectionPoint, aa float64) color.NRGBA {
-	edgeDistance := math.Inf(1)
-	g := in.manifest.Geometry
-	for i, a := range g.Polygon {
-		edge := g.Polygon[(i+1)%len(g.Polygon)].sub(a)
-		q := p.sub(a)
-		edgeDistance = math.Min(edgeDistance, (edge[0]*q[1]-edge[1]*q[0])/edge.length())
-	}
-	envelope := connectionSmoothStep((edgeDistance - 8) / 8)
+
+// connectionTrenchCore is the signed distance from the trench floor's edge at p
+// (negative on the floor) and the floor's outward normal there.
+func connectionTrenchCore(g connectionGeometry, f connectionFamily, r connectionTrenchGeometry, p connectionPoint) (float64, connectionPoint) {
+	envelope := connectionVergeEnvelope(g, p)
 	phaseA := 2 * math.Pi * (p[0]/142 + p[1]/80)
 	phaseB := 2 * math.Pi * (p[0]/142 - p[1]/80)
 	distance, normal := connectionTrenchRouteSample(r.course, p)
@@ -230,6 +226,15 @@ func connectionTrenchFeature(in connectionInputs, f connectionFamily, r connecti
 			}
 		}
 	}
+	return coreDistance, normal
+}
+
+func connectionTrenchFeature(in connectionInputs, f connectionFamily, r connectionTrenchGeometry, p connectionPoint, aa float64) color.NRGBA {
+	g := in.manifest.Geometry
+	envelope := connectionVergeEnvelope(g, p)
+	phaseA := 2 * math.Pi * (p[0]/142 + p[1]/80)
+	phaseB := 2 * math.Pi * (p[0]/142 - p[1]/80)
+	coreDistance, normal := connectionTrenchCore(g, f, r, p)
 	earth := sampleConnectionMaterial(in.materials["earth"], p)
 	// Source clods give the silhouette the same irregular soil detail as the
 	// bank surface. The fixed guard keeps every reciprocal port unchanged.
@@ -248,6 +253,9 @@ func connectionTrenchFeature(in connectionInputs, f connectionFamily, r connecti
 	wall := connectionSmoothStep((coreDistance + 2.25) / 2.25)
 	bank := connectionTrenchShade(earth, shade*(1-.15*directional))
 	floor := connectionTrenchShade(sampleConnectionMaterial(in.materials["trench"], p), .72*(1-.6*wall*(.5+.5*directional)))
+	if f.Season == "winter" {
+		bank, floor = winterTrenchPaint(in, p, earth, shade*(1-.15*directional), coreDistance, floor)
+	}
 	paint := connectionBlend(bank, floor, core)
 	wood := connectionRamp(.55-math.Abs(coreDistance+.1), aa)
 	plank := connectionSmoothStep((math.Sin(12*phaseA+4*phaseB+.7*math.Sin(3*phaseA-2*phaseB)) + .15) / .7)

@@ -122,6 +122,11 @@ func TestDerivedTrenchVariantsKeepRosterDecorations(t *testing.T) {
 // its band, so the derived trenches join each other and the roster.
 func TestDerivedTrenchesJoinAcrossEdges(t *testing.T) {
 	in, f := trenchFixtureInputs(t)
+	checkDerivedTrenchesJoin(t, in, f)
+}
+
+func checkDerivedTrenchesJoin(t *testing.T, in connectionInputs, f connectionFamily) {
+	t.Helper()
 	g := in.manifest.Geometry
 	var variants []connectionVariant
 	for _, s := range derivedTrenchShapes(t) {
@@ -168,6 +173,11 @@ func TestDerivedTrenchesJoinAcrossEdges(t *testing.T) {
 // ring keeps its open centre; blind spurs end inside the hex.
 func TestDerivedTrenchTilesReachTheirEnds(t *testing.T) {
 	in, f := trenchFixtureInputs(t)
+	checkDerivedTrenchEnds(t, in, f)
+}
+
+func checkDerivedTrenchEnds(t *testing.T, in connectionInputs, f connectionFamily) {
+	t.Helper()
 	g := in.manifest.Geometry
 	centre := connectionPoint{48, 40}
 	for _, id := range []string{"trench0-45", "trench0-1236", "trench1-s4", "trench-s25"} {
