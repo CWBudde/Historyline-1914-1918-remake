@@ -108,6 +108,23 @@ func decodeMixedManifest(b []byte) (mixedManifest, error) {
 	return m, nil
 }
 
+// mixedProfileCompatible reports whether a component family keeps the width
+// and border the bridges and crossings are built for.
+func mixedProfileCompatible(f connectionFamily) bool {
+	expected := map[string][2]float64{"road": {14, 2}, "stream": {18, 2.5}, "path": {7, .75}, "rail": {11, 1}}
+	profile, ok := expected[f.ID]
+	if f.ID == "road" && (f.Markings == "dashed" || f.Markings == "ruts") {
+		profile = [2]float64{22, 1}
+		if f.Border == 2 {
+			profile[1] = 2
+		}
+	}
+	if f.ID == "stream" && f.BorderMaterial == "bank" && f.Border == 3.5 {
+		profile[1] = 3.5
+	}
+	return ok && f.Width == profile[0] && f.Border == profile[1]
+}
+
 type mixedComponent struct {
 	input   connectionInputs
 	family  connectionFamily
@@ -199,18 +216,7 @@ func loadMixedInputs(path string) (mixedInputs, error) {
 			in.merged.sources[id] = src.sources[id]
 		}
 		for _, f := range src.manifest.Families {
-			expected := map[string][2]float64{"road": {14, 2}, "stream": {18, 2.5}, "path": {7, .75}, "rail": {11, 1}}
-			profile, ok := expected[f.ID]
-			if f.ID == "road" && (f.Markings == "dashed" || f.Markings == "ruts") {
-				profile = [2]float64{22, 1}
-				if f.Border == 2 {
-					profile[1] = 2
-				}
-			}
-			if f.ID == "stream" && f.BorderMaterial == "bank" && f.Border == 3.5 {
-				profile[1] = 3.5
-			}
-			if !ok || f.Width != profile[0] || f.Border != profile[1] {
+			if !mixedProfileCompatible(f) {
 				return in, fmt.Errorf("mixed incompatible %s profile", f.ID)
 			}
 			for _, v := range f.Variants {

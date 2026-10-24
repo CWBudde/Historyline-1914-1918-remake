@@ -5,6 +5,7 @@ import (
 	"errors"
 	"image/color"
 	"math"
+	"slices"
 	"strings"
 )
 
@@ -20,16 +21,19 @@ func validateConnectionRoadFields(data []byte) error {
 			var id, s string
 			switch {
 			case strings.EqualFold(key, "markings"):
-				if json.Unmarshal(family["id"], &id) != nil || json.Unmarshal(value, &s) != nil || key != "markings" || id != "road" || s != "dashed" && s != "ruts" {
-					return errors.New("markings requires the canonical road-only value dashed or ruts")
+				// Roads take dashed or ruts; winter paths take ruts.
+				allowed := map[string][]string{"road": {"dashed", "ruts"}, "path": {"ruts"}}
+				if json.Unmarshal(family["id"], &id) != nil || json.Unmarshal(value, &s) != nil || key != "markings" || !slices.Contains(allowed[id], s) {
+					return errors.New("markings requires the canonical value dashed or ruts on a road, or ruts on a path")
 				}
 			case strings.EqualFold(key, "verge"):
-				if json.Unmarshal(family["id"], &id) != nil || json.Unmarshal(value, &s) != nil || key != "verge" || id != "road" || s != "snow" {
-					return errors.New("verge requires the canonical road-only value snow")
+				if json.Unmarshal(family["id"], &id) != nil || json.Unmarshal(value, &s) != nil || key != "verge" || id != "road" && id != "path" && id != "rail" || s != "snow" {
+					return errors.New("verge requires the canonical value snow on a road, path or rail")
 				}
+				// Roads and paths carry ruts with their snow; rails none.
 				var markings string
-				if json.Unmarshal(family["markings"], &markings) != nil || markings == "" {
-					return errors.New("verge requires road markings")
+				if id != "rail" && (json.Unmarshal(family["markings"], &markings) != nil || markings == "") {
+					return errors.New("verge requires road or path markings")
 				}
 			}
 		}
@@ -47,6 +51,13 @@ const (
 	// connectionSnowShoulderMix blends the earth border toward snow; the dusty
 	// summer shoulder blends at .35.
 	connectionSnowShoulderMix = .85
+	// Winter paths are cart tracks on the 7-pixel path: two narrow ruts.
+	connectionPathRutOffset = 1.6
+	connectionPathRutCore   = .3
+	connectionPathRutFade   = .7
+	// connectionSnowVergeMix blends the earth border of winter paths and rails
+	// toward the winter ground they lie on.
+	connectionSnowVergeMix = .9
 )
 
 var (
@@ -56,8 +67,13 @@ var (
 )
 
 // connectionRoadRutAt is the weight of the slush ruts at p: two tracks along
-// every course, connectionRutOffset either side of its centre line.
+// every course, connectionRutOffset (connectionPathRutOffset on a path) either
+// side of its centre line.
 func connectionRoadRutAt(paint connectionRoadPaint, p connectionPoint) float64 {
+	offset, core, fade := connectionRutOffset, connectionRutCore, connectionRutFade
+	if paint.cart {
+		offset, core, fade = connectionPathRutOffset, connectionPathRutCore, connectionPathRutFade
+	}
 	best := math.Inf(1)
 	for _, c := range paint.courses {
 		for i := 1; i < len(c.points); i++ {
@@ -73,8 +89,8 @@ func connectionRoadRutAt(paint connectionRoadPaint, p connectionPoint) float64 {
 			best = min(best, v[0]*v[0]+v[1]*v[1])
 		}
 	}
-	off := math.Abs(math.Sqrt(best) - connectionRutOffset)
-	return connectionRutStrength * (1 - connectionSmoothStep((off-connectionRutCore)/connectionRutFade))
+	off := math.Abs(math.Sqrt(best) - offset)
+	return connectionRutStrength * (1 - connectionSmoothStep((off-core)/fade))
 }
 
 type connectionRoadCourse struct {
@@ -88,6 +104,7 @@ type connectionRoadPaint struct {
 	halfWidth float64
 	ruts      bool // slush ruts instead of the dashed centre and edge lines
 	snow      bool // dirty snow shoulders instead of dusty gravel
+	cart      bool // a winter path: narrow cart ruts, verges of winter ground
 }
 
 // Markings follow the same curves as the surface. A fixed phase at each port

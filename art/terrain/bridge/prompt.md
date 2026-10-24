@@ -3,7 +3,7 @@ id: terrain/bridge
 title: Footbridge
 kind: terrain
 status: candidate
-runtime_ids: bridge25, bridge36, standing/bridge25, standing/bridge36, standing/bridge25_w, standing/bridge36_w
+runtime_ids: bridge25, bridge36, standing/bridge25, standing/bridge36, bridge25_w, bridge36_w, standing/bridge25_w, standing/bridge36_w
 masters: bridge-25-shared-v1.png, bridge-36-shared-v1.png, bridge-25-export-shared-v1.png, bridge-36-export-shared-v1.png, bridge-plank-diagonal-shared-v1.png, bridge-plank-vertical-shared-v1.png, bridge-36-winter-v1.png, bridge-25-winter-v1.png, bridge-36-export-winter-v1.png, bridge-25-export-winter-v1.png
 ---
 
@@ -23,11 +23,15 @@ approach path, letters, flags or other objects.
 | --- | --- | --- |
 | bridge25 | bridge25, standing/bridge25, standing/bridge25_w | Separately painted SE/NW bridge, axis +29.396 degrees from horizontal; winter: a seasonal edit. |
 | bridge36 | bridge36, standing/bridge36, standing/bridge36_w | Separately painted vertical N/S bridge; winter: a seasonal edit. |
+| winter tiles | bridge25_w, bridge36_w | The footbridge tiles with the winter path approaches. |
 
 ## Edges & joins
 The finite timber deck is registered to 48 logical pixels along its port axis and 12 pixels across,
 centred on `(48,40)` within a 96x80 canvas. Thin rails, posts and stone abutments extend beyond the deck.
 The path continues beyond each deck end and the stream passes underneath.
+The winter tiles `bridge25_w` and `bridge36_w` carry the winter path approaches (`path25_w`, `path36_w`)
+outside the deck; `connected-mixed-winter-v1.json` derives them and the tagged generator
+`TestGenerateWinterPathsAndRails` installs them.
 
 ## Post
 

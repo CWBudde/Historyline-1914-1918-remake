@@ -4,11 +4,11 @@ package main
 
 // Explicit offline generator: go test -tags campaigngfx ./tools/art-review -run TestGenerateWinterRoads -count=1 -v
 // Renders the winter roads (tile/road*_w, connected-road-winter-v1) into
-// assets/terrain/road/ and the winter level crossings whose road carries the
-// winter road (tile/cross2_w, cross3_w: the connected-mixed-v2 crossing with its
-// road layer swapped for the winter road) into assets/terrain/cross/,
-// replacing earlier winter exports, and lists them in assets/index.json; run
-// `go run ./cmd/hlart index` afterwards.
+// assets/terrain/road/, replacing earlier winter exports, and lists them in
+// assets/index.json; run `go run ./cmd/hlart index` afterwards. The winter
+// level crossings, cross2_w and cross3_w included, belong to
+// TestGenerateWinterPathsAndRails (connected-mixed-winter-v1): rerun it after
+// changing the winter road.
 import (
 	"bytes"
 	"crypto/sha256"
@@ -30,16 +30,12 @@ func TestGenerateWinterRoads(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	mixed, err := loadMixedInputs(filepath.Join(root, "art/pipeline/connected-mixed-v2.json"))
-	if err != nil {
-		t.Fatal(err)
-	}
 	entries, _, err := readCampaignIndex(root)
 	if err != nil {
 		t.Fatal(err)
 	}
 	winterTile := func(id string) bool {
-		return strings.HasSuffix(id, "_w") && (strings.HasPrefix(id, "tile/road") || strings.HasPrefix(id, "tile/cross"))
+		return strings.HasSuffix(id, "_w") && strings.HasPrefix(id, "tile/road")
 	}
 	entries = slices.DeleteFunc(entries, func(raw json.RawMessage) bool {
 		var e campaignEntry
@@ -63,7 +59,6 @@ func TestGenerateWinterRoads(t *testing.T) {
 			entries = append(entries, raw)
 		}
 	}
-	roads := map[string]mixedComponent{}
 	for _, f := range winter.manifest.Families {
 		for _, v := range f.Variants {
 			tiles, err := exportConnectionTiles(winter, &f, &v)
@@ -71,28 +66,7 @@ func TestGenerateWinterRoads(t *testing.T) {
 				t.Fatal(err)
 			}
 			write(v.ID, "road", tiles)
-			roads[v.ID] = mixedComponent{winter, f, v}
 		}
-	}
-	for _, v := range mixedRoster() {
-		if v.Kind != "crossing" || !strings.HasPrefix(v.Layers[0], "road") {
-			continue
-		}
-		road, ok := roads[v.Layers[0]+"_w"]
-		if !ok {
-			t.Fatalf("%s: no winter road %s_w", v.ID, v.Layers[0])
-		}
-		in := mixed
-		in.components = map[string]mixedComponent{}
-		for id, c := range mixed.components {
-			in.components[id] = c
-		}
-		in.components[v.Layers[0]] = road
-		tiles, err := exportMixedTiles(in, v)
-		if err != nil {
-			t.Fatal(err)
-		}
-		write(v.RuntimeID+"_w", "cross", tiles)
 	}
 	var out bytes.Buffer
 	out.WriteString("{\n  \"schema_version\": 1,\n  \"assets\": [\n")

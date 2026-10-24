@@ -3,7 +3,7 @@ id: terrain/rail
 title: Railway
 kind: terrain
 status: candidate
-runtime_ids: rail13, rail14, rail15, rail236, rail24, rail25, rail26, rail346, rail35, rail356, rail36, rail46
+runtime_ids: rail13, rail14, rail15, rail236, rail24, rail25, rail26, rail346, rail35, rail356, rail36, rail46, rail13_w, rail14_w, rail15_w, rail236_w, rail24_w, rail25_w, rail26_w, rail346_w, rail35_w, rail356_w, rail36_w, rail46_w
 masters: rail-ballast-shared-v2.png, rail-steel-shared-v2.png, rail-ballast-shared-v1.png, rail-steel-shared-v1.png, rail-track-winter-v1.png, rail-track-summer-v1.png
 ---
 
@@ -31,6 +31,7 @@ neutral grey-brown, quiet contrast. No rails, sleepers, grass, verges or track l
 | rail356 | rail356 | Track T or Y junction to ports 3 S, 5 NW, 6 N. |
 | rail36 | rail36 | Track straight run between ports 3 S, 6 N. |
 | rail46 | rail46 | Track wide bend between ports 4 SW, 6 N. |
+| winter | rail13_w, rail14_w, rail15_w, rail236_w, rail24_w, rail25_w, rail26_w, rail346_w, rail35_w, rail356_w, rail36_w, rail46_w | The same track in winter: snow deep on the ballast shoulders and verge, thinner between the sleepers, sleepers lightly dusted, rails dark cold steel. |
 
 ## Edges & joins
 The ballast bed is 11 world pixels wide with a 1-pixel earth border, centred on the shared port centres
@@ -84,6 +85,15 @@ Selected built-in imagegen masters: ballast is native 1536×1024 RGB; steel is n
 The steel prompt specifies matte weathered dark grey steel, fine scratches, slight oxide and diffuse
 highlights; no chrome, rail silhouettes or objects. The former material sources remain retained drafts.
 The ballast footprint, rails and registered ports are unchanged.
+
+`connected-rail-winter-v1.json` renders the `_w` forms from the same materials with `verge: snow`: the
+ballast blends toward the winter ground (`grass-winter-v1.png`) at 0.55 between the sleepers and 0.9 on the
+shoulders and earth border, the sleepers at 0.12, and the steel darkens 0.5 toward RGB 42,42,46. The winter
+maps draw them in place of the summer rails. The tagged generator `TestGenerateWinterPathsAndRails`
+(`campaigngfx`) installs them; `TestWinterPathsAndRailsMeetCriterion` measures them over the winter ground:
+verge ΔE 4.4–5.1 from the ground beside it, no summer green, rail centre lines L\* ≤ 40 along 99.4–99.8 %
+(summer steel 77–80 %), sleeper autocorrelation peak at the 4-world-pixel pitch (r 0.80–0.82). The
+unpromoted strip `rail-track-winter-v1.png` is not used.
 
 ## Avoid
 - visible tiling or repeated rounded "pillow" patterns

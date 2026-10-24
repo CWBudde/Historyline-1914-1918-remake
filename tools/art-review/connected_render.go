@@ -97,7 +97,7 @@ func connectionRoutes(g connectionGeometry, f connectionFamily, v connectionVari
 	if f.Markings == "dashed" || f.Markings == "ruts" {
 		paint := connectionRoadPaintFor(g, v)
 		paint.halfWidth = f.Width / 2
-		paint.ruts, paint.snow = f.Markings == "ruts", f.Verge == "snow"
+		paint.ruts, paint.snow, paint.cart = f.Markings == "ruts", f.Verge == "snow", f.ID == "path"
 		route.road = &paint
 	}
 	return route
@@ -236,8 +236,11 @@ func connectionFeature(in connectionInputs, f connectionFamily, route connection
 	bank := sampleConnectionMaterial(in.materials[f.BorderMaterial], world)
 	if route.road != nil {
 		// A narrow dusty gravel shoulder borders the grey pavement; in winter
-		// it is dirty snow.
-		if route.road.snow {
+		// it is dirty snow. A winter path's verge is the snow it is trodden
+		// into.
+		if route.road.cart && route.road.snow {
+			bank = connectionBlend(bank, sampleGrassMaterial(in.materials["grass"], world), connectionSnowVergeMix)
+		} else if route.road.snow {
 			bank = connectionBlend(bank, connectionSnowShoulder, connectionSnowShoulderMix)
 		} else {
 			bank = connectionBlend(bank, connectionDustyShoulder, .35)

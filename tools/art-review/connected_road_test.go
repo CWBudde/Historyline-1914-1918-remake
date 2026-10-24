@@ -26,7 +26,15 @@ func TestConnectedRoadMarkingValidation(t *testing.T) {
 		{`{"families":[{"id":"road","verge":"snow"}]}`, true},
 		{`{"families":[{"id":"road","markings":"ruts","verge":"mud"}]}`, true},
 		{`{"families":[{"id":"road","markings":"ruts","Verge":"snow"}]}`, true},
-		{`{"families":[{"id":"path","markings":"ruts","verge":"snow"}]}`, true},
+		// Winter paths carry ruts and snow verges; winter rails snow verges
+		// without markings.
+		{`{"families":[{"id":"path","markings":"ruts","verge":"snow"}]}`, false},
+		{`{"families":[{"id":"path","verge":"snow"}]}`, true},
+		{`{"families":[{"id":"rail","verge":"snow"}]}`, false},
+		{`{"families":[{"id":"rail","markings":"ruts","verge":"snow"}]}`, true},
+		{`{"families":[{"id":"rail","verge":"frost"}]}`, true},
+		{`{"families":[{"id":"stream","verge":"snow"}]}`, true},
+		{`{"families":[{"id":"trench","verge":"snow"}]}`, true},
 	} {
 		if err := validateConnectionRoadFields([]byte(tc.json)); (err != nil) != tc.bad {
 			t.Fatalf("%s: %v", tc.json, err)

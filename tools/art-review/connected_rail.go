@@ -14,7 +14,16 @@ const (
 	connectionSleeperWidth  = 1.05
 	connectionSleeperPitch  = 4.0
 	connectionRailGuard     = 8.0
+	// Winter rails (verge snow): snow cover of the ballast between the
+	// sleepers and of the sleepers; the shoulders take connectionSnowVergeMix.
+	connectionRailSnowBetween = .55
+	connectionRailSnowDust    = .12
+	// connectionRailWinterSteelMix darkens winter steel toward
+	// connectionRailWinterSteel.
+	connectionRailWinterSteelMix = .5
 )
+
+var connectionRailWinterSteel = color.NRGBA{42, 42, 46, 255}
 
 type connectionRailProfile struct {
 	Gauge         float64 `json:"gauge_world_px"`
@@ -205,6 +214,16 @@ func connectionRailSleeperDistance(s connectionRailSleeper, p connectionPoint) f
 	return math.Hypot(math.Max(along, 0), math.Max(across, 0)) + math.Min(math.Max(along, across), 0)
 }
 
+// connectionRailSteel is the rail steel at p. Winter rails (verge snow) are
+// darker cold steel, so they stay dark lines on the snow.
+func connectionRailSteel(in connectionInputs, f connectionFamily, p connectionPoint) color.NRGBA {
+	steel := sampleConnectionMaterial(in.materials["steel"], p)
+	if f.Verge == "snow" {
+		steel = connectionBlend(steel, connectionRailWinterSteel, connectionRailWinterSteelMix)
+	}
+	return steel
+}
+
 func connectionRailFeature(in connectionInputs, f connectionFamily, r connectionRailGeometry, p connectionPoint, aa float64) color.NRGBA {
 	base := connectionFeature(in, f, r.ballast, p, p, aa)
 	if base.A == 0 {
@@ -218,16 +237,28 @@ func connectionRailFeature(in connectionInputs, f connectionFamily, r connection
 		}
 		sleeperDistance = math.Min(sleeperDistance, connectionRailSleeperDistance(s, p))
 	}
+	wood := sampleConnectionMaterial(in.materials["timber"], p)
+	if f.Verge == "snow" {
+		// Winter: snow lies thin between the sleepers, deep on the ballast
+		// shoulders and the earth border; the sleepers are dusted, the steel
+		// stays bare.
+		snow := sampleGrassMaterial(in.materials["grass"], p)
+		shoulder := connectionSmoothStep((connectionRouteDistance(r.ballast, p) - (connectionSleeperLength/2 - .5)) / 1.25)
+		alpha := base.A
+		base = connectionBlend(base, snow, connectionRailSnowBetween+(connectionSnowVergeMix-connectionRailSnowBetween)*shoulder)
+		base.A = alpha
+		wood = connectionBlend(wood, snow, connectionRailSnowDust)
+	}
 	timber := connectionRamp(-sleeperDistance, aa)
 	if timber > 0 {
 		alpha := base.A
-		base = connectionBlend(base, sampleConnectionMaterial(in.materials["timber"], p), timber)
+		base = connectionBlend(base, wood, timber)
 		base.A = alpha
 	}
 	steel := connectionRamp(connectionRailWidth/2-connectionRouteDistance(r.rails, p), aa)
 	if steel > 0 {
 		alpha := base.A
-		base = connectionBlend(base, sampleConnectionMaterial(in.materials["steel"], p), steel)
+		base = connectionBlend(base, connectionRailSteel(in, f, p), steel)
 		base.A = alpha
 	}
 	return base

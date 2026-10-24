@@ -3,7 +3,7 @@ id: terrain/path
 title: Path
 kind: terrain
 status: candidate
-runtime_ids: path125, path13, path135, path136, path14, path15, path24, path25, path26, path346, path35, path356, path36, path46
+runtime_ids: path125, path13, path135, path136, path14, path15, path24, path25, path26, path346, path35, path356, path36, path46, path125_w, path13_w, path135_w, path136_w, path14_w, path15_w, path24_w, path25_w, path26_w, path346_w, path35_w, path356_w, path36_w, path46_w
 masters: path-earth-shared-v2.png, path-earth-shared-v1.png, path-track-winter-v1.png, path-track-summer-v1.png
 ---
 
@@ -34,10 +34,12 @@ grass or objects: the renderer cuts the track.
 | path356 | path356 | Path T or Y junction to ports 3 S, 5 NW, 6 N. |
 | path36 | path36 | Path straight run between ports 3 S, 6 N. |
 | path46 | path46 | Path wide bend between ports 4 SW, 6 N. |
+| winter | path125_w, path13_w, path135_w, path136_w, path14_w, path15_w, path24_w, path25_w, path26_w, path346_w, path35_w, path356_w, path36_w, path46_w | The same courses in winter: a grey trodden track of packed snow and slush with two narrow cart ruts, its verge under snow. |
 
 ## Edges & joins
 The path is 7 world pixels wide with a 0.75-pixel earth border, centred on the shared port centres and
-continuing through each port.
+continuing through each port. The winter forms keep the geometry; the renderer draws two cart ruts 1.6
+world pixels either side of the centre line.
 
 ## Post
 
@@ -75,6 +77,15 @@ meadow. Season-neutral. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x3
 
 The selected built-in imagegen master is native 1254×1254 RGB, with irregular fine grains and subdued
 wear. The former earth source remains a retained draft. The path footprint and ports are unchanged.
+
+`connected-paths-winter-v1.json` renders the `_w` forms from the winter road material
+`art/terrain/road/road-snow-winter-v1.png` with `markings: ruts` and `verge: snow`: two narrow cart ruts,
+and the earth verge blended 0.9 toward the winter ground (`grass-winter-v1.png`). The winter maps draw them
+in place of the summer paths. The tagged generator `TestGenerateWinterPathsAndRails` (`campaigngfx`)
+installs them with the winter rails, crossings and footbridge tiles; `TestWinterPathsAndRailsMeetCriterion`
+measures them over the winter ground: verge ΔE 4.3–5.2 from the ground beside it, no summer green,
+surface L\* 49–51 within ΔE 1.1–3.5 of the `road36_w` surface. The unpromoted strip `path-track-winter-v1.png`
+is not used.
 
 ## Avoid
 - visible tiling or repeated rounded "pillow" patterns

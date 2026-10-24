@@ -131,6 +131,10 @@ func renderMixedRaw(in mixedInputs, v mixedVariant) *image.NRGBA {
 					q := p.sub(connectionPoint{48, 40})
 					board := q[0]*tangent[0] + q[1]*tangent[1]
 					infill := mixedWood(in.merged.materials["timber"], p, board)
+					if track.family.Verge == "snow" {
+						// Winter crossings: snow trodden into the planks.
+						infill = connectionBlend(infill, sampleGrassMaterial(track.input.materials["grass"], p), mixedWinterInfillSnow)
+					}
 					// Rounded approach/track intersection produces fitted flush
 					// boards without bridge curbs, posts, or raised shadows.
 					rx, ry := dRoad-roadFamily.Width/2-1+.6, dRail-4.5+.6
@@ -138,7 +142,7 @@ func renderMixedRaw(in mixedInputs, v mixedVariant) *image.NRGBA {
 					a := connectionRamp(-rounded, .25)
 					infill.A = uint8(math.Floor(255*a + .5))
 					c = mixedOver(c, infill)
-					steel := sampleConnectionMaterial(in.merged.materials["steel"], p)
+					steel := connectionRailSteel(track.input, track.family, p)
 					steel.A = uint8(math.Floor(255*connectionRamp(connectionRailWidth/2-connectionRouteDistance(rail.rails, p), .25) + .5))
 					c = mixedOver(c, steel)
 				}

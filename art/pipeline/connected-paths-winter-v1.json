@@ -1,0 +1,59 @@
+{
+  "families": [
+    {
+      "border": 0.75,
+      "border_material": "earth",
+      "id": "path",
+      "markings": "ruts",
+      "material": "path",
+      "variants": [
+        {"id": "path125_w", "ports": [1, 2, 5]},
+        {"id": "path13_w", "ports": [1, 3]},
+        {"id": "path135_w", "ports": [1, 3, 5]},
+        {"id": "path136_w", "ports": [1, 3, 6]},
+        {"id": "path14_w", "ports": [1, 4]},
+        {"id": "path15_w", "ports": [1, 5]},
+        {"id": "path24_w", "ports": [2, 4]},
+        {"id": "path25_w", "ports": [2, 5]},
+        {"id": "path26_w", "ports": [2, 6]},
+        {"id": "path346_w", "ports": [3, 4, 6]},
+        {"id": "path35_w", "ports": [3, 5]},
+        {"id": "path356_w", "ports": [3, 5, 6]},
+        {"id": "path36_w", "ports": [3, 6]},
+        {"id": "path46_w", "ports": [4, 6]}
+      ],
+      "verge": "snow",
+      "width": 7
+    }
+  ],
+  "geometry": {
+    "height": 80,
+    "neighbors": [[71, -40], [71, 40], [0, 80], [-71, 40], [-71, -40], [0, -80]],
+    "polygon": [[25, 0], [71, 0], [96, 40], [71, 80], [25, 80], [0, 40]],
+    "ports": [[83.5, 20], [83.5, 60], [48, 80], [12.5, 60], [12.5, 20], [48, 0]],
+    "width": 96
+  },
+  "materials": {
+    "earth": {
+      "source": "art/terrain/ground/ground-earth-bank-shared-v2.png",
+      "source_sha256": "8399070818d73a849b7bf40fa3059311122e6b8ff3fd2ce1773a271ff664023e"
+    },
+    "grass": {
+      "source": "art/terrain/grass/grass-winter-v1.png",
+      "source_sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3"
+    },
+    "path": {
+      "source": "art/terrain/road/road-snow-winter-v1.png",
+      "source_sha256": "fcdb6d16a2587ae25673146017da67117d9019cda3e1aba747e1b4533dd32d7f"
+    },
+    "road": {
+      "source": "art/terrain/road/road-snow-winter-v1.png",
+      "source_sha256": "fcdb6d16a2587ae25673146017da67117d9019cda3e1aba747e1b4533dd32d7f"
+    },
+    "water": {
+      "source": "art/terrain/water/water-shared-v3.png",
+      "source_sha256": "69f7526af3efea9ef6c5f8542ed4170e25a46e032b93e4d3160c403831cff9cf"
+    }
+  },
+  "schema_version": 1
+}
