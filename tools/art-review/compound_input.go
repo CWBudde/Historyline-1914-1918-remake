@@ -30,9 +30,14 @@ type compoundSceneInput struct {
 	// EntryRoad pins the connected-road manifest whose straight road through
 	// the entry port the entry street blends into at the gate.
 	EntryRoad *connectionMaterial `json:"entry_road,omitempty"`
-	// EdgeFeather (world px, ruined depot only) fades the artwork out along an
-	// irregular line towards the outer boundary, beside the entry corridor.
+	// EdgeFeather (world px; HQ, depot, ruined depot and factory with an entry
+	// road) fades the artwork out along an irregular line towards the outer
+	// boundary, beside the entry corridor.
 	EdgeFeather float64 `json:"edge_feather,omitempty"`
+	// EdgeKeep lists polygons (world px of the scene box) inside which the edge
+	// feather keeps the artwork exactly: walls, towers, fences and buildings
+	// that reach the boundary keep their straight edge.
+	EdgeKeep [][]connectionPoint `json:"edge_keep,omitempty"`
 }
 
 // fit is how the scene's artwork maps onto its box: reference-layout scenes
@@ -123,7 +128,7 @@ func decodeCompoundManifest(b []byte, m *compoundManifest) error {
 		}
 	}
 	for _, s := range scenes {
-		if err := keys(s, "id", "artwork", "inset", "framing", "shift", "zoom", "entry_road", "edge_feather"); err != nil {
+		if err := keys(s, "id", "artwork", "inset", "framing", "shift", "zoom", "entry_road", "edge_feather", "edge_keep"); err != nil {
 			return err
 		}
 		if road, ok := s["entry_road"]; ok {
@@ -299,7 +304,7 @@ func loadCompoundInputs(path string) (compoundInputs, error) {
 			}
 			in.EntryRoads[s.ID] = road
 		}
-		if e = compoundValidateFeather(l, s.Framing, s.EdgeFeather, s.EntryRoad != nil); e != nil {
+		if e = compoundValidateFeather(l, s.Framing, s.EdgeFeather, s.EntryRoad != nil, s.EdgeKeep); e != nil {
 			return in, fmt.Errorf("%s: %w", s.ID, e)
 		}
 		src, e := compoundReadSource(sourceBase(path), s.Artwork, false)

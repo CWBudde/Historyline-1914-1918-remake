@@ -33,7 +33,7 @@ func TestGenerateCompoundTiles(t *testing.T) {
 		at[campaignExportKey(e.ID, e.Density)] = i
 	}
 	replaced := 0
-	for _, manifest := range []string{"compound-hq-v4.json", "compound-depot-v3.json", "compound-factory-v4.json", "compound-factory-summer-v2.json"} {
+	for _, manifest := range []string{"compound-hq-v4.json", "compound-depot-v4.json", "compound-factory-v4.json", "compound-factory-summer-v2.json"} {
 		in, err := loadCompoundInputs(filepath.Join(root, "art/pipeline", manifest))
 		if err != nil {
 			t.Fatal(err)

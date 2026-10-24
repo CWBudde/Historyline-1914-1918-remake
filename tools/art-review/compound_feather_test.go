@@ -82,14 +82,14 @@ func TestCompoundFeatherFadesOuterBoundary(t *testing.T) {
 	draw.Draw(raw, raw.Bounds(), image.NewUniform(color.NRGBA{220, 224, 228, 255}), image.Point{}, draw.Src)
 	before := append([]byte(nil), raw.Pix...)
 	const width = 9.
-	art4, stats, err := compoundFeatherEdge(raw, l, compoundGuardReport{}, width, compoundFeatherCorridorTest)
+	art4, stats, err := compoundFeatherEdge(raw, l, compoundGuardReport{}, width, compoundFeatherCorridorTest, nil)
 	if err != nil {
 		t.Fatal(err)
 	}
 	if !bytes.Equal(raw.Pix, before) {
 		t.Fatal("feather changed its input")
 	}
-	again, _, err := compoundFeatherEdge(raw, l, compoundGuardReport{}, width, compoundFeatherCorridorTest)
+	again, _, err := compoundFeatherEdge(raw, l, compoundGuardReport{}, width, compoundFeatherCorridorTest, nil)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -159,33 +159,103 @@ func TestCompoundFeatherFadesOuterBoundary(t *testing.T) {
 }
 
 func TestCompoundFeatherValidation(t *testing.T) {
+	square := []connectionPoint{{10, 10}, {20, 10}, {20, 20}, {10, 20}}
 	for _, tc := range []struct {
 		id      string
 		framing string
 		width   float64
 		entry   bool
+		keep    [][]connectionPoint
 		wantErr bool
 	}{
-		{"ruin-summer", "reference-layout", 9, true, false},
-		{"ruin-winter", "reference-layout", 9, true, false},
-		{"ruin-summer", "reference-layout", 0, false, false},
-		{"ruin-summer", "reference-layout", 9, false, true},
-		{"ruin-summer", "", 9, false, true},
-		{"ruin-summer", "reference-layout", 3, true, true},
-		{"ruin-summer", "reference-layout", 13, true, true},
-		{"ruin-summer", "reference-layout", math.NaN(), true, true},
-		{"depot-summer", "reference-layout", 9, true, true},
-		{"hq-summer", "reference-layout", 9, true, true},
-		{"factory-summer", "reference-layout", 9, true, true},
-		{"mountain-summer", "", 9, false, true},
+		{"ruin-summer", "reference-layout", 9, true, nil, false},
+		{"ruin-winter", "reference-layout", 9, true, nil, false},
+		{"ruin-summer", "reference-layout", 0, false, nil, false},
+		{"ruin-summer", "reference-layout", 9, false, nil, true},
+		{"ruin-summer", "", 9, false, nil, true},
+		{"ruin-summer", "reference-layout", 3, true, nil, true},
+		{"ruin-summer", "reference-layout", 13, true, nil, true},
+		{"ruin-summer", "reference-layout", math.NaN(), true, nil, true},
+		{"depot-summer", "reference-layout", 9, true, nil, false},
+		{"hq-winter", "reference-layout", 9, true, [][]connectionPoint{square}, false},
+		{"factory-summer", "reference-layout", 9, true, [][]connectionPoint{square, square}, false},
+		{"depot-winter", "reference-layout", 9, false, nil, true},
+		{"mountain-summer", "", 9, false, nil, true},
+		// Keep polygons need a feather, three to 32 points and points near the box.
+		{"depot-summer", "reference-layout", 0, true, [][]connectionPoint{square}, true},
+		{"depot-summer", "reference-layout", 9, true, [][]connectionPoint{square[:2]}, true},
+		{"depot-summer", "reference-layout", 9, true, [][]connectionPoint{{{10, 10}, {20, 10}, {20, 169}}}, true},
+		{"depot-summer", "reference-layout", 9, true, [][]connectionPoint{{{10, 10}, {math.NaN(), 10}, {20, 20}}}, true},
+		{"depot-summer", "reference-layout", 9, true, [][]connectionPoint{{{-8, -8}, {246, -8}, {246, 168}}}, false},
 	} {
 		l, err := compoundLayoutFor(tc.id)
 		if err != nil {
 			t.Fatal(err)
 		}
-		if err := compoundValidateFeather(l, tc.framing, tc.width, tc.entry); (err != nil) != tc.wantErr {
-			t.Errorf("%s framing %q width %v entry %v: error %v, want error %v", tc.id, tc.framing, tc.width, tc.entry, err, tc.wantErr)
+		if err := compoundValidateFeather(l, tc.framing, tc.width, tc.entry, tc.keep); (err != nil) != tc.wantErr {
+			t.Errorf("%s framing %q width %v entry %v keep %v: error %v, want error %v", tc.id, tc.framing, tc.width, tc.entry, tc.keep, err, tc.wantErr)
 		}
+	}
+}
+
+// Keep polygons protect what reaches the boundary: inside them the artwork
+// keeps its alpha exactly, beyond the keep ramp the boundary fades as before.
+func TestCompoundFeatherKeepPolygons(t *testing.T) {
+	l, err := compoundLayoutFor("depot-winter")
+	if err != nil {
+		t.Fatal(err)
+	}
+	raw := image.NewNRGBA(image.Rect(0, 0, l.Width*4, l.Height*4))
+	draw.Draw(raw, raw.Bounds(), image.NewUniform(color.NRGBA{120, 110, 100, 255}), image.Point{}, draw.Src)
+	// A shed across the W cell's bottom edge (y 120) and a tower on the E cell's top edge (y 40).
+	keep := [][]connectionPoint{{{50, 106}, {70, 106}, {70, 124}, {50, 124}}, {{180, 36}, {196, 36}, {200, 50}, {176, 50}}}
+	const width = 9.
+	plain, _, err := compoundFeatherEdge(raw, l, compoundGuardReport{}, width, compoundFeatherCorridorTest, nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	art4, stats, err := compoundFeatherEdge(raw, l, compoundGuardReport{}, width, compoundFeatherCorridorTest, keep)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if stats.ClippedPixels == 0 {
+		t.Fatal("nothing feathered")
+	}
+	edges := compoundBoundary(l)
+	kept, faded, eased := 0, 0, 0
+	for y := range l.Height * 4 {
+		for x := range l.Width * 4 {
+			p := connectionPoint{(float64(x) + .5) / 4, (float64(y) + .5) / 4}
+			d := compoundSignedDistance(l, edges, p)
+			if d < 0 || d >= width {
+				continue
+			}
+			a, b := art4.NRGBAAt(x, y), plain.NRGBAAt(x, y)
+			switch k := compoundKeepDistance(keep, p); {
+			case k == 0:
+				kept++
+				if a != raw.NRGBAAt(x, y) {
+					t.Fatalf("keep polygon changed at (%.2f,%.2f): %v", p[0], p[1], a)
+				}
+			case k >= compoundKeepRamp:
+				if a != b {
+					t.Fatalf("beyond the keep ramp at (%.2f,%.2f): %v, without keep %v", p[0], p[1], a, b)
+				}
+				if a.A < 255 {
+					faded++
+				}
+			default:
+				if a.A < b.A {
+					t.Fatalf("keep ramp fades more at (%.2f,%.2f): %d < %d", p[0], p[1], a.A, b.A)
+				}
+				if a.A > b.A {
+					eased++
+				}
+			}
+		}
+	}
+	if kept < 1000 || faded < 10000 || eased < 100 {
+		t.Fatalf("too few samples: kept %d, faded %d, eased %d", kept, faded, eased)
 	}
 }
 
@@ -258,11 +328,11 @@ func TestCompoundFeatherBundle(t *testing.T) {
 			}
 		}
 	}
-	// The field is restricted.
-	scene.ID, scene.EntryRoad = "depot-summer", entry
+	// Keep polygons need the feather.
+	scene.EdgeFeather, scene.EdgeKeep = 0, [][]connectionPoint{{{10, 10}, {20, 10}, {20, 20}}}
 	m.Scenes = []compoundSceneInput{scene}
 	compoundTestWriteManifest(t, path, m)
 	if _, err := loadCompoundInputs(path); err == nil {
-		t.Error("depot accepted edge_feather")
+		t.Error("edge_keep accepted without edge_feather")
 	}
 }

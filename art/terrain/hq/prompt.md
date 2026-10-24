@@ -105,6 +105,18 @@ street |l| ≤ 11.5 world px over depths 10–44: mean L\* 54.8 (v3 59.1; the ro
 deep as the road tile's below the surface mean; no paint-white pixel (L\* > 85, C\* < 8) in the middle
 8 world px; outside the street 139 of 892488 scene pixels differ, by at most 1 level (Lanczos reach).
 
+### Soft outer edge (2026-10-24)
+
+`compound-hq-v4.json` cuts both seasons with `edge_feather` 9: where the meadow or snow apron, the moat
+boulders and the bushes reach the outer boundary they fade out over 2.5–7.75 world px along an irregular
+line (two octaves of value noise in world coordinates, the same in both seasons) instead of a straight
+cut along the hex edges; the entry corridor stays open to the port. `edge_keep` polygons (world px of
+the scene box) keep the masonry exactly: the tops of the north towers (31–70 and 167–207, 46–62), the
+two ends of the moat water (64–84 and 154–174, 48–64) and the south towers with the stubs of the south
+wall, which reach the bottom edge (29–80 and 158–209, 178–205). 2 world px outside a polygon the feather
+is back. In both seasons no ground pixel within 2 world px of the boundary keeps alpha above 1 at 2x
+(`TestCompoundFeatherIntactScenes`).
+
 ## Avoid
 - visible tiling or repeated rounded "pillow" patterns
 - perspective, horizon or tilted camera

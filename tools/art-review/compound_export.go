@@ -61,6 +61,7 @@ type compoundSceneReport struct {
 	Zoom         float64                  `json:"zoom,omitempty"`
 	EntryRoad    *connectionMaterial      `json:"entry_road,omitempty"`
 	EdgeFeather  float64                  `json:"edge_feather,omitempty"`
+	EdgeKeep     [][]connectionPoint      `json:"edge_keep,omitempty"`
 	Transform    compoundTransform        `json:"transform"`
 	Profile      string                   `json:"profile"`
 	Guard        compoundGuardReport      `json:"guard"`
@@ -190,6 +191,32 @@ func compoundRenderPatch(p compoundPatch, ground *image.NRGBA, tiles map[string]
 	return out
 }
 
+// compoundSceneArtwork renders scene s at 4x: placed, its entry street blended
+// into the road, framed, and (with edge_feather) feathered. framed is the
+// artwork before the feather.
+func compoundSceneArtwork(in compoundInputs, s compoundSceneInput, layout compoundLayout) (framed, art4 *image.NRGBA, tr compoundTransform, guard compoundGuardReport, err error) {
+	raw, tr, err := compoundAffine(in.Artwork[s.ID].Image, layout, s.Inset, s.fit())
+	if err != nil {
+		return nil, nil, tr, guard, err
+	}
+	if road, ok := in.EntryRoads[s.ID]; ok {
+		if raw, err = compoundBlendEntry(raw, layout, road); err != nil {
+			return nil, nil, tr, guard, err
+		}
+	}
+	framed, guard, err = compoundFrame(raw, layout, s.Framing)
+	if err != nil || s.EdgeFeather == 0 {
+		return framed, framed, tr, guard, err
+	}
+	// The corridor beside the entry port: the road's half width with its border, plus 2 world px.
+	f, _, err := compoundEntryRoad(in.EntryRoads[s.ID], layout)
+	if err != nil {
+		return nil, nil, tr, guard, err
+	}
+	art4, guard, err = compoundFeatherEdge(framed, layout, guard, s.EdgeFeather, f.Width/2+f.Border+2, s.EdgeKeep)
+	return framed, art4, tr, guard, err
+}
+
 func buildCompoundBundle(in compoundInputs) (compoundBundle, error) {
 	b := compoundBundle{pixels: map[string]*image.NRGBA{}, report: compoundReport{SchemaVersion: 1, ManifestSHA256: in.Hash, ManifestSnapshot: "manifest.json", Geometry: sharedConnectionGeometry(), Grounds: map[string]connectionMaterialReport{}, Profile: compoundProfile, Acceptance: "Provisional candidate; no whole-map, runtime or user approval claim."}}
 	if _, ok := in.Grounds["shared"]; ok {
@@ -231,28 +258,9 @@ func buildCompoundBundle(in compoundInputs) (compoundBundle, error) {
 		if err != nil {
 			return b, err
 		}
-		raw, tr, err := compoundAffine(in.Artwork[s.ID].Image, layout, s.Inset, s.fit())
+		_, art4, tr, guard, err := compoundSceneArtwork(in, s, layout)
 		if err != nil {
 			return b, fmt.Errorf("%s: %w", s.ID, err)
-		}
-		if road, ok := in.EntryRoads[s.ID]; ok {
-			if raw, err = compoundBlendEntry(raw, layout, road); err != nil {
-				return b, fmt.Errorf("%s: %w", s.ID, err)
-			}
-		}
-		art4, guard, err := compoundFrame(raw, layout, s.Framing)
-		if err != nil {
-			return b, fmt.Errorf("%s: %w", s.ID, err)
-		}
-		if s.EdgeFeather != 0 {
-			// The corridor beside the entry port: the road's half width with its border, plus 2 world px.
-			f, _, err := compoundEntryRoad(in.EntryRoads[s.ID], layout)
-			if err != nil {
-				return b, fmt.Errorf("%s: %w", s.ID, err)
-			}
-			if art4, guard, err = compoundFeatherEdge(art4, layout, guard, s.EdgeFeather, f.Width/2+f.Border+2); err != nil {
-				return b, fmt.Errorf("%s: %w", s.ID, err)
-			}
 		}
 		art2, err := resizeLanczos(art4, layout.Width*2, layout.Height*2)
 		if err != nil {
@@ -271,8 +279,11 @@ func buildCompoundBundle(in compoundInputs) (compoundBundle, error) {
 		}
 		if s.EdgeFeather != 0 {
 			profile += fmt.Sprintf(" Edge feather: after framing, the 4x artwork's alpha within %g world px of the outer union boundary is scaled by smoothstep((d-e)/%g), the edge e wandering between %g and %g world px by two octaves of value noise in world coordinates; the entry corridor (%g world px beside the entry port) keeps its artwork.", s.EdgeFeather, compoundFeatherRamp, compoundFeatherCut, s.EdgeFeather-compoundFeatherRamp, guard.FeatherCorridor)
+			if len(s.EdgeKeep) > 0 {
+				profile += fmt.Sprintf(" Inside its %d keep polygons (edge_keep) the artwork keeps its alpha exactly; within %g world px outside them the feather eases back in by smoothstep.", len(s.EdgeKeep), compoundKeepRamp)
+			}
 		}
-		sr := compoundSceneReport{ID: s.ID, compoundLayout: layout, InputArtwork: b.retain("sources/"+s.ID+".png", in.Artwork[s.ID]), Inset: s.Inset, Framing: s.Framing, Shift: s.Shift, Zoom: s.Zoom, EntryRoad: s.EntryRoad, EdgeFeather: s.EdgeFeather, Transform: tr, Profile: profile, Guard: guard}
+		sr := compoundSceneReport{ID: s.ID, compoundLayout: layout, InputArtwork: b.retain("sources/"+s.ID+".png", in.Artwork[s.ID]), Inset: s.Inset, Framing: s.Framing, Shift: s.Shift, Zoom: s.Zoom, EntryRoad: s.EntryRoad, EdgeFeather: s.EdgeFeather, EdgeKeep: s.EdgeKeep, Transform: tr, Profile: profile, Guard: guard}
 		for _, density := range []int{2, 4} {
 			art := art4
 			if density == 2 {

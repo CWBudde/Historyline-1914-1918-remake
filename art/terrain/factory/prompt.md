@@ -96,6 +96,18 @@ band (lateral −15..+10, depth 15..50 world px) is unchanged; 32042 (winter) an
 over the whole canvas. Afterwards the street lies −0.25 world px off the road's axis at 29–37 world px
 and stays within 1 world px at 10–18; only the E cells change.
 
+### Soft outer edge (2026-10-24)
+
+`compound-factory-v4.json` and `compound-factory-summer-v2.json` add `edge_feather` 9: where the snow or
+shrub apron reaches the outer boundary it fades out over 2.5–7.75 world px along an irregular line (two
+octaves of value noise in world coordinates, the same in both seasons) instead of a straight cut along
+the hex edges; the entry corridor stays open to the port. `edge_keep` polygons (world px of the scene
+box) keep the buildings on the top edges exactly: the twin west sheds (50–102, 38–60), the row of east
+sheds with their pipe (138–206, 36–52) and the north end of the gantry over the entry street (a
+quadrilateral through (208.2, 35.3), (218, 52.8), (211.9, 56.2), (202.1, 38.8)). 2 world px outside a
+polygon the feather is back. In both seasons no ground pixel within 2 world px of the boundary keeps
+alpha above 1 at 2x (`TestCompoundFeatherIntactScenes`).
+
 ## Avoid
 - visible tiling or repeated rounded "pillow" patterns
 - perspective, horizon or tilted camera

@@ -323,28 +323,81 @@ type compoundGuardReport struct {
 	FeatherCorridor float64 `json:"feather_corridor_world,omitempty"`
 }
 
-// Edge feather (world px): the band at the outer boundary of a ruined scene
-// in which its artwork fades out, the hard cut of alpha zero next to the
-// boundary, and the width of the smoothstep that ends the fade.
+// Edge feather (world px): the band at the outer boundary of a scene in which
+// its artwork fades out, the hard cut of alpha zero next to the boundary, the
+// width of the smoothstep that ends the fade, and how far outside a keep
+// polygon the feather eases back in.
 const (
 	compoundFeatherMin, compoundFeatherMax  = 4., 12.
 	compoundFeatherCut, compoundFeatherRamp = 2.5, 1.25
+	compoundKeepRamp                        = 2.
 )
 
-// compoundValidateFeather allows an edge feather only on the ruined depot,
-// whose rubble and snow apron reach the boundary without a fence that would
-// justify a straight edge; its entrance road keeps the corridor to the port.
-func compoundValidateFeather(l compoundLayout, framing string, width float64, entryRoad bool) error {
+// Limits of the keep polygons of an edge feather.
+const compoundMaxKeep, compoundMaxKeepPoints = 24, 32
+
+// compoundValidateFeather allows an edge feather on the reference-layout
+// scenes whose entry road keeps the corridor to the port (HQ, depot, ruined
+// depot, factory), so the ground apron ends in the ground instead of a
+// straight cut along the hex edges. Keep polygons (world px of the scene box)
+// protect what must keep its straight edge at the boundary: walls, towers,
+// fences and buildings.
+func compoundValidateFeather(l compoundLayout, framing string, width float64, entryRoad bool, keep [][]connectionPoint) error {
 	if width == 0 {
+		if len(keep) != 0 {
+			return errors.New("edge_keep requires edge_feather")
+		}
 		return nil
 	}
-	if l.Layout != "ruin" || framing != "reference-layout" || !entryRoad {
-		return errors.New("edge_feather is restricted to the ruined depot with reference-layout framing and an entry_road")
+	switch l.Layout {
+	case "hq", "depot", "ruin", "factory":
+	default:
+		return errors.New("edge_feather is restricted to the HQ, depot, ruined depot and factory")
+	}
+	if framing != "reference-layout" || !entryRoad {
+		return errors.New("edge_feather requires reference-layout framing and an entry_road")
 	}
 	if !(width >= compoundFeatherMin && width <= compoundFeatherMax) {
 		return fmt.Errorf("edge_feather must lie in [%g,%g] world px", compoundFeatherMin, compoundFeatherMax)
 	}
+	if len(keep) > compoundMaxKeep {
+		return fmt.Errorf("edge_keep allows at most %d polygons", compoundMaxKeep)
+	}
+	for _, poly := range keep {
+		if len(poly) < 3 || len(poly) > compoundMaxKeepPoints {
+			return fmt.Errorf("edge_keep polygons need 3 to %d points", compoundMaxKeepPoints)
+		}
+		for _, p := range poly {
+			if !(p[0] >= -8 && p[0] <= float64(l.Width)+8 && p[1] >= -8 && p[1] <= float64(l.Height)+8) {
+				return errors.New("edge_keep points must lie within 8 world px of the scene box")
+			}
+		}
+	}
 	return nil
+}
+
+// compoundKeepDistance is how far p lies outside the nearest keep polygon
+// (zero inside one, +Inf without polygons).
+func compoundKeepDistance(keep [][]connectionPoint, p connectionPoint) float64 {
+	best := math.Inf(1)
+	for _, poly := range keep {
+		inside := false
+		d := math.Inf(1)
+		for i, a := range poly {
+			b := poly[(i+1)%len(poly)]
+			if (a[1] > p[1]) != (b[1] > p[1]) && p[0] < a[0]+(p[1]-a[1])*(b[0]-a[0])/(b[1]-a[1]) {
+				inside = !inside
+			}
+			v, q := b.sub(a), p.sub(a)
+			u := max(0., min(1., (q[0]*v[0]+q[1]*v[1])/(v[0]*v[0]+v[1]*v[1])))
+			d = min(d, q.sub(v.mul(u)).length())
+		}
+		if inside {
+			return 0
+		}
+		best = min(best, d)
+	}
+	return best
 }
 
 // compoundHash maps a lattice point to [0,1) (integer finaliser of murmur3).
@@ -370,14 +423,15 @@ func compoundValueNoise(p connectionPoint, cell float64, seed uint32) float64 {
 }
 
 // compoundFeatherEdge fades 4x scene artwork out towards the outer union
-// boundary along an irregular line, so a ruin's rubble ends in the ground
-// instead of a straight cut along the hex edges. At signed distance d the
+// boundary along an irregular line, so rubble or a ground apron ends in the
+// ground instead of a straight cut along the hex edges. At signed distance d the
 // alpha is scaled by smoothstep((d-e)/ramp), where the edge e wanders between
 // the cut and width-ramp with two octaves of value noise in world coordinates
 // (the same in every season). Within corridor world px beside the entry port
 // (fully within corridor-2) the artwork is kept, so the entry street stays
-// open to the port.
-func compoundFeatherEdge(art *image.NRGBA, l compoundLayout, stats compoundGuardReport, width, corridor float64) (*image.NRGBA, compoundGuardReport, error) {
+// open to the port. Inside a keep polygon the artwork is kept exactly; within
+// compoundKeepRamp world px outside it the feather eases back in by smoothstep.
+func compoundFeatherEdge(art *image.NRGBA, l compoundLayout, stats compoundGuardReport, width, corridor float64, keep [][]connectionPoint) (*image.NRGBA, compoundGuardReport, error) {
 	if !(width >= compoundFeatherMin && width <= compoundFeatherMax) || !(corridor >= 2 && corridor <= 24) {
 		return nil, stats, errors.New("edge feather width or corridor out of range")
 	}
@@ -390,6 +444,9 @@ func compoundFeatherEdge(art *image.NRGBA, l compoundLayout, stats compoundGuard
 	inward := g.Neighbors[port-1].mul(-1 / g.Neighbors[port-1].length())
 	stats.FeatherWidth, stats.FeatherCorridor = width, corridor
 	stats.Policy += fmt.Sprintf("; edge feather: alpha scaled by smoothstep((d-e)/%g) with e between %g and %g world px by value noise, entry corridor %g world px", compoundFeatherRamp, compoundFeatherCut, width-compoundFeatherRamp, corridor)
+	if len(keep) > 0 {
+		stats.Policy += fmt.Sprintf(", %d keep polygons eased out over %g world px", len(keep), compoundKeepRamp)
+	}
 	edges := compoundBoundary(l)
 	out := image.NewNRGBA(art.Bounds())
 	copy(out.Pix, art.Pix)
@@ -412,6 +469,9 @@ func compoundFeatherEdge(art *image.NRGBA, l compoundLayout, stats compoundGuard
 			if depth := q[0]*inward[0] + q[1]*inward[1]; depth < width+2 {
 				lateral := math.Abs(q[0]*inward[1] - q[1]*inward[0])
 				f = max(f, 1-connectionSmoothStep((lateral-(corridor-2))/2))
+			}
+			if f < 1 && len(keep) > 0 {
+				f = max(f, 1-connectionSmoothStep(compoundKeepDistance(keep, p)/compoundKeepRamp))
 			}
 			a := uint8(math.Floor(float64(c.A)*f + .5))
 			if a == c.A {

@@ -44,7 +44,7 @@ preserves the summer arrangement and transparent gaps. `cmp-winter-v3.png` is `c
 the entry street (top edge to the hall roof, without the barrier pole) replaced by packed snow with two
 wheel ruts and no centre line, so the gate continues the winter road tile.
 
-`art-review -compound art/pipeline/compound-depot-v3.json` places both seasons on the seasonal meadow and
+`art-review -compound art/pipeline/compound-depot-v4.json` places both seasons on the seasonal meadow and
 slices the four cells. Reference-layout framing scales the scene to fill the 238x160 box and crops the
 excess, so the north street reaches the hex edge on the port; its first 10 world px blend into the season's
 road tile (`entry_road`: `connected-terrain-v2.json`, `connected-road-winter-v1.json`). Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
@@ -68,6 +68,18 @@ No white centre line, no dashes, no lane paint, no asphalt black, no curbs. Do n
 
 Image 1 is the installed winter depot: edit only its street surface, preserve every outline, position and the transparent area. Image 2 is the winter road material: take its packed-snow grain, patches and grey value for the street surface; do not copy its framing. Image 3 is the installed winter road tile at 4x (road 88 px wide on a 384 px hex, snow verges outside): take its ruts, their spacing relative to the road width and the overall value; do not copy its verges, its size or its hex shape.
 ```
+
+### Soft outer edge (2026-10-24)
+
+`compound-depot-v4.json` cuts the same masters with `edge_feather` 9: the ground apron fades out over the
+outer 2.5–7.75 world px along an irregular line (two octaves of value noise in world coordinates, the
+same in both seasons) instead of a straight cut along the hex edges, as on the ruined depot; the entry
+corridor stays open to the port. `edge_keep` polygons (world px of the scene box) keep what reaches the
+boundary exactly: the north-west shed (55–81, 38–62), the fence rails left and right of the gate
+(70–106 and 132–168, 32–40), the north-east tent with its crates and the end of the east fence
+(148–195, 38–62) and the south-west shed with its crates and barrels (51–83, 106–131); 2 world px
+outside a polygon the feather is back. In both seasons no ground pixel within 2 world px of the boundary
+keeps alpha above 1 at 2x (`TestCompoundFeatherIntactScenes`).
 
 ## Avoid
 - visible tiling or repeated rounded "pillow" patterns
