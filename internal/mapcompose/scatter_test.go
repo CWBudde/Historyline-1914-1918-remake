@@ -251,3 +251,32 @@ func TestCrownScatterNeedsTheSeasonsWholeSet(t *testing.T) {
 		t.Fatal("summer forest needs the winter set")
 	}
 }
+
+// A bare winter stand keeps about bareShare of its sites, so snow shows
+// between the bare crowns; the conifers keep every site of the summer stand
+// they replace (spruce for oak, fir for beech) at the same place and size.
+func TestBareStandsThinOut(t *testing.T) {
+	count := func(g hexgrid.Grid, at func(hexgrid.Coord) Hex) map[string][]Placed {
+		s := Compose(g, at, withCrowns)
+		out := map[string][]Placed{}
+		for l := range s.Cells {
+			for col := range s.Cells[l] {
+				for _, p := range s.Cells[l][col].Scatter {
+					sp := strings.Split(strings.TrimPrefix(p.ID, "standing/scatter/crown/"), "-")[0]
+					out[sp] = append(out[sp], p)
+				}
+			}
+		}
+		return out
+	}
+	summer, winter := count(forestMap(40, 80, 2, 78)), count(winterMap(40, 80, 2, 78))
+	for summerSp, winterSp := range map[string]string{"oak": "spruce", "beech": "fir"} {
+		if len(summer[summerSp]) == 0 || len(winter[winterSp]) != len(summer[summerSp]) {
+			t.Errorf("%s: %d crowns, %s: %d", summerSp, len(summer[summerSp]), winterSp, len(winter[winterSp]))
+		}
+	}
+	birch, bare := float64(len(summer["birch"])), float64(len(winter["bare"]))
+	if birch < 200 || math.Abs(bare/birch-bareShare) > 0.05 {
+		t.Errorf("%v bare crowns for %v birches (%.2f), want about %.2f", bare, birch, bare/birch, bareShare)
+	}
+}

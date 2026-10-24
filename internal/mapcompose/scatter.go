@@ -52,6 +52,10 @@ const (
 	scatterSalt     = 0x5ca77e7c0f0e57a1
 )
 
+// bareShare of a bare winter stand's sites carry a crown, so snow shows between
+// the leafless branches instead of a wash of overlapping twigs.
+const bareShare = 0.45
+
 // crownSeason is the forest and open terrain of one season and its species.
 // With snowFloor its scattered forest stands on the open ground's tile: bare
 // winter woods show snow between their branches, not the dark floor of the
@@ -140,6 +144,11 @@ func (s *Scene) scatterCrowns(at func(hexgrid.Coord) Hex, has func(string) bool)
 			sp := cs.species[min(len(cs.species)-1, int(valueNoise(px/standWavelength, py/standWavelength, 3)*float64(len(cs.species))))]
 			x = mix(x)
 			size := CrownSizes[pick(unit(x), crownWeights)]
+			if sp == "bare" {
+				if x = mix(x); unit(x) >= bareShare {
+					continue
+				}
+			}
 			cx, cy := hexgrid.Center(owner)
 			cell := &s.Cells[owner.Line][owner.Col]
 			cell.Scatter = append(cell.Scatter, Placed{ID: CrownID(sp, size), X: px - cx, Y: py - cy})
