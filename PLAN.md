@@ -429,12 +429,12 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       known sits in the `internal/dosrules` comments (`orders.go`, `cycle.go`). Assumed, not verified: an
       attack target is an opposing unit the side's map shows, of a class the attacker's target flags cover,
       within the weapon's range for that class.
-- [ ] 3.3 Buildings: depot construction, sapper trenches, barbed wire. The map art still shows a building's
-      first owner after a capture.
-- [ ] 3.4 Wire-up: one integrated scenario covering both cycles, combat, transport, capture, repair and
-      production; both factions and seasons; deterministic replay; Classic/Standard stay green. Hand-test
-      all three levels from both sides under the default `-rules dos` (`just play`, `just run`, the web
-      build), including repair and production in the contents view.
+- [ ] 3.3 Buildings: depot construction, sapper trenches, barbed wire. (The building art does not depend on
+      the owner; both panels' owner marks follow a capture, `TestDosCaptureDepot`.)
+- [ ] 3.4 Wire-up: hand-test all three levels from both sides under the default `-rules dos` (`just play`,
+      `just run`, the web build), including repair and production in the contents view. (The integrated
+      scenario, both cycles, combat, transport, capture, repair and production, both factions, summer and
+      winter, replayed to the same events and state, is `TestIntegratedScenario`.)
 
 ### 4. Computer opponent
 
