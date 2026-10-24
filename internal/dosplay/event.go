@@ -27,10 +27,12 @@ const (
 	Built                         // a unit was built: Unit, To the building, Energy left
 	Ended                         // the battle ended: Side the winner (-1 a draw), End
 	Captured                      // Side took a building with Unit: To the building, Hold its record, Text
+	Tasked                        // a sapper got its work order: From the sapper, To the hex
+	Dug                           // a sapper dug or filled a trench: From the sapper, To the hex, Hexes, Text
 )
 
 var kindNames = [...]string{"moved", "refused", "ordered", "confirmed", "unconfirmed", "battle", "skipped",
-	"revealed", "phase", "credited", "repaired", "built", "ended", "captured"}
+	"revealed", "phase", "credited", "repaired", "built", "ended", "captured", "tasked", "dug"}
 
 func (k EventKind) String() string {
 	if k >= 0 && int(k) < len(kindNames) {
@@ -79,6 +81,8 @@ type Event struct {
 	// Rear is the path of a moving two-cell ship's rear, one step behind
 	// Path: from the rear's hex to the one before the goal.
 	Rear []hexgrid.Coord
+	// Hexes are the hexes whose terrain a sapper's work changed (Dug).
+	Hexes []hexgrid.Coord
 }
 
 // The status messages of the rules engine that events carry, beyond the
@@ -124,6 +128,8 @@ func MessageText(code int) string {
 		return "Attack ordered."
 	case dosrules.MsgLimit:
 		return "No orders left this phase."
+	case dosrules.MsgTrench:
+		return "Trench work ordered."
 	case 0:
 		return ""
 	}
@@ -202,6 +208,20 @@ func (s *Session) event(r dosrules.Event, b *battles) Event {
 	case dosrules.EvCaptured:
 		ev.Kind, ev.To, ev.Hold = Captured, s.coord(r.Cell), r.Hold
 		ev.Text = captureText(kindOf(r.Hold), len(s.slots(r.Hold, r.Side))-1)
+	case dosrules.EvWork:
+		ev.Kind, ev.To, ev.Text = Tasked, s.coord(r.Cell), text(r)
+		ev.From = s.coord(s.Game.Units[r.Unit].Cell(r.Side))
+	case dosrules.EvDug, dosrules.EvFilled:
+		ev.Kind, ev.To, ev.Text = Dug, s.coord(r.Cell), "Trench dug."
+		if r.Kind == dosrules.EvFilled {
+			ev.Text = "Trench filled."
+		}
+		ev.From = s.coord(s.Game.Units[r.Unit].Cell(r.Side))
+		for _, c := range r.Cells {
+			if p, ok := s.Board.Coord(c); ok {
+				ev.Hexes = append(ev.Hexes, p)
+			}
+		}
 	case dosrules.EvMoved, dosrules.EvRefused:
 		return s.moved(r, -1)
 	}

@@ -55,6 +55,7 @@ type dosControl struct {
 	frozen      *dosplay.View   // the side's view from before the resolution while its battles play
 	otherFrozen *dosplay.View   // the other side's view, frozen alike
 	over        bool            // the end of the battle has played
+	rework      bool            // a sapper's work played: the map's terrain changed (trench.go)
 
 	prompt   bool            // F1 asked for the phase end: F1 confirms, fire goes back (phase.go)
 	stage    stage           // the stage of the phase change playing, stageNone otherwise
@@ -260,6 +261,12 @@ func (d *dosControl) selectUnit(at hexgrid.Coord, u dosplay.UnitView) {
 			if len(d.targets) == 0 {
 				d.Message = u.Name + ": no target in range"
 			}
+			if d.s.Sapper(u.Index) {
+				d.Message = u.Name + ": pick a hex to dig or fill"
+				if len(d.targets) == 0 {
+					d.Message = u.Name + ": no ground to dig or fill"
+				}
+			}
 		} else {
 			d.moves, err = d.s.Destinations(d.side, u.Index)
 			d.Message = u.Name + ": pick where to move"
@@ -360,9 +367,13 @@ func (d *dosControl) attack(to hexgrid.Coord) {
 		return
 	}
 	for _, ev := range evs {
-		if ev.Kind == dosplay.Ordered {
+		switch ev.Kind {
+		case dosplay.Ordered:
 			d.turn(ev.Unit, ev.From, ev.To)
 			d.Message = fmt.Sprintf("%s (order %d)", strings.TrimSuffix(ev.Text, "."), len(d.s.Orders(d.side)))
+		case dosplay.Tasked:
+			d.turn(ev.Unit, ev.From, ev.To)
+			d.Message = ev.Text
 		}
 	}
 }
@@ -477,6 +488,15 @@ func (d *dosControl) step() {
 	case dosplay.Captured:
 		d.captured(ev)
 		d.startCapture(ev)
+	case dosplay.Dug:
+		d.rework = true
+		d.Message = ev.Text
+		if ev.Side != d.side {
+			d.Message = "The enemy dug a trench."
+			if ev.Raw.Kind == dosrules.EvFilled {
+				d.Message = "The enemy filled a trench."
+			}
+		}
 	case dosplay.Ended:
 		if d.startFinale(ev) {
 			return

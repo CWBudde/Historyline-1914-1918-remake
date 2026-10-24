@@ -37,8 +37,9 @@ just artbook     # build/artbook/Historyline_Art.pdf (needs typst)
   the original unit table (`testdata/unitdat.json`, numbers only). The weapon catalogue is bound to the
   weapon art, so change attack values in a unit's slot, never in `weapons.json`.
 - `internal/dosrules`: pure Go resolver of the original rules profile (combat, movement, containers,
-  phase change, the command cycle `Game` with save/resume, building capture, victory and score, energy,
-  repair and production), pinned by fixtures under `testdata/`; not wired into `game` yet.
+  phase change, the command cycle `Game` with save/resume, building capture, sapper trenches, victory
+  and score, energy, repair and production), pinned by fixtures under `testdata/`; not wired into `game`
+  yet.
 - `internal/dosbind`: binds a shipped level to `dosrules` records (cells, terrain records from the
   numbers-only `records.json`, units, container records, building energy); checked against the local
   original maps.

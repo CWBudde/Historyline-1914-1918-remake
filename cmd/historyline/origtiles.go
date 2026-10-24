@@ -70,7 +70,8 @@ func (g *game) origGeoM(sx, sy float64) ebiten.GeoM {
 }
 
 // drawOrigTiles draws the original tile of every hex in view, scaled onto the
-// hex box. It reports false when the original art is off.
+// hex box: the board's terrain record, or the one the sappers' work left. It
+// reports false when the original art is off.
 func (g *game) drawOrigTiles(dst *ebiten.Image, inView []hexgrid.Coord) bool {
 	if !g.origOn() {
 		return false
@@ -81,14 +82,18 @@ func (g *game) drawOrigTiles(dst *ebiten.Image, inView []hexgrid.Coord) bool {
 		season = 1
 	}
 	tiles := g.orig.tiles[season]
+	records := b.Terrain
+	if g.records != nil {
+		records = g.records
+	}
 	for _, c := range inView {
 		cell, ok := b.Cell(c)
-		if !ok || cell >= len(b.Terrain) || b.Terrain[cell] >= len(tiles) {
+		if !ok || cell >= len(records) || records[cell] >= len(tiles) {
 			continue
 		}
 		sx, sy := g.cam.WorldToScreen(hexgrid.Center(c))
 		op := ebiten.DrawImageOptions{GeoM: g.origGeoM(sx, sy)}
-		dst.DrawImage(tiles[b.Terrain[cell]], &op)
+		dst.DrawImage(tiles[records[cell]], &op)
 	}
 	return true
 }

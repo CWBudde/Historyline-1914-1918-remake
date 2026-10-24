@@ -399,15 +399,17 @@ func (s *Session) canExit(side, hold, slot int) error {
 	return wrap(s.Game.Check(dosrules.Command{Kind: dosrules.CmdExit, Side: side, Hold: hold, Slot: slot, Cell: startCell(h)}))
 }
 
-// Targets are the hexes of side's map unit may attack now.
+// Targets are the hexes of side's map unit may attack now; for a sapper,
+// the hexes it may dig or fill, with a unit on them or not.
 func (s *Session) Targets(side, unit int) map[hexgrid.Coord]bool {
 	out := map[hexgrid.Coord]bool{}
 	if side != 0 && side != 1 || s.Phase(side) != dosrules.PhaseAction || s.CanOrder(side, unit) != nil {
 		return out
 	}
 	m := s.Game.Maps[side]
+	sapper := s.Sapper(unit)
 	for c := range s.Game.Width * s.Game.Height {
-		if m[2*c+1] > dosrules.SlotFree || !s.bound(c) {
+		if !sapper && m[2*c+1] > dosrules.SlotFree || !s.bound(c) {
 			continue
 		}
 		if s.Game.Check(dosrules.Command{Kind: dosrules.CmdAttack, Side: side, Unit: unit, Cell: c}) == nil {
@@ -488,7 +490,8 @@ func (s *Session) Exit(side, hold, slot int, to hexgrid.Coord) ([]Event, error) 
 }
 
 // Attack gives unit of side the attack order on a hex; it waits in the
-// side's order list until the resolution.
+// side's order list until the resolution. A sapper's order (Tasked) stays
+// off the list; its work follows the battles (Dug).
 func (s *Session) Attack(side, unit int, target hexgrid.Coord) ([]Event, error) {
 	cell, err := s.cell(target)
 	if err != nil {

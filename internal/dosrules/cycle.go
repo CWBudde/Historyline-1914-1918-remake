@@ -250,6 +250,9 @@ const (
 	EvBuilt    EventKind = "built"    // a unit built: Unit, the building's Cell, Energy left
 	EvCredit   EventKind = "credit"   // a side credited after the phase change: Energy
 	EvCaptured EventKind = "captured" // Side took building record Hold at Cell with Unit (capture.go)
+	EvWork     EventKind = "work"     // a sapper's work order on Cell was taken (sapper.go): Messages
+	EvDug      EventKind = "dug"      // a sapper dug a trench at Cell: Cells took trench records (sapper.go)
+	EvFilled   EventKind = "filled"   // a sapper filled a trench at Cell: Cells took TerrainFilled (sapper.go)
 )
 
 // Event is one thing that happened, in order.
@@ -266,6 +269,7 @@ type Event struct {
 	Turn     int       `json:"turn"`
 	Energy   int       `json:"energy,omitempty"`
 	Hold     int       `json:"hold,omitempty"`
+	Cells    []int     `json:"cells,omitempty"`
 }
 
 // unitOf is the unit a command orders.
@@ -297,7 +301,8 @@ func (g *Game) unitOf(c Command) (int, error) {
 //   - An attack needs a unit in the target cell of the side's map (0ad1:000c,
 //     message 0x45) that is a target of the unit (Target). Assumed, not
 //     verified: as for a move, the attacker must be on the side's map, not
-//     held in a container and the occupant of its cell.
+//     held in a container and the occupant of its cell. A sapper's order
+//     needs a neighbouring cell it can dig or fill instead (sapper.go).
 //   - A repair or a build needs an own building, the action phase and the
 //     energy (energy.go).
 //
@@ -358,7 +363,11 @@ func (g *Game) Check(c Command) error {
 	if g.Limit > 0 && !p.Computer && len(p.Orders) >= g.Limit {
 		return refuse(MsgLimit, "the move limit is reached")
 	}
-	if c.Kind == CmdAttack {
+	if c.Kind == CmdAttack && u.Sapper() {
+		if !g.trenchTarget(c.Side, u, c.Cell) {
+			return refuse(MsgNoTarget, "no trench work there")
+		}
+	} else if c.Kind == CmdAttack {
 		t := g.occupant(c.Side, c.Cell)
 		if v, ok := g.Units[t]; t > SlotFree || !ok || !g.Target(c.Side, u, v) {
 			return refuse(MsgNoTarget, "no target in the cell")
@@ -411,7 +420,9 @@ func (g *Game) occupant(side, cell int) int {
 //     side's list.
 //   - An attack order (0ad1:000c, the attack kind) sets the moved flag (live
 //     +4 0x200), +0x11 to the target, +0x13 = 9 and +0x14 = 2, and appends the
-//     unit to the list (message 0x49).
+//     unit to the list (message 0x49). A sapper's order sets the moved flag,
+//     +0x11 and +0x13 = 0x11 and stays off the list (message 0x6e,
+//     EvWork).
 //
 // A repair or a build is carried out at once (energy.go).
 //
@@ -426,6 +437,15 @@ func (g *Game) Apply(c Command) ([]Event, error) {
 		return g.repair(c), nil
 	case CmdBuild:
 		return g.build(c), nil
+	}
+	if c.Kind == CmdAttack && g.Units[c.Unit].Sapper() {
+		u := g.Units[c.Unit]
+		u.Flags4 |= 0x200
+		u.Target = 2 * c.Cell
+		u.Action[0] = actionTrench
+		g.Units[c.Unit] = u
+		return []Event{{Kind: EvWork, Side: c.Side, Unit: c.Unit, Cell: c.Cell,
+			Messages: []Message{{MsgTrench, c.Side}}}}, nil
 	}
 	if c.Kind == CmdAttack {
 		u := g.Units[c.Unit]
@@ -652,7 +672,8 @@ func (g *Game) Battlefield(side int) (*Battlefield, error) {
 // +0x11, with the strengths and experience it leaves, and every destroyed
 // unit taken off that map with bit 4 of its +0x14 set (02dc:2083). The
 // action pass then hands the buildings the movement side's units entered to
-// that side (capture, EvCaptured). Then the phase change (ChangePhase)
+// that side (capture, EvCaptured) and carries out the sappers' work on the
+// action side's map (trench, EvDug and EvFilled). Then the phase change (ChangePhase)
 // brings both maps into line, marks the destroyed units 0x8000, swaps the
 // phases, clears both lists and the confirmations and counts the turn. It
 // also clears every unit's +4 bits 0x0f00 (moved among them), its order cell
@@ -680,7 +701,7 @@ func (g *Game) Resolve() ([]Event, error) {
 	if err != nil {
 		return evs, err
 	}
-	caps, hq := g.capture(a)
+	caps, hq := g.work(a)
 	evs = append(evs, caps...)
 	ev, err := g.changePhase(a)
 	evs = append(evs, ev...)

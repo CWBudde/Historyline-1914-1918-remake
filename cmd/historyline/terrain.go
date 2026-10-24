@@ -15,6 +15,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapmaterial"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/worldmaterial"
 )
 
@@ -75,43 +76,66 @@ func openTerrainArt(fsys fs.FS, opt assets.Options, lvl *level.Level) (*terrainA
 	if err := assets.CheckGroupDensities(manifests, terrainDensities); err != nil {
 		return nil, err
 	}
-	present := func(id string) error {
-		g, ok := a.group[id]
-		if !ok {
-			return fmt.Errorf("terrain catalog has no tile %s", id)
-		}
-		for _, d := range terrainDensities {
-			if _, err := a.entry(g, id, d); err != nil {
-				return fmt.Errorf("terrain pack %dx/%s: %w", d, g, err)
-			}
-		}
-		return nil
-	}
-	a.scene = mapcompose.Compose(lvl.Grid(), mapcompose.LevelHex(lvl), func(id string) bool { return present(id) == nil })
-	if err := present(mapcompose.TileID("unseen")); err != nil {
+	if err := a.present(mapcompose.TileID("unseen")); err != nil {
 		return nil, err
 	}
+	if err := a.compose(lvl); err != nil {
+		return nil, err
+	}
+	if err := a.openMaterials(lvl); err != nil {
+		return nil, err
+	}
+	return a, nil
+}
+
+// present checks that the catalog has tile id at every density.
+func (a *terrainArt) present(id string) error {
+	g, ok := a.group[id]
+	if !ok {
+		return fmt.Errorf("terrain catalog has no tile %s", id)
+	}
+	for _, d := range terrainDensities {
+		if _, err := a.entry(g, id, d); err != nil {
+			return fmt.Errorf("terrain pack %dx/%s: %w", d, g, err)
+		}
+	}
+	return nil
+}
+
+// compose composes lvl as the scene; on a missing tile the scene stays.
+func (a *terrainArt) compose(lvl *level.Level) error {
+	s := mapcompose.Compose(lvl.Grid(), mapcompose.LevelHex(lvl), func(id string) bool { return a.present(id) == nil })
 	var ids []string
-	for _, line := range a.scene.Cells {
+	for _, line := range s.Cells {
 		for _, c := range line {
 			ids = slices.Concat(ids, []string{c.Background, c.Under}, c.Overlays, c.Shadows, c.Standing)
 		}
 	}
-	for _, cl := range a.scene.Clusters {
+	for _, cl := range s.Clusters {
 		ids = append(ids, cl.Stamp, cl.Standing)
 	}
 	for _, id := range ids {
 		if id == "" {
 			continue
 		}
-		if err := present(id); err != nil {
-			return nil, err
+		if err := a.present(id); err != nil {
+			return err
 		}
 	}
-	if err := a.openMaterials(lvl); err != nil {
-		return nil, err
+	a.scene = s
+	return nil
+}
+
+// recompose draws lvl, a level whose hexes changed during the battle: the
+// scene and the ground materials follow it.
+func (a *terrainArt) recompose(lvl *level.Level) error {
+	if err := a.compose(lvl); err != nil {
+		return err
 	}
-	return a, nil
+	if m := a.materials; m != nil {
+		m.field, m.level = mapmaterial.New(lvl), lvl
+	}
+	return nil
 }
 
 // loadTerrainArt opens the terrain catalog in dir for lvl, counting its fetches in m.

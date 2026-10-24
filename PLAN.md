@@ -28,8 +28,8 @@ history.
   (`internal/data/testdata/unitdat.json`).
 - **Original rules** (`internal/dosrules`, `dosbind`, `dosplay`, `dosai`): combat, movement, containers,
   visibility, the phase change and the command cycle `Game` (validation, queued attacks, ordered events,
-  save/resume, capture, victory and score, energy with repair and production), bound to the shipped levels
-  and the 72 original maps, with a computer side that plays every level to its end.
+  save/resume, capture, sapper trenches, victory and score, energy with repair and production), bound to the
+  shipped levels and the 72 original maps, with a computer side that plays every level to its end.
 - **Front end** (`cmd/historyline`): menus around a battle, camera with zoom, independent UI scale and asset
   density, HiDPI and fullscreen. Under `-rules dos` the original's split screen
   ([docs/dos-screen.md](docs/dos-screen.md)); under `Classic`/`Standard` the single-map HUD with minimap,
@@ -458,6 +458,10 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       within the weapon's range for that class.
 - [ ] 3.3 Buildings: depot construction, sapper trenches, barbed wire. (The building art does not depend on
       the owner; both panels' owner marks follow a capture, `TestDosCaptureDepot`.)
+      Partial (2026-10-24): sapper trenches under `-rules dos`: a sapper's order on a neighbouring hex digs or
+      fills a line of three hexes after the battles (`dosrules/sapper.go`), and the map draws the new trench
+      (`dosplay.Session.Reworked`, `TestSapperWorkRedrawsTerrain`). The computer side does not dig yet; depot
+      construction and barbed wire are open.
 - [ ] 3.4 Wire-up: hand-test all three levels from both sides under the default `-rules dos` (`just play`,
       `just run`, the web build), including repair and production in the contents view. (The integrated
       scenario, both cycles, combat, transport, capture, repair and production, both factions, summer and

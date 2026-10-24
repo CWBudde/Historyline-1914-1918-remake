@@ -31,8 +31,8 @@ type UnitView struct {
 	// In and Slot are the container record and slot of a held unit, else
 	// -1.
 	In, Slot int
-	// Target is the hex of the unit's queued attack; set for the viewing
-	// side's own units.
+	// Target is the hex of the unit's queued attack or sapper's work; set
+	// for the viewing side's own units.
 	Target *hexgrid.Coord
 	// A two-cell ship is two records: Rear is set on its head, the hex of
 	// its rear, and Head on the rear, the hex of its head.
@@ -147,9 +147,11 @@ func (s *Session) unitView(idx, side int) UnitView {
 	return v
 }
 
-// target is the hex of side's queued attack of unit, nil if none.
+// target is the hex of side's queued attack or sapper's work of unit, nil
+// if none.
 func (s *Session) target(side, unit int) *hexgrid.Coord {
-	if side != 0 && side != 1 || s.Phase(side) != dosrules.PhaseAction || !slices.Contains(s.Game.Players[side].Orders, unit) {
+	if side != 0 && side != 1 || s.Phase(side) != dosrules.PhaseAction ||
+		!slices.Contains(s.Game.Players[side].Orders, unit) && !s.Game.Units[unit].Working() {
 		return nil
 	}
 	c := s.coord(s.Game.Units[unit].Target / 2)

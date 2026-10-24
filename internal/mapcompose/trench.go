@@ -136,18 +136,25 @@ func trenchShape(g hexgrid.Grid, at func(hexgrid.Coord) Hex, c hexgrid.Coord) (T
 }
 
 // trenches returns the infrastructure drawn on hex c: its trench piece as the
-// derived shape where the catalog has it. A missing tile keeps the piece and
-// records a Gap. The rules still see the piece.
+// derived shape where the catalog has it. A course without spurs the catalog
+// lacks is drawn as a dug-in position with the same links. A missing tile
+// keeps the piece and records a Gap. The rules still see the piece.
 func trenches(g hexgrid.Grid, at func(hexgrid.Coord) Hex, c hexgrid.Coord, infra []string, has func(string) bool) ([]string, *Gap) {
 	piece, ports, ring, ok := trenchPiece(infra)
 	if !ok {
 		return infra, nil
 	}
 	s, _ := trenchShape(g, at, c)
+	id := s.ID()
 	if s.Ring == ring && s.Links == ports && s.Spurs == 0 {
+		id = piece
+	}
+	if p := (TrenchShape{Ring: true, Links: s.Links}).ID(); !has(TileID(id)) && !s.Ring && s.Spurs == 0 && has(TileID(p)) {
+		id = p
+	}
+	if id == piece {
 		return infra, nil
 	}
-	id := s.ID()
 	if !has(TileID(id)) {
 		return infra, &Gap{At: c, Terrain: at(c).Terrain, Family: Trench, Reason: Missing, Descriptor: id}
 	}

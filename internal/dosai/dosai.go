@@ -465,12 +465,12 @@ type candidate struct {
 
 // attack gives the action phase's orders: repeatedly the candidate whose
 // battle, fought on the state the orders so far leave, gains most, while one
-// gains anything.
+// gains anything. Sappers get no order: their work is no battle.
 func (pl *plan) attack() ([]dosplay.Event, error) {
 	var cands []candidate
 	for _, c := range sorted(pl.view.Units) {
 		u := pl.view.Units[c]
-		if u.Side != pl.side || u.Moved {
+		if u.Side != pl.side || u.Moved || pl.s.Sapper(u.Index) {
 			continue
 		}
 		for _, t := range dosplay.Coords(pl.s.Targets(pl.side, u.Index)) {

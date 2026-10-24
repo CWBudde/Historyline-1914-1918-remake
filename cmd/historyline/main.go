@@ -83,6 +83,7 @@ type game struct {
 	terrainErr string             // last terrain tile failure, shown in the status line
 	hdUnits    <-chan *artPacks   // full-quality unit art while it loads (-units-hd, without the menus)
 	hdTerrain  <-chan *terrainArt // full-quality terrain while it loads (-terrain-hd)
+	records    []int              // the terrain records as the sappers' work played left them, nil before (trench.go)
 	scroll     float64            // map scroll speed, screen pixels per frame
 
 	split    *split // the split screen of -rules dos, nil otherwise
@@ -260,6 +261,9 @@ func (g *game) Update() error {
 	if t, ok := arrived(&g.hdTerrain); ok {
 		g.terrain.release()
 		g.terrain = t
+		if g.records != nil {
+			g.reworkTerrain()
+		}
 	}
 	if g.split == nil {
 		g.scrollKeys()
@@ -272,6 +276,10 @@ func (g *game) Update() error {
 		g.dos.SkipScene() // as the battle panel, any key or click skips a scene
 	}
 	g.drv().Tick()
+	if g.dos != nil && g.dos.rework {
+		g.dos.rework = false
+		g.reworkTerrain()
+	}
 	if g.split != nil {
 		g.updateSplit()
 	}

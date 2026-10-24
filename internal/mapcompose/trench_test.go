@@ -82,6 +82,13 @@ func TestComposeDrawsDerivedTrenches(t *testing.T) {
 	if !slices.ContainsFunc(s.Gaps, func(gap Gap) bool { return gap.At == centre && gap.Family == Trench && gap.Descriptor == "trench1-s4" }) {
 		t.Errorf("gaps %+v", s.Gaps)
 	}
+	// A course the catalog lacks, such as the end of a line a sapper dug,
+	// is a dug-in position with its links.
+	g, at = trenchGrid(map[hexgrid.Coord]string{centre: "trench2", hexgrid.Around(centre)[1]: "trench5"})
+	s = Compose(g, at, func(id string) bool { return id == "tile/trench0-2" || id == "tile/trench5" })
+	if got := s.Cells[2][1].Overlays; !slices.Equal(got, []string{"tile/trench0-2"}) || len(s.Gaps) != 0 {
+		t.Errorf("overlays %v, gaps %+v", got, s.Gaps)
+	}
 }
 
 // The pieces of the original map 03 ("VENOM", campaign level 4) that stood
