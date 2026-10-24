@@ -587,10 +587,14 @@ func (g *game) statusText() string {
 	return msg
 }
 
-// drawnDensity is the asset density the map is drawn with: the sprite density
-// once packs are loaded (no 1x art exists), the requested density otherwise.
+// drawnDensity is the asset density the map is drawn with: the terrain density
+// once terrain packs are loaded, else the sprite density once unit packs are
+// (no 1x unit art exists), the requested density otherwise.
 func (g *game) drawnDensity() int {
-	if g.art != nil || g.terrain != nil {
+	if g.terrain != nil {
+		return terrainDensity(g.cam.Effective())
+	}
+	if g.art != nil {
 		return spriteDensity(g.cam.Effective())
 	}
 	return assetDensity(g.cam.Effective())
@@ -814,7 +818,7 @@ func main() {
 	screensHD := flag.String("screens-hd", "", "web: full-quality screen catalog, loaded in the background when the -units catalog downloaded fast")
 	candidates := flag.Bool("allow-candidates", false, "allow unit, terrain and screen packs that are review candidates, not approved art")
 	capture := flag.String("capture", "", "dev: render nine 720p/1080p/4K review frames to a directory under build/ and exit (requires -units and -terrain)")
-	captureLook := flag.Bool("capture-look", false, "with -capture: render revealed/fog views at exact 1x and 1.6x effective zoom at 1080p/4K")
+	captureLook := flag.Bool("capture-look", false, "with -capture: render revealed/fog views at exact 0.5x, 1x and 1.6x effective zoom at 1080p/4K")
 	flag.Parse()
 	if *captureLook && *capture == "" {
 		log.Fatal("-capture-look requires -capture")

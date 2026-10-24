@@ -82,8 +82,8 @@ func TestRetainedTerrainCatalogBuilds(t *testing.T) {
 			}
 		}
 	}
-	if len(packs) != len(want)*2 {
-		t.Fatalf("built %d packs, want %d", len(packs), len(want)*2)
+	if len(packs) != len(want)*3 {
+		t.Fatalf("built %d packs, want %d", len(packs), len(want)*3)
 	}
 	for _, p := range packs {
 		if n := len(p.Manifest.Entries); n != want[p.Group] || p.Manifest.Status != "candidate" {
@@ -91,8 +91,8 @@ func TestRetainedTerrainCatalogBuilds(t *testing.T) {
 		}
 	}
 	// Every terrain and infrastructure ID of the shipped levels has a tile at
-	// both densities, registered on the hex centre.
-	for _, d := range terrainDensities {
+	// every density, the derived 1x too, registered on the hex centre.
+	for _, d := range append([]int{derivedDensity}, terrainDensities...) {
 		bg := openTerrainPack(t, out, d, "backgrounds")
 		inf := openTerrainPack(t, out, d, "infrastructure")
 		for _, feature := range []struct {
@@ -154,6 +154,20 @@ func TestRetainedTerrainCatalogBuilds(t *testing.T) {
 					}
 				}
 			}
+		}
+	}
+	// The 1x tiles are the built, graded 2x tiles halved.
+	for _, id := range []string{"tile/grass", "tile/grass_w"} {
+		half, err := openTerrainPack(t, out, 2, "backgrounds").Image(id, 2)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got, err := openTerrainPack(t, out, derivedDensity, "backgrounds").Image(id, derivedDensity)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if !bytes.Equal(pixels(got), halve(half).Pix) {
+			t.Errorf("%s at 1x is not its graded 2x tile halved", id)
 		}
 	}
 	// Terrain is graded as the map renderer grades it; painted cast shadows are
@@ -298,13 +312,22 @@ func TestTerrainGapsReport(t *testing.T) {
 		}
 	}
 	partName := fmt.Sprintf("context-ground-%d", groundParts+1)
-	variants := 0
+	// The 1x packs are derived from the 2x ones.
+	packs, variants := len(planned), 0
+	for _, p := range planned {
+		if p.Density == 2 {
+			packs++
+		}
+	}
 	for _, e := range retainedIndex(t) {
 		if strings.HasPrefix(e.Pack, "terrain-") {
 			variants++
+			if e.Density == 2 {
+				variants++
+			}
 		}
 	}
-	if !strings.Contains(b.String(), fmt.Sprintf("built %d terrain packs (%d PNG variants", len(planned), variants)) {
+	if !strings.Contains(b.String(), fmt.Sprintf("built %d terrain packs (%d PNG variants", packs, variants)) {
 		t.Errorf("build output %q", b.String())
 	}
 	// Move an existing context into an additional paired part: the report must still

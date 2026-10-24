@@ -56,10 +56,14 @@ standing tiles so each pack stays within the decoded-image budget. Older catalog
 in `standing` still load. Runtime IDs, anchors and drawing order are shared by both layouts.
 
 Larger groups split into numbered directories (`context-ground`, `context-ground-2`, ...), with identical
-ID assignments at 2× and 4×. The builder sorts IDs and splits at the entry/decoded-image limits. Loaders
+ID assignments at every density. The builder sorts IDs and splits at the entry/decoded-image limits. Loaders
 discover contiguous parts from directory listings (also through HTTP's `files.txt`) and reject incomplete
 densities or duplicate IDs across parts. All background and context parts retain the same opaque texture
 borders.
+
+The builder derives the 1× packs from the graded 2× ones (`out/1x/<group>/`, same parts): each texel is the
+area average of its 2×2 block, its colour weighted by alpha and averaged in linear light. They are not in
+`assets/index.json`.
 
 The builder grades every terrain image to the value targets of `art/direction.md`
 (`internal/terraingrade`), and `internal/maprender` grades the same way as it loads `assets/`, so the art
@@ -147,8 +151,11 @@ keep the canonical shore; multi-mouth and mixed-edge contexts remain open.
 Drawing order: all backgrounds, cluster stamps, overlays, cast shadows, standing items (line, then column), owner bars,
 units. Unseen hexes show `unseen` and none of their standing items; remembered hexes are greyed, standing
 items too. A cluster is stamped only while all its hexes are known; otherwise its hexes keep the per-hex art.
-Draw density is the effective zoom's asset density, at least 2×. Background textures get a 3-texel grown
-border so filtered quads at fractional zoom overlap without seams.
+Terrain is drawn at the effective zoom's asset density (1× up to zoom 1), units at least at 2×. Ebitengine
+filters bilinearly without mipmaps here, so a texture drawn below half its size aliases. Background
+textures get a 3-texel grown border so filtered quads at fractional zoom overlap without seams; the bordered
+backgrounds are drawn beneath all backgrounds, which are drawn again bare over them, so no border covers a
+neighbour's texels.
 
 Summer forest crowns are scattered over the map (`mapcompose`, `scatter.go`) when the catalog has the nine
 `standing/scatter/crown/<oak|beech|birch>-<16|22|28>` items and their shadows, which `hlkit -install assets`
@@ -184,7 +191,7 @@ over it, live text in the Go fonts and the button states; without the catalog th
 
 ## Web
 
-`just web` hard-links the 2× unit and terrain packs and both screen densities into `build/web/packs/<catalog>/`,
+`just web` hard-links the 2× unit packs, the 1× and 2× terrain packs and both screen densities into `build/web/packs/<catalog>/`,
 writes their compressed copies to `build/web/packs/<catalog>-lite/` (`hlasset lite`: an opaque image as JPEG,
 any other as lossy WebP, a PNG where that is smaller; about a fifth of the bytes) and lists each catalog in
 `files.txt` (`<size> <path>` per line), since HTTP cannot list directories. `index.html` passes the catalogs it

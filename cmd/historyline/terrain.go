@@ -21,8 +21,8 @@ import (
 // tilePad is the border around terrain textures, in texels. Background tiles
 // own complementary pixels, but scaled, filtered quads do not meet exactly
 // (Ebitengine snaps quad corners to a sub-pixel grid), which leaves seams.
-// Growing each background's opaque edge into the border makes neighbours
-// overlap instead; overlays keep a transparent border.
+// Each background's opaque edge grown into the border fills them from beneath
+// (drawTerrain); overlays keep a transparent border.
 const tilePad = 3
 
 // terrainGroups are the pack groups hlasset build-terrain writes; the optional
@@ -55,11 +55,11 @@ func levelHex(l *level.Level) func(hexgrid.Coord) mapcompose.Hex {
 // the level draws, and the unseen tile, must be present, so drawing never meets
 // a missing tile.
 func openTerrainArt(fsys fs.FS, opt assets.Options, lvl *level.Level) (*terrainArt, error) {
-	groups, err := assets.PackGroups(fsys, terrainGroups, optionalGroups, spriteDensities)
+	groups, err := assets.PackGroups(fsys, terrainGroups, optionalGroups, terrainDensities)
 	if err != nil {
 		return nil, fmt.Errorf("terrain %w", err)
 	}
-	packs, err := openPacks(fsys, opt, groups, spriteDensities)
+	packs, err := openPacks(fsys, opt, groups, terrainDensities)
 	if err != nil {
 		return nil, fmt.Errorf("terrain %w", err)
 	}
@@ -71,14 +71,14 @@ func openTerrainArt(fsys fs.FS, opt assets.Options, lvl *level.Level) (*terrainA
 	a := &terrainArt{artPacks: packs, group: map[string]string{}}
 	manifests := map[string][]assets.Manifest{}
 	for _, g := range groups {
-		for _, d := range spriteDensities {
+		for _, d := range terrainDensities {
 			manifests[g] = append(manifests[g], packs.packs[packKey{g, d}].Manifest())
 		}
-		for _, e := range packs.packs[packKey{g, spriteDensities[0]}].Manifest().Entries {
+		for _, e := range packs.packs[packKey{g, terrainDensities[0]}].Manifest().Entries {
 			a.group[e.ID] = g
 		}
 	}
-	if err := assets.CheckGroupDensities(manifests, spriteDensities); err != nil {
+	if err := assets.CheckGroupDensities(manifests, terrainDensities); err != nil {
 		return nil, err
 	}
 	present := func(id string) error {
@@ -86,7 +86,7 @@ func openTerrainArt(fsys fs.FS, opt assets.Options, lvl *level.Level) (*terrainA
 		if !ok {
 			return fmt.Errorf("terrain catalog has no tile %s", id)
 		}
-		for _, d := range spriteDensities {
+		for _, d := range terrainDensities {
 			if _, err := a.entry(g, id, d); err != nil {
 				return fmt.Errorf("terrain pack %dx/%s: %w", d, g, err)
 			}
@@ -189,14 +189,17 @@ func terrainScatter(s *mapcompose.Scene, c hexgrid.Coord, fog func(hexgrid.Coord
 	return layer(s, c, known), f == state.Seen
 }
 
-// drawTerrainTile draws id with its anchor on screen point (sx, sy).
-func (g *game) drawTerrainTile(dst *ebiten.Image, id string, sx, sy float64, dim bool, at *hexgrid.Coord) {
-	d := spriteDensity(g.cam.Effective())
+// drawTerrainTile draws id with its anchor on screen point (sx, sy); a bare
+// background without its bleeding border.
+func (g *game) drawTerrainTile(dst *ebiten.Image, id string, sx, sy float64, dim bool, at *hexgrid.Coord, bare bool) {
+	d := terrainDensity(g.cam.Effective())
 	var img *ebiten.Image
 	var e assets.Entry
 	var err error
 	if at != nil && g.terrain.materials.eligible(*at, id) {
-		img, e, err = g.terrain.materialImage(*at, id, d)
+		img, e, err = g.terrain.materialImage(*at, id, d, bare)
+	} else if bare {
+		img, e, err = g.terrain.bareImage(g.terrain.group[id], id, d)
 	} else {
 		img, e, err = g.terrain.image(g.terrain.group[id], id, d)
 	}
@@ -218,10 +221,17 @@ func (g *game) drawTerrainTile(dst *ebiten.Image, id string, sx, sy float64, dim
 // column order): every background first, then the cluster stamps, the
 // infrastructure, cast shadows and standing items, each pass with its scattered
 // items (ground props after the stamps). Every shadow is drawn before every crown,
-// so a later hex's shadow cannot cover an earlier crown.
+// so a later hex's shadow cannot cover an earlier crown. The backgrounds' bleeding
+// borders go beneath all backgrounds, which are drawn bare over them: the borders
+// fill the gaps between scaled tiles, but none covers a neighbour's own texels.
 func (g *game) drawTerrain(dst *ebiten.Image, inView []hexgrid.Coord) {
 	s := &g.terrain.scene
 	cells := withClusterAnchors(s, inView)
+	for _, c := range cells {
+		bg, _, _, _, dim := terrainLayers(s, c, g.fogOf)
+		sx, sy := g.cam.WorldToScreen(hexgrid.Center(c))
+		g.drawTerrainTile(dst, bg, sx, sy, dim, g.materialHex(c), false)
+	}
 	for pass := range 5 {
 		for _, c := range cells {
 			bg, stamp, overlays, standing, dim := terrainLayers(s, c, g.fogOf)
@@ -233,10 +243,10 @@ func (g *game) drawTerrain(dst *ebiten.Image, inView []hexgrid.Coord) {
 			for _, id := range [5][]string{{bg}, {stamp}, overlays, shadows, standing}[pass] {
 				if id != "" {
 					var at *hexgrid.Coord
-					if pass == 0 && g.fogOf(c) != state.Unseen {
-						at = &c
+					if pass == 0 {
+						at = g.materialHex(c)
 					}
-					g.drawTerrainTile(dst, id, sx, sy, dim, at)
+					g.drawTerrainTile(dst, id, sx, sy, dim, at, true)
 				}
 			}
 			if layer := scatterLayers[pass]; layer != nil {
@@ -244,11 +254,20 @@ func (g *game) drawTerrain(dst *ebiten.Image, inView []hexgrid.Coord) {
 				cx, cy := hexgrid.Center(c)
 				for _, p := range scattered {
 					px, py := g.cam.WorldToScreen(cx+p.X, cy+p.Y)
-					g.drawTerrainTile(dst, p.ID, px, py, dim, nil)
+					g.drawTerrainTile(dst, p.ID, px, py, dim, nil, true)
 				}
 			}
 		}
 	}
+}
+
+// materialHex is c for a background that may sample the world material: any
+// but an unseen hex's.
+func (g *game) materialHex(c hexgrid.Coord) *hexgrid.Coord {
+	if g.fogOf(c) == state.Unseen {
+		return nil
+	}
+	return &c
 }
 
 // withClusterAnchors adds to the hexes in view the anchor hex of every stamped

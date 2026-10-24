@@ -157,7 +157,7 @@ Stop adding enumerated baked contexts. Each one fixes the old sampling in place,
       - global painted light and the families other than PULSE crowns;
       - the unresolved periods, estimators and populations the report leaves incomplete.
 - [ ] L0.2 Review views at the real size: 1× and an effective zoom of 1.6 (the split screen), plus in-game
-      captures at 1080p and 4K. `-capture-look -capture DIR` writes eight real-Draw frames (1×/1.6× at
+      captures at 1080p and 4K. `-capture-look -capture DIR` writes twelve real-Draw frames (0.5×/1×/1.6× at
       1080p/4K, revealed and fogged); acceptance of the other families and views remains.
 
 ##### Look 1: Sampling, grade and legibility (code, no new art)
@@ -224,6 +224,8 @@ painting can cross hex borders; picking, fog and rules stay per hex.
       single-painting sources and sliced runtime exports already exist in the compound exporters.
 - [ ] L1.10 Seams and scale: three-tile vertex check, fractional zoom 0.75–2, 4× export and 4K view with the
       new layers; the stress map stays at 60 FPS (standing items are batched per atlas).
+      2026-10-24: terrain draws 1× packs derived from the 2× ones up to zoom 1 (a 2× tile drawn at half size
+      aliased), and the bordered backgrounds go beneath bare ones, so no border streaks along hex edges.
 
 ##### Look 2: Forest and meadow
 

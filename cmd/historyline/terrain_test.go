@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"cmp"
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
@@ -65,7 +66,7 @@ func terrainCatalog(t *testing.T, l *level.Level, skip string, contexts ...strin
 	}
 	delete(ids, skip)
 	fsys := fstest.MapFS{}
-	for _, d := range spriteDensities {
+	for _, d := range terrainDensities {
 		var buf bytes.Buffer
 		if err := png.Encode(&buf, image.NewNRGBA(image.Rect(0, 0, 96*d, 80*d))); err != nil {
 			t.Fatal(err)
@@ -223,10 +224,15 @@ func TestDrawnDensity(t *testing.T) {
 	if d := g.drawnDensity(); d != assetDensity(g.cam.Effective()) {
 		t.Errorf("without packs: %dx", d)
 	}
-	// No 1x art exists: with packs the 2x art is drawn smaller.
-	g.terrain = &terrainArt{artPacks: &artPacks{}}
+	// No 1x unit art exists: with unit packs the 2x art is drawn smaller.
+	g.art = &artPacks{}
 	if d := g.drawnDensity(); d != 2 {
-		t.Errorf("with terrain packs at zoom 1: %dx, want 2x", d)
+		t.Errorf("with unit packs at zoom 1: %dx, want 2x", d)
+	}
+	// Terrain has 1x packs, derived from the 2x ones.
+	g.terrain = &terrainArt{artPacks: &artPacks{}}
+	if d := g.drawnDensity(); d != 1 {
+		t.Errorf("with terrain packs at zoom 1: %dx, want 1x", d)
 	}
 }
 
@@ -325,5 +331,48 @@ func TestOpenTerrainArtAddsSeparateClusterStandingPack(t *testing.T) {
 	delete(fsys, "4x/standing-stamps/manifest.json")
 	if _, err := openTerrainArt(fsys, assets.Options{AllowCandidates: true}, l); err == nil {
 		t.Fatal("accepted cluster standing pack with a missing density")
+	}
+}
+
+// Backgrounds have a bleeding texture, drawn beneath all backgrounds, and a
+// bare one drawn over them; overlays have only the bare one. Terrain loads 1x.
+func TestBackgroundsHaveBareTextures(t *testing.T) {
+	l := testLevel(t)
+	a, err := openTerrainArt(terrainCatalog(t, l, ""), assets.Options{AllowCandidates: true}, l)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var bg, overlay string
+	for _, line := range a.scene.Cells {
+		for _, c := range line {
+			bg = cmp.Or(bg, c.Background)
+			if len(c.Overlays) > 0 {
+				overlay = cmp.Or(overlay, c.Overlays[0])
+			}
+		}
+	}
+	if bg == "" || overlay == "" {
+		t.Fatal("fixture has no background or overlay")
+	}
+	for _, d := range terrainDensities {
+		for _, tt := range []struct {
+			id    string
+			apart bool
+		}{{bg, true}, {overlay, false}} {
+			bled, _, err := a.image(a.group[tt.id], tt.id, d)
+			if err != nil {
+				t.Fatal(err)
+			}
+			bare, _, err := a.bareImage(a.group[tt.id], tt.id, d)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if (bled != bare) != tt.apart || bare.Bounds() != bled.Bounds() {
+				t.Errorf("%s at %dx: textures apart %v, want %v", tt.id, d, bled != bare, tt.apart)
+			}
+		}
+	}
+	if terrainDensities[0] != 1 || terrainDensity(1) != 1 || terrainDensity(0.5) != 1 {
+		t.Errorf("terrain densities %v draw %dx at zoom 1", terrainDensities, terrainDensity(1))
 	}
 }

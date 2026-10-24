@@ -18,6 +18,7 @@ type materialTileKey struct {
 	phase           image.Point
 	signature, mask string
 	density         int
+	bare            bool // with a transparent border, not a bleeding one
 }
 
 type terrainMaterials struct {
@@ -74,7 +75,7 @@ func (a *terrainArt) openMaterials(lvl *level.Level) error {
 		return nil
 	}
 	m := &terrainMaterials{samplers: map[int]*worldmaterial.Sampler{}, field: mapmaterial.New(lvl), level: lvl, tiles: map[materialTileKey]*ebiten.Image{}}
-	for _, d := range spriteDensities {
+	for _, d := range terrainDensities {
 		p := a.packs[packKey{worldmaterial.Group, d}]
 		if p == nil {
 			return fmt.Errorf("missing materials at %dx", d)
@@ -115,7 +116,7 @@ func (m *terrainMaterials) eligible(c hexgrid.Coord, id string) bool {
 	return id != "" && id != "tile/unseen" && (terrain == "grass" || terrain == "hills")
 }
 
-func (a *terrainArt) materialImage(c hexgrid.Coord, id string, d int) (*ebiten.Image, assets.Entry, error) {
+func (a *terrainArt) materialImage(c hexgrid.Coord, id string, d int, bare bool) (*ebiten.Image, assets.Entry, error) {
 	e, err := a.entry(a.group[id], id, d)
 	if err != nil {
 		return nil, e, err
@@ -123,7 +124,7 @@ func (a *terrainArt) materialImage(c hexgrid.Coord, id string, d int) (*ebiten.I
 	m := a.materials
 	origin := materialOrigin(c, e, d)
 	s := m.samplers[d]
-	key := materialTileKey{s.Phase(origin), m.field.Signature(c), id, d}
+	key := materialTileKey{s.Phase(origin), m.field.Signature(c), id, d, bare}
 	if img := m.tiles[key]; img != nil {
 		return img, e, nil
 	}
@@ -136,7 +137,7 @@ func (a *terrainArt) materialImage(c hexgrid.Coord, id string, d int) (*ebiten.I
 		return nil, e, err
 	}
 	img := ebiten.NewImage(tile.Bounds().Dx()+2*tilePad, tile.Bounds().Dy()+2*tilePad)
-	img.WritePixels(padded(tile, tilePad, true))
+	img.WritePixels(padded(tile, tilePad, !bare))
 	size := (tile.Bounds().Dx() + 2*tilePad) * (tile.Bounds().Dy() + 2*tilePad) * 4
 	for m.bytes+size > 128*1024*1024 && len(m.order) > 0 {
 		old := m.order[0]

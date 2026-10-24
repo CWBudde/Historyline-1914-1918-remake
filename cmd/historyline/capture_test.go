@@ -25,8 +25,8 @@ func TestCaptureFraming(t *testing.T) {
 
 func TestLookCapturePlan(t *testing.T) {
 	frames := reviewFramePlan(true)
-	if len(frames) != 8 {
-		t.Fatalf("got %d look frames, want 8", len(frames))
+	if len(frames) != 12 {
+		t.Fatalf("got %d look frames, want 12", len(frames))
 	}
 	world := camera.Size{W: 1200, H: 2000}
 	seen := map[string]bool{}
@@ -34,7 +34,7 @@ func TestLookCapturePlan(t *testing.T) {
 		if frame.width != 1920 && frame.width != 3840 || frame.height*16 != frame.width*9 {
 			t.Errorf("unexpected look framebuffer: %+v", frame)
 		}
-		if frame.effectiveZoom != 1 && frame.effectiveZoom != 1.6 {
+		if frame.effectiveZoom != 0.5 && frame.effectiveZoom != 1 && frame.effectiveZoom != 1.6 {
 			t.Errorf("unexpected look scale: %+v", frame)
 		}
 		if seen[frame.filename()] {
@@ -48,6 +48,7 @@ func TestLookCapturePlan(t *testing.T) {
 		}
 	}
 	for _, filename := range []string{
+		"pulse-look-0.5x-revealed-1920x1080.png", "pulse-look-0.5x-fog-1920x1080.png",
 		"pulse-look-1x-revealed-1920x1080.png", "pulse-look-1x-fog-1920x1080.png",
 		"pulse-look-1.6x-revealed-1920x1080.png", "pulse-look-1.6x-fog-1920x1080.png",
 		"pulse-look-1x-revealed-3840x2160.png", "pulse-look-1x-fog-3840x2160.png",

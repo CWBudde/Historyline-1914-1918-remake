@@ -32,7 +32,7 @@ func terrainPartFixture(t *testing.T) (fstest.MapFS, *level.Level, mapcompose.Ga
 	}
 	id := mapcompose.ContextID(gap.Family, mapcompose.Key(gap.Descriptor))
 	fsys := terrainCatalog(t, l, "", id)
-	for _, d := range spriteDensities {
+	for _, d := range terrainDensities {
 		base := fmt.Sprintf("%dx/context-ground", d)
 		part := fmt.Sprintf("%dx/context-ground-2", d)
 		m, err := assets.ParseManifest(fsys[base+"/manifest.json"].Data)
@@ -81,7 +81,7 @@ func TestOpenTerrainArtUsesPackParts(t *testing.T) {
 		t.Error("accepted a part without its 4x manifest")
 	}
 	fsys["4x/context-ground-2/manifest.json"] = manifest
-	for _, d := range spriteDensities {
+	for _, d := range terrainDensities {
 		base := fmt.Sprintf("%dx/context-ground/manifest.json", d)
 		m, _ := assets.ParseManifest(fsys[base].Data)
 		part, _ := assets.ParseManifest(fsys[fmt.Sprintf("%dx/context-ground-2/manifest.json", d)].Data)

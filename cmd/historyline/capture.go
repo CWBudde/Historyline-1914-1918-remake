@@ -58,7 +58,7 @@ func reviewFramePlan(look bool) []reviewFrame {
 	var frames []reviewFrame
 	if look {
 		for _, size := range [][2]int{{1920, 1080}, {3840, 2160}} {
-			for _, zoom := range []float64{1, 1.6} {
+			for _, zoom := range []float64{0.5, 1, 1.6} {
 				for _, reveal := range []bool{true, false} {
 					view := "fog"
 					if reveal {

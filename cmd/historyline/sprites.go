@@ -17,9 +17,9 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
 )
 
-// spriteDensities are the unit and terrain pack densities the game loads:
-// what hlasset build-units and build-terrain write, but only 2x in the web
-// build, which downloads its packs and cannot afford the 4x ones.
+// spriteDensities are the unit pack densities the game loads: what hlasset
+// build-units writes, but only 2x in the web build, which downloads its packs
+// and cannot afford the 4x ones.
 var spriteDensities = func() []int {
 	if runtime.GOOS == "js" {
 		return []int{2}
@@ -27,12 +27,23 @@ var spriteDensities = func() []int {
 	return []int{2, 4}
 }()
 
+// terrainDensities are the terrain pack densities the game loads: the sprite
+// densities plus the 1x packs hlasset build-terrain derives from the 2x ones,
+// so a zoomed-out map is not drawn from half-sized 2x tiles.
+var terrainDensities = append([]int{1}, spriteDensities...)
+
 // spriteDensity is the unit pack drawn at effective zoom eff: the asset density,
 // but at least 2x, since no 1x unit sprites exist, and at most the largest
 // loaded. Drawing the 2x sprite smaller is the renderer's choice, not a loader
 // fallback.
 func spriteDensity(eff float64) int {
 	return min(max(2, assetDensity(eff)), spriteDensities[len(spriteDensities)-1])
+}
+
+// terrainDensity is the terrain pack drawn at effective zoom eff: the asset
+// density, at most the largest loaded.
+func terrainDensity(eff float64) int {
+	return min(assetDensity(eff), terrainDensities[len(terrainDensities)-1])
 }
 
 // unitSpent reports whether u has acted this turn and is drawn greyscale.
@@ -63,6 +74,7 @@ type texKey struct {
 	density int
 	dressed bool           // with the map rim and contact shadow
 	rim     unitsprite.Rim // of a dressed sprite
+	bare    bool           // of a bleeding group, with a transparent border
 }
 
 // artPacks is a runtime catalog of packs laid out as <d>x/<group>/manifest.json,
@@ -136,23 +148,29 @@ func (a *artPacks) entry(group, id string, d int) (assets.Entry, error) {
 // image returns the texture of sprite id at density d, decoding and uploading it
 // on first use.
 func (a *artPacks) image(group, id string, d int) (*ebiten.Image, assets.Entry, error) {
-	return a.texture(group, id, d, false, unitsprite.Dark)
+	return a.texture(group, id, d, false, unitsprite.Dark, false)
+}
+
+// bareImage is image with a transparent border also where its group bleeds.
+func (a *artPacks) bareImage(group, id string, d int) (*ebiten.Image, assets.Entry, error) {
+	return a.texture(group, id, d, false, unitsprite.Dark, true)
 }
 
 // mapImage returns the texture of unit sprite id at density d as the map draws
 // it, dressed with rim r and its contact shadow (unitsprite.Dress), and its
 // border in texels around the entry's canvas.
 func (a *artPacks) mapImage(group, id string, d int, r unitsprite.Rim) (*ebiten.Image, assets.Entry, int, error) {
-	img, e, err := a.texture(group, id, d, true, r)
+	img, e, err := a.texture(group, id, d, true, r, false)
 	return img, e, a.pad + unitsprite.DressMargin(d), err
 }
 
-func (a *artPacks) texture(group, id string, d int, dressed bool, r unitsprite.Rim) (*ebiten.Image, assets.Entry, error) {
+func (a *artPacks) texture(group, id string, d int, dressed bool, r unitsprite.Rim, bare bool) (*ebiten.Image, assets.Entry, error) {
 	e, err := a.entry(group, id, d)
 	if err != nil {
 		return nil, e, err
 	}
-	k := texKey{id, d, dressed, r}
+	bare = bare && a.bleed[group]
+	k := texKey{id, d, dressed, r, bare}
 	if img, ok := a.tex[k]; ok {
 		return img, e, nil
 	}
@@ -169,7 +187,7 @@ func (a *artPacks) texture(group, id string, d int, dressed bool, r unitsprite.R
 	} else {
 		b := src.Bounds()
 		img = ebiten.NewImage(b.Dx()+2*a.pad, b.Dy()+2*a.pad)
-		img.WritePixels(padded(src, a.pad, a.bleed[group]))
+		img.WritePixels(padded(src, a.pad, a.bleed[group] && !bare))
 	}
 	a.tex[k] = img
 	return img, e, nil

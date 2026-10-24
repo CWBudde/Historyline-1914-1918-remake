@@ -76,7 +76,7 @@ func (g *game) tileColour(id string) (color.RGBA, bool) {
 	if g.tileTint == nil {
 		g.tileTint = map[string]color.RGBA{}
 	}
-	d := spriteDensities[0]
+	d := terrainDensities[0]
 	var c color.RGBA
 	if p, ok := g.terrain.packs[packKey{g.terrain.group[id], d}]; ok {
 		if img, err := p.Image(id, d); err == nil {

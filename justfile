@@ -31,13 +31,13 @@ _build-dir:
     [ -f build/go.mod ] || printf 'module scratch\n\ngo %s\n' "$(awk '/^go /{print $2}' go.mod)" > build/go.mod
 
 # Packs are built only when missing (a screen catalog without the plate variants,
-# or terrain built with another grade or light, is rebuilt); delete build/packs/units,
-# terrain or screens to rebuild.
+# or terrain built with another grade or light or without its 1x packs, is rebuilt);
+# delete build/packs/units, terrain or screens to rebuild.
 [private]
 _packs: _build-dir
     mkdir -p build/packs
     [ -d build/packs/units ] || go run ./cmd/hlasset build-units -out build/packs/units
-    { grep -qs terraingrade-v3 build/packs/terrain/grade && grep -qs terrainlight-v1 build/packs/terrain/grade && [ build/packs/terrain/grade -nt assets/index.json ]; } || { rm -rf build/packs/terrain; go run ./cmd/hlasset build-terrain -out build/packs/terrain; }
+    { grep -qs terraingrade-v3 build/packs/terrain/grade && grep -qs terrainlight-v1 build/packs/terrain/grade && [ -d build/packs/terrain/1x ] && [ build/packs/terrain/grade -nt assets/index.json ]; } || { rm -rf build/packs/terrain; go run ./cmd/hlasset build-terrain -out build/packs/terrain; }
     grep -qs surface/plate-4 build/packs/screens/1x/surface/manifest.json || { rm -rf build/packs/screens; go run ./cmd/hlasset build-screens -out build/packs/screens; }
 
 # Play with the candidate unit, terrain and screen art
@@ -83,7 +83,7 @@ web port="": _packs
     cp "$(go env GOROOT)/lib/wasm/wasm_exec.js" web/index.html build/web/
     rm -rf build/web/packs && mkdir -p build/web/packs/units build/web/packs/terrain build/web/packs/screens
     cp -al build/packs/units/2x build/web/packs/units/
-    cp -al build/packs/terrain/2x build/web/packs/terrain/
+    cp -al build/packs/terrain/1x build/packs/terrain/2x build/web/packs/terrain/
     cp -al build/packs/screens/1x build/packs/screens/2x build/web/packs/screens/
     for c in units terrain screens; do go run ./cmd/hlasset lite -in build/web/packs/$c -out build/web/packs/$c-lite; done
     for c in units terrain screens units-lite terrain-lite screens-lite; do (cd build/web/packs/$c && find . -type f ! -name files.txt -printf '%s %P\n' | sort -k2 > files.txt); done

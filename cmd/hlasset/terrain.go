@@ -167,7 +167,7 @@ func optionalProblem(group string, e assets.Entry, d int) string {
 // terrain in one pack would not be). Every pack is validated before out is
 // created; out must be new. The images are graded (terraingrade), the painted
 // cast shadows drawn with the one light (terrainlight), and out/grade names
-// both.
+// both. The 1x packs are derived from the graded 2x ones (deriveTerrain).
 func buildTerrain(assetsDir, out string) ([]terrainPack, error) {
 	entries, err := readIndex(assetsDir)
 	if err != nil {
@@ -192,6 +192,12 @@ func buildTerrain(assetsDir, out string) ([]terrainPack, error) {
 	for i := range packs {
 		packs[i].Manifest = written[i]
 	}
+	derived, err := deriveTerrain(out, packs)
+	if err != nil {
+		_ = os.RemoveAll(out)
+		return nil, err
+	}
+	packs = append(derived, packs...)
 	if err := os.WriteFile(filepath.Join(out, "grade"), []byte(terraingrade.Version+"\n"+terrainlight.Version+"\n"), 0o644); err != nil {
 		return nil, err
 	}
