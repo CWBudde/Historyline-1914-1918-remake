@@ -1,0 +1,68 @@
+[
+  {
+    "id": "standing/bridge36_w",
+    "source": "art/terrain/bridge/bridge-36-winter-v1.png",
+    "source_sha256": "89b0c8e774600ea73d8381730a0885d160f0cd3cc24682ca8b036bebc7c44439",
+    "native_dimensions": [
+      1374,
+      1145
+    ],
+    "frame": "art/terrain/bridge/bridge-36-export-shared-v1.png",
+    "source_opaque_box": [
+      572,
+      121,
+      228,
+      891
+    ],
+    "frame_opaque_box": [
+      473,
+      120,
+      205,
+      721
+    ],
+    "source_to_prepared_affine": [
+      0.8991228070175439,
+      0,
+      -41.29824561403507,
+      0,
+      0.8092031425364759,
+      22.086419753086417
+    ],
+    "prepared_source": "art/terrain/bridge/bridge-36-export-winter-v1.png",
+    "prepared_sha256": "ff025ae980a129df0452afefbd554ce4083c9b459acde385bc46461872422f6f",
+    "policy": "Edit of the frame export; its opaque box (alpha \u003e 128) scaled per axis and moved onto the frame's opaque box, CatmullRom at 12 pixels per logical pixel; final terrain-stamps Lanczos3 at 4x then 2x. Fixed canvas 96x80, anchor 48,40."
+  },
+  {
+    "id": "standing/bridge25_w",
+    "source": "art/terrain/bridge/bridge-25-winter-v1.png",
+    "source_sha256": "58f001d033e7cb0006003455c7ff69d716e341dbab3e03d76a95eaf3074c76f3",
+    "native_dimensions": [
+      1374,
+      1145
+    ],
+    "frame": "art/terrain/bridge/bridge-25-export-shared-v1.png",
+    "source_opaque_box": [
+      205,
+      243,
+      968,
+      617
+    ],
+    "frame_opaque_box": [
+      189,
+      232,
+      770,
+      490
+    ],
+    "source_to_prepared_affine": [
+      0.7954545454545454,
+      0,
+      25.931818181818187,
+      0,
+      0.7941653160453809,
+      39.017828200972446
+    ],
+    "prepared_source": "art/terrain/bridge/bridge-25-export-winter-v1.png",
+    "prepared_sha256": "26a57a3b98328114baada707eaf0c3ff1103e8694d009971a049bb7dfbc6f34d",
+    "policy": "Edit of the frame export; its opaque box (alpha \u003e 128) scaled per axis and moved onto the frame's opaque box, CatmullRom at 12 pixels per logical pixel; final terrain-stamps Lanczos3 at 4x then 2x. Fixed canvas 96x80, anchor 48,40."
+  }
+]

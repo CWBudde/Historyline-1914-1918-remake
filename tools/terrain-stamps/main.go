@@ -181,7 +181,7 @@ func run(args []string, log io.Writer) (resultErr error) {
 }
 
 var stampID = regexp.MustCompile(`^(standing/)?stamp/(crater|crater_w|boulders|boulders_w|knoll|knoll_w|lake)/[0-9][0-9_.-]*/[1-8]$`)
-var standingID = regexp.MustCompile(`^standing/[A-Za-z][A-Za-z0-9_]*$`)
+var standingID = regexp.MustCompile(`^standing/[A-Za-z][A-Za-z0-9_-]*$`)
 
 func validate(a asset) error {
 	if !stampID.MatchString(a.ID) && !standingID.MatchString(a.ID) {

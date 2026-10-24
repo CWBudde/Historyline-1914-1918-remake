@@ -98,6 +98,19 @@ func TestInvalidInputDoesNotPublish(t *testing.T) {
 	}
 }
 
+// A variant of a standing item (a bridge's rail deck) names it after a dash.
+func TestStandingVariantID(t *testing.T) {
+	root, m := fixture(t)
+	m.Assets[0].ID = "standing/rBridge36-rail_w"
+	if err := run([]string{"-manifest", writeManifest(t, root, m), "-out", filepath.Join(root, "out")}, io.Discard); err != nil {
+		t.Fatal(err)
+	}
+	m.Assets[0].ID = "standing/-rail"
+	if err := run([]string{"-manifest", writeManifest(t, root, m), "-out", filepath.Join(root, "bad")}, io.Discard); err == nil {
+		t.Fatal("accepted an ID starting with a dash")
+	}
+}
+
 func TestClusterStandingUsesSeparatePack(t *testing.T) {
 	root, m := fixture(t)
 	m.Assets[0].ID = "standing/stamp/knoll_w/1/1"

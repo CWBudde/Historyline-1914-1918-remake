@@ -3,8 +3,8 @@ id: terrain/rBridge
 title: Road bridge
 kind: terrain
 status: candidate
-runtime_ids: rBridge14, rBridge25, rBridge36, standing/rBridge14, standing/rBridge25, standing/rBridge36
-masters: rbridge-14-shared-v1.png, rbridge-25-shared-v1.png, rbridge-36-shared-v1.png, rbridge-14-export-shared-v1.png, rbridge-25-export-shared-v1.png, rbridge-36-export-shared-v1.png, rbridge-stone-ne-shared-v1.png, rbridge-stone-se-shared-v1.png, rbridge-stone-vertical-shared-v1.png
+runtime_ids: rBridge14, rBridge25, rBridge36, standing/rBridge14, standing/rBridge25, standing/rBridge36, standing/rBridge14_w, standing/rBridge25_w, standing/rBridge36_w, standing/rBridge36-rail, standing/rBridge36-rail_w
+masters: rbridge-14-shared-v1.png, rbridge-25-shared-v1.png, rbridge-36-shared-v1.png, rbridge-14-export-shared-v1.png, rbridge-25-export-shared-v1.png, rbridge-36-export-shared-v1.png, rbridge-stone-ne-shared-v1.png, rbridge-stone-se-shared-v1.png, rbridge-stone-vertical-shared-v1.png, rbridge-36-rail-summer-v1.png, rbridge-36-rail-winter-v1.png, rbridge-14-winter-v1.png, rbridge-25-winter-v1.png, rbridge-36-winter-v1.png, rbridge-36-rail-export-summer-v1.png, rbridge-36-rail-export-winter-v1.png, rbridge-14-export-winter-v1.png, rbridge-25-export-winter-v1.png, rbridge-36-export-winter-v1.png
 ---
 
 ## Look
@@ -21,9 +21,10 @@ no water, ground, approach road, text, letters, flags or other objects.
 ## Variants
 | Variant | Runtime IDs | Prompt delta |
 | --- | --- | --- |
-| rBridge14 | rBridge14, standing/rBridge14 | Separately painted NE/SW bridge, axis -29.396 degrees from horizontal. |
-| rBridge25 | rBridge25, standing/rBridge25 | Separately painted SE/NW bridge, axis +29.396 degrees from horizontal. |
-| rBridge36 | rBridge36, standing/rBridge36 | Separately painted vertical N/S bridge. |
+| rBridge14 | rBridge14, standing/rBridge14, standing/rBridge14_w | Separately painted NE/SW bridge, axis -29.396 degrees from horizontal; winter: a seasonal edit. |
+| rBridge25 | rBridge25, standing/rBridge25, standing/rBridge25_w | Separately painted SE/NW bridge, axis +29.396 degrees from horizontal; winter: a seasonal edit. |
+| rBridge36 | rBridge36, standing/rBridge36, standing/rBridge36_w | Separately painted vertical N/S bridge; winter: a seasonal edit. |
+| rail deck | standing/rBridge36-rail, standing/rBridge36-rail_w | The vertical bridge with a single-track rail deck instead of the road. |
 
 ## Edges & joins
 The finite asphalt deck is registered to 48 logical pixels along its port axis and 22 pixels across,
@@ -31,7 +32,72 @@ centred on `(48,40)` within a 96x80 canvas. Parapets, posts, stone abutments and
 beyond the deck; parapets are irregular and slightly wider than the nominal three pixels per side.
 An independent road layer provides the approaches and the stream passes underneath.
 
+The levels write rail and path bridges as `rBridge36` with `rail36` or `path36` and no road; the map
+draws the rail deck or the footbridge (`standing/bridge36`) for them. The rail deck's rails lie where
+`tile/rail36`'s do, 2.4 logical left and 2.1 right of the centre, and run over both end slabs. On a winter
+map every deck takes its `_w` form.
+
 ## Post
+
+### Look 3 rail deck and winter decks (2026-10-24)
+
+`rbridge-36-rail-summer-v1.png` (`exec-51133823`, native 1374×1145 RGBA; asked 1152×960) is the
+vertical road bridge with its asphalt replaced by a single-track deck: short creosoted sleepers on grey
+ballast, two continuous steel rails over both end slabs, the parapets and slabs kept. Rail heads are
+lighter than `tile/rail36`'s dark rails, with dark shadow on both sides. The first try (`exec-4a76f941`)
+set the rails 82 export px apart; this one 57 (want 54). Selected as `standing/rBridge36-rail`.
+Attachments: image 1 the registered `rbridge-36-export-shared-v1.png`, image 2 the first try, image 3
+`tile/rail36` at 4x. The prompt was the `art/style.md` Preamble and Terrain text, then:
+
+```text
+Use case: stylized-concept. Asset type: newly authored RAILWAY BRIDGE cutout on true alpha transparency, made from image 1 by replacing its road surface. LANDSCAPE canvas exactly 1152x960 px, the same size as image 1 (12 canvas px per logical px; logical 96x80, one hex about 50 m); the previous try came back 1374x1145: return exactly 1152x960. Strict nadir plan, no tilt.
+Keep from image 1 exactly: the bridge's outline, position and size (bridge box x=402 to x=759, y=122 to y=835), both pale stone parapets with their posts (x=402 to x=442 and x=718 to x=759), both stone end slabs at the top (y=122 to y=185) and bottom (y=770 to y=835), the moss on the stone, the colours of the stone, the soft upper-left light and the transparency outside the bridge.
+Replace ONLY the asphalt carriageway between the parapets (x=443 to x=717, y=185 to y=770), its patches, cracks, sandy verges and its three white centre dashes, with a single-track railway deck as in image 2: dark brown creosoted timber sleepers laid across the track and fine grey ballast between them, a strip of ballast and dark gaps beside the sleepers. Each sleeper is only 130 px long (x=510 to x=640) and 22 px wide, one every 44 px; ballast fills the 60 px on each side of the sleepers up to the parapets.
+Two straight thin steel rails run exactly vertically along the whole bridge, from the top edge of the upper end slab (y=122) to the bottom edge of the lower end slab (y=835), straight across both end slabs without any break. The previous try placed the rails 82 px apart (at x=533 and x=615 on this canvas): far too wide. Place them only 54 px apart: rail centres at x=548 and x=602, centred on x=575, exactly the spacing of the track in image 3. Each rail is 9 px wide and DARK weathered steel like the rails of image 3 (about RGB 70,66,62), with only a 2 px faint lighter running line along its top (about RGB 112,108,102) and a soft dark shadow on its right side; no bright or white rail heads. The rails are perfectly straight, parallel and continuous over the full length.
+Avoid: a rail spacing wider than 54 px, bright rails, asphalt, a road surface, white or yellow paint, centre dashes, a second track, a switch, a train, water, banks, ground or grass outside the bridge, any change to the parapets, end slabs or outline, perspective sides, text, outline stroke, checkerboard.
+
+Attached references: image 1 is the selected road bridge of this set, already at its final framing and size: keep its parapets, posts, end slabs, outline, position, size, stone colours and painted finish exactly, replace only its asphalt road surface; image 2 is the previous try of this railway deck: keep its sleeper, ballast and rail-fastening look and its continuous rails, but follow the new rail spacing, sleeper length, darker rail colour and canvas size above; image 3 is the railway track that approaches the bridge from both ends, at a different scale (it is 4 px per logical px, this canvas 12): its two dark rails are 4.5 logical px apart, and the bridge rails continue them with the same spacing and the same dark steel colour; copy nothing else from it.
+```
+
+The winter decks are seasonal edits of the registered exports, all native 1374×1145 RGBA:
+`rbridge-36-winter-v1.png` (`exec-7d1ebb1d`), `rbridge-14-winter-v1.png` (`exec-093f339e`),
+`rbridge-25-winter-v1.png` (`exec-e8530982`) carry the winter road over the bridge, trodden grey snow
+with two darker ruts and no dashes (deck L\* 54.6–55.8, ΔE ≤ 2.4 to `road36_w`), and settled snow on
+the parapets and end walls, which now read almost white. `rbridge-36-rail-winter-v1.png`
+(`exec-9ac7bac6`) keeps the rails dark and clear and puts snow in the ballast and on the stone.
+Attachments: image 1 the summer export; image 2 `road36_w` at 4x for the road decks, the winter
+vertical road deck for the rail deck; image 3 (diagonals only) the winter deck of the other axis. The
+vertical road deck's prompt was:
+
+```text
+Seasonal edit ONLY of the attached road bridge cut-out (image 1). Keep the exact canvas size 1152x960, the bridge's position, size, outline, alpha, parapets, posts and end slabs exactly as they are (bridge box x=402 to x=759, y=122 to y=835; do not scale or move it). Winter, overcast cold light:
+- The carriageway between the parapets (x=443 to x=717, y=185 to y=770) becomes the winter road of image 2: trodden, packed grey snow with two darker grey-brown wheel ruts running the length of the bridge and fine dirty grit, a cold neutral mid grey overall (mean near RGB 128,127,128; ruts near RGB 95,92,90; the lighter crown between the ruts near RGB 150,150,152), no blue tint. The asphalt, its patches, its cracks, the sandy verges and all three white centre dashes disappear completely under the trodden snow: no white paint, no lane marking, no bright white line anywhere on the road.
+- A thin layer of settled snow lies on top of both stone parapets, their posts and both end slabs (near RGB 222,224,228 lit, 188,192,200 shaded), with the pale stone still showing at the edges; the moss is hidden.
+Alpha zero outside the bridge exactly as before: no ground plate, no snow on the ground, no halo, no cast shadow.
+Avoid: any outline or geometry change, white or yellow road paint, a clean white road, blue snow, icicles, a ground or background, text.
+
+Image 1 is the selected summer road bridge: change the season only, preserve every outline, position, size and the transparency. Image 2 is the winter road this bridge carries, at a different scale (4 px per logical px; this canvas is 12): take only its trodden snow surface, ruts and colour for the carriageway, nothing else.
+```
+
+The diagonal decks' prompts gave their own boxes (14: x=196 to x=947, y=162 to y=786; 25: x=200 to
+x=935, y=161 to y=783), "diagonal" and "angle". The rail deck's was:
+
+```text
+Seasonal edit ONLY of the attached railway bridge cut-out (image 1). Keep the exact canvas size 1152x960, the bridge's position, size, outline, alpha, parapets, posts, end slabs, sleepers and both rails exactly as they are (bridge box x=402 to x=759, y=122 to y=835; do not scale or move it). Winter, overcast cold light:
+- Both steel rails stay fully visible, dark and continuous over the whole length of the bridge, exactly where they are, with their heads swept clear of snow.
+- Snow lies in the ballast between the sleepers and on the ballast strips beside them (near RGB 205,208,212 lit, 175,178,184 shaded), trodden grey and dirty along the track; the sleeper tops show as dark wet timber with a little snow at their ends.
+- A thin layer of settled snow lies on top of both stone parapets, their posts and both end slabs (near RGB 222,224,228 lit, 188,192,200 shaded), with the pale stone still showing at the edges; the moss is hidden; the rails cross the end slabs as before.
+Alpha zero outside the bridge exactly as before: no ground plate, no snow on the ground, no halo, no cast shadow.
+Avoid: any outline or geometry change, snow covering the rails, moved or bent rails, blue snow, icicles, a ground or background, text.
+
+Image 1 is the selected summer railway bridge: change the season only, preserve every outline, position, size, both rails and the transparency. Image 2 is the winter edit of the road bridge of this set: match its snow on the parapets and end slabs exactly; copy nothing of its road.
+```
+
+`go test -tags bridgegfx ./tools/terrain-stamps -run TestGenerateBridgeDecks -count=1 -v` registers
+each of these onto the export it was made from by the opaque box (alpha > 128, scaled per axis,
+CatmullRom at 12 px per logical); the rail decks then move sideways so their rail middle lands on
+`tile/rail36`'s (export x 574.5). It writes the `-export-` masters and `rbridge-registration-v2.json`,
+pins them in `art/pipeline/bridge-standing-v2.json` and exports the standing items with terrain-stamps.
 
 ### Look 3 B3 candidate (2026-10-23)
 

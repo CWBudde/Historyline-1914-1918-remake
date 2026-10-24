@@ -1,0 +1,167 @@
+[
+  {
+    "id": "standing/rBridge36-rail",
+    "source": "art/terrain/rBridge/rbridge-36-rail-summer-v1.png",
+    "source_sha256": "05ac35a31cf91c84a019d9e603114054da564c008449a683ef3d7b5714ad26ca",
+    "native_dimensions": [
+      1374,
+      1145
+    ],
+    "frame": "art/terrain/rBridge/rbridge-36-export-shared-v1.png",
+    "source_opaque_box": [
+      485,
+      135,
+      404,
+      837
+    ],
+    "frame_opaque_box": [
+      402,
+      122,
+      357,
+      713
+    ],
+    "source_to_prepared_affine": [
+      0.8836633663366337,
+      0,
+      -31.693069306930738,
+      0,
+      0.8518518518518519,
+      7
+    ],
+    "prepared_source": "art/terrain/rBridge/rbridge-36-rail-export-summer-v1.png",
+    "prepared_sha256": "db59feeaeced41ce38f8faed32c37ccffc11c97383e31a5165612f6f5a5ca064",
+    "policy": "Edit of the frame export; its opaque box (alpha \u003e 128) scaled per axis and moved onto the frame's opaque box, CatmullRom at 12 pixels per logical pixel; final terrain-stamps Lanczos3 at 4x then 2x. Fixed canvas 96x80, anchor 48,40."
+  },
+  {
+    "id": "standing/rBridge36-rail_w",
+    "source": "art/terrain/rBridge/rbridge-36-rail-winter-v1.png",
+    "source_sha256": "8d8faa1e9ae9a895db216425cf3866641e29ecb5714e84fff423234c115f752b",
+    "native_dimensions": [
+      1374,
+      1145
+    ],
+    "frame": "art/terrain/rBridge/rbridge-36-rail-export-summer-v1.png",
+    "source_opaque_box": [
+      475,
+      136,
+      429,
+      862
+    ],
+    "frame_opaque_box": [
+      397,
+      122,
+      357,
+      713
+    ],
+    "source_to_prepared_affine": [
+      0.8321678321678322,
+      0,
+      1.9685314685314097,
+      0,
+      0.8271461716937355,
+      9.508120649651971
+    ],
+    "prepared_source": "art/terrain/rBridge/rbridge-36-rail-export-winter-v1.png",
+    "prepared_sha256": "92be5ceb57671558042b89bbb0d6ffd0e5b39239f917e5e73d444cace55dfa9a",
+    "policy": "Edit of the frame export; its opaque box (alpha \u003e 128) scaled per axis and moved onto the frame's opaque box, CatmullRom at 12 pixels per logical pixel; final terrain-stamps Lanczos3 at 4x then 2x. Fixed canvas 96x80, anchor 48,40."
+  },
+  {
+    "id": "standing/rBridge36_w",
+    "source": "art/terrain/rBridge/rbridge-36-winter-v1.png",
+    "source_sha256": "d14994c3d2335024debbe2f705bbcb4a5b6ade4dc968aa899bc54adf876640d1",
+    "native_dimensions": [
+      1374,
+      1145
+    ],
+    "frame": "art/terrain/rBridge/rbridge-36-export-shared-v1.png",
+    "source_opaque_box": [
+      477,
+      145,
+      425,
+      850
+    ],
+    "frame_opaque_box": [
+      402,
+      122,
+      357,
+      713
+    ],
+    "source_to_prepared_affine": [
+      0.84,
+      0,
+      1.3199999999999932,
+      0,
+      0.8388235294117647,
+      0.37058823529410745
+    ],
+    "prepared_source": "art/terrain/rBridge/rbridge-36-export-winter-v1.png",
+    "prepared_sha256": "c0f186d32644b9c5c5105d4a3c156ce1f46511654e7b6999afe90610bf202ff9",
+    "policy": "Edit of the frame export; its opaque box (alpha \u003e 128) scaled per axis and moved onto the frame's opaque box, CatmullRom at 12 pixels per logical pixel; final terrain-stamps Lanczos3 at 4x then 2x. Fixed canvas 96x80, anchor 48,40."
+  },
+  {
+    "id": "standing/rBridge14_w",
+    "source": "art/terrain/rBridge/rbridge-14-winter-v1.png",
+    "source_sha256": "ce48037e545249e06432d54633b7aa52c6979434c400c0a70e803e81905e9802",
+    "native_dimensions": [
+      1374,
+      1145
+    ],
+    "frame": "art/terrain/rBridge/rbridge-14-export-shared-v1.png",
+    "source_opaque_box": [
+      198,
+      172,
+      1011,
+      836
+    ],
+    "frame_opaque_box": [
+      196,
+      162,
+      751,
+      624
+    ],
+    "source_to_prepared_affine": [
+      0.7428288822947576,
+      0,
+      48.919881305638,
+      0,
+      0.7464114832535885,
+      33.617224880382764
+    ],
+    "prepared_source": "art/terrain/rBridge/rbridge-14-export-winter-v1.png",
+    "prepared_sha256": "9937eba3b0e0b2c3546ed0f82e9b09326c994ce6765c8488a237a206eee5facd",
+    "policy": "Edit of the frame export; its opaque box (alpha \u003e 128) scaled per axis and moved onto the frame's opaque box, CatmullRom at 12 pixels per logical pixel; final terrain-stamps Lanczos3 at 4x then 2x. Fixed canvas 96x80, anchor 48,40."
+  },
+  {
+    "id": "standing/rBridge25_w",
+    "source": "art/terrain/rBridge/rbridge-25-winter-v1.png",
+    "source_sha256": "24692f9a3091c62c5339536f1339e0680aaa1418de43ae2da116bf04ef0f6dd0",
+    "native_dimensions": [
+      1374,
+      1145
+    ],
+    "frame": "art/terrain/rBridge/rbridge-25-export-shared-v1.png",
+    "source_opaque_box": [
+      214,
+      193,
+      949,
+      802
+    ],
+    "frame_opaque_box": [
+      200,
+      161,
+      735,
+      622
+    ],
+    "source_to_prepared_affine": [
+      0.7744994731296101,
+      0,
+      34.257112750263445,
+      0,
+      0.7755610972568578,
+      11.316708229426439
+    ],
+    "prepared_source": "art/terrain/rBridge/rbridge-25-export-winter-v1.png",
+    "prepared_sha256": "103c6c654a0bd6691ee90f29a81e27d4316d39370a5e7b1286fb656b0a948838",
+    "policy": "Edit of the frame export; its opaque box (alpha \u003e 128) scaled per axis and moved onto the frame's opaque box, CatmullRom at 12 pixels per logical pixel; final terrain-stamps Lanczos3 at 4x then 2x. Fixed canvas 96x80, anchor 48,40."
+  }
+]

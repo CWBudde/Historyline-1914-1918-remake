@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "assets": [
+    {
+      "id": "standing/rBridge36-rail",
+      "source": "art/terrain/rBridge/rbridge-36-rail-export-summer-v1.png",
+      "source_sha256": "db59feeaeced41ce38f8faed32c37ccffc11c97383e31a5165612f6f5a5ca064",
+      "crop": [
+        0,
+        0,
+        1152,
+        960
+      ],
+      "canvas": [
+        96,
+        80
+      ],
+      "logical_anchor": [
+        48,
+        40
+      ],
+      "layer": "standing",
+      "art": "terrain/rBridge",
+      "path": "terrain/rBridge/rBridge36-rail-standing"
+    },
+    {
+      "id": "standing/rBridge36-rail_w",
+      "source": "art/terrain/rBridge/rbridge-36-rail-export-winter-v1.png",
+      "source_sha256": "92be5ceb57671558042b89bbb0d6ffd0e5b39239f917e5e73d444cace55dfa9a",
+      "crop": [
+        0,
+        0,
+        1152,
+        960
+      ],
+      "canvas": [
+        96,
+        80
+      ],
+      "logical_anchor": [
+        48,
+        40
+      ],
+      "layer": "standing",
+      "art": "terrain/rBridge",
+      "path": "terrain/rBridge/rBridge36-rail_w-standing"
+    },
+    {
+      "id": "standing/rBridge36_w",
+      "source": "art/terrain/rBridge/rbridge-36-export-winter-v1.png",
+      "source_sha256": "c0f186d32644b9c5c5105d4a3c156ce1f46511654e7b6999afe90610bf202ff9",
+      "crop": [
+        0,
+        0,
+        1152,
+        960
+      ],
+      "canvas": [
+        96,
+        80
+      ],
+      "logical_anchor": [
+        48,
+        40
+      ],
+      "layer": "standing",
+      "art": "terrain/rBridge",
+      "path": "terrain/rBridge/rBridge36_w-standing"
+    },
+    {
+      "id": "standing/rBridge14_w",
+      "source": "art/terrain/rBridge/rbridge-14-export-winter-v1.png",
+      "source_sha256": "9937eba3b0e0b2c3546ed0f82e9b09326c994ce6765c8488a237a206eee5facd",
+      "crop": [
+        0,
+        0,
+        1152,
+        960
+      ],
+      "canvas": [
+        96,
+        80
+      ],
+      "logical_anchor": [
+        48,
+        40
+      ],
+      "layer": "standing",
+      "art": "terrain/rBridge",
+      "path": "terrain/rBridge/rBridge14_w-standing"
+    },
+    {
+      "id": "standing/rBridge25_w",
+      "source": "art/terrain/rBridge/rbridge-25-export-winter-v1.png",
+      "source_sha256": "103c6c654a0bd6691ee90f29a81e27d4316d39370a5e7b1286fb656b0a948838",
+      "crop": [
+        0,
+        0,
+        1152,
+        960
+      ],
+      "canvas": [
+        96,
+        80
+      ],
+      "logical_anchor": [
+        48,
+        40
+      ],
+      "layer": "standing",
+      "art": "terrain/rBridge",
+      "path": "terrain/rBridge/rBridge25_w-standing"
+    },
+    {
+      "id": "standing/bridge36_w",
+      "source": "art/terrain/bridge/bridge-36-export-winter-v1.png",
+      "source_sha256": "ff025ae980a129df0452afefbd554ce4083c9b459acde385bc46461872422f6f",
+      "crop": [
+        0,
+        0,
+        1152,
+        960
+      ],
+      "canvas": [
+        96,
+        80
+      ],
+      "logical_anchor": [
+        48,
+        40
+      ],
+      "layer": "standing",
+      "art": "terrain/bridge",
+      "path": "terrain/bridge/bridge36_w-standing"
+    },
+    {
+      "id": "standing/bridge25_w",
+      "source": "art/terrain/bridge/bridge-25-export-winter-v1.png",
+      "source_sha256": "26a57a3b98328114baada707eaf0c3ff1103e8694d009971a049bb7dfbc6f34d",
+      "crop": [
+        0,
+        0,
+        1152,
+        960
+      ],
+      "canvas": [
+        96,
+        80
+      ],
+      "logical_anchor": [
+        48,
+        40
+      ],
+      "layer": "standing",
+      "art": "terrain/bridge",
+      "path": "terrain/bridge/bridge25_w-standing"
+    }
+  ]
+}

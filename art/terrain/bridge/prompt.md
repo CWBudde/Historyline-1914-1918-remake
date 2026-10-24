@@ -3,8 +3,8 @@ id: terrain/bridge
 title: Footbridge
 kind: terrain
 status: candidate
-runtime_ids: bridge25, bridge36, standing/bridge25, standing/bridge36
-masters: bridge-25-shared-v1.png, bridge-36-shared-v1.png, bridge-25-export-shared-v1.png, bridge-36-export-shared-v1.png, bridge-plank-diagonal-shared-v1.png, bridge-plank-vertical-shared-v1.png
+runtime_ids: bridge25, bridge36, standing/bridge25, standing/bridge36, standing/bridge25_w, standing/bridge36_w
+masters: bridge-25-shared-v1.png, bridge-36-shared-v1.png, bridge-25-export-shared-v1.png, bridge-36-export-shared-v1.png, bridge-plank-diagonal-shared-v1.png, bridge-plank-vertical-shared-v1.png, bridge-36-winter-v1.png, bridge-25-winter-v1.png, bridge-36-export-winter-v1.png, bridge-25-export-winter-v1.png
 ---
 
 ## Look
@@ -21,8 +21,8 @@ approach path, letters, flags or other objects.
 ## Variants
 | Variant | Runtime IDs | Prompt delta |
 | --- | --- | --- |
-| bridge25 | bridge25, standing/bridge25 | Separately painted SE/NW bridge, axis +29.396 degrees from horizontal. |
-| bridge36 | bridge36, standing/bridge36 | Separately painted vertical N/S bridge. |
+| bridge25 | bridge25, standing/bridge25, standing/bridge25_w | Separately painted SE/NW bridge, axis +29.396 degrees from horizontal; winter: a seasonal edit. |
+| bridge36 | bridge36, standing/bridge36, standing/bridge36_w | Separately painted vertical N/S bridge; winter: a seasonal edit. |
 
 ## Edges & joins
 The finite timber deck is registered to 48 logical pixels along its port axis and 12 pixels across,
@@ -30,6 +30,36 @@ centred on `(48,40)` within a 96x80 canvas. Thin rails, posts and stone abutment
 The path continues beyond each deck end and the stream passes underneath.
 
 ## Post
+
+### Look 3 winter footbridges (2026-10-24)
+
+`bridge-36-winter-v1.png` (`exec-76d3fd72`, native 1374×1145 RGBA) and `bridge-25-winter-v1.png`
+(`exec-00c39041`, native 1374×1145 RGBA) are seasonal edits of the registered summer exports: trodden
+grey snow on the planks with a darker footpath down the middle and the seams still showing, settled
+snow on the handrails, posts and abutments. The vertical one came back 11 % narrower for its length
+(opaque box 228×891 against 205×721), so its registration stretches it across; the diagonal one keeps
+the summer aspect (968×617). Selected as `standing/bridge36_w` and `standing/bridge25_w`.
+Attachments: bridge36 image 1 its summer export, image 2 the winter road bridge
+(`rbridge-36-winter-v1.png`); bridge25 image 1 its summer export, image 2 `bridge-36-winter-v1.png`.
+The vertical one's prompt was:
+
+```text
+Seasonal edit ONLY of the attached timber footbridge cut-out (image 1). Keep the exact canvas size 1152x960, the bridge's position, size, outline, alpha, planks, rails, posts and stone abutments exactly as they are (bridge box x=473 to x=678, y=120 to y=841; do not scale or move it). Winter, overcast cold light:
+- Trodden, packed grey snow lies on the plank deck between the two rails, a cold neutral mid grey (mean near RGB 128,127,128) with a darker trodden footpath down the middle (near RGB 100,97,95) and the plank seams and a few plank ends still faintly showing through at the edges; no clean white deck.
+- A thin layer of settled snow lies on top of both handrails, their posts and both stone abutments (near RGB 222,224,228 lit, 188,192,200 shaded), with the weathered wood and the pale stone still showing at the edges; the moss is hidden.
+Alpha zero outside the bridge exactly as before: no ground plate, no snow on the ground, no halo, no cast shadow.
+Avoid: any outline or geometry change, a clean white deck, blue snow, icicles, a ground or background, text.
+
+Image 1 is the selected summer footbridge: change the season only, preserve every outline, position, size and the transparency. Image 2 is the winter edit of the road bridge of this set: match its snow on the stone and the grey of its trodden snow exactly; copy nothing of its shape.
+```
+
+The diagonal one's used its own box (x=189 to x=959, y=232 to y=722), added "diagonal" and "angle",
+and named image 2 the vertical winter footbridge.
+
+`go test -tags bridgegfx ./tools/terrain-stamps -run TestGenerateBridgeDecks -count=1 -v` registers
+each winter edit onto its summer export by the opaque box (alpha > 128, scaled per axis, CatmullRom),
+writes the `-export-winter-` masters and `bridge-registration-v2.json`, pins them in
+`art/pipeline/bridge-standing-v2.json` and exports `standing/bridge*_w` with terrain-stamps.
 
 ### Look 3 B1 candidate (2026-10-23)
 
