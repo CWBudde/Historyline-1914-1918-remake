@@ -103,14 +103,14 @@ func Compose(g hexgrid.Grid, at func(hexgrid.Coord) Hex, has func(id string) boo
 			for _, id := range drawn {
 				cell.Overlays = append(cell.Overlays, TileID(seasonalOverlay(id, winter, has)))
 			}
-			cell.Standing = standing(h.Terrain, infra, has)
+			cell.Standing = standing(h.Terrain, infra, winter, has)
 			if f, ok := FamilyOf(h.Terrain); ok {
 				if id, gap := selectContext(g, at, c, f, h.Terrain, has); gap != nil {
 					s.Gaps = append(s.Gaps, *gap)
 				} else {
 					cell.Background, cell.Context = id, f
 					if crown := StandingID(id); f == Forest && has(crown) {
-						cell.Standing = standing(id, h.Infra, has)
+						cell.Standing = standing(id, h.Infra, winter, has)
 					}
 				}
 			}
@@ -305,7 +305,7 @@ func (s *Scene) registerCompounds(at func(hexgrid.Coord) Hex, has func(string) b
 			}
 			if cp.prefix == "mount" {
 				s.Cells[l][col].Background = TileID("mountain" + sfx)
-				s.Cells[l][col].Standing = standing("mountain"+sfx, at(c).Infra, has)
+				s.Cells[l][col].Standing = standing("mountain"+sfx, at(c).Infra, sfx != "", has)
 				continue
 			}
 			s.Issues = append(s.Issues, Issue{At: c, Detail: fmt.Sprintf("%s outside a complete %s group", t, cp.prefix)})

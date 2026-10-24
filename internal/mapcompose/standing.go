@@ -107,13 +107,45 @@ func (s *Scene) Standing() []Standing {
 }
 
 // standing returns the standing IDs of a hex showing terrain with infra, for those
-// the catalog has.
-func standing(terrain string, infra []string, has func(string) bool) []string {
+// the catalog has. A road bridge draws the deck of what crosses it (bridgeDeck).
+// The terrain carries its season; infrastructure does not, so on a winter map
+// (mostlyWinter) its items take their winter form (suffix _w) where the catalog
+// has it, as the overlays do (seasonalOverlay).
+func standing(terrain string, infra []string, winter bool, has func(string) bool) []string {
 	var out []string
-	for _, id := range append([]string{terrain}, infra...) {
-		if sid := StandingID(id); has(sid) {
-			out = append(out, sid)
+	if sid := StandingID(terrain); has(sid) {
+		out = append(out, sid)
+	}
+	for _, id := range infra {
+		sid := StandingID(id)
+		if deck := bridgeDeck(id, infra, has); deck != "" {
+			sid = deck
 		}
+		if !has(sid) {
+			continue
+		}
+		if w := sid + "_w"; winter && !strings.HasSuffix(sid, "_w") && has(w) {
+			sid = w
+		}
+		out = append(out, sid)
 	}
 	return out
+}
+
+// bridgeDeck returns the standing deck of road bridge id chosen by the crossing
+// family, or "" for the road deck. The levels write every bridge as rBridgeNN; a
+// bridge without a road carries rail (the rail deck standing/rBridgeNN-rail) or
+// a path (the footbridge standing/bridgeNN), where the catalog has them.
+func bridgeDeck(id string, infra []string, has func(string) bool) string {
+	ports, ok := strings.CutPrefix(id, "rBridge")
+	if !ok || slices.ContainsFunc(infra, func(i string) bool { return strings.HasPrefix(i, "road") }) {
+		return ""
+	}
+	switch {
+	case slices.Contains(infra, "rail"+ports) && has(StandingID(id+"-rail")):
+		return StandingID(id + "-rail")
+	case slices.Contains(infra, "path"+ports) && has(StandingID("bridge"+ports)):
+		return StandingID("bridge" + ports)
+	}
+	return ""
 }
