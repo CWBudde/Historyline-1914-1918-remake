@@ -63,6 +63,7 @@ type connectionFamily struct {
 	BorderMaterial string              `json:"border_material"`
 	Variants       []connectionVariant `json:"variants"`
 	Markings       string              `json:"markings,omitempty"`
+	Verge          string              `json:"verge,omitempty"`
 }
 type connectionManifest struct {
 	SchemaVersion int                           `json:"schema_version"`
@@ -84,6 +85,7 @@ type connectionVariantReport struct {
 	BorderMaterial string       `json:"border_material"`
 	Outputs        []packOutput `json:"outputs"`
 	Markings       string       `json:"markings,omitempty"`
+	Verge          string       `json:"verge,omitempty"`
 }
 type connectionCell struct {
 	Origin  connectionPoint `json:"origin"`
@@ -375,6 +377,14 @@ func runConnected(path, out string, log io.Writer) (resultErr error) {
 		Ownership:        "Binary final-pixel polygon ownership: cross(edge,point)>0; on an edge include dy<0 or dy==0 && dx>0 (top-left rule), exclude the reciprocal edge. Ground and overlay exports share this new polygon. Zero RGBA outside ownership. Gallery patches decode exported PNG bytes and assemble ground then overlays using ordinary image.Draw Over at integer runtime cell translations, at BOTH 2x and 4x. They do not rerender world geometry or conceal sprite assembly gaps.",
 		Acceptance:       "Candidate only. Actual painted joins, banks, curves, texture repetition and runtime appearance require visual review; no seamlessness or acceptance claim."}
 	report.Method += " Marked-road verge only: add 0.65*E*(0.65*sin(3A+2B)+0.35*sin(7A-5B)) world pixels to the configured shoulder, where E=S((minimum polygon edge distance-8)/8), A=2pi(x/142+y/80), B=2pi(x/142-y/80). Pavement width and road markings are unchanged; the first eight world pixels at every port retain fixed shoulder width."
+	for _, f := range in.manifest.Families {
+		if f.Markings == "ruts" {
+			report.Method += fmt.Sprintf(" Road markings=ruts replace the dashes and edge lines: two slush ruts %.1f world px either side of every course's centre line blend the surface toward RGB(%d,%d,%d) at weight %.2f, full within %.1f world px and fading by smoothstep over a further %.1f.", connectionRutOffset, connectionRutColor.R, connectionRutColor.G, connectionRutColor.B, connectionRutStrength, connectionRutCore, connectionRutFade)
+		}
+		if f.Verge == "snow" {
+			report.Method += fmt.Sprintf(" Road verge=snow: the shoulders blend the earth material with RGB(%d,%d,%d) at weight %.2f instead of the dusty tint.", connectionSnowShoulder.R, connectionSnowShoulder.G, connectionSnowShoulder.B, connectionSnowShoulderMix)
+		}
+	}
 	if in.materials["bank"] != nil {
 		report.StreamInterior += " Opt-in stream border_material=bank overrides the earth-bank treatment: pinned bank material is retained independently of earth. Keep the same organic core geometry and protected port width; border=max(0,border+1.1*E*sin(3A+2B)), bank opacity=1-0.2*E*pocket, giving a 2.4..4.6 world-pixel interior bank for configured border3.5. Legacy earth-stream border2.5 remains a separate unchanged profile; optional bank-stream border2.5 remains supported. The river-bank material may use an unchanged-pixel crop of its parent master to make loose stones larger; other lakeside variants retain their full master. Water color blends toward RGB(84,135,139) at weight0.24 near the bank. Dark wet lip is bank blended toward RGB(35,50,43) at weight0.72 over signed core distance -0.45..1.05. Water-side current flecks and broken foam use only lattice-periodic A/B, a narrow Gaussian centered1.2 world pixels inside water (width0.45), crest=S((sin(6A+4B+0.8sin(3B))-0.15)/0.6), and foam RGB(215,231,226) at maximumweight0.72. Full pale bank replaces the wet lip by distance1.05 outside water. Signed color distance rounds1e-9 for reciprocal stability; no baked grass, no lakeside mask changes."
 	}
@@ -444,7 +454,7 @@ func runConnected(path, out string, log io.Writer) (resultErr error) {
 				return err
 			}
 			four, two := tiles[4], tiles[2]
-			vr := connectionVariantReport{connectionVariant: v, Family: f.ID, Width: f.Width, Border: f.Border, Material: f.Material, BorderMaterial: f.BorderMaterial, Markings: f.Markings}
+			vr := connectionVariantReport{connectionVariant: v, Family: f.ID, Width: f.Width, Border: f.Border, Material: f.Material, BorderMaterial: f.BorderMaterial, Markings: f.Markings, Verge: f.Verge}
 			for _, a := range []struct {
 				name string
 				im   *image.NRGBA

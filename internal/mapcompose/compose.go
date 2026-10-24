@@ -100,7 +100,7 @@ func Compose(g hexgrid.Grid, at func(hexgrid.Coord) Hex, has func(id string) boo
 				s.Gaps = append(s.Gaps, *gap)
 			}
 			for _, id := range drawn {
-				cell.Overlays = append(cell.Overlays, TileID(id))
+				cell.Overlays = append(cell.Overlays, TileID(seasonalOverlay(id, winter, has)))
 			}
 			cell.Standing = standing(h.Terrain, infra, has)
 			if f, ok := FamilyOf(h.Terrain); ok {
@@ -216,6 +216,21 @@ var compounds = []compound{
 	{"cmp", diamond},
 	{"factory", diamond},
 	{"mount", diamond},
+}
+
+// seasonalOverlay returns the overlay drawn for infrastructure id. Overlays
+// carry no season in the levels, so on a winter map (mostlyWinter, which also
+// covers roads on bridges and quays over water) roads and level crossings take
+// their winter form (suffix _w) where the catalog has it. Other infrastructure
+// keeps its one form.
+func seasonalOverlay(id string, winter bool, has func(string) bool) string {
+	if !winter || !strings.HasPrefix(id, "road") && !strings.HasPrefix(id, "cross") {
+		return id
+	}
+	if w := id + "_w"; has(TileID(w)) {
+		return w
+	}
+	return id
 }
 
 // piece splits a compound terrain ID into its compound, piece and season suffix.

@@ -94,9 +94,10 @@ func connectionRoutes(g connectionGeometry, f connectionFamily, v connectionVari
 			cubic(a, a.add(n.mul(16)), center.sub(n.mul(8)), center)
 		}
 	}
-	if f.Markings == "dashed" {
+	if f.Markings == "dashed" || f.Markings == "ruts" {
 		paint := connectionRoadPaintFor(g, v)
 		paint.halfWidth = f.Width / 2
+		paint.ruts, paint.snow = f.Markings == "ruts", f.Verge == "snow"
 		route.road = &paint
 	}
 	return route
@@ -234,8 +235,13 @@ func connectionFeature(in connectionInputs, f connectionFamily, route connection
 	}
 	bank := sampleConnectionMaterial(in.materials[f.BorderMaterial], world)
 	if route.road != nil {
-		// A narrow dusty gravel shoulder borders the grey pavement.
-		bank = connectionBlend(bank, color.NRGBA{177, 168, 145, 255}, .35)
+		// A narrow dusty gravel shoulder borders the grey pavement; in winter
+		// it is dirty snow.
+		if route.road.snow {
+			bank = connectionBlend(bank, connectionSnowShoulder, connectionSnowShoulderMix)
+		} else {
+			bank = connectionBlend(bank, connectionDustyShoulder, .35)
+		}
 	}
 	if core > 0 {
 		bank = connectionBlend(bank, sampleConnectionMaterial(in.materials[f.Material], world), core)
@@ -247,8 +253,12 @@ func connectionFeature(in connectionInputs, f connectionFamily, route connection
 		}
 	}
 	if route.road != nil && core > 0 {
-		paint := connectionRoadPaintAt(*route.road, local, aa)
-		bank = connectionBlend(bank, color.NRGBA{242, 240, 237, 255}, math.Min(core, paint))
+		if route.road.ruts {
+			bank = connectionBlend(bank, connectionRutColor, core*connectionRoadRutAt(*route.road, local))
+		} else {
+			paint := connectionRoadPaintAt(*route.road, local, aa)
+			bank = connectionBlend(bank, color.NRGBA{242, 240, 237, 255}, math.Min(core, paint))
+		}
 	}
 	alpha := outer
 	if f.ID == "stream" || f.ID == "path" {

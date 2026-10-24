@@ -3,8 +3,8 @@ id: terrain/road
 title: Road
 kind: terrain
 status: candidate
-runtime_ids: road124, road125, road13, road135, road14, road145, road15, road236, road24, road25, road26, road346, road35, road356, road36, road46
-masters: road-asphalt-shared-v2.png, road-asphalt-shared-v1.png, road-macadam-winter-v1.png, road-macadam-summer-v1.png
+runtime_ids: road124, road125, road13, road135, road14, road145, road15, road236, road24, road25, road26, road346, road35, road356, road36, road46, road124_w, road125_w, road13_w, road135_w, road14_w, road145_w, road15_w, road236_w, road24_w, road25_w, road26_w, road346_w, road35_w, road356_w, road36_w, road46_w
+masters: road-asphalt-shared-v2.png, road-snow-winter-v1.png, road-asphalt-shared-v1.png, road-macadam-winter-v1.png, road-macadam-summer-v1.png
 ---
 
 ## Look
@@ -38,13 +38,38 @@ renderer adds the road shape, markings and shoulders.
 | road356 | road356 | Road T or Y junction to ports 3 S, 5 NW, 6 N. |
 | road36 | road36 | Road straight run between ports 3 S, 6 N. |
 | road46 | road46 | Road wide bend between ports 4 SW, 6 N. |
+| winter | road124_w, road125_w, road13_w, road135_w, road14_w, road145_w, road15_w, road236_w, road24_w, road25_w, road26_w, road346_w, road35_w, road356_w, road36_w, road46_w | The same courses in winter: packed snow and slush over grey macadam, two dark slush ruts, dirty snow shoulders, no painted lines. |
 
 ## Edges & joins
 The road is 22 world pixels wide with a 2-pixel earth shoulder, centred on the shared port centres and
 continuing straight through each port, so it joins the next road tile, bridges and compounds exactly.
-Centre dashes are drawn by the renderer along the centre line.
+Centre dashes are drawn by the renderer along the centre line. The winter forms keep the geometry; the
+renderer draws two slush ruts 4.5 world pixels either side of the centre line instead of the dashes.
 
 ## Post
+
+`art-review -connected art/pipeline/connected-terrain-v2.json` renders the summer roads from
+`road-asphalt-shared-v2.png`. `connected-road-winter-v1.json` renders the `_w` forms from
+`road-snow-winter-v1.png` with `markings: ruts` and `verge: snow`; the winter maps draw them (and the
+winter level crossings) in place of the summer roads. The tagged generator
+`TestGenerateWinterRoads` (`campaigngfx`) installs them.
+
+### Winter road material (2026-10-24)
+
+`road-snow-winter-v1.png` (`exec-fb7f6a61`, native 1672×941 RGB, unchanged) is the selected winter
+material swatch: grey macadam under trodden snow in three tones, mean RGB 139,137,139 (L\* 56.9, neutral),
+no direction. Its snow patches are 4–10 world px, coarser than asked, which breaks up the grey well at 1×.
+On the winter tiles the road with ruts measures L\* 53 against snow at L\* 88. Selected for
+`connected-road-winter-v1.json`. Attached: `road-asphalt-shared-v2.png` (grit only) and `grass-winter-v1.png`
+(snow only). The prompt was the `art/style.md` Preamble and Terrain text, then:
+
+```text
+Opaque LANDSCAPE material swatch, 1536x864 (aspect 16:9), strict nadir, flat overcast light with no light direction and no cast shadows, whatever the style notes above say. It is a texture, not a scene: the whole canvas is road surface. Scale: the canvas is 71 by 40 world pixels, so one world pixel is about 22 canvas px; the renderer cuts the road shape out of this swatch, mirrors it at the edges and adds ruts and verges itself.
+Content: a winter country road surface of 1915 northern France after carts and lorries have passed: grey macadam packed under a thin trodden crust of dirty snow, mottled with three tones in small irregular patches that have no direction. About a quarter is packed pale snow (RGB near 196,196,201), about half is mid grey trodden snow mixed with grit (RGB near 146,143,146), and about a quarter is darker grey wet slush and bare wet stone grit (RGB near 104,101,104). Overall average near RGB 148,145,148, a cool neutral grey, clearly darker than the surrounding snow fields (RGB 217,221,225). Patches are small: most 20 to 60 px across (one to three world pixels), the largest no more than 120 px (1/13 of the canvas width). Fine angular grit 2 to 6 px scattered over everything. Low contrast at a distance: blurred to 1/20 size it must read as an even grey with no blotches, stripes or gradient across the canvas.
+Avoid: any road strip, edges, verges, kerbs, wheel tracks or straight streaks, painted lines or dashes, footprints, hoof prints, ice sheen or reflections, puddles larger than 120 px, blue or brown tint, vignette, a light-to-dark gradient across the canvas, text.
+
+Attached references: image 1 is the current summer asphalt road material, take only its fine grit size and its evenness, not its colour; image 2 is the snow field the road crosses, take only the snow colour and grain for the packed-snow patches; copy the layout of neither.
+```
 
 ### Look 4 R1 road strip candidate (2026-10-23)
 

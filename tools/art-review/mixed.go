@@ -201,7 +201,7 @@ func loadMixedInputs(path string) (mixedInputs, error) {
 		for _, f := range src.manifest.Families {
 			expected := map[string][2]float64{"road": {14, 2}, "stream": {18, 2.5}, "path": {7, .75}, "rail": {11, 1}}
 			profile, ok := expected[f.ID]
-			if f.ID == "road" && f.Markings == "dashed" {
+			if f.ID == "road" && (f.Markings == "dashed" || f.Markings == "ruts") {
 				profile = [2]float64{22, 1}
 				if f.Border == 2 {
 					profile[1] = 2

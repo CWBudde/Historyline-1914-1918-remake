@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"errors"
+	"image/color"
 	"math"
 	"strings"
 )
@@ -16,16 +17,64 @@ func validateConnectionRoadFields(data []byte) error {
 	}
 	for _, family := range raw.Families {
 		for key, value := range family {
-			if !strings.EqualFold(key, "markings") {
-				continue
-			}
-			var id, markings string
-			if json.Unmarshal(family["id"], &id) != nil || json.Unmarshal(value, &markings) != nil || key != "markings" || id != "road" || markings != "dashed" {
-				return errors.New("markings requires the canonical road-only value dashed")
+			var id, s string
+			switch {
+			case strings.EqualFold(key, "markings"):
+				if json.Unmarshal(family["id"], &id) != nil || json.Unmarshal(value, &s) != nil || key != "markings" || id != "road" || s != "dashed" && s != "ruts" {
+					return errors.New("markings requires the canonical road-only value dashed or ruts")
+				}
+			case strings.EqualFold(key, "verge"):
+				if json.Unmarshal(family["id"], &id) != nil || json.Unmarshal(value, &s) != nil || key != "verge" || id != "road" || s != "snow" {
+					return errors.New("verge requires the canonical road-only value snow")
+				}
+				var markings string
+				if json.Unmarshal(family["markings"], &markings) != nil || markings == "" {
+					return errors.New("verge requires road markings")
+				}
 			}
 		}
 	}
 	return nil
+}
+
+// Winter roads carry two darker slush ruts instead of painted lines, and their
+// shoulders are dirty snow instead of dusty gravel.
+const (
+	connectionRutOffset   = 4.5 // world px from the centre line
+	connectionRutCore     = .6  // fully dark half-width
+	connectionRutFade     = 1.2 // soft edge beyond the core
+	connectionRutStrength = .55
+	// connectionSnowShoulderMix blends the earth border toward snow; the dusty
+	// summer shoulder blends at .35.
+	connectionSnowShoulderMix = .85
+)
+
+var (
+	connectionRutColor      = color.NRGBA{88, 86, 90, 255}
+	connectionDustyShoulder = color.NRGBA{177, 168, 145, 255}
+	connectionSnowShoulder  = color.NRGBA{214, 217, 222, 255}
+)
+
+// connectionRoadRutAt is the weight of the slush ruts at p: two tracks along
+// every course, connectionRutOffset either side of its centre line.
+func connectionRoadRutAt(paint connectionRoadPaint, p connectionPoint) float64 {
+	best := math.Inf(1)
+	for _, c := range paint.courses {
+		for i := 1; i < len(c.points); i++ {
+			a, b := c.points[i-1], c.points[i]
+			delta := b.sub(a)
+			l2 := delta[0]*delta[0] + delta[1]*delta[1]
+			if l2 == 0 {
+				continue
+			}
+			q := p.sub(a)
+			t := max(0, min(1, (q[0]*delta[0]+q[1]*delta[1])/l2))
+			v := p.sub(a.add(delta.mul(t)))
+			best = min(best, v[0]*v[0]+v[1]*v[1])
+		}
+	}
+	off := math.Abs(math.Sqrt(best) - connectionRutOffset)
+	return connectionRutStrength * (1 - connectionSmoothStep((off-connectionRutCore)/connectionRutFade))
 }
 
 type connectionRoadCourse struct {
@@ -37,6 +86,8 @@ type connectionRoadPaint struct {
 	courses   []connectionRoadCourse
 	junction  bool
 	halfWidth float64
+	ruts      bool // slush ruts instead of the dashed centre and edge lines
+	snow      bool // dirty snow shoulders instead of dusty gravel
 }
 
 // Markings follow the same curves as the surface. A fixed phase at each port

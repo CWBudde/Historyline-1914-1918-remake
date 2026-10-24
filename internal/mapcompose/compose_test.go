@@ -238,3 +238,68 @@ func TestShippedLevelGaps(t *testing.T) {
 		}
 	}
 }
+
+// Roads and level crossings carry no season in the levels: on a winter map they
+// draw their winter form where the catalog has it, on a summer map never.
+func TestComposeWinterRoads(t *testing.T) {
+	winterTiles := func(id string) bool {
+		return strings.HasPrefix(id, "tile/road") || strings.HasPrefix(id, "tile/cross")
+	}
+	roads := func(s Scene) (summer, winter int) {
+		for _, line := range s.Cells {
+			for _, c := range line {
+				for _, id := range c.Overlays {
+					if !strings.HasPrefix(id, "tile/road") && !strings.HasPrefix(id, "tile/cross") {
+						continue
+					}
+					if strings.HasSuffix(id, "_w") {
+						winter++
+					} else {
+						summer++
+					}
+				}
+			}
+		}
+		return summer, winter
+	}
+	load := func(name string) (hexgrid.Grid, func(hexgrid.Coord) Hex) {
+		b, err := fs.ReadFile(levels.Campaign, "campaign/"+name+".json")
+		if err != nil {
+			t.Fatal(err)
+		}
+		l, err := level.Parse(b)
+		if err != nil {
+			t.Fatal(err)
+		}
+		return l.Grid(), func(c hexgrid.Coord) Hex {
+			h := l.Lines[c.Line][c.Col]
+			return Hex{Terrain: h.Terrain, Infra: h.Infra.IDs}
+		}
+	}
+	g, at := load("level10_cp")
+	if summer, winter := roads(Compose(g, at, winterTiles)); summer != 0 || winter == 0 {
+		t.Errorf("winter map with winter roads: %d summer, %d winter road overlays", summer, winter)
+	}
+	if summer, winter := roads(Compose(g, at, func(string) bool { return false })); summer == 0 || winter != 0 {
+		t.Errorf("winter map without winter roads: %d summer, %d winter road overlays", summer, winter)
+	}
+	g, at = load("level1_cp")
+	if summer, winter := roads(Compose(g, at, winterTiles)); summer == 0 || winter != 0 {
+		t.Errorf("summer map: %d summer, %d winter road overlays", summer, winter)
+	}
+	for _, tc := range []struct {
+		id     string
+		winter bool
+		want   string
+	}{
+		{"road36", true, "road36_w"},
+		{"cross2", true, "cross2_w"},
+		{"road36", false, "road36"},
+		{"rail36", true, "rail36"},
+		{"path14", true, "path14"},
+	} {
+		if got := seasonalOverlay(tc.id, tc.winter, func(string) bool { return true }); got != tc.want {
+			t.Errorf("seasonalOverlay(%s, %v) = %s, want %s", tc.id, tc.winter, got, tc.want)
+		}
+	}
+}
