@@ -4,7 +4,7 @@ title: Road bridge
 kind: terrain
 status: candidate
 runtime_ids: rBridge14, rBridge25, rBridge36, standing/rBridge14, standing/rBridge25, standing/rBridge36, standing/rBridge14_w, standing/rBridge25_w, standing/rBridge36_w, standing/rBridge36-rail, standing/rBridge36-rail_w
-masters: rbridge-14-shared-v1.png, rbridge-25-shared-v1.png, rbridge-36-shared-v1.png, rbridge-14-export-shared-v1.png, rbridge-25-export-shared-v1.png, rbridge-36-export-shared-v1.png, rbridge-stone-ne-shared-v1.png, rbridge-stone-se-shared-v1.png, rbridge-stone-vertical-shared-v1.png, rbridge-36-rail-summer-v1.png, rbridge-36-rail-winter-v1.png, rbridge-14-winter-v1.png, rbridge-25-winter-v1.png, rbridge-36-winter-v1.png, rbridge-36-rail-export-summer-v1.png, rbridge-36-rail-export-winter-v1.png, rbridge-14-export-winter-v1.png, rbridge-25-export-winter-v1.png, rbridge-36-export-winter-v1.png
+masters: rbridge-14-shared-v1.png, rbridge-25-shared-v1.png, rbridge-36-shared-v1.png, rbridge-14-export-shared-v1.png, rbridge-25-export-shared-v1.png, rbridge-36-export-shared-v1.png, rbridge-stone-ne-shared-v1.png, rbridge-stone-se-shared-v1.png, rbridge-stone-vertical-shared-v1.png, rbridge-36-rail-summer-v1.png, rbridge-36-rail-winter-v1.png, rbridge-14-winter-v1.png, rbridge-25-winter-v1.png, rbridge-36-winter-v1.png, rbridge-36-rail-export-summer-v1.png, rbridge-36-rail-export-winter-v1.png, rbridge-36-rail-summer-v2.png, rbridge-36-rail-winter-v2.png, rbridge-36-rail-export-summer-v2.png, rbridge-36-rail-export-winter-v2.png, rbridge-14-export-winter-v1.png, rbridge-25-export-winter-v1.png, rbridge-36-export-winter-v1.png
 ---
 
 ## Look
@@ -38,6 +38,21 @@ draws the rail deck or the footbridge (`standing/bridge36`) for them. The rail d
 map every deck takes its `_w` form.
 
 ## Post
+
+### Look 3 rail deck, dark rail heads (2026-10-24)
+
+`rbridge-36-rail-summer-v2.png` and `rbridge-36-rail-winter-v2.png` are the v1 rail decks with their
+rail heads regraded in Go onto `tile/rail36`'s dark steel (`rail36_w`'s in winter); no new image. The
+heads are the columns within 6 px of each rail's native x (652 and 720 summer, 653 and 723 winter)
+whose mean L\* is 35 or more, 7 to 8 px wide. Each head pixel keeps 0.6 of its L\*, a\*, b\* deviation
+from the heads' mean around the mean of the tile's two rail cores at 4x (L\* 30.6 summer, 24.2
+winter), blended in by clamp((L\*−20)/15), so the dark flanks and the sleepers' shadows stay as
+painted. Every pixel outside the head columns is unchanged, in the natives, the `-export-` v2 masters
+and the standing items. On the composed maps the heads come to L\* 28.3 against the approach track's
+26.9 (summer, level13_2p) and 21.7 against 18.9 (winter, level20 and level2), from 61–63 before;
+`TestStandingRailDeck` checks them within 5. `TestRailDeckMastersRegradeRailHeads`
+(`tools/terrain-stamps`) pins the v2 masters to the regrade; the `bridgegfx` generator writes them,
+registers them as before and records them in `rbridge-registration-v3.json`.
 
 ### Look 3 rail deck and winter decks (2026-10-24)
 
@@ -96,7 +111,7 @@ Image 1 is the selected summer railway bridge: change the season only, preserve 
 `go test -tags bridgegfx ./tools/terrain-stamps -run TestGenerateBridgeDecks -count=1 -v` registers
 each of these onto the export it was made from by the opaque box (alpha > 128, scaled per axis,
 CatmullRom at 12 px per logical); the rail decks then move sideways so their rail middle lands on
-`tile/rail36`'s (export x 574.5). It writes the `-export-` masters and `rbridge-registration-v2.json`,
+`tile/rail36`'s (export x 574.5). It writes the `-export-` masters and `rbridge-registration-v3.json`,
 pins them in `art/pipeline/bridge-standing-v2.json` and exports the standing items with terrain-stamps.
 
 ### Look 3 B3 candidate (2026-10-23)

@@ -6,10 +6,12 @@ package main
 //
 //	go test -tags bridgegfx ./tools/terrain-stamps -run TestGenerateBridgeDecks -count=1 -v
 //
-// Registers the bridge deck masters of art/pipeline/bridge-standing-v2.json (the
-// rail deck and the winter decks, each painted as an edit of a registered v1
-// export) onto the 1152x960 export frame of the export they were made from,
-// writes the -export- masters and art/terrain/<family>/<family>-registration-v2.json,
+// Regrades the rail heads of the painted rail decks (v1) onto tile/rail36's dark
+// steel as the v2 masters (raildeck_test.go), then registers the bridge deck
+// masters of art/pipeline/bridge-standing-v2.json (the rail deck and the winter
+// decks, each painted as an edit of a registered v1 export) onto the 1152x960
+// export frame of the export they were made from, writes the -export- masters
+// and art/terrain/<family>/<family>-registration-v<registrationVersion>.json,
 // pins their hashes in the manifest, exports the standing items with run() and
 // puts them into assets/ and assets/index.json. Run `go run ./cmd/hlart index`
 // afterwards.
@@ -41,12 +43,16 @@ type deckSource struct {
 	rails                     float64
 }
 
+// registrationVersion is the version of each family's registration record: the
+// rBridge record names the v2 rail deck masters.
+var registrationVersion = map[string]int{"rBridge": 3, "bridge": 2}
+
 // rail36Middle is the middle between tile/rail36's rails in export pixels.
 const rail36Middle = 47.875 * 12
 
 var deckSources = []deckSource{
-	{"standing/rBridge36-rail", "art/terrain/rBridge/rbridge-36-rail-summer-v1.png", "art/terrain/rBridge/rbridge-36-export-shared-v1.png", "art/terrain/rBridge/rbridge-36-rail-export-summer-v1.png", 686},
-	{"standing/rBridge36-rail_w", "art/terrain/rBridge/rbridge-36-rail-winter-v1.png", "art/terrain/rBridge/rbridge-36-rail-export-summer-v1.png", "art/terrain/rBridge/rbridge-36-rail-export-winter-v1.png", 688},
+	{"standing/rBridge36-rail", "art/terrain/rBridge/rbridge-36-rail-summer-v2.png", "art/terrain/rBridge/rbridge-36-export-shared-v1.png", "art/terrain/rBridge/rbridge-36-rail-export-summer-v2.png", 686},
+	{"standing/rBridge36-rail_w", "art/terrain/rBridge/rbridge-36-rail-winter-v2.png", "art/terrain/rBridge/rbridge-36-rail-export-summer-v2.png", "art/terrain/rBridge/rbridge-36-rail-export-winter-v2.png", 688},
 	{"standing/rBridge36_w", "art/terrain/rBridge/rbridge-36-winter-v1.png", "art/terrain/rBridge/rbridge-36-export-shared-v1.png", "art/terrain/rBridge/rbridge-36-export-winter-v1.png", 0},
 	{"standing/rBridge14_w", "art/terrain/rBridge/rbridge-14-winter-v1.png", "art/terrain/rBridge/rbridge-14-export-shared-v1.png", "art/terrain/rBridge/rbridge-14-export-winter-v1.png", 0},
 	{"standing/rBridge25_w", "art/terrain/rBridge/rbridge-25-winter-v1.png", "art/terrain/rBridge/rbridge-25-export-shared-v1.png", "art/terrain/rBridge/rbridge-25-export-winter-v1.png", 0},
@@ -68,6 +74,18 @@ func TestGenerateBridgeDecks(t *testing.T) {
 		Prepared     string     `json:"prepared_source"`
 		PreparedSHA  string     `json:"prepared_sha256"`
 		Policy       string     `json:"policy"`
+	}
+	for _, r := range railDeckRegrades {
+		from := readNRGBA(t, filepath.Join(root, r.from))
+		im := regradeRailHeads(from, readNRGBA(t, filepath.Join(root, r.track)), r.rails)
+		var b bytes.Buffer
+		if err := png.Encode(&b, im); err != nil {
+			t.Fatal(err)
+		}
+		if err := os.WriteFile(filepath.Join(root, r.to), b.Bytes(), 0644); err != nil {
+			t.Fatal(err)
+		}
+		t.Logf("%s: rail heads %v regraded onto %s", r.to, railHeadColumns(from, r.rails), r.track)
 	}
 	regs := map[string][]registration{}
 	hashes := map[string]string{}
@@ -111,7 +129,11 @@ func TestGenerateBridgeDecks(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		name := strings.ToLower(filepath.Base(family)) + "-registration-v2.json"
+		v, ok := registrationVersion[filepath.Base(family)]
+		if !ok {
+			t.Fatalf("%s: no registration version", family)
+		}
+		name := fmt.Sprintf("%s-registration-v%d.json", strings.ToLower(filepath.Base(family)), v)
 		if err := os.WriteFile(filepath.Join(root, family, name), append(b, '\n'), 0644); err != nil {
 			t.Fatal(err)
 		}

@@ -68,27 +68,53 @@ func TestGenerateWinterStreams(t *testing.T) {
 	stale := func(id string) bool {
 		return strings.HasSuffix(id, "_w") && (strings.HasPrefix(id, "tile/stream") || slices.Contains(mouths, strings.TrimPrefix(id, "tile/")))
 	}
-	entries = slices.DeleteFunc(entries, func(raw json.RawMessage) bool {
-		var e campaignEntry
-		return json.Unmarshal(raw, &e) == nil && stale(e.ID)
-	})
+	var written []json.RawMessage
 	wf := winter.manifest.Families[0]
 	for _, v := range wf.Variants {
 		tiles, err := exportConnectionTiles(winter, &wf, &v)
 		if err != nil {
 			t.Fatal(err)
 		}
-		entries = append(entries, writeWinterTiles(t, root, v.ID, "stream", "infrastructure", tiles)...)
+		written = append(written, writeWinterTiles(t, root, v.ID, "stream", "infrastructure", tiles)...)
 	}
 	for _, id := range mouths {
 		tiles, err := campaignShoreTiles(shoreSummer, shoreWinter, id)
 		if err != nil {
 			t.Fatal(err)
 		}
-		entries = append(entries, writeWinterTiles(t, root, id, "lakeside", "backgrounds", tiles)...)
+		written = append(written, writeWinterTiles(t, root, id, "lakeside", "backgrounds", tiles)...)
+	}
+	// Replace the earlier exports in place, so the index keeps its order; drop
+	// stale ones nothing replaces and append the new ones.
+	key := func(raw json.RawMessage) (string, campaignEntry) {
+		var e campaignEntry
+		if err := json.Unmarshal(raw, &e); err != nil {
+			t.Fatal(err)
+		}
+		return campaignExportKey(e.ID, e.Density), e
+	}
+	fresh := map[string]json.RawMessage{}
+	for _, raw := range written {
+		k, _ := key(raw)
+		fresh[k] = raw
+	}
+	var kept []json.RawMessage
+	for _, raw := range entries {
+		k, e := key(raw)
+		if r, ok := fresh[k]; ok {
+			kept = append(kept, r)
+			delete(fresh, k)
+		} else if !stale(e.ID) {
+			kept = append(kept, raw)
+		}
+	}
+	for _, raw := range written {
+		if k, _ := key(raw); fresh[k] != nil {
+			kept = append(kept, raw)
+		}
 	}
 	t.Logf("wrote %d winter streams and %d winter mouths %v", len(wf.Variants), len(mouths), mouths)
-	writeWinterIndex(t, root, entries)
+	writeWinterIndex(t, root, kept)
 }
 
 // winterInstalledEqual reports whether the installed 4x export of id has the

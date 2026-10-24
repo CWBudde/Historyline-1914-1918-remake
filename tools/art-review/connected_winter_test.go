@@ -137,7 +137,7 @@ func TestWinterConnectedKeepsSummerGeometry(t *testing.T) {
 
 // Winter streams: frosted banks without summer green, a pale ice rim in the
 // outer two world px of the channel, open water in the centre after the
-// winter grade.
+// winter grade, calm without sun glints (99 % of it at L* 45 or less).
 func TestWinterStreamIceRimAndFrostedBanks(t *testing.T) {
 	in, f := loadWinterManifest(t, "connected-stream-winter-v1.json")
 	g := in.manifest.Geometry
@@ -195,7 +195,7 @@ func TestWinterStreamIceRimAndFrostedBanks(t *testing.T) {
 	if float64(ice) < .6*float64(rim) {
 		t.Errorf("ice rim covers too little of the outer channel")
 	}
-	if float64(water) < .9*float64(centre) || centreL/float64(centre) > 40 {
+	if float64(water) < .99*float64(centre) || centreL/float64(centre) > 40 {
 		t.Errorf("centre is not open water")
 	}
 }

@@ -50,11 +50,14 @@ without the old mirrored coset average or continuous generated foam line. Core p
 `season: winter` and `grass-winter-v1.png` as the ground: the dry bank stones turn cold grey and carry
 snow on their light tops (the winter shore's treatment), and a pale ice rim 1.5–4 world px wide covers
 the outer channel along both banks, its inner edge following lattice-periodic value noise so it joins
-across every hex edge. The open water is the summer water; the pack grade of a `_w` tile turns it to
-winter water. The winter stream mouths (`<shore>-outlet<n>_w`) carry the winter stream into the lake.
-The tagged generator `TestGenerateWinterStreams` (`campaigngfx`) installs the streams and re-renders
-the winter mouths. No new image: the measured criteria (bank < 1 % summer green, ice rim, open centre)
-pass with the existing materials.
+across every hex edge. The open water is the summer water calmed of its sun glints (`art/direction.md`
+I2): a pixel lighter than the local water level (the water material's mean on a 3 world px ring)
+blends toward that mean so its L\* excess shrinks to 6·tanh(e/6); the pack grade of a `_w` tile turns
+it to winter water. The winter stream mouths (`<shore>-outlet<n>_w`) carry the winter stream into the
+lake. The tagged generator `TestGenerateWinterStreams` (`campaigngfx`) installs the streams and
+re-renders the winter mouths. No new image: the measured criteria pass with the existing materials
+(bank 0.56 % summer green, ice rim 93.8 % of the outer channel, centre 100 % L\* ≤ 45 after the grade,
+mean L\* 26.1; before the calm 92.8 % and 29.3).
 
 ## Avoid
 - visible tiling or repeated rounded "pillow" patterns

@@ -10,8 +10,9 @@ import (
 // Winter streams and trenches: a connected family with season "winter" keeps
 // its summer geometry and joins and paints the winter ground ("grass", the
 // snow meadow of the winter manifests) onto its banks. A stream keeps open
-// water in its centre, which the pack grade turns to winter water (tile suffix
-// _w), and freezes a pale ice rim along both banks; a trench carries snow on
+// water in its centre, calmed of its sun glints, which the pack grade turns to
+// winter water (tile suffix _w), and freezes a pale ice rim along both banks; a
+// trench carries snow on
 // its parapet and parados and dark slush on its floor, its timber unchanged.
 
 // Ice rim and frost of a winter stream.
@@ -21,7 +22,12 @@ const (
 	winterThinIce               = .35      // the inner edge, where thin ice shows the water
 	winterRockGrey              = .55      // dry stones turn cold grey (as the winter shore)
 	winterRockSnow              = .85      // and carry snow on their light tops
+	winterCalmRadius            = 3.0      // world px: the ring that gives the local water level
+	winterCalmKnee              = 6.0      // L* a highlight keeps above the local water level, at most
 )
+
+// winterCalmRing is the number of water samples on the ring around a pixel.
+const winterCalmRing = 12
 
 var (
 	winterIceColor  = color.NRGBA{176, 192, 200, 255}
@@ -54,9 +60,10 @@ func connectionSeasonDescription(f connectionFamily) string {
 		return ""
 	}
 	if f.ID == "stream" {
-		return fmt.Sprintf(" Stream season=winter: the grass material is the winter ground. Dry bank stones blend toward their own grey at %.2f*S((d-0.3)/1.8) and toward the snow at %.2f times that where their light tops are (as the winter shore). An ice rim covers the outer %.1f..%.1f world px of the channel: width=%.1f+%.1f*S((0.65*N14+0.35*N37-0.22)/0.56), Nn lattice value noise (lattice coordinates a=x/71, b=(y-40a)/80 cut into n cells, hashed modulo n, smoothstep bilinear), so it repeats under every runtime translation. Ice is the snow blended toward RGB(%d,%d,%d) at %.2f and toward RGB(%d,%d,%d) at up to %.2f over the inner 1.2 world px; coverage ramps in over 0.5 world px at the inner edge and hands over to the summer wet lip and stones over the first 0.6 world px of the bank. Open water is unchanged; the pack grade of a _w tile makes it winter water.",
+		return fmt.Sprintf(" Stream season=winter: the grass material is the winter ground. Dry bank stones blend toward their own grey at %.2f*S((d-0.3)/1.8) and toward the snow at %.2f times that where their light tops are (as the winter shore). An ice rim covers the outer %.1f..%.1f world px of the channel: width=%.1f+%.1f*S((0.65*N14+0.35*N37-0.22)/0.56), Nn lattice value noise (lattice coordinates a=x/71, b=(y-40a)/80 cut into n cells, hashed modulo n, smoothstep bilinear), so it repeats under every runtime translation. Ice is the snow blended toward RGB(%d,%d,%d) at %.2f and toward RGB(%d,%d,%d) at up to %.2f over the inner 1.2 world px; coverage ramps in over 0.5 world px at the inner edge and hands over to the summer wet lip and stones over the first 0.6 world px of the bank. Open water is calm, without sun glints: a pixel lighter than the local water level (the mean of %d water samples on a %.1f world px ring) blends toward that mean colour so its L* excess e over the level shrinks to %.1f*tanh(e/%.1f), weighted by the open-water share 1-S((d+0.45)/0.7); the ice rim is painted over it unchanged. The pack grade of a _w tile makes it winter water.",
 			winterRockGrey, winterRockSnow, winterIceMin, winterIceMin+winterIceSpan, winterIceMin, winterIceSpan,
-			winterIceColor.R, winterIceColor.G, winterIceColor.B, winterIceTint, winterThinColor.R, winterThinColor.G, winterThinColor.B, winterThinIce)
+			winterIceColor.R, winterIceColor.G, winterIceColor.B, winterIceTint, winterThinColor.R, winterThinColor.G, winterThinColor.B, winterThinIce,
+			winterCalmRing, winterCalmRadius, winterCalmKnee, winterCalmKnee)
 	}
 	return fmt.Sprintf(" Trench season=winter: the grass material is the winter ground. Parapet and parados take the snow with %.1f of the summer bank shading, dark spoil clods show through at up to %.2f where the earth is dark, and the lip within 1.2 world px of the revetment is trodden toward the earth at up to %.2f. The floor blends toward RGB(%d,%d,%d) slush at %.2f. Timber is unchanged.",
 		winterTrenchRelief, winterTrenchClods, winterTrenchTrodden, winterSlush.R, winterSlush.G, winterSlush.B, winterTrenchSlush)
@@ -96,10 +103,59 @@ func winterIceWidth(p connectionPoint) float64 {
 	return winterIceMin + winterIceSpan*connectionSmoothStep((n-.22)/.56)
 }
 
+// winterLightness is the CIE L* of an sRGB colour.
+func winterLightness(c color.NRGBA) float64 {
+	lin := func(v uint8) float64 {
+		s := float64(v) / 255
+		if s <= .04045 {
+			return s / 12.92
+		}
+		return math.Pow((s+.055)/1.055, 2.4)
+	}
+	y := .2126729*lin(c.R) + .7151522*lin(c.G) + .0721750*lin(c.B)
+	if y > 216.0/24389 {
+		return 116*math.Cbrt(y) - 16
+	}
+	return 24389.0 / 27 * y
+}
+
+// winterWaterLevel is the mean colour of the water material on a ring of
+// winterCalmRadius world px around p, and its L*: the local water level.
+func winterWaterLevel(in connectionInputs, f connectionFamily, p connectionPoint) (color.NRGBA, float64) {
+	var r, g, b float64
+	for i := range winterCalmRing {
+		a := 2 * math.Pi * float64(i) / winterCalmRing
+		c := sampleAuthoredWater(in.materials[f.Material], p.add(connectionPoint{winterCalmRadius * math.Cos(a), winterCalmRadius * math.Sin(a)}))
+		r, g, b = r+float64(c.R), g+float64(c.G), b+float64(c.B)
+	}
+	mean := color.NRGBA{uint8(math.Round(r / winterCalmRing)), uint8(math.Round(g / winterCalmRing)), uint8(math.Round(b / winterCalmRing)), 255}
+	return mean, winterLightness(mean)
+}
+
+// winterCalmWater calms the open water of c at p, signed distance d from the
+// water's edge: winter water carries no sun glints. A pixel lighter than the
+// local water level blends toward that level's colour so that it keeps at most
+// winterCalmKnee L* above it (a soft knee, so the ripples keep their order);
+// the share of open water in c, 1-S((d+0.45)/0.7), takes the calm.
+func winterCalmWater(in connectionInputs, f connectionFamily, p connectionPoint, d float64, c color.NRGBA) color.NRGBA {
+	open := 1 - connectionSmoothStep((d+.45)/.7)
+	if open == 0 {
+		return c
+	}
+	mean, level := winterWaterLevel(in, f, p)
+	excess := winterLightness(c) - level
+	if excess <= 0 {
+		return c
+	}
+	keep := winterCalmKnee * math.Tanh(excess/winterCalmKnee) / excess
+	return connectionBlend(c, mean, open*(1-keep))
+}
+
 // winterStreamColor turns the summer stream colour c at p, signed distance d
-// from the water's edge (negative in the water), into winter: frosted stones
-// and an ice rim along the bank.
+// from the water's edge (negative in the water), into winter: calm open water
+// without glints, frosted stones and an ice rim along the bank.
 func winterStreamColor(in connectionInputs, f connectionFamily, p connectionPoint, d float64, c color.NRGBA) color.NRGBA {
+	c = winterCalmWater(in, f, p, d, c)
 	snow := sampleGrassMaterial(in.materials["grass"], p)
 	rock := sampleAuthoredBank(in.materials[f.BorderMaterial], p)
 	lum := float64(rock.R) + float64(rock.G) + float64(rock.B)

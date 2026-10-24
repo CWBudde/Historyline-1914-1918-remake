@@ -107,7 +107,11 @@ func lab(c color.NRGBA) (l, a, b float64) {
 // Railway bridges draw a rail deck: on the composed map the two rails of the
 // approaches run on across the deck (dark steel within a logical pixel of each
 // rail's centreline on at least 90 % of the 48 px deck), where the road deck
-// broke them with asphalt and dashes. Path bridges draw the footbridge.
+// broke them with asphalt and dashes. The rail heads on the deck (per row the
+// lightest half logical pixel within 0.75 of the rail's centreline) are as
+// dark as the approach track's rails (per row its darkest half pixel there,
+// on the track 32 to 40 px from the centre): mean L* within 5, after the
+// pack grade. Path bridges draw the footbridge.
 func TestStandingRailDeck(t *testing.T) {
 	has, _ := catalog(t)
 	if got := bridgeAt("grass", []string{"stream14", "rBridge36", "rail36"}, has); !slices.Equal(got, []string{"standing/rBridge36-rail"}) {
@@ -146,6 +150,39 @@ func TestStandingRailDeck(t *testing.T) {
 			t.Fatal(err)
 		}
 		cx, cy := hexgrid.Center(c)
+		// pair is, per row, the extreme (lightest or darkest) mean L* of two
+		// neighbouring pixels within 0.75 logical of each rail's centreline,
+		// averaged over the rows y0..y1 (logical, from the hex centre).
+		pair := func(lightest bool, rows ...[2]float64) float64 {
+			var s float64
+			n := 0
+			for _, off := range rails {
+				x0 := int(math.Round((cx + off - 0.75) * density))
+				x1 := int(math.Round((cx + off + 0.75) * density))
+				for _, span := range rows {
+					for y := int((cy + span[0]) * density); y < int((cy+span[1])*density); y++ {
+						best := math.NaN()
+						for x := x0; x < x1; x++ {
+							l0, _, _ := lab(m.Image.NRGBAAt(x, y))
+							l1, _, _ := lab(m.Image.NRGBAAt(x+1, y))
+							if v := (l0 + l1) / 2; math.IsNaN(best) || (lightest && v > best) || (!lightest && v < best) {
+								best = v
+							}
+						}
+						s += best
+						n++
+					}
+				}
+			}
+			return s / float64(n)
+		}
+		heads := pair(true, [2]float64{-24, 24})
+		track := pair(false, [2]float64{-40, -32}, [2]float64{32, 40})
+		if math.Abs(heads-track) > 5 {
+			t.Errorf("%s %v: rail heads on the deck L* %.1f, the approach track's rails %.1f, want within 5", site.level, site.at, heads, track)
+		} else {
+			t.Logf("%s %v: rail heads on the deck L* %.1f, the approach track's rails %.1f", site.level, site.at, heads, track)
+		}
 		for _, off := range rails {
 			x0 := int(math.Round((cx + off - 1) * density))
 			x1 := int(math.Round((cx + off + 1) * density))
