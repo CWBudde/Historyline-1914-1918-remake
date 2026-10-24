@@ -91,7 +91,8 @@ func Compose(g hexgrid.Grid, at func(hexgrid.Coord) Hex, has func(id string) boo
 			if ground, ok := hangarGround(h, l, col, has); ok {
 				cell.Background = ground
 			}
-			infra := airfield(g, at, c, h, has)
+			cell.Background = harbourGround(h, cell.Background, l, col, has)
+			infra := harbour(airfield(g, at, c, h, has), h, has)
 			if Wet(h.Terrain) {
 				infra = quays(infra, has)
 			}

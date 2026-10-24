@@ -355,11 +355,12 @@ func (c *collector) images(paths map[string]string, pins map[string]string, w, h
 // Python remake, which names some tiles differently.
 func legacyTile(kind, id string) string {
 	if kind == "infrastructure" {
-		// Neither the barbed wire, the quays, the airfield pieces nor the
-		// neighbour-derived trenches have a Python remake tile.
+		// Neither the barbed wire, the quays, the airfield and harbour pieces
+		// nor the neighbour-derived trenches have a Python remake tile.
 		// Nor the winter roads and crossings.
 		if id == "barbedWire" || strings.HasPrefix(id, "quay") || strings.HasPrefix(id, "runway") ||
-			strings.HasPrefix(id, "hangar") || strings.HasPrefix(id, "apron") || strings.HasSuffix(id, "_w") {
+			strings.HasPrefix(id, "hangar") || strings.HasPrefix(id, "apron") || strings.HasPrefix(id, "harbour") ||
+			strings.HasSuffix(id, "_w") {
 			return ""
 		}
 		if rest, trench := strings.CutPrefix(id, "trench"); trench {

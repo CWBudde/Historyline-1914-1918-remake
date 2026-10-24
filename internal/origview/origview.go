@@ -15,12 +15,13 @@
 // the middle band waterDeep and the open sea waterSea.
 //
 // Several looks stand in for original terrain the remake has no art for:
-// ponds show open water, harbour buildings and their yard show
-// houses and a road, town streets a road, quays and piers a road bridge on
-// water, shell-hole fields mud, forest and mountain variants plain forest and
+// ponds show open water, town streets a road, quays and piers a road bridge on
+// water, forest and mountain variants plain forest and
 // mountain, junctions and level crossings without a tile of their own two overlays.
 // Airstrips are a road carrying runway36 and their hangars a house carrying
-// hangar, which the map draws as an airfield.
+// hangar, which the map draws as an airfield. The harbour buildings are houses
+// carrying harbourN (the warehouse) and harbourW (the customs house), their yard
+// a road carrying harbourS, which the map draws as a harbour.
 package origview
 
 import (

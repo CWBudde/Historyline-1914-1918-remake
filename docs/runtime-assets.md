@@ -172,6 +172,13 @@ carrying `hangar`. A runway draws `tile/runway36` instead of its road; a hangar 
 its season, the apron (`tile/hangar`) and `standing/hangar` with its shadow, and the apron runs on over the
 runway hexes at its NE and SE (`tile/apron-sw`, `apron-nw`). Winter hexes draw the `_w` forms. All come from
 `art/terrain/airfield`, exported by `TestGenerateAirfieldTiles`.
+The original's harbour is three hexes: the warehouse (record 53), the customs house at its SW (record 52), both
+houses carrying `harbourN` and `harbourW`, and the quay yard at its S (record 120), a road carrying `harbourS`.
+A harbour hex draws the open ground of its season, granite paving (`tile/harbour*`, one painting sampled over
+the group, so it runs on between the pieces and fades out along the outer edges; on the yard it leaves the road
+coming in from the S uncovered for a stretch) and its building or cargo with a cast shadow
+(`standing/harbour*`); winter hexes draw the `_w` forms. All come from `art/terrain/harbour`, exported by
+`TestGenerateHarbourTiles`. The rules still see the houses and the road.
 Roads and road level crossings carry no season in the level: on a mostly winter map they draw their winter
 form (`tile/road*_w`, `cross2_w`, `cross3_w`: packed snow, slush ruts, snow shoulders, no painted lines;
 `art/pipeline/connected-road-winter-v1.json`, exported by `TestGenerateWinterRoads`), also on bridges and
