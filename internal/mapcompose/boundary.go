@@ -24,8 +24,7 @@ func boundaryTerrain(id, season string) bool {
 	if _, ok := boundaryTerrains()[id]; !ok {
 		return false
 	}
-	_, shore := shoreLandVertices[id]
-	if id == "water" || id == "waterStones" || shore {
+	if Wet(id) {
 		return true
 	}
 	winter := strings.HasSuffix(id, "_w")

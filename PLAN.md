@@ -409,9 +409,9 @@ Mostly a material swap of the matching summer family plus the winter grade.
       meadow.
       (2026-10-24) partial: I2 is a grade. Water in a winter tile goes to a slate teal (`terraingrade-v4`), and
       winter maps draw `tile/water_w` and `waterStones_w` by the coasts' vote, so the sea, shores and HQ moat
-      stay one material. Campaign 15's open water now measures L\* 30.2 and chroma 8.6
-      (`TestTerrainGradeWinterTargets`; `build/review/winter-water/`). Open: the I1 shore ice (needs L3.1) and
-      the winter streams (L7.4).
+      stay one material. Campaign 15's open water now measures L\* 27.1 and chroma 7.8 with the sea's
+      depths (L8.1; `TestTerrainGradeWinterTargets`; `build/review/winter-water/`). Open: the I1 shore ice
+      (needs L3.1) and the winter streams (L7.4).
 - [ ] L7.4 Winter strips and kits (R1–R5) for roads, paths, rail, streams (ice edges), bridges and trenches,
       and the I3 edits of rocks and bridges.
 - [ ] L7.5 Winter buildings: `hq*_w`, `cmp*_w`, `factory*_w` (matching summer/winter factory exports are
@@ -427,6 +427,12 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
 
 - [ ] L8.1 Sea and open water distinct from ponds (records 25, 34, 47, 48 all show `water`): C1 with the
       depth exporter; C2 surf, shoals and skerries.
+      (2026-10-24) partial: the levels keep the depths. Records 47 and 48 are `waterDeep` and `waterSea` in
+      `looks.json`, and `Bind` gives them their records again. Every depth draws the water tile, and one smooth
+      field shades it (`internal/waterdepth`, `terraingrade.Deepen`): the open sea comes to 0.825 of the
+      shallows' L\* and the middle band to 0.92–0.95, against the original tiles' 0.823 and 0.93
+      (`TestSeaDepthSteps`, campaign 10 and 7; `build/review/sea-depth/`). There is no step at any hex edge or
+      coast. Open: C2 surf, shoals and skerries; the ripple lattice still repeats on large seas.
 - [ ] L8.2 Shell-hole fields as a field material (C3) instead of the crater-ring lattice: summer records 63
       and 81–84 show `mud` (winter shows `shelled_w`). 360 summer clusters in 115 shapes have no stamp
       (only the diamond `4_-1.1_1.1_0.2` exists, no single), 50 winter clusters in 37 shapes. Crater fields
@@ -495,6 +501,8 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
 - [ ] 5.3 `Bind` numbers depots and factories by the buildings' first cells where the game takes entrances
       in cell order (Mouse's factories swap).
 - [ ] 5.4 Unit roster: weapon slots use stand-ins from the existing catalogue; deep and shallow water are one.
+      2026-10-24: the levels name them apart (`waterDeep` 47, `waterSea` 48), and `Bind` binds each to its own
+      record; the remake's own rules still play them as one.
 - [ ] 5.5 Decode the computer player's parameters from the original map files.
 
 ### 6. Polish and distribution

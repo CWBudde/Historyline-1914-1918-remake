@@ -77,7 +77,8 @@ book and the game agree. The grade works per pixel colour: one L\* curve and a b
 for open water, snow left as painted. Relief darkens (except snow) and buildings take b\* 16 where they differ
 from the meadow baked into their tiles, the snow meadow in winter tiles. Crowns follow their own curve; a forest image that is mostly grey (winter:
 snow and bare branches) follows a darker one, so winter forest sits 35 L\* or more under the snow. Open water in
-a winter tile (ID suffix `_w`) follows a darker curve to a cold slate teal, L\* 24–32 at chroma about 8. Fog is
+a winter tile (ID suffix `_w`) follows a darker curve to a cold slate teal, L\* 24–32 at chroma about 8. Open water
+of the middle band and the open sea is shaded on top by depth (`terraingrade.Deepen`, below). Fog is
 copied unchanged.
 
 Cast shadows follow one light (`internal/terrainlight`, art/direction.md "One light"): azimuth 315°, RGB
@@ -109,7 +110,7 @@ checks; `-check` fails while any check fails. `-install assets` installs the cel
 (the forest crowns and the meadow props, below); the other sheets wait for their scatter layers.
 
 Clusters are connected hexes of one kind: `crater` (`mud`), `boulders` (`stone`), `knoll` (`mountain`),
-`lake` (`water`, `waterStones`, `lakeside*`); the winter kinds (`shelled_w`, `stoney_w`, `mountain_w`) end
+`lake` (`water`, `waterDeep`, `waterSea`, `waterStones`, `lakeside*`); the winter kinds (`shelled_w`, `stoney_w`, `mountain_w`) end
 in `_w`. The shape is the hex count, then each further hex's offset from the first (line, then column order)
 in half-hex columns and lines: `1`, `2_0.2` (one above the other), `4_-1.1_1.1_0.2` (a diamond). With a stamp
 for the shape the cluster's hexes get the base material (grass) and the stamp; the variant is seeded by the
@@ -154,6 +155,12 @@ draws the winter form of its shore and mouth, ID suffix `_w`: snow instead of me
 from `art/pipeline/shore-terrain-winter-v1.json`. Open water and stones in water there draw `tile/water_w` and
 `tile/waterStones_w`, the summer pixels under the winter water grade (`TestGenerateWinterWater`), so the sea
 and its winter coast stay one material.
+Open water keeps the original maps' depths: `water` (shallows and ponds), `waterDeep` (the middle
+band) and `waterSea` (the open sea) all draw the water tile, and the renderers shade it by one smooth
+depth field over the map (`internal/waterdepth`): a hex drawn as open water has its depth at its centre, a
+shore none, each vertex the mean of its hexes, so the sea darkens without a step at any hex edge or coast.
+The open sea comes to 0.82 of the shallows' L\*, the middle band about 0.93, with calmer ripples and a less
+blue teal (`terraingrade.Deepen`, `TestSeaDepthSteps`).
 On a water hex a road bridge with its road, the levels' stand-in for the original's quays and piers, draws
 the stone quay on its axis (`tile/quay14`, `quay25`, `quay36`, from `art/terrain/quay`, exported 36
 world px wide by `TestGenerateQuayTiles`) with the road running on over it; the rules still see the bridge

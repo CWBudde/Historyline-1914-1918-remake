@@ -16,6 +16,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapmaterial"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/waterdepth"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/worldmaterial"
 )
 
@@ -39,6 +40,7 @@ const standingGroup, standingStampGroup, stampGroup = "standing", "standing-stam
 type terrainArt struct {
 	*artPacks
 	materials *terrainMaterials
+	depth     *depthTiles // the water backgrounds shaded by depth
 	scene     mapcompose.Scene
 	group     map[string]string // asset ID → pack group
 	// dim holds the remembered look of each texture drawn dimmed so far.
@@ -123,6 +125,10 @@ func (a *terrainArt) compose(lvl *level.Level) error {
 		}
 	}
 	a.scene = s
+	if a.depth != nil {
+		a.depth.release(a)
+	}
+	a.depth = &depthTiles{field: waterdepth.New(lvl, &a.scene), tiles: map[depthKey]*ebiten.Image{}}
 	return nil
 }
 
@@ -237,7 +243,13 @@ func (g *game) drawTerrainTile(dst *ebiten.Image, id string, sx, sy float64, dim
 	var img *ebiten.Image
 	var e assets.Entry
 	var err error
-	if at != nil && g.terrain.materials.eligible(*at, id) {
+	signature := ""
+	if at != nil {
+		signature = g.terrain.depthSignature(*at, id)
+	}
+	if signature != "" {
+		img, e, err = g.terrain.depthImage(*at, signature, id, d, bare)
+	} else if at != nil && g.terrain.materials.eligible(*at, id) {
 		img, e, err = g.terrain.materialImage(*at, id, d, bare)
 	} else if bare {
 		img, e, err = g.terrain.bareImage(g.terrain.group[id], id, d)

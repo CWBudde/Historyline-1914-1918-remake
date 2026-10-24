@@ -142,7 +142,7 @@ func TestShoresMeetLandAndEachOther(t *testing.T) {
 			for line, hexes := range l.Lines {
 				for col, h := range hexes {
 					c := hexgrid.Coord{Line: line, Col: col}
-					if !wet(h.Terrain) || h.Terrain == "waterStones" {
+					if !Wet(h.Terrain) || h.Terrain == "waterStones" {
 						continue
 					}
 					s := shape(c)
@@ -152,7 +152,7 @@ func TestShoresMeetLandAndEachOther(t *testing.T) {
 						}
 						a, b := edgeVertices(i)
 						t2 := at(n).Terrain
-						if !wet(t2) {
+						if !Wet(t2) {
 							if s.Land&(1<<a) == 0 || s.Land&(1<<b) == 0 {
 								hard++
 							}

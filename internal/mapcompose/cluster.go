@@ -47,7 +47,7 @@ func clusterKind(terrain string) (kind, base string, ok bool) {
 		return "knoll", "grass", true
 	case terrain == "mountain_w":
 		return "knoll_w", "grass_w", true
-	case terrain == "water", terrain == "waterStones", strings.HasPrefix(terrain, "lakeside"):
+	case Wet(terrain), strings.HasPrefix(terrain, "lakeside"):
 		return "lake", "grass", true
 	}
 	return "", "", false

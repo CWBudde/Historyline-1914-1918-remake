@@ -37,7 +37,7 @@
     "lakeside23": 26, "lakeside34": 28, "lakeside3456": 32, "lakeside56": 27,
     "mountE": 70, "mountN": 67, "mountS": 68, "mountW": 69, "mountain": 64,
     "mud": 81, "rough": 80, "shelled": 81, "stone": 78, "stoney": 79,
-    "water": 25, "waterStones": 60
+    "water": 25, "waterDeep": 47, "waterSea": 48, "waterStones": 60
   },
   "maps": {
     "1": {

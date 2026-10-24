@@ -118,7 +118,11 @@ func TestLooksHaveTiles(t *testing.T) {
 	for r, k := range Looks {
 		for _, winter := range []bool{false, true} {
 			h := k.Hex(winter)
-			for _, id := range append([]string{h.Terrain}, h.Infra.IDs...) {
+			ground := h.Terrain
+			if mapcompose.OpenWater(ground) {
+				ground = "water"
+			}
+			for _, id := range append([]string{ground}, h.Infra.IDs...) {
 				if !has(mapcompose.TileID(id)) {
 					t.Errorf("record %d (winter %v): the terrain catalog has no %s", r, winter, mapcompose.TileID(id))
 				}

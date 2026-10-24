@@ -25,6 +25,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/terraingrade"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/terrainlight"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/waterdepth"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/worldmaterial"
 )
 
@@ -133,6 +134,7 @@ func (r *Renderer) Render(lvl *level.Level, density int, units bool) (Map, error
 	grid := lvl.Grid()
 	field := mapmaterial.New(lvl)
 	scene := mapcompose.Compose(grid, mapcompose.LevelHex(lvl), func(id string) bool { return r.has[id] })
+	depth := waterdepth.New(lvl, &scene)
 	w, h := Size(grid)
 	m := Map{Image: image.NewNRGBA(image.Rect(0, 0, w*density, h*density)), Gaps: scene.Gaps, Issues: scene.Issues}
 	// Backgrounds, cluster stamps with the ground props, infrastructure, shadows and
@@ -159,6 +161,12 @@ func (r *Renderer) Render(lvl *level.Level, density int, units bool) (Map, error
 				}
 				for _, id := range ids {
 					if id == "" {
+						continue
+					}
+					if pass == 0 && depth.Signature(at) != "" {
+						if err := r.drawDeep(m.Image, id, at, density, depth); err != nil {
+							return Map{}, err
+						}
 						continue
 					}
 					terrain := lvl.Lines[line][col].Terrain

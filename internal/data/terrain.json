@@ -14,6 +14,8 @@
   "mountain": {"movement": 5, "battle": 63, "sight": 10},
   "mountain_w": {"movement": 5, "battle": 63, "sight": 10},
   "water": {"movement": 0, "battle": 0, "sight": 0},
+  "waterDeep": {"movement": 0, "battle": 0, "sight": 0},
+  "waterSea": {"movement": 0, "battle": 0, "sight": 0},
   "waterStones": {"movement": null, "battle": null, "sight": 0},
   "trenches": {"movement": null, "battle": null, "sight": 0},
   "barbedWire": {"movement": 4, "battle": 0, "sight": 1},

@@ -8,6 +8,7 @@ import (
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapmaterial"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/waterdepth"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/worldmaterial"
 )
 
@@ -68,6 +69,20 @@ func (r *Renderer) drawMaterial(dst draw.Image, id string, at hexgrid.Coord, den
 	if err != nil {
 		return err
 	}
+	draw.Draw(dst, tile.Bounds().Add(origin), tile, image.Point{}, draw.Over)
+	return nil
+}
+
+// drawDeep draws background id on hex at with its water shaded by the sea's
+// depth (waterdepth).
+func (r *Renderer) drawDeep(dst draw.Image, id string, at hexgrid.Coord, density int, field *waterdepth.Field) error {
+	e, im, err := r.assetImage(id, density)
+	if err != nil {
+		return err
+	}
+	x, y := hexgrid.Center(at)
+	origin := image.Pt(int(math.Round((x-e.Anchor[0])*float64(density))), int(math.Round((y-e.Anchor[1])*float64(density))))
+	tile := field.Shade(im, origin, density)
 	draw.Draw(dst, tile.Bounds().Add(origin), tile, image.Point{}, draw.Over)
 	return nil
 }

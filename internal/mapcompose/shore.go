@@ -78,7 +78,7 @@ func winterCoast(g hexgrid.Grid, at func(hexgrid.Coord) Hex, c hexgrid.Coord, wi
 		if !g.Contains(n) {
 			continue
 		}
-		if t := at(n).Terrain; !wet(t) {
+		if t := at(n).Terrain; !Wet(t) {
 			if strings.HasSuffix(t, "_w") {
 				votes++
 			} else {
@@ -97,7 +97,7 @@ func mostlyWinter(g hexgrid.Grid, at func(hexgrid.Coord) Hex) bool {
 	votes := 0
 	for l := range g.Lines {
 		for col := range g.Width - (l & 1) {
-			if t := at(hexgrid.Coord{Line: l, Col: col}).Terrain; !wet(t) {
+			if t := at(hexgrid.Coord{Line: l, Col: col}).Terrain; !Wet(t) {
 				if strings.HasSuffix(t, "_w") {
 					votes++
 				} else {
@@ -134,10 +134,18 @@ var vertexShares = func() (s [6][2][2]int) {
 // (port i+1).
 func edgeVertices(i int) (int, int) { return (i + 1) % 6, (i + 2) % 6 }
 
-// wet reports whether terrain is open water or a shore.
-func wet(terrain string) bool {
+// Wet reports whether terrain is water: open water of any depth (water, the
+// middle band waterDeep, the open sea waterSea), stones in water or a lakeside
+// shore.
+func Wet(terrain string) bool {
 	_, shore := shoreLandVertices[terrain]
-	return shore || terrain == "water" || terrain == "waterStones"
+	return shore || strings.HasPrefix(terrain, "water")
+}
+
+// OpenWater reports whether terrain is open water of any depth. Every depth
+// draws the water tile; the renderers shade the depth (internal/waterdepth).
+func OpenWater(terrain string) bool {
+	return terrain == "water" || terrain == "waterDeep" || terrain == "waterSea"
 }
 
 // claims reports whether a hex of terrain claims its vertex v as land.
@@ -145,7 +153,7 @@ func claims(terrain string, v int) bool {
 	if land, shore := shoreLandVertices[terrain]; shore {
 		return slices.Contains(land, v)
 	}
-	return !wet(terrain)
+	return !Wet(terrain)
 }
 
 // ShoreShape is a water hex's derived shore: Land has bit v set for each land
@@ -179,7 +187,7 @@ func shoreShape(g hexgrid.Grid, at func(hexgrid.Coord) Hex, c hexgrid.Coord) Sho
 	for i := range 6 {
 		a, b := edgeVertices(i)
 		t, ok := terrain(i)
-		if !ok || !wet(t) || s.Land&(1<<a) == 0 || s.Land&(1<<b) == 0 {
+		if !ok || !Wet(t) || s.Land&(1<<a) == 0 || s.Land&(1<<b) == 0 {
 			continue
 		}
 		// The neighbour sees the same edge from the opposite side.
@@ -228,7 +236,7 @@ func mask(vertices []int) uint8 {
 // (the winter water grade, terraingrade), else stay summer.
 func selectShore(g hexgrid.Grid, at func(hexgrid.Coord) Hex, c hexgrid.Coord, winter bool, has func(string) bool) (string, *Gap) {
 	terrain := at(c).Terrain
-	if !wet(terrain) {
+	if !Wet(terrain) {
 		return terrain, nil
 	}
 	// Open water and stones in water take their winter form where the

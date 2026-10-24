@@ -5,6 +5,7 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
+	"slices"
 	"testing"
 )
 
@@ -90,6 +91,19 @@ var summerFactoryAliases = map[string]string{
 	"factoryW": "factoryW_w",
 }
 
+// waterDepths are the depths of open water the original maps tell apart (the
+// middle band and the open sea), which play as water.
+var waterDepths = []string{"waterDeep", "waterSea"}
+
+func TestWaterDepthsPlayAsWater(t *testing.T) {
+	s := loadSet(t)
+	for _, id := range waterDepths {
+		if got, ok := s.Terrain[id]; !ok || !reflect.DeepEqual(got, s.Terrain["water"]) {
+			t.Errorf("terrain %q = %+v, %v; want water's %+v", id, got, ok, s.Terrain["water"])
+		}
+	}
+}
+
 func TestSummerFactoryAliasesMatchWinterModifiers(t *testing.T) {
 	s := loadSet(t)
 	for summer, winter := range summerFactoryAliases {
@@ -113,10 +127,11 @@ func TestTerrainUnitsWeaponsMatchPython(t *testing.T) {
 	p, s := loadPython(t), loadSet(t)
 
 	// Summer factory art adds aliases whose modifiers are checked against the
-	// winter records separately; every original terrain value remains pinned.
+	// winter records separately, as are the water depths against water; every
+	// original terrain value remains pinned.
 	originalTerrainIDs := 0
 	for id := range s.Terrain {
-		if _, alias := summerFactoryAliases[id]; !alias {
+		if _, alias := summerFactoryAliases[id]; !alias && !slices.Contains(waterDepths, id) {
 			originalTerrainIDs++
 		}
 	}

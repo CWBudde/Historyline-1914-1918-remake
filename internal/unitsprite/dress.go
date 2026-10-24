@@ -42,7 +42,7 @@ const (
 // bridges and forest roads.
 func RimFor(terrain string, infra bool) Rim {
 	switch terrain {
-	case "forest", "forest_w", "water", "waterStones":
+	case "forest", "forest_w", "water", "waterDeep", "waterSea", "waterStones":
 		if !infra {
 			return Light
 		}

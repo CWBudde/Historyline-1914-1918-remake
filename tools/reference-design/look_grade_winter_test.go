@@ -8,6 +8,7 @@ import (
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/maprender"
 	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
@@ -36,6 +37,10 @@ func TestTerrainGradeWinterTargets(t *testing.T) {
 			for c, h := range line {
 				if len(h.Infra.IDs) == 0 && h.Content == nil {
 					f := h.Terrain
+					// Open water of every depth is measured as one.
+					if mapcompose.OpenWater(f) {
+						f = "water"
+					}
 					// Snow beside winter forest carries the crowns that the woodland
 					// edge spills over the hex edge, and their shadows: measured apart.
 					if f == "grass_w" && slices.ContainsFunc(g.Neighbors(hexgrid.Coord{Line: l, Col: c}), func(n hexgrid.Coord) bool {

@@ -92,7 +92,7 @@ func Compose(g hexgrid.Grid, at func(hexgrid.Coord) Hex, has func(id string) boo
 				cell.Background = ground
 			}
 			infra := airfield(g, at, c, h, has)
-			if wet(h.Terrain) {
+			if Wet(h.Terrain) {
 				infra = quays(infra, has)
 			}
 			drawn, gap := trenches(g, at, c, infra, has)
@@ -118,7 +118,7 @@ func Compose(g hexgrid.Grid, at func(hexgrid.Coord) Hex, has func(id string) boo
 					cell.Standing = append(cell.Standing, prop)
 				}
 			}
-			if wet(h.Terrain) {
+			if Wet(h.Terrain) {
 				shore, gap := selectShore(g, at, c, winter, has)
 				if gap != nil {
 					s.Gaps = append(s.Gaps, *gap)

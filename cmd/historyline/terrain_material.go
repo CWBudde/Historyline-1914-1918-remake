@@ -43,6 +43,9 @@ func (a *terrainArt) release() {
 		m.order = nil
 		m.bytes = 0
 	}
+	if a.depth != nil {
+		a.depth.release(a)
+	}
 	for _, d := range a.dim {
 		d.Deallocate()
 	}

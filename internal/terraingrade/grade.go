@@ -8,6 +8,7 @@
 //   - open water (blue pixels) follows its own curve to the deep-water L* 31–36
 //     and keeps its b*; in a winter tile (ID suffix _w) it follows a darker
 //     curve to L* 24–32 and turns to a cold slate teal of chroma about 8;
+//     the renderers darken it further by the sea's depth (Deepen);
 //   - snow and highlights above L* 85 stay as painted, so winter art is kept.
 //
 // A few families grade on their own where they differ from the meadow baked

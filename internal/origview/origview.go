@@ -11,8 +11,11 @@
 // Building entrances carry the owner as content; Level leaves units out (no
 // Unit, no content units), the session draws them, and Campaign adds them.
 //
+// Open water keeps the original's depths: shallow water and ponds are water,
+// the middle band waterDeep and the open sea waterSea.
+//
 // Several looks stand in for original terrain the remake has no art for:
-// ponds, open water and sea show water, harbour buildings and their yard show
+// ponds show open water, harbour buildings and their yard show
 // houses and a road, town streets a road, quays and piers a road bridge on
 // water, shell-hole fields mud, forest and mountain variants plain forest and
 // mountain, junctions and level crossings without a tile of their own two overlays.
