@@ -446,7 +446,7 @@ func (g *game) drawBattle(dst *ebiten.Image, side int, r image.Rectangle) {
 	for i, x := range [2]*dospanel.Fighter{&b.Attacker, &b.Defender} {
 		u := units[i]
 		x.Photo = g.portrait(u.ID)
-		x.Sprite = g.unitFacing(u.ID, u.Owner, [2]unitsprite.Facing{unitsprite.S, unitsprite.N}[i])
+		x.Sprite = g.panelUnit(u, [2]unitsprite.Facing{unitsprite.S, unitsprite.N}[i])
 		x.Flag = flagImage(u.Owner)
 		x.Badge = g.badgeImage
 	}

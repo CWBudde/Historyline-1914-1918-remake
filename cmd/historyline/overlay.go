@@ -134,7 +134,7 @@ func (g *game) unitInfo(u dosplay.UnitView) dospanel.UnitInfo {
 	return dospanel.UnitInfo{
 		Name: tv.Name, Air: dospanel.Weapon(tv.Air), Ground: dospanel.Weapon(tv.Ground), Water: dospanel.Weapon(tv.Water),
 		Armour: tv.Armour, Speed: tv.Speed, Weight: tv.Weight, Group: tv.Group,
-		Portrait: g.portrait(u.ID), Sprite: g.unitImage(u.ID, u.Owner),
+		Portrait: g.portrait(u.ID), Sprite: g.panelUnit(u, unitsprite.N),
 	}
 }
 
@@ -148,10 +148,13 @@ func (g *game) portrait(id string) *ebiten.Image {
 	return g.screens.image("portrait/"+family, 2)
 }
 
-// unitImage is the map sprite of unit type id owned by owner, facing north
-// at 2x, nil without the unit art.
-func (g *game) unitImage(id string, owner state.Player) *ebiten.Image {
-	return g.unitFacing(id, owner, unitsprite.N)
+// panelUnit is the sprite a panel shows of u facing f: the original's while
+// F8 draws the original art, else the remake's map sprite at 2x.
+func (g *game) panelUnit(u dosplay.UnitView, f unitsprite.Facing) *ebiten.Image {
+	if img := g.origPanelUnit(u, f); img != nil {
+		return img
+	}
+	return g.unitFacing(u.ID, u.Owner, f)
 }
 
 // unitFacing is that sprite facing f.

@@ -18,6 +18,7 @@ type origArt struct {
 	// units are the unit frames by side (0, 1, 2 neutral) and moved (0, 1):
 	// six facings per unit type, clockwise from north.
 	units [3][2][]*ebiten.Image
+	panel map[[2]int]*ebiten.Image // unmoved frames enlarged for the panels, by side and frame
 	on    bool
 	err   string // why they could not be loaded
 }
@@ -96,16 +97,51 @@ func (g *game) drawOrigTiles(dst *ebiten.Image, inView []hexgrid.Coord) bool {
 // centred on (sx, sy), grey when moved. It reports false when the original
 // art is off or has no sprite for u.
 func (g *game) drawOrigUnit(dst *ebiten.Image, u dosplay.UnitView, sx, sy float64, face unitsprite.Facing, moved bool) bool {
-	if !g.origOn() || u.Side < 0 || u.Side > 2 {
-		return false
-	}
-	frames := g.orig.units[u.Side][map[bool]int{false: 0, true: 1}[moved]]
-	// The remake's facings run anticlockwise from north, the frames clockwise.
-	k := 6*u.Type + (int(unitsprite.Facings)-int(face))%int(unitsprite.Facings)
-	if u.Type < 0 || face < 0 || k >= len(frames) {
+	k, ok := g.origFrame(u, face)
+	if !ok {
 		return false
 	}
 	op := ebiten.DrawImageOptions{GeoM: g.origGeoM(sx, sy)}
-	dst.DrawImage(frames[k], &op)
+	dst.DrawImage(g.orig.units[u.Side][map[bool]int{false: 0, true: 1}[moved]][k], &op)
 	return true
+}
+
+// origFrame is the index of u's original frame facing face, false when the
+// original art is off or has no sprite for u.
+func (g *game) origFrame(u dosplay.UnitView, face unitsprite.Facing) (int, bool) {
+	if !g.origOn() || u.Side < 0 || u.Side > 2 {
+		return 0, false
+	}
+	// The remake's facings run anticlockwise from north, the frames clockwise.
+	k := 6*u.Type + (int(unitsprite.Facings)-int(face))%int(unitsprite.Facings)
+	return k, u.Type >= 0 && face >= 0 && k < len(g.orig.units[u.Side][0])
+}
+
+// origPanelScale enlarges a panel's original sprite pixel for pixel, so that
+// the panel's smooth scaling keeps its pixels sharp.
+const origPanelScale = 4
+
+// origPanelUnit is the original sprite of u facing face for the panels (the
+// contents' slots, the unit info, the battle), unmoved and enlarged; nil when
+// the original art is off or has no sprite for u.
+func (g *game) origPanelUnit(u dosplay.UnitView, face unitsprite.Facing) *ebiten.Image {
+	k, ok := g.origFrame(u, face)
+	if !ok {
+		return nil
+	}
+	key := [2]int{u.Side, k}
+	if img, ok := g.orig.panel[key]; ok {
+		return img
+	}
+	src := g.orig.units[u.Side][0][k]
+	b := src.Bounds()
+	img := ebiten.NewImage(b.Dx()*origPanelScale, b.Dy()*origPanelScale)
+	var op ebiten.DrawImageOptions
+	op.GeoM.Scale(origPanelScale, origPanelScale)
+	img.DrawImage(src, &op)
+	if g.orig.panel == nil {
+		g.orig.panel = map[[2]int]*ebiten.Image{}
+	}
+	g.orig.panel[key] = img
+	return img
 }

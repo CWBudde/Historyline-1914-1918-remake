@@ -16,6 +16,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/gesture"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/pixfont"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
 )
 
 // The contents of -rules dos: the open gesture (or a click) on an own building
@@ -489,7 +490,7 @@ func (g *game) contentsView() dospanel.Contents {
 	for i, sl := range d.boxSlots() {
 		if u := sl.Unit; u != nil && i < dospanel.SlotCount {
 			c.Slots[i] = dospanel.Slot{Occupied: true, Name: strings.ToUpper(u.Name), Size: u.Size, Full: u.Full,
-				Sprite: g.unitImage(u.ID, u.Owner), Portrait: g.portrait(u.ID)}
+				Sprite: g.panelUnit(*u, unitsprite.N), Portrait: g.portrait(u.ID)}
 		}
 	}
 	l := g.contentsLayout()

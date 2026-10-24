@@ -8,9 +8,13 @@ import (
 	"image/png"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 
+	"github.com/hajimehoshi/ebiten/v2"
+
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/origview"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
 )
 
 // TestOrigTiles decodes the local original tiles: every terrain record has a
@@ -112,4 +116,42 @@ func visible(im *image.NRGBA) image.Rectangle {
 		}
 	}
 	return r
+}
+
+// TestOrigPanelUnits: with the original art on, the contents' slots, the unit
+// info and the battle show the original sprites, enlarged; off, the remake's.
+func TestOrigPanelUnits(t *testing.T) {
+	if _, err := findDosFull("."); err != nil {
+		t.Skip(err)
+	}
+	g, d, f := newContentsTest(t)
+	openFactory(t, g, d, f)
+	if msg := g.toggleOrigArt(); !strings.HasSuffix(msg, "on") {
+		t.Fatalf("F8 says %q", msg)
+	}
+	orig := map[int]*ebiten.Image{}
+	for i, s := range g.contentsView().Slots {
+		if !s.Occupied {
+			continue
+		}
+		u := *d.boxSlots()[i].Unit
+		want := g.origPanelUnit(u, unitsprite.N)
+		if want == nil || want.Bounds().Dx() != origPanelScale*origHex || s.Sprite != want {
+			t.Errorf("slot %d (%s): sprite %p, want the original %p", i, u.Name, s.Sprite, want)
+		}
+		if info := g.unitInfo(u); info.Sprite != want {
+			t.Errorf("unit info of %s: sprite %p, want the original %p", u.Name, info.Sprite, want)
+		}
+		orig[i] = want
+	}
+	if len(orig) == 0 {
+		t.Fatal("no unit in the factory")
+	}
+	g.drawContents(ebiten.NewImage(1920, 1080), image.Rect(0, 0, 640, 1080))
+	g.toggleOrigArt()
+	for i, s := range g.contentsView().Slots {
+		if s.Occupied && s.Sprite == orig[i] {
+			t.Errorf("slot %d keeps the original sprite with the art off", i)
+		}
+	}
 }
