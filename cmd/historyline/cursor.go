@@ -210,7 +210,7 @@ func keepInView(g hexgrid.Grid, cols, rows, pair, row int, c hexgrid.Coord) (int
 func (g *game) showCursor() {
 	s, side := g.split, g.dos.side
 	c := &s.cams[side]
-	pair, row := keepInView(g.grid, s.screen.Cols, s.screen.Rows, c.pair, c.row, g.hover)
+	pair, row := keepInView(g.playGrid(), s.screen.Cols, s.screen.Rows, c.pair, c.row, g.hover)
 	c.moveTo(pair, row, g.dos.reduced)
 	g.syncSplitCam()
 }
@@ -359,7 +359,7 @@ func (g *game) onGesture(ev gesture.Event) {
 			g.setCursor(c)
 		}
 	case gesture.Step:
-		if c := gesture.Neighbor(g.hover, ev.Dir); g.grid.Contains(c) {
+		if c := gesture.Neighbor(g.hover, ev.Dir); g.playGrid().Contains(c) {
 			g.setCursor(c)
 			g.showCursor()
 		}
@@ -527,7 +527,7 @@ func (g *game) drawCursor(dst *ebiten.Image) {
 		gesture.DrawRingMenu(dst, r, t.RingHover())
 		return
 	}
-	if !g.hoverOnMap || !viewShows(g.splitView(d.side), g.grid, g.hover) {
+	if !g.hoverOnMap || !viewShows(g.splitView(d.side), g.playGrid(), g.hover) {
 		return
 	}
 	cam := g.splitCamera(d.side)
@@ -632,8 +632,8 @@ func (g *game) strategicLayout(side int) minimap.Strategic {
 	pic := &g.split.strat[side]
 	r, ui := g.strategicRect(side), max(g.view.UI, 1)
 	size := image.Pt(r.W/ui, r.H/ui)
-	if pic.lay.Size != size || pic.lay.Raster.Grid != g.grid {
-		pic.lay = minimap.NewStrategic(g.grid, size)
+	if pic.lay.Size != size || pic.lay.Raster.Grid != g.playGrid() {
+		pic.lay = minimap.NewStrategic(g.playGrid(), size)
 	}
 	return pic.lay
 }
@@ -645,7 +645,7 @@ func (g *game) strategicPick(side int, x, y float64) (hexgrid.Coord, bool) {
 	if !ok {
 		return hexgrid.Coord{}, false
 	}
-	return g.grid.PixelToHex(wx, wy)
+	return g.playGrid().PixelToHex(wx, wy)
 }
 
 // viewCamera is a camera whose visible world is side's opening block, for the
@@ -664,7 +664,7 @@ func (g *game) strategicScene(side int) minimap.Scene {
 	d := g.dos
 	cam := g.viewCamera(side)
 	sc := minimap.Scene{View: &cam, Terrain: func(c hexgrid.Coord) color.RGBA {
-		if !g.grid.Contains(c) {
+		if !g.playGrid().Contains(c) {
 			return color.RGBA{}
 		}
 		return g.hexColour(c)
@@ -727,7 +727,7 @@ func (g *game) orderableInView() (hexgrid.Coord, bool) {
 	d := g.dos
 	v := g.splitView(d.side)
 	for _, c := range dosplay.Coords(toSet(d.own().Units)) {
-		if a, ok := d.placement(c).At(gesture.Up); ok && a != gesture.Cancel && viewShows(v, g.grid, c) {
+		if a, ok := d.placement(c).At(gesture.Up); ok && a != gesture.Cancel && viewShows(v, g.playGrid(), c) {
 			return c, true
 		}
 	}

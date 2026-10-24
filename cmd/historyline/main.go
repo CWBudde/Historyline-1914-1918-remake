@@ -493,16 +493,18 @@ func (g *game) Draw(screen *ebiten.Image) {
 
 // drawMapLayer draws the map in the world rectangle (vx, vy, vw, vh) through
 // g.cam on dst, in device pixels. The selection, orders, walker and hover
-// outline belong to the human side's map only (human).
+// outline belong to the human side's map only (human). The edge of an original
+// map is not drawn (playGrid), so its standing items cannot reach into view.
 func (g *game) drawMapLayer(dst *ebiten.Image, vx, vy, vw, vh float64, human bool) {
 	// A hex just outside the view counts while its standing items may reach in.
 	const mx, my = hexgrid.HexWidth/2 + mapcompose.OverhangX, hexgrid.HexHeight/2 + mapcompose.OverhangY
+	play := g.playGrid()
 	var inView []hexgrid.Coord
 	for l, line := range g.lvl.Lines {
 		for c := range line {
 			coord := hexgrid.Coord{Line: l, Col: c}
 			cx, cy := hexgrid.Center(coord)
-			if cx+mx < vx || cx-mx > vx+vw || cy+my < vy || cy-my > vy+vh {
+			if !play.Contains(coord) || cx+mx < vx || cx-mx > vx+vw || cy+my < vy || cy-my > vy+vh {
 				continue
 			}
 			inView = append(inView, coord)

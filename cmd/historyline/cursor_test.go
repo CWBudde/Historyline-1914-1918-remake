@@ -81,7 +81,7 @@ func ownHQ(t *testing.T, d *dosControl) hexgrid.Coord {
 func destinationInView(t *testing.T, g *game, d *dosControl) hexgrid.Coord {
 	t.Helper()
 	for _, c := range dosplay.Coords(d.moves) {
-		if viewShows(g.splitView(d.side), g.grid, c) {
+		if viewShows(g.splitView(d.side), g.playGrid(), c) {
 			return c
 		}
 	}
@@ -93,7 +93,7 @@ func TestDosPlacement(t *testing.T) {
 	g, d, at := newCursorTest(t)
 	empty := hexgrid.Coord{Line: -1}
 	for _, c := range g.splitView(d.side).Cells() {
-		if _, unit := d.own().Units[c]; !unit && g.grid.Contains(c) && !d.ownContainer(c) {
+		if _, unit := d.own().Units[c]; !unit && g.playGrid().Contains(c) && !d.ownContainer(c) {
 			empty = c
 			break
 		}
@@ -301,7 +301,7 @@ func TestStrategicMap(t *testing.T) {
 		t.Fatal("the strategic map did not open")
 	}
 	// A press on a far cell of the strategic map looks there and closes it.
-	far := hexgrid.Coord{Line: g.grid.Lines - 2, Col: g.grid.Width - 2}
+	far := hexgrid.Coord{Line: g.playGrid().Lines - 2, Col: g.playGrid().Width - 2}
 	lay := g.strategicLayout(d.side)
 	b := lay.Raster.Block(far).Add(lay.Map.Min)
 	p, r, ui := g.split.screen.Panels[d.side], g.strategicRect(d.side), float64(g.view.UI)
@@ -310,7 +310,7 @@ func TestStrategicMap(t *testing.T) {
 		t.Fatalf("strategic pick %v %v, want %v", c, ok, far)
 	}
 	feed(g, []gesture.Input{mouseAt(x, y, false), mouseAt(x, y, true), mouseAt(x, y, false)})
-	pair, row := centreView(g.grid, g.split.screen.Cols, g.split.screen.Rows, far)
+	pair, row := centreView(g.playGrid(), g.split.screen.Cols, g.split.screen.Rows, far)
 	if c := g.split.cams[d.side]; g.split.mode[d.side] != panelMap || c.pair != pair || c.row != row || g.hover != far {
 		t.Errorf("after the pick: mode %v camera %d,%d (want %d,%d) cursor %v", g.split.mode[d.side], c.pair, c.row, pair, row, g.hover)
 	}
@@ -558,7 +558,7 @@ func TestEdgeScroll(t *testing.T) {
 	if got := s.cams[d.side].pair; got != start.pair {
 		t.Fatalf("stepped after %d frames", edgeFirst)
 	}
-	_, hi := pairRange(g.grid, s.screen.Cols)
+	_, hi := pairRange(g.playGrid(), s.screen.Cols)
 	run(right, midY, 2, true)
 	if got := s.cams[d.side].pair; got != start.pair+1 {
 		t.Fatalf("pair %d after the first step, want %d", got, start.pair+1)

@@ -77,7 +77,9 @@ The package docs hold the details; this is the map of where each part lives.
 - **Frame** (`dosscreen.Frame`): drawn at runtime, not one painting: steel masked by the union of the
   panel's visible cells, bevel and lip from the mask edge, rivets at the tooth vertices, the divider post,
   bolt and status wells as fixed pieces. Cached per window size, zoom and on-map cell pattern; cells beyond
-  the map edge stay steel, so the frame closes in at the edge.
+  the playable area stay steel, so the frame closes in at its end. The playable area is the map without its
+  border row and column (`dosbind.Board.Playable`): cameras, cursor, frame, map drawing and the strategic
+  map never show the border.
 - **Cameras** (`cmd/historyline/split.go`): one per panel, snapping to whole column pairs so the teeth keep
   their phase; each follows its side's cursor and that side's revealed moves. The pointer on the human
   panel's outer half cells steps the camera (edge scroll, `cursor.go`).

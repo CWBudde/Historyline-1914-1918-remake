@@ -8,8 +8,10 @@ import (
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/camera"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosscreen"
+	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/minimap"
 )
@@ -206,7 +208,7 @@ func TestSplitLayoutAndPicking(t *testing.T) {
 				hq = c
 			}
 		}
-		if !viewShows(g.splitView(side), g.grid, hq) {
+		if !viewShows(g.splitView(side), g.playGrid(), hq) {
 			t.Errorf("panel %d does not show its HQ %v", side, hq)
 		}
 	}
@@ -218,7 +220,7 @@ func TestSplitLayoutAndPicking(t *testing.T) {
 		t.Errorf("block corner at %v,%v, view offset %d,%d", sx, sy, bx, by)
 	}
 	for _, c := range v.Cells() {
-		if !g.grid.Contains(c) {
+		if !g.playGrid().Contains(c) {
 			continue
 		}
 		sx, sy := v.WorldToScreen(hexgrid.Center(c))
@@ -243,7 +245,7 @@ func TestSplitLayoutAndPicking(t *testing.T) {
 	g.applyLayout(1024, 768, 1)
 	for side := range 2 {
 		c := g.split.cams[side]
-		if p, r := clampView(g.grid, g.split.screen.Cols, g.split.screen.Rows, c.pair, c.row); p != c.pair || r != c.row || c.left != 0 {
+		if p, r := clampView(g.playGrid(), g.split.screen.Cols, g.split.screen.Rows, c.pair, c.row); p != c.pair || r != c.row || c.left != 0 {
 			t.Errorf("panel %d after a resize: %+v", side, c)
 		}
 	}
@@ -262,7 +264,7 @@ func TestSplitStepView(t *testing.T) {
 		t.Errorf("step off the map: %+v", *c)
 	}
 	g.applyAction(actViewBottom)
-	if _, hi := rowRange(g.grid, g.split.screen.Rows); c.row != hi {
+	if _, hi := rowRange(g.playGrid(), g.split.screen.Rows); c.row != hi {
 		t.Errorf("PageDown: row %d, want %d", c.row, hi)
 	}
 }
@@ -296,7 +298,7 @@ func TestSplitFollowsTheComputer(t *testing.T) {
 	want := *moved
 	g.split.cams[1].moveTo(0, 0, true)
 	g.followSplit()
-	if !viewShows(g.splitView(1), g.grid, want) || d.follow[1] != nil {
+	if !viewShows(g.splitView(1), g.playGrid(), want) || d.follow[1] != nil {
 		t.Errorf("the computer's panel does not show %v", want)
 	}
 	if want != g.startHex(1) && g.split.cams[1].left == 0 && (g.split.cams[1].pair != 0 || g.split.cams[1].row != 0) {
@@ -345,11 +347,11 @@ func TestSplitOtherPanelUnits(t *testing.T) {
 
 func TestSplitFollowsTheWalker(t *testing.T) {
 	g, d := newSplitTest(t, passPlanner{}, 1800, 1000)
-	far := hexgrid.Coord{Line: g.grid.Lines - 1, Col: 0}
+	far := hexgrid.Coord{Line: g.playGrid().Lines - 1, Col: 0}
 	g.split.cams[d.side].moveTo(0, 0, true)
 	d.walk = newWalkMotion([]hexgrid.Coord{far, {Line: far.Line - 2, Col: 0}}, 0, false)
 	g.followSplit()
-	if !viewShows(g.splitView(d.side), g.grid, d.walk.Hex()) {
+	if !viewShows(g.splitView(d.side), g.playGrid(), d.walk.Hex()) {
 		t.Error("the human panel does not follow the walker")
 	}
 	// A selection in view does not move the camera; scrolling away from it
@@ -465,11 +467,11 @@ func TestSplitZoom(t *testing.T) {
 		g.wheelSplit(-1, mx, my)
 		for side := range 2 {
 			c := s.cams[side]
-			if pp, rr := clampView(g.grid, s.screen.Cols, s.screen.Rows, c.pair, c.row); pp != c.pair || rr != c.row {
+			if pp, rr := clampView(g.playGrid(), s.screen.Cols, s.screen.Rows, c.pair, c.row); pp != c.pair || rr != c.row {
 				t.Fatalf("zoom %d: camera %d off the map at %d,%d", s.screen.Zoom, side, c.pair, c.row)
 			}
 		}
-		if !viewShows(g.splitView(d.side), g.grid, at) {
+		if !viewShows(g.splitView(d.side), g.playGrid(), at) {
 			t.Fatalf("zoom %d hides the cursor cell %v", s.screen.Zoom, at)
 		}
 		sx, sy := g.splitView(d.side).WorldToScreen(hexgrid.Center(at))
@@ -488,4 +490,75 @@ func TestSplitZoom(t *testing.T) {
 	if s.screen.Zoom != want {
 		t.Errorf("resize moved the zoom from %d to %d", want, s.screen.Zoom)
 	}
+}
+
+// TestSplitStopsAtTheEdge scrolls the human panel of PARTS (original map 09)
+// into every corner: no view holds a cell of the map's edge, the steel closes
+// right below the last row and right of the last column, and the first row and
+// column stay reachable.
+func TestSplitStopsAtTheEdge(t *testing.T) {
+	set, err := data.Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+	lvl, b, err := loadMap(t.TempDir(), "original/09", set)
+	if err != nil {
+		t.Fatal(err)
+	}
+	player, err := state.PlayerByName(lvl.Player)
+	if err != nil {
+		t.Fatal(err)
+	}
+	g, err := newMatch(matchConfig{lvl: lvl, board: b, set: set, player: player, rules: "dos", opponent: "pass"}, nil)
+	if err != nil || g.dos == nil {
+		t.Fatalf("dos match: %v", err)
+	}
+	play, side := g.playGrid(), g.dos.side
+	if play != b.Playable() || play == g.grid {
+		t.Fatalf("play grid %+v, level %+v", play, g.grid)
+	}
+	if lay := g.strategicLayout(side); lay.Raster.Grid != play {
+		t.Errorf("strategic map on %+v", lay.Raster.Grid)
+	}
+	for _, step := range [][2]int{{-99, -99}, {99, -99}, {-99, 99}, {99, 99}} {
+		g.stepView(side, step[0], step[1])
+		v := g.splitView(side)
+		m := dosscreen.Mask(v, play)
+		for _, c := range v.Cells() {
+			cell, ok := b.Cell(c)
+			if ok && b.Edge(cell) {
+				t.Errorf("step %v: view %d,%d holds edge cell %v", step, v.Pair, v.Row, c)
+			}
+			if ctr := centrePixel(v, c); play.Contains(c) && m.AlphaAt(ctr.X, ctr.Y).A != 255 {
+				t.Errorf("step %v: cell %v is steel", step, c)
+			}
+		}
+		for l := range g.grid.Lines {
+			for col := range g.grid.Width {
+				c := hexgrid.Coord{Line: l, Col: col}
+				ctr := centrePixel(v, c)
+				if !play.Contains(c) && g.grid.Contains(c) && ctr.In(m.Rect) && m.AlphaAt(ctr.X, ctr.Y).A != 0 {
+					t.Errorf("step %v: edge hex %v is open", step, c)
+				}
+			}
+		}
+		if step[0] < 0 && v.Cell(0, 0).Col != 0 {
+			t.Errorf("step %v: first column %v not in view", step, v.Cell(0, 0))
+		}
+		if step[1] < 0 && v.Cell(0, 0).Line != 0 {
+			t.Errorf("step %v: first row %v not in view", step, v.Cell(0, 0))
+		}
+		if last := v.Cell(0, v.Rows-1); step[1] > 0 && last.Line>>1 != b.Height-2 {
+			t.Errorf("step %v: bottom row %d, want the last playable %d", step, last.Line>>1, b.Height-2)
+		}
+		if c := v.Cell((v.Cols-1)&^1, 0); step[0] > 0 && c.Col != play.Width-1 {
+			t.Errorf("step %v: last even column %d, want %d", step, c.Col, play.Width-1)
+		}
+	}
+}
+
+// centrePixel is the device pixel at the centre of c in v.
+func centrePixel(v dosscreen.View, c hexgrid.Coord) image.Point {
+	x, y := v.WorldToScreen(hexgrid.Center(c))
+	return image.Pt(int(math.Floor(x)), int(math.Floor(y)))
 }

@@ -119,7 +119,7 @@ func (g *game) stageCapture(view string) {
 	s.mode, s.dir = [2]panelMode{}, gesture.Centre
 	g.zoomSplit(dosscreen.DefaultZoom - s.screen.Zoom)
 	for side := range 2 {
-		pair, row := centreView(g.grid, s.screen.Cols, s.screen.Rows, g.startHex(side))
+		pair, row := centreView(g.playGrid(), s.screen.Cols, s.screen.Rows, g.startHex(side))
 		s.cams[side].moveTo(pair, row, true)
 	}
 	g.syncSplitCam()
@@ -143,7 +143,7 @@ func (g *game) stageCapture(view string) {
 		d.selectAt(at)
 		v, best := g.splitView(d.side), -1
 		for _, c := range dosplay.Coords(d.moves) {
-			if dist := hexgrid.Distance(c, at); viewShows(v, g.grid, c) && dist > best {
+			if dist := hexgrid.Distance(c, at); viewShows(v, g.playGrid(), c) && dist > best {
 				best = dist
 				g.setCursor(c)
 			}

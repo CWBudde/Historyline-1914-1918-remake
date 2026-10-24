@@ -159,6 +159,17 @@ type split struct {
 	msgAge   int
 }
 
+// playGrid is the part of the level the original rules play on: the bound
+// board without its edge row and column (dosbind.Board.Playable), else the
+// whole level. The split screen's cameras, frame, cursor and strategic map stay
+// on it, so the edge is never shown.
+func (g *game) playGrid() hexgrid.Grid {
+	if g.dos != nil && g.dos.s != nil && g.dos.s.Board != nil {
+		return g.dos.s.Board.Playable()
+	}
+	return g.grid
+}
+
 // layoutSplit lays the split screen out for the current window and keeps each
 // camera on the map; a camera not placed yet starts on its side's HQ.
 func (g *game) layoutSplit() {
@@ -175,9 +186,9 @@ func (g *game) layoutSplit() {
 		c := &s.cams[side]
 		pair, row := c.pair, c.row
 		if !c.set {
-			pair, row = centreView(g.grid, s.screen.Cols, s.screen.Rows, g.startHex(side))
+			pair, row = centreView(g.playGrid(), s.screen.Cols, s.screen.Rows, g.startHex(side))
 		}
-		pair, row = clampView(g.grid, s.screen.Cols, s.screen.Rows, pair, row)
+		pair, row = clampView(g.playGrid(), s.screen.Cols, s.screen.Rows, pair, row)
 		c.moveTo(pair, row, true)
 	}
 	if !g.hoverOnMap {
@@ -202,7 +213,7 @@ func (g *game) startHex(side int) hexgrid.Coord {
 			return c
 		}
 	}
-	return hexgrid.Coord{Line: g.grid.Lines / 2, Col: g.grid.Width / 2}
+	return hexgrid.Coord{Line: g.playGrid().Lines / 2, Col: g.playGrid().Width / 2}
 }
 
 // toSet is the set of a map's hexes.
@@ -234,7 +245,7 @@ func (g *game) syncSplitCam() { *g.cam = g.splitCamera(g.dos.side) }
 // lookAt rests side's camera with c near the middle.
 func (g *game) lookAt(side int, c hexgrid.Coord) {
 	s := g.split
-	pair, row := centreView(g.grid, s.screen.Cols, s.screen.Rows, c)
+	pair, row := centreView(g.playGrid(), s.screen.Cols, s.screen.Rows, c)
 	s.cams[side].moveTo(pair, row, g.dos.reduced)
 }
 
@@ -242,7 +253,7 @@ func (g *game) lookAt(side int, c hexgrid.Coord) {
 func (g *game) stepView(side, dp, dr int) {
 	s := g.split
 	c := s.cams[side]
-	pair, row := clampView(g.grid, s.screen.Cols, s.screen.Rows, c.pair+dp, c.row+dr)
+	pair, row := clampView(g.playGrid(), s.screen.Cols, s.screen.Rows, c.pair+dp, c.row+dr)
 	s.cams[side].moveTo(pair, row, g.dos.reduced)
 }
 
@@ -276,10 +287,10 @@ func (g *game) followSplit() {
 	}
 	v := g.splitView(d.side)
 	if w := d.walk; !w.Done() {
-		if at := w.Hex(); !viewShows(v, g.grid, at) {
+		if at := w.Hex(); !viewShows(v, g.playGrid(), at) {
 			g.lookAt(d.side, at)
 		}
-	} else if d.selected && (!s.selOn || s.sel != d.from) && !viewShows(v, g.grid, d.from) {
+	} else if d.selected && (!s.selOn || s.sel != d.from) && !viewShows(v, g.playGrid(), d.from) {
 		g.lookAt(d.side, d.from)
 	}
 	s.sel, s.selOn = d.from, d.selected
@@ -293,8 +304,8 @@ func (g *game) pickSplit(mx, my int) (hexgrid.Coord, bool) {
 	if mx < p.X || my < p.Y || mx >= p.Right() || my >= p.Bottom() {
 		return hexgrid.Coord{}, false
 	}
-	c, ok := g.grid.PixelToHex(g.cam.ScreenToWorld(float64(mx), float64(my)))
-	return c, ok && viewShows(v, g.grid, c)
+	c, ok := g.playGrid().PixelToHex(g.cam.ScreenToWorld(float64(mx), float64(my)))
+	return c, ok && viewShows(v, g.playGrid(), c)
 }
 
 // drawSplit draws both panels' maps (or strategic maps), each through its own
@@ -319,7 +330,7 @@ func (g *game) drawSplit(screen *ebiten.Image) {
 			views[side] = g.plateView(side)
 		}
 	}
-	s.frame.Draw(screen, s.screen, views, g.grid)
+	s.frame.Draw(screen, s.screen, views, g.playGrid())
 	if g.dos.prompt || g.dos.stage == stageBlack {
 		g.cursorPlates(screen)
 		return
@@ -334,7 +345,7 @@ func (g *game) drawSplit(screen *ebiten.Image) {
 // in where the map ends (unless the map is smaller than the view).
 func (g *game) plateView(side int) dosscreen.View {
 	s := g.split
-	pair, row := clampView(g.grid, s.screen.Cols, s.screen.Rows, 0, 0)
+	pair, row := clampView(g.playGrid(), s.screen.Cols, s.screen.Rows, 0, 0)
 	return s.screen.View(side, pair, row)
 }
 
@@ -385,7 +396,7 @@ func (g *game) drawSplitHexNumbers(dst *ebiten.Image) {
 		v := g.splitView(side)
 		cam := g.splitCamera(side)
 		for _, c := range v.Cells() {
-			if !g.grid.Contains(c) {
+			if !g.playGrid().Contains(c) {
 				continue
 			}
 			sx, sy := cam.WorldToScreen(hexgrid.Center(c))
@@ -451,7 +462,7 @@ func (g *game) zoomSplit(step int) {
 	s.screen = base.Zoomed(z)
 	s.track.Threshold = gestureThreshold(s.screen.CellScale)
 	for side := range 2 {
-		pair, row := centreView(g.grid, s.screen.Cols, s.screen.Rows, keep[side])
+		pair, row := centreView(g.playGrid(), s.screen.Cols, s.screen.Rows, keep[side])
 		s.cams[side].moveTo(pair, row, true)
 		s.strat[side] = strategicPic{}
 	}

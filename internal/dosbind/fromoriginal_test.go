@@ -11,7 +11,47 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/finmap"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 )
+
+// TestPlayableCutsTheEdge checks Board.Playable on imported maps and the
+// shipped levels: it holds a hex exactly when the hex is a cell off the edge,
+// and the last row off the edge keeps both its lines.
+func TestPlayableCutsTheEdge(t *testing.T) {
+	set := loadSet(t)
+	var boards []*Board
+	var names []string
+	for _, n := range []int{0, 9, 23, 47, 71} {
+		_, b := fromOriginal(t, n, set)
+		boards, names = append(boards, b), append(names, fmt.Sprintf("map %02d", n))
+	}
+	for _, lv := range shipped(t) {
+		boards, names = append(boards, bind(t, lv)), append(names, lv.MapName)
+	}
+	for k, b := range boards {
+		p := b.Playable()
+		for cell := range b.Width * b.Height {
+			c, ok := b.Coord(cell)
+			if want := ok && !b.Edge(cell); p.Contains(c) != want {
+				t.Errorf("%s: cell %d (%v): playable %v, want %v", names[k], cell, c, p.Contains(c), want)
+			}
+		}
+		for l := range p.Lines {
+			for col := range p.Width {
+				c := hexgrid.Coord{Line: l, Col: col}
+				if _, ok := b.Cell(c); p.Contains(c) && !ok {
+					t.Errorf("%s: playable %v is off the level", names[k], c)
+				}
+			}
+		}
+		last := b.Height - 2
+		for _, c := range []hexgrid.Coord{{Line: 2 * last, Col: 0}, {Line: 2*last + 1, Col: 0}} {
+			if !p.Contains(c) {
+				t.Errorf("%s: line %d of the last row is not playable", names[k], c.Line)
+			}
+		}
+	}
+}
 
 // importedMap reads the imported original map n (levels/original/full).
 func importedMap(t *testing.T, n int) *finmap.Level {

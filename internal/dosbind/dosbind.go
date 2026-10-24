@@ -117,6 +117,13 @@ func (b *Board) Edge(cell int) bool {
 	return cell/b.Width == b.Height-1 || cell%b.Width == b.Width-1
 }
 
+// Playable is the level grid without the edge: the last cell row (both its
+// lines) and the last cell column (already off the level's odd lines) are
+// cut, so Contains is false exactly on edge cells and off the level.
+func (b *Board) Playable() hexgrid.Grid {
+	return hexgrid.Grid{Width: b.Width / 2, Lines: 2 * (b.Height - 1)}
+}
+
 // Game is a dosrules.Game on the board with the profile's season tables and
 // the board's buildings.
 func (b *Board) Game(p dosrules.Profile) (*dosrules.Game, error) {
