@@ -2,6 +2,7 @@ package main
 
 import (
 	"io/fs"
+	"math"
 	"os"
 	"testing"
 
@@ -14,8 +15,9 @@ import (
 
 // The sea darkens by the original's steps (waterdepth): the open sea, away
 // from any other depth, at 0.82 of the L* it has drawn as shallow water, the
-// middle band between that and the shallows. Measured on a winter and a
-// summer campaign map against the same map with every depth drawn as water.
+// middle band between that and the shallows (away from the coast, whose surf
+// lightens it). Measured on a winter and a summer campaign map against the same
+// map with every depth drawn as water.
 func TestSeaDepthSteps(t *testing.T) {
 	r, err := maprender.New(os.DirFS("../../assets"))
 	if err != nil {
@@ -43,7 +45,7 @@ func TestSeaDepthSteps(t *testing.T) {
 				}
 				at := hexgrid.Coord{Line: l, Col: c}
 				switch {
-				case h.Terrain == "waterDeep":
+				case h.Terrain == "waterDeep" && within(g, at, 1, func(n hexgrid.Coord) bool { return mapcompose.OpenWater(lvl.Lines[n.Line][n.Col].Terrain) }):
 					families["waterDeep"] = append(families["waterDeep"], cell{Row: l + 1, Col: c + 1})
 				case h.Terrain == "waterSea" && within(g, at, 2, func(n hexgrid.Coord) bool { return lvl.Lines[n.Line][n.Col].Terrain == "waterSea" }):
 					families["waterSea"] = append(families["waterSea"], cell{Row: l + 1, Col: c + 1})
@@ -92,4 +94,74 @@ func within(g hexgrid.Grid, c hexgrid.Coord, rings int, holds func(hexgrid.Coord
 		ring = next
 	}
 	return true
+}
+
+// The open sea does not repeat with the hex lattice: the L* of open-sea hexes
+// (two rings of sea around them) correlates with the same place one lattice
+// step away, (142, 0) or (71, 40) world px, by less than 0.5. Drawn with the
+// water tile alone every hex is the same and the correlation is about 1.
+func TestSeaRepeat(t *testing.T) {
+	r, err := maprender.New(os.DirFS("../../assets"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	raw, err := fs.ReadFile(levels.Campaign, "campaign/level10_cp.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	lvl, err := level.Parse(raw)
+	if err != nil {
+		t.Fatal(err)
+	}
+	g := lvl.Grid()
+	open := map[hexgrid.Coord]bool{}
+	for l, line := range lvl.Lines {
+		for c, h := range line {
+			at := hexgrid.Coord{Line: l, Col: c}
+			if h.Terrain == "waterSea" && within(g, at, 2, func(n hexgrid.Coord) bool { return lvl.Lines[n.Line][n.Col].Terrain == "waterSea" }) {
+				open[at] = true
+			}
+		}
+	}
+	m, err := r.Render(lvl, compareDensity, false)
+	if err != nil {
+		t.Fatal(err)
+	}
+	plane := newLabPlane(halve(m.Image))
+	for _, step := range []struct {
+		name   string
+		dx, dy int
+		next   func(hexgrid.Coord) hexgrid.Coord
+	}{
+		{"(142, 0)", 142, 0, func(c hexgrid.Coord) hexgrid.Coord { return hexgrid.Coord{Line: c.Line, Col: c.Col + 1} }},
+		{"(71, 40)", 71, 40, func(c hexgrid.Coord) hexgrid.Coord { return hexgrid.Coord{Line: c.Line + 1, Col: c.Col + (c.Line & 1)} }},
+	} {
+		var n, sa, sb, saa, sbb, sab float64
+		for c := range open {
+			if !open[step.next(c)] {
+				continue
+			}
+			ox, oy := tileOrigin(c.Line, c.Col)
+			for y := 24; y < 56; y++ {
+				for x := 28; x < 68; x++ {
+					i := (oy+y)*plane.w + ox + x
+					j := (oy+y+step.dy)*plane.w + ox + x + step.dx
+					if !plane.ok[i] || !plane.ok[j] {
+						continue
+					}
+					a, b := plane.l[i], plane.l[j]
+					n++
+					sa, sb, saa, sbb, sab = sa+a, sb+b, saa+a*a, sbb+b*b, sab+a*b
+				}
+			}
+		}
+		if n < 1000 {
+			t.Fatalf("%s: only %.0f pixel pairs of open sea", step.name, n)
+		}
+		corr := (sab/n - sa/n*sb/n) / math.Sqrt((saa/n-sa/n*sa/n)*(sbb/n-sb/n*sb/n))
+		t.Logf("%s: L* correlation %.3f over %.0f pixel pairs in %d open-sea hexes", step.name, corr, n, len(open))
+		if corr >= 0.5 {
+			t.Errorf("%s: open sea repeats one lattice step away, L* correlation %.3f, want below 0.5", step.name, corr)
+		}
+	}
 }

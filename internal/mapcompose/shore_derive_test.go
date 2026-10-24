@@ -1,6 +1,7 @@
 package mapcompose
 
 import (
+	"fmt"
 	"io/fs"
 	"math"
 	"slices"
@@ -310,8 +311,58 @@ func TestStonesDrawRocksOverTheirShore(t *testing.T) {
 	for l, line := range s.Cells {
 		for col, cell := range line {
 			c := hexgrid.Coord{Line: l, Col: col}
-			if at(c).Terrain == "waterStones" && (cell.Background == "tile/waterStones" || !slices.Contains(cell.Overlays, "tile/waterRocks")) {
-				t.Errorf("campaign 7 stones at %+v draw %s %v", c, cell.Background, cell.Overlays)
+			if at(c).Terrain != "waterStones" {
+				continue
+			}
+			want := "tile/waterRocks"
+			if seaNear(g, at, c) {
+				want = fmt.Sprintf("tile/skerry%d", seaKitPick(c, 3))
+			}
+			if cell.Background == "tile/waterStones" || !slices.Contains(cell.Overlays, want) {
+				t.Errorf("campaign 7 stones at %+v draw %s %v, want %s", c, cell.Background, cell.Overlays, want)
+			}
+		}
+	}
+}
+
+// By a sea, stones in water are skerries and one in three hexes of shallow
+// open water shows a shoal; a lake (PULSE) keeps its rocks and shows none.
+func TestSeaKitByTheSea(t *testing.T) {
+	all := func(string) bool { return true }
+	sea := []string{"waterSea waterSea waterSea", "waterSea waterSea", "water waterStones water", "water water", "water water water"}
+	g, at := grid(sea...)
+	stones := hexgrid.Coord{Line: 2, Col: 1}
+	if got := waterRocks(g, at, stones, false, all); !strings.HasPrefix(got, "tile/skerry") {
+		t.Errorf("stones by the sea draw %s, want a skerry", got)
+	}
+	if got := waterRocks(g, at, stones, false, func(id string) bool { return !strings.HasPrefix(id, "tile/skerry") }); got != "tile/waterRocks" {
+		t.Errorf("stones without skerries in the catalog draw %s", got)
+	}
+	shoals := 0
+	for l, line := range []int{3, 2, 3, 2, 3} {
+		for col := range line {
+			c := hexgrid.Coord{Line: l, Col: col}
+			bed := shoal(g, at, c, "tile/water", false, all)
+			if bed != "" {
+				shoals++
+				if at(c).Terrain != "water" {
+					t.Errorf("a shoal on %s at %+v", at(c).Terrain, c)
+				}
+			}
+			if shoal(g, at, c, "tile/shore-01", false, all) != "" {
+				t.Errorf("a shoal on a shore tile at %+v", c)
+			}
+		}
+	}
+	t.Logf("%d shoals", shoals)
+	g, at = loadLevel(t, "level1_cp")
+	s := Compose(g, at, all)
+	for l, line := range s.Cells {
+		for col, cell := range line {
+			for _, id := range cell.Overlays {
+				if strings.HasPrefix(id, "tile/skerry") || strings.HasPrefix(id, "tile/shoal") {
+					t.Errorf("PULSE draws %s at %d,%d by its lake", id, l, col)
+				}
 			}
 		}
 	}

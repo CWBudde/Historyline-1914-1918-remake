@@ -164,7 +164,16 @@ band) and `waterSea` (the open sea) all draw the water tile, and the renderers s
 depth field over the map (`internal/waterdepth`): a hex drawn as open water has its depth at its centre, a
 shore none, each vertex the mean of its hexes, so the sea darkens without a step at any hex edge or coast.
 The open sea comes to 0.82 of the shallows' L\*, the middle band about 0.93, with calmer ripples and a less
-blue teal (`terraingrade.Deepen`, `TestSeaDepthSteps`).
+blue teal (`terraingrade.Deepen`, `TestSeaDepthSteps`). From depth 0.15 to 0.6 the open sea's own material
+(`water-sea-shared-v1.png`, broader waves) replaces the water, keeping the ripples' contrast
+(`terraingrade.Blend`): it repeats every 284×160 world px, so a hex takes one of eight phases,
+`tile/sea-<kx><ky>` (`TestGenerateSeaTiles`), and the open sea no longer repeats with the hex lattice
+(`TestSeaRepeat`). Shores and shallows keep the lake water. A coast by the sea (depth above 0.05 within 80
+world px) carries surf: water pixels within 20 world px of a tile's land take the foam strips of `tile/surf`
+(`water-surf-shared-v1.png`, `TestGenerateSurf`) by their distance from the coast, read along it. By a sea
+(`waterDeep` or `waterSea` within two rings) stones in water draw a skerry (`tile/skerry1..3`) instead of
+the lake rocks, and one in three hexes of shallow open water a shoal (`tile/shoal1..4`), both cut from the
+C2 kit `water-seakit-shared-v1.png` (`TestGenerateSeaKit`).
 On a water hex a road bridge with its road, the levels' stand-in for the original's quays and piers, draws
 the stone quay on its axis (`tile/quay14`, `quay25`, `quay36`, from `art/terrain/quay`, exported 36
 world px wide by `TestGenerateQuayTiles`) with the road running on over it; the rules still see the bridge

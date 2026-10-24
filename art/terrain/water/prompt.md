@@ -3,8 +3,8 @@ id: terrain/water
 title: Water
 kind: terrain
 status: revised
-runtime_ids: water, waterStones, water_w, waterStones_w, waterRocks, waterRocks_w
-masters: water-shared-v3.png, water-rocks-shared-v2.png, water-shared-v2.png, water-shared-v1.png, water-rocks-shared-v1.png, water-rocks-shared-v3.png, water-reeds-shared-v1.png, water-boulders-shared-v1.png, water-bed-summer-v1.png, water-deep-summer-v1.png
+runtime_ids: water, waterStones, water_w, waterStones_w, waterRocks, waterRocks_w, sea-00, sea-00_w, sea-02, sea-02_w, sea-20, sea-20_w, sea-22, sea-22_w, sea-11, sea-11_w, sea-13, sea-13_w, sea-31, sea-31_w, sea-33, sea-33_w, shoal1, shoal1_w, shoal2, shoal2_w, shoal3, shoal3_w, shoal4, shoal4_w, skerry1, skerry1_w, skerry2, skerry2_w, skerry3, skerry3_w, surf, surf_w
+masters: water-shared-v3.png, water-rocks-shared-v2.png, water-shared-v2.png, water-shared-v1.png, water-rocks-shared-v1.png, water-rocks-shared-v3.png, water-reeds-shared-v1.png, water-boulders-shared-v1.png, water-bed-summer-v1.png, water-deep-summer-v1.png, water-sea-shared-v1.png, water-seakit-shared-v1.png, water-surf-shared-v1.png
 ---
 
 ## Look
@@ -32,6 +32,59 @@ The water material is periodic on the world lattice, so lake hexes form one cont
 and stream tiles use the same material, so water matches across all of them.
 
 ## Post
+
+### Look 8 C2 surf (2026-10-24)
+
+`water-surf-shared-v1.png` (`exec-63374d43`, native 1536×1024 RGBA, unchanged) holds four horizontal
+surf strips across the full width: soft broken bands of bubbly off-white foam (L\* 86, chroma 3) along
+their upper edge with fainter spent foam below, fading out within about 18 world px. It replaces the
+kit's crackle strips; the renderers lay it along exposed sea coasts (`internal/waterdepth`). Attached:
+the selected C1 `water-sea-shared-v1.png`. The prompt was the `art/style.md` Preamble and Terrain text,
+then:
+
+```text
+Use case: stylized-concept. Asset type: SURF DECAL SHEET on true alpha transparency, landscape 1536x1024, strict top-down nadir, 12 px = 1 world px (one map hex is about 96 world px, 1152 px). Four separate horizontal strips of gentle surf along a straight coast, one strip per quarter of the canvas height, each strip spanning the full canvas width (it must tile left to right) and centred on y = 128, 384, 640 and 896. In each strip the coast would lie just above it: the upper edge of the strip is a soft, slightly wavy band of pale foam where the waves break, 24 to 60 px deep (about 3 to 5 percent of the canvas height), irregular and broken into pieces 100 to 400 px long with gaps 30 to 120 px between them; below it, two or three thinner, fainter, broken lines of spent foam and pale-teal turbulent water, 40 to 140 px below the main band, fading to fully transparent within 220 px of the strip's upper edge. Foam colour soft off-white to pale teal-grey (RGB near 214,226,224 at its brightest, never pure white), semi-transparent at its sea-side edge, with fine soft bubbly texture. Calm, low surf of a North Sea coast on a fresh day.
+Avoid: thin zigzag or lightning-like crackle lines, branching vein patterns, white sparkle stars, cartoon splashes, solid foam ropes of even width, rings, opaque water backgrounds, sand, rocks, land, any ground plate, halo, checkerboard, grid lines, borders, text.
+
+The previous try painted the surf as thin white zigzag lightning-like crackle lines; this time paint soft, broad, broken bands of bubbly foam as described. Image 1 is the selected open-sea material at this map's scale: the foam sits on this water; paint no opaque water. Alpha zero outside the foam and the faint turbulent water.
+```
+
+
+### Look 8 C2 shoal and skerry kit (2026-10-24)
+
+`water-seakit-shared-v1.png` (`exec-b33db84e`, native 1536×1024 RGBA, unchanged) is the C2 kit: three
+surf strips, two shoal patches and three skerries, laid out in two rows instead of the 4×2 grid.
+The surf strips are thin white zigzag crackle and are not used (the surf comes from
+`water-surf-shared-v1.png`). The shoals (sandy and pebbly beds under clear green water, about
+21×41 world px) and the skerries (dark wet rock clusters with foam collars and weed, about 30 world px,
+twice the asked size; scaled down on export) are `tile/shoal*` and `tile/skerry*`
+(`TestGenerateSeaKit`). Attached: the selected C1 `water-sea-shared-v1.png` and the lake rocks
+`water-rocks-shared-v2.png`. The prompt was the `art/style.md` Preamble and Terrain text, then:
+
+```text
+Use case: stylized-concept. Asset type: DECAL KIT on true alpha transparency, 1536x1024, 4x2 grid of 384x512 cells, strict nadir, 12 px = 1 world px. Cells 1 to 3: broken surf lines along a coast, white and pale-teal foam 2 to 6 world px deep and 30 world px long, irregular and interrupted, semi-transparent at their sea-side edge. Cells 4 to 5: sandy and pebbly shoal patches seen through 0.5 to 1 m of clear green-teal water, 20 to 30 world px, soft-edged and semi-transparent. Cells 6 to 8: small skerries, low dark wet rock clusters of 6 to 14 world px with foam collars and seaweed.
+Avoid: opaque water backgrounds, continuous foam ropes, rings, cartoon splashes, beaches with people, text.
+
+Strict cell sizes: each cell is 384 px wide and 512 px tall; keep every element inside its own cell with at least 40 px of empty alpha-zero margin to the cell edges; the surf strips run vertically along each cell's height, about 360 px long (70 percent of the cell height) and 30 to 70 px wide (one tenth to one fifth of the cell width); shoal patches about 250 to 330 px across; skerry clusters about 80 to 170 px across (one fifth to two fifths of the cell width). Alpha zero everywhere outside the elements: no water background, no ground plate, no halo, no checkerboard, no grid lines, no cell borders. Image 1 is the selected open-sea material at this map's scale: take the water colour that the shoal patches and foam must sit on, but paint no opaque water. Image 2 is the selected lake-rock cut-out of this map: take its rock colours, moss, wet dark waterline and painting style for the skerries; copy none of its exact stones.
+```
+
+
+### Look 8 C1 sea material (2026-10-24)
+
+`water-sea-shared-v1.png` (`exec-64bff6f1`, native 1672×941 RGB, unchanged; the request was 1536×864)
+is a slate teal North Sea surface: mean RGB 27,76,87, L\* 29.5, σL\* 6.8, hue 222; broken wind waves
+about 140 px (24 world px) apart, a few small white glints where crests meet, no sparkle stars. Taken
+over the W1 candidate (bluer, sparkle stars) as the open sea. The tiles `tile/sea-<kx><ky>` sample it
+with a 284×160 world px period, toned to the lake water's mean (`TestGenerateSeaTiles`). Attached: the
+lake water `water-shared-v3.png`. The prompt was the `art/style.md` Preamble and Terrain text, then:
+
+```text
+Use case: stylized-concept. Asset type: GENERIC REUSABLE OPEN SEA MATERIAL, opaque full-bleed 1536x864, strict top-down nadir. Same world scale as the lake water: canvas width 284 world px (one hex about 50 m). A cool North Sea or Channel surface on a fresh day: deep slate teal-green, average about RGB(30,74,84), darker than the lake and less blue. Irregular wind waves 60 to 110 px apart, their crests short soft lighter streaks broken into pieces, oriented within about 40 degrees of one another but never parallel stripes; very sparse small whitecap flecks (at most one per 250x250 px); broad, faint darker swell bands 400 to 700 px apart. Even scale and density everywhere, tileable left-right and top-bottom.
+Avoid: tropical colours, pool caustics, foam sheets, ships, buoys, shorelines, rocks, reflections, vignette, a bright centre, text, grid, perspective, photograph.
+
+Flat even daylight with no light direction, whatever the style notes above say: no diagonal sheen. Output exactly 1536x864 landscape (16:9). Image 1 is the installed lake water material of this map, whose whole width spans about 77 world px (so this canvas covers about 3.7 times its width): take only its teal hue, its soft painterly brushwork and its rounded broken ripple handling; the sea must be darker, calmer and broader in scale; copy none of its pattern.
+```
+
 
 ### Look 3 W1 deep-water candidate (2026-10-23)
 

@@ -68,7 +68,8 @@ just artbook     # build/artbook/Historyline_Art.pdf (needs typst)
   from `assets/index.json` (screen packs add the `art/screens` paintings) and map composition
   (`docs/runtime-assets.md`). `internal/maprender` draws a whole level with the runtime art (the art book's
   PULSE map, `hlgallery`'s PULSE study). `internal/waterdepth` shades open water by the original's depths
-  (`water`, `waterDeep`, `waterSea`) as one smooth field, in the game and in `maprender`.
+  (`water`, `waterDeep`, `waterSea`) as one smooth field, blends in the open sea's material and lays surf
+  along sea coasts, in the game and in `maprender`.
 - `tools/art-review`, `tools/interface-art`, `tools/unit-panel`: art export. `tools/reference-design`: the
   PULSE reference design (`just reference`). `just gfx-check` runs `art-check`, `reference-check` and the
   tool tests. `cmd/hlgallery` is the local comparison desk (`just gfx-game-review`). `tools/candidate-review`

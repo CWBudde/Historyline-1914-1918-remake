@@ -357,8 +357,8 @@ func legacyTile(kind, id string) string {
 	if kind == "infrastructure" {
 		// Neither the barbed wire, the quays, the airfield and harbour pieces
 		// nor the neighbour-derived trenches have a Python remake tile.
-		// Nor the winter roads and crossings.
-		if id == "barbedWire" || strings.HasPrefix(id, "quay") || strings.HasPrefix(id, "runway") ||
+		// Nor the winter roads and crossings, nor the rocks, skerries, shoals and surf.
+		if id == "barbedWire" || id == "waterRocks" || strings.HasPrefix(id, "shoal") || strings.HasPrefix(id, "skerry") || id == "surf" || strings.HasPrefix(id, "quay") || strings.HasPrefix(id, "runway") ||
 			strings.HasPrefix(id, "hangar") || strings.HasPrefix(id, "apron") || strings.HasPrefix(id, "harbour") ||
 			strings.HasSuffix(id, "_w") {
 			return ""
@@ -388,8 +388,9 @@ func legacyTile(kind, id string) string {
 	if strings.HasPrefix(name, "ruin") {
 		return ""
 	}
-	// Neighbour-derived shores have no tile of their own in the Python remake.
-	if strings.HasPrefix(name, "shore-") {
+	// Neighbour-derived shores have no tile of their own in the Python remake,
+	// nor the phases of the open sea.
+	if strings.HasPrefix(name, "shore-") || strings.HasPrefix(name, "sea-") {
 		return ""
 	}
 	// New outlet and winter variants share their base shoreline's legacy

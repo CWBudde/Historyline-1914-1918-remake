@@ -1,6 +1,8 @@
 package main
 
 import (
+	"image"
+
 	"github.com/hajimehoshi/ebiten/v2"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
@@ -45,8 +47,9 @@ func (a *terrainArt) depthSignature(c hexgrid.Coord, id string) string {
 	return a.depth.field.Signature(c)
 }
 
-// depthImage is background id of hex c at density d shaded by depth, as
-// image or bareImage gives it unshaded.
+// depthImage is background id of hex c at density d shaded by depth, with the
+// open sea's material and surf where the catalog has them, as image or
+// bareImage gives it unshaded.
 func (a *terrainArt) depthImage(c hexgrid.Coord, signature, id string, d int, bare bool) (*ebiten.Image, assets.Entry, error) {
 	e, err := a.entry(a.group[id], id, d)
 	if err != nil {
@@ -61,7 +64,19 @@ func (a *terrainArt) depthImage(c hexgrid.Coord, signature, id string, d int, ba
 	if err != nil {
 		return nil, e, err
 	}
-	shaded := t.field.Shade(tile, materialOrigin(c, e, d), d)
+	var with waterdepth.Tiles
+	for _, w := range []struct {
+		id  string
+		set *image.Image
+	}{{waterdepth.SeaTile(c, id), &with.Sea}, {waterdepth.WaterTile(id), &with.Water}, {waterdepth.SurfTile(id), &with.Surf}} {
+		if a.group[w.id] == "" {
+			continue
+		}
+		if *w.set, err = a.packs[packKey{a.group[w.id], d}].Image(w.id, d); err != nil {
+			return nil, e, err
+		}
+	}
+	shaded := t.field.Shade(tile, with, materialOrigin(c, e, d), d)
 	w, h := shaded.Bounds().Dx()+2*tilePad, shaded.Bounds().Dy()+2*tilePad
 	img := ebiten.NewImage(w, h)
 	img.WritePixels(padded(shaded, tilePad, !bare))

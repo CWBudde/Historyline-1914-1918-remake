@@ -135,6 +135,9 @@ func Compose(g hexgrid.Grid, at func(hexgrid.Coord) Hex, has func(id string) boo
 				if rocks := waterRocks(g, at, c, winter, has); rocks != "" {
 					cell.Overlays = append([]string{rocks}, cell.Overlays...)
 				}
+				if bed := shoal(g, at, c, cell.Background, winter, has); bed != "" {
+					cell.Overlays = append([]string{bed}, cell.Overlays...)
+				}
 			}
 		}
 	}

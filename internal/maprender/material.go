@@ -74,7 +74,8 @@ func (r *Renderer) drawMaterial(dst draw.Image, id string, at hexgrid.Coord, den
 }
 
 // drawDeep draws background id on hex at with its water shaded by the sea's
-// depth (waterdepth).
+// depth (waterdepth), the open sea's material blended in and surf along a coast
+// by the sea where the catalog has them.
 func (r *Renderer) drawDeep(dst draw.Image, id string, at hexgrid.Coord, density int, field *waterdepth.Field) error {
 	e, im, err := r.assetImage(id, density)
 	if err != nil {
@@ -82,7 +83,16 @@ func (r *Renderer) drawDeep(dst draw.Image, id string, at hexgrid.Coord, density
 	}
 	x, y := hexgrid.Center(at)
 	origin := image.Pt(int(math.Round((x-e.Anchor[0])*float64(density))), int(math.Round((y-e.Anchor[1])*float64(density))))
-	tile := field.Shade(im, origin, density)
+	var with waterdepth.Tiles
+	for _, t := range []struct {
+		id  string
+		set *image.Image
+	}{{waterdepth.SeaTile(at, id), &with.Sea}, {waterdepth.WaterTile(id), &with.Water}, {waterdepth.SurfTile(id), &with.Surf}} {
+		if _, im, err := r.assetImage(t.id, density); err == nil {
+			*t.set = im
+		}
+	}
+	tile := field.Shade(im, with, origin, density)
 	draw.Draw(dst, tile.Bounds().Add(origin), tile, image.Point{}, draw.Over)
 	return nil
 }

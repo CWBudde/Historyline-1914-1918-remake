@@ -272,16 +272,70 @@ func selectShore(g hexgrid.Grid, at func(hexgrid.Coord) Hex, c hexgrid.Coord, wi
 
 // waterRocks returns the overlay of the rocks on stones-in-water hex c, drawn
 // over the shore selectShore gives it ("" for other hexes, or without the
-// rocks in the catalog): tile/waterRocks, its winter form on a winter coast.
+// rocks in the catalog): tile/waterRocks, or by a sea (seaNear) one of the
+// skerries tile/skerry1..3 where the catalog has them; the winter form on a
+// winter coast.
 func waterRocks(g hexgrid.Grid, at func(hexgrid.Coord) Hex, c hexgrid.Coord, winter bool, has func(string) bool) string {
 	id := TileID("waterRocks")
 	if at(c).Terrain != "waterStones" || !has(id) {
 		return ""
 	}
+	if skerry := TileID(fmt.Sprintf("skerry%d", seaKitPick(c, 3))); seaNear(g, at, c) && has(skerry) {
+		id = skerry
+	}
+	return coastSeason(g, at, c, winter, has, id)
+}
+
+// shoal returns the overlay of a shoal on hex c: one in three hexes of shallow
+// open water (terrain water drawn as the water tile, background) by a sea
+// (seaNear) shows a sandy bed under the water, tile/shoal1..4, in the coast's
+// season; "" for the others or without the shoals in the catalog.
+func shoal(g hexgrid.Grid, at func(hexgrid.Coord) Hex, c hexgrid.Coord, background string, winter bool, has func(string) bool) string {
+	if at(c).Terrain != "water" || strings.TrimSuffix(background, "_w") != TileID("water") || seaKitPick(c, 3) != 1 || !seaNear(g, at, c) {
+		return ""
+	}
+	id := TileID(fmt.Sprintf("shoal%d", seaKitPick(hexgrid.Coord{Line: c.Col, Col: c.Line}, 4)))
+	if !has(id) {
+		return ""
+	}
+	return coastSeason(g, at, c, winter, has, id)
+}
+
+// coastSeason is overlay id of water hex c in the coast's season: its winter form
+// (suffix _w) on a winter coast where the catalog has it.
+func coastSeason(g hexgrid.Grid, at func(hexgrid.Coord) Hex, c hexgrid.Coord, winter bool, has func(string) bool, id string) string {
 	if winterCoast(g, at, c, winter) && has(id+"_w") {
 		return id + "_w"
 	}
 	return id
+}
+
+// seaNear reports whether the original's deeper water, the middle band
+// waterDeep or the open sea waterSea, lies within two rings of hex c.
+func seaNear(g hexgrid.Grid, at func(hexgrid.Coord) Hex, c hexgrid.Coord) bool {
+	ring := []hexgrid.Coord{c}
+	for range 3 {
+		var next []hexgrid.Coord
+		for _, h := range ring {
+			if !g.Contains(h) {
+				continue
+			}
+			if t := at(h).Terrain; t == "waterDeep" || t == "waterSea" {
+				return true
+			}
+			around := hexgrid.Around(h)
+			next = append(next, around[:]...)
+		}
+		ring = next
+	}
+	return false
+}
+
+// seaKitPick is a stable choice of 1..n for hex c.
+func seaKitPick(c hexgrid.Coord, n int) int {
+	h := uint32(c.Line)*2654435761 ^ uint32(c.Col)*40503
+	h ^= h >> 13
+	return int(h%uint32(n)) + 1
 }
 
 // ParseShore reads a derived shore tile ID (ShoreShape.ID) back into its shape;

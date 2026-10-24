@@ -191,9 +191,45 @@ func hexAt(x, y float64) (hexgrid.Coord, bool) {
 	return hexgrid.Coord{}, false
 }
 
+// The open sea's material repeats every 284 by 160 world pixels (2 ColPitch,
+// 4 LinePitch), so a hex of the lattice meets it in one of eight phases, each
+// a tile of its own: tile/sea-<kx><ky>, kx and ky the hex's top-left corner
+// in steps of 71 and 40 world pixels.
+func seaPhase(c hexgrid.Coord) string {
+	kx := ((2*c.Col+(c.Line&1))%4 + 4) % 4
+	ky := (c.Line%4 + 4) % 4
+	return fmt.Sprintf("%d%d", kx, ky)
+}
+
+// SeaTile is the tile of the open sea's material for hex c whose background
+// is background: its winter form (suffix _w) under a winter background.
+func SeaTile(c hexgrid.Coord, background string) string {
+	id := mapcompose.TileID("sea-" + seaPhase(c))
+	if strings.HasSuffix(background, "_w") {
+		id += "_w"
+	}
+	return id
+}
+
+// WaterTile is the open water tile of background's season, whose pixels the
+// shores share where they are open water.
+func WaterTile(background string) string {
+	id := mapcompose.TileID("water")
+	if strings.HasSuffix(background, "_w") {
+		id += "_w"
+	}
+	return id
+}
+
+// seaFrom and seaFull are the depths over which the open sea's material
+// replaces the shallows' water: the coast and the shallows keep the water of
+// the shores, the middle band is mostly sea.
+const seaFrom, seaFull = 0.15, 0.6
+
 // Signature names everything a tile drawn at hex c needs to be shaded: the
-// depths of the hexes within two rings, and, where they differ, the warp's
-// phase at c. It is "" where c is not water or no depth reaches its tile.
+// depths of the hexes within two rings, the sea's phase, and, where the depths
+// differ, the warp's phase at c. It is "" where c is not water or no depth
+// reaches its tile.
 func (f *Field) Signature(c hexgrid.Coord) string {
 	if f == nil || len(f.vertex) == 0 || !f.wet[c] {
 		return ""
@@ -229,6 +265,7 @@ func (f *Field) Signature(c hexgrid.Coord) string {
 	if strings.Trim(depths, "0"+string(offMap)) == "" {
 		return ""
 	}
+	s += "~" + seaPhase(c)
 	if strings.Trim(depths, depths[:1]) == "" {
 		return s
 	}
@@ -236,15 +273,64 @@ func (f *Field) Signature(c hexgrid.Coord) string {
 	return fmt.Sprintf("%s@%d,%d", s, int(math.Mod(x, periodX)), int(math.Mod(y, periodY)))
 }
 
+// Tiles are the graded tiles of the same hex and size that Shade draws with
+// besides the background; any may be nil.
+type Tiles struct {
+	// Sea is the hex's SeaTile: the open sea's material, which replaces the
+	// water from depth seaFrom to seaFull.
+	Sea image.Image
+	// Water is the season's WaterTile, whose pixels a shore shares where it
+	// is open water.
+	Water image.Image
+	// Surf is the season's SurfTile, the foam laid along coasts by the sea.
+	Surf image.Image
+}
+
 // Shade is tile, a graded background whose top left lies at origin in pixels
-// of density (world pixels times density), with its water darkened by depth.
-func (f *Field) Shade(tile image.Image, origin image.Point, density int) *image.NRGBA {
+// of density (world pixels times density), with its water darkened by depth,
+// the open sea's material blended in and surf along a coast by the sea, as
+// with has them.
+func (f *Field) Shade(tile image.Image, with Tiles, origin image.Point, density int) *image.NRGBA {
 	b := tile.Bounds()
 	out := image.NewNRGBA(image.Rect(0, 0, b.Dx(), b.Dy()))
 	draw.Draw(out, out.Rect, tile, b.Min, draw.Src)
 	d := float64(density)
-	terraingrade.Deepen(out, func(x, y int) float64 {
-		return f.At((float64(origin.X+x)+0.5)/d, (float64(origin.Y+y)+0.5)/d)
-	})
+	depth := make([]float64, b.Dx()*b.Dy())
+	for y := range b.Dy() {
+		for x := range b.Dx() {
+			depth[y*b.Dx()+x] = f.At((float64(origin.X+x)+0.5)/d, (float64(origin.Y+y)+0.5)/d)
+		}
+	}
+	water := sized(with.Water, b.Size())
+	land := landOf(out, water)
+	if sea := sized(with.Sea, b.Size()); sea != nil {
+		terraingrade.Blend(out, sea, water, func(x, y int) float64 {
+			t := math.Max(0, math.Min(1, (depth[y*b.Dx()+x]-seaFrom)/(seaFull-seaFrom)))
+			return t * t * (3 - 2*t)
+		})
+	}
+	terraingrade.Deepen(out, func(x, y int) float64 { return depth[y*b.Dx()+x] })
+	if surf := sized(with.Surf, b.Size()); surf != nil && land != nil {
+		f.surf(out, land, surf, origin, density)
+	}
 	return out
+}
+
+// sized is im as an NRGBA at the origin when it has size, else nil.
+func sized(im image.Image, size image.Point) *image.NRGBA {
+	if im == nil || im.Bounds().Size() != size {
+		return nil
+	}
+	out := image.NewNRGBA(image.Rect(0, 0, size.X, size.Y))
+	draw.Draw(out, out.Rect, im, im.Bounds().Min, draw.Src)
+	return out
+}
+
+// SurfTile is the surf of background's season (Tiles.Surf).
+func SurfTile(background string) string {
+	id := mapcompose.TileID("surf")
+	if strings.HasSuffix(background, "_w") {
+		id += "_w"
+	}
+	return id
 }

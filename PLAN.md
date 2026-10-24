@@ -278,6 +278,10 @@ stones.
       mouths and the vertex tests green.
 - [ ] L3.2 Lake: clear water material with depth falloff towards the shore (exemplars `r29c7`, `r30c7`);
       `waterStones` as a rock cluster rising from the water (standing layer).
+      (2026-10-24) partial: stones in water draw the shore or water their neighbours give them with their
+      rocks over it (`tile/waterRocks`, `TestGenerateWaterRocks`), so a stones hex beside land no longer meets
+      it along a straight edge (the notch on campaign 7; `TestStonesDrawRocksOverTheirShore`, and
+      `TestShoresMeetLandAndEachOther` without its stones exception). Open: the lake's depth falloff.
 - [ ] L3.3 Shore as a mask edge between water and grass, lined with rounded boulders placed along the
       shoreline (props), so any port set works. Exemplars `r29c6`, `r30c6`, `r31c7`, `r32c7`.
       (2026-10-24) partial: each water hex derives its shore from its neighbours (`mapcompose.ShoreShape`): a
@@ -295,6 +299,8 @@ stones.
       sparkle stars, σL\* 6.7), W2 `water-bed-summer-v1.png` (colour right, photographic, stones too large).
       `hlkit` sizes and grades W3, W4 and W6; code cannot fix the W3 white crackle foam, the W6 foam ring, or
       W4 pebbles of about 7 world px inside a cluster (spec 2–4).
+      2026-10-24: the open sea took the C1 sea material (`water-sea-shared-v1.png`, L8.1) instead of the W1
+      candidate; W1 for the lake stays open.
 - [ ] L3.6 Bridges: register the longer earlier footbridges and road bridge first, then generate B1–B5.
       - Plank footbridges, straight and diagonal, with railings and shadow (`r33c7`, `r37c7`).
       - Road bridge with parapets (`r4c1`, feature "Northern stream with road bridge"), the stream visible
@@ -433,6 +439,15 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       shallows' L\* and the middle band to 0.92–0.95, against the original tiles' 0.823 and 0.93
       (`TestSeaDepthSteps`, campaign 10 and 7; `build/review/sea-depth/`). There is no step at any hex edge or
       coast. Open: C2 surf, shoals and skerries; the ripple lattice still repeats on large seas.
+      (2026-10-24) partial: C1 and C2 are drawn. From depth 0.15 the open sea's material
+      (`water-sea-shared-v1.png`, 284×160 world px, eight phases `tile/sea-*`) replaces the lake water, so
+      the open sea no longer repeats with the hex lattice (`TestSeaRepeat`: L\* correlation one lattice step
+      away 0.09 and −0.03, 1.00 before); the steps hold (0.820/0.825, band 0.91). Exposed coasts carry surf
+      from `water-surf-shared-v1.png` laid by the distance from land (`waterdepth` surf, `TestSurf`); stones by a
+      sea are skerries and one in three shallow open-water hexes by a sea shows a shoal
+      (`water-seakit-shared-v1.png`, `TestSeaKitByTheSea`); lakes are unchanged (`build/review/sea-batch/`).
+      Open: the depth exporter (L3.1) this item names; pond (34) still draws as the shallows; winter skerries
+      and surf are the summer pixels under the winter grade.
 - [x] L8.2 Shell-hole fields as a field material (C3) instead of the crater-ring lattice: summer records 63
       and 81–84 show `mud` (winter shows `shelled_w`). 360 summer clusters in 115 shapes have no stamp
       (only the diamond `4_-1.1_1.1_0.2` exists, no single), 50 winter clusters in 37 shapes. Crater fields
