@@ -334,6 +334,9 @@ stones.
       `r22c3`, `r24c3`, `r28c2`.
 - [ ] L4.5 Rail (`rail*`), level crossings (`cross1`–`cross4`) and trenches (`trench*`, the `trench5a` port is
       open in 1.3) in the same style; no PULSE reference, so match the summer materials' light and grade.
+      Partial (2026-10-24): trench lines join across hexes (`mapcompose.TrenchShape`, 42 derived tiles from
+      the connected-trench-v2 manifest); the round position `trench0` takes the courses that lead into it,
+      runs toward a hex without a trench end in a blind spur. Rail and crossings open.
 - [ ] L4.6 Done when no carriageway pixel is paint-white, every road–path meeting has a mouth
       (`r17c6`/`r18c5`), and rail, crossings and trenches meet their rows in the table.
 

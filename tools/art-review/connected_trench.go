@@ -125,6 +125,14 @@ func connectionTrenchRoutes(g connectionGeometry, f connectionFamily, v connecti
 			}
 		}
 		line(previous, first)
+		// A derived position's links end at the ring.
+		for _, port := range v.Ports {
+			p := g.Ports[port-1]
+			axis := g.Neighbors[port-1].mul(1 / g.Neighbors[port-1].length())
+			guard := p.sub(axis.mul(16))
+			line(p.add(axis.mul(f.Width/2+f.Border+4)), guard)
+			line(guard, trenchRingEntry(guard))
+		}
 		return r
 	}
 	for _, port := range v.Ports {

@@ -355,9 +355,17 @@ func (c *collector) images(paths map[string]string, pins map[string]string, w, h
 // Python remake, which names some tiles differently.
 func legacyTile(kind, id string) string {
 	if kind == "infrastructure" {
-		// Neither the barbed wire nor the quays have a Python remake tile.
+		// Neither the barbed wire, the quays nor the neighbour-derived trenches
+		// have a Python remake tile.
 		if id == "barbedWire" || strings.HasPrefix(id, "quay") {
 			return ""
+		}
+		if rest, trench := strings.CutPrefix(id, "trench"); trench {
+			switch rest {
+			case "0", "1", "12", "124", "125", "14", "15", "24", "25", "4", "5", "5a":
+			default:
+				return ""
+			}
 		}
 		cross := map[string]string{"cross1": "crossRail36Path14", "cross2": "crossRail36Road14", "cross3": "crossRail36Road25", "cross4": "crossRail14Path36"}
 		name := id

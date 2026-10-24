@@ -117,6 +117,15 @@ Compounds must form complete groups; stray pieces are reported, never completed.
 Factory compounds have matching summer and winter four-cell exports. `tile/barbedWire` is a contained
 transparent infrastructure patch for either seasonal ground; sapper placement and removal are not bound yet.
 
+A trench hex draws the course its neighbours give its piece (`mapcompose.TrenchShape`): an edge between
+two trench hexes is a link when either piece has a port across it, a port beyond the map stays a link, and
+a port toward a hex without a trench becomes a blind spur that ends inside the hex. The round position
+`trench0` takes its links as courses that end at its ring. Pieces whose ports all link keep their tile, the
+others draw `tile/trench<links>[-s<spurs>]` or `tile/trench0-<links>` (port digits), exported by
+`TestGenerateCampaignTrenches` (`tools/art-review`, tag `campaigngfx`) from the connected-trench-v2
+manifest; a derived run keeps the dugout and spurs of the roster piece with its ports where they are
+free. The rules still see the piece.
+
 Lakes use reusable shore, water and water-stone tiles; the current catalogue has no whole-lake stamp.
 A water or shore hex draws the shore its neighbours give it (`mapcompose.ShoreShape`): a vertex is land
 when a land hex or an authored `lakeside*` shore at it claims it, so the tiles at a vertex agree and water

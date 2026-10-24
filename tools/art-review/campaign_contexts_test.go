@@ -93,8 +93,8 @@ func campaignContexts(has func(string) bool) (map[string]mapcompose.Gap, error) 
 				return nil, fmt.Errorf("%s: compound issues: %v", name, s.Issues)
 			}
 			for _, g := range s.Gaps {
-				if g.Family == mapcompose.Shore {
-					continue // TestGenerateCampaignShores
+				if g.Family == mapcompose.Shore || g.Family == mapcompose.Trench {
+					continue // TestGenerateCampaignShores, TestGenerateCampaignTrenches
 				}
 				if g.Reason != mapcompose.Missing {
 					return nil, fmt.Errorf("%s: undefined context: %+v", name, g)

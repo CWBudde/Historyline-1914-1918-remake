@@ -89,7 +89,11 @@ func Compose(g hexgrid.Grid, at func(hexgrid.Coord) Hex, has func(id string) boo
 			if wet(h.Terrain) {
 				infra = quays(infra, has)
 			}
-			for _, id := range infra {
+			drawn, gap := trenches(g, at, c, infra, has)
+			if gap != nil {
+				s.Gaps = append(s.Gaps, *gap)
+			}
+			for _, id := range drawn {
 				cell.Overlays = append(cell.Overlays, TileID(id))
 			}
 			cell.Standing = standing(h.Terrain, infra, has)

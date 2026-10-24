@@ -141,7 +141,7 @@ func TestShippedLevelGaps(t *testing.T) {
 	want := map[string]string{
 		"level1_cp": "forest/selected:81 ground/selected:24 hills/selected:51",
 		"level2_cp": "forest/selected:174 ground/selected:59",
-		"level3_cp": "forest/selected:97 ground/selected:78",
+		"level3_cp": "forest/selected:97 ground/selected:78 trench/missing:1",
 	}
 	for name := range want {
 		g, at := loadLevel(t, name)
