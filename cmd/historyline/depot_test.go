@@ -6,17 +6,25 @@ import (
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
+	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 )
 
 // TestDosCaptureDepot walks a foot unit onto PULSE's neutral depot by
 // clicks: after the resolution the depot and the unit found in it are the
-// player's, and the playback reports it.
+// player's, the playback reports it, and both panels mark the depot as the
+// player's.
 func TestDosCaptureDepot(t *testing.T) {
 	d := newDosTest(t, "level1_cp", passPlanner{})
+	g := newMapGame(d.s.Level, false)
+	g.dos = d
 	depot := hexgrid.Coord{Line: 18, Col: 5}
 	if b, ok := d.own().Buildings[depot]; !ok || b.Kind != dosplay.Depot || b.Owner == d.s.Faction(d.side) {
 		t.Fatalf("no foreign depot at %v: %+v", depot, b)
+	}
+	before := panelOwners(g, depot)
+	if before[0] == d.s.Faction(d.side) || before[0] != before[1] {
+		t.Fatalf("the panels mark the depot as %v before the capture", before)
 	}
 	unit := -1
 	for _, at := range ownUnits(d) {
@@ -60,8 +68,21 @@ func TestDosCaptureDepot(t *testing.T) {
 			if d.Message != p.ev.Text {
 				t.Errorf("message %q, want %q", d.Message, p.ev.Text)
 			}
+			if got, want := panelOwners(g, depot), d.s.Faction(d.side); got != [2]state.Player{want, want} {
+				t.Errorf("the panels mark the captured depot as %v, want %v", got, want)
+			}
 			return
 		}
 	}
 	t.Fatal("the depot was not captured")
+}
+
+// panelOwners is the owner each side's panel marks at c.
+func panelOwners(g *game, c hexgrid.Coord) (out [2]state.Player) {
+	defer func() { g.drawing = false }()
+	for side := range out {
+		g.drawing, g.drawSide = true, side
+		out[side] = g.ownerShown(c)
+	}
+	return out
 }
