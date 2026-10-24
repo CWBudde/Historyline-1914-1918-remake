@@ -24,7 +24,8 @@ func TestLegacyTileShoreOutletReference(t *testing.T) {
 		{"lakeside23-outlet4", "legacy/python/gfx/hexTypes/hex_lakeside23.png"},
 		{"lakeside3456-outlet6", "legacy/python/gfx/hexTypes/hex_lakeside3456.png"},
 		{"lakeside23", "legacy/python/gfx/hexTypes/hex_lakeside23.png"},
-		{"lakeside23_w", "legacy/python/gfx/hexTypes/hex_lakeside23_winter.png"},
+		{"lakeside23_w", "legacy/python/gfx/hexTypes/hex_lakeside23.png"},
+		{"lakeside123-outlet1_w", "legacy/python/gfx/hexTypes/hex_lakeside123.png"},
 	} {
 		t.Run(tt.id, func(t *testing.T) {
 			if got := legacyTile("background", tt.id); got != tt.want {
@@ -110,7 +111,7 @@ func TestCurrentGameSelection(t *testing.T) {
 			}
 		}
 	}
-	want := map[string]int{"Terrain": 279, "Sprites": 48, "Portraits": 48, "Interface": 117, "Screens": 36, "Screen components": 73}
+	want := map[string]int{"Terrain": 339, "Sprites": 48, "Portraits": 48, "Interface": 117, "Screens": 36, "Screen components": 73}
 	for k, n := range want {
 		if counts[k] != n {
 			t.Errorf("%s: got %d, want %d", k, counts[k], n)

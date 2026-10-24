@@ -74,6 +74,7 @@ type Scene struct {
 // reports whether a context asset ID is available.
 func Compose(g hexgrid.Grid, at func(hexgrid.Coord) Hex, has func(id string) bool) Scene {
 	s := Scene{Grid: g, Cells: make([][]Cell, g.Lines)}
+	winter := mostlyWinter(g, at)
 	for l := range g.Lines {
 		width := g.Width
 		if l&1 == 1 {
@@ -113,12 +114,16 @@ func Compose(g hexgrid.Grid, at func(hexgrid.Coord) Hex, has func(id string) boo
 				}
 			}
 			if wet(h.Terrain) {
-				shore, gap := selectShore(g, at, c, has)
+				shore, gap := selectShore(g, at, c, winter, has)
 				if gap != nil {
 					s.Gaps = append(s.Gaps, *gap)
 				}
 				cell.Background = TileID(shore)
-				if id := selectShoreOutlet(g, at, c, shore, has); id != "" {
+				id, gap := selectShoreOutlet(g, at, c, shore, has)
+				if gap != nil {
+					s.Gaps = append(s.Gaps, *gap)
+				}
+				if id != "" {
 					cell.Background = id
 				}
 			}

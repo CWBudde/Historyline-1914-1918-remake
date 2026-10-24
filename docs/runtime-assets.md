@@ -133,6 +133,9 @@ never meets land along a straight edge. An edge whose two land vertices still le
 channel through its middle. Shapes that match a `lakeside*` mask draw that tile, the others
 `tile/shore-<land>[-c<channels>]` (hex bit masks), exported by `TestGenerateCampaignShores`
 (`tools/art-review`, tag `campaigngfx`) for every shape the levels use; `waterStones` keeps its tile.
+A coast whose land neighbours are mostly winter terrain (or, with none, a coast on a mostly winter map)
+draws the winter form of its shore and mouth, ID suffix `_w`: snow instead of meadow and frosted dry stones,
+from `art/pipeline/shore-terrain-winter-v1.json`. The water itself has no winter form yet.
 On a water hex a road bridge with its road, the levels' stand-in for the original's quays and piers, draws
 the stone quay on its axis (`tile/quay14`, `quay25`, `quay36`, from `art/terrain/quay`, exported by
 `TestGenerateQuayTiles`); the rules still see the bridge and the road.

@@ -127,6 +127,13 @@ func TestShoreShapesJoinEveryCompatibleNeighbour(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	// The winter shores frost the dry stones by the same field.
+	m["season"] = "winter"
+	shoreTestWrite(t, path, m)
+	winter, err := loadShoreInputs(path)
+	if err != nil {
+		t.Fatal(err)
+	}
 	shapes := derivedShoreShapes(t)
 	fields := make([]shoreShapeField, len(shapes))
 	for i, s := range shapes {
@@ -153,10 +160,12 @@ func TestShoreShapesJoinEveryCompatibleNeighbour(t *testing.T) {
 					for _, along := range []float64{.02, .25, .4, .5, .6, .75, .98} {
 						p := p0.add(edge.mul(along)).add(normal.mul(depth))
 						q := p.sub(neighbors[direction-1])
-						ca := shoreMaterialColor(in, p, fields[i].field(p))
-						cb := shoreMaterialColor(in, q, fields[j].field(q))
-						if ca != cb {
-							t.Fatalf("%s/%s dir%d depth%g t%g: %v/%v", a.ID(), b.ID(), direction, depth, along, ca, cb)
+						for _, in := range []shoreInputs{in, winter} {
+							ca := shoreMaterialColor(in, p, fields[i].field(p))
+							cb := shoreMaterialColor(in, q, fields[j].field(q))
+							if ca != cb {
+								t.Fatalf("%s/%s %s dir%d depth%g t%g: %v/%v", a.ID(), b.ID(), in.Manifest.Season, direction, depth, along, ca, cb)
+							}
 						}
 					}
 				}

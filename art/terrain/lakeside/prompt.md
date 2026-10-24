@@ -45,7 +45,9 @@ edge's land corners and all other edge guards intact. The same variant works at 
 
 ## Post
 `art-review -shore art/pipeline/shore-terrain-v2.json` composes meadow, water and this bank material per
-variant from the explicit land vertices. Summer only. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
+variant from the explicit land vertices. `shore-terrain-winter-v1.json` takes the snow meadow
+(`grass-winter-v1.png`) and sets `season: winter`, which turns the dry stones cold grey with snow on their
+light tops; the wet faces stay dark. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
 
 The selected manifest opts into `authored-rocks-v1`: one uniformly cropped authored bank sample at
 35.5×20 logical-pixel periods, with 8 percent seam overlap and no mirrored coset average. The larger
@@ -70,7 +72,7 @@ built-in image tool; no source pixels were enlarged. Universal bank silhouettes 
 visual acceptance tasks.
 The 24 single-mouth variants cover every fully-land edge of the nine supported masks. Missing art,
 mixed/water edges and multiple facing streams retain the canonical tile; multi-mouth geometry and
-winter acceptance remain open. `shore-mouths-4x.png` presents the reusable mouth exports in the artbook.
+winter water remain open. `shore-mouths-4x.png` presents the reusable mouth exports in the artbook.
 
 ## Avoid
 - visible tiling or repeated rounded "pillow" patterns

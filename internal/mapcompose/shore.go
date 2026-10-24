@@ -27,10 +27,13 @@ var shoreLandVertices = map[string][]int{
 // Mouth exports preserve the two land corners of that edge and open only its
 // middle to the stream. Missing art and multiple facing streams keep the base
 // tile; choosing one of several mouths would leave the other streams blocked.
-func selectShoreOutlet(g hexgrid.Grid, at func(hexgrid.Coord) Hex, c hexgrid.Coord, terrain string, has func(string) bool) string {
-	land, shore := shoreLandVertices[terrain]
+// A winter shore (suffix _w) takes the winter mouth, and reports a gap where
+// only the summer one exists.
+func selectShoreOutlet(g hexgrid.Grid, at func(hexgrid.Coord) Hex, c hexgrid.Coord, terrain string, has func(string) bool) (string, *Gap) {
+	base, winter := strings.CutSuffix(terrain, "_w")
+	land, shore := shoreLandVertices[base]
 	if !shore {
-		return ""
+		return "", nil
 	}
 	port := 0
 	for i, neighbor := range hexgrid.Around(c) {
@@ -44,20 +47,66 @@ func selectShoreOutlet(g hexgrid.Grid, at func(hexgrid.Coord) Hex, c hexgrid.Coo
 				continue
 			}
 			if port != 0 {
-				return ""
+				return "", nil
 			}
 			port = i + 1
 			break
 		}
 	}
 	if port == 0 || !slices.Contains(land, port%6) || !slices.Contains(land, (port+1)%6) {
-		return ""
+		return "", nil
 	}
-	id := TileID(fmt.Sprintf("%s-outlet%d", terrain, port))
-	if !has(id) {
-		return ""
+	id := fmt.Sprintf("%s-outlet%d", base, port)
+	if !has(TileID(id)) {
+		return "", nil
 	}
-	return id
+	if winter {
+		if !has(TileID(id + "_w")) {
+			return "", &Gap{At: c, Terrain: at(c).Terrain, Family: Shore, Reason: Missing, Descriptor: id + "_w"}
+		}
+		id += "_w"
+	}
+	return TileID(id), nil
+}
+
+// winterCoast reports whether water hex c lies on a winter coast: most of its
+// land neighbours are winter terrain, or, without land around it, most of the
+// map's land is (winter).
+func winterCoast(g hexgrid.Grid, at func(hexgrid.Coord) Hex, c hexgrid.Coord, winter bool) bool {
+	votes := 0
+	for _, n := range hexgrid.Around(c) {
+		if !g.Contains(n) {
+			continue
+		}
+		if t := at(n).Terrain; !wet(t) {
+			if strings.HasSuffix(t, "_w") {
+				votes++
+			} else {
+				votes--
+			}
+		}
+	}
+	if votes == 0 {
+		return winter
+	}
+	return votes > 0
+}
+
+// mostlyWinter reports whether most of the land of g is winter terrain.
+func mostlyWinter(g hexgrid.Grid, at func(hexgrid.Coord) Hex) bool {
+	votes := 0
+	for l := range g.Lines {
+		for col := range g.Width - (l & 1) {
+			if t := at(hexgrid.Coord{Line: l, Col: col}).Terrain; !wet(t) {
+				if strings.HasSuffix(t, "_w") {
+					votes++
+				} else {
+					votes--
+				}
+			}
+		}
+	}
+	return votes > 0
 }
 
 // Shore marks a Gap of a neighbour-derived shore tile. It is not a context
@@ -172,8 +221,10 @@ func mask(vertices []int) uint8 {
 
 // selectShore returns the runtime terrain ID drawn on water hex c (its own
 // terrain where nothing needs to change), or a gap when its derived shore tile
-// is not in the catalog.
-func selectShore(g hexgrid.Grid, at func(hexgrid.Coord) Hex, c hexgrid.Coord, has func(string) bool) (string, *Gap) {
+// is not in the catalog. On a winter coast (winterCoast, with winter the map's
+// season) it is the shore's winter form, ID suffix _w, over snow; a missing
+// winter form keeps the summer shore and reports a gap.
+func selectShore(g hexgrid.Grid, at func(hexgrid.Coord) Hex, c hexgrid.Coord, winter bool, has func(string) bool) (string, *Gap) {
 	terrain := at(c).Terrain
 	if terrain == "waterStones" || !wet(terrain) {
 		return terrain, nil
@@ -184,14 +235,22 @@ func selectShore(g hexgrid.Grid, at func(hexgrid.Coord) Hex, c hexgrid.Coord, ha
 	}
 	id := s.ID()
 	// The nine lakeside shores are base tiles, drawn like any terrain's.
-	if _, lakeside := shoreLandVertices[id]; lakeside || has(TileID(id)) {
-		return id, nil
+	if _, lakeside := shoreLandVertices[id]; !lakeside && !has(TileID(id)) {
+		return terrain, &Gap{At: c, Terrain: terrain, Family: Shore, Reason: Missing, Descriptor: id}
 	}
-	return terrain, &Gap{At: c, Terrain: terrain, Family: Shore, Reason: Missing, Descriptor: id}
+	if winterCoast(g, at, c, winter) {
+		if !has(TileID(id + "_w")) {
+			return id, &Gap{At: c, Terrain: terrain, Family: Shore, Reason: Missing, Descriptor: id + "_w"}
+		}
+		id += "_w"
+	}
+	return id, nil
 }
 
-// ParseShore reads a derived shore tile ID (ShoreShape.ID) back into its shape.
+// ParseShore reads a derived shore tile ID (ShoreShape.ID) back into its shape;
+// a winter form (suffix _w) has the shape of its summer one.
 func ParseShore(id string) (ShoreShape, bool) {
+	id = strings.TrimSuffix(id, "_w")
 	if land, shore := shoreLandVertices[id]; shore {
 		return ShoreShape{Land: mask(land)}, true
 	}

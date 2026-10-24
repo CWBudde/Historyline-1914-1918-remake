@@ -392,8 +392,9 @@ Mostly a material swap of the matching summer family plus the winter grade.
 - [ ] L7.3 Winter water: I1 shore ice and an I2 grade or edit, with ice where the depth is low. Winter forms of
       `water`, `waterStones` and the `lakeside*` shores: 18 of the 24 winter campaign maps contain them and
       show summer water today. Open winter water is L\* 34.7, chroma 25.9 against 24–32, ≤ 12.
-      The derived shores (L3.3) draw summer meadow on every winter coast; a winter shore manifest on
-      `grass-winter-v1.png` and `_w` variants of the shore tiles would fix the meadow before the ice.
+      2026-10-24: the meadow is fixed. A coast beside winter land draws the `_w` form of its shore and mouth
+      (snow, frosted dry stones; `shore-terrain-winter-v1.json`, 60 tiles), so no winter coast shows summer
+      meadow. Still open: the water itself (I2) and the shore ice (I1).
 - [ ] L7.4 Winter strips and kits (R1–R5) for roads, paths, rail, streams (ice edges), bridges and trenches,
       and the I3 edits of rocks and bridges.
 - [ ] L7.5 Winter buildings: `hq*_w`, `cmp*_w`, `factory*_w` (matching summer/winter factory exports are

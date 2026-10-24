@@ -385,9 +385,10 @@ func legacyTile(kind, id string) string {
 	if strings.HasPrefix(name, "shore-") {
 		return ""
 	}
-	// New outlet variants share their base shoreline's legacy reference.
+	// New outlet and winter variants share their base shoreline's legacy
+	// reference; the Python remake has no winter shores.
 	if strings.HasPrefix(name, "lakeside") {
-		name, _, _ = strings.Cut(name, "-outlet")
+		name, _, _ = strings.Cut(strings.TrimSuffix(name, "_w"), "-outlet")
 	}
 	if rest, ok := strings.CutPrefix(name, "cmp"); ok {
 		name = "camp" + rest

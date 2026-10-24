@@ -121,6 +121,15 @@ func authoredShoreColor(in shoreInputs, p connectionPoint, d float64) color.NRGB
 	c := connectionBlend(water, submerged, connectionSmoothStep((d+4.8)/3.6))
 	c = connectionBlend(c, wet, connectionSmoothStep((d+2.2)/2.6))
 	c = connectionBlend(c, rock, connectionSmoothStep((d+.1)/2.5))
+	if in.Manifest.Season == "winter" {
+		// Dry stones turn cold grey and carry snow on their light tops; the
+		// wet faces at the waterline stay dark.
+		lum := float64(rock.R) + float64(rock.G) + float64(rock.B)
+		grey := uint8(lum / 3)
+		dry := connectionSmoothStep((d - .5) / 2.5)
+		c = connectionBlend(c, color.NRGBA{grey, grey, grey + 4, 255}, .45*dry)
+		c = connectionBlend(c, grass, .85*dry*connectionSmoothStep((lum/765-.38)/.22))
+	}
 	// Centre the wider fringe on the accepted rock/grass boundary. Existing
 	// painted crevices and meadow marks let vegetation enter between stones,
 	// instead of fading every rock through an identical parallel band.

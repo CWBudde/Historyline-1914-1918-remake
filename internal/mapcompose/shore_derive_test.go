@@ -61,7 +61,7 @@ func TestShoreShapes(t *testing.T) {
 	} {
 		t.Run(tt.name, func(t *testing.T) {
 			g, at := grid(tt.rows...)
-			if got, gap := selectShore(g, at, tt.at, func(string) bool { return true }); got != tt.want || gap != nil {
+			if got, gap := selectShore(g, at, tt.at, false, func(string) bool { return true }); got != tt.want || gap != nil {
 				t.Errorf("shore %s (gap %v), want %s", got, gap, tt.want)
 			}
 			if s, ok := ParseShore(tt.want); tt.want != "water" && (!ok || s.ID() != tt.want) {
@@ -96,7 +96,7 @@ func TestVenomCoastHasShores(t *testing.T) {
 		{5, 8, "lakeside123"},
 	} {
 		c := hexgrid.Coord{Line: tt.line - 1, Col: tt.col - 1}
-		if got, _ := selectShore(l.Grid(), at, c, func(string) bool { return true }); got != tt.want {
+		if got, _ := selectShore(l.Grid(), at, c, false, func(string) bool { return true }); got != tt.want {
 			t.Errorf("%d,%d draws %s, want %s", tt.line, tt.col, got, tt.want)
 		}
 	}
@@ -128,7 +128,7 @@ func TestShoresMeetLandAndEachOther(t *testing.T) {
 				return Hex{Terrain: h.Terrain, Infra: h.Infra.IDs}
 			}
 			shape := func(c hexgrid.Coord) ShoreShape {
-				id, _ := selectShore(g, at, c, func(string) bool { return true })
+				id, _ := selectShore(g, at, c, false, func(string) bool { return true })
 				if id == "water" {
 					return ShoreShape{}
 				}
@@ -174,5 +174,65 @@ func TestShoresMeetLandAndEachOther(t *testing.T) {
 				t.Errorf("%s: %d water edges meet land", strings.TrimSuffix(name, ".json"), hard)
 			}
 		}
+	}
+}
+
+// A coast takes the season of most of its land: snow beside winter terrain,
+// meadow beside summer terrain, and the map's season where only shores and
+// water touch it.
+func TestWinterCoastsTakeWinterShores(t *testing.T) {
+	all := func(string) bool { return true }
+	for _, tt := range []struct {
+		name   string
+		rows   []string
+		winter bool
+		want   string
+	}{
+		{"winter pond", []string{"grass_w grass_w grass_w", "grass_w grass_w", "grass_w water grass_w", "grass_w grass_w", "grass_w grass_w grass_w"}, false, "shore-3f_w"},
+		{"summer pond on a winter map", []string{"grass grass grass", "grass grass", "grass water grass", "grass grass", "grass grass grass"}, true, "shore-3f"},
+		{"mostly summer", []string{"water water water", "grass_w grass", "water water water", "water water", "water grass water"}, true, "shore-3f-c15"},
+		{"tied, on a winter map", []string{"water water water", "water grass_w", "water water water", "water water", "water grass water"}, true, "shore-1e-c04_w"},
+		{"roster shore", []string{"water water water", "water water", "water lakeside34 water", "water water", "water grass_w water"}, false, "lakeside34_w"},
+	} {
+		t.Run(tt.name, func(t *testing.T) {
+			g, at := grid(tt.rows...)
+			if got, gap := selectShore(g, at, hexgrid.Coord{Line: 2, Col: 1}, tt.winter, all); got != tt.want || gap != nil {
+				t.Errorf("shore %s (gap %v), want %s", got, gap, tt.want)
+			}
+		})
+	}
+	// Without its winter form a winter coast keeps the summer shore and
+	// reports the gap.
+	g, at := grid("grass_w grass_w grass_w", "grass_w grass_w", "grass_w water grass_w", "grass_w grass_w", "grass_w grass_w grass_w")
+	summer := func(id string) bool { return !strings.HasSuffix(id, "_w") }
+	if got, gap := selectShore(g, at, hexgrid.Coord{Line: 2, Col: 1}, true, summer); got != "shore-3f" || gap == nil || gap.Descriptor != "shore-3f_w" {
+		t.Errorf("shore %s, gap %+v", got, gap)
+	}
+	// Level 10 (map 09) lies in winter: its coast is snow.
+	b, err := fs.ReadFile(levels.Campaign, "campaign/level10_cp.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	l, err := level.Parse(b)
+	if err != nil {
+		t.Fatal(err)
+	}
+	s := Compose(l.Grid(), func(c hexgrid.Coord) Hex {
+		h := l.Lines[c.Line][c.Col]
+		return Hex{Terrain: h.Terrain, Infra: h.Infra.IDs}
+	}, all)
+	shores := 0
+	for _, line := range s.Cells {
+		for _, c := range line {
+			if id := string(c.Background); strings.HasPrefix(id, "tile/lakeside") || strings.HasPrefix(id, "tile/shore-") {
+				shores++
+				if !strings.HasSuffix(id, "_w") {
+					t.Errorf("summer shore %s on the winter coast", id)
+				}
+			}
+		}
+	}
+	if shores < 40 {
+		t.Errorf("only %d shores on level 10", shores)
 	}
 }

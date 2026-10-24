@@ -17,6 +17,7 @@ type shoreVariant struct {
 }
 type shoreManifest struct {
 	BankProfile   string                        `json:"bank_profile,omitempty"`
+	Season        string                        `json:"season,omitempty"`
 	SchemaVersion int                           `json:"schema_version"`
 	Materials     map[string]connectionMaterial `json:"materials"`
 	Variants      []shoreVariant                `json:"variants"`
@@ -68,6 +69,9 @@ func decodeShoreManifest(b []byte, m *shoreManifest) error {
 	if _, ok := optional["bank_profile"]; ok {
 		fields = append(fields, "bank_profile")
 	}
+	if _, ok := optional["season"]; ok {
+		fields = append(fields, "season")
+	}
 	root, err := shoreObject(b, fields...)
 	if err != nil {
 		return err
@@ -117,6 +121,9 @@ func loadShoreInputs(path string) (shoreInputs, error) {
 	}
 	if in.Manifest.BankProfile != "" && in.Manifest.BankProfile != authoredBankProfile {
 		return in, errors.New("shore bank_profile must be authored-rocks-v1 when set")
+	}
+	if in.Manifest.Season != "" && (in.Manifest.Season != "winter" || in.Manifest.BankProfile != authoredBankProfile) {
+		return in, errors.New("shore season must be winter, with the authored-rocks-v1 bank, when set")
 	}
 	expected := map[string][]int{}
 	for _, v := range shoreRoster() {
