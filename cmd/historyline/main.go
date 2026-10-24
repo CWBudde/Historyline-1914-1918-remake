@@ -89,6 +89,7 @@ type game struct {
 	drawing  bool   // a dos panel is being drawn: drawSide's map
 	drawSide int
 	tileTint map[string]color.RGBA // average colour of a terrain tile, by asset ID
+	orig     *origTiles            // the original tiles (F8, origtiles.go); nil until first asked for
 }
 
 func newGame(lvl *level.Level, st *state.State, player state.Player, reveal bool) *game {
@@ -509,9 +510,11 @@ func (g *game) drawMapLayer(dst *ebiten.Image, vx, vy, vw, vh float64, human boo
 	}
 	// Terrain, then owner marks, then units and their markers, each in its own pass so that a later
 	// hex never covers what an earlier one drew beyond its outline.
-	if g.terrain != nil {
+	switch {
+	case g.drawOrigTiles(dst, inView):
+	case g.terrain != nil:
 		g.drawTerrain(dst, inView)
-	} else {
+	default:
 		for _, coord := range inView {
 			sx, sy := g.cam.WorldToScreen(hexgrid.Center(coord))
 			hx := g.lvl.Lines[coord.Line][coord.Col]

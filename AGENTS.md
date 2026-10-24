@@ -21,6 +21,7 @@ just test        # go test ./...
 go test ./internal/game -run TestName   # single test
 just lint        # go vet + golangci-lint v2 (.golangci.yml)
 just run         # play; just play uses the candidate art; just build -> bin/; just web 8080
+just play-original  # just play, with F8 switching to the original tiles from the local original/ (-tags origtiles)
 just art-index   # regenerate art/index.json after changing prompts or art; just art-check validates
 just artbook     # build/artbook/Historyline_Art.pdf (needs typst)
 ```
