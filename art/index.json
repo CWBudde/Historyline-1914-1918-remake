@@ -11737,55 +11737,51 @@
       "prompt": "art/units/bunker/prompt.md",
       "masters": [
         {
-          "path": "art/units/bunker/atlas.png",
-          "sha256": "0301b36f67b705fe189b58008c849c5286e796ecaec539ddc15780018a521d46",
-          "width": 1024,
-          "height": 1536
+          "path": "art/units/bunker/top-view.png",
+          "sha256": "d8c8eb21917476381506a625375563b2718c62d7e433e6703bba924a2591fb2e",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/units/bunker/top-view-cp.png",
+          "sha256": "397fa3666d74640b9c9ade0d4504bf7126311fdf2c145052635f7bf81873ae9a",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "path": "art/units/bunker/top-view-ec.png",
+          "sha256": "608f6210cee34d3e7a2a9c277805e2292e41c49ef1f5103d79c24a792e8a00b1",
+          "width": 1254,
+          "height": 1254
         }
       ],
-      "look": "A low round concrete bunker with a domed roof. It stands on a 96x96 logical sprite above the hex centre and must read at\n48 pixels on any terrain, with the owner colour clearly on only a narrow painted identification strip; the concrete stays natural grey.",
-      "base_prompt": "Asset: six-direction tactical sprite atlas, 1024x1536 transparent RGBA, 2 columns by 3 rows of 512x512\ncells, row-major headings N, NW, SW, S, SE, NE. Subject in every cell: one low round concrete bunker with a broad domed roof, small dark horizontal embrasures and a central doorway. In each cell the\nfront, where the doorway and main embrasure face, points towards that cell's heading. Saturated, naturally shaded magenta\nonly on only a narrow painted identification strip; the concrete stays natural grey; everything else in natural materials. Whole subject centred on (256,261) within\nthe central 65 percent of every cell, all extremities inside, alpha zero outside the objects.",
+      "look": "A low round concrete machine-gun bunker seen from straight above, as in the original: a grey dome\nwith four embrasures and gun barrels, ringed by sandbags on brown earth, with the owner's national\ninsignia painted large on the roof so the owner reads at a glance. It fills its hex (78 logical\npixels across) and reads at 48 pixels on any terrain.\n\nException to `art/style.md`, at the user's request: this unit carries national insignia (the\nEntente's French roundel, the Central Powers' cross pattée) instead of a magenta owner strip, and it\nis drawn from straight above instead of the three-quarter camera; the Units text block of\n`art/style.md` does not apply. The masters are single top views, not six-facing atlases.",
+      "base_prompt": "One cut-out game unit sprite master, not an atlas: a single transparent RGBA square canvas, 1024x1024\npixels. Strict top-down orthographic (nadir) view, looking straight down from directly above: no\nhorizon, no perspective tilt, no three-quarter angle and no visible wall faces. The object is a perfect\ncircle in plan, never an ellipse.\n\nSubject: one low, round First World War reinforced concrete machine-gun bunker seen from directly\nabove. Centre it on (512,512). Its outer diameter including the rim is about 680 px (about two thirds\nof the canvas width); keep at least 150 px of fully transparent margin on every side.\n- Roof: a slightly domed, weathered grey concrete disc about 500 px across, with board-formwork marks,\n  small chips, hairline cracks and faint rain streaks. Concrete is a cool natural grey: lit areas near\n  RGB 160,160,154, shaded areas near RGB 104,104,100, mean near RGB 132,132,127. The dome is lit from\n  the upper left and darker toward the lower right edge (form shading only).\n- Centre: a FLAT, CLEAN, EVENLY LIT circular area about 260 px across in the middle of the roof, plain\n  smooth concrete with only very faint texture: no hatch, vent, crack, stain or object there. It will\n  later carry a painted marking, so leave it empty.\n- Four short dark horizontal gun embrasure slits in the roof edge at the top, bottom, left and right\n  (12, 3, 6 and 9 o'clock), each about 70 px long and 18 px deep, near-black RGB 30,30,30 inside, with a\n  short dark steel machine-gun barrel stub poking out of each slit about 40 px beyond the rim.\n- Rim: a ring about 80 px wide around the roof of packed brown earth (RGB near 112,96,72) with a\n  single row of tan-khaki sandbags (RGB near 150,132,98) set into it, and a few tufts of dry grass on\n  the outer edge. The outer edge of the rim is slightly irregular but stays round overall.\nNo people, no doors visible from above, no flags, no national insignia, no markings, no text, no\nmagenta. Alpha zero outside the object, no ground plate, no halo, no checkerboard, no cast shadow,\nno glow or backdrop. Strong light/dark separation so it reads at 48 pixels.",
       "variants": [
         {
-          "variant": "N (`n`)",
+          "variant": "neutral (`top-view.png`)",
           "runtime_ids": [],
-          "delta": "Top-left cell: the front (where the doorway and main embrasure face) points up, away from the viewer; the rear and top are visible."
+          "delta": "The base prompt above (after the `art/style.md` Preamble)."
         },
         {
-          "variant": "NW (`nw`)",
+          "variant": "ec (`top-view-ec.png`)",
           "runtime_ids": [],
-          "delta": "Top-right cell: the front (where the doorway and main embrasure face) points to the upper left; the rear quarter and the flank facing lower left are visible."
+          "delta": "Edit of the base, attached as image 1: keep the canvas, transparency and every outline, position, colour and detail; the only change: paint a large French military roundel (cocarde) onto the flat central disc as weathered paint on concrete, outer ring muted dark blue (RGB near 40,62,135), white middle ring (222,220,210), red centre (168,40,38), each ring a third of the radius, outer diameter about 85 percent of the central disc, slight wear and chips; no other marking."
         },
         {
-          "variant": "SW (`sw`)",
+          "variant": "cp (`top-view-cp.png`)",
           "runtime_ids": [],
-          "delta": "Middle-left cell: the front (where the doorway and main embrasure face) points to the lower left; the front quarter and the flank facing lower right are visible."
-        },
-        {
-          "variant": "S (`s`)",
-          "runtime_ids": [],
-          "delta": "Middle-right cell: the front (where the doorway and main embrasure face) points down, towards the viewer; the front is visible."
-        },
-        {
-          "variant": "SE (`se`)",
-          "runtime_ids": [],
-          "delta": "Bottom-left cell: the front (where the doorway and main embrasure face) points to the lower right; the front quarter and the flank facing lower left are visible."
-        },
-        {
-          "variant": "NE (`ne`)",
-          "runtime_ids": [],
-          "delta": "Bottom-right cell: the front (where the doorway and main embrasure face) points to the upper right; the rear quarter and the flank facing lower right are visible."
+          "delta": "The same edit with a black cross pattée (the period Iron Cross: four arms narrow at the centre, flaring to wide straight ends, RGB near 24,24,24) with a clean white border (226,223,212) about 14 px wide, arms upright, overall about 85 percent of the central disc; no other insignia, swastika, eagle or text."
         }
       ],
       "edges": "",
-      "post": "`art-review -unit art/pipeline/unit-bunker-v1.json` slices the atlas into the six facings with a fixed\nanchor and framing inset, splits the magenta into a tint mask and recolours it to the owner palettes\n`cp`, `ec` and `neutral` from the manifest, and derives the `spent` state (greyscale) from each tinted\nsprite. Exports 2x (192x192) and 4x (384x384) of the 96x96 logical sprite, anchor (48,49);\n`unit/bunker/<palette>/<facing>-<state>`. Promote into `assets/units/bunker/` and re-index.",
+      "post": "`go run ./tools/unit-topview -manifest art/pipeline/unit-bunker-v2.json` clears alpha below 24,\ncentres the base's solid box on the anchor (48,49) and scales it to 78 logical pixels, and resamples\nevery owner to 2x (192x192) and 4x (384x384). An edit redraws the whole picture (its outline drifted\n3-5 px and the roof 6 levels lighter), so only the disc of radius 15.8 logical pixels around the\ncentre is taken from `top-view-cp.png` and `top-view-ec.png`: registered on the base by the gradient\nof the ring around it, matched to the base's concrete luma and blended over 10 px. All owners\ntherefore share one outline. The same image serves all six facings, so the insignia stays upright;\n`spent` is the grey (R,R,R,A) of normal, as for every unit. It writes `assets/units/bunker/` and\nre-pins those entries of `assets/index.json`; `-preview build/...` renders the bunker on the map.\nRecords: `build/review/gen-2026-10-24/bk/` (bk-01 base, bk-02 ec, bk-03 cp).",
       "avoid": [
-        "rotated or mirrored copies of one view",
+        "perspective, a visible wall or an elliptical plan",
         "ground, shadows, haze or backdrop",
-        "magenta on skin, leather, metal, wood or horses",
-        "national insignia, flags or text",
-        "magenta concrete",
-        "guns or soldiers"
+        "magenta or tinted concrete",
+        "any marking other than the owner's insignia",
+        "people or text"
       ],
       "runtime": {
         "count": 72,

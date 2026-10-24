@@ -3,6 +3,7 @@ package unitsprite
 import (
 	"os"
 	"path/filepath"
+	"regexp"
 	"slices"
 	"strings"
 	"testing"
@@ -44,18 +45,23 @@ func TestCapturedAndSharedUnitsKeepTheirSubjects(t *testing.T) {
 }
 
 // The art folders are the other half of the contract: every unit pipeline
-// manifest unit-<family>-v1.json names a family of this table, and its prompt.md lists
+// manifest unit-<family>-v<N>.json names a family of this table, and its prompt.md lists
 // the mapped class IDs.
 func TestFamiliesMatchArt(t *testing.T) {
-	paths, err := filepath.Glob(filepath.Join("..", "..", "art", "pipeline", "unit-*-v1.json"))
+	paths, err := filepath.Glob(filepath.Join("..", "..", "art", "pipeline", "unit-*-v*.json"))
 	if err != nil {
 		t.Fatal(err)
 	}
+	manifest := regexp.MustCompile(`^unit-(.+)-v[0-9]+\.json$`)
 	var seen, long []string
 	for _, p := range paths {
-		family := strings.TrimSuffix(strings.TrimPrefix(filepath.Base(p), "unit-"), "-v1.json")
-		if family == "panel" {
-			continue // the unit panel manifest
+		m := manifest.FindStringSubmatch(filepath.Base(p))
+		if m == nil {
+			continue
+		}
+		family := m[1]
+		if family == "panel" || slices.Contains(seen, family) || slices.Contains(long, family) {
+			continue // the unit panel manifest, or another version of a family
 		}
 		if strings.HasSuffix(family, "-long") {
 			long = append(long, family) // drawn from its ship family's art
