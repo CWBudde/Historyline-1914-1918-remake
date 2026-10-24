@@ -68,7 +68,8 @@ type dosControl struct {
 	ending   *dosplay.Event  // the battle's end by the HQ taken: the finale plays and holds
 	sceneArt func() sceneArt // which scene paintings the front end has, nil none
 
-	run *planRun // the computer planning off the frame, nil otherwise (plan.go)
+	run *planRun      // the computer planning off the frame, nil otherwise (plan.go)
+	act *computerTurn // the computer carrying out its planned commands, nil otherwise (plan.go)
 
 	views  [2]sideCache      // each side's map, by side
 	follow [2]*hexgrid.Coord // where each side's panel should look next; the front end takes it

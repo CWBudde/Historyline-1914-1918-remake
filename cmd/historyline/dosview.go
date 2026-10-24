@@ -29,15 +29,15 @@ func newDosGame(lvl *level.Level, s *dosplay.Session, side int, planner dosPlann
 	return g
 }
 
-// dosWalking reports whether the unit standing on at is still walking there, on
-// the human side's map (the walker is drawn there only), or is the rear of the
-// walking ship.
+// dosWalking reports whether the unit standing on at is still walking there on
+// the shown side's map (each side's walker is drawn on its own map), or is the
+// rear of the walking ship.
 func (g *game) dosWalking(at hexgrid.Coord) bool {
-	w := g.dos.walk
-	if g.shownSide() != g.dos.side || w.Done() {
+	w := g.dos.walkOf(g.shownSide())
+	if w.Done() {
 		return false
 	}
-	u, ok := g.dos.units(g.reveal)[at]
+	u, ok := g.dos.unitsOf(g.shownSide(), g.reveal)[at]
 	switch {
 	case !ok:
 		return false
@@ -80,10 +80,10 @@ func (g *game) drawDosUnit(dst *ebiten.Image, c hexgrid.Coord, sx, sy float64) {
 	vector.FillCircle(dst, float32(sx), float32(sy), float32(14*g.cam.Effective()), color.RGBA{230, 230, 230, 255}, true)
 }
 
-// drawWalker draws the walking unit u (the engine's key), now on hex c, and
-// reports whether a sprite was drawn.
-func (g *game) drawWalker(dst *ebiten.Image, unit any, c hexgrid.Coord, sx, sy float64, face unitsprite.Facing) bool {
-	switch u := unit.(type) {
+// drawWalker draws the unit of walk w, now on hex c, and reports whether a
+// sprite was drawn.
+func (g *game) drawWalker(dst *ebiten.Image, w *walk, c hexgrid.Coord, sx, sy float64, face unitsprite.Facing) bool {
+	switch u := w.unit.(type) {
 	case *state.Unit:
 		return u != nil && g.drawUnitSprite(dst, c, sx, sy, u.Type, u.Owner, unitSpent(u), false, face)
 	case int:
@@ -94,7 +94,7 @@ func (g *game) drawWalker(dst *ebiten.Image, unit any, c hexgrid.Coord, sx, sy f
 		if g.drawOrigUnit(dst, v, sx, sy, face, false) {
 			return true
 		}
-		if w := g.dos.walk; w != nil && len(w.tail) > 0 {
+		if len(w.tail) > 0 {
 			hx, hy := w.Pos()
 			rx, ry := w.TailPos()
 			return g.drawShip(dst, c, v.ID, v.Owner, false, hx, hy, rx, ry)

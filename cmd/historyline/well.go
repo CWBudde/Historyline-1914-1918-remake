@@ -64,6 +64,8 @@ func (g *game) wellOf(side int) well {
 		} else {
 			w.text = "PLANNING THE MOVES"
 		}
+	case side != d.side && d.acting():
+		w.text = "CARRYING OUT ITS ORDERS"
 	case d.busy():
 		w.text = "ORDERS UNDER WAY"
 	case s.Ready(side):

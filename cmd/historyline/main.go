@@ -545,15 +545,15 @@ func (g *game) drawMapLayer(dst *ebiten.Image, vx, vy, vw, vh float64, human boo
 		}
 	}
 	g.drawUnitMarks(dst, inView)
-	if human {
-		if w := g.drv().ui().walk; !w.Done() && g.fogOf(w.Hex()) == state.Visible {
-			wx, wy := w.Pos()
-			sx, sy := g.cam.WorldToScreen(wx, wy)
-			face, _ := unitsprite.Toward(w.Heading())
-			if !g.drawWalker(dst, w.unit, w.Hex(), sx, sy, face) {
-				vector.FillCircle(dst, float32(sx), float32(sy), float32(14*g.cam.Effective()), color.RGBA{230, 230, 230, 255}, true)
-			}
+	if w := g.walkShown(human); !w.Done() && g.fogOf(w.Hex()) == state.Visible {
+		wx, wy := w.Pos()
+		sx, sy := g.cam.WorldToScreen(wx, wy)
+		face, _ := unitsprite.Toward(w.Heading())
+		if !g.drawWalker(dst, w, w.Hex(), sx, sy, face) {
+			vector.FillCircle(dst, float32(sx), float32(sy), float32(14*g.cam.Effective()), color.RGBA{230, 230, 230, 255}, true)
 		}
+	}
+	if human {
 		if g.dos != nil {
 			g.darken(dst, inView) // the cursor is drawn over the frame (drawCursor)
 		} else {
@@ -568,6 +568,18 @@ func (g *game) drawMapLayer(dst *ebiten.Image, vx, vy, vw, vh float64, human boo
 	}
 	// Hit marks show on both sides' maps: both see the battle.
 	g.drawMarks(dst)
+}
+
+// walkShown is the walk drawn on the map being drawn: under -rules dos the
+// shown side's own, else the walk on the human side's map only.
+func (g *game) walkShown(human bool) *walk {
+	switch {
+	case g.dos != nil:
+		return g.dos.walkOf(g.shownSide())
+	case human:
+		return g.drv().ui().walk
+	}
+	return nil
 }
 
 // drawStatus prints the status and help text at the top left of the HUD.

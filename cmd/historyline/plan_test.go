@@ -86,3 +86,69 @@ func TestPlanInTheFrameWithoutCommands(t *testing.T) {
 		t.Errorf("pass planner: planning %v, ready %v", d.planning(), d.s.Ready(1-d.side))
 	}
 }
+
+// TestComputerMovesWalk: after planning, the computer carries out its orders
+// one by one, each move walking on its own panel in view of its camera, and
+// confirms only after the last.
+func TestComputerMovesWalk(t *testing.T) {
+	g, d := newSplitTest(t, computerPlanner(), 1800, 1000)
+	opp := 1 - d.side
+	walks := 0
+	for turn := 0; turn < 4 && walks == 0; turn++ {
+		tickUntil(t, d, func() bool { return d.acting() || d.s.Ready(opp) })
+		var last *walk
+		for d.acting() {
+			if d.s.Ready(opp) {
+				t.Fatalf("turn %d: confirmed while carrying out its orders", turn)
+			}
+			if w := g.wellOf(opp); w.text != "CARRYING OUT ITS ORDERS" {
+				t.Fatalf("turn %d: well %q while acting", turn, w.text)
+			}
+			if w := d.walkOf(opp); !w.Done() {
+				if w != last {
+					walks, last = walks+1, w
+				}
+				end := w.path[len(w.path)-1]
+				_, standing := d.unitsOf(opp, false)[end] // not inside a building
+				g.drawing, g.drawSide = true, opp
+				if standing && !g.dosWalking(end) {
+					t.Errorf("turn %d: the walker's unit stands on %v before it arrives", turn, end)
+				}
+				g.drawSide = d.side
+				if g.dosWalking(end) {
+					t.Errorf("turn %d: the computer's walk shows on the human's map", turn)
+				}
+				g.drawing = false
+				g.updateSplit()
+				if !viewShows(g.splitView(opp), g.playGrid(), w.Hex()) {
+					t.Errorf("turn %d: walker on %v out of its panel's view", turn, w.Hex())
+				}
+			}
+			d.Tick()
+		}
+		if !d.s.Ready(opp) {
+			t.Fatalf("turn %d: not confirmed after its orders", turn)
+		}
+		d.s.Confirm(d.side)
+		d.SetReducedMotion(true)
+		tickUntil(t, d, func() bool { return !d.busy() && !d.s.Ready(d.side) })
+		d.SetReducedMotion(false)
+		if d.s.Ended() != nil {
+			break
+		}
+	}
+	if walks == 0 {
+		t.Fatal("no move of the computer walked")
+	}
+}
+
+// TestComputerActsAtOnceReduced: with reduced motion the computer's orders
+// all land in the frame its planning comes in.
+func TestComputerActsAtOnceReduced(t *testing.T) {
+	d := newDosTest(t, "level1_cp", computerPlanner())
+	d.SetReducedMotion(true)
+	tickUntil(t, d, func() bool { return !d.planning() && (d.acting() || d.s.Ready(1-d.side)) })
+	if d.acting() || !d.s.Ready(1-d.side) {
+		t.Errorf("acting %v, ready %v", d.acting(), d.s.Ready(1-d.side))
+	}
+}

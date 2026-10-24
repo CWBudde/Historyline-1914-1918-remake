@@ -11,13 +11,26 @@ import (
 // The computer plans off the frame: the planner works on a copy of the
 // session in a goroutine, reporting its progress, while the human side keeps
 // giving orders on the real one; its commands are then replayed on the real
-// session on the game's goroutine. A planner without commands (passPlanner,
-// the test planners) plans in the frame as before, and so does every
-// planner when the copy or the replay fails.
+// session on the game's goroutine one by one, each move walking on the
+// computer's panel, and the side confirms after the last. A planner without
+// commands (passPlanner, the test planners) plans in the frame as before, and
+// so does every planner when the copy or the replay fails.
 
 // planMinFrames is how long the planning shows at least, so the progress bar
 // is seen to run.
 const planMinFrames = 45
+
+// actPauseFrames is how long the computer's panel rests before each move:
+// its camera slides to the unit, and the moves read one by one.
+const actPauseFrames = 12
+
+// computerTurn is the computer side carrying out its planned commands.
+type computerTurn struct {
+	side int
+	cmds []dosrules.Command // still to replay
+	walk *walk              // the move walking on the side's panel
+	wait int                // frames of rest before walk starts
+}
 
 // commandPlanner plans side's orders on a session and returns them as
 // commands to replay (dosai.Planner.Commands).
@@ -54,10 +67,29 @@ func (d *dosControl) planProgress() float64 {
 	return min(float64(done)/float64(total), 1)
 }
 
-// planStep runs one frame of the computer side's planning: it starts a run,
-// or takes a finished one in, or plans in the frame for a planner that
-// cannot plan off it.
+// acting reports whether the computer is carrying out its planned commands.
+func (d *dosControl) acting() bool { return d.act != nil }
+
+// walkOf is the walk on side's panel: the human side's own move or the
+// computer's move being carried out.
+func (d *dosControl) walkOf(side int) *walk {
+	if side == d.side {
+		return d.walk
+	}
+	if d.act != nil {
+		return d.act.walk
+	}
+	return nil
+}
+
+// planStep runs one frame of the computer side's planning: it carries out
+// planned commands, starts a run, or takes a finished one in, or plans in the
+// frame for a planner that cannot plan off it.
 func (d *dosControl) planStep(side int) {
+	if d.act != nil {
+		d.actStep()
+		return
+	}
 	if d.run == nil {
 		if !d.startPlan(side) {
 			d.plan(side)
@@ -119,24 +151,69 @@ func (d *dosControl) startPlan(side int) bool {
 	return true
 }
 
-// finishPlan replays a finished run's commands on the session; a failed run
-// or replay plans in the frame instead, on the session as it is now.
+// finishPlan hands a finished run's commands to be carried out (actStep); a
+// failed run plans in the frame instead, on the session as it is now.
 func (d *dosControl) finishPlan(side int, res planResult) {
 	if res.err == nil {
-		evs, err := d.s.Replay(res.cmds)
-		if err == nil {
-			if c, ok := planFocus(evs); ok {
-				d.lookAt(side, c)
-			}
-			if !d.s.Ready(side) {
-				d.s.Confirm(side)
-			}
-			return
-		}
-		res.err = err
+		d.act = &computerTurn{side: side, cmds: res.cmds}
+		d.actStep()
+		return
 	}
-	d.Message = "computer side: " + res.err.Error()
+	d.planFailed(side, res.err)
+}
+
+// planFailed reports a failed planning or replay and plans in the frame on
+// the session as it is now.
+func (d *dosControl) planFailed(side int, err error) {
+	d.Message = "computer side: " + err.Error()
 	if !d.s.Ready(side) {
 		d.plan(side)
+	}
+}
+
+// actStep runs one frame of the computer carrying out its commands: the move
+// walking on its panel plays on, else the next commands replay on the session
+// up to the next move, which rests a moment and then walks. After the last
+// the side confirms. With reduced motion every command replays at once.
+func (d *dosControl) actStep() {
+	a := d.act
+	if d.reduced {
+		a.walk, a.wait = nil, 0
+	}
+	switch {
+	case a.wait > 0:
+		a.wait--
+		return
+	case !a.walk.Done():
+		a.walk.Tick()
+		return
+	}
+	for len(a.cmds) > 0 {
+		evs, err := d.s.Replay(a.cmds[:1])
+		a.cmds = a.cmds[1:]
+		if err != nil {
+			d.act = nil
+			d.planFailed(a.side, err)
+			return
+		}
+		for _, ev := range evs {
+			if ev.Kind != dosplay.Moved {
+				continue
+			}
+			d.face(ev)
+			if w := newWalkMotion(ev.Path, ev.Unit, d.reduced); w != nil {
+				if len(ev.Rear) == len(ev.Path) {
+					w.tail = ev.Rear
+				}
+				a.walk, a.wait = w, actPauseFrames
+			}
+		}
+		if a.walk != nil && !a.walk.Done() {
+			return
+		}
+	}
+	d.act = nil
+	if !d.s.Ready(a.side) {
+		d.s.Confirm(a.side)
 	}
 }

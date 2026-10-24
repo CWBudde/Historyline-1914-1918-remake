@@ -277,7 +277,7 @@ func (g *game) updateSplit() {
 }
 
 // followSplit applies the session's look requests and the human side's
-// follow rules.
+// follow rules, and keeps the computer's walker in its panel's view.
 func (g *game) followSplit() {
 	d, s := g.dos, g.split
 	for side := range 2 {
@@ -294,6 +294,11 @@ func (g *game) followSplit() {
 		g.lookAt(d.side, d.from)
 	}
 	s.sel, s.selOn = d.from, d.selected
+	if opp := 1 - d.side; !d.walkOf(opp).Done() {
+		if at := d.walkOf(opp).Hex(); !viewShows(g.splitView(opp), g.playGrid(), at) {
+			g.lookAt(opp, at)
+		}
+	}
 }
 
 // pickSplit is the hex under device pixel (mx, my): only on the human side's
