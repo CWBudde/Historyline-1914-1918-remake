@@ -571,7 +571,7 @@ Same geometry; thin snow on the roof planes with tiles showing at the ridge and 
 
 ### Campaign subjects
 
-These are for the original maps (`PLAN.md` §2 Phase 9.3).
+These are for the original maps (`PLAN.md` §2 Look 8).
 
 **C1 Sea material.** 1536×864 opaque; 1536 px is 284 world px. Open sea is separate from ponds.
 Attach: the selected W1; the unused wind-wave swatch `exec-242738de`, for wave character only.

@@ -47,6 +47,8 @@ just artbook     # build/artbook/Historyline_Art.pdf (needs typst)
 - `internal/dosai`: the computer side on the order cycle: a greedy `Planner` that moves along terrain route
   costs towards the enemy HQ and units, takes buildings on its way and queues the attacks the exact battle
   outcome favours; `PlayOut`.
+- `internal/dosscreen`, `internal/dospanel`, `internal/gesture`: the original's split battle screen under
+  `-rules dos` (layout, steel frame, panel views, cursor gestures); see `docs/dos-screen.md`.
 - `internal/hexgrid`: hex layout (even lines `Width` hexes, odd lines `Width-1`, half-shifted).
 - `internal/level`: `levels/*.json` read/write. `internal/tpwm`: Turbo Packer unpacker.
 - `internal/finmap`, `cmd/finextract`: the original map files → versioned level JSON. `levels/original/` is
