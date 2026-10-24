@@ -357,8 +357,8 @@ func legacyTile(kind, id string) string {
 	if kind == "infrastructure" {
 		// Neither the barbed wire, the quays, the airfield and harbour pieces
 		// nor the neighbour-derived trenches have a Python remake tile.
-		// Nor the winter roads and crossings.
-		if id == "barbedWire" || strings.HasPrefix(id, "quay") || strings.HasPrefix(id, "runway") ||
+		// Nor the winter roads and crossings, nor the rocks of stones in water.
+		if id == "barbedWire" || id == "waterRocks" || strings.HasPrefix(id, "quay") || strings.HasPrefix(id, "runway") ||
 			strings.HasPrefix(id, "hangar") || strings.HasPrefix(id, "apron") || strings.HasPrefix(id, "harbour") ||
 			strings.HasSuffix(id, "_w") {
 			return ""

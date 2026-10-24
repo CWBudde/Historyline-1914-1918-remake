@@ -471,20 +471,27 @@ func (g *game) zoomSplit(step int) {
 
 // wheelSplit adds a wheel turn of dy with the pointer at (mx, my): over the
 // human side's half of the window each whole turn steps the zoom, up zooming
-// in.
+// in, or in an open production list the pick, up moving up.
 func (g *game) wheelSplit(dy float64, mx, my int) {
 	s := g.split
-	if !g.edgeZone(mx, my) || s.mode[g.dos.side] != panelMap || g.dos.locked() {
+	up, down := func() { g.zoomSplit(1) }, func() { g.zoomSplit(-1) }
+	switch mode := s.mode[g.dos.side]; {
+	case !g.edgeZone(mx, my) || g.dos.locked():
+		s.wheel = 0
+		return
+	case mode == panelContents && g.dos.box != nil && g.dos.box.build:
+		up, down = func() { g.dos.boxStep(gesture.Up) }, func() { g.dos.boxStep(gesture.Down) }
+	case mode != panelMap:
 		s.wheel = 0
 		return
 	}
 	s.wheel += dy
 	for s.wheel >= 1 {
 		s.wheel--
-		g.zoomSplit(1)
+		up()
 	}
 	for s.wheel <= -1 {
 		s.wheel++
-		g.zoomSplit(-1)
+		down()
 	}
 }

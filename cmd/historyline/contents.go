@@ -26,7 +26,8 @@ import (
 // the contents' gestures on the slot: move out above, produce to the left,
 // cancel to the right, repair below. A plain fire moves the unit out. Produce
 // lists the types the factory builds with their prices in the details plate:
-// up and down pick, fire builds, cancel and Esc go back to the slots.
+// up and down pick (the mouse picks the row under it, the wheel scrolls), fire
+// builds, cancel and Esc go back to the slots.
 
 // buildRows is how many types the production list shows below its heading.
 const buildRows = 5
@@ -38,6 +39,7 @@ type contents struct {
 	sel   int           // the slot under the cursor
 	build bool          // the production list is open
 	pick  int           // its picked row
+	top   int           // its first row shown
 	cache boxCache
 }
 
@@ -51,8 +53,8 @@ type boxCache struct {
 
 // boxKey is what the placement and the details depend on.
 type boxKey struct {
-	version, energy, sel, pick int
-	build, ready, over, busy   bool
+	version, energy, sel, pick, top int
+	build, ready, over, busy        bool
 }
 
 // openContents opens the contents of the own building or carrier on at with
@@ -168,7 +170,7 @@ func (d *dosControl) canBox(a gesture.Action) bool {
 // again when what they depend on changed.
 func (d *dosControl) refreshBox() {
 	b := d.box
-	k := boxKey{version: d.s.Version(), energy: d.s.Energy(d.side), sel: b.sel, pick: b.pick, build: b.build,
+	k := boxKey{version: d.s.Version(), energy: d.s.Energy(d.side), sel: b.sel, pick: b.pick, top: b.top, build: b.build,
 		ready: d.s.Ready(d.side), over: d.over, busy: d.busy()}
 	if b.cache.ok && b.cache.key == k {
 		return
@@ -232,16 +234,27 @@ func (d *dosControl) slotDetails() []string {
 	return out
 }
 
-// buildWindow is the first row the production list shows of n with row pick
-// picked.
-func buildWindow(pick, n int) int { return min(max(pick-buildRows/2, 0), max(n-buildRows, 0)) }
+// buildTop is the first row the production list shows of n with row pick
+// picked when it showed from row top before: the rows move only as far as
+// the pick needs, so a pick under the pointer never scrolls the list.
+func buildTop(top, pick, n int) int {
+	top = max(min(top, pick), pick-buildRows+1)
+	return min(max(top, 0), max(n-buildRows, 0))
+}
+
+// setPick picks row i of the production list's n rows and scrolls it into
+// view.
+func (b *contents) setPick(i, n int) {
+	b.pick = min(max(i, 0), n-1)
+	b.top = buildTop(b.top, b.pick, n)
+}
 
 // buildDetails is the production list: the energy at hand, then the types
 // and their prices around the picked one.
 func (d *dosControl) buildDetails() []string {
 	opts := d.buildable()
 	out := []string{fmt.Sprintf("produce - energy %d", d.s.Energy(d.side))}
-	first := buildWindow(d.box.pick, len(opts))
+	first := d.box.top
 	for _, o := range opts[first:min(first+buildRows, len(opts))] {
 		out = append(out, fmt.Sprintf("%s  %d", o.Name, o.Cost))
 	}
@@ -255,9 +268,9 @@ func (d *dosControl) boxStep(dir gesture.Dir) {
 	if b.build {
 		switch dir {
 		case gesture.Up:
-			b.pick = max(b.pick-1, 0)
+			b.setPick(b.pick-1, len(d.buildable()))
 		case gesture.Down:
-			b.pick = min(b.pick+1, len(d.buildable())-1)
+			b.setPick(b.pick+1, len(d.buildable()))
 		default:
 		}
 		return
@@ -326,10 +339,12 @@ func (d *dosControl) moveOut() {
 // openBuild opens the production list on the first type the side can pay.
 func (d *dosControl) openBuild() {
 	b := d.box
-	b.build, b.pick = true, 0
-	for i, o := range d.buildable() {
+	opts := d.buildable()
+	b.build, b.top = true, 0
+	b.setPick(0, len(opts))
+	for i, o := range opts {
 		if d.s.CanBuild(d.side, b.hold, o.Type) == nil {
-			b.pick = i
+			b.setPick(i, len(opts))
 			break
 		}
 	}
@@ -401,7 +416,7 @@ func detailRow(l dospanel.ContentsRects, i int) image.Rectangle {
 // buildRowAt is the production list's row under device pixel (x, y).
 func (g *game) buildRowAt(x, y int) (int, bool) {
 	l, n := g.contentsLayout(), len(g.dos.buildable())
-	first := buildWindow(g.dos.box.pick, n)
+	first := g.dos.box.top
 	for i := range min(buildRows, n-first) {
 		if image.Pt(x, y).In(detailRow(l, i+1)) {
 			return first + i, true
@@ -429,7 +444,7 @@ func (g *game) contentsGesture(ev gesture.Event) {
 	}
 	set := func(i int) {
 		if b.build {
-			b.pick = i
+			b.setPick(i, len(d.buildable()))
 		} else {
 			b.sel = i
 		}
@@ -513,7 +528,7 @@ func (g *game) drawContents(dst *ebiten.Image, r image.Rectangle) {
 	l := g.contentsLayout()
 	dospanel.DrawContents(dst, r, l.Scale, g.contentsView(), panelText{textScale(l.Scale)})
 	if d.box.build {
-		row := detailRow(l, d.box.pick-buildWindow(d.box.pick, len(d.buildable()))+1)
+		row := detailRow(l, d.box.pick-d.box.top+1)
 		vector.StrokeRect(dst, float32(row.Min.X), float32(row.Min.Y), float32(row.Dx()), float32(row.Dy()),
 			float32(max(l.Scale/2, 1)), dosscreen.NumberColour, false)
 	}

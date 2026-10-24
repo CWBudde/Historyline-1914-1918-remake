@@ -313,3 +313,54 @@ func TestContentsCursorDraw(t *testing.T) {
 	g.drawSplit(img)
 	g.drawWells(img)
 }
+
+// The production list scrolls only as far as the pick needs: a pick inside
+// the shown rows (a hover) keeps them, one above or below moves them by the
+// rows it is out.
+func TestBuildTop(t *testing.T) {
+	for _, tt := range []struct{ top, pick, n, want int }{
+		{0, 0, 9, 0},
+		{0, 4, 9, 0}, // the last row shown: no scroll
+		{0, 5, 9, 1},
+		{3, 4, 9, 3},
+		{3, 2, 9, 2},
+		{4, 8, 9, 4},
+		{6, 8, 9, 4}, // never past the end
+		{2, 1, 3, 0}, // a short list shows from the top
+	} {
+		if got := buildTop(tt.top, tt.pick, tt.n); got != tt.want {
+			t.Errorf("buildTop(%d, %d, %d) = %d, want %d", tt.top, tt.pick, tt.n, got, tt.want)
+		}
+	}
+}
+
+// Hovering the production list picks the row under the pointer without
+// scrolling it; the wheel steps the pick and scrolls.
+func TestContentsListHoverWheel(t *testing.T) {
+	g, d, f := newContentsTest(t)
+	finish(t, d)
+	openFactory(t, g, d, f)
+	d.s.Game.Energy[d.side] = 500
+	feed(g, fireDir(gesture.Left))
+	n := len(d.buildable())
+	if d.box == nil || !d.box.build || n <= buildRows {
+		t.Skipf("a list of %d types does not scroll", n)
+	}
+	l := g.contentsLayout()
+	last := detailRow(l, buildRows)
+	x, y := (last.Min.X+last.Max.X)/2, (last.Min.Y+last.Max.Y)/2
+	top := d.box.top
+	fx, fy := float64(x), float64(y)
+	feed(g, []gesture.Input{mouseAt(fx, fy-1, false), mouseAt(fx, fy, false), mouseAt(fx, fy+1, false)})
+	if d.box.top != top || d.box.pick != top+buildRows-1 {
+		t.Fatalf("hover on the last row: top %d (was %d) pick %d", d.box.top, top, d.box.pick)
+	}
+	g.wheelSplit(-1, x, y)
+	if d.box.pick != top+buildRows || d.box.top != top+1 {
+		t.Errorf("a wheel turn down: top %d pick %d", d.box.top, d.box.pick)
+	}
+	g.wheelSplit(1, x, y)
+	if d.box.pick != top+buildRows-1 || d.box.top != top+1 {
+		t.Errorf("a wheel turn up: top %d pick %d", d.box.top, d.box.pick)
+	}
+}
