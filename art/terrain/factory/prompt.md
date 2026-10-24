@@ -4,7 +4,7 @@ title: Factory
 kind: terrain
 status: candidate
 runtime_ids: factoryE, factoryN, factoryS, factoryW, factoryE_w, factoryN_w, factoryS_w, factoryW_w
-masters: factory-summer-v1.png, factory-winter-v3.png, factory-winter-v2.png, factory-winter-v1.png
+masters: factory-summer-v2.png, factory-winter-v4.png, factory-summer-v1.png, factory-winter-v3.png, factory-winter-v2.png, factory-winter-v1.png
 ---
 
 ## Look
@@ -37,7 +37,8 @@ Sliced into four hex crops with shared placements; the east street meets the reg
 its port.
 
 ## Post
-Selected winter source is `factory-winter-v3.png` (1536x1024, true alpha): `factory-winter-v2.png` with
+Selected sources are `factory-winter-v4.png` and `factory-summer-v2.png` (1536x1024, true alpha), whose
+east entry street is straightened in Go (below). `factory-winter-v3.png` is `factory-winter-v2.png` with
 every street (the east entry street, the cross street and the north-south street) replaced by packed snow
 with wheel ruts and no lane paint, so the entry continues the winter road tile and the yard streets match
 it. `factory-winter-v2.png` is native built-in imagegen: the edit prompt preserves the prior winter
@@ -46,10 +47,10 @@ masonry, piping, turquoise tanks, basin and patchy snow with the material precis
 `ground-crater-summer-v1.png`. Open ground stays transparent for the seasonal meadow. Summer runtime IDs
 use the same four-cell diamond, east road port and reference framing.
 
-`art-review -compound art/pipeline/compound-factory-v3.json` places the scene on winter meadow and slices
-the four winter cells. `compound-factory-summer-v1.json` exports the four matching summer cells. The scene
+`art-review -compound art/pipeline/compound-factory-v4.json` places the scene on winter meadow and slices
+the four winter cells. `compound-factory-summer-v2.json` exports the four matching summer cells. The scene
 fills the 238x160 box and crops the excess. Both manifests enlarge the scene by `zoom` 1.035 and `shift` it (2.5, 0.7) world px, which puts the
-painted east street within 1 world px of the road through the E cell's NE port, 10–18 world px inside it
+painted east street within 1 world px of the road through the E cell's NE port, 10–18 world px inside it and, with the v4/v2 street, 29–37 world px inside it
 (`TestCompoundEntryStreetMeetsTheRoad`); the outer buildings stay inside the diamond. The first
 10 world px inside the port blend into the season's road tile (`entry_road`). Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
 
@@ -76,6 +77,24 @@ No white centre lines, no dashes, no lane paint, no asphalt black, no curbs. Do 
 
 Image 1 is the installed winter factory: edit only its street surfaces, preserve every outline, position and the transparent area. Image 2 is the winter road material: take its packed-snow grain, patches and grey value for the street surface; do not copy its framing. Image 3 is the installed winter road tile at 4x (road 88 px wide on a 384 px hex, snow verges outside): take its ruts, their spacing relative to the road width and the overall value; do not copy its verges, its size or its hex shape.
 ```
+
+### Straight entry street (2026-10-24)
+
+`factory-winter-v4.png` and `factory-summer-v2.png` are `factory-winter-v3.png` and
+`factory-summer-v1.png` with the east entry street turned onto the road's direction. The painted street
+met the road at the gate but ran a few degrees off it: 29–37 world px inside the NE port its mirror axis
+lay 1.5 world px south of the road's extended axis in both seasons (summer dashes 2.3, winter ruts 1.6,
+south kerb 1.3 world px). No imagegen: a Go warp (scratch tool, not kept) moves pixels across the road
+axis only, by k·(d−15) world px at depth d (k 0.08 winter, 0.125 summer) up to 37 world px, easing back
+to zero by smoothstep at 50 (the yard junction). Across the street the shift is piecewise linear: zero
+15 world px south of the axis, full in the street from −5 to +4, a fraction at the south kerb (−8.5:
+0.69 winter, 0.44 summer) and the north edge (+7: 0.41 / 0.27), zero at +10, so the kerbs, the pipe and
+the buildings beside the street stay where they are. Samples are Catmull-Rom on premultiplied RGBA in
+the master (scene transform scale 0.16171875, offset (−2.7, −2.1) world px). Every pixel outside that
+band (lateral −15..+10, depth 15..50 world px) is unchanged; 32042 (winter) and 32195 (summer) of
+1572864 master pixels differ, a mean absolute RGBA difference to the previous master of 0.39 and 0.42
+over the whole canvas. Afterwards the street lies −0.25 world px off the road's axis at 29–37 world px
+and stays within 1 world px at 10–18; only the E cells change.
 
 ## Avoid
 - visible tiling or repeated rounded "pillow" patterns
