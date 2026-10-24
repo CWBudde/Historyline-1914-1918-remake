@@ -276,6 +276,11 @@ stones.
       `waterStones` as a rock cluster rising from the water (standing layer).
 - [ ] L3.3 Shore as a mask edge between water and grass, lined with rounded boulders placed along the
       shoreline (props), so any port set works. Exemplars `r29c6`, `r30c6`, `r31c7`, `r32c7`.
+      (2026-10-24) partial: each water hex derives its shore from its neighbours (`mapcompose.ShoreShape`): a
+      vertex is land when a land hex or an authored shore at it claims it, and an edge with two land vertices
+      toward more water keeps a channel. The 71 shapes the levels use (several arcs, channels, ponds) are
+      `tile/shore-*`; no water edge meets land on any level (`TestShoresMeetLandAndEachOther`), the PULSE lake
+      is unchanged. Open: the boulders along the shoreline.
 - [ ] L3.4 Streams: 22 world px at the ports, meander 3–7 px, width 16–30 inside a tile with pools at bends
       and riffles on straights; three meander alternates per port set; foam and stony banks. Exemplars
       `r8c2`, `r10c2`, `r12c1`, `r34c6`, `r36c6`. The lake outlet leaves the shore without a seam (feature
@@ -384,6 +389,8 @@ Mostly a material swap of the matching summer family plus the winter grade.
 - [ ] L7.3 Winter water: I1 shore ice and an I2 grade or edit, with ice where the depth is low. Winter forms of
       `water`, `waterStones` and the `lakeside*` shores: 18 of the 24 winter campaign maps contain them and
       show summer water today. Open winter water is L\* 34.7, chroma 25.9 against 24–32, ≤ 12.
+      The derived shores (L3.3) draw summer meadow on every winter coast; a winter shore manifest on
+      `grass-winter-v1.png` and `_w` variants of the shore tiles would fix the meadow before the ice.
 - [ ] L7.4 Winter strips and kits (R1–R5) for roads, paths, rail, streams (ice edges), bridges and trenches,
       and the I3 edits of rocks and bridges.
 - [ ] L7.5 Winter buildings: `hq*_w`, `cmp*_w`, `factory*_w` (matching summer/winter factory exports are
@@ -406,6 +413,10 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       single-hex stamp that reads well when repeated, or the field material.
 - [ ] L8.3 Harbour buildings and their yard (C4; houses and a road today), quays and piers (C5; a road
       bridge on water today, records 107–126) and town streets (C6; a road).
+      (2026-10-24) partial: quays and piers draw the C5 pier `quay-pier-shared-v1.png`, turned to
+      `tile/quay14`, `quay25`, `quay36`, wherever a road bridge stands on water (the rules still see the
+      bridge). Record 120, a quay piece on land, still shows a short road; harbour buildings and town streets
+      are open.
 - [ ] L8.4 Junctions and level crossings without a tile of their own (two overlays today); forest and
       mountain variants that show plain forest and mountain; mountain ranges at their footprint. Knolls and
       boulders are tiled from the existing stamps; whole-shape paintings would read better.
