@@ -420,12 +420,40 @@ func railSleeperPeriod(im *image.NRGBA, v connectionVariant) (int, float64) {
 	return lag, corr(int(connectionSleeperPitch * 4))
 }
 
+// winterCrossingInfill collects the plank infill of a crossing: where the
+// way (a path or road ID such as "path14_w") and the track overlap, away from
+// the hex edge, the rounded corners and the steel.
+func winterCrossingInfill(im *image.NRGBA, rail connectionFamily, track connectionVariant, way string) winterLabMean {
+	g := sharedConnectionGeometry()
+	f := connectionFamily{ID: "path", Width: 7, Border: .75}
+	if strings.HasPrefix(way, "road") {
+		f = connectionFamily{ID: "road", Width: 22, Border: 2, Markings: "ruts"}
+	}
+	var ports []int
+	for _, r := range strings.TrimSuffix(strings.TrimLeft(way, "pathrod"), "_w") {
+		ports = append(ports, int(r-'0'))
+	}
+	route := connectionRoutes(g, f, connectionVariant{ID: way, Ports: ports})
+	r := connectionRailRoutes(g, rail, track)
+	var m winterLabMean
+	for y := range 320 {
+		for x := range 384 {
+			p := connectionPoint{(float64(x) + .5) / 4, (float64(y) + .5) / 4}
+			if mixedEdgeDistance(g, p) > 12.5 && connectionRouteDistance(route, p) < f.Width/2+.5 && connectionRouteDistance(r.ballast, p) < 4 && connectionRouteDistance(r.rails, p) > connectionRailWidth/2+.5 {
+				m.add(winterLab(im.NRGBAAt(x, y)))
+			}
+		}
+	}
+	return m
+}
+
 // Criterion for the winter paths, rails, crossings and footbridges (PLAN.md
 // L7.4) on the installed 4x tiles over the winter ground.
 func TestWinterPathsAndRailsMeetCriterion(t *testing.T) {
 	s := newWinterTrackScene(t)
 	road := winterRoadSurface(t, s.root)
 	t.Logf("road36_w surface L*a*b* %.1f %.1f %.1f", road[0], road[1], road[2])
+	var paths winterLabMean // the surface of every winter path
 	for _, id := range slices.Sorted(func(yield func(string) bool) {
 		for id := range s.variants {
 			if !yield(id) {
@@ -446,6 +474,10 @@ func TestWinterPathsAndRailsMeetCriterion(t *testing.T) {
 		}
 		switch f.ID {
 		case "path":
+			for i := range paths.sum {
+				paths.sum[i] += surface.sum[i]
+			}
+			paths.n += surface.n
 			ds := winterDeltaE(surface.mean(), road)
 			line += fmt.Sprintf("  surface L*a*b* %.1f %.1f %.1f ΔE %.1f", surface.mean()[0], surface.mean()[1], surface.mean()[2], ds)
 			if ds > 8 {
@@ -467,8 +499,11 @@ func TestWinterPathsAndRailsMeetCriterion(t *testing.T) {
 		}
 		t.Log(line)
 	}
+	path := paths.mean()
+	t.Logf("winter path surface L*a*b* %.1f %.1f %.1f", path[0], path[1], path[2])
 	// Crossings and footbridges: their rails stay dark and no summer green
-	// shows anywhere on the tile.
+	// shows anywhere on the tile. A crossing's plank infill reads as snowed
+	// over: within ΔE 10 of the winter surface crossing the track, chroma <= 8.
 	for _, v := range mixedRoster() {
 		if v.Kind == "road-bridge" {
 			continue
@@ -495,10 +530,22 @@ func TestWinterPathsAndRailsMeetCriterion(t *testing.T) {
 		}
 		if v.Kind == "crossing" {
 			rail := v.Layers[1] + "_w"
-			dark := railCentrelineDark(s.composite(t, family, v.RuntimeID+"_w"), s.families[rail], s.variants[rail])
+			im := s.composite(t, family, v.RuntimeID+"_w")
+			dark := railCentrelineDark(im, s.families[rail], s.variants[rail])
 			line += fmt.Sprintf("  rails dark %.1f%%", 100*dark)
 			if dark < .9 {
 				t.Errorf("%s_w: rail centre lines L* <= 40 along %.1f%%", v.RuntimeID, 100*dark)
+			}
+			infill := winterCrossingInfill(im, s.families[rail], s.variants[rail], v.Layers[0]+"_w")
+			target, surface := path, "winter path"
+			if strings.HasPrefix(v.Layers[0], "road") {
+				target, surface = road, "road36_w"
+			}
+			m := infill.mean()
+			de, chroma := winterDeltaE(m, target), math.Hypot(m[1], m[2])
+			line += fmt.Sprintf("  infill L*a*b* %.1f %.1f %.1f ΔE %.1f from the %s surface, C* %.1f", m[0], m[1], m[2], de, surface, chroma)
+			if infill.n < 100 || de > 10 || chroma > 8 {
+				t.Errorf("%s_w: plank infill (%d px) ΔE %.1f from the %s surface (want <= 10), C* %.1f (want <= 8)", v.RuntimeID, infill.n, de, surface, chroma)
 			}
 		}
 		t.Log(line)

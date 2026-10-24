@@ -10,16 +10,22 @@ import (
 	"strings"
 )
 
+// mixedWinterInfillSnow blends the timber infill of a crossing over a winter
+// track toward the snow-packed surface of the road or path crossing it, so
+// the boards read as snowed over and show only faintly; mixedWinterInfillSlush
+// then darkens it toward the slush of the ruts, as traffic treads the snow on
+// the boards as on the way itself.
+const (
+	mixedWinterInfillSnow  = .85
+	mixedWinterInfillSlush = .15
+)
+
 // A winter mixed manifest derives the winter footbridges and level crossings
 // from the pinned summer mixed manifest: each listed variant keeps its
 // geometry, timber infill and steel, and every component it is built from
 // (the crossing's layers, the footbridge's approach path) is swapped for the
 // component of the same ID with a "_w" suffix from the pinned winter
 // connected manifests. Exports carry the runtime ID with "_w".
-// mixedWinterInfillSnow blends the timber infill of a crossing over a winter
-// track toward the winter ground.
-const mixedWinterInfillSnow = .3
-
 type winterMixedManifest struct {
 	SchemaVersion int                  `json:"schema_version"`
 	Base          connectionMaterial   `json:"base"`

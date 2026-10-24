@@ -34,8 +34,9 @@ path and rail tiles exactly.
 Derived only: `art-review -mixed art/pipeline/connected-mixed-v1.json` layers the path or road variant over
 the rail variant. `connected-mixed-winter-v1.json` derives the winter crossings from
 `connected-mixed-v2.json`, swapping every layer for its `_w` form from `connected-road-winter-v1.json`,
-`connected-paths-winter-v1.json` and `connected-rail-winter-v1.json`; the plank infill blends 0.3 toward the
-winter ground. The tagged generator `TestGenerateWinterPathsAndRails` owns all winter crossings
+`connected-paths-winter-v1.json` and `connected-rail-winter-v1.json`; the plank infill blends 0.85 toward the winter surface of the
+crossing way, then 0.15 toward the rut slush, so the boards read as snowed over (infill within ΔE 3.8–6.3
+of that surface, C\* ≤ 3.8, in `TestWinterPathsAndRailsMeetCriterion`). The tagged generator `TestGenerateWinterPathsAndRails` owns all winter crossings
 (`TestGenerateWinterRoads` only the winter roads): rerun it after changing a winter road, path or rail. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
 
 ## Avoid
