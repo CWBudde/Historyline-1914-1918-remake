@@ -247,7 +247,9 @@ func selectShore(g hexgrid.Grid, at func(hexgrid.Coord) Hex, c hexgrid.Coord, wi
 		}
 		return id
 	}
-	if terrain == "waterStones" {
+	// Stones in water draw their rocks over the shore or water of the hex
+	// (waterRocks); without the rocks in the catalog, the one stones tile.
+	if terrain == "waterStones" && !has(TileID("waterRocks")) {
 		return open(terrain), nil
 	}
 	s := shoreShape(g, at, c)
@@ -266,6 +268,20 @@ func selectShore(g hexgrid.Grid, at func(hexgrid.Coord) Hex, c hexgrid.Coord, wi
 		id += "_w"
 	}
 	return id, nil
+}
+
+// waterRocks returns the overlay of the rocks on stones-in-water hex c, drawn
+// over the shore selectShore gives it ("" for other hexes, or without the
+// rocks in the catalog): tile/waterRocks, its winter form on a winter coast.
+func waterRocks(g hexgrid.Grid, at func(hexgrid.Coord) Hex, c hexgrid.Coord, winter bool, has func(string) bool) string {
+	id := TileID("waterRocks")
+	if at(c).Terrain != "waterStones" || !has(id) {
+		return ""
+	}
+	if winterCoast(g, at, c, winter) && has(id+"_w") {
+		return id + "_w"
+	}
+	return id
 }
 
 // ParseShore reads a derived shore tile ID (ShoreShape.ID) back into its shape;

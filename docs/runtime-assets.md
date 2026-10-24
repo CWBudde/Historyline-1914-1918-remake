@@ -151,7 +151,9 @@ when a land hex or an authored `lakeside*` shore at it claims it, so the tiles a
 never meets land along a straight edge. An edge whose two land vertices still lead to water keeps a
 channel through its middle. Shapes that match a `lakeside*` mask draw that tile, the others
 `tile/shore-<land>[-c<channels>]` (hex bit masks), exported by `TestGenerateCampaignShores`
-(`tools/art-review`, tag `campaigngfx`) for every shape the levels use; `waterStones` keeps its tile.
+(`tools/art-review`, tag `campaigngfx`) for every shape the levels use. Stones in water (`waterStones`) take the shore or water their
+neighbours give them, like any water hex, with their rocks over it (`tile/waterRocks`, the rocks of the
+water-stones scene without their water, `TestGenerateWaterRocks`).
 A coast whose land neighbours are mostly winter terrain (or, with none, a coast on a mostly winter map)
 draws the winter form of its shore and mouth, ID suffix `_w`: snow instead of meadow and frosted dry stones,
 from `art/pipeline/shore-terrain-winter-v1.json`. Open water and stones in water there draw `tile/water_w` and

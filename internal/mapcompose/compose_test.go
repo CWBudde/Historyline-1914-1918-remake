@@ -295,10 +295,14 @@ func TestComposeWinterRoads(t *testing.T) {
 		{"road36", true, "road36_w"},
 		{"cross2", true, "cross2_w"},
 		{"road36", false, "road36"},
-		{"rail36", true, "rail36"},
-		{"path14", true, "path14"},
+		{"rail36", true, "rail36_w"},
+		{"path14", true, "path14_w"},
+		{"trench14-s2", true, "trench14-s2_w"},
+		{"harbourN_w", true, "harbourN_w"},
+		{"stream25", true, "stream25"}, // no winter form in the catalog
 	} {
-		if got := seasonalOverlay(tc.id, tc.winter, func(string) bool { return true }); got != tc.want {
+		has := func(id string) bool { return id != TileID("stream25_w") }
+		if got := seasonalOverlay(tc.id, tc.winter, has); got != tc.want {
 			t.Errorf("seasonalOverlay(%s, %v) = %s, want %s", tc.id, tc.winter, got, tc.want)
 		}
 	}

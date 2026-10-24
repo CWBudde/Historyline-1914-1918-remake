@@ -3,6 +3,7 @@ package mapcompose
 import (
 	"io/fs"
 	"math"
+	"slices"
 	"strings"
 	"testing"
 
@@ -142,7 +143,7 @@ func TestShoresMeetLandAndEachOther(t *testing.T) {
 			for line, hexes := range l.Lines {
 				for col, h := range hexes {
 					c := hexgrid.Coord{Line: line, Col: col}
-					if !Wet(h.Terrain) || h.Terrain == "waterStones" {
+					if !Wet(h.Terrain) {
 						continue
 					}
 					s := shape(c)
@@ -156,9 +157,6 @@ func TestShoresMeetLandAndEachOther(t *testing.T) {
 							if s.Land&(1<<a) == 0 || s.Land&(1<<b) == 0 {
 								hard++
 							}
-							continue
-						}
-						if t2 == "waterStones" {
 							continue
 						}
 						o := shape(n)
@@ -253,8 +251,9 @@ func TestWinterWaterTakesWinterTiles(t *testing.T) {
 		{"open water on a winter map", open, true, all, "water_w"},
 		{"open water on a summer map", open, false, all, "water"},
 		{"no winter tile", open, true, summer, "water"},
-		{"stones on a winter coast", []string{"grass_w grass_w grass_w", "grass_w grass_w", "grass_w waterStones grass_w", "grass_w grass_w", "grass_w grass_w grass_w"}, false, all, "waterStones_w"},
-		{"stones on a summer coast", []string{"grass grass grass", "grass grass", "grass waterStones grass", "grass grass", "grass grass grass"}, true, all, "waterStones"},
+		{"stones on a winter coast", []string{"grass_w grass_w grass_w", "grass_w grass_w", "grass_w waterStones grass_w", "grass_w grass_w", "grass_w grass_w grass_w"}, false, all, "shore-3f_w"},
+		{"stones on a summer coast", []string{"grass grass grass", "grass grass", "grass waterStones grass", "grass grass", "grass grass grass"}, true, all, "shore-3f"},
+		{"stones without their rocks", []string{"grass grass grass", "grass grass", "grass waterStones grass", "grass grass", "grass grass grass"}, false, func(id string) bool { return id != "tile/waterRocks" }, "waterStones"},
 	} {
 		t.Run(tt.name, func(t *testing.T) {
 			g, at := grid(tt.rows...)
@@ -262,5 +261,58 @@ func TestWinterWaterTakesWinterTiles(t *testing.T) {
 				t.Errorf("water %s (gap %v), want %s", got, gap, tt.want)
 			}
 		})
+	}
+}
+
+// Stones in water draw their rocks over the shore their neighbours give them,
+// in the coast's season, so a stones hex beside land never meets it along a
+// straight edge (the notch on campaign 7).
+func TestStonesDrawRocksOverTheirShore(t *testing.T) {
+	all := func(string) bool { return true }
+	for _, tt := range []struct {
+		name   string
+		rows   []string
+		winter bool
+		want   string
+	}{
+		{"summer", []string{"grass grass grass", "grass grass", "grass waterStones water", "water water", "water water water"}, false, "tile/waterRocks"},
+		{"winter", []string{"grass_w grass_w grass_w", "grass_w grass_w", "grass_w waterStones water", "water water", "water water water"}, true, "tile/waterRocks_w"},
+		{"open water", []string{"water water water", "water water", "water water water", "water water", "water water water"}, false, ""},
+	} {
+		t.Run(tt.name, func(t *testing.T) {
+			g, at := grid(tt.rows...)
+			c := hexgrid.Coord{Line: 2, Col: 1}
+			if got := waterRocks(g, at, c, tt.winter, all); got != tt.want {
+				t.Errorf("rocks %q, want %q", got, tt.want)
+			}
+			if tt.want == "" {
+				return
+			}
+			shore, _ := selectShore(g, at, c, tt.winter, all)
+			if s, ok := ParseShore(shore); !ok || s.Land == 0 {
+				t.Errorf("stones beside land draw %s, want a shore", shore)
+			}
+		})
+	}
+	b, err := fs.ReadFile(levels.Campaign, "campaign/level7_cp.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	l, err := level.Parse(b)
+	if err != nil {
+		t.Fatal(err)
+	}
+	g, at := l.Grid(), func(c hexgrid.Coord) Hex {
+		h := l.Lines[c.Line][c.Col]
+		return Hex{Terrain: h.Terrain, Infra: h.Infra.IDs}
+	}
+	s := Compose(g, at, all)
+	for l, line := range s.Cells {
+		for col, cell := range line {
+			c := hexgrid.Coord{Line: l, Col: col}
+			if at(c).Terrain == "waterStones" && (cell.Background == "tile/waterStones" || !slices.Contains(cell.Overlays, "tile/waterRocks")) {
+				t.Errorf("campaign 7 stones at %+v draw %s %v", c, cell.Background, cell.Overlays)
+			}
+		}
 	}
 }

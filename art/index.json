@@ -10037,7 +10037,7 @@
         "surf or foam lines"
       ],
       "runtime": {
-        "count": 328,
+        "count": 330,
         "densities": [
           2,
           4
@@ -11604,7 +11604,9 @@
         "water",
         "waterStones",
         "water_w",
-        "waterStones_w"
+        "waterStones_w",
+        "waterRocks",
+        "waterRocks_w"
       ],
       "dir": "art/terrain/water",
       "assets_dir": "assets/terrain/water",
@@ -11709,7 +11711,7 @@
         "boats or bridges"
       ],
       "runtime": {
-        "count": 8,
+        "count": 12,
         "densities": [
           2,
           4
@@ -11718,7 +11720,9 @@
           "assets/terrain/water/water-4x.png",
           "assets/terrain/water/waterStones-4x.png",
           "assets/terrain/water/water_w-4x.png",
-          "assets/terrain/water/waterStones_w-4x.png"
+          "assets/terrain/water/waterStones_w-4x.png",
+          "assets/terrain/water/waterRocks-4x.png",
+          "assets/terrain/water/waterRocks_w-4x.png"
         ]
       }
     },

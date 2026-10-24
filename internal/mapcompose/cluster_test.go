@@ -44,7 +44,7 @@ func TestPULSELakeUsesReusableTerrainTiles(t *testing.T) {
 		{27, 5, "tile/lakeside56"},
 		{27, 6, "tile/lakeside16"},
 		{28, 5, "tile/lakeside3456"},
-		{28, 6, "tile/waterStones"},
+		{28, 6, "tile/water"},
 		{28, 7, "tile/lakeside126"},
 		{29, 5, "tile/lakeside34"},
 		{29, 6, "tile/water"},
@@ -60,6 +60,9 @@ func TestPULSELakeUsesReusableTerrainTiles(t *testing.T) {
 		if !have[cell.background] {
 			t.Errorf("candidate catalog lacks %s", cell.background)
 		}
+	}
+	if _, _, overlays, _ := s.Layers(hexgrid.Coord{Line: 28, Col: 6}, func(*Cluster) bool { return true }); !slices.Equal(overlays, []string{"tile/waterRocks"}) {
+		t.Errorf("stones in the lake draw %v, want their rocks over the water", overlays)
 	}
 	outlet := hexgrid.Coord{Line: 32, Col: 6}
 	_, _, overlays, standing := s.Layers(outlet, func(*Cluster) bool { return true })

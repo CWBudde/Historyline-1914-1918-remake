@@ -3,7 +3,7 @@ id: terrain/water
 title: Water
 kind: terrain
 status: revised
-runtime_ids: water, waterStones, water_w, waterStones_w
+runtime_ids: water, waterStones, water_w, waterStones_w, waterRocks, waterRocks_w
 masters: water-shared-v3.png, water-rocks-shared-v2.png, water-shared-v2.png, water-shared-v1.png, water-rocks-shared-v1.png, water-rocks-shared-v3.png, water-reeds-shared-v1.png, water-boulders-shared-v1.png, water-bed-summer-v1.png, water-deep-summer-v1.png
 ---
 
