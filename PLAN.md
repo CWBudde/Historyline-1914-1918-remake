@@ -428,14 +428,16 @@ Mostly a material swap of the matching summer family plus the winter grade.
       (1.5–4 world px), all 54 trench shapes and the road, rail and foot bridge decks are installed, rendered
       from the summer materials with snow, frost and slush settings (`connected-*-winter-v1.json`,
       `TestWinterPathsAndRailsMeetCriterion`, `TestWinterStreamIceRimAndFrostedBanks`,
-      `TestWinterTrenchSnowAndSlush`). Open: the R5 kit decals (wait for the stroke renderer), the I3 rock
-      edits, a winter form of the stone quays.
+      `TestWinterTrenchSnowAndSlush`). (2026-10-25) The stone quays have a winter pier (`quay*_w`,
+      `TestQuayWinterTiles`) and the W6 lake rocks snow caps (`waterStones_w`, `waterRocks_w`,
+      `TestWaterRocksWinterSnowCaps`); winter stream water carries no sun glints. Open: the R5 kit decals (wait
+      for the stroke renderer) and the I3 edits of the W3/W4 kits, which nothing places yet.
 - [ ] L7.5 Winter buildings: `hq*_w`, `cmp*_w`, `factory*_w` (matching summer/winter factory exports are
       installed), `house_w`.
 - [x] L7.6 Done when no summer water, shore, road or path shows on a winter cell of Civil, Mouse or a winter
       campaign map. (2026-10-24) `TestWinterMapsDrawNoSummerInfrastructure` composes Civil, Mouse and the
       winter campaign maps (26 files) with the shipped catalog and asserts no summer water, shore, road,
-      path, rail, stream, trench or bridge.
+      path, rail, stream, trench, bridge, quay or stones-in-water rocks.
 
 ##### Look 8: Campaign subjects
 
