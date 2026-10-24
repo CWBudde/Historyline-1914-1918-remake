@@ -176,7 +176,9 @@ form (`tile/road*_w`, `cross2_w`, `cross3_w`: packed snow, slush ruts, snow shou
 quays. Compound scenes (HQ, depot, ruin, factory) fill their scene box and crop the excess, so their
 streets reach the hex edge at the gate, and the first 10 world px of the street blend into the season's
 road tile (`entry_road`), so the road runs on into the gate (`TestGenerateCompoundTiles` and
-`TestGenerateRuinTiles` re-export them).
+`TestGenerateRuinTiles` re-export them). The painted street lies within 1 world px of that road
+(`TestCompoundEntryStreetMeetsTheRoad`). The ruin, which has no fence, fades out towards its outer edge along
+an irregular line (`edge_feather`).
 For one adjacent stream facing a fully-land shore edge, the compositor selects
 `tile/<shore>-outlet<port>`. The 24 single-mouth variants share the ordinary bank and water materials,
 retain the corner states and meet the stream's port profile. Missing variants or several facing streams

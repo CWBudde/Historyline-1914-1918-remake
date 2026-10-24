@@ -48,9 +48,9 @@ use the same four-cell diamond, east road port and reference framing.
 
 `art-review -compound art/pipeline/compound-factory-v3.json` places the scene on winter meadow and slices
 the four winter cells. `compound-factory-summer-v1.json` exports the four matching summer cells. The scene
-fills the 238x160 box and crops the excess. The painted east street's centre lies about 4.8 world px
-north-west of the E cell's NE port, so both manifests enlarge the scene by `zoom` 1.035 and `shift` it
-(3.5, 2.4) world px to put the street on the port; the outer buildings stay inside the diamond. The first
+fills the 238x160 box and crops the excess. Both manifests enlarge the scene by `zoom` 1.035 and `shift` it (2.5, 0.7) world px, which puts the
+painted east street within 1 world px of the road through the E cell's NE port, 10–18 world px inside it
+(`TestCompoundEntryStreetMeetsTheRoad`); the outer buildings stay inside the diamond. The first
 10 world px inside the port blend into the season's road tile (`entry_road`). Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
 
 ### Winter streets (2026-10-24)
