@@ -26,6 +26,16 @@ func TestLatticeGroundTilesAreNotMirrored(t *testing.T) {
 	if len(gi.Manifest.LatticeMaterials) == 0 {
 		t.Fatal("no lattice materials")
 	}
+	// Shell-hole fields (mud, shelled_w) are a field material like the rough
+	// winter grounds, not one crater ring pasted on the meadow per hex.
+	for _, id := range []string{"mud", "rough_w", "shelled_w", "stoney_w"} {
+		if _, ok := gi.Manifest.LatticeMaterials[id]; !ok {
+			t.Errorf("%s is not a lattice material", id)
+		}
+	}
+	if gi.Manifest.MudFeature != "" || gi.Manifest.ShelledFeature != "" {
+		t.Errorf("mud_feature %q, shelled_feature %q: the crater fields use the lattice material", gi.Manifest.MudFeature, gi.Manifest.ShelledFeature)
+	}
 	for _, id := range slices.Sorted(maps.Keys(gi.Manifest.LatticeMaterials)) {
 		f, err := os.Open(filepath.Join(root, "assets/terrain/ground", id+"-4x.png"))
 		if err != nil {

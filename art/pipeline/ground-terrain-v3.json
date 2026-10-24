@@ -9,16 +9,16 @@
       "source_sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3"
     },
     "mud": {
-      "source": "art/terrain/ground/ground-mud-summer-v2.png",
-      "source_sha256": "08f77e30e23d37d22f61fa2d43f3778dbfffebf3077824feee43839291f94211"
+      "source": "art/terrain/ground/ground-shelled-summer-v1.png",
+      "source_sha256": "ff0680e6f0f81caa68f76561d090339d9d537377b5d004dd98a60b83af732204"
     },
     "rough_w": {
       "source": "art/terrain/ground/ground-rough-winter-v3.png",
       "source_sha256": "b48ca041652bc1b9e5656cf460d9a016d306cb18cd7ddc8b32c64cb69dbf7c50"
     },
     "shelled_w": {
-      "source": "art/terrain/ground/ground-shelled-winter-v2.png",
-      "source_sha256": "803c15c31f66cd1f1e85efa197ebe337ef71b427fe4a5a303e084e155276e1a2"
+      "source": "art/terrain/ground/ground-shelled-winter-v3.png",
+      "source_sha256": "726574a5739ee7a360e54e5ace05bc497e94d1b085c11ec38e05060c2311834d"
     },
     "stone": {
       "source": "art/terrain/ground/ground-stone-summer-v2.png",
@@ -29,11 +29,11 @@
       "source_sha256": "5182d81cd10e5e06d5a7451291902e8e2410796ae9a27899fa39436e3bbed19a"
     }
   },
-  "mud_feature": "circular-earthwork",
-  "shelled_feature": "circular-earthwork",
   "schema_version": 1,
   "lattice_materials": {
+    "mud": 5,
     "rough_w": 4,
+    "shelled_w": 5,
     "stoney_w": 7
   }
 }

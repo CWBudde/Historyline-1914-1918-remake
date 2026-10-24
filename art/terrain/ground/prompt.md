@@ -4,7 +4,7 @@ title: Ground
 kind: terrain
 status: candidate
 runtime_ids: mud, rough_w, shelled_w, stone, stoney_w, stamp/crater/4_-1.1_1.1_0.2/1, stamp/crater/4_-1.1_1.1_0.2/2, stamp/boulders/1/1, stamp/boulders/4_2.0_1.1_0.2/1, stamp/boulders/5_-1.1_0.2_-1.3_1.3/1, stamp/crater_w/1/1, stamp/crater_w/2_1.1/1, stamp/crater_w/2_-1.1/1, stamp/crater_w/6_-1.1_-4.2_-2.2_-3.3_-1.3/1, stamp/boulders_w/1/1, stamp/boulders_w/3_-1.1_-2.2/1, stamp/boulders_w/2_0.2/1
-masters: ground-crater-summer-v1.png, ground-crater-pair-summer-v1.png, ground-boulders-single-summer-v1.png, ground-boulders-four-summer-v1.png, ground-boulders-five-summer-v1.png, ground-mud-summer-v2.png, ground-stone-summer-v2.png, ground-rough-winter-v2.png, ground-shelled-winter-v2.png, ground-stony-winter-v2.png, ground-earth-bank-shared-v2.png, ground-earth-bank-shared-v1.png, ground-mud-summer-v1.png, ground-rough-winter-v1.png, ground-shelled-winter-v1.png, ground-stone-summer-v1.png, ground-stony-winter-v1.png, ground-crater-single-winter-v1.png, ground-crater-pair-se-winter-v1.png, ground-crater-pair-sw-winter-v1.png, ground-crater-field-six-winter-v1.png, ground-boulders-single-winter-v1.png, ground-boulders-sw-three-winter-v1.png, ground-boulders-vertical-two-winter-v1.png, ground-rough-winter-v3.png
+masters: ground-crater-summer-v1.png, ground-crater-pair-summer-v1.png, ground-boulders-single-summer-v1.png, ground-boulders-four-summer-v1.png, ground-boulders-five-summer-v1.png, ground-mud-summer-v2.png, ground-stone-summer-v2.png, ground-rough-winter-v2.png, ground-shelled-winter-v2.png, ground-stony-winter-v2.png, ground-earth-bank-shared-v2.png, ground-earth-bank-shared-v1.png, ground-mud-summer-v1.png, ground-rough-winter-v1.png, ground-shelled-winter-v1.png, ground-stone-summer-v1.png, ground-stony-winter-v1.png, ground-crater-single-winter-v1.png, ground-crater-pair-se-winter-v1.png, ground-crater-pair-sw-winter-v1.png, ground-crater-field-six-winter-v1.png, ground-boulders-single-winter-v1.png, ground-boulders-sw-three-winter-v1.png, ground-boulders-vertical-two-winter-v1.png, ground-rough-winter-v3.png, ground-shelled-summer-v1.png, ground-shelled-winter-v3.png
 ---
 
 ## Look
@@ -52,11 +52,11 @@ grid, hex outline, people, checkerboard, photographic texture or 3D rendering.
 ## Variants
 | Variant | Runtime IDs | Prompt delta |
 | --- | --- | --- |
-| mud | mud | One centred round shell crater filling about 70 percent of the canvas: a raised rough rim of tan-brown clods and cracked earth, a dark scalloped inner cut bank, a flatter grassy and earthy floor; scattered stones around it; meadow outside. |
+| mud | mud | Shell-hole field material (C3): an even, opaque field of dark shell pits 20–60 px with lit clod rims on churned olive-grey earth, no grass, no focal point; sampled lattice-periodic. |
 | stone | stone | Meadow strewn with rounded grey and grey-brown boulders of mixed size, small pebble clusters and a few bright green shrubs; stone covers about a quarter of the ground; no slabs, cliffs or paving. |
 | rough_w | rough_w | Winter rough ground: about 40 percent snow, 35 percent frozen dark grey-brown clods, 20 percent dead straw tufts and low brush, a few stone fragments. |
 | stoney_w | stoney_w | Winter edit of summer rounded boulders: preserve every stone and gap, with settled ivory snow between clusters and thin caps on some upper surfaces; no slabs or paving. |
-| shelled_w | shelled_w | Winter shell-damaged ground: a broad, broken, partly collapsed crater basin with overlapping partial impacts, churned dark earth reaching the edges and snow in irregular patches over about a third; no neat rings. |
+| shelled_w | shelled_w | Winter edit of the mud field material: the same holes under thin snow, dark frozen puddles, black clods showing through; sampled lattice-periodic. |
 | earth bank | — | Shared border material of road, path, rail and trench. Close material swatch, square and opaque: rough dug tan-brown earth with small clods, shale crumbs, tiny roots and sparse grey gravel. |
 | crater stamp | stamp/crater/4_-1.1_1.1_0.2/1 | One continuous round crater across a four-hex summer cluster, with a cracked earth rim, olive floor and transparent outer fringe. |
 | paired crater stamp | stamp/crater/4_-1.1_1.1_0.2/2 | Two distinct basins, connected cracked-earth apron, alpha gaps; canvas 192×160, anchor (122,51). |
@@ -84,6 +84,42 @@ Summer boulder stamps replace per-hex stone art across their complete clusters, 
 gaps over the shared meadow; winter stone art retains its context tiles.
 
 ## Post
+
+### Look 8 C3 shell-hole field material, summer (2026-10-24)
+`ground-shelled-summer-v1.png` (exec-f7813a66), native 1536×1024 RGB: an even field of dark shell pits
+(about 40–110 px) with lit clod rims and a few frozen-olive puddles on churned bare earth, no grass. Mean RGB
+103,84,55, L\* 36.3, σL\* 16.4 (target 98,90,58: slightly too red). Does not tile (wrap step 25–38 against
+10–18 inside), which the lattice crop does not need. Selected for `mud` (original records 63 and 81–84) in
+place of the one crater ring per hex of `ground-mud-summer-v2.png`: `art/pipeline/ground-terrain-v3.json`
+samples it unmirrored and lattice-periodic from a centred crop at 5 source px per world px
+(`lattice_materials`), so the pits come to about 8–22 world px; `mud_feature` is gone. The two-coset
+average halves the contrast (σL\* 16.4 to about 9), so the pits read as shallow hollows. Fourth of four
+tries. Attachments: image 1
+`art/terrain/ground/ground-mud-summer-v2.png` (earth palette and finish), image 2 RefDesign2 crop r40c4–r42c5
+(rim line and finish). The prompt was the `art/style.md` Preamble and Terrain text, then:
+
+```text
+Use case: stylized-concept. Asset type: opaque seamless terrain material, 1536x1024 LANDSCAPE (3:2), strict top-down nadir; one 50 m hex is about 250 px across. A WWI battlefield churned by repeated shelling: shallow shell holes of varied sizes (20 to 60 px across, that is 1/75 to 1/25 of the canvas width) scattered in no pattern, some overlapping, covering about 40 percent of the ground; between them broken, churned bare earth with small clods, grey stones and a few tiny splintered wood fragments (no larger than 8 px), and only a few dead straw tufts. No green grass at all: the previous try kept green grass on about a quarter of the ground; remove it. Most holes are 25 to 50 px, a few reach 60 px, none larger; roughly 300 to 400 holes spread evenly over the whole canvas, so every 250 px square looks alike. The previous try had one 150 px crater near the centre and some pits much darker than the rest: no hole stands out by size or darkness. Every hole is a deep dark pit: its floor and inner walls are dark umber shadow (about RGB 40,34,22), with a small dark olive puddle in about one in ten, ringed by a thin raised clod rim whose upper-left outer crest is lit pale (about RGB 165,152,108). The earth between the holes is a calm mid olive-grey brown (about RGB 112,104,68) with fine clod texture, so the dark pits stand out clearly from it. The holes must stay readable when the material is later blended at half contrast: the previous try measured L* standard deviation 14.5 and read well; keep that contrast. Average about RGB 98,90,58: desaturated olive-grey brown, green clearly above blue, red only a little above green; the previous try came out RGB 102,83,57, slightly too red: keep its value, shift it a little towards olive. Soft upper-left light. Tileable left-right and top-bottom, even density, no focal point.
+Avoid: green grass, a regular grid of craters, identical holes, holes larger than 60 px, one big central crater, shallow pale holes, soft blurry rims, rings on green grass, bodies, weapons, wire, trenches, smoke, fire, red tones, orange earth, photograph, 3D render, perspective, text.
+
+Image 1 is the selected mud material: take only its earth palette, the cracked tan and umber clod texture, the grey stones and the hand-painted finish; do not copy its single large ring, its layout or its green meadow. Image 2 is a crop of the reference painting with two large shell craters on meadow: take only the dark rim line, the lit outer rim edge and the painted finish; do not copy its grass, the size of its craters or their placement.
+```
+
+### Look 8 C3 shell-hole field material, winter (2026-10-24)
+`ground-shelled-winter-v3.png` (exec-1d4dd99b), native 1536×1024 RGB: the winter edit of
+`ground-shelled-summer-v1.png`, every hole in place under thin settled snow, dark frozen earth and ice in the
+pits. Mean RGB 167,169,172, L\* 68.1, σL\* 25.4, chroma 1.8. Does not tile (wrap step 32–67). Selected for
+`shelled_w` in place of the crater ring of `ground-shelled-winter-v2.png`, sampled like `mud` at 5 source px
+per world px; `shelled_feature` is gone. Second of two tries.
+Attachments: image 1 the summer pick, image 2 `art/terrain/grass/grass-winter-v1.png` (snow palette only).
+The prompt was:
+
+```text
+Seasonal edit ONLY of the attached summer shell-hole field material (image 1). Keep the exact canvas size (1536x1024, LANDSCAPE), the strict top-down view, the scale, and every shell hole, rim, clod and stone in its place: change the season only, preserve every outline and position. Winter: the same holes under thin settled snow. The flat ground between the holes is covered by thin white snow with the same fine texture and palette as image 2 (about RGB 215,219,224), with the tops of clods and stones showing through as small dark grey-brown and black specks. Every hole stays clearly readable: its upper-left inner wall and floor stay in cool shadow, dark bare frozen earth with black clods (about RGB 50,46,44) where snow did not settle, and the puddles become dark frozen ice (about RGB 60,66,72, matte, no reflections). Rims carry thin snow on their lit upper-left crest. Snow covers about 60 percent of the ground; average about RGB 172,174,178. The previous try came out RGB 154,153,155 with the snow between the holes grey (about RGB 195,195,198) and lumpy: make the snow between the holes brighter and smoother, as bright as image 2 (about RGB 215,219,224), keeping the dark holes as they were. No green, no brown summer earth left between the holes. Soft upper-left light, cool winter tones. Keep it tileable left-right and top-bottom with even density.
+Avoid: thick smooth snow that hides the holes, blue snow, yellow or brown snow, ice sheen, footprints, tracks, new holes, moved holes, green grass, text, grid, photograph, 3D render.
+
+Image 1 is the selected summer shell-hole field: keep its layout, holes and canvas, change the season only. Image 2 is the selected winter meadow snow, for the snow palette and texture only (do not copy its layout).
+```
 
 ### Look 7 winter stony ground (stoney_w) sampling (2026-10-24)
 No new painting: `ground-stony-winter-v2.png` is sampled unmirrored and lattice-periodic like `rough_w`, at 7

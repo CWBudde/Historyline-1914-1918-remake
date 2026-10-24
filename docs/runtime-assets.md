@@ -124,9 +124,11 @@ context tile whose key is the SHA-256 of a descriptor (season, centre, neighbour
 origin mod 568×320 for hills). Neighbours from another family count as the seasonal base (`grass`/`grass_w`);
 outside the map the centre continues. Without a context tile the default tile is drawn and a gap is recorded
 (`missing` or `undefined`). The three shipped levels and all 72 campaign levels have no gaps.
-The ground contexts come from `art/pipeline/ground-terrain-v3.json`; its `lattice_materials` (`rough_w`, the
-winter hills, and `stoney_w`, winter stony ground) are sampled like the meadow, unmirrored and lattice-periodic, from a centred crop of the
+The ground contexts come from `art/pipeline/ground-terrain-v3.json`; its `lattice_materials` (`mud` and
+`shelled_w`, the shell-hole fields, `rough_w`, the winter hills, and `stoney_w`, winter stony ground) are
+sampled like the meadow, unmirrored and lattice-periodic, from a centred crop of the
 painting, and `TestRegenerateLatticeGroundContexts` re-renders every context they touch.
+Unstamped crater fields thus draw one continuous shell-hole field instead of a crater per hex.
 Compounds must form complete groups; stray pieces are reported, never completed. A depot whose entrance
 hex has no content in the level (`mapcompose.LevelHex` marks it `Vacant`) is destroyed and draws
 `tile/ruinN`, `ruinW`, `ruinE`, `ruinS` (and `_w`) instead, when the catalog has all four.
