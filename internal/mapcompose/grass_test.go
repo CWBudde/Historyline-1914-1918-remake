@@ -15,7 +15,8 @@ func TestComposeGrassDetails(t *testing.T) {
 	for line := range s.Cells {
 		for col, c := range s.Cells[line] {
 			if line == 2 && col < 2 {
-				want := []string{"tile/grass_w", "tile/water"}[col]
+				// The water hex on the bottom edge draws the shore its land neighbours give it.
+				want := []string{"tile/grass_w", "tile/lakeside156"}[col]
 				if c.Background != want {
 					t.Errorf("other terrain changed: %s, want %s", c.Background, want)
 				}

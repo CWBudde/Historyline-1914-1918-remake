@@ -104,8 +104,15 @@ func Compose(g hexgrid.Grid, at func(hexgrid.Coord) Hex, has func(id string) boo
 					cell.Standing = append(cell.Standing, prop)
 				}
 			}
-			if id := selectShoreOutlet(g, at, c, h.Terrain, has); id != "" {
-				cell.Background = id
+			if wet(h.Terrain) {
+				shore, gap := selectShore(g, at, c, has)
+				if gap != nil {
+					s.Gaps = append(s.Gaps, *gap)
+				}
+				cell.Background = TileID(shore)
+				if id := selectShoreOutlet(g, at, c, shore, has); id != "" {
+					cell.Background = id
+				}
 			}
 		}
 	}

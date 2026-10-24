@@ -211,7 +211,12 @@ func exportShoreTiles(in shoreInputs, v shoreVariant) (map[int]*image.NRGBA, err
 	if v.ID == "water" && in.Manifest.BankProfile == "" {
 		return exportConnectionTiles(connectionInputs{manifest: connectionManifest{Geometry: sharedConnectionGeometry()}, materials: map[string]*image.NRGBA{"grass": in.Materials[v.ID].Image}}, nil, nil)
 	}
-	raw4 := renderShoreRaw(in, v)
+	return cropShoreTiles(renderShoreRaw(in, v))
+}
+
+// cropShoreTiles reduces a 4x raw render with its 4 world px margin to the 2x
+// and 4x hex tiles.
+func cropShoreTiles(raw4 *image.NRGBA) (map[int]*image.NRGBA, error) {
 	raw2, err := resizeLanczos(raw4, 208, 176)
 	if err != nil {
 		return nil, err

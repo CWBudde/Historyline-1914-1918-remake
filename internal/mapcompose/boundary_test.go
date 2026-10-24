@@ -1,6 +1,7 @@
 package mapcompose
 
 import (
+	"slices"
 	"strings"
 	"testing"
 )
@@ -28,6 +29,7 @@ func TestWinterMaterialContextsBesideSharedShores(t *testing.T) {
 			t.Run(terrain+"/"+shore, func(t *testing.T) {
 				g, at := grid(terrain+" "+shore, terrain, terrain+" "+terrain)
 				s := Compose(g, at, none)
+				s.Gaps = slices.DeleteFunc(s.Gaps, func(g Gap) bool { return g.Family == Shore })
 				if len(s.Gaps) != 4 {
 					t.Fatalf("got %d gaps, want four material contexts", len(s.Gaps))
 				}

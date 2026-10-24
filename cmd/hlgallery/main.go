@@ -372,6 +372,10 @@ func legacyTile(kind, id string) string {
 	case "factoryN", "factoryE", "factoryS", "factoryW":
 		return ""
 	}
+	// Neighbour-derived shores have no tile of their own in the Python remake.
+	if strings.HasPrefix(name, "shore-") {
+		return ""
+	}
 	// New outlet variants share their base shoreline's legacy reference.
 	if strings.HasPrefix(name, "lakeside") {
 		name, _, _ = strings.Cut(name, "-outlet")

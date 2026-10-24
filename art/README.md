@@ -65,6 +65,8 @@ its own family.
   arrangements as well as PULSE; a complete lake painting is a look reference, not runtime terrain.
   Single river mouths are derived as `tile/<shore>-outlet<port>` for the 24 fully-land edges, selected
   from a neighbouring stream pointing at that edge. The canonical shore is retained elsewhere.
+  Neighbour-derived shapes (`tile/shore-*`: several land arcs, channels, ponds) use the same materials
+  and edge bands, so they join the nine shapes and each other (`shore_shape.go`).
   Preserve the border profiles and filter margins; the interiors may bow asymmetrically and widen
   into rocky shelves or narrow into small stony lips. Reusability does not require a straight coast.
 - Ground, forest and hills pick a context by neighbours (hills also by lattice phase) from
