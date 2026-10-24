@@ -163,8 +163,10 @@ runway hexes at its NE and SE (`tile/apron-sw`, `apron-nw`). Winter hexes draw t
 Roads and road level crossings carry no season in the level: on a mostly winter map they draw their winter
 form (`tile/road*_w`, `cross2_w`, `cross3_w`: packed snow, slush ruts, snow shoulders, no painted lines;
 `art/pipeline/connected-road-winter-v1.json`, exported by `TestGenerateWinterRoads`), also on bridges and
-quays. Compound scenes (HQ, depot, factory) fill their scene box and crop the excess, so their streets
-reach the hex edge at the gate (`TestGenerateCompoundTiles` re-exports them).
+quays. Compound scenes (HQ, depot, ruin, factory) fill their scene box and crop the excess, so their
+streets reach the hex edge at the gate, and the first 10 world px of the street blend into the season's
+road tile (`entry_road`), so the road runs on into the gate (`TestGenerateCompoundTiles` and
+`TestGenerateRuinTiles` re-export them).
 For one adjacent stream facing a fully-land shore edge, the compositor selects
 `tile/<shore>-outlet<port>`. The 24 single-mouth variants share the ordinary bank and water materials,
 retain the corner states and meet the stream's port profile. Missing variants or several facing streams

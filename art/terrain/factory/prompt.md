@@ -45,9 +45,10 @@ meadow. Summer runtime IDs use the same four-cell diamond, east road port and re
 
 `art-review -compound art/pipeline/compound-factory-v2.json` places the scene on winter meadow and slices
 the four winter cells. `compound-factory-summer-v1.json` exports the four matching summer cells. The scene
-fills the 238x160 box and crops the excess. Open: the painted east street's centre lies about 4.8 world px
-north-west of the E cell's NE port, more than the box's 2 px crop slack can shift, so the road tile meets it
-off-centre. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
+fills the 238x160 box and crops the excess. The painted east street's centre lies about 4.8 world px
+north-west of the E cell's NE port, so both manifests enlarge the scene by `zoom` 1.035 and `shift` it
+(3.5, 2.4) world px to put the street on the port; the outer buildings stay inside the diamond. The first
+10 world px inside the port blend into the season's road tile (`entry_road`). Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
 
 ## Avoid
 - visible tiling or repeated rounded "pillow" patterns

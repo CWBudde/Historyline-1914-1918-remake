@@ -15,6 +15,10 @@
         "source": "art/terrain/hq/hq-summer-v2.png",
         "source_sha256": "89197d76ed6b1eb232678745b77741b02990992f6a62151765bdd78509f2c164"
       },
+      "entry_road": {
+        "source": "art/pipeline/connected-terrain-v2.json",
+        "source_sha256": "6a101776aa908e0450ad3c602d21b639696526706244cc3bad58b63db312917d"
+      },
       "framing": "reference-layout",
       "id": "hq-summer",
       "inset": 1,
@@ -24,6 +28,10 @@
       "artwork": {
         "source": "art/terrain/hq/hq-winter-v2.png",
         "source_sha256": "4b3d4ec218af63e0ee07ea20918703f2a2043c2fd9e7768d5f53a6ebac81ae7d"
+      },
+      "entry_road": {
+        "source": "art/pipeline/connected-road-winter-v1.json",
+        "source_sha256": "a5a3f8acfb1a573334436c27c6ef58f7d6e04bde817d68258af034ee73e87a53"
       },
       "framing": "reference-layout",
       "id": "hq-winter",

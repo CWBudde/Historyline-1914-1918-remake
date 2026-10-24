@@ -24,12 +24,18 @@ type compoundSceneInput struct {
 	// Shift moves reference-layout artwork by world pixels after it is scaled
 	// to fill the scene box, so its entry street lies on the entry port.
 	Shift []float64 `json:"shift,omitempty"`
+	// Zoom enlarges filled artwork beyond the box (1..1.1), which gives a
+	// shift more slack.
+	Zoom float64 `json:"zoom,omitempty"`
+	// EntryRoad pins the connected-road manifest whose straight road through
+	// the entry port the entry street blends into at the gate.
+	EntryRoad *connectionMaterial `json:"entry_road,omitempty"`
 }
 
 // fit is how the scene's artwork maps onto its box: reference-layout scenes
 // (whose streets and fences reach the box edge) fill it.
 func (s compoundSceneInput) fit() compoundFit {
-	f := compoundFit{Fill: s.Framing == "reference-layout"}
+	f := compoundFit{Fill: s.Framing == "reference-layout", Zoom: s.Zoom}
 	if len(s.Shift) == 2 {
 		f.Shift = connectionPoint{s.Shift[0], s.Shift[1]}
 	}
@@ -53,6 +59,8 @@ type compoundInputs struct {
 	Hash     string
 	Grounds  map[string]compoundSource
 	Artwork  map[string]compoundSource
+	// EntryRoads holds the pinned connected-road inputs of scenes with entry_road.
+	EntryRoads map[string]connectionInputs
 }
 
 // encoding/json accepts case aliases. Inspect exact schema keys independently,
@@ -112,8 +120,13 @@ func decodeCompoundManifest(b []byte, m *compoundManifest) error {
 		}
 	}
 	for _, s := range scenes {
-		if err := keys(s, "id", "artwork", "inset", "framing", "shift"); err != nil {
+		if err := keys(s, "id", "artwork", "inset", "framing", "shift", "zoom", "entry_road"); err != nil {
 			return err
+		}
+		if road, ok := s["entry_road"]; ok {
+			if err := checkRef(road); err != nil {
+				return err
+			}
 		}
 		if field, ok := s["framing"]; ok && bytes.Equal(bytes.TrimSpace(field), []byte("null")) {
 			return errors.New("compound framing must be a string")
@@ -225,7 +238,7 @@ func compoundReadSource(base string, ref connectionMaterial, ground bool) (compo
 	return out, nil
 }
 func loadCompoundInputs(path string) (compoundInputs, error) {
-	in := compoundInputs{Grounds: map[string]compoundSource{}, Artwork: map[string]compoundSource{}}
+	in := compoundInputs{Grounds: map[string]compoundSource{}, Artwork: map[string]compoundSource{}, EntryRoads: map[string]connectionInputs{}}
 	var err error
 	in.Bytes, err = os.ReadFile(path)
 	if err != nil {
@@ -260,9 +273,28 @@ func loadCompoundInputs(path string) (compoundInputs, error) {
 			return in, errors.New("compound inset must be finite in [0.5,1]")
 		}
 		if s.Shift != nil {
-			if s.Framing != "reference-layout" || len(s.Shift) != 2 || !(math.Abs(s.Shift[0]) <= 2) || !(math.Abs(s.Shift[1]) <= 2) {
-				return in, fmt.Errorf("%s: shift requires reference-layout framing and two world-pixel offsets within ±2", s.ID)
+			if s.Framing != "reference-layout" || len(s.Shift) != 2 || !(math.Abs(s.Shift[0]) <= 8) || !(math.Abs(s.Shift[1]) <= 8) {
+				return in, fmt.Errorf("%s: shift requires reference-layout framing and two world-pixel offsets within ±8", s.ID)
 			}
+		}
+		if s.Zoom != 0 && (s.Framing != "reference-layout" || !(s.Zoom >= 1 && s.Zoom <= 1.1)) {
+			return in, fmt.Errorf("%s: zoom requires reference-layout framing and lies in [1,1.1]", s.ID)
+		}
+		if s.EntryRoad != nil {
+			if s.Framing != "reference-layout" || l.EntryCell == "" {
+				return in, fmt.Errorf("%s: entry_road requires reference-layout framing and an entry cell", s.ID)
+			}
+			if s.EntryRoad.Source == "" || filepath.IsAbs(s.EntryRoad.Source) || compoundForbidden(s.EntryRoad.Source) {
+				return in, fmt.Errorf("%s: entry_road source must be relative", s.ID)
+			}
+			road, e := loadPinnedMixedConnection(filepath.Join(sourceBase(path), s.EntryRoad.Source), s.EntryRoad.SourceSHA256)
+			if e != nil {
+				return in, fmt.Errorf("%s: entry_road: %w", s.ID, e)
+			}
+			if _, _, e := compoundEntryRoad(road, l); e != nil {
+				return in, fmt.Errorf("%s: entry_road: %w", s.ID, e)
+			}
+			in.EntryRoads[s.ID] = road
 		}
 		src, e := compoundReadSource(sourceBase(path), s.Artwork, false)
 		if e != nil {

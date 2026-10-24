@@ -11,9 +11,15 @@
         "source": "art/terrain/factory/factory-winter-v2.png",
         "source_sha256": "f6437d5990586b930c9e163a0208e2a042eb50ae614f33847efb2b6d2d9655bd"
       },
+      "entry_road": {
+        "source": "art/pipeline/connected-road-winter-v1.json",
+        "source_sha256": "a5a3f8acfb1a573334436c27c6ef58f7d6e04bde817d68258af034ee73e87a53"
+      },
       "framing": "reference-layout",
       "id": "factory-winter",
-      "inset": 1
+      "inset": 1,
+      "shift": [3.5, 2.4],
+      "zoom": 1.035
     }
   ],
   "schema_version": 1

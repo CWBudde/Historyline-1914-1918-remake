@@ -11,9 +11,15 @@
         "source": "art/terrain/factory/factory-summer-v1.png",
         "source_sha256": "5c3e71abc98e648516d85e6f79759d3144988d5ee34606d0c342a50989e566a7"
       },
+      "entry_road": {
+        "source": "art/pipeline/connected-terrain-v2.json",
+        "source_sha256": "6a101776aa908e0450ad3c602d21b639696526706244cc3bad58b63db312917d"
+      },
       "framing": "reference-layout",
       "id": "factory-summer",
-      "inset": 1
+      "inset": 1,
+      "shift": [3.5, 2.4],
+      "zoom": 1.035
     }
   ],
   "schema_version": 1

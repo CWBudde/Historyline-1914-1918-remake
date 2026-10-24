@@ -210,10 +210,12 @@ func compoundAxis(count, source int, scale, offset float64, clamp bool) []compou
 // cover the box, crops the excess and keeps its opaque edges opaque, so streets
 // painted to the canvas edge reach the box edge; shift then moves it by world
 // pixels (to put a street on its port) as long as it still covers the box.
-// Without fill the artwork is centred inside the box (letterboxed).
+// Without fill the artwork is centred inside the box (letterboxed). Zoom
+// (fill only, 0 meaning 1) enlarges the filled artwork for more shift slack.
 type compoundFit struct {
 	Fill  bool
 	Shift connectionPoint
+	Zoom  float64
 }
 
 // Uniform source-edge affine transform; separable float64 premultiplied Lanczos3.
@@ -227,8 +229,11 @@ func compoundAffine(src *image.NRGBA, l compoundLayout, inset float64, fit compo
 	tr.Scale = min(sx, sy) * inset
 	if fit.Fill {
 		tr.Scale = max(sx, sy) * inset
-	} else if fit.Shift != (connectionPoint{}) {
-		return nil, tr, errors.New("compound shift requires fill")
+		if fit.Zoom != 0 {
+			tr.Scale *= fit.Zoom
+		}
+	} else if fit.Shift != (connectionPoint{}) || fit.Zoom != 0 {
+		return nil, tr, errors.New("compound shift and zoom require fill")
 	}
 	tr.Offset = connectionPoint{(float64(l.Width)-float64(tr.Source.Width)*tr.Scale)/2 + fit.Shift[0], (float64(l.Height)-float64(tr.Source.Height)*tr.Scale)/2 + fit.Shift[1]}
 	if fit.Fill {

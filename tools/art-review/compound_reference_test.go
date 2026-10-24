@@ -107,7 +107,7 @@ func TestCompoundShiftManifestValidation(t *testing.T) {
 	}{
 		{"reference-layout", []float64{-0.77, 0}, false},
 		{"reference-layout", []float64{2, -2}, false},
-		{"reference-layout", []float64{2.5, 0}, true},
+		{"reference-layout", []float64{8.5, 0}, true},
 		{"reference-layout", []float64{1}, true},
 		{"", []float64{0.5, 0}, true},
 	} {
@@ -130,6 +130,95 @@ func TestCompoundShiftManifestValidation(t *testing.T) {
 	}
 	if _, _, err := compoundAffine(src, l, 1, compoundFit{Shift: connectionPoint{0.5, 0}}); err == nil {
 		t.Error("a shift without fill was accepted")
+	}
+	// Zoom enlarges the filled artwork, so a shift that would uncover the box
+	// edge fits once there is slack.
+	if _, _, err := compoundAffine(src, l, 1, compoundFit{Fill: true, Zoom: 1.035, Shift: connectionPoint{3.5, 2.4}}); err != nil {
+		t.Errorf("zoomed shift within the slack: %v", err)
+	}
+	if _, _, err := compoundAffine(src, l, 1, compoundFit{Zoom: 1.035}); err == nil {
+		t.Error("a zoom without fill was accepted")
+	}
+	for _, tc := range []struct {
+		framing string
+		zoom    float64
+		wantErr bool
+	}{{"reference-layout", 1.035, false}, {"reference-layout", 1.2, true}, {"reference-layout", 0.9, true}, {"", 1.035, true}} {
+		m := base
+		m.Scenes = []compoundSceneInput{{ID: "depot-summer", Artwork: base.Scenes[0].Artwork, Inset: 1, Framing: tc.framing, Zoom: tc.zoom}}
+		m.Grounds = map[string]connectionMaterial{"summer": base.Grounds["summer"]}
+		compoundTestWriteManifest(t, path, m)
+		if _, err := loadCompoundInputs(path); (err != nil) != tc.wantErr {
+			t.Errorf("framing %q zoom %v: error %v, want error %v", tc.framing, tc.zoom, err, tc.wantErr)
+		}
+	}
+}
+
+// The entry street turns into the connected road at the gate: the road tile's
+// own pixels at the port, the painted street beyond the blend.
+func TestCompoundEntryRoadBlend(t *testing.T) {
+	roadDir, cm := connectedFixture(t)
+	f := cm["families"].([]any)[0].(map[string]any)
+	f["width"], f["border"] = 22, 2
+	green := image.NewNRGBA(image.Rect(0, 0, 384, 320))
+	draw.Draw(green, green.Bounds(), image.NewUniform(color.NRGBA{40, 200, 40, 255}), image.Point{}, draw.Src)
+	cm["materials"].(map[string]any)["road"] = unitTestPNG(t, filepath.Join(roadDir, "green.png"), green)
+	roadPath := writeConnectedManifest(t, roadDir, cm)
+	roadBytes, err := os.ReadFile(roadPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	roadSum := sha256.Sum256(roadBytes)
+
+	path, m := compoundTestFixture(t)
+	l, err := compoundLayoutFor("depot-summer")
+	if err != nil {
+		t.Fatal(err)
+	}
+	var encoded bytes.Buffer
+	if err = png.Encode(&encoded, compoundReferenceArtwork(l)); err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(filepath.Dir(path), "depot.png"), encoded.Bytes(), 0600); err != nil {
+		t.Fatal(err)
+	}
+	artSum := sha256.Sum256(encoded.Bytes())
+	rel, err := filepath.Rel(filepath.Dir(path), roadPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	entry := &connectionMaterial{Source: rel, SourceSHA256: hex.EncodeToString(roadSum[:])}
+	m.Scenes = []compoundSceneInput{{ID: "depot-summer", Artwork: connectionMaterial{Source: "depot.png", SourceSHA256: hex.EncodeToString(artSum[:])}, Inset: 1, Framing: "reference-layout", EntryRoad: entry}}
+	compoundTestWriteManifest(t, path, m)
+	in, err := loadCompoundInputs(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	b, err := buildCompoundBundle(in)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, density := range []int{2, 4} {
+		whole := b.pixels[fmt.Sprintf("depot-summer-scene-%dx.png", density)]
+		if c := whole.NRGBAAt(119*density, 0); c.G < 170 || c.R > 70 || c.A != 255 {
+			t.Fatalf("%dx gate does not start as the road tile: %v", density, c)
+		}
+		if c := whole.NRGBAAt(119*density, (compoundEntryBlend+2)*density); c.R < 70 || c.R > 90 || c.G > 92 {
+			t.Fatalf("%dx painted street replaced beyond the blend: %v", density, c)
+		}
+	}
+
+	// A scene without an entry cell, or a framing that is not the reference
+	// layout, cannot take an entry road.
+	for _, s := range []compoundSceneInput{
+		{ID: "mountain-summer", Artwork: m.Scenes[0].Artwork, Inset: 1, EntryRoad: entry},
+		{ID: "depot-summer", Artwork: m.Scenes[0].Artwork, Inset: 1, EntryRoad: entry},
+	} {
+		m.Scenes = []compoundSceneInput{s}
+		compoundTestWriteManifest(t, path, m)
+		if _, err := loadCompoundInputs(path); err == nil {
+			t.Errorf("%s with framing %q accepted entry_road", s.ID, s.Framing)
+		}
 	}
 }
 

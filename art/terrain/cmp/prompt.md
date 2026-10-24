@@ -44,7 +44,8 @@ the summer arrangement and transparent gaps.
 
 `art-review -compound art/pipeline/compound-depot-v2.json` places both seasons on the seasonal meadow and
 slices the four cells. Reference-layout framing scales the scene to fill the 238x160 box and crops the
-excess, so the north street reaches the hex edge on the port. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
+excess, so the north street reaches the hex edge on the port; its first 10 world px blend into the season's
+road tile (`entry_road`: `connected-terrain-v2.json`, `connected-road-winter-v1.json`). Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
 
 ## Avoid
 - visible tiling or repeated rounded "pillow" patterns

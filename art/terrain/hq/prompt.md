@@ -47,7 +47,8 @@ short wall faces; the requested camera remains nadir.
 
 `art-review -compound art/pipeline/compound-hq-v2.json` places the summer and winter scenes on the seasonal
 meadow and slices the seven cells; both seasons share exact placement. The scene fills the 238x240 box,
-cropping the excess, and `shift` moves it 0.77 world px west so the north street lies on the port. Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
+cropping the excess, and `shift` moves it 0.77 world px west so the north street lies on the port; its first
+10 world px blend into the season's road tile (`entry_road`). Exports are fixed Lanczos3 at 2x (192x160) and 4x (384x320) with complementary half-open hex ownership; promote into `assets/terrain/<family>/` and re-index.
 
 ## Avoid
 - visible tiling or repeated rounded "pillow" patterns
