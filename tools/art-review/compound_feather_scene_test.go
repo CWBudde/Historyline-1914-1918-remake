@@ -14,7 +14,7 @@ import (
 // corridor stays open.
 func TestCompoundFeatherIntactScenes(t *testing.T) {
 	var pooled []float64
-	for _, name := range []string{"compound-hq-v4.json", "compound-depot-v4.json", "compound-factory-v4.json", "compound-factory-summer-v2.json"} {
+	for _, name := range []string{"compound-hq-v4.json", "compound-depot-v5.json", "compound-factory-v5.json", "compound-factory-summer-v3.json"} {
 		in, err := loadCompoundInputs(filepath.Join("..", "..", "art", "pipeline", name))
 		if err != nil {
 			t.Fatal(err)
@@ -84,33 +84,8 @@ func TestCompoundFeatherIntactScenes(t *testing.T) {
 				// The 50 % contour, where the apron was cut opaque at the
 				// boundary and stays opaque up to the contour.
 				var depths []float64
-				for _, e := range edges {
-					v := e.b.sub(e.a)
-					n := v.length()
-					u := v.mul(1 / n)
-					inward := connectionPoint{-u[1], u[0]}
-					if mid := e.a.add(v.mul(.5)); compoundSignedDistance(l, edges, mid.add(inward.mul(1))) < 0 {
-						inward = inward.mul(-1)
-					}
-				sample:
-					for along := 3.; along <= n-3; along++ {
-						p := e.a.add(u.mul(along))
-						found := math.NaN()
-						for d := 0.; d <= s.EdgeFeather+2; d += .25 {
-							q := p.add(inward.mul(d))
-							x, y := int(q[0]*2), int(q[1]*2)
-							if !ground(q) || !image.Pt(x, y).In(before2.Bounds()) || (d >= .5 && before2.NRGBAAt(x, y).A < 128) {
-								continue sample
-							}
-							if art2.NRGBAAt(x, y).A >= 128 {
-								// Its distance to the boundary, which near a corner
-								// is less than the depth along this normal.
-								found = compoundSignedDistance(l, edges, q)
-								break
-							}
-						}
-						depths = append(depths, found)
-					}
+				for _, c := range compoundFeatherContourSamples(l, s.EdgeFeather, before2, art2, ground) {
+					depths = append(depths, c.depth)
 				}
 				mean, sd, lo, hi := compoundContourStats(t, depths)
 				t.Logf("%s: %d 4x px kept; %d 2x ground px within 2 world px of the boundary (%d above alpha 64 before), max alpha %d; 50 %% contour over %d samples: mean %.2f, sd %.2f, range %.2f..%.2f world px", name, kept, band, opaqueBefore, worst, len(depths), mean, sd, lo, hi)
@@ -131,6 +106,51 @@ func TestCompoundFeatherIntactScenes(t *testing.T) {
 	if len(pooled) < 100 || sd < 1 || hi-lo < 3.5 {
 		t.Errorf("50 %% contour too regular: %d samples, sd %.2f, range %.2f..%.2f", len(pooled), sd, lo, hi)
 	}
+}
+
+// compoundContourSample is a point on the outer boundary and the depth (world
+// px) at which the feathered 2x alpha first reaches 50 % inward from it (NaN
+// when it never does).
+type compoundContourSample struct {
+	at    connectionPoint
+	depth float64
+}
+
+// compoundFeatherContourSamples marches inward from points along the outer
+// boundary where the unfeathered 2x apron was cut opaque at the boundary and
+// stays ground (not kept, not the entry corridor) up to the contour.
+func compoundFeatherContourSamples(l compoundLayout, width float64, before2, art2 *image.NRGBA, ground func(connectionPoint) bool) []compoundContourSample {
+	var out []compoundContourSample
+	edges := compoundBoundary(l)
+	for _, e := range edges {
+		v := e.b.sub(e.a)
+		n := v.length()
+		u := v.mul(1 / n)
+		inward := connectionPoint{-u[1], u[0]}
+		if mid := e.a.add(v.mul(.5)); compoundSignedDistance(l, edges, mid.add(inward.mul(1))) < 0 {
+			inward = inward.mul(-1)
+		}
+	sample:
+		for along := 3.; along <= n-3; along++ {
+			p := e.a.add(u.mul(along))
+			found := math.NaN()
+			for d := 0.; d <= width+2; d += .25 {
+				q := p.add(inward.mul(d))
+				x, y := int(q[0]*2), int(q[1]*2)
+				if !ground(q) || !image.Pt(x, y).In(before2.Bounds()) || (d >= .5 && before2.NRGBAAt(x, y).A < 128) {
+					continue sample
+				}
+				if art2.NRGBAAt(x, y).A >= 128 {
+					// Its distance to the boundary, which near a corner
+					// is less than the depth along this normal.
+					found = compoundSignedDistance(l, edges, q)
+					break
+				}
+			}
+			out = append(out, compoundContourSample{p, found})
+		}
+	}
+	return out
 }
 
 // compoundContourStats returns mean, standard deviation and range of contour

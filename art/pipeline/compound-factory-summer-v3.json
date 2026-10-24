@@ -1,0 +1,28 @@
+{
+  "grounds": {
+    "summer": {
+      "source": "art/terrain/grass/grass-summer-v1.png",
+      "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
+    }
+  },
+  "scenes": [
+    {
+      "artwork": {
+        "source": "art/terrain/factory/factory-summer-v3.png",
+        "source_sha256": "5831741544ff8b8e317b16dd1b325ee335c564a68b2175ecc1fd8bf5dfd9f5ba"
+      },
+      "entry_road": {
+        "source": "art/pipeline/connected-terrain-v2.json",
+        "source_sha256": "6a101776aa908e0450ad3c602d21b639696526706244cc3bad58b63db312917d"
+      },
+      "edge_feather": 9,
+      "edge_keep": [[[52, 46.7], [60, 46.7], [60, 43.7], [100, 43.7], [100, 64.4], [52, 64.4]], [[138, 36], [206, 36], [206, 52], [138, 52]], [[208.2, 35.3], [218, 52.8], [211.9, 56.2], [202.1, 38.8]]],
+      "framing": "reference-layout",
+      "id": "factory-summer",
+      "inset": 1,
+      "shift": [2.5, 0.7],
+      "zoom": 1.035
+    }
+  ],
+  "schema_version": 1
+}

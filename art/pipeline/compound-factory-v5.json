@@ -1,0 +1,28 @@
+{
+  "grounds": {
+    "winter": {
+      "source": "art/terrain/grass/grass-winter-v1.png",
+      "source_sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3"
+    }
+  },
+  "scenes": [
+    {
+      "artwork": {
+        "source": "art/terrain/factory/factory-winter-v5.png",
+        "source_sha256": "7b320c183ae2cab48247cf31b57b4f3da20af25486eb74bd7e1873e184b0652e"
+      },
+      "entry_road": {
+        "source": "art/pipeline/connected-road-winter-v1.json",
+        "source_sha256": "a5a3f8acfb1a573334436c27c6ef58f7d6e04bde817d68258af034ee73e87a53"
+      },
+      "edge_feather": 9,
+      "edge_keep": [[[52, 46.7], [60, 46.7], [60, 43.7], [100, 43.7], [100, 64.4], [52, 64.4]], [[138, 36], [206, 36], [206, 52], [138, 52]], [[208.2, 35.3], [218, 52.8], [211.9, 56.2], [202.1, 38.8]]],
+      "framing": "reference-layout",
+      "id": "factory-winter",
+      "inset": 1,
+      "shift": [2.5, 0.7],
+      "zoom": 1.035
+    }
+  ],
+  "schema_version": 1
+}
