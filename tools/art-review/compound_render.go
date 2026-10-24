@@ -317,6 +317,116 @@ type compoundGuardReport struct {
 	ClippedAlphaMass      uint64   `json:"clipped_alpha_mass"`
 	GuardedOpaque         int      `json:"guarded_opaque_count"`
 	MinimumOpaqueDistance *float64 `json:"minimum_opaque_distance_world,omitempty"`
+	// FeatherWidth and FeatherCorridor (world px) describe an edge feather;
+	// its alpha reduction is counted in ClippedPixels and ClippedAlphaMass.
+	FeatherWidth    float64 `json:"feather_width_world,omitempty"`
+	FeatherCorridor float64 `json:"feather_corridor_world,omitempty"`
+}
+
+// Edge feather (world px): the band at the outer boundary of a ruined scene
+// in which its artwork fades out, the hard cut of alpha zero next to the
+// boundary, and the width of the smoothstep that ends the fade.
+const (
+	compoundFeatherMin, compoundFeatherMax  = 4., 12.
+	compoundFeatherCut, compoundFeatherRamp = 2.5, 1.25
+)
+
+// compoundValidateFeather allows an edge feather only on the ruined depot,
+// whose rubble and snow apron reach the boundary without a fence that would
+// justify a straight edge; its entrance road keeps the corridor to the port.
+func compoundValidateFeather(l compoundLayout, framing string, width float64, entryRoad bool) error {
+	if width == 0 {
+		return nil
+	}
+	if l.Layout != "ruin" || framing != "reference-layout" || !entryRoad {
+		return errors.New("edge_feather is restricted to the ruined depot with reference-layout framing and an entry_road")
+	}
+	if !(width >= compoundFeatherMin && width <= compoundFeatherMax) {
+		return fmt.Errorf("edge_feather must lie in [%g,%g] world px", compoundFeatherMin, compoundFeatherMax)
+	}
+	return nil
+}
+
+// compoundHash maps a lattice point to [0,1) (integer finaliser of murmur3).
+func compoundHash(x, y int, seed uint32) float64 {
+	h := uint32(x)*0x8da6b343 ^ uint32(y)*0xd8163841 ^ seed*0xcb1ab31f
+	h ^= h >> 16
+	h *= 0x85ebca6b
+	h ^= h >> 13
+	h *= 0xc2b2ae35
+	h ^= h >> 16
+	return float64(h) / (1 << 32)
+}
+
+// compoundValueNoise is smooth value noise in [0,1) on a lattice of cell world px.
+func compoundValueNoise(p connectionPoint, cell float64, seed uint32) float64 {
+	x, y := p[0]/cell, p[1]/cell
+	x0, y0 := math.Floor(x), math.Floor(y)
+	sx, sy := connectionSmoothStep(x-x0), connectionSmoothStep(y-y0)
+	i, j := int(x0), int(y0)
+	top := compoundHash(i, j, seed)*(1-sx) + compoundHash(i+1, j, seed)*sx
+	bottom := compoundHash(i, j+1, seed)*(1-sx) + compoundHash(i+1, j+1, seed)*sx
+	return top*(1-sy) + bottom*sy
+}
+
+// compoundFeatherEdge fades 4x scene artwork out towards the outer union
+// boundary along an irregular line, so a ruin's rubble ends in the ground
+// instead of a straight cut along the hex edges. At signed distance d the
+// alpha is scaled by smoothstep((d-e)/ramp), where the edge e wanders between
+// the cut and width-ramp with two octaves of value noise in world coordinates
+// (the same in every season). Within corridor world px beside the entry port
+// (fully within corridor-2) the artwork is kept, so the entry street stays
+// open to the port.
+func compoundFeatherEdge(art *image.NRGBA, l compoundLayout, stats compoundGuardReport, width, corridor float64) (*image.NRGBA, compoundGuardReport, error) {
+	if !(width >= compoundFeatherMin && width <= compoundFeatherMax) || !(corridor >= 2 && corridor <= 24) {
+		return nil, stats, errors.New("edge feather width or corridor out of range")
+	}
+	origin, port, err := compoundEntryPort(l)
+	if err != nil {
+		return nil, stats, err
+	}
+	g := sharedConnectionGeometry()
+	at := origin.add(g.Ports[port-1])
+	inward := g.Neighbors[port-1].mul(-1 / g.Neighbors[port-1].length())
+	stats.FeatherWidth, stats.FeatherCorridor = width, corridor
+	stats.Policy += fmt.Sprintf("; edge feather: alpha scaled by smoothstep((d-e)/%g) with e between %g and %g world px by value noise, entry corridor %g world px", compoundFeatherRamp, compoundFeatherCut, width-compoundFeatherRamp, corridor)
+	edges := compoundBoundary(l)
+	out := image.NewNRGBA(art.Bounds())
+	copy(out.Pix, art.Pix)
+	for y := range art.Bounds().Dy() {
+		for x := range art.Bounds().Dx() {
+			c := art.NRGBAAt(x, y)
+			if c.A == 0 {
+				continue
+			}
+			p := connectionPoint{(float64(x) + .5) / 4, (float64(y) + .5) / 4}
+			d := compoundSignedDistance(l, edges, p)
+			if d >= width {
+				continue
+			}
+			n := .55*compoundValueNoise(p, 9, 1) + .45*compoundValueNoise(p, 3, 2)
+			n = connectionSmoothStep((n - .2) / .6)
+			e := compoundFeatherCut + (width-compoundFeatherRamp-compoundFeatherCut)*n
+			f := connectionSmoothStep((d - e) / compoundFeatherRamp)
+			q := p.sub(at)
+			if depth := q[0]*inward[0] + q[1]*inward[1]; depth < width+2 {
+				lateral := math.Abs(q[0]*inward[1] - q[1]*inward[0])
+				f = max(f, 1-connectionSmoothStep((lateral-(corridor-2))/2))
+			}
+			a := uint8(math.Floor(float64(c.A)*f + .5))
+			if a == c.A {
+				continue
+			}
+			stats.ClippedPixels++
+			stats.ClippedAlphaMass += uint64(c.A - a)
+			c.A = a
+			if a == 0 {
+				c = color.NRGBA{}
+			}
+			out.SetNRGBA(x, y, c)
+		}
+	}
+	return out, stats, nil
 }
 
 // Reference-layout is explicit because original compound fences and entrance

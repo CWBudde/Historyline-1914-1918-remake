@@ -60,6 +60,7 @@ type compoundSceneReport struct {
 	Shift        []float64                `json:"shift,omitempty"`
 	Zoom         float64                  `json:"zoom,omitempty"`
 	EntryRoad    *connectionMaterial      `json:"entry_road,omitempty"`
+	EdgeFeather  float64                  `json:"edge_feather,omitempty"`
 	Transform    compoundTransform        `json:"transform"`
 	Profile      string                   `json:"profile"`
 	Guard        compoundGuardReport      `json:"guard"`
@@ -243,6 +244,16 @@ func buildCompoundBundle(in compoundInputs) (compoundBundle, error) {
 		if err != nil {
 			return b, fmt.Errorf("%s: %w", s.ID, err)
 		}
+		if s.EdgeFeather != 0 {
+			// The corridor beside the entry port: the road's half width with its border, plus 2 world px.
+			f, _, err := compoundEntryRoad(in.EntryRoads[s.ID], layout)
+			if err != nil {
+				return b, fmt.Errorf("%s: %w", s.ID, err)
+			}
+			if art4, guard, err = compoundFeatherEdge(art4, layout, guard, s.EdgeFeather, f.Width/2+f.Border+2); err != nil {
+				return b, fmt.Errorf("%s: %w", s.ID, err)
+			}
+		}
 		art2, err := resizeLanczos(art4, layout.Width*2, layout.Height*2)
 		if err != nil {
 			return b, err
@@ -258,7 +269,10 @@ func buildCompoundBundle(in compoundInputs) (compoundBundle, error) {
 		if s.EntryRoad != nil {
 			profile += fmt.Sprintf(" Entry street: before framing, the straight road of %s through the entry port, rendered at 4x in the entry cell's coordinates, is laid source-over on the artwork with its alpha scaled by 1-smoothstep(d/%d), d the world-pixel depth inside the port, so the gate continues the road tile and fades into the painted street.", s.EntryRoad.Source, compoundEntryBlend)
 		}
-		sr := compoundSceneReport{ID: s.ID, compoundLayout: layout, InputArtwork: b.retain("sources/"+s.ID+".png", in.Artwork[s.ID]), Inset: s.Inset, Framing: s.Framing, Shift: s.Shift, Zoom: s.Zoom, EntryRoad: s.EntryRoad, Transform: tr, Profile: profile, Guard: guard}
+		if s.EdgeFeather != 0 {
+			profile += fmt.Sprintf(" Edge feather: after framing, the 4x artwork's alpha within %g world px of the outer union boundary is scaled by smoothstep((d-e)/%g), the edge e wandering between %g and %g world px by two octaves of value noise in world coordinates; the entry corridor (%g world px beside the entry port) keeps its artwork.", s.EdgeFeather, compoundFeatherRamp, compoundFeatherCut, s.EdgeFeather-compoundFeatherRamp, guard.FeatherCorridor)
+		}
+		sr := compoundSceneReport{ID: s.ID, compoundLayout: layout, InputArtwork: b.retain("sources/"+s.ID+".png", in.Artwork[s.ID]), Inset: s.Inset, Framing: s.Framing, Shift: s.Shift, Zoom: s.Zoom, EntryRoad: s.EntryRoad, EdgeFeather: s.EdgeFeather, Transform: tr, Profile: profile, Guard: guard}
 		for _, density := range []int{2, 4} {
 			art := art4
 			if density == 2 {

@@ -35,10 +35,13 @@ regular road tile at the north port.
 
 ## Post
 
-`art-review -compound art/pipeline/compound-ruin-v1.json` places both seasons on the seasonal meadow and
+`art-review -compound art/pipeline/compound-ruin-v2.json` places both seasons on the seasonal meadow and
 slices the four cells (scenes `ruin-summer` and `ruin-winter`, reference-layout framing: the scene fills the
 box, so the north street reaches the hex edge, and its first 10 world px blend into the season's road tile
-through `entry_road`). The offline
+through `entry_road`). `edge_feather: 9` fades the rubble and snow apron out within 9 world px of the
+diamond's outer edge along an irregular value-noise line (nothing within 2.5 world px), so the ruin ends in
+the ground instead of straight cuts along the hex edges; beside the north port the road corridor (road
+half width plus 2 world px) keeps its artwork. The offline
 generator `go test -tags campaigngfx ./tools/art-review -run TestGenerateRuinTiles` writes the 2x and 4x
 tiles to `assets/terrain/ruin/` and lists them in `assets/index.json`.
 

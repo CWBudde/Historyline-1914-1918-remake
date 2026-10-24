@@ -1,0 +1,43 @@
+{
+  "grounds": {
+    "summer": {
+      "source": "art/terrain/grass/grass-summer-v1.png",
+      "source_sha256": "8e751025b89fe32233f01a9f8090dd280fb702ebbd9954f279583ba732fa8a3b"
+    },
+    "winter": {
+      "source": "art/terrain/grass/grass-winter-v1.png",
+      "source_sha256": "127fd16b8ae4951273885c0863c14f1db355be774830ed557be99d4349a55ee3"
+    }
+  },
+  "scenes": [
+    {
+      "artwork": {
+        "source": "art/terrain/ruin/ruin-summer-v1.png",
+        "source_sha256": "efcd17cd030ea274c5ee31e0f677e87fa7c3ec13dcbd82ed63b74bdc610afcdd"
+      },
+      "entry_road": {
+        "source": "art/pipeline/connected-terrain-v2.json",
+        "source_sha256": "6a101776aa908e0450ad3c602d21b639696526706244cc3bad58b63db312917d"
+      },
+      "edge_feather": 9,
+      "framing": "reference-layout",
+      "id": "ruin-summer",
+      "inset": 1
+    },
+    {
+      "artwork": {
+        "source": "art/terrain/ruin/ruin-winter-v1.png",
+        "source_sha256": "884e70bf3effd529664928daa5524cb7032e723d0ecddc45e96010bdb396fa1f"
+      },
+      "entry_road": {
+        "source": "art/pipeline/connected-road-winter-v1.json",
+        "source_sha256": "a5a3f8acfb1a573334436c27c6ef58f7d6e04bde817d68258af034ee73e87a53"
+      },
+      "edge_feather": 9,
+      "framing": "reference-layout",
+      "id": "ruin-winter",
+      "inset": 1
+    }
+  ],
+  "schema_version": 1
+}
