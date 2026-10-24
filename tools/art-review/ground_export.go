@@ -12,8 +12,10 @@ import (
 	"image/draw"
 	"image/png"
 	"io"
+	"maps"
 	"os"
 	"path/filepath"
+	"slices"
 	"sort"
 )
 
@@ -208,6 +210,9 @@ func buildGroundBundle(in groundInputs) (groundBundle, error) {
 		b.report.Profile += " Optional shelled_feature=circular-earthwork: shelled_w sites use winter grass_w in the shared context field; each shelled_w center receives one complete pinned winter crater source using the same direct bilinear compact ellipse as the summer earthwork. No mirrored or coset-averaged crater composition. Winter grass-facing filter guards remain unchanged."
 		b.report.ResamplingChain[0] += "; shelled_w sites use winter grass_w with one direct full-source compact winter earthwork per shelled_w center"
 	}
+	for _, id := range slices.Sorted(maps.Keys(in.Manifest.LatticeMaterials)) {
+		b.report.Profile += fmt.Sprintf(" Optional lattice_materials: %s is sampled like summer grass (unmirrored, periods 142,80, two-coset average) from the centred crop of its source spanning %g source px per world px.", id, in.Manifest.LatticeMaterials[id])
+	}
 	b.artifacts = append(b.artifacts, connectionArtifact{"manifest.json", in.Bytes})
 	materials := map[string]*image.NRGBA{}
 	for _, id := range groundMaterialIDs {
@@ -217,7 +222,7 @@ func buildGroundBundle(in groundInputs) (groundBundle, error) {
 		b.report.Materials[id] = connectionMaterialReport{source.Ref, dimensions{source.Image.Bounds().Dx(), source.Image.Bounds().Dy()}, retained}
 		materials[id] = source.Image
 	}
-	renderer := newGroundRenderer(materials)
+	renderer := newLatticeGroundRenderer(materials, in.Manifest.LatticeMaterials)
 	renderer.mudFeature = in.Manifest.MudFeature
 	renderer.shelledFeature = in.Manifest.ShelledFeature
 	tiles := map[string]map[int]*image.NRGBA{}

@@ -12,7 +12,7 @@ import (
 // between two hex centres on the axis, with every hex centre at phase zero, so
 // a chain of quay hexes runs on without a seam.
 const (
-	quayWidth        = 26.  // world px across the whole strip, fenders included
+	quayWidth        = 36.  // world px across the whole strip, fenders included: a road (25) leaves stone either side
 	quayShadowOffset = 1.6  // world px toward the lower right, along each axis
 	quayShadowAlpha  = 0.42 // opacity of the shadow on the water
 )

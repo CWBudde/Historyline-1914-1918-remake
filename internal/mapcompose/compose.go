@@ -88,7 +88,10 @@ func Compose(g hexgrid.Grid, at func(hexgrid.Coord) Hex, has func(id string) boo
 			h := at(c)
 			cell := &s.Cells[l][col]
 			cell.Background = baseTile(h.Terrain, l, col, has)
-			infra := h.Infra
+			if ground, ok := hangarGround(h, l, col, has); ok {
+				cell.Background = ground
+			}
+			infra := airfield(g, at, c, h, has)
 			if wet(h.Terrain) {
 				infra = quays(infra, has)
 			}

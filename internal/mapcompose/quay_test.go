@@ -8,7 +8,7 @@ import (
 )
 
 // A road bridge on water (the levels' stand-in for a quay) draws the quay on
-// its axis instead of the bridge and its road; on land it stays a bridge.
+// its axis instead of the bridge, under its road; on land it stays a bridge.
 func TestRoadBridgeOnWaterDrawsAQuay(t *testing.T) {
 	has := func(id string) bool { return id == "tile/quay36" || id == "standing/rBridge36" }
 	for _, tt := range []struct {
@@ -17,8 +17,8 @@ func TestRoadBridgeOnWaterDrawsAQuay(t *testing.T) {
 		overlays []string
 		standing bool
 	}{
-		{"water", []string{"rBridge36", "road36"}, []string{"tile/quay36"}, false},
-		{"lakeside12", []string{"rBridge36", "road36", "road14"}, []string{"tile/quay36", "tile/road14"}, false},
+		{"water", []string{"rBridge36", "road36"}, []string{"tile/quay36", "tile/road36"}, false},
+		{"lakeside12", []string{"rBridge36", "road36", "road14"}, []string{"tile/quay36", "tile/road36", "tile/road14"}, false},
 		{"grass", []string{"stream25", "rBridge36", "road36"}, []string{"tile/stream25", "tile/rBridge36", "tile/road36"}, true},
 		{"water", []string{"rBridge25", "road25"}, []string{"tile/rBridge25", "tile/road25"}, false},
 	} {

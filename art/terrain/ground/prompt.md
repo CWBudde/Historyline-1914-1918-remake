@@ -4,7 +4,7 @@ title: Ground
 kind: terrain
 status: candidate
 runtime_ids: mud, rough_w, shelled_w, stone, stoney_w, stamp/crater/4_-1.1_1.1_0.2/1, stamp/crater/4_-1.1_1.1_0.2/2, stamp/boulders/1/1, stamp/boulders/4_2.0_1.1_0.2/1, stamp/boulders/5_-1.1_0.2_-1.3_1.3/1, stamp/crater_w/1/1, stamp/crater_w/2_1.1/1, stamp/crater_w/2_-1.1/1, stamp/crater_w/6_-1.1_-4.2_-2.2_-3.3_-1.3/1, stamp/boulders_w/1/1, stamp/boulders_w/3_-1.1_-2.2/1, stamp/boulders_w/2_0.2/1
-masters: ground-crater-summer-v1.png, ground-crater-pair-summer-v1.png, ground-boulders-single-summer-v1.png, ground-boulders-four-summer-v1.png, ground-boulders-five-summer-v1.png, ground-mud-summer-v2.png, ground-stone-summer-v2.png, ground-rough-winter-v2.png, ground-shelled-winter-v2.png, ground-stony-winter-v2.png, ground-earth-bank-shared-v2.png, ground-earth-bank-shared-v1.png, ground-mud-summer-v1.png, ground-rough-winter-v1.png, ground-shelled-winter-v1.png, ground-stone-summer-v1.png, ground-stony-winter-v1.png, ground-crater-single-winter-v1.png, ground-crater-pair-se-winter-v1.png, ground-crater-pair-sw-winter-v1.png, ground-crater-field-six-winter-v1.png, ground-boulders-single-winter-v1.png, ground-boulders-sw-three-winter-v1.png, ground-boulders-vertical-two-winter-v1.png
+masters: ground-crater-summer-v1.png, ground-crater-pair-summer-v1.png, ground-boulders-single-summer-v1.png, ground-boulders-four-summer-v1.png, ground-boulders-five-summer-v1.png, ground-mud-summer-v2.png, ground-stone-summer-v2.png, ground-rough-winter-v2.png, ground-shelled-winter-v2.png, ground-stony-winter-v2.png, ground-earth-bank-shared-v2.png, ground-earth-bank-shared-v1.png, ground-mud-summer-v1.png, ground-rough-winter-v1.png, ground-shelled-winter-v1.png, ground-stone-summer-v1.png, ground-stony-winter-v1.png, ground-crater-single-winter-v1.png, ground-crater-pair-se-winter-v1.png, ground-crater-pair-sw-winter-v1.png, ground-crater-field-six-winter-v1.png, ground-boulders-single-winter-v1.png, ground-boulders-sw-three-winter-v1.png, ground-boulders-vertical-two-winter-v1.png, ground-rough-winter-v3.png
 ---
 
 ## Look
@@ -84,6 +84,26 @@ Summer boulder stamps replace per-hex stone art across their complete clusters, 
 gaps over the shared meadow; winter stone art retains its context tiles.
 
 ## Post
+
+### Look 7 winter hills (rough_w) candidate (2026-10-24)
+`ground-rough-winter-v3.png` (exec-23420ffe), native 1536×1024 RGB: a winter edit of the summer hills
+scrub master, settled snow with soft cool hummock shading and small dry straw stalks, no mud. Mean RGB
+206,208,213, L\* 83.5, σL\* 6.1, chroma 2.6 (grass_w: L\* 87.8, σL\* 4.1). Faults: does not tile (the left and
+top borders are about 9 levels brighter; wrap step 13 against 5–7 inside) and about three times the stalks
+asked for. Selected for `rough_w` (original record 80, hills, in winter) in place of the brown rubble of v2:
+`art/pipeline/ground-terrain-v3.json` samples it unmirrored and lattice-periodic from a centred crop at 4
+source px per world px (`lattice_materials`), so it need not tile. Attachments: image 1
+`art/terrain/hills/hills-scrub-summer-v2.png` (relief layout), image 2 `art/terrain/grass/grass-winter-v1.png`
+(snow palette only). The prompt was:
+
+```text
+Seasonal edit ONLY of the attached summer hills material (image 1). Keep the exact canvas size (1536x1024, LANDSCAPE), the strict top-down view, the scale, and every hummock and hollow in its place: the same gentle rolling relief, only now buried under settled winter snow. Winter, flat overcast cold light, no light direction across the canvas.
+The ground is almost entirely smooth white settled snow, the same fine snow texture and palette as image 2 (average near RGB 217,221,225). The hummocks stay readable only through very soft cool blue-grey shading in the hollows and on the lower-right side of each hummock (about RGB 190,196,204 at the darkest, never darker), with slightly brighter snow on their tops. Where the summer scrub clumps were, keep only a few sparse tufts of dry straw-brown grass stalks and thin dark brown-grey twigs poking through the snow, each tuft small (8 to 16 px across) and fine-stroked, about one tuft per 200x200 px area, spaced irregularly; no green at all. A few faint shallow wind ripples in the snow. Overall average close to RGB 205,208,212: slightly darker and rougher than image 2, but clearly snow, never brown, muddy, rocky or green. Keep it tileable left-right and top-bottom with even density.
+Avoid: bare earth, mud, brown patches, rubble, rocks, green grass, bushes wider than 16 px, dark blobs, ice sheen, blue snow, footprints, tracks, diagonal light bands, vignette, text, grid, photograph, 3D render.
+
+Image 1 is the selected summer hills material: keep its relief layout and canvas, change the season only. Image 2 is the selected winter meadow snow, for the snow palette and texture only (do not copy its layout).
+```
+
 `art-review -ground art/pipeline/ground-terrain-v2.json` projects the five materials into context tiles
 keyed by season, centre and the six neighbours (`context/ground/<key>`); the crater is placed as a
 centred feature. `mud_feature` and `shelled_feature` select direct full-source compact earthworks over

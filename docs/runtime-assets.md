@@ -122,6 +122,9 @@ context tile whose key is the SHA-256 of a descriptor (season, centre, neighbour
 origin mod 568×320 for hills). Neighbours from another family count as the seasonal base (`grass`/`grass_w`);
 outside the map the centre continues. Without a context tile the default tile is drawn and a gap is recorded
 (`missing` or `undefined`). The three shipped levels and all 72 campaign levels have no gaps.
+The ground contexts come from `art/pipeline/ground-terrain-v3.json`; its `lattice_materials` (`rough_w`, the
+winter hills) are sampled like the meadow, unmirrored and lattice-periodic, from a centred crop of the
+painting, and `TestRegenerateLatticeGroundContexts` re-renders every context they touch.
 Compounds must form complete groups; stray pieces are reported, never completed. A depot whose entrance
 hex has no content in the level (`mapcompose.LevelHex` marks it `Vacant`) is destroyed and draws
 `tile/ruinN`, `ruinW`, `ruinE`, `ruinS` (and `_w`) instead, when the catalog has all four.
@@ -149,8 +152,14 @@ A coast whose land neighbours are mostly winter terrain (or, with none, a coast 
 draws the winter form of its shore and mouth, ID suffix `_w`: snow instead of meadow and frosted dry stones,
 from `art/pipeline/shore-terrain-winter-v1.json`. The water itself has no winter form yet.
 On a water hex a road bridge with its road, the levels' stand-in for the original's quays and piers, draws
-the stone quay on its axis (`tile/quay14`, `quay25`, `quay36`, from `art/terrain/quay`, exported by
-`TestGenerateQuayTiles`); the rules still see the bridge and the road.
+the stone quay on its axis (`tile/quay14`, `quay25`, `quay36`, from `art/terrain/quay`, exported 36
+world px wide by `TestGenerateQuayTiles`) with the road running on over it; the rules still see the bridge
+and the road.
+The original's airstrips (records 105, 106) are a road carrying `runway36`, its hangar (record 51) a house
+carrying `hangar`. A runway draws `tile/runway36` instead of its road; a hangar hex draws the open ground of
+its season, the apron (`tile/hangar`) and `standing/hangar` with its shadow, and the apron runs on over the
+runway hexes at its NE and SE (`tile/apron-sw`, `apron-nw`). Winter hexes draw the `_w` forms. All come from
+`art/terrain/airfield`, exported by `TestGenerateAirfieldTiles`.
 For one adjacent stream facing a fully-land shore edge, the compositor selects
 `tile/<shore>-outlet<port>`. The 24 single-mouth variants share the ordinary bank and water materials,
 retain the corner states and meet the stream's port profile. Missing variants or several facing streams

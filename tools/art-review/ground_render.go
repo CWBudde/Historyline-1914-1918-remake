@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"image"
 	"image/color"
+	"maps"
 	"math"
 	"strings"
 )
@@ -182,6 +183,20 @@ type groundRenderer struct {
 }
 
 func newGroundRenderer(materials map[string]*image.NRGBA) *groundRenderer {
+	return newLatticeGroundRenderer(materials, nil)
+}
+
+// newLatticeGroundRenderer is newGroundRenderer with the materials named in
+// lattice sampled like summer grass, unmirrored and lattice-periodic, from a
+// centred crop of their source at the given source px per world px
+// (latticeCrop) instead of the mirrored connection sampler.
+func newLatticeGroundRenderer(materials map[string]*image.NRGBA, lattice map[string]float64) *groundRenderer {
+	if len(lattice) > 0 {
+		materials = maps.Clone(materials)
+		for id, k := range lattice {
+			materials[id] = latticeCrop(materials[id], k)
+		}
+	}
 	r := &groundRenderer{materials: materials, samples: make([]groundRawSample, 416*352)}
 	for y := range 352 {
 		for x := range 416 {
@@ -189,7 +204,7 @@ func newGroundRenderer(materials map[string]*image.NRGBA) *groundRenderer {
 			s := &r.samples[y*416+x]
 			s.geometry = groundGeometryAt(p)
 			for i, id := range groundMaterialIDs {
-				if id == "grass" {
+				if _, ok := lattice[id]; ok || id == "grass" {
 					s.materials[i] = sampleGrassMaterial(materials[id], p)
 				} else {
 					s.materials[i] = sampleConnectionMaterial(materials[id], p)
@@ -198,6 +213,17 @@ func newGroundRenderer(materials map[string]*image.NRGBA) *groundRenderer {
 		}
 	}
 	return r
+}
+
+// latticeCrop is the centred part of src that sampleGrassMaterial maps onto
+// its 142x80 world px period at k source px per world px: the crossfaded span
+// is three quarters of the crop.
+func latticeCrop(src *image.NRGBA, k float64) *image.NRGBA {
+	b := src.Bounds()
+	w := min(b.Dx(), int(math.Round(142*k*4/3))+1)
+	h := min(b.Dy(), int(math.Round(80*k*4/3))+1)
+	at := image.Pt(b.Min.X+(b.Dx()-w)/2, b.Min.Y+(b.Dy()-h)/2)
+	return src.SubImage(image.Rectangle{Min: at, Max: at.Add(image.Pt(w, h))}).(*image.NRGBA)
 }
 func (r *groundRenderer) tiles(c groundContext) (map[int]*image.NRGBA, error) {
 	_, base := groundSeason(c.RuntimeID)

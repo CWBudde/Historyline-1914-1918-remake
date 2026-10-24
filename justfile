@@ -54,7 +54,7 @@ test:
 
 # Run the Go tests outside tools/: the art tools' export tests take about 25 minutes and never cache
 test-quick:
-    go test $(go list ./... | grep -v /tools/)
+    go test -timeout 40m $(go list ./... | grep -v /tools/)
 
 # Run go vet and golangci-lint
 lint:

@@ -251,7 +251,7 @@ func TestGenerateCampaignContexts(t *testing.T) {
 }
 
 func loadCampaignRenderers(root string) (*groundRenderer, *forestRenderer, *hillsRenderer, error) {
-	gi, err := loadGroundInputs(filepath.Join(root, "art/pipeline/ground-terrain-v2.json"))
+	gi, err := loadGroundInputs(filepath.Join(root, groundManifestPath))
 	if err != nil {
 		return nil, nil, nil, err
 	}
@@ -259,7 +259,7 @@ func loadCampaignRenderers(root string) (*groundRenderer, *forestRenderer, *hill
 	for id, s := range gi.Sources {
 		materials[id] = s.Image
 	}
-	ground := newGroundRenderer(materials)
+	ground := newLatticeGroundRenderer(materials, gi.Manifest.LatticeMaterials)
 	ground.mudFeature = gi.Manifest.MudFeature
 	ground.shelledFeature = gi.Manifest.ShelledFeature
 	fi, err := loadForestInputs(filepath.Join(root, "art/pipeline/forest-terrain-v3.json"))

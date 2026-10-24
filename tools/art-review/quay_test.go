@@ -95,7 +95,8 @@ func TestQuayTilesCrossTheHex(t *testing.T) {
 			}
 		}
 		// The shadow falls on the lower right only.
-		left, right := im.NRGBAAt((48-14)*4, 40*4).A, im.NRGBAAt((48+14)*4, 40*4).A
+		beside := int(quayWidth/2) + 1
+		left, right := im.NRGBAAt((48-beside)*4, 40*4).A, im.NRGBAAt((48+beside)*4, 40*4).A
 		if left != 0 || right == 0 || right == 255 {
 			t.Errorf("shadow beside the pier: left %d, right %d", left, right)
 		}

@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"slices"
 )
 
 var groundMaterialIDs = [...]string{"grass", "grass_w", "mud", "stone", "rough_w", "stoney_w", "shelled_w"}
@@ -17,6 +18,9 @@ type groundManifest struct {
 	Materials      map[string]connectionMaterial `json:"materials"`
 	MudFeature     string                        `json:"mud_feature,omitempty"`
 	ShelledFeature string                        `json:"shelled_feature,omitempty"`
+	// LatticeMaterials are the target materials sampled unmirrored and
+	// lattice-periodic, by source px per world px (newLatticeGroundRenderer).
+	LatticeMaterials map[string]float64 `json:"lattice_materials,omitempty"`
 }
 type groundInputs struct {
 	Manifest groundManifest
@@ -60,6 +64,17 @@ func decodeGroundManifest(data []byte, m *groundManifest) error {
 			return errors.New("shelled_feature requires circular-earthwork")
 		}
 		keys = append(keys, "shelled_feature")
+	}
+	if _, ok := raw["lattice_materials"]; ok {
+		if len(m.LatticeMaterials) == 0 {
+			return errors.New("lattice_materials requires at least one material")
+		}
+		for id, k := range m.LatticeMaterials {
+			if !slices.Contains(groundTargetIDs[:], id) || k <= 0 {
+				return fmt.Errorf("lattice_materials: %s requires a target material and a positive scale", id)
+			}
+		}
+		keys = append(keys, "lattice_materials")
 	}
 	root, err := groundObject(data, keys...)
 	if err != nil {

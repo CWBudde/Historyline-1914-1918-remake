@@ -391,6 +391,9 @@ Mostly a material swap of the matching summer family plus the winter grade.
 
 - [ ] L7.1 Winter materials and edits: G1, G4, G6, G7, G8 and G9 (`grass_w`, `rough_w`, `shelled_w` crater
       stamps in snow, `stoney_w`, `mountain_w`, `mountN_w`/`mountS_w`/`mountE_w`/`mountW_w`).
+      2026-10-24: `rough_w` (winter hills, record 80) is snow with soft hummocks and dry stalks
+      (`ground-rough-winter-v3.png`), sampled unmirrored and lattice-periodic (`ground-terrain-v3.json`); the old
+      mirrored brown rubble is gone. `stoney_w` and `shelled_w` still go through the mirrored sampler.
 - [ ] L7.2 Winter forest: the F3 crowns scatter; the bare stands' soft twig shadows stack into a grey wash
       (`build/review/winter-crowns/`).
 - [ ] L7.3 Winter water: I1 shore ice and an I2 grade or edit, with ice where the depth is low. Winter forms of
@@ -425,9 +428,14 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       `tile/quay14`, `quay25`, `quay36`, wherever a road bridge stands on water (the rules still see the
       bridge). Record 120, a quay piece on land, still shows a short road; harbour buildings and town streets
       are open.
+      2026-10-24: the quay is 36 world px wide and the road runs on over it, so a road meets its quay
+      without a seam.
 - [ ] L8.4 Junctions and level crossings without a tile of their own (two overlays today); forest and
       mountain variants that show plain forest and mountain; mountain ranges at their footprint. Knolls and
       boulders are tiled from the existing stamps; whole-shape paintings would read better.
+- [x] L8.5 Airfields: records 105 and 106 draw a runway (`runway36`) and record 51 a canvas hangar with its
+      apron, summer and winter (`art/terrain/airfield`, `TestGenerateAirfieldTiles`), instead of an asphalt
+      road and a house. Evidence: `build/review/l10-airport/` (level 10, the PARTS map, and a summer map).
 
 ##### Look 9: Acceptance
 

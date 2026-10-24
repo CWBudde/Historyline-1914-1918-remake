@@ -16,6 +16,8 @@
 // houses and a road, town streets a road, quays and piers a road bridge on
 // water, shell-hole fields mud, forest and mountain variants plain forest and
 // mountain, junctions and level crossings without a tile of their own two overlays.
+// Airstrips are a road carrying runway36 and their hangars a house carrying
+// hangar, which the map draws as an airfield.
 package origview
 
 import (
