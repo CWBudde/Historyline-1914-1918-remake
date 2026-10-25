@@ -17,7 +17,7 @@ const (
 )
 
 // Strategic-map colours: the olive plate, the frame from outside in, the view
-// rectangle and the depot plate.
+// rectangle and the depot and factory plates.
 var (
 	plateColor  = color.RGBA{48, 48, 36, 255}
 	frameOuter  = color.RGBA{81, 81, 65, 255}
@@ -36,11 +36,12 @@ var (
 type Kind int
 
 const (
-	HQ    Kind = iota // a shield in the side's shade with "HQ"
-	Depot             // a light disc with a dark "D", edged in the side's dark tone
+	HQ      Kind = iota // a shield in the side's shade with "HQ"
+	Depot               // a light disc with a dark "D", edged in the side's dark tone
+	Factory             // a light square with a dark "F", edged like the depot
 )
 
-// Building is an HQ or depot plate on the strategic map; a zero Shade is unowned.
+// Building is an HQ, depot or factory plate on the strategic map; a zero Shade is unowned.
 type Building struct {
 	At    hexgrid.Coord
 	Kind  Kind
@@ -160,8 +161,8 @@ func strokeRect(dst *image.RGBA, r image.Rectangle, c color.RGBA) {
 }
 
 // Plate shapes at scale 1, drawn at Scale × Scale pixels per shape pixel: an HQ
-// shield 11×12 (straight sides, a pointed foot) and a depot disc 9×9, each with a
-// 3×5 mark.
+// shield 11×12 (straight sides, a pointed foot), a depot disc 9×9 and a factory
+// square 9×9, each with a 3×5 mark.
 const (
 	shieldW, shieldH = 11, 12
 	discD            = 9
@@ -171,6 +172,7 @@ var (
 	glyphH = [5]string{"#.#", "#.#", "###", "#.#", "#.#"}
 	glyphQ = [5]string{".#.", "#.#", "#.#", "##.", ".##"}
 	glyphD = [5]string{"##.", "#.#", "#.#", "#.#", "##."}
+	glyphF = [5]string{"###", "#..", "##.", "#..", "#.."}
 )
 
 func inShield(x, y int) bool {
@@ -184,6 +186,10 @@ func inShield(x, y int) bool {
 func inDisc(x, y int) bool {
 	dx, dy := x-discD/2, y-discD/2
 	return dx*dx+dy*dy <= 20
+}
+
+func inSquare(x, y int) bool {
+	return x >= 0 && y >= 0 && x < discD && y < discD
 }
 
 // Plate pixel tones.
@@ -232,6 +238,7 @@ func plateTones(w, h int, inside func(x, y int) bool, marks map[image.Point][5]s
 var (
 	shieldTones = plateTones(shieldW, shieldH, inShield, map[image.Point][5]string{{2, 2}: glyphH, {6, 2}: glyphQ})
 	discTones   = plateTones(discD, discD, inDisc, map[image.Point][5]string{{3, 2}: glyphD})
+	squareTones = plateTones(discD, discD, inSquare, map[image.Point][5]string{{3, 2}: glyphF})
 )
 
 // drawPlate draws building b centred on centre.
@@ -240,12 +247,15 @@ func (s Strategic) drawPlate(dst *image.RGBA, centre image.Point, b Building) {
 	if b.Shade == (Shade{}) {
 		pal = [5]color.RGBA{{}, Neutral.Dark, Neutral.Lit, Neutral.Mid, Neutral.Dark}
 	}
-	if b.Kind == Depot {
+	if b.Kind != HQ {
 		edge := depotEdge
 		if b.Shade != (Shade{}) {
 			edge = b.Shade.Dark
 		}
 		tones, pal = discTones, [5]color.RGBA{{}, edge, depotLit, depotBody, depotMark}
+		if b.Kind == Factory {
+			tones = squareTones
+		}
 	}
 	k := s.Scale
 	h, w := len(tones), len(tones[0])

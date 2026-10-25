@@ -584,3 +584,27 @@ func TestEdgeScroll(t *testing.T) {
 		t.Errorf("corner at %d,%d, want 0,0", got.pair, got.row)
 	}
 }
+
+// The strategic map shows every building its side sees: CIVIL's factories as
+// factory plates in their owners' shades, unowned ones unshaded.
+func TestStrategicFactories(t *testing.T) {
+	d := newDosTest(t, "monthly/1914-10:cp", passPlanner{})
+	g := newMapGame(d.s.Level, false)
+	g.dos = d
+	g.applyLayout(1800, 1000, 1)
+	g.layoutSplit()
+	sc := g.strategicScene(d.side)
+	factories := 0
+	for c, b := range d.buildingsOf(d.side) {
+		if b.HQ || b.Kind != dosplay.Factory {
+			continue
+		}
+		factories++
+		if !slices.Contains(sc.Buildings, minimap.Building{At: c, Kind: minimap.Factory, Shade: sideShade(b.Owner)}) {
+			t.Errorf("factory %v missing from %v", c, sc.Buildings)
+		}
+	}
+	if factories == 0 {
+		t.Fatal("CIVIL shows no factory")
+	}
+}

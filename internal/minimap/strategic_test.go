@@ -51,6 +51,7 @@ func strategicScene(cam *camera.Camera) Scene {
 		Buildings: []Building{
 			{At: hexgrid.Coord{Line: 50, Col: 4}, Kind: HQ, Shade: Blue},
 			{At: hexgrid.Coord{Line: 54, Col: 12}, Kind: Depot},
+			{At: hexgrid.Coord{Line: 30, Col: 6}, Kind: Factory, Shade: Yellow},
 		},
 		View: cam,
 	}
@@ -68,6 +69,13 @@ func TestStrategicRender(t *testing.T) {
 	m := s.Map.Min // 28,52
 	at := func(c hexgrid.Coord) image.Point { return s.Raster.Block(c).Min.Add(m) }
 	hq, depot, unit := at(hexgrid.Coord{Line: 50, Col: 4}), at(hexgrid.Coord{Line: 54, Col: 12}), at(hexgrid.Coord{Line: 40, Col: 10})
+	// plate is the top-left pixel of a 9×9 plate centred on c's block.
+	plate := func(c hexgrid.Coord) image.Point {
+		b := s.Raster.Block(c).Add(m)
+		return b.Min.Add(image.Pt(b.Dx()/2, b.Dy()/2)).Sub(image.Pt(9*s.Scale/2, 9*s.Scale/2))
+	}
+	disc, square := plate(hexgrid.Coord{Line: 54, Col: 12}), plate(hexgrid.Coord{Line: 30, Col: 6})
+	px := func(p image.Point, x, y int) image.Point { return p.Add(image.Pt(x*s.Scale, y*s.Scale)) }
 	for _, tc := range []struct {
 		name string
 		p    image.Point
@@ -89,6 +97,10 @@ func TestStrategicRender(t *testing.T) {
 		{"HQ plate outline", hq.Add(image.Pt(4-11, 4)), Blue.Dark},
 		{"depot body", depot.Add(image.Pt(4, 4)), depotBody},
 		{"depot D", depot.Add(image.Pt(2, 4)), depotMark},
+		{"depot round corner", px(disc, 0, 0), grass},
+		{"factory square corner", px(square, 0, 0), Yellow.Dark},
+		{"factory body", px(square, 5, 6), depotBody},
+		{"factory F", px(square, 3, 4), depotMark},
 		{"view outline top left", image.Pt(m.X+24, m.Y+20), viewC},
 		{"view outline bottom right", image.Pt(m.X+103, m.Y+59), viewC},
 		{"view inner shadow", image.Pt(m.X+25, m.Y+30), viewShade},
