@@ -73,7 +73,8 @@ The package docs hold the details; this is the map of where each part lives.
   smallest window keeps `MinCols` × `MinRows` (7×6) cells per panel. The fixed pieces (divider, wells, bolt)
   are reference pixels at 2 logical pixels each, times the UI scale.
 - **Zoom** (`dosscreen.Zooms`): ½, ¾, 1, 1¼, 1½ and 2× the fitted scale with the mouse wheel over the human
-  panel, shared by both panels, keeping the hover cell in view; at least 4×4 cells stay visible.
+  panel, shared by both panels, keeping the hover cell in view; at least 4×4 cells stay visible. In the
+  slim frame zooming out stops where the map would no longer fill the openings (`Screen.FillZoom`).
 - **Frame** (`dosscreen.Frame`): drawn at runtime, not one painting: steel masked by the union of the
   panel's visible cells, bevel and lip from the mask edge, rivets at the tooth vertices, the divider post,
   bolt and status wells as fixed pieces. Cached per window size, zoom and on-map cell pattern; cells beyond
@@ -81,12 +82,14 @@ The package docs hold the details; this is the map of where each part lives.
   border row and column (`dosbind.Board.Playable`): cameras, cursor, frame, map drawing and the strategic
   map never show the border. With a painted backdrop (`-backdrop`) the frame is slim instead
   (`Frame.Slim`, `slim.go`): plain rectangular openings edge to edge, a thin gunmetal border with a brass
-  hairline facing the map, gunmetal status strips, a brass knob at the divider's foot; past the map's ends
-  a panel shows gunmetal (`Frame.DrawBeyond`), and every playable hex whose centre lies in the opening
-  takes the cursor and the pointer.
+  hairline facing the map, gunmetal status strips, a brass knob at the divider's foot; every playable hex
+  whose centre lies in the opening takes the cursor and the pointer. The opening always ends on the map;
+  only a map smaller than the opening shows gunmetal past its ends (`Frame.DrawBeyond`).
 - **Cameras** (`cmd/historyline/split.go`): one per panel, snapping to whole column pairs so the teeth keep
   their phase; each follows its side's cursor and that side's revealed moves. The pointer on the human
-  panel's outer half cells steps the camera (edge scroll, `cursor.go`).
+  panel's outer half cells steps the camera (edge scroll, `cursor.go`). In the slim frame a camera at a
+  map end shifts by whole device pixels so that its opening ends on the playable area
+  (`dosscreen.Screen.SlimFit`).
 - **Input** (`internal/gesture`, `cmd/historyline/cursor.go`): the human side's panel takes the mouse (a
   click selects and confirms, a drag of one cell pitch picks a gesture, right-click opens a ring of every
   available action) and key set A (arrows + space).

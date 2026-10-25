@@ -6,7 +6,9 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosscreen"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/maprender"
 )
 
 func TestBackdropScale(t *testing.T) {
@@ -172,5 +174,59 @@ func TestSlimPick(t *testing.T) {
 	}
 	if uncovered == 0 {
 		t.Error("no window picks a hex the plate frame covers")
+	}
+}
+
+// In the slim frame of a backdrop each panel's opening ends on the map at every
+// resting place and every zoom level it allows, and the wheel stops zooming out
+// where the map would no longer fill the opening.
+func TestSlimNoGap(t *testing.T) {
+	for _, tc := range []struct {
+		name string
+		w, h int
+	}{
+		{"1920x1080", 1920, 1080},
+		{"1024x768", 1024, 768},
+		{"1800x1000", 1800, 1000},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			g, _ := newSplitTest(t, passPlanner{}, tc.w, tc.h)
+			ww, wh := maprender.Size(g.grid)
+			g.backdrop = &backdrop{ww: float64(ww), wh: float64(wh)}
+			g.layoutSplit()
+			s := g.split
+			if !s.frame.Slim {
+				t.Fatal("a backdrop lays out the slim frame")
+			}
+			g.zoomSplit(-len(dosscreen.Zooms))
+			base := dosscreen.Layout(tc.w, tc.h, 1)
+			floor := base.FillZoom(g.slimWorld().X1, g.slimWorld().Y1)
+			if s.screen.Zoom != floor {
+				t.Fatalf("zoomed out to level %d, want the floor %d", s.screen.Zoom, floor)
+			}
+			world := g.slimWorld()
+			for z := floor; z <= base.ClampZoom(len(dosscreen.Zooms)); z++ {
+				s.zoom = z
+				g.layoutSplit()
+				for side := range 2 {
+					plo, phi := pairRange(g.playGrid(), s.screen.Cols)
+					rlo, rhi := rowRange(g.playGrid(), s.screen.Rows)
+					for pair := plo; pair <= phi; pair++ {
+						for row := rlo; row <= rhi; row++ {
+							s.cams[side].moveTo(pair, row, true)
+							cam := g.splitCamera(side)
+							o := s.screen.SlimOpening(side)
+							x0, y0 := cam.ScreenToWorld(float64(o.X), float64(o.Y))
+							x1, y1 := cam.ScreenToWorld(float64(o.Right()), float64(o.Bottom()))
+							const eps = 1e-6
+							if x0 < world.X0-eps || y0 < world.Y0-eps || x1 > world.X1+eps || y1 > world.Y1+eps {
+								t.Fatalf("zoom %d side %d at %d,%d: opening sees %.1f,%.1f-%.1f,%.1f beyond %+v",
+									z, side, pair, row, x0, y0, x1, y1, world)
+							}
+						}
+					}
+				}
+			}
+		})
 	}
 }

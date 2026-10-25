@@ -60,6 +60,52 @@ func (s Screen) slimStrip(side int) Rect {
 	return Rect{o.X, y, o.W, max(st.Bottom()-y, 0)}
 }
 
+// WorldRect is a rectangle in world pixels, from X0, Y0 to X1, Y1.
+type WorldRect struct{ X0, Y0, X1, Y1 float64 }
+
+// SlimFit returns v shifted by whole device pixels so that panel side's slim
+// opening lies on world on each axis: a view looking past one end moves back
+// onto the map. On an axis where world is smaller than the opening it is
+// centred instead.
+func (s Screen) SlimFit(v View, side int, world WorldRect) View {
+	v.ShiftX, v.ShiftY = 0, 0
+	o := s.SlimOpening(side)
+	x0, y0 := v.WorldToScreen(world.X0, world.Y0)
+	x1, y1 := v.WorldToScreen(world.X1, world.Y1)
+	v.ShiftX = -fitAxis(o.X, o.Right(), x0, x1) / v.Scale
+	v.ShiftY = -fitAxis(o.Y, o.Bottom(), y0, y1) / v.Scale
+	return v
+}
+
+// fitAxis is how many whole device pixels to move a map spanning w0..w1 on the
+// screen so that it covers the opening o0..o1, or is centred on a wider one.
+func fitAxis(o0, o1 int, w0, w1 float64) float64 {
+	switch lo, hi := float64(o0), float64(o1); {
+	case w1-w0 < hi-lo:
+		return math.Round((lo + hi - w0 - w1) / 2)
+	case w0 > lo:
+		return -math.Ceil(w0 - lo - eps)
+	case w1 < hi:
+		return math.Ceil(hi - w1 - eps)
+	}
+	return 0
+}
+
+// FillZoom is the lowest usable zoom level, at most DefaultZoom, at which a
+// world of ww × wh world pixels still covers the slim openings, so the slim
+// frame never shows gunmetal past the map when zoomed out. A world too small
+// at DefaultZoom gets DefaultZoom.
+func (s Screen) FillZoom(ww, wh float64) int {
+	lo, _ := s.zoomRange()
+	o := s.SlimOpening(0)
+	for i := lo; i < DefaultZoom; i++ {
+		if sc := s.zoomScale(i); ww*sc >= float64(o.W)-eps && wh*sc >= float64(o.H)-eps {
+			return i
+		}
+	}
+	return DefaultZoom
+}
+
 // hair is the width of one line of the slim frame at UI scale ui.
 func hair(ui float64) int { return max(int(math.Round(ui)), 1) }
 

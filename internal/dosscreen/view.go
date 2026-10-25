@@ -12,11 +12,16 @@ import (
 // hexgrid lines 2·Row and 2·Row+1. Because the origin moves in whole column pairs
 // and rows, the teeth of the frame keep their phase and always meet cell edges.
 // The block of cells is centred in the panel; the margin is steel.
+//
+// ShiftX and ShiftY move the origin by world pixels. The plate frame keeps them
+// 0, so its teeth meet cell edges; the slim frame shifts a view at the map's
+// ends so that its opening ends on the map (Screen.SlimFit).
 type View struct {
-	Panel      Rect
-	Scale      float64 // device pixels per world pixel
-	Cols, Rows int
-	Pair, Row  int
+	Panel          Rect
+	Scale          float64 // device pixels per world pixel
+	Cols, Rows     int
+	Pair, Row      int
+	ShiftX, ShiftY float64
 }
 
 // NewView fits as many whole cells as panel holds at scale, with the first column
@@ -28,9 +33,10 @@ func NewView(panel Rect, scale float64, pair, row int) View {
 }
 
 // Origin is the world point at the top-left corner of the block of cells: the
-// left vertex column of the first column and the top of its first cell.
+// left vertex column of the first column and the top of its first cell, moved
+// by the shift.
 func (v View) Origin() (wx, wy float64) {
-	return float64(v.Pair * hexgrid.ColPitch), float64(v.Row * hexgrid.HexHeight)
+	return float64(v.Pair*hexgrid.ColPitch) + v.ShiftX, float64(v.Row*hexgrid.HexHeight) + v.ShiftY
 }
 
 // Offset is where the top-left corner of the block of cells lies on the screen.

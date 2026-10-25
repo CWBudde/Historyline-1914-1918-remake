@@ -515,11 +515,11 @@ func (g *game) cursorPlates(dst *ebiten.Image) {
 func (g *game) plateCell(side int) (hexgrid.Coord, bool) {
 	v := g.splitView(side)
 	if side == g.dos.side {
-		return g.hover, g.hoverOnMap && viewShows(v, g.playGrid(), g.hover)
+		return g.hover, g.hoverOnMap && g.panelShows(side, g.hover)
 	}
-	if hq := g.startHex(side); viewShows(v, g.playGrid(), hq) {
+	if hq := g.startHex(side); g.panelShows(side, hq) {
 		return hq, true
 	}
 	c := v.Cell(v.Cols/2, v.Rows/2)
-	return c, viewShows(v, g.playGrid(), c)
+	return c, g.panelShows(side, c)
 }

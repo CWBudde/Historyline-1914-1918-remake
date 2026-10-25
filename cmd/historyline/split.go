@@ -29,24 +29,32 @@ const slideFrames = 8
 // minus the slide.
 type panelCam struct {
 	pair, row      int
+	shiftX, shiftY float64 // the resting shift (dosscreen.View)
 	slideX, slideY float64
 	left           int // frames of the slide left
 	set            bool
+
+	// fit is the shift of a resting place, nil for none (the plate frame).
+	fit func(pair, row int) (sx, sy float64)
 }
 
-// moveTo rests the camera on pair, row. A change slides there over slideFrames
-// unless reduced (reduced motion, a new layout), from wherever the panel is
-// drawn now.
+// moveTo rests the camera on pair, row with its fit shift. A change slides
+// there over slideFrames unless reduced (reduced motion, a new layout), from
+// wherever the panel is drawn now.
 func (c *panelCam) moveTo(pair, row int, reduced bool) {
-	if c.set && !reduced && (pair != c.pair || row != c.row) {
-		c.slideX += float64((pair - c.pair) * hexgrid.ColPitch)
-		c.slideY += float64((row - c.row) * hexgrid.HexHeight)
+	var sx, sy float64
+	if c.fit != nil {
+		sx, sy = c.fit(pair, row)
+	}
+	if c.set && !reduced && (pair != c.pair || row != c.row || sx != c.shiftX || sy != c.shiftY) {
+		c.slideX += float64((pair-c.pair)*hexgrid.ColPitch) + sx - c.shiftX
+		c.slideY += float64((row-c.row)*hexgrid.HexHeight) + sy - c.shiftY
 		c.left = slideFrames
 	}
 	if reduced {
 		c.slideX, c.slideY, c.left = 0, 0, 0
 	}
-	c.pair, c.row, c.set = pair, row, true
+	c.pair, c.row, c.shiftX, c.shiftY, c.set = pair, row, sx, sy, true
 }
 
 // tick advances the slide by one frame.
@@ -181,10 +189,12 @@ func (g *game) layoutSplit() {
 	}
 	s := g.split
 	s.frame.Slim = g.backdrop != nil // a painted map shows edge to edge in the slim frame
-	s.screen = dosscreen.Layout(g.view.PhysW, g.view.PhysH, float64(g.view.UI)).Zoomed(s.zoom)
+	base := dosscreen.Layout(g.view.PhysW, g.view.PhysH, float64(g.view.UI))
+	s.screen = base.Zoomed(max(s.zoom, g.zoomFloor(base)))
 	s.track.Threshold = gestureThreshold(s.screen.CellScale)
 	for side := range 2 {
 		c := &s.cams[side]
+		c.fit = func(pair, row int) (float64, float64) { return g.slimShift(side, pair, row) }
 		pair, row := c.pair, c.row
 		if !c.set {
 			pair, row = centreView(g.playGrid(), s.screen.Cols, s.screen.Rows, g.startHex(side))
@@ -229,7 +239,41 @@ func toSet[V any](m map[hexgrid.Coord]V) map[hexgrid.Coord]bool {
 // splitView is side's panel view at its resting place.
 func (g *game) splitView(side int) dosscreen.View {
 	c := g.split.cams[side]
-	return g.split.screen.View(side, c.pair, c.row)
+	v := g.split.screen.View(side, c.pair, c.row)
+	v.ShiftX, v.ShiftY = c.shiftX, c.shiftY
+	return v
+}
+
+// slimWorld is where the slim frame's openings may look: the playable area's
+// bounding box (hexgrid.Grid.Bounds), within the backdrop.
+func (g *game) slimWorld() dosscreen.WorldRect {
+	w, h := g.playGrid().Bounds()
+	if b := g.backdrop; b != nil {
+		w, h = min(w, b.ww), min(h, b.wh)
+	}
+	return dosscreen.WorldRect{X1: w, Y1: h}
+}
+
+// slimShift is the shift of side's view resting on pair, row: in the slim frame
+// the one that keeps its opening on the map (dosscreen.Screen.SlimFit), else
+// none.
+func (g *game) slimShift(side, pair, row int) (sx, sy float64) {
+	s := g.split
+	if !s.frame.Slim {
+		return 0, 0
+	}
+	v := s.screen.SlimFit(s.screen.View(side, pair, row), side, g.slimWorld())
+	return v.ShiftX, v.ShiftY
+}
+
+// zoomFloor is the lowest zoom level of base's: in the slim frame the one
+// where the map still fills the openings (dosscreen.Screen.FillZoom).
+func (g *game) zoomFloor(base dosscreen.Screen) int {
+	if !g.split.frame.Slim {
+		return 0
+	}
+	w := g.slimWorld()
+	return base.FillZoom(w.X1-w.X0, w.Y1-w.Y0)
 }
 
 // splitCamera is side's panel camera as drawn now (with its slide).
@@ -286,17 +330,16 @@ func (g *game) followSplit() {
 			g.lookAt(side, c)
 		}
 	}
-	v := g.splitView(d.side)
 	if w := d.walk; !w.Done() {
-		if at := w.Hex(); !viewShows(v, g.playGrid(), at) {
+		if at := w.Hex(); !g.panelShows(d.side, at) {
 			g.lookAt(d.side, at)
 		}
-	} else if d.selected && (!s.selOn || s.sel != d.from) && !viewShows(v, g.playGrid(), d.from) {
+	} else if d.selected && (!s.selOn || s.sel != d.from) && !g.panelShows(d.side, d.from) {
 		g.lookAt(d.side, d.from)
 	}
 	s.sel, s.selOn = d.from, d.selected
 	if opp := 1 - d.side; !d.walkOf(opp).Done() {
-		if at := d.walkOf(opp).Hex(); !viewShows(g.splitView(opp), g.playGrid(), at) {
+		if at := d.walkOf(opp).Hex(); !g.panelShows(opp, at) {
 			g.lookAt(opp, at)
 		}
 	}
@@ -407,8 +450,9 @@ func (g *game) drawPanel(dst *ebiten.Image, side int, p dosscreen.Rect, dx, dy f
 	g.drawMapLayer(dst.SubImage(r).(*ebiten.Image), x0, y0, x1-x0, y1-y0, side == g.dos.side)
 	if g.split.frame.Slim && g.backdrop != nil {
 		// Past the map's ends the panel shows the slim frame's gunmetal.
-		sx0, sy0 := g.cam.WorldToScreen(0, 0)
-		sx1, sy1 := g.cam.WorldToScreen(g.backdrop.ww, g.backdrop.wh)
+		w := g.slimWorld()
+		sx0, sy0 := g.cam.WorldToScreen(w.X0, w.Y0)
+		sx1, sy1 := g.cam.WorldToScreen(w.X1, w.Y1)
 		ix0, iy0 := int(math.Round(sx0)), int(math.Round(sy0))
 		world := dosscreen.Rect{X: ix0, Y: iy0, W: int(math.Round(sx1)) - ix0, H: int(math.Round(sy1)) - iy0}
 		o := g.split.screen.SlimOpening(side)
@@ -486,7 +530,7 @@ func splitMinWindow(dpi float64) (w, h int) {
 func (g *game) zoomSplit(step int) {
 	s := g.split
 	base := dosscreen.Layout(g.view.PhysW, g.view.PhysH, float64(g.view.UI))
-	z := base.ClampZoom(s.screen.Zoom + step)
+	z := max(base.ClampZoom(s.screen.Zoom+step), g.zoomFloor(base))
 	if z == s.screen.Zoom {
 		return
 	}

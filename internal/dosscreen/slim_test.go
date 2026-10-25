@@ -2,6 +2,7 @@ package dosscreen
 
 import (
 	"image/color"
+	"math"
 	"testing"
 
 	"github.com/hajimehoshi/ebiten/v2"
@@ -187,3 +188,78 @@ func TestFrameSlimCache(t *testing.T) {
 
 // isDark is a near-black line.
 func isDark(c color.RGBA) bool { return c.A == 255 && max(c.R, c.G, c.B) <= 0x20 }
+
+// SlimFit moves a view looking past a map's end back onto the map by whole
+// device pixels, leaves one inside it alone and centres a map smaller than
+// the opening.
+func TestSlimFit(t *testing.T) {
+	s := Layout(1920, 1080, 1)
+	world := WorldRect{X1: 1090, Y1: 1880}
+	inside := func(v View, side int) bool {
+		o := s.SlimOpening(side)
+		x0, y0 := v.ScreenToWorld(float64(o.X), float64(o.Y))
+		x1, y1 := v.ScreenToWorld(float64(o.Right()), float64(o.Bottom()))
+		return x0 >= world.X0-eps && y0 >= world.Y0-eps && x1 <= world.X1+eps && y1 <= world.Y1+eps
+	}
+	whole := func(f float64) bool { return math.Abs(f-math.Round(f)) < 1e-6 }
+	for side := range 2 {
+		for _, at := range [][2]int{{0, 0}, {4, 0}, {0, 18}, {4, 18}} { // the map's corners, past each end
+			v := s.SlimFit(s.View(side, at[0], at[1]), side, world)
+			if !inside(v, side) {
+				t.Errorf("side %d at %v: the opening looks past the map (shift %.2f, %.2f)", side, at, v.ShiftX, v.ShiftY)
+			}
+			if !whole(v.ShiftX*v.Scale) || !whole(v.ShiftY*v.Scale) {
+				t.Errorf("side %d at %v: shift %.3f, %.3f is not whole device pixels", side, at, v.ShiftX, v.ShiftY)
+			}
+		}
+	}
+	// A view well inside a large map stays on its cells.
+	big := WorldRect{X1: 10000, Y1: 10000}
+	if v := s.SlimFit(s.View(0, 10, 10), 0, big); v.ShiftX != 0 || v.ShiftY != 0 {
+		t.Errorf("inside the map: shift %.2f, %.2f", v.ShiftX, v.ShiftY)
+	}
+	// A map smaller than the opening sits in its middle.
+	small := WorldRect{X1: 300, Y1: 200}
+	v := s.SlimFit(s.View(1, 0, 0), 1, small)
+	o := s.SlimOpening(1)
+	x0, y0 := v.WorldToScreen(small.X0, small.Y0)
+	x1, y1 := v.WorldToScreen(small.X1, small.Y1)
+	if math.Abs(x0-float64(o.X)-(float64(o.Right())-x1)) > 1 || math.Abs(y0-float64(o.Y)-(float64(o.Bottom())-y1)) > 1 {
+		t.Errorf("small map at %.0f,%.0f-%.0f,%.0f in opening %+v", x0, y0, x1, y1, o)
+	}
+}
+
+// FillZoom is the lowest level at which the map still covers the openings:
+// the level below it does not, and a map too small even at the fitted scale
+// keeps DefaultZoom.
+func TestFillZoom(t *testing.T) {
+	for _, tc := range []struct {
+		name   string
+		w, h   int
+		ww, wh float64
+	}{
+		{"PULSE 1080p", 1920, 1080, 1090, 1880},
+		{"PULSE 1024x768", 1024, 768, 1090, 1880},
+		{"wide map", 1920, 1080, 5000, 5000},
+		{"tiny map", 1920, 1080, 200, 200},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			s := Layout(tc.w, tc.h, 1)
+			o := s.SlimOpening(0)
+			covers := func(i int) bool {
+				sc := s.zoomScale(i)
+				return tc.ww*sc >= float64(o.W)-eps && tc.wh*sc >= float64(o.H)-eps
+			}
+			z := s.FillZoom(tc.ww, tc.wh)
+			lo, _ := s.zoomRange()
+			switch {
+			case z > DefaultZoom || z < lo:
+				t.Fatalf("level %d outside %d..%d", z, lo, DefaultZoom)
+			case !covers(z) && z != DefaultZoom:
+				t.Errorf("level %d does not cover the opening", z)
+			case z > lo && covers(z-1):
+				t.Errorf("level %d covers too; the floor is %d", z-1, z)
+			}
+		})
+	}
+}

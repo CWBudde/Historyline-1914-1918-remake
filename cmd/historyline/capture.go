@@ -141,9 +141,9 @@ func (g *game) stageCapture(view string) {
 		g.setCursor(at)
 	case view == "split-move":
 		d.selectAt(at)
-		v, best := g.splitView(d.side), -1
+		best := -1
 		for _, c := range dosplay.Coords(d.moves) {
-			if dist := hexgrid.Distance(c, at); viewShows(v, g.playGrid(), c) && dist > best {
+			if dist := hexgrid.Distance(c, at); g.panelShows(d.side, c) && dist > best {
 				best = dist
 				g.setCursor(c)
 			}

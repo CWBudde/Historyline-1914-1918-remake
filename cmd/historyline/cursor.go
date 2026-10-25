@@ -653,10 +653,16 @@ func (g *game) strategicPick(side int, x, y float64) (hexgrid.Coord, bool) {
 	return g.playGrid().PixelToHex(wx, wy)
 }
 
-// viewCamera is a camera whose visible world is side's opening block, for the
-// strategic map's view rectangle.
+// viewCamera is a camera whose visible world is side's opening block (in the
+// slim frame its opening), for the strategic map's view rectangle.
 func (g *game) viewCamera(side int) camera.Camera {
 	v := g.splitView(side)
+	if g.split.frame.Slim {
+		o := g.split.screen.SlimOpening(side)
+		x0, y0 := v.ScreenToWorld(float64(o.X), float64(o.Y))
+		x1, y1 := v.ScreenToWorld(float64(o.Right()), float64(o.Bottom()))
+		return camera.Camera{World: g.cam.World, View: camera.Size{W: x1 - x0, H: y1 - y0}, Zoom: 1, Origin: camera.Point{X: x0, Y: y0}}
+	}
 	ox, oy := v.Origin()
 	bw, bh := dosscreen.BlockSize(v.Cols, v.Rows)
 	return camera.Camera{World: g.cam.World, View: camera.Size{W: bw, H: bh}, Zoom: 1, Origin: camera.Point{X: ox, Y: oy}}
@@ -730,9 +736,8 @@ func (g *game) drawStrategic(dst *ebiten.Image, side int) {
 // take its phase's order (move or attack).
 func (g *game) orderableInView() (hexgrid.Coord, bool) {
 	d := g.dos
-	v := g.splitView(d.side)
 	for _, c := range dosplay.Coords(toSet(d.own().Units)) {
-		if a, ok := d.placement(c).At(gesture.Up); ok && a != gesture.Cancel && viewShows(v, g.playGrid(), c) {
+		if a, ok := d.placement(c).At(gesture.Up); ok && a != gesture.Cancel && g.panelShows(d.side, c) {
 			return c, true
 		}
 	}
