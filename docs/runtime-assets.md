@@ -238,6 +238,22 @@ selected by coordinate hash. Infrastructure and adjacent buildings, water or roa
 their layouts leave the unit foot point clear. Rebuild with the pinned
 `art/pipeline/forest-layered-v4.json` and `art-review -forest-layered` into a fresh output directory.
 
+### Painted backdrop
+
+`-backdrop <png>` (a development proof of concept, for PULSE) draws one painting of the level's whole ground
+in place of the terrain tiles. It covers the world rectangle as `maprender` draws it (`maprender.Size`,
+1090×1920 for PULSE, origin at world (0, 0)) at any resolution whose aspect is within 1 % of the world's;
+another aspect is refused. The picture is split into textures of at most 2048 pixels a side, each holding
+8 pixels of its neighbours so filtering and mipmaps meet without seams. Over it go the hexes the sappers
+changed (from the `-terrain` catalog when given), the fog per hex (an unseen hex black, a seen one in the
+remembered grey) and the screen colour beyond the outer hexes. No grid outlines the hexes: only the
+cursor, selection, move and attack overlays, fog, owner marks and units draw over it, in both battle
+views. The file is read like a catalog: a path, or a URL in a directory with `files.txt`.
+
+```sh
+just play -level level1_cp -backdrop build/review/painted-pulse/pulse-painted.png
+```
+
 ## Screens
 
 `build-screens` writes one pack per screen family and density (1× and 2×) into `<d>x/<family>/`: the

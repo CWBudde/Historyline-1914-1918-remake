@@ -16,7 +16,12 @@ import (
 // records in the original tiles (F8).
 func (g *game) reworkTerrain() {
 	s := g.dos.s
-	g.lvl = reworked(s.Level, s.Reworked())
+	hexes := s.Reworked()
+	g.lvl = reworked(s.Level, hexes)
+	g.reworkedHex = map[hexgrid.Coord]bool{}
+	for c := range hexes {
+		g.reworkedHex[c] = true
+	}
 	g.records = make([]int, len(s.Board.Terrain))
 	for c := range g.records {
 		g.records[c] = s.Game.Maps[0][2*c]

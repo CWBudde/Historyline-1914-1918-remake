@@ -78,14 +78,17 @@ type game struct {
 		from *screenArt
 		art  *dospanel.FinaleArt
 	}
-	scores     *scores.Store      // the best scores; nil keeps none
-	artErr     string             // last sprite failure, shown in the status line
-	terrain    *terrainArt        // composed terrain tiles (-terrain); nil draws coloured hexes
-	terrainErr string             // last terrain tile failure, shown in the status line
-	hdUnits    <-chan *artPacks   // full-quality unit art while it loads (-units-hd, without the menus)
-	hdTerrain  <-chan *terrainArt // full-quality terrain while it loads (-terrain-hd)
-	records    []int              // the terrain records as the sappers' work played left them, nil before (trench.go)
-	scroll     float64            // map scroll speed, screen pixels per frame
+	scores       *scores.Store          // the best scores; nil keeps none
+	artErr       string                 // last sprite failure, shown in the status line
+	terrain      *terrainArt            // composed terrain tiles (-terrain); nil draws coloured hexes
+	terrainErr   string                 // last terrain tile failure, shown in the status line
+	hdUnits      <-chan *artPacks       // full-quality unit art while it loads (-units-hd, without the menus)
+	hdTerrain    <-chan *terrainArt     // full-quality terrain while it loads (-terrain-hd)
+	records      []int                  // the terrain records as the sappers' work played left them, nil before (trench.go)
+	backdrop     *backdrop              // the painted ground drawn in place of the terrain (-backdrop); nil draws the terrain
+	backdropView *ebiten.Image          // the view of the backdrop the seen hexes are greyed from
+	reworkedHex  map[hexgrid.Coord]bool // the hexes the sappers changed (trench.go)
+	scroll       float64                // map scroll speed, screen pixels per frame
 
 	split    *split // the split screen of -rules dos, nil otherwise
 	drawing  bool   // a dos panel is being drawn: drawSide's map
@@ -461,7 +464,7 @@ func (g *game) drawMenu(dst *ebiten.Image) {
 }
 
 func (g *game) Draw(screen *ebiten.Image) {
-	screen.Fill(color.RGBA{20, 20, 24, 255})
+	screen.Fill(mapGround)
 	vx, vy, vw, vh := g.cam.Visible()
 	if g.split != nil {
 		g.drawSplit(screen)
@@ -523,6 +526,8 @@ func (g *game) drawMapLayer(dst *ebiten.Image, vx, vy, vw, vh float64, human boo
 	// hex never covers what an earlier one drew beyond its outline.
 	switch {
 	case g.drawOrigTiles(dst, inView):
+	case g.backdrop != nil:
+		g.drawBackdrop(dst, vx, vy, vw, vh, inView)
 	case g.terrain != nil:
 		g.drawTerrain(dst, inView)
 	default:
@@ -757,15 +762,16 @@ type matchConfig struct {
 	reveal     bool
 	hexNumbers bool
 	reduced    bool
-	scroll     float64       // map scroll speed, screen pixels per frame
-	units      *artPacks     // shared by every battle; nil draws placeholder dots
-	screens    *screenArt    // the screen catalog for the portraits; nil shows blank photos
-	scores     *scores.Store // the best scores, opened once; nil keeps none
-	saves      *saves.Store  // the single saved battle; nil keeps none
-	saved      []byte        // a saved battle to resume (dos only); nil starts fresh
-	terrain    string        // terrain catalog directory, composed per level; "" draws coloured hexes
-	terrainHD  string        // full-quality terrain catalog loaded in the background of a battle; "" for none
-	candidates bool          // allow candidate terrain packs
+	scroll     float64        // map scroll speed, screen pixels per frame
+	units      *artPacks      // shared by every battle; nil draws placeholder dots
+	screens    *screenArt     // the screen catalog for the portraits; nil shows blank photos
+	scores     *scores.Store  // the best scores, opened once; nil keeps none
+	saves      *saves.Store   // the single saved battle; nil keeps none
+	saved      []byte         // a saved battle to resume (dos only); nil starts fresh
+	terrain    string         // terrain catalog directory, composed per level; "" draws coloured hexes
+	terrainHD  string         // full-quality terrain catalog loaded in the background of a battle; "" for none
+	candidates bool           // allow candidate terrain packs
+	backdrop   *backdropImage // the painted ground of the level (-backdrop); nil draws the terrain
 }
 
 // newMatch starts the battle of c, counting the art it fetches in m.
@@ -821,6 +827,12 @@ func newMatch(c matchConfig, m *meter) (*game, error) {
 		gm.scroll = c.scroll
 	}
 	gm.art, gm.screens, gm.scores = c.units, c.screens, c.scores
+	if c.backdrop != nil {
+		var err error
+		if gm.backdrop, err = c.backdrop.on(c.lvl.Grid()); err != nil {
+			return nil, err
+		}
+	}
 	if c.terrain != "" {
 		var err error
 		if gm.terrain, err = loadTerrainArt(c.terrain, c.candidates, c.lvl, m); err != nil {
@@ -853,6 +865,7 @@ func main() {
 	candidates := flag.Bool("allow-candidates", false, "allow unit, terrain and screen packs that are review candidates, not approved art")
 	capture := flag.String("capture", "", "dev: render nine 720p/1080p/4K review frames to a directory under build/ and exit (requires -units and -terrain)")
 	captureLook := flag.Bool("capture-look", false, "with -capture: render revealed/fog views at exact 0.5x, 1x and 1.6x effective zoom at 1080p/4K")
+	backdropPath := flag.String("backdrop", "", "dev: a PNG painting of the whole level's ground, drawn in place of the terrain tiles, without a hex grid (must match the level's world aspect)")
 	flag.Parse()
 	if *captureLook && *capture == "" {
 		log.Fatal("-capture-look requires -capture")
@@ -888,6 +901,11 @@ func main() {
 	ebiten.SetWindowSize(startWidth, startHeight)
 	ebiten.SetWindowResizingMode(ebiten.WindowResizingModeEnabled)
 	ebiten.SetWindowTitle("Historyline 1914-1918")
+	if *backdropPath != "" {
+		if c.backdrop, err = loadBackdrop(*backdropPath); err != nil {
+			log.Fatal(err)
+		}
+	}
 	if *screens != "" {
 		if c.screens, err = loadScreenArt(*screens, *candidates, boot); err != nil {
 			log.Fatal(err)
