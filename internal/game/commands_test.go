@@ -1,7 +1,6 @@
 package game
 
 import (
-	"fmt"
 	"reflect"
 	"sort"
 	"testing"
@@ -9,8 +8,6 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 )
-
-func key(c hexgrid.Coord) string { return fmt.Sprintf("%d,%d", c.Line, c.Col) }
 
 // board builds a 6-wide, 12-line grass map played by the Central Powers, with
 // the given hexes placed on it.

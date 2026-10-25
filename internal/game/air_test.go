@@ -114,13 +114,3 @@ func TestAircraftOverImpassableTerrainCanBeAttacked(t *testing.T) {
 		t.Errorf("aircraft attacking from above a house: %v", err)
 	}
 }
-
-// mustHex builds a game hex from a level hex.
-func mustHex(t *testing.T, lh level.Hex) Hex {
-	t.Helper()
-	h, err := newHex(loadSet(t), lh)
-	if err != nil {
-		t.Fatal(err)
-	}
-	return h
-}
