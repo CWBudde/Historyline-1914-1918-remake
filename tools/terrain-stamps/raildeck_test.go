@@ -15,15 +15,16 @@ import (
 // railDeckRegrade is one rail deck master whose rail heads are regraded onto
 // the dark steel of the track it carries: from (v1) is the painted master, to
 // (v2) the regraded one, track the 4x tile/rail36 of the same season, rails
-// the native x of the deck's two rail heads.
+// the native x of the deck's two rail heads. lifted (v3) is v2 with the shadow
+// columns beside each head lifted to the deck next to them.
 type railDeckRegrade struct {
-	from, to, track string
-	rails           [2]int
+	from, to, track, lifted string
+	rails                   [2]int
 }
 
 var railDeckRegrades = []railDeckRegrade{
-	{"art/terrain/rBridge/rbridge-36-rail-summer-v1.png", "art/terrain/rBridge/rbridge-36-rail-summer-v2.png", "assets/terrain/rail/rail36-4x.png", [2]int{652, 720}},
-	{"art/terrain/rBridge/rbridge-36-rail-winter-v1.png", "art/terrain/rBridge/rbridge-36-rail-winter-v2.png", "assets/terrain/rail/rail36_w-4x.png", [2]int{653, 723}},
+	{"art/terrain/rBridge/rbridge-36-rail-summer-v1.png", "art/terrain/rBridge/rbridge-36-rail-summer-v2.png", "assets/terrain/rail/rail36-4x.png", "art/terrain/rBridge/rbridge-36-rail-summer-v3.png", [2]int{652, 720}},
+	{"art/terrain/rBridge/rbridge-36-rail-winter-v1.png", "art/terrain/rBridge/rbridge-36-rail-winter-v2.png", "assets/terrain/rail/rail36_w-4x.png", "art/terrain/rBridge/rbridge-36-rail-winter-v3.png", [2]int{653, 723}},
 }
 
 // trackRails are the columns of tile/rail36's two rail cores at 4x: its rails
@@ -190,6 +191,160 @@ func TestRailDeckMastersRegradeRailHeads(t *testing.T) {
 		}
 		if d := sl/sw - tl; math.Abs(d) > 2 {
 			t.Errorf("%s: head L* %.1f, want within 2 of the steel's %.1f", r.to, sl/sw, tl)
+		}
+	}
+}
+
+// The shadow columns beside a rail head are the columns next to it, on each
+// side, whose mean L* (over the opaque rows) stays more than flankMargin
+// below the deck's: the mean of the flankRef columns flankRef0 to flankRef1
+// px further out. A flank runs at most flankMax columns.
+const (
+	flankRef0, flankRef1 = 20, 28
+	flankMargin          = 3.0
+	flankMax             = 24
+)
+
+// columnL is the mean L* of column x of im over its opaque rows.
+func columnL(im *image.NRGBA, x int) float64 {
+	s, n := 0.0, 0
+	for y := im.Rect.Min.Y; y < im.Rect.Max.Y; y++ {
+		c := im.NRGBAAt(x, y)
+		if c.A < railDeckOpaqueMinimum {
+			continue
+		}
+		l, _, _ := srgbToLab(c)
+		s, n = s+l, n+1
+	}
+	return s / float64(n)
+}
+
+// railFlanks returns, per rail head of heads, its two shadow columns spans in
+// im: [0] the left one, [1] the right one, each as first and last column.
+func railFlanks(im *image.NRGBA, heads [2][2]int) [2][2][2]int {
+	var flanks [2][2][2]int
+	for r, h := range heads {
+		for side, dir := range [2]int{-1, 1} {
+			edge := h[0]
+			if dir > 0 {
+				edge = h[1]
+			}
+			ref := 0.0
+			for d := flankRef0; d < flankRef1; d++ {
+				ref += columnL(im, edge+dir*d)
+			}
+			ref /= flankRef1 - flankRef0
+			n := 0
+			for n < flankMax && columnL(im, edge+dir*(n+1)) < ref-flankMargin {
+				n++
+			}
+			if dir < 0 {
+				flanks[r][side] = [2]int{edge - n, edge - 1}
+			} else {
+				flanks[r][side] = [2]int{edge + 1, edge + n}
+			}
+		}
+	}
+	return flanks
+}
+
+// liftRailFlanks returns a copy of im with its shadow columns flanks lifted to
+// the deck beside them: each row of a flank takes the colour of the deck just
+// outside it, mirrored about the flank's outer edge, so sleepers, plates and
+// ballast run on to the rail head. Alpha and every other pixel stay as they are.
+func liftRailFlanks(im *image.NRGBA, flanks [2][2][2]int) *image.NRGBA {
+	out := image.NewNRGBA(im.Rect)
+	copy(out.Pix, im.Pix)
+	for _, rail := range flanks {
+		for side, f := range rail {
+			for y := im.Rect.Min.Y; y < im.Rect.Max.Y; y++ {
+				for k := 0; k <= f[1]-f[0]; k++ {
+					dst, src := f[0]+k, f[0]-1-k // left: mirrored about f[0]-0.5
+					if side == 1 {
+						dst, src = f[1]-k, f[1]+1+k // right: about f[1]+0.5
+					}
+					d, s := out.PixOffset(dst, y), im.PixOffset(src, y)
+					if im.Pix[d+3] == 0 {
+						continue
+					}
+					copy(out.Pix[d:d+3], im.Pix[s:s+3])
+				}
+			}
+		}
+	}
+	return out
+}
+
+// inFlank reports whether column x lies in one of flanks.
+func inFlank(flanks [2][2][2]int, x int) bool {
+	for _, rail := range flanks {
+		for _, f := range rail {
+			if x >= f[0] && x <= f[1] {
+				return true
+			}
+		}
+	}
+	return false
+}
+
+// The v3 rail deck masters are the v2 ones with the shadow columns beside each
+// rail head lifted to the deck next to them, so the dark run across a rail is
+// its head alone (tile/rail36's rails are 0.5 logical wide): every pixel
+// outside the shadow columns is within MAD 1/255 of v2, the heads keep their
+// dark steel, and each shadow column comes within flankMargin of its deck.
+func TestRailDeckMastersLiftRailFlanks(t *testing.T) {
+	root := filepath.Join("..", "..")
+	for _, r := range railDeckRegrades {
+		from := decodeRailDeckPNG(t, filepath.Join(root, r.from))
+		v2 := decodeRailDeckPNG(t, filepath.Join(root, r.to))
+		heads := railHeadColumns(from, r.rails)
+		flanks := railFlanks(from, heads)
+		got := decodeRailDeckPNG(t, filepath.Join(root, r.lifted))
+		if want := liftRailFlanks(v2, flanks); !bytes.Equal(got.Pix, want.Pix) {
+			t.Errorf("%s is not the lift of %s; run the bridgegfx generator", r.lifted, r.to)
+		}
+		var mad float64
+		n := 0
+		for y := got.Rect.Min.Y; y < got.Rect.Max.Y; y++ {
+			for x := got.Rect.Min.X; x < got.Rect.Max.X; x++ {
+				if inFlank(flanks, x) {
+					continue
+				}
+				i := got.PixOffset(x, y)
+				for c := range 4 {
+					mad += math.Abs(float64(got.Pix[i+c]) - float64(v2.Pix[i+c]))
+				}
+				n += 4
+			}
+		}
+		mad /= float64(n)
+		t.Logf("%s: heads %v, shadow columns %v, MAD outside them %.4f/255", r.lifted, heads, flanks, mad)
+		if mad > 1 {
+			t.Errorf("%s: MAD %.3f/255 outside the shadow columns, want at most 1", r.lifted, mad)
+		}
+		for i, rail := range flanks {
+			for _, f := range rail {
+				if w := f[1] - f[0] + 1; w < 4 || w > flankMax {
+					t.Errorf("%s: rail %d shadow columns %v, want 4 to %d", r.from, i, f, flankMax)
+				}
+				// The lifted columns come to the deck's tone: their mean L* is
+				// within flankMargin of the columns they mirror.
+				var lf, ls float64
+				for x := f[0]; x <= f[1]; x++ {
+					lf += columnL(got, x)
+				}
+				w := f[1] - f[0] + 1
+				src := f[0] - w
+				if f[0] > heads[i][1] {
+					src = f[1] + 1
+				}
+				for x := src; x < src+w; x++ {
+					ls += columnL(got, x)
+				}
+				if d := (lf - ls) / float64(w); math.Abs(d) > flankMargin {
+					t.Errorf("%s: shadow columns %v L* %.1f off their deck's", r.lifted, f, d)
+				}
+			}
 		}
 	}
 }

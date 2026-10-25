@@ -3,8 +3,8 @@
   "assets": [
     {
       "id": "standing/rBridge36-rail",
-      "source": "art/terrain/rBridge/rbridge-36-rail-export-summer-v2.png",
-      "source_sha256": "f90d2045edce29512cccd8ea807f891ed0858f1c550fc2d56b9ddb83fd92418e",
+      "source": "art/terrain/rBridge/rbridge-36-rail-export-summer-v3.png",
+      "source_sha256": "cf3bf54d586f50e2c609225af28f4769a752cb16867851beb171c44eaf1025f4",
       "crop": [
         0,
         0,
@@ -25,8 +25,8 @@
     },
     {
       "id": "standing/rBridge36-rail_w",
-      "source": "art/terrain/rBridge/rbridge-36-rail-export-winter-v2.png",
-      "source_sha256": "7ce65f3ce7fac0440a07e782e17d09c7ca1917059fce71ad8f79546af5fb620c",
+      "source": "art/terrain/rBridge/rbridge-36-rail-export-winter-v3.png",
+      "source_sha256": "3f030c2d93622dcdf3793587955a8d1a6f23762d793fc638ccade61c4f76d55c",
       "crop": [
         0,
         0,

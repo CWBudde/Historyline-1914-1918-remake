@@ -4,7 +4,7 @@ title: Road bridge
 kind: terrain
 status: approved
 runtime_ids: rBridge14, rBridge25, rBridge36, standing/rBridge14, standing/rBridge25, standing/rBridge36, standing/rBridge14_w, standing/rBridge25_w, standing/rBridge36_w, standing/rBridge36-rail, standing/rBridge36-rail_w
-masters: rbridge-14-shared-v1.png, rbridge-25-shared-v1.png, rbridge-36-shared-v1.png, rbridge-14-export-shared-v1.png, rbridge-25-export-shared-v1.png, rbridge-36-export-shared-v1.png, rbridge-stone-ne-shared-v1.png, rbridge-stone-se-shared-v1.png, rbridge-stone-vertical-shared-v1.png, rbridge-36-rail-summer-v1.png, rbridge-36-rail-winter-v1.png, rbridge-14-winter-v1.png, rbridge-25-winter-v1.png, rbridge-36-winter-v1.png, rbridge-36-rail-export-summer-v1.png, rbridge-36-rail-export-winter-v1.png, rbridge-36-rail-summer-v2.png, rbridge-36-rail-winter-v2.png, rbridge-36-rail-export-summer-v2.png, rbridge-36-rail-export-winter-v2.png, rbridge-14-export-winter-v1.png, rbridge-25-export-winter-v1.png, rbridge-36-export-winter-v1.png
+masters: rbridge-14-shared-v1.png, rbridge-25-shared-v1.png, rbridge-36-shared-v1.png, rbridge-14-export-shared-v1.png, rbridge-25-export-shared-v1.png, rbridge-36-export-shared-v1.png, rbridge-stone-ne-shared-v1.png, rbridge-stone-se-shared-v1.png, rbridge-stone-vertical-shared-v1.png, rbridge-36-rail-summer-v1.png, rbridge-36-rail-winter-v1.png, rbridge-14-winter-v1.png, rbridge-25-winter-v1.png, rbridge-36-winter-v1.png, rbridge-36-rail-export-summer-v1.png, rbridge-36-rail-export-winter-v1.png, rbridge-36-rail-summer-v2.png, rbridge-36-rail-winter-v2.png, rbridge-36-rail-export-summer-v2.png, rbridge-36-rail-export-winter-v2.png, rbridge-36-rail-summer-v3.png, rbridge-36-rail-winter-v3.png, rbridge-36-rail-export-summer-v3.png, rbridge-36-rail-export-winter-v3.png, rbridge-14-export-winter-v1.png, rbridge-25-export-winter-v1.png, rbridge-36-export-winter-v1.png
 ---
 
 ## Look
@@ -38,6 +38,22 @@ draws the rail deck or the footbridge (`standing/bridge36`) for them. The rail d
 map every deck takes its `_w` form.
 
 ## Post
+
+### Look 3 rail deck, thin rails (2026-10-25)
+
+`rbridge-36-rail-summer-v3.png` and `rbridge-36-rail-winter-v3.png` are the v2 rail decks with the
+painted shadow beside each rail head (the rail's foot, its outline and the cast shadow) lifted to the
+deck next to it, in Go; no new image. The shadow columns are those next to a head whose mean L\* stays
+more than 3 below the mean of the columns 20 to 28 px further out, 14 to 18 px per side; each of their
+rows takes the deck just outside, mirrored about the flank's outer edge, so sleepers, plates and
+ballast run on to the head. The heads keep their dark steel; every pixel outside the shadow columns is
+unchanged. On the composed maps, after the pack grade, the dark run across a rail (L\* at most the
+approach rails' + 12, median over the rows where it ends within 2 logical px) is 0.50 logical px wide
+on the deck against the approach track's 0.50–0.75, from 2.25–2.50; the rails' darkest half pixel
+comes to L\* 19.4 against 18.9 (winter) and 25.5 against 26.9 (summer). `TestStandingRailDeck` checks
+both; `TestRailDeckMastersLiftRailFlanks` pins the v3 masters; the `bridgegfx` generator writes them,
+registers them (`rbridge-registration-v4.json`) and exports the `-export-` v3 masters and the standing
+items.
 
 ### Look 3 rail deck, dark rail heads (2026-10-24)
 

@@ -3,6 +3,7 @@ package mapcompose_test
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"image"
 	"image/color"
 	"image/png"
@@ -107,11 +108,14 @@ func lab(c color.NRGBA) (l, a, b float64) {
 // Railway bridges draw a rail deck: on the composed map the two rails of the
 // approaches run on across the deck (dark steel within a logical pixel of each
 // rail's centreline on at least 90 % of the 48 px deck), where the road deck
-// broke them with asphalt and dashes. The rail heads on the deck (per row the
-// lightest half logical pixel within 0.75 of the rail's centreline) are as
-// dark as the approach track's rails (per row its darkest half pixel there,
-// on the track 32 to 40 px from the centre): mean L* within 5, after the
-// pack grade. Path bridges draw the footbridge.
+// broke them with asphalt and dashes. The rails on the deck are as dark and as
+// thin as the approach track's (on the track 32 to 40 px from the centre),
+// after the pack grade: per row the darkest half logical pixel within 0.75 of
+// a rail's centreline has a mean L* within 5 of the track's, and the dark run
+// across each rail (the pixels from that darkest one on with L* at most the
+// track's + 12, within 1.25 of the centreline) is, as the median over the
+// rows, within a quarter logical pixel as wide as the track's. Path bridges
+// draw the footbridge.
 func TestStandingRailDeck(t *testing.T) {
 	has, _ := catalog(t)
 	if got := bridgeAt("grass", []string{"stream14", "rBridge36", "rail36"}, has); !slices.Equal(got, []string{"standing/rBridge36-rail"}) {
@@ -150,38 +154,91 @@ func TestStandingRailDeck(t *testing.T) {
 			t.Fatal(err)
 		}
 		cx, cy := hexgrid.Center(c)
-		// pair is, per row, the extreme (lightest or darkest) mean L* of two
-		// neighbouring pixels within 0.75 logical of each rail's centreline,
-		// averaged over the rows y0..y1 (logical, from the hex centre).
-		pair := func(lightest bool, rows ...[2]float64) float64 {
-			var s float64
-			n := 0
-			for _, off := range rails {
-				x0 := int(math.Round((cx + off - 0.75) * density))
-				x1 := int(math.Round((cx + off + 0.75) * density))
-				for _, span := range rows {
-					for y := int((cy + span[0]) * density); y < int((cy+span[1])*density); y++ {
-						best := math.NaN()
-						for x := x0; x < x1; x++ {
-							l0, _, _ := lab(m.Image.NRGBAAt(x, y))
-							l1, _, _ := lab(m.Image.NRGBAAt(x+1, y))
-							if v := (l0 + l1) / 2; math.IsNaN(best) || (lightest && v > best) || (!lightest && v < best) {
-								best = v
-							}
-						}
-						s += best
-						n++
-					}
+		lstar := func(x, y int) float64 { l, _, _ := lab(m.Image.NRGBAAt(x, y)); return l }
+		rows := func(spans ...[2]float64) []int {
+			var ys []int
+			for _, span := range spans {
+				for y := int((cy + span[0]) * density); y < int((cy+span[1])*density); y++ {
+					ys = append(ys, y)
 				}
 			}
-			return s / float64(n)
+			return ys
 		}
-		heads := pair(true, [2]float64{-24, 24})
-		track := pair(false, [2]float64{-40, -32}, [2]float64{32, 40})
+		deck := rows([2]float64{-24, 24})
+		approach := rows([2]float64{-40, -32}, [2]float64{32, 40})
+		// darkest is, in row y, the darker x of the darkest two neighbouring
+		// pixels within 0.75 logical of the rail at off, and their mean L*.
+		darkest := func(off float64, y int) (int, float64) {
+			x0 := int(math.Round((cx + off - 0.75) * density))
+			x1 := int(math.Round((cx + off + 0.75) * density))
+			bx, best := x0, math.Inf(1)
+			for x := x0; x < x1; x++ {
+				if v := (lstar(x, y) + lstar(x+1, y)) / 2; v < best {
+					bx, best = x, v
+				}
+			}
+			if lstar(bx+1, y) < lstar(bx, y) {
+				bx++
+			}
+			return bx, best
+		}
+		mean := func(ys []int) float64 {
+			var s float64
+			for _, off := range rails {
+				for _, y := range ys {
+					_, v := darkest(off, y)
+					s += v
+				}
+			}
+			return s / float64(len(rails)*len(ys))
+		}
+		heads, track := mean(deck), mean(approach)
 		if math.Abs(heads-track) > 5 {
-			t.Errorf("%s %v: rail heads on the deck L* %.1f, the approach track's rails %.1f, want within 5", site.level, site.at, heads, track)
+			t.Errorf("%s %v: rails on the deck L* %.1f, the approach track's rails %.1f, want within 5", site.level, site.at, heads, track)
 		} else {
-			t.Logf("%s %v: rail heads on the deck L* %.1f, the approach track's rails %.1f", site.level, site.at, heads, track)
+			t.Logf("%s %v: rails on the deck L* %.1f, the approach track's rails %.1f", site.level, site.at, heads, track)
+		}
+		// width is the median over the rows ys of the dark run across the rail
+		// at off, in logical pixels, and the share of the rows it is measured
+		// on: the rows where the run ends within 2 logical of the rail on both
+		// sides, so the rail lies on a lighter deck (a dark sleeper as wide as
+		// the window measures no rail).
+		width := func(off float64, ys []int) (float64, float64) {
+			lo := int(math.Round((cx + off - 2) * density))
+			hi := int(math.Round((cx + off + 2) * density))
+			var ws []float64
+			for _, y := range ys {
+				x, _ := darkest(off, y)
+				if lstar(x, y) > track+12 {
+					ws = append(ws, 0)
+					continue
+				}
+				a, b := x, x
+				for a > lo && lstar(a-1, y) <= track+12 {
+					a--
+				}
+				for b < hi && lstar(b+1, y) <= track+12 {
+					b++
+				}
+				if a > lo && b < hi {
+					ws = append(ws, float64(b-a+1)/density)
+				}
+			}
+			if len(ws) == 0 {
+				return math.NaN(), 0
+			}
+			slices.Sort(ws)
+			return ws[len(ws)/2], float64(len(ws)) / float64(len(ys))
+		}
+		for _, off := range rails {
+			wd, sd := width(off, deck)
+			wa, sa := width(off, approach)
+			msg := fmt.Sprintf("%s %v rail at %+.3f: dark run %.2f px wide on the deck (%.0f %% of the rows), %.2f on the approach track (%.0f %%)", site.level, site.at, off, wd, 100*sd, wa, 100*sa)
+			if !(math.Abs(wd-wa) <= 0.25) || sd < 0.25 || sa < 0.25 {
+				t.Errorf("%s, want within 0.25 on at least 25 %% of the rows", msg)
+			} else {
+				t.Log(msg)
+			}
 		}
 		for _, off := range rails {
 			x0 := int(math.Round((cx + off - 1) * density))
