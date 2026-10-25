@@ -4,7 +4,7 @@ title: Water
 kind: terrain
 status: approved
 runtime_ids: water, waterStones, water_w, waterStones_w, waterRocks, waterRocks_w, sea-00, sea-00_w, sea-02, sea-02_w, sea-20, sea-20_w, sea-22, sea-22_w, sea-11, sea-11_w, sea-13, sea-13_w, sea-31, sea-31_w, sea-33, sea-33_w, shoal1, shoal1_w, shoal2, shoal2_w, shoal3, shoal3_w, shoal4, shoal4_w, skerry1, skerry1_w, skerry2, skerry2_w, skerry3, skerry3_w, surf, surf_w
-masters: water-shared-v3.png, water-rocks-shared-v2.png, water-shared-v2.png, water-shared-v1.png, water-rocks-shared-v1.png, water-rocks-shared-v3.png, water-reeds-shared-v1.png, water-boulders-shared-v1.png, water-bed-summer-v1.png, water-deep-summer-v1.png, water-sea-shared-v1.png, water-seakit-shared-v1.png, water-surf-shared-v1.png, water-rocks-winter-v1.png
+masters: water-shared-v3.png, water-rocks-shared-v2.png, water-shared-v2.png, water-shared-v1.png, water-rocks-shared-v1.png, water-rocks-shared-v3.png, water-reeds-shared-v1.png, water-boulders-shared-v1.png, water-bed-summer-v1.png, water-deep-summer-v1.png, water-sea-shared-v1.png, water-seakit-shared-v1.png, water-surf-shared-v1.png, water-rocks-winter-v1.png, water-seakit-winter-v1.png
 ---
 
 ## Look
@@ -27,12 +27,34 @@ Use case: stylized-concept. NEW transparent terrain object sprite, native high d
 | waterStones | waterStones | Transparent 6:5 cut-out: three compact groups of low rounded tan-grey rocks with flat cracked tops and a few small companions, clustered in the central 55 percent; only a very narrow translucent ripple fringe at each rock; everything else alpha zero. |
 | winter | water_w | No new painting: the summer tile's pixels (`TestGenerateWinterWater`). The pack build grades the water of every winter tile, this one, the winter stones and the winter shores alike, to a cold slate teal at L\* 24–32 and chroma about 8 (`internal/terraingrade`). |
 | winter rocks | waterStones_w, waterRocks_w | Snow-capped rocks: the paint of `water-rocks-winter-v1.png` under the summer rocks' alpha (`compound-water-stones-winter-v1.json`, `TestGenerateWaterRocks`, `TestGenerateWinterWater`), over the same water as summer. |
+| winter skerries | skerry1_w, skerry2_w, skerry3_w | Snow-capped skerries: the paint of `water-seakit-winter-v1.png` under the summer kit's alpha, cut and placed as the summer skerries (`TestGenerateSeaKit`). The winter shoals are the summer pixels. |
 
 ## Edges & joins
 The water material is periodic on the world lattice, so lake hexes form one continuous surface; shore
 and stream tiles use the same material, so water matches across all of them.
 
 ## Post
+
+### Look 8 I3 winter skerry candidate (2026-10-25)
+
+`water-seakit-winter-v1.png` (`exec-c420bf50`, native 1536×1024 RGBA, unchanged) is the I3 winter edit
+of the C2 kit: on the three skerries settled snow on the upper-left-lit tops of every stone (36–41 % of
+the rock area at L\* ≥ 75 and C\* ≤ 10), grey-brown frosted weed with no green left, and thin grey-white
+ice for the foam and ripple collars, every stone in place (best shift 1 px). The top row (surf, shoals)
+is left as in summer and not used. Fault: the edit does not keep the kit's haze alpha to the pixel
+(alpha ≥ 128 IoU 0.88–0.95 in the skerry boxes), so the export keeps the summer kit's alpha and takes
+only this paint (`waterRocksOutline`). It is the winter skerries `tile/skerry1_w` to `tile/skerry3_w`.
+Attached: `water-seakit-shared-v1.png` and, for the palette only, `water-rocks-winter-v1.png`. The
+prompt was:
+
+```text
+Use case: precise-object-edit. Image 1 is the summer sea kit sheet. Preserve every object's exact outline, position, size and lighting; change only the season: settled snow caps on the upper-left-lit tops of the stones, frost on the weed and moss, thin ice collars instead of foam at the waterlines. Keep transparency exactly as in image 1.
+Avoid: changed shapes, new objects, moved objects, snow outside the objects, a blue tint over everything.
+
+Output exactly the same canvas as image 1: LANDSCAPE 1536x1024 RGBA, every element in exactly the same place and at exactly the same size, the same soft transparent haze around each element, alpha zero where image 1 has alpha zero. The top row (three foam lines and two sandy shoals) stays exactly as in image 1. Change only the bottom row, the three rock clusters (skerries) between y 680 and 1000: each big boulder and each small stone gets soft settled snow of matt cold white, lit RGB near 232,234,236 and shaded RGB near 188,196,206, covering the upper and upper-left part of every stone, the big and the small ones, about half of each stone's visible area, thinning to bare grey-brown rock at the lower-right flanks and the dark wet waterline. The green-yellow moss on the boulders and the olive weed tufts between the stones turn to grey-brown frosted patches, no green left. The white foam and the bright ripple ring around each cluster become thin broken collars of pale grey-white ice, as narrow as the summer foam; the water between the stones turns a cold dark slate teal, not green.
+
+Image 1 is the selected summer sea kit sheet (water-seakit-shared-v1.png, 1536x1024 RGBA): change season only, preserve every outline and position and the transparency. Image 2 is the installed winter lake rocks (water-rocks-winter-v1.png): take only its snow, frosted-moss and ice-collar palette and how much of each stone the snow covers; do not copy its rocks, their shapes or their layout.
+```
 
 ### Look 7 I3 winter lake-rocks candidate (2026-10-24)
 
