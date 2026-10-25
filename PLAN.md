@@ -30,7 +30,7 @@ history.
 - **Original rules** (`internal/dosrules`, `dosbind`, `dosplay`, `dosai`): combat, movement, containers,
   visibility, the phase change and the command cycle `Game` (validation, queued attacks, ordered events,
   save/resume, capture, sapper trenches, victory and score, energy with repair and production), bound to the
-  shipped levels and the 72 original maps, with a computer side that plays every level to its end.
+  the 72 campaign maps, with a computer side that plays every level to its end.
 - **Front end** (`cmd/historyline`): menus around a battle, camera with zoom, independent UI scale and asset
   density, HiDPI and fullscreen. Under `-rules dos` the original's split screen
   ([docs/dos-screen.md](docs/dos-screen.md)); under `-rules standard` the single-map HUD with minimap,
@@ -559,6 +559,34 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       are built and test-pinned (`TestCampaignBriefingsAndPlayers`, `TestVictorySelectsTheNextMap`); the
       loading page shows a one-line briefing derived from the map's facts.
 - [ ] 5.1a Authored briefing texts per map (the shipped briefings are one-line derivations).
+- [x] 5.7 The campaign is the original levels, merged: the menu campaign is the 72 maps played
+      from their shipped, hand-editable transcriptions in `levels/campaign` (the three remake
+      levels left the menu; their files remain for `-level`). `just levels-campaign` re-imports
+      and overwrites edits. DOS mode binds the transcriptions via `dosbind.Bind`, which gained
+      a documented record fallback (infra reduction, any-winter, multi-entrance buildings,
+      two-cell ship rears) — exact `FromOriginal` boards remain for `-level original/NN`.
+      Evidence: `TestBindCampaignLevels` (all 72 bind), shell campaign tests at 72 maps.
+- [x] 5.6 Campaign calendar: the original maps run in the original's two-month layers
+      (`internal/campaign`: 24 periods, August 1914 – July 1918, each campaign block of 24 maps
+      restarting the calendar). Starting a campaign battle shows that period's news page
+      (newly written summaries, TO BATTLE continues to loading), and the loading page names
+      the period. Evidence: `TestCampaignPeriodsAndNews`, `internal/campaign` tests.
+- [ ] 5.8 Monthly campaign: one newly authored level per month (48) in `levels/monthly`,
+      each with its own code word and monthly news (`campaign.Months`), replacing the
+      two-month layers of 5.6 in the end. (2026-10-25) Started with September 1914:
+      `MARNE` (`levels/monthly/1914-09-marne.json`), an easy Entente counterattack on
+      the Marne. First draft was scrapped after a rendered review; three rival
+      designs (gap at Meaux, Château-Thierry bridgeheads, the Ourcq flank) were
+      rendered with units and played out AI-vs-AI, and the Meaux design won
+      (renders and losers in `build/review/marne-rivals`), its road/stream
+      segments then re-laid as continuous hex paths. German army split by a
+      weakly screened centre gap, HQ north-east, French HQ south-west, two
+      bridges, 1914 units only, Entente field force 17 vs 11. It stands alone
+      after the 72 maps for now (code `MARNE`, September news page, no next map).
+      Evidence: `TestMonthlyMarne` (code entry, news flow, both engines start),
+      `TestMonthsStartWithSeptember1914`; AI-vs-AI playouts: Meaux/Entente win
+      in 10 turns, bridgeheads/Entente in 9, Ourcq/Central Powers in 17 (too
+      hard, rejected). Remaining: the other 47 months and the chain switch.
 - [ ] 5.2 The level format lacks transporter cargo, ship rears, terrain records that share a look, and
       credits (the original rules keep the exact binding through `dosbind.FromOriginal`).
       2026-10-24: under the original rules a two-cell ship draws as one long sprite across its head and

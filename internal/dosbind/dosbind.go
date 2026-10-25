@@ -196,6 +196,7 @@ func buildings(lv *level.Level) (map[hexgrid.Coord]*building, error) {
 				continue
 			}
 			bd := &building{entrance: hexgrid.Coord{Line: -1}}
+			var entrances []hexgrid.Coord
 			stack := []hexgrid.Coord{start}
 			at[start] = bd
 			for len(stack) > 0 {
@@ -204,10 +205,7 @@ func buildings(lv *level.Level) (map[hexgrid.Coord]*building, error) {
 				bd.cells = append(bd.cells, p)
 				ph := lv.Lines[p.Line][p.Col]
 				if strings.TrimSuffix(ph.Terrain, "_w") == families[fam].entrance {
-					if bd.entrance.Line >= 0 {
-						return nil, fmt.Errorf("line%d[%d]: a building with two entrances", p.Line+1, p.Col)
-					}
-					bd.entrance, bd.content = p, ph.Content
+					entrances = append(entrances, p)
 				}
 				for _, n := range g.Neighbors(p) {
 					if at[n] == nil && family(lv.Lines[n.Line][n.Col].Terrain) == fam {
@@ -216,8 +214,29 @@ func buildings(lv *level.Level) (map[hexgrid.Coord]*building, error) {
 					}
 				}
 			}
-			if bd.entrance.Line < 0 {
+			if len(entrances) == 0 {
 				return nil, fmt.Errorf("line%d[%d]: a building without its entrance", l+1, c)
+			}
+			// A transcription can name several cells of one building as
+			// its entrance terrain (factory pieces): the first in cell
+			// order is the entrance, and the content of all of them is
+			// the building's, in cell order.
+			slices.SortFunc(entrances, func(a, b hexgrid.Coord) int {
+				if a.Line != b.Line {
+					return a.Line - b.Line
+				}
+				return a.Col - b.Col
+			})
+			bd.entrance = entrances[0]
+			for _, e := range entrances {
+				if ct := lv.Lines[e.Line][e.Col].Content; ct != nil {
+					if bd.content == nil {
+						cp := *ct
+						bd.content = &cp
+					} else {
+						bd.content.Units = append(bd.content.Units, ct.Units...)
+					}
+				}
 			}
 		}
 	}
@@ -300,7 +319,7 @@ func Bind(lv *level.Level, set *data.Set) (*Board, error) {
 					key += "@" + bd.state()
 				}
 			}
-			rec, ok := lookup(mr, key)
+			rec, ok := lookupRecord(mr, key)
 			if !ok {
 				return nil, fmt.Errorf("dosbind: line%d[%d]: no terrain record for %q", l+1, c, key)
 			}
@@ -310,13 +329,12 @@ func Bind(lv *level.Level, set *data.Set) (*Board, error) {
 			}
 		}
 	}
-	switch winter {
-	case 0:
-	case g.Size():
-		b.Winter = true
-	default:
-		return nil, fmt.Errorf("dosbind: %d of %d hexes are winter terrain", winter, g.Size())
-	}
+	// A level with any winter terrain is a winter level: transcriptions
+	// carry the winter suffix only where a seasonal form exists (a winter
+	// map can hold a few hundred winter hexes among thousands), so neither
+	// all-or-nothing nor a majority can decide. Authored summer levels
+	// carry none.
+	b.Winter = winter > 0
 	if err := b.placeUnits(lv, set); err != nil {
 		return nil, err
 	}
@@ -335,6 +353,25 @@ func Bind(lv *level.Level, set *data.Set) (*Board, error) {
 		return nil, err
 	}
 	return b, nil
+}
+
+// lookupRecord finds a hex's terrain record. A level whose hex carries
+// more infrastructure than any recorded combination (a transcription can
+// stack two road looks, a runway on a road) falls back by dropping the
+// last infrastructure id at a time, down to the bare terrain: the first
+// recorded reduction wins. Exact bindings (FromOriginal) never reduce:
+// their keys come from the original cells and always hit.
+func lookupRecord(mr MapRecords, key string) (int, bool) {
+	for {
+		if r, ok := lookup(mr, key); ok {
+			return r, true
+		}
+		i := strings.LastIndex(key, "+")
+		if i < 0 {
+			return 0, false
+		}
+		key = key[:i]
+	}
 }
 
 func lookup(mr MapRecords, key string) (int, bool) {
@@ -356,9 +393,23 @@ func unitType(set *data.Set, id string) (int, int, error) {
 		return 0, 0, fmt.Errorf("unit %q: no type %d", id, u.Dos)
 	}
 	if types[u.Dos].Class&twoCell != 0 {
-		return 0, 0, fmt.Errorf("unit %q: two-cell ships are not bound", id)
+		return 0, 0, fmt.Errorf("unit %q: two-cell ships are not bound here", id)
 	}
 	return u.Dos, Side(game.FactionOf(u.Country)), nil
+}
+
+// shipType is unitType for a map unit: ship reports whether the type is a
+// two-cell ship, whose rear a binding must place on a neighbouring cell.
+func shipType(set *data.Set, id string) (typ, side int, ship bool, err error) {
+	u, ok := set.Units[id]
+	if !ok {
+		return 0, 0, false, fmt.Errorf("unknown unit %q", id)
+	}
+	types := dosrules.Full.Tables.Move.Types
+	if u.Dos < 0 || u.Dos >= len(types) {
+		return 0, 0, false, fmt.Errorf("unit %q: no type %d", id, u.Dos)
+	}
+	return u.Dos, Side(game.FactionOf(u.Country)), types[u.Dos].Class&twoCell != 0, nil
 }
 
 // add places the next unit; an empty id names none.
@@ -385,7 +436,7 @@ func (b *Board) placeUnits(lv *level.Level, set *data.Set) error {
 		if h.Unit == "" {
 			continue
 		}
-		typ, side, err := unitType(set, h.Unit)
+		typ, side, ship, err := shipType(set, h.Unit)
 		if err == nil && b.Edge(cell) {
 			err = fmt.Errorf("unit %q on the map edge", h.Unit)
 		}
@@ -395,11 +446,34 @@ func (b *Board) placeUnits(lv *level.Level, set *data.Set) error {
 		if err == nil {
 			_, err = b.add(h.Unit, dosrules.Placement{Type: typ, Owner: side, Cell: cell})
 		}
+		if err == nil && ship {
+			err = b.addRear(lv, p, typ, side)
+		}
 		if err != nil {
 			return fmt.Errorf("dosbind: line%d[%d]: %w", p.Line+1, p.Col, err)
 		}
 	}
 	return nil
+}
+
+// addRear places a two-cell ship's rear (type+1, the record after its
+// head) on the first neighbouring water hex without a unit. A level
+// names only the head; the original map's rear direction is not in it,
+// so any free water neighbour serves.
+func (b *Board) addRear(lv *level.Level, p hexgrid.Coord, typ, side int) error {
+	for _, n := range lv.Grid().Neighbors(p) {
+		h := lv.Lines[n.Line][n.Col]
+		if h.Unit != "" || !strings.HasPrefix(strings.TrimSuffix(h.Terrain, "_w"), "water") {
+			continue
+		}
+		cell, _ := b.Cell(n)
+		if b.Edge(cell) {
+			continue
+		}
+		_, err := b.add("", dosrules.Placement{Type: typ + 1, Owner: side, Cell: cell})
+		return err
+	}
+	return fmt.Errorf("two-cell ship at %v has no free water neighbour for its rear", p)
 }
 
 // bindBuildings gives every building entrance its container record, in
@@ -456,10 +530,11 @@ func (b *Board) bindBuildings(set *data.Set, at map[hexgrid.Coord]*building, mr 
 				return fmt.Errorf("dosbind: line%d[%d]: %d units in a building of 7 slots", bd.entrance.Line+1, bd.entrance.Col, len(bd.content.Units))
 			}
 			for k, id := range bd.content.Units {
-				typ, faction, err := unitType(set, id)
-				if err == nil && side != 2 && faction != side {
-					err = fmt.Errorf("unit %q in a building of side %d", id, side)
-				}
+				// Held units take the building's side, as the container
+				// records list them for both sides alike; a transcription
+				// naming a unit of the other side in a building is read
+				// that way rather than refused.
+				typ, _, err := unitType(set, id)
 				var u int
 				if err == nil {
 					u, err = b.add(id, dosrules.Placement{Type: typ, Owner: side, Cell: entrance})

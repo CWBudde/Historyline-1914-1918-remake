@@ -43,18 +43,20 @@ func TestCampaignOrderAndCodes(t *testing.T) {
 	for _, m := range s.maps {
 		codes = append(codes, m.code())
 	}
-	// The shipped levels, then the original maps 00-71 by their passwords.
-	if len(codes) != 75 || codes[0] != "PULSE" || codes[1] != "CIVIL" || codes[2] != "MOUSE" ||
-		s.maps[3].name != "original/00" || codes[3] != "PULSE" || s.maps[74].name != "original/71" {
+	// The 72 original maps in their order, by their passwords, played
+	// from their shipped transcriptions (no exact board in the menu),
+	// then the monthly levels by their code words.
+	if len(codes) != 73 || codes[0] != "PULSE" || codes[1] != "CIVIL" || codes[2] != "MOUSE" ||
+		s.maps[0].name != "original/00" || s.maps[71].name != "original/71" || codes[72] != "MARNE" {
 		t.Fatalf("codes %v", codes)
 	}
-	for i, m := range s.maps {
-		if (m.board != nil) != (i >= 3) {
-			t.Errorf("%s: board %v", m.name, m.board != nil)
+	for _, m := range s.maps {
+		if m.board != nil {
+			t.Errorf("%s: menu map carries an exact board", m.name)
 		}
 	}
 	// An Allies campaign map is played as the Entente.
-	s.code = 3 + 30
+	s.code = 30
 	if s.levelSide() != state.Entente {
 		t.Errorf("map 30 side %v", s.levelSide())
 	}
@@ -62,7 +64,7 @@ func TestCampaignOrderAndCodes(t *testing.T) {
 
 func TestCampaignBriefingsAndPlayers(t *testing.T) {
 	s := testShell(t)
-	if len(s.maps) != 75 {
+	if len(s.maps) != 73 {
 		t.Fatalf("maps %d", len(s.maps))
 	}
 	for i, m := range s.maps {
@@ -70,14 +72,14 @@ func TestCampaignBriefingsAndPlayers(t *testing.T) {
 			t.Errorf("map %d %s: no briefing", i, m.name)
 		}
 	}
-	if s.maps[3+23].next != -1 || s.maps[3+47].next != -1 || s.maps[3+71].next != -1 {
+	if s.maps[23].next != -1 || s.maps[47].next != -1 || s.maps[71].next != -1 {
 		t.Error("campaign ends should have no next")
 	}
-	if s.maps[3+48].players != 2 || len(s.maps[3+48].humanSides) != 2 {
-		t.Errorf("map 48 players %d sides %v", s.maps[3+48].players, s.maps[3+48].humanSides)
+	if s.maps[48].players != 2 || len(s.maps[48].humanSides) != 2 {
+		t.Errorf("map 48 players %d sides %v", s.maps[48].players, s.maps[48].humanSides)
 	}
-	if !strings.Contains(s.maps[3+48].briefing, "two-player map") || !strings.Contains(s.maps[3+48].briefing, "not in v1") && !strings.Contains(s.maps[3+48].briefing, "in v1") {
-		t.Errorf("2P briefing %q", s.maps[3+48].briefing)
+	if !strings.Contains(s.maps[48].briefing, "two-player map") || !strings.Contains(s.maps[48].briefing, "not in v1") && !strings.Contains(s.maps[48].briefing, "in v1") {
+		t.Errorf("2P briefing %q", s.maps[48].briefing)
 	}
 }
 
@@ -252,6 +254,10 @@ func TestGameValuesMakeTheMatch(t *testing.T) {
 	}
 	s.key(keyLeft)
 	s.key(keyEnter)
+	if s.page != pageNews {
+		t.Fatalf("page %d, want the period's news", s.page)
+	}
+	s.activate(0) // TO BATTLE
 	if s.page != pageLoading {
 		t.Fatalf("page %d", s.page)
 	}
@@ -260,10 +266,10 @@ func TestGameValuesMakeTheMatch(t *testing.T) {
 		!c.reduced || c.scroll != 2*scrollSpeed || c.rules != "dos" {
 		t.Fatalf("config %+v", c)
 	}
-	// An original map plays its exact board.
-	s.code = 3 + 6
-	if c := s.config(matchConfig{rules: "dos"}); c.lvl != s.maps[9].lvl || c.board == nil || c.board != s.maps[9].board {
-		t.Fatalf("original map config %+v", c)
+	// A campaign map plays its shipped transcription, without a board.
+	s.code = 6
+	if c := s.config(matchConfig{rules: "dos"}); c.lvl != s.maps[6].lvl || c.board != nil {
+		t.Fatalf("campaign map config %+v", c)
 	}
 }
 
@@ -309,7 +315,7 @@ func TestVictorySelectsTheNextMap(t *testing.T) {
 	for _, c := range []struct {
 		from int
 		next string
-	}{{2, "03"}, {3 + 3, "04"}, {3 + 22, "23"}, {3 + 23, ""}, {3 + 24, "25"}, {3 + 47, ""}, {3 + 48, "49"}, {3 + 71, ""}} {
+	}{{2, "03"}, {3, "04"}, {22, "23"}, {23, ""}, {24, "25"}, {47, ""}, {48, "49"}, {71, ""}} {
 		s.code = c.from
 		s.finish(outcome{won: true})
 		want, shown := s.maps[c.from].name, ""
@@ -356,17 +362,13 @@ func TestHitFindsButtons(t *testing.T) {
 
 func TestCodeEntryPasswords(t *testing.T) {
 	s := testShell(t)
-	// Every original map has its own five-letter password; maps 00-02 share
-	// theirs with the shipped levels transcribed from them.
+	// Every original map has its own five-letter password.
 	seen := map[string]bool{}
-	for i, m := range s.maps[3:] {
+	for i, m := range s.maps {
 		if len(m.password) != 5 || strings.ToUpper(m.password) != m.password || seen[m.password] {
 			t.Errorf("map %02d: password %q", i, m.password)
 		}
 		seen[m.password] = true
-		if i < 3 && m.password != s.maps[i].code() {
-			t.Errorf("map %02d: password %q, shipped %q", i, m.password, s.maps[i].code())
-		}
 	}
 	enter := func(code string) {
 		s.activate(1)
@@ -376,17 +378,17 @@ func TestCodeEntryPasswords(t *testing.T) {
 		s.key(keyEnter)
 	}
 	// The password selects its map; the number still does.
-	enter(strings.ToLower(s.maps[3+30].password))
-	if s.maps[s.code].name != "original/30" || s.buttons()[1].label != "CODE  "+s.maps[3+30].password {
+	enter(strings.ToLower(s.maps[30].password))
+	if s.maps[s.code].name != "original/30" || s.buttons()[1].label != "CODE  "+s.maps[30].password {
 		t.Fatalf("map 30's password selected %s, %q", s.maps[s.code].name, s.buttons()[1].label)
 	}
 	enter("05")
 	if s.maps[s.code].name != "original/05" || s.maps[s.code].code() != "RIGHT" {
 		t.Fatalf("05 selected %s, code %q", s.maps[s.code].name, s.maps[s.code].code())
 	}
-	// The shipped level keeps its code; its original map is reached by number.
+	// A map's password and its number select the same map.
 	enter("MOUSE")
-	if s.maps[s.code].name != "level3_cp" {
+	if s.maps[s.code].name != "original/02" {
 		t.Fatalf("MOUSE selected %s", s.maps[s.code].name)
 	}
 	enter("02")
@@ -396,7 +398,86 @@ func TestCodeEntryPasswords(t *testing.T) {
 	// A victory shows the next map's password.
 	enter("05")
 	s.finish(outcome{won: true})
-	if s.maps[s.code].name != "original/06" || s.result.next != s.maps[3+6].password {
+	if s.maps[s.code].name != "original/06" || s.result.next != s.maps[6].password {
 		t.Fatalf("after 05: %s, shown %q", s.maps[s.code].name, s.result.next)
+	}
+}
+
+func TestCampaignPeriodsAndNews(t *testing.T) {
+	s := testShell(t)
+	if len(s.maps) != 73 {
+		t.Fatalf("%d maps, want the 72 campaign maps plus the monthly levels", len(s.maps))
+	}
+	// German map 00 opens the war, map 23 ends it; the French campaign
+	// (map 24) and the two-player set (map 48) start the calendar again.
+	for idx, want := range map[int]int{0: 0, 23: 23, 24: 0, 47: 23, 48: 0, 71: 23} {
+		if got := s.maps[idx].period; got != want {
+			t.Errorf("maps[%d].period = %d, want %d", idx, got, want)
+		}
+	}
+	// Starting a campaign map shows its period's news first; TO BATTLE
+	// then loads.
+	s.code = 0
+	s.open(pageCountry)
+	s.activate(0)
+	if s.page != pageNews {
+		t.Fatalf("campaign map start page %d, want news", s.page)
+	}
+	s.activate(0)
+	if s.page != pageLoading {
+		t.Fatalf("news continue page %d, want loading", s.page)
+	}
+}
+
+func TestMonthlyMarne(t *testing.T) {
+	s := testShell(t)
+	m := s.maps[72]
+	if m.code() != "MARNE" || m.name != "monthly/1914-09-marne" || m.period != -1 || m.month != 0 || m.next != -1 {
+		t.Fatalf("monthly map %+v", m)
+	}
+	// The code word selects it, as the original passwords do.
+	s.typing, s.typed = true, "MARNE"
+	s.key(keyEnter)
+	if s.code != 72 {
+		t.Fatalf("code MARNE selected map %d", s.code)
+	}
+	if s.levelSide() != state.Entente || !strings.Contains(m.briefing, "The Entente") {
+		t.Fatalf("side %v, briefing %q", s.levelSide(), m.briefing)
+	}
+	// Its own September 1914 news comes before the battle.
+	if p, ok := m.news(); !ok || p.Label != "September 1914" {
+		t.Fatalf("news %+v ok %v", p, ok)
+	}
+	s.open(pageCountry)
+	s.activate(0)
+	if s.page != pageNews {
+		t.Fatalf("monthly start page %d, want news", s.page)
+	}
+	s.activate(0)
+	if s.page != pageLoading {
+		t.Fatalf("news continue page %d, want loading", s.page)
+	}
+	// Easy by design: the Entente field force outnumbers the German one.
+	var ec, cp int
+	for _, line := range m.lvl.Lines {
+		for _, h := range line {
+			switch {
+			case strings.HasPrefix(h.Unit, "EC_"):
+				ec++
+			case strings.HasPrefix(h.Unit, "CP_"):
+				cp++
+			}
+		}
+	}
+	if ec <= cp {
+		t.Fatalf("field units: Entente %d, Central Powers %d", ec, cp)
+	}
+	// Both engines start a battle on it.
+	set := testSet(t)
+	if _, err := dosplay.New(m.lvl, set, dosplay.Options{}); err != nil {
+		t.Fatalf("dos: %v", err)
+	}
+	if _, err := state.New(m.lvl, set); err != nil {
+		t.Fatalf("standard: %v", err)
 	}
 }

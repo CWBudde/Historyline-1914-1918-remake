@@ -1,18 +1,20 @@
 package main
 
 import (
-	"bytes"
 	"io/fs"
 	"path"
 	"slices"
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
 
-// levels/campaign is what hlcampaign writes from levels/original: every map,
-// no stale file, no hand edit.
+// levels/campaign is the shipped campaign: it began as what hlcampaign
+// writes from levels/original and is hand-editable since the merge, so
+// this test no longer requires byte identity with the generator — only
+// that every generated map is present and every shipped file parses.
 func TestCampaignCurrent(t *testing.T) {
 	set, err := data.Load()
 	if err != nil {
@@ -40,10 +42,11 @@ func TestCampaignCurrent(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		if w, ok := want[path.Base(n)]; !ok {
-			t.Errorf("%s is not generated", n)
-		} else if !bytes.Equal(b, w) {
-			t.Errorf("%s is stale: run just levels-campaign", n)
+		if _, ok := want[path.Base(n)]; !ok {
+			t.Errorf("%s is not a campaign map", n)
+		}
+		if _, err := level.Parse(b); err != nil {
+			t.Errorf("%s does not parse: %v", n, err)
 		}
 	}
 	for n := range want {

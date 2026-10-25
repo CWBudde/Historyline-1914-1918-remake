@@ -357,6 +357,8 @@ func (a *app) pageArt() (frame, scene string) {
 		return "screen/defeat", "scene/defeat"
 	case pageLeave:
 		return "screen/confirm-exit", ""
+	case pageNews:
+		return "", "backdrop/western-front"
 	}
 	return "", ""
 }
@@ -403,6 +405,15 @@ func (a *app) drawPage(dst *ebiten.Image, d int) {
 		fillRect(dst, d, rect{24, 338, panelW - 48, 1}, dospanel.SteelBrassD)
 		drawText(dst, d, h[0], false, 12, 24, 360, cream, false)
 		drawText(dst, d, h[1], false, 12, 24, 378, muted, false)
+	case pageNews:
+		if p, ok := s.maps[s.code].news(); ok {
+			drawText(dst, d, "NEWS FROM THE FRONT", true, 11, 24, 122, amber, false)
+			drawDisplay(dst, d, p.Headline, 19, 24, 152, cream, false)
+			for i, l := range p.Lines {
+				drawText(dst, d, l, false, 12, 24, float64(184+i*19), cream, false)
+			}
+			drawText(dst, d, p.Label, false, 11, 24, 286, muted, false)
+		}
 	case pageScores:
 		if len(s.scoreList) == 0 {
 			drawText(dst, d, "No scores are kept yet.", false, 13, 24, 144, cream, false)
@@ -415,6 +426,9 @@ func (a *app) drawPage(dst *ebiten.Image, d int) {
 		}
 	case pageLoading:
 		m := s.maps[s.code]
+		if p, ok := m.news(); ok {
+			drawText(dst, d, p.Label, true, 12, 24, 118, amber, false)
+		}
 		drawText(dst, d, m.lvl.MapName, true, 16, 24, 144, cream, false)
 		if m.briefing != "" {
 			drawText(dst, d, m.briefing, false, 12, 24, 180, cream, false)
@@ -491,6 +505,8 @@ func pageTitle(s *shell) string {
 		return "CONTROL"
 	case pageExtras:
 		return "EXTRAS"
+	case pageNews:
+		return "NEWS"
 	case pageScores:
 		return "SCORE LIST"
 	case pageCountry:

@@ -8,6 +8,7 @@ import (
 	"strings"
 	"unicode"
 
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/campaign"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosbind"
 	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
@@ -37,6 +38,7 @@ const (
 	pageOutcome
 	pageLeave // the battle is paused: leave it?
 	pageScores
+	pageNews // the period's news, before a campaign battle
 )
 
 // mapLevel is a map of the menu: a shipped level, or an imported original map
@@ -52,6 +54,20 @@ type mapLevel struct {
 	humanSides []int          // mission human sides; nil for a shipped level
 	winter     bool
 	briefing   string // one line shown on the loading page
+	period     int    // index into campaign.Periods for an original map, -1 for none
+	month      int    // index into campaign.Months for a monthly level, -1 for none
+}
+
+// news is the news page of the map: its monthly layer when it has one,
+// else its two-month period.
+func (m mapLevel) news() (campaign.Period, bool) {
+	if p, ok := campaign.Month(m.month); ok {
+		return p, true
+	}
+	if m.period < 0 || m.period >= len(campaign.Periods) {
+		return campaign.Period{}, false
+	}
+	return campaign.Periods[m.period], true
 }
 
 // briefingLine is the one-line briefing from the map's own facts; there is
@@ -81,65 +97,80 @@ func (m mapLevel) code() string {
 	return strings.ToUpper(m.lvl.MapName)
 }
 
-// loadCampaign loads the shipped maps in their order (level1_cp, level2_cp, …),
-// then the imported original maps 00-71, from dir where present, else the
-// embedded copies. A shipped map leads to the next; the last one, an original
-// map transcribed (MapNo n is map n-1), leads where that map does. An
-// original map leads to its mission's next map: through each campaign, none
-// after its last map.
+// loadCampaign loads the campaign: the 72 original maps in their order,
+// played from their shipped remake transcriptions in levels/campaign
+// (editable; see cmd/hlcampaign for the import that wrote them). The
+// original map files contribute only the mission facts that the
+// transcriptions do not carry: password, players, winter and the next
+// map. A map leads to its mission's next map: through each campaign,
+// none after its last map.
 func loadCampaign(dir string, set *data.Set) ([]mapLevel, error) {
-	names, err := fs.Glob(levels.FS, "level?_cp.json")
-	if err != nil {
-		return nil, err
-	}
-	slices.Sort(names)
-	var maps []mapLevel
-	for i, n := range names {
-		name := strings.TrimSuffix(n, ".json")
-		lvl, err := loadLevel(dir, name)
-		if err != nil {
-			return nil, fmt.Errorf("%s: %w", name, err)
-		}
-		m := mapLevel{name: name, lvl: lvl, next: i + 1, players: 1}
-		side, _ := state.PlayerByName(lvl.Player)
-		m.briefing = briefingLine(strings.ToUpper(lvl.MapName), 1, nil, side, false, false)
-		maps = append(maps, m)
-	}
-	if len(maps) == 0 {
-		return nil, fmt.Errorf("no shipped maps")
-	}
-	shipped := len(maps)
 	files, err := fs.Glob(levels.Original, "original/full/[0-9][0-9].json")
 	if err != nil {
 		return nil, err
 	}
 	slices.Sort(files)
-	for _, f := range files {
+	var maps []mapLevel
+	for i, f := range files {
 		stem := strings.TrimSuffix(path.Base(f), ".json")
-		l, lvl, b, err := loadOriginal(dir, stem, set)
+		l, lvl, _, err := loadOriginal(dir, stem, set)
 		if err != nil {
 			return nil, err
 		}
-		m := mapLevel{name: originalPrefix + stem, lvl: lvl, board: b, next: -1, players: 1}
+		m := mapLevel{name: originalPrefix + stem, lvl: lvl, next: -1, players: 1, period: campaign.Index(i), month: -1}
 		if l.Mission != nil {
 			m.password = l.Mission.Code
 			m.players, m.humanSides, m.winter = l.Mission.Players, l.Mission.HumanSides, l.Mission.Winter
 			if l.Mission.Next != nil {
-				m.next = shipped + *l.Mission.Next
+				m.next = *l.Mission.Next
 			}
 		}
 		m.briefing = briefingLine(m.code(), m.players, m.humanSides, state.CentralPowers, m.winter, l.Mission != nil)
 		maps = append(maps, m)
 	}
-	last := &maps[shipped-1]
-	last.next = -1
-	if k := shipped + last.lvl.MapNo - 1; last.lvl.MapNo >= 1 && k < len(maps) {
-		last.next = maps[k].next
+	if len(maps) == 0 {
+		return nil, fmt.Errorf("no campaign maps")
 	}
 	for _, m := range maps {
 		if m.next >= len(maps) {
 			return nil, fmt.Errorf("%s leads to map %d of %d", m.name, m.next, len(maps))
 		}
+	}
+	monthly, err := loadMonthly(dir)
+	if err != nil {
+		return nil, err
+	}
+	return append(maps, monthly...), nil
+}
+
+// monthlyLevels are the new monthly campaign's levels (one per month),
+// appended after the 72 original maps and reached by their code word
+// until the monthly campaign replaces the two-month chain.
+var monthlyLevels = []struct {
+	file, code string
+}{
+	{"monthly/1914-09-marne.json", "MARNE"}, // September 1914: the Marne
+}
+
+// loadMonthly loads the monthly levels in their calendar order.
+func loadMonthly(dir string) ([]mapLevel, error) {
+	var maps []mapLevel
+	for i, ml := range monthlyLevels {
+		raw, err := readLevelFile(dir, levels.Monthly, ml.file)
+		if err != nil {
+			return nil, fmt.Errorf("%s: %w", ml.file, err)
+		}
+		lvl, err := level.Parse(raw)
+		if err != nil {
+			return nil, fmt.Errorf("%s: %w", ml.file, err)
+		}
+		m := mapLevel{
+			name: strings.TrimSuffix(ml.file, ".json"), lvl: lvl, next: -1,
+			password: ml.code, players: 1, humanSides: []int{1},
+			period: -1, month: i,
+		}
+		m.briefing = briefingLine(m.code(), m.players, m.humanSides, state.CentralPowers, false, true)
+		maps = append(maps, m)
 	}
 	return maps, nil
 }
@@ -395,9 +426,18 @@ func (s *shell) buttons() []button {
 		var bs []button
 		for i, side := range cardSides {
 			bs = append(bs, button{r: cardRects[i], label: countryName(side), help: [2]string{factionName(side)},
-				do: func(s *shell) { s.side = side; s.open(pageLoading) }})
+				do: func(s *shell) {
+					s.side = side
+					if _, ok := s.maps[s.code].news(); ok {
+						s.open(pageNews)
+					} else {
+						s.open(pageLoading)
+					}
+				}})
 		}
 		return append(bs, back(pageMain))
+	case pageNews:
+		return []button{{r: rect{40, 344, 216, 30}, label: "TO BATTLE", left: true, help: [2]string{"On to the battle."}, do: func(s *shell) { s.open(pageLoading) }}}
 	case pageOutcome:
 		return []button{{r: footerRect, label: "CONTINUE", help: [2]string{"Back to the main menu."}, do: func(s *shell) { s.open(pageMain) }}}
 	case pageLeave:

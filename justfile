@@ -110,7 +110,7 @@ levels-import:
     go run ./cmd/finextract -build full -out levels/original
     @just levels-campaign
 
-# Write the remake levels of the imported maps (levels/original) to levels/campaign
+# Write the remake levels of the imported maps (levels/original) to levels/campaign (overwrites hand edits there)
 levels-campaign:
     go run ./cmd/hlcampaign -out levels/campaign
 

@@ -20,3 +20,9 @@ var Original embed.FS
 //
 //go:embed campaign/*.json
 var Campaign embed.FS
+
+// Monthly holds the new monthly campaign's levels (one per month),
+// named like "monthly/1914-09-marne.json".
+//
+//go:embed monthly/*.json
+var Monthly embed.FS
