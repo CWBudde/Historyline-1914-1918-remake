@@ -4,7 +4,7 @@ title: Road bridge
 kind: terrain
 status: approved
 runtime_ids: rBridge14, rBridge25, rBridge36, standing/rBridge14, standing/rBridge25, standing/rBridge36, standing/rBridge14_w, standing/rBridge25_w, standing/rBridge36_w, standing/rBridge36-rail, standing/rBridge36-rail_w
-masters: rbridge-14-shared-v1.png, rbridge-25-shared-v1.png, rbridge-36-shared-v1.png, rbridge-14-export-shared-v1.png, rbridge-25-export-shared-v1.png, rbridge-36-export-shared-v1.png, rbridge-stone-ne-shared-v1.png, rbridge-stone-se-shared-v1.png, rbridge-stone-vertical-shared-v1.png, rbridge-36-rail-summer-v1.png, rbridge-36-rail-winter-v1.png, rbridge-14-winter-v1.png, rbridge-25-winter-v1.png, rbridge-36-winter-v1.png, rbridge-36-rail-export-summer-v1.png, rbridge-36-rail-export-winter-v1.png, rbridge-36-rail-summer-v2.png, rbridge-36-rail-winter-v2.png, rbridge-36-rail-export-summer-v2.png, rbridge-36-rail-export-winter-v2.png, rbridge-36-rail-summer-v3.png, rbridge-36-rail-winter-v3.png, rbridge-36-rail-export-summer-v3.png, rbridge-36-rail-export-winter-v3.png, rbridge-14-export-winter-v1.png, rbridge-25-export-winter-v1.png, rbridge-36-export-winter-v1.png
+masters: rbridge-14-shared-v1.png, rbridge-25-shared-v1.png, rbridge-36-shared-v1.png, rbridge-14-export-shared-v1.png, rbridge-25-export-shared-v1.png, rbridge-36-export-shared-v1.png, rbridge-stone-ne-shared-v1.png, rbridge-stone-se-shared-v1.png, rbridge-stone-vertical-shared-v1.png, rbridge-36-rail-summer-v1.png, rbridge-36-rail-winter-v1.png, rbridge-14-winter-v1.png, rbridge-25-winter-v1.png, rbridge-36-winter-v1.png, rbridge-36-rail-export-summer-v1.png, rbridge-36-rail-export-winter-v1.png, rbridge-36-rail-summer-v2.png, rbridge-36-rail-winter-v2.png, rbridge-36-rail-export-summer-v2.png, rbridge-36-rail-export-winter-v2.png, rbridge-36-rail-summer-v3.png, rbridge-36-rail-winter-v3.png, rbridge-36-rail-export-summer-v3.png, rbridge-36-rail-export-winter-v3.png, rbridge-14-export-winter-v1.png, rbridge-25-export-winter-v1.png, rbridge-36-export-winter-v1.png, rbridge-36-rail-summer-v4.png, rbridge-36-rail-winter-v4.png, rbridge-36-rail-export-summer-v4.png, rbridge-36-rail-export-winter-v4.png
 ---
 
 ## Look
@@ -34,10 +34,29 @@ An independent road layer provides the approaches and the stream passes undernea
 
 The levels write rail and path bridges as `rBridge36` with `rail36` or `path36` and no road; the map
 draws the rail deck or the footbridge (`standing/bridge36`) for them. The rail deck's rails lie where
-`tile/rail36`'s do, 2.4 logical left and 2.1 right of the centre, and run over both end slabs. On a winter
-map every deck takes its `_w` form.
+`tile/rail36`'s do, 4.5 logical either side of the centre (the wide track), and run over both end
+slabs. On a winter map every deck takes its `_w` form.
 
 ## Post
+
+### Look 3 rail deck, wide track (2026-10-25)
+
+`rbridge-36-rail-summer-v4.png` and `rbridge-36-rail-winter-v4.png` are the v3 rail decks with the
+rails moved apart to the wide track's gauge, in Go (`tools/terrain-stamps/raildeck_widen_test.go`); no
+new image. On the sleeper rows each rail moves outward with its tie plates, 27 native px in summer and
+30 in winter (gauge 122 and 130 native, 107.8 and 108.2 export px against 108); the deck between the
+rails takes the plate-free columns the rails moved over, the seams cross-faded over 6 px. On the end
+slabs only the rail heads move, their old place taking the slab beside them. Each head then becomes
+13 (summer) or 15 (winter) native px of flat steel in the row's mean head colour, so that its dark band
+is as wide as the wide track's rails. The sleepers stay as painted (15.7 logical, the track's 15);
+alpha is unchanged (export opaque IoU 0.99 against v3, which sat 1.5 px further left). On the composed
+maps the deck rails lie 9.0–9.1 logical apart and within 0.12 of the approach rails at both ends, their
+dark run 1.0 logical wide like the track's 0.75–1.0, L\* 16.5 against 17.2 (winter) and 23.3 against
+25.4 (summer), dark steel on 100 % of the deck (`TestStandingRailDeck`).
+`TestRailDeckMastersWidenRails` pins v4; the regrade of v2 keeps the narrow track's steel as constants,
+so v2 and v3 regenerate unchanged. The `bridgegfx` generator registers v4 as before (its rail middle
+onto the wide `tile/rail36`'s, export x 576), writes `rbridge-registration-v5.json`, pins the exports
+in `art/pipeline/bridge-standing-v3.json` and exports the standing items.
 
 ### Look 3 rail deck, thin rails (2026-10-25)
 

@@ -1,0 +1,204 @@
+[
+  {
+    "id": "standing/bridge36",
+    "source": "art/terrain/bridge/bridge-36-shared-v2.png",
+    "source_sha256": "5ff0f3b38db1654aa048c02f1acd8e625296c43c1ba2dc8c52d72b1ed83fea70",
+    "native_dimensions": [
+      1374,
+      1145
+    ],
+    "deck_centre": [
+      688.25,
+      570
+    ],
+    "deck_axis_degrees": 90,
+    "deck_ends_u": [
+      -398,
+      398
+    ],
+    "deck_edges_v": [
+      -177.75,
+      177.75
+    ],
+    "target_angle_degrees": 90,
+    "target_deck_logical": [
+      48,
+      22
+    ],
+    "source_to_prepared_affine": [
+      0.7426160337552743,
+      -1.1632885228208809e-18,
+      64.89451476793249,
+      -1.1632885228208809e-18,
+      0.7236180904522613,
+      67.53768844221105
+    ],
+    "prepared_source": "art/terrain/bridge/bridge-36-export-shared-v2.png",
+    "prepared_sha256": "e7eaa571cee98e6b95ee5bc245c3726c750662310967d3d6a660c1ae7f19abed",
+    "policy": "Painted footbridge registered by its timber deck: the reviewed native deck ends and long edges, in the deck's own frame (u along deck_axis_degrees, v across, from deck_centre), map onto a 48x22 logical deck centred on 48,40 along the target angle, no mirroring; the planks between the deck_cut_u seams, if any, are left out and the halves join on the seam; a winter edit's opaque box (alpha \u003e 128) is first scaled per axis onto its summer_source's. CatmullRom at 12 pixels per logical pixel; final terrain-stamps Lanczos3 at 4x then 2x. Handrails, posts and stone abutments extend outside the deck. Fixed canvas 96x80, anchor 48,40."
+  },
+  {
+    "id": "standing/bridge25",
+    "source": "art/terrain/bridge/bridge-25-shared-v2.png",
+    "source_sha256": "598ec971477b64389f4022866285cb70b5c180278cbd3a67934df5e080984e0f",
+    "native_dimensions": [
+      1374,
+      1145
+    ],
+    "deck_centre": [
+      687,
+      588
+    ],
+    "deck_axis_degrees": 31.7,
+    "deck_ends_u": [
+      -458.5,
+      500.5
+    ],
+    "deck_cut_u": [
+      -354.5,
+      -18.5
+    ],
+    "deck_edges_v": [
+      -138.5,
+      136.5
+    ],
+    "target_angle_degrees": 29.39605285494326,
+    "target_deck_logical": [
+      48,
+      22
+    ],
+    "source_to_prepared_affine": [
+      0.9329524076840181,
+      0.022366959297587974,
+      39.85007684931292,
+      -0.05339347869804284,
+      0.9500827554712219,
+      25.579684401984252
+    ],
+    "source_to_prepared_affine_after_cut": [
+      0.9246843193124676,
+      0.035754135229648876,
+      -234.4605102239712,
+      -0.038717621838540786,
+      0.9263205181918139,
+      -120.41227227439703
+    ],
+    "prepared_source": "art/terrain/bridge/bridge-25-export-shared-v2.png",
+    "prepared_sha256": "d8f9e7b16096777f1f0cbdf7a4c40c6412fbca3c4bff408453812116f1075041",
+    "policy": "Painted footbridge registered by its timber deck: the reviewed native deck ends and long edges, in the deck's own frame (u along deck_axis_degrees, v across, from deck_centre), map onto a 48x22 logical deck centred on 48,40 along the target angle, no mirroring; the planks between the deck_cut_u seams, if any, are left out and the halves join on the seam; a winter edit's opaque box (alpha \u003e 128) is first scaled per axis onto its summer_source's. CatmullRom at 12 pixels per logical pixel; final terrain-stamps Lanczos3 at 4x then 2x. Handrails, posts and stone abutments extend outside the deck. Fixed canvas 96x80, anchor 48,40."
+  },
+  {
+    "id": "standing/bridge36_w",
+    "source": "art/terrain/bridge/bridge-36-winter-v2.png",
+    "source_sha256": "d54094ca8ba4c9713df09e98e4e2140d8f64faefc0d098f8c8497e838b23a0ba",
+    "native_dimensions": [
+      1374,
+      1145
+    ],
+    "source_opaque_box": [
+      464,
+      80,
+      449,
+      985
+    ],
+    "frame_opaque_box": [
+      464,
+      85,
+      450,
+      979
+    ],
+    "summer_source": "art/terrain/bridge/bridge-36-shared-v2.png",
+    "deck_centre": [
+      688.25,
+      570
+    ],
+    "deck_axis_degrees": 90,
+    "deck_ends_u": [
+      -398,
+      398
+    ],
+    "deck_edges_v": [
+      -177.75,
+      177.75
+    ],
+    "target_angle_degrees": 90,
+    "target_deck_logical": [
+      48,
+      22
+    ],
+    "source_to_prepared_affine": [
+      0.7442699670153082,
+      -1.1562025013620735e-18,
+      64.12708973527673,
+      -1.1658793658561168e-18,
+      0.7192102645205725,
+      71.50840496900747
+    ],
+    "prepared_source": "art/terrain/bridge/bridge-36-export-winter-v2.png",
+    "prepared_sha256": "00d2712eec7dee6f8cee26bdf93c5efb187c93ddeb5912d65d72c2aeb16db773",
+    "policy": "Painted footbridge registered by its timber deck: the reviewed native deck ends and long edges, in the deck's own frame (u along deck_axis_degrees, v across, from deck_centre), map onto a 48x22 logical deck centred on 48,40 along the target angle, no mirroring; the planks between the deck_cut_u seams, if any, are left out and the halves join on the seam; a winter edit's opaque box (alpha \u003e 128) is first scaled per axis onto its summer_source's. CatmullRom at 12 pixels per logical pixel; final terrain-stamps Lanczos3 at 4x then 2x. Handrails, posts and stone abutments extend outside the deck. Fixed canvas 96x80, anchor 48,40."
+  },
+  {
+    "id": "standing/bridge25_w",
+    "source": "art/terrain/bridge/bridge-25-winter-v2.png",
+    "source_sha256": "ab7cb1dfd573ce59bfdcbd1182c63efaea2162ca6188dabe64415c9f6c973c7c",
+    "native_dimensions": [
+      1374,
+      1145
+    ],
+    "source_opaque_box": [
+      139,
+      175,
+      1089,
+      838
+    ],
+    "frame_opaque_box": [
+      140,
+      177,
+      1087,
+      837
+    ],
+    "summer_source": "art/terrain/bridge/bridge-25-shared-v2.png",
+    "deck_centre": [
+      687,
+      588
+    ],
+    "deck_axis_degrees": 31.7,
+    "deck_ends_u": [
+      -458.5,
+      500.5
+    ],
+    "deck_cut_u": [
+      -354.5,
+      -18.5
+    ],
+    "deck_edges_v": [
+      -138.5,
+      136.5
+    ],
+    "target_angle_degrees": 29.39605285494326,
+    "target_deck_logical": [
+      48,
+      22
+    ],
+    "source_to_prepared_affine": [
+      0.9312389964669676,
+      0.022340268415371282,
+      41.070598239150044,
+      -0.05329541904937793,
+      0.9489490051663637,
+      27.61123244641443
+    ],
+    "source_to_prepared_affine_after_cut": [
+      0.9229860928307184,
+      0.03571146919715526,
+      -233.22079759754993,
+      -0.03864651509503566,
+      0.9252151237786972,
+      -118.41478867490372
+    ],
+    "prepared_source": "art/terrain/bridge/bridge-25-export-winter-v2.png",
+    "prepared_sha256": "f1dcad58ef2ec3e79a83f8d3c758cedf2a2a6e3a63e3fd8579c8a986fb390c3a",
+    "policy": "Painted footbridge registered by its timber deck: the reviewed native deck ends and long edges, in the deck's own frame (u along deck_axis_degrees, v across, from deck_centre), map onto a 48x22 logical deck centred on 48,40 along the target angle, no mirroring; the planks between the deck_cut_u seams, if any, are left out and the halves join on the seam; a winter edit's opaque box (alpha \u003e 128) is first scaled per axis onto its summer_source's. CatmullRom at 12 pixels per logical pixel; final terrain-stamps Lanczos3 at 4x then 2x. Handrails, posts and stone abutments extend outside the deck. Fixed canvas 96x80, anchor 48,40."
+  }
+]

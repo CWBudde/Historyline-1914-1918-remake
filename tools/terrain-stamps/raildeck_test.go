@@ -14,22 +14,21 @@ import (
 
 // railDeckRegrade is one rail deck master whose rail heads are regraded onto
 // the dark steel of the track it carries: from (v1) is the painted master, to
-// (v2) the regraded one, track the 4x tile/rail36 of the same season, rails
-// the native x of the deck's two rail heads. lifted (v3) is v2 with the shadow
-// columns beside each head lifted to the deck next to them.
+// (v2) the regraded one, steel the mean L*, a*, b* of the rail cores of the
+// same season's 4x tile/rail36 when v2 was made (the narrow track, its rails
+// at 4x columns 182-183 and 200-201), rails the native x of the deck's two
+// rail heads. lifted (v3) is v2 with the shadow columns beside each head
+// lifted to the deck next to them.
 type railDeckRegrade struct {
-	from, to, track, lifted string
-	rails                   [2]int
+	from, to, lifted string
+	steel            [3]float64
+	rails            [2]int
 }
 
 var railDeckRegrades = []railDeckRegrade{
-	{"art/terrain/rBridge/rbridge-36-rail-summer-v1.png", "art/terrain/rBridge/rbridge-36-rail-summer-v2.png", "assets/terrain/rail/rail36-4x.png", "art/terrain/rBridge/rbridge-36-rail-summer-v3.png", [2]int{652, 720}},
-	{"art/terrain/rBridge/rbridge-36-rail-winter-v1.png", "art/terrain/rBridge/rbridge-36-rail-winter-v2.png", "assets/terrain/rail/rail36_w-4x.png", "art/terrain/rBridge/rbridge-36-rail-winter-v3.png", [2]int{653, 723}},
+	{"art/terrain/rBridge/rbridge-36-rail-summer-v1.png", "art/terrain/rBridge/rbridge-36-rail-summer-v2.png", "art/terrain/rBridge/rbridge-36-rail-summer-v3.png", [3]float64{30.63103831436162, 3.265265501484798, 3.7455122748144603}, [2]int{652, 720}},
+	{"art/terrain/rBridge/rbridge-36-rail-winter-v1.png", "art/terrain/rBridge/rbridge-36-rail-winter-v2.png", "art/terrain/rBridge/rbridge-36-rail-winter-v3.png", [3]float64{24.20138726815569, 2.03139208535672, 0.6373898691468278}, [2]int{653, 723}},
 }
-
-// trackRails are the columns of tile/rail36's two rail cores at 4x: its rails
-// lie 2.375 logical left and 2.125 right of the hex centre (x 48).
-var trackRails = [2][2]int{{182, 183}, {200, 201}}
 
 // The rail heads of a deck master are the columns within headReach of a rail's
 // x whose mean L* (over the opaque rows) is headL or more: the lit steel
@@ -43,24 +42,6 @@ const (
 	headSpread            = 0.6 // the share of the head's L*, a*, b* variation kept
 	railDeckOpaqueMinimum = 128
 )
-
-// steelStats is the mean L*, a*, b* of the track's rail cores.
-func steelStats(track *image.NRGBA) (l, a, b float64) {
-	n := 0
-	for y := track.Rect.Min.Y; y < track.Rect.Max.Y; y++ {
-		for _, rail := range trackRails {
-			for _, x := range rail {
-				c := track.NRGBAAt(x, y)
-				if c.A < railDeckOpaqueMinimum {
-					continue
-				}
-				pl, pa, pb := srgbToLab(c)
-				l, a, b, n = l+pl, a+pa, b+pb, n+1
-			}
-		}
-	}
-	return l / float64(n), a / float64(n), b / float64(n)
-}
 
 // railHeadColumns returns, per rail of x near rails, the first and last column
 // of its head in im.
@@ -96,14 +77,14 @@ func headWeight(l float64) float64 {
 }
 
 // regradeRailHeads returns a copy of the deck master im with its rail heads
-// moved onto the dark steel of track: each head pixel's L*, a* and b* keep
-// headSpread of their deviation from the heads' mean around the steel's mean,
-// blended in by headWeight. Every other pixel, and the alpha, stay as painted.
-func regradeRailHeads(im, track *image.NRGBA, rails [2]int) *image.NRGBA {
+// moved onto the dark steel: each head pixel's L*, a* and b* keep headSpread
+// of their deviation from the heads' mean around the steel's mean, blended in
+// by headWeight. Every other pixel, and the alpha, stay as painted.
+func regradeRailHeads(im *image.NRGBA, steel [3]float64, rails [2]int) *image.NRGBA {
 	out := image.NewNRGBA(im.Rect)
 	copy(out.Pix, im.Pix)
 	heads := railHeadColumns(im, rails)
-	tl, ta, tb := steelStats(track)
+	tl, ta, tb := steel[0], steel[1], steel[2]
 	var hl, ha, hb, hw float64
 	for _, h := range heads {
 		for y := im.Rect.Min.Y; y < im.Rect.Max.Y; y++ {
@@ -147,8 +128,7 @@ func TestRailDeckMastersRegradeRailHeads(t *testing.T) {
 	root := filepath.Join("..", "..")
 	for _, r := range railDeckRegrades {
 		from := decodeRailDeckPNG(t, filepath.Join(root, r.from))
-		track := decodeRailDeckPNG(t, filepath.Join(root, r.track))
-		want := regradeRailHeads(from, track, r.rails)
+		want := regradeRailHeads(from, r.steel, r.rails)
 		got := decodeRailDeckPNG(t, filepath.Join(root, r.to))
 		if !bytes.Equal(got.Pix, want.Pix) {
 			t.Errorf("%s is not the regrade of %s; run the bridgegfx generator", r.to, r.from)
@@ -179,7 +159,7 @@ func TestRailDeckMastersRegradeRailHeads(t *testing.T) {
 				}
 			}
 		}
-		tl, _, _ := steelStats(track)
+		tl := r.steel[0]
 		t.Logf("%s: heads %v, head L* %.1f, steel L* %.1f", r.to, heads, sl/sw, tl)
 		if changed > 0 {
 			t.Errorf("%s: %d pixels outside the rail heads changed", r.to, changed)
