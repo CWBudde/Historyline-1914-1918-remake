@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "embed"
 	"errors"
 	"fmt"
 	"image"
@@ -12,8 +13,6 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"github.com/hajimehoshi/ebiten/v2/vector"
 	"golang.org/x/image/font"
-	"golang.org/x/image/font/gofont/gobold"
-	"golang.org/x/image/font/gofont/goregular"
 	"golang.org/x/image/font/opentype"
 	"golang.org/x/image/math/fixed"
 
@@ -367,31 +366,6 @@ func devRect(r rect, d int) image.Rectangle {
 	return image.Rect(r.X*d, r.Y*d, (r.X+r.W)*d, (r.Y+r.H)*d)
 }
 
-// drawPixText draws s in the battle pixel font (capitals), baseline at
-// logical (x, y); k is font pixels per logical pixel.
-func drawPixText(dst *ebiten.Image, d int, s string, large bool, k int, x, y float64, c color.RGBA, centre bool) {
-	pt := panelText{k: k * d}
-	size := dospanel.Small
-	if large {
-		size = dospanel.Large
-	}
-	w, h := pt.Measure(s, size)
-	px := int(math.Round(x * float64(d)))
-	if centre {
-		px -= w / 2
-	}
-	pt.Draw(dst, s, px, int(math.Round(y*float64(d)))-h, size, c)
-}
-
-// drawPixLabel draws s engraved: a dark copy one device pixel down-right
-// under the face, so pixel text reads pressed into the steel.
-func drawPixLabel(dst *ebiten.Image, d int, s string, large bool, k int, x, y float64, c color.RGBA, centre bool) {
-	o := 1 / float64(d)
-	drawPixText(dst, d, s, large, k, x+o, y+o, dospanel.SteelDark, centre)
-	drawPixText(dst, d, s, large, k, x, y, c, centre)
-}
-
-// drawPage draws the current page on dst, a canvas at density d.
 // panelW is the width of the menus' dark steel side column; the page
 // painting fills the rest of the canvas.
 const panelW = 304
@@ -413,13 +387,13 @@ func (a *app) drawPage(dst *ebiten.Image, d int) {
 	dospanel.SteelPanel(dst, devRect(rect{0, 0, panelW, canvasH}, d), float64(d))
 	fillRect(dst, d, rect{panelW, 0, 2, canvasH}, dospanel.SteelBrassD)
 	if s.page == pageMain {
-		drawPixLabel(dst, d, "HISTORYLINE", true, 4, 24, 64, amber, false)
-		drawPixText(dst, d, "1914 - 1918", false, 2, 24, 90, cream, false)
-		fillRect(dst, d, rect{24, 100, 96, 1}, brass)
-		fillRect(dst, d, rect{196, 100, 80, 1}, brass)
+		drawDisplay(dst, d, "HISTORYLINE", 36, 24, 62, amber, false)
+		drawText(dst, d, "1 9 1 4   –   1 9 1 8", false, 11, 26, 88, cream, false)
+		fillRect(dst, d, rect{24, 98, 96, 1}, brass)
+		fillRect(dst, d, rect{196, 98, 80, 1}, brass)
 	} else {
-		drawPixLabel(dst, d, pageTitle(s), true, 2, 24, 52, amber, false)
-		fillRect(dst, d, rect{24, 62, 256, 1}, brass)
+		drawDisplay(dst, d, pageTitle(s), 23, 24, 50, amber, false)
+		fillRect(dst, d, rect{24, 60, 256, 1}, brass)
 	}
 	switch s.page {
 	case pageMain, pageValues, pageControl, pageExtras:
@@ -487,12 +461,12 @@ func (a *app) drawPage(dst *ebiten.Image, d int) {
 func (a *app) drawCountryPage(dst *ebiten.Image, d int) {
 	s := a.shell
 	dospanel.SteelNamePlate(dst, devRect(rect{24, 20, 592, 50}, d), float64(d))
-	drawPixLabel(dst, d, pageTitle(s), true, 3, 40, 58, amber, false)
+	drawDisplay(dst, d, pageTitle(s), 26, 40, 56, amber, false)
 	for i, side := range cardSides {
 		c := cardRects[i]
 		dospanel.SteelPlate(dst, devRect(c, d), float64(d))
 		a.drawFlag(dst, d, "country/"+strings.ToLower(countryName(side)), rect{c.X + 20, c.Y + 28, c.W - 40, 140})
-		drawPixLabel(dst, d, countryName(side), true, 2, float64(c.X+c.W/2), float64(c.Y+200), cream, true)
+		drawDisplay(dst, d, countryName(side), 20, float64(c.X+c.W/2), float64(c.Y+202), cream, true)
 		drawText(dst, d, factionName(side), false, 13, float64(c.X+c.W/2), float64(c.Y+222), muted, true)
 		if i == s.focus {
 			strokeRect(dst, d, rect{c.X - 3, c.Y - 3, c.W + 6, c.H + 6}, dospanel.SteelBrassL)
@@ -556,12 +530,16 @@ func (a *app) drawButton(dst *ebiten.Image, d int, b button, focus, pressed bool
 	case focus && !pressed:
 		c = amber
 	}
-	y := float64(b.r.Y) + float64(b.r.H)/2 + 5
+	y := float64(b.r.Y) + float64(b.r.H)/2 + 4.5
+	// Engraved: dark copy under the face.
+	o := 1 / float64(d)
 	if b.left {
-		drawPixLabel(dst, d, b.label, true, 2, float64(b.r.X+12), y, c, false)
+		drawText(dst, d, b.label, true, 12, float64(b.r.X+12)+o, y+o, dospanel.SteelDark, false)
+		drawText(dst, d, b.label, true, 12, float64(b.r.X+12), y, c, false)
 		return
 	}
-	drawPixLabel(dst, d, b.label, true, 2, float64(b.r.X)+float64(b.r.W)/2, y, c, true)
+	drawText(dst, d, b.label, true, 12, float64(b.r.X)+float64(b.r.W)/2+o, y+o, dospanel.SteelDark, true)
+	drawText(dst, d, b.label, true, 12, float64(b.r.X)+float64(b.r.W)/2, y, c, true)
 }
 
 // progressRect is the loading page's progress bar, the size of the bar art.
@@ -608,8 +586,23 @@ func strokeRect(dst *ebiten.Image, d int, r rect, c color.Color) {
 	vector.StrokeRect(dst, float32(r.X*d), float32(r.Y*d), float32(r.W*d), float32(r.H*d), float32(d), c, false)
 }
 
-// The menu typefaces are the Go fonts the screen art is laid out with.
-var boldFont, regularFont = mustFont(gobold.TTF), mustFont(goregular.TTF)
+// The menu typefaces: Noto Serif Display for titles and Noto Sans for
+// labels and text (SIL OFL 1.1, see fonts/LICENSE), embedded so the menus
+// look the same everywhere. The battle's pixel font is separate and stays.
+var (
+	//go:embed fonts/NotoSerifDisplay-Bold.ttf
+	serifDisplayTTF []byte
+	//go:embed fonts/NotoSans-Regular.ttf
+	sansRegularTTF []byte
+	//go:embed fonts/NotoSans-SemiBold.ttf
+	sansSemiBoldTTF []byte
+)
+
+var (
+	serifFont   = mustFont(serifDisplayTTF)
+	boldFont    = mustFont(sansSemiBoldTTF)
+	regularFont = mustFont(sansRegularTTF)
+)
 
 func mustFont(ttf []byte) *opentype.Font {
 	f, err := opentype.Parse(ttf)
@@ -623,6 +616,7 @@ func mustFont(ttf []byte) *opentype.Font {
 type textKey struct {
 	s       string
 	bold    bool
+	serif   bool
 	size    float64
 	c       color.RGBA
 	density int
@@ -645,11 +639,14 @@ func renderText(k textKey) textImage {
 	if t, ok := textCache[k]; ok {
 		return t
 	}
-	fk := textKey{bold: k.bold, size: k.size, density: k.density}
+	fk := textKey{bold: k.bold, serif: k.serif, size: k.size, density: k.density}
 	face, ok := faces[fk]
 	if !ok {
 		f := regularFont
-		if k.bold {
+		switch {
+		case k.serif:
+			f = serifFont
+		case k.bold:
 			f = boldFont
 		}
 		var err error
@@ -675,10 +672,23 @@ func renderText(k textKey) textImage {
 
 // drawText draws s with its baseline at logical (x, y), from x or centred on it.
 func drawText(dst *ebiten.Image, d int, s string, bold bool, size, x, y float64, c color.RGBA, centre bool) {
+	drawFace(dst, d, s, false, bold, size, x, y, c, centre)
+}
+
+// drawDisplay draws s in the serif display face, engraved: a dark copy
+// one device pixel down-right under the face.
+func drawDisplay(dst *ebiten.Image, d int, s string, size, x, y float64, c color.RGBA, centre bool) {
+	o := 1 / float64(d)
+	drawFace(dst, d, s, true, false, size, x+o, y+o, dospanel.SteelDark, centre)
+	drawFace(dst, d, s, true, false, size, x, y, c, centre)
+}
+
+// drawFace is drawText in a chosen face: serif for display text, sans else.
+func drawFace(dst *ebiten.Image, d int, s string, serif, bold bool, size, x, y float64, c color.RGBA, centre bool) {
 	if s == "" {
 		return
 	}
-	t := renderText(textKey{s: s, bold: bold, size: size, c: c, density: d})
+	t := renderText(textKey{s: s, bold: bold, serif: serif, size: size, c: c, density: d})
 	px := x * float64(d)
 	if centre {
 		px -= float64(t.advance) / 2
