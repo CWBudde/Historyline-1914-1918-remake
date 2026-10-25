@@ -34,7 +34,7 @@ values; all text is drawn live.
 ## Variants
 | Variant | Runtime IDs | Prompt delta |
 | --- | --- | --- |
-| steel | | `bs-01` (exec-35510f46), 1254x1254 opaque: the prompt below. |
+| steel | | `bs-02` (exec-6cb38bf7, 2026-10-25, selected for the steel look pass: richer brushing, sdL\* 6.5 vs 5.2) replaces `bs-01` (exec-35510f46), 1254x1254 opaque: the prompt below plus a richness pass. |
 | ground | | `bg-01` (exec-5943484e), 1254x1254 opaque: the prompt below. |
 | rivets | | `br-01` (exec-e352e306), 1774x887 RGBA, 4x2 heads of about 335 px: the prompt below. |
 | plate | | `hp-02` (exec-f8640ba8), 1536x1024 RGBA, the plate filling the 1152x960 cell silhouette: the prompt below. |

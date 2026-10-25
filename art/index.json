@@ -6974,7 +6974,7 @@
       "masters": [
         {
           "path": "art/screens/surface/steel.png",
-          "sha256": "d6b88c3857e368ddbcb31bd7224eebceea2c73bbe436f1d3ed8d9aecf7f09647",
+          "sha256": "ee3ee43d2611adb29b495575f3e3f74eabe0a449edbd62e62290e85cca345030",
           "width": 1254,
           "height": 1254
         },
@@ -7021,7 +7021,7 @@
         {
           "variant": "steel",
           "runtime_ids": [],
-          "delta": "`bs-01` (exec-35510f46), 1254x1254 opaque: the prompt below."
+          "delta": "`bs-02` (exec-6cb38bf7, 2026-10-25, selected for the steel look pass: richer brushing, sdL\\* 6.5 vs 5.2) replaces `bs-01` (exec-35510f46), 1254x1254 opaque: the prompt below plus a richness pass."
         },
         {
           "variant": "ground",

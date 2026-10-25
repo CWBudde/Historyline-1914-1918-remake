@@ -28,6 +28,7 @@ const canvasW, canvasH = 640, 400
 var (
 	cream = dospanel.MenuCream
 	brass = dospanel.SteelBrass
+	amber = dospanel.MenuAmber
 	muted = dospanel.MenuMuted
 )
 
@@ -382,64 +383,76 @@ func drawPixText(dst *ebiten.Image, d int, s string, large bool, k int, x, y flo
 	pt.Draw(dst, s, px, int(math.Round(y*float64(d)))-h, size, c)
 }
 
+// drawPixLabel draws s engraved: a dark copy one device pixel down-right
+// under the face, so pixel text reads pressed into the steel.
+func drawPixLabel(dst *ebiten.Image, d int, s string, large bool, k int, x, y float64, c color.RGBA, centre bool) {
+	o := 1 / float64(d)
+	drawPixText(dst, d, s, large, k, x+o, y+o, dospanel.SteelDark, centre)
+	drawPixText(dst, d, s, large, k, x, y, c, centre)
+}
+
 // drawPage draws the current page on dst, a canvas at density d.
+// panelW is the width of the menus' dark steel side column; the page
+// painting fills the rest of the canvas.
+const panelW = 304
+
 func (a *app) drawPage(dst *ebiten.Image, d int) {
 	s := a.shell
 	_, scene := a.pageArt()
 	dospanel.SteelBackground(dst, image.Rect(0, 0, canvasW*d, canvasH*d), float64(d))
 	if img := a.art.image(scene, d); img != nil {
 		dst.DrawImage(img, nil)
-		// Steel again over the painting: opaque frame, painting as backdrop.
-		dospanel.SteelPlate(dst, devRect(rect{24, 88, 592, 254}, d), float64(d))
 	} else if scene != "" {
 		dst.Fill(dospanel.SteelColour(0.30))
 	}
-	dospanel.SteelNamePlate(dst, devRect(rect{24, 20, 592, 50}, d), float64(d))
-	t := pageTitle(s)
-	drawPixText(dst, d, t, true, 3, 40, 58, cream, false)
+	if s.page == pageCountry {
+		a.drawCountryPage(dst, d)
+		return
+	}
+	// The dark steel column over the painting, with a brass divider.
+	dospanel.SteelPanel(dst, devRect(rect{0, 0, panelW, canvasH}, d), float64(d))
+	fillRect(dst, d, rect{panelW, 0, 2, canvasH}, dospanel.SteelBrassD)
+	if s.page == pageMain {
+		drawPixLabel(dst, d, "HISTORYLINE", true, 4, 24, 64, amber, false)
+		drawPixText(dst, d, "1914 - 1918", false, 2, 24, 90, cream, false)
+		fillRect(dst, d, rect{24, 100, 96, 1}, brass)
+		fillRect(dst, d, rect{196, 100, 80, 1}, brass)
+	} else {
+		drawPixLabel(dst, d, pageTitle(s), true, 2, 24, 52, amber, false)
+		fillRect(dst, d, rect{24, 62, 256, 1}, brass)
+	}
 	switch s.page {
 	case pageMain, pageValues, pageControl, pageExtras:
 		a.drawFlag(dst, d, "country/germany", rect{512, 30, 42, 30})
 		a.drawFlag(dst, d, "country/france", rect{562, 30, 42, 30})
 		h := s.help()
-		dospanel.SteelWell(dst, devRect(rect{24, 348, 592, 44}, d), float64(d))
-		drawText(dst, d, h[0], false, 13, 40, 366, cream, false)
-		drawText(dst, d, h[1], false, 13, 40, 385, cream, false)
-	case pageCountry:
-		for i, side := range cardSides {
-			c := cardRects[i]
-			dospanel.SteelPlate(dst, devRect(c, d), float64(d))
-			a.drawFlag(dst, d, "country/"+strings.ToLower(countryName(side)), rect{c.X + 20, c.Y + 28, c.W - 40, 140})
-			drawPixText(dst, d, countryName(side), true, 2, float64(c.X+c.W/2), float64(c.Y+200), cream, true)
-			drawText(dst, d, factionName(side), false, 13, float64(c.X+c.W/2), float64(c.Y+222), muted, true)
-			if i == s.focus {
-				strokeRect(dst, d, rect{c.X - 3, c.Y - 3, c.W + 6, c.H + 6}, dospanel.SteelBrassL)
-			}
-		}
+		fillRect(dst, d, rect{24, 338, panelW - 48, 1}, dospanel.SteelBrassD)
+		drawText(dst, d, h[0], false, 12, 24, 360, cream, false)
+		drawText(dst, d, h[1], false, 12, 24, 378, muted, false)
 	case pageScores:
 		if len(s.scoreList) == 0 {
-			drawText(dst, d, "No scores are kept yet.", false, 13, 132, 144, cream, false)
+			drawText(dst, d, "No scores are kept yet.", false, 13, 24, 144, cream, false)
 		}
 		for i, e := range s.scoreList {
 			if i >= 12 {
 				break
 			}
-			drawText(dst, d, fmt.Sprintf("%s  %d", e.Level, e.Score), false, 13, 132, float64(144+i*18), cream, false)
+			drawText(dst, d, fmt.Sprintf("%s  %d", e.Level, e.Score), false, 13, 24, float64(144+i*18), cream, false)
 		}
 	case pageLoading:
 		m := s.maps[s.code]
-		drawText(dst, d, m.lvl.MapName, true, 16, 132, 144, cream, false)
+		drawText(dst, d, m.lvl.MapName, true, 16, 24, 144, cream, false)
 		if m.briefing != "" {
-			drawText(dst, d, m.briefing, false, 13, 132, 180, cream, false)
+			drawText(dst, d, m.briefing, false, 12, 24, 180, cream, false)
 		}
-		drawText(dst, d, "The map is being prepared.", false, 13, 132, 216, cream, false)
+		drawText(dst, d, "The map is being prepared.", false, 13, 24, 216, cream, false)
 		// Only the web build fetches the terrain; on disk it opens at once.
 		if l := a.load; l != nil {
 			if f, ok := l.m.fraction(); ok {
 				a.drawProgress(dst, d, progressRect, f)
 				mb := func(n int64) float64 { return float64(n) / 1e6 }
 				drawText(dst, d, fmt.Sprintf("%.0f of %.0f MB", mb(l.m.done.Load()), mb(l.m.total.Load())),
-					false, 13, canvasW/2, 284, muted, true)
+					false, 13, panelW/2, 284, muted, true)
 			}
 		}
 	case pageOutcome:
@@ -455,14 +468,38 @@ func (a *app) drawPage(dst *ebiten.Image, d int) {
 			lines = append(lines, "There is no further map yet.")
 		}
 		for i, l := range lines {
-			drawText(dst, d, l, i == 0, 14, 128, float64(142+i*36), cream, false)
+			drawText(dst, d, l, i == 0, 14, 24, float64(142+i*36), cream, false)
 		}
 	case pageLeave:
-		drawText(dst, d, "The battle is given up and lost.", false, 14, 132, 160, cream, false)
-		drawText(dst, d, "Stay to go on commanding.", false, 14, 132, 198, cream, false)
+		drawText(dst, d, "The battle is given up and lost.", false, 14, 24, 160, cream, false)
+		drawText(dst, d, "Stay to go on commanding.", false, 14, 24, 198, cream, false)
 	}
 	for i, b := range s.buttons() {
 		if s.page == pageCountry && b.r != footerRect {
+			continue
+		}
+		a.drawButton(dst, d, b, i == s.focus, i == a.press)
+	}
+}
+
+// drawCountryPage draws the country selection: title plate and two cards
+// over the page painting.
+func (a *app) drawCountryPage(dst *ebiten.Image, d int) {
+	s := a.shell
+	dospanel.SteelNamePlate(dst, devRect(rect{24, 20, 592, 50}, d), float64(d))
+	drawPixLabel(dst, d, pageTitle(s), true, 3, 40, 58, amber, false)
+	for i, side := range cardSides {
+		c := cardRects[i]
+		dospanel.SteelPlate(dst, devRect(c, d), float64(d))
+		a.drawFlag(dst, d, "country/"+strings.ToLower(countryName(side)), rect{c.X + 20, c.Y + 28, c.W - 40, 140})
+		drawPixLabel(dst, d, countryName(side), true, 2, float64(c.X+c.W/2), float64(c.Y+200), cream, true)
+		drawText(dst, d, factionName(side), false, 13, float64(c.X+c.W/2), float64(c.Y+222), muted, true)
+		if i == s.focus {
+			strokeRect(dst, d, rect{c.X - 3, c.Y - 3, c.W + 6, c.H + 6}, dospanel.SteelBrassL)
+		}
+	}
+	for i, b := range s.buttons() {
+		if b.r != footerRect {
 			continue
 		}
 		a.drawButton(dst, d, b, i == s.focus, i == a.press)
@@ -513,19 +550,22 @@ func (a *app) drawButton(dst *ebiten.Image, d int, b button, focus, pressed bool
 	}
 	dospanel.SteelButton(dst, devRect(b.r, d), float64(d), state)
 	c := cream
-	if b.off {
+	switch {
+	case b.off:
 		c = muted
+	case focus && !pressed:
+		c = amber
 	}
 	y := float64(b.r.Y) + float64(b.r.H)/2 + 5
 	if b.left {
-		drawPixText(dst, d, b.label, true, 2, float64(b.r.X+12), y, c, false)
+		drawPixLabel(dst, d, b.label, true, 2, float64(b.r.X+12), y, c, false)
 		return
 	}
-	drawPixText(dst, d, b.label, true, 2, float64(b.r.X)+float64(b.r.W)/2, y, c, true)
+	drawPixLabel(dst, d, b.label, true, 2, float64(b.r.X)+float64(b.r.W)/2, y, c, true)
 }
 
 // progressRect is the loading page's progress bar, the size of the bar art.
-var progressRect = rect{180, 252, 280, 16}
+var progressRect = rect{24, 252, 256, 16}
 
 // drawProgress draws a progress bar over r, filled to share f.
 func (a *app) drawProgress(dst *ebiten.Image, d int, r rect, f float64) {
