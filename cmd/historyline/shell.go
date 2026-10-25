@@ -12,6 +12,8 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosbind"
 	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/saves"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scores"
 	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
 
@@ -34,17 +36,42 @@ const (
 	pageBattle  // the battle runs; the shell shows nothing
 	pageOutcome
 	pageLeave // the battle is paused: leave it?
+	pageScores
 )
 
 // mapLevel is a map of the menu: a shipped level, or an imported original map
 // with its exact board. Its code is the map name in capitals, an original
 // map's password; an original map also takes its number ("05").
 type mapLevel struct {
-	name     string // -level name: file name without .json, or original/NN
-	lvl      *level.Level
-	board    *dosbind.Board // an original map's binding; nil for a shipped level
-	next     int            // the map a victory leads to, -1 for none
-	password string         // an original map's password, "" for a shipped level
+	name       string // -level name: file name without .json, or original/NN
+	lvl        *level.Level
+	board      *dosbind.Board // an original map's binding; nil for a shipped level
+	next       int            // the map a victory leads to, -1 for none
+	password   string         // an original map's password, "" for a shipped level
+	players    int            // mission players (1 or 2); 0 means 1
+	humanSides []int          // mission human sides; nil for a shipped level
+	winter     bool
+	briefing   string // one line shown on the loading page
+}
+
+// briefingLine is the one-line briefing from the map's own facts; there is
+// no briefing text in the map files (PLAN open question), so it is derived.
+func briefingLine(code string, players int, humanSides []int, side state.Player, winter, knownSeason bool) string {
+	season := ""
+	if knownSeason {
+		season = ", summer"
+		if winter {
+			season = ", winter"
+		}
+	}
+	if players == 2 {
+		return "Map " + code + season + " — two-player map; in v1 play one side vs computer or passive."
+	}
+	who := factionName(side)
+	if len(humanSides) == 1 {
+		who = factionName(dosbind.Factions[humanSides[0]])
+	}
+	return "Map " + code + season + " — command " + who + "; capture the enemy HQ."
 }
 
 func (m mapLevel) code() string {
@@ -73,7 +100,10 @@ func loadCampaign(dir string, set *data.Set) ([]mapLevel, error) {
 		if err != nil {
 			return nil, fmt.Errorf("%s: %w", name, err)
 		}
-		maps = append(maps, mapLevel{name: name, lvl: lvl, next: i + 1})
+		m := mapLevel{name: name, lvl: lvl, next: i + 1, players: 1}
+		side, _ := state.PlayerByName(lvl.Player)
+		m.briefing = briefingLine(strings.ToUpper(lvl.MapName), 1, nil, side, false, false)
+		maps = append(maps, m)
 	}
 	if len(maps) == 0 {
 		return nil, fmt.Errorf("no shipped maps")
@@ -90,13 +120,15 @@ func loadCampaign(dir string, set *data.Set) ([]mapLevel, error) {
 		if err != nil {
 			return nil, err
 		}
-		m := mapLevel{name: originalPrefix + stem, lvl: lvl, board: b, next: -1}
+		m := mapLevel{name: originalPrefix + stem, lvl: lvl, board: b, next: -1, players: 1}
 		if l.Mission != nil {
 			m.password = l.Mission.Code
+			m.players, m.humanSides, m.winter = l.Mission.Players, l.Mission.HumanSides, l.Mission.Winter
 			if l.Mission.Next != nil {
 				m.next = shipped + *l.Mission.Next
 			}
 		}
+		m.briefing = briefingLine(m.code(), m.players, m.humanSides, state.CentralPowers, m.winter, l.Mission != nil)
 		maps = append(maps, m)
 	}
 	last := &maps[shipped-1]
@@ -144,6 +176,17 @@ var scrollSpeeds = []struct {
 // moveLimits are the move limits of the game values menu, 0 for none.
 var moveLimits = []int{0, 5, 10, 15, 20}
 
+// ruleModes are the rule sets of the game values menu, in cycle order:
+// the original (DOS) rules are the default product mode; New (Standard)
+// is the alternative remake engine.
+var ruleModes = []struct {
+	token string
+	label string
+}{
+	{"dos", "RULES  ORIGINAL (DOS)"},
+	{"standard", "RULES  NEW (STANDARD)"},
+}
+
 // outcome is how the last battle ended, from the human side.
 type outcome struct {
 	won, draw bool
@@ -173,10 +216,22 @@ type shell struct {
 
 	result outcome
 	quit   bool // leave the program
+
+	rules       string
+	scores      *scores.Store
+	saves       *saves.Store
+	scoreList   []scores.Entry
+	pendingSave []byte // a loaded battle to resume, consumed by config
+	pendingSide int
+	saveBattle  func() error // set by the app; nil in tests
 }
 
 func newShell(maps []mapLevel, c matchConfig) *shell {
-	return &shell{maps: maps, fights: !c.reduced, computer: c.opponent != "pass"}
+	rules := c.rules
+	if rules == "" {
+		rules = "dos"
+	}
+	return &shell{maps: maps, fights: !c.reduced, computer: c.opponent != "pass", rules: rules, scores: c.scores, saves: c.saves}
 }
 
 // config is the battle the menus describe: base with the selected map, side
@@ -192,17 +247,51 @@ func (s *shell) config(base matchConfig) matchConfig {
 	c.limit = moveLimits[s.limit]
 	c.reduced = !s.fights
 	c.scroll = scrollSpeeds[s.scroll].speed
+	c.rules = s.rules
+	if c.rules == "" {
+		c.rules = "dos"
+	}
+	if s.pendingSave != nil {
+		c.saved, c.player = s.pendingSave, dosbind.Factions[s.pendingSide]
+		s.pendingSave = nil // consumed: a later START starts fresh
+	}
 	return c
 }
 
 // row is the n-th menu row of the left panel.
 func row(n int) rect { return rect{40, 104 + n*44, 216, 30} }
 
+// valueRow is the n-th row of the game values page, packed tighter so
+// the rules row fits above the help box.
+func valueRow(n int) rect { return rect{40, 96 + n*40, 216, 30} }
+
+// ruleLabel is the game values label of the selected rule set.
+func (s *shell) ruleLabel() string {
+	for _, m := range ruleModes {
+		if m.token == s.rules {
+			return m.label
+		}
+	}
+	return ruleModes[0].label
+}
+
+// cycleRules advances to the next rule set: dos -> standard -> dos.
+func (s *shell) cycleRules() {
+	for i, m := range ruleModes {
+		if m.token == s.rules {
+			s.rules = ruleModes[(i+1)%len(ruleModes)].token
+			return
+		}
+	}
+	s.rules = ruleModes[0].token
+}
+
 var (
 	footerRect = rect{464, 346, 152, 30} // exit, back and continue
 	cardRects  = [2]rect{{24, 88, 284, 238}, {332, 88, 284, 238}}
-	stayRect   = rect{132, 266, 112, 30}
-	leaveRect  = rect{348, 266, 160, 30}
+	stayRect   = rect{40, 266, 112, 30}
+	saveRect   = rect{180, 266, 200, 30}
+	leaveRect  = rect{408, 266, 160, 30}
 )
 
 // cardSides are the countries of the two cards: France on the left and
@@ -225,7 +314,7 @@ func (s *shell) buttons() []button {
 				do: func(s *shell) { s.side = s.levelSide(); s.open(pageCountry) }},
 			{r: row(1), label: code, left: true, help: [2]string{"Type the code of a map you have", "reached, then press Enter."},
 				do: func(s *shell) { s.typing, s.typed = true, "" }},
-			{r: row(2), label: "GAME VALUES", left: true, help: [2]string{"Battles, players and the move", "limit."},
+			{r: row(2), label: "GAME VALUES", left: true, help: [2]string{"Rules, battles, players and the", "move limit."},
 				do: func(s *shell) { s.open(pageValues) }},
 			{r: row(3), label: "CONTROL", left: true, help: [2]string{"Screen and scrolling."},
 				do: func(s *shell) { s.open(pageControl) }},
@@ -246,14 +335,20 @@ func (s *shell) buttons() []button {
 		if n := moveLimits[s.limit]; n > 0 {
 			limit = fmt.Sprintf("MOVES  %d A PHASE", n)
 		}
+		rulesHelp := [2]string{"Original (DOS) is the default mode.", "New: the alternative remake rules."}
+		if s.rules != "" && s.rules != "dos" && s.code >= 0 && s.code < len(s.maps) && s.maps[s.code].board != nil {
+			rulesHelp = [2]string{"New: the alternative remake rules.", "Original maps: plays the transcription."}
+		}
 		return []button{
-			{r: row(0), label: fights, left: true, help: [2]string{"Full: units walk and fire in full.", "Short: moves and fire are instant."},
+			{r: valueRow(0), label: s.ruleLabel(), left: true, help: rulesHelp,
+				do: func(s *shell) { s.cycleRules() }},
+			{r: valueRow(1), label: fights, left: true, help: [2]string{"Full: units walk and fire in full.", "Short: moves and fire are instant."},
 				do: func(s *shell) { s.fights = !s.fights }},
-			{r: row(1), label: "PLAYER A  HUMAN", left: true, off: true, help: [2]string{"You play the country you choose.", "Two human players are not possible yet."}},
-			{r: row(2), label: b, left: true, help: [2]string{"Computer: the computer commands.", "Passive: it confirms without orders."},
+			{r: valueRow(2), label: "PLAYER A  HUMAN", left: true, off: true, help: [2]string{"You play the country you choose.", "Two human players are not in v1."}},
+			{r: valueRow(3), label: b, left: true, help: [2]string{"Computer: the computer commands.", "Passive: it confirms without orders. (1-player v1)"},
 				do: func(s *shell) { s.computer = !s.computer }},
-			{r: row(3), label: "DEPOTS  OWN ONLY", left: true, off: true, help: [2]string{"You see into your own buildings and", "transporters only."}},
-			{r: row(4), label: limit, left: true, help: [2]string{"Orders each side may give a phase.", "Fewer orders score higher."},
+			{r: valueRow(4), label: "DEPOTS  OWN ONLY", left: true, off: true, help: [2]string{"You see into your own buildings and", "transporters only."}},
+			{r: valueRow(5), label: limit, left: true, help: [2]string{"Orders each side may give a phase.", "Fewer orders score higher."},
 				do: func(s *shell) { s.limit = (s.limit + 1) % len(moveLimits) }},
 			back(pageMain),
 		}
@@ -274,11 +369,28 @@ func (s *shell) buttons() []button {
 			back(pageMain),
 		}
 	case pageExtras:
+		loadOff, loadHelp := false, [2]string{"Continue a saved battle (one slot).", "Started from the leave menu: SAVE AND LEAVE."}
+		switch {
+		case s.rules != "dos":
+			loadOff, loadHelp = true, [2]string{"Continue a saved battle.", "Saved battles need -rules dos."}
+		case s.saves == nil || !s.saves.Has():
+			loadOff, loadHelp = true, [2]string{"Continue a saved battle.", "No saved battle yet."}
+		}
 		return []button{
-			{r: row(0), label: "SCORE LIST", left: true, off: true, help: [2]string{"The best scores of a map.", "No scores are kept yet."}},
-			{r: row(1), label: "LOAD GAME", left: true, off: true, help: [2]string{"Continue a saved battle.", "Saving is not possible yet."}},
+			{r: row(0), label: "SCORE LIST", left: true, help: [2]string{"The best scores of each map.", "Won battles are recorded automatically."},
+				do: func(s *shell) {
+					s.scoreList = nil
+					if s.scores != nil {
+						s.scoreList = s.scores.All()
+					}
+					s.open(pageScores)
+				}},
+			{r: row(1), label: "LOAD GAME", left: true, off: loadOff, help: loadHelp,
+				do: func(s *shell) { s.loadSaved() }},
 			back(pageMain),
 		}
+	case pageScores:
+		return []button{{r: footerRect, label: "BACK", help: [2]string{"Back to extras."}, do: func(s *shell) { s.open(pageExtras) }}}
 	case pageCountry:
 		var bs []button
 		for i, side := range cardSides {
@@ -289,12 +401,42 @@ func (s *shell) buttons() []button {
 	case pageOutcome:
 		return []button{{r: footerRect, label: "CONTINUE", help: [2]string{"Back to the main menu."}, do: func(s *shell) { s.open(pageMain) }}}
 	case pageLeave:
+		saveOff := s.saveBattle == nil || s.rules != "dos" || s.saves == nil
 		return []button{
 			{r: stayRect, label: "STAY", help: [2]string{"Go on with the battle."}, do: func(s *shell) { s.open(pageBattle) }},
+			{r: saveRect, label: "SAVE AND LEAVE", off: saveOff, help: [2]string{"Save this dos battle (one slot)", "and return to the main menu."}, do: func(s *shell) {
+				if s.saveBattle != nil {
+					if err := s.saveBattle(); err == nil {
+						s.open(pageMain)
+						s.note = [2]string{"Battle saved.", "LOAD GAME in EXTRAS continues it."}
+					}
+				}
+			}},
 			{r: leaveRect, label: "LEAVE", help: [2]string{"Give up the battle and return", "to the main menu."}, do: func(s *shell) { s.open(pageMain) }},
 		}
 	}
 	return nil
+}
+
+// loadSaved stages the saved battle for the loading page.
+func (s *shell) loadSaved() {
+	if s.saves == nil {
+		return
+	}
+	env, ok := s.saves.Get()
+	if !ok {
+		s.note = [2]string{"No saved battle yet."}
+		return
+	}
+	for i, m := range s.maps {
+		if m.name == env.Map {
+			s.code, s.pendingSave, s.pendingSide = i, env.Data, env.Side
+			s.side = dosbind.Factions[env.Side]
+			s.open(pageLoading)
+			return
+		}
+	}
+	s.note = [2]string{"The saved map " + env.Map + " is not in the menu."}
 }
 
 // open shows page p with its first usable button focused (the card of the
@@ -367,6 +509,8 @@ func (s *shell) key(k shellKey) {
 		s.activate(s.focus)
 	case keyBack:
 		switch s.page {
+		case pageScores:
+			s.open(pageExtras)
 		case pageValues, pageControl, pageExtras, pageCountry, pageOutcome:
 			s.open(pageMain)
 		case pageLeave:

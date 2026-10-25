@@ -19,16 +19,16 @@ import (
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dospanel"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosscreen"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/saves"
 )
 
 // canvasW, canvasH is the logical size of every menu page.
 const canvasW, canvasH = 640, 400
 
 var (
-	cream = color.RGBA{0xee, 0xe5, 0xd2, 0xff}
-	brass = color.RGBA{0xc4, 0xa7, 0x73, 0xff}
-	muted = color.RGBA{0x6e, 0x80, 0x88, 0xff}
-	slate = color.RGBA{0x16, 0x26, 0x30, 0xff}
+	cream = dospanel.MenuCream
+	brass = dospanel.SteelBrass
+	muted = dospanel.MenuMuted
 )
 
 // app runs the menus and the battle they start.
@@ -75,7 +75,28 @@ func newApp(base matchConfig, maps []mapLevel, art *screenArt) *app {
 	s := newShell(maps, base)
 	s.setFullscreen, s.isFullscreen = ebiten.SetFullscreen, ebiten.IsFullscreen
 	s.open(pageMain)
-	return &app{shell: s, base: base, art: art, press: -1}
+	a := &app{shell: s, base: base, art: art, press: -1}
+	s.saveBattle = a.saveCurrentBattle
+	return a
+}
+
+// saveCurrentBattle saves the running dos battle into the single slot.
+func (a *app) saveCurrentBattle() error {
+	if a.battle == nil || a.battle.dos == nil || a.battle.dos.s == nil {
+		return errors.New("only a -rules dos battle can be saved")
+	}
+	if a.base.saves == nil {
+		return errors.New("no place to keep the saved battle")
+	}
+	data, err := a.battle.dos.s.Save()
+	if err != nil {
+		return err
+	}
+	return a.base.saves.Put(saves.Envelope{
+		Map:  a.shell.maps[a.shell.code].name,
+		Side: a.battle.dos.side,
+		Data: data,
+	})
 }
 
 // upgrade swaps in the full-quality art hd, in the menus and a running battle.
@@ -323,7 +344,7 @@ func (a *app) pageArt() (frame, scene string) {
 		return "screen/title", "backdrop/western-front"
 	case pageValues, pageControl:
 		return "screen/title", "scene/options"
-	case pageExtras:
+	case pageExtras, pageScores:
 		return "screen/title", "scene/save"
 	case pageCountry:
 		return "screen/side-selection", "scene/side-selection"
@@ -340,43 +361,77 @@ func (a *app) pageArt() (frame, scene string) {
 	return "", ""
 }
 
+// devRect is r in device pixels at density d.
+func devRect(r rect, d int) image.Rectangle {
+	return image.Rect(r.X*d, r.Y*d, (r.X+r.W)*d, (r.Y+r.H)*d)
+}
+
+// drawPixText draws s in the battle pixel font (capitals), baseline at
+// logical (x, y); k is font pixels per logical pixel.
+func drawPixText(dst *ebiten.Image, d int, s string, large bool, k int, x, y float64, c color.RGBA, centre bool) {
+	pt := panelText{k: k * d}
+	size := dospanel.Small
+	if large {
+		size = dospanel.Large
+	}
+	w, h := pt.Measure(s, size)
+	px := int(math.Round(x * float64(d)))
+	if centre {
+		px -= w / 2
+	}
+	pt.Draw(dst, s, px, int(math.Round(y*float64(d)))-h, size, c)
+}
+
 // drawPage draws the current page on dst, a canvas at density d.
 func (a *app) drawPage(dst *ebiten.Image, d int) {
 	s := a.shell
-	frame, scene := a.pageArt()
+	_, scene := a.pageArt()
+	dospanel.SteelBackground(dst, image.Rect(0, 0, canvasW*d, canvasH*d), float64(d))
 	if img := a.art.image(scene, d); img != nil {
 		dst.DrawImage(img, nil)
+		// Steel again over the painting: opaque frame, painting as backdrop.
+		dospanel.SteelPlate(dst, devRect(rect{24, 88, 592, 254}, d), float64(d))
 	} else if scene != "" {
-		dst.Fill(color.RGBA{0x26, 0x30, 0x2c, 0xff})
+		dst.Fill(dospanel.SteelColour(0.30))
 	}
-	if img := a.art.image(frame, d); img != nil {
-		dst.DrawImage(img, nil)
-	} else {
-		fillRect(dst, d, rect{0, 0, canvasW, canvasH}, color.RGBA{0x16, 0x26, 0x30, 0xa8})
-		fillRect(dst, d, rect{24, 20, 592, 50}, slate)
-	}
+	dospanel.SteelNamePlate(dst, devRect(rect{24, 20, 592, 50}, d), float64(d))
 	t := pageTitle(s)
-	drawText(dst, d, t, true, 22, 40, 52, cream, false)
+	drawPixText(dst, d, t, true, 3, 40, 58, cream, false)
 	switch s.page {
 	case pageMain, pageValues, pageControl, pageExtras:
 		a.drawFlag(dst, d, "country/germany", rect{512, 30, 42, 30})
 		a.drawFlag(dst, d, "country/france", rect{562, 30, 42, 30})
 		h := s.help()
-		drawText(dst, d, h[0], false, 13, 40, 362, cream, false)
-		drawText(dst, d, h[1], false, 13, 40, 381, cream, false)
+		dospanel.SteelWell(dst, devRect(rect{24, 348, 592, 44}, d), float64(d))
+		drawText(dst, d, h[0], false, 13, 40, 366, cream, false)
+		drawText(dst, d, h[1], false, 13, 40, 385, cream, false)
 	case pageCountry:
 		for i, side := range cardSides {
 			c := cardRects[i]
+			dospanel.SteelPlate(dst, devRect(c, d), float64(d))
 			a.drawFlag(dst, d, "country/"+strings.ToLower(countryName(side)), rect{c.X + 20, c.Y + 28, c.W - 40, 140})
-			drawText(dst, d, countryName(side), true, 20, float64(c.X+c.W/2), float64(c.Y+200), cream, true)
+			drawPixText(dst, d, countryName(side), true, 2, float64(c.X+c.W/2), float64(c.Y+200), cream, true)
 			drawText(dst, d, factionName(side), false, 13, float64(c.X+c.W/2), float64(c.Y+222), muted, true)
 			if i == s.focus {
-				strokeRect(dst, d, rect{c.X - 3, c.Y - 3, c.W + 6, c.H + 6}, brass)
+				strokeRect(dst, d, rect{c.X - 3, c.Y - 3, c.W + 6, c.H + 6}, dospanel.SteelBrassL)
 			}
+		}
+	case pageScores:
+		if len(s.scoreList) == 0 {
+			drawText(dst, d, "No scores are kept yet.", false, 13, 132, 144, cream, false)
+		}
+		for i, e := range s.scoreList {
+			if i >= 12 {
+				break
+			}
+			drawText(dst, d, fmt.Sprintf("%s  %d", e.Level, e.Score), false, 13, 132, float64(144+i*18), cream, false)
 		}
 	case pageLoading:
 		m := s.maps[s.code]
 		drawText(dst, d, m.lvl.MapName, true, 16, 132, 144, cream, false)
+		if m.briefing != "" {
+			drawText(dst, d, m.briefing, false, 13, 132, 180, cream, false)
+		}
 		drawText(dst, d, "The map is being prepared.", false, 13, 132, 216, cream, false)
 		// Only the web build fetches the terrain; on disk it opens at once.
 		if l := a.load; l != nil {
@@ -425,6 +480,8 @@ func pageTitle(s *shell) string {
 		return "CONTROL"
 	case pageExtras:
 		return "EXTRAS"
+	case pageScores:
+		return "SCORE LIST"
 	case pageCountry:
 		return "SELECT COUNTRY"
 	case pageLoading:
@@ -443,41 +500,28 @@ func pageTitle(s *shell) string {
 	return ""
 }
 
-// drawButton draws b in its state.
+// drawButton draws b as a steel plate button in its state.
 func (a *app) drawButton(dst *ebiten.Image, d int, b button, focus, pressed bool) {
-	state := "button/normal"
+	state := dospanel.MenuNormal
 	switch {
 	case b.off:
-		state = "button/disabled"
+		state = dospanel.MenuDisabled
 	case pressed:
-		state = "button/pressed"
+		state = dospanel.MenuPressed
 	case focus:
-		state = "button/focus"
+		state = dospanel.MenuFocus
 	}
-	if img := a.art.image(state, d); img != nil {
-		w, h := img.Bounds().Dx(), img.Bounds().Dy()
-		op := &ebiten.DrawImageOptions{Filter: ebiten.FilterLinear}
-		op.GeoM.Scale(float64(b.r.W*d)/float64(w), float64(b.r.H*d)/float64(h))
-		op.GeoM.Translate(float64(b.r.X*d), float64(b.r.Y*d))
-		dst.DrawImage(img, op)
-	} else {
-		fillRect(dst, d, b.r, color.RGBA{0x1c, 0x2f, 0x3a, 0xff})
-		edge := muted
-		if focus && !b.off {
-			edge = brass
-		}
-		strokeRect(dst, d, b.r, edge)
-	}
+	dospanel.SteelButton(dst, devRect(b.r, d), float64(d), state)
 	c := cream
 	if b.off {
 		c = muted
 	}
 	y := float64(b.r.Y) + float64(b.r.H)/2 + 5
 	if b.left {
-		drawText(dst, d, b.label, true, 14, float64(b.r.X+12), y, c, false)
+		drawPixText(dst, d, b.label, true, 2, float64(b.r.X+12), y, c, false)
 		return
 	}
-	drawText(dst, d, b.label, true, 14, float64(b.r.X)+float64(b.r.W)/2, y, c, true)
+	drawPixText(dst, d, b.label, true, 2, float64(b.r.X)+float64(b.r.W)/2, y, c, true)
 }
 
 // progressRect is the loading page's progress bar, the size of the bar art.
@@ -487,9 +531,8 @@ var progressRect = rect{180, 252, 280, 16}
 func (a *app) drawProgress(dst *ebiten.Image, d int, r rect, f float64) {
 	track, fill := a.art.image("progress/track", d), a.art.image("progress/fill", d)
 	if track == nil || fill == nil {
-		fillRect(dst, d, r, slate)
-		fillRect(dst, d, rect{r.X, r.Y, int(math.Round(f * float64(r.W))), r.H}, brass)
-		strokeRect(dst, d, r, muted)
+		dospanel.SteelWell(dst, devRect(r, d), float64(d))
+		fillRect(dst, d, rect{r.X + 2, r.Y + 2, int(math.Round(f * float64(r.W-4))), r.H - 4}, brass)
 		return
 	}
 	w, h := track.Bounds().Dx(), track.Bounds().Dy()

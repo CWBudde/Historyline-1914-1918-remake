@@ -10,6 +10,7 @@ import (
 	"io/fs"
 	"os"
 	"path/filepath"
+	"slices"
 )
 
 // Store is the best score per level, keyed by the caller's level name.
@@ -42,6 +43,26 @@ func (s *Store) Best(level string) int {
 	}
 	s.read()
 	return s.best[level]
+}
+
+// Entry is one level's best score, for the score list.
+type Entry struct {
+	Level string
+	Score int
+}
+
+// All is every recorded best, sorted by level.
+func (s *Store) All() []Entry {
+	if s == nil {
+		return nil
+	}
+	s.read()
+	out := make([]Entry, 0, len(s.best))
+	for k, v := range s.best {
+		out = append(out, Entry{k, v})
+	}
+	slices.SortFunc(out, func(a, b Entry) int { return slices.Compare([]string{a.Level}, []string{b.Level}) })
+	return out
 }
 
 // Record keeps score as level's best if it beats the one recorded and reports

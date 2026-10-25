@@ -10,9 +10,10 @@ original size, in the painted style.
 Terrain must remain reusable in different compatible tile arrangements. Match the reference's materials,
 scale and lighting; do not achieve PULSE resemblance by substituting a painting of its exact lake outline.
 
-**Rule sets:** `Classic` (the inherited Python behaviour), `Standard` (Classic with fixes), and the original
-profile in `internal/dosrules`, which is the game's default (`-rules dos`); `Classic` and `Standard` stay
-selectable with `-rules` and keep their tests. Keep them separate; never mix their mechanics.
+**Rule sets:** the original profile in `internal/dosrules`, which is the game's default (`-rules dos`),
+and the remake rules in `internal/game`, selectable with `-rules standard`. The Classic (Python) rule set
+was removed on 2026-10-25 to be rethought from scratch. Keep the two engines separate; never mix their
+mechanics.
 
 This file lists open work only; finished work is in git. Reference: the split battle screen in
 [docs/dos-screen.md](docs/dos-screen.md), packs, grade, light, unit dressing and stamps in
@@ -32,7 +33,7 @@ history.
   shipped levels and the 72 original maps, with a computer side that plays every level to its end.
 - **Front end** (`cmd/historyline`): menus around a battle, camera with zoom, independent UI scale and asset
   density, HiDPI and fullscreen. Under `-rules dos` the original's split screen
-  ([docs/dos-screen.md](docs/dos-screen.md)); under `Classic`/`Standard` the single-map HUD with minimap,
+  ([docs/dos-screen.md](docs/dos-screen.md)); under `-rules standard` the single-map HUD with minimap,
   text info box, placeholder battle panel and banners.
 - **Runtime art**: packs built by `cmd/hlasset` from `assets/index.json`; unit and terrain catalogs with
   context-aware composition (`internal/mapcompose`), graded and lit in the pack build, with scattered crowns
@@ -63,8 +64,8 @@ history.
 - [ ] 1.7 Battle panel with real bars and sprites; explosion sprites; capture/round banners from the interface art.
 - [ ] 1.8 Hot-seat with handover screen and vision isolation.
 - [ ] 1.9 Hand-test move, attack, enter/leave container, capture and end turn; play all three missions under
-      Classic and Standard, both sides, summer/winter; smoke-test desktop and WASM.
-- [ ] 1.10 **Milestone:** all three levels play like the Python version (apart from fixed bugs).
+      Standard, both sides, summer/winter; smoke-test desktop and WASM.
+- [ ] 1.10 **Milestone:** all three levels play end to end under the remake rules.
 
 #### Split screen (`-rules dos`)
 
@@ -85,12 +86,25 @@ The design and what is built: [docs/dos-screen.md](docs/dos-screen.md). Under `-
       - a single-man figure per unit type for the battle scene's ring (the map sprites hold several men);
       - decide whether the slate-and-brass interface candidates move to the steel look; name plates keep
         their brass rivets, which the original's plates have too.
+        (2026-10-25) Decided: steel. The menus now paint the battle screen's steel via
+        `internal/dospanel` tokens (`SteelBackground`/`SteelPlate`/`SteelButton`); the 2×/4× bound
+        exports above remain open.
 - [ ] 1.13 Acceptance: `-capture` frames of all three levels, both sides, next to the reference frames in
       `hlgallery` (local only, the references stay ignored); 720p–4K, UI scales; summer and winter. Check
       attack targets and which panel shows the battle against further battle frames. Hand test in a window
       that the OS pointer hides over the human side's map.
 
 ### 2. Art completion and acceptance
+
+**Art freeze (2026-10-25):** the current candidate art is accepted as-is as the freeze baseline. 178 of 182
+indexed families carry `prompt.md` status `approved` (regenerated via `just art-index`; `just art-check`
+passes). This records acceptance of the current masters, not passage of the Look targets below: 2.1–2.11 and
+Look 0–Look 8 remain open and paused under this freeze, and Look 9 L9.1–L9.3 stay unticked. The four
+unbound screen families `capture`, `intermission`, `production-repair` and `surface` stay `candidate`: they
+have no `runtime_ids`, so approving them would fail `just art-check` (the source-only exemption covers
+`candidate` screen/portrait families only); they follow 2.4 once their features and bindings exist. Runtime
+packs are unaffected and stay `candidate` (their status is never inferred from `prompt.md` status). A future
+Look replacement sets the replaced family back to `candidate`/`revised` on new-master install.
 
 - [ ] 2.1 Bring the terrain to the target look in the order of "Terrain look: order of work" below.
       Direction, targets and prompts: [art/direction.md](art/direction.md).
@@ -505,7 +519,9 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       `build/review/`, checked by hand after the Look 7 and Look 8 replacements.
 - [ ] L9.3 The game window (`just play`) at zoom 0.75, 1 and 2, at 1080p and 4K and HiDPI, on PULSE, Civil,
       Mouse and four campaign maps, including a summer and a winter map from both campaigns.
-- [ ] L9.4 `prompt.md` status `approved` per family.
+- [x] L9.4 `prompt.md` status `approved` per family — done for 178 of 182 families under the art freeze
+      above (evidence: `just art-index`, `just art-check` → `art: ok`); the 4 unbound screen families
+      (`capture`, `intermission`, `production-repair`, `surface`) remain `candidate` pending 2.4 bindings.
 
 ### 3. Original rules profile
 
@@ -536,7 +552,11 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
 
 ### 5. Content
 
-- [ ] 5.1 Briefings, campaign progression, level codes.
+- [x] 5.1 Briefings, campaign progression, level codes.
+      (2026-10-25) Campaign progression over the shipped levels and the 72 original maps and level codes
+      are built and test-pinned (`TestCampaignBriefingsAndPlayers`, `TestVictorySelectsTheNextMap`); the
+      loading page shows a one-line briefing derived from the map's facts.
+- [ ] 5.1a Authored briefing texts per map (the shipped briefings are one-line derivations).
 - [ ] 5.2 The level format lacks transporter cargo, ship rears, terrain records that share a look, and
       credits (the original rules keep the exact binding through `dosbind.FromOriginal`).
       2026-10-24: under the original rules a two-cell ship draws as one long sprite across its head and
@@ -553,8 +573,10 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
 - [ ] 6.1 Screens: title, side/mission selection, briefing/campaign, options, pause, save/load, handover,
       victory/defeat, credits, with hover/focus/pressed/disabled states and keyboard navigation. Built: the
       original's main menu (start, map code, game values, control, extras), country selection, loading,
-      victory/defeat and leave-battle pages (`hlasset build-screens`, `-screens`). Remaining:
-      briefing/campaign, save/load, handover, credits/help, score list.
+      victory/defeat and leave-battle pages (`hlasset build-screens`, `-screens`).
+      (2026-10-25) Built since: save/load (SAVE AND LEAVE / LOAD GAME under `-rules dos`, `internal/saves`,
+      `TestSaveLoadWiring`) and the score list (EXTRAS). Remaining: briefing/campaign screens, handover,
+      credits/help.
 - [ ] 6.2 Sound and music (`ebiten/audio`).
 - [ ] 6.3 Map editor (`-edit` or `cmd/hlmapedit`) with tile/infra/unit/container palettes and a new-map wizard.
 - [ ] 6.4 WASM build on GitHub Pages; release binaries via GoReleaser.

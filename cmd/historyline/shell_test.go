@@ -1,11 +1,15 @@
 package main
 
 import (
+	"path/filepath"
 	"strings"
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/saves"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scores"
 )
 
 var shellSet *data.Set
@@ -56,6 +60,90 @@ func TestCampaignOrderAndCodes(t *testing.T) {
 	}
 }
 
+func TestCampaignBriefingsAndPlayers(t *testing.T) {
+	s := testShell(t)
+	if len(s.maps) != 75 {
+		t.Fatalf("maps %d", len(s.maps))
+	}
+	for i, m := range s.maps {
+		if m.briefing == "" {
+			t.Errorf("map %d %s: no briefing", i, m.name)
+		}
+	}
+	if s.maps[3+23].next != -1 || s.maps[3+47].next != -1 || s.maps[3+71].next != -1 {
+		t.Error("campaign ends should have no next")
+	}
+	if s.maps[3+48].players != 2 || len(s.maps[3+48].humanSides) != 2 {
+		t.Errorf("map 48 players %d sides %v", s.maps[3+48].players, s.maps[3+48].humanSides)
+	}
+	if !strings.Contains(s.maps[3+48].briefing, "two-player map") || !strings.Contains(s.maps[3+48].briefing, "not in v1") && !strings.Contains(s.maps[3+48].briefing, "in v1") {
+		t.Errorf("2P briefing %q", s.maps[3+48].briefing)
+	}
+}
+
+func TestSaveLoadWiring(t *testing.T) {
+	s := testShell(t)
+	set := testSet(t)
+	// A real dos battle saved through the app callback loads via LOAD GAME.
+	sess, err := dosplay.New(s.maps[0].lvl, set, dosplay.Options{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	store := saves.OpenFile(filepath.Join(t.TempDir(), "save.json"))
+	scoreStore := scores.OpenFile(filepath.Join(t.TempDir(), "scores.json"))
+	if _, err := scoreStore.Record("PULSE", 42); err != nil {
+		t.Fatal(err)
+	}
+	s.saves, s.scores, s.saveBattle = store, scoreStore, func() error {
+		data, err := sess.Save()
+		if err != nil {
+			return err
+		}
+		return store.Put(saves.Envelope{Map: s.maps[s.code].name, Side: 0, Data: data})
+	}
+	// EXTRAS: LOAD starts disabled (no save), SCORE LIST opens.
+	s.open(pageExtras)
+	if !s.buttons()[1].off {
+		t.Fatal("LOAD GAME enabled without a save")
+	}
+	s.activate(0)
+	if s.page != pageScores || len(s.scoreList) != 1 || s.scoreList[0].Score != 42 {
+		t.Fatalf("scores page %d list %v", s.page, s.scoreList)
+	}
+	s.key(keyBack)
+	// SAVE AND LEAVE on the leave page writes the slot and returns to main.
+	s.open(pageLeave)
+	s.activate(1)
+	if s.page != pageMain || !store.Has() {
+		t.Fatalf("after save: page %d has %v", s.page, store.Has())
+	}
+	// LOAD GAME now resumes: config carries the saved bytes once.
+	s.open(pageExtras)
+	if s.buttons()[1].off {
+		t.Fatal("LOAD GAME disabled with a save")
+	}
+	s.activate(1)
+	if s.page != pageLoading {
+		t.Fatalf("load page %d", s.page)
+	}
+	c := s.config(matchConfig{rules: "dos", set: set})
+	if c.saved == nil || c.lvl != s.maps[0].lvl {
+		t.Fatalf("loaded config saved %v lvl %v", c.saved != nil, c.lvl)
+	}
+	if _, err := dosplay.Load(c.lvl, set, c.saved); err != nil {
+		t.Fatal(err)
+	}
+	if s.config(matchConfig{rules: "dos"}).saved != nil {
+		t.Fatal("pending save was not consumed")
+	}
+	// An app with a battle saves through saveCurrentBattle.
+	gm := newDosGame(s.maps[0].lvl, sess, 0, passPlanner{}, false)
+	a := &app{shell: s, base: matchConfig{saves: store, rules: "dos"}, battle: gm, press: -1}
+	if err := a.saveCurrentBattle(); err != nil {
+		t.Fatal(err)
+	}
+}
+
 func TestMainMenuNavigationWraps(t *testing.T) {
 	s := testShell(t)
 	if s.focus != 0 || s.buttons()[0].label != "START" {
@@ -77,12 +165,16 @@ func TestDisabledRowsAreSkippedAndInert(t *testing.T) {
 	if s.page != pageValues {
 		t.Fatalf("page %d", s.page)
 	}
+	s.key(keyDown) // RULES -> BATTLES
+	if got := s.buttons()[s.focus].label; got != "BATTLES  FULL" {
+		t.Fatalf("down from RULES: %q", got)
+	}
 	s.key(keyDown) // PLAYER A is disabled
 	if got := s.buttons()[s.focus].label; got != "PLAYER B  COMPUTER" {
 		t.Fatalf("down from BATTLES: %q", got)
 	}
-	s.activate(1)
-	if s.page != pageValues || s.buttons()[1].label != "PLAYER A  HUMAN" {
+	s.activate(2)
+	if s.page != pageValues || s.buttons()[2].label != "PLAYER A  HUMAN" {
 		t.Fatal("disabled row did something")
 	}
 	s.key(keyBack)
@@ -133,9 +225,23 @@ func TestCodeEntry(t *testing.T) {
 func TestGameValuesMakeTheMatch(t *testing.T) {
 	s := testShell(t)
 	s.activate(2)
-	s.activate(0) // battles short
-	s.activate(2) // player B passive
-	s.activate(4) // 5 moves a phase
+	// The rules row cycles dos (default) -> standard -> dos,
+	// and config carries the choice while the base says otherwise.
+	if got := s.buttons()[0].label; got != "RULES  ORIGINAL (DOS)" {
+		t.Fatalf("rules row %q", got)
+	}
+	for _, want := range []string{"standard", "dos"} {
+		s.activate(0)
+		if c := s.config(matchConfig{rules: "standard"}); c.rules != want {
+			t.Fatalf("cycled rules %q, want %q", c.rules, want)
+		}
+	}
+	if got := s.buttons()[0].label; got != "RULES  ORIGINAL (DOS)" {
+		t.Fatalf("rules row after cycle %q", got)
+	}
+	s.activate(1) // battles short
+	s.activate(3) // player B passive
+	s.activate(5) // 5 moves a phase
 	s.key(keyBack)
 	s.activate(3) // control
 	s.activate(1) // scrolling fast
@@ -158,6 +264,33 @@ func TestGameValuesMakeTheMatch(t *testing.T) {
 	s.code = 3 + 6
 	if c := s.config(matchConfig{rules: "dos"}); c.lvl != s.maps[9].lvl || c.board == nil || c.board != s.maps[9].board {
 		t.Fatalf("original map config %+v", c)
+	}
+}
+
+func TestRulesChoiceStartsBothEngines(t *testing.T) {
+	s := testShell(t)
+	set := testSet(t)
+	s.open(pageValues)
+	for _, want := range []string{"dos", "standard"} {
+		for s.rules != want {
+			s.cycleRules()
+		}
+		c := s.config(matchConfig{set: set, opponent: "pass"})
+		c.player = s.levelSide()
+		gm, err := newMatch(c, nil)
+		if err != nil {
+			t.Fatalf("%s: %v", want, err)
+		}
+		if want == "dos" && gm.dos == nil {
+			t.Fatalf("%s: no dos session", want)
+		}
+		if want != "dos" && gm.state == nil {
+			t.Fatalf("%s: no remake state", want)
+		}
+	}
+	// The removed Classic (Python) mode stays rejected.
+	if _, err := newMatch(matchConfig{set: set, rules: "classic"}, nil); err == nil {
+		t.Error("classic rules accepted")
 	}
 }
 
@@ -204,7 +337,7 @@ func TestLeaveBattle(t *testing.T) {
 		t.Fatalf("escape: page %d", s.page)
 	}
 	s.open(pageLeave)
-	s.activate(1)
+	s.activate(2) // LEAVE (SAVE AND LEAVE is disabled without a battle)
 	if s.page != pageMain {
 		t.Fatalf("leave: page %d", s.page)
 	}

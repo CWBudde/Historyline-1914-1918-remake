@@ -31,6 +31,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/minimap"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/saves"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scores"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
 	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
@@ -666,7 +667,7 @@ func (g *game) drawHexNumbers(dst *ebiten.Image, vx, vy, vw, vh float64) {
 
 // drawOverlays tints the hexes the selected unit may reach (blue) or attack
 // (red) and outlines the selection, all taken from the rules engine's queries
-// (Classic, Standard; -rules dos darkens what is out of reach instead).
+// (the remake rules; -rules dos darkens what is out of reach instead).
 func (g *game) drawOverlays(dst *ebiten.Image) {
 	ui := g.drv().ui()
 	if !ui.selected {
@@ -750,7 +751,7 @@ type matchConfig struct {
 	board      *dosbind.Board // an original map's exact binding (loadMap); nil binds lvl
 	set        *data.Set
 	player     state.Player // the human side, whose view is shown
-	rules      string       // dos, standard or classic
+	rules      string       // dos (default, original) or standard (the remake rules)
 	opponent   string       // ai or pass
 	limit      int          // dos: orders per phase, 0 for no limit
 	reveal     bool
@@ -760,6 +761,8 @@ type matchConfig struct {
 	units      *artPacks     // shared by every battle; nil draws placeholder dots
 	screens    *screenArt    // the screen catalog for the portraits; nil shows blank photos
 	scores     *scores.Store // the best scores, opened once; nil keeps none
+	saves      *saves.Store  // the single saved battle; nil keeps none
+	saved      []byte        // a saved battle to resume (dos only); nil starts fresh
 	terrain    string        // terrain catalog directory, composed per level; "" draws coloured hexes
 	terrainHD  string        // full-quality terrain catalog loaded in the background of a battle; "" for none
 	candidates bool          // allow candidate terrain packs
@@ -778,21 +781,30 @@ func newMatch(c matchConfig, m *meter) (*game, error) {
 		}
 		var s *dosplay.Session
 		var err error
-		if c.board != nil {
+		switch {
+		case c.saved != nil && c.board != nil:
+			s, err = dosplay.LoadBoard(c.board, c.lvl, c.set, c.saved)
+		case c.saved != nil:
+			s, err = dosplay.Load(c.lvl, c.set, c.saved)
+		case c.board != nil:
 			s, err = dosplay.NewBoard(c.board, c.lvl, c.set, o)
-		} else {
+		default:
 			s, err = dosplay.New(c.lvl, c.set, o)
 		}
 		if err != nil {
 			return nil, err
 		}
-		gm = newDosGame(c.lvl, s, s.SideOf(c.player), planner, c.reveal)
-	case "standard", "classic":
-		r := state.Standard
-		if c.rules == "classic" {
-			r = state.Classic
+		if c.saved != nil {
+			// The save carries Computer flags and the limit; the planner
+			// follows the other side's flag.
+			planner = passPlanner{}
+			if s.Game.Players[1-s.SideOf(c.player)].Computer {
+				planner = computerPlanner()
+			}
 		}
-		st, err := state.NewWithRules(c.lvl, c.set, r)
+		gm = newDosGame(c.lvl, s, s.SideOf(c.player), planner, c.reveal)
+	case "standard":
+		st, err := state.New(c.lvl, c.set)
 		if err != nil {
 			return nil, err
 		}
@@ -801,7 +813,7 @@ func newMatch(c matchConfig, m *meter) (*game, error) {
 			gm.ctl.ai = &ai.Planner{}
 		}
 	default:
-		return nil, fmt.Errorf("unknown -rules %q (want dos, standard or classic)", c.rules)
+		return nil, fmt.Errorf("unknown -rules %q (want dos or standard)", c.rules)
 	}
 	gm.hexNumbers = c.hexNumbers
 	gm.drv().SetReducedMotion(c.reduced)
@@ -827,14 +839,14 @@ func main() {
 	name := flag.String("level", "level1_cp", "shipped level to load from levels/ (name without .json), or original/NN for an imported original map (its campaign level); skips the menu")
 	dir := flag.String("levels", "levels", "directory with the level files")
 	side := flag.String("player", "", "side the player plays and whose view is shown: central, entente (default: the level's side); skips the menu")
-	rules := flag.String("rules", "dos", "rule set: dos (the original order cycle), standard or classic")
+	rules := flag.String("rules", "dos", "rule set: dos (default: the original order cycle) or standard (the remake rules)")
 	reveal := flag.Bool("reveal", false, "dev: show the whole map, ignoring fog of war (dos: every unit where its own side sees it)")
 	hexNumbers := flag.Bool("hexnumbers", false, "dev: print line,col on every hex")
 	reduced := flag.Bool("reduced-motion", false, "walk instantly and show short static effects (toggle in game with M)")
 	units := flag.String("units", "", "unit sprite catalog built by hlasset build-units (default: placeholder dots)")
 	terrain := flag.String("terrain", "", "terrain tile catalog built by hlasset build-terrain (default: coloured hexes)")
 	screens := flag.String("screens", "", "screen catalog built by hlasset build-screens (default: plain menu panels)")
-	opponent := flag.String("opponent", "ai", "who plays the other side: ai (computer opponent) or pass (passes every turn, as in Python)")
+	opponent := flag.String("opponent", "ai", "who plays the other side: ai (computer opponent) or pass (passes every turn)")
 	unitsHD := flag.String("units-hd", "", "web: full-quality unit catalog, loaded in the background when the -units catalog downloaded fast")
 	terrainHD := flag.String("terrain-hd", "", "web: full-quality terrain catalog, loaded in the background of a battle when the -units catalog downloaded fast")
 	screensHD := flag.String("screens-hd", "", "web: full-quality screen catalog, loaded in the background when the -units catalog downloaded fast")
@@ -855,11 +867,11 @@ func main() {
 	if *opponent != "ai" && *opponent != "pass" {
 		log.Fatalf("unknown -opponent %q (want ai or pass)", *opponent)
 	}
-	if *rules != "dos" && *rules != "standard" && *rules != "classic" {
-		log.Fatalf("unknown -rules %q (want dos, standard or classic)", *rules)
+	if *rules != "dos" && *rules != "standard" {
+		log.Fatalf("unknown -rules %q (want dos or standard)", *rules)
 	}
 	c := matchConfig{set: set, rules: *rules, opponent: *opponent, reveal: *reveal, hexNumbers: *hexNumbers,
-		reduced: *reduced, terrain: *terrain, candidates: *candidates, scores: scores.Open()}
+		reduced: *reduced, terrain: *terrain, candidates: *candidates, scores: scores.Open(), saves: saves.Open()}
 	// The web page shows how much of the art has arrived until the game starts.
 	boot := &meter{fetched: pageFetched}
 	if *units != "" {

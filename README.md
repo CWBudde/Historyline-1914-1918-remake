@@ -39,11 +39,17 @@ just clean      # delete all generated output under build/
 The game opens with a main menu laid out like the original's: start (country selection, then the battle),
 the map code (PULSE, CIVIL, MOUSE, then the original maps by their passwords or numbers 00-71; a victory
 sets the next one), game values (full or short battles, the computer or a passive opponent, a move limit),
-control (fullscreen, scrolling) and extras (not available yet). In battle, Q asks whether to leave it; after its end Enter shows the outcome. `-level` or `-player`
+control (fullscreen, scrolling) and extras (the score list, and LOAD GAME for the one saved battle).
+The loading page shows a one-line briefing derived from the map (side, season, two-player maps).
+In battle, Q asks whether to leave it — STAY, SAVE AND LEAVE (one slot, `-rules dos` only, continued
+via EXTRAS → LOAD GAME) or LEAVE; after its end Enter shows the outcome. `-level` or `-player`
 skip the menu and start that battle directly.
 
+v1 is one-player: two human players are not in v1. Maps 48-71 are two-player maps in the original;
+here you play one side against the computer or a passive opponent.
+
 `-rules` picks the rule set (pass it after `just run` or `just play`): `dos` (default), the original order
-cycle, `standard` or `classic` (the Python version's rules). In `dos` both sides give their orders at the same
+cycle, or `standard`, the remake rules. In `dos` both sides give their orders at the same
 time: in the movement phase click an own unit and a blue hex, in the action phase an own unit and a red hex
 (a queued attack), click an own building for its contents, F1 confirms (again: reopens); once both sides
 have confirmed the resolution plays back and the phases swap. `-player central|entente` picks the side,
