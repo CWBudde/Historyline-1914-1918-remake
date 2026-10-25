@@ -14,7 +14,7 @@ import (
 )
 
 func TestPulseRejectsInvalidCaptureCollection(t *testing.T) {
-	lvl, err := level.Load("../../levels/level1_cp.json")
+	lvl, err := level.Load("../../art/reference/pulse/level.json")
 	if err != nil {
 		t.Fatal(err)
 	}

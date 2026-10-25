@@ -113,7 +113,7 @@ var owners = [3]game.Player{game.CentralPowers, game.Entente, game.None}
 
 // Level is the view of an imported map. MapName is the map's file stem
 // ("05", "STATMAP"), MapNo its number plus one (-1 when the stem is none),
-// as the shipped levels count (level1_cp is map 00), Player the first human
+// as the legacy levels count (the Python PULSE is map 00), Player the first human
 // side (Central Powers without a mission). An unknown terrain record,
 // building owner or human side is an error.
 func Level(l *finmap.Level) (*level.Level, error) {

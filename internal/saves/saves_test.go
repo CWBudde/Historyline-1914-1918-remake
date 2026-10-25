@@ -20,10 +20,10 @@ func TestPutGetRoundTrip(t *testing.T) {
 		t.Fatalf("got %+v ok %v", got, ok)
 	}
 	// Single slot: a second Put replaces the first.
-	if err := s.Put(Envelope{Map: "level1_cp", Side: 0, Data: []byte{9}}); err != nil {
+	if err := s.Put(Envelope{Map: "monthly/1914-08-pulse:cp", Side: 0, Data: []byte{9}}); err != nil {
 		t.Fatal(err)
 	}
-	if got, _ := s.Get(); got.Map != "level1_cp" {
+	if got, _ := s.Get(); got.Map != "monthly/1914-08-pulse:cp" {
 		t.Fatalf("replaced with %q", got.Map)
 	}
 	var nilStore *Store

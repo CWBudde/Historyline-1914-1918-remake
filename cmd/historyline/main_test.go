@@ -11,7 +11,7 @@ import (
 
 // The browser build has no levels directory; the embedded copies must load.
 func TestLoadLevelEmbeddedFallback(t *testing.T) {
-	for _, name := range []string{"level1_cp", "level2_cp", "level3_cp"} {
+	for _, name := range []string{"monthly/1914-08-pulse:cp", "monthly/1914-10-civil:cp", "monthly/1914-12-mouse:cp"} {
 		if _, err := loadLevel(t.TempDir(), name); err != nil {
 			t.Errorf("%s: %v", name, err)
 		}
@@ -41,9 +41,14 @@ func TestFogPolicy(t *testing.T) {
 	}
 }
 
+// pythonPulse is the Python remake's PULSE (internal/level's fixture), a
+// German unit within reach of the enemy at the start, which advancing on
+// the enemy wins.
+const pythonPulse = "../../internal/level/testdata/pulse.json"
+
 func newTestControl(t *testing.T) *control {
 	t.Helper()
-	lvl, err := loadLevel("", "level1_cp")
+	lvl, err := loadLevel("", pythonPulse)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -75,7 +80,7 @@ func TestControlSelectMoveAndEndTurn(t *testing.T) {
 	c := newTestControl(t)
 	movers := ownMovers(c)
 	if len(movers) == 0 {
-		t.Fatal("no movable own unit in level1_cp")
+		t.Fatal("no movable own unit in PULSE")
 	}
 	from := movers[0]
 	u := c.st.At(from).Unit
@@ -183,7 +188,7 @@ func TestWeaponMenu(t *testing.T) {
 			}
 		}
 	}
-	t.Skip("level1_cp has no unit with a target at the start")
+	t.Skip("PULSE has no unit with a target at the start")
 }
 
 func TestWeaponMenuRejectsUnusable(t *testing.T) {
@@ -221,7 +226,7 @@ func ownBuilding(t *testing.T, c *control) (hexgrid.Coord, *state.Unit) {
 			return at, u
 		}
 	}
-	t.Skip("level1_cp has no visible own building without a unit")
+	t.Skip("PULSE has no visible own building without a unit")
 	return hexgrid.Coord{}, nil
 }
 
@@ -280,7 +285,7 @@ func slicesContains(us []*state.Unit, u *state.Unit) bool {
 // on a hex the player cannot see now is never drawn from live state.
 func TestRememberedUnitShown(t *testing.T) {
 	c := newTestControl(t)
-	lvl, err := loadLevel("", "level1_cp")
+	lvl, err := loadLevel("", "monthly/1914-08-pulse:cp")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -309,7 +314,7 @@ func TestRememberedUnitShown(t *testing.T) {
 		}
 	}
 	if !found {
-		t.Fatal("no hidden enemy with a free hidden neighbour in level1_cp")
+		t.Fatal("no hidden enemy with a free hidden neighbour in PULSE")
 	}
 	if shown, _ := g.unitShown(enemy); shown {
 		t.Fatal("hidden enemy drawn")
@@ -344,7 +349,7 @@ func TestRememberedUnitShown(t *testing.T) {
 
 func TestOwnerShown(t *testing.T) {
 	c := newTestControl(t)
-	lvl, err := loadLevel("", "level1_cp")
+	lvl, err := loadLevel("", "monthly/1914-08-pulse:cp")
 	if err != nil {
 		t.Fatal(err)
 	}

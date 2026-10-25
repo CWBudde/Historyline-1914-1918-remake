@@ -34,7 +34,7 @@ func TestPULSELakeUsesReusableTerrainTiles(t *testing.T) {
 			have[entry.ID] = true
 		}
 	}
-	g, at := loadLevel(t, "level1_cp")
+	g, at := loadLevel(t, pythonPulse)
 	s := Compose(g, at, func(id string) bool { return have[id] })
 	for _, cell := range []struct {
 		line, col  int
@@ -148,7 +148,7 @@ func TestStampVariantsMixEvenCoordinatesAndRemainStable(t *testing.T) {
 }
 
 func TestPULSENorthAndSouthCraterVariants(t *testing.T) {
-	g, at := loadLevel(t, "level1_cp")
+	g, at := loadLevel(t, pythonPulse)
 	const shape = "4_-1.1_1.1_0.2"
 	one, two := StampID("crater", shape, 1), StampID("crater", shape, 2)
 	s := Compose(g, at, func(id string) bool { return id == one || id == two })

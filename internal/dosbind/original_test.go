@@ -39,16 +39,11 @@ type unitDeviation struct{ Cell, Original, Bound int }
 // map's.
 var knownUnits = map[string][]unitDeviation{
 	"Pulse": {{226, 27, 23}, {277, 0xFF, 36}},
-	"Civil": {{132, 0xFF, 27}, {134, 0xFF, 45}, {226, 0xFF, 27}, {230, 27, 0xFF}},
-	"Mouse": {{92, 52, 0xFF}},
 }
 
 // knownContent are the building records whose units in the level differ
 // from the original scenario's: the original's types by record.
-var knownContent = map[string]map[int][]int{
-	"Civil": {82: {21, 21, 11, 18, 18, 17}, 85: {11, 18, 18, 17}},
-	"Mouse": {83: {12, 10, 18, 18, 18, 18}},
-}
+var knownContent = map[string]map[int][]int{}
 
 func unpack(t *testing.T, name string) []byte {
 	t.Helper()
@@ -70,16 +65,16 @@ func equivalent(a, b int) bool {
 	return m.Terrains[a] == m.Terrains[b] && m.Winter[a] == m.Winter[b]
 }
 
-// TestBindMatchesOriginalMaps checks every bound level against its original
-// map (mapNo-1): the terrain record of every cell, the unit on every cell
+// TestBindMatchesOriginalMaps checks the Python remake's PULSE against its
+// original map (mapNo-1): the terrain record of every cell, the unit on every cell
 // (the map's occupant byte is 2*type + side), and the building records of
 // the scenario file (per record: side, table, index, credits, a number not
 // bound, seven unit types; before them a byte per type, 0 where the
 // factories build it).
 func TestBindMatchesOriginalMaps(t *testing.T) {
-	for _, lv := range shipped(t) {
-		b := bind(t, lv)
-		name := fmt.Sprintf("MAP/%02d", lv.MapNo-1)
+	for _, lv := range []testLevel{pythonPulse(t)} {
+		b := bind(t, lv.Level)
+		name := fmt.Sprintf("MAP/%02d", lv.Map)
 		fin := unpack(t, name+".FIN")
 		w, h := int(fin[1]), int(fin[3])
 		cells := fin[4:]

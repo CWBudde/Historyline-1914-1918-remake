@@ -286,7 +286,7 @@ func TestPhaseSequenceOrder(t *testing.T) {
 }
 
 func TestPhaseSequencePlanningAfter(t *testing.T) {
-	d := newDosTest(t, "level1_cp", computerPlanner())
+	d := newDosTest(t, "monthly/1914-08-pulse:cp", computerPlanner())
 	opp := 1 - d.side
 	tickUntil(t, d, func() bool { return d.s.Ready(opp) })
 	confirmOrders(t, d)
@@ -311,7 +311,7 @@ func TestPhaseSequencePlanningAfter(t *testing.T) {
 }
 
 func TestPhaseSequenceReduced(t *testing.T) {
-	d := newDosTest(t, "level1_cp", approachPlanner{})
+	d := newDosTest(t, "monthly/1914-08-pulse:cp", approachPlanner{})
 	d.SetReducedMotion(true)
 	toBattles(t, d)
 	labels, frames := sequence(t, d, nil)
@@ -477,7 +477,7 @@ func inFrozen(d *dosControl, index int) (dosplay.UnitView, bool) {
 }
 
 func TestBattleDrop(t *testing.T) {
-	d := newDosTest(t, "level1_cp", passPlanner{})
+	d := newDosTest(t, "monthly/1914-08-pulse:cp", passPlanner{})
 	atk, def := battleOn(t, d)
 	f := d.fight
 	if def.Size < 2 {
@@ -528,7 +528,7 @@ func TestBattleDrop(t *testing.T) {
 
 	// Skipping the battle, or its end, lands it all and drops the destroyed
 	// unit at once.
-	d = newDosTest(t, "level1_cp", passPlanner{})
+	d = newDosTest(t, "monthly/1914-08-pulse:cp", passPlanner{})
 	atk, def = battleOn(t, d)
 	d.SkipScene()
 	if _, ok := inFrozen(d, def.Index); ok || d.stage != stageNone {
@@ -537,7 +537,7 @@ func TestBattleDrop(t *testing.T) {
 	if u, _ := inFrozen(d, atk.Index); u.Size != atk.Size-1 || u.Exp != atk.Exp+1 {
 		t.Errorf("skipped: attacker %+v, want size %d exp %d", u, atk.Size-1, atk.Exp+1)
 	}
-	d = newDosTest(t, "level1_cp", passPlanner{})
+	d = newDosTest(t, "monthly/1914-08-pulse:cp", passPlanner{})
 	_, def = battleOn(t, d)
 	for !d.fight.struck {
 		d.tickStage()

@@ -60,7 +60,7 @@ func (c *collector) pulseImage(im image.Image, source, method string) (picture, 
 }
 
 func (c *collector) pulse(captures string) error {
-	raw, err := c.read("levels/level1_cp.json")
+	raw, err := c.read("art/reference/pulse/level.json")
 	if err != nil {
 		return err
 	}
@@ -115,7 +115,7 @@ func (c *collector) pulse(captures string) error {
 }
 
 func (c *collector) pulseDensity(images map[string]picture, im *image.NRGBA, density int, method string) error {
-	p, err := c.pulseImage(im, "levels/level1_cp.json + assets/index.json", fmt.Sprintf("%s; authored %dx exports", method, density))
+	p, err := c.pulseImage(im, "art/reference/pulse/level.json + assets/index.json", fmt.Sprintf("%s; authored %dx exports", method, density))
 	if err != nil {
 		return err
 	}

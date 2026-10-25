@@ -1,9 +1,8 @@
 package dosbind
 
 import (
+	"errors"
 	"fmt"
-	"os"
-	"path/filepath"
 	"slices"
 	"testing"
 
@@ -12,6 +11,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/finmap"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/origmaps"
 )
 
 // TestPlayableCutsTheEdge checks Board.Playable on imported maps and the
@@ -26,7 +26,7 @@ func TestPlayableCutsTheEdge(t *testing.T) {
 		boards, names = append(boards, b), append(names, fmt.Sprintf("map %02d", n))
 	}
 	for _, lv := range shipped(t) {
-		boards, names = append(boards, bind(t, lv)), append(names, lv.MapName)
+		boards, names = append(boards, bind(t, lv.Level)), append(names, lv.MapName)
 	}
 	for k, b := range boards {
 		p := b.Playable()
@@ -53,14 +53,14 @@ func TestPlayableCutsTheEdge(t *testing.T) {
 	}
 }
 
-// importedMap reads the imported original map n (levels/original/full).
+// importedMap reads original map n from the local original files; the
+// test is skipped without them.
 func importedMap(t *testing.T, n int) *finmap.Level {
 	t.Helper()
-	raw, err := os.ReadFile(filepath.Join("../../levels/original/full", fmt.Sprintf("%02d.json", n)))
-	if err != nil {
-		t.Fatal(err)
+	l, err := origmaps.Map(fmt.Sprintf("%02d", n))
+	if errors.Is(err, origmaps.ErrNotFound) {
+		t.Skip("no original files")
 	}
-	l, err := finmap.Parse(raw)
 	if err != nil {
 		t.Fatalf("map %02d: %v", n, err)
 	}
@@ -221,15 +221,15 @@ func TestFromOriginalImportedMaps(t *testing.T) {
 // game (and the imported map): the game numbers depots and factories by
 // their entrances in cell order, Bind by the buildings' first cells. The
 // bound record by the imported one.
-var knownNumbering = map[string]map[int]int{"Mouse": {83: 84, 84: 83}}
+var knownNumbering = map[string]map[int]int{}
 
-// TestFromOriginalMatchesBind compares the building records of the shipped
-// levels with those of their original maps.
+// TestFromOriginalMatchesBind compares the building records of the Python
+// remake's PULSE with those of its original map.
 func TestFromOriginalMatchesBind(t *testing.T) {
 	set := loadSet(t)
-	for _, lv := range shipped(t) {
-		bound := bind(t, lv)
-		_, b := fromOriginal(t, lv.MapNo-1, set)
+	for _, lv := range []testLevel{pythonPulse(t)} {
+		bound := bind(t, lv.Level)
+		_, b := fromOriginal(t, lv.Map, set)
 		n := 0
 		for i, o := range b.Holds {
 			if i < dosrules.HoldFlag40 {

@@ -1,13 +1,11 @@
 package main
 
 import (
-	"io/fs"
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
-	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
 )
 
 // Removing a campaign context from the retained index must fail even when
@@ -23,19 +21,12 @@ func TestCampaignContextExportsPresent(t *testing.T) {
 			have[e.ID] = true
 		}
 	}
-	names, err := fs.Glob(levels.FS, "*.json")
+	shipped, err := scenario.Shipped(scenario.CP)
 	if err != nil {
 		t.Fatal(err)
 	}
-	for _, name := range names {
-		b, err := fs.ReadFile(levels.FS, name)
-		if err != nil {
-			t.Fatal(err)
-		}
-		l, err := level.Parse(b)
-		if err != nil {
-			t.Fatal(err)
-		}
+	for _, sh := range shipped {
+		name, l := sh.Name, sh.Level
 		s := mapcompose.Compose(l.Grid(), func(c hexgrid.Coord) mapcompose.Hex {
 			h := l.Lines[c.Line][c.Col]
 			return mapcompose.Hex{Terrain: h.Terrain, Infra: h.Infra.IDs}

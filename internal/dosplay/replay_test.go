@@ -49,7 +49,7 @@ func played(t *testing.T, lv *level.Level, o Options) (*Session, []Event) {
 	evs = append(evs, s.Unconfirm(0)...)
 	evs = append(evs, s.Unconfirm(0)...) // not confirmed: no command
 	evs = append(evs, cycle(t, s, approach)...)
-	if lv.MapName == "Civil" {
+	if lv.MapName == "CIVIL" {
 		evs = append(evs, repairBuild(t, s)...)
 	}
 	for range 2 {
@@ -86,7 +86,7 @@ func TestReplay(t *testing.T) {
 		if n := countKind(cmds, CmdUnconfirm); n != 1 {
 			t.Errorf("%s: %d withdrawals logged, want 1", lv.MapName, n)
 		}
-		if lv.MapName == "Civil" && (countKind(cmds, dosrules.CmdRepair) == 0 || countKind(cmds, dosrules.CmdBuild) == 0) {
+		if lv.MapName == "CIVIL" && (countKind(cmds, dosrules.CmdRepair) == 0 || countKind(cmds, dosrules.CmdBuild) == 0) {
 			t.Errorf("%s: no repair or build logged", lv.MapName)
 		}
 		b := session(t, lv, o)

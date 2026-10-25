@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"slices"
 	"strings"
 	"testing"
@@ -29,7 +30,7 @@ func hexWith(t *testing.T, g *game, ok func(hexgrid.Coord, *state.Hex) bool) hex
 			}
 		}
 	}
-	t.Fatal("no such hex in level1_cp")
+	t.Fatal("no such hex in PULSE")
 	return hexgrid.Coord{}
 }
 
@@ -89,9 +90,11 @@ func TestInfoSeenHexShowsOnlyMemory(t *testing.T) {
 	if g.fogOf(enemy) != state.Seen {
 		t.Skipf("enemy hex is %v; another own unit sees it", g.fogOf(enemy))
 	}
-	g.state.At(enemy).Unit.Size = 3 // changes after the player looked away
+	u := g.state.At(enemy).Unit
+	seen := u.Size
+	u.Size = seen%6 + 1 // changes after the player looked away
 	lines := strings.Join(g.infoLines(), "\n")
-	if !strings.Contains(lines, "last seen") || !strings.Contains(lines, "size 6") || strings.Contains(lines, "fuel") {
+	if !strings.Contains(lines, "last seen") || !strings.Contains(lines, fmt.Sprintf("size %d", seen)) || strings.Contains(lines, "fuel") {
 		t.Errorf("seen enemy: %q", lines)
 	}
 }

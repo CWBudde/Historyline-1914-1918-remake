@@ -2,25 +2,30 @@ package mapcompose
 
 import (
 	"fmt"
-	"io/fs"
 	"slices"
 	"strings"
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
-	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
 
+// pythonPulse is the Python remake's PULSE (internal/level's fixture), the
+// map of the PULSE reference design (art/reference/pulse).
+const pythonPulse = "../level/testdata/pulse"
+
+// loadLevel is a setup of a shipped scenario ("monthly/1914-08-pulse:cp"), or
+// a level file of the legacy format (pythonPulse), as a grid and its hexes.
 func loadLevel(t *testing.T, name string) (hexgrid.Grid, func(hexgrid.Coord) Hex) {
 	t.Helper()
-	b, err := fs.ReadFile(levels.FS, name+".json")
-	if err != nil {
-		t.Fatal(err)
-	}
-	l, err := level.Parse(b)
-	if err != nil {
-		t.Fatal(err)
+	var l *level.Level
+	if strings.Contains(name, ":") {
+		l = campaignLevel(t, name)
+	} else {
+		var err error
+		if l, err = level.Load(name + ".json"); err != nil {
+			t.Fatal(err)
+		}
 	}
 	return l.Grid(), func(c hexgrid.Coord) Hex {
 		h := l.Lines[c.Line][c.Col]
@@ -179,17 +184,13 @@ func TestLevelDestroyedDepot(t *testing.T) {
 }
 
 func TestIsolatedMountainQuarterShowsMountain(t *testing.T) {
-	g, at := loadLevel(t, "level3_cp")
+	g, at := grid("grass_w grass_w grass_w", "grass_w mountW_w", "grass_w grass_w grass_w")
 	s := Compose(g, at, none)
-	at21 := hexgrid.Coord{Line: 21, Col: 6}
-	if at(at21).Terrain != "mountW_w" {
-		t.Fatalf("level 3 (21,6) is %s", at(at21).Terrain)
-	}
-	if got := s.Cells[21][6].Background; got != "tile/mountain_w" {
+	if got := s.Cells[1][1].Background; got != "tile/mountain_w" {
 		t.Errorf("orphan quarter drawn as %s", got)
 	}
 	if len(s.Issues) != 0 {
-		t.Errorf("level 3 compound issues: %v", s.Issues)
+		t.Errorf("compound issues: %v", s.Issues)
 	}
 }
 
@@ -203,9 +204,10 @@ func TestShippedLevelGaps(t *testing.T) {
 		}
 	}
 	want := map[string]string{
-		"level1_cp": "forest/selected:81 ground/selected:24 hills/selected:51",
-		"level2_cp": "forest/selected:174 ground/selected:59",
-		"level3_cp": "forest/selected:97 ground/selected:78 trench/missing:1",
+		pythonPulse:                "forest/selected:81 ground/selected:24 hills/selected:51",
+		"monthly/1914-08-pulse:cp": "forest/selected:76 ground/selected:29 hills/selected:53 shore/missing:3 trench/missing:3",
+		"monthly/1914-10-civil:cp": "forest/selected:168 ground/selected:64 trench/missing:9",
+		"monthly/1914-12-mouse:cp": "forest/selected:97 ground/selected:86 trench/missing:3",
 	}
 	for name := range want {
 		g, at := loadLevel(t, name)

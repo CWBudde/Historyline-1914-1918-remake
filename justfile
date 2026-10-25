@@ -128,13 +128,7 @@ art-index:
 art-check:
     go run ./cmd/hlart check
 
-# Import the original full game's maps (local original/) into levels/original, then the scenarios
-levels-import:
-    rm -rf levels/original
-    go run ./cmd/finextract -build full -out levels/original
-    @just levels-campaign
-
-# Write the scenarios of the imported maps (levels/original): their months in levels/monthly and levels/skirmish (overwrites hand edits there)
+# Write the scenarios of the original full game's maps (local original/): their months in levels/monthly and levels/skirmish (overwrites hand edits there, keeps backdrops)
 levels-campaign:
     go run ./cmd/hlcampaign
 
@@ -147,8 +141,8 @@ artbook: _build-dir
     go run ./tools/art-review -shore art/pipeline/shore-terrain-v2.json -out build/artbook/shore
     go run ./cmd/hlart pulse -out build/artbook/pulse
     go run ./tools/reference-design -look-out build/artbook/look
-    go run ./cmd/hlart map -level levels/level2_cp.json -out build/artbook/winter
-    go run ./cmd/hlart map -level levels/level3_cp.json -out build/artbook/winter3
+    go run ./cmd/hlart map -level levels/monthly/1914-10-civil.json:cp -out build/artbook/winter
+    go run ./cmd/hlart map -level levels/monthly/1914-12-mouse.json:cp -out build/artbook/winter3
     go run ./cmd/hlart map -level levels/monthly/1914-08-pulse.json:cp -out build/artbook/campaign/summer
     go run ./cmd/hlart map -level levels/monthly/1916-10-balon.json:cp -out build/artbook/campaign/winter
     go run ./cmd/hlart map -level levels/monthly/1916-06-flame.json:ec -out build/artbook/campaign/sea
@@ -191,7 +185,7 @@ gfx-study *args: packs
     set -eu
     mkdir -p build/review/pulse-study
     study_dir=$(mktemp -d build/review/pulse-study/run-XXXXXX)
-    go run ./cmd/historyline -level level1_cp -rules standard -units build/packs/units -terrain build/packs/terrain -allow-candidates -capture "$study_dir/captures"
+    go run ./cmd/historyline -level art/reference/pulse/level.json -rules standard -units build/packs/units -terrain build/packs/terrain -allow-candidates -capture "$study_dir/captures"
     go run ./cmd/hlgallery -captures "$study_dir/captures" "$@"
 
 manual_pdf := "original/extracted/manual/Historyline_1914-1918.pdf"

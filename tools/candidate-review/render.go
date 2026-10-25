@@ -79,7 +79,7 @@ func (r *renderer) prepare() error {
 	if r.land.img != nil {
 		return nil
 	}
-	lv, err := level.Load(filepath.Join(r.o.root, "levels", "level1_cp.json"))
+	lv, err := level.Load(filepath.Join(r.o.root, "art", "reference", "pulse", "level.json"))
 	if err != nil {
 		return err
 	}

@@ -2,7 +2,7 @@ package origview
 
 import (
 	"encoding/json"
-	"io/fs"
+	"errors"
 	"os"
 	"path"
 	"reflect"
@@ -17,7 +17,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
-	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/origmaps"
 )
 
 func TestEveryRecordHasALook(t *testing.T) {
@@ -234,28 +234,32 @@ func TestLevelInfraForms(t *testing.T) {
 	}
 }
 
-// The committed original maps: the view has the shipped level shape, survives
-// a save, shows each cell's look, puts the owners on the building entrances,
-// and composes with the runtime terrain catalog.
-func TestCommittedMaps(t *testing.T) {
-	names, err := fs.Glob(levels.Original, "original/full/*.json")
+// originalMaps are the full game's maps of the local original files
+// (internal/origmaps); the test is skipped without them.
+func originalMaps(t *testing.T) []*finmap.Level {
+	t.Helper()
+	ls, err := origmaps.Full()
+	if errors.Is(err, origmaps.ErrNotFound) {
+		t.Skip("no original files")
+	}
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(names) != 73 {
-		t.Fatalf("%d committed maps", len(names))
+	return ls
+}
+
+// The original maps: the view has the shipped level shape, survives a save,
+// shows each cell's look, puts the owners on the building entrances, and
+// composes with the runtime terrain catalog.
+func TestOriginalMaps(t *testing.T) {
+	maps := originalMaps(t)
+	if len(maps) != 73 {
+		t.Fatalf("%d original maps", len(maps))
 	}
 	has := terrainCatalog(t)
 	var missing, undefined int
-	for _, name := range names {
-		raw, err := fs.ReadFile(levels.Original, name)
-		if err != nil {
-			t.Fatal(err)
-		}
-		src, err := finmap.Parse(raw)
-		if err != nil {
-			t.Fatal(err)
-		}
+	for _, src := range maps {
+		name := src.Source.Map
 		lv, err := Level(src)
 		if err != nil {
 			t.Fatalf("%s: %v", name, err)

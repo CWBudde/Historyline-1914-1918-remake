@@ -1,11 +1,15 @@
 package main
 
 import (
+	"errors"
 	"io/fs"
 	"path"
+	"path/filepath"
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/finmap"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/origmaps"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
 	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
@@ -18,20 +22,30 @@ func TestMonth(t *testing.T) {
 	}
 }
 
-// The shipped scenarios began as what hlcampaign writes from
-// levels/original and are hand-editable, so this test does not require
-// byte identity with the generator: every generated file is shipped under
-// its name, and every shipped file parses.
+// originalMaps are the full game's maps of the local original files; the
+// test is skipped without them.
+func originalMaps(t *testing.T) []*finmap.Level {
+	t.Helper()
+	maps, err := origmaps.Full()
+	if errors.Is(err, origmaps.ErrNotFound) {
+		t.Skip("no original files")
+	}
+	if err != nil {
+		t.Fatal(err)
+	}
+	return maps
+}
+
+// The shipped scenarios began as what hlcampaign writes from the original
+// maps and are hand-editable, so this test does not require byte identity
+// with the generator: every generated file is shipped under its name, and
+// every shipped file parses.
 func TestScenariosCurrent(t *testing.T) {
 	set, err := data.Load()
 	if err != nil {
 		t.Fatal(err)
 	}
-	src, err := fs.Sub(levels.Original, "original")
-	if err != nil {
-		t.Fatal(err)
-	}
-	out, err := generate(src, set)
+	out, err := generate(originalMaps(t), set, nil)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -76,12 +90,34 @@ func TestMonthsLeaveTheSecondMonths(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	src, _ := fs.Sub(levels.Original, "original")
-	out, err := generate(src, set)
+	out, err := generate(originalMaps(t), set, nil)
 	if err != nil {
 		t.Fatal(err)
 	}
 	if !out.months["1914-08"] || out.months["1914-09"] || !out.months["1918-06"] || len(out.months) != 24 {
 		t.Errorf("months %v", out.months)
+	}
+}
+
+// A rewritten file keeps its backdrop.
+func TestKeepsBackdrops(t *testing.T) {
+	set, err := data.Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+	kept, err := keptBackdrops(filepath.Join("..", "..", "levels", "monthly"), filepath.Join("..", "..", "levels", "skirmish"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if kept["1914-08-pulse.json"] != "1914-08-pulse.jpg" {
+		t.Fatalf("backdrops %v", kept)
+	}
+	out, err := generate(originalMaps(t), set, kept)
+	if err != nil {
+		t.Fatal(err)
+	}
+	f, err := scenario.Parse(out.monthly["1914-08-pulse.json"])
+	if err != nil || f.Backdrop != "1914-08-pulse.jpg" {
+		t.Errorf("PULSE backdrop %q, %v", f.Backdrop, err)
 	}
 }

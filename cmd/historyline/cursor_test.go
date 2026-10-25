@@ -15,7 +15,7 @@ import (
 // The tests below drive the cursor of -rules dos as the player does: frames of
 // mouse and key set A through the gesture tracker into the session.
 
-// newCursorTest is the split game of level1_cp against a passing side, with
+// newCursorTest is the split game of PULSE against a passing side, with
 // an own unit in the human panel that can move.
 func newCursorTest(t *testing.T) (*game, *dosControl, hexgrid.Coord) {
 	t.Helper()

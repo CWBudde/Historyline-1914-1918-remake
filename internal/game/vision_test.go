@@ -24,7 +24,7 @@ func find(t *testing.T, s *State, id string) hexgrid.Coord {
 }
 
 func TestVisionSeenAndBuildings(t *testing.T) {
-	s, err := New(loadLevel(t, "level1_cp.json"), loadSet(t))
+	s, err := New(loadLevel(t, "pulse.json"), loadSet(t))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -71,7 +71,7 @@ func TestVisionSeenAndBuildings(t *testing.T) {
 }
 
 func TestVisionUnitSight(t *testing.T) {
-	s, err := New(loadLevel(t, "level1_cp.json"), loadSet(t))
+	s, err := New(loadLevel(t, "pulse.json"), loadSet(t))
 	if err != nil {
 		t.Fatal(err)
 	}

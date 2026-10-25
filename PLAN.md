@@ -561,11 +561,13 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       loading page shows a one-line briefing derived from the map's facts.
 - [ ] 5.1a Authored briefing texts per map (the shipped briefings are one-line derivations).
 - [x] 5.7 The campaign is the original levels, merged: the menu campaign is the original maps played
-      from their shipped, hand-editable scenario files (`levels/monthly`, 5.8; the three remake levels
-      left the menu, their files remain for `-level`). `just levels-campaign` re-imports and overwrites
+      from their shipped, hand-editable scenario files (`levels/monthly`, 5.8; the three Python remake
+      levels are gone, its PULSE stays as the reference design's map `art/reference/pulse/level.json` and
+      a test fixture). `just levels-campaign` re-imports from the local original files and overwrites
       edits. DOS mode binds a setup via `dosbind.Bind`, with the setup's credits and builds and a
       documented record fallback (infra reduction, any-winter, multi-entrance buildings, two-cell ship
-      rears); exact `FromOriginal` boards remain for `-level original/NN`.
+      rears); exact `FromOriginal` boards remain for `-level original/NN` (local original files,
+      `internal/origmaps`; `levels/original` is gone).
       Evidence: `TestBindScenarios` (every setup binds), `TestBindScenarioCredits`.
 - [x] 5.6 Campaign calendar: 24 two-month periods, August 1914 – July 1918 (`internal/campaign`), with
       newly written news pages; a month shows its own page (`campaign.Months`) or its period's.
@@ -593,13 +595,22 @@ in `looks.json` (`TestLooksHaveTiles`, `TestLooksAgreeWithRecords`), then `just 
       a balance pass on the merged `ec` and `2p` setups and on Marne's `cp`, and month news pages.
 - [ ] 5.9 Two-player hot-seat front end: the `2p` setups (every month, the skirmish maps) exist, the menu
       has no hot-seat mode yet.
+- [ ] 5.10 Painted backdrops: a scenario file may name a painting of its whole ground (`backdrop`), drawn
+      in place of the terrain tiles (`-backdrop off` draws the tiles). PULSE ships one
+      (`1914-08-pulse.jpg`), painted from the Python remake's PULSE: 31 hexes of the month's map differ
+      (stone, mountains, trenches) until it is repainted. Open: paintings for the other maps, a render
+      mode switch between tiles and painting in the game.
+- [ ] 5.11 Terrain art for the original maps: `hlasset terrain-gaps` over every shipped map finds every
+      context, but crater and boulder clusters without an installed stamp of their own (the stamps
+      were made for the Python maps), PULSE, CIVIL and MOUSE included.
 - [ ] 5.2 The level format lacks transporter cargo, ship rears and terrain records that share a look (the
       original rules keep the exact binding through `dosbind.FromOriginal`); scenario setups carry credits
-      and builds.
+      and builds. CIVIL's mountains, for one, bind the default mountain record, not the original's 71-77.
       2026-10-24: under the original rules a two-cell ship draws as one long sprite across its head and
       rear (`<family>-long`), and either half selects it.
 - [ ] 5.3 `Bind` numbers depots and factories by the buildings' first cells where the game takes entrances
-      in cell order (Mouse's factories swap).
+      in cell order (MOUSE's factories swap), and takes adjacent buildings of one family for one: PARTS'
+      two touching camps bind as one, the second camp's six units are dropped (`TestDroppedContent`).
 - [ ] 5.4 Unit roster: weapon slots use stand-ins from the existing catalogue; deep and shallow water are one.
       2026-10-24: the levels name them apart (`waterDeep` 47, `waterSea` 48), and `Bind` binds each to its own
       record; the remake's own rules still play them as one.

@@ -4,6 +4,7 @@ import (
 	"embed"
 	"fmt"
 	"os"
+	"path"
 	"path/filepath"
 	"strings"
 
@@ -11,31 +12,25 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosbind"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/finmap"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/origmaps"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/origview"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
 	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
 
-// originalPrefix names an imported original map in -level, like
-// "original/05" for levels/original/full/05.json.
+// originalPrefix names a map of the local original files in -level, like
+// "original/05" (internal/origmaps).
 const originalPrefix = "original/"
 
-// loadMap loads -level name: a shipped level, a setup of a scenario
-// ("monthly/1914-08-pulse:ec", "skirmish/01-track:2p"; the first setup of
-// cp, ec, 2p without the mode), or an imported original map with its board
-// bound exactly to the original records (nil otherwise). An original map's
-// level is its remake level (origview.Campaign), which the original rules
-// draw and the remake rules play.
+// loadMap loads -level name (loadLevel), or a map of the local original
+// files with its board bound exactly to the original records (nil
+// otherwise). An original map's level is its remake level
+// (origview.Campaign), which the original rules draw and the remake rules
+// play.
 func loadMap(dir, name string, set *data.Set) (*level.Level, *dosbind.Board, error) {
 	if stem, ok := strings.CutPrefix(name, originalPrefix); ok {
-		_, lvl, b, err := loadOriginal(dir, stem, set)
+		_, lvl, b, err := loadOriginal(stem, set)
 		return lvl, b, err
-	}
-	for prefix, emb := range scenarioDirs {
-		if strings.HasPrefix(name, prefix) {
-			lvl, err := loadScenario(dir, emb, name)
-			return lvl, nil, err
-		}
 	}
 	lvl, err := loadLevel(dir, name)
 	return lvl, nil, err
@@ -64,22 +59,28 @@ func loadScenario(dir string, emb embed.FS, name string) (*level.Level, error) {
 			}
 		}
 	}
+	return scenarioLevel(f, file, m)
+}
+
+// scenarioLevel is the level of setup m of the scenario file f, which is
+// file ("monthly/1914-08-pulse") below the levels directory; its backdrop
+// becomes a path below the levels directory too (levelBackdrop).
+func scenarioLevel(f *scenario.File, file string, m scenario.Mode) (*level.Level, error) {
 	lvl, err := f.Level(m)
 	if err != nil {
 		return nil, fmt.Errorf("%s: %w", file, err)
 	}
+	if b := lvl.Extra.Backdrop; b != "" {
+		lvl.Extra.Backdrop = path.Join(path.Dir(file), b)
+	}
 	return lvl, nil
 }
 
-// loadOriginal loads the imported original map stem ("05") from dir where
-// present, else the embedded copy: the map, its remake level and its board.
-func loadOriginal(dir, stem string, set *data.Set) (*finmap.Level, *level.Level, *dosbind.Board, error) {
+// loadOriginal loads the original full game's map stem ("05") from the
+// local original files: the map, its remake level and its board.
+func loadOriginal(stem string, set *data.Set) (*finmap.Level, *level.Level, *dosbind.Board, error) {
 	name := originalPrefix + stem
-	raw, err := readLevelFile(dir, levels.Original, "original/full/"+stem+".json")
-	if err != nil {
-		return nil, nil, nil, fmt.Errorf("%s: %w", name, err)
-	}
-	l, err := finmap.Parse(raw)
+	l, err := origmaps.Map(stem)
 	if err != nil {
 		return nil, nil, nil, fmt.Errorf("%s: %w", name, err)
 	}

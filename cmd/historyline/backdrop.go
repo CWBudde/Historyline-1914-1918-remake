@@ -5,7 +5,8 @@ import (
 	"fmt"
 	"image"
 	"image/color"
-	"image/png"
+	_ "image/jpeg" // the scenario files' backdrops
+	_ "image/png"
 	"io/fs"
 	"math"
 	"path/filepath"
@@ -103,9 +104,30 @@ func loadBackdrop(path string) (*backdropImage, error) {
 	if err != nil {
 		return nil, fmt.Errorf("backdrop: %w", err)
 	}
-	pic, err := png.Decode(bytes.NewReader(b))
+	return decodeBackdrop(path, b)
+}
+
+// levelBackdrop loads a scenario level's backdrop (level.Extra.Backdrop, a
+// slash path below the levels directory as scenarioLevel sets it) from dir
+// where present, else the embedded copy.
+func levelBackdrop(dir, file string) (*backdropImage, error) {
+	for prefix, emb := range scenarioDirs {
+		if strings.HasPrefix(file, prefix) {
+			b, err := readLevelFile(dir, emb, file)
+			if err != nil {
+				return nil, fmt.Errorf("backdrop: %w", err)
+			}
+			return decodeBackdrop(file, b)
+		}
+	}
+	return nil, fmt.Errorf("backdrop %s: not in a scenario directory", file)
+}
+
+// decodeBackdrop decodes a PNG or JPEG picture and splits it into textures.
+func decodeBackdrop(name string, b []byte) (*backdropImage, error) {
+	pic, _, err := image.Decode(bytes.NewReader(b))
 	if err != nil {
-		return nil, fmt.Errorf("backdrop %s: %w", path, err)
+		return nil, fmt.Errorf("backdrop %s: %w", name, err)
 	}
 	return newBackdropImage(pic)
 }

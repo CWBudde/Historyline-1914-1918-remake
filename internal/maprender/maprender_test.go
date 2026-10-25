@@ -51,7 +51,7 @@ func TestRenderPulse(t *testing.T) {
 	if details != 16 {
 		t.Errorf("%d grass details at both densities, want sixteen", details)
 	}
-	lvl, err := level.Load("../../levels/level1_cp.json")
+	lvl, err := level.Load("../../art/reference/pulse/level.json")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -149,7 +149,7 @@ func renderPulse(t *testing.T, assets fs.FS) (*level.Level, Map) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	lvl, err := level.Load("../../levels/level1_cp.json")
+	lvl, err := level.Load("../../art/reference/pulse/level.json")
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -1,4 +1,4 @@
-// Package dosbind binds a level of levels/*.json to the records of the
+// Package dosbind binds a level (internal/level, a scenario setup as one) to the records of the
 // original rules engine (internal/dosrules): a terrain record per original
 // cell, the units as placements, the container records of the buildings and
 // transporters, and the buildings' energy (dosrules.Building).
@@ -53,7 +53,9 @@ type Records struct {
 	Edge int `json:"edge"`
 	// Terrain maps a hex key (Key) to its terrain record.
 	Terrain map[string]int `json:"terrain"`
-	// Maps are the scenario numbers of a level, by its mapNo.
+	// Maps are the scenario numbers of a level of the legacy format, by its
+	// mapNo: the Python remake's PULSE (internal/level's fixture); a
+	// scenario setup carries its own (level.Extra).
 	Maps map[string]MapRecords `json:"maps"`
 }
 

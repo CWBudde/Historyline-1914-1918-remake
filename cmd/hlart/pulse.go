@@ -13,7 +13,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
 )
 
-const pulseLevel = "levels/level1_cp.json"
+const pulseLevel = "art/reference/pulse/level.json"
 
 // renderedMap is the metadata printed beside a map in the art book.
 type renderedMap struct {

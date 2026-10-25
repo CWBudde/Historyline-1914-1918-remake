@@ -12,11 +12,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/tpwm"
-	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
 
 // The tests below read the original game files from original/ above the
@@ -220,125 +217,62 @@ func TestOriginalContainers(t *testing.T) {
 	}
 }
 
-// pythonUnit is the [type, side] of a Python unit id like "CP_infantry".
-func pythonUnit(t *testing.T, s *data.Set, id string) [2]int {
-	t.Helper()
-	u, ok := s.Units[id]
-	if !ok {
-		t.Fatalf("unit %q unknown", id)
-	}
-	side := Central
-	if strings.HasPrefix(id, "EC_") {
-		side = Allied
-	}
-	return [2]int{u.Dos, side}
-}
-
-// The shipped levels are maps 0-2 as the Python remake transcribed them:
-// same size and layout, the same password as name, winter terrain on winter
-// maps, and nearly the same units and buildings. The counts pin how many
-// cells agree.
-func TestOriginalShippedLevels(t *testing.T) {
+// The full game's maps: terrain, units and buildings within the tables, an
+// HQ per side, the campaigns' chains, winter and players.
+func TestOriginalMapShapes(t *testing.T) {
+	terrains, types := len(dosrules.FullTables.Move.Terrains), len(dosrules.FullTables.Move.Types)
+	// Winter maps by position in their series of 24: both campaigns, then
+	// the two-player series.
+	winter := [][]int{{1, 2, 8, 9, 13, 14, 19, 20}, {1, 2, 8, 9, 13, 14, 19, 20}, {1, 2, 7, 8, 13, 14, 19, 20}}
 	ls, _ := fullLevels(t)
-	set, err := data.Load()
-	if err != nil {
-		t.Fatal(err)
-	}
-	for k, c := range []struct {
-		file                                                string
-		units, unitDiffers, owners, inventories, invDiffers int
-	}{
-		{"level1_cp.json", 27, 2, 4, 2, 0},
-		{"level2_cp.json", 46, 4, 9, 7, 1},
-		{"level3_cp.json", 29, 1, 6, 2, 2},
-	} {
-		raw, err := levels.FS.ReadFile(c.file)
-		if err != nil {
-			t.Fatal(err)
+	for i, l := range ls {
+		in := func(c [2]int) bool { return c[0] >= 0 && c[0] < l.Height && c[1] >= 0 && c[1] < l.Width }
+		if len(l.Terrain) != l.Height {
+			t.Fatalf("map %02d: %d rows of %d", i, len(l.Terrain), l.Height)
 		}
-		py, err := level.Parse(raw)
-		if err != nil {
-			t.Fatal(err)
-		}
-		l := ls[k]
-		if len(py.Lines) != 2*l.Height-1 || len(py.Lines[0]) != l.Width/2 || !strings.EqualFold(py.MapName, l.Mission.Code) {
-			t.Errorf("%s: %d lines of %d, name differs from code", c.file, len(py.Lines), len(py.Lines[0]))
-		}
-		winter := false
-		for _, line := range py.Lines {
-			for _, h := range line {
-				winter = winter || strings.HasSuffix(h.Terrain, "_w")
+		for _, row := range l.Terrain {
+			if len(row) != l.Width || slices.Max(row) >= terrains || slices.Min(row) < 0 {
+				t.Fatalf("map %02d: row %v", i, row)
 			}
 		}
-		if winter != l.Mission.Winter {
-			t.Errorf("%s: winter terrain %v, code says %v", c.file, winter, l.Mission.Winter)
-		}
-
-		units := map[linePos][2]int{}
 		for _, u := range l.Units {
-			units[at(u.Cell)] = [2]int{u.Type, u.Side}
+			if !in(u.Cell) || u.Type < 0 || u.Type >= types || u.Side < Central || u.Side > Neutral {
+				t.Errorf("map %02d: unit %+v", i, u)
+			}
 		}
-		buildings := map[linePos]Building{}
+		hq := map[int]int{}
 		for _, b := range l.Buildings {
-			buildings[at(b.Cell)] = b
-		}
-		inventory := map[int][]int{}
-		for _, ct := range l.Containers {
-			for _, u := range ct.Units {
-				inventory[ct.Container] = append(inventory[ct.Container], u.Type)
+			if !in(b.Cell) || b.Container < HQBase || b.Container >= Containers {
+				t.Errorf("map %02d: building %+v", i, b)
+			}
+			if b.Kind == HQ.String() {
+				hq[b.Owner]++
 			}
 		}
-		var same, differ, owners, invSame, invDiffer int
-		for line, hexes := range py.Lines {
-			for col, h := range hexes {
-				at := linePos{line, col}
-				d, ok := units[at]
-				switch {
-				case h.Unit == "" && !ok:
-				case h.Unit != "" && ok && pythonUnit(t, set, h.Unit) == d:
-					same++
-				default:
-					differ++
-				}
-				if h.Content == nil {
-					continue
-				}
-				b, ok := buildings[at]
-				if !ok {
-					continue
-				}
-				// Python owners: 0 neutral, 1 Central Powers, 2 Allies.
-				if map[int]int{Central: 1, Allied: 2, Neutral: 0}[b.Owner] == h.Content.Owner {
-					owners++
-				}
-				if h.Content.Units == nil {
-					continue
-				}
-				var want []int
-				for _, id := range h.Content.Units {
-					want = append(want, pythonUnit(t, set, id)[0])
-				}
-				got := slices.Clone(inventory[b.Container])
-				slices.Sort(want)
-				slices.Sort(got)
-				if slices.Equal(want, got) {
-					invSame++
-				} else {
-					invDiffer++
+		if len(hq) != 2 || hq[Central] != 1 || hq[Allied] != 1 {
+			t.Errorf("map %02d: HQs %v", i, hq)
+		}
+		for _, c := range l.Containers {
+			for _, u := range c.Units {
+				if u.Type < 0 || u.Type >= types {
+					t.Errorf("map %02d: container %d holds type %d", i, c.Container, u.Type)
 				}
 			}
 		}
-		if same != c.units || differ != c.unitDiffers || owners != c.owners || invSame != c.inventories || invDiffer != c.invDiffers {
-			t.Errorf("%s: units %d same %d differ, owners %d, inventories %d same %d differ",
-				c.file, same, differ, owners, invSame, invDiffer)
+
+		m := l.Mission
+		if m == nil {
+			t.Fatalf("map %02d: no mission", i)
+		}
+		last := i%24 == 23
+		if (m.Next == nil) != last || (m.Next != nil && *m.Next != i+1) || m.CampaignEnd != (last && i < 48) {
+			t.Errorf("map %02d: next %v campaign end %v", i, m.Next, m.CampaignEnd)
+		}
+		if m.Winter != slices.Contains(winter[i/24], i%24) {
+			t.Errorf("map %02d: winter %v", i, m.Winter)
+		}
+		if (m.Players == 1) != (i < 48) || l.Computer != (i < 48) {
+			t.Errorf("map %02d: players %d computer %v", i, m.Players, l.Computer)
 		}
 	}
-}
-
-// linePos is a Python level position: line, index in line.
-type linePos [2]int
-
-func at(cell [2]int) linePos {
-	c := Coord(cell[0], cell[1])
-	return linePos{c.Line, c.Col}
 }

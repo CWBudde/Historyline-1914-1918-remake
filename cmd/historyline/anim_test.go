@@ -88,7 +88,7 @@ func TestBattleReportFromEngineResult(t *testing.T) {
 			}
 		}
 	}
-	t.Skip("no attack available at the start of level1_cp")
+	t.Skip("no attack available at the start of PULSE")
 }
 
 func TestSkipFinishesWalk(t *testing.T) {

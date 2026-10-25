@@ -121,11 +121,11 @@ func loadCampaign(dir string, set *data.Set) ([]mapLevel, error) {
 			if s == nil || s.Code == "" {
 				continue
 			}
-			lvl, err := f.Level(mode)
-			if err != nil {
-				return nil, fmt.Errorf("%s: %w", files[i], err)
-			}
 			file := strings.TrimSuffix(files[i], ".json")
+			lvl, err := scenarioLevel(f, file, mode)
+			if err != nil {
+				return nil, err
+			}
 			m := mapLevel{name: file + ":" + string(mode), file: file, mode: mode, lvl: lvl, next: -1,
 				password: s.Code, players: 1, humanSides: []int{dosbind.Side(mode.Human())}, winter: f.Winter(), month: f.Month}
 			m.briefing = briefingLine(m.code(), m.players, m.humanSides, mode.Human(), m.winter, true)

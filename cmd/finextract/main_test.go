@@ -10,6 +10,7 @@ import (
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/finmap"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/origmaps"
 )
 
 func write(t *testing.T, path string, b []byte) {
@@ -38,7 +39,7 @@ func TestExtractSynthetic(t *testing.T) {
 	write(t, filepath.Join(dir, "CODES.DAT"), codes)
 
 	var log bytes.Buffer
-	n, err := extract([]build{{Name: "test", Dir: dir, Tables: dosrules.FullTables}}, out, &log)
+	n, err := extract([]origmaps.Build{{Name: "test", Dir: dir, Tables: dosrules.FullTables}}, out, &log)
 	if err != nil || n != 2 {
 		t.Fatalf("extract: %d, %v\n%s", n, err, log.String())
 	}
@@ -75,13 +76,13 @@ func TestExtractRejects(t *testing.T) {
 	dir := t.TempDir()
 	write(t, filepath.Join(dir, "MAP", "00.FIN"), []byte{0, 2, 0, 1, 0x37})
 	write(t, filepath.Join(dir, "CODES.DAT"), []byte{0x11, 0x11, 0x11, 0x11, 0x11, 2, 1, 0, 0, 0})
-	if _, err := extract([]build{{Name: "bad", Dir: dir, Tables: dosrules.FullTables}}, t.TempDir(), &bytes.Buffer{}); err == nil || !strings.Contains(err.Error(), "00: finmap: FIN") {
+	if _, err := extract([]origmaps.Build{{Name: "bad", Dir: dir, Tables: dosrules.FullTables}}, t.TempDir(), &bytes.Buffer{}); err == nil || !strings.Contains(err.Error(), "00: finmap: FIN") {
 		t.Fatalf("expected an error for the truncated map, got %v", err)
 	}
 	// A win on the last map would lead past the last record.
 	write(t, filepath.Join(dir, "MAP", "00.FIN"), []byte{0, 1, 0, 1, 0x37, 0xff})
 	write(t, filepath.Join(dir, "CODES.DAT"), []byte{0x11, 0x11, 0x11, 0x11, 0x11, 2, 1, 1, 0, 0})
-	if _, err := extract([]build{{Name: "bad", Dir: dir, Tables: dosrules.FullTables}}, t.TempDir(), &bytes.Buffer{}); err == nil || !strings.Contains(err.Error(), "next map") {
+	if _, err := extract([]origmaps.Build{{Name: "bad", Dir: dir, Tables: dosrules.FullTables}}, t.TempDir(), &bytes.Buffer{}); err == nil || !strings.Contains(err.Error(), "next map") {
 		t.Fatalf("expected an error for the next map, got %v", err)
 	}
 }
@@ -89,12 +90,12 @@ func TestExtractRejects(t *testing.T) {
 // Every map of the original full game and demo decodes; skipped without
 // the original files.
 func TestExtractOriginal(t *testing.T) {
-	root, err := findOriginal(".")
+	root, err := origmaps.Find(".")
 	if err != nil {
 		t.Skip("no original files")
 	}
 	var log bytes.Buffer
-	n, err := extract(defaultBuilds(root), t.TempDir(), &log)
+	n, err := extract(origmaps.Builds(root), t.TempDir(), &log)
 	if err != nil {
 		t.Fatalf("%v\n%s", err, log.String())
 	}
@@ -106,7 +107,7 @@ func TestExtractOriginal(t *testing.T) {
 }
 
 func TestSelectBuilds(t *testing.T) {
-	all := defaultBuilds("orig")
+	all := origmaps.Builds("orig")
 	got, err := selectBuilds(all, "full")
 	if err != nil || len(got) != 1 || got[0].Name != "full" {
 		t.Fatalf("full: %v %v", got, err)
@@ -117,51 +118,6 @@ func TestSelectBuilds(t *testing.T) {
 	for _, names := range []string{"full,amiga", "full,", "full,full"} {
 		if _, err := selectBuilds(all, names); err == nil {
 			t.Errorf("%q: expected an error", names)
-		}
-	}
-}
-
-// levels/original is what just levels-import writes from the original full
-// game; skipped without the original files.
-func TestCommittedCurrent(t *testing.T) {
-	root, err := findOriginal(".")
-	if err != nil {
-		t.Skip("no original files")
-	}
-	builds, err := selectBuilds(defaultBuilds(root), "full")
-	if err != nil {
-		t.Fatal(err)
-	}
-	out := t.TempDir()
-	if _, err := extract(builds, out, &bytes.Buffer{}); err != nil {
-		t.Fatal(err)
-	}
-	committed := filepath.Join("..", "..", "levels", "original")
-	for _, dir := range []string{out, committed} {
-		other := committed
-		if dir == committed {
-			other = out
-		}
-		err := filepath.WalkDir(dir, func(path string, d os.DirEntry, err error) error {
-			if err != nil || d.IsDir() {
-				return err
-			}
-			rel, err := filepath.Rel(dir, path)
-			if err != nil {
-				return err
-			}
-			a, err := os.ReadFile(path)
-			if err != nil {
-				return err
-			}
-			b, err := os.ReadFile(filepath.Join(other, rel))
-			if err != nil || !bytes.Equal(a, b) {
-				t.Errorf("levels/original/%s is not current (just levels-import)", filepath.ToSlash(rel))
-			}
-			return nil
-		})
-		if err != nil {
-			t.Fatal(err)
 		}
 	}
 }

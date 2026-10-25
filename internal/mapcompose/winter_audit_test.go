@@ -93,8 +93,8 @@ func TestWinterMapsDrawNoSummerInfrastructure(t *testing.T) {
 			}
 		}
 	}
-	if audited < 18 {
-		t.Fatalf("audited %d winter maps, want Civil, Mouse and the winter scenario maps", audited)
+	if audited < 16 {
+		t.Fatalf("audited %d winter maps, want every winter scenario map", audited)
 	}
 	families := slices.Sorted(func(yield func(string) bool) {
 		for f := range summer {

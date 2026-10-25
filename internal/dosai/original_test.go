@@ -1,27 +1,27 @@
 package dosai
 
 import (
+	"errors"
 	"fmt"
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosbind"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/finmap"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/origmaps"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/origview"
-	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
 
 // originalTurns bounds a played-out original map.
 const originalTurns = 40
 
-// original is a session on imported original map i, both sides computer.
+// original is a session on original map i of the local original files, both
+// sides computer; the test is skipped without them.
 func original(tb testing.TB, i int) *dosplay.Session {
 	tb.Helper()
-	raw, err := levels.Original.ReadFile(fmt.Sprintf("original/full/%02d.json", i))
-	if err != nil {
-		tb.Fatal(err)
+	l, err := origmaps.Map(fmt.Sprintf("%02d", i))
+	if errors.Is(err, origmaps.ErrNotFound) {
+		tb.Skip("no original files")
 	}
-	l, err := finmap.Parse(raw)
 	if err != nil {
 		tb.Fatalf("map %02d: %v", i, err)
 	}

@@ -3,8 +3,8 @@ package dosplay
 import (
 	"errors"
 	"fmt"
-	"io/fs"
 	"maps"
+	"path/filepath"
 	"reflect"
 	"slices"
 	"testing"
@@ -13,25 +13,23 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
-	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
 )
 
-// shipped are the shipped levels in file order.
+// shipped are the Python remake's PULSE (internal/level's fixture), whose
+// German unit in reach of the enemy attacks at the start, then the cp
+// setups of the campaign's first three months (PULSE, CIVIL, MOUSE).
 func shipped(t *testing.T) []*level.Level {
 	t.Helper()
-	names, err := fs.Glob(levels.FS, "level?_cp.json")
-	if err != nil || len(names) == 0 {
-		t.Fatalf("no shipped levels: %v", err)
+	pulse, err := level.Load(filepath.Join("..", "level", "testdata", "pulse.json"))
+	if err != nil {
+		t.Fatal(err)
 	}
-	var out []*level.Level
-	for _, n := range names {
-		raw, err := levels.FS.ReadFile(n)
+	out := []*level.Level{pulse}
+	for _, name := range []string{"monthly/1914-08-pulse", "monthly/1914-10-civil", "monthly/1914-12-mouse"} {
+		lv, err := scenario.ShippedLevel(name, scenario.CP)
 		if err != nil {
 			t.Fatal(err)
-		}
-		lv, err := level.Parse(raw)
-		if err != nil {
-			t.Fatalf("%s: %v", n, err)
 		}
 		out = append(out, lv)
 	}
@@ -476,7 +474,7 @@ func TestAttackOrders(t *testing.T) {
 func TestExit(t *testing.T) {
 	var lv *level.Level
 	for _, l := range shipped(t) {
-		if l.MapName == "Civil" {
+		if l.MapName == "CIVIL" {
 			lv = l
 		}
 	}
@@ -673,7 +671,7 @@ func TestEnterBuilding(t *testing.T) {
 func TestRepairAndBuild(t *testing.T) {
 	var lv *level.Level
 	for _, l := range shipped(t) {
-		if l.MapName == "Civil" {
+		if l.MapName == "CIVIL" {
 			lv = l
 		}
 	}
@@ -751,7 +749,7 @@ func TestCosts(t *testing.T) {
 		if !closed {
 			t.Errorf("%s: no unit has a closed hex", lv.MapName)
 		}
-		if lv.MapName == "Civil" && !held {
+		if lv.MapName == "CIVIL" && !held {
 			t.Errorf("%s: no held unit checked", lv.MapName)
 		}
 	}

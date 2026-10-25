@@ -8,6 +8,7 @@ import (
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosbind"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
 	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
@@ -48,13 +49,25 @@ func ownUnits(d *dosControl) []hexgrid.Coord {
 	return out
 }
 
-// nearestEnemy is the choice closest to a unit of the other side.
+// nearestEnemy is the choice closest to a unit of the other side, or to its
+// HQ while none is in sight.
 func nearestEnemy(d *dosControl, choices []hexgrid.Coord) hexgrid.Coord {
-	best, bd := choices[0], 1<<30
+	var goals []hexgrid.Coord
 	for p, u := range d.own().Units {
-		if u.Side != 1-d.side {
-			continue
+		if u.Side == 1-d.side {
+			goals = append(goals, p)
 		}
+	}
+	if len(goals) == 0 {
+		// None in sight: the enemy's HQ.
+		for p, b := range d.own().Buildings {
+			if b.HQ && b.Owner != state.None && dosbind.Side(b.Owner) == 1-d.side {
+				goals = append(goals, p)
+			}
+		}
+	}
+	best, bd := choices[0], 1<<30
+	for _, p := range goals {
 		for _, c := range choices {
 			if dist := hexgrid.Distance(c, p); dist < bd || dist == bd && (c.Line < best.Line || c.Line == best.Line && c.Col < best.Col) {
 				best, bd = c, dist
@@ -147,7 +160,7 @@ func finish(t *testing.T, d *dosControl) []played {
 }
 
 func TestDosSelectMoveConfirm(t *testing.T) {
-	d := newDosTest(t, "level1_cp", passPlanner{})
+	d := newDosTest(t, "monthly/1914-08-pulse:cp", passPlanner{})
 	d.Tick()
 	if !d.s.Ready(1) || d.s.Ready(0) {
 		t.Fatalf("after the first frame: ready %v %v", d.s.Ready(0), d.s.Ready(1))
@@ -224,7 +237,7 @@ func TestDosSelectMoveConfirm(t *testing.T) {
 }
 
 func TestDosConfirmAndReopen(t *testing.T) {
-	d := newDosTest(t, "level1_cp", passPlanner{})
+	d := newDosTest(t, "monthly/1914-08-pulse:cp", passPlanner{})
 	d.EndTurn()
 	d.EndTurn()
 	d.EndTurn()
@@ -241,7 +254,7 @@ func TestDosConfirmAndReopen(t *testing.T) {
 // orders by clicks get markers, the battles show the battle stage and take the
 // destroyed units off the frozen view, and the end blocks input.
 func TestDosBattles(t *testing.T) {
-	d := newDosTest(t, "level1_cp", passPlanner{})
+	d := newDosTest(t, pythonPulse, passPlanner{})
 	d.Tick()
 	ordered, battles, destroyed := 0, 0, 0
 	for range 60 {
@@ -303,7 +316,7 @@ func TestDosBattles(t *testing.T) {
 }
 
 func TestDosExitThroughContents(t *testing.T) {
-	d := newDosTest(t, "level1_cp", passPlanner{})
+	d := newDosTest(t, "monthly/1914-08-pulse:cp", passPlanner{})
 	d.Tick()
 	// Enter an own building, then leave it in the next movement phase.
 	var building hexgrid.Coord
@@ -362,7 +375,7 @@ func TestDosExitThroughContents(t *testing.T) {
 }
 
 func TestDosInfoAndStatus(t *testing.T) {
-	d := newDosTest(t, "level1_cp", passPlanner{})
+	d := newDosTest(t, "monthly/1914-08-pulse:cp", passPlanner{})
 	lvl := d.s.Level
 	g := newMapGame(lvl, false)
 	g.dos = d
@@ -429,7 +442,7 @@ func (approachPlanner) Plan(s *dosplay.Session, side int) ([]dosplay.Event, erro
 // The other side's moves are not played again at the phase change: no walk
 // plays, and as soon as the views unfreeze its units stand where they went.
 func TestDosRevealedAtOnce(t *testing.T) {
-	d := newDosTest(t, "level1_cp", approachPlanner{})
+	d := newDosTest(t, "monthly/1914-08-pulse:cp", approachPlanner{})
 	d.Tick()
 	finish(t, d) // the computer has planned its movement phase now
 	if d.s.Phase(1) != dosrules.PhaseMovement || !d.s.Ready(1) {

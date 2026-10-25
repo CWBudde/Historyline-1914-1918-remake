@@ -28,9 +28,9 @@ func TestLightModelShadows(t *testing.T) {
 		name string
 		want []string
 	}{
-		{"level1_cp.json", []string{"standing/scatter/crown", "standing/context/forest"}},
+		{referenceLevel, []string{"standing/scatter/crown", "standing/context/forest"}},
 		{"monthly/1918-04-candl:cp", []string{"standing/scatter/crown", "standing/props/trees"}},
-		{"level2_cp.json", []string{"standing/scatter/crown"}},
+		{"monthly/1914-10-civil:cp", []string{"standing/scatter/crown"}},
 	} {
 		lvl := testLevel(t, src.name)
 		for _, density := range []int{2, 4} {

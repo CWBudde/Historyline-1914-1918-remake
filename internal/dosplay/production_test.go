@@ -43,7 +43,7 @@ func TestFactoryProductionInPlay(t *testing.T) {
 			}
 		}
 		for side := range 2 {
-			if owns[side] != (lv.MapName == "Civil") || owns[side] && !built[side] {
+			if owns[side] != (lv.MapName == "CIVIL") || owns[side] && !built[side] {
 				t.Errorf("%s side %d: owns a factory %v, builds within %d resolutions %v (energy %d)",
 					lv.MapName, side, owns[side], resolutions, built[side], s.Energy(side))
 			}

@@ -14,12 +14,11 @@ import (
 	"strings"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/terraingrade"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/terrainlight"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/worldmaterial"
-	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
 
 // Terrain tiles are 96×80 logical pixels registered on the hex centre.
@@ -244,7 +243,7 @@ func terrainRecoder(assetsDir string, entries []indexEntry) (recoder, error) {
 	}, nil
 }
 
-// terrainGaps composes every shipped level against the context tiles of the
+// terrainGaps composes every shipped map (a scenario's cp setup) against the context tiles of the
 // catalog in dir and lists each hex drawn with a default tile instead of its
 // context, plus stray compound pieces, for the art track.
 func terrainGaps(dir string, w io.Writer) error {
@@ -280,19 +279,12 @@ func terrainGaps(dir string, w io.Writer) error {
 			have[e.ID] = true
 		}
 	}
-	names, err := fs.Glob(levels.FS, "*.json")
+	shipped, err := scenario.Shipped(scenario.CP)
 	if err != nil {
 		return err
 	}
-	for _, name := range names {
-		b, err := fs.ReadFile(levels.FS, name)
-		if err != nil {
-			return err
-		}
-		l, err := level.Parse(b)
-		if err != nil {
-			return fmt.Errorf("%s: %w", name, err)
-		}
+	for _, sh := range shipped {
+		name, l := sh.Name, sh.Level
 		s := mapcompose.Compose(l.Grid(), mapcompose.LevelHex(l), func(id string) bool { return have[id] })
 		selected, count := 0, map[mapcompose.Reason]int{}
 		for _, line := range s.Cells {
@@ -306,7 +298,7 @@ func terrainGaps(dir string, w io.Writer) error {
 			count[g.Reason]++
 		}
 		if _, err := fmt.Fprintf(w, "%s: %d context tiles selected, %d missing, %d undefined, %d compound issues\n",
-			strings.TrimSuffix(name, ".json"), selected, count[mapcompose.Missing], count[mapcompose.Undefined], len(s.Issues)); err != nil {
+			name, selected, count[mapcompose.Missing], count[mapcompose.Undefined], len(s.Issues)); err != nil {
 			return err
 		}
 		for _, g := range s.Gaps {

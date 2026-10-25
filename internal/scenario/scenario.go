@@ -8,6 +8,7 @@
 //		"version": 1,
 //		"month": "1914-08",
 //		"name": "Pulse",
+//		"backdrop": "1914-08-pulse.jpg",
 //		"map": {
 //			"line1": [["hills", ""], ["grass", "road236"], …],
 //			…
@@ -30,7 +31,8 @@
 // 1 as the map's line keys. A building's owner is "cp", "ec" or absent
 // (none); its credits are per cycle. A setup with "from" reuses that
 // setup's units, buildings and builds under its own code. Skirmish files
-// have no month.
+// have no month. The optional backdrop names a painting of the whole map's
+// ground next to the file, drawn in place of the terrain tiles.
 package scenario
 
 import (
@@ -40,6 +42,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"path"
 	"regexp"
 	"slices"
 	"strconv"
@@ -81,10 +84,15 @@ func (m Mode) Human() game.Player {
 
 // File is a scenario file.
 type File struct {
-	Month  string        // "1914-08"; "" for a skirmish map
-	Name   string        // "Pulse"
-	Map    [][]level.Hex // Map[line][col]: terrain and infrastructure only
-	Setups map[Mode]*Setup
+	Month string // "1914-08"; "" for a skirmish map
+	Name  string // "Pulse"
+	// Backdrop is the painting of the map's ground drawn in place of the
+	// terrain tiles: a PNG or JPEG file next to the scenario file
+	// ("1914-08-pulse.jpg") covering the map's world rectangle as
+	// maprender draws it; "" for none.
+	Backdrop string
+	Map      [][]level.Hex // Map[line][col]: terrain and infrastructure only
+	Setups   map[Mode]*Setup
 }
 
 // Setup is the units and buildings of one mode.
@@ -137,12 +145,13 @@ func LoadLevel(path string, m Mode) (*level.Level, error) {
 }
 
 type fileJSON struct {
-	Format  string                         `json:"format"`
-	Version int                            `json:"version"`
-	Month   string                         `json:"month"`
-	Name    string                         `json:"name"`
-	Map     map[string][][]json.RawMessage `json:"map"`
-	Setups  map[Mode]*setupJSON            `json:"setups"`
+	Format   string                         `json:"format"`
+	Version  int                            `json:"version"`
+	Month    string                         `json:"month"`
+	Name     string                         `json:"name"`
+	Backdrop string                         `json:"backdrop"`
+	Map      map[string][][]json.RawMessage `json:"map"`
+	Setups   map[Mode]*setupJSON            `json:"setups"`
 }
 
 type setupJSON struct {
@@ -188,7 +197,10 @@ func Parse(raw []byte) (*File, error) {
 	if fj.Name == "" {
 		return nil, errors.New("no name")
 	}
-	f := &File{Month: fj.Month, Name: fj.Name, Setups: map[Mode]*Setup{}}
+	if b := fj.Backdrop; b != "" && (path.Base(b) != b || strings.HasPrefix(b, ".") || !slices.Contains([]string{".png", ".jpg", ".jpeg"}, strings.ToLower(path.Ext(b)))) {
+		return nil, fmt.Errorf("backdrop %q is not a PNG or JPEG file name", b)
+	}
+	f := &File{Month: fj.Month, Name: fj.Name, Backdrop: fj.Backdrop, Setups: map[Mode]*Setup{}}
 	if err := f.parseMap(fj.Map); err != nil {
 		return nil, err
 	}
@@ -374,7 +386,8 @@ func (f *File) Winter() bool {
 // setup's units and building content, Player the mode's first human side,
 // MapName the setup's code word (the file's name without one: the game info
 // and the best scores go by it), MapNo 0, and Extra the setup's credits and
-// builds. A unit on a building's content hex is an error.
+// builds and the file's backdrop. A unit on a building's content hex is an
+// error.
 func (f *File) Level(m Mode) (*level.Level, error) {
 	s := f.Setup(m)
 	if s == nil {
@@ -385,7 +398,7 @@ func (f *File) Level(m Mode) (*level.Level, error) {
 		name = s.Code
 	}
 	lv := &level.Level{MapName: name, Player: m.Human().String(), Lines: make([][]level.Hex, len(f.Map)),
-		Extra: &level.Extra{Credits: map[hexgrid.Coord]int{}, Builds: slices.Clone(s.Builds)}}
+		Extra: &level.Extra{Credits: map[hexgrid.Coord]int{}, Builds: slices.Clone(s.Builds), Backdrop: f.Backdrop}}
 	for i, line := range f.Map {
 		lv.Lines[i] = make([]level.Hex, len(line))
 		for col, h := range line {
@@ -435,6 +448,10 @@ func (f *File) Marshal() ([]byte, error) {
 	}
 	b.WriteString("\t\"name\": ")
 	str(f.Name)
+	if f.Backdrop != "" {
+		b.WriteString(",\n\t\"backdrop\": ")
+		str(f.Backdrop)
+	}
 	b.WriteString(",\n\t\"map\": {\n")
 	for i, line := range f.Map {
 		fmt.Fprintf(&b, "\t\t\"line%d\": [", i+1)

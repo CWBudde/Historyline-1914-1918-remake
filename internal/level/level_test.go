@@ -12,21 +12,12 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 )
 
-func shippedLevels(t *testing.T) []string {
-	t.Helper()
-	paths, err := filepath.Glob(filepath.Join("..", "..", "levels", "*.json"))
-	if err != nil {
-		t.Fatal(err)
-	}
-	if len(paths) < 4 {
-		t.Fatalf("found %d level files, want at least 4", len(paths))
-	}
-	return paths
-}
+// pulse is PULSE in this format, the Python remake's transcription.
+var pulse = filepath.Join("testdata", "pulse.json")
 
 func TestRoundTrip(t *testing.T) {
-	for _, path := range shippedLevels(t) {
-		t.Run(filepath.Base(path), func(t *testing.T) {
+	for _, path := range []string{pulse, filepath.Join("..", "..", "art", "reference", "pulse", "level.json")} {
+		t.Run(path, func(t *testing.T) {
 			raw, err := os.ReadFile(path)
 			if err != nil {
 				t.Fatal(err)
@@ -53,7 +44,7 @@ func TestRoundTrip(t *testing.T) {
 }
 
 func TestSaveLoad(t *testing.T) {
-	l, err := Load(filepath.Join("..", "..", "levels", "level3_cp.json"))
+	l, err := Load(pulse)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -71,7 +62,7 @@ func TestSaveLoad(t *testing.T) {
 }
 
 func TestParseForms(t *testing.T) {
-	l, err := Load(filepath.Join("..", "..", "levels", "level1_cp.json"))
+	l, err := Load(pulse)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -169,7 +160,7 @@ func TestIDsKnown(t *testing.T) {
 			t.Errorf("%s: unknown unit %q", path, id)
 		}
 	}
-	for _, path := range shippedLevels(t) {
+	for _, path := range []string{pulse} {
 		l, err := Load(path)
 		if err != nil {
 			t.Fatal(err)

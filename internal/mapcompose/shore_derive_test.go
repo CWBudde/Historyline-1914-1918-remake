@@ -324,7 +324,7 @@ func TestSeaKitByTheSea(t *testing.T) {
 		}
 	}
 	t.Logf("%d shoals", shoals)
-	g, at = loadLevel(t, "level1_cp")
+	g, at = loadLevel(t, pythonPulse)
 	s := Compose(g, at, all)
 	for l, line := range s.Cells {
 		for col, cell := range line {

@@ -67,7 +67,7 @@ func TestWinterBoundaryRejectsUnknownAndMixedSeasonNeighbors(t *testing.T) {
 }
 
 func TestCampaignBoundariesHaveContexts(t *testing.T) {
-	for _, name := range []string{"level1_cp", "level2_cp", "level3_cp"} {
+	for _, name := range []string{"monthly/1914-08-pulse:cp", "monthly/1914-10-civil:cp", "monthly/1914-12-mouse:cp"} {
 		g, at := loadLevel(t, name)
 		s := Compose(g, at, func(string) bool { return true })
 		if len(s.Gaps) != 0 {

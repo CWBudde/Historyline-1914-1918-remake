@@ -12,7 +12,6 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
-	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
 
 func loadSet(t *testing.T) *data.Set {
@@ -233,14 +232,10 @@ func TestPlannerGivesOneActionPerUnit(t *testing.T) {
 
 func TestPlaysShippedLevels(t *testing.T) {
 	set := loadSet(t)
-	for _, name := range []string{"level1_cp", "level2_cp", "level3_cp"} {
+	for _, name := range []string{"monthly/1914-08-pulse", "monthly/1914-10-civil", "monthly/1914-12-mouse"} {
 		for _, side := range []game.Player{game.CentralPowers, game.Entente} {
 			t.Run(fmt.Sprintf("%s/%v", name, side), func(t *testing.T) {
-				raw, err := levels.FS.ReadFile(name + ".json")
-				if err != nil {
-					t.Fatal(err)
-				}
-				lv, err := level.Parse(raw)
+				lv, err := scenario.ShippedLevel(name, scenario.CP)
 				if err != nil {
 					t.Fatal(err)
 				}

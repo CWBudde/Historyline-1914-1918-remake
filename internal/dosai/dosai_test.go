@@ -1,7 +1,6 @@
 package dosai
 
 import (
-	"io/fs"
 	"reflect"
 	"testing"
 	"time"
@@ -11,28 +10,21 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
-	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
 )
 
 // maxTurns bounds a played-out battle.
 const maxTurns = 300
 
-// shipped are the shipped levels in file order.
+// shipped are the cp setups of the campaign's first three months (PULSE,
+// CIVIL, MOUSE).
 func shipped(tb testing.TB) []*level.Level {
 	tb.Helper()
-	names, err := fs.Glob(levels.FS, "level?_cp.json")
-	if err != nil || len(names) == 0 {
-		tb.Fatalf("no shipped levels: %v", err)
-	}
 	var out []*level.Level
-	for _, n := range names {
-		raw, err := levels.FS.ReadFile(n)
+	for _, name := range []string{"monthly/1914-08-pulse", "monthly/1914-10-civil", "monthly/1914-12-mouse"} {
+		lv, err := scenario.ShippedLevel(name, scenario.CP)
 		if err != nil {
 			tb.Fatal(err)
-		}
-		lv, err := level.Parse(raw)
-		if err != nil {
-			tb.Fatalf("%s: %v", n, err)
 		}
 		out = append(out, lv)
 	}

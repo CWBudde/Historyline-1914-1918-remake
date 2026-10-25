@@ -1,31 +1,30 @@
 package main
 
 import (
+	"path/filepath"
 	"strings"
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
-	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
 
-// testLevel is a shipped level: a remake level of levels.FS
-// ("level2_cp.json") or a setup of a shipped scenario
-// ("monthly/1916-02-parts:cp").
+// referenceLevel is the PULSE reference design's map (art/reference/pulse).
+const referenceLevel = "reference"
+
+// testLevel is a setup of a shipped scenario ("monthly/1916-02-parts:cp")
+// or the reference design's map (referenceLevel).
 func testLevel(t *testing.T, name string) *level.Level {
 	t.Helper()
-	if file, mode, ok := strings.Cut(name, ":"); ok {
-		l, err := scenario.ShippedLevel(file, scenario.Mode(mode))
+	if name == referenceLevel {
+		l, err := level.Load(filepath.Join("..", "..", "art", "reference", "pulse", "level.json"))
 		if err != nil {
 			t.Fatal(err)
 		}
 		return l
 	}
-	raw, err := levels.FS.ReadFile(name)
-	if err != nil {
-		t.Fatal(err)
-	}
-	l, err := level.Parse(raw)
+	file, mode, _ := strings.Cut(name, ":")
+	l, err := scenario.ShippedLevel(file, scenario.Mode(mode))
 	if err != nil {
 		t.Fatal(err)
 	}

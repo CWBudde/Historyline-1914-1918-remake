@@ -1,5 +1,6 @@
 // Command hlcampaign writes the scenario files (internal/scenario) of the
-// imported original maps of levels/original:
+// original full game's maps, read from the local original files
+// (internal/origmaps):
 //
 //   - levels/monthly: campaign map k (00–23 with its Entente version
 //     24–47) becomes the level of month k*2 after August 1914, named by
@@ -16,18 +17,17 @@
 // and its buildings' content to the nearest building of the kind; the
 // command prints every such change.
 //
-//	go run ./cmd/hlcampaign [-from levels/original] [-monthly levels/monthly] [-skirmish levels/skirmish]
+//	go run ./cmd/hlcampaign [-monthly levels/monthly] [-skirmish levels/skirmish]
 //
 // It replaces the months it writes in -monthly (other months' files, the
-// newly authored levels, stay) and all of -skirmish. just levels-import runs it
-// after importing the maps.
+// newly authored levels, stay) and every scenario file of -skirmish; a
+// replaced file keeps its backdrop, and the pictures stay.
 package main
 
 import (
 	"errors"
 	"flag"
 	"fmt"
-	"io/fs"
 	"log"
 	"os"
 	"path"
@@ -42,12 +42,12 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/origmaps"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/origview"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
 )
 
 func main() {
-	from := flag.String("from", "levels/original", "directory of the imported maps (full/NN.json)")
 	monthly := flag.String("monthly", "levels/monthly", "output directory of the campaign months")
 	skirmish := flag.String("skirmish", "levels/skirmish", "output directory of the two-player maps")
 	flag.Parse()
@@ -55,7 +55,15 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	out, err := generate(os.DirFS(*from), set)
+	maps, err := origmaps.Full()
+	if err != nil {
+		log.Fatal(err)
+	}
+	backdrops, err := keptBackdrops(*monthly, *skirmish)
+	if err != nil {
+		log.Fatal(err)
+	}
+	out, err := generate(maps, set, backdrops)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -75,8 +83,14 @@ func main() {
 			}
 		}
 	}
-	if err := os.RemoveAll(*skirmish); err != nil {
+	old, err = filepath.Glob(filepath.Join(*skirmish, "*.json"))
+	if err != nil {
 		log.Fatal(err)
+	}
+	for _, p := range old {
+		if err := os.Remove(p); err != nil {
+			log.Fatal(err)
+		}
 	}
 	for dir, files := range map[string]map[string][]byte{*monthly: out.monthly, *skirmish: out.skirmish} {
 		if err := os.MkdirAll(dir, 0o755); err != nil {
@@ -108,20 +122,38 @@ func Month(k int) string {
 	return fmt.Sprintf("%d-%02d", 1914+m/12, m%12+1)
 }
 
-// generate returns the scenario files of the maps full/NN.json in src.
-func generate(src fs.FS, set *data.Set) (*output, error) {
-	maps := make([]*finmap.Level, 3*campaignMaps)
-	for i := range maps {
-		name := fmt.Sprintf("full/%02d.json", i)
-		raw, err := fs.ReadFile(src, name)
+// keptBackdrops are the backdrops of the scenario files in the directories,
+// by file name ("1914-08-pulse.json"); a missing directory has none.
+func keptBackdrops(dirs ...string) (map[string]string, error) {
+	out := map[string]string{}
+	for _, dir := range dirs {
+		paths, err := filepath.Glob(filepath.Join(dir, "*.json"))
 		if err != nil {
 			return nil, err
 		}
-		if maps[i], err = finmap.Parse(raw); err != nil {
-			return nil, fmt.Errorf("%s: %w", name, err)
+		for _, p := range paths {
+			f, err := scenario.Load(p)
+			if err != nil {
+				return nil, err
+			}
+			if f.Backdrop != "" {
+				out[filepath.Base(p)] = f.Backdrop
+			}
 		}
-		if maps[i].Mission == nil || maps[i].Mission.Code == "" {
-			return nil, fmt.Errorf("%s: no mission code", name)
+	}
+	return out, nil
+}
+
+// generate returns the scenario files of the full game's maps (00-71 in map
+// order), each with its backdrop by file name.
+func generate(all []*finmap.Level, set *data.Set, backdrops map[string]string) (*output, error) {
+	if len(all) < 3*campaignMaps {
+		return nil, fmt.Errorf("%d maps, want %d", len(all), 3*campaignMaps)
+	}
+	maps := all[:3*campaignMaps]
+	for i, m := range maps {
+		if m.Source.Map != fmt.Sprintf("%02d", i) || m.Mission == nil || m.Mission.Code == "" {
+			return nil, fmt.Errorf("map %d (%s): not map %02d with a mission code", i, m.Source.Map, i)
 		}
 	}
 	out := &output{monthly: map[string][]byte{}, skirmish: map[string][]byte{}, months: map[string]bool{}}
@@ -133,6 +165,7 @@ func generate(src fs.FS, set *data.Set) (*output, error) {
 		}
 		f.Month = Month(k)
 		name := f.Month + "-" + strings.ToLower(maps[k].Mission.Code) + ".json"
+		f.Backdrop = backdrops[name]
 		for _, r := range report {
 			out.report = append(out.report, name+": "+r)
 		}
@@ -152,6 +185,7 @@ func generate(src fs.FS, set *data.Set) (*output, error) {
 		f := &scenario.File{Name: title(m.Mission.Code), Map: lines, Setups: map[scenario.Mode]*scenario.Setup{
 			scenario.TwoPlayer: s, scenario.CP: {From: scenario.TwoPlayer}, scenario.EC: {From: scenario.TwoPlayer}}}
 		name := fmt.Sprintf("%02d-%s.json", j+1, strings.ToLower(m.Mission.Code))
+		f.Backdrop = backdrops[name]
 		if out.skirmish[name], err = encode(f, set); err != nil {
 			return nil, fmt.Errorf("%s: %w", name, err)
 		}

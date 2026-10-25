@@ -384,3 +384,21 @@ func js(v any) string {
 	b, _ := json.Marshal(v)
 	return string(b)
 }
+
+func TestParseRejects(t *testing.T) {
+	for name, raw := range map[string]string{
+		"format":  `{"format":"x","version":1,"source":{},"width":1,"height":1,"terrain":[[0]]}`,
+		"version": `{"format":"historyline-level","version":2,"source":{},"width":1,"height":1,"terrain":[[0]]}`,
+		"rows":    `{"format":"historyline-level","version":1,"source":{},"width":1,"height":2,"terrain":[[0]]}`,
+		"cells":   `{"format":"historyline-level","version":1,"source":{},"width":2,"height":1,"terrain":[[0]]}`,
+		"field":   `{"format":"historyline-level","version":1,"source":{},"width":1,"height":1,"terrain":[[0]],"x":1}`,
+		"trailer": `{"format":"historyline-level","version":1,"source":{},"width":1,"height":1,"terrain":[[0]]} {}`,
+	} {
+		if _, err := Parse([]byte(raw)); err == nil {
+			t.Errorf("%s: expected an error", name)
+		}
+	}
+	if _, err := Parse([]byte(`{"format":"historyline-level","version":1,"source":{},"width":1,"height":1,"terrain":[[0]]}`)); err != nil {
+		t.Error(err)
+	}
+}

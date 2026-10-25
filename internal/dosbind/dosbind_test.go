@@ -1,7 +1,9 @@
 package dosbind
 
 import (
-	"io/fs"
+	"fmt"
+	"os"
+	"path/filepath"
 	"slices"
 	"strings"
 	"testing"
@@ -10,27 +12,61 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
-	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
 )
 
-// shipped are the shipped levels in file order.
-func shipped(t *testing.T) []*level.Level {
+// pythonPulse is the Python remake's PULSE (internal/level's fixture), the
+// transcription of map 00 whose credits and builds records.json holds.
+func pythonPulse(t *testing.T) testLevel {
 	t.Helper()
-	names, err := fs.Glob(levels.FS, "level?_cp.json")
-	if err != nil || len(names) == 0 {
-		t.Fatalf("no shipped levels: %v", err)
+	raw, err := os.ReadFile(filepath.Join("..", "level", "testdata", "pulse.json"))
+	if err != nil {
+		t.Fatal(err)
 	}
-	var out []*level.Level
-	for _, n := range names {
-		raw, err := levels.FS.ReadFile(n)
-		if err != nil {
-			t.Fatal(err)
+	pulse, err := level.Parse(raw)
+	if err != nil {
+		t.Fatal(err)
+	}
+	return testLevel{pulse, pulse.MapNo - 1}
+}
+
+// testLevel is a level and the original map it is a version of (00-71).
+type testLevel struct {
+	*level.Level
+	Map int
+}
+
+// shipped are the Python remake's PULSE (internal/level's fixture, map 00),
+// then the setups that hold an original map's units: the cp setup of every
+// campaign month made from one, the 2p setup of every skirmish map.
+func shipped(t *testing.T) []testLevel {
+	t.Helper()
+	out := []testLevel{pythonPulse(t)}
+	sh, err := scenario.Shipped(scenario.CP, scenario.TwoPlayer)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, n := range sh {
+		file, mode, _ := strings.Cut(n.Name, ":")
+		dir, name, _ := strings.Cut(file, "/")
+		var y, m, k int
+		switch {
+		case dir == "monthly" && mode == "cp":
+			if _, err := fmt.Sscanf(name, "%4d-%2d-", &y, &m); err != nil {
+				t.Fatalf("%s: %v", n.Name, err)
+			}
+			if months := 12*(y-1914) + m - 8; months%2 == 0 {
+				out = append(out, testLevel{n.Level, months / 2})
+			}
+		case dir == "skirmish" && mode == "2p":
+			if _, err := fmt.Sscanf(name, "%2d-", &k); err != nil {
+				t.Fatalf("%s: %v", n.Name, err)
+			}
+			out = append(out, testLevel{n.Level, 47 + k})
 		}
-		lv, err := level.Parse(raw)
-		if err != nil {
-			t.Fatalf("%s: %v", n, err)
-		}
-		out = append(out, lv)
+	}
+	if len(out) != 49 {
+		t.Fatalf("%d levels of original maps, want 49", len(out))
 	}
 	return out
 }
@@ -52,12 +88,12 @@ func TestBindShippedLevels(t *testing.T) {
 	want := map[string]struct {
 		w, h   int
 		winter bool
-	}{"Pulse": {16, 24, false}, "Civil": {24, 24, true}, "Mouse": {24, 24, true}}
+	}{"Pulse": {16, 24, false}, "PULSE": {16, 24, false}, "CIVIL": {24, 24, true}, "MOUSE": {24, 24, true}, "WATER": {48, 64, true}}
 	terrains := dosrules.Full.Tables.Move.Terrains
 	for _, lv := range shipped(t) {
-		b := bind(t, lv)
+		b := bind(t, lv.Level)
 		w, ok := want[lv.MapName]
-		if !ok || b.Width != w.w || b.Height != w.h || b.Winter != w.winter {
+		if ok && (b.Width != w.w || b.Height != w.h || b.Winter != w.winter) {
 			t.Errorf("%s: %d×%d winter %v", lv.MapName, b.Width, b.Height, b.Winter)
 		}
 		g := lv.Grid()
@@ -96,8 +132,18 @@ func TestBindShippedLevels(t *testing.T) {
 		if err != nil {
 			t.Fatalf("%s: NewGame: %v", lv.MapName, err)
 		}
-		if len(gm.Units) != len(b.Units) || len(gm.Buildings) != len(b.Buildings) || len(b.IDs) != len(b.Units) {
+		if len(gm.Units) != len(b.Units) || len(gm.Buildings) != len(b.Buildings) {
 			t.Errorf("%s: %d units, %d buildings in the game", lv.MapName, len(gm.Units), len(gm.Buildings))
+		}
+		// Every unit has its remake id but a two-cell ship's rear, the
+		// record after its head.
+		for i, u := range b.Units {
+			if _, ok := b.IDs[i]; ok {
+				continue
+			}
+			if head, ok := b.Units[i-1]; !ok || b.IDs[i-1] == "" || head.Type+1 != u.Type {
+				t.Errorf("%s: unit %d (type %d) has no remake id and is no ship's rear", lv.MapName, i, u.Type)
+			}
 		}
 		checkHolds(t, lv.MapName, b)
 	}
@@ -185,7 +231,7 @@ func TestBindErrorsNameTheHex(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	lv := shipped(t)[0]
+	lv := shipped(t)[0].Level
 	for _, c := range []struct {
 		edit func(h *level.Hex)
 		want string
@@ -207,12 +253,14 @@ func TestBindErrorsNameTheHex(t *testing.T) {
 
 func TestDroppedContent(t *testing.T) {
 	for _, lv := range shipped(t) {
-		b := bind(t, lv)
+		b := bind(t, lv.Level)
 		n := 0
 		for _, ids := range b.Dropped {
 			n += len(ids)
 		}
-		want := map[string]int{"Civil": 2}[lv.MapName]
+		// PARTS has two camps that touch, which Bind takes for one
+		// building: the second camp's content is dropped (PLAN 5.8).
+		want := map[string]int{"PARTS": 6}[lv.MapName]
 		if n != want {
 			t.Errorf("%s: %d dropped units %v, want %d", lv.MapName, n, b.Dropped, want)
 		}

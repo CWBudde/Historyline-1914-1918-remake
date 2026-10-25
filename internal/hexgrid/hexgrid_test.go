@@ -39,34 +39,11 @@ func coord(p [2]int) Coord { return Coord{Line: p[0], Col: p[1]} }
 func TestNeighborsMatchPython(t *testing.T) {
 	g := loadGolden(t)
 
-	levels, err := filepath.Glob(filepath.Join("..", "..", "levels", "*.json"))
-	if err != nil {
-		t.Fatal(err)
+	if len(g) == 0 {
+		t.Fatal("no golden grids")
 	}
-	if len(levels) == 0 {
-		t.Fatal("no shipped levels found")
-	}
-	for _, path := range levels {
-		name := filepath.Base(path)
-		lv, ok := g[name]
-		if !ok {
-			t.Fatalf("%s has no golden data; rerun testdata/gen_adjacent.py", name)
-		}
-		var file struct {
-			Tiles map[string][]json.RawMessage `json:"tiles"`
-		}
-		raw, err := os.ReadFile(path)
-		if err != nil {
-			t.Fatal(err)
-		}
-		if err := json.Unmarshal(raw, &file); err != nil {
-			t.Fatal(err)
-		}
-		if lv.Width != len(file.Tiles["line1"]) || lv.Lines != len(file.Tiles) {
-			t.Fatalf("%s: golden is %d×%d, level is %d×%d", name, lv.Width, lv.Lines,
-				len(file.Tiles["line1"]), len(file.Tiles))
-		}
-
+	// The grids are the sizes of the Python remake's levels.
+	for name, lv := range g {
 		grid := Grid{Width: lv.Width, Lines: lv.Lines}
 		count := 0
 		for _, h := range lv.Hexes {
@@ -90,7 +67,7 @@ func TestNeighborsMatchPython(t *testing.T) {
 }
 
 func TestEdgeCases(t *testing.T) {
-	grid := Grid{Width: 8, Lines: 47} // level1_cp
+	grid := Grid{Width: 8, Lines: 47} // PULSE
 
 	contains := []struct {
 		c    Coord
@@ -144,7 +121,7 @@ func TestEdgeCases(t *testing.T) {
 func TestDistanceMatchesBFS(t *testing.T) {
 	for name, lv := range loadGolden(t) {
 		if strings.HasPrefix(name, "BACK-") {
-			continue // same size as level1_cp
+			continue // same size as PULSE
 		}
 		adj := make(map[Coord][]Coord, len(lv.Hexes))
 		for _, h := range lv.Hexes {

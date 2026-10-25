@@ -1,6 +1,6 @@
 {
   "image": {"path": "RefDesign2.png", "sha256": "b3182d5d39243717283d8684787281fff13f4f9f331c4ded3180c4e4cc7625dd", "width": 945, "height": 1664},
-  "level": "levels/level1_cp.json",
+  "level": "art/reference/pulse/level.json",
   "registration": {"world_anchor": [48, 0], "source_anchor": [42, 0], "scale_x": [123, 142], "scale_y": [35, 40]},
   "excluded_rows": [47],
   "tolerance": {"delta_e": 8, "contrast": 0.3, "chroma": 0.3, "edges": 0.3},

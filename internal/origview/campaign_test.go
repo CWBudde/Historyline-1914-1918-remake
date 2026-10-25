@@ -1,10 +1,7 @@
 package origview
 
 import (
-	"io/fs"
-	"path"
 	"reflect"
-	"strings"
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
@@ -14,7 +11,6 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
-	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
 
 func loadSet(t *testing.T) *data.Set {
@@ -88,24 +84,16 @@ func TestCampaign(t *testing.T) {
 	}
 }
 
-// Every committed map makes a campaign level that the remake rules load under
-// both rule sets with all of the map's units and building contents.
-func TestCommittedCampaign(t *testing.T) {
-	names, err := fs.Glob(levels.Original, "original/full/[0-9][0-9].json")
-	if err != nil {
-		t.Fatal(err)
-	}
+// Every numbered original map makes a campaign level that the remake rules
+// load under both rule sets with all of the map's units and building
+// contents.
+func TestOriginalCampaign(t *testing.T) {
 	set := loadSet(t)
-	for _, name := range names {
-		raw, err := fs.ReadFile(levels.Original, name)
-		if err != nil {
-			t.Fatal(err)
+	for _, src := range originalMaps(t) {
+		stem := src.Source.Map
+		if stem == "STATMAP" {
+			continue
 		}
-		src, err := finmap.Parse(raw)
-		if err != nil {
-			t.Fatal(err)
-		}
-		stem := strings.TrimSuffix(path.Base(name), ".json")
 		lv, err := Campaign(src, set)
 		if err != nil {
 			t.Errorf("%s: %v", stem, err)

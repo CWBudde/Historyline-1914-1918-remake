@@ -246,21 +246,27 @@ their layouts leave the unit foot point clear. Rebuild with the pinned
 
 ### Painted backdrop
 
-`-backdrop <png>` (a development proof of concept, for PULSE) draws one painting of the level's whole ground
-in place of the terrain tiles. It covers the world rectangle as `maprender` draws it (`maprender.Size`,
-1090×1920 for PULSE, origin at world (0, 0)) at any resolution whose aspect is within 1 % of the world's;
-another aspect is refused. The picture is split into textures of at most 2048 pixels a side, each holding
-8 pixels of its neighbours so filtering and mipmaps meet without seams. Over it go the hexes the sappers
-changed (from the `-terrain` catalog when given), the fog per hex (an unseen hex black, a seen one in the
-remembered grey) and, in the single-map view, the screen colour beyond the outer hexes. No grid outlines
-the hexes: only the cursor, selection, move and attack overlays, fog, owner marks and units draw over it,
-in both battle views. On the split screen the painting shows edge to edge, the corners beyond the outer
-hexes included, in the slim gunmetal-and-brass frame instead of the steel plates (`docs/dos-screen.md`);
-past the world rectangle a panel shows the frame's gunmetal. The file is read like a catalog: a path, or a
-URL in a directory with `files.txt`.
+A level can draw one painting of its whole ground in place of the terrain tiles: a scenario file names it
+as `backdrop`, a PNG or JPEG next to the file (`levels/monthly/1914-08-pulse.jpg`, embedded with the
+scenarios), and every battle on that map draws it. `-backdrop <file>` puts one painting under every level
+instead (a path, or a URL in a directory with `files.txt`, read like a catalog); `-backdrop off` draws the
+tiles where a level has a painting. The painting covers the world rectangle as `maprender` draws it
+(`maprender.Size`, 1090×1920 for PULSE, origin at world (0, 0)) at any resolution whose aspect is within
+1 % of the world's; another aspect is refused. The picture is split into textures of at most 2048 pixels
+a side, each holding 8 pixels of its neighbours so filtering and mipmaps meet without seams. Over it go
+the hexes the sappers changed (from the `-terrain` catalog when given), the fog per hex (an unseen hex
+black, a seen one in the remembered grey) and, in the single-map view, the screen colour beyond the outer
+hexes. No grid outlines the hexes: only the cursor, selection, move and attack overlays, fog, owner marks
+and units draw over it, in both battle views. On the split screen the painting shows edge to edge, the
+corners beyond the outer hexes included, in the slim gunmetal-and-brass frame instead of the steel plates
+(`docs/dos-screen.md`); past the world rectangle a panel shows the frame's gunmetal.
+
+PULSE's painting was made from the Python remake's PULSE (`art/reference/pulse/level.json`); the
+month's map, the original's terrain, differs in 31 hexes until it is repainted.
 
 ```sh
-just play -level level1_cp -backdrop build/review/painted-pulse/pulse-painted.png
+just play                      # PULSE with its painting
+just play -backdrop off        # PULSE with the terrain tiles
 ```
 
 ## Screens

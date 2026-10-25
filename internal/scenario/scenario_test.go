@@ -8,6 +8,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 )
@@ -29,8 +30,12 @@ func shipped(t *testing.T) []string {
 }
 
 // Every shipped file parses, encodes to its own bytes, and every setup
-// is a level.
+// is a level the rules start.
 func TestShippedRoundTrip(t *testing.T) {
+	set, err := data.Load()
+	if err != nil {
+		t.Fatal(err)
+	}
 	for _, path := range shipped(t) {
 		t.Run(filepath.Base(path), func(t *testing.T) {
 			raw, err := os.ReadFile(path)
@@ -52,13 +57,23 @@ func TestShippedRoundTrip(t *testing.T) {
 			if f.Month != "" && !strings.HasPrefix(name, f.Month+"-") {
 				t.Errorf("month %s, file %s", f.Month, name)
 			}
+			if f.Backdrop != "" {
+				if _, err := os.Stat(filepath.Join(filepath.Dir(path), f.Backdrop)); err != nil {
+					t.Errorf("backdrop: %v", err)
+				}
+			}
 			for _, m := range Modes {
 				if f.Setups[m] == nil {
 					t.Errorf("no %s setup", m)
 					continue
 				}
-				if _, err := f.Level(m); err != nil {
+				lv, err := f.Level(m)
+				if err != nil {
 					t.Error(err)
+					continue
+				}
+				if _, err := game.New(lv, set); err != nil {
+					t.Errorf("%s: %v", m, err)
 				}
 			}
 		})
@@ -70,6 +85,7 @@ const small = `{
 	"version": 1,
 	"month": "1914-08",
 	"name": "Test",
+	"backdrop": "test.jpg",
 	"map": {
 		"line1": [["grass", ""], ["hqN", ""], ["forest", ["stream25", "bridge36"]]],
 		"line2": [["grass", "road25"], ["hqC", ""]],
@@ -114,7 +130,7 @@ func TestLevel(t *testing.T) {
 	if c == nil || c.Owner != int(game.CentralPowers) || !reflect.DeepEqual(c.Units, []string{"CP_cavalry"}) {
 		t.Errorf("content %+v", c)
 	}
-	if lv.Extra.Credits[hexgrid.Coord{Line: 0, Col: 1}] != 5 || !reflect.DeepEqual(lv.Extra.Builds, []string{"CP_infantry"}) {
+	if lv.Extra.Credits[hexgrid.Coord{Line: 0, Col: 1}] != 5 || !reflect.DeepEqual(lv.Extra.Builds, []string{"CP_infantry"}) || lv.Extra.Backdrop != "test.jpg" {
 		t.Errorf("extra %+v", lv.Extra)
 	}
 	if got := lv.Lines[0][2].Infra; !got.List || len(got.IDs) != 2 {
@@ -140,6 +156,8 @@ func TestLevel(t *testing.T) {
 func TestParseErrors(t *testing.T) {
 	for name, edit := range map[string][2]string{
 		"version":          {`"version": 1`, `"version": 2`},
+		"backdrop path":    {`"test.jpg"`, `"../test.jpg"`},
+		"backdrop type":    {`"test.jpg"`, `"test.gif"`},
 		"month":            {`"1914-08"`, `"1914-8"`},
 		"unknown key":      {`"name": "Test",`, `"name": "Test", "extra": 1,`},
 		"line gap":         {`"line3"`, `"line4"`},

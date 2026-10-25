@@ -259,7 +259,7 @@ func TestAttackTurnsBothSides(t *testing.T) {
 			}
 		}
 	}
-	t.Skip("level1_cp has no unit with a target at the start")
+	t.Skip("PULSE has no unit with a target at the start")
 }
 
 // A unit in forest or on water gets the pale rim; on a forest road, on open

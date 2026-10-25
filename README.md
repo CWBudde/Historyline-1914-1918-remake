@@ -37,9 +37,9 @@ just clean      # delete all generated output under build/
 ```
 
 The game opens with a main menu laid out like the original's: start (country selection, then the battle),
-the map code (PULSE, CIVIL, MOUSE, then the original maps by their passwords or numbers 00-71; a victory
-sets the next one), game values (full or short battles, the computer or a passive opponent, a move limit),
-control (fullscreen, scrolling) and extras (the score list, and LOAD GAME for the one saved battle).
+the map code (a month's code word for its side, PULSE or BATLE to start; a victory sets the next month),
+game values (full or short battles, the computer or a passive opponent, a move limit), control
+(fullscreen, scrolling) and extras (the score list, and LOAD GAME for the one saved battle).
 The loading page shows a one-line briefing derived from the map (side, season, two-player maps).
 In battle, Q asks whether to leave it — STAY, SAVE AND LEAVE (one slot, `-rules dos` only, continued
 via EXTRAS → LOAD GAME) or LEAVE; after its end Enter shows the outcome. `-level` or `-player`

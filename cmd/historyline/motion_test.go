@@ -109,7 +109,7 @@ func TestCaptureBanner(t *testing.T) {
 		}
 	}
 	if !found {
-		t.Skip("no unit in level1_cp can enter a depot")
+		t.Skip("no unit in PULSE can enter a depot")
 	}
 	b := c.fx.Banner()
 	if b == nil || !strings.Contains(b.Text, "CAPTURING") {

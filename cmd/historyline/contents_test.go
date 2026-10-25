@@ -14,14 +14,14 @@ import (
 )
 
 // The tests below open a container's contents in the human side's panel on
-// level2_cp (Civil), whose sides start with factories and depots holding
+// CIVIL, whose sides start with factories and depots holding
 // units, and drive the slot cursor as the player does.
 
 // newContentsTest is the split game of Civil against a passing side with the
 // human panel looking at its factory, and the factory's entrance.
 func newContentsTest(t *testing.T) (*game, *dosControl, hexgrid.Coord) {
 	t.Helper()
-	d := newDosTest(t, "level2_cp", passPlanner{})
+	d := newDosTest(t, "monthly/1914-10-civil:cp", passPlanner{})
 	g := newMapGame(d.s.Level, false)
 	g.dos = d
 	g.applyLayout(1920, 1080, 1)

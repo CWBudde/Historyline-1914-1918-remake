@@ -11,7 +11,6 @@ import (
 	"hash/fnv"
 	"image/color"
 	"log"
-	"path/filepath"
 	"strings"
 
 	"github.com/hajimehoshi/ebiten/v2"
@@ -34,7 +33,6 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/saves"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scores"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
-	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
 
 const (
@@ -735,18 +733,19 @@ func (g *game) Layout(outsideW, outsideH int) (int, int) {
 	return g.view.PhysW, g.view.PhysH
 }
 
-// loadLevel reads name from dir, falling back to the embedded shipped levels when
-// the file is missing (always the case in the browser).
+// loadLevel loads name: a setup of a scenario file below dir
+// ("monthly/1914-08-pulse:ec", see loadScenario), or a level file of the
+// legacy format by its path ("art/reference/pulse/level.json").
 func loadLevel(dir, name string) (*level.Level, error) {
-	lvl, err := level.Load(filepath.Join(dir, name+".json"))
-	if err == nil {
-		return lvl, nil
+	for prefix, emb := range scenarioDirs {
+		if strings.HasPrefix(name, prefix) {
+			return loadScenario(dir, emb, name)
+		}
 	}
-	raw, embErr := levels.FS.ReadFile(name + ".json")
-	if embErr != nil {
-		return nil, err
+	if !strings.HasSuffix(name, ".json") {
+		return nil, fmt.Errorf("level %q: not a scenario setup (monthly/…, skirmish/…), original/NN or a .json file", name)
 	}
-	return level.Parse(raw)
+	return level.Load(name)
 }
 
 // matchConfig is everything a battle is started from: by the menu, or directly
@@ -771,7 +770,9 @@ type matchConfig struct {
 	terrain    string         // terrain catalog directory, composed per level; "" draws coloured hexes
 	terrainHD  string         // full-quality terrain catalog loaded in the background of a battle; "" for none
 	candidates bool           // allow candidate terrain packs
-	backdrop   *backdropImage // the painted ground of the level (-backdrop); nil draws the terrain
+	backdrop   *backdropImage // the painted ground of every level (-backdrop); nil takes the level's own (levelBackdrop)
+	noBackdrop bool           // draw the terrain even where the level has a backdrop (-backdrop off)
+	levels     string         // the directory of the level files (-levels)
 }
 
 // newMatch starts the battle of c, counting the art it fetches in m.
@@ -827,9 +828,16 @@ func newMatch(c matchConfig, m *meter) (*game, error) {
 		gm.scroll = c.scroll
 	}
 	gm.art, gm.screens, gm.scores = c.units, c.screens, c.scores
-	if c.backdrop != nil {
+	bd := c.backdrop
+	if bd == nil && !c.noBackdrop && c.lvl.Extra != nil && c.lvl.Extra.Backdrop != "" {
 		var err error
-		if gm.backdrop, err = c.backdrop.on(c.lvl.Grid()); err != nil {
+		if bd, err = levelBackdrop(c.levels, c.lvl.Extra.Backdrop); err != nil {
+			return nil, err
+		}
+	}
+	if bd != nil {
+		var err error
+		if gm.backdrop, err = bd.on(c.lvl.Grid()); err != nil {
 			return nil, err
 		}
 	}
@@ -848,7 +856,7 @@ func newMatch(c matchConfig, m *meter) (*game, error) {
 }
 
 func main() {
-	name := flag.String("level", "level1_cp", "shipped level to load from levels/ (name without .json), a scenario setup (monthly/1914-08-pulse:ec, skirmish/01-track:2p), or original/NN for an imported original map; skips the menu")
+	name := flag.String("level", "monthly/1914-08-pulse:cp", "a scenario setup (monthly/1914-08-pulse:ec, skirmish/01-track:2p), original/NN for a map of the local original files, or the path of a level file of the legacy format (art/reference/pulse/level.json); skips the menu")
 	dir := flag.String("levels", "levels", "directory with the level files")
 	side := flag.String("player", "", "side the player plays and whose view is shown: central, entente (default: the level's side); skips the menu")
 	rules := flag.String("rules", "dos", "rule set: dos (default: the original order cycle) or standard (the remake rules)")
@@ -865,7 +873,7 @@ func main() {
 	candidates := flag.Bool("allow-candidates", false, "allow unit, terrain and screen packs that are review candidates, not approved art")
 	capture := flag.String("capture", "", "dev: render nine 720p/1080p/4K review frames to a directory under build/ and exit (requires -units and -terrain)")
 	captureLook := flag.Bool("capture-look", false, "with -capture: render revealed/fog views at exact 0.5x, 1x and 1.6x effective zoom at 1080p/4K")
-	backdropPath := flag.String("backdrop", "", "dev: a PNG painting of the whole level's ground, drawn in place of the terrain tiles, without a hex grid (must match the level's world aspect)")
+	backdropPath := flag.String("backdrop", "", "a PNG or JPEG painting of the whole level's ground, drawn in place of the terrain tiles of every level, without a hex grid (must match the level's world aspect); off draws the tiles where a level has its own painting")
 	flag.Parse()
 	if *captureLook && *capture == "" {
 		log.Fatal("-capture-look requires -capture")
@@ -884,7 +892,7 @@ func main() {
 		log.Fatalf("unknown -rules %q (want dos or standard)", *rules)
 	}
 	c := matchConfig{set: set, rules: *rules, opponent: *opponent, reveal: *reveal, hexNumbers: *hexNumbers,
-		reduced: *reduced, terrain: *terrain, candidates: *candidates, scores: scores.Open(), saves: saves.Open()}
+		reduced: *reduced, terrain: *terrain, candidates: *candidates, scores: scores.Open(), saves: saves.Open(), levels: *dir}
 	// The web page shows how much of the art has arrived until the game starts.
 	boot := &meter{fetched: pageFetched}
 	if *units != "" {
@@ -901,7 +909,11 @@ func main() {
 	ebiten.SetWindowSize(startWidth, startHeight)
 	ebiten.SetWindowResizingMode(ebiten.WindowResizingModeEnabled)
 	ebiten.SetWindowTitle("Historyline 1914-1918")
-	if *backdropPath != "" {
+	switch *backdropPath {
+	case "":
+	case "off":
+		c.noBackdrop = true
+	default:
 		if c.backdrop, err = loadBackdrop(*backdropPath); err != nil {
 			log.Fatal(err)
 		}

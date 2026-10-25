@@ -1,6 +1,7 @@
 package dosplay
 
 import (
+	"errors"
 	"fmt"
 	"slices"
 	"testing"
@@ -10,18 +11,18 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/finmap"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/origmaps"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/origview"
-	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
 
-// original is a session on imported original map i and the map itself.
+// original is a session on original map i of the local original files and
+// the map itself; the test is skipped without them.
 func original(t *testing.T, i int, o Options) (*Session, *finmap.Level) {
 	t.Helper()
-	raw, err := levels.Original.ReadFile(fmt.Sprintf("original/full/%02d.json", i))
-	if err != nil {
-		t.Fatal(err)
+	l, err := origmaps.Map(fmt.Sprintf("%02d", i))
+	if errors.Is(err, origmaps.ErrNotFound) {
+		t.Skip("no original files")
 	}
-	l, err := finmap.Parse(raw)
 	if err != nil {
 		t.Fatalf("map %02d: %v", i, err)
 	}
@@ -45,7 +46,7 @@ func civil(t *testing.T) *Session {
 	t.Helper()
 	var lv *level.Level
 	for _, l := range shipped(t) {
-		if l.MapName == "Civil" {
+		if l.MapName == "CIVIL" {
 			lv = l
 		}
 	}

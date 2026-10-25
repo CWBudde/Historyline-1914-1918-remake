@@ -7,19 +7,19 @@ import (
 	"image"
 	"image/draw"
 	"image/png"
-	"io/fs"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strconv"
 	"strings"
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/terraingrade"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/terrainlight"
-	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/waterdepth"
 )
 
 func openTerrainPack(t *testing.T, out string, d int, group string) *assets.Pack {
@@ -175,18 +175,17 @@ func TestRetainedTerrainCatalogBuilds(t *testing.T) {
 				t.Errorf("retained feature geometry: %+v", e)
 			}
 		}
-		names, err := fs.Glob(levels.FS, "*.json")
+		shipped, err := scenario.Shipped(scenario.CP)
 		if err != nil {
 			t.Fatal(err)
 		}
-		for _, name := range names {
-			b, _ := fs.ReadFile(levels.FS, name)
-			l, err := level.Parse(b)
-			if err != nil {
-				t.Fatal(err)
-			}
+		for _, sh := range shipped {
+			l := sh.Level
 			for _, line := range l.Lines {
 				for _, h := range line {
+					if waterdepth.Of(h.Terrain) > 0 {
+						continue // drawn as water, shaded by its depth
+					}
 					e, err := bg.Entry(mapcompose.TileID(h.Terrain), d)
 					if err != nil {
 						t.Fatal(err)
@@ -418,16 +417,15 @@ func TestTerrainGapsReport(t *testing.T) {
 	if strings.Contains(s, "  unstamped lake ") {
 		t.Error("reusable lake tiles reported as a missing whole-lake painting")
 	}
-	if strings.Contains(s, "  unstamped ") {
-		t.Errorf("shipped terrain cluster has no installed stamp:\n%s", s)
+	// Every shipped map finds its contexts; the clusters without a stamp of
+	// their own (craters, boulders) are the art track's list.
+	shipped, err := scenario.Shipped(scenario.CP)
+	if err != nil {
+		t.Fatal(err)
 	}
-	for _, want := range []string{
-		"level1_cp: 156 context tiles selected, 0 missing, 0 undefined, 0 compound issues",
-		"level2_cp: 59 context tiles selected, 0 missing, 0 undefined",
-		"level3_cp: 78 context tiles selected, 0 missing, 0 undefined",
-	} {
-		if !strings.Contains(s, want) {
-			t.Errorf("report lacks %q", want)
+	for _, sh := range shipped {
+		if !regexp.MustCompile(`(?m)^` + regexp.QuoteMeta(sh.Name) + `: \d+ context tiles selected, 0 missing, 0 undefined, 0 compound issues$`).MatchString(s) {
+			t.Errorf("report lacks a complete line for %s", sh.Name)
 		}
 	}
 	// A catalog with an omitted optional stamp must still report the fallback.

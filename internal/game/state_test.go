@@ -22,7 +22,7 @@ func loadSet(t *testing.T) *data.Set {
 
 func loadLevel(t *testing.T, name string) *level.Level {
 	t.Helper()
-	l, err := level.Load(filepath.Join("..", "..", "levels", name))
+	l, err := level.Load(filepath.Join("..", "level", "testdata", name))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -39,9 +39,9 @@ func ids(us []*Unit) []string {
 
 func TestNewShippedLevels(t *testing.T) {
 	set := loadSet(t)
-	paths, err := filepath.Glob(filepath.Join("..", "..", "levels", "*.json"))
-	if err != nil || len(paths) < 4 {
-		t.Fatalf("found %d level files (%v), want at least 4", len(paths), err)
+	paths, err := filepath.Glob(filepath.Join("..", "level", "testdata", "*.json"))
+	if err != nil || len(paths) == 0 {
+		t.Fatalf("found %d level files (%v)", len(paths), err)
 	}
 	for _, path := range paths {
 		name := filepath.Base(path)
@@ -122,7 +122,7 @@ func TestNewShippedLevels(t *testing.T) {
 		})
 	}
 
-	s, err := New(loadLevel(t, "level1_cp.json"), set)
+	s, err := New(loadLevel(t, "pulse.json"), set)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -234,41 +234,22 @@ func TestContainerOrderAndWeight(t *testing.T) {
 	}
 }
 
+// Any factory piece holding units is a container with the factory's
+// capacity, a piece without content is none.
 func TestFactoryNWithContent(t *testing.T) {
-	s, err := New(loadLevel(t, "level2_cp.json"), loadSet(t))
+	lv := &level.Level{MapName: "m", Player: "Central Powers", Lines: [][]level.Hex{
+		{{Terrain: "factoryN_w", Content: &level.Content{Owner: 1, Units: []string{"CP_infantry", "CP_cavalry"}}}, {Terrain: "factoryN"}},
+		{{Terrain: "grass", Unit: "EC_infantry"}},
+	}}
+	s, err := New(lv, loadSet(t))
 	if err != nil {
 		t.Fatal(err)
 	}
-	found := false
-	for _, line := range s.Hexes {
-		for _, h := range line {
-			if !strings.HasPrefix(h.Terrain, "factory") {
-				continue
-			}
-			if h.Terrain == "factoryN_w" && h.Container != nil {
-				found = true
-				if h.Owner != CentralPowers || h.Container.Capacity != 40 || len(h.Container.Units()) != 2 {
-					t.Errorf("factoryN_w: owner %v capacity %d units %v", h.Owner, h.Container.Capacity, ids(h.Container.Units()))
-				}
-			}
-			if !strings.HasPrefix(h.Terrain, "factoryE") && h.Container == nil && h.Owner != None {
-				t.Errorf("plain %s has owner %v", h.Terrain, h.Owner)
-			}
-		}
+	if h := s.Hexes[0][0]; h.Container == nil || h.Owner != CentralPowers || h.Container.Capacity != 40 || len(h.Container.Units()) != 2 {
+		t.Errorf("factoryN_w with content: owner %v container %+v", h.Owner, h.Container)
 	}
-	if !found {
-		t.Fatal("level2 factoryN_w with content did not become a container")
-	}
-	plain := 0
-	for _, line := range s.Hexes {
-		for _, h := range line {
-			if strings.HasPrefix(h.Terrain, "factoryN") && h.Container == nil {
-				plain++
-			}
-		}
-	}
-	if plain == 0 {
-		t.Error("factoryN pieces without content became containers")
+	if h := s.Hexes[0][1]; h.Container != nil || h.Owner != None {
+		t.Errorf("plain factoryN: owner %v container %+v", h.Owner, h.Container)
 	}
 }
 

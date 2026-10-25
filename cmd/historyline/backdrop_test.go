@@ -6,7 +6,9 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosscreen"
+	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/maprender"
 )
@@ -228,5 +230,41 @@ func TestSlimNoGap(t *testing.T) {
 				}
 			}
 		})
+	}
+}
+
+// PULSE's scenario file names its painting: the level carries it as a path
+// below the levels directory, the embedded copy loads and fits the map, and a
+// battle on it draws the painting unless -backdrop off.
+func TestLevelBackdrop(t *testing.T) {
+	lvl, err := loadLevel(t.TempDir(), "monthly/1914-08-pulse:cp")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got := lvl.Extra.Backdrop; got != "monthly/1914-08-pulse.jpg" {
+		t.Fatalf("backdrop %q", got)
+	}
+	bd, err := levelBackdrop(t.TempDir(), lvl.Extra.Backdrop)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err := bd.on(lvl.Grid()); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := levelBackdrop("", "nowhere/x.jpg"); err == nil {
+		t.Error("a backdrop outside the scenario directories loaded")
+	}
+	set, err := data.Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, off := range []bool{false, true} {
+		gm, err := newMatch(matchConfig{lvl: lvl, set: set, player: state.CentralPowers, rules: "dos", opponent: "pass", noBackdrop: off}, &meter{})
+		if err != nil {
+			t.Fatal(err)
+		}
+		if (gm.backdrop != nil) == off {
+			t.Errorf("-backdrop off %v: backdrop %v", off, gm.backdrop != nil)
+		}
 	}
 }
