@@ -7,17 +7,17 @@ import (
 	"image"
 	"image/color"
 	"image/png"
-	"io/fs"
 	"math"
 	"os"
 	"slices"
+	"strings"
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/maprender"
-	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
 )
 
 // catalog returns the IDs of assets/index.json at 4x and the 4x entries.
@@ -70,13 +70,11 @@ func window(l *level.Level, c hexgrid.Coord, lines, cols int) (*level.Level, hex
 	return w, hexgrid.Coord{Line: c.Line - l0, Col: c.Col - c0}
 }
 
+// campaignLevel is a setup of a shipped scenario, "monthly/1915-02-venom:cp".
 func campaignLevel(t *testing.T, name string) *level.Level {
 	t.Helper()
-	b, err := fs.ReadFile(levels.Campaign, "campaign/"+name+".json")
-	if err != nil {
-		t.Fatal(err)
-	}
-	l, err := level.Parse(b)
+	file, mode, _ := strings.Cut(name, ":")
+	l, err := scenario.ShippedLevel(file, scenario.Mode(mode))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -148,10 +146,10 @@ func TestStandingRailDeck(t *testing.T) {
 		level string
 		at    hexgrid.Coord
 	}{
-		{"level20_cp", hexgrid.Coord{Line: 46, Col: 9}},
-		{"level20_cp", hexgrid.Coord{Line: 48, Col: 9}},
-		{"level2_cp", hexgrid.Coord{Line: 10, Col: 4}},
-		{"level13_2p", hexgrid.Coord{Line: 31, Col: 24}}, // summer
+		{"monthly/1917-10-atlas:cp", hexgrid.Coord{Line: 46, Col: 9}},
+		{"monthly/1917-10-atlas:cp", hexgrid.Coord{Line: 48, Col: 9}},
+		{"monthly/1914-10-civil:cp", hexgrid.Coord{Line: 10, Col: 4}},
+		{"skirmish/13-grand:2p", hexgrid.Coord{Line: 31, Col: 24}}, // summer
 	} {
 		w, c := window(campaignLevel(t, site.level), site.at, 7, 5)
 		m, err := r.Render(w, density, false)

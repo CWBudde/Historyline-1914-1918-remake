@@ -2,15 +2,12 @@ package mapcompose
 
 import (
 	"fmt"
-	"io/fs"
 	"math"
 	"slices"
 	"strings"
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
-	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
 
 // shoreVertex is vertex v of the hex at c in world px, in the shoreline
@@ -76,11 +73,7 @@ func TestShoreShapes(t *testing.T) {
 // The spots of the original map 03 ("VENOM", campaign level 4) that met the
 // grass along a straight hex edge.
 func TestVenomCoastHasShores(t *testing.T) {
-	b, err := fs.ReadFile(levels.Campaign, "campaign/level4_cp.json")
-	if err != nil {
-		t.Fatal(err)
-	}
-	l, err := level.Parse(b)
+	l, err := campaignLevelErr("monthly/1915-02-venom:cp")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -107,71 +100,55 @@ func TestVenomCoastHasShores(t *testing.T) {
 // On every level no water hex meets land along a fully watery edge, and two
 // water hexes agree on the vertices and channel of their shared edge.
 func TestShoresMeetLandAndEachOther(t *testing.T) {
-	for _, source := range []struct {
-		fsys    fs.FS
-		pattern string
-	}{{levels.FS, "*.json"}, {levels.Campaign, "campaign/*.json"}} {
-		names, err := fs.Glob(source.fsys, source.pattern)
-		if err != nil {
-			t.Fatal(err)
+	for _, nl := range allLevels(t) {
+		name, l := nl.Name, nl.Level
+		g := l.Grid()
+		at := func(c hexgrid.Coord) Hex {
+			h := l.Lines[c.Line][c.Col]
+			return Hex{Terrain: h.Terrain, Infra: h.Infra.IDs}
 		}
-		for _, name := range names {
-			b, err := fs.ReadFile(source.fsys, name)
-			if err != nil {
-				t.Fatal(err)
+		shape := func(c hexgrid.Coord) ShoreShape {
+			id, _ := selectShore(g, at, c, false, func(string) bool { return true })
+			if id == "water" {
+				return ShoreShape{}
 			}
-			l, err := level.Parse(b)
-			if err != nil {
-				t.Fatal(err)
+			s, ok := ParseShore(id)
+			if !ok {
+				t.Fatalf("%s %+v: unknown shore %s", name, c, id)
 			}
-			g := l.Grid()
-			at := func(c hexgrid.Coord) Hex {
-				h := l.Lines[c.Line][c.Col]
-				return Hex{Terrain: h.Terrain, Infra: h.Infra.IDs}
-			}
-			shape := func(c hexgrid.Coord) ShoreShape {
-				id, _ := selectShore(g, at, c, false, func(string) bool { return true })
-				if id == "water" {
-					return ShoreShape{}
+			return s
+		}
+		hard := 0
+		for line, hexes := range l.Lines {
+			for col, h := range hexes {
+				c := hexgrid.Coord{Line: line, Col: col}
+				if !Wet(h.Terrain) {
+					continue
 				}
-				s, ok := ParseShore(id)
-				if !ok {
-					t.Fatalf("%s %+v: unknown shore %s", name, c, id)
-				}
-				return s
-			}
-			hard := 0
-			for line, hexes := range l.Lines {
-				for col, h := range hexes {
-					c := hexgrid.Coord{Line: line, Col: col}
-					if !Wet(h.Terrain) {
+				s := shape(c)
+				for i, n := range hexgrid.Around(c) {
+					if !g.Contains(n) {
 						continue
 					}
-					s := shape(c)
-					for i, n := range hexgrid.Around(c) {
-						if !g.Contains(n) {
-							continue
+					a, b := edgeVertices(i)
+					t2 := at(n).Terrain
+					if !Wet(t2) {
+						if s.Land&(1<<a) == 0 || s.Land&(1<<b) == 0 {
+							hard++
 						}
-						a, b := edgeVertices(i)
-						t2 := at(n).Terrain
-						if !Wet(t2) {
-							if s.Land&(1<<a) == 0 || s.Land&(1<<b) == 0 {
-								hard++
-							}
-							continue
-						}
-						o := shape(n)
-						na, nb := edgeVertices((i + 3) % 6)
-						bit := func(m uint8, v int) bool { return m&(1<<v) != 0 }
-						if bit(s.Land, a) != bit(o.Land, nb) || bit(s.Land, b) != bit(o.Land, na) || bit(s.Channels, a) != bit(o.Channels, na) {
-							t.Errorf("%s %+v and %+v disagree on their edge: %s / %s", name, c, n, s.ID(), o.ID())
-						}
+						continue
+					}
+					o := shape(n)
+					na, nb := edgeVertices((i + 3) % 6)
+					bit := func(m uint8, v int) bool { return m&(1<<v) != 0 }
+					if bit(s.Land, a) != bit(o.Land, nb) || bit(s.Land, b) != bit(o.Land, na) || bit(s.Channels, a) != bit(o.Channels, na) {
+						t.Errorf("%s %+v and %+v disagree on their edge: %s / %s", name, c, n, s.ID(), o.ID())
 					}
 				}
 			}
-			if hard != 0 {
-				t.Errorf("%s: %d water edges meet land", strings.TrimSuffix(name, ".json"), hard)
-			}
+		}
+		if hard != 0 {
+			t.Errorf("%s: %d water edges meet land", strings.TrimSuffix(name, ".json"), hard)
 		}
 	}
 }
@@ -208,11 +185,7 @@ func TestWinterCoastsTakeWinterShores(t *testing.T) {
 		t.Errorf("shore %s, gap %+v", got, gap)
 	}
 	// Level 10 (map 09) lies in winter: its coast is snow.
-	b, err := fs.ReadFile(levels.Campaign, "campaign/level10_cp.json")
-	if err != nil {
-		t.Fatal(err)
-	}
-	l, err := level.Parse(b)
+	l, err := campaignLevelErr("monthly/1916-02-parts:cp")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -295,11 +268,7 @@ func TestStonesDrawRocksOverTheirShore(t *testing.T) {
 			}
 		})
 	}
-	b, err := fs.ReadFile(levels.Campaign, "campaign/level7_cp.json")
-	if err != nil {
-		t.Fatal(err)
-	}
-	l, err := level.Parse(b)
+	l, err := campaignLevelErr("monthly/1915-08-orkan:cp")
 	if err != nil {
 		t.Fatal(err)
 	}

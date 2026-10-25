@@ -2,15 +2,16 @@ package ai
 
 import (
 	"fmt"
-	"io/fs"
 	"maps"
 	"reflect"
+	"strings"
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
 	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
 
@@ -291,46 +292,43 @@ func owned(s *game.State, p game.Player) int {
 	return n
 }
 
-// The planner plays both sides of every campaign level (levels/campaign, the
+// The planner plays both sides of every shipped scenario setup (the
+// monthly levels' three setups and the skirmish maps' two-player one: the
 // original maps with aircraft, ships and the whole roster) for some rounds
-// under both rule sets without an illegal order; with -short every sixth level.
+// under both rule sets without an illegal order; with -short every sixth.
 func TestPlaysCampaignLevels(t *testing.T) {
 	set := loadSet(t)
-	names, err := fs.Glob(levels.Campaign, "campaign/*.json")
+	all, err := scenario.Shipped()
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(names) != 72 {
-		t.Fatalf("%d campaign levels", len(names))
+	var levels []scenario.Named
+	for _, n := range all {
+		if !strings.HasPrefix(n.Name, "skirmish/") || strings.HasSuffix(n.Name, ":2p") {
+			levels = append(levels, n)
+		}
 	}
-	for i, name := range names {
+	if len(levels) < 99 {
+		t.Fatalf("%d scenario setups", len(levels))
+	}
+	for i, n := range levels {
 		if testing.Short() && i%6 != 0 {
 			continue
 		}
-		{
-			raw, err := fs.ReadFile(levels.Campaign, name)
-			if err != nil {
-				t.Fatal(err)
+		s, err := game.New(n.Level, set)
+		if err != nil {
+			t.Fatalf("%s: %v", n.Name, err)
+		}
+		k := 0
+		roll := func() int { k++; return k%11 - 5 }
+		var p Planner
+		for s.Round <= 6 && s.Winner == game.None {
+			turn(t, s, &p, roll)
+			if s.Winner != game.None {
+				break
 			}
-			lv, err := level.Parse(raw)
-			if err != nil {
-				t.Fatal(err)
-			}
-			s, err := game.New(lv, set)
-			if err != nil {
-				t.Fatalf("%s: %v", name, err)
-			}
-			n := 0
-			roll := func() int { n++; return n%11 - 5 }
-			var p Planner
-			for s.Round <= 6 && s.Winner == game.None {
-				turn(t, s, &p, roll)
-				if s.Winner != game.None {
-					break
-				}
-				if err := s.EndTurn(); err != nil {
-					t.Fatalf("%s: %v", name, err)
-				}
+			if err := s.EndTurn(); err != nil {
+				t.Fatalf("%s: %v", n.Name, err)
 			}
 		}
 	}

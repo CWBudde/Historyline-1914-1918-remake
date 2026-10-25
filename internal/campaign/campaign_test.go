@@ -21,35 +21,35 @@ func TestPeriodsRunThroughTheWar(t *testing.T) {
 	}
 }
 
-func TestMonthsStartWithSeptember1914(t *testing.T) {
-	if len(Months) != 1 {
-		t.Fatalf("%d monthly layers, want the first one so far", len(Months))
-	}
-	p, ok := Month(0)
-	if !ok || p.Label != "September 1914" || p.Headline == "" || len(p.Lines) == 0 {
-		t.Fatalf("month 0: %+v ok %v", p, ok)
-	}
-	for _, l := range p.Lines {
-		if len(l) > 44 {
-			t.Errorf("monthly line too wide for the news column: %q", l)
+func TestMonths(t *testing.T) {
+	for month, p := range Months {
+		if PeriodOf(month) < 0 || p.Headline == "" || len(p.Lines) == 0 {
+			t.Errorf("month %s: %+v", month, p)
+		}
+		for _, l := range p.Lines {
+			if len(l) > 44 {
+				t.Errorf("month %s line too wide for the news column: %q", month, l)
+			}
 		}
 	}
-	if _, ok := Month(1); ok || len(Periods) != 24 {
-		t.Error("month 1 must not exist yet, and the two-month layers stay 24")
+	if p, ok := News("1914-09"); !ok || p.Label != "September 1914" {
+		t.Errorf("1914-09: %+v", p)
+	}
+	if p, ok := News("1914-08"); !ok || p.Label != Periods[0].Label {
+		t.Errorf("1914-08: %+v, want the first period", p)
+	}
+	if _, ok := News("1918-08"); ok {
+		t.Error("1918-08 has news")
 	}
 }
 
-func TestForMapsEachCampaignThroughThePeriods(t *testing.T) {
-	for mapIndex, want := range map[int]int{0: 0, 1: 1, 23: 23, 24: 0, 47: 23, 48: 0, 71: 23} {
-		p, ok := For(mapIndex)
-		if !ok || p.Label != Periods[want].Label {
-			t.Errorf("map %d: %+v ok %v, want period %d", mapIndex, p, ok, want)
+func TestPeriodOf(t *testing.T) {
+	for month, want := range map[string]int{
+		"1914-08": 0, "1914-09": 0, "1914-10": 1, "1915-01": 2, "1918-06": 23, "1918-07": 23,
+		"1914-07": -1, "1918-08": -1, "1914-8": -1, "x": -1, "1914-13": -1,
+	} {
+		if got := PeriodOf(month); got != want {
+			t.Errorf("PeriodOf(%q) = %d, want %d", month, got, want)
 		}
-		if got := Index(mapIndex); got != want {
-			t.Errorf("map %d index %d, want %d", mapIndex, got, want)
-		}
-	}
-	if _, ok := For(72); ok || Index(-1) != -1 {
-		t.Error("map 72 must have no period")
 	}
 }

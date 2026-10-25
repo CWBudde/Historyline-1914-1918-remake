@@ -848,7 +848,7 @@ func newMatch(c matchConfig, m *meter) (*game, error) {
 }
 
 func main() {
-	name := flag.String("level", "level1_cp", "shipped level to load from levels/ (name without .json), or original/NN for an imported original map (its campaign level); skips the menu")
+	name := flag.String("level", "level1_cp", "shipped level to load from levels/ (name without .json), a scenario setup (monthly/1914-08-pulse:ec, skirmish/01-track:2p), or original/NN for an imported original map; skips the menu")
 	dir := flag.String("levels", "levels", "directory with the level files")
 	side := flag.String("player", "", "side the player plays and whose view is shown: central, entente (default: the level's side); skips the menu")
 	rules := flag.String("rules", "dos", "rule set: dos (default: the original order cycle) or standard (the remake rules)")

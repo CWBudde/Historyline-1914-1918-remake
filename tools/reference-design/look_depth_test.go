@@ -1,7 +1,6 @@
 package main
 
 import (
-	"io/fs"
 	"math"
 	"os"
 	"testing"
@@ -10,7 +9,6 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/maprender"
-	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
 
 // The sea darkens by the original's steps (waterdepth): the open sea, away
@@ -23,19 +21,8 @@ func TestSeaDepthSteps(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	for _, name := range []string{"campaign/level10_cp.json", "campaign/level7_cp.json"} {
-		raw, err := fs.ReadFile(levels.Campaign, name)
-		if err != nil {
-			t.Fatal(err)
-		}
-		lvl, err := level.Parse(raw)
-		if err != nil {
-			t.Fatal(err)
-		}
-		flat, err := level.Parse(raw)
-		if err != nil {
-			t.Fatal(err)
-		}
+	for _, name := range []string{"monthly/1916-02-parts:cp", "monthly/1915-08-orkan:cp"} {
+		lvl, flat := testLevel(t, name), testLevel(t, name)
 		g := lvl.Grid()
 		families := map[string][]cell{}
 		for l, line := range lvl.Lines {
@@ -105,14 +92,7 @@ func TestSeaRepeat(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	raw, err := fs.ReadFile(levels.Campaign, "campaign/level10_cp.json")
-	if err != nil {
-		t.Fatal(err)
-	}
-	lvl, err := level.Parse(raw)
-	if err != nil {
-		t.Fatal(err)
-	}
+	lvl := testLevel(t, "monthly/1916-02-parts:cp")
 	g := lvl.Grid()
 	open := map[hexgrid.Coord]bool{}
 	for l, line := range lvl.Lines {

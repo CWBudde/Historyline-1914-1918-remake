@@ -1,9 +1,12 @@
-// Package campaign holds the original campaign's calendar: each campaign
-// (German, French, two-player) runs through the same 24 periods of two
-// months, from August 1914 to July 1918, one mission per period. The news
-// texts are newly written one-paragraph summaries of the period's events,
-// shown between missions as in the original.
+// Package campaign holds the campaign's calendar: one level per month from
+// August 1914 to July 1918 (levels/monthly). The original's campaigns ran
+// through 24 periods of two months, and its maps now take the first month
+// of each period. The news texts are newly written one-paragraph summaries
+// of the events, shown between missions as in the original: a month's own
+// page where one is written, else its period's.
 package campaign
+
+import "fmt"
 
 // Period is one two-month layer of the war.
 type Period struct {
@@ -136,39 +139,38 @@ var Periods = []Period{
 		"back: the initiative changes hands for good."}},
 }
 
-// Months are the new monthly campaign's layers: one level per month,
-// where the original campaign had one per two months (Periods). Only the
-// first monthly level exists so far; the rest are added month by month.
-var Months = []Period{
-	{"September 1914", "The Miracle of the Marne", []string{
+// Months are the months with a news page of their own, by "YYYY-MM".
+var Months = map[string]Period{
+	"1914-09": {"September 1914", "The Miracle of the Marne", []string{
 		"Paris is saved: on the Marne the German",
 		"advance breaks. Kluck's flank, struck",
 		"from Paris, gives way, and the invaders",
 		"fall back to the Aisne to dig in."}},
 }
 
-// Month returns the monthly layer i, or false when there is none yet.
-func Month(i int) (Period, bool) {
-	if i < 0 || i >= len(Months) {
+// News is the news page of a month ("1914-08"): its own page, else its
+// period's; false outside August 1914 – July 1918.
+func News(month string) (Period, bool) {
+	if p, ok := Months[month]; ok {
+		return p, true
+	}
+	i := PeriodOf(month)
+	if i < 0 {
 		return Period{}, false
 	}
-	return Months[i], true
+	return Periods[i], true
 }
 
-// For returns the period of an original map: mapIndex counts the imported
-// maps 00–71 in order, and each block of 24 (German, French, two-player)
-// runs through Periods from the start. ok is false outside 0–71.
-func For(mapIndex int) (Period, bool) {
-	if mapIndex < 0 || mapIndex >= 3*len(Periods) {
-		return Period{}, false
-	}
-	return Periods[mapIndex%len(Periods)], true
-}
-
-// Index is the period number (0–23) of an original map, or -1.
-func Index(mapIndex int) int {
-	if mapIndex < 0 || mapIndex >= 3*len(Periods) {
+// PeriodOf is the index into Periods of a month ("1914-08"); -1 outside
+// August 1914 – July 1918 or for a malformed month.
+func PeriodOf(month string) int {
+	var y, m int
+	if n, err := fmt.Sscanf(month, "%4d-%2d", &y, &m); n != 2 || err != nil || m < 1 || m > 12 || fmt.Sprintf("%04d-%02d", y, m) != month {
 		return -1
 	}
-	return mapIndex % len(Periods)
+	k := (y-1914)*12 + m - 8 // months after August 1914
+	if k < 0 || k >= 2*len(Periods) {
+		return -1
+	}
+	return k / 2
 }

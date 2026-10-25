@@ -66,3 +66,29 @@ func TestOriginalMap(t *testing.T) {
 		t.Error("original/99 loaded")
 	}
 }
+
+// -level plays a scenario's setup: the named one, else the first of cp,
+// ec, 2p.
+func TestScenarioLevel(t *testing.T) {
+	set, err := data.Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, c := range []struct{ name, mapName, player string }{
+		{"monthly/1914-08-pulse:ec", "BATLE", state.Entente.String()},
+		{"monthly/1914-08-pulse", "PULSE", state.CentralPowers.String()},
+		{"monthly/1914-09-marne", "KLUCK", state.CentralPowers.String()},
+		{"skirmish/01-track:2p", "TRACK", state.CentralPowers.String()},
+	} {
+		lvl, b, err := loadMap(t.TempDir(), c.name, set)
+		if err != nil {
+			t.Fatalf("%s: %v", c.name, err)
+		}
+		if b != nil || lvl.MapName != c.mapName || lvl.Player != c.player || lvl.Extra == nil {
+			t.Errorf("%s: %s as %s, board %v", c.name, lvl.MapName, lvl.Player, b != nil)
+		}
+	}
+	if _, _, err := loadMap(t.TempDir(), "monthly/1914-08-pulse:xx", set); err == nil {
+		t.Error("an unknown setup loaded")
+	}
+}

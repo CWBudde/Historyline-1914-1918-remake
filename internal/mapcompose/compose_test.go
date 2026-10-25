@@ -154,11 +154,7 @@ func TestDestroyedDepotDrawsRuin(t *testing.T) {
 // The destroyed depot of level 10 (PARTS) at line59[11]: its entrance has no
 // content, the held depot beside it has.
 func TestLevelDestroyedDepot(t *testing.T) {
-	b, err := fs.ReadFile(levels.Campaign, "campaign/level10_cp.json")
-	if err != nil {
-		t.Fatal(err)
-	}
-	l, err := level.Parse(b)
+	l, err := campaignLevelErr("monthly/1916-02-parts:cp")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -263,27 +259,20 @@ func TestComposeWinterRoads(t *testing.T) {
 		return summer, winter
 	}
 	load := func(name string) (hexgrid.Grid, func(hexgrid.Coord) Hex) {
-		b, err := fs.ReadFile(levels.Campaign, "campaign/"+name+".json")
-		if err != nil {
-			t.Fatal(err)
-		}
-		l, err := level.Parse(b)
-		if err != nil {
-			t.Fatal(err)
-		}
+		l := campaignLevel(t, name)
 		return l.Grid(), func(c hexgrid.Coord) Hex {
 			h := l.Lines[c.Line][c.Col]
 			return Hex{Terrain: h.Terrain, Infra: h.Infra.IDs}
 		}
 	}
-	g, at := load("level10_cp")
+	g, at := load("monthly/1916-02-parts:cp")
 	if summer, winter := roads(Compose(g, at, winterTiles)); summer != 0 || winter == 0 {
 		t.Errorf("winter map with winter roads: %d summer, %d winter road overlays", summer, winter)
 	}
 	if summer, winter := roads(Compose(g, at, func(string) bool { return false })); summer == 0 || winter != 0 {
 		t.Errorf("winter map without winter roads: %d summer, %d winter road overlays", summer, winter)
 	}
-	g, at = load("level1_cp")
+	g, at = load("monthly/1914-08-pulse:cp")
 	if summer, winter := roads(Compose(g, at, winterTiles)); summer == 0 || winter != 0 {
 		t.Errorf("summer map: %d summer, %d winter road overlays", summer, winter)
 	}

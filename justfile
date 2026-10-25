@@ -104,15 +104,15 @@ art-index:
 art-check:
     go run ./cmd/hlart check
 
-# Import the original full game's maps (local original/) into levels/original, then levels/campaign
+# Import the original full game's maps (local original/) into levels/original, then the scenarios
 levels-import:
     rm -rf levels/original
     go run ./cmd/finextract -build full -out levels/original
     @just levels-campaign
 
-# Write the remake levels of the imported maps (levels/original) to levels/campaign (overwrites hand edits there)
+# Write the scenarios of the imported maps (levels/original): their months in levels/monthly and levels/skirmish (overwrites hand edits there)
 levels-campaign:
-    go run ./cmd/hlcampaign -out levels/campaign
+    go run ./cmd/hlcampaign
 
 # Build the art book from art/index.json into build/artbook/Historyline_Art.pdf
 artbook: _build-dir
@@ -125,10 +125,10 @@ artbook: _build-dir
     go run ./tools/reference-design -look-out build/artbook/look
     go run ./cmd/hlart map -level levels/level2_cp.json -out build/artbook/winter
     go run ./cmd/hlart map -level levels/level3_cp.json -out build/artbook/winter3
-    go run ./cmd/hlart map -level levels/campaign/level1_cp.json -out build/artbook/campaign/summer
-    go run ./cmd/hlart map -level levels/campaign/level14_cp.json -out build/artbook/campaign/winter
-    go run ./cmd/hlart map -level levels/campaign/level12_ec.json -out build/artbook/campaign/sea
-    go run ./cmd/hlart map -level levels/campaign/level11_2p.json -out build/artbook/campaign/harbour
+    go run ./cmd/hlart map -level levels/monthly/1914-08-pulse.json:cp -out build/artbook/campaign/summer
+    go run ./cmd/hlart map -level levels/monthly/1916-10-balon.json:cp -out build/artbook/campaign/winter
+    go run ./cmd/hlart map -level levels/monthly/1916-06-flame.json:ec -out build/artbook/campaign/sea
+    go run ./cmd/hlart map -level levels/skirmish/11-uboot.json:2p -out build/artbook/campaign/harbour
     go run ./tools/reference-design -compare build/artbook/compare -compare-format png
     compare=""
     if [ -f build/artbook/compare/compare.json ]; then compare=/build/artbook/compare; fi

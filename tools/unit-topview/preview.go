@@ -14,10 +14,12 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/maprender"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
 )
 
-// previewLevel is the campaign map whose bunkers the preview crops.
-const previewLevel = "levels/campaign/level10_cp.json"
+// previewLevel is the campaign map whose bunkers the preview crops (its
+// cp setup).
+const previewLevel = "levels/monthly/1916-02-parts.json"
 
 // renderPreview renders the installed family with the runtime art: every unit of
 // the family on previewLevel, and a summer and a winter field with each owner's
@@ -35,7 +37,7 @@ func renderPreview(root, out, family string) error {
 	if err != nil {
 		return err
 	}
-	lv, err := level.Load(filepath.Join(root, previewLevel))
+	lv, err := scenario.LoadLevel(filepath.Join(root, previewLevel), scenario.CP)
 	if err != nil {
 		return err
 	}

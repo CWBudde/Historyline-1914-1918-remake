@@ -1,13 +1,10 @@
 package mapcompose
 
 import (
-	"io/fs"
 	"slices"
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
-	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
 
 func TestTrenchIDs(t *testing.T) {
@@ -94,11 +91,7 @@ func TestComposeDrawsDerivedTrenches(t *testing.T) {
 // The pieces of the original map 03 ("VENOM", campaign level 4) that stood
 // apart: a junction, a dug-in position and a run, each leading into the next.
 func TestVenomTrenchesJoin(t *testing.T) {
-	b, err := fs.ReadFile(levels.Campaign, "campaign/level4_cp.json")
-	if err != nil {
-		t.Fatal(err)
-	}
-	l, err := level.Parse(b)
+	l, err := campaignLevelErr("monthly/1915-02-venom:cp")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -124,50 +117,34 @@ func TestVenomTrenchesJoin(t *testing.T) {
 // On every level two neighbouring trench hexes agree on their shared edge,
 // and every port of a piece is drawn, as a link or a blind spur.
 func TestTrenchesAgreeAcrossEdges(t *testing.T) {
-	for _, source := range []struct {
-		fsys    fs.FS
-		pattern string
-	}{{levels.FS, "*.json"}, {levels.Campaign, "campaign/*.json"}} {
-		names, err := fs.Glob(source.fsys, source.pattern)
-		if err != nil {
-			t.Fatal(err)
+	for _, nl := range allLevels(t) {
+		name, l := nl.Name, nl.Level
+		g := l.Grid()
+		at := func(c hexgrid.Coord) Hex {
+			h := l.Lines[c.Line][c.Col]
+			return Hex{Terrain: h.Terrain, Infra: h.Infra.IDs}
 		}
-		for _, name := range names {
-			b, err := fs.ReadFile(source.fsys, name)
-			if err != nil {
-				t.Fatal(err)
-			}
-			l, err := level.Parse(b)
-			if err != nil {
-				t.Fatal(err)
-			}
-			g := l.Grid()
-			at := func(c hexgrid.Coord) Hex {
-				h := l.Lines[c.Line][c.Col]
-				return Hex{Terrain: h.Terrain, Infra: h.Infra.IDs}
-			}
-			for line, hexes := range l.Lines {
-				for col := range hexes {
-					c := hexgrid.Coord{Line: line, Col: col}
-					s, ok := trenchShape(g, at, c)
-					if !ok {
+		for line, hexes := range l.Lines {
+			for col := range hexes {
+				c := hexgrid.Coord{Line: line, Col: col}
+				s, ok := trenchShape(g, at, c)
+				if !ok {
+					continue
+				}
+				if p, ok := ParseTrench(s.ID()); !ok || p != s {
+					t.Errorf("%s %+v: shape %s does not parse back", name, c, s.ID())
+				}
+				_, ports, _, _ := trenchPiece(at(c).Infra)
+				if ports&^(s.Links|s.Spurs) != 0 {
+					t.Errorf("%s %+v: %s drops a port of %v", name, c, s.ID(), at(c).Infra)
+				}
+				for i, n := range hexgrid.Around(c) {
+					if !g.Contains(n) {
 						continue
 					}
-					if p, ok := ParseTrench(s.ID()); !ok || p != s {
-						t.Errorf("%s %+v: shape %s does not parse back", name, c, s.ID())
-					}
-					_, ports, _, _ := trenchPiece(at(c).Infra)
-					if ports&^(s.Links|s.Spurs) != 0 {
-						t.Errorf("%s %+v: %s drops a port of %v", name, c, s.ID(), at(c).Infra)
-					}
-					for i, n := range hexgrid.Around(c) {
-						if !g.Contains(n) {
-							continue
-						}
-						o, ok := trenchShape(g, at, n)
-						if mine, theirs := s.Links&(1<<i) != 0, ok && o.Links&(1<<((i+3)%6)) != 0; mine != theirs {
-							t.Errorf("%s %+v and %+v disagree on their edge: %s / %s", name, c, n, s.ID(), o.ID())
-						}
+					o, ok := trenchShape(g, at, n)
+					if mine, theirs := s.Links&(1<<i) != 0, ok && o.Links&(1<<((i+3)%6)) != 0; mine != theirs {
+						t.Errorf("%s %+v and %+v disagree on their edge: %s / %s", name, c, n, s.ID(), o.ID())
 					}
 				}
 			}

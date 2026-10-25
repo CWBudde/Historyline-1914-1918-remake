@@ -13,6 +13,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
 	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
 
@@ -87,28 +88,6 @@ func TestCampaign(t *testing.T) {
 	}
 }
 
-func TestFileName(t *testing.T) {
-	cp, ec, two := []int{finmap.Central}, []int{finmap.Allied}, []int{finmap.Central, finmap.Allied}
-	for _, c := range []struct {
-		m     string
-		sides []int
-		want  string
-	}{
-		{"00", cp, "level1_cp"}, {"03", cp, "level4_cp"}, {"23", cp, "level24_cp"},
-		{"24", ec, "level1_ec"}, {"47", ec, "level24_ec"},
-		{"48", two, "level1_2p"}, {"71", two, "level24_2p"},
-		{"05", ec, ""}, {"30", cp, ""}, {"50", cp, ""}, {"72", cp, ""}, {"STATMAP", cp, ""},
-	} {
-		got, err := FileName(&finmap.Level{Source: finmap.Source{Map: c.m}, Mission: &finmap.Mission{HumanSides: c.sides}})
-		if got != c.want || (err == nil) != (c.want != "") {
-			t.Errorf("FileName(%s, %v) = %q, %v; want %q", c.m, c.sides, got, err, c.want)
-		}
-	}
-	if _, err := FileName(&finmap.Level{Source: finmap.Source{Map: "03"}}); err == nil {
-		t.Error("a map without a mission has a campaign name")
-	}
-}
-
 // Every committed map makes a campaign level that the remake rules load under
 // both rule sets with all of the map's units and building contents.
 func TestCommittedCampaign(t *testing.T) {
@@ -158,27 +137,21 @@ func TestCommittedCampaign(t *testing.T) {
 	}
 }
 
-// Check the actual committed gameplay levels as well as views reconstructed
-// from original map records. New campaign transitions must ship with their art.
+// Check the shipped scenario maps (each once) as well as views
+// reconstructed from original map records. New campaign transitions must
+// ship with their art.
 func TestCommittedCampaignArt(t *testing.T) {
-	names, err := fs.Glob(levels.Campaign, "campaign/*.json")
+	maps, err := scenario.Shipped(scenario.CP)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(names) != 72 {
-		t.Fatalf("%d campaign levels, want 72", len(names))
+	if len(maps) < 49 {
+		t.Fatalf("%d scenario maps, want the 24 months, Marne and the 24 skirmish maps", len(maps))
 	}
 	has := terrainCatalog(t)
-	for _, name := range names {
-		t.Run(strings.TrimSuffix(path.Base(name), ".json"), func(t *testing.T) {
-			b, err := fs.ReadFile(levels.Campaign, name)
-			if err != nil {
-				t.Fatal(err)
-			}
-			l, err := level.Parse(b)
-			if err != nil {
-				t.Fatal(err)
-			}
+	for _, m := range maps {
+		t.Run(m.Name, func(t *testing.T) {
+			l := m.Level
 			s := mapcompose.Compose(l.Grid(), func(c hexgrid.Coord) mapcompose.Hex {
 				h := l.Lines[c.Line][c.Col]
 				return mapcompose.Hex{Terrain: h.Terrain, Infra: h.Infra.IDs}

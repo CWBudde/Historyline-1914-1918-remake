@@ -22,6 +22,16 @@ type Level struct {
 	MapNo   int
 	Player  string
 	Lines   [][]Hex
+	// Extra is what a scenario setup (internal/scenario) adds and this
+	// format cannot carry; nil for a level read from a file, and Marshal
+	// leaves it out.
+	Extra *Extra
+}
+
+// Extra are a level's building credits and factory builds.
+type Extra struct {
+	Credits map[hexgrid.Coord]int // credits per cycle, by a hex of the building
+	Builds  []string              // the unit ids factories build
 }
 
 // Hex is one [terrain, infra, unit] or [terrain, infra, unit, content] entry.
@@ -154,7 +164,7 @@ func parseHex(elems []json.RawMessage) (Hex, error) {
 	if h.Terrain, err = parseString(elems[0]); err != nil {
 		return Hex{}, fmt.Errorf("terrain: %w", err)
 	}
-	if h.Infra, err = parseInfra(elems[1]); err != nil {
+	if h.Infra, err = ParseInfra(elems[1]); err != nil {
 		return Hex{}, fmt.Errorf("infra: %w", err)
 	}
 	if h.Unit, err = parseString(elems[2]); err != nil {
@@ -196,7 +206,9 @@ func parseStrings(raw json.RawMessage) ([]string, error) {
 	return out, nil
 }
 
-func parseInfra(raw json.RawMessage) (Infra, error) {
+// ParseInfra decodes a hex's infrastructure element: "", "road236" or a
+// list of ids.
+func ParseInfra(raw json.RawMessage) (Infra, error) {
 	if len(raw) > 0 && raw[0] == '[' {
 		ids, err := parseStrings(raw)
 		return Infra{IDs: ids, List: true}, err

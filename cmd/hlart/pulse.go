@@ -6,9 +6,11 @@ import (
 	"image/png"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/maprender"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
 )
 
 const pulseLevel = "levels/level1_cp.json"
@@ -33,10 +35,17 @@ func pulse(root, out string) error {
 	return renderLevel(root, out, pulseLevel, "pulse", false)
 }
 
-// renderLevel uses the same runtime compositor for PULSE and other shipped maps.
+// renderLevel uses the same runtime compositor for PULSE and other shipped maps:
+// a level file, or a scenario setup "levels/monthly/1914-08-pulse.json:cp".
 // The optional detail is a centred crop of the ground image, without resampling.
 func renderLevel(root, out, levelPath, prefix string, detail bool) error {
-	lvl, err := level.Load(filepath.Join(root, filepath.FromSlash(levelPath)))
+	var lvl *level.Level
+	var err error
+	if file, mode, ok := strings.Cut(levelPath, ":"); ok {
+		lvl, err = scenario.LoadLevel(filepath.Join(root, filepath.FromSlash(file)), scenario.Mode(mode))
+	} else {
+		lvl, err = level.Load(filepath.Join(root, filepath.FromSlash(levelPath)))
+	}
 	if err != nil {
 		return err
 	}

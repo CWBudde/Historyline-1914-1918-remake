@@ -1,47 +1,32 @@
 package main
 
 import (
-	"io/fs"
 	"math"
 	"slices"
 	"sort"
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
-	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
 
 // campaignTrenches collects the derived trench tiles the shipped and campaign
 // levels select that has lacks, by ID.
 func campaignTrenches(has func(string) bool) (map[string]mapcompose.Gap, error) {
 	out := map[string]mapcompose.Gap{}
-	for _, source := range []struct {
-		fsys    fs.FS
-		pattern string
-	}{{levels.FS, "*.json"}, {levels.Campaign, "campaign/*.json"}} {
-		names, err := fs.Glob(source.fsys, source.pattern)
-		if err != nil {
-			return nil, err
-		}
-		for _, name := range names {
-			b, err := fs.ReadFile(source.fsys, name)
-			if err != nil {
-				return nil, err
-			}
-			l, err := level.Parse(b)
-			if err != nil {
-				return nil, err
-			}
-			s := mapcompose.Compose(l.Grid(), func(c hexgrid.Coord) mapcompose.Hex {
-				h := l.Lines[c.Line][c.Col]
-				return mapcompose.Hex{Terrain: h.Terrain, Infra: h.Infra.IDs}
-			}, has)
-			for _, g := range s.Gaps {
-				if g.Family == mapcompose.Trench {
-					out[g.Descriptor] = g
-				}
+	all, err := shippedLevels()
+	if err != nil {
+		return nil, err
+	}
+	for _, nl := range all {
+		l := nl.Level
+		s := mapcompose.Compose(l.Grid(), func(c hexgrid.Coord) mapcompose.Hex {
+			h := l.Lines[c.Line][c.Col]
+			return mapcompose.Hex{Terrain: h.Terrain, Infra: h.Infra.IDs}
+		}, has)
+		for _, g := range s.Gaps {
+			if g.Family == mapcompose.Trench {
+				out[g.Descriptor] = g
 			}
 		}
 	}

@@ -2,15 +2,12 @@ package mapcompose
 
 import (
 	"encoding/json"
-	"io/fs"
 	"os"
 	"slices"
 	"strings"
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
-	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
 
 // winterAuditDone lists the families whose summer form must not show on a
@@ -63,33 +60,10 @@ func TestWinterMapsDrawNoSummerInfrastructure(t *testing.T) {
 			have[entry.ID] = true
 		}
 	}
-	type source struct {
-		fsys fs.FS
-		dir  string
-	}
-	var maps []string
-	read := map[string]source{}
-	for _, src := range []source{{levels.FS, "."}, {levels.Campaign, "campaign"}} {
-		names, err := fs.Glob(src.fsys, src.dir+"/*.json")
-		if err != nil {
-			t.Fatal(err)
-		}
-		for _, name := range names {
-			maps = append(maps, name)
-			read[name] = src
-		}
-	}
 	audited := 0
 	summer := map[string]map[string]int{} // family -> map -> count
-	for _, name := range maps {
-		b, err := fs.ReadFile(read[name].fsys, name)
-		if err != nil {
-			t.Fatal(err)
-		}
-		l, err := level.Parse(b)
-		if err != nil {
-			t.Fatal(err)
-		}
+	for _, nl := range allLevels(t) {
+		name, l := nl.Name, nl.Level
 		g := l.Grid()
 		at := func(c hexgrid.Coord) Hex {
 			h := l.Lines[c.Line][c.Col]
@@ -119,8 +93,8 @@ func TestWinterMapsDrawNoSummerInfrastructure(t *testing.T) {
 			}
 		}
 	}
-	if audited < 20 {
-		t.Fatalf("audited %d winter maps, want Civil, Mouse and the winter campaign maps", audited)
+	if audited < 18 {
+		t.Fatalf("audited %d winter maps, want Civil, Mouse and the winter scenario maps", audited)
 	}
 	families := slices.Sorted(func(yield func(string) bool) {
 		for f := range summer {

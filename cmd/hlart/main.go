@@ -6,7 +6,7 @@
 //	hlart check               fail on any prompt, master, runtime or index problem
 //	hlart thumbs -out DIR     write downscaled master thumbnails for the art book
 //	hlart pulse -out DIR      render the PULSE level with the runtime art for the art book
-//	hlart map -level FILE -out DIR  render another level and a native detail crop
+//	hlart map -level FILE[:MODE] -out DIR  render another level (a scenario file's setup MODE) and a native detail crop
 package main
 
 import (
@@ -32,7 +32,7 @@ func run(args []string, stdout, stderr io.Writer) error {
 	fl.SetOutput(stderr)
 	root := fl.String("root", ".", "repository root")
 	out := fl.String("out", "", "thumbs, pulse, map: output directory")
-	levelPath := fl.String("level", "", "map: level JSON path relative to repository root")
+	levelPath := fl.String("level", "", "map: level JSON path relative to repository root, or a scenario file with :cp, :ec or :2p")
 	limit := fl.Int("max", 640, "thumbs: longest side in pixels")
 	if err := fl.Parse(args[1:]); err != nil {
 		return err

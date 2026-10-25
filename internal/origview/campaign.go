@@ -2,7 +2,6 @@ package origview
 
 import (
 	"fmt"
-	"strconv"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosbind"
@@ -11,8 +10,8 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 )
 
-// Campaign is the remake level of an imported map, the file levels/campaign
-// holds for it: the view (Level) with the map's units by remake id
+// Campaign is the remake level of an imported map, what cmd/hlcampaign
+// makes the scenario setups of: the view (Level) with the map's units by remake id
 // (dosbind.RemakeIDs) and the units the container records put into the
 // buildings as the entrances' content, in record order. The level format
 // has no neutral units: a unit of a neutral record takes the first human
@@ -22,7 +21,7 @@ import (
 // (dosbind.FromOriginal stays the exact binding): a two-cell ship is its head
 // on one hex, transporters start empty (their cargo is left out), terrain
 // records that share a look become the same terrain, and credits, factory
-// builds and the mission's next map are not part of the file. A unit type
+// builds and the mission's next map are not part of the level. A unit type
 // without a remake unit for its side is an error.
 func Campaign(l *finmap.Level, set *data.Set) (*level.Level, error) {
 	lv, err := Level(l)
@@ -82,25 +81,4 @@ func Campaign(l *finmap.Level, set *data.Set) (*level.Level, error) {
 		}
 	}
 	return lv, nil
-}
-
-// campaigns are the file suffixes of the three runs of 24 maps: the Central
-// Powers campaign (maps 00-23), the Entente's (24-47) and the two-player
-// maps (48-71).
-var campaigns = [3]string{"cp", "ec", "2p"}
-
-// FileName is the file stem of an imported map in levels/campaign: the
-// map's campaign and its mission number there, "level4_cp" for map 03 and
-// "level1_ec" for map 24, named like the shipped levels.
-func FileName(l *finmap.Level) (string, error) {
-	n, err := strconv.Atoi(l.Source.Map)
-	if err != nil || n < 0 || n >= 24*len(campaigns) || l.Mission == nil {
-		return "", fmt.Errorf("origview: map %q is no campaign mission", l.Source.Map)
-	}
-	k := n / 24
-	sides := l.Mission.HumanSides
-	if k < 2 && (len(sides) != 1 || sides[0] != k) || k == 2 && len(sides) != 2 {
-		return "", fmt.Errorf("origview: map %s with human sides %v", l.Source.Map, sides)
-	}
-	return fmt.Sprintf("level%d_%s", n%24+1, campaigns[k]), nil
 }

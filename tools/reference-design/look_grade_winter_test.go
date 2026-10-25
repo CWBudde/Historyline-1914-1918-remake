@@ -1,16 +1,13 @@
 package main
 
 import (
-	"io/fs"
 	"os"
 	"slices"
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/maprender"
-	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
 
 // The winter maps meet the direction's winter targets after the grade: snow
@@ -19,18 +16,8 @@ import (
 // relief keeps its snow: only the rock takes the relief row, so a relief cell
 // loses at most 4 L*.
 func TestTerrainGradeWinterTargets(t *testing.T) {
-	for _, src := range []struct {
-		fsys fs.FS
-		name string
-	}{{levels.FS, "level2_cp.json"}, {levels.Campaign, "campaign/level15_cp.json"}} {
-		raw, err := fs.ReadFile(src.fsys, src.name)
-		if err != nil {
-			t.Fatal(err)
-		}
-		lvl, err := level.Parse(raw)
-		if err != nil {
-			t.Fatal(err)
-		}
+	for _, name := range []string{"level2_cp.json", "monthly/1916-12-pause:cp"} {
+		lvl := testLevel(t, name)
 		families := map[string][]cell{}
 		g := lvl.Grid()
 		for l, line := range lvl.Lines {

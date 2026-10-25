@@ -64,6 +64,32 @@ type MapRecords struct {
 	Terrain map[string]int `json:"terrain,omitempty"`
 	Credits map[string]int `json:"credits"`
 	Builds  []int          `json:"builds"`
+
+	byHex map[*building]int // a scenario setup's credits (level.Extra), in place of Credits
+}
+
+// extraRecords are the map records with a scenario setup's credits and
+// builds (lv.Extra): credits by building (the sum over its hexes), builds by
+// unit type.
+func extraRecords(lv *level.Level, set *data.Set, at map[hexgrid.Coord]*building, mr MapRecords) (MapRecords, error) {
+	out := MapRecords{Terrain: mr.Terrain, byHex: map[*building]int{}}
+	for p, n := range lv.Extra.Credits {
+		bd := at[p]
+		if bd == nil {
+			return out, fmt.Errorf("line%d[%d]: credits outside a building", p.Line+1, p.Col)
+		}
+		out.byHex[bd] += n
+	}
+	for _, id := range lv.Extra.Builds {
+		typ, _, err := unitType(set, id)
+		if err != nil {
+			return out, fmt.Errorf("builds: %w", err)
+		}
+		if !slices.Contains(out.Builds, typ) {
+			out.Builds = append(out.Builds, typ)
+		}
+	}
+	return out, nil
 }
 
 // Table is the embedded binding table.
@@ -287,8 +313,10 @@ func owner(flags int) int {
 //     order of each building's first cell.
 //   - A transporter's record is the next free one from 0 in unit order; it
 //     takes the classes its type carries, its occupant byte is the transporter.
-//   - A building record's credits are the scenario's (Maps.Credits); only
-//     factories build, the scenario's types (Maps.Builds).
+//   - A building record's credits are the scenario's (Maps.Credits by the
+//     level's mapNo, or a scenario setup's level.Extra, by any hex of the
+//     building); only factories build, the scenario's types (Maps.Builds,
+//     or the Extra's).
 func Bind(lv *level.Level, set *data.Set) (*Board, error) {
 	g := lv.Grid()
 	if g.Width < 2 || g.Lines < 2 {
@@ -337,6 +365,12 @@ func Bind(lv *level.Level, set *data.Set) (*Board, error) {
 	b.Winter = winter > 0
 	if err := b.placeUnits(lv, set); err != nil {
 		return nil, err
+	}
+	if lv.Extra != nil {
+		// A scenario setup carries its own credits and builds.
+		if mr, err = extraRecords(lv, set, at, mr); err != nil {
+			return nil, fmt.Errorf("dosbind: %w", err)
+		}
 	}
 	if err := b.bindBuildings(set, at, mr); err != nil {
 		return nil, err
@@ -546,7 +580,11 @@ func (b *Board) bindBuildings(set *data.Set, at map[hexgrid.Coord]*building, mr 
 			}
 		}
 		b.Holds[idx] = h
-		bd2 := dosrules.Building{Credits: mr.Credits[strconv.Itoa(idx)]}
+		credits := mr.Credits[strconv.Itoa(idx)]
+		if mr.byHex != nil {
+			credits = mr.byHex[bd]
+		}
+		bd2 := dosrules.Building{Credits: credits}
 		if f&flagFactory != 0 {
 			bd2.Builds = slices.Clone(mr.Builds)
 		}

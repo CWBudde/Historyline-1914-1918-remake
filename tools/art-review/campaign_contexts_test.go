@@ -5,16 +5,13 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io/fs"
 	"os"
 	"path/filepath"
 	"strings"
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/mapcompose"
-	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
 
 type campaignEntry struct {
@@ -68,39 +65,27 @@ func readCampaignIndex(root string) ([]json.RawMessage, map[string]campaignEntry
 // replace contexts. Profile membership alone does not mean an export exists.
 func campaignContexts(has func(string) bool) (map[string]mapcompose.Gap, error) {
 	contexts := map[string]mapcompose.Gap{}
-	for _, source := range []struct {
-		fsys    fs.FS
-		pattern string
-	}{{levels.FS, "*.json"}, {levels.Campaign, "campaign/*.json"}} {
-		names, err := fs.Glob(source.fsys, source.pattern)
-		if err != nil {
-			return nil, err
+	all, err := shippedLevels()
+	if err != nil {
+		return nil, err
+	}
+	for _, nl := range all {
+		name, l := nl.Name, nl.Level
+		s := mapcompose.Compose(l.Grid(), func(c hexgrid.Coord) mapcompose.Hex {
+			h := l.Lines[c.Line][c.Col]
+			return mapcompose.Hex{Terrain: h.Terrain, Infra: h.Infra.IDs}
+		}, has)
+		if len(s.Issues) != 0 {
+			return nil, fmt.Errorf("%s: compound issues: %v", name, s.Issues)
 		}
-		for _, name := range names {
-			b, err := fs.ReadFile(source.fsys, name)
-			if err != nil {
-				return nil, err
+		for _, g := range s.Gaps {
+			if g.Family == mapcompose.Shore || g.Family == mapcompose.Trench {
+				continue // TestGenerateCampaignShores, TestGenerateCampaignTrenches
 			}
-			l, err := level.Parse(b)
-			if err != nil {
-				return nil, err
+			if g.Reason != mapcompose.Missing {
+				return nil, fmt.Errorf("%s: undefined context: %+v", name, g)
 			}
-			s := mapcompose.Compose(l.Grid(), func(c hexgrid.Coord) mapcompose.Hex {
-				h := l.Lines[c.Line][c.Col]
-				return mapcompose.Hex{Terrain: h.Terrain, Infra: h.Infra.IDs}
-			}, has)
-			if len(s.Issues) != 0 {
-				return nil, fmt.Errorf("%s: compound issues: %v", name, s.Issues)
-			}
-			for _, g := range s.Gaps {
-				if g.Family == mapcompose.Shore || g.Family == mapcompose.Trench {
-					continue // TestGenerateCampaignShores, TestGenerateCampaignTrenches
-				}
-				if g.Reason != mapcompose.Missing {
-					return nil, fmt.Errorf("%s: undefined context: %+v", name, g)
-				}
-				contexts[mapcompose.Key(g.Descriptor)] = g
-			}
+			contexts[mapcompose.Key(g.Descriptor)] = g
 		}
 	}
 	return contexts, nil

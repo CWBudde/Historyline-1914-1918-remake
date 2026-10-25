@@ -2,7 +2,6 @@ package main
 
 import (
 	"image/png"
-	"io/fs"
 	"math"
 	"os"
 	"path/filepath"
@@ -10,14 +9,12 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/maprender"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/terrainlight"
-	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
 
 // Every cast shadow on PULSE (scattered crowns, forest contexts beside
-// infrastructure), on campaign map 23 (also tree props on the meadow) and on
+// infrastructure), on CANDL, campaign map 22 (also tree props on the meadow) and on
 // the winter map Civil (winter crowns) follows the one light: it falls along
 // 135°, 0.25 × its item's diameter away. A scattered crown's diameter is its size; it and its shadow
 // have their own anchors, each rounded to the density grid, so the offset may
@@ -28,22 +25,14 @@ func TestLightModelShadows(t *testing.T) {
 		t.Fatal(err)
 	}
 	for _, src := range []struct {
-		fsys fs.FS
 		name string
 		want []string
 	}{
-		{levels.FS, "level1_cp.json", []string{"standing/scatter/crown", "standing/context/forest"}},
-		{levels.Campaign, "campaign/level23_cp.json", []string{"standing/scatter/crown", "standing/props/trees"}},
-		{levels.FS, "level2_cp.json", []string{"standing/scatter/crown"}},
+		{"level1_cp.json", []string{"standing/scatter/crown", "standing/context/forest"}},
+		{"monthly/1918-04-candl:cp", []string{"standing/scatter/crown", "standing/props/trees"}},
+		{"level2_cp.json", []string{"standing/scatter/crown"}},
 	} {
-		raw, err := fs.ReadFile(src.fsys, src.name)
-		if err != nil {
-			t.Fatal(err)
-		}
-		lvl, err := level.Parse(raw)
-		if err != nil {
-			t.Fatal(err)
-		}
+		lvl := testLevel(t, src.name)
 		for _, density := range []int{2, 4} {
 			got, err := r.CastShadowPairs(lvl, density)
 			if err != nil {

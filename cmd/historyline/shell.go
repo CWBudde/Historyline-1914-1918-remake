@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"io/fs"
-	"path"
 	"slices"
 	"strings"
 	"unicode"
@@ -14,6 +13,7 @@ import (
 	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/saves"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scores"
 	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
 )
@@ -41,33 +41,25 @@ const (
 	pageNews // the period's news, before a campaign battle
 )
 
-// mapLevel is a map of the menu: a shipped level, or an imported original map
-// with its exact board. Its code is the map name in capitals, an original
-// map's password; an original map also takes its number ("05").
+// mapLevel is a map of the menu: a setup of a monthly level
+// (levels/monthly), opened by its code word.
 type mapLevel struct {
-	name       string // -level name: file name without .json, or original/NN
+	name       string // -level name: "monthly/1914-08-pulse:cp"
+	file       string // the scenario file: "monthly/1914-08-pulse"
+	mode       scenario.Mode
 	lvl        *level.Level
-	board      *dosbind.Board // an original map's binding; nil for a shipped level
-	next       int            // the map a victory leads to, -1 for none
-	password   string         // an original map's password, "" for a shipped level
-	players    int            // mission players (1 or 2); 0 means 1
-	humanSides []int          // mission human sides; nil for a shipped level
+	next       int    // the map a victory leads to, -1 for none
+	password   string // the setup's code word
+	players    int    // mission players (1 or 2); 0 means 1
+	humanSides []int  // mission human sides
 	winter     bool
 	briefing   string // one line shown on the loading page
-	period     int    // index into campaign.Periods for an original map, -1 for none
-	month      int    // index into campaign.Months for a monthly level, -1 for none
+	month      string // "1914-08"
 }
 
-// news is the news page of the map: its monthly layer when it has one,
-// else its two-month period.
+// news is the news page of the map's month.
 func (m mapLevel) news() (campaign.Period, bool) {
-	if p, ok := campaign.Month(m.month); ok {
-		return p, true
-	}
-	if m.period < 0 || m.period >= len(campaign.Periods) {
-		return campaign.Period{}, false
-	}
-	return campaign.Periods[m.period], true
+	return campaign.News(m.month)
 }
 
 // briefingLine is the one-line briefing from the map's own facts; there is
@@ -97,82 +89,71 @@ func (m mapLevel) code() string {
 	return strings.ToUpper(m.lvl.MapName)
 }
 
-// loadCampaign loads the campaign: the 72 original maps in their order,
-// played from their shipped remake transcriptions in levels/campaign
-// (editable; see cmd/hlcampaign for the import that wrote them). The
-// original map files contribute only the mission facts that the
-// transcriptions do not carry: password, players, winter and the next
-// map. A map leads to its mission's next map: through each campaign,
-// none after its last map.
+// campaignModes are the setups the menu campaign plays, in menu order: the
+// Central Powers' chain, then the Entente's.
+var campaignModes = []scenario.Mode{scenario.CP, scenario.EC}
+
+// loadCampaign loads the campaign from the monthly levels (levels/monthly)
+// in calendar order: one chain per side, every month's setup of that side
+// with a code word, the Central Powers' first. A victory leads to the next
+// month of the chain, none after its last.
 func loadCampaign(dir string, set *data.Set) ([]mapLevel, error) {
-	files, err := fs.Glob(levels.Original, "original/full/[0-9][0-9].json")
+	files, err := fs.Glob(levels.Monthly, "monthly/*.json")
 	if err != nil {
 		return nil, err
 	}
 	slices.Sort(files)
-	var maps []mapLevel
+	scens := make([]*scenario.File, len(files))
 	for i, f := range files {
-		stem := strings.TrimSuffix(path.Base(f), ".json")
-		l, lvl, _, err := loadOriginal(dir, stem, set)
+		raw, err := readLevelFile(dir, levels.Monthly, f)
 		if err != nil {
-			return nil, err
+			return nil, fmt.Errorf("%s: %w", f, err)
 		}
-		m := mapLevel{name: originalPrefix + stem, lvl: lvl, next: -1, players: 1, period: campaign.Index(i), month: -1}
-		if l.Mission != nil {
-			m.password = l.Mission.Code
-			m.players, m.humanSides, m.winter = l.Mission.Players, l.Mission.HumanSides, l.Mission.Winter
-			if l.Mission.Next != nil {
-				m.next = *l.Mission.Next
+		if scens[i], err = scenario.Parse(raw); err != nil {
+			return nil, fmt.Errorf("%s: %w", f, err)
+		}
+	}
+	var maps []mapLevel
+	for _, mode := range campaignModes {
+		first := len(maps)
+		for i, f := range scens {
+			s := f.Setup(mode)
+			if s == nil || s.Code == "" {
+				continue
 			}
+			lvl, err := f.Level(mode)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %w", files[i], err)
+			}
+			file := strings.TrimSuffix(files[i], ".json")
+			m := mapLevel{name: file + ":" + string(mode), file: file, mode: mode, lvl: lvl, next: -1,
+				password: s.Code, players: 1, humanSides: []int{dosbind.Side(mode.Human())}, winter: f.Winter(), month: f.Month}
+			m.briefing = briefingLine(m.code(), m.players, m.humanSides, mode.Human(), m.winter, true)
+			if len(maps) > first {
+				maps[len(maps)-1].next = len(maps)
+			}
+			maps = append(maps, m)
 		}
-		m.briefing = briefingLine(m.code(), m.players, m.humanSides, state.CentralPowers, m.winter, l.Mission != nil)
-		maps = append(maps, m)
 	}
 	if len(maps) == 0 {
 		return nil, fmt.Errorf("no campaign maps")
 	}
-	for _, m := range maps {
-		if m.next >= len(maps) {
-			return nil, fmt.Errorf("%s leads to map %d of %d", m.name, m.next, len(maps))
-		}
-	}
-	monthly, err := loadMonthly(dir)
-	if err != nil {
-		return nil, err
-	}
-	return append(maps, monthly...), nil
-}
-
-// monthlyLevels are the new monthly campaign's levels (one per month),
-// appended after the 72 original maps and reached by their code word
-// until the monthly campaign replaces the two-month chain.
-var monthlyLevels = []struct {
-	file, code string
-}{
-	{"monthly/1914-09-marne.json", "MARNE"}, // September 1914: the Marne
-}
-
-// loadMonthly loads the monthly levels in their calendar order.
-func loadMonthly(dir string) ([]mapLevel, error) {
-	var maps []mapLevel
-	for i, ml := range monthlyLevels {
-		raw, err := readLevelFile(dir, levels.Monthly, ml.file)
-		if err != nil {
-			return nil, fmt.Errorf("%s: %w", ml.file, err)
-		}
-		lvl, err := level.Parse(raw)
-		if err != nil {
-			return nil, fmt.Errorf("%s: %w", ml.file, err)
-		}
-		m := mapLevel{
-			name: strings.TrimSuffix(ml.file, ".json"), lvl: lvl, next: -1,
-			password: ml.code, players: 1, humanSides: []int{1},
-			period: -1, month: i,
-		}
-		m.briefing = briefingLine(m.code(), m.players, m.humanSides, state.CentralPowers, false, true)
-		maps = append(maps, m)
-	}
 	return maps, nil
+}
+
+// forSide is the menu map of the selected map's month for side: its setup
+// for that side where the month has one, else the selected map.
+func (s *shell) forSide(side state.Player) int {
+	cur := s.maps[s.code]
+	if cur.mode.Human() == side {
+		return s.code
+	}
+	for i, m := range s.maps {
+		if m.file == cur.file && m.mode.Human() == side {
+			return i
+		}
+	}
+	return s.code
 }
 
 // button is a control of a page, in logical canvas pixels.
@@ -269,7 +250,7 @@ func newShell(maps []mapLevel, c matchConfig) *shell {
 // and game values.
 func (s *shell) config(base matchConfig) matchConfig {
 	c := base
-	c.lvl, c.board = s.maps[s.code].lvl, s.maps[s.code].board
+	c.lvl, c.board = s.maps[s.code].lvl, nil
 	c.player = s.side
 	c.opponent = "ai"
 	if !s.computer {
@@ -367,9 +348,6 @@ func (s *shell) buttons() []button {
 			limit = fmt.Sprintf("MOVES  %d A PHASE", n)
 		}
 		rulesHelp := [2]string{"Original (DOS) is the default mode.", "New: the alternative remake rules."}
-		if s.rules != "" && s.rules != "dos" && s.code >= 0 && s.code < len(s.maps) && s.maps[s.code].board != nil {
-			rulesHelp = [2]string{"New: the alternative remake rules.", "Original maps: plays the transcription."}
-		}
 		return []button{
 			{r: valueRow(0), label: s.ruleLabel(), left: true, help: rulesHelp,
 				do: func(s *shell) { s.cycleRules() }},
@@ -428,6 +406,7 @@ func (s *shell) buttons() []button {
 			bs = append(bs, button{r: cardRects[i], label: countryName(side), help: [2]string{factionName(side)},
 				do: func(s *shell) {
 					s.side = side
+					s.code = s.forSide(side)
 					if _, ok := s.maps[s.code].news(); ok {
 						s.open(pageNews)
 					} else {

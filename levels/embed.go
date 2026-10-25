@@ -15,14 +15,14 @@ var FS embed.FS
 //go:embed original/index.json original/full/*.json
 var Original embed.FS
 
-// Campaign holds the remake levels of the imported maps (cmd/hlcampaign),
-// named like "campaign/level4_cp.json".
-//
-//go:embed campaign/*.json
-var Campaign embed.FS
-
-// Monthly holds the new monthly campaign's levels (one per month),
-// named like "monthly/1914-09-marne.json".
+// Monthly holds the campaign's scenario files (internal/scenario), one per
+// month, named like "monthly/1914-08-pulse.json".
 //
 //go:embed monthly/*.json
 var Monthly embed.FS
+
+// Skirmish holds the original's two-player maps as scenario files, named
+// like "skirmish/01-track.json".
+//
+//go:embed skirmish/*.json
+var Skirmish embed.FS

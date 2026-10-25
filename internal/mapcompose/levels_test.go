@@ -1,0 +1,53 @@
+package mapcompose
+
+import (
+	"io/fs"
+	"strings"
+	"testing"
+
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
+	"github.com/CWBudde/Historyline-1914-1918-remake/levels"
+)
+
+// campaignLevel is a setup of a shipped scenario, "monthly/1915-02-venom:cp".
+func campaignLevel(t *testing.T, name string) *level.Level {
+	t.Helper()
+	l, err := campaignLevelErr(name)
+	if err != nil {
+		t.Fatal(err)
+	}
+	return l
+}
+
+func campaignLevelErr(name string) (*level.Level, error) {
+	file, mode, _ := strings.Cut(name, ":")
+	return scenario.ShippedLevel(file, scenario.Mode(mode))
+}
+
+// allLevels are the shipped levels: the remake levels of levels.FS, then
+// every shipped scenario map once (scenario.Shipped(scenario.CP)).
+func allLevels(t *testing.T) []scenario.Named {
+	t.Helper()
+	names, err := fs.Glob(levels.FS, "*.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	var out []scenario.Named
+	for _, name := range names {
+		b, err := fs.ReadFile(levels.FS, name)
+		if err != nil {
+			t.Fatal(err)
+		}
+		l, err := level.Parse(b)
+		if err != nil {
+			t.Fatal(err)
+		}
+		out = append(out, scenario.Named{Name: name, Level: l})
+	}
+	sh, err := scenario.Shipped(scenario.CP)
+	if err != nil {
+		t.Fatal(err)
+	}
+	return append(out, sh...)
+}
