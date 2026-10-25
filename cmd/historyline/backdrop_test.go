@@ -2,6 +2,7 @@ package main
 
 import (
 	"image"
+	"image/color"
 	"math"
 	"strings"
 	"testing"
@@ -266,5 +267,46 @@ func TestLevelBackdrop(t *testing.T) {
 		if (gm.backdrop != nil) == off {
 			t.Errorf("-backdrop off %v: backdrop %v", off, gm.backdrop != nil)
 		}
+	}
+}
+
+// A hex's minimap colour comes from the picture: a picture of one colour tints
+// every hex of PULSE's grid that colour; one painted red left and green right of
+// world x = 500 tints a hex well inside each half beyond that half's colour,
+// away from the map's mean, and one across the line between them.
+func TestBackdropTints(t *testing.T) {
+	grid := hexgrid.Grid{Width: 8, Lines: 47}
+	const scale = 2.0 // picture pixels per world pixel
+	red, green := color.RGBA{200, 40, 20, 255}, color.RGBA{30, 160, 50, 255}
+	paint := func(split int) *image.RGBA {
+		pic := image.NewRGBA(image.Rect(0, 0, 2180, 3840))
+		for y := range pic.Rect.Dy() {
+			for x := range pic.Rect.Dx() {
+				c := red
+				if x >= split {
+					c = green
+				}
+				pic.SetRGBA(x, y, c)
+			}
+		}
+		return pic
+	}
+	tint := hexTints(reduce(paint(1<<20), backdropThumb), scale/backdropThumb, grid)
+	if len(tint) != 8*24+7*23 {
+		t.Fatalf("%d hexes tinted", len(tint))
+	}
+	for c, got := range tint {
+		if got != red {
+			t.Fatalf("one colour: %v tinted %v", c, got)
+		}
+	}
+	tint = hexTints(reduce(paint(1000), backdropThumb), scale/backdropThumb, grid)
+	left, across, right := tint[hexgrid.Coord{Line: 10, Col: 1}], tint[hexgrid.Coord{Line: 10, Col: 3}], tint[hexgrid.Coord{Line: 10, Col: 6}]
+	if left.R < red.R || left.G > red.G || right.G < green.G || right.R > green.R {
+		t.Errorf("left %v, right %v: not stretched beyond %v and %v", left, right, red, green)
+	}
+	// Hex (10, 3) spans x 426..522: partly red, partly green.
+	if across.R <= right.R || across.R >= left.R || across.G <= left.G || across.G >= right.G {
+		t.Errorf("hex across the line %v, not between %v and %v", across, left, right)
 	}
 }

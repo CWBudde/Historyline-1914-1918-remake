@@ -39,6 +39,9 @@ const (
 	// backdropThumb is the picture pixels per side the minimap colours average
 	// in one step.
 	backdropThumb = 8
+	// tintLight and tintChroma stretch a hex's minimap colour away from the
+	// map's mean: its lightness more than its hue, which would turn false.
+	tintLight, tintChroma = 2.2, 1.3
 )
 
 // backdropImage is a loaded backdrop picture, split into textures.
@@ -183,9 +186,14 @@ func reduce(pic image.Image, n int) *image.RGBA {
 	return out
 }
 
-// hexTints is the mean colour of each hex of grid in thumb, a picture with
-// scale pixels per world pixel.
+// hexTints is the colour of each hex of grid in thumb, a picture with scale
+// pixels per world pixel: its mean colour, its difference from the whole
+// map's mean stretched by tintLight and tintChroma, so forest, rock and water stay apart
+// at a pixel a hex.
 func hexTints(thumb *image.RGBA, scale float64, grid hexgrid.Grid) map[hexgrid.Coord]color.RGBA {
+	if thumb == nil {
+		return nil
+	}
 	type sum struct{ r, g, b, n int }
 	sums := map[hexgrid.Coord]*sum{}
 	for y := range thumb.Rect.Dy() {
@@ -203,9 +211,22 @@ func hexTints(thumb *image.RGBA, scale float64, grid hexgrid.Grid) map[hexgrid.C
 			s.r, s.g, s.b, s.n = s.r+int(p.R), s.g+int(p.G), s.b+int(p.B), s.n+1
 		}
 	}
+	var mean [3]float64
+	for _, s := range sums {
+		mean[0] += float64(s.r) / float64(s.n) / float64(len(sums))
+		mean[1] += float64(s.g) / float64(s.n) / float64(len(sums))
+		mean[2] += float64(s.b) / float64(s.n) / float64(len(sums))
+	}
+	clamp := func(v float64) uint8 { return uint8(math.Round(max(0, min(255, v)))) }
 	tint := make(map[hexgrid.Coord]color.RGBA, len(sums))
 	for c, s := range sums {
-		tint[c] = color.RGBA{uint8(s.r / s.n), uint8(s.g / s.n), uint8(s.b / s.n), 255}
+		d := [3]float64{float64(s.r)/float64(s.n) - mean[0], float64(s.g)/float64(s.n) - mean[1], float64(s.b)/float64(s.n) - mean[2]}
+		l := 0.299*d[0] + 0.587*d[1] + 0.114*d[2]
+		var o [3]uint8
+		for i := range o {
+			o[i] = clamp(mean[i] + tintLight*l + tintChroma*(d[i]-l))
+		}
+		tint[c] = color.RGBA{o[0], o[1], o[2], 255}
 	}
 	return tint
 }
