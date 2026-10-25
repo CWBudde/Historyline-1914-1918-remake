@@ -13,6 +13,7 @@ import (
 	"path"
 	"path/filepath"
 	"slices"
+	"strings"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
 )
@@ -25,7 +26,7 @@ func main() {
 
 func run(args []string, stdout io.Writer) error {
 	if len(args) == 0 {
-		return fmt.Errorf("usage: hlasset build|build-units|build-terrain|build-screens|lite|terrain-gaps|validate [flags]")
+		return fmt.Errorf("usage: hlasset build|build-units|build-terrain|build-screens|packs|lite|terrain-gaps|validate [flags]")
 	}
 	switch args[0] {
 	case "build":
@@ -108,6 +109,27 @@ func run(args []string, stdout io.Writer) error {
 		}
 		_, err = fmt.Fprintf(stdout, "built %d screen packs (%d PNG variants; candidate, not runtime approved)\n", len(packs), variants)
 		return err
+	case "packs":
+		flags := flag.NewFlagSet("packs", flag.ContinueOnError)
+		dir := flags.String("assets", "assets", "runtime asset directory with index.json")
+		art := flags.String("art", "art", "art directory with the scene paintings")
+		out := flags.String("out", "", "directory holding the units, terrain and screens catalogs (required)")
+		only := flags.String("only", "", "comma-separated catalogs to update (default: all)")
+		if err := flags.Parse(args[1:]); err != nil {
+			return err
+		}
+		if flags.NArg() != 0 || *out == "" {
+			return fmt.Errorf("packs requires -out DIRECTORY and no positional arguments")
+		}
+		builder, err := executableSum()
+		if err != nil {
+			return err
+		}
+		var names []string
+		if *only != "" {
+			names = strings.Split(*only, ",")
+		}
+		return updatePacks(*out, builder, catalogs(*dir, *art), names, stdout)
 	case "lite":
 		flags := flag.NewFlagSet("lite", flag.ContinueOnError)
 		in := flags.String("in", "", "pack catalog built by build-units, build-terrain or build-screens (required)")
@@ -161,7 +183,7 @@ func run(args []string, stdout io.Writer) error {
 		_, err = fmt.Fprintf(stdout, "validated %s: %d PNG variants; status=%s\n", m.ID, len(m.Entries), m.Status)
 		return err
 	default:
-		return fmt.Errorf("unknown command %q; use build, build-units, build-terrain, build-screens, lite, terrain-gaps or validate", args[0])
+		return fmt.Errorf("unknown command %q; use build, build-units, build-terrain, build-screens, packs, lite, terrain-gaps or validate", args[0])
 	}
 }
 

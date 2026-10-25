@@ -10,12 +10,19 @@ go run ./cmd/hlasset build -density 2 -out build/packs/interface-2x        # int
 go run ./cmd/hlasset build-units   -out build/packs/units                  # 48 unit families, 3 long ships
 go run ./cmd/hlasset build-terrain -out build/packs/terrain                # tiles, overlays, contexts
 go run ./cmd/hlasset build-screens -out build/packs/screens                # menu frames, controls, paintings
+go run ./cmd/hlasset packs -out build/packs                                # the three above, each only when changed
 go run ./cmd/hlasset lite -in build/packs/units -out <dir>                # compressed copy for the web
 go run ./cmd/hlasset validate -root <pack> -allow-candidates
 go run ./cmd/hlasset terrain-gaps -terrain build/packs/terrain
 just play                                                                  # game with all three catalogs
 just web 8080                                                              # web build with the 2x catalogs
 ```
+
+`hlasset packs` (`just packs`, which `just play` and `just web` run first) keeps `build/packs/units`,
+`terrain` and `screens` current: each catalog's `stamp` holds the sha256 of the hlasset binary and of the
+catalog's inputs (its `assets/index.json` entries with their file hashes; for the screens also every
+`art/screens/<family>/*.png`). A catalog whose stamp matches is kept; any other is built beside it and then
+replaces it, so a failed build keeps the old one.
 
 ## Pack format
 
@@ -85,8 +92,7 @@ Cast shadows follow one light (`internal/terrainlight`, art/direction.md "One li
 18,26,16, 0.25 × the item's diameter long, opacity 0.6 for crowns (0.45 rocks, 0.35 buildings). The builder
 and `internal/maprender` draw every painted `standing/shadow/…` from its standing item's alpha, its
 diameter measured from the item's blobs; `cmd/hlkit` makes the scattered items' shadows with the same model
-and refuses a profile that leaves it. `build/packs/terrain/grade` names the grade and the light; `just`
-rebuilds the packs when either differs.
+and refuses a profile that leaves it. `build/packs/terrain/grade` names the grade and the light.
 
 The optional `materials` group contains `material/grass/summer` and `material/hills/summer` together at
 2× and 4×: opaque 568×400 world-pixel periods, anchor (0,0). Both renderers share the native-aspect,

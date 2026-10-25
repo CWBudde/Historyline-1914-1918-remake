@@ -45,6 +45,16 @@ type screenFile struct {
 // battle effects.
 var interfaceFamilies = map[string]string{"interface/rank": "rank", "interface/effect": "effect"}
 
+// screenEntry reports whether the screen catalog carries e at its density: an
+// unpacked runtime file under screens/, a unit portrait or one of the
+// interfaceFamilies.
+func screenEntry(e indexEntry) bool {
+	if _, ok := interfaceFamilies[e.Art]; ok {
+		return true
+	}
+	return e.Pack == "" && (strings.HasPrefix(e.Art, "screens/") || strings.HasPrefix(e.Art, "portraits/"))
+}
+
 // planScreens returns the files of the screen catalog at density d: every
 // unpacked runtime file under screens/ at d, the unit portraits at d in one
 // family "portraits", the interfaceFamilies at d, and scene/<family> for each
@@ -53,11 +63,11 @@ func planScreens(entries []indexEntry, assetsDir, artDir string, d int) ([]scree
 	var files []screenFile
 	seen := map[string]bool{}
 	for _, e := range entries {
-		portrait := strings.HasPrefix(e.Art, "portraits/")
-		iface, isIface := interfaceFamilies[e.Art]
-		if e.Density != d || !isIface && (e.Pack != "" || !strings.HasPrefix(e.Art, "screens/") && !portrait) {
+		if e.Density != d || !screenEntry(e) {
 			continue
 		}
+		portrait := strings.HasPrefix(e.Art, "portraits/")
+		iface, isIface := interfaceFamilies[e.Art]
 		if seen[e.ID] {
 			return nil, fmt.Errorf("screen asset %s at %dx listed twice", e.ID, d)
 		}

@@ -30,23 +30,19 @@ _build-dir:
     mkdir -p build
     [ -f build/go.mod ] || printf 'module scratch\n\ngo %s\n' "$(awk '/^go /{print $2}' go.mod)" > build/go.mod
 
-# Packs are built only when missing (units without the long ships, a screen catalog
-# without the plate variants, or terrain built with another grade or light or without
-# its 1x packs, is rebuilt); delete build/packs/units, terrain or screens to rebuild.
-[private]
-_packs: _build-dir
-    mkdir -p build/packs
-    [ -d build/packs/units/2x/battleship-long ] || { rm -rf build/packs/units; go run ./cmd/hlasset build-units -out build/packs/units; }
-    { grep -qs terraingrade-v3 build/packs/terrain/grade && grep -qs terrainlight-v1 build/packs/terrain/grade && [ -d build/packs/terrain/1x ] && [ build/packs/terrain/grade -nt assets/index.json ]; } || { rm -rf build/packs/terrain; go run ./cmd/hlasset build-terrain -out build/packs/terrain; }
-    grep -qs surface/plate-4 build/packs/screens/1x/surface/manifest.json || { rm -rf build/packs/screens; go run ./cmd/hlasset build-screens -out build/packs/screens; }
+art_flags := "-units build/packs/units -terrain build/packs/terrain -screens build/packs/screens -allow-candidates"
+
+# Build the unit, terrain and screen packs into build/packs where their art or hlasset changed; pass e.g. -only terrain
+packs *args: _build-dir
+    go run ./cmd/hlasset packs -out build/packs {{args}}
 
 # Play with the candidate unit, terrain and screen art
-play *args: _packs
-    go run ./cmd/historyline -units build/packs/units -terrain build/packs/terrain -screens build/packs/screens -allow-candidates {{args}}
+play *args: packs
+    go run ./cmd/historyline {{art_flags}} {{args}}
 
 # Play as above, with F8 switching to the original tiles and units from the local original/ (never shipped)
-play-original *args: _packs
-    go run -tags origtiles ./cmd/historyline -units build/packs/units -terrain build/packs/terrain -screens build/packs/screens -allow-candidates {{args}}
+play-original *args: packs
+    go run -tags origtiles ./cmd/historyline {{art_flags}} {{args}}
 
 # Run all Go tests
 test:
@@ -77,7 +73,7 @@ wasm:
 # packs/<c>/ (the PNGs), which it loads in the background on a fast connection.
 # build.json holds a content hash the page adds to every URL, so a cached old file never meets a new one, and
 # the size of the wasm for the loading bar.
-web port="": _packs
+web port="": packs
     mkdir -p build/web
     GOOS=js GOARCH=wasm go build -o build/web/{{binary}}.wasm ./cmd/historyline
     cp "$(go env GOROOT)/lib/wasm/wasm_exec.js" web/index.html build/web/
@@ -166,14 +162,12 @@ gfx-game-review *args: _build-dir
 # Refresh PULSE maps and nine actual game captures; open build/review/gfx/pulse.html.
 # On headless Linux: EGL_PLATFORM=x11 xvfb-run -a just gfx-study
 [positional-arguments]
-gfx-study *args: _build-dir
+gfx-study *args: packs
     #!/usr/bin/env sh
     set -eu
     mkdir -p build/review/pulse-study
     study_dir=$(mktemp -d build/review/pulse-study/run-XXXXXX)
-    go run ./cmd/hlasset build-terrain -out "$study_dir/terrain"
-    go run ./cmd/hlasset build-units -out "$study_dir/units"
-    go run ./cmd/historyline -level level1_cp -rules standard -units "$study_dir/units" -terrain "$study_dir/terrain" -allow-candidates -capture "$study_dir/captures"
+    go run ./cmd/historyline -level level1_cp -rules standard -units build/packs/units -terrain build/packs/terrain -allow-candidates -capture "$study_dir/captures"
     go run ./cmd/hlgallery -captures "$study_dir/captures" "$@"
 
 manual_pdf := "original/extracted/manual/Historyline_1914-1918.pdf"

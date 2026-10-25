@@ -26,7 +26,7 @@ needs [golangci-lint](https://golangci-lint.run) v2:
 
 ```sh
 just run        # play with placeholder graphics
-just play       # play with the candidate art and menu screens (builds the packs into build/packs/ on first run)
+just play       # play with the candidate art and menu screens (builds the packs into build/packs/ when the art changed)
 just test       # go test ./...
 just lint       # go vet + golangci-lint
 just build      # bin/historyline
