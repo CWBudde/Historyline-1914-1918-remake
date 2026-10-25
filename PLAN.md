@@ -444,7 +444,9 @@ Mostly a material swap of the matching summer family plus the winter grade.
       `TestWinterPathsAndRailsMeetCriterion`, `TestWinterStreamIceRimAndFrostedBanks`,
       `TestWinterTrenchSnowAndSlush`). (2026-10-25) The stone quays have a winter pier (`quay*_w`,
       `TestQuayWinterTiles`) and the W6 lake rocks snow caps (`waterStones_w`, `waterRocks_w`,
-      `TestWaterRocksWinterSnowCaps`); winter stream water carries no sun glints. Open: the R5 kit decals (wait
+      `TestWaterRocksWinterSnowCaps`); winter stream water carries no sun glints. The sea skerries carry snow
+      caps too (`skerry*_w` from `water-seakit-winter-v1.png`, `TestSeaKitWinterSnowCaps`), and the winter
+      quay deck matches the winter road with an ice collar at the waterline. Open: the R5 kit decals (wait
       for the stroke renderer) and the I3 edits of the W3/W4 kits, which nothing places yet.
 - [ ] L7.5 Winter buildings: `hq*_w`, `cmp*_w`, `factory*_w` (matching summer/winter factory exports are
       installed), `house_w`.
