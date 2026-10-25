@@ -2,7 +2,7 @@
 id: terrain/road
 title: Road
 kind: terrain
-status: candidate
+status: approved
 runtime_ids: road124, road125, road13, road135, road14, road145, road15, road236, road24, road25, road26, road346, road35, road356, road36, road46, road124_w, road125_w, road13_w, road135_w, road14_w, road145_w, road15_w, road236_w, road24_w, road25_w, road26_w, road346_w, road35_w, road356_w, road36_w, road46_w
 masters: road-asphalt-shared-v2.png, road-snow-winter-v1.png, road-asphalt-shared-v1.png, road-macadam-winter-v1.png, road-macadam-summer-v1.png
 ---

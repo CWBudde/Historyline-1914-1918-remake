@@ -2,7 +2,7 @@
 id: portraits/sopwith-camel
 title: Sopwith Camel
 kind: portrait
-status: revised
+status: approved
 runtime_ids: EC_camel
 masters: portrait.png
 ---

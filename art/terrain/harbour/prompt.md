@@ -2,7 +2,7 @@
 id: terrain/harbour
 title: Harbour
 kind: terrain
-status: candidate
+status: approved
 runtime_ids: harbourN, harbourN_w, harbourW, harbourW_w, harbourS, harbourS_w, standing/harbourN, standing/harbourN_w, standing/harbourW, standing/harbourW_w, standing/harbourS, standing/harbourS_w, standing/shadow/harbourN, standing/shadow/harbourN_w, standing/shadow/harbourW, standing/shadow/harbourW_w, standing/shadow/harbourS, standing/shadow/harbourS_w
 masters: harbour-kit-summer-v1.png, harbour-kit-winter-v1.png, harbour-paving-summer-v1.png, harbour-paving-winter-v1.png
 ---

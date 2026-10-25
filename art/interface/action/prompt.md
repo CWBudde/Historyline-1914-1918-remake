@@ -2,7 +2,7 @@
 id: interface/action
 title: Action buttons
 kind: interface
-status: candidate
+status: approved
 runtime_ids: action/attack-disabled, action/attack-focus, action/attack-hover, action/attack-normal, action/attack-pressed, action/contain-disabled, action/contain-focus, action/contain-hover, action/contain-normal, action/contain-pressed, action/exit-disabled, action/exit-focus, action/exit-hover, action/exit-normal, action/exit-pressed, action/move-disabled, action/move-focus, action/move-hover, action/move-normal, action/move-pressed
 masters: attack-normal.png, attack-hover.png, attack-focus.png, attack-pressed.png, attack-disabled.png, contain-normal.png, contain-hover.png, contain-focus.png, contain-pressed.png, contain-disabled.png, exit-normal.png, exit-hover.png, exit-focus.png, exit-pressed.png, exit-disabled.png, move-normal.png, move-hover.png, move-focus.png, move-pressed.png, move-disabled.png
 ---

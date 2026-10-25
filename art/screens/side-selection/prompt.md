@@ -2,7 +2,7 @@
 id: screens/side-selection
 title: Side selection
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/side-selection
 masters: illustration.png, frame.png
 ---

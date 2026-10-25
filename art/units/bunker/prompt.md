@@ -2,7 +2,7 @@
 id: units/bunker
 title: Bunker
 kind: unit
-status: candidate
+status: approved
 runtime_ids: CP_bunker, EC_bunker
 masters: top-view.png, top-view-cp.png, top-view-ec.png
 ---

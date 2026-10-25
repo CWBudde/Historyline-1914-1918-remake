@@ -2,7 +2,7 @@
 id: terrain/ground
 title: Ground
 kind: terrain
-status: candidate
+status: approved
 runtime_ids: mud, rough_w, shelled_w, stone, stoney_w, stamp/crater/4_-1.1_1.1_0.2/1, stamp/crater/4_-1.1_1.1_0.2/2, stamp/boulders/1/1, stamp/boulders/4_2.0_1.1_0.2/1, stamp/boulders/5_-1.1_0.2_-1.3_1.3/1, stamp/crater_w/1/1, stamp/crater_w/2_1.1/1, stamp/crater_w/2_-1.1/1, stamp/crater_w/6_-1.1_-4.2_-2.2_-3.3_-1.3/1, stamp/boulders_w/1/1, stamp/boulders_w/3_-1.1_-2.2/1, stamp/boulders_w/2_0.2/1
 masters: ground-crater-summer-v1.png, ground-crater-pair-summer-v1.png, ground-boulders-single-summer-v1.png, ground-boulders-four-summer-v1.png, ground-boulders-five-summer-v1.png, ground-mud-summer-v2.png, ground-stone-summer-v2.png, ground-rough-winter-v2.png, ground-shelled-winter-v2.png, ground-stony-winter-v2.png, ground-earth-bank-shared-v2.png, ground-earth-bank-shared-v1.png, ground-mud-summer-v1.png, ground-rough-winter-v1.png, ground-shelled-winter-v1.png, ground-stone-summer-v1.png, ground-stony-winter-v1.png, ground-crater-single-winter-v1.png, ground-crater-pair-se-winter-v1.png, ground-crater-pair-sw-winter-v1.png, ground-crater-field-six-winter-v1.png, ground-boulders-single-winter-v1.png, ground-boulders-sw-three-winter-v1.png, ground-boulders-vertical-two-winter-v1.png, ground-rough-winter-v3.png, ground-shelled-summer-v1.png, ground-shelled-winter-v3.png
 ---

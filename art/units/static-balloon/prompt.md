@@ -2,7 +2,7 @@
 id: units/static-balloon
 title: Static balloon
 kind: unit
-status: revised
+status: approved
 runtime_ids: CP_balloon, EC_balloon
 masters: atlas.png
 ---

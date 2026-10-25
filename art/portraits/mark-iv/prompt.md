@@ -2,7 +2,7 @@
 id: portraits/mark-iv
 title: Mark IV tank
 kind: portrait
-status: revised
+status: approved
 runtime_ids: CP_markIV, EC_markIV
 masters: portrait.png
 ---

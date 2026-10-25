@@ -2,7 +2,7 @@
 id: portraits/fokker-dr-i
 title: Fokker Dr.I
 kind: portrait
-status: revised
+status: approved
 runtime_ids: CP_fokkerDrI
 masters: portrait.png
 ---

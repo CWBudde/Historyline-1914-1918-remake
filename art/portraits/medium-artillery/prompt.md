@@ -2,7 +2,7 @@
 id: portraits/medium-artillery
 title: Medium artillery
 kind: portrait
-status: candidate
+status: approved
 runtime_ids: CP_mArtillery, EC_mArtillery
 masters: portrait.png
 ---

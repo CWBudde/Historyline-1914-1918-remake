@@ -2,7 +2,7 @@
 id: screens/confirm-overwrite
 title: Confirm overwrite
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/confirm-overwrite
 masters: frame.png
 ---

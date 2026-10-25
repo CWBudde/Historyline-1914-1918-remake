@@ -2,7 +2,7 @@
 id: terrain/hills
 title: Hills
 kind: terrain
-status: candidate
+status: approved
 runtime_ids: hills
 masters: hills-scrub-summer-v2.png, hills-height-shared-v1.png, hills-hummock-summer-v1.png
 ---

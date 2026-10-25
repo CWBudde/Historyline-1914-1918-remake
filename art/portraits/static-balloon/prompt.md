@@ -2,7 +2,7 @@
 id: portraits/static-balloon
 title: Static balloon
 kind: portrait
-status: revised
+status: approved
 runtime_ids: CP_balloon, EC_balloon
 masters: portrait.png
 ---

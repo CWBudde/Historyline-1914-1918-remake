@@ -2,7 +2,7 @@
 id: screens/pause
 title: Pause
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/pause
 masters: illustration.png, frame.png
 ---

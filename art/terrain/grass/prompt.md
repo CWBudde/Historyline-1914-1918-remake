@@ -2,7 +2,7 @@
 id: terrain/grass
 title: Meadow
 kind: terrain
-status: candidate
+status: approved
 runtime_ids: grass, grass_w, grass-detail-00, grass-detail-01, grass-detail-02, grass-detail-03, grass-detail-04, grass-detail-05, grass-detail-06, grass-detail-07, grass-detail-08, grass-detail-09, grass-detail-10, grass-detail-11, grass-detail-12, grass-detail-13, grass-detail-14, grass-detail-15
 masters: grass-meadow-summer-v2.png, grass-meadow-winter-v2.png, grass-flowers-painting-summer-v1.png, grass-flowers-material-summer-v1.png, grass-worn-painting-summer-v1.png, grass-worn-material-summer-v1.png, grass-summer-v1.png, grass-winter-v1.png, grass-meadow-summer-v1.png, grass-props-summer-v1.png, grass-closeup-summer-v1.png, grass-tone-summer-v1.png, grass-tone-summer-v2.png, grass-closeup-summer-v2.png
 ---

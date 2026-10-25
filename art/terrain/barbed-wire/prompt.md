@@ -2,7 +2,7 @@
 id: terrain/barbed-wire
 title: Barbed wire
 kind: terrain
-status: revised
+status: approved
 runtime_ids: barbedWire
 masters: barbed-wire-shared-v1.png, barbed-wire-belts-shared-v1.png
 ---

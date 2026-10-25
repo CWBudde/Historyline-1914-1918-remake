@@ -2,7 +2,7 @@
 id: interface/weapon-row
 title: Weapon row
 kind: interface
-status: candidate
+status: approved
 runtime_ids: weapon-row/disabled, weapon-row/focus, weapon-row/hover, weapon-row/normal, weapon-row/pressed
 masters: normal.png, hover.png, focus.png, pressed.png, disabled.png
 ---

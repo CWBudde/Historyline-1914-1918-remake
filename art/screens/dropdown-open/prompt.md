@@ -2,7 +2,7 @@
 id: screens/dropdown-open
 title: Open dropdown
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/dropdown-open
 masters: frame.png
 ---

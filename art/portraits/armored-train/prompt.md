@@ -2,7 +2,7 @@
 id: portraits/armored-train
 title: Armoured train
 kind: portrait
-status: candidate
+status: approved
 runtime_ids: CP_armTrain, EC_armTrain
 masters: portrait.png
 ---

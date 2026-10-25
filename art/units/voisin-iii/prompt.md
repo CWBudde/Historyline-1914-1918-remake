@@ -2,7 +2,7 @@
 id: units/voisin-iii
 title: Voisin III
 kind: unit
-status: revised
+status: approved
 runtime_ids: EC_voisin
 masters: atlas.png
 ---

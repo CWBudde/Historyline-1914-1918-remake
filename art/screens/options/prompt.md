@@ -2,7 +2,7 @@
 id: screens/options
 title: Settings
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/options
 masters: illustration.png, frame.png
 ---

@@ -2,7 +2,7 @@
 id: units/sopwith-camel
 title: Sopwith Camel
 kind: unit
-status: revised
+status: approved
 runtime_ids: EC_camel
 masters: atlas.png
 ---

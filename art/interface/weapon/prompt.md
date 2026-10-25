@@ -2,7 +2,7 @@
 id: interface/weapon
 title: Weapons
 kind: interface
-status: candidate
+status: approved
 runtime_ids: weapon/bayonet, weapon/canon155, weapon/canon75, weapon/feldkanone16, weapon/gewehr98, weapon/leeEnfield, weapon/lefh, weapon/lugerp08, weapon/m1902, weapon/maxim, weapon/morser, weapon/revolveur, weapon/sabre, weapon/trenchKnife, weapon/wickers
 masters: bayonet.png, canon155.png, canon75.png, feldkanone16.png, gewehr98.png, leeEnfield.png, lefh.png, lugerp08.png, m1902.png, maxim.png, morser.png, revolveur.png, sabre.png, trenchKnife.png, wickers.png
 ---

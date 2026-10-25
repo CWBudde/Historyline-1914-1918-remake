@@ -2,7 +2,7 @@
 id: units/dh4
 title: Airco D.H.4
 kind: unit
-status: revised
+status: approved
 runtime_ids: EC_dh4
 masters: atlas.png
 ---

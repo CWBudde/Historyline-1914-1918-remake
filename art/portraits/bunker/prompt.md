@@ -2,7 +2,7 @@
 id: portraits/bunker
 title: Bunker
 kind: portrait
-status: candidate
+status: approved
 runtime_ids: CP_bunker, EC_bunker
 masters: portrait.png
 ---

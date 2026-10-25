@@ -2,7 +2,7 @@
 id: portraits/dh4
 title: D.H.4
 kind: portrait
-status: revised
+status: approved
 runtime_ids: EC_dh4
 masters: portrait.png
 ---

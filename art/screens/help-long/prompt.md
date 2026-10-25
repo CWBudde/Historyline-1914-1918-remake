@@ -2,7 +2,7 @@
 id: screens/help-long
 title: Long help
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/help-long
 masters: frame.png
 ---

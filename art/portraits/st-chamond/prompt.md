@@ -2,7 +2,7 @@
 id: portraits/st-chamond
 title: St.-Chamond tank
 kind: portrait
-status: revised
+status: approved
 runtime_ids: EC_stChamond
 masters: portrait.png
 ---

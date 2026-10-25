@@ -2,7 +2,7 @@
 id: portraits/destroyer
 title: Torpedo boat destroyer
 kind: portrait
-status: revised
+status: approved
 runtime_ids: CP_destroyer, EC_destroyer
 masters: portrait.png
 ---

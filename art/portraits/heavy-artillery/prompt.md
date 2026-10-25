@@ -2,7 +2,7 @@
 id: portraits/heavy-artillery
 title: Heavy artillery
 kind: portrait
-status: candidate
+status: approved
 runtime_ids: CP_hArtillery, EC_hArtillery
 masters: portrait.png
 ---

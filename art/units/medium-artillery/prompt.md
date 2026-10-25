@@ -2,7 +2,7 @@
 id: units/medium-artillery
 title: Medium artillery
 kind: unit
-status: candidate
+status: approved
 runtime_ids: CP_mArtillery, EC_mArtillery
 masters: atlas.png
 ---

@@ -2,7 +2,7 @@
 id: terrain/rail
 title: Railway
 kind: terrain
-status: candidate
+status: approved
 runtime_ids: rail13, rail14, rail15, rail236, rail24, rail25, rail26, rail346, rail35, rail356, rail36, rail46, rail13_w, rail14_w, rail15_w, rail236_w, rail24_w, rail25_w, rail26_w, rail346_w, rail35_w, rail356_w, rail36_w, rail46_w
 masters: rail-ballast-shared-v2.png, rail-steel-shared-v2.png, rail-ballast-shared-v1.png, rail-steel-shared-v1.png, rail-track-winter-v1.png, rail-track-summer-v1.png
 ---

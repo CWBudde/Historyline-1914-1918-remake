@@ -2,7 +2,7 @@
 id: portraits/cavalry
 title: Cavalry
 kind: portrait
-status: candidate
+status: approved
 runtime_ids: CP_cavalry, EC_cavalry
 masters: portrait.png
 ---

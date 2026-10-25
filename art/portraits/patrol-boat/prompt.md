@@ -2,7 +2,7 @@
 id: portraits/patrol-boat
 title: Patrol boat
 kind: portrait
-status: candidate
+status: approved
 runtime_ids: CP_patrolBoat, EC_patrolBoat
 masters: portrait.png
 ---

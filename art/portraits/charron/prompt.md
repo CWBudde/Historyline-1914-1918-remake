@@ -2,7 +2,7 @@
 id: portraits/charron
 title: Charron armoured car
 kind: portrait
-status: candidate
+status: approved
 runtime_ids: EC_charron
 masters: portrait.png
 ---

@@ -2,7 +2,7 @@
 id: screens/loading-000
 title: Loading 0%
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/loading-000
 masters: frame.png
 ---

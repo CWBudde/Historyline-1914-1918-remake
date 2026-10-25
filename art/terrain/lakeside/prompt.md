@@ -2,7 +2,7 @@
 id: terrain/lakeside
 title: Lake shore
 kind: terrain
-status: revised
+status: approved
 runtime_ids: lakeside12, lakeside123, lakeside126, lakeside156, lakeside16, lakeside23, lakeside34, lakeside3456, lakeside56
 masters: lakeside-bank-shared-v3.png, lakeside-bank-shared-v2.png, lakeside-bank-shared-v1.png, lakeside-lake-summer-v3.png
 ---

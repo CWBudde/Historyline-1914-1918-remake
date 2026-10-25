@@ -5,7 +5,7 @@
       "id": "interface/action",
       "title": "Action buttons",
       "kind": "interface",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "action/attack-disabled",
         "action/attack-focus",
@@ -328,7 +328,7 @@
       "id": "interface/banner",
       "title": "Banners",
       "kind": "interface",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "banner/capture",
         "banner/round"
@@ -393,7 +393,7 @@
       "id": "interface/bar",
       "title": "Value bars",
       "kind": "interface",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "bar/negative",
         "bar/neutral",
@@ -503,7 +503,7 @@
       "id": "interface/button",
       "title": "Panel button",
       "kind": "interface",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "button/disabled",
         "button/focus",
@@ -612,7 +612,7 @@
       "id": "interface/country",
       "title": "Country marks",
       "kind": "interface",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "country/france",
         "country/germany"
@@ -677,7 +677,7 @@
       "id": "interface/effect",
       "title": "Effects",
       "kind": "interface",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "effect/explosion-00",
         "effect/explosion-01",
@@ -828,7 +828,7 @@
       "id": "interface/map",
       "title": "Map markers",
       "kind": "interface",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "map/attack",
         "map/attackable",
@@ -1011,7 +1011,7 @@
       "id": "interface/ownership",
       "title": "Ownership marks",
       "kind": "interface",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "ownership/cp",
         "ownership/cp-factory",
@@ -1151,7 +1151,7 @@
       "id": "interface/panel",
       "title": "Panels",
       "kind": "interface",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "panel/battle",
         "panel/content",
@@ -1246,7 +1246,7 @@
       "id": "interface/rank",
       "title": "Ranks",
       "kind": "interface",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "rank/00",
         "rank/01",
@@ -1443,7 +1443,7 @@
       "id": "interface/slot",
       "title": "Slots",
       "kind": "interface",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "slot/disabled",
         "slot/focus",
@@ -1552,7 +1552,7 @@
       "id": "interface/symbol",
       "title": "Symbols",
       "kind": "interface",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "symbol/air",
         "symbol/ammo",
@@ -1805,7 +1805,7 @@
       "id": "interface/weapon",
       "title": "Weapons",
       "kind": "interface",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "weapon/bayonet",
         "weapon/canon155",
@@ -2060,7 +2060,7 @@
       "id": "interface/weapon-row",
       "title": "Weapon row",
       "kind": "interface",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "weapon-row/disabled",
         "weapon-row/focus",
@@ -2169,7 +2169,7 @@
       "id": "portraits/a7v",
       "title": "A7V tank",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_a7v"
       ],
@@ -2219,7 +2219,7 @@
       "id": "portraits/albatros-d-iii",
       "title": "Albatros D.III",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_albatrosDIII"
       ],
@@ -2269,7 +2269,7 @@
       "id": "portraits/anti-tank",
       "title": "Anti-tank weapons",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_antiTank",
         "EC_antiTank"
@@ -2321,7 +2321,7 @@
       "id": "portraits/armored-car",
       "title": "Armoured car",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_armCar",
         "EC_armCar"
@@ -2373,7 +2373,7 @@
       "id": "portraits/armored-train",
       "title": "Armoured train",
       "kind": "portrait",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "CP_armTrain",
         "EC_armTrain"
@@ -2425,7 +2425,7 @@
       "id": "portraits/battleship",
       "title": "Battleship",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_battleship",
         "EC_battleship"
@@ -2477,7 +2477,7 @@
       "id": "portraits/bunker",
       "title": "Bunker",
       "kind": "portrait",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "CP_bunker",
         "EC_bunker"
@@ -2529,7 +2529,7 @@
       "id": "portraits/cavalry",
       "title": "Cavalry",
       "kind": "portrait",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "CP_cavalry",
         "EC_cavalry"
@@ -2581,7 +2581,7 @@
       "id": "portraits/charron",
       "title": "Charron armoured car",
       "kind": "portrait",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "EC_charron"
       ],
@@ -2631,7 +2631,7 @@
       "id": "portraits/construction-unit",
       "title": "Construction unit",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_construction",
         "EC_construction"
@@ -2683,7 +2683,7 @@
       "id": "portraits/destroyer",
       "title": "Torpedo boat destroyer",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_destroyer",
         "EC_destroyer"
@@ -2735,7 +2735,7 @@
       "id": "portraits/dh2",
       "title": "D.H.2 scout",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "EC_dh2"
       ],
@@ -2785,7 +2785,7 @@
       "id": "portraits/dh4",
       "title": "D.H.4",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "EC_dh4"
       ],
@@ -2835,7 +2835,7 @@
       "id": "portraits/elite-infantry",
       "title": "Elite infantry",
       "kind": "portrait",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "CP_eliteInf",
         "EC_eliteInf"
@@ -2887,7 +2887,7 @@
       "id": "portraits/fokker-d-vii",
       "title": "Fokker D.VII",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_fokkerDVII"
       ],
@@ -2937,7 +2937,7 @@
       "id": "portraits/fokker-dr-i",
       "title": "Fokker Dr.I",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_fokkerDrI"
       ],
@@ -2987,7 +2987,7 @@
       "id": "portraits/fokker-e-i",
       "title": "Fokker E.I",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_fokkerEI"
       ],
@@ -3037,7 +3037,7 @@
       "id": "portraits/fokker-e-iii",
       "title": "Fokker E.III",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_fokkerEIII"
       ],
@@ -3087,7 +3087,7 @@
       "id": "portraits/gotha-g-vb",
       "title": "Gotha G Vb",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_gothaGV"
       ],
@@ -3137,7 +3137,7 @@
       "id": "portraits/handley-page-0400",
       "title": "Handley Page O/400",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "EC_handleyPage"
       ],
@@ -3187,7 +3187,7 @@
       "id": "portraits/heavy-artillery",
       "title": "Heavy artillery",
       "kind": "portrait",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "CP_hArtillery",
         "EC_hArtillery"
@@ -3239,7 +3239,7 @@
       "id": "portraits/infantry",
       "title": "Infantry",
       "kind": "portrait",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "CP_infantry",
         "EC_infantry"
@@ -3291,7 +3291,7 @@
       "id": "portraits/junkers-j4",
       "title": "Junkers J 4-10",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_junkersJI"
       ],
@@ -3341,7 +3341,7 @@
       "id": "portraits/light-artillery",
       "title": "Light artillery",
       "kind": "portrait",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "CP_lArtillery",
         "EC_lArtillery"
@@ -3393,7 +3393,7 @@
       "id": "portraits/mark-i",
       "title": "Mark I tank",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_markI",
         "EC_markI"
@@ -3445,7 +3445,7 @@
       "id": "portraits/mark-iv",
       "title": "Mark IV tank",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_markIV",
         "EC_markIV"
@@ -3497,7 +3497,7 @@
       "id": "portraits/medium-artillery",
       "title": "Medium artillery",
       "kind": "portrait",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "CP_mArtillery",
         "EC_mArtillery"
@@ -3549,7 +3549,7 @@
       "id": "portraits/mobile-aa",
       "title": "Mobile anti-aircraft emplacement",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_mobileAA",
         "EC_mobileAA"
@@ -3601,7 +3601,7 @@
       "id": "portraits/morane-saulnier-n",
       "title": "Morane-Saulnier N",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "EC_moraneN"
       ],
@@ -3651,7 +3651,7 @@
       "id": "portraits/nieuport-xvii",
       "title": "Nieuport XVII",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "EC_nieuport17"
       ],
@@ -3701,7 +3701,7 @@
       "id": "portraits/patrol-boat",
       "title": "Patrol boat",
       "kind": "portrait",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "CP_patrolBoat",
         "EC_patrolBoat"
@@ -3753,7 +3753,7 @@
       "id": "portraits/renault-ft17",
       "title": "Renault FT 17",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_ft17",
         "EC_ft17"
@@ -3805,7 +3805,7 @@
       "id": "portraits/sappers",
       "title": "Sappers",
       "kind": "portrait",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "CP_sappers",
         "EC_sappers"
@@ -3857,7 +3857,7 @@
       "id": "portraits/se5a",
       "title": "S.E.5a",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "EC_se5a"
       ],
@@ -3907,7 +3907,7 @@
       "id": "portraits/sopwith-camel",
       "title": "Sopwith Camel",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "EC_camel"
       ],
@@ -3957,7 +3957,7 @@
       "id": "portraits/spad-vii",
       "title": "SPAD VII",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "EC_spad7"
       ],
@@ -4007,7 +4007,7 @@
       "id": "portraits/spad-xiii",
       "title": "SPAD XIII",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "EC_spad13"
       ],
@@ -4057,7 +4057,7 @@
       "id": "portraits/st-chamond",
       "title": "St.-Chamond tank",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "EC_stChamond"
       ],
@@ -4107,7 +4107,7 @@
       "id": "portraits/static-aa",
       "title": "Static anti-aircraft emplacement",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_staticAA",
         "EC_staticAA"
@@ -4159,7 +4159,7 @@
       "id": "portraits/static-balloon",
       "title": "Static balloon",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_balloon",
         "EC_balloon"
@@ -4211,7 +4211,7 @@
       "id": "portraits/submarine",
       "title": "Submarine",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_submarine",
         "EC_submarine"
@@ -4263,7 +4263,7 @@
       "id": "portraits/supply-car",
       "title": "Supply car",
       "kind": "portrait",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "CP_supplyCar",
         "EC_supplyCar"
@@ -4315,7 +4315,7 @@
       "id": "portraits/torpedo-boat",
       "title": "Torpedo boat",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_torpedoBoat",
         "EC_torpedoBoat"
@@ -4367,7 +4367,7 @@
       "id": "portraits/train-artillery",
       "title": "Artillery train",
       "kind": "portrait",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "CP_trainArt",
         "EC_trainArt"
@@ -4419,7 +4419,7 @@
       "id": "portraits/transport-ship",
       "title": "Transport ship",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_transShip",
         "EC_transShip"
@@ -4471,7 +4471,7 @@
       "id": "portraits/transport-train",
       "title": "Transport train",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_transTrain",
         "EC_transTrain"
@@ -4523,7 +4523,7 @@
       "id": "portraits/voisin-iii",
       "title": "Voisin III (LA)",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "EC_voisin"
       ],
@@ -4573,7 +4573,7 @@
       "id": "portraits/zeppelin-staaken-r-vi",
       "title": "Zeppelin-Staaken R VI",
       "kind": "portrait",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_staaken"
       ],
@@ -4623,7 +4623,7 @@
       "id": "screens/backdrop",
       "title": "Menu backdrop",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "backdrop/western-front"
       ],
@@ -4671,7 +4671,7 @@
       "id": "screens/briefing",
       "title": "Briefing",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/briefing"
       ],
@@ -4732,7 +4732,7 @@
       "id": "screens/briefing-long",
       "title": "Long briefing",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/briefing-long"
       ],
@@ -4782,7 +4782,7 @@
       "id": "screens/button",
       "title": "Menu button",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "button/disabled",
         "button/focus",
@@ -4891,7 +4891,7 @@
       "id": "screens/campaign",
       "title": "Campaign",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/campaign"
       ],
@@ -5035,7 +5035,7 @@
       "id": "screens/code-invalid",
       "title": "Mission code",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/code-invalid"
       ],
@@ -5085,7 +5085,7 @@
       "id": "screens/confirm-delete",
       "title": "Confirm delete",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/confirm-delete"
       ],
@@ -5135,7 +5135,7 @@
       "id": "screens/confirm-exit",
       "title": "Confirm exit",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/confirm-exit"
       ],
@@ -5185,7 +5185,7 @@
       "id": "screens/confirm-overwrite",
       "title": "Confirm overwrite",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/confirm-overwrite"
       ],
@@ -5235,7 +5235,7 @@
       "id": "screens/confirm-restart",
       "title": "Confirm restart",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/confirm-restart"
       ],
@@ -5285,7 +5285,7 @@
       "id": "screens/country",
       "title": "Side marks",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "country/france",
         "country/germany"
@@ -5350,7 +5350,7 @@
       "id": "screens/credits",
       "title": "Credits",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/credits"
       ],
@@ -5411,7 +5411,7 @@
       "id": "screens/credits-long",
       "title": "Long credits",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/credits-long"
       ],
@@ -5461,7 +5461,7 @@
       "id": "screens/defeat",
       "title": "Defeat",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/defeat"
       ],
@@ -5522,7 +5522,7 @@
       "id": "screens/dropdown-open",
       "title": "Open dropdown",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/dropdown-open"
       ],
@@ -5572,7 +5572,7 @@
       "id": "screens/editor",
       "title": "Map editor",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/editor"
       ],
@@ -5633,7 +5633,7 @@
       "id": "screens/handover",
       "title": "Handover",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/handover"
       ],
@@ -5694,7 +5694,7 @@
       "id": "screens/help",
       "title": "Help",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/help"
       ],
@@ -5755,7 +5755,7 @@
       "id": "screens/help-long",
       "title": "Long help",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/help-long"
       ],
@@ -5844,7 +5844,7 @@
       "id": "screens/load",
       "title": "Load game",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/load"
       ],
@@ -5894,7 +5894,7 @@
       "id": "screens/load-corrupt",
       "title": "Unreadable save",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/load-corrupt"
       ],
@@ -5944,7 +5944,7 @@
       "id": "screens/loading-000",
       "title": "Loading 0%",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/loading-000"
       ],
@@ -5994,7 +5994,7 @@
       "id": "screens/loading-050",
       "title": "Loading 50%",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/loading-050"
       ],
@@ -6044,7 +6044,7 @@
       "id": "screens/loading-100",
       "title": "Loading 100%",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/loading-100"
       ],
@@ -6094,7 +6094,7 @@
       "id": "screens/mission-error",
       "title": "Mission error",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/mission-error"
       ],
@@ -6144,7 +6144,7 @@
       "id": "screens/mission-selection",
       "title": "Mission selection",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/mission-selection"
       ],
@@ -6205,7 +6205,7 @@
       "id": "screens/name-overflow",
       "title": "Save name",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/name-overflow"
       ],
@@ -6255,7 +6255,7 @@
       "id": "screens/new-map",
       "title": "New map",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/new-map"
       ],
@@ -6305,7 +6305,7 @@
       "id": "screens/new-map-invalid",
       "title": "New map, invalid",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/new-map-invalid"
       ],
@@ -6355,7 +6355,7 @@
       "id": "screens/options",
       "title": "Settings",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/options"
       ],
@@ -6416,7 +6416,7 @@
       "id": "screens/pause",
       "title": "Pause",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/pause"
       ],
@@ -6516,7 +6516,7 @@
       "id": "screens/progress",
       "title": "Progress bar",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "progress/fill",
         "progress/track"
@@ -6580,7 +6580,7 @@
       "id": "screens/save",
       "title": "Save game",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/save"
       ],
@@ -6641,7 +6641,7 @@
       "id": "screens/save-empty",
       "title": "No saved games",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/save-empty"
       ],
@@ -6691,7 +6691,7 @@
       "id": "screens/save-error",
       "title": "Save error",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/save-error"
       ],
@@ -6741,7 +6741,7 @@
       "id": "screens/save-progress",
       "title": "Saving",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/save-progress"
       ],
@@ -6791,7 +6791,7 @@
       "id": "screens/scrollbar",
       "title": "Scrollbar",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "scrollbar/thumb",
         "scrollbar/track"
@@ -6855,7 +6855,7 @@
       "id": "screens/settings-controls",
       "title": "Settings controls",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/settings-controls"
       ],
@@ -6905,7 +6905,7 @@
       "id": "screens/side-selection",
       "title": "Side selection",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/side-selection"
       ],
@@ -7073,7 +7073,7 @@
       "id": "screens/title",
       "title": "Title",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/title"
       ],
@@ -7123,7 +7123,7 @@
       "id": "screens/victory",
       "title": "Victory",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "screen/victory"
       ],
@@ -7184,7 +7184,7 @@
       "id": "screens/widget",
       "title": "Widgets",
       "kind": "screen",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "widget/dropdown-list",
         "widget/dropdown-option/normal/disabled",
@@ -8080,7 +8080,7 @@
       "id": "terrain/airfield",
       "title": "Airfield",
       "kind": "terrain",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "runway36",
         "runway36_w",
@@ -8192,7 +8192,7 @@
       "id": "terrain/barbed-wire",
       "title": "Barbed wire",
       "kind": "terrain",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "barbedWire"
       ],
@@ -8245,7 +8245,7 @@
       "id": "terrain/bridge",
       "title": "Footbridge",
       "kind": "terrain",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "bridge25",
         "bridge36",
@@ -8383,7 +8383,7 @@
       "id": "terrain/cmp",
       "title": "Depot",
       "kind": "terrain",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "cmpE",
         "cmpE_w",
@@ -8519,7 +8519,7 @@
       "id": "terrain/cross",
       "title": "Level crossing",
       "kind": "terrain",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "cross1",
         "cross2",
@@ -8607,7 +8607,7 @@
       "id": "terrain/factory",
       "title": "Factory",
       "kind": "terrain",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "factoryE",
         "factoryN",
@@ -8745,7 +8745,7 @@
       "id": "terrain/fog",
       "title": "Unexplored",
       "kind": "terrain",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "unseen"
       ],
@@ -8796,7 +8796,7 @@
       "id": "terrain/forest",
       "title": "Forest",
       "kind": "terrain",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "forest",
         "forest_w"
@@ -8989,7 +8989,7 @@
       "id": "terrain/grass",
       "title": "Meadow",
       "kind": "terrain",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "grass",
         "grass_w",
@@ -9193,7 +9193,7 @@
       "id": "terrain/ground",
       "title": "Ground",
       "kind": "terrain",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "mud",
         "rough_w",
@@ -9550,7 +9550,7 @@
       "id": "terrain/harbour",
       "title": "Harbour",
       "kind": "terrain",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "harbourN",
         "harbourN_w",
@@ -9680,7 +9680,7 @@
       "id": "terrain/hills",
       "title": "Hills",
       "kind": "terrain",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "hills"
       ],
@@ -9750,7 +9750,7 @@
       "id": "terrain/house",
       "title": "House",
       "kind": "terrain",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "house",
         "house_w"
@@ -9828,7 +9828,7 @@
       "id": "terrain/hq",
       "title": "Headquarters",
       "kind": "terrain",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "hqC",
         "hqC_w",
@@ -10003,7 +10003,7 @@
       "id": "terrain/lakeside",
       "title": "Lake shore",
       "kind": "terrain",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "lakeside12",
         "lakeside123",
@@ -10149,7 +10149,7 @@
       "id": "terrain/mount",
       "title": "Massif",
       "kind": "terrain",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "mountE",
         "mountE_w",
@@ -10267,7 +10267,7 @@
       "id": "terrain/mountain",
       "title": "Rocky knoll",
       "kind": "terrain",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "mountain",
         "mountain_w",
@@ -10429,7 +10429,7 @@
       "id": "terrain/path",
       "title": "Path",
       "kind": "terrain",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "path125",
         "path13",
@@ -10662,7 +10662,7 @@
       "id": "terrain/quay",
       "title": "Quay pier",
       "kind": "terrain",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "quay14",
         "quay14_w",
@@ -10744,7 +10744,7 @@
       "id": "terrain/rBridge",
       "title": "Road bridge",
       "kind": "terrain",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "rBridge14",
         "rBridge25",
@@ -10974,7 +10974,7 @@
       "id": "terrain/rail",
       "title": "Railway",
       "kind": "terrain",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "rail13",
         "rail14",
@@ -11196,7 +11196,7 @@
       "id": "terrain/road",
       "title": "Road",
       "kind": "terrain",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "road124",
         "road125",
@@ -11461,7 +11461,7 @@
       "id": "terrain/ruin",
       "title": "Destroyed depot",
       "kind": "terrain",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "ruinE",
         "ruinE_w",
@@ -11566,7 +11566,7 @@
       "id": "terrain/stream",
       "title": "Stream",
       "kind": "terrain",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "stream13",
         "stream135",
@@ -11758,7 +11758,7 @@
       "id": "terrain/trench",
       "title": "Trench",
       "kind": "terrain",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "trench0",
         "trench1",
@@ -11980,7 +11980,7 @@
       "id": "terrain/water",
       "title": "Water",
       "kind": "terrain",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "water",
         "waterStones",
@@ -12206,7 +12206,7 @@
       "id": "units/a7v",
       "title": "A7V tank",
       "kind": "unit",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_a7v"
       ],
@@ -12283,7 +12283,7 @@
       "id": "units/albatros-d-iii",
       "title": "Albatros D.III",
       "kind": "unit",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_albatrosDIII"
       ],
@@ -12360,7 +12360,7 @@
       "id": "units/anti-tank",
       "title": "Anti-tank weapons",
       "kind": "unit",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_antiTank",
         "EC_antiTank"
@@ -12438,7 +12438,7 @@
       "id": "units/armored-car",
       "title": "Armoured car",
       "kind": "unit",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "CP_armCar",
         "EC_armCar"
@@ -12520,7 +12520,7 @@
       "id": "units/armored-train",
       "title": "Armoured train",
       "kind": "unit",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "CP_armTrain",
         "EC_armTrain"
@@ -12602,7 +12602,7 @@
       "id": "units/battleship",
       "title": "Battleship",
       "kind": "unit",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_battleship",
         "EC_battleship"
@@ -12680,7 +12680,7 @@
       "id": "units/bunker",
       "title": "Bunker",
       "kind": "unit",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "CP_bunker",
         "EC_bunker"
@@ -12758,7 +12758,7 @@
       "id": "units/cavalry",
       "title": "Cavalry",
       "kind": "unit",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "CP_cavalry",
         "EC_cavalry"
@@ -12840,7 +12840,7 @@
       "id": "units/charron",
       "title": "Charron armoured car",
       "kind": "unit",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "EC_charron"
       ],
@@ -12921,7 +12921,7 @@
       "id": "units/construction-unit",
       "title": "Construction unit",
       "kind": "unit",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_construction",
         "EC_construction"
@@ -12999,7 +12999,7 @@
       "id": "units/destroyer",
       "title": "Destroyer",
       "kind": "unit",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_destroyer",
         "EC_destroyer"
@@ -13077,7 +13077,7 @@
       "id": "units/dh2",
       "title": "Airco D.H.2",
       "kind": "unit",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "EC_dh2"
       ],
@@ -13154,7 +13154,7 @@
       "id": "units/dh4",
       "title": "Airco D.H.4",
       "kind": "unit",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "EC_dh4"
       ],
@@ -13231,7 +13231,7 @@
       "id": "units/elite-infantry",
       "title": "Elite infantry",
       "kind": "unit",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "CP_eliteInf",
         "EC_eliteInf"
@@ -13312,7 +13312,7 @@
       "id": "units/fokker-d-vii",
       "title": "Fokker D.VII",
       "kind": "unit",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_fokkerDVII"
       ],
@@ -13389,7 +13389,7 @@
       "id": "units/fokker-dr-i",
       "title": "Fokker Dr.I",
       "kind": "unit",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_fokkerDrI"
       ],
@@ -13466,7 +13466,7 @@
       "id": "units/fokker-e-i",
       "title": "Fokker E.I",
       "kind": "unit",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_fokkerEI"
       ],
@@ -13543,7 +13543,7 @@
       "id": "units/fokker-e-iii",
       "title": "Fokker E.III",
       "kind": "unit",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_fokkerEIII"
       ],
@@ -13620,7 +13620,7 @@
       "id": "units/gotha-g-vb",
       "title": "Gotha G.Vb",
       "kind": "unit",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_gothaGV"
       ],
@@ -13697,7 +13697,7 @@
       "id": "units/handley-page-0400",
       "title": "Handley Page O/400",
       "kind": "unit",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "EC_handleyPage"
       ],
@@ -13774,7 +13774,7 @@
       "id": "units/heavy-artillery",
       "title": "Heavy artillery",
       "kind": "unit",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "CP_hArtillery",
         "EC_hArtillery"
@@ -13856,7 +13856,7 @@
       "id": "units/infantry",
       "title": "Infantry",
       "kind": "unit",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "CP_infantry",
         "EC_infantry"
@@ -13938,7 +13938,7 @@
       "id": "units/junkers-j4",
       "title": "Junkers J4",
       "kind": "unit",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_junkersJI"
       ],
@@ -14015,7 +14015,7 @@
       "id": "units/light-artillery",
       "title": "Light artillery",
       "kind": "unit",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "CP_lArtillery",
         "EC_lArtillery"
@@ -14097,7 +14097,7 @@
       "id": "units/mark-i",
       "title": "Mark I tank",
       "kind": "unit",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_markI",
         "EC_markI"
@@ -14175,7 +14175,7 @@
       "id": "units/mark-iv",
       "title": "Mark IV tank",
       "kind": "unit",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_markIV",
         "EC_markIV"
@@ -14253,7 +14253,7 @@
       "id": "units/medium-artillery",
       "title": "Medium artillery",
       "kind": "unit",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "CP_mArtillery",
         "EC_mArtillery"
@@ -14334,7 +14334,7 @@
       "id": "units/mobile-aa",
       "title": "Mobile anti-aircraft emplacement",
       "kind": "unit",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_mobileAA",
         "EC_mobileAA"
@@ -14412,7 +14412,7 @@
       "id": "units/morane-saulnier-n",
       "title": "Morane-Saulnier N",
       "kind": "unit",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "EC_moraneN"
       ],
@@ -14489,7 +14489,7 @@
       "id": "units/nieuport-xvii",
       "title": "Nieuport XVII",
       "kind": "unit",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "EC_nieuport17"
       ],
@@ -14566,7 +14566,7 @@
       "id": "units/patrol-boat",
       "title": "Patrol boat",
       "kind": "unit",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "CP_patrolBoat",
         "EC_patrolBoat"
@@ -14647,7 +14647,7 @@
       "id": "units/renault-ft17",
       "title": "Renault FT17 tank",
       "kind": "unit",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_ft17",
         "EC_ft17"
@@ -14725,7 +14725,7 @@
       "id": "units/sappers",
       "title": "Sappers",
       "kind": "unit",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "CP_sappers",
         "EC_sappers"
@@ -14806,7 +14806,7 @@
       "id": "units/se5a",
       "title": "S.E.5a",
       "kind": "unit",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "EC_se5a"
       ],
@@ -14883,7 +14883,7 @@
       "id": "units/sopwith-camel",
       "title": "Sopwith Camel",
       "kind": "unit",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "EC_camel"
       ],
@@ -14960,7 +14960,7 @@
       "id": "units/spad-vii",
       "title": "SPAD VII",
       "kind": "unit",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "EC_spad7"
       ],
@@ -15037,7 +15037,7 @@
       "id": "units/spad-xiii",
       "title": "SPAD XIII",
       "kind": "unit",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "EC_spad13"
       ],
@@ -15114,7 +15114,7 @@
       "id": "units/st-chamond",
       "title": "St-Chamond tank",
       "kind": "unit",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "EC_stChamond"
       ],
@@ -15191,7 +15191,7 @@
       "id": "units/static-aa",
       "title": "Static anti-aircraft emplacement",
       "kind": "unit",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_staticAA",
         "EC_staticAA"
@@ -15269,7 +15269,7 @@
       "id": "units/static-balloon",
       "title": "Static balloon",
       "kind": "unit",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_balloon",
         "EC_balloon"
@@ -15347,7 +15347,7 @@
       "id": "units/submarine",
       "title": "Submarine",
       "kind": "unit",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_submarine",
         "EC_submarine"
@@ -15425,7 +15425,7 @@
       "id": "units/supply-car",
       "title": "Supply car",
       "kind": "unit",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "CP_supplyCar",
         "EC_supplyCar"
@@ -15507,7 +15507,7 @@
       "id": "units/torpedo-boat",
       "title": "Torpedo boat",
       "kind": "unit",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_torpedoBoat",
         "EC_torpedoBoat"
@@ -15585,7 +15585,7 @@
       "id": "units/train-artillery",
       "title": "Artillery train",
       "kind": "unit",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "CP_trainArt",
         "EC_trainArt"
@@ -15667,7 +15667,7 @@
       "id": "units/transport-ship",
       "title": "Transport ship",
       "kind": "unit",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_transShip",
         "EC_transShip"
@@ -15745,7 +15745,7 @@
       "id": "units/transport-train",
       "title": "Transport train",
       "kind": "unit",
-      "status": "candidate",
+      "status": "approved",
       "runtime_ids": [
         "CP_transTrain",
         "EC_transTrain"
@@ -15827,7 +15827,7 @@
       "id": "units/voisin-iii",
       "title": "Voisin III",
       "kind": "unit",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "EC_voisin"
       ],
@@ -15904,7 +15904,7 @@
       "id": "units/zeppelin-staaken-r-vi",
       "title": "Zeppelin-Staaken R.VI",
       "kind": "unit",
-      "status": "revised",
+      "status": "approved",
       "runtime_ids": [
         "CP_staaken"
       ],

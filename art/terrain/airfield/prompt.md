@@ -2,7 +2,7 @@
 id: terrain/airfield
 title: Airfield
 kind: terrain
-status: candidate
+status: approved
 runtime_ids: runway36, runway36_w, hangar, hangar_w, apron-sw, apron-sw_w, apron-nw, apron-nw_w, standing/hangar, standing/hangar_w, standing/shadow/hangar, standing/shadow/hangar_w
 masters: airfield-runway-summer-v1.png, airfield-runway-winter-v1.png, airfield-hangar-summer-v1.png, airfield-hangar-winter-v1.png
 ---

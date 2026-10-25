@@ -2,7 +2,7 @@
 id: portraits/albatros-d-iii
 title: Albatros D.III
 kind: portrait
-status: revised
+status: approved
 runtime_ids: CP_albatrosDIII
 masters: portrait.png
 ---

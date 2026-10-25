@@ -2,7 +2,7 @@
 id: portraits/fokker-d-vii
 title: Fokker D.VII
 kind: portrait
-status: revised
+status: approved
 runtime_ids: CP_fokkerDVII
 masters: portrait.png
 ---

@@ -2,7 +2,7 @@
 id: units/fokker-d-vii
 title: Fokker D.VII
 kind: unit
-status: revised
+status: approved
 runtime_ids: CP_fokkerDVII
 masters: atlas.png
 ---

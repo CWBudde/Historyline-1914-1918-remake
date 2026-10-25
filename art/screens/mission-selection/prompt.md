@@ -2,7 +2,7 @@
 id: screens/mission-selection
 title: Mission selection
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/mission-selection
 masters: illustration.png, frame.png
 ---

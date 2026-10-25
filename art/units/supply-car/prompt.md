@@ -2,7 +2,7 @@
 id: units/supply-car
 title: Supply car
 kind: unit
-status: candidate
+status: approved
 runtime_ids: CP_supplyCar, EC_supplyCar
 masters: atlas.png
 ---

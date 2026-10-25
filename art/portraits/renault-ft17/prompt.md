@@ -2,7 +2,7 @@
 id: portraits/renault-ft17
 title: Renault FT 17
 kind: portrait
-status: revised
+status: approved
 runtime_ids: CP_ft17, EC_ft17
 masters: portrait.png
 ---

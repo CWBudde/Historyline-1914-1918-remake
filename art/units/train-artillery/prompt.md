@@ -2,7 +2,7 @@
 id: units/train-artillery
 title: Artillery train
 kind: unit
-status: candidate
+status: approved
 runtime_ids: CP_trainArt, EC_trainArt
 masters: atlas.png
 ---

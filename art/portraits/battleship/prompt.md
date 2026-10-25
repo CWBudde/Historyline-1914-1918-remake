@@ -2,7 +2,7 @@
 id: portraits/battleship
 title: Battleship
 kind: portrait
-status: revised
+status: approved
 runtime_ids: CP_battleship, EC_battleship
 masters: portrait.png
 ---

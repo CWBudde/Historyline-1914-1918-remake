@@ -2,7 +2,7 @@
 id: interface/symbol
 title: Symbols
 kind: interface
-status: candidate
+status: approved
 runtime_ids: symbol/air, symbol/ammo, symbol/armour, symbol/capture, symbol/empty, symbol/fuel, symbol/ground, symbol/infinity, symbol/repair, symbol/sight, symbol/size, symbol/skill-unknown, symbol/turn, symbol/water, symbol/weight
 masters: air.png, ammo.png, armour.png, capture.png, empty.png, fuel.png, ground.png, infinity.png, repair.png, sight.png, size.png, skill-unknown.png, turn.png, water.png, weight.png
 ---

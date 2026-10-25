@@ -2,7 +2,7 @@
 id: screens/save
 title: Save game
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/save
 masters: illustration.png, frame.png
 ---

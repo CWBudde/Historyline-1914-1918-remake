@@ -2,7 +2,7 @@
 id: portraits/morane-saulnier-n
 title: Morane-Saulnier N
 kind: portrait
-status: revised
+status: approved
 runtime_ids: EC_moraneN
 masters: portrait.png
 ---

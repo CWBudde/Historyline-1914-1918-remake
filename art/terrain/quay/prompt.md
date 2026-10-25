@@ -2,7 +2,7 @@
 id: terrain/quay
 title: Quay pier
 kind: terrain
-status: candidate
+status: approved
 runtime_ids: quay14, quay14_w, quay25, quay25_w, quay36, quay36_w
 masters: quay-pier-shared-v1.png, quay-pier-winter-v1.png
 ---

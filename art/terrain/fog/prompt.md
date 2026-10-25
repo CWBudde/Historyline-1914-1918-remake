@@ -2,7 +2,7 @@
 id: terrain/fog
 title: Unexplored
 kind: terrain
-status: candidate
+status: approved
 runtime_ids: unseen
 masters: fog-unseen-shared-v1.png
 ---

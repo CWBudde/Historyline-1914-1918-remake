@@ -2,7 +2,7 @@
 id: units/handley-page-0400
 title: Handley Page O/400
 kind: unit
-status: revised
+status: approved
 runtime_ids: EC_handleyPage
 masters: atlas.png
 ---

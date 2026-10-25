@@ -2,7 +2,7 @@
 id: terrain/water
 title: Water
 kind: terrain
-status: revised
+status: approved
 runtime_ids: water, waterStones, water_w, waterStones_w, waterRocks, waterRocks_w, sea-00, sea-00_w, sea-02, sea-02_w, sea-20, sea-20_w, sea-22, sea-22_w, sea-11, sea-11_w, sea-13, sea-13_w, sea-31, sea-31_w, sea-33, sea-33_w, shoal1, shoal1_w, shoal2, shoal2_w, shoal3, shoal3_w, shoal4, shoal4_w, skerry1, skerry1_w, skerry2, skerry2_w, skerry3, skerry3_w, surf, surf_w
 masters: water-shared-v3.png, water-rocks-shared-v2.png, water-shared-v2.png, water-shared-v1.png, water-rocks-shared-v1.png, water-rocks-shared-v3.png, water-reeds-shared-v1.png, water-boulders-shared-v1.png, water-bed-summer-v1.png, water-deep-summer-v1.png, water-sea-shared-v1.png, water-seakit-shared-v1.png, water-surf-shared-v1.png, water-rocks-winter-v1.png
 ---

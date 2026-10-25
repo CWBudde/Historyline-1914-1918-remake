@@ -2,7 +2,7 @@
 id: units/fokker-e-iii
 title: Fokker E.III
 kind: unit
-status: revised
+status: approved
 runtime_ids: CP_fokkerEIII
 masters: atlas.png
 ---

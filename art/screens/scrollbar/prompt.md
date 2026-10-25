@@ -2,7 +2,7 @@
 id: screens/scrollbar
 title: Scrollbar
 kind: screen
-status: candidate
+status: approved
 runtime_ids: scrollbar/thumb, scrollbar/track
 masters: track.png, thumb.png
 ---

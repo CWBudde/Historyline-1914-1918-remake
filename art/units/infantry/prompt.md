@@ -2,7 +2,7 @@
 id: units/infantry
 title: Infantry
 kind: unit
-status: candidate
+status: approved
 runtime_ids: CP_infantry, EC_infantry
 masters: atlas.png
 ---

@@ -2,7 +2,7 @@
 id: interface/effect
 title: Effects
 kind: interface
-status: candidate
+status: approved
 runtime_ids: effect/explosion-00, effect/explosion-01, effect/explosion-02, effect/explosion-03, effect/explosion-04, effect/explosion-05, effect/explosion-06, effect/explosion-07, effect/explosion-08, effect/hit, effect/hit-reduced
 masters: explosion.png, hit.png, hit-reduced.png
 ---

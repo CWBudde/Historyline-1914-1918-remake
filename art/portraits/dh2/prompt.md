@@ -2,7 +2,7 @@
 id: portraits/dh2
 title: D.H.2 scout
 kind: portrait
-status: revised
+status: approved
 runtime_ids: EC_dh2
 masters: portrait.png
 ---

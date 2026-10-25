@@ -2,7 +2,7 @@
 id: portraits/elite-infantry
 title: Elite infantry
 kind: portrait
-status: candidate
+status: approved
 runtime_ids: CP_eliteInf, EC_eliteInf
 masters: portrait.png
 ---

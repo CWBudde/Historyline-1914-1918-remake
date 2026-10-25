@@ -2,7 +2,7 @@
 id: portraits/sappers
 title: Sappers
 kind: portrait
-status: candidate
+status: approved
 runtime_ids: CP_sappers, EC_sappers
 masters: portrait.png
 ---

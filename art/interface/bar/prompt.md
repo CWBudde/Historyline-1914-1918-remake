@@ -2,7 +2,7 @@
 id: interface/bar
 title: Value bars
 kind: interface
-status: candidate
+status: approved
 runtime_ids: bar/negative, bar/neutral, bar/positive, bar/track, bar/unavailable
 masters: positive.png, neutral.png, negative.png, track.png, unavailable.png
 ---

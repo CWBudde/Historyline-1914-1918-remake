@@ -2,7 +2,7 @@
 id: units/junkers-j4
 title: Junkers J4
 kind: unit
-status: revised
+status: approved
 runtime_ids: CP_junkersJI
 masters: atlas.png
 ---

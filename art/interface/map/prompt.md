@@ -2,7 +2,7 @@
 id: interface/map
 title: Map markers
 kind: interface
-status: candidate
+status: approved
 runtime_ids: map/attack, map/attackable, map/camera, map/cursor, map/editor, map/from, map/invalid, map/path, map/reachable, map/selected
 masters: attack.png, attackable.png, camera.png, cursor.png, editor.png, from.png, invalid.png, path.png, reachable.png, selected.png
 ---

@@ -2,7 +2,7 @@
 id: units/sappers
 title: Sappers
 kind: unit
-status: candidate
+status: approved
 runtime_ids: CP_sappers, EC_sappers
 masters: atlas.png
 ---

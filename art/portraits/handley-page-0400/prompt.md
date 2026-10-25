@@ -2,7 +2,7 @@
 id: portraits/handley-page-0400
 title: Handley Page O/400
 kind: portrait
-status: revised
+status: approved
 runtime_ids: EC_handleyPage
 masters: portrait.png
 ---

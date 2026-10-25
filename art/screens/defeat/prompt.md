@@ -2,7 +2,7 @@
 id: screens/defeat
 title: Defeat
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/defeat
 masters: illustration.png, frame.png
 ---

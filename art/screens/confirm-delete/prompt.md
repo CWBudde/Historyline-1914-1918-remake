@@ -2,7 +2,7 @@
 id: screens/confirm-delete
 title: Confirm delete
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/confirm-delete
 masters: frame.png
 ---

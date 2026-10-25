@@ -2,7 +2,7 @@
 id: screens/briefing
 title: Briefing
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/briefing
 masters: illustration.png, frame.png
 ---

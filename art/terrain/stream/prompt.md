@@ -2,7 +2,7 @@
 id: terrain/stream
 title: Stream
 kind: terrain
-status: revised
+status: approved
 runtime_ids: stream13, stream135, stream14, stream15, stream24, stream246, stream25, stream26, stream35, stream36, stream46, stream13_w, stream135_w, stream14_w, stream15_w, stream24_w, stream246_w, stream25_w, stream26_w, stream35_w, stream36_w, stream46_w
 masters: stream-bank-shared-v3.png, stream-bank-shared-v2.png, stream-bank-shared-v1.png
 ---

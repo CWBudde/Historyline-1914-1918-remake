@@ -2,7 +2,7 @@
 id: portraits/mobile-aa
 title: Mobile anti-aircraft emplacement
 kind: portrait
-status: revised
+status: approved
 runtime_ids: CP_mobileAA, EC_mobileAA
 masters: portrait.png
 ---

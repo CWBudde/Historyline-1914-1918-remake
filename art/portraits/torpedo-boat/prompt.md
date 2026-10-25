@@ -2,7 +2,7 @@
 id: portraits/torpedo-boat
 title: Torpedo boat
 kind: portrait
-status: revised
+status: approved
 runtime_ids: CP_torpedoBoat, EC_torpedoBoat
 masters: portrait.png
 ---

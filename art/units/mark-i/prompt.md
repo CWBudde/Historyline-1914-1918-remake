@@ -2,7 +2,7 @@
 id: units/mark-i
 title: Mark I tank
 kind: unit
-status: revised
+status: approved
 runtime_ids: CP_markI, EC_markI
 masters: atlas.png
 ---

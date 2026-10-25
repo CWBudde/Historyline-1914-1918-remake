@@ -2,7 +2,7 @@
 id: units/patrol-boat
 title: Patrol boat
 kind: unit
-status: candidate
+status: approved
 runtime_ids: CP_patrolBoat, EC_patrolBoat
 masters: atlas.png
 ---

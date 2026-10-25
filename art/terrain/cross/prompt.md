@@ -2,7 +2,7 @@
 id: terrain/cross
 title: Level crossing
 kind: terrain
-status: candidate
+status: approved
 runtime_ids: cross1, cross2, cross3, cross4, cross1_w, cross2_w, cross3_w, cross4_w
 masters: 
 ---

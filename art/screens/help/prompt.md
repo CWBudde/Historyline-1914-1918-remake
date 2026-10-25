@@ -2,7 +2,7 @@
 id: screens/help
 title: Help
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/help
 masters: illustration.png, frame.png
 ---

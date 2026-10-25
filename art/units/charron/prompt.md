@@ -2,7 +2,7 @@
 id: units/charron
 title: Charron armoured car
 kind: unit
-status: candidate
+status: approved
 runtime_ids: EC_charron
 masters: atlas.png
 ---

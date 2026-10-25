@@ -2,7 +2,7 @@
 id: units/spad-xiii
 title: SPAD XIII
 kind: unit
-status: revised
+status: approved
 runtime_ids: EC_spad13
 masters: atlas.png
 ---

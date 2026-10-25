@@ -2,7 +2,7 @@
 id: units/morane-saulnier-n
 title: Morane-Saulnier N
 kind: unit
-status: revised
+status: approved
 runtime_ids: EC_moraneN
 masters: atlas.png
 ---

@@ -2,7 +2,7 @@
 id: screens/loading-050
 title: Loading 50%
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/loading-050
 masters: frame.png
 ---

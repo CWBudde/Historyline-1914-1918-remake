@@ -2,7 +2,7 @@
 id: units/light-artillery
 title: Light artillery
 kind: unit
-status: candidate
+status: approved
 runtime_ids: CP_lArtillery, EC_lArtillery
 masters: atlas.png
 ---

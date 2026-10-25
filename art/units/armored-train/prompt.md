@@ -2,7 +2,7 @@
 id: units/armored-train
 title: Armoured train
 kind: unit
-status: candidate
+status: approved
 runtime_ids: CP_armTrain, EC_armTrain
 masters: atlas.png
 ---

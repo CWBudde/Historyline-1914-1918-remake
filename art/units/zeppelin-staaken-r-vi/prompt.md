@@ -2,7 +2,7 @@
 id: units/zeppelin-staaken-r-vi
 title: Zeppelin-Staaken R.VI
 kind: unit
-status: revised
+status: approved
 runtime_ids: CP_staaken
 masters: atlas.png
 ---

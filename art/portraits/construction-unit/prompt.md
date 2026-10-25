@@ -2,7 +2,7 @@
 id: portraits/construction-unit
 title: Construction unit
 kind: portrait
-status: revised
+status: approved
 runtime_ids: CP_construction, EC_construction
 masters: portrait.png
 ---

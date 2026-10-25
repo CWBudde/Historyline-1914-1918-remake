@@ -2,7 +2,7 @@
 id: portraits/fokker-e-i
 title: Fokker E.I
 kind: portrait
-status: revised
+status: approved
 runtime_ids: CP_fokkerEI
 masters: portrait.png
 ---

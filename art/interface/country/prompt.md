@@ -2,7 +2,7 @@
 id: interface/country
 title: Country marks
 kind: interface
-status: candidate
+status: approved
 runtime_ids: country/france, country/germany
 masters: france.png, germany.png
 ---

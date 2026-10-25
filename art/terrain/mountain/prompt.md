@@ -2,7 +2,7 @@
 id: terrain/mountain
 title: Rocky knoll
 kind: terrain
-status: candidate
+status: approved
 runtime_ids: mountain, mountain_w, stamp/knoll/1/1, standing/stamp/knoll/1/1, stamp/knoll/3_-1.1_-2.2/1, standing/stamp/knoll/3_-1.1_-2.2/1, stamp/knoll_w/1/1, standing/stamp/knoll_w/1/1, stamp/knoll_w/3_-1.1_-2.2/1, standing/stamp/knoll_w/3_-1.1_-2.2/1, stamp/knoll_w/3_2.0_1.1/1, standing/stamp/knoll_w/3_2.0_1.1/1, stamp/knoll_w/4_1.1_0.2_0.4/1, standing/stamp/knoll_w/4_1.1_0.2_0.4/1
 masters: mountain-knoll-single-summer-v1.png, mountain-knoll-group-summer-v1.png, mountain-knoll-single-winter-v1.png, mountain-knoll-group-sw-three-winter-v1.png, mountain-knoll-group-triangle-three-winter-v1.png, mountain-knoll-group-vertical-four-winter-v1.png
 ---

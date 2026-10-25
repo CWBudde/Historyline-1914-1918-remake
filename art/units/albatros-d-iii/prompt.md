@@ -2,7 +2,7 @@
 id: units/albatros-d-iii
 title: Albatros D.III
 kind: unit
-status: revised
+status: approved
 runtime_ids: CP_albatrosDIII
 masters: atlas.png
 ---

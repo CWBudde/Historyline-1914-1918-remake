@@ -2,7 +2,7 @@
 id: units/mobile-aa
 title: Mobile anti-aircraft emplacement
 kind: unit
-status: revised
+status: approved
 runtime_ids: CP_mobileAA, EC_mobileAA
 masters: atlas.png
 ---

@@ -2,7 +2,7 @@
 id: screens/code-invalid
 title: Mission code
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/code-invalid
 masters: frame.png
 ---

@@ -2,7 +2,7 @@
 id: units/spad-vii
 title: SPAD VII
 kind: unit
-status: revised
+status: approved
 runtime_ids: EC_spad7
 masters: atlas.png
 ---

@@ -2,7 +2,7 @@
 id: units/renault-ft17
 title: Renault FT17 tank
 kind: unit
-status: revised
+status: approved
 runtime_ids: CP_ft17, EC_ft17
 masters: atlas.png
 ---

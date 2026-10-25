@@ -2,7 +2,7 @@
 id: terrain/mount
 title: Massif
 kind: terrain
-status: candidate
+status: approved
 runtime_ids: mountE, mountE_w, mountN, mountN_w, mountS, mountS_w, mountW, mountW_w
 masters: mount-summer-v2.png, mount-winter-v2.png, mount-summer-v1.png, mount-winter-v1.png
 ---

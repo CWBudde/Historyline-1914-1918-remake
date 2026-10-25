@@ -2,7 +2,7 @@
 id: units/static-aa
 title: Static anti-aircraft emplacement
 kind: unit
-status: revised
+status: approved
 runtime_ids: CP_staticAA, EC_staticAA
 masters: atlas.png
 ---

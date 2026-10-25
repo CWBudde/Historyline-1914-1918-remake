@@ -2,7 +2,7 @@
 id: screens/editor
 title: Map editor
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/editor
 masters: illustration.png, frame.png
 ---

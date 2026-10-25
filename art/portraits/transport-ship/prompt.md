@@ -2,7 +2,7 @@
 id: portraits/transport-ship
 title: Transport ship
 kind: portrait
-status: revised
+status: approved
 runtime_ids: CP_transShip, EC_transShip
 masters: portrait.png
 ---

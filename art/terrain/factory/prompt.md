@@ -2,7 +2,7 @@
 id: terrain/factory
 title: Factory
 kind: terrain
-status: candidate
+status: approved
 runtime_ids: factoryE, factoryN, factoryS, factoryW, factoryE_w, factoryN_w, factoryS_w, factoryW_w
 masters: factory-summer-v3.png, factory-winter-v5.png, factory-summer-v2.png, factory-winter-v4.png, factory-summer-v1.png, factory-winter-v3.png, factory-winter-v2.png, factory-winter-v1.png
 ---

@@ -2,7 +2,7 @@
 id: units/destroyer
 title: Destroyer
 kind: unit
-status: revised
+status: approved
 runtime_ids: CP_destroyer, EC_destroyer
 masters: atlas.png
 ---

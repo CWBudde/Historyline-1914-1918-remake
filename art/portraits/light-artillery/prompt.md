@@ -2,7 +2,7 @@
 id: portraits/light-artillery
 title: Light artillery
 kind: portrait
-status: candidate
+status: approved
 runtime_ids: CP_lArtillery, EC_lArtillery
 masters: portrait.png
 ---

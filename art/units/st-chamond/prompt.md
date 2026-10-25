@@ -2,7 +2,7 @@
 id: units/st-chamond
 title: St-Chamond tank
 kind: unit
-status: revised
+status: approved
 runtime_ids: EC_stChamond
 masters: atlas.png
 ---

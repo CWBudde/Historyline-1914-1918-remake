@@ -2,7 +2,7 @@
 id: terrain/bridge
 title: Footbridge
 kind: terrain
-status: candidate
+status: approved
 runtime_ids: bridge25, bridge36, standing/bridge25, standing/bridge36, bridge25_w, bridge36_w, standing/bridge25_w, standing/bridge36_w
 masters: bridge-25-shared-v1.png, bridge-36-shared-v1.png, bridge-25-export-shared-v1.png, bridge-36-export-shared-v1.png, bridge-plank-diagonal-shared-v1.png, bridge-plank-vertical-shared-v1.png, bridge-36-winter-v1.png, bridge-25-winter-v1.png, bridge-36-export-winter-v1.png, bridge-25-export-winter-v1.png
 ---

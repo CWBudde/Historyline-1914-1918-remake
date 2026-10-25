@@ -2,7 +2,7 @@
 id: screens/backdrop
 title: Menu backdrop
 kind: screen
-status: candidate
+status: approved
 runtime_ids: backdrop/western-front
 masters: western-front.png
 ---

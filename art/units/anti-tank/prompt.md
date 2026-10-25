@@ -2,7 +2,7 @@
 id: units/anti-tank
 title: Anti-tank weapons
 kind: unit
-status: revised
+status: approved
 runtime_ids: CP_antiTank, EC_antiTank
 masters: atlas.png
 ---

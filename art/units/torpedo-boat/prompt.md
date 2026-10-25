@@ -2,7 +2,7 @@
 id: units/torpedo-boat
 title: Torpedo boat
 kind: unit
-status: revised
+status: approved
 runtime_ids: CP_torpedoBoat, EC_torpedoBoat
 masters: atlas.png
 ---

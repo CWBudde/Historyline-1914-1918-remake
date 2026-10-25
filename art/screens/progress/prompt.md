@@ -2,7 +2,7 @@
 id: screens/progress
 title: Progress bar
 kind: screen
-status: candidate
+status: approved
 runtime_ids: progress/fill, progress/track
 masters: track.png, fill.png
 ---

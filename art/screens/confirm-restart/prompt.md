@@ -2,7 +2,7 @@
 id: screens/confirm-restart
 title: Confirm restart
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/confirm-restart
 masters: frame.png
 ---

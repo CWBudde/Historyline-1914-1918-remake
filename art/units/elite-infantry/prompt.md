@@ -2,7 +2,7 @@
 id: units/elite-infantry
 title: Elite infantry
 kind: unit
-status: candidate
+status: approved
 runtime_ids: CP_eliteInf, EC_eliteInf
 masters: atlas.png
 ---

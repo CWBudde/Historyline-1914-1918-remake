@@ -2,7 +2,7 @@
 id: screens/save-progress
 title: Saving
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/save-progress
 masters: frame.png
 ---

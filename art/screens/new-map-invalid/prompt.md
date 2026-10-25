@@ -2,7 +2,7 @@
 id: screens/new-map-invalid
 title: New map, invalid
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/new-map-invalid
 masters: frame.png
 ---

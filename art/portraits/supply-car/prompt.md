@@ -2,7 +2,7 @@
 id: portraits/supply-car
 title: Supply car
 kind: portrait
-status: candidate
+status: approved
 runtime_ids: CP_supplyCar, EC_supplyCar
 masters: portrait.png
 ---

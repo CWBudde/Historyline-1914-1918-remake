@@ -2,7 +2,7 @@
 id: portraits/nieuport-xvii
 title: Nieuport XVII
 kind: portrait
-status: revised
+status: approved
 runtime_ids: EC_nieuport17
 masters: portrait.png
 ---

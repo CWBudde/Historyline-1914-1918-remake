@@ -2,7 +2,7 @@
 id: portraits/voisin-iii
 title: Voisin III (LA)
 kind: portrait
-status: revised
+status: approved
 runtime_ids: EC_voisin
 masters: portrait.png
 ---

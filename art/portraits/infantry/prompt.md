@@ -2,7 +2,7 @@
 id: portraits/infantry
 title: Infantry
 kind: portrait
-status: candidate
+status: approved
 runtime_ids: CP_infantry, EC_infantry
 masters: portrait.png
 ---

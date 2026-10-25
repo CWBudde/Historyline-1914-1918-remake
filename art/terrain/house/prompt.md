@@ -2,7 +2,7 @@
 id: terrain/house
 title: House
 kind: terrain
-status: candidate
+status: approved
 runtime_ids: house, house_w
 masters: house-summer-v2.png, house-winter-v2.png, house-summer-v1.png, house-winter-v1.png
 ---

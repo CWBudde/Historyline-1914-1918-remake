@@ -2,7 +2,7 @@
 id: portraits/a7v
 title: A7V tank
 kind: portrait
-status: revised
+status: approved
 runtime_ids: CP_a7v
 masters: portrait.png
 ---

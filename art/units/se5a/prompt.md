@@ -2,7 +2,7 @@
 id: units/se5a
 title: S.E.5a
 kind: unit
-status: revised
+status: approved
 runtime_ids: EC_se5a
 masters: atlas.png
 ---

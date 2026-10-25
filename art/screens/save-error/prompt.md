@@ -2,7 +2,7 @@
 id: screens/save-error
 title: Save error
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/save-error
 masters: frame.png
 ---

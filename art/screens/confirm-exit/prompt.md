@@ -2,7 +2,7 @@
 id: screens/confirm-exit
 title: Confirm exit
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/confirm-exit
 masters: frame.png
 ---

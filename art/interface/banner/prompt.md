@@ -2,7 +2,7 @@
 id: interface/banner
 title: Banners
 kind: interface
-status: candidate
+status: approved
 runtime_ids: banner/capture, banner/round
 masters: capture.png, round.png
 ---

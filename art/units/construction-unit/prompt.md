@@ -2,7 +2,7 @@
 id: units/construction-unit
 title: Construction unit
 kind: unit
-status: revised
+status: approved
 runtime_ids: CP_construction, EC_construction
 masters: atlas.png
 ---

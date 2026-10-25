@@ -2,7 +2,7 @@
 id: screens/settings-controls
 title: Settings controls
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/settings-controls
 masters: frame.png
 ---

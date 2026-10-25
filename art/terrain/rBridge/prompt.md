@@ -2,7 +2,7 @@
 id: terrain/rBridge
 title: Road bridge
 kind: terrain
-status: candidate
+status: approved
 runtime_ids: rBridge14, rBridge25, rBridge36, standing/rBridge14, standing/rBridge25, standing/rBridge36, standing/rBridge14_w, standing/rBridge25_w, standing/rBridge36_w, standing/rBridge36-rail, standing/rBridge36-rail_w
 masters: rbridge-14-shared-v1.png, rbridge-25-shared-v1.png, rbridge-36-shared-v1.png, rbridge-14-export-shared-v1.png, rbridge-25-export-shared-v1.png, rbridge-36-export-shared-v1.png, rbridge-stone-ne-shared-v1.png, rbridge-stone-se-shared-v1.png, rbridge-stone-vertical-shared-v1.png, rbridge-36-rail-summer-v1.png, rbridge-36-rail-winter-v1.png, rbridge-14-winter-v1.png, rbridge-25-winter-v1.png, rbridge-36-winter-v1.png, rbridge-36-rail-export-summer-v1.png, rbridge-36-rail-export-winter-v1.png, rbridge-36-rail-summer-v2.png, rbridge-36-rail-winter-v2.png, rbridge-36-rail-export-summer-v2.png, rbridge-36-rail-export-winter-v2.png, rbridge-14-export-winter-v1.png, rbridge-25-export-winter-v1.png, rbridge-36-export-winter-v1.png
 ---

@@ -2,7 +2,7 @@
 id: portraits/transport-train
 title: Transport train
 kind: portrait
-status: revised
+status: approved
 runtime_ids: CP_transTrain, EC_transTrain
 masters: portrait.png
 ---

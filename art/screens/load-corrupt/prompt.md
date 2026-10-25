@@ -2,7 +2,7 @@
 id: screens/load-corrupt
 title: Unreadable save
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/load-corrupt
 masters: frame.png
 ---

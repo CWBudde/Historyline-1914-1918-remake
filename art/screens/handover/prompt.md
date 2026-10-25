@@ -2,7 +2,7 @@
 id: screens/handover
 title: Handover
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/handover
 masters: illustration.png, frame.png
 ---

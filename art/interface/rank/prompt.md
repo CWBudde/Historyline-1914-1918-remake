@@ -2,7 +2,7 @@
 id: interface/rank
 title: Ranks
 kind: interface
-status: candidate
+status: approved
 runtime_ids: rank/00, rank/01, rank/02, rank/03, rank/04, rank/05, rank/06, rank/07, rank/08, rank/09, rank/10
 masters: 00.png, 01.png, 02.png, 03.png, 04.png, 05.png, 06.png, 07.png, 08.png, 09.png, 10.png
 ---

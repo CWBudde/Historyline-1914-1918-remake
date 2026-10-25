@@ -2,7 +2,7 @@
 id: screens/campaign
 title: Campaign
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/campaign
 masters: illustration.png, frame.png
 ---

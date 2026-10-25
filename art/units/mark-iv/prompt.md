@@ -2,7 +2,7 @@
 id: units/mark-iv
 title: Mark IV tank
 kind: unit
-status: revised
+status: approved
 runtime_ids: CP_markIV, EC_markIV
 masters: atlas.png
 ---

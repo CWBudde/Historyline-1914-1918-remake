@@ -2,7 +2,7 @@
 id: units/nieuport-xvii
 title: Nieuport XVII
 kind: unit
-status: revised
+status: approved
 runtime_ids: EC_nieuport17
 masters: atlas.png
 ---

@@ -2,7 +2,7 @@
 id: portraits/zeppelin-staaken-r-vi
 title: Zeppelin-Staaken R VI
 kind: portrait
-status: revised
+status: approved
 runtime_ids: CP_staaken
 masters: portrait.png
 ---

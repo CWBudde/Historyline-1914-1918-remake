@@ -2,7 +2,7 @@
 id: screens/credits
 title: Credits
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/credits
 masters: illustration.png, frame.png
 ---

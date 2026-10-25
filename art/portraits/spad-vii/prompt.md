@@ -2,7 +2,7 @@
 id: portraits/spad-vii
 title: SPAD VII
 kind: portrait
-status: revised
+status: approved
 runtime_ids: EC_spad7
 masters: portrait.png
 ---

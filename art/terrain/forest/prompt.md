@@ -2,7 +2,7 @@
 id: terrain/forest
 title: Forest
 kind: terrain
-status: candidate
+status: approved
 runtime_ids: forest, forest_w
 masters: forest-floor-summer-v4.png, forest-oak-summer-v4.png, forest-beech-summer-v4.png, forest-birch-summer-v4.png, forest-crowns-summer-v3.png, forest-crowns-winter-v3.png, forest-crowns-inset-summer-v3.png, forest-crowns-inset-winter-v3.png, forest-crowns-summer-v2.png, forest-crowns-winter-v2.png, forest-crowns-inset-summer-v2.png, forest-crowns-inset-winter-v2.png, forest-crowns-spaced-summer-v2.png, forest-crowns-initial-winter-v2.png, forest-crowns-initial-summer-v2.png, forest-crowns-summer-v1.png, forest-crowns-winter-v1.png, forest-floor-summer-v5.png, forest-crowns-summer-v5.png, forest-floor-summer-v6.png, forest-crowns-summer-v6.png, forest-crowns-winter-v4.png
 ---

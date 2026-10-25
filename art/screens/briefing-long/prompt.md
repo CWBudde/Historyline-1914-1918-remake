@@ -2,7 +2,7 @@
 id: screens/briefing-long
 title: Long briefing
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/briefing-long
 masters: frame.png
 ---

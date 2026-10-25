@@ -2,7 +2,7 @@
 id: terrain/hq
 title: Headquarters
 kind: terrain
-status: candidate
+status: approved
 runtime_ids: hqC, hqC_w, hqN, hqN_w, hqNE, hqNE_w, hqNW, hqNW_w, hqS, hqS_w, hqSE, hqSE_w, hqSW, hqSW_w
 masters: hq-winter-v4.png, hq-summer-v3.png, hq-winter-v3.png, hq-summer-v2.png, hq-winter-v2.png, hq-summer-v1.png, hq-winter-v1.png
 ---

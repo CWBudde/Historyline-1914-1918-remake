@@ -2,7 +2,7 @@
 id: portraits/submarine
 title: Submarine
 kind: portrait
-status: revised
+status: approved
 runtime_ids: CP_submarine, EC_submarine
 masters: portrait.png
 ---

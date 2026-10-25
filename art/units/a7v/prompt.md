@@ -2,7 +2,7 @@
 id: units/a7v
 title: A7V tank
 kind: unit
-status: revised
+status: approved
 runtime_ids: CP_a7v
 masters: atlas.png
 ---

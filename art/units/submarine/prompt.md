@@ -2,7 +2,7 @@
 id: units/submarine
 title: Submarine
 kind: unit
-status: revised
+status: approved
 runtime_ids: CP_submarine, EC_submarine
 masters: atlas.png
 ---

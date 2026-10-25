@@ -2,7 +2,7 @@
 id: units/transport-train
 title: Transport train
 kind: unit
-status: candidate
+status: approved
 runtime_ids: CP_transTrain, EC_transTrain
 masters: atlas.png
 ---

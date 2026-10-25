@@ -2,7 +2,7 @@
 id: screens/victory
 title: Victory
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/victory
 masters: illustration.png, frame.png
 ---

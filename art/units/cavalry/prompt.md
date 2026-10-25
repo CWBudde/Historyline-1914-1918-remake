@@ -2,7 +2,7 @@
 id: units/cavalry
 title: Cavalry
 kind: unit
-status: candidate
+status: approved
 runtime_ids: CP_cavalry, EC_cavalry
 masters: atlas.png
 ---

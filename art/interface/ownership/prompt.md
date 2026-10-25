@@ -2,7 +2,7 @@
 id: interface/ownership
 title: Ownership marks
 kind: interface
-status: candidate
+status: approved
 runtime_ids: ownership/cp, ownership/cp-factory, ownership/depotOwnership, ownership/ec, ownership/ec-factory, ownership/neutral, ownership/neutral-factory
 masters: cp.png, ec.png, neutral.png, cp-factory.png, ec-factory.png, neutral-factory.png, depot-atlas.png
 ---

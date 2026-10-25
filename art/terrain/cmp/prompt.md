@@ -2,7 +2,7 @@
 id: terrain/cmp
 title: Depot
 kind: terrain
-status: candidate
+status: approved
 runtime_ids: cmpE, cmpE_w, cmpN, cmpN_w, cmpS, cmpS_w, cmpW, cmpW_w
 masters: cmp-summer-v3.png, cmp-winter-v4.png, cmp-summer-v2.png, cmp-winter-v3.png, cmp-winter-v2.png, cmp-summer-v1.png, cmp-winter-v1.png
 ---

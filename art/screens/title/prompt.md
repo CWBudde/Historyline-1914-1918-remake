@@ -2,7 +2,7 @@
 id: screens/title
 title: Title
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/title
 masters: frame.png
 ---

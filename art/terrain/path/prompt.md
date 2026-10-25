@@ -2,7 +2,7 @@
 id: terrain/path
 title: Path
 kind: terrain
-status: candidate
+status: approved
 runtime_ids: path125, path13, path135, path136, path14, path15, path24, path25, path26, path346, path35, path356, path36, path46, path125_w, path13_w, path135_w, path136_w, path14_w, path15_w, path24_w, path25_w, path26_w, path346_w, path35_w, path356_w, path36_w, path46_w
 masters: path-earth-shared-v2.png, path-earth-shared-v1.png, path-track-winter-v1.png, path-track-summer-v1.png
 ---

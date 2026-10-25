@@ -2,7 +2,7 @@
 id: terrain/ruin
 title: Destroyed depot
 kind: terrain
-status: candidate
+status: approved
 runtime_ids: ruinE, ruinE_w, ruinN, ruinN_w, ruinS, ruinS_w, ruinW, ruinW_w
 masters: ruin-summer-v1.png, ruin-winter-v1.png
 ---

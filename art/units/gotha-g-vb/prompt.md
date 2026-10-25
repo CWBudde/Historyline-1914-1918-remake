@@ -2,7 +2,7 @@
 id: units/gotha-g-vb
 title: Gotha G.Vb
 kind: unit
-status: revised
+status: approved
 runtime_ids: CP_gothaGV
 masters: atlas.png
 ---

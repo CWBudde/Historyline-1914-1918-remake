@@ -2,7 +2,7 @@
 id: screens/name-overflow
 title: Save name
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/name-overflow
 masters: frame.png
 ---

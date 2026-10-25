@@ -2,7 +2,7 @@
 id: interface/button
 title: Panel button
 kind: interface
-status: candidate
+status: approved
 runtime_ids: button/disabled, button/focus, button/hover, button/normal, button/pressed
 masters: normal.png, hover.png, focus.png, pressed.png, disabled.png
 ---

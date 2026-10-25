@@ -2,7 +2,7 @@
 id: screens/mission-error
 title: Mission error
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/mission-error
 masters: frame.png
 ---

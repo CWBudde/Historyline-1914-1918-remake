@@ -2,7 +2,7 @@
 id: units/heavy-artillery
 title: Heavy artillery
 kind: unit
-status: candidate
+status: approved
 runtime_ids: CP_hArtillery, EC_hArtillery
 masters: atlas.png
 ---

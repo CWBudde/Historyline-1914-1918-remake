@@ -2,7 +2,7 @@
 id: units/armored-car
 title: Armoured car
 kind: unit
-status: candidate
+status: approved
 runtime_ids: CP_armCar, EC_armCar
 masters: atlas.png
 ---

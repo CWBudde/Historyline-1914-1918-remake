@@ -2,7 +2,7 @@
 id: screens/new-map
 title: New map
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/new-map
 masters: frame.png
 ---

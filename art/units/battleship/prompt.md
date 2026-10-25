@@ -2,7 +2,7 @@
 id: units/battleship
 title: Battleship
 kind: unit
-status: revised
+status: approved
 runtime_ids: CP_battleship, EC_battleship
 masters: atlas.png
 ---

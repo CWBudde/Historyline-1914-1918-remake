@@ -2,7 +2,7 @@
 id: screens/country
 title: Side marks
 kind: screen
-status: candidate
+status: approved
 runtime_ids: country/france, country/germany
 masters: france.png, germany.png
 ---

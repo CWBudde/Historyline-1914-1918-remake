@@ -2,7 +2,7 @@
 id: units/fokker-e-i
 title: Fokker E.I
 kind: unit
-status: revised
+status: approved
 runtime_ids: CP_fokkerEI
 masters: atlas.png
 ---

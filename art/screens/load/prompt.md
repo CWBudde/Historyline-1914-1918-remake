@@ -2,7 +2,7 @@
 id: screens/load
 title: Load game
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/load
 masters: frame.png
 ---

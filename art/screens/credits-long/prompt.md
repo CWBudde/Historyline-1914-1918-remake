@@ -2,7 +2,7 @@
 id: screens/credits-long
 title: Long credits
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/credits-long
 masters: frame.png
 ---

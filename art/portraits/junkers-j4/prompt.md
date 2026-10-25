@@ -2,7 +2,7 @@
 id: portraits/junkers-j4
 title: Junkers J 4-10
 kind: portrait
-status: revised
+status: approved
 runtime_ids: CP_junkersJI
 masters: portrait.png
 ---

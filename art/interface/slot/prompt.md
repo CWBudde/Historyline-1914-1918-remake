@@ -2,7 +2,7 @@
 id: interface/slot
 title: Slots
 kind: interface
-status: candidate
+status: approved
 runtime_ids: slot/disabled, slot/focus, slot/hover, slot/normal, slot/pressed
 masters: normal.png, hover.png, focus.png, pressed.png, disabled.png
 ---

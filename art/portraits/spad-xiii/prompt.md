@@ -2,7 +2,7 @@
 id: portraits/spad-xiii
 title: SPAD XIII
 kind: portrait
-status: revised
+status: approved
 runtime_ids: EC_spad13
 masters: portrait.png
 ---

@@ -2,7 +2,7 @@
 id: portraits/mark-i
 title: Mark I tank
 kind: portrait
-status: revised
+status: approved
 runtime_ids: CP_markI, EC_markI
 masters: portrait.png
 ---

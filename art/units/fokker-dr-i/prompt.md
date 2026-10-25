@@ -2,7 +2,7 @@
 id: units/fokker-dr-i
 title: Fokker Dr.I
 kind: unit
-status: revised
+status: approved
 runtime_ids: CP_fokkerDrI
 masters: atlas.png
 ---

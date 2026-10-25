@@ -2,7 +2,7 @@
 id: portraits/gotha-g-vb
 title: Gotha G Vb
 kind: portrait
-status: revised
+status: approved
 runtime_ids: CP_gothaGV
 masters: portrait.png
 ---

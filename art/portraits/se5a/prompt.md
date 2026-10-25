@@ -2,7 +2,7 @@
 id: portraits/se5a
 title: S.E.5a
 kind: portrait
-status: revised
+status: approved
 runtime_ids: EC_se5a
 masters: portrait.png
 ---

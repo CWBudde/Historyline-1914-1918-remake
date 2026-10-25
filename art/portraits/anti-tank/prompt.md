@@ -2,7 +2,7 @@
 id: portraits/anti-tank
 title: Anti-tank weapons
 kind: portrait
-status: revised
+status: approved
 runtime_ids: CP_antiTank, EC_antiTank
 masters: portrait.png
 ---

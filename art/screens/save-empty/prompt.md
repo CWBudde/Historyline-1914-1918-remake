@@ -2,7 +2,7 @@
 id: screens/save-empty
 title: No saved games
 kind: screen
-status: candidate
+status: approved
 runtime_ids: screen/save-empty
 masters: frame.png
 ---

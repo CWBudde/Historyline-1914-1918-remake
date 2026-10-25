@@ -2,7 +2,7 @@
 id: portraits/armored-car
 title: Armoured car
 kind: portrait
-status: revised
+status: approved
 runtime_ids: CP_armCar, EC_armCar
 masters: portrait.png
 ---

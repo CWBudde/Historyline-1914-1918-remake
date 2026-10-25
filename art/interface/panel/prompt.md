@@ -2,7 +2,7 @@
 id: interface/panel
 title: Panels
 kind: interface
-status: candidate
+status: approved
 runtime_ids: panel/battle, panel/content, panel/terrain, panel/weapon
 masters: battle.png, content.png, terrain.png, weapon.png
 ---

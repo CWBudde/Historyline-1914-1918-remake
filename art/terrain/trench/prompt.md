@@ -2,7 +2,7 @@
 id: terrain/trench
 title: Trench
 kind: terrain
-status: candidate
+status: approved
 runtime_ids: trench0, trench1, trench12, trench124, trench125, trench14, trench15, trench24, trench25, trench4, trench5, trench5a, trench0_w, trench1_w, trench12_w, trench124_w, trench125_w, trench14_w, trench15_w, trench24_w, trench25_w, trench4_w, trench5_w, trench5a_w
 masters: trench-floor-shared-v2.png, trench-timber-shared-v2.png, trench-floor-shared-v1.png, trench-timber-shared-v1.png, trench-fire-winter-v1.png, trench-fire-summer-v1.png
 ---

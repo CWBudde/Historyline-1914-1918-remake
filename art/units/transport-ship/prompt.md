@@ -2,7 +2,7 @@
 id: units/transport-ship
 title: Transport ship
 kind: unit
-status: revised
+status: approved
 runtime_ids: CP_transShip, EC_transShip
 masters: atlas.png
 ---
