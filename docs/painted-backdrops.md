@@ -2,8 +2,9 @@
 
 A scenario file may name a backdrop (`"backdrop": "1914-08.jpg"` next to the file): one painting of the
 whole level's ground that the game draws in place of the terrain tiles (`-backdrop off` draws the tiles).
-It must match the level's world aspect; any resolution works. Shipped: PULSE (`1914-08.jpg`, 1536×2706)
-and CIVIL (`1914-10.jpg`, 2336×2706), both at 1536/1090 ≈ 1.41 image px per world px.
+It must match the level's world aspect; any resolution works. Shipped: PULSE (`1914-08.jpg`, 1536×2706),
+CIVIL (`1914-10.jpg`, 2336×2706) and Marne (`1914-09.jpg`, 3137×1578, six sections in a 3×2 grid),
+all at 1536/1090 ≈ 1.41 image px per world px.
 
 Imagegen paints at most 1536×1024, far less than a whole map. A backdrop is therefore painted in
 overlapping sections, each registered to a render of the level, and stitched.
