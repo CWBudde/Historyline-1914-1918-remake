@@ -82,20 +82,48 @@ func (d *dosControl) reach() map[hexgrid.Coord]bool {
 		for c, ok := range set {
 			if ok {
 				out[c] = true
+				for _, p := range d.s.Footprint(c) {
+					out[p] = true
+				}
 			}
 		}
 	}
 	return out
 }
 
+// aimAt is the cell an order aimed on c goes to: c, or the entrance of the
+// building c belongs to when that is a destination or target, so a depot or
+// factory is entered on any of its cells.
+func (d *dosControl) aimAt(c hexgrid.Coord) hexgrid.Coord {
+	if d.moves[c] || d.targets[c] {
+		return c
+	}
+	if e, ok := d.s.Entrance(c); ok && (d.moves[e] || d.targets[e]) {
+		return e
+	}
+	return c
+}
+
 // onTarget reports whether c is a destination or target of the aimed order.
-func (d *dosControl) onTarget(c hexgrid.Coord) bool { return d.moves[c] || d.targets[c] }
+func (d *dosControl) onTarget(c hexgrid.Coord) bool {
+	c = d.aimAt(c)
+	return d.moves[c] || d.targets[c]
+}
+
+// container is the cell whose container c shows: the entrance of the
+// building c belongs to, else c.
+func (d *dosControl) container(c hexgrid.Coord) hexgrid.Coord {
+	if e, ok := d.s.Entrance(c); ok {
+		return e
+	}
+	return c
+}
 
 // ownContainer reports whether c holds an own building or carrier, whose
 // contents the left gesture opens.
 func (d *dosControl) ownContainer(c hexgrid.Coord) bool {
 	v := d.own()
-	if b, ok := v.Buildings[c]; ok && b.Owner == d.s.Faction(d.side) {
+	if b, ok := v.Buildings[d.container(c)]; ok && b.Owner == d.s.Faction(d.side) {
 		return true
 	}
 	u, ok := v.Units[c]
@@ -120,7 +148,7 @@ func (d *dosControl) can(a gesture.Action, c hexgrid.Coord) bool {
 	case gesture.ModeChange:
 		return true
 	case gesture.Open:
-		hold, units, ok := d.s.Contents(d.side, c)
+		hold, units, ok := d.s.Contents(d.side, d.container(c))
 		return ok && (len(units) > 0 || len(d.s.Buildable(d.side, hold)) > 0)
 	case gesture.Move, gesture.Attack:
 		u, _, ok := shipHead(d.own().Units, c)
@@ -186,7 +214,7 @@ func (d *dosControl) order(a gesture.Action, c hexgrid.Coord) {
 		d.EndTurn()
 	case gesture.Open:
 		d.clear()
-		d.openContents(c)
+		d.openContents(d.container(c))
 	default:
 	}
 }

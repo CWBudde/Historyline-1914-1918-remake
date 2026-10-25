@@ -49,7 +49,7 @@ func FromOriginal(l *finmap.Level, set *data.Set) (*Board, error) {
 	b := &Board{
 		Width: l.Width, Height: l.Height, Winter: l.Mission != nil && l.Mission.Winter,
 		Terrain: make([]int, 0, l.Width*l.Height), grid: hexgrid.Grid{Width: l.Width / 2, Lines: 2*l.Height - 1},
-		Units: map[int]dosrules.Placement{}, IDs: map[int]string{}, Holds: map[int]dosrules.Hold{},
+		Units: map[int]dosrules.Placement{}, IDs: map[int]string{}, Holds: map[int]dosrules.Hold{}, Parts: map[int]int{},
 		Buildings: map[int]dosrules.Building{},
 	}
 	terrains := dosrules.Full.Tables.Move.Terrains
@@ -201,6 +201,7 @@ func (b *Board) originalBuildings(l *finmap.Level) error {
 				}
 				claimed[nc] = entrance
 				rest = append(rest, nc)
+				b.Parts[nc] = entrance
 				stack = append(stack, nc)
 			}
 		}

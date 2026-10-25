@@ -228,6 +228,9 @@ func (d *dosControl) Click(at hexgrid.Coord) {
 		return
 	}
 	d.menu = nil
+	if d.selected {
+		at = d.aimAt(at)
+	}
 	switch {
 	case d.selected && d.moves[at]:
 		d.move(at)
@@ -247,8 +250,9 @@ func (d *dosControl) selectAt(at hexgrid.Coord) {
 		d.selectUnit(head, u)
 		return
 	}
-	if b, ok := v.Buildings[at]; ok && b.Owner == d.s.Faction(d.side) {
-		d.openContents(at)
+	e := d.container(at)
+	if b, ok := v.Buildings[e]; ok && b.Owner == d.s.Faction(d.side) {
+		d.openContents(e)
 	}
 }
 

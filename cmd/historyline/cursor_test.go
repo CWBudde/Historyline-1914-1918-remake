@@ -357,8 +357,12 @@ func TestDosReachAndPlate(t *testing.T) {
 	}
 	feed(g, clickAt(g, at))
 	r := d.reach()
-	if !r[at] || len(r) != len(d.moves)+1 {
-		t.Errorf("reach %d cells, %d moves", len(r), len(d.moves))
+	lit := len(d.moves) + 1 // and the other cells of a building entered
+	for c := range d.moves {
+		lit += max(len(d.s.Footprint(c))-1, 0)
+	}
+	if !r[at] || len(r) != lit {
+		t.Errorf("reach %d cells, %d moves, want %d", len(r), len(d.moves), lit)
 	}
 	for c := range d.moves {
 		if !r[c] {

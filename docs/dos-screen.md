@@ -93,7 +93,8 @@ The package docs hold the details; this is the map of where each part lives.
   (`dosscreen.Screen.SlimFit`).
 - **Input** (`internal/gesture`, `cmd/historyline/cursor.go`): the human side's panel takes the mouse (a
   click selects and confirms, a drag of one cell pitch picks a gesture, right-click opens a ring of every
-  available action) and key set A (arrows + space).
+  available action) and key set A (arrows + space). Every cell of a building stands for its entrance: a click
+  on any of them opens its contents or moves the aimed unit in.
 - **Status wells** (`cmd/historyline/well.go`, font `internal/pixfont`): the unit line (group size,
   experience badge, name, flag) or the side's state message in the panel's colour; the computer plans on a
   `Session.Clone` off the frame (`plan.go`) and its progress bar runs in its well; then its orders are

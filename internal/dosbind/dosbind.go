@@ -114,6 +114,9 @@ type Board struct {
 	IDs           map[int]string             // the remake unit id of every unit (FromOriginal: where the remake has one)
 	Holds         map[int]dosrules.Hold      // the container records of the buildings and transporters
 	Buildings     map[int]dosrules.Building  // the energy of every building record
+	// Parts is the entrance cell of every other cell of a building with a
+	// container record, by cell.
+	Parts map[int]int
 	// Dropped is the level content the original has no container for (a
 	// building cell other than the entrance), by hex; it is not placed.
 	Dropped map[hexgrid.Coord][]string
@@ -326,7 +329,7 @@ func Bind(lv *level.Level, set *data.Set) (*Board, error) {
 	}
 	b := &Board{
 		Width: 2 * g.Width, Height: (g.Lines + 1) / 2, grid: g,
-		Units: map[int]dosrules.Placement{}, IDs: map[int]string{}, Holds: map[int]dosrules.Hold{},
+		Units: map[int]dosrules.Placement{}, IDs: map[int]string{}, Holds: map[int]dosrules.Hold{}, Parts: map[int]int{},
 		Buildings: map[int]dosrules.Building{},
 	}
 	b.Terrain = make([]int, b.Width*b.Height)
@@ -560,6 +563,7 @@ func (b *Board) bindBuildings(set *data.Set, at map[hexgrid.Coord]*building, mr 
 		for _, p := range bd.cells {
 			if c, _ := b.Cell(p); c != entrance {
 				rest = append(rest, c)
+				b.Parts[c] = entrance
 			}
 		}
 		h := buildingHold(side, entrance, rest)

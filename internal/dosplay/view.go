@@ -236,6 +236,44 @@ func (s *Session) buildings(side int) map[hexgrid.Coord]BuildingView {
 	return out
 }
 
+// Entrance is the entrance of the building that covers c, its own entrance
+// too; false off a building with a container record.
+func (s *Session) Entrance(c hexgrid.Coord) (hexgrid.Coord, bool) {
+	cell, ok := s.Board.Cell(c)
+	if !ok {
+		return hexgrid.Coord{}, false
+	}
+	if e, ok := s.Board.Parts[cell]; ok {
+		return s.coord(e), true
+	}
+	for i, h := range s.Game.Holds {
+		if i >= dosrules.HoldFlag40 && h.Cells[0] == 2*cell {
+			return c, true
+		}
+	}
+	return hexgrid.Coord{}, false
+}
+
+// Footprint is every cell of the building whose entrance is e, the entrance
+// first and the rest in cell order; nil when e is no building's entrance.
+func (s *Session) Footprint(e hexgrid.Coord) []hexgrid.Coord {
+	if at, ok := s.Entrance(e); !ok || at != e {
+		return nil
+	}
+	entrance, _ := s.Board.Cell(e)
+	var rest []int
+	for p, en := range s.Board.Parts {
+		if en == entrance {
+			rest = append(rest, p)
+		}
+	}
+	out := []hexgrid.Coord{e}
+	for _, p := range slices.Sorted(slices.Values(rest)) {
+		out = append(out, s.coord(p))
+	}
+	return out
+}
+
 // Slots is the number of slots a side has in a container record.
 const Slots = 7
 
