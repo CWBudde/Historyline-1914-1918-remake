@@ -29,7 +29,6 @@ func snap(u *Unit) snapshot {
 func TestPredictMatchesAttack(t *testing.T) {
 	cases := []struct {
 		name      string
-		r         Rules
 		att, def  string
 		from, to  hexgrid.Coord
 		slot      int
@@ -38,15 +37,14 @@ func TestPredictMatchesAttack(t *testing.T) {
 		wantKill  bool
 		wantDeath bool
 	}{
-		{name: "rifle Standard", r: Standard, att: "CP_infantry", def: "EC_infantry", from: at(4, 2), to: at(6, 2), slot: 2},
-		{name: "rifle Classic", r: Classic, att: "CP_infantry", def: "EC_infantry", from: at(4, 2), to: at(6, 2), slot: 2},
-		{name: "artillery at range", r: Standard, att: "CP_lArtillery", def: "EC_infantry", from: at(4, 2), to: at(8, 2), slot: 0},
-		{name: "kills the defender", r: Standard, att: "CP_lArtillery", def: "EC_infantry", from: at(4, 2), to: at(6, 2), slot: 0, dSize: 1, wantKill: true},
-		{name: "loses the attacker", r: Classic, att: "CP_infantry", def: "EC_lArtillery", from: at(4, 2), to: at(6, 2), slot: 0, aSize: 1, wantDeath: true},
+		{name: "rifle", att: "CP_infantry", def: "EC_infantry", from: at(4, 2), to: at(6, 2), slot: 2},
+		{name: "artillery at range", att: "CP_lArtillery", def: "EC_infantry", from: at(4, 2), to: at(8, 2), slot: 0},
+		{name: "kills the defender", att: "CP_lArtillery", def: "EC_infantry", from: at(4, 2), to: at(6, 2), slot: 0, dSize: 1, wantKill: true},
+		{name: "loses the attacker", att: "CP_infantry", def: "EC_lArtillery", from: at(4, 2), to: at(6, 2), slot: 0, aSize: 1, wantDeath: true},
 	}
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
-			s := boardWith(t, c.r, map[hexgrid.Coord]level.Hex{c.from: unit(c.att), c.to: unit(c.def)})
+			s := board(t, map[hexgrid.Coord]level.Hex{c.from: unit(c.att), c.to: unit(c.def)})
 			a, d := s.At(c.from).Unit, s.At(c.to).Unit
 			if c.aSize > 0 {
 				a.Size = c.aSize
@@ -95,7 +93,7 @@ func TestPredictErrorsLikeAttack(t *testing.T) {
 	}
 	for _, c := range setups {
 		t.Run(c.name, func(t *testing.T) {
-			s, _, _ := duel(t, Standard, "CP_infantry", "EC_infantry")
+			s, _, _ := duel(t, "CP_infantry", "EC_infantry")
 			if c.setup != nil {
 				c.setup(s)
 			}

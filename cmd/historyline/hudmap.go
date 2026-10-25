@@ -14,7 +14,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/minimap"
 )
 
-// The minimap of the single-map HUD (Classic, Standard): the cell-exact raster
+// The minimap of the single-map HUD (the remake rules): the cell-exact raster
 // of internal/minimap in the bottom-right corner, terrain under the player's
 // fog, unit dots in the side colours and the camera rectangle. Only a press
 // that starts on it moves the camera.

@@ -570,12 +570,12 @@ func TestPhaseSequenceDraw(t *testing.T) {
 	}
 }
 
-func TestBattlePanelClassicUnaffected(t *testing.T) {
+func TestBattlePanelRemakeUnaffected(t *testing.T) {
 	c := newTestControl(t)
 	g := newGame(testLevel(t), c.st, c.player, true)
 	g.applyAction(actScenes)
 	if c.Message != "" || g.dos != nil {
-		t.Errorf("F9 under Classic: %q", c.Message)
+		t.Errorf("F9 under the remake rules: %q", c.Message)
 	}
 }
 

@@ -3,7 +3,6 @@ package game
 import (
 	"fmt"
 	"reflect"
-	"slices"
 	"sort"
 	"testing"
 
@@ -13,84 +12,9 @@ import (
 
 func key(c hexgrid.Coord) string { return fmt.Sprintf("%d,%d", c.Line, c.Col) }
 
-func TestMovableMatchesPython(t *testing.T) {
-	set := loadSet(t)
-	runs := 0
-	for _, run := range loadPython(t).Levels {
-		s, err := NewWithRules(loadLevel(t, run.Level), set, Classic)
-		if err != nil {
-			t.Fatal(err)
-		}
-		s.Turn = run.Player
-		for _, m := range run.Moves {
-			from := hexgrid.Coord{Line: m.From[0], Col: m.From[1]}
-			h := s.At(from)
-			var u *Unit
-			switch m.In {
-			case "map":
-				u = h.Unit
-			case "building":
-				u = h.Container.Slots[m.Row][m.Col]
-			case "carrier":
-				u = h.Unit.Content.Slots[m.Row][m.Col]
-			}
-			if u == nil || u.Type != m.Unit {
-				t.Fatalf("%s: no %s %s at %v", run.Level, m.In, m.Unit, from)
-			}
-			got := map[string][][2]int{}
-			for to, route := range s.Movable(from, u) {
-				path := route.Path
-				p := make([][2]int, len(path))
-				for i, c := range path {
-					p[i] = [2]int{c.Line, c.Col}
-				}
-				got[key(to)] = p
-			}
-			if !reflect.DeepEqual(got, m.Targets) && (len(got) > 0 || len(m.Targets) > 0) {
-				t.Errorf("%s player %d %s %s at %v:\n got  %v\n want %v", run.Level, run.Player, m.In, m.Unit, from, got, m.Targets)
-			}
-			runs++
-		}
-	}
-	if runs < 100 {
-		t.Fatalf("only %d units compared", runs)
-	}
-}
-
-func TestBattleMatchesPython(t *testing.T) {
-	set := loadSet(t)
-	for i, c := range loadPython(t).Battles {
-		a, err := NewUnit(set, c.Attacker)
-		if err != nil {
-			t.Fatal(err)
-		}
-		d, err := NewUnit(set, c.Defender)
-		if err != nil {
-			t.Fatal(err)
-		}
-		a.Experience, a.Size, d.Experience, d.Size = c.AttackerExp, c.AttackerSize, c.DefenderExp, c.DefenderSize
-		for _, slot := range c.DefenderEmpty {
-			zero := 0
-			d.Ammo[slot] = &zero
-		}
-		rolls := c.Rolls[:]
-		roll := func() int { r := rolls[0]; rolls = rolls[1:]; return r }
-		counter, f, e := resolve(Classic, a, d, c.Slot, c.Steps, c.AttackerBattle, c.DefenderBattle, roll)
-		if counter != c.Counter || f != c.AttackerKills || e != c.DefenderKills {
-			t.Errorf("case %d %+v: got counter %d kills %d/%d", i, c, counter, f, e)
-		}
-	}
-}
-
 // board builds a 6-wide, 12-line grass map played by the Central Powers, with
 // the given hexes placed on it.
 func board(t *testing.T, place map[hexgrid.Coord]level.Hex) *State {
-	t.Helper()
-	return boardWith(t, Standard, place)
-}
-
-// boardWith is board with the given rules.
-func boardWith(t *testing.T, r Rules, place map[hexgrid.Coord]level.Hex) *State {
 	t.Helper()
 	lv := &level.Level{MapName: "test", MapNo: 1, Player: "Central Powers"}
 	for l := range 12 {
@@ -103,7 +27,7 @@ func boardWith(t *testing.T, r Rules, place map[hexgrid.Coord]level.Hex) *State 
 		}
 		lv.Lines = append(lv.Lines, line)
 	}
-	s, err := NewWithRules(lv, loadSet(t), r)
+	s, err := New(lv, loadSet(t))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -213,21 +137,8 @@ func TestDepotCaptureWithoutVictory(t *testing.T) {
 	}
 }
 
-func TestFullDepotLeavesUnitOnHex(t *testing.T) {
-	// Eight heavy artillery of weight 5 fill the depot's 40.
-	full := slices.Repeat([]string{"CP_hArtillery"}, 8)
-	s := boardWith(t, Classic, map[hexgrid.Coord]level.Hex{at(4, 2): unit("CP_infantry"), at(6, 2): building("cmpN", CentralPowers, full...)})
-	u := s.At(at(4, 2)).Unit
-	if _, err := s.Move(at(4, 2), u, at(6, 2)); err != nil {
-		t.Fatal(err)
-	}
-	if h := s.At(at(6, 2)); h.Unit != u || len(h.Container.Units()) != 8 {
-		t.Errorf("unit on hex %v, depot holds %d", h.Unit, len(h.Container.Units()))
-	}
-}
-
 func TestCarrier(t *testing.T) {
-	s := boardWith(t, Classic, map[hexgrid.Coord]level.Hex{at(4, 2): unit("CP_infantry"), at(6, 2): unit("CP_supplyCar"), at(5, 2): unit("CP_armCar")})
+	s := board(t, map[hexgrid.Coord]level.Hex{at(4, 2): unit("CP_infantry"), at(6, 2): unit("CP_supplyCar"), at(5, 2): unit("CP_armCar")})
 	inf, car := s.At(at(4, 2)).Unit, s.At(at(6, 2)).Unit
 	if _, err := s.Move(at(4, 2), inf, at(6, 2)); err != nil {
 		t.Fatal(err)
@@ -235,16 +146,15 @@ func TestCarrier(t *testing.T) {
 	if car.Content.Slots[0][0] != inf || s.At(at(4, 2)).Unit != nil || s.At(at(6, 2)).Unit != car {
 		t.Fatal("infantry not in the supply car")
 	}
-	// Python computes the exit from the carrier's own stats (speed 7, not 4).
+	// The exit uses the infantry's own stats (speed 4, not the car's 7):
+	// no exit lies beyond its own speed, and leaving works.
 	inf.Moved = false
 	var to hexgrid.Coord
-	for to = range s.Movable(at(6, 2), inf) {
-		if hexgrid.Distance(at(6, 2), to) > inf.Def.Speed {
-			break
+	for c := range s.Movable(at(6, 2), inf) {
+		if hexgrid.Distance(at(6, 2), c) > inf.Def.Speed {
+			t.Fatalf("exit %v beyond infantry speed %d", c, inf.Def.Speed)
 		}
-	}
-	if hexgrid.Distance(at(6, 2), to) <= inf.Def.Speed {
-		t.Fatal("no exit beyond infantry speed")
+		to = c
 	}
 	if _, err := s.Move(at(6, 2), inf, to); err != nil {
 		t.Fatalf("leave carrier: %v", err)
@@ -392,8 +302,8 @@ func TestCounterWeaponTie(t *testing.T) {
 	set := loadSet(t)
 	a, _ := NewUnit(set, "CP_infantry")
 	d, _ := NewUnit(set, "EC_infantry")
-	d.Weapons[1] = d.Weapons[2] // two leeEnfields: Python's stable sort keeps the first
-	if counter, _, _ := resolve(Classic, a, d, 0, 1, 4, 4, func() int { return 0 }); counter != 1 {
+	d.Weapons[1] = d.Weapons[2] // two leeEnfields: the first of equal power wins
+	if counter, _, _ := resolve(a, d, 0, 1, 4, 4, func() int { return 0 }); counter != 1 {
 		t.Errorf("counter = %d, want slot 1", counter)
 	}
 }

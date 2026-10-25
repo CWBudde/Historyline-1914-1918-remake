@@ -29,15 +29,14 @@ const (
 var commandNames = [...]string{cmdMove: "Move", cmdAttack: "Attack", cmdContents: "Contents", cmdExit: "Exit"}
 
 // actions lists the action menu of the selected unit, each row disabled with
-// the reason when the rules refuse it. As in Python, Attack is listed only for
-// an armed map unit, Contents only for a carrier, and a unit inside a building
-// or carrier gets Move and Exit (ActionMenu.createSimple).
+// the reason when the rules refuse it. Attack is listed only for an armed
+// map unit, Contents only for a carrier, and a unit inside a building
+// or carrier gets Move and Exit.
 func (c *control) actions() []WeaponOption {
 	u := c.unit
 	if !c.selected || u == nil {
 		return nil
 	}
-	oneAction := c.st.Rules.OneActionPerTurn
 	inside := c.st.At(c.from).Unit != u
 	var out []WeaponOption
 	add := func(cmd command, why string) {
@@ -52,7 +51,7 @@ func (c *control) actions() []WeaponOption {
 	switch {
 	case u.Moved:
 		why = "already moved"
-	case oneAction && u.Attacked:
+	case u.Attacked:
 		why = "already attacked"
 	case !inside && u.Def.Speed == 0:
 		why = "cannot move"
@@ -64,9 +63,9 @@ func (c *control) actions() []WeaponOption {
 	if !inside && slices.ContainsFunc(u.Weapons[:], func(w *data.Weapon) bool { return w != nil }) {
 		why = ""
 		switch {
-		case oneAction && u.Moved:
+		case u.Moved:
 			why = "already moved"
-		case oneAction && u.Attacked:
+		case u.Attacked:
 			why = "already attacked"
 		case len(c.targets) == 0:
 			why = "no target in range"

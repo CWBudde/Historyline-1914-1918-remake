@@ -54,15 +54,13 @@ func TestOriginalMap(t *testing.T) {
 	if rears == 0 {
 		t.Error("map 06 has no ship")
 	}
-	for _, rules := range []string{"standard", "classic"} {
-		c.rules = rules
-		gm, err := newMatch(c, nil)
-		if err != nil {
-			t.Fatalf("%s: %v", rules, err)
-		}
-		if gm.state == nil || gm.state.Name != "06" {
-			t.Errorf("%s: not the campaign level of map 06", rules)
-		}
+	c.rules = "standard"
+	gm, err = newMatch(c, nil)
+	if err != nil {
+		t.Fatalf("standard: %v", err)
+	}
+	if gm.state == nil || gm.state.Name != "06" {
+		t.Error("standard: not the campaign level of map 06")
 	}
 	if _, _, err := loadMap(t.TempDir(), "original/99", set); err == nil {
 		t.Error("original/99 loaded")

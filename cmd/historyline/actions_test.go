@@ -36,13 +36,13 @@ func boardLevel(place map[hexgrid.Coord]level.Hex) *level.Level {
 }
 
 // boardControl is a control for the Central Powers on boardLevel(place).
-func boardControl(t *testing.T, r state.Rules, place map[hexgrid.Coord]level.Hex) *control {
+func boardControl(t *testing.T, place map[hexgrid.Coord]level.Hex) *control {
 	t.Helper()
 	set, err := data.Load()
 	if err != nil {
 		t.Fatal(err)
 	}
-	st, err := state.NewWithRules(boardLevel(place), set, r)
+	st, err := state.New(boardLevel(place), set)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -65,37 +65,33 @@ func rows(m []WeaponOption) string {
 func TestActionMenuRows(t *testing.T) {
 	cases := []struct {
 		name  string
-		rules state.Rules
 		place map[hexgrid.Coord]level.Hex
 		sel   hexgrid.Coord
 		setup func(u *state.Unit)
 		want  string
 	}{
-		{"fresh unit with a target", state.Standard,
+		{"fresh unit with a target",
 			map[hexgrid.Coord]level.Hex{at(4, 2): onGrass("CP_infantry"), at(6, 2): onGrass("EC_infantry")},
 			at(4, 2), nil, "Move | Attack | Exit"},
-		{"no target in range", state.Standard,
+		{"no target in range",
 			map[hexgrid.Coord]level.Hex{at(4, 2): onGrass("CP_infantry")},
 			at(4, 2), nil, "Move | Attack: no target in range! | Exit"},
-		{"moved under Standard", state.Standard,
+		{"moved",
 			map[hexgrid.Coord]level.Hex{at(4, 2): onGrass("CP_infantry"), at(6, 2): onGrass("EC_infantry")},
 			at(4, 2), func(u *state.Unit) { u.Moved = true }, "Move: already moved! | Attack: already moved! | Exit"},
-		{"moved under Classic may still attack", state.Classic,
-			map[hexgrid.Coord]level.Hex{at(4, 2): onGrass("CP_infantry"), at(6, 2): onGrass("EC_infantry")},
-			at(4, 2), func(u *state.Unit) { u.Moved = true }, "Move: already moved! | Attack | Exit"},
-		{"attacked under Standard", state.Standard,
+		{"attacked",
 			map[hexgrid.Coord]level.Hex{at(4, 2): onGrass("CP_infantry"), at(6, 2): onGrass("EC_infantry")},
 			at(4, 2), func(u *state.Unit) { u.Attacked = true }, "Move: already attacked! | Attack: already attacked! | Exit"},
-		{"static unit", state.Standard,
+		{"static unit",
 			map[hexgrid.Coord]level.Hex{at(4, 2): onGrass("CP_bunker")},
 			at(4, 2), nil, "Move: cannot move! | Attack: no target in range! | Exit"},
-		{"empty carrier", state.Standard,
+		{"empty carrier",
 			map[hexgrid.Coord]level.Hex{at(4, 2): onGrass("CP_supplyCar")},
 			at(4, 2), nil, "Move | Contents: empty! | Exit"},
 	}
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
-			c := boardControl(t, tc.rules, tc.place)
+			c := boardControl(t, tc.place)
 			if tc.setup != nil {
 				tc.setup(c.st.At(tc.sel).Unit)
 			}
@@ -112,7 +108,7 @@ func TestActionMenuRows(t *testing.T) {
 
 func TestActionMenuNarrowsOverlays(t *testing.T) {
 	place := map[hexgrid.Coord]level.Hex{at(4, 2): onGrass("CP_infantry"), at(6, 2): onGrass("EC_infantry")}
-	c := boardControl(t, state.Standard, place)
+	c := boardControl(t, place)
 	c.Click(at(4, 2))
 	if len(c.moves) == 0 || len(c.targets) == 0 {
 		t.Fatalf("selection lacks overlays: %d moves, %d targets", len(c.moves), len(c.targets))
@@ -135,7 +131,7 @@ func TestActionMenuNarrowsOverlays(t *testing.T) {
 }
 
 func TestActionMenuDirectClickStillMoves(t *testing.T) {
-	c := boardControl(t, state.Standard, map[hexgrid.Coord]level.Hex{at(4, 2): onGrass("CP_infantry")})
+	c := boardControl(t, map[hexgrid.Coord]level.Hex{at(4, 2): onGrass("CP_infantry")})
 	c.Click(at(4, 2))
 	c.Click(at(6, 2))
 	if c.st.At(at(6, 2)).Unit == nil {
@@ -144,7 +140,7 @@ func TestActionMenuDirectClickStillMoves(t *testing.T) {
 }
 
 func TestActionMenuExitDeselects(t *testing.T) {
-	c := boardControl(t, state.Standard, map[hexgrid.Coord]level.Hex{at(4, 2): onGrass("CP_infantry")})
+	c := boardControl(t, map[hexgrid.Coord]level.Hex{at(4, 2): onGrass("CP_infantry")})
 	c.Click(at(4, 2))
 	c.ChooseMenu(len(c.menu) - 1)
 	if c.selected || c.MenuOpen() || c.moves != nil {
@@ -153,7 +149,7 @@ func TestActionMenuExitDeselects(t *testing.T) {
 }
 
 func TestActionMenuContentsAndLeave(t *testing.T) {
-	c := boardControl(t, state.Standard, map[hexgrid.Coord]level.Hex{
+	c := boardControl(t, map[hexgrid.Coord]level.Hex{
 		at(4, 2): onGrass("CP_infantry"), at(6, 2): onGrass("CP_supplyCar"),
 	})
 	c.Click(at(4, 2))

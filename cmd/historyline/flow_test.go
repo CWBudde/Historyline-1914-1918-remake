@@ -13,7 +13,7 @@ import (
 // does, and check the rules engine's state afterwards.
 
 func TestEnterOwnDepotAndLeave(t *testing.T) {
-	c := boardControl(t, state.Standard, map[hexgrid.Coord]level.Hex{
+	c := boardControl(t, map[hexgrid.Coord]level.Hex{
 		at(4, 2): onGrass("CP_infantry"), at(6, 2): building("cmpN", state.CentralPowers),
 	})
 	inf := c.st.At(at(4, 2)).Unit
@@ -40,7 +40,7 @@ func TestEnterOwnDepotAndLeave(t *testing.T) {
 
 func TestCaptureDepotThroughControl(t *testing.T) {
 	for _, owner := range []state.Player{state.Entente, state.None} {
-		c := boardControl(t, state.Standard, map[hexgrid.Coord]level.Hex{
+		c := boardControl(t, map[hexgrid.Coord]level.Hex{
 			at(4, 2): onGrass("CP_cavalry"), at(8, 2): building("factoryE_w", owner),
 		})
 		c.Click(at(4, 2))
@@ -58,7 +58,7 @@ func TestCaptureDepotThroughControl(t *testing.T) {
 }
 
 func TestCaptureHQWinsThroughControl(t *testing.T) {
-	c := boardControl(t, state.Standard, map[hexgrid.Coord]level.Hex{
+	c := boardControl(t, map[hexgrid.Coord]level.Hex{
 		at(4, 2): onGrass("CP_infantry"), at(6, 2): building("hqN", state.Entente),
 	})
 	c.Click(at(4, 2))
@@ -74,7 +74,7 @@ func TestCaptureHQWinsThroughControl(t *testing.T) {
 }
 
 func TestRejectedMoveShowsEngineError(t *testing.T) {
-	c := boardControl(t, state.Standard, map[hexgrid.Coord]level.Hex{at(4, 2): onGrass("CP_infantry")})
+	c := boardControl(t, map[hexgrid.Coord]level.Hex{at(4, 2): onGrass("CP_infantry")})
 	inf := c.st.At(at(4, 2)).Unit
 	c.Click(at(4, 2))
 	if c.moves[at(6, 2)].Path == nil {

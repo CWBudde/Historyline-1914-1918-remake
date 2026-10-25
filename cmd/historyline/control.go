@@ -66,7 +66,7 @@ func (c *control) Select(at hexgrid.Coord) {
 	c.selected, c.from, c.unit = true, at, h.Unit
 	c.moves = c.st.Movable(at, h.Unit)
 	c.targets = map[hexgrid.Coord]bool{}
-	if !c.st.Rules.OneActionPerTurn || !h.Unit.Moved && !h.Unit.Attacked {
+	if !h.Unit.Moved && !h.Unit.Attacked {
 		for _, t := range c.st.Targets(at) {
 			c.targets[t] = true
 		}
@@ -227,7 +227,7 @@ func (c *control) weaponOptions(to hexgrid.Coord) []WeaponOption {
 			o.Label += fmt.Sprintf(" (ammo %d)", *n)
 		}
 		switch {
-		case c.st.Rules.AmmoPerShot && c.unit.Ammo[slot] != nil && *c.unit.Ammo[slot] == 0:
+		case c.unit.Ammo[slot] != nil && *c.unit.Ammo[slot] == 0:
 			o.Label, o.Usable = o.Label+": no ammo", false
 		case steps < max(w.RangeMin, 1) || steps > w.RangeMax:
 			o.Label, o.Usable = o.Label+fmt.Sprintf(": range %d-%d", w.RangeMin, w.RangeMax), false

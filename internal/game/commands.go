@@ -10,10 +10,8 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 )
 
-// The commands port the rules of gui.py at Python parity, including the gaps
-// that Phase 3 closes: movement counts steps, not terrain cost, ammo is never
-// used and attacking does not end a unit's turn. Python plays every rule from
-// the human's view (info.player, playerTurn); here that is the side to move.
+// The commands are the rules of this package's single rule set (see
+// rules.go). Play is taken from the side to move.
 
 const skillCapture = 1 // unit skill that may enter enemy buildings
 
@@ -41,7 +39,7 @@ func (s *State) mover(h *Hex, u *Unit) (*Unit, error) {
 		return nil, fmt.Errorf("%s belongs to %v", u.Type, u.Owner)
 	case u.Moved:
 		return nil, fmt.Errorf("%s has already moved", u.Type)
-	case u.Attacked && s.Rules.OneActionPerTurn:
+	case u.Attacked:
 		return nil, fmt.Errorf("%s has already attacked", u.Type)
 	case h.Unit == u:
 		if u.Def.Speed == 0 {
@@ -52,10 +50,8 @@ func (s *State) mover(h *Hex, u *Unit) (*Unit, error) {
 		if h.Unit.Owner != s.Turn {
 			return nil, errors.New("the carrier belongs to the opponent")
 		}
-		if s.Rules.OwnStatsOnExit {
-			return u, nil
-		}
-		return h.Unit, nil
+		// A unit leaving a carrier moves with its own stats.
+		return u, nil
 	case h.Unit == nil && h.Container != nil && slices.Contains(h.Container.Units(), u):
 		if h.Owner == s.Turn.Opponent() {
 			return nil, errors.New("the building belongs to the opponent")
@@ -73,116 +69,12 @@ func (s *State) Movable(from hexgrid.Coord, u *Unit) map[hexgrid.Coord]Route {
 	if err != nil || s.Winner != None {
 		return nil
 	}
-	if s.Rules.MovementPoints {
-		return s.movablePoints(from, m)
-	}
-	reach := s.movableSquares(from, m)
-	out := map[hexgrid.Coord]Route{}
-	for c := range reach {
-		if s.Fog(s.Turn, c) == Unseen {
-			continue
-		}
-		if path := s.findPath(from, c, reach); path != nil && len(path)-1 <= m.Def.Speed {
-			steps := len(path) - 1
-			out[c] = Route{Path: path, Cost: steps, Left: m.Def.Speed - steps}
-		}
-	}
-	return out
+	return s.movablePoints(from, m)
 }
 
-// movableSquares ports getMovableSquares. Python keeps a list: a building in
-// reach is appended once per neighbour in reach, and every obstruction removes
-// one copy, so a building next to reachable hexes stays even when it is
-// obstructed itself.
-func (s *State) movableSquares(from hexgrid.Coord, m *Unit) map[hexgrid.Coord]bool {
-	count := map[hexgrid.Coord]int{}
-	s.within(from, m.Def.Speed, func(c hexgrid.Coord) { count[c] = 1 })
-	delete(count, from)
-	obstructed := map[hexgrid.Coord]int{}
-	var buildings []hexgrid.Coord
-	for c := range count {
-		h := s.At(c)
-		switch {
-		case flies(m): // any terrain, but no building
-			if s.Fog(s.Turn, c) == Unseen || h.Container != nil {
-				obstructed[c]++
-			}
-		case m.Def.MovementType != data.MoveNormal:
-			if !slices.Contains(h.Mods.MovementAllowed, m.Def.MovementType) {
-				obstructed[c]++
-			}
-		case s.Fog(s.Turn, c) == Unseen, h.Mods.Movement == nil:
-			obstructed[c]++
-		}
-		if o := h.Unit; o != nil {
-			switch {
-			case m.Owner != s.Turn: // Python tests the mover here, not the occupant
-				obstructed[c]++
-			case o.Content == nil, flies(m): // an aircraft boards no carrier
-				obstructed[c]++
-			case !o.Content.Fits(m):
-				obstructed[c]++
-			case o.Owner != s.Turn:
-				obstructed[c]++
-			}
-		}
-		if h.Container != nil && !flies(m) && (h.Owner == s.Turn || slices.Contains(m.Def.Skills, skillCapture)) {
-			buildings = append(buildings, c)
-		}
-	}
-	for _, b := range buildings {
-		for _, n := range s.Grid.Neighbors(b) {
-			if count[n] > 0 {
-				count[b]++
-			}
-		}
-	}
-	reach := map[hexgrid.Coord]bool{}
-	for c, n := range count {
-		if n > obstructed[c] {
-			reach[c] = true
-		}
-	}
-	return reach
-}
-
-// findPath ports gui.py findPath after markMovableSquares has marked every hex
-// outside reach: a breadth-first search in Python's order that passes hexes
-// with own units, and empty hexes in reach that are not unseen.
-func (s *State) findPath(from, to hexgrid.Coord, reach map[hexgrid.Coord]bool) []hexgrid.Coord {
-	passable := func(c hexgrid.Coord) bool {
-		if u := s.At(c).Unit; u != nil {
-			return u.Owner == s.Turn
-		}
-		return reach[c] && s.Fog(s.Turn, c) != Unseen
-	}
-	paths := [][]hexgrid.Coord{{from}}
-	visited := map[hexgrid.Coord]bool{from: true}
-	for len(paths) > 0 {
-		var next [][]hexgrid.Coord
-		for i := len(paths) - 1; i >= 0; i-- {
-			p := paths[i]
-			for _, n := range s.Grid.Neighbors(p[len(p)-1]) {
-				if visited[n] || !passable(n) {
-					continue
-				}
-				visited[n] = true
-				np := append(slices.Clip(p), n)
-				if n == to {
-					return np
-				}
-				next = append(next, np)
-			}
-		}
-		paths = next
-	}
-	return nil
-}
-
-// Move moves u from `from` to `to` along its path, as gui.py executeMove does:
-// into the building at `to` when u fits (capturing it, and winning the game
-// with an HQ), else into the carrier there when u fits, else onto the hex.
-// It returns the path.
+// Move moves u from `from` to `to` along its path: into the building at
+// `to` when u fits (capturing it, and winning the game with an HQ), else
+// into the carrier there when u fits, else onto the hex. It returns the path.
 func (s *State) Move(from hexgrid.Coord, u *Unit, to hexgrid.Coord) ([]hexgrid.Coord, error) {
 	if s.Winner != None {
 		return nil, errGameOver
@@ -254,16 +146,16 @@ func (s *State) Targets(from hexgrid.Coord) []hexgrid.Coord {
 	return out
 }
 
-// usable reports whether a's weapon slot may fire at target under the rules:
-// it has ammo and, with TargetFlags, can hit the kind of unit.
+// usable reports whether a's weapon slot may fire at target: it has ammo
+// and can hit the kind of unit.
 func (s *State) usable(a *Unit, slot int, target *Unit) bool {
 	w := a.Weapons[slot]
 	switch {
 	case w == nil:
 		return false
-	case s.Rules.AmmoPerShot && a.Ammo[slot] != nil && *a.Ammo[slot] == 0:
+	case a.Ammo[slot] != nil && *a.Ammo[slot] == 0:
 		return false
-	case s.Rules.TargetFlags && !canHit(w, target):
+	case !canHit(w, target):
 		return false
 	}
 	return true
@@ -339,7 +231,7 @@ func (s *State) checkAttack(from, to hexgrid.Coord, slot int) (battle, error) {
 		return battle{}, errors.New("no own unit to attack with")
 	}
 	a := fh.Unit
-	if s.Rules.OneActionPerTurn && (a.Moved || a.Attacked) {
+	if a.Moved || a.Attacked {
 		return battle{}, fmt.Errorf("%s has already acted this turn", a.Type)
 	}
 	if slot < 0 || slot >= len(a.Weapons) || a.Weapons[slot] == nil {
@@ -368,7 +260,7 @@ func (s *State) checkAttack(from, to hexgrid.Coord, slot int) (battle, error) {
 func (s *State) outcome(v battle, slot int, roll func() int) Battle {
 	a, d := v.fh.Unit, v.th.Unit
 	b := Battle{}
-	b.Counter, b.Damage, b.CounterDamage = resolve(s.Rules, a, d, slot, v.steps, v.aBattle, v.dBattle, roll)
+	b.Counter, b.Damage, b.CounterDamage = resolve(a, d, slot, v.steps, v.aBattle, v.dBattle, roll)
 	b.DefenderDestroyed = d.Size-b.Damage < 1
 	b.AttackerDestroyed = a.Size-b.CounterDamage < 1
 	return b
@@ -384,9 +276,9 @@ func (s *State) Predict(from, to hexgrid.Coord, slot int) (Battle, error) {
 	return s.outcome(v, slot, func() int { return 0 }), nil
 }
 
-// Attack fires weapon slot of the map unit at `from` at the unit at `to`, as
-// gui.py handleBattle does. roll returns a number in -5..5 (random.randint); it
-// is called for the attacker and then for the defender.
+// Attack fires weapon slot of the map unit at `from` at the unit at `to`.
+// roll returns a number in -5..5; it is called for the attacker and then
+// for the defender.
 func (s *State) Attack(from, to hexgrid.Coord, slot int, roll func() int) (Battle, error) {
 	v, err := s.checkAttack(from, to, slot)
 	if err != nil {
@@ -395,11 +287,9 @@ func (s *State) Attack(from, to hexgrid.Coord, slot int, roll func() int) (Battl
 	fh, th := v.fh, v.th
 	a, d := fh.Unit, th.Unit
 	b := s.outcome(v, slot, roll)
-	if s.Rules.AmmoPerShot {
-		spend(a, slot)
-		if b.Counter >= 0 {
-			spend(d, b.Counter)
-		}
+	spend(a, slot)
+	if b.Counter >= 0 {
+		spend(d, b.Counter)
 	}
 	d.Size -= b.Damage
 	if b.Damage > 0 {
@@ -441,14 +331,14 @@ func promote(u *Unit) {
 	}
 }
 
-// resolve computes a battle as handleBattle does, from the step distance and
-// the battle modifiers of both hexes. It returns the defender's counter slot
+// resolve computes a battle from the step distance and the battle
+// modifiers of both hexes. It returns the defender's counter slot
 // (-1 for none) and the size each side loses.
-func resolve(r Rules, a, d *Unit, slot, steps, aBattle, dBattle int, roll func() int) (counter, damage, counterDamage int) {
-	distance := steps - 1 // calculateDistance counts the start hex
+func resolve(a, d *Unit, slot, steps, aBattle, dBattle int, roll func() int) (counter, damage, counterDamage int) {
+	distance := steps - 1 // distance counts the start hex
 	counter = -1
 	for i, w := range d.Weapons {
-		if w == nil || w.RangeMax < distance || r.TargetFlags && !canHit(w, a) || d.Ammo[i] != nil && *d.Ammo[i] == 0 {
+		if w == nil || w.RangeMax < distance || !canHit(w, a) || d.Ammo[i] != nil && *d.Ammo[i] == 0 {
 			continue
 		}
 		if counter < 0 || w.Power > d.Weapons[counter].Power {
@@ -466,19 +356,15 @@ func resolve(r Rules, a, d *Unit, slot, steps, aBattle, dBattle int, roll func()
 		return 0
 	}
 	damage = strike(a.Weapons[slot].Power, a, d, aBattle, dBattle)
-	// Without a counter weapon Python still runs the formula with power 0
-	// against nothing: the base attack is 0, not "power - armour".
+	// A defender without a counter weapon deals no counter damage.
 	if counter >= 0 {
 		counterDamage = strike(d.Weapons[counter].Power, d, a, dBattle, aBattle)
-	} else if !r.NoCounterNoDamage {
-		counterDamage = strike(a.Def.Armour, d, a, dBattle, aBattle)
 	}
 	return counter, damage, counterDamage
 }
 
-// EndTurn passes the turn to the other side. Python starts a new round when the
-// human ends a turn and resets the moved flags before the human moves again;
-// here the side that starts its turn gets its flags reset.
+// EndTurn passes the turn to the other side. A new round starts when the
+// human ends a turn; the side that starts its turn gets its flags reset.
 func (s *State) EndTurn() error {
 	if s.Winner != None {
 		return errGameOver

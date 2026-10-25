@@ -34,9 +34,8 @@ type Order struct {
 	Slot     int
 }
 
-// Planner hands out one order at a time. It allows each unit one move and one
-// attack per turn, under Rules.OneActionPerTurn one of the two. The zero
-// Planner is ready to use.
+// Planner hands out one order at a time. Each unit gets one action per
+// turn: a move or an attack. The zero Planner is ready to use.
 type Planner struct {
 	state    *game.State
 	round    int
@@ -77,7 +76,7 @@ func (p *Planner) mayAttack(s *game.State, u *game.Unit) bool {
 	if u.Attacked || p.attacked[u] {
 		return false
 	}
-	return !s.Rules.OneActionPerTurn || !u.Moved && !p.moved[u]
+	return !u.Moved && !p.moved[u]
 }
 
 // mayMove reports whether u may still be considered for a move.
@@ -85,7 +84,7 @@ func (p *Planner) mayMove(s *game.State, u *game.Unit) bool {
 	if u.Moved || p.settled[u] || u.Def.Speed == 0 {
 		return false
 	}
-	return !s.Rules.OneActionPerTurn || !u.Attacked && !p.attacked[u]
+	return !u.Attacked && !p.attacked[u]
 }
 
 // attack returns the best worthwhile attack of the side to move, scored by

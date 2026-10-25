@@ -286,7 +286,7 @@ func TestUnitsOrder(t *testing.T) {
 	if err := car.Content.Add(s.Hexes[0][1].Container.Slots[0][0]); err != nil {
 		t.Fatal(err)
 	}
-	// Python getAllUnits: map order; contents row 0 before row 1.
+	// Map order; contents row 0 before row 1.
 	want := []string{"CP_supplyCar", "EC_infantry", "EC_infantry", "EC_eliteInf", "EC_cavalry", "EC_infantry"}
 	if got := ids(s.Units(None)); !reflect.DeepEqual(got, want) {
 		t.Errorf("Units(None) = %v, want %v", got, want)

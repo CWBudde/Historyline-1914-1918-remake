@@ -187,12 +187,12 @@ func TestDosOverlaysHUDInfo(t *testing.T) {
 	if lines := strings.Join(g.infoLines(), "\n"); !strings.Contains(lines, "hex ") || !strings.Contains(lines, d.own().Units[at].Name) {
 		t.Errorf("dev info box %q", lines)
 	}
-	// Classic keeps its info box.
+	// The remake rules keep their info box.
 	c := newTestControl(t)
-	classic := newGame(testLevel(t), c.st, c.player, true)
-	classic.hover, classic.hoverOnMap = at, true
-	if len(classic.infoLines()) == 0 {
-		t.Error("Classic lost its info box")
+	remake := newGame(testLevel(t), c.st, c.player, true)
+	remake.hover, remake.hoverOnMap = at, true
+	if len(remake.infoLines()) == 0 {
+		t.Error("the remake rules lost their info box")
 	}
 }
 

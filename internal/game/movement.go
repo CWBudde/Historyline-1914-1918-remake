@@ -46,7 +46,7 @@ func (s *State) stopOK(h *Hex, m *Unit) bool {
 		if h.Owner != s.Turn && !slices.Contains(m.Def.Skills, skillCapture) {
 			return false
 		}
-		return !s.Rules.FullDepotBlocks || h.Container.Fits(m)
+		return h.Container.Fits(m)
 	}
 	return true
 }
@@ -74,8 +74,8 @@ func (q *queue) Pop() any {
 	return n
 }
 
-// movablePoints is Movable for Rules.MovementPoints: Dijkstra over the terrain
-// costs. m is the unit whose speed, movement type and weight count.
+// movablePoints is Movable: Dijkstra over the terrain costs. m is the unit
+// whose speed, movement type and weight count.
 // Unseen hexes and hexes with enemy units cannot be entered; own units can be
 // passed. Buildings and carriers are only entered as the final stop, and
 // never by an aircraft.

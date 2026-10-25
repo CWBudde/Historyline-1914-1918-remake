@@ -90,10 +90,10 @@ func (s *State) Remembered(p Player, c hexgrid.Coord) (m Memory, ok bool) {
 	return Memory{}, false
 }
 
-// UpdateVision recomputes the fog of war of p, as gui.py calculateFOW does: each
+// UpdateVision recomputes the fog of war of p: each
 // map unit of p sees the hexes within its sight in steps (units inside
 // containers see nothing), and each building p owns shows itself and its
-// neighbours. Unlike Python, the building hexes are also marked as seen, so
+// neighbours. The building hexes are also marked as seen, so
 // they stay Seen when the building is lost. Every visible hex refreshes its
 // Memory.
 func (s *State) UpdateVision(p Player) {

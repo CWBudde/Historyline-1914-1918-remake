@@ -32,7 +32,7 @@ const (
 )
 
 // badgeRanks is the rank art of each experience level 1–6 (the art has 11
-// ranks for the classic rules: four stars, then the laurel rings).
+// ranks for the remake rules: four stars, then the laurel rings).
 var badgeRanks = [...]string{"", "rank/01", "rank/02", "rank/03", "rank/04", "rank/05", "rank/10"}
 
 // badgeImage is the rank art of experience exp, nil at 0 or without the

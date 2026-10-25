@@ -152,10 +152,8 @@ func TestCommittedCampaign(t *testing.T) {
 		if units != len(src.Units) || inside != want {
 			t.Errorf("%s: %d units and %d in buildings, the map has %d and %d", stem, units, inside, len(src.Units), want)
 		}
-		for _, rules := range []game.Rules{game.Classic, game.Standard} {
-			if _, err := game.NewWithRules(lv, set, rules); err != nil {
-				t.Errorf("%s: %v", stem, err)
-			}
+		if _, err := game.New(lv, set); err != nil {
+			t.Errorf("%s: %v", stem, err)
 		}
 	}
 }

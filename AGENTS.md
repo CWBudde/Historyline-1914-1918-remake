@@ -31,8 +31,7 @@ just artbook     # build/artbook/Historyline_Art.pdf (needs typst)
 - `cmd/historyline`: the Ebitengine front end; `shell.go` holds the menus around a battle, `app.go` runs
   and draws them.
 - `internal/game`: rules engine with **no rendering**; UI and AI drive it through commands
-  (`commands.go`). Rule sets `Classic` (inherited behaviour) and `Standard` (fixed). Classic behaviour is
-  pinned by `testdata/python.json`.
+  (`commands.go`). A single rule set (the former `Standard`); the Classic (Python) set was removed.
 - `internal/data`: embedded JSON tables (terrain, weapons, units). Unit stats and per-slot attacks follow
   the original unit table (`testdata/unitdat.json`, numbers only). The weapon catalogue is bound to the
   weapon art, so change attack values in a unit's slot, never in `weapons.json`.

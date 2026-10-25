@@ -450,9 +450,9 @@ func TestHidePointer(t *testing.T) {
 			}
 		})
 	}
-	classic := newMapGame(g.lvl, false)
-	if classic.hidePointer(int(x), int(y), false) {
-		t.Error("Classic hides the pointer")
+	remake := newMapGame(g.lvl, false)
+	if remake.hidePointer(int(x), int(y), false) {
+		t.Error("the remake rules hide the pointer")
 	}
 }
 

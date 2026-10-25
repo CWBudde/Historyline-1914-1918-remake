@@ -155,12 +155,6 @@ func TestPointsRoadBridge(t *testing.T) {
 		t.Errorf("bridge over a stream: %+v, ok %v", got, ok)
 	}
 
-	s := boardWith(t, Classic, map[hexgrid.Coord]level.Hex{at(0, 2): withUnit(terrain("grass"), "CP_infantry"),
-		at(2, 2): terrain("grass", "stream25", "rBridge36")})
-	reveal(s)
-	if _, ok := s.Movable(at(0, 2), s.At(at(0, 2)).Unit)[at(2, 2)]; ok {
-		t.Error("Classic read rBridge as a road")
-	}
 }
 
 func TestOwnStatsOnExit(t *testing.T) {
@@ -221,10 +215,11 @@ func TestBuildingTargets(t *testing.T) {
 	}
 }
 
-func TestClassicRouteCost(t *testing.T) {
-	s := boardWith(t, Classic, map[hexgrid.Coord]level.Hex{at(4, 2): unit("CP_infantry")})
+func TestRouteCostPoints(t *testing.T) {
+	// Grass costs 2 points a hex: three hexes of speed 4 (8 points) cost 6.
+	s := board(t, map[hexgrid.Coord]level.Hex{at(4, 2): unit("CP_infantry")})
 	r := s.Movable(at(4, 2), s.At(at(4, 2)).Unit)[at(10, 2)]
-	if r.Cost != 3 || r.Left != 1 || len(r.Path) != 4 {
-		t.Errorf("Classic route = %+v, want 3 steps of speed 4", r)
+	if r.Cost != 6 || r.Left != 2 || len(r.Path) != 4 {
+		t.Errorf("route = %+v, want 6 points of 8 over 3 grass hexes", r)
 	}
 }

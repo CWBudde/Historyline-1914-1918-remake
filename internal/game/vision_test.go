@@ -9,26 +9,6 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 )
 
-func TestVisionMatchesPython(t *testing.T) {
-	set := loadSet(t)
-	want := map[int]Fog{0: Visible, 1: Unseen, 2: Seen}
-	for _, run := range loadPython(t).Levels {
-		s, err := NewWithRules(loadLevel(t, run.Level), set, Classic)
-		if err != nil {
-			t.Fatal(err)
-		}
-		bad := 0
-		for i, line := range run.Fog {
-			for j, f := range line {
-				if got := s.Fog(run.Player, hexgrid.Coord{Line: i, Col: j}); got != want[f] && bad < 5 {
-					bad++
-					t.Errorf("%s player %d (%d,%d): Fog = %v, Python %d", run.Level, run.Player, i, j, got, f)
-				}
-			}
-		}
-	}
-}
-
 // find returns the coordinate of the first map unit of type id.
 func find(t *testing.T, s *State, id string) hexgrid.Coord {
 	t.Helper()
@@ -71,7 +51,7 @@ func TestVisionSeenAndBuildings(t *testing.T) {
 		}
 	}
 
-	// Losing the HQ leaves its surroundings seen, not unseen as in Python.
+	// Losing the HQ leaves its surroundings seen, not unseen.
 	s.At(hq).Owner = Entente
 	s.updateVision()
 	for _, c := range append(s.Grid.Neighbors(hq), hq) {

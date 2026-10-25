@@ -25,13 +25,13 @@ func loadSet(t *testing.T) *data.Set {
 
 // board builds a 6-wide grass map of the given lines played by the Central
 // Powers, with the given hexes placed on it.
-func board(t *testing.T, r game.Rules, lines int, place map[hexgrid.Coord]level.Hex) *game.State {
+func board(t *testing.T, lines int, place map[hexgrid.Coord]level.Hex) *game.State {
 	t.Helper()
-	return wide(t, r, 6, lines, place)
+	return wide(t, 6, lines, place)
 }
 
 // wide is board with the given width.
-func wide(t *testing.T, r game.Rules, width, lines int, place map[hexgrid.Coord]level.Hex) *game.State {
+func wide(t *testing.T, width, lines int, place map[hexgrid.Coord]level.Hex) *game.State {
 	t.Helper()
 	lv := &level.Level{MapName: "test", MapNo: 1, Player: "Central Powers"}
 	for l := range lines {
@@ -44,7 +44,7 @@ func wide(t *testing.T, r game.Rules, width, lines int, place map[hexgrid.Coord]
 		}
 		lv.Lines = append(lv.Lines, line)
 	}
-	s, err := game.NewWithRules(lv, loadSet(t), r)
+	s, err := game.New(lv, loadSet(t))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -94,7 +94,7 @@ func turn(t *testing.T, s *game.State, p *Planner, roll func() int) []Order {
 }
 
 func TestAttacksWeakEnemy(t *testing.T) {
-	s := board(t, game.Standard, 12, map[hexgrid.Coord]level.Hex{at(4, 2): unit("CP_infantry"), at(6, 2): unit("EC_infantry")})
+	s := board(t, 12, map[hexgrid.Coord]level.Hex{at(4, 2): unit("CP_infantry"), at(6, 2): unit("EC_infantry")})
 	d := s.At(at(6, 2)).Unit
 	d.Size = 2
 	var p Planner
@@ -112,12 +112,12 @@ func TestAttacksWeakEnemy(t *testing.T) {
 		t.Errorf("battle %+v, err %v, want the defender destroyed", b, err)
 	}
 	if o, ok := p.Next(s); ok {
-		t.Errorf("after the attack: %+v, want nothing (Standard: one action)", o)
+		t.Errorf("after the attack: %+v, want nothing (one action per turn)", o)
 	}
 }
 
 func TestTakesEnemyHQ(t *testing.T) {
-	s := board(t, game.Standard, 12, map[hexgrid.Coord]level.Hex{
+	s := board(t, 12, map[hexgrid.Coord]level.Hex{
 		at(4, 2): unit("CP_infantry"), at(6, 2): building("hqN", game.Entente), at(8, 4): building("cmpN", game.Entente),
 	})
 	var p Planner
@@ -128,7 +128,7 @@ func TestTakesEnemyHQ(t *testing.T) {
 }
 
 func TestCapturesDepot(t *testing.T) {
-	s := board(t, game.Standard, 12, map[hexgrid.Coord]level.Hex{at(4, 2): unit("CP_cavalry"), at(8, 2): building("factoryE_w", game.Entente)})
+	s := board(t, 12, map[hexgrid.Coord]level.Hex{at(4, 2): unit("CP_cavalry"), at(8, 2): building("factoryE_w", game.Entente)})
 	var p Planner
 	turn(t, s, &p, zero)
 	if s.At(at(8, 2)).Owner != game.CentralPowers {
@@ -174,7 +174,7 @@ func TestIgnoresUnseenEnemy(t *testing.T) {
 				if withHidden {
 					place[c.hidden] = unit("EC_hArtillery")
 				}
-				s := wide(t, game.Standard, c.width, c.lines, place)
+				s := wide(t, c.width, c.lines, place)
 				var p Planner
 				os := turn(t, s, &p, zero)
 				if s.Fog(game.CentralPowers, c.hidden) != game.Unseen {
@@ -193,8 +193,8 @@ func TestIgnoresUnseenEnemy(t *testing.T) {
 	}
 }
 
-func TestOneActionUnderStandard(t *testing.T) {
-	s := board(t, game.Standard, 16, map[hexgrid.Coord]level.Hex{
+func TestOneActionPerTurn(t *testing.T) {
+	s := board(t, 16, map[hexgrid.Coord]level.Hex{
 		at(0, 0): unit("CP_infantry"), at(0, 2): unit("CP_cavalry"), at(2, 4): unit("CP_lArtillery"),
 		at(4, 2): unit("CP_infantry"), at(6, 2): unit("EC_infantry"), at(10, 3): unit("EC_cavalry"),
 		at(14, 1): building("cmpN", game.Entente),
@@ -218,16 +218,15 @@ func TestOneActionUnderStandard(t *testing.T) {
 	}
 }
 
-func TestClassicMovesThenAttacks(t *testing.T) {
-	// Classic allows a move and an attack per unit, and the planner gives one
-	// of each. The healthy enemy survives the first attack but is not attacked
-	// twice.
-	s := board(t, game.Classic, 16, map[hexgrid.Coord]level.Hex{at(0, 0): unit("CP_cavalry"), at(6, 0): unit("EC_infantry")})
+func TestPlannerGivesOneActionPerUnit(t *testing.T) {
+	// One action per unit per turn: the cavalry out of range moves, and is
+	// not also given an attack in the same turn.
+	s := board(t, 16, map[hexgrid.Coord]level.Hex{at(0, 0): unit("CP_cavalry"), at(6, 0): unit("EC_infantry")})
 	s.At(at(6, 0)).Unit.Size = 4
 	var p Planner
 	os := turn(t, s, &p, zero)
-	if len(os) != 2 || os[0].Attack || !os[1].Attack {
-		t.Errorf("orders %v: want one move, then one attack", keys(os))
+	if len(os) != 1 || os[0].Attack {
+		t.Errorf("orders %v: want a single move, no attack", keys(os))
 	}
 }
 
@@ -308,7 +307,7 @@ func TestPlaysCampaignLevels(t *testing.T) {
 		if testing.Short() && i%6 != 0 {
 			continue
 		}
-		for _, rules := range []game.Rules{game.Classic, game.Standard} {
+		{
 			raw, err := fs.ReadFile(levels.Campaign, name)
 			if err != nil {
 				t.Fatal(err)
@@ -317,7 +316,7 @@ func TestPlaysCampaignLevels(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			s, err := game.NewWithRules(lv, set, rules)
+			s, err := game.New(lv, set)
 			if err != nil {
 				t.Fatalf("%s: %v", name, err)
 			}

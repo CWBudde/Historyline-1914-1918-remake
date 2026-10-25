@@ -3,7 +3,6 @@ package main
 import (
 	"testing"
 
-	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 )
@@ -93,7 +92,7 @@ func TestBattleReportFromEngineResult(t *testing.T) {
 }
 
 func TestSkipFinishesWalk(t *testing.T) {
-	c := boardControl(t, state.Standard, map[hexgrid.Coord]level.Hex{at(2, 2): onGrass("CP_cavalry")})
+	c := boardControl(t, map[hexgrid.Coord]level.Hex{at(2, 2): onGrass("CP_cavalry")})
 	cav := c.st.At(at(2, 2)).Unit
 	c.Click(at(2, 2))
 	c.Click(at(6, 2))
@@ -114,7 +113,7 @@ func TestSkipFinishesWalk(t *testing.T) {
 
 func TestWalkDrawsMovingUnitIntoCarrier(t *testing.T) {
 	place := map[hexgrid.Coord]level.Hex{at(2, 2): onGrass("CP_infantry"), at(6, 2): onGrass("CP_supplyCar")}
-	c := boardControl(t, state.Standard, place)
+	c := boardControl(t, place)
 	g := newGame(boardLevel(place), c.st, c.player, false)
 	g.ctl = c
 	inf, car := c.st.At(at(2, 2)).Unit, c.st.At(at(6, 2)).Unit
