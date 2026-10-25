@@ -53,7 +53,8 @@ with its art (2×, optional 4×).
   factory units, energy total and income); move count and move limit.
 - **Strategic map:** a dark steel plate with a recessed frame holding the whole map: terrain colour per
   cell, HQs as labelled plates in the side colours, depots as round D plates, factories as square F plates,
-  units as dots in the side colours, the panel's current view as a light rectangle.
+  units as dots in the side colours (greyish once they have their order, as their sprites turn grey), the
+  panel's current view as a light rectangle.
 - **Contents** (open on a container): a sepia photo of the unit under the cursor, a plate with the
   container's name and energy (stored, total), the unit's name plate, a large plate for details, and two
   rows of hex slots holding the units inside; the cursor moves over the slots.

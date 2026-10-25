@@ -5,6 +5,7 @@ import (
 	"image/color"
 	"maps"
 	"math"
+	"slices"
 	"testing"
 
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/camera"
@@ -398,6 +399,17 @@ func TestMinimapScene(t *testing.T) {
 	}
 	if d := dimShade(minimap.Blue); d.Lit.R >= minimap.Blue.Lit.R {
 		t.Error("remembered units are not dimmed")
+	}
+	// A unit that has acted turns greyish, still a little in its side colour.
+	c.st.Units(c.player)[0].Moved = true
+	_, units = g.minimapScene()
+	spent := spentShade(minimap.Blue)
+	if !slices.ContainsFunc(units, func(u minimap.Unit) bool { return u.Shade == spent }) {
+		t.Error("no greyish dot for the unit that moved")
+	}
+	spread := func(c color.RGBA) int { return int(max(c.R, c.G, c.B)) - int(min(c.R, c.G, c.B)) }
+	if s, b := spread(spent.Lit), spread(minimap.Blue.Lit); s == 0 || 3*s > b {
+		t.Errorf("spent blue %v, spread %d of %d: not greyish", spent.Lit, s, b)
 	}
 }
 

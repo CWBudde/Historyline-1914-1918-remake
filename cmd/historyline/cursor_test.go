@@ -608,3 +608,30 @@ func TestStrategicFactories(t *testing.T) {
 		t.Fatal("CIVIL shows no factory")
 	}
 }
+
+func TestStrategicSpentUnits(t *testing.T) {
+	g, d, at := newCursorTest(t)
+	d.Click(at)
+	var to hexgrid.Coord
+	for _, c := range dosplay.Coords(d.moves) {
+		if _, ok := d.own().Buildings[c]; !ok {
+			to = c
+			break
+		}
+	}
+	d.Click(to)
+	d.Cancel()
+	u, ok := d.own().Units[to]
+	if !ok || !u.Moved {
+		t.Fatalf("no move to %v: %+v", to, u)
+	}
+	sc := g.strategicScene(d.side)
+	if !slices.Contains(sc.Units, minimap.Unit{At: to, Shade: spentShade(minimap.Blue)}) {
+		t.Errorf("moved unit %v not a greyish dot: %v", to, sc.Units)
+	}
+	for c, v := range d.own().Units {
+		if v.Side == d.side && !v.Moved && !slices.Contains(sc.Units, minimap.Unit{At: c, Shade: minimap.Blue}) {
+			t.Errorf("unmoved unit %v not a blue dot", c)
+		}
+	}
+}

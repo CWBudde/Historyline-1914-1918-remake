@@ -668,8 +668,9 @@ func (g *game) viewCamera(side int) camera.Camera {
 }
 
 // strategicScene is what side's strategic map shows: the terrain colours, the
-// units its map shows as dots and its HQs, depots and factories as plates, in the side
-// colours of the minimap (the Central Powers blue), and its panel's view.
+// units its map shows as dots (greyish once they have their order, as on the
+// map) and its HQs, depots and factories as plates, in the side colours of the
+// minimap (the Central Powers blue), and its panel's view.
 func (g *game) strategicScene(side int) minimap.Scene {
 	d := g.dos
 	cam := g.viewCamera(side)
@@ -681,7 +682,8 @@ func (g *game) strategicScene(side int) minimap.Scene {
 	}}
 	us := d.unitsOf(side, g.reveal)
 	for _, c := range dosplay.Coords(toSet(us)) {
-		sc.Units = append(sc.Units, minimap.Unit{At: c, Shade: sideShade(us[c].Owner)})
+		u := us[c]
+		sc.Units = append(sc.Units, minimap.Unit{At: c, Shade: unitShade(u.Owner, u.Moved && (u.Side == side || g.reveal))})
 	}
 	bs := d.buildingsOf(side)
 	for _, c := range dosplay.Coords(toSet(bs)) {

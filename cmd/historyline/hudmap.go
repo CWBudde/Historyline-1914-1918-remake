@@ -15,8 +15,8 @@ import (
 
 // The minimap of the single-map HUD (the remake rules): the cell-exact raster
 // of internal/minimap in the bottom-right corner, terrain under the player's
-// fog, unit dots in the side colours and the camera rectangle. Only a press
-// that starts on it moves the camera.
+// fog, unit dots in the side colours (greyish once acted) and the camera
+// rectangle. Only a press that starts on it moves the camera.
 
 // miniMap is the minimap's raster, its picture and the press on it.
 type miniMap struct {
@@ -51,6 +51,25 @@ func dimShade(s minimap.Shade) minimap.Shade {
 		return color.RGBA{c.R / 2, c.G / 2, c.B / 2, c.A}
 	}
 	return minimap.Shade{Lit: dim(s.Lit), Mid: dim(s.Mid), Dark: dim(s.Dark)}
+}
+
+// spentShade is the greyish look of a unit that has acted this turn, as its
+// sprite turns grey: four fifths grey, one fifth the side colour.
+func spentShade(s minimap.Shade) minimap.Shade {
+	grey := func(c color.RGBA) color.RGBA {
+		y := (299*int(c.R) + 587*int(c.G) + 114*int(c.B)) / 1000
+		mix := func(v uint8) uint8 { return uint8((4*y + int(v)) / 5) }
+		return color.RGBA{mix(c.R), mix(c.G), mix(c.B), c.A}
+	}
+	return minimap.Shade{Lit: grey(s.Lit), Mid: grey(s.Mid), Dark: grey(s.Dark)}
+}
+
+// unitShade is the minimap colour of a unit of owner, greyish once spent.
+func unitShade(owner state.Player, spent bool) minimap.Shade {
+	if spent {
+		return spentShade(sideShade(owner))
+	}
+	return sideShade(owner)
 }
 
 // hexColour is the minimap colour of c's terrain: its mean colour in the
@@ -110,7 +129,8 @@ func averageColour(img image.Image) color.RGBA {
 }
 
 // minimapScene is what the minimap shows: a colour per hex in line order and
-// the unit dots, with the walking unit on the hex it walks through.
+// the unit dots (greyish once the unit has acted), with the walking unit on the
+// hex it walks through.
 func (g *game) minimapScene() (fills []color.RGBA, units []minimap.Unit) {
 	for l, line := range g.lvl.Lines {
 		for c := range line {
@@ -124,13 +144,14 @@ func (g *game) minimapScene() (fills []color.RGBA, units []minimap.Unit) {
 					units = append(units, minimap.Unit{At: coord, Shade: dimShade(sideShade(m.Unit.Owner))})
 				}
 			default:
-				units = append(units, minimap.Unit{At: coord, Shade: sideShade(g.state.At(coord).Unit.Owner)})
+				u := g.state.At(coord).Unit
+				units = append(units, minimap.Unit{At: coord, Shade: unitShade(u.Owner, unitSpent(u))})
 			}
 		}
 	}
 	if w := g.drv().ui().walk; !w.Done() && g.fogOf(w.Hex()) == state.Visible {
 		if u, ok := w.unit.(*state.Unit); ok && u != nil {
-			units = append(units, minimap.Unit{At: w.Hex(), Shade: sideShade(u.Owner)})
+			units = append(units, minimap.Unit{At: w.Hex(), Shade: unitShade(u.Owner, unitSpent(u))})
 		}
 	}
 	return fills, units
