@@ -19,7 +19,9 @@ just ci          # everything CI runs: lint, test, build, wasm, art-check, refer
 just check       # ci without the tools/ tests (about 25 min, never cached): for changes outside tools/
 just test        # go test ./...
 go test ./internal/game -run TestName   # single test
-just lint        # go vet + golangci-lint v2 (.golangci.yml)
+just lint        # go vet + golangci-lint v2 (.golangci.yml); just lint-fix applies its fixes
+just fmt         # treefmt (treefmt.toml): gofumpt, gci, typstyle, prettier, shfmt; just fix = lint-fix + fmt
+just check-formatted  # fails if just fmt would change a tracked file (formats a copy)
 just run         # play; just play uses the candidate art; just build -> bin/; just web 8080
 just play-original  # just play, with F8 switching to the original tiles and units from the local original/ (-tags origtiles)
 just art-index   # regenerate art/index.json after changing prompts or art; just art-check validates

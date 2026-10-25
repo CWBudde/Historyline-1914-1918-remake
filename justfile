@@ -57,6 +57,30 @@ lint:
     go vet ./...
     golangci-lint run ./...
 
+# Run golangci-lint and apply its fixes
+lint-fix:
+    golangci-lint run --fix ./...
+
+# Format Go (gofumpt, gci), Typst, HTML, CSS, JS, YAML and shell with treefmt (treefmt.toml); missing formatters are skipped
+fmt:
+    treefmt --allow-missing-formatter
+
+# Apply the linter fixes, then format
+fix: lint-fix fmt
+
+# Fail if just fmt would change a tracked file; formats a copy under build/scratch, never the tree
+check-formatted: _build-dir
+    #!/usr/bin/env sh
+    set -eu
+    tmp=$(mktemp -d "$PWD/build/scratch/fmt.XXXXXX")
+    trap 'rm -rf "$tmp"' EXIT
+    git ls-files -z -- ':!:art' ':!:assets' ':!:legacy' | git checkout-index -z --stdin --prefix="$tmp/"
+    cp treefmt.toml "$tmp/"
+    cd "$tmp"
+    git init -q . && git add -A
+    treefmt --allow-missing-formatter --tree-root "$tmp" --config-file "$tmp/treefmt.toml"
+    git diff --exit-code --stat
+
 # Build the desktop binary
 build:
     mkdir -p bin

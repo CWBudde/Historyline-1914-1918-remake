@@ -1,0 +1,56 @@
+# run with treefmt --allow-missing-formatter (just fmt)
+
+[global]
+excludes = [
+  # generated output, local originals, the Python reference
+  "build/**",
+  "original/**",
+  "legacy/**",
+  # the graphics track and the user's manual reconstruction
+  "art/**",
+  "assets/**",
+  "docs/manual/**",
+  # data written by the Go tools (levels, fixtures, indexes)
+  "*.json",
+  "go.sum",
+  "go.mod",
+]
+
+### Misc
+
+[formatter.prettier]
+command = "prettier"
+options = ["-w"]
+includes = ["*.html", "*.css", "*.js", "*.yaml", "*.yml"]
+
+### Go
+
+[formatter.gofumpt]
+command = "gofumpt"
+options = ["-w"]
+includes = ["*.go"]
+
+[formatter.gci]
+command = "gci"
+options = ["write"]
+includes = ["*.go"]
+priority = 1        # run after gofumpt
+
+### Shell
+
+[formatter.shellcheck]
+command = "shellcheck"
+includes = ["*.sh"]
+
+[formatter.shfmt]
+command = "shfmt"
+options = ["-s", "-w"]
+includes = ["*.sh"]
+priority = 1        # run after shellcheck
+
+### Typst
+
+[formatter.typstyle]
+command = "typstyle"
+options = ["-i"]
+includes = ["*.typ"]
