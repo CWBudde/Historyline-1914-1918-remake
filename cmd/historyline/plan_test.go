@@ -171,3 +171,58 @@ func TestComputerActsAtOnceReduced(t *testing.T) {
 		t.Errorf("acting %v, ready %v", d.acting(), d.s.Ready(1-d.side))
 	}
 }
+
+// TestComputerMovesFasterWhileWaited: once the human side has confirmed, the
+// computer's rest before a move and its walk run actFastSpeed times as fast,
+// and at the normal speed again when the human side reopens its orders.
+func TestComputerMovesFasterWhileWaited(t *testing.T) {
+	d := newDosTest(t, "monthly/1914-08:cp", computerPlanner())
+	opp := 1 - d.side
+	for turn := 0; d.act == nil || d.act.walk.Done(); turn++ {
+		if turn == 4 || d.s.Ended() != nil {
+			t.Fatal("no move of the computer walked")
+		}
+		tickUntil(t, d, func() bool { return d.s.Ready(opp) || d.act != nil && !d.act.walk.Done() })
+		if d.act == nil {
+			d.s.Confirm(d.side)
+			d.SetReducedMotion(true)
+			tickUntil(t, d, func() bool { return !d.busy() && !d.s.Ready(d.side) })
+			d.SetReducedMotion(false)
+		}
+	}
+	a := d.act
+	if a.wait != actPauseFrames {
+		t.Fatalf("rest %d before the walk, want %d", a.wait, actPauseFrames)
+	}
+	d.Tick()
+	if a.wait != actPauseFrames-1 {
+		t.Errorf("rest %d after a frame, want %d", a.wait, actPauseFrames-1)
+	}
+	d.EndTurn() // the confirmation prompt
+	d.EndTurn()
+	if !d.s.Ready(d.side) {
+		t.Fatal("the human side did not confirm")
+	}
+	d.Tick()
+	if want := actPauseFrames - 1 - actFastSpeed; a.wait != want {
+		t.Errorf("rest %d after a waited frame, want %d", a.wait, want)
+	}
+	for a.wait > 0 {
+		d.Tick()
+	}
+	if len(a.walk.path) < 2 || a.walk.frame != 0 {
+		t.Fatalf("walk of %d hexes at frame %d", len(a.walk.path), a.walk.frame)
+	}
+	d.Tick()
+	if a.walk.frame != actFastSpeed {
+		t.Errorf("walk frame %d after a waited frame, want %d", a.walk.frame, actFastSpeed)
+	}
+	d.EndTurn() // orders open again
+	if a.walk.Done() {
+		t.Skip("walk done before the orders were reopened")
+	}
+	d.Tick()
+	if a.walk.frame != actFastSpeed+1 {
+		t.Errorf("walk frame %d after reopening, want %d", a.walk.frame, actFastSpeed+1)
+	}
+}

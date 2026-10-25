@@ -24,6 +24,10 @@ const planMinFrames = 45
 // its camera slides to the unit, and the moves read one by one.
 const actPauseFrames = 12
 
+// actFastSpeed is how many frames of the computer carrying out its orders
+// pass in one once the human side has confirmed and only waits for it.
+const actFastSpeed = 3
+
 // computerTurn is the computer side carrying out its planned commands.
 type computerTurn struct {
 	side int
@@ -69,6 +73,15 @@ func (d *dosControl) planProgress() float64 {
 
 // acting reports whether the computer is carrying out its planned commands.
 func (d *dosControl) acting() bool { return d.act != nil }
+
+// actSpeed is how many frames of the computer carrying out its orders pass
+// in one: actFastSpeed while the human side waits for it, else 1.
+func (d *dosControl) actSpeed() int {
+	if d.act != nil && d.s.Ready(d.side) {
+		return actFastSpeed
+	}
+	return 1
+}
 
 // walkOf is the walk on side's panel: the human side's own move or the
 // computer's move being carried out.
@@ -174,18 +187,22 @@ func (d *dosControl) planFailed(side int, err error) {
 // actStep runs one frame of the computer carrying out its commands: the move
 // walking on its panel plays on, else the next commands replay on the session
 // up to the next move, which rests a moment and then walks. After the last
-// the side confirms. With reduced motion every command replays at once.
+// the side confirms. With reduced motion every command replays at once;
+// while the human side waits, rest and walk run actSpeed times as fast.
 func (d *dosControl) actStep() {
 	a := d.act
 	if d.reduced {
 		a.walk, a.wait = nil, 0
 	}
+	n := d.actSpeed()
 	switch {
 	case a.wait > 0:
-		a.wait--
+		a.wait = max(a.wait-n, 0)
 		return
 	case !a.walk.Done():
-		a.walk.Tick()
+		for range n {
+			a.walk.Tick()
+		}
 		return
 	}
 	for len(a.cmds) > 0 {

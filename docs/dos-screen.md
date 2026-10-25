@@ -98,7 +98,8 @@ The package docs hold the details; this is the map of where each part lives.
 - **Status wells** (`cmd/historyline/well.go`, font `internal/pixfont`): the unit line (group size,
   experience badge, name, flag) or the side's state message in the panel's colour; the computer plans on a
   `Session.Clone` off the frame (`plan.go`) and its progress bar runs in its well; then its orders are
-  carried out one by one, each move walking on its panel with the camera following, before it confirms.
+  carried out one by one, each move walking on its panel with the camera following, before it confirms;
+  once the human side has confirmed, they play three times as fast.
 - **Unit markers** (`unitmarks.go`): the experience badge above a unit, the group size at the lower right
   of its hex, from the `rank` art of the screen catalogue.
 - **Overlays** (`internal/dospanel`, `cmd/historyline/overlay.go`, `contents.go`): unit info with the

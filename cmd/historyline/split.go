@@ -315,7 +315,13 @@ func (g *game) updateSplit() {
 	g.followSplit()
 	g.tickWells()
 	for side := range 2 {
-		s.cams[side].tick()
+		n := 1
+		if side != g.dos.side {
+			n = g.dos.actSpeed() // the computer's camera keeps up with its walk
+		}
+		for range n {
+			s.cams[side].tick()
+		}
 	}
 	g.syncSplitCam()
 }
