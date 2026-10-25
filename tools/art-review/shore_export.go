@@ -165,6 +165,7 @@ func shoreSceneFor(center shoreVariant, parity int) (shoreScene, error) {
 	})
 	return scene, nil
 }
+
 func renderShoreScene(pixels map[string]*image.NRGBA, s shoreScene, density int) *image.NRGBA {
 	out := image.NewNRGBA(image.Rect(0, 0, 238*density, 240*density))
 	for _, c := range s.Cells {
@@ -174,6 +175,7 @@ func renderShoreScene(pixels map[string]*image.NRGBA, s shoreScene, density int)
 	}
 	return out
 }
+
 func (b *shoreBundle) addPNG(name string, im *image.NRGBA) (packOutput, error) {
 	var buf bytes.Buffer
 	if err := png.Encode(&buf, im); err != nil {
@@ -192,6 +194,7 @@ func (b *shoreBundle) addPNG(name string, im *image.NRGBA) (packOutput, error) {
 	b.artifacts = append(b.artifacts, connectionArtifact{name, buf.Bytes()})
 	return output, nil
 }
+
 func buildShoreBundle(in shoreInputs) (shoreBundle, error) {
 	b := shoreBundle{pixels: map[string]*image.NRGBA{}, report: shoreReport{SchemaVersion: 1, ManifestSHA256: in.Hash, ManifestSnapshot: "manifest.json", Geometry: sharedConnectionGeometry(), Profile: shoreProfile, Acceptance: "Candidate; pixel-aligned 2x/4x authoring/export previews only. No whole-map, runtime or user approval claim. Topology: 100 directed campaign endpoint checks verified separately; lakeside12 unplaced and four lakeside123/126 boundary corners inferred, without acceptance claim.", Materials: map[string]connectionMaterialReport{}}}
 	if in.Manifest.BankProfile == authoredBankProfile {
@@ -266,6 +269,7 @@ func buildShoreBundle(in shoreInputs) (shoreBundle, error) {
 	b.artifacts = append(b.artifacts, connectionArtifact{"index.html", gallery.Bytes()})
 	return b, nil
 }
+
 func runShore(path, out string, log io.Writer) (resultErr error) {
 	if _, err := os.Lstat(out); !errors.Is(err, os.ErrNotExist) {
 		if err == nil {
@@ -281,10 +285,10 @@ func runShore(path, out string, log io.Writer) (resultErr error) {
 	if err != nil {
 		return err
 	}
-	if err = os.MkdirAll(filepath.Dir(out), 0755); err != nil {
+	if err = os.MkdirAll(filepath.Dir(out), 0o755); err != nil {
 		return err
 	}
-	if err = os.Mkdir(out, 0755); err != nil {
+	if err = os.Mkdir(out, 0o755); err != nil {
 		return err
 	}
 	defer func() {
@@ -294,7 +298,7 @@ func runShore(path, out string, log io.Writer) (resultErr error) {
 	}()
 	for _, a := range bundle.artifacts {
 		dest := filepath.Join(out, a.name)
-		if err = os.MkdirAll(filepath.Dir(dest), 0755); err != nil {
+		if err = os.MkdirAll(filepath.Dir(dest), 0o755); err != nil {
 			return err
 		}
 		if err = saveExclusive(dest, func(w io.Writer) error { _, e := w.Write(a.data); return e }); err != nil {

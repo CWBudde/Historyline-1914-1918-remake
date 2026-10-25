@@ -21,10 +21,10 @@ func writeTestPNG(t *testing.T, path string, im image.Image) string {
 	if err := png.Encode(&b, im); err != nil {
 		t.Fatal(err)
 	}
-	if err := os.MkdirAll(filepath.Dir(path), 0755); err != nil {
+	if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
 		t.Fatal(err)
 	}
-	if err := os.WriteFile(path, b.Bytes(), 0644); err != nil {
+	if err := os.WriteFile(path, b.Bytes(), 0o644); err != nil {
 		t.Fatal(err)
 	}
 	return fmt.Sprintf("%x", sha256.Sum256(b.Bytes()))
@@ -64,7 +64,7 @@ func testProfile(t *testing.T, dir string, cells string) string {
 	p := fmt.Sprintf(`{"schema_version":1,"densities":[2,4],"meadow":{"source":"ground.png","source_sha256":"%s"},
  "sheets":[{"id":"kit/test/kit","art":"terrain/test","source":"art/terrain/test/test-kit-shared-v1.png","source_sha256":"%s",
   "grid":[2,1],"cut":32,"min_area":4,"scale":10,"grade_rgb":[140,132,118],"cells":[%s]}]}`, groundSHA, sheetSHA, cells)
-	if err := os.WriteFile("profile.json", []byte(p), 0644); err != nil {
+	if err := os.WriteFile("profile.json", []byte(p), 0o644); err != nil {
 		t.Fatal(err)
 	}
 	return "profile.json"
@@ -156,13 +156,13 @@ func TestInstallWritesSpritesShadowsAndIndex(t *testing.T) {
 		t.Fatal(err)
 	}
 	b = bytes.Replace(b, []byte(`"cells":`), []byte(`"shadow":{"rgb":[18,26,16],"opacity":0.6,"length":0.25},"cells":`), 1)
-	if err := os.WriteFile(p, b, 0644); err != nil {
+	if err := os.WriteFile(p, b, 0o644); err != nil {
 		t.Fatal(err)
 	}
-	if err := os.MkdirAll("assets", 0755); err != nil {
+	if err := os.MkdirAll("assets", 0o755); err != nil {
 		t.Fatal(err)
 	}
-	if err := os.WriteFile("assets/index.json", []byte(testIndex), 0644); err != nil {
+	if err := os.WriteFile("assets/index.json", []byte(testIndex), 0o644); err != nil {
 		t.Fatal(err)
 	}
 	if _, err := writePNG("assets/terrain/test/scatter-old-2x.png", image.NewNRGBA(image.Rect(0, 0, 2, 2))); err != nil {
@@ -197,8 +197,10 @@ func TestInstallWritesSpritesShadowsAndIndex(t *testing.T) {
 		ids = append(ids, fmt.Sprintf("%s@%d", e.ID, e.Density))
 		byKey[fmt.Sprintf("%s@%d", e.ID, e.Density)] = i
 	}
-	want := []string{"standing/props/trees/1@2", "standing/scatter/test/square@2", "standing/scatter/test/square@4",
-		"standing/shadow/scatter/test/square@2", "standing/shadow/scatter/test/square@4", "tile/grass@2"}
+	want := []string{
+		"standing/props/trees/1@2", "standing/scatter/test/square@2", "standing/scatter/test/square@4",
+		"standing/shadow/scatter/test/square@2", "standing/shadow/scatter/test/square@4", "tile/grass@2",
+	}
 	if strings.Join(ids, " ") != strings.Join(want, " ") {
 		t.Fatalf("index ids %v, want %v", ids, want)
 	}
@@ -239,10 +241,10 @@ func TestInstallWritesSpritesShadowsAndIndex(t *testing.T) {
 
 func TestInstallRefusesAFailingSheet(t *testing.T) {
 	p := testProfile(t, t.TempDir(), `{"cell":"r1c1","size":5,"runtime":"standing/scatter/test/square"}`)
-	if err := os.MkdirAll("assets", 0755); err != nil {
+	if err := os.MkdirAll("assets", 0o755); err != nil {
 		t.Fatal(err)
 	}
-	if err := os.WriteFile("assets/index.json", []byte(testIndex), 0644); err != nil {
+	if err := os.WriteFile("assets/index.json", []byte(testIndex), 0o644); err != nil {
 		t.Fatal(err)
 	}
 	if err := install(p, "out", "assets"); err == nil {

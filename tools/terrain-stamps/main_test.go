@@ -220,6 +220,7 @@ func fixture(t *testing.T) (string, manifest) {
 	h := sha256.Sum256(b)
 	return root, manifest{SchemaVersion: 1, Assets: []asset{{ID: "standing/house", Source: p, SourceSHA256: hex.EncodeToString(h[:]), Crop: [4]int{4, 0, 32, 24}, Canvas: [2]int{8, 6}, Anchor: [2]float64{4, 3}, Layer: "standing", Art: "terrain/house", Path: "terrain/house/standing"}}}
 }
+
 func writeManifest(t *testing.T, root string, m manifest) string {
 	t.Helper()
 	b, err := json.Marshal(m)
@@ -227,11 +228,12 @@ func writeManifest(t *testing.T, root string, m manifest) string {
 		t.Fatal(err)
 	}
 	p := filepath.Join(root, "manifest.json")
-	if err = os.WriteFile(p, b, 0600); err != nil {
+	if err = os.WriteFile(p, b, 0o600); err != nil {
 		t.Fatal(err)
 	}
 	return p
 }
+
 func readJSON(t *testing.T, p string, v any) {
 	t.Helper()
 	b, err := os.ReadFile(p)

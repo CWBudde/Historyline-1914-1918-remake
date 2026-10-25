@@ -15,6 +15,7 @@ func unitKey(p color.NRGBA) float64 {
 	t := max(0, min(1, (q-.02)/.08))
 	return t * t * t * (6*t*t - 15*t + 10)
 }
+
 func unitPlanes(src *image.NRGBA) (*image.NRGBA, *image.NRGBA) {
 	n, k := image.NewNRGBA(image.Rect(0, 0, src.Bounds().Dx(), src.Bounds().Dy())), image.NewNRGBA(image.Rect(0, 0, src.Bounds().Dx(), src.Bounds().Dy()))
 	for y := range n.Bounds().Dy() {
@@ -32,6 +33,7 @@ func unitPlanes(src *image.NRGBA) (*image.NRGBA, *image.NRGBA) {
 	}
 	return n, k
 }
+
 func unitTint(base, mask *image.NRGBA, palette []int, spent bool) *image.NRGBA {
 	out := image.NewNRGBA(base.Bounds())
 	for y := range out.Bounds().Dy() {

@@ -69,10 +69,10 @@ func TestGenerateLongShips(t *testing.T) {
 				t.Fatal(err)
 			}
 			full := filepath.Join(root, "assets/units", path)
-			if err := os.MkdirAll(filepath.Dir(full), 0755); err != nil {
+			if err := os.MkdirAll(filepath.Dir(full), 0o755); err != nil {
 				t.Fatal(err)
 			}
-			if err := os.WriteFile(full, data.Bytes(), 0644); err != nil {
+			if err := os.WriteFile(full, data.Bytes(), 0o644); err != nil {
 				t.Fatal(err)
 			}
 			sum := sha256.Sum256(data.Bytes())
@@ -104,7 +104,7 @@ func TestGenerateLongShips(t *testing.T) {
 		out.WriteByte('\n')
 	}
 	out.WriteString("  ]\n}\n")
-	if err := os.WriteFile(name, out.Bytes(), 0644); err != nil {
+	if err := os.WriteFile(name, out.Bytes(), 0o644); err != nil {
 		t.Fatal(err)
 	}
 }

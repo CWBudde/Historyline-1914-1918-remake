@@ -7,12 +7,14 @@ import (
 	"testing"
 )
 
-var groundTestDeltas = [6][2]int{{71, -40}, {71, 40}, {0, 80}, {-71, 40}, {-71, -40}, {0, -80}}
-var groundTestPolygon = [6][2]float64{{25, 0}, {71, 0}, {96, 40}, {71, 80}, {25, 80}, {0, 40}}
-var groundTestColors = map[string]color.NRGBA{
-	"grass": {11, 43, 23, 255}, "mud": {211, 31, 53, 255}, "stone": {37, 149, 229, 255},
-	"grass_w": {239, 241, 251, 255}, "rough_w": {41, 63, 79, 255}, "stoney_w": {131, 157, 181, 255}, "shelled_w": {83, 71, 59, 255},
-}
+var (
+	groundTestDeltas  = [6][2]int{{71, -40}, {71, 40}, {0, 80}, {-71, 40}, {-71, -40}, {0, -80}}
+	groundTestPolygon = [6][2]float64{{25, 0}, {71, 0}, {96, 40}, {71, 80}, {25, 80}, {0, 40}}
+	groundTestColors  = map[string]color.NRGBA{
+		"grass": {11, 43, 23, 255}, "mud": {211, 31, 53, 255}, "stone": {37, 149, 229, 255},
+		"grass_w": {239, 241, 251, 255}, "rough_w": {41, 63, 79, 255}, "stoney_w": {131, 157, 181, 255}, "shelled_w": {83, 71, 59, 255},
+	}
+)
 
 func groundTestConstants() map[string]*image.NRGBA {
 	m := map[string]*image.NRGBA{}
@@ -27,6 +29,7 @@ func groundTestConstants() map[string]*image.NRGBA {
 	}
 	return m
 }
+
 func groundTestContext(t *testing.T, id string, ids [6]string) groundContext {
 	t.Helper()
 	c, err := newGroundContext(id, ids[:])
@@ -35,6 +38,7 @@ func groundTestContext(t *testing.T, id string, ids [6]string) groundContext {
 	}
 	return c
 }
+
 func groundTestDistance(x, y float64) float64 {
 	inside := true
 	best := math.Inf(1)
@@ -53,10 +57,12 @@ func groundTestDistance(x, y float64) float64 {
 	}
 	return best
 }
+
 func groundTestS(d float64) float64 {
 	u := math.Max(0, math.Min(1, (d-4)/8))
 	return u * u * u * (10 + u*(-15+6*u))
 }
+
 func groundTestGlobalRGB(world map[[2]int]string, p [2]float64, base string) [3]float64 {
 	var sum [3]float64
 	total, e := 0., 1.
@@ -85,6 +91,7 @@ func groundTestGlobalRGB(world map[[2]int]string, p [2]float64, base string) [3]
 	}
 	return sum
 }
+
 func groundTestNearRGB(t *testing.T, got, want [3]float64) {
 	t.Helper()
 	for i := range got {
@@ -93,6 +100,7 @@ func groundTestNearRGB(t *testing.T, got, want [3]float64) {
 		}
 	}
 }
+
 func TestGroundFieldWeightedProductAndFilledDistance(t *testing.T) {
 	materials := groundTestConstants()
 	cases := []struct {
@@ -137,6 +145,7 @@ func TestGroundFieldWeightedProductAndFilledDistance(t *testing.T) {
 		t.Fatal("filled polygon interior/boundary distance must be zero")
 	}
 }
+
 func TestGroundContextRejectsInvalidIDsSeasonsAndDirections(t *testing.T) {
 	for _, tt := range []struct {
 		id  string
@@ -154,6 +163,7 @@ func TestGroundContextRejectsInvalidIDsSeasonsAndDirections(t *testing.T) {
 		}
 	}
 }
+
 func groundTestWorld() map[[2]int]string {
 	world := map[[2]int]string{{0, 0}: ""}
 	front := [][2]int{{0, 0}}
@@ -172,6 +182,7 @@ func groundTestWorld() map[[2]int]string {
 	}
 	return world
 }
+
 func groundTestAt(t *testing.T, world map[[2]int]string, o [2]int) groundContext {
 	t.Helper()
 	var ids [6]string
@@ -184,6 +195,7 @@ func groundTestAt(t *testing.T, world map[[2]int]string, o [2]int) groundContext
 	}
 	return groundTestContext(t, world[o], ids)
 }
+
 func TestGroundCompatibleContextsSharedEdgesTriplesAndFilterStrip(t *testing.T) {
 	materials := groundTestConstants()
 	for permutation := range 6 {
@@ -237,6 +249,7 @@ func TestGroundCompatibleContextsSharedEdgesTriplesAndFilterStrip(t *testing.T) 
 		t.Fatal("wrong-neighbor fixture does not detect missing context")
 	}
 }
+
 func TestGroundProductMedialTieHasContinuousFirstDerivative(t *testing.T) {
 	c := groundTestContext(t, "mud", [6]string{"grass", "grass", "mud", "mud", "mud", "mud"})
 	m := groundTestConstants()

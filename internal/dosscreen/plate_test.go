@@ -6,9 +6,8 @@ import (
 	"math"
 	"testing"
 
-	"github.com/hajimehoshi/ebiten/v2"
-
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 // cellCentre finds the hex polygon around a point, off the map as well: the

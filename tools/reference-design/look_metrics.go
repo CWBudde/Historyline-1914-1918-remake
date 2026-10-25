@@ -50,9 +50,12 @@ func measureLook(p *labPlane, mask []bool) lookMetrics {
 	m := lookMetrics{
 		Bands: []lookBand{{Radii: [2]int{1, 3}}, {Radii: [2]int{3, 10}}},
 		Autocorrelation: []lookLag{
-			{Offset: [2]int{71, 40}}, {Offset: [2]int{142, 0}},
-			{Offset: [2]int{0, 80}}, {Offset: [2]int{0, 160}},
-			{Offset: [2]int{284, 0}}, {Offset: [2]int{568, 0}},
+			{Offset: [2]int{71, 40}},
+			{Offset: [2]int{142, 0}},
+			{Offset: [2]int{0, 80}},
+			{Offset: [2]int{0, 160}},
+			{Offset: [2]int{284, 0}},
+			{Offset: [2]int{568, 0}},
 		},
 	}
 	unavailable := func(reason string) lookMetrics {

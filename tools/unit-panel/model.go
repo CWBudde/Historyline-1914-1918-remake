@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
+	"strconv"
+
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
-	"strconv"
 )
 
 type Stat struct {
@@ -80,6 +81,7 @@ func panelFor(u *game.Unit, visible bool) Panel {
 	p.Moved, p.Attacked = u.Moved, u.Attacked
 	return p
 }
+
 func makeFixtures() ([]Fixture, error) {
 	set, err := data.Load()
 	if err != nil {

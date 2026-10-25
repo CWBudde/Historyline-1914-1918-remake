@@ -183,7 +183,8 @@ func generate(all []*finmap.Level, set *data.Set, backdrops map[string]string) (
 		lines, s := scenario.Split(lv)
 		s.Code = m.Mission.Code
 		f := &scenario.File{Name: title(m.Mission.Code), Map: lines, Setups: map[scenario.Mode]*scenario.Setup{
-			scenario.TwoPlayer: s, scenario.CP: {From: scenario.TwoPlayer}, scenario.EC: {From: scenario.TwoPlayer}}}
+			scenario.TwoPlayer: s, scenario.CP: {From: scenario.TwoPlayer}, scenario.EC: {From: scenario.TwoPlayer},
+		}}
 		name := fmt.Sprintf("%02d-%s.json", j+1, strings.ToLower(m.Mission.Code))
 		f.Backdrop = backdrops[name]
 		if out.skirmish[name], err = encode(f, set); err != nil {

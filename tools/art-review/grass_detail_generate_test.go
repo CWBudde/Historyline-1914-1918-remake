@@ -22,7 +22,7 @@ import (
 func TestGenerateGrassDetailCandidate(t *testing.T) {
 	root := filepath.Join("..", "..")
 	directory := filepath.Join(root, "build/review/grass-refdesign-detail-v1")
-	if err := os.MkdirAll(filepath.Join(directory, "exports"), 0755); err != nil {
+	if err := os.MkdirAll(filepath.Join(directory, "exports"), 0o755); err != nil {
 		t.Fatal(err)
 	}
 	read := func(path, want string) (*image.NRGBA, string) {
@@ -50,10 +50,10 @@ func TestGenerateGrassDetailCandidate(t *testing.T) {
 		if err := png.Encode(&b, im); err != nil {
 			t.Fatal(err)
 		}
-		if err := os.MkdirAll(filepath.Dir(path), 0755); err != nil {
+		if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
 			t.Fatal(err)
 		}
-		if err := os.WriteFile(path, b.Bytes(), 0644); err != nil {
+		if err := os.WriteFile(path, b.Bytes(), 0o644); err != nil {
 			t.Fatal(err)
 		}
 		h := sha256.Sum256(b.Bytes())
@@ -133,7 +133,7 @@ func TestGenerateGrassDetailCandidate(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err := os.WriteFile(filepath.Join(directory, "grass-variations.json"), append(encoded, '\n'), 0644); err != nil {
+	if err := os.WriteFile(filepath.Join(directory, "grass-variations.json"), append(encoded, '\n'), 0o644); err != nil {
 		t.Fatal(err)
 	}
 	for id, im := range materials {

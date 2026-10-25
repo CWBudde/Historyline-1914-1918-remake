@@ -168,8 +168,10 @@ func Build(in Input, r Rules) (*Level, error) {
 	case in.Code != nil && in.Index < 0:
 		return nil, errors.New("finmap: a CODES.DAT record without a map number")
 	}
-	l := &Level{Format: Format, Version: Version, Width: m.Width, Height: m.Height,
-		Terrain: make([][]int, m.Height), Units: []Unit{}, Buildings: []Building{}}
+	l := &Level{
+		Format: Format, Version: Version, Width: m.Width, Height: m.Height,
+		Terrain: make([][]int, m.Height), Units: []Unit{}, Buildings: []Building{},
+	}
 	for row := range m.Height {
 		l.Terrain[row] = make([]int, m.Width)
 		for col := range m.Width {
@@ -339,8 +341,10 @@ func (l *Level) addShop(s *Shop, r Rules, holds int) error {
 		}
 	}
 	for _, rec := range s.Records {
-		c := Container{Container: rec.Container(), Kind: rec.Kind.String(), Index: rec.Index, Side: rec.Side,
-			Energy: rec.Energy, ComputerValue: rec.ComputerValue, Units: []Cargo{}}
+		c := Container{
+			Container: rec.Container(), Kind: rec.Kind.String(), Index: rec.Index, Side: rec.Side,
+			Energy: rec.Energy, ComputerValue: rec.ComputerValue, Units: []Cargo{},
+		}
 		for _, t := range rec.Units() {
 			cargo := Cargo{Type: t}
 			if t < len(r.TypeClass) && r.TypeClass[t]&ClassTransporter != 0 {

@@ -100,7 +100,7 @@ func TestGenerateCampaignShores(t *testing.T) {
 				if _, err := os.Stat(full); err == nil {
 					t.Fatalf("unindexed export exists: %s", path)
 				}
-				if err := os.WriteFile(full, b.Bytes(), 0644); err != nil {
+				if err := os.WriteFile(full, b.Bytes(), 0o644); err != nil {
 					t.Fatal(err)
 				}
 				sum := sha256.Sum256(b.Bytes())
@@ -137,7 +137,7 @@ func TestGenerateCampaignShores(t *testing.T) {
 		out.WriteByte('\n')
 	}
 	out.WriteString("  ]\n}\n")
-	if err := os.WriteFile(name, out.Bytes(), 0644); err != nil {
+	if err := os.WriteFile(name, out.Bytes(), 0o644); err != nil {
 		t.Fatal(err)
 	}
 }

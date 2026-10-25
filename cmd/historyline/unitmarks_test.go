@@ -4,10 +4,9 @@ import (
 	"image"
 	"testing"
 
-	"github.com/hajimehoshi/ebiten/v2"
-
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosscreen"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 func TestUnitMarks(t *testing.T) {

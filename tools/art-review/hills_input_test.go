@@ -24,6 +24,7 @@ func hillsTestHeight() *image.NRGBA {
 	}
 	return im
 }
+
 func hillsTestFixture(t *testing.T) string {
 	t.Helper()
 	dir := t.TempDir()

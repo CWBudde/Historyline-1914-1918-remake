@@ -33,10 +33,14 @@ func TestEveryUnitTypeHasAFamily(t *testing.T) {
 
 func TestCapturedAndSharedUnitsKeepTheirSubjects(t *testing.T) {
 	for _, tc := range []struct{ id, family string }{
-		{"CP_ft17", "renault-ft17"}, {"EC_ft17", "renault-ft17"},
-		{"CP_markI", "mark-i"}, {"CP_markIV", "mark-iv"},
-		{"EC_armCar", "armored-car"}, {"EC_transTrain", "transport-train"},
-		{"CP_junkersJI", "junkers-j4"}, {"CP_gothaGV", "gotha-g-vb"},
+		{"CP_ft17", "renault-ft17"},
+		{"EC_ft17", "renault-ft17"},
+		{"CP_markI", "mark-i"},
+		{"CP_markIV", "mark-iv"},
+		{"EC_armCar", "armored-car"},
+		{"EC_transTrain", "transport-train"},
+		{"CP_junkersJI", "junkers-j4"},
+		{"CP_gothaGV", "gotha-g-vb"},
 	} {
 		if family, ok := Family(tc.id); !ok || family != tc.family {
 			t.Errorf("%s draws %q, want %q", tc.id, family, tc.family)
@@ -183,8 +187,16 @@ func TestFacingToward(t *testing.T) {
 		dx, dy float64
 		want   Facing
 	}{
-		{0, -1, N}, {0, 1, S}, {-71, -40, NW}, {-71, 40, SW}, {71, 40, SE}, {71, -40, NE},
-		{-100, -1, NW}, {-100, 1, SW}, {100, -1, NE}, {100, 1, SE},
+		{0, -1, N},
+		{0, 1, S},
+		{-71, -40, NW},
+		{-71, 40, SW},
+		{71, 40, SE},
+		{71, -40, NE},
+		{-100, -1, NW},
+		{-100, 1, SW},
+		{100, -1, NE},
+		{100, 1, SE},
 		{142, -400, N}, // two lines up and a column across: still mostly north
 	}
 	for _, c := range cases {

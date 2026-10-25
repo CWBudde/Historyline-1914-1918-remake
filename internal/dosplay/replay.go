@@ -37,8 +37,10 @@ func (s *Session) Clone() (*Session, error) {
 	}
 	// A save names the profile by its tables; keep the session's own.
 	g.Profile = s.Game.Profile
-	c := &Session{Game: g, Board: s.Board, Level: s.Level, set: s.set, version: s.version, ids: maps.Clone(s.ids),
-		log: slices.Clone(s.log)}
+	c := &Session{
+		Game: g, Board: s.Board, Level: s.Level, set: s.set, version: s.version, ids: maps.Clone(s.ids),
+		log: slices.Clone(s.log),
+	}
 	for k := range s.routes {
 		c.routes[k] = slices.Clone(s.routes[k])
 	}

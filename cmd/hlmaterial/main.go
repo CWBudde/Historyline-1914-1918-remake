@@ -101,6 +101,7 @@ func main() {
 		os.Exit(1)
 	}
 }
+
 func exportMaterial(src image.Image, period image.Point, density int, band float64) (*image.NRGBA, worldmaterial.Crop, error) {
 	im, c, err := worldmaterial.Export(src, period, density)
 	if err != nil {
@@ -223,14 +224,14 @@ func run(profilePath, outDir string, strict bool) error {
 			}
 			name := fmt.Sprintf("terrain/%s/%s-summer-material-%dx.png", family, family, d)
 			dst := filepath.Join(outDir, filepath.FromSlash(name))
-			if e = os.MkdirAll(filepath.Dir(dst), 0755); e != nil {
+			if e = os.MkdirAll(filepath.Dir(dst), 0o755); e != nil {
 				return e
 			}
 			var encoded bytes.Buffer
 			if e = png.Encode(&encoded, im); e != nil {
 				return e
 			}
-			if e = os.WriteFile(dst, encoded.Bytes(), 0644); e != nil {
+			if e = os.WriteFile(dst, encoded.Bytes(), 0o644); e != nil {
 				return e
 			}
 			o := output{ID: m.ID, Pack: fmt.Sprintf("terrain-materials-%dx", d), Density: d, Path: name, SHA: fmt.Sprintf("%x", sha256.Sum256(encoded.Bytes())), Width: im.Bounds().Dx(), Height: im.Bounds().Dy(), Art: m.Art, Source: m.Source, SourceSHA: m.SHA, Crop: c}
@@ -263,7 +264,7 @@ func run(profilePath, outDir string, strict bool) error {
 	if err != nil {
 		return err
 	}
-	if err = os.WriteFile(filepath.Join(outDir, "materials.json"), append(b, '\n'), 0644); err != nil {
+	if err = os.WriteFile(filepath.Join(outDir, "materials.json"), append(b, '\n'), 0o644); err != nil {
 		return err
 	}
 	if strict {

@@ -175,8 +175,10 @@ func DrawFinale(dst *ebiten.Image, r image.Rectangle, f Finale, tick int, reduce
 		ftop, fbottom := top+shrink*(mid-top)/(bottom-top), bottom-shrink*(bottom-mid)/(bottom-top)
 		k := float32(st.Light * (1 - 0.6*math.Sin(turn)))
 		quad := [4][4]float64{ // dst x, dst y, src x, src y
-			{hinge, top, hinge, top}, {fx, ftop, free, top},
-			{fx, fbottom, free, bottom}, {hinge, bottom, hinge, bottom},
+			{hinge, top, hinge, top},
+			{fx, ftop, free, top},
+			{fx, fbottom, free, bottom},
+			{hinge, bottom, hinge, bottom},
 		}
 		var vs [4]ebiten.Vertex
 		for j, q := range quad {

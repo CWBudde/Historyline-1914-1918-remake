@@ -6,13 +6,14 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
-	"golang.org/x/image/font/opentype"
 	"image"
 	_ "image/png"
 	"io"
 	"os"
 	"path/filepath"
 	"strings"
+
+	"golang.org/x/image/font/opentype"
 )
 
 type Ref struct {
@@ -113,6 +114,7 @@ func checkJSON(raw []byte) error {
 	}
 	return nil
 }
+
 func parseInputs(base string, raw []byte) (*Inputs, error) {
 	if e := checkJSON(raw); e != nil {
 		return nil, e
@@ -274,6 +276,7 @@ func manifestFields(raw []byte) error {
 	}
 	return nil
 }
+
 func (in *Inputs) item(key string) Input {
 	for _, i := range in.Items {
 		if i.Key == key {

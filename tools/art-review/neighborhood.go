@@ -87,8 +87,10 @@ type neighborhoodReport struct {
 	Replacements []neighborhoodReplacementProvenance `json:"replacement_provenance,omitempty"`
 }
 
-var neighborhoodName = regexp.MustCompile(`^[A-Za-z0-9_-]{1,64}$`)
-var neighborhoodResource = regexp.MustCompile(`^[A-Za-z0-9_-]{1,8}$`)
+var (
+	neighborhoodName     = regexp.MustCompile(`^[A-Za-z0-9_-]{1,64}$`)
+	neighborhoodResource = regexp.MustCompile(`^[A-Za-z0-9_-]{1,8}$`)
+)
 
 func runNeighborhood(configPath, out string, log io.Writer) error {
 	report := neighborhoodReport{Inputs: map[string]string{}, Metric: "For each center-neighbor contact, count 4-connected visible pixel pairs owned by the two cells. Mean absolute straight RGB jump / (3*255), original and mixed separately; null for no contact. Exposed outer edges are excluded.", Advisory: "Advisory measurements only; not a seam approval, acceptance score or proof of artistic fidelity. Original tiles keep their orientation and integer world placement. Mixed patches replace every matching resource among the seven selected cells; remaining cells are nearest-enlarged originals."}
@@ -328,12 +330,12 @@ func runNeighborhood(configPath, out string, log io.Writer) error {
 	} else if !errors.Is(err, os.ErrNotExist) {
 		return err
 	}
-	if err := os.MkdirAll(out, 0755); err != nil {
+	if err := os.MkdirAll(out, 0o755); err != nil {
 		return err
 	}
 	for _, scene := range report.Scenes {
 		dir := filepath.Join(out, scene.ID)
-		if err := os.Mkdir(dir, 0755); err != nil {
+		if err := os.Mkdir(dir, 0o755); err != nil {
 			return err
 		}
 		for name, img := range scene.Images {

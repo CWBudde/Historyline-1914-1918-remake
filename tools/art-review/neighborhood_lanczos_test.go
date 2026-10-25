@@ -238,7 +238,7 @@ func rewriteNeighborhoodReplacement(t *testing.T, config string, edit func(map[s
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err := os.WriteFile(config, data, 0600); err != nil {
+	if err := os.WriteFile(config, data, 0o600); err != nil {
 		t.Fatal(err)
 	}
 }

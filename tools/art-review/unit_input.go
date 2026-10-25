@@ -48,6 +48,7 @@ func unitObject(raw json.RawMessage, names ...string) (map[string]json.RawMessag
 	}
 	return obj, nil
 }
+
 func decodeUnitManifest(b []byte, m *unitManifest) error {
 	if err := decodeConnectionJSON(b, m); err != nil {
 		return err
@@ -114,6 +115,7 @@ func decodeUnitManifest(b []byte, m *unitManifest) error {
 	}
 	return nil
 }
+
 func unitDecodePNG(b []byte) (*image.NRGBA, error) {
 	im, err := png.Decode(bytes.NewReader(b))
 	if err != nil {
@@ -123,6 +125,7 @@ func unitDecodePNG(b []byte) (*image.NRGBA, error) {
 	draw.Draw(out, out.Bounds(), im, im.Bounds().Min, draw.Src)
 	return out, nil
 }
+
 func unitValidateAtlas(im *image.NRGBA) error {
 	w, h := im.Bounds().Dx(), im.Bounds().Dy()
 	cell := w / 2
@@ -158,6 +161,7 @@ func unitValidateAtlas(im *image.NRGBA) error {
 	}
 	return nil
 }
+
 func unitValidateGround(im *image.NRGBA, density int) error {
 	if im.Bounds() != image.Rect(0, 0, 96*density, 80*density) {
 		return errors.New("unit ground dimensions must match 96x80 at the pinned density")
@@ -174,6 +178,7 @@ func unitValidateGround(im *image.NRGBA, density int) error {
 	}
 	return nil
 }
+
 func loadUnitInputs(path string) (unitInputs, error) {
 	in := unitInputs{Grounds: map[string]map[int]compoundSource{}}
 	var err error

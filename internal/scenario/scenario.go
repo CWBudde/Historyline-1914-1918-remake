@@ -397,8 +397,10 @@ func (f *File) Level(m Mode) (*level.Level, error) {
 	if s.Code != "" {
 		name = s.Code
 	}
-	lv := &level.Level{MapName: name, Player: m.Human().String(), Lines: make([][]level.Hex, len(f.Map)),
-		Extra: &level.Extra{Credits: map[hexgrid.Coord]int{}, Builds: slices.Clone(s.Builds), Backdrop: f.Backdrop}}
+	lv := &level.Level{
+		MapName: name, Player: m.Human().String(), Lines: make([][]level.Hex, len(f.Map)),
+		Extra: &level.Extra{Credits: map[hexgrid.Coord]int{}, Builds: slices.Clone(s.Builds), Backdrop: f.Backdrop},
+	}
 	for i, line := range f.Map {
 		lv.Lines[i] = make([]level.Hex, len(line))
 		for col, h := range line {

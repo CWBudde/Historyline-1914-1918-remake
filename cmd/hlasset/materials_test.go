@@ -20,9 +20,11 @@ func materialIndex(t *testing.T) []indexEntry {
 func withMaterials(es []indexEntry) []indexEntry {
 	for _, d := range []int{2, 4} {
 		for _, id := range []string{"material/grass/summer", "material/hills/summer"} {
-			es = append(es, indexEntry{ID: id, Pack: fmt.Sprintf("terrain-materials-%dx", d), Density: d,
+			es = append(es, indexEntry{
+				ID: id, Pack: fmt.Sprintf("terrain-materials-%dx", d), Density: d,
 				Path: fmt.Sprintf("%s-%dx.png", id, d), SHA256: strings.Repeat("0", 64), Width: 568 * d, Height: 400 * d,
-				Anchor: &[2]float64{0, 0}, Layer: "ground"})
+				Anchor: &[2]float64{0, 0}, Layer: "ground",
+			})
 		}
 	}
 	return es

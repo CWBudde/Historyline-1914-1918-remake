@@ -156,10 +156,10 @@ func runPortrait(path, out string, log io.Writer) (resultErr error) {
 	if err != nil {
 		return err
 	}
-	if err = os.MkdirAll(filepath.Dir(out), 0755); err != nil {
+	if err = os.MkdirAll(filepath.Dir(out), 0o755); err != nil {
 		return err
 	}
-	if err = os.Mkdir(out, 0755); err != nil {
+	if err = os.Mkdir(out, 0o755); err != nil {
 		return err
 	}
 	owned, err := os.Lstat(out)

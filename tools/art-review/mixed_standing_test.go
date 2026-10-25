@@ -25,7 +25,7 @@ func standingMixedFixture(t *testing.T) mixedInputs {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err = os.WriteFile(path, b, 0644); err != nil {
+	if err = os.WriteFile(path, b, 0o644); err != nil {
 		t.Fatal(err)
 	}
 	in, err := loadMixedInputs(path)

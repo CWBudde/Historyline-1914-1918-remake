@@ -67,6 +67,7 @@ func TestStrictInputsAndCLI(t *testing.T) {
 		})
 	}
 }
+
 func TestBundleDeterministicAndSafe(t *testing.T) {
 	in, err := loadInputs("../../art/pipeline/unit-panel-v1.json")
 	if err != nil {
@@ -151,6 +152,7 @@ func TestBundleDeterministicAndSafe(t *testing.T) {
 		t.Fatal("failed output remains")
 	}
 }
+
 func TestUnicodeFitAndVectorGrammar(t *testing.T) {
 	in, err := loadInputs("../../art/pipeline/unit-panel-v1.json")
 	if err != nil {
@@ -204,7 +206,7 @@ func TestUnicodeFitAndVectorGrammar(t *testing.T) {
 func TestRollbackKeepsReplacement(t *testing.T) {
 	root := t.TempDir()
 	out := filepath.Join(root, "out")
-	if e := os.Mkdir(out, 0755); e != nil {
+	if e := os.Mkdir(out, 0o755); e != nil {
 		t.Fatal(e)
 	}
 	owned, e := os.Lstat(out)
@@ -214,11 +216,11 @@ func TestRollbackKeepsReplacement(t *testing.T) {
 	if e = os.Rename(out, filepath.Join(root, "old")); e != nil {
 		t.Fatal(e)
 	}
-	if e = os.Mkdir(out, 0755); e != nil {
+	if e = os.Mkdir(out, 0o755); e != nil {
 		t.Fatal(e)
 	}
 	sentinel := filepath.Join(out, "keep")
-	if e = os.WriteFile(sentinel, []byte("replacement"), 0644); e != nil {
+	if e = os.WriteFile(sentinel, []byte("replacement"), 0o644); e != nil {
 		t.Fatal(e)
 	}
 	cleanupOwned(out, owned)
@@ -250,10 +252,10 @@ func TestWrongDimensionsFontsAndSymlink(t *testing.T) {
 	root := t.TempDir()
 	for _, i := range in.Items {
 		p := filepath.Join(root, i.Source)
-		if e = os.MkdirAll(filepath.Dir(p), 0755); e != nil {
+		if e = os.MkdirAll(filepath.Dir(p), 0o755); e != nil {
 			t.Fatal(e)
 		}
-		if e = os.WriteFile(p, i.Bytes, 0644); e != nil {
+		if e = os.WriteFile(p, i.Bytes, 0o644); e != nil {
 			t.Fatal(e)
 		}
 	}
@@ -278,13 +280,13 @@ func TestWrongDimensionsFontsAndSymlink(t *testing.T) {
 			p := filepath.Join(root, r.Source)
 			if tc.link {
 				outside := filepath.Join(t.TempDir(), "outside")
-				if e := os.WriteFile(outside, tc.content, 0644); e != nil {
+				if e := os.WriteFile(outside, tc.content, 0o644); e != nil {
 					t.Fatal(e)
 				}
 				if e := os.Symlink(outside, p); e != nil {
 					t.Fatal(e)
 				}
-			} else if e := os.WriteFile(p, tc.content, 0644); e != nil {
+			} else if e := os.WriteFile(p, tc.content, 0o644); e != nil {
 				t.Fatal(e)
 			}
 			raw, e := json.Marshal(m)
@@ -305,7 +307,7 @@ func TestWrongDimensionsFontsAndSymlink(t *testing.T) {
 		t.Fatal(e)
 	}
 	// Later source path mutation must not affect snapshots, pins, or renders.
-	if e = os.WriteFile(filepath.Join(root, in.Items[0].Source), []byte("changed after load"), 0644); e != nil {
+	if e = os.WriteFile(filepath.Join(root, in.Items[0].Source), []byte("changed after load"), 0o644); e != nil {
 		t.Fatal(e)
 	}
 	out := filepath.Join(t.TempDir(), "bundle")

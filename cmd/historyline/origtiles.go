@@ -1,11 +1,10 @@
 package main
 
 import (
-	"github.com/hajimehoshi/ebiten/v2"
-
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 // origArt is the original game's map art: the terrain tiles, summer and

@@ -16,10 +16,12 @@ func TestUnitInfoLayout(t *testing.T) {
 			}
 			checkInside(t, c.panel, map[string]image.Rectangle{"plate": l.Plate})
 			checkInside(t, l.Plate, map[string]image.Rectangle{
-				"photo well": l.PhotoWell, "hex": l.Hex, "name": l.Name, "stats": l.Stats})
+				"photo well": l.PhotoWell, "hex": l.Hex, "name": l.Name, "stats": l.Stats,
+			})
 			checkInside(t, l.PhotoWell, map[string]image.Rectangle{"photo": l.Photo})
 			checkDisjoint(t, map[string]image.Rectangle{
-				"photo well": l.PhotoWell, "hex": l.Hex, "name": l.Name, "stats": l.Stats})
+				"photo well": l.PhotoWell, "hex": l.Hex, "name": l.Name, "stats": l.Stats,
+			})
 			// The photo keeps the reference's 100×84.
 			if a := float64(l.Photo.Dx()) / float64(l.Photo.Dy()); math.Abs(a-100.0/84) > 0.06 {
 				t.Errorf("photo %v has aspect %.3f", l.Photo, a)
@@ -52,7 +54,8 @@ func TestContentsLayout(t *testing.T) {
 			}
 			checkInside(t, c.panel, map[string]image.Rectangle{"plate": l.Plate})
 			plates := map[string]image.Rectangle{
-				"photo well": l.PhotoWell, "info": l.Info, "name": l.Name, "details": l.Details}
+				"photo well": l.PhotoWell, "info": l.Info, "name": l.Name, "details": l.Details,
+			}
 			checkInside(t, l.Plate, plates)
 			checkInside(t, l.PhotoWell, map[string]image.Rectangle{"photo": l.Photo})
 			checkDisjoint(t, plates)

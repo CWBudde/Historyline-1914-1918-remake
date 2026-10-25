@@ -47,6 +47,7 @@ func materialFS(t *testing.T) (fstest.MapFS, []Entry) {
 	}
 	return files, entries
 }
+
 func indexedMaterialFS(t *testing.T, files fstest.MapFS, entries []Entry) fstest.MapFS {
 	t.Helper()
 	out := fstest.MapFS{}
@@ -63,6 +64,7 @@ func indexedMaterialFS(t *testing.T, files fstest.MapFS, entries []Entry) fstest
 	out["index.json"] = &fstest.MapFile{Data: b}
 	return out
 }
+
 func TestMaterialIndexValidation(t *testing.T) {
 	files, entries := materialFS(t)
 	for _, tt := range []struct {
@@ -89,6 +91,7 @@ func TestMaterialIndexValidation(t *testing.T) {
 		})
 	}
 }
+
 func TestMaterialDrawUsesGlobalOriginAndMask(t *testing.T) {
 	files, entries := materialFS(t)
 	r, err := New(indexedMaterialFS(t, files, entries))

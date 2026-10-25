@@ -18,9 +18,11 @@ import (
 	"sort"
 )
 
-const unitProfile = "unit-infantry-v1: six authored square panels row-major N,NW,SW,S,SE,NE; class family lookup CP_infantry and EC_infantry independently selects owner cp/ec/neutral. " + unitAlgorithmProfile
-const unitAlgorithmProfile = "Source straight RGB V=max(R,G,B); q=max(0,(min(R,B)-G)/max(1,V)); t=clamp((q-.02)/.08); k=t^3*(6*t^2-15*t+10); K=k*V; N_c=(1-k)*source_c+K. Round N/K half up before filtering; alpha-zero clears RGB. Base=(N_R,N_G,N_B,A), tint-energy mask=(K,K,K,A), never binary coverage. Whole-panel pixel-edge affine source anchor=(cell/2,49*cell/96), logical anchor=(48,49), top-left offset=(0,-9), inset=manifest framing_inset or default .8, fixed across the entire atlas. 4x destination=(192,196)+(inset*384/cell)*(source-source_anchor); destination centers map to (d+.5-offset)/scale-.5; offset=(192*(1-inset),196*(1-inset)), default (38.4,39.2). Unchanged compound tap budget <=4,000,000 conservative full-support axis taps, checked before allocation. Transparent zero extension, normalized premultiplied float64 separable antialiased Lanczos3, signed lobes retained, positive raw alpha unpremultiply, half-up clamped RGB/A, zero-alpha clear. Independently whole-alpha-aware Lanczos3 reduce base/mask 384->192. At each density tint=halfup(clamp(N_c+K*(palette_c/255-1),0,255)), same alpha. Spent after tint is (R,R,R,A). 2x coloured sprites are composed after plane reduction, not claimed identical to downsampled coloured 4x sprites. Default six-world-pixel zero-RGBA guard; explicit framing_inset uses an alpha>=8 guard with unchanged lower-alpha fringe counts, not a strict-zero pass. No threshold/background removal, bounding-box crops, mirrors, rotation, per-frame scaling, unit hex clipping or light rotation. Seven-cell fixtures use decoded pinned ground PNGs first and decoded exported sprite PNGs next, stable world y/x order, ordinary image/draw Over."
-const unitAcceptance = "PROVISIONAL infantry family candidate; no runtime installation or gameplay/whole-map acceptance. Blender comparison gate OPEN: this authored pilot does not choose a whole-unit-set method. Exact physical boot pivot and native Amiga A-F facing mapping remain unverified. Other units, portraits, zoom and runtime facing integration remain OPEN. Technical key atlas is not finished faction art. Negative-lobed filtering may produce K>min(N); final tint clamps RGB. Small residual cloth hue fringes can remain; no zero-residual-magenta or automated anatomy/count acceptance claim."
+const (
+	unitProfile          = "unit-infantry-v1: six authored square panels row-major N,NW,SW,S,SE,NE; class family lookup CP_infantry and EC_infantry independently selects owner cp/ec/neutral. " + unitAlgorithmProfile
+	unitAlgorithmProfile = "Source straight RGB V=max(R,G,B); q=max(0,(min(R,B)-G)/max(1,V)); t=clamp((q-.02)/.08); k=t^3*(6*t^2-15*t+10); K=k*V; N_c=(1-k)*source_c+K. Round N/K half up before filtering; alpha-zero clears RGB. Base=(N_R,N_G,N_B,A), tint-energy mask=(K,K,K,A), never binary coverage. Whole-panel pixel-edge affine source anchor=(cell/2,49*cell/96), logical anchor=(48,49), top-left offset=(0,-9), inset=manifest framing_inset or default .8, fixed across the entire atlas. 4x destination=(192,196)+(inset*384/cell)*(source-source_anchor); destination centers map to (d+.5-offset)/scale-.5; offset=(192*(1-inset),196*(1-inset)), default (38.4,39.2). Unchanged compound tap budget <=4,000,000 conservative full-support axis taps, checked before allocation. Transparent zero extension, normalized premultiplied float64 separable antialiased Lanczos3, signed lobes retained, positive raw alpha unpremultiply, half-up clamped RGB/A, zero-alpha clear. Independently whole-alpha-aware Lanczos3 reduce base/mask 384->192. At each density tint=halfup(clamp(N_c+K*(palette_c/255-1),0,255)), same alpha. Spent after tint is (R,R,R,A). 2x coloured sprites are composed after plane reduction, not claimed identical to downsampled coloured 4x sprites. Default six-world-pixel zero-RGBA guard; explicit framing_inset uses an alpha>=8 guard with unchanged lower-alpha fringe counts, not a strict-zero pass. No threshold/background removal, bounding-box crops, mirrors, rotation, per-frame scaling, unit hex clipping or light rotation. Seven-cell fixtures use decoded pinned ground PNGs first and decoded exported sprite PNGs next, stable world y/x order, ordinary image/draw Over."
+	unitAcceptance       = "PROVISIONAL infantry family candidate; no runtime installation or gameplay/whole-map acceptance. Blender comparison gate OPEN: this authored pilot does not choose a whole-unit-set method. Exact physical boot pivot and native Amiga A-F facing mapping remain unverified. Other units, portraits, zoom and runtime facing integration remain OPEN. Technical key atlas is not finished faction art. Negative-lobed filtering may produce K>min(N); final tint clamps RGB. Small residual cloth hue fringes can remain; no zero-residual-magenta or automated anatomy/count acceptance claim."
+)
 
 var unitFaces = []string{"n", "nw", "sw", "s", "se", "ne"}
 
@@ -134,13 +136,16 @@ func (b *unitBundle) addPNG(name string, im *image.NRGBA) (packOutput, error) {
 	b.artifacts = append(b.artifacts, connectionArtifact{name, data.Bytes()})
 	return out, nil
 }
+
 func (b *unitBundle) retain(name string, src compoundSource) connectionMaterialReport {
 	b.artifacts = append(b.artifacts, connectionArtifact{name, src.Bytes})
 	return connectionMaterialReport{src.Ref, dimensions{src.Image.Bounds().Dx(), src.Image.Bounds().Dy()}, name}
 }
+
 func unitSpriteName(family, palette, face, state string, density int) string {
 	return fmt.Sprintf("sprites/%s/%s/%s-%s-%dx.png", family, palette, face, state, density)
 }
+
 func buildUnitBundle(in unitInputs) (unitBundle, error) {
 	b := unitBundle{pixels: map[string]*image.NRGBA{}, outputs: map[string]packOutput{}}
 	family, err := lookupUnitFamily(in.Manifest.Family)
@@ -259,6 +264,7 @@ func buildUnitBundle(in unitInputs) (unitBundle, error) {
 	b.artifacts = append(b.artifacts, connectionArtifact{"index.html", gallery.Bytes()})
 	return b, nil
 }
+
 func (b *unitBundle) buildSheets() error {
 	for _, bg := range []string{"white", "checker"} {
 		for _, d := range []int{2, 4} {
@@ -293,6 +299,7 @@ func (b *unitBundle) buildSheets() error {
 	}
 	return nil
 }
+
 func (b *unitBundle) buildScenes(in unitInputs) error {
 	g := sharedConnectionGeometry()
 	// Unbound catalogue families still get every visual fixture. Empty class
@@ -374,6 +381,7 @@ func (b *unitBundle) buildScenes(in unitInputs) error {
 	}
 	return nil
 }
+
 func runUnit(path, out string, log io.Writer) (resultErr error) {
 	if _, err := os.Lstat(out); !errors.Is(err, os.ErrNotExist) {
 		if err == nil {
@@ -389,10 +397,10 @@ func runUnit(path, out string, log io.Writer) (resultErr error) {
 	if err != nil {
 		return err
 	}
-	if err = os.MkdirAll(filepath.Dir(out), 0755); err != nil {
+	if err = os.MkdirAll(filepath.Dir(out), 0o755); err != nil {
 		return err
 	}
-	if err = os.Mkdir(out, 0755); err != nil {
+	if err = os.Mkdir(out, 0o755); err != nil {
 		return err
 	}
 	owned, err := os.Lstat(out)
@@ -414,7 +422,7 @@ func runUnit(path, out string, log io.Writer) (resultErr error) {
 	}()
 	for _, a := range bundle.artifacts {
 		dest := filepath.Join(out, a.name)
-		if err = os.MkdirAll(filepath.Dir(dest), 0755); err != nil {
+		if err = os.MkdirAll(filepath.Dir(dest), 0o755); err != nil {
 			return err
 		}
 		if err = saveExclusive(dest, func(w io.Writer) error { _, e := w.Write(a.data); return e }); err != nil {

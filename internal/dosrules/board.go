@@ -36,9 +36,11 @@ type Live struct {
 
 // DecodeLive reads a live record.
 func DecodeLive(b []byte) Live {
-	u := Live{Budget: int(b[0]), Exp: int(b[1]), Size: int(b[2]), Alt: int(b[3]),
+	u := Live{
+		Budget: int(b[0]), Exp: int(b[1]), Size: int(b[2]), Alt: int(b[3]),
 		Flags4: word(b, 4), Flags6: word(b, 6), Type: int(b[8]), Serial: int(b[9]), Hold: int(b[0x0A]),
-		Target: word(b, 0x11)}
+		Target: word(b, 0x11),
+	}
 	for k := range 2 {
 		u.Pos[k], u.Facing[k] = word(b, 0x0B+2*k), int(b[0x0F+k])
 	}
@@ -170,9 +172,11 @@ func (p Profile) moveTables() (*MoveTables, error) {
 }
 
 func movedOf(g *Movement, r StepRun) Moved {
-	m := Moved{Refused: r.Order&1 == 0 || r.Start&1 == 0, TwoCell: r.Order&8 != 0,
+	m := Moved{
+		Refused: r.Order&1 == 0 || r.Start&1 == 0, TwoCell: r.Order&8 != 0,
 		Route: append([]int{}, r.Cells...), Messages: messages(r.Messages), Units: lives(r.Live),
-		Holds: changed(HoldBytes(g), r.Holds)}
+		Holds: changed(HoldBytes(g), r.Holds),
+	}
 	for k := range 2 {
 		m.Occupants[k] = occupants(r.Maps[k])
 	}
@@ -268,8 +272,10 @@ func (p Profile) ChangePhase(g *PhaseChange) (Phased, error) {
 	if err != nil {
 		return Phased{}, err
 	}
-	out := Phased{Units: map[int]Live{}, Holds: changed(ContainerRecords(g.Holds), r.Holds),
-		Count: r.Count, Messages: messages(r.Messages)}
+	out := Phased{
+		Units: map[int]Live{}, Holds: changed(ContainerRecords(g.Holds), r.Holds),
+		Count: r.Count, Messages: messages(r.Messages),
+	}
 	for i := range g.Units {
 		out.Units[i] = DecodeLive(r.Live[i])
 	}

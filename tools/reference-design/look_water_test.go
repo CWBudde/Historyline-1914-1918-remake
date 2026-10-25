@@ -159,7 +159,7 @@ func TestWaterLoaderPinsGeometryAndWritesVerifiedPreview(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		if err := os.WriteFile(path, raw, 0644); err != nil {
+		if err := os.WriteFile(path, raw, 0o644); err != nil {
 			t.Fatal(err)
 		}
 	}
@@ -191,7 +191,7 @@ func TestWaterLoaderPinsGeometryAndWritesVerifiedPreview(t *testing.T) {
 				bad.RegistrationSHA256 = "stale"
 			}
 			raw, _ := json.Marshal(bad)
-			if err := os.WriteFile(path, raw, 0644); err != nil {
+			if err := os.WriteFile(path, raw, 0o644); err != nil {
 				t.Fatal(err)
 			}
 			got, err := p.measureWater("render", im, "")
@@ -225,7 +225,7 @@ func TestWaterLoaderRejectsTrailingData(t *testing.T) {
 	raw, _ := json.Marshal(a)
 	path := filepath.Join(filepath.Dir(p.targetsPath), "water_annotations.json")
 	for _, tail := range []string{" unexpected", " {}"} {
-		if err := os.WriteFile(path, append(append([]byte{}, raw...), []byte(tail)...), 0644); err != nil {
+		if err := os.WriteFile(path, append(append([]byte{}, raw...), []byte(tail)...), 0o644); err != nil {
 			t.Fatal(err)
 		}
 		if _, err := p.measureWater("render", im, ""); err == nil {

@@ -11,9 +11,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	xdraw "golang.org/x/image/draw"
-
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	xdraw "golang.org/x/image/draw"
 )
 
 //go:embed page.html

@@ -127,7 +127,7 @@ func TestRetainedContextSupplementFamilies(t *testing.T) {
 				descriptor, key = c.descriptor(), c.key()
 			}
 			bundle := filepath.Join(t.TempDir(), "bundle")
-			if e := os.Mkdir(bundle, 0755); e != nil {
+			if e := os.Mkdir(bundle, 0o755); e != nil {
 				t.Fatal(e)
 			}
 			input := groundTestRead(t, manifest)

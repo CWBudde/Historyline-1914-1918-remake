@@ -69,6 +69,7 @@ func decodeForestManifest(data []byte, m *forestManifest) error {
 	}
 	return nil
 }
+
 func validateForestAtlas(im *image.NRGBA) error {
 	n := im.Bounds().Dx()
 	if n != im.Bounds().Dy() || n < 512 || n > 4096 || n%2 != 0 {
@@ -99,6 +100,7 @@ func validateForestAtlas(im *image.NRGBA) error {
 	}
 	return nil
 }
+
 func loadForestInputs(path string) (forestInputs, error) {
 	in := forestInputs{Grounds: map[string]compoundSource{}, Atlases: map[string]compoundSource{}}
 	var err error

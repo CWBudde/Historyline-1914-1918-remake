@@ -103,8 +103,10 @@ func gateLosses(t *testing.T, battles []recorded) {
 // opponent of a side that lost strength gains 1 unless that side's live +6
 // word has bit 0x20, 1 more when it was destroyed, capped at 6.
 func gateExperience(t *testing.T, battles []recorded) {
-	seen := map[string]int{"attacker gain": 0, "defender gain": 0, "gain 1 (loss)": 0,
-		"gain 2 (kill)": 0, "no award bit": 0, "cap at 6": 0}
+	seen := map[string]int{
+		"attacker gain": 0, "defender gain": 0, "gain 1 (loss)": 0,
+		"gain 2 (kill)": 0, "no award bit": 0, "cap at 6": 0,
+	}
 	for _, r := range battles {
 		beforeA, afterA, beforeD, afterD := r.strengths()
 		gain := func(lost, dead bool, flags6 int) int {

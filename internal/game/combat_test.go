@@ -32,7 +32,6 @@ func TestOneActionPerTurn(t *testing.T) {
 	if _, err := s.Move(at(4, 2), a, at(2, 2)); err == nil {
 		t.Error("move after an attack succeeded")
 	}
-
 }
 
 func TestAmmoPerShot(t *testing.T) {
@@ -65,7 +64,6 @@ func TestAmmoPerShot(t *testing.T) {
 	if got := s2.Targets(at(4, 2)); len(got) != 0 {
 		t.Errorf("empty artillery Targets = %v", got)
 	}
-
 }
 
 func TestTargetFlags(t *testing.T) {

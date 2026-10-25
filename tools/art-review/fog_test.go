@@ -56,10 +56,11 @@ type fogTestReport struct {
 
 func fogTestWrite(t *testing.T, path string, data []byte) {
 	t.Helper()
-	if err := os.WriteFile(path, data, 0600); err != nil {
+	if err := os.WriteFile(path, data, 0o600); err != nil {
 		t.Fatal(err)
 	}
 }
+
 func fogTestJSON(t *testing.T, path string, v any) {
 	t.Helper()
 	b, err := json.Marshal(v)
@@ -68,6 +69,7 @@ func fogTestJSON(t *testing.T, path string, v any) {
 	}
 	fogTestWrite(t, path, b)
 }
+
 func fogTestPNG(t *testing.T, path string, im image.Image) connectionMaterial {
 	t.Helper()
 	var b bytes.Buffer
@@ -78,6 +80,7 @@ func fogTestPNG(t *testing.T, path string, im image.Image) connectionMaterial {
 	sum := sha256.Sum256(b.Bytes())
 	return connectionMaterial{filepath.Base(path), hex.EncodeToString(sum[:])}
 }
+
 func fogTestFixture(t *testing.T) (string, map[string]any) {
 	t.Helper()
 	dir := t.TempDir()
@@ -113,10 +116,12 @@ func TestFogCLIActualBundle(t *testing.T) {
 	if err = json.Unmarshal(data, &report); err != nil {
 		t.Fatal(err)
 	}
-	wantGeometry := connectionGeometry{96, 80,
+	wantGeometry := connectionGeometry{
+		96, 80,
 		[]connectionPoint{{25, 0}, {71, 0}, {96, 40}, {71, 80}, {25, 80}, {0, 40}},
 		[]connectionPoint{{71, -40}, {71, 40}, {0, 80}, {-71, 40}, {-71, -40}, {0, -80}},
-		[]connectionPoint{{83.5, 20}, {83.5, 60}, {48, 80}, {12.5, 60}, {12.5, 20}, {48, 0}}}
+		[]connectionPoint{{83.5, 20}, {83.5, 60}, {48, 80}, {12.5, 60}, {12.5, 20}, {48, 0}},
+	}
 	if report.SchemaVersion != 1 || !reflect.DeepEqual(report.Geometry, wantGeometry) {
 		t.Fatalf("geometry/version: %+v", report)
 	}
@@ -263,6 +268,7 @@ func fogTestSnapshot(t *testing.T, out, path string, want []byte, hash string) {
 		t.Fatalf("snapshot mismatch: %s", path)
 	}
 }
+
 func fogTestLoad(t *testing.T, out, path string) *image.NRGBA {
 	t.Helper()
 	im, err := loadPNG(filepath.Join(out, path))
@@ -271,6 +277,7 @@ func fogTestLoad(t *testing.T, out, path string) *image.NRGBA {
 	}
 	return im
 }
+
 func fogTestSceneContract(t *testing.T, scene fogTestScene, caseName string, parity int) {
 	t.Helper()
 	// Runtime formula x=142*col+71*(line mod 2), y=40*line, col=0.
@@ -308,6 +315,7 @@ func fogTestSceneContract(t *testing.T, scene fogTestScene, caseName string, par
 		}
 	}
 }
+
 func fogTestScenePixels(t *testing.T, out string, scene fogTestScene, density int) {
 	t.Helper()
 	name := fmt.Sprintf("scenes/%s-%dx.png", scene.ID, density)
@@ -358,6 +366,7 @@ func fogTestOwned(x, y, density int) bool {
 	xx, yy, d := 2*x+1, 2*y+1, 2*density
 	return yy >= 0 && yy < 80*d && 40*xx+25*yy >= 1000*d && 40*xx-25*yy < 2840*d && 40*xx+25*yy < 4840*d && 40*xx-25*yy >= -1000*d
 }
+
 func fogTestOwnershipAndConcealment(t *testing.T, fog *image.NRGBA, density int) {
 	t.Helper()
 	if fog.Bounds() != image.Rect(0, 0, 96*density, 80*density) {
@@ -610,7 +619,7 @@ func TestFogSourcesAndFreshOutput(t *testing.T) {
 		{"original-link", filepath.Join(filepath.Dir(path), "original", "hidden.png")},
 	} {
 		if tc.name == "original-link" {
-			if err = os.Mkdir(filepath.Dir(tc.target), 0700); err != nil {
+			if err = os.Mkdir(filepath.Dir(tc.target), 0o700); err != nil {
 				t.Fatal(err)
 			}
 			fogTestWrite(t, tc.target, contents)
@@ -628,7 +637,7 @@ func TestFogSourcesAndFreshOutput(t *testing.T) {
 	materials["unseen"] = originalRef
 	fogTestJSON(t, path, m)
 	existing := filepath.Join(filepath.Dir(path), "existing")
-	if err = os.Mkdir(existing, 0700); err != nil {
+	if err = os.Mkdir(existing, 0o700); err != nil {
 		t.Fatal(err)
 	}
 	fogTestWrite(t, filepath.Join(existing, "sentinel"), []byte("preserve"))

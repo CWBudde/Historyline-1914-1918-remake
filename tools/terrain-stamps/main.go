@@ -156,10 +156,10 @@ func run(args []string, log io.Writer) (resultErr error) {
 		return err
 	}
 	outputs = append(outputs, output{"report.json", append(report, '\n')})
-	if err = os.MkdirAll(filepath.Dir(*out), 0755); err != nil {
+	if err = os.MkdirAll(filepath.Dir(*out), 0o755); err != nil {
 		return err
 	}
-	if err = os.Mkdir(*out, 0755); err != nil {
+	if err = os.Mkdir(*out, 0o755); err != nil {
 		return err
 	}
 	defer func() {
@@ -169,10 +169,10 @@ func run(args []string, log io.Writer) (resultErr error) {
 	}()
 	for _, o := range outputs {
 		p := filepath.Join(*out, filepath.FromSlash(o.path))
-		if err = os.MkdirAll(filepath.Dir(p), 0755); err != nil {
+		if err = os.MkdirAll(filepath.Dir(p), 0o755); err != nil {
 			return err
 		}
-		if err = os.WriteFile(p, o.data, 0644); err != nil {
+		if err = os.WriteFile(p, o.data, 0o644); err != nil {
 			return err
 		}
 	}
@@ -180,8 +180,10 @@ func run(args []string, log io.Writer) (resultErr error) {
 	return err
 }
 
-var stampID = regexp.MustCompile(`^(standing/)?stamp/(crater|crater_w|boulders|boulders_w|knoll|knoll_w|lake)/[0-9][0-9_.-]*/[1-8]$`)
-var standingID = regexp.MustCompile(`^standing/[A-Za-z][A-Za-z0-9_-]*$`)
+var (
+	stampID    = regexp.MustCompile(`^(standing/)?stamp/(crater|crater_w|boulders|boulders_w|knoll|knoll_w|lake)/[0-9][0-9_.-]*/[1-8]$`)
+	standingID = regexp.MustCompile(`^standing/[A-Za-z][A-Za-z0-9_-]*$`)
+)
 
 func validate(a asset) error {
 	if !stampID.MatchString(a.ID) && !standingID.MatchString(a.ID) {

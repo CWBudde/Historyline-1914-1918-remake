@@ -127,8 +127,12 @@ func Corners(c Coord) [6][2]float64 {
 	x, y := Center(c)
 	const q = HexWidth - HalfPitch // run of a slanted edge, so that neighbours share edges exactly
 	return [6][2]float64{
-		{x - centerX, y}, {x - centerX + q, y - centerY}, {x + centerX - q, y - centerY},
-		{x + centerX, y}, {x + centerX - q, y + centerY}, {x - centerX + q, y + centerY},
+		{x - centerX, y},
+		{x - centerX + q, y - centerY},
+		{x + centerX - q, y - centerY},
+		{x + centerX, y},
+		{x + centerX - q, y + centerY},
+		{x - centerX + q, y + centerY},
 	}
 }
 

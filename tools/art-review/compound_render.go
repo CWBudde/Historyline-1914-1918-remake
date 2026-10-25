@@ -116,6 +116,7 @@ func compoundBoundary(l compoundLayout) []connectionSegment {
 	}
 	return out
 }
+
 func compoundSignedDistance(l compoundLayout, edges []connectionSegment, p connectionPoint) float64 {
 	d := math.Inf(1)
 	for _, e := range edges {
@@ -131,6 +132,7 @@ func compoundSignedDistance(l compoundLayout, edges []connectionSegment, p conne
 	}
 	return -d
 }
+
 func compoundDistance(l compoundLayout, p connectionPoint) float64 {
 	return compoundSignedDistance(l, compoundBoundary(l), p)
 }

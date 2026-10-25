@@ -184,7 +184,7 @@ func TestCompoundActualPNGBundle(t *testing.T) {
 		if err := png.Encode(&b, im); err != nil {
 			t.Fatal(err)
 		}
-		if err := os.WriteFile(filepath.Join(dir, name), b.Bytes(), 0600); err != nil {
+		if err := os.WriteFile(filepath.Join(dir, name), b.Bytes(), 0o600); err != nil {
 			t.Fatal(err)
 		}
 		sum := sha256.Sum256(b.Bytes())
@@ -200,7 +200,7 @@ func TestCompoundActualPNGBundle(t *testing.T) {
 		t.Fatal(err)
 	}
 	manifest := filepath.Join(dir, "manifest.json")
-	if err = os.WriteFile(manifest, b, 0600); err != nil {
+	if err = os.WriteFile(manifest, b, 0o600); err != nil {
 		t.Fatal(err)
 	}
 	out := filepath.Join(dir, "bundle")
@@ -416,7 +416,7 @@ func compoundTestFixture(t *testing.T) (string, compoundManifest) {
 		if err := png.Encode(&b, im); err != nil {
 			t.Fatal(err)
 		}
-		if err := os.WriteFile(filepath.Join(dir, name), b.Bytes(), 0600); err != nil {
+		if err := os.WriteFile(filepath.Join(dir, name), b.Bytes(), 0o600); err != nil {
 			t.Fatal(err)
 		}
 		sum := sha256.Sum256(b.Bytes())
@@ -427,13 +427,14 @@ func compoundTestFixture(t *testing.T) (string, compoundManifest) {
 	compoundTestWriteManifest(t, path, m)
 	return path, m
 }
+
 func compoundTestWriteManifest(t *testing.T, path string, m compoundManifest) {
 	t.Helper()
 	data, err := json.Marshal(m)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err = os.WriteFile(path, data, 0600); err != nil {
+	if err = os.WriteFile(path, data, 0o600); err != nil {
 		t.Fatal(err)
 	}
 }
@@ -447,7 +448,7 @@ func TestCompoundPinnedSnapshots(t *testing.T) {
 	original := append([]byte(nil), in.Bytes...)
 	art := append([]byte(nil), in.Artwork["depot-summer"].Bytes...)
 	for _, name := range []string{"manifest.json", "art.png", "ground.png"} {
-		if err = os.WriteFile(filepath.Join(filepath.Dir(path), name), []byte("changed after pin"), 0600); err != nil {
+		if err = os.WriteFile(filepath.Join(filepath.Dir(path), name), []byte("changed after pin"), 0o600); err != nil {
 			t.Fatal(err)
 		}
 	}
@@ -509,14 +510,14 @@ func TestCompoundInputRejections(t *testing.T) {
 	compoundTestWriteManifest(t, path, base)
 	// The lexical path is innocuous; only resolution reveals the forbidden directory.
 	forbidden := filepath.Join(filepath.Dir(path), "original")
-	if err := os.Mkdir(forbidden, 0700); err != nil {
+	if err := os.Mkdir(forbidden, 0o700); err != nil {
 		t.Fatal(err)
 	}
 	art, err := os.ReadFile(filepath.Join(filepath.Dir(path), "art.png"))
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err = os.WriteFile(filepath.Join(forbidden, "art.png"), art, 0600); err != nil {
+	if err = os.WriteFile(filepath.Join(forbidden, "art.png"), art, 0o600); err != nil {
 		t.Fatal(err)
 	}
 	if err = os.Symlink("original/art.png", filepath.Join(filepath.Dir(path), "alias.png")); err != nil {
@@ -536,6 +537,7 @@ type compoundFailWriter struct{}
 func (compoundFailWriter) Write([]byte) (int, error) {
 	return 0, errors.New("intentional writer failure")
 }
+
 func TestCompoundRollbackAndOpaquePreflight(t *testing.T) {
 	path, m := compoundTestFixture(t)
 	out := filepath.Join(filepath.Dir(path), "output")
@@ -556,7 +558,7 @@ func TestCompoundRollbackAndOpaquePreflight(t *testing.T) {
 	if err := png.Encode(&b, art); err != nil {
 		t.Fatal(err)
 	}
-	if err := os.WriteFile(filepath.Join(filepath.Dir(path), "art.png"), b.Bytes(), 0600); err != nil {
+	if err := os.WriteFile(filepath.Join(filepath.Dir(path), "art.png"), b.Bytes(), 0o600); err != nil {
 		t.Fatal(err)
 	}
 	sum := sha256.Sum256(b.Bytes())

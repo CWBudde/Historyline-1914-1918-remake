@@ -13,11 +13,6 @@ import (
 	"log"
 	"strings"
 
-	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
-	"github.com/hajimehoshi/ebiten/v2/inpututil"
-	"github.com/hajimehoshi/ebiten/v2/vector"
-
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/ai"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/camera"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
@@ -33,6 +28,10 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/saves"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scores"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
+	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
+	"github.com/hajimehoshi/ebiten/v2/inpututil"
+	"github.com/hajimehoshi/ebiten/v2/vector"
 )
 
 const (
@@ -891,8 +890,10 @@ func main() {
 	if *rules != "dos" && *rules != "standard" {
 		log.Fatalf("unknown -rules %q (want dos or standard)", *rules)
 	}
-	c := matchConfig{set: set, rules: *rules, opponent: *opponent, reveal: *reveal, hexNumbers: *hexNumbers,
-		reduced: *reduced, terrain: *terrain, candidates: *candidates, scores: scores.Open(), saves: saves.Open(), levels: *dir}
+	c := matchConfig{
+		set: set, rules: *rules, opponent: *opponent, reveal: *reveal, hexNumbers: *hexNumbers,
+		reduced: *reduced, terrain: *terrain, candidates: *candidates, scores: scores.Open(), saves: saves.Open(), levels: *dir,
+	}
 	// The web page shows how much of the art has arrived until the game starts.
 	boot := &meter{fetched: pageFetched}
 	if *units != "" {

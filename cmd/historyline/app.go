@@ -9,16 +9,15 @@ import (
 	"math"
 	"strings"
 
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dospanel"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosscreen"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/saves"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"github.com/hajimehoshi/ebiten/v2/vector"
 	"golang.org/x/image/font"
 	"golang.org/x/image/font/opentype"
 	"golang.org/x/image/math/fixed"
-
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dospanel"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosscreen"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/saves"
 )
 
 // canvasW, canvasH is the logical size of every menu page.
@@ -223,10 +222,15 @@ var menuKeys = []struct {
 	key ebiten.Key
 	k   shellKey
 }{
-	{ebiten.KeyArrowUp, keyUp}, {ebiten.KeyArrowDown, keyDown},
-	{ebiten.KeyArrowLeft, keyLeft}, {ebiten.KeyArrowRight, keyRight},
-	{ebiten.KeyEnter, keyEnter}, {ebiten.KeyNumpadEnter, keyEnter}, {ebiten.KeySpace, keyEnter},
-	{ebiten.KeyEscape, keyBack}, {ebiten.KeyBackspace, keyErase},
+	{ebiten.KeyArrowUp, keyUp},
+	{ebiten.KeyArrowDown, keyDown},
+	{ebiten.KeyArrowLeft, keyLeft},
+	{ebiten.KeyArrowRight, keyRight},
+	{ebiten.KeyEnter, keyEnter},
+	{ebiten.KeyNumpadEnter, keyEnter},
+	{ebiten.KeySpace, keyEnter},
+	{ebiten.KeyEscape, keyBack},
+	{ebiten.KeyBackspace, keyErase},
 }
 
 // updateMenu feeds the keyboard and the mouse to the shell.

@@ -5,9 +5,8 @@ import (
 	"math"
 	"testing"
 
-	"github.com/hajimehoshi/ebiten/v2"
-
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 // isGunmetal is a near-black blue-grey: dark, no warm cast.

@@ -190,8 +190,10 @@ func DecodeCodes(b []byte) ([]Code, error) {
 		if p[8]&^3 != 0 {
 			return nil, fmt.Errorf("finmap: CODES.DAT record %d flags %#02x", i, p[8])
 		}
-		out[i] = Code{Password: string(pw), Raw5: int(p[5]), Players: int(p[6]), Step: int(p[7]),
-			Winter: p[8]&2 != 0, CampaignEnd: p[8]&1 != 0, Raw9: int(p[9])}
+		out[i] = Code{
+			Password: string(pw), Raw5: int(p[5]), Players: int(p[6]), Step: int(p[7]),
+			Winter: p[8]&2 != 0, CampaignEnd: p[8]&1 != 0, Raw9: int(p[9]),
+		}
 	}
 	return out, nil
 }

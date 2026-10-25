@@ -333,8 +333,10 @@ func (f *Frame) DrawBeyond(dst *ebiten.Image, open, world Rect, ui float64) {
 		// The texture follows dst's pixels, as the chrome's follows the screen's.
 		n := uint16(len(vs))
 		for _, q := range [4][2]int{{p.r.X, p.r.Y}, {p.r.Right(), p.r.Y}, {p.r.X, p.r.Bottom()}, {p.r.Right(), p.r.Bottom()}} {
-			vs = append(vs, ebiten.Vertex{DstX: float32(q[0]), DstY: float32(q[1]), SrcX: float32(q[0]), SrcY: float32(q[1]),
-				ColorR: 1, ColorG: 1, ColorB: 1, ColorA: 1})
+			vs = append(vs, ebiten.Vertex{
+				DstX: float32(q[0]), DstY: float32(q[1]), SrcX: float32(q[0]), SrcY: float32(q[1]),
+				ColorR: 1, ColorG: 1, ColorB: 1, ColorA: 1,
+			})
 		}
 		is = append(is, n, n+1, n+2, n+1, n+3, n+2)
 	}

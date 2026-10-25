@@ -103,7 +103,7 @@ func run(args []string, stdout io.Writer) error {
 		return err
 	}
 	defer func() { _ = r.Close() }()
-	if err := r.MkdirAll(*out, 0755); err != nil {
+	if err := r.MkdirAll(*out, 0o755); err != nil {
 		return err
 	}
 	w, err := r.OpenRoot(*out)
@@ -112,7 +112,7 @@ func run(args []string, stdout io.Writer) error {
 	}
 	defer func() { _ = w.Close() }()
 	c := &collector{root: r, out: w, seen: map[string]picture{}}
-	if err := w.MkdirAll("media", 0755); err != nil {
+	if err := w.MkdirAll("media", 0o755); err != nil {
 		return err
 	}
 	for _, collect := range []func() error{c.tiles, c.units, c.interfaceArt, c.screens} {
@@ -138,13 +138,13 @@ func run(args []string, stdout io.Writer) error {
 	}
 	// Marshal escapes HTML-sensitive characters, including any script end tags.
 	html := strings.Replace(page, "/*CATALOG*/null", string(data), 1)
-	if err := w.WriteFile("index.html", []byte(html), 0644); err != nil {
+	if err := w.WriteFile("index.html", []byte(html), 0o644); err != nil {
 		return err
 	}
-	if err := w.WriteFile("compose.html", []byte(strings.Replace(composePage, "/*CATALOG*/null", string(data), 1)), 0644); err != nil {
+	if err := w.WriteFile("compose.html", []byte(strings.Replace(composePage, "/*CATALOG*/null", string(data), 1)), 0o644); err != nil {
 		return err
 	}
-	if err := w.WriteFile("road-units.html", []byte(strings.Replace(roadUnitComparisonTemplate(), "/*CATALOG*/null", string(data), 1)), 0644); err != nil {
+	if err := w.WriteFile("road-units.html", []byte(strings.Replace(roadUnitComparisonTemplate(), "/*CATALOG*/null", string(data), 1)), 0o644); err != nil {
 		return err
 	}
 	if err := c.pulse(*captures); err != nil {
@@ -305,7 +305,7 @@ func (c *collector) snapshot(p, pin string, crop image.Rectangle, w, h int) (pic
 	}
 	hash := fmt.Sprintf("%x", sha256.Sum256(b))
 	dest := "media/" + hash + ".png"
-	if err = c.out.WriteFile(dest, b, 0644); err != nil {
+	if err = c.out.WriteFile(dest, b, 0o644); err != nil {
 		return picture{}, err
 	}
 	v := picture{dest, p, hash, im.Bounds().Dx(), im.Bounds().Dy(), method}
@@ -460,8 +460,10 @@ func (c *collector) tiles() error {
 		if strings.HasPrefix(name, "lakeside") && strings.Contains(name, "-outlet") {
 			note += " The reference is the base shoreline; the new outlet has no separate legacy tile."
 		}
-		c.items = append(c.items, item{ID: kind + "/" + name, Name: name, Category: "Terrain", Family: artFamily(e), Season: season, Reference: ref, Width: 96, Height: 80,
-			Note: note, Variants: []variant{{ID: "default", Label: "Current export", Images: imgs}}})
+		c.items = append(c.items, item{
+			ID: kind + "/" + name, Name: name, Category: "Terrain", Family: artFamily(e), Season: season, Reference: ref, Width: 96, Height: 80,
+			Note: note, Variants: []variant{{ID: "default", Label: "Current export", Images: imgs}},
+		})
 	}
 	return nil
 }

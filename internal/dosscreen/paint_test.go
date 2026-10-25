@@ -106,8 +106,11 @@ func TestPaintChrome(t *testing.T) {
 				x, y int
 				want color.RGBA
 			}{
-				{cx, cy, wellFill}, {cx, w.Y, wellDark}, {w.X, cy, wellDark},
-				{cx, w.Bottom() - 1, wellLight}, {w.Right() - 1, cy, wellLight},
+				{cx, cy, wellFill},
+				{cx, w.Y, wellDark},
+				{w.X, cy, wellDark},
+				{cx, w.Bottom() - 1, wellLight},
+				{w.Right() - 1, cy, wellLight},
 			} {
 				if got := img.RGBAAt(tc.x, tc.y); got != tc.want {
 					t.Errorf("ui %v: well %+v at %d,%d is %v, want %v", ui, w, tc.x, tc.y, got, tc.want)

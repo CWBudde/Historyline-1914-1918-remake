@@ -297,8 +297,14 @@ func TestVictorySelectsTheNextMap(t *testing.T) {
 	for _, c := range []struct {
 		from int
 		next string
-	}{{1, "monthly/1914-10:cp"}, {23, "monthly/1918-06:cp"}, {24, ""},
-		{25, "monthly/1914-09:ec"}, {26, "monthly/1914-10:ec"}, {49, ""}} {
+	}{
+		{1, "monthly/1914-10:cp"},
+		{23, "monthly/1918-06:cp"},
+		{24, ""},
+		{25, "monthly/1914-09:ec"},
+		{26, "monthly/1914-10:ec"},
+		{49, ""},
+	} {
 		s.code = c.from
 		s.finish(outcome{won: true})
 		want, shown := s.maps[c.from].name, ""
@@ -382,8 +388,10 @@ func TestCodeEntryPasswords(t *testing.T) {
 func TestCampaignPeriodsAndNews(t *testing.T) {
 	s := testShell(t)
 	// The original maps show their period's news, Marne its own month's.
-	for idx, want := range map[int]string{0: "August – September 1914", 1: "September 1914", 2: "October – November 1914",
-		24: "June – July 1918", 25: "August – September 1914", 26: "September 1914"} {
+	for idx, want := range map[int]string{
+		0: "August – September 1914", 1: "September 1914", 2: "October – November 1914",
+		24: "June – July 1918", 25: "August – September 1914", 26: "September 1914",
+	} {
 		if p, ok := s.maps[idx].news(); !ok || p.Label != want {
 			t.Errorf("maps[%d] (%s) news %q, want %q", idx, s.maps[idx].month, p.Label, want)
 		}

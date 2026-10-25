@@ -28,6 +28,7 @@ func connectedFixture(t *testing.T) (string, map[string]any) {
 	}
 	return dir, map[string]any{"schema_version": 1, "geometry": map[string]any{"width": 96, "height": 80, "polygon": [][2]float64{{25, 0}, {71, 0}, {96, 40}, {71, 80}, {25, 80}, {0, 40}}, "neighbors": [][2]float64{{71, -40}, {71, 40}, {0, 80}, {-71, 40}, {-71, -40}, {0, -80}}, "ports": [][2]float64{{83.5, 20}, {83.5, 60}, {48, 80}, {12.5, 60}, {12.5, 20}, {48, 0}}}, "materials": materials, "families": []any{map[string]any{"id": "road", "width": 14, "border": 2, "material": "road", "border_material": "earth", "variants": []any{map[string]any{"id": "road36", "ports": []int{3, 6}}, map[string]any{"id": "road13", "ports": []int{1, 3}}, map[string]any{"id": "road136", "ports": []int{1, 3, 6}}, map[string]any{"id": "road14", "ports": []int{1, 4}}, map[string]any{"id": "road25", "ports": []int{2, 5}}}}}}
 }
+
 func writeConnectedManifest(t *testing.T, dir string, m map[string]any) string {
 	t.Helper()
 	b, err := json.Marshal(m)
@@ -35,7 +36,7 @@ func writeConnectedManifest(t *testing.T, dir string, m map[string]any) string {
 		t.Fatal(err)
 	}
 	p := filepath.Join(dir, "connected.json")
-	if err = os.WriteFile(p, b, 0644); err != nil {
+	if err = os.WriteFile(p, b, 0o644); err != nil {
 		t.Fatal(err)
 	}
 	return p
@@ -56,7 +57,7 @@ func TestConnectedPathBuildUsesItsMaterialAndNarrowProfile(t *testing.T) {
 	if err := png.Encode(&source, im); err != nil {
 		t.Fatal(err)
 	}
-	if err := os.WriteFile(filepath.Join(dir, "path.png"), source.Bytes(), 0644); err != nil {
+	if err := os.WriteFile(filepath.Join(dir, "path.png"), source.Bytes(), 0o644); err != nil {
 		t.Fatal(err)
 	}
 	sum := sha256.Sum256(source.Bytes())
@@ -232,6 +233,7 @@ func TestConnectedRejectsInvalidManifestBeforeWriting(t *testing.T) {
 		})
 	}
 }
+
 func connectedVariant(m map[string]any) map[string]any {
 	return m["families"].([]any)[0].(map[string]any)["variants"].([]any)[0].(map[string]any)
 }
@@ -278,12 +280,12 @@ func TestConnectedRejectsSourceDimensionsAlphaAndLegacyPaths(t *testing.T) {
 			}
 			name := "input.png"
 			if kind == "original" || kind == "pilot" {
-				if err := os.Mkdir(filepath.Join(dir, kind), 0755); err != nil {
+				if err := os.Mkdir(filepath.Join(dir, kind), 0o755); err != nil {
 					t.Fatal(err)
 				}
 				name = kind + "/input.png"
 			}
-			if err := os.WriteFile(filepath.Join(dir, name), b.Bytes(), 0644); err != nil {
+			if err := os.WriteFile(filepath.Join(dir, name), b.Bytes(), 0o644); err != nil {
 				t.Fatal(err)
 			}
 			sum := sha256.Sum256(b.Bytes())
@@ -497,7 +499,7 @@ func TestConnectedRollsBackFailedOutputAndRejectsDuplicateJSON(t *testing.T) {
 		t.Fatal(err)
 	}
 	b = bytes.Replace(b, []byte(`"schema_version":1`), []byte(`"schema_version":1,"schema_version":1`), 1)
-	if err = os.WriteFile(path, b, 0644); err != nil {
+	if err = os.WriteFile(path, b, 0o644); err != nil {
 		t.Fatal(err)
 	}
 	if _, err = loadConnectionInputs(path); err == nil {
@@ -529,7 +531,7 @@ func testConnectedPNGAssembly(t *testing.T, pathProfile [2]float64) {
 			t.Fatal(err)
 		}
 		name := id + ".png"
-		if err := os.WriteFile(filepath.Join(dir, name), b.Bytes(), 0644); err != nil {
+		if err := os.WriteFile(filepath.Join(dir, name), b.Bytes(), 0o644); err != nil {
 			t.Fatal(err)
 		}
 		sum := sha256.Sum256(b.Bytes())

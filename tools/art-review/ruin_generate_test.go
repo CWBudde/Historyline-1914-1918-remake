@@ -41,7 +41,7 @@ func TestGenerateRuinTiles(t *testing.T) {
 		var e campaignEntry
 		return json.Unmarshal(raw, &e) == nil && e.Art == "terrain/ruin"
 	})
-	if err := os.MkdirAll(filepath.Join(root, "assets/terrain/ruin"), 0755); err != nil {
+	if err := os.MkdirAll(filepath.Join(root, "assets/terrain/ruin"), 0o755); err != nil {
 		t.Fatal(err)
 	}
 	for _, d := range []int{2, 4} {
@@ -53,7 +53,7 @@ func TestGenerateRuinTiles(t *testing.T) {
 					t.Fatalf("compound bundle has no %s at %dx", id, d)
 				}
 				path := fmt.Sprintf("terrain/ruin/%s-%dx.png", id, d)
-				if err := os.WriteFile(filepath.Join(root, "assets", path), data, 0644); err != nil {
+				if err := os.WriteFile(filepath.Join(root, "assets", path), data, 0o644); err != nil {
 					t.Fatal(err)
 				}
 				sum := sha256.Sum256(data)
@@ -76,7 +76,7 @@ func TestGenerateRuinTiles(t *testing.T) {
 		out.WriteByte('\n')
 	}
 	out.WriteString("  ]\n}\n")
-	if err := os.WriteFile(filepath.Join(root, "assets/index.json"), out.Bytes(), 0644); err != nil {
+	if err := os.WriteFile(filepath.Join(root, "assets/index.json"), out.Bytes(), 0o644); err != nil {
 		t.Fatal(err)
 	}
 }

@@ -172,8 +172,10 @@ func TestEnergyBuild(t *testing.T) {
 			}
 			u, h := g.Units[2], g.Holds[HoldFlag40]
 			m := moveTables(t, p).Types[cPanzer]
-			want := Live{Budget: m.Budget, Size: p.Tables.Types[cPanzer].Group, Flags4: m.Class | 0x4200,
-				Flags6: m.Flags, Type: cPanzer, Serial: 6, Hold: 0xFF, Pos: [2]int{2 * hq0, 2 * hq0}}
+			want := Live{
+				Budget: m.Budget, Size: p.Tables.Types[cPanzer].Group, Flags4: m.Class | 0x4200,
+				Flags6: m.Flags, Type: cPanzer, Serial: 6, Hold: 0xFF, Pos: [2]int{2 * hq0, 2 * hq0},
+			}
 			if u != want {
 				t.Errorf("built unit\n got %+v\nwant %+v", u, want)
 			}

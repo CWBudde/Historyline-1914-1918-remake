@@ -4,12 +4,11 @@ import (
 	"image"
 	"strings"
 
-	"github.com/hajimehoshi/ebiten/v2"
-
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dospanel"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
 	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 // The scenes of a building taken, after the original's: a depot or factory
@@ -45,8 +44,10 @@ func (d *dosControl) startCapture(ev dosplay.Event) {
 	if ok && b.HQ {
 		return
 	}
-	t := &taking{ev: ev, text: d.Message, factory: ok && b.Kind == dosplay.Factory, owner: d.s.Faction(ev.Side),
-		scene: !d.noScenes && d.art().capture}
+	t := &taking{
+		ev: ev, text: d.Message, factory: ok && b.Kind == dosplay.Factory, owner: d.s.Faction(ev.Side),
+		scene: !d.noScenes && d.art().capture,
+	}
 	t.grey = d.frames(siteGreyFrames, siteGreyReduced)
 	t.plantAt = t.grey
 	n := t.grey + d.frames(stillFrames, stillFramesReduced)
@@ -126,8 +127,10 @@ func (g *game) sceneArt() sceneArt {
 
 // captureArt is the capture scene's paintings, each nil when missing.
 func (g *game) captureArt() dospanel.CaptureArt {
-	return dospanel.CaptureArt{Depot: g.screens.image("capture/depot", 2), Factory: g.screens.image("capture/factory", 2),
-		Hand: g.screens.image("capture/hand", 2)}
+	return dospanel.CaptureArt{
+		Depot: g.screens.image("capture/depot", 2), Factory: g.screens.image("capture/factory", 2),
+		Hand: g.screens.image("capture/hand", 2),
+	}
 }
 
 // finaleArt is the finale's art, cut once per screen catalog; nil without

@@ -100,7 +100,7 @@ func mixedFixtureTracks(t *testing.T, pathProfile, railProfile [2]float64) (stri
 		}
 		sum := sha256.Sum256(b.Bytes())
 		name := id + ".png"
-		if err := os.WriteFile(filepath.Join(dir, name), b.Bytes(), 0644); err != nil {
+		if err := os.WriteFile(filepath.Join(dir, name), b.Bytes(), 0o644); err != nil {
 			t.Fatal(err)
 		}
 		mats[id] = connectionMaterial{name, hex.EncodeToString(sum[:])}
@@ -142,7 +142,7 @@ func mixedFixtureTracks(t *testing.T, pathProfile, railProfile [2]float64) (stri
 		}
 		sum := sha256.Sum256(b)
 		name := fmt.Sprintf("manifest-%d.json", i)
-		if err = os.WriteFile(filepath.Join(dir, name), b, 0644); err != nil {
+		if err = os.WriteFile(filepath.Join(dir, name), b, 0o644); err != nil {
 			t.Fatal(err)
 		}
 		manifest.Manifests = append(manifest.Manifests, connectionMaterial{name, hex.EncodeToString(sum[:])})
@@ -152,7 +152,7 @@ func mixedFixtureTracks(t *testing.T, pathProfile, railProfile [2]float64) (stri
 		t.Fatal(err)
 	}
 	path := filepath.Join(dir, "mixed.json")
-	if err = os.WriteFile(path, b, 0644); err != nil {
+	if err = os.WriteFile(path, b, 0o644); err != nil {
 		t.Fatal(err)
 	}
 	return path, manifest
@@ -175,20 +175,20 @@ func TestMixedLoadAndSchemaValidation(t *testing.T) {
 				m.Manifests[0].Source = filepath.Join(filepath.Dir(path), m.Manifests[0].Source)
 			case "original", "pilot":
 				dir := filepath.Join(filepath.Dir(path), name)
-				if err := os.Mkdir(dir, 0755); err != nil {
+				if err := os.Mkdir(dir, 0o755); err != nil {
 					t.Fatal(err)
 				}
 				data, err := os.ReadFile(filepath.Join(filepath.Dir(path), m.Manifests[0].Source))
 				if err != nil {
 					t.Fatal(err)
 				}
-				if err = os.WriteFile(filepath.Join(dir, "input.json"), data, 0644); err != nil {
+				if err = os.WriteFile(filepath.Join(dir, "input.json"), data, 0o644); err != nil {
 					t.Fatal(err)
 				}
 				m.Manifests[0].Source = name + "/input.json"
 			case "symlink-original":
 				dir := filepath.Join(filepath.Dir(path), "original")
-				if err := os.Mkdir(dir, 0755); err != nil {
+				if err := os.Mkdir(dir, 0o755); err != nil {
 					t.Fatal(err)
 				}
 				data, err := os.ReadFile(filepath.Join(filepath.Dir(path), m.Manifests[0].Source))
@@ -196,7 +196,7 @@ func TestMixedLoadAndSchemaValidation(t *testing.T) {
 					t.Fatal(err)
 				}
 				target := filepath.Join(dir, "input.json")
-				if err = os.WriteFile(target, data, 0644); err != nil {
+				if err = os.WriteFile(target, data, 0o644); err != nil {
 					t.Fatal(err)
 				}
 				if err = os.Symlink(target, filepath.Join(filepath.Dir(path), "alias.json")); err != nil {
@@ -232,7 +232,7 @@ func TestMixedLoadAndSchemaValidation(t *testing.T) {
 				if err != nil {
 					t.Fatal(err)
 				}
-				if err = os.WriteFile(p, data, 0644); err != nil {
+				if err = os.WriteFile(p, data, 0o644); err != nil {
 					t.Fatal(err)
 				}
 				sum := sha256.Sum256(data)
@@ -242,7 +242,7 @@ func TestMixedLoadAndSchemaValidation(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			if err = os.WriteFile(path, data, 0644); err != nil {
+			if err = os.WriteFile(path, data, 0o644); err != nil {
 				t.Fatal(err)
 			}
 			out := filepath.Join(filepath.Dir(path), "out")
@@ -373,7 +373,7 @@ func TestMixedRejectsIncompatibleRehashedProfile(t *testing.T) {
 				if err != nil {
 					t.Fatal(err)
 				}
-				if err = os.WriteFile(p, b, 0644); err != nil {
+				if err = os.WriteFile(p, b, 0o644); err != nil {
 					t.Fatal(err)
 				}
 				sum := sha256.Sum256(b)
@@ -383,7 +383,7 @@ func TestMixedRejectsIncompatibleRehashedProfile(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			if err = os.WriteFile(path, b, 0644); err != nil {
+			if err = os.WriteFile(path, b, 0o644); err != nil {
 				t.Fatal(err)
 			}
 			if _, err = loadMixedInputs(path); err == nil || !strings.Contains(err.Error(), "profile") {
@@ -662,7 +662,7 @@ func TestMixedLoadedImportMustMatchVerifiedSnapshot(t *testing.T) {
 	// A real, valid connected definition changes after the initial verification.
 	// Whitespace leaves behavior valid while changing exactly the retained hash.
 	changed := append(append([]byte{}, verified...), '\n')
-	if err = os.WriteFile(importPath, changed, 0644); err != nil {
+	if err = os.WriteFile(importPath, changed, 0o644); err != nil {
 		t.Fatal(err)
 	}
 	if _, err = loadPinnedMixedConnection(importPath, ref.SourceSHA256); err == nil || !strings.Contains(err.Error(), "loaded source manifest SHA256") {
@@ -684,7 +684,7 @@ func TestMixedRetainedTopManifestUsesInitialSnapshot(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err = os.WriteFile(path, []byte("changed after load"), 0644); err != nil {
+	if err = os.WriteFile(path, []byte("changed after load"), 0o644); err != nil {
 		t.Fatal(err)
 	}
 	artifact := in.retainedManifest()

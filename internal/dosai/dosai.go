@@ -151,8 +151,10 @@ func newPlan(s *dosplay.Session, side int) (*plan, error) {
 	if err != nil {
 		return nil, err
 	}
-	pl := &plan{s: s, side: side, profile: s.Game.Profile, view: s.View(side), bf: bf,
-		fields: map[int]map[hexgrid.Coord]int{}}
+	pl := &plan{
+		s: s, side: side, profile: s.Game.Profile, view: s.View(side), bf: bf,
+		fields: map[int]map[hexgrid.Coord]int{},
+	}
 	for _, c := range sorted(pl.view.Units) {
 		if pl.view.Units[c].Side == 1-side {
 			pl.enemies = append(pl.enemies, c)

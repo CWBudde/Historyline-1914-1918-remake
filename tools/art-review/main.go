@@ -443,7 +443,9 @@ func run(args []string, log io.Writer) error {
 		img  image.Image
 	}
 	outputs := []artifact{
-		{"candidate-4x.png", working4x}, {"candidate-2x.png", working2x}, {"downsample.png", native},
+		{"candidate-4x.png", working4x},
+		{"candidate-2x.png", working2x},
+		{"downsample.png", native},
 		{"comparison.png", comparison(ref, native)},
 	}
 	if rw == referenceWidth && rh == referenceHeight {
@@ -465,7 +467,7 @@ func run(args []string, log io.Writer) error {
 			return err
 		}
 	}
-	if err := os.MkdirAll(*out, 0755); err != nil {
+	if err := os.MkdirAll(*out, 0o755); err != nil {
 		return err
 	}
 	for _, output := range outputs {
@@ -518,7 +520,7 @@ func savePNG(path string, img image.Image) error {
 }
 
 func saveExclusive(path string, write func(io.Writer) error) error {
-	f, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0644)
+	f, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0o644)
 	if err != nil {
 		return err
 	}

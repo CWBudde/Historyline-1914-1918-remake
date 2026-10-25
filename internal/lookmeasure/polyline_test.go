@@ -196,7 +196,8 @@ func TestPolylineDistancesRejectsNonfiniteInputs(t *testing.T) {
 			params[field] = value
 			got, err := lookmeasure.PolylineDistances(
 				[]lookmeasure.Point{{X: params[0], Y: params[1]}, {X: params[2], Y: params[3]}},
-				[]lookmeasure.Segment{{From: lookmeasure.Point{X: params[4], Y: params[5]}, To: lookmeasure.Point{X: params[6], Y: params[7]}}}, params[8])
+				[]lookmeasure.Segment{{From: lookmeasure.Point{X: params[4], Y: params[5]}, To: lookmeasure.Point{X: params[6], Y: params[7]}}}, params[8],
+			)
 			if err == nil || got != nil {
 				t.Errorf("nonfinite field %d (%v) = %v, %v; want nil samples and error", field, value, got, err)
 			}

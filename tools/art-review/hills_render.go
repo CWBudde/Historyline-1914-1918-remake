@@ -37,9 +37,11 @@ type hillsCueParameters struct {
 func hillsNumericParameters() hillsParameters {
 	return hillsParameters{HeightAmplitude: 32, HeightPeriod: connectionPoint{568, 320}, HeightOffset: connectionPoint{113, 79}, Luminance: [3]float64{.2126, .7152, .0722}, DerivativeStep: 2, GateStart: 7, GateEnd: 19, Light: [3]float64{-.55, -.4, .75}, Ambient: .35, Diffuse: .65, ShadeClamp: [2]float64{.55, 1.25}, OverscanWorld: 4, FinalQuietBand: 4, FilterMaxDisplacement: connectionPoint{1.375, 1.375}, IsolatedCue: hillsCueParameters{Center: connectionPoint{48, 40}, Radii: connectionPoint{28, 22}, MaxAmplitude: 6, FadeRMS: [2]float64{.08, .2}, ThetaStep: math.Pi * (3 - math.Sqrt(5)), RMSOffsets: hillsRMSOffsets()}}
 }
+
 func hillsRMSOffsets() []connectionPoint {
 	return []connectionPoint{{0, 0}, {12, 0}, {-12, 0}, {0, 12}, {0, -12}, {8, 8}, {8, -8}, {-8, 8}, {-8, -8}}
 }
+
 func hillsQuintic(t float64) float64 { t = max(0, min(1, t)); return t * t * t * (10 + t*(-15+6*t)) }
 
 // The height is global and unlit. Neither grass gates nor terrain context enter this scalar.
@@ -65,9 +67,11 @@ func hillsHeightAt(src *image.NRGBA, p connectionPoint) float64 {
 	}
 	return 32 * lum / 255
 }
+
 func hillsGradientAt(src *image.NRGBA, p connectionPoint) connectionPoint {
 	return connectionPoint{(hillsHeightAt(src, p.add(connectionPoint{2, 0})) - hillsHeightAt(src, p.add(connectionPoint{-2, 0}))) / 4, (hillsHeightAt(src, p.add(connectionPoint{0, 2})) - hillsHeightAt(src, p.add(connectionPoint{0, -2}))) / 4}
 }
+
 func hillsShade(g connectionPoint) float64 {
 	if g == (connectionPoint{}) {
 		return 1
@@ -96,6 +100,7 @@ func hillsIsolated(c hillsContext) bool {
 	}
 	return true
 }
+
 func hillsCueFor(src *image.NRGBA, c hillsContext) hillsCue {
 	if !hillsIsolated(c) {
 		return hillsCue{}
@@ -112,6 +117,7 @@ func hillsCueFor(src *image.NRGBA, c hillsContext) hillsCue {
 	index := 4*line + col
 	return hillsCue{Enabled: true, A: 6 * (1 - hillsQuintic((s-.08)/.12)), Theta: float64(index) * math.Pi * (3 - math.Sqrt(5)), S: s}
 }
+
 func hillsCueHeight(c hillsCue, p connectionPoint) float64 {
 	if !c.Enabled || c.A == 0 {
 		return 0
@@ -119,6 +125,7 @@ func hillsCueHeight(c hillsCue, p connectionPoint) float64 {
 	sin, cos := math.Sincos(c.Theta)
 	return hillsCueHeightRotated(c.A, sin, cos, p)
 }
+
 func hillsCueHeightRotated(a, sin, cos float64, p connectionPoint) float64 {
 	dx, dy := p[0]-48, p[1]-40
 	rx, ry := cos*dx+sin*dy, -sin*dx+cos*dy
@@ -155,6 +162,7 @@ func newHillsRenderer(grass, height *image.NRGBA) *hillsRenderer {
 	}
 	return r
 }
+
 func (r *hillsRenderer) cueFor(c hillsContext) hillsCue {
 	if r.scrub != nil {
 		return hillsCue{}
@@ -169,6 +177,7 @@ func (r *hillsRenderer) cueFor(c hillsContext) hillsCue {
 	r.cues[c.Phase] = cue
 	return cue
 }
+
 func (r *hillsRenderer) normalsFor(phase connectionPoint) []connectionPoint {
 	if normals, ok := r.normals[phase]; ok {
 		return normals
@@ -183,6 +192,7 @@ func (r *hillsRenderer) normalsFor(phase connectionPoint) []connectionPoint {
 	r.normals[phase] = normals
 	return normals
 }
+
 func (r *hillsRenderer) raw(c hillsContext) *image.NRGBA {
 	im := image.NewNRGBA(image.Rect(0, 0, 416, 352))
 	var normals []connectionPoint
@@ -229,6 +239,7 @@ func (r *hillsRenderer) raw(c hillsContext) *image.NRGBA {
 	}
 	return im
 }
+
 func (r *hillsRenderer) tiles(c hillsContext) (map[int]*image.NRGBA, error) {
 	validated, err := newHillsContext(c.RuntimeID, c.NeighborIDs[:], c.Phase)
 	if err != nil {

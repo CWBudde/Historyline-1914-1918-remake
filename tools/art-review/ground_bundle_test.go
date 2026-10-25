@@ -36,6 +36,7 @@ func groundTestKey(id string, neighbors [6]string) (string, string) {
 	sum := sha256.Sum256([]byte(descriptor))
 	return hex.EncodeToString(sum[:]), descriptor
 }
+
 func groundTestRead(t *testing.T, path string) []byte {
 	t.Helper()
 	data, err := os.ReadFile(path)
@@ -44,6 +45,7 @@ func groundTestRead(t *testing.T, path string) []byte {
 	}
 	return data
 }
+
 func groundTestLoad(t *testing.T, path string) *image.NRGBA {
 	t.Helper()
 	decoded, err := png.Decode(bytes.NewReader(groundTestRead(t, path)))
@@ -54,6 +56,7 @@ func groundTestLoad(t *testing.T, path string) *image.NRGBA {
 	draw.Draw(im, im.Bounds(), decoded, decoded.Bounds().Min, draw.Src)
 	return im
 }
+
 func groundTestSnapshot(t *testing.T, out, path string, want []byte, hash string) {
 	t.Helper()
 	got := groundTestRead(t, filepath.Join(out, path))
@@ -62,6 +65,7 @@ func groundTestSnapshot(t *testing.T, out, path string, want []byte, hash string
 		t.Fatalf("snapshot bytes/hash %s", path)
 	}
 }
+
 func groundTestOwned(x, y, density int) bool {
 	// Integer-scaled half-open polygon edge inequalities; no production geometry.
 	px, py := 2*x+1, 2*y+1
@@ -77,6 +81,7 @@ func groundTestOwned(x, y, density int) bool {
 	}
 	return true
 }
+
 func groundTestBundleContract(t *testing.T, path, out string, r groundTestReport) {
 	t.Helper()
 	wantGeometry := connectionGeometry{96, 80, []connectionPoint{{25, 0}, {71, 0}, {96, 40}, {71, 80}, {25, 80}, {0, 40}}, []connectionPoint{{71, -40}, {71, 40}, {0, 80}, {-71, 40}, {-71, -40}, {0, -80}}, []connectionPoint{{83.5, 20}, {83.5, 60}, {48, 80}, {12.5, 60}, {12.5, 20}, {48, 0}}}
@@ -399,6 +404,7 @@ func groundTestTexture(src *image.NRGBA, x, y float64) color.NRGBA {
 	a, b := bilinear(x, y), bilinear(x+71, y+40)
 	return color.NRGBA{uint8(math.Floor((a[0]+b[0])*.5 + .5000000001)), uint8(math.Floor((a[1]+b[1])*.5 + .5000000001)), uint8(math.Floor((a[2]+b[2])*.5 + .5000000001)), 255}
 }
+
 func groundTestWorldPixel(world []groundTestSite, p [2]float64, base string, sources map[string]*image.NRGBA) color.NRGBA {
 	bc := groundTestTexture(sources[base], p[0], p[1])
 	if base == "grass" {
@@ -428,6 +434,7 @@ func groundTestWorldPixel(world []groundTestSite, p [2]float64, base string, sou
 	}
 	return color.NRGBA{uint8(math.Floor(out[0] + .5)), uint8(math.Floor(out[1] + .5)), uint8(math.Floor(out[2] + .5)), 255}
 }
+
 func groundTestActualPNGOracle(t *testing.T, r groundTestReport, pixels map[string]*image.NRGBA, sources map[string]*image.NRGBA) {
 	t.Helper()
 	profiles := map[string]groundTestProfile{}

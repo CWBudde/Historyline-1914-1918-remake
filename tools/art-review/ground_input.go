@@ -10,8 +10,10 @@ import (
 	"slices"
 )
 
-var groundMaterialIDs = [...]string{"grass", "grass_w", "mud", "stone", "rough_w", "stoney_w", "shelled_w"}
-var groundTargetIDs = [...]string{"mud", "stone", "rough_w", "stoney_w", "shelled_w"}
+var (
+	groundMaterialIDs = [...]string{"grass", "grass_w", "mud", "stone", "rough_w", "stoney_w", "shelled_w"}
+	groundTargetIDs   = [...]string{"mud", "stone", "rough_w", "stoney_w", "shelled_w"}
+)
 
 type groundManifest struct {
 	SchemaVersion  int                           `json:"schema_version"`
@@ -44,6 +46,7 @@ func groundObject(raw []byte, keys ...string) (map[string]json.RawMessage, error
 	}
 	return object, nil
 }
+
 func decodeGroundManifest(data []byte, m *groundManifest) error {
 	if err := decodeConnectionJSON(data, m); err != nil {
 		return err
@@ -101,6 +104,7 @@ func decodeGroundManifest(data []byte, m *groundManifest) error {
 	}
 	return nil
 }
+
 func loadGroundInputs(path string) (groundInputs, error) {
 	in := groundInputs{Sources: map[string]compoundSource{}}
 	var err error

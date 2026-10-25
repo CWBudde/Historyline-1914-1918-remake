@@ -80,7 +80,8 @@ func animations() []Animation {
 		death.Frames = append(death.Frames, fmt.Sprintf("effect/explosion-%02d", i))
 		death.FrameMS = append(death.FrameMS, 100)
 	}
-	return []Animation{death,
+	return []Animation{
+		death,
 		{ID: "hit", Frames: []string{"effect/hit"}, FrameMS: []int{1000}, ReducedFrames: []string{"effect/hit-reduced"}, ReducedMS: []int{250}, Anchor: [2]float64{36, 36}, Skippable: true, Notes: "Live loss count is separate text; never index damage into a ten-cell strip. No blood/flicker."},
 		{ID: "capture", Frames: []string{"banner/capture"}, FrameMS: []int{900}, ReducedFrames: []string{"banner/capture"}, ReducedMS: []int{250}, Anchor: [2]float64{240, 56}, Skippable: true, Notes: "Static text-free banner; owner and building name come from visible event state."},
 		{ID: "round", Frames: []string{"banner/round"}, FrameMS: []int{900}, ReducedFrames: []string{"banner/round"}, ReducedMS: []int{250}, Anchor: [2]float64{240, 56}, Skippable: true, Notes: "Static text-free banner; round/player are live. Privacy handover remains a separate screen."},

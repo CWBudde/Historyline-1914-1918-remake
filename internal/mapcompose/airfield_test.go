@@ -12,8 +12,10 @@ import (
 // the season of its hex.
 func TestAirfieldDrawsRunwayAndHangars(t *testing.T) {
 	catalog := map[string]bool{}
-	for _, id := range []string{"tile/runway36", "tile/runway36_w", "tile/hangar", "tile/hangar_w", "tile/apron-sw", "tile/apron-sw_w",
-		"tile/apron-nw", "tile/apron-nw_w", "standing/hangar", "standing/hangar_w"} {
+	for _, id := range []string{
+		"tile/runway36", "tile/runway36_w", "tile/hangar", "tile/hangar_w", "tile/apron-sw", "tile/apron-sw_w",
+		"tile/apron-nw", "tile/apron-nw_w", "standing/hangar", "standing/hangar_w",
+	} {
 		catalog[id] = true
 	}
 	has := func(id string) bool { return catalog[id] }

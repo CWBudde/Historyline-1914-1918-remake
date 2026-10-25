@@ -2,12 +2,13 @@ package main
 
 import (
 	"fmt"
-	"golang.org/x/image/vector"
 	"image"
 	"image/color"
 	"image/draw"
 	"strconv"
 	"strings"
+
+	"golang.org/x/image/vector"
 )
 
 // Geometry is authored once: the same serializable commands drive SVG and native raster.
@@ -39,17 +40,21 @@ func polygon(fill string, xy ...float64) Shape {
 	s.Commands = append(s.Commands, cmd("Z"))
 	return s
 }
+
 func rounded(fill string, x, y, w, h, r float64) Shape {
 	return Shape{fill, []Command{cmd("M", x+r, y), cmd("L", x+w-r, y), cmd("Q", x+w, y, x+w, y+r), cmd("L", x+w, y+h-r), cmd("Q", x+w, y+h, x+w-r, y+h), cmd("L", x+r, y+h), cmd("Q", x, y+h, x, y+h-r), cmd("L", x, y+r), cmd("Q", x, y, x+r, y), cmd("Z")}}
 }
+
 func circle(fill string, x, y, r float64) Shape {
 	k := r * .5522847498307936
 	return Shape{fill, []Command{cmd("M", x+r, y), cmd("C", x+r, y+k, x+k, y+r, x, y+r), cmd("C", x-k, y+r, x-r, y+k, x-r, y), cmd("C", x-r, y-k, x-k, y-r, x, y-r), cmd("C", x+k, y-r, x+r, y-k, x+r, y), cmd("Z")}}
 }
 
-const brass = "#c4a773"
-const slate = "#162630"
-const cream = "#eee5d2"
+const (
+	brass = "#c4a773"
+	slate = "#162630"
+	cream = "#eee5d2"
+)
 
 func vectors() []Vector {
 	f := Vector{Name: "frame", Width: 400, Height: 640, Shapes: []Shape{rounded("#52616b", 0, 0, 400, 640, 16), rounded(slate, 1, 1, 398, 638, 15), rounded("#243743", 8, 8, 384, 48, 8), rounded("#0d1b24", 16, 64, 210, 188, 8), rounded("#20333f", 242, 64, 142, 26, 6), rounded("#101f29", 242, 94, 142, 96, 6)}}
@@ -78,6 +83,7 @@ func vectors() []Vector {
 	add("empty", rounded("#6e8088", 5, 11, 14, 2, 1))
 	return out
 }
+
 func (v Vector) svg() string {
 	var b strings.Builder
 	fmt.Fprintf(&b, "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"%d\" height=\"%d\" viewBox=\"0 0 %d %d\">\n", v.Width, v.Height, v.Width, v.Height)
@@ -95,10 +101,12 @@ func (v Vector) svg() string {
 	b.WriteString("</svg>\n")
 	return b.String()
 }
+
 func rgba(s string) color.RGBA {
 	n, _ := strconv.ParseUint(strings.TrimPrefix(s, "#"), 16, 32)
 	return color.RGBA{uint8(n >> 16), uint8(n >> 8), uint8(n), 255}
 }
+
 func (v Vector) raster(d int) *image.RGBA {
 	im := image.NewRGBA(image.Rect(0, 0, v.Width*d, v.Height*d))
 	for _, s := range v.Shapes {

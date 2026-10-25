@@ -22,10 +22,12 @@ import (
 	"testing"
 )
 
-var retainedContextFamily = flag.String("context-family", "", "ground, forest, or hills")
-var retainedContextManifest = flag.String("context-manifest", "", "current pinned input manifest; absolute or repository-relative")
-var retainedContextProfiles = flag.String("context-profiles", "", "context profiles file (art/pipeline/contexts/<family>.json); absolute or repository-relative")
-var retainedContextBundle = flag.String("context-bundle", "", "fresh ignored CLI bundle to supplement; absolute or repository-relative")
+var (
+	retainedContextFamily   = flag.String("context-family", "", "ground, forest, or hills")
+	retainedContextManifest = flag.String("context-manifest", "", "current pinned input manifest; absolute or repository-relative")
+	retainedContextProfiles = flag.String("context-profiles", "", "context profiles file (art/pipeline/contexts/<family>.json); absolute or repository-relative")
+	retainedContextBundle   = flag.String("context-bundle", "", "fresh ignored CLI bundle to supplement; absolute or repository-relative")
+)
 
 func TestGenerateRetainedContextBundle(t *testing.T) {
 	if *retainedContextFamily == "" && *retainedContextManifest == "" && *retainedContextProfiles == "" && *retainedContextBundle == "" {
@@ -293,10 +295,10 @@ func augmentRetainedContextBundle(family, manifest, profilesFile, bundle string)
 		} else if !os.IsNotExist(e) {
 			return e
 		}
-		if err = bundleRoot.MkdirAll(filepath.Dir(a.name), 0755); err != nil {
+		if err = bundleRoot.MkdirAll(filepath.Dir(a.name), 0o755); err != nil {
 			return err
 		}
-		if err = bundleRoot.WriteFile(a.name, a.data, 0644); err != nil {
+		if err = bundleRoot.WriteFile(a.name, a.data, 0o644); err != nil {
 			return err
 		}
 	}
@@ -305,7 +307,7 @@ func augmentRetainedContextBundle(family, manifest, profilesFile, bundle string)
 		return err
 	}
 	tmpName := ".retained-report-" + rand.Text() + ".json"
-	tmp, err := bundleRoot.OpenFile(tmpName, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0644)
+	tmp, err := bundleRoot.OpenFile(tmpName, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0o644)
 	if err != nil {
 		return err
 	}

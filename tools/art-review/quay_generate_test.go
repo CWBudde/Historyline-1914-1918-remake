@@ -50,7 +50,7 @@ func TestGenerateQuayTiles(t *testing.T) {
 		at = len(entries)
 	}
 	var quay []json.RawMessage
-	if err := os.MkdirAll(filepath.Join(root, "assets/terrain/quay"), 0755); err != nil {
+	if err := os.MkdirAll(filepath.Join(root, "assets/terrain/quay"), 0o755); err != nil {
 		t.Fatal(err)
 	}
 	for _, season := range quaySeasons {
@@ -84,7 +84,7 @@ func TestGenerateQuayTiles(t *testing.T) {
 				if err := png.Encode(&b, tiles[d]); err != nil {
 					t.Fatal(err)
 				}
-				if err := os.WriteFile(filepath.Join(root, "assets", path), b.Bytes(), 0644); err != nil {
+				if err := os.WriteFile(filepath.Join(root, "assets", path), b.Bytes(), 0o644); err != nil {
 					t.Fatal(err)
 				}
 				sum := sha256.Sum256(b.Bytes())
@@ -108,7 +108,7 @@ func TestGenerateQuayTiles(t *testing.T) {
 		out.WriteByte('\n')
 	}
 	out.WriteString("  ]\n}\n")
-	if err := os.WriteFile(filepath.Join(root, "assets/index.json"), out.Bytes(), 0644); err != nil {
+	if err := os.WriteFile(filepath.Join(root, "assets/index.json"), out.Bytes(), 0o644); err != nil {
 		t.Fatal(err)
 	}
 }

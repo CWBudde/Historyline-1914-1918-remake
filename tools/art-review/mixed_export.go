@@ -79,6 +79,7 @@ func mixedSceneLayers(v mixedVariant, stream, upper string) ([]string, []string)
 	}
 	return center, []string{stream, route}
 }
+
 func buildMixedScene(in mixedInputs, v mixedVariant, stream, upper, id string, parity int) mixedScene {
 	scene := mixedScene{ID: fmt.Sprintf("%s-patch-parity%d", id, parity), Parity: parity}
 	center := connectionPoint{}
@@ -128,6 +129,7 @@ func buildMixedScene(in mixedInputs, v mixedVariant, stream, upper, id string, p
 	})
 	return scene
 }
+
 func renderMixedScene(exports map[string]map[int]*image.NRGBA, s mixedScene, scale int) *image.NRGBA {
 	minX, minY, maxX, maxY := math.Inf(1), math.Inf(1), math.Inf(-1), math.Inf(-1)
 	for _, c := range s.Cells {
@@ -151,6 +153,7 @@ func renderMixedScene(exports map[string]map[int]*image.NRGBA, s mixedScene, sca
 	}
 	return im
 }
+
 func runMixed(path, out string, log io.Writer) (resultErr error) {
 	if _, err := os.Lstat(out); !errors.Is(err, os.ErrNotExist) {
 		if err == nil {
@@ -349,10 +352,10 @@ func runMixed(path, out string, log io.Writer) (resultErr error) {
 		return err
 	}
 	artifacts = append(artifacts, connectionArtifact{"index.html", html.Bytes()})
-	if err = os.MkdirAll(filepath.Dir(out), 0755); err != nil {
+	if err = os.MkdirAll(filepath.Dir(out), 0o755); err != nil {
 		return err
 	}
-	if err = os.Mkdir(out, 0755); err != nil {
+	if err = os.Mkdir(out, 0o755); err != nil {
 		return err
 	}
 	defer func() {
@@ -362,7 +365,7 @@ func runMixed(path, out string, log io.Writer) (resultErr error) {
 	}()
 	for _, a := range artifacts {
 		name := filepath.Join(out, a.name)
-		if err = os.MkdirAll(filepath.Dir(name), 0755); err != nil {
+		if err = os.MkdirAll(filepath.Dir(name), 0o755); err != nil {
 			return err
 		}
 		if err = saveExclusive(name, func(w io.Writer) error { _, err := w.Write(a.data); return err }); err != nil {

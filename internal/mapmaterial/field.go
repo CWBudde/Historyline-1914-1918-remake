@@ -10,12 +10,16 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 )
 
-const bucketSize = 64
-const maxFalloff = 16
+const (
+	bucketSize = 64
+	maxFalloff = 16
+)
 
-type point struct{ x, y float64 }
-type segment struct{ a, b point }
-type bucket struct{ x, y int }
+type (
+	point   struct{ x, y float64 }
+	segment struct{ a, b point }
+	bucket  struct{ x, y int }
+)
 
 // Field is immutable after construction and can be shared by renderer caches.
 type Field struct {

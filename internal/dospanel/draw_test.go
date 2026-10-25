@@ -20,14 +20,20 @@ func TestDrawStaysInPanel(t *testing.T) {
 	portrait.Fill(color.RGBA{0x80, 0x90, 0xA0, 0xFF})
 	sprite := ebiten.NewImage(24, 24)
 	sprite.Fill(color.RGBA{0x30, 0x60, 0x30, 0xFF})
-	unit := UnitInfo{Name: "LIGHT GUN", Ground: Weapon{45, 3}, Water: Weapon{45, 3}, Armour: 25, Speed: 2,
-		Weight: 3, Group: 6, Portrait: portrait, Sprite: sprite}
-	contents := Contents{Name: "DEPOT", Stored: 15, Total: 80, Selected: 1,
-		Details: []string{"GROUP 6 OF 6", "READY"}}
+	unit := UnitInfo{
+		Name: "LIGHT GUN", Ground: Weapon{45, 3}, Water: Weapon{45, 3}, Armour: 25, Speed: 2,
+		Weight: 3, Group: 6, Portrait: portrait, Sprite: sprite,
+	}
+	contents := Contents{
+		Name: "DEPOT", Stored: 15, Total: 80, Selected: 1,
+		Details: []string{"GROUP 6 OF 6", "READY"},
+	}
 	contents.Slots[0] = Slot{Occupied: true, Name: "SCOUT PLANE", Size: 1, Full: 1, Sprite: sprite}
 	contents.Slots[1] = Slot{Occupied: true, Name: "CAVALRY", Size: 5, Full: 6, Sprite: sprite, Portrait: portrait}
-	game := GameInfo{Round: 3, Level: "PULSE", Mode: "MOVEMENT", Best: 900, Score: 861,
-		Sides: [2]Holdings{{14, 0, 0}, {14, 0, 0}}, Map: Holdings{30, 2, 0}, Income: [2]int{5, 5}}
+	game := GameInfo{
+		Round: 3, Level: "PULSE", Mode: "MOVEMENT", Best: 900, Score: 861,
+		Sides: [2]Holdings{{14, 0, 0}, {14, 0, 0}}, Map: Holdings{30, 2, 0}, Income: [2]int{5, 5},
+	}
 
 	draws := map[string]func(dst *ebiten.Image, p image.Rectangle, s float64, tx Text){
 		"unit info": func(dst *ebiten.Image, p image.Rectangle, s float64, tx Text) {
@@ -79,10 +85,14 @@ func TestDrawText(t *testing.T) {
 			DrawUnitInfo(dst, panel, 2, UnitInfo{Name: "LIGHT GUN", Ground: Weapon{45, 3}, Armour: 25, Group: 6}, tx)
 		}, []string{"LIGHT GUN", "AIR", "GROUND", "WATER", "ARMOUR", "SPEED", "WEIGHT", "MAX GROUP SIZE", "45", "25", "6"}},
 		{"game info", func(tx Text) {
-			DrawGameInfo(dst, panel, 2, GameInfo{Level: "PULSE", Mode: "MOVEMENT", Best: 900, Score: 861,
-				Map: Holdings{Units: 30}}, tx)
-		}, []string{"ROUND", "PULSE", "MOVEMENT", "900", "861", "ONE", "TWO", "MAP", "UNITS", "DEPOTS",
-			"FACTORY UNITS", "RESOURCES TOTAL", "RESOURCES INCOME", "30", "MOVES", "LIMIT", "NO LIMIT"}},
+			DrawGameInfo(dst, panel, 2, GameInfo{
+				Level: "PULSE", Mode: "MOVEMENT", Best: 900, Score: 861,
+				Map: Holdings{Units: 30},
+			}, tx)
+		}, []string{
+			"ROUND", "PULSE", "MOVEMENT", "900", "861", "ONE", "TWO", "MAP", "UNITS", "DEPOTS",
+			"FACTORY UNITS", "RESOURCES TOTAL", "RESOURCES INCOME", "30", "MOVES", "LIMIT", "NO LIMIT",
+		}},
 		{"game info limit", func(tx Text) {
 			DrawGameInfo(dst, panel, 2, GameInfo{Limit: 40, Moves: 7}, tx)
 		}, []string{"40", "7"}},

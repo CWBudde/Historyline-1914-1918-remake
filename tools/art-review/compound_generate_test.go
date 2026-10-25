@@ -56,7 +56,7 @@ func TestGenerateCompoundTiles(t *testing.T) {
 			if !ok {
 				t.Fatalf("%s: %s is not installed", manifest, key)
 			}
-			if err := os.WriteFile(filepath.Join(root, "assets", e.Path), a.data, 0644); err != nil {
+			if err := os.WriteFile(filepath.Join(root, "assets", e.Path), a.data, 0o644); err != nil {
 				t.Fatal(err)
 			}
 			sum := sha256.Sum256(a.data)
@@ -77,7 +77,7 @@ func TestGenerateCompoundTiles(t *testing.T) {
 		out.WriteByte('\n')
 	}
 	out.WriteString("  ]\n}\n")
-	if err := os.WriteFile(filepath.Join(root, "assets/index.json"), out.Bytes(), 0644); err != nil {
+	if err := os.WriteFile(filepath.Join(root, "assets/index.json"), out.Bytes(), 0o644); err != nil {
 		t.Fatal(err)
 	}
 }

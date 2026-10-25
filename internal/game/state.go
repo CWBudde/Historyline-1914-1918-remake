@@ -252,8 +252,10 @@ func New(lv *level.Level, set *data.Set) (*State, error) {
 	if err != nil {
 		return nil, err
 	}
-	s := &State{Name: lv.MapName, No: lv.MapNo, Grid: lv.Grid(), Human: human, Turn: human, Round: 1,
-		Hexes: make([][]Hex, len(lv.Lines))}
+	s := &State{
+		Name: lv.MapName, No: lv.MapNo, Grid: lv.Grid(), Human: human, Turn: human, Round: 1,
+		Hexes: make([][]Hex, len(lv.Lines)),
+	}
 	for i, line := range lv.Lines {
 		s.Hexes[i] = make([]Hex, len(line))
 		for col, lh := range line {

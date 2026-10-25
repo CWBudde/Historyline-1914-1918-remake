@@ -94,12 +94,18 @@ func TestBoundarySeasonValidation(t *testing.T) {
 		id, season string
 		want       bool
 	}{
-		{"water", "winter", true}, {"water", "summer", true},
-		{"waterStones", "winter", true}, {"waterStones", "summer", true},
-		{"mountW_w", "winter", true}, {"house", "summer", true},
-		{"house", "winter", false}, {"house_w", "summer", false},
-		{"invented_w", "winter", false}, {"", "summer", false},
-		{"lakeside999", "winter", false}, {"lakeside12_w", "winter", false},
+		{"water", "winter", true},
+		{"water", "summer", true},
+		{"waterStones", "winter", true},
+		{"waterStones", "summer", true},
+		{"mountW_w", "winter", true},
+		{"house", "summer", true},
+		{"house", "winter", false},
+		{"house_w", "summer", false},
+		{"invented_w", "winter", false},
+		{"", "summer", false},
+		{"lakeside999", "winter", false},
+		{"lakeside12_w", "winter", false},
 	} {
 		if got := boundaryTerrain(tc.id, tc.season); got != tc.want {
 			t.Errorf("%s/%s: got %t, want %t", tc.id, tc.season, got, tc.want)

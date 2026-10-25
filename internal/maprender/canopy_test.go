@@ -65,7 +65,8 @@ func TestVisibleCanopyUsesSelectedContextAndOverhang(t *testing.T) {
 	ctx := mapcompose.ContextID(mapcompose.Forest, mapcompose.Key(d))
 	for _, density := range []int{2, 4} {
 		t.Run(fmt.Sprint(density), func(t *testing.T) {
-			r, _ := canopyRenderer(t,
+			r, _ := canopyRenderer(
+				t,
 				canopyAsset{ctx, 1, 1, [2]float64{}, 255},
 				canopyAsset{"standing/" + ctx, 128, 112, [2]float64{64, 56}, 128},
 				canopyAsset{"standing/forest", 1, 1, [2]float64{}, 255},
@@ -104,7 +105,8 @@ func TestVisibleCanopyUnionOcclusionAndShadows(t *testing.T) {
 		{"shadow does not count", "grass", 128},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
-			r, _ := canopyRenderer(t,
+			r, _ := canopyRenderer(
+				t,
 				canopyAsset{"standing/forest", 150, 4, [2]float64{}, 128},
 				canopyAsset{"standing/house", 4, 4, [2]float64{}, 128},
 				canopyAsset{"standing/shadow/forest", 240, 80, [2]float64{48, 40}, 255},
@@ -128,7 +130,8 @@ func TestVisibleCanopyUnionOcclusionAndShadows(t *testing.T) {
 }
 
 func TestVisibleCanopyOddLineAnchorAndLaterCrown(t *testing.T) {
-	r, _ := canopyRenderer(t,
+	r, _ := canopyRenderer(
+		t,
 		canopyAsset{"standing/house", 200, 120, [2]float64{48, 40}, 255},
 		canopyAsset{"standing/forest", 2, 2, [2]float64{1.25, 1.25}, 128},
 	)

@@ -37,8 +37,10 @@ func TestLegacyTileShoreOutletReference(t *testing.T) {
 
 func TestNewTerrainHasNoInventedLegacyReference(t *testing.T) {
 	for _, tc := range []struct{ kind, id string }{
-		{"background", "factoryN"}, {"background", "factoryE"},
-		{"background", "factoryS"}, {"background", "factoryW"},
+		{"background", "factoryN"},
+		{"background", "factoryE"},
+		{"background", "factoryS"},
+		{"background", "factoryW"},
 		{"infrastructure", "barbedWire"},
 	} {
 		if got := legacyTile(tc.kind, tc.id); got != "" {
@@ -62,7 +64,7 @@ func TestCurrentGameSelection(t *testing.T) {
 		t.Fatal(err)
 	}
 	defer func() { _ = w.Close() }()
-	if err := w.Mkdir("media", 0755); err != nil {
+	if err := w.Mkdir("media", 0o755); err != nil {
 		t.Fatal(err)
 	}
 	c := collector{root: r, out: w, seen: map[string]picture{}}
@@ -205,7 +207,7 @@ func TestCurrentGameSelection(t *testing.T) {
 			html := strings.Replace(review.template, "/*CATALOG*/null", string(b), 1)
 			html = strings.Replace(html, "</body>", "<script>"+review.smoke+"</script></body>", 1)
 			name := review.name + "-smoke.html"
-			if err := w.WriteFile(name, []byte(html), 0644); err != nil {
+			if err := w.WriteFile(name, []byte(html), 0o644); err != nil {
 				t.Fatal(err)
 			}
 			for _, size := range []string{"1440,1040", "460,920"} {
@@ -237,7 +239,7 @@ func TestSnapshotRejectsStalePinAndBadGeometry(t *testing.T) {
 		t.Fatal(err)
 	}
 	defer func() { _ = r.Close() }()
-	if err := r.Mkdir("media", 0755); err != nil {
+	if err := r.Mkdir("media", 0o755); err != nil {
 		t.Fatal(err)
 	}
 	im := image.NewNRGBA(image.Rect(0, 0, 8, 8))
@@ -246,7 +248,7 @@ func TestSnapshotRejectsStalePinAndBadGeometry(t *testing.T) {
 	if err := png.Encode(&buf, im); err != nil {
 		t.Fatal(err)
 	}
-	if err := r.WriteFile("source.png", buf.Bytes(), 0644); err != nil {
+	if err := r.WriteFile("source.png", buf.Bytes(), 0o644); err != nil {
 		t.Fatal(err)
 	}
 	c := collector{root: r, out: r, seen: map[string]picture{}}

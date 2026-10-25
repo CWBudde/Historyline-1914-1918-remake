@@ -107,7 +107,7 @@ func TestPinnedInputRejectsEscapeLegacyAndTampering(t *testing.T) {
 	if e := png.Encode(&b, im); e != nil {
 		t.Fatal(e)
 	}
-	if e := os.WriteFile(filepath.Join(dir, "art.png"), b.Bytes(), 0644); e != nil {
+	if e := os.WriteFile(filepath.Join(dir, "art.png"), b.Bytes(), 0o644); e != nil {
 		t.Fatal(e)
 	}
 	root, e := os.OpenRoot(dir)

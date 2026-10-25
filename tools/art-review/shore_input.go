@@ -31,11 +31,18 @@ type shoreInputs struct {
 
 func shoreRoster() []shoreVariant {
 	return []shoreVariant{
-		{"lakeside12", []int{1, 2, 3}}, {"lakeside16", []int{0, 1, 2}}, {"lakeside23", []int{2, 3, 4, 5}},
-		{"lakeside34", []int{3, 4, 5}}, {"lakeside56", []int{0, 1, 5}}, {"lakeside123", []int{1, 2, 3, 4}},
-		{"lakeside126", []int{0, 1, 2, 3}}, {"lakeside156", []int{0, 1, 2, 5}}, {"lakeside3456", []int{0, 1, 3, 4, 5}},
+		{"lakeside12", []int{1, 2, 3}},
+		{"lakeside16", []int{0, 1, 2}},
+		{"lakeside23", []int{2, 3, 4, 5}},
+		{"lakeside34", []int{3, 4, 5}},
+		{"lakeside56", []int{0, 1, 5}},
+		{"lakeside123", []int{1, 2, 3, 4}},
+		{"lakeside126", []int{0, 1, 2, 3}},
+		{"lakeside156", []int{0, 1, 2, 5}},
+		{"lakeside3456", []int{0, 1, 3, 4, 5}},
 	}
 }
+
 func shoreVariants() []shoreVariant {
 	return append(shoreRoster(), shoreVariant{"grass", []int{0, 1, 2, 3, 4, 5}}, shoreVariant{"water", []int{}})
 }
@@ -57,6 +64,7 @@ func shoreObject(raw json.RawMessage, names ...string) (map[string]json.RawMessa
 	}
 	return obj, nil
 }
+
 func decodeShoreManifest(b []byte, m *shoreManifest) error {
 	if err := decodeConnectionJSON(b, m); err != nil {
 		return err
@@ -106,6 +114,7 @@ func decodeShoreManifest(b []byte, m *shoreManifest) error {
 	}
 	return nil
 }
+
 func loadShoreInputs(path string) (shoreInputs, error) {
 	in := shoreInputs{Materials: map[string]compoundSource{}}
 	var err error

@@ -33,7 +33,7 @@ func TestGenerateHarbourTiles(t *testing.T) {
 		return json.Unmarshal(raw, &e) == nil && e.Art == "terrain/harbour"
 	})
 	dir := filepath.Join(root, "assets/terrain/harbour")
-	if err := os.MkdirAll(dir, 0755); err != nil {
+	if err := os.MkdirAll(dir, 0o755); err != nil {
 		t.Fatal(err)
 	}
 	// r is the tiles' rectangle of logical pixels on the hex canvas, whose
@@ -45,7 +45,7 @@ func TestGenerateHarbourTiles(t *testing.T) {
 			if err := png.Encode(&b, tiles[d]); err != nil {
 				t.Fatal(err)
 			}
-			if err := os.WriteFile(filepath.Join(root, "assets", path), b.Bytes(), 0644); err != nil {
+			if err := os.WriteFile(filepath.Join(root, "assets", path), b.Bytes(), 0o644); err != nil {
 				t.Fatal(err)
 			}
 			sum := sha256.Sum256(b.Bytes())
@@ -86,7 +86,7 @@ func TestGenerateHarbourTiles(t *testing.T) {
 		out.WriteByte('\n')
 	}
 	out.WriteString("  ]\n}\n")
-	if err := os.WriteFile(filepath.Join(root, "assets/index.json"), out.Bytes(), 0644); err != nil {
+	if err := os.WriteFile(filepath.Join(root, "assets/index.json"), out.Bytes(), 0o644); err != nil {
 		t.Fatal(err)
 	}
 }

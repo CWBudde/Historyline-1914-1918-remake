@@ -27,6 +27,7 @@ func (s hillsScene) ground() groundScene {
 	}
 	return out
 }
+
 func hillsSceneFor(scenario string, parity int) (hillsScene, error) {
 	if parity < 0 || parity > 1 {
 		return hillsScene{}, errors.New("invalid hills fixture parity")

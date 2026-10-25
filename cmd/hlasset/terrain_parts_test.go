@@ -21,10 +21,12 @@ func oversizedTerrainIndex(t *testing.T) []indexEntry {
 	}
 	for i := 0; i < 274; i++ {
 		for _, d := range terrainDensities {
-			es = append(es, indexEntry{ID: fmt.Sprintf("context/ground/campaign-%04d", i),
+			es = append(es, indexEntry{
+				ID:   fmt.Sprintf("context/ground/campaign-%04d", i),
 				Pack: fmt.Sprintf("terrain-context-ground-%dx", d), Density: d,
 				Path: fmt.Sprintf("terrain/ground/campaign-%04d-%dx.png", i, d), SHA256: strings.Repeat("0", 64),
-				Width: 96 * d, Height: 80 * d, Anchor: &[2]float64{48, 40}, Art: "terrain/ground"})
+				Width: 96 * d, Height: 80 * d, Anchor: &[2]float64{48, 40}, Art: "terrain/ground",
+			})
 		}
 	}
 	return es
@@ -93,9 +95,11 @@ func TestTerrainPlanRejectsUnpairedContext(t *testing.T) {
 func TestTerrainPlanRejectsUnsplitOversizedImage(t *testing.T) {
 	es := retainedIndex(t)
 	for _, d := range terrainDensities {
-		es = append(es, indexEntry{ID: "stamp/crater_w/1/2", Pack: fmt.Sprintf("terrain-stamps-%dx", d), Density: d,
+		es = append(es, indexEntry{
+			ID: "stamp/crater_w/1/2", Pack: fmt.Sprintf("terrain-stamps-%dx", d), Density: d,
 			Path: fmt.Sprintf("terrain/ground/oversized-%dx.png", d), SHA256: strings.Repeat("0", 64),
-			Width: 2048 * d, Height: 2048 * d, Anchor: &[2]float64{48, 40}, Art: "terrain/ground"})
+			Width: 2048 * d, Height: 2048 * d, Anchor: &[2]float64{48, 40}, Art: "terrain/ground",
+		})
 	}
 	if _, err := planTerrain(es); err == nil {
 		t.Fatal("accepted a single image larger than the decoded pack limit")

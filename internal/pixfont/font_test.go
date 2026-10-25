@@ -136,8 +136,10 @@ func TestGlyphShapes(t *testing.T) {
 
 // The drawn pixels lie inside the measured box and touch its edges.
 func TestMeasureMatchesDraw(t *testing.T) {
-	texts := []string{"A", "I", "6  LIGHT ARTILLERY", "Waiting for movement-mode", required[1:len(required)-14] + "&",
-		"(100%) 3/4, it's: ok!?", "Ärger über Öl", "WWWMMM", "1", "€#"}
+	texts := []string{
+		"A", "I", "6  LIGHT ARTILLERY", "Waiting for movement-mode", required[1:len(required)-14] + "&",
+		"(100%) 3/4, it's: ok!?", "Ärger über Öl", "WWWMMM", "1", "€#",
+	}
 	for name, f := range faces {
 		for _, scale := range []int{1, 2, 3} {
 			for _, s := range texts {

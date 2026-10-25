@@ -62,9 +62,11 @@ func (g *Game) Save() ([]byte, error) {
 	if g.Profile.Tables == nil {
 		return nil, fmt.Errorf("dosrules: save: no tables")
 	}
-	s := savedGame{Schema: SaveSchema, Build: g.Profile.Tables.Build, Winter: g.Profile.Winter(), Width: g.Width, Height: g.Height,
+	s := savedGame{
+		Schema: SaveSchema, Build: g.Profile.Tables.Build, Winter: g.Profile.Winter(), Width: g.Width, Height: g.Height,
 		Maps: g.Maps, Units: map[int]savedUnit{}, Holds: g.Holds, Turn: g.Turn, Limit: g.Limit, Concealed: g.Concealed, Ended: g.Ended,
-		Energy: g.Energy, Buildings: g.Buildings}
+		Energy: g.Energy, Buildings: g.Buildings,
+	}
 	for i, u := range g.Units {
 		s.Units[i] = savedUnit(u)
 	}
@@ -98,9 +100,11 @@ func LoadGame(data []byte) (*Game, error) {
 	if p = p.Season(s.Winter); p.Tables.Move == nil {
 		return nil, fmt.Errorf("dosrules: load: tables %q have no winter terrain", s.Build)
 	}
-	g := &Game{Profile: p, Width: s.Width, Height: s.Height, Maps: s.Maps, Units: map[int]Live{},
+	g := &Game{
+		Profile: p, Width: s.Width, Height: s.Height, Maps: s.Maps, Units: map[int]Live{},
 		Holds: map[int]Hold{}, Turn: s.Turn, Limit: s.Limit, Concealed: s.Concealed, Ended: s.Ended,
-		Energy: s.Energy, Buildings: s.Buildings}
+		Energy: s.Energy, Buildings: s.Buildings,
+	}
 	if s.Width < 1 || s.Height < 1 {
 		return nil, fmt.Errorf("dosrules: load: %d×%d map", s.Width, s.Height)
 	}

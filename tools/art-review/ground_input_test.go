@@ -27,6 +27,7 @@ func groundTestManifest(t *testing.T, path string, materials map[string]connecti
 	}
 	groundTestWrite(t, path, data)
 }
+
 func groundTestSavePNG(t *testing.T, path string, im image.Image) connectionMaterial {
 	t.Helper()
 	var b bytes.Buffer
@@ -37,6 +38,7 @@ func groundTestSavePNG(t *testing.T, path string, im image.Image) connectionMate
 	sum := sha256.Sum256(b.Bytes())
 	return connectionMaterial{filepath.Base(path), hex.EncodeToString(sum[:])}
 }
+
 func groundTestReject(t *testing.T, path, out string, needle string) {
 	t.Helper()
 	err := run([]string{"-ground", path, "-out", out}, io.Discard)
@@ -47,6 +49,7 @@ func groundTestReject(t *testing.T, path, out string, needle string) {
 		t.Fatalf("failed input created output: %v", e)
 	}
 }
+
 func TestGroundStrictManifest(t *testing.T) {
 	path, refs := groundTestFixture(t)
 	valid := string(groundTestRead(t, path))
@@ -86,6 +89,7 @@ func TestGroundStrictManifest(t *testing.T) {
 		})
 	}
 }
+
 func TestGroundModeConflicts(t *testing.T) {
 	for _, other := range []string{"reference", "candidate", "reference-platform", "neighborhood", "connected", "compound", "shore", "fog", "mixed", "pack", "resampling"} {
 		for _, value := range []string{"", "x"} {
@@ -103,14 +107,24 @@ func TestGroundModeConflicts(t *testing.T) {
 		}
 	}
 }
+
 func TestGroundSourcesAndFreshOutput(t *testing.T) {
 	path, refs := groundTestFixture(t)
 	dir := filepath.Dir(path)
 	original := refs["grass"]
 	for _, tt := range []struct{ name, source, pin string }{
-		{"stale-pin", original.Source, strings.Repeat("0", 64)}, {"upper-pin", original.Source, strings.ToUpper(original.SourceSHA256)}, {"short-pin", original.Source, "ab"}, {"empty-pin", original.Source, ""},
-		{"absolute", filepath.Join(dir, original.Source), original.SourceSHA256}, {"traversal", "../grass.png", original.SourceSHA256}, {"dot", "./grass.png", original.SourceSHA256}, {"backslash", `a\grass.png`, original.SourceSHA256},
-		{"unclean", "a//grass.png", original.SourceSHA256}, {"original", "original/grass.png", original.SourceSHA256}, {"pilot", "PiLoT/grass.png", original.SourceSHA256}, {"missing", "missing.png", original.SourceSHA256},
+		{"stale-pin", original.Source, strings.Repeat("0", 64)},
+		{"upper-pin", original.Source, strings.ToUpper(original.SourceSHA256)},
+		{"short-pin", original.Source, "ab"},
+		{"empty-pin", original.Source, ""},
+		{"absolute", filepath.Join(dir, original.Source), original.SourceSHA256},
+		{"traversal", "../grass.png", original.SourceSHA256},
+		{"dot", "./grass.png", original.SourceSHA256},
+		{"backslash", `a\grass.png`, original.SourceSHA256},
+		{"unclean", "a//grass.png", original.SourceSHA256},
+		{"original", "original/grass.png", original.SourceSHA256},
+		{"pilot", "PiLoT/grass.png", original.SourceSHA256},
+		{"missing", "missing.png", original.SourceSHA256},
 	} {
 		t.Run(tt.name, func(t *testing.T) {
 			refs["grass"] = connectionMaterial{tt.source, tt.pin}
@@ -154,7 +168,7 @@ func TestGroundSourcesAndFreshOutput(t *testing.T) {
 	groundTestWrite(t, filepath.Join(outside, "escape.png"), contents)
 	for _, tt := range []struct{ name, target string }{{"escape", filepath.Join(outside, "escape.png")}, {"original-link", filepath.Join(dir, "original", "hidden.png")}, {"pilot-link", filepath.Join(dir, "pilot", "hidden.png")}} {
 		if tt.name != "escape" {
-			if err := os.MkdirAll(filepath.Dir(tt.target), 0700); err != nil {
+			if err := os.MkdirAll(filepath.Dir(tt.target), 0o700); err != nil {
 				t.Fatal(err)
 			}
 			groundTestWrite(t, tt.target, contents)
@@ -170,7 +184,7 @@ func TestGroundSourcesAndFreshOutput(t *testing.T) {
 	refs["grass"] = original
 	groundTestManifest(t, path, refs)
 	existing := filepath.Join(dir, "existing")
-	if err := os.Mkdir(existing, 0700); err != nil {
+	if err := os.Mkdir(existing, 0o700); err != nil {
 		t.Fatal(err)
 	}
 	groundTestWrite(t, filepath.Join(existing, "sentinel"), []byte("preserve"))
@@ -198,6 +212,7 @@ type groundTestBrokenWriter struct{}
 func (groundTestBrokenWriter) Write([]byte) (int, error) {
 	return 0, errors.New("ground test writer failure")
 }
+
 func TestGroundFailureCleanup(t *testing.T) {
 	path, _ := groundTestFixture(t)
 	out := filepath.Join(filepath.Dir(path), "rollback")
@@ -208,6 +223,7 @@ func TestGroundFailureCleanup(t *testing.T) {
 		t.Fatalf("failed new output retained: %v", err)
 	}
 }
+
 func TestGroundLoadedBytesUsedForSnapshotsAndRendering(t *testing.T) {
 	path, _ := groundTestFixture(t)
 	in, err := loadGroundInputs(path)
@@ -248,6 +264,7 @@ func TestGroundLoadedBytesUsedForSnapshotsAndRendering(t *testing.T) {
 		t.Fatalf("loaded-source center pixel got %v want %v", got, want)
 	}
 }
+
 func groundTestLoadBytes(t *testing.T, data []byte) *image.NRGBA {
 	t.Helper()
 	decoded, err := png.Decode(bytes.NewReader(data))
@@ -271,12 +288,13 @@ func (w groundTestReplacingWriter) Write([]byte) (int, error) {
 	if err := os.Rename(w.out, w.previous); err != nil {
 		w.t.Fatal(err)
 	}
-	if err := os.Mkdir(w.out, 0700); err != nil {
+	if err := os.Mkdir(w.out, 0o700); err != nil {
 		w.t.Fatal(err)
 	}
 	groundTestWrite(w.t, filepath.Join(w.out, "sentinel"), []byte("unrelated replacement"))
 	return 0, errors.New("replacement writer failure")
 }
+
 func TestGroundFailureCleanupPreservesReplacedDirectory(t *testing.T) {
 	path, _ := groundTestFixture(t)
 	dir := filepath.Dir(path)

@@ -65,11 +65,26 @@ func TestEdgeContrastFourConnectedBoundaryWithHole(t *testing.T) {
 	// The four pixels directly beside the hole join the outer perimeter.
 	// Its diagonal neighbors stay interior, and each corner is counted once.
 	want := []lookmeasure.EdgeSample{
-		{X: 1, Y: 1, Delta: 50}, {X: 2, Y: 1, Delta: 50}, {X: 3, Y: 1, Delta: 50}, {X: 4, Y: 1, Delta: 50}, {X: 5, Y: 1, Delta: 50},
-		{X: 1, Y: 2, Delta: 50}, {X: 3, Y: 2, Delta: 50}, {X: 5, Y: 2, Delta: 50},
-		{X: 1, Y: 3, Delta: 50}, {X: 2, Y: 3, Delta: 50}, {X: 4, Y: 3, Delta: 50}, {X: 5, Y: 3, Delta: 50},
-		{X: 1, Y: 4, Delta: 50}, {X: 3, Y: 4, Delta: 50}, {X: 5, Y: 4, Delta: 50},
-		{X: 1, Y: 5, Delta: 50}, {X: 2, Y: 5, Delta: 50}, {X: 3, Y: 5, Delta: 50}, {X: 4, Y: 5, Delta: 50}, {X: 5, Y: 5, Delta: 50},
+		{X: 1, Y: 1, Delta: 50},
+		{X: 2, Y: 1, Delta: 50},
+		{X: 3, Y: 1, Delta: 50},
+		{X: 4, Y: 1, Delta: 50},
+		{X: 5, Y: 1, Delta: 50},
+		{X: 1, Y: 2, Delta: 50},
+		{X: 3, Y: 2, Delta: 50},
+		{X: 5, Y: 2, Delta: 50},
+		{X: 1, Y: 3, Delta: 50},
+		{X: 2, Y: 3, Delta: 50},
+		{X: 4, Y: 3, Delta: 50},
+		{X: 5, Y: 3, Delta: 50},
+		{X: 1, Y: 4, Delta: 50},
+		{X: 3, Y: 4, Delta: 50},
+		{X: 5, Y: 4, Delta: 50},
+		{X: 1, Y: 5, Delta: 50},
+		{X: 2, Y: 5, Delta: 50},
+		{X: 3, Y: 5, Delta: 50},
+		{X: 4, Y: 5, Delta: 50},
+		{X: 5, Y: 5, Delta: 50},
 	}
 	if !reflect.DeepEqual(got, want) {
 		t.Fatalf("samples = %+v, want %+v", got, want)

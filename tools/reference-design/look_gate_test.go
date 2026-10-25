@@ -19,9 +19,11 @@ func gateRule(t *testing.T, g lookGate, id string) lookGateRule {
 	t.Fatalf("missing required rule %s", id)
 	return lookGateRule{}
 }
+
 func gateFixture() lookReport {
 	return lookReport{Sources: []lookSource{{ID: "render", Available: true, Whole: &lookMetrics{MeanL: lookMeasured(40, 100)}, Families: []lookFamily{{ID: "grass", Statistics: lookMetrics{Samples: 100, MeanL: lookMeasured(43, 100), SigmaL: lookMeasured(11, 100), EdgeDensity: lookMeasured(.3, 100), Autocorrelation: []lookLag{{Offset: [2]int{568, 0}, Pearson: lookMeasured(1, 100)}, {Offset: [2]int{142, 0}, Pearson: lookMeasured(-.5, 100)}}}}, {ID: "hills", Statistics: lookMetrics{Samples: 100, MeanL: lookMeasured(38, 100)}}}}}}
 }
+
 func TestLookGateChecksExactTargetsAndRetainsIncompleteRequirements(t *testing.T) {
 	g := evaluateLookGate(gateFixture())
 	for _, id := range []string{"render.whole_mean_l", "render.grass_mean_l", "render.grass_sigma_l", "render.grass_edge_density", "render.hills_delta_l", "render.grass.correlation.142.0"} {
@@ -41,6 +43,7 @@ func TestLookGateChecksExactTargetsAndRetainsIncompleteRequirements(t *testing.T
 		t.Fatalf("false acceptance: %+v", g)
 	}
 }
+
 func TestLookGateBoundsAreInclusiveAndMissingIsIncomplete(t *testing.T) {
 	for _, v := range []float64{10, 13} {
 		r := gateFixture()
@@ -69,6 +72,7 @@ func TestLookGateBoundsAreInclusiveAndMissingIsIncomplete(t *testing.T) {
 		t.Fatal("nonfinite value measured")
 	}
 }
+
 func TestLookGateCannotPassPartialWoodlandOrAssetLightAsGlobal(t *testing.T) {
 	r := gateFixture()
 	v := .1
@@ -82,6 +86,7 @@ func TestLookGateCannotPassPartialWoodlandOrAssetLightAsGlobal(t *testing.T) {
 		t.Fatal("subscope became whole-map acceptance")
 	}
 }
+
 func TestLookStrictCLIRequiresOutputAndPreservesFailedReport(t *testing.T) {
 	if err := run(options{lookCheck: true}); err == nil || !strings.Contains(err.Error(), "-look-out") {
 		t.Fatalf("strict flag ignored: %v", err)

@@ -58,7 +58,7 @@ func TestGenerateGrassVariations(t *testing.T) {
 			if hex.EncodeToString(h[:]) != pin.SHA256 {
 				t.Fatalf("candidate export hash mismatch: %s", pin.Path)
 			}
-			if err := os.WriteFile(filepath.Join(root, pin.Path), png, 0644); err != nil {
+			if err := os.WriteFile(filepath.Join(root, pin.Path), png, 0o644); err != nil {
 				t.Fatal(err)
 			}
 		}

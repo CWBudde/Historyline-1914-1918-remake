@@ -277,9 +277,11 @@ func (c *control) attack(to hexgrid.Coord, slot int) {
 // so the panel tells nothing about it.
 func (c *control) fire(from, to hexgrid.Coord, slot int, hidden bool) (state.Battle, error) {
 	atk, def := c.st.At(from).Unit, c.st.At(to).Unit
-	rp := &report{frames: c.reportTime(),
+	rp := &report{
+		frames:   c.reportTime(),
 		Attacker: side{Name: atk.Type, Weapon: atk.Weapons[slot].Name, Rank: atk.Experience, Before: atk.Size, Max: atk.MaxSize},
-		Defender: side{Name: def.Type, Rank: def.Experience, Before: def.Size, Max: def.MaxSize}}
+		Defender: side{Name: def.Type, Rank: def.Experience, Before: def.Size, Max: def.MaxSize},
+	}
 	b, err := c.st.Attack(from, to, slot, roll)
 	if err != nil {
 		return b, err

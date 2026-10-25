@@ -6,10 +6,9 @@ import (
 	"math"
 	"sync"
 
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/texture"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/colorm"
-
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/texture"
 )
 
 // The placeholder palette: olive-grey steel from dark to light (as the

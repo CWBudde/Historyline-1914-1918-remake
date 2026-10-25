@@ -7,8 +7,6 @@ import (
 	"math"
 	"strings"
 
-	"github.com/hajimehoshi/ebiten/v2"
-
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dospanel"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosscreen"
@@ -18,6 +16,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/pixfont"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 // The info plates of -rules dos (internal/dospanel): the info gesture on an
@@ -45,9 +44,11 @@ func (g *game) plateScale(side int, fit func(r image.Rectangle, scale float64) f
 func unitInfoFit(r image.Rectangle, scale float64) float64 {
 	return dospanel.UnitInfoLayout(r, scale).Scale
 }
+
 func gameInfoFit(r image.Rectangle, scale float64) float64 {
 	return dospanel.GameInfoLayout(r, scale).Scale
 }
+
 func contentsFit(r image.Rectangle, scale float64) float64 {
 	return dospanel.ContentsLayout(r, scale).Scale
 }

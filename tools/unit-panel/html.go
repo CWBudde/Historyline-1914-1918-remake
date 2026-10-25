@@ -42,6 +42,7 @@ func productHTML(draws []Draw) string {
 	b.WriteString("</div>\n")
 	return b.String()
 }
+
 func galleryHTML(fs []Fixture, renders []FixtureRender) string {
 	var b strings.Builder
 	b.WriteString(`<!doctype html>

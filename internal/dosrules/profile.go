@@ -98,14 +98,18 @@ var DemoTables = mustTables(demoJSON)
 
 // Full is profile dos-0.1 on the full build, as executed: the build of
 // record.
-var Full = Profile{Name: "dos-0.1", Tables: FullTables, TransposedDistance: true,
-	Builders: []int{16}, Repair: 15, BuilderRepair: 50}
+var Full = Profile{
+	Name: "dos-0.1", Tables: FullTables, TransposedDistance: true,
+	Builders: []int{16}, Repair: 15, BuilderRepair: 50,
+}
 
 // Demo is profile dos-0.1 on the demo build, as executed. Every recorded
 // case gives what the full build gives; a rule found to differ becomes a
 // Profile field set here.
-var Demo = Profile{Name: "dos-0.1", Tables: DemoTables, TransposedDistance: true,
-	Builders: []int{16}, Repair: 15, BuilderRepair: 50}
+var Demo = Profile{
+	Name: "dos-0.1", Tables: DemoTables, TransposedDistance: true,
+	Builders: []int{16}, Repair: 15, BuilderRepair: 50,
+}
 
 // Profiles are the profiles of the identified builds by build name (the
 // directories under testdata/).

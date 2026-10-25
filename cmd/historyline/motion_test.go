@@ -4,10 +4,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/hajimehoshi/ebiten/v2"
-
 	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 func TestReportDismiss(t *testing.T) {

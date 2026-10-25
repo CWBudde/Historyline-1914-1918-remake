@@ -196,7 +196,7 @@ func exportScreens(manifestPath, out string, raw []byte) error {
 		return e
 	}
 	sort.Slice(b.Report.Files, func(i, j int) bool { return b.Report.Files[i].Path < b.Report.Files[j].Path })
-	if e = os.WriteFile(filepath.Join(stage, "report.json"), writeJSON(b.Report), 0644); e != nil {
+	if e = os.WriteFile(filepath.Join(stage, "report.json"), writeJSON(b.Report), 0o644); e != nil {
 		return e
 	}
 	return os.Rename(stage, target)

@@ -29,9 +29,12 @@ func TestViewCells(t *testing.T) {
 		j, i int
 		want hexgrid.Coord
 	}{
-		{0, 0, hexgrid.Coord{Line: 4, Col: 3}}, {1, 0, hexgrid.Coord{Line: 5, Col: 3}},
-		{2, 0, hexgrid.Coord{Line: 4, Col: 4}}, {0, 1, hexgrid.Coord{Line: 6, Col: 3}},
-		{6, 6, hexgrid.Coord{Line: 16, Col: 6}}, {5, 6, hexgrid.Coord{Line: 17, Col: 5}},
+		{0, 0, hexgrid.Coord{Line: 4, Col: 3}},
+		{1, 0, hexgrid.Coord{Line: 5, Col: 3}},
+		{2, 0, hexgrid.Coord{Line: 4, Col: 4}},
+		{0, 1, hexgrid.Coord{Line: 6, Col: 3}},
+		{6, 6, hexgrid.Coord{Line: 16, Col: 6}},
+		{5, 6, hexgrid.Coord{Line: 17, Col: 5}},
 	} {
 		if got := v.Cell(tc.j, tc.i); got != tc.want {
 			t.Errorf("Cell(%d, %d) = %v, want %v", tc.j, tc.i, got, tc.want)

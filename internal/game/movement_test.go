@@ -154,7 +154,6 @@ func TestPointsRoadBridge(t *testing.T) {
 	if got, ok := r[at(2, 2)]; !ok || got.Cost != 1 {
 		t.Errorf("bridge over a stream: %+v, ok %v", got, ok)
 	}
-
 }
 
 func TestOwnStatsOnExit(t *testing.T) {

@@ -69,8 +69,10 @@ func toAction(t *testing.T, s *Session) {
 func TestTypeInfo(t *testing.T) {
 	s := session(t, shipped(t)[0], Options{})
 	got, ok := s.TypeInfo(0, 10)
-	want := TypeView{Type: 10, ID: "CP_lArtillery", Name: "Light Artillery", Air: Weapon{0, 0}, Ground: Weapon{45, 3},
-		Water: Weapon{45, 3}, Armour: 25, Speed: 2, Weight: 3, Group: 6, Cost: 55, Domain: Artillery}
+	want := TypeView{
+		Type: 10, ID: "CP_lArtillery", Name: "Light Artillery", Air: Weapon{0, 0}, Ground: Weapon{45, 3},
+		Water: Weapon{45, 3}, Armour: 25, Speed: 2, Weight: 3, Group: 6, Cost: 55, Domain: Artillery,
+	}
 	if !ok || got != want {
 		t.Errorf("TypeInfo(0, 10) = %+v, %v\nwant %+v", got, ok, want)
 	}
@@ -120,9 +122,11 @@ func TestBuildingKind(t *testing.T) {
 func TestStatsPulse(t *testing.T) {
 	s, _ := original(t, 0, Options{Computer: [2]bool{false, true}})
 	got := s.Stats()
-	want := Stats{Round: 0, Level: "00", LevelNo: 1, Mode: [2]int{dosrules.PhaseMovement, dosrules.PhaseAction}, Score: 861,
+	want := Stats{
+		Round: 0, Level: "00", LevelNo: 1, Mode: [2]int{dosrules.PhaseMovement, dosrules.PhaseAction}, Score: 861,
 		Sides: [3]Holdings{{Units: 14}, {Units: 14}, {Units: 2, Depots: 2}}, Map: Holdings{Units: 30, Depots: 2},
-		Income: [2]int{5, 5}}
+		Income: [2]int{5, 5},
+	}
 	if !equalStats(got, want) {
 		t.Errorf("Stats = %+v\nwant %+v", got, want)
 	}

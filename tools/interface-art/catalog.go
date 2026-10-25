@@ -5,8 +5,10 @@ import (
 	"math"
 )
 
-var states = []string{"normal", "hover", "focus", "pressed", "disabled"}
-var owners = []struct{ ID, Color string }{{"neutral", "#929b9b"}, {"cp", "#b49579"}, {"ec", "#acb5c2"}}
+var (
+	states = []string{"normal", "hover", "focus", "pressed", "disabled"}
+	owners = []struct{ ID, Color string }{{"neutral", "#929b9b"}, {"cp", "#b49579"}, {"ec", "#acb5c2"}}
+)
 
 func star(c string, x, y, r float64) Shape {
 	var p []float64
@@ -20,6 +22,7 @@ func star(c string, x, y, r float64) Shape {
 	}
 	return poly(c, p...)
 }
+
 func glyph(id, c string) []Shape {
 	switch id {
 	case "move":
@@ -75,6 +78,7 @@ func hexOutline(c string, inset, w float64) []Shape {
 	}
 	return s
 }
+
 func controlFrame(w, h int, state string) []Shape {
 	edge, fill := muted, slate
 	switch state {

@@ -20,12 +20,13 @@ func forestTestWritePNG(t *testing.T, path string, im *image.NRGBA) connectionMa
 	if err := png.Encode(&data, im); err != nil {
 		t.Fatal(err)
 	}
-	if err := os.WriteFile(path, data.Bytes(), 0600); err != nil {
+	if err := os.WriteFile(path, data.Bytes(), 0o600); err != nil {
 		t.Fatal(err)
 	}
 	sum := sha256.Sum256(data.Bytes())
 	return connectionMaterial{filepath.Base(path), hex.EncodeToString(sum[:])}
 }
+
 func forestTestAtlas() *image.NRGBA {
 	im := image.NewNRGBA(image.Rect(0, 0, 512, 512))
 	for panel := range 4 {
@@ -40,6 +41,7 @@ func forestTestAtlas() *image.NRGBA {
 	}
 	return im
 }
+
 func forestTestFixture(t *testing.T) string {
 	t.Helper()
 	dir := t.TempDir()
@@ -71,11 +73,12 @@ func forestTestFixture(t *testing.T) string {
 		t.Fatal(err)
 	}
 	path := filepath.Join(dir, "manifest.json")
-	if err = os.WriteFile(path, data, 0600); err != nil {
+	if err = os.WriteFile(path, data, 0o600); err != nil {
 		t.Fatal(err)
 	}
 	return path
 }
+
 func TestForestStrictManifestAndAtlasGuards(t *testing.T) {
 	path := forestTestFixture(t)
 	original := groundTestRead(t, path)
@@ -205,7 +208,7 @@ func TestForestRollbackAndExistingDirectory(t *testing.T) {
 	if _, err := os.Lstat(out); !os.IsNotExist(err) {
 		t.Fatalf("failed export left partial output: %v", err)
 	}
-	if err := os.Mkdir(out, 0700); err != nil {
+	if err := os.Mkdir(out, 0o700); err != nil {
 		t.Fatal(err)
 	}
 	marker := filepath.Join(out, "keep.txt")

@@ -55,6 +55,7 @@ func mixedProfileFor(pathWidth float64) mixedProfile {
 func fixedMixedProfile() mixedProfile {
 	return mixedProfile{48, 12, 22, 12.5, 8, "Summer materials provisional. Footbridge 48x12 timber deck, side curbs at transverse 6..7.5, path-width 7 approaches retained; earth abutment ramps extend 4 world px beyond deck. Road bridge 48x22 timber deck with side beams at transverse 10..12.5, ramps 4 px; finite structure only, independent upper route required. Round1 wood repair: authored timber grain averaged at world offsets (0,0),(+/-1,0),(0,+/-1); RGB tone=0.35*source+(112,83,47)+8*sin(board_index*2.399963229728653). Cross-planks pitch3 world px, seam0.3 at shade0.48 and bevel0.35 at shade1.18. Side beams inner30% highlighted1.3, outer22% shaded0.48, middle0.72; seven paired posts pitch8 with 1.6-world-pixel along width and1.4 caps/shaded side. Transverse end beams occupy final1.5px of each span end; rounded deck ends radius0.7. All spans/widths/contacts unchanged. Crossings retain approach then rail, replace only interior intersection ballast/ties with flush fitted pitch3 timber, rounded intersection corners radius0.6, then restore continuous steel above infill. Infill excluded within 12 world px of polygon edges (8 px protected plus filter support). Raw source-over at4x with 4-world-pixel overscan, alpha-aware Lanczos3 to2x, crop then complementary final ownership; no hard masks before filtering."}
 }
+
 func mixedOver(a, b color.NRGBA) color.NRGBA {
 	// Straight-alpha source over, including transparent approach verges.
 	alpha := float64(b.A) / 255
@@ -66,6 +67,7 @@ func mixedOver(a, b color.NRGBA) color.NRGBA {
 	ch := func(x, y uint8) uint8 { return uint8(math.Floor((float64(y)*alpha+float64(x)*under)/out + .5)) }
 	return color.NRGBA{ch(a.R, b.R), ch(a.G, b.G), ch(a.B, b.B), uint8(math.Floor(out*255 + .5))}
 }
+
 func mixedEdgeDistance(g connectionGeometry, p connectionPoint) float64 {
 	d := math.Inf(1)
 	for i, a := range g.Polygon {
@@ -76,6 +78,7 @@ func mixedEdgeDistance(g connectionGeometry, p connectionPoint) float64 {
 	}
 	return d
 }
+
 func mixedBoxSDF(x, y, hx, hy, r float64) float64 {
 	a, b := math.Abs(x)-hx+r, math.Abs(y)-hy+r
 	return math.Hypot(math.Max(a, 0), math.Max(b, 0)) + math.Min(math.Max(a, b), 0) - r
@@ -106,6 +109,7 @@ func mixedWood(src *image.NRGBA, p connectionPoint, along float64) color.NRGBA {
 	}
 	return color.NRGBA{channel(channels[0], 112), channel(channels[1], 83), channel(channels[2], 47), 255}
 }
+
 func renderMixedRaw(in mixedInputs, v mixedVariant) *image.NRGBA {
 	g := in.merged.manifest.Geometry
 	var base *image.NRGBA
@@ -256,6 +260,7 @@ func renderMixedRaw(in mixedInputs, v mixedVariant) *image.NRGBA {
 	}
 	return base
 }
+
 func exportMixedTiles(in mixedInputs, v mixedVariant) (map[int]*image.NRGBA, error) {
 	raw4 := renderMixedRaw(in, v)
 	raw2, err := resizeLanczos(raw4, 208, 176)

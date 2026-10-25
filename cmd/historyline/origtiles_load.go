@@ -11,10 +11,9 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/hajimehoshi/ebiten/v2"
-
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/origview"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/tpwm"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 // loadOrigArt reads the original terrain tiles, summer (LIB/PARTS) and winter

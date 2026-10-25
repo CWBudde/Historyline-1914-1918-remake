@@ -31,8 +31,10 @@ const (
 	Dug                           // a sapper dug or filled a trench: From the sapper, To the hex, Hexes, Text
 )
 
-var kindNames = [...]string{"moved", "refused", "ordered", "confirmed", "unconfirmed", "battle", "skipped",
-	"revealed", "phase", "credited", "repaired", "built", "ended", "captured", "tasked", "dug"}
+var kindNames = [...]string{
+	"moved", "refused", "ordered", "confirmed", "unconfirmed", "battle", "skipped",
+	"revealed", "phase", "credited", "repaired", "built", "ended", "captured", "tasked", "dug",
+}
 
 func (k EventKind) String() string {
 	if k >= 0 && int(k) < len(kindNames) {
@@ -161,8 +163,10 @@ func (b *battles) fighter(idx, size, alt, exp int, gone []int) Fighter {
 	st := b.state[idx]
 	v := b.views[idx]
 	v.Size, v.Alt, v.Exp = st[0], st[1], st[2]
-	f := Fighter{Unit: v, Before: st[0], After: size, AltBefore: st[1], AltAfter: alt, ExpBefore: st[2], ExpAfter: exp,
-		Destroyed: slices.Contains(gone, idx)}
+	f := Fighter{
+		Unit: v, Before: st[0], After: size, AltBefore: st[1], AltAfter: alt, ExpBefore: st[2], ExpAfter: exp,
+		Destroyed: slices.Contains(gone, idx),
+	}
 	b.state[idx] = [3]int{size, alt, exp}
 	if p, ok := b.half[idx]; ok {
 		b.state[p] = b.state[idx]

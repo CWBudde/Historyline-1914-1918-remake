@@ -97,8 +97,10 @@ func testCatalog(t *testing.T, skipFamily, skipID string) fstest.MapFS {
 						}
 						p := fmt.Sprintf("images/%04d.png", len(m.Entries))
 						fsys[path.Join(dir, p)] = &fstest.MapFile{Data: buf.Bytes()}
-						m.Entries = append(m.Entries, assets.Entry{ID: id, Path: p, SHA256: hex.EncodeToString(sum[:]),
-							Width: size * d, Height: size * d, Density: d, Anchor: [2]float64{48, 49}})
+						m.Entries = append(m.Entries, assets.Entry{
+							ID: id, Path: p, SHA256: hex.EncodeToString(sum[:]),
+							Width: size * d, Height: size * d, Density: d, Anchor: [2]float64{48, 49},
+						})
 					}
 				}
 			}

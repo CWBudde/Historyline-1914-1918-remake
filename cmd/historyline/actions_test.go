@@ -70,24 +70,36 @@ func TestActionMenuRows(t *testing.T) {
 		setup func(u *state.Unit)
 		want  string
 	}{
-		{"fresh unit with a target",
+		{
+			"fresh unit with a target",
 			map[hexgrid.Coord]level.Hex{at(4, 2): onGrass("CP_infantry"), at(6, 2): onGrass("EC_infantry")},
-			at(4, 2), nil, "Move | Attack | Exit"},
-		{"no target in range",
+			at(4, 2), nil, "Move | Attack | Exit",
+		},
+		{
+			"no target in range",
 			map[hexgrid.Coord]level.Hex{at(4, 2): onGrass("CP_infantry")},
-			at(4, 2), nil, "Move | Attack: no target in range! | Exit"},
-		{"moved",
+			at(4, 2), nil, "Move | Attack: no target in range! | Exit",
+		},
+		{
+			"moved",
 			map[hexgrid.Coord]level.Hex{at(4, 2): onGrass("CP_infantry"), at(6, 2): onGrass("EC_infantry")},
-			at(4, 2), func(u *state.Unit) { u.Moved = true }, "Move: already moved! | Attack: already moved! | Exit"},
-		{"attacked",
+			at(4, 2), func(u *state.Unit) { u.Moved = true }, "Move: already moved! | Attack: already moved! | Exit",
+		},
+		{
+			"attacked",
 			map[hexgrid.Coord]level.Hex{at(4, 2): onGrass("CP_infantry"), at(6, 2): onGrass("EC_infantry")},
-			at(4, 2), func(u *state.Unit) { u.Attacked = true }, "Move: already attacked! | Attack: already attacked! | Exit"},
-		{"static unit",
+			at(4, 2), func(u *state.Unit) { u.Attacked = true }, "Move: already attacked! | Attack: already attacked! | Exit",
+		},
+		{
+			"static unit",
 			map[hexgrid.Coord]level.Hex{at(4, 2): onGrass("CP_bunker")},
-			at(4, 2), nil, "Move: cannot move! | Attack: no target in range! | Exit"},
-		{"empty carrier",
+			at(4, 2), nil, "Move: cannot move! | Attack: no target in range! | Exit",
+		},
+		{
+			"empty carrier",
 			map[hexgrid.Coord]level.Hex{at(4, 2): onGrass("CP_supplyCar")},
-			at(4, 2), nil, "Move | Contents: empty! | Exit"},
+			at(4, 2), nil, "Move | Contents: empty! | Exit",
+		},
 	}
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {

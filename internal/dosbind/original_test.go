@@ -25,8 +25,19 @@ type deviation struct{ Cell, Record int }
 // knownTerrain are the cells whose bound record follows the level's terrain,
 // which differs in its rules from the original map's record there.
 var knownTerrain = map[string][]deviation{
-	"Pulse": {{43, 55}, {45, 80}, {85, 167}, {99, 55}, {121, 64}, {259, 149}, {275, 146}, {291, 152},
-		{328, 167}, {329, 168}, {330, 169}},
+	"Pulse": {
+		{43, 55},
+		{45, 80},
+		{85, 167},
+		{99, 55},
+		{121, 64},
+		{259, 149},
+		{275, 146},
+		{291, 152},
+		{328, 167},
+		{329, 168},
+		{330, 169},
+	},
 	"Mouse": {{253, 0}, {379, 54}, {381, 57}, {382, 49}, {404, 55}},
 }
 

@@ -6,10 +6,6 @@ import (
 	"image/color"
 	"strings"
 
-	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/colorm"
-	"github.com/hajimehoshi/ebiten/v2/vector"
-
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dospanel"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosscreen"
@@ -18,6 +14,9 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/pixfont"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
+	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/colorm"
+	"github.com/hajimehoshi/ebiten/v2/vector"
 )
 
 // The phase change of -rules dos. F1 (or the mode-change gesture) opens a
@@ -104,8 +103,10 @@ func (f *fight) final() (lost [2]int, gained [2]bool) {
 // the defender below, a ship as one picture.
 func battleScene(b *dosplay.BattleInfo) dospanel.Battle {
 	fighter := func(x dosplay.Fighter) dospanel.Fighter {
-		return dospanel.Fighter{Name: strings.ToUpper(x.Unit.Name), Before: x.Before, After: x.After, Full: x.Unit.Full,
-			ExpBefore: x.ExpBefore, ExpAfter: x.ExpAfter, Destroyed: x.Destroyed, Ship: x.Unit.Domain == dosplay.Naval}
+		return dospanel.Fighter{
+			Name: strings.ToUpper(x.Unit.Name), Before: x.Before, After: x.After, Full: x.Unit.Full,
+			ExpBefore: x.ExpBefore, ExpAfter: x.ExpAfter, Destroyed: x.Destroyed, Ship: x.Unit.Domain == dosplay.Naval,
+		}
 	}
 	return dospanel.Battle{Attacker: fighter(b.Attacker), Defender: fighter(b.Defender), ReturnFire: b.ReturnFire}
 }
@@ -180,8 +181,10 @@ func (d *dosControl) tickStage() {
 func (d *dosControl) startBattle(ev dosplay.Event) {
 	b := ev.Battle
 	atk, def := b.Attacker, b.Defender
-	f := &fight{ev: ev, from: d.frozenAt(atk.Unit.Index, ev.From), at: d.frozenAt(def.Unit.Index, ev.To),
-		battle: battleScene(b), scene: !d.noScenes}
+	f := &fight{
+		ev: ev, from: d.frozenAt(atk.Unit.Index, ev.From), at: d.frozenAt(def.Unit.Index, ev.To),
+		battle: battleScene(b), scene: !d.noScenes,
+	}
 	f.grey = d.frames(siteGreyFrames, siteGreyReduced)
 	f.strikeAt = f.grey
 	n := d.frames(stillFrames, stillFramesReduced)

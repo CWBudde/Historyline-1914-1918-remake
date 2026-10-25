@@ -6,11 +6,10 @@ import (
 	"io/fs"
 	"slices"
 
-	"github.com/hajimehoshi/ebiten/v2"
-
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dospanel"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosscreen"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 // screenDensities are the densities of the screen catalog (hlasset

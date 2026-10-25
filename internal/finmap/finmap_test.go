@@ -76,8 +76,10 @@ func TestDecodeShop(t *testing.T) {
 	if !s.Locked[0] || !s.Locked[50] || s.Locked[1] {
 		t.Fatalf("locked %v", s.Locked)
 	}
-	want := Record{Side: 2, Kind: Factory, Index: 3, Energy: 10, ComputerValue: 40,
-		Slots: [7]byte{12, 0xf1, 18, 0xff, 0xff, 0xff, 0xff}}
+	want := Record{
+		Side: 2, Kind: Factory, Index: 3, Energy: 10, ComputerValue: 40,
+		Slots: [7]byte{12, 0xf1, 18, 0xff, 0xff, 0xff, 0xff},
+	}
 	if len(s.Records) != 2 || s.Records[0] != want {
 		t.Fatalf("records %+v", s.Records)
 	}
@@ -173,7 +175,8 @@ var testRules = Rules{
 
 func testMap() *Map {
 	e := byte(0xff)
-	m, err := DecodeMap(fin(4, 4,
+	m, err := DecodeMap(fin(
+		4, 4,
 		[2]byte{0, 1}, [2]byte{1, e}, [2]byte{0, e}, [2]byte{0, 5},
 		[2]byte{0, e}, [2]byte{0, 2}, [2]byte{3, e}, [2]byte{0, 7},
 		[2]byte{2, e}, [2]byte{0, e}, [2]byte{0, 6}, [2]byte{0, 0xf5},
@@ -188,7 +191,8 @@ func testMap() *Map {
 func ptr(v int) *int { return &v }
 
 func TestBuild(t *testing.T) {
-	shop, err := DecodeShop(shp([]int{0, 2},
+	shop, err := DecodeShop(shp(
+		[]int{0, 2},
 		rec(0, 0, 0, 5, 50, 0),
 		rec(2, 1, 0, 10, 30, 1, 0),
 		rec(0, 3, 0, 0, 0, 0, 0),
@@ -200,8 +204,10 @@ func TestBuild(t *testing.T) {
 	}
 	var com Computer
 	com[3][1] = 7
-	l, err := Build(Input{Index: 30, Map: testMap(), Shop: shop, Computer: &com,
-		Code: &Code{Password: "ABCDE", Raw5: 2, Players: 1, Step: 1, Winter: true}}, testRules)
+	l, err := Build(Input{
+		Index: 30, Map: testMap(), Shop: shop, Computer: &com,
+		Code: &Code{Password: "ABCDE", Raw5: 2, Players: 1, Step: 1, Winter: true},
+	}, testRules)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -236,8 +242,10 @@ func TestBuild(t *testing.T) {
 	}
 	wantContainers := []Container{
 		{Container: 70, Kind: "hq", Index: 0, Side: 0, Energy: 5, ComputerValue: 50, Units: []Cargo{{Type: 0}}, Holder: "building"},
-		{Container: 82, Kind: "factory", Index: 0, Side: Neutral, Energy: 10, ComputerValue: 30,
-			Units: []Cargo{{Type: 1, Container: ptr(1)}, {Type: 0}}, Holder: "building"},
+		{
+			Container: 82, Kind: "factory", Index: 0, Side: Neutral, Energy: 10, ComputerValue: 30,
+			Units: []Cargo{{Type: 1, Container: ptr(1)}, {Type: 0}}, Holder: "building",
+		},
 		{Container: 0, Kind: "transporter", Index: 0, Side: 0, Units: []Cargo{{Type: 0}, {Type: 0}}, Holder: "unit"},
 		{Container: 5, Kind: "transporter", Index: 5, Side: 1, Units: []Cargo{}, Holder: "none"},
 		{Container: 72, Kind: "hq", Index: 2, Side: 0, Units: []Cargo{}, Holder: "building"},

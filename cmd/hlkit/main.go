@@ -258,14 +258,14 @@ func rgbCheck(mean, target [3]float64) worldmaterial.Check {
 }
 
 func writePNG(path string, im image.Image) (string, error) {
-	if err := os.MkdirAll(filepath.Dir(path), 0755); err != nil {
+	if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
 		return "", err
 	}
 	var b bytes.Buffer
 	if err := png.Encode(&b, im); err != nil {
 		return "", err
 	}
-	return fmt.Sprintf("%x", sha256.Sum256(b.Bytes())), os.WriteFile(path, b.Bytes(), 0644)
+	return fmt.Sprintf("%x", sha256.Sum256(b.Bytes())), os.WriteFile(path, b.Bytes(), 0o644)
 }
 
 // prepared is one item's sprites by density.
@@ -467,10 +467,10 @@ func prepareAll(profilePath, outDir string) (profile, []kit, []string, error) {
 	if err != nil {
 		return p, nil, nil, err
 	}
-	if err = os.MkdirAll(outDir, 0755); err != nil {
+	if err = os.MkdirAll(outDir, 0o755); err != nil {
 		return p, nil, nil, err
 	}
-	if err = os.WriteFile(filepath.Join(outDir, "kits.json"), append(b, '\n'), 0644); err != nil {
+	if err = os.WriteFile(filepath.Join(outDir, "kits.json"), append(b, '\n'), 0o644); err != nil {
 		return p, nil, nil, err
 	}
 	return p, kits, failed, nil
@@ -575,8 +575,10 @@ func install(profilePath, outDir, assetsDir string) error {
 					if err := png.Encode(&b, im); err != nil {
 						return err
 					}
-					entries = append(entries, assetEntry{id, fmt.Sprintf("terrain-standing-%dx", o.Density), o.Density, path,
-						fmt.Sprintf("%x", sha256.Sum256(b.Bytes())), o.Width, o.Height, anchor, "standing", k.sheet.Art})
+					entries = append(entries, assetEntry{
+						id, fmt.Sprintf("terrain-standing-%dx", o.Density), o.Density, path,
+						fmt.Sprintf("%x", sha256.Sum256(b.Bytes())), o.Width, o.Height, anchor, "standing", k.sheet.Art,
+					})
 					files = append(files, file{path, im})
 				}
 			}
@@ -605,7 +607,7 @@ func install(profilePath, outDir, assetsDir string) error {
 			}
 		}
 	}
-	return os.WriteFile(indexPath, []byte(index), 0644)
+	return os.WriteFile(indexPath, []byte(index), 0o644)
 }
 
 // spliceIndex replaces the installed (scatter) entries of an assets/index.json

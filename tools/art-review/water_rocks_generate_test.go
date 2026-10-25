@@ -153,7 +153,7 @@ func TestGenerateWaterRocks(t *testing.T) {
 			}
 			sum := sha256.Sum256(buf.Bytes())
 			path := fmt.Sprintf("terrain/water/%s-%dx.png", id, d)
-			if err := os.WriteFile(filepath.Join(root, "assets", path), buf.Bytes(), 0644); err != nil {
+			if err := os.WriteFile(filepath.Join(root, "assets", path), buf.Bytes(), 0o644); err != nil {
 				t.Fatal(err)
 			}
 			raw, err := json.Marshal(campaignEntry{ID: "tile/" + id, Pack: fmt.Sprintf("terrain-infrastructure-%dx", d), Density: d, Path: path, SHA256: hex.EncodeToString(sum[:]), Width: 96 * d, Height: 80 * d, Anchor: [2]float64{48, 40}, Art: "terrain/water"})
@@ -198,7 +198,7 @@ func writeCampaignIndex(t *testing.T, root string, entries []json.RawMessage) {
 		out.WriteByte('\n')
 	}
 	out.WriteString("  ]\n}\n")
-	if err := os.WriteFile(filepath.Join(root, "assets/index.json"), out.Bytes(), 0644); err != nil {
+	if err := os.WriteFile(filepath.Join(root, "assets/index.json"), out.Bytes(), 0o644); err != nil {
 		t.Fatal(err)
 	}
 }

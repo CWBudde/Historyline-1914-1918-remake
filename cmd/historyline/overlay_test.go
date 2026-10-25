@@ -5,14 +5,13 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/hajimehoshi/ebiten/v2"
-
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dospanel"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/gesture"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scores"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 // The tests below open the unit info and the game info in the human side's
@@ -114,8 +113,10 @@ func TestDosOverlaysUnitInfo(t *testing.T) {
 		t.Fatalf("no type %d", u.Type)
 	}
 	got := g.unitInfo(u)
-	want := dospanel.UnitInfo{Name: tv.Name, Air: dospanel.Weapon(tv.Air), Ground: dospanel.Weapon(tv.Ground), Water: dospanel.Weapon(tv.Water),
-		Armour: tv.Armour, Speed: tv.Speed, Weight: tv.Weight, Group: tv.Group}
+	want := dospanel.UnitInfo{
+		Name: tv.Name, Air: dospanel.Weapon(tv.Air), Ground: dospanel.Weapon(tv.Ground), Water: dospanel.Weapon(tv.Water),
+		Armour: tv.Armour, Speed: tv.Speed, Weight: tv.Weight, Group: tv.Group,
+	}
 	if got != want {
 		t.Errorf("unit info %+v, want %+v", got, want)
 	}

@@ -51,12 +51,14 @@ func sampleConnectionMaterial(src *image.NRGBA, p connectionPoint) color.NRGBA {
 	return color.NRGBA{uint8(math.Floor((a[0]+b[0])/2 + .5000000001)), uint8(math.Floor((a[1]+b[1])/2 + .5000000001)), uint8(math.Floor((a[2]+b[2])/2 + .5000000001)), 255}
 }
 
-type connectionSegment struct{ a, b connectionPoint }
-type connectionRoute struct {
-	segments []connectionSegment
-	junction bool
-	road     *connectionRoadPaint
-}
+type (
+	connectionSegment struct{ a, b connectionPoint }
+	connectionRoute   struct {
+		segments []connectionSegment
+		junction bool
+		road     *connectionRoadPaint
+	}
+)
 
 func connectionRoutes(g connectionGeometry, f connectionFamily, v connectionVariant) connectionRoute {
 	route := connectionRoute{junction: len(v.Ports) >= 3}
@@ -102,6 +104,7 @@ func connectionRoutes(g connectionGeometry, f connectionFamily, v connectionVari
 	}
 	return route
 }
+
 func connectionRouteDistance(route connectionRoute, p connectionPoint) float64 {
 	best := math.Inf(1)
 	for _, s := range route.segments {
@@ -120,6 +123,7 @@ func connectionRouteDistance(route connectionRoute, p connectionPoint) float64 {
 	}
 	return math.Sqrt(best)
 }
+
 func connectionInside(g connectionGeometry, p connectionPoint) bool {
 	for i, a := range g.Polygon {
 		v := g.Polygon[(i+1)%len(g.Polygon)].sub(a)
@@ -133,16 +137,19 @@ func connectionInside(g connectionGeometry, p connectionPoint) bool {
 	}
 	return true
 }
+
 func connectionRamp(signed, span float64) float64 {
 	// Reciprocal segments can differ by a few floating-point ulps. Stabilize
 	// half-alpha rounding at mathematically identical shared-edge samples.
 	signed = math.Round(signed*1e9) / 1e9
 	return math.Max(0, math.Min(1, .5+signed/span))
 }
+
 func connectionBlend(a, b color.NRGBA, t float64) color.NRGBA {
 	mix := func(a, b uint8) uint8 { return uint8(math.Floor(float64(a)*(1-t) + float64(b)*t + .5)) }
 	return color.NRGBA{mix(a.R, b.R), mix(a.G, b.G), mix(a.B, b.B), 255}
 }
+
 func connectionSmoothStep(t float64) float64 {
 	t = math.Max(0, math.Min(1, t))
 	return t * t * (3 - 2*t)
@@ -286,6 +293,7 @@ func connectionFeature(in connectionInputs, f connectionFamily, route connection
 	bank.A = uint8(math.Floor(255*alpha + .5))
 	return bank
 }
+
 func renderConnectionRaw(in connectionInputs, f *connectionFamily, v *connectionVariant) *image.NRGBA {
 	const scale, margin = 4, 4
 	im := image.NewNRGBA(image.Rect(0, 0, (96+2*margin)*scale, (80+2*margin)*scale))
@@ -355,6 +363,7 @@ func exportConnectionTiles(in connectionInputs, f *connectionFamily, v *connecti
 	}
 	return outputs, nil
 }
+
 func buildConnectionScene(g connectionGeometry, f connectionFamily, v connectionVariant, parity int) (connectionScene, error) {
 	scene := connectionScene{ID: fmt.Sprintf("%s-patch-parity%d", v.ID, parity), CenterLineParity: parity}
 	center := connectionPoint{0, 0}
@@ -399,6 +408,7 @@ func buildConnectionScene(g connectionGeometry, f connectionFamily, v connection
 	})
 	return scene, nil
 }
+
 func renderConnectionScene(exports map[string]map[int]*image.NRGBA, scene connectionScene, scale int) *image.NRGBA {
 	minX, minY, maxX, maxY := math.Inf(1), math.Inf(1), math.Inf(-1), math.Inf(-1)
 	for _, c := range scene.Cells {
@@ -426,6 +436,7 @@ func renderConnectionScene(exports map[string]map[int]*image.NRGBA, scene connec
 	}
 	return im
 }
+
 func connectionContactSheet(panels []*image.NRGBA) *image.NRGBA {
 	im := image.NewNRGBA(image.Rect(0, 0, 384, 160*((len(panels)+1)/2)))
 	for y := 0; y < im.Bounds().Dy(); y++ {

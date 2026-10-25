@@ -29,7 +29,7 @@ func TestPulseRejectsInvalidCaptureCollection(t *testing.T) {
 				t.Fatal(err)
 			}
 			defer func() { _ = r.Close() }()
-			if err := r.MkdirAll("build/captures/media", 0755); err != nil {
+			if err := r.MkdirAll("build/captures/media", 0o755); err != nil {
 				t.Fatal(err)
 			}
 			frames := make([]pulseCapture, 9)
@@ -41,14 +41,14 @@ func TestPulseRejectsInvalidCaptureCollection(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			if err := r.WriteFile("build/captures/captures.json", data, 0644); err != nil {
+			if err := r.WriteFile("build/captures/captures.json", data, 0o644); err != nil {
 				t.Fatal(err)
 			}
 			var pngBytes bytes.Buffer
 			if err := png.Encode(&pngBytes, image.NewNRGBA(image.Rect(0, 0, 1280, 720))); err != nil {
 				t.Fatal(err)
 			}
-			if err := r.WriteFile("build/captures/frame.png", pngBytes.Bytes(), 0644); err != nil {
+			if err := r.WriteFile("build/captures/frame.png", pngBytes.Bytes(), 0o644); err != nil {
 				t.Fatal(err)
 			}
 			out, err := r.OpenRoot("build/captures")

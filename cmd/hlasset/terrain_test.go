@@ -93,10 +93,12 @@ func TestRetainedTerrainCatalogBuilds(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	want := map[string]int{"backgrounds": 262, "infrastructure": 268,
+	want := map[string]int{
+		"backgrounds": 262, "infrastructure": 268,
 		"context-ground": 273, "context-ground-2": 273, "context-ground-3": 273, "context-ground-4": 198,
 		"context-forest": 130,
-		"context-hills":  273, "context-hills-2": 273, "context-hills-3": 273, "context-hills-4": 151}
+		"context-hills":  273, "context-hills-2": 273, "context-hills-3": 273, "context-hills-4": 151,
+	}
 	for _, e := range retainedIndex(t) {
 		if e.Density == 2 {
 			if strings.HasPrefix(e.Pack, "terrain-standing-stamps-") {
@@ -393,7 +395,7 @@ func TestTerrainGapsReport(t *testing.T) {
 		extra.Entries = append([]assets.Entry(nil), m.Entries[:1]...)
 		m.Entries = m.Entries[1:]
 		imagePath := filepath.Join(part, extra.Entries[0].Path)
-		if err := os.MkdirAll(filepath.Dir(imagePath), 0755); err != nil {
+		if err := os.MkdirAll(filepath.Dir(imagePath), 0o755); err != nil {
 			t.Fatal(err)
 		}
 		if err := os.Rename(filepath.Join(base, extra.Entries[0].Path), imagePath); err != nil {
@@ -404,7 +406,7 @@ func TestTerrainGapsReport(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			if err := os.WriteFile(filepath.Join(dir, "manifest.json"), data, 0644); err != nil {
+			if err := os.WriteFile(filepath.Join(dir, "manifest.json"), data, 0o644); err != nil {
 				t.Fatal(err)
 			}
 		}
@@ -473,9 +475,11 @@ func TestTerrainGapsReport(t *testing.T) {
 // overhangs its hex by a quarter hex on every side.
 func withStanding(es []indexEntry) []indexEntry {
 	for _, d := range terrainDensities {
-		es = append(es, indexEntry{ID: "standing/forest", Pack: fmt.Sprintf("terrain-standing-%dx", d), Density: d,
+		es = append(es, indexEntry{
+			ID: "standing/forest", Pack: fmt.Sprintf("terrain-standing-%dx", d), Density: d,
 			Path: fmt.Sprintf("terrain/forest/standing-%dx.png", d), SHA256: strings.Repeat("0", 64),
-			Width: 144 * d, Height: 120 * d, Anchor: &[2]float64{72, 60}, Layer: "standing", Art: "terrain/forest"})
+			Width: 144 * d, Height: 120 * d, Anchor: &[2]float64{72, 60}, Layer: "standing", Art: "terrain/forest",
+		})
 	}
 	return es
 }
@@ -574,9 +578,11 @@ func TestTerrainPlanStamps(t *testing.T) {
 func TestTerrainPlanSeparateStandingStamps(t *testing.T) {
 	es := withoutOptionalTerrain(retainedIndex(t))
 	for _, d := range terrainDensities {
-		es = append(es, indexEntry{ID: "standing/stamp/knoll_w/1/1", Pack: fmt.Sprintf("terrain-standing-stamps-%dx", d),
+		es = append(es, indexEntry{
+			ID: "standing/stamp/knoll_w/1/1", Pack: fmt.Sprintf("terrain-standing-stamps-%dx", d),
 			Density: d, Path: fmt.Sprintf("terrain/mountain/knoll-winter-%dx.png", d), SHA256: strings.Repeat("0", 64),
-			Width: 300 * d, Height: 160 * d, Anchor: &[2]float64{140, 40}, Layer: "standing", Art: "terrain/mountain"})
+			Width: 300 * d, Height: 160 * d, Anchor: &[2]float64{140, 40}, Layer: "standing", Art: "terrain/mountain",
+		})
 	}
 	packs, err := planTerrain(es)
 	if err != nil {

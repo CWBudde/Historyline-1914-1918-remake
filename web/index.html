@@ -1,120 +1,263 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Historyline 1914-1918</title>
-  <link rel="icon" href="data:,">
-  <style>
-    :root { --cream: #eee5d2; --brass: #c4a773; --muted: #6e8088; --slate: #162630; }
-    html, body { margin: 0; height: 100%; background: #000; color: var(--cream); font-family: sans-serif; }
-    /* The title card while the game loads: the menu's painting and the game's 640x400 canvas, fitted like it. */
-    #loading { position: fixed; inset: 0; z-index: 1; display: grid; place-items: center; background: #000; }
-    .stage { position: relative; width: min(100vw, 160vh); aspect-ratio: 16 / 10; container-type: inline-size;
-      background: var(--slate) center / cover no-repeat; overflow: hidden; }
-    .stage > * { position: absolute; box-sizing: border-box; --px: calc(100cqw / 640); }
-    .shade { inset: 0; background: rgb(22 38 48 / 0.3); }
-    .border { inset: 2% 1.25%; border: 1px solid rgb(196 167 115 / 0.7); }
-    .banner { left: 15%; width: 70%; top: 14%; height: 30%; display: flex; flex-direction: column; align-items: center;
-      justify-content: center; background: rgb(22 38 48 / 0.85); border: 1px solid var(--muted);
-      border-radius: calc(3 * var(--px)); font-family: Georgia, "Times New Roman", serif; font-weight: bold; }
-    .banner::before { content: ""; position: absolute; left: calc(8 * var(--px)); top: calc(8 * var(--px));
-      width: calc(22 * var(--px)); height: calc(2 * var(--px)); background: var(--brass); }
-    .banner h1 { margin: 0; font-size: calc(42 * var(--px)); letter-spacing: 0.06em; line-height: 1.1; }
-    .banner hr { width: 70%; margin: calc(6 * var(--px)) 0; border: 0; border-top: 1px solid var(--brass); }
-    .banner p { margin: 0; font-size: calc(34 * var(--px)); color: var(--brass); letter-spacing: 0.04em; }
-    .bar { left: 28.125%; width: 43.75%; top: 79.5%; height: 4%; background: #0e1a21; border: 1px solid #4d5f68;
-      border-radius: calc(2 * var(--px)); overflow: hidden; }
-    .bar div { height: 100%; width: 0; background: var(--brass); }
-    .note { left: 0; right: 0; top: 85.5%; margin: 0; text-align: center; font-size: calc(13 * var(--px)); }
-  </style>
-</head>
-<body>
-  <div id="loading">
-    <div class="stage">
-      <div class="shade"></div>
-      <div class="border"></div>
-      <div class="banner"><h1>HISTORYLINE</h1><hr><p>1914-1918</p></div>
-      <div class="bar"><div></div></div>
-      <p class="note">Loading…</p>
-    </div>
-  </div>
-  <script>
-    const loading = document.getElementById("loading");
-    const stage = loading.querySelector(".stage");
-    const bar = loading.querySelector(".bar");
-    const note = loading.querySelector(".note");
-    // just web serves the art packs under packs/<catalog>/, each with a files.txt listing ("<size> <path>"
-    // per line), and writes build.json: the build's content hash, which every other URL carries so a cached
-    // file of an older build is never used, and the size of historyline.wasm. packs/<catalog>-lite/ holds
-    // the same art compressed: the game boots from it and, on a fast connection, loads the full catalog
-    // in the background.
-    const catalogs = ["units", "terrain", "screens"];
-    // The game opens these before its menu shows; the terrain follows with the first battle.
-    const atStart = ["units", "screens"];
-    let total = 0, done = 0, phase = "Loading the game";
-    const mb = (n) => (n / 1e6).toFixed(0);
-    const show = () => {
-      bar.firstElementChild.style.width = (total ? Math.min(100, (100 * done) / total) : 0) + "%";
-      if (!total) note.textContent = phase + "…";
-      else if (done >= total) note.textContent = "Preparing the art…";
-      else note.textContent = `${phase} · ${mb(done)} of ${mb(total)} MB`;
-    };
-    // The game reports each art file it has fetched.
-    globalThis.historylineFetched = (n) => { done += n; show(); };
-    const stop = (text) => {
-      bar.hidden = true;
-      note.textContent = text;
-      document.body.append(loading);
-    };
-    const script = (src) => new Promise((resolve, reject) => {
-      const s = document.createElement("script");
-      s.src = src;
-      s.onload = resolve;
-      s.onerror = () => reject(new Error("cannot load " + src));
-      document.head.append(s);
-    });
-    const bytes = (listing) => listing.trim().split("\n").reduce((sum, line) => sum + (parseInt(line, 10) || 0), 0);
-    (async () => {
-      try {
-        const info = await fetch("build.json", { cache: "no-cache" }).then((r) => (r.ok ? r.json() : {}), () => ({}));
-        const v = info.version ? "?v=" + encodeURIComponent(info.version) : "";
-        const listing = (dir) => fetch(`packs/${dir}/files.txt${v}`).then((r) => (r.ok ? r.text() : null), () => null);
-        const [full, lite] = await Promise.all([catalogs.map(listing), catalogs.map((c) => listing(c + "-lite"))]
-          .map((all) => Promise.all(all)));
-        // What the game boots from: the compressed catalog where there is one.
-        const boot = catalogs.map((c, i) => (lite[i] !== null ? c + "-lite" : full[i] !== null ? c : null));
-        const listings = boot.map((dir, i) => (dir === null ? null : lite[i] ?? full[i]));
-        const screens = catalogs.indexOf("screens");
-        const backdrop = listings[screens]?.match(/^\d+ (2x\/backdrop\/images\/\S+\.(?:png|jpg|webp))$/m);
-        if (backdrop) stage.style.backgroundImage = `url("packs/${boot[screens]}/${backdrop[1]}${v}")`;
-        total = (info.wasm || 0) + atStart.reduce((sum, c) => sum + bytes(listings[catalogs.indexOf(c)] ?? ""), 0);
-        show();
-        await script("wasm_exec.js" + v);
-        const go = new Go();
-        const url = (dir) => new URL(`packs/${dir}/${v}`, location.href).href;
-        catalogs.forEach((c, i) => {
-          if (boot[i] !== null) go.argv.push(`-${c}`, url(boot[i]));
-          if (lite[i] !== null && full[i] !== null) go.argv.push(`-${c}-hd`, url(c));
-        });
-        if (listings.some((l) => l !== null)) go.argv.push("-allow-candidates");
-        let wasm = await fetch("historyline.wasm" + v);
-        if (!wasm.ok) throw new Error(`historyline.wasm: ${wasm.status}`);
-        // The download is compressed on the wire, so count the decoded bytes against the size build.json gives.
-        if (info.wasm && wasm.body) {
-          const count = new TransformStream({ transform(chunk, c) { done += chunk.byteLength; show(); c.enqueue(chunk); } });
-          wasm = new Response(wasm.body.pipeThrough(count), { headers: { "Content-Type": "application/wasm" } });
-        }
-        const result = await WebAssembly.instantiateStreaming(wasm, go.importObject);
-        phase = "Loading the art";
-        show();
-        // The game removes the title card once it runs.
-        await go.run(result.instance);
-        stop("The game has ended (errors are in the browser console). Reload to play again.");
-      } catch (err) {
-        stop("Failed to load the game: " + err);
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Historyline 1914-1918</title>
+    <link rel="icon" href="data:," />
+    <style>
+      :root {
+        --cream: #eee5d2;
+        --brass: #c4a773;
+        --muted: #6e8088;
+        --slate: #162630;
       }
-    })();
-  </script>
-</body>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        background: #000;
+        color: var(--cream);
+        font-family: sans-serif;
+      }
+      /* The title card while the game loads: the menu's painting and the game's 640x400 canvas, fitted like it. */
+      #loading {
+        position: fixed;
+        inset: 0;
+        z-index: 1;
+        display: grid;
+        place-items: center;
+        background: #000;
+      }
+      .stage {
+        position: relative;
+        width: min(100vw, 160vh);
+        aspect-ratio: 16 / 10;
+        container-type: inline-size;
+        background: var(--slate) center / cover no-repeat;
+        overflow: hidden;
+      }
+      .stage > * {
+        position: absolute;
+        box-sizing: border-box;
+        --px: calc(100cqw / 640);
+      }
+      .shade {
+        inset: 0;
+        background: rgb(22 38 48 / 0.3);
+      }
+      .border {
+        inset: 2% 1.25%;
+        border: 1px solid rgb(196 167 115 / 0.7);
+      }
+      .banner {
+        left: 15%;
+        width: 70%;
+        top: 14%;
+        height: 30%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: rgb(22 38 48 / 0.85);
+        border: 1px solid var(--muted);
+        border-radius: calc(3 * var(--px));
+        font-family: Georgia, "Times New Roman", serif;
+        font-weight: bold;
+      }
+      .banner::before {
+        content: "";
+        position: absolute;
+        left: calc(8 * var(--px));
+        top: calc(8 * var(--px));
+        width: calc(22 * var(--px));
+        height: calc(2 * var(--px));
+        background: var(--brass);
+      }
+      .banner h1 {
+        margin: 0;
+        font-size: calc(42 * var(--px));
+        letter-spacing: 0.06em;
+        line-height: 1.1;
+      }
+      .banner hr {
+        width: 70%;
+        margin: calc(6 * var(--px)) 0;
+        border: 0;
+        border-top: 1px solid var(--brass);
+      }
+      .banner p {
+        margin: 0;
+        font-size: calc(34 * var(--px));
+        color: var(--brass);
+        letter-spacing: 0.04em;
+      }
+      .bar {
+        left: 28.125%;
+        width: 43.75%;
+        top: 79.5%;
+        height: 4%;
+        background: #0e1a21;
+        border: 1px solid #4d5f68;
+        border-radius: calc(2 * var(--px));
+        overflow: hidden;
+      }
+      .bar div {
+        height: 100%;
+        width: 0;
+        background: var(--brass);
+      }
+      .note {
+        left: 0;
+        right: 0;
+        top: 85.5%;
+        margin: 0;
+        text-align: center;
+        font-size: calc(13 * var(--px));
+      }
+    </style>
+  </head>
+  <body>
+    <div id="loading">
+      <div class="stage">
+        <div class="shade"></div>
+        <div class="border"></div>
+        <div class="banner">
+          <h1>HISTORYLINE</h1>
+          <hr />
+          <p>1914-1918</p>
+        </div>
+        <div class="bar"><div></div></div>
+        <p class="note">Loading…</p>
+      </div>
+    </div>
+    <script>
+      const loading = document.getElementById("loading");
+      const stage = loading.querySelector(".stage");
+      const bar = loading.querySelector(".bar");
+      const note = loading.querySelector(".note");
+      // just web serves the art packs under packs/<catalog>/, each with a files.txt listing ("<size> <path>"
+      // per line), and writes build.json: the build's content hash, which every other URL carries so a cached
+      // file of an older build is never used, and the size of historyline.wasm. packs/<catalog>-lite/ holds
+      // the same art compressed: the game boots from it and, on a fast connection, loads the full catalog
+      // in the background.
+      const catalogs = ["units", "terrain", "screens"];
+      // The game opens these before its menu shows; the terrain follows with the first battle.
+      const atStart = ["units", "screens"];
+      let total = 0,
+        done = 0,
+        phase = "Loading the game";
+      const mb = (n) => (n / 1e6).toFixed(0);
+      const show = () => {
+        bar.firstElementChild.style.width =
+          (total ? Math.min(100, (100 * done) / total) : 0) + "%";
+        if (!total) note.textContent = phase + "…";
+        else if (done >= total) note.textContent = "Preparing the art…";
+        else note.textContent = `${phase} · ${mb(done)} of ${mb(total)} MB`;
+      };
+      // The game reports each art file it has fetched.
+      globalThis.historylineFetched = (n) => {
+        done += n;
+        show();
+      };
+      const stop = (text) => {
+        bar.hidden = true;
+        note.textContent = text;
+        document.body.append(loading);
+      };
+      const script = (src) =>
+        new Promise((resolve, reject) => {
+          const s = document.createElement("script");
+          s.src = src;
+          s.onload = resolve;
+          s.onerror = () => reject(new Error("cannot load " + src));
+          document.head.append(s);
+        });
+      const bytes = (listing) =>
+        listing
+          .trim()
+          .split("\n")
+          .reduce((sum, line) => sum + (parseInt(line, 10) || 0), 0);
+      (async () => {
+        try {
+          const info = await fetch("build.json", { cache: "no-cache" }).then(
+            (r) => (r.ok ? r.json() : {}),
+            () => ({}),
+          );
+          const v = info.version
+            ? "?v=" + encodeURIComponent(info.version)
+            : "";
+          const listing = (dir) =>
+            fetch(`packs/${dir}/files.txt${v}`).then(
+              (r) => (r.ok ? r.text() : null),
+              () => null,
+            );
+          const [full, lite] = await Promise.all(
+            [
+              catalogs.map(listing),
+              catalogs.map((c) => listing(c + "-lite")),
+            ].map((all) => Promise.all(all)),
+          );
+          // What the game boots from: the compressed catalog where there is one.
+          const boot = catalogs.map((c, i) =>
+            lite[i] !== null ? c + "-lite" : full[i] !== null ? c : null,
+          );
+          const listings = boot.map((dir, i) =>
+            dir === null ? null : (lite[i] ?? full[i]),
+          );
+          const screens = catalogs.indexOf("screens");
+          const backdrop = listings[screens]?.match(
+            /^\d+ (2x\/backdrop\/images\/\S+\.(?:png|jpg|webp))$/m,
+          );
+          if (backdrop)
+            stage.style.backgroundImage = `url("packs/${boot[screens]}/${backdrop[1]}${v}")`;
+          total =
+            (info.wasm || 0) +
+            atStart.reduce(
+              (sum, c) => sum + bytes(listings[catalogs.indexOf(c)] ?? ""),
+              0,
+            );
+          show();
+          await script("wasm_exec.js" + v);
+          const go = new Go();
+          const url = (dir) => new URL(`packs/${dir}/${v}`, location.href).href;
+          catalogs.forEach((c, i) => {
+            if (boot[i] !== null) go.argv.push(`-${c}`, url(boot[i]));
+            if (lite[i] !== null && full[i] !== null)
+              go.argv.push(`-${c}-hd`, url(c));
+          });
+          if (listings.some((l) => l !== null))
+            go.argv.push("-allow-candidates");
+          let wasm = await fetch("historyline.wasm" + v);
+          if (!wasm.ok) throw new Error(`historyline.wasm: ${wasm.status}`);
+          // The download is compressed on the wire, so count the decoded bytes against the size build.json gives.
+          if (info.wasm && wasm.body) {
+            const count = new TransformStream({
+              transform(chunk, c) {
+                done += chunk.byteLength;
+                show();
+                c.enqueue(chunk);
+              },
+            });
+            wasm = new Response(wasm.body.pipeThrough(count), {
+              headers: { "Content-Type": "application/wasm" },
+            });
+          }
+          const result = await WebAssembly.instantiateStreaming(
+            wasm,
+            go.importObject,
+          );
+          phase = "Loading the art";
+          show();
+          // The game removes the title card once it runs.
+          await go.run(result.instance);
+          stop(
+            "The game has ended (errors are in the browser console). Reload to play again.",
+          );
+        } catch (err) {
+          stop("Failed to load the game: " + err);
+        }
+      })();
+    </script>
+  </body>
 </html>

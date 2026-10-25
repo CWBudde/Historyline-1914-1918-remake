@@ -95,6 +95,7 @@ func shoreCurveFor(v shoreVariant) shoreCurve {
 	add(previous, ports[1].sub(normals[1].mul(160)))
 	return curve
 }
+
 func (c shoreCurve) signedDistance(p connectionPoint) float64 {
 	best, side := math.Inf(1), 1.
 	for _, s := range c.segments {
@@ -116,6 +117,7 @@ func (c shoreCurve) signedDistance(p connectionPoint) float64 {
 // Exact reciprocal guard through 8 world pixels, including exterior overscan. Beyond
 // it the sole field is coast distance; no nearest-edge blend enters interior.
 func shoreField(v shoreVariant, p connectionPoint) float64 { return shoreFieldWithCurve(v, p, nil) }
+
 func shoreFieldWithCurve(v shoreVariant, p connectionPoint, curve *shoreCurve) float64 {
 	g := sharedConnectionGeometry()
 	edge, minDistance := 0, math.Inf(1)
@@ -157,9 +159,11 @@ func shoreFieldWithCurve(v shoreVariant, p connectionPoint, curve *shoreCurve) f
 	}
 	return curve.signedDistance(p)
 }
+
 func shoreColor(in shoreInputs, v shoreVariant, p connectionPoint) color.NRGBA {
 	return shoreColorWithCurve(in, v, p, nil)
 }
+
 func shoreColorWithCurve(in shoreInputs, v shoreVariant, p connectionPoint, curve *shoreCurve) color.NRGBA {
 	return shoreMaterialColor(in, p, shoreFieldWithCurve(v, p, curve))
 }
@@ -193,6 +197,7 @@ func shoreMaterialColor(in shoreInputs, p connectionPoint, d float64) color.NRGB
 	c = connectionBlend(c, bank, connectionSmoothStep((d+.9)/1.4))
 	return connectionBlend(c, grass, connectionSmoothStep((d-3.8)/2.4))
 }
+
 func renderShoreRaw(in shoreInputs, v shoreVariant) *image.NRGBA {
 	curve := shoreCurveFor(v)
 	im := image.NewNRGBA(image.Rect(0, 0, 416, 352))
@@ -204,6 +209,7 @@ func renderShoreRaw(in shoreInputs, v shoreVariant) *image.NRGBA {
 	}
 	return im
 }
+
 func exportShoreTiles(in shoreInputs, v shoreVariant) (map[int]*image.NRGBA, error) {
 	if v.ID == "grass" {
 		return exportGrassBaseTiles(in.Materials[v.ID].Image)

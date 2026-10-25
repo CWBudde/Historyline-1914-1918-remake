@@ -33,8 +33,10 @@ func compressedFixture(t *testing.T, ext string, enc func(io.Writer, image.Image
 			t.Fatal(err)
 		}
 		sum := sha256.Sum256(b.Bytes())
-		e := Entry{ID: "unit/lite/cp/n-normal", Path: "images/" + string(rune('0'+d)) + ext, SHA256: hex.EncodeToString(sum[:]),
-			Width: 8 * d, Height: 8 * d, Density: d, Anchor: [2]float64{4, 4}}
+		e := Entry{
+			ID: "unit/lite/cp/n-normal", Path: "images/" + string(rune('0'+d)) + ext, SHA256: hex.EncodeToString(sum[:]),
+			Width: 8 * d, Height: 8 * d, Density: d, Anchor: [2]float64{4, 4},
+		}
 		f[e.Path] = &fstest.MapFile{Data: b.Bytes()}
 		m.Entries = append(m.Entries, e)
 	}

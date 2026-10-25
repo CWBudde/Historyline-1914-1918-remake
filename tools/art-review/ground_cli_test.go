@@ -42,12 +42,14 @@ func groundTestFixture(t *testing.T) (string, map[string]connectionMaterial) {
 	groundTestWrite(t, path, data)
 	return path, materials
 }
+
 func groundTestWrite(t *testing.T, path string, data []byte) {
 	t.Helper()
-	if err := os.WriteFile(path, data, 0600); err != nil {
+	if err := os.WriteFile(path, data, 0o600); err != nil {
 		t.Fatal(err)
 	}
 }
+
 func TestGroundCLIActualBundle(t *testing.T) {
 	path, _ := groundTestFixture(t)
 	out := filepath.Join(filepath.Dir(path), "bundle")

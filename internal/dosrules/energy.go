@@ -144,8 +144,10 @@ func (g *Game) build(c Command) []Event {
 	m := g.Profile.Tables.Move.Types[c.Type]
 	h := g.Holds[c.Hold]
 	i, k := g.freeRecord(), freeSlot(h, c.Side)
-	u := Live{Budget: m.Budget, Size: g.Profile.Tables.Types[c.Type].Group, Flags4: m.Class | c.Side | 0x4200,
-		Flags6: m.Flags, Type: c.Type, Serial: g.serial(c.Side), Hold: 0xFF, Pos: [2]int{h.Cells[0], h.Cells[0]}}
+	u := Live{
+		Budget: m.Budget, Size: g.Profile.Tables.Types[c.Type].Group, Flags4: m.Class | c.Side | 0x4200,
+		Flags6: m.Flags, Type: c.Type, Serial: g.serial(c.Side), Hold: 0xFF, Pos: [2]int{h.Cells[0], h.Cells[0]},
+	}
 	if g.Profile.builder(c.Type) {
 		u.Hold = builderCharges
 	}

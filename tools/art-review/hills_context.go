@@ -41,6 +41,7 @@ func newHillsContext(center string, neighbors []string, origin connectionPoint) 
 	c.Phase = connectionPoint{math.Mod(math.Mod(origin[0], 568)+568, 568), math.Mod(math.Mod(origin[1], 320)+320, 320)}
 	return c, nil
 }
+
 func (c hillsContext) effective() hillsContext {
 	if c.RuntimeID == "grass" {
 		c.Phase = connectionPoint{}
@@ -50,6 +51,7 @@ func (c hillsContext) effective() hillsContext {
 	}
 	return c
 }
+
 func (c hillsContext) descriptor() string {
 	c = c.effective()
 	var b strings.Builder
@@ -59,10 +61,12 @@ func (c hillsContext) descriptor() string {
 	}
 	return b.String()
 }
+
 func (c hillsContext) key() string {
 	sum := sha256.Sum256([]byte(c.descriptor()))
 	return hex.EncodeToString(sum[:])
 }
+
 func (c hillsContext) canonical() bool {
 	c = c.effective()
 	if c.Phase != (connectionPoint{}) {

@@ -31,6 +31,7 @@ func dimensions(p image.Point, d int) (int, int, error) {
 	}
 	return w, h, nil
 }
+
 func bounds(src image.Image) (image.Rectangle, error) {
 	if src == nil {
 		return image.Rectangle{}, fmt.Errorf("nil image")
@@ -41,6 +42,7 @@ func bounds(src image.Image) (image.Rectangle, error) {
 	}
 	return r, nil
 }
+
 func opaque(src image.Image, r image.Rectangle) error {
 	for y := r.Min.Y; y < r.Max.Y; y++ {
 		for x := r.Min.X; x < r.Max.X; x++ {
@@ -52,6 +54,7 @@ func opaque(src image.Image, r image.Rectangle) error {
 	}
 	return nil
 }
+
 func rgb(src image.Image, x, y int) color.NRGBA {
 	if p, ok := src.(*image.NRGBA); ok {
 		return p.NRGBAAt(x, y)
@@ -250,6 +253,7 @@ func New(grass, scrub image.Image, period image.Point, density int) (*Sampler, e
 	}
 	return &Sampler{grass, scrub, rs[0], rs[1], image.Pt(w, h), density}, nil
 }
+
 func mod(v, n int) int {
 	v %= n
 	if v < 0 {

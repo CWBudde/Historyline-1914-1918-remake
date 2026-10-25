@@ -360,7 +360,7 @@ func mountainFixture(t *testing.T) (string, compoundManifest) {
 		if err := png.Encode(&data, im); err != nil {
 			t.Fatal(err)
 		}
-		if err := os.WriteFile(filepath.Join(dir, name), data.Bytes(), 0600); err != nil {
+		if err := os.WriteFile(filepath.Join(dir, name), data.Bytes(), 0o600); err != nil {
 			t.Fatal(err)
 		}
 		sum := sha256.Sum256(data.Bytes())

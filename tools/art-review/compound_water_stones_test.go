@@ -270,7 +270,7 @@ func TestCompoundWaterStonesPinnedSourcesSurviveChanges(t *testing.T) {
 		t.Fatal(err)
 	}
 	for _, name := range []string{filepath.Base(path), m.Grounds["shared"].Source, m.Scenes[0].Artwork.Source} {
-		if err := os.WriteFile(filepath.Join(filepath.Dir(path), name), []byte("changed after pinned read"), 0600); err != nil {
+		if err := os.WriteFile(filepath.Join(filepath.Dir(path), name), []byte("changed after pinned read"), 0o600); err != nil {
 			t.Fatal(err)
 		}
 	}

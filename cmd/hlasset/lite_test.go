@@ -36,8 +36,10 @@ func writeCatalog(t *testing.T, dir string, packs map[string]map[string]image.Im
 				t.Fatal(err)
 			}
 			sum := sha256.Sum256(b.Bytes())
-			m.Entries = append(m.Entries, assets.Entry{ID: id, Path: name, SHA256: hex.EncodeToString(sum[:]),
-				Width: im.Bounds().Dx(), Height: im.Bounds().Dy(), Density: 2, Anchor: [2]float64{3, 4}})
+			m.Entries = append(m.Entries, assets.Entry{
+				ID: id, Path: name, SHA256: hex.EncodeToString(sum[:]),
+				Width: im.Bounds().Dx(), Height: im.Bounds().Dy(), Density: 2, Anchor: [2]float64{3, 4},
+			})
 		}
 		b, err := json.Marshal(m)
 		if err != nil {

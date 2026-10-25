@@ -54,10 +54,12 @@ func box(c string, x, y, w, h float64) Shape { return poly(c, x, y, x+w, y, x+w,
 func round(c string, x, y, w, h, r float64) Shape {
 	return Shape{c, []Command{command("M", x+r, y), command("L", x+w-r, y), command("Q", x+w, y, x+w, y+r), command("L", x+w, y+h-r), command("Q", x+w, y+h, x+w-r, y+h), command("L", x+r, y+h), command("Q", x, y+h, x, y+h-r), command("L", x, y+r), command("Q", x, y, x+r, y), command("Z")}}
 }
+
 func disk(c string, x, y, r float64) Shape {
 	k := r * .5522847498307936
 	return Shape{c, []Command{command("M", x+r, y), command("C", x+r, y+k, x+k, y+r, x, y+r), command("C", x-k, y+r, x-r, y+k, x-r, y), command("C", x-r, y-k, x-k, y-r, x, y-r), command("C", x+k, y-r, x+r, y-k, x+r, y), command("Z")}}
 }
+
 func line(c string, x, y, xx, yy, w float64) Shape {
 	dx, dy := xx-x, yy-y
 	l := math.Hypot(dx, dy)
@@ -67,6 +69,7 @@ func line(c string, x, y, xx, yy, w float64) Shape {
 	a, b := dy/l*w/2, -dx/l*w/2
 	return poly(c, x+a, y+b, xx+a, yy+b, xx-a, yy-b, x-a, y-b)
 }
+
 func ring(c string, x, y, r, w float64) Shape {
 	// Opposite winding creates a real transparent hole, rather than a background fill.
 	s := disk(c, x, y, r)
@@ -82,9 +85,11 @@ func ring(c string, x, y, r, w float64) Shape {
 	s.Commands = append(s.Commands, command("Z"))
 	return s
 }
+
 func border(c string, x, y, w, h, t float64) []Shape {
 	return []Shape{box(c, x, y, w, t), box(c, x, y+h-t, w, t), box(c, x, y+t, t, h-2*t), box(c, x+w-t, y+t, t, h-2*t)}
 }
+
 func transform(shapes []Shape, sx, sy, tx, ty, angle float64) []Shape {
 	result := make([]Shape, len(shapes))
 	co, si := math.Cos(angle), math.Sin(angle)
@@ -101,6 +106,7 @@ func transform(shapes []Shape, sx, sy, tx, ty, angle float64) []Shape {
 	}
 	return result
 }
+
 func colour(s string) color.NRGBA {
 	n, e := strconv.ParseUint(strings.TrimPrefix(s, "#"), 16, 32)
 	if e != nil {
@@ -111,6 +117,7 @@ func colour(s string) color.NRGBA {
 	}
 	return color.NRGBA{uint8(n >> 16), uint8(n >> 8), uint8(n), 255}
 }
+
 func (a Art) svg() []byte {
 	var b strings.Builder
 	fmt.Fprintf(&b, "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"%d\" height=\"%d\" viewBox=\"0 0 %d %d\">\n", a.Width, a.Height, a.Width, a.Height)
@@ -128,6 +135,7 @@ func (a Art) svg() []byte {
 	b.WriteString("</svg>\n")
 	return []byte(b.String())
 }
+
 func (a Art) raster(d int) *image.NRGBA {
 	im := image.NewRGBA(image.Rect(0, 0, a.Width*d, a.Height*d))
 	for _, s := range a.Shapes {

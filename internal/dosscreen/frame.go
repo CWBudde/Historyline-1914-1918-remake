@@ -3,9 +3,8 @@ package dosscreen
 import (
 	"strings"
 
-	"github.com/hajimehoshi/ebiten/v2"
-
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 // maxCached is how many painted panel frames a Frame keeps: both panels in the

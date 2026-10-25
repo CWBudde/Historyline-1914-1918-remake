@@ -16,6 +16,7 @@ func solid(r image.Rectangle, c color.NRGBA) *image.NRGBA {
 	}
 	return p
 }
+
 func TestExportCropAndArea(t *testing.T) {
 	src := solid(image.Rect(7, 9, 12, 13), color.NRGBA{A: 255})
 	for y := 9; y < 13; y++ {
@@ -46,6 +47,7 @@ func TestExportCropAndArea(t *testing.T) {
 		t.Fatalf("area %v %v", p, err)
 	}
 }
+
 func TestSeamlessWrapsAndKeepsCentre(t *testing.T) {
 	// A ramp jumps from its last column back to its first; the edges must take the
 	// half-shifted neighbours instead, so the image continues across the wrap.
@@ -84,6 +86,7 @@ func TestSpreadBlendKeepsContrast(t *testing.T) {
 		t.Fatal(got)
 	}
 }
+
 func TestSamplerPhaseMaskAndCoordinates(t *testing.T) {
 	grass := solid(image.Rect(4, 5, 8, 9), color.NRGBA{20, 40, 60, 255})
 	scrub := solid(image.Rect(-2, -3, 2, 1), color.NRGBA{100, 120, 140, 255})
@@ -111,6 +114,7 @@ func TestSamplerPhaseMaskAndCoordinates(t *testing.T) {
 		t.Fatalf("tile %v", out.Pix)
 	}
 }
+
 func TestInvalidInputs(t *testing.T) {
 	opaque := solid(image.Rect(0, 0, 4, 4), color.NRGBA{A: 255})
 	bad := solid(image.Rect(0, 0, 4, 4), color.NRGBA{})
@@ -166,6 +170,7 @@ func TestFractionalFootprints(t *testing.T) {
 		t.Fatalf("fractional area %+v %v", c, out.Pix)
 	}
 }
+
 func TestGlobalWrapAndNilWeight(t *testing.T) {
 	src := solid(image.Rect(-4, 8, 1, 13), color.NRGBA{R: 10, A: 255})
 	for y := 9; y < 12; y++ {

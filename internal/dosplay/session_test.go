@@ -629,8 +629,10 @@ func TestLimitAndRefusals(t *testing.T) {
 	if _, err := s.Move(0, 0, hexgrid.Coord{Line: 999}); err == nil {
 		t.Error("a move off the level was taken")
 	}
-	for _, code := range []int{dosrules.MsgNoTarget, dosrules.MsgAttack, dosrules.MsgLimit, dosrules.MsgReadyUndone,
-		msgEnemyThere, msgArrived, msgFriendThere, msgNoCarry, msgFull, msgTerrain, msgNoRoute, msgMovementTurn, msgActionTurn} {
+	for _, code := range []int{
+		dosrules.MsgNoTarget, dosrules.MsgAttack, dosrules.MsgLimit, dosrules.MsgReadyUndone,
+		msgEnemyThere, msgArrived, msgFriendThere, msgNoCarry, msgFull, msgTerrain, msgNoRoute, msgMovementTurn, msgActionTurn,
+	} {
 		if MessageText(code) == "" {
 			t.Errorf("no text for message %#x", code)
 		}

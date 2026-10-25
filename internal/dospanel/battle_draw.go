@@ -722,8 +722,14 @@ func fireTone() *colorm.ColorM {
 // blobs are the puffs of the drawn fireball: offset and size as shares of
 // its radius.
 var blobs = [...][3]float64{
-	{0, 0, 0.62}, {-0.42, 0.12, 0.42}, {0.4, 0.18, 0.44}, {-0.16, -0.38, 0.46},
-	{0.24, -0.34, 0.4}, {0.02, 0.36, 0.36}, {-0.5, -0.24, 0.3}, {0.52, -0.1, 0.32},
+	{0, 0, 0.62},
+	{-0.42, 0.12, 0.42},
+	{0.4, 0.18, 0.44},
+	{-0.16, -0.38, 0.46},
+	{0.24, -0.34, 0.4},
+	{0.02, 0.36, 0.36},
+	{-0.5, -0.24, 0.3},
+	{0.52, -0.1, 0.32},
 }
 
 // drawBlast draws an explosion of size at (x, y) at progress p: the art's

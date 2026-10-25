@@ -127,8 +127,10 @@ func extract(builds []origmaps.Build, out string, logw io.Writer) (int, error) {
 			if err := os.WriteFile(filepath.Join(out, file), append(raw, '\n'), 0o644); err != nil {
 				return 0, err
 			}
-			e := indexEntry{Build: b.Name, Map: l.Source.Map, File: filepath.ToSlash(file), Width: l.Width, Height: l.Height,
-				Units: len(l.Units), Buildings: len(l.Buildings)}
+			e := indexEntry{
+				Build: b.Name, Map: l.Source.Map, File: filepath.ToSlash(file), Width: l.Width, Height: l.Height,
+				Units: len(l.Units), Buildings: len(l.Buildings),
+			}
 			if m := l.Mission; m != nil {
 				e.Players, e.Winter = m.Players, m.Winter
 			}

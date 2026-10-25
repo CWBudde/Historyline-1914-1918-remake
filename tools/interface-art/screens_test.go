@@ -129,7 +129,7 @@ func TestScreenBackdropNative4xRequiresSufficientCrop(t *testing.T) {
 	dir := t.TempDir()
 	for i, in := range loaded[1:] {
 		name := filepath.Base(in.Spec.Source)
-		if err := os.WriteFile(filepath.Join(dir, name), in.Bytes, 0644); err != nil {
+		if err := os.WriteFile(filepath.Join(dir, name), in.Bytes, 0o644); err != nil {
 			t.Fatal(err)
 		}
 		manifest.Fonts[i].Source = name
@@ -144,7 +144,7 @@ func TestScreenBackdropNative4xRequiresSufficientCrop(t *testing.T) {
 	if err := png.Encode(&encoded, source); err != nil {
 		t.Fatal(err)
 	}
-	if err := os.WriteFile(filepath.Join(dir, "backdrop.png"), encoded.Bytes(), 0644); err != nil {
+	if err := os.WriteFile(filepath.Join(dir, "backdrop.png"), encoded.Bytes(), 0o644); err != nil {
 		t.Fatal(err)
 	}
 	manifest.Backdrop.Source = "backdrop.png"
@@ -160,7 +160,7 @@ func TestScreenBackdropNative4xRequiresSufficientCrop(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			manifest.Backdrop.Crop = tc.crop
 			path := filepath.Join(dir, tc.name+".json")
-			if err := os.WriteFile(path, writeJSON(manifest), 0644); err != nil {
+			if err := os.WriteFile(path, writeJSON(manifest), 0o644); err != nil {
 				t.Fatal(err)
 			}
 			out := filepath.Join(dir, tc.name)

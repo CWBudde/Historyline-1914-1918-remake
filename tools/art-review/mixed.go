@@ -41,6 +41,7 @@ func mixedRoster() []mixedVariant {
 		{ID: "cross4", RuntimeID: "cross4", Kind: "crossing", Layers: []string{"path36", "rail14"}},
 	}
 }
+
 func decodeMixedManifest(b []byte) (mixedManifest, error) {
 	var m mixedManifest
 	if err := decodeConnectionJSON(b, &m); err != nil {

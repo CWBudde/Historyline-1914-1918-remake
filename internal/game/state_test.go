@@ -179,8 +179,10 @@ func TestUnitDefaults(t *testing.T) {
 	if _, err := NewUnit(set, "nope"); err == nil {
 		t.Error("NewUnit accepted an unknown id")
 	}
-	for country, want := range map[string]Player{"Germany": CentralPowers, "Austria": CentralPowers,
-		"Bulgaria": CentralPowers, "Ottoman": CentralPowers, "France": Entente, "Britain": Entente} {
+	for country, want := range map[string]Player{
+		"Germany": CentralPowers, "Austria": CentralPowers,
+		"Bulgaria": CentralPowers, "Ottoman": CentralPowers, "France": Entente, "Britain": Entente,
+	} {
 		if got := FactionOf(country); got != want {
 			t.Errorf("FactionOf(%s) = %v, want %v", country, got, want)
 		}
@@ -284,14 +286,18 @@ func TestNewRejects(t *testing.T) {
 	set := loadSet(t)
 	cases := map[string]*level.Level{
 		"unknown unit": {Player: "Central Powers", Lines: [][]level.Hex{{{Terrain: "grass", Unit: "nope"}}}},
-		"unknown contained unit": {Player: "Central Powers", Lines: [][]level.Hex{{{Terrain: "cmpN",
-			Content: &level.Content{Owner: 1, Units: []string{"nope"}}}}}},
+		"unknown contained unit": {Player: "Central Powers", Lines: [][]level.Hex{{{
+			Terrain: "cmpN",
+			Content: &level.Content{Owner: 1, Units: []string{"nope"}},
+		}}}},
 		"unknown terrain":  {Player: "Central Powers", Lines: [][]level.Hex{{{Terrain: "nope"}}}},
 		"content on grass": {Player: "Central Powers", Lines: [][]level.Hex{{{Terrain: "grass", Content: &level.Content{Owner: 1}}}}},
 		"bad owner":        {Player: "Central Powers", Lines: [][]level.Hex{{{Terrain: "cmpN", Content: &level.Content{Owner: 3}}}}},
 		"unknown player":   {Player: "Nobody", Lines: [][]level.Hex{{{Terrain: "grass"}}}},
-		"too many units": {Player: "Central Powers", Lines: [][]level.Hex{{{Terrain: "hqN",
-			Content: &level.Content{Owner: 1, Units: strings.Split(strings.Repeat("CP_infantry,", 19)[:19*12-1], ",")}}}}},
+		"too many units": {Player: "Central Powers", Lines: [][]level.Hex{{{
+			Terrain: "hqN",
+			Content: &level.Content{Owner: 1, Units: strings.Split(strings.Repeat("CP_infantry,", 19)[:19*12-1], ",")},
+		}}}},
 	}
 	for name, lv := range cases {
 		if _, err := New(lv, set); err == nil {

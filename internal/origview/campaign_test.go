@@ -24,7 +24,8 @@ func loadSet(t *testing.T) *data.Set {
 
 func TestCampaign(t *testing.T) {
 	hold := 0
-	src := &finmap.Level{Format: finmap.Format, Version: finmap.Version,
+	src := &finmap.Level{
+		Format: finmap.Format, Version: finmap.Version,
 		Source: finmap.Source{Build: "full", Map: "30"}, Width: 4, Height: 3,
 		Terrain: [][]int{{1, 0, 0, Edge}, {16, 0, 0, Edge}, {Edge, Edge, Edge, Edge}},
 		Units: []finmap.Unit{
@@ -42,7 +43,8 @@ func TestCampaign(t *testing.T) {
 			{Container: 72, Kind: "building", Side: finmap.Neutral, Units: []finmap.Cargo{{Type: 18}, {Type: 46}}, Holder: "building"},
 			{Container: 71, Kind: "building", Side: finmap.Allied, Units: []finmap.Cargo{{Type: 10}}, Holder: "building", Overridden: true},
 		},
-		Mission: &finmap.Mission{Players: 1, HumanSides: []int{finmap.Allied}}}
+		Mission: &finmap.Mission{Players: 1, HumanSides: []int{finmap.Allied}},
+	}
 	got, err := Campaign(src, loadSet(t))
 	if err != nil {
 		t.Fatal(err)

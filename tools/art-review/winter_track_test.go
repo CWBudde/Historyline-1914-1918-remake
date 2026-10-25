@@ -199,7 +199,7 @@ func TestWinterMixedManifestRejectsProfileMix(t *testing.T) {
 	sourceRoot = abs
 	defer func() { sourceRoot = old }()
 	p := filepath.Join(t.TempDir(), "winter-mixed.json")
-	if err := os.WriteFile(p, out, 0644); err != nil {
+	if err := os.WriteFile(p, out, 0o644); err != nil {
 		t.Fatal(err)
 	}
 	if _, err := loadWinterMixedInputs(p); err == nil || !strings.Contains(err.Error(), "profile") {
@@ -242,7 +242,7 @@ func TestWinterMixedManifestRejectsDrift(t *testing.T) {
 			sourceRoot = abs
 			defer func() { sourceRoot = old }()
 			p := filepath.Join(t.TempDir(), "winter-mixed.json")
-			if err := os.WriteFile(p, out, 0644); err != nil {
+			if err := os.WriteFile(p, out, 0o644); err != nil {
 				t.Fatal(err)
 			}
 			if _, err := loadWinterMixedInputs(p); (err == nil) != (edit == nil) {
@@ -297,6 +297,7 @@ func (m *winterLabMean) add(l [3]float64) {
 		m.green++
 	}
 }
+
 func (m winterLabMean) mean() [3]float64 {
 	return [3]float64{m.sum[0] / float64(m.n), m.sum[1] / float64(m.n), m.sum[2] / float64(m.n)}
 }

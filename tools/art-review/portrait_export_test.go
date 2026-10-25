@@ -209,7 +209,7 @@ func TestPortraitExclusiveOutputAndRollback(t *testing.T) {
 		out := filepath.Join(dir, kind)
 		switch kind {
 		case "dir":
-			if err := os.Mkdir(out, 0700); err != nil {
+			if err := os.Mkdir(out, 0o700); err != nil {
 				t.Fatal(err)
 			}
 		case "symlink":

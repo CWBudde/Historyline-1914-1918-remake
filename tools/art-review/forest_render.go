@@ -29,6 +29,7 @@ func forestSeason(id string) (season, base string) {
 		return "", ""
 	}
 }
+
 func newForestContext(center string, neighbors []string) (forestContext, error) {
 	c := forestContext{RuntimeID: center}
 	season, _ := forestSeason(center)
@@ -44,6 +45,7 @@ func newForestContext(center string, neighbors []string) (forestContext, error) 
 	}
 	return c, nil
 }
+
 func (c forestContext) effective() forestContext {
 	_, base := forestSeason(c.RuntimeID)
 	if c.RuntimeID == base {
@@ -53,6 +55,7 @@ func (c forestContext) effective() forestContext {
 	}
 	return c
 }
+
 func (c forestContext) descriptor() string {
 	c = c.effective()
 	season, _ := forestSeason(c.RuntimeID)
@@ -63,6 +66,7 @@ func (c forestContext) descriptor() string {
 	}
 	return b.String()
 }
+
 func (c forestContext) key() string {
 	sum := sha256.Sum256([]byte(c.descriptor()))
 	return hex.EncodeToString(sum[:])
@@ -75,12 +79,42 @@ func (c forestContext) key() string {
 // The 36th accepted center occurs on attempt 1934 (budget 200000).
 func forestTemplate() []connectionPoint {
 	return []connectionPoint{
-		{20.5, 71.5}, {53.25, 4.5}, {78.5, 18.5}, {29.25, .75}, {51, 47.5}, {67.25, 11.25},
-		{64.25, 51.5}, {38.5, 12.5}, {37, 47.5}, {15.75, 45.75}, {31.25, 28.75}, {73.75, 29.5},
-		{21.25, 17.25}, {50, 74}, {63.5, 62.25}, {41.25, 36.25}, {55.5, 28}, {20.5, 36},
-		{46.75, 56.75}, {10.25, 25.5}, {50.75, 15.75}, {5.5, 40.75}, {84.5, 48.75}, {36.5, 63.5},
-		{37, 73.5}, {73.75, 41}, {62.25, 77.75}, {26.25, 52.25}, {20.25, 60.75}, {43, 25.5},
-		{41.5, 2.75}, {60.25, 40}, {74.5, 55}, {71.5, 69.25}, {30, 39.25}, {61.75, 19.75},
+		{20.5, 71.5},
+		{53.25, 4.5},
+		{78.5, 18.5},
+		{29.25, .75},
+		{51, 47.5},
+		{67.25, 11.25},
+		{64.25, 51.5},
+		{38.5, 12.5},
+		{37, 47.5},
+		{15.75, 45.75},
+		{31.25, 28.75},
+		{73.75, 29.5},
+		{21.25, 17.25},
+		{50, 74},
+		{63.5, 62.25},
+		{41.25, 36.25},
+		{55.5, 28},
+		{20.5, 36},
+		{46.75, 56.75},
+		{10.25, 25.5},
+		{50.75, 15.75},
+		{5.5, 40.75},
+		{84.5, 48.75},
+		{36.5, 63.5},
+		{37, 73.5},
+		{73.75, 41},
+		{62.25, 77.75},
+		{26.25, 52.25},
+		{20.25, 60.75},
+		{43, 25.5},
+		{41.5, 2.75},
+		{60.25, 40},
+		{74.5, 55},
+		{71.5, 69.25},
+		{30, 39.25},
+		{61.75, 19.75},
 	}
 }
 
@@ -265,6 +299,7 @@ func (r *forestRenderer) raw(c forestContext) *image.NRGBA {
 	}
 	return im
 }
+
 func (r *forestRenderer) tiles(c forestContext) (map[int]*image.NRGBA, error) {
 	season, base := forestSeason(c.RuntimeID)
 	if c.RuntimeID == base {

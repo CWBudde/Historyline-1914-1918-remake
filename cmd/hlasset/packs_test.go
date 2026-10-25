@@ -16,7 +16,8 @@ func TestUpdatePacksBuildsOnlyChangedCatalogs(t *testing.T) {
 	fail := ""
 	var cs []catalog
 	for _, name := range []string{"a", "b"} {
-		cs = append(cs, catalog{name,
+		cs = append(cs, catalog{
+			name,
 			func() ([]byte, error) { return []byte(inputs[name]), nil },
 			func(dir string) error {
 				builds[name]++
@@ -27,7 +28,8 @@ func TestUpdatePacksBuildsOnlyChangedCatalogs(t *testing.T) {
 					return err
 				}
 				return os.WriteFile(filepath.Join(dir, "content"), []byte(inputs[name]), 0o644)
-			}})
+			},
+		})
 	}
 	update := func(builder string, only ...string) string {
 		t.Helper()

@@ -126,8 +126,10 @@ func loadCampaign(dir string, set *data.Set) ([]mapLevel, error) {
 			if err != nil {
 				return nil, err
 			}
-			m := mapLevel{name: file + ":" + string(mode), file: file, mode: mode, lvl: lvl, next: -1,
-				password: s.Code, players: 1, humanSides: []int{dosbind.Side(mode.Human())}, winter: f.Winter(), month: f.Month}
+			m := mapLevel{
+				name: file + ":" + string(mode), file: file, mode: mode, lvl: lvl, next: -1,
+				password: s.Code, players: 1, humanSides: []int{dosbind.Side(mode.Human())}, winter: f.Winter(), month: f.Month,
+			}
 			m.briefing = briefingLine(m.code(), m.players, m.humanSides, mode.Human(), m.winter, true)
 			if len(maps) > first {
 				maps[len(maps)-1].next = len(maps)
@@ -322,18 +324,30 @@ func (s *shell) buttons() []button {
 			code = "CODE  " + s.typed + "_"
 		}
 		return []button{
-			{r: row(0), label: "START", left: true, help: [2]string{"Begin the battle for the map", "whose code is shown below."},
-				do: func(s *shell) { s.side = s.levelSide(); s.open(pageCountry) }},
-			{r: row(1), label: code, left: true, help: [2]string{"Type the code of a map you have", "reached, then press Enter."},
-				do: func(s *shell) { s.typing, s.typed = true, "" }},
-			{r: row(2), label: "GAME VALUES", left: true, help: [2]string{"Rules, battles, players and the", "move limit."},
-				do: func(s *shell) { s.open(pageValues) }},
-			{r: row(3), label: "CONTROL", left: true, help: [2]string{"Screen and scrolling."},
-				do: func(s *shell) { s.open(pageControl) }},
-			{r: row(4), label: "EXTRAS", left: true, help: [2]string{"Score list and saved games."},
-				do: func(s *shell) { s.open(pageExtras) }},
-			{r: footerRect, label: "EXIT", help: [2]string{"Leave Historyline 1914-1918."},
-				do: func(s *shell) { s.quit = true }},
+			{
+				r: row(0), label: "START", left: true, help: [2]string{"Begin the battle for the map", "whose code is shown below."},
+				do: func(s *shell) { s.side = s.levelSide(); s.open(pageCountry) },
+			},
+			{
+				r: row(1), label: code, left: true, help: [2]string{"Type the code of a map you have", "reached, then press Enter."},
+				do: func(s *shell) { s.typing, s.typed = true, "" },
+			},
+			{
+				r: row(2), label: "GAME VALUES", left: true, help: [2]string{"Rules, battles, players and the", "move limit."},
+				do: func(s *shell) { s.open(pageValues) },
+			},
+			{
+				r: row(3), label: "CONTROL", left: true, help: [2]string{"Screen and scrolling."},
+				do: func(s *shell) { s.open(pageControl) },
+			},
+			{
+				r: row(4), label: "EXTRAS", left: true, help: [2]string{"Score list and saved games."},
+				do: func(s *shell) { s.open(pageExtras) },
+			},
+			{
+				r: footerRect, label: "EXIT", help: [2]string{"Leave Historyline 1914-1918."},
+				do: func(s *shell) { s.quit = true },
+			},
 		}
 	case pageValues:
 		fights, b := "BATTLES  FULL", "PLAYER B  COMPUTER"
@@ -349,16 +363,24 @@ func (s *shell) buttons() []button {
 		}
 		rulesHelp := [2]string{"Original (DOS) is the default mode.", "New: the alternative remake rules."}
 		return []button{
-			{r: valueRow(0), label: s.ruleLabel(), left: true, help: rulesHelp,
-				do: func(s *shell) { s.cycleRules() }},
-			{r: valueRow(1), label: fights, left: true, help: [2]string{"Full: units walk and fire in full.", "Short: moves and fire are instant."},
-				do: func(s *shell) { s.fights = !s.fights }},
+			{
+				r: valueRow(0), label: s.ruleLabel(), left: true, help: rulesHelp,
+				do: func(s *shell) { s.cycleRules() },
+			},
+			{
+				r: valueRow(1), label: fights, left: true, help: [2]string{"Full: units walk and fire in full.", "Short: moves and fire are instant."},
+				do: func(s *shell) { s.fights = !s.fights },
+			},
 			{r: valueRow(2), label: "PLAYER A  HUMAN", left: true, off: true, help: [2]string{"You play the country you choose.", "Two human players are not in v1."}},
-			{r: valueRow(3), label: b, left: true, help: [2]string{"Computer: the computer commands.", "Passive: it confirms without orders. (1-player v1)"},
-				do: func(s *shell) { s.computer = !s.computer }},
+			{
+				r: valueRow(3), label: b, left: true, help: [2]string{"Computer: the computer commands.", "Passive: it confirms without orders. (1-player v1)"},
+				do: func(s *shell) { s.computer = !s.computer },
+			},
 			{r: valueRow(4), label: "DEPOTS  OWN ONLY", left: true, off: true, help: [2]string{"You see into your own buildings and", "transporters only."}},
-			{r: valueRow(5), label: limit, left: true, help: [2]string{"Orders each side may give a phase.", "Fewer orders score higher."},
-				do: func(s *shell) { s.limit = (s.limit + 1) % len(moveLimits) }},
+			{
+				r: valueRow(5), label: limit, left: true, help: [2]string{"Orders each side may give a phase.", "Fewer orders score higher."},
+				do: func(s *shell) { s.limit = (s.limit + 1) % len(moveLimits) },
+			},
 			back(pageMain),
 		}
 	case pageControl:
@@ -367,14 +389,18 @@ func (s *shell) buttons() []button {
 			screen = "FULLSCREEN  ON"
 		}
 		return []button{
-			{r: row(0), label: screen, left: true, help: [2]string{"Window or full screen (F11 in battle)."},
+			{
+				r: row(0), label: screen, left: true, help: [2]string{"Window or full screen (F11 in battle)."},
 				do: func(s *shell) {
 					if s.setFullscreen != nil && s.isFullscreen != nil {
 						s.setFullscreen(!s.isFullscreen())
 					}
-				}},
-			{r: row(1), label: "SCROLLING  " + scrollSpeeds[s.scroll].name, left: true, help: [2]string{"How fast the arrow keys move the map."},
-				do: func(s *shell) { s.scroll = (s.scroll + 1) % len(scrollSpeeds) }},
+				},
+			},
+			{
+				r: row(1), label: "SCROLLING  " + scrollSpeeds[s.scroll].name, left: true, help: [2]string{"How fast the arrow keys move the map."},
+				do: func(s *shell) { s.scroll = (s.scroll + 1) % len(scrollSpeeds) },
+			},
 			back(pageMain),
 		}
 	case pageExtras:
@@ -386,16 +412,20 @@ func (s *shell) buttons() []button {
 			loadOff, loadHelp = true, [2]string{"Continue a saved battle.", "No saved battle yet."}
 		}
 		return []button{
-			{r: row(0), label: "SCORE LIST", left: true, help: [2]string{"The best scores of each map.", "Won battles are recorded automatically."},
+			{
+				r: row(0), label: "SCORE LIST", left: true, help: [2]string{"The best scores of each map.", "Won battles are recorded automatically."},
 				do: func(s *shell) {
 					s.scoreList = nil
 					if s.scores != nil {
 						s.scoreList = s.scores.All()
 					}
 					s.open(pageScores)
-				}},
-			{r: row(1), label: "LOAD GAME", left: true, off: loadOff, help: loadHelp,
-				do: func(s *shell) { s.loadSaved() }},
+				},
+			},
+			{
+				r: row(1), label: "LOAD GAME", left: true, off: loadOff, help: loadHelp,
+				do: func(s *shell) { s.loadSaved() },
+			},
 			back(pageMain),
 		}
 	case pageScores:
@@ -403,7 +433,8 @@ func (s *shell) buttons() []button {
 	case pageCountry:
 		var bs []button
 		for i, side := range cardSides {
-			bs = append(bs, button{r: cardRects[i], label: countryName(side), help: [2]string{factionName(side)},
+			bs = append(bs, button{
+				r: cardRects[i], label: countryName(side), help: [2]string{factionName(side)},
 				do: func(s *shell) {
 					s.side = side
 					s.code = s.forSide(side)
@@ -412,7 +443,8 @@ func (s *shell) buttons() []button {
 					} else {
 						s.open(pageLoading)
 					}
-				}})
+				},
+			})
 		}
 		return append(bs, back(pageMain))
 	case pageNews:

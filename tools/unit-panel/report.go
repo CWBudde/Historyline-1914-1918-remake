@@ -37,11 +37,13 @@ func jsonBytes(v any) ([]byte, error) {
 	}
 	return append(b, '\n'), nil
 }
+
 func pngBytes(im image.Image) ([]byte, error) {
 	var b bytes.Buffer
 	e := png.Encode(&b, im)
 	return b.Bytes(), e
 }
+
 func imageVersion() string {
 	if b, ok := debug.ReadBuildInfo(); ok {
 		for _, d := range b.Deps {
@@ -52,6 +54,7 @@ func imageVersion() string {
 	}
 	return "unknown"
 }
+
 func exportBundle(in *Inputs, out string) (err error) {
 	if _, e := os.Lstat(out); e == nil {
 		return fmt.Errorf("output already exists: %s", out)
@@ -66,7 +69,7 @@ func exportBundle(in *Inputs, out string) (err error) {
 	if len(in.Items) != 11 {
 		return fmt.Errorf("incomplete inputs")
 	}
-	if err = os.Mkdir(out, 0755); err != nil {
+	if err = os.Mkdir(out, 0o755); err != nil {
 		return err
 	}
 	owned, statErr := os.Lstat(out)
@@ -80,10 +83,10 @@ func exportBundle(in *Inputs, out string) (err error) {
 	}()
 	write := func(path string, b []byte) error {
 		p := filepath.Join(out, filepath.FromSlash(path))
-		if e := os.MkdirAll(filepath.Dir(p), 0755); e != nil {
+		if e := os.MkdirAll(filepath.Dir(p), 0o755); e != nil {
 			return e
 		}
-		return os.WriteFile(p, b, 0644)
+		return os.WriteFile(p, b, 0o644)
 	}
 	writeJSON := func(path string, v any) error {
 		b, e := jsonBytes(v)

@@ -107,7 +107,7 @@ func TestGenerateSeaKit(t *testing.T) {
 				png  []byte
 			}{{id, summer}, {id + "_w", winter}} {
 				path := fmt.Sprintf("terrain/water/%s-%dx.png", o.name, d)
-				if err := os.WriteFile(filepath.Join(root, "assets", path), o.png, 0644); err != nil {
+				if err := os.WriteFile(filepath.Join(root, "assets", path), o.png, 0o644); err != nil {
 					t.Fatal(err)
 				}
 				sum := sha256.Sum256(o.png)
@@ -131,7 +131,7 @@ func TestGenerateSeaKit(t *testing.T) {
 		out.WriteByte('\n')
 	}
 	out.WriteString("  ]\n}\n")
-	if err := os.WriteFile(filepath.Join(root, "assets/index.json"), out.Bytes(), 0644); err != nil {
+	if err := os.WriteFile(filepath.Join(root, "assets/index.json"), out.Bytes(), 0o644); err != nil {
 		t.Fatal(err)
 	}
 }

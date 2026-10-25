@@ -128,7 +128,7 @@ func TestWoodlandLoaderPinsAndPreview(t *testing.T) {
 			t.Fatal(err)
 		}
 		raw = append(raw, []byte(tail)...)
-		if err := os.WriteFile(path, raw, 0644); err != nil {
+		if err := os.WriteFile(path, raw, 0o644); err != nil {
 			t.Fatal(err)
 		}
 	}

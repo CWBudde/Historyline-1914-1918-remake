@@ -37,9 +37,11 @@ func (s *Session) TypeInfo(side, typ int) (TypeView, bool) {
 		return TypeView{}, false
 	}
 	t := types[typ]
-	v := TypeView{Type: typ, ID: s.typeID(typ, side), Air: Weapon{t.AirPower, t.AirRange - 1},
+	v := TypeView{
+		Type: typ, ID: s.typeID(typ, side), Air: Weapon{t.AirPower, t.AirRange - 1},
 		Ground: Weapon{t.GroundPower, t.SurfaceRange - 1}, Water: Weapon{t.WaterPower, t.SurfaceRange - 1},
-		Armour: t.Armour, Group: t.Group, Cost: t.Cost, Domain: TypeDomain(s.Game.Profile.Tables, typ)}
+		Armour: t.Armour, Group: t.Group, Cost: t.Cost, Domain: TypeDomain(s.Game.Profile.Tables, typ),
+	}
 	v.Name = s.typeName(v.ID, typ)
 	if m := s.Game.Profile.Tables.Move; m != nil && typ < len(m.Types) {
 		v.Speed, v.Weight = m.Types[typ].Speed, m.Types[typ].Weight
@@ -123,8 +125,10 @@ type Stats struct {
 // Stats are the game info's numbers.
 func (s *Session) Stats() Stats {
 	g := s.Game
-	st := Stats{Round: g.Turn, Level: s.Level.MapName, LevelNo: s.Level.MapNo, Score: g.Score(), Energy: g.Energy,
-		Limit: g.Limit}
+	st := Stats{
+		Round: g.Turn, Level: s.Level.MapName, LevelNo: s.Level.MapNo, Score: g.Score(), Energy: g.Energy,
+		Limit: g.Limit,
+	}
 	for k := range 2 {
 		st.Mode[k] = g.Players[k].Phase
 		st.Orders[k] = len(g.Players[k].Orders)

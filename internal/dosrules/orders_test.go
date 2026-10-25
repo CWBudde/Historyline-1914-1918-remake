@@ -9,9 +9,11 @@ func TestOrdersFixtures(t *testing.T) {
 	replay(t, "orders.json", func(f OrdersFixture) header { return header{f.Schema, f.Profile, f.ID, f.Source} }, replayOrders,
 		"pair", "supporter", "random")
 	for build := range profiles {
-		seen := map[string]int{"order skipped": 0, "target destroyed before its order": 0,
+		seen := map[string]int{
+			"order skipped": 0, "target destroyed before its order": 0,
 			"surviving target fought again": 0, "attacker destroyed before a later order": 0,
-			"other side moved": 0, "other side's list present": 0}
+			"other side moved": 0, "other side's list present": 0,
+		}
 		for _, f := range load[OrdersFixture](t, build, "orders.json") {
 			ordersBehaviour(f, seen)
 		}

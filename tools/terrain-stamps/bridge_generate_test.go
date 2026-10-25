@@ -91,11 +91,15 @@ const footDeckLength, footDeckWidth = 48.0, 22.0
 // upper handrail runs 0.9° off the lower one), so the six planks between the
 // seams at u -354.5 and -18.5 (two post pitches) are cut.
 var (
-	foot36 = footSource{id: "standing/bridge36", native: "art/terrain/bridge/bridge-36-shared-v2.png", export: "art/terrain/bridge/bridge-36-export-shared-v2.png",
-		centre: [2]float64{688.25, 570}, axis: 90, ends: [2]float64{-398, 398}, across: [2]float64{-177.75, 177.75}, angle: 90}
-	foot25 = footSource{id: "standing/bridge25", native: "art/terrain/bridge/bridge-25-shared-v2.png", export: "art/terrain/bridge/bridge-25-export-shared-v2.png",
+	foot36 = footSource{
+		id: "standing/bridge36", native: "art/terrain/bridge/bridge-36-shared-v2.png", export: "art/terrain/bridge/bridge-36-export-shared-v2.png",
+		centre: [2]float64{688.25, 570}, axis: 90, ends: [2]float64{-398, 398}, across: [2]float64{-177.75, 177.75}, angle: 90,
+	}
+	foot25 = footSource{
+		id: "standing/bridge25", native: "art/terrain/bridge/bridge-25-shared-v2.png", export: "art/terrain/bridge/bridge-25-export-shared-v2.png",
 		centre: [2]float64{687, 588}, axis: 31.7, ends: [2]float64{-458.5, 500.5}, cut: [2]float64{-354.5, -18.5},
-		across: [2]float64{-138.5, 136.5}, beyond: [2]float64{-146.5, 138}, angle: 29.396052854943260}
+		across: [2]float64{-138.5, 136.5}, beyond: [2]float64{-146.5, 138}, angle: 29.396052854943260,
+	}
 	footSources = []footSource{
 		foot36, foot25,
 		winterFoot(foot36, "standing/bridge36_w", "art/terrain/bridge/bridge-36-winter-v2.png", "art/terrain/bridge/bridge-36-export-winter-v2.png"),
@@ -192,7 +196,7 @@ func TestGenerateBridgeDecks(t *testing.T) {
 		if err := png.Encode(&b, im); err != nil {
 			t.Fatal(err)
 		}
-		if err := os.WriteFile(filepath.Join(root, path), b.Bytes(), 0644); err != nil {
+		if err := os.WriteFile(filepath.Join(root, path), b.Bytes(), 0o644); err != nil {
 			t.Fatal(err)
 		}
 		return sum(b.Bytes())
@@ -307,7 +311,7 @@ func TestGenerateBridgeDecks(t *testing.T) {
 			t.Fatalf("%s: no registration version", family)
 		}
 		name := fmt.Sprintf("%s-registration-v%d.json", strings.ToLower(filepath.Base(family)), v)
-		if err := os.WriteFile(filepath.Join(root, family, name), append(b, '\n'), 0644); err != nil {
+		if err := os.WriteFile(filepath.Join(root, family, name), append(b, '\n'), 0o644); err != nil {
 			t.Fatal(err)
 		}
 	}
@@ -327,7 +331,7 @@ func TestGenerateBridgeDecks(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err := os.WriteFile(manifestPath, append(mb, '\n'), 0644); err != nil {
+	if err := os.WriteFile(manifestPath, append(mb, '\n'), 0o644); err != nil {
 		t.Fatal(err)
 	}
 	out := filepath.Join(root, "build/scratch/bridge-standing-v3")
@@ -355,7 +359,7 @@ func TestGenerateBridgeDecks(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		if err := os.WriteFile(filepath.Join(root, "assets", e.Path), b, 0644); err != nil {
+		if err := os.WriteFile(filepath.Join(root, "assets", e.Path), b, 0o644); err != nil {
 			t.Fatal(err)
 		}
 	}
@@ -417,7 +421,7 @@ func mergeIndex(t *testing.T, path string, entries []indexEntry) {
 		out.WriteByte('\n')
 	}
 	out.WriteString("  ]\n}\n")
-	if err := os.WriteFile(path, out.Bytes(), 0644); err != nil {
+	if err := os.WriteFile(path, out.Bytes(), 0o644); err != nil {
 		t.Fatal(err)
 	}
 }

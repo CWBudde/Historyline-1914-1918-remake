@@ -290,7 +290,7 @@ func TestCompoundFeatherBundle(t *testing.T) {
 	if err = png.Encode(&encoded, rest); err != nil {
 		t.Fatal(err)
 	}
-	if err = os.WriteFile(filepath.Join(filepath.Dir(path), "ruin.png"), encoded.Bytes(), 0600); err != nil {
+	if err = os.WriteFile(filepath.Join(filepath.Dir(path), "ruin.png"), encoded.Bytes(), 0o600); err != nil {
 		t.Fatal(err)
 	}
 	artSum := sha256.Sum256(encoded.Bytes())

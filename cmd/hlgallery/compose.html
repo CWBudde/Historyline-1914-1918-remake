@@ -1,183 +1,1356 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Historyline · scene composer</title>
-<style>
-:root{color-scheme:dark;--bg:#10191f;--panel:#19262e;--line:#3a4d58;--text:#f0eadc;--muted:#b6c2c6;--gold:#d5b880}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 system-ui,sans-serif}button,input,select{font:inherit;background:#142129;color:var(--text);border:1px solid var(--line);border-radius:5px;padding:7px 9px;min-width:0}button{cursor:pointer}button:hover,button[aria-pressed=true]{border-color:var(--gold);background:#30424b}button:disabled{opacity:.4;cursor:default}a{color:var(--gold)}:focus-visible{outline:2px solid var(--gold);outline-offset:2px}header{padding:20px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:20px}h1{font-size:24px;margin:0 0 5px}header p{margin:0;color:var(--muted)}header nav{display:flex;gap:16px;align-items:center;white-space:nowrap}.shell{display:grid;grid-template-columns:290px minmax(0,1fr)}aside{padding:16px;border-right:1px solid var(--line);height:calc(100vh - 100px);position:sticky;top:0;overflow:auto;min-width:0}h2{font-size:14px;margin:0 0 10px;color:var(--gold)}label{display:grid;gap:4px;color:var(--muted);font-size:12px;min-width:0}.stack{display:grid;gap:9px}.row{display:flex;gap:7px;flex-wrap:wrap;align-items:end}.row>label{flex:1}.row>label input,.row>label select{width:100%}hr{border:0;border-top:1px solid var(--line);margin:18px 0}.palette{display:grid;gap:5px;max-height:420px;overflow:auto;margin-top:10px}.asset{display:flex;align-items:center;gap:9px;text-align:left;width:100%;padding:5px}.asset img{width:40px;height:36px;object-fit:contain;background:#34434b}.asset span{overflow:hidden;text-overflow:ellipsis}.asset small{display:block;font-size:10px;color:var(--muted)}main{padding:18px 22px;min-width:0}.toolbar{display:flex;gap:12px;align-items:end;flex-wrap:wrap;margin-bottom:12px}.toolbar label{max-width:220px}.toolbar select{max-width:220px}.muted{color:var(--muted);font-size:12px}.stage-scroll{padding:16px;overflow:auto;max-height:72vh;min-height:280px;border:1px solid var(--line);border-radius:7px;background:#0b141a}.views{display:flex;gap:20px;min-width:max-content;align-items:start}.view{margin:0}.view figcaption{color:var(--muted);font-size:12px;margin-bottom:8px}.canvas{position:relative;overflow:hidden;background:repeating-conic-gradient(#384851 0% 25%,#485962 0% 50%) 0/16px 16px;isolation:isolate}.world{position:absolute;left:0;top:0;transform-origin:top left}.world img{position:absolute;pointer-events:none;max-width:none}.world .pixel{image-rendering:pixelated}.grid{position:absolute;inset:0;pointer-events:none;z-index:2000}.hex{position:absolute;width:96px;height:80px;clip-path:polygon(26.041667% 0,73.958333% 0,100% 50%,73.958333% 100%,26.041667% 100%,0 50%);padding:0;border:0;border-radius:0;background:transparent;pointer-events:auto}.hex[aria-pressed=true]{background:transparent}.hex:hover,.hex:focus-visible{background:#edcf7738;outline:none}.hex span{font-size:10px;opacity:0;color:#fff;background:#142129c9;padding:2px 4px}.hex:hover span,.hex:focus-visible span{opacity:1}.hex.selected{background:#e8bf5422}.outlines{position:absolute;inset:0;pointer-events:none;z-index:1900}.layer-top{position:absolute;inset:0;z-index:1;pointer-events:none}.divider{position:absolute;top:0;bottom:0;width:2px;background:#ffe3a1;z-index:1800;pointer-events:none}.inspector{border:1px solid var(--line);border-radius:6px;padding:14px;margin-top:14px;max-width:900px}.layer-list{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.layer-list button{font-size:12px}.inspector input[type=number]{width:80px}#status{min-height:22px;font-size:12px;color:var(--gold)}#message{color:#f0c491;font-size:12px;min-height:20px}input[type=range]{accent-color:var(--gold);padding:0}#wipe-controls{display:flex;gap:10px;align-items:center;font-size:12px;margin:8px 0}details{margin-top:16px;color:var(--muted);font-size:12px;max-width:100ch}summary{cursor:pointer;color:var(--text)}.hint{font-size:12px;color:var(--muted);margin:10px 0}#file{display:none}[hidden]{display:none!important}@media(max-width:850px){header{flex-direction:column;padding:16px;gap:10px}.shell{grid-template-columns:minmax(0,1fr)}aside{height:auto;position:static;border-right:0;border-bottom:1px solid var(--line)}.palette{display:flex;overflow:auto;max-height:80px}.asset{flex:0 0 180px}.asset img{width:32px}.stack{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.stack>.row{grid-column:1/-1}main{padding:16px}.stage-scroll{padding:8px}hr{margin:12px 0}}
-</style></head><body>
-<header><div><h1>Scene composer</h1><p>Join building pieces. Paint terrain, add roads and place units. Keep your own collection of scenes.</p></div><nav><a href="index.html">Single-asset comparisons</a><span class="muted">Current game candidates</span></nav></header>
-<div class="shell"><aside>
-<h2>Your collection</h2><div class="stack">
-<label>Collection name<input id="collection-name" maxlength="64"></label>
-<label>Scene<select id="scenes"></select></label>
-<label>Scene name<input id="scene-name" maxlength="64"></label>
-<label>New scene template<select id="template"><option value="blank">Empty grid</option><option value="grass">Grass field</option><option value="hq-summer" selected>HQ · summer</option><option value="hq-winter">HQ · winter</option><option value="depot-summer">Depot · summer</option><option value="depot-winter">Depot · winter</option><option value="factory-summer">Factory · summer</option><option value="factory-winter">Factory · winter</option><option value="road-unit">Grass + road + units</option></select></label>
-<div class="row"><button id="add-scene">Add scene</button><button id="duplicate">Duplicate</button><button id="delete-scene">Delete scene</button></div>
-<div class="row"><button id="export">Export collection</button><button id="import">Import collection</button><input id="file" type="file" accept="application/json,.json"></div>
-</div><hr><h2>Choose a piece</h2><div class="stack">
-<label>Find a piece<input id="search" type="search" placeholder="HQ, road, infantry…"></label>
-<label>Layer<select id="category"><option value="">All pieces</option><option value="ground">Terrain / buildings</option><option value="route">Roads / infrastructure</option><option value="unit">Units</option><option value="marker">Markers / effects</option></select></label>
-<label>Variant<select id="variant"></select></label>
-<label>Click tool<select id="tool"><option value="paint">Place selected piece</option><option value="select">Select a cell</option><option value="erase">Erase top layer</option></select></label>
-</div><p class="hint" id="brush-name"></p><div id="palette" class="palette" aria-label="Pieces"></div><p class="hint">Click a cell to place the selected piece, or drag a piece from this list onto a cell.</p>
-</aside><main>
-<div class="toolbar"><label>Comparison<select id="view"><option value="current">Current artwork</option><option value="side">Side by side</option><option value="wipe">Wipe comparison</option><option value="reference">Reference artwork</option></select></label><label>Source<select id="density"><option value="1">Lanczos · game size</option><option value="2">Retained 2× export</option><option value="4">Retained 4× export</option></select></label><label>Zoom<select id="zoom"><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select></label><label>Grid<select id="grid"><option value="yes">Visible</option><option value="no">Hidden</option></select></label><button id="undo">Undo</button><button id="redo">Redo</button></div>
-<div id="wipe-controls" hidden><label for="wipe">Reference ← / → Current</label><input id="wipe" type="range" min="0" max="100" value="50"><output id="wipe-value">50%</output></div>
-<p id="status" aria-live="polite"></p><p id="message" role="status"></p>
-<div class="stage-scroll"><div id="views" class="views"></div></div>
-<section class="inspector"><h2 id="cell-title">Cell layers</h2><div id="layers" class="layer-list"></div>
-<div class="row" id="layer-editor"><label>Variant<select id="layer-variant"></select></label><label>Offset X<input id="offset-x" type="number" min="-192" max="192" step="1"></label><label>Offset Y<input id="offset-y" type="number" min="-192" max="192" step="1"></label><button id="visibility">Hide layer</button><button id="remove">Remove layer</button></div>
-<div class="row" style="margin-top:10px"><button id="clear-cell">Clear cell</button><label>Columns<input id="columns" type="number" min="2" max="12"></label><label>Rows<input id="rows" type="number" min="2" max="21"></label><button id="resize">Resize grid</button></div><p class="hint">Draw order: terrain → infrastructure → units → markers. Terrain and unit placement replace that layer; infrastructure and markers can be stacked. Offsets adjust a piece without moving its cell. Shrinking preserves cells still inside the grid.</p></section>
-<details><summary>Placement and saving</summary><p>Building templates use the current compound exporter’s exact relative positions. The staggered map uses 142 px column pitch, 71 px odd-row offset and 40 px line pitch. Tiles are 96 × 80; units are 96 × 96 with their (48,49) anchor on the tile’s (48,40) center.</p><p>Edits are saved locally in this browser when storage is available. Export JSON to keep a portable copy of your collection. Collections contain asset IDs and placements; they do not contain artwork. Import validates every ID, variant and grid position before replacing the open collection. JSON remains usable after regenerating this review bundle with the same asset IDs.</p><p>These are visual review scenes made from retained default-context exports. Arbitrary neighbor context, world-phase matching, legal unit placement and runtime acceptance are not resolved here. Reference units keep their base pose/palette at the old 96 px game footprint. Missing reference layers stay empty; reference images never replace missing current artwork.</p></details>
-</main></div>
-<script>
-'use strict';
-const catalog=/*CATALOG*/null;
-const $=id=>document.getElementById(id), storageKey='historyline-gfx-collection-v1';
-const assets=new Map(catalog.items.filter(i=>i.category==='Terrain'||i.category==='Sprites'||(i.category==='Interface'&&['map','effects'].includes(i.family))).map(i=>[i.id,i]));
-const kind=a=>a.category==='Sprites'?'unit':a.id.startsWith('infrastructure/')?'route':a.category==='Terrain'?'ground':'marker';
-const priority={ground:0,route:1,unit:2,marker:3};
-const clone=x=>JSON.parse(JSON.stringify(x));
-let collection,activeID,brush=assets.get('background/grass'),selected={row:3,col:1},layerIndex=0,past=[],future=[],renderSerial=0;
-const scene=()=>collection.scenes.find(s=>s.id===activeID)||collection.scenes[0];
-const newID=()=>globalThis.crypto?.randomUUID?.()||'scene-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);
-function inside(s,row,col){return Number.isInteger(row)&&Number.isInteger(col)&&row>=0&&row<s.rows&&col>=0&&col<s.columns-row%2;}
-function cell(s,row,col){return s.cells.find(c=>c.row===row&&c.col===col);}
-function layer(asset,variant){return {asset,variant:variant||assets.get(asset).variants[0].id,dx:0,dy:0,visible:true};}
-function makeScene(template){
- const names={blank:'Empty grid',grass:'Grass field','hq-summer':'HQ · summer','hq-winter':'HQ · winter','depot-summer':'Depot · summer','depot-winter':'Depot · winter','factory-summer':'Factory · summer','factory-winter':'Factory · winter','road-unit':'Grass + road + units'};
- if(!names[template])throw Error('Unknown template');
- const s={id:newID(),name:names[template],columns:4,rows:7,cells:[]};
- for(let row=0;row<s.rows;row++)for(let col=0;col<s.columns-row%2;col++)s.cells.push({row,col,layers:template==='blank'?[]:[layer('background/grass'+(template.endsWith('winter')?'_w':''))]});
- if(template.startsWith('hq-')){
-  s.rows=9;
-  for(let row=7;row<s.rows;row++)for(let col=0;col<s.columns-row%2;col++)s.cells.push({row,col,layers:[layer('background/grass'+(template.endsWith('winter')?'_w':''))]});
-  cell(s,1,1).layers.push(layer('infrastructure/road36'));
-  for(const [part,row,col] of [['N',3,1],['NW',4,1],['NE',4,2],['C',5,1],['SW',6,1],['SE',6,2],['S',7,1]])cell(s,row,col).layers=[layer('background/hq'+part+(template.endsWith('winter')?'_w':''))];
- }else if(template.startsWith('depot-')||template.startsWith('factory-')){
-  const prefix=template.startsWith('depot-')?'cmp':'factory',suffix=template.endsWith('winter')?'_w':'';
-  for(const [part,row,col]of[['N',1,1],['W',2,1],['E',2,2],['S',3,1]])cell(s,row,col).layers=[layer('background/'+prefix+part+suffix)];
- }else if(template==='road-unit'){
-  for(const row of [0,2,4,6])cell(s,row,1).layers.push(layer('infrastructure/road36'));
-  cell(s,2,1).layers.push(layer('sprite/infantry','cp/n-normal'));
-  cell(s,2,2).layers.push(layer('sprite/heavyArtillery','cp/n-normal'));
-  cell(s,3,2).layers.push(layer('sprite/armoredCar','cp/n-normal'));
-  cell(s,5,0).layers.push(layer('sprite/charron','cp/n-normal'));
- }
- return s;
-}
-function validate(value){
- if(!value||value.schema_version!==1||typeof value.name!=='string'||!value.name.trim()||value.name.length>64||!Array.isArray(value.scenes)||value.scenes.length<1||value.scenes.length>50)throw Error('Invalid collection: requires version 1, a name and 1–50 scenes.');
- const ids=new Set();
- for(const s of value.scenes){
-  if(!s||typeof s.id!=='string'||!s.id||s.id.length>100||ids.has(s.id)||typeof s.name!=='string'||!s.name.trim()||s.name.length>64||!Number.isInteger(s.columns)||s.columns<2||s.columns>12||!Number.isInteger(s.rows)||s.rows<2||s.rows>21||!Array.isArray(s.cells)||s.cells.length>252)throw Error('Invalid scene or grid dimensions.');
-  ids.add(s.id);const seen=new Set();
-  for(const c of s.cells){
-   const key=c?.row+','+c?.col;
-   if(!c||!inside(s,c.row,c.col)||seen.has(key)||!Array.isArray(c.layers)||c.layers.length>8)throw Error('Invalid or duplicate cell; maximum eight layers per cell.');
-   seen.add(key);
-   for(const l of c.layers){const a=assets.get(l?.asset);if(!a||!a.variants.some(v=>v.id===l.variant)||!Number.isInteger(l.dx)||!Number.isInteger(l.dy)||Math.abs(l.dx)>192||Math.abs(l.dy)>192||typeof l.visible!=='boolean')throw Error('Unknown asset/variant or invalid layer offset.');}
-  }
- }
- // Copy only our schema: imported URLs, HTML and extra properties are never used.
- const clean={schema_version:1,name:value.name,scenes:value.scenes.map(s=>({id:s.id,name:s.name,columns:s.columns,rows:s.rows,cells:s.cells.map(c=>({row:c.row,col:c.col,layers:c.layers.map(l=>({asset:l.asset,variant:l.variant,dx:l.dx,dy:l.dy,visible:l.visible}))}))}))};
- if(new TextEncoder().encode(JSON.stringify(clean,null,2)+'\n').length>2*1024*1024)throw Error('Collection exceeds the 2 MiB export limit. Split it into smaller collections.');
- return clean;
-}
-function announce(message){$('message').textContent=message;}
-function persist(){try{localStorage.setItem(storageKey,JSON.stringify(collection));announce('Saved in this browser. Export JSON for a portable copy.');}catch{announce('Local saving is unavailable. Export JSON to keep your collection.');}}
-function commit(action){
- const before=clone(collection),oldActive=activeID;
- try{action();collection=validate(collection);}catch(e){collection=before;activeID=oldActive;announce(e.message);refresh();return;}
- past.push({collection:before,activeID:oldActive});if(past.length>25)past.shift();future=[];persist();refresh();
-}
-function undo(redo=false){const from=redo?future:past,to=redo?past:future;if(!from.length)return;to.push({collection:clone(collection),activeID});const previous=from.pop();collection=previous.collection;activeID=previous.activeID;persist();refresh();}
-function palette(){
- const q=$('search').value.toLowerCase().trim(),type=$('category').value;
- $('palette').replaceChildren();
- for(const a of assets.values()){
-  if((type&&kind(a)!==type)||![a.id,a.name,a.family,...(a.bindings||[])].join(' ').toLowerCase().includes(q))continue;
-  const b=document.createElement('button');b.className='asset';b.draggable=true;b.dataset.asset=a.id;b.setAttribute('aria-pressed',String(a===brush));
-  const im=document.createElement('img');im.src=a.variants[0].images['1'].url;im.alt='';im.loading='lazy';const text=document.createElement('span');text.textContent=a.name;const sub=document.createElement('small');sub.textContent=kind(a)+(a.season?' · '+a.season:'');text.append(sub);b.append(im,text);b.onclick=()=>choose(a);b.ondragstart=e=>{choose(a,false);e.dataTransfer.setData('text/plain',a.id);e.dataTransfer.effectAllowed='copy';};$('palette').append(b);
- }
-}
-function choose(a,repaint=true){const previous=a===brush?$('variant').value:'';brush=a;$('variant').replaceChildren();for(const v of a.variants)$('variant').add(new Option(v.label,v.id));if(a.variants.some(v=>v.id===previous))$('variant').value=previous;$('variant').disabled=a.variants.length===1;$('brush-name').textContent='Selected: '+a.name+' · '+kind(a);if(repaint)palette();}
-function apply(row,col){
- selected={row,col};layerIndex=0;
- if($('tool').value==='select'){render();inspect();return;}
- commit(()=>{
-  const s=scene();let c=cell(s,row,col);if(!c){c={row,col,layers:[]};s.cells.push(c);}
-  if($('tool').value==='erase'){const ordered=c.layers.map((l,i)=>({i,p:priority[kind(assets.get(l.asset))]})).sort((a,b)=>a.p-b.p||a.i-b.i);if(ordered.length)c.layers.splice(ordered.at(-1).i,1);return;}
-  const type=kind(brush),l=layer(brush.id,$('variant').value);
-  if(type==='ground'||type==='unit')c.layers=c.layers.filter(l=>kind(assets.get(l.asset))!==type);
-  if(type==='ground')c.layers.unshift(l);else c.layers.push(l);layerIndex=c.layers.indexOf(l);
- });
-}
-function refresh(){
- const s=scene();activeID=s.id;if(!inside(s,selected.row,selected.col))selected={row:0,col:0};
- $('collection-name').value=collection.name;$('scene-name').value=s.name;$('scenes').replaceChildren();for(const x of collection.scenes)$('scenes').add(new Option(x.name,x.id));$('scenes').value=s.id;
- $('columns').value=s.columns;$('rows').value=s.rows;$('delete-scene').disabled=collection.scenes.length===1;$('add-scene').disabled=collection.scenes.length>=50;$('duplicate').disabled=collection.scenes.length>=50;$('undo').disabled=!past.length;$('redo').disabled=!future.length;render();inspect();
-}
-function inspect(){
- const c=cell(scene(),selected.row,selected.col),ls=c?.layers||[];$('cell-title').textContent='Cell '+selected.row+', '+selected.col+' · '+ls.length+' layers';$('layers').replaceChildren();
- layerIndex=Math.max(0,Math.min(layerIndex,ls.length-1));
- for(const [i,l]of ls.entries()){const b=document.createElement('button');b.textContent=(l.visible?'':'Hidden · ')+assets.get(l.asset).name;b.setAttribute('aria-pressed',String(i===layerIndex));b.onclick=()=>{layerIndex=i;inspect();};$('layers').append(b);}
- $('layer-editor').hidden=!ls.length;$('clear-cell').disabled=!ls.length;if(!ls.length)return;
- const l=ls[layerIndex],a=assets.get(l.asset);$('layer-variant').replaceChildren();for(const v of a.variants)$('layer-variant').add(new Option(v.label,v.id));$('layer-variant').value=l.variant;$('layer-variant').disabled=a.variants.length===1;$('offset-x').value=l.dx;$('offset-y').value=l.dy;$('visibility').textContent=l.visible?'Hide layer':'Show layer';
-}
-function updateLayer(action){commit(()=>{const c=cell(scene(),selected.row,selected.col);if(c?.layers[layerIndex])action(c.layers[layerIndex],c);});}
-function origin(row,col){return {x:142*col+71*(row%2),y:40*row};}
-function render(){
- const serial=++renderSerial,s=scene(),zoom=Number($('zoom').value),density=$('density').value,view=$('view').value,worldWidth=142*(s.columns-1)+96+32,worldHeight=40*(s.rows-1)+80+32;
- const width=worldWidth*zoom,height=worldHeight*zoom;$('views').replaceChildren();$('wipe-controls').hidden=view!=='wipe';$('wipe-value').textContent=$('wipe').value+'%';
- let missing=0,visible=0;const pieces=[];
- for(const c of s.cells)for(const [i,l]of c.layers.entries())if(l.visible){const a=assets.get(l.asset);visible++;if(!a.reference)missing++;pieces.push({c,l,a,i});}
- pieces.sort((a,b)=>priority[kind(a.a)]-priority[kind(b.a)]||a.c.row-b.c.row||a.c.col-b.c.col||a.i-b.i);
- function world(reference){
-  const div=document.createElement('div');div.className='world';div.style.width=worldWidth+'px';div.style.height=worldHeight+'px';div.style.transform='scale('+zoom+')';
-  for(const {c,l,a}of pieces){
-   const v=a.variants.find(v=>v.id===l.variant),pic=reference?a.reference:v.images[density==='1'&&kind(a)==='unit'?'game':density];if(!pic)continue;
-   const p=origin(c.row,c.col),unit=kind(a)==='unit',w=unit?96:a.width,h=unit?96:a.height;
-   const im=document.createElement('img');im.src=pic.url;im.alt=a.name+' · '+l.variant;im.dataset.asset=a.id;im.dataset.row=c.row;im.dataset.col=c.col;im.style.width=w+'px';im.style.height=h+'px';
-   im.style.left=(16+p.x+48-w/2+l.dx)+'px';im.style.top=(16+p.y+(unit?(reference?0:-9):40-h/2)+l.dy)+'px';
-   if(reference||density==='1')im.className='pixel';im.onerror=()=>{if(serial===renderSerial)announce('Image failed to load: '+pic.source);};div.append(im);
-  }
-  return div;
- }
- function grid(board){
-  const g=document.createElement('div');g.className='world grid';g.style.transform='scale('+zoom+')';
-  const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('width',worldWidth);svg.setAttribute('height',worldHeight);svg.classList.add('outlines');
-  for(let row=0;row<s.rows;row++)for(let col=0;col<s.columns-row%2;col++){
-   const p=origin(row,col),x=p.x+16,y=p.y+16,chosen=selected.row===row&&selected.col===col;
-   if($('grid').value==='yes'){const path=document.createElementNS(svg.namespaceURI,'polygon');path.setAttribute('points',[[25,0],[71,0],[96,40],[71,80],[25,80],[0,40]].map(([dx,dy])=>(x+dx)+','+(y+dy)).join(' '));path.setAttribute('fill','none');path.setAttribute('stroke',chosen?'#ffe19a':'#b9c9ce70');path.setAttribute('stroke-width',chosen?'1.5':'.5');svg.append(path);}
-   const b=document.createElement('button');b.className='hex'+(chosen&&$('grid').value==='yes'?' selected':'');b.style.left=x+'px';b.style.top=y+'px';b.dataset.row=row;b.dataset.col=col;b.setAttribute('aria-label','Cell '+row+', '+col);b.setAttribute('aria-pressed',String(chosen));const label=document.createElement('span');label.textContent=row+', '+col;b.append(label);b.onclick=()=>apply(row,col);b.ondragover=e=>{e.preventDefault();e.dataTransfer.dropEffect='copy';};b.ondrop=e=>{e.preventDefault();const a=assets.get(e.dataTransfer.getData('text/plain'));if(!a)return;choose(a);$('tool').value='paint';apply(row,col);};g.append(b);
-  }
-  g.prepend(svg);board.append(g);
- }
- function board(label,reference,wipe=false){
-  const fig=document.createElement('figure');fig.className='view';const cap=document.createElement('figcaption');cap.textContent=label;const b=document.createElement('div');b.className='canvas';b.style.width=width+'px';b.style.height=height+'px';b.append(world(reference));
-  if(wipe){const top=document.createElement('div');top.className='canvas layer-top';top.style.clipPath='inset(0 0 0 '+$('wipe').value+'%)';top.append(world(false));b.append(top);const divider=document.createElement('div');divider.className='divider';divider.style.left=$('wipe').value+'%';b.append(divider);}
-  grid(b);fig.append(cap,b);$('views').append(fig);
- }
- if(view==='side'){board('REFERENCE · unchanged source pieces',true);board('CURRENT · '+s.name,false);}else if(view==='wipe')board('REFERENCE ← / → CURRENT',true,true);else board((view==='reference'?'REFERENCE':'CURRENT')+' · '+s.name,view==='reference');
- $('status').textContent=s.name+' · '+s.columns+' columns / '+s.rows+' lines · '+visible+' visible layers'+(missing?' · '+missing+' without mapped reference':'');
-}
-function download(){const blob=new Blob([JSON.stringify(collection,null,2)+'\n'],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=(collection.name.replace(/[^a-z0-9_-]+/gi,'-')||'collection')+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
-function importText(text){if(text.length>2*1024*1024)throw Error('Collection JSON exceeds 2 MiB.');const incoming=validate(JSON.parse(text));commit(()=>{collection=incoming;activeID=collection.scenes[0].id;});}
-$('search').oninput=palette;$('category').onchange=palette;
-$('scenes').onchange=()=>{activeID=$('scenes').value;layerIndex=0;refresh();};
-$('add-scene').onclick=()=>commit(()=>{const s=makeScene($('template').value);collection.scenes.push(s);activeID=s.id;});
-$('duplicate').onclick=()=>commit(()=>{const copy=clone(scene());copy.id=newID();copy.name=(copy.name+' copy').slice(0,64);collection.scenes.push(copy);activeID=copy.id;});
-$('delete-scene').onclick=()=>{if(collection.scenes.length>1)commit(()=>{collection.scenes=collection.scenes.filter(s=>s.id!==activeID);activeID=collection.scenes[0].id;});};
-$('collection-name').onchange=()=>commit(()=>{collection.name=$('collection-name').value.trim();});$('scene-name').onchange=()=>commit(()=>{scene().name=$('scene-name').value.trim();});
-for(const id of ['view','density','zoom','grid'])$(id).onchange=render;$('wipe').oninput=render;
-$('layer-variant').onchange=()=>updateLayer(l=>{l.variant=$('layer-variant').value;});
-for(const [id,key]of[['offset-x','dx'],['offset-y','dy']])$(id).onchange=()=>updateLayer(l=>{l[key]=Number($(id).value);});
-$('visibility').onclick=()=>updateLayer(l=>{l.visible=!l.visible;});$('remove').onclick=()=>updateLayer((l,c)=>{c.layers.splice(layerIndex,1);});
-$('clear-cell').onclick=()=>commit(()=>{const c=cell(scene(),selected.row,selected.col);if(c)c.layers=[];});
-$('resize').onclick=()=>commit(()=>{const s=scene();s.columns=Number($('columns').value);s.rows=Number($('rows').value);s.cells=s.cells.filter(c=>inside(s,c.row,c.col));});
-$('undo').onclick=()=>undo();$('redo').onclick=()=>undo(true);
-document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'&&!['INPUT','SELECT','TEXTAREA'].includes(e.target.tagName)){e.preventDefault();undo(e.shiftKey);}});
-$('export').onclick=download;$('import').onclick=()=>$('file').click();$('file').onchange=async()=>{const f=$('file').files[0];if(!f)return;try{if(f.size>2*1024*1024)throw Error('Collection JSON exceeds 2 MiB.');importText(await f.text());}catch(e){announce('Import rejected: '+e.message);}$('file').value='';};
-collection={schema_version:1,name:'My graphics collection',scenes:[makeScene('hq-summer')]};
-try{const stored=localStorage.getItem(storageKey);if(stored)collection=validate(JSON.parse(stored));}catch{announce('Saved collection could not be loaded. A starter scene is open; export a copy to keep your work.');}
-activeID=collection.scenes[0].id;choose(brush);refresh();
-</script></body></html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Historyline · scene composer</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #10191f;
+        --panel: #19262e;
+        --line: #3a4d58;
+        --text: #f0eadc;
+        --muted: #b6c2c6;
+        --gold: #d5b880;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font:
+          14px/1.45 system-ui,
+          sans-serif;
+      }
+      button,
+      input,
+      select {
+        font: inherit;
+        background: #142129;
+        color: var(--text);
+        border: 1px solid var(--line);
+        border-radius: 5px;
+        padding: 7px 9px;
+        min-width: 0;
+      }
+      button {
+        cursor: pointer;
+      }
+      button:hover,
+      button[aria-pressed="true"] {
+        border-color: var(--gold);
+        background: #30424b;
+      }
+      button:disabled {
+        opacity: 0.4;
+        cursor: default;
+      }
+      a {
+        color: var(--gold);
+      }
+      :focus-visible {
+        outline: 2px solid var(--gold);
+        outline-offset: 2px;
+      }
+      header {
+        padding: 20px 24px;
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+      }
+      h1 {
+        font-size: 24px;
+        margin: 0 0 5px;
+      }
+      header p {
+        margin: 0;
+        color: var(--muted);
+      }
+      header nav {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        white-space: nowrap;
+      }
+      .shell {
+        display: grid;
+        grid-template-columns: 290px minmax(0, 1fr);
+      }
+      aside {
+        padding: 16px;
+        border-right: 1px solid var(--line);
+        height: calc(100vh - 100px);
+        position: sticky;
+        top: 0;
+        overflow: auto;
+        min-width: 0;
+      }
+      h2 {
+        font-size: 14px;
+        margin: 0 0 10px;
+        color: var(--gold);
+      }
+      label {
+        display: grid;
+        gap: 4px;
+        color: var(--muted);
+        font-size: 12px;
+        min-width: 0;
+      }
+      .stack {
+        display: grid;
+        gap: 9px;
+      }
+      .row {
+        display: flex;
+        gap: 7px;
+        flex-wrap: wrap;
+        align-items: end;
+      }
+      .row > label {
+        flex: 1;
+      }
+      .row > label input,
+      .row > label select {
+        width: 100%;
+      }
+      hr {
+        border: 0;
+        border-top: 1px solid var(--line);
+        margin: 18px 0;
+      }
+      .palette {
+        display: grid;
+        gap: 5px;
+        max-height: 420px;
+        overflow: auto;
+        margin-top: 10px;
+      }
+      .asset {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        text-align: left;
+        width: 100%;
+        padding: 5px;
+      }
+      .asset img {
+        width: 40px;
+        height: 36px;
+        object-fit: contain;
+        background: #34434b;
+      }
+      .asset span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .asset small {
+        display: block;
+        font-size: 10px;
+        color: var(--muted);
+      }
+      main {
+        padding: 18px 22px;
+        min-width: 0;
+      }
+      .toolbar {
+        display: flex;
+        gap: 12px;
+        align-items: end;
+        flex-wrap: wrap;
+        margin-bottom: 12px;
+      }
+      .toolbar label {
+        max-width: 220px;
+      }
+      .toolbar select {
+        max-width: 220px;
+      }
+      .muted {
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .stage-scroll {
+        padding: 16px;
+        overflow: auto;
+        max-height: 72vh;
+        min-height: 280px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: #0b141a;
+      }
+      .views {
+        display: flex;
+        gap: 20px;
+        min-width: max-content;
+        align-items: start;
+      }
+      .view {
+        margin: 0;
+      }
+      .view figcaption {
+        color: var(--muted);
+        font-size: 12px;
+        margin-bottom: 8px;
+      }
+      .canvas {
+        position: relative;
+        overflow: hidden;
+        background: repeating-conic-gradient(#384851 0% 25%, #485962 0% 50%)
+          0/16px 16px;
+        isolation: isolate;
+      }
+      .world {
+        position: absolute;
+        left: 0;
+        top: 0;
+        transform-origin: top left;
+      }
+      .world img {
+        position: absolute;
+        pointer-events: none;
+        max-width: none;
+      }
+      .world .pixel {
+        image-rendering: pixelated;
+      }
+      .grid {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 2000;
+      }
+      .hex {
+        position: absolute;
+        width: 96px;
+        height: 80px;
+        clip-path: polygon(
+          26.041667% 0,
+          73.958333% 0,
+          100% 50%,
+          73.958333% 100%,
+          26.041667% 100%,
+          0 50%
+        );
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        pointer-events: auto;
+      }
+      .hex[aria-pressed="true"] {
+        background: transparent;
+      }
+      .hex:hover,
+      .hex:focus-visible {
+        background: #edcf7738;
+        outline: none;
+      }
+      .hex span {
+        font-size: 10px;
+        opacity: 0;
+        color: #fff;
+        background: #142129c9;
+        padding: 2px 4px;
+      }
+      .hex:hover span,
+      .hex:focus-visible span {
+        opacity: 1;
+      }
+      .hex.selected {
+        background: #e8bf5422;
+      }
+      .outlines {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 1900;
+      }
+      .layer-top {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+      }
+      .divider {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: #ffe3a1;
+        z-index: 1800;
+        pointer-events: none;
+      }
+      .inspector {
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 14px;
+        margin-top: 14px;
+        max-width: 900px;
+      }
+      .layer-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin: 8px 0;
+      }
+      .layer-list button {
+        font-size: 12px;
+      }
+      .inspector input[type="number"] {
+        width: 80px;
+      }
+      #status {
+        min-height: 22px;
+        font-size: 12px;
+        color: var(--gold);
+      }
+      #message {
+        color: #f0c491;
+        font-size: 12px;
+        min-height: 20px;
+      }
+      input[type="range"] {
+        accent-color: var(--gold);
+        padding: 0;
+      }
+      #wipe-controls {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        font-size: 12px;
+        margin: 8px 0;
+      }
+      details {
+        margin-top: 16px;
+        color: var(--muted);
+        font-size: 12px;
+        max-width: 100ch;
+      }
+      summary {
+        cursor: pointer;
+        color: var(--text);
+      }
+      .hint {
+        font-size: 12px;
+        color: var(--muted);
+        margin: 10px 0;
+      }
+      #file {
+        display: none;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      @media (max-width: 850px) {
+        header {
+          flex-direction: column;
+          padding: 16px;
+          gap: 10px;
+        }
+        .shell {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        aside {
+          height: auto;
+          position: static;
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+        .palette {
+          display: flex;
+          overflow: auto;
+          max-height: 80px;
+        }
+        .asset {
+          flex: 0 0 180px;
+        }
+        .asset img {
+          width: 32px;
+        }
+        .stack {
+          grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        }
+        .stack > .row {
+          grid-column: 1/-1;
+        }
+        main {
+          padding: 16px;
+        }
+        .stage-scroll {
+          padding: 8px;
+        }
+        hr {
+          margin: 12px 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <h1>Scene composer</h1>
+        <p>
+          Join building pieces. Paint terrain, add roads and place units. Keep
+          your own collection of scenes.
+        </p>
+      </div>
+      <nav>
+        <a href="index.html">Single-asset comparisons</a
+        ><span class="muted">Current game candidates</span>
+      </nav>
+    </header>
+    <div class="shell">
+      <aside>
+        <h2>Your collection</h2>
+        <div class="stack">
+          <label
+            >Collection name<input id="collection-name" maxlength="64"
+          /></label>
+          <label>Scene<select id="scenes"></select></label>
+          <label>Scene name<input id="scene-name" maxlength="64" /></label>
+          <label
+            >New scene template<select id="template">
+              <option value="blank">Empty grid</option>
+              <option value="grass">Grass field</option>
+              <option value="hq-summer" selected>HQ · summer</option>
+              <option value="hq-winter">HQ · winter</option>
+              <option value="depot-summer">Depot · summer</option>
+              <option value="depot-winter">Depot · winter</option>
+              <option value="factory-summer">Factory · summer</option>
+              <option value="factory-winter">Factory · winter</option>
+              <option value="road-unit">Grass + road + units</option>
+            </select></label
+          >
+          <div class="row">
+            <button id="add-scene">Add scene</button
+            ><button id="duplicate">Duplicate</button
+            ><button id="delete-scene">Delete scene</button>
+          </div>
+          <div class="row">
+            <button id="export">Export collection</button
+            ><button id="import">Import collection</button
+            ><input id="file" type="file" accept="application/json,.json" />
+          </div>
+        </div>
+        <hr />
+        <h2>Choose a piece</h2>
+        <div class="stack">
+          <label
+            >Find a piece<input
+              id="search"
+              type="search"
+              placeholder="HQ, road, infantry…"
+          /></label>
+          <label
+            >Layer<select id="category">
+              <option value="">All pieces</option>
+              <option value="ground">Terrain / buildings</option>
+              <option value="route">Roads / infrastructure</option>
+              <option value="unit">Units</option>
+              <option value="marker">Markers / effects</option>
+            </select></label
+          >
+          <label>Variant<select id="variant"></select></label>
+          <label
+            >Click tool<select id="tool">
+              <option value="paint">Place selected piece</option>
+              <option value="select">Select a cell</option>
+              <option value="erase">Erase top layer</option>
+            </select></label
+          >
+        </div>
+        <p class="hint" id="brush-name"></p>
+        <div id="palette" class="palette" aria-label="Pieces"></div>
+        <p class="hint">
+          Click a cell to place the selected piece, or drag a piece from this
+          list onto a cell.
+        </p>
+      </aside>
+      <main>
+        <div class="toolbar">
+          <label
+            >Comparison<select id="view">
+              <option value="current">Current artwork</option>
+              <option value="side">Side by side</option>
+              <option value="wipe">Wipe comparison</option>
+              <option value="reference">Reference artwork</option>
+            </select></label
+          ><label
+            >Source<select id="density">
+              <option value="1">Lanczos · game size</option>
+              <option value="2">Retained 2× export</option>
+              <option value="4">Retained 4× export</option>
+            </select></label
+          ><label
+            >Zoom<select id="zoom">
+              <option value="1" selected>1×</option>
+              <option value="2">2×</option>
+              <option value="4">4×</option>
+            </select></label
+          ><label
+            >Grid<select id="grid">
+              <option value="yes">Visible</option>
+              <option value="no">Hidden</option>
+            </select></label
+          ><button id="undo">Undo</button><button id="redo">Redo</button>
+        </div>
+        <div id="wipe-controls" hidden>
+          <label for="wipe">Reference ← / → Current</label
+          ><input id="wipe" type="range" min="0" max="100" value="50" /><output
+            id="wipe-value"
+            >50%</output
+          >
+        </div>
+        <p id="status" aria-live="polite"></p>
+        <p id="message" role="status"></p>
+        <div class="stage-scroll"><div id="views" class="views"></div></div>
+        <section class="inspector">
+          <h2 id="cell-title">Cell layers</h2>
+          <div id="layers" class="layer-list"></div>
+          <div class="row" id="layer-editor">
+            <label>Variant<select id="layer-variant"></select></label
+            ><label
+              >Offset X<input
+                id="offset-x"
+                type="number"
+                min="-192"
+                max="192"
+                step="1" /></label
+            ><label
+              >Offset Y<input
+                id="offset-y"
+                type="number"
+                min="-192"
+                max="192"
+                step="1" /></label
+            ><button id="visibility">Hide layer</button
+            ><button id="remove">Remove layer</button>
+          </div>
+          <div class="row" style="margin-top: 10px">
+            <button id="clear-cell">Clear cell</button
+            ><label
+              >Columns<input
+                id="columns"
+                type="number"
+                min="2"
+                max="12" /></label
+            ><label
+              >Rows<input id="rows" type="number" min="2" max="21" /></label
+            ><button id="resize">Resize grid</button>
+          </div>
+          <p class="hint">
+            Draw order: terrain → infrastructure → units → markers. Terrain and
+            unit placement replace that layer; infrastructure and markers can be
+            stacked. Offsets adjust a piece without moving its cell. Shrinking
+            preserves cells still inside the grid.
+          </p>
+        </section>
+        <details>
+          <summary>Placement and saving</summary>
+          <p>
+            Building templates use the current compound exporter’s exact
+            relative positions. The staggered map uses 142 px column pitch, 71
+            px odd-row offset and 40 px line pitch. Tiles are 96 × 80; units are
+            96 × 96 with their (48,49) anchor on the tile’s (48,40) center.
+          </p>
+          <p>
+            Edits are saved locally in this browser when storage is available.
+            Export JSON to keep a portable copy of your collection. Collections
+            contain asset IDs and placements; they do not contain artwork.
+            Import validates every ID, variant and grid position before
+            replacing the open collection. JSON remains usable after
+            regenerating this review bundle with the same asset IDs.
+          </p>
+          <p>
+            These are visual review scenes made from retained default-context
+            exports. Arbitrary neighbor context, world-phase matching, legal
+            unit placement and runtime acceptance are not resolved here.
+            Reference units keep their base pose/palette at the old 96 px game
+            footprint. Missing reference layers stay empty; reference images
+            never replace missing current artwork.
+          </p>
+        </details>
+      </main>
+    </div>
+    <script>
+      "use strict";
+      const catalog = /*CATALOG*/ null;
+      const $ = (id) => document.getElementById(id),
+        storageKey = "historyline-gfx-collection-v1";
+      const assets = new Map(
+        catalog.items
+          .filter(
+            (i) =>
+              i.category === "Terrain" ||
+              i.category === "Sprites" ||
+              (i.category === "Interface" &&
+                ["map", "effects"].includes(i.family)),
+          )
+          .map((i) => [i.id, i]),
+      );
+      const kind = (a) =>
+        a.category === "Sprites"
+          ? "unit"
+          : a.id.startsWith("infrastructure/")
+            ? "route"
+            : a.category === "Terrain"
+              ? "ground"
+              : "marker";
+      const priority = { ground: 0, route: 1, unit: 2, marker: 3 };
+      const clone = (x) => JSON.parse(JSON.stringify(x));
+      let collection,
+        activeID,
+        brush = assets.get("background/grass"),
+        selected = { row: 3, col: 1 },
+        layerIndex = 0,
+        past = [],
+        future = [],
+        renderSerial = 0;
+      const scene = () =>
+        collection.scenes.find((s) => s.id === activeID) ||
+        collection.scenes[0];
+      const newID = () =>
+        globalThis.crypto?.randomUUID?.() ||
+        "scene-" +
+          Date.now().toString(36) +
+          "-" +
+          Math.random().toString(36).slice(2);
+      function inside(s, row, col) {
+        return (
+          Number.isInteger(row) &&
+          Number.isInteger(col) &&
+          row >= 0 &&
+          row < s.rows &&
+          col >= 0 &&
+          col < s.columns - (row % 2)
+        );
+      }
+      function cell(s, row, col) {
+        return s.cells.find((c) => c.row === row && c.col === col);
+      }
+      function layer(asset, variant) {
+        return {
+          asset,
+          variant: variant || assets.get(asset).variants[0].id,
+          dx: 0,
+          dy: 0,
+          visible: true,
+        };
+      }
+      function makeScene(template) {
+        const names = {
+          blank: "Empty grid",
+          grass: "Grass field",
+          "hq-summer": "HQ · summer",
+          "hq-winter": "HQ · winter",
+          "depot-summer": "Depot · summer",
+          "depot-winter": "Depot · winter",
+          "factory-summer": "Factory · summer",
+          "factory-winter": "Factory · winter",
+          "road-unit": "Grass + road + units",
+        };
+        if (!names[template]) throw Error("Unknown template");
+        const s = {
+          id: newID(),
+          name: names[template],
+          columns: 4,
+          rows: 7,
+          cells: [],
+        };
+        for (let row = 0; row < s.rows; row++)
+          for (let col = 0; col < s.columns - (row % 2); col++)
+            s.cells.push({
+              row,
+              col,
+              layers:
+                template === "blank"
+                  ? []
+                  : [
+                      layer(
+                        "background/grass" +
+                          (template.endsWith("winter") ? "_w" : ""),
+                      ),
+                    ],
+            });
+        if (template.startsWith("hq-")) {
+          s.rows = 9;
+          for (let row = 7; row < s.rows; row++)
+            for (let col = 0; col < s.columns - (row % 2); col++)
+              s.cells.push({
+                row,
+                col,
+                layers: [
+                  layer(
+                    "background/grass" +
+                      (template.endsWith("winter") ? "_w" : ""),
+                  ),
+                ],
+              });
+          cell(s, 1, 1).layers.push(layer("infrastructure/road36"));
+          for (const [part, row, col] of [
+            ["N", 3, 1],
+            ["NW", 4, 1],
+            ["NE", 4, 2],
+            ["C", 5, 1],
+            ["SW", 6, 1],
+            ["SE", 6, 2],
+            ["S", 7, 1],
+          ])
+            cell(s, row, col).layers = [
+              layer(
+                "background/hq" +
+                  part +
+                  (template.endsWith("winter") ? "_w" : ""),
+              ),
+            ];
+        } else if (
+          template.startsWith("depot-") ||
+          template.startsWith("factory-")
+        ) {
+          const prefix = template.startsWith("depot-") ? "cmp" : "factory",
+            suffix = template.endsWith("winter") ? "_w" : "";
+          for (const [part, row, col] of [
+            ["N", 1, 1],
+            ["W", 2, 1],
+            ["E", 2, 2],
+            ["S", 3, 1],
+          ])
+            cell(s, row, col).layers = [
+              layer("background/" + prefix + part + suffix),
+            ];
+        } else if (template === "road-unit") {
+          for (const row of [0, 2, 4, 6])
+            cell(s, row, 1).layers.push(layer("infrastructure/road36"));
+          cell(s, 2, 1).layers.push(layer("sprite/infantry", "cp/n-normal"));
+          cell(s, 2, 2).layers.push(
+            layer("sprite/heavyArtillery", "cp/n-normal"),
+          );
+          cell(s, 3, 2).layers.push(layer("sprite/armoredCar", "cp/n-normal"));
+          cell(s, 5, 0).layers.push(layer("sprite/charron", "cp/n-normal"));
+        }
+        return s;
+      }
+      function validate(value) {
+        if (
+          !value ||
+          value.schema_version !== 1 ||
+          typeof value.name !== "string" ||
+          !value.name.trim() ||
+          value.name.length > 64 ||
+          !Array.isArray(value.scenes) ||
+          value.scenes.length < 1 ||
+          value.scenes.length > 50
+        )
+          throw Error(
+            "Invalid collection: requires version 1, a name and 1–50 scenes.",
+          );
+        const ids = new Set();
+        for (const s of value.scenes) {
+          if (
+            !s ||
+            typeof s.id !== "string" ||
+            !s.id ||
+            s.id.length > 100 ||
+            ids.has(s.id) ||
+            typeof s.name !== "string" ||
+            !s.name.trim() ||
+            s.name.length > 64 ||
+            !Number.isInteger(s.columns) ||
+            s.columns < 2 ||
+            s.columns > 12 ||
+            !Number.isInteger(s.rows) ||
+            s.rows < 2 ||
+            s.rows > 21 ||
+            !Array.isArray(s.cells) ||
+            s.cells.length > 252
+          )
+            throw Error("Invalid scene or grid dimensions.");
+          ids.add(s.id);
+          const seen = new Set();
+          for (const c of s.cells) {
+            const key = c?.row + "," + c?.col;
+            if (
+              !c ||
+              !inside(s, c.row, c.col) ||
+              seen.has(key) ||
+              !Array.isArray(c.layers) ||
+              c.layers.length > 8
+            )
+              throw Error(
+                "Invalid or duplicate cell; maximum eight layers per cell.",
+              );
+            seen.add(key);
+            for (const l of c.layers) {
+              const a = assets.get(l?.asset);
+              if (
+                !a ||
+                !a.variants.some((v) => v.id === l.variant) ||
+                !Number.isInteger(l.dx) ||
+                !Number.isInteger(l.dy) ||
+                Math.abs(l.dx) > 192 ||
+                Math.abs(l.dy) > 192 ||
+                typeof l.visible !== "boolean"
+              )
+                throw Error("Unknown asset/variant or invalid layer offset.");
+            }
+          }
+        }
+        // Copy only our schema: imported URLs, HTML and extra properties are never used.
+        const clean = {
+          schema_version: 1,
+          name: value.name,
+          scenes: value.scenes.map((s) => ({
+            id: s.id,
+            name: s.name,
+            columns: s.columns,
+            rows: s.rows,
+            cells: s.cells.map((c) => ({
+              row: c.row,
+              col: c.col,
+              layers: c.layers.map((l) => ({
+                asset: l.asset,
+                variant: l.variant,
+                dx: l.dx,
+                dy: l.dy,
+                visible: l.visible,
+              })),
+            })),
+          })),
+        };
+        if (
+          new TextEncoder().encode(JSON.stringify(clean, null, 2) + "\n")
+            .length >
+          2 * 1024 * 1024
+        )
+          throw Error(
+            "Collection exceeds the 2 MiB export limit. Split it into smaller collections.",
+          );
+        return clean;
+      }
+      function announce(message) {
+        $("message").textContent = message;
+      }
+      function persist() {
+        try {
+          localStorage.setItem(storageKey, JSON.stringify(collection));
+          announce("Saved in this browser. Export JSON for a portable copy.");
+        } catch {
+          announce(
+            "Local saving is unavailable. Export JSON to keep your collection.",
+          );
+        }
+      }
+      function commit(action) {
+        const before = clone(collection),
+          oldActive = activeID;
+        try {
+          action();
+          collection = validate(collection);
+        } catch (e) {
+          collection = before;
+          activeID = oldActive;
+          announce(e.message);
+          refresh();
+          return;
+        }
+        past.push({ collection: before, activeID: oldActive });
+        if (past.length > 25) past.shift();
+        future = [];
+        persist();
+        refresh();
+      }
+      function undo(redo = false) {
+        const from = redo ? future : past,
+          to = redo ? past : future;
+        if (!from.length) return;
+        to.push({ collection: clone(collection), activeID });
+        const previous = from.pop();
+        collection = previous.collection;
+        activeID = previous.activeID;
+        persist();
+        refresh();
+      }
+      function palette() {
+        const q = $("search").value.toLowerCase().trim(),
+          type = $("category").value;
+        $("palette").replaceChildren();
+        for (const a of assets.values()) {
+          if (
+            (type && kind(a) !== type) ||
+            ![a.id, a.name, a.family, ...(a.bindings || [])]
+              .join(" ")
+              .toLowerCase()
+              .includes(q)
+          )
+            continue;
+          const b = document.createElement("button");
+          b.className = "asset";
+          b.draggable = true;
+          b.dataset.asset = a.id;
+          b.setAttribute("aria-pressed", String(a === brush));
+          const im = document.createElement("img");
+          im.src = a.variants[0].images["1"].url;
+          im.alt = "";
+          im.loading = "lazy";
+          const text = document.createElement("span");
+          text.textContent = a.name;
+          const sub = document.createElement("small");
+          sub.textContent = kind(a) + (a.season ? " · " + a.season : "");
+          text.append(sub);
+          b.append(im, text);
+          b.onclick = () => choose(a);
+          b.ondragstart = (e) => {
+            choose(a, false);
+            e.dataTransfer.setData("text/plain", a.id);
+            e.dataTransfer.effectAllowed = "copy";
+          };
+          $("palette").append(b);
+        }
+      }
+      function choose(a, repaint = true) {
+        const previous = a === brush ? $("variant").value : "";
+        brush = a;
+        $("variant").replaceChildren();
+        for (const v of a.variants) $("variant").add(new Option(v.label, v.id));
+        if (a.variants.some((v) => v.id === previous))
+          $("variant").value = previous;
+        $("variant").disabled = a.variants.length === 1;
+        $("brush-name").textContent = "Selected: " + a.name + " · " + kind(a);
+        if (repaint) palette();
+      }
+      function apply(row, col) {
+        selected = { row, col };
+        layerIndex = 0;
+        if ($("tool").value === "select") {
+          render();
+          inspect();
+          return;
+        }
+        commit(() => {
+          const s = scene();
+          let c = cell(s, row, col);
+          if (!c) {
+            c = { row, col, layers: [] };
+            s.cells.push(c);
+          }
+          if ($("tool").value === "erase") {
+            const ordered = c.layers
+              .map((l, i) => ({ i, p: priority[kind(assets.get(l.asset))] }))
+              .sort((a, b) => a.p - b.p || a.i - b.i);
+            if (ordered.length) c.layers.splice(ordered.at(-1).i, 1);
+            return;
+          }
+          const type = kind(brush),
+            l = layer(brush.id, $("variant").value);
+          if (type === "ground" || type === "unit")
+            c.layers = c.layers.filter(
+              (l) => kind(assets.get(l.asset)) !== type,
+            );
+          if (type === "ground") c.layers.unshift(l);
+          else c.layers.push(l);
+          layerIndex = c.layers.indexOf(l);
+        });
+      }
+      function refresh() {
+        const s = scene();
+        activeID = s.id;
+        if (!inside(s, selected.row, selected.col))
+          selected = { row: 0, col: 0 };
+        $("collection-name").value = collection.name;
+        $("scene-name").value = s.name;
+        $("scenes").replaceChildren();
+        for (const x of collection.scenes)
+          $("scenes").add(new Option(x.name, x.id));
+        $("scenes").value = s.id;
+        $("columns").value = s.columns;
+        $("rows").value = s.rows;
+        $("delete-scene").disabled = collection.scenes.length === 1;
+        $("add-scene").disabled = collection.scenes.length >= 50;
+        $("duplicate").disabled = collection.scenes.length >= 50;
+        $("undo").disabled = !past.length;
+        $("redo").disabled = !future.length;
+        render();
+        inspect();
+      }
+      function inspect() {
+        const c = cell(scene(), selected.row, selected.col),
+          ls = c?.layers || [];
+        $("cell-title").textContent =
+          "Cell " +
+          selected.row +
+          ", " +
+          selected.col +
+          " · " +
+          ls.length +
+          " layers";
+        $("layers").replaceChildren();
+        layerIndex = Math.max(0, Math.min(layerIndex, ls.length - 1));
+        for (const [i, l] of ls.entries()) {
+          const b = document.createElement("button");
+          b.textContent =
+            (l.visible ? "" : "Hidden · ") + assets.get(l.asset).name;
+          b.setAttribute("aria-pressed", String(i === layerIndex));
+          b.onclick = () => {
+            layerIndex = i;
+            inspect();
+          };
+          $("layers").append(b);
+        }
+        $("layer-editor").hidden = !ls.length;
+        $("clear-cell").disabled = !ls.length;
+        if (!ls.length) return;
+        const l = ls[layerIndex],
+          a = assets.get(l.asset);
+        $("layer-variant").replaceChildren();
+        for (const v of a.variants)
+          $("layer-variant").add(new Option(v.label, v.id));
+        $("layer-variant").value = l.variant;
+        $("layer-variant").disabled = a.variants.length === 1;
+        $("offset-x").value = l.dx;
+        $("offset-y").value = l.dy;
+        $("visibility").textContent = l.visible ? "Hide layer" : "Show layer";
+      }
+      function updateLayer(action) {
+        commit(() => {
+          const c = cell(scene(), selected.row, selected.col);
+          if (c?.layers[layerIndex]) action(c.layers[layerIndex], c);
+        });
+      }
+      function origin(row, col) {
+        return { x: 142 * col + 71 * (row % 2), y: 40 * row };
+      }
+      function render() {
+        const serial = ++renderSerial,
+          s = scene(),
+          zoom = Number($("zoom").value),
+          density = $("density").value,
+          view = $("view").value,
+          worldWidth = 142 * (s.columns - 1) + 96 + 32,
+          worldHeight = 40 * (s.rows - 1) + 80 + 32;
+        const width = worldWidth * zoom,
+          height = worldHeight * zoom;
+        $("views").replaceChildren();
+        $("wipe-controls").hidden = view !== "wipe";
+        $("wipe-value").textContent = $("wipe").value + "%";
+        let missing = 0,
+          visible = 0;
+        const pieces = [];
+        for (const c of s.cells)
+          for (const [i, l] of c.layers.entries())
+            if (l.visible) {
+              const a = assets.get(l.asset);
+              visible++;
+              if (!a.reference) missing++;
+              pieces.push({ c, l, a, i });
+            }
+        pieces.sort(
+          (a, b) =>
+            priority[kind(a.a)] - priority[kind(b.a)] ||
+            a.c.row - b.c.row ||
+            a.c.col - b.c.col ||
+            a.i - b.i,
+        );
+        function world(reference) {
+          const div = document.createElement("div");
+          div.className = "world";
+          div.style.width = worldWidth + "px";
+          div.style.height = worldHeight + "px";
+          div.style.transform = "scale(" + zoom + ")";
+          for (const { c, l, a } of pieces) {
+            const v = a.variants.find((v) => v.id === l.variant),
+              pic = reference
+                ? a.reference
+                : v.images[
+                    density === "1" && kind(a) === "unit" ? "game" : density
+                  ];
+            if (!pic) continue;
+            const p = origin(c.row, c.col),
+              unit = kind(a) === "unit",
+              w = unit ? 96 : a.width,
+              h = unit ? 96 : a.height;
+            const im = document.createElement("img");
+            im.src = pic.url;
+            im.alt = a.name + " · " + l.variant;
+            im.dataset.asset = a.id;
+            im.dataset.row = c.row;
+            im.dataset.col = c.col;
+            im.style.width = w + "px";
+            im.style.height = h + "px";
+            im.style.left = 16 + p.x + 48 - w / 2 + l.dx + "px";
+            im.style.top =
+              16 +
+              p.y +
+              (unit ? (reference ? 0 : -9) : 40 - h / 2) +
+              l.dy +
+              "px";
+            if (reference || density === "1") im.className = "pixel";
+            im.onerror = () => {
+              if (serial === renderSerial)
+                announce("Image failed to load: " + pic.source);
+            };
+            div.append(im);
+          }
+          return div;
+        }
+        function grid(board) {
+          const g = document.createElement("div");
+          g.className = "world grid";
+          g.style.transform = "scale(" + zoom + ")";
+          const svg = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "svg",
+          );
+          svg.setAttribute("width", worldWidth);
+          svg.setAttribute("height", worldHeight);
+          svg.classList.add("outlines");
+          for (let row = 0; row < s.rows; row++)
+            for (let col = 0; col < s.columns - (row % 2); col++) {
+              const p = origin(row, col),
+                x = p.x + 16,
+                y = p.y + 16,
+                chosen = selected.row === row && selected.col === col;
+              if ($("grid").value === "yes") {
+                const path = document.createElementNS(
+                  svg.namespaceURI,
+                  "polygon",
+                );
+                path.setAttribute(
+                  "points",
+                  [
+                    [25, 0],
+                    [71, 0],
+                    [96, 40],
+                    [71, 80],
+                    [25, 80],
+                    [0, 40],
+                  ]
+                    .map(([dx, dy]) => x + dx + "," + (y + dy))
+                    .join(" "),
+                );
+                path.setAttribute("fill", "none");
+                path.setAttribute("stroke", chosen ? "#ffe19a" : "#b9c9ce70");
+                path.setAttribute("stroke-width", chosen ? "1.5" : ".5");
+                svg.append(path);
+              }
+              const b = document.createElement("button");
+              b.className =
+                "hex" +
+                (chosen && $("grid").value === "yes" ? " selected" : "");
+              b.style.left = x + "px";
+              b.style.top = y + "px";
+              b.dataset.row = row;
+              b.dataset.col = col;
+              b.setAttribute("aria-label", "Cell " + row + ", " + col);
+              b.setAttribute("aria-pressed", String(chosen));
+              const label = document.createElement("span");
+              label.textContent = row + ", " + col;
+              b.append(label);
+              b.onclick = () => apply(row, col);
+              b.ondragover = (e) => {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = "copy";
+              };
+              b.ondrop = (e) => {
+                e.preventDefault();
+                const a = assets.get(e.dataTransfer.getData("text/plain"));
+                if (!a) return;
+                choose(a);
+                $("tool").value = "paint";
+                apply(row, col);
+              };
+              g.append(b);
+            }
+          g.prepend(svg);
+          board.append(g);
+        }
+        function board(label, reference, wipe = false) {
+          const fig = document.createElement("figure");
+          fig.className = "view";
+          const cap = document.createElement("figcaption");
+          cap.textContent = label;
+          const b = document.createElement("div");
+          b.className = "canvas";
+          b.style.width = width + "px";
+          b.style.height = height + "px";
+          b.append(world(reference));
+          if (wipe) {
+            const top = document.createElement("div");
+            top.className = "canvas layer-top";
+            top.style.clipPath = "inset(0 0 0 " + $("wipe").value + "%)";
+            top.append(world(false));
+            b.append(top);
+            const divider = document.createElement("div");
+            divider.className = "divider";
+            divider.style.left = $("wipe").value + "%";
+            b.append(divider);
+          }
+          grid(b);
+          fig.append(cap, b);
+          $("views").append(fig);
+        }
+        if (view === "side") {
+          board("REFERENCE · unchanged source pieces", true);
+          board("CURRENT · " + s.name, false);
+        } else if (view === "wipe")
+          board("REFERENCE ← / → CURRENT", true, true);
+        else
+          board(
+            (view === "reference" ? "REFERENCE" : "CURRENT") + " · " + s.name,
+            view === "reference",
+          );
+        $("status").textContent =
+          s.name +
+          " · " +
+          s.columns +
+          " columns / " +
+          s.rows +
+          " lines · " +
+          visible +
+          " visible layers" +
+          (missing ? " · " + missing + " without mapped reference" : "");
+      }
+      function download() {
+        const blob = new Blob([JSON.stringify(collection, null, 2) + "\n"], {
+            type: "application/json",
+          }),
+          url = URL.createObjectURL(blob),
+          a = document.createElement("a");
+        a.href = url;
+        a.download =
+          (collection.name.replace(/[^a-z0-9_-]+/gi, "-") || "collection") +
+          ".json";
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      }
+      function importText(text) {
+        if (text.length > 2 * 1024 * 1024)
+          throw Error("Collection JSON exceeds 2 MiB.");
+        const incoming = validate(JSON.parse(text));
+        commit(() => {
+          collection = incoming;
+          activeID = collection.scenes[0].id;
+        });
+      }
+      $("search").oninput = palette;
+      $("category").onchange = palette;
+      $("scenes").onchange = () => {
+        activeID = $("scenes").value;
+        layerIndex = 0;
+        refresh();
+      };
+      $("add-scene").onclick = () =>
+        commit(() => {
+          const s = makeScene($("template").value);
+          collection.scenes.push(s);
+          activeID = s.id;
+        });
+      $("duplicate").onclick = () =>
+        commit(() => {
+          const copy = clone(scene());
+          copy.id = newID();
+          copy.name = (copy.name + " copy").slice(0, 64);
+          collection.scenes.push(copy);
+          activeID = copy.id;
+        });
+      $("delete-scene").onclick = () => {
+        if (collection.scenes.length > 1)
+          commit(() => {
+            collection.scenes = collection.scenes.filter(
+              (s) => s.id !== activeID,
+            );
+            activeID = collection.scenes[0].id;
+          });
+      };
+      $("collection-name").onchange = () =>
+        commit(() => {
+          collection.name = $("collection-name").value.trim();
+        });
+      $("scene-name").onchange = () =>
+        commit(() => {
+          scene().name = $("scene-name").value.trim();
+        });
+      for (const id of ["view", "density", "zoom", "grid"])
+        $(id).onchange = render;
+      $("wipe").oninput = render;
+      $("layer-variant").onchange = () =>
+        updateLayer((l) => {
+          l.variant = $("layer-variant").value;
+        });
+      for (const [id, key] of [
+        ["offset-x", "dx"],
+        ["offset-y", "dy"],
+      ])
+        $(id).onchange = () =>
+          updateLayer((l) => {
+            l[key] = Number($(id).value);
+          });
+      $("visibility").onclick = () =>
+        updateLayer((l) => {
+          l.visible = !l.visible;
+        });
+      $("remove").onclick = () =>
+        updateLayer((l, c) => {
+          c.layers.splice(layerIndex, 1);
+        });
+      $("clear-cell").onclick = () =>
+        commit(() => {
+          const c = cell(scene(), selected.row, selected.col);
+          if (c) c.layers = [];
+        });
+      $("resize").onclick = () =>
+        commit(() => {
+          const s = scene();
+          s.columns = Number($("columns").value);
+          s.rows = Number($("rows").value);
+          s.cells = s.cells.filter((c) => inside(s, c.row, c.col));
+        });
+      $("undo").onclick = () => undo();
+      $("redo").onclick = () => undo(true);
+      document.addEventListener("keydown", (e) => {
+        if (
+          (e.ctrlKey || e.metaKey) &&
+          e.key.toLowerCase() === "z" &&
+          !["INPUT", "SELECT", "TEXTAREA"].includes(e.target.tagName)
+        ) {
+          e.preventDefault();
+          undo(e.shiftKey);
+        }
+      });
+      $("export").onclick = download;
+      $("import").onclick = () => $("file").click();
+      $("file").onchange = async () => {
+        const f = $("file").files[0];
+        if (!f) return;
+        try {
+          if (f.size > 2 * 1024 * 1024)
+            throw Error("Collection JSON exceeds 2 MiB.");
+          importText(await f.text());
+        } catch (e) {
+          announce("Import rejected: " + e.message);
+        }
+        $("file").value = "";
+      };
+      collection = {
+        schema_version: 1,
+        name: "My graphics collection",
+        scenes: [makeScene("hq-summer")],
+      };
+      try {
+        const stored = localStorage.getItem(storageKey);
+        if (stored) collection = validate(JSON.parse(stored));
+      } catch {
+        announce(
+          "Saved collection could not be loaded. A starter scene is open; export a copy to keep your work.",
+        );
+      }
+      activeID = collection.scenes[0].id;
+      choose(brush);
+      refresh();
+    </script>
+  </body>
+</html>

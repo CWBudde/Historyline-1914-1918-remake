@@ -236,10 +236,10 @@ func (p *project) writeLookReport(out string) error {
 	if err != nil {
 		return err
 	}
-	if err := os.MkdirAll(out, 0755); err != nil {
+	if err := os.MkdirAll(out, 0o755); err != nil {
 		return err
 	}
-	if err := os.WriteFile(filepath.Join(out, "look.json"), append(raw, '\n'), 0644); err != nil {
+	if err := os.WriteFile(filepath.Join(out, "look.json"), append(raw, '\n'), 0o644); err != nil {
 		return err
 	}
 	fmt.Printf("wrote %s/look.json; partial Look 0 evidence, acceptance remains open\n", out)

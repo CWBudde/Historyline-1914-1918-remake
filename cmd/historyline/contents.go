@@ -6,9 +6,6 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/vector"
-
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dospanel"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
@@ -17,6 +14,8 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/pixfont"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/unitsprite"
+	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/vector"
 )
 
 // The contents of -rules dos: the open gesture (or a click) on an own building
@@ -170,8 +169,10 @@ func (d *dosControl) canBox(a gesture.Action) bool {
 // again when what they depend on changed.
 func (d *dosControl) refreshBox() {
 	b := d.box
-	k := boxKey{version: d.s.Version(), energy: d.s.Energy(d.side), sel: b.sel, pick: b.pick, top: b.top, build: b.build,
-		ready: d.s.Ready(d.side), over: d.over, busy: d.busy()}
+	k := boxKey{
+		version: d.s.Version(), energy: d.s.Energy(d.side), sel: b.sel, pick: b.pick, top: b.top, build: b.build,
+		ready: d.s.Ready(d.side), over: d.over, busy: d.busy(),
+	}
 	if b.cache.ok && b.cache.key == k {
 		return
 	}
@@ -500,12 +501,16 @@ func (g *game) contentsGesture(ev gesture.Event) {
 func (g *game) contentsView() dospanel.Contents {
 	d := g.dos
 	b := d.box
-	c := dospanel.Contents{Name: strings.ToUpper(d.boxName()), Stored: d.s.Game.Buildings[b.hold].Credits,
-		Total: d.s.Energy(d.side), Selected: b.sel}
+	c := dospanel.Contents{
+		Name: strings.ToUpper(d.boxName()), Stored: d.s.Game.Buildings[b.hold].Credits,
+		Total: d.s.Energy(d.side), Selected: b.sel,
+	}
 	for i, sl := range d.boxSlots() {
 		if u := sl.Unit; u != nil && i < dospanel.SlotCount {
-			c.Slots[i] = dospanel.Slot{Occupied: true, Name: strings.ToUpper(u.Name), Size: u.Size, Full: u.Full,
-				Sprite: g.panelUnit(*u, unitsprite.N), Portrait: g.portrait(u.ID)}
+			c.Slots[i] = dospanel.Slot{
+				Occupied: true, Name: strings.ToUpper(u.Name), Size: u.Size, Full: u.Full,
+				Sprite: g.panelUnit(*u, unitsprite.N), Portrait: g.portrait(u.ID),
+			}
 		}
 	}
 	l := g.contentsLayout()

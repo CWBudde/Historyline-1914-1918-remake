@@ -170,7 +170,7 @@ func TestGenerateCampaignContexts(t *testing.T) {
 				t.Fatal("PNG bounds changed")
 			}
 			full := filepath.Join(root, path)
-			if err := os.MkdirAll(filepath.Dir(full), 0755); err != nil {
+			if err := os.MkdirAll(filepath.Dir(full), 0o755); err != nil {
 				t.Fatal(err)
 			}
 			if old, e := os.ReadFile(full); e == nil {
@@ -179,7 +179,7 @@ func TestGenerateCampaignContexts(t *testing.T) {
 				}
 			} else if !os.IsNotExist(e) {
 				t.Fatal(e)
-			} else if e = os.WriteFile(full, b.Bytes(), 0644); e != nil {
+			} else if e = os.WriteFile(full, b.Bytes(), 0o644); e != nil {
 				t.Fatal(e)
 			}
 			sum := sha256.Sum256(b.Bytes())
@@ -219,7 +219,7 @@ func TestGenerateCampaignContexts(t *testing.T) {
 		if !bytes.Equal(current, profileBefore[f]) {
 			t.Fatalf("profile changed during export: %s", name)
 		}
-		if err := os.WriteFile(name, append(b, '\n'), 0644); err != nil {
+		if err := os.WriteFile(name, append(b, '\n'), 0o644); err != nil {
 			t.Fatal(err)
 		}
 	}
@@ -243,7 +243,7 @@ func TestGenerateCampaignContexts(t *testing.T) {
 			out.WriteByte('\n')
 		}
 		out.WriteString("  ]\n}\n")
-		if err := os.WriteFile(name, out.Bytes(), 0644); err != nil {
+		if err := os.WriteFile(name, out.Bytes(), 0o644); err != nil {
 			t.Fatal(err)
 		}
 	}

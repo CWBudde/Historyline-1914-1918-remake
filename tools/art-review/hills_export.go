@@ -67,6 +67,7 @@ func (b *hillsBundle) addPNG(name string, im *image.NRGBA) (packOutput, error) {
 	b.artifacts = append(b.artifacts, connectionArtifact{name, data.Bytes()})
 	return out, nil
 }
+
 func buildHillsBundle(in hillsInputs) (hillsBundle, error) {
 	b := hillsBundle{pixels: map[string]*image.NRGBA{}, report: hillsReport{
 		SchemaVersion: 1, ManifestSHA256: in.Hash, ManifestSnapshot: "manifest.json", Geometry: sharedConnectionGeometry(), Materials: map[string]connectionMaterialReport{}, Parameters: hillsNumericParameters(), Profile: hillsProfileText, Ownership: groundOwnership,
@@ -194,6 +195,7 @@ func buildHillsBundle(in hillsInputs) (hillsBundle, error) {
 	b.artifacts = append(b.artifacts, connectionArtifact{"index.html", gallery.Bytes()})
 	return b, nil
 }
+
 func runHills(path, out string, log io.Writer) (resultErr error) {
 	if _, err := os.Lstat(out); !errors.Is(err, os.ErrNotExist) {
 		if err == nil {
@@ -209,10 +211,10 @@ func runHills(path, out string, log io.Writer) (resultErr error) {
 	if err != nil {
 		return err
 	}
-	if err = os.MkdirAll(filepath.Dir(out), 0755); err != nil {
+	if err = os.MkdirAll(filepath.Dir(out), 0o755); err != nil {
 		return err
 	}
-	if err = os.Mkdir(out, 0755); err != nil {
+	if err = os.Mkdir(out, 0o755); err != nil {
 		return err
 	}
 	owned, err := os.Lstat(out)
@@ -231,7 +233,7 @@ func runHills(path, out string, log io.Writer) (resultErr error) {
 	}()
 	for _, a := range bundle.artifacts {
 		dest := filepath.Join(out, a.name)
-		if err = os.MkdirAll(filepath.Dir(dest), 0755); err != nil {
+		if err = os.MkdirAll(filepath.Dir(dest), 0o755); err != nil {
 			return err
 		}
 		if err = saveExclusive(dest, func(w io.Writer) error { _, writeErr := w.Write(a.data); return writeErr }); err != nil {

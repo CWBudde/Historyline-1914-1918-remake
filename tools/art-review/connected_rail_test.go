@@ -40,7 +40,7 @@ func railTestFixture(t *testing.T) (string, map[string]any) {
 			t.Fatal(err)
 		}
 		name := id + ".png"
-		if err := os.WriteFile(filepath.Join(dir, name), b.Bytes(), 0644); err != nil {
+		if err := os.WriteFile(filepath.Join(dir, name), b.Bytes(), 0o644); err != nil {
 			t.Fatal(err)
 		}
 		sum := sha256.Sum256(b.Bytes())

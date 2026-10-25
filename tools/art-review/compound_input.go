@@ -145,6 +145,7 @@ func decodeCompoundManifest(b []byte, m *compoundManifest) error {
 	}
 	return nil
 }
+
 func compoundForbidden(path string) bool {
 	for _, s := range strings.Split(filepath.ToSlash(path), "/") {
 		s = strings.ToLower(s)
@@ -154,6 +155,7 @@ func compoundForbidden(path string) bool {
 	}
 	return false
 }
+
 func compoundSafeRelative(path string) error {
 	if path == "" || filepath.IsAbs(path) || filepath.VolumeName(path) != "" || strings.Contains(path, "\\") || filepath.ToSlash(filepath.Clean(path)) != path || compoundForbidden(path) {
 		return errors.New("compound sources require safe canonical relative paths excluding original/pilot")
@@ -165,6 +167,7 @@ func compoundSafeRelative(path string) error {
 	}
 	return nil
 }
+
 func compoundReadSource(base string, ref connectionMaterial, ground bool) (compoundSource, error) {
 	out := compoundSource{Ref: ref}
 	if err := compoundSafeRelative(ref.Source); err != nil {
@@ -245,6 +248,7 @@ func compoundReadSource(base string, ref connectionMaterial, ground bool) (compo
 	}
 	return out, nil
 }
+
 func loadCompoundInputs(path string) (compoundInputs, error) {
 	in := compoundInputs{Grounds: map[string]compoundSource{}, Artwork: map[string]compoundSource{}, EntryRoads: map[string]connectionInputs{}}
 	var err error

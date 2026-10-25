@@ -212,10 +212,10 @@ func runPack(manifestPath, out string, log io.Writer) (resultErr error) {
 		return err
 	}
 	artifacts = append(artifacts, artifact{"index.html", html.Bytes()})
-	if err := os.MkdirAll(filepath.Dir(out), 0755); err != nil {
+	if err := os.MkdirAll(filepath.Dir(out), 0o755); err != nil {
 		return err
 	}
-	if err := os.Mkdir(out, 0755); err != nil {
+	if err := os.Mkdir(out, 0o755); err != nil {
 		return err
 	}
 	defer func() {

@@ -69,6 +69,7 @@ func decodeStrict(b []byte, v any) error {
 	}
 	return nil
 }
+
 func loadInput(root *os.Root, s Input, raster bool) (Loaded, error) {
 	in := Loaded{Spec: s}
 	p := filepath.ToSlash(s.Source)
@@ -104,6 +105,7 @@ func loadInput(root *os.Root, s Input, raster bool) (Loaded, error) {
 	in.Image = n
 	return in, nil
 }
+
 func crop(im *image.NRGBA, c [4]int, w, h int) (*image.NRGBA, error) {
 	r := image.Rect(c[0], c[1], c[0]+c[2], c[1]+c[3])
 	if c[2] < w*4 || c[3] < h*4 || c[2]*h != c[3]*w || !r.In(im.Bounds()) {
@@ -127,10 +129,10 @@ type Builder struct {
 
 func (b *Builder) save(path string, data []byte, o Output) error {
 	full := filepath.Join(b.Dir, filepath.FromSlash(path))
-	if e := os.MkdirAll(filepath.Dir(full), 0755); e != nil {
+	if e := os.MkdirAll(filepath.Dir(full), 0o755); e != nil {
 		return e
 	}
-	if e := os.WriteFile(full, data, 0644); e != nil {
+	if e := os.WriteFile(full, data, 0o644); e != nil {
 		return e
 	}
 	o.Path = path
@@ -138,6 +140,7 @@ func (b *Builder) save(path string, data []byte, o Output) error {
 	b.Report.Files = append(b.Report.Files, o)
 	return nil
 }
+
 func (b *Builder) png(path string, im image.Image, o Output) error {
 	var buf bytes.Buffer
 	if e := png.Encode(&buf, im); e != nil {
@@ -146,6 +149,7 @@ func (b *Builder) png(path string, im image.Image, o Output) error {
 	o.Width, o.Height = im.Bounds().Dx(), im.Bounds().Dy()
 	return b.save(path, buf.Bytes(), o)
 }
+
 func (b *Builder) densities(id, family string, anchor [2]float64, master *image.NRGBA) error {
 	im := master
 	for _, d := range []int{4, 2, 1} {
@@ -163,6 +167,7 @@ func (b *Builder) densities(id, family string, anchor [2]float64, master *image.
 	}
 	return nil
 }
+
 func export(manifestPath, out string) error {
 	raw, e := os.ReadFile(manifestPath)
 	if e != nil {
@@ -289,7 +294,7 @@ func export(manifestPath, out string) error {
 		return e
 	}
 	sort.Slice(b.Report.Files, func(i, j int) bool { return b.Report.Files[i].Path < b.Report.Files[j].Path })
-	if e = os.WriteFile(filepath.Join(stage, "report.json"), writeJSON(b.Report), 0644); e != nil {
+	if e = os.WriteFile(filepath.Join(stage, "report.json"), writeJSON(b.Report), 0o644); e != nil {
 		return e
 	}
 	return os.Rename(stage, target)
@@ -332,6 +337,7 @@ func guardCrop(im *image.NRGBA, c [4]int) error {
 	}
 	return nil
 }
+
 func run(args []string) error {
 	fs := flag.NewFlagSet("interface-art", flag.ContinueOnError)
 	fs.SetOutput(io.Discard)
@@ -355,6 +361,7 @@ func run(args []string) error {
 	}
 	return export(*manifest, *out)
 }
+
 func main() {
 	if e := run(os.Args[1:]); e != nil {
 		fmt.Fprintln(os.Stderr, e)

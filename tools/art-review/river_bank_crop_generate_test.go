@@ -71,10 +71,10 @@ func TestGenerateRiverBankGravelCrop(t *testing.T) {
 	} else if e != nil && !os.IsNotExist(e) {
 		t.Fatal(e)
 	}
-	if err = os.MkdirAll(filepath.Dir(full), 0755); err != nil {
+	if err = os.MkdirAll(filepath.Dir(full), 0o755); err != nil {
 		t.Fatal(err)
 	}
-	if err = os.WriteFile(full, encoded.Bytes(), 0644); err != nil {
+	if err = os.WriteFile(full, encoded.Bytes(), 0o644); err != nil {
 		t.Fatal(err)
 	}
 	t.Logf("retained %s SHA256 %s; all 122880 pixels match pinned parent", source, hash(encoded.Bytes()))

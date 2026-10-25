@@ -46,10 +46,12 @@ func FromOriginal(l *finmap.Level, set *data.Set) (*Board, error) {
 	if l.Width < 2 || l.Width%2 != 0 || l.Height < 2 || len(l.Terrain) != l.Height {
 		return nil, fmt.Errorf("dosbind: an original map of %d×%d cells", l.Width, l.Height)
 	}
-	b := &Board{Width: l.Width, Height: l.Height, Winter: l.Mission != nil && l.Mission.Winter,
+	b := &Board{
+		Width: l.Width, Height: l.Height, Winter: l.Mission != nil && l.Mission.Winter,
 		Terrain: make([]int, 0, l.Width*l.Height), grid: hexgrid.Grid{Width: l.Width / 2, Lines: 2*l.Height - 1},
 		Units: map[int]dosrules.Placement{}, IDs: map[int]string{}, Holds: map[int]dosrules.Hold{},
-		Buildings: map[int]dosrules.Building{}}
+		Buildings: map[int]dosrules.Building{},
+	}
 	terrains := dosrules.Full.Tables.Move.Terrains
 	for row, line := range l.Terrain {
 		if len(line) != l.Width {

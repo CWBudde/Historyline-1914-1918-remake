@@ -17,10 +17,11 @@ import (
 
 func unitTestWrite(t *testing.T, path string, data []byte) {
 	t.Helper()
-	if err := os.WriteFile(path, data, 0600); err != nil {
+	if err := os.WriteFile(path, data, 0o600); err != nil {
 		t.Fatal(err)
 	}
 }
+
 func unitTestPNG(t *testing.T, path string, im *image.NRGBA) connectionMaterial {
 	t.Helper()
 	var b bytes.Buffer
@@ -31,6 +32,7 @@ func unitTestPNG(t *testing.T, path string, im *image.NRGBA) connectionMaterial 
 	s := sha256.Sum256(b.Bytes())
 	return connectionMaterial{Source: filepath.Base(path), SourceSHA256: hex.EncodeToString(s[:])}
 }
+
 func unitTestOwned(x, y, d int) bool {
 	v := [][2]int{{25, 0}, {71, 0}, {96, 40}, {71, 80}, {25, 80}, {0, 40}}
 	for i, a := range v {
@@ -44,6 +46,7 @@ func unitTestOwned(x, y, d int) bool {
 	}
 	return true
 }
+
 func unitTestFixture(t *testing.T) (string, []byte) {
 	t.Helper()
 	return unitTestFamilyFixture(t, "infantry")
@@ -123,6 +126,7 @@ func TestRetainedUnitAtlasInputs(t *testing.T) {
 		})
 	}
 }
+
 func unitTestFamilyFixture(t *testing.T, family string) (string, []byte) {
 	t.Helper()
 	dir := t.TempDir()
@@ -309,6 +313,7 @@ func TestUnitRejectsInvalidInputs(t *testing.T) {
 		})
 	}
 }
+
 func unitTestRead(t *testing.T, path string) []byte {
 	t.Helper()
 	b, err := os.ReadFile(path)
@@ -317,6 +322,7 @@ func unitTestRead(t *testing.T, path string) []byte {
 	}
 	return b
 }
+
 func unitTestLoad(t *testing.T, path string) *image.NRGBA {
 	t.Helper()
 	im, err := unitDecodePNG(unitTestRead(t, path))

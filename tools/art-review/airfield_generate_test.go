@@ -56,7 +56,7 @@ func TestGenerateAirfieldTiles(t *testing.T) {
 		return json.Unmarshal(raw, &e) == nil && e.Art == "terrain/airfield"
 	})
 	dir := filepath.Join(root, "assets/terrain/airfield")
-	if err := os.MkdirAll(dir, 0755); err != nil {
+	if err := os.MkdirAll(dir, 0o755); err != nil {
 		t.Fatal(err)
 	}
 	write := func(id, file, pack, layer string, tiles map[int]*image.NRGBA) {
@@ -66,7 +66,7 @@ func TestGenerateAirfieldTiles(t *testing.T) {
 			if err := png.Encode(&b, tiles[d]); err != nil {
 				t.Fatal(err)
 			}
-			if err := os.WriteFile(filepath.Join(root, "assets", path), b.Bytes(), 0644); err != nil {
+			if err := os.WriteFile(filepath.Join(root, "assets", path), b.Bytes(), 0o644); err != nil {
 				t.Fatal(err)
 			}
 			sum := sha256.Sum256(b.Bytes())
@@ -108,7 +108,7 @@ func TestGenerateAirfieldTiles(t *testing.T) {
 		out.WriteByte('\n')
 	}
 	out.WriteString("  ]\n}\n")
-	if err := os.WriteFile(filepath.Join(root, "assets/index.json"), out.Bytes(), 0644); err != nil {
+	if err := os.WriteFile(filepath.Join(root, "assets/index.json"), out.Bytes(), 0o644); err != nil {
 		t.Fatal(err)
 	}
 }

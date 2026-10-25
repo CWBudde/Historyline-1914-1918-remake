@@ -46,7 +46,7 @@ func TestLayeredForestCLIRejectsUnsafeOrIncompleteInputs(t *testing.T) {
 			dir := t.TempDir()
 			path := filepath.Join(dir, "manifest.json")
 			out := filepath.Join(dir, "out")
-			if err := os.WriteFile(path, []byte(tt.data), 0600); err != nil {
+			if err := os.WriteFile(path, []byte(tt.data), 0o600); err != nil {
 				t.Fatal(err)
 			}
 			err := runLayeredForest(path, out, new(bytes.Buffer))

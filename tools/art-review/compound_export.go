@@ -106,14 +106,17 @@ func (b *compoundBundle) addPNG(name string, im *image.NRGBA) (packOutput, error
 	b.artifacts = append(b.artifacts, connectionArtifact{name, data.Bytes()})
 	return out, nil
 }
+
 func (b *compoundBundle) retain(name string, s compoundSource) connectionMaterialReport {
 	b.artifacts = append(b.artifacts, connectionArtifact{name, s.Bytes})
 	return connectionMaterialReport{s.Ref, dimensions{s.Image.Bounds().Dx(), s.Image.Bounds().Dy()}, name}
 }
+
 func compoundBlit(dst *image.NRGBA, src *image.NRGBA, origin connectionPoint, density int) {
 	at := image.Pt(int(origin[0])*density, int(origin[1])*density)
 	draw.Draw(dst, src.Bounds().Add(at), src, src.Bounds().Min, draw.Over)
 }
+
 func compoundGround(l compoundLayout, tile *image.NRGBA, density int) *image.NRGBA {
 	out := image.NewNRGBA(image.Rect(0, 0, l.Width*density, l.Height*density))
 	for _, t := range l.Tiles {
@@ -121,6 +124,7 @@ func compoundGround(l compoundLayout, tile *image.NRGBA, density int) *image.NRG
 	}
 	return out
 }
+
 func compoundCompose(base, art *image.NRGBA) *image.NRGBA {
 	out := image.NewNRGBA(base.Bounds())
 	draw.Draw(out, out.Bounds(), base, image.Point{}, draw.Src)
@@ -173,6 +177,7 @@ func compoundPatchFor(l compoundLayout, parity int) compoundPatch {
 	})
 	return p
 }
+
 func compoundRenderPatch(p compoundPatch, ground *image.NRGBA, tiles map[string]*image.NRGBA, density int) *image.NRGBA {
 	maxX, maxY := 0., 0.
 	for _, c := range p.Cells {
@@ -359,6 +364,7 @@ func buildCompoundBundle(in compoundInputs) (compoundBundle, error) {
 	b.artifacts = append(b.artifacts, connectionArtifact{"index.html", gallery.Bytes()})
 	return b, nil
 }
+
 func runCompound(path, out string, log io.Writer) (resultErr error) {
 	if _, err := os.Lstat(out); !errors.Is(err, os.ErrNotExist) {
 		if err == nil {
@@ -374,10 +380,10 @@ func runCompound(path, out string, log io.Writer) (resultErr error) {
 	if err != nil {
 		return err
 	}
-	if err = os.MkdirAll(filepath.Dir(out), 0755); err != nil {
+	if err = os.MkdirAll(filepath.Dir(out), 0o755); err != nil {
 		return err
 	}
-	if err = os.Mkdir(out, 0755); err != nil {
+	if err = os.Mkdir(out, 0o755); err != nil {
 		return err
 	}
 	defer func() {
@@ -387,7 +393,7 @@ func runCompound(path, out string, log io.Writer) (resultErr error) {
 	}()
 	for _, a := range bundle.artifacts {
 		dest := filepath.Join(out, a.name)
-		if err = os.MkdirAll(filepath.Dir(dest), 0755); err != nil {
+		if err = os.MkdirAll(filepath.Dir(dest), 0o755); err != nil {
 			return err
 		}
 		if err = saveExclusive(dest, func(w io.Writer) error { _, writeErr := w.Write(a.data); return writeErr }); err != nil {

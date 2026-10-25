@@ -14,9 +14,13 @@ func TestUnitOptionalFramingValidation(t *testing.T) {
 		field string
 		bad   bool
 	}{
-		{`"framing_inset":0.95,`, false}, {`"framing_inset":1,`, false},
-		{`"framing_inset":null,`, true}, {`"framing_inset":0.79,`, true}, {`"framing_inset":1.01,`, true},
-		{`"framing_inset":"0.95",`, true}, {`"Framing_Inset":0.95,`, true},
+		{`"framing_inset":0.95,`, false},
+		{`"framing_inset":1,`, false},
+		{`"framing_inset":null,`, true},
+		{`"framing_inset":0.79,`, true},
+		{`"framing_inset":1.01,`, true},
+		{`"framing_inset":"0.95",`, true},
+		{`"Framing_Inset":0.95,`, true},
 	} {
 		var m unitManifest
 		data := bytes.Replace(raw, []byte("{"), []byte("{"+tc.field), 1)

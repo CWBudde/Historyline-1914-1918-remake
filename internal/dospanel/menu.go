@@ -6,9 +6,8 @@ import (
 	"math"
 	"sync"
 
-	"github.com/hajimehoshi/ebiten/v2"
-
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/texture"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 // Steel tokens shared with the menus (cmd/historyline): one palette, so

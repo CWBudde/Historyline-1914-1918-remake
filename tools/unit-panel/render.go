@@ -2,13 +2,14 @@ package main
 
 import (
 	"fmt"
-	"golang.org/x/image/font"
-	"golang.org/x/image/font/opentype"
-	"golang.org/x/image/math/fixed"
 	"image"
 	"image/draw"
 	"math"
 	"strings"
+
+	"golang.org/x/image/font"
+	"golang.org/x/image/font/opentype"
+	"golang.org/x/image/math/fixed"
 )
 
 // All coordinates and bounds are logical pixels; Density scales both vectors and fonts.
@@ -63,6 +64,7 @@ func fitText(f font.Face, s string, max float64) string {
 	}
 	return ""
 }
+
 func titleLines(f font.Face, s string) (string, string) {
 	if textWidth(f, s) <= 368 {
 		return s, ""
@@ -84,6 +86,7 @@ func titleLines(f font.Face, s string) (string, string) {
 	}
 	return strings.TrimSpace(string(r[:split])), fitText(f, strings.TrimSpace(string(r[split:])), 368)
 }
+
 func compose(in *Inputs, p Panel, d int, assets map[string]Asset) ([]Draw, error) {
 	var records []Draw
 	img := func(path, input string, x, y, w, h float64) {
@@ -206,6 +209,7 @@ func compose(in *Inputs, p Panel, d int, assets map[string]Asset) ([]Draw, error
 	tx(summary, summary, "regular", 10, 224, 634, 160, brass)
 	return records, first
 }
+
 func renderPanel(in *Inputs, records []Draw, images map[string]image.Image, d int) (*image.RGBA, error) {
 	out := image.NewRGBA(image.Rect(0, 0, 400*d, 640*d))
 	for _, r := range records {

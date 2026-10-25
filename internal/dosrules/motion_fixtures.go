@@ -43,8 +43,10 @@ type FixtureMap struct {
 // MapOf is the fixture form of a movement query; Fill is its most common
 // terrain record.
 func MapOf(g *Movement) FixtureMap {
-	f := FixtureMap{Width: g.Width, Height: g.Height, Cells: [][2]int{}, Units: FixturePieces(g.Units),
-		Unseen: FixturePieces(g.Unseen), Unit: g.Unit, Side: g.Side, Budget: g.Budget, Block: g.Block}
+	f := FixtureMap{
+		Width: g.Width, Height: g.Height, Cells: [][2]int{}, Units: FixturePieces(g.Units),
+		Unseen: FixturePieces(g.Unseen), Unit: g.Unit, Side: g.Side, Budget: g.Budget, Block: g.Block,
+	}
 	counts := map[int]int{}
 	for _, t := range g.Terrain {
 		counts[t]++
@@ -64,9 +66,11 @@ func MapOf(g *Movement) FixtureMap {
 
 // Movement rebuilds the map of a fixture.
 func (f FixtureMap) Movement() *Movement {
-	g := &Movement{Width: f.Width, Height: f.Height, Terrain: make([]int, f.Width*f.Height),
+	g := &Movement{
+		Width: f.Width, Height: f.Height, Terrain: make([]int, f.Width*f.Height),
 		Units: map[int]Piece{}, Unseen: map[int]Piece{}, Unit: f.Unit, Side: f.Side,
-		Budget: f.Budget, Block: f.Block}
+		Budget: f.Budget, Block: f.Block,
+	}
 	for i := range g.Terrain {
 		g.Terrain[i] = f.Fill
 	}
@@ -155,8 +159,10 @@ type StepExpected struct {
 // StepExpectedOf is the recorded form of an outcome; it fails where a map's
 // terrain bytes changed, which the fixture does not record.
 func StepExpectedOf(g *Movement, r StepRun) (StepExpected, error) {
-	x := StepExpected{Order: r.Order, Start: r.Start, Messages: r.Messages, Cells: r.Cells,
-		Orders: r.Orders, Count: r.Count, Container: ints(r.Container)}
+	x := StepExpected{
+		Order: r.Order, Start: r.Start, Messages: r.Messages, Cells: r.Cells,
+		Orders: r.Orders, Count: r.Count, Container: ints(r.Container),
+	}
 	if x.Messages == nil {
 		x.Messages = [][2]int{}
 	}
@@ -301,8 +307,10 @@ type VisibilityExpected struct {
 
 // VisibilityExpectedOf is the recorded form of a phase change.
 func VisibilityExpectedOf(g *PhaseChange, r PhaseRun) VisibilityExpected {
-	x := VisibilityExpected{Live: []FixtureRecord{}, Orders: r.Orders, Count: r.Count,
-		Anim: r.Anim, Messages: r.Messages}
+	x := VisibilityExpected{
+		Live: []FixtureRecord{}, Orders: r.Orders, Count: r.Count,
+		Anim: r.Anim, Messages: r.Messages,
+	}
 	for k := range 2 {
 		x.Maps[k], x.Players[k] = ints(r.Maps[k]), ints(r.Players[k])
 	}
@@ -332,8 +340,10 @@ type VisibilityFixture struct {
 
 // PhaseChange rebuilds the input of a fixture.
 func (f VisibilityFixture) PhaseChange() *PhaseChange {
-	g := &PhaseChange{Width: f.Width, Height: f.Height, Maps: f.Maps, Units: map[int]Sighted{},
-		Holds: map[int]Hold{}, Attacker: f.Attacker, Phase: f.Phase, Count: f.Count}
+	g := &PhaseChange{
+		Width: f.Width, Height: f.Height, Maps: f.Maps, Units: map[int]Sighted{},
+		Holds: map[int]Hold{}, Attacker: f.Attacker, Phase: f.Phase, Count: f.Count,
+	}
 	for _, u := range f.Units {
 		g.Units[u.Index] = u.Sighted
 	}

@@ -222,10 +222,10 @@ func runLayeredForest(path, out string, log io.Writer) (resultErr error) {
 	if err != nil {
 		return err
 	}
-	if err = os.MkdirAll(filepath.Dir(out), 0755); err != nil {
+	if err = os.MkdirAll(filepath.Dir(out), 0o755); err != nil {
 		return err
 	}
-	if err = os.Mkdir(out, 0755); err != nil {
+	if err = os.Mkdir(out, 0o755); err != nil {
 		return err
 	}
 	owned, err := os.Lstat(out)
@@ -241,7 +241,7 @@ func runLayeredForest(path, out string, log io.Writer) (resultErr error) {
 	}()
 	write := func(name string, data []byte) error {
 		dest := filepath.Join(out, name)
-		if e := os.MkdirAll(filepath.Dir(dest), 0755); e != nil {
+		if e := os.MkdirAll(filepath.Dir(dest), 0o755); e != nil {
 			return e
 		}
 		return saveExclusive(dest, func(w io.Writer) error { _, e := w.Write(data); return e })

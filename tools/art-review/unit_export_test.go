@@ -362,6 +362,7 @@ func unitTestActualFamilyPNGBundle(t *testing.T, family string, classes []string
 		}
 	}
 }
+
 func unitTestPlaneGuard(t *testing.T, n, k *image.NRGBA, d int) {
 	t.Helper()
 	for y := range n.Bounds().Dy() {
@@ -406,7 +407,7 @@ func TestUnitLoadedBytesSnapshotsAndExclusiveRollback(t *testing.T) {
 	valid, _ := unitTestFixture(t)
 	dir := t.TempDir()
 	out := filepath.Join(dir, "existing")
-	if err = os.Mkdir(out, 0700); err != nil {
+	if err = os.Mkdir(out, 0o700); err != nil {
 		t.Fatal(err)
 	}
 	unitTestWrite(t, filepath.Join(out, "marker"), []byte("keep"))
@@ -462,7 +463,7 @@ func (w unitTestReplacingWriter) Write([]byte) (int, error) {
 	if err := os.Rename(w.out, w.out+"-renamed"); err != nil {
 		w.t.Fatal(err)
 	}
-	if err := os.Mkdir(w.out, 0700); err != nil {
+	if err := os.Mkdir(w.out, 0o700); err != nil {
 		w.t.Fatal(err)
 	}
 	unitTestWrite(w.t, filepath.Join(w.out, "foreign-marker"), []byte("preserve"))

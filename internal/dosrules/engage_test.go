@@ -14,8 +14,12 @@ func TestEngageReturned(t *testing.T) {
 				defender int
 				returned bool
 			}{
-				{cInfantry, true}, {cPanzer, true}, {cMedium, false}, {cHeavy, false},
-				{cConstruction, false}, {cBalloon, false},
+				{cInfantry, true},
+				{cPanzer, true},
+				{cMedium, false},
+				{cHeavy, false},
+				{cConstruction, false},
+				{cBalloon, false},
 			} {
 				td := p.Tables.Types[c.defender]
 				b := &Battlefield{Width: 9, Height: 9, Units: map[int]Unit{

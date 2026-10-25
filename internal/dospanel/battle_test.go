@@ -6,9 +6,8 @@ import (
 	"math"
 	"testing"
 
-	"github.com/hajimehoshi/ebiten/v2"
-
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 // battleCases are scenes from both ends of the clamps: ordinary fire with
@@ -239,8 +238,10 @@ func TestBattleShots(t *testing.T) {
 
 // Experience shows the new badge in the hold only.
 func TestBattleGain(t *testing.T) {
-	b := Battle{Attacker: Fighter{Before: 2, After: 2, ExpBefore: 1, ExpAfter: 2},
-		Defender: Fighter{Before: 2, After: 1, ExpBefore: 3, ExpAfter: 3}}
+	b := Battle{
+		Attacker: Fighter{Before: 2, After: 2, ExpBefore: 1, ExpAfter: 2},
+		Defender: Fighter{Before: 2, After: 1, ExpBefore: 3, ExpAfter: 3},
+	}
 	n := BattleTicks(b, false)
 	if st := BattleAt(b, FirstLoss(b, false), false); st.Gained[0] {
 		t.Error("badge switched before the hold")
@@ -272,10 +273,14 @@ func TestDrawBattleStaysInPanel(t *testing.T) {
 	explosion := []*ebiten.Image{sprite, photo, flag}
 
 	full := Battle{
-		Attacker: Fighter{Name: "CAVALRY", Photo: photo, Sprite: sprite, Flag: flag, Before: 6, After: 4, Full: 6,
-			ExpBefore: 1, ExpAfter: 2, Badge: func(int) *ebiten.Image { return badge }},
-		Defender: Fighter{Name: "BATTLESHIP", Photo: photo, Sprite: sprite, Before: 3, After: 0, Full: 6,
-			Destroyed: true, Ship: true, FlagColour: color.RGBA{0x20, 0x40, 0xA0, 0xFF}},
+		Attacker: Fighter{
+			Name: "CAVALRY", Photo: photo, Sprite: sprite, Flag: flag, Before: 6, After: 4, Full: 6,
+			ExpBefore: 1, ExpAfter: 2, Badge: func(int) *ebiten.Image { return badge },
+		},
+		Defender: Fighter{
+			Name: "BATTLESHIP", Photo: photo, Sprite: sprite, Before: 3, After: 0, Full: 6,
+			Destroyed: true, Ship: true, FlagColour: color.RGBA{0x20, 0x40, 0xA0, 0xFF},
+		},
 		ReturnFire: true,
 	}
 	bare := Battle{Attacker: Fighter{Before: 5, After: 5}, Defender: Fighter{Before: 6, After: 1}}

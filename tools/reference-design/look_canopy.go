@@ -183,10 +183,10 @@ func writeCanopyPlane(out, name string, p *canopyPlane) (string, error) {
 	if err := png.Encode(&b, im); err != nil {
 		return "", err
 	}
-	if err := os.MkdirAll(out, 0755); err != nil {
+	if err := os.MkdirAll(out, 0o755); err != nil {
 		return "", err
 	}
-	if err := os.WriteFile(filepath.Join(out, name), b.Bytes(), 0644); err != nil {
+	if err := os.WriteFile(filepath.Join(out, name), b.Bytes(), 0o644); err != nil {
 		return "", err
 	}
 	return fmt.Sprintf("%x", sha256.Sum256(b.Bytes())), nil

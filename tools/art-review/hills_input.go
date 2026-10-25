@@ -58,6 +58,7 @@ func decodeHillsManifest(data []byte, m *hillsManifest) error {
 	}
 	return nil
 }
+
 func validateHillsHeight(im *image.NRGBA) error {
 	n := im.Bounds().Dx()
 	if n != im.Bounds().Dy() || n < 512 || n > 4096 {
@@ -73,6 +74,7 @@ func validateHillsHeight(im *image.NRGBA) error {
 	}
 	return nil
 }
+
 func loadHillsInputs(path string) (hillsInputs, error) {
 	in := hillsInputs{Sources: map[string]compoundSource{}}
 	var err error

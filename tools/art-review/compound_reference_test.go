@@ -179,7 +179,7 @@ func TestCompoundEntryRoadBlend(t *testing.T) {
 	if err = png.Encode(&encoded, compoundReferenceArtwork(l)); err != nil {
 		t.Fatal(err)
 	}
-	if err = os.WriteFile(filepath.Join(filepath.Dir(path), "depot.png"), encoded.Bytes(), 0600); err != nil {
+	if err = os.WriteFile(filepath.Join(filepath.Dir(path), "depot.png"), encoded.Bytes(), 0o600); err != nil {
 		t.Fatal(err)
 	}
 	artSum := sha256.Sum256(encoded.Bytes())
@@ -266,7 +266,7 @@ func TestCompoundReferenceFramingActualPNGAssembly(t *testing.T) {
 			t.Fatal(err)
 		}
 		name := id + ".png"
-		if err = os.WriteFile(filepath.Join(filepath.Dir(path), name), encoded.Bytes(), 0600); err != nil {
+		if err = os.WriteFile(filepath.Join(filepath.Dir(path), name), encoded.Bytes(), 0o600); err != nil {
 			t.Fatal(err)
 		}
 		hash := sha256.Sum256(encoded.Bytes())

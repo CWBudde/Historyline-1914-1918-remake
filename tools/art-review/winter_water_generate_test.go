@@ -50,7 +50,7 @@ func TestGenerateWinterWater(t *testing.T) {
 			e := summer
 			e.ID = id + "_w"
 			e.Path = strings.Replace(summer.Path, "-", "_w-", 1)
-			if err := os.WriteFile(filepath.Join(root, "assets", e.Path), b, 0644); err != nil {
+			if err := os.WriteFile(filepath.Join(root, "assets", e.Path), b, 0o644); err != nil {
 				t.Fatal(err)
 			}
 			sum := sha256.Sum256(b)

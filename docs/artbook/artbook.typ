@@ -11,8 +11,11 @@
 // compare (directory written by `reference-design -compare`; default: no comparison), style=false
 // skips art/style.md, reference=false skips the PULSE reference chapter.
 
-#import "/docs/manual/template.typ": accent, ink, muted, paper-tint, rule-colour, serif, sans, blackletter, ornament, note
-#import "markdown.typ": md, reflow, inline
+#import "/docs/manual/template.typ": (
+  accent, blackletter, ink, muted, note, ornament, paper-tint, rule-colour,
+  sans, serif,
+)
+#import "markdown.typ": inline, md, reflow
 
 #let repo = "https://github.com/CWBudde/Historyline-1914-1918-remake/"
 #let blob(path) = link(repo + "blob/main/" + path, raw(path))
@@ -42,7 +45,10 @@
 #let art-label(id) = label("art:" + id)
 #let known = index.assets.map(a => a.id)
 
-#set document(title: "Historyline 1914–1918 remake — Art book", author: "Historyline remake")
+#set document(
+  title: "Historyline 1914–1918 remake — Art book",
+  author: "Historyline remake",
+)
 #set text(font: serif, size: 9.5pt, fill: ink, lang: "en", region: "gb")
 #set par(justify: true, leading: 0.6em, spacing: 0.9em)
 #set table(stroke: 0.4pt + rule-colour, inset: (x: 0.45em, y: 0.35em))
@@ -56,8 +62,12 @@
   margin: (x: 1.8cm, top: 2cm, bottom: 1.8cm),
   header: context {
     let page = here().page()
-    let chapters = query(heading.where(level: 1)).filter(h => h.location().page() <= page)
-    if chapters.len() == 0 or chapters.last().location().page() == page { return }
+    let chapters = query(heading.where(level: 1)).filter(h => (
+      h.location().page() <= page
+    ))
+    if chapters.len() == 0 or chapters.last().location().page() == page {
+      return
+    }
     set text(size: 7.5pt, fill: muted, tracking: 0.04em)
     [Historyline 1914–1918 · Art book #h(1fr) #smallcaps(chapters.last().body)]
     v(-0.5em)
@@ -65,7 +75,9 @@
   },
   footer: context {
     set text(size: 8pt, fill: muted)
-    align(center)[#ornament #h(0.5em) #counter(page).display() #h(0.5em) #ornament]
+    align(center)[#ornament #h(0.5em) #counter(page).display() #h(
+        0.5em,
+      ) #ornament]
   },
 )
 
@@ -73,7 +85,13 @@
   pagebreak(weak: true)
   v(1.2em)
   align(center)[
-    #text(font: blackletter, size: 24pt, weight: "regular", fill: accent, it.body)
+    #text(
+      font: blackletter,
+      size: 24pt,
+      weight: "regular",
+      fill: accent,
+      it.body,
+    )
     #v(-0.6em)
     #line(length: 30%, stroke: 0.6pt + accent)
   ]
@@ -82,21 +100,42 @@
 #show heading.where(level: 2): it => block(above: 0em, below: 0.5em)[
   #text(font: blackletter, size: 17pt, weight: "regular", fill: ink, it.body)
 ]
-#show heading.where(level: 3): it => block(above: 1.1em, below: 0.5em, sticky: true)[
+#show heading.where(level: 3): it => block(
+  above: 1.1em,
+  below: 0.5em,
+  sticky: true,
+)[
   #text(size: 10pt, weight: "bold", fill: accent, smallcaps(it.body))
 ]
-#show heading.where(level: 4): it => block(above: 0.9em, below: 0.4em, sticky: true, text(weight: "bold", it.body))
+#show heading.where(level: 4): it => block(
+  above: 0.9em,
+  below: 0.4em,
+  sticky: true,
+  text(weight: "bold", it.body),
+)
 
 #let tag(body, fill: muted) = box(
-  inset: (x: 0.4em, y: 0.15em), radius: 2pt, fill: fill,
+  inset: (x: 0.4em, y: 0.15em),
+  radius: 2pt,
+  fill: fill,
   text(font: sans, size: 7pt, fill: white, weight: "bold", upper(body)),
 )
-#let status-tag(s) = tag(s, fill: if s == "approved" { accent } else if s == "revised" { ink } else { muted })
+#let status-tag(s) = tag(s, fill: if s == "approved" { accent } else if s
+  == "revised" { ink } else { muted })
 #let small(body) = text(size: 7.5pt, fill: muted, body)
-#let ids(xs) = if xs.len() == 0 { small[—] } else { xs.map(x => raw(x)).join(", ") }
+#let ids(xs) = if xs.len() == 0 { small[—] } else {
+  xs.map(x => raw(x)).join(", ")
+}
 
-#let picture(path, width: 100%, height: auto) = image(path, width: width, height: height, fit: "contain")
-#let file(path) = if thumbs == "" { base + "/" + path } else { thumbs + "/" + path }
+#let picture(path, width: 100%, height: auto) = image(
+  path,
+  width: width,
+  height: height,
+  fit: "contain",
+)
+#let file(path) = if thumbs == "" { base + "/" + path } else {
+  thumbs + "/" + path
+}
 
 // Title page
 #page(header: none, footer: none, margin: 2.5cm)[
@@ -115,7 +154,11 @@
   #set text(size: 8.5pt, fill: muted)
   #let n(kind) = index.assets.filter(a => a.kind == kind).len()
   #kinds.map(((k, t)) => [#n(k) #lower(t)]).join[ · ] \
-  #("approved", "revised", "candidate").map(s => [#index.assets.filter(a => a.status == s).len() #s]).join[, ] \
+  #(
+    ("approved", "revised", "candidate")
+      .map(s => [#index.assets.filter(a => a.status == s).len() #s])
+      .join[, ]
+  ) \
   Generated from #raw("art/index.json") · #link(repo)[#repo.trim("/", at: end).split("//").last()]
 ]
 
@@ -162,23 +205,33 @@ source describe the image in this PDF. PULSE uses the 4× runtime artwork; compa
   if not first { pagebreak(weak: true) }
   [#heading(level: 2, a.title)#art-label(a.id)]
   block(below: 0.9em)[
-    #status-tag(a.status) #h(0.4em) #raw(a.id) #h(1fr) #small[#a.runtime.count runtime files
-      #if a.runtime.densities.len() > 0 [· densities #a.runtime.densities.map(d => str(d) + "×").join(", ")]]
+    #status-tag(a.status) #h(0.4em) #raw(a.id) #h(
+      1fr,
+    ) #small[#a.runtime.count runtime files
+      #if (
+        a.runtime.densities.len() > 0
+      ) [· densities #a.runtime.densities.map(d => str(d) + "×").join(", ")]]
   ]
 
   // The first source painting beside the look and paths, further sources below.
   let master(m, height) = figure(
     box(fill: paper-tint, inset: 3pt, picture(file(m.path), height: height)),
     caption: small[#raw(m.path.split("/").last()) · #m.width × #m.height],
-    supplement: none, numbering: none,
+    supplement: none,
+    numbering: none,
   )
   heading(level: 4, outlined: false)[Source paintings]
   grid(
     columns: (55%, 1fr),
     column-gutter: 1.2em,
     if a.masters.len() == 0 {
-      box(width: 100%, height: 3cm, fill: paper-tint, stroke: (paint: rule-colour, dash: "dashed"),
-        align(center + horizon, small[no master]))
+      box(
+        width: 100%,
+        height: 3cm,
+        fill: paper-tint,
+        stroke: (paint: rule-colour, dash: "dashed"),
+        align(center + horizon, small[no master]),
+      )
     } else {
       master(a.masters.first(), 7cm)
     },
@@ -194,26 +247,39 @@ source describe the image in this PDF. PULSE uses the 4× runtime artwork; compa
   )
   if a.masters.len() > 1 {
     heading(level: 4, outlined: false)[Additional master sources]
-    grid(columns: (1fr,) * 5, gutter: 0.5em, ..a.masters.slice(1).map(m => master(m, 2.4cm)))
+    grid(columns: (1fr,) * 5, gutter: 0.5em, ..a
+        .masters
+        .slice(1)
+        .map(m => master(m, 2.4cm)))
   }
 
   if a.runtime.samples.len() > 0 {
-    heading(level: 4, outlined: false)[Game exports (highest available resolution)]
+    heading(
+      level: 4,
+      outlined: false,
+    )[Game exports (highest available resolution)]
     let cols = calc.min(4, a.runtime.samples.len())
     grid(
       columns: (1fr,) * cols,
       gutter: 0.5em,
       ..a.runtime.samples.map(s => figure(
-        box(fill: paper-tint, inset: 2pt, picture(file(s), height: if a.kind == "screen" { 4.5cm } else { 2.6cm })),
+        box(fill: paper-tint, inset: 2pt, picture(file(s), height: if a.kind
+          == "screen" { 4.5cm } else { 2.6cm })),
         caption: small(raw(s.trim(a.assets_dir + "/", at: start))),
-        supplement: none, numbering: none,
+        supplement: none,
+        numbering: none,
       )),
     )
   }
 
   heading(level: 4, outlined: false)[Base prompt]
-  block(width: 100%, inset: 0.7em, fill: paper-tint, stroke: (left: 2pt + accent),
-    text(size: 8.5pt, raw(reflow(a.base_prompt), block: true)))
+  block(
+    width: 100%,
+    inset: 0.7em,
+    fill: paper-tint,
+    stroke: (left: 2pt + accent),
+    text(size: 8.5pt, raw(reflow(a.base_prompt), block: true)),
+  )
 
   if a.variants.len() > 0 {
     heading(level: 4, outlined: false)[Appearance variants]
@@ -221,7 +287,14 @@ source describe the image in this PDF. PULSE uses the 4× runtime artwork; compa
       columns: (auto, auto, 1fr),
       fill: (_, y) => if y == 0 { paper-tint },
       table.header[*Variant*][*Runtime IDs*][*Prompt delta*],
-      ..a.variants.map(v => (inline(v.variant), text(size: 7.5pt, ids(v.runtime_ids)), md(v.delta))).flatten(),
+      ..a
+        .variants
+        .map(v => (
+          inline(v.variant),
+          text(size: 7.5pt, ids(v.runtime_ids)),
+          md(v.delta),
+        ))
+        .flatten(),
     )
   }
   section([Edges & joins], a.edges)
@@ -237,7 +310,11 @@ source describe the image in this PDF. PULSE uses the 4× runtime artwork; compa
   let info = json(pulse + "/pulse.json")
   // A fractional height only resolves in the page flow, not inside a figure.
   let plate(file, caption) = {
-    block(height: 1fr, width: 100%, below: 0.5em, align(center, image(pulse + "/" + file, height: 100%, fit: "contain")))
+    block(height: 1fr, width: 100%, below: 0.5em, align(center, image(
+      pulse + "/" + file,
+      height: 100%,
+      fit: "contain",
+    )))
     align(center, small(caption))
   }
   heading(level: 1)[PULSE map]
@@ -257,7 +334,9 @@ source describe the image in this PDF. PULSE uses the 4× runtime artwork; compa
   let info = json(look + "/look.json")
   let rendered = info.sources.find(s => s.id == "render")
   let reference = info.sources.find(s => s.id == "reference")
-  let number(v) = if v == none { "unavailable" } else { str(calc.round(v, digits: 2)) }
+  let number(v) = if v == none { "unavailable" } else {
+    str(calc.round(v, digits: 2))
+  }
   let grass-contrast(source) = {
     if source != none and source.available {
       let grass = source.families.find(f => f.id == "grass")
@@ -275,11 +354,21 @@ source describe the image in this PDF. PULSE uses the 4× runtime artwork; compa
   table(
     columns: (1fr, auto, auto),
     [*Metric*], [*Render*], [*Reference*],
-    [Grass contrast, σL\*], number(grass-contrast(rendered)), number(grass-contrast(reference)),
-    [Whole map, 5th percentile L\*], number(rendered.whole_map.p05_l_star.value),
-      if reference.available { number(reference.whole_map.p05_l_star.value) } else { [unavailable] },
-    [Whole map, 95th percentile L\*], number(rendered.whole_map.p95_l_star.value),
-      if reference.available { number(reference.whole_map.p95_l_star.value) } else { [unavailable] },
+    [Grass contrast, σL\*],
+    number(grass-contrast(rendered)),
+    number(grass-contrast(reference)),
+
+    [Whole map, 5th percentile L\*],
+    number(rendered.whole_map.p05_l_star.value),
+    if reference.available {
+      number(reference.whole_map.p05_l_star.value)
+    } else { [unavailable] },
+
+    [Whole map, 95th percentile L\*],
+    number(rendered.whole_map.p95_l_star.value),
+    if reference.available {
+      number(reference.whole_map.p95_l_star.value)
+    } else { [unavailable] },
   )
   v(1em)
   heading(level: 2)[Visible tree canopy]
@@ -292,11 +381,17 @@ source describe the image in this PDF. PULSE uses the 4× runtime artwork; compa
   table(
     columns: (1fr, auto, auto),
     [*Clean cells*], [*Count*], [*Canopy coverage*],
-    ..rendered.canopy.groups.map(g => (
-      g.group.replace("_", " "), str(g.cells),
-      if g.coverage_fraction.value == none { [unavailable] }
-      else { number(100 * g.coverage_fraction.value) + "%" },
-    )).flatten(),
+    ..rendered
+      .canopy
+      .groups
+      .map(g => (
+        g.group.replace("_", " "),
+        str(g.cells),
+        if g.coverage_fraction.value == none { [unavailable] } else {
+          number(100 * g.coverage_fraction.value) + "%"
+        },
+      ))
+      .flatten(),
   )
   [
     The planned target is at least 85% cover in forest and 4–8% in open cells. The current
@@ -305,8 +400,11 @@ source describe the image in this PDF. PULSE uses the 4× runtime artwork; compa
   ]
   pagebreak()
   heading(level: 2)[PULSE — selected crown coverage]
-  block(height: 1fr, width: 100%, align(center,
-    image(look + "/" + rendered.canopy.mask_file, height: 100%, fit: "contain")))
+  block(height: 1fr, width: 100%, align(center, image(
+    look + "/" + rendered.canopy.mask_file,
+    height: 100%,
+    fit: "contain",
+  )))
   small[White means full visible canopy, black means none; grey retains fractional crown edges.
     This is a diagnostic layer, with no terrain, shadows or units.]
   pagebreak()
@@ -315,7 +413,11 @@ source describe the image in this PDF. PULSE uses the 4× runtime artwork; compa
 #for winter-dir in (winter, winter3).filter(dir => dir != "") {
   let info = json(winter-dir + "/map.json")
   let plate(file, caption) = {
-    block(height: 1fr, width: 100%, below: 0.5em, align(center, image(winter-dir + "/" + file, height: 100%, fit: "contain")))
+    block(height: 1fr, width: 100%, below: 0.5em, align(center, image(
+      winter-dir + "/" + file,
+      height: 100%,
+      fit: "contain",
+    )))
     align(center, small(caption))
   }
   heading(level: 1)[Winter map — #info.name]
@@ -337,15 +439,26 @@ source describe the image in this PDF. PULSE uses the 4× runtime artwork; compa
     #(info.detail.at(2) * info.density) × #(info.detail.at(3) * info.density) pixels.
     Snow, craters, roads, rail, trenches and the depot use the same exported tiles as the full map.
   ]
-  plate("map-detail.png")[Native 4× detail — open the PNG to inspect individual tiles.]
+  plate(
+    "map-detail.png",
+  )[Native 4× detail — open the PNG to inspect individual tiles.]
 }
 
 #if campaign != "" {
-  for (dir, title) in (("summer", "Summer"), ("winter", "Winter shores"), ("sea", "Sea"), ("harbour", "Harbour")) {
+  for (dir, title) in (
+    ("summer", "Summer"),
+    ("winter", "Winter shores"),
+    ("sea", "Sea"),
+    ("harbour", "Harbour"),
+  ) {
     let root = campaign + "/" + dir
     let info = json(root + "/map.json")
     let plate(file, caption) = {
-      block(height: 1fr, width: 100%, below: 0.5em, align(center, image(root + "/" + file, height: 100%, fit: "contain")))
+      block(height: 1fr, width: 100%, below: 0.5em, align(center, image(
+        root + "/" + file,
+        height: 100%,
+        fit: "contain",
+      )))
       align(center, small(caption))
     }
     heading(level: 1)[Campaign — #title]
@@ -375,9 +488,12 @@ source describe the image in this PDF. PULSE uses the 4× runtime artwork; compa
     rocky banks that widen and narrow.
     Submerged stones soften the water edge; moss and grass enter rock crevices along the meadow edge.
   ]
-  figure(image(shore + "/shore-catalogue-4x.png", height: 21cm),
+  figure(
+    image(shore + "/shore-catalogue-4x.png", height: 21cm),
     caption: [All nine shores and six assemblies. Native PNG: 3144 × 3728 pixels.],
-    supplement: none, numbering: none)
+    supplement: none,
+    numbering: none,
+  )
   pagebreak(weak: true)
   heading(level: 2)[Reusable river mouths]
   [
@@ -385,25 +501,34 @@ source describe the image in this PDF. PULSE uses the 4× runtime artwork; compa
     Selection depends on the neighbouring stream's port, and the ordinary shore tile remains in use
     elsewhere. The supported set covers every fully-land edge of the nine shore shapes.
   ]
-  figure(image(shore + "/shore-mouths-4x.png", width: 100%, height: 20cm),
+  figure(
+    image(shore + "/shore-mouths-4x.png", width: 100%, height: 20cm),
     caption: [River-mouth pieces composed from the shared water, rock and meadow materials.],
-    supplement: none, numbering: none)
+    supplement: none,
+    numbering: none,
+  )
 }
 
 // The reference painting beside the render (`reference-design -compare`, only with the local image).
 #let art-status = (:)
 #for a in index.assets { art-status.insert(a.id, a.status) }
 #let family-art = (:)
-#for f in json("/art/reference/pulse/reference.json").families { family-art.insert(f.id, f.art.trim("art/", at: start)) }
+#for f in json("/art/reference/pulse/reference.json").families {
+  family-art.insert(f.id, f.art.trim("art/", at: start))
+}
 #let family-status(id) = {
   let key = family-art.at(id, default: "")
-  if key in art-status { status-tag(art-status.at(key)) } else { small[no prompt] }
+  if key in art-status { status-tag(art-status.at(key)) } else {
+    small[no prompt]
+  }
 }
 
 #if compare != "" {
   let cmp = json(compare + "/compare.json")
   let n(x, d: 1) = str(calc.round(x, digits: d))
-  let outside(f) = if f.outside.len() == 0 { small[within] } else { text(fill: accent, weight: "bold", f.outside.join(", ")) }
+  let outside(f) = if f.outside.len() == 0 { small[within] } else {
+    text(fill: accent, weight: "bold", f.outside.join(", "))
+  }
   heading(level: 1)[Reference and render]
   [
     Left the reference painting registered onto the game grid, right #blob(cmp.level) drawn with the current
@@ -424,16 +549,21 @@ source describe the image in this PDF. PULSE uses the 4× runtime artwork; compa
     align: (left, right, right, right, right, right, right, left),
     fill: (_, y) => if y == 0 { paper-tint },
     table.header[*Family*][*Status*][*ΔE*][*L\* a\* b\**][*Contrast*][*Chroma*][*Edges*][*Outside*],
-    ..cmp.families.map(f => (
-      text(size: 8pt, strong(f.id)),
-      family-status(f.id),
-      text(size: 8pt, n(f.delta_e)),
-      text(size: 7pt)[#n(f.reference.l) #n(f.reference.a) #n(f.reference.b) \ #n(f.render.l) #n(f.render.a) #n(f.render.b)],
-      text(size: 8pt)[#n(f.reference.contrast) → #n(f.render.contrast)],
-      text(size: 8pt)[#n(f.reference.chroma) → #n(f.render.chroma)],
-      text(size: 8pt)[#n(f.reference.edges, d: 2) → #n(f.render.edges, d: 2)],
-      text(size: 8pt, outside(f)),
-    )).flatten(),
+    ..cmp
+      .families
+      .map(f => (
+        text(size: 8pt, strong(f.id)),
+        family-status(f.id),
+        text(size: 8pt, n(f.delta_e)),
+        text(size: 7pt)[#n(f.reference.l) #n(f.reference.a) #n(
+            f.reference.b,
+          ) \ #n(f.render.l) #n(f.render.a) #n(f.render.b)],
+        text(size: 8pt)[#n(f.reference.contrast) → #n(f.render.contrast)],
+        text(size: 8pt)[#n(f.reference.chroma) → #n(f.render.chroma)],
+        text(size: 8pt)[#n(f.reference.edges, d: 2) → #n(f.render.edges, d: 2)],
+        text(size: 8pt, outside(f)),
+      ))
+      .flatten(),
   )
   heading(level: 3)[Full map]
   for b in cmp.bands {
@@ -471,15 +601,22 @@ source describe the image in this PDF. PULSE uses the 4× runtime artwork; compa
     columns: (22%, 24%, 1fr),
     fill: (_, y) => if y == 0 { paper-tint },
     table.header[*Family*][*Runtime*][*Exemplars and notes*],
-    ..ref.families.map(f => {
-      let key = f.art.trim("art/", at: start)
-      let runtime = if f.kind == "infra" { f.infra_prefixes.map(p => p + "*") } else { f.runtime_ids }
-      (
-        [*#f.id* #small(f.kind) #family-status(f.id) \ #text(size: 7pt, if key in known { link(art-label(key), raw(key)) } else { tree(f.art) })],
-        text(size: 7.5pt, ids(runtime)),
-        [#text(size: 7.5pt, f.exemplars.map(raw).join(", ")) #if "notes" in f [\ #text(size: 8pt, f.notes)]],
-      )
-    }).flatten(),
+    ..ref
+      .families
+      .map(f => {
+        let key = f.art.trim("art/", at: start)
+        let runtime = if f.kind == "infra" {
+          f.infra_prefixes.map(p => p + "*")
+        } else { f.runtime_ids }
+        (
+          [*#f.id* #small(f.kind) #family-status(f.id) \ #text(size: 7pt, if key in known { link(art-label(key), raw(key)) } else { tree(f.art) })],
+          text(size: 7.5pt, ids(runtime)),
+          [#text(size: 7.5pt, f.exemplars.map(raw).join(", ")) #if (
+              "notes" in f
+            ) [\ #text(size: 8pt, f.notes)]],
+        )
+      })
+      .flatten(),
   )
   heading(level: 3)[Features]
   for feat in ref.features {

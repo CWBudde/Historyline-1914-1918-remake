@@ -63,8 +63,10 @@ func TestRunWithDetail(t *testing.T) {
 	p := profile{
 		Schema: 2, Period: [2]int{568, 400}, Densities: []int{2, 4}, Band: 4,
 		Materials: []material{
-			{ID: worldmaterial.MeadowID, Art: "terrain/grass", Source: tone, SHA: writeNoisePNG(t, tone, 284, 200, color.NRGBA{90, 97, 30, 255}, 1),
-				Detail: &detail{Source: det, SHA: writeNoisePNG(t, det, 213, 150, color.NRGBA{90, 97, 30, 255}, 5), Repeats: 3, Gain: 0.5}},
+			{
+				ID: worldmaterial.MeadowID, Art: "terrain/grass", Source: tone, SHA: writeNoisePNG(t, tone, 284, 200, color.NRGBA{90, 97, 30, 255}, 1),
+				Detail: &detail{Source: det, SHA: writeNoisePNG(t, det, 213, 150, color.NRGBA{90, 97, 30, 255}, 5), Repeats: 3, Gain: 0.5},
+			},
 			{ID: worldmaterial.ScrubID, Art: "terrain/hills", Source: scrub, SHA: writeNoisePNG(t, scrub, 284, 200, color.NRGBA{80, 88, 26, 255}, 2)},
 		},
 	}

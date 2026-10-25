@@ -149,7 +149,7 @@ func writeWinterTiles(t *testing.T, root, id, family, pack string, tiles map[int
 		if err := png.Encode(&b, tiles[d]); err != nil {
 			t.Fatal(err)
 		}
-		if err := os.WriteFile(filepath.Join(root, "assets", path), b.Bytes(), 0644); err != nil {
+		if err := os.WriteFile(filepath.Join(root, "assets", path), b.Bytes(), 0o644); err != nil {
 			t.Fatal(err)
 		}
 		sum := sha256.Sum256(b.Bytes())
@@ -175,7 +175,7 @@ func writeWinterIndex(t *testing.T, root string, entries []json.RawMessage) {
 		out.WriteByte('\n')
 	}
 	out.WriteString("  ]\n}\n")
-	if err := os.WriteFile(filepath.Join(root, "assets/index.json"), out.Bytes(), 0644); err != nil {
+	if err := os.WriteFile(filepath.Join(root, "assets/index.json"), out.Bytes(), 0o644); err != nil {
 		t.Fatal(err)
 	}
 }

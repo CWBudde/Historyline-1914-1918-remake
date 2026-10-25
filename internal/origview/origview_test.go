@@ -174,11 +174,13 @@ func TestLooksAgreeWithRecords(t *testing.T) {
 }
 
 func TestLevel(t *testing.T) {
-	src := &finmap.Level{Format: finmap.Format, Version: finmap.Version,
+	src := &finmap.Level{
+		Format: finmap.Format, Version: finmap.Version,
 		Source: finmap.Source{Build: "full", Map: "07"}, Width: 4, Height: 3,
 		Terrain:   [][]int{{1, 57, 36, Edge}, {25, 81, 0, Edge}, {Edge, Edge, Edge, Edge}},
 		Buildings: []finmap.Building{{Kind: "hq", Cell: [2]int{0, 0}, Owner: finmap.Allied}},
-		Mission:   &finmap.Mission{Players: 1, HumanSides: []int{finmap.Allied}, Winter: true}}
+		Mission:   &finmap.Mission{Players: 1, HumanSides: []int{finmap.Allied}, Winter: true},
+	}
 	got, err := Level(src)
 	if err != nil {
 		t.Fatal(err)
@@ -216,8 +218,10 @@ func TestLevel(t *testing.T) {
 }
 
 func TestLevelInfraForms(t *testing.T) {
-	src := &finmap.Level{Source: finmap.Source{Map: "00"}, Width: 4, Height: 2,
-		Terrain: [][]int{{139, 0, 0, Edge}, {Edge, Edge, Edge, Edge}}}
+	src := &finmap.Level{
+		Source: finmap.Source{Map: "00"}, Width: 4, Height: 2,
+		Terrain: [][]int{{139, 0, 0, Edge}, {Edge, Edge, Edge, Edge}},
+	}
 	got, err := Level(src)
 	if err != nil {
 		t.Fatal(err)

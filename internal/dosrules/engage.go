@@ -113,7 +113,8 @@ func (p Profile) Engage(b *Battlefield, attacker, target int) (Outcome, error) {
 	o.Returned = firesBack(ta, td, o.ReturnFire)
 	if o.Result, err = p.Casualties(
 		Fighter{ta, a.Size, a.Alt, a.Exp, a.Flags4},
-		Fighter{td, d.Size, d.Alt, d.Exp, d.Flags4}, ctx); err != nil {
+		Fighter{td, d.Size, d.Alt, d.Exp, d.Flags4}, ctx,
+	); err != nil {
 		return o, err
 	}
 

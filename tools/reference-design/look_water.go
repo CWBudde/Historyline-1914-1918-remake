@@ -310,7 +310,7 @@ func (p *project) measureWater(id string, im *image.NRGBA, out string) (lookWate
 		result.Preview = "water-" + id + "-annotations.png"
 		preview := drawWaterAnnotations(im, selected.Transects)
 		dest := filepath.Join(out, result.Preview)
-		if err := os.MkdirAll(out, 0755); err != nil {
+		if err := os.MkdirAll(out, 0o755); err != nil {
 			return result, err
 		}
 		if err := writePNG(dest, preview); err != nil {

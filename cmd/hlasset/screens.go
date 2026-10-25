@@ -17,9 +17,8 @@ import (
 	"slices"
 	"strings"
 
-	"golang.org/x/image/draw"
-
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
+	"golang.org/x/image/draw"
 )
 
 // screenDensities are the densities of the screen catalog: the backdrop and
@@ -84,8 +83,10 @@ func planScreens(entries []indexEntry, assetsDir, artDir string, d int) ([]scree
 		case isIface:
 			family = iface
 		}
-		files = append(files, screenFile{Family: family, ID: e.ID, Density: d, Width: e.Width, Height: e.Height, Anchor: anchor,
-			read: func() ([]byte, error) { return os.ReadFile(name) }})
+		files = append(files, screenFile{
+			Family: family, ID: e.ID, Density: d, Width: e.Width, Height: e.Height, Anchor: anchor,
+			read: func() ([]byte, error) { return os.ReadFile(name) },
+		})
 	}
 	if !seen["backdrop/western-front"] {
 		return nil, fmt.Errorf("index has no backdrop/western-front at %dx", d)
@@ -97,8 +98,10 @@ func planScreens(entries []indexEntry, assetsDir, artDir string, d int) ([]scree
 	slices.Sort(paintings)
 	for _, src := range paintings {
 		family := filepath.Base(filepath.Dir(src))
-		files = append(files, screenFile{Family: family, ID: "scene/" + family, Density: d, Width: screenW * d, Height: screenH * d,
-			read: func() ([]byte, error) { return scalePainting(src, screenW*d, screenH*d) }})
+		files = append(files, screenFile{
+			Family: family, ID: "scene/" + family, Density: d, Width: screenW * d, Height: screenH * d,
+			read: func() ([]byte, error) { return scalePainting(src, screenW*d, screenH*d) },
+		})
 	}
 	// The panels' surfaces, art/screens/surface/<name>.png, in one family
 	// "surface": the seamless tiles and the rivet sheet; and the capture
@@ -113,16 +116,20 @@ func planScreens(entries []indexEntry, assetsDir, artDir string, d int) ([]scree
 		for _, src := range srcs {
 			id := family + "/" + strings.TrimSuffix(filepath.Base(src), ".png")
 			if fullCaptures[id] {
-				files = append(files, screenFile{Family: family, ID: id, Density: d, Width: screenW * d, Height: screenH * d,
-					read: func() ([]byte, error) { return scalePainting(src, screenW*d, screenH*d) }})
+				files = append(files, screenFile{
+					Family: family, ID: id, Density: d, Width: screenW * d, Height: screenH * d,
+					read: func() ([]byte, error) { return scalePainting(src, screenW*d, screenH*d) },
+				})
 				continue
 			}
 			w, h, err := surfaceSize(src, d)
 			if err != nil {
 				return nil, err
 			}
-			files = append(files, screenFile{Family: family, ID: id, Density: d, Width: w, Height: h,
-				read: func() ([]byte, error) { return scaleTile(src, w, h) }})
+			files = append(files, screenFile{
+				Family: family, ID: id, Density: d, Width: w, Height: h,
+				read: func() ([]byte, error) { return scaleTile(src, w, h) },
+			})
 		}
 	}
 	return files, nil
@@ -306,8 +313,10 @@ func (o *output) writeScreenPack(files []screenFile, d int, family string) (asse
 		if err := o.writeNew(path.Join(dir, name), func(w io.Writer) error { _, err := w.Write(b); return err }); err != nil {
 			return m, err
 		}
-		m.Entries = append(m.Entries, assets.Entry{ID: f.ID, Path: name, SHA256: hex.EncodeToString(sum[:]),
-			Width: f.Width, Height: f.Height, Density: d, Anchor: f.Anchor})
+		m.Entries = append(m.Entries, assets.Entry{
+			ID: f.ID, Path: name, SHA256: hex.EncodeToString(sum[:]),
+			Width: f.Width, Height: f.Height, Density: d, Anchor: f.Anchor,
+		})
 	}
 	b, err := json.MarshalIndent(m, "", "  ")
 	if err != nil {

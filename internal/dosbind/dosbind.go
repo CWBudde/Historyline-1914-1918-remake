@@ -324,9 +324,11 @@ func Bind(lv *level.Level, set *data.Set) (*Board, error) {
 	if g.Width < 2 || g.Lines < 2 {
 		return nil, fmt.Errorf("dosbind: a level of %d lines of %d hexes", g.Lines, g.Width)
 	}
-	b := &Board{Width: 2 * g.Width, Height: (g.Lines + 1) / 2, grid: g,
+	b := &Board{
+		Width: 2 * g.Width, Height: (g.Lines + 1) / 2, grid: g,
 		Units: map[int]dosrules.Placement{}, IDs: map[int]string{}, Holds: map[int]dosrules.Hold{},
-		Buildings: map[int]dosrules.Building{}}
+		Buildings: map[int]dosrules.Building{},
+	}
 	b.Terrain = make([]int, b.Width*b.Height)
 	for i := range b.Terrain {
 		b.Terrain[i] = Table.Edge

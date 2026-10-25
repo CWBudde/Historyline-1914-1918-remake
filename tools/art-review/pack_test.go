@@ -33,7 +33,7 @@ func packFixture(t *testing.T, width, height int, transparent bool) (string, map
 	if err := png.Encode(&b, img); err != nil {
 		t.Fatal(err)
 	}
-	if err := os.WriteFile(filepath.Join(dir, "source.png"), b.Bytes(), 0644); err != nil {
+	if err := os.WriteFile(filepath.Join(dir, "source.png"), b.Bytes(), 0o644); err != nil {
 		t.Fatal(err)
 	}
 	sum := sha256.Sum256(b.Bytes())
@@ -48,7 +48,7 @@ func writePackManifest(t *testing.T, dir string, manifest map[string]any) string
 		t.Fatal(err)
 	}
 	path := filepath.Join(dir, "pack.json")
-	if err := os.WriteFile(path, b, 0644); err != nil {
+	if err := os.WriteFile(path, b, 0o644); err != nil {
 		t.Fatal(err)
 	}
 	return path
@@ -105,7 +105,9 @@ func TestPackRejectsInvalidInputsWithoutOutput(t *testing.T) {
 			m["assets"].([]any)[0].(map[string]any)["source_sha256"] = strings.Repeat("0", 64)
 		}},
 		{name: "malformed hash", width: 384, height: 320, mutate: func(m map[string]any) { m["assets"].([]any)[0].(map[string]any)["source_sha256"] = "abc" }},
-		{name: "too narrow", width: 383, height: 320}, {name: "too short", width: 384, height: 319}, {name: "transparent", width: 384, height: 320, transparent: true},
+		{name: "too narrow", width: 383, height: 320},
+		{name: "too short", width: 384, height: 319},
+		{name: "transparent", width: 384, height: 320, transparent: true},
 		{name: "unsafe id", width: 384, height: 320, mutate: func(m map[string]any) { m["assets"].([]any)[0].(map[string]any)["id"] = "../escape" }},
 		{name: "duplicate id", width: 384, height: 320, mutate: func(m map[string]any) { a := m["assets"].([]any); m["assets"] = append(a, a[0]) }},
 		{name: "case-insensitive duplicate id", width: 384, height: 320, mutate: func(m map[string]any) {
@@ -260,7 +262,7 @@ func TestPackRejectsExistingDirectoryAndConflictingFlags(t *testing.T) {
 	dir, m, _ := packFixture(t, 384, 320, false)
 	manifest := writePackManifest(t, dir, m)
 	existing := filepath.Join(dir, "existing")
-	if err := os.Mkdir(existing, 0755); err != nil {
+	if err := os.Mkdir(existing, 0o755); err != nil {
 		t.Fatal(err)
 	}
 	if err := run([]string{"-pack", manifest, "-out", existing}, io.Discard); err == nil {
@@ -291,7 +293,7 @@ func TestPackExcludesOriginalSourcesAndResolvedSymlinks(t *testing.T) {
 		t.Run(fmt.Sprintf("symlink=%t", symlink), func(t *testing.T) {
 			dir, m, _ := packFixture(t, 384, 320, false)
 			original := filepath.Join(dir, "original")
-			if err := os.Mkdir(original, 0755); err != nil {
+			if err := os.Mkdir(original, 0o755); err != nil {
 				t.Fatal(err)
 			}
 			target := filepath.Join(original, "source.png")
@@ -342,7 +344,7 @@ func TestPackCropsBeforeReductionWithoutOutsideColorBleeding(t *testing.T) {
 	if err := png.Encode(&encoded, src); err != nil {
 		t.Fatal(err)
 	}
-	if err := os.WriteFile(filepath.Join(dir, "source.png"), encoded.Bytes(), 0644); err != nil {
+	if err := os.WriteFile(filepath.Join(dir, "source.png"), encoded.Bytes(), 0o644); err != nil {
 		t.Fatal(err)
 	}
 	sum := sha256.Sum256(encoded.Bytes())
@@ -384,7 +386,7 @@ func TestPackTransparentOptInPreservesPNGAlphaWithoutMatte(t *testing.T) {
 	if err := png.Encode(&encoded, src); err != nil {
 		t.Fatal(err)
 	}
-	if err := os.WriteFile(filepath.Join(dir, "source.png"), encoded.Bytes(), 0600); err != nil {
+	if err := os.WriteFile(filepath.Join(dir, "source.png"), encoded.Bytes(), 0o600); err != nil {
 		t.Fatal(err)
 	}
 	sum := sha256.Sum256(encoded.Bytes())
@@ -460,11 +462,11 @@ func TestPackDoesNotOverwriteExistingOutputFileOrSymlink(t *testing.T) {
 		t.Run(fmt.Sprintf("symlink=%t", symlink), func(t *testing.T) {
 			dir, m, _ := packFixture(t, 384, 320, false)
 			existing := filepath.Join(dir, "existing")
-			if err := os.Mkdir(existing, 0755); err != nil {
+			if err := os.Mkdir(existing, 0o755); err != nil {
 				t.Fatal(err)
 			}
 			sentinel := filepath.Join(existing, "sentinel")
-			if err := os.WriteFile(sentinel, []byte("keep me"), 0644); err != nil {
+			if err := os.WriteFile(sentinel, []byte("keep me"), 0o644); err != nil {
 				t.Fatal(err)
 			}
 			out := sentinel

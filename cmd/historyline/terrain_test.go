@@ -89,8 +89,10 @@ func terrainCatalog(t *testing.T, l *level.Level, skip string, contexts ...strin
 			}
 			p := fmt.Sprintf("images/%04d.png", len(m.Entries))
 			fsys[path.Join(fmt.Sprintf("%dx", d), ids[id], p)] = &fstest.MapFile{Data: buf.Bytes()}
-			m.Entries = append(m.Entries, assets.Entry{ID: id, Path: p, SHA256: hex.EncodeToString(sum[:]),
-				Width: 96 * d, Height: 80 * d, Density: d, Anchor: [2]float64{48, 40}})
+			m.Entries = append(m.Entries, assets.Entry{
+				ID: id, Path: p, SHA256: hex.EncodeToString(sum[:]),
+				Width: 96 * d, Height: 80 * d, Density: d, Anchor: [2]float64{48, 40},
+			})
 		}
 		for g, m := range packs {
 			b, err := json.Marshal(m)
@@ -196,8 +198,10 @@ func TestTerrainShadowsFollowFog(t *testing.T) {
 
 func TestTerrainDevIndicators(t *testing.T) {
 	g := &game{}
-	g.terrain = &terrainArt{artPacks: &artPacks{candidate: true},
-		scene: mapcompose.Scene{Gaps: make([]mapcompose.Gap, 3), Issues: make([]mapcompose.Issue, 1)}}
+	g.terrain = &terrainArt{
+		artPacks: &artPacks{candidate: true},
+		scene:    mapcompose.Scene{Gaps: make([]mapcompose.Gap, 3), Issues: make([]mapcompose.Issue, 1)},
+	}
 	got := g.devIndicators()
 	for _, want := range []string{"CANDIDATE-ART", "CONTEXT-GAP 3", "COMPOUND-ISSUE 1"} {
 		if !strings.Contains(got, want) {

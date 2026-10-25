@@ -12,13 +12,12 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/colorm"
-	"github.com/hajimehoshi/ebiten/v2/vector"
-
 	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/maprender"
+	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/colorm"
+	"github.com/hajimehoshi/ebiten/v2/vector"
 )
 
 // A backdrop (-backdrop) is one painted picture of a level's whole ground,
@@ -216,8 +215,10 @@ func (g *game) drawBackdrop(dst *ebiten.Image, vx, vy, vw, vh float64, inView []
 			n := uint16(len(vs))
 			for _, v := range hexgrid.Corners(c) {
 				x, y := g.cam.WorldToScreen(v[0], v[1])
-				vs = append(vs, ebiten.Vertex{DstX: float32(x), DstY: float32(y), SrcX: float32(x) - float32(at.X), SrcY: float32(y) - float32(at.Y),
-					ColorR: 1, ColorG: 1, ColorB: 1, ColorA: 1})
+				vs = append(vs, ebiten.Vertex{
+					DstX: float32(x), DstY: float32(y), SrcX: float32(x) - float32(at.X), SrcY: float32(y) - float32(at.Y),
+					ColorR: 1, ColorG: 1, ColorB: 1, ColorA: 1,
+				})
 			}
 			for i := uint16(1); i < 5; i++ {
 				is = append(is, n, n+i, n+i+1)

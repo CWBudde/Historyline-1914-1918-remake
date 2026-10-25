@@ -21,7 +21,7 @@ func TestGrassVariationsKeepBoundariesAndDistinctInteriors(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	var signatures = map[color.NRGBA]bool{}
+	signatures := map[color.NRGBA]bool{}
 	for _, variant := range []int{0, 1, 5, 10, 15} {
 		tiles, err := renderGrassVariation(src, variant)
 		if err != nil {

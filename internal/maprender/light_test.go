@@ -147,8 +147,14 @@ func TestCastShadowPairsNonzeroBoundsOddRowAndUnequalAnchors(t *testing.T) {
 
 func TestCastShadowPairsCompassBearings(t *testing.T) {
 	for _, tc := range []struct{ dx, dy, bearing float64 }{
-		{0, -1, 0}, {1, -1, 45}, {1, 0, 90}, {1, 1, 135},
-		{0, 1, 180}, {-1, 1, 225}, {-1, 0, 270}, {-1, -1, 315},
+		{0, -1, 0},
+		{1, -1, 45},
+		{1, 0, 90},
+		{1, 1, 135},
+		{0, 1, 180},
+		{-1, 1, 225},
+		{-1, 0, 270},
+		{-1, -1, 315},
 	} {
 		r, files := lightRenderer(t, true, [2]float64{}, [2]float64{-tc.dx, -tc.dy})
 		lightSetSource(t, r, files, "standing/shadow/forest", 2, lightSource(2, 0, 0, 1))
@@ -165,8 +171,12 @@ func TestCastShadowPairsCompassBearings(t *testing.T) {
 
 func TestCastShadowPairsExclusions(t *testing.T) {
 	for _, tc := range []struct{ name, reason string }{
-		{"missing", "no_selected_cast_shadow"}, {"empty crown", "empty_standing_alpha"}, {"empty shadow", "empty_shadow_alpha"},
-		{"clipped crown", "clipped_standing_alpha"}, {"clipped shadow", "clipped_shadow_alpha"}, {"zero", "zero_offset"},
+		{"missing", "no_selected_cast_shadow"},
+		{"empty crown", "empty_standing_alpha"},
+		{"empty shadow", "empty_shadow_alpha"},
+		{"clipped crown", "clipped_standing_alpha"},
+		{"clipped shadow", "clipped_shadow_alpha"},
+		{"zero", "zero_offset"},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
 			r, files := lightRenderer(t, tc.name != "missing", [2]float64{}, [2]float64{})
@@ -207,8 +217,10 @@ func TestCastShadowPairsUsesSelectedContextAndRejectsOrphans(t *testing.T) {
 	ctx := mapcompose.ContextID(mapcompose.Forest, mapcompose.Key(d))
 	for _, missing := range []bool{false, true} {
 		assets := []canopyAsset{
-			{ctx, 16, 16, [2]float64{}, 0}, {"standing/" + ctx, 16, 16, [2]float64{}, 0},
-			{"standing/forest", 16, 16, [2]float64{}, 0}, {"standing/shadow/forest", 16, 16, [2]float64{}, 0},
+			{ctx, 16, 16, [2]float64{}, 0},
+			{"standing/" + ctx, 16, 16, [2]float64{}, 0},
+			{"standing/forest", 16, 16, [2]float64{}, 0},
+			{"standing/shadow/forest", 16, 16, [2]float64{}, 0},
 			{"standing/shadow/orphan", 16, 16, [2]float64{}, 0},
 		}
 		if !missing {

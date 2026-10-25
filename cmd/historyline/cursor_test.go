@@ -110,8 +110,11 @@ func TestDosPlacement(t *testing.T) {
 		want  []want
 	}{
 		{"own unit", nil, at, []want{
-			{gesture.Centre, gesture.Cancel, true}, {gesture.Up, gesture.Move, true}, {gesture.Left, gesture.ModeChange, true},
-			{gesture.Right, gesture.Map, true}, {gesture.Down, gesture.Info, true},
+			{gesture.Centre, gesture.Cancel, true},
+			{gesture.Up, gesture.Move, true},
+			{gesture.Left, gesture.ModeChange, true},
+			{gesture.Right, gesture.Map, true},
+			{gesture.Down, gesture.Info, true},
 		}},
 		{"empty hex", nil, empty, []want{{gesture.Up, gesture.Move, false}, {gesture.Left, gesture.ModeChange, true}, {gesture.Right, gesture.Map, true}}},
 		{"own HQ", nil, ownHQ(t, d), []want{{gesture.Left, gesture.Open, len(d.own().Buildings[ownHQ(t, d)].Units) > 0}, {gesture.Down, gesture.Info, true}}},

@@ -228,7 +228,7 @@ func (p *project) measureWoodland(id string, im *image.NRGBA, out string) (lookW
 	result.AnnotationSHA256 = pin
 	if result.Available && out != "" {
 		result.Preview = "woodland-" + id + "-annotations-3x.png"
-		if err := os.MkdirAll(out, 0755); err != nil {
+		if err := os.MkdirAll(out, 0o755); err != nil {
 			return result, err
 		}
 		dest := filepath.Join(out, result.Preview)

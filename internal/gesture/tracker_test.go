@@ -35,9 +35,11 @@ func with(a, b Keys) Keys {
 
 // Event builders.
 func press(x, y float64) Event { return Event{Kind: Press, X: x, Y: y, Mouse: true} }
+
 func pick(x, y float64, d Dir, a Action, ok bool) Event {
 	return Event{Kind: Pick, Dir: d, Action: a, Enabled: ok, X: x, Y: y, Mouse: true}
 }
+
 func run(x, y float64, a Action) Event { return Event{Kind: Run, Action: a, X: x, Y: y, Mouse: true} }
 func click(x, y float64) Event         { return Event{Kind: Click, X: x, Y: y, Mouse: true} }
 func cancel(x, y float64) Event {
@@ -67,75 +69,129 @@ func TestTracker(t *testing.T) {
 		frames []Input
 		want   []Event
 	}{
-		{"hover reports pointer moves only", moveMode,
+		{
+			"hover reports pointer moves only", moveMode,
 			[]Input{mouse(10, 10, false), mouse(10, 10, false), mouse(12, 10, false), {}},
-			[]Event{hover(12, 10)}},
-		{"click: press and release without crossing the threshold", moveMode,
+			[]Event{hover(12, 10)},
+		},
+		{
+			"click: press and release without crossing the threshold", moveMode,
 			[]Input{mouse(100, 100, false), mouse(100, 100, true), mouse(110, 95, true), mouse(110, 95, false)},
-			[]Event{press(100, 100), click(100, 100)}},
-		{"hold without drag shows cancel and clicks on release", moveMode,
+			[]Event{press(100, 100), click(100, 100)},
+		},
+		{
+			"hold without drag shows cancel and clicks on release", moveMode,
 			[]Input{mouse(100, 100, false), mouse(100, 100, true), mouse(100, 100, true), mouse(100, 100, true), mouse(100, 100, false)},
-			[]Event{press(100, 100), click(100, 100)}},
-		{"drag up beyond the threshold picks move, release runs it", moveMode,
+			[]Event{press(100, 100), click(100, 100)},
+		},
+		{
+			"drag up beyond the threshold picks move, release runs it", moveMode,
 			[]Input{mouse(100, 100, false), mouse(100, 100, true), mouse(105, 60, true), mouse(105, 50, true), mouse(105, 50, false)},
-			[]Event{press(100, 100), pick(100, 100, Up, Move, true), run(100, 100, Move)}},
-		{"drag up in the attack mode picks attack", attackMode,
+			[]Event{press(100, 100), pick(100, 100, Up, Move, true), run(100, 100, Move)},
+		},
+		{
+			"drag up in the attack mode picks attack", attackMode,
 			[]Input{mouse(100, 100, false), mouse(100, 100, true), mouse(100, 40, true), mouse(100, 40, false)},
-			[]Event{press(100, 100), pick(100, 100, Up, Attack, true), run(100, 100, Attack)}},
-		{"left, right, down by the dominant axis", moveMode,
+			[]Event{press(100, 100), pick(100, 100, Up, Attack, true), run(100, 100, Attack)},
+		},
+		{
+			"left, right, down by the dominant axis", moveMode,
 			[]Input{mouse(100, 100, false), mouse(100, 100, true), mouse(50, 80, true), mouse(150, 120, true), mouse(130, 160, true), mouse(130, 160, false)},
-			[]Event{press(100, 100), pick(100, 100, Left, ModeChange, true), pick(100, 100, Right, Map, true),
-				pick(100, 100, Down, Info, true), run(100, 100, Info)}},
-		{"a diagonal tie counts as vertical", moveMode,
+			[]Event{
+				press(100, 100), pick(100, 100, Left, ModeChange, true), pick(100, 100, Right, Map, true),
+				pick(100, 100, Down, Info, true), run(100, 100, Info),
+			},
+		},
+		{
+			"a diagonal tie counts as vertical", moveMode,
 			[]Input{mouse(100, 100, false), mouse(100, 100, true), mouse(140, 140, true), mouse(140, 140, false)},
-			[]Event{press(100, 100), pick(100, 100, Down, Info, true), run(100, 100, Info)}},
-		{"dragging back inside the threshold returns to cancel", moveMode,
+			[]Event{press(100, 100), pick(100, 100, Down, Info, true), run(100, 100, Info)},
+		},
+		{
+			"dragging back inside the threshold returns to cancel", moveMode,
 			[]Input{mouse(100, 100, false), mouse(100, 100, true), mouse(100, 50, true), mouse(100, 90, true), mouse(100, 90, false)},
-			[]Event{press(100, 100), pick(100, 100, Up, Move, true), pick(100, 100, Centre, Cancel, true), cancel(100, 100)}},
-		{"releasing on a disabled action cancels", noMove,
+			[]Event{press(100, 100), pick(100, 100, Up, Move, true), pick(100, 100, Centre, Cancel, true), cancel(100, 100)},
+		},
+		{
+			"releasing on a disabled action cancels", noMove,
 			[]Input{mouse(100, 100, false), mouse(100, 100, true), mouse(100, 50, true), mouse(100, 50, false)},
-			[]Event{press(100, 100), pick(100, 100, Up, Move, false), cancel(100, 100)}},
-		{"a button already down when the pointer arrives does not press", moveMode,
+			[]Event{press(100, 100), pick(100, 100, Up, Move, false), cancel(100, 100)},
+		},
+		{
+			"a button already down when the pointer arrives does not press", moveMode,
 			[]Input{mouse(100, 100, true), mouse(100, 40, true), mouse(100, 40, false)},
-			[]Event{hover(100, 40)}},
-		{"right click opens the ring, a click outside it cancels", moveMode,
+			[]Event{hover(100, 40)},
+		},
+		{
+			"right click opens the ring, a click outside it cancels", moveMode,
 			[]Input{mouse(100, 100, false), rightClick(100, 100), mouse(400, 400, false), mouse(400, 400, true), mouse(400, 400, false)},
-			[]Event{ringOpen(100, 100), cancel(400, 400)}},
-		{"right click again closes the ring", moveMode,
+			[]Event{ringOpen(100, 100), cancel(400, 400)},
+		},
+		{
+			"right click again closes the ring", moveMode,
 			[]Input{mouse(100, 100, false), rightClick(100, 100), rightClick(100, 100)},
-			[]Event{ringOpen(100, 100), cancel(100, 100)}},
-		{"keys: arrows step the cursor", moveMode,
+			[]Event{ringOpen(100, 100), cancel(100, 100)},
+		},
+		{
+			"keys: arrows step the cursor", moveMode,
 			[]Input{keys(idle), keys(up), keys(up), keys(idle), keys(left), keys(with(left, down)), keys(idle)},
-			[]Event{step(Up), step(Left), step(Down)}},
-		{"keys: fire tap clicks", moveMode,
+			[]Event{step(Up), step(Left), step(Down)},
+		},
+		{
+			"keys: fire tap clicks", moveMode,
 			[]Input{keys(idle), keys(fire), keys(fire), keys(idle)},
-			[]Event{keyPress, keyClick}},
-		{"keys: fire and up picks move, release runs it", moveMode,
+			[]Event{keyPress, keyClick},
+		},
+		{
+			"keys: fire and up picks move, release runs it", moveMode,
 			[]Input{keys(idle), keys(fire), keys(with(fire, up)), keys(fire), keys(idle)},
-			[]Event{keyPress, keyPick(Up, Move, true), keyRun(Move)}},
-		{"keys: the opposite arrow returns to cancel, a perpendicular one jumps", attackMode,
-			[]Input{keys(idle), keys(fire), keys(with(fire, up)), keys(fire), keys(with(fire, down)), keys(fire),
-				keys(with(fire, left)), keys(fire), keys(with(fire, up)), keys(fire), keys(with(fire, down)), keys(idle)},
-			[]Event{keyPress, keyPick(Up, Attack, true), keyPick(Centre, Cancel, true), keyPick(Left, ModeChange, true),
-				keyPick(Up, Attack, true), keyPick(Centre, Cancel, true), keyCancel}},
-		{"keys: fire and an arrow in the same frame press and pick", moveMode,
+			[]Event{keyPress, keyPick(Up, Move, true), keyRun(Move)},
+		},
+		{
+			"keys: the opposite arrow returns to cancel, a perpendicular one jumps", attackMode,
+			[]Input{
+				keys(idle), keys(fire), keys(with(fire, up)), keys(fire), keys(with(fire, down)), keys(fire),
+				keys(with(fire, left)), keys(fire), keys(with(fire, up)), keys(fire), keys(with(fire, down)), keys(idle),
+			},
+			[]Event{
+				keyPress, keyPick(Up, Attack, true), keyPick(Centre, Cancel, true), keyPick(Left, ModeChange, true),
+				keyPick(Up, Attack, true), keyPick(Centre, Cancel, true), keyCancel,
+			},
+		},
+		{
+			"keys: fire and an arrow in the same frame press and pick", moveMode,
 			[]Input{keys(idle), keys(with(fire, right)), keys(idle)},
-			[]Event{keyPress, keyPick(Right, Map, true), keyRun(Map)}},
-		{"keys: an arrow held before fire does not pick", moveMode,
+			[]Event{keyPress, keyPick(Right, Map, true), keyRun(Map)},
+		},
+		{
+			"keys: an arrow held before fire does not pick", moveMode,
 			[]Input{keys(idle), keys(down), keys(with(down, fire)), keys(down)},
-			[]Event{step(Down), keyPress, keyClick}},
-		{"keys: fire closes the ring", moveMode,
+			[]Event{step(Down), keyPress, keyClick},
+		},
+		{
+			"keys: fire closes the ring", moveMode,
 			[]Input{mouse(100, 100, false), rightClick(100, 100), keys(fire), keys(idle)},
-			[]Event{ringOpen(100, 100), keyCancel}},
-		{"keys are ignored while the mouse holds", moveMode,
-			[]Input{mouse(100, 100, false), mouse(100, 100, true),
+			[]Event{ringOpen(100, 100), keyCancel},
+		},
+		{
+			"keys are ignored while the mouse holds", moveMode,
+			[]Input{
+				mouse(100, 100, false), mouse(100, 100, true),
 				{Pointer: Pointer{X: 100, Y: 100, Active: true, Down: true}, Keys: with(fire, up)},
-				mouse(100, 100, false)},
-			[]Event{press(100, 100), click(100, 100)}},
-		{"the mouse is ignored while the keys hold", moveMode,
-			[]Input{mouse(100, 100, false), {Pointer: Pointer{X: 100, Y: 100, Active: true}, Keys: fire},
-				{Pointer: Pointer{X: 100, Y: 100, Active: true, Down: true}, Keys: fire}, mouse(100, 40, true), mouse(100, 40, false)},
-			[]Event{keyPress, keyClick, hover(100, 40)}},
+				mouse(100, 100, false),
+			},
+			[]Event{press(100, 100), click(100, 100)},
+		},
+		{
+			"the mouse is ignored while the keys hold", moveMode,
+			[]Input{
+				mouse(100, 100, false),
+				{Pointer: Pointer{X: 100, Y: 100, Active: true}, Keys: fire},
+				{Pointer: Pointer{X: 100, Y: 100, Active: true, Down: true}, Keys: fire},
+				mouse(100, 40, true), mouse(100, 40, false),
+			},
+			[]Event{keyPress, keyClick, hover(100, 40)},
+		},
 	}
 	for _, tt := range tests {
 		tr := NewTracker(Config{Threshold: pitch})

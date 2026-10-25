@@ -27,6 +27,7 @@ func shoreTestProfiles() map[string][]int {
 		"lakeside126": {0, 1, 2, 3}, "lakeside156": {0, 1, 2, 5}, "lakeside3456": {0, 1, 3, 4, 5},
 	}
 }
+
 func shoreTestFixture(t *testing.T) (string, map[string]any) {
 	t.Helper()
 	dir := t.TempDir()
@@ -45,7 +46,7 @@ func shoreTestFixture(t *testing.T) (string, map[string]any) {
 		if err := png.Encode(&b, im); err != nil {
 			t.Fatal(err)
 		}
-		if err := os.WriteFile(filepath.Join(dir, name+".png"), b.Bytes(), 0600); err != nil {
+		if err := os.WriteFile(filepath.Join(dir, name+".png"), b.Bytes(), 0o600); err != nil {
 			t.Fatal(err)
 		}
 		sum := sha256.Sum256(b.Bytes())
@@ -60,16 +61,18 @@ func shoreTestFixture(t *testing.T) (string, map[string]any) {
 	shoreTestWrite(t, path, m)
 	return path, m
 }
+
 func shoreTestWrite(t *testing.T, path string, m any) {
 	t.Helper()
 	b, e := json.Marshal(m)
 	if e != nil {
 		t.Fatal(e)
 	}
-	if e = os.WriteFile(path, b, 0600); e != nil {
+	if e = os.WriteFile(path, b, 0o600); e != nil {
 		t.Fatal(e)
 	}
 }
+
 func TestShoreCLIRequiresExclusiveMode(t *testing.T) {
 	for _, args := range [][]string{{"-shore", ""}, {"-shore", "x", "-out", "y", "-compound", ""}, {"-shore", "x", "-out", "y", "-resampling", "area"}, {"-shore", "x", "-out", "y", "pos"}} {
 		err := run(args, io.Discard)
@@ -78,6 +81,7 @@ func TestShoreCLIRequiresExclusiveMode(t *testing.T) {
 		}
 	}
 }
+
 func TestShoreCLIActualPNGFamily(t *testing.T) {
 	path, _ := shoreTestFixture(t)
 	out := filepath.Join(filepath.Dir(path), "output")
@@ -311,7 +315,7 @@ func TestShoreRejectsInvalidInputsBeforeOutput(t *testing.T) {
 		"vertex-wrongtype":  strings.Replace(string(b), `"land_vertices":[1,2,3]`, `"land_vertices":["1",2,3]`, 1),
 	} {
 		t.Run(name, func(t *testing.T) {
-			if e := os.WriteFile(path, []byte(data), 0600); e != nil {
+			if e := os.WriteFile(path, []byte(data), 0o600); e != nil {
 				t.Fatal(e)
 			}
 			if _, e := loadShoreInputs(path); e == nil {
@@ -322,14 +326,14 @@ func TestShoreRejectsInvalidInputsBeforeOutput(t *testing.T) {
 	shoreTestWrite(t, path, base)
 	// A lexical safe-looking symlink must not bypass the existing source exclusions.
 	dir := filepath.Dir(path)
-	if err = os.Mkdir(filepath.Join(dir, "original"), 0700); err != nil {
+	if err = os.Mkdir(filepath.Join(dir, "original"), 0o700); err != nil {
 		t.Fatal(err)
 	}
 	original, err := os.ReadFile(filepath.Join(dir, "grass.png"))
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err = os.WriteFile(filepath.Join(dir, "original", "grass.png"), original, 0600); err != nil {
+	if err = os.WriteFile(filepath.Join(dir, "original", "grass.png"), original, 0o600); err != nil {
 		t.Fatal(err)
 	}
 	if err = os.Symlink("original/grass.png", filepath.Join(dir, "alias.png")); err != nil {
@@ -354,7 +358,7 @@ func TestShoreRetainsLoadedSnapshotsAndRollsBack(t *testing.T) {
 		sources[name] = append([]byte(nil), src.Bytes...)
 	}
 	for _, name := range []string{"manifest.json", "grass.png", "water.png", "bank.png"} {
-		if err = os.WriteFile(filepath.Join(filepath.Dir(path), name), []byte("changed after pin"), 0600); err != nil {
+		if err = os.WriteFile(filepath.Join(filepath.Dir(path), name), []byte("changed after pin"), 0o600); err != nil {
 			t.Fatal(err)
 		}
 	}
@@ -384,11 +388,11 @@ func TestShoreRetainsLoadedSnapshotsAndRollsBack(t *testing.T) {
 	if _, err = os.Lstat(out); !os.IsNotExist(err) {
 		t.Fatal("failed export retained output")
 	}
-	if err = os.Mkdir(out, 0700); err != nil {
+	if err = os.Mkdir(out, 0o700); err != nil {
 		t.Fatal(err)
 	}
 	sentinel := filepath.Join(out, "sentinel")
-	if err = os.WriteFile(sentinel, []byte("keep"), 0600); err != nil {
+	if err = os.WriteFile(sentinel, []byte("keep"), 0o600); err != nil {
 		t.Fatal(err)
 	}
 	if err = run([]string{"-shore", path, "-out", out}, io.Discard); err == nil {
@@ -552,6 +556,7 @@ func shoreTestProjectedColor(in shoreInputs, a, b connectionPoint, landA, landB 
 	}
 	return shoreMaterialColor(in, p, d)
 }
+
 func shoreTestAssertPNGGuards(t *testing.T, path, out string) {
 	t.Helper()
 	in, err := loadShoreInputs(path)
@@ -780,7 +785,7 @@ func TestShoreOpaqueMinimumMaterialDimensions(t *testing.T) {
 			if err := png.Encode(&b, im); err != nil {
 				t.Fatal(err)
 			}
-			if err := os.WriteFile(filepath.Join(filepath.Dir(path), "grass.png"), b.Bytes(), 0600); err != nil {
+			if err := os.WriteFile(filepath.Join(filepath.Dir(path), "grass.png"), b.Bytes(), 0o600); err != nil {
 				t.Fatal(err)
 			}
 			sum := sha256.Sum256(b.Bytes())

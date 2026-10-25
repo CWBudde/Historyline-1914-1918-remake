@@ -6,9 +6,8 @@ import (
 	"slices"
 	"testing"
 
-	"github.com/hajimehoshi/ebiten/v2"
-
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 // The zoom factors rise from far out to close in, with the fitted scale at

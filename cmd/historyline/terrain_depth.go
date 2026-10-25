@@ -3,11 +3,10 @@ package main
 import (
 	"image"
 
-	"github.com/hajimehoshi/ebiten/v2"
-
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/waterdepth"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 // The water backgrounds are shaded by the sea's depth (waterdepth): a tile is

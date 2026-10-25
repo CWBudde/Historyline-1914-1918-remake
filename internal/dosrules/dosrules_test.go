@@ -103,8 +103,10 @@ func TestEngagementFixtures(t *testing.T) {
 				}
 			}
 			// The corpus must reach the behaviours it stands for.
-			for name, n := range map[string]int{"skipped order": skipped, "ranged": noReturn, "pincer": pincer,
-				"blocking cap": blocked, "destruction": destroyed, "transposed neighbour": transposed} {
+			for name, n := range map[string]int{
+				"skipped order": skipped, "ranged": noReturn, "pincer": pincer,
+				"blocking cap": blocked, "destruction": destroyed, "transposed neighbour": transposed,
+			} {
 				if n == 0 {
 					t.Errorf("no fixture with %s", name)
 				}

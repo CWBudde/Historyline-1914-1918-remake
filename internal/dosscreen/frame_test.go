@@ -3,9 +3,8 @@ package dosscreen
 import (
 	"testing"
 
-	"github.com/hajimehoshi/ebiten/v2"
-
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 // The frame paints a panel once per window size, zoom and pattern of on-map cells:

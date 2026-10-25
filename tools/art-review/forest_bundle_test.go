@@ -33,6 +33,7 @@ func forestTestDescriptor(id string, neighbors [6]string) (string, string) {
 	sum := sha256.Sum256([]byte(descriptor))
 	return descriptor, hex.EncodeToString(sum[:])
 }
+
 func TestForestCLIActualPNGsAndFixtureTopology(t *testing.T) {
 	forestTestCLIActualPNGsAndFixtureTopology(t, false)
 }

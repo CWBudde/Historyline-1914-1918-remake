@@ -56,7 +56,7 @@ func (c *collector) pulseImage(im image.Image, source, method string) (picture, 
 	}
 	hash := fmt.Sprintf("%x", sha256.Sum256(b.Bytes()))
 	p := picture{URL: "media/" + hash + ".png", Source: source, SHA: hash, Width: im.Bounds().Dx(), Height: im.Bounds().Dy(), Method: method}
-	return p, c.out.WriteFile(p.URL, b.Bytes(), 0644)
+	return p, c.out.WriteFile(p.URL, b.Bytes(), 0o644)
 }
 
 func (c *collector) pulse(captures string) error {
@@ -108,10 +108,10 @@ func (c *collector) pulse(captures string) error {
 	if err != nil {
 		return err
 	}
-	if err = c.out.WriteFile("pulse.json", b, 0644); err != nil {
+	if err = c.out.WriteFile("pulse.json", b, 0o644); err != nil {
 		return err
 	}
-	return c.out.WriteFile("pulse.html", []byte(strings.Replace(pulsePage, "/*STUDY*/null", string(b), 1)), 0644)
+	return c.out.WriteFile("pulse.html", []byte(strings.Replace(pulsePage, "/*STUDY*/null", string(b), 1)), 0o644)
 }
 
 func (c *collector) pulseDensity(images map[string]picture, im *image.NRGBA, density int, method string) error {

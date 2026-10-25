@@ -73,9 +73,11 @@ func readCatalogue(file, rawDir string) ([]*candidate, error) {
 		}
 		exec := strings.TrimSuffix(path.Base(get("path")), ".png")
 		dist, _ := strconv.ParseFloat(get("near_dist"), 64)
-		c := &candidate{Exec: exec, Session: get("session"), Kind: get("subject"), Family: get("family"), Type: get("type"),
+		c := &candidate{
+			Exec: exec, Session: get("session"), Kind: get("subject"), Family: get("family"), Type: get("type"),
 			Size: get("size"), SHA256: get("sha256"), Date: get("date"), Prompt: get("prompt_excerpt"), Near: get("near_master"),
-			NearDist: dist, Note: get("note")}
+			NearDist: dist, Note: get("note"),
+		}
 		c.raw = filepath.Join(rawDir, c.Session, exec+".png")
 		if st, err := os.Stat(c.raw); err == nil {
 			c.Bytes = st.Size()

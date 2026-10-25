@@ -5,11 +5,10 @@ import (
 	"image/color"
 	"strings"
 
+	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/hajimehoshi/ebiten/v2/vector"
-
-	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 )
 
 // The info box is a text placeholder for the terrain and unit panels (2.5): it

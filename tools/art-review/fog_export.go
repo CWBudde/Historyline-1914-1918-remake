@@ -16,9 +16,11 @@ import (
 	"path/filepath"
 )
 
-const fogProfile = "fog-v1: fixed opaque never-seen candidate, runtime ID unseen only. Unseen and winter use unchanged exportConnectionTiles with opaque sources mapped to grass and nil family/variant; summer grass uses exportGrassBaseTiles with the unmirrored lattice-periodic grass sampler; no feature rendering. New 96x80 polygon, four world pixels of unmasked overscan at 4x (416x352); unchanged premultiplied byte-RGB antialiased Lanczos3 to whole unmasked 2x overscan (208x176); crop then final binary ownership at each density. Unseen and winter retain existing continuous mirror-periodic material sampler with periods (142,80) and average f(x,y), f(x+71,y+40); invariant under all six lattice neighbor shifts, all tiles at common world phase. Six fixed seven-hex patches, decoded exported PNGs and ordinary image.Draw Over only; pixel-aligned 2x/4x. Runtime integration remains open." + " " + grassSamplingProfile
-const fogOwnership = "Final pixel centers use the shared polygon (25,0),(71,0),(96,40),(71,80),(25,80),(0,40). Complementary top-left half-open ownership: cross(edge,point)>0; edge ties include dy<0 or dy==0 && dx>0. Owned pixels are alpha 255; outside is zero RGBA. No outline, edge fade or per-scene filtering."
-const fogConcealment = "Never-seen cells use only the same opaque unseen PNG, independent of underlying terrain, units, routes, structures and season; no terrain hints or transparency-to-terrain. Seasonal grass/grass_w PNGs are visible frontier neighbors only. No runtime IDs inferred or invented."
+const (
+	fogProfile     = "fog-v1: fixed opaque never-seen candidate, runtime ID unseen only. Unseen and winter use unchanged exportConnectionTiles with opaque sources mapped to grass and nil family/variant; summer grass uses exportGrassBaseTiles with the unmirrored lattice-periodic grass sampler; no feature rendering. New 96x80 polygon, four world pixels of unmasked overscan at 4x (416x352); unchanged premultiplied byte-RGB antialiased Lanczos3 to whole unmasked 2x overscan (208x176); crop then final binary ownership at each density. Unseen and winter retain existing continuous mirror-periodic material sampler with periods (142,80) and average f(x,y), f(x+71,y+40); invariant under all six lattice neighbor shifts, all tiles at common world phase. Six fixed seven-hex patches, decoded exported PNGs and ordinary image.Draw Over only; pixel-aligned 2x/4x. Runtime integration remains open." + " " + grassSamplingProfile
+	fogOwnership   = "Final pixel centers use the shared polygon (25,0),(71,0),(96,40),(71,80),(25,80),(0,40). Complementary top-left half-open ownership: cross(edge,point)>0; edge ties include dy<0 or dy==0 && dx>0. Owned pixels are alpha 255; outside is zero RGBA. No outline, edge fade or per-scene filtering."
+	fogConcealment = "Never-seen cells use only the same opaque unseen PNG, independent of underlying terrain, units, routes, structures and season; no terrain hints or transparency-to-terrain. Seasonal grass/grass_w PNGs are visible frontier neighbors only. No runtime IDs inferred or invented."
+)
 
 type fogCell struct {
 	Label      string          `json:"label"`
@@ -183,10 +185,10 @@ func runFog(path, out string, log io.Writer) (resultErr error) {
 	if err != nil {
 		return err
 	}
-	if err = os.MkdirAll(filepath.Dir(out), 0755); err != nil {
+	if err = os.MkdirAll(filepath.Dir(out), 0o755); err != nil {
 		return err
 	}
-	if err = os.Mkdir(out, 0755); err != nil {
+	if err = os.Mkdir(out, 0o755); err != nil {
 		return err
 	}
 	defer func() {
@@ -196,7 +198,7 @@ func runFog(path, out string, log io.Writer) (resultErr error) {
 	}()
 	for _, artifact := range bundle.artifacts {
 		dest := filepath.Join(out, artifact.name)
-		if err = os.MkdirAll(filepath.Dir(dest), 0755); err != nil {
+		if err = os.MkdirAll(filepath.Dir(dest), 0o755); err != nil {
 			return err
 		}
 		if err = saveExclusive(dest, func(w io.Writer) error { _, writeErr := w.Write(artifact.data); return writeErr }); err != nil {

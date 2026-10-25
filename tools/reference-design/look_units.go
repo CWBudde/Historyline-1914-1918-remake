@@ -301,10 +301,10 @@ func (p *project) measureUnits(out string) (lookUnits, error) {
 						return result, err
 					}
 					dest := filepath.Join(out, c.Preview)
-					if err := os.MkdirAll(filepath.Dir(dest), 0755); err != nil {
+					if err := os.MkdirAll(filepath.Dir(dest), 0o755); err != nil {
 						return result, err
 					}
-					if err := os.WriteFile(dest, b.Bytes(), 0644); err != nil {
+					if err := os.WriteFile(dest, b.Bytes(), 0o644); err != nil {
 						return result, err
 					}
 					c.PreviewSHA256 = fmt.Sprintf("%x", sha256.Sum256(b.Bytes()))

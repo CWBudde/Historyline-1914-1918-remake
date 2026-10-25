@@ -217,10 +217,15 @@ func TestComparisonShowsNativePixelsNearestMagnificationAndAlphaDifference(t *te
 		x, y int
 		want color.NRGBA
 	}{
-		{0, 0, color.NRGBA{R: 255, A: 255}}, {2, 0, color.NRGBA{B: 255, A: 255}},
-		{4, 0, color.NRGBA{R: 255, B: 255, A: 255}}, {5, 0, color.NRGBA{R: 128, G: 128, B: 128, A: 255}},
-		{0, 1, color.NRGBA{R: 255, A: 255}}, {3, 4, color.NRGBA{R: 255, A: 255}}, {4, 1, color.NRGBA{}},
-		{8, 1, color.NRGBA{B: 255, A: 255}}, {11, 4, color.NRGBA{B: 255, A: 255}},
+		{0, 0, color.NRGBA{R: 255, A: 255}},
+		{2, 0, color.NRGBA{B: 255, A: 255}},
+		{4, 0, color.NRGBA{R: 255, B: 255, A: 255}},
+		{5, 0, color.NRGBA{R: 128, G: 128, B: 128, A: 255}},
+		{0, 1, color.NRGBA{R: 255, A: 255}},
+		{3, 4, color.NRGBA{R: 255, A: 255}},
+		{4, 1, color.NRGBA{}},
+		{8, 1, color.NRGBA{B: 255, A: 255}},
+		{11, 4, color.NRGBA{B: 255, A: 255}},
 	} {
 		if p := got.NRGBAAt(test.x, test.y); p != test.want {
 			t.Errorf("pixel %d,%d = %+v; want %+v", test.x, test.y, p, test.want)
@@ -330,7 +335,7 @@ func TestCLIRejectsMalformedInputsAndGeometry(t *testing.T) {
 	small := writeFixture(t, dir, "small.png", image.NewNRGBA(image.Rect(0, 0, 192, 160)))
 	wrongRef := writeFixture(t, dir, "wrong-ref.png", image.NewNRGBA(image.Rect(0, 0, 24, 20)))
 	broken := filepath.Join(dir, "broken.png")
-	if err := os.WriteFile(broken, []byte("not a png"), 0600); err != nil {
+	if err := os.WriteFile(broken, []byte("not a png"), 0o600); err != nil {
 		t.Fatal(err)
 	}
 	for name, args := range map[string][]string{

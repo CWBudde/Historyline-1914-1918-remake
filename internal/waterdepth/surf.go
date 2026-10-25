@@ -129,7 +129,7 @@ func (f *Field) surf(im *image.NRGBA, land []bool, surf *image.NRGBA, origin ima
 				for _, along := range []struct {
 					u, weight float64
 				}{{wx, ax / (ax + ay)}, {wy, ay / (ax + ay)}} {
-					q := surfAt(surf, along.u, (float64(((row.strip%4)+4)%4))*surfStripPitch+v, d)
+					q := surfAt(surf, along.u, float64(((row.strip%4)+4)%4)*surfStripPitch+v, d)
 					share := row.weight * along.weight
 					a := float64(q[3]) / 255 * share
 					for ch := range 3 {

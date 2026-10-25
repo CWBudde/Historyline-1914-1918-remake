@@ -4,12 +4,11 @@ import (
 	"fmt"
 	"image/color"
 
+	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/hajimehoshi/ebiten/v2/vector"
-
-	state "github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 )
 
 // Display times in frames (60 TPS). Every effect is bounded and ends by itself.

@@ -98,8 +98,10 @@ func TestVisionUnitSight(t *testing.T) {
 
 func TestRememberedSnapshot(t *testing.T) {
 	obs, enemy, empty, depot := at(4, 2), at(4, 3), at(6, 2), at(2, 2)
-	s := board(t, map[hexgrid.Coord]level.Hex{obs: unit("CP_infantry"), enemy: unit("EC_infantry"),
-		depot: building("cmpN", Entente)})
+	s := board(t, map[hexgrid.Coord]level.Hex{
+		obs: unit("CP_infantry"), enemy: unit("EC_infantry"),
+		depot: building("cmpN", Entente),
+	})
 	observer := s.At(obs).Unit
 	u := s.At(enemy).Unit
 	snap := Memory{Unit: &UnitMemory{Type: "EC_infantry", Owner: Entente, Size: 6}}

@@ -85,8 +85,11 @@ func DrawGameInfo(dst *ebiten.Image, panel image.Rectangle, scale float64, gi Ga
 	num := strconv.Itoa
 
 	for i, r := range [][2]string{
-		{labelRound, num(gi.Round)}, {labelLevel, gi.Level}, {labelMode, gi.Mode},
-		{labelBest, num(gi.Best)}, {labelCurrent, num(gi.Score)},
+		{labelRound, num(gi.Round)},
+		{labelLevel, gi.Level},
+		{labelMode, gi.Mode},
+		{labelBest, num(gi.Best)},
+		{labelCurrent, num(gi.Score)},
 	} {
 		w.left(r[0], g.x(19), line(i), pale)
 		w.left(r[1], g.x(73), line(i), pale)

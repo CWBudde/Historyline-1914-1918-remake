@@ -173,8 +173,10 @@ func (f *EngagementFixture) Battlefield() *Battlefield {
 // Engagement returns a fixture of a battlefield and an attack order, with
 // nothing expected yet.
 func Engagement(b *Battlefield, attacker, target, side int) EngagementFixture {
-	f := EngagementFixture{Schema: 1, Width: b.Width, Height: b.Height, Side: side,
-		Attacker: attacker, Target: target, MapByte0: b.MapByte0, Units: []FixtureUnit{}, Terrain: []FixtureTerrain{}}
+	f := EngagementFixture{
+		Schema: 1, Width: b.Width, Height: b.Height, Side: side,
+		Attacker: attacker, Target: target, MapByte0: b.MapByte0, Units: []FixtureUnit{}, Terrain: []FixtureTerrain{},
+	}
 	for idx, u := range b.Units {
 		f.Units = append(f.Units, FixtureUnit{idx, u.Type, u.Cell, u.Size, u.Alt, u.Exp, u.Flags4, u.Flags6})
 	}
@@ -192,8 +194,10 @@ func EngagementResult(o Outcome, err error) EngagementExpected {
 		return EngagementExpected{Error: errorName(err), Destroyed: []int{}}
 	}
 	d := append([]int{}, o.Destroyed...)
-	return EngagementExpected{"", o.Battle, o.Defender, o.ReturnFire, o.Pincer, o.Blocking,
-		o.AttackerSize, o.AttackerAlt, o.DefenderSize, o.DefenderAlt, o.AttackerExp, o.DefenderExp, d}
+	return EngagementExpected{
+		"", o.Battle, o.Defender, o.ReturnFire, o.Pincer, o.Blocking,
+		o.AttackerSize, o.AttackerAlt, o.DefenderSize, o.DefenderAlt, o.AttackerExp, o.DefenderExp, d,
+	}
 }
 
 // MarshalFixtures writes fixtures as a JSON array, one fixture per line.
@@ -263,8 +267,10 @@ type OrdersFixture struct {
 // nothing expected yet.
 func OrdersInput(b *Battlefield, orders []Order, side int) OrdersFixture {
 	e := Engagement(b, 0, 0, side)
-	f := OrdersFixture{Schema: 1, Width: b.Width, Height: b.Height, Side: side, MapByte0: b.MapByte0,
-		Units: e.Units, Terrain: e.Terrain, Orders: [][2]int{}, Seen: [][2]int{}, Idle: []int{}}
+	f := OrdersFixture{
+		Schema: 1, Width: b.Width, Height: b.Height, Side: side, MapByte0: b.MapByte0,
+		Units: e.Units, Terrain: e.Terrain, Orders: [][2]int{}, Seen: [][2]int{}, Idle: []int{},
+	}
 	for _, o := range orders {
 		f.Orders = append(f.Orders, [2]int{o.Attacker, o.Target})
 	}
@@ -288,8 +294,10 @@ func (f *OrdersFixture) List() []Order {
 
 // OrdersResult is the fixture form of a ResolveOrders result.
 func OrdersResult(r Resolution, err error) OrdersExpected {
-	x := OrdersExpected{Orders: []EngagementExpected{}, Units: []FixtureUnit{}, Gone: append([]int{}, r.Gone...),
-		Occupants: [][2]int{}}
+	x := OrdersExpected{
+		Orders: []EngagementExpected{}, Units: []FixtureUnit{}, Gone: append([]int{}, r.Gone...),
+		Occupants: [][2]int{},
+	}
 	if err != nil {
 		x.Error = errorName(err)
 	}

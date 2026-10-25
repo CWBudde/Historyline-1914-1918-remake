@@ -67,10 +67,12 @@ func connectionRailProfileFor(width float64) connectionRailProfile {
 		anchors = fmt.Sprintf("every %g world px inward to %g", d.pitch, float64(connectionRailGuard))
 		scaled = fmt.Sprintf(" This is the track of the %g-world-pixel ballast core scaled by %g, the steel widened by %g per unit of scale beyond 1.", connectionRailBaseWidth, d.scale, connectionRailSteelGrowth)
 	}
-	return connectionRailProfile{d.gauge, d.steel, d.sleeperLength, d.sleeperWidth, d.pitch, connectionRailGuard,
+	return connectionRailProfile{
+		d.gauge, d.steel, d.sleeperLength, d.sleeperWidth, d.pitch, connectionRailGuard,
 		fmt.Sprintf("Rail only: earth border, opaque ballast, timber rectangles, then paired steel bands on separately offset route polylines; cubic curves flatten at 64 steps. Two-port bends use 20-world-pixel inward control vectors from both fixed guards. Gauge %g, steel width %g, sleeper length %g, width %g world px. Arc-length sleeper positions use local route normals. Existing 4x analytic AA, overscan/filter/crop and half-open ownership are retained.", d.gauge, d.steel, d.sleeperLength, d.sleeperWidth) + scaled,
 		fmt.Sprintf("All ports anchor a sleeper centre at the port and %s, plus pitch-%g continuation outward. Each port guard is straight for %g world px. Between fixed guards fit round(interior arc length/%g) intervals of equal adjusted pitch. Shared port anchors use the lattice world phase (0,0); reciprocal half-sleepers assemble exactly at both line parities.", anchors, d.pitch, float64(connectionRailGuard), d.pitch),
-		"Three-port masks retain the complete straight 3/6 spine. A separate branch merges at (48,40), tangent north for port 2 or 4, south for port 1 or 5; branch cubic controls are 16 world px inward from its guard and 12 world px opposite the merge tangent from the centre. Paired offset branch rails meet the spine rails; no star junction or merged-ballast contour rails."}
+		"Three-port masks retain the complete straight 3/6 spine. A separate branch merges at (48,40), tangent north for port 2 or 4, south for port 1 or 5; branch cubic controls are 16 world px inward from its guard and 12 world px opposite the merge tangent from the centre. Paired offset branch rails meet the spine rails; no star junction or merged-ballast contour rails.",
+	}
 }
 
 func validConnectionRailPorts(ports []int) bool {
@@ -88,13 +90,15 @@ func validConnectionRailPorts(ports []int) bool {
 	return have3 && have6
 }
 
-type connectionRailSleeper struct{ center, tangent connectionPoint }
-type connectionRailGeometry struct {
-	ballast  connectionRoute
-	rails    connectionRoute
-	sleepers []connectionRailSleeper
-	dims     connectionRailDims
-}
+type (
+	connectionRailSleeper  struct{ center, tangent connectionPoint }
+	connectionRailGeometry struct {
+		ballast  connectionRoute
+		rails    connectionRoute
+		sleepers []connectionRailSleeper
+		dims     connectionRailDims
+	}
+)
 
 func connectionRailUnit(p connectionPoint) connectionPoint   { return p.mul(1 / p.length()) }
 func connectionRailNormal(t connectionPoint) connectionPoint { return connectionPoint{-t[1], t[0]} }

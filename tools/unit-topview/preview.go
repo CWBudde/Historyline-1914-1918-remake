@@ -9,12 +9,11 @@ import (
 	"path/filepath"
 	"strings"
 
-	xdraw "golang.org/x/image/draw"
-
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/level"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/maprender"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/scenario"
+	xdraw "golang.org/x/image/draw"
 )
 
 // previewLevel is the campaign map whose bunkers the preview crops (its

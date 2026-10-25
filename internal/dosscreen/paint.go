@@ -285,8 +285,10 @@ type buckets struct {
 
 func newBuckets(r image.Rectangle, segs []Segment, reach float64) *buckets {
 	const size = 32
-	b := &buckets{rect: r, size: size, reach: reach,
-		cols: (r.Dx() + size - 1) / size}
+	b := &buckets{
+		rect: r, size: size, reach: reach,
+		cols: (r.Dx() + size - 1) / size,
+	}
 	rows := (r.Dy() + size - 1) / size
 	b.cells = make([][]Segment, b.cols*rows)
 	for _, s := range segs {

@@ -113,8 +113,10 @@ func gateCosts(t *testing.T, p Profile, ms []MovementFixture) {
 			seen["winter cost differs from summer"]++
 		}
 	}
-	keys := []string{"byte 0 is 2 × speed", "byte 0 is not 2 × speed", "budget >= 128 reaches nothing",
-		"ground cost (byte 3)", "closed terrain (80)", "flat cost 2", "air cost (byte 4)"}
+	keys := []string{
+		"byte 0 is 2 × speed", "byte 0 is not 2 × speed", "budget >= 128 reaches nothing",
+		"ground cost (byte 3)", "closed terrain (80)", "flat cost 2", "air cost (byte 4)",
+	}
 	if p.Tables.Move.Winter != nil {
 		keys = append(keys, "winter cost differs from summer")
 	}
@@ -453,8 +455,10 @@ func gateConsumables(t *testing.T, ss []StepFixture, cs []ContainerFixture) {
 }
 
 // liveWidths are the bytes each field of Live names.
-var liveWidths = map[string]int{"Budget": 1, "Exp": 1, "Size": 1, "Alt": 1, "Flags4": 2, "Flags6": 2,
-	"Type": 1, "Serial": 1, "Hold": 1, "Pos": 4, "Facing": 2, "Target": 2, "Action": 7}
+var liveWidths = map[string]int{
+	"Budget": 1, "Exp": 1, "Size": 1, "Alt": 1, "Flags4": 2, "Flags6": 2,
+	"Type": 1, "Serial": 1, "Hold": 1, "Pos": 4, "Facing": 2, "Target": 2, "Action": 7,
+}
 
 // No foreign rules: the profile's code imports only the standard library,
 // so neither the Classic/Standard tables (internal/data) nor the Python
@@ -508,8 +512,10 @@ func gateUndefined(t *testing.T) {
 	p, tab := Full, Full.Tables.Move
 	const infantry, open, deep = 0, 121, 47
 	piece := Piece{Type: infantry, Flags4: tab.Types[infantry].Class, Flags6: tab.Types[infantry].Flags}
-	islands := &Movement{Width: 9, Height: 9, Terrain: make([]int, 81), Units: map[int]Piece{}, Unit: 0,
-		Budget: tab.Types[infantry].Budget, Block: 3}
+	islands := &Movement{
+		Width: 9, Height: 9, Terrain: make([]int, 81), Units: map[int]Piece{}, Unit: 0,
+		Budget: tab.Types[infantry].Budget, Block: 3,
+	}
 	for i := range islands.Terrain {
 		islands.Terrain[i] = deep
 	}
@@ -519,8 +525,10 @@ func gateUndefined(t *testing.T) {
 	if _, err := p.Move(islands, MoveOrder{Goal: 0, Retarget: -1, Stale: []int{0}}); !errors.Is(err, ErrUndefined) {
 		t.Errorf("a dry path search gives %v, not ErrUndefined", err)
 	}
-	row := &Movement{Width: 9, Height: 1, Terrain: make([]int, 9), Units: map[int]Piece{}, Unit: 0,
-		Budget: tab.Types[infantry].Budget, Block: 3}
+	row := &Movement{
+		Width: 9, Height: 1, Terrain: make([]int, 9), Units: map[int]Piece{}, Unit: 0,
+		Budget: tab.Types[infantry].Budget, Block: 3,
+	}
 	for i := range row.Terrain {
 		row.Terrain[i] = open
 	}

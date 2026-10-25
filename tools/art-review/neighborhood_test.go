@@ -205,15 +205,15 @@ func TestNeighborhoodRejectsInputsBeforeWriting(t *testing.T) {
 				}
 				c["scenes"] = []any{}
 				data, _ = json.Marshal(c)
-				if err := os.WriteFile(config, data, 0600); err != nil {
+				if err := os.WriteFile(config, data, 0o600); err != nil {
 					t.Fatal(err)
 				}
 			case "bad json":
-				if err := os.WriteFile(config, []byte(`{"bogus":`), 0600); err != nil {
+				if err := os.WriteFile(config, []byte(`{"bogus":`), 0o600); err != nil {
 					t.Fatal(err)
 				}
 			}
-			if err := os.WriteFile(csvPath, []byte(strings.Join(lines, "\n")+"\n"), 0600); err != nil {
+			if err := os.WriteFile(csvPath, []byte(strings.Join(lines, "\n")+"\n"), 0o600); err != nil {
 				t.Fatal(err)
 			}
 			out := filepath.Join(dir, "review")
@@ -222,10 +222,10 @@ func TestNeighborhoodRejectsInputsBeforeWriting(t *testing.T) {
 				args = append(args, "-reference", "unused.png")
 			}
 			if kind == "nonempty output" {
-				if err := os.Mkdir(out, 0755); err != nil {
+				if err := os.Mkdir(out, 0o755); err != nil {
 					t.Fatal(err)
 				}
-				if err := os.WriteFile(filepath.Join(out, "keep"), []byte("keep"), 0600); err != nil {
+				if err := os.WriteFile(filepath.Join(out, "keep"), []byte("keep"), 0o600); err != nil {
 					t.Fatal(err)
 				}
 			}
@@ -268,7 +268,7 @@ func neighborhoodFixture(t *testing.T, odd bool) (string, string, []image.Point)
 		}
 		fmt.Fprintf(&csv, "%d,%d,%d,0,%s,0,%d,%d\n", p[0], p[1], 2*i, resource, 16*p[0], 24*p[1]+12*(p[0]%2))
 	}
-	if err := os.WriteFile(filepath.Join(dir, "cells.csv"), []byte(csv.String()), 0600); err != nil {
+	if err := os.WriteFile(filepath.Join(dir, "cells.csv"), []byte(csv.String()), 0o600); err != nil {
 		t.Fatal(err)
 	}
 	for _, name := range []string{"road0005", "plain000", "candidate-2x", "candidate-4x"} {
@@ -298,7 +298,7 @@ func neighborhoodFixture(t *testing.T, odd bool) (string, string, []image.Point)
 	}
 	config := fmt.Sprintf(`{"tiles_directory":".","maps":[{"id":"map00","cells_csv":"cells.csv"}],"replacements":[{"resource":"road0005","image_2x":"candidate-2x.png","image_4x":"candidate-4x.png"}],"scenes":[{"id":"scene","map":"map00","column":%d,"row":2}]}`, col)
 	path := filepath.Join(dir, "recipe.json")
-	if err := os.WriteFile(path, []byte(config), 0600); err != nil {
+	if err := os.WriteFile(path, []byte(config), 0o600); err != nil {
 		t.Fatal(err)
 	}
 	return dir, path, positions

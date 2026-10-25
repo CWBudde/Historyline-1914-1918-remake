@@ -5,10 +5,6 @@ import (
 	"image/color"
 	"math"
 
-	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/inpututil"
-	"github.com/hajimehoshi/ebiten/v2/vector"
-
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/camera"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosrules"
@@ -16,6 +12,9 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/gesture"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/minimap"
+	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/inpututil"
+	"github.com/hajimehoshi/ebiten/v2/vector"
 )
 
 // The cursor of -rules dos: the human side's cursor cell (g.hover), moved by
@@ -710,8 +709,10 @@ func (g *game) drawStrategic(dst *ebiten.Image, side int) {
 		return
 	}
 	cam := s.cams[side]
-	key := strategicKey{size: lay.Size, version: d.s.Version(), queue: len(d.queue), frozen: d.frozenOf(side) != nil,
-		reveal: g.reveal, pair: cam.pair, row: cam.row, terrain: g.terrain, drawn: true}
+	key := strategicKey{
+		size: lay.Size, version: d.s.Version(), queue: len(d.queue), frozen: d.frozenOf(side) != nil,
+		reveal: g.reveal, pair: cam.pair, row: cam.row, terrain: g.terrain, drawn: true,
+	}
 	if pic.img == nil || pic.img.Bounds().Size() != lay.Size {
 		if pic.img != nil {
 			pic.img.Deallocate()

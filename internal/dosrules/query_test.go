@@ -83,12 +83,18 @@ func TestNewGameContainersRefused(t *testing.T) {
 		holds map[int]Hold
 	}{
 		"an unplaced unit in a slot": {map[int]Placement{1: {Type: cInfantry, Cell: 4}}, map[int]Hold{HoldFlag40: two}},
-		"a unit in two records": {map[int]Placement{3: {Type: cInfantry}},
-			map[int]Hold{HoldFlag40: two, HoldFlag100: two}},
-		"a transporter without a record": {map[int]Placement{1: {Type: cSupply, Cell: 40}},
-			map[int]Hold{0: transportHold(41, 0, 1)}},
-		"two transporters on one record": {map[int]Placement{1: {Type: cSupply, Cell: 40}, 2: {Type: cSupply, Cell: 40}},
-			map[int]Hold{0: transportHold(40, 0, 1)}},
+		"a unit in two records": {
+			map[int]Placement{3: {Type: cInfantry}},
+			map[int]Hold{HoldFlag40: two, HoldFlag100: two},
+		},
+		"a transporter without a record": {
+			map[int]Placement{1: {Type: cSupply, Cell: 40}},
+			map[int]Hold{0: transportHold(41, 0, 1)},
+		},
+		"two transporters on one record": {
+			map[int]Placement{1: {Type: cSupply, Cell: 40}, 2: {Type: cSupply, Cell: 40}},
+			map[int]Hold{0: transportHold(40, 0, 1)},
+		},
 		"a record past the table": {nil, map[int]Hold{HoldRecords: EmptyHold()}},
 	} {
 		if _, err := NewGame(Full, cycleW, cycleH, terrain, c.units, c.holds); err == nil {
@@ -150,8 +156,10 @@ func TestExitMovement(t *testing.T) {
 			if m, err := g.ExitMovement(0, HoldFlag40, 0); err != nil || m.Unit != 5 || m.Held[5].Cell != hq0 {
 				t.Errorf("HQ exit: %+v, %v", m, err)
 			}
-			for what, c := range map[string][3]int{"an empty slot": {0, cTransportRec, 1}, "no record": {0, 9, 0},
-				"a bad slot": {0, cTransportRec, 7}, "a bad side": {2, cTransportRec, 0}} {
+			for what, c := range map[string][3]int{
+				"an empty slot": {0, cTransportRec, 1}, "no record": {0, 9, 0},
+				"a bad slot": {0, cTransportRec, 7}, "a bad side": {2, cTransportRec, 0},
+			} {
 				if _, err := g.ExitMovement(c[0], c[1], c[2]); err == nil {
 					t.Errorf("%s: no error", what)
 				}
@@ -182,9 +190,15 @@ func TestHoldAt(t *testing.T) {
 				side, cell, rec int
 				ok              bool
 			}{
-				{0, 40, cTransportRec, true}, {1, 40, cTransportRec, true}, {0, hq0, HoldFlag40, true},
-				{0, hq1, HoldFlag40 + 1, true}, {0, depot, depotRec, true}, {0, depot + 1, 0, false},
-				{0, 44, 0, false}, {0, 41, 0, false}, {0, -1, 0, false},
+				{0, 40, cTransportRec, true},
+				{1, 40, cTransportRec, true},
+				{0, hq0, HoldFlag40, true},
+				{0, hq1, HoldFlag40 + 1, true},
+				{0, depot, depotRec, true},
+				{0, depot + 1, 0, false},
+				{0, 44, 0, false},
+				{0, 41, 0, false},
+				{0, -1, 0, false},
 			} {
 				if rec, ok := g.HoldAt(c.side, c.cell); rec != c.rec || ok != c.ok {
 					t.Errorf("side %d cell %d: %d %v, want %d %v", c.side, c.cell, rec, ok, c.rec, c.ok)
@@ -197,7 +211,8 @@ func TestHoldAt(t *testing.T) {
 func TestWeaponAgainst(t *testing.T) {
 	for i, ty := range Full.Tables.Types {
 		for _, c := range []struct{ flags, power, rng int }{
-			{airTarget, ty.AirPower, ty.AirRange}, {waterTarget, ty.WaterPower, ty.SurfaceRange},
+			{airTarget, ty.AirPower, ty.AirRange},
+			{waterTarget, ty.WaterPower, ty.SurfaceRange},
 			{4, ty.GroundPower, ty.SurfaceRange},
 		} {
 			if pw, r := Full.WeaponAgainst(i, c.flags); pw != c.power || r != c.rng {

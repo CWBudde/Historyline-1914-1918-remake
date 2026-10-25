@@ -44,7 +44,7 @@ func trenchTestFixture(t *testing.T) (string, map[string]any) {
 		if err := png.Encode(&b, im); err != nil {
 			t.Fatal(err)
 		}
-		if err := os.WriteFile(filepath.Join(dir, id+".png"), b.Bytes(), 0600); err != nil {
+		if err := os.WriteFile(filepath.Join(dir, id+".png"), b.Bytes(), 0o600); err != nil {
 			t.Fatal(err)
 		}
 		sum := sha256.Sum256(b.Bytes())

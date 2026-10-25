@@ -2,10 +2,11 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
-	"github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 	"reflect"
 	"testing"
+
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/data"
+	"github.com/CWBudde/Historyline-1914-1918-remake/internal/game"
 )
 
 func TestRealFixtures(t *testing.T) {

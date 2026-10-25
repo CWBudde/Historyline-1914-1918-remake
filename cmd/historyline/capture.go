@@ -13,8 +13,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hajimehoshi/ebiten/v2"
-
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/camera"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dospanel"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosplay"
@@ -22,6 +20,7 @@ import (
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/dosscreen"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/gesture"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/hexgrid"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 // captureGame drives the real Draw method at explicit framebuffer sizes. It
@@ -87,11 +86,13 @@ func splitFramePlan() []reviewFrame {
 	for _, size := range [][2]int{{1024, 768}, {1280, 720}, {1920, 1080}, {3840, 2160}} {
 		frames = append(frames, reviewFrame{size[0], size[1], "split", false, 0}, reviewFrame{size[0], size[1], "split-revealed", true, 0})
 	}
-	for _, view := range []string{"split-cursor", "split-move", "split-ring", "split-strategic", "split-zoom-out", "split-zoom-in",
+	for _, view := range []string{
+		"split-cursor", "split-move", "split-ring", "split-strategic", "split-zoom-out", "split-zoom-in",
 		"split-prompt", "split-black", "split-battle-grey", "split-battle", "split-battle-loss", "split-battle-destroyed",
 		"split-battle-hold", "split-taken-grey", "split-taken", "split-taken-plant", "split-taken-hold", "split-finale-doors",
 		"split-finale", "split-newmode",
-		"split-unitinfo", "split-gameinfo", "split-contents"} {
+		"split-unitinfo", "split-gameinfo", "split-contents",
+	} {
 		frames = append(frames, reviewFrame{1920, 1080, view, false, 0})
 	}
 	return frames
@@ -428,7 +429,7 @@ func writeReviewFrames(g *game, out string, look bool) error {
 	if !strings.HasPrefix(clean, "build/") || strings.Contains(clean, "..") {
 		return fmt.Errorf("capture output must be under ignored build/")
 	}
-	if err := os.MkdirAll(out, 0755); err != nil {
+	if err := os.MkdirAll(out, 0o755); err != nil {
 		return err
 	}
 	frames := reviewFramePlan(look)
@@ -460,5 +461,5 @@ func writeReviewFrames(g *game, out string, look bool) error {
 	if err != nil {
 		return err
 	}
-	return os.WriteFile(filepath.Join(out, "captures.json"), b, 0644)
+	return os.WriteFile(filepath.Join(out, "captures.json"), b, 0o644)
 }

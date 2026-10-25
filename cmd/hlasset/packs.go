@@ -27,15 +27,21 @@ type catalog struct {
 // for the file); the screens add the art/screens paintings by content.
 func catalogs(assetsDir, artDir string) []catalog {
 	return []catalog{
-		{"units",
+		{
+			"units",
 			func() ([]byte, error) { return indexInputs(assetsDir, unitEntry) },
-			func(out string) error { _, err := buildUnits(assetsDir, out); return err }},
-		{"terrain",
+			func(out string) error { _, err := buildUnits(assetsDir, out); return err },
+		},
+		{
+			"terrain",
 			func() ([]byte, error) { return indexInputs(assetsDir, terrainEntry) },
-			func(out string) error { _, err := buildTerrain(assetsDir, out); return err }},
-		{"screens",
+			func(out string) error { _, err := buildTerrain(assetsDir, out); return err },
+		},
+		{
+			"screens",
 			func() ([]byte, error) { return screenInputs(assetsDir, artDir) },
-			func(out string) error { _, err := buildScreens(assetsDir, artDir, out); return err }},
+			func(out string) error { _, err := buildScreens(assetsDir, artDir, out); return err },
+		},
 	}
 }
 

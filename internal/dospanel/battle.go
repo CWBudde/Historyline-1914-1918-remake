@@ -250,16 +250,20 @@ func BattleAt(b Battle, tick int, reduced bool) BattleState {
 			ss.Hit = 1 - ramp01(tick, sh.at+landAt, hitTicks)
 		}
 		if sh.shooter >= 0 && tick >= sh.at && tick < sh.at+muzzleTicks {
-			st.Flash = append(st.Flash, Flash{Kind: Muzzle, Side: 1 - sh.side, Figure: sh.shooter,
-				Progress: ramp01(tick, sh.at, muzzleTicks)})
+			st.Flash = append(st.Flash, Flash{
+				Kind: Muzzle, Side: 1 - sh.side, Figure: sh.shooter,
+				Progress: ramp01(tick, sh.at, muzzleTicks),
+			})
 		}
 		if tick >= sh.at+blastFrom && tick < sh.at+blastFrom+blastTicks {
 			k := Blast
 			if sh.miss {
 				k = Miss
 			}
-			st.Flash = append(st.Flash, Flash{Kind: k, Side: sh.side, Figure: sh.fig,
-				Progress: ramp01(tick, sh.at+blastFrom, blastTicks)})
+			st.Flash = append(st.Flash, Flash{
+				Kind: k, Side: sh.side, Figure: sh.fig,
+				Progress: ramp01(tick, sh.at+blastFrom, blastTicks),
+			})
 		}
 	}
 	for i := range 2 {

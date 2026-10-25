@@ -52,7 +52,7 @@ func TestLookReportRecordsMeasurementProvenanceWithoutAcceptanceClaim(t *testing
 	if err := png.Encode(&encoded, im); err != nil {
 		t.Fatal(err)
 	}
-	if err := os.WriteFile(filepath.Join(o.root, ref.Image.Path), encoded.Bytes(), 0644); err != nil {
+	if err := os.WriteFile(filepath.Join(o.root, ref.Image.Path), encoded.Bytes(), 0o644); err != nil {
 		t.Fatal(err)
 	}
 	ref.Image.SHA256 = fmt.Sprintf("%x", sha256.Sum256(encoded.Bytes()))
@@ -60,7 +60,7 @@ func TestLookReportRecordsMeasurementProvenanceWithoutAcceptanceClaim(t *testing
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err := os.WriteFile(refPath, refBytes, 0644); err != nil {
+	if err := os.WriteFile(refPath, refBytes, 0o644); err != nil {
 		t.Fatal(err)
 	}
 	o.compare = ""

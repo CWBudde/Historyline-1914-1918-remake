@@ -140,8 +140,10 @@ func NewGame(p Profile, width, height int, terrain []int, units map[int]Placemen
 		if size == 0 {
 			size = p.Tables.Types[u.Type].Group
 		}
-		l := Live{Budget: typ.Budget, Exp: u.Exp, Size: size, Alt: u.Alt, Flags4: typ.Class | [3]int{0, 1, 2}[u.Owner],
-			Flags6: typ.Flags, Type: u.Type, Hold: 0xFF}
+		l := Live{
+			Budget: typ.Budget, Exp: u.Exp, Size: size, Alt: u.Alt, Flags4: typ.Class | [3]int{0, 1, 2}[u.Owner],
+			Flags6: typ.Flags, Type: u.Type, Hold: 0xFF,
+		}
 		if p.builder(u.Type) {
 			l.Hold = builderCharges
 		}
@@ -444,8 +446,10 @@ func (g *Game) Apply(c Command) ([]Event, error) {
 		u.Target = 2 * c.Cell
 		u.Action[0] = actionTrench
 		g.Units[c.Unit] = u
-		return []Event{{Kind: EvWork, Side: c.Side, Unit: c.Unit, Cell: c.Cell,
-			Messages: []Message{{MsgTrench, c.Side}}}}, nil
+		return []Event{{
+			Kind: EvWork, Side: c.Side, Unit: c.Unit, Cell: c.Cell,
+			Messages: []Message{{MsgTrench, c.Side}},
+		}}, nil
 	}
 	if c.Kind == CmdAttack {
 		u := g.Units[c.Unit]
@@ -455,8 +459,10 @@ func (g *Game) Apply(c Command) ([]Event, error) {
 		g.Units[c.Unit] = u
 		p := &g.Players[c.Side]
 		p.Orders = append(p.Orders, c.Unit)
-		return []Event{{Kind: EvAttack, Side: c.Side, Unit: c.Unit, Cell: c.Cell,
-			Messages: []Message{{MsgAttack, c.Side}}}}, nil
+		return []Event{{
+			Kind: EvAttack, Side: c.Side, Unit: c.Unit, Cell: c.Cell,
+			Messages: []Message{{MsgAttack, c.Side}},
+		}}, nil
 	}
 	return g.move(c)
 }
@@ -466,8 +472,10 @@ func (g *Game) Apply(c Command) ([]Event, error) {
 // live byte 0 and the flag mask the player's order code passes (0xffff for
 // live +6 bit 1, else 6 for a side-1 unit and 3 for others).
 func (g *Game) Movement(side, unit int) *Movement {
-	m := &Movement{Width: g.Width, Height: g.Height, Terrain: make([]int, g.Width*g.Height),
-		Units: map[int]Piece{}, Held: map[int]Piece{}, Holds: g.Holds, Unit: unit, Side: side}
+	m := &Movement{
+		Width: g.Width, Height: g.Height, Terrain: make([]int, g.Width*g.Height),
+		Units: map[int]Piece{}, Held: map[int]Piece{}, Holds: g.Holds, Unit: unit, Side: side,
+	}
 	piece := func(u Live, cell int) Piece {
 		return Piece{Type: u.Type, Cell: cell, Flags4: u.Flags4, Flags6: u.Flags6, Hold: u.Hold}
 	}
@@ -775,8 +783,10 @@ func (g *Game) attack(a int) ([]Event, error) {
 
 // changePhase is the phase change after side a's attacks.
 func (g *Game) changePhase(a int) ([]Event, error) {
-	pc := &PhaseChange{Width: g.Width, Height: g.Height, Maps: g.Maps, Units: map[int]Sighted{}, Holds: g.Holds,
-		Attacker: a, Phase: [2]int{g.Players[0].Phase, g.Players[1].Phase}, Count: g.Turn}
+	pc := &PhaseChange{
+		Width: g.Width, Height: g.Height, Maps: g.Maps, Units: map[int]Sighted{}, Holds: g.Holds,
+		Attacker: a, Phase: [2]int{g.Players[0].Phase, g.Players[1].Phase}, Count: g.Turn,
+	}
 	for i, u := range g.Units {
 		pc.Units[i] = Sighted{Flags4: u.Flags4, Size: u.Size, Pos: u.Pos, Facing: u.Facing, Hold: u.Hold}
 	}
@@ -809,8 +819,10 @@ func (g *Game) changePhase(a int) ([]Event, error) {
 		g.Players[k].Orders = nil
 	}
 	g.Turn = pr.Count
-	return []Event{{Kind: EvPhase, Side: a, Messages: messages(pr.Messages),
-		Phase: [2]int{g.Players[0].Phase, g.Players[1].Phase}, Turn: g.Turn}}, nil
+	return []Event{{
+		Kind: EvPhase, Side: a, Messages: messages(pr.Messages),
+		Phase: [2]int{g.Players[0].Phase, g.Players[1].Phase}, Turn: g.Turn,
+	}}, nil
 }
 
 // Destroyed are the units the last resolutions destroyed and the phase

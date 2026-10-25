@@ -19,8 +19,10 @@ import (
 	"sort"
 )
 
-const groundProfileText = "ground-v1: seven exact runtime material IDs; five nonbase context adapters, shared summer grass and unchanged winter grass_w bases. Ordered contexts NE,SE,S,SW,NW,N. Nonbase weights max(0,1-r²/6400)^3 about each origin+(48,40), normalized across all nonbase sites. At every world point use unmirrored sampleGrassMaterial for summer grass and unchanged sampleConnectionMaterial for all other kinds (periods 142,80 and two-coset average). Blend the shared base toward this weighted field with PRODUCT over each BASE site's quintic smoothstep(clamp((distance_to_FILLED_polygon-4)/8)). Inside a base polygon distance is zero. No generic base frame when all sites are nonbase. Scalar quintics are C2; the spatial envelope is C1/piecewise C2, not globally C2; the unchanged sampled byte textures have their own rounding. Seven sites suffice on P expanded by Euclidean distance 4 only; raw rectangle corners are outside that guarantee. Float64 weighted RGB, round half up to a byte, alpha 255. Profile key is lowercase full SHA256 of UTF-8 descriptor: ground-v1\nseason=<season>\ncenter=<runtimeID>\nNE=<id>\nSE=<id>\nS=<id>\nSW=<id>\nNW=<id>\nN=<id>\n (literal LF after every line, no BOM). Base profile descriptor normalizes all six effective neighbors to that base; visible cells retain actual neighbors. Context keys are not runtime IDs." + " " + grassSamplingProfile
-const groundOwnership = "Final pixel centers use polygon (25,0),(71,0),(96,40),(71,80),(25,80),(0,40). Complementary top-left half-open ownership: cross(edge,point)>0; edge ties include dy<0 or dy==0 && dx>0. Owned alpha 255; outside zero RGBA. Crop/filter before this final mask."
+const (
+	groundProfileText = "ground-v1: seven exact runtime material IDs; five nonbase context adapters, shared summer grass and unchanged winter grass_w bases. Ordered contexts NE,SE,S,SW,NW,N. Nonbase weights max(0,1-r²/6400)^3 about each origin+(48,40), normalized across all nonbase sites. At every world point use unmirrored sampleGrassMaterial for summer grass and unchanged sampleConnectionMaterial for all other kinds (periods 142,80 and two-coset average). Blend the shared base toward this weighted field with PRODUCT over each BASE site's quintic smoothstep(clamp((distance_to_FILLED_polygon-4)/8)). Inside a base polygon distance is zero. No generic base frame when all sites are nonbase. Scalar quintics are C2; the spatial envelope is C1/piecewise C2, not globally C2; the unchanged sampled byte textures have their own rounding. Seven sites suffice on P expanded by Euclidean distance 4 only; raw rectangle corners are outside that guarantee. Float64 weighted RGB, round half up to a byte, alpha 255. Profile key is lowercase full SHA256 of UTF-8 descriptor: ground-v1\nseason=<season>\ncenter=<runtimeID>\nNE=<id>\nSE=<id>\nS=<id>\nSW=<id>\nNW=<id>\nN=<id>\n (literal LF after every line, no BOM). Base profile descriptor normalizes all six effective neighbors to that base; visible cells retain actual neighbors. Context keys are not runtime IDs." + " " + grassSamplingProfile
+	groundOwnership   = "Final pixel centers use polygon (25,0),(71,0),(96,40),(71,80),(25,80),(0,40). Complementary top-left half-open ownership: cross(edge,point)>0; edge ties include dy<0 or dy==0 && dx>0. Owned alpha 255; outside zero RGBA. Crop/filter before this final mask."
+)
 
 type groundProfileReport struct {
 	RuntimeID   string       `json:"runtime_id"`
@@ -180,6 +182,7 @@ func groundSceneFor(kind, scenario string, parity int) (groundScene, error) {
 	}
 	return scene, nil
 }
+
 func renderGroundScene(scene groundScene, tiles map[string]map[int]*image.NRGBA, density int) *image.NRGBA {
 	maxX, maxY := 0., 0.
 	for _, cell := range scene.Cells {
@@ -195,6 +198,7 @@ func renderGroundScene(scene groundScene, tiles map[string]map[int]*image.NRGBA,
 	}
 	return im
 }
+
 func buildGroundBundle(in groundInputs) (groundBundle, error) {
 	b := groundBundle{pixels: map[string]*image.NRGBA{}, report: groundReport{
 		SchemaVersion: 1, ManifestSHA256: in.Hash, ManifestSnapshot: "manifest.json", Geometry: sharedConnectionGeometry(), Materials: map[string]connectionMaterialReport{},
@@ -330,6 +334,7 @@ func buildGroundBundle(in groundInputs) (groundBundle, error) {
 	b.artifacts = append(b.artifacts, connectionArtifact{"index.html", gallery.Bytes()})
 	return b, nil
 }
+
 func runGround(path, out string, log io.Writer) (resultErr error) {
 	if _, err := os.Lstat(out); !errors.Is(err, os.ErrNotExist) {
 		if err == nil {
@@ -345,10 +350,10 @@ func runGround(path, out string, log io.Writer) (resultErr error) {
 	if err != nil {
 		return err
 	}
-	if err = os.MkdirAll(filepath.Dir(out), 0755); err != nil {
+	if err = os.MkdirAll(filepath.Dir(out), 0o755); err != nil {
 		return err
 	}
-	if err = os.Mkdir(out, 0755); err != nil {
+	if err = os.Mkdir(out, 0o755); err != nil {
 		return err
 	}
 	ownedInfo, err := os.Lstat(out)
@@ -368,7 +373,7 @@ func runGround(path, out string, log io.Writer) (resultErr error) {
 	}()
 	for _, artifact := range bundle.artifacts {
 		dest := filepath.Join(out, artifact.name)
-		if err = os.MkdirAll(filepath.Dir(dest), 0755); err != nil {
+		if err = os.MkdirAll(filepath.Dir(dest), 0o755); err != nil {
 			return err
 		}
 		if err = saveExclusive(dest, func(w io.Writer) error { _, writeErr := w.Write(artifact.data); return writeErr }); err != nil {

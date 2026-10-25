@@ -82,6 +82,7 @@ func (b *forestBundle) addPNG(name string, im *image.NRGBA) (packOutput, error) 
 	b.artifacts = append(b.artifacts, connectionArtifact{name, data.Bytes()})
 	return out, nil
 }
+
 func forestSceneFor(season, scenario string, parity int) (groundScene, error) {
 	kind, base := "forest", "grass"
 	if season == "winter" {
@@ -164,6 +165,7 @@ func forestSceneFor(season, scenario string, parity int) (groundScene, error) {
 	}
 	return scene, nil
 }
+
 func buildForestBundle(in forestInputs) (forestBundle, error) {
 	b := forestBundle{pixels: map[string]*image.NRGBA{}, report: forestReport{
 		SchemaVersion: 1, ManifestSHA256: in.Hash, ManifestSnapshot: "manifest.json", Geometry: sharedConnectionGeometry(),
@@ -291,6 +293,7 @@ func buildForestBundle(in forestInputs) (forestBundle, error) {
 	b.artifacts = append(b.artifacts, connectionArtifact{"index.html", gallery.Bytes()})
 	return b, nil
 }
+
 func runForest(path, out string, log io.Writer) (resultErr error) {
 	if _, err := os.Lstat(out); !errors.Is(err, os.ErrNotExist) {
 		if err == nil {
@@ -306,10 +309,10 @@ func runForest(path, out string, log io.Writer) (resultErr error) {
 	if err != nil {
 		return err
 	}
-	if err = os.MkdirAll(filepath.Dir(out), 0755); err != nil {
+	if err = os.MkdirAll(filepath.Dir(out), 0o755); err != nil {
 		return err
 	}
-	if err = os.Mkdir(out, 0755); err != nil {
+	if err = os.Mkdir(out, 0o755); err != nil {
 		return err
 	}
 	ownedInfo, err := os.Lstat(out)
@@ -328,7 +331,7 @@ func runForest(path, out string, log io.Writer) (resultErr error) {
 	}()
 	for _, artifact := range bundle.artifacts {
 		dest := filepath.Join(out, artifact.name)
-		if err = os.MkdirAll(filepath.Dir(dest), 0755); err != nil {
+		if err = os.MkdirAll(filepath.Dir(dest), 0o755); err != nil {
 			return err
 		}
 		if err = saveExclusive(dest, func(w io.Writer) error { _, writeErr := w.Write(artifact.data); return writeErr }); err != nil {

@@ -6,11 +6,13 @@ import (
 	"math"
 )
 
-const authoredBankProfile = "authored-rocks-v1"
-const authoredBankDescription = " Authored-rocks-v1 materials: single unmirrored authored sample, no coset average. Centre-crop to71:40, bilinear sample with8percent opposing-edge overlap only; bank periods35.5x20worldpx, water71x40. Each period divides every lattice translation exactly. " +
-	"Shore interiors: E=smoothstep((nearestEdge-10)/10), P=.7*sin(.065*x+.105*y+.8)+.3*sin(.14*x-.075*y+1.3), R=meanRockRGB/255-.45. Coastoffset(1.4+1.8*E)*R, rockreach=clamp(5.2+E*(.6+5.2*P+1.2*R),2.2,11.5), basefeather=3.2+E*(.3-.7*P). Width fields retain5.2px rockreach and3.2px basefeather through10worldpx. " +
-	"Soft shore materials: water shows through submerged rocks fromd=-4.8; wetbluegrey faces blend to dryrock over2.5px without a continuous darkoutline. Meadowspan=basefeather+3.6 centred on the accepted outerboundary, with paintedrockcrevices and grassmarks controlling localmosspenetration. Sharedcoastprofiles soften consistently at every reciprocal edge. No blur; sourcepixels, coasts and widthfields unchanged. " +
-	"Streams retain their existing bank: add2px landward, modulated by authored rock brightness, through the8..16worldpx interior envelope. Stream outer footprint and bank opacity retain the legacy profile throughout every8worldpx port guard. Water core/ports/shore vertex topology unchanged; no synthesized stones or continuous foam line."
+const (
+	authoredBankProfile     = "authored-rocks-v1"
+	authoredBankDescription = " Authored-rocks-v1 materials: single unmirrored authored sample, no coset average. Centre-crop to71:40, bilinear sample with8percent opposing-edge overlap only; bank periods35.5x20worldpx, water71x40. Each period divides every lattice translation exactly. " +
+		"Shore interiors: E=smoothstep((nearestEdge-10)/10), P=.7*sin(.065*x+.105*y+.8)+.3*sin(.14*x-.075*y+1.3), R=meanRockRGB/255-.45. Coastoffset(1.4+1.8*E)*R, rockreach=clamp(5.2+E*(.6+5.2*P+1.2*R),2.2,11.5), basefeather=3.2+E*(.3-.7*P). Width fields retain5.2px rockreach and3.2px basefeather through10worldpx. " +
+		"Soft shore materials: water shows through submerged rocks fromd=-4.8; wetbluegrey faces blend to dryrock over2.5px without a continuous darkoutline. Meadowspan=basefeather+3.6 centred on the accepted outerboundary, with paintedrockcrevices and grassmarks controlling localmosspenetration. Sharedcoastprofiles soften consistently at every reciprocal edge. No blur; sourcepixels, coasts and widthfields unchanged. " +
+		"Streams retain their existing bank: add2px landward, modulated by authored rock brightness, through the8..16worldpx interior envelope. Stream outer footprint and bank opacity retain the legacy profile throughout every8worldpx port guard. Water core/ports/shore vertex topology unchanged; no synthesized stones or continuous foam line."
+)
 
 // The smaller rectangular period is already invariant under all six hex-lattice
 // translations. Unlike coset averaging, it does not merge unrelated rock faces.
@@ -74,12 +76,15 @@ func sampleAuthoredMaterial(src *image.NRGBA, p, period connectionPoint) color.N
 	}
 	return color.NRGBA{out[0], out[1], out[2], 255}
 }
+
 func sampleAuthoredBank(src *image.NRGBA, p connectionPoint) color.NRGBA {
 	return sampleAuthoredMaterial(src, p, connectionPoint{35.5, 20})
 }
+
 func sampleAuthoredWater(src *image.NRGBA, p connectionPoint) color.NRGBA {
 	return sampleAuthoredMaterial(src, p, connectionPoint{71, 40})
 }
+
 func authoredRockOffset(rock color.NRGBA) float64 {
 	return (float64(rock.R)+float64(rock.G)+float64(rock.B))/765 - .45
 }
@@ -140,6 +145,7 @@ func authoredShoreColor(in shoreInputs, p connectionPoint, d float64) color.NRGB
 	c = connectionBlend(c, grass, .3*rooted*4*fringe*(1-fringe))
 	return connectionBlend(c, grass, fringe)
 }
+
 func authoredStreamColor(in connectionInputs, f connectionFamily, p connectionPoint, d float64) color.NRGBA {
 	water := sampleAuthoredWater(in.materials[f.Material], p)
 	rock := sampleAuthoredBank(in.materials[f.BorderMaterial], p)

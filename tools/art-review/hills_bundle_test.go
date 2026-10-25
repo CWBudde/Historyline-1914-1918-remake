@@ -246,7 +246,7 @@ func TestHillsOutputRollbackAndExclusiveDirectory(t *testing.T) {
 	if _, err := os.Lstat(out); !os.IsNotExist(err) {
 		t.Fatal("rollback left output", err)
 	}
-	if err := os.Mkdir(out, 0700); err != nil {
+	if err := os.Mkdir(out, 0o700); err != nil {
 		t.Fatal(err)
 	}
 	groundTestWrite(t, filepath.Join(out, "keep"), []byte("keep"))

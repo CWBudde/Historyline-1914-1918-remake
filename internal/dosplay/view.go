@@ -131,10 +131,12 @@ func (s *Session) unitView(idx, side int) UnitView {
 	u := s.Game.Units[idx]
 	id := s.unitID(idx)
 	t := s.Game.Profile.Tables.Types[u.Type]
-	v := UnitView{Index: idx, Type: u.Type, ID: id, Name: s.typeName(id, u.Type), Side: sideOf(u.Flags4),
+	v := UnitView{
+		Index: idx, Type: u.Type, ID: id, Name: s.typeName(id, u.Type), Side: sideOf(u.Flags4),
 		At: s.coord(u.Pos[side] / 2), Size: u.Size, Full: t.Group, Alt: u.Alt, Exp: u.Exp, Budget: u.Budget, Armour: t.Armour,
 		Moved: u.Flags4&0x200 != 0, Held: u.Flags4&0x4000 != 0, Carrier: u.Flags4&0x1000 != 0, Destroyed: u.Destroyed(),
-		Hold: -1, In: -1, Slot: -1}
+		Hold: -1, In: -1, Slot: -1,
+	}
 	v.Owner, v.Domain = s.Faction(v.Side), TypeDomain(s.Game.Profile.Tables, u.Type)
 	if v.Carrier {
 		v.Hold = u.Hold

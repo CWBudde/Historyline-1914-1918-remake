@@ -53,8 +53,11 @@ func TestInPlate(t *testing.T) {
 		want bool
 	}{
 		{0, 0, true},
-		{23, 0, true}, {-23, 0, true}, {25, 0, false},
-		{0, 19.9, true}, {0, -20.1, false},
+		{23, 0, true},
+		{-23, 0, true},
+		{25, 0, false},
+		{0, 19.9, true},
+		{0, -20.1, false},
 		{11, 19, true},    // under the top-right corner
 		{20, 15, false},   // beyond the lower-right slant
 		{-20, -15, false}, // beyond the upper-left slant

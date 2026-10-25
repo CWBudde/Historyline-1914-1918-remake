@@ -36,6 +36,7 @@ func run(args []string) error {
 	}
 	return exportBundle(in, *out)
 }
+
 func main() {
 	if e := run(os.Args[1:]); e != nil {
 		fmt.Fprintln(os.Stderr, e)

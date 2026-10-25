@@ -36,7 +36,7 @@ func TestTerrainMasterNamesRequireFamilySeasonAndVersion(t *testing.T) {
 		t.Run(tc.key+"/"+tc.name, func(t *testing.T) {
 			root := t.TempDir()
 			dir := filepath.Join(root, "art", filepath.FromSlash(tc.key))
-			if err := os.MkdirAll(dir, 0755); err != nil {
+			if err := os.MkdirAll(dir, 0o755); err != nil {
 				t.Fatal(err)
 			}
 			// Reuse the fixture's PNG bytes; naming validation must inspect the
@@ -45,7 +45,7 @@ func TestTerrainMasterNamesRequireFamilySeasonAndVersion(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			if err := os.WriteFile(filepath.Join(dir, tc.name), raw, 0644); err != nil {
+			if err := os.WriteFile(filepath.Join(dir, tc.name), raw, 0o644); err != nil {
 				t.Fatal(err)
 			}
 			kind, _, _ := strings.Cut(tc.key, "/")

@@ -17,11 +17,10 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/gen2brain/webp"
-	"golang.org/x/sync/errgroup"
-
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/assets"
 	"github.com/CWBudde/Historyline-1914-1918-remake/internal/worldmaterial"
+	"github.com/gen2brain/webp"
+	"golang.org/x/sync/errgroup"
 )
 
 // Qualities of the compressed catalogs.

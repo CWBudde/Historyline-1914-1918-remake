@@ -29,6 +29,7 @@ func groundSeason(id string) (season, base string) {
 		return "", ""
 	}
 }
+
 func newGroundContext(centerRuntimeID string, neighborIDs []string) (groundContext, error) {
 	c := groundContext{RuntimeID: centerRuntimeID}
 	season, _ := groundSeason(centerRuntimeID)
@@ -44,6 +45,7 @@ func newGroundContext(centerRuntimeID string, neighborIDs []string) (groundConte
 	}
 	return c, nil
 }
+
 func (c groundContext) effective() groundContext {
 	_, base := groundSeason(c.RuntimeID)
 	if c.RuntimeID == base {
@@ -53,6 +55,7 @@ func (c groundContext) effective() groundContext {
 	}
 	return c
 }
+
 func (c groundContext) descriptor() string {
 	c = c.effective()
 	season, _ := groundSeason(c.RuntimeID)
@@ -63,6 +66,7 @@ func (c groundContext) descriptor() string {
 	}
 	return b.String()
 }
+
 func (c groundContext) key() string {
 	sum := sha256.Sum256([]byte(c.descriptor()))
 	return hex.EncodeToString(sum[:])
@@ -89,6 +93,7 @@ func groundFilledDistance(p connectionPoint) float64 {
 	}
 	return math.Sqrt(best)
 }
+
 func groundQuinticEnvelope(distance float64) float64 {
 	t := max(0, min(1, (distance-4)/8))
 	return t * t * t * (10 + t*(-15+6*t))
@@ -112,6 +117,7 @@ func groundGeometryAt(p connectionPoint) groundGeometrySample {
 	}
 	return s
 }
+
 func groundMaterialIndex(id string) int {
 	for i, name := range groundMaterialIDs {
 		if id == name {
@@ -120,6 +126,7 @@ func groundMaterialIndex(id string) int {
 	}
 	panic("unvalidated ground material ID")
 }
+
 func groundMix(c groundContext, g groundGeometrySample, samples [7]color.NRGBA) [3]float64 {
 	_, base := groundSeason(c.RuntimeID)
 	bc := samples[groundMaterialIndex(base)]
@@ -166,6 +173,7 @@ func groundContextRGB(c groundContext, p connectionPoint, materials map[string]*
 	}
 	return groundMix(c, groundGeometryAt(p), samples)
 }
+
 func groundRounded(rgb [3]float64) color.NRGBA {
 	round := func(v float64) uint8 { return uint8(math.Floor(max(0, min(255, v)) + .5)) }
 	return color.NRGBA{round(rgb[0]), round(rgb[1]), round(rgb[2]), 255}
@@ -225,6 +233,7 @@ func latticeCrop(src *image.NRGBA, k float64) *image.NRGBA {
 	at := image.Pt(b.Min.X+(b.Dx()-w)/2, b.Min.Y+(b.Dy()-h)/2)
 	return src.SubImage(image.Rectangle{Min: at, Max: at.Add(image.Pt(w, h))}).(*image.NRGBA)
 }
+
 func (r *groundRenderer) tiles(c groundContext) (map[int]*image.NRGBA, error) {
 	_, base := groundSeason(c.RuntimeID)
 	if c.RuntimeID == base {
